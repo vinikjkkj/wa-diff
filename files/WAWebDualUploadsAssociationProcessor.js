@@ -6,30 +6,35 @@ __d(
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
-        type: o("WAWebMessageAssociation.flow").MessageAssociationType
+    var e,
+      s,
+      u,
+      c = {
+        type: (e = o("WAWebMessageAssociation.flow")).MessageAssociationType
           .HD_IMAGE_DUAL_UPLOAD,
-        viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-        processorType: o("WAWebAssociationProcessorConstants")
+        viewMode: (s = o("WAWebViewMode.flow")).ViewModeType.HIDDEN,
+        processorType: (u = o("WAWebAssociationProcessorConstants"))
           .AssociationProcessorType.Regular,
       },
-      s = {
-        type: o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HD_VIDEO_DUAL_UPLOAD,
-        viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-        processorType: o("WAWebAssociationProcessorConstants")
-          .AssociationProcessorType.Regular,
+      d = {
+        type: e.MessageAssociationType.HD_VIDEO_DUAL_UPLOAD,
+        viewMode: s.ViewModeType.HIDDEN,
+        processorType: u.AssociationProcessorType.Regular,
       },
-      u = {
-        type: o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HEVC_VIDEO_DUAL_UPLOAD,
-        viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-        processorType: o("WAWebAssociationProcessorConstants")
-          .AssociationProcessorType.Regular,
+      m = {
+        type: e.MessageAssociationType.HEVC_VIDEO_DUAL_UPLOAD,
+        viewMode: s.ViewModeType.HIDDEN,
+        processorType: u.AssociationProcessorType.Regular,
+      },
+      p = {
+        type: e.MessageAssociationType.AV1_VIDEO_DUAL_UPLOAD,
+        viewMode: s.ViewModeType.HIDDEN,
+        processorType: u.AssociationProcessorType.Regular,
       };
-    ((l.ImageDualUploadsAssociationProcessor = e),
-      (l.VideoDualUploadsAssociationProcessor = s),
-      (l.HevcDualUploadsAssociationProcessor = u));
+    ((l.ImageDualUploadsAssociationProcessor = c),
+      (l.VideoDualUploadsAssociationProcessor = d),
+      (l.HevcDualUploadsAssociationProcessor = m),
+      (l.Av1DualUploadsAssociationProcessor = p));
   },
   98,
 );

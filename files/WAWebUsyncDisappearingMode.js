@@ -1,6 +1,6 @@
 __d(
   "WAWebUsyncDisappearingMode",
-  ["WAWap"],
+  ["WAWap", "WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       e.assertTag("disappearing_mode");
@@ -12,8 +12,16 @@ __d(
         };
       var n = e.attrInt("duration", 0),
         r = e.attrInt("t"),
-        o = { duration: n, t: r };
-      return o;
+        a = { duration: n, t: r },
+        i = e.maybeAttrString("ephemerality_disabled") === "true";
+      return (
+        i &&
+          o("WAWebABProps").getABPropConfigValue(
+            "paa_support_for_disabled_epehemerality",
+          ) &&
+          (a.ephemeralityDisabled = !0),
+        a
+      );
     }
     var s = (function () {
       function e() {}

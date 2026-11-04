@@ -498,6 +498,24 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
+          (n.changeAcquisitionDateFilter = function (t, n) {
+            this.$2({
+              extraAttributes: { range: t != null ? t : "cleared" },
+              surface: this.$1(n),
+              userActionTarget: "acquisition_date_filter_chip",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.changeBirthMonthFilter = function (t, n) {
+            this.$2({
+              extraAttributes: { month: t != null ? t : "cleared" },
+              surface: this.$1(n),
+              userActionTarget: "birth_month_filter_chip",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
           (n.changeContactTypeFilter = function (t) {
             this.$2({
               extraAttributes: { contact_type: t },

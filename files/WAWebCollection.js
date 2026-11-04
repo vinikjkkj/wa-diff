@@ -31,9 +31,9 @@ __d(
           var o;
           (n === void 0 && (n = {}),
             (o = t.call(this) || this),
-            (o.$Collection$p_14 = _()),
-            (o.$Collection$p_2 = !o.$Collection$p_14),
-            (o.$Collection$p_15 = !1),
+            (o.$Collection$p_15 = _()),
+            (o.$Collection$p_3 = !o.$Collection$p_15),
+            (o.$Collection$p_16 = !1),
             n.parent && (o.parent = n.parent));
           var a = o.constructor,
             i = a.comparator,
@@ -42,14 +42,11 @@ __d(
             throw r("err")(
               "Collection initialized without model. It is likely that you have a circular dependency. Set a breakpoint to find it and use inline `require` instead of `import` to avoid it.",
             );
-          ((o.modelClass = l), i && (o._comparator = i), o.$Collection$p_1());
-          var s = o;
           return (
-            Object.defineProperty(o, "length", {
-              get: function () {
-                return s._models.length;
-              },
-            }),
+            (o.modelClass = l),
+            i && (o._comparator = i),
+            o.$Collection$p_1(),
+            Object.defineProperty(o, "length", o.$Collection$p_2()),
             o
           );
         }
@@ -58,10 +55,10 @@ __d(
         return (
           (a.on = function (n, r, o) {
             return (
-              !this.$Collection$p_2 &&
+              !this.$Collection$p_3 &&
                 r != null &&
-                f(n) &&
-                this.$Collection$p_3(),
+                h(n) &&
+                this.$Collection$p_4(),
               t.prototype.on.call(this, n, r, o)
             );
           }),
@@ -122,14 +119,14 @@ __d(
                       g === !0 &&
                         ((c = l && c === l ? l.attributes : c),
                         e.set(c, a),
-                        t.$Collection$p_4(function (t) {
+                        t.$Collection$p_5(function (t) {
                           t.add([e]);
                         })),
                       (n[S] = e));
                   } else if (f === !0)
-                    if (((l = n[S] = t.$Collection$p_5(c, a)), l)) {
+                    if (((l = n[S] = t.$Collection$p_6(c, a)), l)) {
                       var r = l;
-                      (m.push(r), t.$Collection$p_6(r));
+                      (m.push(r), t.$Collection$p_7(r));
                     } else return 0;
                   if (((l = u || l), !l)) return 0;
                   var d = l;
@@ -159,14 +156,14 @@ __d(
               } else
                 for (var D = C || m, x = 0, $ = D.length; x < $; x++)
                   this._models.push(D[x]);
-              (this.$Collection$p_7(m),
-                this.$Collection$p_4(function (e) {
+              (this.$Collection$p_8(m),
+                this.$Collection$p_5(function (e) {
                   e.add(m);
                 }));
             }
             return (
               I && this.sort({ silent: !0 }),
-              this.$Collection$p_8({ options: a, order: C, sort: I, toAdd: m }),
+              this.$Collection$p_9({ options: a, order: C, sort: I, toAdd: m }),
               n
             );
           }),
@@ -192,15 +189,15 @@ __d(
                   e))
               ) {
                 var c = e;
-                (this.$Collection$p_9(e),
+                (this.$Collection$p_10(e),
                   (r = this._models.indexOf(e)),
                   this._models.splice(r, 1),
                   n.silent !== !0 &&
-                    ((n.index = r), this.$Collection$p_10("remove", c, n)),
-                  this.$Collection$p_11(c));
+                    ((n.index = r), this.$Collection$p_11("remove", c, n)),
+                  this.$Collection$p_12(c));
               }
             return (
-              this.$Collection$p_4(function (e) {
+              this.$Collection$p_5(function (e) {
                 e.remove(l);
               }),
               l
@@ -208,7 +205,7 @@ __d(
           }),
           (a.reset = function () {
             for (var e = 0, t = this._models.length; e < t; e++)
-              this.$Collection$p_11(this._models[e]);
+              this.$Collection$p_12(this._models[e]);
             (this.$Collection$p_1(), this.trigger("reset", this));
           }),
           (a.sort = function (t) {
@@ -231,9 +228,9 @@ __d(
           (a.replaceId = function (t, n) {
             var e = this.get(t);
             e &&
-              (this.$Collection$p_12(t),
+              (this.$Collection$p_13(t),
               e.set({ id: n }),
-              this.$Collection$p_13(e));
+              this.$Collection$p_14(e));
           }),
           (a.reorderMutate = function (t, n) {
             o("WAArrayMove").arrayMoveMutate(this._models, t, n);
@@ -358,11 +355,20 @@ __d(
           (a.$Collection$p_1 = function () {
             ((this._models = []),
               (this._index = {}),
-              this.$Collection$p_4(function (e) {
+              this.$Collection$p_5(function (e) {
                 e.reset();
               }, !1));
           }),
-          (a.$Collection$p_5 = function (t, n) {
+          (a.$Collection$p_2 = function () {
+            if (f()) return { get: g };
+            var e = this;
+            return {
+              get: function () {
+                return e._models.length;
+              },
+            };
+          }),
+          (a.$Collection$p_6 = function (t, n) {
             if (this.isModel(t))
               return (t.collection == null && (t.collection = this), t);
             var e = babelHelpers.extends({}, n, { collection: this });
@@ -404,81 +410,81 @@ __d(
               return;
             }
           }),
-          (a.$Collection$p_6 = function (t) {
-            (this.$Collection$p_13(t),
-              t.collection || (t.collection = this),
-              this.$Collection$p_14
-                ? (this.$Collection$p_15 = !0)
-                : this.$Collection$p_16(t));
-          }),
-          (a.$Collection$p_11 = function (t) {
-            (this === t.collection && delete t.collection,
-              this.$Collection$p_9(t),
-              t.off &&
-                this.$Collection$p_2 &&
-                t.off("all", this.$Collection$p_17, this));
-          }),
-          (a.$Collection$p_3 = function () {
-            var e = this;
-            ((this.$Collection$p_2 = !0),
-              this.$Collection$p_15 &&
-                this._models.forEach(function (t) {
-                  e.$Collection$p_16(t);
-                }));
-          }),
           (a.$Collection$p_7 = function (t) {
-            var e = this;
-            this.$Collection$p_14 &&
-              this.$Collection$p_2 &&
-              t.forEach(function (t) {
-                e.$Collection$p_16(t);
-              });
-          }),
-          (a.$Collection$p_16 = function (t) {
-            t.on && t.on("all", this.$Collection$p_17, this);
-          }),
-          (a.$Collection$p_13 = function (t) {
-            this._index[t.id] = t;
-          }),
-          (a.$Collection$p_9 = function (t) {
-            delete this._index[t.id];
+            (this.$Collection$p_14(t),
+              t.collection || (t.collection = this),
+              this.$Collection$p_15
+                ? (this.$Collection$p_16 = !0)
+                : this.$Collection$p_17(t));
           }),
           (a.$Collection$p_12 = function (t) {
-            this.get(t) && delete this._index[t];
+            (this === t.collection && delete t.collection,
+              this.$Collection$p_10(t),
+              t.off &&
+                this.$Collection$p_3 &&
+                t.off("all", this.$Collection$p_18, this));
+          }),
+          (a.$Collection$p_4 = function () {
+            var e = this;
+            ((this.$Collection$p_3 = !0),
+              this.$Collection$p_16 &&
+                this._models.forEach(function (t) {
+                  e.$Collection$p_17(t);
+                }));
           }),
           (a.$Collection$p_8 = function (t) {
+            var e = this;
+            this.$Collection$p_15 &&
+              this.$Collection$p_3 &&
+              t.forEach(function (t) {
+                e.$Collection$p_17(t);
+              });
+          }),
+          (a.$Collection$p_17 = function (t) {
+            t.on && t.on("all", this.$Collection$p_18, this);
+          }),
+          (a.$Collection$p_14 = function (t) {
+            this._index[t.id] = t;
+          }),
+          (a.$Collection$p_10 = function (t) {
+            delete this._index[t.id];
+          }),
+          (a.$Collection$p_13 = function (t) {
+            this.get(t) && delete this._index[t];
+          }),
+          (a.$Collection$p_9 = function (t) {
             var e = t.options,
               n = t.order,
               r = t.sort,
               o = t.toAdd;
             if (e.silent !== !0) {
               for (var a = 0, i = o.length; a < i; a++)
-                this.$Collection$p_10("add", o[a], e);
+                this.$Collection$p_11("add", o[a], e);
               (r === !0 || (n != null && n.length)) &&
                 this.trigger("sort", this, e);
             }
           }),
-          (a.$Collection$p_10 = function (t, n, r) {
-            (n.trigger && (n.trigger(t, n, this, r), !this.$Collection$p_14)) ||
+          (a.$Collection$p_11 = function (t, n, r) {
+            (n.trigger && (n.trigger(t, n, this, r), !this.$Collection$p_15)) ||
               this.trigger(t, n, this, r);
           }),
-          (a.$Collection$p_17 = function (t, n, r, o) {
+          (a.$Collection$p_18 = function (t, n, r, o) {
             var e = t.indexOf(":"),
               a = e === -1 ? t : t.slice(0, e);
             ((a === "add" || a === "remove") &&
-              (this.$Collection$p_14 || r !== this)) ||
+              (this.$Collection$p_15 || r !== this)) ||
               (a === "destroy" && this.remove(n, o),
               this.trigger.apply(this, arguments));
           }),
-          (a.$Collection$p_4 = function (t, n) {
+          (a.$Collection$p_5 = function (t, n) {
             var e;
-            if ((n === void 0 && (n = !0), this.$Collection$p_18 == null)) {
+            if ((n === void 0 && (n = !0), this.$Collection$p_19 == null)) {
               if (!n) return;
-              this.$Collection$p_18 = o(
+              this.$Collection$p_19 = o(
                 "WAWebCollectionInternalUtils",
               ).groupMethodsByKind(this).aggregate;
             }
-            (e = this.$Collection$p_18) == null || e.forEach(t);
+            (e = this.$Collection$p_19) == null || e.forEach(t);
           }),
           n
         );
@@ -486,7 +492,13 @@ __d(
     function _() {
       return r("gkx")("12882");
     }
-    function f(e) {
+    function f() {
+      return r("gkx")("28737");
+    }
+    function g() {
+      return this instanceof p ? this._models.length : 0;
+    }
+    function h(e) {
       return typeof e == "string" && !m.has(e) && !/\s/.test(e);
     }
     l.default = p;

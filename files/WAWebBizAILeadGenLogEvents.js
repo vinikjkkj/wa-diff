@@ -164,7 +164,22 @@ __d(
         userActionTarget: "save_button",
       });
     }
-    function C(e, t, n) {
+    function C(e, t) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        extraAttributes: {
+          is_creating: e,
+          leadgen_instruction_count: t != null ? t : void 0,
+        },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_LEADGEN_FIELD_SELECTION,
+        userActionTarget: "tip_card_dismiss_button",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function b(e, t, n) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: n != null ? n : void 0,
         extraAttributes: { flow_id: e },
@@ -177,7 +192,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function b(e, t, n, r) {
+    function v(e, t, n, r) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: r != null ? r : void 0,
         extraAttributes: {
@@ -194,7 +209,7 @@ __d(
         userActionTarget: "delete_complete",
       });
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: {
           flow_id: e != null ? e : void 0,
@@ -211,7 +226,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function S(e, t) {
+    function R(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: {
           flow_id: e != null ? e : void 0,
@@ -226,7 +241,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function R(e) {
+    function L(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: { flow_id: e != null ? e : void 0 },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -238,7 +253,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function L(e, t) {
+    function E(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: {
           flow_id: e != null ? e : void 0,
@@ -253,7 +268,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function E(e, t) {
+    function k(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: {
           flow_id: e != null ? e : void 0,
@@ -268,7 +283,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function k(e) {
+    function I(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: { flow_id: e != null ? e : void 0 },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -280,7 +295,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function I(e) {
+    function T(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: { flow_id: e != null ? e : void 0 },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -292,7 +307,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function T(e, t) {
+    function D(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: { flow_id: e != null ? e : void 0, lead_data_id: t },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -304,7 +319,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: n != null ? n : void 0,
         extraAttributes: { flow_id: t != null ? t : void 0, response_count: e },
@@ -318,7 +333,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function x(e, t, n) {
+    function $(e, t, n) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: n != null ? n : void 0,
         extraAttributes: {
@@ -335,7 +350,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function $(e, t, n, r, a) {
+    function P(e, t, n, r, a) {
       var i = t ? "success" : "failure";
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: a != null ? a : void 0,
@@ -358,7 +373,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.API,
       });
     }
-    function P(e, t, n, r) {
+    function N(e, t, n, r) {
       (r === void 0 && (r = "request_failed"),
         o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
           entryPoint: n != null ? n : void 0,
@@ -389,20 +404,21 @@ __d(
       (l.logViewLeadGenFieldSelection = g),
       (l.logClickLeadGenAddField = h),
       (l.logClickSaveLeadGenForm = y),
-      (l.logClickLeadGenDeleteFlow = C),
-      (l.logApiDeleteLeadGenFormResult = b),
-      (l.logViewLeadGenCustomerInfoList = v),
-      (l.logClickLeadGenCustomerInfoItem = S),
-      (l.logClickLeadGenEditHeader = R),
-      (l.logClickLeadGenMarkAllRead = L),
-      (l.logViewLeadGenCustomerResponse = E),
-      (l.logClickLeadGenCopy = k),
-      (l.logClickLeadGenGoToChat = I),
-      (l.logViewLeadGenMarkAsSeen = T),
-      (l.logClickDownloadAllLeadGenData = D),
-      (l.logClickDownloadSingleLeadGenData = x),
-      (l.logApiDownloadLeadGenDataResult = $),
-      (l.logApiExportRequestResult = P));
+      (l.logClickLeadGenTipCardDismiss = C),
+      (l.logClickLeadGenDeleteFlow = b),
+      (l.logApiDeleteLeadGenFormResult = v),
+      (l.logViewLeadGenCustomerInfoList = S),
+      (l.logClickLeadGenCustomerInfoItem = R),
+      (l.logClickLeadGenEditHeader = L),
+      (l.logClickLeadGenMarkAllRead = E),
+      (l.logViewLeadGenCustomerResponse = k),
+      (l.logClickLeadGenCopy = I),
+      (l.logClickLeadGenGoToChat = T),
+      (l.logViewLeadGenMarkAsSeen = D),
+      (l.logClickDownloadAllLeadGenData = x),
+      (l.logClickDownloadSingleLeadGenData = $),
+      (l.logApiDownloadLeadGenDataResult = P),
+      (l.logApiExportRequestResult = N));
   },
   98,
 );

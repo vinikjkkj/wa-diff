@@ -21,7 +21,7 @@ __d(
             window.performance &&
             window.performance.getEntriesByType &&
             window.performance.timing &&
-            window.performance.timing.navigationStart
+            !!window.performance.timing.navigationStart
           );
         };
         var n = t.prototype;

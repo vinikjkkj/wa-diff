@@ -21,20 +21,20 @@ __d(
             c = l.message;
           ((n = c), a.unshift(s));
         } else if (n === void 0) {
-          n = "Invariant: ";
-          for (var d = 0; d < a.length; d++) n += "%s,";
+          for (var d = "Invariant: ", m = 0; m < a.length; m++) d = d + "%s,";
+          n = d;
         }
-        var m = n,
-          p = new Error(m);
+        var p = n,
+          _ = new Error(p);
         throw (
-          (p.name = "Invariant Violation"),
-          (p.messageFormat = n),
-          (p.messageParams = a.map(function (e) {
+          (_.name = "Invariant Violation"),
+          (_.messageFormat = n),
+          (_.messageParams = a.map(function (e) {
             return String(e);
           })),
-          (p.taalOpcodes = [r("fb-error-lite").TAALOpcode.PREVIOUS_FRAME]),
-          p.stack,
-          p
+          (_.taalOpcodes = [r("fb-error-lite").TAALOpcode.PREVIOUS_FRAME]),
+          _.stack,
+          _
         );
       }
     }

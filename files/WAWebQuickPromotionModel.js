@@ -50,13 +50,16 @@ __d(
               ).jobSerializers.primaryActionClickInQuickPromotion(
                 this.promotion.id,
               ),
-            ),
-            o(
+            ));
+          var t = o(
               "WAWebQuickPromotionCustomHandlingUtils",
             ).maybeExecuteQuickPromotionCustomHandlingSpec(
               this.promotion,
               "primaryActionClick",
-            ));
+            ),
+            n = t.hidesPromotion,
+            r = t.replacedDefaultAction;
+          return (n && (this.isDismissedThisSession = !0), r);
         }),
         (n.impression = function () {
           var e = this.promotion,

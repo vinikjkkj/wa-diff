@@ -1,8 +1,16 @@
 __d(
   "WAWebBizAILeadGenUtils",
-  ["WAWebWidFactory", "fbs"],
+  ["$InternalEnum", "WAWebUserPrefsStore", "WAWebWidFactory", "fbs"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    var e = n("$InternalEnum").Mirrored(["BizAILeadGenFieldCountTipDismissed"]),
+      s = e.BizAILeadGenFieldCountTipDismissed;
+    function u() {
+      return r("WAWebUserPrefsStore").getUser(s) === !0;
+    }
+    function c() {
+      r("WAWebUserPrefsStore").setUser(s, !0);
+    }
+    function d(e, t) {
       if (e != null)
         try {
           return o("WAWebWidFactory").createWid(e + "@c.us");
@@ -17,7 +25,7 @@ __d(
         }
       return null;
     }
-    function s(e, t) {
+    function m(e, t) {
       t === void 0 && (t = new Date());
       var n = r("fbs")._(/*BTDS*/ "Custom moment"),
         o =
@@ -35,7 +43,11 @@ __d(
         ]);
       return s.toString().replaceAll("/", "-");
     }
-    ((l.getConsumerWid = e), (l.getSingleResponseDownloadBasename = s));
+    ((l.BizAILeadGenUserPrefs = e),
+      (l.isLeadGenFieldCountTipDismissed = u),
+      (l.markLeadGenFieldCountTipDismissed = c),
+      (l.getConsumerWid = d),
+      (l.getSingleResponseDownloadBasename = m));
   },
   226,
 );

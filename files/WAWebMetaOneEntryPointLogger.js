@@ -17,14 +17,20 @@ __d(
       u,
       c,
       d = {
-        "ai-mode-limit": {
+        "ai-handoff-limit": {
           actionTarget: (e = o("WAWebWamEnumWsuaActionTarget"))
             .WSUA_ACTION_TARGET.GET_META_ONE_BUSINESS,
           referral: (s = o("WAWebWamEnumWsuaReferral")).WSUA_REFERRAL
             .BIZ_AI_THREAD,
-          screen: (u = o("WAWebWamEnumWsuaScreen")).WSUA_SCREEN.SMART_COMPOSER,
+          screen: (u = o("WAWebWamEnumWsuaScreen")).WSUA_SCREEN.AI_HANDOFF,
           screenElement: (c = o("WAWebWamEnumWsuaScreenElement"))
             .WSUA_SCREEN_ELEMENT.BIZ_AI_LIMIT_REACHED,
+        },
+        "ai-mode-limit": {
+          actionTarget: e.WSUA_ACTION_TARGET.GET_META_ONE_BUSINESS,
+          referral: s.WSUA_REFERRAL.BIZ_AI_THREAD,
+          screen: u.WSUA_SCREEN.SMART_COMPOSER,
+          screenElement: c.WSUA_SCREEN_ELEMENT.BIZ_AI_LIMIT_REACHED,
         },
         "business-tools": {
           actionTarget: e.WSUA_ACTION_TARGET.META_ONE_BUSINESS_ENTRY_POINT,
@@ -47,17 +53,39 @@ __d(
         "suggested-reply-limit": {
           actionTarget: e.WSUA_ACTION_TARGET.GET_META_ONE_BUSINESS,
           referral: s.WSUA_REFERRAL.BIZ_AI_THREAD,
-          screen: u.WSUA_SCREEN.AI_HANDOFF,
+          screen: u.WSUA_SCREEN.AI_SUGGESTIONS,
           screenElement: c.WSUA_SCREEN_ELEMENT.BIZ_AI_LIMIT_REACHED,
         },
       };
     function m(e, t, n) {
-      _(o("WAWebWamEnumWsuaAction").WSUA_ACTION.VIEW, e, t, n);
+      f(o("WAWebWamEnumWsuaAction").WSUA_ACTION.VIEW, e, t, n);
     }
     function p(e, t, n) {
-      _(o("WAWebWamEnumWsuaAction").WSUA_ACTION.CLICK, e, t, n);
+      f(o("WAWebWamEnumWsuaAction").WSUA_ACTION.CLICK, e, t, n);
     }
-    function _(e, t, n, r) {
+    function _(e, t, n) {
+      new (o(
+        "WAWebSubscriptionUserActionWamEvent",
+      ).SubscriptionUserActionWamEvent)({
+        wsuaAction: o("WAWebWamEnumWsuaAction").WSUA_ACTION.CLICK,
+        wsuaActionTarget: o("WAWebWamEnumWsuaActionTarget").WSUA_ACTION_TARGET
+          .QUICK_PROMOTION_DEEPLINK,
+        wsuaActiveSubscriptions: n,
+        wsuaEligibleSubscriptions: o(
+          "WAWebEligibleSubscriptionProductTypes",
+        ).getEligibleSubscriptionProductTypes(),
+        wsuaProductType: o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE
+          .META_ONE_BUSINESS,
+        wsuaQuickPromotionId: e,
+        wsuaReferral: o("WAWebWamEnumWsuaReferral").WSUA_REFERRAL
+          .QUICK_PROMOTION,
+        wsuaScreen: o("WAWebWamEnumWsuaScreen").WSUA_SCREEN.QUICK_PROMOTION,
+        wsuaScreenElement: o("WAWebWamEnumWsuaScreenElement")
+          .WSUA_SCREEN_ELEMENT.QP_BANNER,
+        wsuaSessionId: t,
+      }).commit();
+    }
+    function f(e, t, n, r) {
       var a = d[t],
         i = a.actionTarget,
         l = a.referral,
@@ -80,7 +108,9 @@ __d(
         wsuaSessionId: n,
       }).commit();
     }
-    ((l.logMetaOneEntryPointView = m), (l.logMetaOneEntryPointClick = p));
+    ((l.logMetaOneEntryPointView = m),
+      (l.logMetaOneEntryPointClick = p),
+      (l.logMetaOneQuickPromotionClick = _));
   },
   98,
 );

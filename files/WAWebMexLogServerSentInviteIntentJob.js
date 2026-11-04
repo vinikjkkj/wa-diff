@@ -18,14 +18,13 @@ __d(
         .fetchQuery(i, l)
         .catch(function (e) {
           o("WALogger")
-            .ERROR(
+            .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[out-contact-invite] Could not log server-sent invite intent",
+                  "[out-contact-invite][ssi] could not log invite intent",
                 ])),
             )
-            .catching(r("getErrorSafe")(e))
-            .sendLogs("out-contact-server-sent-invite-intent-log-failed");
+            .catching(r("getErrorSafe")(e));
         });
     }
     l.mexLogServerSentInviteIntent = u;

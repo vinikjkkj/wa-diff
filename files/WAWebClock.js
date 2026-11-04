@@ -190,6 +190,14 @@ __d(
               year: "numeric",
             }).format(n);
           }),
+          (a.monthYearLongStr = function (t) {
+            var e = t + this.skew,
+              n = e * 1e3;
+            return Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
+              month: "long",
+              year: "numeric",
+            }).format(n);
+          }),
           (a.timeStr = function (t) {
             var e = this.getIs24Hour();
             if (this.shouldUseIntlDateTimeFormat()) {

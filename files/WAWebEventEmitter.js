@@ -1,6 +1,6 @@
 __d(
   "WAWebEventEmitter",
-  ["err", "isEmptyObject"],
+  ["err", "gkx", "isEmptyObject"],
   function (t, n, r, o, a, i, l) {
     var e = /\s+/,
       s = 0,
@@ -17,7 +17,7 @@ __d(
               [this.on].concat(Array.prototype.slice.call(arguments)),
             ) || typeof t != "string"
               ? this
-              : (this.$4(t).push({ callback: n, context: o }), this);
+              : (this.$4(t, { callback: n, context: o }), this);
           }),
           (n.once = function (t, n, r) {
             if (n == null) return this;
@@ -140,9 +140,10 @@ __d(
               r = (e = t.listenId) != null ? e : (t.listenId = "l" + ++s);
             n[r] = t;
           }),
-          (n.$4 = function (t) {
-            var e = this.$1 || (this.$1 = {});
-            return e[t] || (e[t] = []);
+          (n.$4 = function (t, n) {
+            var e = this.$1 || (this.$1 = {}),
+              r = e[t];
+            r == null && c() ? (e[t] = [n]) : (r || (e[t] = [])).push(n);
           }),
           (n.$5 = function (t) {
             if (!(t == null || t === "")) {
@@ -240,6 +241,9 @@ __d(
           t
         );
       })();
+    function c() {
+      return r("gkx")("28737");
+    }
     l.default = u;
   },
   98,

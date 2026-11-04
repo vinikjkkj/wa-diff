@@ -425,7 +425,7 @@ __d(
                     "KIC: cannot find associated message",
                   ])),
               ),
-              w(a, s, y)),
+              w({ chat: s, keepInChatMessage: a, threadId: y })),
               yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
                 [a],
                 function (e) {
@@ -605,20 +605,23 @@ __d(
         M.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
-      var r = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
-        response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
-        requestSendTime: e.t,
-        kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
-          .MESSAGE_MISSING,
-        chatEphemeralityDuration:
-          (t && o("WAWebChatEphemerality").getEphemeralSetting(t)) || 0,
-      });
-      n != null && r.set({ threadId: n });
-      var a = o("WAWebEphemeralKeepInChatWamUtils").parseKeepTypeToMetric(
-        e.keepType,
+    function w(e) {
+      var t = e.chat,
+        n = e.keepInChatMessage,
+        r = e.threadId,
+        a = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({
+          response: o("WAWebWamEnumResponseType").RESPONSE_TYPE.ERROR,
+          requestSendTime: n.t,
+          kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
+            .MESSAGE_MISSING,
+          chatEphemeralityDuration:
+            (t && o("WAWebChatEphemerality").getEphemeralSetting(t)) || 0,
+        });
+      r != null && a.set({ threadId: r });
+      var i = o("WAWebEphemeralKeepInChatWamUtils").parseKeepTypeToMetric(
+        n.keepType,
       );
-      (a && r.set({ kicRequestType: a }), r.commit());
+      (i && a.set({ kicRequestType: i }), a.commit());
     }
     function A(e, t, n, r) {
       var a = new (o("WAWebKeepInChatPerfWamEvent").KeepInChatPerfWamEvent)({

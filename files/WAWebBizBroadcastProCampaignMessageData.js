@@ -36,10 +36,21 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield f(e, yield p());
-          return o(
-            "WAWebBizBroadcastProCampaignListItemDerive",
-          ).getProCampaignDuplicateMessageData(t == null ? void 0 : t.template);
+          var t = yield f(e, yield p()),
+            n = o(
+              "WAWebBizBroadcastProCampaignListItemDerive",
+            ).getProCampaignDuplicateMessageData(
+              t == null ? void 0 : t.template,
+            ),
+            r = t == null ? void 0 : t.bidAmount,
+            a = t == null ? void 0 : t.currency;
+          return babelHelpers.extends(
+            {},
+            n,
+            r != null && Number.isFinite(r) && r > 0 && a != null
+              ? { maxBid: { cpmAmount: r, currency: a } }
+              : {},
+          );
         })),
         m.apply(this, arguments)
       );
@@ -66,7 +77,9 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
-            a = yield o("WAWebRelayClient").fetchQuery(
+            a,
+            i,
+            l = yield o("WAWebRelayClient").fetchQuery(
               s,
               { campaignId: e },
               {
@@ -75,21 +88,23 @@ __d(
                 fetchPolicy: "network-only",
               },
             ),
-            i = a == null ? void 0 : a.node;
+            u = l == null ? void 0 : l.node;
           if (
-            (i == null ? void 0 : i.campaignType) !==
+            (u == null ? void 0 : u.campaignType) !==
             "XFBWhatsAppBusinessMMLiteCampaign"
           )
             return null;
-          var l = (n = i.broadcast_insights) == null ? void 0 : n.template,
-            u =
-              l == null
+          var c = (n = u.broadcast_insights) == null ? void 0 : n.template,
+            d =
+              c == null
                 ? null
                 : {
-                    element: l.element,
+                    cta_url_link_tracking_opted_out:
+                      c.cta_url_link_tracking_opted_out,
+                    element: c.element,
                     header_type:
-                      l.header_type == null ? null : String(l.header_type),
-                    hsm_components: ((r = l.hsm_components) != null
+                      c.header_type == null ? null : String(c.header_type),
+                    hsm_components: ((r = c.hsm_components) != null
                       ? r
                       : []
                     ).map(function (e) {
@@ -117,7 +132,12 @@ __d(
                       };
                     }),
                   };
-          return { template: u };
+          return {
+            template: d,
+            bidAmount:
+              (a = u.broadcast_insights) == null ? void 0 : a.bid_amount_long,
+            currency: (i = u.broadcast_insights) == null ? void 0 : i.currency,
+          };
         })),
         g.apply(this, arguments)
       );

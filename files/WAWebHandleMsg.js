@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWap",
+    "WAWebBoolFunc",
     "WAWebCoexV2PeerRelayAdmission",
     "WAWebCoexV2UsernameInfoUpdate",
     "WAWebCreateNackFromStanza",
@@ -453,27 +454,20 @@ __d(
                         }),
                         j.result,
                       )
-                      .then(
-                        function () {
-                          return !0;
-                        },
-                        function (e) {
-                          return (
-                            o("WALogger")
-                              .ERROR(
-                                p ||
-                                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                                    "sendReceipt failed",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e))
-                              .sendLogs("send-receipt-error", {
-                                sampling: 0.01,
-                              }),
-                            !1
-                          );
-                        },
-                      );
+                      .then(o("WAWebBoolFunc").returnTrue, function (e) {
+                        return (
+                          o("WALogger")
+                            .ERROR(
+                              p ||
+                                (p = babelHelpers.taggedTemplateLiteralLoose([
+                                  "sendReceipt failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("send-receipt-error", { sampling: 0.01 }),
+                          !1
+                        );
+                      });
                     N && !(yield Y) && (z = !0);
                     break e;
                   }

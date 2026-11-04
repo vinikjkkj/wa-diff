@@ -10,39 +10,39 @@ __d(
     "WAWebUnknownAssociationProcessor",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = [
-      r("WAWebAlbumAssociationProcessor"),
-      r("WAWebUnknownAssociationProcessor"),
-      r("WAWebBotPluginAssociationProcessor"),
-      r("WAWebMediaPollAssociationProcessor"),
-      r("WAWebPollAddOptionAssociationProcessor"),
-      o("WAWebDualUploadsAssociationProcessor")
-        .ImageDualUploadsAssociationProcessor,
-      o("WAWebDualUploadsAssociationProcessor")
-        .VideoDualUploadsAssociationProcessor,
-      o("WAWebDualUploadsAssociationProcessor")
-        .HevcDualUploadsAssociationProcessor,
-    ];
-    function s(t) {
-      var n,
-        r = t.associationType;
-      return (n = e.find(function (e) {
-        return e.type === r;
+    var e,
+      s = [
+        r("WAWebAlbumAssociationProcessor"),
+        r("WAWebUnknownAssociationProcessor"),
+        r("WAWebBotPluginAssociationProcessor"),
+        r("WAWebMediaPollAssociationProcessor"),
+        r("WAWebPollAddOptionAssociationProcessor"),
+        (e = o("WAWebDualUploadsAssociationProcessor"))
+          .ImageDualUploadsAssociationProcessor,
+        e.VideoDualUploadsAssociationProcessor,
+        e.HevcDualUploadsAssociationProcessor,
+        e.Av1DualUploadsAssociationProcessor,
+      ];
+    function u(e) {
+      var t,
+        n = e.associationType;
+      return (t = s.find(function (e) {
+        return e.type === n;
       })) != null
-        ? n
-        : null;
-    }
-    function u(t) {
-      var n;
-      return (n = e.find(function (e) {
-        return e.type === t;
-      })) != null
-        ? n
+        ? t
         : null;
     }
     function c(e) {
+      var t;
+      return (t = s.find(function (t) {
+        return t.type === e;
+      })) != null
+        ? t
+        : null;
+    }
+    function d(e) {
       if (e == null) return !1;
-      var t = u(e);
+      var t = c(e);
       return (
         t != null &&
         t.processorType ===
@@ -52,9 +52,9 @@ __d(
           o("WAWebAssociationProcessorConstants").ChildRevokePolicy.DeleteChild
       );
     }
-    ((l.getAssociationProcessor = s),
-      (l.getAssociationProcessorByAssociationType = u),
-      (l.isChildDeletedOnParentRevoke = c));
+    ((l.getAssociationProcessor = u),
+      (l.getAssociationProcessorByAssociationType = c),
+      (l.isChildDeletedOnParentRevoke = d));
   },
   98,
 );

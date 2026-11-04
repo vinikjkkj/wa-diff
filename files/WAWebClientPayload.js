@@ -5,6 +5,7 @@ __d(
     "WAByteArray",
     "WAMd5",
     "WAWebBackendApi",
+    "WAWebBotUtils",
     "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebClientFeatureFlags",
@@ -149,7 +150,9 @@ __d(
               thumbnailSyncDaysLimit: r("justknobx")._("4736"),
               supportManusHistory: r("justknobx")._("2304"),
               supportHatchHistory: r("justknobx")._("2997"),
-              supportedBotChannelFbids: [],
+              supportedBotChannelFbids: r("justknobx")._("7225")
+                ? [o("WAWebBotUtils").MAIBA_AI_HUB_FBID_WID.user]
+                : [],
             },
             i = o("WAWebClientFeatureFlags").isFeatureEnabled(
               "debug_1_year_history_sync",

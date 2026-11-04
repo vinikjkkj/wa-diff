@@ -2,6 +2,7 @@ __d(
   "WAWebOutContactInviteGatingUtils",
   [
     "WAWebABProps",
+    "WAWebGroupServerSentInviteEligibility",
     "WAWebOutContactInviteGating",
     "WAWebOutContactServerSentInviteEligibility",
   ],
@@ -28,16 +29,22 @@ __d(
     }
     function c(e) {
       return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
-        ? d()
+        ? m()
         : o(
             "WAWebOutContactServerSentInviteEligibility",
           ).areServerSentInvitePrerequisitesMet(e) &&
-            d() &&
+            m() &&
             o(
               "WAWebOutContactServerSentInviteEligibility",
             ).isServerSentInviteAbPropEnabled();
     }
-    function d() {
+    function d(e) {
+      return (
+        !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() &&
+        e > o("WAWebGroupServerSentInviteEligibility").GROUP_SSI_MAX_INVITEES
+      );
+    }
+    function m() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "non_wa_contact_invite_cta_enabled",
@@ -46,7 +53,8 @@ __d(
     }
     ((l.canShow1to1OutContactsInSession = s),
       (l.canShowOutContactFor1to1Invite = u),
-      (l.isContactEditInviteCtaEnabled = c));
+      (l.isContactEditInviteCtaEnabled = c),
+      (l.isOverGroupInviteLimit = d));
   },
   98,
 );

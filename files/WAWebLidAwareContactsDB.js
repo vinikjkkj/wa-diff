@@ -6,6 +6,7 @@ __d(
     "WAWebApiContact",
     "WAWebContactsDbLidMigrationUtils",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
+    "WAWebStorageCrashAnnotations",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -274,20 +275,24 @@ __d(
                 "WAWebContactsDbLidMigrationUtils",
               ).getAlternateRowUpdates(r("nullthrows")(e.id), e);
             });
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "bulkCreateOrMerge [",
+                  "]: ",
+                  " alternate rows",
+                ])),
+              a,
+              l.length,
+            );
+            var c = [].concat(t, l);
             return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "bulkCreateOrMerge [",
-                    "]: ",
-                    " alternate rows",
-                  ])),
-                a,
-                l.length,
-              ),
+              o(
+                "WAWebStorageCrashAnnotations",
+              ).annotateCrashWithBulkWriteCaller(a, c),
               yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                 .getContactTable()
-                .bulkCreateOrMerge([].concat(t, l))
+                .bulkCreateOrMerge(c)
             );
           } finally {
             o("WALogger").LOG(
@@ -332,20 +337,24 @@ __d(
                 "WAWebContactsDbLidMigrationUtils",
               ).getAlternateRowUpdates(r("nullthrows")(e.id), e);
             });
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "bulkMergeOnly [",
+                  "]: ",
+                  " alternate rows",
+                ])),
+              t,
+              i.length,
+            );
+            var l = [].concat(e, i);
             return (
-              o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "bulkMergeOnly [",
-                    "]: ",
-                    " alternate rows",
-                  ])),
-                t,
-                i.length,
-              ),
+              o(
+                "WAWebStorageCrashAnnotations",
+              ).annotateCrashWithBulkWriteCaller(t, l),
               yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                 .getContactTable()
-                .bulkMergeOnly([].concat(e, i))
+                .bulkMergeOnly(l)
             );
           } finally {
             o("WALogger").LOG(

@@ -32,6 +32,7 @@ __d(
         e.KEYS.WA_WEB_ID_UPSELL_SNOOZE_UNTIL,
         e.KEYS.WA_WEB_SIGNAL_STORAGE_LID_MIGRATION,
         e.KEYS.DESKTOP_UPSELL_USER_HAS_SEEN_LARGE_BANNER,
+        e.KEYS.WA_WEB_ANDROID_TABLET_OVERLAY_CLOSED,
         e.UserPrefs.WebUiRefreshNuxAcknowledged,
       ],
       p = [],

@@ -12,12 +12,32 @@ __d(
     var e = new Map([
       [
         o("WAWebMsgType").MSG_TYPE.IMAGE,
-        {
-          associationType: o("WAWebMessageAssociation.flow")
-            .MessageAssociationType.HD_IMAGE_DUAL_UPLOAD,
-          isEnabled: o("WAWebMediaGatingUtils")
-            .isHdImageDualUploadConsumptionEnabled,
-        },
+        [
+          {
+            associationType: o("WAWebMessageAssociation.flow")
+              .MessageAssociationType.HD_IMAGE_DUAL_UPLOAD,
+            isEnabled: o("WAWebMediaGatingUtils")
+              .isHdImageDualUploadConsumptionEnabled,
+          },
+        ],
+      ],
+      [
+        o("WAWebMsgType").MSG_TYPE.VIDEO,
+        [
+          {
+            associationType: o("WAWebMessageAssociation.flow")
+              .MessageAssociationType.AV1_VIDEO_DUAL_UPLOAD,
+            isEnabled: o("WAWebMediaGatingUtils")
+              .isAv1VideoDualUploadConsumptionEnabled,
+            isPlayOnly: !0,
+          },
+          {
+            associationType: o("WAWebMessageAssociation.flow")
+              .MessageAssociationType.HEVC_VIDEO_DUAL_UPLOAD,
+            isEnabled: o("WAWebMediaGatingUtils")
+              .isHevcVideoDualUploadConsumptionEnabled,
+          },
+        ],
       ],
     ]);
     function s(e) {
@@ -30,7 +50,11 @@ __d(
       return n;
     }
     function u(e) {
-      var t = c(e),
+      var t = d(
+          o("WAWebMessageAssociationUIUtils").getHiddenAssociatedMessages(e.id),
+          e.type,
+          "save",
+        ),
         n = t == null ? void 0 : t.mediaData;
       return t != null &&
         n != null &&
@@ -46,13 +70,21 @@ __d(
         e.type,
       );
     }
-    function d(t, n) {
-      var r = e.get(n);
-      if (r == null) return null;
-      var o = t.find(function (e) {
-        return e.associationType === r.associationType;
-      });
-      return o != null && r.isEnabled() ? o : null;
+    function d(t, n, r) {
+      r === void 0 && (r = "play");
+      var o = function (n) {
+          if (r === "save" && n.isPlayOnly === !0) return 0;
+          var e = t.find(function (e) {
+            return e.associationType === n.associationType;
+          });
+          if (e != null && n.isEnabled()) return { v: e };
+        },
+        a;
+      for (var i of (l = e.get(n)) != null ? l : []) {
+        var l;
+        if (((a = o(i)), a !== 0 && a)) return a.v;
+      }
+      return null;
     }
     ((l.getPreferredMediaMsgs = s),
       (l.getPreferredMediaMsg = u),

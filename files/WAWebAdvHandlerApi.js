@@ -5,6 +5,7 @@ __d(
     "Promise",
     "TaskScheduler",
     "WALogger",
+    "WAWebAdvCrashAnnotations",
     "WAWebApiDeviceList",
     "WAWebAppTracker",
     "WAWebCryptoCurve25519",
@@ -63,10 +64,13 @@ __d(
     function p(t) {
       if (t.length === 0) return (u || (u = n("Promise"))).resolve();
       var r = self.performance.now();
+      o("WAWebAppTracker").AppTracker.start(
+        o("WAWebAppTracker").AppTrackerType.ADVProcessing,
+      );
+      var a = o("WAWebAdvCrashAnnotations").annotateCrashWithAdvSyncStart(
+        t.length,
+      );
       return (
-        o("WAWebAppTracker").AppTracker.start(
-          o("WAWebAppTracker").AppTrackerType.ADVProcessing,
-        ),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -88,6 +92,10 @@ __d(
           ),
             o("WAWebAppTracker").AppTracker.stop(
               o("WAWebAppTracker").AppTrackerType.ADVProcessing,
+            ),
+            o("WAWebAdvCrashAnnotations").annotateCrashWithAdvSyncEnd(
+              a,
+              self.performance.now() - r,
             ));
         })
       );

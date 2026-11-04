@@ -715,7 +715,7 @@ __d(
                     e,
                     c,
                   ))
-                : ge({
+                : he({
                     callCreator: l,
                     callId: s,
                     from: t,
@@ -750,7 +750,7 @@ __d(
             switch (e.type) {
               case o("WAWebVoipSignalingEnums").TYPE.OFFER:
                 if (
-                  (ge({
+                  (he({
                     callCreator: l,
                     callId: s,
                     from: t,
@@ -773,7 +773,7 @@ __d(
               case o("WAWebVoipSignalingEnums").TYPE.ACCEPT:
               case o("WAWebVoipSignalingEnums").TYPE.REJECT:
                 return (
-                  ge({
+                  he({
                     callCreator: l,
                     callId: s,
                     from: t,
@@ -824,7 +824,7 @@ __d(
                   : yield o(
                       "WAWebVoipHandleIncomingSignalingMessage",
                     ).handleVoipIncomingSignalingMessage(a, u, t),
-                he({ ackString: l, from: n, stanzaId: s }));
+                ye({ ackString: l, from: n, stanzaId: s }));
         })),
         ue.apply(this, arguments)
       );
@@ -850,25 +850,30 @@ __d(
               s,
               d,
             );
-          (l.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
+          if (
+            l.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
             o("WAWebVoipCallStateUtils").isCallTerminal(
               o("WAWebVoipLocalCallStateStore").getLocalCallState(),
-            ) &&
+            )
+          ) {
+            var p = o("WAWebVoipGatingUtils").isGroupCallMessage(l);
             (o("WAWebVoipCalleeOfferToRingStore").recordCalleeOfferReceived(
               l.call_id,
             ),
-            o(
-              "WAWebVoipIncomingOfferReceivedWallClockStore",
-            ).recordIncomingOfferReceivedWallClock(l.call_id),
-            o("WAWebVoipTabStateAtOfferStore").recordTabStateAtOffer(
-              l.call_id,
-              t.visibility,
-            ),
-            o("WAWebVoipLobbyVisibilityStore").recordIncomingRing(
-              l.call_id,
-              o("WAWebVoipGatingUtils").isGroupCallMessage(l),
-            )),
-            me(l, m, t));
+              o(
+                "WAWebVoipIncomingOfferReceivedWallClockStore",
+              ).recordIncomingOfferReceivedWallClock(l.call_id),
+              o("WAWebVoipTabStateAtOfferStore").recordTabStateAtOffer(
+                l.call_id,
+                t.visibility,
+                p,
+              ),
+              o("WAWebVoipLobbyVisibilityStore").recordIncomingRing(
+                l.call_id,
+                p,
+              ));
+          }
+          (me(l, m, t), pe(l, m, t));
           try {
             (u != null &&
               (i.isLid() &&
@@ -924,7 +929,7 @@ __d(
                   }),
                 },
               ),
-            pe({
+            _e({
               arrival: t,
               callMessage: {
                 from: i,
@@ -942,22 +947,31 @@ __d(
       );
     }
     function me(e, t, n) {
+      e.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
+        t == null &&
+        o("WAWebVoipIncomingOfferRoute").isFreshIncomingOffer(e) &&
+        o("WAWebVoipTabStateAtOfferStore").recordTabStateAtOfferForCall(
+          e.call_id,
+          n.visibility,
+        );
+    }
+    function pe(e, t, n) {
       t == null &&
         e.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
         o("WAWebVoipIncomingOfferRoute").isFreshIncomingOffer(e) &&
         !Q(e) &&
         o("WAWebVoipColdPathEarlyStart").startVoipColdPathEarly("incoming", n);
     }
-    function pe(e) {
-      return _e.apply(this, arguments);
+    function _e(e) {
+      return fe.apply(this, arguments);
     }
-    function _e() {
+    function fe() {
       return (
-        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.arrival,
             n = e.callMessage,
             r = e.staleCallStanza;
-          if (r != null) return fe(r, n);
+          if (r != null) return ge(r, n);
           var a = Y(n.message, n.payloadTag, t),
             i = yield X(n.message)
               ? o(
@@ -981,10 +995,10 @@ __d(
                 }),
               );
         })),
-        _e.apply(this, arguments)
+        fe.apply(this, arguments)
       );
     }
-    function fe(e, t) {
+    function ge(e, t) {
       var n = t.from,
         r = t.message,
         a = t.payloadTag,
@@ -993,7 +1007,7 @@ __d(
         s = re(r.type);
       return (
         s &&
-          ge({
+          he({
             callCreator: r.call_creator,
             callId: r.call_id,
             from: n,
@@ -1001,10 +1015,10 @@ __d(
             type: r.type,
           }),
         o("WAWebVoipDeferredBootStaleCalls").writeStaleCallLog(e, r, l),
-        s ? "NO_ACK" : he({ ackString: a, from: n, stanzaId: i })
+        s ? "NO_ACK" : ye({ ackString: a, from: n, stanzaId: i })
       );
     }
-    function ge(e) {
+    function he(e) {
       var t = e.callCreator,
         n = e.callId,
         r = e.from,
@@ -1045,7 +1059,7 @@ __d(
         ),
       );
     }
-    function he(e) {
+    function ye(e) {
       var t = e.ackString,
         n = e.from,
         r = e.stanzaId;

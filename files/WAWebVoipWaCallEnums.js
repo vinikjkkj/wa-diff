@@ -407,7 +407,8 @@ __d(
         LowDataUsageSetting: 2,
         BatterySave: 3,
       }),
-      D = s({
+      D = s({ Self: 2, MicPermissionDenied: 5, CameraPermissionDenied: 6 }),
+      x = s({
         VersionInvalid: -1,
         VersionLegacy: 0,
         Version1: 1,
@@ -415,14 +416,14 @@ __d(
         Version3: 3,
         Version4: 4,
       }),
-      x = s({
+      $ = s({
         Text: 0,
         NoIndicator: 1,
         SpinnerV1: 2,
         SpinnerV2: 3,
         NoSpinner: 4,
       }),
-      $ = s({
+      P = s({
         Measuring: 0,
         NoNetwork: 1,
         Poor: 2,
@@ -430,16 +431,16 @@ __d(
         Good: 4,
         Max: 5,
       }),
-      P = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
-      N = s({
+      N = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
+      M = s({
         None: 0,
         QuerySent: 1,
         QueryAcked: 2,
         JoinSent: 3,
         JoinAcked: 4,
       }),
-      M = s({ RelayBindsFailed: "relay_binds_failed" }),
-      w = s({
+      w = s({ RelayBindsFailed: "relay_binds_failed" }),
+      A = s({
         Legacy: 0,
         CallLinkJoinedCreator: 1,
         CallLinkJoinedJoiner: 2,
@@ -448,18 +449,18 @@ __d(
         WaitingRoomJoined: 5,
         WaitingRoomMultipleJoined: 6,
       }),
-      A = s({ Unknown: 0, Guest: 1 }),
-      F = "guest";
-    function O(e) {
-      return e === F ? A.Guest : A.Unknown;
+      F = s({ Unknown: 0, Guest: 1 }),
+      O = "guest";
+    function B(e) {
+      return e === O ? F.Guest : F.Unknown;
     }
-    var B = s({ None: 0, GuestsOnly: 1 }),
-      W = "guests_only";
-    function q(e) {
-      return e === W ? B.GuestsOnly : B.None;
+    var W = s({ None: 0, GuestsOnly: 1 }),
+      q = "guests_only";
+    function U(e) {
+      return e === q ? W.GuestsOnly : W.None;
     }
-    var U = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
-      V = s({
+    var V = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
+      H = s({
         Unknown: 0,
         Android: 1,
         IPhone: 2,
@@ -497,19 +498,20 @@ __d(
       (l.ScreenShareState = k),
       (l.ScreenShareEndReason = I),
       (l.CameraAutoOffReason = T),
-      (l.ScreenShareVersion = D),
-      (l.ReconnectingOption = x),
-      (l.NetHealthStatus = $),
-      (l.CallUserType = P),
-      (l.CallLinkState = N),
-      (l.CallFailedReason = M),
-      (l.ServerReminderType = w),
-      (l.AccountKind = A),
-      (l.wireStringToAccountKind = O),
-      (l.WaitingRoomFilter = B),
-      (l.wireStringToWaitingRoomFilter = q),
-      (l.UiViewMode = U),
-      (l.ClientPlatform = V));
+      (l.RejectEndReason = D),
+      (l.ScreenShareVersion = x),
+      (l.ReconnectingOption = $),
+      (l.NetHealthStatus = P),
+      (l.CallUserType = N),
+      (l.CallLinkState = M),
+      (l.CallFailedReason = w),
+      (l.ServerReminderType = A),
+      (l.AccountKind = F),
+      (l.wireStringToAccountKind = B),
+      (l.WaitingRoomFilter = W),
+      (l.wireStringToWaitingRoomFilter = U),
+      (l.UiViewMode = V),
+      (l.ClientPlatform = H));
   },
   98,
 );

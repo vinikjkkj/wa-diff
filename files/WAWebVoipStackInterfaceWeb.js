@@ -640,20 +640,20 @@ __d(
           }
           return t;
         })(),
-        rejectCall: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        rejectCallWithEndReason: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint();
-            var e = yield l;
+            var t = yield l;
             try {
-              e.rejectCall();
-            } catch (t) {
+              t.rejectCallWithEndReason(e);
+            } catch (e) {
               throw (
-                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(e, t),
-                t
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(t, e),
+                e
               );
             }
           });
-          function t() {
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

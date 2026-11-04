@@ -20,7 +20,7 @@ __d(
             }, "debounceCore")),
             !s)
           ) {
-            (a(l), (l = o(p, t)));
+            (l != null && a(l), (l = o(p, t)));
             return;
           }
           ((s = !1), e.apply(n, d));
@@ -33,7 +33,7 @@ __d(
       }
       return (
         (u.reset = function () {
-          (a(l), (l = null), (s = !0));
+          (l != null && a(l), (l = null), (s = !0));
         }),
         (u.isPending = function () {
           return l != null;

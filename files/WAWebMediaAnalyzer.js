@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAResultOrError",
     "WAWebMediaGatingUtils",
+    "WAWebMediaHevcSupport",
     "WAWebMediaWorkerProxy",
     "WAWebSendMessageToMediaWorker",
     "WAWebWebcMediaAnalyzedWamEvent",
@@ -20,28 +21,12 @@ __d(
         isGif: t,
       };
     }
-    var y = null;
+    function y(e, t, n) {
+      return C.apply(this, arguments);
+    }
     function C() {
-      if (y == null) {
-        var e = document.createElement("video"),
-          t = [
-            'video/mp4; codecs="hvc1.1.6.L93.B0"',
-            'video/mp4; codecs="hev1.1.6.L93.B0"',
-            'video/mp4; codecs="hvc1"',
-            'video/mp4; codecs="hev1"',
-          ];
-        y = t.some(function (t) {
-          return e.canPlayType(t) === "probably";
-        });
-      }
-      return y;
-    }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -57,7 +42,9 @@ __d(
                 m = yield o("WAWebMediaWorkerProxy").transcodeToMp4InWorker({
                   input: new Uint8Array(l),
                   mimeType: d,
-                  supportsHevc: C(),
+                  supportsHevc: o(
+                    "WAWebMediaHevcSupport",
+                  ).browserSupportsHEVC(),
                   eventFlow: {
                     addAnnotations: function (t) {
                       return a.addAnnotations(t);
@@ -99,7 +86,7 @@ __d(
                 .sendLogs("transcode-to-mp4-error");
             }
           a.addAnnotations({ bool: { used_fallback: !0 } });
-          var p = yield L(t, n, a).catch(function (e) {
+          var p = yield S(t, n, a).catch(function (e) {
             return o("WAResultOrError").makeError({
               error: "exception",
               errorDetail: r("getErrorSafe")(e).message,
@@ -112,15 +99,15 @@ __d(
                 errorDetail: p.error.errorDetail,
               });
         })),
-        v.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function R() {
+    function v() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -134,7 +121,7 @@ __d(
           try {
             (n.addPoint("check_and_repair_audio_start"),
               n.addAnnotations({ bool: { use_wasm_worker: !1 } }));
-            var l = yield L(e, t, n);
+            var l = yield S(e, t, n);
             return l.success
               ? ((i = l.value != null),
                 n.addPoint("check_and_repair_audio_end"),
@@ -167,15 +154,15 @@ __d(
               a.commit());
           }
         })),
-        R.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function E() {
+    function R() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n.addPoint("send_message_to_media_worker_start");
           var r = { type: "prep", file: e, asGif: t },
             a = yield o(
@@ -245,10 +232,10 @@ __d(
             return o("WAResultOrError").makeError({ error: "unhandled_type" });
           }
         })),
-        E.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.transcodeToMp4AndMp4RepairMux = b), (l.checkAndRepairAudio = S));
+    ((l.transcodeToMp4AndMp4RepairMux = y), (l.checkAndRepairAudio = b));
   },
   98,
 );

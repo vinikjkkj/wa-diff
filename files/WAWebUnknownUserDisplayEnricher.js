@@ -1,6 +1,7 @@
 __d(
   "WAWebUnknownUserDisplayEnricher",
   [
+    "WALogger",
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebCooldownBatcher",
@@ -10,69 +11,71 @@ __d(
     "WAWebUnknownUserSelfHealFromDb",
     "WAWebWamEnumUnknownUserRecoveryPath",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = { hasUn: null, hasPn: null, hasPush: null, inDb: null },
-      s = o("WAWebCooldownBatcher").createCooldownBatcher(
+    var e,
+      s = { hasUn: null, hasPn: null, hasPush: null, inDb: null },
+      u = o("WAWebCooldownBatcher").createCooldownBatcher(
         { windowMs: 250, maxWindowMs: 5e3, cooldownMs: 0 },
         (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
-              var n = yield o("WAWebApiContact").bulkGetContactRecord(t),
-                a = n.map(function (e, n) {
-                  var o = t[n];
+              var t = yield o("WAWebApiContact").bulkGetContactRecord(e),
+                n = t.map(function (t, n) {
+                  var o = e[n];
                   return {
                     hasUn:
-                      (e == null ? void 0 : e.username) != null &&
-                      e.usernameSoftDeleted !== !0,
+                      (t == null ? void 0 : t.username) != null &&
+                      t.usernameSoftDeleted !== !0,
                     hasPn: o.isLid()
-                      ? (e == null ? void 0 : e.phoneNumber) != null
+                      ? (t == null ? void 0 : t.phoneNumber) != null
                       : o.isRegularUserPn(),
                     hasPush: !r("isStringNullOrEmpty")(
-                      e == null ? void 0 : e.pushname,
+                      t == null ? void 0 : t.pushname,
                     ),
-                    inDb: e != null,
+                    inDb: t != null,
                   };
                 });
               o("WAWebUnknownUserSelfHealFromDb").healUnknownUsersFromDbRows(
+                e,
                 t,
-                n,
               );
-              for (var i = 0; i < t.length; i++)
+              for (var a = 0; a < e.length; a++)
                 o("WAWebUnknownUserRecoveryManager").maybeRecoverUnknownUser(
-                  t[i],
-                  a[i],
+                  e[a],
+                  n[a],
                 );
-              return t.map(function (e, t) {
+              return e.map(function (e, t) {
                 return {
                   isRecovering:
                     o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
                     o(
                       "WAWebUnknownUserRecoveryManager",
                     ).isUsyncRecoveryInFlight(e),
-                  presence: a[t],
+                  presence: n[t],
                 };
               });
-            } catch (n) {
-              return t.map(function (t) {
+            } catch (t) {
+              return e.map(function (e) {
                 return {
                   isRecovering:
-                    o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(t) ||
+                    o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
                     o(
                       "WAWebUnknownUserRecoveryManager",
-                    ).isUsyncRecoveryInFlight(t),
-                  presence: e,
+                    ).isUsyncRecoveryInFlight(e),
+                  presence: s,
                 };
               });
             }
           });
-          return function (e) {
-            return t.apply(this, arguments);
+          return function (t) {
+            return e.apply(this, arguments);
           };
         })(),
       ),
-      u = new Set([
+      c = new Set([
         "contact_info",
         "chat_list",
         "chat_header",
@@ -92,23 +95,37 @@ __d(
         "group_mention_nonmember",
         "group_mention_nonmember_cag",
       ]);
-    function c(e, t) {
+    function d(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
       o("WAWebUnknownUserDisplayedLogger").unknownUserLoggingEnabled() &&
-        s(t).then(
+        u(t).then(
           function (r) {
             var o = r.isRecovering,
               a = r.presence;
-            o || d(e, t, n, a);
+            o || p(e, t, n, a);
           },
           function () {
-            return d(e, t, n, null);
+            return p(e, t, n, null);
           },
         );
     }
-    function d(e, t, n, r) {
+    function m(t) {
+      o("WAWebUnknownUserDisplayedLogger").unknownUserLoggingEnabled() &&
+        u(t).catch(function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Unknown-user identity recovery failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("unknown-user-identity-recovery-failed");
+        });
+    }
+    function p(e, t, n, r) {
       if (o("WAWebUnknownUserDisplayedLogger").reserveUnknownUserEmission()) {
-        var a = u.has(e)
+        var a = c.has(e)
           ? o("WAWebUnknownUserDisplayStore").recordDisplayForJid(t)
           : null;
         o("WAWebUnknownUserDisplayedLogger").commitUnknownUserDisplayed(e, t, {
@@ -130,7 +147,7 @@ __d(
         });
       }
     }
-    l.logUnknownUserDisplayed = c;
+    ((l.logUnknownUserDisplayed = d), (l.recoverUnknownUserIdentity = m));
   },
   98,
 );

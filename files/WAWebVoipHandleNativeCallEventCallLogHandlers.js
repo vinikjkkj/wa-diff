@@ -14,6 +14,7 @@ __d(
     "WAWebODS",
     "WAWebSyncdCoreApi",
     "WAWebVoipCallStartUnifiedSessionStore",
+    "WAWebVoipClosedTabCallRingFields",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipPersistentFS",
     "WAWebVoipQplHelpers",
@@ -275,9 +276,9 @@ __d(
             return;
           }
           try {
-            var n = Object.entries(t),
-              a = Object.fromEntries(
-                r("compactMap")(n, function (e) {
+            var a = Object.entries(t),
+              i = Object.fromEntries(
+                r("compactMap")(a, function (e) {
                   var t = e[0],
                     n = e[1],
                     a =
@@ -308,16 +309,22 @@ __d(
                   }
                 }),
               ),
-              i = yield o(
-                "WAWebVoipCallStartUnifiedSessionStore",
-              ).resolveCallUnifiedSessionId(
+              l = yield (_ || (_ = n("Promise"))).all([
                 o(
                   "WAWebVoipCallStartUnifiedSessionStore",
-                ).getCallStartUnifiedSessionIdForCall(e.CallId),
-              ),
-              l = new (o("WAWebCallWamEvent").CallWamEvent)(a);
-            (i != null && l.set({ unifiedSessionId: i }),
-              l.commit(),
+                ).resolveCallUnifiedSessionId(
+                  o(
+                    "WAWebVoipCallStartUnifiedSessionStore",
+                  ).getCallStartUnifiedSessionIdForCall(e.CallId),
+                ),
+                D(e, i),
+              ]),
+              s = l[0],
+              u = l[1],
+              f = new (o("WAWebCallWamEvent").CallWamEvent)(i);
+            (f.set(u),
+              s != null && f.set({ unifiedSessionId: s }),
+              f.commit(),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -338,12 +345,19 @@ __d(
         T.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function D(e, t) {
+      return e.GroupJid != null || e.GroupInfo != null || t.isPendingCall === !0
+        ? (_ || (_ = n("Promise"))).resolve({})
+        : o("WAWebVoipClosedTabCallRingFields").takeClosedTabCallRingFields(
+            e.CallId,
+          );
     }
-    function x() {
+    function x(e) {
+      return $.apply(this, arguments);
+    }
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -353,13 +367,13 @@ __d(
             { call1to1LogData: n },
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $() {
+    function P() {
       o("WAWebBackendApi").frontendFireAndForget("handleMuteRequestFailed", {});
     }
-    function P(e) {
+    function N(e) {
       var t = null;
       try {
         var n,
@@ -375,16 +389,16 @@ __d(
         muterJid: t,
       });
     }
-    function N(e) {}
+    function M(e) {}
     ((l.handleSyncDevices = f),
       (l.handleCallEnding = h),
       (l.handleRejectedDecryptionFailure = v),
       (l.handleUpdateJoinableCallLog = R),
       (l.handleCallMissed = E),
-      (l.handleUpdate1to1CallLog = D),
-      (l.handleMuteRequestFailed = $),
-      (l.handleMutedByOthers = P),
-      (l.handleNoOpEvent = N));
+      (l.handleUpdate1to1CallLog = x),
+      (l.handleMuteRequestFailed = P),
+      (l.handleMutedByOthers = N),
+      (l.handleNoOpEvent = M));
   },
   98,
 );

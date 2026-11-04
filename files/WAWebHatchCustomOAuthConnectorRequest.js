@@ -38,7 +38,8 @@ __d(
                 .HATCH_CUSTOM_CONNECTOR_NAME_PREFIX.length,
             ),
             issuerDomain: i.issuer_domain,
-            requiresClientSecret: i.token_endpoint_auth_method !== s,
+            requiresClientSecret:
+              i.registration_url == null && i.token_endpoint_auth_method !== s,
             connector: {
               name: r,
               mode: "direct_oauth",
@@ -55,19 +56,18 @@ __d(
           };
     }
     function m(e, t, n, r) {
-      var o = e.requiresClientSecret && n != null ? { client_secret: n } : {};
-      return babelHelpers.extends(
-        {
-          connector: e.connector,
-          oauth_bootstrap: babelHelpers.extends(
-            {},
-            e.oauthBootstrap,
-            { client_id: t.trim() },
-            o,
-          ),
-          replace_existing: r,
-        },
-        e.sessionId == null ? {} : { session_id: e.sessionId },
+      var o = {};
+      return (
+        e.oauthBootstrap.registration_url == null && (o.client_id = t.trim()),
+        e.requiresClientSecret && n != null && (o.client_secret = n),
+        babelHelpers.extends(
+          {
+            connector: e.connector,
+            oauth_bootstrap: babelHelpers.extends({}, e.oauthBootstrap, o),
+            replace_existing: r,
+          },
+          e.sessionId == null ? {} : { session_id: e.sessionId },
+        )
       );
     }
     function p(e, t) {
@@ -113,27 +113,37 @@ __d(
             ? r
             : "",
         s = o("WAWebHatchJsonReaders").readNonEmptyString(e, "revoke_url"),
-        u =
+        u = o("WAWebHatchJsonReaders").readNonEmptyString(
+          e,
+          "registration_url",
+        ),
+        c =
           (a = o("WAWebHatchJsonReaders").readString(e, "redirect_uri")) != null
             ? a
             : "",
-        c = [t, o("WAWebHatchCustomOAuthUrls").hatchUrlHost(i)],
-        d = function (n) {
+        d = [t, o("WAWebHatchCustomOAuthUrls").hatchUrlHost(i)],
+        m = function (n) {
           return (
             o("WAWebHatchCustomOAuthUrls").isHatchOAuthUrlAtIssuer(n, t) &&
-            c.includes(o("WAWebHatchCustomOAuthUrls").hatchUrlHost(n))
+            d.includes(o("WAWebHatchCustomOAuthUrls").hatchUrlHost(n))
           );
         };
-      return !o("WAWebHatchCustomOAuthUrls").isHatchOAuthUrlAtIssuer(i, t) ||
-        !d(l) ||
-        (s != null && !d(s)) ||
-        !o("WAWebHatchOAuthCallbackUrl").isHatchOAuthRedirectUri(u)
-        ? null
-        : babelHelpers.extends(
-            { authorization_url: i, redirect_uri: u },
-            s == null ? {} : { revoke_url: s },
-            { token_url: l },
-          );
+      if (
+        !o("WAWebHatchCustomOAuthUrls").isHatchOAuthUrlAtIssuer(i, t) ||
+        !m(l) ||
+        (s != null && !m(s)) ||
+        (u != null && !m(u)) ||
+        !o("WAWebHatchOAuthCallbackUrl").isHatchOAuthRedirectUri(c)
+      )
+        return null;
+      var p = {};
+      return (
+        u != null && (p.registration_url = u),
+        s != null && (p.revoke_url = s),
+        babelHelpers.extends({ authorization_url: i, redirect_uri: c }, p, {
+          token_url: l,
+        })
+      );
     }
     function h(e) {
       var t = o("WAWebHatchJsonReaders").readNonEmptyString(

@@ -5,6 +5,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebFbtCommon",
     "WAWebGroupAgentAddedRowProfile",
+    "WAWebGroupGatingUtils",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinSubtype",
     "WAWebGroupType",
@@ -94,7 +95,7 @@ __d(
         u = e.recipients,
         c = e.shareableHistoryInfo,
         d = e.subtype,
-        p = e.templateParams;
+        _ = e.templateParams;
       if (
         o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
           d,
@@ -106,14 +107,14 @@ __d(
       if (
         o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(d)
       ) {
-        var _ = m({
+        var f = p({
           chat: n,
           latestJoinTimeByRecipient: i,
           msgT: l,
           recipients: u,
           shareableHistoryInfo: c,
         });
-        if (_ != null) return _;
+        if (f != null) return f;
       }
       switch (d) {
         case "growth_unlocked":
@@ -132,12 +133,12 @@ __d(
           return r("WAWebFbtCommon")("Learn more");
         case "membership_approval_request":
         case "created_membership_requests":
-          return s._(/*BTDS*/ "Review");
+          return m();
         case "membership_approval_mode":
           return o(
             "WAWebGroupType",
           ).GroupSettingChangeSystemMessageIsAdmin.cast(
-            p == null || (t = p[1]) == null ? void 0 : t.toString(),
+            _ == null || (t = _[1]) == null ? void 0 : t.toString(),
           ) === o("WAWebGroupType").GroupSettingChangeSystemMessageIsAdmin.Admin
             ? s._(/*BTDS*/ "Change")
             : null;
@@ -151,7 +152,15 @@ __d(
           return null;
       }
     }
-    function m(e) {
+    function m() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isPersistentPendingJoinRequestsBannerEnabled()
+        ? s._(/*BTDS*/ "Review request")
+        : s._(/*BTDS*/ "Review");
+    }
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e) {
       var t = e.chat,
         n = e.latestJoinTimeByRecipient,
         r = e.msgT,
@@ -194,7 +203,7 @@ __d(
           o(
             "WAWebGroupHistoryPostJoinEligibility",
           ).isPostJoinHistoryExperimentArmEnabled(l.id)
-          ? p()
+          ? _()
           : null;
       }
       if (a.length !== 1 || a[0] == null) return null;
@@ -213,13 +222,13 @@ __d(
               r,
               i,
             )
-          ? p()
+          ? _()
           : null;
     }
-    function p() {
+    function _() {
       return s._(/*BTDS*/ "Send message history");
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = c));
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

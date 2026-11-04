@@ -15,6 +15,7 @@ __d(
     "WAWebGroupIncompatibleDeviceAddResult",
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
+    "WAWebGroupOutContactInvite",
     "WAWebGroupStringsAction",
     "WAWebIncompatibleAgentRequestsRejectTriggers",
     "WAWebJidToWid",
@@ -23,9 +24,8 @@ __d(
     "WAWebModifyParticipantsRateLimitText",
     "WAWebNetworkStatus",
     "WAWebNoop",
-    "WAWebOutContactInviteAction",
+    "WAWebOutContactInviteGating",
     "WAWebOutContactInviteUtils",
-    "WAWebOutContactSmsInviteConfirmModal.react",
     "WAWebSentGroupAgentRequests",
     "WAWebStateUtils",
     "WAWebToast.react",
@@ -163,16 +163,20 @@ __d(
             N = v
               .then(function (e) {
                 var t,
-                  n = P(e, i),
-                  a = n.agentConflictWids,
-                  c = n.hasIncompatibleDeviceRejection,
-                  d = n.reportedResponse,
-                  m = (t = e.invitedOutContacts) != null ? t : [],
-                  _ = e.participants.some(function (e) {
+                  n,
+                  a,
+                  c,
+                  d,
+                  m = P(e, i),
+                  _ = m.agentConflictWids,
+                  f = m.hasIncompatibleDeviceRejection,
+                  g = m.reportedResponse,
+                  y = (t = e.invitedOutContacts) != null ? t : [],
+                  C = e.participants.some(function (e) {
                     return e.code === "403";
                   }),
-                  f = new Set(
-                    m
+                  b = new Set(
+                    y
                       .filter(function (e) {
                         return e.code !== "200";
                       })
@@ -180,78 +184,82 @@ __d(
                         return e.phoneNumberWid.toString();
                       }),
                   ),
-                  g = p.filter(function (e) {
-                    return f.has(
+                  v = p.filter(function (e) {
+                    return b.has(
                       o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
                     );
                   }),
-                  C = r("countWhere")(m, function (e) {
+                  S = r("countWhere")(y, function (e) {
                     return e.code !== "200";
                   }),
-                  b =
+                  R = {
+                    entryPoint: o("WAWebWamEnumCompanionInviteOriginType")
+                      .COMPANION_INVITE_ORIGIN_TYPE
+                      .GROUPS_ADD_PARTICIPANT_SELECTOR,
+                    groupJid: o("WAWebWidToJid").widToGroupJid(l.id),
+                    groupName:
+                      (n =
+                        (a = l.groupMetadata) == null ? void 0 : a.subject) !=
+                      null
+                        ? n
+                        : "",
+                    invitedOutContacts: y,
+                    isStandaloneGroup:
+                      ((c = l.groupMetadata) == null
+                        ? void 0
+                        : c.parentGroup) == null &&
+                      ((d = l.groupMetadata) == null
+                        ? void 0
+                        : d.isParentGroup) !== !0,
+                    outContacts: p,
+                  },
+                  E =
                     p.length > 0
                       ? function () {
-                          if (g.length > 0) {
-                            o("WAWebModalManager").ModalManager.open(
-                              y.jsx(
-                                r("WAWebOutContactSmsInviteConfirmModal.react"),
-                                {
-                                  names: g.map(function (e) {
-                                    return e.getName();
-                                  }),
-                                  onConfirm: function () {
-                                    (o(
-                                      "WAWebOutContactInviteAction",
-                                    ).sendMultiGroupInvite(
-                                      g.map(function (e) {
-                                        return e.phoneNumber;
-                                      }),
-                                      o("WAWebWidToJid").widToGroupJid(l.id),
-                                      o("WAWebWamEnumCompanionInviteOriginType")
-                                        .COMPANION_INVITE_ORIGIN_TYPE
-                                        .GROUPS_ADD_PARTICIPANT_SELECTOR,
-                                    ),
-                                      o(
-                                        "WAWebModalManager",
-                                      ).closeModalManager());
-                                  },
-                                  onCancel:
-                                    o("WAWebModalManager").closeModalManager,
-                                },
-                              ),
-                            );
-                            return;
-                          }
-                          (L || $(C),
-                            o("WAWebModalManager").closeModalManager());
+                          var e = o(
+                              "WAWebGroupOutContactInvite",
+                            ).inviteGroupOutContacts(R),
+                            t = e.offeredInvite,
+                            n = e.uninvitedCount;
+                          ((!L || t) && $(n),
+                            t || o("WAWebModalManager").closeModalManager());
                         }
                       : r("WAWebNoop");
                 o("WAWebGroupAddResultDialogs.react").runAfterAddResultDialogs(
-                  { agentConflictWids: a, hasIncompatibleDeviceRejection: c },
+                  { agentConflictWids: _, hasIncompatibleDeviceRejection: f },
                   function () {
-                    _
-                      ? h.sendForNeededAddRequest(e.participants, b)
-                      : b == null || b();
+                    C
+                      ? h.sendForNeededAddRequest(e.participants, E)
+                      : E == null || E();
                   },
                 );
-                var v = e.participants.filter(function (e) {
+                var k = e.participants.filter(function (e) {
                   return e.code === "417";
                 });
-                if (v.length > 0) {
-                  var S = s._(
+                if (k.length > 0) {
+                  var I = s._(
                       /*BTDS*/ '_j{"*":"{participant_count} participants can\'t be added to the community. You can invite them privately to join this group through its invite link.","_1":"1 participant can\'t be added to the community. You can invite them privately to join this group through its invite link."}',
-                      [s._plural(v.length, "participant_count")],
+                      [s._plural(k.length, "participant_count")],
                     ),
-                    R = e.participants.some(function (e) {
+                    T = e.participants.some(function (e) {
                       return e.code === "200";
                     });
-                  if (!R) throw new (o("WAWebActionToast.react").ActionType)(S);
-                  return new (o("WAWebActionToast.react").ActionType)(S);
+                  if (!T) throw new (o("WAWebActionToast.react").ActionType)(I);
+                  return new (o("WAWebActionToast.react").ActionType)(I);
                 }
                 if (L) {
-                  if (g.length > 0) {
-                    var E = r("WAWebFbtIntlList")(
-                      g.map(function (e) {
+                  if (
+                    o(
+                      "WAWebGroupOutContactInvite",
+                    ).getServerSentInviteOutContacts(R) != null
+                  )
+                    return null;
+                  if (
+                    v.length > 0 &&
+                    o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
+                  ) {
+                    var D = r("WAWebFbtIntlList")(
+                      v.map(function (e) {
                         return e.getName();
                       }),
                       r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
@@ -259,21 +267,21 @@ __d(
                     ).toString();
                     return new (o("WAWebActionToast.react").ActionType)(
                       o("WAWebGroupStringsAction").addSuccessString(
-                        E,
-                        g.length,
+                        D,
+                        v.length,
                       ),
                     );
                   }
                   throw new (o("WAWebActionToast.react").ActionType)(
                     o(
                       "WAWebOutContactInviteUtils",
-                    ).getGroupInviteAddFailedToastText(C),
+                    ).getGroupInviteAddFailedToastText(S),
                   );
                 }
-                if ((c || a.length > 0) && d.participants.length === 0)
+                if ((f || _.length > 0) && g.participants.length === 0)
                   return null;
-                var k = o("WAWebGroupStringsAction").formatResult(
-                    d,
+                var x = o("WAWebGroupStringsAction").formatResult(
+                    g,
                     o("WAWebGroupStringsAction").addSuccessString,
                     function (e, t, n) {
                       return o("WAWebGroupStringsAction").addFailedString({
@@ -285,11 +293,11 @@ __d(
                     o("WAWebGroupStringsAction").addPartialFailedString,
                     u,
                   ),
-                  I = d.participants.some(function (e) {
+                  N = g.participants.some(function (e) {
                     return e.code === "200";
                   });
-                if (!I) throw new (o("WAWebActionToast.react").ActionType)(k);
-                return new (o("WAWebActionToast.react").ActionType)(k);
+                if (!N) throw new (o("WAWebActionToast.react").ActionType)(x);
+                return new (o("WAWebActionToast.react").ActionType)(x);
               })
               .catch(function (e) {
                 if (e instanceof o("WAWebActionToast.react").ActionType)

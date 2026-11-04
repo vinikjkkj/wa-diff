@@ -137,7 +137,9 @@ __d(
               ])),
             t.length,
           ),
-            o("WAWebStorageCrashAnnotations").logPeerReceiptRowsForCrash(t));
+            o("WAWebStorageCrashAnnotations").annotateCrashWithPeerReceiptRows(
+              t,
+            ));
           var a = self.performance.now();
           (yield v(t),
             o("WALogger").LOG(

@@ -21,15 +21,13 @@ __d(
     "WAWebGroupIncompatibleDeviceAddResult",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupMutationParticipantUtils",
+    "WAWebGroupOutContactInvite",
     "WAWebGroupQueryBridge",
     "WAWebJidToWid",
-    "WAWebModalManager",
     "WAWebModifyParticipantsRateLimitText",
     "WAWebNoop",
     "WAWebOrgGatingUtils",
-    "WAWebOutContactInviteAction",
     "WAWebOutContactInviteUtils",
-    "WAWebOutContactSmsInviteConfirmModal.react",
     "WAWebProfilePicThumbAction",
     "WAWebProfilePicThumbCollection",
     "WAWebSendForNeededAddRequest",
@@ -42,7 +40,6 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
-    "countWhere",
     "err",
     "fbs",
     "getErrorSafe",
@@ -395,54 +392,21 @@ __d(
                     a = e.participants.some(function (e) {
                       return e.code === "403";
                     }),
-                    i = new Set(
-                      n
-                        .filter(function (e) {
-                          return e.code !== "200";
-                        })
-                        .map(function (e) {
-                          return e.phoneNumberWid.toString();
+                    i = function () {
+                      var t = o(
+                          "WAWebGroupOutContactInvite",
+                        ).inviteGroupOutContacts({
+                          entryPoint: o("WAWebWamEnumCompanionInviteOriginType")
+                            .COMPANION_INVITE_ORIGIN_TYPE
+                            .GROUPS_CREATE_PARTICIPANT_SELECTOR,
+                          groupJid: o("WAWebWidToJid").widToGroupJid(e.gid),
+                          groupName: f,
+                          invitedOutContacts: n,
+                          isStandaloneGroup: p == null,
+                          outContacts: l,
                         }),
-                    ),
-                    s = l.filter(function (e) {
-                      return i.has(
-                        o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
-                      );
-                    }),
-                    u = r("countWhere")(n, function (e) {
-                      return e.code !== "200";
-                    }),
-                    c = function () {
-                      if (s.length > 0) {
-                        o("WAWebModalManager").ModalManager.open(
-                          y.jsx(
-                            r("WAWebOutContactSmsInviteConfirmModal.react"),
-                            {
-                              names: s.map(function (e) {
-                                return e.getName();
-                              }),
-                              onConfirm: function () {
-                                (o(
-                                  "WAWebOutContactInviteAction",
-                                ).sendMultiGroupInvite(
-                                  s.map(function (e) {
-                                    return e.phoneNumber;
-                                  }),
-                                  o("WAWebWidToJid").widToGroupJid(e.gid),
-                                  o("WAWebWamEnumCompanionInviteOriginType")
-                                    .COMPANION_INVITE_ORIGIN_TYPE
-                                    .GROUPS_CREATE_PARTICIPANT_SELECTOR,
-                                ),
-                                  o("WAWebModalManager").closeModalManager());
-                              },
-                              onCancel:
-                                o("WAWebModalManager").closeModalManager,
-                            },
-                          ),
-                        );
-                        return;
-                      }
-                      T(u);
+                        r = t.uninvitedCount;
+                      T(r);
                     };
                   if (
                     (o(
@@ -463,10 +427,10 @@ __d(
                             ).sendForNeededAddRequest({
                               groupAddResponse: e,
                               groupDesc: void 0,
-                              onFinish: c,
+                              onFinish: i,
                               subject: f,
                             })
-                          : c();
+                          : i();
                       },
                     ),
                     p == null &&
@@ -493,11 +457,11 @@ __d(
                         }),
                     _ != null && m != null)
                   ) {
-                    var d = o(
+                    var s = o(
                       "WAWebProfilePicThumbCollection",
                     ).ProfilePicThumbCollection.gadd(e.gid);
                     yield o("WAWebProfilePicThumbAction")
-                      .setProfilePic({ full: m, profilePicThumb: d, thumb: _ })
+                      .setProfilePic({ full: m, profilePicThumb: s, thumb: _ })
                       .then(function () {
                         return e.gid;
                       });
@@ -505,7 +469,7 @@ __d(
                   if (
                     o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
                   ) {
-                    var g = e.participants.reduce(function (e, t) {
+                    var u = e.participants.reduce(function (e, t) {
                       return (
                         t.username != null &&
                           e.push({
@@ -519,8 +483,8 @@ __d(
                         e
                       );
                     }, []);
-                    g.length > 0 &&
-                      (yield o("WAWebSetUsernameJob").setUsernamesJob(g));
+                    u.length > 0 &&
+                      (yield o("WAWebSetUsernameJob").setUsernamesJob(u));
                   }
                   return e.gid;
                 },

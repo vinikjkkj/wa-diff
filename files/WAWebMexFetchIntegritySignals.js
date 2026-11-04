@@ -27,7 +27,7 @@ __d(
             var t,
               n,
               a,
-              i = yield f(e, "CHAT_FMX"),
+              i = yield g(e, "CHAT_FMX"),
               l = (t = i.xwa2_fetch_wa_users) == null ? void 0 : t[0];
             if (l == null)
               return (
@@ -91,7 +91,12 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e) {
+      var t = e.join_date_ms,
+        n = Number(t);
+      return t != null && Number.isFinite(n) && n > 0 ? n : null;
+    }
+    function g(e, t) {
       return o("WAWebMexClient").fetchQuery(m, {
         input: {
           query_input: [{ jid: e.toJid(), integrity_signals: { use_case: t } }],
@@ -99,7 +104,9 @@ __d(
         },
       });
     }
-    ((l.fetchIntegritySignals = p), (l.queryIntegritySignals = f));
+    ((l.fetchIntegritySignals = p),
+      (l.getJoinDateMs = f),
+      (l.queryIntegritySignals = g));
   },
   98,
 );

@@ -105,7 +105,7 @@ __d(
                   ])),
               )
                 .catching(u)
-                .sendLogs("error-pubsub", {
+                .sendLogs(h(u), {
                   sampling: n,
                   skipFBLoggerReporting: !0,
                   reportFreshFileLink: !0,
@@ -115,6 +115,15 @@ __d(
           }
         });
       }
+    }
+    function h(e) {
+      var t = e.forcedKey,
+        n = e.messageFormat,
+        r = e.name,
+        o = n == null || n === "" ? r : n;
+      return t == null
+        ? "[ErrorPubSub] " + o
+        : "[ErrorPubSub] " + o + " [" + t + "]";
     }
     l.addListenerToErrorPubSub = g;
   },

@@ -1,6 +1,9 @@
 __d(
   "WAWebCustomerManagerSearchUtils",
-  ["WAWebLeadListConstants"],
+  [
+    "WAWebCustomerManagerLastMessageRangeSecondsBounds",
+    "WAWebLeadListConstants",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "__no_label__",
@@ -12,15 +15,29 @@ __d(
         e.leadStages.length > 0 ||
         e.labelId != null ||
         e.acquisitionSource != null ||
+        e.acquisitionDate != null ||
+        e.birthMonth != null ||
         e.lastMessageRange != null ||
         e.lastMessageCustomRange != null ||
         e.unreadOnly === !0
       );
     }
+    function d(e, t) {
+      return (
+        t === void 0 && (t = new Date()),
+        {
+          range: e,
+          startSec: o(
+            "WAWebCustomerManagerLastMessageRangeSecondsBounds",
+          ).lastMessageRangeSecondsBounds(e, t).startSec,
+        }
+      );
+    }
     ((l.NO_LABEL_FILTER_ID = e),
       (l.NO_OTHER_LIST_FILTER_ID = s),
       (l.BOARD_STRUCTURAL_PREDEFINED_IDS = u),
-      (l.hasActiveFilter = c));
+      (l.hasActiveFilter = c),
+      (l.createAcquisitionDateFilter = d));
   },
   98,
 );

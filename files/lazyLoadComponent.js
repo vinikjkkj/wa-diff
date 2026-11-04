@@ -66,22 +66,21 @@ __d(
                 (e[1] = n),
                 (e[2] = r))
               : ((n = e[1]), (r = e[2]));
-            var a = r === void 0 ? void 0 : r,
-              l;
+            var a;
             return (
-              e[3] !== n || e[4] !== a
-                ? ((l = c.jsx(_, {
+              e[3] !== n || e[4] !== r
+                ? ((a = c.jsx(_, {
                     description: d,
                     fallback: g,
                     fallbackComponent: f,
                     moduleName: d,
-                    children: c.jsx(i, babelHelpers.extends({}, n, { ref: a })),
+                    children: c.jsx(i, babelHelpers.extends({}, n, { ref: r })),
                   })),
                   (e[3] = n),
-                  (e[4] = a),
-                  (e[5] = l))
-                : (l = e[5]),
-              l
+                  (e[4] = r),
+                  (e[5] = a))
+                : (a = e[5]),
+              a
             );
           },
           d = t.getModuleId(),

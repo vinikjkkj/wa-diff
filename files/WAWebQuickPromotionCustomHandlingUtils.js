@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebActiveAccountInfoContext.react",
+    "WAWebActiveSubscriptionProductTypes",
     "WAWebApi",
     "WAWebApiParse",
     "WAWebBannerEventWamEvent",
@@ -22,6 +23,7 @@ __d(
     "WAWebExternalLink.react",
     "WAWebKeyboardTabUtils",
     "WAWebMAIBAPrimaryRedirectPopup.react",
+    "WAWebMetaOneEntryPointLogger",
     "WAWebMobilePlatforms",
     "WAWebModalManager",
     "WAWebNavBarTypes",
@@ -409,26 +411,39 @@ __d(
     }
     var v = "MP4B";
     function S(e) {
-      var t;
+      var t,
+        n = e.surfaceId;
       if (
         !(
-          e.surfaceId !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP ||
+          (n !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP &&
+            n !== o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD) ||
           !R((t = e.data.primaryAction) == null ? void 0 : t.deepLink)
         )
       )
         return {
           type: "metaOneSubscription",
           onPrimaryClick: function () {
-            o("WAWebBizAiMetaOneDialogRequestStore").requestMetaOneDialog(
-              null,
-              r("WAWebPonyfillsCryptoRandomUUID")(),
-              function () {
-                return o("WAWebModalManager").ModalManager.open(
-                  c.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
-                );
-              },
-            );
+            var t = r("WAWebPonyfillsCryptoRandomUUID")();
+            (o("WAWebMetaOneEntryPointLogger").logMetaOneQuickPromotionClick(
+              e.id,
+              t,
+              o(
+                "WAWebActiveSubscriptionProductTypes",
+              ).getActiveSubscriptionProductTypes(),
+            ),
+              o("WAWebBizAiMetaOneDialogRequestStore").requestMetaOneDialog(
+                null,
+                t,
+                function () {
+                  return o("WAWebModalManager").ModalManager.open(
+                    c.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+                  );
+                },
+              ));
           },
+          replacesDefaultAction: !0,
+          hidesAfterPrimaryClick:
+            n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP,
         };
     }
     function R(e) {
@@ -483,11 +498,17 @@ __d(
     }
     function k(e, t) {
       var n = L(e);
-      (I(e, t, n),
+      I(e, t, n);
+      var r = !1,
+        o = !1;
+      return (
         n.forEach(function (e) {
           switch (t) {
             case "primaryActionClick":
-              e.onPrimaryClick != null && e.onPrimaryClick();
+              e.onPrimaryClick != null &&
+                (e.onPrimaryClick(),
+                e.replacesDefaultAction === !0 && (r = !0),
+                e.hidesAfterPrimaryClick === !0 && (o = !0));
               break;
             case "dismiss":
               e.onDismiss != null && e.onDismiss();
@@ -495,7 +516,9 @@ __d(
             default:
               e.onImpression != null && e.onImpression();
           }
-        }));
+        }),
+        { replacedDefaultAction: r, hidesPromotion: o }
+      );
     }
     function I(e, t, n) {
       var r;

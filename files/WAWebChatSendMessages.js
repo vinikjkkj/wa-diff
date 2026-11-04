@@ -190,7 +190,11 @@ __d(
                         function (e) {
                           return o(
                             "WAWebRevokeMsgAction",
-                          ).sendAssociatedChildMsgRevoke(e, t, r);
+                          ).sendAssociatedChildMsgRevoke({
+                            clearMedia: r,
+                            msg: e,
+                            type: t,
+                          });
                         },
                       )),
                       o("WAWebRevokeMsgAction").sendRevoke(

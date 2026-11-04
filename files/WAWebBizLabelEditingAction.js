@@ -156,11 +156,9 @@ __d(
               color: t,
               deleted: !0,
               id: a,
-              isActive: void 0,
               name: i,
               predefinedId: d,
               timestamp: s,
-              type: void 0,
             }),
             m = [],
             p = l.filter(function (e) {

@@ -261,15 +261,17 @@ __d(
         }),
         (n.$4 = function (t, n) {
           var e = n.bundleSendSource,
-            r = n.groupHistorySystemMessageType,
-            o = n.recipientCount,
-            a = n.uiSurface;
+            r = n.groupAddMemberEntryPoint,
+            o = n.groupHistorySystemMessageType,
+            a = n.recipientCount,
+            i = n.uiSurface;
           this.$1({
             bundleSendSource: e,
+            groupAddMemberEntryPoint: r != null ? r : void 0,
             groupHistorySenderActionType: t,
-            groupHistorySystemMessageType: r != null ? r : void 0,
-            recipientCount: o,
-            uiSurface: a,
+            groupHistorySystemMessageType: o != null ? o : void 0,
+            recipientCount: a,
+            uiSurface: i,
           });
         }),
         (n.bundleMessageAcked = function (t) {
@@ -289,21 +291,9 @@ __d(
           );
         }),
         (n.sendAcked = function (t, n) {
-          var e = t.bundleSendSource,
-            r = t.groupHistorySystemMessageType,
-            o = t.recipientCount,
-            a = t.uiSurface,
-            i = n.bundleAcked,
-            l = n.noticeAcked;
-          if (i) {
-            var s = {
-              bundleSendSource: e,
-              groupHistorySystemMessageType: r,
-              recipientCount: o,
-              uiSurface: a,
-            };
-            (this.bundleMessageAcked(s), l && this.noticeMessageAcked(s));
-          }
+          var e = n.bundleAcked,
+            r = n.noticeAcked;
+          e && (this.bundleMessageAcked(t), r && this.noticeMessageAcked(t));
         }),
         (n.$5 = function (t, n) {
           var e = n.ineligibleReason,

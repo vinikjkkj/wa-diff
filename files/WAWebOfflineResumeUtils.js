@@ -19,6 +19,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebOffdStorageUpdateOfflinePeerReceipts",
     "WAWebOfflineDeviceCache",
+    "WAWebOfflineSyncQplSession",
     "WAWebPageLoadLogging",
     "WAWebPruneExpiredMessagesWithAddOns",
     "WAWebPushNotificationsOfflineBbApi",
@@ -146,6 +147,9 @@ __d(
           ])),
         e,
       ),
+        o("WAWebOfflineSyncQplSession").OfflineSyncQpl.addAnnotations({
+          string: { unload_reason: e },
+        }),
         o("WAWebReloadReason").recordReloadReason(e, t),
         (n = window.location) == null || n.reload());
     }

@@ -1174,14 +1174,14 @@ __d(
               }
               return t;
             })(),
-            rejectCall: (function () {
+            rejectCallWithEndReason: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
+                function* (e) {
                   (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
-                    yield ve("rejectCall", {}));
+                    yield ve("rejectCallWithEndReason", { endReason: e }));
                 },
               );
-              function t() {
+              function t(t) {
                 return e.apply(this, arguments);
               }
               return t;

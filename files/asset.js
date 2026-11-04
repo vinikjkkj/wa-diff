@@ -10,7 +10,8 @@ __d(
       );
       throw (r.stack, r);
     }
-    a.exports = e;
+    var l = e;
+    i.default = l;
   },
-  null,
+  66,
 );

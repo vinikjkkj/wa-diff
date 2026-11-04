@@ -76,13 +76,16 @@ __d(
                 mimetype: d,
               })));
           }
-          return {
-            attachmentData: a,
-            campaignId: e,
-            ctaButtonData: n.buttonData,
-            isDuplicateBroadcast: !0,
-            message: n.message,
-          };
+          return babelHelpers.extends(
+            {
+              attachmentData: a,
+              campaignId: e,
+              ctaButtonData: n.buttonData,
+              isDuplicateBroadcast: !0,
+              message: n.message,
+            },
+            n.maxBid != null ? { proMaxBid: n.maxBid } : {},
+          );
         })),
         _.apply(this, arguments)
       );

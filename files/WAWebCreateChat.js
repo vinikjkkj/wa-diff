@@ -562,7 +562,12 @@ __d(
       return m;
     }
     function D(e) {
-      return o("WAFilterObjectNullishProps").filterObjectNullishProps(T(e));
+      var t;
+      return o("WAFilterObjectNullishProps").filterObjectNullishProps(
+        babelHelpers.extends({}, T(e), {
+          unreadCount: (t = e.unreadCount) != null ? t : void 0,
+        }),
+      );
     }
     function x(e, t, n, r) {
       var a = null;

@@ -22,10 +22,14 @@ __d(
       m = 65536,
       p = 1e3,
       _ = (function () {
-        function t(e, t, n, a) {
-          var i = this;
-          (a === void 0 && (a = o("WATimeUtils").unixTimeMs),
-            (this.$6 = new (r("WAWebHatchBrowserRFBFilter"))()),
+        function t(e) {
+          var t = this,
+            n = e.connect,
+            a = e.nowMs,
+            i = a === void 0 ? o("WATimeUtils").unixTimeMs : a,
+            l = e.onChange,
+            s = e.taskID;
+          ((this.$6 = new (r("WAWebHatchBrowserRFBFilter"))()),
             (this.$7 = null),
             (this.$8 = null),
             (this.$9 = !1),
@@ -34,15 +38,15 @@ __d(
             (this.$12 = !1),
             (this.$13 = 0),
             (this.$14 = 0),
-            (this.$1 = e),
-            (this.$2 = t),
-            (this.$3 = n),
-            (this.$4 = new (r("WAWebHatchBrowserTaskClient"))(e, a)),
+            (this.$1 = n),
+            (this.$2 = s),
+            (this.$3 = l),
+            (this.$4 = new (r("WAWebHatchBrowserTaskClient"))(n, i)),
             (this.$5 = new (r("WAWebHatchBrowserControlSession"))(
               this.$4,
-              a,
+              i,
               function () {
-                return i.$15();
+                return t.$15();
               },
             )));
         }

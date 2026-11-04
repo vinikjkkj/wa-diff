@@ -39,7 +39,7 @@ __d(
             e.push(o("WAWebQplStorage").destroy()),
             e.push(o("WAWebFtsClient").ftsClient.clearInitializationPromises()),
             e.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
-            r("gkx")("23871") && e.push(m()),
+            (r("gkx")("23871") || r("gkx")("27715")) && e.push(m()),
             e.push(o("WAWebWorkerStorage").destroy()),
             yield (s || (s = n("Promise"))).all(e));
         })),

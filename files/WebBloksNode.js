@@ -7,10 +7,14 @@ __d(
       u = s.memo,
       c = s.useDebugValue;
     function d(e, t) {
-      var n = function (n) {
-        return t(n);
-      };
-      return ((n.displayName = e), u(n));
+      function n(e) {
+        return t(e);
+      }
+      return (
+        (n.displayName = n.name + " [from " + i.id + "]"),
+        (n.displayName = e),
+        u(n)
+      );
     }
     function m(e) {
       var t = o("react-compiler-runtime").c(2),

@@ -48,14 +48,19 @@ __d(
       );
     }
     function y() {
+      return s._(
+        /*BTDS*/ "Review your maximum price for the updated currency.",
+      );
+    }
+    function C() {
       return s._(/*BTDS*/ "Maximum price is required");
     }
-    function C(e) {
+    function b(e) {
       return s._(/*BTDS*/ "Maximum price must be above {minimum}", [
         s._param("minimum", e),
       ]);
     }
-    function b(e) {
+    function v(e) {
       return s._(/*BTDS*/ "Budget price must be above {minimum}", [
         s._param("minimum", e),
       ]);
@@ -70,9 +75,10 @@ __d(
       (l.getDefaultCostHelperText = f),
       (l.getMaxBidHelperText = g),
       (l.getMaxBidTooHighError = h),
-      (l.getMaxBidRequiredError = y),
-      (l.getMaxBidMustBeAboveError = C),
-      (l.getBudgetMustBeAboveError = b));
+      (l.getMaxBidCurrencyChangedError = y),
+      (l.getMaxBidRequiredError = C),
+      (l.getMaxBidMustBeAboveError = b),
+      (l.getBudgetMustBeAboveError = v));
   },
   226,
 );

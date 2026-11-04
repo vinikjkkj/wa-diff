@@ -376,6 +376,20 @@ __d(
             }),
           );
         }),
+        (r.apiKeyAuthCallback = function (t, n, r, a) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.API_KEY_AUTH_CALLBACK,
+            babelHelpers.extends({}, a, {
+              body: C(
+                r == null
+                  ? { key: n, provider: t }
+                  : { key: n, provider: t, session_id: r },
+              ),
+              service: "authd",
+            }),
+          );
+        }),
         (r.consentAuthCallback = function (t, n, r) {
           return this.request(
             "POST",

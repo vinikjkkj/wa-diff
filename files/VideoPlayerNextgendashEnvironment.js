@@ -5,6 +5,7 @@ __d(
     "use strict";
     function e() {
       return {
+        applyManifestPresentationTimeOffset: !1,
         bandwidthDiagnosticsFallbackDefaultEstimate: null,
         blockDuplicatePrefetch: !1,
         bufferAheadTargetNoMediaElementSec: 0,

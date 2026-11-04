@@ -108,7 +108,8 @@ __d(
             o(
               "WAWebSyncdUploadFatalErrorMetric",
             ).initialiseFatalErrorMetricUploading(),
-            o("WAWebCrashAnnotations").initRecentLoadCrashAnnotation(),
+            o("WAWebCrashAnnotations").annotateCrashWithRecentLoads(),
+            o("WAWebCrashAnnotations").annotateCrashWithPlatform(),
             yield o(
               "WAWebDeleteGuestSessionOnWebLoad",
             ).maybeDeleteGuestSessionOnWebLoad(),

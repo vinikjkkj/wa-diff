@@ -78,10 +78,20 @@ __d(
             ? t
             : e,
         r = _(n),
-        a = g(n);
-      return r.length === 0 && a.length === 0
-        ? null
-        : { bullets: r, footerParagraphs: a };
+        a = g(n, "footer_paragraphs"),
+        i = g(n, "callout_paragraphs");
+      return i.length > 0
+        ? {
+            bullets: r,
+            footerParagraphs: a,
+            calloutParagraphs: i,
+            calloutTitle: o("WAWebHatchJsonReaders").trimToNull(
+              o("WAWebHatchJsonReaders").readTrimmedString(n, "callout_title"),
+            ),
+          }
+        : r.length === 0 && a.length === 0
+          ? null
+          : { bullets: r, footerParagraphs: a };
     }
     function _(e) {
       var t = [];
@@ -117,21 +127,18 @@ __d(
                 : "unspecified";
       })(o("WAWebHatchJsonReaders").readTrimmedString(e, "icon"));
     }
-    function g(e) {
-      var t = [];
-      for (var n of (r = o("WAWebHatchJsonReaders").readArray(
-        e,
-        "footer_paragraphs",
-      )) != null
-        ? r
+    function g(e, t) {
+      var n = [];
+      for (var r of (a = o("WAWebHatchJsonReaders").readArray(e, t)) != null
+        ? a
         : []) {
-        var r,
-          a = o("WATypeUtils").isString(n)
-            ? o("WAWebHatchJsonReaders").trimToNull(n)
+        var a,
+          i = o("WATypeUtils").isString(r)
+            ? o("WAWebHatchJsonReaders").trimToNull(r)
             : null;
-        a != null && t.push(a);
+        i != null && n.push(i);
       }
-      return t;
+      return n;
     }
     ((l.decodeHatchConnectorsList = s), (l.decodeHatchConnectConsent = p));
   },

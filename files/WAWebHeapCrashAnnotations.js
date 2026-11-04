@@ -1,6 +1,10 @@
 __d(
   "WAWebHeapCrashAnnotations",
-  ["WAWebLogForCrash", "WAWebSafeCrashAnnotation"],
+  [
+    "WAWebAICrashAnnotationGate",
+    "WAWebLogForCrash",
+    "WAWebSafeCrashAnnotation",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = 1048576,
       s = 110,
@@ -10,7 +14,7 @@ __d(
       return typeof t == "number" ? Math.round(t / e) : void 0;
     }
     function d(e) {
-      o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+      o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:heapPeak",
         function () {
           if (!(e == null || e <= 0 || e * 100 < u * s)) {

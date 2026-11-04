@@ -35,10 +35,7 @@ __d(
       );
       return t ===
         o("WAWebMessageAssociation.flow").MessageAssociationType
-          .AV1_VIDEO_DUAL_UPLOAD ||
-        t ===
-          o("WAWebMessageAssociation.flow").MessageAssociationType
-            .STREAMED_HD_VIDEO_DUAL_UPLOAD
+          .STREAMED_HD_VIDEO_DUAL_UPLOAD
         ? o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
         : t != null
           ? t

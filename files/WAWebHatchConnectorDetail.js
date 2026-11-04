@@ -10,12 +10,17 @@ __d(
           t,
         ) ||
         o("WAWebHatchFirstPartyConnectors").isHatchFirstPartyConnector(e.id) ||
-        e.consent != null ||
+        s(e.consent) ||
         e.description != null ||
         o("WAWebHatchConnectorsEligibility").isHatchPermissionsOnlyConnector(e)
       );
     }
-    l.hasHatchConnectorDetail = e;
+    function s(e) {
+      return (
+        e != null && (e.bullets.length > 0 || e.footerParagraphs.length > 0)
+      );
+    }
+    ((l.hasHatchConnectorDetail = e), (l.hasHatchConsentCopy = s));
   },
   98,
 );

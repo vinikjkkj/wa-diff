@@ -25,6 +25,7 @@ __d(
             _(e, n);
           },
           msgText: null,
+          startChatContextEntryPoint: "HYPERLINK",
         }),
         { transition: "modal-flow" },
       ),

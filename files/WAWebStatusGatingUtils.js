@@ -175,6 +175,11 @@ __d(
         "web_status_bad_ux_logging_parity_enabled",
       );
     }
+    function A() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_status_composer_quick_replies_enabled",
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isStatusLikesPosterCounterEnabled = d),
@@ -200,7 +205,8 @@ __d(
       (l.getStatusChainFromMyInteractionLimit = P),
       (l.isChainFromChatListEnabled = N),
       (l.isStatusCompanionReadSyncEnabled = M),
-      (l.isStatusBadUxLoggingParityEnabled = w));
+      (l.isStatusBadUxLoggingParityEnabled = w),
+      (l.isStatusComposerQuickRepliesEnabled = A));
   },
   98,
 );

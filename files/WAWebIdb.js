@@ -669,7 +669,7 @@ __d(
                 );
                 var d = o(
                     "WAWebStorageCrashAnnotations",
-                  ).startBulkWriteForCrash(this.table, t),
+                  ).annotateCrashWithBulkWriteStart(this.table, t),
                   m = new Map(),
                   p = this.$17(),
                   _ = this;
@@ -701,7 +701,9 @@ __d(
                         );
                       },
                     ),
-                    o("WAWebStorageCrashAnnotations").endBulkWriteForCrash(
+                    o(
+                      "WAWebStorageCrashAnnotations",
+                    ).annotateCrashWithBulkWriteEnd(
                       d,
                       self.performance.now() - l,
                     ),
@@ -784,10 +786,9 @@ __d(
                     );
                     var n = Math.round(self.performance.now() - l);
                     ((c.put = n),
-                      o("WAWebStorageCrashAnnotations").endBulkWriteForCrash(
-                        d,
-                        n,
-                      ),
+                      o(
+                        "WAWebStorageCrashAnnotations",
+                      ).annotateCrashWithBulkWriteEnd(d, n),
                       n > 5e3 &&
                         (e = self.document) != null &&
                         e.hasFocus != null &&
@@ -927,9 +928,16 @@ __d(
                   l,
               );
             }
-            return i.catch(function (t) {
-              throw (e.$1(r("getErrorSafe")(t), "all"), t);
-            });
+            return o("WAWebStorageCrashAnnotations").annotateCrashWithIdbRead(
+              this.table,
+              (t == null ? void 0 : t.returnKeyType) == null
+                ? "all"
+                : "allKeys",
+              t == null ? void 0 : t.limit,
+              i.catch(function (t) {
+                throw (e.$1(r("getErrorSafe")(t), "all"), t);
+              }),
+            );
           }),
           (a.allPrimaryKeys = function () {
             return o("WAWebDexieCastTypes").dexieCastToPromise(
@@ -1015,32 +1023,37 @@ __d(
             var e = this;
             return a.length === 0
               ? (d || (d = n("Promise"))).resolve([])
-              : o("WAWebDexieCastTypes")
-                  .dexieCastToPromise(
-                    o("WAWebIdbHelpers")
-                      .applyOptions(
-                        this.table
-                          .where(
-                            o("WAWebIdbHelpers").formatQueryIndex(
-                              t,
-                              this.tableColumns,
-                            ),
-                          )
-                          .anyOf(a),
-                        i,
-                      )
-                      .distinct()
-                      .toArray(),
-                  )
-                  .then(function (t) {
-                    return e.asyncViewMap(
-                      t,
-                      i == null ? void 0 : i.shouldDecrypt,
-                    );
-                  })
-                  .catch(function (t) {
-                    throw (e.$1(r("getErrorSafe")(t), "anyOf"), t);
-                  });
+              : o("WAWebStorageCrashAnnotations").annotateCrashWithIdbRead(
+                  this.table,
+                  "anyOf",
+                  a.length,
+                  o("WAWebDexieCastTypes")
+                    .dexieCastToPromise(
+                      o("WAWebIdbHelpers")
+                        .applyOptions(
+                          this.table
+                            .where(
+                              o("WAWebIdbHelpers").formatQueryIndex(
+                                t,
+                                this.tableColumns,
+                              ),
+                            )
+                            .anyOf(a),
+                          i,
+                        )
+                        .distinct()
+                        .toArray(),
+                    )
+                    .then(function (t) {
+                      return e.asyncViewMap(
+                        t,
+                        i == null ? void 0 : i.shouldDecrypt,
+                      );
+                    })
+                    .catch(function (t) {
+                      throw (e.$1(r("getErrorSafe")(t), "anyOf"), t);
+                    }),
+                );
           }),
           (a.anyOfPrimaryKeys = function (t, a, i) {
             var e = this;

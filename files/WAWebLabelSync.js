@@ -100,7 +100,26 @@ __d(
         C.apply(this, arguments)
       );
     }
-    var b = (function (e) {
+    function b(e, t) {
+      var n = t.isActive,
+        r = t.type;
+      if ((n != null && (e.isActive = n), r != null)) {
+        var a = o(
+          "WAWebProtobufSyncAction.pb",
+        ).SyncActionValue$LabelEditAction$ListType.cast(r);
+        a != null
+          ? (e.type = a)
+          : o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "getLabelMutation: type has unexpected value: ",
+                  "",
+                ])),
+              r,
+            );
+      }
+    }
+    var v = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -125,7 +144,7 @@ __d(
               a = 0,
               i = 0,
               l = 0,
-              p = 0,
+              s = 0,
               _ = [],
               C = 0,
               b = [],
@@ -133,21 +152,21 @@ __d(
                 t.map(
                   (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t, s) {
+                      function* (t, u) {
                         try {
                           if (t.operation === "set") {
-                            var u,
-                              c = t.indexParts,
-                              d = t.value,
-                              m = c[1];
-                            if (!m) return e.malformedActionIndex();
-                            var f = d.labelEditAction;
+                            var c,
+                              d = t.indexParts,
+                              m = t.value,
+                              p = d[1];
+                            if (!p) return e.malformedActionIndex();
+                            var f = m.labelEditAction;
                             if (!f) {
                               var g;
                               a++;
                               var v = yield (g = o(
                                 "WAWebWamLabelSyncTrackingReporter",
-                              )).generateLabelEditHash(m);
+                              )).generateLabelEditHash(p);
                               return (
                                 g.logLabelSyncEvent(
                                   v,
@@ -166,26 +185,26 @@ __d(
                             if (f.deleted === !0) {
                               var S = yield o("WAWebSchemaLabel")
                                 .getLabelTable()
-                                .get(m);
+                                .get(p);
                               (yield o("WAWebSchemaLabel")
                                 .getLabelTable()
-                                .remove(m),
+                                .remove(p),
                                 o(
                                   "WAWebLabelCollection",
-                                ).LabelCollection.remove(m),
+                                ).LabelCollection.remove(p),
                                 (S == null ? void 0 : S.predefinedId) ===
                                   o("WAWebLeadListConstants")
                                     .LEGACY_LEAD_LIST_PREDEFINED_ID &&
                                   (yield y()));
                               var R = f.predefinedId;
                               return (
-                                (b[s] = {
+                                (b[u] = {
                                   isDeleted: !0,
-                                  labelId: m,
+                                  labelId: p,
                                   predefinedId: R,
                                 }),
                                 o("WAWebWamLabelSyncTrackingReporter")
-                                  .generateLabelEditHash(m)
+                                  .generateLabelEditHash(p)
                                   .then(function (e) {
                                     var t;
                                     (t = o(
@@ -213,7 +232,7 @@ __d(
                               k = f.isImmutable,
                               I = f.predefinedId,
                               T = f.type,
-                              D = (u = f.name) != null ? u : "";
+                              D = (c = f.name) != null ? c : "";
                             (D === "" && i++,
                               o("WAWebMobilePlatforms").isSMB() &&
                                 L == null &&
@@ -231,7 +250,7 @@ __d(
                               $ != null && (x = $);
                             }
                             var P = {
-                              id: m,
+                              id: p,
                               name: x,
                               colorIndex: L,
                               predefinedId: I,
@@ -245,7 +264,7 @@ __d(
                               if (N != null) P.type = N;
                               else
                                 return (
-                                  p++,
+                                  s++,
                                   _.length < 3 && _.push(T),
                                   {
                                     actionState:
@@ -281,7 +300,7 @@ __d(
                                       var t = e[0],
                                         n = yield t.all();
                                       return n.find(function (e) {
-                                        return e.id !== m && e.type === P.type;
+                                        return e.id !== p && e.type === P.type;
                                       });
                                     });
                                     return function (t) {
@@ -330,7 +349,7 @@ __d(
                                   ).asyncToGenerator(function* (e) {
                                     var t = e[0];
                                     if (P.orderIndex == null) {
-                                      var n = yield t.get(m);
+                                      var n = yield t.get(p);
                                       (n == null ? void 0 : n.orderIndex) !=
                                         null && (P.orderIndex = n.orderIndex);
                                     }
@@ -338,7 +357,7 @@ __d(
                                       yield t.createOrReplace(P),
                                       o(
                                         "WAWebDBLabelAssociationDatabaseApi",
-                                      ).queryLabelAssociationsForLabelIds([m])
+                                      ).queryLabelAssociationsForLabelIds([p])
                                     );
                                   });
                                   return function (t) {
@@ -349,7 +368,7 @@ __d(
                             h(P, T);
                             var W = o(
                               "WAWebLabelCollection",
-                            ).LabelCollection.get(m);
+                            ).LabelCollection.get(p);
                             if (W != null && B.length > 0) {
                               var q = W.labelItemCollection.reduce(function (
                                   e,
@@ -369,7 +388,7 @@ __d(
                             }
                             return (
                               o("WAWebWamLabelSyncTrackingReporter")
-                                .generateLabelEditHash(m)
+                                .generateLabelEditHash(p)
                                 .then(function (e) {
                                   var t;
                                   (t = o(
@@ -385,9 +404,9 @@ __d(
                                     I,
                                   );
                                 }),
-                              (b[s] = {
+                              (b[u] = {
                                 isDeleted: !1,
-                                labelId: m,
+                                labelId: p,
                                 predefinedId: I,
                               }),
                               {
@@ -421,8 +440,8 @@ __d(
             return v.then(function (e) {
               (a > 0 &&
                 o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "label sync: ",
                       " malformed mutations",
                     ])),
@@ -430,8 +449,8 @@ __d(
                 ),
                 i > 0 &&
                   o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "labelEditAction.name is empty for ",
                         " mutations",
                       ])),
@@ -439,28 +458,28 @@ __d(
                   ),
                 l > 0 &&
                   o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "labelEditAction.color is empty for ",
                         " mutations",
                       ])),
                     l,
                   ),
-                p > 0 &&
+                s > 0 &&
                   o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "labelEditAction.type has unexpected value for ",
                         " mutations => ",
                         "",
                       ])),
-                    p,
+                    s,
                     _,
                   ),
                 C > 0 &&
                   o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "label sync: ",
                         " operations not supported",
                       ])),
@@ -510,33 +529,14 @@ __d(
             var e = t.color,
               n = t.deleted,
               r = t.id,
-              a = t.isActive,
-              i = t.name,
-              l = t.predefinedId,
-              s = t.timestamp,
-              u = t.type,
-              c = { name: i, deleted: n };
-            if (
-              (e != null && (c.color = e),
-              l != null && (c.predefinedId = l),
-              a != null && (c.isActive = a),
-              u != null)
-            ) {
-              var d = o(
-                "WAWebProtobufSyncAction.pb",
-              ).SyncActionValue$LabelEditAction$ListType.cast(u);
-              d != null
-                ? (c.type = d)
-                : o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "getLabelMutation: type has unexpected value: ",
-                        "",
-                      ])),
-                    u,
-                  );
-            }
+              a = t.name,
+              i = t.predefinedId,
+              l = t.timestamp,
+              s = { name: a, deleted: n };
             return (
+              e != null && (s.color = e),
+              i != null && (s.predefinedId = i),
+              t.deleted || b(s, t),
               o("WAWebWamLabelSyncTrackingReporter")
                 .generateLabelEditHash(r)
                 .then(function (e) {
@@ -549,19 +549,19 @@ __d(
                     t.LABEL_SYNC_DIRECTION_TYPE.SENDER,
                     t.LABEL_SYNC_RESULT_TYPE.SUCCESS,
                     !n,
-                    s,
-                    void 0,
                     l,
+                    void 0,
+                    i,
                   );
                 }),
               o("WAWebSyncdActionUtils").buildPendingMutation({
                 collection: this.collectionName,
                 indexArgs: [r],
-                value: { labelEditAction: c },
+                value: { labelEditAction: s },
                 version: this.getVersion(),
                 operation: o("WAWebProtobufsServerSync.pb")
                   .SyncdMutation$SyncdOperation.SET,
-                timestamp: s,
+                timestamp: l,
                 action: this.getAction(),
               })
             );
@@ -569,8 +569,8 @@ __d(
           t
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      v = new b();
-    l.default = v;
+      S = new v();
+    l.default = S;
   },
   98,
 );

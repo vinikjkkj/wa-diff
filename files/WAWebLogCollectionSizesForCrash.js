@@ -1,6 +1,7 @@
 __d(
   "WAWebLogCollectionSizesForCrash",
   [
+    "WAWebAICrashAnnotationGate",
     "WAWebChatCollection",
     "WAWebLogForCrash",
     "WAWebMsgCollection",
@@ -9,9 +10,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = 6e4;
     function s() {
-      o("WAWebLogForCrash").onLogForCrashReady(function () {
-        (u(), self.setInterval(u, e));
-      });
+      o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+        "wa:pop",
+        function () {
+          return o("WAWebLogForCrash").onLogForCrashReady(function () {
+            return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+              "wa:pop",
+              function () {
+                (u(), self.setInterval(u, e));
+              },
+            );
+          });
+        },
+      );
     }
     function u() {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
@@ -27,7 +38,7 @@ __d(
         },
       );
     }
-    l.initCollectionSizesCrashLogging = s;
+    l.annotateCrashWithCollectionSizes = s;
   },
   98,
 );

@@ -19,31 +19,52 @@ __d(
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "element",
+          name: "bid_amount_long",
           storageKey: null,
         },
         a = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "header_type",
+          name: "currency",
           storageKey: null,
         },
         i = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "type",
+          name: "cta_url_link_tracking_opted_out",
           storageKey: null,
         },
         l = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "text",
+          name: "element",
           storageKey: null,
         },
         s = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "header_type",
+          storageKey: null,
+        },
+        u = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "type",
+          storageKey: null,
+        },
+        c = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "text",
+          storageKey: null,
+        },
+        d = {
           alias: null,
           args: null,
           concreteType: "XFBWhatsAppHSMComponentGet",
@@ -51,8 +72,8 @@ __d(
           name: "hsm_components",
           plural: !0,
           selections: [
-            i,
-            l,
+            u,
+            c,
             {
               alias: null,
               args: null,
@@ -86,8 +107,8 @@ __d(
               name: "buttons",
               plural: !0,
               selections: [
-                i,
-                l,
+                u,
+                c,
                 {
                   alias: null,
                   args: null,
@@ -108,7 +129,7 @@ __d(
           ],
           storageKey: null,
         },
-        u = {
+        m = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -143,6 +164,8 @@ __d(
                       name: "broadcast_insights",
                       plural: !1,
                       selections: [
+                        o,
+                        a,
                         {
                           alias: null,
                           args: null,
@@ -150,7 +173,7 @@ __d(
                           kind: "LinkedField",
                           name: "template",
                           plural: !1,
-                          selections: [o, a, s],
+                          selections: [i, l, s, d],
                           storageKey: null,
                         },
                       ],
@@ -201,6 +224,8 @@ __d(
                       name: "broadcast_insights",
                       plural: !1,
                       selections: [
+                        o,
+                        a,
                         {
                           alias: null,
                           args: null,
@@ -208,7 +233,7 @@ __d(
                           kind: "LinkedField",
                           name: "template",
                           plural: !1,
-                          selections: [o, a, s, u],
+                          selections: [i, l, s, d, m],
                           storageKey: null,
                         },
                       ],
@@ -218,7 +243,7 @@ __d(
                   type: "XFBWhatsAppBusinessMMLiteCampaign",
                   abstractKey: null,
                 },
-                u,
+                m,
               ],
               storageKey: null,
             },

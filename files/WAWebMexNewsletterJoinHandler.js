@@ -94,7 +94,9 @@ __d(
           (yield o(
             "WAWebNewsletterUpdateNewslettersRecordsJob",
           ).updateNewsletterChatRecords([
-            o("WAWebCreateChat").createNewsletterObjectForStorage(t),
+            o("WAWebCreateChat").createNewsletterObjectForStorage(
+              babelHelpers.extends({}, t, { unreadCount: 0 }),
+            ),
           ]),
             yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
               o(

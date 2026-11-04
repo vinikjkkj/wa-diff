@@ -2,35 +2,44 @@ __d(
   "WAWebGroupServerSentInviteEligibility",
   ["WAWebABProps", "WAWebOutContactServerSentInviteEligibility"],
   function (t, n, r, o, a, i, l) {
-    var e = 1;
-    function s(e) {
+    var e = 1,
+      s = 10;
+    function u(e) {
       return (
-        c(e) &&
+        m(e.length) &&
+        c() &&
+        e.every(
+          o("WAWebOutContactServerSentInviteEligibility")
+            .isServerSentInviteReceiverEligible,
+        ) &&
+        d()
+      );
+    }
+    function c() {
+      return (
         o(
           "WAWebOutContactServerSentInviteEligibility",
         ).isServerSentInviteSenderEligible() &&
         o(
           "WAWebOutContactServerSentInviteEligibility",
-        ).isServerSentInviteSenderPushNameEligible() &&
-        o(
-          "WAWebOutContactServerSentInviteEligibility",
-        ).isServerSentInviteReceiverEligible(e[0]) &&
-        u()
+        ).isServerSentInviteSenderPushNameEligible()
       );
     }
-    function u() {
+    function d() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "server_sent_invites_for_groups_web_enabled",
         ) === e
       );
     }
-    function c(e) {
-      return e.length === 1;
+    function m(e) {
+      return e > 0 && e <= s;
     }
-    ((l.isGroupServerSentInviteEligible = s),
-      (l.isGroupServerSentInviteAbPropEnabled = u),
-      (l.isSingleGroupInvitee = c));
+    ((l.GROUP_SSI_MAX_INVITEES = s),
+      (l.isGroupServerSentInviteEligible = u),
+      (l.isGroupServerSentInviteSenderEligible = c),
+      (l.isGroupServerSentInviteAbPropEnabled = d),
+      (l.isGroupServerSentInviteCountAllowed = m));
   },
   98,
 );

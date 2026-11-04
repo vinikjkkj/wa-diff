@@ -1,10 +1,10 @@
 __d(
   "enqueueMutation",
   ["RelayMutationQueue"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = l();
-    function l() {
+    var e = s();
+    function s() {
       if (typeof WeakMap == "function") return new WeakMap();
       if (typeof Map == "function") return new Map();
       var e = ReferenceError(
@@ -12,17 +12,18 @@ __d(
       );
       throw (e.stack, e);
     }
-    function s(t, r) {
+    function u(t, n) {
       var o = e.get(t);
       return (
-        o || ((o = new (n("RelayMutationQueue"))(t)), e.set(t, o)),
-        o.push(r)
+        o || ((o = new (r("RelayMutationQueue"))(t)), e.set(t, o)),
+        o.push(n)
       );
     }
-    function u(t) {
+    function c(t) {
       return e.get(t);
     }
-    a.exports = { __internal: { getMutationQueue: u }, enqueueMutation: s };
+    var d = { getMutationQueue: c };
+    ((l.__internal = d), (l.enqueueMutation = u));
   },
-  null,
+  98,
 );

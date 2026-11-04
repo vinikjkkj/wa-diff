@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebGroupServerSentInviteEligibility",
     "WAWebMexGroupStoreInviteSmsJob",
     "WAWebWidFactory",
     "WAWebWidToJid",
@@ -45,12 +46,23 @@ __d(
         [s._plural(e)],
       );
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    function f() {
+      return s._(
+        /*BTDS*/ "You can invite up to {max_invitees} people who aren't on WhatsApp at a time",
+        [
+          s._param(
+            "max_invitees",
+            o("WAWebGroupServerSentInviteEligibility").GROUP_SSI_MAX_INVITEES,
+          ),
+        ],
+      );
     }
-    function g() {
+    function g(e, t, n) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           try {
             var a = n.map(function (e) {
               return {
@@ -79,7 +91,7 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.getInviteMessageText = c),
@@ -87,7 +99,8 @@ __d(
       (l.getInviteMessageTextWithCode = m),
       (l.getMultiGroupInviteMessageText = p),
       (l.getGroupInviteAddFailedToastText = _),
-      (l.storeMultiGroupInviteSms = f));
+      (l.getGroupInviteLimitToastText = f),
+      (l.storeMultiGroupInviteSms = g));
   },
   226,
 );

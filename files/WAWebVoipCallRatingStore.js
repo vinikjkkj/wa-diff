@@ -53,9 +53,10 @@ __d(
         c = e.jsonDataStr,
         d = e.lobbyEntryPoint,
         m = e.lobbyVisibleForMs,
-        p = e.tabStateAtOffer,
-        _ = e.unifiedSessionIdAtCallStart,
-        f = {
+        p = e.oneToOneOfferCallId,
+        _ = e.tabStateAtOffer,
+        f = e.unifiedSessionIdAtCallStart,
+        g = {
           calleeOfferToRingT: t,
           callEnterPipModeCount: n,
           callFromUi: r,
@@ -67,10 +68,11 @@ __d(
           jsonDataStr: c,
           lobbyEntryPoint: d,
           lobbyVisibleForMs: m,
-          tabStateAtOffer: p,
-          unifiedSessionIdAtCallStart: _,
+          oneToOneOfferCallId: p,
+          tabStateAtOffer: _,
+          unifiedSessionIdAtCallStart: f,
         };
-      return ((s = f), f);
+      return ((s = g), g);
     }
     function p() {
       return s;

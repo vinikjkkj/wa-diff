@@ -5,6 +5,7 @@ __d(
     "WAWebGroupHistoryNewMemberSurface",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryRestrictionHelper",
+    "WAWebGroupHistorySenderUserJourneyLogger",
     "WAWebGroupHistorySentOnceAction",
     "WAWebSendHistoryBundleAction",
     "WAWebWamEnumBundleSendSource",
@@ -36,18 +37,12 @@ __d(
               ]),
               c = u.historyReceivers,
               d = u.nonHistoryReceivers;
-            c.length !== 0 &&
-              (o(
+            if (c.length !== 0) {
+              o(
                 "WAWebGroupHistoryGating",
               ).isGroupHistorySendOnceDefaultOnEnabled() &&
-                o("WAWebGroupHistorySentOnceAction").markGroupHistorySentOnce(),
-              yield o("WAWebSendHistoryBundleAction").sendHistoryBundleAction(
-                o("WAWebWidToJid").widToGroupJid(r.id),
-                c,
-                d,
-                i.selectedMessageCount,
-                i.targetStartMessageTime,
-                babelHelpers.extends(
+                o("WAWebGroupHistorySentOnceAction").markGroupHistorySentOnce();
+              var m = babelHelpers.extends(
                   {},
                   o(
                     "WAWebGroupHistoryNewMemberSurface",
@@ -58,7 +53,20 @@ __d(
                     recipientCount: e,
                   },
                 ),
-              ));
+                p = yield o(
+                  "WAWebSendHistoryBundleAction",
+                ).sendHistoryBundleAction(
+                  o("WAWebWidToJid").widToGroupJid(r.id),
+                  c,
+                  d,
+                  i.selectedMessageCount,
+                  i.targetStartMessageTime,
+                  m,
+                );
+              o(
+                "WAWebGroupHistorySenderUserJourneyLogger",
+              ).GroupHistorySenderUserJourneyLogger.sendAcked(m, p);
+            }
           }
         })),
         u.apply(this, arguments)

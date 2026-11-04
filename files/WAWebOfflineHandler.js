@@ -18,7 +18,6 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebStorageCrashAnnotations",
-    "WAWebWamOfflineResumeReporter",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -82,7 +81,7 @@ __d(
               ),
               o(
                 "WAWebStorageCrashAnnotations",
-              ).logOfflineResumeMessagesForCrash(t),
+              ).annotateCrashWithOfflineResumeMessages(t),
               this.$13(),
               (this.$9 = !o("WAWebRuntimeEnvironmentUtils").isServiceWorker()),
               this.$1 != null)
@@ -214,48 +213,64 @@ __d(
             return this.offlineResumeManager.resumeType;
           }),
           (r.$13 = function () {
-            ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0), (this.$11 = null));
+            ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0));
+            var e = this.$11;
+            e != null &&
+              ((this.$11 = null),
+              o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchAbandoned(
+                e,
+              ));
           }),
           (r.$16 = function () {
-            ((this.$11 = self.performance.now()),
-              o(
-                "WAWebWamOfflineResumeReporter",
-              ).OfflineResumeReporter.logOfflineBatchRequest(),
-              o(
-                "WAWebOfflineSyncQplSession",
-              ).OfflineSyncQpl.markBatchRequest());
+            var e = o(
+              "WAWebOfflineSyncQplSession",
+            ).OfflineSyncQpl.markBatchRequest();
+            return ((this.$11 = e), e);
           }),
+          (r.$17 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this.$16();
+                (yield o("WASmaxOfflineBatchRPC").sendBatchRPC({
+                  offlineBatchCount: e,
+                }),
+                  o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchSent(
+                    t,
+                  ));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (r.$15 = function () {
             var e = this.$11;
             e != null &&
               ((this.$11 = null),
-              o(
-                "WAWebWamOfflineResumeReporter",
-              ).OfflineResumeReporter.logOfflineBatchArrival(
-                self.performance.now() - e,
-              ),
-              o(
-                "WAWebOfflineSyncQplSession",
-              ).OfflineSyncQpl.markBatchArrived());
+              o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchArrived(
+                e,
+              ));
           }),
-          (r.$17 = (function () {
+          (r.$18 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = self.performance.now();
+              var e = o(
+                "WAWebOfflineSyncQplSession",
+              ).OfflineSyncQpl.markReadyWaitStart();
               (yield o(
                 "WAWebEventsWaitForReadyForOffline",
               ).waitForOfflineProcessReady(),
-                o(
-                  "WAWebWamOfflineResumeReporter",
-                ).OfflineResumeReporter.logOfflineBatchReadyWait(
-                  self.performance.now() - e,
-                ));
+                e &&
+                  o(
+                    "WAWebOfflineSyncQplSession",
+                  ).OfflineSyncQpl.markReadyWaitEnd());
             });
             function t() {
               return e.apply(this, arguments);
             }
             return t;
           })()),
-          (r.$18 = function (t, n) {
+          (r.$19 = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = n === !0 || this.$10 === 0;
@@ -269,19 +284,16 @@ __d(
                       ])),
                     this.$3,
                   ),
-                  o("WASmaxOfflineBatchRPC").sendBatchRPC({
-                    offlineBatchCount: t,
-                  }),
-                  this.$16(),
+                  this.$17(t),
                   (this.$10 = Date.now()),
                   (this.$8 = 0),
                   (this.$4 = !0),
                   (this.$5 = !1))
                 : (this.$12 = self.setTimeout(function () {
-                    e.$19();
+                    e.$20();
                   }, v)));
           }),
-          (r.$19 = (function () {
+          (r.$20 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 e === void 0 && (e = !1);
@@ -322,9 +334,9 @@ __d(
                       ])),
                   ),
                     (this.$5 = !0),
-                    yield this.$17());
+                    yield this.$18());
                   var r = y;
-                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$18(k(r), n));
+                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$19(k(r), n));
                 }
               },
             );
@@ -340,7 +352,7 @@ __d(
                   (e === void 0 && (e = !1),
                   !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
                 ) {
-                  if (this.$9) return this.$19(e);
+                  if (this.$9) return this.$20(e);
                   if (this.isResumeComplete() || this.$4 || this.$5) {
                     this.isResumeComplete() ||
                       o("WALogger").LOG(
@@ -365,11 +377,8 @@ __d(
                         ])),
                     ),
                     (this.$5 = !0),
-                    yield this.$17(),
-                    o("WASmaxOfflineBatchRPC").sendBatchRPC({
-                      offlineBatchCount: y,
-                    }),
-                    this.$16(),
+                    yield this.$18(),
+                    this.$17(y),
                     (this.$5 = !1),
                     (this.$4 = !0),
                     o("WALogger").LOG(

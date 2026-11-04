@@ -1,6 +1,7 @@
 __d(
   "WAWebUprWamLogger",
   [
+    "$InternalEnum",
     "Promise",
     "WALogger",
     "WAWebBuyerEventLogger",
@@ -31,7 +32,7 @@ __d(
       C = "group",
       b = "broadcast",
       v = "newsletter",
-      S = Object.freeze({
+      S = n("$InternalEnum")({
         OPEN_PAYMENT_LINK: "open_payment_link",
         COPY_PAYMENT_KEY: "copy_payment_key",
         VIEW_PAYMENT_OPTIONS: "view_payment_options",

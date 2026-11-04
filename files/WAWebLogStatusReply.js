@@ -18,10 +18,10 @@ __d(
     "use strict";
     function e(e) {
       var t = e.isGroupStatus,
-        a = e.isQuickReply,
-        i = e.mediaHeight,
-        l = e.mediaWidth,
-        s = e.msg,
+        a = e.mediaHeight,
+        i = e.mediaWidth,
+        l = e.msg,
+        s = e.quickReplySource,
         u = e.replyType,
         c = e.result,
         d = e.sessionId,
@@ -36,7 +36,7 @@ __d(
               ).getIsMyContact(m),
             }
           : {},
-        g = !!o("WAWebMsgGetters").getStatusMentioned(s),
+        g = !!o("WAWebMsgGetters").getStatusMentioned(l),
         h = o("WAWebFrontendContactGetters").getIsMyContact(m),
         y = t ? r("WAWebGroupMetadataCollection").get(m.id) : null,
         C = t && y != null && y.isTrusted(),
@@ -50,14 +50,14 @@ __d(
             .STATUS_POSTER_CONTACT_TYPE.TRUSTED_GROUP_MEMBER),
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
-            n = yield o("WAWebStatusLoggingUtils").statusIdForLogging(s),
+            n = yield o("WAWebStatusLoggingUtils").statusIdForLogging(l),
             r = new (o("WAWebStatusReplyWamEvent").StatusReplyWamEvent)(
               babelHelpers.extends(
                 {
                   isMentioned: g,
-                  isRecentQuickReplyUsed: a,
-                  mediaHeight: i,
-                  mediaWidth: l,
+                  mediaHeight: a,
+                  mediaWidth: i,
+                  quickReplySource: s,
                   replyEntryMethod: o("WAWebWamEnumReplyEntryMethod")
                     .REPLY_ENTRY_METHOD.TAP_REPLY_BAR,
                   statusCategory: t

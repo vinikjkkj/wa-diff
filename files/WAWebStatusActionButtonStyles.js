@@ -47,6 +47,15 @@ __d(
           $$css: !0,
         },
         iconColourOverMedia: { color: "x17t9dm2", $$css: !0 },
+        reshareButtonSpacing: {
+          marginInlineStart: "xyxtwap",
+          marginInlineEnd: "x14z9mp",
+          $$css: !0,
+        },
+        protectedTrailingActionAfterReshareSpacing: {
+          marginInlineStart: "x150mmf0",
+          $$css: !0,
+        },
         square26Svg: { height: "xd7y6wv", width: "x23j0i4", $$css: !0 },
         square26SvgCentered: {
           alignItems: "x6s0dn4",

@@ -567,7 +567,14 @@ __d(
             _ = a.referenceId,
             f = p[0].id,
             g = d(c, f),
-            h = x(a, l, _, n, u, s),
+            h = x({
+              offset: n,
+              orderInfo: a,
+              orderStatus: l,
+              paymentMethod: s,
+              paymentStatus: u,
+              referenceId: _,
+            }),
             y = o("WAWebOrderStatus").findOrderDetailsMessage(t, _),
             C = y == null ? void 0 : y.msgContextInfo(t.id);
           yield m({
@@ -588,38 +595,44 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x(e, t, n, r, a, i) {
-      var l = e.items.map(function (e) {
-          var t;
+    function x(e) {
+      var t = e.offset,
+        n = e.orderInfo,
+        r = e.orderStatus,
+        a = e.paymentMethod,
+        i = e.paymentStatus,
+        l = e.referenceId,
+        s = n.items.map(function (e) {
+          var n;
           return {
             retailer_id: e.id,
             name: e.name,
-            amount: { value: (t = e.amount) != null ? t : 0, offset: r },
+            amount: { value: (n = e.amount) != null ? n : 0, offset: t },
             quantity: e.quantity,
             isCustomItem: e.isCustomItem,
             isQuantitySet: e.isQuantitySet,
           };
         }),
-        s = {
-          reference_id: n,
+        u = {
+          reference_id: l,
           payment_timestamp: o("WATimeUtils").unixTime(),
-          currency: e.currency,
-          payment_status: a,
-          total_amount: { value: e.totalAmount, offset: r },
+          currency: n.currency,
+          payment_status: i,
+          total_amount: { value: n.totalAmount, offset: t },
           order: {
-            status: t,
-            items: l,
-            subtotal: { value: Number(e.subtotal), offset: r },
-            tax: e.tax == null ? void 0 : { value: e.tax, offset: r },
+            status: r,
+            items: s,
+            subtotal: { value: Number(n.subtotal), offset: t },
+            tax: n.tax == null ? void 0 : { value: n.tax, offset: t },
             shipping:
-              e.shipping == null ? void 0 : { value: e.shipping, offset: r },
+              n.shipping == null ? void 0 : { value: n.shipping, offset: t },
             discount:
-              e.discount == null ? void 0 : { value: e.discount, offset: r },
+              n.discount == null ? void 0 : { value: n.discount, offset: t },
           },
         };
       return (
-        i != null && (s = babelHelpers.extends({}, s, { payment_method: i })),
-        s
+        a != null && (u = babelHelpers.extends({}, u, { payment_method: a })),
+        u
       );
     }
     function $(e) {
@@ -640,7 +653,14 @@ __d(
             _ = i.referenceId,
             f = (t = i.items.at(0)) == null ? void 0 : t.id,
             g = d(p, f),
-            h = x(i, s, _, a, c, u),
+            h = x({
+              offset: a,
+              orderInfo: i,
+              orderStatus: s,
+              paymentMethod: u,
+              paymentStatus: c,
+              referenceId: _,
+            }),
             y = o("WAWebOrderStatus").findOrderDetailsMessage(n, _),
             C = y == null ? void 0 : y.msgContextInfo(n.id);
           yield m({
@@ -678,7 +698,14 @@ __d(
             p = i.referenceId,
             _ = (t = i.items.at(0)) == null ? void 0 : t.id,
             f = d(c, _),
-            g = x(i, l, p, a, u, s),
+            g = x({
+              offset: a,
+              orderInfo: i,
+              orderStatus: l,
+              paymentMethod: s,
+              paymentStatus: u,
+              referenceId: p,
+            }),
             h = o("WAWebOrderStatus").findOrderDetailsMessage(n, p),
             y = h == null ? void 0 : h.msgContextInfo(n.id);
           yield m({

@@ -8,6 +8,7 @@ __d(
         BUILD_TYPE: "windowsBuildType",
         IS_WINDOWS: "windows",
         OFFLINE: "windows_offline",
+        PREV_RENDERER_FAILURE: "windowsPrevRendererFailure",
       },
       l = [e.BUILD, e.BUILD_TYPE, e.IS_WINDOWS, e.OFFLINE];
     ((i.WindowsQueryParam = e), (i.WINDOWS_QUERY_PARAMS = l));

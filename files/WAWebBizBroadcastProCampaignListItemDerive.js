@@ -229,7 +229,7 @@ __d(
         if (a.type === "URL" && l != null && r("WAWebURLUtils").isHttp(l))
           return {
             displayText: i,
-            linkTrackingEnabled: !1,
+            linkTrackingEnabled: e.cta_url_link_tracking_opted_out === !1,
             type: "cta_url",
             url: l,
           };

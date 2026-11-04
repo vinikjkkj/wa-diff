@@ -26,13 +26,11 @@ __d(
         ProcessComplete: "processComplete",
         QueueDrainEnd: "queue_drain_end",
         QueueDrainStart: "queue_drain_start",
+        ReadyWaitEnd: "offline_ready_wait_end",
+        ReadyWaitStart: "offline_ready_wait_start",
         SuccessReceived: "success_received",
       }),
-      _ = e({
-        Empty: "empty",
-        InitialSync: "initial_sync",
-        Superseded: "superseded",
-      });
+      _ = e({ Superseded: "superseded" });
     function f() {
       return o("WAWebRuntimeEnvironmentUtils").isServiceWorker()
         ? "service_worker"
@@ -47,19 +45,19 @@ __d(
     }
     var h = (function () {
         function e() {
-          ((this.$1 = 0), (this.$2 = 0), (this.$3 = null), (this.$4 = null));
+          ((this.$1 = 0), (this.$2 = null), (this.$3 = null), (this.$4 = !1));
         }
         var t = e.prototype;
         return (
           (t.setCommsInWorkerExpoKey = function (t) {
-            this.$3 = t;
+            this.$2 = t;
           }),
           (t.begin = function (t) {
             var e, n, r;
             (this.$5(_.Superseded),
-              (this.$2 = 0),
               (this.$1 = 0),
-              (this.$4 = o("QPLFlow").startQPLFlow(s, {
+              (this.$4 = !1),
+              (this.$3 = o("QPLFlow").startQPLFlow(s, {
                 annotations: {
                   bool: {
                     comms_in_worker: o("WAWebABProps").getABPropConfigValue(
@@ -68,7 +66,7 @@ __d(
                   },
                   string: {
                     comms_in_worker_expo_key:
-                      (e = this.$3) != null ? e : void 0,
+                      (e = this.$2) != null ? e : void 0,
                     entry_point: t.entryPoint.valueOf(),
                     guest_experience_type:
                       (n = t.guestExperienceType) != null ? n : void 0,
@@ -83,35 +81,49 @@ __d(
           }),
           (t.mark = function (t, n) {
             var e;
-            (e = this.$4) == null || e.addPoint(t.valueOf(), n);
+            (e = this.$3) == null || e.addPoint(t.valueOf(), n);
           }),
           (t.addPoint = function (t) {
             var e;
-            (e = this.$4) == null || e.addPoint(t);
+            (e = this.$3) == null || e.addPoint(t);
           }),
           (t.markBatchRequest = function () {
-            (this.$2++, this.$6("batch_request", this.$2));
+            return (this.$1++, this.$6("batch_request", this.$1), this.$1);
           }),
-          (t.markBatchArrived = function () {
-            (this.$1++, this.$6("batch_arrived", this.$1));
+          (t.markBatchSent = function (t) {
+            this.$6("batch_sent", t);
+          }),
+          (t.markBatchArrived = function (t) {
+            this.$6("batch_arrived", t);
+          }),
+          (t.markBatchAbandoned = function (t) {
+            this.$6("batch_abandoned", t);
+          }),
+          (t.markReadyWaitStart = function () {
+            return this.$4
+              ? !1
+              : ((this.$4 = !0), this.mark(p.ReadyWaitStart), !0);
+          }),
+          (t.markReadyWaitEnd = function () {
+            this.mark(p.ReadyWaitEnd);
           }),
           (t.addAnnotations = function (t) {
             var e;
-            (e = this.$4) == null || e.addAnnotations(t);
+            (e = this.$3) == null || e.addAnnotations(t);
           }),
           (t.endSuccess = function (t) {
-            this.$4 != null && (this.$4.endSuccess(t), (this.$4 = null));
+            this.$3 != null && (this.$3.endSuccess(t), (this.$3 = null));
           }),
           (t.endFail = function (t, n) {
             this.$5(t, n);
           }),
           (t.$6 = function (t, n) {
             var e;
-            n > c || (e = this.$4) == null || e.addPoint(t + "_" + n);
+            n > c || (e = this.$3) == null || e.addPoint(t + "_" + n);
           }),
           (t.$5 = function (t, n) {
-            var e = this.$4;
-            e != null && (e.endFail(t.valueOf(), n), (this.$4 = null));
+            var e = this.$3;
+            e != null && (e.endFail(t.valueOf(), n), (this.$3 = null));
           }),
           e
         );

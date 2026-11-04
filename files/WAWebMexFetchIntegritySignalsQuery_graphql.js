@@ -39,6 +39,13 @@ __d(
                   name: "is_new_account",
                   storageKey: null,
                 },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "join_date_ms",
+                  storageKey: null,
+                },
               ],
               type: "XWA2IntegritySignals",
               abstractKey: null,
@@ -103,7 +110,7 @@ __d(
           ],
         },
         params: {
-          id: "26438847999065394",
+          id: "28951872044481435",
           metadata: {},
           name: "WAWebMexFetchIntegritySignalsQuery",
           operationKind: "query",

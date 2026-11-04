@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebChatGetters",
+    "WAWebCmd",
     "WAWebDrawerManager",
     "WAWebDrawerManagerGlobalContext",
     "WAWebInfoFlowLoadable",
@@ -22,8 +23,8 @@ __d(
         i = e.noFocus,
         l = e.profileEntryPoint,
         u = e.threadId,
-        c = e.uim,
-        d =
+        d = e.uim,
+        m =
           (t =
             (n = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "mid",
@@ -32,14 +33,14 @@ __d(
               : n.existsDrawer()) != null
             ? t
             : !1;
-      d ||
+      m ||
         (r.contact.isBusiness &&
           o("WAWebMessageLogQplEvents").qplStartProfileView("Header"),
         (o("WAWebChatGetters").getIsUser(r) ||
           o("WAWebChatGetters").getIsBroadcast(r) ||
           o("WAWebChatGetters").getIsGroup(r) ||
           o("WAWebChatGetters").getIsNewsletter(r)) &&
-          o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+          (o("WAWebDrawerManager").DrawerManager.openDrawerRight(
             o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
               ? {
                   descriptorType: "info_flow",
@@ -72,13 +73,17 @@ __d(
                 ),
             {
               transition: "slide-left",
-              uim: c,
+              uim: d,
               focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
               noFocus: i,
             },
-          ));
+          ),
+          c(a)));
     }
-    function c() {
+    function c(e) {
+      e === !0 && o("WAWebCmd").Cmd.settleRightDrawer();
+    }
+    function d() {
       var e,
         t,
         n =
@@ -92,7 +97,7 @@ __d(
             : !1;
       n && o("WAWebDrawerManager").DrawerManager.closeDrawerRight();
     }
-    ((l.openInfoPanel = u), (l.closeInfoPanel = c));
+    ((l.openInfoPanel = u), (l.closeInfoPanel = d));
   },
   98,
 );

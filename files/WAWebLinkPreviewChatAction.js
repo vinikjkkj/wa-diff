@@ -275,11 +275,11 @@ __d(
                   })
                 );
             } else {
-              P(
-                o("WAWebWamEnumWebcDisplayStatusType").WEBC_DISPLAY_STATUS_TYPE
-                  .PREVIEW_MALFORMED,
-                F,
-              );
+              P({
+                didRequestHq: F,
+                webcDisplayStatus: o("WAWebWamEnumWebcDisplayStatusType")
+                  .WEBC_DISPLAY_STATUS_TYPE.PREVIEW_MALFORMED,
+              });
               var U = o(
                 "WAWebGenMinimalLinkPreviewChatAction",
               ).genMinimalLinkPreview({
@@ -335,11 +335,11 @@ __d(
                       "link preview: timeout during link generation",
                     ])),
                 ),
-                P(
-                  o("WAWebWamEnumWebcDisplayStatusType")
+                P({
+                  didRequestHq: F,
+                  webcDisplayStatus: o("WAWebWamEnumWebcDisplayStatusType")
                     .WEBC_DISPLAY_STATUS_TYPE.PREVIEW_TIMEOUT,
-                  F,
-                ),
+                }),
                 o("WAWebGenMinimalLinkPreviewChatAction").genMinimalLinkPreview(
                   {
                     isLoading: !1,
@@ -376,27 +376,27 @@ __d(
       switch (e) {
         case o("WAWebProtobufsMmsRetry.pb").MediaRetryNotification$ResultType
           .DECRYPTION_ERROR:
-          P(
-            o("WAWebWamEnumWebcDisplayStatusType").WEBC_DISPLAY_STATUS_TYPE
-              .PREVIEW_DECRYPTION_ERROR,
-            t,
-          );
+          P({
+            didRequestHq: t,
+            webcDisplayStatus: o("WAWebWamEnumWebcDisplayStatusType")
+              .WEBC_DISPLAY_STATUS_TYPE.PREVIEW_DECRYPTION_ERROR,
+          });
           break;
         case o("WAWebProtobufsMmsRetry.pb").MediaRetryNotification$ResultType
           .NOT_FOUND:
-          P(
-            o("WAWebWamEnumWebcDisplayStatusType").WEBC_DISPLAY_STATUS_TYPE
-              .PREVIEW_NOT_FOUND,
-            t,
-          );
+          P({
+            didRequestHq: t,
+            webcDisplayStatus: o("WAWebWamEnumWebcDisplayStatusType")
+              .WEBC_DISPLAY_STATUS_TYPE.PREVIEW_NOT_FOUND,
+          });
           break;
         case o("WAWebProtobufsMmsRetry.pb").MediaRetryNotification$ResultType
           .GENERAL_ERROR:
-          P(
-            o("WAWebWamEnumWebcDisplayStatusType").WEBC_DISPLAY_STATUS_TYPE
-              .PREVIEW_GENERAL_ERROR,
-            t,
-          );
+          P({
+            didRequestHq: t,
+            webcDisplayStatus: o("WAWebWamEnumWebcDisplayStatusType")
+              .WEBC_DISPLAY_STATUS_TYPE.PREVIEW_GENERAL_ERROR,
+          });
           break;
         default:
           break;
@@ -472,35 +472,39 @@ __d(
                 ])),
             );
           return (
-            P(
-              o("WAWebWamEnumWebcDisplayStatusType").WEBC_DISPLAY_STATUS_TYPE
-                .SHOWED_PREVIEW_TO_USER,
-              n,
-              l != null,
-              s,
-            ),
+            P({
+              didFallbackNonHq: s,
+              didRequestHq: n,
+              didRespondHqPreview: l != null,
+              webcDisplayStatus: o("WAWebWamEnumWebcDisplayStatusType")
+                .WEBC_DISPLAY_STATUS_TYPE.SHOWED_PREVIEW_TO_USER,
+            }),
             i
           );
         })),
         $.apply(this, arguments)
       );
     }
-    function P(t, n, r, a) {
+    function P(t) {
+      var n = t.didFallbackNonHq,
+        r = t.didRequestHq,
+        a = t.didRespondHqPreview,
+        i = t.webcDisplayStatus;
       (o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
             "link preview: status ",
             "",
           ])),
-        t,
+        i,
       ),
         new (o(
           "WAWebWebcLinkPreviewDisplayWamEvent",
         ).WebcLinkPreviewDisplayWamEvent)({
-          webcDisplayStatus: t,
-          didRequestHq: n,
-          didRespondHqPreview: !!r,
-          didFallbackNonHq: !!a,
+          webcDisplayStatus: i,
+          didRequestHq: r,
+          didRespondHqPreview: !!a,
+          didFallbackNonHq: !!n,
         }).commit());
     }
     l.getLinkPreview = k;

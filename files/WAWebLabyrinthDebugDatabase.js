@@ -59,11 +59,11 @@ __d(
       );
     }
     function E() {
-      return r("gkx")("23871")
-        ? (S == null && (S = $()), S)
-        : (m || (m = n("Promise"))).reject(
-            r("err")("Labyrinth debug storage is disabled"),
-          );
+      return !r("gkx")("23871") && !r("gkx")("27715")
+        ? (m || (m = n("Promise"))).reject(
+            r("err")("Labyrinth storage is disabled"),
+          )
+        : (S == null && (S = $()), S);
     }
     function k() {
       return (v != null || s(0, 172847), v);

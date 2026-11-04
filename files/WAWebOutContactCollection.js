@@ -6,10 +6,12 @@ __d(
     "WAWebBaseCollection",
     "WAWebContactComparator",
     "WAWebContactSearchGatingUtils",
+    "WAWebGroupServerSentInviteEligibility",
     "WAWebL10NAccentFold",
     "WAWebOutContactInviteGating",
     "WAWebOutContactInviteGatingUtils",
     "WAWebOutContactModel",
+    "WAWebOutContactServerSentInviteEligibility",
     "WAWebPhoneNumberSearch",
     "WAWebSlicedMatcher",
   ],
@@ -25,6 +27,27 @@ __d(
           (n.getContacts = function () {
             return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
               ? [].concat(this.getModelsArray())
+              : [];
+          }),
+          (n.getGroupInviteContacts = function () {
+            if (o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
+              return [].concat(this.getModelsArray());
+            if (
+              !o(
+                "WAWebGroupServerSentInviteEligibility",
+              ).isGroupServerSentInviteSenderEligible()
+            )
+              return [];
+            var e = this.getModelsArray().filter(function (e) {
+              return o(
+                "WAWebOutContactServerSentInviteEligibility",
+              ).isServerSentInviteReceiverEligible(e.phoneNumber);
+            });
+            return e.length > 0 &&
+              o(
+                "WAWebGroupServerSentInviteEligibility",
+              ).isGroupServerSentInviteAbPropEnabled()
+              ? e
               : [];
           }),
           (n.getFilteredContacts = function (t) {

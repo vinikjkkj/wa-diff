@@ -800,6 +800,9 @@ __d(
           (i.setRightDrawerExpanded = function (t, n) {
             this.trigger("set_right_drawer_expanded", t, n);
           }),
+          (i.settleRightDrawer = function () {
+            this.trigger("settle_right_drawer");
+          }),
           (i.setActiveFilter = function (t, n, r) {
             this.trigger("set_active_filter", t, n, r);
           }),

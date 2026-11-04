@@ -229,6 +229,7 @@ __d(
         );
       },
       ACTIVITY_SUBSCRIBE: "/api/activity/subscribe",
+      API_KEY_AUTH_CALLBACK: "/api_key_auth/callback",
       APPROVALS_HISTORY: function (n, r) {
         return (
           "/approvals/history?record_schema=snapshot_v1&limit=" +

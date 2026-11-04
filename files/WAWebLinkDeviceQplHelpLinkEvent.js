@@ -104,11 +104,15 @@ __d(
     }
     function p(e, t, n, r) {
       return t != null
-        ? _(
-            e,
-            t.detectorVersion,
-            o("WAWebAndroidTabletVisitId").getOrCreateAndroidTabletVisitId(),
-            n,
+        ? babelHelpers.extends(
+            {},
+            _(
+              e,
+              t.detectorVersion,
+              o("WAWebAndroidTabletVisitId").getOrCreateAndroidTabletVisitId(),
+              n,
+            ),
+            r,
           )
         : r != null
           ? babelHelpers.extends(

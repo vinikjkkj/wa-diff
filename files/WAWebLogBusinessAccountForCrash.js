@@ -1,6 +1,7 @@
 __d(
   "WAWebLogBusinessAccountForCrash",
   [
+    "WAWebAICrashAnnotationGate",
     "WAWebLogForCrash",
     "WAWebMobilePlatforms",
     "WAWebSafeCrashAnnotation",
@@ -8,9 +9,19 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      o("WAWebLogForCrash").onLogForCrashReady(function () {
-        (s(), o("WAWebStreamModel").Stream.on("change:mode", s));
-      });
+      o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+        "wa:smb",
+        function () {
+          return o("WAWebLogForCrash").onLogForCrashReady(function () {
+            return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+              "wa:smb",
+              function () {
+                (s(), o("WAWebStreamModel").Stream.on("change:mode", s));
+              },
+            );
+          });
+        },
+      );
     }
     function s() {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
@@ -21,7 +32,7 @@ __d(
         },
       );
     }
-    l.initBusinessAccountCrashLogging = e;
+    l.annotateCrashWithBusinessAccount = e;
   },
   98,
 );

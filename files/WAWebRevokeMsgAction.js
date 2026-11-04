@@ -378,12 +378,15 @@ __d(
         );
       });
     }
-    function b(e, t, n) {
+    function b(e) {
+      var t = e.clearMedia,
+        n = e.msg,
+        r = e.type;
       return h({
-        clearMedia: n,
+        clearMedia: t,
         isAssociatedBotPluginRevoke: !1,
-        record: { type: "message", data: o("WAWebStateUtils").unproxy(e) },
-        type: t,
+        record: { type: "message", data: o("WAWebStateUtils").unproxy(n) },
+        type: r,
       });
     }
     function v(e, t) {

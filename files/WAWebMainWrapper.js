@@ -16,6 +16,7 @@ __d(
     "WAWebLogConnectionStateForCrash",
     "WAWebLogPifeExposure",
     "WAWebMain.react",
+    "WAWebMediaAv1Support",
     "WAWebMediaWorkerProxy",
     "WAWebNewsletterGatingUtils",
     "WAWebNoop",
@@ -73,6 +74,7 @@ __d(
         ),
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
           (n("cr:9486") == null || n("cr:9486")(),
+          o("WAWebMediaAv1Support").startAv1DecodingProbe(),
           (o("WAWebABProps").getABPropConfigValue(
             "web_use_kaleidoscope_media_check_enabled",
           ) ||
@@ -95,9 +97,9 @@ __d(
       }
       (c(),
         o("WAWebCrashAnnotations").initCrashAnnotations(),
-        o("WAWebLogCollectionSizesForCrash").initCollectionSizesCrashLogging(),
-        o("WAWebLogConnectionStateForCrash").initConnectionStateCrashLogging(),
-        o("WAWebLogBusinessAccountForCrash").initBusinessAccountCrashLogging(),
+        o("WAWebLogCollectionSizesForCrash").annotateCrashWithCollectionSizes(),
+        o("WAWebLogConnectionStateForCrash").annotateCrashWithConnectionState(),
+        o("WAWebLogBusinessAccountForCrash").annotateCrashWithBusinessAccount(),
         r("WAWebLogPifeExposure")(),
         o("WAWebPathfinderCrashLog").initPathfinderCrashLog());
       var a = n("WAWebMain.react");

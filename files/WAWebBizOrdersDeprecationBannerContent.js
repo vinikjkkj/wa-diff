@@ -12,6 +12,13 @@ __d(
           cxtEntrypointId: u,
           getDescription: C,
           getTitle: y,
+          isWarning: !0,
+        }),
+        CHARGES_ENDED: Object.freeze({
+          cxtEntrypointId: u,
+          getDescription: R,
+          getTitle: v,
+          isWarning: !0,
         }),
         ORDERS: Object.freeze({
           cxtEntrypointId: e,
@@ -25,7 +32,11 @@ __d(
           getTitle: g,
           isWarning: !0,
         }),
-        PAYMENTS_HOME: Object.freeze({ cxtEntrypointId: c, getDescription: b }),
+        PAYMENTS_HOME: Object.freeze({
+          cxtEntrypointId: c,
+          getDescription: b,
+          isWarning: !0,
+        }),
       });
     function _() {
       return s._(/*BTDS*/ "Orders tool is going away");
@@ -33,7 +44,7 @@ __d(
     function f() {
       return s._(
         /*BTDS*/ "Orders will not be available starting {end_date}. Customers will still be able to send orders via chat.",
-        [s._param("end_date", R())],
+        [s._param("end_date", L())],
       );
     }
     function g() {
@@ -42,7 +53,7 @@ __d(
     function h() {
       return s._(
         /*BTDS*/ "Complete accepted orders by {end_date}. You can't accept new orders but you can still manage them in chat.",
-        [s._param("end_date", L(m))],
+        [s._param("end_date", E(m))],
       );
     }
     function y() {
@@ -51,13 +62,13 @@ __d(
     function C() {
       return s._(
         /*BTDS*/ "Charges will not be available starting {end_date}. Customers will still be able to send charges via chat.",
-        [s._param("end_date", R())],
+        [s._param("end_date", L())],
       );
     }
     function b() {
       return s._(
         /*BTDS*/ "Charges function will not be available starting {end_date}. Customers will still be able to send charges via chat.",
-        [s._param("end_date", R())],
+        [s._param("end_date", L())],
       );
     }
     function v() {
@@ -70,14 +81,19 @@ __d(
       );
     }
     function R() {
-      return L(d);
+      return S(E(m));
     }
-    function L(e) {
+    function L() {
+      return E(d);
+    }
+    function E(e) {
       return new Intl.DateTimeFormat(r("WAWebL10N").getFullLocale(), {
         day: "numeric",
         month: "short",
         timeZone: "UTC",
-      }).format(new Date(e));
+      })
+        .format(new Date(e))
+        .replace(/ /g, "\xA0");
     }
     ((l.OrdersDeprecationBannerContents = p),
       (l.getChargesEndedTitle = v),

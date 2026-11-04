@@ -3,8 +3,9 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WALogger",
+    "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebSchemaChat",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,7 +21,35 @@ __d(
           .createNonPersistedJob(
             "updateNewsletterChatRecords",
             function () {
-              return o("WAWebSchemaChat").getChatTable().bulkCreateOrMerge(t);
+              return o("WAWebModelStorageUtils")
+                .getStorage()
+                .lock(
+                  ["chat"],
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var n = e[0],
+                          r = yield n.bulkGet(
+                            t.map(function (e) {
+                              var t = e.id;
+                              return t;
+                            }),
+                            !1,
+                          );
+                        yield n.bulkCreateOrMerge(
+                          t.map(function (e, t) {
+                            return r[t] == null
+                              ? babelHelpers.extends({ unreadCount: 0 }, e)
+                              : e;
+                          }),
+                        );
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                );
             },
             { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
           )
