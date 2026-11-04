@@ -109,106 +109,104 @@ __d(
             L,
             E,
             k,
-            I,
-            T,
-            D = r.adaptationSetId,
-            x = r.adaptationSetMimeType,
-            $ = r.adaptationSetXml,
-            P = r.representationIndex,
-            N = r.representationXml,
-            M = (n = N.$.id) != null ? n : D + "-#" + P,
-            w =
-              (a = (i = N.$.mimeType) != null ? i : $.$.mimeType) != null
+            I = r.adaptationSetId,
+            T = r.adaptationSetMimeType,
+            D = r.adaptationSetXml,
+            x = r.representationIndex,
+            $ = r.representationXml,
+            P = (n = $.$.id) != null ? n : I + "-#" + x,
+            N =
+              (a = (i = $.$.mimeType) != null ? i : D.$.mimeType) != null
                 ? a
                 : "";
-          if (w === "" || w !== x) {
-            var A, F;
+          if (N === "" || N !== T) {
+            var M, w;
             throw u(
               e,
               t,
               "MimeTypeMismatch",
               'Representation id="%s" Representation>@mimeType="%s" and AdaptationSet>@mimeType="%s" mismatch',
-              M,
-              (A = N.$.mimeType) != null ? A : "",
-              (F = $.$.mimeType) != null ? F : "",
+              P,
+              (M = $.$.mimeType) != null ? M : "",
+              (w = D.$.mimeType) != null ? w : "",
             );
           }
-          var O =
-            (l = (s = N.$.codecs) != null ? s : $.$.codecs) != null ? l : "";
-          if (O === "") {
-            var B, W;
+          var A =
+            (l = (s = $.$.codecs) != null ? s : D.$.codecs) != null ? l : "";
+          if (A === "") {
+            var F, O;
             e.logging.log(e, {
               error: u(
                 e,
                 t,
                 "CodecsMissingOrEmpty",
                 'Representation id="%s" Representation>@codecs="%s" and AdaptationSet>@codecs="%s" is missing or empty',
-                M,
-                (B = N.$.codecs) != null ? B : "",
-                (W = $.$.codecs) != null ? W : "",
+                P,
+                (F = $.$.codecs) != null ? F : "",
+                (O = D.$.codecs) != null ? O : "",
               ),
               type: "generic_error_as_warning",
             });
           }
-          var q = o("VideoPlayerNextgendashMediaUtils").parseMimeCodecs(
-            S(w, O),
+          var B = o("VideoPlayerNextgendashMediaUtils").parseMimeCodecs(
+            S(N, A),
           );
           if (
-            q.contentType === "" ||
-            q.contentType === "unknown" ||
-            q.containerType === ""
+            B.contentType === "" ||
+            B.contentType === "unknown" ||
+            B.containerType === ""
           ) {
-            var U, V, H, G;
+            var W, q, U, V;
             throw u(
               e,
               t,
               "MimeCodecsParsedUnexpected",
               'Representation id="%s" missing contentType or containerType: %s; AdaptationSet>@mimeType="%s", AdaptationSet>@codecs="%s", Representation>@mimeType="%s", Representation>@codecs="%s"',
-              M,
-              JSON.stringify(q),
+              P,
+              JSON.stringify(B),
+              (W = D.$.mimeType) != null ? W : "",
+              (q = D.$.codecs) != null ? q : "",
               (U = $.$.mimeType) != null ? U : "",
               (V = $.$.codecs) != null ? V : "",
-              (H = N.$.mimeType) != null ? H : "",
-              (G = N.$.codecs) != null ? G : "",
             );
           }
-          var z =
-              $.$.FBVariantKey === "und"
+          var H =
+              D.$.FBVariantKey === "und"
                 ? null
-                : (c = $.$.FBVariantKey) != null
+                : (c = D.$.FBVariantKey) != null
                   ? c
                   : null,
-            j = $.$.lang === "und" ? null : (d = $.$.lang) != null ? d : null,
-            K =
+            G = D.$.lang === "und" ? null : (d = D.$.lang) != null ? d : null,
+            z =
               (m =
-                (p = $.Role) == null || (p = p[0]) == null
+                (p = D.Role) == null || (p = p[0]) == null
                   ? void 0
                   : p.$.value) != null
                 ? m
                 : null,
-            Q = Number(N.$.bandwidth);
-          if (!Number.isFinite(Q) || Q <= 0)
+            j = Number($.$.bandwidth);
+          if (!Number.isFinite(j) || j <= 0)
             throw u(
               e,
               t,
               "RepresentationBandwidthInvalid",
               'Representation id="%s" Representation>@bandwidth is missing or invalid: %s',
-              M,
-              N.$.bandwidth,
+              P,
+              $.$.bandwidth,
             );
-          var X = N.$.FBPlaybackResolutionMos,
-            Y = N.$.FBPlaybackResolutionCsvqm,
-            J = e.config.cacheQualityScoreInRepresentation,
-            Z =
-              J && X != null
-                ? o("QualityScoreUtils").parseQualityScoreCurve(X)
+          var K = $.$.FBPlaybackResolutionMos,
+            Q = $.$.FBPlaybackResolutionCsvqm,
+            X = e.config.cacheQualityScoreInRepresentation,
+            Y =
+              X && K != null
+                ? o("QualityScoreUtils").parseQualityScoreCurve(K)
                 : null,
-            ee =
-              J && Y != null
-                ? o("QualityScoreUtils").parseQualityScoreCurve(Y)
+            J =
+              X && Q != null
+                ? o("QualityScoreUtils").parseQualityScoreCurve(Q)
                 : null,
-            te = N.$.FBQualityLabel,
-            ne = ((h = N.$.FBAbrPolicyTags) != null ? h : "")
+            Z = $.$.FBQualityLabel,
+            ee = ((h = $.$.FBAbrPolicyTags) != null ? h : "")
               .split(",")
               .map(function (e) {
                 return e.trim();
@@ -216,137 +214,117 @@ __d(
               .filter(function (e) {
                 return e !== "";
               }),
-            re = (R = N.ContentProtection) != null ? R : $.ContentProtection,
-            oe =
-              re == null ||
-              (L = re.map(function (e) {
-                var t,
-                  n = e.$.schemeIdUri;
-                return n == null
-                  ? null
-                  : {
-                      cencPsshBase64:
-                        (t = e["cenc:pssh"]) == null ||
-                        (t = t[0]) == null ||
-                        (t = t._) == null
-                          ? void 0
-                          : t.replace(/-/g, "+").replace(/_/g, "/"),
-                      schemeIdUri: n,
-                    };
-              })) == null
-                ? void 0
-                : L.filter(Boolean),
-            ae =
-              (E =
-                (k = N.BaseURL) == null || (k = k[0]) == null ? void 0 : k._) !=
+            te =
+              (R =
+                (L = $.BaseURL) == null || (L = L[0]) == null ? void 0 : L._) !=
               null
-                ? E
+                ? R
                 : g;
-          if (ae == null)
+          if (te == null)
             throw u(
               e,
               t,
               "RepresentationBaseURLMissingAndNoFallback",
               'Representation id="%s" Representation>BaseURL is missing and no fallback was provided',
-              M,
+              P,
             );
-          var ie,
-            le = (I = N.SegmentBase) == null ? void 0 : I[0],
-            se = (T = N.SegmentTemplate) == null ? void 0 : T[0];
-          if (le != null) {
-            var ue,
-              ce = (ue = le.Initialization) == null ? void 0 : ue[0];
-            if (ce == null)
+          var ne,
+            re = (E = $.SegmentBase) == null ? void 0 : E[0],
+            oe = (k = $.SegmentTemplate) == null ? void 0 : k[0];
+          if (re != null) {
+            var ae,
+              ie = (ae = re.Initialization) == null ? void 0 : ae[0];
+            if (ie == null)
               throw u(
                 e,
                 t,
                 "SegmentBaseInitializationMissing",
                 'Representation id="%s" SegmentBase>Initialization is missing',
-                M,
+                P,
               );
-            var de = v(
+            var le = v(
                 e,
                 t,
-                M,
+                P,
                 "SegmentBase>Initialization>@range",
-                ce.$.range,
+                ie.$.range,
               ),
-              me = v(e, t, M, "SegmentBase>@indexRange", le.$.indexRange);
-            if (le.$.indexRangeExact === "false")
+              se = v(e, t, P, "SegmentBase>@indexRange", re.$.indexRange);
+            if (re.$.indexRangeExact === "false")
               throw u(
                 e,
                 t,
                 "SegmentBaseIndexRangeExactFalseUnsupported",
                 'Representation id="%s" SegmentBase>@indexRangeExact="false" is unsupported',
-                M,
+                P,
               );
-            ie = {
-              baseURL: ae,
+            ne = {
+              baseURL: te,
               indexByteRange: o(
                 "VideoPlayerNextgendashMediaUtils",
-              ).makeByteRangeFromStartEndByteIndex(e, me[0], me[1]),
+              ).makeByteRangeFromStartEndByteIndex(e, se[0], se[1]),
               initByteRange: o(
                 "VideoPlayerNextgendashMediaUtils",
-              ).makeByteRangeFromStartEndByteIndex(e, de[0], de[1]),
+              ).makeByteRangeFromStartEndByteIndex(e, le[0], le[1]),
               type: "SegmentBase",
             };
-          } else if (se != null) {
-            var pe,
-              _e = se.$.media;
-            if (_e == null)
+          } else if (oe != null) {
+            var ue,
+              ce = oe.$.media;
+            if (ce == null)
               throw u(
                 e,
                 t,
                 "SegmentTemplateMediaMissing",
                 'Representation id="%s" SegmentTemplate>@media is missing',
-                M,
+                P,
               );
-            var fe = se.$.initialization;
-            if (fe == null)
+            var de = oe.$.initialization;
+            if (de == null)
               throw u(
                 e,
                 t,
                 "SegmentTemplateInitializationMissing",
                 'Representation id="%s" SegmentTemplate>@initialization is missing',
-                M,
+                P,
               );
-            var ge = b(
+            var me = b(
                 e,
                 t,
-                M,
+                P,
                 "SegmentTemplate>@timescale",
-                se.$.timescale,
+                oe.$.timescale,
                 y,
               ),
-              he =
-                se.$.startNumber != null
+              pe =
+                oe.$.startNumber != null
                   ? b(
                       e,
                       t,
-                      M,
+                      P,
                       "SegmentTemplate>@startNumber",
-                      se.$.startNumber,
+                      oe.$.startNumber,
                       C,
                     )
                   : null,
-              ye = (pe = se.SegmentTimeline) == null ? void 0 : pe[0];
-            if (ye == null)
+              _e = (ue = oe.SegmentTimeline) == null ? void 0 : ue[0];
+            if (_e == null)
               throw u(
                 e,
                 t,
                 "SegmentTimelineMissing",
                 'Representation id="%s" SegmentTemplate>SegmentTimeline is missing',
-                M,
+                P,
               );
-            var Ce = _(e, t, M, ye),
-              be = f(e, t, M, ye);
-            ie = babelHelpers.extends(
-              { baseURL: ae, initURL: fe, segmentTimeline: Ce },
-              be != null ? { segmentTimelinePredictive: be } : null,
+            var fe = _(e, t, P, _e),
+              ge = f(e, t, P, _e);
+            ne = babelHelpers.extends(
+              { baseURL: te, initURL: de, segmentTimeline: fe },
+              ge != null ? { segmentTimelinePredictive: ge } : null,
               {
-                segmentURLTemplate: _e,
-                startNumber: he,
-                timescale: ge,
+                segmentURLTemplate: ce,
+                startNumber: pe,
+                timescale: me,
                 type: "SegmentTemplate",
               },
             );
@@ -356,23 +334,22 @@ __d(
               t,
               "SegmentsInfoInvalid",
               'Representation id="%s" SegmentBase and SegmentTemplate are missing',
-              M,
+              P,
             );
           return {
-            abrPolicyTags: ne,
-            bandwidth: Q,
-            contentProtections: oe,
-            lang: j,
-            mimeCodecsParsed: q,
-            playbackResolutionCsvqmScoreCurve: Y,
-            playbackResolutionCsvqmScoreCurveParsed: ee,
-            playbackResolutionMosScoreCurve: X,
-            playbackResolutionMosScoreCurveParsed: Z,
-            qualityLabel: te,
-            representationId: M,
-            role: K,
-            segmentsInfo: ie,
-            variantKey: z,
+            abrPolicyTags: ee,
+            bandwidth: j,
+            lang: G,
+            mimeCodecsParsed: B,
+            playbackResolutionCsvqmScoreCurve: Q,
+            playbackResolutionCsvqmScoreCurveParsed: J,
+            playbackResolutionMosScoreCurve: K,
+            playbackResolutionMosScoreCurveParsed: Y,
+            qualityLabel: Z,
+            representationId: P,
+            role: z,
+            segmentsInfo: ne,
+            variantKey: H,
           };
         },
         I = function (t, n) {
@@ -732,7 +709,7 @@ __d(
       return e >= 0 ? null : "not a positive integer or zero";
     }
     function b(e, t, n, r, o, a) {
-      var i = parseInt(o, 10),
+      var i = parseInt(String(o), 10),
         l = h(i);
       if ((l == null && a != null && (l = a(i)), l != null))
         throw u(

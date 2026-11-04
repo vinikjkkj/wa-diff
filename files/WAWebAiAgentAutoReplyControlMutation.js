@@ -5,7 +5,6 @@ __d(
     "WAWebAiAgentAutoReplyControlMutation.graphql",
     "WAWebBizAiAgentGating",
     "WAWebBizAiRelayClient",
-    "WAWebFetchAdAccountToken",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
   ],
@@ -27,44 +26,31 @@ __d(
       return m(l, i, t);
     }
     function m(e, t, n) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (a) {
-          return a.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      u,
-                      {
-                        consumer_lid: t != null ? t : "",
-                        phone_number: e != null ? e : "",
-                        thread_status: n,
-                      },
-                      { accessToken: a.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_whatsapp_smb_maiba_status_update;
-                      if ((t == null ? void 0 : t.success) === !0) {
-                        var n = t.update_timestamp_ms,
-                          r = n != null && n !== "" ? Number(n) : null;
-                        return {
-                          isSuccess: !0,
-                          updateTimestampMs:
-                            r != null && Number.isFinite(r) ? r : null,
-                        };
-                      }
-                      return c;
-                    })
-                    .catch(function (e) {
-                      return c;
-                    });
-                })
-            : c;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(u, {
+              consumer_lid: t != null ? t : "",
+              phone_number: e != null ? e : "",
+              thread_status: n,
+            })
+            .then(function (e) {
+              var t =
+                e == null ? void 0 : e.xfb_whatsapp_smb_maiba_status_update;
+              if ((t == null ? void 0 : t.success) === !0) {
+                var n = t.update_timestamp_ms,
+                  r = n != null && n !== "" ? Number(n) : null;
+                return {
+                  isSuccess: !0,
+                  updateTimestampMs: r != null && Number.isFinite(r) ? r : null,
+                };
+              }
+              return c;
+            })
+            .catch(function (e) {
+              return c;
+            });
         });
     }
     l.changeAiReplyStatus = d;

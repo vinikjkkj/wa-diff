@@ -207,7 +207,6 @@ __d(
     ((l.sendLinkCreateRPC = e),
       (l.parseLinkCreateResponseLinkCreateAck = u),
       (l.parseLinkCreateResponseLinkCreateNack = c),
-      (l.makeLinkCreateRequestLinkCreateEvent = d),
       (l.makeLinkCreateRequest = m));
   },
   98,

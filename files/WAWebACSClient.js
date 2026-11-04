@@ -13,7 +13,7 @@ __d(
     var e = new Map();
     function s(t, n) {
       n === void 0 && (n = "");
-      var r = t + ":" + n,
+      var r = m(t, n),
         a = e.get(r);
       return (
         a == null &&
@@ -46,7 +46,16 @@ __d(
         c.apply(this, arguments)
       );
     }
-    l.redeemWithAPTClient = u;
+    function d(e) {
+      new (o("WAWebACSStorageManager").WAWebACSStorageManager)(
+        m(e),
+        o("ACSCachedTokenModule").isCachedTokenRedeemable,
+      ).clearStorage();
+    }
+    function m(e, t) {
+      return (t === void 0 && (t = ""), e + ":" + t);
+    }
+    ((l.redeemWithAPTClient = u), (l.clearAPTClientStorage = d));
   },
   98,
 );

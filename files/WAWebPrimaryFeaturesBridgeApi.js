@@ -4,8 +4,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = {
       setPrimaryFeatures: function (t) {
-        var e = t.primaryFeatures;
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.setPrimaryFeatures(e);
+        var e = t.isFreshSync,
+          n = t.primaryFeatures;
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.setPrimaryFeatures(
+          n,
+          e === !0,
+        );
       },
     };
     l.PrimaryFeaturesBridgeApi = e;

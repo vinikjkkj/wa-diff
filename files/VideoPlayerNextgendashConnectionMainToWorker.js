@@ -5,6 +5,7 @@ __d(
     "VideoPlayerNextgendashStateMachine",
     "VideoPlayerODS",
     "nextgendasherr",
+    "promiseDone",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -52,22 +53,22 @@ __d(
         throw ((e[l] = { exception: p }), p);
       }
     }
-    function d(e, t, n, r, a) {
-      var i = "VideoPlayerNextgendashConnectionMainToWorker_" + n,
-        l = String(r),
-        s = c(t, n, e.config, e, e.host),
-        u = o(
+    function d(t, n, a, i, l) {
+      var s = "VideoPlayerNextgendashConnectionMainToWorker_" + a,
+        u = String(i),
+        d = c(n, a, t.config, t, t.host),
+        m = o(
           "VideoPlayerNextgendashConnectionUtils",
         ).createInboundOutboundQueues(
-          e,
-          i,
-          l,
+          t,
           s,
+          u,
+          d,
           function (e) {
             (e.type === "__exception" ||
-              (e.workerType === n &&
-                (e.playerInstanceKey == null || e.playerInstanceKey === r))) &&
-              a(e);
+              (e.workerType === a &&
+                (e.playerInstanceKey == null || e.playerInstanceKey === i))) &&
+              l(e);
           },
           function (e) {
             return e.eventToWorker.type;
@@ -87,63 +88,63 @@ __d(
             };
           },
           function (e, t) {
-            var n = s.addMessageListener(
+            var n = d.addMessageListener(
               "comet_video_player_nextgendash__worker_to_main",
               t,
             );
             e.push(function () {
-              s.removeMessageListener(
+              d.removeMessageListener(
                 "comet_video_player_nextgendash__worker_to_main",
                 n,
               );
             });
           },
-          function (t) {
-            var n = e.loggingState.metadata.nextgendashInstanceIndex,
-              r = s.addMessageListener(
+          function (e) {
+            var n = t.loggingState.metadata.nextgendashInstanceIndex,
+              r = d.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_qpl_calls",
-                function (t) {
-                  t.calls.forEach(function (t) {
-                    t.instanceKey === n &&
-                      e.logging.log(e, { qplCall: t, type: "qpl_call" });
+                function (e) {
+                  e.calls.forEach(function (e) {
+                    e.instanceKey === n &&
+                      t.logging.log(t, { qplCall: e, type: "qpl_call" });
                   });
                 },
               );
             if (
-              (t.push(function () {
-                s.removeMessageListener(
+              (e.push(function () {
+                d.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_qpl_calls",
                   r,
                 );
               }),
-              e.config.debugViz)
+              t.config.debugViz)
             ) {
-              var o = s.addMessageListener(
+              var o = d.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_debug_snapshot",
-                function (t) {
-                  e.logging.log(e, {
-                    snapshot: t.snapshot,
+                function (e) {
+                  t.logging.log(t, {
+                    snapshot: e.snapshot,
                     type: "state_machine_debug_snapshot_from_worker",
                   });
                 },
               );
-              t.push(function () {
-                s.removeMessageListener(
+              e.push(function () {
+                d.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_debug_snapshot",
                   o,
                 );
               });
-              var a = s.addMessageListener(
+              var a = d.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_debug_events",
-                function (t) {
-                  e.logging.log(e, {
-                    events: t.events,
+                function (e) {
+                  t.logging.log(t, {
+                    events: e.events,
                     type: "state_machine_debug_events_from_worker",
                   });
                 },
               );
-              t.push(function () {
-                s.removeMessageListener(
+              e.push(function () {
+                d.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_debug_events",
                   a,
                 );
@@ -151,11 +152,44 @@ __d(
             }
           },
         ),
-        d = u.disconnect,
-        m = u.getStats,
-        p = u.send;
-      function _(e) {
-        s.postMessage(
+        p = m.getStats,
+        _ = m.send,
+        f = m.disconnect,
+        g = t.config.realWorkerConnectTimeoutMs;
+      if (a !== "VirtualWorker" && g > 0) {
+        var h = !1;
+        r("promiseDone")(
+          d.fullyConnected,
+          function () {
+            h = !0;
+          },
+          function () {
+            h = !0;
+          },
+        );
+        var y = t.host.timers.setTimeout(function () {
+            if (!h) {
+              var n = o("nextgendasherr").nextgendasherr(
+                t,
+                s + "/ConnectTimeout",
+                "Worker did not complete its handshake within %sms",
+                g,
+              );
+              for (var r of Object.keys(e)) {
+                var a;
+                ((a = e[r]) == null ? void 0 : a.port) === d &&
+                  (e[r] = { exception: n });
+              }
+              l({ exception: n, type: "__exception" });
+            }
+          }, g),
+          C = f;
+        f = function (n) {
+          (t.host.timers.clearTimeout(y), C(n));
+        };
+      }
+      function b(e) {
+        d.postMessage(
           {
             haltReason: e,
             type: "comet_video_player_nextgendash__main_to_worker_debug_halt",
@@ -166,10 +200,10 @@ __d(
       return o(
         "VideoPlayerNextgendashStateMachine",
       ).skipAutoDisposeInsideThisObject({
-        disconnectFromWorker: d,
-        getStats: m,
-        sendHaltedToWorker: _,
-        sendToWorker: p,
+        disconnectFromWorker: f,
+        getStats: p,
+        sendHaltedToWorker: b,
+        sendToWorker: _,
       });
     }
     ((l.preloadWorker = s), (l.connectToWorker = d));

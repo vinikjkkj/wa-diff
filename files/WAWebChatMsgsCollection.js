@@ -57,8 +57,8 @@ __d(
               contextLoaded: !1,
               isRepairingMsgHistory: !1,
             })),
-            t.listenTo(t, "add remove", t.triggerChangeLast),
-            t.listenTo(t, "sort reset", function (e, n) {
+            t.listenTo(t, ["add", "remove"], t.triggerChangeLast),
+            t.listenTo(t, ["sort", "reset"], function (e, n) {
               t.triggerChangeLast(null, e, n != null ? n : {});
             }),
             t
@@ -134,7 +134,7 @@ __d(
               (p.forEach(function (e) {
                 e && t.isModel(e) && e.setMsgChunk(t, t.threadId);
               }),
-                this.trigger("bulk_add", i, r));
+                this.trigger("bulk_add", i.filter(Boolean), r));
             }
             return i;
           }),
@@ -164,7 +164,7 @@ __d(
               n.forEach(function (t) {
                 e.isModel(t) && t.setMsgChunk(e, e.threadId);
               }),
-              this.trigger("bulk_add", n));
+              this.trigger("bulk_add", [].concat(n)));
           }),
           (n.onMsgLoadStateChange = function (t) {
             var e = this,

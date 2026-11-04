@@ -5,10 +5,7 @@ __d(
     "WAWebContactManagerCustomerProfileQuery",
     "WAWebContactManagerCustomerProfileUpsertInput",
     "WAWebContactManagerCustomerProfileUpsertMutation.graphql",
-    "WAWebContactManagerCustomerProfilesQuery",
-    "WAWebCustomerManagerRequestErrors",
-    "WAWebFetchAdAccountToken",
-    "WAWebNetworkStatus",
+    "WAWebCustomerManagerProfileRequest",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
@@ -298,32 +295,27 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (t.type !== "success")
-            throw r("err")(
-              "[CustomerManager] customer profile upsert: no access token (" +
-                t.type +
-                ")",
-            );
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          try {
-            var n = yield o("WAWebRelayClient").commitMutation(
-              u,
-              { input: e },
-              { accessToken: t.token, environmentType: "facebook" },
-            );
-            return n == null ? void 0 : n.xfb_wa_upsert_customer_profiles;
-          } catch (e) {
-            throw (
-              o("WAWebContactManagerCustomerProfilesQuery").logIfRateLimited(
-                e,
-                "write",
-              ),
-              o(
-                "WAWebCustomerManagerRequestErrors",
-              ).asCustomerManagerRequestError(e)
-            );
-          }
+          return o(
+            "WAWebCustomerManagerProfileRequest",
+          ).runCustomerProfileRequest(
+            "customer profile upsert",
+            (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (t) {
+                  var n = yield o("WAWebRelayClient").commitMutation(
+                    u,
+                    { input: e },
+                    t,
+                  );
+                  return n == null ? void 0 : n.xfb_wa_upsert_customer_profiles;
+                },
+              );
+              return function (e) {
+                return t.apply(this, arguments);
+              };
+            })(),
+            { rateLimitSurface: "write" },
+          );
         })),
         I.apply(this, arguments)
       );

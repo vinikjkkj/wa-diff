@@ -60,6 +60,13 @@ __d(
                   alias: null,
                   args: null,
                   kind: "ScalarField",
+                  name: "display_last_name",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
                   name: "role",
                   storageKey: null,
                 },
@@ -95,7 +102,7 @@ __d(
           selections: e,
         },
         params: {
-          id: "29119014437722960",
+          id: "28866194819727947",
           metadata: {},
           name: "WAWebMexOrgMemberUpdateNotificationHandlerQuery",
           operationKind: "query",

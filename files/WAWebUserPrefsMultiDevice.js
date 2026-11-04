@@ -277,7 +277,7 @@ __d(
       var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.PAIRING_TIMESTAMP,
       );
-      return e == null ? null : parseInt(e, 10);
+      return e == null ? null : parseInt(String(e), 10);
     }
     function q(e) {
       return U.apply(this, arguments);

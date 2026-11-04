@@ -1,39 +1,73 @@
 __d(
   "WAWebBizAiRelayClient",
   [
-    "invariant",
     "JSResourceForInteraction",
     "Promise",
     "WAWebFetchAdAccountToken",
+    "WAWebFetchWithAdAccountToken",
     "WAWebRelayEnvironment",
     "asyncToGeneratorRuntime",
     "err",
-    "isStringNullOrEmpty",
   ],
-  function (t, n, r, o, a, i, l, s) {
-    var e = ["accessToken"],
-      u = ["accessToken"],
-      c;
-    function d(e) {
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = null;
+    function u() {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield (e || (e = n("Promise"))).all([
+              o("WAWebRelayEnvironment").requireRelayRuntime(),
+              o("WAWebFetchAdAccountToken").fetchToken(),
+              r("JSResourceForInteraction")("WAWebBizAiGraphQLQpl")
+                .__setRef("WAWebBizAiRelayClient")
+                .load(),
+            ]),
+            a = t[0],
+            i = t[1],
+            l = t[2].logBizAiGraphQLRequest;
+          if (i.type !== "success")
+            throw new (o(
+              "WAWebFetchWithAdAccountToken",
+            ).FetchAdAccountTokenError)(i);
+          var u = i.token.bp_id;
+          if (u == null || u === "")
+            throw r("err")("The ad-account token has no business person ID");
+          var c = s;
+          if (c != null && c.actorID === u) return c.environment;
+          var d = o("WAWebRelayEnvironment").createRelayEnvironment(a, {
+            actorID: u,
+            environmentType: "facebook",
+            log: l,
+            withAccessToken: function (t) {
+              return o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
+                function (e) {
+                  return t(e.token);
+                },
+              );
+            },
+          });
+          return ((s = { actorID: u, environment: d }), d);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t, n) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.accessToken,
-            n = e.actorID;
-          (!r("isStringNullOrEmpty")(t) && !r("isStringNullOrEmpty")(n)) ||
-            s(0, 186932);
-          var a = yield r("JSResourceForInteraction")("WAWebBizAiGraphQLQpl")
-              .__setRef("WAWebBizAiRelayClient")
-              .load(),
-            i = a.logBizAiGraphQLRequest;
-          return o("WAWebRelayEnvironment").getEnvironment({
-            accessToken: t,
-            actorID: n,
-            environmentType: "facebook",
-            log: i,
-          });
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
+          a === void 0 && (a = {});
+          var i = yield (e || (e = n("Promise"))).all([
+              o("WAWebRelayEnvironment").requireRelayRuntime(),
+              u(),
+            ]),
+            l = i[0].fetchQuery,
+            s = i[1];
+          return l(s, t, r, a).toPromise();
         })),
         m.apply(this, arguments)
       );
@@ -44,69 +78,29 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i = a === void 0 ? {} : a,
-            l = i.accessToken,
-            s = babelHelpers.objectWithoutPropertiesLoose(i, e),
-            u = yield (c || (c = n("Promise"))).all([
+          a === void 0 && (a = {});
+          var i = yield (e || (e = n("Promise"))).all([
               o("WAWebRelayEnvironment").requireRelayRuntime(),
-              h(l),
+              u(),
             ]),
-            d = u[0].fetchQuery,
-            m = u[1];
-          return d(m, t, r, s).toPromise();
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = r === void 0 ? {} : r,
-            i = a.accessToken,
-            l = babelHelpers.objectWithoutPropertiesLoose(a, u),
-            s = yield (c || (c = n("Promise"))).all([
-              o("WAWebRelayEnvironment").requireRelayRuntime(),
-              h(i),
-            ]),
-            d = s[0].commitMutation,
-            m = s[1];
-          return new c(function (n, r) {
-            d(
-              m,
-              babelHelpers.extends({ mutation: e, variables: t }, l, {
-                onCompleted: n,
-                onError: r,
+            l = i[0].commitMutation,
+            s = i[1];
+          return new e(function (e, n) {
+            l(
+              s,
+              babelHelpers.extends({ mutation: t, variables: r }, a, {
+                onCompleted: e,
+                onError: n,
               }),
             );
           });
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e;
-          if (t == null) {
-            var n = yield o("WAWebFetchAdAccountToken").fetchToken();
-            if (n.type !== "success")
-              throw r("err")("Unable to resolve BizAI GraphQL credentials");
-            t = n.token;
-          }
-          return d({ accessToken: t.token, actorID: t.bp_id });
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    ((l.getBizAiRelayEnvironment = d),
-      (l.fetchQuery = p),
-      (l.commitMutation = f));
+    ((l.getBizAiRelayEnvironment = u),
+      (l.fetchQuery = d),
+      (l.commitMutation = p));
   },
   98,
 );

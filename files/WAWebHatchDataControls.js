@@ -189,7 +189,9 @@ __d(
         N.apply(this, arguments)
       );
     }
-    ((l.readHatchAiTraining = C), (l.writeHatchAiTraining = E));
+    ((l.readHatchAiTraining = C),
+      (l.writeHatchAiTraining = E),
+      (l.isHatchOffline = P));
   },
   98,
 );

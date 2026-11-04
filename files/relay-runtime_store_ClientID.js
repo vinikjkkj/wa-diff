@@ -6,6 +6,8 @@ __d(
     var e = n("relay-runtime/util/StringInterner").intern,
       l = "client:";
     function s(t, r, o) {
+      if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH)
+        return p(t, r, o);
       var a =
           n("relay-runtime/util/RelayFeatureFlags").STRING_INTERN_LEVEL <= 0
             ? t
@@ -30,6 +32,23 @@ __d(
     function m(e, t, n) {
       var r = "" + l + e + ":" + t;
       return (n != null && (r += ":" + n), r);
+    }
+    function p(t, r, o) {
+      var a =
+          n("relay-runtime/util/RelayFeatureFlags").STRING_INTERN_LEVEL <= 0
+            ? t
+            : e(
+                t,
+                n("relay-runtime/util/RelayFeatureFlags").MAX_DATA_ID_LENGTH,
+              ),
+        i = a + ":" + r;
+      return (
+        o != null && (i += ":" + o),
+        (typeof a == "string" && a.length >= l.length
+          ? a.lastIndexOf(l, 0) !== 0
+          : i.indexOf(l) !== 0) && (i = l + i),
+        i
+      );
     }
     a.exports = {
       generateClientID: s,

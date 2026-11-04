@@ -1237,7 +1237,11 @@ __d(
             var e = this.$10.get(r),
               a = this.$7;
             if (
-              (e != null &&
+              ((!n("relay-runtime/util/RelayFeatureFlags")
+                .ENABLE_PERF_PUBLISH ||
+                n("relay-runtime/util/RelayFeatureFlags")
+                  .ENABLE_FIELD_GRANULAR_NOTIFICATIONS) &&
+              e != null &&
               (c || (c = n("relay-runtime/store/RelayModernRecord"))).getValue(
                 e,
                 p,

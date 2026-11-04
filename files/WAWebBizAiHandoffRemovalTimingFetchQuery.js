@@ -5,7 +5,6 @@ __d(
     "WAWebBizAiHandoffRemovalTimingFetchQuery.graphql",
     "WAWebBizAiHandoffRemovalTimingModel",
     "WAWebBizAiRelayClient",
-    "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
     "getErrorSafe",
   ],
@@ -19,37 +18,28 @@ __d(
       c = { isSuccess: !0 },
       d = { isSuccess: !1 };
     function m() {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient").fetchQuery(u, {});
+        })
         .then(function (e) {
-          return e.type !== "success"
+          var t,
+            n =
+              e == null ||
+              (t = e.xfb_meta_ai_biz_agent_wa_handoff_removal_timing) == null
+                ? void 0
+                : t.timing;
+          return n == null
             ? d
-            : r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .fetchQuery(u, {}, { accessToken: e.token })
-                    .then(function (e) {
-                      var t,
-                        n =
-                          e == null ||
-                          (t =
-                            e.xfb_meta_ai_biz_agent_wa_handoff_removal_timing) ==
-                            null
-                            ? void 0
-                            : t.timing;
-                      return n == null
-                        ? d
-                        : (o(
-                            "WAWebBizAiHandoffRemovalTimingModel",
-                          ).applyHandoffRemovalTiming(
-                            o(
-                              "WAWebBizAiHandoffRemovalTimingModel",
-                            ).toHandoffRemovalTiming(n),
-                          ),
-                          c);
-                    });
-                });
+            : (o(
+                "WAWebBizAiHandoffRemovalTimingModel",
+              ).applyHandoffRemovalTiming(
+                o("WAWebBizAiHandoffRemovalTimingModel").toHandoffRemovalTiming(
+                  n,
+                ),
+              ),
+              c);
         })
         .catch(function (e) {
           return (

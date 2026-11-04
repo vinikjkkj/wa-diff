@@ -3,7 +3,7 @@ __d(
   ["WAWebHttpExtendedFetch"],
   function (t, n, r, o, a, i, l) {
     function e() {}
-    var s = "fetch" in self ? self.fetch : u;
+    var s = "fetch" in self ? self.fetch.bind(self) : u;
     function u(t, n) {
       return (
         n === void 0 && (n = {}),

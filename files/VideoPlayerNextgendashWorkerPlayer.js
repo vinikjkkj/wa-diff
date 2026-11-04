@@ -600,9 +600,11 @@ __d(
                     (d != null &&
                       (d.state === "waiting_data" || d.state === "completed") &&
                       parseInt(
-                        (i = d.responseHeader.httpHeaders) == null
-                          ? void 0
-                          : i.get("Content-Length"),
+                        String(
+                          (i = d.responseHeader.httpHeaders) == null
+                            ? void 0
+                            : i.get("Content-Length"),
+                        ),
                         10,
                       )) ||
                     void 0,

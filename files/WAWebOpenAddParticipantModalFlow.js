@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebActionToast.react",
-    "WAWebAddGroupParticipantFlow.react",
+    "WAWebAddGroupParticipantFlowLoadable.react",
     "WAWebAddGroupParticipantGroupHistoryContextProvider.react",
     "WAWebGetGroupHistoryBundleMessagesCount",
     "WAWebGroupHistoryGating",
@@ -89,7 +89,7 @@ __d(
             chatId: n.id,
             enterFlowTimestamp: f,
             messageCountPromise: g,
-            children: c.jsx(r("WAWebAddGroupParticipantFlow.react"), {
+            children: c.jsx(r("WAWebAddGroupParticipantFlowLoadable.react"), {
               chat: o("WAWebStateUtils").unproxy(n),
               communityName: a,
               entryPoint: i,

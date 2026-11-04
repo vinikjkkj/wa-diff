@@ -6,6 +6,7 @@ __d(
     "WAWebAck",
     "WAWebBatchUpdateBroadcastAck",
     "WAWebBroadcastEphemeralUtils",
+    "WAWebBroadcastFanoutKeys",
     "WAWebBroadcastMsgCollectionUtils",
     "WAWebBroadcastODS",
     "WAWebBuildBroadcastMsgModels",
@@ -17,7 +18,6 @@ __d(
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgCollection",
-    "WAWebMsgModelUtils",
     "WAWebMsgUtilsBridge",
     "WAWebOutgoingMessage",
     "WAWebSendMsgResultAction",
@@ -41,7 +41,7 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var a = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(t);
+            var a = o("WAWebBroadcastFanoutKeys").getBroadcastFanoutKeys(t);
             if (a == null) {
               o("WALogger").WARN(
                 e ||

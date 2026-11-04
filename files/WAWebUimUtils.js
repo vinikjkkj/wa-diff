@@ -15,7 +15,16 @@ __d(
         e instanceof e.ownerDocument.defaultView.HTMLElement
       );
     }
-    ((i.isTargetAnElementNode = l), (i.isCrossWindowHTMLElement = s));
+    function u(e) {
+      if (e == null || !l(e)) return !1;
+      var t = e.ownerDocument.defaultView;
+      return (
+        t != null && (e instanceof t.HTMLElement || e instanceof t.SVGElement)
+      );
+    }
+    ((i.isTargetAnElementNode = l),
+      (i.isCrossWindowHTMLElement = s),
+      (i.isCrossWindowFocusableElement = u));
   },
   66,
 );

@@ -11,14 +11,15 @@ __d(
           kind: "LocalArgument",
           name: "rosterEntryIDs",
         },
-        r = {
+        r = { defaultValue: null, kind: "LocalArgument", name: "utmCampaign" },
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "status",
           storageKey: null,
         },
-        o = [
+        a = [
           {
             alias: null,
             args: [
@@ -29,13 +30,18 @@ __d(
                 name: "roster_entry_ids",
                 variableName: "rosterEntryIDs",
               },
+              {
+                kind: "Variable",
+                name: "utm_campaign",
+                variableName: "utmCampaign",
+              },
             ],
             concreteType: "XWAOrgManagedGroupEmailInviteResponse",
             kind: "LinkedField",
             name: "xwa_org_managed_group_send_email_invites",
             plural: !1,
             selections: [
-              r,
+              o,
               {
                 alias: null,
                 args: null,
@@ -50,7 +56,7 @@ __d(
                 kind: "LinkedField",
                 name: "results",
                 plural: !0,
-                selections: [r],
+                selections: [o],
                 storageKey: null,
               },
             ],
@@ -59,23 +65,23 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, n],
+          argumentDefinitions: [e, t, n, r],
           kind: "Fragment",
           metadata: null,
           name: "WAWebOrgAdminGraphQLSendManagedGroupEmailInvitesMutation",
-          selections: o,
+          selections: a,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, e, n],
+          argumentDefinitions: [t, e, n, r],
           kind: "Operation",
           name: "WAWebOrgAdminGraphQLSendManagedGroupEmailInvitesMutation",
-          selections: o,
+          selections: a,
         },
         params: {
-          id: "38981821098132867",
+          id: "29088707084112709",
           metadata: {},
           name: "WAWebOrgAdminGraphQLSendManagedGroupEmailInvitesMutation",
           operationKind: "mutation",

@@ -55,9 +55,6 @@ __d(
             if (r("gkx")("16539")) return this.$1.get(t);
           }),
           (t.getStats = function (t) {}),
-          (t.getAllStatsLog = function () {
-            return new Map();
-          }),
           (t.getAllStats = function () {
             return new Map();
           }),

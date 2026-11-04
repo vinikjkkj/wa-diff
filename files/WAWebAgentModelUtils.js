@@ -15,9 +15,7 @@ __d(
     }
     function u() {
       return (
-        o(
-          "WAWebChatAssignmentGatingUtils",
-        ).isMultiDeviceMessageAttributionEnabled() &&
+        o("WAWebChatAssignmentGatingUtils").isMessageAttributionEnabled() &&
         o(
           "WAWebSubscriptionFeatureFlagActions",
         ).isSubscriptionFeatureFlagEnabled(

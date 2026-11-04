@@ -561,7 +561,9 @@ __d(
           }),
           (i.customizeMoment = function () {
             var e;
-            ((e = r("WAWeb-moment")).relativeTimeRounding(Math.floor),
+            ((e = r("WAWeb-moment")).relativeTimeRounding(function (e) {
+              return Math.floor(e);
+            }),
               e.relativeTimeThreshold("s", 60),
               e.relativeTimeThreshold("m", 60),
               e.relativeTimeThreshold("h", 24));

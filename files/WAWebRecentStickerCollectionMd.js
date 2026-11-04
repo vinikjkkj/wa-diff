@@ -30,9 +30,8 @@ __d(
       h,
       y,
       C,
-      b,
-      v = 32,
-      S = (function (t) {
+      b = 32,
+      v = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -337,19 +336,6 @@ __d(
             }
             this.addStickersAndPersistToDB(t, n);
           }),
-          (i.updateDirectPath = function (t, n) {
-            var e = this.get(t);
-            e != null && e.sticker
-              ? ((e.sticker.directPath = n),
-                this.set([e], { remove: !1, add: !1, silent: !0, sort: !1 }),
-                this._addSaveTask())
-              : o("WALogger").ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "updateDirectPaths: stickerId not found in collection",
-                    ])),
-                );
-          }),
           (i.updateStickerMediaData = function (t, n) {
             var e = this.get(t);
             n == null ||
@@ -415,8 +401,8 @@ __d(
                       .catch(function (e) {
                         o("WALogger")
                           .ERROR(
-                            g ||
-                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                            f ||
+                              (f = babelHelpers.taggedTemplateLiteralLoose([
                                 "RecentStickerCollection attempt to associate sticker with message failed",
                               ])),
                           )
@@ -450,17 +436,17 @@ __d(
           (i.addAndSort = function (t) {
             (this.add(t),
               this.sort(),
-              this.length > v &&
+              this.length > b &&
                 this._hasInitializedFromCache &&
                 (o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: stickers length ",
                       " is over the limit.",
                     ])),
                   this.length,
                 ),
-                this.set(this.toArray().slice(0, v))));
+                this.set(this.toArray().slice(0, b))));
           }),
           (i.removeAndSave = function (t, n) {
             n === void 0 && (n = {});
@@ -468,8 +454,8 @@ __d(
             return (
               e.length && this._addSaveTask(),
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "Recent Stickers: stickers length ",
                     " after remove.",
                   ])),
@@ -484,15 +470,15 @@ __d(
             });
             return e.length === 0
               ? (o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: no avatar stickers found, skip removing.",
                     ])),
                 ),
                 [])
               : (o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "Recent Stickers: removing all ",
                       " avatar stickers.",
                     ])),
@@ -520,9 +506,9 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    S.model = r("WAWebRecentStickerModel");
-    var R = new S();
-    l.RecentStickerCollectionMd = R;
+    v.model = r("WAWebRecentStickerModel");
+    var S = new v();
+    l.RecentStickerCollectionMd = S;
   },
   98,
 );

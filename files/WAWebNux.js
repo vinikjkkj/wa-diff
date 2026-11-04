@@ -73,6 +73,7 @@ __d(
       CALLS_TAB_PERMISSIONS_OFF_BANNER: "calls_tab_permissions_off_banner",
       STATUS_RESHARE_INTRO: "status_reshare_intro",
       CALL_SCREENING_INTRO: "call_screening_intro",
+      POST_CALL_NOTIFICATIONS_UPSELL: "post_call_notifications_upsell",
     };
     function l(e) {
       return "community_admin_promote_" + e;

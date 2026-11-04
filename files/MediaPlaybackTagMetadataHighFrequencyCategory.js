@@ -22,6 +22,7 @@ __d(
       LIVE_LATENCY_FRAMES: "live_latency_frames",
       DROPPED_FRAME_BUCKETIZED: "dropped_frame_bucketized",
       RENDERER_TYPE: "renderer_type",
+      MEDIA_ENHANCEMENT_DECISIONS: "media_enhancement_decisions",
       VIDEO_DECODER_NAME: "video_decoder_name",
     });
     i.default = e;

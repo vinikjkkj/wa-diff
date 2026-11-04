@@ -7,19 +7,19 @@ __d(
     "getDataWithLoggerOptions",
     "gkx",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = window.location.search.indexOf("showlog") > -1;
-    function s(t, r, o, a) {
-      var i = n("getDataWithLoggerOptions")(r, a),
+    function u(t, n, o, a) {
+      var i = r("getDataWithLoggerOptions")(n, a),
         l = t.split(":")[0],
         s = t.split(":")[1];
       l == "logger"
-        ? n("JstlMigrationFalcoEvent").log(function () {
+        ? r("JstlMigrationFalcoEvent").log(function () {
             return { logger_config_name: s, payload: i };
           })
-        : n("Banzai").post(t, i, o);
-      var u = e || (s === "EPFrontendLoggerConfig" && n("gkx")("3917"));
+        : r("Banzai").post(t, i, o);
+      var u = e || (s === "EPFrontendLoggerConfig" && r("gkx")("3917"));
       if (u && s === "EPFrontendLoggerConfig" && i)
         var c = i.event_name || "unknown",
           d = i.app || "unknown",
@@ -36,8 +36,8 @@ __d(
             g.includes("request_interrupted"),
           y = h ? "[EPFrontend]" : "[EPFrontend :click:]";
     }
-    var u = {
-      log: s,
+    var c = {
+      log: u,
       serializeVector: function (t) {
         if (!t || Array.isArray(t)) return t;
         if (t.toArray != null) {
@@ -49,7 +49,7 @@ __d(
           t[typeof Symbol == "function" ? Symbol.iterator : "@@iterator"]
         )
           return Array.from(t);
-        l(0, 3874, t);
+        s(0, 3874, t);
       },
       serializeMap: function (t) {
         if (!t) return t;
@@ -67,19 +67,19 @@ __d(
           return r;
         }
         if (Object.prototype.toString.call(t) === "[object Object]") return t;
-        l(0, 3875, t);
+        s(0, 3875, t);
       },
       checkExtraDataFieldNames: function (t, n) {
         Object.keys(t).forEach(function (e) {
-          !Object.prototype.hasOwnProperty.call(n, e) || l(0, 3876, e);
+          !Object.prototype.hasOwnProperty.call(n, e) || s(0, 3876, e);
         });
       },
       warnForInvalidFieldNames: function (t, n, r, o) {},
       throwIfNull: function (t, n) {
-        return (t != null || l(0, 3877, n), t);
+        return (t != null || s(0, 3877, n), t);
       },
     };
-    a.exports = u;
+    i.exports = c;
   },
-  null,
+  34,
 );

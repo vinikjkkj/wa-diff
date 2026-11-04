@@ -94,7 +94,7 @@ __d(
           return e.trim();
         })
         .filter(function (e) {
-          return !isNaN(e) && e !== "";
+          return !isNaN(Number(e)) && e !== "";
         })
         .map(Number);
     }
@@ -108,7 +108,7 @@ __d(
           return e.trim();
         })
         .filter(function (e) {
-          return !isNaN(e) && e !== "";
+          return !isNaN(Number(e)) && e !== "";
         })
         .map(Number);
     }

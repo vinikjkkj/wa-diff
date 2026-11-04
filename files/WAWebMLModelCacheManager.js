@@ -77,35 +77,9 @@ __d(
             });
           return o("WAResultOrError").makeResult(t);
         }),
-        (t.getTotalCacheSize = function () {
-          if (!this.isReady())
-            return o("WAResultOrError").makeError("Cache not ready");
-          var e = this.$1.list(),
-            t = 0;
-          for (var n of e) t += n.fileSizeBytes;
-          return o("WAResultOrError").makeResult(t);
-        }),
         (t.getModelFilePath = function (t, n) {
           return this.isReady() ? this.$1.getFilePath(t, n) : null;
         }),
-        (t.clearAllModels = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (!this.isReady())
-              return o("WAResultOrError").makeError("Cache not ready");
-            var e = this.$1.list(),
-              t = e.map(function (e) {
-                return { modelName: e.modelName, version: e.version };
-              });
-            return (
-              yield this.$1.deleteMultiple(t),
-              o("WAResultOrError").makeResult(e.length)
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
         e
       );
     })();

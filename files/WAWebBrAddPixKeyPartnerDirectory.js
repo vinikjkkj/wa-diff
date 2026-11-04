@@ -94,7 +94,8 @@ __d(
       return e.endsWith(u) ? e.slice(0, -u.length) + c : e;
     }
     ((l.isAddPixKeyPartnerSender = d),
-      (l.addPixKeyPartnerCatalogIdForSender = m));
+      (l.addPixKeyPartnerCatalogIdForSender = m),
+      (l.toWebJid = h));
   },
   98,
 );

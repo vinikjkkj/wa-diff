@@ -5,16 +5,11 @@ __d(
     "WALogger",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
     "WAWebCustomerManagerCustomerProfileDecoders",
-    "WAWebCustomerManagerRequestErrors",
+    "WAWebCustomerManagerProfileRequest",
     "WAWebCustomerProfileBirthday",
-    "WAWebFBLogger",
-    "WAWebFetchAdAccountToken",
-    "WAWebGraphQLServerError",
-    "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -178,64 +173,47 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (n.type !== "success")
-            throw r("err")(
-              "[CustomerManager] fetchCustomerProfiles: no access token (" +
-                n.type +
-                ")",
-            );
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          var a;
-          try {
-            var i, l, s;
-            a = yield o("WAWebRelayClient").fetchQuery(
-              u,
-              {
-                input: {
-                  candidate_lids: (i = e.candidateLids) != null ? i : [],
-                  filters: ((l = e.filters) != null ? l : []).map(function (e) {
-                    var t = e.fieldName,
-                      n = e.filterText;
-                    return { field_name: t, filter_text: n };
-                  }),
-                  sort_column: e.sortColumn,
-                  sort_descending: e.sortDescending === !0,
-                  page_size: (s = e.pageSize) != null ? s : c,
-                  cursor: e.cursor,
+          var t = yield o(
+            "WAWebCustomerManagerProfileRequest",
+          ).runCustomerProfileRequest(
+            "fetchCustomerProfiles",
+            function (t) {
+              var n, r, a;
+              return o("WAWebRelayClient").fetchQuery(
+                u,
+                {
+                  input: {
+                    candidate_lids: (n = e.candidateLids) != null ? n : [],
+                    filters: ((r = e.filters) != null ? r : []).map(
+                      function (e) {
+                        var t = e.fieldName,
+                          n = e.filterText;
+                        return { field_name: t, filter_text: n };
+                      },
+                    ),
+                    sort_column: e.sortColumn,
+                    sort_descending: e.sortDescending === !0,
+                    page_size: (a = e.pageSize) != null ? a : c,
+                    cursor: e.cursor,
+                  },
+                  includeCustomFields: e.includeCustomFields === !0,
                 },
-                includeCustomFields: e.includeCustomFields === !0,
-              },
-              { accessToken: n.token, environmentType: "facebook" },
-            );
-          } catch (e) {
-            throw (
-              k(e, "read"),
-              o(
-                "WAWebCustomerManagerRequestErrors",
-              ).asCustomerManagerRequestError(e)
-            );
-          }
-          return (t = a) == null ? void 0 : t.xfb_wa_customer_profiles;
+                t,
+              );
+            },
+            { rateLimitSurface: "read" },
+          );
+          return t == null ? void 0 : t.xfb_wa_customer_profiles;
         })),
         E.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      o("WAWebGraphQLServerError").isRateLimitError(e) &&
-        o("WAWebFBLogger")
-          .WAWebFBLogger()
-          .catching(r("getErrorSafe")(e))
-          .warn(
-            "[CustomerManager] customer profile %s rate limited (customer_manager_profiles_rate_limited)",
-            t,
-          );
-    }
     ((l.fetchCustomerProfilePage = p),
       (l.fetchCustomerProfileRecords = y),
       (l.fetchCompleteCustomerProfileRecords = C),
-      (l.logIfRateLimited = k));
+      (l.logIfRateLimited = o(
+        "WAWebCustomerManagerProfileRequest",
+      ).logIfRateLimited));
   },
   98,
 );

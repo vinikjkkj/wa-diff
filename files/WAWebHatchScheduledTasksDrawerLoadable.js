@@ -14,13 +14,13 @@ __d(
       u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
-            "WAWebHatchScheduledTasksDrawer.react",
+            "WAWebHatchScheduledTasksFlow.react",
           )
             .__setRef("WAWebHatchScheduledTasksDrawerLoadable")
             .load();
           return e;
         }),
-        "WAWebHatchScheduledTasksDrawer",
+        "WAWebHatchScheduledTasksFlow",
       ),
       c = r("WAWebLoadable")({
         loader: u,

@@ -487,35 +487,9 @@ __d(
     ((l.sendSetPaymentsTOSv3RPC = e),
       (l.parseSetPaymentsTOSv3ResponseError = u),
       (l.parseSetPaymentsTOSv3ResponseSuccess = c),
-      (l.parseSetPaymentsTosErrors = d),
       (l.makeSetPaymentsTOSv3Request = m),
-      (l.parseIQErrorBadRequestMixin = p),
-      (l.parseIQErrorConfigMismatchMixin = _),
-      (l.parseIQErrorPayUpgradeRequiredMixin = f),
-      (l.parseIQErrorServiceUnavailableMixin = g),
-      (l.parseSetPaymentsTOSv3BRConsumerOrSetPaymentsTOSv3UPIConsumerOrSetPaymentsTOSv3USConsumerPaymentsTOSv3ResponseMixinGroup =
-        h),
-      (l.parseSetPaymentsTOSv3BRConsumerPaymentsTOSv3ResponseAdditionalNotice =
-        y),
-      (l.parseSetPaymentsTOSv3BRConsumerPaymentsTOSv3ResponseMixin = C),
-      (l.parseSetPaymentsTOSv3UPIConsumerPaymentsTOSv3ResponseAdditionalNotice =
-        b),
-      (l.parseSetPaymentsTOSv3UPIConsumerPaymentsTOSv3ResponseMixin = v),
-      (l.parseSetPaymentsTOSv3USConsumerPaymentsTOSv3ResponseAdditionalNotice =
-        S),
-      (l.parseSetPaymentsTOSv3USConsumerPaymentsTOSv3ResponseMixin = R),
-      (l.mergeSetIQMixin = E),
-      (l.mergeSetPaymentsTOSv3BRConsumerOrSetPaymentsTOSv3UPIConsumerOrSetPaymentsTOSv3USConsumerPaymentsTOSv3MixinGroup =
-        k),
-      (l.makeSetPaymentsTOSv3BRConsumerPaymentsTOSv3AdditionalNotice = I),
-      (l.mergeSetPaymentsTOSv3BRConsumerPaymentsTOSv3Mixin = D),
-      (l.makeSetPaymentsTOSv3UPIConsumerPaymentsTOSv3AdditionalNotice = x),
-      (l.mergeSetPaymentsTOSv3UPIConsumerPaymentsTOSv3Mixin = P),
-      (l.makeSetPaymentsTOSv3USConsumerPaymentsTOSv3AdditionalNotice = N),
-      (l.mergeSetPaymentsTOSv3USConsumerPaymentsTOSv3Mixin = w),
       (l.ENUM_BRP2PCONSENT_BRPAYPRIVACYPOLICY_BRPAYTOS_BRPAYWATOS = A),
-      (l.ENUM_PAYTOSV3_UPIPAYPRIVACYPOLICY = F),
-      (l.mergeBaseIQSetRequestMixin = B));
+      (l.ENUM_PAYTOSV3_UPIPAYPRIVACYPOLICY = F));
   },
   98,
 );

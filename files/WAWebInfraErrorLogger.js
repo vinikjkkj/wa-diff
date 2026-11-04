@@ -105,7 +105,11 @@ __d(
                   ])),
               )
                 .catching(u)
-                .sendLogs("error-pubsub", { sampling: n })
+                .sendLogs("error-pubsub", {
+                  sampling: n,
+                  skipFBLoggerReporting: !0,
+                  reportFreshFileLink: !0,
+                })
                 .tags("ErrorPubSub");
             }
           }

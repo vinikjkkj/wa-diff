@@ -23,12 +23,15 @@ __d(
         "WAWebDownloadExternalStickerAction",
       ).__setRef("WAWebStickerModel"),
       d = r("once")(function () {
-        return new _({ id: "placeholder", isPlaceholder: !0 });
+        return new f({ id: "placeholder", isPlaceholder: !0 });
       }),
       m = r("once")(function () {
-        return new _({ id: "createButton", isCreateButton: !0 });
+        return new f({ id: "createButton", actionTile: "create" });
       }),
-      p = (function (t) {
+      p = r("once")(function () {
+        return new f({ id: "sendMusicButton", actionTile: "send_music" });
+      }),
+      _ = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -59,7 +62,7 @@ __d(
             (e.stickerPackName = o("WAWebBaseModel").prop()),
             (e.stickerPackPublisher = o("WAWebBaseModel").prop()),
             (e.isPlaceholder = o("WAWebBaseModel").prop()),
-            (e.isCreateButton = o("WAWebBaseModel").prop()),
+            (e.actionTile = o("WAWebBaseModel").prop()),
             (e.isAvatar = o("WAWebBaseModel").prop()),
             (e.stickerAudio = o("WAWebBaseModel").prop()),
             babelHelpers.assertThisInitialized(e) ||
@@ -93,7 +96,7 @@ __d(
                     fullHeight: this.height,
                   }))
                 : !this.isPlaceholder &&
-                  !this.isCreateButton &&
+                  this.actionTile == null &&
                   o("WAWebMediaStickers").registerSticker(this));
           }),
           (i.downloadMedia = function (a) {
@@ -214,9 +217,12 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((p.Proxy = "sticker"), (p.getPlaceholder = d), (p.getCreateButton = m));
-    var _ = o("WAWebBaseModel").defineModel(p);
-    ((_.getPlaceholder = d), (l.Sticker = p), (l.StickerModel = _));
+    ((_.Proxy = "sticker"),
+      (_.getPlaceholder = d),
+      (_.getCreateButton = m),
+      (_.getSendMusicButton = p));
+    var f = o("WAWebBaseModel").defineModel(_);
+    ((f.getPlaceholder = d), (l.Sticker = _), (l.StickerModel = f));
   },
   98,
 );

@@ -11,9 +11,9 @@ __d(
             args: [
               { kind: "Variable", name: "request", variableName: "request" },
             ],
-            concreteType: "XFBMetaAIBizAgentWALeadGenFlowUpdateResponse",
+            concreteType: "XFBMetaAIBizAgentWALeadGenFlowSaveResponse",
             kind: "LinkedField",
-            name: "xfb_meta_ai_biz_agent_wa_create_lead_gen_flow",
+            name: "xfb_meta_ai_biz_agent_wa_create_lead_gen_flow_v2",
             plural: !1,
             selections: [
               {

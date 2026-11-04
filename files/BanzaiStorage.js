@@ -44,7 +44,11 @@ __d(
             if (t) {
               _ == null &&
                 (_ = parseInt(
-                  t.getItem((s || (s = r("BanzaiConsts"))).LAST_STORAGE_FLUSH),
+                  String(
+                    t.getItem(
+                      (s || (s = r("BanzaiConsts"))).LAST_STORAGE_FLUSH,
+                    ),
+                  ),
                   10,
                 ));
               var o = _,
@@ -67,33 +71,33 @@ __d(
           if (!d) {
             var e = g();
             if (e) {
-              var a = function (a) {
-                for (var o = [], i = 0; i < e.length; i++) {
-                  var l = e.key(i);
-                  typeof l == "string" &&
-                    l.indexOf(c) === 0 &&
-                    l.indexOf("bz:__") !== 0 &&
-                    o.push(l);
+              var a = function (i) {
+                for (var a = [], l = 0; l < e.length; l++) {
+                  var s = e.key(l);
+                  typeof s == "string" &&
+                    s.indexOf(c) === 0 &&
+                    s.indexOf("bz:__") !== 0 &&
+                    a.push(s);
                 }
-                (o.forEach(function (o) {
-                  var a = e.getItem(o);
-                  if ((e.removeItem(o), !(a == null || a === ""))) {
-                    var i = n("cr:8958").parse(a);
-                    i.forEach(function (e) {
+                (a.forEach(function (a) {
+                  var i = e.getItem(a);
+                  if ((e.removeItem(a), !(i == null || i === ""))) {
+                    var l = n("cr:8958").parse(i);
+                    l.forEach(function (e) {
                       if (e) {
                         var n = (e.__meta = e.pop()),
-                          o = r("BanzaiUtils").canSend(e);
-                        if (o) {
-                          var a =
+                          a = o("BanzaiUtils").canSend(e);
+                        if (a) {
+                          var i =
                             r("CurrentUser").getPossiblyNonFacebookUserID();
-                          (n.userID === a || a === "0") &&
-                            (r("BanzaiUtils").resetPostStatus(e), t(e));
+                          (n.userID === i || i === "0") &&
+                            (o("BanzaiUtils").resetPostStatus(e), t(e));
                         }
                       }
                     });
                   }
                 }),
-                  a && a.unlock());
+                  i && i.unlock());
               };
               f()
                 ? new (r("WebStorageMutex"))("banzai").lock(a)

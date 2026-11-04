@@ -12,6 +12,7 @@ __d(
     "WAWebCallWamEvent",
     "WAWebCoreActionsODS",
     "WAWebJoinableCallWamEvent",
+    "WAWebODS",
     "WAWebPonyfillsIdleCallback",
     "WAWebReleaseToEventLoop",
     "WAWebVoipAppInBgWhenCallStartsStore",
@@ -304,10 +305,10 @@ __d(
         (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r = o(
+            a = o(
               "WAWebVoipWebTransportCallSummary",
             ).getWtCurrentCallTelemetry(),
-            a = o("WAWebVoipCallRatingStore").setPendingFieldstatsJsonStr({
+            i = o("WAWebVoipCallRatingStore").setPendingFieldstatsJsonStr({
               calleeOfferToRingT: o(
                 "WAWebVoipCalleeOfferToRingStore",
               ).getCalleeOfferToRingT(),
@@ -349,11 +350,11 @@ __d(
                 "WAWebVoipCallStartUnifiedSessionStore",
               ).getCurrentCallStartUnifiedSessionId(),
             });
-          ((ue = a), r != null && ie.set(a, r), Ue(a));
-          var i = fe(e);
-          i && Be(a);
-          var l = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (l == null || l.type !== "web") {
+          ((ue = i), a != null && ie.set(i, a), Ue(i));
+          var l = fe(e);
+          l && Be(i);
+          var s = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          if (s == null || s.type !== "web") {
             o("WALogger").WARN(
               R ||
                 (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -362,11 +363,11 @@ __d(
             );
             return;
           }
-          var s = l.parsers.parseFieldstatsData(e),
-            u = s.stats.groupCallSegmentIdx,
-            c = s.stats.fieldStatsRowType,
-            d = s.isLastFieldStatsReport;
-          if ((Te(s.eventType, c), d)) {
+          var u = s.parsers.parseFieldstatsData(e),
+            c = u.stats.groupCallSegmentIdx,
+            d = u.stats.fieldStatsRowType,
+            m = u.isLastFieldStatsReport;
+          if ((Te(u.eventType, d), m)) {
             (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
               o(
                 "WAWebVoipIncomingCallUiActionStore",
@@ -388,18 +389,18 @@ __d(
               o(
                 "WAWebVoipCallStartUnifiedSessionStore",
               ).releaseCurrentCallStartUnifiedSessionId(
-                a.unifiedSessionIdAtCallStart,
+                i.unifiedSessionIdAtCallStart,
               ),
-              o("WAWebCoreActionsODS").logCallFieldstatsFinalReceived(),
-              i || Be(a),
-              s.eventType ===
+              r("WAWebODS").incr("web.call.fieldstats.final_received"),
+              l || Be(i),
+              u.eventType ===
                 o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
-                (Pe(s.stats), Me(s.stats)),
-              ue === a &&
-                (yield ze(a),
-                s.eventType ===
+                (Pe(u.stats), Me(u.stats)),
+              ue === i &&
+                (yield ze(i),
+                u.eventType ===
                   o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
-                  (yield Qe(a))),
+                  (yield Qe(i))),
               o("WALogger").LOG(
                 L ||
                   (L = babelHelpers.taggedTemplateLiteralLoose([
@@ -408,61 +409,61 @@ __d(
               ));
             return;
           }
-          (i && qe(a), yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
-          var m = $e(c)
-            ? yield ce(s.stats, (n = ie.get(a)) != null ? n : null)
-            : babelHelpers.extends({}, s.stats);
-          s.eventType ===
+          (l && qe(i), yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+          var p = $e(d)
+            ? yield ce(u.stats, (n = ie.get(i)) != null ? n : null)
+            : babelHelpers.extends({}, u.stats);
+          u.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
-            m.callTermReason === z &&
-            delete m.callTermReason;
-          var p = a.lobbyEntryPoint;
+            p.callTermReason === z &&
+            delete p.callTermReason;
+          var _ = i.lobbyEntryPoint;
           if (
-            (p != null && (m.lobbyEntryPoint = p),
+            (_ != null && (p.lobbyEntryPoint = _),
             o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled())
           ) {
-            var _ = a.callRandomId;
-            _ != null && (m.callRandomId = _);
+            var f = i.callRandomId;
+            f != null && (p.callRandomId = f);
           }
           if (
-            s.eventType ===
+            u.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
           ) {
             (o(
               "WAWebCallUserJourneyGating",
             ).isCallUserJourneyLoggingEnabled() &&
-              (delete m.micPermission, delete m.cameraPermission),
-              Re(m, a.callFromUi),
-              Le(m, a.isAppInBgWhenCallStarts),
-              De(m, a.callEnterPipModeCount),
+              (delete p.micPermission, delete p.cameraPermission),
+              Re(p, i.callFromUi),
+              Le(p, i.isAppInBgWhenCallStarts),
+              De(p, i.callEnterPipModeCount),
               o("WAWebVoipCallReachabilityStore").maybeStampCallReachability(
-                m,
-                a.callReachability,
+                p,
+                i.callReachability,
               ),
               o("WAWebVoipTabStateAtOfferStore").maybeStampTabStateAtOffer(
-                m,
-                a.tabStateAtOffer,
+                p,
+                i.tabStateAtOffer,
               ),
               o(
                 "WAWebVoipIncomingCallNotificationStateStore",
               ).maybeStampIncomingCallNotificationState(
-                m,
-                a.incomingCallNotificationState,
+                p,
+                i.incomingCallNotificationState,
               ));
-            var f = yield o(
+            var g = yield o(
               "WAWebVoipCallStartUnifiedSessionStore",
-            ).resolveCallUnifiedSessionId(a.unifiedSessionIdAtCallStart);
-            f != null && (m.unifiedSessionId = f);
+            ).resolveCallUnifiedSessionId(i.unifiedSessionIdAtCallStart);
+            g != null && (p.unifiedSessionId = g);
           }
-          s.eventType ===
+          u.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType
-              .JoinableCall && ve(m, a.lobbyVisibleForMs);
-          var g =
-            s.eventType ===
+              .JoinableCall && ve(p, i.lobbyVisibleForMs);
+          var h =
+            u.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
-              ? new (o("WAWebCallWamEvent").CallWamEvent)(m)
-              : we(m);
-          g.commit();
+              ? new (o("WAWebCallWamEvent").CallWamEvent)(p)
+              : we(p);
+          h.commit();
         })),
         be.apply(this, arguments)
       );
@@ -675,7 +676,7 @@ __d(
               });
               return;
             }
-            (o("WAWebCoreActionsODS").logCallFieldstatsWatchdogSend(),
+            (r("WAWebODS").incr("web.call.fieldstats.watchdog_send"),
               Fe(e).catch(function (t) {
                 (o("WALogger")
                   .WARN(
@@ -1135,7 +1136,7 @@ __d(
               ae.add(e),
               qe(e),
               o("WAWebVoipCallRatingStore").clearPendingFieldstats(e),
-              o("WAWebCoreActionsODS").logCallFieldstatsHandoffCompleted(),
+              r("WAWebODS").incr("web.call.fieldstats.wam_handoff_completed"),
               o("WALogger").LOG(
                 O ||
                   (O = babelHelpers.taggedTemplateLiteralLoose([
@@ -1147,7 +1148,7 @@ __d(
               yield et(i));
           } catch (e) {
             throw (
-              o("WAWebCoreActionsODS").logCallFieldstatsHandoffFailed(),
+              r("WAWebODS").incr("web.call.fieldstats.wam_handoff_failed"),
               o("WALogger")
                 .ERROR(
                   B ||

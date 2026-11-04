@@ -12,7 +12,10 @@ __d(
     function c(e, t) {
       return u().sendLogs(e, t);
     }
-    ((l.set = s), (l.get = u), (l.sendLogs = c));
+    function d(e) {
+      return u().setBackgroundPause(e);
+    }
+    ((l.set = s), (l.get = u), (l.sendLogs = c), (l.setBackgroundPause = d));
   },
   98,
 );

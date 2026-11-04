@@ -95,13 +95,22 @@ __d(
                 ? (e || (e = n("CurrentUserInitialData"))).ORIGINAL_USER_ID ===
                   n("Cookie").get("c_user")
                 : (e || (e = n("CurrentUserInitialData")))
-                      .IS_BUSINESS_DOMAIN === !0
-                  ? (e || (e = n("CurrentUserInitialData"))).USER_ID ==
-                    n("Cookie").get("c_user")
-                  : (e || (e = n("CurrentUserInitialData"))).USER_ID ===
-                    ((t = n("Cookie").get("i_user")) != null
-                      ? t
-                      : n("Cookie").get("c_user"))
+                      .IS_BUSINESS_DOMAIN === !0 &&
+                    (e || (e = n("CurrentUserInitialData")))
+                      .MULTI_LOGIN_PRIMARY_USER_ID != null &&
+                    String(
+                      (e || (e = n("CurrentUserInitialData")))
+                        .MULTI_LOGIN_PRIMARY_USER_ID,
+                    ) === n("Cookie").get("c_user")
+                  ? !0
+                  : (e || (e = n("CurrentUserInitialData")))
+                        .IS_BUSINESS_DOMAIN === !0
+                    ? (e || (e = n("CurrentUserInitialData"))).USER_ID ==
+                      n("Cookie").get("c_user")
+                    : (e || (e = n("CurrentUserInitialData"))).USER_ID ===
+                      ((t = n("Cookie").get("i_user")) != null
+                        ? t
+                        : n("Cookie").get("c_user"))
             : !1;
         },
         isEmployee: function () {

@@ -55,7 +55,15 @@ __d(
             d,
             p;
           ((this.$33 = function () {
-            r.$4 && (r.$4.next().done === !0 ? (r.$4 = null) : r.$5(r.$33));
+            var e = r.$4;
+            if (e) {
+              var t = !0;
+              try {
+                t = e.next().done === !0;
+              } finally {
+                r.$4 === e && (t ? (r.$4 = null) : r.$5(r.$33));
+              }
+            }
           }),
             (this.$1 = 0),
             (this.$2 = 0),
@@ -629,10 +637,13 @@ __d(
             p !== m &&
             (i.add(c),
             t.set(c, p),
-            (e || (e = n("relay-runtime/store/RelayModernRecord"))).getValue(
-              p,
-              f,
-            ))
+            (!n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH ||
+              n("relay-runtime/util/RelayFeatureFlags")
+                .ENABLE_FIELD_GRANULAR_NOTIFICATIONS) &&
+              (e || (e = n("relay-runtime/store/RelayModernRecord"))).getValue(
+                p,
+                f,
+              ))
           )
             for (
               var _ = (

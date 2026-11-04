@@ -7,6 +7,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebInAppSignupInfoStore",
     "WAWebMsgGetters",
+    "WAWebP2PPillsThreadOriginStore",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageClickWamEvent",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
@@ -98,13 +99,17 @@ __d(
                           o("WAWebChatThreadLogging").getChatThreadIDHMAC(
                             a.id.toString(),
                           ),
+                          o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                            a.accountLid,
+                          ),
                         ]),
                         p = c[0],
-                        _ = c[1];
+                        _ = c[1],
+                        f = c[2];
                       new (o(
                         "WAWebQbmMessageClickWamEvent",
                       ).QbmMessageClickWamEvent)(
-                        babelHelpers.extends({}, t, {
+                        babelHelpers.extends({}, t, f, {
                           isInsubContact: u,
                           buttonClickedType: s,
                           thumbnailType: d(i),

@@ -104,6 +104,19 @@ __d(
             });
           return l;
         },
+        mediaElementSetPlaybackRate: function (t, n, r) {
+          var e = o(
+            "VideoPlayerNextgendashHostAPI",
+          ).unopaqueVideoPlayerNextgendashHostMediaElement(n);
+          if (!Number.isFinite(r) || r <= 0)
+            throw o("nextgendasherr").nextgendasherr(
+              t,
+              "VideoPlayerNextgendashBrowserHostAPIMediaElementSetPlaybackRateInvalid",
+              "VideoPlayerNextgendashBrowserHostAPI.mediaElementSetPlaybackRate: Invalid playbackRate: %s",
+              r,
+            );
+          e.playbackRate = r;
+        },
         mediaElementSetPlayhead: function (t, n, r) {
           var e = o(
             "VideoPlayerNextgendashHostAPI",

@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebCoreActionsODS",
     "WAWebNoop",
+    "WAWebODS",
     "WAWebVoipPthreadWorkerFields",
     "WAWebVoipWasmArtifactSkewErrors",
     "err",
@@ -92,12 +93,12 @@ __d(
     }
     function D(e, t) {
       var n = 0;
-      for (var r of Array.from(b)) {
-        var a = $(e, r);
-        if (a != null) {
-          (a === "no_worker_id" && n++, b.delete(r));
+      for (var a of Array.from(b)) {
+        var i = $(e, a);
+        if (i != null) {
+          (i === "no_worker_id" && n++, b.delete(a));
           try {
-            r.reject(t);
+            a.reject(t);
           } catch (e) {
             o("WALogger").LOG(
               u ||
@@ -111,9 +112,9 @@ __d(
         }
       }
       n > 0 &&
-        (o(
-          "WAWebCoreActionsODS",
-        ).logCallVoipInitWasmArtifactWorkerGlueBootstrapWaitFailedUnmatched(),
+        (r("WAWebODS").incr(
+          "web.call.voip_init.wasm_artifact.worker_glue.bootstrap_wait_failed_unmatched",
+        ),
         o("WALogger").WARN(
           c ||
             (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -128,12 +129,12 @@ __d(
     function x(e, t, n) {
       if (t === "unused" || t === "bootstrap") {
         t === "bootstrap" &&
-          o(
-            "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailedBootstrap();
-        var r = P(t, n),
-          a = n ? "did not load its glue in time" : "refused its glue";
-        if (R.has(r)) {
+          r("WAWebODS").incr(
+            "web.call.voip_init.wasm_artifact.worker_glue.pinned_load_failed_bootstrap",
+          );
+        var a = P(t, n),
+          i = n ? "did not load its glue in time" : "refused its glue";
+        if (R.has(a)) {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -143,12 +144,12 @@ __d(
                 "",
               ])),
             t,
-            a,
+            i,
             e.message,
           );
           return;
         }
-        (R.add(r),
+        (R.add(a),
           o("WALogger")
             .LOG(
               m ||
@@ -158,20 +159,20 @@ __d(
                   "; page unpinned",
                 ])),
               t,
-              a,
+              i,
             )
             .catching(e)
             .tags("non-sad")
-            .sendLogs(r, {
+            .sendLogs(a, {
               sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
               sampling: E,
             }));
         return;
       }
       (t === "bound"
-        ? o(
-            "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailedBound()
+        ? r("WAWebODS").incr(
+            "web.call.voip_init.wasm_artifact.worker_glue.pinned_load_failed_bound",
+          )
         : o(
             "WAWebCoreActionsODS",
           ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadFailedUnattributed(),
@@ -222,9 +223,9 @@ __d(
       var e;
       S ||
         ((S = !0),
-        o(
-          "WAWebCoreActionsODS",
-        ).logCallVoipInitWasmArtifactWorkerGlueRuntimeUnpinned(),
+        r("WAWebODS").incr(
+          "web.call.voip_init.wasm_artifact.worker_glue.runtime_unpinned",
+        ),
         o("WALogger").LOG(
           _ ||
             (_ = babelHelpers.taggedTemplateLiteralLoose([

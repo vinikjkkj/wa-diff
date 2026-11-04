@@ -17,7 +17,7 @@ __d(
         n = e == null ? void 0 : e.value;
       if (n != null) {
         var r = (t = e == null ? void 0 : e.offset) != null ? t : 1;
-        return parseFloat(n != null ? n : 0) / parseInt(r, 10);
+        return parseFloat(String(n != null ? n : 0)) / parseInt(String(r), 10);
       }
     }
     function c(e) {
@@ -65,7 +65,7 @@ __d(
             name: (r = e == null ? void 0 : e.name) != null ? r : "",
             amount: u(e == null ? void 0 : e.amount),
             quantity: parseInt(
-              (o = e == null ? void 0 : e.quantity) != null ? o : 0,
+              String((o = e == null ? void 0 : e.quantity) != null ? o : 0),
               10,
             ),
             isCustomItem:

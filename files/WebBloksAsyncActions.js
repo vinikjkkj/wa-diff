@@ -1,6 +1,11 @@
 __d(
   "WebBloksAsyncActions",
-  ["WebBloksScriptDebuggingUtils", "WebBloksUtils", "asyncToGeneratorRuntime"],
+  [
+    "WebBloksErrors",
+    "WebBloksScriptDebuggingUtils",
+    "WebBloksUtils",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r) {
       return s.apply(this, arguments);
@@ -10,13 +15,18 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = o("WebBloksUtils").nullthrows(
-                e.bloksContext.objectSet.environment.appLoader,
-              ),
-              i = null;
-            return (
-              (i = yield a.fetchAction(t, n)),
-              e.executeActionPayload(i, r)
+              e.bloksContext.objectSet.environment.appLoader,
             );
+            try {
+              var i = yield a.fetchAction(t, n);
+              return e.executeActionPayload(i, r);
+            } catch (e) {
+              throw (
+                e instanceof o("WebBloksErrors").WebBloksError &&
+                  (e.asyncActionAppId = t),
+                e
+              );
+            }
           },
         )),
         s.apply(this, arguments)

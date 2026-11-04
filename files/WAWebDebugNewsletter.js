@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugNewsletter",
   [
+    "Promise",
     "WAComms",
     "WAJids",
     "WALinkify",
@@ -53,6 +54,7 @@ __d(
     "WAWebUserDisclosureCollection",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
     "react",
@@ -60,18 +62,19 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = function (t) {
+      s,
+      u = s || (s = o("react")),
+      c = function (t) {
         return r("nullthrows")(o("WAComms").getComms()).handleStanza(
           t,
           o("WAComms").DEFAULT_SOCKET_ID,
           0,
         );
       },
-      c = function () {
+      d = function () {
         return Math.round(Date.now() / 1e3);
       };
-    function d(e, t) {
+    function m(e, t) {
       var n;
       r("vulture")("oxiPEvFncdcucmTRDaHG2kFJVXU=");
       var a = (n = o("WAWap")).makeWapNode(
@@ -79,29 +82,37 @@ __d(
         {
           from: n.JID(o("WAJids").toNewsletterJid(e)),
           type: "newsletter",
-          id: n.INT(c()),
-          t: n.INT(c()),
+          id: n.INT(d()),
+          t: n.INT(d()),
         },
         t,
       );
-      u(a);
-    }
-    async function m() {
-      (r("vulture")("jXREDXiSPUfgS8AbFeKMlC8bUoo="),
-        await o(
-          "WAWebQueryAndUpdateAllNewslettersMetadataAction",
-        ).queryAndUpdateAllNewsletterMetadataAction(
-          o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
-            .Debug,
-        ));
+      c(a);
     }
     function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("jXREDXiSPUfgS8AbFeKMlC8bUoo="),
+            yield o(
+              "WAWebQueryAndUpdateAllNewslettersMetadataAction",
+            ).queryAndUpdateAllNewsletterMetadataAction(
+              o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
+                .Debug,
+            ));
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f() {
       return (
         r("vulture")("kGH1sG_nwpAtGt_M4t6HyMDqGgU="),
         { id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString() }
       );
     }
-    var _ = {
+    var g = {
       enableNewsletter: function () {
         var e;
         (r("vulture")("Zl_tGNhlbr63pX0aQAp_8G4CU-s="),
@@ -140,34 +151,48 @@ __d(
             picture: null,
           }));
       },
-      createAndOpenNewsletter: async function (t) {
-        r("vulture")("W37Kz0rIy-kuQOXX6F6U2UsqBsY=");
-        var e = await o("WAWebNewsletterCreateAction").createNewsletterAction(
-          t,
-        );
-        e != null && o("WAWebCmd").Cmd.openCreatedNewsletter(e);
-      },
-      inviteUserToAdminChannel: async function (t, n) {
-        r("vulture")("VIo16TExC4GDZLNxl-AkOK43fqA=");
-        var e = o("WAWebContactCollection").ContactCollection.getModelsArray(),
-          a = e.find(function (e) {
-            return e.searchMatchExact(n, n) != null;
-          }),
-          i = r("WAWebNewsletterCollection").get(t);
-        if (a == null || i == null) return !1;
-        var l = await o(
-            "WAWebNewsletterBulkSendAdminInviteAction",
-          ).sendBulkNewsletterAdminInviteAction({
-            invitees: [a],
-            chat: i,
-            inviteMessage:
-              "Accept this invitation to be an admin for my WhatsApp channel, " +
-              i.name,
-            base64Thumb: null,
-          }),
-          s = l.allFailed;
-        return !s;
-      },
+      createAndOpenNewsletter: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("W37Kz0rIy-kuQOXX6F6U2UsqBsY=");
+          var t = yield o("WAWebNewsletterCreateAction").createNewsletterAction(
+            e,
+          );
+          t != null && o("WAWebCmd").Cmd.openCreatedNewsletter(t);
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      inviteUserToAdminChannel: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("VIo16TExC4GDZLNxl-AkOK43fqA=");
+          var n = o(
+              "WAWebContactCollection",
+            ).ContactCollection.getModelsArray(),
+            a = n.find(function (e) {
+              return e.searchMatchExact(t, t) != null;
+            }),
+            i = r("WAWebNewsletterCollection").get(e);
+          if (a == null || i == null) return !1;
+          var l = yield o(
+              "WAWebNewsletterBulkSendAdminInviteAction",
+            ).sendBulkNewsletterAdminInviteAction({
+              invitees: [a],
+              chat: i,
+              inviteMessage:
+                "Accept this invitation to be an admin for my WhatsApp channel, " +
+                i.name,
+              base64Thumb: null,
+            }),
+            s = l.allFailed;
+          return !s;
+        });
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       mockNewsletterCollection: function (t) {
         r("vulture")("qVAsh3H8dz1iOMdWcllvJbkVPbA=");
         var e = o("WAWebWidFactory").createWid("123@newsletter"),
@@ -222,7 +247,7 @@ __d(
       sendMuteNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
           r("vulture")("qoaMhmchLdJvZrxXwz5mQ-Bt1b0="),
-          d(
+          m(
             t,
             o("WAWap").makeWapNode(
               "metadata",
@@ -234,7 +259,7 @@ __d(
       sendUnmuteNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
           r("vulture")("fcY-jQdhpWfcjFIqrWqi4skzqec="),
-          d(
+          m(
             t,
             o("WAWap").makeWapNode(
               "metadata",
@@ -246,7 +271,7 @@ __d(
       sendJoinNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
           r("vulture")("Hwo9vTm7vnQnp13CDuKSna4soxE="),
-          d(
+          m(
             t,
             o("WAWap").makeWapNode(
               "join",
@@ -254,7 +279,7 @@ __d(
               o("WAWap").makeWapNode("metadata", null, [
                 o("WAWap").makeWapNode("name", {
                   id: "1",
-                  update_time: o("WAWap").INT(c()),
+                  update_time: o("WAWap").INT(d()),
                   text: o("WAWap").CUSTOM_STRING("My Channel"),
                 }),
               ]),
@@ -264,7 +289,7 @@ __d(
       sendLeaveNotification: function (t) {
         (t === void 0 && (t = "123@newsletter"),
           r("vulture")("Ka9tWhoLJECaxY401x3YHPIrubY="),
-          d(t, o("WAWap").makeWapNode("leave", null)));
+          m(t, o("WAWap").makeWapNode("leave", null)));
       },
       sendMessageToNewsletter: function (t) {
         (t === void 0 && (t = "123@newsletter"),
@@ -278,262 +303,394 @@ __d(
             {
               from: o("WAWap").JID(o("WAJids").toNewsletterJid(t)),
               type: "text",
-              id: o("WAWap").INT(c()),
-              server_id: o("WAWap").INT(c()),
-              t: o("WAWap").INT(c()),
+              id: o("WAWap").INT(d()),
+              server_id: o("WAWap").INT(d()),
+              t: o("WAWap").INT(d()),
             },
             o("WAWap").makeWapNode("plaintext", null, e),
           );
-        u(n);
+        c(n);
       },
-      loadNewsletterPreviewChat: async function (t) {
-        r("vulture")("Xeh3TwjzxYUEg8Z6fEzB69C-9HY=");
-        var e = await o(
-          "WAWebLoadNewsletterPreviewChatAction",
-        ).loadNewsletterPreviewChat(t);
-        e != null &&
-          (await o("WAWebCmd").Cmd.openChatBottom({
-            chat: e,
-            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Link,
-          }));
-      },
-      getNewsletterDirectoryList: async function (t) {
-        r("vulture")("7uIKKAbP8uaTq29GbxG2KSHOhGw=");
-        var e = await o(
-            "WAWebNewsletterDirectorySearchAction",
-          ).getNewsletterDirectoryListAction(
-            babelHelpers.extends({}, t, { skipSubscribedNewsletters: !1 }),
-          ),
-          n = e.newsletters;
-        return n;
-      },
-      getNewsletterDirectorySearchResults: async function (t) {
-        r("vulture")("DNTm0jrqMWgKwr_pDG3WTWxgRCg=");
-        var e = await o(
-            "WAWebNewsletterDirectorySearchAction",
-          ).getNewsletterDirectorySearchResultsAction(
-            babelHelpers.extends({}, t, { skipSubscribedNewsletters: !1 }),
-          ),
-          n = e.newsletters;
-        return n;
-      },
-      getNewsletterDirectoryCategoriesPreview: async function (t) {
-        return (
-          r("vulture")("irLniV8Bg1_Zt1YTd5m0Ld5qAaw="),
-          o(
-            "WAWebNewsletterDirectorySearchAction",
-          ).getNewsletterDirectoryCategoriesPreviewAction(t)
-        );
-      },
-      getRecommendedNewsletters: async function () {
-        r("vulture")("UF6EvWTfEMxGb7pXQjl0a3RFvnY=");
-        var e = await o(
-          "WAWebNewsletterGetRecommendedNewslettersAction",
-        ).getRecommendedNewslettersAction();
-        return e;
-      },
-      refreshAllNewsletters: m,
+      loadNewsletterPreviewChat: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("Xeh3TwjzxYUEg8Z6fEzB69C-9HY=");
+          var t = yield o(
+            "WAWebLoadNewsletterPreviewChatAction",
+          ).loadNewsletterPreviewChat(e);
+          t != null &&
+            (yield o("WAWebCmd").Cmd.openChatBottom({
+              chat: t,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Link,
+            }));
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getNewsletterDirectoryList: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("7uIKKAbP8uaTq29GbxG2KSHOhGw=");
+          var t = yield o(
+              "WAWebNewsletterDirectorySearchAction",
+            ).getNewsletterDirectoryListAction(
+              babelHelpers.extends({}, e, { skipSubscribedNewsletters: !1 }),
+            ),
+            n = t.newsletters;
+          return n;
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getNewsletterDirectorySearchResults: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("DNTm0jrqMWgKwr_pDG3WTWxgRCg=");
+          var t = yield o(
+              "WAWebNewsletterDirectorySearchAction",
+            ).getNewsletterDirectorySearchResultsAction(
+              babelHelpers.extends({}, e, { skipSubscribedNewsletters: !1 }),
+            ),
+            n = t.newsletters;
+          return n;
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getNewsletterDirectoryCategoriesPreview: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (
+            r("vulture")("irLniV8Bg1_Zt1YTd5m0Ld5qAaw="),
+            o(
+              "WAWebNewsletterDirectorySearchAction",
+            ).getNewsletterDirectoryCategoriesPreviewAction(e)
+          );
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getRecommendedNewsletters: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("UF6EvWTfEMxGb7pXQjl0a3RFvnY=");
+          var e = yield o(
+            "WAWebNewsletterGetRecommendedNewslettersAction",
+          ).getRecommendedNewslettersAction();
+          return e;
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      refreshAllNewsletters: p,
       getUserNotices: function () {
         return (
           r("vulture")("B_rV6kCpyR16PMa7bP5wsx3mpXk="),
           o("WAWebGetUserDisclosuresAction").getUserDisclosuresAction()
         );
       },
-      openChannelAt: async function (t, n) {
-        (r("vulture")("OMK_9FbYp1upSMdqlQhNIdlLLBQ="),
-          await o("WAWebNewsletterOpenAtAction").openNewsletterAt({
-            newsletterJid: t,
-            serverId: n,
-            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
-          }));
-      },
-      mexFetchSubscriberList: async function (t, n) {
-        r("vulture")("LjnjNh47xpKpXspFhvsAJLzvtAA=");
-        var e = await o(
-          "WAWebMexFetchNewsletterFollowersJob",
-        ).mexFetchNewsletterFollowers(t, n);
-      },
-      mexFetchNewsletterReactionSenderList: async function (t, n) {
-        r("vulture")("Lsr41e495mdoD09sxBQqCDpVRcQ=");
-        var e = await o(
-          "WAWebMexFetchNewsletterMessageReactionSenderListJob",
-        ).mexFetchNewsletterMessageReactionSenderList(t, n);
-      },
-      mexFetchNewsletterIsDomainPreviewable: async function (t) {
-        r("vulture")("0ugf21Dn_dLST4o-csJ2XFMO9OQ=");
-        var e = await o(
-          "WAWebMexFetchNewsletterIsDomainPreviewableJob",
-        ).mexFetchNewsletterIsDomainPreviewable(t);
-      },
-      mexFetchNewsletterPendingInvites: async function (t) {
-        r("vulture")("IlAL7p3vq9cf0nfLZtQRDDdaAiY=");
-        var e = await o(
-          "WAWebMexFetchNewsletterPendingInvitesJob",
-        ).mexFetchNewsletterPendingInvites(t);
-      },
-      deletePreviewNewsletters: async function () {
-        (r("vulture")("ULdvvD6GOh-L3VA6phuSSDEI0u0="),
-          await o("WAWebNewsletterCleanupTasks").deletePreviewNewsletters());
-      },
-      sendNewsletterAdminInviteMessage: async function (t) {
-        r("vulture")("egtjCnCfXAWYMKIjP-sDdHczAe4=");
-        var e = o("WAWebDebugUtils").getSelectedChat(),
-          n = o("WAWebDecodeJid").strictDecodeJid(t);
-        if (e == null || n == null)
-          throw r("err")("No selected chat or invalid jid");
-        await o(
-          "WAWebNewsletterSendMsgAction",
-        ).sendNewsletterAdminInviteMessage(e, {
-          newsletterWid: n,
-          invitee: o("WAWebWidFactory").createUserWidOrThrow(e.id.toString()),
-          inviteMessage: "Please become an admin!",
-          base64Thumb: null,
+      openChannelAt: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (r("vulture")("OMK_9FbYp1upSMdqlQhNIdlLLBQ="),
+            yield o("WAWebNewsletterOpenAtAction").openNewsletterAt({
+              newsletterJid: e,
+              serverId: t,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
+            }));
         });
-      },
-      showDemoteNotif: async function () {
-        r("vulture")("tO3wzanE9Fn2NwlkGJrhbtiDyr4=");
-        var e = o("WAWebContactCollection").ContactCollection.at(
-          Math.floor(
-            Math.random() *
-              o("WAWebContactCollection").ContactCollection.length,
-          ),
-        );
-        o(
-          "WAWebNewsletterBridgeApi",
-        ).NewsletterBridgeApi.displayRoleChangeDesktopNotification({
-          notification: {
-            xwa2_notify_newsletter_admin_demote: {
-              id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
-              admin: p(),
-              user: { id: e == null ? void 0 : e.id.toString() },
-              actor: p(),
-              user_new_role: "SUBSCRIBER",
-            },
-          },
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      mexFetchSubscriberList: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("LjnjNh47xpKpXspFhvsAJLzvtAA=");
+          var n = yield o(
+            "WAWebMexFetchNewsletterFollowersJob",
+          ).mexFetchNewsletterFollowers(e, t);
         });
-      },
-      showPromoteNotif: async function () {
-        r("vulture")("FiURiIB2RjEyPpwzzaR8f_NyXY4=");
-        var e = o("WAWebContactCollection").ContactCollection.at(
-          Math.floor(
-            Math.random() *
-              o("WAWebContactCollection").ContactCollection.length,
-          ),
-        );
-        o(
-          "WAWebNewsletterBridgeApi",
-        ).NewsletterBridgeApi.displayRoleChangeDesktopNotification({
-          notification: {
-            xwa2_notify_newsletter_admin_promote: {
-              id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
-              admin: p(),
-              user: { id: e == null ? void 0 : e.id.toString() },
-              actor: p(),
-              user_new_role: "ADMIN",
-            },
-          },
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      mexFetchNewsletterReactionSenderList: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("Lsr41e495mdoD09sxBQqCDpVRcQ=");
+          var n = yield o(
+            "WAWebMexFetchNewsletterMessageReactionSenderListJob",
+          ).mexFetchNewsletterMessageReactionSenderList(e, t);
         });
-      },
-      getNewsletterReports: async function () {
-        (r("vulture")("Mde0UtbKMElf_UV4a07Be8T-RH0="),
-          await o(
-            "WAWebNewsletterGetReportsAction",
-          ).getNewsletterReportsAction());
-      },
-      changeNewsletterOwner: async function (t, n) {
-        r("vulture")("7hNZ7UiwHwzun-f5pSNGHR4t4bA=");
-        var e = o("WAWebContactCollection").ContactCollection.get(n),
-          a = r("WAWebNewsletterCollection").get(t);
-        e == null ||
-          a == null ||
-          (await o(
-            "WAWebChangeNewsletterOwnerAction",
-          ).changeNewsletterOwnerAction(a, e));
-      },
-      subscribeToTestNewsletters: async function (t) {
-        (r("vulture")("8UXdPX-jzC_AujOw3G6xZcrzYGY="),
-          await Promise.all(
-            t.map(function (e) {
-              r("vulture")("RQb6a6Y5s6GtaAxy1F_qnEfd6XI=");
-              var t = o("WAWebDecodeJid").strictDecodeJid(e);
-              if (t != null)
-                return o(
-                  "WAWebNewsletterSubscribeAction",
-                ).subscribeToNewsletterWidAction(
-                  o("WAWebWidFactory").asNewsletterWidOrThrow(t),
-                );
-            }),
-          ),
-          await m());
-      },
-      resetNewsletterTos: async function () {
-        r("vulture")("IEAJatWt6QH-Rghwqv4wCDbJyg4=");
-        var e = [
-          o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
-          o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
-          o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
-        ];
-        e.forEach(function (e) {
-          (r("vulture")("3lnQlAh-k6nD5Pj6iVk6wZIdfUA="),
-            o("WAWebTos").TosManager.resetState(e),
-            o("WAWebUserDisclosureCollection").UserDisclosureCollection.remove(
-              e,
-            ));
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      mexFetchNewsletterIsDomainPreviewable: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("0ugf21Dn_dLST4o-csJ2XFMO9OQ=");
+          var t = yield o(
+            "WAWebMexFetchNewsletterIsDomainPreviewableJob",
+          ).mexFetchNewsletterIsDomainPreviewable(e);
         });
-      },
-      getNewsletterMessages: async function (t, n) {
-        r("vulture")("b5_0hN7xvVXtjbpIBG9QJfcZ1xA=");
-        try {
-          var e = await o(
-            "WASmaxNewslettersGetNewsletterMessagesRPC",
-          ).sendGetNewsletterMessagesRPC({
-            queryNewsletterParamsMixinArgs: {
-              queryNewsletterParamsArgs: {
-                queryNewsletterJIDParams: { anyJid: t },
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      mexFetchNewsletterPendingInvites: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("IlAL7p3vq9cf0nfLZtQRDDdaAiY=");
+          var t = yield o(
+            "WAWebMexFetchNewsletterPendingInvitesJob",
+          ).mexFetchNewsletterPendingInvites(e);
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      deletePreviewNewsletters: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("ULdvvD6GOh-L3VA6phuSSDEI0u0="),
+            yield o("WAWebNewsletterCleanupTasks").deletePreviewNewsletters());
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      sendNewsletterAdminInviteMessage: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("egtjCnCfXAWYMKIjP-sDdHczAe4=");
+          var t = o("WAWebDebugUtils").getSelectedChat(),
+            n = o("WAWebDecodeJid").strictDecodeJid(e);
+          if (t == null || n == null)
+            throw r("err")("No selected chat or invalid jid");
+          yield o(
+            "WAWebNewsletterSendMsgAction",
+          ).sendNewsletterAdminInviteMessage(t, {
+            newsletterWid: n,
+            invitee: o("WAWebWidFactory").createUserWidOrThrow(t.id.toString()),
+            inviteMessage: "Please become an admin!",
+            base64Thumb: null,
+          });
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      showDemoteNotif: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("tO3wzanE9Fn2NwlkGJrhbtiDyr4=");
+          var e = o("WAWebContactCollection").ContactCollection.at(
+            Math.floor(
+              Math.random() *
+                o("WAWebContactCollection").ContactCollection.length,
+            ),
+          );
+          o(
+            "WAWebNewsletterBridgeApi",
+          ).NewsletterBridgeApi.displayRoleChangeDesktopNotification({
+            notification: {
+              xwa2_notify_newsletter_admin_demote: {
+                id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
+                admin: f(),
+                user: { id: e == null ? void 0 : e.id.toString() },
+                actor: f(),
+                user_new_role: "SUBSCRIBER",
               },
             },
-            newsletterMessageRequestPayloadMixinArgs: { messagesCount: n },
           });
-          return e;
-        } catch (e) {
-          throw e;
-        }
-      },
-      getNewsletterQuestionResponses: async function (t, n, a) {
-        r("vulture")("Nn4nHFEYQo-GvZ26nFpcYWxrUso=");
-        try {
-          var e = await o(
-            "WASmaxNewslettersGetNewsletterResponsesRPC",
-          ).sendGetNewsletterResponsesRPC({
-            iqTo: t,
-            questionResponsesServerId: n,
-            questionResponsesCount: a,
-          });
-          return e;
-        } catch (e) {
-          throw e;
-        }
-      },
-      sendDummyMilestoneNotification: async function (t, n, a, i, l) {
-        (t === void 0 && (t = "MESSAGE_REACTIONS"),
-          n === void 0 && (n = 100),
-          a === void 0 && (a = "\u2764\uFE0F"),
-          r("vulture")("6L4RfYXfWrGsUSPbHOKoT50UsHQ="));
-        var e = await o("WAWebNewsletterDBUtils").getMessageByServerId(
-          Number(l),
-          i,
-        );
-        if (e == null) throw r("err")("No message found for serverId");
-        o(
-          "WAWebNewsletterBridgeApi",
-        ).NewsletterBridgeApi.displayNewsletterMilestoneDesktopNotification({
-          msg: o("WAWebMsgModelFromData").msgModelFromMsgData(e),
-          milestoneType: t,
-          value: n,
-          reactionCode: t === "MESSAGE_REACTIONS" ? a : null,
-          chat: o("WAWebFrontendMsgGetters").getChat(e),
         });
-      },
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      showPromoteNotif: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("FiURiIB2RjEyPpwzzaR8f_NyXY4=");
+          var e = o("WAWebContactCollection").ContactCollection.at(
+            Math.floor(
+              Math.random() *
+                o("WAWebContactCollection").ContactCollection.length,
+            ),
+          );
+          o(
+            "WAWebNewsletterBridgeApi",
+          ).NewsletterBridgeApi.displayRoleChangeDesktopNotification({
+            notification: {
+              xwa2_notify_newsletter_admin_promote: {
+                id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
+                admin: f(),
+                user: { id: e == null ? void 0 : e.id.toString() },
+                actor: f(),
+                user_new_role: "ADMIN",
+              },
+            },
+          });
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getNewsletterReports: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("vulture")("Mde0UtbKMElf_UV4a07Be8T-RH0="),
+            yield o(
+              "WAWebNewsletterGetReportsAction",
+            ).getNewsletterReportsAction());
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      changeNewsletterOwner: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("7hNZ7UiwHwzun-f5pSNGHR4t4bA=");
+          var n = o("WAWebContactCollection").ContactCollection.get(t),
+            a = r("WAWebNewsletterCollection").get(e);
+          n == null ||
+            a == null ||
+            (yield o(
+              "WAWebChangeNewsletterOwnerAction",
+            ).changeNewsletterOwnerAction(a, n));
+        });
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      subscribeToTestNewsletters: (function () {
+        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          (r("vulture")("8UXdPX-jzC_AujOw3G6xZcrzYGY="),
+            yield (e || (e = n("Promise"))).all(
+              t.map(function (e) {
+                r("vulture")("RQb6a6Y5s6GtaAxy1F_qnEfd6XI=");
+                var t = o("WAWebDecodeJid").strictDecodeJid(e);
+                if (t != null)
+                  return o(
+                    "WAWebNewsletterSubscribeAction",
+                  ).subscribeToNewsletterWidAction(
+                    o("WAWebWidFactory").asNewsletterWidOrThrow(t),
+                  );
+              }),
+            ),
+            yield p());
+        });
+        function a(e) {
+          return t.apply(this, arguments);
+        }
+        return a;
+      })(),
+      resetNewsletterTos: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("IEAJatWt6QH-Rghwqv4wCDbJyg4=");
+          var e = [
+            o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
+            o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
+            o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
+          ];
+          e.forEach(function (e) {
+            (r("vulture")("3lnQlAh-k6nD5Pj6iVk6wZIdfUA="),
+              o("WAWebTos").TosManager.resetState(e),
+              o(
+                "WAWebUserDisclosureCollection",
+              ).UserDisclosureCollection.remove(e));
+          });
+        });
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getNewsletterMessages: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("b5_0hN7xvVXtjbpIBG9QJfcZ1xA=");
+          try {
+            var n = yield o(
+              "WASmaxNewslettersGetNewsletterMessagesRPC",
+            ).sendGetNewsletterMessagesRPC({
+              queryNewsletterParamsMixinArgs: {
+                queryNewsletterParamsArgs: {
+                  queryNewsletterJIDParams: { anyJid: e },
+                },
+              },
+              newsletterMessageRequestPayloadMixinArgs: { messagesCount: t },
+            });
+            return n;
+          } catch (e) {
+            throw e;
+          }
+        });
+        function t(t, n) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      getNewsletterQuestionResponses: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            r("vulture")("Nn4nHFEYQo-GvZ26nFpcYWxrUso=");
+            try {
+              var a = yield o(
+                "WASmaxNewslettersGetNewsletterResponsesRPC",
+              ).sendGetNewsletterResponsesRPC({
+                iqTo: e,
+                questionResponsesServerId: t,
+                questionResponsesCount: n,
+              });
+              return a;
+            } catch (e) {
+              throw e;
+            }
+          },
+        );
+        function t(t, n, r) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      sendDummyMilestoneNotification: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i) {
+            (e === void 0 && (e = "MESSAGE_REACTIONS"),
+              t === void 0 && (t = 100),
+              n === void 0 && (n = "\u2764\uFE0F"),
+              r("vulture")("6L4RfYXfWrGsUSPbHOKoT50UsHQ="));
+            var l = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
+              Number(i),
+              a,
+            );
+            if (l == null) throw r("err")("No message found for serverId");
+            o(
+              "WAWebNewsletterBridgeApi",
+            ).NewsletterBridgeApi.displayNewsletterMilestoneDesktopNotification(
+              {
+                msg: o("WAWebMsgModelFromData").msgModelFromMsgData(l),
+                milestoneType: e,
+                value: t,
+                reactionCode: e === "MESSAGE_REACTIONS" ? n : null,
+                chat: o("WAWebFrontendMsgGetters").getChat(l),
+              },
+            );
+          },
+        );
+        function t(t, n, r, o, a) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       getLastChannelMessageServerId: function () {
         var e;
         r("vulture")("v_tV2ahR5hgdlPTRZ-aUH0kOgzg=");
@@ -569,37 +726,49 @@ __d(
           throw r("err")("getLastChannelMessageT: latest message has no t");
         return n;
       },
-      addProfilePictureDeletionAlertForSelectedChat: async function () {
-        r("vulture")("dwD0Dgh9S3zpLVvxLOJIHJBBLVw=");
-        var e = o("WAWebDebugUtils").getSelectedChat();
-        if (e == null)
-          throw r("err")(
-            "addProfilePictureDeletionAlertForSelectedChat: no selected chat",
-          );
-        await o(
-          "WAWebNewsletterBridgeApi",
-        ).NewsletterBridgeApi.updateProfilePictureDeletionAlertState({
-          newsletterWid: o("WAWebWidFactory").asNewsletterWidOrThrow(e.id),
+      addProfilePictureDeletionAlertForSelectedChat: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("dwD0Dgh9S3zpLVvxLOJIHJBBLVw=");
+          var e = o("WAWebDebugUtils").getSelectedChat();
+          if (e == null)
+            throw r("err")(
+              "addProfilePictureDeletionAlertForSelectedChat: no selected chat",
+            );
+          yield o(
+            "WAWebNewsletterBridgeApi",
+          ).NewsletterBridgeApi.updateProfilePictureDeletionAlertState({
+            newsletterWid: o("WAWebWidFactory").asNewsletterWidOrThrow(e.id),
+          });
         });
-      },
-      setNewsletterSubscriberCountForSelectedChat: async function (t) {
-        r("vulture")("_271Q5ekMKAgj5UX3QOy2RM0FRI=");
-        var e = o("WAWebDebugUtils").getSelectedChat();
-        if (e == null)
-          throw r("err")(
-            "setNewsletterSubscriberCountForSelectedChat: no selected chat",
-          );
-        await o(
-          "WAWebNewsletterBridgeApi",
-        ).NewsletterBridgeApi.updateNewsletterSubscriberCount({
-          id: e.id,
-          update: { newSubscriberCount: t },
+        function t() {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
+      setNewsletterSubscriberCountForSelectedChat: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("_271Q5ekMKAgj5UX3QOy2RM0FRI=");
+          var t = o("WAWebDebugUtils").getSelectedChat();
+          if (t == null)
+            throw r("err")(
+              "setNewsletterSubscriberCountForSelectedChat: no selected chat",
+            );
+          yield o(
+            "WAWebNewsletterBridgeApi",
+          ).NewsletterBridgeApi.updateNewsletterSubscriberCount({
+            id: t.id,
+            update: { newSubscriberCount: e },
+          });
         });
-      },
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       openNewsletterStatusTextComposer: function () {
         (r("vulture")("Eq2J2I-RaMghHnKCGt_vPuZpQjQ="),
           o("WAWebModalManager").ModalManager.openMedia(
-            s.createElement(r("WAWebCreateTextStatusFlow.react"), {
+            u.createElement(r("WAWebCreateTextStatusFlow.react"), {
               entryPoint: o("WAWebLogStatusPosterActions")
                 .STATUS_CREATION_ENTRY_POINT.CHANNEL_THREAD_SCREEN,
               isNewsletterStatus: !0,
@@ -611,7 +780,7 @@ __d(
           ));
       },
     };
-    l.default = _;
+    l.default = g;
   },
   98,
 );

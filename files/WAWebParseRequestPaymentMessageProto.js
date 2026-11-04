@@ -81,7 +81,7 @@ __d(
         ) {
           var f = u.amount,
             g = f.offset == null || f.offset === 0 ? 1e3 : f.offset;
-          _.paymentAmount1000 = (parseFloat(f.value) * 1e3) / g;
+          _.paymentAmount1000 = (parseFloat(String(f.value)) * 1e3) / g;
         }
         if (
           u.requestFrom != null &&

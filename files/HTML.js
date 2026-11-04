@@ -8,9 +8,9 @@ __d(
     "emptyFunction",
     "evalGlobal",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e = /(<(\w+)[^>]*?)\/>/g,
-      s = {
+      u = {
         abbr: !0,
         area: !0,
         br: !0,
@@ -23,45 +23,45 @@ __d(
         meta: !0,
         param: !0,
       },
-      u = (function () {
+      c = (function () {
         function t(e) {
           ((this.$1 = ""),
             (this.$2 = !1),
-            (this.$4 = n("emptyFunction")),
+            (this.$4 = r("emptyFunction")),
             (this.$6 = !1));
-          var r = e;
+          var n = e;
           if (
-            (r &&
-              typeof r.__html == "string" &&
-              (n("FBLogger")("html").warn("HTML: Superfluous HTML() call."),
-              (r = r.__html)),
+            (n &&
+              typeof n.__html == "string" &&
+              (r("FBLogger")("html").warn("HTML: Superfluous HTML() call."),
+              (n = n.__html)),
             !(this instanceof t))
           )
-            return r instanceof t ? r : new t(r);
-          if (r) {
-            var o = typeof r;
-            o === "string" || l(0, 277, o);
+            return n instanceof t ? n : new t(n);
+          if (n) {
+            var o = typeof n;
+            o === "string" || s(0, 277, o);
           }
-          ((this.$1 = r || ""),
+          ((this.$1 = n || ""),
             (this.$2 = !1),
             (this.$3 = null),
-            (this.$4 = n("emptyFunction")),
+            (this.$4 = r("emptyFunction")),
             (this.$5 = null),
             (this.$6 = !1));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.toString = function () {
+          (n.toString = function () {
             return this.$1;
           }),
-          (r.getContent = function () {
+          (n.getContent = function () {
             return this.$1;
           }),
-          (r.getNodes = function () {
+          (n.getNodes = function () {
             return (this.$7(), this.$3);
           }),
-          (r.getRootNode = function () {
-            !this.$5 || l(0, 278);
+          (n.getRootNode = function () {
+            !this.$5 || s(0, 278);
             var e = this.getNodes();
             if (e.length === 1) this.$5 = e[0];
             else {
@@ -75,7 +75,7 @@ __d(
             }
             return this.$5;
           }),
-          (r.getAction = function () {
+          (n.getAction = function () {
             var e = this;
             this.$7();
             var t = function () {
@@ -87,40 +87,46 @@ __d(
                 }
               : t;
           }),
-          (r.$7 = function () {
+          (n.$7 = function () {
             if (this.$3 === null) {
               if (!this.$1) {
                 this.$3 = [];
                 return;
               }
               var t = this.$1.replace(e, function (e, t, n) {
-                  return s[n.toLowerCase()] ? e : t + "></" + n + ">";
+                  return u[n.toLowerCase()] ? e : t + "></" + n + ">";
                 }),
-                r = null,
-                o = n("createNodesFromMarkup")(t, function (e) {
-                  (n("FBLogger")("staticresources").warn(
-                    "HTML: encountered script node while parsing, hasSrc=%s, type=%s",
-                    !!e.src,
-                    e.type == null || e.type === "" ? "<unknown>" : e.type,
-                  ),
+                n = null,
+                o = r("createNodesFromMarkup")(t, function (e) {
+                  if (
+                    (r("FBLogger")("staticresources").warn(
+                      "HTML: encountered script node while parsing, hasSrc=%s, type=%s",
+                      !!e.src,
+                      e.type == null || e.type === "" ? "<unknown>" : e.type,
+                    ),
                     e.type !== "application/ld+json" &&
-                      e.type !== "application/json" &&
-                      ((r = r || []),
-                      r.push(
-                        e.src
-                          ? n(
-                              "Bootloader",
-                            ).requestJSResource_UNSAFE_NEEDS_REVIEW_BY_SECURITY_AND_XFN.bind(
-                              n("Bootloader"),
-                              e.src,
-                            )
-                          : n("evalGlobal").bind(null, e.innerHTML),
-                      ),
-                      e.parentNode.removeChild(e)));
+                      e.type !== "application/json")
+                  ) {
+                    n = n || [];
+                    var t = e.innerHTML;
+                    (n.push(
+                      e.src
+                        ? r(
+                            "Bootloader",
+                          ).requestJSResource_UNSAFE_NEEDS_REVIEW_BY_SECURITY_AND_XFN.bind(
+                            r("Bootloader"),
+                            e.src,
+                          )
+                        : function () {
+                            return r("evalGlobal")(t);
+                          },
+                    ),
+                      e.parentNode.removeChild(e));
+                  }
                 });
-              if (r) {
+              if (n) {
                 this.$6 = !0;
-                var a = r;
+                var a = n;
                 this.$4 = function () {
                   for (var e = 0; e < a.length; e++) a[e]();
                 };
@@ -128,10 +134,10 @@ __d(
               this.$3 = o;
             }
           }),
-          (r.setDeferred = function (t) {
+          (n.setDeferred = function (t) {
             return ((this.$2 = !!t), this);
           }),
-          (r.hasInlineJs = function () {
+          (n.hasInlineJs = function () {
             return this.$6;
           }),
           (t.isHTML = function (n) {
@@ -143,7 +149,7 @@ __d(
           t
         );
       })();
-    i.default = u;
+    l.default = c;
   },
-  66,
+  98,
 );

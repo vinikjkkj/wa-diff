@@ -10,6 +10,7 @@ __d(
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiWebDataDownloadsGateQuery.graphql",
+    "WAWebFetchWithAdAccountToken",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebUserPrefsStore",
@@ -104,45 +105,8 @@ __d(
             }));
     }
     function k() {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (e) {
-          return e.type !== "success"
-            ? { type: "token-failed" }
-            : o("WAPromiseTimeout")
-                .promiseTimeout(I(e.token), C)
-                .then(function (e) {
-                  return e.type === "ok"
-                    ? babelHelpers.extends({}, e, { type: "enabled" })
-                    : e.type === "error"
-                      ? { type: "network-failed" }
-                      : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
-                        o("WAWebFetchAdAccountToken")
-                          .fetchToken(!0)
-                          .then(function (e) {
-                            return e.type !== "success"
-                              ? { type: "token-failed" }
-                              : o("WAPromiseTimeout")
-                                  .promiseTimeout(I(e.token), C)
-                                  .then(function (e) {
-                                    return e.type === "ok"
-                                      ? babelHelpers.extends({}, e, {
-                                          type: "enabled",
-                                        })
-                                      : e.type === "auth"
-                                        ? (o(
-                                            "WAWebFetchAdAccountToken",
-                                          ).markTokenAsInvalid(),
-                                          { type: "auth-failed" })
-                                        : { type: "network-failed" };
-                                  });
-                          }));
-                });
-        });
-    }
-    function I(e) {
       return o("WAWebBizAiRelayClient")
-        .fetchQuery(g, {}, { accessToken: e })
+        .fetchQuery(g, {})
         .then(function (e) {
           var t =
             e == null
@@ -150,15 +114,21 @@ __d(
               : e.xfb_meta_ai_biz_agent_wa_web_data_downloads_gate;
           return (t == null ? void 0 : t.success) !== !0 ||
             typeof t.value != "boolean"
-            ? { type: "error" }
-            : { enabled: t.value, type: "ok" };
+            ? { type: "network-failed" }
+            : { enabled: t.value, type: "enabled" };
         })
         .catch(function (e) {
-          return e instanceof Error &&
-            o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-            ? { type: "auth" }
-            : { type: "error" };
+          return I(e);
         });
+    }
+    function I(e) {
+      return e instanceof
+        o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+        ? { type: "token-failed" }
+        : e instanceof Error &&
+            o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+          ? { type: "auth-failed" }
+          : { type: "network-failed" };
     }
     function T(e, t) {
       e: {

@@ -107,7 +107,7 @@ __d(
           )) != null
             ? e
             : c;
-      return parseInt(t, 10);
+      return parseInt(String(t), 10);
     }
     ((l.runSyncDirtyContactsJob = _), (l.getContactSyncRefreshSeconds = g));
   },

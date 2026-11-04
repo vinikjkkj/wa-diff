@@ -9,6 +9,7 @@ __d(
     "WAWebSharableEventFailureLogger",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventGetJob",
+    "WAWebSharableEventLinkPreview",
     "WAWebSharableEventLoadStates",
     "WAWebSharableEventServerError",
     "asyncToGeneratorRuntime",
@@ -27,6 +28,17 @@ __d(
         ).isEventsV2OnCompanionEnabledForAction("page-load")
       )
         return (c || (c = n("Promise"))).resolve();
+      if (
+        o("WAWebSharableEventLinkPreview").getSharableEventLinkToken(e) != null
+      )
+        return (
+          o("WAWebSharableEventLoadStates").updateSharableEventLoadState(e, {
+            status: o("WAWebSharableEventLoadStates").SharableEventLoadStatus
+              .Loaded,
+            errorKind: null,
+          }),
+          (c || (c = n("Promise"))).resolve()
+        );
       var t = d.get(e);
       if (
         (t != null &&

@@ -5,6 +5,7 @@ __d(
     "WAWebInAppSignupInfoStore",
     "WAWebLidAwareContactsDB",
     "WAWebMsgGetters",
+    "WAWebP2PPillsThreadOriginStore",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmIncomingMessageWamEvent",
     "WAWebUserPrefsNotifications",
@@ -49,15 +50,23 @@ __d(
           var n = p(e, t);
           if (n.length !== 0) {
             var a = yield r("WAWebLidAwareContactsDB").bulkGet(
-              n.map(function (e) {
-                var t,
-                  n,
-                  r = e.msg;
-                return (t = (n = r.from) == null ? void 0 : n.toJid()) != null
-                  ? t
-                  : "";
-              }),
-            );
+                n.map(function (e) {
+                  var t,
+                    n,
+                    r = e.msg;
+                  return (t = (n = r.from) == null ? void 0 : n.toJid()) != null
+                    ? t
+                    : "";
+                }),
+              ),
+              i = yield o(
+                "WAWebP2PPillsThreadOriginStore",
+              ).getPillQbmFieldsForThreads(
+                n.map(function (e, t) {
+                  var n = e.chat;
+                  return g(a[t]) ? (n == null ? void 0 : n.accountLid) : null;
+                }),
+              );
             (o("WAWebABProps").getABPropConfigValue(
               "inapp_signup_m1_logging_enabled",
             ) &&
@@ -67,7 +76,7 @@ __d(
               n.forEach(function (e, t) {
                 var n = e.chat,
                   r = e.msg;
-                f(r, n, a[t]);
+                f(r, n, a[t], i[t]);
               }));
           }
         })),
@@ -93,46 +102,48 @@ __d(
         !t.isStatus()
       );
     }
-    function f(e, t, n) {
-      var r, a;
-      if (!(!_(e) || n == null)) {
-        var i = n.isBusiness,
-          l = n.isEnterprise;
-        if (!(!i && !l)) {
-          var s = l
-              ? o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE
-              : o("WAWebWamEnumContactType").CONTACT_TYPE.SMB,
-            d =
-              (t == null ? void 0 : t.archive) === !0
-                ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
-                : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
-            m = c(e);
-          new (o("WAWebQbmIncomingMessageWamEvent").QbmIncomingMessageWamEvent)(
-            babelHelpers.extends(
-              {
-                contactType: s,
-                chatsFolderType: d,
-                isMuted:
-                  (t == null ? void 0 : t.muteExpiration) != null &&
-                  t.muteExpiration > 0,
-                qbmFlag: m,
-                qbmFlagStr: u[m],
-                hsmTagStr:
-                  (r = o("WAWebMsgGetters").getHsmTag(e)) != null ? r : "",
-                messageTypeStr: e.type,
-                notificationEnabled: o(
-                  "WAWebUserPrefsNotifications",
-                ).getGlobalNotifications(),
-                isBizIntent: i,
-                isInsubContact: n.isAddressBookContact === 1,
-              },
-              o("WAWebQBMLoggerBuilder").getIasQbmFields(
-                (a = t == null ? void 0 : t.id) != null ? a : null,
-              ),
+    function f(e, t, n, r) {
+      var a, i;
+      if (!(!_(e) || n == null) && g(n)) {
+        var l = n.isBusiness,
+          s = n.isEnterprise,
+          d = s
+            ? o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE
+            : o("WAWebWamEnumContactType").CONTACT_TYPE.SMB,
+          m =
+            (t == null ? void 0 : t.archive) === !0
+              ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
+              : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
+          p = c(e);
+        new (o("WAWebQbmIncomingMessageWamEvent").QbmIncomingMessageWamEvent)(
+          babelHelpers.extends(
+            {
+              contactType: d,
+              chatsFolderType: m,
+              isMuted:
+                (t == null ? void 0 : t.muteExpiration) != null &&
+                t.muteExpiration > 0,
+              qbmFlag: p,
+              qbmFlagStr: u[p],
+              hsmTagStr:
+                (a = o("WAWebMsgGetters").getHsmTag(e)) != null ? a : "",
+              messageTypeStr: e.type,
+              notificationEnabled: o(
+                "WAWebUserPrefsNotifications",
+              ).getGlobalNotifications(),
+              isBizIntent: l,
+              isInsubContact: n.isAddressBookContact === 1,
+            },
+            o("WAWebQBMLoggerBuilder").getIasQbmFields(
+              (i = t == null ? void 0 : t.id) != null ? i : null,
             ),
-          ).commit();
-        }
+            r,
+          ),
+        ).commit();
       }
+    }
+    function g(e) {
+      return e != null && (e.isBusiness || e.isEnterprise);
     }
     l.logQbmIncomingMessages = d;
   },

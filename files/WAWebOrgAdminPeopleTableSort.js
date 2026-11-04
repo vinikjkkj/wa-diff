@@ -3,8 +3,8 @@ __d(
   [
     "WAWebOrgAdminManagedRosterUtils",
     "WAWebOrgAdminPeople",
+    "WAWebOrgAdminPersonName",
     "WAWebOrgAdminTableSort",
-    "WAWebOrgMemberDisplayName",
     "WAWebPhoneUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,10 +19,10 @@ __d(
         e,
         t,
         function (e, t) {
-          return y(e, t, n);
+          return h(e, t, n);
         },
         function (e) {
-          return h(e, n);
+          return g(e, n);
         },
       );
     }
@@ -50,20 +50,10 @@ __d(
         );
       })(e);
     }
-    function f(e, t) {
-      var n = o("WAWebOrgAdminPeople").getOrgAdminMemberPerson(e, t);
-      return o(
-        "WAWebOrgMemberDisplayName",
-      ).getOrgMemberNameWithUsernameFallback(
-        n.name,
-        n.username,
-        g(n.phoneNumber),
-      );
-    }
-    function g(e) {
+    function f(e) {
       return e == null ? null : o("WAWebPhoneUtils").formatPhone(e);
     }
-    function h(e, t) {
+    function g(e, t) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -71,7 +61,10 @@ __d(
           "member" in e
         ) {
           var n = e.member;
-          return f(n, t.rosterDetailsByMemberLID.get(n.lid));
+          return o("WAWebOrgAdminPersonName").getOrgAdminPersonName(
+            n,
+            t.rosterDetailsByMemberLID.get(n.lid),
+          );
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -79,10 +72,7 @@ __d(
           "entry" in e
         ) {
           var r = e.entry;
-          return o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
-            r.name,
-            r.lastName,
-          );
+          return o("WAWebOrgAdminPersonName").getOrgAdminPersonName(null, r);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -90,11 +80,11 @@ __d(
         );
       })(e);
     }
-    function y(e, t, n) {
+    function h(e, t, n) {
       var r,
-        o = C(e, n);
+        o = y(e, n);
       return t === "name"
-        ? h(e, n)
+        ? g(e, n)
         : t === "phone"
           ? o.phoneNumber
           : t === "email"
@@ -120,7 +110,7 @@ __d(
                         );
                       })();
     }
-    function C(e, t) {
+    function y(e, t) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -128,7 +118,7 @@ __d(
           "member" in e
         ) {
           var n = e.member;
-          return b(n, t.rosterDetailsByMemberLID.get(n.lid));
+          return C(n, t.rosterDetailsByMemberLID.get(n.lid));
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -142,7 +132,7 @@ __d(
             memberTag: r.memberTag,
             phoneNumber: r.phoneNumber,
             secondaryMemberTag: r.secondaryMemberTag,
-            status: v(r, t.showInviteStatus),
+            status: b(r, t.showInviteStatus),
           };
         }
         throw Error(
@@ -151,7 +141,7 @@ __d(
         );
       })(e);
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = o("WAWebOrgAdminPeople").getOrgAdminMemberPerson(e, t);
       return {
         email: n.emailAddress,
@@ -159,10 +149,10 @@ __d(
         memberTag: n.memberTag,
         phoneNumber: n.phoneNumber,
         secondaryMemberTag: n.secondaryMemberTag,
-        status: S(e.role),
+        status: v(e.role),
       };
     }
-    function v(t, n) {
+    function b(t, n) {
       return t.memberLID != null
         ? null
         : (function (t) {
@@ -175,13 +165,12 @@ __d(
               : null,
           );
     }
-    function S(e) {
+    function v(e) {
       return e === "CREATOR" ? m : e === "ADMIN" ? d : c;
     }
     ((l.sortOrgAdminPeopleRows = p),
       (l.getOrgAdminPeopleRowKey = _),
-      (l.getOrgAdminMemberName = f),
-      (l.formatOrgAdminPhoneNumber = g));
+      (l.formatOrgAdminPhoneNumber = f));
   },
   98,
 );

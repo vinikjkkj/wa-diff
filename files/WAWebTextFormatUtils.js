@@ -283,7 +283,9 @@ __d(
       if (n === e.NumberedList) {
         var m,
           p = parseInt(
-            (m = l.getNumberNode()) == null ? void 0 : m.getTextContent(),
+            String(
+              (m = l.getNumberNode()) == null ? void 0 : m.getTextContent(),
+            ),
             10,
           );
         if (p) d = p;
@@ -291,11 +293,13 @@ __d(
           var _,
             f = l.getPreviousSibling(),
             g = parseInt(
-              f instanceof o("WAWebBidiParagraphNode").BidiParagraphNode
-                ? (_ = f.getNumberNode()) == null
-                  ? void 0
-                  : _.getTextContent()
-                : null,
+              String(
+                f instanceof o("WAWebBidiParagraphNode").BidiParagraphNode
+                  ? (_ = f.getNumberNode()) == null
+                    ? void 0
+                    : _.getTextContent()
+                  : null,
+              ),
               10,
             );
           g && (d = Math.min(g + 1, c));

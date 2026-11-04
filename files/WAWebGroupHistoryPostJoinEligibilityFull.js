@@ -17,30 +17,30 @@ __d(
             n = e.groupMetadata,
             r = e.groupWid,
             a = e.joinTimeFallback,
-            i = e.participant;
-          if (
-            !o(
+            i = e.participant,
+            l = o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).isEligibleForPostJoinHistory(
-              i,
+            ).getPostJoinHistoryGroupEligibility(
               o(
                 "WAWebGroupHistoryPostJoinEligibility",
               ).groupContextFromMetadata(n),
-              a,
-            )
-          )
-            return { eligible: !1, reason: "ineligible" };
-          var l = (t = i.joinTime) != null ? t : a;
-          if (l == null) return { eligible: !1, reason: "ineligible" };
-          var s = yield o(
+            );
+          if (!l.eligible) return l;
+          var s = o(
+            "WAWebGroupHistoryPostJoinEligibility",
+          ).getParticipantPostJoinEligibility(i, a);
+          if (!s.eligible) return s;
+          var u = (t = i.joinTime) != null ? t : a;
+          if (u == null) return { eligible: !1, reason: "no_join_time" };
+          var c = yield o(
             "WAWebGetGroupHistoryBundleMessagesCount",
           ).getGroupHistoryBundleMessageCount({
             groupWid: r,
-            targetStartMessageTime: l,
+            targetStartMessageTime: u,
           });
-          return s === 0
+          return c === 0
             ? { eligible: !1, reason: "no_available_messages" }
-            : { eligible: !0, messageCount: s };
+            : { eligible: !0, messageCount: c };
         })),
         s.apply(this, arguments)
       );
@@ -54,54 +54,53 @@ __d(
           var t = e.groupMetadata,
             n = e.groupWid,
             r = e.joinTimeFallback,
-            a = e.participants;
-          if (
-            !o(
+            a = e.participants,
+            i = o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).isPostJoinHistoryGroupEligible(
+            ).getPostJoinHistoryGroupEligibility(
               o(
                 "WAWebGroupHistoryPostJoinEligibility",
               ).groupContextFromMetadata(t),
-            )
-          )
+            );
+          if (!i.eligible)
             return {
               eligible: [],
               ineligible: a.map(function (e) {
-                return { participant: e, reason: "group_ineligible" };
+                return { participant: e, reason: i.reason };
               }),
               messageCount: 0,
             };
-          var i = [],
-            l = [];
-          for (var s of a) {
-            var u = o(
+          var l = [],
+            s = [];
+          for (var u of a) {
+            var c = o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).getParticipantPostJoinEligibility(s, r);
-            u.eligible
-              ? i.push(s)
-              : l.push({ participant: s, reason: u.reason });
+            ).getParticipantPostJoinEligibility(u, r);
+            c.eligible
+              ? l.push(u)
+              : s.push({ participant: u, reason: c.reason });
           }
-          if (i.length === 0)
-            return { eligible: i, ineligible: l, messageCount: 0 };
-          var c = r != null ? r : i[0].joinTime,
-            d = yield o(
+          if (l.length === 0)
+            return { eligible: l, ineligible: s, messageCount: 0 };
+          var d = r != null ? r : l[0].joinTime,
+            m = yield o(
               "WAWebGetGroupHistoryBundleMessagesCount",
             ).getGroupHistoryBundleMessageCount({
               groupWid: n,
-              targetStartMessageTime: c,
+              targetStartMessageTime: d,
             });
-          return d === 0
+          return m === 0
             ? {
                 eligible: [],
                 ineligible: [].concat(
-                  l,
-                  i.map(function (e) {
+                  s,
+                  l.map(function (e) {
                     return { participant: e, reason: "no_available_messages" };
                   }),
                 ),
                 messageCount: 0,
               }
-            : { eligible: i, ineligible: l, messageCount: d };
+            : { eligible: l, ineligible: s, messageCount: m };
         })),
         c.apply(this, arguments)
       );

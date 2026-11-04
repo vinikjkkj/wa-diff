@@ -1,7 +1,9 @@
 __d(
   "WAWebPollsMessageComponent",
   [
+    "WAWebCastToPollCreationMsg",
     "WAWebMessageAssociation.flow",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebPollResultSnapshotUtils",
     "WAWebPollsMessageComponentView",
@@ -21,53 +23,57 @@ __d(
       p = d.useMemo;
     function _(t) {
       var n = o("react-compiler-runtime").c(12),
-        r,
-        a;
+        a,
+        i;
       n[0] !== t
-        ? ((r = t.msgKey),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+        ? ((a = t.msgKey),
+          (i = babelHelpers.objectWithoutPropertiesLoose(t, e)),
           (n[0] = t),
-          (n[1] = r),
-          (n[2] = a))
-        : ((r = n[1]), (a = n[2]));
-      var i;
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l;
       n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [o("WAWebMsgGetters").getIsNewsletterMsg]), (n[3] = i))
-        : (i = n[3]);
-      var l = o("useWAWebMsgValues").useMsgValues(r, i),
-        s = l[0],
-        u = y(a.associatedMessages);
-      if (s) {
-        var c;
+        ? ((l = [o("WAWebMsgGetters").getIsNewsletterMsg]), (n[3] = l))
+        : (l = n[3]);
+      var s = o("useWAWebMsgValues").useMsgValues(
+          a,
+          r("WAWebCastToPollCreationMsg"),
+          l,
+        ),
+        u = s[0],
+        c = y(i.associatedMessages);
+      if (u) {
+        var d;
         return (
-          n[4] !== u || n[5] !== r || n[6] !== a
-            ? ((c = m.jsx(
+          n[4] !== c || n[5] !== a || n[6] !== i
+            ? ((d = m.jsx(
                 g,
-                babelHelpers.extends({ msgKey: r }, a, {
-                  associatedMessages: u,
+                babelHelpers.extends({ msgKey: a }, i, {
+                  associatedMessages: c,
                 }),
               )),
-              (n[4] = u),
-              (n[5] = r),
-              (n[6] = a),
-              (n[7] = c))
-            : (c = n[7]),
-          c
+              (n[4] = c),
+              (n[5] = a),
+              (n[6] = i),
+              (n[7] = d))
+            : (d = n[7]),
+          d
         );
       }
-      var d;
+      var p;
       return (
-        n[8] !== u || n[9] !== r || n[10] !== a
-          ? ((d = m.jsx(
+        n[8] !== c || n[9] !== a || n[10] !== i
+          ? ((p = m.jsx(
               f,
-              babelHelpers.extends({ msgKey: r }, a, { associatedMessages: u }),
+              babelHelpers.extends({ msgKey: a }, i, { associatedMessages: c }),
             )),
-            (n[8] = u),
-            (n[9] = r),
-            (n[10] = a),
-            (n[11] = d))
-          : (d = n[11]),
-        d
+            (n[8] = c),
+            (n[9] = a),
+            (n[10] = i),
+            (n[11] = p))
+          : (p = n[11]),
+        p
       );
     }
     function f(e) {
@@ -139,7 +145,11 @@ __d(
       t[3] === Symbol.for("react.memo_cache_sentinel")
         ? ((a = [o("WAWebMsgGetters").getPollVotesSnapshot]), (t[3] = a))
         : (a = t[3]);
-      var i = o("useWAWebMsgValues").useMsgValues(n, a),
+      var i = o("useWAWebMsgValues").useMsgValues(
+          n,
+          o("WAWebMsgCasts").castToPollResultSnapshotMsg,
+          a,
+        ),
         l = i[0],
         s = y(r.associatedMessages),
         u;

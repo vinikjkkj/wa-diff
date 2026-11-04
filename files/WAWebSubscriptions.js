@@ -120,16 +120,19 @@ __d(
             isDeactivated: !p.includes(e.status),
             expirationDate:
               e.expirationDate !== void 0
-                ? parseInt(e.expirationDate, 10)
+                ? parseInt(String(e.expirationDate), 10)
                 : void 0,
             creationTime:
-              e.creationTime !== void 0 ? parseInt(e.creationTime, 10) : void 0,
+              e.creationTime !== void 0
+                ? parseInt(String(e.creationTime), 10)
+                : void 0,
             newMessageCappingEnabled: e.newMessageCappingEnabled,
             tier: (t = e.tier) != null ? t : null,
             status: (n = e.status) != null ? n : null,
             source: (r = e.source) != null ? r : null,
             isPlatformChanged: (o = e.isPlatformChanged) != null ? o : null,
-            startTime: e.startTime != null ? parseInt(e.startTime, 10) : null,
+            startTime:
+              e.startTime != null ? parseInt(String(e.startTime), 10) : null,
           };
         return (
           e.status === "CANCELED" &&

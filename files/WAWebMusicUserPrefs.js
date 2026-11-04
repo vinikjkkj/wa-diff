@@ -3,6 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebAsISOCountryCode",
+    "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
   ],
@@ -32,7 +33,42 @@ __d(
             return (n != null && e.add(n), e);
           }, new Set());
     }
-    ((l.setMusicEligibleCountries = e), (l.getMusicEligibleCountries = s));
+    function u(e) {
+      r("WAWebUserPrefsStore").setUser(
+        o("WAWebUserPrefsKeys").UserPrefs.MusicLastClipDurationMs,
+        e,
+      );
+    }
+    function c() {
+      var e = r("WAWebUserPrefsStore").getUser(
+        o("WAWebUserPrefsKeys").UserPrefs.MusicLastClipDurationMs,
+      );
+      return typeof e == "number" ? e : null;
+    }
+    function d(e) {
+      r("WAWebUserPrefsStore").setUser(
+        o("WAWebUserPrefsKeys").UserPrefs.MusicLastSelectedStyle,
+        e,
+      );
+    }
+    function m() {
+      var e,
+        t = r("WAWebUserPrefsStore").getUser(
+          o("WAWebUserPrefsKeys").UserPrefs.MusicLastSelectedStyle,
+        );
+      return typeof t == "number" &&
+        (e = o(
+          "WAWebProtobufsE2E.pb",
+        ).Message$MusicMessage$MusicMessageStyle.cast(t)) != null
+        ? e
+        : null;
+    }
+    ((l.setMusicEligibleCountries = e),
+      (l.getMusicEligibleCountries = s),
+      (l.saveMusicLastClipDurationMs = u),
+      (l.getMusicLastClipDurationMs = c),
+      (l.saveMusicLastSelectedStyle = d),
+      (l.getMusicLastSelectedStyle = m));
   },
   98,
 );

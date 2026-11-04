@@ -12,7 +12,7 @@ __d(
           "value" in n
         ) {
           var r = n.value,
-            a = parseInt(r.errorSpamIqErrors.value.code, 10),
+            a = parseInt(String(r.errorSpamIqErrors.value.code), 10),
             i = r.errorSpamIqErrors.value.text;
           return (
             o("WALogger").WARN(
@@ -46,7 +46,7 @@ __d(
     function c(e) {
       switch (e.name) {
         case "IndividualReportResponseError": {
-          var t = parseInt(e.value.errorSpamIqErrors.value.code, 10),
+          var t = parseInt(String(e.value.errorSpamIqErrors.value.code), 10),
             n = e.value.errorSpamIqErrors.value.text;
           return (
             o("WALogger").WARN(

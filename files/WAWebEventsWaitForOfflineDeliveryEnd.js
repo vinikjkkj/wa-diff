@@ -87,7 +87,8 @@ __d(
         p.apply(this, arguments)
       );
     }
-    ((l.initWaitForOfflineDeliveryEnd = c),
+    ((l.OFFLINE_RESUME_WAIT_TIMEOUT = u),
+      (l.initWaitForOfflineDeliveryEnd = c),
       (l.isOfflineDeliveryEnd = d),
       (l.waitForOfflineDeliveryEnd = m));
   },

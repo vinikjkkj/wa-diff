@@ -26,7 +26,7 @@ __d(
         day0: e.NewsletterChatsMigrationDay0Banner,
         rollback: e.NewsletterChatsMigrationRollbackBanner,
       },
-      m = "add remove reset",
+      m = ["add", "remove", "reset"],
       p = ["add", "remove", "reset", "change:membershipType"],
       _ = { dismissed: !1, firstImpressionAtMs: null },
       f = new (r("WAWebEventEmitter"))();

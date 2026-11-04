@@ -658,13 +658,14 @@ __d(
             _ = p.historyReceivers,
             g = p.nonHistoryReceivers;
           if (_.length !== 0) {
-            var h = o("WAWebWidToJid").widToGroupJid(a);
+            var h = o("WAWebWidToJid").widToGroupJid(a),
+              y = q(t, r, _.length, d);
             try {
-              var y = yield o(
+              var C = yield o(
                   "WAWebSendHistoryBundleAction",
-                ).sendHistoryBundleAction(h, _, g, l, i, q(t, r, _.length, d)),
-                C = y.bundleAcked,
-                b = y.noticeAcked;
+                ).sendHistoryBundleAction(h, _, g, l, i, y),
+                b = C.bundleAcked,
+                v = C.noticeAcked;
               if (
                 (o(
                   "WAWebGroupHistoryShareToggleDefaultAction",
@@ -675,27 +676,16 @@ __d(
                   o(
                     "WAWebGroupHistorySentOnceAction",
                   ).markGroupHistorySentOnce(),
-                !C)
+                !b)
               )
                 return;
-              (t != null &&
-                (o(
+              (y != null &&
+                o(
                   "WAWebGroupHistorySenderUserJourneyLogger",
-                ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
-                  bundleSendSource: t,
-                  groupHistorySystemMessageType: r,
-                  recipientCount: _.length,
-                  uiSurface: d,
+                ).GroupHistorySenderUserJourneyLogger.sendAcked(y, {
+                  bundleAcked: b,
+                  noticeAcked: v,
                 }),
-                b &&
-                  o(
-                    "WAWebGroupHistorySenderUserJourneyLogger",
-                  ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
-                    bundleSendSource: t,
-                    groupHistorySystemMessageType: r,
-                    recipientCount: _.length,
-                    uiSurface: d,
-                  })),
                 o("WAWebToastManager").ToastManager.open(
                   f.jsx(o("WAWebToast.react").Toast, {
                     msg: s._(/*BTDS*/ "Message history sent to {contactName}", [
@@ -746,20 +736,14 @@ __d(
                     t[0].contact,
                   ),
                   h = t.length - 1,
-                  y = o("WAWebWidToJid").widToGroupJid(e);
+                  y = o("WAWebWidToJid").widToGroupJid(e),
+                  C = q(a, l, m.length, i);
                 try {
-                  var C = yield o(
+                  var b = yield o(
                       "WAWebSendHistoryBundleAction",
-                    ).sendHistoryBundleAction(
-                      y,
-                      m,
-                      _,
-                      r,
-                      c,
-                      q(a, l, m.length, i),
-                    ),
-                    b = C.bundleAcked,
-                    v = C.noticeAcked;
+                    ).sendHistoryBundleAction(y, m, _, r, c, C),
+                    v = b.bundleAcked,
+                    S = b.noticeAcked;
                   if (
                     (o(
                       "WAWebGroupHistoryShareToggleDefaultAction",
@@ -770,27 +754,16 @@ __d(
                       o(
                         "WAWebGroupHistorySentOnceAction",
                       ).markGroupHistorySentOnce(),
-                    !b)
+                    !v)
                   )
                     return;
-                  (a != null &&
-                    (o(
+                  (C != null &&
+                    o(
                       "WAWebGroupHistorySenderUserJourneyLogger",
-                    ).GroupHistorySenderUserJourneyLogger.bundleMessageAcked({
-                      bundleSendSource: a,
-                      groupHistorySystemMessageType: l,
-                      recipientCount: m.length,
-                      uiSurface: i,
+                    ).GroupHistorySenderUserJourneyLogger.sendAcked(C, {
+                      bundleAcked: v,
+                      noticeAcked: S,
                     }),
-                    v &&
-                      o(
-                        "WAWebGroupHistorySenderUserJourneyLogger",
-                      ).GroupHistorySenderUserJourneyLogger.noticeMessageAcked({
-                        bundleSendSource: a,
-                        groupHistorySystemMessageType: l,
-                        recipientCount: m.length,
-                        uiSurface: i,
-                      })),
                     o("WAWebToastManager").ToastManager.open(
                       f.jsx(o("WAWebToast.react").Toast, {
                         msg: s._(

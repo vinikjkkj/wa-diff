@@ -5,7 +5,8 @@ __d(
     "WAWebApiContact",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
     "WAWebOrgAdminDirectoryMemberDisplay",
-    "WAWebOrgMemberDisplayName",
+    "WAWebOrgAdminManagedRosterUtils",
+    "WAWebOrgAdminPersonName",
     "WAWebPhoneUtils",
     "WAWebWidFactory",
   ],
@@ -19,7 +20,10 @@ __d(
     function m(e) {
       return {
         directoryMember: e,
-        displayName: e.displayName,
+        displayName: o("WAWebOrgAdminPersonName").getOrgAdminPersonName(
+          e,
+          null,
+        ),
         key: "directory:" + e.lid,
         memberTag: e.memberTag,
         source: "directory",
@@ -27,9 +31,9 @@ __d(
     }
     function p(e) {
       return {
-        displayName: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
-          e.name,
-          e.lastName,
+        displayName: o("WAWebOrgAdminPersonName").getOrgAdminPersonName(
+          null,
+          e,
         ),
         key: "roster:" + e.id,
         memberTag: e.memberTag,
@@ -41,13 +45,25 @@ __d(
       var t = e.adminRoster,
         n = e.adminRosterEnabled,
         r = e.directory,
-        o = e.selfLID,
-        a = e.selfPhoneNumber,
-        i = r.filter(function (e) {
-          return e.lid !== o;
+        a = e.selfLID,
+        i = e.selfPhoneNumber,
+        l = r.filter(function (e) {
+          return e.lid !== a;
         });
-      if (!n) return i.map(m);
-      var l = new Set(
+      if (!n) {
+        var s = o(
+          "WAWebOrgAdminManagedRosterUtils",
+        ).getWAWebOrgAdminRosterDetailsByMemberLID(t);
+        return l.map(function (e) {
+          return babelHelpers.extends({}, m(e), {
+            displayName: o("WAWebOrgAdminPersonName").getOrgAdminPersonName(
+              e,
+              s.get(e.lid),
+            ),
+          });
+        });
+      }
+      var u = new Set(
         t.flatMap(function (e) {
           return e.memberLID == null ? [] : [e.memberLID];
         }),
@@ -56,31 +72,20 @@ __d(
         .concat(
           t
             .filter(function (e) {
-              return !L(e, o, a);
+              return !R(e, a, i);
             })
             .map(p),
-          i
+          l
             .filter(function (e) {
-              return !l.has(e.lid);
+              return !u.has(e.lid);
             })
             .map(m),
         )
         .sort(function (e, t) {
-          return f(e).localeCompare(f(t));
+          return e.displayName.localeCompare(t.displayName);
         });
     }
     function f(e) {
-      return e.source === "directory"
-        ? o("WAWebOrgMemberDisplayName").getOrgMemberNameWithUsernameFallback(
-            e.displayName,
-            e.directoryMember.username,
-            e.directoryMember.phoneNumber == null
-              ? null
-              : o("WAWebPhoneUtils").formatPhone(e.directoryMember.phoneNumber),
-          )
-        : e.displayName;
-    }
-    function g(e) {
       if (e.source === "directory")
         return o(
           "WAWebOrgAdminDirectoryMemberDisplay",
@@ -88,7 +93,7 @@ __d(
       var t = e.rosterEntry,
         n = t.emailAddress,
         r = t.phoneNumber,
-        a = E(r);
+        a = L(r);
       return n != null && n !== ""
         ? a == null
           ? n
@@ -97,34 +102,35 @@ __d(
           ? null
           : o("WAWebPhoneUtils").formatPhone(a);
     }
-    function h(e) {
+    function g(e) {
       return e.source === "directory" ? e.directoryMember.lid : null;
     }
-    function y(e) {
+    function h(e) {
       return e.source === "directory"
         ? e.directoryMember.lid
         : e.rosterEntry.memberLID;
     }
-    function C(e) {
+    function y(e) {
       return e.source === "roster" ? e.rosterEntry.emailAddress : null;
     }
-    function b(e) {
+    function C(e) {
       return e.source === "roster" ? e.rosterEntry.secondaryMemberTag : null;
     }
-    function v(e) {
+    function b(e) {
       if (e.source !== "roster") return null;
       var t = e.rosterEntry,
         n = t.emailAddress,
         r = t.id;
       return n == null || n === "" ? null : r;
     }
-    function S(e, t) {
+    function v(e, t) {
       if (e.source === "directory") {
         var n;
         return (
           o(
             "WAWebOrgAdminDirectoryMemberDisplay",
           ).orgAdminDirectoryMemberMatchesQuery(e.directoryMember, t) ||
+          e.displayName.toLocaleLowerCase().includes(t) ||
           ((n = e.memberTag) == null
             ? void 0
             : n.toLocaleLowerCase().includes(t)) === !0
@@ -143,7 +149,7 @@ __d(
       var a = o(
           "WAWebOrgAdminDirectoryMemberDisplay",
         ).normalizeOrgAdminPhoneSearchValue(t),
-        i = E(r.phoneNumber);
+        i = L(r.phoneNumber);
       return (
         i != null &&
         a !== "" &&
@@ -153,12 +159,12 @@ __d(
         i.includes(a)
       );
     }
-    function R(e) {
-      return y(e) != null || v(e) != null;
+    function S(e) {
+      return h(e) != null || b(e) != null;
     }
-    function L(e, t, n) {
+    function R(e, t, n) {
       if (e.memberLID != null) return e.memberLID === t;
-      var r = E(e.phoneNumber);
+      var r = L(e.phoneNumber);
       if (r == null) return !1;
       if (r === n) return !0;
       try {
@@ -174,7 +180,7 @@ __d(
         return !1;
       }
     }
-    function E(e) {
+    function L(e) {
       if (e == null) return null;
       var t = e
         .trim()
@@ -190,7 +196,7 @@ __d(
         ? t
         : null;
     }
-    function k(t) {
+    function E(t) {
       var n = t.replace(e, ""),
         r = n.replace(s, ""),
         a =
@@ -198,7 +204,7 @@ __d(
           c.test(n) &&
           o("WAWebPhoneUtils").isValidMobileForRegistration(u, n)
             ? "" + u + n
-            : E(r);
+            : L(r);
       return a != null &&
         (!a.startsWith(u) ||
           (a.length === d &&
@@ -209,26 +215,25 @@ __d(
         ? a
         : null;
     }
-    function I(t) {
+    function k(t) {
       var n = t.replace(e, "");
-      return k(t) === "" + u + n;
+      return E(t) === "" + u + n;
     }
     ((l.directoryMemberToGroupCandidate = m),
       (l.rosterEntryToGroupCandidate = p),
       (l.getOrgAdminGroupCandidates = _),
-      (l.getOrgAdminGroupCandidateDisplayName = f),
-      (l.getOrgAdminGroupCandidateIdentityLabel = g),
-      (l.getOrgAdminGroupCandidateProfileLID = h),
-      (l.getOrgAdminGroupCandidateLID = y),
-      (l.getOrgAdminGroupCandidateEmailAddress = C),
-      (l.getOrgAdminGroupCandidateSecondaryMemberTag = b),
-      (l.getOrgAdminGroupCandidateEmailInviteID = v),
-      (l.orgAdminGroupCandidateMatchesQuery = S),
-      (l.canAddOrgAdminGroupCandidate = R),
-      (l.isCurrentUserOrgAdminRosterEntry = L),
-      (l.normalizeOrgAdminRosterPhoneNumber = E),
-      (l.normalizeOrgAdminRosterPhoneNumberInput = k),
-      (l.isOrgAdminRosterPhoneNumberInputWithoutCountryCode = I));
+      (l.getOrgAdminGroupCandidateIdentityLabel = f),
+      (l.getOrgAdminGroupCandidateProfileLID = g),
+      (l.getOrgAdminGroupCandidateLID = h),
+      (l.getOrgAdminGroupCandidateEmailAddress = y),
+      (l.getOrgAdminGroupCandidateSecondaryMemberTag = C),
+      (l.getOrgAdminGroupCandidateEmailInviteID = b),
+      (l.orgAdminGroupCandidateMatchesQuery = v),
+      (l.canAddOrgAdminGroupCandidate = S),
+      (l.isCurrentUserOrgAdminRosterEntry = R),
+      (l.normalizeOrgAdminRosterPhoneNumber = L),
+      (l.normalizeOrgAdminRosterPhoneNumberInput = E),
+      (l.isOrgAdminRosterPhoneNumberInputWithoutCountryCode = k));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WALruCache",
     "WAWebBotCertificateRevocationService",
     "WAWebBotCertificateUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 50,
@@ -17,70 +18,97 @@ __d(
           return Date.now() > n.notAfterMs;
         },
       });
-    async function u(e) {
-      var t = e.atTimeMs,
-        n = e.chainBytes,
-        r = e.rootCertVersion,
-        a = await d(n, r),
-        i = s.get(a);
-      if (i == null || !m(i.chainBytes, n)) return null;
-      if (t < i.notBeforeMs || t > i.notAfterMs) return (s.delete(a), null);
-      for (var l of i.serialNumbers)
-        if (
-          o("WAWebBotCertificateRevocationService").isCertificateRevoked(l, t)
-        )
-          return (s.delete(a), null);
-      return i.publicKey;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    async function c(e) {
-      var t = e.certificates,
-        n = e.chainBytes,
-        r = e.publicKey,
-        a = e.rootCertVersion,
-        i = [],
-        l = 1 / 0,
-        u = 0;
-      for (var c of t) {
-        var m = new Date(c.notAfter.value).getTime(),
-          p = new Date(c.notBefore.value).getTime();
-        if (!Number.isFinite(m) || !Number.isFinite(p)) return;
-        (m < l && (l = m), p > u && (u = p));
-        var _ = o("WAWebBotCertificateUtils").getCertificateSerialNumber(c);
-        _ != null && i.push(_);
-      }
-      var f = await d(n, a);
-      s.put(f, {
-        publicKey: r,
-        chainBytes: n,
-        notBeforeMs: u,
-        notAfterMs: l,
-        serialNumbers: i,
-      });
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.atTimeMs,
+            n = e.chainBytes,
+            r = e.rootCertVersion,
+            a = yield p(n, r),
+            i = s.get(a);
+          if (i == null || !f(i.chainBytes, n)) return null;
+          if (t < i.notBeforeMs || t > i.notAfterMs) return (s.delete(a), null);
+          for (var l of i.serialNumbers)
+            if (
+              o("WAWebBotCertificateRevocationService").isCertificateRevoked(
+                l,
+                t,
+              )
+            )
+              return (s.delete(a), null);
+          return i.publicKey;
+        })),
+        c.apply(this, arguments)
+      );
     }
-    async function d(e, t) {
-      var n = new TextEncoder().encode(t),
-        r = n.length + 4;
-      for (var a of e) r += 4 + a.length;
-      var i = new Uint8Array(r),
-        l = 0,
-        s = new DataView(new ArrayBuffer(4));
-      (s.setUint32(0, n.length),
-        i.set(new Uint8Array(s.buffer), l),
-        (l += 4),
-        i.set(n, l),
-        (l += n.length));
-      for (var u of e) {
-        var c = new DataView(new ArrayBuffer(4));
-        (c.setUint32(0, u.length),
-          i.set(new Uint8Array(c.buffer), l),
-          (l += 4),
-          i.set(u, l),
-          (l += u.length));
-      }
-      var d = await crypto.subtle.digest("SHA-256", i);
-      return o("WAHex").toLowerCaseHex(new Uint8Array(d));
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function m(e, t) {
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.certificates,
+            n = e.chainBytes,
+            r = e.publicKey,
+            a = e.rootCertVersion,
+            i = [],
+            l = 1 / 0,
+            u = 0;
+          for (var c of t) {
+            var d = new Date(c.notAfter.value).getTime(),
+              m = new Date(c.notBefore.value).getTime();
+            if (!Number.isFinite(d) || !Number.isFinite(m)) return;
+            (d < l && (l = d), m > u && (u = m));
+            var _ = o("WAWebBotCertificateUtils").getCertificateSerialNumber(c);
+            _ != null && i.push(_);
+          }
+          var f = yield p(n, a);
+          s.put(f, {
+            publicKey: r,
+            chainBytes: n,
+            notBeforeMs: u,
+            notAfterMs: l,
+            serialNumbers: i,
+          });
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new TextEncoder().encode(t),
+            r = n.length + 4;
+          for (var a of e) r += 4 + a.length;
+          var i = new Uint8Array(r),
+            l = 0,
+            s = new DataView(new ArrayBuffer(4));
+          (s.setUint32(0, n.length),
+            i.set(new Uint8Array(s.buffer), l),
+            (l += 4),
+            i.set(n, l),
+            (l += n.length));
+          for (var u of e) {
+            var c = new DataView(new ArrayBuffer(4));
+            (c.setUint32(0, u.length),
+              i.set(new Uint8Array(c.buffer), l),
+              (l += 4),
+              i.set(u, l),
+              (l += u.length));
+          }
+          var d = yield crypto.subtle.digest("SHA-256", i);
+          return o("WAHex").toLowerCaseHex(new Uint8Array(d));
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
       if (e.length !== t.length) return !1;
       for (var n = 0; n < e.length; n++) {
         if (e[n].length !== t[n].length) return !1;
@@ -89,7 +117,7 @@ __d(
       }
       return !0;
     }
-    ((l.getCachedLeafPublicKey = u), (l.cacheLeafPublicKey = c));
+    ((l.getCachedLeafPublicKey = u), (l.cacheLeafPublicKey = d));
   },
   98,
 );

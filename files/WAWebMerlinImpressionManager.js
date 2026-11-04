@@ -235,41 +235,42 @@ __d(
         p = l.clientReceivedTsMillis,
         f = l.contactType,
         g = l.ctaUrlUniqueCountInt,
-        h = l.hsmTagStr,
-        y = l.isBroadcastMessage,
-        C = l.isInsubContact,
-        b = l.isMuted,
-        v = l.messageBodyType,
-        S = l.messageBubbleHeightPx,
-        R = l.messageBubbleWidthPx,
-        L = l.messageFieldJsonArray,
-        E = l.messageId,
-        k = l.mmCarouselCardIndex,
-        I = l.qbmFlag,
-        T = l.readReceiptsEnabled,
-        D = l.serverTimestamp,
-        x = l.submessageFieldJsonArray,
-        $ = l.urlUniqueCountInt,
-        P = function (r) {
+        h = l.decisionId,
+        y = l.hsmTagStr,
+        C = l.isBroadcastMessage,
+        b = l.isInsubContact,
+        v = l.isMuted,
+        S = l.messageBodyType,
+        R = l.messageBubbleHeightPx,
+        L = l.messageBubbleWidthPx,
+        E = l.messageFieldJsonArray,
+        k = l.messageId,
+        I = l.mmCarouselCardIndex,
+        T = l.qbmFlag,
+        D = l.readReceiptsEnabled,
+        x = l.serverTimestamp,
+        $ = l.submessageFieldJsonArray,
+        P = l.urlUniqueCountInt,
+        N = function (r) {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t,
               a = Date.now(),
               i = yield (e || (e = n("Promise"))).all([
-                o("WAWebChatThreadLogging").getMessageIDHMAC(E),
+                o("WAWebChatThreadLogging").getMessageIDHMAC(k),
                 o("WAWebChatThreadLogging").getChatThreadIDHMAC(d),
               ]),
               l = i[0],
               _ = i[1],
-              P = Math.round((a - D * 1e3) / 1e3),
-              N = p != null ? Math.round((a - p) / 1e3) : void 0,
-              M = r.map(function (e) {
+              N = Math.round((a - x * 1e3) / 1e3),
+              M = p != null ? Math.round((a - p) / 1e3) : void 0,
+              w = r.map(function (e) {
                 return [e.enter, e.exit];
               }),
-              w = JSON.stringify({ 0: M, 50: M, 100: M }),
-              A = new (o(
+              A = JSON.stringify({ 0: w, 50: w, 100: w }),
+              F = new (o(
                 "WAWebPaidMessageVpvImpressionWamEvent",
               ).PaidMessageVpvImpressionWamEvent)({
-                vpvJsonObject: w,
+                vpvJsonObject: A,
                 messageIdHmac: l != null ? l : void 0,
                 threadIdHmac: _ != null ? _ : void 0,
                 unifiedSessionId:
@@ -278,33 +279,34 @@ __d(
                   ).UnifiedSessionManager.getSessionId()) != null
                     ? t
                     : void 0,
-                qbmFlag: I != null ? I : void 0,
+                qbmFlag: T != null ? T : void 0,
                 contactType: f != null ? f : void 0,
-                hsmTagStr: h != null ? h : void 0,
-                readReceiptsEnabled: T,
+                hsmTagStr: y != null ? y : void 0,
+                decisionId: h != null ? h : void 0,
+                readReceiptsEnabled: D,
                 chatsFolderType: m,
-                isMuted: b,
-                isBroadcastMessage: y,
-                isInsubContact: C,
-                deltaTime: P,
-                deltaTimeReceived: N,
-                messageFieldJsonArray: L,
-                submessageFieldJsonArray: x,
+                isMuted: v,
+                isBroadcastMessage: C,
+                isInsubContact: b,
+                deltaTime: N,
+                deltaTimeReceived: M,
+                messageFieldJsonArray: E,
+                submessageFieldJsonArray: $,
                 buttonValueJsonArray: c,
                 bodyUrlCountInt: s,
                 bodyUrlUniqueCountInt: u,
                 ctaUrlUniqueCountInt: g,
-                urlUniqueCountInt: $,
-                messageBodyType: v != null ? v : void 0,
-                mmCarouselCardIndex: k != null ? k : void 0,
-                messageBubbleWidthPx: R != null ? R : void 0,
-                messageBubbleHeightPx: S != null ? S : void 0,
+                urlUniqueCountInt: P,
+                messageBodyType: S != null ? S : void 0,
+                mmCarouselCardIndex: I != null ? I : void 0,
+                messageBubbleWidthPx: L != null ? L : void 0,
+                messageBubbleHeightPx: R != null ? R : void 0,
               });
-            (o("WAWebBizVpvPairFields").applyBizVpvPairFields(A, d),
-              A.commit());
+            (o("WAWebBizVpvPairFields").applyBizVpvPairFields(F, d),
+              F.commit());
           })();
         };
-      o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, P);
+      o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, N);
     }
     function g(e) {
       var t = e.isGif,

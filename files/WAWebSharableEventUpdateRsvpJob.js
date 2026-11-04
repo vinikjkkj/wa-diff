@@ -29,10 +29,7 @@ __d(
             a = yield o(
               "WAWebSharableEventServerClient",
             ).mutateSharableEventServer(m, {
-              input: babelHelpers.extends(
-                { event_id: e, rsvp_status: f(t) },
-                g(t),
-              ),
+              input: babelHelpers.extends({ event_id: e }, f(t)),
             }),
             i = a.reader,
             l = a.response,
@@ -81,6 +78,9 @@ __d(
       );
     }
     function f(e) {
+      return babelHelpers.extends({ rsvp_status: g(e) }, h(e));
+    }
+    function g(e) {
       return e === "going" || e === "going_with_guest"
         ? "GOING"
         : e === "maybe"
@@ -94,7 +94,7 @@ __d(
                 );
               })();
     }
-    function g(e) {
+    function h(e) {
       return e === "going"
         ? { extra_guest_count: c }
         : e === "going_with_guest"
@@ -108,7 +108,7 @@ __d(
                 );
               })();
     }
-    l.updateSharableEventRsvp = p;
+    ((l.updateSharableEventRsvp = p), (l.toSharableEventRsvpInput = f));
   },
   98,
 );

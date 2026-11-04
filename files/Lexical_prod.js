@@ -7006,7 +7006,7 @@ __d(
       return Ul(t) && 11 === t.nodeType;
     }
     var Vl =
-      /^(a|abbr|acronym|b|cite|code|del|em|i|ins|kbd|label|mark|output|q|ruby|s|samp|span|strong|sub|sup|time|u|tt|var|#text)$/i;
+      /^(a|abbr|acronym|b|bdi|bdo|big|cite|code|data|del|dfn|em|font|i|ins|kbd|label|mark|nobr|output|q|ruby|s|samp|small|span|strike|strong|sub|sup|time|u|tt|var|#text)$/i;
     function Jl(t) {
       return (
         !(!jl(t) || !t.style.display.startsWith("inline")) ||
@@ -7132,8 +7132,9 @@ __d(
       if (e === void 0) {
         e = Xl();
       }
-      var n = e.isEditable();
-      ((t.contentEditable = n ? "true" : "false"),
+      var n = e.isEditable(),
+        o = n ? "true" : "false";
+      (t.getAttribute("contenteditable") !== o && (t.contentEditable = o),
         n ? (t.__lexicalEditor = e) : delete t.__lexicalEditor);
     }
     function yc(t, e) {
@@ -10311,7 +10312,7 @@ __d(
       (g &&
         (n.isShiftKeyDown =
           "Shift" === t.key ||
-          (n.isShiftKeyDown && t.shiftKey && "CapsLock" !== t.key)),
+          (n.isShiftKeyDown && t.shiftKey && "Enter" === t.key)),
         (n.lastKeyDownTimeStamp = t.timeStamp),
         (n.lastKeyCode = t.key),
         "Backspace" !== t.key && xu(n),

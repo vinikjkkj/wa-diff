@@ -35,8 +35,8 @@ __d(
                 n.querySelectorAll("[data-tab]"),
               ).sort(function (e, t) {
                 return (
-                  (parseInt(e.getAttribute("data-tab"), 10) || 0) -
-                  (parseInt(t.getAttribute("data-tab"), 10) || 0)
+                  (parseInt(String(e.getAttribute("data-tab")), 10) || 0) -
+                  (parseInt(String(t.getAttribute("data-tab")), 10) || 0)
                 );
               }),
               isElementTabbable: h,
@@ -100,7 +100,7 @@ __d(
     }
     function h(e) {
       if (e.disabled) return !1;
-      var t = parseInt(e.dataset.tab, 10);
+      var t = parseInt(String(e.dataset.tab), 10);
       if (typeof t != "number" || t < 0) return !1;
       var n = e.getAttribute("tabindex");
       return (n != null && parseInt(n, 10) === -1) ||

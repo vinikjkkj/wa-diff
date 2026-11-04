@@ -4,27 +4,20 @@ __d(
     "WALogger",
     "WAWebApiHydrateWidsUtil",
     "WAWebProfilePicThumbCollection",
-    "WAWebQplFlowWrapper",
     "WAWebSchemaProfilePicThumb",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "qpl",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = r("qpl")._(891431279, "3267");
-    function u() {
-      return c.apply(this, arguments);
+    var e;
+    function s() {
+      return u.apply(this, arguments);
     }
-    function c() {
+    function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = self.performance.now();
-          o("WAWebQplFlowWrapper").QPL.markerPoint(
-            s,
-            "RestoreProfilePictures_start",
-          );
-          var n = yield o("WAWebSchemaProfilePicThumb")
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = self.performance.now(),
+            n = yield o("WAWebSchemaProfilePicThumb")
               .getProfilePicThumbTable()
               .all(),
             a = [],
@@ -62,19 +55,15 @@ __d(
               { stale: !1, eurlStale: !1 },
             );
           });
-          (o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.add(
-            l,
-            { silent: !0, merge: !1 },
-          ),
-            o("WAWebQplFlowWrapper").QPL.markerPoint(
-              s,
-              "RestoreProfilePictures_end",
-            ));
+          o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.add(l, {
+            silent: !0,
+            merge: !1,
+          });
         })),
-        c.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.restoreProfilePictures = u;
+    l.restoreProfilePictures = s;
   },
   98,
 );

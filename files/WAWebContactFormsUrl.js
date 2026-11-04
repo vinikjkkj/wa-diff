@@ -31,12 +31,17 @@ __d(
           n
       );
     }
-    function d() {
+    function d(e) {
+      var t = new URL("https://help.meta.com/requests/685295490745721");
+      return (t.searchParams.set("url_uk osa_mase", e), t.toString());
+    }
+    function m() {
       return "https://help.meta.com/requests/1353992216220127";
     }
     ((l.getReportContentAUSFormUrl = u),
       (l.getReportContentUKFormUrl = c),
-      (l.getReportContentUSNCIIFormUrl = d));
+      (l.getReportContentUKOSAMASEFormUrl = d),
+      (l.getReportContentUSNCIIFormUrl = m));
   },
   98,
 );

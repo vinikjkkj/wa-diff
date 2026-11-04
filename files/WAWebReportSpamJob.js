@@ -153,7 +153,7 @@ __d(
               "value" in m
             ) {
               var p = m.value,
-                _ = parseInt(p.errorSpamIqErrors.value.code, 10),
+                _ = parseInt(String(p.errorSpamIqErrors.value.code), 10),
                 f = p.errorSpamIqErrors.value.text;
               return (
                 o("WALogger").WARN(

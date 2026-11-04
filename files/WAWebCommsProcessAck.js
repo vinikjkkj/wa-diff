@@ -10,6 +10,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -21,7 +22,12 @@ __d(
       if (e.attrs.class === "message") {
         var i = o("WAWebWidFactory").createWid(String(n)),
           l = u(e);
-        (m({ id: String(r), rcat: l, remote: i, timestamp: parseInt(a, 10) }),
+        (m({
+          id: String(r),
+          rcat: l,
+          remote: i,
+          timestamp: parseInt(String(a), 10),
+        }),
           d(l, String(r), i));
       }
     }
@@ -51,53 +57,62 @@ __d(
           rcat: e,
         });
     }
-    async function m(t) {
-      var n = t.id,
-        r = t.rcat,
-        a = t.remote,
-        i = t.timestamp,
-        l = c(n, a),
-        s = String(l);
-      try {
-        var u = await o("WAWebSchemaMessage").getMessageTable().get(s);
-        if (
-          (u == null ? void 0 : u.type) === o("WAWebMsgType").MSG_TYPE.REACTION
-        )
-          return;
-        var d = o("WAWebDBMessageRangeIndex").MessagePropertyType.cast(
-          u == null ? void 0 : u.messageRangeIndex.split("_")[1],
-        );
-        o("WAWebSchemaMessage")
-          .getMessageTable()
-          .merge(s, {
-            messageRangeIndex: o(
-              "WAWebDBMessageRangeIndex",
-            ).craftMessageRangeIndex(
-              a.toString(),
-              !1,
-              d ===
-                o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-              i,
-            ),
-            rcat: r,
-          });
-      } catch (t) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "processAckForOutgoingMessage: failed to update in storage",
-                ])),
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.id,
+            r = t.rcat,
+            a = t.remote,
+            i = t.timestamp,
+            l = c(n, a),
+            s = String(l);
+          try {
+            var u = yield o("WAWebSchemaMessage").getMessageTable().get(s);
+            if (
+              (u == null ? void 0 : u.type) ===
+              o("WAWebMsgType").MSG_TYPE.REACTION
             )
-            .verbose()
-            .sendLogs("message processAckForOutgoingMessage failed"),
-          t
-        );
-      }
-      return o("WAWebActiveMessageRanges").checkAndRemoveActiveMessageRanges(
-        l,
-        i,
+              return;
+            var d = o("WAWebDBMessageRangeIndex").MessagePropertyType.cast(
+              u == null ? void 0 : u.messageRangeIndex.split("_")[1],
+            );
+            o("WAWebSchemaMessage")
+              .getMessageTable()
+              .merge(s, {
+                messageRangeIndex: o(
+                  "WAWebDBMessageRangeIndex",
+                ).craftMessageRangeIndex(
+                  a.toString(),
+                  !1,
+                  d ===
+                    o("WAWebDBMessageRangeIndex").MessagePropertyType
+                      .SystemMessage,
+                  i,
+                ),
+                rcat: r,
+              });
+          } catch (t) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "processAckForOutgoingMessage: failed to update in storage",
+                    ])),
+                )
+                .verbose()
+                .sendLogs("message processAckForOutgoingMessage failed"),
+              t
+            );
+          }
+          return o(
+            "WAWebActiveMessageRanges",
+          ).checkAndRemoveActiveMessageRanges(l, i);
+        })),
+        p.apply(this, arguments)
       );
     }
     l.default = s;

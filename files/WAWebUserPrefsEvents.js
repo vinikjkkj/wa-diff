@@ -6,9 +6,11 @@ __d(
     function s() {
       if (e != null) return e;
       var t = parseInt(
-        r("WAWebUserPrefsStore").getUser(
-          o("WAWebUserPrefsKeys").UserPrefs
-            .CagEventsAwarenessBannerFirstSeenTimestamp,
+        String(
+          r("WAWebUserPrefsStore").getUser(
+            o("WAWebUserPrefsKeys").UserPrefs
+              .CagEventsAwarenessBannerFirstSeenTimestamp,
+          ),
         ),
         10,
       );

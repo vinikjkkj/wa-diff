@@ -34,7 +34,8 @@ __d(
         r = t.chatId,
         a = t.includeAttributes,
         i = t.msgRecord;
-      if (n != null && o("WAWebBotUtils").isMetaAiBot(r)) return n;
+      if (n != null && (o("WAWebBotUtils").isMetaAiBot(r) || r.isFbidBot()))
+        return n;
       var l =
         i.data.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
         i.data.isForwarded === !0;

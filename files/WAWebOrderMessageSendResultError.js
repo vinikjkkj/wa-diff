@@ -4,14 +4,17 @@ __d(
   function (t, n, r, o, a, i) {
     var e = "Order message SendMsgResult failure status",
       l = (function (t) {
-        function n(n) {
-          var r;
+        function n(n, r, o, a) {
+          var i;
           return (
-            (r = t.call(this, e) || this),
-            (r.name = "Error"),
-            (r.message = e),
-            (r.messageSendResult = n),
-            r
+            (i = t.call(this, e) || this),
+            (i.name = "Error"),
+            (i.message = e),
+            (i.messageSendResult = n),
+            (i.failureReason = r),
+            (i.failureErrorName = a),
+            (i.ackErrorCode = o),
+            i
           );
         }
         return (babelHelpers.inheritsLoose(n, t), n);

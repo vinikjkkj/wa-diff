@@ -44,6 +44,7 @@ __d(
                 },
                 hasAnnouncement: !1,
                 hasCapi: !1,
+                hasWork: !1,
                 hasLightE2ee: !1,
                 hasNoFrequentlyForwarded: !1,
                 hasHiddenGroup: !1,
@@ -327,10 +328,13 @@ __d(
                 a.value.linksLinkGroup.forEach(function (e) {
                   var t,
                     n = parseInt(
-                      (t = e.linkSubGroupsSuccessIqLinksLinkGroupMixinGroup) ==
-                        null
-                        ? void 0
-                        : t.value.error,
+                      String(
+                        (t =
+                          e.linkSubGroupsSuccessIqLinksLinkGroupMixinGroup) ==
+                          null
+                          ? void 0
+                          : t.value.error,
+                      ),
                       10,
                     );
                   n ? l.push({ jid: e.jid, error: n }) : i.push(e.jid);
@@ -408,11 +412,13 @@ __d(
                 l.value.unlinkGroup.forEach(function (e) {
                   var t,
                     n = parseInt(
-                      (t =
-                        e.subGroupBadRequestOrNotAuthorizedOrNotExistOrNotAcceptableOrPartialServerErrorOrServerErrorMixinGroup) ==
-                        null
-                        ? void 0
-                        : t.value.error,
+                      String(
+                        (t =
+                          e.subGroupBadRequestOrNotAuthorizedOrNotExistOrNotAcceptableOrPartialServerErrorOrServerErrorMixinGroup) ==
+                          null
+                          ? void 0
+                          : t.value.error,
+                      ),
                       10,
                     );
                   n ? u.push({ jid: e.jid, error: n }) : s.push(e.jid);

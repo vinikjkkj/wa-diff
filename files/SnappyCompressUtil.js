@@ -19,39 +19,38 @@ __d(
       }).join("");
       return s(n);
     }
-    var d = {
-      compressUint8ArrayToSnappy: c,
-      compressStringToSnappy: function (r) {
-        if (e == null || s == null) return null;
-        for (var n = new t.Uint8Array(r.length), o = 0; o < r.length; o++) {
-          var a = r.charCodeAt(o);
+    function d(n) {
+      if (e == null || s == null) return null;
+      for (var r = new t.Uint8Array(n.length), o = 0; o < n.length; o++) {
+        var a = n.charCodeAt(o);
+        if (a > 127) return null;
+        r[o] = a;
+      }
+      return c(r);
+    }
+    function m(t) {
+      if (e == null) return null;
+      var n = null;
+      if (u != null) n = new u().encode(t);
+      else {
+        n = new e(t.length);
+        for (var o = 0; o < t.length; o++) {
+          var a = t.charCodeAt(o);
           if (a > 127) return null;
           n[o] = a;
         }
-        return d.compressUint8ArrayToSnappy(n);
-      },
-      compressStringToSnappyBinary: function (n) {
-        if (e == null) return null;
-        var t = null;
-        if (u != null) t = new u().encode(n);
-        else {
-          t = new e(n.length);
-          for (var o = 0; o < n.length; o++) {
-            var a = n.charCodeAt(o);
-            if (a > 127) return null;
-            t[o] = a;
-          }
-        }
-        var i = null;
-        try {
-          i = r("SnappyCompress").compress(t);
-        } catch (e) {
-          return null;
-        }
-        return i;
-      },
-    };
-    i.exports = d;
+      }
+      var i = null;
+      try {
+        i = r("SnappyCompress").compress(n);
+      } catch (e) {
+        return null;
+      }
+      return i;
+    }
+    ((l.compressStringToSnappy = d),
+      (l.compressStringToSnappyBinary = m),
+      (l.compressUint8ArrayToSnappy = c));
   },
-  34,
+  98,
 );

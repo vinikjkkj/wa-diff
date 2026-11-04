@@ -179,12 +179,25 @@ __d(
       }
       return t;
     }
-    function B(t) {
-      return t === "" || t === "." || t === ".." || p(t)
-        ? null
-        : "/api/tasks/" + u(t);
+    var B = 1,
+      W = 50;
+    function q(t) {
+      var n = V(t);
+      return n == null ? null : "/api/tasks/" + n;
     }
-    var W = Object.freeze({
+    function U(t, n) {
+      var r = V(t);
+      return r == null
+        ? null
+        : "/api/tasks/runs?job_id=" + r + "&limit=" + H(n);
+    }
+    function V(e) {
+      return e === "" || e === "." || e === ".." || p(e) ? null : u(e);
+    }
+    function H(e) {
+      return e >= W ? W : e >= B ? Math.trunc(e) : B;
+    }
+    var G = Object.freeze({
       ACTIVITY_PAGE: function (n, r) {
         return (
           "/api/activity?limit=" +
@@ -312,6 +325,8 @@ __d(
         );
       },
       CREDENTIALS_CATALOG_UPDATE: "/v1/credentials/catalog/update",
+      CUSTOM_CONNECTORS_LIST: "/v1/custom-connectors/list",
+      CUSTOM_CONNECTORS_REGISTER: "/v1/custom-connectors/register",
       DATA_EXPORT: "/api/dyi/export",
       FOA_ACCOUNTS: function (n) {
         return "/api/foa/accounts?app=" + encodeURIComponent(n);
@@ -354,7 +369,8 @@ __d(
         );
       },
       PERMISSIONS_SETTINGS: "/permissions/settings",
-      SCHEDULED_TASK: B,
+      SCHEDULED_TASK: q,
+      SCHEDULED_TASK_RUNS: U,
       SCHEDULED_TASKS: "/api/tasks",
       SCHEDULED_TASKS_SUBSCRIBE: "/api/tasks/subscribe",
       SPACE_CVM: l,
@@ -382,12 +398,12 @@ __d(
       },
       WORKSPACE_WRITE: "/fs/write",
     });
-    function q(e) {
+    function z(e) {
       return e;
     }
     ((i.confineWorkspaceMediaPath = m),
-      (i.JarvisPaths = W),
-      (i.serializeJarvisPath = q));
+      (i.JarvisPaths = G),
+      (i.serializeJarvisPath = z));
   },
   66,
 );

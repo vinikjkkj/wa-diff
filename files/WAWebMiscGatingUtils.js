@@ -79,7 +79,7 @@ __d(
     }
     ((l.cagReactionsSend = e),
       (l.getGroupSizeLimit = s),
-      (l.isRecentStickersMDEnabled = u),
+      (l.isRecentStickersEnabled = u),
       (l.isFavoriteStickersEnabled = c),
       (l.multiSkinToneEmojiPickerEnabled = d),
       (l.getGraphqlLocaleRemapping = m),

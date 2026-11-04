@@ -111,16 +111,24 @@ __d(
                   state: "parsed",
                 };
               case "_parse_failed":
-                return {
-                  dashManifestXml: a.dashManifestXml,
-                  dashManifestXmlString: s.dashManifestXmlString,
-                  error: a.error,
-                  expiredVideoUrlRefreshHandlerState:
-                    s.expiredVideoUrlRefreshHandlerState,
-                  parseCompletedAt: i,
-                  parseRequestedAt: s.parseRequestedAt,
-                  state: "failed_to_parse",
-                };
+                return s.state === "parsed" && r.config.isLivePlayback
+                  ? (r.logging.log(r, {
+                      error: a.error,
+                      format:
+                        "live manifest refresh failed to parse, keeping the last parsed manifest",
+                      type: "generic_error_as_warning",
+                    }),
+                    babelHelpers.extends({}, s, { parseCompletedAt: i }))
+                  : {
+                      dashManifestXml: a.dashManifestXml,
+                      dashManifestXmlString: s.dashManifestXmlString,
+                      error: a.error,
+                      expiredVideoUrlRefreshHandlerState:
+                        s.expiredVideoUrlRefreshHandlerState,
+                      parseCompletedAt: i,
+                      parseRequestedAt: s.parseRequestedAt,
+                      state: "failed_to_parse",
+                    };
               case "handle_worker_url_refresh_request": {
                 var f, g;
                 if (s.state !== "parsed") {

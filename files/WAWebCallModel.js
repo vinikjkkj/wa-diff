@@ -352,9 +352,6 @@ __d(
                 ),
               ));
           }),
-          (a.isSelfScreenShareRejected = function () {
-            return this.$Call$p_7;
-          }),
           (a.tryMarkScreenShareUpdateAppModalShown = function () {
             return this.$Call$p_8 ? !1 : ((this.$Call$p_8 = !0), !0);
           }),

@@ -101,8 +101,8 @@ __d(
         C = a.musicSongStartTimeInMs,
         b = a.overlapDurationInMs,
         v = a.songId,
-        E = a.title;
-      if (y == null || v == null || f == null || E == null) return null;
+        S = a.title;
+      if (y == null || v == null || f == null || S == null) return null;
       (i == null &&
         o("WALogger").WARN(
           s ||
@@ -117,14 +117,14 @@ __d(
                 "[music] music message has no artwork uri",
               ])),
           ));
-      var k = R(C);
+      var k = L(C);
       return {
         musicContentMediaId: y,
         songId: v,
         author: f,
-        title: E,
-        songUri: S(i, "song"),
-        artworkUri: S(r, "artwork"),
+        title: S,
+        songUri: R(i, "song"),
+        artworkUri: R(r, "artwork"),
         style:
           (t = o(
             "WAWebProtobufsE2E.pb",
@@ -132,7 +132,7 @@ __d(
             ? t
             : void 0,
         songStartTimeMs: k != null ? k : void 0,
-        clipDurationMs: (n = L(k, b)) != null ? n : void 0,
+        clipDurationMs: (n = E(k, b)) != null ? n : void 0,
         isExplicit: h,
         countryBlocklist: g,
         artistAttribution: c,
@@ -173,7 +173,38 @@ __d(
                 .LYRICS
             : null;
     }
-    function S(e, t) {
+    function S(e) {
+      var t = [
+        o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.VINYL,
+      ];
+      return (
+        v(
+          o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+            .MESSAGE_BUBBLE,
+        ) != null &&
+          o("WAWebABProps").getABPropConfigValue(
+            "music_on_chats_style_message_bubble_producer_enabled",
+          ) &&
+          t.push(
+            o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+              .MESSAGE_BUBBLE,
+          ),
+        e &&
+          v(
+            o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+              .LYRICS,
+          ) != null &&
+          o("WAWebABProps").getABPropConfigValue(
+            "music_on_chats_style_lyrics_producer_enabled",
+          ) &&
+          t.push(
+            o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+              .LYRICS,
+          ),
+        t
+      );
+    }
+    function R(e, t) {
       if (e != null) {
         var n;
         try {
@@ -219,7 +250,7 @@ __d(
         return e;
       }
     }
-    function R(e) {
+    function L(e) {
       if (e == null) return 0;
       var t = o("WALongInt").maybeNumber(e);
       return t == null || t < 0 || t > _
@@ -234,7 +265,7 @@ __d(
           null)
         : t;
     }
-    function L(e, t) {
+    function E(e, t) {
       if (e == null || t == null) return null;
       var n = o("WALongInt").maybeNumber(t);
       return n == null || n <= 0 || n > _ - e
@@ -255,7 +286,8 @@ __d(
       (l.toMusicData = C),
       (l.canRenderMusicMessage = b),
       (l.renderableMusicStyle = v),
-      (l.toAllowedUri = S));
+      (l.getProducibleStyles = S),
+      (l.toAllowedUri = R));
   },
   98,
 );

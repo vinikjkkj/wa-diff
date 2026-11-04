@@ -3,7 +3,7 @@ __d(
   [
     "invariant",
     "relay-runtime/mutations/RelayRecordSourceMutator",
-    "relay-runtime/mutations/RelayRecordSourceProxy",
+    "relay-runtime/mutations/RelayRecordSourceProxyOptimized",
     "relay-runtime/mutations/RelayRecordSourceSelectorProxy",
     "relay-runtime/store/RelayReader",
     "relay-runtime/store/RelayRecordSource",
@@ -16,22 +16,25 @@ __d(
     var e,
       s,
       u,
-      c =
+      c = n(
+        "relay-runtime/mutations/RelayRecordSourceProxyOptimized",
+      ).createRelayRecordSourceProxy,
+      d =
         typeof t != "undefined"
           ? t
           : typeof window != "undefined"
             ? window
             : void 0,
-      d =
+      m =
         (e =
-          c == null || (s = c.ErrorUtils) == null
+          d == null || (s = d.ErrorUtils) == null
             ? void 0
             : s.applyWithGuard) != null
           ? e
           : function (e, t, n, r, o) {
               return e.apply(t, n);
             },
-      m = (function () {
+      p = (function () {
         function e(e, t, n, r, o) {
           ((this.$6 = !1),
             (this.$2 = t || null),
@@ -148,40 +151,34 @@ __d(
               i = t.deferNotify,
               s = r.source,
               u = r.fieldPayloads,
-              c = new (n("relay-runtime/mutations/RelayRecordSourceMutator"))(
+              d = new (n("relay-runtime/mutations/RelayRecordSourceMutator"))(
                 this.$1.getSource(),
                 s,
               ),
-              d = new (n("relay-runtime/mutations/RelayRecordSourceProxy"))(
-                c,
-                this.$4,
-                this.$2,
-                this.$3,
-                this.$5,
-              );
+              m = c(d, this.$4, this.$2, this.$3, this.$5);
             if (
               (u &&
                 u.length &&
                 u.forEach(function (t) {
                   var n = e.$2 && e.$2(t.handle);
-                  (n || l(0, 681, t.handle), n.update(d, t));
+                  (n || l(0, 681, t.handle), n.update(m, t));
                 }),
               a)
             ) {
-              var m = o.fragment;
-              m != null || l(0, 12580);
-              var _ = new (n(
+              var p = o.fragment;
+              p != null || l(0, 12580);
+              var f = new (n(
                   "relay-runtime/mutations/RelayRecordSourceSelectorProxy",
-                ))(c, d, m, this.$3),
-                f = p(s, m);
-              a(_, f);
+                ))(d, m, p, this.$3),
+                g = _(s, p);
+              a(f, g);
             }
-            var g = d.getIDsMarkedForInvalidation();
+            var h = m.getIDsMarkedForInvalidation();
             return (
               i === !0
-                ? this.$1.publishWithDeferredNotify(s, o, g)
-                : this.$1.publish(s, g),
-              d.isStoreMarkedForInvalidation()
+                ? this.$1.publishWithDeferredNotify(s, o, h)
+                : this.$1.publish(s, h),
+              m.isStoreMarkedForInvalidation()
             );
           }),
           (t.$17 = function () {
@@ -202,13 +199,11 @@ __d(
                     s = new (n(
                       "relay-runtime/mutations/RelayRecordSourceMutator",
                     ))(e.$1.getSource(), l),
-                    u = new (n(
-                      "relay-runtime/mutations/RelayRecordSourceProxy",
-                    ))(s, e.$4, e.$2, e.$3, e.$5);
-                  (d(i, null, [u], null, "RelayPublishQueue:commitData"),
+                    u = c(s, e.$4, e.$2, e.$3, e.$5);
+                  (m(i, null, [u], null, "RelayPublishQueue:commitData"),
                     (t = t || u.isStoreMarkedForInvalidation()));
-                  var c = u.getIDsMarkedForInvalidation();
-                  e.$1.publish(l, c);
+                  var d = u.getIDsMarkedForInvalidation();
+                  e.$1.publish(l, d);
                 }
               }),
               this.$10.clear(),
@@ -222,17 +217,11 @@ __d(
                 this.$1.getSource(),
                 t,
               ),
-              o = new (n("relay-runtime/mutations/RelayRecordSourceProxy"))(
-                r,
-                this.$4,
-                this.$2,
-                this.$3,
-                this.$5,
-              ),
+              o = c(r, this.$4, this.$2, this.$3, this.$5),
               a = function (a) {
                 if (a.storeUpdater) {
                   var t = a.storeUpdater;
-                  d(t, null, [o], null, "RelayPublishQueue:applyUpdates");
+                  m(t, null, [o], null, "RelayPublishQueue:applyUpdates");
                 } else {
                   var i = a.operation,
                     l = a.payload,
@@ -240,12 +229,12 @@ __d(
                     u = l.source,
                     c = l.fieldPayloads;
                   if ((u && o.publishSource(u, c), s)) {
-                    var m;
-                    u && (m = p(u, i.fragment));
-                    var _ = new (n(
+                    var d;
+                    u && (d = _(u, i.fragment));
+                    var p = new (n(
                       "relay-runtime/mutations/RelayRecordSourceSelectorProxy",
                     ))(r, o, i.fragment, e.$3);
-                    d(s, null, [_, m], null, "RelayPublishQueue:applyUpdates");
+                    m(s, null, [p, d], null, "RelayPublishQueue:applyUpdates");
                   }
                 }
               };
@@ -260,7 +249,7 @@ __d(
           e
         );
       })();
-    function p(e, t) {
+    function _(e, t) {
       var r = n("relay-runtime/store/RelayReader").read(
         e,
         t,
@@ -270,7 +259,7 @@ __d(
       ).data;
       return r;
     }
-    a.exports = m;
+    a.exports = p;
   },
   null,
 );

@@ -5,6 +5,7 @@ __d(
     "WAWebDeleteMetaAiThreadGQLMutation.graphql",
     "WAWebGraphQLServerError",
     "WAWebRelayClient",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -15,29 +16,37 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebDeleteMetaAiThreadGQLMutation.graphql"));
-    async function m(e) {
-      try {
-        var t = await o("WAWebRelayClient").commitMutation(
-          d,
-          { bot_fbid: e },
-          { environmentType: "whatsapp_web" },
-        );
-        return (t == null ? void 0 : t.wass_delete_account) === !0
-          ? "deleted"
-          : (o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[deleteMetaAiThreadGQL] server did not delete the thread",
-                ])),
-            ),
-            "retryable");
-      } catch (e) {
-        return o("WAWebGraphQLServerError").isWassBotNotFoundError(e)
-          ? "already-gone"
-          : (p(e), "retryable");
-      }
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function p(e) {
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            var t = yield o("WAWebRelayClient").commitMutation(
+              d,
+              { bot_fbid: e },
+              { environmentType: "whatsapp_web" },
+            );
+            return (t == null ? void 0 : t.wass_delete_account) === !0
+              ? "deleted"
+              : (o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[deleteMetaAiThreadGQL] server did not delete the thread",
+                    ])),
+                ),
+                "retryable");
+          } catch (e) {
+            return o("WAWebGraphQLServerError").isWassBotNotFoundError(e)
+              ? "already-gone"
+              : (_(e), "retryable");
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t,
           n,
@@ -53,8 +62,8 @@ __d(
             })
             .join(",");
         o("WALogger").WARN(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[deleteMetaAiThreadGQL] server-error codes=",
               "",
             ])),
@@ -63,8 +72,8 @@ __d(
         return;
       }
       o("WALogger").WARN(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose([
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
             "[deleteMetaAiThreadGQL] request-failed",
           ])),
       );

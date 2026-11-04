@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebHatchPermissionsDecoder",
+    "WAWebHatchPermissionsFailureReason",
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
     "asyncToGeneratorRuntime",
@@ -168,13 +169,13 @@ __d(
             );
             if (d.kind !== "ok") return d;
             if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== a)
-              return O(e, "account_changed");
+              return W(e, "account_changed", "generic");
             i.push.apply(i, d.value.entries);
             var m = d.value.nextCursor;
             return m == null
               ? { kind: "ok", value: i }
               : l.has(m) || l.size + 1 >= u
-                ? O(e, "pagination")
+                ? W(e, "pagination", "generic")
                 : (l.add(m), c(m));
           });
           return function (t) {
@@ -227,7 +228,9 @@ __d(
     function N(e, t, n) {
       if (t.kind !== "ok") return t;
       var r = n(t.value);
-      return r == null ? O(e, "malformed") : { kind: "ok", value: r };
+      return r == null
+        ? W(e, "malformed", "generic")
+        : { kind: "ok", value: r };
     }
     function M(e, t, n) {
       return w.apply(this, arguments);
@@ -239,17 +242,17 @@ __d(
           try {
             a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           } catch (t) {
-            return O(e, "connect_failed");
+            return W(e, "connect_failed", "offline");
           }
-          if (a == null) return O(e, "no_session");
-          var i = yield A(a, t);
+          if (a == null) return W(e, "no_session", "offline");
+          var i = yield O(a, t);
           if (
             (((r = i) == null ? void 0 : r.kind) === "Failure" &&
               (n == null ? void 0 : n.retry) === !0 &&
-              (i = yield A(a, t)),
+              (i = yield O(a, t)),
             i == null)
           )
-            return O(e, "exchange_failed");
+            return W(e, "exchange_failed", "generic");
           var l = i.kind === "Rejected" ? i.statusCode : null;
           return l === 409
             ? { kind: "conflict" }
@@ -257,27 +260,55 @@ __d(
               ? { kind: "ok", value: null }
               : i.kind === "Ok"
                 ? { kind: "ok", value: i.value }
-                : O(e, i.kind.toLowerCase());
+                : W(e, i.kind.toLowerCase(), A(i));
         })),
         w.apply(this, arguments)
       );
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
+    function A(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "Rejected" &&
+          "statusCode" in e
+        ) {
+          var t = e.statusCode;
+          if (F(t))
+            return o(
+              "WAWebHatchPermissionsFailureReason",
+            ).hatchPermissionsHttpFailureReason(t);
+        }
+        return ((typeof e == "object" && e !== null) ||
+          typeof e == "function") &&
+          e.kind === "Failure" &&
+          e.reason === "TIMEOUT"
+          ? "timeout"
+          : ((typeof e == "object" && e !== null) || typeof e == "function") &&
+              e.kind === "Failure" &&
+              (e.reason === "NO_CHANNEL" || e.reason === "TRANSPORT")
+            ? "offline"
+            : "generic";
+      })(e);
     }
-    function F() {
+    function F(e) {
+      return e != null && (e < 200 || e >= 300);
+    }
+    function O(e, t) {
+      return B.apply(this, arguments);
+    }
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield t(e);
           } catch (e) {
             return null;
           }
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(t, n) {
+    function W(t, n, r) {
       return (
         o("WALogger")
           .WARN(
@@ -291,7 +322,7 @@ __d(
             n,
           )
           .sendLogs("hatch-permissions-failed"),
-        { kind: "unavailable", reason: n }
+        { failureReason: r, kind: "unavailable", reason: n }
       );
     }
     ((l.readHatchPermissionSettings = p),

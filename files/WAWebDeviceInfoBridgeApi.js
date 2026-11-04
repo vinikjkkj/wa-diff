@@ -1,6 +1,6 @@
 __d(
   "WAWebDeviceInfoBridgeApi",
-  ["Promise", "WAWebL10N", "asyncToGeneratorRuntime"],
+  ["Promise", "WAWebDeviceClass", "WAWebL10N", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = "0.1",
@@ -8,9 +8,9 @@ __d(
         function t() {
           this.$1 = null;
         }
-        var o = t.prototype;
+        var a = t.prototype;
         return (
-          (o.get = (function () {
+          (a.get = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               return (
                 this.$1 == null && (this.$1 = yield this.getOsRelease()),
@@ -26,6 +26,7 @@ __d(
                   mnc: "000",
                   sim_mnc: "000",
                   sim_mcc: "000",
+                  deviceType: o("WAWebDeviceClass").getWAWebLoginDeviceType(),
                 }
               );
             });
@@ -34,7 +35,7 @@ __d(
             }
             return t;
           })()),
-          (o.getOsRelease = function () {
+          (a.getOsRelease = function () {
             return (e || (e = n("Promise"))).resolve(s);
           }),
           t

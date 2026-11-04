@@ -32,7 +32,7 @@ __d(
                 );
               yield r.handleIncomingSignalingMessage({
                 msgE: e.e,
-                msgOffline: (a = e.isContact) != null ? a : !1,
+                msgOffline: (a = e.is_offline) != null ? a : !1,
                 msgPlatform: e.peer_platform,
                 msgT: e.t,
                 msgVersion: e.peer_app_version,

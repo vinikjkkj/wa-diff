@@ -9,6 +9,7 @@ __d(
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.features = o("WAWebBaseModel").prop()),
+          (t.hasFreshSync = o("WAWebBaseModel").prop(!1)),
           (t.ddmSettings = o("WAWebBaseModel").prop(!1)),
           (t.clearAndDeleteChatSync = o("WAWebBaseModel").prop(!1)),
           (t.viewOnceSpReceiver = o("WAWebBaseModel").prop(!1)),
@@ -54,8 +55,8 @@ __d(
           var e;
           return ((e = this.features) == null ? void 0 : e.includes(t)) === !0;
         }),
-        (n.setPrimaryFeatures = function (t) {
-          this.features = t;
+        (n.setPrimaryFeatures = function (t, n) {
+          (n === void 0 && (n = !1), (this.features = t));
           var e = new Set(t);
           ((this.ddmSettings = e.has("ddm_settings")),
             (this.clearAndDeleteChatSync = e.has("clear_and_delete_chat_sync")),
@@ -120,7 +121,8 @@ __d(
             )),
             (this.aiArtifactsFixedEnabled = e.has(
               "ai_artifacts_fixed_enabled",
-            )));
+            )),
+            n && (this.hasFreshSync = !0));
         }),
         t
       );

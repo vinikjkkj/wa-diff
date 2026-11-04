@@ -13,6 +13,7 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
+    "WAWebBroadcastFanoutKeys",
     "WAWebCmd",
     "WAWebCoexEditDeleteAlertUtils",
     "WAWebDBProcessMessage",
@@ -566,8 +567,8 @@ __d(
           h && (l.activeUnreadCount = Math.max(l.activeUnreadCount - 1, 0)));
       }
       if (r("WAWebWid").isBroadcast(m.remote)) {
-        var R = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(m),
-          L = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(p);
+        var R = o("WAWebBroadcastFanoutKeys").getBroadcastFanoutKeys(m),
+          L = o("WAWebBroadcastFanoutKeys").getBroadcastFanoutKeys(p);
         if (!R || !L || R.length !== L.length) {
           o("WALogger").LOG(
             c ||

@@ -7,6 +7,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebVoipEventConstants",
     "WAWebVoipStackInterface",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -53,75 +54,99 @@ __d(
                 );
               })();
     }
-    async function b(t) {
-      try {
-        var n = await o("WAWebVoipStackInterface").getVoipStackInterface();
-        n != null &&
-          n.updateNetworkMedium &&
-          (await n.updateNetworkMedium(t, f),
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: network medium updated: ",
-                ", MTU: ",
-                "",
-              ])),
-            C(t),
-            f,
-          ));
-      } catch (e) {
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: failed to update network medium: ",
-              "",
-            ])),
-          String(e),
-        );
-      }
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    async function v() {
-      var e = y();
-      e !== g && ((g = e), await b(e));
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            t != null &&
+              t.updateNetworkMedium &&
+              (yield t.updateNetworkMedium(e, f),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: network medium updated: ",
+                    ", MTU: ",
+                    "",
+                  ])),
+                C(e),
+                f,
+              ));
+          } catch (e) {
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: failed to update network medium: ",
+                  "",
+                ])),
+              String(e),
+            );
+          }
+        })),
+        v.apply(this, arguments)
+      );
     }
     function S() {
-      v().catch(function (e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = y();
+          e !== g && ((g = e), yield b(e));
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L() {
+      S().catch(function (t) {
         o("WALogger").WARN(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleNetworkChange error: ",
               "",
             ])),
-          e,
+          t,
         );
       });
     }
-    async function R() {
-      r("WAWebNetworkStatus").online
-        ? (o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: network came back online, detecting actual medium type",
-              ])),
-          ),
-          await v())
-        : (o("WAWebCoreActionsODS").logCallNetworkOffline(),
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: offline, updating stack medium=NONE",
-              ])),
-          ),
-          (g = _.NONE),
-          await b(_.NONE));
+    function E() {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("WAWebNetworkStatus").online
+            ? (o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: network came back online, detecting actual medium type",
+                  ])),
+              ),
+              yield S())
+            : (o("WAWebCoreActionsODS").logCallNetworkOffline(),
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: offline, updating stack medium=NONE",
+                  ])),
+              ),
+              (g = _.NONE),
+              yield b(_.NONE));
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I() {
       var e;
       if (!h) {
-        v().catch(function (e) {
+        S().catch(function (e) {
           o("WALogger").WARN(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: initial network medium detection error: ",
                 "",
               ])),
@@ -131,29 +156,29 @@ __d(
         var n = (e = t.navigator) == null ? void 0 : e.connection;
         (n &&
           typeof n.addEventListener == "function" &&
-          n.addEventListener("change", S),
+          n.addEventListener("change", L),
           r("WAWebNetworkStatus").on(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipNetworkEvents.ONLINE,
             ),
-            R,
+            E,
           ),
           r("WAWebNetworkStatus").on(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipNetworkEvents.OFFLINE,
             ),
-            R,
+            E,
           ),
           (h = !0),
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: network medium monitoring started",
               ])),
           ));
       }
     }
-    l.startNetworkMediumMonitoring = L;
+    l.startNetworkMediumMonitoring = I;
   },
   98,
 );

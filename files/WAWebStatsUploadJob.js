@@ -47,7 +47,7 @@ __d(
           var l = i,
             d = l.code,
             m = l.text;
-          return { errorCode: parseInt(d, 10), errorText: m };
+          return { errorCode: parseInt(String(d), 10), errorText: m };
         })),
         m.apply(this, arguments)
       );

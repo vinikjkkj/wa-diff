@@ -20,7 +20,7 @@ __d(
     }
     var g = u("id"),
       h = u("filehash"),
-      y = u("isCreateButton"),
+      y = u("actionTile"),
       C = u("isPlaceholder"),
       b = u("mimetype"),
       v = u("stickerAudio"),
@@ -29,7 +29,7 @@ __d(
       (l.clearStickerGetterCacheFor = f),
       (l.getId = g),
       (l.getFilehash = h),
-      (l.getIsCreateButton = y),
+      (l.getActionTile = y),
       (l.getIsPlaceholder = C),
       (l.getMimetype = b),
       (l.getStickerAudio = v),

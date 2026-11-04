@@ -35,32 +35,30 @@ __d(
         a = e.botAttrs,
         i = e.isFeedback,
         l = e.msg,
-        s = e.plan;
-      if (s == null) return null;
-      var u = t[0];
+        s = e.personaType,
+        u = e.plan;
       if (u == null) return null;
-      var c = S(s),
-        d = c.peerLid,
-        m = c.selfLid,
-        p = R(m, d),
-        _ = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
-          u.agentWid,
-        );
+      var c = t[0];
+      if (c == null) return null;
+      var d = S(u),
+        m = d.peerLid,
+        p = d.selfLid,
+        _ = R(p, m);
       return {
         node: C({
           agentEngagementType: r,
           botAttrs: a,
-          destinationWids: [m, d, u.agentWid],
+          destinationWids: [p, m, c.agentWid],
           isFeedback: i,
-          personaType: _ != null ? _ : null,
-          sharedEnc: u.sharedEnc,
+          personaType: s != null ? s : null,
+          sharedEnc: c.sharedEnc,
         }),
         seedReceipts: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (yield b(l.id.id, p, l.t),
+            (yield b(l.id.id, _, l.t),
               yield o(
                 "WAWebCoexV2RetryMarkerStore",
-              ).markCoexV2RepresentedTargets(l.id, u.agentWid));
+              ).markCoexV2RepresentedTargets(l.id, c.agentWid));
           });
           function t() {
             return e.apply(this, arguments);
@@ -223,9 +221,9 @@ __d(
                 type: S,
                 useStatelessSession: g,
               }),
-              L = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
-                u,
-              );
+              L = yield o(
+                "WAWebSimpleSignalPNToFBIDMigration",
+              ).genFbidBotPersonaType(u);
             return {
               node: C({
                 agentEngagementType: s,

@@ -58,7 +58,6 @@ __d(
     ((p.doc = "Show simulation for resume screen"),
       (p.paramsToExecute = ["4-stages"]));
     function _() {
-      r("vulture")("0-QVAMqYhiHov1bsaVurTPZLq08=");
       var e = [
           "[aria-rowcount][role=grid]",
           "[data-testid=chat-modal]",
@@ -70,12 +69,12 @@ __d(
         n = document.getElementById(t);
       if (n) n.remove();
       else {
-        var o,
-          a = document.createElement("style");
-        ((a.id = "debug-screenshot-toggle"),
-          (a.type = "text/css"),
-          (a.innerHTML = e.join(",") + "{filter: blur(5px);}"),
-          (o = document.querySelector("head")) == null || o.appendChild(a));
+        var r,
+          o = document.createElement("style");
+        ((o.id = "debug-screenshot-toggle"),
+          (o.type = "text/css"),
+          (o.innerHTML = e.join(",") + "{filter: blur(5px);}"),
+          (r = document.querySelector("head")) == null || r.appendChild(o));
       }
     }
     ((_.doc =

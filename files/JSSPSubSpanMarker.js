@@ -3,6 +3,7 @@ __d(
   [
     "JSSPTraceBaseTransformer",
     "JSSelfProfilerUtils",
+    "asyncToGeneratorRuntime",
     "interaction-tracing-metrics",
   ],
   function (t, n, r, o, a, i, l) {
@@ -11,13 +12,13 @@ __d(
       s = 5,
       u = 300,
       c = (function (t) {
-        function n() {
+        function r() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (r.getSubSpanList = function (n) {
+          (a.getSubSpanList = function (n) {
             var t,
               r,
               a = (t = n.metadata) == null ? void 0 : t.interactionId;
@@ -46,41 +47,51 @@ __d(
               l
             );
           }),
-          (r.transform = async function (t) {
-            var e,
-              n,
-              r = this,
-              a = this.getSubSpanList(t),
-              i = [],
-              l = new Map();
-            if (a == null) return t;
-            t.metadata = (e = t.metadata) != null ? e : { subSpanNames: [] };
-            var s = (n = t.metadata.subSpanNames) != null ? n : [],
-              c = s.length;
-            function d(e) {
-              if (l.has(e)) {
-                var t;
-                return (t = l.get(e)) != null ? t : -1;
-              }
-              return (l.set(e, c), i.push(e), c++);
-            }
-            for (
-              var m = async function (n) {
-                  await o("JSSelfProfilerUtils").nextEventLoop(function () {
-                    return r.batchProcess(t, n, a, d);
-                  });
-                },
-                p = 0;
-              p < t.samples.length;
-              p += u
-            )
-              await m(p);
-            return (
-              t.metadata != null && (t.metadata.subSpanNames = [].concat(s, i)),
-              t
+          (a.transform = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  n,
+                  r = this,
+                  a = this.getSubSpanList(e),
+                  i = [],
+                  l = new Map();
+                if (a == null) return e;
+                e.metadata =
+                  (t = e.metadata) != null ? t : { subSpanNames: [] };
+                var s = (n = e.metadata.subSpanNames) != null ? n : [],
+                  c = s.length;
+                function d(e) {
+                  if (l.has(e)) {
+                    var t;
+                    return (t = l.get(e)) != null ? t : -1;
+                  }
+                  return (l.set(e, c), i.push(e), c++);
+                }
+                for (
+                  var m = function* (n) {
+                      yield o("JSSelfProfilerUtils").nextEventLoop(function () {
+                        return r.batchProcess(e, n, a, d);
+                      });
+                    },
+                    p = 0;
+                  p < e.samples.length;
+                  p += u
+                )
+                  yield* m(p);
+                return (
+                  e.metadata != null &&
+                    (e.metadata.subSpanNames = [].concat(s, i)),
+                  e
+                );
+              },
             );
-          }),
-          (r.batchProcess = function (t, n, r, o) {
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.batchProcess = function (t, n, r, o) {
             for (
               var e = Math.min(n + u, t.samples.length),
                 a = function () {
@@ -99,7 +110,7 @@ __d(
             )
               a();
           }),
-          n
+          r
         );
       })(r("JSSPTraceBaseTransformer"));
     l.default = c;

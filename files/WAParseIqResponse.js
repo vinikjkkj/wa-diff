@@ -14,10 +14,10 @@ __d(
           var u = l;
           return {
             success: !1,
-            errorCode: parseInt(i.code, 10),
+            errorCode: parseInt(String(i.code), 10),
             errorText: o("WAWap").decodeAsString(i.text) || "",
             errorType: o("WAWap").decodeAsString(i.type) || "",
-            errorBackoff: parseInt(i.backoff, 10),
+            errorBackoff: parseInt(String(i.backoff), 10),
             toString: s,
             customError: u,
           };

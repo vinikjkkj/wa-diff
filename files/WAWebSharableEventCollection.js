@@ -2,7 +2,6 @@ __d(
   "WAWebSharableEventCollection",
   [
     "WAWebBaseCollection",
-    "WAWebBoolFunc",
     "WAWebCollectionUtils",
     "WAWebJidToWid",
     "WAWebSharableEventGetters",
@@ -17,8 +16,17 @@ __d(
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.allEvents = o("WAWebCollectionUtils").aggregated(
-            o("WAWebBoolFunc").returnTrue,
-            { subscribeToKeys: ["startTsSec", "endTsSec", "status"] },
+            function (e) {
+              return e.linkToken == null;
+            },
+            {
+              subscribeToKeys: [
+                "startTsSec",
+                "endTsSec",
+                "status",
+                "linkToken",
+              ],
+            },
           )),
           (t.withUnseenChanges = o("WAWebCollectionUtils").aggregated(
             function (e) {
@@ -65,6 +73,9 @@ __d(
               .map(u),
             { merge: !0 },
           );
+        }),
+        (n.addLinkPreview = function (t, n) {
+          this.add(babelHelpers.extends({}, u(t), n), { merge: !0 });
         }),
         (n.isOlderThanShown = function (t) {
           var e = this.get(t.eventId);

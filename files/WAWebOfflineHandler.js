@@ -7,18 +7,19 @@ __d(
     "WAWebABProps",
     "WAWebAppTracker",
     "WAWebBackendEventBus",
+    "WAWebBackgroundPauseGating",
+    "WAWebBackgroundPauseState",
     "WAWebEventsWaitForReadyForOffline",
     "WAWebHandleOfflineAbProps",
     "WAWebMessageQueueImpl",
     "WAWebOfflineResumeUtils",
+    "WAWebOfflineSyncQplSession",
     "WAWebOneQueue",
     "WAWebPageLoadLogging",
-    "WAWebQplFlowWrapper",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebStorageCrashAnnotations",
     "WAWebWamOfflineResumeReporter",
     "asyncToGeneratorRuntime",
-    "qpl",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -31,25 +32,25 @@ __d(
       f,
       g,
       h,
-      y = r("qpl")._(891431279, "3267"),
-      C = 200,
-      b = 10,
-      v = 200,
-      S = 100,
-      R = new Map([
+      y = 200,
+      C = 10,
+      b = 200,
+      v = 100,
+      S = new Map([
         [0, 200],
         [1, 100],
         [2, 50],
         [3, 10],
       ]),
-      L = I(),
+      R = C,
+      L = D(),
       E = (function () {
         function t() {
           ((this.$2 = !1),
             (this.$3 = 0),
             (this.$4 = !1),
             (this.$5 = !1),
-            (this.$7 = C),
+            (this.$7 = y),
             (this.$8 = 0),
             (this.$9 = !1),
             (this.$10 = 0),
@@ -76,10 +77,6 @@ __d(
               (o("WAWebPageLoadLogging").addPageLoadQplPoint(
                 "offline_preview_received",
               ),
-              o("WAWebQplFlowWrapper").QPL.markerPoint(
-                y,
-                "OfflinePreviewReceived",
-              ),
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.OfflineResume,
               ),
@@ -93,7 +90,7 @@ __d(
               var e = this.$1;
               o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
               this.isResumeFromRestartComplete()
-                ? D(t.message)
+                ? $(t.message)
                   ? (o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -115,14 +112,14 @@ __d(
                     ))
                 : !this.$2 &&
                   !this.isResumeFromRestartComplete() &&
-                  D(t.message) &&
+                  $(t.message) &&
                   (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
                     blocking_resume: !1,
                   }),
                   (this.offlineResumeManager = e()));
             }
             ((this.$2 = !0),
-              T(),
+              x(),
               o("WAWebOneQueue").handleOneQueueOfflineStart(t),
               this.offlineResumeManager.processOfflinePreview(t));
           }),
@@ -187,7 +184,10 @@ __d(
           (r.processOfflineIb = function (t) {
             return (
               o("WAWebPageLoadLogging").addPageLoadQplPoint("offline_received"),
-              o("WAWebQplFlowWrapper").QPL.markerPoint(y, "OfflineIbReceived"),
+              o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
+                o("WAWebOfflineSyncQplSession").OfflineSyncPoint
+                  .OfflineIbReceived,
+              ),
               o("WAWebOneQueue").handleOneQueueOfflineIb(),
               this.offlineResumeManager
                 .processOfflineSessionComplete(t)
@@ -220,7 +220,10 @@ __d(
             ((this.$11 = self.performance.now()),
               o(
                 "WAWebWamOfflineResumeReporter",
-              ).OfflineResumeReporter.logOfflineBatchRequest());
+              ).OfflineResumeReporter.logOfflineBatchRequest(),
+              o(
+                "WAWebOfflineSyncQplSession",
+              ).OfflineSyncQpl.markBatchRequest());
           }),
           (r.$15 = function () {
             var e = this.$11;
@@ -230,7 +233,10 @@ __d(
                 "WAWebWamOfflineResumeReporter",
               ).OfflineResumeReporter.logOfflineBatchArrival(
                 self.performance.now() - e,
-              ));
+              ),
+              o(
+                "WAWebOfflineSyncQplSession",
+              ).OfflineSyncQpl.markBatchArrived());
           }),
           (r.$17 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -273,7 +279,7 @@ __d(
                   (this.$5 = !1))
                 : (this.$12 = self.setTimeout(function () {
                     e.$19();
-                  }, S)));
+                  }, v)));
           }),
           (r.$19 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -283,8 +289,8 @@ __d(
                   n =
                     e ||
                     (!this.isResumeComplete() &&
-                      this.$3 <= C &&
-                      t >= S &&
+                      this.$3 <= y &&
+                      t >= v &&
                       this.$4 === !1 &&
                       this.$5 === !0);
                 if (
@@ -307,7 +313,7 @@ __d(
                       ),
                     n === !1)
                   ) &&
-                  this.$3 <= C
+                  this.$3 <= y
                 ) {
                   (o("WALogger").LOG(
                     _ ||
@@ -317,8 +323,8 @@ __d(
                   ),
                     (this.$5 = !0),
                     yield this.$17());
-                  var r = C;
-                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$18(r, n));
+                  var r = y;
+                  ((r = L(this.$8, this.$7)), (this.$7 = r), this.$18(k(r), n));
                 }
               },
             );
@@ -351,7 +357,7 @@ __d(
                       );
                     return;
                   }
-                  this.$3 <= C &&
+                  this.$3 <= y &&
                     (o("WALogger").LOG(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -361,7 +367,7 @@ __d(
                     (this.$5 = !0),
                     yield this.$17(),
                     o("WASmaxOfflineBatchRPC").sendBatchRPC({
-                      offlineBatchCount: C,
+                      offlineBatchCount: y,
                     }),
                     this.$16(),
                     (this.$5 = !1),
@@ -386,26 +392,37 @@ __d(
         );
       })();
     function k(e) {
+      return o("WAWebBackgroundPauseState").backgroundPauseState.get() && I()
+        ? Math.min(e, R)
+        : e;
+    }
+    function I() {
+      return (
+        !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
+        o("WAWebBackgroundPauseGating").isVoipDeprioritizeOfflineResumeEnabled()
+      );
+    }
+    function T(e) {
       var t = e.currentSize,
         n = e.multiplier,
         r = n === void 0 ? 0.2 : n,
         o = e.prevRetryCount,
         a = e.retryCount;
-      if (a === 0) return v;
-      if (a > 3) return b;
+      if (a === 0) return b;
+      if (a > 3) return C;
       var i = null,
         l = a - (o != null ? o : 0);
       if (l === 0) {
         var u;
         ((i = Math.floor(t * r) + t),
-          ((u = R.get(a - 1)) != null ? u : v) <= i && (i = t));
-      } else i = R.get(a);
+          ((u = S.get(a - 1)) != null ? u : b) <= i && (i = t));
+      } else i = S.get(a);
       return (
         i != null || s(0, 75725, a, o != null ? o : "N/A", t),
-        i != null ? i : v
+        i != null ? i : b
       );
     }
-    function I() {
+    function D() {
       var e = null;
       return function (t, n) {
         var r = o("WAWebHandleOfflineAbProps").getOfflineDynamicBatchConfig(),
@@ -415,28 +432,26 @@ __d(
         return (
           (e = t),
           i === "progressive"
-            ? k({
+            ? T({
                 currentSize: n,
                 multiplier: a,
                 prevRetryCount: l,
                 retryCount: t,
               })
-            : v
+            : b
         );
       };
     }
-    function T() {
+    function x() {
       var e = o("WAWebMessageQueueImpl").getMessageQueueImpl();
       (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
         message_queue_impl: e,
       }),
-        o(
-          "WAWebWamOfflineResumeReporter",
-        ).OfflineResumeReporter.qpl.addAnnotations({
+        o("WAWebOfflineSyncQplSession").OfflineSyncQpl.addAnnotations({
           string: { message_queue_impl: e },
         }));
     }
-    function D(e) {
+    function $(e) {
       return !(
         e >=
         o("WAWebABProps").getABPropConfigValue(
@@ -444,10 +459,11 @@ __d(
         )
       );
     }
-    var x = new E();
-    ((l.DEFAULT_MAX_BATCH_SIZE = v),
+    var P = new E();
+    ((l.DEFAULT_MAX_BATCH_SIZE = b),
       (l.OfflineMessageHandlerImpl = E),
-      (l.OfflineMessageHandler = x));
+      (l.capBatchSizeForActiveCall = k),
+      (l.OfflineMessageHandler = P));
   },
   98,
 );

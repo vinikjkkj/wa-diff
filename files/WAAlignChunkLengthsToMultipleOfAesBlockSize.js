@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      return parseInt((e + 15) / 16, 10) * 16;
+      return parseInt(String((e + 15) / 16), 10) * 16;
     }
     function l(t, n) {
       for (var r = [], o = 0, a = 0, i = 0, l = 0; l < t.length; ++l)

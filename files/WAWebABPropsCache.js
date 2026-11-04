@@ -10,6 +10,7 @@ __d(
     "WAWebABPropsUrlOverrideParam",
     "WAWebApiAbPropConfig",
     "WAWebBackendWorkerInitState",
+    "WAWebEnvironment",
     "WAWebGroupABPropsCache",
     "WAWebRuntimeEnvironmentUtils",
     "err",
@@ -75,7 +76,8 @@ __d(
         o("WAWebGroupABPropsCache").initializeGroupABPropsCache());
     }
     function E() {
-      return r("gkx")("16539") && !o("WAWebRuntimeEnvironmentUtils").isWorker()
+      return (r("gkx")("16539") || r("WAWebEnvironment").getIsShowroom()) &&
+        !o("WAWebRuntimeEnvironmentUtils").isWorker()
         ? p()
         : null;
     }

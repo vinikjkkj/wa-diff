@@ -283,14 +283,15 @@ __d(
             });
           }),
           (a.clearCredential = function () {
-            var e,
-              t = [
-                (e = o("WAWebSignalStorage")).getIdentityTable(),
-                e.getMetaTable(),
-                e.getPreKeyTable(),
-                e.getSessionTable(),
-                e.getSignedPreKeyTable(),
-              ];
+            var e;
+            ((this.registrationInfo = null), this.idToSignedPreKey.clear());
+            var t = [
+              (e = o("WAWebSignalStorage")).getIdentityTable(),
+              e.getMetaTable(),
+              e.getPreKeyTable(),
+              e.getSessionTable(),
+              e.getSignedPreKeyTable(),
+            ];
             return (s || (s = n("Promise")))
               .all(
                 t.map(function (e) {
@@ -342,7 +343,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = this;
-                yield (s || (s = n("Promise")))
+                (yield (s || (s = n("Promise")))
                   .all([
                     o("WAWebSignalCommonUtils").encryptRegistrationMaterial(
                       e.identityKeyPair.pubKey,
@@ -370,7 +371,8 @@ __d(
                         },
                       ]),
                     ]);
-                  });
+                  }),
+                  (this.registrationInfo = e));
               },
             );
             function t(t) {

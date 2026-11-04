@@ -3,6 +3,7 @@ __d(
   [
     "WAWebACSNetwork",
     "WAWebFetchOHAIKeyConfigJob",
+    "WAWebMusicCreationReportingDebug",
     "WAWebOHAIClient",
     "WAWebOHAIKeyConfigProvider",
     "WAWebRedeemACSCredential",
@@ -21,6 +22,8 @@ __d(
       getSNAPLPersistentId: o("WAWebSNAPLUserPrefs").getSNAPLPersistentId,
       fetchOHAI: o("WAWebOHAIClient").fetchOHAI,
       fetchWithACSCredential: o("WAWebACSNetwork").fetchWithACSCredential,
+      enableDirectMusicCreationReporting: o("WAWebMusicCreationReportingDebug")
+        .enableDirectCreationReporting,
     };
     l.default = e;
   },

@@ -4,10 +4,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebContactManagerCustomerProfileDeleteMutation.graphql",
-    "WAWebContactManagerCustomerProfilesQuery",
-    "WAWebCustomerManagerRequestErrors",
-    "WAWebFetchAdAccountToken",
-    "WAWebNetworkStatus",
+    "WAWebCustomerManagerProfileRequest",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
@@ -31,34 +28,17 @@ __d(
             throw r("err")(
               "[CustomerManager] customer profile delete: chatJid must be a LID-based JID",
             );
-          var a = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (a.type !== "success")
-            throw r("err")(
-              "[CustomerManager] customer profile delete: no access token (" +
-                a.type +
-                ")",
-            );
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          var i;
-          try {
-            i = yield o("WAWebRelayClient").commitMutation(
-              u,
-              { lid: n },
-              { accessToken: a.token, environmentType: "facebook" },
-            );
-          } catch (e) {
-            throw (
-              o("WAWebContactManagerCustomerProfilesQuery").logIfRateLimited(
-                e,
-                "write",
-              ),
-              o(
-                "WAWebCustomerManagerRequestErrors",
-              ).asCustomerManagerRequestError(e)
-            );
-          }
+          var a = yield o(
+            "WAWebCustomerManagerProfileRequest",
+          ).runCustomerProfileRequest(
+            "customer profile delete",
+            function (e) {
+              return o("WAWebRelayClient").commitMutation(u, { lid: n }, e);
+            },
+            { rateLimitSurface: "write" },
+          );
           if (
-            ((t = i) == null || (t = t.xfb_wa_delete_customer_profile) == null
+            (a == null || (t = a.xfb_wa_delete_customer_profile) == null
               ? void 0
               : t.deleted_lid) !== n
           )

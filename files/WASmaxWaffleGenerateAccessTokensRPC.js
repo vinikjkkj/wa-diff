@@ -26,25 +26,40 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      var n = c(e),
-        r = await o("WAComms").sendSmaxStanza(n, t),
-        a = u(r, n);
-      if (a.success)
-        return { name: "GenerateAccessTokensResponseSuccess", value: a.value };
-      var i = s(r, n);
-      if (i.success)
-        return { name: "GenerateAccessTokensResponseError", value: i.value };
-      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-        o("WASmaxRpcUtils").errorMessageRpcParsing("GenerateAccessTokens", {
-          Success: a,
-          Error: i,
-        }),
+    function e(e, t) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = d(e),
+            r = yield o("WAComms").sendSmaxStanza(n, t),
+            a = c(r, n);
+          if (a.success)
+            return {
+              name: "GenerateAccessTokensResponseSuccess",
+              value: a.value,
+            };
+          var i = u(r, n);
+          if (i.success)
+            return {
+              name: "GenerateAccessTokensResponseError",
+              value: i.value,
+            };
+          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+            o("WASmaxRpcUtils").errorMessageRpcParsing("GenerateAccessTokens", {
+              Success: a,
+              Error: i,
+            }),
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
-    function s(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -54,7 +69,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = d(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -63,7 +78,7 @@ __d(
           )
         : i;
     }
-    function u(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -94,7 +109,7 @@ __d(
           )
         : s;
     }
-    function c(e) {
+    function d(e) {
       var t,
         n =
           e.rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs,
@@ -124,7 +139,7 @@ __d(
         );
       return l;
     }
-    function d(e) {
+    function m(e) {
       var t = o(
         "WASmaxInWaffleIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -250,10 +265,10 @@ __d(
           );
     }
     ((l.sendGenerateAccessTokensRPC = e),
-      (l.parseGenerateAccessTokensResponseError = s),
-      (l.parseGenerateAccessTokensResponseSuccess = u),
-      (l.makeGenerateAccessTokensRequest = c),
-      (l.parseGenerateAccessTokensErrors = d));
+      (l.parseGenerateAccessTokensResponseError = u),
+      (l.parseGenerateAccessTokensResponseSuccess = c),
+      (l.makeGenerateAccessTokensRequest = d),
+      (l.parseGenerateAccessTokensErrors = m));
   },
   98,
 );

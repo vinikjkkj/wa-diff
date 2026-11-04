@@ -4,11 +4,9 @@ __d(
     "WAJids",
     "WAWebContactManagerCustomerProfileQuery.graphql",
     "WAWebCustomerManagerCustomerProfileDecoders",
-    "WAWebCustomerManagerRequestErrors",
+    "WAWebCustomerManagerProfileRequest",
     "WAWebCustomerOrderPreferences",
     "WAWebCustomerProfileBirthday",
-    "WAWebFetchAdAccountToken",
-    "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
@@ -30,89 +28,78 @@ __d(
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: chatJid must be a LID-based JID",
             );
-          var a = yield o("WAWebFetchAdAccountToken")
-            .fetchToken()
-            .finally(function () {
-              t == null || t();
-            });
-          if (a.type !== "success")
-            throw r("err")(
-              "[CustomerManager] fetchCustomerProfile: no access token (" +
-                a.type +
-                ")",
-            );
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          var i;
-          try {
-            i = yield o("WAWebRelayClient").fetchQuery(
-              s,
-              { lid: n },
-              { accessToken: a.token, environmentType: "facebook" },
-            );
-          } catch (e) {
-            throw o(
-              "WAWebCustomerManagerRequestErrors",
-            ).asCustomerManagerRequestError(e);
-          }
-          if (i == null || i.xfb_wa_customer_profile === void 0)
+          var a = yield o(
+            "WAWebCustomerManagerProfileRequest",
+          ).runCustomerProfileRequest(
+            "fetchCustomerProfile",
+            function (e) {
+              return o("WAWebRelayClient").fetchQuery(s, { lid: n }, e);
+            },
+            {
+              onTokenSettled: function () {
+                t == null || t();
+              },
+            },
+          );
+          if (a == null || a.xfb_wa_customer_profile === void 0)
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: incomplete response",
             );
-          var l = i.xfb_wa_customer_profile;
-          if (l == null) return null;
-          var u = l.etag;
-          if (u == null || u === "")
+          var i = a.xfb_wa_customer_profile;
+          if (i == null) return null;
+          var l = i.etag;
+          if (l == null || l === "")
             throw r("err")(
               "[CustomerManager] fetchCustomerProfile: missing profile etag",
             );
-          var c = l.last_updates,
-            d = c.flatMap(function (e) {
+          var u = i.last_updates,
+            c = u.flatMap(function (e) {
               var t = e.field_name;
               return t != null && t !== "" ? [t] : [];
             });
           return {
             acquisitionDate: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toOptionalUnixTime(l.acquisition_date),
+            ).toOptionalUnixTime(i.acquisition_date),
             acquisitionSource: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toProfileAcquisitionSourceId(l.acquisition_source),
-            address: l.address,
-            aiSummary: l.ai_summary,
+            ).toProfileAcquisitionSourceId(i.acquisition_source),
+            address: i.address,
+            aiSummary: i.ai_summary,
             birthday: o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(
-              l.dob,
+              i.dob,
             ),
-            birthdayIso: l.dob,
-            confirmedAppointmentDate: l.confirmed_appointment_date,
-            etag: u,
-            email: l.email,
+            birthdayIso: i.dob,
+            confirmedAppointmentDate: i.confirmed_appointment_date,
+            etag: l,
+            email: i.email,
             fieldUpdates: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toFieldUpdates(
-              l.last_updates.map(function (e) {
+              i.last_updates.map(function (e) {
                 var t = e.field_name,
                   n = e.source,
                   r = e.ts;
                 return { fieldName: t, source: n != null ? n : null, ts: r };
               }),
             ),
-            lastOrderDescription: l.last_order,
+            lastOrderDescription: i.last_order,
             leadStage: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toLeadStageType(l.lead_stage),
+            ).toLeadStageType(i.lead_stage),
             modifiedAt: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).latestUpdateTs(
-              c.map(function (e) {
+              u.map(function (e) {
                 var t = e.ts;
                 return t;
               }),
             ),
-            name: l.name,
+            name: i.name,
             orderPreferences: o(
               "WAWebCustomerOrderPreferences",
-            ).toOrderPreferences(l.order_preferences),
-            updatedFields: d.length === c.length ? d : void 0,
+            ).toOrderPreferences(i.order_preferences),
+            updatedFields: c.length === u.length ? c : void 0,
           };
         })),
         c.apply(this, arguments)

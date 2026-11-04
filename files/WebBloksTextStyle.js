@@ -152,7 +152,7 @@ __d(
           ? parseFloat(
               e != null ? e : window.getComputedStyle(document.body).fontSize,
             )
-          : parseFloat(e);
+          : parseFloat(String(e));
     }
     function x(e, t) {
       if ((t === void 0 && (t = !1), e == null)) return 0;
@@ -190,7 +190,7 @@ __d(
           case "bk.data.ImageSpan": {
             var b,
               v = o("WebBloksUtils").cast(r).get(h);
-            a = (b = parseFloat(v)) != null ? b : T;
+            a = (b = parseFloat(String(v))) != null ? b : T;
             break;
           }
           default:

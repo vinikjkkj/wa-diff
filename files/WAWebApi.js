@@ -49,6 +49,7 @@ __d(
         NEWSLETTER_STATUS_DEEPLINK: "NEWSLETTER_STATUS_DEEPLINK",
         OIDC_CALLBACK: "OIDC_CALLBACK",
         BIZ_AI_OAUTH_CALLBACK: "BIZ_AI_OAUTH_CALLBACK",
+        SHARABLE_EVENT_LINK: "SHARABLE_EVENT_LINK",
       },
       l = n("$InternalEnum").Mirrored(["PIX_FAQ", "PIX_ONBOARDING"]);
     ((i.APICmd = e), (i.BrazilPaymentResultSubtype = l));

@@ -1,6 +1,7 @@
 __d(
   "WAWebOpenSharableEventPageAction",
   [
+    "Promise",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebCmd",
     "WAWebDrawerManager",
@@ -11,6 +12,7 @@ __d(
     "WAWebOpenSharableEventCreateFlowAction",
     "WAWebSharableEventExternalStore",
     "WAWebSharableEventGatingUtils",
+    "WAWebSharableEventLinkPreview",
     "WAWebSharableEventPageLoadAction",
     "WAWebSharableEventPageLoadable",
     "WAWebSideNavButtonsActivityModel",
@@ -18,44 +20,45 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = o("WAWebSharableEventExternalStore").createSharableEventStore(null),
+      s,
+      u = s || (s = o("react")),
       c = o("WAWebSharableEventExternalStore").createSharableEventStore(null),
-      d = null;
-    function m(e, t) {
+      d = o("WAWebSharableEventExternalStore").createSharableEventStore(null),
+      m = null;
+    function p(e, t) {
       !o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-page",
       ) ||
-        u.get() === e ||
-        (c.get() !== e && c.set(null),
-        (d = t != null ? t : null),
-        L(e),
+        c.get() === e ||
+        (d.get() !== e && d.set(null),
+        (m = t != null ? t : null),
+        E(e),
         o("WAWebDrawerManager").DrawerManager.openDrawerMid(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "sharable_event_page", eventId: e }
-            : s.jsx(r("WAWebSharableEventPageLoadable"), { eventId: e }, e),
+            : u.jsx(r("WAWebSharableEventPageLoadable"), { eventId: e }, e),
           { disableRotateFocus: !0, transition: "none" },
         ),
         o("WAWebMarkSharableEventSeenAction").markSharableEventSeen(e),
         o("WAWebSharableEventPageLoadAction").loadSharableEventPage(e));
     }
-    function p(e, t) {
-      (c.set((t == null ? void 0 : t.edit) === !0 ? e : null), y(), m(e));
+    function _(e, t) {
+      (d.set((t == null ? void 0 : t.edit) === !0 ? e : null), C(), p(e));
     }
-    function _() {
-      return c.get();
+    function f() {
+      return d.get();
     }
-    function f(e) {
-      return c.subscribe(e);
+    function g(e) {
+      return d.subscribe(e);
     }
-    function g() {
-      c.set(null);
+    function h() {
+      d.set(null);
     }
-    function h(e) {
+    function y(e) {
       (o("WAWebCmd").Cmd.setActiveNavBarItem(e),
         o("WAWebSideNavButtonsActivityModel").setLastActiveButton(e));
     }
-    function y() {
+    function C() {
       o("WAWebSideNavButtonsActivityModel").getLastActiveButton() !==
         o("WAWebNavBarTypes").NavBarItems.Events &&
         (o("WAWebCmd").Cmd.closeActiveChat(),
@@ -67,22 +70,22 @@ __d(
         ),
         o("WAWebOpenSharableEventCreateFlowAction").reopenSharableEventHome());
     }
-    function C() {
-      var e = d;
-      d = null;
-      var t = u.get();
+    function b() {
+      var e = m;
+      m = null;
+      var t = c.get();
       (t != null &&
         o("WAWebSharableEventPageLoadAction").clearSharableEventPageLoadState(
           t,
         ),
-        L(null),
+        E(null),
         o("WAWebDrawerManager").DrawerManager.openDrawerMid(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? {
                 descriptorType: "mid_drawer_empty_state",
                 navBarItem: o("WAWebNavBarTypes").NavBarItems.Events,
               }
-            : s.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
+            : u.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
                 type: o("WAWebNavBarTypes").NavBarItems.Events,
               }),
           { disableRotateFocus: !0, transition: "none" },
@@ -90,34 +93,42 @@ __d(
         (e == null ? void 0 : e.isConnected) === !0 &&
           r("WAWebFocusTracer").focus(e));
     }
-    function b(e) {
-      L(e);
-    }
     function v(e) {
+      E(e);
+    }
+    function S(e) {
       (o("WAWebSharableEventPageLoadAction").clearSharableEventPageLoadState(e),
-        u.get() === e && ((d = null), c.get() === e && c.set(null), L(null)));
+        c.get() === e && ((m = null), d.get() === e && d.set(null), E(null)));
     }
-    function S() {
-      return u.get();
-    }
-    function R(e) {
-      return u.subscribe(e);
+    function R() {
+      return c.get();
     }
     function L(e) {
-      u.set(e);
+      return c.subscribe(e);
     }
-    ((l.openSharableEventPage = m),
-      (l.openSharableEventInEventsHome = p),
-      (l.getPendingSharableEventEdit = _),
-      (l.subscribeToPendingSharableEventEdit = f),
-      (l.clearPendingSharableEventEdit = g),
-      (l.keepNavBarItemActive = h),
-      (l.openSharableEventHome = y),
-      (l.closeSharableEventPage = C),
-      (l.keepSharableEventPageOpen = b),
-      (l.releaseSharableEventPage = v),
-      (l.getSelectedSharableEventId = S),
-      (l.subscribeToSelectedSharableEventId = R));
+    function E(t) {
+      var r = c.get();
+      (c.set(t),
+        r != null &&
+          r !== t &&
+          (e || (e = n("Promise"))).resolve().then(function () {
+            return o(
+              "WAWebSharableEventLinkPreview",
+            ).dropSharableEventLinkPreview(r);
+          }));
+    }
+    ((l.openSharableEventPage = p),
+      (l.openSharableEventInEventsHome = _),
+      (l.getPendingSharableEventEdit = f),
+      (l.subscribeToPendingSharableEventEdit = g),
+      (l.clearPendingSharableEventEdit = h),
+      (l.keepNavBarItemActive = y),
+      (l.openSharableEventHome = C),
+      (l.closeSharableEventPage = b),
+      (l.keepSharableEventPageOpen = v),
+      (l.releaseSharableEventPage = S),
+      (l.getSelectedSharableEventId = R),
+      (l.subscribeToSelectedSharableEventId = L));
   },
   98,
 );

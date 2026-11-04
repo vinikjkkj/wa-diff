@@ -348,14 +348,6 @@ __d(
               this._addSaveTask());
           }
         }),
-        (i.getSuggestionsFromEmoji = function (t) {
-          var e;
-          return (e = this._emojiToCollection.get(t)) == null
-            ? void 0
-            : e.map(function (e) {
-                return e.sticker;
-              });
-        }),
         a
       );
     })(o("WAWebBaseCollection").BaseCollection);

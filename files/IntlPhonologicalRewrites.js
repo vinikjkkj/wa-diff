@@ -1,14 +1,15 @@
 __d(
   "IntlPhonologicalRewrites",
   ["IntlPhonologicalRules"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-      get: function (t) {
-        return n("IntlPhonologicalRules");
+        get: function (t) {
+          return r("IntlPhonologicalRules");
+        },
       },
-    };
-    a.exports = e;
+      s = e;
+    l.default = s;
   },
-  null,
+  98,
 );

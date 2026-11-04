@@ -1,27 +1,35 @@
 __d(
   "JSSPBrsidMarker",
-  ["Env", "JSSPTraceBaseTransformer"],
+  ["Env", "JSSPTraceBaseTransformer", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = (function (t) {
-        function n() {
+        function o() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(n, t);
-        var o = n.prototype;
+        babelHelpers.inheritsLoose(o, t);
+        var a = o.prototype;
         return (
-          (o.transform = async function (n) {
-            var t,
-              o,
-              a = (t = (e || (e = r("Env"))).brsid) != null ? t : 0;
-            return (
-              (n.metadata = (o = n.metadata) != null ? o : {}),
-              (n.metadata.brsid = "" + a),
-              n
+          (a.transform = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n,
+                  o,
+                  a = (n = (e || (e = r("Env"))).brsid) != null ? n : 0;
+                return (
+                  (t.metadata = (o = t.metadata) != null ? o : {}),
+                  (t.metadata.brsid = "" + a),
+                  t
+                );
+              },
             );
-          }),
-          n
+            function o(e) {
+              return t.apply(this, arguments);
+            }
+            return o;
+          })()),
+          o
         );
       })(r("JSSPTraceBaseTransformer"));
     l.default = s;

@@ -10,6 +10,7 @@ __d(
     "WAWebApiChat",
     "WAWebApiHydrateWidsUtil",
     "WAWebAppTracker",
+    "WAWebBoolFunc",
     "WAWebChatCollection",
     "WAWebChatComparator",
     "WAWebChatGetters",
@@ -143,13 +144,9 @@ __d(
           var e = yield o("WAPromiseDelays").withTimeout(
             o("WAWebRestoreGroupsAndContacts")
               .waitForRestoredContacts()
-              .then(function () {
-                return !0;
-              }),
+              .then(o("WAWebBoolFunc").returnTrue),
             E,
-            function () {
-              return !1;
-            },
+            o("WAWebBoolFunc").returnFalse,
           );
           e ||
             o("WALogger").LOG(

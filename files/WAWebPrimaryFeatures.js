@@ -43,6 +43,7 @@ __d(
             n = new Set(h(e));
           ((d = n),
             o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
+              isFreshSync: !0,
               primaryFeatures: Array.from(d),
             }));
           try {

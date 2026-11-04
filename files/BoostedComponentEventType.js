@@ -200,6 +200,7 @@ __d(
       CTWA_NATIVE_AD_SABR_V2_WITH_ESTIMATION_WIDGET:
         "ctwa_native_ad_sabr_v2_with_estimation_widget",
       CTWA_SERVER_DRAFT_RESTORE: "ctwa_server_draft_restore",
+      CTWA_WEB_PREFILL_MEDIA_LOST: "ctwa_web_prefill_media_lost",
       HIGH_FRICTION_DURATION_WARNING_DIALOG_IMPRESSION:
         "high_friction_duration_warning_dialog_impression",
       HIGH_FRICTION_DURATION_WARNING_DIALOG_CTA_CLICK:
@@ -1846,6 +1847,11 @@ __d(
         "ig_placement_recoverable_by_ad_account_amd_ig_media_boost",
       IG_PLACEMENT_RECOVERED_BY_AD_ACCOUNT_AMD:
         "ig_placement_recovered_by_ad_account_amd",
+      FB_PLACEMENT_AUTO_DESELECTED: "fb_placement_auto_deselected",
+      FB_PLACEMENT_AUTO_RESELECTED: "fb_placement_auto_reselected",
+      IG_ONLY_FB_PLACEMENT_IMPRESSION: "ig_only_fb_placement_impression",
+      IG_ONLY_FB_PLACEMENT_CHECK: "ig_only_fb_placement_check",
+      IG_ONLY_FB_PLACEMENT_UNCHECK: "ig_only_fb_placement_uncheck",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",

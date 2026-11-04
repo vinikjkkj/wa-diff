@@ -142,6 +142,8 @@ __d(
       SA_DA_PARITY_EXPERIMENT: "sa_da_parity_experiment",
       SA_DEMAND_EXPERIMENT: "sa_demand_experiment",
       SA_OMNI_CHANNEL_ADS_MEASUREMENT: "sa_omni_channel_ads_measurement",
+      SA_WEB_APP_PARITY_APP_FALLBACK_WEB: "sa_web_app_parity_app_fallback_web",
+      SA_WEB_APP_PARITY_AUTOMATIC: "sa_web_app_parity_automatic",
       SHADOW_ADS: "shadow_ads",
       SHOPS_ADS: "shops_ads",
       SHOPS_ADS_BAU_PARITY_MEASUREMENT_OFFSITE:

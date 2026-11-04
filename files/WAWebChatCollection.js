@@ -31,6 +31,9 @@ __d(
             (e.$ChatCollectionImpl$p_1 = !1),
             (e.$ChatCollectionImpl$p_2 = !1),
             (e.$ChatCollectionImpl$p_4 = new Set()),
+            (e.$ChatCollectionImpl$p_7 = function () {
+              e.sort();
+            }),
             (e.setIndexes = function () {
               e.forEach(function (e, t) {
                 e.initialIndex = t;
@@ -133,13 +136,13 @@ __d(
                 "change:msgsLength",
                 "change:bbProEntrypointEnabled",
               ])
-                this.listenTo(this, e, this.sort);
+                this.listenTo(this, e, this.$ChatCollectionImpl$p_7);
               (t === !0 && this.sort(), (this.$ChatCollectionImpl$p_2 = !0));
             }
           }),
           (a.disableSortListener = function () {
             this.$ChatCollectionImpl$p_2 &&
-              (this.stopListening(null, null, this.sort),
+              (this.stopListening(null, null, this.$ChatCollectionImpl$p_7),
               (this.$ChatCollectionImpl$p_2 = !1));
           }),
           (a.getActive = function () {

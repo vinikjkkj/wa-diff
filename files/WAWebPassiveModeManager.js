@@ -9,11 +9,10 @@ __d(
     "WAResolvable",
     "WASendPassiveModeProtocol",
     "WAWebBackendEventBus",
+    "WAWebOfflineSyncQplSession",
     "WAWebPageLoadLogging",
-    "WAWebQplFlowWrapper",
     "WAWebWamOfflineResumeReporter",
     "getErrorSafe",
-    "qpl",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,9 +33,8 @@ __d(
       S,
       R,
       L,
-      E = r("qpl")._(891431279, "3267"),
-      k = 6e4,
-      I = (function () {
+      E = 6e4,
+      k = (function () {
         function t() {
           var t = this;
           ((this.$1 = new AbortController()),
@@ -44,7 +42,7 @@ __d(
             (this.$3 = !1),
             (this.$4 = []),
             (this.$5 = []),
-            (this.$7 = k),
+            (this.$7 = E),
             (this.$8 = new (o("WAPromiseQueue").PromiseQueue)()),
             (this.$9 = !1),
             (this.$10 = 0),
@@ -151,13 +149,26 @@ __d(
             var t = [].concat(this.$4);
             ((this.$4 = []),
               this.$8.enqueue(function () {
+                var a;
                 ((e.$5 = t),
                   o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                     "passive_tasks",
                   ),
-                  o("WAWebQplFlowWrapper").QPL.markerPoint(
-                    E,
-                    "PassiveTasks_start",
+                  o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
+                    o("WAWebOfflineSyncQplSession").OfflineSyncPoint
+                      .PassiveTasksStart,
+                    {
+                      int: {
+                        passive_task_count: t.length,
+                        pending_preack_count:
+                          (a = o(
+                            "WAWebWamOfflineResumeReporter",
+                          ).OfflineResumeReporter.getPendingPreackCount()) !=
+                          null
+                            ? a
+                            : void 0,
+                      },
+                    },
                   ),
                   o("WALogger").LOG(
                     _ ||
@@ -173,7 +184,7 @@ __d(
                       })
                       .join(", "),
                   ));
-                var a = r("WAPromiseRaceAbort")(
+                var i = r("WAPromiseRaceAbort")(
                     (L || (L = n("Promise"))).all(
                       t.map(function (t) {
                         var n = t.task;
@@ -231,9 +242,9 @@ __d(
                       (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                         "passive_tasks",
                       ),
-                        o("WAWebQplFlowWrapper").QPL.markerPoint(
-                          E,
-                          "PassiveTasks_end",
+                        o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
+                          o("WAWebOfflineSyncQplSession").OfflineSyncPoint
+                            .PassiveTasksEnd,
                         ),
                         o("WALogger").LOG(
                           C ||
@@ -243,7 +254,7 @@ __d(
                         ),
                         e.resetState());
                     }),
-                  i = new L(function (t) {
+                  l = new L(function (t) {
                     e.$6 = self.setTimeout(function () {
                       (o("WALogger")
                         .ERROR(
@@ -258,7 +269,7 @@ __d(
                         t());
                     }, e.$7);
                   });
-                return L.race([a, i]);
+                return L.race([i, l]);
               }));
           }),
           (a.$11 = function () {
@@ -304,8 +315,8 @@ __d(
           t
         );
       })(),
-      T = new I();
-    ((l.DEFAULT_MAX_PASSIVE_MODE_TIME_MS = k), (l.PassiveTaskManager = T));
+      I = new k();
+    ((l.DEFAULT_MAX_PASSIVE_MODE_TIME_MS = E), (l.PassiveTaskManager = I));
   },
   98,
 );

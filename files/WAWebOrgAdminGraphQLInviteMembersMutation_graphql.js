@@ -15,7 +15,6 @@ __d(
           {
             alias: null,
             args: [
-              { kind: "Literal", name: "emails", value: [] },
               { kind: "Variable", name: "org_id", variableName: "orgID" },
               { kind: "Variable", name: "resend", variableName: "resend" },
               {
@@ -65,7 +64,7 @@ __d(
           selections: r,
         },
         params: {
-          id: "28461077290259979",
+          id: "28796979909930872",
           metadata: {},
           name: "WAWebOrgAdminGraphQLInviteMembersMutation",
           operationKind: "mutation",

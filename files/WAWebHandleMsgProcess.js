@@ -356,6 +356,7 @@ __d(
                     "WAWebHandleMsgValidate",
                   ).validateAndProcessReportingTokenInfo({
                     renderableMsgs: oe,
+                    reparsing: !0,
                   })));
               var ae = M({
                   renderableMsgs: oe,
@@ -543,6 +544,15 @@ __d(
                 info: c,
                 proto: P,
                 bizInfo: i,
+              }),
+              o("WAWebHandleMsgValidate").logAddPixKeyOfferReceipt({
+                info: c,
+                isFirstReceipt: !I,
+                isQuarantined:
+                  de !==
+                  o("WAWebQuarantineActionUtils").QuarantineAction.NoQuarantine,
+                proto: P,
+                renderableMsgs: ge,
               }),
               o("WAWebHandleMsgValidate").validateAddPixKeyOfferSender({
                 info: c,
@@ -944,7 +954,7 @@ __d(
       return o("WAWebGetGroupAddressingMode").getGroupAddressingMode(e);
     }
     function H(e) {
-      var t = parseInt(e, 10);
+      var t = parseInt(String(e), 10);
       return Number.isNaN(t) ? null : t;
     }
     ((l.processDecryptedMessageProto = $),

@@ -10,6 +10,7 @@ __d(
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiWebSmartComposerAiListsGateQuery.graphql",
+    "WAWebFetchWithAdAccountToken",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebUserPrefsStore",
@@ -104,41 +105,8 @@ __d(
             }));
     }
     function k() {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (e) {
-          return e.type !== "success"
-            ? { type: "token-failed" }
-            : I(e.token).then(function (e) {
-                return e.type === "ok"
-                  ? babelHelpers.extends({}, e, { type: "enabled" })
-                  : e.type === "error"
-                    ? { type: "network-failed" }
-                    : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
-                      o("WAWebFetchAdAccountToken")
-                        .fetchToken(!0)
-                        .then(function (e) {
-                          return e.type !== "success"
-                            ? { type: "token-failed" }
-                            : I(e.token).then(function (e) {
-                                return e.type === "ok"
-                                  ? babelHelpers.extends({}, e, {
-                                      type: "enabled",
-                                    })
-                                  : e.type === "auth"
-                                    ? (o(
-                                        "WAWebFetchAdAccountToken",
-                                      ).markTokenAsInvalid(),
-                                      { type: "auth-failed" })
-                                    : { type: "network-failed" };
-                              });
-                        }));
-              });
-        });
-    }
-    function I(e) {
       return o("WAWebBizAiRelayClient")
-        .fetchQuery(g, {}, { accessToken: e })
+        .fetchQuery(g, {})
         .then(function (e) {
           var t;
           return {
@@ -149,14 +117,21 @@ __d(
                 null
                 ? void 0
                 : t.value) === !0,
-            type: "ok",
+            type: "enabled",
           };
         })
         .catch(function (e) {
-          return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-            ? { type: "auth" }
-            : { type: "error" };
+          return I(e);
         });
+    }
+    function I(e) {
+      return e instanceof
+        o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+        ? { type: "token-failed" }
+        : e instanceof Error &&
+            o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+          ? { type: "auth-failed" }
+          : { type: "network-failed" };
     }
     function T(e, t) {
       e: {

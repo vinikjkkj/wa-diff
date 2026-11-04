@@ -65,8 +65,8 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = e.attrs;
           if (r.offline) {
-            var a = parseInt(r.t, 10),
-              i = parseInt(r.offline, 10);
+            var a = parseInt(String(r.t), 10),
+              i = parseInt(String(r.offline), 10);
             o("WAWebOfflineHandler").OfflineMessageHandler.newOfflineStanza(
               a,
               n,

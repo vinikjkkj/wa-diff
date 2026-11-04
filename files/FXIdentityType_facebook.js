@@ -20,6 +20,7 @@ __d(
         "LANTERN_USER",
         "MESSENGER_KID",
         "META",
+        "MOLTBOOK_USER",
         "MP_USER",
         "NISABA_USER",
         "SOLO_USER",

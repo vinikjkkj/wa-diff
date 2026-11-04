@@ -20,6 +20,7 @@ __d(
     "WAWebMessageDeeperContainer.react",
     "WAWebMessageMeta.react",
     "WAWebMessageUiUtils",
+    "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -268,20 +269,22 @@ __d(
         v = b === void 0 ? !1 : b,
         S = r("useWAWebIsMsgTrusted")(c),
         R = m(null),
-        L = o("useWAWebMsgValues").useMsgValues(c, [
-          o("WAWebMsgGetters").getAck,
-          o("WAWebMsgGetters").getCaption,
-          o("WAWebFrontendMsgGetters").getDir,
-          o("WAWebMsgGetters").getIsFromTemplate,
-          o("WAWebMsgGetters").getIsSentByMe,
-          o("WAWebFrontendMsgGetters").getRtl,
-          o("WAWebFrontendMsgGetters").getSenderObj,
-          o("WAWebMsgGetters").getSubtype,
-          o("WAWebMsgGetters").getType,
-          o("WAWebFrontendMsgGetters").getMediaData,
-          o("WAWebMsgGetters").getIsDynamicReplyButtonsMsg,
-          o("WAWebMsgGetters").getMimetype,
-        ]),
+        L = o("useWAWebMsgValues").useMsgValues(
+          c,
+          o("WAWebMsgCasts").castToDocumentOrInteractiveMsg,
+          [
+            o("WAWebMsgGetters").getAck,
+            o("WAWebMsgGetters").getCaption,
+            o("WAWebFrontendMsgGetters").getDir,
+            o("WAWebMsgGetters").getIsFromTemplate,
+            o("WAWebMsgGetters").getIsSentByMe,
+            o("WAWebFrontendMsgGetters").getRtl,
+            o("WAWebMsgGetters").getSubtype,
+            o("WAWebMsgGetters").getType,
+            o("WAWebMsgGetters").getIsDynamicReplyButtonsMsg,
+            o("WAWebMsgGetters").getMimetype,
+          ],
+        ),
         E = L[0],
         k = L[1],
         I = L[2],
@@ -292,9 +295,13 @@ __d(
         P = L[7],
         N = L[8],
         M = L[9],
-        w = L[10],
-        A = L[11],
-        F = o("useWAWebMediaDataValues").useMediaDataValues(M, [
+        w = o("useWAWebMsgValues").useMsgValues(c, [
+          o("WAWebFrontendMsgGetters").getSenderObj,
+          o("WAWebFrontendMsgGetters").getMediaData,
+        ]),
+        A = w[0],
+        F = w[1],
+        O = o("useWAWebMediaDataValues").useMediaDataValues(F, [
           o("WAWebMediaDataGetters").getMediaStage,
           o("WAWebMediaDataGetters").getFilename,
           o("WAWebMediaDataGetters").getPageCount,
@@ -305,43 +312,43 @@ __d(
           o("WAWebMediaDataGetters").getLoadedSize,
           o("WAWebMediaDataGetters").getFilehash,
         ]),
-        O = F[0],
-        B = F[1],
-        W = F[2],
-        q = F[3],
-        U = F[4],
-        V = F[5],
-        H = F[6],
-        G = F[7],
-        z = F[8],
-        j = r("useWAWebDocumentMediaType")({ mimetype: U, filename: B }),
-        K = !!((T || w) && k),
-        Q = K
+        B = O[0],
+        W = O[1],
+        q = O[2],
+        U = O[3],
+        V = O[4],
+        H = O[5],
+        G = O[6],
+        z = O[7],
+        j = O[8],
+        K = r("useWAWebDocumentMediaType")({ mimetype: V, filename: W }),
+        Q = !!((T || N) && k),
+        X = Q
           ? null
           : u.jsxs("div", {
               className:
                 "xx3o462 x1ncwhqj xyqdw3p xyri2b xg8j3zb x1c1uobl x152skdk x1bvqhpb xt1z7ec x1yp9nv9 x186kree x1y04bub x1duis28",
               children: [
-                o("WAWebMessageUiUtils").ETA_SUPPORTED_STATES.has(O)
+                o("WAWebMessageUiUtils").ETA_SUPPORTED_STATES.has(B)
                   ? u.jsx(r("WAWebMediaTimeLeftEta.react"), {
-                      size: q,
-                      loadedSize: G,
+                      size: U,
+                      loadedSize: z,
                       sampling: 3,
                       xstyle: _.metaValue,
                       children: u.jsx(f, {}),
                     })
                   : u.jsxs(u.Fragment, {
                       children: [
-                        u.jsx(h, { count: W }),
-                        u.jsx(y, { ext: j.ext }),
+                        u.jsx(h, { count: q }),
+                        u.jsx(y, { ext: K.ext }),
                       ],
                     }),
-                u.jsx(g, { size: q }),
+                u.jsx(g, { size: U }),
               ],
             });
       d(function () {
         var e;
-        if (!H) {
+        if (!G) {
           var t =
             (e = o("WAWebMsgCollection").MsgCollection.get(c)) == null
               ? void 0
@@ -362,39 +369,39 @@ __d(
           }
         }
       }, []);
-      var X = "xiy17q3 x1tbiz1a x1gnnpzl x23j0i4",
-        Y = B || s._(/*BTDS*/ "Untitled"),
-        J = o("WAWebMediaDocumentUtils").useMediaAction(c, {
+      var Y = "xiy17q3 x1tbiz1a x1gnnpzl x23j0i4",
+        J = W || s._(/*BTDS*/ "Untitled"),
+        Z = o("WAWebMediaDocumentUtils").useMediaAction(c, {
           getZoomNode: function () {
             return R.current;
           },
         }),
-        Z = J[0],
-        ee = J[1],
-        te = babelHelpers.extends({}, Z);
-      a === o("WAWebDisplayType").DISPLAY_TYPE.EDITING && (te.onClick = null);
-      var ne = (V != null ? V : H) != null,
-        re =
-          j.mime != null &&
-          o("WAWebMediaMessageGetValidatedProperties").isMediaMimeType(j.mime),
-        oe = u.jsx("div", {
+        ee = Z[0],
+        te = Z[1],
+        ne = babelHelpers.extends({}, ee);
+      a === o("WAWebDisplayType").DISPLAY_TYPE.EDITING && (ne.onClick = null);
+      var re = (H != null ? H : G) != null,
+        oe =
+          K.mime != null &&
+          o("WAWebMediaMessageGetValidatedProperties").isMediaMimeType(K.mime),
+        ae = u.jsx("div", {
           className:
             "x6ikm8r x10wlt62 xlyipyv x1yn0g08 x104kibb x1h7i4cw x1ua5tub",
           children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-            text: Y,
+            text: J,
             dirMismatch: x !== r("WAWebL10N").isRTL(),
             direction: "auto",
             breakWord: !0,
           }),
         }),
-        ae = re && S && ne,
-        ie =
+        ie = oe && S && re,
+        le =
           v &&
           u.jsx("div", {
             className: "x10l6tqk xxx7yvo xbfrwjf",
             children: u.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: c }),
           }),
-        le = u.jsxs(o("WAWebFlex.react").FlexRow, {
+        se = u.jsxs(o("WAWebFlex.react").FlexRow, {
           xstyle: [
             l ? _.embeddedContent : _.deepContainerContent,
             o("WDSPaddings.stylex").wdsPaddings.padding0,
@@ -412,11 +419,11 @@ __d(
                     childClassName:
                       "x1agz8ms xiy17q3 x18d0r48 x5yr21d x10l6tqk xh8yej3",
                   }),
-                  A != null &&
-                    A !== "" &&
+                  M != null &&
+                    M !== "" &&
                     o(
                       "WAWebMediaMessageGetValidatedProperties",
-                    ).isVideoMimeType(A) &&
+                    ).isVideoMimeType(M) &&
                     u.jsx(r("WDSIconIcVideocamFilled.react"), {
                       xstyle: _.mediaThumbVideoIcon,
                       height: 14,
@@ -441,56 +448,56 @@ __d(
                     _.fixedTextHeight,
                   ],
                   children: [
-                    u.jsx(r("WAWebFlexItem.react"), { children: oe }),
-                    u.jsx(r("WAWebFlexItem.react"), { children: Q }),
+                    u.jsx(r("WAWebFlexItem.react"), { children: ae }),
+                    u.jsx(r("WAWebFlexItem.react"), { children: X }),
                   ],
                 }),
                 u.jsx(r("WAWebFlexItem.react"), {
                   grow: 0,
                   shrink: 0,
-                  children: ee,
+                  children: te,
                 }),
               ],
             }),
           ],
         }),
-        se = u.jsxs(o("WAWebFlex.react").FlexRow, {
+        ue = u.jsxs(o("WAWebFlex.react").FlexRow, {
           xstyle: l ? _.embeddedContent : _.deepContainerContent,
           align: "start",
           children: [
             u.jsx(r("WAWebFlexItem.react"), {
               shrink: 0,
               children: u.jsx("div", {
-                className: X,
+                className: Y,
                 children: u.jsx(r("WAWebDocumentFileIcon"), {
                   width: 26,
-                  mimeType: (t = j.mime) != null ? t : "",
-                  ext: (n = j.ext) != null ? n : "",
+                  mimeType: (t = K.mime) != null ? t : "",
+                  ext: (n = K.ext) != null ? n : "",
                 }),
               }),
             }),
             u.jsxs(r("WAWebFlexItem.react"), {
               xstyle: [_.text, r("WAWebL10N").isRTL() && _.textRTL],
               grow: 1,
-              children: [oe, Q],
+              children: [ae, X],
             }),
             u.jsx(r("WAWebFlexItem.react"), {
               grow: 0,
               shrink: 0,
-              children: ee,
+              children: te,
             }),
-            ie,
+            le,
           ],
         }),
-        ue = ae ? le : se;
+        ce = ie ? se : ue;
       return u.jsxs(
         o("WAWebClickable.react").Clickable,
         babelHelpers.extends(
           { ref: C, xstyle: _.container, dataTestId: "document-thumb" },
-          te,
+          ne,
           {
             children: [
-              S && !ae
+              S && !ie
                 ? u.jsx(r("WAWebMediaThumbnail.react"), {
                     msgKey: c,
                     containerClassName: "xpyat2d x1n2onr6 xh8yej3",
@@ -500,12 +507,12 @@ __d(
                   })
                 : null,
               l
-                ? ue
+                ? ce
                 : u.jsx(r("WAWebMessageDeeperContainer.react"), {
                     xstyle: _.deepContainer,
                     outgoingMsg: D,
-                    position: ne ? "bottom" : void 0,
-                    children: ue,
+                    position: re ? "bottom" : void 0,
+                    children: ce,
                   }),
             ],
           },

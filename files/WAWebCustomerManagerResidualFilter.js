@@ -7,28 +7,28 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
-      var r = t.clientFilterKeys,
-        a = t.options,
-        i = t.query;
+    function e(e, t, n, r) {
+      var a = t.clientFilterKeys,
+        i = t.options,
+        l = t.query;
       if (
-        r.length === 0 &&
-        !o("WAWebCustomerManagerProfileQueryPlan").isSearchQueryActive(i)
+        a.length === 0 &&
+        !o("WAWebCustomerManagerProfileQueryPlan").isSearchQueryActive(l)
       )
         return e;
-      var l = r.map(function (e) {
+      var s = a.map(function (e) {
           return o("WAWebCustomerManagerFilterRegistry")
             .getFilterSpec(e)
-            .matcher(a);
+            .matcher(i);
         }),
-        s = o(
+        u = o(
           "WAWebCustomerManagerLocalSearch",
-        ).createCustomerSearchQueryMatcher(i);
+        ).createCustomerSearchQueryMatcher(l, r);
       return e.filter(function (e) {
         return (
-          l.every(function (t) {
+          s.every(function (t) {
             return t(e);
-          }) && s(e, n == null ? void 0 : n.get(String(e.chatJid)))
+          }) && u(e, n == null ? void 0 : n.get(String(e.chatJid)))
         );
       });
     }

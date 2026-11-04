@@ -359,18 +359,7 @@ __d(
       (l.parseUpdatePreferenceResponseInvalidRequest = u),
       (l.parseUpdatePreferenceResponseServerError = c),
       (l.parseUpdatePreferenceResponseSuccess = d),
-      (l.parseUpdatePreferenceServerErrors = m),
-      (l.makeUpdatePreferenceRequest = p),
-      (l.parseIQErrorFeatureNotImplementedMixin = _),
-      (l.parseIQErrorInternalServerErrorMixin = f),
-      (l.parseIQErrorResponseMixin = g),
-      (l.parseIQResultResponseMixin = h),
-      (l.parseUpdatePreferenceReqErrors = y),
-      (l.parseIQErrorBadRequestMixin = C),
-      (l.parseIQErrorForbiddenMixin = b),
-      (l.parseIQErrorNotAcceptableField = v),
-      (l.parseIQErrorNotAcceptableMixin = S),
-      (l.parseIQErrorRateOverlimitMixin = R));
+      (l.makeUpdatePreferenceRequest = p));
   },
   98,
 );

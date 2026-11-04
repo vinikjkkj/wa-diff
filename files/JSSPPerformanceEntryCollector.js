@@ -1,6 +1,11 @@
 __d(
   "JSSPPerformanceEntryCollector",
-  ["JSSPTraceBaseDataCollector", "JSSelfProfilerProbe", "JSSelfProfilerUtils"],
+  [
+    "JSSPTraceBaseDataCollector",
+    "JSSelfProfilerProbe",
+    "JSSelfProfilerUtils",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null,
@@ -23,25 +28,45 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var r = t.prototype;
       return (
-        (n.onProfilerStarts = async function (t) {
-          s.set(t, []);
-        }),
-        (n.onProfilerEnds = async function (t, n, r) {
-          var e, a;
-          return (
-            (r.performanceEntryList = o("JSSelfProfilerUtils").mergeList(
-              (e = r.performanceEntryList) != null ? e : [],
-              (a = s.get(t)) != null ? a : [],
-            )),
-            s.delete(t),
-            r
+        (r.onProfilerStarts = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            s.set(e, []);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (r.onProfilerEnds = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r, a;
+              return (
+                (n.performanceEntryList = o("JSSelfProfilerUtils").mergeList(
+                  (r = n.performanceEntryList) != null ? r : [],
+                  (a = s.get(e)) != null ? a : [],
+                )),
+                s.delete(e),
+                n
+              );
+            },
           );
-        }),
-        (n.onProfilerAborts = async function (t) {
-          s.delete(t);
-        }),
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (r.onProfilerAborts = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            s.delete(e);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         t
       );
     })(r("JSSPTraceBaseDataCollector"));

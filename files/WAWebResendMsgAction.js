@@ -7,6 +7,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebMusicResendMsgLoadable",
     "WAWebNewsletterSendMsgAction",
     "WAWebSendHistoryBundleAction",
     "WAWebSendMessageEditAction",
@@ -18,6 +19,11 @@ __d(
     var e;
     function s(t) {
       if (o("WAWebMsgGetters").getIsFailed(t)) {
+        if (
+          t.type === o("WAWebMsgType").MSG_TYPE.MUSIC ||
+          t.futureproofType === o("WAWebMsgType").MSG_TYPE.MUSIC
+        )
+          return o("WAWebMusicResendMsgLoadable").resendMusicMsgLoadable(t);
         if (o("WAWebMsgGetters").getIsEdited(t))
           return o("WAWebSendMessageEditAction").resendLatestEdit(t);
         var r = { ack: o("WAWebAck").ACK.CLOCK };

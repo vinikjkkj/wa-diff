@@ -127,15 +127,20 @@ __d(
     }
     function $() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ai_rich_response_jarvis_forward_sending_enabled",
+        "ai_rich_response_source_reporting_long_press_enabled",
       );
     }
     function P() {
       return o("WAWebABProps").getABPropConfigValue(
+        "ai_rich_response_jarvis_forward_sending_enabled",
+      );
+    }
+    function N() {
+      return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_jarvis_forward_receiving_enabled",
       );
     }
-    function N(e) {
+    function M(e) {
       return o("WAWebBotUtils").isMetaAiBot(e.from) && r("justknobx")._("5352");
     }
     ((l.setBonsaiUserLanguage = c),
@@ -156,9 +161,10 @@ __d(
       (l.isRichResponseForwardReceivingEnabled = T),
       (l.isRichResponseForwardMediaReceivingEnabled = D),
       (l.isRichResponseForwardSendingEnabled = x),
-      (l.isRichResponseJarvisForwardSendingEnabled = $),
-      (l.isRichResponseJarvisForwardReceivingEnabled = P),
-      (l.isLoadingMediaMessagesEnabled = N));
+      (l.isRichResponseSourceReportingEnabled = $),
+      (l.isRichResponseJarvisForwardSendingEnabled = P),
+      (l.isRichResponseJarvisForwardReceivingEnabled = N),
+      (l.isLoadingMediaMessagesEnabled = M));
   },
   98,
 );

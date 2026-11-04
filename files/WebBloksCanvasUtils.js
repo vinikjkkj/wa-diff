@@ -178,7 +178,7 @@ __d(
     function C(e, t) {
       return t != null && typeof e == "string" && e.includes("%")
         ? (parseFloat(e) / 100) * t
-        : parseFloat(e);
+        : parseFloat(String(e));
     }
     function b(e, t) {
       return C(e, t.canvas.clientWidth);

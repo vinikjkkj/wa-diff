@@ -13,15 +13,19 @@ __d(
       },
       m = { lid: "lid", pn: "pn" },
       p = {
+        validators: [(e = o("WAJids")).validateDeviceJid, e.validateDeviceJid],
+        typeName: "DeviceJid|DeviceJid",
+      },
+      _ = {
         validators: [
-          (e = o("WAJids")).validateDeviceJid,
+          e.validateDeviceJid,
           e.validateDeviceJid,
           e.validateUserJid,
           e.validateUserJid,
         ],
         typeName: "DeviceJid|DeviceJid|UserJid|UserJid",
       },
-      _ = {
+      f = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
@@ -30,8 +34,9 @@ __d(
       (l.ENUM_FALSE_TRUE = c),
       (l.ENUM_FREECUSTOMERSERVICE_FREEENTRYPOINT_REGULAR = d),
       (l.ENUM_LID_PN = m),
-      (l.DEVICEJID_DEVICEJID_USERJID_USERJID = p),
-      (l.USERJID_USERJID = _));
+      (l.DEVICEJID_DEVICEJID = p),
+      (l.DEVICEJID_DEVICEJID_USERJID_USERJID = _),
+      (l.USERJID_USERJID = f));
   },
   98,
 );

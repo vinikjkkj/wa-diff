@@ -7,6 +7,7 @@ __d(
     "WAWebEnvironment",
     "WAWebMiscBrowserUtils",
     "WAWebModalManager",
+    "WAWebODS",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebVoipAvailabilityCheckpoints",
@@ -26,22 +27,26 @@ __d(
       var t = o("WAWebVoipGatingUtils").getCrossOriginIsolatedState();
       e: {
         if (e === "missing_shared_array_buffer") {
-          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingSAB(),
+          (r("WAWebODS").incr(
+            "web.call.browser_unsupported.missing_shared_array_buffer",
+          ),
             o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingSAB(t));
           break e;
         }
         if (e === "missing_atomics") {
-          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingAtomics(),
+          (r("WAWebODS").incr("web.call.browser_unsupported.missing_atomics"),
             o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingAtomics(t));
           break e;
         }
         if (e === "missing_rtc_peer_connection") {
-          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingRTC(),
+          (r("WAWebODS").incr(
+            "web.call.browser_unsupported.missing_rtc_peer_connection",
+          ),
             o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingRTC(t));
           break e;
         }
         if (e === "broken_voip_wasm") {
-          (o("WAWebCoreActionsODS").logCallBrowserUnsupportedBrokenWasm(),
+          (r("WAWebODS").incr("web.call.browser_unsupported.broken_voip_wasm"),
             o("WAWebCoreActionsODS").logCallBrowserCapabilityBrokenWasm(t));
           break e;
         }

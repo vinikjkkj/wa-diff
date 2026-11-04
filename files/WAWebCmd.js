@@ -23,6 +23,7 @@ __d(
     "WAWebWamMemoryStat",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -432,58 +433,70 @@ __d(
               r,
             );
           }),
-          (i.$CmdImpl$p_3 = function (r) {
+          (i.$CmdImpl$p_3 = function (a) {
             var t = this,
-              a = r.chat,
-              i = r.chatEntryPoint,
-              l = r.isSuperseded,
-              u = r.msgContext,
-              c = r.threadId,
-              d = this.$CmdImpl$p_1 != null && this.$CmdImpl$p_1 === a.id;
-            return (
-              d
-                ? o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "openChat: preserving entry point ",
-                        ", skipping ",
-                        " for same chat",
-                      ])),
-                    a.chatEntryPoint,
-                    i,
-                  )
-                : (a.chatEntryPoint = i),
-              (this.$CmdImpl$p_1 = a.id),
-              o("WAWebWamMemoryStat").uploadMemoryIfChatWasOpened(a.id),
-              new (y || (y = n("Promise")))(function (e) {
-                t.trigger("open_chat", {
-                  chat: a,
-                  msgContext: u,
-                  chatEntryPoint: i,
-                  isSuperseded: l,
-                  threadId: c,
-                  onComplete: (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var n,
-                          r = o(
-                            "WAWebDrawerManagerGlobalContext",
-                          ).getGlobalDrawerManager("right"),
-                          a =
-                            (n = r == null ? void 0 : r.existsDrawer()) != null
-                              ? n
-                              : !1;
-                        (a && b() && (r == null || r.closeDrawer()), e(t));
-                      },
-                    );
-                    function r(e) {
-                      return t.apply(this, arguments);
-                    }
-                    return r;
-                  })(),
-                });
-              }).catch(function (e) {
-                throw (
+              i = a.chat,
+              l = a.chatEntryPoint,
+              u = a.isSuperseded,
+              c = a.msgContext,
+              d = a.threadId;
+            return new (y || (y = n("Promise")))(function (r, a) {
+              var s = {
+                chat: i,
+                msgContext: c,
+                chatEntryPoint: l,
+                isSuperseded: u,
+                threadId: d,
+                onCancel: function () {
+                  return a(new (o("WAAbortError").AbortError)());
+                },
+                onComplete: (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t,
+                        n = o(
+                          "WAWebDrawerManagerGlobalContext",
+                        ).getGlobalDrawerManager("right"),
+                        a =
+                          (t = n == null ? void 0 : n.existsDrawer()) != null
+                            ? t
+                            : !1;
+                      (a && b() && (n == null || n.closeDrawer()), r(e));
+                    },
+                  );
+                  function t(t) {
+                    return e.apply(this, arguments);
+                  }
+                  return t;
+                })(),
+              };
+              t.trigger(
+                "open_chat_request",
+                babelHelpers.extends({}, s, {
+                  onError: a,
+                  onAdmitted: function () {
+                    var n = t.$CmdImpl$p_1 != null && t.$CmdImpl$p_1 === i.id;
+                    (n
+                      ? o("WALogger").LOG(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "openChat: preserving entry point ",
+                              ", skipping ",
+                              " for same chat",
+                            ])),
+                          i.chatEntryPoint,
+                          l,
+                        )
+                      : (i.chatEntryPoint = l),
+                      (t.$CmdImpl$p_1 = i.id),
+                      o("WAWebWamMemoryStat").uploadMemoryIfChatWasOpened(i.id),
+                      t.trigger("open_chat", s));
+                  },
+                }),
+              );
+            }).catch(function (e) {
+              throw (
+                r("getErrorSafe")(e).name !== o("WAAbortError").ABORT_ERROR &&
                   o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -492,10 +505,9 @@ __d(
                       ])),
                     String(e),
                   ),
-                  e
-                );
-              })
-            );
+                e
+              );
+            });
           }),
           (i.openChatAt = function (t) {
             var e = this,
@@ -618,12 +630,9 @@ __d(
               .catch(
                 o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
               );
-            return (
-              d.finally(function () {
-                o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
-              }),
-              d
-            );
+            return d.finally(function () {
+              o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
+            });
           }),
           (i.openChatFromUnread = function (t) {
             var e = this,
@@ -677,12 +686,9 @@ __d(
                 .catch(
                   o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
                 );
-              return (
-                _.finally(function () {
-                  o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
-                }),
-                _
-              );
+              return _.finally(function () {
+                o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
+              });
             }
             return this.openChatBottom({
               chat: c,
@@ -741,12 +747,9 @@ __d(
               .catch(
                 o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
               );
-            return (
-              _.finally(function () {
-                o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
-              }),
-              _
-            );
+            return _.finally(function () {
+              o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1);
+            });
           }),
           (i.$CmdImpl$p_4 = function (t) {
             var e = this;

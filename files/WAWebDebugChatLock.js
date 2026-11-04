@@ -4,6 +4,7 @@ __d(
     "WAWebChatLockCrypto",
     "WAWebChatLockSettings",
     "WAWebProtobufsUserPassword.pb",
+    "asyncToGeneratorRuntime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,29 +19,41 @@ __d(
         )
       );
     }
-    async function s(t, n) {
-      r("vulture")("RGhCXrlhwJfUxmrNlypswJY1sQI=");
-      var a = await o("WAWebChatLockCrypto")._deriveBitsFromSecretCode(t, n),
-        i;
-      if (a != null)
-        switch (n.encoding) {
-          case o("WAWebProtobufsUserPassword.pb").UserPassword$Encoding.UTF8:
-            i = e(a);
-            break;
-          case o("WAWebProtobufsUserPassword.pb").UserPassword$Encoding
-            .UTF8_BROKEN:
-            i = e(a);
-            break;
-        }
-      return { derived: a, base64: i };
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    var u = {
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          r("vulture")("RGhCXrlhwJfUxmrNlypswJY1sQI=");
+          var a = yield o("WAWebChatLockCrypto")._deriveBitsFromSecretCode(
+              t,
+              n,
+            ),
+            i;
+          if (a != null)
+            switch (n.encoding) {
+              case o("WAWebProtobufsUserPassword.pb").UserPassword$Encoding
+                .UTF8:
+                i = e(a);
+                break;
+              case o("WAWebProtobufsUserPassword.pb").UserPassword$Encoding
+                .UTF8_BROKEN:
+                i = e(a);
+                break;
+            }
+          return { derived: a, base64: i };
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    var c = {
       validateChatLockSecretCode: o("WAWebChatLockCrypto")
         .validateChatLockSecretCode,
       getChatLockSettings: o("WAWebChatLockSettings").getChatLockSettings,
       evaluateChatLockSecretCode: s,
     };
-    l.default = u;
+    l.default = c;
   },
   98,
 );

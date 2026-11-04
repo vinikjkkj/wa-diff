@@ -102,7 +102,7 @@ __d(
             if (
               n == null ||
               n.trim() === "" ||
-              isNaN(n.split(";")[0].split(",")[0])
+              isNaN(Number(n.split(";")[0].split(",")[0]))
             )
               return t.createDefault(r);
             var e = t.createFromString(n);

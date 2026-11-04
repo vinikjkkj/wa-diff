@@ -7,6 +7,7 @@ __d(
     "WAWebResendMsgQueueDef",
     "WAWebScheduledOperations",
     "WAWebWorkerSafeBackendApi",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -84,19 +85,26 @@ __d(
             operation: o("WAWebScheduledOperations").ScheduledOperation
               .RESEND_USER_MSG,
             queue: o("WAWebResendMsgQueueDef").RESEND_USER_MSG_QUEUE,
-            run: async function (t) {
-              h(t.msgType, "resendUserMsg") &&
-                (await o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-                  "resendUserMsg",
-                  {
-                    ackTime: t.ackTime,
-                    excludeList: t.excludeList,
-                    msgId: t.msgId,
-                    msgRecordType: t.msgRecordType,
-                    msgType: t.msgType,
-                  },
-                ));
-            },
+            run: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  h(e.msgType, "resendUserMsg") &&
+                    (yield o(
+                      "WAWebWorkerSafeBackendApi",
+                    ).workerSafeSendAndReceive("resendUserMsg", {
+                      ackTime: e.ackTime,
+                      excludeList: e.excludeList,
+                      msgId: e.msgId,
+                      msgRecordType: e.msgRecordType,
+                      msgType: e.msgType,
+                    }));
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
           })),
         u
       );
@@ -109,23 +117,30 @@ __d(
             operation: o("WAWebScheduledOperations").ScheduledOperation
               .RESEND_GROUP_MSG,
             queue: o("WAWebResendMsgQueueDef").RESEND_GROUP_MSG_QUEUE,
-            run: async function (t) {
-              h(t.msgType, "resendGroupMsg") &&
-                (await o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-                  "resendGroupMsg",
-                  {
-                    ackTime: t.ackTime,
-                    groupId: t.groupId,
-                    isDirect: t.isDirect,
-                    msgId: t.msgId,
-                    msgRecordType: t.msgRecordType,
-                    msgType: t.msgType,
-                    oldList: t.oldList,
-                    phash: t.phash,
-                    serverAddressingMode: t.serverAddressingMode,
-                  },
-                ));
-            },
+            run: (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  h(e.msgType, "resendGroupMsg") &&
+                    (yield o(
+                      "WAWebWorkerSafeBackendApi",
+                    ).workerSafeSendAndReceive("resendGroupMsg", {
+                      ackTime: e.ackTime,
+                      groupId: e.groupId,
+                      isDirect: e.isDirect,
+                      msgId: e.msgId,
+                      msgRecordType: e.msgRecordType,
+                      msgType: e.msgType,
+                      oldList: e.oldList,
+                      phash: e.phash,
+                      serverAddressingMode: e.serverAddressingMode,
+                    }));
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })(),
           })),
         c
       );

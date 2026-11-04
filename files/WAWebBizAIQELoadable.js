@@ -2,13 +2,18 @@ __d(
   "WAWebBizAIQELoadable",
   [
     "JSResourceForInteraction",
+    "WAWebBizAIAppointmentsQEConfig",
     "WAWebBizAiAgentGating",
+    "WAWebEnvironment",
     "WAWebLazyLoadedRetriable",
+    "WAWebMobilePlatforms",
     "WAWebNoop",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = [],
+    var e = r("WAWebEnvironment").isWeb
+        ? [o("WAWebBizAIAppointmentsQEConfig").APPOINTMENTS_QE_PARAM]
+        : [],
       s = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")("WAWebBizAIQE")
@@ -21,7 +26,9 @@ __d(
     function u(t) {
       (t === void 0 && (t = e),
         !(
-          t.length === 0 || !o("WAWebBizAiAgentGating").isBizAIQEClientEnabled()
+          t.length === 0 ||
+          !o("WAWebMobilePlatforms").isSMB() ||
+          !o("WAWebBizAiAgentGating").isBizAIQEClientEnabled()
         ) &&
           s()
             .then(function (e) {

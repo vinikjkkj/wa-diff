@@ -278,9 +278,7 @@ __d(
           enableLipSync: r("gkx")("3922") || r("gkx")("7221"),
           enableLive: r("gkx")("5049"),
           enableMediaElementUnmountNotification: r("gkx")("17440"),
-          enableNonOverlappingStreamBandwidthSampling: r("gkx")("15502"),
           enableOwnedBandwidthEstimator: e === d && n("cr:18606") != null,
-          enablePlayerScopedWorkerToMainEventCoalescing: r("gkx")("18614"),
           enablePredictiveSidxPrefetch: r("gkx")("4970"),
           enablePrefetchBandwidthSampling: r("gkx")("12118"),
           enablePrefetchCacheKeyNormalization: r("gkx")("4090"),
@@ -311,15 +309,12 @@ __d(
             ? 8e3
             : t.liveBufferingEndRecentStallTimeoutMs,
           liveEndedStallConfirmSec: r("gkx")("7763")
-            ? 10
+            ? 60
             : t.liveEndedStallConfirmSec,
           liveEndedTransitionOnStallEnabled: r("gkx")("7763"),
           liveFellBehindEdgeReseekDriftSec: r("gkx")("7763")
             ? 30
             : t.liveFellBehindEdgeReseekDriftSec,
-          liveFellBehindHardRefetchDriftSec: r("gkx")("7763")
-            ? 60
-            : t.liveFellBehindHardRefetchDriftSec,
           liveFellBehindPairedRefetchEnabled: r("gkx")("7763"),
           liveFellBehindWindowRefetchEnabled: r("gkx")("7763"),
           liveForceWorkerKickOnStallEnabled: r("gkx")("7763"),
@@ -329,6 +324,8 @@ __d(
           liveGapSkipStuckSeekRecoveryMs: r("gkx")("7763")
             ? 2e3
             : t.liveGapSkipStuckSeekRecoveryMs,
+          liveLatencyPlaybackRateEnabled:
+            r("gkx")("7763") && e.mediaSinkType === "MSE",
           liveLookbackBufferSec: r("gkx")("7763")
             ? 30
             : t.liveLookbackBufferSec,
@@ -340,9 +337,9 @@ __d(
             : t.liveObserveAndActMinDelayMs,
           livePlayheadStallRecoveryEnabled: r("gkx")("7763"),
           liveProactiveEdgeReseekEnabled: r("gkx")("7763"),
-          liveProactiveRefetchDriftSec: r("gkx")("7763")
-            ? 24
-            : t.liveProactiveRefetchDriftSec,
+          liveSegmentFetchNetworkFailureToleranceMs: r("gkx")("7763")
+            ? 6e4
+            : t.liveSegmentFetchNetworkFailureToleranceMs,
           liveStallRecoveryEnabled: r("gkx")("7763"),
           liveStallReseekToEdgeAfterKicks: r("gkx")("7763")
             ? 3
@@ -374,17 +371,20 @@ __d(
             ? 1080
             : t.prefetchResolutionThreshold,
           qplEnabled: r("gkx")("19263"),
+          realWorkerConnectTimeoutMs: r("gkx")("7763")
+            ? 1e4
+            : t.realWorkerConnectTimeoutMs,
           realWorkerV2SkipHasteResponsePreloader:
             e.mediaSinkConnectToWorker != null ||
             t.realWorkerV2SkipHasteResponsePreloader,
           reduceStateMachineEventOverhead: r("gkx")("2977"),
+          releasePastStateMachineStates: r("gkx")("22384"),
           reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("18169"),
           resetTargetRepresentationWhenItGetsBlocked: r("gkx")("18461"),
           retryShorterForUnrecoverableHTTP: r("gkx")("18768"),
           segmentStallRecoveryEnabled: r("gkx")("19141"),
           sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime:
             r("gkx")("19380"),
-          skipEndOfStreamWhileBlockedTargetAwaitsReselection: r("gkx")("27821"),
           skipPlayheadRestoreOnMediaElementChange: r("gkx")("17440"),
           trackScrollPosition: r("gkx")("20629"),
           useExponentialBackoffRetryStrategy: r("gkx")("19401"),

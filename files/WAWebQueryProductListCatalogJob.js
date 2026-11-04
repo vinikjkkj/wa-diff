@@ -22,6 +22,7 @@ __d(
     "WAWebRelayClient",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "filterNulls",
     "nullthrows",
   ],
@@ -51,167 +52,184 @@ __d(
           n
         );
       }),
-      d = async function (t) {
-        var e,
-          n = t.catalogWid,
-          a = t.directConnectionEncryptedInfo,
-          i = t.height,
-          l = t.productIds,
-          s = t.width,
-          u = (e = o("WAWap")).wap(
-            "iq",
-            {
-              to: e.S_WHATSAPP_NET,
-              type: "get",
-              smax_id: e.SMAX_ID(
-                r("WAWapDeprecatedSmaxID").CatalogGetProductList,
-              ),
-              xmlns: "w:biz:catalog",
-              id: e.generateId(),
-            },
-            e.wap(
-              "product_list",
-              {
-                jid: o("WAWebCommsWapMd").USER_JID(
-                  o("WAWebWidFactory").createWid(n),
-                ),
-              },
-              l
-                .map(function (e) {
-                  return o("WAWap").wap(
-                    "product",
-                    null,
-                    o("WAWap").wap("id", null, e),
-                  );
-                })
-                .concat(
-                  r("filterNulls")([
-                    e.wap("width", null, s.toString()),
-                    e.wap("height", null, i.toString()),
-                    a != null
-                      ? o("WAWap").wap(
-                          "direct_connection_encrypted_info",
-                          null,
-                          a,
-                        )
-                      : null,
-                  ]),
-                ),
-            ),
-          ),
-          d = await o("WADeprecatedSendIq").deprecatedSendIq(u, c);
-        if (d.success) return d.result;
-        throw new (o("WAWebBackendErrors").ServerStatusCodeError)(d.errorCode);
-      },
-      m = async function (a) {
-        try {
+      d = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            i,
-            l = a.catalogWid,
-            u = a.directConnectionEncryptedInfo,
-            c = a.height,
-            m = a.productIds,
-            p = a.width,
-            _ = await o("WAWebRelayClient").fetchQuery(
-              e !== void 0
-                ? e
-                : (e = n("WAWebQueryProductListCatalogJobQuery.graphql")),
+            n = e.catalogWid,
+            a = e.directConnectionEncryptedInfo,
+            i = e.height,
+            l = e.productIds,
+            s = e.width,
+            u = (t = o("WAWap")).wap(
+              "iq",
               {
-                request: {
-                  product_list: {
-                    jid:
-                      (t = o(
-                        "WAWebGetFormattedCatalogJid",
-                      ).getFormattedCatalogJid(
-                        o("WAWebWidFactory").createWid(l),
-                      )) != null
-                        ? t
-                        : l.toString(),
-                    products: m.map(function (e) {
-                      return { id: e };
-                    }),
-                    width: String(p),
-                    height: String(c),
-                    direct_connection_encrypted_info: u,
+                to: t.S_WHATSAPP_NET,
+                type: "get",
+                smax_id: t.SMAX_ID(
+                  r("WAWapDeprecatedSmaxID").CatalogGetProductList,
+                ),
+                xmlns: "w:biz:catalog",
+                id: t.generateId(),
+              },
+              t.wap(
+                "product_list",
+                {
+                  jid: o("WAWebCommsWapMd").USER_JID(
+                    o("WAWebWidFactory").createWid(n),
+                  ),
+                },
+                l
+                  .map(function (e) {
+                    return o("WAWap").wap(
+                      "product",
+                      null,
+                      o("WAWap").wap("id", null, e),
+                    );
+                  })
+                  .concat(
+                    r("filterNulls")([
+                      t.wap("width", null, s.toString()),
+                      t.wap("height", null, i.toString()),
+                      a != null
+                        ? o("WAWap").wap(
+                            "direct_connection_encrypted_info",
+                            null,
+                            a,
+                          )
+                        : null,
+                    ]),
+                  ),
+              ),
+            ),
+            d = yield o("WADeprecatedSendIq").deprecatedSendIq(u, c);
+          if (d.success) return d.result;
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
+            d.errorCode,
+          );
+        });
+        return function (n) {
+          return e.apply(this, arguments);
+        };
+      })(),
+      m = (function () {
+        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            var a,
+              i,
+              l = t.catalogWid,
+              u = t.directConnectionEncryptedInfo,
+              c = t.height,
+              m = t.productIds,
+              p = t.width,
+              _ = yield o("WAWebRelayClient").fetchQuery(
+                e !== void 0
+                  ? e
+                  : (e = n("WAWebQueryProductListCatalogJobQuery.graphql")),
+                {
+                  request: {
+                    product_list: {
+                      jid:
+                        (a = o(
+                          "WAWebGetFormattedCatalogJid",
+                        ).getFormattedCatalogJid(
+                          o("WAWebWidFactory").createWid(l),
+                        )) != null
+                          ? a
+                          : l.toString(),
+                      products: m.map(function (e) {
+                        return { id: e };
+                      }),
+                      width: String(p),
+                      height: String(c),
+                      direct_connection_encrypted_info: u,
+                    },
                   },
                 },
-              },
-              {
-                eventLogger: o(
-                  "WAWebCatalogEventLogger",
-                ).createCatalogEventLogger(
-                  o("WAWebCatalogEventLogger").GRAPHQL_CATALOG_ENDPOINT
-                    .GET_PRODUCT_LIST,
-                ),
-              },
+                {
+                  eventLogger: o(
+                    "WAWebCatalogEventLogger",
+                  ).createCatalogEventLogger(
+                    o("WAWebCatalogEventLogger").GRAPHQL_CATALOG_ENDPOINT
+                      .GET_PRODUCT_LIST,
+                  ),
+                },
+              );
+            return r("nullthrows")(
+              _ == null ||
+                (i = _.xwa_product_catalog_get_product_list) == null ||
+                (i = i.product_list) == null
+                ? void 0
+                : i.products.map(
+                    o("WAWebBizParseProductGraphql").parseProductGraphQL,
+                  ),
             );
-          return r("nullthrows")(
-            _ == null ||
-              (i = _.xwa_product_catalog_get_product_list) == null ||
-              (i = i.product_list) == null
-              ? void 0
-              : i.products.map(
-                  o("WAWebBizParseProductGraphql").parseProductGraphQL,
-                ),
-          );
-        } catch (e) {
-          return (
-            e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
-              o(
-                "WAWebMaybeThrowCatalogErrors",
-              ).maybeThrowLocalErrorForCatalogQuery(e),
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "xwa_product_catalog_get_product_list failed, IQ fallback",
-                ])),
-            ),
-            d(a)
-          );
-        }
-      },
-      p = async function (t) {
-        var e,
-          n = t.catalogWid,
-          r = t.directConnectionEncryptedInfo,
-          a = t.height,
-          i = t.productIds,
-          l = t.width,
-          s = await o(
-            "WAWebBizCatalogManagementFetchProductList",
-          ).fetchProductList({
-            product_list: {
-              jid:
-                (e = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                  o("WAWebWidFactory").createWid(n),
-                )) != null
-                  ? e
-                  : n.toString(),
-              products: i.map(function (e) {
-                return { id: e };
-              }),
-              width: String(l),
-              height: String(a),
-              direct_connection_encrypted_info: r,
-            },
-          });
-        return s.type === "success"
-          ? s.productsResult
-          : (s.type === "graphql-error"
-              ? o(
+          } catch (e) {
+            return (
+              e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
+                o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(s.error)
-              : s.type,
-            o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "queryProductListGraphQLByOwner: unhandled error ",
-                  "",
-                ])),
-              JSON.stringify(s),
-            ),
-            d(t));
-      },
+                ).maybeThrowLocalErrorForCatalogQuery(e),
+              o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "xwa_product_catalog_get_product_list failed, IQ fallback",
+                  ])),
+              ),
+              d(t)
+            );
+          }
+        });
+        return function (n) {
+          return t.apply(this, arguments);
+        };
+      })(),
+      p = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.catalogWid,
+            r = e.directConnectionEncryptedInfo,
+            a = e.height,
+            i = e.productIds,
+            l = e.width,
+            s = yield o(
+              "WAWebBizCatalogManagementFetchProductList",
+            ).fetchProductList({
+              product_list: {
+                jid:
+                  (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    o("WAWebWidFactory").createWid(n),
+                  )) != null
+                    ? t
+                    : n.toString(),
+                products: i.map(function (e) {
+                  return { id: e };
+                }),
+                width: String(l),
+                height: String(a),
+                direct_connection_encrypted_info: r,
+              },
+            });
+          return s.type === "success"
+            ? s.productsResult
+            : (s.type === "graphql-error"
+                ? o(
+                    "WAWebMaybeThrowCatalogErrors",
+                  ).maybeThrowLocalErrorForCatalogQuery(s.error)
+                : s.type,
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "queryProductListGraphQLByOwner: unhandled error ",
+                    "",
+                  ])),
+                JSON.stringify(s),
+              ),
+              d(e));
+        });
+        return function (n) {
+          return e.apply(this, arguments);
+        };
+      })(),
       _ = function (t) {
         return o("WAWebUserPrefsMeUser").isMeAccount(
           o("WAWebWidFactory").createWid(t.catalogWid),

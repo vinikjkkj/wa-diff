@@ -113,8 +113,7 @@ __d(
     ((l.sendSendAccountRecoveryNonceRPC = e),
       (l.parseSendAccountRecoveryNonceResponseError = u),
       (l.parseSendAccountRecoveryNonceResponseSuccess = c),
-      (l.makeSendAccountRecoveryNonceRequest = d),
-      (l.parseSendAccountRecoveryNonceResponseMixin = m));
+      (l.makeSendAccountRecoveryNonceRequest = d));
   },
   98,
 );

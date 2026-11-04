@@ -161,11 +161,6 @@ __d(
             }
             return r;
           })()),
-          (i.isSynced = function () {
-            return (
-              this._syncStatus === "SUCCESS" || this._syncStatus === "FAILURE"
-            );
-          }),
           (i.reset = function () {
             return (
               this.forEach(o("WAWebStickerGetters").clearStickerGetterCacheFor),

@@ -35,7 +35,10 @@ __d(
               throw r("err")("Invalid external sticker URL");
             e.mediaData.mediaStage =
               o("WAWebMediaTypes").MediaDataStage.FETCHING;
-            var i = yield r("WAWebPonyfillsFetch")(a, { signal: t });
+            var i = yield r("WAWebPonyfillsFetch")(a, {
+              signal: t,
+              referrerPolicy: "no-referrer",
+            });
             if (!i.ok) throw r("err")("External sticker download HTTP failure");
             var l = yield u(i),
               s = l.blob,

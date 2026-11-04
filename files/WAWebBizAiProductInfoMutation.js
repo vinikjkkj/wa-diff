@@ -5,7 +5,6 @@ __d(
     "WAWebBizAiProductInfoMutationDeleteMutation.graphql",
     "WAWebBizAiProductInfoMutationUpdateMutation.graphql",
     "WAWebBizAiRelayClient",
-    "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
   ],
   function (t, n, r, o, a, i, l) {
@@ -42,92 +41,62 @@ __d(
       );
     }
     function y(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      m,
-                      { input: h(e), media_options: d },
-                      { accessToken: t.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_maiba_create_product_info_knowledge;
-                      return (t == null ? void 0 : t.success) === !0 ? f : g;
-                    })
-                    .catch(function (e) {
-                      return g;
-                    });
-                })
-            : g;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(m, { input: h(e), media_options: d })
+            .then(function (e) {
+              var t =
+                e == null ? void 0 : e.xfb_maiba_create_product_info_knowledge;
+              return (t == null ? void 0 : t.success) === !0 ? f : g;
+            })
+            .catch(function (e) {
+              return g;
+            });
         });
     }
     function C(e, t) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (n) {
-          return n.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      p,
-                      { id: e, media_options: d, product_params: h(t) },
-                      { accessToken: n.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_maiba_update_product_info_knowledge;
-                      return (t == null ? void 0 : t.success) === !0 ? f : g;
-                    })
-                    .catch(function (e) {
-                      return g;
-                    });
-                })
-            : g;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(p, {
+              id: e,
+              media_options: d,
+              product_params: h(t),
+            })
+            .then(function (e) {
+              var t =
+                e == null ? void 0 : e.xfb_maiba_update_product_info_knowledge;
+              return (t == null ? void 0 : t.success) === !0 ? f : g;
+            })
+            .catch(function (e) {
+              return g;
+            });
         });
     }
     function b(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      _,
-                      { product_ids: [].concat(e) },
-                      { accessToken: t.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_maiba_multi_delete_product_info_knowledge;
-                      return t != null &&
-                        t.every(function (e) {
-                          return (e == null ? void 0 : e.success) === !0;
-                        })
-                        ? f
-                        : g;
-                    })
-                    .catch(function (e) {
-                      return g;
-                    });
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(_, { product_ids: [].concat(e) })
+            .then(function (e) {
+              var t =
+                e == null
+                  ? void 0
+                  : e.xfb_maiba_multi_delete_product_info_knowledge;
+              return t != null &&
+                t.every(function (e) {
+                  return (e == null ? void 0 : e.success) === !0;
                 })
-            : g;
+                ? f
+                : g;
+            })
+            .catch(function (e) {
+              return g;
+            });
         });
     }
     ((l.createProductInfo = y),

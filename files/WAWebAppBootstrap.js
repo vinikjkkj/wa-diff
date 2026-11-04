@@ -1,6 +1,7 @@
 __d(
   "WAWebAppBootstrap",
   [
+    "JSResource",
     "WAJids",
     "WALogger",
     "WAWap",
@@ -68,26 +69,30 @@ __d(
       s,
       u,
       c,
-      d = (e = n("cr:13019")) != null ? e : {},
-      m = d.reportPotentialWebDataLoss,
-      p = null;
-    function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (p != null || (p = g()), p);
-        })),
-        f.apply(this, arguments)
-      );
-    }
+      d,
+      m = r("JSResource")("WAWebPrefetchDiscoveryStickerPacks").__setRef(
+        "WAWebAppBootstrap",
+      ),
+      p = (e = n("cr:13019")) != null ? e : {},
+      _ = p.reportPotentialWebDataLoss,
+      f = null;
     function g() {
       return h.apply(this, arguments);
     }
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (f != null || (f = y()), f);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, a, i;
           (r("WAWebODS").incr("web.app.bootstrap"),
             n("cr:5203") == null || n("cr:5203")(),
@@ -118,9 +123,9 @@ __d(
                 : e.getWindowsBridge(
                     r("WAWebWindowsHybridBridgeInitiator").WAWebAppBootstrap,
                   ),
-            d = (t = n("cr:34988")) != null ? t : {},
-            p = d.initializeWindowsSettingChangeHandlers;
-          (p == null || p(),
+            p = (t = n("cr:34988")) != null ? t : {},
+            f = p.initializeWindowsSettingChangeHandlers;
+          (f == null || f(),
             r("WAWebEnvironment").isWindows &&
               o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
                 o("WAWebUserPrefsKeys").UserPrefs
@@ -146,7 +151,7 @@ __d(
           try {
             o("WAWebEmojiKeywordToUnicode").updateEmojiTrie();
           } catch (e) {
-            var _ = r("getErrorSafe")(e);
+            var g = r("getErrorSafe")(e);
             o("WALogger")
               .WARN(
                 s ||
@@ -156,10 +161,10 @@ __d(
                     "",
                   ])),
                 e,
-                _.stack,
+                g.stack,
               )
               .sendLogs(
-                "[emoji-trie] EmojiKeywordToUnicode setup failed: " + _.message,
+                "[emoji-trie] EmojiKeywordToUnicode setup failed: " + g.message,
               );
           }
           (o("WAWebFrontendL10nHelpers").extendWAWebLocalePrefCookieTtl(),
@@ -171,11 +176,11 @@ __d(
             o(
               "WAWebDesktopUpsellUtils",
             ).isWebUserOnSupportedWindowsOSForUWPAsync());
-          var f = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
-            g = o("WAWebWidToJid").widToMyJids(f);
+          var h = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
+            y = o("WAWebWidToJid").widToMyJids(h);
           (o("WAWebGlobals").setGlobals({
             jidUtils: o("WAJids").createJidUtils({ platform: "whatsapp" }),
-            myJids: g,
+            myJids: y,
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
           }),
             o("WAWebUserPrefsMultiDevice").isRegistered() &&
@@ -186,8 +191,25 @@ __d(
               swScope: "/",
             }),
             o("WAWebStorageErrorHandlingUtils").persistAppReloadMarker(),
-            r("WAWebEnvironment").isWindows && f == null && (m == null || m()),
+            r("WAWebEnvironment").isWindows && h == null && (_ == null || _()),
             o("WAWebUim").setupUimListeners(),
+            m.load().then(
+              function (e) {
+                var t = e.initDiscoveryStickerPackPrefetch;
+                return t();
+              },
+              function (e) {
+                o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to load discovery sticker prefetch",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("discovery-sticker-prefetch-load-failed");
+              },
+            ),
             o(
               "WAWebPrefetchHatchDetailsOnLogin",
             ).initHatchDetailsPrefetchOnLogin(),
@@ -199,24 +221,24 @@ __d(
             ).initImagineActionMediaInputLogging(),
             n("cr:17677") == null || n("cr:17677").init(),
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[app] bootstrap done",
                 ])),
             ),
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[app] version: ",
                   "",
                 ])),
               o("WAWebBuildConstants").VERSION_STR,
             ));
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    l.bootstrapApp = _;
+    l.bootstrapApp = g;
   },
   98,
 );

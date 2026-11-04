@@ -75,7 +75,7 @@ __d(
           var z = V.get(o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_CLIP);
           z != null && (M(z, n, r), n.clip());
           var j = V.get(o("WebBloksConstants").ALPHA_ATTRIBUTE_KEY);
-          j != null && (n.globalAlpha = parseFloat(j));
+          j != null && (n.globalAlpha = parseFloat(String(j)));
           var K = o("WebBloksCanvasUtils").getCanvasPixelValRelativeToWidth(
               V.get(o("WebBloksCanvasMinificationKeys").CANVAS_LAYER_WIDTH),
               n,
@@ -230,18 +230,24 @@ __d(
                   ? ge
                   : "miter"),
               (n.miterLimit = parseFloat(
-                (he = pe.get(
-                  o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_MITER_LIMIT,
-                )) != null
-                  ? he
-                  : 0,
+                String(
+                  (he = pe.get(
+                    o("WebBloksCanvasMinificationKeys")
+                      .CANVAS_STROKE_MITER_LIMIT,
+                  )) != null
+                    ? he
+                    : 0,
+                ),
               )),
               (n.lineDashOffset = parseFloat(
-                (ye = pe.get(
-                  o("WebBloksCanvasMinificationKeys").CANVAS_STROKE_DASH_PHASE,
-                )) != null
-                  ? ye
-                  : 0,
+                String(
+                  (ye = pe.get(
+                    o("WebBloksCanvasMinificationKeys")
+                      .CANVAS_STROKE_DASH_PHASE,
+                  )) != null
+                    ? ye
+                    : 0,
+                ),
               )));
           }
           var Ce = pe.getSubNode(
@@ -299,19 +305,24 @@ __d(
               t,
             ),
             u = parseFloat(
-              (n = a.get(
-                o("WebBloksCanvasMinificationKeys")
-                  .CANVAS_SHAPE_ARC_START_ANGLE,
-              )) != null
-                ? n
-                : 0,
+              String(
+                (n = a.get(
+                  o("WebBloksCanvasMinificationKeys")
+                    .CANVAS_SHAPE_ARC_START_ANGLE,
+                )) != null
+                  ? n
+                  : 0,
+              ),
             ),
             c = parseFloat(
-              (r = a.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_SHAPE_ARC_END_ANGLE,
-              )) != null
-                ? r
-                : 360,
+              String(
+                (r = a.get(
+                  o("WebBloksCanvasMinificationKeys")
+                    .CANVAS_SHAPE_ARC_END_ANGLE,
+                )) != null
+                  ? r
+                  : 360,
+              ),
             ),
             d =
               a.get(
@@ -415,12 +426,14 @@ __d(
                 t,
               ),
               parseFloat(
-                (g = h.get(
-                  o("WebBloksCanvasMinificationKeys")
-                    .CANVAS_SHAPE_RECT_CORNER_RADIUS,
-                )) != null
-                  ? g
-                  : 0,
+                String(
+                  (g = h.get(
+                    o("WebBloksCanvasMinificationKeys")
+                      .CANVAS_SHAPE_RECT_CORNER_RADIUS,
+                  )) != null
+                    ? g
+                    : 0,
+                ),
               ),
             ));
           break;
@@ -504,18 +517,23 @@ __d(
               t,
             ),
             R = parseFloat(
-              (l = u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_START_ANGLE,
-              )) != null
-                ? l
-                : 0,
+              String(
+                (l = u.get(
+                  o("WebBloksCanvasMinificationKeys")
+                    .CANVAS_PATH_ARC_START_ANGLE,
+                )) != null
+                  ? l
+                  : 0,
+              ),
             ),
             L = parseFloat(
-              (s = u.get(
-                o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_END_ANGLE,
-              )) != null
-                ? s
-                : 360,
+              String(
+                (s = u.get(
+                  o("WebBloksCanvasMinificationKeys").CANVAS_PATH_ARC_END_ANGLE,
+                )) != null
+                  ? s
+                  : 360,
+              ),
             ),
             E =
               u.get(
@@ -706,12 +724,14 @@ __d(
               t,
             ),
             parseFloat(
-              (j = K.get(
-                o("WebBloksCanvasMinificationKeys")
-                  .CANVAS_PATH_RECT_CORNER_RADIUS,
-              )) != null
-                ? j
-                : 0,
+              String(
+                (j = K.get(
+                  o("WebBloksCanvasMinificationKeys")
+                    .CANVAS_PATH_RECT_CORNER_RADIUS,
+                )) != null
+                  ? j
+                  : 0,
+              ),
             ),
           );
           break;
@@ -751,7 +771,8 @@ __d(
             ),
           ),
             t.rotate(
-              (parseFloat(i.get(a.CANVAS_TRANSFORM_ROTATE_DEGREES)) * Math.PI) /
+              (parseFloat(String(i.get(a.CANVAS_TRANSFORM_ROTATE_DEGREES))) *
+                Math.PI) /
                 180,
             ),
             t.translate(

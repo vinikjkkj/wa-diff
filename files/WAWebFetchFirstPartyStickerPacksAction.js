@@ -113,6 +113,65 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = r("WAWebL10N").getNormalizedLocale(),
+            a =
+              o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
+                (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+                  ? void 0
+                  : t.user,
+              ) || "default",
+            i = babelHelpers.extends(
+              {},
+              o("WAWebStickerUtils").getPremiumParams(
+                o("WAWebRecentStickerCollectionMd").RecentStickerCollectionMd
+                  .length,
+              ),
+              {
+                cat: "suggest_sticker_packs",
+                lg: n,
+                country: a,
+                pack_num_limit: String(e.packCount),
+                num_in_pack: String(e.stickerCount),
+              },
+            ),
+            l = yield s(i, { signal: e.signal });
+          return l.map(function (e, t) {
+            var n;
+            return {
+              stickerPack: c(e, t),
+              stickers: ((n = e.stickers) != null ? n : []).map(f),
+            };
+          });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
+      return {
+        mimetype: e.mimetype,
+        width: e.width,
+        height: e.height,
+        index: t,
+        filehash: e["file-hash"],
+        directPath: e["direct-path"],
+        mediaKey: e["media-key"],
+        id: e["file-hash"],
+        deprecatedMms3Url: e.url,
+        encFilehash: e["enc-file-hash"],
+        isAvatar: !1,
+        mediaKeyTimestamp: 0,
+        size: e["file-size"],
+        type: "sticker",
+        weight: void 0,
+      };
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("WAWebL10N").getNormalizedLocale(),
             n = babelHelpers.extends(
               {},
@@ -126,10 +185,12 @@ __d(
             i = a[0];
           return c(i);
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.fetchFirstPartyStickerPacks = d), (l.fetchFirstPartyStickerPack = p));
+    ((l.fetchFirstPartyStickerPacks = d),
+      (l.fetchDiscoveryStickerPacks = p),
+      (l.fetchFirstPartyStickerPack = g));
   },
   98,
 );

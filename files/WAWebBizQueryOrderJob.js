@@ -88,7 +88,9 @@ __d(
                       price: e.price != null ? parseInt(e.price, 10) : null,
                       currency: e.currency,
                       quantity:
-                        e.quantity != null ? parseInt(e.quantity, 10) : null,
+                        e.quantity != null
+                          ? parseInt(String(e.quantity), 10)
+                          : null,
                       thumbnailId:
                         (n = e.media) == null ||
                         (n = n.images) == null ||
@@ -115,13 +117,13 @@ __d(
                   ((m = f.price_details) == null
                     ? void 0
                     : m.subtotal_amount) != null
-                    ? parseInt(f.price_details.subtotal_amount, 10)
+                    ? parseInt(String(f.price_details.subtotal_amount), 10)
                     : null,
                 tax: null,
                 total:
                   ((p = f.price_details) == null ? void 0 : p.total_amount) !=
                   null
-                    ? parseInt(f.price_details.total_amount, 10)
+                    ? parseInt(String(f.price_details.total_amount), 10)
                     : null,
                 products: g,
               };

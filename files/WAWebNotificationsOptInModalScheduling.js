@@ -2,6 +2,7 @@ __d(
   "WAWebNotificationsOptInModalScheduling",
   [
     "WAWebABProps",
+    "WAWebMessageQueue",
     "WAWebNotificationHelpers",
     "WAWebNotificationsModalVariant",
     "WAWebNotificationsOptInGating",
@@ -9,6 +10,8 @@ __d(
     "WAWebNuxAction",
     "WAWebODS",
     "WAWebOpenNotificationsOptInModal",
+    "WAWebSocketConstants",
+    "WAWebSocketModel",
     "WAWebUiIdleEventBus",
     "WAWebUserPrefsNotifications",
     "WAWebWhatsNewGatingUtils",
@@ -52,7 +55,21 @@ __d(
         !o("WAWebNotificationHelpers").isOfflineResumeInProgress()
       );
     }
-    function c(e) {
+    function c() {
+      var e = o("WAWebMessageQueue").getMessageQueueDepth(),
+        t = e.offline,
+        n = e.online;
+      return d() && t === 0 && n === 0;
+    }
+    function d() {
+      return (
+        o("WAWebSocketModel").Socket.state ===
+          o("WAWebSocketConstants").SOCKET_STATE.CONNECTED &&
+        o("WAWebSocketModel").Socket.stream ===
+          o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED
+      );
+    }
+    function m(e) {
       var t = e.copy,
         n = e.missedCount;
       (o("WAWebOpenNotificationsOptInModal").openNotificationsOptInModal(
@@ -75,7 +92,9 @@ __d(
     ((l.isNotificationsOptInPromptEligible = e),
       (l.isNotificationsOptInForeground = s),
       (l.isNotificationsOptInReady = u),
-      (l.showNotificationsOptInPrompt = c));
+      (l.isNotificationsOptInMessagePipelineIdle = c),
+      (l.isNotificationsOptInConnected = d),
+      (l.showNotificationsOptInPrompt = m));
   },
   98,
 );

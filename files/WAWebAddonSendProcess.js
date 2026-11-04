@@ -81,7 +81,7 @@ __d(
     function C(e, t) {
       if (e.decryptedMsgData.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE) {
         var n = o("WAWebMsgGetters").getPollEndTime(e.parent),
-          r = parseInt(t, 10) * 1e3;
+          r = parseInt(String(t), 10) * 1e3;
         if (n != null && r > n) return !0;
       }
       return !1;
@@ -269,7 +269,7 @@ __d(
                 a.decryptedMsgData.type,
                 a.decryptedMsgData.id.id,
               ),
-              { t: parseInt(P, 10), count: x }
+              { t: parseInt(String(P), 10), count: x }
             );
           } catch (t) {
             if (a == null) {

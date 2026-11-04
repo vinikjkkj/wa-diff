@@ -1,6 +1,6 @@
 __d(
   "WAWebOrgAdminPeople",
-  ["WAWebOrgAdminManagedRosterUtils"],
+  ["WAWebOrgAdminManagedRosterUtils", "WAWebOrgAdminPersonName"],
   function (t, n, r, o, a, i, l) {
     var e = 5e3,
       s = "member:",
@@ -54,18 +54,21 @@ __d(
         : null;
     }
     function f(e, t) {
-      var n, r, o;
+      var n, r;
       return {
         emailAddress: t == null ? void 0 : t.emailAddress,
         key: c(e.lid),
+        lastName: t == null ? void 0 : t.lastName,
         lid: e.lid,
         member: e,
         memberRole: e.role,
         memberTag:
           (n = t == null ? void 0 : t.memberTag) != null ? n : e.memberTag,
-        name: (r = t == null ? void 0 : t.fullName) != null ? r : e.displayName,
-        phoneNumber:
-          (o = t == null ? void 0 : t.phoneNumber) != null ? o : e.phoneNumber,
+        name: (r = t == null ? void 0 : t.name) != null ? r : "",
+        phoneNumber: o("WAWebOrgAdminPersonName").getOrgAdminPersonPhoneNumber(
+          e,
+          t,
+        ),
         secondaryMemberTag: t == null ? void 0 : t.secondaryMemberTag,
         username: e.username,
       };

@@ -16,6 +16,7 @@ __d(
     "WebBloksTreeResources",
     "WebBloksUpdateTraversal",
     "WebBloksUtils",
+    "WebBloksVariableUpdates",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -39,11 +40,11 @@ __d(
           (this.committedVariables = new Map()),
           (this.$1 = 0),
           (this.updateOperationList = []),
-          (this.updateVariableOperations = new Map()),
           (this.updateResourcesOperations = []),
           (this.$2 = !1),
           (this.$3 = !1),
           (this.$4 = !1),
+          (this.variableUpdates = new (r("WebBloksVariableUpdates"))()),
           (this.onNewTreeAndVariablesListener = new (o(
             "WebBloksUtils",
           ).EventEmitter)()),
@@ -313,7 +314,7 @@ __d(
         }),
         (a.enqueueVariableUpdateOperation = function (t, n) {
           if (!this.$4) {
-            if ((this.updateVariableOperations.set(t, n), !this.$2)) {
+            if ((this.variableUpdates.enqueueWrite(t, n), !this.$2)) {
               this.$3 = !0;
               return;
             }
@@ -353,69 +354,68 @@ __d(
         }),
         (a.flushUpdates = function () {
           if (!this.$4) {
-            var e = o(
-              "WebBloksBindInstrumentation",
-            ).isBindInstrumentationEnabled();
-            e &&
+            var e = this.variableUpdates.hasPendingWrites()
+                ? this.variableUpdates.takePendingWrites()
+                : o("WebBloksUtils").EMPTY_MAP,
+              t = o(
+                "WebBloksBindInstrumentation",
+              ).isBindInstrumentationEnabled();
+            t &&
               (o("WebBloksBindInstrumentation").bindCounters.flushes++,
               (o(
                 "WebBloksBindInstrumentation",
-              ).bindCounters.variableWritesApplied +=
-                this.updateVariableOperations.size));
-            var t = !1,
-              n = null;
-            if (this.updateVariableOperations.size) {
-              var r = this.treeResourcesState.variables;
+              ).bindCounters.variableWritesApplied += e.size));
+            var n = !1,
+              r = null;
+            if (e.size) {
+              var a = this.treeResourcesState.variables;
               if (
                 ((this.treeResourcesState =
-                  this.treeResourcesState.withVariableUpdates(
-                    this.updateVariableOperations,
-                  )),
+                  this.treeResourcesState.withVariableUpdates(e)),
                 !this.bloksContext.objectSet.environment
                   .enableNoOpVariableWriteFilter)
               )
-                t = !0;
+                n = !0;
               else {
-                var a;
-                n = this.updateVariableOperations;
-                var i = (a = this.bindResult) == null ? void 0 : a.dependencies;
-                for (var l of this.updateVariableOperations) {
-                  var s = l[0],
-                    u = l[1],
-                    c =
-                      u == null ||
-                      (typeof u != "object" && typeof u != "function");
+                var i;
+                r = e;
+                var l = (i = this.bindResult) == null ? void 0 : i.dependencies;
+                for (var s of e) {
+                  var u = s[0],
+                    c = s[1],
+                    d =
+                      c == null ||
+                      (typeof c != "object" && typeof c != "function");
                   if (
-                    !(c && r.has(s) && u === r.get(s)) &&
-                    (i == null || i.has(s))
+                    !(d && a.has(u) && c === a.get(u)) &&
+                    (l == null || l.has(u))
                   ) {
-                    t = !0;
+                    n = !0;
                     break;
                   }
                 }
               }
-              this.updateVariableOperations = new Map();
             }
             if (this.updateResourcesOperations.length) {
               this.initialTreeResources.setShouldCommitPublishStateUpdates(!0);
-              var d = this.processResources(this.updateResourcesOperations);
-              t = t || d[0];
-              for (var m of d[1]) this.updateOperationList.push(m);
+              var m = this.processResources(this.updateResourcesOperations);
+              n = n || m[0];
+              for (var p of m[1]) this.updateOperationList.push(p);
               this.updateResourcesOperations = [];
             }
-            var p = this.snapshotPendingComponent();
+            var _ = this.snapshotPendingComponent();
             if (
-              ((t = t || this.unboundModel !== p),
-              (this.unboundModel = p),
+              ((n = n || this.unboundModel !== _),
+              (this.unboundModel = _),
               (this.updateOperationList = []),
               (this.pendingUnboundTree = null),
-              e &&
-                (t
+              t &&
+                (n
                   ? o("WebBloksBindInstrumentation").bindCounters
                       .passesEmitted++
                   : o("WebBloksBindInstrumentation").bindCounters
                       .passesSuppressed++),
-              t)
+              n)
             )
               (this.$4 &&
                 this.bloksContext.objectSet.environment.logger.warn(
@@ -426,10 +426,10 @@ __d(
                   treeResourcesState: this.treeResourcesState,
                 }));
             else {
-              if (n != null) {
-                var _ = new Map(this.committedVariables);
-                (o("WebBloksUtils").putAll(_, n),
-                  (this.committedVariables = _));
+              if (r != null) {
+                var f = new Map(this.committedVariables);
+                (o("WebBloksUtils").putAll(f, r),
+                  (this.committedVariables = f));
               }
               this.$7();
             }

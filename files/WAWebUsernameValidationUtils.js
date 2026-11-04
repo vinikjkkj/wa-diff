@@ -1,6 +1,6 @@
 __d(
   "WAWebUsernameValidationUtils",
-  ["WAWebUsernameConstants"],
+  ["WAWebUsernameConstants", "WAWebUsernameGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e = new Set(
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
@@ -27,8 +27,8 @@ __d(
       return Array.from(t).every(function (e) {
         return u.has(e);
       })
-        ? t.length < o("WAWebUsernameConstants").USERNAME_MIN_LENGTH ||
-          t.length > o("WAWebUsernameConstants").USERNAME_MAX_LENGTH
+        ? t.length < o("WAWebUsernameGatingUtils").usernameMinLength() ||
+          t.length > o("WAWebUsernameGatingUtils").usernameMaxLength()
           ? {
               isValid: !1,
               errorType: o("WAWebUsernameConstants").UsernameValidationErrorType

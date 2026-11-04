@@ -4,8 +4,8 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = "closed_tab_call_rings",
-      l = 6048e5,
-      s = 20;
+      l = 2592e6,
+      s = 50;
     function u(e, t) {
       if (!Array.isArray(e)) return [];
       var n = [];

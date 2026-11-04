@@ -53,7 +53,7 @@ __d(
         },
       });
     }
-    l.WAWebAddMemberInviteOptionsLoadable = m;
+    ((l.requireBundle = u), (l.WAWebAddMemberInviteOptionsLoadable = m));
   },
   98,
 );

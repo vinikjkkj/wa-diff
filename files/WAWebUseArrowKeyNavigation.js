@@ -54,7 +54,10 @@ __d(
                   ? void 0
                   : e.querySelector("[data-" + n + '-item-selected="true"]');
             if (t) {
-              var o = parseInt(t.getAttribute("data-" + n + "-item-index"), 10);
+              var o = parseInt(
+                String(t.getAttribute("data-" + n + "-item-index")),
+                10,
+              );
               ((a.current = o), t.focus());
             }
           }),

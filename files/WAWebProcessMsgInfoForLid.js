@@ -193,12 +193,16 @@ __d(
                 " of type ",
                 " in ",
                 " from ",
+                ", sender: ",
                 "",
               ])),
             t.externalId,
             t.type,
             n.toLogString(),
             t.author.toLogString(),
+            o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
+              t.externalId,
+            ),
           )
           .sendLogs("pn-addressed-1-1-message");
     }

@@ -89,7 +89,7 @@ __d(
       );
     }
     function D(e) {
-      return T(e) ? parseFloat(e) / 100 : null;
+      return T(e) ? parseFloat(String(e)) / 100 : null;
     }
     var x = o("WebBloksModel").defineWebBloksAttributeKey("#"),
       $ = o("WebBloksModel").defineWebBloksAttributeKey("$");

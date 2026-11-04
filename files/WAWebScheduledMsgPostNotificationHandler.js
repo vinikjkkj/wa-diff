@@ -45,7 +45,7 @@ __d(
           if (
             o(
               "WAWebScheduledMessagesGatingUtils",
-            ).isScheduledMessagesSenderEnabled()
+            ).isScheduledMessagesReceiverEnabled()
           ) {
             var i = a.xwa2_notify_scheduled_message_post;
             if (i == null) {

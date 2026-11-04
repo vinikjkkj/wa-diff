@@ -520,7 +520,7 @@ __d(
                   e
                 );
               } finally {
-                c.delete();
+                (c.delete(), d.delete());
               }
             },
           );
@@ -572,33 +572,34 @@ __d(
               n.forEach(function (e) {
                 y.push_back(e);
               });
-              var C = f.startVoipGroupCall(
-                g,
-                h,
-                y,
-                r,
-                a,
-                i,
-                s,
-                u,
-                c,
-                d,
-                m != null ? m : 0,
-                p != null ? p : 0,
-                _ != null ? _ : "",
-              );
-              (C !== 0 &&
-                o("WALogger")
-                  .ERROR(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: startGroupCall: failed to start group call",
-                      ])),
-                  )
-                  .sendLogs("voip-start-group-call-failed"),
-                g.delete(),
-                h.delete(),
-                y.delete());
+              try {
+                var C = f.startVoipGroupCall(
+                  g,
+                  h,
+                  y,
+                  r,
+                  a,
+                  i,
+                  s,
+                  u,
+                  c,
+                  d,
+                  m != null ? m : 0,
+                  p != null ? p : 0,
+                  _ != null ? _ : "",
+                );
+                C !== 0 &&
+                  o("WALogger")
+                    .ERROR(
+                      R ||
+                        (R = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: startGroupCall: failed to start group call",
+                        ])),
+                    )
+                    .sendLogs("voip-start-group-call-failed");
+              } finally {
+                (g.delete(), h.delete(), y.delete());
+              }
             },
           );
           function t(t, n, r, o, a, i, l, s, u, c, d, m, p) {
@@ -1264,6 +1265,8 @@ __d(
                   ),
                   e
                 );
+              } finally {
+                _.delete();
               }
             },
           );
@@ -1294,6 +1297,8 @@ __d(
                 o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(d, e),
                 e
               );
+            } finally {
+              p.delete();
             }
           });
           function t(t) {
@@ -1319,6 +1324,8 @@ __d(
                 o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(s, e),
                 e
               );
+            } finally {
+              d.delete();
             }
           });
           function t(t) {
@@ -1342,6 +1349,8 @@ __d(
                   ),
                   e
                 );
+              } finally {
+                i.delete();
               }
             },
           );
@@ -1403,6 +1412,18 @@ __d(
             },
           );
           function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        logTsEventStringData: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = K != null ? K : yield l;
+              r.tsLoggerLogEventStringData(e, t, n);
+            },
+          );
+          function t(t, n, r) {
             return e.apply(this, arguments);
           }
           return t;
@@ -1902,7 +1923,11 @@ __d(
               n.forEach(function (e) {
                 return o.push_back(e);
               });
-              var a = r.inviteToCall(e, t, o);
+              try {
+                var a = r.inviteToCall(e, t, o);
+              } finally {
+                o.delete();
+              }
             },
           );
           function t(t, n, r) {

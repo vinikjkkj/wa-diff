@@ -3,7 +3,6 @@ __d(
   [
     "WAWebBizAiExampleResponseUpdateMutation.graphql",
     "WAWebBizAiRelayClient",
-    "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
   ],
   function (t, n, r, o, a, i, l) {
@@ -43,59 +42,43 @@ __d(
       return { isSuccess: !1, websiteStatuses: m(e) };
     }
     function _(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(s, { input: e }, { accessToken: t.token })
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_meta_ai_biz_agent_wa_update_knowledge;
-                      return (t == null ? void 0 : t.success) === !0
-                        ? u
-                        : p(t == null ? void 0 : t.website_statuses);
-                    })
-                    .catch(function (e) {
-                      return c;
-                    });
-                })
-            : c;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(s, { input: e })
+            .then(function (e) {
+              var t =
+                e == null
+                  ? void 0
+                  : e.xfb_meta_ai_biz_agent_wa_update_knowledge;
+              return (t == null ? void 0 : t.success) === !0
+                ? u
+                : p(t == null ? void 0 : t.website_statuses);
+            })
+            .catch(function (e) {
+              return c;
+            });
         });
     }
     function f(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      s,
-                      { input: { faq: e } },
-                      { accessToken: t.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_meta_ai_biz_agent_wa_update_knowledge;
-                      return (t == null ? void 0 : t.success) === !0
-                        ? u
-                        : p(t == null ? void 0 : t.website_statuses);
-                    })
-                    .catch(function (e) {
-                      return c;
-                    });
-                })
-            : c;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(s, { input: { faq: e } })
+            .then(function (e) {
+              var t =
+                e == null
+                  ? void 0
+                  : e.xfb_meta_ai_biz_agent_wa_update_knowledge;
+              return (t == null ? void 0 : t.success) === !0
+                ? u
+                : p(t == null ? void 0 : t.website_statuses);
+            })
+            .catch(function (e) {
+              return c;
+            });
         });
     }
     ((l.updateKnowledge = _), (l.updateExampleResponses = f));

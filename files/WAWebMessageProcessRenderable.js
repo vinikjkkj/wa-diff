@@ -243,7 +243,10 @@ __d(
                   );
                   (yield o(
                     "WAWebHandleMsgValidate",
-                  ).validateAndProcessReportingTokenInfo({ renderableMsgs: T }),
+                  ).validateAndProcessReportingTokenInfo({
+                    renderableMsgs: T,
+                    reparsing: m,
+                  }),
                     D == null || D());
                 }
                 var x = o(

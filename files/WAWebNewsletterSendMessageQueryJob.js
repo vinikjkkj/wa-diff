@@ -25,19 +25,19 @@ __d(
               t,
             );
           switch (n.name) {
-            case "NewsletterResponseSuccess":
+            case "NewsletterResponseSuccess": {
+              var r =
+                n.value
+                  .newsletterQuestionResponseOrNewsletterScheduledMessageOrNewsletterMessageAckMixinGroup;
               return {
                 success: !0,
-                ack: {
-                  t: n.value
-                    .newsletterQuestionResponseOrNewsletterMessageAckMixinGroup
-                    .value.t,
-                },
+                ack: { t: r.value.t },
                 serverId:
-                  n.value
-                    .newsletterQuestionResponseOrNewsletterMessageAckMixinGroup
-                    .value.serverId,
+                  r.name === "NewsletterQuestionResponseAck"
+                    ? void 0
+                    : r.value.serverId,
               };
+            }
             case "NewsletterResponseNegative":
               return {
                 success: !1,
@@ -70,8 +70,7 @@ __d(
         newsletterClientAndServerID: {
           messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
           messageServerId: e.parentMsgServerId,
-          newsletterQuestionResponsePublishOrReactionOrReactionRevokeOrPollVoteMixinGroupArgs:
-            n,
+          newsletterClientAndServerIdContentArgs: n,
         },
       };
     }
@@ -85,8 +84,7 @@ __d(
         newsletterClientAndServerID: {
           messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
           messageServerId: e.parentMsgServerId,
-          newsletterQuestionResponsePublishOrReactionOrReactionRevokeOrPollVoteMixinGroupArgs:
-            { newsletterPollVote: t },
+          newsletterClientAndServerIdContentArgs: { newsletterPollVote: t },
         },
       };
     }
@@ -95,12 +93,11 @@ __d(
         newsletterClientAndServerID: {
           messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
           messageServerId: e.parentMsgServerId,
-          newsletterQuestionResponsePublishOrReactionOrReactionRevokeOrPollVoteMixinGroupArgs:
-            {
-              newsletterQuestionResponsePublish: {
-                payloadMixinArgs: { plaintextElementValue: e.payload },
-              },
+          newsletterClientAndServerIdContentArgs: {
+            newsletterQuestionResponsePublish: {
+              payloadMixinArgs: { plaintextElementValue: e.payload },
             },
+          },
         },
       };
     }

@@ -122,12 +122,15 @@ __d(
         }),
         (n.$AggregatedProxyView$p_8 = function (t) {
           for (
-            var e = arguments.length, n = new Array(e > 1 ? e - 1 : 0), r = 1;
-            r < e;
-            r++
+            var e = this,
+              n = arguments.length,
+              r = new Array(n > 1 ? n - 1 : 0),
+              o = 1;
+            o < n;
+            o++
           )
-            n[r - 1] = arguments[r];
-          this.trigger.apply(this, [t].concat(n));
+            r[o - 1] = arguments[o];
+          e.trigger.apply(e, [t].concat(r));
         }),
         t
       );

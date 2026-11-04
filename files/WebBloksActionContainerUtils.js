@@ -1,6 +1,6 @@
 __d(
   "WebBloksActionContainerUtils",
-  ["WebBloksErrors", "WebBloksUtils", "justknobx"],
+  ["WebBloksErrors", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     var e = Object.getPrototypeOf({});
     function s(t) {
@@ -9,12 +9,10 @@ __d(
       return n === null || n === e;
     }
     function u(e, t, n) {
-      if (!r("justknobx")._("6078")) return o("WebBloksUtils").cast(t);
       if (!s(t)) throw new (o("WebBloksErrors").WebBloksScriptError)(n, e);
       return o("WebBloksUtils").cast(t);
     }
     function c(e, t, n) {
-      if (!r("justknobx")._("6078")) return o("WebBloksUtils").cast(t);
       if (!Array.isArray(t))
         throw new (o("WebBloksErrors").WebBloksScriptError)(n, e);
       return o("WebBloksUtils").cast(t);

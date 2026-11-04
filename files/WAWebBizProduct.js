@@ -16,6 +16,7 @@ __d(
     "WAWebMessageMeta.react",
     "WAWebMessagePicture.react",
     "WAWebMessageSpacerText.react",
+    "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
@@ -77,7 +78,7 @@ __d(
         footerMargin: { marginTop: "x1gslohp", $$css: !0 },
       };
     function h(t) {
-      var n = o("react-compiler-runtime").c(82),
+      var n = o("react-compiler-runtime").c(83),
         a = t.displayAuthor,
         i = t.displayType,
         l = t.isCarouselCard,
@@ -95,21 +96,18 @@ __d(
         b = o("WAWebDisplayType").isWideDisplay(i),
         v;
       if (n[1] === Symbol.for("react.memo_cache_sentinel")) {
-        var S, R;
+        var S;
         ((v = [
           (S = o("WAWebMsgGetters")).getBusinessOwnerJid,
           S.getCaption,
-          (R = o("WAWebFrontendMsgGetters")).getDir,
+          o("WAWebFrontendMsgGetters").getDir,
           S.getFooter,
           S.getId,
           S.getIsGroupMsg,
-          R.getAsProductInquiry,
-          R.getMediaData,
           S.getProductId,
           S.getProductImageCount,
           S.getRetailerId,
-          R.getRtl,
-          R.getSenderObj,
+          o("WAWebFrontendMsgGetters").getRtl,
           S.getT,
           S.getTitle,
           S.getType,
@@ -120,24 +118,38 @@ __d(
         ]),
           (n[1] = v));
       } else v = n[1];
-      var L = o("useWAWebMsgValues").useMsgValues(u, v),
-        E = L[0],
-        k = L[1],
-        I = L[2],
-        T = L[3],
-        D = L[4],
-        x = L[7],
-        $ = L[8],
-        P = L[11],
-        N = L[12],
-        M = L[13],
-        w = L[17],
-        A = L[18],
-        F = L[19],
-        O;
-      n[2] !== E || n[3] !== u
-        ? ((O = function () {
-            var e = E != null && o("WAWebWidFactory").createWid(E);
+      var R = o("useWAWebMsgValues").useMsgValues(
+          u,
+          o("WAWebMsgCasts").castToProductOrInteractiveMsg,
+          v,
+        ),
+        L = R[0],
+        E = R[1],
+        k = R[2],
+        I = R[3],
+        T = R[4],
+        D = R[6],
+        x = R[9],
+        $ = R[10],
+        P = R[14],
+        N = R[15],
+        M = R[16],
+        w;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = [
+            o("WAWebFrontendMsgGetters").getAsProductInquiry,
+            o("WAWebFrontendMsgGetters").getMediaData,
+            o("WAWebFrontendMsgGetters").getSenderObj,
+          ]),
+          (n[2] = w))
+        : (w = n[2]);
+      var A = o("useWAWebMsgValues").useMsgValues(u, w),
+        F = A[1],
+        O = A[2],
+        B;
+      n[3] !== L || n[4] !== u
+        ? ((B = function () {
+            var e = L != null && o("WAWebWidFactory").createWid(L);
             if (e != null) {
               var t = o("WAWebMsgCollection").MsgCollection.get(u);
               t != null &&
@@ -146,38 +158,38 @@ __d(
                 );
             }
           }),
-          (n[2] = E),
-          (n[3] = u),
-          (n[4] = O))
-        : (O = n[4]);
-      var B = r("useWAWebStableCallback")(O),
-        W,
-        q;
-      (n[5] !== B
-        ? ((W = function () {
-            return B();
+          (n[3] = L),
+          (n[4] = u),
+          (n[5] = B))
+        : (B = n[5]);
+      var W = r("useWAWebStableCallback")(B),
+        q,
+        U;
+      (n[6] !== W
+        ? ((q = function () {
+            return W();
           }),
-          (q = [B]),
-          (n[5] = B),
+          (U = [W]),
           (n[6] = W),
-          (n[7] = q))
-        : ((W = n[6]), (q = n[7])),
-        p(W, q));
-      var U;
-      n[8] !== E ||
-      n[9] !== F ||
-      n[10] !== u ||
-      n[11] !== d ||
-      n[12] !== $ ||
-      n[13] !== M ||
-      n[14] !== h
-        ? ((U = function (n) {
-            if ((n && n.stopPropagation(), !($ == null || E == null))) {
+          (n[7] = q),
+          (n[8] = U))
+        : ((q = n[7]), (U = n[8])),
+        p(q, U));
+      var V;
+      n[9] !== L ||
+      n[10] !== M ||
+      n[11] !== u ||
+      n[12] !== d ||
+      n[13] !== D ||
+      n[14] !== $ ||
+      n[15] !== h
+        ? ((V = function (n) {
+            if ((n && n.stopPropagation(), !(D == null || L == null))) {
               o("WAWebUtilsLogQplEvents").qplStartProductView("Message");
               var t = r("WAWebProductCatalogGetLatestProduct")({
-                productId: $,
-                businessOwnerJid: E,
-                msgT: M,
+                productId: D,
+                businessOwnerJid: L,
+                msgT: $,
               });
               if (!t) {
                 o("WAWebUtilsLogQplEvents").qplDropProductView();
@@ -187,7 +199,7 @@ __d(
                 "WAWebProductCatalogContext",
               ).buildProductCatalogContext(
                 C,
-                o("WAWebContactUtils").getMaybeBizPlatformForLogging(E),
+                o("WAWebContactUtils").getMaybeBizPlatformForLogging(L),
                 o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
                   .CATALOG_ENTRY_POINT_MESSAGE,
               );
@@ -202,7 +214,7 @@ __d(
                 d(t, i);
                 return;
               }
-              var l = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(u, F);
+              var l = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(u, M);
               if (l == null) {
                 (o("WAWebUtilsLogQplEvents").qplDropProductView(),
                   o("WALogger")
@@ -225,277 +237,277 @@ __d(
               );
             }
           }),
-          (n[8] = E),
-          (n[9] = F),
-          (n[10] = u),
-          (n[11] = d),
-          (n[12] = $),
-          (n[13] = M),
-          (n[14] = h),
-          (n[15] = U))
-        : (U = n[15]);
-      var V = U,
-        H = (k != null && k !== "") || T != null,
-        G = H || l,
-        z;
-      if (H) {
-        var j;
-        n[16] === Symbol.for("react.memo_cache_sentinel")
-          ? ((j = r("WAWebL10N").isRTL()), (n[16] = j))
-          : (j = n[16]);
-        var K = P !== j,
-          Q;
-        n[17] !== T ||
-        n[18] !== D.fromMe ||
-        n[19] !== w ||
-        n[20] !== A ||
-        n[21] !== _
-          ? ((Q = o("WAWebFormatConfigurationConversation").Conversation({
+          (n[9] = L),
+          (n[10] = M),
+          (n[11] = u),
+          (n[12] = d),
+          (n[13] = D),
+          (n[14] = $),
+          (n[15] = h),
+          (n[16] = V))
+        : (V = n[16]);
+      var H = V,
+        G = (E != null && E !== "") || I != null,
+        z = G || l,
+        j;
+      if (G) {
+        var K;
+        n[17] === Symbol.for("react.memo_cache_sentinel")
+          ? ((K = r("WAWebL10N").isRTL()), (n[17] = K))
+          : (K = n[17]);
+        var Q = x !== K,
+          X;
+        n[18] !== I ||
+        n[19] !== T.fromMe ||
+        n[20] !== P ||
+        n[21] !== N ||
+        n[22] !== _
+          ? ((X = o("WAWebFormatConfigurationConversation").Conversation({
               links:
-                A && T != null ? o("WAWebMsgLinks").getLinksFromText(T, w) : [],
+                N && I != null ? o("WAWebMsgLinks").getLinksFromText(I, P) : [],
               phoneNumbers:
-                A && T != null
-                  ? o("WAWebMsgPhoneNumbers").getPhoneNumbersFromText(T)
+                N && I != null
+                  ? o("WAWebMsgPhoneNumbers").getPhoneNumbersFromText(I)
                   : [],
               trusted: _,
-              fromMe: D.fromMe,
+              fromMe: T.fromMe,
             })),
-            (n[17] = T),
-            (n[18] = D.fromMe),
-            (n[19] = w),
-            (n[20] = A),
-            (n[21] = _),
-            (n[22] = Q))
-          : (Q = n[22]);
-        var X;
-        n[23] !== I || n[24] !== K || n[25] !== Q || n[26] !== _
-          ? ((X = {
+            (n[18] = I),
+            (n[19] = T.fromMe),
+            (n[20] = P),
+            (n[21] = N),
+            (n[22] = _),
+            (n[23] = X))
+          : (X = n[23]);
+        var Y;
+        n[24] !== k || n[25] !== X || n[26] !== Q || n[27] !== _
+          ? ((Y = {
               selectable: _,
-              dirMismatch: K,
-              direction: I,
+              dirMismatch: Q,
+              direction: k,
               inferLinesDirection: !0,
-              formatters: Q,
+              formatters: X,
             }),
-            (n[23] = I),
-            (n[24] = K),
-            (n[25] = Q),
-            (n[26] = _),
-            (n[27] = X))
-          : (X = n[27]);
-        var Y = X,
-          J;
-        n[28] === Symbol.for("react.memo_cache_sentinel")
-          ? ((J = {
+            (n[24] = k),
+            (n[25] = X),
+            (n[26] = Q),
+            (n[27] = _),
+            (n[28] = Y))
+          : (Y = n[28]);
+        var J = Y,
+          Z;
+        n[29] === Symbol.for("react.memo_cache_sentinel")
+          ? ((Z = {
               0: { className: "x1n2onr6 x1xmf6yo x1xegmmw x1e56ztr x13fj5qh" },
               1: {
                 className:
                   "x1n2onr6 x1xmf6yo x1xegmmw x1e56ztr x13fj5qh x1hr2gdg",
               },
             }[!!r("WAWebL10N").isRTL() << 0]),
-            (n[28] = J))
-          : (J = n[28]);
-        var Z;
-        n[29] !== k || n[30] !== u || n[31] !== Y
-          ? ((Z =
-              k != null
+            (n[29] = Z))
+          : (Z = n[29]);
+        var ee;
+        n[30] !== E || n[31] !== u || n[32] !== J
+          ? ((ee =
+              E != null
                 ? c.jsx(r("WAWebMessageSpacerText.react"), {
                     msgKey: u,
                     spacer: !1,
                     children: c.jsx(
                       o("WAWebEmojiText.react").EmojiText,
-                      babelHelpers.extends({}, Y, {
-                        text: k,
+                      babelHelpers.extends({}, J, {
+                        text: E,
                         xstyle: g.caption,
                         element: "p",
                       }),
                     ),
                   })
                 : null),
-            (n[29] = k),
-            (n[30] = u),
-            (n[31] = Y),
-            (n[32] = Z))
-          : (Z = n[32]);
-        var ee;
-        n[33] !== k || n[34] !== T || n[35] !== Y
-          ? ((ee =
-              T != null
+            (n[30] = E),
+            (n[31] = u),
+            (n[32] = J),
+            (n[33] = ee))
+          : (ee = n[33]);
+        var te;
+        n[34] !== E || n[35] !== I || n[36] !== J
+          ? ((te =
+              I != null
                 ? c.jsx(
                     o("WAWebEmojiText.react").EmojiText,
-                    babelHelpers.extends({}, Y, {
-                      text: T,
-                      xstyle: [g.footer, k != null && g.footerMargin],
+                    babelHelpers.extends({}, J, {
+                      text: I,
+                      xstyle: [g.footer, E != null && g.footerMargin],
                     }),
                   )
                 : null),
-            (n[33] = k),
-            (n[34] = T),
-            (n[35] = Y),
-            (n[36] = ee))
-          : (ee = n[36]);
-        var te;
-        n[37] === Symbol.for("react.memo_cache_sentinel")
-          ? ((te = {
-              0: { className: "x10l6tqk xtijo5x x1o583il" },
-              1: { className: "x10l6tqk x1o583il xwukr4l" },
-            }[!!r("WAWebL10N").isRTL() << 0]),
+            (n[34] = E),
+            (n[35] = I),
+            (n[36] = J),
             (n[37] = te))
           : (te = n[37]);
         var ne;
-        n[38] !== u
-          ? ((ne = c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: u })),
-            (n[38] = u),
-            (n[39] = ne))
-          : (ne = n[39]);
+        n[38] === Symbol.for("react.memo_cache_sentinel")
+          ? ((ne = {
+              0: { className: "x10l6tqk xtijo5x x1o583il" },
+              1: { className: "x10l6tqk x1o583il xwukr4l" },
+            }[!!r("WAWebL10N").isRTL() << 0]),
+            (n[38] = ne))
+          : (ne = n[38]);
         var re;
-        n[40] !== te || n[41] !== ne
-          ? ((re = c.jsx(
-              "div",
-              babelHelpers.extends({}, te, { children: ne }),
-            )),
-            (n[40] = te),
-            (n[41] = ne),
-            (n[42] = re))
-          : (re = n[42]);
+        n[39] !== u
+          ? ((re = c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: u })),
+            (n[39] = u),
+            (n[40] = re))
+          : (re = n[40]);
         var oe;
-        (n[43] !== J || n[44] !== Z || n[45] !== ee || n[46] !== re
-          ? ((oe = c.jsxs(
+        n[41] !== ne || n[42] !== re
+          ? ((oe = c.jsx(
               "div",
-              babelHelpers.extends({}, J, { children: [Z, ee, re] }),
+              babelHelpers.extends({}, ne, { children: re }),
             )),
-            (n[43] = J),
+            (n[41] = ne),
+            (n[42] = re),
+            (n[43] = oe))
+          : (oe = n[43]);
+        var ae;
+        (n[44] !== Z || n[45] !== ee || n[46] !== te || n[47] !== oe
+          ? ((ae = c.jsxs(
+              "div",
+              babelHelpers.extends({}, Z, { children: [ee, te, oe] }),
+            )),
             (n[44] = Z),
             (n[45] = ee),
-            (n[46] = re),
-            (n[47] = oe))
-          : (oe = n[47]),
-          (z = oe));
+            (n[46] = te),
+            (n[47] = oe),
+            (n[48] = ae))
+          : (ae = n[48]),
+          (j = ae));
       }
-      var ae;
-      n[48] !== a || n[49] !== i || n[50] !== u || n[51] !== N
-        ? ((ae = a
+      var ie;
+      n[49] !== a || n[50] !== i || n[51] !== u || n[52] !== O
+        ? ((ie = a
             ? c.jsx("div", {
                 className: "xyqdw3p x1icxu4v xs9asl8 x25sj25",
                 children: c.jsx(r("WAWebMessageAuthor.react"), {
                   msgKey: u,
-                  contact: N,
+                  contact: O,
                   displayType: i,
                 }),
               })
             : null),
-          (n[48] = a),
-          (n[49] = i),
-          (n[50] = u),
-          (n[51] = N),
-          (n[52] = ae))
-        : (ae = n[52]);
-      var ie = ae,
-        le = {
+          (n[49] = a),
+          (n[50] = i),
+          (n[51] = u),
+          (n[52] = O),
+          (n[53] = ie))
+        : (ie = n[53]);
+      var le = ie,
+        se = {
           0: { className: "x1n2onr6 x1vjfegm x9f619 x13nahy2" },
           1: { className: "x1n2onr6 x1vjfegm x9f619 xmewjk2" },
         }[!!b << 0],
-        se;
-      n[53] === Symbol.for("react.memo_cache_sentinel")
-        ? ((se = "x1n2onr6 x6ikm8r x10wlt62"), (n[53] = se))
-        : (se = n[53]);
-      var ue;
-      n[54] !== i || n[55] !== V || n[56] !== u || n[57] !== _
-        ? ((ue = c.jsx(r("WAWebBizProductInfo.react"), {
+        ue;
+      n[54] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ue = "x1n2onr6 x6ikm8r x10wlt62"), (n[54] = ue))
+        : (ue = n[54]);
+      var ce;
+      n[55] !== i || n[56] !== H || n[57] !== u || n[58] !== _
+        ? ((ce = c.jsx(r("WAWebBizProductInfo.react"), {
             trusted: _,
-            onClick: V,
+            onClick: H,
             msgKey: u,
             displayType: i,
           })),
-          (n[54] = i),
-          (n[55] = V),
-          (n[56] = u),
-          (n[57] = _),
-          (n[58] = ue))
-        : (ue = n[58]);
-      var ce;
-      n[59] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ce =
-            "x1n2onr6 x78zum5 x6s0dn4 xl56j7k x193iq5w x6ikm8r x10wlt62 x1ypdohk x1i282gy xx9ypkp"),
+          (n[55] = i),
+          (n[56] = H),
+          (n[57] = u),
+          (n[58] = _),
           (n[59] = ce))
         : (ce = n[59]);
       var de;
-      n[60] !== i ||
-      n[61] !== V ||
-      n[62] !== x ||
-      n[63] !== u ||
-      n[64] !== m ||
-      n[65] !== G ||
-      n[66] !== ue ||
-      n[67] !== _
-        ? ((de = c.jsx(r("WAWebMessagePicture.react"), {
+      n[60] === Symbol.for("react.memo_cache_sentinel")
+        ? ((de =
+            "x1n2onr6 x78zum5 x6s0dn4 xl56j7k x193iq5w x6ikm8r x10wlt62 x1ypdohk x1i282gy xx9ypkp"),
+          (n[60] = de))
+        : (de = n[60]);
+      var me;
+      n[61] !== i ||
+      n[62] !== H ||
+      n[63] !== F ||
+      n[64] !== u ||
+      n[65] !== m ||
+      n[66] !== z ||
+      n[67] !== ce ||
+      n[68] !== _
+        ? ((me = c.jsx(r("WAWebMessagePicture.react"), {
             msgKey: u,
-            mediaData: x,
-            hideMeta: G,
+            mediaData: F,
+            hideMeta: z,
             trusted: _,
             displayAuthor: !1,
             displayType: i,
-            contentContainerClassName: se,
-            captionComponent: ue,
-            thumbClassName: ce,
-            onThumbClick: V,
+            contentContainerClassName: ue,
+            captionComponent: ce,
+            thumbClassName: de,
+            onThumbClick: H,
             quotedMsg: m,
           })),
-          (n[60] = i),
-          (n[61] = V),
-          (n[62] = x),
-          (n[63] = u),
-          (n[64] = m),
-          (n[65] = G),
-          (n[66] = ue),
-          (n[67] = _),
-          (n[68] = de))
-        : (de = n[68]);
-      var me = z,
-        pe = H && g.btnBorder,
-        _e = l
+          (n[61] = i),
+          (n[62] = H),
+          (n[63] = F),
+          (n[64] = u),
+          (n[65] = m),
+          (n[66] = z),
+          (n[67] = ce),
+          (n[68] = _),
+          (n[69] = me))
+        : (me = n[69]);
+      var pe = j,
+        _e = G && g.btnBorder,
+        fe = l
           ? o("WDSPaddings.stylex").wdsPaddings.paddingBottom0
           : f.paddingBottom10,
-        fe;
-      n[69] !== pe || n[70] !== _e
-        ? ((fe = [g.productCta, g.productCtaColorV2, pe, f.paddingTop7, _e]),
-          (n[69] = pe),
+        ge;
+      n[70] !== _e || n[71] !== fe
+        ? ((ge = [g.productCta, g.productCtaColorV2, _e, f.paddingTop7, fe]),
           (n[70] = _e),
-          (n[71] = fe))
-        : (fe = n[71]);
-      var ge;
-      n[72] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ge = s._(/*BTDS*/ "View")), (n[72] = ge))
+          (n[71] = fe),
+          (n[72] = ge))
         : (ge = n[72]);
       var he;
-      n[73] !== V || n[74] !== fe
-        ? ((he = c.jsx(o("WAWebEmojiText.react").EmojiText, {
-            xstyle: fe,
-            onClick: V,
-            text: ge,
-          })),
-          (n[73] = V),
-          (n[74] = fe),
-          (n[75] = he))
-        : (he = n[75]);
+      n[73] === Symbol.for("react.memo_cache_sentinel")
+        ? ((he = s._(/*BTDS*/ "View")), (n[73] = he))
+        : (he = n[73]);
       var ye;
+      n[74] !== H || n[75] !== ge
+        ? ((ye = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+            xstyle: ge,
+            onClick: H,
+            text: he,
+          })),
+          (n[74] = H),
+          (n[75] = ge),
+          (n[76] = ye))
+        : (ye = n[76]);
+      var Ce;
       return (
-        n[76] !== ie ||
-        n[77] !== z ||
-        n[78] !== de ||
-        n[79] !== he ||
-        n[80] !== le
-          ? ((ye = c.jsxs(
+        n[77] !== le ||
+        n[78] !== j ||
+        n[79] !== me ||
+        n[80] !== ye ||
+        n[81] !== se
+          ? ((Ce = c.jsxs(
               "div",
-              babelHelpers.extends({}, le, { children: [ie, de, me, he] }),
+              babelHelpers.extends({}, se, { children: [le, me, pe, ye] }),
             )),
-            (n[76] = ie),
-            (n[77] = z),
-            (n[78] = de),
-            (n[79] = he),
-            (n[80] = le),
-            (n[81] = ye))
-          : (ye = n[81]),
-        ye
+            (n[77] = le),
+            (n[78] = j),
+            (n[79] = me),
+            (n[80] = ye),
+            (n[81] = se),
+            (n[82] = Ce))
+          : (Ce = n[82]),
+        Ce
       );
     }
     l.default = h;

@@ -384,8 +384,8 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
-            e.length < o("WAWebUsernameTypes").USERNAME_MIN_LENGTH ||
-            e.length > o("WAWebUsernameTypes").USERNAME_MAX_LENGTH
+            e.length < o("WAWebUsernameGatingUtils").usernameMinLength() ||
+            e.length > o("WAWebUsernameGatingUtils").usernameMaxLength()
           )
             return null;
           var r = new (o("WAWebUsyncUser").USyncUser)(),

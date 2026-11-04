@@ -949,8 +949,8 @@ __d(
               var n = e.startTime,
                 r = t.startTime;
               return (
-                o("WATimeUtils").castToUnixTime(parseInt(n, 10)) -
-                o("WATimeUtils").castToUnixTime(parseInt(r, 10))
+                o("WATimeUtils").castToUnixTime(parseInt(String(n), 10)) -
+                o("WATimeUtils").castToUnixTime(parseInt(String(r), 10))
               );
             }),
             yield (O || (O = n("Promise"))).all(

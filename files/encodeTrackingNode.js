@@ -14,7 +14,10 @@ __d(
               String.fromCharCode(
                 o("TrackingNodeConstants").BASE_CODE_START + i,
               ) + e),
-              (r = parseInt(r / o("TrackingNodeConstants").BASE_CODE_SIZE, 10)),
+              (r = parseInt(
+                String(r / o("TrackingNodeConstants").BASE_CODE_SIZE),
+                10,
+              )),
               (a -= 1));
           }
           return e;
@@ -36,7 +39,10 @@ __d(
               ) + r(e, 3));
         },
         i = (e - 1) % o("TrackingNodeConstants").BASE_CODE_SIZE,
-        l = parseInt((e - 1) / o("TrackingNodeConstants").BASE_CODE_SIZE, 10);
+        l = parseInt(
+          String((e - 1) / o("TrackingNodeConstants").BASE_CODE_SIZE),
+          10,
+        );
       if (
         e < 1 ||
         e >
@@ -63,7 +69,9 @@ __d(
           t > 0 &&
           (t > 10 && (u += "#"),
           (u += parseInt(
-            Math.min(t, o("TrackingNodeConstants").ENCODE_NUMBER_MAX) - 1,
+            String(
+              Math.min(t, o("TrackingNodeConstants").ENCODE_NUMBER_MAX) - 1,
+            ),
             10,
           ))),
         u

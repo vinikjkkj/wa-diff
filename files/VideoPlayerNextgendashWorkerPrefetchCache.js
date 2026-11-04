@@ -356,7 +356,6 @@ __d(
       return {
         abrPolicyTags: [],
         bandwidth: e.bandwidth,
-        contentProtections: void 0,
         height: e.height,
         lang: null,
         mimeCodecsParsed: o("VideoPlayerNextgendashMediaUtils").parseMimeCodecs(

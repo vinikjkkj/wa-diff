@@ -10,6 +10,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebVoipAcquireMediaStream",
+    "WAWebVoipAutoPopoutLoader",
     "WAWebVoipCreateCallLink",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
@@ -24,29 +25,48 @@ __d(
       d,
       m = d || (d = o("react"));
     function p(e) {
-      return _.apply(this, arguments);
+      var t;
+      (t = o("WAWebVoipAutoPopoutLoader").getAutoPopout()) == null ||
+        t.closePreOpenedAutoPopout(e);
     }
-    function _() {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a,
+            i = "not_sent",
+            l =
+              (a = o("WAWebVoipAutoPopoutLoader").getAutoPopout()) == null
+                ? void 0
+                : a.maybePreOpenAutoPopoutForVideoCall({
+                    cancelStart: function () {
+                      return i === "sent" ? !1 : ((i = "cancelled"), !0);
+                    },
+                    isGroupCall: !0,
+                    isVideo: !0,
+                    needsCamera: !0,
+                    needsMicrophone: !0,
+                  });
           try {
             if (o("WAWebVoipStackInterface").getVoipStackInterface == null)
               throw r("err")("not in windows env");
-            var a = yield o(
+            var d = yield o(
               "WAWebVoipAcquireMediaStream",
             ).checkVoipDevicePermissions(!0);
-            if (!a) return !1;
-            var i = yield (c || (c = n("Promise"))).all([
+            if (!d) return (p(l), !1);
+            var _ = yield (c || (c = n("Promise"))).all([
                 o("WAWebVoipStackInterface").getVoipStackInterface(),
                 o("WAWebVoipCreateCallLink").createCallLink({
                   callType: "video",
                 }),
                 o("WAWebEnsureVoipInited").ensureVoipInitialized(),
               ]),
-              l = i[0],
-              d = i[1],
-              p = o("WAWebApiParse").parseCallLink(d);
-            if (p == null)
+              f = _[0],
+              g = _[1],
+              h = o("WAWebApiParse").parseCallLink(g);
+            if (h == null)
               throw (
                 o("WALogger")
                   .ERROR(
@@ -55,19 +75,22 @@ __d(
                         "[voip] start call failed: malformed link ",
                         "",
                       ])),
-                    d,
+                    g,
                   )
                   .sendLogs("voip-landing-page-start-call-link-malformed"),
                 r("err")("malformed call link")
               );
-            if (l == null) throw r("err")("voip stack interface unavailable");
-            var _ = o("WAWebFrontendContactGetters").getMyUsername(),
-              f = yield l.previewAndJoinCallLink(p.data.token, !0, t, _);
-            if (f != null && f !== 0)
-              throw r("err")("previewAndJoinCallLink refused with status " + f);
+            if (f == null) throw r("err")("voip stack interface unavailable");
+            if (i === "cancelled") return !1;
+            i = "sent";
+            var y = o("WAWebFrontendContactGetters").getMyUsername(),
+              C = yield f.previewAndJoinCallLink(h.data.token, !0, t, y);
+            if (C != null && C !== 0)
+              throw r("err")("previewAndJoinCallLink refused with status " + C);
             return !0;
           } catch (e) {
             return (
+              p(l),
               e instanceof
                 o("WAWebEnsureVoipInited").VoipInitUnavailableError ||
                 (o("WALogger")
@@ -93,10 +116,10 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.startEmptyCall = p;
+    l.startEmptyCall = _;
   },
   226,
 );

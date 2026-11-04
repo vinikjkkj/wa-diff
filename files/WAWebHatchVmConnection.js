@@ -27,61 +27,100 @@ __d(
       m,
       p,
       _,
-      f = 3,
+      f = 5,
       g = 2,
       h = 0.1,
       y = 2e3,
       C = 3e4,
-      b = 3e4,
+      b = 6e4,
       v = new Set(["handshake_timeout", "unreachable", "ws_dropped"]),
-      S = n("$InternalEnum").Mirrored(["Linked", "Unlinked", "Unknown"]),
-      R = "abandoned",
-      L = "downgrade_refused",
-      E = { failure: "aborted", kind: "failed" },
-      k = { failure: "threw", kind: "failed" },
-      I = { failure: "stale_generation", kind: "failed" },
-      T = null,
-      D = 0,
-      x = 0,
-      $ = !1,
-      P = !1,
-      N = new Set();
-    function M() {
-      ie();
-      var e = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
-      if (e != null) return (_ || (_ = n("Promise"))).resolve(e);
-      var t = z();
-      return ((t.demand.unabortable = !0), t.api);
-    }
-    function w(e) {
-      if (e != null) return A(e);
-      var t = M(),
-        n = T;
-      return t.then(function (e) {
-        return e != null
-          ? { kind: "ready", api: e }
-          : G(n == null ? void 0 : n.failure);
+      S = new Set([
+        "attestation_rejected",
+        "handshake_failed",
+        "handshake_timeout",
+        "unreachable",
+        "ws_dropped",
+      ]),
+      R = n("$InternalEnum").Mirrored(["Linked", "Unlinked", "Unknown"]),
+      L = "abandoned",
+      E = "downgrade_refused",
+      k = { failure: "aborted", kind: "failed" },
+      I = { failure: "threw", kind: "failed" },
+      T = { failure: "stale_generation", kind: "failed" },
+      D = null,
+      x = null,
+      $ = 0,
+      P = 0,
+      N = !1,
+      M = !1,
+      w = new Set();
+    function A() {
+      return F().then(function (e) {
+        return e.kind === "ready" ? e.api : null;
       });
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function F(e) {
+      if ((me(), (e == null ? void 0 : e.aborted) === !0))
+        return (_ || (_ = n("Promise"))).resolve(k);
+      var t = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
+      return t != null
+        ? (_ || (_ = n("Promise"))).resolve({ kind: "ready", api: t })
+        : O(e);
     }
-    function F() {
+    function O(e) {
+      var t,
+        r = (t = B()) != null ? t : W();
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if ((ie(), e.aborted)) return E;
-          var t = D,
+        r.waiters++,
+        e == null
+          ? r.result
+          : new (_ || (_ = n("Promise")))(function (t) {
+              var n = function () {
+                (r.waiters--,
+                  r.waiters === 0 &&
+                    (r.controller.abort(), x === r && (x = null)),
+                  t(k));
+              };
+              (e.addEventListener("abort", n, { once: !0 }),
+                r.result.then(function (r) {
+                  (e.removeEventListener("abort", n), t(r));
+                }));
+            })
+      );
+    }
+    function B() {
+      return x != null && x.generation === $ && !x.controller.signal.aborted
+        ? x
+        : null;
+    }
+    function W() {
+      var e = new AbortController(),
+        t = q(e.signal).finally(function () {
+          var e;
+          ((e = x) == null ? void 0 : e.result) === t && (x = null);
+        }),
+        n = { controller: e, generation: $, result: t, waiters: 0 };
+      return ((x = n), n);
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if ((me(), e.aborted)) return k;
+          var t = $,
             a = new AbortController(),
             i = function () {
               return a.abort();
             };
           e.addEventListener("abort", i, { once: !0 });
-          var l = se(i),
+          var l = _e(i),
             s = null,
-            u = E,
+            u = k,
             c = r("err")("Muse VM channel refused"),
             d = function () {
-              return a.signal.aborted || D !== t;
+              return a.signal.aborted || $ !== t;
             },
             m;
           try {
@@ -98,28 +137,24 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, t) {
-                    var n;
                     if (
-                      (t === 1 && V(u),
+                      (t === 1 && K(u),
                       t > 0 && !r("WAWebNetworkStatus").online)
                     ) {
-                      var l = u;
-                      if (((u = q(u, "offline")), !(yield W(a.signal))))
+                      var n = u;
+                      if (((u = z(u, "offline")), !(yield G(a.signal))))
                         return u;
-                      u = l;
+                      u = n;
                     }
                     if (d()) return u;
-                    var m = yield O(a.signal);
-                    if (((u = m.result), u.kind === "ready")) return (H(t), u);
-                    if (d() || !B(u)) return u;
-                    s != null || (s = U(i));
-                    var p = (n = m.failure) == null ? void 0 : n.credentials;
+                    var o = yield V(a.signal);
                     return (
-                      p != null &&
-                        o(
-                          "WAWebHatchVmCredentials",
-                        ).waWebHatchVmCredentials.refreshVm(p),
-                      e(c)
+                      (u = o.result),
+                      u.kind === "ready"
+                        ? (Q(t), u)
+                        : d() || !H(u)
+                          ? u
+                          : (s != null || (s = j(i)), e(c))
                     );
                   },
                 );
@@ -138,26 +173,26 @@ __d(
                       "hatch-vm: connect retry threw name=",
                       "",
                     ])),
-                  de(e),
+                  he(e),
                 )
                 .sendLogs("hatch-vm-connect-retry-threw"),
               (m = u));
           } finally {
             (s == null || s(), e.removeEventListener("abort", i), l());
           }
-          return m.kind === "ready" ? m : e.aborted ? E : D === t ? m : I;
+          return m.kind === "ready" ? m : e.aborted ? k : $ === t ? m : T;
         })),
-        F.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function O(e) {
+    function V(e) {
       var t = o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
       if (t != null)
         return (_ || (_ = n("Promise"))).resolve({
           failure: null,
           result: { api: t, kind: "ready" },
         });
-      var r = z();
+      var r = Y();
       r.demand.waiters++;
       var a = !0,
         i = function () {
@@ -173,16 +208,16 @@ __d(
             l(),
             {
               failure: r.failure,
-              result: e != null ? { api: e, kind: "ready" } : G(r.failure),
+              result: e != null ? { api: e, kind: "ready" } : X(r.failure),
             }
           );
         },
         function () {
-          return (l(), { failure: r.failure, result: k });
+          return (l(), { failure: r.failure, result: I });
         },
       );
     }
-    function B(e) {
+    function H(e) {
       return (
         e.kind === "failed" &&
         e.failure === "channel" &&
@@ -190,7 +225,7 @@ __d(
         v.has(e.cause)
       );
     }
-    function W(e) {
+    function G(e) {
       return new (_ || (_ = n("Promise")))(function (t) {
         if (e.aborted) {
           t(!1);
@@ -206,18 +241,18 @@ __d(
         r("WAWebNetworkStatus").waitIfOffline().then(o, o);
       });
     }
-    function q(e, t) {
+    function z(e, t) {
       return e.kind === "failed"
         ? { cause: t, failure: e.failure, kind: "failed" }
         : e;
     }
-    function U(e) {
+    function j(e) {
       var t = self.setTimeout(e, b);
       return function () {
         return self.clearTimeout(t);
       };
     }
-    function V(t) {
+    function K(t) {
       var n = t.kind === "failed" ? t.cause : null;
       o("WALogger")
         .LOG(
@@ -230,7 +265,7 @@ __d(
         )
         .sendLogs("hatch-vm-connect-retried");
     }
-    function H(e) {
+    function Q(e) {
       e > 0 &&
         o("WALogger")
           .LOG(
@@ -243,7 +278,7 @@ __d(
           )
           .sendLogs("hatch-vm-connect-recovered");
     }
-    function G(e) {
+    function X(e) {
       var t,
         n = e == null ? void 0 : e.cause,
         r = (t = e == null ? void 0 : e.current) != null ? t : "no_api";
@@ -251,74 +286,17 @@ __d(
         ? { failure: r, kind: "failed" }
         : { cause: n, failure: r, kind: "failed" };
     }
-    function z() {
-      if (T == null) {
-        var e = { cause: null, credentials: null, current: null, detail: null },
-          t = { unabortable: !1, waiters: 0 },
-          n = j(e, t).finally(function () {
-            var e;
-            ((e = T) == null ? void 0 : e.api) === n && (T = null);
-          });
-        T = { api: n, demand: t, failure: e };
-      }
-      return T;
-    }
-    function j(e, t) {
-      return K.apply(this, arguments);
-    }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = D;
-          x = n;
-          var r = yield X(e, function () {
-            return Q(n, t);
-          });
-          return D !== n
-            ? (x === n && pe(),
-              (e.current = "stale_generation"),
-              (e.cause = null),
-              null)
-            : (r == null && ae(e),
-              r == null && e.current == null && (e.current = "no_api"),
-              r);
-        })),
-        K.apply(this, arguments)
-      );
-    }
-    function Q(e, t) {
-      return D === e && (t.unabortable || t.waiters > 0);
-    }
-    function X(e, t) {
-      return Y.apply(this, arguments);
-    }
     function Y() {
-      return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-            "WAWebHatchVmCredentials",
-          ).waWebHatchVmCredentials.resolve();
-          if (n.kind !== "ok") return ee(e, "credentials", n.detail, n.cause);
-          var r = n.credentials;
-          e.credentials = r;
-          try {
-            var a = yield J(r, t);
-            if (a === L)
-              return ee(
-                e,
-                "credentials",
-                "A known confidential VM answered as standard",
-                "cvm_downgrade_refused",
-              );
-            if (a === R) return ee(e, "aborted", null, null);
-            if (a != null) return ee(e, "channel", a.detail, a.cause);
-          } catch (t) {
-            return ee(e, "threw", t, null);
-          }
-          return o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
-        })),
-        Y.apply(this, arguments)
-      );
+      if (D == null) {
+        var e = { cause: null, credentials: null, current: null, detail: null },
+          t = { waiters: 0 },
+          n = J(e, t).finally(function () {
+            var e;
+            ((e = D) == null ? void 0 : e.api) === n && (D = null);
+          });
+        D = { api: n, demand: t, failure: e };
+      }
+      return D;
     }
     function J(e, t) {
       return Z.apply(this, arguments);
@@ -326,42 +304,108 @@ __d(
     function Z() {
       return (
         (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebHatchCvmConnect").refuseHatchCvmDowngrade(e);
-          return n
-            ? L
-            : (t() && o("WAWebHatchCvmConnect").recordHatchVmType(e),
-              e.confidential === !0 ? te(e, t) : re(e, t));
+          var n = $;
+          P = n;
+          var r = yield ne(e, function () {
+            return te(n, t);
+          });
+          return $ !== n
+            ? (P === n && Ce(),
+              (e.current = "stale_generation"),
+              (e.cause = null),
+              null)
+            : (r == null && (de(e), ee(e)),
+              r == null && e.current == null && (e.current = "no_api"),
+              r);
         })),
         Z.apply(this, arguments)
       );
     }
-    function ee(e, t, n, r) {
-      return ((e.current = t), (e.cause = r), (e.detail = n), null);
+    function ee(e) {
+      var t = e.cause,
+        n = e.credentials;
+      n != null &&
+        t != null &&
+        e.current === "channel" &&
+        S.has(t) &&
+        o("WAWebHatchVmCredentials").waWebHatchVmCredentials.refreshVm(n);
     }
     function te(e, t) {
-      return ne.apply(this, arguments);
+      return $ === e && t.waiters > 0;
     }
-    function ne() {
+    function ne(e, t) {
+      return re.apply(this, arguments);
+    }
+    function re() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!t()) return R;
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+            "WAWebHatchVmCredentials",
+          ).waWebHatchVmCredentials.resolve();
+          if (n.kind !== "ok") return ie(e, "credentials", n.detail, n.cause);
+          var r = n.credentials;
+          e.credentials = r;
+          try {
+            var a = yield oe(r, t);
+            if (a === E)
+              return ie(
+                e,
+                "credentials",
+                "A known confidential VM answered as standard",
+                "cvm_downgrade_refused",
+              );
+            if (a === L) return ie(e, "aborted", null, null);
+            if (a != null) return ie(e, "channel", a.detail, a.cause);
+          } catch (t) {
+            return ie(e, "threw", t, null);
+          }
+          return o("WAWebHatchVmSession").waWebHatchVmSession.connectedApi();
+        })),
+        re.apply(this, arguments)
+      );
+    }
+    function oe(e, t) {
+      return ae.apply(this, arguments);
+    }
+    function ae() {
+      return (
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebHatchCvmConnect").refuseHatchCvmDowngrade(e);
+          return n
+            ? E
+            : (t() && o("WAWebHatchCvmConnect").recordHatchVmType(e),
+              e.confidential === !0 ? le(e, t) : ue(e, t));
+        })),
+        ae.apply(this, arguments)
+      );
+    }
+    function ie(e, t, n, r) {
+      return ((e.current = t), (e.cause = r), (e.detail = n), null);
+    }
+    function le(e, t) {
+      return se.apply(this, arguments);
+    }
+    function se() {
+      return (
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!t()) return L;
           var n = yield o("WAWebHatchCvmConnect").connectHatchConfidentialVm({
             acceptLanguage: r("WAWebL10N").getFullLocale(),
             credentials: e,
             isStillWanted: t,
           });
-          return (n == null ? void 0 : n.cause) === "superseded" ? R : n;
+          return (n == null ? void 0 : n.cause) === "superseded" ? L : n;
         })),
-        ne.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function re(e, t) {
-      return oe.apply(this, arguments);
+    function ue(e, t) {
+      return ce.apply(this, arguments);
     }
-    function oe() {
+    function ce() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!t()) return R;
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!t()) return L;
           o("WAWebHatchCvmConnect").reportHatchStandardDialWithStoredCvmKey();
           var n = yield o("WAWebHatchVmSession").waWebHatchVmSession.connect({
             acceptLanguage: r("WAWebL10N").getFullLocale(),
@@ -391,10 +435,10 @@ __d(
             );
           })(n);
         })),
-        oe.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function ae(e) {
+    function de(e) {
       var t = e.cause,
         n = e.current,
         r = e.detail;
@@ -422,17 +466,17 @@ __d(
         a.devConsole(r).sendLogs("hatch-vm-connect-failed");
       }
     }
-    function ie() {
-      P ||
-        ((P = !0),
-        ($ = me() !== S.Unlinked),
+    function me() {
+      M ||
+        ((M = !0),
+        (N = ye() !== R.Unlinked),
         r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(function () {
-          var e = me();
-          if (e !== S.Unknown) {
-            var t = $;
-            if ((($ = e === S.Linked), t && !$)) {
-              (D++,
-                pe(),
+          var e = ye();
+          if (e !== R.Unknown) {
+            var t = N;
+            if (((N = e === R.Linked), t && !N)) {
+              ($++,
+                Ce(),
                 o("WAWebHatchCvmSecretPref").clearHatchCvmState(),
                 o("WALogger").LOG(
                   d ||
@@ -440,24 +484,24 @@ __d(
                       "hatch-vm: cleared on unlink",
                     ])),
                 ));
-              for (var n of Array.from(N)) ue(n);
+              for (var n of Array.from(w)) fe(n);
             }
           }
         }));
     }
-    function le() {
-      return (ie(), D);
+    function pe() {
+      return (me(), $);
     }
-    function se(e) {
+    function _e(e) {
       return (
-        ie(),
-        N.add(e),
+        me(),
+        w.add(e),
         function () {
-          N.delete(e);
+          w.delete(e);
         }
       );
     }
-    function ue(e) {
+    function fe(e) {
       try {
         e();
       } catch (e) {
@@ -468,12 +512,12 @@ __d(
                 "hatch-vm: an account change listener failed name=",
                 "",
               ])),
-            de(e),
+            he(e),
           )
           .sendLogs("hatch-vm-account-listener-failed");
       }
     }
-    var ce = new Set([
+    var ge = new Set([
       "AggregateError",
       "Error",
       "EvalError",
@@ -483,7 +527,7 @@ __d(
       "TypeError",
       "URIError",
     ]);
-    function de(e) {
+    function he(e) {
       if (!(e instanceof Error)) return typeof e;
       var t;
       try {
@@ -491,13 +535,13 @@ __d(
       } catch (e) {
         return "Error";
       }
-      return typeof t == "string" && ce.has(t) ? t : "Error";
+      return typeof t == "string" && ge.has(t) ? t : "Error";
     }
-    function me() {
+    function ye() {
       return (function (e) {
-        if (e === "linked") return S.Linked;
-        if (e === "unlinked") return S.Unlinked;
-        if (e == null) return S.Unknown;
+        if (e === "linked") return R.Linked;
+        if (e === "unlinked") return R.Unlinked;
+        if (e == null) return R.Unknown;
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             e,
@@ -506,16 +550,17 @@ __d(
         r("WAWebHatchLinkedStatusManager").getLastConfirmedLinkedStatusState(),
       );
     }
-    function pe() {
-      ((T = null),
+    function Ce() {
+      ((D = null),
+        (x = null),
         o("WAWebHatchCvmAttestedVms").clearHatchCvmAttestedVms(),
         o("WAWebHatchVmCredentials").waWebHatchVmCredentials.invalidate(),
         o("WAWebHatchVmSession").waWebHatchVmSession.disconnect());
     }
-    ((l.connectHatchVmApi = M),
-      (l.connectHatchVmApiWithResult = w),
-      (l.getHatchVmAccountGeneration = le),
-      (l.subscribeToHatchVmAccountChange = se));
+    ((l.connectHatchVmApi = A),
+      (l.connectHatchVmApiWithResult = F),
+      (l.getHatchVmAccountGeneration = pe),
+      (l.subscribeToHatchVmAccountChange = _e));
   },
   98,
 );

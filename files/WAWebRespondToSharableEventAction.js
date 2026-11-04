@@ -3,6 +3,8 @@ __d(
   [
     "fbt",
     "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventJoinViaLinkJob",
+    "WAWebSharableEventLinkPreview",
     "WAWebSharableEventPageLoadAction",
     "WAWebSharableEventServerError",
     "WAWebSharableEventUpdateRsvpJob",
@@ -21,28 +23,55 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            yield o("WAWebSharableEventUpdateRsvpJob").updateSharableEventRsvp(
-              e,
-              t,
-            );
+            yield m(e, t);
           } catch (t) {
             var n = o(
                 "WAWebSharableEventFailureLogger",
               ).logSharableEventFailure("respond", t),
               r = n.kind;
             (o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, { msg: m(r) }),
+              u.jsx(o("WAWebToast.react").Toast, { msg: _(r) }),
             ),
               r ===
                 o("WAWebSharableEventServerError").SharableEventErrorKind
                   .Unavailable &&
-                o("WAWebSharableEventPageLoadAction").loadSharableEventPage(e));
+                (o(
+                  "WAWebSharableEventLinkPreview",
+                ).dropSharableEventLinkPreview(e),
+                o("WAWebSharableEventPageLoadAction").loadSharableEventPage(
+                  e,
+                )));
           }
         })),
         d.apply(this, arguments)
       );
     }
-    function m(e) {
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebSharableEventLinkPreview").getSharableEventLinkToken(
+            e,
+          );
+          if (n == null) {
+            yield o("WAWebSharableEventUpdateRsvpJob").updateSharableEventRsvp(
+              e,
+              t,
+            );
+            return;
+          }
+          (yield o("WAWebSharableEventJoinViaLinkJob").joinSharableEventViaLink(
+            n,
+            t,
+          ),
+            o("WAWebSharableEventLinkPreview").endSharableEventLinkPreview(e));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
       return e ===
         o("WAWebSharableEventServerError").SharableEventErrorKind.Transport
         ? s._(

@@ -105,7 +105,7 @@ __d(
             var e = _.get(t, "filter");
             if (e) {
               var n = /(\d+(?:\.\d+)?)/.exec(e);
-              if (n) return parseFloat(n.pop()) / 100;
+              if (n) return parseFloat(String(n.pop())) / 100;
             }
           }
           return _.getFloat(t, "opacity") || 1;

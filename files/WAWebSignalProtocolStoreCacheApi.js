@@ -128,7 +128,7 @@ __d(
           return (
             this.Dirty.preKey.forEach(function (n) {
               var r = e.PrekeyStore.get(n);
-              r != null && r.deleted && t.push(parseInt(n, 10));
+              r != null && r.deleted && t.push(parseInt(String(n), 10));
             }),
             t
           );

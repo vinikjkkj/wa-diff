@@ -94,6 +94,13 @@ __d(
                         alias: null,
                         args: null,
                         kind: "ScalarField",
+                        name: "display_last_name",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
                         name: "member_tag",
                         storageKey: null,
                       },
@@ -146,7 +153,7 @@ __d(
           selections: a,
         },
         params: {
-          id: "28641250612201754",
+          id: "29953677947553394",
           metadata: {},
           name: "WAWebOrgAdminGraphQLMemberSearchQuery",
           operationKind: "query",

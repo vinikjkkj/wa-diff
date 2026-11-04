@@ -31,7 +31,7 @@ __d(
         var n = t.prototype;
         return (
           (n.setAiSessionId = function (t) {
-            this.$5 = t;
+            this.$6 = t;
           }),
           (n.setEntryPoint = function (t) {
             this.$1 = t;
@@ -45,14 +45,26 @@ __d(
           (n.getBotMetricsEntryPoint = function () {
             return this.$2;
           }),
+          (n.recordThreadBotMetrics = function (t, n) {
+            this.$3 = { chatId: t, metadata: n };
+          }),
+          (n.clearThreadBotMetrics = function (t) {
+            var e;
+            ((e = this.$3) == null ? void 0 : e.chatId.equals(t)) === !0 &&
+              (this.$3 = null);
+          }),
+          (n.getThreadBotMetricsMetadata = function (t) {
+            var e = this.$3;
+            return e == null || !e.chatId.equals(t) ? null : e.metadata;
+          }),
           (n.setDestinationId = function (t) {
-            this.$3 = t;
+            this.$4 = t;
           }),
           (n.getDestinationId = function () {
-            return this.$3;
+            return this.$4;
           }),
           (n.setBotPersonaId = function (t) {
-            this.$4 = t;
+            this.$5 = t;
           }),
           (n.log = function (n) {
             var t,
@@ -73,7 +85,7 @@ __d(
                 actionType: a,
                 botEntryPoint: f,
                 rawBotEntryPoint: g != null ? g : void 0,
-                botPersonaId: (r = this.$4) != null ? r : void 0,
+                botPersonaId: (r = this.$5) != null ? r : void 0,
                 uiSurface: _,
                 aiSessionId: l,
                 eventTsMs: m,
@@ -190,7 +202,7 @@ __d(
               actionType: o("WAWebWamEnumChatFilterActionTypes")
                 .CHAT_FILTER_ACTION_TYPES.CONVERSATION_STARTER_TAP,
               uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT,
-              aiSessionId: (e = this.$5) != null ? e : void 0,
+              aiSessionId: (e = this.$6) != null ? e : void 0,
               conversationStarterName: t != null ? t : void 0,
               conversationStarterIndex: n,
               eventTsMs: a,
@@ -202,7 +214,7 @@ __d(
                   .BOT_ENTRY_POINT_TYPE.AI_NULL_STATE,
                 originEntryPoint: this.$1,
                 uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT,
-                aiSessionId: (r = this.$5) != null ? r : void 0,
+                aiSessionId: (r = this.$6) != null ? r : void 0,
                 eventTsMs: a,
               }));
           }),
@@ -217,7 +229,7 @@ __d(
                   .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_IMPRESSION,
                 entryPoint: n,
                 uiSurface: t,
-                aiSessionId: (e = this.$5) != null ? e : void 0,
+                aiSessionId: (e = this.$6) != null ? e : void 0,
                 eventTsMs: Date.now(),
               });
           }),
@@ -231,7 +243,7 @@ __d(
                   actionType: o("WAWebWamEnumChatFilterActionTypes")
                     .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
                   uiSurface: t,
-                  aiSessionId: (e = this.$5) != null ? e : void 0,
+                  aiSessionId: (e = this.$6) != null ? e : void 0,
                   eventTsMs: Date.now(),
                 }));
           }),

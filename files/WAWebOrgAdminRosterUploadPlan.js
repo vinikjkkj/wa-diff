@@ -302,21 +302,27 @@ __d(
         r,
         a,
         i,
-        l = [];
+        l,
+        s,
+        u = [];
       return (
-        t.name !== e.name && l.push("name"),
-        ((n = t.lastName) != null ? n : null) !==
-          ((r = e.lastName) != null ? r : null) && l.push("last_name"),
-        ((a = t.memberTag) != null ? a : null) !==
-          ((i = e.memberTag) != null ? i : null) && l.push("member_tag"),
+        t.name.normalize("NFC") !== e.name.normalize("NFC") && u.push("name"),
+        ((n = (r = t.lastName) == null ? void 0 : r.normalize("NFC")) != null
+          ? n
+          : null) !==
+          ((a = (i = e.lastName) == null ? void 0 : i.normalize("NFC")) != null
+            ? a
+            : null) && u.push("last_name"),
+        ((l = t.memberTag) != null ? l : null) !==
+          ((s = e.memberTag) != null ? s : null) && u.push("member_tag"),
         k(t.secondaryMemberTag) !== k(e.secondaryMemberTag) &&
-          l.push("secondary_member_tag"),
+          u.push("secondary_member_tag"),
         I(
           t.phoneNumber,
           e.phoneNumber,
           o("WAWebOrgAdminGroupCandidate").normalizeOrgAdminRosterPhoneNumber,
-        ) || l.push("phone"),
-        l
+        ) || u.push("phone"),
+        u
       );
     }
     function k(e) {

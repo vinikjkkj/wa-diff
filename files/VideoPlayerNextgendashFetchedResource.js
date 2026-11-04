@@ -1187,23 +1187,19 @@ __d(
                   c = r.bandwidthSamplingState,
                   d = e.config.enablePrefetchBandwidthSampling && a != null;
                 if (n.reportToBandwidthEstimator === !0 && !d) {
-                  var m = e.config.enableNonOverlappingStreamBandwidthSampling,
-                    _ = m ? !r.streamReaderDone : r.streamReaderDone;
-                  if (_) {
-                    var f = o(
+                  if (r.streamReaderDone) {
+                    var m = o(
                       "VideoPlayerNextgendashNetworkDiagnosticsUtils",
                     ).computeNetworkDiagnosticsSampleOnChunk(
                       r.bandwidthSamplingState,
                       l,
                       t,
-                      { sampleOnlyAfterByteThreshold: m },
                     );
-                    ((s = f.networkDiagnosticsSample),
-                      (c = f.nextBandwidthSamplingState),
-                      s && e.host.networkDiagnosticsUpdate(s));
+                    ((s = m.networkDiagnosticsSample),
+                      (c = m.nextBandwidthSamplingState));
                   }
-                  (!m || r.streamReaderDone) &&
-                    ((s = o(
+                  (s && e.host.networkDiagnosticsUpdate(s),
+                    (s = o(
                       "VideoPlayerNextgendashNetworkDiagnosticsUtils",
                     ).computeNetworkDiagnosticsSampleOnDone(
                       e,
@@ -1216,13 +1212,13 @@ __d(
                 }
                 if (r.streamReaderDone) {
                   p(e, r);
-                  var g = r.dataBytesLengthFlushed,
-                    h = r.streamReader,
-                    y = r.streamReaderDone,
-                    C = r.streamReaderFlushIntervalID,
-                    v = r.streamReaderFlushTimeoutID,
-                    S = babelHelpers.objectWithoutPropertiesLoose(r, u);
-                  ((b.state = babelHelpers.extends({}, S, {
+                  var _ = r.dataBytesLengthFlushed,
+                    f = r.streamReader,
+                    g = r.streamReaderDone,
+                    h = r.streamReaderFlushIntervalID,
+                    y = r.streamReaderFlushTimeoutID,
+                    C = babelHelpers.objectWithoutPropertiesLoose(r, u);
+                  ((b.state = babelHelpers.extends({}, C, {
                     networkDiagnosticsSample: s,
                     state: "done_stream",
                   })),

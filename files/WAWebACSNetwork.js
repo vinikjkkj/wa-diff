@@ -5,8 +5,10 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebACSClient",
+    "WAWebCRUDOperationsACSTokens",
     "WAWebCanonicalUtils",
     "WAWebHttpExtendedFetch",
+    "WAWebModelStorageUtils",
     "WAWebRedeemACSCredential",
     "asyncToGeneratorRuntime",
     "err",
@@ -39,9 +41,9 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (m(t))
+          if (_(t))
             try {
-              return yield p(t, n);
+              return yield f(t, n);
             } catch (n) {
               o("WALogger")
                 .ERROR(
@@ -63,6 +65,25 @@ __d(
       );
     }
     function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (o("WAWebACSClient").clearAPTClientStorage(e),
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(["acs-tokens"], function (t) {
+                var n = t[0];
+                return o(
+                  "WAWebCRUDOperationsACSTokens",
+                ).deleteAllACSTokensByProject(e, n);
+              }));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
       return o("WAWebCanonicalUtils").isCanonicalPresent()
         ? o("WAWebABProps")
             .getABPropConfigValue("acs_graphql_issuance_projects")
@@ -72,12 +93,12 @@ __d(
             })
         : !1;
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebACSClient").redeemWithAPTClient(e);
           return (
             t.set(
@@ -91,10 +112,12 @@ __d(
             t
           );
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.fetchWithACSCredential = s), (l.addACSCredential = c));
+    ((l.fetchWithACSCredential = s),
+      (l.addACSCredential = c),
+      (l.invalidateACSCredential = m));
   },
   98,
 );

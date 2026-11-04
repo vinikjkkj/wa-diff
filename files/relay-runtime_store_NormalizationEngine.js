@@ -255,7 +255,7 @@ __d(
                 "` with @stream.",
             );
           var R = i[i.length - 1],
-            L = parseInt(R, 10);
+            L = parseInt(String(R), 10);
           if (L !== R || L < 0)
             throw f(
               "NormalizationEngine: Expected path for @stream to end in a positive integer index, got `" +

@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugMedia",
   [
+    "Promise",
     "WAWebChatCollection",
     "WAWebDownloadProgressiveJpegThumbnail",
     "WAWebDownloadStatusThumbnail",
@@ -8,61 +9,72 @@ __d(
     "WAWebMediaTypes",
     "WAWebMmsClient",
     "WAWebMsgType",
+    "asyncToGeneratorRuntime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      (e === void 0 && (e = !0), r("vulture")("XfAJ8IOvx3NsL6dSq_PhwGdDsh4="));
-      var t = o("WAWebChatCollection").ChatCollection.getActive();
-      if (t == null)
-        return "No active chat is open \u2014 open a chat containing a sticker first.";
-      var n = t.msgs
-        .getModelsArray()
-        .map(function (e) {
-          return { msg: e, mediaObject: e.mediaObject };
-        })
-        .filter(function (e) {
-          var t = e.mediaObject,
-            n = e.msg;
-          return n.type === o("WAWebMsgType").MSG_TYPE.STICKER && t != null;
-        });
-      for (var a of n) {
-        var i = a.mediaObject;
-        i == null ||
-          i.consolidate({
-            downloadStage: o("WAWebMediaTypes").DownloadStage.NEED_POKE,
-          });
-      }
-      if (e) {
-        await Promise.all(
-          n.map(function (e) {
-            var t = e.mediaObject;
-            return t == null ? void 0 : t.resolveWhenConsolidated();
-          }),
-        );
-        for (var l of n) {
-          var s = l.msg;
-          s.mediaData.set({
-            preview: null,
-            renderableUrl: "",
-            rgbaBuffer: null,
-            extractedLottieSticker: null,
-            mediaBlob: null,
-          });
-        }
-      }
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        "Reset " +
-        n.length +
-        " sticker(s) to NEED_POKE in the active chat" +
-        (e ? " and blanked their images" : "") +
-        ". Scroll them into view to see the download button."
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          (t === void 0 && (t = !0),
+            r("vulture")("XfAJ8IOvx3NsL6dSq_PhwGdDsh4="));
+          var a = o("WAWebChatCollection").ChatCollection.getActive();
+          if (a == null)
+            return "No active chat is open \u2014 open a chat containing a sticker first.";
+          var i = a.msgs
+            .getModelsArray()
+            .map(function (e) {
+              return { msg: e, mediaObject: e.mediaObject };
+            })
+            .filter(function (e) {
+              var t = e.mediaObject,
+                n = e.msg;
+              return n.type === o("WAWebMsgType").MSG_TYPE.STICKER && t != null;
+            });
+          for (var l of i) {
+            var s = l.mediaObject;
+            s == null ||
+              s.consolidate({
+                downloadStage: o("WAWebMediaTypes").DownloadStage.NEED_POKE,
+              });
+          }
+          if (t) {
+            yield (e || (e = n("Promise"))).all(
+              i.map(function (e) {
+                var t = e.mediaObject;
+                return t == null ? void 0 : t.resolveWhenConsolidated();
+              }),
+            );
+            for (var u of i) {
+              var c = u.msg;
+              c.mediaData.set({
+                preview: null,
+                renderableUrl: "",
+                rgbaBuffer: null,
+                extractedLottieSticker: null,
+                mediaBlob: null,
+              });
+            }
+          }
+          return (
+            "Reset " +
+            i.length +
+            " sticker(s) to NEED_POKE in the active chat" +
+            (t ? " and blanked their images" : "") +
+            ". Scroll them into view to see the download button."
+          );
+        })),
+        u.apply(this, arguments)
       );
     }
-    e.doc =
+    s.doc =
       "Mark every sticker in the currently open chat as not-downloaded (NEED_POKE) so the download button/label reappears. Pass false to keep the sticker image visible. Repro tool for the sticker media-control UI.";
-    var s = {
-      forceStickerNeedPoke: e,
+    var c = {
+      forceStickerNeedPoke: s,
       WAWebMmsClient: r("WAWebMmsClient"),
       WAWebMediaDownloadMmsThumbnail: r("WAWebMediaDownloadMmsThumbnail"),
       downloadProgressiveJpegThumbnail: o(
@@ -71,7 +83,7 @@ __d(
       downloadStatusThumbnail: o("WAWebDownloadStatusThumbnail")
         .downloadStatusThumbnail,
     };
-    l.default = s;
+    l.default = c;
   },
   98,
 );

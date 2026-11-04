@@ -45,12 +45,14 @@ __d(
           a.length > 0 &&
           ((n == null ? void 0 : n.key) === "email" ||
             (n == null ? void 0 : n.key) === "acquisitionSource"),
-        f = _ && s.length === 0;
+        f = _ && s.length === 0,
+        h = C(m) || b(n, p) || f;
       return babelHelpers.extends(
         {
           candidateLids: r,
           filters: s,
-          requiresFullScan: C(m) || b(n, p) || f,
+          fullScanPageSize: h ? 100 : void 0,
+          requiresFullScan: h,
         },
         f ? { requiresCompleteProfileOrdering: f } : {},
         {

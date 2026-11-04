@@ -13,7 +13,7 @@ __d(
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "id",
+          name: "instruction_id",
           storageKey: null,
         },
         {
@@ -56,7 +56,7 @@ __d(
           storageKey: null,
         },
       ],
-      type: "XFBMetaAIBusinessAgentWhatsAppLeadGenFlow",
+      type: "XFBBizAIKnowledgeWALeadGenFlowData",
       abstractKey: null,
     };
     a.exports = e;

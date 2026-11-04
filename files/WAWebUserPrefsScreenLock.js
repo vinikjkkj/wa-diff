@@ -16,11 +16,13 @@ __d(
       var e;
       T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS);
       var t = parseInt(
-        (e = r("WAWebUserPrefsStore").getUser(
-          o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
-        )) != null
-          ? e
-          : 0,
+        String(
+          (e = r("WAWebUserPrefsStore").getUser(
+            o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
+          )) != null
+            ? e
+            : 0,
+        ),
         10,
       );
       return t !== 0;

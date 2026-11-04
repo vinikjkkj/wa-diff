@@ -17,7 +17,7 @@ __d(
         r = t.encs,
         a = t.msgInfo,
         i = t.msgMeta,
-        l = parseInt(a.offline, 10);
+        l = parseInt(String(a.offline), 10);
       if (!(Number.isNaN(l) || l < s)) {
         var u = new (o(
             "WAWebOfflineCountTooHighWamEvent",

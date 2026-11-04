@@ -55,7 +55,7 @@ __d(
     }
     function g(e) {
       var t = r("WAWebUserPrefsStore").getUser(e);
-      return (t != null && parseInt(t, 10)) || 0;
+      return (t != null && parseInt(String(t), 10)) || 0;
     }
     ((l.getNextSubscriptionQuery = s),
       (l.setNextSubscriptionQuery = u),

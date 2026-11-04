@@ -18,11 +18,12 @@ __d(
       var t,
         n,
         r = e.chat,
-        a = e.noFocus,
-        i = e.profileEntryPoint,
-        l = e.threadId,
-        u = e.uim,
-        c =
+        a = e.noAnimation,
+        i = e.noFocus,
+        l = e.profileEntryPoint,
+        u = e.threadId,
+        c = e.uim,
+        d =
           (t =
             (n = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "mid",
@@ -31,7 +32,7 @@ __d(
               : n.existsDrawer()) != null
             ? t
             : !1;
-      c ||
+      d ||
         (r.contact.isBusiness &&
           o("WAWebMessageLogQplEvents").qplStartProfileView("Header"),
         (o("WAWebChatGetters").getIsUser(r) ||
@@ -43,35 +44,37 @@ __d(
               ? {
                   descriptorType: "info_flow",
                   chat: o("WAWebStateUtils").unproxy(r),
-                  profileEntryPoint: i,
+                  profileEntryPoint: l,
                   sourceGroupChatOrNewsletter: o("WAWebChatGetters").getIsGroup(
                     r,
                   )
                     ? r
                     : void 0,
-                  threadId: l,
-                  skipFocusOnMount: a,
+                  threadId: u,
+                  skipFocusOnMount: i,
+                  skipEnterAnimation: a,
                 }
               : s.jsx(
                   o("WAWebInfoFlowLoadable").InfoFlowLoadable,
                   {
                     chat: o("WAWebStateUtils").unproxy(r),
-                    profileEntryPoint: i,
+                    profileEntryPoint: l,
                     sourceGroupChatOrNewsletter: o(
                       "WAWebChatGetters",
                     ).getIsGroup(r)
                       ? r
                       : void 0,
-                    threadId: l,
-                    skipFocusOnMount: a,
+                    threadId: u,
+                    skipFocusOnMount: i,
+                    skipEnterAnimation: a,
                   },
                   "info-" + r.id.toString(),
                 ),
             {
               transition: "slide-left",
-              uim: u,
+              uim: c,
               focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
-              noFocus: a,
+              noFocus: i,
             },
           ));
     }

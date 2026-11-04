@@ -645,6 +645,9 @@ __d(
     function ir() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(213);
     }
+    function lr() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(214);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -858,7 +861,8 @@ __d(
       (l.sharableEventCreatorPushNameCreateTable = rr),
       (l.sharableEventInviteeCreateTable = or),
       (l.sharableEventInviteLinkTokenCreateTable = ar),
-      (l.sharableEventInviteMessageCreateTable = ir));
+      (l.sharableEventInviteMessageCreateTable = ir),
+      (l.p2pPillsThreadOriginCreateTable = lr));
   },
   98,
 );

@@ -81,8 +81,10 @@ __d(
           from: n == null ? void 0 : n.toString(),
           to: r == null ? void 0 : r.toString(),
           groupId: t.inviteGrp,
-          expiration: parseInt(t.inviteCodeExp, 10),
-          expired: o("WATimeUtils").unixTime() >= parseInt(t.inviteCodeExp, 10),
+          expiration: parseInt(String(t.inviteCodeExp), 10),
+          expired:
+            o("WATimeUtils").unixTime() >=
+            parseInt(String(t.inviteCodeExp), 10),
         }
       );
     }

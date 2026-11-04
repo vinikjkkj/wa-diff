@@ -10,32 +10,32 @@ __d(
     "isOculusDotComURI",
     "isWorkplaceDotComURI",
   ],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
       getNumericValue: function (t) {
-        for (var e = 0, r = 0; r < t.length; r++) e += t.charCodeAt(r);
+        for (var e = 0, n = 0; n < t.length; n++) e += t.charCodeAt(n);
         var o = e.toString();
-        return n("SprinkleConfig").should_randomize
+        return r("SprinkleConfig").should_randomize
           ? o
-          : n("SprinkleConfig").version + o;
+          : r("SprinkleConfig").version + o;
       },
       shouldAppendToken: function (t) {
         return (
-          !n("isCdnURI")(t) &&
+          !r("isCdnURI")(t) &&
           !t.isSubdomainOfDomain("fbsbx.com") &&
-          (n("isFacebookURI")(t) ||
-            n("isInstagramURI")(t) ||
-            n("isMessengerDotComURI")(t) ||
-            n("isMetaDotComURI")(t) ||
-            n("isWorkplaceDotComURI")(t) ||
-            n("isOculusDotComURI")(t) ||
+          (r("isFacebookURI")(t) ||
+            r("isInstagramURI")(t) ||
+            r("isMessengerDotComURI")(t) ||
+            r("isMetaDotComURI")(t) ||
+            r("isWorkplaceDotComURI")(t) ||
+            r("isOculusDotComURI")(t) ||
             t.isSubdomainOfDomain("freebasics.com") ||
             t.isSubdomainOfDomain("discoverapp.com"))
         );
       },
     };
-    a.exports = e;
+    i.exports = e;
   },
-  null,
+  34,
 );

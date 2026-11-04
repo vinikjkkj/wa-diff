@@ -188,7 +188,7 @@ __d(
       var t, n;
       if (
         (e.templateParams.length
-          ? ((n = parseInt(e.templateParams[0], 10)),
+          ? ((n = parseInt(String(e.templateParams[0]), 10)),
             e.templateParams[1] instanceof r("WAWebWid") &&
               (t = e.templateParams[1]))
           : ((t = e.ephemeralSettingUser), (n = e.ephemeralDuration)),

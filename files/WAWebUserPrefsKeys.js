@@ -33,6 +33,8 @@ __d(
         "SNAPLNewsletterStatusNonUGCPersistentId",
         "SNAPLChatsMusicPersistentId",
         "MusicEligibleCountries",
+        "MusicLastClipDurationMs",
+        "MusicLastSelectedStyle",
         "CartDbLidMigrationComplete",
         "WindowsNotificationBannerSetting",
         "WindowsStatusReactionsSetting",

@@ -437,17 +437,25 @@ __d(
     }
     function g(e) {
       var t = e.to;
-      if (!(t == null || !o("WAWebBotUtils").isMetaAiBot(t))) {
-        var n = o("WAWebBotJourneyLogger").BotJourneyLogger.getDestinationId();
-        if (n != null) {
-          var r = o(
+      if (t != null) {
+        if (!o("WAWebBotUtils").isMetaAiBot(t)) {
+          var n;
+          return (n = o(
+            "WAWebBotJourneyLogger",
+          ).BotJourneyLogger.getThreadBotMetricsMetadata(t)) != null
+            ? n
+            : void 0;
+        }
+        var r = o("WAWebBotJourneyLogger").BotJourneyLogger.getDestinationId();
+        if (r != null) {
+          var a = o(
             "WAWebBotJourneyLogger",
           ).BotJourneyLogger.getBotMetricsEntryPoint();
-          if (r == null) {
-            var a = o("WAWebBotJourneyLogger").BotJourneyLogger.getEntryPoint();
-            a != null && (r = m(a));
+          if (a == null) {
+            var i = o("WAWebBotJourneyLogger").BotJourneyLogger.getEntryPoint();
+            i != null && (a = m(i));
           }
-          if (r != null) return { destinationId: n, destinationEntryPoint: r };
+          if (a != null) return { destinationId: r, destinationEntryPoint: a };
         }
       }
     }

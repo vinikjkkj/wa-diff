@@ -9,6 +9,7 @@ __d(
     "WAWebFormatConfigurationConversation",
     "WAWebFrontendPollVoteGetters",
     "WAWebL10N",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebPollsGatingUtils",
@@ -80,7 +81,11 @@ __d(
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((L = [o("WAWebMsgGetters").getIsSentByMe]), (t[0] = L))
         : (L = t[0]);
-      var E = o("useWAWebMsgValues").useMsgValues(g, L),
+      var E = o("useWAWebMsgValues").useMsgValues(
+          g,
+          o("WAWebMsgCasts").castToPollMsg,
+          L,
+        ),
         k = E[0],
         I = k ? "polls_sender" : "polls_receiver",
         T;

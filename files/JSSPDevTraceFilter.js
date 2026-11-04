@@ -1,6 +1,6 @@
 __d(
   "JSSPDevTraceFilter",
-  ["JSSPTraceBaseTransformer", "SiteData"],
+  ["JSSPTraceBaseTransformer", "SiteData", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -8,18 +8,24 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var o = t.prototype;
       return (
-        (n.transform = async function (t) {
-          return (
-            t.frames.forEach(function (e) {
-              e.resourceId != null &&
-                r("SiteData").push_phase === "dev" &&
-                (e.name = "");
-            }),
-            t
-          );
-        }),
+        (o.transform = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            return (
+              e.frames.forEach(function (e) {
+                e.resourceId != null &&
+                  r("SiteData").push_phase === "dev" &&
+                  (e.name = "");
+              }),
+              e
+            );
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

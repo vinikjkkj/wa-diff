@@ -11,9 +11,12 @@ __d(
         r = e.lyricsConfirmedAtS;
       return r == null ? n != null && n.length > 0 : t - r >= c;
     }
-    var m = 64,
-      p = 256;
-    function _(t, n, r) {
+    function m(e, t) {
+      return { startTimeMs: e, endTimeMs: t, text: "", wordOffsets: [] };
+    }
+    var p = 64,
+      _ = 256;
+    function f(t, n, r) {
       var a,
         i = (a = t == null ? void 0 : t.lines) != null ? a : [];
       if (i.length === 0) return null;
@@ -27,8 +30,8 @@ __d(
           ),
           null
         );
-      var l = i.map(f),
-        c = g(l, n, n + r);
+      var l = i.map(g),
+        c = h(l, n, n + r);
       if (c != null)
         return (
           o("WALogger").WARN(
@@ -44,7 +47,7 @@ __d(
           null
         );
       var d = l.filter(Boolean),
-        m = d.map(y);
+        m = d.map(C);
       return (
         m.some(function (e) {
           return e == null;
@@ -66,7 +69,7 @@ __d(
         })
       );
     }
-    function f(e) {
+    function g(e) {
       var t,
         n = o("WALongInt").maybeNumber(e.startTimeInMs),
         r = o("WALongInt").maybeNumber(e.endTimeInMs);
@@ -79,19 +82,19 @@ __d(
             wordOffsets: e.wordOffsets,
           };
     }
-    function g(e, t, n) {
-      if (e.length > m) return "too many lines";
+    function h(e, t, n) {
+      if (e.length > p) return "too many lines";
       var r = -1 / 0;
       for (var o of e) {
         if (o == null) return "line without times";
-        var a = h(o, r, t, n);
+        var a = y(o, r, t, n);
         if (a != null) return a;
         r = o.startTimeMs;
       }
       return null;
     }
-    function h(e, t, n, r) {
-      return e.text.length > p
+    function y(e, t, n, r) {
+      return e.text.length > _
         ? "line too long"
         : e.startTimeMs < t
           ? "lines out of order"
@@ -101,7 +104,7 @@ __d(
               ? "line outside the clip"
               : null;
     }
-    function y(e) {
+    function C(e) {
       var t = Array.from(e.text),
         n = e.endTimeMs - e.startTimeMs,
         r = [],
@@ -130,7 +133,10 @@ __d(
       }
       return r;
     }
-    ((l.LYRICS_TTL_S = c), (l.areLyricsExpired = d), (l.toMusicLyrics = _));
+    ((l.LYRICS_TTL_S = c),
+      (l.areLyricsExpired = d),
+      (l.getNoLyricsLine = m),
+      (l.toMusicLyrics = f));
   },
   98,
 );

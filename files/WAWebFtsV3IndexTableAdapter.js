@@ -1,14 +1,20 @@
 __d(
   "WAWebFtsV3IndexTableAdapter",
-  ["WAWebDbEncryptionKey", "WAWebFtsStorage"],
+  ["WAWebDbEncryptionKey", "WAWebFtsStorage", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e() {}
       var t = e.prototype;
       return (
-        (t.bulkPut = async function (t) {
-          await o("WAWebFtsStorage").getIndexV3Table().bulkCreateOrReplace(t);
-        }),
+        (t.bulkPut = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            yield o("WAWebFtsStorage").getIndexV3Table().bulkCreateOrReplace(e);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (t.bulkGetByKey = function (t) {
           return o("WAWebFtsStorage").getIndexV3Table().bulkGet(t);
         }),

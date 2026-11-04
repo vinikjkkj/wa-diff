@@ -9,8 +9,11 @@ __d(
     "WAWebBizFrontendGatingUtils",
     "WAWebBizOrderDetailAction",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
+    "WAWebBrAddPixKeyDeepLinkGating",
     "WAWebBrAddPixKeyMessageGating",
     "WAWebBrAddPixKeyMessageOffer",
+    "WAWebBrAddPixKeyOfferDialogsLoadable",
+    "WAWebBrAddPixKeyOfferLoggerLoadable",
     "WAWebBrAddPixKeyPartnerDirectory",
     "WAWebBrAddPixKeySavedMarker",
     "WAWebBrOptionsToPayActions",
@@ -225,38 +228,70 @@ __d(
           : {
               label: s._(/*BTDS*/ "Add Pix key"),
               onClick: function () {
+                var n = o("WAWebMsgCollection").MsgCollection.get(t);
                 if (
-                  o("WAWebBrAddPixKeyMessageGating").isAddPixKeyMessageEnabled()
+                  !o(
+                    "WAWebBrAddPixKeyMessageGating",
+                  ).isAddPixKeyMessageEnabled()
                 ) {
-                  var n = o("WAWebMsgCollection").MsgCollection.get(t);
-                  if (n == null) {
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[add-pix-key] offer click skipped, message left the collection",
-                        ])),
-                    );
-                    return;
-                  }
                   o(
-                    "WAWebBrSavePartnerPixKeyFeature",
-                  ).openAddPixKeyMessageScreen(
-                    r,
-                    o(
-                      "WAWebBrSenderPixKeyAttribution",
-                    ).resolveSenderPixKeyAttribution(n.senderObj),
-                    o(
-                      "WAWebBrAddPixKeyPartnerDirectory",
-                    ).addPixKeyPartnerCatalogIdForSender([
-                      o("WAWebMsgGetters").getSender(n),
-                    ]),
-                    function (e) {
-                      o(
-                        "WAWebBrAddPixKeySavedMarker",
-                      ).markAddPixKeyMessageSaved(t, e);
-                    },
+                    "WAWebBrAddPixKeyOfferLoggerLoadable",
+                  ).logAddPixKeyMessageDiscarded(
+                    "killswitch_off",
+                    "tap",
+                    n == null
+                      ? null
+                      : o(
+                          "WAWebBrAddPixKeyPartnerDirectory",
+                        ).addPixKeyPartnerCatalogIdForSender([
+                          o("WAWebMsgGetters").getSender(n),
+                        ]),
                   );
+                  return;
                 }
+                if (n == null) {
+                  o("WALogger").WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[add-pix-key] offer click skipped, message left the collection",
+                      ])),
+                  );
+                  return;
+                }
+                var a = o(
+                  "WAWebBrAddPixKeyPartnerDirectory",
+                ).addPixKeyPartnerCatalogIdForSender([
+                  o("WAWebMsgGetters").getSender(n),
+                ]);
+                if (
+                  !o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled() ||
+                  !o("WAWebBrAddPixKeyDeepLinkGating").isSelfInBrazil()
+                ) {
+                  (o(
+                    "WAWebBrAddPixKeyOfferLoggerLoadable",
+                  ).logAddPixKeyMessageDiscarded(
+                    "payments_unavailable",
+                    "tap",
+                    a,
+                  ),
+                    o(
+                      "WAWebBrAddPixKeyOfferDialogsLoadable",
+                    ).openAddPixKeyBlockedDialogLazily());
+                  return;
+                }
+                o("WAWebBrSavePartnerPixKeyFeature").openAddPixKeyMessageScreen(
+                  r,
+                  o(
+                    "WAWebBrSenderPixKeyAttribution",
+                  ).resolveSenderPixKeyAttribution(n.senderObj),
+                  a,
+                  function (e) {
+                    o("WAWebBrAddPixKeySavedMarker").markAddPixKeyMessageSaved(
+                      t,
+                      e,
+                    );
+                  },
+                );
               },
               testid: "br_add_pix_key_message_action",
             };

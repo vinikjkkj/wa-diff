@@ -3,7 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = 1,
-      l = 7,
+      l = 6,
       s = /^[\w:]{1,64}$/,
       u = /^[a-z0-9_]{1,64}$/,
       c = /^hyb_[a-z0-9_]{1,60}$/,
@@ -21,6 +21,8 @@ __d(
             current: r,
             currentPending: t.currentPending === !0,
             attempts: n.map(f).filter(Boolean).slice(0, l),
+            firstInstallLaunch:
+              t.firstInstallLaunch == null ? null : _(t.firstInstallLaunch),
           };
     }
     function p(t) {

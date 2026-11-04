@@ -10,6 +10,7 @@ __d(
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiLargeScreensGateQuery.graphql",
+    "WAWebFetchWithAdAccountToken",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebUserPrefsStore",
@@ -105,39 +106,8 @@ __d(
       );
     }
     function E() {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (e) {
-          return e.type !== "success"
-            ? { type: "token-failed" }
-            : k(e.token).then(function (e) {
-                return e.type === "ok"
-                  ? { enabled: e.enabled, type: "enabled" }
-                  : e.type === "error"
-                    ? { type: "network-failed" }
-                    : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
-                      o("WAWebFetchAdAccountToken")
-                        .fetchToken(!0)
-                        .then(function (e) {
-                          return e.type !== "success"
-                            ? { type: "token-failed" }
-                            : k(e.token).then(function (e) {
-                                return e.type === "ok"
-                                  ? { enabled: e.enabled, type: "enabled" }
-                                  : e.type === "auth"
-                                    ? (o(
-                                        "WAWebFetchAdAccountToken",
-                                      ).markTokenAsInvalid(),
-                                      { type: "auth-failed" })
-                                    : { type: "network-failed" };
-                              });
-                        }));
-              });
-        });
-    }
-    function k(e) {
       return o("WAWebBizAiRelayClient")
-        .fetchQuery(g, {}, { accessToken: e })
+        .fetchQuery(g, {})
         .then(function (e) {
           var t;
           return {
@@ -146,14 +116,21 @@ __d(
               (t = e.xfb_meta_ai_biz_agent_wa_large_screens_gate) == null
                 ? void 0
                 : t.value) === !0,
-            type: "ok",
+            type: "enabled",
           };
         })
         .catch(function (e) {
-          return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-            ? { type: "auth" }
-            : { type: "error" };
+          return k(e);
         });
+    }
+    function k(e) {
+      return e instanceof
+        o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+        ? { type: "token-failed" }
+        : e instanceof Error &&
+            o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+          ? { type: "auth-failed" }
+          : { type: "network-failed" };
     }
     function I(e) {
       switch (e.type) {

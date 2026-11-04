@@ -11,6 +11,7 @@ __d(
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiResponseSettingsV2GateMutation.graphql",
+    "WAWebFetchWithAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
@@ -117,62 +118,31 @@ __d(
       );
     }
     function D() {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (e) {
-          return e.type !== "success"
-            ? { type: "token-failed" }
-            : x(e.token).then(function (e) {
-                return e.type === "ok"
-                  ? { enabled: e.enabled, type: "enabled" }
-                  : e.type === "error"
-                    ? { reason: e.reason, type: "network-failed" }
-                    : e.type === "unreachable"
-                      ? { type: "network-unreachable" }
-                      : (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
-                        o("WAWebFetchAdAccountToken")
-                          .fetchToken(!0)
-                          .then(function (e) {
-                            return e.type !== "success"
-                              ? { type: "token-failed" }
-                              : x(e.token).then(function (e) {
-                                  return e.type === "ok"
-                                    ? { enabled: e.enabled, type: "enabled" }
-                                    : e.type === "auth"
-                                      ? (o(
-                                          "WAWebFetchAdAccountToken",
-                                        ).markTokenAsInvalid(),
-                                        { type: "auth-failed" })
-                                      : e.type === "unreachable"
-                                        ? { type: "network-unreachable" }
-                                        : {
-                                            reason: e.reason,
-                                            type: "network-failed",
-                                          };
-                                });
-                          }));
-              });
-        });
-    }
-    function x(e) {
       return o("WAWebBizAiRelayClient")
-        .commitMutation(C, {}, { accessToken: e })
+        .commitMutation(C, {})
         .then(function (e) {
           var t = e == null ? void 0 : e.xfb_meta_ai_biz_agent_wa_fetch_qe_bool;
           return (t == null ? void 0 : t.success) !== !0
             ? {
                 reason: "success=" + String(t == null ? void 0 : t.success),
-                type: "error",
+                type: "network-failed",
               }
-            : { enabled: t.value === !0, type: "ok" };
+            : { enabled: t.value === !0, type: "enabled" };
         })
         .catch(function (e) {
-          return o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-            ? { type: "auth" }
-            : e instanceof TypeError
-              ? { type: "unreachable" }
-              : { reason: $(e), type: "error" };
+          return x(e);
         });
+    }
+    function x(e) {
+      return e instanceof
+        o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+        ? { type: "token-failed" }
+        : e instanceof Error &&
+            o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+          ? { type: "auth-failed" }
+          : e instanceof TypeError
+            ? { type: "network-unreachable" }
+            : { reason: $(e), type: "network-failed" };
     }
     function $(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {

@@ -42,21 +42,18 @@ __d(
       var r,
         o = s(n.codecFamily);
       if (o == null) return null;
-      var a = Math.min(n.width, n.height),
-        i = Math.max(n.width, n.height),
-        c = (r = n.frameRate) != null ? r : e,
-        d = null;
-      for (var m of t) {
-        var p = Math.min(m.width, m.height),
-          _ = Math.max(m.width, m.height);
-        m.codecFamily !== o ||
-          p < a ||
-          _ < i ||
-          m.frameRate + l < c ||
-          m.bitrate < n.bitrate ||
-          ((d == null || u(m, d)) && (d = m));
-      }
-      return d;
+      var a = n.width >= n.height,
+        i = (r = n.frameRate) != null ? r : e,
+        c = null;
+      for (var d of t)
+        d.codecFamily !== o ||
+          d.width >= d.height !== a ||
+          d.width < n.width ||
+          d.height < n.height ||
+          d.frameRate + l < i ||
+          d.bitrate < n.bitrate ||
+          ((c == null || u(d, c)) && (c = d));
+      return c;
     }
     i.getVideoPlayerSmartPlayerDecodeCapability = c;
   },

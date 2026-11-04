@@ -6,9 +6,11 @@ __d(
       s = !e,
       u = r("gkx")("10314");
     function c() {
+      if (typeof window == "undefined") return !1;
+      var e = window.location.pathname;
       return (
-        typeof window != "undefined" &&
-        window.location.pathname.startsWith("/showroom")
+        e.startsWith("/showroom") ||
+        e.startsWith("/intern/whatsapp/web/showroom")
       );
     }
     function d() {

@@ -29,9 +29,8 @@ __d(
         r = n.moveCaret,
         a = r === void 0 ? !1 : r;
       if (!d(e)) {
-        var i = e;
-        do i = i.getNextSibling();
-        while (i && !o("Lexical").$isTextNode(i));
+        for (var i = e.getNextSibling(); i && !o("Lexical").$isTextNode(i); )
+          i = i.getNextSibling();
         if (i && c(i)) {
           a && i.select(1, 1);
           return;
@@ -45,9 +44,11 @@ __d(
         r = n.moveCaret,
         a = r === void 0 ? !1 : r;
       if (!(c(e) || !e.getPreviousSibling())) {
-        var i = e;
-        do i = i.getPreviousSibling();
-        while (i && !o("Lexical").$isTextNode(i));
+        for (
+          var i = e.getPreviousSibling();
+          i && !o("Lexical").$isTextNode(i);
+        )
+          i = i.getPreviousSibling();
         if (i && d(i)) {
           if (a) {
             var l = i.getTextContent().length;

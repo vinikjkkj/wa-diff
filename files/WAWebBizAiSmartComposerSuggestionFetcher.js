@@ -7,7 +7,7 @@ __d(
     "WAWebBizAiSmartComposerErrorMapping",
     "WAWebBizAiSmartComposerSuggestionFetcherQuery.graphql",
     "WAWebBizAiSmartComposerSuggestionStateMachine",
-    "WAWebFetchAdAccountToken",
+    "WAWebFetchWithAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "asyncToGeneratorRuntime",
@@ -79,21 +79,7 @@ __d(
           var a = !1,
             i;
           try {
-            var l,
-              s,
-              u = yield o("WAWebFetchAdAccountToken").fetchToken();
-            if (u.type !== "success")
-              return (
-                o("WALogger")
-                  .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[SmartComposer] suggested-reply token fetch failed",
-                      ])),
-                  )
-                  .sendLogs("biz-ai-smart-composer-suggestion-token-fail"),
-                { ok: !1, code: "UNKNOWN" }
-              );
+            var l, s;
             if (
               (yield r("WAWebNetworkStatus").waitIfOffline(),
               (t == null ? void 0 : t.aborted) === !0)
@@ -101,29 +87,34 @@ __d(
               return g;
             ((a = !0),
               n == null || n(),
-              (i = yield o("WAWebBizAiRelayClient").fetchQuery(
-                p,
-                {
-                  stanza_id: e.stanzaId,
-                  consumer_lid: (l = e.consumerLid) != null ? l : "",
-                  consumer_phone_number:
-                    (s = e.consumerPhoneNumber) != null ? s : "",
-                },
-                { accessToken: u.token },
-              )));
+              (i = yield o("WAWebBizAiRelayClient").fetchQuery(p, {
+                stanza_id: e.stanzaId,
+                consumer_lid: (l = e.consumerLid) != null ? l : "",
+                consumer_phone_number:
+                  (s = e.consumerPhoneNumber) != null ? s : "",
+              })));
           } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[SmartComposer] suggested-reply fetch failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("biz-ai-smart-composer-suggestion-fetch-fail"),
-              { ok: !1, code: a ? b(e) : "UNKNOWN" }
-            );
+            return e instanceof
+              o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+              ? (o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[SmartComposer] suggested-reply token fetch failed",
+                      ])),
+                  )
+                  .sendLogs("biz-ai-smart-composer-suggestion-token-fail"),
+                g)
+              : (o("WALogger")
+                  .ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[SmartComposer] suggested-reply fetch failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("biz-ai-smart-composer-suggestion-fetch-fail"),
+                { ok: !1, code: a ? b(e) : "UNKNOWN" });
           }
           try {
             return v(i);

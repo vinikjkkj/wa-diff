@@ -41,12 +41,9 @@ __d(
     }
     function _(e) {
       return e.remote.isAiHub()
-        ? !e.fromMe &&
-          o("WAWebABProps").getABPropConfigValue(
-            "biz_ai_agent_chat_a2ui_enabled",
-          )
-          ? "agent_chat"
-          : null
+        ? e.fromMe
+          ? null
+          : "agent_chat"
         : o("WAWebABProps").getABPropConfigValue("a2ui_fallback_show_timestamp")
           ? "consumer_chat"
           : null;

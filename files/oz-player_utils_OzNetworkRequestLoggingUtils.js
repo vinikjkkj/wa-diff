@@ -7,7 +7,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function (t) {
-        return t ? parseInt(t.get("content-length"), 10) : null;
+        return t ? parseInt(String(t.get("content-length")), 10) : null;
       },
       s = function (t) {
         return t ? t.get("x-fb-fna-hit") : null;
@@ -19,7 +19,9 @@ __d(
         return t ? t.get("x-fb-origin-hit") : null;
       },
       d = function (t) {
-        return t ? parseInt(t.get("x-fb-dynamic-latest-segment-id"), 10) : null;
+        return t
+          ? parseInt(String(t.get("x-fb-dynamic-latest-segment-id")), 10)
+          : null;
       },
       m = function (t, n) {
         var e = o(

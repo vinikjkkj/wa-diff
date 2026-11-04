@@ -16,7 +16,6 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
-    "WAWebQplFlowWrapper",
     "WAWebSchemaChat",
     "WAWebSchemaMessage",
     "WAWebSchemaPeerReadReceipt",
@@ -26,26 +25,15 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "gkx",
-    "qpl",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m,
-      p,
-      _,
-      f,
-      g,
-      h = r("qpl")._(891431279, "3267");
-    function y(e) {
-      return C.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g;
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length === 0) return t;
           for (var n = [], r = [], a = new Map(), i = 0; i < t.length; i++) {
             var l = t[i];
@@ -124,25 +112,21 @@ __d(
             n
           );
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WAWebQplFlowWrapper").QPL.markerPoint(
-            h,
-            "UpdatePeerReceipts_start",
-          ),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[init-from-storage] updatePeerReceipts start",
-                ])),
-            ));
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[init-from-storage] updatePeerReceipts start",
+              ])),
+          );
           var e = self.performance.now(),
             t = yield o("WAWebSchemaPeerReadReceipt").getTable().all();
           (o("WALogger").LOG(
@@ -153,12 +137,9 @@ __d(
               ])),
             t.length,
           ),
-            o("WAWebStorageCrashAnnotations").logPeerReceiptRowsForCrash(t),
-            o("WAWebQplFlowWrapper").QPL.markerAnnotate(h, {
-              int: { peerReceiptRowCount: t.length },
-            }));
+            o("WAWebStorageCrashAnnotations").logPeerReceiptRowsForCrash(t));
           var a = self.performance.now();
-          (yield S(t),
+          (yield v(t),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -189,33 +170,33 @@ __d(
                 f,
                 s,
               ));
-          var C = yield L(i),
-            b = C.chatAckUpdates,
-            v = C.chatUpdates,
-            R = C.statusAckUpdates,
-            E = b.concat(R),
+          var y = yield R(i),
+            C = y.chatAckUpdates,
+            b = y.chatUpdates,
+            S = y.statusAckUpdates,
+            L = C.concat(S),
+            E = new Map(
+              S.map(function (e) {
+                return [e.id, e];
+              }),
+            ),
             k = new Map(
-              R.map(function (e) {
+              L.map(function (e) {
                 return [e.id, e];
               }),
             ),
-            I = new Map(
-              E.map(function (e) {
-                return [e.id, e];
-              }),
-            ),
-            T = x(l);
-          T.forEach(function (e) {
-            var t = I.get(e.id);
+            I = D(l);
+          I.forEach(function (e) {
+            var t = k.get(e.id);
             t == null
-              ? I.set(e.id, e)
-              : I.set(e.id, babelHelpers.extends({}, t, { ack: e.ack }));
+              ? k.set(e.id, e)
+              : k.set(e.id, babelHelpers.extends({}, t, { ack: e.ack }));
           });
-          var $ = Array.from(I.values());
+          var x = Array.from(k.values());
           o("WAWebBackendApi").frontendFireAndForget(
             "updateOfflinePeerReceipt",
             {
-              chatUpdates: v.map(function (e) {
+              chatUpdates: b.map(function (e) {
                 var t;
                 return {
                   chatId: e.id,
@@ -224,10 +205,10 @@ __d(
                     (t = e.unreadMentionsOfMe) != null ? t : [],
                 };
               }),
-              ackUpdates: $.map(function (e) {
+              ackUpdates: x.map(function (e) {
                 var t = e.id;
                 return (
-                  k.has(e.id) &&
+                  E.has(e.id) &&
                     (t = o("WAWebLidStatusMigrationKeyUtils")
                       .matKeyConvert(r("WAWebMsgKey").fromString(t))
                       .toString()),
@@ -236,7 +217,7 @@ __d(
               }),
             },
           );
-          var P = yield y(v);
+          var $ = yield h(b);
           return (
             o("WALogger")
               .LOG(
@@ -245,7 +226,7 @@ __d(
                     "updatePeerReceipts: bulkCreateOrMerge ",
                     "",
                   ])),
-                P.slice(-15)
+                $.slice(-15)
                   .map(function (e) {
                     return e.id;
                   })
@@ -253,7 +234,7 @@ __d(
               )
               .tags("missing-lid"),
             o("WAWebDBChatValidation").validateAccountLidInChatRows(
-              P,
+              $,
               "updatePeerReceipts",
             ),
             yield (g || (g = n("Promise"))).all([
@@ -263,14 +244,14 @@ __d(
                   var t = e[0],
                     r = e[1];
                   return (g || (g = n("Promise"))).all([
-                    t.bulkCreateOrMerge($),
-                    r.bulkCreateOrMerge(P),
+                    t.bulkCreateOrMerge(x),
+                    r.bulkCreateOrMerge($),
                   ]);
                 })
                 .then(function () {}),
               o("WAWebMarkAddOnsAsReadJob")
                 .markUnclassifiedAddOnsAsReadJob(
-                  Array.from(D(i), function (e) {
+                  Array.from(T(i), function (e) {
                     return r("WAWebMsgKey").from(e);
                   }),
                 )
@@ -280,32 +261,28 @@ __d(
               .getTable()
               .clear()
               .then(function () {
-                (o("WAWebQplFlowWrapper").QPL.markerPoint(
-                  h,
-                  "UpdatePeerReceipts_end",
-                ),
-                  o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[init-from-storage] updatePeerReceipts: processed ",
-                        " peer receipt rows in ",
-                        "ms",
-                      ])),
-                    t.length,
-                    Math.round(self.performance.now() - e),
-                  ));
+                o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[init-from-storage] updatePeerReceipts: processed ",
+                      " peer receipt rows in ",
+                      "ms",
+                    ])),
+                  t.length,
+                  Math.round(self.performance.now() - e),
+                );
               })
           );
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!r("gkx")("5598")) {
             yield (g || (g = n("Promise"))).all(
               e.map(
@@ -336,22 +313,22 @@ __d(
             ((i.msgKeys = t.slice(a, l)), (a = l));
           }
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
                 "getUpdatesForPeerReadReceipts",
               ])),
           );
-          var t = D(e),
+          var t = T(e),
             a = yield m(e),
             i = Array.from(a.keys()),
             l = i.reduce(function (e, t) {
@@ -377,7 +354,7 @@ __d(
               return g(a.get(e.from), e);
             }));
           var u = h(),
-            c = yield I(t),
+            c = yield k(t),
             d = r("compactMap")(i, function (e) {
               var t = a.get(e);
               return t != null && t.lastUnreadMsgRowId != null
@@ -400,7 +377,7 @@ __d(
                     .flatMap(function (e) {
                       return e.msgKeys;
                     })
-                    .map(k)
+                    .map(E)
                     .filter(function (e) {
                       return e !== o("WAJids").STATUS_JID;
                     })
@@ -466,21 +443,21 @@ __d(
             return t.has(e.id) || y(e);
           }
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function k(e) {
+    function E(e) {
       return r("WAWebMsgKey").fromString(e).remote.toString();
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = Array.from(e)
               .filter(function (e) {
-                return k(e) === o("WAJids").STATUS_JID;
+                return E(e) === o("WAJids").STATUS_JID;
               })
               .map(function (e) {
                 return r("WAWebMsgKey").fromString(e);
@@ -490,17 +467,17 @@ __d(
             return { id: e.toString(), ack: o("WAWebAck").ACK.READ };
           });
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e) {
+    function T(e) {
       return new Set(
         e.flatMap(function (e) {
           return e.msgKeys;
         }),
       );
     }
-    function x(e) {
+    function D(e) {
       var t = new Set();
       return (
         e.forEach(function (e) {
@@ -518,9 +495,9 @@ __d(
         })
       );
     }
-    ((l.addAccountLidToUpdates = y),
-      (l.updatePeerReceipts = b),
-      (l.getStatusMsgAckUpdates = I));
+    ((l.addAccountLidToUpdates = h),
+      (l.updatePeerReceipts = C),
+      (l.getStatusMsgAckUpdates = k));
   },
   98,
 );

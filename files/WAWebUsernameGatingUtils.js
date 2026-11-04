@@ -50,11 +50,17 @@ __d(
       );
     }
     function y() {
+      return o("WAWebABProps").getABPropConfigValue("username_min_length");
+    }
+    function C() {
+      return o("WAWebABProps").getABPropConfigValue("username_max_length");
+    }
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
-    function C() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "unknown_user_recovery_enabled",
       );
@@ -69,8 +75,10 @@ __d(
       (l.lidGroupMigrationNonMemberIQEnabled = f),
       (l.usernameContactUiVcardEnabled = g),
       (l.usernameSearchRequiresAtSign = h),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = y),
-      (l.unknownUserRecoveryEnabled = C));
+      (l.usernameMinLength = y),
+      (l.usernameMaxLength = C),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = b),
+      (l.unknownUserRecoveryEnabled = v));
   },
   98,
 );

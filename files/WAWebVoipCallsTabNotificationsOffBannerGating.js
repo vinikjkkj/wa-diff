@@ -45,7 +45,8 @@ __d(
     }
     ((l.areCallNotificationsOff = e),
       (l.isGlobalNotificationsOff = s),
-      (l.shouldShowCallsTabNotificationsOffBanner = u));
+      (l.shouldShowCallsTabNotificationsOffBanner = u),
+      (l.canCtaFixPermission = c));
   },
   98,
 );

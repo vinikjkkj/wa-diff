@@ -1,37 +1,41 @@
 __d(
   "WAWebVoipTsLogger",
-  ["WALogger", "WAWebBackendApi", "asyncToGeneratorRuntime"],
+  [
+    "WALogger",
+    "WAWebBackendApi",
+    "WAWebVoipStackInterface",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = null,
-      c = null;
-    function d() {
-      return m.apply(this, arguments);
+      s = null,
+      u = null;
+    function c() {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (c != null) return c;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (u != null) return u;
           var e =
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializeVoipWasm",
             );
-          return ((c = e), c);
+          return ((u = e), u);
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p() {
-      return _.apply(this, arguments);
+    function m() {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, n;
-          if (u != null) return u;
-          var r = yield d(),
+          if (s != null) return s;
+          var r = yield c(),
             o = r.getTsLoggerEventIdWebSctpIceConnectionStart(),
             a = r.getTsLoggerEventIdWebSctpIceConnectionComplete(),
             i = r.getTsLoggerEventIdWebSctpIceConnectionFailed(),
@@ -43,7 +47,7 @@ __d(
               null
                 ? e
                 : null,
-            s =
+            u =
               (t =
                 r.getTsLoggerEventIdWebWebtransportConnectionComplete == null
                   ? void 0
@@ -51,7 +55,7 @@ __d(
               null
                 ? t
                 : null,
-            c =
+            d =
               (n =
                 r.getTsLoggerEventIdWebWebtransportConnectionFailed == null
                   ? void 0
@@ -64,169 +68,142 @@ __d(
               WEB_SCTP_ICE_CONNECTION_COMPLETE: a,
               WEB_SCTP_ICE_CONNECTION_FAILED: i,
               WEB_WEBTRANSPORT_CONNECTION_START: l,
-              WEB_WEBTRANSPORT_CONNECTION_COMPLETE: s,
-              WEB_WEBTRANSPORT_CONNECTION_FAILED: c,
+              WEB_WEBTRANSPORT_CONNECTION_COMPLETE: u,
+              WEB_WEBTRANSPORT_CONNECTION_FAILED: d,
             };
-          return ((u = m), m);
+          return ((s = m), m);
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f() {
-      return g.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (c != null)
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          r === void 0 && (r = !1);
+          var a = o("WAWebVoipStackInterface").getCachedVoipStackInterface();
+          if (!(a == null || a.type !== "web"))
             try {
-              var t = yield d();
-              t.tsLoggerReset();
-            } catch (t) {
+              yield a.logTsEventStringData(t, n, r);
+            } catch (n) {
               o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [TsLogger] Error resetting ts_logger: ",
-                    "",
-                  ])),
-                t,
-              );
-            }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = !1);
-          try {
-            var r = yield d(),
-              a = r.tsLoggerLogEventStringData(e, t, n);
-            return a === 0 || a === 70020;
-          } catch (t) {
-            return (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [TsLogger] Error logging string event ",
                     ": ",
                     "",
                   ])),
-                e,
                 t,
-              ),
-              !1
-            );
-          }
+                n,
+              );
+            }
         })),
-        y.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function C() {
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          ((u = null), (s = null));
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return e.ip + ":" + e.port;
+    }
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield f(), (c = null), (u = null));
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(),
+            n = y(e);
+          yield _(t.WEB_SCTP_ICE_CONNECTION_START, n);
         })),
         b.apply(this, arguments)
       );
     }
     function v(e) {
-      return e.ip + ":" + e.port;
+      return S.apply(this, arguments);
     }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(),
-            n = v(e);
-          yield h(t.WEB_SCTP_ICE_CONNECTION_START, n);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(),
+            n = y(e);
+          yield _(t.WEB_SCTP_ICE_CONNECTION_COMPLETE, n);
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(),
-            n = v(e);
-          yield h(t.WEB_SCTP_ICE_CONNECTION_COMPLETE, n);
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = 1);
-          var n = yield p(),
-            r = v(e) + "," + t;
-          yield h(n.WEB_SCTP_ICE_CONNECTION_FAILED, r);
+          var n = yield m(),
+            r = y(e) + "," + t;
+          yield _(n.WEB_SCTP_ICE_CONNECTION_FAILED, r);
         })),
-        I.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function D() {
+    function k() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(),
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(),
             n = t.WEB_WEBTRANSPORT_CONNECTION_START;
-          n != null && (yield h(n, e));
+          n != null && (yield _(n, e));
         })),
-        D.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function $() {
+    function T() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(),
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield m(),
             n = t.WEB_WEBTRANSPORT_CONNECTION_COMPLETE;
-          n != null && (yield h(n, e));
+          n != null && (yield _(n, e));
         })),
-        $.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function N() {
+    function x() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = 1);
-          var n = yield p(),
+          var n = yield m(),
             r = n.WEB_WEBTRANSPORT_CONNECTION_FAILED;
-          r != null && (yield h(r, e + "," + t));
+          r != null && (yield _(r, e + "," + t));
         })),
-        N.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.cleanup = C),
-      (l.logIceConnectionStart = S),
-      (l.logIceConnectionComplete = L),
-      (l.logIceConnectionFailed = k),
-      (l.logWebtransportConnectionStart = T),
-      (l.logWebtransportConnectionComplete = x),
-      (l.logWebtransportConnectionFailed = P));
+    ((l.cleanup = g),
+      (l.logIceConnectionStart = C),
+      (l.logIceConnectionComplete = v),
+      (l.logIceConnectionFailed = R),
+      (l.logWebtransportConnectionStart = E),
+      (l.logWebtransportConnectionComplete = I),
+      (l.logWebtransportConnectionFailed = D));
   },
   98,
 );

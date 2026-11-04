@@ -244,7 +244,7 @@ __d(
                         x = function (t) {
                           if (t != null && T == null) {
                             var e = t.get("Content-Length"),
-                              n = parseInt(e, 10);
+                              n = parseInt(String(e), 10);
                             T = Number.isNaN(n) ? null : n;
                           }
                         };

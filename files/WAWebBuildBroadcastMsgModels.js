@@ -1,9 +1,9 @@
 __d(
   "WAWebBuildBroadcastMsgModels",
   [
+    "WAWebBroadcastFanoutKeys",
     "WAWebMsgCollection",
     "WAWebMsgKey",
-    "WAWebMsgModelUtils",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
   ],
@@ -51,7 +51,7 @@ __d(
           var t = e.mediaKey,
             n = e.mediaKeyTimestamp;
           if (t != null && n != null) {
-            var r = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(e),
+            var r = o("WAWebBroadcastFanoutKeys").getBroadcastFanoutKeys(e),
               a = {
                 deprecatedMms3Url: e.deprecatedMms3Url,
                 directPath: e.directPath,

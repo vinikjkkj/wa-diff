@@ -1,6 +1,6 @@
 __d(
   "toWAWebBizAdCreationServerSideNotices",
-  ["RelayHooks", "toWAWebBizAdCreationServerSideNotices_validateSpec.graphql"],
+  ["CometRelay", "toWAWebBizAdCreationServerSideNotices_validateSpec.graphql"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -18,7 +18,7 @@ __d(
           e.forEach(function (e) {
             var n,
               r,
-              a = o("RelayHooks").readInlineData(s, e),
+              a = o("CometRelay").readInlineData(s, e),
               i = a.action,
               l = a.body,
               u = a.severity,

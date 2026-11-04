@@ -122,7 +122,7 @@ __d(
             a = t === void 0 ? !0 : t,
             i = e.sticker,
             l = e.type;
-          if (i.isPlaceholder === !0 || i.isCreateButton === !0)
+          if (i.isPlaceholder === !0 || i.actionTile != null)
             return (
               (i.mediaData.mediaStage =
                 o("WAWebMediaTypes").MediaDataStage.PREPARING),

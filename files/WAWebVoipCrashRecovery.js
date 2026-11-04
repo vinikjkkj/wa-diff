@@ -189,7 +189,7 @@ __d(
                   ])),
               ));
           } catch (e) {
-            (o("WAWebCoreActionsODS").logCallFieldstatsRecoveryCleanupFailed(),
+            (r("WAWebODS").incr("web.call.fieldstats.recovery_cleanup_failed"),
               o("WALogger")
                 .ERROR(
                   f ||
@@ -337,9 +337,9 @@ __d(
               o("WAWebCoreActionsODS").logCallFieldstatsRecoveryFound(),
               o("WAWebVoipCallRatingStore").werePersistedFieldstatsHandedOff(l))
             ) {
-              (o(
-                "WAWebCoreActionsODS",
-              ).logCallFieldstatsRecoveryDuplicateSuppressed(),
+              (r("WAWebODS").incr(
+                "web.call.fieldstats.recovery_duplicate_suppressed",
+              ),
                 o("WALogger").LOG(
                   v ||
                     (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -354,7 +354,7 @@ __d(
             try {
               c = Q(l, u, t);
             } catch (a) {
-              (o("WAWebCoreActionsODS").logCallFieldstatsRecoveryParseFailed(),
+              (r("WAWebODS").incr("web.call.fieldstats.recovery_parse_failed"),
                 o("WALogger")
                   .ERROR(
                     S ||
@@ -383,12 +383,12 @@ __d(
                   ])),
                 u,
               ),
-              o("WAWebCoreActionsODS").logCallFieldstatsRecoveryCompleted(),
+              r("WAWebODS").incr("web.call.fieldstats.recovery_completed"),
               yield z(e, t, n));
           } catch (e) {
             ((F = !1),
               a
-                ? (o("WAWebCoreActionsODS").logCallFieldstatsRecoveryFailed(),
+                ? (r("WAWebODS").incr("web.call.fieldstats.recovery_failed"),
                   o("WALogger")
                     .ERROR(
                       L ||
@@ -402,9 +402,9 @@ __d(
                       sampling: 0.01,
                       sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
                     }))
-                : (o(
-                    "WAWebCoreActionsODS",
-                  ).logCallFieldstatsRecoveryInitFailed(),
+                : (r("WAWebODS").incr(
+                    "web.call.fieldstats.recovery_init_failed",
+                  ),
                   o("WALogger")
                     .ERROR(
                       E ||

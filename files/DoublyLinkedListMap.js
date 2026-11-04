@@ -3,7 +3,6 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = (function () {
-      "use strict";
       function e() {
         ((this.$1 = null), (this.$2 = null), (this.$3 = {}), (this.$4 = 0));
       }
@@ -126,7 +125,7 @@ __d(
         e
       );
     })();
-    a.exports = e;
+    i.default = e;
   },
-  null,
+  66,
 );

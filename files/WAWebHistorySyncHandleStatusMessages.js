@@ -57,8 +57,8 @@ __d(
               var n = e.messageTimestamp,
                 r = t.messageTimestamp;
               return (
-                o("WATimeUtils").castToUnixTime(parseInt(n, 10)) -
-                o("WATimeUtils").castToUnixTime(parseInt(r, 10))
+                o("WATimeUtils").castToUnixTime(parseInt(String(n), 10)) -
+                o("WATimeUtils").castToUnixTime(parseInt(String(r), 10))
               );
             }));
           var _ = [];
@@ -98,7 +98,7 @@ __d(
                         "HistorySync:handleStatusMessages: missing key.id",
                       ),
                       ts: o("WATimeUtils").castToUnixTime(
-                        parseInt(e.messageTimestamp, 10),
+                        parseInt(String(e.messageTimestamp), 10),
                       ),
                       edit: -1,
                       isHsm: !1,

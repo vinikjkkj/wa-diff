@@ -105,6 +105,11 @@ __d(
           type: "int",
         },
         {
+          abProp: "calling_rust_migration_incoming_ack_stanza_bitmap",
+          wasmKey: "calling_rust_migration_incoming_ack_stanza_bitmap",
+          type: "int",
+        },
+        {
           abProp: "enable_init_bwe_for_group_call",
           wasmKey: "enable_init_bwe_for_group_call",
           type: "bool",

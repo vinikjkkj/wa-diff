@@ -79,7 +79,7 @@ __d(
             .sendLogs("quick-promotion-filter-missing-parameter"),
           r("err")('otherPromotionEventFilter: missing "nux_id"')
         );
-      var v = parseInt(a.get("event_count"), 10);
+      var v = parseInt(String(a.get("event_count")), 10);
       if (Number.isNaN(v))
         throw (
           o("WALogger")

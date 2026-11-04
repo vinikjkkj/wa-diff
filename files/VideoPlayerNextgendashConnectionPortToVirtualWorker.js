@@ -24,39 +24,36 @@ __d(
         c = s.port2,
         d = new (o(
           "WorkerSyncedMessagePortWithErrored",
-        ).WorkerSyncedMessagePortWithErrored)(
-          c,
-          "VideoPlayerNextgendashConnectionWorkerToMain_VirtualWorker",
-        ),
-        m = new (o(
-          "WorkerSyncedMessagePortWithErrored",
         ).WorkerSyncedMessagePortWithErrored)(u, a);
-      (m.onError.add(function () {
+      (d.onError.add(function () {
         return l.disposeNativeMedia == null ? void 0 : l.disposeNativeMedia();
       }),
-        m.fullyConnected.catch(function () {
+        d.fullyConnected.catch(function () {
           return l.disposeNativeMedia == null ? void 0 : l.disposeNativeMedia();
         }));
-      var p = n("cr:9585") != null ? n("cr:9585") : e.getModuleIfRequireable();
+      var m = function (t) {
+          var e = new (o(
+            "WorkerSyncedMessagePortWithErrored",
+          ).WorkerSyncedMessagePortWithErrored)(
+            c,
+            "VideoPlayerNextgendashConnectionWorkerToMain_VirtualWorker",
+          );
+          t.createVideoPlayerNextgendashWorkerEnvironment(
+            i,
+            l,
+            e,
+            n("cr:9712"),
+            n("cr:9719"),
+          );
+        },
+        p = n("cr:9585") != null ? n("cr:9585") : e.getModuleIfRequireable();
       return (
         p != null
-          ? p.createVideoPlayerNextgendashWorkerEnvironment(
-              i,
-              l,
-              d,
-              n("cr:9712"),
-              n("cr:9719"),
-            )
+          ? m(p)
           : e
               .load()
               .then(function (e) {
-                e.createVideoPlayerNextgendashWorkerEnvironment(
-                  i,
-                  l,
-                  d,
-                  n("cr:9712"),
-                  n("cr:9719"),
-                );
+                m(e);
               })
               .catch(function (e) {
                 var t = r("fb-error").getErrorSafe(e);
@@ -71,7 +68,7 @@ __d(
                       String(t),
                   );
               }),
-        m
+        d
       );
     };
     ((l.preloadWorkerEnvironmentJSResourceWhenVirtualWorkerOnly = s),

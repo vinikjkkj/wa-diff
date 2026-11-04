@@ -2,11 +2,11 @@ __d(
   "WAWebCreateMediaDownloadMetrics",
   [
     "WAWebAppTracker",
-    "WAWebCoreActionsODS",
     "WAWebExperienceIdWamFields",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDownload2WamEvent",
     "WAWebMmsMediaTypes",
+    "WAWebODS",
     "WAWebWamEnumConnectionType",
     "WAWebWamEnumMediaDownloadResultType",
     "WAWebWamEnumNetworkStackType",
@@ -23,9 +23,9 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r = o("WAWebWamMediaMetricUtils").generateMediaEventId(),
-            a = new (o("WAWebMediaDownload2WamEvent").MediaDownload2WamEvent)({
-              mediaId: r,
+            a = o("WAWebWamMediaMetricUtils").generateMediaEventId(),
+            i = new (o("WAWebMediaDownload2WamEvent").MediaDownload2WamEvent)({
+              mediaId: a,
               connectionType: o("WAWebWamEnumConnectionType").CONNECTION_TYPE
                 .HOSTNAME,
               overallMediaType: o(
@@ -64,25 +64,25 @@ __d(
             o("WAWebAppTracker").AppTrackerType.MediaDL,
           ),
             e.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE &&
-              a.set(babelHelpers.extends({}, e.imageDimensions)));
-          var i = e.chatWid;
-          if (i) {
-            var l = yield o("WAWebWamGroupMetricCache").getGroupMetrics(i);
-            (l == null ? void 0 : l.deviceCount) != null &&
-              a.set({ deviceCount: l.deviceCount });
+              i.set(babelHelpers.extends({}, e.imageDimensions)));
+          var l = e.chatWid;
+          if (l) {
+            var s = yield o("WAWebWamGroupMetricCache").getGroupMetrics(l);
+            (s == null ? void 0 : s.deviceCount) != null &&
+              i.set({ deviceCount: s.deviceCount });
           }
-          var s = function (t) {
+          var u = function (t) {
               var e = t.failCount,
                 n = t.hostClass,
                 r = t.hostName;
-              a.set({
+              i.set({
                 overallDomain: r,
                 overallConnectionClass: n,
                 overallRetryCount: e,
               });
             },
-            u = function (t) {
-              a.set({
+            c = function (t) {
+              i.set({
                 overallMediaSize: t,
                 overallDownloadResult: o("WAWebWamEnumMediaDownloadResultType")
                   .MEDIA_DOWNLOAD_RESULT_TYPE.OK,
@@ -90,45 +90,45 @@ __d(
                 downloadHttpCode: 200,
               });
             },
-            c = function (t, n) {
+            d = function (t, n) {
               var e = o(
                 "WAWebWamMediaMetricUtils",
               ).getMetricDownloadErrorResultType(t);
-              a.set({ overallDownloadResult: e, overallIsFinal: n });
-              var r = o("WAWebWamMediaMetricUtils").getStatusCode(t);
-              (r != null && (a.downloadHttpCode = r),
-                a.markOverallCumT(),
+              i.set({ overallDownloadResult: e, overallIsFinal: n });
+              var a = o("WAWebWamMediaMetricUtils").getStatusCode(t);
+              (a != null && (i.downloadHttpCode = a),
+                i.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
-                o("WAWebAppTracker").attachWAMAppContext(a, a.overallCumT),
-                a.commit(),
-                o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(a, t),
+                o("WAWebAppTracker").attachWAMAppContext(i, i.overallCumT),
+                i.commit(),
+                o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(i, t),
                 n &&
                   e !==
                     o("WAWebWamEnumMediaDownloadResultType")
                       .MEDIA_DOWNLOAD_RESULT_TYPE.ERROR_CANCEL &&
-                  (o("WAWebCoreActionsODS").logMediaDownloadError(),
+                  (r("WAWebODS").incr("web.media.download.error"),
                   e ===
                   o("WAWebWamEnumMediaDownloadResultType")
                     .MEDIA_DOWNLOAD_RESULT_TYPE.ERROR_TOO_OLD
-                    ? o("WAWebCoreActionsODS").logMediaDownloadErrorExpired()
+                    ? r("WAWebODS").incr("web.media.download.error.expired")
                     : e ===
                         o("WAWebWamEnumMediaDownloadResultType")
                           .MEDIA_DOWNLOAD_RESULT_TYPE.ERROR_NETWORK &&
-                      o("WAWebCoreActionsODS").logMediaDownloadErrorNetwork()));
-            },
-            d = function (t) {
-              a.set({ overallT: t });
+                      r("WAWebODS").incr("web.media.download.error.network")));
             },
             m = function (t) {
+              i.set({ overallT: t });
+            },
+            p = function (t) {
               var e = t.error,
                 n = t.failCount,
                 r = t.overallT,
-                i = new (o(
+                a = new (o(
                   "WAWebMediaDownload2WamEvent",
-                ).MediaDownload2WamEvent)(a.all);
-              i.set({
+                ).MediaDownload2WamEvent)(i.all);
+              a.set({
                 mediaId: o("WAWebWamMediaMetricUtils").generateMediaEventId(),
                 overallDownloadResult: o(
                   "WAWebWamMediaMetricUtils",
@@ -138,47 +138,47 @@ __d(
                 overallRetryCount: n,
               });
               var l = o("WAWebWamMediaMetricUtils").getStatusCode(e);
-              (l != null && (a.downloadHttpCode = l),
-                a.markOverallCumT(),
+              (l != null && (i.downloadHttpCode = l),
+                i.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
-                o("WAWebAppTracker").attachWAMAppContext(a, a.overallCumT),
-                i.commit(),
-                o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(i, e));
-            },
-            p = function () {
-              a.startOverallDecryptT();
+                o("WAWebAppTracker").attachWAMAppContext(i, i.overallCumT),
+                a.commit(),
+                o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(a, e));
             },
             _ = function () {
-              a.markOverallDecryptT();
+              i.startOverallDecryptT();
             },
             f = function () {
-              (a.markOverallCumT(),
+              i.markOverallDecryptT();
+            },
+            g = function () {
+              (i.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
-                o("WAWebAppTracker").attachWAMAppContext(a, a.overallCumT),
-                a.commit(),
-                o("WAWebCoreActionsODS").logMediaDownloadSuccess());
-            },
-            g = function () {
-              a.startDownloadNetworkT();
+                o("WAWebAppTracker").attachWAMAppContext(i, i.overallCumT),
+                i.commit(),
+                r("WAWebODS").incr("web.media.download.success"));
             },
             h = function () {
-              a.markDownloadNetworkT();
+              i.startDownloadNetworkT();
+            },
+            y = function () {
+              i.markDownloadNetworkT();
             };
           return {
-            handleDownloadSuccess: u,
-            handleDownloadHostFound: s,
-            handleDownloadError: c,
-            handleDownloadAttemptSuccess: d,
-            handleDownloadAttemptError: m,
-            handleDownloadAndDecryptSuccess: f,
-            markDecryptionEnd: _,
-            markDecryptionStart: p,
-            startNetworkT: g,
-            markNetworkT: h,
+            handleDownloadSuccess: c,
+            handleDownloadHostFound: u,
+            handleDownloadError: d,
+            handleDownloadAttemptSuccess: m,
+            handleDownloadAttemptError: p,
+            handleDownloadAndDecryptSuccess: g,
+            markDecryptionEnd: f,
+            markDecryptionStart: _,
+            startNetworkT: h,
+            markNetworkT: y,
           };
         })),
         s.apply(this, arguments)

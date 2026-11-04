@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebAvUpgradeBannerState",
+    "WAWebCallBackgroundPauseController",
     "WAWebCallCollection",
     "WAWebCallModel",
     "WAWebEnvironment",
@@ -111,6 +112,7 @@ __d(
             (!r("WAWebEnvironment").isWindows ||
               o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
               o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
+            o("WAWebCallBackgroundPauseController").setupCallBackgroundPause(),
             r("WAWebCallCollection").activeCall == null &&
               o("WAWebVoipCallStateUtils").isCallTerminal(i))
           ) {
@@ -864,9 +866,10 @@ __d(
             r("WAWebCallCollection").setActiveCall(null));
           return;
         }
-        (!r("WAWebEnvironment").isWindows ||
+        ((!r("WAWebEnvironment").isWindows ||
           o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
-          o("WAWebVoipUiManager").setupVoipActiveCallChangeListener();
+          o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
+          o("WAWebCallBackgroundPauseController").setupCallBackgroundPause());
         var l = r("WAWebCallCollection").activeCall,
           s =
             (e = (n = l) == null ? void 0 : n.isSelfCallLinkAdmin) != null

@@ -98,6 +98,7 @@ __d(
             module: s,
             hash: u,
             errorMID: a,
+            status: e.status,
             blockingMods: t,
             nonblockingMods: r,
           });

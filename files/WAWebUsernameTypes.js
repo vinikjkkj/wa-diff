@@ -11,20 +11,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = n("$InternalEnum")({ PNH_CTWA: "ctwa", GENERAL: "general" });
-    function d(e) {
-      var t = p();
-      return t == null ? _(e) : t.test(e);
+      u = n("$InternalEnum")({ PNH_CTWA: "ctwa", GENERAL: "general" });
+    function c(e) {
+      var t = m();
+      return t == null ? p(e) : t.test(e);
     }
-    function m(e) {
-      if (!d(e))
+    function d(e) {
+      if (!c(e))
         throw r("err")(
           "[username][key] Cannot convert key string to UsernameKey",
         );
       return e;
     }
-    function p() {
+    function m() {
       var t = o("WAWebABProps").getABPropConfigValue("username_key_regex");
       if (t === "") return null;
       try {
@@ -45,7 +44,7 @@ __d(
         );
       }
     }
-    function _(e) {
+    function p(e) {
       return (
         e.length >=
           o("WAWebABProps").getABPropConfigValue("username_key_min_length") &&
@@ -53,17 +52,17 @@ __d(
           o("WAWebABProps").getABPropConfigValue("username_key_max_length")
       );
     }
-    function f(e) {
+    function _(e) {
       return o("WAWebUsernameValidationUtils").validateUsernameLocally(e)
         .isValid;
     }
-    function g(e) {
+    function f(e) {
       return e != null && e !== "";
     }
-    function h(e) {
-      return y(e);
+    function g(e) {
+      return h(e);
     }
-    function y(e) {
+    function h(e) {
       return e.startsWith("@")
         ? (o("WALogger")
             .WARN(
@@ -76,35 +75,33 @@ __d(
           e.slice(1))
         : e;
     }
-    function C(e) {
-      return e == null ? e : e === "" ? null : h(e);
+    function y(e) {
+      return e == null ? e : e === "" ? null : g(e);
     }
-    function b(e) {
+    function C(e) {
       return "@" + e;
     }
-    function v(e) {
+    function b(e) {
       return e;
     }
-    function S(e) {
+    function v(e) {
       return e == null ? e : e;
     }
-    ((l.LidOriginType = c),
-      (l.USERNAME_KEY_LENGTH = (u = o(
+    ((l.LidOriginType = u),
+      (l.USERNAME_KEY_LENGTH = o("WAWebUsernameConstants").USERNAME_KEY_LENGTH),
+      (l.UsernameValidationErrorType = o(
         "WAWebUsernameConstants",
-      )).USERNAME_KEY_LENGTH),
-      (l.USERNAME_MAX_LENGTH = u.USERNAME_MAX_LENGTH),
-      (l.USERNAME_MIN_LENGTH = u.USERNAME_MIN_LENGTH),
-      (l.UsernameValidationErrorType = u.UsernameValidationErrorType),
-      (l.isUsernameKey = d),
-      (l.asUsernameKey = m),
-      (l.isUsernameKeyLengthAllowed = _),
-      (l.isUsername = f),
-      (l.isPresentUsername = g),
-      (l.asUsername = h),
-      (l.asMaybeUsername = C),
-      (l.displayUsername = b),
-      (l.serializeUsername = v),
-      (l.serializeMaybeUsername = S));
+      ).UsernameValidationErrorType),
+      (l.isUsernameKey = c),
+      (l.asUsernameKey = d),
+      (l.isUsernameKeyLengthAllowed = p),
+      (l.isUsername = _),
+      (l.isPresentUsername = f),
+      (l.asUsername = g),
+      (l.asMaybeUsername = y),
+      (l.displayUsername = C),
+      (l.serializeUsername = b),
+      (l.serializeMaybeUsername = v));
   },
   98,
 );

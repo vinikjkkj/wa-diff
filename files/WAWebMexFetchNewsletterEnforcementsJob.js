@@ -232,7 +232,7 @@ __d(
           c =
             n.server_msg_id != null
               ? parseInt(n.server_msg_id, 10)
-              : parseInt(n.server_id, 10);
+              : parseInt(String(n.server_id), 10);
         s = babelHelpers.extends({}, s, {
           enforcementTargetData: { contentType: u, serverId: c },
         });
@@ -263,7 +263,7 @@ __d(
         l = e.enforcement_policy_information;
       return {
         appealCreationTime: o("WATimeUtils").castToUnixTime(
-          parseInt((n = e.appeal_creation_time) != null ? n : 0, 10),
+          parseInt(String((n = e.appeal_creation_time) != null ? n : 0), 10),
         ),
         appealReasonOptions:
           (r =

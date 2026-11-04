@@ -17,36 +17,46 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      var n = y(e),
-        r = await o("WAComms").sendSmaxStanza(n, t),
-        a = m(r, n);
-      if (a.success) return { name: "MyAddOnsResponseSuccess", value: a.value };
-      var i = s(r, n);
-      if (i.success)
-        return { name: "MyAddOnsResponseClientError", value: i.value };
-      var l = u(r, n);
-      if (l.success)
-        return { name: "MyAddOnsResponseServerError", value: l.value };
-      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-        o("WASmaxRpcUtils").errorMessageRpcParsing("MyAddOns", {
-          Success: a,
-          ClientError: i,
-          ServerError: l,
-        }),
+    function e(e, t) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = C(e),
+            r = yield o("WAComms").sendSmaxStanza(n, t),
+            a = p(r, n);
+          if (a.success)
+            return { name: "MyAddOnsResponseSuccess", value: a.value };
+          var i = u(r, n);
+          if (i.success)
+            return { name: "MyAddOnsResponseClientError", value: i.value };
+          var l = c(r, n);
+          if (l.success)
+            return { name: "MyAddOnsResponseServerError", value: l.value };
+          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+            o("WASmaxRpcUtils").errorMessageRpcParsing("MyAddOns", {
+              Success: a,
+              ClientError: i,
+              ServerError: l,
+            }),
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
-    function s(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = p(e, t);
+      var r = _(e, t);
       return r.success
         ? o("WAResultOrError").makeResult({ myAddonsClientErrors: r.value })
         : r;
     }
-    function u(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -54,23 +64,23 @@ __d(
       ).parseInternalServerErrorIQErrorResponseMixin(e, t);
       return (r.success, r);
     }
-    function c(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "message");
       if (!t.success) return t;
-      var n = _(e);
+      var n = f(e);
       return (n.success, n);
     }
-    function d(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "messages");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrNewsletterJid(e, "jid");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").mapChildrenWithTag(e, "message", 0, 5e3, c);
+      var r = o("WASmaxParseUtils").mapChildrenWithTag(e, "message", 0, 5e3, d);
       return r.success
         ? o("WAResultOrError").makeResult({ jid: n.value, message: r.value })
         : r;
     }
-    function m(e, t) {
+    function p(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "my_addons");
@@ -84,7 +94,7 @@ __d(
         "messages",
         0,
         5e3,
-        d,
+        m,
       );
       return i.success
         ? o("WAResultOrError").makeResult(
@@ -92,7 +102,7 @@ __d(
           )
         : i;
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = o(
         "WASmaxInNewslettersBadRequestIQErrorResponseMixin",
       ).parseBadRequestIQErrorResponseMixin(e, t);
@@ -136,7 +146,7 @@ __d(
             [n, r, a, i],
           );
     }
-    function _(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "message");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(
@@ -146,15 +156,15 @@ __d(
         2147476647,
       );
       if (!n.success) return n;
-      var r = h(e),
-        a = g(e);
+      var r = y(e),
+        a = h(e);
       return o("WAResultOrError").makeResult({
         serverId: n.value,
         newsletterMyReactionMixin: r.success ? r.value : null,
         newsletterMyPollVoteMixin: a.success ? a.value : null,
       });
     }
-    function f(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "vote");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentBytesRange(e, 32, 32);
@@ -162,7 +172,7 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function g(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "message");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "votes");
@@ -174,7 +184,7 @@ __d(
         "vote",
         0,
         1e3,
-        f,
+        g,
       );
       return a.success
         ? o("WAResultOrError").makeResult({
@@ -183,7 +193,7 @@ __d(
           })
         : a;
     }
-    function h(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "message");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "reaction");
@@ -198,7 +208,7 @@ __d(
           })
         : a;
     }
-    function y(e) {
+    function C(e) {
       var t = e.myAddonsLimit,
         n = e.myAddonsJid,
         r = o(
@@ -216,17 +226,17 @@ __d(
       return r;
     }
     ((l.sendMyAddOnsRPC = e),
-      (l.parseMyAddOnsResponseClientError = s),
-      (l.parseMyAddOnsResponseServerError = u),
-      (l.parseMyAddOnsResponseSuccessMyAddonsMessagesMessage = c),
-      (l.parseMyAddOnsResponseSuccessMyAddonsMessages = d),
-      (l.parseMyAddOnsResponseSuccess = m),
-      (l.parseMyAddonsClientErrors = p),
-      (l.parseNewsletterMessageMyAddOnsMixin = _),
-      (l.parseNewsletterMyPollVoteVotesVote = f),
-      (l.parseNewsletterMyPollVoteMixin = g),
-      (l.parseNewsletterMyReactionMixin = h),
-      (l.makeMyAddOnsRequest = y));
+      (l.parseMyAddOnsResponseClientError = u),
+      (l.parseMyAddOnsResponseServerError = c),
+      (l.parseMyAddOnsResponseSuccessMyAddonsMessagesMessage = d),
+      (l.parseMyAddOnsResponseSuccessMyAddonsMessages = m),
+      (l.parseMyAddOnsResponseSuccess = p),
+      (l.parseMyAddonsClientErrors = _),
+      (l.parseNewsletterMessageMyAddOnsMixin = f),
+      (l.parseNewsletterMyPollVoteVotesVote = g),
+      (l.parseNewsletterMyPollVoteMixin = h),
+      (l.parseNewsletterMyReactionMixin = y),
+      (l.makeMyAddOnsRequest = C));
   },
   98,
 );

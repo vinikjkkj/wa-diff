@@ -32,7 +32,7 @@ __d(
         return null;
       var l =
           a != null
-            ? o("WATimeUtils").castToUnixTime(parseInt(a, 10))
+            ? o("WATimeUtils").castToUnixTime(parseInt(String(a), 10))
             : o("WATimeUtils").unixTimeMs(),
         s = {
           id: r,

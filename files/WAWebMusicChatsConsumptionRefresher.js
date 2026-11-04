@@ -50,8 +50,8 @@ __d(
               "WAWebFetchMusicChatsConsumption",
             ).fetchMusicChatsConsumption(
               l.map(function (e) {
-                var t = e.musicData;
-                return t.musicContentMediaId;
+                var t = e.mediaId;
+                return t;
               }),
               a,
               s,
@@ -72,7 +72,7 @@ __d(
             ),
             p = m
               .map(function (e) {
-                return _(e, c.get(e.musicData.musicContentMediaId), i);
+                return _(e, c.get(e.mediaId), i);
               })
               .filter(Boolean);
           return p.length === 0
@@ -122,14 +122,16 @@ __d(
     }
     function p(e, t, n) {
       var r = o("WAWebDBMessageSerialization").messageFromDbRow(e),
-        a = r.musicData;
+        a = r.musicData,
+        i = a == null ? void 0 : a.musicContentMediaId;
       return r.type !== o("WAWebMsgType").MSG_TYPE.MUSIC ||
         a == null ||
+        i == null ||
         (!t &&
           a.consumptionCheckedAtS != null &&
           n - a.consumptionCheckedAtS < s)
         ? null
-        : { msg: r, musicData: a };
+        : { mediaId: i, msg: r, musicData: a };
     }
     function _(e, t, n) {
       var r,
@@ -188,17 +190,22 @@ __d(
             n = o("WALongInt").maybeNumber(e.endTimeInMs);
           return t == null || n == null || (n > l && t < s);
         });
-      return {
-        lyrics:
-          (i = o("WAWebMusicLyricsUtils").toMusicLyrics(
-            { lines: u },
-            e.songStartTimeMs,
-            e.clipDurationMs,
-          )) != null
-            ? i
-            : [],
-        lyricsConfirmedAtS: n,
-      };
+      return u.length === 0 && e.clipDurationMs != null
+        ? {
+            lyrics: [o("WAWebMusicLyricsUtils").getNoLyricsLine(l, s)],
+            lyricsConfirmedAtS: n,
+          }
+        : {
+            lyrics:
+              (i = o("WAWebMusicLyricsUtils").toMusicLyrics(
+                { lines: u },
+                e.songStartTimeMs,
+                e.clipDurationMs,
+              )) != null
+                ? i
+                : [],
+            lyricsConfirmedAtS: n,
+          };
     }
     l.refreshMusicChatsConsumption = u;
   },

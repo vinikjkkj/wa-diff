@@ -14,7 +14,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      return e + "/*x*/";
+      return "\xA0" + e;
     }
     function u(t) {
       r("gkx")("23983") &&
@@ -73,7 +73,7 @@ __d(
           }
         if (!d && n("cr:7329"))
           try {
-            ((c = n("cr:7329").fromSegment(s(t))), (d = !0));
+            ((c = n("cr:7329").fromExcerpt(s(t))), (d = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")
               .catching(r("getErrorSafe")(e))

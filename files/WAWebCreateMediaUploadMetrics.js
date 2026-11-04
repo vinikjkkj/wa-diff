@@ -2,11 +2,11 @@ __d(
   "WAWebCreateMediaUploadMetrics",
   [
     "WAWebAppTracker",
-    "WAWebCoreActionsODS",
     "WAWebHttpErrors",
     "WAWebMapFileOriginToUploadOrigin",
     "WAWebMediaUpload2WamEvent",
     "WAWebMmsMediaTypes",
+    "WAWebODS",
     "WAWebWamEnumConnectionType",
     "WAWebWamEnumMediaQuality",
     "WAWebWamEnumMediaUploadResultType",
@@ -123,7 +123,7 @@ __d(
           ),
           o("WAWebAppTracker").attachWAMAppContext(f, f.overallCumT),
           f.commit(),
-          o("WAWebCoreActionsODS").logMediaUploadSuccess());
+          r("WAWebODS").incr("web.media.upload.success"));
       }
       function S(e) {
         var t = o("WAWebWamMediaMetricUtils").getMetricUploadErrorResultType(e);
@@ -140,15 +140,15 @@ __d(
           t !==
             o("WAWebWamEnumMediaUploadResultType").MEDIA_UPLOAD_RESULT_TYPE
               .ERROR_CANCEL &&
-            (o("WAWebCoreActionsODS").logMediaUploadError(),
+            (r("WAWebODS").incr("web.media.upload.error"),
             t ===
             o("WAWebWamEnumMediaUploadResultType").MEDIA_UPLOAD_RESULT_TYPE
               .ERROR_SERVER
-              ? o("WAWebCoreActionsODS").logMediaUploadErrorServer()
+              ? r("WAWebODS").incr("web.media.upload.error.server")
               : t ===
                   o("WAWebWamEnumMediaUploadResultType")
                     .MEDIA_UPLOAD_RESULT_TYPE.ERROR_UPLOAD &&
-                o("WAWebCoreActionsODS").logMediaUploadErrorNetwork()));
+                r("WAWebODS").incr("web.media.upload.error.network")));
       }
       function R(e) {
         (f.set({ overallT: e }),

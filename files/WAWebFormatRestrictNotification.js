@@ -10,7 +10,7 @@ __d(
         i = a[0];
       if (i === "on") {
         if (a[1] != null) {
-          var l = parseInt(a[1], 10) || e;
+          var l = parseInt(String(a[1]), 10) || e;
           return s._(
             /*BTDS*/ '_j{"*":"This group has over {threshold} members so now only admins can edit the group settings","_1":"This group has over 1 member so now only admins can edit the group settings"}',
             [s._plural(l, "threshold")],

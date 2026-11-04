@@ -680,6 +680,7 @@ __d(
       win_hybrid_multi_account_enabled: [40655, "bool", !1, !0],
       win_hybrid_native_bridge_telemetry_enabled: [41412, "bool", !1, !1],
       win_hybrid_native_bridge_tracing_enabled: [41411, "bool", !1, !1],
+      win_hybrid_post_update_preload: [41562, "bool", !1, !0],
       win_hybrid_push_task_all_banners_enabled: [40423, "bool", !1, !0],
       win_hybrid_renderer_failure_max_reloads: [40531, "int", 0, 3],
       win_hybrid_startup_telemetry_level: [40650, "int", 0, 2],

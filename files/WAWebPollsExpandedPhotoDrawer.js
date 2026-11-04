@@ -1,6 +1,7 @@
 __d(
   "WAWebPollsExpandedPhotoDrawer",
   [
+    "WAWebCastToPollCreationMsg",
     "WAWebDrawer.react",
     "WAWebDrawerBody.react",
     "WAWebDrawerHeader.react",
@@ -57,7 +58,11 @@ __d(
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((S = [o("WAWebMsgGetters").getPollType]), (t[0] = S))
         : (S = t[0]);
-      var R = o("useWAWebMsgValues").useMsgValues(m, S),
+      var R = o("useWAWebMsgValues").useMsgValues(
+          m,
+          r("WAWebCastToPollCreationMsg"),
+          S,
+        ),
         L = R[0],
         E;
       t[1] !== v

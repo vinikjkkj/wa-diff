@@ -22,34 +22,39 @@ __d(
     function s(e, t, n) {
       return c(t, !1)(e, n);
     }
-    function u(e) {
-      return c(e, !0);
+    function u(e, t) {
+      return c(e, !0, t);
     }
-    function c(e, t) {
+    function c(e, t, n) {
       if (!o("WAWebCustomerManagerProfileQueryPlan").isSearchQueryActive(e))
         return o("WAWebBoolFunc").returnTrue;
-      var n = o("WAWebL10NAccentFold").accentFold(e.trim()),
-        r = o("WAWebPhoneNumberSearch").numberSearch(n) || null,
-        a = o(
+      n == null || n.prepareForQuery();
+      var r = o("WAWebL10NAccentFold").accentFold(e.trim()),
+        a = o("WAWebPhoneNumberSearch").numberSearch(r) || null,
+        i = o(
           "WAWebCustomerManagerSearchValueMatcher",
-        ).createCustomerDateMatcher(n, r, t);
+        ).createCustomerDateMatcher(r, a, t);
       return function (e, t) {
-        return d(e, n, r, t, a);
+        return d(e, r, a, t, i, n);
       };
     }
-    function d(e, t, n, r, a) {
-      var i = o("WAWebCustomerManagerChatJid").toChatJidOrNull(
+    function d(e, t, n, r, a, i) {
+      var l = o("WAWebCustomerManagerChatJid").toChatJidOrNull(
           String(e.chatJid),
         ),
-        l =
-          i == null
+        s =
+          l == null
             ? null
             : o("WAWebCustomerContactResolver").resolveCustomerContact(
-                o("WAWebWidFactory").createWid(String(i)),
+                o("WAWebWidFactory").createWid(String(l)),
               );
-      return (l == null ? void 0 : l.searchMatchExact(t, n)) != null
+      return (s == null ? void 0 : s.searchMatchExact(t, n)) != null
         ? !0
-        : m(e, l, r, t, n) || a(e);
+        : i != null
+          ? i.matchesText(e, r, t, n) ||
+            i.matchesLabels(e, s, t, n) ||
+            i.matchesDates(e, t, n)
+          : m(e, s, r, t, n) || a(e);
     }
     function m(e, t, n, r, o) {
       return h(e.email, r, o) ||

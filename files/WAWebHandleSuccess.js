@@ -16,9 +16,9 @@ __d(
     "WAWebDbEncryptionKey",
     "WAWebEnvironment",
     "WAWebMediaHosts",
+    "WAWebOfflineSyncQplSession",
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
-    "WAWebQplFlowWrapper",
     "WAWebSyncdGetActionHandler",
     "WAWebUpdateClockSkewUtils",
     "WAWebUpdateMeLidUtils",
@@ -29,7 +29,6 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:17219",
     "justknobx",
-    "qpl",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -37,14 +36,13 @@ __d(
       u,
       c,
       d,
-      m = r("qpl")._(891431279, "3267"),
-      p =
+      m =
         n("cr:17219") == null
           ? void 0
           : n("cr:17219").getWindowsBridge(
               r("WAWebWindowsHybridBridgeInitiator").WAWebHandleSuccess,
             ),
-      _ = new (r("WADeprecatedWapParser"))("successParser", function (e) {
+      p = new (r("WADeprecatedWapParser"))("successParser", function (e) {
         return (
           e.assertTag("success"),
           {
@@ -58,16 +56,18 @@ __d(
           }
         );
       });
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a, i, l;
           (o("WAWebPageLoadLogging").addPageLoadQplPoint("success_received"),
-            o("WAWebQplFlowWrapper").QPL.markerPoint(m, "SuccessReceived"));
-          var s = _.parse(t);
+            o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
+              o("WAWebOfflineSyncQplSession").OfflineSyncPoint.SuccessReceived,
+            ));
+          var s = p.parse(t);
           if (s.error)
             return (
               o("WALogger").ERROR(
@@ -105,42 +105,42 @@ __d(
             o(
               "WAWebCryptoEncKeyHelper",
             ).generateFinalDbEncryptionAndFtsKeyForInvoker(c),
-            r("WAWebEnvironment").isWindows && r("justknobx")._("5257") && h(c),
-            p == null || (a = p.contacts) == null || a.initialize());
-          var f = (i = u.abpropsRefreshId) != null ? i : 0,
-            g = o("WAWebABPropsLocalStorage").getRefreshId(),
-            y = r("justknobx")._("2086"),
-            b = o("WAWebABPropsLocalStorage").getWebRefreshId();
+            r("WAWebEnvironment").isWindows && r("justknobx")._("5257") && g(c),
+            m == null || (a = m.contacts) == null || a.initialize());
+          var _ = (i = u.abpropsRefreshId) != null ? i : 0,
+            f = o("WAWebABPropsLocalStorage").getRefreshId(),
+            h = r("justknobx")._("2086"),
+            C = o("WAWebABPropsLocalStorage").getWebRefreshId();
           if (
-            (b !== y && o("WAWebABPropsLocalStorage").setWebRefreshId(y),
-            (f !== 0 && g !== f) || (y !== 0 && b !== y))
+            (C !== h && o("WAWebABPropsLocalStorage").setWebRefreshId(h),
+            (_ !== 0 && f !== _) || (h !== 0 && C !== h))
           ) {
-            var v = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync();
-            v &&
+            var b = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync();
+            b &&
               (yield o("WAWebAbPropsSyncJob").syncABPropsTask({
-                localRefreshId: g !== f ? g : b,
+                localRefreshId: f !== _ ? f : C,
                 shouldSendHash: !1,
               }));
           }
-          var S = (l = u.groupAbpropsRefreshId) != null ? l : 0,
-            R = o("WAWebABPropsLocalStorage").getGroupAbPropsRefreshId();
-          (S !== 0 &&
-            S !== R &&
+          var v = (l = u.groupAbpropsRefreshId) != null ? l : 0,
+            S = o("WAWebABPropsLocalStorage").getGroupAbPropsRefreshId();
+          (v !== 0 &&
+            v !== S &&
             o("WAWebABPropsLocalStorage").setGroupAbPropsEmergencyPushTimestamp(
               u.ts,
             ),
-            yield C(1e3));
+            yield y(1e3));
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = p == null ? void 0 : p.serverEncKeySaltBridge;
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = m == null ? void 0 : m.serverEncKeySaltBridge;
           if (t == null) {
             o("WALogger").ERROR(
               s ||
@@ -154,15 +154,15 @@ __d(
             r = o("WABase64").encodeB64(n.encode(e));
           yield t.setServerEncKeySalt(r);
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o("WAPromiseTimeout").promiseTimeout(
               o("WAWebMediaHosts").mediaHosts.forceRefresh(
@@ -192,10 +192,10 @@ __d(
                   .sendLogs("mms4-fetch-host-failed");
           }
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    l.default = f;
+    l.default = _;
   },
   98,
 );

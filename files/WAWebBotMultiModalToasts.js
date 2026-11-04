@@ -134,7 +134,7 @@ __d(
     }
     function C() {
       return s._(
-        /*BTDS*/ "Can't send this type of files to Meta AI at this time",
+        /*BTDS*/ "Can't send these types of files to Meta AI at this time",
       );
     }
     C.displayName = C.name + " [from " + i.id + "]";

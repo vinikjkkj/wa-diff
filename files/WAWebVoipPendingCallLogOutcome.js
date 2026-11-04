@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipPendingCallLogOutcome",
-  ["WAWebCallLogMsgData.flow"],
+  ["WAWebCallLogMsgData.flow", "WAWebVoipCallLogPlaceholderTracker"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 100,
@@ -13,21 +13,32 @@ __d(
       )
         return (s.delete(a), !1);
       var i = s.get(a);
-      if ((i == null ? void 0 : i.callOutcome) === n) return !0;
-      if (i == null && s.size >= e) {
-        var l = s.keys().next().value;
-        l != null && s.delete(l);
-      }
-      return (s.set(a, { callOutcome: n }), !0);
+      return (
+        (i == null ? void 0 : i.outcome.callOutcome) === n ||
+          (i == null && s.size >= e && c(),
+          s.set(a, { callId: t.id, outcome: { callOutcome: n } })),
+        !0
+      );
     }
-    function c(e) {
-      return s.get(e.toString());
+    function c() {
+      for (var e of s) {
+        var t = e[0],
+          n = e[1].callId;
+        if (!o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(n)) {
+          s.delete(t);
+          return;
+        }
+      }
     }
     function d(e) {
+      var t;
+      return (t = s.get(e.toString())) == null ? void 0 : t.outcome;
+    }
+    function m(e) {
       var t = e.id;
       if (t == null || e.kind !== "callLog")
         return { callLogMessage: e, pendingOutcome: null };
-      var n = c(t);
+      var n = d(t);
       return n == null ||
         (e.callOutcome !== o("WAWebCallLogMsgData.flow").CallOutcome.Missed &&
           e.callOutcome !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown)
@@ -39,26 +50,27 @@ __d(
             pendingOutcome: n,
           };
     }
-    function m(e, t) {
+    function p(e, t) {
+      var n;
       if (!(e == null || t == null)) {
-        var n = e.toString();
-        s.get(n) === t && s.delete(n);
+        var r = e.toString();
+        ((n = s.get(r)) == null ? void 0 : n.outcome) === t && s.delete(r);
       }
     }
-    function p(e) {
+    function _(e) {
       var t,
         n = e.existingCallOutcome,
         r = e.expectedPendingOutcome,
         a = e.msgKey,
         i = e.requestedCallOutcome,
-        l = c(a);
+        l = d(a);
       if (r != null) {
         if (l !== r) return { type: "skip", reason: "consumed" };
         if (
           n !== o("WAWebCallLogMsgData.flow").CallOutcome.Missed &&
           n !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
         )
-          return (m(a, r), { type: "skip", reason: "terminal" });
+          return (p(a, r), { type: "skip", reason: "terminal" });
       }
       return {
         type: "apply",
@@ -66,11 +78,12 @@ __d(
         pendingOutcome: l,
       };
     }
-    ((l.rememberPendingCallLogOutcome = u),
-      (l.getPendingCallLogOutcome = c),
-      (l.mergePendingCallLogOutcome = d),
-      (l.clearPendingCallLogOutcome = m),
-      (l.prepareCallLogOutcomeUpdate = p));
+    ((l.MAX_PENDING_CALL_LOG_OUTCOMES = e),
+      (l.rememberPendingCallLogOutcome = u),
+      (l.getPendingCallLogOutcome = d),
+      (l.mergePendingCallLogOutcome = m),
+      (l.clearPendingCallLogOutcome = p),
+      (l.prepareCallLogOutcomeUpdate = _));
   },
   98,
 );

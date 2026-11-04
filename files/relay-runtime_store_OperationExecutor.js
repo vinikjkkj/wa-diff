@@ -1016,7 +1016,7 @@ __d(
             ).getLinkedRecordIDs(v, C);
           R != null || l(0, 49730, r, o.name);
           var L = i[i.length - 1],
-            E = parseInt(L, 10);
+            E = parseInt(String(L), 10);
           (E === L && E >= 0) || l(0, 49731, L);
           var k = (c = o.concreteType) != null ? c : f[h];
           typeof k == "string" || l(0, 49720, o.name);

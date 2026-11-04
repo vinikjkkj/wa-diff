@@ -43,7 +43,7 @@ __d(
                   l = new Date();
                 (l.setUTCHours(r, o, 0, 0),
                   b != null &&
-                    i(e, b, [parseInt(l.getTime() / 1e3, 10), e, a]));
+                    i(e, b, [parseInt(String(l.getTime() / 1e3), 10), e, a]));
               }
             }),
             (t[2] = a),
@@ -97,7 +97,8 @@ __d(
                 s.setUTCMonth(o - 1),
                 s.setUTCDate(l),
                 s.setUTCHours(0, 0, 0, 0),
-                b != null && i(e, b, [parseInt(s.getTime() / 1e3, 10), e, a]));
+                b != null &&
+                  i(e, b, [parseInt(String(s.getTime() / 1e3), 10), e, a]));
             }
           }),
           (t[19] = a),

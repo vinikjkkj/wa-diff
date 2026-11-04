@@ -49,7 +49,10 @@ __d(
     function f() {
       var e,
         t = d();
-      return parseInt((e = t == null ? void 0 : t.refresh) != null ? e : u, 10);
+      return parseInt(
+        String((e = t == null ? void 0 : t.refresh) != null ? e : u),
+        10,
+      );
     }
     function g() {
       var e = r("nullthrows")(r("WAWebLocalStorage")).getItem(

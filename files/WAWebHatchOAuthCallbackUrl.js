@@ -4,8 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["agent.meta.ai", "muse.ai"],
-      s = "/api/hatch/oauth/callback";
-    function u(t) {
+      s = "/api/hatch/oauth/callback",
+      u = /^https:\/\/([^/?#@:]+)(\/[^?#]*)$/i;
+    function c(t) {
       var n,
         r,
         a,
@@ -26,7 +27,11 @@ __d(
             : "";
       return c === "" || d === "" ? null : { code: c, state: d };
     }
-    l.parseHatchOAuthCallbackUrl = u;
+    function d(t) {
+      var n = u.exec(t);
+      return n != null && e.includes(n[1].toLowerCase()) && n[2] === s;
+    }
+    ((l.parseHatchOAuthCallbackUrl = c), (l.isHatchOAuthRedirectUri = d));
   },
   98,
 );

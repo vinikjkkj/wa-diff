@@ -168,7 +168,7 @@ __d(
     }
     function ie(e) {
       var t = new Date(e);
-      return isNaN(t) ? null : I(t.getTime());
+      return isNaN(Number(t)) ? null : I(t.getTime());
     }
     function le(e, t) {
       var n = Math.abs(e - t);

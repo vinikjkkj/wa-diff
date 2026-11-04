@@ -58,34 +58,43 @@ __d(
     }
     function d(e, t) {
       var n = o("WAWebHatchPayloadDecoder").decodeHatchPayload(e);
-      if (!o("WAWebHatchPayloadDecoder").bypassesLastWriteWins(e.opKey)) {
-        var r,
-          a = (r = e.seq) != null ? r : e.timestamp;
-        if (a != null) {
-          var i = u.get(e.index);
-          if (i != null && a <= i) return;
-          u.set(e.index, a);
+      if (
+        !(
+          !o("WAWebHatchPayloadDecoder").bypassesLastWriteWins(e.opKey) && !m(e)
+        )
+      ) {
+        if ((p(t, e, n), e.operation === "REMOVE")) {
+          n.kind === "approval_record" &&
+            o("WAWebHandleHatchApproval").handleRemovedHatchApprovalRecord(
+              n.event,
+            );
+          return;
         }
+        n.kind === "agent_status"
+          ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(n.status)
+          : n.kind === "identity"
+            ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(n.identity)
+            : n.kind === "approval_record"
+              ? o("WAWebHandleHatchApproval").handleHatchApprovalRecord(n.event)
+              : n.kind === "channel_notification" &&
+                o(
+                  "WAWebHandleHatchChannelNotification",
+                ).handleHatchChannelNotification(n.notification);
       }
-      if ((m(t, e, n), e.operation === "REMOVE")) {
-        n.kind === "approval_record" &&
-          o("WAWebHandleHatchApproval").handleRemovedHatchApprovalRecord(
-            n.event,
-          );
-        return;
-      }
-      n.kind === "agent_status"
-        ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(n.status)
-        : n.kind === "identity"
-          ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(n.identity)
-          : n.kind === "approval_record"
-            ? o("WAWebHandleHatchApproval").handleHatchApprovalRecord(n.event)
-            : n.kind === "channel_notification" &&
-              o(
-                "WAWebHandleHatchChannelNotification",
-              ).handleHatchChannelNotification(n.notification);
     }
-    function m(e, t, n) {
+    function m(e) {
+      var t = e.index,
+        n = e.seq,
+        r = e.timestamp;
+      if (r == null) return !0;
+      var o = u.get(t),
+        a =
+          o == null ||
+          r > o.timestamp ||
+          (r === o.timestamp && n != null && o.seq != null && n > o.seq);
+      return (a && u.set(t, { timestamp: r, seq: n }), a);
+    }
+    function p(e, t, n) {
       var r;
       if (o("WAWebCurrentUser").isEmployee()) {
         var a =
@@ -112,7 +121,7 @@ __d(
         );
       }
     }
-    function p(e) {
+    function _(e) {
       return e.kind === "channel_notification"
         ? {
             kind: e.kind,

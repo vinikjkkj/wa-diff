@@ -104,22 +104,22 @@ __d(
             return E.post.apply(E, e);
           });
       },
-      _gatherWadsAndPostsFromBuffer: function (t, n, o, a, i, l) {
+      _gatherWadsAndPostsFromBuffer: function (t, n, r, a, i, l) {
         var e = {
             currentSize: 0,
-            keepRetryable: o,
+            keepRetryable: r,
             overlimit: !1,
             sendMinimumOnePost: l,
             wadMap: new Map(),
           },
-          s = i[a].filter(function (o) {
-            return r("BanzaiUtils").filterPost(o, t, n, e);
+          s = i[a].filter(function (r) {
+            return o("BanzaiUtils").filterPost(r, t, n, e);
           });
         return (
           !e.overlimit &&
             a === "vital" &&
-            (i.basic = i.basic.filter(function (o) {
-              return r("BanzaiUtils").filterPost(o, t, n, e);
+            (i.basic = i.basic.filter(function (r) {
+              return o("BanzaiUtils").filterPost(r, t, n, e);
             })),
           s
         );
@@ -186,7 +186,7 @@ __d(
                 e.__meta.callback != null && e.__meta.callback());
             },
             function (e) {
-              r("BanzaiUtils").retryPost(t, e, m[n], R());
+              o("BanzaiUtils").retryPost(t, e, m[n], R());
             },
             !0,
           ),
@@ -241,7 +241,7 @@ __d(
       _prepForTransit: function (t) {
         var e = new FormData();
         e.append("ts", String(Date.now()));
-        var n = r("BanzaiCompressionUtils").outOfBandsPosts(t);
+        var n = o("BanzaiCompressionUtils").outOfBandsPosts(t);
         return (
           Object.keys(n).forEach(function (t) {
             e.append(t, n[t]);
@@ -251,13 +251,13 @@ __d(
         );
       },
       _prepWadForTransit: function (t) {
-        r("BanzaiCompressionUtils").compressWad(
+        o("BanzaiCompressionUtils").compressWad(
           t,
           r("BanzaiAdapterComet").preferredCompressionMethod(),
         );
       },
       _prepWadForTransitAsync: function (t) {
-        return r("BanzaiCompressionUtils").compressWadAsync(
+        return o("BanzaiCompressionUtils").compressWadAsync(
           t,
           r("BanzaiAdapterComet").preferredCompressionMethod(),
         );
@@ -303,44 +303,44 @@ __d(
       _sendBeacon: function (t) {
         E._getPostBuffer(t).length > 0 && E._tryToSendViaBeacon(t);
       },
-      _sendWithCallbacks: function (o, a, i) {
+      _sendWithCallbacks: function (a, i, l) {
         if (
-          (m[o].length > 0 &&
+          (m[a].length > 0 &&
             E._schedule(
-              o === "vital"
+              a === "vital"
                 ? (c || (c = r("BanzaiConsts"))).VITAL_WAIT
                 : (c || (c = r("BanzaiConsts"))).BASIC_WAIT_COMET,
-              o,
+              a,
             ),
           !r("BanzaiAdapterComet").readyToSend())
         ) {
-          i && i();
+          l && l();
           return;
         }
         var t = r("BanzaiAdapterComet").getStorage();
         ((d || (d = r("ErrorGuard"))).applyWithGuard(t.flush, t, [E._restore]),
           r("BanzaiAdapterComet").inform((c || (c = r("BanzaiConsts"))).SEND));
-        var l = [],
-          s = [];
+        var s = [],
+          u = [];
         if (
-          ((m[o] = E._gatherWadsAndPostsFromBuffer(l, s, !0, o, m, !0)),
-          l.length <= 0)
+          ((m[a] = E._gatherWadsAndPostsFromBuffer(s, u, !0, a, m, !0)),
+          s.length <= 0)
         ) {
           (r("BanzaiAdapterComet").inform((c || (c = r("BanzaiConsts"))).OK),
-            a && a());
+            i && i());
           return;
         }
-        ((l[0].trigger = b),
+        ((s[0].trigger = b),
           (b = null),
-          l.forEach(function (e) {
+          s.forEach(function (e) {
             return (e.send_method = "ajax");
           }),
-          p.push.apply(p, s),
+          p.push.apply(p, u),
           (e || (e = n("Promise")))
-            .all(l.map(E._prepWadForTransitAsync))
+            .all(s.map(E._prepWadForTransitAsync))
             .finally(function () {
               E._isShutdown ||
-                (s.forEach(function (e) {
+                (u.forEach(function (e) {
                   var t = p.indexOf(e);
                   if (t === -1) {
                     r("FBLogger")("comet_infra").mustfix(
@@ -351,11 +351,11 @@ __d(
                   p.splice(t, 1);
                 }),
                 r("BanzaiAdapterComet").send(
-                  E._prepForTransit(l),
+                  E._prepForTransit(s),
                   function () {
-                    ((y[o] = 0),
-                      (C[o] = 0),
-                      s.forEach(function (e) {
+                    ((y[a] = 0),
+                      (C[a] = 0),
+                      u.forEach(function (e) {
                         var t = e;
                         ((t.__meta.status = (
                           c || (c = r("BanzaiConsts"))
@@ -363,16 +363,16 @@ __d(
                           typeof t.__meta.callback == "function" &&
                             t.__meta.callback());
                       }),
-                      a && a());
+                      i && i());
                   },
                   function (e) {
                     var t = R();
-                    (s.forEach(function (n) {
-                      r("BanzaiUtils").retryPost(n, e, m[o], t);
+                    (u.forEach(function (n) {
+                      o("BanzaiUtils").retryPost(n, e, m[a], t);
                     }),
-                      S() && L(o),
+                      S() && L(a),
                       E._store(),
-                      i && i());
+                      l && l());
                   },
                 ));
             }));
@@ -390,25 +390,25 @@ __d(
       _tryToSendViaBeacon: function (n) {
         if (!(navigator && navigator.sendBeacon)) return !1;
         var e = !0,
-          o = [],
+          r = [],
           a = [];
         if (
-          ((m[n] = E._gatherWadsAndPostsFromBuffer(o, a, !1, n, m, !1)),
-          o.length <= 0)
+          ((m[n] = E._gatherWadsAndPostsFromBuffer(r, a, !1, n, m, !1)),
+          r.length <= 0)
         )
           return !1;
-        (o.forEach(function (e) {
+        (r.forEach(function (e) {
           return (e.send_method = "beacon");
         }),
-          o.map(E._prepWadForTransit));
-        var i = E._prepForTransit(o),
+          r.map(E._prepWadForTransit));
+        var i = E._prepForTransit(r),
           l = E.adapter.getEndPointUrl(!0),
           s = t.navigator.sendBeacon(l, i);
         return (
           s ||
             ((e = !1),
             a.forEach(function (e) {
-              (r("BanzaiUtils").resetPostStatus(e),
+              (o("BanzaiUtils").resetPostStatus(e),
                 E._getPostBuffer(n).push(e));
             })),
           e
@@ -425,7 +425,7 @@ __d(
           p.forEach(function (e) {
             var t = e,
               n = t.__meta.priority;
-            r("BanzaiUtils").retryPost(
+            o("BanzaiUtils").retryPost(
               e,
               444,
               E._getPostBuffer(
@@ -480,14 +480,14 @@ __d(
           r("BanzaiAdapterComet").config.gks[t]
         );
       },
-      post: function (t, n, o) {
-        var e, a;
-        if ((E._flushLazyQueue(), !E._handlePostPreflightChecks(t, n, o))) {
-          var i = t.split(":");
+      post: function (t, n, a) {
+        var e, i;
+        if ((E._flushLazyQueue(), !E._handlePostPreflightChecks(t, n, a))) {
+          var l = t.split(":");
           if (
             !(
               (r("BanzaiAdapterComet").config.known_routes || []).indexOf(
-                i[0],
+                l[0],
               ) === -1 &&
               (r("BanzaiAdapterComet").config.should_log_unknown_routes ===
                 !0 &&
@@ -501,31 +501,31 @@ __d(
               r("BanzaiAdapterComet").config.should_drop_unknown_routes === !0)
             )
           ) {
-            var l = E._validateRouteAndSize(t, n),
-              s = o || {},
-              d = r("BanzaiUtils").wrapData(
+            var s = E._validateRouteAndSize(t, n),
+              d = a || {},
+              m = o("BanzaiUtils").wrapData(
                 t,
                 n,
                 (u || (u = r("performanceAbsoluteNow")))(),
-                s.retry,
-                l,
+                d.retry,
+                s,
               ),
-              m = d;
-            (s.callback && (m.__meta.callback = s.callback),
-              s.compress != null && (m.__meta.compress = s.compress));
-            var p =
-                (e = s.delay) != null
+              p = m;
+            (d.callback && (p.__meta.callback = d.callback),
+              d.compress != null && (p.__meta.compress = d.compress));
+            var _ =
+                (e = d.delay) != null
                   ? e
                   : (c || (c = r("BanzaiConsts"))).BASIC_WAIT_COMET,
-              _ =
-                p > (c || (c = r("BanzaiConsts"))).VITAL_WAIT
+              f =
+                _ > (c || (c = r("BanzaiConsts"))).VITAL_WAIT
                   ? (c || (c = r("BanzaiConsts"))).BASIC
                   : (c || (c = r("BanzaiConsts"))).VITAL;
-            ((m.__meta.priority = _),
-              !E._handleSignalPost(d, _, (a = s.signal) != null ? a : !1) &&
-                (E._handleBatchPost(d, _, s.batch) ||
-                  (E._getPostBuffer(_).push(d),
-                  (E._schedule(p, _) || b == null) && (b = t))));
+            ((p.__meta.priority = f),
+              !E._handleSignalPost(m, f, (i = d.signal) != null ? i : !1) &&
+                (E._handleBatchPost(m, f, d.batch) ||
+                  (E._getPostBuffer(f).push(m),
+                  (E._schedule(_, f) || b == null) && (b = t))));
           }
         }
       },

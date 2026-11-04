@@ -39,6 +39,9 @@ __d(
           (t.isScheduledCall = o("WAWebBaseModel").prop(!1)),
           (t.unseenChangeFlags = o("WAWebBaseModel").prop(0)),
           (t.lastChangeTsUsec = o("WAWebBaseModel").prop(0)),
+          (t.linkToken = o("WAWebBaseModel").prop()),
+          (t.region = o("WAWebBaseModel").prop()),
+          (t.linkCreatorPushName = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

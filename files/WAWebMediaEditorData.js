@@ -477,12 +477,6 @@ __d(
           (a.getSelectedLayer = function () {
             return this.$1.selectedLayer;
           }),
-          (a.getBackgroundColor = function () {
-            return this.$1.backgroundColor;
-          }),
-          (a.getTintColor = function () {
-            return this.$1.tintColor;
-          }),
           (a.getSize = function () {
             return this.$1.frame.getSize();
           }),

@@ -36,7 +36,12 @@ __d(
       return m(d(n, t));
     }
     function d(e, t) {
-      return r("WAPttComposerScaleWaveform")(Array.from(e, Math.abs), t);
+      return r("WAPttComposerScaleWaveform")(
+        Array.from(e, function (e) {
+          return Math.abs(e);
+        }),
+        t,
+      );
     }
     function m(e) {
       var t = Math.pow(Math.max.apply(Math, e), -1),

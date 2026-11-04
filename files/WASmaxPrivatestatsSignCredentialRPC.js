@@ -375,19 +375,8 @@ __d(
     ((l.sendSignCredentialRPC = e),
       (l.parseSignCredentialResponseErrorNoRetry = u),
       (l.parseSignCredentialResponseErrorRetry = c),
-      (l.parseSignCredentialResponseSuccessSignCredentialConfigId = d),
       (l.parseSignCredentialResponseSuccess = m),
-      (l.makeSignCredentialRequestSignCredentialConfigId = p),
-      (l.makeSignCredentialRequest = _),
-      (l.parseEmptyConfigIdOrNonEmptyConfigIdEmptyConfigIdMixinGroup = f),
-      (l.parseIQErrorInternalServerErrorMixin = g),
-      (l.parseIQErrorResponseMixin = h),
-      (l.parseNonEmptyConfigIdMixin = y),
-      (l.parseSignCredentialNoRetryError = C),
-      (l.parseEmptyConfigIdMixin = b),
-      (l.parseIQErrorBadRequestMixin = v),
-      (l.parseIQErrorFeatureNotImplementedMixin = S),
-      (l.parseIQErrorServiceUnavailableMixin = R));
+      (l.makeSignCredentialRequest = _));
   },
   98,
 );

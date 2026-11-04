@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipWasmGlueSkewObserver",
-  ["WALogger", "WAWebCoreActionsODS", "WAWebVoipQplHelpers", "getErrorSafe"],
+  [
+    "WALogger",
+    "WAWebCoreActionsODS",
+    "WAWebODS",
+    "WAWebVoipQplHelpers",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -91,9 +97,9 @@ __d(
         (C = Math.max(C, t)),
         !m &&
           ((m = !0),
-          o(
-            "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactWorkerGlueSkewPinnedImportLoaded(),
+          r("WAWebODS").incr(
+            "web.call.voip_init.wasm_artifact.worker_glue.skew_pinned_import_loaded",
+          ),
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -109,9 +115,9 @@ __d(
       (y++,
         !p &&
           ((p = !0),
-          o(
-            "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactWorkerGlueSkewPinnedImportFailed(),
+          r("WAWebODS").incr(
+            "web.call.voip_init.wasm_artifact.worker_glue.skew_pinned_import_failed",
+          ),
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([

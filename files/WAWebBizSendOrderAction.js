@@ -136,6 +136,9 @@ __d(
             )
               throw new (r("WAWebOrderMessageSendResultError"))(
                 h == null ? void 0 : h.messageSendResult,
+                h == null ? void 0 : h.failureReason,
+                h == null ? void 0 : h.ackErrorCode,
+                h == null ? void 0 : h.failureErrorName,
               );
           } catch (e) {
             throw (

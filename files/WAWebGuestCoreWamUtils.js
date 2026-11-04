@@ -2,8 +2,8 @@ __d(
   "WAWebGuestCoreWamUtils",
   [
     "WALogger",
+    "WAWebDeviceClass",
     "WAWebGuestCoreCommonUtils",
-    "WAWebGuestCoreGetDeviceClass",
     "WAWebGuestCoreLocalStorage",
     "WAWebGuestUpsellInteractionWamEvent",
     "WAWebWamEnumDeviceClassification",
@@ -60,7 +60,7 @@ __d(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
               e,
           );
-        })(o("WAWebGuestCoreGetDeviceClass").getGuestDeviceClass()),
+        })(o("WAWebDeviceClass").getWAWebDeviceClass()),
         deviceName: e.osName,
         deviceVersion: e.osVersion,
         webcTabId: o("WAWebGuestCoreLocalStorage").getGuestExperienceType(),

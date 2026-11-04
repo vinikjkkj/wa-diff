@@ -4,6 +4,7 @@ __d(
     "WAWebDesktopUpsellUtils",
     "WAWebMobilePlatforms",
     "WAWebProductFeature",
+    "react-compiler-runtime",
     "useWAWebAsync",
   ],
   function (t, n, r, o, a, i, l) {
@@ -11,30 +12,47 @@ __d(
       return s() || o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled();
     }
     function s() {
-      var e = u();
-      return !o("WAWebMobilePlatforms").isSMB() && e;
+      var e = o("react-compiler-runtime").c(2),
+        t = u(),
+        n;
+      return (
+        e[0] !== t
+          ? ((n = !o("WAWebMobilePlatforms").isSMB() && t),
+            (e[0] = t),
+            (e[1] = n))
+          : (n = e[1]),
+        n
+      );
     }
     function u() {
-      var e = o("WAWebDesktopUpsellUtils").getUserDesktopOs(),
-        t = r("useWAWebAsync")(
+      var e = o("react-compiler-runtime").c(2),
+        t = o("WAWebDesktopUpsellUtils").getUserDesktopOs(),
+        n;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = []), (e[0] = n))
+        : (n = e[0]);
+      var a = r("useWAWebAsync")(
           o("WAWebDesktopUpsellUtils").isWebUserOnSupportedWindowsOSForUWPAsync,
-          [],
+          n,
         ),
-        n = r("useWAWebAsync")(
-          o("WAWebDesktopUpsellUtils")
-            .isWebUserOnSupportedMacOSForCatalystAsync,
-          [],
-        );
+        i;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = []), (e[1] = i))
+        : (i = e[1]);
+      var l = r("useWAWebAsync")(
+        o("WAWebDesktopUpsellUtils").isWebUserOnSupportedMacOSForCatalystAsync,
+        i,
+      );
       return o("WAWebProductFeature").isInternalProduct()
         ? !1
-        : e === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS &&
-            !t.loading &&
-            !t.error
-          ? t.value
-          : e === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS &&
-              !n.loading &&
-              !n.error
-            ? n.value
+        : t === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS &&
+            !a.loading &&
+            !a.error
+          ? a.value
+          : t === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS &&
+              !l.loading &&
+              !l.error
+            ? l.value
             : !1;
     }
     ((l.useWAWebNativeAppUpsellPlatformCheck = e),

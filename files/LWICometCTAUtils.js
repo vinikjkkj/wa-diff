@@ -293,7 +293,7 @@ __d(
           (n = o("enumUtils").coerce(a, r("CallToActionTypes"))) != null
             ? n
             : "NO_BUTTON";
-      return { type: l, value: k(l, i) };
+      return { type: l, value: I(l, i) };
     }
     function y(e) {
       var t;
@@ -362,7 +362,7 @@ __d(
       var t;
       if (e == null) return null;
       var n = (t = e.type) != null ? t : "NO_BUTTON";
-      return { type: n, value: k(n, e.value) };
+      return { type: n, value: I(n, e.value) };
     }
     var b = new Set(["REACH", "MESSAGES"]),
       v = new Set([
@@ -383,10 +383,13 @@ __d(
       )
         return i == null || (a = i.value) == null ? void 0 : a.link;
     }
-    function R(t, n, o) {
+    function R(e, t, n) {
+      if (n !== "LEAD_GENERATION")
+        return r("qex")._("4191") !== !0 ? S(e, t, n) : L(e, t, n);
+    }
+    function L(t, n, o) {
       var a, i, l, s, u, c, d, m;
       if (o !== "LEAD_GENERATION") {
-        if (r("qex")._("4191") !== !0) return S(t, n, o);
         var p =
             n == null || (a = n.object_story_spec) == null
               ? void 0
@@ -441,7 +444,7 @@ __d(
         return b != null && b !== "" ? b : void 0;
       }
     }
-    function L(e) {
+    function E(e) {
       var t, n;
       if (e == null) return null;
       var a = (t = e.call_to_action_type) != null ? t : "NO_BUTTON",
@@ -449,17 +452,17 @@ __d(
           (n = o("enumUtils").coerce(a, r("CallToActionTypes"))) != null
             ? n
             : "NO_BUTTON";
-      return { type: i, value: k(i, e.call_to_action_value) };
+      return { type: i, value: I(i, e.call_to_action_value) };
     }
-    function E(e) {
+    function k(e) {
       var t = e == null ? void 0 : e.type;
-      return e == null || t == null ? null : { type: t, value: k(t, e) };
+      return e == null || t == null ? null : { type: t, value: I(t, e) };
     }
-    function k(e, t) {
+    function I(e, t) {
       if (!(e === "NO_BUTTON" || t == null)) {
         var n = null;
         o("LWICometMessagingAppsSectionConstants").isMessagingAppCTAType(e) &&
-          ((n = D(e)), n == null && (n = void 0));
+          ((n = x(e)), n == null && (n = void 0));
         var r =
             e === "WHATSAPP_MESSAGE" &&
             t.whatsapp_number != null &&
@@ -493,7 +496,7 @@ __d(
         };
       }
     }
-    function I(e) {
+    function T(e) {
       var t = e.buttonDestination,
         n = e.ctaType,
         o = e.goal,
@@ -515,7 +518,7 @@ __d(
       ];
       return l.includes(i);
     }
-    function T(e) {
+    function D(e) {
       var t,
         n,
         r = e.adgroupSpecs[e.selectedAdgroupID];
@@ -524,7 +527,7 @@ __d(
         ? t
         : r.assetFeedSpecPlus;
     }
-    function D(e) {
+    function x(e) {
       switch (e) {
         case "MESSAGE_PAGE":
           return "MESSENGER";
@@ -550,10 +553,11 @@ __d(
       (l.SHOULD_DISABLE_CTA_EDITING_TYPES = v),
       (l.getLWICometLinkURL = S),
       (l.getLWICometPixelSetupLinkURL = R),
-      (l.getTypedCreativeCTA = L),
-      (l.getTypedTopLevelCTA = E),
-      (l.showCTAEditorWrapper = I),
-      (l.getAssetFeedSpecOrPlus = T));
+      (l.getLWICometWebsiteLinkURL = L),
+      (l.getTypedCreativeCTA = E),
+      (l.getTypedTopLevelCTA = k),
+      (l.showCTAEditorWrapper = T),
+      (l.getAssetFeedSpecOrPlus = D));
   },
   98,
 );

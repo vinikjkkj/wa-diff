@@ -2,9 +2,11 @@ __d(
   "getAsyncHeaders",
   [
     "BDHeaderConfig",
+    "BootloaderConfig",
     "LSD",
     "ZeroCategoryHeader",
     "isFacebookURI",
+    "justknobx",
     "requireWeak",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,6 +21,9 @@ __d(
       var a = u(e);
       return (
         a != null && a !== "" && (t["X-ASBD-ID"] = a),
+        !c(e) &&
+          r("justknobx")._("7189") &&
+          (t["X-FB-Entry-Nonce"] = r("BootloaderConfig").nonce),
         r("requireWeak")("MessengerPWAVersionForUserAgent", function (n) {
           var r = n();
           r != null && !c(e) && (t["x-fb-pwa"] = "" + r);

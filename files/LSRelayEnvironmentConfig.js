@@ -112,6 +112,8 @@ __d(
                   N,
                   {
                     checkOperation: g == null ? void 0 : g.checkOperation,
+                    checkOperationWithUnpublished:
+                      g == null ? void 0 : g.checkOperationWithUnpublished,
                     network: t,
                     normalizeResponse:
                       o("relay-runtime").__internal.normalizeResponse,

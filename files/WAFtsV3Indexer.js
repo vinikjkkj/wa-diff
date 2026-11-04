@@ -1,6 +1,7 @@
 __d(
   "WAFtsV3Indexer",
   [
+    "Promise",
     "WAArrayChunk",
     "WAFtsBaseIndexer",
     "WAFtsV3BlindIndexGenerator",
@@ -8,28 +9,30 @@ __d(
     "WAFtsV3IndexEntry",
     "WALogger",
     "WAPromiseDelays",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = 1e3,
+      u,
       c = 1e3,
-      d = 8,
-      m = 1e3,
-      p = (function (t) {
-        function n(e, n, o, a, i, l, s, p) {
+      d = 1e3,
+      m = 8,
+      p = 1e3,
+      _ = (function (t) {
+        function a(e, n, o, a, i, l, s, u) {
           var _;
-          (a === void 0 && (a = d),
-            i === void 0 && (i = c),
-            l === void 0 && (l = u),
-            s === void 0 && (s = m));
+          (a === void 0 && (a = m),
+            i === void 0 && (i = d),
+            l === void 0 && (l = c),
+            s === void 0 && (s = p));
           var f = new (r("WAFtsV3BlindIndexGenerator"))(function () {
               return o.getKey();
             }, a),
             g = new (r("WAFtsV3Finder"))(e, o, f);
           return (
-            (_ = t.call(this, g, n, o, i, p) || this),
+            (_ = t.call(this, g, n, o, i, u) || this),
             (_.$BlindIndicesBasedIndexer$p_3 = 0),
             (_.$BlindIndicesBasedIndexer$p_1 = e),
             (_.$BlindIndicesBasedIndexer$p_2 = f),
@@ -38,135 +41,193 @@ __d(
             _
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.$BlindIndicesBasedIndexer$p_6 = async function (n) {
-            try {
-              (await this.tableAdapter.bulkPut(n.flat()),
-                (this.$BlindIndicesBasedIndexer$p_3 += n.length));
-            } catch (t) {
-              throw (
-                o("WALogger").ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to write message to FTS index. ",
-                      "",
-                    ])),
-                  t,
-                ),
-                t
-              );
-            }
-          }),
-          (a.$BlindIndicesBasedIndexer$p_7 = async function (t) {
-            try {
-              (await this.tableAdapter.bulkPut(t),
-                this.$BlindIndicesBasedIndexer$p_3++);
-            } catch (e) {
-              throw (
-                o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to write message with id ",
-                      " to FTS index",
-                    ])),
-                  t[0].id,
-                ),
-                e
-              );
-            } finally {
-              this.$BlindIndicesBasedIndexer$p_3 > 0 &&
-                this.$BlindIndicesBasedIndexer$p_3 % 20 === 0 &&
-                (await o("WAPromiseDelays").delayMs(
-                  this.$BlindIndicesBasedIndexer$p_5,
-                ));
-            }
-          }),
-          (a.__processBatch = async function (t) {
-            var e = this;
-            if (this.scheduler != null) {
-              var n = [],
-                r = async function () {
-                  var t = a.chatId,
-                    r = a.id,
-                    i = a.textFragments,
-                    l = a.timestamp,
-                    s = Array.from(
-                      e.$BlindIndicesBasedIndexer$p_1.tokenize(i.join(" ")),
-                    );
-                  n.push(
-                    Promise.all(
-                      s.map(function (n) {
-                        return e.$BlindIndicesBasedIndexer$p_2.generatePrefixes(
-                          n,
-                          t,
-                        );
-                      }),
-                    ).then(function (n) {
-                      var a = o("WAArrayChunk").chunk(
-                        n.flat(),
-                        e.$BlindIndicesBasedIndexer$p_4,
-                      );
-                      return a.map(function (e) {
-                        return o("WAFtsV3IndexEntry").buildEntry(r, t, l, e);
-                      });
-                    }),
+          (i.$BlindIndicesBasedIndexer$p_6 = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                try {
+                  (yield this.tableAdapter.bulkPut(t.flat()),
+                    (this.$BlindIndicesBasedIndexer$p_3 += t.length));
+                } catch (t) {
+                  throw (
+                    o("WALogger").ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to write message to FTS index. ",
+                          "",
+                        ])),
+                      t,
+                    ),
+                    t
                   );
-                };
-              for (var a of t) await r();
-              var i = await Promise.all(n);
-              await this.$BlindIndicesBasedIndexer$p_6(i);
-            } else {
-              var l = async function () {
-                var t = s.chatId,
-                  n = s.id,
-                  r = s.textFragments,
-                  a = s.timestamp;
-                {
-                  var i = Array.from(
-                      e.$BlindIndicesBasedIndexer$p_1.tokenize(r.join(" ")),
-                    ),
-                    l = await Promise.all(
-                      i.map(function (n) {
-                        return e.$BlindIndicesBasedIndexer$p_2.generatePrefixes(
-                          n,
-                          t,
-                        );
-                      }),
-                    ),
-                    u = o("WAArrayChunk").chunk(
-                      l.flat(),
-                      e.$BlindIndicesBasedIndexer$p_4,
-                    ),
-                    c = u.map(function (e) {
-                      return o("WAFtsV3IndexEntry").buildEntry(n, t, a, e);
-                    });
-                  await e.$BlindIndicesBasedIndexer$p_7(c);
                 }
-              };
-              for (var s of t) await l();
+              },
+            );
+            function r(e) {
+              return t.apply(this, arguments);
             }
-          }),
-          (a.purge = async function (t) {
-            return (await this.tableAdapter.bulkRemoveByIndex(["id"], t), !0);
-          }),
-          (a.purgeChat = async function (t) {
-            return (
-              await this.tableAdapter.bulkRemoveByIndex(["chatId"], [t]),
-              !0
+            return r;
+          })()),
+          (i.$BlindIndicesBasedIndexer$p_7 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                try {
+                  (yield this.tableAdapter.bulkPut(e),
+                    this.$BlindIndicesBasedIndexer$p_3++);
+                } catch (t) {
+                  throw (
+                    o("WALogger").ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to write message with id ",
+                          " to FTS index",
+                        ])),
+                      e[0].id,
+                    ),
+                    t
+                  );
+                } finally {
+                  this.$BlindIndicesBasedIndexer$p_3 > 0 &&
+                    this.$BlindIndicesBasedIndexer$p_3 % 20 === 0 &&
+                    (yield o("WAPromiseDelays").delayMs(
+                      this.$BlindIndicesBasedIndexer$p_5,
+                    ));
+                }
+              },
             );
-          }),
-          (a.purge__DEPRECATED_DO_NOT_USE = async function (t, n, r) {
-            return (
-              await this.tableAdapter.bulkRemoveByIndex(["chatId"], [t]),
-              !0
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.__processBatch = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
+                if (this.scheduler != null) {
+                  var r = [],
+                    a = function* () {
+                      var e = i.chatId,
+                        a = i.id,
+                        l = i.textFragments,
+                        s = i.timestamp,
+                        c = Array.from(
+                          t.$BlindIndicesBasedIndexer$p_1.tokenize(l.join(" ")),
+                        );
+                      r.push(
+                        (u || (u = n("Promise")))
+                          .all(
+                            c.map(function (n) {
+                              return t.$BlindIndicesBasedIndexer$p_2.generatePrefixes(
+                                n,
+                                e,
+                              );
+                            }),
+                          )
+                          .then(function (n) {
+                            var r = o("WAArrayChunk").chunk(
+                              n.flat(),
+                              t.$BlindIndicesBasedIndexer$p_4,
+                            );
+                            return r.map(function (t) {
+                              return o("WAFtsV3IndexEntry").buildEntry(
+                                a,
+                                e,
+                                s,
+                                t,
+                              );
+                            });
+                          }),
+                      );
+                    };
+                  for (var i of e) yield* a();
+                  var l = yield (u || (u = n("Promise"))).all(r);
+                  yield this.$BlindIndicesBasedIndexer$p_6(l);
+                } else {
+                  var s = function* () {
+                    var e = c.chatId,
+                      r = c.id,
+                      a = c.textFragments,
+                      i = c.timestamp;
+                    {
+                      var l = Array.from(
+                          t.$BlindIndicesBasedIndexer$p_1.tokenize(a.join(" ")),
+                        ),
+                        s = yield (u || (u = n("Promise"))).all(
+                          l.map(function (n) {
+                            return t.$BlindIndicesBasedIndexer$p_2.generatePrefixes(
+                              n,
+                              e,
+                            );
+                          }),
+                        ),
+                        d = o("WAArrayChunk").chunk(
+                          s.flat(),
+                          t.$BlindIndicesBasedIndexer$p_4,
+                        ),
+                        m = d.map(function (t) {
+                          return o("WAFtsV3IndexEntry").buildEntry(r, e, i, t);
+                        });
+                      yield t.$BlindIndicesBasedIndexer$p_7(m);
+                    }
+                  };
+                  for (var c of e) yield* s();
+                }
+              },
             );
-          }),
-          n
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.purge = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return (
+                  yield this.tableAdapter.bulkRemoveByIndex(["id"], e),
+                  !0
+                );
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.purgeChat = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                return (
+                  yield this.tableAdapter.bulkRemoveByIndex(["chatId"], [e]),
+                  !0
+                );
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.purge__DEPRECATED_DO_NOT_USE = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                return (
+                  yield this.tableAdapter.bulkRemoveByIndex(["chatId"], [e]),
+                  !0
+                );
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          a
         );
       })(r("WAFtsBaseIndexer"));
-    l.default = p;
+    l.default = _;
   },
   98,
 );

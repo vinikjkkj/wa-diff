@@ -9,6 +9,11 @@ __d(
             r("WAWebInvocationDispatcher").invoke("setLogoutState", [t])
           );
         },
+        setBackgroundPause: function (t) {
+          return r("WAWebInvocationDispatcher").invoke("setBackgroundPause", [
+            t,
+          ]);
+        },
         sendLogs: function (t, n) {
           return o("WAWebCrashlog").sendLogs(t, {
             sampling: n == null ? void 0 : n.sampling,

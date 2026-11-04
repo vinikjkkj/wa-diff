@@ -81,7 +81,7 @@ __d(
       );
     }
     function R(e) {
-      return !isNaN(e) && isFinite(e);
+      return !isNaN(Number(e)) && isFinite(Number(e));
     }
     function L(e) {
       return !S(e).modifier;
@@ -105,8 +105,8 @@ __d(
         r = t.match(m),
         o = n && n[1],
         a = r && r[1],
-        i = parseInt(o, 10),
-        l = parseInt(a, 10);
+        i = parseInt(String(o), 10),
+        l = parseInt(String(a), 10);
       return R(i) && R(l) && i !== l ? T(i, l) : T(e, t);
     }
     function T(e, t) {

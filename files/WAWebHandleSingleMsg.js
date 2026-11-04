@@ -228,10 +228,10 @@ __d(
                               from: T.from.toString(),
                               to: T.to.toString(),
                               groupId: T.inviteGrp,
-                              expiration: parseInt(T.inviteCodeExp, 10),
+                              expiration: parseInt(String(T.inviteCodeExp), 10),
                               expired:
                                 o("WATimeUtils").unixTime() >=
-                                parseInt(T.inviteCodeExp, 10),
+                                parseInt(String(T.inviteCodeExp), 10),
                             });
                           }
                           e();

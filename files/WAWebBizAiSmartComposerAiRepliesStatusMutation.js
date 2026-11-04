@@ -55,19 +55,14 @@ __d(
     }
     function y(e, t, n, a) {
       return C().then(function (i) {
-        return i == null
-          ? f
-          : o("WAWebBizAiRelayClient")
-              .commitMutation(
-                _,
-                {
-                  consumer_lid: t,
-                  phone_number: e,
-                  thread_status: n,
-                  suggested_replies_enabled: a != null ? a : null,
-                },
-                { accessToken: i },
-              )
+        return i
+          ? o("WAWebBizAiRelayClient")
+              .commitMutation(_, {
+                consumer_lid: t,
+                phone_number: e,
+                thread_status: n,
+                suggested_replies_enabled: a != null ? a : null,
+              })
               .then(function (e) {
                 var t =
                   e == null
@@ -96,7 +91,8 @@ __d(
                     .sendLogs("biz-ai-smart-composer-ai-replies-status-fail"),
                   f
                 );
-              });
+              })
+          : f;
       });
     }
     function C() {
@@ -122,7 +118,7 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("biz-ai-smart-composer-connect-timeout"),
-              null
+              !1
             );
           }
           try {
@@ -142,8 +138,8 @@ __d(
                       ])),
                   )
                   .sendLogs("biz-ai-smart-composer-token-fetch-fail"),
-                null)
-              : e.token;
+                !1)
+              : !0;
           } catch (e) {
             return (
               o("WALogger")
@@ -155,7 +151,7 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("biz-ai-smart-composer-token-fetch-fail"),
-              null
+              !1
             );
           }
         })),

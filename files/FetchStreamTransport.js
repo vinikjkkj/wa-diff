@@ -2,11 +2,13 @@ __d(
   "FetchStreamTransport",
   [
     "ArbiterMixin",
+    "BootloaderConfig",
     "FetchStreamConfig",
     "StreamBlockReader",
     "TimeSlice",
     "URI",
     "asyncToGeneratorRuntime",
+    "justknobx",
     "mixin",
     "nullthrows",
   ],
@@ -58,6 +60,9 @@ __d(
             var t = new Request(this.getRequestURI().toString(), {
               mode: "same-origin",
               credentials: "include",
+              headers: r("justknobx")._("7189")
+                ? { "X-FB-Entry-Nonce": r("BootloaderConfig").nonce }
+                : void 0,
             });
             this.$FetchStreamTransport$p_6 = r(
               "TimeSlice",

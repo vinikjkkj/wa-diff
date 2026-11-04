@@ -5,7 +5,7 @@ __d(
     function e(e, t) {
       if (e === 0 || t === 0) return 0;
       var n = (e / t) * 100;
-      return n % 10 === 0 ? n : (parseInt(n / 10, 10) + 1) * 10;
+      return n % 10 === 0 ? n : (parseInt(String(n / 10), 10) + 1) * 10;
     }
     i.roundUp10thPercentage = e;
   },

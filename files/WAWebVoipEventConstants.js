@@ -42,11 +42,53 @@ __d(
         PENDING_OUTGOING_CALL: "pendingOutgoingCall",
       },
       s = { ONLINE: "online", OFFLINE: "offline" },
-      u = { INFO: "info", OBSCURITY: "obscurity", HAS_SYNCED: "hasSynced" };
-    function c(e) {
-      return "change:" + e;
+      u = { INFO: "info", OBSCURITY: "obscurity", HAS_SYNCED: "hasSynced" },
+      c = {
+        state: "change:state",
+        peerReconnecting: "change:peerReconnecting",
+        isVideo: "change:isVideo",
+        videoState: "change:videoState",
+        selfVideoState: "change:selfVideoState",
+        selfPreviewSize: "change:selfPreviewSize",
+        selfMicMuted: "change:selfMicMuted",
+        peerMicMuted: "change:peerMicMuted",
+        selfAudioLevel: "change:selfAudioLevel",
+        peerAudioLevel: "change:peerAudioLevel",
+        screenShareStates: "change:screenShareStates",
+        reactionStates: "change:reactionStates",
+        raisedHandStates: "change:raisedHandStates",
+        callLinkState: "change:callLinkState",
+        callLinkCreatorJid: "change:callLinkCreatorJid",
+        isSelfCallLinkAdmin: "change:isSelfCallLinkAdmin",
+        peerJid: "change:peerJid",
+        isGroup: "change:isGroup",
+        groupJid: "change:groupJid",
+        msg: "change:msg",
+        displayWaitingRoomDenied: "change:displayWaitingRoomDenied",
+        groupCallParticipantStates: "change:groupCallParticipantStates",
+        groupCallParticipantsConnected: "change:groupCallParticipantsConnected",
+        waitingRoomState: "change:waitingRoomState",
+        isInWaitingRoom: "change:isInWaitingRoom",
+        networkHealth: "change:networkHealth",
+        activeCall: "change:activeCall",
+        endCallTone: "change:endCallTone",
+        shouldShowPostCallSurvey: "change:shouldShowPostCallSurvey",
+        isInConnectedCall: "change:isInConnectedCall",
+        muteRequestFailed: "change:muteRequestFailed",
+        mutedByOthers: "change:mutedByOthers",
+        participantsInvited: "change:participantsInvited",
+        participantRemoved: "change:participantRemoved",
+        pendingOutgoingCall: "change:pendingOutgoingCall",
+        online: "change:online",
+        offline: "change:offline",
+        info: "change:info",
+        obscurity: "change:obscurity",
+        hasSynced: "change:hasSynced",
+      };
+    function d(e) {
+      return c[e];
     }
-    function d() {
+    function m() {
       for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
         t[n] = arguments[n];
       return t
@@ -59,8 +101,8 @@ __d(
       (i.VoipCallCollectionEvents = l),
       (i.VoipNetworkEvents = s),
       (i.VoipStreamEvents = u),
-      (i.getChangeEvent = c),
-      (i.getMultiChangeEvent = d));
+      (i.getChangeEvent = d),
+      (i.getMultiChangeEvent = m));
   },
   66,
 );

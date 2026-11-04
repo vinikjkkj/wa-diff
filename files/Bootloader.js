@@ -31,6 +31,7 @@ __d(
     "cr:696703",
     "err",
     "fb-error",
+    "fetch",
     "getErrorSafe",
     "gkx",
     "ifRequireable",
@@ -41,6 +42,8 @@ __d(
     "performanceAbsoluteNow",
     "performanceNow",
     "promiseDone",
+    "qex",
+    "requireDeferred",
     "setTimeoutAcrossTransitions",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -50,19 +53,19 @@ __d(
       c,
       d,
       m,
-      p = function () {},
-      _ = 1e4,
-      f = 15e3,
-      g = new Set(),
+      p = r("requireDeferred")("ODS").__setRef("Bootloader"),
+      _ = function () {},
+      f = 1e4,
+      g = 15e3,
       h = new Set(),
-      y = !!(m = r("BootloaderConfig")).deferBootloads,
-      C = [],
-      b = !1,
-      v = [],
-      S = new Map(),
-      R = new Set(),
+      y = new Set(),
+      C = !!(m = r("BootloaderConfig")).deferBootloads,
+      b = [],
+      v = !1,
+      S = [],
+      R = new Map(),
       L = new Set(),
-      E = new Map(),
+      E = new Set(),
       k = new Map(),
       I = new Map(),
       T = new Map(),
@@ -70,42 +73,59 @@ __d(
       x = new Map(),
       $ = new Map(),
       P = new Map(),
-      N = new Set(),
-      M = !1,
-      w = new Set(),
-      A = !1,
-      F = new (r("BootloaderEventsManager"))(),
-      O = new Set(),
-      B = new (r("BootloaderRetryTracker"))({
+      N = new Map(),
+      M = new Set(),
+      w = !1,
+      A = new Set(),
+      F = !1,
+      O = new (r("BootloaderEventsManager"))(),
+      B = new Set(),
+      W = new Map(),
+      q = 20,
+      U = 3e3,
+      V = new Map(),
+      H = 0,
+      G = new Set(),
+      z = new Set(),
+      j = new Set(),
+      K = new (r("BootloaderRetryTracker"))({
         retries: m.jsRetries,
         abortNum: m.jsRetryAbortNum,
         abortTime: m.jsRetryAbortTime,
         abortCallback: function () {
-          r("FBLogger")("bootloader", "js_retry_abort").info("JS retry abort");
+          (r("FBLogger")("bootloader", "js_retry_abort").info("JS retry abort"),
+            Q("retries_aborted"));
         },
-      }),
-      W = new Set(),
-      q = !1,
-      U = null;
-    function V() {
-      if (U == null)
+      });
+    function Q(e) {
+      try {
+        p.onReady(function (t) {
+          t.bumpEntityKey(454, "bootloader_js_retry", e);
+        });
+      } catch (e) {}
+    }
+    var X = new Set(),
+      Y = !1,
+      J = null;
+    function Z() {
+      if (J == null)
         try {
           if (r("gkx")("1174"))
             if (
               typeof r("NetworkStatus").isOnline == "function" &&
               typeof r("NetworkStatus").onChange == "function"
             )
-              ((q = !r("NetworkStatus").isOnline()),
-                (U = r("NetworkStatus").onChange(function (e) {
+              ((Y = !r("NetworkStatus").isOnline()),
+                (J = r("NetworkStatus").onChange(function (e) {
                   var t = e.online,
-                    n = q;
-                  ((q = !t),
+                    n = Y;
+                  ((Y = !t),
                     r("FBLogger")("bootloader").info(
                       "Network status change: was offline %s, now offline %s",
                       n,
-                      q,
+                      Y,
                     ),
-                    n && t && H());
+                    n && t && ee());
                 })));
             else {
               var e = new Error("Network status API is not available");
@@ -115,21 +135,21 @@ __d(
           r("FBLogger")("bootloader").warn("NetworkStatus is failing");
         }
     }
-    V();
-    function H() {
-      if (W.size !== 0) {
-        var e = Array.from(W);
-        (W.clear(),
+    Z();
+    function ee() {
+      if (X.size !== 0) {
+        var e = Array.from(X);
+        (X.clear(),
           r("FBLogger")("bootloader").info(
             "Network back online, retrying %s failed resources",
             e.length,
           ),
-          ve.loadResources(e));
+          Me.loadResources(e));
       }
     }
-    function G(e) {
-      q &&
-        (W.add(e),
+    function te(e) {
+      Y &&
+        (X.add(e),
         r("FBLogger")("bootloader").info(
           "Resource %s failed while offline, will retry when network returns",
           e,
@@ -137,24 +157,24 @@ __d(
     }
     (e || (e = r("ErrorPubSub"))).unshiftListener(function (e) {
       var t = [];
-      for (var n of E) {
+      for (var n of k) {
         var r = n[0],
           o = n[1];
-        if (!k.has(r)) {
-          var a = X(r);
+        if (!I.has(r)) {
+          var a = ie(r);
           a.type === "csr" || a.type === "async" || t.push(a.src);
         }
       }
       e.loadingUrls = t;
     });
-    function z(e) {
-      for (var t of e) if (h.has(t)) return !0;
+    function ne(e) {
+      for (var t of e) if (y.has(t)) return !0;
       return !1;
     }
-    function j(e) {
-      if (y || !A || (z(e) && !b)) return !1;
+    function re(e) {
+      if (C || !F || (ne(e) && !v)) return !1;
       for (var t of e) {
-        var n = T.get(t);
+        var n = D.get(t);
         if (!n) return !1;
         for (var r of [
           n.r,
@@ -162,98 +182,98 @@ __d(
           ((a = n.rds) == null ? void 0 : a.r) || [],
         ]) {
           var o, a;
-          for (var i of r) if (!D.has(i)) return !1;
+          for (var i of r) if (!x.has(i)) return !1;
         }
       }
       return !0;
     }
-    function K(e) {
-      var t = T.get(e);
+    function oe(e) {
+      var t = D.get(e);
       if (!t)
         throw r("fb-error").TAAL.blameToPreviousFile(
           r("err")("Bootloader: %s is not in the component map", e),
         );
       return t;
     }
-    function Q(e) {
-      var t = K(e);
-      (t.be && (delete t.be, ve.done(o("ResourceHasher").getAsyncHash(e))),
-        h.add(e));
+    function ae(e) {
+      var t = oe(e);
+      (t.be && (delete t.be, Me.done(o("ResourceHasher").getAsyncHash(e))),
+        y.add(e));
     }
-    function X(e) {
-      var t = D.get(e);
+    function ie(e) {
+      var t = x.get(e);
       if (!t)
         throw r("fb-error").TAAL.blameToPreviousFile(
           r("err")("No resource entry for hash: %s", e),
         );
       return t;
     }
-    function Y(e, t) {
+    function le(e, t) {
       var n = o("ResourceHasher").getAsyncHash(e);
-      if (!D.has(n)) D.set(n, { type: "async", module: e, blocking: !!t });
+      if (!x.has(n)) x.set(n, { type: "async", module: e, blocking: !!t });
       else {
-        var r = X(n);
+        var r = ie(n);
         (r.type === "async" || s(0, 21557),
           r.blocking && !t && (r.blocking = !1));
       }
       return n;
     }
-    function J(e) {
-      return !pe(e);
+    function se(e) {
+      return !ke(e);
     }
-    function Z(e) {
-      if (!J(e)) return !1;
-      var t = K(e),
+    function ue(e) {
+      if (!se(e)) return !1;
+      var t = oe(e),
         n = t.be;
       return !!n;
     }
-    function ee(e) {
-      if (!Z(e)) return null;
+    function ce(e) {
+      if (!ue(e)) return null;
       var t = o("ResourceHasher").getAsyncHash(e);
-      return F.rsrcDone(t);
+      return O.rsrcDone(t);
     }
-    function te(e, t, n) {
-      var o = (u || (u = r("performanceAbsoluteNow")))(),
-        a = t.src,
-        i = r("ResourceTimingsStore").getUID("js", a);
-      (r("ResourceTimingsStore")
-        .annotate("js", i)
+    function de(e, t, n) {
+      var a = (u || (u = r("performanceAbsoluteNow")))(),
+        i = t.src,
+        l = o("ResourceTimingsStore").getUID("js", i);
+      (o("ResourceTimingsStore")
+        .annotate("js", l)
         .addStringAnnotation("name", e)
-        .addStringAnnotation("source", a),
-        r("ResourceTimingsStore").measureRequestSent("js", i),
-        r("nullthrows")(self.bl_worker_import_wrapper)(a)
+        .addStringAnnotation("source", i),
+        o("ResourceTimingsStore").measureRequestSent("js", l),
+        r("nullthrows")(self.bl_worker_import_wrapper)(i)
           .then(function () {
-            var t = B.getNumRetriesForSource(a);
+            var t = K.getNumRetriesForSource(i);
             (t > 0 &&
               r("FBLogger")("bootloader").info(
                 "JS retry success [%s] at %s | time: %s | retries: %s",
                 e,
-                a,
-                (u || (u = r("performanceAbsoluteNow")))() - o,
+                i,
+                (u || (u = r("performanceAbsoluteNow")))() - a,
                 t,
               ),
-              r("ResourceTimingsStore").measureResponseReceived("js", i),
+              o("ResourceTimingsStore").measureResponseReceived("js", l),
               n());
           })
-          .catch(function (l) {
-            r("ResourceTimingsStore").measureResponseReceived("js", i);
-            var s = (u || (u = r("performanceAbsoluteNow")))();
-            B.maybeScheduleRetry(
-              a,
+          .catch(function (s) {
+            o("ResourceTimingsStore").measureResponseReceived("js", l);
+            var c = (u || (u = r("performanceAbsoluteNow")))();
+            K.maybeScheduleRetry(
+              i,
               function () {
-                te(e, t, n);
+                de(e, t, n);
               },
               function () {
-                (I.set(e, s),
+                (T.set(e, c),
                   r("FBLogger")("bootloader")
-                    .catching(r("getErrorSafe")(l))
+                    .catching(r("getErrorSafe")(s))
                     .warn(
                       "JS loading error [%s] at %s | time: %s | retries: %s | concurrency: %s",
                       e,
-                      a,
-                      s - o,
-                      B.getNumRetriesForSource(a),
-                      E.size - k.size,
+                      i,
+                      c - a,
+                      K.getNumRetriesForSource(i),
+                      k.size - I.size,
                     ),
                   r("NetworkStatus").reportError(),
                   n());
@@ -261,9 +281,9 @@ __d(
             );
           }));
     }
-    function ne(e, t, n, o) {
+    function me(e, t, n, o) {
       if ((c || (c = r("ExecutionEnvironment"))).isInWorker) {
-        te(e, t, n);
+        de(e, t, n);
         return;
       }
       var a = r("nullthrows")(o),
@@ -279,105 +299,229 @@ __d(
         t.m != null && (i.dataset.btmanifest = t.m),
         t.tsrc != null && (i.dataset.tsrc = t.tsrc),
         (i.dataset.bootloaderHashClient = e),
-        re(i, e, t, n),
-        L.add(e),
+        ge(i, e, t, n),
+        E.add(e),
         a.appendChild(i));
     }
-    function re(e, t, n, o) {
-      var a = e.src,
-        i = (u || (u = r("performanceAbsoluteNow")))(),
-        l = r("TimeSlice").getGuardedContinuation(
+    function pe(e, t) {
+      if (z.has(t)) return null;
+      var n = V.get(t);
+      if (n != null) return n;
+      try {
+        if (
+          typeof r("fetch") != "function" ||
+          t.startsWith("data:") ||
+          Y ||
+          H >= q ||
+          r("qex")._("5847") !== !0
+        )
+          return null;
+        H++;
+        var o = (
+          e.nc
+            ? r("fetch")(t, {
+                cache: "reload",
+                credentials: "include",
+                mode: "no-cors",
+              })
+            : r("fetch")(t, {
+                cache: "reload",
+                credentials: "same-origin",
+                mode: "cors",
+              })
+        )
+          .then(function (e) {
+            return e.type === "opaque"
+              ? !0
+              : e.ok === !0 &&
+                  e.arrayBuffer().then(function () {
+                    return !0;
+                  });
+          })
+          .catch(function () {
+            return !1;
+          })
+          .then(function (e) {
+            return (
+              Q(e ? "refresh.ok" : "refresh.failed"),
+              e ||
+                (V.get(t) === o && V.delete(t), j.has(t) ? z.add(t) : j.add(t)),
+              e
+            );
+          });
+        return (V.set(t, o), o);
+      } catch (e) {
+        return null;
+      }
+    }
+    function _e(e, t, n) {
+      var o = !1,
+        a = function (t) {
+          o || ((o = !0), n(t));
+        },
+        i = r("setTimeoutAcrossTransitions")(function () {
+          (z.add(e), a(!1));
+        }, U),
+        l = function (t) {
+          (r("clearTimeout")(i), a(t));
+        };
+      r("promiseDone")(
+        t.then(l, function () {
+          l(!1);
+        }),
+      );
+    }
+    function fe(e, t, n, r, o, a) {
+      var i = function () {
+        me(e, t, n, r);
+      };
+      if (a == null) {
+        (W.set(o, "plain"), Q("retry.plain"), i());
+        return;
+      }
+      _e(o, a, function (e) {
+        var t = e ? "cache_bypass" : "plain";
+        (W.set(o, t), Q("retry." + t), i());
+      });
+    }
+    function ge(e, t, n, a) {
+      var i = e.src,
+        l = (u || (u = r("performanceAbsoluteNow")))(),
+        s = r("TimeSlice").getGuardedContinuation(
           "Bootloader script.onresponse",
         ),
-        s = r("ResourceTimingsStore").getUID("js", a);
-      (r("ResourceTimingsStore")
-        .annotate("js", s)
+        c = o("ResourceTimingsStore").getUID("js", i);
+      (o("ResourceTimingsStore")
+        .annotate("js", c)
         .addStringAnnotation("name", t)
-        .addStringAnnotation("source", a),
+        .addStringAnnotation("source", i),
         r("ifRequireable")("TimeSliceInteraction", function (e) {
           e.informGlobally("bootloader._loadJS")
-            .addStringAnnotation("source", a)
+            .addStringAnnotation("source", i)
             .addStringAnnotation("name", t);
         }),
-        r("ResourceTimingsStore").measureRequestSent("js", s));
-      var c = !1;
-      ((e.onload = l.bind(void 0, function () {
-        c = !0;
-        var e = B.getNumRetriesForSource(a);
-        (e > 0 &&
-          r("FBLogger")("bootloader").info(
+        o("ResourceTimingsStore").measureRequestSent("js", c));
+      var d = !1;
+      ((e.onload = s.bind(void 0, function () {
+        d = !0;
+        var e = K.getNumRetriesForSource(i),
+          n = W.get(i);
+        ((e > 0 || n === "after_abort") &&
+          (r("FBLogger")("bootloader").info(
             "JS retry success [%s] at %s | time: %s | retries: %s",
             t,
-            a,
-            (u || (u = r("performanceAbsoluteNow")))() - i,
+            i,
+            (u || (u = r("performanceAbsoluteNow")))() - l,
             e,
           ),
-          r("ResourceTimingsStore").measureResponseReceived("js", s),
-          o());
+          V.delete(i),
+          G.delete(i)),
+          n != null && (Q("retry_success." + n), W.delete(i)),
+          o("ResourceTimingsStore").measureResponseReceived("js", c),
+          a());
       })),
-        (e.onerror = l.bind(void 0, function () {
-          c = !0;
-          var l = (u || (u = r("performanceAbsoluteNow")))();
-          (I.set(t, l),
-            r("ResourceTimingsStore").measureResponseReceived("js", s),
-            B.maybeScheduleRetry(
-              a,
-              function () {
-                var r = e.parentNode;
-                r && (I.delete(t), r.removeChild(e), ne(t, n, o, r));
-              },
-              function () {
+        (e.onerror = s.bind(void 0, function () {
+          ((d = !0), Q("script_error"));
+          var s = (u || (u = r("performanceAbsoluteNow")))();
+          T.set(t, s);
+          var m = k.get(t);
+          o("ResourceTimingsStore").measureResponseReceived("js", c);
+          var p =
+              K.getNumRetriesForSource(i) <
+                r("BootloaderConfig").jsRetries.length && !G.has(i)
+                ? pe(n, i)
+                : null,
+            _ = function () {
+              var e;
+              (Q("give_up." + ((e = W.get(i)) != null ? e : "no_retry")),
+                W.delete(i),
+                V.delete(i),
+                r("NetworkStatus").reportError(),
+                a());
+            };
+          K.maybeScheduleRetry(
+            i,
+            function () {
+              var r = e.parentNode;
+              r && (T.delete(t), r.removeChild(e), fe(t, n, a, r, i, p));
+            },
+            function () {
+              if (p == null || k.get(t) !== m) {
                 (r("FBLogger")("bootloader").warn(
                   "JS loading error [%s] at %s | time: %s | retries: %s | concurrency: %s",
                   t,
-                  a,
-                  l - i,
-                  B.getNumRetriesForSource(a),
-                  E.size - k.size,
+                  i,
+                  s - l,
+                  K.getNumRetriesForSource(i),
+                  k.size - I.size,
                 ),
-                  r("NetworkStatus").reportError(),
-                  o());
-              },
-            ));
+                  _());
+                return;
+              }
+              (Q("refresh.on_abort"),
+                T.delete(t),
+                _e(i, p, function (o) {
+                  var u = e.parentNode;
+                  if (!o || u == null || G.has(i) || k.get(t) !== m) {
+                    (T.set(t, s),
+                      r("FBLogger")("bootloader").warn(
+                        "JS loading error [%s] at %s | time: %s | retries: %s | concurrency: %s",
+                        t,
+                        i,
+                        s - l,
+                        K.getNumRetriesForSource(i),
+                        k.size - I.size,
+                      ),
+                      _());
+                    return;
+                  }
+                  (G.add(i),
+                    W.set(i, "after_abort"),
+                    Q("retry.after_abort"),
+                    u.removeChild(e),
+                    me(t, n, a, u));
+                }));
+            },
+          );
         })),
         r("BootloaderConfig").enableRetryOnStuckResource &&
           r("setTimeoutAcrossTransitions")(
-            l.bind(void 0, function () {
-              c ||
-                B.maybeRetryImmediately(
-                  a,
+            s.bind(void 0, function () {
+              d ||
+                K.maybeRetryImmediately(
+                  i,
                   function () {
                     var r = e.parentNode;
-                    r && (r.removeChild(e), ne(t, n, o, r));
+                    r && (r.removeChild(e), me(t, n, a, r));
                   },
                   function () {
                     r("FBLogger")("bootloader").warn(
                       "JS loading timeout [%s] at %s | retries: %s | concurrency: %s",
                       t,
-                      a,
-                      B.getNumRetriesForSource(a),
-                      E.size - k.size,
+                      i,
+                      K.getNumRetriesForSource(i),
+                      k.size - I.size,
                     );
                   },
                 );
             }),
-            _,
+            f,
           ));
     }
-    function oe(e, t, n) {
+    function he(e, t, n) {
       return function () {
         (r("FBLogger")("bootloader").warn(
           "CSS timeout [%s] at %s | concurrency: %s",
           e,
           t.src,
-          E.size - k.size,
+          k.size - I.size,
         ),
-          I.set(e, (u || (u = r("performanceAbsoluteNow")))()),
+          T.set(e, (u || (u = r("performanceAbsoluteNow")))()),
           r("NetworkStatus").reportError(),
           n());
       };
     }
-    function ae(e, t, n, r) {
+    function ye(e, t, n, r) {
       var o, a, i;
       if (!t.includes("/rsrc.php") || t.includes("/intern/rsrc.php")) return [];
       var l = ((o = t.match(/(.*\/)([^.]+)(\.)/)) != null ? o : [])[2];
@@ -392,7 +536,7 @@ __d(
           ? a
           : [];
     }
-    function ie(e, t) {
+    function Ce(e, t) {
       var n = e.replace(/\/y[a-zA-Z0-9_-]\//, "/");
       return n.includes("/intern/rsrc.php") ||
         n.includes("/intern/rsrc-translations.php")
@@ -423,12 +567,12 @@ __d(
             })
           : e;
     }
-    function le(e, t, n, a) {
+    function be(e, t, n, a) {
       if (r("gkx")("15745")) {
-        if (E.has(e) && !I.has(e)) return;
-      } else if (E.has(e)) return;
-      (I.has(e) && I.delete(e),
-        E.set(e, (u || (u = r("performanceAbsoluteNow")))()));
+        if (k.has(e) && !T.has(e)) return;
+      } else if (k.has(e)) return;
+      (T.has(e) && T.delete(e),
+        k.set(e, (u || (u = r("performanceAbsoluteNow")))()));
       var i = [];
       if (
         (t.type === "js" || t.type === "css") &&
@@ -442,22 +586,22 @@ __d(
         if (
           (l.forEach(function (t, n) {
             t !== o("HasteResourceIndexUtil").UNKNOWN_RESOURCE_INDEX &&
-            x.get(t) !== e
+            $.get(t) !== e
               ? d.add(n)
               : t > m && (m = t);
           }),
           m > r("BootloaderConfig").btCutoffIndex)
         ) {
-          var p = ae(l, t.src, d, r("BootloaderConfig").btCutoffIndex);
+          var p = ye(l, t.src, d, r("BootloaderConfig").btCutoffIndex);
           i.push(p);
         }
         if (d.size === l.length) return;
         d.size > 0 &&
-          ((t.src = ie(t.src, d)),
+          ((t.src = Ce(t.src, d)),
           t.type === "js" &&
             t.tsrc != null &&
             t.tsrc.trim() !== "" &&
-            (t.tsrc = ie(r("nullthrows")(t.tsrc), d)));
+            (t.tsrc = Ce(r("nullthrows")(t.tsrc), d)));
       }
       switch (
         (t.type === "js" &&
@@ -473,11 +617,11 @@ __d(
         t.type)
       ) {
         case "js":
-          ne(
+          me(
             e,
             t,
             function () {
-              ve.done(e);
+              Me.done(e);
               for (var t of i)
                 o("BootloaderEvents").notifyResourceInLongTailBTManifest(t, a);
             },
@@ -486,7 +630,7 @@ __d(
           break;
         case "css":
           var _ = function () {
-            return ve.done(e);
+            return Me.done(e);
           };
           if ((c || (c = r("ExecutionEnvironment"))).isInWorker) {
             _();
@@ -499,7 +643,7 @@ __d(
             !t.nc,
             t.m,
             _,
-            oe(e, t, _),
+            he(e, t, _),
           );
           break;
         case "async":
@@ -513,13 +657,13 @@ __d(
           (t.type, s(0, 3721));
       }
     }
-    function se(e, t, a, i, l) {
+    function ve(e, t, a, i, l) {
       var u = new Map(),
         c = l != null ? l : o("BootloaderEvents").newResourceMapSet(),
         d = [],
         m = [],
         p = [];
-      for (var _ of fe(e)) {
+      for (var _ of Te(e)) {
         var f = _[0],
           g = _[1],
           h = void 0;
@@ -537,12 +681,12 @@ __d(
             (g.type, s(0, 3721));
         }
         c[h].set(f, g);
-        var y = F.rsrcDone(f);
+        var y = O.rsrcDone(f);
         (p.push(y),
           h !== "nonblocking" && (m.push(y), h === "blocking" && d.push(y)),
           r("gkx")("15745")
-            ? (!E.has(f) || I.has(f)) && u.set(f, g)
-            : E.has(f) || u.set(f, g));
+            ? (!k.has(f) || T.has(f)) && u.set(f, g)
+            : k.has(f) || u.set(f, g));
       }
       var C, b;
       n("cr:696703")
@@ -559,52 +703,52 @@ __d(
         S = t.onBlocking,
         R = t.onLog;
       (S &&
-        F.registerCallback(function () {
+        O.registerCallback(function () {
           C(S);
         }, d),
         v &&
-          F.registerCallback(function () {
+          O.registerCallback(function () {
             C(v);
           }, m),
         R &&
-          F.registerCallback(function () {
+          O.registerCallback(function () {
             b(function () {
               return R(c);
             });
           }, p));
       for (var L of u) {
-        var k = L[0],
-          T = L[1];
-        le(k, T, a, i);
+        var E = L[0],
+          I = L[1];
+        be(E, I, a, i);
       }
     }
-    function ue(e, t, n) {
-      if ((D.set(e, t), !(t.type === "async" || t.type === "csr"))) {
+    function Se(e, t, n) {
+      if ((x.set(e, t), !(t.type === "async" || t.type === "csr"))) {
         var a = t.p;
         if (a != null)
           for (var i of o("HasteResourceIndexUtil").parseResourceIndexes(a))
             i !== o("HasteResourceIndexUtil").UNKNOWN_RESOURCE_INDEX &&
-              ((!x.has(i) || n) && x.set(i, e),
+              ((!$.has(i) || n) && $.set(i, e),
               t.c &&
                 r("BootloaderConfig").csrOn &&
                 o("HasteBitMap").add("__csr", i));
-        ce(e);
+        Re(e);
       }
     }
-    function ce(e) {
-      O.has(e) && (O.delete(e), ve.loadResources([e]));
+    function Re(e) {
+      B.has(e) && (B.delete(e), Me.loadResources([e]));
     }
-    function de(e, t) {
+    function Le(e, t) {
       var n,
-        a = F.bootload(t);
-      if (N.has(a)) return [a, null];
-      N.add(a);
+        a = O.bootload(t);
+      if (M.has(a)) return [a, null];
+      M.add(a);
       var i = (u || (u = r("performanceAbsoluteNow")))(),
         l = {
           ref: e,
           components: t,
           timesliceContext: r("TimeSlice").getContext(),
-          startTime: (n = S.get(a)) != null ? n : i,
+          startTime: (n = R.get(a)) != null ? n : i,
           fetchStartTime: i,
           callbackStart: 0,
           callbackEnd: 0,
@@ -615,7 +759,7 @@ __d(
         };
       return (o("BootloaderEvents").notifyBootloadStart(l), [a, l]);
     }
-    function me(e) {
+    function Ee(e) {
       return r("ifRequired").call(
         null,
         e,
@@ -627,7 +771,7 @@ __d(
         },
       );
     }
-    function pe(e) {
+    function ke(e) {
       return r("ifRequireable").call(
         null,
         e,
@@ -639,28 +783,28 @@ __d(
         },
       );
     }
-    function _e(e, t, n, i) {
-      (P.has(e) ||
-        P.set(e, {
+    function Ie(e, t, n, i) {
+      (N.has(e) ||
+        N.set(e, {
           firstBootloadStart: (u || (u = r("performanceAbsoluteNow")))(),
           logData: new Set(),
         }),
-        i && r("nullthrows")(P.get(e)).logData.add(i));
-      var l = K(e),
+        i && r("nullthrows")(N.get(e)).logData.add(i));
+      var l = oe(e),
         s = l.be,
         c = l.r,
         d = l.rdfds,
         m = l.rds,
-        p = J(e) ? Y(e, s) : null;
-      (p == null && F.notify(F.beDone(e)),
-        se(
+        p = se(e) ? le(e, s) : null;
+      (p == null && O.notify(O.beDone(e)),
+        ve(
           p != null ? [p].concat(c) : c,
           {
             onAll: function () {
-              return F.notify(F.tierOne(e));
+              return O.notify(O.tierOne(e));
             },
             onLog: function () {
-              return F.notify(F.tierOneLog(e));
+              return O.notify(O.tierOneLog(e));
             },
           },
           n,
@@ -669,16 +813,16 @@ __d(
         ));
       var _ = (d == null ? void 0 : d.m) || [],
         f = function (o) {
-          se(
+          ve(
             (d == null ? void 0 : d.r) || [],
             {
               onBlocking: function () {
                 return r("RequireDeferredReference").unblock(_, "css");
               },
               onAll: function () {
-                return F.registerCallback(
+                return O.registerCallback(
                   function () {
-                    (F.notify(F.tierTwoStart(e)),
+                    (O.notify(O.tierTwoStart(e)),
                       a.call(
                         null,
                         _.map(
@@ -686,15 +830,15 @@ __d(
                             .getRDModuleName_DO_NOT_USE,
                         ),
                         function () {
-                          return F.notify(F.tierTwo(e));
+                          return O.notify(O.tierTwo(e));
                         },
                       ));
                   },
-                  [F.tierOne(e), t],
+                  [O.tierOne(e), t],
                 );
               },
               onLog: function () {
-                return F.notify(F.tierTwoLog(e));
+                return O.notify(O.tierTwoLog(e));
               },
             },
             o,
@@ -704,25 +848,25 @@ __d(
         };
       r("BootloaderConfig").tieredLoadingFromTier != null &&
       r("BootloaderConfig").tieredLoadingFromTier <= 2
-        ? F.registerCallback(
+        ? O.registerCallback(
             function () {
               return o("BootloaderDocumentInserter").batchDOMInsert(f);
             },
-            [F.tierOne(e)],
+            [O.tierOne(e)],
           )
         : f(n);
       var g = (m == null ? void 0 : m.m) || [],
         h = function (n) {
-          se(
+          ve(
             (m == null ? void 0 : m.r) || [],
             {
               onBlocking: function () {
                 return r("RequireDeferredReference").unblock(g, "css");
               },
               onAll: function () {
-                return F.registerCallback(
+                return O.registerCallback(
                   function () {
-                    (F.notify(F.tierThreeStart(e)),
+                    (O.notify(O.tierThreeStart(e)),
                       a.call(
                         null,
                         g.map(
@@ -730,15 +874,15 @@ __d(
                             .getRDModuleName_DO_NOT_USE,
                         ),
                         function () {
-                          return F.notify(F.tierThree(e));
+                          return O.notify(O.tierThree(e));
                         },
                       ));
                   },
-                  [F.tierTwo(e)],
+                  [O.tierTwo(e)],
                 );
               },
               onLog: function () {
-                return F.notify(F.tierThreeLog(e));
+                return O.notify(O.tierThreeLog(e));
               },
             },
             n,
@@ -748,20 +892,20 @@ __d(
         };
       r("BootloaderConfig").tieredLoadingFromTier != null &&
       r("BootloaderConfig").tieredLoadingFromTier <= 3
-        ? F.registerCallback(
+        ? O.registerCallback(
             function () {
               return o("BootloaderDocumentInserter").batchDOMInsert(h);
             },
-            [F.tierTwo(e)],
+            [O.tierTwo(e)],
           )
         : h(n);
     }
-    function fe(e) {
+    function Te(e) {
       var t = new Map();
       for (var n of e) {
-        var a = D.get(n);
+        var a = x.get(n);
         if (!a) {
-          (O.add(n),
+          (B.add(n),
             r("FBLogger")("bootloader").mustfix(
               "Unable to resolve resource %s.",
               n,
@@ -783,8 +927,8 @@ __d(
           continue;
         }
         for (var l of i) {
-          R.add(l);
-          var u = x.get(l);
+          L.add(l);
+          var u = $.get(l);
           if (u == null)
             throw (
               r("FBLogger")("bootloader").mustfix(
@@ -793,13 +937,13 @@ __d(
               ),
               r("err")("SoT hash unavailable for resource index %s", l)
             );
-          var c = X(u);
+          var c = ie(u);
           (c.type !== "csr" || s(0, 20056, u), t.set(u, c));
         }
       }
       return t.entries();
     }
-    function ge(e) {
+    function De(e) {
       return e.type === "csr"
         ? o("HasteResourceIndexUtil")
             .parseResourceIndexes(e.src)
@@ -814,14 +958,14 @@ __d(
               })
           : [];
     }
-    function he(e) {
+    function xe(e) {
       var t,
         n = e.getAttribute("data-bootloader-hash");
       if (n != null) {
         var a = o("ResourceHasher").getValidResourceHash(n);
         if (e.id) {
-          if (w.has(e.id)) return;
-          w.add(e.id);
+          if (A.has(e.id)) return;
+          A.add(e.id);
         }
         var i =
           e.tagName === "SCRIPT"
@@ -850,16 +994,16 @@ __d(
             d = Math.max.apply(Math, c);
           d > r("BootloaderConfig").btCutoffIndex &&
             o("BootloaderEvents").notifyResourceInLongTailBTManifest(
-              ae(c, i.src, new Set(), r("BootloaderConfig").btCutoffIndex),
+              ye(c, i.src, new Set(), r("BootloaderConfig").btCutoffIndex),
               "pickupPageResource",
             );
         }
         var m = e.getAttribute("data-btmanifest");
         (m != null && (i.m = m),
-          ue(a, i, !0),
-          E.set(a, (u || (u = r("performanceAbsoluteNow")))()));
+          Se(a, i, !0),
+          k.set(a, (u || (u = r("performanceAbsoluteNow")))()));
         var p = function () {
-            return ve.done(a);
+            return Me.done(a);
           },
           _ =
             i.type === "js"
@@ -868,7 +1012,7 @@ __d(
         _ || (window._btldr && window._btldr[a])
           ? p()
           : i.type === "js"
-            ? re(e, a, i, p)
+            ? ge(e, a, i, p)
             : (r("FBLogger")("bootloader").info(
                 "Encountered body CSS not handled by BootloaderScriptListener: {\n          hash: '%s',\n          src: '%s',\n          cohort: '%s',\n        }",
                 a,
@@ -880,33 +1024,33 @@ __d(
                 i.src,
                 o("BootloaderDocumentInserter").getDOMContainerNode(),
                 p,
-                oe(a, i, p),
+                he(a, i, p),
                 e,
               ));
       }
     }
-    function ye() {
-      M ||
-        ((M = !0),
+    function $e() {
+      w ||
+        ((w = !0),
         !(
           !(c || (c = r("ExecutionEnvironment"))).canUseDOM ||
           (c || (c = r("ExecutionEnvironment"))).isInWorker
         ) &&
           (Array.from(document.getElementsByTagName("link")).forEach(
             function (e) {
-              return he(e);
+              return xe(e);
             },
           ),
           Array.from(document.getElementsByTagName("script")).forEach(
             function (e) {
-              return he(e);
+              return xe(e);
             },
           )));
     }
-    function Ce() {
-      if (b) {
-        var e = C;
-        ((C = []),
+    function Pe() {
+      if (v) {
+        var e = b;
+        ((b = []),
           e.forEach(function (e) {
             var t = e[0],
               n = e[1],
@@ -917,29 +1061,29 @@ __d(
                 "Support data is ready, executing immediate bootload:",
                 t.join(", "),
               ),
-                ve.loadModules.apply(ve, [t, n, o]));
+                Me.loadModules.apply(Me, [t, n, o]));
             });
           }));
       }
     }
-    function be() {
-      A = !0;
-      var e = v;
-      ((v = []),
+    function Ne() {
+      F = !0;
+      var e = S;
+      ((S = []),
         e.forEach(function (e) {
           var t = e[0],
             n = e[1],
             r = e[2],
             o = e[3];
           o(function () {
-            ve.loadModules.apply(ve, [t, n, r]);
+            Me.loadModules.apply(Me, [t, n, r]);
           });
         }),
-        Ce());
+        Pe());
     }
-    var ve = {
+    var Me = {
       loadModules: function (t, n, i) {
-        (n === void 0 && (n = p),
+        (n === void 0 && (n = _),
           i === void 0 && (i = "loadModules: unknown caller"));
         var e = t,
           l,
@@ -955,7 +1099,7 @@ __d(
         if (
           r("BootloaderConfig").fastPathForAlreadyRequired &&
           e.every(function (e) {
-            return pe(e);
+            return ke(e);
           })
         )
           return (
@@ -976,90 +1120,90 @@ __d(
             }),
             d
           );
-        if (!j(e)) {
+        if (!re(e)) {
           var m,
-            _ = "Deferred: Bootloader.loadModules",
-            f = r("TimeSlice").getGuardedContinuation(_);
-          z(e) && !b
+            p = "Deferred: Bootloader.loadModules",
+            f = r("TimeSlice").getGuardedContinuation(p);
+          ne(e) && !v
             ? (r("FBLogger")("bootloader").info(
                 "Support data is not ready, queuing immediate bootload:",
                 e.join(),
               ),
-              C.push([e, c, i, f]))
-            : v.push([e, c, i, f]);
-          var g = F.bootload(e);
+              b.push([e, c, i, f]))
+            : S.push([e, c, i, f]);
+          var g = O.bootload(e);
           return (
-            S.set(
+            R.set(
               g,
-              (m = S.get(g)) != null
+              (m = R.get(g)) != null
                 ? m
                 : (u || (u = r("performanceAbsoluteNow")))(),
             ),
             d
           );
         }
-        var h = de(i, e),
+        var h = Le(i, e),
           y = h[0],
-          R = h[1];
+          C = h[1];
         if (
-          (F.registerCallback(
+          (O.registerCallback(
             a.bind(null, e, function () {
-              (R &&
-                (R.callbackStart = (u || (u = r("performanceAbsoluteNow")))()),
+              (C &&
+                (C.callbackStart = (u || (u = r("performanceAbsoluteNow")))()),
                 c.apply(void 0, arguments),
-                R &&
-                  (R.callbackEnd = (u || (u = r("performanceAbsoluteNow")))()),
-                F.notify(y));
+                C &&
+                  (C.callbackEnd = (u || (u = r("performanceAbsoluteNow")))()),
+                O.notify(y));
             }),
             e.map(function (e) {
-              return F.tierOne(e);
+              return O.tierOne(e);
             }),
           ),
           o("BootloaderDocumentInserter").batchDOMInsert(function (t) {
-            for (var n of e) _e(n, y, t, R);
+            for (var n of e) Ie(n, y, t, C);
           }),
-          R)
+          C)
         ) {
           var L = new Set([y]);
           for (var E of e)
-            (L.add(F.beDone(E)),
-              L.add(F.tierThree(E)),
-              L.add(F.tierOneLog(E)),
-              L.add(F.tierTwoLog(E)),
-              L.add(F.tierThreeLog(E)));
-          F.registerCallback(function () {
-            o("BootloaderEvents").notifyBootload(R);
+            (L.add(O.beDone(E)),
+              L.add(O.tierThree(E)),
+              L.add(O.tierOneLog(E)),
+              L.add(O.tierTwoLog(E)),
+              L.add(O.tierThreeLog(E)));
+          O.registerCallback(function () {
+            o("BootloaderEvents").notifyBootload(C);
           }, Array.from(L));
           var k = new Set();
           for (var I of new Set(e))
-            (k.add(F.beDone(I)),
-              k.add(F.tierOneLog(I)),
-              k.add(F.tierTwoLog(I)),
-              k.add(F.tierThreeLog(I)));
+            (k.add(O.beDone(I)),
+              k.add(O.tierOneLog(I)),
+              k.add(O.tierTwoLog(I)),
+              k.add(O.tierThreeLog(I)));
           var T = {
-            bootloaderData: R,
+            bootloaderData: C,
             erroredResources: new Set(),
             offline: !1,
           };
-          (F.registerCallback(function () {
-            if (ve.getErrorCount() > 0) {
+          (O.registerCallback(function () {
+            if (Me.getErrorCount() > 0) {
               T.erroredResources.clear();
               var e = function (t) {
                 for (var e of r("objectValues")(t))
                   for (var n of e) {
                     var o = n[0],
                       a = n[1],
-                      i = ve.getResourceState(o);
+                      i = Me.getResourceState(o);
                     i.loadError != null &&
-                      (G(o),
+                      (te(o),
                       a.type === "js" || a.type === "css"
                         ? T.erroredResources.add(a.src)
                         : a.type === "async" &&
                           T.erroredResources.add(a.module));
                   }
               };
-              (e(R.tierOne), e(R.tierTwo), e(R.tierThree));
-              for (var t of R.beRequests.values()) e(t.rsrcs);
+              (e(C.tierOne), e(C.tierTwo), e(C.tierThree));
+              for (var t of C.beRequests.values()) e(t.rsrcs);
               var n = r("gkx")("20935")
                 ? !r("NetworkStatus").isOnline()
                 : !window.navigator.onLine;
@@ -1073,7 +1217,7 @@ __d(
                   "requested_hashes",
                   Array.from(
                     o("BootloaderEvents")
-                      .flattenResourceMapSet(R.tierOne)
+                      .flattenResourceMapSet(C.tierOne)
                       .keys(),
                   ),
                 )
@@ -1081,7 +1225,7 @@ __d(
                   "rdfd_requested_hashes",
                   Array.from(
                     o("BootloaderEvents")
-                      .flattenResourceMapSet(R.tierTwo)
+                      .flattenResourceMapSet(C.tierTwo)
                       .keys(),
                   ),
                 )
@@ -1089,7 +1233,7 @@ __d(
                   "rd_requested_hashes",
                   Array.from(
                     o("BootloaderEvents")
-                      .flattenResourceMapSet(R.tierThree)
+                      .flattenResourceMapSet(C.tierThree)
                       .keys(),
                   ),
                 )
@@ -1097,15 +1241,15 @@ __d(
                 .addSetAnnotation("requested_components", e);
             }),
             (l = r("setTimeoutAcrossTransitions")(function () {
-              o("BootloaderEvents").notifyBootloaderCallbackTimeout(R);
+              o("BootloaderEvents").notifyBootloaderCallbackTimeout(C);
             }, r("BootloaderConfig").timeout)));
         }
         return d;
       },
       loadResources: function (t, n) {
-        (ye(),
+        ($e(),
           o("BootloaderDocumentInserter").batchDOMInsert(function (e) {
-            return se(
+            return ve(
               t.map(function (e) {
                 return o("ResourceHasher").getValidResourceHash(e);
               }),
@@ -1126,7 +1270,7 @@ __d(
           l = !1,
           s = function (r) {
             var e;
-            se(
+            ve(
               ((e = t == null ? void 0 : t.rds) != null ? e : []).map(
                 function (e) {
                   return o("ResourceHasher").getValidResourceHash(e);
@@ -1139,7 +1283,7 @@ __d(
           },
           u = function (r) {
             var n;
-            se(
+            ve(
               ((n = t == null ? void 0 : t.rdfds) != null ? n : []).map(
                 function (e) {
                   return o("ResourceHasher").getValidResourceHash(e);
@@ -1160,7 +1304,7 @@ __d(
           },
           c = function (r) {
             var n;
-            se(
+            ve(
               ((n = t == null ? void 0 : t.r) != null ? n : []).map(
                 function (e) {
                   return o("ResourceHasher").getValidResourceHash(e);
@@ -1187,20 +1331,20 @@ __d(
       },
       requestJSResource_UNSAFE_NEEDS_REVIEW_BY_SECURITY_AND_XFN: function (t) {
         var e = o("ResourceHasher").createExternalJSHash();
-        (ue(e, { type: "js", src: t, nc: 1 }, !1), ve.loadResources([e]));
+        (Se(e, { type: "js", src: t, nc: 1 }, !1), Me.loadResources([e]));
       },
       done: function (t) {
-        (k.set(t, (u || (u = r("performanceAbsoluteNow")))()),
-          F.notify(F.rsrcDone(t)));
+        (I.set(t, (u || (u = r("performanceAbsoluteNow")))()),
+          O.notify(O.rsrcDone(t)));
       },
       beDone: function (t, n, r) {
-        for (var e of (o = (a = P.get(t)) == null ? void 0 : a.logData) != null
+        for (var e of (o = (a = N.get(t)) == null ? void 0 : a.logData) != null
           ? o
           : []) {
           var o, a;
           e.beRequests.set(n, r);
         }
-        F.notify(F.beDone(t));
+        O.notify(O.beDone(t));
       },
       handlePayload: function (t, n) {
         var e, a, i;
@@ -1208,7 +1352,7 @@ __d(
           var s,
             u = document.getElementById(l);
           u instanceof HTMLScriptElement || u instanceof HTMLLinkElement
-            ? he(u)
+            ? xe(u)
             : r("FBLogger")("bootloader").warn(
                 "rsrcTags element missing or not a script/link tag: %s",
                 l,
@@ -1216,7 +1360,7 @@ __d(
         }
         var c =
           (e = (a = t.consistency) == null ? void 0 : a.rev) != null ? e : null;
-        (ve.setResourceMap(
+        (Me.setResourceMap(
           (i = t.rsrcMap) != null ? i : {},
           t.sotUpgrades,
           c,
@@ -1232,24 +1376,24 @@ __d(
                   return o("HasteBitMap").add(e, t);
                 });
             }),
-          t.compMap && ve.enableBootload(t.compMap, n));
+          t.compMap && Me.enableBootload(t.compMap, n));
       },
       enableBootload: function (t, n) {
         for (var e in t)
           (n && n.comp++,
-            T.has(e)
+            D.has(e)
               ? n && n.dup_comp++
-              : (T.set(e, t[e]), g.has(e) && (g.delete(e), Q(e))));
-        (ye(), y || be());
+              : (D.set(e, t[e]), h.has(e) && (h.delete(e), ae(e))));
+        ($e(), C || Ne());
       },
       undeferBootloads: function (t) {
         (t === void 0 && (t = !1),
           !/[?&]__deferBootloads=/.test(window.location.search) &&
             (t &&
-              y &&
+              C &&
               o("BootloaderEvents").notifyDeferTimeout({
-                componentMapSize: T.size,
-                pending: v.map(function (e) {
+                componentMapSize: D.size,
+                pending: S.map(function (e) {
                   var t = e[0],
                     n = e[1],
                     r = e[2],
@@ -1258,23 +1402,23 @@ __d(
                 }),
                 time: (d || (d = r("performanceNow")))(),
               }),
-            (y = !1),
-            T.size && be()));
+            (C = !1),
+            D.size && Ne()));
       },
       markComponentsAsImmediate: function (t) {
-        for (var e of t) T.has(e) ? Q(e) : g.add(e);
+        for (var e of t) D.has(e) ? ae(e) : h.add(e);
       },
       markSupportDataReadyForImmediateBootloads: function () {
-        ((b = !0), Ce());
+        ((v = !0), Pe());
       },
       setResourceMap: function (t, n, a, i) {
         var e = !1;
         for (var l in t) {
           (i && i.rsrc++,
             (l = o("ResourceHasher").getValidResourceHash(l)),
-            a != null && $.set(l, a));
+            a != null && P.set(l, a));
           var s = t[l],
-            u = D.get(l);
+            u = x.get(l);
           u
             ? (i && i.dup_rsrc++,
               ((u.type === "js" && s.type === "js") ||
@@ -1285,19 +1429,19 @@ __d(
                 s.nonce != null && u.type === "js" && (u.nonce = s.nonce),
                 (u.src = s.src),
                 (u.d = 1)))
-            : (s.type === "js" && (e = !0), ue(l, s, !1));
+            : (s.type === "js" && (e = !0), Se(l, s, !1));
         }
         if (
           (e && a != null && r("ClientConsistency").addAdditionalRevision(a), n)
         )
           for (var c of n) {
-            var d = D.get(c);
-            d && ue(c, d, !0);
+            var d = x.get(c);
+            d && Se(c, d, !0);
           }
       },
       getURLToHashMap: function () {
         var e = new Map();
-        for (var t of D) {
+        for (var t of x) {
           var n = t[0],
             r = t[1];
           r.type === "async" || r.type === "csr" || e.set(r.src, n);
@@ -1305,11 +1449,11 @@ __d(
         return e;
       },
       loadPredictedResourceMap: function (t, n, r) {
-        (ve.setResourceMap(t, null, r), ve.loadResources(Object.keys(t), n));
+        (Me.setResourceMap(t, null, r), Me.loadResources(Object.keys(t), n));
       },
       getCSSResources: function (t) {
         var e = [];
-        for (var n of fe(t)) {
+        for (var n of Te(t)) {
           var r = n[0],
             o = n[1];
           o.type === "css" && e.push(r);
@@ -1318,9 +1462,9 @@ __d(
       },
       getBootloadPendingComponents: function () {
         var e = new Map();
-        for (var t of P) {
+        for (var t of N) {
           var n = t[0];
-          me(n) || e.set(n, ve.getComponentDebugState(n));
+          Ee(n) || e.set(n, Me.getComponentDebugState(n));
         }
         return e;
       },
@@ -1328,18 +1472,18 @@ __d(
         var e,
           n,
           a = function (t) {
-            return !!F.getEventTime(t);
+            return !!O.getEventTime(t);
           };
         return {
           phases: {
-            tierOne: a(F.tierOne(t)),
-            tierOneLog: a(F.tierOneLog(t)),
-            tierTwo: a(F.tierTwo(t)),
-            tierTwoLog: a(F.tierTwoLog(t)),
-            tierThree: a(F.tierThree(t)),
-            tierThreeLog: a(F.tierThreeLog(t)),
-            beDone: a(F.beDone(t)),
-            asyncHash: a(F.rsrcDone(o("ResourceHasher").getAsyncHash(t))),
+            tierOne: a(O.tierOne(t)),
+            tierOneLog: a(O.tierOneLog(t)),
+            tierTwo: a(O.tierTwo(t)),
+            tierTwoLog: a(O.tierTwoLog(t)),
+            tierThree: a(O.tierThree(t)),
+            tierThreeLog: a(O.tierThreeLog(t)),
+            beDone: a(O.beDone(t)),
+            asyncHash: a(O.rsrcDone(o("ResourceHasher").getAsyncHash(t))),
           },
           unresolvedDeps: r("__debug").debugUnresolvedDependencies([t]),
           nonJSDeps:
@@ -1350,7 +1494,7 @@ __d(
       },
       getBootloadedComponents: function () {
         var e = new Map();
-        for (var t of P) {
+        for (var t of N) {
           var n = t[0],
             r = t[1];
           e.set(n, r.firstBootloadStart);
@@ -1362,7 +1506,7 @@ __d(
           var e = o("ResourceHasher").getValidResourceHash(a),
             i = t[e];
           if (i.type === "js" || i.type === "css") {
-            (ue(e, i, !0),
+            (Se(e, i, !0),
               i.type === "js" &&
                 i.tsrc != null &&
                 i.tsrc.trim() !== "" &&
@@ -1372,14 +1516,14 @@ __d(
                     r("nullthrows")(i.tsrc),
                   ),
                 ),
-              E.set(e, (u || (u = r("performanceAbsoluteNow")))()));
+              k.set(e, (u || (u = r("performanceAbsoluteNow")))()));
             var l = function () {
-                return ve.done(e);
+                return Me.done(e);
               },
               s = n[e];
             i.type === "js" && s
               ? r("promiseDone")(s, l, function () {
-                  te(e, i, l);
+                  de(e, i, l);
                 })
               : l();
           }
@@ -1387,82 +1531,82 @@ __d(
         for (var a in t) e();
       },
       getResourceState: function (t) {
-        return { loadStart: E.get(t), loadEnd: k.get(t), loadError: I.get(t) };
+        return { loadStart: k.get(t), loadEnd: I.get(t), loadError: T.get(t) };
       },
       getComponentTiming: function (t) {
         var e, n, r, o;
         return {
-          tierTwoStart: (e = F.getEventTime(F.tierTwoStart(t))) != null ? e : 0,
-          tierTwoEnd: (n = F.getEventTime(F.tierTwo(t))) != null ? n : 0,
+          tierTwoStart: (e = O.getEventTime(O.tierTwoStart(t))) != null ? e : 0,
+          tierTwoEnd: (n = O.getEventTime(O.tierTwo(t))) != null ? n : 0,
           tierThreeStart:
-            (r = F.getEventTime(F.tierThreeStart(t))) != null ? r : 0,
-          tierThreeEnd: (o = F.getEventTime(F.tierThree(t))) != null ? o : 0,
+            (r = O.getEventTime(O.tierThreeStart(t))) != null ? r : 0,
+          tierThreeEnd: (o = O.getEventTime(O.tierThree(t))) != null ? o : 0,
         };
       },
       getLoadedResourceCount: function () {
-        return k.size;
+        return I.size;
       },
       getErrorCount: function () {
-        return I.size;
+        return T.size;
       },
       forceFlush: function () {
         o("BootloaderEndpoint").BootloaderEndpoint.forceFlush();
       },
       __debug: {
-        componentMap: T,
-        DOMAppendedJSHashes: L,
-        requestedRsrcIndex: R,
-        requested: E,
-        resources: D,
-        riMap: x,
-        retries: B.getAllRetryAttempts_FOR_DEBUG_ONLY(),
-        errors: I,
-        loaded: k,
-        bootloaded: P,
-        notAvailableResources: O,
-        queuedToMarkAsImmediate: g,
-        events: F,
-        offlineFailedResources: W,
-        _resolveCSRs: fe,
-        revMap: $,
+        componentMap: D,
+        DOMAppendedJSHashes: E,
+        requestedRsrcIndex: L,
+        requested: k,
+        resources: x,
+        riMap: $,
+        retries: K.getAllRetryAttempts_FOR_DEBUG_ONLY(),
+        errors: T,
+        loaded: I,
+        bootloaded: N,
+        notAvailableResources: B,
+        queuedToMarkAsImmediate: h,
+        events: O,
+        offlineFailedResources: X,
+        _resolveCSRs: Te,
+        revMap: P,
         _getQueuedLoadModules: function () {
-          return v;
+          return S;
         },
         _dequeueLoadModules: function (t) {
-          var e = v.splice(t, 1);
+          var e = S.splice(t, 1);
           if (e.length) {
             var n = e[0],
               r = n[0],
               o = n[1],
               a = n[2],
               i = n[3],
-              l = y,
-              s = A;
-            ((y = !1),
-              (A = !0),
+              l = C,
+              s = F;
+            ((C = !1),
+              (F = !0),
               i(function () {
-                ve.loadModules.apply(ve, [r, o, a]);
+                Me.loadModules.apply(Me, [r, o, a]);
               }),
-              (y = l),
-              (A = s));
+              (C = l),
+              (F = s));
           }
         },
       },
     };
-    (r("JSResourceReferenceImpl").setBootloader(ve),
-      y &&
+    (r("JSResourceReferenceImpl").setBootloader(Me),
+      C &&
         !t.__comet_ssr_is_server_env_DO_NOT_USE &&
         !o("ServerJsRuntimeEnvironment").isRunningServerJsRuntime() &&
-        ((d || (d = r("performanceNow")))() > f
-          ? ve.undeferBootloads(!0)
+        ((d || (d = r("performanceNow")))() > g
+          ? Me.undeferBootloads(!0)
           : r("setTimeoutAcrossTransitions")(
               function () {
-                ve.undeferBootloads(!0);
+                Me.undeferBootloads(!0);
               },
-              f - (d || (d = r("performanceNow")))(),
+              g - (d || (d = r("performanceNow")))(),
             )));
-    var Se = ve;
-    l.default = Se;
+    var we = Me;
+    l.default = we;
   },
   98,
 );

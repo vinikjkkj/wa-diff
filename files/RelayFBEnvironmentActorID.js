@@ -5,20 +5,19 @@ __d(
     "react-compiler-runtime",
     "react-relay/relay-hooks/useRelayEnvironment",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = n("react-compiler-runtime").c;
-    function s(e) {
+    function e(e) {
       var t = e.options;
       return (
         (t != null && t.actorID != null) ||
-          l(
+          s(
             0,
             47961,
             t == null ? "missing options" : "missing options.actorID",
             typeof e.configName == "string" ? e.configName : "<missing>",
           ),
-        typeof t.actorID == "string" || l(0, void 0),
+        typeof t.actorID == "string" || s(0, void 0),
         t.actorID
       );
     }
@@ -26,32 +25,30 @@ __d(
       var t = e.options;
       return t == null || t.actorID == null
         ? null
-        : (typeof t.actorID == "string" || l(0, 163031), t.actorID);
+        : (typeof t.actorID == "string" || s(0, 163031), t.actorID);
     }
     function c() {
-      var t = e(2),
-        r = n("react-relay/relay-hooks/useRelayEnvironment")(),
-        o;
+      var t = o("react-compiler-runtime").c(2),
+        n = r("react-relay/relay-hooks/useRelayEnvironment")(),
+        a;
       return (
-        t[0] !== r ? ((o = s(r)), (t[0] = r), (t[1] = o)) : (o = t[1]),
-        o
+        t[0] !== n ? ((a = e(n)), (t[0] = n), (t[1] = a)) : (a = t[1]),
+        a
       );
     }
     function d() {
-      var t = e(2),
-        r = n("react-relay/relay-hooks/useRelayEnvironment")(),
-        o;
+      var e = o("react-compiler-runtime").c(2),
+        t = r("react-relay/relay-hooks/useRelayEnvironment")(),
+        n;
       return (
-        t[0] !== r ? ((o = u(r)), (t[0] = r), (t[1] = o)) : (o = t[1]),
-        o
+        e[0] !== t ? ((n = u(t)), (e[0] = t), (e[1] = n)) : (n = e[1]),
+        n
       );
     }
-    a.exports = {
-      getActorID: s,
-      getActorIDNullable: u,
-      useActorID: c,
-      useActorIDNullable: d,
-    };
+    ((l.getActorID = e),
+      (l.getActorIDNullable = u),
+      (l.useActorID = c),
+      (l.useActorIDNullable = d));
   },
-  null,
+  98,
 );

@@ -13,7 +13,7 @@ __d(
         ((t.style.lineHeight = n + "em"),
           (n = e(t, "line-height")),
           (r = parseFloat(n)),
-          o ? (t.style.lineHeight = o) : delete t.style.lineHeight);
+          o ? (t.style.lineHeight = o) : t.style.removeProperty("line-height"));
       }
       if (
         (n.includes("pt")
@@ -47,7 +47,7 @@ __d(
     }
     function s(e, t) {
       var n = e.getBoundingClientRect(),
-        r = parseInt(n.bottom - n.top, 10),
+        r = parseInt(String(n.bottom - n.top), 10),
         o = t != null ? t : l(e),
         a = Math.round(r / o);
       return a;

@@ -204,9 +204,10 @@ __d(
                 : u == null
                   ? void 0
                   : u.emailAddress,
-            fullName: c === "" ? (u == null ? void 0 : u.fullName) : c,
+            lastName: c === "" ? (u == null ? void 0 : u.lastName) : n.lastName,
             memberTag:
               (a = n.memberTag) != null ? a : u == null ? void 0 : u.memberTag,
+            name: c === "" ? (u == null ? void 0 : u.name) : n.name,
             phoneNumber:
               (i = n.phoneNumber) != null
                 ? i

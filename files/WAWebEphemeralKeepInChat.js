@@ -38,7 +38,7 @@ __d(
               l != null ? o("WAWebWidFactory").createWidFromWidLike(l) : void 0,
           }),
           kicState: d,
-          kicTimestampMs: parseInt(c, 10),
+          kicTimestampMs: parseInt(String(c), 10),
         };
       }
     }

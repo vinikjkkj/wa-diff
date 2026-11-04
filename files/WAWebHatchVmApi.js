@@ -6,11 +6,19 @@ __d(
     var e,
       s = 1e4,
       u = 3e4,
-      c = 3e4;
-    function d(e) {
+      c = 3e4,
+      d = 400,
+      m = "already exists; set replace_existing=true",
+      p = "custom_connector_name_taken",
+      _ = {
+        detail: "Scheduled task ID is invalid",
+        kind: "Failure",
+        reason: "TRANSPORT",
+      };
+    function f(e) {
       return e != null && typeof e == "object" && !Array.isArray(e);
     }
-    function m(e, t, n, r) {
+    function g(e, t, n, r) {
       var o = r === void 0 ? {} : { errorCode: r };
       return n === void 0
         ? babelHelpers.extends({}, o, {
@@ -25,7 +33,7 @@ __d(
             value: n,
           });
     }
-    var p = (function () {
+    var h = (function () {
       function t(e) {
         this.$1 = e;
       }
@@ -60,7 +68,7 @@ __d(
           return this.$1.openStream(
             {
               accept: "application/x-ndjson",
-              body: _({ capabilities: [].concat(t) }),
+              body: C({ capabilities: [].concat(t) }),
               method: "POST",
               path: o("WAWebHatchVmTransport").JarvisPaths.ACTIVITY_SUBSCRIBE,
             },
@@ -88,16 +96,27 @@ __d(
         (r.deleteScheduledTask = function (r, a) {
           var t = o("WAWebHatchVmTransport").JarvisPaths.SCHEDULED_TASK(r);
           return t == null
-            ? (e || (e = n("Promise"))).resolve({
-                detail: "Scheduled task ID is invalid",
-                kind: "Failure",
-                reason: "TRANSPORT",
-              })
+            ? (e || (e = n("Promise"))).resolve(_)
             : this.request(
                 "DELETE",
                 t,
                 babelHelpers.extends({}, a, {
                   allowEmptySuccess: !0,
+                  responseShape: "flat-or-envelope",
+                }),
+              );
+        }),
+        (r.scheduledTaskRuns = function (r, a, i) {
+          var t = o("WAWebHatchVmTransport").JarvisPaths.SCHEDULED_TASK_RUNS(
+            r,
+            a,
+          );
+          return t == null
+            ? (e || (e = n("Promise"))).resolve(_)
+            : this.request(
+                "GET",
+                t,
+                babelHelpers.extends({}, i, {
                   responseShape: "flat-or-envelope",
                 }),
               );
@@ -173,7 +192,7 @@ __d(
                   var c = o.body,
                     d = o.statusCode;
                   return d < 200 || d >= 300
-                    ? m("VM returned HTTP " + d, d)
+                    ? g("VM returned HTTP " + d, d)
                     : { kind: "Ok", value: c };
                 }
                 throw Error(
@@ -192,7 +211,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CLIENT_REGISTER_CAPABILITIES,
-            { body: _(t), responseShape: "flat-or-envelope" },
+            { body: C(t), responseShape: "flat-or-envelope" },
           );
         }),
         (r.connectors = function (t, n) {
@@ -232,7 +251,7 @@ __d(
           return this.request(
             "PATCH",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
-            { body: _({ connector: t, methods: n }), service: "sentinel" },
+            { body: C({ connector: t, methods: n }), service: "sentinel" },
           );
         }),
         (r.connectorResetPermissions = function (t) {
@@ -240,7 +259,7 @@ __d(
             "DELETE",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_POLICY(t),
             {
-              body: _({ reason: "settings_permissions_connector_reset" }),
+              body: C({ reason: "settings_permissions_connector_reset" }),
               service: "sentinel",
             },
           );
@@ -263,7 +282,7 @@ __d(
           return this.request(
             "PATCH",
             o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_SETTINGS,
-            { body: _(t), service: "sentinel" },
+            { body: C(t), service: "sentinel" },
           );
         }),
         (r.activePermissions = function (t, n) {
@@ -291,14 +310,14 @@ __d(
           return this.request(
             "PATCH",
             o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_SCOPE(t, n),
-            { body: _(r), service: "sentinel" },
+            { body: C(r), service: "sentinel" },
           );
         }),
         (r.activePermissionSetMode = function (t) {
           return this.request(
             "PATCH",
             o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_ACTIVE,
-            { body: _(t), service: "sentinel" },
+            { body: C(t), service: "sentinel" },
           );
         }),
         (r.permissionRevoke = function (t) {
@@ -306,7 +325,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_REVOKE,
             {
-              body: _(
+              body: C(
                 babelHelpers.extends({}, t, {
                   actor: "web",
                   reason: "manage_approvals_revoke",
@@ -321,7 +340,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_RESET,
             {
-              body: _({ reason: "settings_permissions_reset" }),
+              body: C({ reason: "settings_permissions_reset" }),
               service: "sentinel",
             },
           );
@@ -330,7 +349,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_SCOPE_LINK(t, n),
-            { body: _({}) },
+            { body: C({}) },
           );
         }),
         (r.connectorConnectInfo = function (t, n, r) {
@@ -352,7 +371,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.FOA_AUTH_CALLBACK,
             babelHelpers.extends({}, r, {
-              body: _({ account_ids: Array.from(new Set(n)), provider: t }),
+              body: C({ account_ids: Array.from(new Set(n)), provider: t }),
               service: "authd",
             }),
           );
@@ -363,7 +382,7 @@ __d(
             o("WAWebHatchVmTransport").JarvisPaths.CONSENT_AUTH_CALLBACK,
             babelHelpers.extends({}, r, {
               allowEmptySuccess: !0,
-              body: _(
+              body: C(
                 n == null ? { provider: t } : { provider: t, session_id: n },
               ),
               responseShape: "flat-or-envelope",
@@ -375,7 +394,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT(t),
             babelHelpers.extends({}, r, {
-              body: _(n == null ? {} : { session_id: n }),
+              body: C(n == null ? {} : { session_id: n }),
               responseShape: "flat-or-envelope",
             }),
           );
@@ -384,7 +403,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_DISCONNECT(t),
-            { body: _(n == null ? {} : { session_id: n }) },
+            { body: C(n == null ? {} : { session_id: n }) },
           );
         }),
         (r.chats = function (t) {
@@ -406,7 +425,7 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.OAUTH_CALLBACK,
             {
-              body: _({ auth_intent: "connect", code: t, state: n }),
+              body: C({ auth_intent: "connect", code: t, state: n }),
               service: "authd",
             },
           );
@@ -431,14 +450,14 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CAPTURE,
-            { body: _(t), service: "authd", timeoutMs: c },
+            { body: C(t), service: "authd", timeoutMs: c },
           );
         }),
         (r.credentialUpdate = function (t) {
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_UPDATE,
-            { body: _(t), service: "authd", timeoutMs: c },
+            { body: C(t), service: "authd", timeoutMs: c },
           );
         }),
         (r.credentialDelete = function (t) {
@@ -446,10 +465,33 @@ __d(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CREDENTIALS_CATALOG_DELETE,
             {
-              body: _({ credential_type: "browser", id: t }),
+              body: C({ credential_type: "browser", id: t }),
               service: "authd",
               timeoutMs: c,
             },
+          );
+        }),
+        (r.customConnectorRegister = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield this.exchange(
+              "POST",
+              o("WAWebHatchVmTransport").JarvisPaths.CUSTOM_CONNECTORS_REGISTER,
+              { body: C(e), service: "authd", timeoutMs: c },
+            );
+            return y(t)
+              ? g("custom connector name already registered", d, void 0, p)
+              : b(t, "authd", "service-default", !1);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (r.customConnectorList = function () {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CUSTOM_CONNECTORS_LIST,
+            { body: C({}), service: "authd", timeoutMs: c },
           );
         }),
         (r.connectorAccounts = function (t, n) {
@@ -463,7 +505,7 @@ __d(
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_ACCOUNTS_LINK(t),
-            { body: _({}) },
+            { body: C({}) },
           );
         }),
         (r.connectorAccountUnlink = function (t, n) {
@@ -473,14 +515,14 @@ __d(
               t,
               n,
             ),
-            { body: _({}) },
+            { body: C({}) },
           );
         }),
         (r.openEventSubscription = function (t, n) {
           return this.$1.openStream(
             {
               accept: "application/x-ndjson",
-              body: _({}),
+              body: C({}),
               method: "POST",
               path: t,
             },
@@ -512,7 +554,7 @@ __d(
               var r,
                 o,
                 a = yield this.exchange(e, t, n);
-              return f(
+              return b(
                 a,
                 (r = n == null ? void 0 : n.service) != null ? r : "daemon",
                 (o = n == null ? void 0 : n.responseShape) != null
@@ -547,10 +589,17 @@ __d(
         t
       );
     })();
-    function _(e) {
+    function y(e) {
+      return (
+        e.kind === "response" &&
+        e.statusCode === d &&
+        new TextDecoder().decode(e.body).includes(m)
+      );
+    }
+    function C(e) {
       return new TextEncoder().encode(JSON.stringify(e));
     }
-    function f(e, t, n, r) {
+    function b(e, t, n, r) {
       e: {
         var o = e;
         if (
@@ -587,7 +636,7 @@ __d(
         ) {
           var u = o.body,
             c = o.statusCode;
-          return g(u, c, t, n, r);
+          return v(u, c, t, n, r);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -595,71 +644,71 @@ __d(
         );
       }
     }
-    function g(e, t, n, r, o) {
+    function v(e, t, n, r, o) {
       var a = t < 200 || t >= 300,
         i = n !== "daemon";
-      if (y(e, a, i, o)) return { kind: "Ok", value: null };
+      if (R(e, a, i, o)) return { kind: "Ok", value: null };
       var l;
       try {
         l = JSON.parse(new TextDecoder().decode(e));
       } catch (e) {
         return a
-          ? m("VM returned HTTP " + t, t)
+          ? g("VM returned HTTP " + t, t)
           : { detail: "VM returned malformed JSON", kind: "Unreadable" };
       }
       var s = i || r === "flat-or-envelope",
         u = s ? l : void 0;
-      return C(l, i, r) ? b(l, t, u) : h(u, t, a);
+      return L(l, i, r) ? E(l, t, u) : S(u, t, a);
     }
-    function h(e, t, n) {
+    function S(e, t, n) {
       return n
-        ? m("VM returned HTTP " + t, t, e, R(e != null ? e : null))
+        ? g("VM returned HTTP " + t, t, e, T(e != null ? e : null))
         : e === void 0
           ? { detail: "VM returned an invalid envelope", kind: "Unreadable" }
           : { kind: "Ok", value: e };
     }
-    function y(e, t, n, r) {
+    function R(e, t, n, r) {
       return !t && e.length === 0 && (n || r);
     }
-    function C(e, t, n) {
+    function L(e, t, n) {
       var r;
-      return t || !d(e) || typeof e.ok != "boolean"
+      return t || !f(e) || typeof e.ok != "boolean"
         ? !1
         : e.ok === !1 ||
             n === "service-default" ||
             e.result !== void 0 ||
             typeof e.error == "string" ||
-            d((r = e.error) != null ? r : null);
+            f((r = e.error) != null ? r : null);
     }
-    function b(e, t, n) {
+    function E(e, t, n) {
       if (e.ok !== !0) {
         var r;
-        return m(S((r = e.error) != null ? r : null), t, v(e, n), R(e));
+        return g(I((r = e.error) != null ? r : null), t, k(e, n), T(e));
       }
       return t < 200 || t >= 300
-        ? m("VM returned HTTP " + t, t, e.result)
+        ? g("VM returned HTTP " + t, t, e.result)
         : e.result === void 0
           ? { detail: "VM envelope omitted result", kind: "Unreadable" }
           : { kind: "Ok", value: e.result };
     }
-    function v(e, t) {
+    function k(e, t) {
       return e.result === void 0 && e.error === void 0 ? t : e.result;
     }
-    function S(e) {
+    function I(e) {
       if (typeof e == "string") return e;
-      var t = d(e) ? e.message : null;
+      var t = f(e) ? e.message : null;
       return typeof t == "string" ? t : "VM rejected the request";
     }
-    function R(e) {
+    function T(e) {
       var t;
-      if (d(e)) {
+      if (f(e)) {
         var n = (t = e.error) != null ? t : null,
-          r = d(n) ? n.code : null,
+          r = f(n) ? n.code : null,
           o = typeof r == "string" && r !== "" ? r : e.code;
         return typeof o == "string" && o !== "" ? o : void 0;
       }
     }
-    l.WAWebHatchVmApi = p;
+    ((l.CUSTOM_CONNECTOR_NAME_TAKEN = p), (l.WAWebHatchVmApi = h));
   },
   98,
 );

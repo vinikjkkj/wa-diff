@@ -1,6 +1,12 @@
 __d(
   "WAWebSvgIconHelpers",
-  ["WAWebSvgComponentBase", "WDSSvgIconHelpers", "react", "stylex"],
+  [
+    "WAWebSvgComponentBase",
+    "WDSSvgIconHelpers",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = ["height", "iconXstyle", "innerStyles", "name", "viewBox", "width"],
       s,
@@ -43,32 +49,95 @@ __d(
         width: h,
       };
     }
-    function p(e, t, n, a, l, u) {
-      var d = o("WDSSvgIconHelpers").createSvgIconChildren(u);
-      function p(i) {
-        var u = m(i, e, t, n, a);
-        return c.jsx(
-          o("WAWebSvgComponentBase").BaseSvgSpan,
-          babelHelpers.extends({}, u.otherProps, {
-            name: u.iconName,
-            children: c.jsxs(
+    function p(e, t, n, a, i, l) {
+      var u = o("WDSSvgIconHelpers").createSvgIconChildren(l);
+      function d(l) {
+        var d = o("react-compiler-runtime").c(24),
+          p,
+          _,
+          f,
+          g,
+          h,
+          y,
+          C,
+          b,
+          v;
+        d[0] !== l
+          ? ((_ = m(l, e, t, n, a)),
+            (p = o("WAWebSvgComponentBase").BaseSvgSpan),
+            (b = _.otherProps),
+            (v = _.iconName),
+            (f = _.viewBox),
+            (g = _.height),
+            (h = _.width),
+            (y = "xMidYMid meet"),
+            (C = (s || (s = r("stylex"))).props(_.iconXstyle)),
+            (d[0] = l),
+            (d[1] = p),
+            (d[2] = _),
+            (d[3] = f),
+            (d[4] = g),
+            (d[5] = h),
+            (d[6] = y),
+            (d[7] = C),
+            (d[8] = b),
+            (d[9] = v))
+          : ((p = d[1]),
+            (_ = d[2]),
+            (f = d[3]),
+            (g = d[4]),
+            (h = d[5]),
+            (y = d[6]),
+            (C = d[7]),
+            (b = d[8]),
+            (v = d[9]));
+        var S;
+        d[10] !== _.iconName
+          ? ((S = c.jsx("title", { children: _.iconName })),
+            (d[10] = _.iconName),
+            (d[11] = S))
+          : (S = d[11]);
+        var R;
+        d[12] !== f ||
+        d[13] !== g ||
+        d[14] !== h ||
+        d[15] !== y ||
+        d[16] !== C ||
+        d[17] !== S
+          ? ((R = c.jsxs(
               "svg",
               babelHelpers.extends(
-                {
-                  viewBox: u.viewBox,
-                  height: u.height,
-                  width: u.width,
-                  preserveAspectRatio: "xMidYMid meet",
-                },
-                (s || (s = r("stylex"))).props(u.iconXstyle),
-                l,
-                { children: [c.jsx("title", { children: u.iconName }), d] },
+                { viewBox: f, height: g, width: h, preserveAspectRatio: y },
+                C,
+                i,
+                { children: [S, u] },
               ),
-            ),
-          }),
+            )),
+            (d[12] = f),
+            (d[13] = g),
+            (d[14] = h),
+            (d[15] = y),
+            (d[16] = C),
+            (d[17] = S),
+            (d[18] = R))
+          : (R = d[18]);
+        var L;
+        return (
+          d[19] !== p || d[20] !== b || d[21] !== v || d[22] !== R
+            ? ((L = c.jsx(
+                p,
+                babelHelpers.extends({}, b, { name: v, children: R }),
+              )),
+              (d[19] = p),
+              (d[20] = b),
+              (d[21] = v),
+              (d[22] = R),
+              (d[23] = L))
+            : (L = d[23]),
+          L
         );
       }
-      return ((p.displayName = p.name + " [from " + i.id + "]"), p);
+      return d;
     }
     ((l.resolveSvgIcon = m), (l.createWAWebIcon = p));
   },

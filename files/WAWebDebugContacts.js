@@ -7,6 +7,7 @@ __d(
     "WAWebNonAddressBookContactsJob",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "vulture",
   ],
@@ -80,72 +81,80 @@ __d(
       );
     }
     h.doc = "Sync Contacts (periodic full sync)";
-    async function y(e) {
-      r("vulture")("mvFwOfmC9Ac7vlA26dt1fA8xnEo=");
-      var t = o("WAWebWidFactory").createUserLidOrThrow(e),
-        n = o("WAWebApiContact").getPhoneNumber(t),
-        a = o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY").getContactTable(),
-        i = await a.get(t.toJid());
-      (i != null
-        ? (await a.bulkCreateOrMerge([
-            babelHelpers.extends({}, i, {
-              phoneNumber: void 0,
-              phoneNumberCreatedAt: void 0,
-            }),
-          ]),
-          o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "[makeContactPhoneNumberUnknown] cleared phoneNumber on LID row ",
-                "",
-              ])),
-            t.toString(),
-          ))
-        : o("WALogger").WARN(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "[makeContactPhoneNumberUnknown] no contact row for LID ",
-                "",
-              ])),
-            t.toString(),
-          ),
-        n != null
-          ? (await a.remove(n.toJid()),
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("mvFwOfmC9Ac7vlA26dt1fA8xnEo=");
+          var t = o("WAWebWidFactory").createUserLidOrThrow(e),
+            n = o("WAWebApiContact").getPhoneNumber(t),
+            a = o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY").getContactTable(),
+            i = yield a.get(t.toJid());
+          (i != null
+            ? (yield a.bulkCreateOrMerge([
+                babelHelpers.extends({}, i, {
+                  phoneNumber: void 0,
+                  phoneNumberCreatedAt: void 0,
+                }),
+              ]),
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[makeContactPhoneNumberUnknown] cleared phoneNumber on LID row ",
+                    "",
+                  ])),
+                t.toString(),
+              ))
+            : o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[makeContactPhoneNumberUnknown] no contact row for LID ",
+                    "",
+                  ])),
+                t.toString(),
+              ),
+            n != null
+              ? (yield a.remove(n.toJid()),
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[makeContactPhoneNumberUnknown] removed PN row ",
+                      "",
+                    ])),
+                  n.toString(),
+                ))
+              : o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[makeContactPhoneNumberUnknown] no PN mapping for LID ",
+                      "",
+                    ])),
+                  t.toString(),
+                ),
+            o("WAWebApiContact").lidPnCache.remove(t),
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[makeContactPhoneNumberUnknown] removed PN row ",
-                  "",
-                ])),
-              n.toString(),
-            ))
-          : o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[makeContactPhoneNumberUnknown] no PN mapping for LID ",
-                  "",
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[makeContactPhoneNumberUnknown] evicted LID\u2194PN mapping for ",
+                  ". Reload to re-hydrate contact models.",
                 ])),
               t.toString(),
-            ),
-        o("WAWebApiContact").lidPnCache.remove(t),
-        o("WALogger").LOG(
-          f ||
-            (f = babelHelpers.taggedTemplateLiteralLoose([
-              "[makeContactPhoneNumberUnknown] evicted LID\u2194PN mapping for ",
-              ". Reload to re-hydrate contact models.",
-            ])),
-          t.toString(),
-        ));
+            ));
+        })),
+        C.apply(this, arguments)
+      );
     }
     ((y.doc =
       "Force a LID contact into the 'phone number unknown' state: nullify phoneNumber on the LID row, delete the paired PN row, and evict the LID\u2194PN mapping. Reload afterwards."),
       (y.paramsToExecute = ["lid"]));
-    var C = {
+    var b = {
       syncContact: g,
       syncContactPeriodicFullSync: h,
       makeContactPhoneNumberUnknown: y,
     };
-    l.default = C;
+    l.default = b;
   },
   98,
 );

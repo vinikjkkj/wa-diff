@@ -5,7 +5,7 @@ __d(
     "use strict";
     function e(e) {
       if (e !== null) {
-        var t = parseInt(e, 10);
+        var t = parseInt(String(e), 10);
         if (!isNaN(t)) return t;
       }
       return null;

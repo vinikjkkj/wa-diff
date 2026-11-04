@@ -1,57 +1,82 @@
 __d(
   "WAWebBrAddPixKeyOfferReceipt",
   [
+    "WAPhoneFindCC",
+    "WAWebABProps",
     "WAWebBrAddPixKeyMessageGating",
     "WAWebBrAddPixKeyMessageOffer",
     "WAWebBrAddPixKeyPartnerDirectory",
     "WAWebFutureproofProtoUtils",
+    "WAWebMobilePlatforms",
+    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e = "55";
+    function s(e) {
       var t = e.fromMe,
         n = e.proto,
         r = e.senders;
       return !o("WAWebBrAddPixKeyMessageGating").isAddPixKeyMessageEnabled() ||
         t ||
-        !s(n).includes(
+        !d(n).includes(
           o("WAWebBrAddPixKeyMessageOffer").OFFER_PAYMENT_ACCOUNT_BUTTON_NAME,
         )
         ? !1
         : !o("WAWebBrAddPixKeyPartnerDirectory").isAddPixKeyPartnerSender(r);
     }
-    function s(e) {
+    function u(t) {
+      var n, r;
+      return (
+        p(c(t)).at(0) ===
+          o("WAWebBrAddPixKeyMessageOffer").OFFER_PAYMENT_ACCOUNT_BUTTON_NAME &&
+        o("WAPhoneFindCC").findCC(
+          (n =
+            (r = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+              ? void 0
+              : r.user) != null
+            ? n
+            : "",
+        ) === e &&
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web")
+      );
+    }
+    function c(e) {
+      var t,
+        n,
+        r = m(e);
+      return (t = r.interactiveMessage) != null
+        ? t
+        : (n = r.templateMessage) == null
+          ? void 0
+          : n.interactiveMessageTemplate;
+    }
+    function d(e) {
       var t,
         n,
         r,
         o,
-        a,
-        i,
-        l = u(e),
-        s =
-          (t = l.interactiveMessage) != null
-            ? t
-            : (n = l.templateMessage) == null
-              ? void 0
-              : n.interactiveMessageTemplate;
+        a = m(e),
+        i = c(a);
       return [].concat(
-        ((r = (o = l.buttonsMessage) == null ? void 0 : o.buttons) != null
-          ? r
+        ((t = (n = a.buttonsMessage) == null ? void 0 : n.buttons) != null
+          ? t
           : []
         ).map(function (e) {
           var t;
           return (t = e.nativeFlowInfo) == null ? void 0 : t.name;
         }),
-        c(s),
-        ((a =
-          s == null || (i = s.carouselMessage) == null ? void 0 : i.cards) !=
+        p(i),
+        ((r =
+          i == null || (o = i.carouselMessage) == null ? void 0 : o.cards) !=
         null
-          ? a
+          ? r
           : []
-        ).flatMap(c),
+        ).flatMap(p),
       );
     }
-    function u(e) {
+    function m(e) {
       for (
         var t,
           n = e,
@@ -74,7 +99,7 @@ __d(
       }
       return n;
     }
-    function c(e) {
+    function p(e) {
       var t, n;
       return (
         (t =
@@ -87,7 +112,7 @@ __d(
         return e.name;
       });
     }
-    l.shouldDropAddPixKeyOffer = e;
+    ((l.shouldDropAddPixKeyOffer = s), (l.isAddPixKeyOfferForThisAccount = u));
   },
   98,
 );

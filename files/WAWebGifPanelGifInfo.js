@@ -1,31 +1,34 @@
 __d(
   "WAWebGifPanelGifInfo",
-  ["WAWebGifPanelConstants"],
+  ["WAWebGifPanelConstants", "gkx"],
   function (t, n, r, o, a, i, l) {
-    var e = 0,
-      s = function (n) {
-        var t = n.accessibilityLabel,
-          r = n.nonVideoUrl,
-          a = n.previewUrl,
-          i = n.rank,
-          l = n.trending,
-          s = n.url,
-          u = n.width;
-        ((this.rank = i),
-          (this.gifId = ++e),
-          (this.url = s),
-          (this.previewUrl = a != null && a !== "" ? a : s),
-          (this.nonVideoUrl = r),
+    var e = r("gkx")("26258")
+        ? "3o85xmWDYKgihhIKSA"
+        : "SPCZpy9mSOFVRbCLsuM5xWGUgcefkuCn",
+      s = 0,
+      u = function (t) {
+        var e = t.accessibilityLabel,
+          n = t.nonVideoUrl,
+          r = t.previewUrl,
+          a = t.rank,
+          i = t.trending,
+          l = t.url,
+          u = t.width;
+        ((this.rank = a),
+          (this.gifId = ++s),
+          (this.url = l),
+          (this.previewUrl = r != null && r !== "" ? r : l),
+          (this.nonVideoUrl = n),
           (this.width = u),
           (this.widthStr = u + "px"),
           (this.ratioStr =
             Math.ceil(
               (100 * o("WAWebGifPanelConstants").TARGET_GIF_HEIGHT) / u,
             ) + "%"),
-          (this.trending = l),
-          (this.accessibilityLabel = t));
+          (this.trending = i),
+          (this.accessibilityLabel = e));
       },
-      u = [
+      c = [
         "en",
         "es",
         "pt",
@@ -59,7 +62,7 @@ __d(
         "no",
         "uk",
       ];
-    ((l.GifInfo = s), (l.GIPHY_LOCALES = u));
+    ((l.GIPHY_KEY = e), (l.GifInfo = u), (l.GIPHY_LOCALES = c));
   },
   98,
 );

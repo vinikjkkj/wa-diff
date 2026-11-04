@@ -3,27 +3,19 @@ __d(
   ["VideoPlayerNextgendashConnectionUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return !t || e.playerInstanceKey == null
-        ? e.type
-        : e.type + ":" + e.playerInstanceKey;
-    }
-    function s(t, n, r, a, i) {
-      var l = "VideoPlayerNextgendashConnectionWorkerToMain_" + n,
-        s = "",
-        u = o(
+    function e(e, t, n, r, a) {
+      var i = "VideoPlayerNextgendashConnectionWorkerToMain_" + t,
+        l = "",
+        s = o(
           "VideoPlayerNextgendashConnectionUtils",
         ).createInboundOutboundQueues(
-          t,
-          l,
-          s,
-          r,
+          e,
           i,
-          function (n) {
-            return e(
-              n.eventToMain,
-              t.config.enablePlayerScopedWorkerToMainEventCoalescing,
-            );
+          l,
+          n,
+          a,
+          function (e) {
+            return e.eventToMain.type;
           },
           function (e) {
             return {
@@ -40,27 +32,27 @@ __d(
             };
           },
           function (e, t) {
-            var n = r.addMessageListener(
+            var r = n.addMessageListener(
               "comet_video_player_nextgendash__main_to_worker",
               t,
             );
             e.push(function () {
-              r.removeMessageListener(
+              n.removeMessageListener(
                 "comet_video_player_nextgendash__main_to_worker",
-                n,
+                r,
               );
             });
           },
-          function (e) {
-            a && e.push(a(t, r));
+          function (t) {
+            r && t.push(r(e, n));
           },
         ),
-        c = u.disconnect,
-        d = u.getStats,
-        m = u.send;
-      return { disconnectFromMain: c, getStats: d, sendToMain: m };
+        u = s.disconnect,
+        c = s.getStats,
+        d = s.send;
+      return { disconnectFromMain: u, getStats: c, sendToMain: d };
     }
-    ((l.internal_getWorkerToMainEventCoalescingKey = e), (l.connectToMain = s));
+    l.connectToMain = e;
   },
   98,
 );

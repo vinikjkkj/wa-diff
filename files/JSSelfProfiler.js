@@ -8,6 +8,7 @@ __d(
     "JSSelfProfilerConfig.experimental",
     "JSSelfProfilerProbe",
     "JSSelfProfilerUtils",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
     "requireDeferred",
@@ -108,98 +109,124 @@ __d(
             }
             return null;
           }));
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.abort = async function () {
-            var e = this;
-            if (!this.$4) {
-              var n = performance.now();
-              (await this.$1.stop(),
-                (this.$3 = performance.now() - n),
-                (this.$6 = null),
-                (this.$4 = !0),
-                --t.instanceCount);
-              var r = async function (n) {
-                await await o("JSSelfProfilerUtils").nextEventLoop(function () {
-                  return n.onProfilerAborts(e.$8, e);
-                });
-              };
-              for (var a of t.traceDataCollectors.values()) await r(a);
-              var i = async function (n) {
-                await await o("JSSelfProfilerUtils").nextEventLoop(function () {
-                  return n.onProfilerAborts(e.$8);
-                });
-              };
-              for (var l of t.traceTransformers.values()) await i(l);
+          (a.abort = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this;
+              if (!this.$4) {
+                var n = performance.now();
+                (yield this.$1.stop(),
+                  (this.$3 = performance.now() - n),
+                  (this.$6 = null),
+                  (this.$4 = !0),
+                  --t.instanceCount);
+                var r = function* (n) {
+                  yield yield o("JSSelfProfilerUtils").nextEventLoop(
+                    function () {
+                      return n.onProfilerAborts(e.$8, e);
+                    },
+                  );
+                };
+                for (var a of t.traceDataCollectors.values()) yield* r(a);
+                var i = function* (n) {
+                  yield yield o("JSSelfProfilerUtils").nextEventLoop(
+                    function () {
+                      return n.onProfilerAborts(e.$8);
+                    },
+                  );
+                };
+                for (var l of t.traceTransformers.values()) yield* i(l);
+              }
+            });
+            function r() {
+              return e.apply(this, arguments);
             }
-          }),
-          (n.stopRecording = async function () {
-            if (this.$4) {
-              var e = new Error(
-                "The profiling has stopped before stopRecording() is called",
-              );
-              throw (e.stack, e);
-            }
-            --t.instanceCount;
-            var n = performance.now(),
-              r = await this.postProcessTrace(await this.$1.stop());
-            this.$3 = performance.now() - n;
-            var o = {
-              trace: r,
-              stats: {
-                timeOrigin: performance.timeOrigin,
-                requestedSampleInterval: this.$5,
-                actualSampleInterval: this.$1.sampleInterval,
-              },
-            };
-            return ((this.$6 = this.getTraceStats(r)), (this.$4 = !0), o);
-          }),
-          (n.postProcessTrace = async function (n) {
-            var e,
-              r = this,
-              a = n;
-            if (((e = this.$7) == null ? void 0 : e.interaction_id) != null) {
-              var i;
-              a.metadata = {
-                interactionId:
-                  (i = this.$7) == null ? void 0 : i.interaction_id,
-              };
-            }
-            var l = {},
-              s = async function (t) {
-                l = await await o("JSSelfProfilerUtils").nextEventLoop(
-                  function () {
-                    return t.onProfilerEnds(r.$8, a, l, r);
-                  },
+            return r;
+          })()),
+          (a.stopRecording = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (this.$4) {
+                var e = new Error(
+                  "The profiling has stopped before stopRecording() is called",
                 );
-              };
-            for (var u of t.traceDataCollectors.values()) await s(u);
-            var c = async function (t) {
-              a = await await o("JSSelfProfilerUtils").nextEventLoop(
-                function () {
-                  return t.transform(a, r.$8, l);
+                throw (e.stack, e);
+              }
+              --t.instanceCount;
+              var n = performance.now(),
+                r = yield this.postProcessTrace(yield this.$1.stop());
+              this.$3 = performance.now() - n;
+              var o = {
+                trace: r,
+                stats: {
+                  timeOrigin: performance.timeOrigin,
+                  requestedSampleInterval: this.$5,
+                  actualSampleInterval: this.$1.sampleInterval,
                 },
-              );
-            };
-            for (var d of t.traceTransformers.values()) await c(d);
-            return a;
-          }),
-          (n.setStartUpTime = function (t) {
+              };
+              return ((this.$6 = this.getTraceStats(r)), (this.$4 = !0), o);
+            });
+            function r() {
+              return e.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.postProcessTrace = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var n,
+                  r = this,
+                  a = e;
+                if (
+                  ((n = this.$7) == null ? void 0 : n.interaction_id) != null
+                ) {
+                  var i;
+                  a.metadata = {
+                    interactionId:
+                      (i = this.$7) == null ? void 0 : i.interaction_id,
+                  };
+                }
+                var l = {},
+                  s = function* (t) {
+                    l = yield yield o("JSSelfProfilerUtils").nextEventLoop(
+                      function () {
+                        return t.onProfilerEnds(r.$8, a, l, r);
+                      },
+                    );
+                  };
+                for (var u of t.traceDataCollectors.values()) yield* s(u);
+                var c = function* (t) {
+                  a = yield yield o("JSSelfProfilerUtils").nextEventLoop(
+                    function () {
+                      return t.transform(a, r.$8, l);
+                    },
+                  );
+                };
+                for (var d of t.traceTransformers.values()) yield* c(d);
+                return a;
+              },
+            );
+            function r(t) {
+              return e.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.setStartUpTime = function (t) {
             this.$2 = t;
           }),
-          (n.setTriggerInfo = function (t) {
+          (a.setTriggerInfo = function (t) {
             this.$7 = t;
           }),
-          (n.setAnnotations = function (t) {
+          (a.setAnnotations = function (t) {
             this.$9 = Array.from(new Set([].concat(this.$9, t)));
           }),
-          (n.getAnnotations = function () {
+          (a.getAnnotations = function () {
             return [].concat(this.$9);
           }),
-          (n.getProfilerID = function () {
+          (a.getProfilerID = function () {
             return this.$8;
           }),
-          (n.getTraceStats = function (t) {
+          (a.getTraceStats = function (t) {
             var e,
               n,
               r,
@@ -215,7 +242,7 @@ __d(
               }),
             };
           }),
-          (n.logStats = function () {
+          (a.logStats = function () {
             var t = this;
             if (this.$2 == null) {
               r("FBLogger")("JSSelfProfiler").warn(

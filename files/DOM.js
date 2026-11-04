@@ -115,24 +115,24 @@ __d(
           c(typeof t == "string" ? r("$")(t) : t);
         },
         empty: function (t) {
-          for (t = typeof t == "string" ? r("$")(t) : t; t.firstChild; )
-            c(t.firstChild);
+          for (var e = typeof t == "string" ? r("$")(t) : t; e.firstChild; )
+            c(e.firstChild);
         },
       };
     function c(e) {
       e.parentNode && e.parentNode.removeChild(e);
     }
     function d(e, t, n) {
+      var a = r("HTML").replaceJSONWrapper(e);
       if (
-        ((e = r("HTML").replaceJSONWrapper(e)),
-        e instanceof r("HTML") &&
-          t.firstChild === null &&
-          e.toString().indexOf("<script") === -1)
+        a instanceof r("HTML") &&
+        t.firstChild === null &&
+        a.toString().indexOf("<script") === -1
       ) {
-        var a = o("UserAgent_DEPRECATED").ie();
+        var i = o("UserAgent_DEPRECATED").ie();
         if (
-          !a ||
-          (a > 7 &&
+          !i ||
+          (i > 7 &&
             !o("DOMQuery").isNodeOfType(t, [
               "table",
               "tbody",
@@ -143,55 +143,55 @@ __d(
               "fieldset",
             ]))
         ) {
-          var i = a
-            ? '<em style="display:none;">&nbsp;</em>' + e.toString()
-            : e.toString();
+          var l = i
+            ? '<em style="display:none;">&nbsp;</em>' + a.toString()
+            : a.toString();
           return (
-            (t.innerHTML = i),
-            a && t.removeChild(t.firstChild),
+            (t.innerHTML = l),
+            i && t.removeChild(t.firstChild),
             Array.from(t.childNodes)
           );
         }
-      } else if (r("isTextNode")(t)) return ((t.data = e), [e]);
-      var l = document.createDocumentFragment(),
-        s,
-        u = [],
+      } else if (r("isTextNode")(t)) return ((t.data = a), [a]);
+      var s = document.createDocumentFragment(),
+        u,
         c = [],
-        d = !1;
-      ((e = r("createArrayFromMixed")(e)),
-        e.length === 1 &&
-          e[0] instanceof r("FbtResultBase") &&
-          (e = e[0].getContents()));
-      for (var m = 0; m < e.length; m++)
+        d = [],
+        m = !1;
+      ((a = r("createArrayFromMixed")(a)),
+        a.length === 1 &&
+          a[0] instanceof r("FbtResultBase") &&
+          (a = a[0].getContents()));
+      for (var p = 0; p < a.length; p++)
         if (
-          ((s = r("HTML").replaceJSONWrapper(e[m])), s instanceof r("HTML"))
+          ((u = r("HTML").replaceJSONWrapper(a[p])), u instanceof r("HTML"))
         ) {
-          c.push(s.getAction());
-          var p = s.getNodes();
-          !d &&
-            s.hasInlineJs() &&
+          d.push(u.getAction());
+          var _ = u.getNodes();
+          !m &&
+            u.hasInlineJs() &&
             (r("FBLogger")("staticresources").warn(
               "DOM: adding HTML which contains inline JS",
             ),
-            (d = !0));
-          for (var _ = 0; _ < p.length; _++)
-            (u.push(p[_]), l.appendChild(p[_]));
-        } else if (r("isScalar")(s) || s instanceof r("FbtResultBase")) {
-          var f = document.createTextNode(s);
-          (u.push(f), l.appendChild(f));
+            (m = !0));
+          for (var f = 0; f < _.length; f++)
+            (c.push(_[f]), s.appendChild(_[f]));
+        } else if (r("isScalar")(u) || u instanceof r("FbtResultBase")) {
+          var g = document.createTextNode(u);
+          (c.push(g), s.appendChild(g));
         } else
-          r("isNode")(s)
-            ? (u.push(s), l.appendChild(s))
-            : (Array.isArray(s) &&
+          r("isNode")(u)
+            ? (c.push(u), s.appendChild(u))
+            : (Array.isArray(u) &&
                 r("FBLogger")("dom").warn("Nest arrays not supported"),
-              s !== null &&
-                r("FBLogger")("dom").warn("No way to set content %s", s));
+              u !== null &&
+                r("FBLogger")("dom").warn("No way to set content %s", u));
       return (
-        n(l),
-        c.forEach(function (e) {
+        n(s),
+        d.forEach(function (e) {
           e();
         }),
-        u
+        c
       );
     }
     var m = u;

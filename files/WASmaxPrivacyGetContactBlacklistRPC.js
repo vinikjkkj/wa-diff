@@ -13,39 +13,51 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t) {
-      var n = S(e),
-        r = await o("WAComms").sendSmaxStanza(n, t),
-        a = _(r, n);
-      if (a.success)
-        return {
-          name: "GetContactBlacklistResponseSuccessLID",
-          value: a.value,
-        };
-      var i = d(r, n);
-      if (i.success)
-        return { name: "GetContactBlacklistResponseSuccess", value: i.value };
-      var l = s(r, n);
-      if (l.success)
-        return { name: "GetContactBlacklistResponseError", value: l.value };
-      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-        o("WASmaxRpcUtils").errorMessageRpcParsing("GetContactBlacklist", {
-          SuccessLID: a,
-          Success: i,
-          Error: l,
-        }),
+    function e(e, t) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = R(e),
+            r = yield o("WAComms").sendSmaxStanza(n, t),
+            a = f(r, n);
+          if (a.success)
+            return {
+              name: "GetContactBlacklistResponseSuccessLID",
+              value: a.value,
+            };
+          var i = m(r, n);
+          if (i.success)
+            return {
+              name: "GetContactBlacklistResponseSuccess",
+              value: i.value,
+            };
+          var l = u(r, n);
+          if (l.success)
+            return { name: "GetContactBlacklistResponseError", value: l.value };
+          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+            o("WASmaxRpcUtils").errorMessageRpcParsing("GetContactBlacklist", {
+              SuccessLID: a,
+              Success: i,
+              Error: l,
+            }),
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
-    function s(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = k(e, t);
+      var a = I(e, t);
       if (!a.success) return a;
-      var i = f(r.value);
+      var i = g(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -54,7 +66,7 @@ __d(
           )
         : i;
     }
-    function u(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "user");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -68,22 +80,22 @@ __d(
         ? o("WAResultOrError").makeResult({ jid: n.value, lid: r.value })
         : r;
     }
-    function c(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "list");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "dhash");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").mapChildrenWithTag(e, "user", 0, 64e3, u);
+      var r = o("WASmaxParseUtils").mapChildrenWithTag(e, "user", 0, 64e3, c);
       return r.success
         ? o("WAResultOrError").makeResult({ dhash: n.value, user: r.value })
         : r;
     }
-    function d(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "privacy");
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "list", c);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "list", d);
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").optionalLiteral(
         o("WASmaxParseUtils").attrString,
@@ -92,7 +104,7 @@ __d(
         "pn",
       );
       if (!i.success) return i;
-      var l = I(e, t);
+      var l = T(e, t);
       return l.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ privacyAddressingMode: i.value }, l.value, {
@@ -101,7 +113,7 @@ __d(
           )
         : l;
     }
-    function m(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "user");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -110,28 +122,28 @@ __d(
         "jid",
       );
       if (!n.success) return n;
-      var r = v(e);
+      var r = S(e);
       return o("WAResultOrError").makeResult({
         jid: n.value,
         privacyContactListIdentifierMixin: r.success ? r.value : null,
       });
     }
-    function p(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "list");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "dhash");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").mapChildrenWithTag(e, "user", 0, 64e3, m);
+      var r = o("WASmaxParseUtils").mapChildrenWithTag(e, "user", 0, 64e3, p);
       return r.success
         ? o("WAResultOrError").makeResult({ dhash: n.value, user: r.value })
         : r;
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "privacy");
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "list", p);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "list", _);
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
@@ -140,7 +152,7 @@ __d(
         "lid",
       );
       if (!i.success) return i;
-      var l = I(e, t);
+      var l = T(e, t);
       return l.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ privacyAddressingMode: i.value }, l.value, {
@@ -149,32 +161,32 @@ __d(
           )
         : l;
     }
-    function f(e) {
-      var t = g(e);
+    function g(e) {
+      var t = h(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorBadRequest",
           value: t.value,
         });
-      var n = h(e);
+      var n = y(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorFeatureNotImplemented",
           value: n.value,
         });
-      var r = b(e);
+      var r = v(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorServiceUnavailable",
           value: r.value,
         });
-      var a = C(e);
+      var a = b(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorRateOverlimit",
           value: a.value,
         });
-      var i = y(e);
+      var i = C(e);
       return i.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorInternalServerError",
@@ -192,7 +204,7 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function g(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -212,7 +224,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function h(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -232,7 +244,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function y(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -252,7 +264,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function C(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -272,7 +284,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function b(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -292,26 +304,26 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function v(e) {
-      var t = E(e);
+    function S(e) {
+      var t = k(e);
       return t.success
         ? o("WAResultOrError").makeResult({ contactListIds: t.value })
         : t;
     }
-    function S(e) {
+    function R(e) {
       var t =
           e.getContactBlacklistGetContactBlacklistLIDOrGetContactBlacklistPNMixinGroupArgs,
-        n = L(
+        n = E(
           o("WASmaxJsx").smax(
             "iq",
             null,
-            M(o("WASmaxJsx").smax("privacy", null), t),
+            w(o("WASmaxJsx").smax("privacy", null), t),
           ),
         );
       return n;
     }
-    function R() {
-      var e = N(
+    function L() {
+      var e = M(
         o("WASmaxJsx").smax("iq", {
           to: o("WAWap").S_WHATSAPP_NET,
           xmlns: "privacy",
@@ -319,24 +331,24 @@ __d(
       );
       return e;
     }
-    function L(e) {
-      var t = R();
+    function E(e) {
+      var t = L();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function E(e) {
-      var t = $(e);
+    function k(e) {
+      var t = P(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "Username",
           value: t.value,
         });
-      var n = x(e);
+      var n = $(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "PnJid",
           value: n.value,
         });
-      var r = T(e);
+      var r = D(e);
       return r.success
         ? o("WAResultOrError").makeResult({
             name: "EmptyContactListIdentifier",
@@ -347,35 +359,6 @@ __d(
             ["Username", "PnJid", "EmptyContactListIdentifier"],
             [t, n, r],
           );
-    }
-    function k(e, t) {
-      var n = o("WASmaxParseUtils").assertTag(e, "iq");
-      if (!n.success) return n;
-      var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
-      if (!r.success) return r;
-      var a = o("WASmaxParseUtils").literal(
-        o("WASmaxParseUtils").attrString,
-        e,
-        "id",
-        r.value,
-      );
-      if (!a.success) return a;
-      var i = o("WASmaxParseUtils").optional(
-        o("WASmaxParseJid").attrJidEnum,
-        e,
-        "from",
-        D,
-      );
-      if (!i.success) return i;
-      var l = o("WASmaxParseUtils").literal(
-        o("WASmaxParseUtils").attrString,
-        e,
-        "type",
-        "error",
-      );
-      return l.success
-        ? o("WAResultOrError").makeResult({ from: i.value, type: l.value })
-        : l;
     }
     function I(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
@@ -393,7 +376,36 @@ __d(
         o("WASmaxParseJid").attrJidEnum,
         e,
         "from",
-        D,
+        x,
+      );
+      if (!i.success) return i;
+      var l = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        e,
+        "type",
+        "error",
+      );
+      return l.success
+        ? o("WAResultOrError").makeResult({ from: i.value, type: l.value })
+        : l;
+    }
+    function T(e, t) {
+      var n = o("WASmaxParseUtils").assertTag(e, "iq");
+      if (!n.success) return n;
+      var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        e,
+        "id",
+        r.value,
+      );
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").optional(
+        o("WASmaxParseJid").attrJidEnum,
+        e,
+        "from",
+        x,
       );
       if (!i.success) return i;
       var l = o("WASmaxParseUtils").literal(
@@ -406,112 +418,112 @@ __d(
         ? o("WAResultOrError").makeResult({ from: i.value, type: l.value })
         : l;
     }
-    function T(e) {
+    function D(e) {
       return o("WASmaxParseUtils").voidSuccess;
     }
-    var D = {
+    var x = {
       validators: [o("WAJids").validateDomainJid, o("WAJids").validateUserJid],
       typeName: "DomainJid|UserJid",
     };
-    function x(e) {
+    function $(e) {
       var t = o("WASmaxParseJid").attrUserJid(e, "pn_jid");
       return t.success
         ? o("WAResultOrError").makeResult({ pnJid: t.value })
         : t;
     }
-    function $(e) {
+    function P(e) {
       var t = o("WASmaxParseUtils").attrString(e, "username");
       return t.success
         ? o("WAResultOrError").makeResult({ username: t.value })
         : t;
     }
-    function P() {
+    function N() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "get",
       });
       return e;
     }
-    function N(e) {
-      var t = P();
+    function M(e) {
+      var t = N();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function M(e, t) {
+    function w(e, t) {
       if (t.getContactBlacklistGetContactBlacklistLID)
-        return O(e, t.getContactBlacklistGetContactBlacklistLID);
+        return B(e, t.getContactBlacklistGetContactBlacklistLID);
       if (t.getContactBlacklistGetContactBlacklistPN)
-        return A(e, t.getContactBlacklistGetContactBlacklistPN);
+        return F(e, t.getContactBlacklistGetContactBlacklistPN);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function w(e) {
+    function A(e) {
       var t = e.categoryNamesForContactBlacklistMixinArgs,
         n = o("WASmaxJsx").smax(
           "privacy",
           null,
-          W(o("WASmaxJsx").smax("list", { value: "contact_blacklist" }), t),
+          q(o("WASmaxJsx").smax("list", { value: "contact_blacklist" }), t),
         );
       return n;
     }
-    function A(e, t) {
-      var n = w(t);
+    function F(e, t) {
+      var n = A(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function F(e) {
+    function O(e) {
       var t = e.categoryNamesForContactBlacklistMixinArgs,
         n = o("WASmaxJsx").smax(
           "privacy",
           { addressing_mode: "lid" },
-          W(o("WASmaxJsx").smax("list", { value: "contact_blacklist" }), t),
+          q(o("WASmaxJsx").smax("list", { value: "contact_blacklist" }), t),
         );
       return n;
     }
-    function O(e, t) {
-      var n = F(t);
+    function B(e, t) {
+      var n = O(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function B(e) {
+    function W(e) {
       var t = e.anyName,
         n = o("WASmaxJsx").smax("smax$any", {
           name: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function W(e, t) {
-      var n = B(t);
+    function q(e, t) {
+      var n = W(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendGetContactBlacklistRPC = e),
-      (l.parseGetContactBlacklistResponseError = s),
-      (l.parseGetContactBlacklistResponseSuccessPrivacyListUser = u),
-      (l.parseGetContactBlacklistResponseSuccessPrivacyList = c),
-      (l.parseGetContactBlacklistResponseSuccess = d),
-      (l.parseGetContactBlacklistResponseSuccessLIDPrivacyListUser = m),
-      (l.parseGetContactBlacklistResponseSuccessLIDPrivacyList = p),
-      (l.parseGetContactBlacklistResponseSuccessLID = _),
-      (l.parseGetPrivacyListError = f),
-      (l.parseIQErrorBadRequestMixin = g),
-      (l.parseIQErrorFeatureNotImplementedMixin = h),
-      (l.parseIQErrorInternalServerErrorMixin = y),
-      (l.parseIQErrorRateOverlimitMixin = C),
-      (l.parseIQErrorServiceUnavailableMixin = b),
-      (l.parsePrivacyContactListIdentifierMixin = v),
-      (l.makeGetContactBlacklistRequest = S),
-      (l.mergeGetIQMixin = L),
-      (l.parseContactListIds = E),
-      (l.parseDeprecatedIQErrorResponseOptionalFromMixin = k),
-      (l.parseDeprecatedIQResultResponseOptionalFromMixin = I),
-      (l.parseEmptyContactListIdentifierMixin = T),
-      (l.DOMAINJID_USERJID = D),
-      (l.parsePnJidMixin = x),
-      (l.parseUsernameMixin = $),
-      (l.mergeBaseIQGetRequestMixin = N),
+      (l.parseGetContactBlacklistResponseError = u),
+      (l.parseGetContactBlacklistResponseSuccessPrivacyListUser = c),
+      (l.parseGetContactBlacklistResponseSuccessPrivacyList = d),
+      (l.parseGetContactBlacklistResponseSuccess = m),
+      (l.parseGetContactBlacklistResponseSuccessLIDPrivacyListUser = p),
+      (l.parseGetContactBlacklistResponseSuccessLIDPrivacyList = _),
+      (l.parseGetContactBlacklistResponseSuccessLID = f),
+      (l.parseGetPrivacyListError = g),
+      (l.parseIQErrorBadRequestMixin = h),
+      (l.parseIQErrorFeatureNotImplementedMixin = y),
+      (l.parseIQErrorInternalServerErrorMixin = C),
+      (l.parseIQErrorRateOverlimitMixin = b),
+      (l.parseIQErrorServiceUnavailableMixin = v),
+      (l.parsePrivacyContactListIdentifierMixin = S),
+      (l.makeGetContactBlacklistRequest = R),
+      (l.mergeGetIQMixin = E),
+      (l.parseContactListIds = k),
+      (l.parseDeprecatedIQErrorResponseOptionalFromMixin = I),
+      (l.parseDeprecatedIQResultResponseOptionalFromMixin = T),
+      (l.parseEmptyContactListIdentifierMixin = D),
+      (l.DOMAINJID_USERJID = x),
+      (l.parsePnJidMixin = $),
+      (l.parseUsernameMixin = P),
+      (l.mergeBaseIQGetRequestMixin = M),
       (l.mergeGetContactBlacklistGetContactBlacklistLIDOrGetContactBlacklistPNMixinGroup =
-        M),
-      (l.mergeGetContactBlacklistGetContactBlacklistPNMixin = A),
-      (l.mergeGetContactBlacklistGetContactBlacklistLIDMixin = O),
-      (l.mergeCategoryNamesForContactBlacklistMixin = W));
+        w),
+      (l.mergeGetContactBlacklistGetContactBlacklistPNMixin = F),
+      (l.mergeGetContactBlacklistGetContactBlacklistLIDMixin = B),
+      (l.mergeCategoryNamesForContactBlacklistMixin = q));
   },
   98,
 );

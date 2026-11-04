@@ -1,6 +1,12 @@
 __d(
   "WormIDbUpgrade",
-  ["WATimeUtils", "WormIDbEARKeychain", "WormIDbTypes", "WormIDbUtils"],
+  [
+    "WATimeUtils",
+    "WormIDbEARKeychain",
+    "WormIDbTypes",
+    "WormIDbUtils",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -39,26 +45,34 @@ __d(
       }
       return { storesToCreate: r, storesToDelete: o, storesToModify: a };
     }
-    async function s(e, t) {
-      if (!e.objectStoreNames.contains(o("WormIDbTypes").DB_VERSION_STORE))
-        return { isNewDb: !0, shouldUpgrade: !0 };
-      var n = e.transaction(o("WormIDbTypes").DB_VERSION_STORE, "readonly"),
-        r = await o("WormIDbUtils").promisifyIDbRequest(
-          n
-            .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
-            .get(o("WormIDbTypes").SCHEMA_HASH_KEY),
-        );
-      return {
-        isNewDb: !1,
-        shouldUpgrade: (r == null ? void 0 : r.value) !== t,
-      };
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    function u(e) {
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!e.objectStoreNames.contains(o("WormIDbTypes").DB_VERSION_STORE))
+            return { isNewDb: !0, shouldUpgrade: !0 };
+          var n = e.transaction(o("WormIDbTypes").DB_VERSION_STORE, "readonly"),
+            r = yield o("WormIDbUtils").promisifyIDbRequest(
+              n
+                .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
+                .get(o("WormIDbTypes").SCHEMA_HASH_KEY),
+            );
+          return {
+            isNewDb: !1,
+            shouldUpgrade: (r == null ? void 0 : r.value) !== t,
+          };
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e) {
       return Object.keys(o("WormIDbTypes").sysSchema).some(function (t) {
         return e.objectStoreNames.contains(t) === !1;
       });
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       for (var r of n) {
         var o = t[r],
           a = e.createObjectStore(r, {
@@ -79,7 +93,7 @@ __d(
           }
       }
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       var r = [];
       for (var o of n) {
         var a = o[0],
@@ -102,7 +116,7 @@ __d(
       }
       return r;
     }
-    function m(e, t, n, r) {
+    function p(e, t, n, r) {
       var o = function (o) {
         if (t[o].secure !== !0) return 1;
         var n = o,
@@ -127,16 +141,16 @@ __d(
       };
       for (var a of n) o(a);
     }
-    function p(t, n, r, o) {
+    function _(t, n, r, o) {
       var a = e(t, n, r),
         i = a.storesToCreate,
         l = a.storesToDelete,
         s = a.storesToModify;
-      c(t, r, i);
+      d(t, r, i);
       for (var u of l) o.has(u) && t.deleteObjectStore(u);
-      return d(n, r, s);
+      return m(n, r, s);
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       (e
         .objectStore(o("WormIDbTypes").DB_VERSION_STORE)
         .put({ key: o("WormIDbTypes").SCHEMA_HASH_KEY, value: t }),
@@ -148,21 +162,21 @@ __d(
               value: o("WATimeUtils").performanceAbsoluteNow(),
             }));
     }
-    function f(t, n, r) {
+    function g(t, n, r) {
       var o = e(t, n, r),
         a = o.storesToCreate;
-      c(t, r, a);
+      d(t, r, a);
     }
-    function g(e, t, n, r, o) {
+    function h(e, t, n, r, o) {
       var a = o.ear,
-        i = p(e, t, n, o.safeToDeleteStores);
-      (a != null && m(t, n, i, a), _(t, r, o.isNewDbInstance));
+        i = _(e, t, n, o.safeToDeleteStores);
+      (a != null && p(t, n, i, a), f(t, r, o.isNewDbInstance));
     }
-    function h(e, t, n, r, a) {
+    function y(e, t, n, r, a) {
       var i = a.ear,
         l = a.eventFlow;
       l == null || l.addPoint("apply_schema_changes_start");
-      var s = p(e, t, n, a.safeToDeleteStores);
+      var s = _(e, t, n, a.safeToDeleteStores);
       (l == null || l.addPoint("apply_schema_changes_end"),
         l == null || l.addPoint("load_keychain_start"));
       var u = t.objectStore(o("WormIDbTypes").EAR_STORE),
@@ -174,24 +188,24 @@ __d(
           ),
           a = r.curVersion,
           d = r.needNewVersion,
-          p = r.versions;
+          m = r.versions;
         if (d) {
           var _ = babelHelpers.extends({}, i.prepareNewKeyVersion(), {
             version: a + 1,
           });
-          (u.add(_), p.push(_));
+          (u.add(_), m.push(_));
         }
         (l == null || l.addPoint("load_keychain_end"),
-          i.init(p, { eventFlow: l }),
-          m(t, n, s, i));
+          i.init(m, { eventFlow: l }),
+          p(t, n, s, i));
       }),
-        _(t, r, a.isNewDbInstance));
+        f(t, r, a.isNewDbInstance));
     }
     ((l.shouldUpgradeDb = s),
-      (l.hasMissingSysStores = u),
-      (l.createMissingStores = f),
-      (l.upgradeDb = g),
-      (l.upgradeDbAndInitEAR = h));
+      (l.hasMissingSysStores = c),
+      (l.createMissingStores = g),
+      (l.upgradeDb = h),
+      (l.upgradeDbAndInitEAR = y));
   },
   98,
 );

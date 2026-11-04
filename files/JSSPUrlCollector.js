@@ -1,6 +1,6 @@
 __d(
   "JSSPUrlCollector",
-  ["JSSPTraceBaseDataCollector"],
+  ["JSSPTraceBaseDataCollector", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Map();
@@ -10,29 +10,49 @@ __d(
       return n;
     }
     var u = (function (t) {
-      function n() {
+      function r() {
         return t.apply(this, arguments) || this;
       }
-      babelHelpers.inheritsLoose(n, t);
-      var r = n.prototype;
+      babelHelpers.inheritsLoose(r, t);
+      var o = r.prototype;
       return (
-        (r.onProfilerStarts = async function (n) {
-          e.set(n, { urlBeforeTraceStarts: s(document.URL) });
-        }),
-        (r.onProfilerEnds = async function (n, r, o) {
-          var t,
-            a = (t = e.get(n)) != null ? t : {};
-          return (
-            (a.urlAfterTraceEnds = s(document.URL)),
-            e.delete(n),
-            (o.urlData = a),
-            o
+        (o.onProfilerStarts = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            e.set(t, { urlBeforeTraceStarts: s(document.URL) });
+          });
+          function r(e) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })()),
+        (o.onProfilerEnds = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n, r) {
+              var o,
+                a = (o = e.get(t)) != null ? o : {};
+              return (
+                (a.urlAfterTraceEnds = s(document.URL)),
+                e.delete(t),
+                (r.urlData = a),
+                r
+              );
+            },
           );
-        }),
-        (r.onProfilerAborts = async function (n) {
-          e.delete(n);
-        }),
-        n
+          function r(e, n, r) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })()),
+        (o.onProfilerAborts = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+            e.delete(t);
+          });
+          function r(e) {
+            return t.apply(this, arguments);
+          }
+          return r;
+        })()),
+        r
       );
     })(r("JSSPTraceBaseDataCollector"));
     l.default = u;

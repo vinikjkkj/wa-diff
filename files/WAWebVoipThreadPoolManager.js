@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebCoreActionsODS",
+    "WAWebODS",
     "WAWebPonyfillsIdleCallback",
     "WAWebVoipHiddenPrewarmIdleWork",
     "WAWebVoipPthreadGlueFailureTracker",
@@ -49,10 +50,8 @@ __d(
       A,
       F,
       O,
-      B,
-      W,
-      q = !1;
-    function U(e) {
+      B = !1;
+    function W(e) {
       var t = e.length - 1;
       if (t < 0) return !1;
       if (o("WAWebVoipPthreadWorkerFields").isPthreadWorkerLoaded(e[t]))
@@ -64,12 +63,12 @@ __d(
         }
       return !1;
     }
-    var V = 2,
-      H = 4,
-      G = 50,
-      z = 3e4,
-      j = 15e3,
-      K = (function () {
+    var q = 2,
+      U = 4,
+      V = 50,
+      H = 3e4,
+      G = 15e3,
+      z = (function () {
         function t(e, t, n) {
           ((this.$3 = !1),
             (this.$4 = !1),
@@ -98,7 +97,7 @@ __d(
           }),
           (a.$11 = function () {
             var e = this;
-            if (!(this.$4 || q)) {
+            if (!(this.$4 || B)) {
               var t = this,
                 n = this.$1.PThread,
                 a = n.getNewWorker;
@@ -157,11 +156,11 @@ __d(
                     ? window.setTimeout(function () {
                         e.ensurePoolCapacity();
                       }, 0)
-                    : p <= V && e.$16(),
+                    : p <= q && e.$16(),
                   m
                 );
               }),
-                (q = !0),
+                (B = !0),
                 (this.$4 = !0));
               var i = this.getAvailableWorkerCount(),
                 l = this.getRunningWorkerCount();
@@ -194,12 +193,12 @@ __d(
             return this.$2;
           }),
           (a.ensurePoolCapacity = function () {
-            if (!this.$2) return (W || (W = n("Promise"))).resolve();
+            if (!this.$2) return (O || (O = n("Promise"))).resolve();
             var e = this.getAvailableWorkerCount(),
               t = this.getRunningWorkerCount(),
               r = e + t;
-            if (e <= V && r < G) {
-              var a = Math.min(H, G - r);
+            if (e <= q && r < V) {
+              var a = Math.min(U, V - r);
               return (
                 o("WALogger").LOG(
                   d ||
@@ -214,7 +213,7 @@ __d(
                 this.$17(a)
               );
             }
-            return (W || (W = n("Promise"))).resolve();
+            return (O || (O = n("Promise"))).resolve();
           }),
           (a.$16 = function () {
             var e = this,
@@ -226,67 +225,30 @@ __d(
               t,
             ) || o("WAWebPonyfillsIdleCallback").requestIdleCallback(t);
           }),
-          (a.warmPool = function (t) {
-            if (this.$2) {
-              var e = this.getTotalWorkerCount(),
-                n = Math.min(t, G),
-                r = Math.max(0, n - e);
-              r > 0 &&
-                (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: ThreadPoolManager: Warming pool from ",
-                      " to ",
-                      " workers (+",
-                      ")",
-                    ])),
-                  e,
-                  n,
-                  r,
-                ),
-                this.$17(r));
-            }
-          }),
-          (a.logPoolStats = function () {
-            var e = this.getAvailableWorkerCount(),
-              t = this.getRunningWorkerCount();
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ThreadPoolManager] stats avail=",
-                  " run=",
-                  " total=",
-                  "",
-                ])),
-              e,
-              t,
-              e + t,
-            );
-          }),
           (a.onCallStateChanged = function (t) {
             var e = this;
             this.$2 &&
               (this.$18(),
               t === o("WAWebVoipWaCallEnums").CallState.None &&
                 (o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] call ended, shrink in ",
                       "ms",
                     ])),
-                  z,
+                  H,
                 ),
                 (this.$6 = window.setTimeout(function () {
                   (e.$19(), (e.$6 = null));
-                }, z))));
+                }, H))));
           }),
           (a.$18 = function () {
             this.$6 != null &&
               (window.clearTimeout(this.$6),
               (this.$6 = null),
               o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: ThreadPoolManager: Cancelled pending pool shrink",
                   ])),
               ));
@@ -298,8 +260,8 @@ __d(
               r = this.getTotalWorkerCount();
             if (r <= e) {
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadPoolManager] pool=",
                     " <= target=",
                     "",
@@ -313,8 +275,8 @@ __d(
               i = Math.min(a, t.length);
             if (i <= 0) {
               o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadPoolManager] no unused to release unused=",
                     " run=",
                     "",
@@ -325,8 +287,8 @@ __d(
               return;
             }
             o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[ThreadPoolManager] shrink ",
                   "->",
                   " -",
@@ -346,8 +308,8 @@ __d(
               u != null && u.close();
             }
             (o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[ThreadPoolManager] shrink done total=",
                   " unused=",
                   " run=",
@@ -361,18 +323,18 @@ __d(
           }),
           (a.$17 = function (t) {
             var e = this;
-            if (t <= 0) return (W || (W = n("Promise"))).resolve();
+            if (t <= 0) return (O || (O = n("Promise"))).resolve();
             if (this.$3)
               return (
                 o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] grow dropped cnt=",
                       " (busy)",
                     ])),
                   t,
                 ),
-                (W || (W = n("Promise"))).resolve()
+                (O || (O = n("Promise"))).resolve()
               );
             var a = o("WAWebVoipPthreadHardening").isVoipPoolHardeningEnabled();
             if (
@@ -383,25 +345,25 @@ __d(
             )
               return (
                 o("WALogger").LOG(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] grow skipped cnt=",
                       " (glue build mismatch latched)",
                     ])),
                   t,
                 ),
-                (W || (W = n("Promise"))).resolve()
+                (O || (O = n("Promise"))).resolve()
               );
             var i = this.$1.PThread;
             if (!i)
               return (
                 o("WALogger").ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] PThread unavailable, can't grow",
                     ])),
                 ),
-                (W || (W = n("Promise"))).resolve()
+                (O || (O = n("Promise"))).resolve()
               );
             this.$3 = !0;
             var l = this.$12();
@@ -414,8 +376,8 @@ __d(
               u = i.runningWorkers.length,
               c = Date.now();
             o("WALogger").LOG(
-              R ||
-                (R = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "[ThreadPoolManager] grow +",
                   " avail=",
                   " run=",
@@ -436,8 +398,8 @@ __d(
             } catch (e) {
               if (
                 (o("WALogger").LOG(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] alloc fail ",
                       "/",
                       ": ",
@@ -455,15 +417,15 @@ __d(
                     l,
                     "alloc_failed",
                   ),
-                  (W || (W = n("Promise"))).resolve()
+                  (O || (O = n("Promise"))).resolve()
                 );
             }
             var p = Date.now() - c,
               _ = i.unusedWorkers.length,
               f = i.runningWorkers.length;
             o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
                   "[ThreadPoolManager] alloc done ",
                   "ms +",
                   " avail=",
@@ -477,7 +439,7 @@ __d(
             );
             var g = Date.now(),
               h = [],
-              y = d.map(function (t, n) {
+              T = d.map(function (t, n) {
                 var r = Date.now(),
                   o = a ? e.$20(i, t) : e.$13(i, t);
                 return o.then(function () {
@@ -486,16 +448,16 @@ __d(
                     h.push("Worker " + n + ": " + e.toFixed(2) + "ms");
                 });
               }),
-              C = a
-                ? (W || (W = n("Promise"))).allSettled(y).then(function (e) {
+              D = a
+                ? (O || (O = n("Promise"))).allSettled(T).then(function (e) {
                     return e.filter(function (e) {
                       return e.status === "rejected";
                     }).length;
                   })
-                : (W || (W = n("Promise"))).all(y).then(function () {
+                : (O || (O = n("Promise"))).all(T).then(function () {
                     return 0;
                   });
-            return C.then(function (e) {
+            return D.then(function (e) {
               var t = Date.now() - g,
                 n = Date.now() - c,
                 r = i.unusedWorkers.length,
@@ -503,8 +465,8 @@ __d(
               if (
                 (h.length > 0 &&
                   o("WALogger").LOG(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "[ThreadPoolManager] WASM load ",
                         "w: ",
                         "",
@@ -513,8 +475,8 @@ __d(
                     h.join(", "),
                   ),
                 o("WALogger").LOG(
-                  I ||
-                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] grow done avail=",
                       " run=",
                       " failed=",
@@ -533,7 +495,7 @@ __d(
                   o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
                     .POOL_GROWTH_END,
                 ),
-                e === y.length)
+                e === T.length)
               ) {
                 o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
                   l,
@@ -553,8 +515,8 @@ __d(
               .catch(function (e) {
                 if (!a) {
                   (o("WALogger").LOG(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: ThreadPoolManager: Pool growth error: ",
                         "",
                       ])),
@@ -568,8 +530,8 @@ __d(
                 }
                 (o("WALogger")
                   .ERROR(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
                         "[ThreadPoolManager] grow bookkeeping failed",
                       ])),
                   )
@@ -593,11 +555,11 @@ __d(
               .failFastOnPthreadGlueFailure(
                 o("WAPromiseTimeout").promiseTimeout(
                   r,
-                  j,
+                  G,
                   "voip: pool worker " +
                     String(a) +
                     " did not load within " +
-                    j +
+                    G +
                     "ms",
                 ),
                 "pthread_bootstrap",
@@ -607,54 +569,54 @@ __d(
                 throw (e.$21(t, n, r), e.$22(t, n), r);
               });
           }),
-          (a.$21 = function (t, n, r) {
-            var e = r instanceof o("WACustomError").TimeoutError;
+          (a.$21 = function (t, n, a) {
+            var e = a instanceof o("WACustomError").TimeoutError;
             e &&
-              o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitThreadPoolWorkerLoadTimeout();
-            var a = String(
+              r("WAWebODS").incr(
+                "web.call.voip_init.thread_pool.worker_load_timeout",
+              );
+            var i = String(
               o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(n),
             );
             if (!this.$23(t, n)) {
               o("WALogger").LOG(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadPoolManager] worker ",
                     " load gave up; already loaded, taken by a pthread or released by the tracker: ",
                     "",
                   ])),
-                a,
-                String(r),
+                i,
+                String(a),
               );
               return;
             }
             if (
-              r instanceof o("WACustomError").TimeoutError &&
-              (this.$24(n, r), !this.$23(t, n))
+              a instanceof o("WACustomError").TimeoutError &&
+              (this.$24(n, a), !this.$23(t, n))
             ) {
               o("WALogger").LOG(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadPoolManager] worker ",
                     " pinned load timed out; released via the glue failure tracker",
                   ])),
-                a,
+                i,
               );
               return;
             }
             (this.$25(t, n),
               o("WALogger").LOG(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
+                x ||
+                  (x = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadPoolManager] released unloaded worker ",
                     " (",
                     "): ",
                     "",
                   ])),
-                a,
+                i,
                 e ? "timeout" : "glue refused",
-                String(r),
+                String(a),
               ));
           }),
           (a.$23 = function (t, n) {
@@ -678,7 +640,7 @@ __d(
           }),
           (a.$15 = function (t) {
             !o("WAWebVoipPthreadHardening").isVoipPoolHardeningEnabled() ||
-              U(t.unusedWorkers) ||
+              W(t.unusedWorkers) ||
               this.$26(t);
           }),
           (a.$26 = function (t) {
@@ -693,17 +655,17 @@ __d(
               )
             ) {
               var n = this.getTotalWorkerCount();
-              if (n >= G) {
+              if (n >= V) {
                 o("WALogger").LOG(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] page unpinned and only pinned loads unused, but the pool is full (",
                       "/",
                       "); handing out pinned load ",
                       "",
                     ])),
                   n,
-                  G,
+                  V,
                   String(
                     o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(e),
                   ),
@@ -720,8 +682,8 @@ __d(
               (this.$13(t, e).catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
+                    P ||
+                      (P = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: ThreadPoolManager: unpinned hand-out worker load failed",
                       ])),
                   )
@@ -729,8 +691,8 @@ __d(
               }),
                 this.$14(e),
                 o("WALogger").LOG(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose([
+                  N ||
+                    (N = babelHelpers.taggedTemplateLiteralLoose([
                       "[ThreadPoolManager] page unpinned and only pinned loads unused; allocated worker ",
                       " for the new pthread",
                     ])),
@@ -741,8 +703,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
+                  M ||
+                    (M = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: ThreadPoolManager: unpinned worker allocation failed",
                     ])),
                 )
@@ -765,8 +727,8 @@ __d(
                     "WAWebCoreActionsODS",
                   ).logCallVoipInitThreadPoolEmergencyWorkerLoadTimeout(),
                   o("WALogger").LOG(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
+                    w ||
+                      (w = babelHelpers.taggedTemplateLiteralLoose([
                         "[ThreadPoolManager] emergency worker ",
                         " has not loaded after ",
                         "ms",
@@ -774,9 +736,9 @@ __d(
                     String(
                       o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(t),
                     ),
-                    j,
+                    G,
                   ));
-              }, j);
+              }, G);
           }),
           (a.$24 = function (t, n) {
             if (Reflect.get(this.$1, "pinWorkerGlue") === !0)
@@ -794,8 +756,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    O ||
-                      (O = babelHelpers.taggedTemplateLiteralLoose([
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: ThreadPoolManager: recording a pinned load timeout threw",
                       ])),
                   )
@@ -827,8 +789,8 @@ __d(
               n.close();
             } catch (e) {
               o("WALogger").LOG(
-                B ||
-                  (B = babelHelpers.taggedTemplateLiteralLoose([
+                F ||
+                  (F = babelHelpers.taggedTemplateLiteralLoose([
                     "[ThreadPoolManager] close() threw for worker ",
                     ": ",
                     "",
@@ -841,7 +803,7 @@ __d(
           t
         );
       })();
-    l.default = K;
+    l.default = z;
   },
   98,
 );

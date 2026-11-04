@@ -5,6 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebInAppSignupInfoStore",
+    "WAWebP2PPillsThreadOriginStore",
     "WAWebPrivacySettings",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageReadWamEvent",
@@ -59,13 +60,17 @@ __d(
                           o("WAWebChatThreadLogging").getChatThreadIDHMAC(
                             r.id.toString(),
                           ),
+                          o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                            r.accountLid,
+                          ),
                         ]),
                         f = _[0],
-                        g = _[1];
+                        g = _[1],
+                        h = _[2];
                       new (o(
                         "WAWebQbmMessageReadWamEvent",
                       ).QbmMessageReadWamEvent)(
-                        babelHelpers.extends({}, t, {
+                        babelHelpers.extends({}, t, h, {
                           isInsubContact: d,
                           isMuted: p,
                           messageHasButton:

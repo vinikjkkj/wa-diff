@@ -15,7 +15,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
-    function c(e) {
+    function c(e, t) {
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WDSConfirmDialog.react"), {
           confirmLabel: s._(/*BTDS*/ "Delete event"),
@@ -24,7 +24,7 @@ __d(
           ),
           destructive: !0,
           onConfirm: function () {
-            (o("WDSDialogBridge").closeWDSDialog(), d(e));
+            (o("WDSDialogBridge").closeWDSDialog(), d(e, t));
           },
           onDismiss: o("WDSDialogBridge").closeWDSDialog,
           open: !0,
@@ -33,12 +33,12 @@ __d(
         }),
       );
     }
-    function d(e) {
+    function d(e, t) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             yield o("WAWebSharableEventDeleteJob").deleteSharableEvent(e);
           } catch (e) {
@@ -53,8 +53,12 @@ __d(
               ));
             return;
           }
-          o("WAWebOpenSharableEventPageAction").getSelectedSharableEventId() ===
-            e && o("WAWebOpenSharableEventPageAction").closeSharableEventPage();
+          t != null
+            ? t()
+            : o(
+                "WAWebOpenSharableEventPageAction",
+              ).getSelectedSharableEventId() === e &&
+              o("WAWebOpenSharableEventPageAction").closeSharableEventPage();
         })),
         m.apply(this, arguments)
       );

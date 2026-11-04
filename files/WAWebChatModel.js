@@ -518,11 +518,6 @@ __d(
               ),
               this.listenTo(this.msgs, "add", this.$ChatImpl$p_28),
               this.listenTo(this.msgs, "remove", this.$ChatImpl$p_28),
-              this.listenTo(
-                this.msgs,
-                "change:ephemeralExpirationTimestamp",
-                this.$ChatImpl$p_28,
-              ),
               this.listenTo(this.msgs, "change:kicState", this.$ChatImpl$p_28),
               this.listenTo(
                 this.msgs,
@@ -608,8 +603,7 @@ __d(
           }),
           (i.$ChatImpl$p_35 = function () {
             ((this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
-              this.listenTo(this.msgs, "bulk_add", this.$ChatImpl$p_38),
-              this.listenTo(this.msgs, "change:msgs", this.$ChatImpl$p_39));
+              this.listenTo(this.msgs, "bulk_add", this.$ChatImpl$p_38));
           }),
           (i.$ChatImpl$p_11 = function () {
             o("WAWebChatGroupUtils").updateCanSend(this);
@@ -712,13 +706,6 @@ __d(
             });
             e.length && this.getEventMsgs().add(e, n);
           }),
-          (i.$ChatImpl$p_39 = function () {
-            if (this.eventMsgs) {
-              var e;
-              (this.eventMsgs.delete(),
-                (e = this.eventMsgs) == null || e.initialize());
-            }
-          }),
           (i.$ChatImpl$p_36 = function () {
             var e = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
@@ -765,11 +752,11 @@ __d(
           (i.addPendingAction = function (t) {
             var e = this,
               n = function () {
-                e.$ChatImpl$p_40();
+                e.$ChatImpl$p_39();
               };
             (t.then(n, n), this.pendingAction++);
           }),
-          (i.$ChatImpl$p_40 = function () {
+          (i.$ChatImpl$p_39 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(
@@ -817,11 +804,11 @@ __d(
               (this.$ChatImpl$p_4(),
                 this.getCollection().sort(),
                 this.deregisterExpiredViewOnceBulkMessages(this.msgs),
-                this.$ChatImpl$p_41(),
+                this.$ChatImpl$p_40(),
                 o(
                   "WAWebMemoryPressureCacheRegistry",
                 ).registerMemoryPressureCache(D),
-                this.$ChatImpl$p_42());
+                this.$ChatImpl$p_41());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
                 .removeExpiredMessagesFromHistory(a)
@@ -865,7 +852,7 @@ __d(
                 }));
             }
           }),
-          (i.$ChatImpl$p_41 = function () {
+          (i.$ChatImpl$p_40 = function () {
             var e = this.msgs;
             if (!(e.length <= o("WAWebCollectionConstants").PAGE_SIZE)) {
               var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
@@ -886,7 +873,7 @@ __d(
                 (e.msgLoadState.noEarlierMsgs = !1),
                 r);
           }),
-          (i.$ChatImpl$p_42 = function () {
+          (i.$ChatImpl$p_41 = function () {
             if (
               o("WAWebABProps").getABPropConfigValue(
                 "web_evict_thumbnail_hq_on_inactive",
@@ -1309,12 +1296,12 @@ __d(
             return t;
           })()),
           (i.isUnreadMsg = function (t) {
-            return this.$ChatImpl$p_43(t, this.unreadCount);
+            return this.$ChatImpl$p_42(t, this.unreadCount);
           }),
           (i.isActiveUnreadMsg = function (t) {
-            return this.$ChatImpl$p_43(t, this.activeUnreadCount);
+            return this.$ChatImpl$p_42(t, this.activeUnreadCount);
           }),
-          (i.$ChatImpl$p_43 = function (t, n) {
+          (i.$ChatImpl$p_42 = function (t, n) {
             if (n <= 0) return !1;
             for (
               var e = this.msgs.getModelsArray(), r = 0, a = e.length - 1;

@@ -8,6 +8,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebL10N",
     "WAWebMessageSpacerText.react",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgMentionMap",
@@ -61,7 +62,11 @@ __d(
         ]),
           (n[0] = h));
       } else h = n[0];
-      var C = o("useWAWebMsgValues").useMsgValues(l, h),
+      var C = o("useWAWebMsgValues").useMsgValues(
+          l,
+          o("WAWebMsgCasts").castToPollMsg,
+          h,
+        ),
         b = C[0],
         v = C[1],
         S = C[2],

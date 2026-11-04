@@ -15,8 +15,7 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c = {
+      u = {
         add: (s = o("WAWebWamEnumGroupHistorySystemMessageType"))
           .GROUP_HISTORY_SYSTEM_MESSAGE_TYPE.MANUALLY_ADD,
         auto_add: s.GROUP_HISTORY_SYSTEM_MESSAGE_TYPE.INVITE_AUTO_ADD,
@@ -25,39 +24,48 @@ __d(
         linked_group_join: s.GROUP_HISTORY_SYSTEM_MESSAGE_TYPE.COMMUNITY,
         v4_add_invite_join: s.GROUP_HISTORY_SYSTEM_MESSAGE_TYPE.INVITE_LINK,
       };
-    function d(e) {
+    function c(e) {
       var t;
       return e == null
         ? o("WAWebWamEnumGroupHistorySystemMessageType")
             .GROUP_HISTORY_SYSTEM_MESSAGE_TYPE.UNKNOWN
-        : (t = c[e]) != null
+        : (t = u[e]) != null
           ? t
           : o("WAWebWamEnumGroupHistorySystemMessageType")
               .GROUP_HISTORY_SYSTEM_MESSAGE_TYPE.UNKNOWN;
     }
-    var m = {
-      already_received: (u = o("WAWebWamEnumGroupHistoryIneligibilityReason"))
-        .GROUP_HISTORY_INELIGIBILITY_REASON.NOT_NEW_OR_ALREADY_SENT,
-      bot: u.GROUP_HISTORY_INELIGIBILITY_REASON.RECEIVER_NOT_ELIGIBLE,
-      group_ineligible:
-        u.GROUP_HISTORY_INELIGIBILITY_REASON.GROUP_TYPE_NOT_ELIGIBLE,
-      no_available_messages:
-        u.GROUP_HISTORY_INELIGIBILITY_REASON.NO_SHAREABLE_MESSAGES,
-      no_join_time: u.GROUP_HISTORY_INELIGIBILITY_REASON.NOT_IN_GROUP,
-      window_expired:
-        u.GROUP_HISTORY_INELIGIBILITY_REASON.NOT_NEW_OR_ALREADY_SENT,
-    };
-    function p(e) {
-      var t;
+    function d(e) {
       return e == null
         ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
             .GROUP_HISTORY_INELIGIBILITY_REASON.UNKNOWN
-        : (t = m[e]) != null
-          ? t
-          : o("WAWebWamEnumGroupHistoryIneligibilityReason")
-              .GROUP_HISTORY_INELIGIBILITY_REASON.UNKNOWN;
+        : e === "group_type_ineligible"
+          ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
+              .GROUP_HISTORY_INELIGIBILITY_REASON.GROUP_TYPE_NOT_ELIGIBLE
+          : e === "sender_not_allowed"
+            ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
+                .GROUP_HISTORY_INELIGIBILITY_REASON.SENDER_NOT_ELIGIBLE
+            : e === "bot"
+              ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
+                  .GROUP_HISTORY_INELIGIBILITY_REASON.RECEIVER_NOT_ELIGIBLE
+              : e === "no_join_time"
+                ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
+                    .GROUP_HISTORY_INELIGIBILITY_REASON.NOT_IN_GROUP
+                : e === "already_received" || e === "window_expired"
+                  ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
+                      .GROUP_HISTORY_INELIGIBILITY_REASON
+                      .NOT_NEW_OR_ALREADY_SENT
+                  : e === "no_available_messages"
+                    ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
+                        .GROUP_HISTORY_INELIGIBILITY_REASON
+                        .NO_SHAREABLE_MESSAGES
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
-    var _ = (function () {
+    var m = (function () {
       function t() {}
       var n = t.prototype;
       return (
@@ -280,6 +288,23 @@ __d(
             t,
           );
         }),
+        (n.sendAcked = function (t, n) {
+          var e = t.bundleSendSource,
+            r = t.groupHistorySystemMessageType,
+            o = t.recipientCount,
+            a = t.uiSurface,
+            i = n.bundleAcked,
+            l = n.noticeAcked;
+          if (i) {
+            var s = {
+              bundleSendSource: e,
+              groupHistorySystemMessageType: r,
+              recipientCount: o,
+              uiSurface: a,
+            };
+            (this.bundleMessageAcked(s), l && this.noticeMessageAcked(s));
+          }
+        }),
         (n.$5 = function (t, n) {
           var e = n.ineligibleReason,
             r = n.uiSurface;
@@ -357,7 +382,7 @@ __d(
             groupHistorySenderActionType: o(
               "WAWebWamEnumGroupHistorySenderActionType",
             ).GROUP_HISTORY_SENDER_ACTION_TYPE.GROUP_HISTORY_FOOTER_DISPLAYED,
-            groupHistoryToggleMode: f(a),
+            groupHistoryToggleMode: p(a),
             isGroupHistoryToggledOn: r,
             toggleDefaultOn: i.toggleDefaultOn,
             togglePerGroupUsageActivated: i.togglePerGroupUsageActivated,
@@ -444,7 +469,7 @@ __d(
         t
       );
     })();
-    function f(e) {
+    function p(e) {
       return e === !0
         ? o("WAWebWamEnumGroupHistoryToggleMode").GROUP_HISTORY_TOGGLE_MODE.ON
         : e === !1
@@ -453,10 +478,10 @@ __d(
           : o("WAWebWamEnumGroupHistoryToggleMode").GROUP_HISTORY_TOGGLE_MODE
               .DEFAULT;
     }
-    var g = new _();
-    ((l.getGroupHistorySystemMessageType = d),
-      (l.mapEligibilityResultToIneligibleReason = p),
-      (l.GroupHistorySenderUserJourneyLogger = g));
+    var _ = new m();
+    ((l.getGroupHistorySystemMessageType = c),
+      (l.mapEligibilityResultToIneligibleReason = d),
+      (l.GroupHistorySenderUserJourneyLogger = _));
   },
   98,
 );

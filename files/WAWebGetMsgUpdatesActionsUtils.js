@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATypeUtils",
     "WAWebAck",
+    "WAWebBroadcastFanoutKeys",
     "WAWebButtonCollection",
     "WAWebButtonModel",
     "WAWebChatCollection",
@@ -25,7 +26,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgModel",
-    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNewsletterCollection",
     "WAWebPaymentRequestMsgAction",
@@ -384,8 +384,9 @@ __d(
                       if (
                         (P.push(se), r("WAWebWid").isBroadcast(u.id.remote))
                       ) {
-                        var ue =
-                          o("WAWebMsgModelUtils").getBroadcastFanoutKeys(u);
+                        var ue = o(
+                          "WAWebBroadcastFanoutKeys",
+                        ).getBroadcastFanoutKeys(u);
                         ue &&
                           ue.forEach(function (e) {
                             var t =

@@ -30,7 +30,7 @@ __d(
         Transport: r("WebLoomBanzaiTransport"),
         URI: s || (s = r("URI")),
         isBrowser: r("UserAgent").isBrowser,
-        compressStringToSnappy: r("SnappyCompressUtil").compressStringToSnappy,
+        compressStringToSnappy: o("SnappyCompressUtil").compressStringToSnappy,
       },
       m = {
         appStart: r("performanceNavigationStart")(),

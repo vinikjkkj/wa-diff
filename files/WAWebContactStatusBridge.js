@@ -1,6 +1,7 @@
 __d(
   "WAWebContactStatusBridge",
   [
+    "WAComms",
     "WALogger",
     "WAWebABProps",
     "WAWebAck",
@@ -15,7 +16,6 @@ __d(
     "WAWebSetAboutJob",
     "asyncToGeneratorRuntime",
     "cr:11133",
-    "cr:12317",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -28,7 +28,7 @@ __d(
           var r = t.wid;
           if (
             (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
-            (n("cr:12317") == null ? void 0 : n("cr:12317").getComms()) == null
+            o("WAComms").getComms() == null
           )
             return { id: r, stale: !0, status: null };
           if (

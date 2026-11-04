@@ -90,7 +90,9 @@ __d(
       var i = n ? e.getUTCFullYear() : e.getFullYear();
       return i + "-" + a;
     }
-    ((l.matchesSearchValue = s), (l.createCustomerDateMatcher = u));
+    ((l.matchesSearchValue = s),
+      (l.createCustomerDateMatcher = u),
+      (l.formatSearchDateIso = f));
   },
   98,
 );

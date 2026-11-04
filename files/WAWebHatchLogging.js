@@ -6,6 +6,7 @@ __d(
     "WAWebBotJourneyLogger",
     "WAWebBotLoggingUtils",
     "WAWebHatchFrontendGating",
+    "WAWebHatchPermissionsFailureReason",
     "WAWebHatchUserJourneyWamEvent",
     "WAWebThreadJourneyLogger",
     "WAWebUnifiedSession",
@@ -47,7 +48,7 @@ __d(
       );
     }
     function p(e, t) {
-      K(e, {
+      te(e, {
         hatchUserJourneyMetadata:
           t != null ? JSON.stringify({ browser_surface: t }) : void 0,
       });
@@ -59,13 +60,13 @@ __d(
       if (!(!t.isEligible || o.trim() === "")) {
         var a = _.get(e);
         ((r = a) == null ? void 0 : r.has(o)) !== !0 &&
-          K(e, { hatchUserJourneyMetadata: n }) &&
+          te(e, { hatchUserJourneyMetadata: n }) &&
           (a == null && ((a = new Set()), _.set(e, a)), a.add(o));
       }
     }
     function g(e) {
       try {
-        K(
+        te(
           e === "surface_impression"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .IDEA_SURFACE_IMPRESSION
@@ -87,23 +88,23 @@ __d(
       } catch (e) {}
     }
     function h(e) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function y(e) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function C(e) {
-      K(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      te(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function b(e, t, n) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: v(t) }),
@@ -117,55 +118,55 @@ __d(
         .join(", ");
     }
     function S(e) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function R(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function L(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function E(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_CART_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function k(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_ORDER_SUMMARY_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function I(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function T(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: v([e]) }),
       );
     }
     function D(e, t, n) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -206,11 +207,11 @@ __d(
         settings: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
       };
     function N(e, t) {
-      K(x[e], w(t));
+      te(x[e], w(t));
     }
     function M(t, n) {
       try {
-        K(
+        te(
           o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
             .SECURE_CREDENTIAL_SAVE_ERROR,
           babelHelpers.extends({}, w(n), {
@@ -291,7 +292,7 @@ __d(
       if (o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()) {
         var n = t == null ? void 0 : t.connectorType,
           r = t == null ? void 0 : t.permissionFlow;
-        K(A[e], {
+        te(A[e], {
           connectorId: t == null ? void 0 : t.connectorId,
           connectorPermissionDecisionType:
             t == null ? void 0 : t.permissionDecisionType,
@@ -348,7 +349,7 @@ __d(
       artifact_pinned: s.HATCH_ACTION_TYPE.ARTIFACT_PINNED,
     };
     function V(e, t) {
-      K(U[e], { featureEntryPoint: $[t] });
+      te(U[e], { featureEntryPoint: $[t] });
     }
     function H(e) {
       r("ArtifactSharedFalcoEvent").log(function () {
@@ -361,7 +362,7 @@ __d(
       });
     }
     function G(e, t) {
-      K(
+      te(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .ARTIFACT_OVERFLOW_MENU_TAP,
         {
@@ -372,7 +373,7 @@ __d(
     }
     function z(e) {
       try {
-        K(
+        te(
           e.outcome === "success"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .SUBSCRIPTION_READ_SUCCESS
@@ -427,7 +428,140 @@ __d(
         );
       })(e);
     }
-    function K(e, t) {
+    var K = {
+        category_tap: s.HATCH_ACTION_TYPE.PERMISSION_CATEGORY_TAP,
+        default_selected: s.HATCH_ACTION_TYPE.PERMISSION_DEFAULT_SELECTED,
+        granular_mode_selected:
+          s.HATCH_ACTION_TYPE.GRANULAR_PERMISSION_MODE_SELECTED,
+        impression: s.HATCH_ACTION_TYPE.PERMISSIONS_IMPRESSION,
+        reset_confirm_tap: s.HATCH_ACTION_TYPE.PERMISSIONS_RESET_CONFIRM_TAP,
+        reset_tap: s.HATCH_ACTION_TYPE.PERMISSIONS_RESET_TAP,
+        update_error: s.HATCH_ACTION_TYPE.PERMISSION_UPDATE_ERROR,
+      },
+      Q = {
+        connector: "connector",
+        protocol: "protocol",
+        schedule: "scheduled_task",
+        space: "space",
+        website: "website",
+      },
+      X = {
+        connector_default: "connector_default",
+        network_default: "web_access_default",
+      };
+    function Y(e) {
+      try {
+        if (J(e)) return;
+        te(K[e.action], {
+          featureEntryPoint:
+            e.action === "impression"
+              ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
+              : void 0,
+          hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.PERMISSIONS_HATCH,
+          hatchUserJourneyMetadata: ee(Z(e)),
+        });
+      } catch (e) {}
+    }
+    function J(e) {
+      return (
+        e.action === "update_error" &&
+        o("WAWebHatchPermissionsFailureReason").hatchPermissionsFailureReason(
+          e.result,
+        ) == null
+      );
+    }
+    function Z(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "impression" &&
+          "settings" in e &&
+          (e.settings === null || e.settings === void 0)
+        )
+          return { list_state: "error" };
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "impression" &&
+          "settings" in e
+        ) {
+          var t = e.settings;
+          return {
+            connector_default: t.connectorDefault,
+            list_state: "has_items",
+            web_access_default: t.networkDefault,
+          };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "default_selected" &&
+          "field" in e &&
+          "mode" in e
+        ) {
+          var n = e.field,
+            r = e.mode;
+          return { permission_field: X[n], permission_mode: r };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "category_tap" &&
+          "owner" in e
+        ) {
+          var a = e.owner;
+          return { permission_owner: Q[a] };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "granular_mode_selected" &&
+          "mode" in e &&
+          "owner" in e
+        ) {
+          var i = e.mode,
+            l = e.owner;
+          return { permission_mode: i, permission_owner: Q[l] };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          (e.action === "reset_tap" || e.action === "reset_confirm_tap")
+        )
+          return {};
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "update_error" &&
+          "result" in e &&
+          "updateType" in e
+        ) {
+          var s = e.result,
+            u = e.updateType;
+          return {
+            failure_reason: o(
+              "WAWebHatchPermissionsFailureReason",
+            ).hatchPermissionsFailureReason(s),
+            update_type: u,
+          };
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
+    }
+    function ee(e) {
+      var t = Object.keys(e)
+        .filter(function (t) {
+          return e[t] != null;
+        })
+        .sort();
+      return t.length === 0
+        ? void 0
+        : JSON.stringify(
+            Object.fromEntries(
+              t.map(function (t) {
+                return [t, e[t]];
+              }),
+            ),
+          );
+    }
+    function te(e, t) {
       var n, r, a, i, l;
       if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) return !1;
       var s = new (o("WAWebHatchUserJourneyWamEvent").HatchUserJourneyWamEvent)(
@@ -471,12 +605,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : Q(t == null ? void 0 : t.botEntryPoint),
+              : ne(t == null ? void 0 : t.botEntryPoint),
         },
       );
       return (s.commit(), !0);
     }
-    function Q(e) {
+    function ne(e) {
       var t,
         n =
           e != null
@@ -519,7 +653,8 @@ __d(
       (l.logHatchArtifact = V),
       (l.logHatchArtifactShared = H),
       (l.logHatchArtifactMenuOpened = G),
-      (l.logHatchSubscriptionRead = z));
+      (l.logHatchSubscriptionRead = z),
+      (l.logHatchPermission = Y));
   },
   98,
 );

@@ -1,7 +1,10 @@
 __d(
   "WAWebBrSavePartnerPixKeyFeature",
   [
+    "WAWebABProps",
     "WAWebAddEditPixFeature",
+    "WAWebBrAddPixKeyOfferDialogsLoadable",
+    "WAWebBrAddPixKeyOfferLoggerLoadable",
     "WAWebBrSavePartnerPixKeyModalLoadable",
     "WAWebModalManager",
     "WAWebUserPrefsKeys",
@@ -13,20 +16,60 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = "+55";
-    function c() {
-      var e;
-      return (
-        ((e = r("WAWebUserPrefsLocalStorage").getItemFromLocalStorage(
-          o("WAWebUserPrefsKeys").KEYS.CUSTOM_PAYMENT_METHODS,
-        )) == null
-          ? void 0
-          : e.pix) != null
-      );
+      u = "+55",
+      c = 1;
+    function d() {
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "br_payments_multiple_pix_keys_enabled",
+        )
+      )
+        return { kind: "add" };
+      var e = p();
+      if (e == null) return { kind: "add" };
+      var t = e.key;
+      return typeof t == "string" &&
+        t !== "" &&
+        typeof e.credentialId == "string" &&
+        e.credentialId !== ""
+        ? { kind: "replace", replacedPixKey: t }
+        : { kind: "declined" };
     }
-    function d(e, t, n, r) {
+    function m() {
+      var e;
+      return (e = p()) == null ? void 0 : e.key;
+    }
+    function p() {
+      var e;
+      return (e = r("WAWebUserPrefsLocalStorage").getItemFromLocalStorage(
+        o("WAWebUserPrefsKeys").KEYS.CUSTOM_PAYMENT_METHODS,
+      )) == null
+        ? void 0
+        : e.pix;
+    }
+    function _(e, t) {
+      var n = e === "chat";
+      (n
+        ? o("WAWebBrAddPixKeyOfferLoggerLoadable").logAddPixKeyMessageDiscarded(
+            "cannot_add_another_key",
+            "tap",
+            t,
+          )
+        : o("WAWebBrAddPixKeyOfferLoggerLoadable").logAddPixKeyLinkDiscarded(
+            "cannot_add_another_key",
+            t,
+          ),
+        o(
+          "WAWebBrAddPixKeyOfferDialogsLoadable",
+        ).openAddPixKeyLimitDialogLazily(
+          n ? "add_pix_key_message" : "add_pix_key_link",
+          c,
+          n ? g : null,
+        ));
+    }
+    function f(e, t, n, r) {
       var o;
-      p(
+      h(
         "chat",
         "chat",
         {
@@ -39,16 +82,16 @@ __d(
         r,
       );
     }
-    function m() {
+    function g() {
       o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
         "chat",
         "chat",
       );
     }
-    function p(e, t, n, r, a, i) {
+    function h(e, t, n, r, a, i) {
       var l,
-        d,
-        m = function (a, i) {
+        c,
+        p = function (a, i) {
           o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
             e,
             t,
@@ -57,43 +100,58 @@ __d(
             i,
           );
         },
-        p = n == null ? void 0 : n.value;
-      if (n == null || p == null || p === "" || c()) {
-        m();
+        f = n == null ? void 0 : n.value;
+      if (n == null || f == null || f === "") {
+        p();
         return;
       }
-      var _ =
+      var g = d();
+      if (g.kind === "declined") {
+        _(e, a);
+        return;
+      }
+      var h =
           (l = n.keyType) != null
             ? l
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
-        f =
-          _ === o("WAWebUserPrefsTypes").PixKeyType.PHONE && p.startsWith(u)
-            ? p.slice(u.length)
-            : p;
+        y =
+          h === o("WAWebUserPrefsTypes").PixKeyType.PHONE && f.startsWith(u)
+            ? f.slice(u.length)
+            : f;
       o("WAWebModalManager").ModalManager.open(
         s.jsx(
           o("WAWebBrSavePartnerPixKeyModalLoadable")
             .BrSavePartnerPixKeyModalLoadable,
           {
             bankId: n.bankId,
-            displayName: (d = n.name) != null ? d : "",
+            displayName: (c = n.name) != null ? c : "",
             onClose: o("WAWebModalManager").closeModalManager,
-            onOpenForm: function (t) {
-              (o("WAWebModalManager").ModalManager.close(), m(t, i));
+            onOpenForm: function (t, n) {
+              (o("WAWebModalManager").ModalManager.close(),
+                p(
+                  n,
+                  m() == null
+                    ? function (e) {
+                        (t(), i == null || i(e));
+                      }
+                    : i,
+                ));
             },
             onPixKeySaved: i,
             partnerCatalogId: a,
-            pixKey: f,
-            pixKeyType: _,
+            pixKey: y,
+            pixKeyType: h,
             referral: t,
+            replacedPixKey: g.kind === "replace" ? g.replacedPixKey : null,
             resolvedAttribution: r,
           },
         ),
       );
     }
-    ((l.openAddPixKeyMessageScreen = d),
-      (l.openSavedPixKeyFromMessage = m),
-      (l.openAddPixKeyDeepLinkScreen = p));
+    ((l.storedPixKey = m),
+      (l.openAddPixKeyMessageScreen = f),
+      (l.openSavedPixKeyFromMessage = g),
+      (l.openAddPixKeyDeepLinkScreen = h));
   },
   98,
 );

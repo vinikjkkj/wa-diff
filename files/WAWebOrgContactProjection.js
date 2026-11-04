@@ -97,7 +97,7 @@ __d(
         memberName:
           (t =
             (n = e.find(function (e) {
-              return e.memberName !== "";
+              return e.memberName !== "" && e.memberName !== e.lid;
             })) == null
               ? void 0
               : n.memberName) != null

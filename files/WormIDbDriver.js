@@ -2,6 +2,7 @@ __d(
   "WormIDbDriver",
   [
     "FBLogger",
+    "Promise",
     "WACryptoSha256",
     "WAResolvable",
     "WormIDbConsts",
@@ -10,13 +11,15 @@ __d(
     "WormIDbTransaction",
     "WormIDbTypes",
     "WormIDbUtils",
+    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 3,
-      s = (function () {
+    var e,
+      s = 3,
+      u = (function () {
         function t(e, n, o, a, i, l) {
           var s = this,
             u,
@@ -61,15 +64,15 @@ __d(
             (this.ear = a),
             (this.$10 = i));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.getDbAlias = function () {
+          (a.getDbAlias = function () {
             return this.$3;
           }),
-          (n.getSchema = function () {
+          (a.getSchema = function () {
             return this.$4;
           }),
-          (n.openDb = function (t, n) {
+          (a.openDb = function (t, n) {
             return o("WormIDbUtils").openIDb(
               this.$2,
               {
@@ -81,25 +84,25 @@ __d(
               n,
             );
           }),
-          (n.reopenForUpgrade = function (t, n) {
+          (a.reopenForUpgrade = function (t, n) {
             var e = t.version;
             return (t.close(), this.openDb(n, e + 1));
           }),
-          (n.loadKeychain = function (t, n) {
-            var e = this.$3;
-            return new Promise(function (a, i) {
+          (a.loadKeychain = function (a, i) {
+            var t = this.$3;
+            return new (e || (e = n("Promise")))(function (e, n) {
               var l = null,
-                s = t.transaction(o("WormIDbTypes").EAR_STORE, "readwrite");
+                s = a.transaction(o("WormIDbTypes").EAR_STORE, "readwrite");
               ((s.oncomplete = function () {
                 if (l == null) {
-                  i(r("err")("EAR keychain was never read: " + e));
+                  n(r("err")("EAR keychain was never read: " + t));
                   return;
                 }
-                a(l);
+                e(l);
               }),
                 (s.onerror = s.onabort =
                   function () {
-                    return i(s.error);
+                    return n(s.error);
                   }));
               var u = s.objectStore(o("WormIDbTypes").EAR_STORE),
                 c = u.getAll();
@@ -108,111 +111,137 @@ __d(
                   t = o("WormIDbEARKeychain").reconcileKeychain(
                     (e = c.result) != null ? e : [],
                   ),
-                  r = t.curVersion,
-                  a = t.needNewVersion,
-                  i = t.versions;
-                if (a) {
-                  var s = babelHelpers.extends({}, n(), { version: r + 1 });
-                  (u.add(s), i.push(s));
+                  n = t.curVersion,
+                  r = t.needNewVersion,
+                  a = t.versions;
+                if (r) {
+                  var s = babelHelpers.extends({}, i(), { version: n + 1 });
+                  (u.add(s), a.push(s));
                 }
-                l = { versions: i };
+                l = { versions: a };
               }),
                 (c.onerror = function () {
-                  return i(c.error);
+                  return n(c.error);
                 }));
             });
           }),
-          (n.openAndUpgrade = function (t) {
+          (a.openAndUpgrade = function (t) {
             throw r("err")("openAndUpgrade is not implemented: " + this.$3);
           }),
-          (n.$14 = async function (t) {
-            var e = this.$5;
-            if (e != null) {
-              var n;
-              return (
-                t == null ||
-                  (n = t.eventFlow) == null ||
-                  n.addAnnotations({ bool: { isCompetingInit: !0 } }),
-                e.promise
-              );
+          (a.$14 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this.$5;
+                if (t != null) {
+                  var n;
+                  return (
+                    e == null ||
+                      (n = e.eventFlow) == null ||
+                      n.addAnnotations({ bool: { isCompetingInit: !0 } }),
+                    t.promise
+                  );
+                }
+                var a = new (o("WAResolvable").Resolvable)();
+                this.$5 = a;
+                var i = !1;
+                this.$1 != null &&
+                  (this.$1.close(), (this.$1 = null), (i = !0));
+                var l = !1;
+                try {
+                  var s, u, c;
+                  e == null ||
+                    (s = e.eventFlow) == null ||
+                    s.addPoint("schema_hash_start");
+                  var d = babelHelpers.extends(
+                      {},
+                      this.$4,
+                      o("WormIDbTypes").sysSchema,
+                    ),
+                    m = JSON.stringify(d);
+                  if (m == null)
+                    throw r("err")(
+                      "DB schema cannot be serialized: " + this.$3,
+                    );
+                  var p = yield o("WACryptoSha256").sha256Str(m);
+                  e == null ||
+                    (u = e.eventFlow) == null ||
+                    u.addPoint("schema_hash_end");
+                  var _ = yield this.openAndUpgrade({
+                      eventFlow: e == null ? void 0 : e.eventFlow,
+                      forceUpgrade:
+                        (c = e == null ? void 0 : e.forceUpgrade) != null
+                          ? c
+                          : !1,
+                      schema: d,
+                      schemaHash: p,
+                    }),
+                    f = _.db,
+                    g = _.isNewDb,
+                    h = _.isUpgraded;
+                  ((l = h), (this.$1 = f));
+                  var y = { isNewDb: g, isUpgraded: h };
+                  return (a.resolve(y), y);
+                } catch (e) {
+                  throw (a.reject(e), e);
+                } finally {
+                  var C;
+                  (e == null ||
+                    (C = e.eventFlow) == null ||
+                    C.addAnnotations({
+                      bool: {
+                        isClosingDb: i,
+                        isCompetingInit: !1,
+                        shouldUpgrade: l,
+                      },
+                    }),
+                    (this.$5 = null));
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            var a = new (o("WAResolvable").Resolvable)();
-            this.$5 = a;
-            var i = !1;
-            this.$1 != null && (this.$1.close(), (this.$1 = null), (i = !0));
-            var l = !1;
-            try {
-              var s, u, c;
-              t == null ||
-                (s = t.eventFlow) == null ||
-                s.addPoint("schema_hash_start");
-              var d = babelHelpers.extends(
-                  {},
-                  this.$4,
-                  o("WormIDbTypes").sysSchema,
-                ),
-                m = JSON.stringify(d);
-              if (m == null)
-                throw r("err")("DB schema cannot be serialized: " + this.$3);
-              var p = await o("WACryptoSha256").sha256Str(m);
-              t == null ||
-                (u = t.eventFlow) == null ||
-                u.addPoint("schema_hash_end");
-              var _ = await this.openAndUpgrade({
-                  eventFlow: t == null ? void 0 : t.eventFlow,
-                  forceUpgrade:
-                    (c = t == null ? void 0 : t.forceUpgrade) != null ? c : !1,
-                  schema: d,
-                  schemaHash: p,
-                }),
-                f = _.db,
-                g = _.isNewDb,
-                h = _.isUpgraded;
-              ((l = h), (this.$1 = f));
-              var y = { isNewDb: g, isUpgraded: h };
-              return (a.resolve(y), y);
-            } catch (e) {
-              throw (a.reject(e), e);
-            } finally {
-              var C;
-              (t == null ||
-                (C = t.eventFlow) == null ||
-                C.addAnnotations({
-                  bool: {
-                    isClosingDb: i,
-                    isCompetingInit: !1,
-                    shouldUpgrade: l,
-                  },
-                }),
-                (this.$5 = null));
+            return t;
+          })()),
+          (a.$15 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, a) {
+                if (
+                  (this.$5 != null && (yield this.$5.promise), this.$1 == null)
+                )
+                  throw r("err")("IDB is not initialised: " + this.$3);
+                var i = new (o("WormIDbTransaction").WormIDbTransaction)(
+                    this.$1.transaction(
+                      e.map(function (e) {
+                        return e.toString();
+                      }),
+                      t,
+                      { durability: "relaxed" },
+                    ),
+                    a,
+                    this.ear,
+                    e,
+                    this.$4,
+                  ),
+                  l;
+                try {
+                  ((l = yield n(i)), yield i.commit());
+                } catch (e) {
+                  var s = r("getErrorSafe")(e);
+                  throw (
+                    o("WormIDbConsts").IDB_ERRORS.has(s.name) || i.abort(),
+                    e
+                  );
+                }
+                return l;
+              },
+            );
+            function t(t, n, r, o) {
+              return e.apply(this, arguments);
             }
-          }),
-          (n.$15 = async function (t, n, a, i) {
-            if ((this.$5 != null && (await this.$5.promise), this.$1 == null))
-              throw r("err")("IDB is not initialised: " + this.$3);
-            var e = new (o("WormIDbTransaction").WormIDbTransaction)(
-                this.$1.transaction(
-                  t.map(function (e) {
-                    return e.toString();
-                  }),
-                  n,
-                  { durability: "relaxed" },
-                ),
-                i,
-                this.ear,
-                t,
-                this.$4,
-              ),
-              l;
-            try {
-              ((l = await a(e)), await e.commit());
-            } catch (t) {
-              var s = r("getErrorSafe")(t);
-              throw (o("WormIDbConsts").IDB_ERRORS.has(s.name) || e.abort(), t);
-            }
-            return l;
-          }),
-          (n.$16 = function (t) {
+            return t;
+          })()),
+          (a.$16 = function (t) {
             var e, n, o;
             if (this.$7 != null) {
               var a = this.$7,
@@ -247,123 +276,164 @@ __d(
               }
             }
           }),
-          (n.$17 = async function (n, a, i, l) {
-            var t = this;
-            if (this.$1 == null) {
-              var s, d;
-              ((s = l.eventFlow) == null ||
-                s.addPoint("db_reinit_start", { bool: { isDbNull: !0 } }),
-                await this.$14(),
-                (d = l.eventFlow) == null || d.addPoint("db_reinit_end"));
-            }
-            return o("WormIDbRetry").withRetry({
-              fn: async function (s) {
-                var e = s.attempt;
-                if (e === 1) {
-                  var c;
-                  (t.$10.log(t.$3 + ".error.large_idb_value"),
-                    r("FBLogger")("worm").warn(
-                      "Retrying transaction due to large IDB value error: %s",
-                      t.$3,
-                    ),
-                    (c = l.eventFlow) == null ||
-                      c.addPoint("large_idb_value_refetch_start"));
+          (a.$17 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, a, i) {
+                var l = this;
+                if (this.$1 == null) {
+                  var u, m;
+                  ((u = i.eventFlow) == null ||
+                    u.addPoint("db_reinit_start", { bool: { isDbNull: !0 } }),
+                    yield this.$14(),
+                    (m = i.eventFlow) == null || m.addPoint("db_reinit_end"));
                 }
-                var d = await o("WormIDbRetry").withRetry({
-                  fn: async function (r) {
-                    var e = r.error;
-                    if (e != null) {
-                      var s, u;
-                      ((s = l.eventFlow) == null ||
-                        s.addPoint("db_reinit_start", {
-                          bool: { isDbInvalid: !0 },
-                        }),
-                        await t.$14({
-                          forceUpgrade:
-                            e.name === o("WormIDbConsts").IDB_ERROR_NOT_FOUND,
-                        }),
-                        (u = l.eventFlow) == null ||
-                          u.addPoint("db_reinit_end"));
+                return o("WormIDbRetry").withRetry({
+                  fn: (function () {
+                    var s = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (s) {
+                        var u = s.attempt;
+                        if (u === 1) {
+                          var d;
+                          (l.$10.log(l.$3 + ".error.large_idb_value"),
+                            r("FBLogger")("worm").warn(
+                              "Retrying transaction due to large IDB value error: %s",
+                              l.$3,
+                            ),
+                            (d = i.eventFlow) == null ||
+                              d.addPoint("large_idb_value_refetch_start"));
+                        }
+                        var m = yield o("WormIDbRetry").withRetry({
+                          fn: (function () {
+                            var r = n(
+                              "asyncToGeneratorRuntime",
+                            ).asyncToGenerator(function* (n) {
+                              var r = n.error;
+                              if (r != null) {
+                                var s, u;
+                                ((s = i.eventFlow) == null ||
+                                  s.addPoint("db_reinit_start", {
+                                    bool: { isDbInvalid: !0 },
+                                  }),
+                                  yield l.$14({
+                                    forceUpgrade:
+                                      r.name ===
+                                      o("WormIDbConsts").IDB_ERROR_NOT_FOUND,
+                                  }),
+                                  (u = i.eventFlow) == null ||
+                                    u.addPoint("db_reinit_end"));
+                              }
+                              return l.$15(e, t, a, i);
+                            });
+                            function s(e) {
+                              return r.apply(this, arguments);
+                            }
+                            return s;
+                          })(),
+                          maxRetries: 1,
+                          shouldRetry: function (t) {
+                            var e = t.error;
+                            return c(e) && u === 0;
+                          },
+                        });
+                        if (u > 0) {
+                          var p;
+                          (p = i.eventFlow) == null ||
+                            p.addPoint("large_idb_value_refetch_end");
+                        }
+                        return m;
+                      },
+                    );
+                    function u(e) {
+                      return s.apply(this, arguments);
                     }
-                    return t.$15(n, a, i, l);
-                  },
-                  maxRetries: 1,
-                  shouldRetry: function (n) {
-                    var t = n.error;
-                    return u(t) && e === 0;
+                    return u;
+                  })(),
+                  maxRetries: s,
+                  shouldRetry: function (t) {
+                    var e = t.error;
+                    return d(e);
                   },
                 });
-                if (e > 0) {
-                  var m;
-                  (m = l.eventFlow) == null ||
-                    m.addPoint("large_idb_value_refetch_end");
-                }
-                return d;
               },
-              maxRetries: e,
-              shouldRetry: function (t) {
-                var e = t.error;
-                return c(e);
-              },
-            });
-          }),
-          (n.runInTransaction = async function (t, n, o, a) {
-            var e;
-            try {
-              ((e = await this.$17(t, n, o, a)), (this.$6 = []));
-            } catch (e) {
-              var i = r("getErrorSafe")(e);
-              throw (this.$9(i), this.$16(i), e);
+            );
+            function t(t, n, r, o) {
+              return e.apply(this, arguments);
             }
-            return e;
-          }),
-          (n.close = function () {
+            return t;
+          })()),
+          (a.runInTransaction = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, o) {
+                var a;
+                try {
+                  ((a = yield this.$17(e, t, n, o)), (this.$6 = []));
+                } catch (e) {
+                  var i = r("getErrorSafe")(e);
+                  throw (this.$9(i), this.$16(i), e);
+                }
+                return a;
+              },
+            );
+            function t(t, n, r, o) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.close = function () {
             var e;
             (e = this.$1) == null || e.close();
           }),
-          (n.init = async function (t) {
-            var e = this;
-            return await o("WormIDbRetry").withRetry({
-              fn: function (r) {
-                var n,
-                  o = r.attempt;
-                return e.$14(
-                  o === 0
-                    ? {
-                        eventFlow:
-                          (n = t == null ? void 0 : t.eventFlow) != null
-                            ? n
-                            : void 0,
-                      }
-                    : void 0,
-                );
+          (a.init = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
+                return yield o("WormIDbRetry").withRetry({
+                  fn: function (r) {
+                    var n,
+                      o = r.attempt;
+                    return t.$14(
+                      o === 0
+                        ? {
+                            eventFlow:
+                              (n = e == null ? void 0 : e.eventFlow) != null
+                                ? n
+                                : void 0,
+                          }
+                        : void 0,
+                    );
+                  },
+                  maxRetries: 1,
+                  shouldRetry: function (t) {
+                    var e = t.error;
+                    return (
+                      (e == null ? void 0 : e.name) ===
+                      o("WormIDbConsts").IDB_ERROR_INVALID_STATE
+                    );
+                  },
+                });
               },
-              maxRetries: 1,
-              shouldRetry: function (t) {
-                var e = t.error;
-                return (
-                  (e == null ? void 0 : e.name) ===
-                  o("WormIDbConsts").IDB_ERROR_INVALID_STATE
-                );
-              },
-            });
-          }),
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })();
-    function u(e) {
+    function c(e) {
       return (
         e.name === o("WormIDbConsts").IDB_ERROR_INVALID_STATE ||
         e.name === o("WormIDbConsts").IDB_ERROR_NOT_FOUND ||
         e.name === o("WormIDbConsts").IDB_ERROR_UNKNOWN
       );
     }
-    function c(e) {
+    function d(e) {
       return (
         e.message.includes(o("WormIDbConsts").LARGE_IDB_VALUE_ERROR_MSG) === !0
       );
     }
-    l.WormIDbDriver = s;
+    l.WormIDbDriver = u;
   },
   98,
 );

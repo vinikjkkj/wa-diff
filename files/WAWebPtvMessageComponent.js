@@ -19,6 +19,7 @@ __d(
     "WAWebMessageAuthor.react",
     "WAWebMessageMeta.react",
     "WAWebMessagePosition",
+    "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -214,37 +215,43 @@ __d(
         x = T[0],
         M = T[1],
         w = _(null),
-        A = o("useWAWebMsgValues").useMsgValues(d, [
-          (n = o("WAWebMsgGetters")).getId,
-          n.getIsSentByMe,
-          o("WAWebFrontendMsgGetters").getSenderObj,
-          n.getHasReaction,
-          n.getIsGroupHistoryMessageInOwnChat,
-          o("WAWebFrontendMsgGetters").getIsTransparentMsg,
-          n.getIsNewsletterMsg,
-        ]),
+        A = o("useWAWebMsgValues").useMsgValues(
+          d,
+          o("WAWebMsgCasts").castToPtvMsg,
+          [
+            (n = o("WAWebMsgGetters")).getId,
+            n.getIsSentByMe,
+            n.getHasReaction,
+            n.getIsGroupHistoryMessageInOwnChat,
+            n.getIsNewsletterMsg,
+          ],
+        ),
         F = A[0],
         O = A[1],
         B = A[2],
         W = A[3],
         q = A[4],
-        U = A[5],
-        V = A[6],
-        H = o("useWAWebMediaDataValues").useMediaDataValues(u, [
+        U = o("useWAWebMsgValues").useMsgValues(d, [
+          o("WAWebFrontendMsgGetters").getSenderObj,
+          o("WAWebFrontendMsgGetters").getIsTransparentMsg,
+        ]),
+        V = U[0],
+        H = U[1],
+        G = o("useWAWebMediaDataValues").useMediaDataValues(u, [
           (a = o("WAWebMediaDataGetters")).getMediaStage,
           a.getRenderableUrl,
           a.getSize,
           a.getPreview,
           a.getFullPreviewData,
         ]),
-        G = H[0],
-        z = H[1],
-        j = H[2],
-        K = H[3],
-        Q = H[4],
-        X = S,
-        Y = x != null ? Math.min(x, C) : null,
-        J = o("useWAWebSendViewCount").useSendViewCount(d, {
+        z = G[0],
+        j = G[1],
+        K = G[2],
+        Q = G[3],
+        X = G[4],
+        Y = S,
+        J = x != null ? Math.min(x, C) : null,
+        Z = o("useWAWebSendViewCount").useSendViewCount(d, {
           mediaData: u,
           displayType: l,
         });
@@ -265,17 +272,17 @@ __d(
           },
           [d],
         ));
-      var Z = f(!1),
-        ee = Z[0],
-        te = Z[1],
-        ne = _(null),
+      var ee = f(!1),
+        te = ee[0],
+        ne = ee[1],
         re = _(null),
-        oe = f(!1),
-        ae = oe[0],
-        ie = oe[1],
-        le = m(
+        oe = _(null),
+        ae = f(!1),
+        ie = ae[0],
+        le = ae[1],
+        se = m(
           function (t, n) {
-            (te(t),
+            (ne(t),
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -287,87 +294,87 @@ __d(
                 n,
               ));
           },
-          [te],
+          [ne],
         );
       o("useWAWebListener").useListener(document.body, ["click"], function (e) {
         e.defaultPrevented ||
-          !ee ||
-          !re.current ||
-          (e.target instanceof Node && re.current.contains(e.target)) ||
-          le(!1, "click-listener");
+          !te ||
+          !oe.current ||
+          (e.target instanceof Node && oe.current.contains(e.target)) ||
+          se(!1, "click-listener");
       });
-      var se = m(
+      var ue = m(
           function () {
             var e = b.current;
             if (e) {
-              if (ee) {
+              if (te) {
                 e.getPaused() ? e.play() : e.pause();
                 return;
               }
-              le(!0, "ptv-click");
+              se(!0, "ptv-click");
             }
           },
-          [ee],
+          [te],
         ),
-        ue = m(
+        ce = m(
           function (e) {
-            e.button !== 0 || ee || ie(!0);
+            e.button !== 0 || te || le(!0);
           },
-          [ee, ie],
+          [te, le],
         );
       (o("useWAWebListener").useListener(
-        ae ? document.body : null,
+        ie ? document.body : null,
         "mouseup",
         function () {
-          ie(!1);
+          le(!1);
         },
       ),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           "sequential_ptv_playback",
           function (e) {
-            !b.current || !d.equals(e) || le(!0, "sequential-ptv-playback");
+            !b.current || !d.equals(e) || se(!0, "sequential-ptv-playback");
           },
         ));
-      var ce = _(0),
-        de = function () {
+      var de = _(0),
+        me = function () {
           var e = b.current;
           if (e) {
-            if (!ee) {
-              ((ce.current += 1), e.seek(0), ce.current < N() && e.play());
+            if (!te) {
+              ((de.current += 1), e.seek(0), de.current < N() && e.play());
               return;
             }
-            (e.seek(0), e.play(), le(!1, "loop"));
-            var t = o("WAWebPttFindSequentialMsg").findSequentialPtv(d, V);
+            (e.seek(0), e.play(), se(!1, "loop"));
+            var t = o("WAWebPttFindSequentialMsg").findSequentialPtv(d, q);
             t && o("WAWebCmd").Cmd.playNextPtv(t.id);
           }
         },
-        me = r("useWAWebIntersection")({ root: null, threshold: 0 }),
-        pe = me[0],
-        _e = me[1].isIntersecting,
-        fe = _(null);
+        pe = r("useWAWebIntersection")({ root: null, threshold: 0 }),
+        _e = pe[0],
+        fe = pe[1].isIntersecting,
+        ge = _(null);
       (p(
         function () {
-          var e = fe.current;
-          if (((fe.current = _e), !_e && e === !0)) {
+          var e = ge.current;
+          if (((ge.current = fe), !fe && e === !0)) {
             var t = self.setTimeout(function () {
               var e;
               (e = b.current) == null || e.pause("product_initiated");
             }, 100);
             return (
-              (ce.current = 0),
+              (de.current = 0),
               function () {
                 self.clearTimeout(t);
               }
             );
           }
         },
-        [_e],
+        [fe],
       ),
         p(
           function () {
-            var e = ne.current;
-            if (((ne.current = ee), ee && e === !1)) {
+            var e = re.current;
+            if (((re.current = te), te && e === !1)) {
               var t = b.current;
               if (t) {
                 (t.seek(0), t.play());
@@ -376,27 +383,27 @@ __d(
                   o("WAWebMarkPlayedMsgAction").canMarkPlayed(n) &&
                   o("WAWebMarkPlayedMsgAction").markPlayed(n);
               }
-              ce.current = 0;
+              de.current = 0;
             }
           },
-          [ee, d],
+          [te, d],
         ));
-      var ge = E,
-        he = o("useWAWebDebouncedChanges").useDebouncedChanges({
-          value: ge,
+      var he = E,
+        ye = o("useWAWebDebouncedChanges").useDebouncedChanges({
+          value: he,
           debounceMs: 100,
-          shouldDebounce: !ge,
+          shouldDebounce: !he,
         }),
-        ye = ae && !ee,
-        Ce = o("WAWebMsgCollection").MsgCollection.get(F),
-        be = c.jsx(o("WAWebMessageMeta.react").MetaWrapper, {
+        Ce = ie && !te,
+        be = o("WAWebMsgCollection").MsgCollection.get(F),
+        ve = c.jsx(o("WAWebMessageMeta.react").MetaWrapper, {
           isSentByMe: O,
-          isTransparent: U,
+          isTransparent: H,
           displayType: l,
-          xstyle: q && D.groupHistoryMessage,
+          xstyle: W && D.groupHistoryMessage,
           children: c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: d }),
         }),
-        ve = c.jsx(c.Fragment, {
+        Se = c.jsx(c.Fragment, {
           children:
             l != null &&
             [
@@ -404,7 +411,7 @@ __d(
               o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT,
               o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER,
             ].includes(l) &&
-            Ce != null &&
+            be != null &&
             c.jsx(
               "div",
               babelHelpers.extends(
@@ -418,15 +425,15 @@ __d(
                     displayType: l,
                     bubbleType: o("WAWebAddOnBubbleType").AddOnBubbleType
                       .STICKER_LIKE_MSG,
-                    parentIds: [Ce.id.toString()],
-                    hasReaction: W,
+                    parentIds: [be.id.toString()],
+                    hasReaction: B,
                   }),
                 },
               ),
             ),
         });
       return c.jsxs("div", {
-        ref: re,
+        ref: oe,
         children: [
           i &&
             c.jsx(
@@ -445,12 +452,12 @@ __d(
                   (h === o("WAWebMessagePosition").MsgPosition.FRONT ||
                     h === o("WAWebMessagePosition").MsgPosition.SINGLE) &&
                     D.isFirst,
-                  q && D.groupHistoryMessage,
+                  W && D.groupHistoryMessage,
                 ),
                 {
                   children: c.jsx(r("WAWebMessageAuthor.react"), {
                     msgKey: d,
-                    contact: B,
+                    contact: V,
                     displayType: l,
                   }),
                 },
@@ -462,7 +469,7 @@ __d(
               babelHelpers.extends(
                 {},
                 (s || (s = r("stylex"))).props(
-                  U ? D.quotedMsgContainer : null,
+                  H ? D.quotedMsgContainer : null,
                   O ? D.quotedMsgContainerSender : D.quotedMsgContainerReceiver,
                   o("WDSMargins.stylex").wdsMargins.marginTop12,
                   o("WDSPaddings.stylex").wdsPaddings.padding4,
@@ -471,11 +478,11 @@ __d(
               ),
             ),
           c.jsx(o("WAWebFlex.react").FlexRow, {
-            ref: pe,
+            ref: _e,
             justify: o("WAWebDisplayType").isWideDisplay(l)
               ? "center"
               : "start",
-            xstyle: [D.ptvOuterContainer, ye && D.depressed],
+            xstyle: [D.ptvOuterContainer, Ce && D.depressed],
             children: c.jsxs(o("WAWebFlex.react").FlexRow, {
               justify: "center",
               align: "center",
@@ -484,14 +491,14 @@ __d(
                 D.animateDimensions,
                 o("WDSMargins.stylex").wdsMargins.marginTop12,
                 o("WDSMargins.stylex").wdsMargins.marginBottom4,
-                ee && l === "MSG_INFO" && D.activePtvContainerInMsgInfo,
-                ee && l !== "MSG_INFO" && D.activePtvContainer,
+                te && l === "MSG_INFO" && D.activePtvContainerInMsgInfo,
+                te && l !== "MSG_INFO" && D.activePtvContainer,
               ],
               children: [
                 c.jsx("div", {
                   className: "x10l6tqk x1rn7vjc xb51amx x1d8287x",
                   children: c.jsx(P, {
-                    isActive: ee,
+                    isActive: te,
                     getCurrentTime: function () {
                       var e, t;
                       return (e =
@@ -501,8 +508,8 @@ __d(
                         ? e
                         : 0;
                     },
-                    isPlaying: ge,
-                    duration: Y,
+                    isPlaying: he,
+                    duration: J,
                     isSentByMe: O,
                     displayType: l,
                   }),
@@ -511,38 +518,38 @@ __d(
                   xstyle: [
                     D.videoContainer,
                     D.animateDimensions,
-                    ee && l === "MSG_INFO" && D.activeVideoContainerInMsgInfo,
-                    ee && l !== "MSG_INFO" && D.activeVideoContainer,
+                    te && l === "MSG_INFO" && D.activeVideoContainerInMsgInfo,
+                    te && l !== "MSG_INFO" && D.activeVideoContainer,
                   ],
-                  onMouseDown: ee ? void 0 : ue,
-                  onClick: se,
+                  onMouseDown: te ? void 0 : ce,
+                  onClick: ue,
                   children: [
                     c.jsx($, { mediaData: u }),
                     c.jsx(r("WAWebPtvDownloadState.react"), {
-                      mediaDataFileSize: j,
-                      mediaStage: G,
-                      isPlaying: he,
+                      mediaDataFileSize: K,
+                      mediaStage: z,
+                      isPlaying: ye,
                       onDownloadClick: function () {
                         var e;
                         (e = o("WAWebMsgCollection").MsgCollection.get(d)) ==
                           null || e.forceDownloadMediaEvenIfExpensive();
                       },
                     }),
-                    G === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
+                    z === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
                       c.jsx("div", {
-                        ref: J,
+                        ref: Z,
                         children: c.jsx(r("WAWebVideo.react"), {
                           ref: function (t) {
                             b.current = t != null ? t : null;
                           },
-                          src: z,
-                          xstyle: [D.video, ye && D.depressedVideo],
+                          src: j,
+                          xstyle: [D.video, Ce && D.depressedVideo],
                           renderVideoPixelsFit: I,
-                          muted: !ee,
+                          muted: !te,
                           autoPlay: !1,
                           disableAutoplayManagement: !0,
                           onAudioChannelRelease: function () {
-                            le(!1, "audio-channel-release");
+                            se(!1, "audio-channel-release");
                           },
                           onLoadedData: function () {
                             var e, t;
@@ -555,7 +562,7 @@ __d(
                                 : null,
                             );
                           },
-                          onEnded: de,
+                          onEnded: me,
                           onStoppedPlaying: function () {
                             k(!1);
                           },
@@ -563,11 +570,11 @@ __d(
                             return k(!0);
                           },
                           onTimeUpdate: function (t) {
-                            (R(t), t >= C && de());
+                            (R(t), t >= C && me());
                           },
                         }),
                       }),
-                    Y != null &&
+                    J != null &&
                       c.jsxs(c.Fragment, {
                         children: [
                           c.jsx("div", {
@@ -585,7 +592,7 @@ __d(
                                 width: 10,
                                 xstyle: [
                                   D.muteIcon,
-                                  ee || !he
+                                  te || !ye
                                     ? [
                                         D.muteIconHidden,
                                         o("WDSMargins.stylex").wdsMargins
@@ -597,7 +604,7 @@ __d(
                               }),
                               c.jsx("span", {
                                 children: o("WAWebClock").Clock.durationStr(
-                                  ee ? X : Y,
+                                  te ? Y : J,
                                 ),
                               }),
                             ],
@@ -613,9 +620,9 @@ __d(
             ? c.jsxs(o("WAWebFlex.react").FlexRow, {
                 justifySelf: "center",
                 columnGap: 2,
-                children: [ve, be],
+                children: [Se, ve],
               })
-            : c.jsxs(o("WAWebFlex.react").FlexColumn, { children: [be, ve] }),
+            : c.jsxs(o("WAWebFlex.react").FlexColumn, { children: [ve, Se] }),
         ],
       });
     }

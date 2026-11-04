@@ -3,32 +3,25 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Set(),
-      s = 200;
-    function u() {
+    var e = new Set();
+    function s() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_calling_offline_resume_ordering",
       );
     }
-    function c(t) {
-      if (!e.has(t)) {
-        if (e.size >= s) {
-          var n = e.values().next().value;
-          n != null && e.delete(n);
-        }
-        e.add(t);
-      }
+    function u(t) {
+      e.add(t);
     }
-    function d(t) {
+    function c(t) {
       return e.has(t);
     }
-    function m(t) {
+    function d(t) {
       e.delete(t);
     }
-    ((l.isOfflineCallLogOrderingEnabled = u),
-      (l.markPlaceholderPending = c),
-      (l.isPlaceholderPending = d),
-      (l.markPlaceholderResolved = m));
+    ((l.isOfflineCallLogOrderingEnabled = s),
+      (l.markPlaceholderPending = u),
+      (l.isPlaceholderPending = c),
+      (l.markPlaceholderResolved = d));
   },
   98,
 );

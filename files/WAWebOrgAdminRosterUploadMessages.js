@@ -48,20 +48,18 @@ __d(
                 )
               : e.code === "invalid_headers"
                 ? s._(
-                    /*BTDS*/ "Include a name column and at least one email or mobile phone number column.",
+                    /*BTDS*/ "Include first name, phone number and email address columns.",
                   )
-                : e.code === "invalid_row"
-                  ? m(e.rowNumber)
-                  : e.code === "row_field_count_mismatch"
-                    ? d(e.rowNumber)
-                    : e.code === "invalid_file"
-                      ? s._(/*BTDS*/ "Choose a valid CSV file.")
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              e.code,
-                          );
-                        })();
+                : e.code === "row_field_count_mismatch"
+                  ? d(e.rowNumber)
+                  : e.code === "invalid_file"
+                    ? s._(/*BTDS*/ "Choose a valid CSV file.")
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e.code,
+                        );
+                      })();
     }
     function d(e) {
       return e == null
@@ -73,15 +71,7 @@ __d(
             [s._param("row number", r("intlNumUtils").formatNumber(e))],
           );
     }
-    function m(e) {
-      return e == null
-        ? s._(/*BTDS*/ "Choose a valid CSV file.")
-        : s._(
-            /*BTDS*/ "Row {row number} needs a name and an email address or mobile phone number.",
-            [s._param("row number", r("intlNumUtils").formatNumber(e))],
-          );
-    }
-    function p(e, t, n) {
+    function m(e, t, n) {
       return e === "TOO_MANY_ROSTER_ENTRIES"
         ? s._(
             /*BTDS*/ "An organization can have up to {maximum people} people after an upload. Remove some rows from the file, then upload it again.",
@@ -131,10 +121,10 @@ __d(
                     e === "INVALID_ROSTER_ENTRY" ||
                     e === "DUPLICATE_ROSTER_CONTACT" ||
                     e === "DUPLICATE_EMAIL"
-                  ? f(null)
-                  : _();
+                  ? _(null)
+                  : p();
     }
-    function _() {
+    function p() {
       return (
         o("WALogger")
           .ERROR(
@@ -144,10 +134,10 @@ __d(
               ])),
           )
           .sendLogs("org-admin-roster-unknown-validation-reason"),
-        f(null)
+        _(null)
       );
     }
-    function f(e) {
+    function _(e) {
       return e != null
         ? s._(
             /*BTDS*/ "Check entry {entry number}. Its name, member tag, email address, or mobile phone number is invalid, or its email address is duplicated.",
@@ -157,7 +147,7 @@ __d(
             /*BTDS*/ "Check for invalid names, member tags, email addresses, or mobile phone numbers, and for duplicate email addresses, then try again.",
           );
     }
-    ((l.getCSVErrorMessage = c), (l.getRosterReplaceValidationMessage = p));
+    ((l.getCSVErrorMessage = c), (l.getRosterReplaceValidationMessage = m));
   },
   226,
 );

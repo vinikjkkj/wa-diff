@@ -6,6 +6,7 @@ __d(
     "relay-runtime/store/ClientID",
     "relay-runtime/store/RelayStoreUtils",
     "relay-runtime/store/live-resolvers/LiveResolverSuspenseSentinel",
+    "relay-runtime/util/RelayFeatureFlags",
     "relay-runtime/util/deepFreeze",
     "warning",
   ],
@@ -155,6 +156,8 @@ __d(
       return typeof t != "number" ? null : t;
     }
     function B(t, r) {
+      if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH)
+        return te(t, r);
       var o = t[g],
         a = r[g],
         i = null;
@@ -263,6 +266,8 @@ __d(
     }
     function X(t, r, o) {
       var a, i;
+      if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH)
+        return ne(t, r, o);
       if (!(e || (e = n("areEqual")))(t[o], r[o])) return !0;
       var l = (a = t[g]) == null ? void 0 : a[o],
         s = (i = r[g]) == null ? void 0 : i[o];
@@ -270,6 +275,78 @@ __d(
     }
     function Y(e) {
       return e;
+    }
+    function J(t, r) {
+      if (t === r) return typeof t != "number" || t !== 0 || Object.is(t, r);
+      if (
+        t == null ||
+        r == null ||
+        typeof t != "object" ||
+        typeof r != "object"
+      )
+        return !1;
+      var o = t[C];
+      if (typeof o == "string") {
+        if (r[C] !== o) return !1;
+        if (Z(t, C) && Z(r, C)) return !0;
+      } else {
+        var a = t[b],
+          i = r[b];
+        if (Array.isArray(a) && Array.isArray(i) && Z(t, b) && Z(r, b))
+          return ee(a, i);
+      }
+      return (e || (e = n("areEqual")))(t, r);
+    }
+    function Z(e, t) {
+      for (var n in e) if (n !== t) return !1;
+      return !0;
+    }
+    function ee(t, r) {
+      if (t === r) return !0;
+      if (t.length !== r.length) return !1;
+      for (var o = t.length - 1; o >= 0; o--) {
+        var a = t[o],
+          i = r[o];
+        if (a !== i)
+          return (
+            typeof a == "object" &&
+            typeof i == "object" &&
+            (e || (e = n("areEqual")))(t, r)
+          );
+      }
+      return !0;
+    }
+    function te(e, t) {
+      var n = e[g],
+        r = t[g],
+        o = null;
+      if (n == null && r == null) {
+        for (var a in t)
+          (o || !J(e[a], t[a])) &&
+            ((o = o !== null ? o : babelHelpers.extends({}, e)), (o[a] = t[a]));
+        return o != null ? o : e;
+      }
+      for (var i in t)
+        if (i !== g) {
+          var l = t[i],
+            s = r == null ? void 0 : r[i];
+          if (o == null) {
+            var u = e[i],
+              c = n == null ? void 0 : n[i];
+            if (J(u, l) && J(c, s)) continue;
+            ((o = babelHelpers.extends({}, e)),
+              n != null && (o[g] = babelHelpers.extends({}, n)));
+          }
+          (V(o, i, l), U(o, i, s));
+        }
+      return o != null ? o : e;
+    }
+    function ne(e, t, n) {
+      var r, o;
+      if (!J(e[n], t[n])) return !0;
+      var a = (r = e[g]) == null ? void 0 : r[n],
+        i = (o = t[g]) == null ? void 0 : o[n];
+      return !J(a, i);
     }
     a.exports = {
       clone: L,

@@ -5,6 +5,7 @@ __d(
     "WAWebBizAiCoachMessageEditMutation.graphql",
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
+    "WAWebFetchWithAdAccountToken",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -45,54 +46,32 @@ __d(
           } catch (e) {
             return g(e, "client_failed");
           }
-          var i;
-          try {
-            i = yield o("WAWebFetchAdAccountToken").fetchToken();
-          } catch (e) {
-            return g(e, "token_unavailable");
-          }
-          if (i.type !== "success")
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "BizAI message edit coaching token fetch failed",
-                    ])),
-                )
-                .sendLogs("biz-ai-message-edit-coaching-token-fetch-fail"),
-              "token_unavailable"
-            );
           try {
             yield r("WAWebNetworkStatus").waitIfOffline();
           } catch (e) {
             return g(e, "client_failed");
           }
           try {
-            var l,
-              s = yield o("WAWebBizAiRelayClient").commitMutation(
-                m,
-                {
-                  input: {
-                    coached_response: { text: n },
-                    context: {
-                      consumer_logical_id: a.logicalId,
-                      consumer_phone_number: a.phoneNumber,
-                    },
-                    message_id: t,
-                    request_id: r("WAWebPonyfillsCryptoRandomUUID")(),
+            var i,
+              l = yield o("WAWebBizAiRelayClient").commitMutation(m, {
+                input: {
+                  coached_response: { text: n },
+                  context: {
+                    consumer_logical_id: a.logicalId,
+                    consumer_phone_number: a.phoneNumber,
                   },
+                  message_id: t,
+                  request_id: r("WAWebPonyfillsCryptoRandomUUID")(),
                 },
-                { accessToken: i.token },
-              );
-            return (s == null ||
-            (l = s.xfb_meta_ai_biz_agent_wa_coach_ai_response) == null
+              });
+            return (l == null ||
+            (i = l.xfb_meta_ai_biz_agent_wa_coach_ai_response) == null
               ? void 0
-              : l.success) !== !0
+              : i.success) !== !0
               ? (o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "BizAI message edit coaching returned non-success",
                       ])),
                   )
@@ -100,7 +79,18 @@ __d(
                 "response_rejected")
               : "success";
           } catch (e) {
-            return g(e, "request_failed");
+            return e instanceof
+              o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+              ? (o("WALogger")
+                  .ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "BizAI message edit coaching token fetch failed",
+                      ])),
+                  )
+                  .sendLogs("biz-ai-message-edit-coaching-token-fetch-fail"),
+                "token_unavailable")
+              : g(e, "request_failed");
           }
         })),
         _.apply(this, arguments)
@@ -129,7 +119,6 @@ __d(
       var n = r("getErrorSafe")(e),
         a = o("WAWebFetchAdAccountToken").hasGraphQLAuthError(n);
       return (
-        a && o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
         o("WALogger")
           .ERROR(
             s ||

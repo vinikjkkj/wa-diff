@@ -5,7 +5,6 @@ __d(
     "WAWebBizAiKnowledgeSourceDeleteMutationChatHistoryMutation.graphql",
     "WAWebBizAiKnowledgeSourceDeleteMutationWebsiteMutation.graphql",
     "WAWebBizAiRelayClient",
-    "WAWebFetchAdAccountToken",
     "WAWebNetworkStatus",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,77 +30,48 @@ __d(
       p = { isSuccess: !0 },
       _ = { isSuccess: !1 };
     function f(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      c,
-                      { input: { uploaded_file_data_source_id: e } },
-                      { accessToken: t.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null ? void 0 : e.xfb_maiba_trigger_file_deletion;
-                      return (t == null ? void 0 : t.success) === !0 ? p : _;
-                    })
-                    .catch(function (e) {
-                      return _;
-                    });
-                })
-            : _;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(c, { input: { uploaded_file_data_source_id: e } })
+            .then(function (e) {
+              var t = e == null ? void 0 : e.xfb_maiba_trigger_file_deletion;
+              return (t == null ? void 0 : t.success) === !0 ? p : _;
+            })
+            .catch(function (e) {
+              return _;
+            });
         });
     }
     function g(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(
-                      d,
-                      { input: { website_data_source_id: e } },
-                      { accessToken: t.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null ? void 0 : e.maiba_trigger_website_deletion;
-                      return (t == null ? void 0 : t.success) === !0 ? p : _;
-                    })
-                    .catch(function (e) {
-                      return _;
-                    });
-                })
-            : _;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(d, { input: { website_data_source_id: e } })
+            .then(function (e) {
+              var t = e == null ? void 0 : e.maiba_trigger_website_deletion;
+              return (t == null ? void 0 : t.success) === !0 ? p : _;
+            })
+            .catch(function (e) {
+              return _;
+            });
         });
     }
     function h() {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (e) {
-          return e.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebBizAiRelayClient")
-                    .commitMutation(m, {}, { accessToken: e.token })
-                    .then(function (e) {
-                      var t =
-                        e == null ? void 0 : e.xfb_maiba_delete_chat_history;
-                      return (t == null ? void 0 : t.success) === !0 ? p : _;
-                    })
-                    .catch(function (e) {
-                      return _;
-                    });
-                })
-            : _;
+      return r("WAWebNetworkStatus")
+        .waitIfOffline()
+        .then(function () {
+          return o("WAWebBizAiRelayClient")
+            .commitMutation(m, {})
+            .then(function (e) {
+              var t = e == null ? void 0 : e.xfb_maiba_delete_chat_history;
+              return (t == null ? void 0 : t.success) === !0 ? p : _;
+            })
+            .catch(function (e) {
+              return _;
+            });
         });
     }
     ((l.deleteFileSource = f),

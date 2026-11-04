@@ -1,6 +1,7 @@
 __d(
   "WAWebOpenChatSocket",
   [
+    "Promise",
     "WABase64",
     "WABinary",
     "WAFrameSocket",
@@ -24,6 +25,7 @@ __d(
     "WAWebUserPrefsScreenLockWorkerCompatible",
     "WAWebWamEnumWebcSocketConnectReasonType",
     "WAWebWebcSocketConnectWamEvent",
+    "asyncToGeneratorRuntime",
     "cr:17674",
     "decodeProtobuf",
     "encodeProtobuf",
@@ -55,77 +57,103 @@ __d(
       I,
       T,
       D,
-      x = 1,
-      $ = 6,
-      P = new Uint8Array([87, 65, $, o("WAWapDict").DICT_VERSION]),
-      N = "Noise_XX_25519_AESGCM_SHA256\0\0\0\0",
-      M = "Noise_IK_25519_AESGCM_SHA256\0\0\0\0",
-      w = "Noise_XXfallback_25519_AESGCM_SHA256";
-    function A(e) {
+      x,
+      $ = 1,
+      P = 6,
+      N = new Uint8Array([87, 65, P, o("WAWapDict").DICT_VERSION]),
+      M = "Noise_XX_25519_AESGCM_SHA256\0\0\0\0",
+      w = "Noise_IK_25519_AESGCM_SHA256\0\0\0\0",
+      A = "Noise_XXfallback_25519_AESGCM_SHA256";
+    function F(e) {
       return o("WAWebOpenSocket").openWebSocket(e);
     }
-    async function F(e, t, n) {
-      var r = await o("WAWebUserPrefsMultiDevice").getRoutingInfo(),
-        a = r ? r.edgeRouting : null,
-        i = a ? o("WABase64").encodeB64UrlSafe(a) : null,
-        l = await o("WAWebCryptoCurve25519").keyPair();
+    function O(e, t, n) {
+      return B.apply(this, arguments);
+    }
+    function B() {
       return (
-        o("WAWebPageLoadLogging").startPageLoadQplMeasure("socket_open"),
-        A(i).then(async function (r) {
-          var i = void 0;
-          if (
-            (o("WAWebPageLoadLogging").endPageLoadQplMeasure("socket_open"),
-            t.markWebcSocketConnectDuration(),
-            (t.webcSocketConnectReason = o(
-              "WAWebPageLoadLogging",
-            ).wasPageLoadQplLogged()
-              ? o("WAWebWamEnumWebcSocketConnectReasonType")
-                  .WEBC_SOCKET_CONNECT_REASON_TYPE.RECONNECT
-              : o("WAWebWamEnumWebcSocketConnectReasonType")
-                  .WEBC_SOCKET_CONNECT_REASON_TYPE.PAGE_LOAD),
-            a)
-          ) {
-            var s = new (o("WABinary").Binary)();
-            (s.write("ED", 0, 1),
-              s.writeUint8(a.byteLength >> 16),
-              s.writeUint16(a.byteLength & 65535),
-              s.writeBuffer(a),
-              (i = s.readByteArrayView()));
-          }
-          var u = i ? o("WABinary").Binary.build(i, P).readByteArrayView() : P,
-            c = new (o("WAFrameSocket").FrameSocket)(r, u),
-            d = e ? await G(H) : null;
-          if (
-            (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-              "auth_handshake",
-            ),
-            t.startWebcAuthHandshakeDuration(),
-            d != null)
-          ) {
-            (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
-              handshake_path: "resume",
-            }),
-              o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                "hs_noise_read",
-              ));
-            var m = await o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
-            return (
-              o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_noise_read"),
-              B(c, n, e, l, m == null ? void 0 : m.staticKeyPair, d)
-            );
-          }
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = yield o("WAWebUserPrefsMultiDevice").getRoutingInfo(),
+            i = a ? a.edgeRouting : null,
+            l = i ? o("WABase64").encodeB64UrlSafe(i) : null,
+            s = yield o("WAWebCryptoCurve25519").keyPair();
           return (
-            o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
-              handshake_path: "full",
-            }),
-            O(c, l, e, n)
+            o("WAWebPageLoadLogging").startPageLoadQplMeasure("socket_open"),
+            F(l).then(
+              (function () {
+                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (n) {
+                    var a = void 0;
+                    if (
+                      (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                        "socket_open",
+                      ),
+                      t.markWebcSocketConnectDuration(),
+                      (t.webcSocketConnectReason = o(
+                        "WAWebPageLoadLogging",
+                      ).wasPageLoadQplLogged()
+                        ? o("WAWebWamEnumWebcSocketConnectReasonType")
+                            .WEBC_SOCKET_CONNECT_REASON_TYPE.RECONNECT
+                        : o("WAWebWamEnumWebcSocketConnectReasonType")
+                            .WEBC_SOCKET_CONNECT_REASON_TYPE.PAGE_LOAD),
+                      i)
+                    ) {
+                      var l = new (o("WABinary").Binary)();
+                      (l.write("ED", 0, 1),
+                        l.writeUint8(i.byteLength >> 16),
+                        l.writeUint16(i.byteLength & 65535),
+                        l.writeBuffer(i),
+                        (a = l.readByteArrayView()));
+                    }
+                    var u = a
+                        ? o("WABinary").Binary.build(a, N).readByteArrayView()
+                        : N,
+                      c = new (o("WAFrameSocket").FrameSocket)(n, u),
+                      d = e ? yield Q(K) : null;
+                    if (
+                      (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                        "auth_handshake",
+                      ),
+                      t.startWebcAuthHandshakeDuration(),
+                      d != null)
+                    ) {
+                      (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+                        handshake_path: "resume",
+                      }),
+                        o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                          "hs_noise_read",
+                        ));
+                      var m = yield o(
+                        "WAWebNoiseInfoWorkerCompatible",
+                      ).getNoiseInfo();
+                      return (
+                        o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                          "hs_noise_read",
+                        ),
+                        q(c, r, e, s, m == null ? void 0 : m.staticKeyPair, d)
+                      );
+                    }
+                    return (
+                      o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
+                        handshake_path: "full",
+                      }),
+                      W(c, s, e, r)
+                    );
+                  },
+                );
+                return function (e) {
+                  return a.apply(this, arguments);
+                };
+              })(),
+            )
           );
-        })
+        })),
+        B.apply(this, arguments)
       );
     }
-    function O(t, n, r, a) {
+    function W(t, n, r, a) {
       var i = new (o("WANoiseHandshake").NoiseHandshake)(t);
-      (i.start(N, P),
+      (i.start(M, N),
         o("WALogger")
           .LOG(
             e ||
@@ -143,13 +171,15 @@ __d(
             .readByteArrayView(),
         )
         .then(function (e) {
-          return q(i, e, n, r, a);
+          return H(i, e, n, r, a);
         });
     }
-    function B(e, t, n, a, i, l) {
-      if (i == null)
-        return Promise.reject("resumeNoiseHandshake authKeyPair is null");
-      var v = new (o("WANoiseHandshake").NoiseHandshake)(e);
+    function q(e, t, a, i, l, v) {
+      if (l == null)
+        return (x || (x = n("Promise"))).reject(
+          "resumeNoiseHandshake authKeyPair is null",
+        );
+      var S = new (o("WANoiseHandshake").NoiseHandshake)(e);
       (o("WALogger")
         .LOG(
           s ||
@@ -158,7 +188,7 @@ __d(
             ])),
         )
         .tags("handshake"),
-        v.start(M, P),
+        S.start(w, N),
         o("WALogger")
           .LOG(
             u ||
@@ -167,7 +197,7 @@ __d(
               ])),
           )
           .tags("handshake"),
-        v.authenticate(l),
+        S.authenticate(v),
         o("WALogger")
           .LOG(
             c ||
@@ -176,7 +206,7 @@ __d(
               ])),
           )
           .tags("handshake"),
-        v.authenticate(a.pubKey),
+        S.authenticate(i.pubKey),
         o("WALogger")
           .LOG(
             d ||
@@ -185,7 +215,7 @@ __d(
               ])),
           )
           .tags("handshake"),
-        v.mixIntoKey(o("WAWebCryptoCurve25519").sharedSecret(l, a.privKey)),
+        S.mixIntoKey(o("WAWebCryptoCurve25519").sharedSecret(v, i.privKey)),
         o("WALogger")
           .LOG(
             m ||
@@ -194,19 +224,21 @@ __d(
               ])),
           )
           .tags("handshake"));
-      var S = v.encrypt(Promise.resolve(i.pubKey)).catch(function (e) {
-        return (
-          o("WALogger")
-            .ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "resumeNoiseHandshake failed to encrypt client static key",
-                ])),
-            )
-            .catching(r("getErrorSafe")(e)),
-          Promise.reject(e)
-        );
-      });
+      var R = S.encrypt((x || (x = n("Promise"))).resolve(l.pubKey)).catch(
+        function (e) {
+          return (
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "resumeNoiseHandshake failed to encrypt client static key",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
+            (x || (x = n("Promise"))).reject(e)
+          );
+        },
+      );
       (o("WALogger")
         .LOG(
           _ ||
@@ -215,13 +247,13 @@ __d(
             ])),
         )
         .tags("handshake"),
-        v.mixIntoKey(o("WAWebCryptoCurve25519").sharedSecret(l, i.privKey)));
-      var R = n
+        S.mixIntoKey(o("WAWebCryptoCurve25519").sharedSecret(v, l.privKey)));
+      var L = a
           ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(t)
           : o(
               "WAWebGetClientPayloadForRegistration",
             ).getClientPayloadForRegistration(t),
-        L = v.encrypt(Promise.resolve(R)).catch(function (e) {
+        E = S.encrypt(x.resolve(L)).catch(function (e) {
           return (
             o("WALogger")
               .ERROR(
@@ -231,14 +263,14 @@ __d(
                   ])),
               )
               .catching(r("getErrorSafe")(e)),
-            Promise.reject(e)
+            (x || (x = n("Promise"))).reject(e)
           );
         });
-      return Promise.all([a.pubKey, L, S]).then(function (l) {
+      return x.all([i.pubKey, E, R]).then(function (n) {
         var s,
-          u = l[0],
-          c = l[1],
-          d = l[2];
+          u = n[0],
+          c = n[1],
+          d = n[2];
         o("WALogger")
           .LOG(
             g ||
@@ -250,330 +282,369 @@ __d(
         var m = {
           clientHello: ((s = { ephemeral: u, payload: c }), (s.static = d), s),
         };
-        return v
-          .sendAndReceive(
-            o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, m)
-              .readByteArrayView(),
-          )
-          .then(function (l) {
-            o("WALogger")
-              .LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[socket] resumeNoiseHandshake rcv hello",
-                  ])),
-              )
-              .tags("handshake");
-            var s = o("decodeProtobuf").decodeProtobuf(
-                o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
-                l,
-              ),
-              u = s.serverHello,
-              c = u || {},
-              d = c.ephemeral,
-              m = c.payload,
-              p = c.static;
-            if (p == null) {
-              if (
-                (o("WALogger")
-                  .LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "[socket] resumeNoiseHandshake continuing resume handshake",
-                      ])),
-                  )
-                  .tags("handshake"),
-                !d)
-              )
-                throw r("err")("serverHello missing serverEphemeral");
-              if (!m)
-                throw r("err")("serverHello missing certificateCiphertext");
-              return (
-                v.authenticate(d),
-                v.mixIntoKey(
-                  o("WAWebCryptoCurve25519").sharedSecret(d, a.privKey),
-                ),
-                v.mixIntoKey(
-                  o("WAWebCryptoCurve25519").sharedSecret(d, i.privKey),
-                ),
-                v.decrypt(m).then(function () {
-                  return (
-                    o("WALogger")
-                      .LOG(
-                        C ||
-                          (C = babelHelpers.taggedTemplateLiteralLoose([
-                            "[socket] resumeNoiseHandshake deriving secrets",
-                          ])),
-                      )
-                      .tags("handshake"),
-                    v.finish()
-                  );
-                })
-              );
-            }
+        return S.sendAndReceive(
+          o("encodeProtobuf")
+            .encodeProtobuf(o("WAWebProtobufsWa6.pb").HandshakeMessageSpec, m)
+            .readByteArrayView(),
+        ).then(function (n) {
+          o("WALogger")
+            .LOG(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "[socket] resumeNoiseHandshake rcv hello",
+                ])),
+            )
+            .tags("handshake");
+          var s = o("decodeProtobuf").decodeProtobuf(
+              o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
+              n,
+            ),
+            u = s.serverHello,
+            c = u || {},
+            d = c.ephemeral,
+            m = c.payload,
+            p = c.static;
+          if (p == null) {
+            if (
+              (o("WALogger")
+                .LOG(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket] resumeNoiseHandshake continuing resume handshake",
+                    ])),
+                )
+                .tags("handshake"),
+              !d)
+            )
+              throw r("err")("serverHello missing serverEphemeral");
+            if (!m) throw r("err")("serverHello missing certificateCiphertext");
             return (
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[socket] resumeNoiseHandshake failed: static ciphertext !null",
-                  ])),
+              S.authenticate(d),
+              S.mixIntoKey(
+                o("WAWebCryptoCurve25519").sharedSecret(d, i.privKey),
               ),
-              W({
-                clientEphemeralKeyPair: a,
-                isRegistered: n,
-                serverHello: l,
-                socket: e,
-                socketOpenOptions: t,
+              S.mixIntoKey(
+                o("WAWebCryptoCurve25519").sharedSecret(d, l.privKey),
+              ),
+              S.decrypt(m).then(function () {
+                return (
+                  o("WALogger")
+                    .LOG(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "[socket] resumeNoiseHandshake deriving secrets",
+                        ])),
+                    )
+                    .tags("handshake"),
+                  S.finish()
+                );
               })
             );
-          });
+          }
+          return (
+            o("WALogger").LOG(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "[socket] resumeNoiseHandshake failed: static ciphertext !null",
+                ])),
+            ),
+            U({
+              clientEphemeralKeyPair: i,
+              isRegistered: a,
+              serverHello: n,
+              socket: e,
+              socketOpenOptions: t,
+            })
+          );
+        });
       });
     }
-    async function W(e) {
-      var t = e.clientEphemeralKeyPair,
-        n = e.isRegistered,
-        r = e.serverHello,
-        a = e.socket,
-        i = e.socketOpenOptions,
-        l = new (o("WANoiseHandshake").NoiseHandshake)(a);
+    function U(e) {
+      return V.apply(this, arguments);
+    }
+    function V() {
       return (
-        l.start(w, P),
-        l.authenticate(t.pubKey),
-        o("WALogger").LOG(
-          v ||
-            (v = babelHelpers.taggedTemplateLiteralLoose([
-              "[socket] doFallbackHandshake continuing with server hello",
-            ])),
-        ),
-        q(l, r, t, n, i)
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.clientEphemeralKeyPair,
+            n = e.isRegistered,
+            r = e.serverHello,
+            a = e.socket,
+            i = e.socketOpenOptions,
+            l = new (o("WANoiseHandshake").NoiseHandshake)(a);
+          return (
+            l.start(A, N),
+            l.authenticate(t.pubKey),
+            o("WALogger").LOG(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "[socket] doFallbackHandshake continuing with server hello",
+                ])),
+            ),
+            H(l, r, t, n, i)
+          );
+        })),
+        V.apply(this, arguments)
       );
     }
-    function q(e, t, n, a, i) {
+    function H(e, t, a, i, l) {
       o("WALogger").LOG(
-        S ||
-          (S = babelHelpers.taggedTemplateLiteralLoose([
+        v ||
+          (v = babelHelpers.taggedTemplateLiteralLoose([
             "[socket] openChatSocket rcv hello",
           ])),
       );
-      var l = o("decodeProtobuf").decodeProtobuf(
+      var s = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
           t,
         ),
-        s = l.serverHello;
-      if (!s) throw r("err")("ServerHello payload error");
-      var u = s.ephemeral,
-        c = s.payload,
-        d = s.static;
-      if (u == null || d == null || c == null)
+        u = s.serverHello;
+      if (!u) throw r("err")("ServerHello payload error");
+      var c = u.ephemeral,
+        d = u.payload,
+        m = u.static;
+      if (c == null || m == null || d == null)
         throw r("err")("Missing server Ephemeral");
-      (e.authenticate(u),
-        e.mixIntoKey(o("WAWebCryptoCurve25519").sharedSecret(u, n.privKey)));
-      var m = e.decrypt(d),
-        p = m.then(function (e) {
-          return o("WAWebCryptoCurve25519").sharedSecret(e, n.privKey);
+      (e.authenticate(c),
+        e.mixIntoKey(o("WAWebCryptoCurve25519").sharedSecret(c, a.privKey)));
+      var p = e.decrypt(m),
+        _ = p.then(function (e) {
+          return o("WAWebCryptoCurve25519").sharedSecret(e, a.privKey);
         });
       return (
-        e.mixIntoKey(p),
-        Promise.all([m, e.decrypt(c), u]).then(function (t) {
+        e.mixIntoKey(_),
+        (x || (x = n("Promise"))).all([p, e.decrypt(d), c]).then(function (t) {
           var n = t[0],
             r = t[1],
             o = t[2];
-          return U({
+          return G({
             certificate: r,
             handshake: e,
-            isRegistered: a,
-            options: i,
+            isRegistered: i,
+            options: l,
             serverEphemeral: o,
             serverStatic: n,
           });
         })
       );
     }
-    async function U(e) {
-      var t = e.certificate,
-        n = e.handshake,
-        a = e.isRegistered,
-        i = e.options,
-        l = e.serverEphemeral,
-        s = e.serverStatic;
-      (await o("WAWebProcessCertificate").verifyAndProcessCertificate({
-        certificate: t,
-        serverStatic: s,
-        isRegistered: a,
-      }),
-        await l);
-      var u = a
-        ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(i)
-        : o(
-            "WAWebGetClientPayloadForRegistration",
-          ).getClientPayloadForRegistration(i);
-      o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_noise_read");
-      var c = await o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
-      (o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_noise_read"),
-        c == null &&
-          (o("WALogger")
-            .LOG(
-              R ||
-                (R = babelHelpers.taggedTemplateLiteralLoose([
-                  "[socket] Unable to decrypt noise data",
-                ])),
-            )
-            .tags("launch-socket-chat", "handshake"),
-          o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-          o("WAWebCoreActionsODS").logSessionForcedLogout(),
-          await o("WAWebSocketLogoutJob").socketLogout(),
-          r("nullthrows")(c, "Unexpected null: noiseData")));
-      var d = r("nullthrows")(c).staticKeyPair;
-      return Promise.all([V(d, n, l), n.encrypt(Promise.resolve(u))]).then(
-        function (e) {
-          var t = e[0],
-            r = e[1],
-            a = { clientFinish: { static: t, payload: r } };
-          return (
-            o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "[socket] continueFullHandshakeCore finish + derive secrets",
-                ])),
-            ),
-            n.send(
-              o("encodeProtobuf")
-                .encodeProtobuf(
-                  o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
-                  a,
+    function G(e) {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.certificate,
+            a = e.handshake,
+            i = e.isRegistered,
+            l = e.options,
+            s = e.serverEphemeral,
+            u = e.serverStatic;
+          (yield o("WAWebProcessCertificate").verifyAndProcessCertificate({
+            certificate: t,
+            serverStatic: u,
+            isRegistered: i,
+          }),
+            yield s);
+          var c = i
+            ? o("WAWebGetClientPayloadForLogin").getClientPayloadForLogin(l)
+            : o(
+                "WAWebGetClientPayloadForRegistration",
+              ).getClientPayloadForRegistration(l);
+          o("WAWebPageLoadLogging").startPageLoadQplMeasure("hs_noise_read");
+          var d = yield o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
+          (o("WAWebPageLoadLogging").endPageLoadQplMeasure("hs_noise_read"),
+            d == null &&
+              (o("WALogger")
+                .LOG(
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket] Unable to decrypt noise data",
+                    ])),
                 )
-                .readByteArrayView(),
-            ),
-            n.finish()
-          );
-        },
+                .tags("launch-socket-chat", "handshake"),
+              o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
+              o("WAWebCoreActionsODS").logSessionForcedLogout(),
+              yield o("WAWebSocketLogoutJob").socketLogout(),
+              r("nullthrows")(d, "Unexpected null: noiseData")));
+          var m = r("nullthrows")(d).staticKeyPair;
+          return (x || (x = n("Promise")))
+            .all([j(m, a, s), a.encrypt(x.resolve(c))])
+            .then(function (e) {
+              var t = e[0],
+                n = e[1],
+                r = { clientFinish: { static: t, payload: n } };
+              return (
+                o("WALogger").LOG(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket] continueFullHandshakeCore finish + derive secrets",
+                    ])),
+                ),
+                a.send(
+                  o("encodeProtobuf")
+                    .encodeProtobuf(
+                      o("WAWebProtobufsWa6.pb").HandshakeMessageSpec,
+                      r,
+                    )
+                    .readByteArrayView(),
+                ),
+                a.finish()
+              );
+            });
+        })),
+        z.apply(this, arguments)
       );
     }
-    function V(e, t, n) {
-      var a = Promise.resolve(e.pubKey),
-        i = t.encrypt(a);
-      if (!n)
-        return Promise.reject(
+    function j(e, t, a) {
+      var i = (x || (x = n("Promise"))).resolve(e.pubKey),
+        l = t.encrypt(i);
+      if (!a)
+        return (x || (x = n("Promise"))).reject(
           r("err")("staticAgreement called before serverKeys"),
         );
-      var l = o("WAWebCryptoCurve25519").sharedSecret(n, e.privKey);
-      return (t.mixIntoKey(l), i);
+      var s = o("WAWebCryptoCurve25519").sharedSecret(a, e.privKey);
+      return (t.mixIntoKey(s), l);
     }
-    var H = 0;
-    async function G(e) {
-      if (
-        await o(
-          "WAWebUserPrefsScreenLockWorkerCompatible",
-        ).getScreenLockEnabled()
-      )
-        return null;
-      if (e >= x)
-        return (
-          o("WALogger")
-            .LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "[socket] getCertificateChain failed ",
-                  "x, fallback",
-                ])),
-              e,
-            )
-            .tags("handshake"),
-          null
-        );
-      try {
-        var t = await o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
-        if (t == null)
-          return (
-            o("WALogger")
-              .LOG(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
-                    "Unable to decrypt noise data for resume handshake",
-                  ])),
-              )
-              .tags("launch-socket-chat"),
-            null
-          );
-        var n = t.certificateChainBuffer
-          ? o("WAWebParseCertificateChain").parseCertificateChain(
-              t.certificateChainBuffer,
-            )
-          : null;
-        return o("WAWebCommonSocketPlatformDetails").makeServerInfoIfKnown(n);
-      } catch (e) {
-        return (
-          o("WALogger")
-            .ERROR(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
-                  "[socket][unified] getCertificateChain error",
-                ])),
-            )
-            .catching(r("getErrorSafe")(e))
-            .tags("handshake"),
-          null
-        );
-      }
+    var K = 0;
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    async function z(e, t) {
-      try {
-        var n = e || { passive: !1, pull: !0 },
-          a = new (o(
-            "WAWebWebcSocketConnectWamEvent",
-          ).WebcSocketConnectWamEvent)(),
-          i = await F(t, a, n);
-        return (
-          o("WAWebPageLoadLogging").endPageLoadQplMeasure("auth_handshake"),
-          a.markWebcAuthHandshakeDuration(),
-          a.commit(),
-          (H = 0),
-          o("WAResultOrError").makeResult(i)
-        );
-      } catch (e) {
-        var l = r("getErrorSafe")(e);
-        o("WAWebPageLoadLogging").incrementPageLoadQplSocketError();
-        var s = j();
-        return (
-          o("WALogger")
-            .LOG(
-              T ||
-                (T = babelHelpers.taggedTemplateLiteralLoose([
-                  "[socket][unified] handshake failed with ",
-                  ", msg: ",
-                  ", network: ",
-                  "",
-                ])),
-              l.name,
-              l.message,
-              s,
-            )
-            .tags("handshake"),
-          s &&
-            (H++,
-            o("WALogger")
-              .ERROR(
-                D ||
-                  (D = babelHelpers.taggedTemplateLiteralLoose([
-                    "[socket][unified] handshake failed. Retry count: ",
-                    "",
-                  ])),
-                H,
-              )
-              .tags("handshake")
-              .sendLogs("handshake-error", { sampling: 0.01 })),
-          o("WAResultOrError").makeError("disconnected")
-        );
-      }
+    function X() {
+      return (
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            yield o(
+              "WAWebUserPrefsScreenLockWorkerCompatible",
+            ).getScreenLockEnabled()
+          )
+            return null;
+          if (e >= $)
+            return (
+              o("WALogger")
+                .LOG(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket] getCertificateChain failed ",
+                      "x, fallback",
+                    ])),
+                  e,
+                )
+                .tags("handshake"),
+              null
+            );
+          try {
+            var t = yield o("WAWebNoiseInfoWorkerCompatible").getNoiseInfo();
+            if (t == null)
+              return (
+                o("WALogger")
+                  .LOG(
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                        "Unable to decrypt noise data for resume handshake",
+                      ])),
+                  )
+                  .tags("launch-socket-chat"),
+                null
+              );
+            var n = t.certificateChainBuffer
+              ? o("WAWebParseCertificateChain").parseCertificateChain(
+                  t.certificateChainBuffer,
+                )
+              : null;
+            return o("WAWebCommonSocketPlatformDetails").makeServerInfoIfKnown(
+              n,
+            );
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket][unified] getCertificateChain error",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .tags("handshake"),
+              null
+            );
+          }
+        })),
+        X.apply(this, arguments)
+      );
     }
-    function j() {
+    function Y(e, t) {
+      return J.apply(this, arguments);
+    }
+    function J() {
+      return (
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n = e || { passive: !1, pull: !0 },
+              a = new (o(
+                "WAWebWebcSocketConnectWamEvent",
+              ).WebcSocketConnectWamEvent)(),
+              i = yield O(t, a, n);
+            return (
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure("auth_handshake"),
+              a.markWebcAuthHandshakeDuration(),
+              a.commit(),
+              (K = 0),
+              o("WAResultOrError").makeResult(i)
+            );
+          } catch (e) {
+            var l = r("getErrorSafe")(e);
+            o("WAWebPageLoadLogging").incrementPageLoadQplSocketError();
+            var s = Z();
+            return (
+              o("WALogger")
+                .LOG(
+                  T ||
+                    (T = babelHelpers.taggedTemplateLiteralLoose([
+                      "[socket][unified] handshake failed with ",
+                      ", msg: ",
+                      ", network: ",
+                      "",
+                    ])),
+                  l.name,
+                  l.message,
+                  s,
+                )
+                .tags("handshake"),
+              s &&
+                (K++,
+                o("WALogger")
+                  .ERROR(
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                        "[socket][unified] handshake failed. Retry count: ",
+                        "",
+                      ])),
+                    K,
+                  )
+                  .tags("handshake")
+                  .sendLogs("handshake-error", { sampling: 0.01 })),
+              o("WAResultOrError").makeError("disconnected")
+            );
+          }
+        })),
+        J.apply(this, arguments)
+      );
+    }
+    function Z() {
       return self.navigator != null ? self.navigator.onLine : !0;
     }
-    async function K(e, t) {
-      return z(e, t);
+    function ee(e, t) {
+      return te.apply(this, arguments);
     }
-    l.openChatSocket = K;
+    function te() {
+      return (
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return Y(e, t);
+        })),
+        te.apply(this, arguments)
+      );
+    }
+    l.openChatSocket = ee;
   },
   98,
 );

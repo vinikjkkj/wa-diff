@@ -5,7 +5,7 @@ __d(
     "use strict";
     function e(e, t) {
       if (!e) return null;
-      var n = parseInt(e.get(t), 10);
+      var n = parseInt(String(e.get(t)), 10);
       return !isNaN(n) && isFinite(n) ? n : null;
     }
     function s(e, t, n) {

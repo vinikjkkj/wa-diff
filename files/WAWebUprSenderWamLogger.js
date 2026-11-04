@@ -17,16 +17,24 @@ __d(
       c = "pux";
     function d(e) {
       var t = r("getErrorSafe")(e).name;
-      return e instanceof r("WAWebOrderMessageSendResultError")
-        ? {
-            errorName: t,
-            failureStage: "send_result",
-            sendResult:
-              e.messageSendResult == null
-                ? "missing"
-                : String(e.messageSendResult),
-          }
-        : { errorName: t, failureStage: "exception" };
+      if (e instanceof r("WAWebOrderMessageSendResultError")) {
+        var n = {
+          errorName: t,
+          failureStage: "send_result",
+          sendResult:
+            e.messageSendResult == null
+              ? "missing"
+              : String(e.messageSendResult),
+        };
+        return (
+          e.failureReason != null && (n.sendFailureReason = e.failureReason),
+          e.failureErrorName != null &&
+            (n.sendFailureErrorName = e.failureErrorName),
+          e.ackErrorCode != null && (n.ackErrorCode = e.ackErrorCode),
+          n
+        );
+      }
+      return { errorName: t, failureStage: "exception" };
     }
     function m(e) {
       return p.apply(this, arguments);
@@ -198,26 +206,28 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          yield m({
-            country: t,
-            eventParams: {
-              actionTarget: o("WAWebWamEnumPaymentActionTargets")
-                .PAYMENT_ACTION_TARGETS.SEND_BUTTON,
-              paymentActionType: o("WAWebWamEnumPaymentActionTypes")
-                .PAYMENT_ACTION_TYPES.API,
-              referral: e,
-              screen: u,
-            },
-            queryParams: babelHelpers.extends(
-              { flow_type: c, result: n },
-              r == null
-                ? {}
-                : babelHelpers.extends(
-                    { error_name: r.errorName, failure_stage: r.failureStage },
-                    r.sendResult == null ? {} : { send_result: r.sendResult },
-                  ),
-            ),
-          });
+          var a = { flow_type: c, result: n };
+          (r != null &&
+            ((a.error_name = r.errorName),
+            (a.failure_stage = r.failureStage),
+            r.sendResult != null && (a.send_result = r.sendResult),
+            r.sendFailureReason != null &&
+              (a.send_failure_reason = r.sendFailureReason),
+            r.sendFailureErrorName != null &&
+              (a.send_failure_error_name = r.sendFailureErrorName),
+            r.ackErrorCode != null && (a.ack_error_code = r.ackErrorCode)),
+            yield m({
+              country: t,
+              eventParams: {
+                actionTarget: o("WAWebWamEnumPaymentActionTargets")
+                  .PAYMENT_ACTION_TARGETS.SEND_BUTTON,
+                paymentActionType: o("WAWebWamEnumPaymentActionTypes")
+                  .PAYMENT_ACTION_TYPES.API,
+                referral: e,
+                screen: u,
+              },
+              queryParams: a,
+            }));
         })),
         I.apply(this, arguments)
       );

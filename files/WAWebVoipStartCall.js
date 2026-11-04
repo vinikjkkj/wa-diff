@@ -687,7 +687,7 @@ __d(
                 ),
                 o("WAWebCoreActionsODS").logCallAttempt(),
                 a
-                  ? o("WAWebCoreActionsODS").logCallOutgoingVideo()
+                  ? r("WAWebODS").incr("web.call.outgoing.video")
                   : r("WAWebODS").incr("web.call.outgoing.audio"),
                 o("WAWebVoipStartCallPermissions").markCallStart(d, g),
                 o("WAWebVoipOutgoingCallQpl").voipOutgoingCallQplAddPoint(
@@ -1087,7 +1087,7 @@ __d(
                 (u != null && (yield r("WAPromiseRaceAbort")(me(), m)),
                   o("WAWebCoreActionsODS").logCallAttempt(),
                   t
-                    ? o("WAWebCoreActionsODS").logCallOutgoingGroupVideo()
+                    ? r("WAWebODS").incr("web.call.outgoing.group.video")
                     : o("WAWebCoreActionsODS").logCallOutgoingGroupAudio(),
                   o("WAWebVoipStartCallPermissions").markCallStart(c, p),
                   yield b == null

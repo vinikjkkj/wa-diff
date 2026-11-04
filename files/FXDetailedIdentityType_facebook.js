@@ -19,6 +19,7 @@ __d(
         "LANTERN_USER",
         "MESSENGER_SPLIT",
         "META",
+        "MOLTBOOK_USER",
         "MP_USER",
         "NISABA_USER",
         "SOLO_USER",

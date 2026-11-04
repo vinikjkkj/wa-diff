@@ -51,7 +51,8 @@ __d(
     }
     ((l.confirmPendingRequests = c),
       (l.confirmDeleteReportsForAdminReview = d),
-      (l.confirmGroupFull = m));
+      (l.confirmGroupFull = m),
+      (l.confirmGroupSettings = p));
   },
   98,
 );

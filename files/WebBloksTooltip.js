@@ -79,13 +79,13 @@ __d(
         j = d(
           function () {
             var e = babelHelpers.extends({}, U),
-              t = parseFloat(G);
+              t = parseFloat(String(G));
             O === "shark-fin" && t > 0
               ? (e.marginLeft = t + o("WebBloksTooltipUtils").ARROW_SIZE / 2)
               : O === "shark-fin"
                 ? (e.marginLeft = o("WebBloksTooltipUtils").ARROW_SIZE / 2)
                 : t > 0 && (e.marginLeft = t);
-            var n = parseFloat(z);
+            var n = parseFloat(String(z));
             return (
               n > 0 &&
                 (q === "top"
@@ -104,7 +104,7 @@ __d(
           [q],
         ),
         Q = t.toPx(D == null ? void 0 : D.get(L)),
-        X = parseFloat(Q),
+        X = parseFloat(String(Q)),
         Y = i.getSubNode(h),
         J = o("WebBloksUtils").toPx(Y == null ? void 0 : Y.get(k)),
         Z = o("WebBloksUtils").toPx(Y == null ? void 0 : Y.get(E)),
@@ -112,8 +112,8 @@ __d(
           function () {
             var e = babelHelpers.extends({}, M);
             return (
-              parseFloat(V) > 0 && (e.width = V),
-              parseFloat(H) > 0 && (e.height = H),
+              parseFloat(String(V)) > 0 && (e.width = V),
+              parseFloat(String(H)) > 0 && (e.height = H),
               O === "none"
                 ? ((e.marginTop = o("WebBloksTooltipUtils").ARROW_SIZE),
                   (e.marginBottom = o("WebBloksTooltipUtils").ARROW_SIZE))

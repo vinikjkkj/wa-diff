@@ -54,9 +54,7 @@ __d(
         enableLipSync: !1,
         enableLive: !1,
         enableMediaElementUnmountNotification: !1,
-        enableNonOverlappingStreamBandwidthSampling: !1,
         enableOwnedBandwidthEstimator: !1,
-        enablePlayerScopedWorkerToMainEventCoalescing: !1,
         enablePredictiveSidxPrefetch: !1,
         enablePrefetchBandwidthSampling: !1,
         enablePrefetchCacheKeyNormalization: !1,
@@ -90,7 +88,6 @@ __d(
         liveEndedStallConfirmSec: 0,
         liveEndedTransitionOnStallEnabled: !1,
         liveFellBehindEdgeReseekDriftSec: 0,
-        liveFellBehindHardRefetchDriftSec: 0,
         liveFellBehindPairedRefetchEnabled: !1,
         liveFellBehindWindowRefetchEnabled: !1,
         liveFollowEdgeActive: !0,
@@ -98,14 +95,15 @@ __d(
         liveGapSkipStallThresholdMs: 500,
         liveGapSkipStuckAtRangeEndToleranceSec: 0,
         liveGapSkipStuckSeekRecoveryMs: 0,
+        liveLatencyPlaybackRateEnabled: !1,
         liveLookbackBufferSec: 0,
         liveManifestRefreshIntervalMs: 0,
         liveNoProgressWatchdogThresholdSec: 0,
         liveObserveAndActMinDelayMs: 0,
         livePlayheadStallRecoveryEnabled: !1,
         liveProactiveEdgeReseekEnabled: !1,
-        liveProactiveRefetchDriftSec: 0,
         liveRollingPdashReseedAfterStripEnabled: !0,
+        liveSegmentFetchNetworkFailureToleranceMs: 0,
         liveStallRecoveryEnabled: !1,
         liveStallReseekToEdgeAfterKicks: 0,
         liveTimeBasedAppendAnchorEnabled: !0,
@@ -129,14 +127,15 @@ __d(
         quotaExceededBufferTargetPenalty: 0.3,
         quotaExceededBufferTargetReward: 0.2,
         quotaExceededMinBufferTargetSec: 2,
+        realWorkerConnectTimeoutMs: 0,
         realWorkerV2SkipHasteResponsePreloader: !1,
         reduceStateMachineEventOverhead: !1,
+        releasePastStateMachineStates: !1,
         reopenEndedMediaSourceOnRepresentationSwitch: !1,
         resetTargetRepresentationWhenItGetsBlocked: !1,
         retryShorterForUnrecoverableHTTP: !1,
         segmentStallRecoveryEnabled: !1,
         sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime: !1,
-        skipEndOfStreamWhileBlockedTargetAwaitsReselection: !1,
         skipPlayheadRestoreOnMediaElementChange: !1,
         smartPlayerVideoDecodeCapabilities: null,
         startTimestampSec: 0,
@@ -146,7 +145,11 @@ __d(
         webCodecsVideoInWorker: !1,
       };
     }
-    i.createDefaultConfig = e;
+    function l(e) {
+      return e;
+    }
+    ((i.createDefaultConfig = e),
+      (i.makeVideoPlayerNextgendashPlayerInstanceKey = l));
   },
   66,
 );

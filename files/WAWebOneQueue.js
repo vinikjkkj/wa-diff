@@ -104,7 +104,7 @@ __d(
       var t = C,
         n = e.attrs.offline;
       if (t == null || !n) return D;
-      x(parseInt(n, 10));
+      x(parseInt(String(n), 10));
       var r = function () {
         return $(t);
       };

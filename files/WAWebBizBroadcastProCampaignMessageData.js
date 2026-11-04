@@ -20,36 +20,77 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (a.type !== "success")
-            throw r("err")("BB Pro campaign template token fetch failed");
-          var i = yield o("WAWebRelayClient").fetchQuery(
+          var t = yield f(e, yield p());
+          return t == null
+            ? null
+            : o(
+                "WAWebBizBroadcastProCampaignListItemDerive",
+              ).getProCampaignMessageData(t.template);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield f(e, yield p());
+          return o(
+            "WAWebBizBroadcastProCampaignListItemDerive",
+          ).getProCampaignDuplicateMessageData(t == null ? void 0 : t.template);
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (e.type !== "success")
+            throw r("err")("BB Pro campaign token fetch failed");
+          return e.token;
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r,
+            a = yield o("WAWebRelayClient").fetchQuery(
               s,
               { campaignId: e },
               {
-                accessToken: a.token,
+                accessToken: t,
                 environmentType: "facebook",
                 fetchPolicy: "network-only",
               },
             ),
-            l = i == null ? void 0 : i.node;
+            i = a == null ? void 0 : a.node;
           if (
-            (l == null ? void 0 : l.campaignType) !==
+            (i == null ? void 0 : i.campaignType) !==
             "XFBWhatsAppBusinessMMLiteCampaign"
           )
             return null;
-          var u = (t = l.broadcast_insights) == null ? void 0 : t.template,
-            c =
-              u == null
+          var l = (n = i.broadcast_insights) == null ? void 0 : n.template,
+            u =
+              l == null
                 ? null
                 : {
-                    element: u.element,
+                    element: l.element,
                     header_type:
-                      u.header_type == null ? null : String(u.header_type),
-                    hsm_components: ((n = u.hsm_components) != null
-                      ? n
+                      l.header_type == null ? null : String(l.header_type),
+                    hsm_components: ((r = l.hsm_components) != null
+                      ? r
                       : []
                     ).map(function (e) {
                       var t;
@@ -76,14 +117,13 @@ __d(
                       };
                     }),
                   };
-          return o(
-            "WAWebBizBroadcastProCampaignListItemDerive",
-          ).getProCampaignMessageData(c);
+          return { template: u };
         })),
-        c.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.fetchBizBroadcastProCampaignMessageData = u;
+    ((l.fetchBizBroadcastProCampaignMessageData = u),
+      (l.fetchBizBroadcastProCampaignDuplicateData = d));
   },
   98,
 );

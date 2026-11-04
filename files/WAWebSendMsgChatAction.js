@@ -264,7 +264,7 @@ __d(
                           D.type ===
                             o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE)
                         ) {
-                          var t = parseInt(D.inviteCodeExp, 10),
+                          var t = parseInt(String(D.inviteCodeExp), 10),
                             n = D.from.isLid()
                               ? o("WAWebLidMigrationUtils").toLid(D.to)
                               : D.to;

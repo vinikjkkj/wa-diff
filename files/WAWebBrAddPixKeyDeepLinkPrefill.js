@@ -5,9 +5,7 @@ __d(
     "use strict";
     var e,
       s = 56,
-      u = 100,
-      c = 64,
-      d = new Map([
+      u = new Map([
         [
           (e = o("WAWebUserPrefsTypes")).PixKeyType.CPF,
           { maxLength: 14, shape: /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/ },
@@ -27,72 +25,26 @@ __d(
           },
         ],
       ]),
-      m =
+      c =
         /(?:[\0-\x1F\x7F-\x9F\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u2028-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F])/,
-      p = /^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]+$/,
-      _ = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
-    function f(e) {
-      try {
-        return decodeURIComponent(e);
-      } catch (e) {
-        return null;
-      }
+      d = /^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]+$/,
+      m = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
+    function p(e, t) {
+      return e !== "" && e.length <= t && !c.test(e) && !d.test(e);
     }
-    function g(e, t) {
-      for (var n of e.split("&")) {
-        var r = n.indexOf("=");
-        if (r !== -1 && f(n.slice(0, r)) === t) return f(n.slice(r + 1));
-      }
-      return null;
-    }
-    function h(e, t) {
-      return e !== "" && e.length <= t && !m.test(e) && !p.test(e);
-    }
-    function y(e, t, n) {
-      var r = e.get(t);
-      return r != null && h(r, n) ? r : null;
-    }
-    function C(e) {
-      var t = e.get("type");
-      return t == null || t === ""
-        ? null
-        : o("WAWebUserPrefsTypes").PixKeyType.cast(t.toUpperCase());
-    }
-    function b(e, t) {
-      var n = d.get(t);
+    function _(e, t) {
+      var n = u.get(t);
       return (
         n != null &&
         e.length <= n.maxLength &&
+        !c.test(e) &&
         !m.test(e) &&
-        !_.test(e) &&
         n.shape.test(e)
       );
     }
-    function v(e, t) {
-      var n = g(e, "value");
-      return n != null && b(n, t) ? n : null;
-    }
-    function S(e, t) {
-      var n,
-        r,
-        o,
-        a = C(e);
-      if (a == null) return null;
-      var i = v(t, a);
-      return i == null
-        ? null
-        : {
-            bankId: (n = y(e, "bankid", c)) != null ? n : void 0,
-            bankName: (r = y(e, "bankname", u)) != null ? r : void 0,
-            keyType: a,
-            name: (o = y(e, "name", s)) != null ? o : void 0,
-            value: i,
-          };
-    }
     ((l.MAX_NAME_LENGTH = s),
-      (l.isAcceptableCappedText = h),
-      (l.isAcceptablePixKeyValue = b),
-      (l.parseAddPixKeyPrefill = S));
+      (l.isAcceptableCappedText = p),
+      (l.isAcceptablePixKeyValue = _));
   },
   98,
 );

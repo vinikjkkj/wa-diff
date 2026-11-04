@@ -4,9 +4,8 @@ __d(
     "fbt",
     "WAWebFbtCommon",
     "WAWebL10NAccentFold",
+    "WAWebOrgAdminPersonName",
     "WAWebPhoneNumberSearch",
-    "WAWebPhoneUtils",
-    "WAWebUsernameTypes",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
@@ -68,48 +67,29 @@ __d(
       return e.isViewer ? 0 : 1;
     }
     function g(e, t, n) {
-      var o,
-        a = e.lid,
+      var a = e.lid,
         i = a == null ? null : n.directoryMemberByLID.get(a),
         l = a == null ? null : n.identityByLID.get(a),
-        s = a != null && a === n.viewerLID,
-        u = h(i, l, n.usernamesEnabled);
+        s = a == null ? null : n.rosterDetailsByLID.get(a),
+        u = a != null && a === n.viewerLID,
+        c = o("WAWebOrgAdminPersonName").getOrgAdminPersonName(i, s, l),
+        d = c === "" ? null : c;
       return {
         isAdmin: e.role === "ADMIN" || e.role === "SUPERADMIN",
-        isViewer: s,
+        isViewer: u,
         key: (a != null ? a : "") + ":" + t.toString(),
-        label: s ? r("WAWebFbtCommon")("You") : y(a, u, n.identitiesLoading),
+        label: u ? r("WAWebFbtCommon")("You") : h(a, d, n.identitiesLoading),
         memberTag: i == null ? void 0 : i.memberTag,
-        name: u,
+        name: d,
         participant: e,
-        phoneNumber:
-          (o = l == null ? void 0 : l.phoneNumber) != null
-            ? o
-            : i == null
-              ? void 0
-              : i.phoneNumber,
+        phoneNumber: o("WAWebOrgAdminPersonName").getOrgAdminPersonPhoneNumber(
+          i,
+          s,
+          l,
+        ),
       };
     }
     function h(e, t, n) {
-      var r,
-        a = e == null ? void 0 : e.displayName;
-      if (a != null && a !== "") return a;
-      var i = n
-        ? (r = o("WAWebUsernameTypes").asMaybeUsername(
-            e == null ? void 0 : e.username,
-          )) != null
-          ? r
-          : o("WAWebUsernameTypes").asMaybeUsername(
-              t == null ? void 0 : t.username,
-            )
-        : null;
-      return i != null
-        ? o("WAWebUsernameTypes").displayUsername(i)
-        : (t == null ? void 0 : t.phoneNumber) == null
-          ? null
-          : o("WAWebPhoneUtils").formatPhone(t.phoneNumber);
-    }
-    function y(e, t, n) {
       return e == null
         ? s._(/*BTDS*/ "Unknown member")
         : t != null

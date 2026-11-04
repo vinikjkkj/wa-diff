@@ -268,12 +268,13 @@ __d(
               u,
               c,
               d = this.getConnectionState(),
-              m = Date.now();
+              m = Date.now(),
+              p = this.$13;
             return (
-              !this.$10.canPublish() && this.$13 && this.$13.canPublish()
+              !this.$10.canPublish() && p != null && p.canPublish()
                 ? (typeof n == "string"
-                    ? (u = this.$13.publish(t, n, a))
-                    : (u = this.$13.publishBinary(t, n, a)),
+                    ? (u = p.publish(t, n, a))
+                    : (u = p.publishBinary(t, n, a)),
                   (c = "lp"),
                   i != null &&
                     (u = u.then(function () {

@@ -5,7 +5,7 @@ __d(
     function e(e, t) {
       if (t === !0) return 1;
       if (t === !1) return 0;
-      var n = parseFloat(t);
+      var n = parseFloat(String(t));
       if (Number.isNaN(n))
         throw new (o("WebBloksErrors").WebBloksScriptError)(
           "Failed to convert value to `f32`",

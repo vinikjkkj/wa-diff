@@ -14,28 +14,15 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function (t) {
+      m = (function (t) {
         function r() {
           return t.apply(this, arguments) || this;
         }
         babelHelpers.inheritsLoose(r, t);
         var a = r.prototype;
         return (
-          (a.addAndPersist = function (n) {
-            if (this.get(n.id) != null) {
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Sticker Download: sticker pack already exists in collection",
-                  ])),
-              );
-              return;
-            }
-            (this.add(n), this.$StickerDownloadCollectionImpl$p_2());
-          }),
           (a.$StickerDownloadCollectionImpl$p_2 = function () {
-            var e = this;
+            var t = this;
             (!this.$StickerDownloadCollectionImpl$p_1 ||
               !o("WAWebIdleTaskRunner").IdleCallbackTasks.isInQueue(
                 this.$StickerDownloadCollectionImpl$p_1,
@@ -43,15 +30,15 @@ __d(
               (this.$StickerDownloadCollectionImpl$p_1 = o(
                 "WAWebIdleTaskRunner",
               ).IdleCallbackTasks.enqueue(function () {
-                e.$StickerDownloadCollectionImpl$p_3().catch(function (e) {
+                t.$StickerDownloadCollectionImpl$p_3().catch(function (t) {
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "StickerDownloadCollection save task failed",
                         ])),
                     )
-                    .sendLogs(String(e));
+                    .sendLogs(String(t));
                 });
               }));
           }),
@@ -61,8 +48,8 @@ __d(
                 return { id: e.id, timestamp: o("WATimeUtils").unixTime() };
               });
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[StickerDownload] saving to DB, count=",
                     "",
                   ])),
@@ -74,8 +61,8 @@ __d(
                   ).getStickerDownloadTable(),
                   n = yield t.count();
                 (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[StickerDownload] before save, DB count=",
                       "",
                     ])),
@@ -85,8 +72,8 @@ __d(
                   yield t.bulkCreateOrReplace(e),
                   (n = yield t.count()),
                   o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[StickerDownload] after save, DB count=",
                         "",
                       ])),
@@ -95,8 +82,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "StickerDownloadCollection attempt to save to database failed",
                       ])),
                   )
@@ -111,8 +98,8 @@ __d(
           r
         );
       })(o("WAWebStickerPackCollectionMd").StickerPackCollection),
-      _ = new p();
-    l.StickerDownloadCollection = _;
+      p = new m();
+    l.StickerDownloadCollection = p;
   },
   98,
 );

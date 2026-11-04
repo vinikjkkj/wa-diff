@@ -31,16 +31,26 @@ __d(
         : e === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
     }
     function u(e) {
-      var t = e.iAmAdmin,
-        n = e.iAmSuperAdmin,
-        r = e.memberShareGroupHistoryMode;
-      return t || n
+      var t = e.groupType,
+        n = e.iAmAdmin,
+        r = e.iAmSuperAdmin,
+        a = e.memberShareGroupHistoryMode;
+      return n || r
         ? !0
-        : r ===
-            o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
-              .ALL_MEMBER_SHARE;
+        : t !== o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
+            a ===
+              o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
+                .ALL_MEMBER_SHARE;
     }
-    function c(e, t, n) {
+    function c(e) {
+      return u({
+        groupType: o("WAWebGroupMetadataGetters").getGroupType(e),
+        iAmAdmin: e.participants.iAmAdmin(),
+        iAmSuperAdmin: e.participants.iAmSuperAdmin(),
+        memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
+      });
+    }
+    function d(e, t, n) {
       return e == null
         ? !1
         : e.some(function (e) {
@@ -51,33 +61,41 @@ __d(
             );
           });
     }
-    function d(e, t, n) {
-      return m(t) && f(e, n).eligible;
-    }
-    function m(e) {
-      return p(e);
+    function m(e, t, n) {
+      return p(t) && h(e, n).eligible;
     }
     function p(e) {
-      return !s(e.groupType) || e.hasCapi === !0
-        ? !1
-        : u({
-            iAmAdmin: e.iAmAdmin,
-            iAmSuperAdmin: e.iAmSuperAdmin,
-            memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
-          });
+      return _(e);
     }
     function _(e) {
+      return f(e).eligible;
+    }
+    function f(e) {
+      return s(e.groupType)
+        ? e.hasCapi === !0
+          ? { eligible: !1, reason: "group_type_ineligible" }
+          : u({
+                groupType: e.groupType,
+                iAmAdmin: e.iAmAdmin,
+                iAmSuperAdmin: e.iAmSuperAdmin,
+                memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
+              })
+            ? { eligible: !0 }
+            : { eligible: !1, reason: "sender_not_allowed" }
+        : { eligible: !1, reason: "group_type_ineligible" };
+    }
+    function g(e) {
       return o(
         "WAWebGroupHistoryGating",
       ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e);
     }
-    function f(e, t) {
+    function h(e, t) {
       var n;
       if (o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid(e.id))
         return { eligible: !1, reason: "bot" };
       var r = (n = e.joinTime) != null ? n : t;
       if (r == null) return { eligible: !1, reason: "no_join_time" };
-      if (g(e.groupHistorySentState))
+      if (y(e.groupHistorySentState))
         return { eligible: !1, reason: "already_received" };
       var a = o("WAWebABProps").getABPropConfigValue(
         "group_history_new_user_threshold_secs",
@@ -86,7 +104,7 @@ __d(
         ? { eligible: !1, reason: "window_expired" }
         : { eligible: !0 };
     }
-    function g(e) {
+    function y(e) {
       return (
         e ===
           o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
@@ -95,7 +113,7 @@ __d(
           o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState.NOTICE_SENT
       );
     }
-    function h(e, t, n) {
+    function C(e, t, n) {
       if (e == null || !e.startOfHistoryLoaded) return !1;
       var r = e.earliestShareableMsgT,
         a = e.latestShareableMsgT;
@@ -110,14 +128,14 @@ __d(
       }
       return !1;
     }
-    function y(e, t, n, r) {
+    function b(e, t, n, r) {
       var o;
-      return d(e, t, n) && !h(r, (o = e.joinTime) != null ? o : n, t.groupWid);
+      return m(e, t, n) && !C(r, (o = e.joinTime) != null ? o : n, t.groupWid);
     }
-    function C(e, t, n, r) {
-      return y(e, t, n, r) && _(t.groupWid);
+    function v(e, t, n, r) {
+      return b(e, t, n, r) && g(t.groupWid);
     }
-    function b(t) {
+    function S(t) {
       if (
         !o(
           "WAWebGroupHistoryGating",
@@ -126,22 +144,24 @@ __d(
         return [];
       var n = e(t);
       return t.participants.getModelsArray().filter(function (e) {
-        return d(e, n);
+        return m(e, n);
       });
     }
     ((l.groupContextFromMetadata = e),
       (l.canCurrentUserShareHistory = u),
-      (l.hasResolvableNonSelfRecipient = c),
-      (l.isEligibleForPostJoinHistory = d),
-      (l.isPostJoinHistoryGroupEligible = m),
-      (l.isPostJoinHistoryGroupStructurallyEligible = p),
-      (l.isPostJoinHistoryExperimentArmEnabled = _),
-      (l.getParticipantPostJoinEligibility = f),
-      (l.isAlreadyReceivedState = g),
-      (l.hasNoShareableHistoryBeforeJoin = h),
-      (l.canSendPostJoinHistoryToParticipant = y),
-      (l.shouldOfferPostJoinHistoryToParticipant = C),
-      (l.getEligiblePostJoinParticipants = b));
+      (l.canCurrentUserShareHistoryInGroup = c),
+      (l.hasResolvableNonSelfRecipient = d),
+      (l.isEligibleForPostJoinHistory = m),
+      (l.isPostJoinHistoryGroupEligible = p),
+      (l.isPostJoinHistoryGroupStructurallyEligible = _),
+      (l.getPostJoinHistoryGroupEligibility = f),
+      (l.isPostJoinHistoryExperimentArmEnabled = g),
+      (l.getParticipantPostJoinEligibility = h),
+      (l.isAlreadyReceivedState = y),
+      (l.hasNoShareableHistoryBeforeJoin = C),
+      (l.canSendPostJoinHistoryToParticipant = b),
+      (l.shouldOfferPostJoinHistoryToParticipant = v),
+      (l.getEligiblePostJoinParticipants = S));
   },
   98,
 );

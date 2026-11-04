@@ -48,14 +48,6 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
-          (i.getMessageKey = function (t) {
-            var e = t[1],
-              n = t[2],
-              r = t[3],
-              a = t[4];
-            if (!(!e || !n || !r || !a))
-              return o("WAWebSyncdIndexUtils").syncKeyToMsgKey(e, n, r, a);
-          }),
           (i.getVersion = function () {
             return 2;
           }),

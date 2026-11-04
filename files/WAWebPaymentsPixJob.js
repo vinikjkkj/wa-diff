@@ -14,13 +14,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h;
-    function y(e) {
-      return C.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y;
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.customPaymentMethodUpdate,
             r = n === void 0 ? "false" : n,
             a = t.pixDisplayName,
@@ -63,7 +63,7 @@ __d(
                     ])),
                 )
                 .sendLogs("payment-brazil"),
-                yield L(m, {
+                yield E(m, {
                   referral: c,
                   referralContext: r === "true" ? "update" : "add",
                 }));
@@ -97,15 +97,15 @@ __d(
           }
           return m;
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = { accountCredentialId: e };
           o("WALogger")
             .LOG(
@@ -147,7 +147,7 @@ __d(
                 )
                 .sendLogs("payment-brazil");
               try {
-                yield S();
+                yield R();
               } catch (e) {
                 var a = e instanceof Error ? e.message : String(e);
                 o("WALogger")
@@ -185,15 +185,15 @@ __d(
           }
           return n;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
     function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o(
             "WAWebCustomPaymentMethodsSyncLogger",
           ).logCustomPaymentMethodsSyncEvent({
@@ -208,7 +208,7 @@ __d(
               "WAWebCustomPaymentMethodsSync",
             ).getCustomPaymentMethodSetMutation(e);
             yield o("WAWebSyncdCoreApi").lockForSync([], [t], function () {
-              return (h || (h = n("Promise"))).resolve();
+              return (y || (y = n("Promise"))).resolve();
             });
           } catch (e) {
             var a;
@@ -244,15 +244,15 @@ __d(
               { customPaymentMethods: [] },
             ));
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a, i, l, s;
           o(
             "WAWebCustomPaymentMethodsSyncLogger",
@@ -320,49 +320,57 @@ __d(
             var _ = yield r(
               "WAWebCustomPaymentMethodsSync",
             ).getCustomPaymentMethodSetMutation(p);
-            yield o("WAWebSyncdCoreApi").lockForSync([], [_], function () {
-              return (h || (h = n("Promise"))).resolve();
-            });
+            (yield o("WAWebSyncdCoreApi").lockForSync([], [_], function () {
+              return (y || (y = n("Promise"))).resolve();
+            }),
+              o("WALogger")
+                .LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "Synced pix mutation",
+                    ])),
+                )
+                .sendLogs("payment-brazil"),
+              o(
+                "WAWebCustomPaymentMethodsSyncLogger",
+              ).logCustomPaymentMethodsSyncEvent({
+                actionTarget: o("WAWebCustomPaymentMethodsSyncLogger")
+                  .SYNC_ACTION_TARGETS.SEND_STORE,
+                attribution: t,
+                status: o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                  .SUCCESS,
+              }));
           } catch (e) {
             var f;
-            throw (
-              (f = o(
-                "WAWebCustomPaymentMethodsSyncLogger",
-              )).logCustomPaymentMethodsSyncEvent({
-                actionTarget: f.SYNC_ACTION_TARGETS.SEND_STORE,
-                attribution: t,
-                errorCode: f.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
-                status: f.SYNC_STATUS.FAILURE,
-              }),
-              e
-            );
-          }
-          (o("WALogger")
-            .LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "Synced pix mutation",
-                ])),
-            )
-            .sendLogs("payment-brazil"),
-            o(
+            (f = o(
               "WAWebCustomPaymentMethodsSyncLogger",
-            ).logCustomPaymentMethodsSyncEvent({
-              actionTarget: o("WAWebCustomPaymentMethodsSyncLogger")
-                .SYNC_ACTION_TARGETS.SEND_STORE,
+            )).logCustomPaymentMethodsSyncEvent({
+              actionTarget: f.SYNC_ACTION_TARGETS.SEND_STORE,
               attribution: t,
-              status: o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
-                .SUCCESS,
-            }),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "setCustomPaymentMethods",
-              { customPaymentMethods: p.customPaymentMethods },
-            ));
+              errorCode: f.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+              status: f.SYNC_STATUS.FAILURE,
+            });
+            var C = e instanceof Error ? e.message : String(e);
+            o("WALogger")
+              .ERROR(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "Pix Key saved but its sync mutation failed: ",
+                    "",
+                  ])),
+                C,
+              )
+              .sendLogs("payment-brazil");
+          }
+          o("WAWebBackendApi").frontendFireAndForget(
+            "setCustomPaymentMethods",
+            { customPaymentMethods: p.customPaymentMethods },
+          );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.addOrUpdatePix = y), (l.removePix = b));
+    ((l.addOrUpdatePix = C), (l.removePix = v));
   },
   98,
 );

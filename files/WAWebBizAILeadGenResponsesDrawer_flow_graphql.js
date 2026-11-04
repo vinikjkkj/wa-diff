@@ -3,125 +3,139 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = (function () {
-      var e = {
-        alias: null,
-        args: null,
-        kind: "ScalarField",
-        name: "id",
-        storageKey: null,
-      };
-      return {
-        argumentDefinitions: [],
-        kind: "Fragment",
-        metadata: null,
-        name: "WAWebBizAILeadGenResponsesDrawer_flow",
-        selections: [
-          e,
-          {
-            alias: null,
-            args: null,
-            kind: "ScalarField",
-            name: "moment_type",
-            storageKey: null,
-          },
-          {
-            alias: null,
-            args: null,
-            kind: "ScalarField",
-            name: "num_of_lead_data",
-            storageKey: null,
-          },
-          {
-            alias: null,
-            args: null,
-            concreteType:
-              "XFBMetaAIBusinessAgentWhatsAppLeadGenFlowLeadDataConnection",
-            kind: "LinkedField",
-            name: "lead_data",
-            plural: !1,
-            selections: [
-              {
-                alias: null,
-                args: null,
-                concreteType:
-                  "XFBMetaAIBusinessAgentWhatsAppLeadGenFlowLeadDataEdge",
-                kind: "LinkedField",
-                name: "edges",
-                plural: !0,
-                selections: [
-                  {
-                    alias: null,
-                    args: null,
-                    concreteType: "XFBMetaAIBusinessAgentWhatsAppLeadGenData",
-                    kind: "LinkedField",
-                    name: "node",
-                    plural: !1,
-                    selections: [
-                      e,
-                      {
-                        alias: null,
-                        args: null,
-                        kind: "ScalarField",
-                        name: "has_seen",
-                        storageKey: null,
-                      },
-                      {
-                        alias: null,
-                        args: null,
-                        concreteType: "XFBMaibaAiBizAgentWAConsumerUIDOutput",
-                        kind: "LinkedField",
-                        name: "consumer_uid",
-                        plural: !1,
-                        selections: [
-                          {
-                            alias: null,
-                            args: null,
-                            kind: "ScalarField",
-                            name: "pn",
-                            storageKey: null,
-                          },
-                          {
-                            alias: null,
-                            args: null,
-                            kind: "ScalarField",
-                            name: "lid",
-                            storageKey: null,
-                          },
-                        ],
-                        storageKey: null,
-                      },
-                      {
-                        alias: null,
-                        args: null,
-                        kind: "ScalarField",
-                        name: "creation_time",
-                        storageKey: null,
-                      },
-                      {
-                        args: null,
-                        kind: "FragmentSpread",
-                        name: "WAWebBizAILeadGenResponseDetailDrawer_response",
-                      },
-                    ],
-                    storageKey: null,
-                  },
-                ],
-                storageKey: null,
-              },
-            ],
-            storageKey: null,
-          },
-          {
-            args: null,
-            kind: "FragmentSpread",
-            name: "WAWebBizAILeadGenEditFieldsModal_flow",
-          },
-        ],
-        type: "XFBMetaAIBusinessAgentWhatsAppLeadGenFlow",
-        abstractKey: null,
-      };
-    })();
+    var e = {
+      argumentDefinitions: [],
+      kind: "Fragment",
+      metadata: null,
+      name: "WAWebBizAILeadGenResponsesDrawer_flow",
+      selections: [
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "instruction_id",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "moment_type",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          concreteType: "XFBMetaAIBizAgentWALeadGenFlowLeads",
+          kind: "LinkedField",
+          name: "leads",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "num_of_lead_data",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType:
+                "XFBMetaAIBizAgentWALeadGenFlowLeadsLeadDataConnection",
+              kind: "LinkedField",
+              name: "lead_data",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType:
+                    "XFBMetaAIBizAgentWALeadGenFlowLeadsLeadDataEdge",
+                  kind: "LinkedField",
+                  name: "edges",
+                  plural: !0,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBMetaAIBusinessAgentWhatsAppLeadGenData",
+                      kind: "LinkedField",
+                      name: "node",
+                      plural: !1,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "id",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "has_seen",
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: "XFBMaibaAiBizAgentWAConsumerUIDOutput",
+                          kind: "LinkedField",
+                          name: "consumer_uid",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "pn",
+                              storageKey: null,
+                            },
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "lid",
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "creation_time",
+                          storageKey: null,
+                        },
+                        {
+                          args: null,
+                          kind: "FragmentSpread",
+                          name: "WAWebBizAILeadGenResponseDetailDrawer_response",
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        {
+          args: null,
+          kind: "FragmentSpread",
+          name: "WAWebBizAILeadGenEditFieldsModal_flow",
+        },
+      ],
+      type: "XFBBizAIKnowledgeWALeadGenFlowData",
+      abstractKey: null,
+    };
     a.exports = e;
   },
   null,

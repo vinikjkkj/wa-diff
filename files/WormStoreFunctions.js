@@ -1,6 +1,6 @@
 __d(
   "WormStoreFunctions",
-  ["WormPromise", "WormRangeIterator", "err"],
+  ["WormPromise", "WormRangeIterator", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n, r) {
@@ -66,36 +66,44 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.read = async function (t, n) {
-          var e = this.order === "asc",
-            a;
-          t == null
-            ? (a = this.boundaries)
-            : e
-              ? (a = babelHelpers.extends({}, this.upperBoundary, {
-                  greaterThan: t,
-                }))
-              : (a = babelHelpers.extends({}, this.lowerBoundary, {
-                  lessThan: t,
-                }));
-          var i = await this.query(a, {
-              filter: this.filter,
-              limit: n + 1,
-              order: this.order,
-            }),
-            l,
-            s = null;
-          if (i.length <= n) l = i;
-          else if (i.length === n + 1) ((l = i.slice(0, n)), (s = i[n]));
-          else throw r("err")("unreachable");
-          var u = o("WormRangeIterator").makeCursorInfoFromList(
-            l,
-            this.storeSchema.indexes[this.indexName].fields,
-            s != null,
-            t != null,
+        (t.read = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = this.order === "asc",
+                a;
+              e == null
+                ? (a = this.boundaries)
+                : n
+                  ? (a = babelHelpers.extends({}, this.upperBoundary, {
+                      greaterThan: e,
+                    }))
+                  : (a = babelHelpers.extends({}, this.lowerBoundary, {
+                      lessThan: e,
+                    }));
+              var i = yield this.query(a, {
+                  filter: this.filter,
+                  limit: t + 1,
+                  order: this.order,
+                }),
+                l,
+                s = null;
+              if (i.length <= t) l = i;
+              else if (i.length === t + 1) ((l = i.slice(0, t)), (s = i[t]));
+              else throw r("err")("unreachable");
+              var u = o("WormRangeIterator").makeCursorInfoFromList(
+                l,
+                this.storeSchema.indexes[this.indexName].fields,
+                s != null,
+                e != null,
+              );
+              return { cursorInfo: u, data: l };
+            },
           );
-          return { cursorInfo: u, data: l };
-        }),
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();

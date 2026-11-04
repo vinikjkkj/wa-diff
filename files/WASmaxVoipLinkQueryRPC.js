@@ -260,8 +260,6 @@ __d(
       return i;
     }
     ((l.sendLinkQueryRPC = e),
-      (l.parseLinkQueryResponseLinkQueryAckLinkQueryGuest = u),
-      (l.parseLinkQueryResponseLinkQueryAckLinkQueryWaitingRoom = c),
       (l.parseLinkQueryResponseLinkQueryAck = d),
       (l.parseLinkQueryResponseLinkQueryNack = m),
       (l.makeLinkQueryRequest = p));

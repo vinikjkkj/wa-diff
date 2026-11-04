@@ -65,9 +65,10 @@ __d(
                   .triggerSetSocketState(
                     o("WAWebSocketConstants").SOCKET_STATE.CONNECTED,
                   ),
-                o("WAWebBackendEventBusWorkerCompatible")
-                  .getBackendEventBus()
-                  .triggerOpenSocketStream());
+                c.openStreamAfterLogin !== !0 &&
+                  o("WAWebBackendEventBusWorkerCompatible")
+                    .getBackendEventBus()
+                    .triggerOpenSocketStream());
             },
             onDisconnect: function () {
               o("WAWebBackendEventBusWorkerCompatible")

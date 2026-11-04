@@ -24,22 +24,20 @@ __d(
       u = 2e5,
       c = 10,
       d = 1e8;
-    function m(e, t, n, r) {
-      var o = e.bytes + s,
-        a = n >= o,
-        i = a ? { bytes: n, clock: t } : e,
-        l = t.perfMs - e.clock.perfMs,
-        u = n - e.bytes,
-        c = null;
+    function m(e, t, n) {
+      var r = e.bytes + s,
+        o = n >= r ? { bytes: n, clock: t } : e,
+        a = t.perfMs - e.clock.perfMs,
+        i = n - e.bytes,
+        l = null;
       return (
-        (!r.sampleOnlyAfterByteThreshold || a) &&
-          !f(u, l) &&
-          (c = {
-            bandwidthSample: { bytes: u, timeInMs: l },
+        f(i, a) ||
+          (l = {
+            bandwidthSample: { bytes: i, timeInMs: a },
             clock: t,
             navigationTimingSample: void 0,
           }),
-        { networkDiagnosticsSample: c, nextBandwidthSamplingState: i }
+        { networkDiagnosticsSample: l, nextBandwidthSamplingState: o }
       );
     }
     function p(e, t, n, r, o) {

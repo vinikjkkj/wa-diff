@@ -11,13 +11,8 @@ __d(
         "INVALID_WWW_PREFIX",
         "INVALID_WORD",
       ]),
-      l = 3,
-      s = 35,
-      u = 4;
-    ((i.UsernameValidationErrorType = e),
-      (i.USERNAME_MIN_LENGTH = l),
-      (i.USERNAME_MAX_LENGTH = s),
-      (i.USERNAME_KEY_LENGTH = u));
+      l = 4;
+    ((i.UsernameValidationErrorType = e), (i.USERNAME_KEY_LENGTH = l));
   },
   66,
 );

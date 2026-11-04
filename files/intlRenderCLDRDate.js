@@ -60,7 +60,7 @@ __d(
         );
       return t;
     }
-    i.exports = s;
+    l.default = s;
   },
-  34,
+  98,
 );

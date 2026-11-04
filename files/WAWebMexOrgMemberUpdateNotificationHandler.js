@@ -6,6 +6,7 @@ __d(
     "WAWebDBOrgMemberDelta",
     "WAWebMexOrgMemberUpdateNotificationHandlerQuery.graphql",
     "WAWebOrgGatingUtils",
+    "WAWebOrgMemberDisplayName",
     "WAWebSchemaOrg",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -146,7 +147,10 @@ __d(
       var r, a;
       return {
         lid: t,
-        memberName: (r = n.display_name) != null ? r : "",
+        memberName: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+          (r = n.display_name) != null ? r : "",
+          n.display_last_name,
+        ),
         memberTag: (a = n.member_tag) != null ? a : "",
         orgId: e,
         role:

@@ -141,7 +141,7 @@ __d(
         "--border-unfocused": "#E0E2E4",
         "--bottom-sheet-background-corner-radius": "24px",
         "--bottom-sheet-corner-radius": "24px",
-        "--bottom-sheet-handle": "#D1D3D5",
+        "--bottom-sheet-handle": "#818487",
         "--button-blur-background-adaptive": "rgba(243, 244, 245, 0.7)",
         "--button-blur-background-adaptive-blurred": "rgba(243, 244, 245, 0.7)",
         "--button-blur-background-dark": "rgba(31, 31, 32, 0.7)",
@@ -2131,7 +2131,10 @@ __d(
         },
         "--bottom-sheet-background-corner-radius": "24px",
         "--bottom-sheet-corner-radius": "24px",
-        "--bottom-sheet-handle": "#D1D3D5",
+        "--bottom-sheet-handle": {
+          "@media (prefers-color-scheme: dark)": "#D1D3D5",
+          default: "#818487",
+        },
         "--button-blur-background-adaptive": {
           "@media (prefers-color-scheme: dark)": "rgba(31, 31, 32, 0.7)",
           default: "rgba(243, 244, 245, 0.7)",
@@ -3649,9 +3652,9 @@ __d(
           default: "#FFFFFF",
         },
       },
-      c = { xjn43rf: "x1ymht3a xjn43rf", $$css: !0 },
+      c = { xjn43rf: "x1x5dje1 xjn43rf", $$css: !0 },
       d = { xjn43rf: "x2mb9w4 xjn43rf", $$css: !0 },
-      m = { xjn43rf: "xxq289l xjn43rf", $$css: !0 },
+      m = { xjn43rf: "x1i9zgzf xjn43rf", $$css: !0 },
       p = { dark: s, light: e };
     ((l.XmdsNeutralGrayThemeWebLight = c),
       (l.XmdsNeutralGrayThemeWebDark = d),

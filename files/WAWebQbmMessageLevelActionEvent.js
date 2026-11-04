@@ -6,6 +6,7 @@ __d(
     "WAWebChatThreadLogging",
     "WAWebFrontendContactGetters",
     "WAWebInAppSignupInfoStore",
+    "WAWebP2PPillsThreadOriginStore",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageLevelActionWamEvent",
     "WAWebWamEnumContactType",
@@ -60,21 +61,25 @@ __d(
                           o("WAWebChatThreadLogging").getChatThreadIDHMAC(
                             r.id.toString(),
                           ),
+                          o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                            r.accountLid,
+                          ),
                         ]),
                         p = m[0],
                         _ = m[1],
-                        f = t.chatsFolderType,
-                        g = t.deltaTime,
-                        h = t.hsmTagStr,
-                        y = t.messageTypeStr,
-                        C = t.qbmFlag,
-                        b = babelHelpers.objectWithoutPropertiesLoose(t, e);
+                        f = m[2],
+                        g = t.chatsFolderType,
+                        h = t.deltaTime,
+                        y = t.hsmTagStr,
+                        C = t.messageTypeStr,
+                        b = t.qbmFlag,
+                        v = babelHelpers.objectWithoutPropertiesLoose(t, e);
                       new (o(
                         "WAWebQbmMessageLevelActionWamEvent",
                       ).QbmMessageLevelActionWamEvent)(
-                        babelHelpers.extends({}, b, {
+                        babelHelpers.extends({}, v, f, {
                           contactType:
-                            (u = b.contactType) != null
+                            (u = v.contactType) != null
                               ? u
                               : o("WAWebWamEnumContactType").CONTACT_TYPE
                                   .CONSUMER,

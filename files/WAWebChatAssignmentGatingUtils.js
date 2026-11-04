@@ -41,7 +41,7 @@ __d(
       (l.chatAssignmentMaxNuxImpressions = s),
       (l.shouldReorderChatOnAssignment = u),
       (l.isBizAIToolsSettingsEnabled = c),
-      (l.isMultiDeviceMessageAttributionEnabled = d));
+      (l.isMessageAttributionEnabled = d));
   },
   98,
 );

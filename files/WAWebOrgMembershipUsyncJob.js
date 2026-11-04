@@ -5,6 +5,7 @@ __d(
     "WAWebDBOrg",
     "WAWebMexGetTypename",
     "WAWebMexUsync",
+    "WAWebOrgMemberDisplayName",
     "WAWebSchemaOrg",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -183,6 +184,7 @@ __d(
           : {
               memberships: e.orgs.map(function (e) {
                 return {
+                  display_last_name: e.display_last_name,
                   display_name: e.display_name,
                   member_tag: e.member_tag,
                   org_id: e.org_id,
@@ -201,11 +203,15 @@ __d(
       var t = e.map(function (e) {
         var t,
           n,
-          r = o("WAWebSchemaOrg").OrgMemberRole.cast(e.role);
+          r = o("WAWebSchemaOrg").OrgMemberRole.cast(e.role),
+          a = o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+            (t = e.display_name) != null ? t : "",
+            e.display_last_name,
+          );
         return e.org_id == null || e.org_id === "" || r == null
           ? null
           : {
-              memberName: (t = e.display_name) != null ? t : "",
+              memberName: a,
               memberTag: (n = e.member_tag) != null ? n : "",
               orgId: e.org_id,
               role: r,

@@ -40,7 +40,7 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n = this;
-                if (!o("WAWebMiscGatingUtils").isRecentStickersMDEnabled())
+                if (!o("WAWebMiscGatingUtils").isRecentStickersEnabled())
                   return (
                     o("WALogger").WARN(
                       e ||

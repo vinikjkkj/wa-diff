@@ -87,6 +87,7 @@ __d(
     "WAWebSchemaOrphanRevoke",
     "WAWebSchemaOrphanTcToken",
     "WAWebSchemaOutContact",
+    "WAWebSchemaP2PPillsThreadOrigin",
     "WAWebSchemaParticipant",
     "WAWebSchemaPeerMessage",
     "WAWebSchemaPendingBusinessBroadcast",
@@ -263,6 +264,7 @@ __d(
             o("WAWebSchemaSharableEventInvitee").addTable(),
             o("WAWebSchemaSharableEventInviteLinkToken").addTable(),
             o("WAWebSchemaSharableEventInviteMessage").addTable(),
+            o("WAWebSchemaP2PPillsThreadOrigin").addTable(),
             o("WAWebModelStorageUtils")
               .getStorage()
               .initialize()

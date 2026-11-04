@@ -321,7 +321,7 @@ __d(
               var n = T.current,
                 r = e.headers;
               if (n && r) {
-                var a = parseInt(r.get("x-fb-video-replica"), 10);
+                var a = parseInt(String(r.get("x-fb-video-replica")), 10);
                 L.logVPLEvent({
                   eventType: "replica_switch",
                   logDataOverrides: {

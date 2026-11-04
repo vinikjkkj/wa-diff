@@ -346,8 +346,10 @@ __d(
             var e = this,
               n =
                 parseInt(
-                  r("WAWebUserPrefsStore").getUser(
-                    o("WAWebUserPrefsKeys").KEYS.TOS_STATE_FETCH_ITERATION,
+                  String(
+                    r("WAWebUserPrefsStore").getUser(
+                      o("WAWebUserPrefsKeys").KEYS.TOS_STATE_FETCH_ITERATION,
+                    ),
                   ),
                   10,
                 ) || 0;

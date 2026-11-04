@@ -55,15 +55,17 @@ __d(
                 ? e
                 : ["(unknown)"],
             a = o.join().replaceAll(":", "<colon>"),
-            i = "wbloks_script_error";
-          t instanceof Error
-            ? r("FBLogger")(i)
-                .addMetadata("WEBBLOKS", "CLIENT_ERROR_STACK", a)
-                .catching(t)
-                .mustfix(t.message)
-            : r("FBLogger")(i)
-                .addMetadata("WEBBLOKS", "CLIENT_ERROR_STACK", a)
-                .mustfix(t.message, t);
+            i = "wbloks_script_error",
+            l = r("FBLogger")(i).addMetadata(
+              "WEBBLOKS",
+              "CLIENT_ERROR_STACK",
+              a,
+            ),
+            s = t.asyncActionAppId;
+          (s != null && (l = l.addMetadata("WEBBLOKS", "APP_ID", s)),
+            t instanceof Error
+              ? l.catching(t).mustfix(t.message)
+              : l.mustfix(t.message, t));
         }),
         e
       );

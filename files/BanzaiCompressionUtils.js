@@ -13,34 +13,62 @@ __d(
           return !1;
         }
         return !0;
-      }),
-      u = {
-        compressWad: function (r, o) {
-          if (r.needs_compression !== !0) {
-            delete r.needs_compression;
-            return;
-          }
-          if (o === "deflate") {
-            u.compressWad(r, "snappy");
-            return;
-          }
-          var t = (e || (e = n("performanceNow")))(),
-            a = JSON.stringify(r.posts),
-            i;
-          switch (o) {
-            case "snappy":
-              i = n("SnappyCompressUtil").compressStringToSnappyBinary(a);
-              break;
-            case "snappy_base64":
-              i = n("SnappyCompressUtil").compressStringToSnappy(a);
-              break;
-            default:
-              break;
-          }
-          (i != null && i.length < a.length
-            ? ((r.posts = i),
+      });
+    function u(t, r) {
+      if (t.needs_compression !== !0) {
+        delete t.needs_compression;
+        return;
+      }
+      if (r === "deflate") {
+        u(t, "snappy");
+        return;
+      }
+      var o = (e || (e = n("performanceNow")))(),
+        a = JSON.stringify(t.posts),
+        i;
+      switch (r) {
+        case "snappy":
+          i = n("SnappyCompressUtil").compressStringToSnappyBinary(a);
+          break;
+        case "snappy_base64":
+          i = n("SnappyCompressUtil").compressStringToSnappy(a);
+          break;
+        default:
+          break;
+      }
+      (i != null && i.length < a.length
+        ? ((t.posts = i),
+          (t.compression = r),
+          (t.snappy_ms = Math.ceil((e || (e = n("performanceNow")))() - o)),
+          t.snappy_ms < 0 &&
+            n("FBLogger")("BanzaiCompressionUtils").warn(
+              "Expected positive snappy_ms but got %s",
+              t.snappy_ms,
+            ))
+        : (t.compression = ""),
+        delete t.needs_compression);
+    }
+    function c(r, o) {
+      if (o !== "deflate")
+        return (u(r, "snappy"), (l || (l = n("Promise"))).resolve());
+      if (!s()) return c(r, "snappy");
+      var a = (e || (e = n("performanceNow")))(),
+        i = JSON.stringify(r.posts),
+        d = new Response(i).body;
+      if (!d)
+        return (
+          (r.compression = ""),
+          delete r.needs_compression,
+          (l || (l = n("Promise"))).resolve()
+        );
+      var m = d.pipeThrough(new t.CompressionStream("deflate"));
+      return new Response(m)
+        .arrayBuffer()
+        .then(function (t) {
+          (t.byteLength < i.length
+            ? ((r.posts = new Uint8Array(t)),
               (r.compression = o),
-              (r.snappy_ms = Math.ceil((e || (e = n("performanceNow")))() - t)),
+              (r.snappy_ms = Math.ceil((e || (e = n("performanceNow")))() - a)),
               r.snappy_ms < 0 &&
                 n("FBLogger")("BanzaiCompressionUtils").warn(
                   "Expected positive snappy_ms but got %s",
@@ -48,59 +76,24 @@ __d(
                 ))
             : (r.compression = ""),
             delete r.needs_compression);
-        },
-        compressWadAsync: function (o, a) {
-          if (a !== "deflate")
-            return (
-              u.compressWad(o, "snappy"),
-              (l || (l = n("Promise"))).resolve()
-            );
-          if (!s()) return u.compressWadAsync(o, "snappy");
-          var r = (e || (e = n("performanceNow")))(),
-            i = JSON.stringify(o.posts),
-            c = new Response(i).body;
-          if (!c)
-            return (
-              (o.compression = ""),
-              delete o.needs_compression,
-              (l || (l = n("Promise"))).resolve()
-            );
-          var d = c.pipeThrough(new t.CompressionStream("deflate"));
-          return new Response(d)
-            .arrayBuffer()
-            .then(function (t) {
-              (t.byteLength < i.length
-                ? ((o.posts = new Uint8Array(t)),
-                  (o.compression = a),
-                  (o.snappy_ms = Math.ceil(
-                    (e || (e = n("performanceNow")))() - r,
-                  )),
-                  o.snappy_ms < 0 &&
-                    n("FBLogger")("BanzaiCompressionUtils").warn(
-                      "Expected positive snappy_ms but got %s",
-                      o.snappy_ms,
-                    ))
-                : (o.compression = ""),
-                delete o.needs_compression);
-            })
-            .catch(function () {
-              ((o.compression = ""), delete o.needs_compression);
-            });
-        },
-        outOfBandsPosts: function (t) {
-          var e = 0,
-            n = {};
-          for (var r of t) {
-            var o = r.compression === "snappy" || r.compression === "deflate";
-            if (o) {
-              var a = new Blob([r.posts], { type: "application/octet-stream" });
-              ((r.posts = String(e)), (n["post_" + String(e)] = a), e++);
-            }
-          }
-          return n;
-        },
-      };
-    a.exports = u;
+        })
+        .catch(function () {
+          ((r.compression = ""), delete r.needs_compression);
+        });
+    }
+    function d(e) {
+      var t = 0,
+        n = {};
+      for (var r of e) {
+        var o = r.compression === "snappy" || r.compression === "deflate";
+        if (o) {
+          var a = new Blob([r.posts], { type: "application/octet-stream" });
+          ((r.posts = String(t)), (n["post_" + String(t)] = a), t++);
+        }
+      }
+      return n;
+    }
+    ((i.compressWad = u), (i.compressWadAsync = c), (i.outOfBandsPosts = d));
   },
-  null,
+  66,
 );

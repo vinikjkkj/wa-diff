@@ -45,6 +45,7 @@ __d(
     "WAWebEventsWaitForMain",
     "WAWebFeatureDetectionSwSupport",
     "WAWebFetchAndUpdateBlocklistJob",
+    "WAWebFtsBackgroundPauseBridge",
     "WAWebFtsClient",
     "WAWebGetMessageCache",
     "WAWebGetReachoutTimelockJob",
@@ -86,6 +87,7 @@ __d(
     "WAWebOfflineResumeMsgProcessReporter",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebOfflineResumeUtils",
+    "WAWebOfflineSyncQplSession",
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
     "WAWebPrimaryFeatures",
@@ -162,25 +164,26 @@ __d(
       D,
       x = !1;
     function $() {
-      (o("WAWebBackendEventBus").BackendEventBus.onStorageInitializationError(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (!o("WAWebUserPrefsMultiDevice").isRegistered() &&
-            o("WAWebLogoutReason").getPrevLogoutReasonCode() ===
-              o("WAWebLogoutReasonConstants").LOGOUT_REASON_CODE
-                .CLIENT_FATAL) ||
-            (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "storage initialization error, logging out",
-                ])),
-            ),
-            yield o("WAWebSocketModel").Socket.clearCredentialsAndStoredData(
-              o("WAWebLogoutReasonConstants").LogoutReason
-                .WebFailStorageInitialization,
-            ),
-            o("WAWebStartBackendLoginListeners").handleStorageInitError());
-        }),
-      ),
+      (r("WAWebSyncBootstrap").setupHistorySyncJobQuotaOverride(),
+        o("WAWebBackendEventBus").BackendEventBus.onStorageInitializationError(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            (!o("WAWebUserPrefsMultiDevice").isRegistered() &&
+              o("WAWebLogoutReason").getPrevLogoutReasonCode() ===
+                o("WAWebLogoutReasonConstants").LOGOUT_REASON_CODE
+                  .CLIENT_FATAL) ||
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "storage initialization error, logging out",
+                  ])),
+              ),
+              yield o("WAWebSocketModel").Socket.clearCredentialsAndStoredData(
+                o("WAWebLogoutReasonConstants").LogoutReason
+                  .WebFailStorageInitialization,
+              ),
+              o("WAWebStartBackendLoginListeners").handleStorageInitError());
+          }),
+        ),
         o("WAWebBackendEventBus").BackendEventBus.onOpenSocketStream(
           function () {
             (o("WAWebUserPrefsGeneral").incrementLoginCounter(),
@@ -617,30 +620,31 @@ __d(
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, a, i;
+          var t, a;
           (e === void 0 && (e = { passive: !1, pull: !0 }),
             o("WAWebPageLoadLogging").startPageLoadQplMeasure("startWebComms"));
-          var l = o("WAWebCommsConfig").getCommsConfig(e);
+          var i = o("WAWebCommsConfig").getCommsConfig(e);
           (o("WAWebPageLoadLogging").startPageLoadQplMeasure("waitForMain"),
             yield o("WAWebEventsWaitForMain").waitForMain(),
             o("WAWebPageLoadLogging").endPageLoadQplMeasure("waitForMain"));
-          var s = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
+          var l = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
           o("WAWebCommsWorkerProxy").setStartCommsArgs({
             passive: (t = e) == null ? void 0 : t.passive,
             pull: (a = e) == null ? void 0 : a.pull,
           });
-          var u = o("WAWebCommsGating").isCommsInWorker();
+          var s = o("WAWebCommsGating").isCommsInWorker(),
+            u = o("WAWebABPropsCache").getABPropExpoKey(
+              "waweb_comms_in_backend_worker",
+            );
           if (
             (o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
-              comms_in_worker: u,
-              comms_in_worker_expo_key:
-                (i = o("WAWebABPropsCache").getABPropExpoKey(
-                  "waweb_comms_in_backend_worker",
-                )) != null
-                  ? i
-                  : void 0,
+              comms_in_worker: s,
+              comms_in_worker_expo_key: u != null ? u : void 0,
             }),
-            u)
+            o(
+              "WAWebOfflineSyncQplSession",
+            ).OfflineSyncQpl.setCommsInWorkerExpoKey(u),
+            s)
           ) {
             o("WAWebPageLoadLogging").startPageLoadQplMeasure(
               "getBackendWorkerBridge",
@@ -658,13 +662,13 @@ __d(
           }
           (o("WAComms").startComms(
             r("WAWebCommsHandleStanza"),
-            l,
+            i,
             function (e) {
               return (D || (D = n("Promise"))).resolve(o("WAGzip").inflate(e));
             },
-            s,
+            l,
           ),
-            s &&
+            l &&
               (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                 "waitForConnection",
               ),
@@ -807,6 +811,7 @@ __d(
                   e,
                 );
               }),
+            o("WAWebFtsBackgroundPauseBridge").setupFtsBackgroundPause(),
             o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
               ? o("WAWebNewsletterRestoreMetadataWithLoadingStage")
                   .restoreNewsletterMetadataWithLoadingStage()

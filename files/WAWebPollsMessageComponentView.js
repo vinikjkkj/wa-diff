@@ -14,6 +14,7 @@ __d(
     "WAWebMessageBubbleHiddenText.react",
     "WAWebMessageMeta.react",
     "WAWebMessageTextBubble.react",
+    "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
@@ -304,7 +305,11 @@ __d(
       n[3] === Symbol.for("react.memo_cache_sentinel")
         ? ((l = [o("WAWebMsgGetters").getPollVotesSnapshot]), (n[3] = l))
         : (l = n[3]);
-      var s = o("useWAWebMsgValues").useMsgValues(a, l),
+      var s = o("useWAWebMsgValues").useMsgValues(
+          a,
+          o("WAWebMsgCasts").castToPollResultSnapshotMsg,
+          l,
+        ),
         u = s[0],
         d;
       n[4] === Symbol.for("react.memo_cache_sentinel")

@@ -49,21 +49,6 @@ __d(
           (n.pdfPreviewClose = function () {
             (this.$4("pdf_preview_close"), this.$3(105));
           }),
-          (n.pdfFetchStart = function () {
-            this.$4("pdf_fetch_start");
-          }),
-          (n.pdfFetchEnd = function () {
-            this.$4("pdf_fetch_end");
-          }),
-          (n.preloadStart = function () {
-            this.$4("preload_start");
-          }),
-          (n.preloadEnd = function () {
-            this.$4("preload_end");
-          }),
-          (n.preloadError = function () {
-            (this.$4("preload_error"), this.$3(3));
-          }),
           (n.appReady = function () {
             this.$4("app_ready");
           }),
@@ -118,20 +103,11 @@ __d(
           (n.sharerAdobeOpenStart = function () {
             this.$4("sharer_adobe_open_start");
           }),
-          (n.sharer3pGetPdfReceived = function () {
-            this.$4("sharer_3p_get_pdf_received");
-          }),
-          (n.sharer3pPdfDataSent = function () {
-            this.$4("sharer_3p_pdf_data_sent");
-          }),
           (n.sharerSuccess = function () {
             (this.$4("sharer_success"), this.$3(2));
           }),
           (n.sharerError = function () {
             (this.$4("sharer_error"), this.$3(3));
-          }),
-          (n.sharerTimeout = function () {
-            (this.$4("sharer_3p_timeout"), this.$3(3));
           }),
           (n.receiverPageOpen = function () {
             this.$4("receiver_page_open");

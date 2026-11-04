@@ -149,7 +149,7 @@ __d(
           )
           .split(",")
           .filter(function (e) {
-            return !isNaN(e);
+            return !isNaN(Number(e));
           })
           .map(Number);
       } catch (t) {

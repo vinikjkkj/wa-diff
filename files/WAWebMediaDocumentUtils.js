@@ -188,54 +188,55 @@ __d(
             : [null],
         _ = p[0],
         f = A(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (n("cr:7565") == null) {
-              i(null);
-              return;
-            }
-            if (s == null) {
-              i(null);
-              return;
-            }
-            if (_ == null) {
-              i(null);
-              return;
-            }
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[useIsFileSavedOnFileSystem] checking fs ",
-                  " hash=",
-                  "",
-                ])),
-              e.toString(),
-              _,
-            );
-            var t = o("WAWebMsgCollection").MsgCollection.get(e);
-            if (t == null) {
-              i(null);
-              return;
-            }
-            try {
-              var r = yield n("cr:7565").isMediaFileSaved(t);
-              i(r);
-            } catch (t) {
-              (o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[useIsFileSavedOnFileSystem] fs check error ",
-                    ": ",
+          function () {
+            if (n("cr:7565") != null && s != null && _ != null) {
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[useIsFileSavedOnFileSystem] checking fs ",
+                    " hash=",
                     "",
                   ])),
                 e.toString(),
-                t,
-              ),
-                i(null));
+                _,
+              );
+              var t = o("WAWebMsgCollection").MsgCollection.get(e);
+              t != null &&
+                n("cr:7565")
+                  .isMediaFileSaved(t)
+                  .then(
+                    function (e) {
+                      i(e);
+                    },
+                    function (t) {
+                      (o("WALogger").ERROR(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[useIsFileSavedOnFileSystem] fs check error ",
+                            ": ",
+                            "",
+                          ])),
+                        e.toString(),
+                        t,
+                      ),
+                        i(null));
+                    },
+                  );
             }
-          }),
+          },
           [s, e, _],
-        );
+        ),
+        g = O(function () {
+          return f;
+        }),
+        h = g[0],
+        y = g[1];
       return (
+        h !== f &&
+          (y(function () {
+            return f;
+          }),
+          i(null)),
         o("useWAWebListener").useListener(s, "change:filehash", function () {
           f();
         }),

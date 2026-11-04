@@ -25,11 +25,11 @@ __d(
     function c(e, t, n, o) {
       r("CSSPoller").startCSSPoll(e, t, n, o);
     }
-    function d(t, n, o, a, i, l, s) {
-      s === void 0 && (s = !1);
-      var d = r("ResourceTimingsStore").getUID("css", n);
-      (r("ResourceTimingsStore")
-        .annotate("css", d)
+    function d(t, n, a, i, l, s, d) {
+      d === void 0 && (d = !1);
+      var m = o("ResourceTimingsStore").getUID("css", n);
+      (o("ResourceTimingsStore")
+        .annotate("css", m)
         .addStringAnnotation("name", t)
         .addStringAnnotation("source", n)
         .addStringAnnotation("caller", "CSSLoader.loadStyleSheet"),
@@ -38,38 +38,46 @@ __d(
             .addStringAnnotation("source", n)
             .addStringAnnotation("name", t);
         }),
-        r("ResourceTimingsStore").measureRequestSent("css", d));
-      var m = function () {
-          (r("ResourceTimingsStore").measureResponseReceived("css", d), a());
+        o("ResourceTimingsStore").measureRequestSent("css", m));
+      var p = function () {
+          (o("ResourceTimingsStore").measureResponseReceived("css", m), i());
         },
-        p = r("TimeSlice").getGuardedContinuation("CSSLoader link.onresponse");
-      s
-        ? c(t, m, i, l)
+        _ = r("TimeSlice").getGuardedContinuation("CSSLoader link.onresponse");
+      d
+        ? c(t, p, l, s)
         : e !== !0
-          ? (c(t, m, i, l), e === void 0 && u(o))
-          : ((l.onload = p.bind(void 0, function () {
-              ((l.onload = l.onerror = null), m());
+          ? (c(t, p, l, s), e === void 0 && u(a))
+          : ((s.onload = _.bind(void 0, function () {
+              ((s.onload = s.onerror = null), p());
             })),
-            (l.onerror = p.bind(void 0, function () {
-              ((l.onload = l.onerror = null), i());
+            (s.onerror = _.bind(void 0, function () {
+              ((s.onload = s.onerror = null), l());
             })));
     }
     var m = {
-      loadStyleSheet: function (t, n, r, o, a, i, l) {
-        var e = document.createElement("link");
-        ((e.rel = "stylesheet"),
-          (e.type = "text/css"),
-          (e.href = n),
-          o && (e.crossOrigin = "anonymous"),
-          a != null && (e.dataset.btmanifest = a),
-          d(t, n, r, i, l, e),
-          r.appendChild(e));
+        loadStyleSheet: function (t, n, r, o, a, i, l) {
+          var e = document.createElement("link");
+          ((e.rel = "stylesheet"),
+            (e.type = "text/css"),
+            (e.href = n),
+            o && (e.crossOrigin = "anonymous"),
+            a != null && (e.dataset.btmanifest = a),
+            d(t, n, r, i, l, e),
+            r.appendChild(e));
+        },
+        setupEventListenersForPotentiallyLoadedCSS: function (
+          t,
+          n,
+          r,
+          o,
+          a,
+          i,
+        ) {
+          d(t, n, r, o, a, i, !0);
+        },
       },
-      setupEventListenersForPotentiallyLoadedCSS: function (t, n, r, o, a, i) {
-        d(t, n, r, o, a, i, !0);
-      },
-    };
-    i.exports = m;
+      p = m;
+    l.default = p;
   },
-  34,
+  98,
 );
