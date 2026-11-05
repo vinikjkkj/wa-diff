@@ -3,6 +3,7 @@ __d(
   [
     "WAWebCanonicalEntRecoveryCompanionWamEvent",
     "WAWebCanonicalEntRecoveryCriticalEventWamEvent",
+    "WAWebCanonicalGating",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUserPrefsCanonical",
     "WAWebUserPrefsMeUser",
@@ -10,47 +11,50 @@ __d(
     "WAWebWamEnumCanonicalEntRecoveryCompanionEvent",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "",
-      s = !1;
-    function u() {
-      s ||
-        ((s = !0),
-        (e = o("WAWebUserPrefsCanonical").getCanonicalRegistrationTraceId()),
-        e === "" &&
-          ((e = c()),
-          o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(e)));
-    }
+    var e = 2,
+      s = "",
+      u = !1;
     function c() {
-      return r("WAWebPonyfillsCryptoRandomUUID")();
+      u ||
+        ((u = !0),
+        (s = o("WAWebUserPrefsCanonical").getCanonicalRegistrationTraceId()),
+        s === "" &&
+          ((s = d()),
+          o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(s)));
     }
     function d() {
       return r("WAWebPonyfillsCryptoRandomUUID")();
     }
     function m() {
+      return r("WAWebPonyfillsCryptoRandomUUID")();
+    }
+    function p() {
       var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
       return e != null ? String(e) : "";
     }
-    function p(t, n, r, a, i, l) {
-      u();
-      var s = new (o(
+    function _(t, n, r, a, i, l) {
+      c();
+      var u = new (o(
         "WAWebCanonicalEntRecoveryCompanionWamEvent",
       ).CanonicalEntRecoveryCompanionWamEvent)({
         canonicalEntRecoveryCompanionEvent: t,
         canonicalEntEventCompanionMarker: n,
-        canonicalEntRegistrationTraceId: e,
+        canonicalEntRegistrationTraceId: s,
         canonicalEntRecoveryEventMetadata: JSON.stringify({ purpose: r }),
-        deviceId: m(),
+        deviceId: p(),
         familyDeviceId: "",
       });
-      (a != null && (s.canonicalEntRequestId = a),
-        i != null && (s.canonicalEntFeatureName = i),
-        l != null && (s.canonicalEntRecoveryTimeoutSeconds = l),
-        s.commit());
+      (o("WAWebCanonicalGating").isCanonicalAuthV2Enabled() &&
+        (u.canonicalEntAuthVersion = e),
+        a != null && (u.canonicalEntRequestId = a),
+        i != null && (u.canonicalEntFeatureName = i),
+        l != null && (u.canonicalEntRecoveryTimeoutSeconds = l),
+        u.commit());
     }
-    function _() {
-      ((e = c()),
-        o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(e),
-        p(
+    function f() {
+      ((s = d()),
+        o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(s),
+        _(
           o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
             .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.COMPANION_REGISTERED,
           o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
@@ -58,8 +62,8 @@ __d(
           "registration",
         ));
     }
-    function f() {
-      p(
+    function g() {
+      _(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.REQUEST_NONCE_FROM_PRIMARY,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
@@ -67,8 +71,8 @@ __d(
         "recovery",
       );
     }
-    function g() {
-      p(
+    function h() {
+      _(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT
           .RECEIVED_COMPANION_NONCE_FROM_PRIMARY,
@@ -77,8 +81,8 @@ __d(
         "recovery",
       );
     }
-    function h(e, t) {
-      p(
+    function y(e, t) {
+      _(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.EXCHANGE_NONCE,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
@@ -87,8 +91,8 @@ __d(
         t,
       );
     }
-    function y(e, t) {
-      p(
+    function C(e, t) {
+      _(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.EXCHANGE_NONCE,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
@@ -97,8 +101,8 @@ __d(
         t,
       );
     }
-    function C(e, t) {
-      p(
+    function b(e, t) {
+      _(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.EXCHANGE_NONCE,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
@@ -107,8 +111,8 @@ __d(
         t,
       );
     }
-    function b(e) {
-      p(
+    function v(e) {
+      _(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.CREDENTIALS_STORED,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
@@ -116,33 +120,36 @@ __d(
         e,
       );
     }
-    function v(t, n, r, a) {
+    function S(t, n, r, a) {
       try {
-        u();
+        c();
         var i = new (o(
             "WAWebCanonicalEntRecoveryCriticalEventWamEvent",
           ).CanonicalEntRecoveryCriticalEventWamEvent)({
             canonicalEntRecoveryCriticalEventName: t,
-            canonicalEntRegistrationTraceId: e,
-            deviceId: m(),
+            canonicalEntRegistrationTraceId: s,
+            deviceId: p(),
             familyDeviceId: "",
           }),
           l = { purpose: n };
         (r != null && (l.error = r),
           (i.canonicalEntRecoveryCriticalEventMetadata = JSON.stringify(l)),
+          o("WAWebCanonicalGating").isCanonicalAuthV2Enabled() &&
+            (i.canonicalEntAuthVersion = e),
           a != null && (i.canonicalEntRequestId = a),
           i.commit());
       } catch (e) {}
     }
-    ((l.generateRequestId = d),
-      (l.logCompanionRegistered = _),
-      (l.logRequestNonceFromPrimary = f),
-      (l.logReceivedNonceFromPrimary = g),
-      (l.logExchangeNonceStart = h),
-      (l.logExchangeNonceSuccess = y),
-      (l.logExchangeNonceError = C),
-      (l.logCredentialsStored = b),
-      (l.logCriticalRecoveryEvent = v));
+    ((l.generateRequestId = m),
+      (l.logCompanionEvent = _),
+      (l.logCompanionRegistered = f),
+      (l.logRequestNonceFromPrimary = g),
+      (l.logReceivedNonceFromPrimary = h),
+      (l.logExchangeNonceStart = y),
+      (l.logExchangeNonceSuccess = C),
+      (l.logExchangeNonceError = b),
+      (l.logCredentialsStored = v),
+      (l.logCriticalRecoveryEvent = S));
   },
   98,
 );

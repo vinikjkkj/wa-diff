@@ -3,11 +3,14 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WAMemoizeConcurrent",
+    "WAWebBackendRuntime",
     "WAWebBotMessageSecret",
     "WAWebBotUtils",
     "WAWebBotWelcomeRequestSync",
     "WAWebDBProcessMessage",
     "WAWebHatchLogging",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgDataUtils",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -78,8 +81,20 @@ __d(
               .createNonPersistedJob(
                 "sendMessage",
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  yield o("WAWebDBProcessMessage").storeMessages([s], a);
-                  var e = yield o("WAWebSendMsgRecordAction").sendMsgRecord(u);
+                  yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageStoreService").MessageStoreService,
+                        ).storeMessages
+                      : o("WAWebDBProcessMessage").storeMessages
+                  )([s], a);
+                  var e = yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageSendService").MessageSendService,
+                        ).sendMsgRecord
+                      : o("WAWebSendMsgRecordAction").sendMsgRecord
+                  )(u);
                   if (
                     e.messageSendResult ===
                     o("WAWebSendMsgResultAction").SendMsgResult.OK

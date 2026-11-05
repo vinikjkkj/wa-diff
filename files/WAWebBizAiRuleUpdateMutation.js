@@ -3,14 +3,16 @@ __d(
   [
     "WAWebBizAiRelayClient",
     "WAWebBizAiRuleUpdateMutation.graphql",
+    "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e !== void 0 ? e : (e = n("WAWebBizAiRuleUpdateMutation.graphql")),
       u = { isSuccess: !0 },
-      c = { isSuccess: !1 };
-    function d(e) {
+      c = { isSuccess: !1 },
+      d = { isContentPolicyViolation: !0, isSuccess: !1 };
+    function m(e) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
@@ -22,11 +24,15 @@ __d(
               return (t == null ? void 0 : t.success) === !0 ? u : c;
             })
             .catch(function (e) {
-              return c;
+              return o("WAWebGraphQLServerError").isContentPolicyViolationError(
+                e,
+              )
+                ? d
+                : c;
             });
         });
     }
-    l.updateRule = d;
+    l.updateRule = m;
   },
   98,
 );

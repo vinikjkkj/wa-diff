@@ -1986,39 +1986,43 @@ __d(
         "VideoPlayerNextgendashMediaUtils",
       ).findTimeRangeAnnotationAtMediaTime(e, t, n);
     }
-    function $e(e) {
-      var t,
-        n = ve(e),
-        r = Se(e),
-        o = xe(
-          r,
-          n == null || (t = n.bufferedRangesWithRepIds) == null
+    function $e(e, t) {
+      var n,
+        r = ve(e),
+        o = t === void 0 ? Se(e) : t,
+        a = xe(
+          o,
+          r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
-            : t.audio,
-          n == null ? void 0 : n.targetRepresentationId.audio,
+            : n.audio,
+          r == null ? void 0 : r.targetRepresentationId.audio,
         ),
-        a = Le(e).find(function (e) {
-          return e.representationId === o;
+        i = Le(e).find(function (e) {
+          return e.representationId === a;
         });
-      return a;
+      return i;
     }
-    function Pe(e) {
-      var t,
-        n = ve(e),
-        r = Se(e),
-        o = xe(
-          r,
-          n == null || (t = n.bufferedRangesWithRepIds) == null
+    function Pe(e, t) {
+      var n,
+        r = ve(e),
+        o = t === void 0 ? Se(e) : t,
+        a = xe(
+          o,
+          r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
-            : t.video,
-          n == null ? void 0 : n.targetRepresentationId.video,
+            : n.video,
+          r == null ? void 0 : r.targetRepresentationId.video,
         ),
-        a = Re(e).find(function (e) {
-          return e.representationId === o;
+        i = Re(e).find(function (e) {
+          return e.representationId === a;
         });
-      return a;
+      return i;
     }
-    function Ne(e, t) {
+    function Ne(e) {
+      var t = Se(e);
+      return { audio: $e(e, t), video: Pe(e, t) };
+    }
+    function Me(e, t) {
       var n,
         r = ve(e),
         o = xe(
@@ -2032,7 +2036,7 @@ __d(
         return e.representationId === o;
       });
     }
-    function Me(e) {
+    function we(e) {
       var t = ve(e),
         n = t == null ? void 0 : t.targetRepresentationId.audio,
         r = Le(e).find(function (e) {
@@ -2040,7 +2044,7 @@ __d(
         });
       return r;
     }
-    function we(e) {
+    function Ae(e) {
       var t = ve(e),
         n = t == null ? void 0 : t.targetRepresentationId.video,
         r = Re(e).find(function (e) {
@@ -2048,7 +2052,7 @@ __d(
         });
       return r;
     }
-    function Ae(e) {
+    function Fe(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -2056,7 +2060,7 @@ __d(
             : t.selectedMediaVariant;
       return n;
     }
-    function Fe(e) {
+    function Oe(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -2094,11 +2098,12 @@ __d(
       (l.internal_findCurrentPlayingRepresentationID = xe),
       (l.getCurrentPlayingAudioRepresentation = $e),
       (l.getCurrentPlayingVideoRepresentation = Pe),
-      (l.getVideoRepresentationAtMediaTime = Ne),
-      (l.getCurrentTargetAudioRepresentation = Me),
-      (l.getCurrentTargetVideoRepresentation = we),
-      (l.getSelectedMediaVariant = Ae),
-      (l.getSelectedVideoQualityDisplayLabel = Fe));
+      (l.getCurrentPlayingRepresentations = Ne),
+      (l.getVideoRepresentationAtMediaTime = Me),
+      (l.getCurrentTargetAudioRepresentation = we),
+      (l.getCurrentTargetVideoRepresentation = Ae),
+      (l.getSelectedMediaVariant = Fe),
+      (l.getSelectedVideoQualityDisplayLabel = Oe));
   },
   98,
 );

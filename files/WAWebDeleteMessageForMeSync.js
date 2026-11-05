@@ -13,6 +13,7 @@ __d(
     "WAWebMsgKey",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
@@ -20,6 +21,7 @@ __d(
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebSyncdResolveMessages",
+    "WAWebUiRuntime",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -321,10 +323,14 @@ __d(
                 return k.add(r("WAWebMsgKey").fromString(e).remote.toString());
               });
               var I = Array.from(k.values()).join(",").toString();
-              (o("WAWebBackendApi").frontendFireAndForget(
-                "deleteModelsForLastAddOnPreview",
-                { messagesIds: a },
-              ),
+              (o("WAWebUiRuntime").isWebDiUiEnabled()
+                ? o("WAWebUiRuntime")
+                    .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                    .deleteModelsForLastAddOnPreview(a)
+                : o("WAWebBackendApi").frontendFireAndForget(
+                    "deleteModelsForLastAddOnPreview",
+                    { messagesIds: a },
+                  ),
                 yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(I, a));
             }
             return (

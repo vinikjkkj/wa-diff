@@ -6,7 +6,9 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAWebABPropsUpdateFromStorage",
+    "WAWebBackendApi",
     "WAWebBackendEventBus",
+    "WAWebCanonicalGating",
     "WAWebCompanionRegUtils",
     "WAWebCoreActionsODS",
     "WAWebInitializeCryptoLibrary",
@@ -16,6 +18,7 @@ __d(
     "WAWebUserPrefsTabMutex",
     "WAWebWamDeviceLinkReporter",
     "asyncToGeneratorRuntime",
+    "cr:18918",
     "gkx",
     "justknobx",
   ],
@@ -81,17 +84,7 @@ __d(
             );
           var a = t.success;
           if (a.type === "code" && a.code >= 500 && a.code < 600) {
-            if (a.code === 515)
-              return (
-                o("WAComms").stopComms(),
-                yield o("WAWebCompanionRegUtils").startLogin(),
-                yield o(
-                  "WAWebABPropsUpdateFromStorage",
-                ).updateABPropsFromStorage(),
-                o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
-                o("WAWebStartBackend").startBackend(),
-                (p || (p = n("Promise"))).resolve("NO_ACK")
-              );
+            if (a.code === 515) return h();
             if (a.code === 516)
               return (
                 o("WAComms").stopComms(),
@@ -166,6 +159,55 @@ __d(
           return (p || (p = n("Promise"))).resolve("CLOSE_SOCKET");
         })),
         g.apply(this, arguments)
+      );
+    }
+    function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            o("WAComms").stopComms(),
+            n("cr:18918") != null &&
+            o("WAWebCanonicalGating").isCanonicalAuthV2Enabled()
+              ? C(n("cr:18918"))
+              : (yield o("WAWebCompanionRegUtils").startLogin(),
+                yield o(
+                  "WAWebABPropsUpdateFromStorage",
+                ).updateABPropsFromStorage(),
+                o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
+                o("WAWebStartBackend").startBackend(),
+                "NO_ACK")
+          );
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield e.waitForCanonicalAuthV2Registration();
+          return (
+            yield o("WAWebCompanionRegUtils").startLogin(),
+            t === "stored" || t === "timed_out"
+              ? (o("WAWebBackendApi").frontendFireAndForget(
+                  "restartAfterCanonicalRegistration",
+                  void 0,
+                ),
+                "NO_ACK")
+              : (yield o(
+                  "WAWebABPropsUpdateFromStorage",
+                ).updateABPropsFromStorage(),
+                o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
+                o("WAWebStartBackend").startBackend(),
+                "NO_ACK")
+          );
+        })),
+        b.apply(this, arguments)
       );
     }
     l.default = f;

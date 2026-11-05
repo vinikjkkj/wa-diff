@@ -6,11 +6,13 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebDBCreateOrUpdateReactions",
     "WAWebDBGetReactions",
     "WAWebDBMessageDelete",
     "WAWebDBMessageUtils",
     "WAWebJidToWid",
+    "WAWebMessageStoreService",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterBridgeMsgAddOnsUtils",
     "WAWebNewsletterDBUtils",
@@ -383,7 +385,13 @@ __d(
                     return e.id.toString();
                   }),
                 ),
-                yield o("WAWebDBMessageDelete").removeStatusMessage(a));
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageStoreService").MessageStoreService,
+                      ).removeStatusMessage
+                    : o("WAWebDBMessageDelete").removeStatusMessage
+                )(a));
             }
           }
         })),

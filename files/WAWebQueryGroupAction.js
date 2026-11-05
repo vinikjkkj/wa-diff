@@ -1,10 +1,13 @@
 __d(
   "WAWebQueryGroupAction",
   [
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebGroupMetadataModel",
     "WAWebGroupQueryBridge",
+    "WAWebGroupQueryService",
+    "WAWebLidMappingService",
     "WAWebLidMappingUsernameLearnUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -16,12 +19,23 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o("WAWebGroupQueryBridge").sendQueryGroupInvite(t),
+          var n = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupQueryService").GroupQueryService,
+                  ).sendQueryGroupInvite
+                : o("WAWebGroupQueryBridge").sendQueryGroupInvite
+            )(t),
             a = n.groupInfo,
             i = n.status;
-          yield o(
-            "WAWebLidMappingUsernameLearnUtils",
-          ).processParsedGroupInfosForLidMappingAndUsernames([a]);
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebLidMappingService").LidMappingService,
+                ).processParsedGroupInfosForLidMappingAndUsernames
+              : o("WAWebLidMappingUsernameLearnUtils")
+                  .processParsedGroupInfosForLidMappingAndUsernames
+          )([a]);
           var l = a.membershipApprovalRequest,
             s = a.parentGroupSubject,
             u = a.subject,

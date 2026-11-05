@@ -5,10 +5,12 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebBackendRuntime",
     "WAWebBackoff",
     "WAWebChatCollection",
     "WAWebChatEphemerality",
     "WAWebChatGetters",
+    "WAWebChatStoreService",
     "WAWebChatThreadLogging",
     "WAWebCommonMsgUtils",
     "WAWebContactCollection",
@@ -23,6 +25,8 @@ __d(
     "WAWebEphemeralityResolver",
     "WAWebEphemeralityTypes",
     "WAWebEphemeralityUtils",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgCollection",
     "WAWebMsgEphemerality",
     "WAWebMsgKey",
@@ -60,7 +64,13 @@ __d(
           );
           var n = { ephemeralOutOfSync: !0 };
           (T() &&
-            (yield o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, n)),
+            (yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable
+            )(t.id, n)),
             (t.ephemeralOutOfSync = !0));
           var r = o("WAWebMsgCollection").MsgCollection.get(t.id);
           r && r.set(n);
@@ -189,7 +199,13 @@ __d(
                 a.initiatedByMe,
                 a.initiator,
               )),
-              yield o("WAWebDBUpdateChatTable").updateChatTable(t.id, {
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable
+              )(t.id, {
                 ephemeralDuration: t.ephemeralDuration,
                 ephemeralSettingTimestamp: t.ephemeralSettingTimestamp,
                 disappearingModeInitiator: _,
@@ -319,7 +335,13 @@ __d(
               .createNonPersistedJob(
                 "sendMessage",
                 function () {
-                  return o("WAWebSendMsgRecordAction").sendMsgRecord(v);
+                  return (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageSendService").MessageSendService,
+                        ).sendMsgRecord
+                      : o("WAWebSendMsgRecordAction").sendMsgRecord
+                  )(v);
                 },
                 {
                   priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,

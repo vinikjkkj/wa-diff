@@ -3,9 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebApiMembershipApprovalRequestStore",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebGroupGetMembershipApprovalRequestsJob",
     "WAWebGroupMembershipApprovalRequestModel",
+    "WAWebGroupMembershipRequestsService",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -43,9 +45,14 @@ __d(
       );
     }
     function m(e) {
-      o("WAWebGroupGetMembershipApprovalRequestsJob")
-        .queryAndUpdateGroupMembershipApprovalRequests(e.id)
-        .catch(function (e) {
+      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebGroupMembershipRequestsService")
+              .GroupMembershipRequestsService,
+          ).queryAndUpdateGroupMembershipApprovalRequests
+        : o("WAWebGroupGetMembershipApprovalRequestsJob")
+            .queryAndUpdateGroupMembershipApprovalRequests)(e.id).catch(
+        function (e) {
           o("WALogger")
             .WARN(
               s ||
@@ -54,7 +61,8 @@ __d(
                 ])),
             )
             .catching(r("getErrorSafe")(e));
-        });
+        },
+      );
     }
     function p(e) {
       var t;

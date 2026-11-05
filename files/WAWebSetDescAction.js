@@ -8,8 +8,10 @@ __d(
     "WARandomHex",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupModifyInfoJob",
+    "WAWebGroupSettingsService",
     "WAWebGroupType",
     "WAWebMiscErrors",
     "WAWebNoop",
@@ -35,7 +37,13 @@ __d(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       f === "" && (f = null);
-      var g = o("WAWebGroupModifyInfoJob").setGroupDescription({
+      var g = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupSettingsService").GroupSettingsService,
+              ).setGroupDescription
+            : o("WAWebGroupModifyInfoJob").setGroupDescription
+        )({
           desc: f,
           groupWid: t.id,
           newDescId: o("WARandomHex").randomHex(8),

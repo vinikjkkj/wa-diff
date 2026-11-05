@@ -7,9 +7,11 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebContactProfilePicThumbBridge",
     "WAWebMiscErrors",
     "WAWebProfilePicThumbGetters",
+    "WAWebProfilePictureService",
     "WAWebStateUtils",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
@@ -45,7 +47,13 @@ __d(
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var p = o("WAWebContactProfilePicThumbBridge").sendSetPicture(d, i, r);
+      var p = (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebProfilePictureService").ProfilePictureService,
+            ).sendSetPicture
+          : o("WAWebContactProfilePicThumbBridge").sendSetPicture
+      )(d, i, r);
       a.pendingPic = i;
       var _ = o("WAWebUserPrefsMeUser").isMeAccount(d),
         g = _
@@ -131,7 +139,13 @@ __d(
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var l = o("WAWebContactProfilePicThumbBridge").requestDeletePicture(i);
+      var l = (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebProfilePictureService").ProfilePictureService,
+            ).requestDeletePicture
+          : o("WAWebContactProfilePicThumbBridge").requestDeletePicture
+      )(i);
       t.pendingPic = o("WAWebProfilePicThumbGetters").getFallbackType(t);
       var d = o("WAWebUserPrefsMeUser").isMeAccount(i),
         p = d

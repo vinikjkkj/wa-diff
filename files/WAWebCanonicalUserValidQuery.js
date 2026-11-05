@@ -17,6 +17,29 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield d();
+          return e === "valid"
+            ? "valid"
+            : e === "rejected" || e === "incomplete"
+              ? "invalid"
+              : e === "error"
+                ? "error"
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e,
               t = yield o("WAWebRelayClient").fetchQuery(
@@ -24,29 +47,32 @@ __d(
                 {},
                 { environmentType: "whatsapp_web" },
               );
-            return (t == null || (e = t.xwa_canonical_user_valid) == null
-              ? void 0
-              : e.success) === !0
-              ? "valid"
-              : "invalid";
+            return (function (e) {
+              return e === !0 ? "valid" : e === !1 ? "rejected" : "incomplete";
+            })(
+              t == null || (e = t.xwa_canonical_user_valid) == null
+                ? void 0
+                : e.success,
+            );
           } catch (e) {
-            if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var n = e.source.errors.some(function (e) {
-                return (
-                  e.code ===
-                  o("WAWebGraphQLConstants")
-                    .WHATSAPP_GRAPHQL_UNAUTHORIZED_ERROR_CODE
-                );
-              });
-              if (n) return "invalid";
-            }
-            return "error";
+            return p(e) ? "rejected" : "error";
           }
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.fetchCanonicalUserValid = u;
+    function p(e) {
+      return (
+        e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
+        e.source.errors.some(function (e) {
+          return (
+            e.code ===
+            o("WAWebGraphQLConstants").WHATSAPP_GRAPHQL_UNAUTHORIZED_ERROR_CODE
+          );
+        })
+      );
+    }
+    ((l.fetchCanonicalUserValid = u), (l.fetchCanonicalUserValidity = d));
   },
   98,
 );

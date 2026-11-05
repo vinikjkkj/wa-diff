@@ -3,10 +3,13 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebDBParticipantTypes",
     "WAWebGroupDatabaseJob",
     "WAWebGroupMetadataCollection",
     "WAWebGroupQueryBridge",
+    "WAWebGroupQueryService",
+    "WAWebGroupStoreService",
     "WAWebWamNumberToSizeBucket",
     "asyncToGeneratorRuntime",
   ],
@@ -50,7 +53,13 @@ __d(
             });
           } else {
             if (
-              ((a = yield o("WAWebGroupDatabaseJob").getGroupMetadataJob(t)),
+              ((a = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupStoreService").GroupStoreService,
+                    ).getGroupMetadataJob
+                  : o("WAWebGroupDatabaseJob").getGroupMetadataJob
+              )(t)),
               !a)
             )
               return (
@@ -62,7 +71,11 @@ __d(
                     ])),
                   t,
                 ),
-                o("WAWebGroupQueryBridge").sendQueryGroup(t)
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupQueryService").GroupQueryService,
+                    ).sendQueryGroup
+                  : o("WAWebGroupQueryBridge").sendQueryGroup)(t)
               );
             a.subject != null &&
               o("WAWebGroupQueryBridge").updateSubject(t, a.subject);
@@ -71,7 +84,13 @@ __d(
             var f, g, h, y, C;
             if (
               (!_ || _.stale) &&
-              ((i = yield o("WAWebGroupDatabaseJob").getGroupParticipantJob(t)),
+              ((i = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupStoreService").GroupStoreService,
+                    ).getGroupParticipantJob
+                  : o("WAWebGroupDatabaseJob").getGroupParticipantJob
+              )(t)),
               !i)
             )
               return (
@@ -83,7 +102,11 @@ __d(
                     ])),
                   t,
                 ),
-                o("WAWebGroupQueryBridge").sendQueryGroup(t)
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupQueryService").GroupQueryService,
+                    ).sendQueryGroup
+                  : o("WAWebGroupQueryBridge").sendQueryGroup)(t)
               );
             var b;
             if (a) {
@@ -117,7 +140,13 @@ __d(
                   ])),
                 t,
               );
-              var E = yield o("WAWebGroupQueryBridge").sendQueryGroup(t);
+              var E = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupQueryService").GroupQueryService,
+                    ).sendQueryGroup
+                  : o("WAWebGroupQueryBridge").sendQueryGroup
+              )(t);
               (E == null ? void 0 : E.participants) != null &&
                 (L.participants = E.participants);
             }

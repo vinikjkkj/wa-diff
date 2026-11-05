@@ -3,7 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebLidMigrationUtils",
+    "WAWebPrivacyService",
     "WAWebQueryPrivacyDisallowedListUtil",
     "WAWebSchemaPrivacyDisallowedList",
     "WAWebSetPrivacyJob",
@@ -87,7 +89,13 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = yield o("WAWebSetPrivacyJob").setPrivacy(e);
+            a = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebPrivacyService").PrivacyService,
+                  ).setPrivacy
+                : o("WAWebSetPrivacyJob").setPrivacy
+            )(e);
           if (a.length !== 1)
             throw r("err")("setPrivacy should return one response");
           var i = a[0];

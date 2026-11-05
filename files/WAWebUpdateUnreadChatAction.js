@@ -10,8 +10,11 @@ __d(
     "WAWebActionToast.react",
     "WAWebApiChat",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
+    "WAWebChatReadService",
     "WAWebChatSeenBridge",
     "WAWebChatSendConversationSeen",
+    "WAWebChatStoreService",
     "WAWebChatUnreadConstants",
     "WAWebCmd",
     "WAWebCurrentUser",
@@ -341,13 +344,13 @@ __d(
               C.lastReceivedKey.toString(),
           ));
       }
-      return o("WAWebChatSendConversationSeen")
-        .sendConversationSeen({
-          chat: s,
-          key: h,
-          threadId: d != null ? d : void 0,
-          unreadDelta: p,
-        })
+      return (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatReadService").ChatReadService,
+            ).sendConversationSeen
+          : o("WAWebChatSendConversationSeen").sendConversationSeen
+      )({ chat: s, key: h, threadId: d != null ? d : void 0, unreadDelta: p })
         .then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -387,7 +390,13 @@ __d(
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.getLastMsgKeyForAction();
           try {
-            (yield o("WAWebChatSeenBridge").sendConversationUnseen(e.id, t),
+            (yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatReadService").ChatReadService,
+                  ).sendConversationUnseen
+                : o("WAWebChatSeenBridge").sendConversationUnseen
+            )(e.id, t),
               yield L(e));
           } catch (t) {
             return o("WAFilteredCatch").filteredCatch(
@@ -424,7 +433,11 @@ __d(
           var s =
             l == null
               ? (_ || (_ = n("Promise"))).resolve()
-              : o("WAWebChatSeenBridge").markConversationSeen(t.id, l);
+              : (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatReadService").ChatReadService,
+                    ).markConversationSeen
+                  : o("WAWebChatSeenBridge").markConversationSeen)(t.id, l);
           if ((yield s, r != null && i)) {
             var u = t.pendingSeenCount - r;
             ((t.pendingSeenCount = Math.max(0, u)),
@@ -451,13 +464,17 @@ __d(
           )
             return (
               e.active && (e.markedUnread = !0),
-              o("WAWebChatSeenBridge")
-                .markConversationUnseen(e.id)
-                .then(function () {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatReadService").ChatReadService,
+                  ).markConversationUnseen
+                : o("WAWebChatSeenBridge").markConversationUnseen)(e.id).then(
+                function () {
                   e.unreadCount = o(
                     "WAWebChatUnreadConstants",
                   ).MARKED_AS_UNREAD;
-                })
+                },
+              )
             );
         })),
         N.apply(this, arguments)
@@ -551,11 +568,13 @@ __d(
                   O("sendSeen: end - no unread edits");
                   return;
                 }
-                var t = yield o("WAWebSendReadReceiptJob").markEditedMsgsRead(
-                    i.id,
-                    { trusted: i.trusted },
-                    s != null ? s : void 0,
-                  ),
+                var t = yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebChatReadService").ChatReadService,
+                        ).markEditedMsgsRead
+                      : o("WAWebSendReadReceiptJob").markEditedMsgsRead
+                  )(i.id, { trusted: i.trusted }, s != null ? s : void 0),
                   n = t.chatUnreadUpdate,
                   r = t.fullyReadThreadIds;
                 if ((n != null && A(i, n), r.length > 0)) {
@@ -577,9 +596,13 @@ __d(
                     return;
                   }
                   ((i.unreadEditTimestampMs = null),
-                    yield o("WAWebDBUpdateChatTable").updateChatTable(i.id, {
-                      unreadEditTimestampMs: null,
-                    }),
+                    yield (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebChatStoreService").ChatStoreService,
+                          ).updateChatTable
+                        : o("WAWebDBUpdateChatTable").updateChatTable
+                    )(i.id, { unreadEditTimestampMs: null }),
                     O("sendSeen: end - all edits are marked as read"));
                 } else O("sendSeen: end - thread edits marked as read");
               }),

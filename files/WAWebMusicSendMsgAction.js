@@ -18,6 +18,7 @@ __d(
     "WAWebMusicCreationReporterLoadable",
     "WAWebMusicGatingUtils",
     "WAWebMusicParsingUtils",
+    "WAWebMusicSendLogger",
     "WAWebMusicSongUnavailableAlert.react",
     "WAWebNoop",
     "WAWebProtobufsE2E.pb",
@@ -39,48 +40,61 @@ __d(
       m,
       p,
       _,
-      f = [
+      f,
+      g = [
         "clipDurationMs",
         "lyrics",
         "lyricsConfirmedAtS",
         "songStartTimeMs",
         "style",
       ],
-      g = 15e3;
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+      h = 15e3;
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i = yield k(t, n, a);
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = yield I(t, n, a);
           if (i != null) {
-            var l = o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, i, C),
-              u = l[1],
-              c = yield u.catch(function (t) {
-                return (
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[music] send stopped: ",
-                        "",
-                      ])),
-                    String(t),
-                  ),
-                  null
-                );
-              });
+            var l = o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, i, b),
+              c = l[0],
+              d = l[1];
+            c.catch(function (t) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[music] send stopped before the song reached the chat",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("music-send-add-failed");
+            });
+            var m = yield d.catch(function (e) {
+              return (
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[music] send stopped: ",
+                      "",
+                    ])),
+                  String(e),
+                ),
+                null
+              );
+            });
             if (
-              (c == null ? void 0 : c.messageSendResult) ===
+              (m == null ? void 0 : m.messageSendResult) ===
               o("WAWebSendMsgResultAction").SendMsgResult.OK
             )
               try {
-                yield v(i.id);
+                yield S(i.id);
               } catch (e) {
                 o("WALogger")
                   .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[music] couldn't clear the pending send failure",
                       ])),
                   )
@@ -89,20 +103,20 @@ __d(
               }
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield S(e).catch(function (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield R(e).catch(function (e) {
             return (
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[music] send stopped: ",
                     "",
                   ])),
@@ -136,27 +150,27 @@ __d(
           }
           throw r("err")("music creation report: %s", t);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S(e) {
       return o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
         isSendFailure: !1,
       });
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.musicData;
           if (n == null)
             return (
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[music] send refused: message without music data",
                   ])),
               ),
@@ -165,7 +179,7 @@ __d(
           yield o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
             isSendFailure: !0,
           });
-          var r = yield L(n);
+          var r = yield E(n);
           if (r == null || r.type === "failed") return "failed";
           if (r.type === "song_unavailable") return "song_unavailable";
           var a = yield o("WAWebSchemaMessage")
@@ -201,23 +215,25 @@ __d(
                   ? void 0
                   : t.musicContentMediaId) !== r.mediaId
               ? (o("WALogger").WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[music] send stopped: the media id didn't persist",
                     ])),
                 ),
                 "failed")
-              : (e.set({ musicData: i }), "saved");
+              : (e.set({ musicData: i }),
+                o("WAWebMusicSendLogger").logMusicSend(e.id),
+                "saved");
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t, n, r;
             return yield o("WAPromiseTimeout").promiseTimeout(
@@ -233,13 +249,13 @@ __d(
                     : o("WAWebProtobufsE2E.pb")
                         .Message$MusicMessage$MusicMessageStyle.VINYL,
               }),
-              g,
+              h,
             );
           } catch (e) {
             return (
               o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[music] creation report didn't finish: ",
                     "",
                   ])),
@@ -249,33 +265,37 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (!o("WAWebMusicGatingUtils").canSendMusicTo(e.id))
             return (
-              o("WALogger").WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[music] send refused: music can't be sent to this chat",
-                  ])),
-              ),
+              o("WALogger")
+                .WARN(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[music] send refused: music can't be sent to this chat",
+                    ])),
+                )
+                .sendLogs("music-send-refused"),
               null
             );
           if (!o("WAWebMusicClip").canClipSong(t.durationMs))
             return (
-              o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[music] send refused: song shorter than the shortest clip",
-                  ])),
-              ),
+              o("WALogger")
+                .WARN(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[music] send refused: song shorter than the shortest clip",
+                    ])),
+                )
+                .sendLogs("music-send-refused"),
               null
             );
           var a = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
@@ -302,22 +322,22 @@ __d(
               isNewMsg: !0,
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
-              musicData: T(t, n, l),
+              musicData: D(t, n, l),
             },
             o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(e),
           );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t, n) {
+    function D(e, t, n) {
       var r,
         a = t.clipDurationMs,
         i = t.lyrics,
         l = t.lyricsConfirmedAtS,
         s = t.songStartTimeMs,
         u = t.style,
-        c = babelHelpers.objectWithoutPropertiesLoose(t, f),
+        c = babelHelpers.objectWithoutPropertiesLoose(t, g),
         d = i != null && i.length > 0,
         m =
           (r = o("WAWebMusicParsingUtils")
@@ -354,10 +374,10 @@ __d(
           : {},
       );
     }
-    ((l.sendMusicMsg = h),
-      (l.reportMusicCreationBeforeSend = C),
-      (l.clearPendingSendFailure = v),
-      (l.createMusicMsgData = k));
+    ((l.sendMusicMsg = y),
+      (l.reportMusicCreationBeforeSend = b),
+      (l.clearPendingSendFailure = S),
+      (l.createMusicMsgData = I));
   },
   98,
 );

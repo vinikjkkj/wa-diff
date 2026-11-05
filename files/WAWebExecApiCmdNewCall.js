@@ -2,7 +2,9 @@ __d(
   "WAWebExecApiCmdNewCall",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebCmd",
+    "WAWebContactQueryService",
     "WAWebCoreActionsODS",
     "WAWebDialerPadFlowLoadable",
     "WAWebDrawerManager",
@@ -63,7 +65,13 @@ __d(
             fromDefaultProtocol: l,
             isVideo: i,
             lookup: function () {
-              return o("WAWebQueryExistsJob").queryPhoneExists(m);
+              return (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebContactQueryService").ContactQueryService,
+                    ).queryPhoneExists
+                  : o("WAWebQueryExistsJob").queryPhoneExists
+              )(m);
             },
             peerWid: _,
           }).catch(function (e) {

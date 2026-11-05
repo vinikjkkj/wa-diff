@@ -349,32 +349,23 @@ __d(
               this.mediaPickerStatsLogger.logAdd(t.id, e, n);
             }
           }),
-          (i.$AttachMediaCollection$p_2 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = yield (e || (e = n("Promise"))).resolve(t);
-                return (
-                  (r.filename == null || r.filename === "") &&
-                    (r.filename = r.file.name),
-                  (r.mimetype == null || r.mimetype === "") &&
-                    (r.mimetype = r.file.type),
-                  r.type ||
-                    (r.type = o("WAWebFileUtils").typeFromMimetype(
-                      r.file.type,
-                    )),
-                  !r.type &&
-                    r.mimetype != null &&
-                    r.mimetype !== "" &&
-                    (r.type = o("WAWebFileUtils").typeFromMimetype(r.mimetype)),
-                  r
-                );
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
+          (i.$AttachMediaCollection$p_2 = function (r) {
+            return (e || (e = n("Promise"))).resolve(r).then(function (e) {
+              return (
+                (e.filename == null || e.filename === "") &&
+                  (e.filename = e.file.name),
+                (e.mimetype == null || e.mimetype === "") &&
+                  (e.mimetype = e.file.type),
+                e.type ||
+                  (e.type = o("WAWebFileUtils").typeFromMimetype(e.file.type)),
+                !e.type &&
+                  e.mimetype != null &&
+                  e.mimetype !== "" &&
+                  (e.type = o("WAWebFileUtils").typeFromMimetype(e.mimetype)),
+                e
+              );
+            });
+          }),
           (i.ignore = function (t) {
             t > 0 && (this.ignored += t);
           }),

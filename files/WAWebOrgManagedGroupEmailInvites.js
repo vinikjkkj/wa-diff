@@ -2,7 +2,9 @@ __d(
   "WAWebOrgManagedGroupEmailInvites",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebCopyToClipboard",
+    "WAWebGroupInviteService",
     "WAWebMexFetchGroupInviteCodeJob",
     "WAWebOrgAdminGraphQL",
     "WAWebOrgAdminGroupCandidate",
@@ -53,7 +55,13 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (a.length === 0) return [];
           try {
-            yield o("WAWebMexFetchGroupInviteCodeJob").fetchMexGroupInviteCode(
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupInviteService").GroupInviteService,
+                  ).fetchMexGroupInviteCode
+                : o("WAWebMexFetchGroupInviteCodeJob").fetchMexGroupInviteCode
+            )(
               o("WAWebWidFactory").asGroupWidOrThrow(
                 o("WAWebWidFactory").createWid(
                   o("WAWebOrgAdminGroupParticipantsAction").getOrgAdminGroupJid(
@@ -109,9 +117,13 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = yield o(
-              "WAWebMexFetchGroupInviteCodeJob",
-            ).fetchMexGroupInviteCode(
+            var t = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupInviteService").GroupInviteService,
+                  ).fetchMexGroupInviteCode
+                : o("WAWebMexFetchGroupInviteCodeJob").fetchMexGroupInviteCode
+            )(
               o("WAWebWidFactory").asGroupWidOrThrow(
                 o("WAWebWidFactory").createWid(
                   o("WAWebOrgAdminGroupParticipantsAction").getOrgAdminGroupJid(

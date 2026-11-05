@@ -4,10 +4,12 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e() {
-      return window.performance && window.performance.memory;
+      var e = window.performance;
+      return window.performance && e.memory != null;
     }
     function l() {
-      return window.navigator && window.navigator.deviceMemory;
+      var e = window.navigator;
+      return window.navigator && e.deviceMemory != null;
     }
     function s() {
       var e = window.performance;

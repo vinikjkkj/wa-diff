@@ -4,9 +4,11 @@ __d(
     "WAExponentialBackoff",
     "WALogger",
     "WAWebAttachMediaCollection",
+    "WAWebBackendRuntime",
     "WAWebBroadcastMsgDataUtils",
     "WAWebMediaPrepMediaProps",
     "WAWebMediaUploadMediaWithPrep",
+    "WAWebMediaUploadService",
     "WAWebMsgType",
     "WAWebWamEnumMediaPickerOriginType",
     "asyncToGeneratorRuntime",
@@ -191,10 +193,13 @@ __d(
             n.id.toString(),
           );
           var i = { isMediaCryptoExpectedForChat: !0, type: t },
-            l = yield o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep(
-              n,
-              i,
-            ),
+            l = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMediaUploadService").MediaUploadService,
+                  ).uploadMediaWithPrep
+                : o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep
+            )(n, i),
             c = l.body,
             d = l.mediaResult.mediaEntry;
           if (!d) throw r("err")("Media upload failed: entry was not created");

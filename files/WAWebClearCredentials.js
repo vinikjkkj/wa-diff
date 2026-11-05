@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWamLabelSyncTrackingReporter",
     "asyncToGeneratorRuntime",
+    "cr:18917",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,11 +23,16 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = !1;
+          var t =
+            n("cr:18917") == null
+              ? void 0
+              : n("cr:18917").endCanonicalAuthSession();
+          t != null && (yield t);
+          var a = !1;
           try {
             o("WAWebUserPrefsGeneral").setBrowserId();
-          } catch (n) {
-            ((t = !0),
+          } catch (t) {
+            ((a = !0),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -34,7 +40,7 @@ __d(
                       "ws2:clearState error",
                     ])),
                 )
-                .catching(r("getErrorSafe")(n))
+                .catching(r("getErrorSafe")(t))
                 .tags("logout"));
           }
           try {
@@ -53,7 +59,7 @@ __d(
           try {
             o("WAWebUserPrefsMeUser").setMePn();
           } catch (e) {
-            ((t = !0),
+            ((a = !0),
               o("WALogger")
                 .ERROR(
                   u ||
@@ -67,7 +73,7 @@ __d(
           try {
             yield o("WAWebUserPrefsMultiDevice").clearRegistrationInfo();
           } catch (e) {
-            ((t = !0),
+            ((a = !0),
               o("WALogger")
                 .ERROR(
                   c ||
@@ -81,7 +87,7 @@ __d(
           try {
             yield o("WAWebSignalStorage").destroy();
           } catch (e) {
-            ((t = !0),
+            ((a = !0),
               o("WALogger")
                 .ERROR(
                   d ||
@@ -96,14 +102,14 @@ __d(
             (yield o("WAWebCryptoEncKeyHelper").deleteEncKeysAndCache(),
               yield o("WAWebCryptoEncryptionSaltHelper").deleteSalt());
           } catch (e) {
-            t = !0;
+            a = !0;
           }
           try {
             o(
               "WAWebWamLabelSyncTrackingReporter",
             ).resetLabelSyncTrackingState();
           } catch (e) {
-            ((t = !0),
+            ((a = !0),
               o("WALogger")
                 .ERROR(
                   m ||
@@ -118,7 +124,7 @@ __d(
           try {
             yield o("WAWebUserPrefsClearLocalState").clearAllLocalState();
           } catch (e) {
-            ((t = !0),
+            ((a = !0),
               o("WALogger")
                 .ERROR(
                   p ||
@@ -129,7 +135,7 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .tags("logout"));
           }
-          return t;
+          return a;
         })),
         f.apply(this, arguments)
       );

@@ -6,7 +6,9 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebConnModel",
+    "WAWebProfileService",
     "WAWebPushNameBridge",
     "WAWebSetPushnameLocallyAction",
     "WAWebToastManager",
@@ -31,7 +33,13 @@ __d(
             i = t.pushname,
             l = t.toastId,
             u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
-            d = r("WAWebPushNameBridge")(i),
+            d = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebProfileService").ProfileService,
+                  ).setPushName
+                : r("WAWebPushNameBridge")
+            )(i),
             p = new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Changing your name"),
             ),

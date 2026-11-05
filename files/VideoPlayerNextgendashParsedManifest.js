@@ -69,7 +69,13 @@ __d(
                       _ = e;
                     }
                     p != null
-                      ? l({ data: p, type: "_parse_succeeded" })
+                      ? l({
+                          dashManifestXml: r.config.releaseParsedManifestXML
+                            ? null
+                            : m,
+                          data: p,
+                          type: "_parse_succeeded",
+                        })
                       : l({
                           dashManifestXml: m,
                           error: o("nextgendasherr").nextgendasherrFromCause(
@@ -102,6 +108,7 @@ __d(
               }
               case "_parse_succeeded":
                 return {
+                  dashManifestXml: a.dashManifestXml,
                   dashManifestXmlString: s.dashManifestXmlString,
                   data: a.data,
                   expiredVideoUrlRefreshHandlerState:

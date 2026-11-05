@@ -1,9 +1,11 @@
 __d(
   "WAWebGroupPresencePoller",
   [
+    "WAWebBackendRuntime",
     "WAWebContactPresenceBridge",
     "WAWebGroupPresenceUtils",
     "WAWebPresenceCollection",
+    "WAWebPresenceService",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 3e4,
@@ -24,7 +26,11 @@ __d(
       );
     }
     function d(e) {
-      o("WAWebContactPresenceBridge").subscribeGroupPresence(e);
+      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebPresenceService").PresenceService,
+          ).subscribeGroupPresence
+        : o("WAWebContactPresenceBridge").subscribeGroupPresence)(e);
     }
     function m(e, t) {
       var n = function () {

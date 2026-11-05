@@ -5,9 +5,11 @@ __d(
     "Promise",
     "WALogger",
     "WAWebActionToast.react",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebContactStatusBridge",
     "WAWebMiscErrors",
+    "WAWebProfileService",
     "WAWebTextStatusCollection",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
@@ -34,7 +36,13 @@ __d(
                 ? void 0
                 : t.tcToken,
             a = { wid: e, tcToken: r },
-            i = yield o("WAWebContactStatusBridge").getStatus(a);
+            i = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebProfileService").ProfileService,
+                  ).getStatus
+                : o("WAWebContactStatusBridge").getStatus
+            )(a);
           if (i.stale === !0) {
             var l = o("WAWebTextStatusCollection").TextStatusCollection.get(e);
             if (l) return { id: e, status: l.status };
@@ -61,7 +69,13 @@ __d(
             return (u || (u = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
-          var l = o("WAWebContactStatusBridge").setMyStatus(i),
+          var l = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebProfileService").ProfileService,
+                  ).setMyStatus
+                : o("WAWebContactStatusBridge").setMyStatus
+            )(i),
             c = new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Changing About\u2026"),
             ),

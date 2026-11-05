@@ -1,6 +1,7 @@
 __d(
   "WAWebOrgManagedEventsRepository",
   [
+    "WAConcurrentIterate",
     "WALogger",
     "WAWebOrgAdminGraphQL",
     "asyncToGeneratorRuntime",
@@ -8,53 +9,57 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = [],
-      u = new Set(),
-      c = new Map(),
-      d = v();
-    function m() {
-      return d;
+      s,
+      u = [],
+      c = 4,
+      d = new Set(),
+      m = new Map(),
+      p = 0,
+      _ = new Map(),
+      f = I();
+    function g() {
+      return f;
     }
-    function p(e) {
+    function h(e) {
       return (
-        u.add(e),
+        d.add(e),
         function () {
-          u.delete(e);
+          d.delete(e);
         }
       );
     }
-    function _(e) {
-      var t = c.get(e);
+    function y(e) {
+      var t = m.get(e);
       if (t != null) return t;
-      var n = g(e);
+      var n = b(e);
       return (
-        c.set(e, n),
+        m.set(e, n),
         n.finally(function () {
-          c.get(e) === n && c.delete(e);
+          m.get(e) === n && m.delete(e);
         }),
         n
       );
     }
-    function f() {
-      ((c = new Map()), (d = v()), b());
+    function C() {
+      ((m = new Map()), (_ = new Map()), (f = I()), k());
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function h() {
+    function v() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = y(t);
-          C(t, {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = L(t);
+          E(t, {
             events: n.events,
             status:
               n.status === "ready" || n.events.length > 0
                 ? "refreshing"
                 : "loading",
           });
+          var a;
           try {
-            var a = yield o("WAWebOrgAdminGraphQL").loadOrgAdminEvents(t);
-            C(t, { events: a, status: "ready" });
+            a = yield o("WAWebOrgAdminGraphQL").loadOrgAdminEvents(t);
           } catch (n) {
             (o("WALogger")
               .ERROR(
@@ -67,36 +72,107 @@ __d(
               )
               .catching(r("getErrorSafe")(n))
               .sendLogs("org-admin-managed-events-load-failed"),
-              C(t, { events: y(t).events, status: "error" }));
+              E(t, { events: L(t).events, status: "error" }));
+            return;
           }
+          (E(t, { events: a, status: "ready" }), S(t, a));
         })),
-        h.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function y(e) {
+    function S(e, t) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = ++p;
+          _.set(e, r);
+          var a = 0,
+            i = null,
+            l = yield o("WAConcurrentIterate").concurrentIterate(
+              t.length,
+              (function () {
+                var l = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (n) {
+                    if (_.get(e) !== r) return null;
+                    try {
+                      return yield o(
+                        "WAWebOrgAdminGraphQL",
+                      ).loadOrgAdminEventRsvpCounts(t[n].id);
+                    } catch (e) {
+                      return (
+                        a++,
+                        i != null ||
+                          (i = o(
+                            "WAWebOrgAdminGraphQL",
+                          ).getOrgAdminServerFailureReason(e)),
+                        null
+                      );
+                    }
+                  },
+                );
+                return function (e) {
+                  return l.apply(this, arguments);
+                };
+              })(),
+              c,
+            );
+          if (_.get(e) === r) {
+            a > 0 &&
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-admin] guest counts unavailable for ",
+                    " of ",
+                    " events, first reason: ",
+                    "",
+                  ])),
+                a,
+                t.length,
+                i != null ? i : "",
+              );
+            var u = new Map(f.rsvpCountsByOrgID);
+            (u.set(
+              e,
+              new Map(
+                t.map(function (e, t) {
+                  var n = e.id;
+                  return [n, l[t]];
+                }),
+              ),
+            ),
+              (f = babelHelpers.extends({}, f, { rsvpCountsByOrgID: u })),
+              k());
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
       var t;
-      return (t = d.listStateByOrgID.get(e)) != null
+      return (t = f.listStateByOrgID.get(e)) != null
         ? t
-        : { events: s, status: "idle" };
+        : { events: u, status: "idle" };
     }
-    function C(e, t) {
-      var n = new Map(d.listStateByOrgID);
+    function E(e, t) {
+      var n = new Map(f.listStateByOrgID);
       (n.set(e, t),
-        (d = babelHelpers.extends({}, d, { listStateByOrgID: n })),
-        b());
+        (f = babelHelpers.extends({}, f, { listStateByOrgID: n })),
+        k());
     }
-    function b() {
-      u.forEach(function (e) {
+    function k() {
+      d.forEach(function (e) {
         return e();
       });
     }
-    function v() {
-      return { listStateByOrgID: new Map() };
+    function I() {
+      return { listStateByOrgID: new Map(), rsvpCountsByOrgID: new Map() };
     }
-    ((l.getOrgManagedEventsRepositorySnapshot = m),
-      (l.subscribeToOrgManagedEventsRepository = p),
-      (l.refreshOrgManagedEvents = _),
-      (l.resetOrgManagedEventsRepository = f));
+    ((l.getOrgManagedEventsRepositorySnapshot = g),
+      (l.subscribeToOrgManagedEventsRepository = h),
+      (l.refreshOrgManagedEvents = y),
+      (l.resetOrgManagedEventsRepository = C));
   },
   98,
 );

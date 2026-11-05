@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebBizBroadcastCampaignDataLayer",
     "WAWebBizBroadcastCampaignTimestamp",
     "WAWebBizBroadcastMediaProcessor",
@@ -14,6 +15,7 @@ __d(
     "WAWebDBProcessMessage",
     "WAWebImageUtils",
     "WAWebMediaMsgRegistration",
+    "WAWebMessageStoreService",
     "WAWebMsgDataFromModel",
     "WAWebMsgKey",
     "WAWebMsgModel",
@@ -338,7 +340,13 @@ __d(
             { local: !0 },
           );
           try {
-            yield o("WAWebDBProcessMessage").storeMessages([t], t.to);
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([t], t.to);
           } catch (e) {
             if (e instanceof o("WAWebDBProcessMessage").DuplicateMessageError)
               return (

@@ -10,7 +10,9 @@ __d(
     "WAWebHandleMsgMetaUtils",
     "WAWebMsgProcessingApiUtils",
     "WAWebPollsVotesSchema",
+    "WAWebReactionUiService",
     "WAWebSchemaReactions",
+    "WAWebUiRuntime",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -109,10 +111,16 @@ __d(
               ? d(
                   t,
                   function (e) {
-                    return o("WAWebBackendApi").frontendSendAndReceive(
-                      "hasReactionsInCollection",
-                      { msgKeys: e },
-                    );
+                    return o("WAWebUiRuntime").isWebDiUiEnabled()
+                      ? o("WAWebUiRuntime")
+                          .uiRuntime(
+                            o("WAWebReactionUiService").ReactionUiService,
+                          )
+                          .hasReactionsInCollection(e)
+                      : o("WAWebBackendApi").frontendSendAndReceive(
+                          "hasReactionsInCollection",
+                          { msgKeys: e },
+                        );
                   },
                   function (e) {
                     var t = new Set();

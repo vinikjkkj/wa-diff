@@ -183,7 +183,11 @@ __d(
         throw r("err")("2d canvas context is unavailable");
       if (e.width === 0 || e.height === 0 || t.width === 0 || t.height === 0)
         throw r("err")("cannot badge an image with zero width or height");
-      (a.save(), q(a, S, R, L), a.clip(), U(a, e, S, S, R, R), a.restore());
+      (a.save(),
+        q(a, S, R, L),
+        a.clip(),
+        U({ context: a, dh: R, dw: R, dx: S, dy: S, img: e }),
+        a.restore());
       var i = v - S - E;
       return (
         (a.globalCompositeOperation = "destination-out"),
@@ -193,7 +197,7 @@ __d(
         a.save(),
         q(a, i, E, k),
         a.clip(),
-        U(a, t, i, i, E, E),
+        U({ context: a, dh: E, dw: E, dx: i, dy: i, img: t }),
         a.restore(),
         n.toDataURL("image/png")
       );
@@ -208,11 +212,17 @@ __d(
         e.arcTo(t, t, o, t, r),
         e.closePath());
     }
-    function U(e, t, n, r, o, a) {
-      var i = Math.max(o / t.width, a / t.height),
-        l = o / i,
-        s = a / i;
-      e.drawImage(t, (t.width - l) / 2, (t.height - s) / 2, l, s, n, r, o, a);
+    function U(e) {
+      var t = e.context,
+        n = e.dh,
+        r = e.dw,
+        o = e.dx,
+        a = e.dy,
+        i = e.img,
+        l = Math.max(r / i.width, n / i.height),
+        s = r / l,
+        u = n / l;
+      t.drawImage(i, (i.width - s) / 2, (i.height - u) / 2, s, u, o, a, r, n);
     }
     ((l.WHATSAPP_DEFAULT_ICON = d),
       (l.WHATSAPP_BUSINESS_DEFAULT_ICON = m),

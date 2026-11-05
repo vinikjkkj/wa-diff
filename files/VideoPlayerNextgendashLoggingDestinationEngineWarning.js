@@ -46,6 +46,18 @@ __d(
             }
             case "generic_warning": {
               var t;
+              if (n.host.mediaSinkType === "EMSS") {
+                var a;
+                e(
+                  o(
+                    "VideoPlayerNextgendashEngineErrors",
+                  ).createVideoPlayerErrorFromNextgendashLogWarning.apply(
+                    void 0,
+                    [n, r.format].concat((a = r.params) != null ? a : []),
+                  ),
+                );
+                break;
+              }
               e(
                 o(
                   "VideoPlayerNextgendashEngineErrors",

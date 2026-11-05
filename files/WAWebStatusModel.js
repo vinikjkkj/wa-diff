@@ -7,6 +7,7 @@ __d(
     "WAWebAck",
     "WAWebAlarm",
     "WAWebAppTracker",
+    "WAWebBackendRuntime",
     "WAWebBaseModel",
     "WAWebCollectionConstants",
     "WAWebCommonMsgUtils",
@@ -22,6 +23,7 @@ __d(
     "WAWebStatusGatingUtils",
     "WAWebStatusGetters",
     "WAWebStatusPSAUtils",
+    "WAWebStatusUpdatesService",
     "WAWebSuperChatMsgs",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -268,11 +270,13 @@ __d(
           (i.sendReadStatus = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n) {
-                var r = yield o("WAWebContactStatusBridge").sendReadStatus(
-                  e,
-                  t,
-                  n,
-                );
+                var r = yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebStatusUpdatesService").StatusUpdatesService,
+                      ).sendReadStatus
+                    : o("WAWebContactStatusBridge").sendReadStatus
+                )(e, t, n);
                 r && this.handleReadStatus(e.id);
               },
             );

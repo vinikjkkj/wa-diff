@@ -11,6 +11,7 @@ __d(
     "WAWebAddonSendProcess",
     "WAWebAfterReadUtils",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBlocklistCollection",
     "WAWebBotGating",
     "WAWebBotGenTypingIndicatorMsg",
@@ -32,6 +33,7 @@ __d(
     "WAWebLimitSharingGatingUtils",
     "WAWebMessageCappingWamEvent",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageStoreService",
     "WAWebMetaAiOpenGroupNux",
     "WAWebMsgCollection",
     "WAWebMsgDataFromModel",
@@ -260,7 +262,11 @@ __d(
                 errorCode:
                   o("WAWebErrorType").SendFailureErrorCode.Acp2Restricted,
               };
-              (o("WAWebDBUpdateMessageTable").updateMessageTable(f, L),
+              ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable)(f, L),
                 e.data.set(L),
                 o(
                   "WAWebAddOnsUpdateSendStatesAction",
@@ -398,7 +404,11 @@ __d(
                     !v
                   ) {
                     var r = o("WATimeUtils").unixTime() + n;
-                    (o("WAWebDBUpdateMessageTable").updateMessageTable(f, {
+                    ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageStoreService").MessageStoreService,
+                        ).updateMessageTable
+                      : o("WAWebDBUpdateMessageTable").updateMessageTable)(f, {
                       expiredTimestamp: r,
                     }),
                       e.data.set({ expiredTimestamp: r }));
@@ -690,7 +700,11 @@ __d(
                           ).getCappingData() || {},
                         ),
                       }).commit()))),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, l),
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable)(e.id, l),
               e.set(l),
               o(
                 "WAWebAddOnsUpdateSendStatesAction",

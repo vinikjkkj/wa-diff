@@ -7,9 +7,11 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebAddonProcessRevoke",
+    "WAWebAddonService",
     "WAWebApiChat",
     "WAWebAssociationProcessor",
     "WAWebAssociationProcessorConstants",
+    "WAWebBackendRuntime",
     "WAWebBotBaseGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
@@ -23,6 +25,7 @@ __d(
     "WAWebFtsClient",
     "WAWebMediaMsgRegistration",
     "WAWebMessageSendPerfReporter",
+    "WAWebMessageSendService",
     "WAWebMsgActionCapability",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -34,6 +37,7 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebRequestDeleteAddOns",
     "WAWebRevoke",
+    "WAWebRevokeService",
     "WAWebSendMsgRecordAction",
     "WAWebSendMsgResultAction",
     "WAWebSendRevokeMessageWamEvent",
@@ -94,7 +98,7 @@ __d(
       });
     }
     function g(e, t) {
-      return L(o("WAWebStateUtils").unproxy(e), t);
+      return k(o("WAWebStateUtils").unproxy(e), t);
     }
     function h(e) {
       return y.apply(this, arguments);
@@ -109,55 +113,55 @@ __d(
             s = e.record,
             u = e.type,
             c = e.viewMode,
-            f = c === void 0 ? o("WAWebViewMode.flow").ViewModeType.VISIBLE : c,
-            h = s.data;
+            p = c === void 0 ? o("WAWebViewMode.flow").ViewModeType.VISIBLE : c,
+            f = s.data;
           if (
             u === o("WAWebCmd").Revoke.Sender &&
-            !h.id.fromMe &&
-            !o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(h)
+            !f.id.fromMe &&
+            !o("WAWebMsgActionCapability").canBotResponseBeRevokeByInvoker(f)
           )
             return (_ || (_ = n("Promise"))).reject(
               r("err")("revoking received message"),
             );
-          var y =
-              h.id.remote.isGroup() && s.type === "addon"
+          var h =
+              f.id.remote.isGroup() && s.type === "addon"
                 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
                 : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-            C =
-              h.id.remote.isGroup() &&
-              ((t = o("WAWebFrontendMsgGetters").getChat(h).groupMetadata) ==
+            y =
+              f.id.remote.isGroup() &&
+              ((t = o("WAWebFrontendMsgGetters").getChat(f).groupMetadata) ==
               null
                 ? void 0
                 : t.isLidAddressingMode),
-            b = void 0;
-          h.id.remote.isGroup() &&
-            (b =
-              C === !0 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow() : y);
-          var L = new (r("WAWebMsgKey"))({
+            C = void 0;
+          f.id.remote.isGroup() &&
+            (C =
+              y === !0 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow() : h);
+          var b = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),
-              remote: h.id.remote,
+              remote: f.id.remote,
               fromMe: !0,
-              participant: b,
+              participant: C,
             }),
-            E = R(u),
+            L = E(u),
             k = o("WATimeUtils").unixTime(),
-            I = k - o("WAWebMsgGetters").getT(h),
+            I = k - o("WAWebMsgGetters").getT(f),
             T = {
-              id: L,
+              id: b,
               from:
-                C === !0 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow() : y,
-              to: h.id.remote,
-              author: b,
+                y === !0 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow() : h,
+              to: f.id.remote,
+              author: C,
               t: k,
               type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
               kind: o("WAWebMsgType").MsgKind.ProtocolRevoke,
-              subtype: R(u),
-              protocolMessageKey: h.id,
+              subtype: E(u),
+              protocolMessageKey: f.id,
               clearMedia: !!a,
               local: !0,
               revokeDuration: I,
               revokeTimestamp: k,
-              viewMode: f,
+              viewMode: p,
             };
           if (s.type === "addon")
             return o("WAWebOrchestratorNonPersistedJob")
@@ -182,14 +186,14 @@ __d(
                           "WAWebSendRevokeMessageWamEvent",
                         ).SendRevokeMessageWamEvent)({
                           messageType:
-                            o("WAWebWamMsgUtils").getWamMessageType(h),
+                            o("WAWebWamMsgUtils").getWamMessageType(f),
                           messageMediaType:
-                            o("WAWebWamMsgUtils").getWamMediaType(h),
+                            o("WAWebWamMsgUtils").getWamMediaType(f),
                           revokeSendDelay: I,
                         }).commit(),
                         yield o("WAWebAddonProcessRevoke").processSentRevokeMsg(
                           babelHelpers.extends({}, t, {
-                            t: o("WAWebMsgGetters").getT(h),
+                            t: o("WAWebMsgGetters").getT(f),
                             ack: o("WAWebAck").ACK.SENT,
                           }),
                           e,
@@ -212,12 +216,12 @@ __d(
               )
               .waitUntilCompleted();
           var D = babelHelpers.extends({}, T),
-            x = v(h, u);
+            x = v(f, u);
           if (
             (x.length > 0 && (D.botGroupParticipants = x),
             o("WAWebBotBaseGating").isBotEnabled())
           ) {
-            var $ = S(h);
+            var $ = S(f);
             if ($ != null) {
               var P;
               $ =
@@ -228,8 +232,8 @@ __d(
                   : $;
             }
             ((D.botRespOrInvocationRevokeBotWid = $),
-              h.botTargetSenderJid instanceof r("WAWebWid") &&
-                (D.botTargetSenderJid = h.botTargetSenderJid));
+              f.botTargetSenderJid instanceof r("WAWebWid") &&
+                (D.botTargetSenderJid = f.botTargetSenderJid));
           }
           var N = new (o("WAWebMsgModel").Msg)(D);
           return (
@@ -245,37 +249,23 @@ __d(
               .createNonPersistedJob(
                 "sendMessage",
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  try {
-                    var e, t;
-                    ((e = N.wamMessageSendPerfReporter) == null ||
-                      e.startSavedStage(),
-                      yield o("WAWebDBProcessMessage").storeMessages(
-                        [D],
-                        o("WAWebFrontendMsgGetters").getChat(h).id,
-                      ),
-                      (t = N.wamMessageSendPerfReporter) == null ||
-                        t.postSavedStage());
-                  } catch (e) {
-                    throw (
-                      o("WALogger")
-                        .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
-                              "_sendRevoke: failed to storeMessages into storage",
-                            ])),
-                        )
-                        .verbose()
-                        .sendLogs("storeMessages failed"),
-                      e
-                    );
-                  }
-                  var a = yield o("WAWebSendMsgRecordAction").sendMsgRecord(N),
-                    i = a.messageSendResult;
+                  var e = yield o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime")
+                          .runtime(
+                            o("WAWebMessageSendService").MessageSendService,
+                          )
+                          .storeAndSend(
+                            N,
+                            [D],
+                            o("WAWebFrontendMsgGetters").getChat(f).id,
+                          )
+                      : R(N, D, o("WAWebFrontendMsgGetters").getChat(f).id),
+                    t = e.messageSendResult;
                   if (l)
                     throw (
                       o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "_sendRevoke path for associated with bot plugin msg",
                           ])),
                       ),
@@ -283,69 +273,80 @@ __d(
                         "Expected exit for associated with bot plugin msg",
                       )
                     );
-                  return i === o("WAWebSendMsgResultAction").SendMsgResult.OK
+                  return t === o("WAWebSendMsgResultAction").SendMsgResult.OK
                     ? (new (o(
                         "WAWebSendRevokeMessageWamEvent",
                       ).SendRevokeMessageWamEvent)({
-                        messageType: o("WAWebWamMsgUtils").getWamMessageType(h),
+                        messageType: o("WAWebWamMsgUtils").getWamMessageType(f),
                         messageMediaType:
-                          o("WAWebWamMsgUtils").getWamMediaType(h),
+                          o("WAWebWamMsgUtils").getWamMediaType(f),
                         revokeSendDelay: I,
                       }).commit(),
-                      o("WAWebDBProcessRevokeMsgs")
-                        .processRevokeMsgsAndGetCleanupEligibleKeys([
-                          {
-                            revokeMsgKey: h.id,
-                            newMsgKey: L,
-                            timestamp: o("WAWebMsgGetters").getT(h),
-                            revokeTimestamp: k,
-                            subtype: E,
-                            sender: y,
-                            viewMode: N.viewMode,
-                          },
-                        ])
-                        .then(
-                          (function () {
-                            var e = n(
-                              "asyncToGeneratorRuntime",
-                            ).asyncToGenerator(function* (e) {
-                              return e.has(h.id.toString())
-                                ? (o(
-                                    "WAWebUpdateLastAddOnPreviewChatAction",
-                                  ).deleteModelsForLastAddOnPreview([
-                                    h.id.toString(),
-                                  ]),
-                                  yield o(
-                                    "WAWebRequestDeleteAddOns",
-                                  ).requestDeleteAddOns(
-                                    o("WAWebFrontendMsgGetters")
-                                      .getChat(h)
-                                      .id.toString(),
-                                    [h.id.toString()],
-                                  ),
-                                  g(s.data, {
-                                    msgKey: L,
-                                    subtype: E,
-                                    sender: y,
-                                    revokeTimestamp: k,
-                                    viewMode: N.viewMode,
-                                  }),
-                                  {
-                                    messageSendResult: o(
-                                      "WAWebSendMsgResultAction",
-                                    ).SendMsgResult.OK,
-                                  })
-                                : {
-                                    messageSendResult: o(
-                                      "WAWebSendMsgResultAction",
-                                    ).SendMsgResult.ERROR_UNKNOWN,
-                                  };
-                            });
-                            return function (t) {
-                              return e.apply(this, arguments);
-                            };
-                          })(),
-                        ))
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime")
+                            .runtime(o("WAWebRevokeService").RevokeService)
+                            .processSentRevoke({
+                              msg: s.data,
+                              newKey: b,
+                              t: k,
+                              subtype: L,
+                              sender: h,
+                              viewMode: N.viewMode,
+                            })
+                        : o("WAWebDBProcessRevokeMsgs")
+                            .processRevokeMsgsAndGetCleanupEligibleKeys([
+                              {
+                                revokeMsgKey: f.id,
+                                newMsgKey: b,
+                                timestamp: o("WAWebMsgGetters").getT(f),
+                                revokeTimestamp: k,
+                                subtype: L,
+                                sender: h,
+                                viewMode: N.viewMode,
+                              },
+                            ])
+                            .then(
+                              (function () {
+                                var e = n(
+                                  "asyncToGeneratorRuntime",
+                                ).asyncToGenerator(function* (e) {
+                                  return e.has(f.id.toString())
+                                    ? (o(
+                                        "WAWebUpdateLastAddOnPreviewChatAction",
+                                      ).deleteModelsForLastAddOnPreview([
+                                        f.id.toString(),
+                                      ]),
+                                      yield o(
+                                        "WAWebRequestDeleteAddOns",
+                                      ).requestDeleteAddOns(
+                                        o("WAWebFrontendMsgGetters")
+                                          .getChat(f)
+                                          .id.toString(),
+                                        [f.id.toString()],
+                                      ),
+                                      g(s.data, {
+                                        msgKey: b,
+                                        subtype: L,
+                                        sender: h,
+                                        revokeTimestamp: k,
+                                        viewMode: N.viewMode,
+                                      }),
+                                      {
+                                        messageSendResult: o(
+                                          "WAWebSendMsgResultAction",
+                                        ).SendMsgResult.OK,
+                                      })
+                                    : {
+                                        messageSendResult: o(
+                                          "WAWebSendMsgResultAction",
+                                        ).SendMsgResult.ERROR_UNKNOWN,
+                                      };
+                                });
+                                return function (t) {
+                                  return e.apply(this, arguments);
+                                };
+                              })(),
+                            ))
                     : (_ || (_ = n("Promise"))).resolve({
                         messageSendResult: o("WAWebSendMsgResultAction")
                           .SendMsgResult.ERROR_UNKNOWN,
@@ -423,7 +424,37 @@ __d(
       var a = (t = e.mentionedJidList) == null ? void 0 : t.find(n);
       return a != null && e.isForwarded !== !0 ? a : null;
     }
-    function R(e) {
+    function R(e, t, n) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          try {
+            var r, a;
+            ((r = e.wamMessageSendPerfReporter) == null || r.startSavedStage(),
+              yield o("WAWebDBProcessMessage").storeMessages([t], n),
+              (a = e.wamMessageSendPerfReporter) == null || a.postSavedStage());
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "_sendRevoke: failed to storeMessages into storage",
+                    ])),
+                )
+                .verbose()
+                .sendLogs("storeMessages failed"),
+              e
+            );
+          }
+          return o("WAWebSendMsgRecordAction").sendMsgRecord(e);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e) {
       switch (e) {
         case o("WAWebCmd").Revoke.Sender:
           return "sender_revoke";
@@ -431,7 +462,7 @@ __d(
           return "admin_revoke";
       }
     }
-    function L(e, t) {
+    function k(e, t) {
       var n,
         a,
         i,
@@ -596,7 +627,11 @@ __d(
         (o(
           "WAWebUpdateLastAddOnPreviewChatAction",
         ).deleteModelsForLastAddOnPreview([m.toString()]),
-          o("WAWebRequestDeleteAddOns").requestDeleteAddOnsFireAndForget(
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebAddonService").AddonService,
+              ).requestDeleteAddOnsFireAndForget
+            : o("WAWebRequestDeleteAddOns").requestDeleteAddOnsFireAndForget)(
             E.toString(),
             [m.toString()],
           ));

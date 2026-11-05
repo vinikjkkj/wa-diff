@@ -2,7 +2,9 @@ __d(
   "WAWebNewsletterRevokeStatusAction",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebDBMessageDelete",
+    "WAWebMessageStoreService",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterRevokeStatusQueryJob",
     "WAWebStatusPosterActionsLogger",
@@ -40,7 +42,13 @@ __d(
               var d = n.id.toString();
               return (
                 t.revokeMsgs([d]),
-                yield o("WAWebDBMessageDelete").removeStatusMessage([n]),
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageStoreService").MessageStoreService,
+                      ).removeStatusMessage
+                    : o("WAWebDBMessageDelete").removeStatusMessage
+                )([n]),
                 u.logDeleteStatusSuccess(),
                 !0
               );

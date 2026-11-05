@@ -6,7 +6,9 @@ __d(
     "WAWebDBEphemeralMessage",
     "WAWebMsgKey",
     "WAWebPageLoadLogging",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
+    "WAWebUiRuntime",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,10 +33,14 @@ __d(
                 a.push(t));
             });
             var l = Array.from(i.values()).join(",").toString();
-            (o("WAWebBackendApi").frontendFireAndForget(
-              "deleteModelsForLastAddOnPreview",
-              { messagesIds: a },
-            ),
+            (o("WAWebUiRuntime").isWebDiUiEnabled()
+              ? o("WAWebUiRuntime")
+                  .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                  .deleteModelsForLastAddOnPreview(a)
+              : o("WAWebBackendApi").frontendFireAndForget(
+                  "deleteModelsForLastAddOnPreview",
+                  { messagesIds: a },
+                ),
               yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(l, a),
               o("WALogger").LOG(
                 e ||

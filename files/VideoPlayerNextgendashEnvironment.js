@@ -131,6 +131,7 @@ __d(
         realWorkerConnectTimeoutMs: 0,
         realWorkerV2SkipHasteResponsePreloader: !1,
         reduceStateMachineEventOverhead: !1,
+        releaseParsedManifestXML: !1,
         releasePastStateMachineStates: !1,
         reopenEndedMediaSourceOnRepresentationSwitch: !1,
         resetTargetRepresentationWhenItGetsBlocked: !1,

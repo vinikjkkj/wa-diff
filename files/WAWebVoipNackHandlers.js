@@ -3,12 +3,14 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebCallCollection",
     "WAWebConfirmPopup.react",
     "WAWebContactCollection",
     "WAWebCoreActionsODS",
     "WAWebFrontendContactGetters",
     "WAWebGroupQueryJob",
+    "WAWebGroupQueryService",
     "WAWebModalManager",
     "WAWebName.react",
     "WAWebNoop",
@@ -141,20 +143,24 @@ __d(
                 "voip: handleCallOfferNacked: refreshing group info after membership mismatch (412)",
               ])),
           ),
-          o("WAWebGroupQueryJob")
-            .queryAndUpdateGroupMetadataById({ id: t })
-            .catch(function (t) {
-              ((e.didRefreshGroupInfoOnMismatch = !1),
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: handleCallOfferNacked: group info refresh failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("voip-refresh-group-info-on-mismatch"));
-            })));
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupQueryService").GroupQueryService,
+              ).queryAndUpdateGroupMetadataById
+            : o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById)({
+            id: t,
+          }).catch(function (t) {
+            ((e.didRefreshGroupInfoOnMismatch = !1),
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: handleCallOfferNacked: group info refresh failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("voip-refresh-group-info-on-mismatch"));
+          })));
     }
     function T(e) {
       var t = r("WAWebCallCollection").activeCall;

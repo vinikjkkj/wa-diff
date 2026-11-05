@@ -5,6 +5,7 @@ __d(
     "Lexical",
     "WAWebClassnames",
     "WAWebEmoji",
+    "WAWebEmojiVars.stylex",
     "WAWebStylesEnv",
     "err",
     "stylex",
@@ -131,15 +132,19 @@ __d(
           }),
           (a.createDOM = function () {
             var t = this.__text,
-              n = document.createElement("span"),
-              a = o("WAWebStylesEnv").hasSafariFix && u.emojiSafari,
+              n = document.createElement("span");
+            n.contentEditable = "false";
+            var a = o("WAWebStylesEnv").hasSafariFix && u.emojiSafari,
               i = o("WAWebStylesEnv").hasFirefoxFix && u.emojiFirefox,
               l = o("WAWebStylesEnv").isOSWin && u.emojiWin,
               c = null,
               d = null;
             switch (this.__emojiSize) {
               case s.Small:
-                d = o("WAWebEmoji").EmojiUtil.getGlyphPath(t, 40);
+                ((d = o("WAWebEmoji").EmojiUtil.getGlyphPath(t, 40)),
+                  (n.style.verticalAlign = o(
+                    "WAWebEmojiVars.stylex",
+                  ).emojiVars.verticalAlign));
                 break;
               case s.Medium:
                 ((d = o("WAWebEmoji").EmojiUtil.getGlyphPath(t, 64)),
@@ -175,6 +180,17 @@ __d(
             if (e == null) return !0;
             var r = this.__text;
             return (e.textContent !== r && (e.textContent = r), !1);
+          }),
+          (a.selectionTransform = function (t, n) {
+            for (var e of [n.anchor, n.focus])
+              if (e.key === this.getKey()) {
+                var r = e.offset;
+                if (!(r !== 0 && r !== this.getTextContentSize())) {
+                  var o = this.getParentOrThrow(),
+                    a = this.getIndexWithinParent() + (r === 0 ? 0 : 1);
+                  e.set(o.getKey(), a, "element");
+                }
+              }
           }),
           (a.exportJSON = function () {
             return babelHelpers.extends({}, t.prototype.exportJSON.call(this), {

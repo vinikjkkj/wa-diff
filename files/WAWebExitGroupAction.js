@@ -8,9 +8,11 @@ __d(
     "WAWebActionToast.react",
     "WAWebApiContact",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBoolFunc",
     "WAWebChatGetters",
     "WAWebGroupExitJob",
+    "WAWebGroupLifecycleService",
     "WAWebInvalidateEventsAction",
     "WAWebMiscErrors",
     "WAWebPollsInvalidateChatPollMsgsAction",
@@ -45,12 +47,16 @@ __d(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       if (r.sendExit) return r.sendExit;
-      var a = (r.sendExit = o("WAWebGroupExitJob")
-        .leaveGroup(e.id)
-        .then(function (e) {
-          if (e.code !== 200)
-            throw new (o("WAWebBackendErrors").ServerStatusCodeError)(e.code);
-        }));
+      var a = (r.sendExit = (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebGroupLifecycleService").GroupLifecycleService,
+            ).leaveGroup
+          : o("WAWebGroupExitJob").leaveGroup
+      )(e.id).then(function (e) {
+        if (e.code !== 200)
+          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(e.code);
+      }));
       return (
         t && g(e, a),
         a

@@ -5,8 +5,10 @@ __d(
     "WAWebBackendApi",
     "WAWebDBMessageDelete",
     "WAWebDeleteMessageForMeSync",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
     "WAWebSyncdCoreApi",
+    "WAWebUiRuntime",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -51,10 +53,16 @@ __d(
                   function* (e) {
                     return (
                       c.length > 0 &&
-                        (yield o("WAWebBackendApi").frontendSendAndReceive(
-                          "deleteModelsForLastAddOnPreview",
-                          { messagesIds: c },
-                        ),
+                        (yield o("WAWebUiRuntime").isWebDiUiEnabled()
+                          ? o("WAWebUiRuntime")
+                              .uiRuntime(
+                                o("WAWebReactionUiService").ReactionUiService,
+                              )
+                              .deleteModelsForLastAddOnPreview(c)
+                          : o("WAWebBackendApi").frontendSendAndReceive(
+                              "deleteModelsForLastAddOnPreview",
+                              { messagesIds: c },
+                            ),
                         yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                           i.toString(),
                           c,

@@ -4,10 +4,12 @@ __d(
     "WAJids",
     "WALogger",
     "WATimeUtils",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebScheduledMessageActionWamEvent",
+    "WAWebScheduledMessageService",
     "WAWebScheduledMsgStore",
     "WAWebUnifiedSession",
     "WAWebWamEnumGroupRoleType",
@@ -51,10 +53,13 @@ __d(
     function p(t, n) {
       var a = n.scheduledTimestampS,
         i = n.toScheduledCount;
-      o("WAWebScheduledMsgStore")
-        .getScheduledMessageCount(
-          o("WAJids").unsafeCoerceToChatJid(t.id.toJid()),
-        )
+      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebScheduledMessageService").ScheduledMessageService,
+          ).getScheduledMessageCount
+        : o("WAWebScheduledMsgStore").getScheduledMessageCount)(
+        o("WAJids").unsafeCoerceToChatJid(t.id.toJid()),
+      )
         .then(function (e) {
           m(t, {
             countBeforeAction: e,
@@ -87,10 +92,13 @@ __d(
       );
     }
     function f(e, t) {
-      o("WAWebScheduledMsgStore")
-        .getScheduledMessageCount(
-          o("WAJids").unsafeCoerceToChatJid(e.id.toJid()),
-        )
+      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebScheduledMessageService").ScheduledMessageService,
+          ).getScheduledMessageCount
+        : o("WAWebScheduledMsgStore").getScheduledMessageCount)(
+        o("WAJids").unsafeCoerceToChatJid(e.id.toJid()),
+      )
         .then(function (n) {
           _(e, { countBeforeAction: n, entrypoint: t });
         })

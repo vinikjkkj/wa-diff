@@ -2,6 +2,8 @@ __d(
   "WAWebUpdateEphemeralSettingChatAction",
   [
     "WALogger",
+    "WAWebBackendRuntime",
+    "WAWebChatStoreService",
     "WAWebDBChatEphemeralExemptionData",
     "WAWebDBUpdateChatTable",
     "WAWebEphemeralGenerateSystemMessage",
@@ -22,7 +24,13 @@ __d(
                 "[DMResolve] updateChatEphemeralSettings",
               ])),
           ),
-            yield o("WAWebDBUpdateChatTable").updateChatTable(
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable
+            )(
               t.id,
               babelHelpers.extends({}, n, {
                 disappearingModeInitiator: n.disappearingModeInitiator,

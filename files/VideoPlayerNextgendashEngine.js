@@ -379,6 +379,7 @@ __d(
             e.mediaSinkConnectToWorker != null ||
             t.realWorkerV2SkipHasteResponsePreloader,
           reduceStateMachineEventOverhead: r("gkx")("2977"),
+          releaseParsedManifestXML: r("gkx")("28847"),
           releasePastStateMachineStates: r("gkx")("22384"),
           reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("18169"),
           resetTargetRepresentationWhenItGetsBlocked: r("gkx")("18461"),

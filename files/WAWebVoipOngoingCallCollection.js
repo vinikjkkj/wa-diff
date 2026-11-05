@@ -3,12 +3,15 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBaseCollection",
     "WAWebCallCollection",
     "WAWebCallLogMsgData.flow",
     "WAWebDBMessageFindLocal",
     "WAWebDBUpdateMessageTable",
     "WAWebDbEncryptionKey",
+    "WAWebMessageQueryService",
+    "WAWebMessageStoreService",
     "WAWebMsgGetters",
     "WAWebMsgModel",
     "WAWebProcessMultipleMsgsAction",
@@ -163,9 +166,13 @@ __d(
                                 finalCallOutcome: o("WAWebCallLogMsgData.flow")
                                   .CallOutcome.Completed,
                               };
-                              (o(
-                                "WAWebDBUpdateMessageTable",
-                              ).updateMessageTable(e.id, t),
+                              ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                                ? o("WAWebBackendRuntime").runtime(
+                                    o("WAWebMessageStoreService")
+                                      .MessageStoreService,
+                                  ).updateMessageTable
+                                : o("WAWebDBUpdateMessageTable")
+                                    .updateMessageTable)(e.id, t),
                                 e.set(t));
                             } catch (t) {
                               var n;
@@ -199,9 +206,13 @@ __d(
           })()),
           (i.$WAWebVoipOngoingCallCollectionImpl$p_3 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield o(
-                "WAWebDBMessageFindLocal",
-              ).getVoipOngoingCallLogMessages();
+              var e = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageQueryService").MessageQueryService,
+                    ).getVoipOngoingCallLogMessages
+                  : o("WAWebDBMessageFindLocal").getVoipOngoingCallLogMessages
+              )();
               return o(
                 "WAWebProcessMultipleMsgsAction",
               )._processMultipleMessages({

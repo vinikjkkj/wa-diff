@@ -5,8 +5,10 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAfterReadUtils",
+    "WAWebBackendRuntime",
     "WAWebChatEphemerality",
     "WAWebChatGetters",
+    "WAWebChatStoreService",
     "WAWebChatThreadLogging",
     "WAWebContactBlockedErrorAction",
     "WAWebContactGetters",
@@ -15,6 +17,7 @@ __d(
     "WAWebEphemeralSettingChangeWamEvent",
     "WAWebEphemeralityTypes",
     "WAWebGroupModifyInfoJob",
+    "WAWebGroupSettingsService",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
@@ -112,7 +115,13 @@ __d(
             disappearingModeTrigger: i,
             disappearingModeInitiatedByMe: !0,
           };
-          (yield o("WAWebDBUpdateChatTable").updateChatTable(
+          (yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatStoreService").ChatStoreService,
+                ).updateChatTable
+              : o("WAWebDBUpdateChatTable").updateChatTable
+          )(
             t.id,
             babelHelpers.extends(
               {
@@ -161,11 +170,13 @@ __d(
             throw r("err")(
               "changeGroupEphemeralDuration should not be called for 1-1 chats. Use changeEphemeralDuration which handles both 1-1 and group cases",
             );
-          yield o("WAWebGroupModifyInfoJob").setEphemeralGroupProperty({
-            ephemeralExpiration: t,
-            groupWid: e.id,
-            trigger: n,
-          });
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebGroupSettingsService").GroupSettingsService,
+                ).setEphemeralGroupProperty
+              : o("WAWebGroupModifyInfoJob").setEphemeralGroupProperty
+          )({ ephemeralExpiration: t, groupWid: e.id, trigger: n });
         })),
         p.apply(this, arguments)
       );

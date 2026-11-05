@@ -50,7 +50,7 @@ __d(
         }
         var r = t.prototype;
         return (
-          (r.$14 = function (t, n) {
+          (r.$14 = function (t, n, r) {
             var e = new (o(
               "WAWebWebcOfflineNotificationProcessWamEvent",
             ).WebcOfflineNotificationProcessWamEvent)({
@@ -60,16 +60,17 @@ __d(
               swVersion: o("WAWebBuildConstants").VERSION_BASE,
               runReason: this.$2,
             });
-            ((t ===
-              o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
-                .PROCESSING ||
-              t ===
+            (r != null && (e.offlineProcessInterruptReason = r),
+              (t ===
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
-                  .PROCESS_COMPLETE ||
-              t ===
-                o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
-                  .PROCESS_INTERRUPTED) &&
-              this.$15(e),
+                  .PROCESSING ||
+                t ===
+                  o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
+                    .PROCESS_COMPLETE ||
+                t ===
+                  o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
+                    .PROCESS_INTERRUPTED) &&
+                this.$15(e),
               t ===
                 o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                   .PROCESS_COMPLETE ||
@@ -311,7 +312,7 @@ __d(
             }
             return t;
           })()),
-          (r.logProcessInterrupted = function () {
+          (r.logProcessInterrupted = function (t) {
             var e;
             if (
               !(
@@ -329,12 +330,13 @@ __d(
               ).OFFLINE_PROCESS_STAGES.PROCESS_INTERRUPTED),
                 (e = this.$8) == null || e.cancel(),
                 (this.$8 = null));
-              var t = Math.floor(self.performance.now() - this.pageLoadT);
-              ((this.processCompleteT = t),
+              var n = Math.floor(self.performance.now() - this.pageLoadT);
+              ((this.processCompleteT = n),
                 this.$18(),
                 this.$14(
                   o("WAWebWamEnumOfflineProcessStages").OFFLINE_PROCESS_STAGES
                     .PROCESS_INTERRUPTED,
+                  n,
                   t,
                 ));
             }

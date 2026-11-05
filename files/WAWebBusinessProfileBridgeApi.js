@@ -3,10 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBizCoexGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebCatalogCollection",
     "WAWebChatCollection",
+    "WAWebChatStoreService",
     "WAWebContactCollection",
     "WAWebDBUpdateChatTable",
     "WAWebJidToWid",
@@ -126,40 +128,44 @@ __d(
           i != null &&
           l != null
             ? (a.set({ parentCompanyName: i, obaPhoneNumber: l }),
-              o("WAWebDBUpdateChatTable")
-                .updateChatTable(a.id, {
-                  parentCompanyName: i,
-                  obaPhoneNumber: l,
-                })
-                .catch(function (t) {
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to save authorized agent metadata to chat table",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(t))
-                    .sendLogs("save-auth-agent-chat-table-fail");
-                }))
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(a.id, {
+                parentCompanyName: i,
+                obaPhoneNumber: l,
+              }).catch(function (t) {
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to save authorized agent metadata to chat table",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("save-auth-agent-chat-table-fail");
+              }))
             : (n == null ? void 0 : n.isAuthorizedAgent) === !1 &&
               (a.set({ parentCompanyName: null, obaPhoneNumber: null }),
-              o("WAWebDBUpdateChatTable")
-                .updateChatTable(a.id, {
-                  parentCompanyName: null,
-                  obaPhoneNumber: null,
-                })
-                .catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to clear authorized agent metadata from chat table",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("clear-auth-agent-chat-table-fail");
-                }));
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(a.id, {
+                parentCompanyName: null,
+                obaPhoneNumber: null,
+              }).catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to clear authorized agent metadata from chat table",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("clear-auth-agent-chat-table-fail");
+              }));
         }
       }
     }

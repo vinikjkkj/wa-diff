@@ -64,12 +64,14 @@ __d(
           ? o("WAWebWamEnumWebTabState").WEB_TAB_STATE.VISIBLE_UNFOCUSED
           : e === "hidden"
             ? o("WAWebWamEnumWebTabState").WEB_TAB_STATE.HIDDEN
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })();
+            : e === "not_connected"
+              ? o("WAWebWamEnumWebTabState").WEB_TAB_STATE.CLOSED
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     function v(e) {
       return (

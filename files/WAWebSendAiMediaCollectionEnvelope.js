@@ -2,7 +2,10 @@ __d(
   "WAWebSendAiMediaCollectionEnvelope",
   [
     "WAJobOrchestratorTypes",
+    "WAWebBackendRuntime",
     "WAWebDBProcessMessage",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgModel",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSendMsgRecordAction",
@@ -21,8 +24,20 @@ __d(
               "sendMessage",
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 return (
-                  yield o("WAWebDBProcessMessage").storeMessages([t], e.id),
-                  yield o("WAWebSendMsgRecordAction").sendMsgRecord(r)
+                  yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageStoreService").MessageStoreService,
+                        ).storeMessages
+                      : o("WAWebDBProcessMessage").storeMessages
+                  )([t], e.id),
+                  yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageSendService").MessageSendService,
+                        ).sendMsgRecord
+                      : o("WAWebSendMsgRecordAction").sendMsgRecord
+                  )(r)
                 );
               }),
               { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },

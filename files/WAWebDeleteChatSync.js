@@ -17,6 +17,7 @@ __d(
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
@@ -24,6 +25,7 @@ __d(
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
+    "WAWebUiRuntime",
     "WAWebWamEnumMdFeatureCode",
     "WAWebWid",
     "WAWebWidFactory",
@@ -202,10 +204,16 @@ __d(
                       n,
                       { removeWholeRow: !0 },
                     ),
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "deleteModelsForLastAddOnPreview",
-                      { messagesIds: n },
-                    ),
+                    o("WAWebUiRuntime").isWebDiUiEnabled()
+                      ? o("WAWebUiRuntime")
+                          .uiRuntime(
+                            o("WAWebReactionUiService").ReactionUiService,
+                          )
+                          .deleteModelsForLastAddOnPreview(n)
+                      : o("WAWebBackendApi").frontendFireAndForget(
+                          "deleteModelsForLastAddOnPreview",
+                          { messagesIds: n },
+                        ),
                     yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                       e.toString(),
                       n,

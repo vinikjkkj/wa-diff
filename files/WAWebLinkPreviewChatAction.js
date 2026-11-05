@@ -9,6 +9,7 @@ __d(
     "WAWebABProps",
     "WAWebApi",
     "WAWebApiParse",
+    "WAWebBackendRuntime",
     "WAWebBizLinkPreviewCatalogUtils",
     "WAWebChatGetters",
     "WAWebCheckIfDomainIsPreviewable",
@@ -21,6 +22,7 @@ __d(
     "WAWebNewsletterFetchLinkPreviewAction",
     "WAWebNonMessageDataRequestHandlerGenLinkPreview",
     "WAWebParseCallLinkType",
+    "WAWebPeerDataService",
     "WAWebPrimaryFeaturesModel",
     "WAWebProfilePicThumbGetters",
     "WAWebProtobufsE2E.pb",
@@ -213,9 +215,13 @@ __d(
               ])),
           );
           var F = o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hqLinkPreview;
-          yield o(
-            "WAWebSendNonMessageDataRequest",
-          ).sendPeerDataOperationRequest(
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebPeerDataService").PeerDataService,
+                ).sendPeerDataOperationRequest
+              : o("WAWebSendNonMessageDataRequest").sendPeerDataOperationRequest
+          )(
             o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .GENERATE_LINK_PREVIEW,
             { urls: [e.url], includeHqThumbnail: F },

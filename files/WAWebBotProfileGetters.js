@@ -14,8 +14,7 @@ __d(
       g = s("product"),
       h = s("isDeprecated"),
       y = s("creatorLid"),
-      C = s("isDeleted"),
-      b = s("generatedEmoji");
+      C = s("isDeleted");
     ((l.getPrompts = u),
       (l.getCommands = c),
       (l.getIsDefault = d),
@@ -26,8 +25,7 @@ __d(
       (l.getProduct = g),
       (l.getIsDeprecated = h),
       (l.getCreatorLid = y),
-      (l.getIsDeleted = C),
-      (l.getGeneratedEmoji = b));
+      (l.getIsDeleted = C));
   },
   98,
 );

@@ -3,10 +3,12 @@ __d(
   [
     "WALogger",
     "WASmaxGroupsAcknowledgeGroupRPC",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
     "WAWebFrontendContactGetters",
     "WAWebNoop",
     "WAWebSendNotSpamAction",
+    "WAWebSpamService",
     "WAWebWidToJid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,11 +30,13 @@ __d(
               ])),
             t.id.toLogString(),
           ),
-          o("WASmaxGroupsAcknowledgeGroupRPC")
-            .sendAcknowledgeGroupRPC({
-              iqTo: o("WAWebWidToJid").widToGroupJid(t.id),
-            })
-            .catch(r("WAWebNoop"))));
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebSpamService").SpamService,
+              ).sendAcknowledgeGroupRPC
+            : o("WASmaxGroupsAcknowledgeGroupRPC").sendAcknowledgeGroupRPC)({
+            iqTo: o("WAWebWidToJid").widToGroupJid(t.id),
+          }).catch(r("WAWebNoop"))));
     }
     ((l.shouldShowSpamPanel = s), (l.acknowledgeGroupAsNotSpam = u));
   },

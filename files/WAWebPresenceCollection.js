@@ -3,12 +3,14 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebContactPresenceBridge",
     "WAWebGroupPresencePoller",
     "WAWebGroupPresenceUtils",
     "WAWebPresenceGetters",
     "WAWebPresenceModel",
+    "WAWebPresenceService",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
@@ -76,7 +78,13 @@ __d(
                     .sendLogs("presence-key-not-lid");
                   return;
                 }
-                yield o("WAWebContactPresenceBridge").subscribeUserPresence(t);
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebPresenceService").PresenceService,
+                      ).subscribeUserPresence
+                    : o("WAWebContactPresenceBridge").subscribeUserPresence
+                )(t);
               },
             );
             function r(e) {
@@ -116,9 +124,12 @@ __d(
                           var r = o("WAWebWidFactory").asUserLidOrThrow(n);
                           (t.gadd(r),
                             i.push(
-                              o(
-                                "WAWebContactPresenceBridge",
-                              ).subscribeUserPresence(r),
+                              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                                ? o("WAWebBackendRuntime").runtime(
+                                    o("WAWebPresenceService").PresenceService,
+                                  ).subscribeUserPresence
+                                : o("WAWebContactPresenceBridge")
+                                    .subscribeUserPresence)(r),
                             ));
                         }
                       }),

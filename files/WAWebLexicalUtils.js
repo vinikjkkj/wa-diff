@@ -99,31 +99,50 @@ __d(
     }
     function v(e) {
       return b(e)
-        ? I(e).length === 0
+        ? T(e).length === 0
           ? !0
           : e.getEditorState().read(function () {
-              var e = u();
-              return e
-                ? e.point.offset === 0 &&
-                    e.node === o("Lexical").$getRoot().getFirstDescendant()
+              var e = y();
+              if ((e == null ? void 0 : e.anchor.type) === "element")
+                return R(e, !1);
+              var t = u();
+              return t
+                ? t.point.offset === 0 &&
+                    t.node === o("Lexical").$getRoot().getFirstDescendant()
                 : !1;
             })
         : !1;
     }
     function S(e) {
       return b(e)
-        ? I(e).length === 0
+        ? T(e).length === 0
           ? !0
           : e.getEditorState().read(function () {
-              var e = u();
-              return e
-                ? e.point.offset === e.node.getTextContentSize() &&
-                    e.node === o("Lexical").$getRoot().getLastDescendant()
+              var e = y();
+              if ((e == null ? void 0 : e.anchor.type) === "element")
+                return R(e, !0);
+              var t = u();
+              return t
+                ? t.point.offset === t.node.getTextContentSize() &&
+                    t.node === o("Lexical").$getRoot().getLastDescendant()
                 : !1;
             })
         : !1;
     }
-    var R = (function (e) {
+    function R(e, t) {
+      if (!e.isCollapsed()) return !1;
+      var n = e.anchor.getNode();
+      if (!o("Lexical").$isElementNode(n)) return !1;
+      var r = t ? n.getChildrenSize() : 0;
+      if (e.anchor.offset !== r) return !1;
+      for (var a = o("Lexical").$getRoot(); n !== a; ) {
+        var i = t ? n.getNextSibling() : n.getPreviousSibling();
+        if (i != null) return !1;
+        n = n.getParentOrThrow();
+      }
+      return !0;
+    }
+    var L = (function (e) {
       function t(t, n, r) {
         var o,
           a,
@@ -141,15 +160,15 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(babelHelpers.wrapNativeSuper(Error));
-    function L(e, t) {
-      if (!o("Lexical").$isTextNode(e)) throw new R("TextNode", e, t);
-      return e;
-    }
-    function E(e) {
-      if (!o("Lexical").$isParagraphNode(e)) throw new R("ParagraphNode", e);
+    function E(e, t) {
+      if (!o("Lexical").$isTextNode(e)) throw new L("TextNode", e, t);
       return e;
     }
     function k(e) {
+      if (!o("Lexical").$isParagraphNode(e)) throw new L("ParagraphNode", e);
+      return e;
+    }
+    function I(e) {
       (e.focus(),
         e.update(function () {
           var e = y();
@@ -158,7 +177,7 @@ __d(
               o("LexicalSelection").$selectAll(e));
         }));
     }
-    function I(e) {
+    function T(e) {
       return e.getEditorState().read(function () {
         return o("Lexical")
           .$getRoot()
@@ -169,7 +188,7 @@ __d(
           .join("\n");
       });
     }
-    function T(e, t) {
+    function D(e, t) {
       var n = o("Lexical").$getRoot();
       n.clear();
       for (var r = e.split(/\r?\n/), a = 0; a < r.length; a++) {
@@ -180,15 +199,15 @@ __d(
       }
       t ? n.selectEnd() : o("Lexical").$setSelection(null);
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       e.update(
         function () {
-          return T(t, b(e));
+          return D(t, b(e));
         },
         n == null ? void 0 : { tag: n },
       );
     }
-    function x() {
+    function $() {
       var e,
         t = y(),
         n = t == null || (e = t.getNodes()) == null ? void 0 : e[0];
@@ -199,24 +218,24 @@ __d(
       }
       return null;
     }
-    function* $(e) {
+    function* P(e) {
       for (var t = e.getFirstChild(); t; ) {
         var n;
         if (o("Lexical").$isTextNode(t)) yield t;
-        else if (o("Lexical").$isElementNode(t)) for (var r of $(t)) yield r;
+        else if (o("Lexical").$isElementNode(t)) for (var r of P(t)) yield r;
         t = (n = t) == null ? void 0 : n.getNextSibling();
       }
     }
-    function P(e) {
+    function N(e) {
       return e
         ? e.getEditorState().read(function () {
-            for (var e of $(o("Lexical").$getRoot()))
+            for (var e of P(o("Lexical").$getRoot()))
               if (e.getStyle().includes("bot-command-text")) return !0;
             return !1;
           })
         : !1;
     }
-    function N(e, t) {
+    function M(e, t) {
       var n = e.splitText(t),
         r = n[0],
         o = n[1];
@@ -240,17 +259,17 @@ __d(
       (l.isFocused = b),
       (l.isCursorAtStart = v),
       (l.isCursorAtEnd = S),
-      (l.NodeTypeAssertionError = R),
-      (l.assertTextNode = L),
-      (l.assertParagraphNode = E),
-      (l.selectAll = k),
-      (l.getTextContent = I),
-      (l.$setTextContent = T),
-      (l.setTextContent = D),
-      (l.$getSelectionParagraph = x),
-      (l.textNodesIterator = $),
-      (l.hasBotCommand = P),
-      (l.$splitText = N));
+      (l.NodeTypeAssertionError = L),
+      (l.assertTextNode = E),
+      (l.assertParagraphNode = k),
+      (l.selectAll = I),
+      (l.getTextContent = T),
+      (l.$setTextContent = D),
+      (l.setTextContent = x),
+      (l.$getSelectionParagraph = $),
+      (l.textNodesIterator = P),
+      (l.hasBotCommand = N),
+      (l.$splitText = M));
   },
   98,
 );

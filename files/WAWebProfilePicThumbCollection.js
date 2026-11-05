@@ -8,6 +8,7 @@ __d(
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBaseCachePolicy",
     "WAWebBotUtils",
     "WAWebChatCollection",
@@ -21,6 +22,7 @@ __d(
     "WAWebNewsletterMetadataGetters",
     "WAWebProfilePicThumbGetters",
     "WAWebProfilePicThumbModel",
+    "WAWebProfilePictureService",
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebStaleBaseCollection",
@@ -118,9 +120,15 @@ __d(
                     var g,
                       y = o("WAWebContactCollection").ContactCollection.get(t),
                       C = o("WAWebChatCollection").ChatCollection.get(t);
-                    return o(
-                      "WAWebContactProfilePicThumbBridge",
-                    ).requestProfilePicFromServer({
+                    return (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebProfilePictureService")
+                              .ProfilePictureService,
+                          ).requestProfilePicFromServer
+                        : o("WAWebContactProfilePicThumbBridge")
+                            .requestProfilePicFromServer
+                    )({
                       id: t,
                       parentGroupId: m,
                       tcToken: C == null ? void 0 : C.tcToken,
@@ -133,9 +141,14 @@ __d(
                           : null,
                     });
                   }
-                  return o(
-                    "WAWebContactProfilePicThumbBridge",
-                  ).requestProfilePicFromServer({
+                  return (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebProfilePictureService").ProfilePictureService,
+                        ).requestProfilePicFromServer
+                      : o("WAWebContactProfilePicThumbBridge")
+                          .requestProfilePicFromServer
+                  )({
                     id: t,
                     parentGroupId: m,
                     newsletterRole: t.isNewsletter()

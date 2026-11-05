@@ -10,10 +10,12 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAck",
+    "WAWebAddonService",
     "WAWebAiThreadCollection",
     "WAWebAlarm",
     "WAWebAppTracker",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBaseModel",
     "WAWebBizAiAgentGating",
     "WAWebBizAiHandoffRemoval",
@@ -39,6 +41,7 @@ __d(
     "WAWebChatParticipantColor",
     "WAWebChatShowUnreadInTitle",
     "WAWebChatSquelchConstants",
+    "WAWebChatStoreService",
     "WAWebChatThemeGatingUtils",
     "WAWebChatThemeValue",
     "WAWebChatUnreadMentions",
@@ -49,6 +52,7 @@ __d(
     "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactCollection",
+    "WAWebContactStoreService",
     "WAWebDBEphemeralMessage",
     "WAWebDBUpdateChatTable",
     "WAWebDBUpdateContactTable",
@@ -69,6 +73,7 @@ __d(
     "WAWebLimitSharingModelUtils",
     "WAWebMediaMsgRegistration",
     "WAWebMemoryPressureCacheRegistry",
+    "WAWebMessageStoreService",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
@@ -357,11 +362,16 @@ __d(
               var l = { name: this.name };
               o("WAWebChatGetters").getIsUser(this) &&
               !o("WAWebChatGetters").getIsPSA(this)
-                ? o("WAWebDBUpdateContactTable")
-                    .updateContactTable(this.contact.id, l)
-                    .then(function () {
-                      n.contact.set(l);
-                    })
+                ? (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebContactStoreService").ContactStoreService,
+                      ).updateContactTable
+                    : o("WAWebDBUpdateContactTable").updateContactTable)(
+                    this.contact.id,
+                    l,
+                  ).then(function () {
+                    n.contact.set(l);
+                  })
                 : this.contact.set(l);
             }
             if (
@@ -794,8 +804,13 @@ __d(
               var t = o("WATimeUtils").unixTime(),
                 n = this.lastChatEntryTimestamp;
               (n == null || t - n > o("WATimeUtils").HOUR_SECONDS) &&
-                o("WAWebDBUpdateChatTable")
-                  .updateChatTable(this.id, { lastChatEntryTimestamp: t })
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
+                  lastChatEntryTimestamp: t,
+                })
                   .then(function () {
                     e.lastChatEntryTimestamp = t;
                   })
@@ -810,8 +825,12 @@ __d(
                 ).registerMemoryPressureCache(D),
                 this.$ChatImpl$p_41());
               var a = Array.from(this.$ChatImpl$p_1);
-              (o("WAWebDBEphemeralMessage")
-                .removeExpiredMessagesFromHistory(a)
+              ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).removeExpiredMessagesFromHistory
+                : o("WAWebDBEphemeralMessage")
+                    .removeExpiredMessagesFromHistory)(a)
                 .then(function () {
                   var t = a.map(function (e) {
                     return e.id.toString();
@@ -821,7 +840,11 @@ __d(
                       o(
                         "WAWebUpdateLastAddOnPreviewChatAction",
                       ).deleteModelsForLastAddOnPreview(t),
-                      o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebAddonService").AddonService,
+                          ).requestDeleteAddOns
+                        : o("WAWebRequestDeleteAddOns").requestDeleteAddOns)(
                         e.id.toString(),
                         t,
                       )
@@ -1138,16 +1161,20 @@ __d(
               this.msgs.length > 0)
             ) {
               var s = r > this.msgs.length ? this.msgs.length : r;
-              o("WAWebDBUpdateChatTable")
-                .updateChatTable(this.id, { unreadCount: s })
-                .then(function () {
-                  ((e.unreadCount = s),
-                    (e.msgs.msgLoadState.noEarlierMsgs =
-                      e.endOfHistoryTransferType !==
-                      o("WAWebChatConstants")
-                        .ConversationEndOfHistoryTransferModelPropType
-                        .INCOMPLETE));
-                });
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
+                unreadCount: s,
+              }).then(function () {
+                ((e.unreadCount = s),
+                  (e.msgs.msgLoadState.noEarlierMsgs =
+                    e.endOfHistoryTransferType !==
+                    o("WAWebChatConstants")
+                      .ConversationEndOfHistoryTransferModelPropType
+                      .INCOMPLETE));
+              });
             }
           }),
           (i.deleteMessages = function (t) {
@@ -1237,9 +1264,15 @@ __d(
                               ((e.isFadingOut = !0),
                               yield o("WAPromiseDelays").delayMs(b));
                             try {
-                              yield o(
-                                "WAWebDBEphemeralMessage",
-                              ).removeExpiredMessagesFromHistory([e]);
+                              yield (
+                                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                                  ? o("WAWebBackendRuntime").runtime(
+                                      o("WAWebMessageStoreService")
+                                        .MessageStoreService,
+                                    ).removeExpiredMessagesFromHistory
+                                  : o("WAWebDBEphemeralMessage")
+                                      .removeExpiredMessagesFromHistory
+                              )([e]);
                             } catch (e) {
                               o("WALogger")
                                 .ERROR(
@@ -1265,11 +1298,14 @@ __d(
                             ).deleteModelsForLastAddOnPreview([
                               e.id.toString(),
                             ]),
-                              yield o(
-                                "WAWebRequestDeleteAddOns",
-                              ).requestDeleteAddOns(t.id.toString(), [
-                                e.id.toString(),
-                              ]),
+                              yield (
+                                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                                  ? o("WAWebBackendRuntime").runtime(
+                                      o("WAWebAddonService").AddonService,
+                                    ).requestDeleteAddOns
+                                  : o("WAWebRequestDeleteAddOns")
+                                      .requestDeleteAddOns
+                              )(t.id.toString(), [e.id.toString()]),
                               e.delete({
                                 skipUpdatingSortTime: !0,
                                 doNotResetLastReceived: !0,
@@ -1319,7 +1355,11 @@ __d(
           (i.setWallpaperValue = function (t) {
             return (
               (this.wallpaperValue = t),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
                 wallpaperValue: t,
               })
             );
@@ -1327,7 +1367,11 @@ __d(
           (i.setChatThemeValue = function (t) {
             return (
               (this.chatThemeValue = t),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
                 chatThemeValue: t,
               })
             );
@@ -1374,7 +1418,11 @@ __d(
               (this.chatThemeId = null),
               (this.colorSchemeId = null),
               (this.stockWallpaperImageId = null),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
                 wallpaperValue: r,
                 chatThemeValue: t,
                 wallpaper: null,
@@ -1388,7 +1436,11 @@ __d(
           (i.setSuggestedRepliesEnabled = function (t) {
             return (
               (this.suggestedRepliesEnabled = t),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
                 suggestedRepliesEnabled: t,
               })
             );
@@ -1416,11 +1468,15 @@ __d(
                   this.isAnnounceGrpRestrict,
                   n,
                 ),
-                o("WAWebDBUpdateChatTable")
-                  .updateChatTable(this.id, { isAnnounceGrpRestrict: n })
-                  .then(function () {
-                    return (e.isAnnounceGrpRestrict = n);
-                  }));
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable)(this.id, {
+                  isAnnounceGrpRestrict: n,
+                }).then(function () {
+                  return (e.isAnnounceGrpRestrict = n);
+                }));
             }
           }),
           (i.sortMsgs = function (t, n) {
@@ -1529,9 +1585,13 @@ __d(
           }),
           (i.updateBotInvokeSystemMsgCreated = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                hasCreatedBotInvokeSystemMsg: !0,
-              }),
+              (yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable
+              )(this.id, { hasCreatedBotInvokeSystemMsg: !0 }),
                 (this.hasCreatedBotInvokeSystemMsg = !0));
             });
             function t() {
@@ -1542,9 +1602,13 @@ __d(
           (i.updateBizBotSysMsgCreated = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                (yield o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                  bizBotSystemMsgType: e,
-                }),
+                (yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebChatStoreService").ChatStoreService,
+                      ).updateChatTable
+                    : o("WAWebDBUpdateChatTable").updateChatTable
+                )(this.id, { bizBotSystemMsgType: e }),
                   (this.bizBotSystemMsgType = e));
               },
             );

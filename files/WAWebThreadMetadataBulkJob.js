@@ -9,11 +9,13 @@ __d(
     "WAWebFetchMessagesInThread",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
     "WAWebSchemaMessage",
     "WAWebSchemaThreadsMetadata",
     "WAWebThreadUtils",
     "WAWebThreadsMetadataIdUtils",
+    "WAWebUiRuntime",
     "asyncToGeneratorRuntime",
     "compactMap",
     "err",
@@ -181,10 +183,14 @@ __d(
                 e.toString(),
                 a,
               ),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "deleteModelsForLastAddOnPreview",
-                { messagesIds: a },
-              ),
+              o("WAWebUiRuntime").isWebDiUiEnabled()
+                ? o("WAWebUiRuntime")
+                    .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                    .deleteModelsForLastAddOnPreview(a)
+                : o("WAWebBackendApi").frontendFireAndForget(
+                    "deleteModelsForLastAddOnPreview",
+                    { messagesIds: a },
+                  ),
               a
             );
           }),

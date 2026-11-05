@@ -176,7 +176,9 @@ __d(
                   );
                 })();
     }
-    ((l.takeClosedTabCallRingFields = c), (l.takeClosedTabCallRing = _));
+    ((l.takeClosedTabCallRingFields = c),
+      (l.takeClosedTabCallRing = _),
+      (l.readCallReachability = y));
   },
   98,
 );

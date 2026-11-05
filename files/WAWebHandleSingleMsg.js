@@ -21,7 +21,9 @@ __d(
     "WAWebHandlePlaceholderWam",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
+    "WAWebUiRuntime",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
@@ -166,10 +168,17 @@ __d(
                                 ]),
                                 y = h.get(g.toString());
                               y != null &&
-                                (o("WAWebBackendApi").frontendFireAndForget(
-                                  "deleteModelsForLastAddOnPreview",
-                                  { messagesIds: [y] },
-                                ),
+                                (o("WAWebUiRuntime").isWebDiUiEnabled()
+                                  ? o("WAWebUiRuntime")
+                                      .uiRuntime(
+                                        o("WAWebReactionUiService")
+                                          .ReactionUiService,
+                                      )
+                                      .deleteModelsForLastAddOnPreview([y])
+                                  : o("WAWebBackendApi").frontendFireAndForget(
+                                      "deleteModelsForLastAddOnPreview",
+                                      { messagesIds: [y] },
+                                    ),
                                 yield o(
                                   "WAWebRequestDeleteAddOns",
                                 ).requestDeleteAddOns(a.toString(), [y]));

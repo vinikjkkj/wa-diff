@@ -1,24 +1,24 @@
 __d(
   "ScriptPath",
   ["ErrorGuard", "SubscriptionList", "TimeSlice", "WebStorage", "isInIframe"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["nav_trigger"],
-      l,
       s,
-      u = "sp_pi",
-      c = 3e4,
-      d = null,
+      u,
+      c = "sp_pi",
+      d = 3e4,
       m = null,
-      p = new (n("SubscriptionList"))(),
-      _ = null,
-      f = [],
-      g = n("TimeSlice").guard(
+      p = null,
+      _ = new (r("SubscriptionList"))(),
+      f = null,
+      g = [],
+      h = r("TimeSlice").guard(
         function (e, t) {
-          p.getCallbacks().forEach(function (r) {
-            (l || (l = n("ErrorGuard"))).applyWithGuard(
+          _.getCallbacks().forEach(function (n) {
+            (s || (s = r("ErrorGuard"))).applyWithGuard(
               function () {
-                r({ source: d, dest: m, cause: e, extraData: t });
+                n({ source: m, dest: p, cause: e, extraData: t });
               },
               null,
               [],
@@ -26,105 +26,105 @@ __d(
           });
         },
         "ScriptPath Notifying callbacks",
-        { propagationType: n("TimeSlice").PropagationType.ORPHAN },
+        { propagationType: r("TimeSlice").PropagationType.ORPHAN },
       );
-    function h() {
-      return m ? m.scriptPath : void 0;
-    }
     function y() {
-      var e = (s || (s = n("WebStorage"))).getSessionStorage();
-      !e ||
-        n("isInIframe")() ||
-        s.setItemGuarded(
-          e,
-          u,
-          JSON.stringify({ pageInfo: m, clickPoint: _, time: Date.now() }),
-        );
+      return p ? p.scriptPath : void 0;
     }
     function C() {
-      var e = (s || (s = n("WebStorage"))).getSessionStorageForRead();
+      var e = (u || (u = r("WebStorage"))).getSessionStorage();
+      !e ||
+        r("isInIframe")() ||
+        u.setItemGuarded(
+          e,
+          c,
+          JSON.stringify({ pageInfo: p, clickPoint: f, time: Date.now() }),
+        );
+    }
+    function b() {
+      var e = (u || (u = r("WebStorage"))).getSessionStorageForRead();
       if (e) {
-        var t = e.getItem(u);
+        var t = e.getItem(c);
         if (t != null && t !== "") {
-          var r = JSON.parse(t);
-          r &&
-            (r.time < Date.now() - c &&
-              ((e = (s || (s = n("WebStorage"))).getSessionStorage()),
-              e && e.removeItem(u)),
-            (m = r.pageInfo),
-            (_ = r.clickPoint),
-            m && (m.restored = !0));
+          var n = JSON.parse(t);
+          n &&
+            (n.time < Date.now() - d &&
+              ((e = (u || (u = r("WebStorage"))).getSessionStorage()),
+              e && e.removeItem(c)),
+            (p = n.pageInfo),
+            (f = n.clickPoint),
+            p && (p.restored = !0));
         }
       }
     }
-    C();
-    var b = {
+    b();
+    var v = {
       set: function (n, r, o) {
-        d = m;
+        m = p;
         var t = o != null ? o : {},
           a = t.nav_trigger,
           i = babelHelpers.objectWithoutPropertiesLoose(t, e);
-        ((m = { scriptPath: n, categoryToken: r, extraData: i }),
-          (f = []),
+        ((p = { scriptPath: n, categoryToken: r, extraData: i }),
+          (g = []),
           (window._script_path = n),
-          g(null, a == null ? null : { nav_trigger: a }));
+          h(null, a == null ? null : { nav_trigger: a }));
       },
       openOverlayView: function (t, n, r) {
         if (t) {
-          var e = f.length;
-          (e === 0 || f[e - 1] !== t) &&
-            ((d = babelHelpers.extends({}, m)),
-            m && (m.topViewEndpoint = t),
+          var e = g.length;
+          (e === 0 || g[e - 1] !== t) &&
+            ((m = babelHelpers.extends({}, p)),
+            p && (p.topViewEndpoint = t),
             r != null && r.replaceTopOverlay === !0 && e > 0
-              ? ((f[e - 1] = t), g("replace_overlay_view", n))
-              : (f.push(t), g("open_overlay_view", n)));
+              ? ((g[e - 1] = t), h("replace_overlay_view", n))
+              : (g.push(t), h("open_overlay_view", n)));
         }
       },
       closeOverlayView: function (t, n) {
-        var e = f.lastIndexOf(t);
+        var e = g.lastIndexOf(t);
         e !== -1 &&
-          ((d = babelHelpers.extends({}, m)),
-          m &&
+          ((m = babelHelpers.extends({}, p)),
+          p &&
             (e > 0
-              ? (m.topViewEndpoint = f[e - 1])
-              : (m.topViewEndpoint = null)),
-          (f = f.slice(0, e)),
-          g("close_overlay_view", n));
+              ? (p.topViewEndpoint = g[e - 1])
+              : (p.topViewEndpoint = null)),
+          (g = g.slice(0, e)),
+          h("close_overlay_view", n));
       },
       setClickPointInfo: function (t) {
-        ((_ = t), y());
+        ((f = t), C());
       },
       getClickPointInfo: function () {
-        return _;
+        return f;
       },
-      getScriptPath: h,
+      getScriptPath: y,
       getCategoryToken: function () {
-        return m ? m.categoryToken : void 0;
+        return p ? p.categoryToken : void 0;
       },
       getEarlyFlushPage: function () {
         var e;
-        return (e = m) == null || (e = e.extraData) == null
+        return (e = p) == null || (e = e.extraData) == null
           ? void 0
           : e.ef_page;
       },
       getTopViewEndpoint: function () {
-        var e = f.length;
-        return e > 0 ? f[e - 1] : h();
+        var e = g.length;
+        return e > 0 ? g[e - 1] : y();
       },
       getPageInfo: function () {
-        return m;
+        return p;
       },
       getSourcePageInfo: function () {
-        return d;
+        return m;
       },
       subscribe: function (t) {
-        return p.add(n("TimeSlice").guard(t, "ScriptPath.subscribe"));
+        return _.add(r("TimeSlice").guard(t, "ScriptPath.subscribe"));
       },
       shutdown: function () {
-        y();
+        C();
       },
     };
-    a.exports = b;
+    i.exports = v;
   },
-  null,
+  34,
 );

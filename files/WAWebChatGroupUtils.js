@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAgentTransitionUtils",
+    "WAWebBackendRuntime",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizAiStrings",
@@ -15,6 +16,7 @@ __d(
     "WAWebBotGating",
     "WAWebBotTos",
     "WAWebChatGetters",
+    "WAWebChatStoreService",
     "WAWebConversationDeprecatedLidChatUtils",
     "WAWebDBUpdateChatTable",
     "WAWebFrontendContactGetters",
@@ -170,8 +172,13 @@ __d(
               !((l = a.newsletterMetadata) != null && l.iAmAdminOrOwner()) ||
               a.isSuspendedOrTerminated();
           a.isReadOnly !== d &&
-            o("WAWebDBUpdateChatTable")
-              .updateChatTable(a.id, { isReadOnly: d })
+            (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatStoreService").ChatStoreService,
+                ).updateChatTable
+              : o("WAWebDBUpdateChatTable").updateChatTable)(a.id, {
+              isReadOnly: d,
+            })
               .then(function () {
                 ((a.isReadOnly = d), O(a));
               })
@@ -200,11 +207,15 @@ __d(
               a.isReadOnly,
               p,
             ),
-            (i = o("WAWebDBUpdateChatTable")
-              .updateChatTable(a.id, { isReadOnly: p })
-              .then(function () {
-                ((a.isReadOnly = p), O(a));
-              })));
+            (i = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable
+            )(a.id, { isReadOnly: p }).then(function () {
+              ((a.isReadOnly = p), O(a));
+            })));
         }
         i.then(function () {
           o("WAWebChatGetters").getIsBroadcast(a) && F(a);

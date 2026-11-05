@@ -5,7 +5,9 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WATypeUtils",
+    "WAWebBackendRuntime",
     "WAWebChatMuteBridge",
+    "WAWebChatSettingsService",
     "WAWebNoop",
     "WAWebWid",
   ],
@@ -83,9 +85,13 @@ __d(
       }
       return t.promises.muteMentionAll
         ? t.promises.muteMentionAll.then(r("WAWebNoop"))
-        : ((t.promises.muteMentionAll = o(
-            "WAWebChatMuteBridge",
-          ).sendConversationMute({
+        : ((t.promises.muteMentionAll = (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatSettingsService").ChatSettingsService,
+                ).sendConversationMute
+              : o("WAWebChatMuteBridge").sendConversationMute
+          )({
             _expirationNew: t.expiration,
             chatId: t.id,
             expiration: (i = t.expiration) != null ? i : 0,
@@ -112,9 +118,13 @@ __d(
         ),
         e.promises.unmuteMentionAll
           ? e.promises.unmuteMentionAll.then(r("WAWebNoop"))
-          : ((e.promises.unmuteMentionAll = o(
-              "WAWebChatMuteBridge",
-            ).sendConversationMute({
+          : ((e.promises.unmuteMentionAll = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatSettingsService").ChatSettingsService,
+                  ).sendConversationMute
+                : o("WAWebChatMuteBridge").sendConversationMute
+            )({
               _expirationNew: e.expiration,
               chatId: e.id,
               expiration: (t = e.expiration) != null ? t : 0,

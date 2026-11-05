@@ -5,6 +5,7 @@ __d(
     "WAJobOrchestratorTypes",
     "WALogger",
     "WATimeUtils",
+    "WAWebBackendRuntime",
     "WAWebBotGroupGatingUtils",
     "WAWebChatGetters",
     "WAWebCodeFormatMutator",
@@ -21,6 +22,8 @@ __d(
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMessagingGatingUtils",
     "WAWebMsgActionCapability",
     "WAWebMsgDataFromModel",
@@ -91,9 +94,13 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t != null &&
-            (yield o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
-              count: t,
-            }));
+            (yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable
+            )(e.id, { count: t }));
         })),
         _.apply(this, arguments)
       );
@@ -275,10 +282,13 @@ __d(
               ]));
             try {
               (i.startSavedStage(),
-                yield o("WAWebDBProcessMessage").storeMessages(
-                  [r != null ? r : n],
-                  a,
-                ),
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageStoreService").MessageStoreService,
+                      ).storeMessages
+                    : o("WAWebDBProcessMessage").storeMessages
+                )([r != null ? r : n], a),
                 i.postSavedStage());
             } catch (t) {
               throw (
@@ -313,7 +323,13 @@ __d(
                   e,
                   t,
                 )
-              : yield o("WAWebSendMsgRecordAction").sendMsgRecord(t),
+              : yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageSendService").MessageSendService,
+                      ).sendMsgRecord
+                    : o("WAWebSendMsgRecordAction").sendMsgRecord
+                )(t),
             r = n.count,
             a = n.messageSendResult,
             i = n.t;
@@ -420,7 +436,11 @@ __d(
     function L(e, t) {
       return (
         (e.errorCode = t),
-        o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebMessageStoreService").MessageStoreService,
+            ).updateMessageTable
+          : o("WAWebDBUpdateMessageTable").updateMessageTable)(e.id, {
           errorCode: t,
         })
       );

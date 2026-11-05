@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebAcp2SystemText",
     "WAWebActionToast.react",
+    "WAWebBackendRuntime",
     "WAWebCmd",
     "WAWebContactCollection",
     "WAWebContactSystemMsg",
@@ -25,6 +26,7 @@ __d(
     "WAWebLimitSharingInvokeBlockedPopup.react",
     "WAWebLimitSharingModelUtils",
     "WAWebLimitSharingSettingUpdateWamEvent",
+    "WAWebMessageStoreService",
     "WAWebModalManager",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -399,7 +401,13 @@ __d(
             t.id,
             n,
           );
-          (yield o("WAWebDBProcessMessage").storeMessages([l], t.id),
+          (yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMessageStoreService").MessageStoreService,
+                ).storeMessages
+              : o("WAWebDBProcessMessage").storeMessages
+          )([l], t.id),
             yield o("WAWebLimitSharingModelUtils").updateChat(t.id, n));
         })),
         F.apply(this, arguments)

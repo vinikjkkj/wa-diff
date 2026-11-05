@@ -3,10 +3,13 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBotMessageSecret",
     "WAWebBotProfileCollection",
     "WAWebDBProcessMessage",
     "WAWebFrontendMsgGetters",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgDataUtils",
     "WAWebMsgGetters",
     "WAWebMsgModel",
@@ -92,7 +95,13 @@ __d(
               "sendMessage",
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  yield o("WAWebDBProcessMessage").storeMessages([y], c.id);
+                  yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageStoreService").MessageStoreService,
+                        ).storeMessages
+                      : o("WAWebDBProcessMessage").storeMessages
+                  )([y], c.id);
                 } catch (e) {
                   throw (
                     o("WALogger")
@@ -107,7 +116,13 @@ __d(
                     e
                   );
                 }
-                return o("WAWebSendMsgRecordAction").sendMsgRecord(C);
+                return (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageSendService").MessageSendService,
+                      ).sendMsgRecord
+                    : o("WAWebSendMsgRecordAction").sendMsgRecord
+                )(C);
               }),
               { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
             )

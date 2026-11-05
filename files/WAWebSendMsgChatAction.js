@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebApiGroupInviteV4Store",
     "WAWebAppTracker",
+    "WAWebBackendRuntime",
     "WAWebBizAgentAction",
     "WAWebBizShowOrderEphemeralSystemAction",
     "WAWebBotFrontendLoggingUtils",
@@ -27,6 +28,8 @@ __d(
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMessagingGatingUtils",
     "WAWebMiscErrors",
     "WAWebMsgCollection",
@@ -250,8 +253,11 @@ __d(
                   return (
                     ($ = D.wamMessageSendPerfReporter) == null ||
                       $.startSavedStage(),
-                    o("WAWebDBProcessMessage")
-                      .storeMessages(A, t.id)
+                    (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageStoreService").MessageStoreService,
+                        ).storeMessages
+                      : o("WAWebDBProcessMessage").storeMessages)(A, t.id)
                       .then(function () {
                         var e;
                         if (
@@ -415,7 +421,13 @@ __d(
           "sendMessage",
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var n = yield e.sendQueue.enqueue(t);
-            return o("WAWebSendMsgRecordAction").sendMsgRecord(n);
+            return (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageSendService").MessageSendService,
+                  ).sendMsgRecord
+                : o("WAWebSendMsgRecordAction").sendMsgRecord
+            )(n);
           }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )

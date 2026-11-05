@@ -9,18 +9,23 @@ __d(
           kind: "LocalArgument",
           name: "consumer_lid",
         },
-        t = { defaultValue: null, kind: "LocalArgument", name: "phone_number" },
-        r = {
+        t = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "mode_change_source",
+        },
+        r = { defaultValue: null, kind: "LocalArgument", name: "phone_number" },
+        o = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "suggested_replies_enabled",
         },
-        o = {
+        a = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "thread_status",
         },
-        a = [
+        i = [
           {
             alias: null,
             args: [
@@ -35,6 +40,11 @@ __d(
                     kind: "Variable",
                     name: "consumer_lid",
                     variableName: "consumer_lid",
+                  },
+                  {
+                    kind: "Variable",
+                    name: "mode_change_source",
+                    variableName: "mode_change_source",
                   },
                   {
                     kind: "Variable",
@@ -90,20 +100,20 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, r, o],
+          argumentDefinitions: [e, t, r, o, a],
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAiSmartComposerAiRepliesStatusMutation",
-          selections: a,
+          selections: i,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [e, t, o, r],
+          argumentDefinitions: [e, r, a, o, t],
           kind: "Operation",
           name: "WAWebBizAiSmartComposerAiRepliesStatusMutation",
-          selections: a,
+          selections: i,
         },
         params: {
           id: n(

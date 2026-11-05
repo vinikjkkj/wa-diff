@@ -2,6 +2,7 @@ __d(
   "WAWebMediaDocumentPreview",
   [
     "fbt",
+    "WAWebBackendRuntime",
     "WAWebClickable.react",
     "WAWebDisplayType",
     "WAWebDocumentFileIcon",
@@ -14,6 +15,7 @@ __d(
     "WAWebMediaDataGetters",
     "WAWebMediaDocumentUtils",
     "WAWebMediaDownloadMmsThumbnail",
+    "WAWebMediaDownloadService",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMediaThumbnail.react",
     "WAWebMediaTimeLeftEta.react",
@@ -361,7 +363,11 @@ __d(
             )
           ) {
             var n = o("WAWebFrontendMsgGetters").getChat(t.unsafe());
-            r("WAWebMediaDownloadMmsThumbnail")({
+            (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMediaDownloadService").MediaDownloadService,
+                ).downloadMmsThumbnail
+              : r("WAWebMediaDownloadMmsThumbnail"))({
               msg: t,
               isPreload: !1,
               chat: n,

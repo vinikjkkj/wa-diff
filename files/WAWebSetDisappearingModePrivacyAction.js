@@ -2,6 +2,8 @@ __d(
   "WAWebSetDisappearingModePrivacyAction",
   [
     "WATimeUtils",
+    "WAWebBackendRuntime",
+    "WAWebDisappearingModeService",
     "WAWebSetDisappearingModeJob",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsMeUser",
@@ -14,11 +16,22 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSetDisappearingModeJob").setDisappearingMode(e);
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebDisappearingModeService").DisappearingModeService,
+                ).setDisappearingMode
+              : o("WAWebSetDisappearingModeJob").setDisappearingMode
+          )(e);
           var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
-          yield o(
-            "WAWebUpdateDisappearingModeForContact",
-          ).updateDisappearingModeForContact({
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebDisappearingModeService").DisappearingModeService,
+                ).updateDisappearingModeForContact
+              : o("WAWebUpdateDisappearingModeForContact")
+                  .updateDisappearingModeForContact
+          )({
             contactId: t,
             newDuration: e,
             newSettingTimestamp: o("WATimeUtils").unixTime(),

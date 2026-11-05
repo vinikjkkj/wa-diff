@@ -6,9 +6,11 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebCollectionConstants",
     "WAWebDBMessageFindLocal",
+    "WAWebMessageQueryService",
     "WAWebMobilePlatforms",
     "WAWebMsgModelFromData",
     "WAWebOrderFetcher",
@@ -98,10 +100,13 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebDBMessageFindLocal").msgFindBefore({
-              anchor: t,
-              count: o("WAWebCollectionConstants").PAGE_SIZE,
-            }),
+          var r = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageQueryService").MessageQueryService,
+                  ).msgFindBefore
+                : o("WAWebDBMessageFindLocal").msgFindBefore
+            )({ anchor: t, count: o("WAWebCollectionConstants").PAGE_SIZE }),
             a = r.messages,
             i = r.status;
           return i >= 400 || a.length === 0

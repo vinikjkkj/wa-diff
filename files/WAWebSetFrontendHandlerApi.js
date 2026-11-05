@@ -73,12 +73,14 @@ __d(
     "WAWebTextStatusBridgeApi",
     "WAWebThreadBridgeApi",
     "WAWebTimeSpentBridgeApi",
+    "WAWebUiRuntime",
     "WAWebUnjoinedSubgroupBridgeApi",
     "WAWebUnreadMentionMetadataBridgeApi",
     "WAWebUsernameBridgeApi",
     "WAWebVerifiedNameBridgeApi",
     "WAWebVoipWebBridgeApi",
     "WAWebWamBridgeApi",
+    "cr:18906",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -173,6 +175,8 @@ __d(
             o("WAWebShortcakeLinkingBridgeApi").ShortcakeLinkingBridgeApi,
           ),
         ),
+        n("cr:18906") != null &&
+          o("WAWebUiRuntime").registerUiRun(n("cr:18906").run),
         o(
           "WAWebBizAiSettingsFetchOnLaunch",
         ).initHandoffRemovalTimingFetchOnLaunch());

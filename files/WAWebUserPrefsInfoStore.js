@@ -82,6 +82,84 @@ __d(
             }
             return r;
           })()),
+          (r.getIfUnlocked = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$4(),
+                t = null;
+              if (
+                e != null &&
+                (yield o("WAWebUserPrefsScreenLock").getScreenLockEnabled())
+              ) {
+                if (((t = this.cachedPasscodeDerivedKey), t == null))
+                  return null;
+                e = yield this.$5(e, t);
+              }
+              return e == null ||
+                !(yield this.$3(e)) ||
+                (t != null && this.cachedPasscodeDerivedKey !== t)
+                ? null
+                : e;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.$5 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                try {
+                  var r = yield (m || (m = n("Promise"))).all([
+                      this.decryptNoiseWithPasscodeDerivedKey(
+                        e.recoveryToken,
+                        t,
+                      ),
+                      this.decryptNoiseWithPasscodeDerivedKey(
+                        e.staticKeyPair.pubKey,
+                        t,
+                      ),
+                      this.decryptNoiseWithPasscodeDerivedKey(
+                        e.staticKeyPair.privKey,
+                        t,
+                      ),
+                      this.decryptNoiseWithPasscodeDerivedKey(
+                        e.certificateChainBuffer,
+                        t,
+                      ),
+                    ]),
+                    o = r[0],
+                    a = r[1],
+                    i = r[2],
+                    l = r[3];
+                  return o != null && a != null && i != null
+                    ? {
+                        recoveryToken: o,
+                        staticKeyPair: { pubKey: a, privKey: i },
+                        certificateChainBuffer: l,
+                      }
+                    : null;
+                } catch (e) {
+                  return null;
+                }
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.$4 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o("WAWebUserPrefsMultiDevice").getNoiseInfo();
+              if (!e) return null;
+              var t = yield this.$1();
+              return t ? this.$2(e, t) : null;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (r.setCertificateChain = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
@@ -150,14 +228,14 @@ __d(
                 }
                 var _ = new Uint8Array(64);
                 self.crypto.getRandomValues(_);
-                var f = this.$4(_);
-                yield this.$5(f);
+                var f = this.$6(_);
+                yield this.$7(f);
                 var g = yield (m || (m = n("Promise"))).all([
-                    this.$6(r.recoveryToken, f[0]),
-                    this.$6(r.staticKeyPair.pubKey, f[1]),
-                    this.$6(r.staticKeyPair.privKey, f[2]),
+                    this.$8(r.recoveryToken, f[0]),
+                    this.$8(r.staticKeyPair.pubKey, f[1]),
+                    this.$8(r.staticKeyPair.privKey, f[2]),
                     r.certificateChainBuffer
-                      ? this.$6(r.certificateChainBuffer, f[3])
+                      ? this.$8(r.certificateChainBuffer, f[3])
                       : (m || (m = n("Promise"))).resolve(void 0),
                   ]),
                   h = g[0],
@@ -178,7 +256,7 @@ __d(
             }
             return t;
           })()),
-          (r.$5 = function (t) {
+          (r.$7 = function (t) {
             return o("WAWebUserPrefsMultiDevice").setNoiseInfoIv(
               t.map(o("WABase64").encodeB64),
             );
@@ -197,7 +275,7 @@ __d(
             }
             return t;
           })()),
-          (r.$4 = function (t) {
+          (r.$6 = function (t) {
             var e = new (o("WABinary").Binary)(t);
             return [
               e.readByteArrayView(16),
@@ -206,7 +284,7 @@ __d(
               e.readByteArrayView(16),
             ];
           }),
-          (r.$6 = (function () {
+          (r.$8 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var n = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
@@ -227,11 +305,11 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var r = yield (m || (m = n("Promise"))).all([
-                    this.$7(e.recoveryToken, t[0]),
-                    this.$7(e.staticKeyPair.pubKey, t[1]),
-                    this.$7(e.staticKeyPair.privKey, t[2]),
+                    this.$9(e.recoveryToken, t[0]),
+                    this.$9(e.staticKeyPair.pubKey, t[1]),
+                    this.$9(e.staticKeyPair.privKey, t[2]),
                     e.certificateChainBuffer != null
-                      ? this.$7(e.certificateChainBuffer, t[3])
+                      ? this.$9(e.certificateChainBuffer, t[3])
                       : (m || (m = n("Promise"))).resolve(void 0),
                   ]),
                   o = r[0],
@@ -252,7 +330,7 @@ __d(
             }
             return t;
           })()),
-          (r.$7 = (function () {
+          (r.$9 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var n = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],

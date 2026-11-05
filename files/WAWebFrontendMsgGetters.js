@@ -423,17 +423,17 @@ __d(
           var t = e[0],
             n = e[1],
             r = e[2];
-          return !t && !n && !r;
+          return !t && n !== o("WAWebMsgType").MSG_TYPE.REVOKED && !r;
         },
-        [u.getIsForwarded, Z, u.getIsReply],
+        [u.getIsForwarded, u.getType, u.getIsReply],
       ),
       te = m(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t > 0 && !n;
+          return t > 0 && n !== o("WAWebMsgType").MSG_TYPE.REVOKED;
         },
-        [u.getNumTimesForwarded, Z],
+        [u.getNumTimesForwarded, u.getType],
       ),
       ne = p("associationType"),
       re = m(

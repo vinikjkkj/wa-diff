@@ -1,9 +1,11 @@
 __d(
   "WAWebCreateBizBotSysMsgAction",
   [
+    "WAWebBackendRuntime",
     "WAWebBotSystemMsg",
     "WAWebBotTypes",
     "WAWebDBProcessMessage",
+    "WAWebMessageStoreService",
     "WAWebMsgModelFromData",
     "asyncToGeneratorRuntime",
   ],
@@ -18,7 +20,13 @@ __d(
             var t = o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e.id);
             (e.msgs.add(o("WAWebMsgModelFromData").msgModelFromMsgData(t)),
               (e.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P),
-              yield o("WAWebDBProcessMessage").storeMessages([t], e.id),
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageStoreService").MessageStoreService,
+                    ).storeMessages
+                  : o("WAWebDBProcessMessage").storeMessages
+              )([t], e.id),
               yield e.updateBizBotSysMsgCreated(
                 o("WAWebBotTypes").BizBotType.BIZ_1P,
               ));

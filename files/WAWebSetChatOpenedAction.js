@@ -1,6 +1,11 @@
 __d(
   "WAWebSetChatOpenedAction",
-  ["WAWebDBUpdateChatTable", "asyncToGeneratorRuntime"],
+  [
+    "WAWebBackendRuntime",
+    "WAWebChatStoreService",
+    "WAWebDBUpdateChatTable",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -9,7 +14,13 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = { hasOpened: !0 };
-          (yield o("WAWebDBUpdateChatTable").updateChatTable(e.id, t),
+          (yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatStoreService").ChatStoreService,
+                ).updateChatTable
+              : o("WAWebDBUpdateChatTable").updateChatTable
+          )(e.id, t),
             e.set(t));
         })),
         s.apply(this, arguments)

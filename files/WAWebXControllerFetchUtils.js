@@ -3,7 +3,9 @@ __d(
   [
     "Promise",
     "URI",
+    "WAAbortError",
     "WALogger",
+    "WAPromiseDelays",
     "WAWebPonyfillsFetch",
     "asyncToGeneratorRuntime",
     "getAsyncHeaders",
@@ -17,58 +19,67 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var o = t.additionalHeaders,
-            a = o === void 0 ? {} : o,
-            i = t.additionalParams,
-            l = i === void 0 ? {} : i,
-            c = t.method,
-            d = t.retry,
-            m = d === void 0 ? !1 : d,
-            p = t.retryDelayMs,
-            _ = p === void 0 ? 2e3 : p,
-            f = (function () {
+          var a = t.additionalHeaders,
+            i = a === void 0 ? {} : a,
+            l = t.additionalParams,
+            c = l === void 0 ? {} : l,
+            d = t.method,
+            m = t.retry,
+            p = m === void 0 ? !1 : m,
+            _ = t.retryDelayMs,
+            f = _ === void 0 ? 2e3 : _,
+            g = t.signal,
+            h = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
+                  if (g != null && g.aborted)
+                    throw new (o("WAAbortError").AbortError)();
                   var t = new (u || (u = r("URI")))(e),
-                    n = r("getAsyncParams")(c),
-                    o = r("getAsyncHeaders")(t),
-                    i = new URLSearchParams();
+                    n = r("getAsyncParams")(d),
+                    a = r("getAsyncHeaders")(t),
+                    l = new URLSearchParams();
                   (Object.entries(n).forEach(function (e) {
                     var t = e[0],
                       n = e[1];
-                    n != null && i.append(t, String(n));
+                    n != null && l.append(t, String(n));
                   }),
-                    Object.entries(l).forEach(function (e) {
+                    Object.entries(c).forEach(function (e) {
                       var t = e[0],
                         n = e[1];
-                      i.append(t, n);
+                      l.append(t, n);
                     }));
-                  var s = babelHelpers.extends({}, o, a, {
+                  var s = babelHelpers.extends({}, a, i, {
                       "Content-Type": "application/x-www-form-urlencoded",
                     }),
-                    d = c === "GET" ? e + "?" + i.toString() : e,
-                    m = c === "GET" ? void 0 : i.toString();
-                  return yield r("WAWebPonyfillsFetch")(d, {
-                    method: c,
-                    headers: s,
-                    body: m,
-                  });
+                    m = d === "GET" ? e + "?" + l.toString() : e,
+                    p = d === "GET" ? void 0 : l.toString();
+                  return yield r("WAWebPonyfillsFetch")(
+                    m,
+                    babelHelpers.extends(
+                      { method: d, headers: s, body: p },
+                      g != null ? { signal: g } : null,
+                    ),
+                  );
                 },
               );
               return function () {
                 return t.apply(this, arguments);
               };
             })();
-          if (!m) return f();
+          if (!p) return h();
           try {
-            var g = yield f();
-            if (g.ok) return g;
-          } catch (e) {}
+            var y = yield h();
+            if (y.ok) return y;
+          } catch (e) {
+            if (g != null && g.aborted) throw e;
+          }
           return (
-            yield new (s || (s = n("Promise")))(function (e) {
-              return window.setTimeout(e, _);
-            }),
-            f()
+            yield g == null
+              ? new (s || (s = n("Promise")))(function (e) {
+                  return window.setTimeout(e, f);
+                })
+              : o("WAPromiseDelays").delayMs(f, g),
+            h()
           );
         })),
         d.apply(this, arguments)

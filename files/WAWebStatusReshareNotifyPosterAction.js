@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDBDeviceListFanout",
     "WAWebDBProcessMessage",
@@ -13,6 +14,7 @@ __d(
     "WAWebHandleMsgError",
     "WAWebLidMigrationUtils",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageStoreService",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgModel",
@@ -160,7 +162,13 @@ __d(
                 to: i,
               },
             );
-          yield o("WAWebDBProcessMessage").storeMessages([l], i);
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMessageStoreService").MessageStoreService,
+                ).storeMessages
+              : o("WAWebDBProcessMessage").storeMessages
+          )([l], i);
           var s = new (o("WAWebMsgModel").Msg)(l),
             u = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
               s,

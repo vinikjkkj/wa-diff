@@ -2,6 +2,7 @@ __d(
   "WAWebHandleBizBotAutomatedTypeAction",
   [
     "WAWebApiBusinessProfile",
+    "WAWebBackendRuntime",
     "WAWebBotBaseGating",
     "WAWebBotSystemMsg",
     "WAWebBotTos",
@@ -10,6 +11,7 @@ __d(
     "WAWebChatCollection",
     "WAWebContactSystemMsg",
     "WAWebDBProcessMessage",
+    "WAWebMessageStoreService",
     "WAWebMsgModelFromData",
     "WAWebPrivacyModeSystemMsg",
     "asyncToGeneratorRuntime",
@@ -68,7 +70,13 @@ __d(
           ) {
             var t = o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e.id);
             if (
-              (yield o("WAWebDBProcessMessage").storeMessages([t], t.id.remote),
+              (yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageStoreService").MessageStoreService,
+                    ).storeMessages
+                  : o("WAWebDBProcessMessage").storeMessages
+              )([t], t.id.remote),
               o("WAWebBotBaseGating").isBizBot1pEnabled())
             ) {
               var n = o("WAWebMsgModelFromData").msgModelFromMsgData(t);
@@ -95,7 +103,13 @@ __d(
             )
           ) {
             var t = o("WAWebBotSystemMsg").genBizBot3pDisclosureMessage(e.id);
-            yield o("WAWebDBProcessMessage").storeMessages([t], t.id.remote);
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([t], t.id.remote);
             var n = o("WAWebMsgModelFromData").msgModelFromMsgData(t);
             (e.msgs.add(n),
               yield e.updateBizBotSysMsgCreated(
@@ -146,7 +160,13 @@ __d(
                 break;
             }
             if (!n) throw r("err")("Unhandled privacy mode");
-            yield o("WAWebDBProcessMessage").storeMessages([n], n.id.remote);
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([n], n.id.remote);
             var i = o("WAWebMsgModelFromData").msgModelFromMsgData(n);
             (e.msgs.add(i), yield e.updateBizBotSysMsgCreated(null));
           }

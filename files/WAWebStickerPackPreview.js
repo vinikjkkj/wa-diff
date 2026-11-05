@@ -3,11 +3,13 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebCanvasUtils",
     "WAWebFlex.react",
     "WAWebFrontendMsgGetters",
     "WAWebL10N",
     "WAWebMediaDownloadMmsThumbnail",
+    "WAWebMediaDownloadService",
     "WAWebMediaLinkPreviewDescription.react",
     "WAWebMediaLinkPreviewTitle.react",
     "WAWebMediaOpaqueData",
@@ -95,7 +97,11 @@ __d(
           t.type !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
           (r("isStringNullOrEmpty")(t.thumbnailDirectPath)
             ? f(t)
-            : r("WAWebMediaDownloadMmsThumbnail")({
+            : (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMediaDownloadService").MediaDownloadService,
+                  ).downloadMmsThumbnail
+                : r("WAWebMediaDownloadMmsThumbnail"))({
                 msg: o("WAWebStateUtils").unproxy(t),
                 chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
                 isPreload: !1,

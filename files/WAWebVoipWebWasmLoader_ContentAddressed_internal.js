@@ -14,8 +14,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "5610b788bdeef8d4e5c8b46554b6ba4956ad284a5415514c93f06ecfeba6fc5b",
+      u = "898cc150d5a0069f1a2313b7c0d429c14768def128a0d6aa8d4e1d49ab829fa7",
       c = {
+        "898cc150d5a0069f1a2313b7c0d429c14768def128a0d6aa8d4e1d49ab829fa7":
+          function () {
+            return r("bx")("111017");
+          },
         "5610b788bdeef8d4e5c8b46554b6ba4956ad284a5415514c93f06ecfeba6fc5b":
           function () {
             return r("bx")("111008");
@@ -76,12 +80,8 @@ __d(
           function () {
             return r("bx")("110733");
           },
-        "5713c060bcb4f2962599bdf2d0956ad90b2cd927afb4dc5c53099b4116e485c1":
-          function () {
-            return r("bx")("110695");
-          },
       },
-      d = c["5610b788bdeef8d4e5c8b46554b6ba4956ad284a5415514c93f06ecfeba6fc5b"],
+      d = c["898cc150d5a0069f1a2313b7c0d429c14768def128a0d6aa8d4e1d49ab829fa7"],
       m = null,
       p = null;
     try {
@@ -90,6 +90,10 @@ __d(
       m = e;
     }
     var _ = {
+        "898cc150d5a0069f1a2313b7c0d429c14768def128a0d6aa8d4e1d49ab829fa7":
+          function () {
+            return r("bx")("111016");
+          },
         "5610b788bdeef8d4e5c8b46554b6ba4956ad284a5415514c93f06ecfeba6fc5b":
           function () {
             return r("bx")("111007");
@@ -150,16 +154,12 @@ __d(
           function () {
             return r("bx")("110732");
           },
-        "5713c060bcb4f2962599bdf2d0956ad90b2cd927afb4dc5c53099b4116e485c1":
-          function () {
-            return r("bx")("110694");
-          },
       },
-      f = _["5610b788bdeef8d4e5c8b46554b6ba4956ad284a5415514c93f06ecfeba6fc5b"],
+      f = _["898cc150d5a0069f1a2313b7c0d429c14768def128a0d6aa8d4e1d49ab829fa7"],
       g = null,
       h;
     try {
-      h = r("bx").getURL(f(), { cacheBreaker: "1793793240899" });
+      h = r("bx").getURL(f(), { cacheBreaker: "1793862711075" });
     } catch (e) {
       g = e;
     }
@@ -198,7 +198,7 @@ __d(
         var b = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/5610b788bdeef8d4e5c8b46554b6ba4956ad284a5415514c93f06ecfeba6fc5b/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/898cc150d5a0069f1a2313b7c0d429c14768def128a0d6aa8d4e1d49ab829fa7/wa_voip_shared.wasm",
           ),
           g != null)
         )
@@ -922,7 +922,7 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Qe = {
-          1446308: function (t, n) {
+          1446340: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -936,7 +936,7 @@ __d(
               message: e,
             });
           },
-          1446595: function () {
+          1446627: function () {
             return Date.now();
           },
         };
@@ -983,7 +983,7 @@ __d(
             });
           if (n) {
             var r = Pt(n) + 1,
-              o = wi(r);
+              o = Fi(r);
             return (jn(n, o, r), o);
           }
           return null;
@@ -996,7 +996,7 @@ __d(
               );
           if (r) {
             var o = Pt(r) + 1,
-              a = wi(o);
+              a = Fi(o);
             return (jn(r, a, o), a);
           }
           return null;
@@ -5544,7 +5544,7 @@ __d(
                 r instanceof Int8Array ||
                 mr("Cannot pass non-string to std::string"),
                 n && o ? (e = Pt(r)) : (e = r.length));
-              var a = wi(4 + e + 1),
+              var a = Fi(4 + e + 1),
                 i = a + 4;
               if (((f()[a >> 2] = e), n && o)) jn(r, i, e + 1);
               else if (o)
@@ -5703,7 +5703,7 @@ __d(
                   typeof a != "string" &&
                     mr("Cannot pass non-string to C++ string type " + r);
                   var e = i(a),
-                    s = wi(4 + e + n);
+                    s = Fi(4 + e + n);
                   return (
                     (f()[s >> 2] = e >> l),
                     o(a, s + 4, e + n),
@@ -5939,7 +5939,7 @@ __d(
         }
         var ya = function (t) {
             var e = Pt(t) + 1,
-              n = wi(e);
+              n = Fi(e);
             return (n && jn(t, n, e), n);
           },
           Ca = function (t, n, r) {
@@ -7043,14 +7043,14 @@ __d(
             },
           },
           _i = function (t) {
-            var e = wi(20),
+            var e = Fi(20),
               n = ya(t);
             f()[e >> 2] = n;
-            var r = wi(4);
+            var r = Fi(4);
             ((f()[r >> 2] = 0), (f()[(e + 4) >> 2] = r));
             var o = 2;
             ((_()[(e + 8) >> 2] = o), (_()[(e + 12) >> 2] = 4));
-            var a = wi(12);
+            var a = Fi(12);
             return (
               (f()[a >> 2] = a + 8),
               (f()[(a + 4) >> 2] = 0),
@@ -7705,9 +7705,9 @@ __d(
             invoke_fii: hs,
             invoke_fiii: ec,
             invoke_fiiiiii: Tu,
-            invoke_i: El,
+            invoke_i: Nl,
             invoke_id: pu,
-            invoke_ii: Il,
+            invoke_ii: El,
             invoke_iid: qs,
             invoke_iidi: Gs,
             invoke_iidii: cu,
@@ -7719,17 +7719,17 @@ __d(
             invoke_iifi: hu,
             invoke_iifii: Iu,
             invoke_iifiii: mu,
-            invoke_iii: Tl,
+            invoke_iii: kl,
             invoke_iiid: As,
             invoke_iiifi: Du,
             invoke_iiii: Rl,
             invoke_iiiidd: Mu,
             invoke_iiiifiii: Ls,
             invoke_iiiifiiiiii: Ts,
-            invoke_iiiii: Nl,
+            invoke_iiiii: Pl,
             invoke_iiiiid: Ju,
             invoke_iiiiii: Al,
-            invoke_iiiiiii: xl,
+            invoke_iiiiiii: Dl,
             invoke_iiiiiiiddiiid: Qu,
             invoke_iiiiiiii: wl,
             invoke_iiiiiiiidi: Xu,
@@ -7753,7 +7753,7 @@ __d(
             invoke_iiiiiiiiij: Vu,
             invoke_iiiiiiiiijiiiiiiiiii: Au,
             invoke_iiiiiiiij: qu,
-            invoke_iiiiiiij: eu,
+            invoke_iiiiiiij: tu,
             invoke_iiiiiiijjii: wu,
             invoke_iiiiiij: js,
             invoke_iiiiiijiiii: Hu,
@@ -7768,7 +7768,7 @@ __d(
             invoke_iiiijiiji: as,
             invoke_iiiijjii: gs,
             invoke_iiiijjiii: cs,
-            invoke_iiij: ou,
+            invoke_iiij: Js,
             invoke_iiijddddddd: bu,
             invoke_iiiji: Zl,
             invoke_iiijii: Yl,
@@ -7784,7 +7784,7 @@ __d(
             invoke_iijjjiiii: vu,
             invoke_iijjjj: yu,
             invoke_iijjjji: Cu,
-            invoke_ij: ru,
+            invoke_ij: ou,
             invoke_j: jl,
             invoke_ji: Xl,
             invoke_jii: zs,
@@ -7794,21 +7794,21 @@ __d(
             invoke_jiiiiiiii: Wu,
             invoke_jiiiiiji: Gu,
             invoke_jiij: Eu,
-            invoke_jij: tu,
+            invoke_jij: nu,
             invoke_jj: Ks,
-            invoke_v: Dl,
+            invoke_v: Il,
             invoke_vd: Fs,
-            invoke_vi: $l,
+            invoke_vi: xl,
             invoke_vid: Ws,
             invoke_viddjjii: Su,
             invoke_vif: lu,
-            invoke_viff: Js,
-            invoke_vii: kl,
+            invoke_viff: Zs,
+            invoke_vii: Tl,
             invoke_viid: Vs,
             invoke_viiddd: Bs,
-            invoke_viif: Zs,
+            invoke_viif: eu,
             invoke_viii: Ll,
-            invoke_viiii: Pl,
+            invoke_viiii: $l,
             invoke_viiiii: Wl,
             invoke_viiiiii: Bl,
             invoke_viiiiiidiii: ns,
@@ -7838,7 +7838,7 @@ __d(
             invoke_vij: xs,
             invoke_viji: au,
             invoke_vijiiiii: Kl,
-            invoke_vijj: nu,
+            invoke_vijj: ru,
             invoke_vijji: Lu,
             invoke_vjiiiiii: Ql,
             is_participant_known_contact_js: nt,
@@ -7856,9 +7856,9 @@ __d(
           Pi = qe(),
           Ni = Pe("__wasm_call_ctors"),
           Mi = Pe("__cxa_free_exception"),
-          wi = (b._malloc = Pe("malloc")),
+          wi = (b._wasm_throw_ml_abort = Pe("wasm_throw_ml_abort")),
           Ai = (b._free = Pe("free")),
-          Fi = (b._wasm_throw_ml_abort = Pe("wasm_throw_ml_abort")),
+          Fi = (b._malloc = Pe("malloc")),
           Oi = (b._fflush = Pe("fflush")),
           Bi = Pe("__errno_location"),
           Wi = (b._pthread_self = function () {
@@ -7922,8 +7922,8 @@ __d(
           yl = (b.___get_exception_message = Pe("__get_exception_message")),
           Cl = Pe("__cxa_can_catch"),
           bl = Pe("__cxa_is_pointer_type"),
-          vl = (b.___start_em_js = 1440428),
-          Sl = (b.___stop_em_js = 1446308);
+          vl = (b.___start_em_js = 1440460),
+          Sl = (b.___stop_em_js = 1446340);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -7942,25 +7942,7 @@ __d(
             ul(1, 0);
           }
         }
-        function El(e) {
-          var t = _l();
-          try {
-            return pn(e)();
-          } catch (e) {
-            if ((fl(t), !(e instanceof Ne))) throw e;
-            ul(1, 0);
-          }
-        }
-        function kl(e, t, n) {
-          var r = _l();
-          try {
-            pn(e)(t, n);
-          } catch (e) {
-            if ((fl(r), !(e instanceof Ne))) throw e;
-            ul(1, 0);
-          }
-        }
-        function Il(e, t) {
+        function El(e, t) {
           var n = _l();
           try {
             return pn(e)(t);
@@ -7969,7 +7951,7 @@ __d(
             ul(1, 0);
           }
         }
-        function Tl(e, t, n) {
+        function kl(e, t, n) {
           var r = _l();
           try {
             return pn(e)(t, n);
@@ -7978,7 +7960,7 @@ __d(
             ul(1, 0);
           }
         }
-        function Dl(e) {
+        function Il(e) {
           var t = _l();
           try {
             pn(e)();
@@ -7987,7 +7969,16 @@ __d(
             ul(1, 0);
           }
         }
-        function xl(e, t, n, r, o, a, i) {
+        function Tl(e, t, n) {
+          var r = _l();
+          try {
+            pn(e)(t, n);
+          } catch (e) {
+            if ((fl(r), !(e instanceof Ne))) throw e;
+            ul(1, 0);
+          }
+        }
+        function Dl(e, t, n, r, o, a, i) {
           var l = _l();
           try {
             return pn(e)(t, n, r, o, a, i);
@@ -7996,7 +7987,7 @@ __d(
             ul(1, 0);
           }
         }
-        function $l(e, t) {
+        function xl(e, t) {
           var n = _l();
           try {
             pn(e)(t);
@@ -8005,7 +7996,7 @@ __d(
             ul(1, 0);
           }
         }
-        function Pl(e, t, n, r, o) {
+        function $l(e, t, n, r, o) {
           var a = _l();
           try {
             pn(e)(t, n, r, o);
@@ -8014,12 +8005,21 @@ __d(
             ul(1, 0);
           }
         }
-        function Nl(e, t, n, r, o) {
+        function Pl(e, t, n, r, o) {
           var a = _l();
           try {
             return pn(e)(t, n, r, o);
           } catch (e) {
             if ((fl(a), !(e instanceof Ne))) throw e;
+            ul(1, 0);
+          }
+        }
+        function Nl(e) {
+          var t = _l();
+          try {
+            return pn(e)();
+          } catch (e) {
+            if ((fl(t), !(e instanceof Ne))) throw e;
             ul(1, 0);
           }
         }
@@ -8811,7 +8811,7 @@ __d(
         function Js(e, t, n, r) {
           var o = _l();
           try {
-            pn(e)(t, n, r);
+            return pn(e)(t, n, r);
           } catch (e) {
             if ((fl(o), !(e instanceof Ne))) throw e;
             ul(1, 0);
@@ -8826,25 +8826,7 @@ __d(
             ul(1, 0);
           }
         }
-        function eu(e, t, n, r, o, a, i, l) {
-          var s = _l();
-          try {
-            return pn(e)(t, n, r, o, a, i, l);
-          } catch (e) {
-            if ((fl(s), !(e instanceof Ne))) throw e;
-            ul(1, 0);
-          }
-        }
-        function tu(e, t, n) {
-          var r = _l();
-          try {
-            return pn(e)(t, n);
-          } catch (e) {
-            if ((fl(r), !(e instanceof Ne))) throw e;
-            return (ul(1, 0), BigInt(0));
-          }
-        }
-        function nu(e, t, n, r) {
+        function eu(e, t, n, r) {
           var o = _l();
           try {
             pn(e)(t, n, r);
@@ -8853,21 +8835,39 @@ __d(
             ul(1, 0);
           }
         }
-        function ru(e, t) {
+        function tu(e, t, n, r, o, a, i, l) {
+          var s = _l();
+          try {
+            return pn(e)(t, n, r, o, a, i, l);
+          } catch (e) {
+            if ((fl(s), !(e instanceof Ne))) throw e;
+            ul(1, 0);
+          }
+        }
+        function nu(e, t, n) {
+          var r = _l();
+          try {
+            return pn(e)(t, n);
+          } catch (e) {
+            if ((fl(r), !(e instanceof Ne))) throw e;
+            return (ul(1, 0), BigInt(0));
+          }
+        }
+        function ru(e, t, n, r) {
+          var o = _l();
+          try {
+            pn(e)(t, n, r);
+          } catch (e) {
+            if ((fl(o), !(e instanceof Ne))) throw e;
+            ul(1, 0);
+          }
+        }
+        function ou(e, t) {
           var n = _l();
           try {
             return pn(e)(t);
           } catch (e) {
             if ((fl(n), !(e instanceof Ne))) throw e;
-            ul(1, 0);
-          }
-        }
-        function ou(e, t, n, r) {
-          var o = _l();
-          try {
-            return pn(e)(t, n, r);
-          } catch (e) {
-            if ((fl(o), !(e instanceof Ne))) throw e;
             ul(1, 0);
           }
         }
@@ -10004,7 +10004,7 @@ __d(
         if (g == null && m == null) return { hadError: !1, wasm: !0, glue: !0 };
         if (g != null)
           try {
-            ((h = r("bx").getURL(f(), { cacheBreaker: "1793793240899" })),
+            ((h = r("bx").getURL(f(), { cacheBreaker: "1793862711075" })),
               (g = null));
           } catch (e) {
             return ((g = e), { hadError: !0, wasm: !1, glue: m == null });

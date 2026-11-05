@@ -5,7 +5,9 @@ __d(
     "WAAbortError",
     "WALogger",
     "WATimeUtils",
+    "WAWebBackendRuntime",
     "WAWebBizAiHandoffRemoval",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "WAWebNotificationBackend",
     "WAWebProtobufsE2E.pb",
@@ -64,7 +66,11 @@ __d(
                 );
               }),
             )),
-        o("WAWebDBUpdateChatTable").updateChatTable(
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStoreService").ChatStoreService,
+            ).updateChatTable
+          : o("WAWebDBUpdateChatTable").updateChatTable)(
           t.id,
           babelHelpers.extends(
             {
@@ -107,7 +113,11 @@ __d(
             e.id.toLogString(),
           ),
           (e.aiLastHandoffActor = t),
-          o("WAWebDBUpdateChatTable").updateChatTable(e.id, {
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebChatStoreService").ChatStoreService,
+              ).updateChatTable
+            : o("WAWebDBUpdateChatTable").updateChatTable)(e.id, {
             aiLastHandoffActor: t,
           }));
     }

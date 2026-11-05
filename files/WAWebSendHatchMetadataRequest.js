@@ -4,12 +4,15 @@ __d(
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebChatModel",
     "WAWebDBProcessMessage",
     "WAWebHatchFrontendGating",
     "WAWebHatchMetadataExchangeManager",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgDataUtils",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -96,8 +99,18 @@ __d(
                 "sendMessage",
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   return (
-                    yield o("WAWebDBProcessMessage").storeMessages([i], a.id),
-                    o("WAWebSendMsgRecordAction").sendMsgRecord(l)
+                    yield (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageStoreService").MessageStoreService,
+                          ).storeMessages
+                        : o("WAWebDBProcessMessage").storeMessages
+                    )([i], a.id),
+                    (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageSendService").MessageSendService,
+                        ).sendMsgRecord
+                      : o("WAWebSendMsgRecordAction").sendMsgRecord)(l)
                   );
                 }),
                 {

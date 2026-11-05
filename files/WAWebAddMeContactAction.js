@@ -2,7 +2,9 @@ __d(
   "WAWebAddMeContactAction",
   [
     "WAJids",
+    "WAWebBackendRuntime",
     "WAWebContactCollection",
+    "WAWebContactStoreService",
     "WAWebLidAwareContactsDB",
     "asyncToGeneratorRuntime",
   ],
@@ -14,7 +16,11 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAJids").toPhoneUserJid(e.user);
-          (yield r("WAWebLidAwareContactsDB").createOrMerge(t, { id: t }),
+          (yield o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime")
+                .runtime(o("WAWebContactStoreService").ContactStoreService)
+                .createOrMerge(t, { id: t })
+            : r("WAWebLidAwareContactsDB").createOrMerge(t, { id: t }),
             o("WAWebContactCollection").ContactCollection.gadd(e));
         })),
         s.apply(this, arguments)

@@ -3,10 +3,12 @@ __d(
   [
     "WAPromiseProps",
     "WATypeUtils",
+    "WAWebBackendRuntime",
     "WAWebCollectionConstants",
     "WAWebDBGetGroupMemberUpdateMessages",
     "WAWebDBGroupAgentRichResponseLinkBackfill",
     "WAWebDBMessageFindLocal",
+    "WAWebMessageQueryService",
     "WAWebMsgCollection",
     "asyncToGeneratorRuntime",
   ],
@@ -22,11 +24,13 @@ __d(
                 ? t
                 : o("WAWebCollectionConstants").PAGE_SIZE,
             a = { add: "search" },
-            i = yield o("WAWebDBMessageFindLocal").msgFindStarred({
-              count: r,
-              chat: e != null ? e : void 0,
-              anchor: n,
-            });
+            i = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageQueryService").MessageQueryService,
+                  ).msgFindStarred
+                : o("WAWebDBMessageFindLocal").msgFindStarred
+            )({ count: r, chat: e != null ? e : void 0, anchor: n });
           return o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
             void 0,
             i,
@@ -48,11 +52,13 @@ __d(
                 ? t
                 : o("WAWebCollectionConstants").PAGE_SIZE,
             a = { add: "search" },
-            i = yield o("WAWebDBMessageFindLocal").msgFindEvents({
-              count: r,
-              chat: e,
-              anchor: n,
-            });
+            i = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageQueryService").MessageQueryService,
+                  ).msgFindEvents
+                : o("WAWebDBMessageFindLocal").msgFindEvents
+            )({ count: r, chat: e, anchor: n });
           return o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
             void 0,
             i,
@@ -97,10 +103,13 @@ __d(
               typeof e == "number" && !isNaN(e)
                 ? e
                 : o("WAWebCollectionConstants").PAGE_SIZE,
-            r = yield o("WAWebDBMessageFindLocal").msgFindCallLog({
-              count: n,
-              anchor: t,
-            });
+            r = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageQueryService").MessageQueryService,
+                  ).msgFindCallLog
+                : o("WAWebDBMessageFindLocal").msgFindCallLog
+            )({ count: n, anchor: t });
           return o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
             void 0,
             r,
@@ -122,7 +131,13 @@ __d(
             r = e.msgKey,
             a = t != null ? t : o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
             i = n === "after" ? "after" : "before",
-            l = yield o("WAWebDBMessageFindLocal").getAllDocsMessages({
+            l = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageQueryService").MessageQueryService,
+                  ).getAllDocsMessages
+                : o("WAWebDBMessageFindLocal").getAllDocsMessages
+            )({
               chat: r == null ? void 0 : r.remote,
               count: a,
               direction: i,
@@ -172,13 +187,13 @@ __d(
                   : o("WAWebCollectionConstants").PAGE_SIZE,
               l = n || "before",
               s = { add: "search" },
-              u = yield o("WAWebDBMessageFindLocal").msgFindMedia({
-                count: i,
-                mediaType: a,
-                direction: l,
-                chat: e,
-                anchor: r,
-              });
+              u = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageQueryService").MessageQueryService,
+                    ).msgFindMedia
+                  : o("WAWebDBMessageFindLocal").msgFindMedia
+              )({ count: i, mediaType: a, direction: l, chat: e, anchor: r });
             return Array.isArray(u)
               ? o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
                   void 0,

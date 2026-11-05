@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebHatchBoundChatDecoder",
     "WAWebHatchCustomConnector",
     "WAWebHatchCustomConnectorRequest",
@@ -281,21 +282,16 @@ __d(
                     })
                   : a.connectorDisconnect(e, null)
               );
-            }, "register_cleanup").then(
-              function (e) {
-                return (
-                  r ||
-                  (e.kind === "ok" &&
-                    o("WAWebHatchJsonReaders").readBool(
-                      e.value,
-                      "disconnected",
-                    ) === !0)
-                );
-              },
-              function () {
-                return !1;
-              },
-            );
+            }, "register_cleanup").then(function (e) {
+              return (
+                r ||
+                (e.kind === "ok" &&
+                  o("WAWebHatchJsonReaders").readBool(
+                    e.value,
+                    "disconnected",
+                  ) === !0)
+              );
+            }, o("WAWebBoolFunc").returnFalse);
             a ||
               o("WALogger")
                 .WARN(

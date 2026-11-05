@@ -6,8 +6,10 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAWebActionToast.react",
+    "WAWebBackendRuntime",
     "WAWebChatArchiveBridge",
     "WAWebChatGetters",
+    "WAWebChatSettingsService",
     "WAWebMiscErrors",
     "WAWebNoop",
     "WAWebStateUtils",
@@ -63,7 +65,13 @@ __d(
       var C = c.getLastMsgKeyForAction(),
         b = new AbortController(),
         v = b.signal,
-        S = o("WAWebChatArchiveBridge").sendConversationArchive(c.id, l, C),
+        S = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebChatSettingsService").ChatSettingsService,
+              ).sendConversationArchive
+            : o("WAWebChatArchiveBridge").sendConversationArchive
+        )(c.id, l, C),
         R = p(c, l),
         L = (a = R == null ? void 0 : R.failed) != null ? a : _(l),
         E = new (o("WAWebActionToast.react").ActionType)(

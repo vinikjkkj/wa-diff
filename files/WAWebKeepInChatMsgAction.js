@@ -9,6 +9,7 @@ __d(
     "WAWebAck",
     "WAWebAssociationProcessor",
     "WAWebAssociationProcessorConstants",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebChatEphemerality",
     "WAWebChatGetters",
@@ -32,6 +33,8 @@ __d(
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgInfoUtils",
@@ -83,7 +86,11 @@ __d(
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = [];
           a.push(
-            o("WAWebDBUpdateMessageTable").updateMessageTable(
+            (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMessageStoreService").MessageStoreService,
+                ).updateMessageTable
+              : o("WAWebDBUpdateMessageTable").updateMessageTable)(
               e,
               babelHelpers.extends({}, t, { kicKey: t.kicKey.toString() }),
             ),
@@ -302,13 +309,22 @@ __d(
                   var e, t;
                   ((e = y.wamMessageSendPerfReporter) == null ||
                     e.startSavedStage(),
-                    yield o("WAWebDBProcessMessage").storeMessages(
-                      [h],
-                      o("WAWebFrontendMsgGetters").getChat(y).id,
-                    ),
+                    yield (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageStoreService").MessageStoreService,
+                          ).storeMessages
+                        : o("WAWebDBProcessMessage").storeMessages
+                    )([h], o("WAWebFrontendMsgGetters").getChat(y).id),
                     (t = y.wamMessageSendPerfReporter) == null ||
                       t.postSavedStage());
-                  var n = yield o("WAWebSendMsgRecordAction").sendMsgRecord(y);
+                  var n = yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageSendService").MessageSendService,
+                        ).sendMsgRecord
+                      : o("WAWebSendMsgRecordAction").sendMsgRecord
+                  )(y);
                   return n;
                 }),
                 {

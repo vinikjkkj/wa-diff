@@ -2,6 +2,8 @@ __d(
   "WAWebVoipActionSurfaceCallLogChat",
   [
     "WALogger",
+    "WAWebBackendRuntime",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "WAWebDbErrors",
     "WAWebFindChatAction",
@@ -33,9 +35,13 @@ __d(
                 ),
                 i = a.chat;
               (i.set({ createdLocally: !1 }),
-                yield o("WAWebDBUpdateChatTable").updateChatTable(i.id, {
-                  createdLocally: !1,
-                }));
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebChatStoreService").ChatStoreService,
+                      ).updateChatTable
+                    : o("WAWebDBUpdateChatTable").updateChatTable
+                )(i.id, { createdLocally: !1 }));
             } catch (t) {
               if (t instanceof o("WAWebDbErrors").DbOnLogoutAbort) throw t;
               o("WALogger")

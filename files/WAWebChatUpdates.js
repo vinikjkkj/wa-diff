@@ -4,8 +4,10 @@ __d(
     "WAAbortError",
     "WALogger",
     "WARaceSignal",
+    "WAWebBackendRuntime",
     "WAWebChatGetMessage",
     "WAWebChatLoadMessages",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "WAWebNoop",
     "WAWebReleaseToEventLoop",
@@ -15,8 +17,13 @@ __d(
     var e, s;
     function u(t) {
       var n = Number(t.mute.expiration);
-      o("WAWebDBUpdateChatTable")
-        .updateChatTable(t.id, { muteExpiration: n })
+      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebChatStoreService").ChatStoreService,
+          ).updateChatTable
+        : o("WAWebDBUpdateChatTable").updateChatTable)(t.id, {
+        muteExpiration: n,
+      })
         .then(function () {
           return (t.muteExpiration = n);
         })
@@ -38,18 +45,27 @@ __d(
       var t,
         n = (t = e.mute.mentionAllMuteExpiration) != null ? t : 0;
       e.mentionAllMuteExpiration !== n &&
-        o("WAWebDBUpdateChatTable")
-          .updateChatTable(e.id, { mentionAllMuteExpiration: n })
-          .then(function () {
-            e.mentionAllMuteExpiration = n;
-          });
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStoreService").ChatStoreService,
+            ).updateChatTable
+          : o("WAWebDBUpdateChatTable").updateChatTable)(e.id, {
+          mentionAllMuteExpiration: n,
+        }).then(function () {
+          e.mentionAllMuteExpiration = n;
+        });
     }
     function d(e) {
       var t,
         n = (t = e.mute.callExpiration) != null ? t : 0;
       e.callMuteExpiration !== n &&
-        o("WAWebDBUpdateChatTable")
-          .updateChatTable(e.id, { callMuteExpiration: n })
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStoreService").ChatStoreService,
+            ).updateChatTable
+          : o("WAWebDBUpdateChatTable").updateChatTable)(e.id, {
+          callMuteExpiration: n,
+        })
           .then(function () {
             e.callMuteExpiration = n;
           })

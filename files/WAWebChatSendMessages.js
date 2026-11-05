@@ -8,18 +8,23 @@ __d(
     "WAWebAck",
     "WAWebActionToast.react",
     "WAWebAddonDeleteAddons",
+    "WAWebAddonService",
     "WAWebAllMediaCollection",
     "WAWebAssociatedMessagesRevokeUtils",
     "WAWebAssociationProcessor",
     "WAWebAssociationProcessorConstants",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatSendDeleteMsgsBridge",
     "WAWebChatSendStarMsgsBridge",
+    "WAWebChatStoreService",
     "WAWebCmd",
     "WAWebDBStoreRevokeMsgs",
     "WAWebDBUpdateChatTable",
     "WAWebFavoriteStickerAction",
     "WAWebKeepInChatMsgUtils",
+    "WAWebMessageDeleteService",
+    "WAWebMessageStarService",
     "WAWebMiscGatingUtils",
     "WAWebMsgActionCapability",
     "WAWebMsgCollection",
@@ -90,14 +95,18 @@ __d(
         a
           .then(function (e) {
             if (e.status === 200)
-              return o("WAWebDBUpdateChatTable")
-                .updateChatTable(r.id, {
-                  changeNumberNewJid: void 0,
-                  changeNumberOldJid: void 0,
-                })
-                .then(function () {
-                  r.changeNumberOldJid = r.changeNumberNewJid = void 0;
-                });
+              return (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable
+              )(r.id, {
+                changeNumberNewJid: void 0,
+                changeNumberOldJid: void 0,
+              }).then(function () {
+                r.changeNumberOldJid = r.changeNumberNewJid = void 0;
+              });
           })
           .finally(function () {
             r.promises.sendDismissChangeNumber = null;
@@ -108,8 +117,13 @@ __d(
       var r = o("WAWebStateUtils").unproxy(e);
       return r.promises.sendStarMsgs
         ? r.promises.sendStarMsgs
-        : (r.promises.sendStarMsgs = o("WAWebChatSendStarMsgsBridge")
-            .sendStarMsgs(r.id, t, n)
+        : (r.promises.sendStarMsgs = (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMessageStarService").MessageStarService,
+                ).sendStarMsgs
+              : o("WAWebChatSendStarMsgsBridge").sendStarMsgs
+          )(r.id, t, n)
             .then(function () {
               if (
                 (t.forEach(function (e) {
@@ -319,11 +333,21 @@ __d(
           }
           if (i.type === "message") {
             var u = i.list,
-              c = yield o(
-                "WAWebAssociatedMessagesRevokeUtils",
-              ).getHydratedAssociatedChildMessageModelsFromParentMsgs(u);
-            l.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
-              .sendDeleteMsgs([].concat(u, c), a, l.id)
+              c = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebAddonService").AddonService,
+                    ).getHydratedAssociatedChildMessageModelsFromParentMsgs
+                  : o("WAWebAssociatedMessagesRevokeUtils")
+                      .getHydratedAssociatedChildMessageModelsFromParentMsgs
+              )(u);
+            l.promises.sendDeleteMsgs = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageDeleteService").MessageDeleteService,
+                  ).sendDeleteMsgs
+                : o("WAWebChatSendDeleteMsgsBridge").sendDeleteMsgs
+            )([].concat(u, c), a, l.id)
               .then(function () {
                 return (
                   [].concat(u, c).forEach(function (e) {

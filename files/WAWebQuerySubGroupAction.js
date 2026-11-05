@@ -3,9 +3,11 @@ __d(
   [
     "WAFilteredCatch",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebGroupMetadataCollection",
     "WAWebGroupQuerySubGroupsJob",
     "WAWebGroupUnjoinedSubgroupJob",
+    "WAWebLidMappingService",
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebMexFetchAllSubgroupsJob",
     "WAWebUnjoinedSubgroupMetadataCollection",
@@ -84,9 +86,14 @@ __d(
               },
             )(t);
           }
-          yield o(
-            "WAWebLidMappingUsernameLearnUtils",
-          ).processParsedGroupInfosForLidMappingAndUsernames([i]);
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebLidMappingService").LidMappingService,
+                ).processParsedGroupInfosForLidMappingAndUsernames
+              : o("WAWebLidMappingUsernameLearnUtils")
+                  .processParsedGroupInfosForLidMappingAndUsernames
+          )([i]);
           var l = r("WAWebUnjoinedSubgroupMetadataCollection").get(
             t.toString(),
           );

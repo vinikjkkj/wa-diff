@@ -5,10 +5,12 @@ __d(
     "WALogger",
     "WAPromiseCache",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBizUpdateVerifiedInfoAction",
     "WAWebBizVerifiedLevelToString",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebContactQueryService",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebDBCreateLidPnMappings",
@@ -85,7 +87,11 @@ __d(
     }
     function m() {
       var e = new (r("WAPromiseCache"))(
-        o("WAWebQueryExistsJob").queryPhoneExists,
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebContactQueryService").ContactQueryService,
+            ).queryPhoneExists
+          : o("WAWebQueryExistsJob").queryPhoneExists,
         {
           maxCached: 100,
           maxAge: 36e4,

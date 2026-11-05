@@ -4,9 +4,11 @@ __d(
     "invariant",
     "WALogger",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebDBProcessMessage",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageStoreService",
     "WAWebMsgModel",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMetadataCollection",
@@ -88,7 +90,13 @@ __d(
               [u],
             ),
             c(e, l.t),
-            yield o("WAWebDBProcessMessage").storeMessages([l], e));
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([l], e));
           var d = new (o(
             "WAWebStatusPosterActionsLogger",
           ).StatusPosterActionsLogger)(n == null ? void 0 : n.sessionId, e);
@@ -184,7 +192,13 @@ __d(
               [d],
             ),
             c(a, l.t),
-            yield o("WAWebDBProcessMessage").storeMessages([l], a));
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([l], a));
           try {
             yield t(d);
           } catch (e) {

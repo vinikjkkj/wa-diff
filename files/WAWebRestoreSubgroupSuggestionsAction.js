@@ -2,6 +2,8 @@ __d(
   "WAWebRestoreSubgroupSuggestionsAction",
   [
     "WAWebApiSubgroupSuggestionStore",
+    "WAWebBackendRuntime",
+    "WAWebCommunityService",
     "WAWebCommunitySubgroupSuggestionsUtils",
     "WAWebStateUtils",
     "asyncToGeneratorRuntime",
@@ -15,9 +17,13 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = o("WAWebStateUtils").unproxy(e),
-            r = yield o(
-              "WAWebApiSubgroupSuggestionStore",
-            ).getSubgroupSuggestions(n.id);
+            r = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebCommunityService").CommunityService,
+                  ).getSubgroupSuggestions
+                : o("WAWebApiSubgroupSuggestionStore").getSubgroupSuggestions
+            )(n.id);
           (t = n.groupMetadata) == null ||
             t.subgroupSuggestions.add(
               r.map(function (e) {

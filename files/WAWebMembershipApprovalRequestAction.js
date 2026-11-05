@@ -5,13 +5,16 @@ __d(
     "WALogger",
     "WAWebApiMembershipApprovalRequestStore",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
     "WAWebGroupCancelMembershipRequestJob",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupMembershipApprovalRequestModel",
     "WAWebGroupMembershipRequestsActionJob",
+    "WAWebGroupMembershipRequestsService",
     "WAWebGroupMutationParticipantUtils",
     "WAWebIncompatibleAgentRequestsRejectTriggers",
+    "WAWebLidMappingService",
     "WAWebSentGroupAgentRequests",
     "WAWebSetUsernameJob",
     "WAWebStateUtils",
@@ -58,9 +61,15 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebStateUtils").unproxy(e),
-            n = (yield o(
-              "WAWebApiMembershipApprovalRequestStore",
-            ).getMembershipApprovalRequests(t.id)).map(function (e) {
+            n = (yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupMembershipRequestsService")
+                      .GroupMembershipRequestsService,
+                  ).getMembershipApprovalRequests
+                : o("WAWebApiMembershipApprovalRequestStore")
+                    .getMembershipApprovalRequests
+            )(t.id)).map(function (e) {
               return new (r("WAWebGroupMembershipApprovalRequestModel"))(e);
             });
           r("nullthrows")(t.groupMetadata).membershipApprovalRequests.add(n, {
@@ -75,9 +84,15 @@ __d(
           function* (e, t, n) {
             var r = o("WAWebStateUtils").unproxy(e);
             try {
-              var a = yield o(
-                  "WAWebGroupMembershipRequestsActionJob",
-                ).membershipApprovalRequestAction(r.id, [h(r, t)], n),
+              var a = yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebGroupMembershipRequestsService")
+                          .GroupMembershipRequestsService,
+                      ).membershipApprovalRequestAction
+                    : o("WAWebGroupMembershipRequestsActionJob")
+                        .membershipApprovalRequestAction
+                )(r.id, [h(r, t)], n),
                 i = a[0],
                 l = i.error,
                 s = i.phoneNumber,
@@ -101,13 +116,24 @@ __d(
                       : null,
                   },
                 ];
-                yield o(
-                  "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-                ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(g, !0);
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebLidMappingService").LidMappingService,
+                      ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches
+                    : o("WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob")
+                        .createOrReplaceDisplayNamesAndLidPnMappingsInBatches
+                )(g, !0);
               }
               o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
                 u != null &&
-                (yield o("WAWebSetUsernameJob").setUsernamesJob([
+                (yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebLidMappingService").LidMappingService,
+                      ).setUsernamesJob
+                    : o("WAWebSetUsernameJob").setUsernamesJob
+                )([
                   {
                     userId: o("WAWebWidFactory").asUserWidOrThrow(m),
                     username: o("WAWebUsernameTypes").asUsername(u),
@@ -135,9 +161,15 @@ __d(
                 s = l.filter(Boolean),
                 m =
                   s.length > 0
-                    ? yield o(
-                        "WAWebGroupMembershipRequestsActionJob",
-                      ).membershipApprovalRequestAction(i.id, s, a)
+                    ? yield (
+                        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                          ? o("WAWebBackendRuntime").runtime(
+                              o("WAWebGroupMembershipRequestsService")
+                                .GroupMembershipRequestsService,
+                            ).membershipApprovalRequestAction
+                          : o("WAWebGroupMembershipRequestsActionJob")
+                              .membershipApprovalRequestAction
+                      )(i.id, s, a)
                     : [],
                 p = new Map();
               m.forEach(function (e) {
@@ -241,16 +273,27 @@ __d(
                     : null,
                 };
               });
-              yield o(
-                "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-              ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(t, !0);
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebLidMappingService").LidMappingService,
+                    ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches
+                  : o("WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob")
+                      .createOrReplaceDisplayNamesAndLidPnMappingsInBatches
+              )(t, !0);
             }
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
               e.some(function (e) {
                 var t = e.username;
                 return t != null;
               }) &&
-              (yield o("WAWebSetUsernameJob").setUsernamesJob(
+              (yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebLidMappingService").LidMappingService,
+                    ).setUsernamesJob
+                  : o("WAWebSetUsernameJob").setUsernamesJob
+              )(
                 e.flatMap(function (e) {
                   var t = e.username,
                     n = e.wid;
@@ -436,9 +479,15 @@ __d(
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
               : o("WAWebUserPrefsMeUser").getMeUserOrThrow();
           try {
-            var i = yield o(
-                "WAWebGroupCancelMembershipRequestJob",
-              ).cancelMembershipApprovalRequestJob(e, [a]),
+            var i = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupMembershipRequestsService")
+                        .GroupMembershipRequestsService,
+                    ).cancelMembershipApprovalRequestJob
+                  : o("WAWebGroupCancelMembershipRequestJob")
+                      .cancelMembershipApprovalRequestJob
+              )(e, [a]),
               l = i[0],
               s = l.error;
             if (s != null) {

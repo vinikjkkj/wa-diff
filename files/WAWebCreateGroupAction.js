@@ -9,6 +9,7 @@ __d(
     "WAWebABProps",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebComposeBoxActions",
@@ -19,11 +20,15 @@ __d(
     "WAWebGroupCreateJob",
     "WAWebGroupCreateWamEvent",
     "WAWebGroupIncompatibleDeviceAddResult",
+    "WAWebGroupLifecycleService",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupOutContactInvite",
     "WAWebGroupQueryBridge",
+    "WAWebGroupQueryService",
+    "WAWebGroupSettingsService",
     "WAWebJidToWid",
+    "WAWebLidMappingService",
     "WAWebModifyParticipantsRateLimitText",
     "WAWebNoop",
     "WAWebOrgGatingUtils",
@@ -116,7 +121,13 @@ __d(
               y,
               C;
             try {
-              ((y = yield o("WAWebGroupCreateJob").createGroup(h, [], [])),
+              ((y = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupLifecycleService").GroupLifecycleService,
+                    ).createGroup
+                  : o("WAWebGroupCreateJob").createGroup
+              )(h, [], [])),
                 (C = o("WAWebWidFactory").asGroupWidOrThrow(y.wid)));
             } catch (e) {
               throw (
@@ -180,7 +191,13 @@ __d(
             var b = (l = (s = i) == null ? void 0 : s.trim()) != null ? l : "";
             if (b !== "")
               try {
-                yield o("WAWebGroupModifyInfoJob").setGroupDescription({
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebGroupSettingsService").GroupSettingsService,
+                      ).setGroupDescription
+                    : o("WAWebGroupModifyInfoJob").setGroupDescription
+                )({
                   desc: b,
                   groupWid: C,
                   newDescId: o("WARandomHex").randomHex(v),
@@ -198,9 +215,12 @@ __d(
                   .sendLogs("org-admin-group-description-update-failed");
               }
             return (
-              o("WAWebGroupQueryBridge")
-                .sendQueryGroup(C)
-                .catch(function (e) {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupQueryService").GroupQueryService,
+                  ).sendQueryGroup
+                : o("WAWebGroupQueryBridge").sendQueryGroup)(C).catch(
+                function (e) {
                   o("WALogger")
                     .WARN(
                       f ||
@@ -210,7 +230,8 @@ __d(
                     )
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("org-admin-group-metadata-hydration-failed");
-                }),
+                },
+              ),
               {
                 gid: C,
                 participants: I(y.participants),
@@ -257,25 +278,29 @@ __d(
       var C = l.map(function (e) {
           return o("WAWebJidToWid").userJidToUserWid(e.id);
         }),
-        b = o("WAWebGroupCreateJob")
-          .createGroup(a, h, C)
-          .then(function (e) {
-            var t = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
-            return (
-              o("WAWebCoreActionsODS").logGroupCreate(),
-              i != null &&
-                new (o("WAWebGroupCreateWamEvent").GroupCreateWamEvent)({
-                  ephemeralityDuration: a.ephemeralDuration,
-                  groupCreateEntryPoint: i,
-                  hasGroupName: f.trim().length > 0,
-                }).commit(),
-              {
-                gid: t,
-                participants: I(e.participants),
-                invitedOutContacts: e.invitedOutContacts,
-              }
-            );
-          }),
+        b = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupLifecycleService").GroupLifecycleService,
+              ).createGroup
+            : o("WAWebGroupCreateJob").createGroup
+        )(a, h, C).then(function (e) {
+          var t = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
+          return (
+            o("WAWebCoreActionsODS").logGroupCreate(),
+            i != null &&
+              new (o("WAWebGroupCreateWamEvent").GroupCreateWamEvent)({
+                ephemeralityDuration: a.ephemeralDuration,
+                groupCreateEntryPoint: i,
+                hasGroupName: f.trim().length > 0,
+              }).commit(),
+            {
+              gid: t,
+              participants: I(e.participants),
+              invitedOutContacts: e.invitedOutContacts,
+            }
+          );
+        }),
         v = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Creating group"),
         ),
@@ -451,9 +476,13 @@ __d(
                                   "WAWebComposeBoxActions",
                                 ).ComposeBoxActions.focus(n);
                             }),
-                            o("WAWebGroupQueryBridge")
-                              .sendQueryGroup(e.gid)
-                              .finally(r("WAWebNoop")));
+                            (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                              ? o("WAWebBackendRuntime").runtime(
+                                  o("WAWebGroupQueryService").GroupQueryService,
+                                ).sendQueryGroup
+                              : o("WAWebGroupQueryBridge").sendQueryGroup)(
+                              e.gid,
+                            ).finally(r("WAWebNoop")));
                         }),
                     _ != null && m != null)
                   ) {
@@ -484,7 +513,13 @@ __d(
                       );
                     }, []);
                     u.length > 0 &&
-                      (yield o("WAWebSetUsernameJob").setUsernamesJob(u));
+                      (yield (
+                        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                          ? o("WAWebBackendRuntime").runtime(
+                              o("WAWebLidMappingService").LidMappingService,
+                            ).setUsernamesJob
+                          : o("WAWebSetUsernameJob").setUsernamesJob
+                      )(u));
                   }
                   return e.gid;
                 },

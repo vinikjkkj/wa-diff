@@ -1,7 +1,9 @@
 __d(
   "WAWebUpdateDraftMessageChatAction",
   [
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
+    "WAWebChatStoreService",
     "WAWebNewsletterCollection",
     "WAWebUpdateDraftMessageChatJob",
     "WAWebWid",
@@ -12,11 +14,13 @@ __d(
           ? r("WAWebNewsletterCollection").get(e)
           : o("WAWebChatCollection").ChatCollection.get(e),
         a = new AbortController(),
-        i = o("WAWebUpdateDraftMessageChatJob").updateDraftMessageChat({
-          chatId: e,
-          draftMessage: t,
-          abortSignal: a.signal,
-        });
+        i = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebChatStoreService").ChatStoreService,
+              ).updateDraftMessageChat
+            : o("WAWebUpdateDraftMessageChatJob").updateDraftMessageChat
+        )({ chatId: e, draftMessage: t, abortSignal: a.signal });
       if (
         (i.finally(function () {
           if (n) {

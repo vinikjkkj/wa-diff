@@ -2,6 +2,7 @@ __d(
   "WAWebWebcOfflineNotificationProcessWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumOfflineProcessInterruptReasons",
     "WAWebWamEnumOfflineProcessRunReasons",
     "WAWebWamEnumOfflineProcessStages",
   ],
@@ -18,6 +19,11 @@ __d(
               ],
               dedupKey: [13, e.TYPES.INTEGER],
               offlineProcessDecryptErrorCount: [5, e.TYPES.INTEGER],
+              offlineProcessInterruptReason: [
+                14,
+                o("WAWebWamEnumOfflineProcessInterruptReasons")
+                  .OFFLINE_PROCESS_INTERRUPT_REASONS,
+              ],
               offlineProcessMailboxAge: [6, e.TYPES.INTEGER],
               offlineProcessMessageCount: [7, e.TYPES.INTEGER],
               offlineProcessNotificationCount: [8, e.TYPES.INTEGER],

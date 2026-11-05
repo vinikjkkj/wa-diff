@@ -3,10 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupStoreService",
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
@@ -51,9 +53,14 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            var a = yield o(
-              "WAWebGroupHistoryParticipantJob",
-            ).getGroupHistoryParticipantMetadataForGroup(t);
+            var a = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupStoreService").GroupStoreService,
+                  ).getGroupHistoryParticipantMetadataForGroup
+                : o("WAWebGroupHistoryParticipantJob")
+                    .getGroupHistoryParticipantMetadataForGroup
+            )(t);
             if (a == null || a.size === 0) return;
             for (var i of n.getModelsArray()) {
               var l = o("WAWebLidMigrationUtils").toUserLid(i.id);

@@ -8,8 +8,10 @@ __d(
     "WAWebActionToast.react",
     "WAWebAuraGating",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
     "WAWebChatPinBridge",
+    "WAWebChatPinService",
     "WAWebModalManager",
     "WAWebNoop",
     "WAWebPinChatLimits",
@@ -90,23 +92,37 @@ __d(
           !r("WAWebAuraGating").isPinnedChatsBenefitActive()
         ),
         v = b
-          ? o("WAWebChatPinBridge")
-              .getNumConversationsPinned(t.id)
-              .then(function (e) {
+          ? (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatPinService").ChatPinService,
+                ).getNumConversationsPinned
+              : o("WAWebChatPinBridge").getNumConversationsPinned)(t.id).then(
+              function (e) {
                 var n = o("WAWebChatPinBridge").getPinLimit(t.id);
                 if (e >= n)
                   throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
                     405,
                     "Pin limit exceeded",
                   );
-                return o("WAWebChatPinBridge").setPin({
+                return (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebChatPinService").ChatPinService,
+                      ).setPin
+                    : o("WAWebChatPinBridge").setPin
+                )({
                   _lastPinTime: _,
                   chatId: t.id,
                   newPinTime: u,
                   timestamp: h,
                 });
-              })
-          : o("WAWebChatPinBridge").setPin({
+              },
+            )
+          : (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatPinService").ChatPinService,
+                ).setPin
+              : o("WAWebChatPinBridge").setPin)({
               _lastPinTime: _,
               chatId: t.id,
               newPinTime: u,
@@ -119,9 +135,12 @@ __d(
           .then(function () {
             if (C.aborted) throw new (o("WAAbortError").AbortError)();
             a &&
-              o("WAWebChatPinBridge")
-                .getNumConversationsPinned(t.id)
-                .then(function (e) {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatPinService").ChatPinService,
+                  ).getNumConversationsPinned
+                : o("WAWebChatPinBridge").getNumConversationsPinned)(t.id).then(
+                function (e) {
                   var n = o(
                     "WAWebPinnedChatsWamUtils",
                   ).getPinnedChatsPremiumStatus();
@@ -130,7 +149,8 @@ __d(
                     pinnedChatsPremiumStatus: n,
                   }).commit(),
                     m(t.id, e));
-                });
+                },
+              );
             var e = a ? g.getPinnedText(t) : g.getUnpinnedText(t);
             return new (o("WAWebActionToast.react").ActionType)(e, {
               actionText: s._(/*BTDS*/ "Undo"),

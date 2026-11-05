@@ -1,7 +1,9 @@
 __d(
   "WAWebChatLockAction",
   [
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "WAWebLockChatSync",
     "asyncToGeneratorRuntime",
@@ -15,7 +17,13 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = t ? { isLocked: t, archive: !1, pin: void 0 } : { isLocked: t };
-          (yield o("WAWebDBUpdateChatTable").updateChatTable(e, r),
+          (yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatStoreService").ChatStoreService,
+                ).updateChatTable
+              : o("WAWebDBUpdateChatTable").updateChatTable
+          )(e, r),
             (n = o("WAWebChatCollection").ChatCollection.get(e)) == null ||
               n.set(r));
         })),

@@ -1,12 +1,11 @@
 __d(
   "WAWebSocketLogoutStorageUtils",
   [
-    "JSResourceForInteraction",
     "Promise",
-    "WALogger",
     "WAWebFtsClient",
     "WAWebFtsStorage",
     "WAWebJobsStorage",
+    "WAWebLabyrinthLogout",
     "WAWebLruMediaStorageUtils",
     "WAWebModelStorage",
     "WAWebOffdStorage",
@@ -14,64 +13,33 @@ __d(
     "WAWebWorkerStorage",
     "asyncToGeneratorRuntime",
     "cr:10201",
-    "getErrorSafe",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u = r("JSResourceForInteraction")("WAWebLabyrinthDebugStorage").__setRef(
-        "WAWebSocketLogoutStorageUtils",
-      );
-    function c() {
-      return d.apply(this, arguments);
+    var e;
+    function s() {
+      return u.apply(this, arguments);
     }
-    function d() {
+    function u() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = [
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = [
             o("WAWebModelStorage").destroy(),
             o("WAWebLruMediaStorageUtils").destroyStorage(),
           ];
-          (e.push(o("WAWebFtsStorage").destroy()),
-            e.push(o("WAWebOffdStorage").destroy()),
-            e.push(o("WAWebJobsStorage").destroy()),
-            e.push(o("WAWebQplStorage").destroy()),
-            e.push(o("WAWebFtsClient").ftsClient.clearInitializationPromises()),
-            e.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
-            (r("gkx")("23871") || r("gkx")("27715")) && e.push(m()),
-            e.push(o("WAWebWorkerStorage").destroy()),
-            yield (s || (s = n("Promise"))).all(e));
+          (t.push(o("WAWebFtsStorage").destroy()),
+            t.push(o("WAWebOffdStorage").destroy()),
+            t.push(o("WAWebJobsStorage").destroy()),
+            t.push(o("WAWebQplStorage").destroy()),
+            t.push(o("WAWebFtsClient").ftsClient.clearInitializationPromises()),
+            t.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
+            t.push(o("WAWebLabyrinthLogout").clearLabyrinthAtLogout()),
+            t.push(o("WAWebWorkerStorage").destroy()),
+            yield (e || (e = n("Promise"))).all(t));
         })),
-        d.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield u.load(),
-              n = t.destroy;
-            yield n();
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "destroyStorage: loading Labyrinth debug storage failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("labyrinth-debug-storage-load-failed");
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.destroyStorage = c;
+    l.destroyStorage = s;
   },
   98,
 );

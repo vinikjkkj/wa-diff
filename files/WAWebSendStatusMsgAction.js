@@ -5,11 +5,13 @@ __d(
     "WALogger",
     "WAWebAck",
     "WAWebAutoCrosspostAction",
+    "WAWebBackendRuntime",
     "WAWebDBProcessMessage",
     "WAWebEncryptAndSendStatusMsg",
     "WAWebLidStatusMigrationUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageStoreService",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebOutgoingMessage",
@@ -88,7 +90,13 @@ __d(
             ),
             (i = p.sendPerfReporter) == null || i.postRenderedStage(),
             (l = p.sendPerfReporter) == null || l.startSavedStage(),
-            yield o("WAWebDBProcessMessage").storeMessages([d], m.to),
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([d], m.to),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -170,7 +178,13 @@ __d(
             ),
             (a = C.sendPerfReporter) == null || a.postRenderedStage(),
             (i = C.sendPerfReporter) == null || i.startSavedStage(),
-            yield o("WAWebDBProcessMessage").storeMessages([h], y.to),
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([h], y.to),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([

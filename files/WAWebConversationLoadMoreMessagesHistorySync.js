@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatConstants",
     "WAWebClock",
     "WAWebConfirmPopup.react",
@@ -14,6 +15,7 @@ __d(
     "WAWebLinkDeviceCommonInstructions.react",
     "WAWebModalManager",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
+    "WAWebPeerDataService",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
     "WAWebSpinner.react",
@@ -294,27 +296,30 @@ __d(
                 (D = function () {
                   (R(!0),
                     k(null),
-                    o("WAWebSendNonMessageDataRequest")
-                      .sendPeerDataOperationRequest(
-                        o("WAWebProtobufsE2E.pb")
-                          .Message$PeerDataOperationRequestType
-                          .HISTORY_SYNC_ON_DEMAND,
-                        { chatId: n },
-                      )
-                      .catch(function () {
-                        (o("WALogger")
-                          .ERROR(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "[history sync][on demand] failed to send request for chat ",
-                                "",
-                              ])),
-                            n == null ? void 0 : n.toLogString(),
-                          )
-                          .sendLogs("history-sync-on-demand-request-failed"),
-                          R(!1),
-                          k(!1));
-                      }));
+                    (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebPeerDataService").PeerDataService,
+                        ).sendPeerDataOperationRequest
+                      : o("WAWebSendNonMessageDataRequest")
+                          .sendPeerDataOperationRequest)(
+                      o("WAWebProtobufsE2E.pb")
+                        .Message$PeerDataOperationRequestType
+                        .HISTORY_SYNC_ON_DEMAND,
+                      { chatId: n },
+                    ).catch(function () {
+                      (o("WALogger")
+                        .ERROR(
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                              "[history sync][on demand] failed to send request for chat ",
+                              "",
+                            ])),
+                          n == null ? void 0 : n.toLogString(),
+                        )
+                        .sendLogs("history-sync-on-demand-request-failed"),
+                        R(!1),
+                        k(!1));
+                    }));
                 }));
               break;
             }

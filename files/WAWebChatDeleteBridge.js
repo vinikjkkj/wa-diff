@@ -24,6 +24,7 @@ __d(
     "WAWebMuteChatSync",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
     "WAWebPinChatSync",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaChat",
@@ -34,6 +35,7 @@ __d(
     "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebThreadMetadataJob",
+    "WAWebUiRuntime",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -115,10 +117,16 @@ __d(
                 }),
                   r
                     ? (m(babelHelpers.extends({ chatId: t.toString() }, r)),
-                      yield o("WAWebBackendApi").frontendSendAndReceive(
-                        "deleteModelsForLastAddOnPreview",
-                        { messagesIds: a },
-                      ),
+                      yield o("WAWebUiRuntime").isWebDiUiEnabled()
+                        ? o("WAWebUiRuntime")
+                            .uiRuntime(
+                              o("WAWebReactionUiService").ReactionUiService,
+                            )
+                            .deleteModelsForLastAddOnPreview(a)
+                        : o("WAWebBackendApi").frontendSendAndReceive(
+                            "deleteModelsForLastAddOnPreview",
+                            { messagesIds: a },
+                          ),
                       yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                         t.toString(),
                         a,
@@ -466,10 +474,14 @@ __d(
                 o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(n, {
                   removeWholeRow: !0,
                 }),
-                yield o("WAWebBackendApi").frontendSendAndReceive(
-                  "deleteModelsForLastAddOnPreview",
-                  { messagesIds: n },
-                ),
+                yield o("WAWebUiRuntime").isWebDiUiEnabled()
+                  ? o("WAWebUiRuntime")
+                      .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                      .deleteModelsForLastAddOnPreview(n)
+                  : o("WAWebBackendApi").frontendSendAndReceive(
+                      "deleteModelsForLastAddOnPreview",
+                      { messagesIds: n },
+                    ),
                 yield o(
                   "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
                 ).deleteChatFromInitialSyncBoundary(t),

@@ -4,11 +4,13 @@ __d(
     "fbt",
     "WAJids",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatUnreadCount.react",
     "WAWebDBUpdateMessageTable",
     "WAWebDrawerManager",
     "WAWebFrontendMsgGetters",
     "WAWebKeyboardTabUtils",
+    "WAWebMessageStoreService",
     "WAWebModalManager",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
@@ -171,7 +173,11 @@ __d(
     function g(e) {
       return (
         (e.readQuestionResponsesCount = e.questionResponsesCount),
-        o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebMessageStoreService").MessageStoreService,
+            ).updateMessageTable
+          : o("WAWebDBUpdateMessageTable").updateMessageTable)(e.id, {
           readQuestionResponsesCount: e.questionResponsesCount,
         })
       );

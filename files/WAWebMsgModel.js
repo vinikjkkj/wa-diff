@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebBaseModel",
     "WAWebBizBotProfileUtils",
     "WAWebBotGenTypingIndicatorMsg",
@@ -33,6 +34,8 @@ __d(
     "WAWebMediaTypes",
     "WAWebMessageAssociationUIUtils",
     "WAWebMessageReceiptUtils",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMiscGatingUtils",
     "WAWebModalManager",
     "WAWebMsgCollection",
@@ -596,7 +599,11 @@ __d(
             (e.typeOnInit = o("WAWebBaseModel").session()),
             (e.calledCiphertextDecrypted = o("WAWebBaseModel").session(!1)),
             (e.$MsgImpl$p_24 = r("WAWebDebounce")(function (e, t) {
-              o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable)(e, {
                 lastPlaybackProgress: t,
               });
             }, 500)),
@@ -827,9 +834,14 @@ __d(
                   this.botEditTimeoutID = self.setTimeout(function () {
                     ((e.activeBotMsgStreamingInProgress = !1),
                       (e.botEditType = o("WAWebBotTypes").BotMsgEditType.LAST),
-                      o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
-                        botEditType: o("WAWebBotTypes").BotMsgEditType.LAST,
-                      }));
+                      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageStoreService").MessageStoreService,
+                          ).updateMessageTable
+                        : o("WAWebDBUpdateMessageTable").updateMessageTable)(
+                        e.id,
+                        { botEditType: o("WAWebBotTypes").BotMsgEditType.LAST },
+                      ));
                   }, a);
               }
             }
@@ -928,7 +940,11 @@ __d(
               }
               return (
                 this.isUnsentPhoneMsg() &&
-                  o("WAWebSendMsgRecordAction").sendMsgRecord(this),
+                  (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageSendService").MessageSendService,
+                      ).sendMsgRecord
+                    : o("WAWebSendMsgRecordAction").sendMsgRecord)(this),
                 this.forceDownloadMediaEvenIfExpensive()
               );
             });
@@ -1306,17 +1322,28 @@ __d(
                     ? ((this.ack = e),
                       t ||
                         this.$MsgImpl$p_10.enqueue(function () {
-                          return o(
-                            "WAWebDBUpdateMessageTable",
-                          ).updateMessageTable(a, { ack: e });
+                          return (
+                            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                              ? o("WAWebBackendRuntime").runtime(
+                                  o("WAWebMessageStoreService")
+                                    .MessageStoreService,
+                                ).updateMessageTable
+                              : o("WAWebDBUpdateMessageTable")
+                                  .updateMessageTable
+                          )(a, { ack: e });
                         }))
                     : e === o("WAWebAck").ACK.FAILED &&
                       this.ack === o("WAWebAck").ACK.CLOCK &&
                       ((this.ack = o("WAWebAck").ACK.FAILED),
                       this.$MsgImpl$p_10.enqueue(function () {
-                        return o(
-                          "WAWebDBUpdateMessageTable",
-                        ).updateMessageTable(a, { ack: e });
+                        return (
+                          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                            ? o("WAWebBackendRuntime").runtime(
+                                o("WAWebMessageStoreService")
+                                  .MessageStoreService,
+                              ).updateMessageTable
+                            : o("WAWebDBUpdateMessageTable").updateMessageTable
+                        )(a, { ack: e });
                       }));
                 }
               },
@@ -1327,9 +1354,13 @@ __d(
             return t;
           })()),
           (i.updateNFMButtonsState = function (t) {
-            return o("WAWebDBUpdateMessageTable").updateMessageTable(this.id, {
-              galaxyFlowDisabled: t,
-            });
+            return (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable
+            )(this.id, { galaxyFlowDisabled: t });
           }),
           (i.updateLastPlaybackProgress = function (t) {
             ((this.lastPlaybackProgress = t), this.$MsgImpl$p_24(this.id, t));

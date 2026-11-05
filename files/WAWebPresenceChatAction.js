@@ -4,14 +4,17 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBotGroupGatingUtils",
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
     "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebChatStateBridge",
+    "WAWebChatStateService",
     "WAWebContactPresenceBridge",
     "WAWebLidMigrationUtils",
+    "WAWebPresenceService",
     "WAWebStateUtils",
     "cr:17638",
     "err",
@@ -99,11 +102,19 @@ __d(
     }
     function E() {
       (f == null ? void 0 : f()) !== !0 &&
-        o("WAWebContactPresenceBridge").setPresenceAvailable();
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebPresenceService").PresenceService,
+            ).setPresenceAvailable
+          : o("WAWebContactPresenceBridge").setPresenceAvailable)();
     }
     function k() {
       (f == null ? void 0 : f()) !== !0 &&
-        o("WAWebContactPresenceBridge").setPresenceUnavailable();
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebPresenceService").PresenceService,
+            ).setPresenceUnavailable
+          : o("WAWebContactPresenceBridge").setPresenceUnavailable)();
     }
     function I(e) {
       if (!o("WAWebLidMigrationUtils").shouldHaveAccountLid(e.id)) return e.id;
@@ -126,24 +137,26 @@ __d(
       var n = !x(y.get(e), t);
       if (($(e, t), !e.typing || n)) {
         var r = I(e);
-        o("WAWebChatStateBridge")
-          .sendChatStateComposing(r, t)
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                e.status >= 400 &&
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat send presence composing error ",
-                        "",
-                      ])),
-                    r.toLogString(),
-                  );
-              },
-            ),
-          );
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStateService").ChatStateService,
+            ).sendChatStateComposing
+          : o("WAWebChatStateBridge").sendChatStateComposing)(r, t).catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WAWebBackendErrors").ServerStatusCodeError,
+            function (e) {
+              e.status >= 400 &&
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "models:chat send presence composing error ",
+                      "",
+                    ])),
+                  r.toLogString(),
+                );
+            },
+          ),
+        );
       }
       (e.typing ||
         (e.presenceResendTimerId = self.setTimeout(function () {
@@ -158,24 +171,26 @@ __d(
     function D(e) {
       if (e.typing || e.recording) {
         var t = I(e);
-        o("WAWebChatStateBridge")
-          .sendChatStatePaused(t)
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                e.status >= 400 &&
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat send presence paused error ",
-                        "",
-                      ])),
-                    t.toLogString(),
-                  );
-              },
-            ),
-          );
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStateService").ChatStateService,
+            ).sendChatStatePaused
+          : o("WAWebChatStateBridge").sendChatStatePaused)(t).catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WAWebBackendErrors").ServerStatusCodeError,
+            function (e) {
+              e.status >= 400 &&
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "models:chat send presence paused error ",
+                      "",
+                    ])),
+                  t.toLogString(),
+                );
+            },
+          ),
+        );
       }
       (e.presenceResendTimerId &&
         (self.clearTimeout(e.presenceResendTimerId),
@@ -194,24 +209,26 @@ __d(
     function P(e) {
       if (!e.recording) {
         var t = I(e);
-        (o("WAWebChatStateBridge")
-          .sendChatStateRecording(t)
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                e.status >= 400 &&
-                  o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat send presence recording error ",
-                        "",
-                      ])),
-                    t.toLogString(),
-                  );
-              },
-            ),
+        ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStateService").ChatStateService,
+            ).sendChatStateRecording
+          : o("WAWebChatStateBridge").sendChatStateRecording)(t).catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WAWebBackendErrors").ServerStatusCodeError,
+            function (e) {
+              e.status >= 400 &&
+                o("WALogger").WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "models:chat send presence recording error ",
+                      "",
+                    ])),
+                  t.toLogString(),
+                );
+            },
           ),
+        ),
           (e.presenceResendTimerId = self.setTimeout(function () {
             return N(e);
           }, h)));
@@ -224,43 +241,50 @@ __d(
     function N(e) {
       var t = I(e);
       if (e.recording)
-        o("WAWebChatStateBridge")
-          .sendChatStateRecording(t)
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                e.status >= 400 &&
-                  o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat send presence resend recording error ",
-                        "",
-                      ])),
-                    t.toLogString(),
-                  );
-              },
-            ),
-          );
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStateService").ChatStateService,
+            ).sendChatStateRecording
+          : o("WAWebChatStateBridge").sendChatStateRecording)(t).catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WAWebBackendErrors").ServerStatusCodeError,
+            function (e) {
+              e.status >= 400 &&
+                o("WALogger").WARN(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "models:chat send presence resend recording error ",
+                      "",
+                    ])),
+                  t.toLogString(),
+                );
+            },
+          ),
+        );
       else if (e.typing)
-        o("WAWebChatStateBridge")
-          .sendChatStateComposing(t, y.get(e))
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
-                e.status >= 400 &&
-                  o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "models:chat send presence resend composing error ",
-                        "",
-                      ])),
-                    t.toLogString(),
-                  );
-              },
-            ),
-          );
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStateService").ChatStateService,
+            ).sendChatStateComposing
+          : o("WAWebChatStateBridge").sendChatStateComposing)(
+          t,
+          y.get(e),
+        ).catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WAWebBackendErrors").ServerStatusCodeError,
+            function (e) {
+              e.status >= 400 &&
+                o("WALogger").WARN(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "models:chat send presence resend composing error ",
+                      "",
+                    ])),
+                  t.toLogString(),
+                );
+            },
+          ),
+        );
       else {
         e.unset("presenceResendTimerId");
         return;

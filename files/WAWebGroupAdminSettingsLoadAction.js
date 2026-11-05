@@ -3,9 +3,12 @@ __d(
   [
     "WAConcurrentIterate",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebDBGroupsGroupMetadata",
     "WAWebGroupAdminSettings",
     "WAWebGroupQueryJob",
+    "WAWebGroupQueryService",
+    "WAWebGroupStoreService",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -83,7 +86,13 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = yield o("WAWebDBGroupsGroupMetadata").bulkGetGroupMetadata(
+            var n = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupStoreService").GroupStoreService,
+                  ).bulkGetGroupMetadata
+                : o("WAWebDBGroupsGroupMetadata").bulkGetGroupMetadata
+            )(
               t.map(function (e) {
                 return e.id;
               }),
@@ -182,10 +191,13 @@ __d(
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            (yield o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-              id: e.id,
-              request: "interactive",
-            }),
+            (yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupQueryService").GroupQueryService,
+                  ).queryAndUpdateGroupMetadataById
+                : o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById
+            )({ id: e.id, request: "interactive" }),
               y(e) && d.add(e.id.toString()));
           } catch (e) {
             o("WALogger")

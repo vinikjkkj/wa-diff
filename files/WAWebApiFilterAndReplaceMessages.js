@@ -6,7 +6,9 @@ __d(
     "WAWebBackendApi",
     "WAWebCoexV2StoredRevokeAuthorization",
     "WAWebLidMigrationUtils",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
+    "WAWebUiRuntime",
     "WAWebWid",
     "asyncToGeneratorRuntime",
   ],
@@ -91,10 +93,14 @@ __d(
                 u,
               ),
             c.length > 0 &&
-              o("WAWebBackendApi").frontendFireAndForget(
-                "deleteModelsForLastAddOnPreview",
-                { messagesIds: c },
-              ),
+              (o("WAWebUiRuntime").isWebDiUiEnabled()
+                ? o("WAWebUiRuntime")
+                    .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                    .deleteModelsForLastAddOnPreview(c)
+                : o("WAWebBackendApi").frontendFireAndForget(
+                    "deleteModelsForLastAddOnPreview",
+                    { messagesIds: c },
+                  )),
             o("WAWebApiOrphanRevoke").bulkRemoveOrphansUsingOrphansCache(i),
             { newMsgs: l }
           );

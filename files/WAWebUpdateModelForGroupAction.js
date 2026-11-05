@@ -6,10 +6,12 @@ __d(
     "WATimeUtils",
     "WAWebAfterReadUtils",
     "WAWebApiContact",
+    "WAWebBackendRuntime",
     "WAWebBotGroupGatingUtils",
     "WAWebBotProfileCollection",
     "WAWebBotUtils",
     "WAWebChatCollection",
+    "WAWebChatReadService",
     "WAWebChatSeenBridge",
     "WAWebCommunityActivityCollection",
     "WAWebCommunityActivityModel",
@@ -18,6 +20,7 @@ __d(
     "WAWebGroupAgentMembershipRequests",
     "WAWebGroupGatingUtils",
     "WAWebGroupGetMembershipApprovalRequestsJob",
+    "WAWebGroupMembershipRequestsService",
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
@@ -228,22 +231,28 @@ __d(
                   });
               }
               _.membershipApprovalMode &&
-                o("WAWebGroupGetMembershipApprovalRequestsJob")
-                  .queryAndUpdateGroupMembershipApprovalRequests(l.id)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[groups] queryAndUpdateGroupMembershipApprovalRequests failed on group action promote: ",
-                            "",
-                          ])),
-                        e,
-                      )
-                      .sendLogs(
-                        "group-action-promote-query-membership-approval-requests-failed",
-                      );
-                  });
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupMembershipRequestsService")
+                        .GroupMembershipRequestsService,
+                    ).queryAndUpdateGroupMembershipApprovalRequests
+                  : o("WAWebGroupGetMembershipApprovalRequestsJob")
+                      .queryAndUpdateGroupMembershipApprovalRequests)(
+                  l.id,
+                ).catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[groups] queryAndUpdateGroupMembershipApprovalRequests failed on group action promote: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs(
+                      "group-action-promote-query-membership-approval-requests-failed",
+                    );
+                });
             } else
               a.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE &&
                 _.membershipApprovalRequests.reset();
@@ -450,7 +459,11 @@ __d(
               "WAWebGroupGatingUtils",
             ).isGroupSuspensionAppealsRedesignEnabled() &&
             ((l.unreadCount = -1),
-            o("WAWebChatSeenBridge").markConversationUnseen(i)),
+            (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatReadService").ChatReadService,
+                ).markConversationUnseen
+              : o("WAWebChatSeenBridge").markConversationUnseen)(i)),
             (_.suspended = z),
             z && (_.suspendAppealApprovedSeen = !1),
             o(

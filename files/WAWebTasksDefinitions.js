@@ -65,6 +65,7 @@ __d(
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
+    "cr:18918",
     "cr:4857",
     "cr:4940",
     "cr:878",
@@ -1289,6 +1290,18 @@ __d(
                                                                                 ).asyncToGenerator(
                                                                                   function* () {
                                                                                     if (
+                                                                                      n(
+                                                                                        "cr:18918",
+                                                                                      ) !=
+                                                                                        null &&
+                                                                                      o(
+                                                                                        "WAWebCanonicalGating",
+                                                                                      ).isCanonicalAuthV2Enabled()
+                                                                                    )
+                                                                                      return yield n(
+                                                                                        "cr:18918",
+                                                                                      ).ensureCanonicalAuthV2Credentials();
+                                                                                    if (
                                                                                       !o(
                                                                                         "WAWebCanonicalGating",
                                                                                       ).isCanonicalRecoveryEnabled()
@@ -1301,9 +1314,9 @@ __d(
                                                                                         yield V.load(),
                                                                                       t =
                                                                                         e.maybeRecoverCanonicalCredentials,
-                                                                                      n =
+                                                                                      r =
                                                                                         yield t();
-                                                                                    return n;
+                                                                                    return r;
                                                                                   },
                                                                                 )
                                                                               : t ===

@@ -30,18 +30,19 @@ __d(
     function h(e) {
       var t,
         r,
-        a = e.status,
-        i = e.suggestedRepliesEnabled,
-        l = e.wid;
+        a = e.modeChangeSource,
+        i = e.status,
+        l = e.suggestedRepliesEnabled,
+        u = e.wid;
       if (
         !o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() ||
-        !l.isUser()
+        !u.isUser()
       )
         return (p || (p = n("Promise"))).resolve(f);
-      var u =
-          (t = o("WAWebLidMigrationUtils").toLid(l)) == null ? void 0 : t.user,
-        c = (r = o("WAWebLidMigrationUtils").toPn(l)) == null ? void 0 : r.user;
-      return u == null && c == null
+      var c =
+          (t = o("WAWebLidMigrationUtils").toLid(u)) == null ? void 0 : t.user,
+        d = (r = o("WAWebLidMigrationUtils").toPn(u)) == null ? void 0 : r.user;
+      return c == null && d == null
         ? (o("WALogger")
             .ERROR(
               s ||
@@ -51,17 +52,18 @@ __d(
             )
             .sendLogs("biz-ai-smart-composer-ai-replies-status-missing-id"),
           (p || (p = n("Promise"))).resolve(f))
-        : y(c != null ? c : "", u != null ? u : "", a, i);
+        : y(d != null ? d : "", c != null ? c : "", i, l, a);
     }
-    function y(e, t, n, a) {
-      return C().then(function (i) {
-        return i
+    function y(e, t, n, a, i) {
+      return C().then(function (l) {
+        return l
           ? o("WAWebBizAiRelayClient")
               .commitMutation(_, {
                 consumer_lid: t,
                 phone_number: e,
                 thread_status: n,
                 suggested_replies_enabled: a != null ? a : null,
+                mode_change_source: i != null ? i : null,
               })
               .then(function (e) {
                 var t =

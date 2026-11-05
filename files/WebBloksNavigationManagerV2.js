@@ -7,6 +7,7 @@ __d(
     "WebBloksSSRUtils",
     "WebBloksScreen",
     "WebBloksUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -66,59 +67,62 @@ __d(
         var n = t.prototype;
         return (
           (n.$7 = function (n) {
-            if (n.isWebBloks) {
-              this.navigationDirection = this.$8(
-                babelHelpers.extends({}, n.screenPointer),
-              );
-              var t = this.getCurrentModalOrScreen(),
-                r =
-                  this.currentScreenPointer.isModal ||
-                  (t == null ? void 0 : t.getIsOverlay()) === !0,
-                a = this.$4;
-              (this.$9(t) || this.$10(t),
-                t == null || t.onExit(this.navigationDirection),
-                t == null || t.dismiss());
-              var i = this.screensCache.get(n.screenId),
-                l = n.sessionId !== e || i == null;
-              if (
-                (l && window.location.reload(),
-                o(
-                  "WebBloksRenderDiagnostics",
-                ).isWebBloksRenderDiagnosticsInstalled() &&
-                  i != null &&
-                  i.options.isModal !== !0 &&
-                  !this.$5 &&
-                  o("WebBloksRenderDiagnostics").reportWebBloksNewDocument(
-                    i,
-                    i.appId,
-                    "back_forward",
-                  ),
-                (this.currentScreenPointer = babelHelpers.extends(
-                  {},
-                  n.screenPointer,
-                )),
-                this.notifyChanged(),
-                this.$9(this.getCurrentScreen()) || this.$11(),
-                this.pendingCloses.length > 0)
-              ) {
-                var s = this.pendingCloses.pop();
-                s && s();
+            if (!(n == null && r("justknobx")._("7262"))) {
+              var t = o("WebBloksUtils").cast(n);
+              if (t.isWebBloks) {
+                this.navigationDirection = this.$8(
+                  babelHelpers.extends({}, t.screenPointer),
+                );
+                var a = this.getCurrentModalOrScreen(),
+                  i =
+                    this.currentScreenPointer.isModal ||
+                    (a == null ? void 0 : a.getIsOverlay()) === !0,
+                  l = this.$4;
+                (this.$9(a) || this.$10(a),
+                  a == null || a.onExit(this.navigationDirection),
+                  a == null || a.dismiss());
+                var s = this.screensCache.get(t.screenId),
+                  u = t.sessionId !== e || s == null;
+                if (
+                  (u && window.location.reload(),
+                  o(
+                    "WebBloksRenderDiagnostics",
+                  ).isWebBloksRenderDiagnosticsInstalled() &&
+                    s != null &&
+                    s.options.isModal !== !0 &&
+                    !this.$5 &&
+                    o("WebBloksRenderDiagnostics").reportWebBloksNewDocument(
+                      s,
+                      s.appId,
+                      "back_forward",
+                    ),
+                  (this.currentScreenPointer = babelHelpers.extends(
+                    {},
+                    t.screenPointer,
+                  )),
+                  this.notifyChanged(),
+                  this.$9(this.getCurrentScreen()) || this.$11(),
+                  this.pendingCloses.length > 0)
+                ) {
+                  var c = this.pendingCloses.pop();
+                  c && c();
+                }
+                if (this.pendingOpen && this.pendingCloses.length === 0) {
+                  var d = this.pendingOpen;
+                  ((this.pendingOpen = null), d());
+                }
+                if (!u) {
+                  var m =
+                    i &&
+                    !this.currentScreenPointer.isModal &&
+                    this.$4 === l &&
+                    this.getCurrentScreen() === l;
+                  this.$12(m ? "overlay_dismiss" : "navigation");
+                }
+                t.pageTitle != null &&
+                  o("WebBloksSSRUtils").canUseDOM &&
+                  (document.title = t.pageTitle);
               }
-              if (this.pendingOpen && this.pendingCloses.length === 0) {
-                var u = this.pendingOpen;
-                ((this.pendingOpen = null), u());
-              }
-              if (!l) {
-                var c =
-                  r &&
-                  !this.currentScreenPointer.isModal &&
-                  this.$4 === a &&
-                  this.getCurrentScreen() === a;
-                this.$12(c ? "overlay_dismiss" : "navigation");
-              }
-              n.pageTitle != null &&
-                o("WebBloksSSRUtils").canUseDOM &&
-                (document.title = n.pageTitle);
             }
           }),
           (n.open = function (t, n, r) {

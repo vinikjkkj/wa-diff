@@ -2,11 +2,13 @@ __d(
   "WAWebBizBroadcastSystemMessageManager",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebChatCollection",
     "WAWebContactSystemMsg",
     "WAWebDBMessageDelete",
     "WAWebDBProcessMessage",
+    "WAWebMessageStoreService",
     "WAWebMsgModel",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebUserPrefsMeUser",
@@ -101,7 +103,13 @@ __d(
               C.toString(),
             ]);
             if (
-              (yield o("WAWebDBProcessMessage").storeMessages([S], n),
+              (yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageStoreService").MessageStoreService,
+                    ).storeMessages
+                  : o("WAWebDBProcessMessage").storeMessages
+              )([S], n),
               r != null)
             ) {
               var R = new (o("WAWebMsgModel").Msg)(S);

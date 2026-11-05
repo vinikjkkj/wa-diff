@@ -2,9 +2,11 @@ __d(
   "WAWebUpdateSubgroupsCommunityAction",
   [
     "WAWebApiUnjoinedSubgroupMetadataStore",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebGroupMetadataCollection",
     "WAWebGroupQueryBridge",
+    "WAWebGroupStoreService",
     "WAWebGroupUnjoinedSubgroupJob",
     "WAWebUnjoinedSubgroupMetadataCollection",
     "asyncToGeneratorRuntime",
@@ -33,9 +35,12 @@ __d(
         });
     }
     function u(t, n) {
-      (o(
-        "WAWebApiUnjoinedSubgroupMetadataStore",
-      ).removeUnjoinedSubgroupMetadataFromStorage(n),
+      ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebGroupStoreService").GroupStoreService,
+          ).removeUnjoinedSubgroupMetadataFromStorage
+        : o("WAWebApiUnjoinedSubgroupMetadataStore")
+            .removeUnjoinedSubgroupMetadataFromStorage)(n),
         m(n),
         s(t),
         e(t));

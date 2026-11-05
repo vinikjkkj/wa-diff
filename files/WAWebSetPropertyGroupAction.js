@@ -8,11 +8,13 @@ __d(
     "WAPromiseEach",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebCommunityGroupJourneyEventImpl",
     "WAWebGroupConstants",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupModifyInfoJob",
+    "WAWebGroupSettingsService",
     "WAWebLimitSharingUIUtils",
     "WAWebMexUpdateGroupPropertyJob",
     "WAWebMiscErrors",
@@ -373,9 +375,13 @@ __d(
         },
         N = function (t) {
           var e = o("WAPromiseEach").promiseEach(t, function (e) {
-            return o(
-              "WAWebMexUpdateGroupPropertyJob",
-            ).mexUpdateGroupPropertyJob(i.id.toString(), e);
+            return (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupSettingsService").GroupSettingsService,
+                  ).mexUpdateGroupPropertyJob
+                : o("WAWebMexUpdateGroupPropertyJob").mexUpdateGroupPropertyJob
+            )(i.id.toString(), e);
           });
           return {
             action: e,
@@ -399,7 +405,13 @@ __d(
           };
         },
         M = function () {
-          var e = o("WAWebGroupModifyInfoJob").setGroupProperty(i.id, f, C);
+          var e = (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebGroupSettingsService").GroupSettingsService,
+                ).setGroupProperty
+              : o("WAWebGroupModifyInfoJob").setGroupProperty
+          )(i.id, f, C);
           return {
             action: e,
             pendingAction: e

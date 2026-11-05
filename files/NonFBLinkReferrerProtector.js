@@ -1,72 +1,76 @@
 __d(
   "NonFBLinkReferrerProtector",
   ["$", "LinkshimHandlerConfig", "Parent", "URI", "cr:5662", "setTimeout"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      l = (e || (e = n("URI"))).goURIOnWindow,
-      s = {
-        alreadySetup: !1,
-        originReferrerPolicyClickWithoutLog: function (t) {
-          var e = n("$")("meta_referrer");
-          if (e instanceof HTMLMetaElement) {
-            var r = n("LinkshimHandlerConfig").switched_meta_referrer_policy;
-            typeof r == "string" &&
-              ((e.content = r),
-              n("setTimeout")(function () {
-                var t = n("LinkshimHandlerConfig").default_meta_referrer_policy;
-                typeof t == "string" && (e.content = t);
-              }, 100));
-          }
-        },
-        setupDelegation: function (r) {
-          if ((r === void 0 && (r = !1), document.body == null)) {
-            if (r) return;
-            n("setTimeout")(function () {
-              s.setupDelegation(!0);
-            }, 100);
-            return;
-          }
-          if (!s.alreadySetup) {
-            s.alreadySetup = !0;
-            var t = function (r) {
-              var t = r.target;
-              if (t instanceof HTMLElement) {
-                var o = s.getMaybeNonFBLinkReferrerJSMode(t);
-                if (o) {
-                  var a = o[0],
-                    i = o[1];
-                  switch (a) {
-                    case "origin":
-                      s.originReferrerPolicyClickWithoutLog(i);
-                      break;
-                    case "ie":
-                      var u = new (e || (e = n("URI")))(i.href);
-                      (r.preventDefault(), l(u, window.open("", i.target), !0));
-                      break;
-                  }
-                }
+      s = !1;
+    function u(e) {
+      var t = r("$")("meta_referrer");
+      if (t instanceof HTMLMetaElement) {
+        var n = r("LinkshimHandlerConfig").switched_meta_referrer_policy;
+        typeof n == "string" &&
+          ((t.content = n),
+          r("setTimeout")(function () {
+            var e = r("LinkshimHandlerConfig").default_meta_referrer_policy;
+            typeof e == "string" && (t.content = e);
+          }, 100));
+      }
+    }
+    function c(t) {
+      if ((t === void 0 && (t = !1), document.body == null)) {
+        if (t) return;
+        r("setTimeout")(function () {
+          c(!0);
+        }, 100);
+        return;
+      }
+      if (!s) {
+        s = !0;
+        var o = function (n) {
+          var t = n.target;
+          if (t instanceof HTMLElement) {
+            var o = d(t);
+            if (o) {
+              var a = o[0],
+                i = o[1];
+              switch (a) {
+                case "origin":
+                  u(i);
+                  break;
+                case "ie":
+                  var l = new (e || (e = r("URI")))(i.href);
+                  (n.preventDefault(),
+                    (e || (e = r("URI"))).goURIOnWindow(
+                      l,
+                      window.open("", i.target),
+                      !0,
+                    ));
+                  break;
               }
-            };
-            n("cr:5662").listen(document.body, "click", t);
-          }
-        },
-        getMaybeNonFBLinkReferrerJSMode: function (t) {
-          var e = n("Parent").byAttribute(t, "data-lnfb-mode");
-          if (e instanceof HTMLAnchorElement) {
-            var r = e.getAttribute("data-lnfb-mode");
-            switch (r) {
-              case "ie":
-              case "origin":
-                return [r, e];
-              default:
-                return null;
             }
           }
-          return null;
-        },
-      };
-    a.exports = s;
+        };
+        n("cr:5662").listen(document.body, "click", o);
+      }
+    }
+    function d(e) {
+      var t = o("Parent").byAttribute(e, "data-lnfb-mode");
+      if (t instanceof HTMLAnchorElement) {
+        var n = t.getAttribute("data-lnfb-mode");
+        switch (n) {
+          case "ie":
+          case "origin":
+            return [n, t];
+          default:
+            return null;
+        }
+      }
+      return null;
+    }
+    ((l.originReferrerPolicyClickWithoutLog = u),
+      (l.setupDelegation = c),
+      (l.getMaybeNonFBLinkReferrerJSMode = d));
   },
-  null,
+  98,
 );

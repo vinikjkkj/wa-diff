@@ -6,9 +6,11 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBlockUserJob",
     "WAWebBlocklistCollection",
     "WAWebBlocklistMigration",
+    "WAWebBlocklistService",
     "WAWebBlocklistUtils",
     "WAWebChatCollection",
     "WAWebFrontendContactGetters",
@@ -120,10 +122,13 @@ __d(
                     e.errorText,
                   );
                 var n = e.targetWid;
-                (yield o("WAWebUpdateBlocklistDbJob").updateBlocklistDbJob(
-                  n,
-                  t,
-                ),
+                (yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebBlocklistService").BlocklistService,
+                      ).updateBlocklistDbJob
+                    : o("WAWebUpdateBlocklistDbJob").updateBlocklistDbJob
+                )(n, t),
                   t
                     ? o("WAWebBlocklistCollection").BlocklistCollection.add({
                         id: n,

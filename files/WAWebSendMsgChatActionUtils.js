@@ -3,8 +3,10 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBackendRuntime",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
+    "WAWebChatStoreService",
     "WAWebContactSystemMsg",
     "WAWebDBUpdateChatTable",
     "WAWebEphemeralitySystemMsg",
@@ -71,7 +73,13 @@ __d(
                   disappearingModeInitiatedByMe: !1,
                 };
               return (
-                yield o("WAWebDBUpdateChatTable").updateChatTable(e.id, l),
+                yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebChatStoreService").ChatStoreService,
+                      ).updateChatTable
+                    : o("WAWebDBUpdateChatTable").updateChatTable
+                )(e.id, l),
                 e.set(l),
                 o("WALogger").LOG(
                   u ||

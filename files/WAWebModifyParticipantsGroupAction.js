@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
     "WAWebGroupAddResultDialogs.react",
@@ -16,6 +17,7 @@ __d(
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupOutContactInvite",
+    "WAWebGroupParticipantsService",
     "WAWebGroupStringsAction",
     "WAWebIncompatibleAgentRequestsRejectTriggers",
     "WAWebJidToWid",
@@ -392,9 +394,14 @@ __d(
               ).recordSentGroupAgentRequests(e, t, "add"),
               i;
             try {
-              i = yield o(
-                "WAWebGroupModifyParticipantsJob",
-              ).addGroupParticipants(e, n, r);
+              i = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupParticipantsService")
+                        .GroupParticipantsService,
+                    ).addGroupParticipants
+                  : o("WAWebGroupModifyParticipantsJob").addGroupParticipants
+              )(e, n, r);
             } catch (n) {
               throw (
                 x(n) &&
@@ -502,7 +509,13 @@ __d(
             return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
-          var u = o("WAWebGroupModifyParticipantsJob").removeGroupParticipants(
+          var u = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupParticipantsService").GroupParticipantsService,
+                  ).removeGroupParticipants
+                : o("WAWebGroupModifyParticipantsJob").removeGroupParticipants
+            )(
               e.id,
               t.map(function (e) {
                 return o("WAWebWidFactory").asUserWidOrThrow(e.id);
@@ -629,7 +642,13 @@ __d(
             return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
-          var c = o("WAWebGroupModifyParticipantsJob").promoteGroupParticipants(
+          var c = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupParticipantsService").GroupParticipantsService,
+                  ).promoteGroupParticipants
+                : o("WAWebGroupModifyParticipantsJob").promoteGroupParticipants
+            )(
               e.id,
               t.map(function (e) {
                 return o("WAWebWidFactory").asUserWidOrThrow(e.id);
@@ -722,7 +741,13 @@ __d(
             return (g || (g = n("Promise"))).reject(
               new (o("WAWebMiscErrors").ActionError)(),
             );
-          var c = o("WAWebGroupModifyParticipantsJob").demoteGroupParticipants(
+          var c = (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupParticipantsService").GroupParticipantsService,
+                  ).demoteGroupParticipants
+                : o("WAWebGroupModifyParticipantsJob").demoteGroupParticipants
+            )(
               e.id,
               t.map(function (e) {
                 return o("WAWebWidFactory").asUserWidOrThrow(e.id);

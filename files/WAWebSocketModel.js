@@ -39,6 +39,7 @@ __d(
     "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
+    "cr:18917",
     "err",
     "getErrorSafe",
     "gkx",
@@ -332,6 +333,7 @@ __d(
                 (t = o("WAWebLogoutReasonConstants").LogoutReason
                   .UserInitiated),
               o("WAWebCanonicalUtils").setCanonicalReloadPending(!1),
+              n("cr:18917") != null && n("cr:18917").endCanonicalAuthSession(),
               r("WAWebLocalStorage") == null ||
                 r("WAWebLocalStorage").removeItem("WebEncKeySalt"),
               r("WAWebLocalStorage") == null ||

@@ -6,7 +6,9 @@ __d(
     "WALogger",
     "WARaceSignal",
     "WAWebApiChat",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
+    "WAWebChatReadService",
     "WAWebChatSeenBridge",
     "WAWebDBMsgUtils",
     "WAWebMsgModelFromData",
@@ -104,7 +106,13 @@ __d(
           var n = yield o("WAWebApiChat").getChatMeta(e.id),
             r = n.unreadCount,
             a = Math.max(r - t, 0);
-          (yield o("WAWebChatSeenBridge").markConversationSeen(e.id, a),
+          (yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatReadService").ChatReadService,
+                ).markConversationSeen
+              : o("WAWebChatSeenBridge").markConversationSeen
+          )(e.id, a),
             yield o("WAWebUpdateUnreadChatAction").updateUnreadCountMD(
               e,
               0,

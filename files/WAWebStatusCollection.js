@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebApiContact",
+    "WAWebBackendRuntime",
     "WAWebBaseCollection",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -23,6 +24,7 @@ __d(
     "WAWebNewsletterMetadataGetters",
     "WAWebStatusGetters",
     "WAWebStatusModel",
+    "WAWebStatusUpdatesService",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWebcStatusSessionWamEvent",
@@ -53,7 +55,13 @@ __d(
             return (u || (u = n("Promise"))).resolve({ id: e });
           }),
           (e.findQueryImpl = function () {
-            return o("WAWebContactStatusBridge").queryStatusAll();
+            return (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebStatusUpdatesService").StatusUpdatesService,
+                  ).queryStatusAll
+                : o("WAWebContactStatusBridge").queryStatusAll
+            )();
           }),
           babelHelpers.assertThisInitialized(e) ||
             babelHelpers.assertThisInitialized(e)

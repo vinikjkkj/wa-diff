@@ -3,8 +3,10 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebChatGetExistingBridge",
+    "WAWebChatStoreService",
     "WAWebCommentAction",
     "WAWebDBUpdateChatTable",
     "WAWebMmSignalSharingExpirationWindowUtils",
@@ -227,7 +229,11 @@ __d(
                 msgTimeServer: r.t,
               });
               ((a.mmSignalSharingExpirationWindow = i),
-                o("WAWebDBUpdateChatTable").updateChatTable(n, {
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable)(n, {
                   mmSignalSharingExpirationWindow: i,
                 }));
             }

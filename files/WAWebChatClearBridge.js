@@ -12,8 +12,10 @@ __d(
     "WAWebGroupAgentPrivacyNotice",
     "WAWebMessageRangeUtils",
     "WAWebProtobufSyncAction.pb",
+    "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
     "WAWebThreadMetadataJob",
+    "WAWebUiRuntime",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
@@ -83,10 +85,14 @@ __d(
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             if (t.result != null && t.result.length > 0) {
               var n = t.result;
-              (yield o("WAWebBackendApi").frontendSendAndReceive(
-                "deleteModelsForLastAddOnPreview",
-                { messagesIds: n },
-              ),
+              (yield o("WAWebUiRuntime").isWebDiUiEnabled()
+                ? o("WAWebUiRuntime")
+                    .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                    .deleteModelsForLastAddOnPreview(n)
+                : o("WAWebBackendApi").frontendSendAndReceive(
+                    "deleteModelsForLastAddOnPreview",
+                    { messagesIds: n },
+                  ),
                 yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                   e.id.toString(),
                   n,

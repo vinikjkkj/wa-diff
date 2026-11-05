@@ -8,10 +8,12 @@ __d(
     "WAPromiseDelays",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebDBUpdateMessageTable",
     "WAWebInAppSignupInfoStore",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMessageStoreService",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
@@ -133,7 +135,11 @@ __d(
                 ).toString(),
               }),
               t.set({ signupCtaTapped: !0 }),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable)(t.id, {
                 signupCtaTapped: !0,
               }),
               o("WAWebSignupFlowLoggerLazy").logSignupOp({
@@ -157,7 +163,11 @@ __d(
               var R;
               return (
                 t.set({ signupCtaTapped: !1 }),
-                o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, {
+                (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageStoreService").MessageStoreService,
+                    ).updateMessageTable
+                  : o("WAWebDBUpdateMessageTable").updateMessageTable)(t.id, {
                   signupCtaTapped: !1,
                 }),
                 P(),
@@ -196,7 +206,11 @@ __d(
           } catch (a) {
             return (
               t.set({ signupCtaTapped: !1 }),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(t.id, {
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).updateMessageTable
+                : o("WAWebDBUpdateMessageTable").updateMessageTable)(t.id, {
                 signupCtaTapped: !1,
               }),
               P(),

@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupGetProfilePicsJob",
   [
+    "$InternalEnum",
     "WALogger",
     "WASmaxGroupsGetGroupProfilePicturesRPC",
     "WAWebBackendErrors",
@@ -10,8 +11,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = Object.freeze({ IMAGE: "image", PREVIEW: "preview" }),
-      u = Object.freeze({ BLOB: "blob", URL: "url" });
+      s = n("$InternalEnum")({ IMAGE: "image", PREVIEW: "preview" }),
+      u = n("$InternalEnum")({ BLOB: "blob", URL: "url" });
     function c(e, t, n) {
       return d.apply(this, arguments);
     }
@@ -24,8 +25,12 @@ __d(
             l = n.query,
             c = l === void 0 ? u.URL : l,
             d = {
-              profilePictureTypeMixinArgs: { pictureType: i },
-              profilePictureQueryMixinArgs: { pictureQuery: c },
+              profilePictureTypeMixinArgs: {
+                pictureType: i === s.IMAGE ? "image" : "preview",
+              },
+              profilePictureQueryMixinArgs: {
+                pictureQuery: c === u.BLOB ? "blob" : "url",
+              },
             },
             p = e.map(function (e) {
               var t = e.groupId,

@@ -126,10 +126,10 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e, t, n) {
       e === m.SUCCESS
-        ? (o("WAWebCanonicalUtils").setCanonicalTokenPresent(!0),
-          o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(t),
+        ? (o("WAWebCanonicalUtils").setCanonicalTokenPresent(!0, String(t)),
+          o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(n),
           o("WAWebCanonicalWamFalcoBuffer").drainCanonicalWamFalcoBuffer())
         : e === m.FAILED &&
           o("WAWebCanonicalUtils").setCanonicalTokenPresent(!1);
@@ -147,7 +147,7 @@ __d(
               ])),
           );
           var n = yield p(e, { retry: !0 }, t);
-          return (f(n, t), n);
+          return (f(n, e.userId, t), n);
         })),
         h.apply(this, arguments)
       );
@@ -169,7 +169,7 @@ __d(
             r("WAWebODS").incr("web.app.canonical.exchange.attempt"));
           var a = yield p(e, { retry: !0 }, t);
           return (
-            f(a, t),
+            f(a, e.userId, t),
             a === m.SUCCESS
               ? (r("WAWebODS").incr("web.app.canonical.exchange.success"),
                 o("WAWebCanonicalEntRecoveryWam").logExchangeNonceSuccess(t, n))

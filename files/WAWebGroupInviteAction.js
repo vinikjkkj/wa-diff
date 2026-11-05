@@ -5,8 +5,10 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebFindChatAction",
     "WAWebGroupInviteJob",
+    "WAWebGroupInviteService",
     "WAWebGroupMemberLinkMode",
     "WAWebHandleMsgTypes",
     "WAWebMexFetchGroupInviteCodeJob",
@@ -27,7 +29,13 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebGroupInviteJob").joinGroupViaInvite(e, t),
+          var r = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupInviteService").GroupInviteService,
+                  ).joinGroupViaInvite
+                : o("WAWebGroupInviteJob").joinGroupViaInvite
+            )(e, t),
             a = r.gid,
             i =
               n.hasCapi === !0
@@ -73,8 +81,13 @@ __d(
           new (o("WAWebBackendErrors").ServerStatusCodeError)(i),
         );
       }
-      var l = o("WAWebMexFetchGroupInviteCodeJob")
-        .fetchMexGroupInviteCode(t.id)
+      var l = (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebGroupInviteService").GroupInviteService,
+            ).fetchMexGroupInviteCode
+          : o("WAWebMexFetchGroupInviteCodeJob").fetchMexGroupInviteCode
+      )(t.id)
         .then(function (e) {
           t.inviteCode = e;
         })
@@ -86,8 +99,13 @@ __d(
     function f(e) {
       return e.revokeGroupInvitePromise
         ? e.revokeGroupInvitePromise
-        : (e.revokeGroupInvitePromise = o("WAWebGroupInviteJob")
-            .resetGroupInviteCode(e.id)
+        : (e.revokeGroupInvitePromise = (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebGroupInviteService").GroupInviteService,
+                ).resetGroupInviteCode
+              : o("WAWebGroupInviteJob").resetGroupInviteCode
+          )(e.id)
             .then(function (t) {
               e.inviteCode = t.code;
             })

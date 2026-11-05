@@ -3,12 +3,14 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBackendRuntime",
     "WAWebGalaxyFlowMediaEditorCollection",
     "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
     "WAWebMediaPrepMediaProps",
     "WAWebMediaUpdateMsg",
     "WAWebMediaUploadMediaWithPrep",
+    "WAWebMediaUploadService",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebUserPrefsMeUser",
@@ -108,9 +110,13 @@ __d(
               "WAWebGalaxyFlowMediaEditorCollection",
             ).GalaxyFlowMediaEditorCollection.addMsg(n, _, a),
               yield _.waitForPrep());
-            var f = yield o(
-                "WAWebMediaUploadMediaWithPrep",
-              ).uploadMediaWithPrep(_, l),
+            var f = yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMediaUploadService").MediaUploadService,
+                    ).uploadMediaWithPrep
+                  : o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep
+              )(_, l),
               g = f.body,
               h = f.mediaResult.mediaEntry,
               y = f.mmsThumbnailData;

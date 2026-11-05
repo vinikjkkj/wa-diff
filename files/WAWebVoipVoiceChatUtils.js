@@ -3,9 +3,12 @@ __d(
   [
     "Promise",
     "WAWebAdvSyncDeviceListApi",
+    "WAWebBackendRuntime",
     "WAWebDBParticipantTypes",
     "WAWebGroupDatabaseJob",
     "WAWebGroupQueryBridge",
+    "WAWebGroupQueryService",
+    "WAWebGroupStoreService",
     "WAWebLidMigrationUtils",
     "WAWebPhashUtils",
     "WAWebUserPrefsMeUser",
@@ -30,7 +33,13 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield h(e);
           if (t != null) return t;
-          yield o("WAWebGroupQueryBridge").sendQueryGroup(e);
+          yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebGroupQueryService").GroupQueryService,
+                ).sendQueryGroup
+              : o("WAWebGroupQueryBridge").sendQueryGroup
+          )(e);
           var n = yield h(e);
           if (n == null)
             throw r("err")(
@@ -80,8 +89,16 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = yield (e || (e = n("Promise"))).all([
-              o("WAWebGroupDatabaseJob").getGroupMetadataJob(t),
-              o("WAWebGroupDatabaseJob").getGroupParticipantJob(t),
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupStoreService").GroupStoreService,
+                  ).getGroupMetadataJob
+                : o("WAWebGroupDatabaseJob").getGroupMetadataJob)(t),
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupStoreService").GroupStoreService,
+                  ).getGroupParticipantJob
+                : o("WAWebGroupDatabaseJob").getGroupParticipantJob)(t),
             ]),
             a = r[0],
             i = r[1];

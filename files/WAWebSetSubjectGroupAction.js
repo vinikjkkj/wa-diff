@@ -7,10 +7,12 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBoolFunc",
     "WAWebCommunitySubjectChangePopups.react",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupModifyInfoJob",
+    "WAWebGroupSettingsService",
     "WAWebGroupType",
     "WAWebMiscErrors",
     "WAWebModalManager",
@@ -41,7 +43,13 @@ __d(
         return (u || (u = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var l = o("WAWebGroupModifyInfoJob").setGroupSubject(t.id, i),
+      var l = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupSettingsService").GroupSettingsService,
+              ).setGroupSubject
+            : o("WAWebGroupModifyInfoJob").setGroupSubject
+        )(t.id, i),
         c = t.contact.name,
         m;
       o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===

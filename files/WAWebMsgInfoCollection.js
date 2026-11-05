@@ -4,8 +4,10 @@ __d(
     "Promise",
     "WALogger",
     "WAWebApiMessageInfoStore",
+    "WAWebBackendRuntime",
     "WAWebBaseCollection",
     "WAWebHandleMsgTypes",
+    "WAWebMessageQueryService",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgInfoAction",
@@ -98,7 +100,13 @@ __d(
                   );
                 var r;
                 try {
-                  r = yield o("WAWebApiMessageInfoStore").queryMsgInfo(e);
+                  r = yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageQueryService").MessageQueryService,
+                        ).queryMsgInfo
+                      : o("WAWebApiMessageInfoStore").queryMsgInfo
+                  )(e);
                 } catch (e) {
                   throw (
                     o("WALogger")
@@ -135,7 +143,13 @@ __d(
                 });
                 var a;
                 try {
-                  a = yield o("WAWebApiMessageInfoStore").queryMsgInfos(e);
+                  a = yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageQueryService").MessageQueryService,
+                        ).queryMsgInfos
+                      : o("WAWebApiMessageInfoStore").queryMsgInfos
+                  )(e);
                 } catch (e) {
                   throw (
                     o("WALogger")

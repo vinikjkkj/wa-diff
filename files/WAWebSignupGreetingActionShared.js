@@ -2,7 +2,9 @@ __d(
   "WAWebSignupGreetingActionShared",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatDeleteBridge",
+    "WAWebChatStoreService",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebCommonMsgUtils",
   ],
@@ -13,9 +15,12 @@ __d(
       c = new Set(),
       d = 5;
     function m(t) {
-      (o("WAWebChatDeleteBridge")
-        .deleteFromStorage(t.id)
-        .catch(function (t) {
+      ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime").runtime(
+            o("WAWebChatStoreService").ChatStoreService,
+          ).deleteFromStorage
+        : o("WAWebChatDeleteBridge").deleteFromStorage)(t.id).catch(
+        function (t) {
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -24,7 +29,8 @@ __d(
               ])),
             t,
           );
-        }),
+        },
+      ),
         t.delete());
     }
     function p(e, t) {

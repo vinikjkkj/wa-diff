@@ -1,6 +1,8 @@
 __d(
   "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
   [
+    "WAWebBackendRuntime",
+    "WAWebChatStoreService",
     "WAWebCommonCTWAConsumerTransparency",
     "WAWebContactSystemMsg",
     "WAWebDBUpdateChatTable",
@@ -37,9 +39,13 @@ __d(
               newMsg: t,
               preserveOrder: !1,
             }),
-              yield o("WAWebDBUpdateChatTable").updateChatTable(e.id, {
-                hasCtwaConsumerDataSharingDisclosureSystemMsg: !0,
-              }));
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable
+              )(e.id, { hasCtwaConsumerDataSharingDisclosureSystemMsg: !0 }));
           }
         })),
         s.apply(this, arguments)

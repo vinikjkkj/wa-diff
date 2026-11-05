@@ -7,8 +7,10 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
     "WAWebSendNotSpamJob",
+    "WAWebSpamService",
     "WAWebStateUtils",
     "WAWebToastManager",
     "react",
@@ -28,7 +30,12 @@ __d(
         c = t.promises;
       if (l) return (u || (u = n("Promise"))).resolve();
       if (c.sendNotSpam) return c.sendNotSpam;
-      var m = (c.sendNotSpam = r("WAWebSendNotSpamJob")(t));
+      var m = (c.sendNotSpam = (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(o("WAWebSpamService").SpamService)
+              .sendNotSpam
+          : r("WAWebSendNotSpamJob")
+      )(t));
       if (a) {
         var _ = new (o("WAWebActionToast.react").ActionType)(
             s._(/*BTDS*/ "Marking as not spam"),

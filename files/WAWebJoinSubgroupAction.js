@@ -3,9 +3,12 @@ __d(
   [
     "WAFilteredCatch",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
+    "WAWebCommunityService",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupJoinSubgroupJob",
     "WAWebGroupQueryBridge",
+    "WAWebGroupQueryService",
     "WAWebGroupType",
     "WAWebQuerySubGroupAction",
     "asyncToGeneratorRuntime",
@@ -44,12 +47,13 @@ __d(
             l = !0,
             s;
           try {
-            s = yield o("WAWebGroupJoinSubgroupJob").joinSubgroup({
-              groupType: t,
-              parentGroupId: n,
-              request: r,
-              subgroupId: a,
-            });
+            s = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebCommunityService").CommunityService,
+                  ).joinSubgroup
+                : o("WAWebGroupJoinSubgroupJob").joinSubgroup
+            )({ groupType: t, parentGroupId: n, request: r, subgroupId: a });
           } catch (e) {
             return (
               (l = !1),
@@ -62,7 +66,11 @@ __d(
                           "WAWebQuerySubGroupAction",
                         ).queryAndUpdateSubgroupsMetadata(n)
                       : e.status === 409 &&
-                        o("WAWebGroupQueryBridge").sendQueryGroup(a),
+                        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                          ? o("WAWebBackendRuntime").runtime(
+                              o("WAWebGroupQueryService").GroupQueryService,
+                            ).sendQueryGroup
+                          : o("WAWebGroupQueryBridge").sendQueryGroup)(a),
                     new (o("WAWebBackendErrors").ServerStatusCodeError)(
                       e.status,
                     )

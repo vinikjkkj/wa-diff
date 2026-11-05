@@ -1,17 +1,14 @@
 __d(
   "WAWebCometBuildRoot",
   [
-    "CometAppMainContentAreaRenderer.react",
-    "CometAppShell.react",
-    "CometAppViewStack.react",
     "CometMainRoutes.react",
-    "CometPageTransitioning.react",
     "CometPlaceholder.react",
     "CometRelayEnvironmentFactory",
-    "CometToasterRoot.react",
+    "JSResourceForInteraction",
     "buildCometRootComponent",
     "buildWAWebCometRouterStateProvider",
     "justknobx",
+    "lazyLoadComponent",
     "react",
     "react-compiler-runtime",
   ],
@@ -19,8 +16,13 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = { contentContainerHidden: { display: "x1s85apg", $$css: !0 } };
-    function c(e, t, n) {
+      u = r("lazyLoadComponent")(
+        r("JSResourceForInteraction")("WAWebCometAppShellRoot.react").__setRef(
+          "WAWebCometBuildRoot",
+        ),
+      ),
+      c = { contentContainerHidden: { display: "x1s85apg", $$css: !0 } };
+    function d(e, t, n) {
       var a = r("buildWAWebCometRouterStateProvider")(
         babelHelpers.extends({}, e, {
           disableTimeSpentLogging: n,
@@ -31,7 +33,7 @@ __d(
         }),
       );
       return o("buildCometRootComponent").buildCometRootComponent(
-        r("justknobx")._("7144") ? s.jsx(m, {}) : s.jsx(d, {}),
+        r("justknobx")._("7144") ? s.jsx(p, {}) : s.jsx(m, {}),
         {
           disableTimeSpentLogging: n,
           initialLoadTraceId: t,
@@ -50,36 +52,6 @@ __d(
         },
       );
     }
-    function d() {
-      var e = o("react-compiler-runtime").c(3),
-        t,
-        n;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = s.jsx(r("CometToasterRoot.react"), {})),
-          (n = s.jsx(r("CometPageTransitioning.react"), {})),
-          (e[0] = t),
-          (e[1] = n))
-        : ((t = e[0]), (n = e[1]));
-      var a;
-      return (
-        e[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((a = s.jsxs(r("CometAppShell.react"), {
-              toaster: t,
-              children: [
-                n,
-                s.jsx(r("CometAppViewStack.react"), {
-                  baseView: s.jsx(r("CometAppMainContentAreaRenderer.react"), {
-                    shouldRenderTopNav: !1,
-                    disableNegativeMarginBottom: !0,
-                  }),
-                }),
-              ],
-            })),
-            (e[2] = a))
-          : (a = e[2]),
-        a
-      );
-    }
     function m() {
       var e = o("react-compiler-runtime").c(1),
         t;
@@ -88,8 +60,23 @@ __d(
           ? ((t = s.jsx(r("CometPlaceholder.react"), {
               fallback: null,
               name: i.id,
+              children: s.jsx(u, {}),
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
+    }
+    function p() {
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = s.jsx(r("CometPlaceholder.react"), {
+              fallback: null,
+              name: i.id,
               children: s.jsx(r("CometMainRoutes.react"), {
-                contentXStyleProvider: p,
+                contentXStyleProvider: _,
               }),
             })),
             (e[0] = t))
@@ -97,11 +84,11 @@ __d(
         t
       );
     }
-    function p(e) {
+    function _(e) {
       var t = e.isHidden;
-      return t ? u.contentContainerHidden : null;
+      return t ? c.contentContainerHidden : null;
     }
-    l.buildRootComponent = c;
+    l.buildRootComponent = d;
   },
   98,
 );

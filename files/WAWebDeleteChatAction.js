@@ -5,9 +5,11 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebActionToast.react",
+    "WAWebBackendRuntime",
     "WAWebBizChatAssignmentAction",
     "WAWebBizCoexUtils",
     "WAWebChatDeleteBridge",
+    "WAWebChatDeleteService",
     "WAWebChatFlowTypes",
     "WAWebContactCollection",
     "WAWebFrontendChatGetters",
@@ -106,9 +108,13 @@ __d(
         l = o("WAWebMetaAiThreadChatServerDelete").getMetaAiThreadServerDelete(
           t.id,
         ),
-        u = (t.promises.sendDelete = o(
-          "WAWebChatDeleteBridge",
-        ).sendConversationDelete({
+        u = (t.promises.sendDelete = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebChatDeleteService").ChatDeleteService,
+              ).sendConversationDelete
+            : o("WAWebChatDeleteBridge").sendConversationDelete
+        )({
           id: t.id,
           tcToken: t.tcToken,
           tcTokenTimestamp: t.tcTokenTimestamp,

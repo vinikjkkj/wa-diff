@@ -6,6 +6,7 @@ __d(
     "WAPromiseTimeout",
     "WAResolvable",
     "WAWebBackendApi",
+    "WAWebBoolFunc",
     "WAWebCallWamEvent",
     "WAWebCoreActionsODS",
     "WAWebCountryCodeUtils",
@@ -208,10 +209,7 @@ __d(
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            (t === void 0 &&
-              (t = function () {
-                return !0;
-              }),
+            (t === void 0 && (t = o("WAWebBoolFunc").returnTrue),
             _e != null &&
               (yield _e.promise,
               o(

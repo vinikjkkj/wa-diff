@@ -3,9 +3,12 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
+    "WAWebBackendRuntime",
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
+    "WAWebGroupParticipantsService",
     "WAWebGroupQueryJob",
+    "WAWebGroupQueryService",
     "WAWebMiscErrors",
     "WAWebMiscGatingUtils",
     "WAWebSchemaGroupMetadata",
@@ -141,10 +144,14 @@ __d(
           var m =
             c.length === 0
               ? { status: h, participants: [] }
-              : yield o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
-                  r,
-                  c,
-                );
+              : yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebGroupParticipantsService")
+                          .GroupParticipantsService,
+                      ).addGroupParticipants
+                    : o("WAWebGroupModifyParticipantsJob").addGroupParticipants
+                )(r, c);
           return babelHelpers.extends({}, m, {
             duplicateMemberCount: u,
             runParticipantFollowUp: P(m, i),
@@ -186,10 +193,14 @@ __d(
           var m =
             c.length === 0
               ? { status: h, participants: [] }
-              : yield o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
-                  r,
-                  c,
-                );
+              : yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebGroupParticipantsService")
+                          .GroupParticipantsService,
+                      ).addGroupParticipants
+                    : o("WAWebGroupModifyParticipantsJob").addGroupParticipants
+                )(r, c);
           return babelHelpers.extends({}, m, {
             duplicateMemberCount: s,
             runParticipantFollowUp: P(m, i),
@@ -268,9 +279,13 @@ __d(
                 .sendLogs("org-admin-remove-participant-missing-pn"),
               new (o("WAWebMiscErrors").ActionError)()
             );
-          var u = yield o(
-              "WAWebGroupModifyParticipantsJob",
-            ).removeGroupParticipants(r, [s]),
+          var u = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupParticipantsService").GroupParticipantsService,
+                  ).removeGroupParticipants
+                : o("WAWebGroupModifyParticipantsJob").removeGroupParticipants
+            )(r, [s]),
             p = u.participants.find(function (e) {
               return e.code !== "200";
             });
@@ -318,19 +333,27 @@ __d(
                 .sendLogs("org-admin-set-participant-admin-missing-lid"),
               new (o("WAWebMiscErrors").ActionError)()
             );
-          var s = n
-              ? o("WAWebGroupModifyParticipantsJob").promoteGroupParticipants
-              : o("WAWebGroupModifyParticipantsJob").demoteGroupParticipants,
-            u = yield s(
+          var s = o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebGroupParticipantsService").GroupParticipantsService,
+                )
+              : {
+                  promoteGroupParticipants: o("WAWebGroupModifyParticipantsJob")
+                    .promoteGroupParticipants,
+                  demoteGroupParticipants: o("WAWebGroupModifyParticipantsJob")
+                    .demoteGroupParticipants,
+                },
+            u = n ? s.promoteGroupParticipants : s.demoteGroupParticipants,
+            c = yield u(
               a,
               [o("WAWebWidFactory").createUserLidOrThrow(l, "lid")],
               i,
             ),
-            c = u.participants.find(function (e) {
+            d = c.participants.find(function (e) {
               return e.code !== "200";
             });
-          if (u.status !== h || c != null) {
-            var d;
+          if (c.status !== h || d != null) {
+            var m;
             throw (
               o("WALogger")
                 .ERROR(
@@ -340,8 +363,8 @@ __d(
                       " and code ",
                       "",
                     ])),
-                  u.status,
-                  (d = c == null ? void 0 : c.code) != null ? d : "missing",
+                  c.status,
+                  (m = d == null ? void 0 : d.code) != null ? m : "missing",
                 )
                 .sendLogs("org-admin-set-participant-admin-failed"),
               new (o("WAWebMiscErrors").ActionError)()
@@ -362,10 +385,13 @@ __d(
             a = yield n.get(t.toString());
           if (a == null) {
             try {
-              yield o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                id: t,
-                request: "interactive",
-              });
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebGroupQueryService").GroupQueryService,
+                    ).queryAndUpdateGroupMetadataById
+                  : o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById
+              )({ id: t, request: "interactive" });
             } catch (e) {
               o("WALogger")
                 .WARN(

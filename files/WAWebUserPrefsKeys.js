@@ -77,6 +77,8 @@ __d(
         "NotificationClickedOnce",
         "NotReceivingNotificationsBannerDismissed",
         "NotReceivingNotificationsBannerEligibleSince",
+        "CanonicalAuthV2MintThrottle",
+        "CanonicalAuthV2LastValidatedAtMs",
       ]),
       u = Object.freeze(
         babelHelpers.extends(

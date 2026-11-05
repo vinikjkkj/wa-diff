@@ -84,11 +84,17 @@ __d(
       }
       var S = _.getPlayheadPosition(),
         R = _.getFrameCounts(),
-        L = g.getCurrent();
+        L = g.getCurrent(),
+        E =
+          m == null || m.getCurrentPlayingRepresentationSnapshot == null
+            ? void 0
+            : m.getCurrentPlayingRepresentationSnapshot();
       return {
-        audioRepresentationID: m
-          ? m.getCurrentPlayingAudioRepresentationID()
-          : void 0,
+        audioRepresentationID: E
+          ? E.audioRepresentationID
+          : m
+            ? m.getCurrentPlayingAudioRepresentationID()
+            : void 0,
         availableAudioTracks:
           (n = m == null ? void 0 : m.getAvailableAudioTracks()) != null
             ? n
@@ -102,15 +108,21 @@ __d(
             ? a
             : [],
         clockTimestamp: y,
-        currentPlayingAudioTrackID: m
-          ? m.getCurrentPlayingAudioRepresentationID()
-          : void 0,
-        currentPlayingVideoQuality: m
-          ? m.getCurrentPlayingVideoQuality()
-          : void 0,
-        currentPlayingVideoTrackID: m
-          ? m.getCurrentPlayingVideoRepresentationID()
-          : void 0,
+        currentPlayingAudioTrackID: E
+          ? E.audioRepresentationID
+          : m
+            ? m.getCurrentPlayingAudioRepresentationID()
+            : void 0,
+        currentPlayingVideoQuality: E
+          ? E.videoQuality
+          : m
+            ? m.getCurrentPlayingVideoQuality()
+            : void 0,
+        currentPlayingVideoTrackID: E
+          ? E.videoRepresentationID
+          : m
+            ? m.getCurrentPlayingVideoRepresentationID()
+            : void 0,
         estimatedBandwidth: m ? m.getEstimatedBandwidth() : void 0,
         isDocumentHidden: C,
         isDRM: m ? m.isDrm() : void 0,
@@ -157,9 +169,11 @@ __d(
         videoElementTotalFrameCount: R.totalFrameCount,
         videoElementVolume: _.getVolume(),
         videoProjection: m == null ? void 0 : m.getVideoProjectionType(),
-        videoRepresentationID: m
-          ? m.getCurrentPlayingVideoRepresentationID()
-          : void 0,
+        videoRepresentationID: E
+          ? E.videoRepresentationID
+          : m
+            ? m.getCurrentPlayingVideoRepresentationID()
+            : void 0,
         viewabilityPercentage: L
           ? r("convertToViewabilityPercentage")(L.visiblePercentage)
           : void 0,

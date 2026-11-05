@@ -113,47 +113,49 @@ __d(
     function f(t) {
       var n = t.EndIcon,
         o = t.endIconAriaLabel,
-        a = t.loading,
-        i = t.onEndIconClick,
-        l = t.platform,
-        s = t.shouldShowError,
-        c = t.suffix;
-      if (!(!s && n == null && c == null && a == null)) {
-        var d = _(l),
-          p = d.addOnEndButtonStyle,
-          f = d.addOnEndStyle,
-          g = d.endIconCointanerStyle,
-          h = d.iconContainerStyle,
-          y = d.size,
-          C = d.suffixTextType,
-          b = d.textSuffixNoIconStyle,
-          v = [m.iconContainer, h, g],
-          S = s
+        a = t.endIconAriaPressed,
+        i = t.loading,
+        l = t.onEndIconClick,
+        s = t.platform,
+        c = t.shouldShowError,
+        d = t.suffix;
+      if (!(!c && n == null && d == null && i == null)) {
+        var p = _(s),
+          f = p.addOnEndButtonStyle,
+          g = p.addOnEndStyle,
+          h = p.endIconCointanerStyle,
+          y = p.iconContainerStyle,
+          C = p.size,
+          b = p.suffixTextType,
+          v = p.textSuffixNoIconStyle,
+          S = [m.iconContainer, y, h],
+          R = c
             ? u.jsx(r("WDSIconIcError.react"), {
                 colorName: "secondaryNegative",
-                xstyle: v,
-                height: y,
-                width: y,
+                xstyle: S,
+                height: C,
+                width: C,
               })
             : n != null &&
               (function () {
-                return i
+                return l
                   ? u.jsx(
                       "div",
                       babelHelpers.extends(
                         {},
                         (e || (e = r("stylex"))).props.apply(
                           e || (e = r("stylex")),
-                          v,
+                          S,
                         ),
                         {
                           children: u.jsx(r("WDSButton.react"), {
                             variant: "borderless",
-                            size: l === "android" ? "medium" : "small",
-                            onPress: i,
+                            size: s === "android" ? "medium" : "small",
+                            onPress: l,
                             Icon: n,
-                            xstyle: p,
+                            xstyle: f,
                             "aria-label": o != null ? o : void 0,
+                            "aria-pressed": a != null ? a : void 0,
                             widthMode: "fit",
                           }),
                         },
@@ -161,35 +163,35 @@ __d(
                     )
                   : u.jsx(n, {
                       colorName: "contentDefault",
-                      xstyle: [].concat(v, [f]),
-                      height: y,
-                      width: y,
+                      xstyle: [].concat(S, [g]),
+                      height: C,
+                      width: C,
                     });
               })();
         return (
-          a === !0 &&
-            (S = u.jsx(
+          i === !0 &&
+            (R = u.jsx(
               "div",
               babelHelpers.extends(
                 {},
-                (e || (e = r("stylex"))).props.apply(e, v),
-                { children: u.jsx(r("WDSSpinner.react"), { size: y }) },
+                (e || (e = r("stylex"))).props.apply(e, S),
+                { children: u.jsx(r("WDSSpinner.react"), { size: C }) },
               ),
             )),
           u.jsxs(u.Fragment, {
             children: [
-              c != null &&
+              d != null &&
                 u.jsx("div", {
                   "aria-hidden": "true",
                   children: u.jsx(r("WDSText.react"), {
-                    type: C,
+                    type: b,
                     colorName: "contentDeemphasized",
                     selectable: !1,
-                    xstyle: [m.textAffixes, m.textSuffix, n == null && b],
-                    children: c,
+                    xstyle: [m.textAffixes, m.textSuffix, n == null && v],
+                    children: d,
                   }),
                 }),
-              S,
+              R,
             ],
           })
         );

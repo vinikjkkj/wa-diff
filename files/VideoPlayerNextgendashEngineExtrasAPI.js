@@ -114,6 +114,28 @@ __d(
             ).getCurrentPlayingAudioRepresentation(a);
             return e != null ? e.representationId : null;
           },
+          getCurrentPlayingRepresentationSnapshot:
+            a.env.host.mediaSinkType === "EMSS"
+              ? function () {
+                  var e = o(
+                      "VideoPlayerNextgendashMain",
+                    ).getCurrentPlayingRepresentations(a),
+                    t = e.audio,
+                    n = e.video;
+                  return {
+                    audioRepresentationID:
+                      t != null ? t.representationId : null,
+                    videoQuality:
+                      n != null
+                        ? o(
+                            "VideoPlayerNextgendashManifestParser",
+                          ).getDisplayLabelFromVideoRepresentation(n)
+                        : "",
+                    videoRepresentationID:
+                      n != null ? n.representationId : null,
+                  };
+                }
+              : void 0,
           getCurrentPlayingVideoQuality: function () {
             var e = o(
               "VideoPlayerNextgendashMain",

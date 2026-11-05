@@ -6,8 +6,10 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebChatSendStarMsgsBridge",
+    "WAWebMessageStarService",
     "WAWebStarredMsgCollection",
     "WAWebStateUtils",
     "WAWebToastManager",
@@ -24,10 +26,13 @@ __d(
       var r = n ? n.promises : o("WAWebChatCollection").ChatCollection.promises,
         a = n ? n.id : void 0;
       if (r.sendUnstarAll) return r.sendUnstarAll;
-      var i = (r.sendUnstarAll = o("WAWebChatSendStarMsgsBridge").sendUnstarAll(
-          t,
-          a,
-        )),
+      var i = (r.sendUnstarAll = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebMessageStarService").MessageStarService,
+              ).sendUnstarAll
+            : o("WAWebChatSendStarMsgsBridge").sendUnstarAll
+        )(t, a)),
         l = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Unstarring all messages"),
         ),

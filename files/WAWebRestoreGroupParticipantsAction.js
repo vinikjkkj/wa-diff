@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebChatCollection",
@@ -10,6 +11,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebGroupParticipantModel",
     "WAWebGroupQueryBridge",
+    "WAWebGroupQueryService",
     "WAWebSchemaParticipant",
     "WAWebWamGroupMetricCache",
     "WAWebWidFactory",
@@ -142,11 +144,14 @@ __d(
                           else {
                             var h;
                             (_++, p.length < 3 && p.push(d[t]));
-                            var y = yield o(
-                              "WAWebGroupQueryBridge",
-                            ).sendQueryGroup(
-                              o("WAWebWidFactory").createWid(d[t]),
-                            );
+                            var y = yield (
+                              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                                ? o("WAWebBackendRuntime").runtime(
+                                    o("WAWebGroupQueryService")
+                                      .GroupQueryService,
+                                  ).sendQueryGroup
+                                : o("WAWebGroupQueryBridge").sendQueryGroup
+                            )(o("WAWebWidFactory").createWid(d[t]));
                             c = (
                               (h = y == null ? void 0 : y.participants) != null
                                 ? h

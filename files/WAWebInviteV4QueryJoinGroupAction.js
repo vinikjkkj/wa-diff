@@ -1,10 +1,13 @@
 __d(
   "WAWebInviteV4QueryJoinGroupAction",
   [
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebGroupInviteService",
     "WAWebGroupInviteV4QueryJoinJob",
     "WAWebGroupMetadataCollection",
+    "WAWebLidMappingService",
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebPhashUtils",
     "WAWebWidFactory",
@@ -27,24 +30,32 @@ __d(
                     return e.id;
                   }),
                 )),
-              o("WAWebGroupInviteV4QueryJoinJob")
-                .queryGroupInviteV4({
-                  from: a,
-                  inviteCode: e,
-                  inviteCodeExp: t,
-                  inviteGrp: n,
-                  phash: i,
-                })
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupInviteService").GroupInviteService,
+                  ).queryGroupInviteV4
+                : o("WAWebGroupInviteV4QueryJoinJob").queryGroupInviteV4)({
+                from: a,
+                inviteCode: e,
+                inviteCodeExp: t,
+                inviteGrp: n,
+                phash: i,
+              })
                 .then(function (e) {
                   if (e.phashMatch === !0)
                     return { status: 200, phashMatch: !0 };
                   if (e.groupMetadata != null) {
                     var t = babelHelpers.extends({}, e.groupMetadata);
-                    return o("WAWebLidMappingUsernameLearnUtils")
-                      .processParsedGroupInfosForLidMappingAndUsernames([t])
-                      .then(function () {
-                        return t;
-                      });
+                    return (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebLidMappingService").LidMappingService,
+                          ).processParsedGroupInfosForLidMappingAndUsernames
+                        : o("WAWebLidMappingUsernameLearnUtils")
+                            .processParsedGroupInfosForLidMappingAndUsernames
+                    )([t]).then(function () {
+                      return t;
+                    });
                   }
                   return { status: e.status };
                 })

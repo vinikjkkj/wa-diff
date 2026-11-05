@@ -6,6 +6,7 @@ __d(
     "WAWebApiMessageInfoStore",
     "WAWebAttachMediaCollection",
     "WAWebAttachMediaGetters",
+    "WAWebBackendRuntime",
     "WAWebBizBroadcastCTAButtonSectionStrings",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastCampaignMsgKeyUtils",
@@ -25,6 +26,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMediaConstants",
     "WAWebMediaMessageGetValidatedProperties",
+    "WAWebMessageQueryService",
     "WAWebMmsMediaTypes",
     "WAWebMsgCollection",
     "WAWebMsgType",
@@ -623,7 +625,13 @@ __d(
               var z = o(
                   "WAWebBizBroadcastCampaignMsgKeyUtils",
                 ).reconstructCampaignMsgKey(e.msgId, e.broadcastJid),
-                j = yield o("WAWebApiMessageInfoStore").queryMsgInfo(z);
+                j = yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageQueryService").MessageQueryService,
+                      ).queryMsgInfo
+                    : o("WAWebApiMessageInfoStore").queryMsgInfo
+                )(z);
               G = j.delivery.length;
             } catch (t) {
               o("WALogger")

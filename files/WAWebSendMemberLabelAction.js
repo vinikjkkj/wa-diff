@@ -3,11 +3,14 @@ __d(
   [
     "WATimeUtils",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebDBProcessMessage",
     "WAWebLidMigrationUtils",
     "WAWebMemberLabel.flow",
     "WAWebMemberLabelBridgeApi",
     "WAWebMemberLabelJob",
+    "WAWebMessageSendService",
+    "WAWebMessageStoreService",
     "WAWebMsgDataUtils",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -41,8 +44,20 @@ __d(
             ),
             a = new (o("WAWebMsgModel").Msg)(r);
           (e.msgs.add(a),
-            yield o("WAWebDBProcessMessage").storeMessages([r], e.id));
-          var i = yield o("WAWebSendMsgRecordAction").sendMsgRecord(a);
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([r], e.id));
+          var i = yield (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMessageSendService").MessageSendService,
+                ).sendMsgRecord
+              : o("WAWebSendMsgRecordAction").sendMsgRecord
+          )(a);
           if (
             i.messageSendResult !==
             o("WAWebSendMsgResultAction").SendMsgResult.OK

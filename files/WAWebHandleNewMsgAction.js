@@ -8,6 +8,7 @@ __d(
     "WAWebAfterReadUtils",
     "WAWebApiChat",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebBizAiHandoffRemoval",
     "WAWebBizBroadcastProHiddenChatClassifier",
@@ -17,6 +18,7 @@ __d(
     "WAWebChatEphemerality",
     "WAWebChatGetters",
     "WAWebChatLoadMessages",
+    "WAWebChatStoreService",
     "WAWebChatViewMode.flow",
     "WAWebCmd",
     "WAWebCollectionConstants",
@@ -169,7 +171,13 @@ __d(
                 e.id.toLogString(),
               ));
             try {
-              yield o("WAWebDBUpdateChatTable").updateChatTable(e.id, n);
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebChatStoreService").ChatStoreService,
+                    ).updateChatTable
+                  : o("WAWebDBUpdateChatTable").updateChatTable
+              )(e.id, n);
             } catch (t) {
               var l = yield o("WAWebSchemaChat")
                   .getChatTable()

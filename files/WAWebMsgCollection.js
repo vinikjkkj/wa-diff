@@ -8,6 +8,7 @@ __d(
     "WATypeUtils",
     "WAWebAck",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebBaseCollection",
     "WAWebBizBotProfileUtils",
     "WAWebBotGenTypingIndicatorMsg",
@@ -24,6 +25,8 @@ __d(
     "WAWebFtsConstants",
     "WAWebKeepInChatMsgUtils",
     "WAWebMessageAssociationUIUtils",
+    "WAWebMessageQueryService",
+    "WAWebMessageStoreService",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -87,7 +90,13 @@ __d(
                       break;
                   }
                   var d = { add: c, isHistory: !0 },
-                    m = yield o("WAWebDBMessageFindLocal").msgFindByDirection({
+                    m = yield (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageQueryService").MessageQueryService,
+                          ).msgFindByDirection
+                        : o("WAWebDBMessageFindLocal").msgFindByDirection
+                    )({
                       direction: c,
                       anchor: l,
                       count: t.count,
@@ -273,7 +282,13 @@ __d(
           (i.getMessagesById = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = yield o("WAWebDBMsgUtils").getMsgsByMsgKey(e);
+                var t = yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageStoreService").MessageStoreService,
+                      ).getMsgsByMsgKey
+                    : o("WAWebDBMsgUtils").getMsgsByMsgKey
+                )(e);
                 return o("WAPromiseProps").promiseProps({
                   messages: this.processMultipleMessages(
                     void 0,
@@ -380,7 +395,13 @@ __d(
                   d = { add: "search" },
                   m;
                 try {
-                  m = yield o("WAWebDBMessageFindLocal").msgFindSearch(c);
+                  m = yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageQueryService").MessageQueryService,
+                        ).msgFindSearch
+                      : o("WAWebDBMessageFindLocal").msgFindSearch
+                  )(c);
                 } catch (e) {
                   throw (o("WAWebCoreActionsODS").logGlobalSearchError(), e);
                 }
@@ -452,12 +473,20 @@ __d(
                 if (s != null && !s.fromQuotedMsg)
                   return (f || (f = n("Promise")))
                     .all([
-                      o("WAWebDBMessageFindLocal").msgFindBefore({
+                      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageQueryService").MessageQueryService,
+                          ).msgFindBefore
+                        : o("WAWebDBMessageFindLocal").msgFindBefore)({
                         anchor: i,
                         count: e.count,
                         threadId: e.threadId,
                       }),
-                      o("WAWebDBMessageFindLocal").msgFindAfter({
+                      (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageQueryService").MessageQueryService,
+                          ).msgFindAfter
+                        : o("WAWebDBMessageFindLocal").msgFindAfter)({
                         anchor: i,
                         count: e.count,
                         threadId: e.threadId,
@@ -544,11 +573,13 @@ __d(
                     );
                 var _ = { add: "after", isHistory: !0 };
                 if (!(i instanceof r("WAWebMsgKey"))) return [[], []];
-                var g = yield o("WAWebDBMessageFindLocal").msgFindAfter({
-                  anchor: i,
-                  count: e.count,
-                  threadId: e.threadId,
-                });
+                var g = yield (
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMessageQueryService").MessageQueryService,
+                      ).msgFindAfter
+                    : o("WAWebDBMessageFindLocal").msgFindAfter
+                )({ anchor: i, count: e.count, threadId: e.threadId });
                 if (g.status >= 400)
                   throw (
                     o("WALogger").WARN(
@@ -603,13 +634,14 @@ __d(
                             c = s.id,
                             d = e.count + 1,
                             _ = { add: "before", isHistory: !0 },
-                            g = yield o(
-                              "WAWebDBMessageFindLocal",
-                            ).msgFindBefore({
-                              anchor: c,
-                              count: d,
-                              threadId: e.threadId,
-                            });
+                            g = yield (
+                              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                                ? o("WAWebBackendRuntime").runtime(
+                                    o("WAWebMessageQueryService")
+                                      .MessageQueryService,
+                                  ).msgFindBefore
+                                : o("WAWebDBMessageFindLocal").msgFindBefore
+                            )({ anchor: c, count: d, threadId: e.threadId });
                           if (g.status >= 400)
                             throw (
                               o("WALogger").WARN(

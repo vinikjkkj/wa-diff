@@ -2,6 +2,7 @@ __d(
   "WAWebGalaxyFlowsData",
   [
     "Promise",
+    "WAWebBackendRuntime",
     "WAWebDBUpdateMessageTable",
     "WAWebGalaxyFlowQPLLoggerUtils",
     "WAWebGalaxyFlowsDrawerGetFlowDataQuery",
@@ -10,6 +11,7 @@ __d(
     "WAWebGalaxyFlowsMetadataUtils",
     "WAWebGalaxyFlowsSessionsCache",
     "WAWebGalaxyFlowsUtils",
+    "WAWebMessageStoreService",
     "WAWebWamEnumFlowEntryPoint",
     "asyncToGeneratorRuntime",
   ],
@@ -257,7 +259,11 @@ __d(
       return (
         (e.galaxyFlowWAMMessageId = t),
         (e.galaxyFlowQPLMessageId = n),
-        o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebMessageStoreService").MessageStoreService,
+            ).updateMessageTable
+          : o("WAWebDBUpdateMessageTable").updateMessageTable)(e.id, {
           galaxyFlowWAMMessageId: t,
           galaxyFlowQPLMessageId: n,
         })

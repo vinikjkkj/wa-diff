@@ -19,17 +19,26 @@ __d(
     }
     function d() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Deleted") }),
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(
+            /*BTDS*/ "This content may go against Meta Business AI policies and can't be saved. Edit it and try again.",
+          ),
+        }),
       );
     }
     function m() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Deleted") }),
+      );
+    }
+    function p() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "File deleted"),
         }),
       );
     }
-    function p(e) {
+    function _(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(
@@ -39,37 +48,37 @@ __d(
         }),
       );
     }
-    function _() {
+    function f() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Deleted AI knowledge"),
         }),
       );
     }
-    function f() {
+    function g() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Product info deleted"),
         }),
       );
     }
-    function g() {
+    function h() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Example response deleted"),
         }),
       );
     }
-    function h() {
+    function y() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
       );
     }
-    function y() {
+    function C() {
       return !navigator.onLine;
     }
-    function C(e, t) {
-      if (y()) {
+    function b(e, t) {
+      if (C()) {
         (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
           c(),
           t.onError());
@@ -85,8 +94,17 @@ __d(
         return;
       }
       n.then(function (e) {
-        (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(e.isSuccess),
-          e.isSuccess ? (h(), t.onSuccess()) : (c(), t.onError()));
+        if (
+          (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(
+            e.isSuccess,
+          ),
+          e.isSuccess)
+        )
+          (y(), t.onSuccess());
+        else if (e.isContentPolicyViolation === !0) {
+          var n;
+          (d(), ((n = t.onContentPolicyViolation) != null ? n : t.onError)());
+        } else (c(), t.onError());
       }).catch(function () {
         (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
           c(),
@@ -94,14 +112,15 @@ __d(
       });
     }
     ((l.showErrorToast = c),
-      (l.showDeletedToast = d),
-      (l.showDeletedFileToast = m),
-      (l.showGoogleDriveFilesAddedToast = p),
-      (l.showDeletedAIKnowledgeToast = _),
-      (l.showDeletedProductInfoToast = f),
-      (l.showDeletedExampleResponseToast = g),
-      (l.showUpdatedToast = h),
-      (l.saveBizAISetting = C));
+      (l.showContentPolicyViolationToast = d),
+      (l.showDeletedToast = m),
+      (l.showDeletedFileToast = p),
+      (l.showGoogleDriveFilesAddedToast = _),
+      (l.showDeletedAIKnowledgeToast = f),
+      (l.showDeletedProductInfoToast = g),
+      (l.showDeletedExampleResponseToast = h),
+      (l.showUpdatedToast = y),
+      (l.saveBizAISetting = b));
   },
   226,
 );

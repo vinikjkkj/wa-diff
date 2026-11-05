@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebAttachMediaConstants",
     "WAWebAttachMediaGetters",
+    "WAWebBackendRuntime",
     "WAWebBizAdCreationCreativeMediaCap",
     "WAWebBizAdCreationMediaValidationUtils",
     "WAWebDataTransfer",
@@ -14,6 +15,7 @@ __d(
     "WAWebMediaEntry",
     "WAWebMediaPrepMediaProps",
     "WAWebMediaUploadMediaWithPrep",
+    "WAWebMediaUploadService",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebToast.react",
@@ -80,10 +82,13 @@ __d(
             }),
             l = new (o("WAWebMsgModel").Msg)(i);
           yield l.waitForPrep();
-          var s = yield o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep(
-              l,
-              t,
-            ),
+          var s = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMediaUploadService").MediaUploadService,
+                  ).uploadMediaWithPrep
+                : o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep
+            )(l, t),
             u = s.body,
             c = s.fbid,
             d = s.mediaResult.mediaEntry,

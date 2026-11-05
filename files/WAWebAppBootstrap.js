@@ -44,7 +44,6 @@ __d(
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
-    "WAWebUserPrefsMultiDevice",
     "WAWebWam",
     "WAWebWamPageLoadReporter",
     "WAWebWamWorkerSpecificEvents",
@@ -186,7 +185,7 @@ __d(
             lidDeviceJid: y == null ? void 0 : y.toString(),
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
           }),
-            o("WAWebUserPrefsMultiDevice").isRegistered() &&
+            (C != null || y != null) &&
               o("WAWebBackendWorkerInitState").resolveJidsReady(),
             o("WAWebCacheStoreGatingUtil").initStorageOptimizationFlags(),
             o("WAWebAppSwInitializer").initializeSw({

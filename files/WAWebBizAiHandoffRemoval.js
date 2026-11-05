@@ -4,10 +4,12 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAlarm",
+    "WAWebBackendRuntime",
     "WAWebBizAiAgentGating",
     "WAWebBizAiHandoffRemovalTimingModel",
     "WAWebBizAiHandoffResponseUtils",
     "WAWebBotTypes",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "WAWebFrontendChatGetters",
     "getErrorSafe",
@@ -99,22 +101,24 @@ __d(
       (r("WAWebAlarm").clearTimeout(t.aiHandoffRemovalEvictionTimer),
         (t.aiHandoffRemovalEvictionTimer = null),
         t.set({ aiHandoffRemovalExpiry: null, isAiHandoff: !1 }),
-        o("WAWebDBUpdateChatTable")
-          .updateChatTable(t.id, {
-            aiHandoffRemovalExpiry: null,
-            isAiHandoff: !1,
-          })
-          .catch(function (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "biz ai handoff eviction failed to persist",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("biz-ai-handoff-evict-persist");
-          }));
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStoreService").ChatStoreService,
+            ).updateChatTable
+          : o("WAWebDBUpdateChatTable").updateChatTable)(t.id, {
+          aiHandoffRemovalExpiry: null,
+          isAiHandoff: !1,
+        }).catch(function (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "biz ai handoff eviction failed to persist",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("biz-ai-handoff-evict-persist");
+        }));
     }
     function g(e, t) {
       var n = e.aiHandoffRemovalExpiry;

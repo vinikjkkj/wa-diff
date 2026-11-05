@@ -2,6 +2,8 @@ __d(
   "WAWebSyncPrivacyDisallowedLists",
   [
     "Promise",
+    "WAWebBackendRuntime",
+    "WAWebPrivacyService",
     "WAWebQueryPrivacyDisallowedListUtil",
     "WAWebSchemaPrivacyDisallowedList",
     "asyncToGeneratorRuntime",
@@ -19,9 +21,14 @@ __d(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = yield o(
-                        "WAWebQueryPrivacyDisallowedListUtil",
-                      ).queryPrivacyDisallowedList(e);
+                      var t = yield (
+                        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                          ? o("WAWebBackendRuntime").runtime(
+                              o("WAWebPrivacyService").PrivacyService,
+                            ).queryPrivacyDisallowedList
+                          : o("WAWebQueryPrivacyDisallowedListUtil")
+                              .queryPrivacyDisallowedList
+                      )(e);
                       return { type: e, response: t };
                     },
                   );

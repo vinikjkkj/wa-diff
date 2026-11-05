@@ -4,7 +4,9 @@ __d(
     "fbt",
     "WAPromiseCache",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
+    "WAWebContactQueryService",
     "WAWebContactSyncLogger",
     "WAWebFindChatAction",
     "WAWebHttpErrors",
@@ -77,7 +79,13 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r = yield o("WAWebQueryExistsJob").queryPhoneExists(
+            r = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebContactQueryService").ContactQueryService,
+                  ).queryPhoneExists
+                : o("WAWebQueryExistsJob").queryPhoneExists
+            )(
               e,
               o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
                 .UNKNOWN_CONTACT_SEARCH,

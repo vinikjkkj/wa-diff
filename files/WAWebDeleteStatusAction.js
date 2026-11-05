@@ -3,10 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebContactGetters",
     "WAWebDBMessageDelete",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebMessageStoreService",
     "WAWebStatusCollection",
     "WAWebUserPrefsMeUser",
   ],
@@ -47,7 +49,11 @@ __d(
             ])),
           n.length,
         ),
-        o("WAWebDBMessageDelete").removeStatusMessage(n)
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebMessageStoreService").MessageStoreService,
+            ).removeStatusMessage
+          : o("WAWebDBMessageDelete").removeStatusMessage)(n)
       );
     }
     function m(e) {
@@ -64,7 +70,11 @@ __d(
             ])),
           r.length,
         ),
-        o("WAWebDBMessageDelete").removeStatusMessage(r)
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebMessageStoreService").MessageStoreService,
+            ).removeStatusMessage
+          : o("WAWebDBMessageDelete").removeStatusMessage)(r)
       );
     }
     ((l.clearStatusForRemovedContact = d), (l.deleteStatusForContact = m));

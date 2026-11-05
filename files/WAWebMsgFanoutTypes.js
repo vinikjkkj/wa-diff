@@ -1,8 +1,8 @@
 __d(
   "WAWebMsgFanoutTypes",
-  [],
+  ["$InternalEnum"],
   function (t, n, r, o, a, i) {
-    var e = Object.freeze({ CHAT: "chat", GROUP_DIRECT: "groupDirect" });
+    var e = n("$InternalEnum")({ CHAT: "chat", GROUP_DIRECT: "groupDirect" });
     i.FANOUT_TYPE = e;
   },
   66,

@@ -4,6 +4,7 @@ __d(
     "WAWebActiveSubscriptionProductTypes",
     "WAWebBizAILargeScreensLogEvents",
     "WAWebBizAiMetaOneDialogRequestStore",
+    "WAWebBizAiMetaOneExperiment",
     "WAWebEligibleSubscriptionProductTypes",
     "WAWebMetaOneGating",
     "WAWebMsgCollection",
@@ -18,25 +19,27 @@ __d(
     "WAWebWamEnumWsuaScreenElement",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new WeakMap();
-    function s(e, t, n, r) {
-      var a = u(n);
+    var e = new WeakMap(),
+      s =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    function u(e, t, n, r) {
+      var a = c(n);
       return a == null ||
         !o("WAWebMetaOneGating").isMetaOneBizAiAdditionalEntryPointsEnabled()
         ? null
         : {
             onImpression: function () {
-              var r = c(e, t, n, a);
-              r != null && d(r.session, a);
+              var r = d(e, t, n, a);
+              r != null && m(r.session, a);
             },
             onClick: function () {
-              var i = c(e, t, n, a);
+              var i = d(e, t, n, a);
               i != null &&
-                (d(i.session, a),
+                (m(i.session, a),
                 o("WAWebBizAILargeScreensLogEvents").logBizAiHubDeeplinkClick(
                   n,
                 ),
-                m(
+                p(
                   o("WAWebWamEnumWsuaAction").WSUA_ACTION.CLICK,
                   i.session.sessionId,
                   a,
@@ -48,11 +51,21 @@ __d(
                     o("WAWebMsgCollection").MsgCollection.get(e) === i.msg &&
                       r();
                   },
+                  function () {
+                    return (
+                      o(
+                        "WAWebBizAiMetaOneExperiment",
+                      ).requestMetaOneBizAiExperimentExposure(),
+                      o(
+                        "WAWebBizAiMetaOneExperiment",
+                      ).getMetaOneBizAiExperimentValueWithoutExposure() === !0
+                    );
+                  },
                 ));
             },
           };
     }
-    function u(e) {
+    function c(e) {
       var t, n;
       try {
         n = new URL(e);
@@ -70,11 +83,11 @@ __d(
       var r = n.searchParams,
         o = (t = r.get("uuid")) == null ? void 0 : t.trim();
       return {
-        suppliedSessionId: o != null && o !== "" ? o : null,
+        suppliedSessionId: o != null && s.test(o) ? o : null,
         sourceMessageType: r.get("ai_hub_message_type"),
       };
     }
-    function c(t, n, a, i) {
+    function d(t, n, a, i) {
       var l,
         s =
           (l = o("WAWebMsgCollection").MsgCollection.get(t)) == null
@@ -100,12 +113,12 @@ __d(
       }
       return { msg: u, session: d };
     }
-    function d(e, t) {
+    function m(e, t) {
       e.hasLoggedView ||
         ((e.hasLoggedView = !0),
-        m(o("WAWebWamEnumWsuaAction").WSUA_ACTION.VIEW, e.sessionId, t));
+        p(o("WAWebWamEnumWsuaAction").WSUA_ACTION.VIEW, e.sessionId, t));
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       var r =
         n.sourceMessageType === "SUBSCRIPTION_PLAN_LIMIT_APPROACHING"
           ? o("WAWebWamEnumWsuaScreenElement").WSUA_SCREEN_ELEMENT
@@ -136,7 +149,7 @@ __d(
         wsuaSessionId: t,
       }).commit();
     }
-    l.getBizAiMetaOneSubscriptionActions = s;
+    l.getBizAiMetaOneSubscriptionActions = u;
   },
   98,
 );

@@ -198,10 +198,13 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebCanonicalUtils").isDebugForceTokenRefresh();
-          (t && o("WAWebCanonicalUtils").setDebugForceTokenRefresh(!1),
-            !(!t && !o("WAWebCanonicalGating").isCanonicalRecoveryEnabled()) &&
-              (yield y(e, t)));
+          if (!o("WAWebCanonicalGating").isCanonicalAuthV2Enabled()) {
+            var t = o("WAWebCanonicalUtils").isDebugForceTokenRefresh();
+            (t && o("WAWebCanonicalUtils").setDebugForceTokenRefresh(!1),
+              !(
+                !t && !o("WAWebCanonicalGating").isCanonicalRecoveryEnabled()
+              ) && (yield y(e, t)));
+          }
         })),
         S.apply(this, arguments)
       );

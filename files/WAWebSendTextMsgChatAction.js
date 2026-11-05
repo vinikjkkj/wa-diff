@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebAppTracker",
+    "WAWebBackendRuntime",
     "WAWebBizAgentAction",
     "WAWebBizBotTosUtils",
     "WAWebBotBaseGating",
@@ -30,6 +31,7 @@ __d(
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageSendService",
     "WAWebMessagingGatingUtils",
     "WAWebMsgDataUtils",
     "WAWebMsgInfoUtils",
@@ -450,22 +452,35 @@ __d(
               C = yield o("WAWebOrchestratorNonPersistedJob")
                 .createNonPersistedJob(
                   "sendMessage",
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var n, r;
-                    ((n = m.wamMessageSendPerfReporter) == null ||
-                      n.startSavedStage(),
-                      yield o("WAWebDBProcessMessage").storeMessages(y, e.id),
-                      (r = m.wamMessageSendPerfReporter) == null ||
-                        r.postSavedStage(),
-                      o("WAWebThreadMsgUtils").isThreadMsg(t) &&
-                        (yield o(
-                          "WAWebDBThreadMetadataBulkHelper",
-                        ).persistNewMessagesThreadMetadataInBulk([t])));
-                    var a = yield o("WAWebSendMsgRecordAction").sendMsgRecord(
-                      m,
-                    );
-                    return a;
-                  }),
+                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? function () {
+                        return o("WAWebBackendRuntime")
+                          .runtime(
+                            o("WAWebMessageSendService").MessageSendService,
+                          )
+                          .storeAndSend(m, y, e.id);
+                      }
+                    : n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* () {
+                          var n, r;
+                          ((n = m.wamMessageSendPerfReporter) == null ||
+                            n.startSavedStage(),
+                            yield o("WAWebDBProcessMessage").storeMessages(
+                              y,
+                              e.id,
+                            ),
+                            (r = m.wamMessageSendPerfReporter) == null ||
+                              r.postSavedStage(),
+                            o("WAWebThreadMsgUtils").isThreadMsg(t) &&
+                              (yield o(
+                                "WAWebDBThreadMetadataBulkHelper",
+                              ).persistNewMessagesThreadMetadataInBulk([t])));
+                          var a = yield o(
+                            "WAWebSendMsgRecordAction",
+                          ).sendMsgRecord(m);
+                          return a;
+                        },
+                      ),
                   {
                     priority: o("WAJobOrchestratorTypes").JOB_PRIORITY
                       .UI_ACTION,

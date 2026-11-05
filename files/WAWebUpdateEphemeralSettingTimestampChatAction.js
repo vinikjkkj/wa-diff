@@ -2,7 +2,9 @@ __d(
   "WAWebUpdateEphemeralSettingTimestampChatAction",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "asyncToGeneratorRuntime",
   ],
@@ -28,9 +30,13 @@ __d(
             return;
           }
           try {
-            (yield o("WAWebDBUpdateChatTable").updateChatTable(t.id, {
-              ephemeralSettingTimestamp: n,
-            }),
+            (yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable
+            )(t.id, { ephemeralSettingTimestamp: n }),
               (t.ephemeralSettingTimestamp = n),
               o("WALogger").LOG(
                 s ||

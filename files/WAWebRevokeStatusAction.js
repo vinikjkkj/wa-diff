@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebBackendRuntime",
     "WAWebDBMessageDelete",
     "WAWebDBProcessMessage",
     "WAWebEncryptAndSendStatusMsg",
@@ -13,6 +14,7 @@ __d(
     "WAWebLogStatusRevoke",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
+    "WAWebMessageStoreService",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -68,7 +70,13 @@ __d(
           ((b.sendReporter =
             (a = b.sendReporter) != null ? a : b.createSendReporter()),
             (i = b.sendPerfReporter) == null || i.startSavedStage(),
-            yield o("WAWebDBProcessMessage").storeMessages([y], C.to),
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([y], C.to),
             (l = b.sendPerfReporter) == null || l.postSavedStage(),
             (_ = b.sendPerfReporter) == null || _.startRenderedStage(),
             t.revokeMsgs([n.id.toString()]),
@@ -113,7 +121,13 @@ __d(
               (R = b.sendReporter) == null || R.postSuccess(),
               h.logDeleteStatusSuccess(),
               o("WAWebLogStatusRevoke").logStatusRevoke(n),
-              yield o("WAWebDBMessageDelete").removeStatusMessage([n]),
+              yield (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageStoreService").MessageStoreService,
+                    ).removeStatusMessage
+                  : o("WAWebDBMessageDelete").removeStatusMessage
+              )([n]),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([

@@ -8,6 +8,7 @@ __d(
         CONTACT_MANAGER_SUBSCRIPTION_REQUIRED: 2494193,
         BUSINESS_BANHAMMERED: 2859017,
         AD_ACCOUNT_LINKING_DISABLED: 2859050,
+        CONTENT_POLICY_VIOLATION: 5001006,
         WASS_BOT_NOT_FOUND: 5171003,
       }),
       l = (function (e) {
@@ -38,12 +39,15 @@ __d(
       return s(t, e.RATE_LIMIT_EXCEEDED);
     }
     function c(t) {
-      return s(t, e.WASS_BOT_NOT_FOUND);
+      return s(t, e.CONTENT_POLICY_VIOLATION);
     }
     function d(t) {
+      return s(t, e.WASS_BOT_NOT_FOUND);
+    }
+    function m(t) {
       return s(t, e.CONTACT_MANAGER_SUBSCRIPTION_REQUIRED);
     }
-    function m(e) {
+    function p(e) {
       var t,
         n,
         r = (t = (n = e.source) == null ? void 0 : n.errors) != null ? t : [];
@@ -62,9 +66,10 @@ __d(
     ((i.GraphQLErrorCode = e),
       (i.GraphQLServerError = l),
       (i.isRateLimitError = u),
-      (i.isWassBotNotFoundError = c),
-      (i.isContactManagerSubscriptionRequiredError = d),
-      (i.formatGraphQLServerError = m));
+      (i.isContentPolicyViolationError = c),
+      (i.isWassBotNotFoundError = d),
+      (i.isContactManagerSubscriptionRequiredError = m),
+      (i.formatGraphQLServerError = p));
   },
   66,
 );

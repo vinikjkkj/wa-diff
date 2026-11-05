@@ -3,7 +3,10 @@ __d(
   [
     "WAFilteredCatch",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
     "WAWebChatClearBridge",
+    "WAWebChatDeleteService",
+    "WAWebChatStoreService",
     "WAWebDBUpdateChatTable",
     "WAWebLimitSharingModelUtils",
     "WAWebMaybeClearChatAiThreads",
@@ -30,7 +33,13 @@ __d(
       if (n.sendClear) return n.sendClear;
       var r = e.getLastMsgKeyForAction();
       return (
-        (n.sendClear = o("WAWebChatClearBridge").sendClear(e, r, t)),
+        (n.sendClear = (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebChatDeleteService").ChatDeleteService,
+              ).sendClear
+            : o("WAWebChatClearBridge").sendClear
+        )(e, r, t)),
         n.sendClear
       );
     }
@@ -46,9 +55,13 @@ __d(
                     o(
                       "WAWebMaybeClearChatAiThreads",
                     ).maybeClearAiThreadsForChat(t)),
-                  yield o("WAWebDBUpdateChatTable").updateChatTable(t.id, {
-                    createdLocally: !1,
-                  }));
+                  yield (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebChatStoreService").ChatStoreService,
+                        ).updateChatTable
+                      : o("WAWebDBUpdateChatTable").updateChatTable
+                  )(t.id, { createdLocally: !1 }));
               },
             );
             return function (e) {

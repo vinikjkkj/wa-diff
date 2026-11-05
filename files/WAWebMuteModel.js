@@ -7,8 +7,10 @@ __d(
     "WATimeUtils",
     "WAWebActionToast.react",
     "WAWebAlarm",
+    "WAWebBackendRuntime",
     "WAWebBaseModel",
     "WAWebChatMuteBridge",
+    "WAWebChatSettingsService",
     "WAWebMiscErrors",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
@@ -191,9 +193,13 @@ __d(
                   : (b || (b = n("Promise"))).reject(
                       r("err")("No promise for newsletter mute"),
                     )
-                : (this.promises.mute = o(
-                    "WAWebChatMuteBridge",
-                  ).sendConversationMute({
+                : (this.promises.mute = (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebChatSettingsService").ChatSettingsService,
+                        ).sendConversationMute
+                      : o("WAWebChatMuteBridge").sendConversationMute
+                  )({
                     $MuteImpl3: this.expiration,
                     chatId: this.id,
                     expiration: v,
@@ -422,9 +428,13 @@ __d(
                   : (b || (b = n("Promise"))).reject(
                       r("err")("No promise for newsletter mute"),
                     )
-                : (this.promises.unmute = o(
-                    "WAWebChatMuteBridge",
-                  ).sendConversationMute({
+                : (this.promises.unmute = (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebChatSettingsService").ChatSettingsService,
+                        ).sendConversationMute
+                      : o("WAWebChatMuteBridge").sendConversationMute
+                  )({
                     $MuteImpl3: this.expiration,
                     chatId: this.id,
                     expiration: 0,

@@ -5,6 +5,7 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAPromiseDelays",
+    "WAWebBackendRuntime",
     "WAWebChatGetters",
     "WAWebDBMessageFindLocal",
     "WAWebExportChatLogging",
@@ -15,6 +16,7 @@ __d(
     "WAWebFileSaverTypes",
     "WAWebLimitSharingUIUtils",
     "WAWebMediaLocalAvailability",
+    "WAWebMessageQueryService",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebMsgType",
@@ -72,10 +74,13 @@ __d(
                       throw new (o("WAAbortError").AbortError)(
                         "Export cancelled",
                       );
-                    var e = yield o("WAWebDBMessageFindLocal").msgFindBefore({
-                      anchor: m,
-                      count: d,
-                    });
+                    var e = yield (
+                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                        ? o("WAWebBackendRuntime").runtime(
+                            o("WAWebMessageQueryService").MessageQueryService,
+                          ).msgFindBefore
+                        : o("WAWebDBMessageFindLocal").msgFindBefore
+                    )({ anchor: m, count: d });
                     if (!(e.status >= 400 || e.messages.length === 0)) {
                       var t = !1;
                       for (var n of e.messages) {

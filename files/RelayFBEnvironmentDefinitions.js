@@ -24,6 +24,7 @@ __d(
         "log",
         "missingFieldHandlers",
         "operationLoader",
+        "storeClass",
         "store",
         "relayFieldLogger",
         "scheduler",
@@ -43,84 +44,83 @@ __d(
         p = m === void 0 ? r("getRelayFBMissingFieldHandlers")() : m,
         _ = t.operationLoader,
         f = _ === void 0 ? r("RelayFBOperationLoader") : _,
-        g = t.store,
-        h =
-          g === void 0
-            ? new (o("relay-runtime").Store)(
-                new (o("relay-runtime").RecordSource)(),
-                {
-                  gcReleaseBufferSize: 10,
-                  gcScheduler: r("RelayFBGCScheduler"),
-                  getDataID:
-                    (a = t.getDataID) != null ? a : r("relayFBGetDataID"),
-                  log: d,
-                  operationLoader: r("RelayFBOperationLoader"),
-                  queryCacheExpirationTime: 300 * 1e3,
-                },
-              )
-            : g,
-        y = t.relayFieldLogger,
-        C = y === void 0 ? o("RelayFieldLogger").create() : y,
-        b = t.scheduler,
-        v = b === void 0 ? r("RelayFBScheduler") : b,
-        S = t.getDataID,
-        R = S === void 0 ? r("relayFBGetDataID") : S,
-        L = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        E = { actorID: i };
-      if (L.network)
+        g = t.storeClass,
+        h = g === void 0 ? o("relay-runtime").Store : g,
+        y = t.store,
+        C =
+          y === void 0
+            ? new h(new (o("relay-runtime").RecordSource)(), {
+                gcReleaseBufferSize: 10,
+                gcScheduler: r("RelayFBGCScheduler"),
+                getDataID:
+                  (a = t.getDataID) != null ? a : r("relayFBGetDataID"),
+                log: d,
+                operationLoader: r("RelayFBOperationLoader"),
+                queryCacheExpirationTime: 300 * 1e3,
+              })
+            : y,
+        b = t.relayFieldLogger,
+        v = b === void 0 ? o("RelayFieldLogger").create() : b,
+        S = t.scheduler,
+        R = S === void 0 ? r("RelayFBScheduler") : S,
+        L = t.getDataID,
+        E = L === void 0 ? r("relayFBGetDataID") : L,
+        k = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        I = { actorID: i };
+      if (k.network)
         return new (o("relay-runtime").Environment)(
-          babelHelpers.extends({}, L, {
-            getDataID: R,
+          babelHelpers.extends({}, k, {
+            getDataID: E,
             handlerProvider: u,
             log: d,
             missingFieldHandlers: p,
             operationLoader: f,
-            options: E,
-            relayFieldLogger: C,
-            scheduler: v,
-            store: h,
+            options: I,
+            relayFieldLogger: v,
+            scheduler: R,
+            store: C,
           }),
         );
-      var k,
-        I,
-        T = L.networkConfig,
-        D = babelHelpers.objectWithoutPropertiesLoose(L, s),
-        x =
-          (k = T == null ? void 0 : T.queryResponseCache) != null
-            ? k
+      var T,
+        D,
+        x = k.networkConfig,
+        $ = babelHelpers.objectWithoutPropertiesLoose(k, s),
+        P =
+          (T = x == null ? void 0 : x.queryResponseCache) != null
+            ? T
             : new (o("relay-runtime").QueryResponseCache)({
                 size: 10,
                 ttl: 300 * 1e3,
               }),
-        $ =
-          (I = T == null ? void 0 : T.liveQueryFetchWithWWWInitialFn) != null
-            ? I
+        N =
+          (D = x == null ? void 0 : x.liveQueryFetchWithWWWInitialFn) != null
+            ? D
             : r("liveQueryFetchWithWWWInitialWrapper"),
-        P = r("createRelayFBNetwork")(
+        M = r("createRelayFBNetwork")(
           r("createRelayFBNetworkFetch")(
-            babelHelpers.extends({}, T, {
+            babelHelpers.extends({}, x, {
               actorID: i,
-              liveQueryFetchWithWWWInitialFn: $,
-              queryResponseCache: x,
+              liveQueryFetchWithWWWInitialFn: N,
+              queryResponseCache: P,
             }),
           ),
           r("createRelayFBSubscribeFunction")({
             actorID: i,
-            queryResponseCache: x,
+            queryResponseCache: P,
           }),
         );
       return new (o("relay-runtime").Environment)(
-        babelHelpers.extends({}, D, {
-          getDataID: R,
+        babelHelpers.extends({}, $, {
+          getDataID: E,
           handlerProvider: u,
           log: d,
           missingFieldHandlers: p,
-          network: P,
+          network: M,
           operationLoader: f,
-          options: E,
-          relayFieldLogger: C,
-          scheduler: v,
-          store: h,
+          options: I,
+          relayFieldLogger: v,
+          scheduler: R,
+          store: C,
         }),
       );
     }

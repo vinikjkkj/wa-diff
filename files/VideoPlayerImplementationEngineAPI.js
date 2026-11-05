@@ -848,15 +848,15 @@ __d(
             (ce.current = t));
         },
         xe = function (t) {
-          E != null &&
-            t &&
-            t.width > 0 &&
-            t.height > 0 &&
-            (E.setDimensions(t),
-            Ee.dispatch({
-              payload: { dimensions: { height: t.height, width: t.width } },
-              type: "player_dimensions_changed",
-            }));
+          if (E != null && t && t.width > 0 && t.height > 0) {
+            E.setDimensions(t);
+            var e = Ee.getCurrentState().controlledState.dimensions;
+            (t.width !== e.width || t.height !== e.height) &&
+              Ee.dispatch({
+                payload: { dimensions: { height: t.height, width: t.width } },
+                type: "player_dimensions_changed",
+              });
+          }
         },
         $e = function (t) {
           t !== Ee.getCurrentState().controlledState.loopCount &&
