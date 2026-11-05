@@ -9,14 +9,10 @@ __d(
         (e = t);
     }
     function s() {
-      e = null;
-    }
-    function u() {
       return e;
     }
     ((i.updateSubscriptionNotification = l),
-      (i.clearSubscriptionNotification = s),
-      (i.getSubscriptionNotification = u));
+      (i.getSubscriptionNotification = s));
   },
   66,
 );

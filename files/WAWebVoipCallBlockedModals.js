@@ -30,24 +30,64 @@ __d(
           (r("WAWebODS").incr(
             "web.call.browser_unsupported.missing_shared_array_buffer",
           ),
-            o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingSAB(t));
+            t === !0
+              ? r("WAWebODS").incr(
+                  "web.call.browser_capability.missing_sab.cross_origin_isolated",
+                )
+              : t === !1
+                ? r("WAWebODS").incr(
+                    "web.call.browser_capability.missing_sab.not_cross_origin_isolated",
+                  )
+                : r("WAWebODS").incr(
+                    "web.call.browser_capability.missing_sab.isolation_unsupported",
+                  ));
           break e;
         }
         if (e === "missing_atomics") {
           (r("WAWebODS").incr("web.call.browser_unsupported.missing_atomics"),
-            o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingAtomics(t));
+            t === !0
+              ? r("WAWebODS").incr(
+                  "web.call.browser_capability.missing_atomics.cross_origin_isolated",
+                )
+              : t === !1
+                ? r("WAWebODS").incr(
+                    "web.call.browser_capability.missing_atomics.not_cross_origin_isolated",
+                  )
+                : r("WAWebODS").incr(
+                    "web.call.browser_capability.missing_atomics.isolation_unsupported",
+                  ));
           break e;
         }
         if (e === "missing_rtc_peer_connection") {
           (r("WAWebODS").incr(
             "web.call.browser_unsupported.missing_rtc_peer_connection",
           ),
-            o("WAWebCoreActionsODS").logCallBrowserCapabilityMissingRTC(t));
+            t === !0
+              ? r("WAWebODS").incr(
+                  "web.call.browser_capability.missing_rtc.cross_origin_isolated",
+                )
+              : t === !1
+                ? r("WAWebODS").incr(
+                    "web.call.browser_capability.missing_rtc.not_cross_origin_isolated",
+                  )
+                : r("WAWebODS").incr(
+                    "web.call.browser_capability.missing_rtc.isolation_unsupported",
+                  ));
           break e;
         }
         if (e === "broken_voip_wasm") {
           (r("WAWebODS").incr("web.call.browser_unsupported.broken_voip_wasm"),
-            o("WAWebCoreActionsODS").logCallBrowserCapabilityBrokenWasm(t));
+            t === !0
+              ? r("WAWebODS").incr(
+                  "web.call.browser_capability.broken_wasm.cross_origin_isolated",
+                )
+              : t === !1
+                ? r("WAWebODS").incr(
+                    "web.call.browser_capability.broken_wasm.not_cross_origin_isolated",
+                  )
+                : r("WAWebODS").incr(
+                    "web.call.browser_capability.broken_wasm.isolation_unsupported",
+                  ));
           break e;
         }
         throw Error(

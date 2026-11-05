@@ -5,6 +5,7 @@ __d(
     "ProfileCometSessionUtil",
     "ProfileEngagementFalcoEvent",
     "WebStorage",
+    "gkx",
     "uuidv4",
   ],
   function (t, n, r, o, a, i, l) {
@@ -56,7 +57,7 @@ __d(
       var o = (e || (e = r("WebStorage"))).getLocalStorage();
       if (!o) return null;
       var a = r("uuidv4")();
-      return (y(t, a), d(t, a, n == null ? void 0 : n.tracePolicy), a);
+      return (C(t, a), d(t, a, n == null ? void 0 : n.tracePolicy), a);
     }
     function p(e, t) {
       var n = g(e);
@@ -86,38 +87,50 @@ __d(
     function g(e) {
       return f(s(e));
     }
-    function h(t, n) {
+    function h(t) {
+      var n = s(t);
+      if (n === null) return null;
+      var o = n + ":logging",
+        a = f(o);
+      if (a !== null) return a;
+      var i = (e || (e = r("WebStorage"))).getLocalStorage();
+      if (!i) return null;
+      var l = r("uuidv4")();
+      return y(o, l);
+    }
+    function y(t, n) {
       var o = Date.now(),
         a = (e || (e = r("WebStorage"))).getLocalStorage();
       return a && t != null
         ? ((e || (e = r("WebStorage"))).setItemGuarded(a, t, n + ":" + o), n)
         : null;
     }
-    function y(e, t) {
-      return h(s(e), t);
-    }
     function C(e, t) {
-      var n = p(e, t);
-      return n == null ? null : (y(e, n), n);
+      return y(s(e), t);
     }
     function b(e, t) {
-      return p(e, t);
+      var n = p(e, t);
+      return n == null ? null : (C(e, n), n);
     }
-    function v(e, t, n) {
+    function v(e, t) {
+      var n;
+      return r("gkx")("7772") ? ((n = g(e)) != null ? n : h(e)) : p(e, t);
+    }
+    function S(e, t, n) {
       if (t != null) {
         var r = g(e);
-        if (r === null) return (d(e, t, n), y(e, t));
+        if (r === null) return (d(e, t, n), C(e, t));
       }
-      return C(e);
+      return b(e);
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       return o("ProfileCometSessionUtil").isSameProfileSession(t, n) ||
         r === "popstate" ||
         r === "initial"
-        ? C(e, n)
+        ? b(e, n)
         : m(e, n);
     }
-    ((l.extend = C), (l.get = b), (l.initOrExtend = v), (l.navigate = S));
+    ((l.extend = b), (l.get = v), (l.initOrExtend = S), (l.navigate = R));
   },
   98,
 );

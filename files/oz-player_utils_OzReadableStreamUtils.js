@@ -9,7 +9,7 @@ __d(
             return new TextDecoder("utf-8").decode(new Uint8Array(e));
           }
         : function (e) {
-            return String.fromCharCode.apply(null, e);
+            return String.fromCharCode.apply(String, e);
           };
     function s(e) {
       var t = [],

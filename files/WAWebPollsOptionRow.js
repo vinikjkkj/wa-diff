@@ -6,6 +6,7 @@ __d(
     "WAWebFlexItem.react",
     "WAWebFrontendMsgGetters",
     "WAWebMessagePicture.react",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebPollOptionImage.react",
     "WAWebPollOptionInfo",
@@ -74,7 +75,11 @@ __d(
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((N = [o("WAWebMsgGetters").getIsSentByMe]), (t[0] = N))
         : (N = t[0]);
-      var M = o("useWAWebMsgValues").useMsgValues(v, N),
+      var M = o("useWAWebMsgValues").useMsgValues(
+          v,
+          o("WAWebMsgCasts").castToPollMsg,
+          N,
+        ),
         w = M[0],
         A;
       t[1] === Symbol.for("react.memo_cache_sentinel")

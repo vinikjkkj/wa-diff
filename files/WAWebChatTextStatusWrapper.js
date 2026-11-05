@@ -128,31 +128,39 @@ __d(
       t[10] !== T || t[11] !== s || t[12] !== R || t[13] !== S
         ? (($ = function () {
             if (!T) return x;
-            var e;
+            var e = S != null && S !== "",
+              t;
             if (R != null) {
-              var t = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(R);
-              t != null &&
-                (e = u.jsx("div", {
-                  className: "x1gabggj",
-                  children: u.jsx(
-                    r("WAWebEmoji.react"),
-                    { emoji: t, size: "small" },
-                    "low-res",
+              var n = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(R);
+              n != null &&
+                (t = u.jsx(
+                  "div",
+                  babelHelpers.extends(
+                    {},
+                    { 0: {}, 1: { className: "x1gabggj" } }[!!e << 0],
+                    {
+                      children: u.jsx(
+                        r("WAWebEmoji.react"),
+                        { emoji: n, size: "small" },
+                        "low-res",
+                      ),
+                    },
                   ),
-                }));
+                ));
             }
             return u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
               children: [
-                e,
-                u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  direction: "auto",
-                  selectable: !0,
-                  ellipsify: s === !1 ? void 0 : !0,
-                  titlify: !0,
-                  text: S != null ? S : "",
-                  breakWord: !0,
-                }),
+                t,
+                e &&
+                  u.jsx(o("WAWebEmojiText.react").EmojiText, {
+                    direction: "auto",
+                    selectable: !0,
+                    ellipsify: s === !1 ? void 0 : !0,
+                    titlify: !0,
+                    text: S,
+                    breakWord: !0,
+                  }),
               ],
             });
           }),

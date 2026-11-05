@@ -5,6 +5,8 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebBackendEventBusWorkerCompatible",
+    "WAWebBackgroundPauseGating",
+    "WAWebBackgroundPauseState",
     "WAWebProtobufsHistorySync.pb",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsTypes",
@@ -134,45 +136,100 @@ __d(
       );
     }
     var C = 120,
-      b = null;
-    function v() {
-      b != null && self.clearTimeout(b);
+      b = null,
+      v = !1,
+      S = !1;
+    function R() {
+      b != null && (self.clearTimeout(b), (b = null));
     }
-    function S() {
-      (v(),
-        (b = self.setTimeout(function () {
-          E(!0);
-        }, C * 1e3)));
+    function L() {
+      ((v = !0), E());
     }
-    var R = 0;
-    function L(e) {
-      ((R = e ? 0 : R + 1), R === 0 && S(), E(R >= 3));
+    function E() {
+      (R(),
+        !$() &&
+          (b = self.setTimeout(function () {
+            T(!0);
+          }, C * 1e3)));
     }
-    function E(e) {
+    var k = 0;
+    function I(e, t) {
+      ((k = e ? 0 : k + 1),
+        k === 0 &&
+          (t ===
+            o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+              .RECENT && ((S = !1), (v = !0)),
+          E()),
+        T(k >= 3));
+    }
+    function T(e) {
       o("WAWebBackendApi").frontendFireAndForget("setHistorySyncPaused", {
         paused: e,
       });
     }
-    function k() {
-      (o("WAWebBackendEventBusWorkerCompatible")
-        .getBackendEventBus()
-        .onCriticalSyncDone(function () {
-          S();
-        }),
+    function D() {
+      (x(),
+        o("WAWebBackendEventBusWorkerCompatible")
+          .getBackendEventBus()
+          .onCriticalSyncDone(function () {
+            S ? E() : L();
+          }),
         o("WAWebBackendEventBusWorkerCompatible")
           .getBackendEventBus()
           .onRecentChatHistorySynced(function () {
-            (v(),
-              E(!1),
+            ((S = !0),
+              (v = !1),
+              R(),
+              T(!1),
               o("WAWebBackendApi").frontendFireAndForget(
                 "setHistorySyncProgress",
                 { progress: 100, incomplete: !1 },
               ));
           }));
     }
+    function x() {
+      var e = $();
+      e && R();
+      var t = function () {
+        var t = $();
+        t !== e &&
+          ((e = t),
+          t
+            ? R()
+            : (v ||
+                o(
+                  "WAWebBackgroundPauseState",
+                ).onDemandHistorySyncPendingState.get() ||
+                o(
+                  "WAWebBackgroundPauseState",
+                ).onDemandHistorySyncInFlightState.get()) &&
+              E());
+      };
+      (o("WAWebBackgroundPauseState").backgroundPauseState.onSet(t),
+        o("WAWebBackgroundPauseState").onDemandHistorySyncPendingState.onSet(t),
+        o("WAWebBackgroundPauseState").onDemandHistorySyncInFlightState.onSet(
+          t,
+        ),
+        o("WAWebBackendEventBusWorkerCompatible")
+          .getBackendEventBus()
+          .onAbPropsUpdate(t),
+        o("WAWebBackendEventBusWorkerCompatible")
+          .getBackendEventBus()
+          .onAbPropsLoaded(t));
+    }
+    function $() {
+      return (
+        o("WAWebBackgroundPauseState").backgroundPauseState.get() &&
+        !o("WAWebBackgroundPauseState").onDemandHistorySyncPendingState.get() &&
+        !o(
+          "WAWebBackgroundPauseState",
+        ).onDemandHistorySyncInFlightState.get() &&
+        o("WAWebBackgroundPauseGating").isVoipPauseHistorySyncEnabled()
+      );
+    }
     ((l.updateHistorySyncProgressModel = h),
-      (l.handleChunkProgress = L),
-      (l.initHistorySyncProgressListeners = k));
+      (l.handleChunkProgress = I),
+      (l.initHistorySyncProgressListeners = D));
   },
   98,
 );

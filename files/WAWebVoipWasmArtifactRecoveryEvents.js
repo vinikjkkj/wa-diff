@@ -3,19 +3,32 @@ __d(
   ["WALogger", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = new Set();
-    function u(e) {
+      s = new Set(),
+      u = new Set();
+    function c(e) {
+      return _(s, e);
+    }
+    function d() {
+      f(s);
+    }
+    function m(e) {
+      return _(u, e);
+    }
+    function p() {
+      f(u);
+    }
+    function _(e, t) {
       return (
-        s.add(e),
+        e.add(t),
         function () {
-          s.delete(e);
+          e.delete(t);
         }
       );
     }
-    function c() {
-      for (var t of s)
+    function f(t) {
+      for (var n of t)
         try {
-          t();
+          n();
         } catch (t) {
           o("WALogger")
             .WARN(
@@ -27,8 +40,10 @@ __d(
             .catching(r("getErrorSafe")(t));
         }
     }
-    ((l.onVoipWasmArtifactRecovered = u),
-      (l.emitVoipWasmArtifactRecovered = c));
+    ((l.onVoipWasmArtifactRecovered = c),
+      (l.emitVoipWasmArtifactRecovered = d),
+      (l.onVoipWasmReloadRequested = m),
+      (l.requestVoipWasmReload = p));
   },
   98,
 );

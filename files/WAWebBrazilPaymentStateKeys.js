@@ -8,11 +8,15 @@ __d(
         e,
       ]),
       u = "br_payment_state",
-      c = "br_receipt_and_state_enabled";
+      c = "br_receipt_and_state_enabled",
+      d = "br_receipt_and_state_bubble_version",
+      m = 1;
     ((l.PIX_CODE_REQUEST_BUTTON_NAME = e),
       (l.PAYMENT_REQUEST_BUTTON_NAMES = s),
       (l.BRAZIL_PAYMENT_STATE_KEY = u),
-      (l.RECEIPT_AND_STATE_STAMP_KEY = c));
+      (l.RECEIPT_AND_STATE_STAMP_KEY = c),
+      (l.BUBBLE_VERSION_KEY = d),
+      (l.BUBBLE_VERSION_WITHOUT_ADD_RECEIPT = m));
   },
   98,
 );

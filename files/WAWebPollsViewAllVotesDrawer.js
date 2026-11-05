@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebCastToPollCreationMsg",
     "WAWebDrawer.react",
     "WAWebDrawerBody.react",
     "WAWebDrawerHeader.react",
@@ -167,13 +168,17 @@ __d(
         y = h.addOptionMsgs,
         C = h.options,
         b = h.optionsMsgsMap,
-        v = o("useWAWebMsgValues").useMsgValues(l, [
-          (n = o("WAWebMsgGetters")).getSender,
-          n.getPollCorrectOptionIndex,
-          n.getPollHideVoterNames,
-          n.getIsSentByMe,
-          n.getIsSpoiler,
-        ]),
+        v = o("useWAWebMsgValues").useMsgValues(
+          l,
+          r("WAWebCastToPollCreationMsg"),
+          [
+            (n = o("WAWebMsgGetters")).getSender,
+            n.getPollCorrectOptionIndex,
+            n.getPollHideVoterNames,
+            n.getIsSentByMe,
+            n.getIsSpoiler,
+          ],
+        ),
         S = v[0],
         R = v[1],
         L = v[2],

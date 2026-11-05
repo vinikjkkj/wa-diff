@@ -4,15 +4,14 @@ __d(
     "fbt",
     "WAWebBizFrontendGatingUtils",
     "WAWebBrazilPixKeyFormattingUtils",
-    "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileUtils",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebQuickReplyBusinessProfileUtils",
     "WAWebQuickReplyCollection",
     "WAWebQuickReplyEnum",
     "WAWebQuickReplyModel",
     "WAWebUserPrefsCustomPaymentMethods",
-    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -62,24 +61,21 @@ __d(
     }
     function m() {
       var e,
-        t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      if (t != null) {
-        var n = o(
-          "WAWebBusinessProfileCollection",
-        ).BusinessProfileCollection.get(t);
-        if (n != null && (e = n.businessHours) != null && e.config) {
-          var a = o("WAWebQuickReplyEnum").QuickReplyTypes.HOURS_SMART_DEFAULT,
-            i = o("WAWebBusinessProfileUtils").quickReplyHoursStr(
-              n.businessHours,
-            );
-          return new (r("WAWebQuickReplyModel"))({
-            id: a,
-            shortcut: s._(/*BTDS*/ "Hours").toString(),
-            message: i,
-            count: -1,
-            keywords: [],
-          });
-        }
+        t = o(
+          "WAWebQuickReplyBusinessProfileUtils",
+        ).getOwnQuickReplyBusinessProfile();
+      if (t != null && (e = t.businessHours) != null && e.config) {
+        var n = o("WAWebQuickReplyEnum").QuickReplyTypes.HOURS_SMART_DEFAULT,
+          a = o("WAWebBusinessProfileUtils").quickReplyHoursStr(
+            t.businessHours,
+          );
+        return new (r("WAWebQuickReplyModel"))({
+          id: n,
+          shortcut: s._(/*BTDS*/ "Hours").toString(),
+          message: a,
+          count: -1,
+          keywords: [],
+        });
       }
     }
     function p() {
@@ -96,36 +92,32 @@ __d(
       }
     }
     function _() {
-      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      if (e != null) {
-        var t = o(
-          "WAWebBusinessProfileCollection",
-        ).BusinessProfileCollection.get(e);
-        if (
-          (t == null ? void 0 : t.latitude) != null ||
-          (t == null ? void 0 : t.longitude) != null ||
-          (t == null ? void 0 : t.address) != null
-        ) {
-          var n = o("WAWebQuickReplyEnum").QuickReplyTypes
-              .ADDRESS_SMART_DEFAULT,
-            a =
-              t.address != null && t.address !== ""
-                ? t.address
-                : s._(/*BTDS*/ "Map location"),
-            i = "\uD83D\uDCCD";
-          return new (r("WAWebQuickReplyModel"))({
-            id: n,
-            shortcut: s._(/*BTDS*/ "Address").toString(),
-            message: s
-              ._(/*BTDS*/ "{pinEmoji} {address}", [
-                s._param("pinEmoji", i),
-                s._param("address", a),
-              ])
-              .toString(),
-            count: -1,
-            keywords: [],
-          });
-        }
+      var e = o(
+        "WAWebQuickReplyBusinessProfileUtils",
+      ).getOwnQuickReplyBusinessProfile();
+      if (
+        (e == null ? void 0 : e.latitude) != null ||
+        (e == null ? void 0 : e.longitude) != null ||
+        (e == null ? void 0 : e.address) != null
+      ) {
+        var t = o("WAWebQuickReplyEnum").QuickReplyTypes.ADDRESS_SMART_DEFAULT,
+          n =
+            e.address != null && e.address !== ""
+              ? e.address
+              : s._(/*BTDS*/ "Map location"),
+          a = "\uD83D\uDCCD";
+        return new (r("WAWebQuickReplyModel"))({
+          id: t,
+          shortcut: s._(/*BTDS*/ "Address").toString(),
+          message: s
+            ._(/*BTDS*/ "{pinEmoji} {address}", [
+              s._param("pinEmoji", a),
+              s._param("address", n),
+            ])
+            .toString(),
+          count: -1,
+          keywords: [],
+        });
       }
     }
     function f() {

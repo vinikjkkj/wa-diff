@@ -5,7 +5,6 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
-    "WAWebCoreActionsODS",
     "WAWebODS",
     "WAWebPonyfillsIdleCallback",
     "WAWebVoipHiddenPrewarmIdleWork",
@@ -723,9 +722,9 @@ __d(
                   ).hasPinnedGlueFailedForWorker(
                     o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(t),
                   ) ||
-                  (o(
-                    "WAWebCoreActionsODS",
-                  ).logCallVoipInitThreadPoolEmergencyWorkerLoadTimeout(),
+                  (r("WAWebODS").incr(
+                    "web.call.voip_init.thread_pool.emergency_worker_load_timeout",
+                  ),
                   o("WALogger").LOG(
                     w ||
                       (w = babelHelpers.taggedTemplateLiteralLoose([

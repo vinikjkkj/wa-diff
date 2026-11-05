@@ -245,8 +245,7 @@ __d(
       (l.parseJoinLinkedGroupResponseGroupJoinRequestSuccess = c),
       (l.parseJoinLinkedGroupResponseServerError = d),
       (l.parseJoinLinkedGroupResponseSuccess = m),
-      (l.makeJoinLinkedGroupRequest = p),
-      (l.parseJoinLinkedGroupClientErrors = _));
+      (l.makeJoinLinkedGroupRequest = p));
   },
   98,
 );

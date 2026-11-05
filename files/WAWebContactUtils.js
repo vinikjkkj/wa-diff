@@ -7,6 +7,7 @@ __d(
     "WAWebContactManagementGating",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
+    "WAWebOrgMemberContactName",
     "WAWebPrimaryFeaturesModel",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
@@ -52,11 +53,20 @@ __d(
           l = o("WAWebFrontendContactGetters").getIsMyContact(e);
         if (!l) {
           var s,
-            u = (s = e.pushname) != null ? s : e.verifiedName,
-            d = c(u),
-            m = d.firstName,
-            p = d.lastName,
-            _ =
+            u,
+            d =
+              (s =
+                (u = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+                  e,
+                )) != null
+                  ? u
+                  : e.pushname) != null
+                ? s
+                : e.verifiedName,
+            m = c(d),
+            p = m.firstName,
+            _ = m.lastName,
+            f =
               o(
                 "WAWebUsernameWorkerCompatibleGatingUtils",
               ).usernameContactUIEnabled() &&
@@ -64,27 +74,27 @@ __d(
               !e.isSmb;
           return {
             lid: n,
-            phoneNumber: _ ? null : a,
-            firstName: m,
-            lastName: p,
+            phoneNumber: f ? null : a,
+            firstName: p,
+            lastName: _,
             isExistingContact: l,
             username: i,
           };
         }
-        var f = e.shortName,
-          g = e.name.replace(f, "").trim();
-        if (r("isStringNullOrEmpty")(f) && !r("isStringNullOrEmpty")(g)) {
-          var y = g.split(" "),
-            C = y[0],
-            b = babelHelpers.arrayLikeToArray(y).slice(1);
-          ((f = C), (g = b.join(" ")));
+        var g = e.shortName,
+          y = e.name.replace(g, "").trim();
+        if (r("isStringNullOrEmpty")(g) && !r("isStringNullOrEmpty")(y)) {
+          var C = y.split(" "),
+            b = C[0],
+            v = babelHelpers.arrayLikeToArray(C).slice(1);
+          ((g = b), (y = v.join(" ")));
         }
-        var v = o("WAWebFrontendContactGetters").getIsUsernameContact(e);
+        var S = o("WAWebFrontendContactGetters").getIsUsernameContact(e);
         return {
           lid: n,
-          phoneNumber: v ? null : a,
-          firstName: f,
-          lastName: g,
+          phoneNumber: S ? null : a,
+          firstName: g,
+          lastName: y,
           isExistingContact: l,
           syncToAddressbook: h(e),
           username: i,

@@ -226,12 +226,7 @@ __d(
     ((l.sendGetParticipatingGroupsRPC = e),
       (l.parseGetParticipatingGroupsResponseClientError = u),
       (l.parseGetParticipatingGroupsResponseServerError = c),
-      (l.parseGetParticipatingGroupsResponseSuccessGroupsGroup = d),
       (l.parseGetParticipatingGroupsResponseSuccess = m),
-      (l.parseGroupInfoOrTruncatedGroupInfoGroupInfoMixinGroup = p),
-      (l.parseIQErrorBadRequestOrRateOverlimitOrFallbackClientMixinGroup = _),
-      (l.makeGetParticipatingGroupsRequestParticipatingParticipants = f),
-      (l.makeGetParticipatingGroupsRequestParticipatingDescription = g),
       (l.makeGetParticipatingGroupsRequest = h));
   },
   98,

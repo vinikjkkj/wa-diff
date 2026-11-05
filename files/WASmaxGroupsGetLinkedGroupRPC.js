@@ -399,18 +399,7 @@ __d(
       (l.parseGetLinkedGroupResponseClientError = u),
       (l.parseGetLinkedGroupResponseServerError = c),
       (l.parseGetLinkedGroupResponseSuccess = d),
-      (l.parseLinkedGroupInfoGroupParticipant = m),
-      (l.parseLinkedGroupInfoGroupMembershipApprovalMode = p),
-      (l.parseLinkedGroupInfoGroupMembershipApprovalRequest = _),
-      (l.parseLinkedGroupInfoGroupSuspended = f),
-      (l.parseLinkedGroupInfoGroupAppealStatus = g),
-      (l.parseLinkedGroupInfoGroupAppealUpdateTime = h),
-      (l.parseLinkedGroupInfoGroupLimitSharingEnabled = y),
-      (l.parseLinkedGroupInfoMixin = C),
-      (l.makeGetLinkedGroupRequest = b),
-      (l.mergeQueryLinkedGroupMixin = S),
-      (l.parseGetLinkedGroupClientErrors = R),
-      (l.mergeOptionalSubGroupMixin = E));
+      (l.makeGetLinkedGroupRequest = b));
   },
   98,
 );

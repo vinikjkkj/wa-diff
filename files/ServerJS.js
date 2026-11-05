@@ -344,7 +344,7 @@ __d(
         o = n.name;
       (o in e || (t[3] = (t[3] || 0) + 1), (e[o] = !0));
     }
-    i.exports = m;
+    l.default = m;
   },
-  34,
+  98,
 );

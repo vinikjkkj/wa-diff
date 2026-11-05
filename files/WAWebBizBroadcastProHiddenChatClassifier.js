@@ -58,7 +58,6 @@ __d(
       return (
         e.id.fromMe &&
         o("WAWebMsgGetters").getIsMarketingTemplateTag(e) &&
-        e.deliveryContextSourceType === "ads_manager" &&
         (t == null ? void 0 : t.isRegularUser()) === !0 &&
         (n == null ? void 0 : n.isHosted()) === !0 &&
         o("WAWebUserPrefsMeUser").isMeAccount(n) &&

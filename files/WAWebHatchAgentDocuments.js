@@ -22,12 +22,13 @@ __d(
       p = o("WAWebHatchAgentDocument.flow").HATCH_AGENT_DOCUMENT_READ_BYTES - 1,
       _ = { kind: "account_changed" },
       f = { kind: "failed" },
-      g = { kind: "no_response" },
-      h = { kind: "saved" },
-      y = { kind: "too_large" },
+      g = { kind: "saved" },
+      h = { kind: "too_large" },
+      y = { kind: "failed", reason: "offline" },
       C = (d || (d = n("Promise"))).resolve();
     function b() {
       return L(
+        f,
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = yield (d || (d = n("Promise"))).all([
@@ -36,11 +37,19 @@ __d(
                 T(e, "memory"),
               ]),
               r = t[0],
-              o = t[1],
-              a = t[2];
-            return o.kind === "failed" || a.kind === "failed"
+              o = r.isProfileRead,
+              a = r.profile,
+              i = t[1],
+              l = t[2];
+            return i.kind === "failed" || l.kind === "failed"
               ? f
-              : { kind: "loaded", memory: a, profile: r, soul: o };
+              : {
+                  isProfileRead: o,
+                  kind: "loaded",
+                  memory: l,
+                  profile: a,
+                  soul: i,
+                };
           });
           return function (t) {
             return e.apply(this, arguments);
@@ -49,7 +58,7 @@ __d(
       );
     }
     function v(e) {
-      return L(function (t) {
+      return L(f, function (t) {
         return k(t, e);
       });
     }
@@ -64,8 +73,8 @@ __d(
                 ])),
             )
             .sendLogs("hatch-agent-documents-save-failed"),
-          (d || (d = n("Promise"))).resolve(y))
-        : L(function (e, r) {
+          (d || (d = n("Promise"))).resolve(h))
+        : L(y, function (e, r) {
             return $(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 if (
@@ -86,19 +95,38 @@ __d(
                     },
                   ),
                   i = R(n)
-                    ? f
-                    : n.kind === "Ok"
-                      ? h
-                      : n.kind === "Rejected"
-                        ? f
-                        : n.kind === "Unreadable" || n.kind === "Failure"
-                          ? g
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  n.kind,
-                              );
-                            })();
+                    ? y
+                    : ((typeof n == "object" && n !== null) ||
+                          typeof n == "function") &&
+                        n.kind === "Ok"
+                      ? g
+                      : ((typeof n == "object" && n !== null) ||
+                            typeof n == "function") &&
+                          n.kind === "Rejected"
+                        ? { kind: "failed", reason: "generic" }
+                        : ((typeof n == "object" && n !== null) ||
+                              typeof n == "function") &&
+                            n.kind === "Failure" &&
+                            n.reason === "TIMEOUT"
+                          ? { kind: "no_response", reason: "timeout" }
+                          : ((typeof n == "object" && n !== null) ||
+                                typeof n == "function") &&
+                              n.kind === "Failure" &&
+                              n.reason === "TRANSPORT"
+                            ? { kind: "no_response", reason: "offline" }
+                            : (((typeof n == "object" && n !== null) ||
+                                  typeof n == "function") &&
+                                  n.kind === "Failure") ||
+                                (((typeof n == "object" && n !== null) ||
+                                  typeof n == "function") &&
+                                  n.kind === "Unreadable")
+                              ? { kind: "no_response", reason: "generic" }
+                              : (function () {
+                                  throw Error(
+                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                      n,
+                                  );
+                                })();
                 return (
                   i.kind !== "saved" &&
                     o("WALogger")
@@ -122,20 +150,20 @@ __d(
     function R(e) {
       return e.kind === "Failure" && e.reason === "NO_CHANNEL";
     }
-    function L(e) {
+    function L(e, t) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-            n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
+            r = yield o("WAWebHatchVmConnection").connectHatchVmApi();
+          if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== n)
             return _;
-          if (n == null) return f;
-          var r = yield e(n, t);
-          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() === t
-            ? r
+          if (r == null) return e;
+          var a = yield t(r, n);
+          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() === n
+            ? a
             : _;
         })),
         E.apply(this, arguments)
@@ -177,7 +205,14 @@ __d(
                     e.kind,
                   )
                   .sendLogs("hatch-agent-documents-profile-failed"),
-              o("WAWebHatchAgentDocumentDecoder").decodeHatchAgentProfile(e)
+              {
+                isProfileRead: o(
+                  "WAWebHatchAgentDocumentDecoder",
+                ).isHatchAgentProfileRead(e),
+                profile: o(
+                  "WAWebHatchAgentDocumentDecoder",
+                ).decodeHatchAgentProfile(e),
+              }
             );
           });
       });

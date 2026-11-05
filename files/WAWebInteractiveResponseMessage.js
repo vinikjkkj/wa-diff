@@ -5,6 +5,7 @@ __d(
     "WAWebInteractiveBubble.react",
     "WAWebInteractiveGalaxyFlowResponseMessage.react",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "react",
@@ -41,7 +42,11 @@ __d(
         ]),
           (n[4] = s));
       } else s = n[4];
-      var d = o("useWAWebMsgValues").useMsgValues(a, s),
+      var d = o("useWAWebMsgValues").useMsgValues(
+          a,
+          o("WAWebMsgCasts").castToInteractiveResponseMsg,
+          s,
+        ),
         m = d[0],
         p = d[1],
         _ = d[2],

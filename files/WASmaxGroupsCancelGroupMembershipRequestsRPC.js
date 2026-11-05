@@ -247,16 +247,8 @@ __d(
     ((l.sendCancelGroupMembershipRequestsRPC = e),
       (l.parseCancelGroupMembershipRequestsResponseClientError = u),
       (l.parseCancelGroupMembershipRequestsResponseServerError = c),
-      (l.parseCancelGroupMembershipRequestsResponseSuccessCancelMembershipRequestsParticipant =
-        d),
       (l.parseCancelGroupMembershipRequestsResponseSuccess = m),
-      (l.parseMembershipRequestsCancellationClientErrors = p),
-      (l.parseMembershipRequestsCancellationParticipantMixins = _),
-      (l.makeCancelGroupMembershipRequestsRequestCancelMembershipRequestsParticipant =
-        f),
-      (l.makeCancelGroupMembershipRequestsRequest = g),
-      (l.parseCancelGroupMembershipRequestsParticipantRequestNotFoundMixin =
-        h));
+      (l.makeCancelGroupMembershipRequestsRequest = g));
   },
   98,
 );

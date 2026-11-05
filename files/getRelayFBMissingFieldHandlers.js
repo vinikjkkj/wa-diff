@@ -1,53 +1,52 @@
 __d(
   "getRelayFBMissingFieldHandlers",
   ["relay-runtime"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("relay-runtime").ROOT_TYPE;
-    function l() {
+    function e() {
       return [
         {
-          handle: function (n, r, o) {
+          handle: function (t, n, r) {
             if (
-              r != null &&
-              r.getType() === e &&
-              n.name === "node" &&
-              Object.prototype.hasOwnProperty.call(o, "id")
+              n != null &&
+              n.getType() === o("relay-runtime").ROOT_TYPE &&
+              t.name === "node" &&
+              Object.prototype.hasOwnProperty.call(r, "id")
             )
-              return o.id;
+              return r.id;
           },
           kind: "linked",
         },
         {
-          handle: function (n, r, o, a) {
+          handle: function (t, n, r, a) {
             if (
-              r != null &&
-              r.getType() === e &&
-              n.name.startsWith("fetch__") &&
-              Object.prototype.hasOwnProperty.call(o, "id")
+              n != null &&
+              n.getType() === o("relay-runtime").ROOT_TYPE &&
+              t.name.startsWith("fetch__") &&
+              Object.prototype.hasOwnProperty.call(r, "id")
             ) {
-              var t = o.id,
-                i = a.get(t);
-              if (i != null && i.getType() === n.name.substr(7)) return t;
+              var e = r.id,
+                i = a.get(e);
+              if (i != null && i.getType() === t.name.substr(7)) return e;
             }
           },
           kind: "linked",
         },
         {
-          handle: function (n, r, o) {
+          handle: function (t, n, r) {
             if (
-              r != null &&
-              r.getType() === e &&
-              n.name === "nodes" &&
-              Object.prototype.hasOwnProperty.call(o, "ids")
+              n != null &&
+              n.getType() === o("relay-runtime").ROOT_TYPE &&
+              t.name === "nodes" &&
+              Object.prototype.hasOwnProperty.call(r, "ids")
             )
-              return o.ids;
+              return r.ids;
           },
           kind: "pluralLinked",
         },
       ];
     }
-    a.exports = l;
+    l.default = e;
   },
-  null,
+  98,
 );

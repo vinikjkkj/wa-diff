@@ -6,6 +6,7 @@ __d(
     "WAWebAuraBenefitFeatureFlagProvider",
     "WAWebAuraBenefitTypes",
     "WAWebMobilePlatforms",
+    "WAWebProductFeature",
     "WAWebStickerPremiumStatus",
     "WAWebSubscriptionsGatingUtils",
     "gkx",
@@ -26,8 +27,9 @@ __d(
             ).AuraBenefitFeatureFlagProvider)(t);
           }),
           (t.$3 = function () {
-            return o("WAWebMobilePlatforms").isSMB() &&
-              !o("WAWebSubscriptionsGatingUtils").smbAuraBenefitsEnabled()
+            return o("WAWebProductFeature").isInternalProduct() ||
+              (o("WAWebMobilePlatforms").isSMB() &&
+                !o("WAWebSubscriptionsGatingUtils").smbAuraBenefitsEnabled())
               ? !0
               : o("WAWebABProps").getABPropConfigValue("aura_kill_switch");
           }),

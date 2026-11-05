@@ -2,6 +2,7 @@ __d(
   "WAWebHatchPermissions",
   [
     "WALogger",
+    "WAWebHatchCustomConnectorRequest",
     "WAWebHatchPermissionsDecoder",
     "WAWebHatchPermissionsFailureReason",
     "WAWebHatchVmConnection",
@@ -27,7 +28,7 @@ __d(
           "Changed web access approval default from WhatsApp Web settings",
       };
     function p() {
-      return I(
+      return T(
         "read_settings",
         function (e) {
           return e.permissionSettings({ timeoutMs: s });
@@ -37,28 +38,28 @@ __d(
     }
     function _(e, t) {
       var n;
-      return D("set_default", ((n = {}), (n[e] = t), (n.reason = m[e]), n));
+      return x("set_default", ((n = {}), (n[e] = t), (n.reason = m[e]), n));
     }
     function f(e, t) {
       var n;
-      return D("set_protocol", { protocols: ((n = {}), (n[e] = t), n) });
+      return x("set_protocol", { protocols: ((n = {}), (n[e] = t), n) });
     }
     function g() {
-      return k(
+      return I(
         "read_groups",
         o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_ACTIVE_BY_SCOPE,
         o("WAWebHatchPermissionsDecoder").decodeHatchPermissionGroupPage,
       );
     }
     function h() {
-      return k(
+      return I(
         "read_websites",
         o("WAWebHatchVmTransport").JarvisPaths.PERMISSIONS_ACTIVE_WEBSITES,
         o("WAWebHatchPermissionsDecoder").decodeHatchAllowedWebsitePage,
       );
     }
     function y() {
-      return I(
+      return T(
         "read_inventory",
         function (e) {
           return e.permissionInventory({ timeoutMs: s });
@@ -66,22 +67,23 @@ __d(
         o("WAWebHatchPermissionsDecoder").decodeHatchPermissionInventory,
       );
     }
-    function C(e, t) {
-      var n = E(e, t);
-      return I(
+    function C(e, t, n) {
+      n === void 0 && (n = []);
+      var r = E(e, t, n);
+      return T(
         "read_scoped",
         function (t) {
-          return t.scopedPermissions(e.scopeType, e.id, n, { timeoutMs: s });
+          return t.scopedPermissions(e.scopeType, e.id, r, { timeoutMs: s });
         },
         function (t) {
-          var r = o(
+          var n = o(
             "WAWebHatchPermissionsDecoder",
           ).decodeHatchScopedPermissions(t, e);
-          return r == null
+          return n == null
             ? null
-            : babelHelpers.extends({}, r, {
-                connectors: r.connectors.filter(function (e) {
-                  return n.some(function (t) {
+            : babelHelpers.extends({}, n, {
+                connectors: n.connectors.filter(function (e) {
+                  return r.some(function (t) {
                     return L(t, e.id);
                   });
                 }),
@@ -90,7 +92,7 @@ __d(
       );
     }
     function b(e, t, n, r, o) {
-      return $("set_scoped_mode", function (a) {
+      return P("set_scoped_mode", function (a) {
         return a.scopedPermissionSetMode(e.scopeType, e.id, {
           connector: t,
           display_name: e.displayName,
@@ -101,7 +103,7 @@ __d(
       });
     }
     function v(e, t) {
-      return $("set_mode", function (n) {
+      return P("set_mode", function (n) {
         return n.activePermissionSetMode({
           kind: e.kind,
           mode: t,
@@ -110,7 +112,7 @@ __d(
       });
     }
     function S(e) {
-      return $(
+      return P(
         "revoke",
         function (t) {
           return t.permissionRevoke({ kind: e.kind, permission_id: e.id });
@@ -119,7 +121,7 @@ __d(
       );
     }
     function R() {
-      return $("reset", function (e) {
+      return P("reset", function (e) {
         return e.permissionsReset();
       });
     }
@@ -130,14 +132,14 @@ __d(
       };
       return n(e) === n(t);
     }
-    function E(e, t) {
-      var n = [].concat(t),
-        r = function (t) {
+    function E(e, t, n) {
+      var r = [].concat(t),
+        o = function (t) {
           t != null &&
-            !n.some(function (e) {
+            !r.some(function (e) {
               return L(e, t);
             }) &&
-            n.push(t);
+            r.push(t);
         };
       return (
         e.permissions
@@ -145,22 +147,38 @@ __d(
             return e.lifetime === "durable";
           })
           .forEach(function (e) {
-            return r(e.connector);
+            return o(e.connector);
           }),
         e.scopeType === "space" &&
           e.requiredPermissions.forEach(function (e) {
-            return r(e.kind === "connector" ? e.connector : null);
+            return o(e.kind === "connector" ? e.connector : null);
           }),
-        n.sort().slice(0, c)
+        r
+          .filter(function (e) {
+            return !k(e, n);
+          })
+          .sort()
+          .slice(0, c)
       );
     }
-    function k(e, t, r) {
+    function k(e, t) {
+      return (
+        e.startsWith(
+          o("WAWebHatchCustomConnectorRequest")
+            .HATCH_CUSTOM_CONNECTOR_NAME_PREFIX,
+        ) ||
+        t.some(function (t) {
+          return L(t, e);
+        })
+      );
+    }
+    function I(e, t, r) {
       var a = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
         i = [],
         l = new Set(),
         c = (function () {
           var d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            var d = yield I(
+            var d = yield T(
               e,
               function (e) {
                 return e.activePermissions(t(n), { timeoutMs: s });
@@ -169,13 +187,13 @@ __d(
             );
             if (d.kind !== "ok") return d;
             if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== a)
-              return W(e, "account_changed", "generic");
+              return q(e, "account_changed", "generic");
             i.push.apply(i, d.value.entries);
             var m = d.value.nextCursor;
             return m == null
               ? { kind: "ok", value: i }
               : l.has(m) || l.size + 1 >= u
-                ? W(e, "pagination", "generic")
+                ? q(e, "pagination", "generic")
                 : (l.add(m), c(m));
           });
           return function (t) {
@@ -184,75 +202,75 @@ __d(
         })();
       return c(null);
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return N(e, yield M(e, t, { retry: !0 }), n);
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return M(e, yield w(e, t, { retry: !0 }), n);
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield M(e, function (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield w(e, function (e) {
             return e.permissionSetSettings(t);
           });
-          return N(
+          return M(
             e,
             n,
             o("WAWebHatchPermissionsDecoder").decodeHatchPermissionSettings,
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e, t, n) {
-      return P.apply(this, arguments);
+    function P(e, t, n) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield M(e, t, n);
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield w(e, t, n);
           return r.kind === "ok" ? { kind: "ok", value: null } : r;
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t, n) {
+    function M(e, t, n) {
       if (t.kind !== "ok") return t;
       var r = n(t.value);
       return r == null
-        ? W(e, "malformed", "generic")
+        ? q(e, "malformed", "generic")
         : { kind: "ok", value: r };
     }
-    function M(e, t, n) {
-      return w.apply(this, arguments);
+    function w(e, t, n) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r, a;
           try {
             a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
           } catch (t) {
-            return W(e, "connect_failed", "offline");
+            return q(e, "connect_failed", "offline");
           }
-          if (a == null) return W(e, "no_session", "offline");
-          var i = yield O(a, t);
+          if (a == null) return q(e, "no_session", "offline");
+          var i = yield B(a, t);
           if (
             (((r = i) == null ? void 0 : r.kind) === "Failure" &&
               (n == null ? void 0 : n.retry) === !0 &&
-              (i = yield O(a, t)),
+              (i = yield B(a, t)),
             i == null)
           )
-            return W(e, "exchange_failed", "generic");
+            return q(e, "exchange_failed", "generic");
           var l = i.kind === "Rejected" ? i.statusCode : null;
           return l === 409
             ? { kind: "conflict" }
@@ -260,12 +278,12 @@ __d(
               ? { kind: "ok", value: null }
               : i.kind === "Ok"
                 ? { kind: "ok", value: i.value }
-                : W(e, i.kind.toLowerCase(), A(i));
+                : q(e, i.kind.toLowerCase(), F(i));
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
+    function F(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -273,7 +291,7 @@ __d(
           "statusCode" in e
         ) {
           var t = e.statusCode;
-          if (F(t))
+          if (O(t))
             return o(
               "WAWebHatchPermissionsFailureReason",
             ).hatchPermissionsHttpFailureReason(t);
@@ -290,25 +308,25 @@ __d(
             : "generic";
       })(e);
     }
-    function F(e) {
+    function O(e) {
       return e != null && (e < 200 || e >= 300);
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield t(e);
           } catch (e) {
             return null;
           }
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(t, n, r) {
+    function q(t, n, r) {
       return (
         o("WALogger")
           .WARN(

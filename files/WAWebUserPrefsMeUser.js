@@ -19,15 +19,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     function d() {
-      if (o("WAWebRuntimeEnvironmentUtils").isWorker())
-        return o("WAWebWidFactory").createWid(
-          o("WAWebGlobals").getMyDeviceJid(),
-        );
-      var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+      if (o("WAWebRuntimeEnvironmentUtils").isWorker()) {
+        var e = o("WAWebGlobals").getMaybeMyDeviceJid();
+        return e == null ? null : o("WAWebWidFactory").createWid(e);
+      }
+      var t = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
         o("WAWebUserPrefsKeys").KEYS.LAST_WID_MD,
       );
-      if (typeof e == "string" && r("WAWebWid").isWid(e))
-        return o("WAWebWidFactory").createWid(e);
+      if (typeof t == "string" && r("WAWebWid").isWid(t))
+        return o("WAWebWidFactory").createWid(t);
     }
     function m(e) {
       e === void 0 && (e = !0);
@@ -71,25 +71,31 @@ __d(
       return r("nullthrows")(b(), "meLidUser");
     }
     function L() {
+      var e;
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? R()
-        : S();
+        : (e = h()) != null
+          ? e
+          : R();
     }
     function E() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? b() != null
-        : h() != null;
+        : h() != null || b() != null;
     }
     function k() {
+      var e;
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? _()
-        : p();
+        : (e = d()) != null
+          ? e
+          : _();
     }
     function I(e) {
       if (e.isLid()) return R();
@@ -246,7 +252,7 @@ __d(
       (l.getMyPrimaryForOutgoingPeerMessage = T),
       (l.getMeDisplayNameOrThrow = D),
       (l.getMeDeviceWids = x),
-      (l.setMe = $),
+      (l.setMePn = $),
       (l.setMeLid = P),
       (l.getMaybeMeDisplayName = N),
       (l.setMeDisplayName = M),

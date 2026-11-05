@@ -51,14 +51,14 @@ __d(
               .tags("logout");
           }
           try {
-            o("WAWebUserPrefsMeUser").setMe();
+            o("WAWebUserPrefsMeUser").setMePn();
           } catch (e) {
             ((t = !0),
               o("WALogger")
                 .ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "ws2:setMe error",
+                      "ws2:setMePn error",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))

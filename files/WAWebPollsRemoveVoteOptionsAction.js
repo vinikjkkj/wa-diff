@@ -17,7 +17,7 @@ __d(
             e.selectedOptionLocalIds.some(r) ||
             ((t = e.lastSuccessfulSelectedOptionLocalIds) == null
               ? void 0
-              : t.some(r)) === !0
+              : t.some(r))
           );
         });
       if (l.length !== 0) {

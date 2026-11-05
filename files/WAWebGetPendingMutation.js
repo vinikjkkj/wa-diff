@@ -21,16 +21,7 @@ __d(
         },
       );
     }
-    function u() {
-      return o("WAWebRunInTransaction").runInTransaction(
-        { PendingMutationStore: !0 },
-        function (e) {
-          var t = e.PendingMutationStore;
-          return t.getCollectionsWithPendingMutations();
-        },
-      );
-    }
-    function c(e) {
+    function u(e) {
       return o("WAWebRunInTransaction").runInTransaction(
         { PendingMutationStore: !0 },
         function (t) {
@@ -41,8 +32,7 @@ __d(
     }
     ((l.getSyncPendingMutationsByCollectionInTransaction = e),
       (l.getAllSyncPendingMutationsInTransaction = s),
-      (l.getSyncdCollectionsWithPendingMutationsInTransaction = u),
-      (l.bulkCreateSyncPendingMutationsInTransaction = c));
+      (l.bulkCreateSyncPendingMutationsInTransaction = u));
   },
   98,
 );

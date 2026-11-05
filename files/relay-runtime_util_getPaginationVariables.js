@@ -24,9 +24,10 @@ __d(
           {},
           o,
           a,
-          ((d = {}), (d[u.cursor] = r), (d[u.count] = t), d),
+          ((d = {}), (d[u.cursor] = r), d),
         );
         return (
+          (m[u.count] = t),
           c && c.cursor && (m[c.cursor] = null),
           c && c.count && (m[c.count] = null),
           m
@@ -43,13 +44,9 @@ __d(
           "Relay: `UNSTABLE_extraVariables` provided by caller should not contain count variable `%s`. This variable is automatically determined by Relay.",
           c.count,
         ));
-      var p = babelHelpers.extends(
-        {},
-        o,
-        a,
-        ((s = {}), (s[c.cursor] = r), (s[c.count] = t), s),
-      );
+      var p = babelHelpers.extends({}, o, a, ((s = {}), (s[c.cursor] = r), s));
       return (
+        (p[c.count] = t),
         u && u.cursor && (p[u.cursor] = null),
         u && u.count && (p[u.count] = null),
         p

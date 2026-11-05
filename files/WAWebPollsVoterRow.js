@@ -20,6 +20,7 @@ __d(
     "WAWebFrontendPollVoteGetters",
     "WAWebGroupAgentProfileRouting",
     "WAWebOpenGroupAgentProfile.react",
+    "WAWebOrgNameWithIcon.react",
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteModel",
     "WAWebTextSizeUtils",
@@ -28,6 +29,7 @@ __d(
     "stylex",
     "useWAWebContactFormattedUsernameOrPhoneByChat",
     "useWAWebContactValues",
+    "useWAWebOrgMemberIdentity",
     "useWAWebPollVoteValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -143,6 +145,7 @@ __d(
           n.getIsBusiness,
           n.getVerifiedName,
           n.getIsMe,
+          o("WAWebFrontendContactGetters").getIsMyContact,
         ]),
         f = _[0],
         g = _[1],
@@ -151,31 +154,35 @@ __d(
         R = _[4],
         L = _[5],
         E = _[6],
-        k = o("WAWebFrontendMsgGetters").getChat(p.unsafe()),
-        I =
+        k = _[7],
+        I = r("useWAWebOrgMemberIdentity")(u, f),
+        T = I.displayName,
+        D = I.membership,
+        x = o("WAWebFrontendMsgGetters").getChat(p.unsafe()),
+        $ =
           a != null &&
-          !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(k) &&
+          !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(x) &&
           !E &&
           o("WAWebABProps").getABPropConfigValue(
             "enable_poll_results_contact_info_entry_point",
           ),
-        T = I
+        P = $
           ? function () {
               var t = ++m;
               if (
                 !(
-                  o("WAWebChatGetters").getIsGroup(k) &&
+                  o("WAWebChatGetters").getIsGroup(x) &&
                   b(
                     o(
                       "WAWebGroupAgentProfileRouting",
-                    ).getGroupAgentProfileDestination(f, k),
+                    ).getGroupAgentProfileDestination(f, x),
                     u,
-                    k,
+                    x,
                     i,
                   )
                 )
               ) {
-                var n = o("WAWebChatGetters").getIsGroup(k)
+                var n = o("WAWebChatGetters").getIsGroup(x)
                   ? o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
                       f,
                       "poll_voter_row",
@@ -201,52 +208,61 @@ __d(
               }
             }
           : null,
-        D = r("useWAWebContactFormattedUsernameOrPhoneByChat")(k, u),
-        x = D.formattedUsernameOrPhone,
-        $ = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(k),
-        P =
+        N = r("useWAWebContactFormattedUsernameOrPhoneByChat")(x, u),
+        M = N.formattedUsernameOrPhone,
+        w = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(x),
+        A =
           o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(u) &&
-          ($ ||
+          (w ||
             (R && S === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH)),
-        N,
-        M;
+        F,
+        O;
       return (
-        P
-          ? ((N = c.jsx(h, {
-              accessibleUserName: o(
-                "WAWebChatContactUtils",
-              ).getAccessibleNotifyName(v),
-              formattedUserName: o(
-                "WAWebChatContactUtils",
-              ).getFormattedNotifyName(v),
+        T != null && !k
+          ? ((F = c.jsx(r("WAWebOrgNameWithIcon.react"), {
+              membership: D,
+              children: c.jsx(h, {
+                accessibleUserName: void 0,
+                formattedUserName: T,
+              }),
             })),
-            (M = c.jsx(o("WAWebEmojiText.react").EmojiText, {
-              direction: "auto",
-              text: x,
-            })))
-          : R && L != null
-            ? ((N = c.jsx(h, {
+            (O = null))
+          : A
+            ? ((F = c.jsx(h, {
                 accessibleUserName: o(
                   "WAWebChatContactUtils",
-                ).getAccessibleNotifyName(L),
+                ).getAccessibleNotifyName(v),
                 formattedUserName: o(
                   "WAWebChatContactUtils",
-                ).getFormattedNotifyName(L),
+                ).getFormattedNotifyName(v),
               })),
-              (M = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+              (O = c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 direction: "auto",
-                text: x,
+                text: M,
               })))
-            : ((N = c.jsx(h, {
-                accessibleUserName: void 0,
-                formattedUserName: g,
-              })),
-              (M = null)),
+            : R && L != null
+              ? ((F = c.jsx(h, {
+                  accessibleUserName: o(
+                    "WAWebChatContactUtils",
+                  ).getAccessibleNotifyName(L),
+                  formattedUserName: o(
+                    "WAWebChatContactUtils",
+                  ).getFormattedNotifyName(L),
+                })),
+                (O = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                  direction: "auto",
+                  text: M,
+                })))
+              : ((F = c.jsx(h, {
+                  accessibleUserName: void 0,
+                  formattedUserName: g,
+                })),
+                (O = null)),
         c.jsx(C, {
           id: f,
-          onClick: T,
-          primary: N,
-          primaryDetail: M,
+          onClick: P,
+          primary: F,
+          primaryDetail: O,
           secondary: c.jsx(y, { timestamp: d }),
         })
       );

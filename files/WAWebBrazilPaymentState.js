@@ -11,22 +11,31 @@ __d(
     function s(e) {
       var t;
       return (
-        ((t = S(e)) == null
+        ((t = R(e)) == null
           ? void 0
           : t[o("WAWebBrazilPaymentStateKeys").RECEIPT_AND_STATE_STAMP_KEY]) ===
         !0
       );
     }
-    function u(t) {
-      var n;
-      return L((n = S(t)) == null ? void 0 : n[e]);
+    function u(e) {
+      var t;
+      return (
+        ((t = R(e)) == null
+          ? void 0
+          : t[o("WAWebBrazilPaymentStateKeys").BUBBLE_VERSION_KEY]) !==
+        o("WAWebBrazilPaymentStateKeys").BUBBLE_VERSION_WITHOUT_ADD_RECEIPT
+      );
     }
-    function c(e) {
+    function c(t) {
+      var n;
+      return E((n = R(t)) == null ? void 0 : n[e]);
+    }
+    function d(e) {
       var t,
         n,
         r,
-        a = R(
-          (t = S(e)) == null
+        a = L(
+          (t = R(e)) == null
             ? void 0
             : t[o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY],
         );
@@ -35,33 +44,33 @@ __d(
         : {
             status:
               (n = o("WAWebPaymentDetailsModels").PaymentDetailsStatus.cast(
-                L(a.status),
+                E(a.status),
               )) != null
                 ? n
                 : null,
             actor:
               (r = o("WAWebPaymentDetailsModels").PaymentDetailsActor.cast(
-                L(a.actor),
+                E(a.actor),
               )) != null
                 ? r
                 : null,
-            statusUpdatedAtMs: E(a.updated_at),
-            receiptMsgId: L(a.receipt_message_id),
-            receiptAddedAtMs: E(a.receipt_added_at),
+            statusUpdatedAtMs: k(a.updated_at),
+            receiptMsgId: E(a.receipt_message_id),
+            receiptAddedAtMs: k(a.receipt_added_at),
           };
     }
-    function d(e) {
+    function m(e) {
       var t;
       return (t = e.status) != null
         ? t
         : o("WAWebPaymentDetailsModels").PaymentDetailsStatus.NOT_CONFIRMED;
     }
-    function m(e, t) {
+    function p(e, t) {
       var n,
         r,
         a,
         i,
-        l = S(e);
+        l = R(e);
       if (l == null) return e;
       var s = e.buttons,
         u = s[0],
@@ -89,7 +98,7 @@ __d(
         ].concat(c),
       });
     }
-    function p(e, t, n, r) {
+    function _(e, t, n, r) {
       var a = e.status,
         i =
           a != null &&
@@ -102,12 +111,12 @@ __d(
             statusUpdatedAtMs: r,
           });
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       return n < e.receiptAddedAtMs
         ? e
         : babelHelpers.extends({}, e, { receiptMsgId: t, receiptAddedAtMs: n });
     }
-    function f(e, t) {
+    function g(e, t) {
       return t < e.receiptAddedAtMs
         ? e
         : babelHelpers.extends({}, e, {
@@ -115,7 +124,7 @@ __d(
             receiptAddedAtMs: t,
           });
     }
-    function g(e, t) {
+    function h(e, t) {
       return (
         e.status === t.status &&
         e.actor === t.actor &&
@@ -124,87 +133,88 @@ __d(
         e.receiptAddedAtMs === t.receiptAddedAtMs
       );
     }
-    function h(e) {
+    function y(e) {
       var t,
-        n = (t = v(e)) == null ? void 0 : t.name;
+        n = (t = S(e)) == null ? void 0 : t.name;
       return typeof n == "string" &&
         o("WAWebBrazilPaymentStateKeys").PAYMENT_REQUEST_BUTTON_NAMES.has(n)
         ? n
         : null;
     }
-    function y(e) {
+    function C(e) {
       var t,
-        n = h(e);
+        n = y(e);
       if (n == null) return null;
-      var r = L((t = v(e)) == null ? void 0 : t.buttonParamsJson);
+      var r = E((t = S(e)) == null ? void 0 : t.buttonParamsJson);
       return n ===
         o("WAWebBrazilPaymentStateKeys").PIX_CODE_REQUEST_BUTTON_NAME &&
-        (r == null
-          ? void 0
-          : r.includes(
-              o("WAWebBizOrderDetailsParams").PaymentSettingType
-                .PIX_STATIC_CODE,
-            )) !== !0
+        !(
+          r != null &&
+          r.includes(
+            o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE,
+          )
+        )
         ? null
         : r;
     }
-    function C(e) {
-      var t = S(e),
+    function b(e) {
+      var t = R(e),
         n = t == null ? void 0 : t.payment_settings;
       return (
-        h(e) ===
+        y(e) ===
           o("WAWebBrazilPaymentStateKeys").PIX_CODE_REQUEST_BUTTON_NAME &&
-        !b(t) &&
+        !v(t) &&
         Array.isArray(n) &&
         n.some(function (e) {
           var t;
           return (
-            ((t = R(e)) == null ? void 0 : t.type) ===
+            ((t = L(e)) == null ? void 0 : t.type) ===
             o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE
           );
         })
       );
     }
-    function b(e) {
-      var t,
-        n = (t = R(e == null ? void 0 : e.order)) == null ? void 0 : t.items;
-      return Array.isArray(n) && n.length > 0;
-    }
     function v(e) {
       var t,
-        n = (t = R(e)) == null ? void 0 : t.buttons;
-      return Array.isArray(n) ? R(n[0]) : null;
+        n = (t = L(e == null ? void 0 : e.order)) == null ? void 0 : t.items;
+      return Array.isArray(n) && n.length > 0;
     }
     function S(e) {
-      var t = y(e);
+      var t,
+        n = (t = L(e)) == null ? void 0 : t.buttons;
+      return Array.isArray(n) ? L(n[0]) : null;
+    }
+    function R(e) {
+      var t = C(e);
       if (t == null) return null;
       try {
-        return R(JSON.parse(t));
+        return L(JSON.parse(t));
       } catch (e) {
         return null;
       }
     }
-    function R(e) {
+    function L(e) {
       return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
     }
-    function L(e) {
+    function E(e) {
       return typeof e == "string" && e !== "" ? e : null;
     }
-    function E(e) {
+    function k(e) {
       return typeof e == "number" && e > 0 ? e : 0;
     }
     ((l.isReceiptAndStateStamped = s),
-      (l.getPaymentNote = u),
-      (l.getBrazilPaymentState = c),
-      (l.getPaymentDetailsStatus = d),
-      (l.withBrazilPaymentState = m),
-      (l.applyStatusUpdate = p),
-      (l.applyReceiptUpdate = _),
-      (l.applyReceiptRemoval = f),
-      (l.isSameBrazilPaymentState = g),
-      (l.getPaymentRequestButtonName = h),
-      (l.getPaymentRequestParamsJson = y),
-      (l.isPixCodeRequestPayload = C));
+      (l.hasBubbleAddReceipt = u),
+      (l.getPaymentNote = c),
+      (l.getBrazilPaymentState = d),
+      (l.getPaymentDetailsStatus = m),
+      (l.withBrazilPaymentState = p),
+      (l.applyStatusUpdate = _),
+      (l.applyReceiptUpdate = f),
+      (l.applyReceiptRemoval = g),
+      (l.isSameBrazilPaymentState = h),
+      (l.getPaymentRequestButtonName = y),
+      (l.getPaymentRequestParamsJson = C),
+      (l.isPixCodeRequestPayload = b));
   },
   98,
 );

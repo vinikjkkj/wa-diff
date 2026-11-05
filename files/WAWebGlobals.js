@@ -14,30 +14,34 @@ __d(
       ((e = t), o("WABaseGlobals").setGlobals(t));
     }
     function d() {
-      var e,
-        t = (e = s().myJids) == null ? void 0 : e.deviceJid;
-      if (t == null)
+      var e = m();
+      if (e == null)
         throw r("err")("Trying to access myDeviceJid, but it's not set");
-      return o("WAJids").unsafeCoerceToPhoneDeviceJid(t);
+      return o("WAJids").unsafeCoerceToPhoneDeviceJid(e);
     }
     function m() {
+      var e,
+        t = (e = s().myJids) == null ? void 0 : e.deviceJid;
+      return t == null ? null : o("WAJids").unsafeCoerceToPhoneDeviceJid(t);
+    }
+    function p() {
       var e = s().lidDeviceJid;
       return e != null ? o("WAJids").unsafeCoerceToLidDeviceJid(e) : null;
     }
-    function p(e) {
+    function _(e) {
       s().lidDeviceJid = e;
     }
-    function _() {
+    function f() {
       var e = s().displayName;
       return e;
     }
-    function f(e) {
+    function g(e) {
       s().displayName = e;
     }
-    function g(t) {
+    function h(t) {
       e != null && (s().allowHistorySyncPutAllowDuplicate = t);
     }
-    function h() {
+    function y() {
       var t;
       return e == null
         ? !1
@@ -48,12 +52,13 @@ __d(
     ((l.areGlobalsReady = u),
       (l.setGlobals = c),
       (l.getMyDeviceJid = d),
-      (l.getMyLidDeviceJid = m),
-      (l.setMyLidDeviceJid = p),
-      (l.getMyDisplayName = _),
-      (l.setMyDisplayName = f),
-      (l.setAllowHistorySyncPutAllowDuplicate = g),
-      (l.getAllowHistorySyncPutAllowDuplicate = h));
+      (l.getMaybeMyDeviceJid = m),
+      (l.getMyLidDeviceJid = p),
+      (l.setMyLidDeviceJid = _),
+      (l.getMyDisplayName = f),
+      (l.setMyDisplayName = g),
+      (l.setAllowHistorySyncPutAllowDuplicate = h),
+      (l.getAllowHistorySyncPutAllowDuplicate = y));
   },
   98,
 );

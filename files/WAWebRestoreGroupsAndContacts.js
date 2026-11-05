@@ -45,14 +45,14 @@ __d(
     }
     var S = !1,
       R = null,
-      L = B();
+      L = O();
     function E() {
       var e = R;
-      return e != null ? ((R = null), e) : D();
+      return e != null ? ((R = null), e) : T();
     }
     function k() {
       if (!S) {
-        var t = D();
+        var t = T();
         ((R = t),
           t.catch(function (t) {
             o("WALogger").WARN(
@@ -70,9 +70,6 @@ __d(
       return L.promise;
     }
     function T() {
-      ((S = !1), (R = null), (L = B()));
-    }
-    function D() {
       ((S = !0),
         o("WAWebWamOfflineResumeReporter").OfflineResumeReporter.qpl.addPoint(
           "RestoreGroupsAndContacts_start",
@@ -81,7 +78,7 @@ __d(
         t = e.then(function () {
           return self.performance.now();
         }),
-        a = t.then(x);
+        a = t.then(D);
       b = a;
       var i = t.then(
           (function () {
@@ -128,13 +125,13 @@ __d(
                             ).OfflineResumeReporter.qpl.addPoint(
                               "WarmupAllLidMappings_end",
                             ),
-                            P(t),
-                            M(t),
+                            $(t),
+                            N(t),
                             o("WAWebContactCollection").ContactCollection.add(
                               o("WAWebApiHydrateWidsUtil").hydrateWids(t),
                               { silent: !0, merge: !0 },
                             ),
-                            o("WAWebChatCollection").ChatCollection.forEach(O),
+                            o("WAWebChatCollection").ChatCollection.forEach(F),
                             L.resolve(),
                             o(
                               "WAWebWamOfflineResumeReporter",
@@ -221,12 +218,12 @@ __d(
           })
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function $() {
+    function x() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebWamOfflineResumeReporter").OfflineResumeReporter.qpl.addPoint(
             "RestoreGroups_start",
           );
@@ -260,15 +257,15 @@ __d(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.qpl.addPoint("RestoreGroups_end"));
         })),
-        $.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function N() {
+    function P() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebApiContact").armContactHashRepairWait();
           try {
             var t = [];
@@ -299,10 +296,10 @@ __d(
             o("WAWebApiContact").markContactHashRepairComplete();
           }
         })),
-        N.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function M(e) {
+    function N(e) {
       if (!r("justknobx")._("437"))
         try {
           var t = e
@@ -323,7 +320,7 @@ __d(
                     ")",
                   ])),
                 t.length,
-                w(t),
+                M(t),
               )
               .sendLogs("contact-db-non-jid-id");
         } catch (e) {
@@ -337,7 +334,7 @@ __d(
           );
         }
     }
-    function w(e) {
+    function M(e) {
       var t = new Map([
         ["wid", 0],
         ["device", 0],
@@ -345,8 +342,8 @@ __d(
       ]);
       for (var n of e) {
         var r,
-          o = A(n),
-          a = o === "other" ? F(n) : o;
+          o = w(n),
+          a = o === "other" ? A(n) : o;
         t.set(a, ((r = t.get(a)) != null ? r : 0) + 1);
       }
       return Array.from(t, function (e) {
@@ -355,7 +352,7 @@ __d(
         return t + ": " + n;
       }).join(", ");
     }
-    function A(e) {
+    function w(e) {
       return e === ""
         ? "empty"
         : e.includes(":")
@@ -364,11 +361,11 @@ __d(
             ? "wid"
             : "other";
     }
-    function F(e) {
+    function A(e) {
       var t = e.lastIndexOf("@");
       return t === -1 ? "no-domain" : e.slice(t + 1);
     }
-    function O(e) {
+    function F(e) {
       try {
         if (
           e.trusted ||
@@ -387,7 +384,7 @@ __d(
         );
       }
     }
-    function B() {
+    function O() {
       var e = r("WAWebNoop"),
         t = new (C || (C = n("Promise")))(function (t) {
           e = t;
@@ -397,8 +394,7 @@ __d(
     ((l.waitForGroupMetadataRestore = v),
       (l.restoreGroupsAndContacts = E),
       (l.startRestoreGroupsAndContactsEarly = k),
-      (l.waitForRestoredContacts = I),
-      (l.resetRestoreGroupsAndContactsForTesting = T));
+      (l.waitForRestoredContacts = I));
   },
   98,
 );

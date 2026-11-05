@@ -209,11 +209,8 @@ __d(
     ((l.sendGetReportedMessagesRPC = e),
       (l.parseGetReportedMessagesResponseClientError = u),
       (l.parseGetReportedMessagesResponseServerError = c),
-      (l.parseGetReportedMessagesResponseSuccessReportsReportReporter = d),
-      (l.parseGetReportedMessagesResponseSuccessReportsReport = m),
       (l.parseGetReportedMessagesResponseSuccess = p),
-      (l.makeGetReportedMessagesRequest = _),
-      (l.parseGetReportedMessagesClientErrors = f));
+      (l.makeGetReportedMessagesRequest = _));
   },
   98,
 );

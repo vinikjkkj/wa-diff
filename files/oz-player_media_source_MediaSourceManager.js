@@ -449,7 +449,7 @@ __d(
                     ": " +
                     l +
                     ", support AAC-LC=" +
-                    (e.$2.constructor.isTypeSupported(
+                    ((e.$24 ? ManagedMediaSource : MediaSource).isTypeSupported(
                       "audio/mp4; codecs=mp4a.40.2",
                     )
                       ? "true"

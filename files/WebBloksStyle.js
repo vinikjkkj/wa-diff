@@ -9,10 +9,11 @@ __d(
       "@supports (height: 100dvh) {\n:root {\n--wbloks-dvh: 1dvh;\n}\n}",
     );
     function c(e, t, n, o) {
+      var a;
       (n === void 0 && (n = !1), o === void 0 && (o = null));
-      var a = u(null);
-      e.uiMutableContainer.domNode = a;
-      var i =
+      var i = u(null);
+      e.uiMutableContainer.domNode = i;
+      var l =
           n === !0
             ? {
                 pointerEvents: "auto",
@@ -20,16 +21,28 @@ __d(
                 WebkitTapHighlightColor: "transparent",
               }
             : void 0,
-        l = babelHelpers.extends({}, r("WebBloksLayout")(e), i, t),
-        s = r("WebBloksWrapper")(e, l, a, o),
-        c = s.hasWrapper,
-        m = s.stylesFromExtensions,
-        p = s.wrapper,
-        _ = s.wrapperProps;
-      return (
-        m && Object.assign(l, m),
-        { ref: a, style: c ? d : l, wrapper: p, wrapperProps: _ }
-      );
+        s = babelHelpers.extends({}, r("WebBloksLayout")(e), l, t),
+        c = r("WebBloksWrapper")(e, s, i, o),
+        m = c.hasWrapper,
+        p = c.stylesFromExtensions,
+        _ = c.wrapper,
+        f = c.wrapperProps;
+      p && Object.assign(s, p);
+      var g =
+          (a = Object.entries(s).find(function (e) {
+            var t = e[0];
+            return t === "fontVariationSettings";
+          })) == null
+            ? void 0
+            : a[1],
+        h = m
+          ? babelHelpers.extends(
+              {},
+              d,
+              typeof g == "string" ? { fontVariationSettings: g } : {},
+            )
+          : s;
+      return { ref: i, style: h, wrapper: _, wrapperProps: f };
     }
     var d = { height: "100%", width: "100%", pointerEvents: "inherit" };
     function m(e) {

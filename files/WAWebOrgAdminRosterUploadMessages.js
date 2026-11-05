@@ -1,16 +1,10 @@
 __d(
   "WAWebOrgAdminRosterUploadMessages",
-  [
-    "fbt",
-    "WALogger",
-    "WAWebOrgAdminRosterCSVParser",
-    "WAWebOrgAdminRosterUploadRequest",
-    "intlNumUtils",
-  ],
+  ["fbt", "WALogger", "WAWebOrgAdminRosterCSVParser", "intlNumUtils"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = 1048576;
-    function c(e) {
+    function c(e, t) {
       return e.code === "empty_roster"
         ? s._(
             /*BTDS*/ "Add at least one roster entry to the CSV, then try again.",
@@ -39,8 +33,7 @@ __d(
                     s._param(
                       "maximum roster entries",
                       r("intlNumUtils").formatNumberWithThousandDelimiters(
-                        o("WAWebOrgAdminRosterCSVParser")
-                          .MAX_ORG_ADMIN_ROSTER_ROWS,
+                        t,
                         0,
                       ),
                     ),
@@ -71,18 +64,14 @@ __d(
             [s._param("row number", r("intlNumUtils").formatNumber(e))],
           );
     }
-    function m(e, t, n) {
+    function m(e, t, n, o) {
       return e === "TOO_MANY_ROSTER_ENTRIES"
         ? s._(
             /*BTDS*/ "An organization can have up to {maximum people} people after an upload. Remove some rows from the file, then upload it again.",
             [
               s._param(
                 "maximum people",
-                r("intlNumUtils").formatNumberWithThousandDelimiters(
-                  o("WAWebOrgAdminRosterUploadRequest")
-                    .MAX_ORG_ADMIN_ROSTER_REPLACE_ENTRIES,
-                  0,
-                ),
+                r("intlNumUtils").formatNumberWithThousandDelimiters(o, 0),
               ),
             ],
           )

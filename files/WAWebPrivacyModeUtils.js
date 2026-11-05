@@ -7,7 +7,7 @@ __d(
       return e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Off
         ? s._(/*BTDS*/ "Off")
         : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Light
-          ? o("WAWebPrivacyModeSettingsFBT").privacyModePresetLight()
+          ? s._(/*BTDS*/ "Light")
           : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Medium
             ? s._(/*BTDS*/ "Medium")
             : o("WAWebPrivacyModeSettingsFBT").privacyModePresetStrong();

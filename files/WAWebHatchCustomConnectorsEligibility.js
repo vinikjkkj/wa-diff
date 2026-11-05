@@ -1,21 +1,20 @@
 __d(
   "WAWebHatchCustomConnectorsEligibility",
-  ["WAWebHatchFrontendGating"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
       return {
-        customConnectorsEnabled:
-          e.some(function (e) {
-            return e.isCustom;
-          }) && o("WAWebHatchFrontendGating").isHatchCustomConnectorsEnabled(),
+        customConnectorsEnabled: e.some(function (e) {
+          return e.isCustom;
+        }),
       };
     }
-    function s(t) {
+    function l(t) {
       return e(t == null ? [] : [t]);
     }
-    ((l.getHatchCustomConnectorsEligibility = e),
-      (l.getHatchCustomConnectorEligibility = s));
+    ((i.getHatchCustomConnectorsEligibility = e),
+      (i.getHatchCustomConnectorEligibility = l));
   },
-  98,
+  66,
 );

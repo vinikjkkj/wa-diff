@@ -152,6 +152,11 @@ __d(
         mimetype: e.mimetype,
         width: e.width,
         height: e.height,
+        emojis: Array.isArray(e.emojis)
+          ? e.emojis.filter(function (e) {
+              return typeof e == "string";
+            })
+          : void 0,
         index: t,
         filehash: e["file-hash"],
         directPath: e["direct-path"],

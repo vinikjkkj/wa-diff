@@ -233,7 +233,6 @@ __d(
     ((l.sendWFPingRPC = e),
       (l.parseWFPingResponseError = u),
       (l.parseWFPingResponseSuccess = c),
-      (l.parseWfPingErrors = d),
       (l.makeWFPingRequest = m));
   },
   98,

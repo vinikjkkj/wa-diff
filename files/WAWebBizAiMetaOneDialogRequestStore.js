@@ -8,9 +8,16 @@ __d(
       u = 0,
       c = null,
       d = new Set();
-    function m(e, t, n) {
+    function m(e, t, n, r) {
       ((u += 1),
-        (c = { id: u, destination: e, sessionId: t, opened: !1, onFailure: n }),
+        (c = {
+          id: u,
+          destination: e,
+          sessionId: t,
+          opened: !1,
+          onFailure: n,
+          onBeforeOpen: r,
+        }),
         d.forEach(function (e) {
           return e();
         }));

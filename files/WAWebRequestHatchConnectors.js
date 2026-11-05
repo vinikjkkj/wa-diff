@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAAbortError",
     "WALogger",
+    "WAWebHatchApiKeyGating",
     "WAWebHatchBoundChatDecoder",
     "WAWebHatchConnectInfoDecoder",
     "WAWebHatchConnectorAccountsDecoder",
@@ -35,7 +36,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = ++m,
             n = W(),
-            r = o("WAWebHatchGating").getHatchSupportedConnectActions(),
+            r = o("WAWebHatchApiKeyGating").getHatchDeclaredConnectActions(),
             a = yield P(
               function (e) {
                 return e.connectors(r, { timeoutMs: c });
@@ -47,7 +48,14 @@ __d(
               a,
             );
           if (i == null) throw O("malformed_catalog", a);
-          return (B(t, n, i), i);
+          var l =
+            r.length === 0 &&
+            o("WAWebHatchGating").getHatchSupportedConnectActions().length > 0
+              ? i.filter(function (e) {
+                  return e.state === "connected";
+                })
+              : i;
+          return (B(t, n, l), l);
         })),
         _.apply(this, arguments)
       );
@@ -322,8 +330,9 @@ __d(
     }
     function q(e) {
       if (e.kind === "unsupported") return e;
-      var t = o("WAWebHatchGating").getHatchSupportedConnectActions();
-      return t.length === 0 || t.includes(e.kind)
+      var t = o("WAWebHatchApiKeyGating").getHatchDeclaredConnectActions();
+      return o("WAWebHatchGating").getHatchSupportedConnectActions().length ===
+        0 || t.includes(e.kind)
         ? e
         : { kind: "unsupported", wireType: e.kind };
     }

@@ -7,33 +7,51 @@ __d(
       s = /^https?:\/\/[^/\\\s?#]/i,
       u = /[\s\\]/,
       c = "agent.meta.ai",
-      d = /^\/connectors\/connect\/([A-Za-z0-9_-]+)\/?$/;
-    function m() {
-      return p(
+      d = /^\/connectors\/connect\/([^/]+)\/?$/,
+      m = "/connect/api-key",
+      p = /^[A-Za-z0-9._:-]{1,128}$/,
+      _ = /[\0-\x1F\x7F-\x9F]/,
+      f = /^https:\/\/[^/?#]*:/i;
+    function g() {
+      return h(
         o("WAWebABProps").getABPropConfigValue(
           "wa_hatch_companion_onboarding_url",
         ),
       );
     }
-    function p(t) {
-      return g(t, e);
+    function h(t) {
+      return R(t, e);
     }
-    function _(e) {
-      return g(e, s);
+    function y(e) {
+      return R(e, s);
     }
-    function f(e) {
-      var t,
-        n,
-        r = p(e);
-      if (r == null) return null;
-      var o = new URL(r),
-        a = o.host,
-        i = o.pathname;
-      return a === c && (t = (n = d.exec(i)) == null ? void 0 : n[1]) != null
+    function C(e) {
+      var t, n;
+      return (t = (n = v(e)) == null ? void 0 : n.connectorId) != null
         ? t
         : null;
     }
-    function g(e, t) {
+    function b(e) {
+      var t;
+      return ((t = v(e)) == null ? void 0 : t.isApiKey) === !0;
+    }
+    function v(e) {
+      var t,
+        n = e == null || _.test(e) ? null : h(e);
+      if (n == null || f.test(n)) return null;
+      var r = new URL(n),
+        o = r.host,
+        a = r.pathname,
+        i = r.searchParams;
+      if (o !== c || i.has("spec")) return null;
+      var l = a === m,
+        s = S(l ? i.get("service") : (t = d.exec(a)) == null ? void 0 : t[1]);
+      return s == null ? null : { connectorId: s, isApiKey: l };
+    }
+    function S(e) {
+      return e != null && p.test(e) ? e : null;
+    }
+    function R(e, t) {
       var n = e == null ? void 0 : e.trim();
       if (n == null || !t.test(n) || u.test(n)) return null;
       var r;
@@ -46,10 +64,11 @@ __d(
         ? n
         : null;
     }
-    ((l.getHatchJoinUrl = m),
-      (l.toHttpsUrl = p),
-      (l.toWebUrl = _),
-      (l.getHatchConnectLinkConnectorId = f));
+    ((l.getHatchJoinUrl = g),
+      (l.toHttpsUrl = h),
+      (l.toWebUrl = y),
+      (l.getHatchConnectLinkConnectorId = C),
+      (l.isHatchApiKeyConnectLink = b));
   },
   98,
 );

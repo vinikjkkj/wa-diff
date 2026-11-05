@@ -464,27 +464,8 @@ __d(
     ((l.sendMembershipRequestsActionRPC = e),
       (l.parseMembershipRequestsActionResponseClientError = u),
       (l.parseMembershipRequestsActionResponseServerError = c),
-      (l.parseMembershipRequestsActionResponseSuccessMembershipRequestsActionApproveParticipant =
-        d),
-      (l.parseMembershipRequestsActionResponseSuccessMembershipRequestsActionApprove =
-        m),
-      (l.parseMembershipRequestsActionResponseSuccessMembershipRequestsActionRejectParticipant =
-        p),
-      (l.parseMembershipRequestsActionResponseSuccessMembershipRequestsActionReject =
-        _),
       (l.parseMembershipRequestsActionResponseSuccess = f),
-      (l.makeMembershipRequestsActionRequestMembershipRequestsActionApproveParticipant =
-        g),
-      (l.makeMembershipRequestsActionRequestMembershipRequestsActionApprove =
-        h),
-      (l.makeMembershipRequestsActionRequestMembershipRequestsActionRejectParticipant =
-        y),
-      (l.makeMembershipRequestsActionRequestMembershipRequestsActionReject = C),
-      (l.makeMembershipRequestsActionRequest = b),
-      (l.parseMembershipRequestsActionAcceptParticipantMixins = v),
-      (l.parseMembershipRequestsActionClientErrors = S),
-      (l.parseMembershipRequestsActionRejectParticipantMixins = R),
-      (l.parseMembershipRequestsActionParticipantRequestNotFoundMixin = L));
+      (l.makeMembershipRequestsActionRequest = b));
   },
   98,
 );

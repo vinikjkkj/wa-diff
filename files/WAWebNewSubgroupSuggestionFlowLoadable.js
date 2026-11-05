@@ -18,7 +18,7 @@ __d(
           )
             .__setRef("WAWebNewSubgroupSuggestionFlowLoadable")
             .load();
-          return e.NewSubgroupSuggestionFlow;
+          return e;
         }),
         "NewSubgroupSuggestionFlow",
       ),

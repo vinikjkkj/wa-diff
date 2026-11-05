@@ -1,6 +1,7 @@
 __d(
   "WAWebSearchFirstPartyStickersAction",
   [
+    "JSResourceForInteraction",
     "WAWebABProps",
     "WAWebCurrentUser",
     "WAWebL10NCountryCodes",
@@ -23,14 +24,17 @@ __d(
       c = "/wa/static/sticker",
       d = 300 * 1e3,
       m = 20,
-      p = new Map(),
-      _;
-    function f(e, t) {
-      return g.apply(this, arguments);
+      p = r("JSResourceForInteraction")(
+        "WAWebRecentStickerCollectionMd",
+      ).__setRef("WAWebSearchFirstPartyStickersAction"),
+      _ = new Map(),
+      f;
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i =
               (a = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
@@ -42,62 +46,64 @@ __d(
             o(
               "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
             ).compareCountryCodeOutput(i, l, "searchFirstPartyStickers");
-          for (var f = l || "default", g = 0, h = 0; g <= e; )
+          for (var p = l || "default", g = 0, h = 0; g <= e; )
             g += 3 + encodeURIComponent(t[h++]).length;
-          var y = t.slice(0, h - 1).join(","),
-            C = { country: f },
-            b = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
-            v = b === s ? "" + b + u : "" + b + c,
-            S = o("WAWebStickerUtils").getStickerFetchParamsFromABConfig(),
-            R = o("WAWebABProps").getABPropConfigValue(
+          var C = t.slice(0, h - 1).join(","),
+            b = { country: p },
+            v = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
+            S = v === s ? "" + v + u : "" + v + c,
+            R = o("WAWebStickerUtils").getStickerFetchParamsFromABConfig(),
+            L = y(),
+            E = o("WAWebABProps").getABPropConfigValue(
               "sticker_suggestion_enabled",
             );
-          R && _ !== i && (p.clear(), (_ = i));
-          var L = r("WAWebURLUtils").build(
-            v,
+          E && f !== i && (_.clear(), (f = i));
+          var k = r("WAWebURLUtils").build(
+            S,
             babelHelpers.extends(
               {},
-              S,
-              { cat: "sticker_search", terms: y, _nc_cat: 1 },
-              C,
+              R,
+              L,
+              { cat: "sticker_search", terms: C, _nc_cat: 1 },
+              b,
             ),
           );
-          if (R) {
-            var E = p.get(L);
-            if (E != null && E.expiresAt > Date.now()) return E.stickers;
-            p.delete(L);
+          if (E) {
+            var I = _.get(k);
+            if (I != null && I.expiresAt > Date.now()) return I.stickers;
+            _.delete(k);
           }
-          var k = new (o(
+          var T = new (o(
             "WAWebStickerCommonQueryToStaticServerWamEvent",
           ).StickerCommonQueryToStaticServerWamEvent)();
-          k.startQueryLatencyMs();
-          var I = yield r("WAWebPonyfillsFetch")(L, {
+          T.startQueryLatencyMs();
+          var D = yield r("WAWebPonyfillsFetch")(k, {
             signal: n == null ? void 0 : n.signal,
           });
           if (
-            (k.markQueryLatencyMs(),
-            k.set({
-              httpResponseCode: I.status,
-              params: new URLSearchParams(C).toString(),
+            (T.markQueryLatencyMs(),
+            T.set({
+              httpResponseCode: D.status,
+              params: new URLSearchParams(b).toString(),
               queryType: o("WAWebWamEnumQueryType").QUERY_TYPE.STICKER_SEARCH,
             }),
-            k.commit(),
-            !I.ok)
+            T.commit(),
+            !D.ok)
           )
             throw new (o("WAWebServerErrors").InvalidServerResponseError)(
-              L,
-              I.status.toString(),
+              k,
+              D.status.toString(),
               "Invalid response from WhatsApp stickers endpoint",
             );
-          var T = yield I.json();
-          if (T == null)
+          var x = yield D.json();
+          if (x == null)
             throw new (o("WAWebServerErrors").InvalidServerResponseError)(
-              L,
-              I.status.toString(),
+              k,
+              D.status.toString(),
               "Invalid response from WhatsApp stickers endpoint: " +
-                JSON.stringify(T),
+                JSON.stringify(x),
             );
-          var D = T.map(function (e, t) {
+          var $ = x.map(function (e, t) {
             return new (o("WAWebStickerModel").StickerModel)({
               mimetype: e.mimetype,
               width: e.width,
@@ -112,22 +118,31 @@ __d(
             });
           });
           if (
-            D.length > 0 &&
-            R &&
+            $.length > 0 &&
+            E &&
             ((n == null ? void 0 : n.signal) == null || !n.signal.aborted)
           ) {
-            if (p.size >= m) {
-              var x = p.keys().next().value;
-              x != null && p.delete(x);
+            if (_.size >= m) {
+              var P = _.keys().next().value;
+              P != null && _.delete(P);
             }
-            p.set(L, { expiresAt: Date.now() + d, stickers: D });
+            _.set(k, { expiresAt: Date.now() + d, stickers: $ });
           }
-          return D;
+          return $;
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.searchFirstPartyStickers = f;
+    function y() {
+      var e,
+        t = p.getModuleIfRequired();
+      return o("WAWebStickerUtils").getPremiumParams(
+        (e = t == null ? void 0 : t.RecentStickerCollectionMd.length) != null
+          ? e
+          : 0,
+      );
+    }
+    l.searchFirstPartyStickers = g;
   },
   98,
 );

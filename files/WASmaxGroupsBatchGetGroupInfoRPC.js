@@ -258,15 +258,8 @@ __d(
     ((l.sendBatchGetGroupInfoRPC = e),
       (l.parseBatchGetGroupInfoResponseClientError = u),
       (l.parseBatchGetGroupInfoResponseServerError = c),
-      (l.parseBatchGetGroupInfoResponseSuccessGroupsGroup = d),
       (l.parseBatchGetGroupInfoResponseSuccess = m),
-      (l.parseGroupInfoOrTruncatedGroupInfoOrGroupForbiddenOrGroupNotExistMixinGroup =
-        p),
-      (l.parseGroupNotExistMixin = _),
-      (l.makeBatchGetGroupInfoRequestQueryGroup = f),
-      (l.makeBatchGetGroupInfoRequest = g),
-      (l.parseBatchGetGroupInfoClientErrors = h),
-      (l.parseGroupForbiddenMixin = y));
+      (l.makeBatchGetGroupInfoRequest = g));
   },
   98,
 );

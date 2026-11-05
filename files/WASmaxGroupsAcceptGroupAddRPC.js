@@ -262,8 +262,7 @@ __d(
       (l.parseAcceptGroupAddResponseGroupJoinRequestSuccess = c),
       (l.parseAcceptGroupAddResponseServerError = d),
       (l.parseAcceptGroupAddResponseSuccess = m),
-      (l.makeAcceptGroupAddRequest = p),
-      (l.parseAcceptGroupAddClientErrors = _));
+      (l.makeAcceptGroupAddRequest = p));
   },
   98,
 );

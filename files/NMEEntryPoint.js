@@ -1047,6 +1047,8 @@ __d(
         "meta_subs_ig_integrity_violation_appeal_result_notif",
       META_SUBS_IG_INTEGRITY_VIOLATION_NOTIF:
         "meta_subs_ig_integrity_violation_notif",
+      META_SUBS_IG_LINF_BENEFITS_UNLOCKED_NOTIF:
+        "meta_subs_ig_linf_benefits_unlocked_notif",
       META_SUBS_IG_META_ONE_SUB_COMPLETION_NOTIF:
         "meta_subs_ig_meta_one_sub_completion_notif",
       META_SUBS_IG_META_PLUS_BADGE_REVOCATION_NOTIF:

@@ -140,7 +140,7 @@ __d(
                         : {
                             actionText: s._(/*BTDS*/ "Undo"),
                             actionHandler: function () {
-                              return S != null && v != null
+                              return (S != null || b != null) && v != null
                                 ? h({
                                     duration: v,
                                     emoji: b,

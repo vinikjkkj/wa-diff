@@ -1,6 +1,7 @@
 __d(
   "WAWebNotificationIcon",
   [
+    "Promise",
     "WAAbortError",
     "WALogger",
     "WAWebAssetLoader",
@@ -19,8 +20,9 @@ __d(
       s,
       u,
       c,
-      d = "v4";
-    function m(e) {
+      d,
+      m = "v4";
+    function p(e) {
       var t = [];
       e > 0 && t.push("(" + r("WAWebL10N").n(e) + ")");
       var a = n("cr:16769") == null ? void 0 : n("cr:16769").getTitle();
@@ -33,70 +35,79 @@ __d(
       (o("WAWebCometRouterMetaManager").updateUnreadTitle(i),
         o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa() &&
           o("WAWebPwaDocumentMetadataUtils").setAppBadge(e),
-        f(e));
+        g(e));
     }
-    var p;
-    function _() {
+    var _;
+    function f() {
       var e;
-      ((p = null),
+      ((_ = null),
         (e = document.getElementById("favicon")) == null || e.remove());
     }
-    function f(t) {
-      var n;
+    function g(t) {
+      var a;
       if (!o("WAWebUA").UA.isSafari) {
-        var a;
-        (t === -1
-          ? (a = "favicon-error2")
+        var i;
+        t === -1
+          ? (i = "favicon-error2")
           : t === 0
-            ? (a = "favicon")
+            ? (i = "favicon")
             : t < 10
-              ? (a = "f0" + t)
+              ? (i = "f0" + t)
               : t < 100
-                ? (a = "f" + t)
-                : (a = "f00"),
-          (p = a),
-          (n = document.getElementById("favicon")) == null || n.remove());
-        var i = {
-          id: a + "-" + d,
-          low: { default: "/favicon/1x/" + a + "/" + d + "/" },
-          high: { default: "/favicon/2x/" + a + "/" + d + "/" },
-        };
-        o("WAWebAssetLoaderSingleton")
-          .AssetLoader.loadAsset(
-            i,
-            o("WAWebAssetLoader").LOAD_PRIORITY.NOTIFICATION_ICON,
-            !1,
-          )
-          .then(function (t) {
-            if (p !== a) {
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[favicon] skipped: ",
-                    " because of newer favicon: ",
-                    "",
-                  ])),
-                a,
-                p,
-              );
-              return;
-            }
-            var n = document.createElement("link");
-            (n.setAttribute("id", "favicon"),
-              n.setAttribute("rel", "icon"),
-              n.setAttribute("type", "image/png"),
-              n.setAttribute("href", t));
-            var r = document.getElementsByTagName("head");
-            (r != null && r[0] && r[0].appendChild(n),
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[favicon] updated: ",
-                    "",
-                  ])),
-                a,
-              ));
-          })
+                ? (i = "f" + t)
+                : (i = "f00");
+        var l =
+            t === 0
+              ? n("cr:16769") == null
+                ? void 0
+                : n("cr:16769").getFaviconUrl()
+              : null,
+          p = l != null ? "favicon-internal-product" : i;
+        ((_ = p),
+          (a = document.getElementById("favicon")) == null || a.remove());
+        var f = {
+            id: i + "-" + m,
+            low: { default: "/favicon/1x/" + i + "/" + m + "/" },
+            high: { default: "/favicon/2x/" + i + "/" + m + "/" },
+          },
+          g =
+            l != null
+              ? (d || (d = n("Promise"))).resolve(l)
+              : o("WAWebAssetLoaderSingleton").AssetLoader.loadAsset(
+                  f,
+                  o("WAWebAssetLoader").LOAD_PRIORITY.NOTIFICATION_ICON,
+                  !1,
+                );
+        g.then(function (t) {
+          if (_ !== p) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[favicon] skipped: ",
+                  " because of newer favicon: ",
+                  "",
+                ])),
+              p,
+              _,
+            );
+            return;
+          }
+          var n = document.createElement("link");
+          (n.setAttribute("id", "favicon"),
+            n.setAttribute("rel", "icon"),
+            n.setAttribute("type", "image/png"),
+            n.setAttribute("href", t));
+          var r = document.getElementsByTagName("head");
+          (r != null && r[0] && r[0].appendChild(n),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[favicon] updated: ",
+                  "",
+                ])),
+              i,
+            ));
+        })
           .catch(
             o("WAAbortError").catchAbort(function () {
               o("WALogger").LOG(
@@ -105,7 +116,7 @@ __d(
                     "[favicon] update aborted: ",
                     "",
                   ])),
-                a,
+                i,
               );
             }),
           )
@@ -117,14 +128,14 @@ __d(
                     "[favicon] update failed id=",
                     "",
                   ])),
-                i.id,
+                f.id,
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("favicon-fetch-error");
           });
       }
     }
-    ((l.setTitleAndIcon = m), (l.clearIcon = _));
+    ((l.setTitleAndIcon = p), (l.clearIcon = f));
   },
   98,
 );

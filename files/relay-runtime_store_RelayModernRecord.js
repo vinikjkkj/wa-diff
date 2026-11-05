@@ -52,31 +52,35 @@ __d(
           n !== R &&
           (t[n] = e[n]);
     }
-    function k(e, t) {
+    function k(e, t, n) {
+      Object.prototype.hasOwnProperty.call(e, n) &&
+        ((t[n] = e[n]), V(t, n, P(e, n)));
+    }
+    function I(e, t) {
       var n = {};
       return ((n[h] = e), (n[R] = t), n);
     }
-    function I(e) {
+    function T(e) {
       return e;
     }
-    function T(e) {
+    function D(e) {
       return e[h];
     }
-    function D(e) {
+    function x(e) {
       return g in e
         ? Object.keys(e).filter(function (e) {
             return e !== g;
           })
         : Object.keys(e);
     }
-    function x(e) {
+    function $(e) {
       return e[R];
     }
-    function $(e, t) {
+    function P(e, t) {
       var n;
       return (n = e[g]) == null ? void 0 : n[t];
     }
-    function P(e, t) {
+    function N(e, t) {
       var n = e[t];
       return (
         n &&
@@ -95,10 +99,10 @@ __d(
         n
       );
     }
-    function N(e, t) {
+    function M(e, t) {
       return t in e;
     }
-    function M(e, t) {
+    function w(e, t) {
       var n = e[t];
       if (n == null) return n;
       var r = n;
@@ -117,13 +121,13 @@ __d(
         r[C]
       );
     }
-    function w(e, t) {
+    function A(e, t) {
       var n = e[t];
       if (n == null) return !1;
       var r = n;
       return typeof r == "object" && r && typeof r[C] == "string";
     }
-    function A(e, t) {
+    function F(e, t) {
       var n = e[t];
       return n == null
         ? n
@@ -140,7 +144,7 @@ __d(
             ),
           n[b]);
     }
-    function F(e, t) {
+    function O(e, t) {
       var n = e[t];
       return n == null
         ? !1
@@ -150,14 +154,14 @@ __d(
               return typeof e == "string";
             });
     }
-    function O(e) {
+    function B(e) {
       if (e == null) return null;
       var t = e[y];
       return typeof t != "number" ? null : t;
     }
-    function B(t, r) {
+    function W(t, r) {
       if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH)
-        return te(t, r);
+        return ne(t, r);
       var o = t[g],
         a = r[g],
         i = null;
@@ -182,11 +186,11 @@ __d(
             ((i = babelHelpers.extends({}, t)),
               o != null && (i[g] = babelHelpers.extends({}, o)));
           }
-          (V(i, s, u), U(i, s, c));
+          (H(i, s, u), V(i, s, c));
         }
       return i != null ? i : t;
     }
-    function W(e, t) {
+    function q(e, t) {
       if (g in e || g in t) {
         var n = e[g],
           r = babelHelpers.objectWithoutPropertiesLoose(e, [g].map(c)),
@@ -205,10 +209,10 @@ __d(
         return i;
       } else return babelHelpers.extends({}, e, t);
     }
-    function q(e) {
+    function U(e) {
       (s || (s = n("relay-runtime/util/deepFreeze")))(e);
     }
-    function U(e, t, n) {
+    function V(e, t, n) {
       var r = e[g];
       if (n != null && n.length > 0)
         if (r == null) {
@@ -220,22 +224,22 @@ __d(
         delete e[g];
       }
     }
-    function V(e, t, n) {
-      e[t] = n;
-    }
     function H(e, t, n) {
-      var r = {};
-      ((r[C] = n), (e[t] = r));
+      e[t] = n;
     }
     function G(e, t, n) {
       var r = {};
+      ((r[C] = n), (e[t] = r));
+    }
+    function z(e, t, n) {
+      var r = {};
       ((r[b] = n), (e[t] = r));
     }
-    function z(e, t, n, r) {
+    function j(e, t, n, r) {
       var o = {};
       ((o[C] = r), (o[f] = n), (e[t] = o));
     }
-    function j(e, t) {
+    function K(e, t) {
       var n = e[t];
       return n == null
         ? n
@@ -243,16 +247,16 @@ __d(
             l(0, 45087, e[h], t, JSON.stringify(n)),
           [n[f], n[C]]);
     }
-    function K(e, t) {
-      var n = P(e, v);
+    function Q(e, t) {
+      var n = N(e, v);
       return n == null || _(n)
         ? null
         : (typeof n == "object" && (n = n.id),
           typeof n == "string" || l(0, 67949, JSON.stringify(n)),
           m(t, n));
     }
-    function Q(e, t) {
-      var n = P(e, v);
+    function X(e, t) {
+      var n = N(e, v);
       return n == null || _(n)
         ? null
         : (Array.isArray(n) || l(0, 67947, JSON.stringify(n)),
@@ -264,19 +268,19 @@ __d(
                 m(t, e));
           }));
     }
-    function X(t, r, o) {
+    function Y(t, r, o) {
       var a, i;
       if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH)
-        return ne(t, r, o);
+        return re(t, r, o);
       if (!(e || (e = n("areEqual")))(t[o], r[o])) return !0;
       var l = (a = t[g]) == null ? void 0 : a[o],
         s = (i = r[g]) == null ? void 0 : i[o];
       return !(e || (e = n("areEqual")))(l, s);
     }
-    function Y(e) {
+    function J(e) {
       return e;
     }
-    function J(t, r) {
+    function Z(t, r) {
       if (t === r) return typeof t != "number" || t !== 0 || Object.is(t, r);
       if (
         t == null ||
@@ -288,20 +292,20 @@ __d(
       var o = t[C];
       if (typeof o == "string") {
         if (r[C] !== o) return !1;
-        if (Z(t, C) && Z(r, C)) return !0;
+        if (ee(t, C) && ee(r, C)) return !0;
       } else {
         var a = t[b],
           i = r[b];
-        if (Array.isArray(a) && Array.isArray(i) && Z(t, b) && Z(r, b))
-          return ee(a, i);
+        if (Array.isArray(a) && Array.isArray(i) && ee(t, b) && ee(r, b))
+          return te(a, i);
       }
       return (e || (e = n("areEqual")))(t, r);
     }
-    function Z(e, t) {
+    function ee(e, t) {
       for (var n in e) if (n !== t) return !1;
       return !0;
     }
-    function ee(t, r) {
+    function te(t, r) {
       if (t === r) return !0;
       if (t.length !== r.length) return !1;
       for (var o = t.length - 1; o >= 0; o--) {
@@ -316,13 +320,13 @@ __d(
       }
       return !0;
     }
-    function te(e, t) {
+    function ne(e, t) {
       var n = e[g],
         r = t[g],
         o = null;
       if (n == null && r == null) {
         for (var a in t)
-          (o || !J(e[a], t[a])) &&
+          (o || !Z(e[a], t[a])) &&
             ((o = o !== null ? o : babelHelpers.extends({}, e)), (o[a] = t[a]));
         return o != null ? o : e;
       }
@@ -333,50 +337,51 @@ __d(
           if (o == null) {
             var u = e[i],
               c = n == null ? void 0 : n[i];
-            if (J(u, l) && J(c, s)) continue;
+            if (Z(u, l) && Z(c, s)) continue;
             ((o = babelHelpers.extends({}, e)),
               n != null && (o[g] = babelHelpers.extends({}, n)));
           }
-          (V(o, i, l), U(o, i, s));
+          (H(o, i, l), V(o, i, s));
         }
       return o != null ? o : e;
     }
-    function ne(e, t, n) {
+    function re(e, t, n) {
       var r, o;
-      if (!J(e[n], t[n])) return !0;
+      if (!Z(e[n], t[n])) return !0;
       var a = (r = e[g]) == null ? void 0 : r[n],
         i = (o = t[g]) == null ? void 0 : o[n];
-      return !J(a, i);
+      return !Z(a, i);
     }
     a.exports = {
       clone: L,
+      copyField: k,
       copyFields: E,
-      create: k,
-      freeze: q,
-      fromObject: I,
-      getActorLinkedRecordID: j,
-      getDataID: T,
-      getErrors: $,
-      getFields: D,
-      getInvalidationEpoch: O,
-      getLinkedRecordID: M,
-      getLinkedRecordIDs: A,
-      getResolverLinkedRecordID: K,
-      getResolverLinkedRecordIDs: Q,
-      getType: x,
-      getValue: P,
-      hasFieldChanged: X,
-      hasLinkedRecordID: w,
-      hasLinkedRecordIDs: F,
-      hasValue: N,
-      merge: W,
-      setActorLinkedRecordID: z,
-      setErrors: U,
-      setLinkedRecordID: H,
-      setLinkedRecordIDs: G,
-      setValue: V,
-      toJSON: Y,
-      update: B,
+      create: I,
+      freeze: U,
+      fromObject: T,
+      getActorLinkedRecordID: K,
+      getDataID: D,
+      getErrors: P,
+      getFields: x,
+      getInvalidationEpoch: B,
+      getLinkedRecordID: w,
+      getLinkedRecordIDs: F,
+      getResolverLinkedRecordID: Q,
+      getResolverLinkedRecordIDs: X,
+      getType: $,
+      getValue: N,
+      hasFieldChanged: Y,
+      hasLinkedRecordID: A,
+      hasLinkedRecordIDs: O,
+      hasValue: M,
+      merge: q,
+      setActorLinkedRecordID: j,
+      setErrors: V,
+      setLinkedRecordID: G,
+      setLinkedRecordIDs: z,
+      setValue: H,
+      toJSON: J,
+      update: W,
     };
   },
   null,

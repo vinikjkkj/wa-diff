@@ -73,7 +73,23 @@ __d(
                   C,
                   a,
                 ) != null,
-              I = a.isStatusStanza === !0 ? "status" : void 0;
+              I = a.isStatusStanza === !0 ? "status" : void 0,
+              T = function () {
+                o("WAWebHandleMsgSendAck").sendAck({
+                  externalId: p,
+                  from: C,
+                  participant: R,
+                  stanzaClass: I,
+                  type: y,
+                });
+              },
+              D = function (t, n) {
+                if ((l == null ? void 0 : l.canNack) === !1) {
+                  T();
+                  return;
+                }
+                o("WAWebHandleMsgSendAck").sendNack(p, C, y, R, t, n, I);
+              };
             if (i.result == null)
               return (
                 o("WALogger")
@@ -86,21 +102,15 @@ __d(
                     i.result,
                   )
                   .sendLogs("send-receipt-missing-e2e-process-result"),
-                o("WAWebHandleMsgSendAck").sendAck({
-                  externalId: p,
-                  from: C,
-                  participant: R,
-                  stanzaClass: I,
-                  type: y,
-                })
+                T()
               );
-            var T = g(i);
-            function D(e) {
-              return x.apply(this, arguments);
+            var x = g(i);
+            function $(e) {
+              return P.apply(this, arguments);
             }
-            function x() {
+            function P() {
               return (
-                (x = n("asyncToGeneratorRuntime").asyncToGenerator(
+                (P = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var t = e.errorReason,
                       n = e.label,
@@ -128,17 +138,11 @@ __d(
                         )
                         .catching(r("getErrorSafe")(e))
                         .sendLogs(t),
-                        o("WAWebHandleMsgSendAck").sendAck({
-                          externalId: p,
-                          from: C,
-                          participant: R,
-                          stanzaClass: I,
-                          type: y,
-                        }));
+                        T());
                     }
                   },
                 )),
-                x.apply(this, arguments)
+                P.apply(this, arguments)
               );
             }
             e: {
@@ -150,7 +154,7 @@ __d(
                     .SIGNAL_OLD_COUNTER_ERROR
               ) {
                 if (_(t)) {
-                  yield D({
+                  yield $({
                     errorReason: "coexv2-sender-receipt-error",
                     label: "sender",
                     send: o("WAWebCoexV2SendReceipt").sendCoexV2SenderReceipt,
@@ -158,7 +162,7 @@ __d(
                   return;
                 }
                 if (f(t)) {
-                  yield D({
+                  yield $({
                     errorReason: "coexv2-delivery-receipt-error",
                     label: "delivery",
                     send: o("WAWebCoexV2SendReceipt").sendCoexV2DeliveryReceipt,
@@ -169,29 +173,23 @@ __d(
                   E &&
                   (l == null ? void 0 : l.sendsGroupAgentDeliveryReceipt) !== !0
                 ) {
-                  var $, P, N;
+                  var N, M, w;
                   return (
                     t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT
-                      ? (($ = t.author), (P = t.chat))
-                      : (($ = t.chat), (N = t.author)),
+                      ? ((N = t.author), (M = t.chat))
+                      : ((N = t.chat), (w = t.author)),
                     o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks({
                       messageIds: [p],
-                      participant: N,
-                      recipient: P,
-                      to: $,
+                      participant: w,
+                      recipient: M,
+                      to: N,
                     })
                   );
                 } else if (
                   a.type ===
                   o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.medianotify
                 )
-                  return o("WAWebHandleMsgSendAck").sendAck({
-                    externalId: p,
-                    from: C,
-                    participant: R,
-                    stanzaClass: I,
-                    type: y,
-                  });
+                  return T();
                 return o(
                   "WAWebSendDeliveryReceiptJob",
                 ).sendDeliveryReceiptsAfterDecryption({
@@ -199,7 +197,7 @@ __d(
                   isStatusContext: k,
                   msgId: p,
                   participant: R,
-                  receiptModeBitmask: T,
+                  receiptModeBitmask: x,
                   recipient: b,
                   response: i,
                   sendsGroupAgentDeliveryReceipt:
@@ -227,10 +225,10 @@ __d(
               if (
                 i.result === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY
               ) {
-                var M = i.retryCount == null ? 1 : i.retryCount + 1,
-                  w = i.failedEnc;
+                var A = i.retryCount == null ? 1 : i.retryCount + 1,
+                  F = i.failedEnc;
                 (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
-                  retryCount: M,
+                  retryCount: A,
                   to: C,
                   participant: R,
                   recipient: b,
@@ -239,20 +237,20 @@ __d(
                   isPeer: L,
                   retryReason: i.retryReason,
                   isStateless: (C == null ? void 0 : C.isHosted()) === !0,
-                  receiptModeBitmask: T,
+                  receiptModeBitmask: x,
                   failedEncType: i.failedEncType,
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",
                   ).maybePostMessageHighRetryCountMetric({
                     isPq:
-                      (w == null ? void 0 : w.sessionType) != null
-                        ? w.sessionType === "pq"
+                      (F == null ? void 0 : F.sessionType) != null
+                        ? F.sessionType === "pq"
                         : void 0,
                     msgInfo: t,
-                    retryCount: M,
+                    retryCount: A,
                     sessionScope:
-                      w != null
+                      F != null
                         ? o(
                             "WAWebSessionScopeWamUtils",
                           ).getIncomingSkdmSessionScope({
@@ -268,63 +266,29 @@ __d(
               if (
                 i.result === o("WAWebHandleMsgTypes").E2EProcessResult.BACKFILL
               )
-                return o("WAWebHandleMsgSendAck").sendAck({
-                  externalId: p,
-                  from: C,
-                  participant: R,
-                  stanzaClass: I,
-                  type: y,
-                });
+                return T();
               if (
                 i.result ===
                 o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_VALIDATION_ERROR
               )
-                return (l == null ? void 0 : l.canNack) === !1
-                  ? o("WAWebHandleMsgSendAck").sendAck({
-                      externalId: p,
-                      from: C,
-                      participant: R,
-                      stanzaClass: I,
-                      type: y,
-                    })
-                  : o("WAWebHandleMsgSendAck").sendNack(
-                      p,
-                      C,
-                      y,
-                      R,
-                      o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf,
-                      i.e2eFailureReason,
-                      I,
-                    );
+                return D(
+                  o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf,
+                  i.e2eFailureReason,
+                );
               if (
                 i.result ===
                 o("WAWebHandleMsgTypes").E2EProcessResult.PARSE_ERROR
               ) {
-                var A;
-                return (l == null ? void 0 : l.canNack) === !1
-                  ? o("WAWebHandleMsgSendAck").sendAck({
-                      externalId: p,
-                      from: C,
-                      participant: R,
-                      stanzaClass: I,
-                      type: y,
-                    })
-                  : o("WAWebHandleMsgSendAck").sendNack(
-                      p,
-                      C,
-                      y,
-                      R,
-                      (A = i.nackReason) != null
-                        ? A
-                        : o("WAWebCreateNackFromStanza").NackReason
-                            .ParsingError,
-                      void 0,
-                      I,
-                    );
+                var O;
+                return D(
+                  (O = i.nackReason) != null
+                    ? O
+                    : o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                );
               }
               if (
                 i.result === o("WAWebHandleMsgTypes").E2EProcessResult.DEFERRED
-              )
+              ) {
                 return (
                   o("WALogger")
                     .ERROR(
@@ -338,25 +302,10 @@ __d(
                     .sendLogs("send-receipt-unexpected-deferred", {
                       sampling: 0.01,
                     }),
-                  (l == null ? void 0 : l.canNack) === !1
-                    ? o("WAWebHandleMsgSendAck").sendAck({
-                        externalId: p,
-                        from: C,
-                        participant: R,
-                        stanzaClass: I,
-                        type: y,
-                      })
-                    : o("WAWebHandleMsgSendAck").sendNack(
-                        p,
-                        C,
-                        y,
-                        R,
-                        o("WAWebCreateNackFromStanza").NackReason
-                          .UnhandledError,
-                        void 0,
-                        I,
-                      )
+                  D(o("WAWebCreateNackFromStanza").NackReason.UnhandledError)
                 );
+                break e;
+              }
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                   i.result,

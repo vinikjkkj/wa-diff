@@ -13,6 +13,7 @@ __d(
     "WAWebHandleUsernameSync",
     "WAWebMexUsersGetUsername",
     "WAWebSetUsernameJob",
+    "WAWebUpdateDisappearingModeForContact",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebUsync",
@@ -20,23 +21,24 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return e.isLid()
-        ? m({ type: "lid", wid: e }, t)
-        : m({ type: "phone", phone: "+" + e.toString() }, t);
-    }
+    var e, s, u, c;
     function d(e, t) {
-      return m({ type: "phone", phone: e }, t);
+      return e.isLid()
+        ? p({ type: "lid", wid: e }, t)
+        : p({ type: "phone", phone: "+" + e.toString() }, t);
     }
     function m(e, t) {
-      return p.apply(this, arguments);
+      return p({ type: "phone", phone: e }, t);
     }
-    function p() {
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WAWebUsyncUser").USyncUser)(),
             r = new (o("WAWebUsync").USyncQuery)();
           (e.type === "phone"
@@ -45,9 +47,9 @@ __d(
             : n.withId(e.wid),
             o("WAWebABProps").getABPropConfigValue(
               "username_antiscraping_send_cached_un",
-            ) === !0 && (yield g(n, e)),
+            ) === !0 && (yield C(n, e)),
             o("WAWebContactSyncPrivacyHints").usyncPrivacyHintsEnabled() &&
-              (yield y(n, e)),
+              (yield v(n, e)),
             r.withUser(n),
             r.withBusinessProtocol(),
             r.withDisappearingModeProtocol(),
@@ -100,50 +102,81 @@ __d(
             d = u.contact,
             m = u.disappearing_mode,
             p = u.id,
-            f = u.lid,
-            h = u.pn,
-            C = u.username,
-            b = _(m);
+            _ = u.lid,
+            g = u.pn,
+            y = u.username,
+            b = h(m);
           if (e.type === "phone" && (d == null ? void 0 : d.type) !== "in")
             return (
               o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
               null
             );
-          var v = {
+          var S = {
             wid: p,
             biz: c != null,
             bizInfo: c,
             isUsernameSearch: e.type === "phone" ? !1 : void 0,
           };
           (o("WAWebUsernameGatingUtils").usernameSearchEnabled() &&
-            C != null &&
-            (v.username = C),
-            b != null && (v.disappearingMode = b));
-          var S = null,
-            R = null;
+            y != null &&
+            (S.username = y),
+            b != null && (S.disappearingMode = b));
+          var R = null,
+            L = null;
           return (
             p.isLid()
-              ? ((S = h), (R = p))
-              : ((S = p),
-                f != null &&
-                  (R = o("WAWebWidFactory").createUserWidOrThrow(f, "lid"))),
-            S != null &&
-              R != null &&
+              ? ((R = g), (L = p))
+              : ((R = p),
+                _ != null &&
+                  (L = o("WAWebWidFactory").createUserWidOrThrow(_, "lid"))),
+            R != null &&
+              L != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: [{ pn: S, lid: R }],
+                mappings: [{ pn: R, lid: L }],
                 flushImmediately: !0,
                 learningSource: "usync",
               }),
-              p.isLid() || (v.wid = R)),
+              p.isLid() || (S.wid = L)),
+            S.disappearingMode != null && (yield f(S.wid, S.disappearingMode)),
             yield o("WAWebHandleUsernameSync").handleUsernameSync(i),
             o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
-            v
+            S
           );
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          try {
+            yield o(
+              "WAWebUpdateDisappearingModeForContact",
+            ).updateDisappearingModeForContact({
+              contactId: t,
+              newDuration: n.duration,
+              newSettingTimestamp: n.settingTimestamp,
+              newEphemeralityDisabled: n.isEphemeralityDisabled === !0,
+            });
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "queryExist: updateDisappearingModeForContact failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("query-exist-disappearing-mode-update-failed");
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -171,20 +204,20 @@ __d(
         return null;
       })(e);
     }
-    function f(e) {
+    function y(e) {
       if (e.type === "lid") return e.wid;
       var t = o("WAPhoneFindCC").extractDigits(e.phone) + "@c.us";
       return r("WAWebWid").isWid(t)
         ? o("WAWebWidFactory").createUserWidOrThrow(t)
         : null;
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function h() {
+    function b() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = f(t);
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = y(t);
           if (n != null) {
             var r = o("WAWebUsernameTypes").serializeMaybeUsername(
               yield o("WAWebApiContactUsernameFields").getContactUsername(n),
@@ -192,16 +225,16 @@ __d(
             r != null && e.withUsername(r);
           }
         })),
-        h.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = f(t);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = y(t);
           if (n != null) {
             var r = yield o("WAWebContactSyncPrivacyHints").getUsyncPrivacyHint(
               n,
@@ -209,27 +242,27 @@ __d(
             r != null && e.withTcToken(r.tcToken).withCommonGid(r.commonGid);
           }
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[usync] querying contact: ",
                 " for username info",
               ])),
-            t,
+            e,
           );
-          var r = new (o("WAWebUsyncUser").USyncUser)(),
-            a = new (o("WAWebUsync").USyncQuery)();
-          (r.withId(t), a.withUser(r), a.withUsernameProtocol());
-          var i = o(
+          var n = new (o("WAWebUsyncUser").USyncUser)(),
+            r = new (o("WAWebUsync").USyncQuery)();
+          (n.withId(e), r.withUser(n), r.withUsernameProtocol());
+          var a = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
               syncType: o("WAWebContactSyncLogger").getSyncTypeString(
@@ -237,53 +270,53 @@ __d(
                 "query",
               ),
               requestOrigin:
-                n != null
-                  ? n
+                t != null
+                  ? t
                   : o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.UNKNOWN,
               requestedCount: 1,
-              protocols: a.protocols,
+              protocols: r.protocols,
             }),
-            l = yield o(
+            i = yield o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.executeWithLogging(
-              i,
+              a,
               function () {
-                return a.execute();
+                return r.execute();
               },
               o("WAWebContactSyncErrorCodes").QUERY_USERNAME_DEPRECATED,
             ),
-            u = l.error.all || l.error.contact || l.error.username;
+            l = i.error.all || i.error.contact || i.error.username;
           if (
             (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[usync] username info response",
                 ])),
             ),
-            u)
+            l)
           )
             throw (
               o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
+                a,
+                l.errorCode,
                 i,
-                u.errorCode,
-                l,
                 o("WAWebContactSyncErrorCodes").QUERY_USERNAME_DEPRECATED,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                u.errorCode,
-                u.errorText,
+                l.errorCode,
+                l.errorText,
               )
             );
-          var c = l.list;
+          var c = i.list;
           if (c.length !== 1)
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
               null
             );
           var d = c[0];
           if (d.id != null)
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
               {
                 id: d.id,
                 username: d.username,
@@ -291,17 +324,17 @@ __d(
                   Object.hasOwn(d, "username") && d.username == null,
               }
             );
-          o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l);
+          o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i);
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.isLid()) {
             var t, n, r;
             if (
@@ -313,8 +346,8 @@ __d(
                 return (
                   o("WALogger")
                     .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "[usync] username MEX lookup failed",
                         ])),
                     )
@@ -332,12 +365,12 @@ __d(
                   ))
                 : i.noChange !== !0 && (r = !0);
             } else {
-              var l = yield b(e);
+              var l = yield R(e);
               l != null && ((t = l.username), (n = l.id), (r = l.shouldDelete));
             }
             if (n != null) {
               var s = !1,
-                c = !1,
+                u = !1,
                 d = !1,
                 m,
                 p = o("WAWebUsernameTypes").asMaybeUsername(t);
@@ -347,7 +380,7 @@ __d(
                   ]),
                   f = _.get(n.toString());
                 ((s = (f == null ? void 0 : f.usernameChanged) === !0),
-                  (c = (f == null ? void 0 : f.wasPreviouslyKnown) === !0),
+                  (u = (f == null ? void 0 : f.wasPreviouslyKnown) === !0),
                   (d = (f == null ? void 0 : f.isPhoneNumberKnown) === !0),
                   (m = o("WAWebUsernameTypes").serializeMaybeUsername(
                     f == null ? void 0 : f.oldUsername,
@@ -358,7 +391,7 @@ __d(
                   ]),
                   h = g.get(n.toString());
                 ((s = (h == null ? void 0 : h.usernameChanged) === !0),
-                  (c = (h == null ? void 0 : h.wasPreviouslyKnown) === !0),
+                  (u = (h == null ? void 0 : h.wasPreviouslyKnown) === !0),
                   (d = (h == null ? void 0 : h.isPhoneNumberKnown) === !0),
                   (m = o("WAWebUsernameTypes").serializeMaybeUsername(
                     h == null ? void 0 : h.oldUsername,
@@ -367,22 +400,22 @@ __d(
               return {
                 username: t,
                 usernameChanged: s,
-                wasPreviouslyKnown: c,
+                wasPreviouslyKnown: u,
                 isPhoneNumberKnown: d,
                 oldUsername: m != null ? m : void 0,
               };
             }
           }
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             e.length < o("WAWebUsernameGatingUtils").usernameMinLength() ||
             e.length > o("WAWebUsernameGatingUtils").usernameMaxLength()
@@ -494,14 +527,16 @@ __d(
             { keyRequired: !0, username: f, isUsernameSearch: !0 }
           );
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    ((l.queryWidExists = c),
-      (l.queryPhoneExists = d),
-      (l.queryExist = m),
-      (l.queryWidUsernameExists = S),
-      (l.queryUsernameExists = L));
+    ((l.queryWidExists = d),
+      (l.queryPhoneExists = m),
+      (l.queryExist = p),
+      (l.storeDisappearingMode = f),
+      (l.toDisappearingMode = h),
+      (l.queryWidUsernameExists = E),
+      (l.queryUsernameExists = I));
   },
   98,
 );

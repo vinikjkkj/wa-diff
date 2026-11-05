@@ -18,24 +18,26 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
+    var e = ["emojis"],
       s,
       u,
-      c = n("$InternalEnum").Mirrored([
+      c,
+      d = n("$InternalEnum").Mirrored([
         "INITIAL",
         "PENDING",
         "SUCCESS",
         "ERROR",
       ]),
-      d = "WADiscoveryStickerPacks",
-      m = 10080 * 60,
-      p = (function (t) {
+      m = "WADiscoveryStickerPacks",
+      p = 2,
+      _ = 10080 * 60,
+      f = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.fetchState = c.INITIAL),
+            (e.fetchState = d.INITIAL),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -43,43 +45,49 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
-          (i.fetch = function (n, a) {
-            var t,
-              i = this,
-              l = h(n, a);
+          (i.isLoadedFor = function (t, n) {
+            return (
+              this.fetchState === d.SUCCESS &&
+              this.$DiscoveryStickerPackCollection$p_2 === C(t, n)
+            );
+          }),
+          (i.fetch = function (t, n) {
+            var e,
+              a = this,
+              i = C(t, n);
             if (
               this.$DiscoveryStickerPackCollection$p_3 != null &&
-              this.$DiscoveryStickerPackCollection$p_2 === l
+              this.$DiscoveryStickerPackCollection$p_2 === i
             )
               return this.$DiscoveryStickerPackCollection$p_3;
-            ((t = this.$DiscoveryStickerPackCollection$p_1) == null ||
-              t.abort(),
-              (this.fetchState = c.PENDING),
+            ((e = this.$DiscoveryStickerPackCollection$p_1) == null ||
+              e.abort(),
+              (this.fetchState = d.PENDING),
               this.trigger("change:fetchState"));
-            var s = new AbortController();
-            ((this.$DiscoveryStickerPackCollection$p_1 = s),
-              (this.$DiscoveryStickerPackCollection$p_2 = l));
-            var u = this.$DiscoveryStickerPackCollection$p_4(s, l, n, a)
-              .catch(function (t) {
-                if (i.$DiscoveryStickerPackCollection$p_1 === s) {
-                  var n = r("getErrorSafe")(t);
-                  n.name !== o("WAAbortError").ABORT_ERROR &&
+            var l = new AbortController();
+            ((this.$DiscoveryStickerPackCollection$p_1 = l),
+              (this.$DiscoveryStickerPackCollection$p_2 = i));
+            var u = this.$DiscoveryStickerPackCollection$p_4(l, i, t, n)
+              .catch(function (e) {
+                if (a.$DiscoveryStickerPackCollection$p_1 === l) {
+                  var t = r("getErrorSafe")(e);
+                  t.name !== o("WAAbortError").ABORT_ERROR &&
                     (o("WALogger")
                       .WARN(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "Failed to fetch discovery sticker packs",
                           ])),
                       )
-                      .catching(n)
+                      .catching(t)
                       .sendLogs("discovery-sticker-packs-fetch-failed"),
-                    (i.fetchState = i.length > 0 ? c.SUCCESS : c.ERROR),
-                    i.trigger("change:fetchState"));
+                    (a.fetchState = a.length > 0 ? d.SUCCESS : d.ERROR),
+                    a.trigger("change:fetchState"));
                 }
               })
               .finally(function () {
-                i.$DiscoveryStickerPackCollection$p_1 === s &&
-                  (i.$DiscoveryStickerPackCollection$p_3 = null);
+                a.$DiscoveryStickerPackCollection$p_1 === l &&
+                  (a.$DiscoveryStickerPackCollection$p_3 = null);
               });
             return ((this.$DiscoveryStickerPackCollection$p_3 = u), u);
           }),
@@ -91,15 +99,15 @@ __d(
                   (yield o(
                     "WAWebUserPrefsIndexedDBStorage",
                   ).userPrefsIdb.init(),
-                    (i = f(
-                      o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(d),
+                    (i = h(
+                      o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m),
                       t,
                     )));
                 } catch (e) {
                   o("WALogger")
                     .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to read cached discovery sticker packs",
                         ])),
                     )
@@ -111,7 +119,7 @@ __d(
                   !(
                     i != null &&
                     (this.$DiscoveryStickerPackCollection$p_6(i.stickerPacks),
-                    g(i))
+                    y(i))
                   )
                 ) {
                   var l = yield o(
@@ -126,7 +134,7 @@ __d(
                     try {
                       yield o(
                         "WAWebUserPrefsIndexedDBStorage",
-                      ).userPrefsIdb.set(d, {
+                      ).userPrefsIdb.set(m, {
                         context: t,
                         fetchedAt: o("WATimeUtils").unixTime(),
                         stickerPacks: l,
@@ -134,8 +142,8 @@ __d(
                     } catch (e) {
                       o("WALogger")
                         .WARN(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "Failed to cache discovery sticker packs",
                             ])),
                         )
@@ -158,20 +166,34 @@ __d(
               this.$DiscoveryStickerPackCollection$p_2 === n
             );
           }),
-          (i.$DiscoveryStickerPackCollection$p_6 = function (t) {
-            var e = this;
+          (i.$DiscoveryStickerPackCollection$p_6 = function (n) {
+            var t = this;
             (this.reset(),
-              t.forEach(function (t) {
-                var n,
-                  r,
-                  a = t.stickerPack,
-                  i = t.stickers,
-                  l = new (o("WAWebStickerPackModelMd").StickerPackModel)(a);
-                ((n = l.stickers) == null || n.reset(),
-                  (r = l.stickers) == null || r.add(i),
-                  e.add(l));
+              n.forEach(function (n) {
+                var r,
+                  a,
+                  i,
+                  l = n.stickerPack,
+                  s = n.stickers,
+                  u = new (o("WAWebStickerPackModelMd").StickerPackModel)(l),
+                  c = new Map();
+                ((r = u.stickers) == null || r.reset(),
+                  (a = u.stickers) == null ||
+                    a.add(
+                      s.map(function (t) {
+                        var n = t.emojis,
+                          r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+                        return (n != null && !c.has(r.id) && c.set(r.id, n), r);
+                      }),
+                    ),
+                  (i = u.stickers) == null ||
+                    i.forEach(function (e) {
+                      var t = c.get(e.id);
+                      t != null && (e.mediaData.emojis = t);
+                    }),
+                  t.add(u));
               }),
-              (this.fetchState = c.SUCCESS),
+              (this.fetchState = d.SUCCESS),
               this.trigger("change:fetchState"));
           }),
           (i.delete = function () {
@@ -181,24 +203,24 @@ __d(
               (this.$DiscoveryStickerPackCollection$p_1 = null),
               (this.$DiscoveryStickerPackCollection$p_2 = null),
               (this.$DiscoveryStickerPackCollection$p_3 = null),
-              (this.fetchState = c.INITIAL),
+              (this.fetchState = d.INITIAL),
               this.reset());
           }),
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    p.model = o("WAWebStickerPackModelMd").StickerPackModel;
-    var _ = new p();
-    function f(e, t) {
+    f.model = o("WAWebStickerPackModelMd").StickerPackModel;
+    var g = new f();
+    function h(e, t) {
       return e == null || e.context !== t || !Array.isArray(e.stickerPacks)
         ? null
         : e;
     }
-    function g(e) {
+    function y(e) {
       var t = e.fetchedAt;
-      return t != null && o("WATimeUtils").unixTime() - t < m;
+      return t != null && o("WATimeUtils").unixTime() - t < _;
     }
-    function h(e, t) {
+    function C(e, t) {
       var n,
         a =
           o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
@@ -217,6 +239,8 @@ __d(
           ),
         ).toString();
       return (
+        p +
+        ":" +
         r("WAWebL10N").getNormalizedLocale() +
         ":" +
         a +
@@ -228,7 +252,7 @@ __d(
         i
       );
     }
-    ((l.DiscoveryFetchState = c), (l.DiscoveryStickerPackCollectionMd = _));
+    ((l.DiscoveryFetchState = d), (l.DiscoveryStickerPackCollectionMd = g));
   },
   98,
 );

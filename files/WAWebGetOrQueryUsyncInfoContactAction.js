@@ -13,101 +13,77 @@ __d(
     "WAWebContactSyncLogger",
     "WAWebDBCreateLidPnMappings",
     "WAWebQueryExistsJob",
-    "WAWebUpdateDisappearingModeForContact",
     "WAWebUsync",
     "WAWebUsyncUser",
     "asyncToGeneratorRuntime",
     "err",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.forceUsync,
-            i = t.requestOrigin,
-            l = t.wid,
-            s = o("WAWebContactCollection").ContactCollection.get(l);
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.forceUsync,
+            a = e.requestOrigin,
+            i = e.wid,
+            l = o("WAWebContactCollection").ContactCollection.get(i);
           if (
-            a !== !0 &&
-            s != null &&
-            (s.name != null ||
-              o("WAWebChatCollection").ChatCollection.get(l) != null)
+            t !== !0 &&
+            l != null &&
+            (l.name != null ||
+              o("WAWebChatCollection").ChatCollection.get(i) != null)
           ) {
-            var u,
-              d,
-              m = l.isRegularUserPn() ? !1 : void 0;
+            var s,
+              c,
+              d = i.isRegularUserPn() ? !1 : void 0;
             return {
-              wid: l,
-              biz: s.isBusiness,
-              bizInfo: s.isBusiness
+              wid: i,
+              biz: l.isBusiness,
+              bizInfo: l.isBusiness
                 ? {
                     verifiedName: {
                       level: r("WAWebBizVerifiedLevelToString")(
-                        s.verifiedLevel,
+                        l.verifiedLevel,
                       ),
                       serial: null,
-                      name: s.verifiedName,
-                      isApi: !!s.isEnterprise,
-                      isSmb: !!s.isSmb,
-                      privacyMode: s.privacyMode,
+                      name: l.verifiedName,
+                      isApi: !!l.isEnterprise,
+                      isSmb: !!l.isSmb,
+                      privacyMode: l.privacyMode,
                     },
                   }
                 : null,
               disappearingMode: {
-                duration: (u = s.disappearingModeDuration) != null ? u : 0,
+                duration: (s = l.disappearingModeDuration) != null ? s : 0,
                 settingTimestamp:
-                  (d = s.disappearingModeSettingTimestamp) != null ? d : 0,
+                  (c = l.disappearingModeSettingTimestamp) != null ? c : 0,
               },
-              isUsernameSearch: m,
+              isUsernameSearch: d,
             };
           }
-          var p = yield o("WAWebQueryExistsJob").queryWidExists(l, i);
-          if (p) {
-            var _ = p.biz,
-              f = p.bizInfo,
-              g = p.disappearingMode;
-            if (
-              (_ &&
-                f != null &&
+          var m = yield o("WAWebQueryExistsJob").queryWidExists(i, a);
+          if (m) {
+            var p = m.biz,
+              _ = m.bizInfo;
+            return (
+              p &&
+                _ != null &&
                 (yield o("WAWebBizUpdateVerifiedInfoAction").updateVerifiedInfo(
-                  l,
-                  f.verifiedName,
+                  i,
+                  _.verifiedName,
                 )),
-              g != null)
-            )
-              try {
-                yield o(
-                  "WAWebUpdateDisappearingModeForContact",
-                ).updateDisappearingModeForContact({
-                  contactId: l,
-                  newDuration: g.duration,
-                  newSettingTimestamp: g.settingTimestamp,
-                  newEphemeralityDisabled: g.isEphemeralityDisabled === !0,
-                });
-              } catch (t) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "getOrQueryUsyncInfo: updateDisappearingModeForContact failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("usync-info-disappearing-mode-update-failed");
-              }
-            return p;
+              m
+            );
           }
-          return (c || (c = n("Promise"))).reject(r("err")("Invalid number"));
+          return (u || (u = n("Promise"))).reject(r("err")("Invalid number"));
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p() {
+    function m() {
       var e = new (r("WAPromiseCache"))(
         o("WAWebQueryExistsJob").queryPhoneExists,
         {
@@ -120,24 +96,21 @@ __d(
       );
       return e;
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
                 "[usync] querying for biz info",
               ])),
           );
-          var t = new (o("WAWebUsyncUser").USyncUser)(),
-            n = new (o("WAWebUsync").USyncQuery)();
-          (e.isLid() ? t.withId(e) : t.withPhone(e.toString()),
-            n.withUser(t),
-            n.withBusinessProtocol());
-          var r = o(
+          var r = (n == null ? void 0 : n.withDisappearingMode) === !0,
+            a = f(t, r),
+            i = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
               syncType: o("WAWebContactSyncLogger").getSyncTypeString(
@@ -147,80 +120,104 @@ __d(
               requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
                 .BUSINESS_CONTACT_CHAT,
               requestedCount: 1,
-              protocols: n.protocols,
+              protocols: a.protocols,
             }),
-            a = yield o(
+            l = yield o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.executeWithLogging(
-              r,
+              i,
               function () {
-                return n.execute();
+                return a.execute();
               },
               o("WAWebContactSyncErrorCodes").QUERY_BUSINESS,
             ),
-            i = a.error.all;
+            u = l.error.all;
           if (
             (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[usync] biz info response",
                 ])),
             ),
-            i)
+            u)
           )
             throw (
               o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                r,
-                i.errorCode,
-                a,
+                i,
+                u.errorCode,
+                l,
                 o("WAWebContactSyncErrorCodes").QUERY_BUSINESS,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                i.errorCode,
-                i.errorText,
+                u.errorCode,
+                u.errorText,
               )
             );
-          var l = a.list;
-          if (l.length !== 1)
+          var c = l.list;
+          if (c.length !== 1)
             return (
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(r, a),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
               null
             );
-          var c = l[0],
-            d = c.business,
-            m = c.id;
-          d != null &&
-            (yield o("WAWebBizUpdateVerifiedInfoAction").updateVerifiedInfo(
-              e,
-              d.verifiedName,
-            ),
+          var d = c[0],
+            m = d.business,
+            p = d.disappearing_mode,
+            _ = d.id;
+          (yield g(t, r ? p : null),
             m != null &&
-              m.isLid() &&
-              d.pn != null &&
-              (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: [{ pn: d.pn, lid: m }],
-                flushImmediately: !0,
-                learningSource: "usync",
-              })));
-          var p = e.isRegularUserPn() ? !1 : void 0,
-            _ = { wid: m, biz: d != null, bizInfo: d, isUsernameSearch: p };
+              (yield o("WAWebBizUpdateVerifiedInfoAction").updateVerifiedInfo(
+                t,
+                m.verifiedName,
+              ),
+              _ != null &&
+                _.isLid() &&
+                m.pn != null &&
+                (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                  mappings: [{ pn: m.pn, lid: _ }],
+                  flushImmediately: !0,
+                  learningSource: "usync",
+                }))));
+          var h = t.isRegularUserPn() ? !1 : void 0,
+            y = { wid: _, biz: m != null, bizInfo: m, isUsernameSearch: h };
           return (
             o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
-              r,
-              a,
+              i,
+              l,
               o("WAWebContactSyncLogger").createUpdateCounterWith({
-                businessChange: d != null ? 1 : 0,
+                businessChange: m != null ? 1 : 0,
               }),
             ),
-            _
+            y
           );
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.getOrQueryUsyncInfo = d),
-      (l.usyncContactCached = p),
-      (l.queryUsyncBusiness = _));
+    function f(e, t) {
+      var n = new (o("WAWebUsync").USyncQuery)();
+      return (
+        n.withUser(new (o("WAWebUsyncUser").USyncUser)().withId(e)),
+        n.withBusinessProtocol(),
+        t && n.withDisappearingModeProtocol(),
+        n
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebQueryExistsJob").toDisappearingMode(t);
+          n != null &&
+            (yield o("WAWebQueryExistsJob").storeDisappearingMode(e, n));
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    ((l.getOrQueryUsyncInfo = c),
+      (l.usyncContactCached = m),
+      (l.queryUsyncBusiness = p));
   },
   98,
 );

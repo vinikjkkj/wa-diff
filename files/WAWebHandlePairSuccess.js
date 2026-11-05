@@ -145,8 +145,8 @@ __d(
                 (o("WAWebConnModel").Conn.platform = S),
                 yield o("WAWebMobilePlatforms").setMobilePlatform(S));
               var L = o("WAWebJidToWid").deviceJidToDeviceWid(C),
-                E = o("WAWebJidToWid").deviceJidToDeviceWid(h);
-              (o("WAWebUserPrefsMeUser").setMe(E),
+                E = o("WAWebJidToWid").deviceJidToDeviceWid(r("nullthrows")(h));
+              (o("WAWebUserPrefsMeUser").setMePn(E),
                 o("WAWebUserPrefsMeUser").setMeLid(L),
                 o("WAWebBackendWorkerInitState").resolveJidsReady());
               var I = null;

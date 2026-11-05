@@ -436,12 +436,6 @@ __d(
           if (e.length !== 0 && !(o("WATimeUtils").unixTime() - e[0].t > c))
             return e[0];
         }),
-        (i.getPSAStatus = function () {
-          var e = this.filter(function (e) {
-            return o("WAWebContactGetters").getIsPSA(e.contact);
-          });
-          if (e.length !== 0) return e[0];
-        }),
         a
       );
     })(o("WAWebBaseCollection").BaseCollection);

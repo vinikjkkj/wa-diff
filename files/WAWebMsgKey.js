@@ -23,29 +23,33 @@ __d(
       p,
       _ = (function () {
         function t(n) {
-          var a = n;
-          if (!a) throw r("err")("MsgKey error: obj is null/undefined");
-          a.id instanceof t &&
-            ((a = a.id),
+          var a,
+            i = n;
+          if (!i) throw r("err")("MsgKey error: obj is null/undefined");
+          i.id instanceof t &&
+            ((i = i.id),
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "MsgKey error: id is already a MsgKey",
                 ])),
             ));
-          var i = !r("isStringNullOrEmpty")(a.id),
-            l = a.from != null && a.to != null && i,
-            p = a.fromMe !== void 0 && a.remote != null && i,
-            _,
+          var l = !r("isStringNullOrEmpty")(i.id),
+            p = i.from != null && i.to != null && l,
+            _ = i.fromMe !== void 0 && i.remote != null && l,
             f,
             g,
             h,
             y,
             C,
             b,
-            v = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (v) {
-            if (l && p)
+            v,
+            S =
+              (a = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
+                ? a
+                : o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
+          if (S) {
+            if (p && _)
               throw (
                 o("WALogger").WARN(
                   s ||
@@ -55,7 +59,7 @@ __d(
                 ),
                 r("err")("MsgKey error: unclear which constructor to use")
               );
-            if (!l && !p)
+            if (!p && !_)
               throw (
                 o("WALogger").WARN(
                   u ||
@@ -65,17 +69,17 @@ __d(
                 ),
                 r("err")("MsgKey error: don't have a matching constructor")
               );
-            if (l) {
-              var S = a;
+            if (p) {
+              var R = i;
               if (
-                ((_ = S.from),
-                (g = S.id),
-                (h = S.participant),
-                (y = S.selfDir),
-                (f = S.to),
-                !(_ instanceof r("WAWebWid")) ||
-                  !(f instanceof r("WAWebWid")) ||
-                  (h && !(h instanceof r("WAWebWid"))))
+                ((f = R.from),
+                (h = R.id),
+                (y = R.participant),
+                (C = R.selfDir),
+                (g = R.to),
+                !(f instanceof r("WAWebWid")) ||
+                  !(g instanceof r("WAWebWid")) ||
+                  (y && !(y instanceof r("WAWebWid"))))
               )
                 throw (
                   o("WALogger").WARN(
@@ -86,36 +90,36 @@ __d(
                   ),
                   r("err")("MsgKey error: something is not a wid")
                 );
-              var R = r("WAWebWid").equals(_, f);
-              ((y = R ? y : void 0),
-                R && o("WAWebUserPrefsMeUser").isMePrimary(_)
-                  ? ((C = y === "out"), (b = f))
-                  : o("WAWebUserPrefsMeUser").isMePrimary(_)
-                    ? ((C = !0), (b = f))
-                    : o("WAWebUserPrefsMeUser").isMePrimary(f)
-                      ? ((C = !1), (b = _))
-                      : R &&
-                          (r("WAWebWid").isGroup(_) ||
-                            r("WAWebWid").isBroadcast(_))
-                        ? ((C = !0), (b = _))
+              var L = r("WAWebWid").equals(f, g);
+              ((C = L ? C : void 0),
+                L && o("WAWebUserPrefsMeUser").isMePrimary(f)
+                  ? ((b = C === "out"), (v = g))
+                  : o("WAWebUserPrefsMeUser").isMePrimary(f)
+                    ? ((b = !0), (v = g))
+                    : o("WAWebUserPrefsMeUser").isMePrimary(g)
+                      ? ((b = !1), (v = f))
+                      : L &&
+                          (r("WAWebWid").isGroup(f) ||
+                            r("WAWebWid").isBroadcast(f))
+                        ? ((b = !0), (v = f))
                         : o("WALogger").WARN(
                             d ||
                               (d = babelHelpers.taggedTemplateLiteralLoose([
                                 "MsgKey case error",
                               ])),
                           ),
-                C !== void 0 && (this.fromMe = C),
-                b && (this.remote = b),
-                g && (this.id = g));
-            } else if (p) {
-              var L = a;
+                b !== void 0 && (this.fromMe = b),
+                v && (this.remote = v),
+                h && (this.id = h));
+            } else if (_) {
+              var E = i;
               if (
-                ((C = L.fromMe),
-                (g = L.id),
-                (h = L.participant),
-                (b = L.remote),
-                !(b instanceof r("WAWebWid")) ||
-                  (h && !(h instanceof r("WAWebWid"))))
+                ((b = E.fromMe),
+                (h = E.id),
+                (y = E.participant),
+                (v = E.remote),
+                !(v instanceof r("WAWebWid")) ||
+                  (y && !(y instanceof r("WAWebWid"))))
               )
                 throw (
                   o("WALogger").WARN(
@@ -126,20 +130,20 @@ __d(
                   ),
                   r("err")("MsgKey error: something is not a wid")
                 );
-              (o("WAWebUserPrefsMeUser").isMePrimary(b) &&
-                (y = C === !0 ? "out" : "in"),
-                C !== void 0 && (this.fromMe = C),
-                b && (this.remote = b),
-                g && (this.id = g));
+              (o("WAWebUserPrefsMeUser").isMePrimary(v) &&
+                (C = b === !0 ? "out" : "in"),
+                b !== void 0 && (this.fromMe = b),
+                v && (this.remote = v),
+                h && (this.id = h));
             }
           } else
             throw r("err")(
               "MsgKey error: me is undefined. Running tests? Call setupGlobalsForTests first.",
             );
-          var E = [this.fromMe, this.remote, this.id];
-          (y !== void 0 && ((this.self = y), E.push(this.self)),
-            h !== void 0 && ((this.participant = h), E.push(this.participant)),
-            (this.$1 = E.join("_")));
+          var k = [this.fromMe, this.remote, this.id];
+          (C !== void 0 && ((this.self = C), k.push(this.self)),
+            y !== void 0 && ((this.participant = y), k.push(this.participant)),
+            (this.$1 = k.join("_")));
         }
         var a = t.prototype;
         return (

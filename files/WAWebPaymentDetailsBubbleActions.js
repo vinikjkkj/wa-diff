@@ -57,6 +57,7 @@ __d(
           i,
           l.receiptMsgId,
         ) &&
+          o("WAWebBrazilPaymentState").hasBubbleAddReceipt(n) &&
           u.push({
             label: o("WAWebPaymentDetailsStrings").getAddReceiptLabel(),
             Icon: r("WDSIconIcAdd.react"),

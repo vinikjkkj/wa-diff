@@ -54,14 +54,14 @@ __d(
             c,
             d,
             p;
-          ((this.$33 = function () {
+          ((this.$34 = function () {
             var e = r.$4;
             if (e) {
               var t = !0;
               try {
                 t = e.next().done === !0;
               } finally {
-                r.$4 === e && (t ? (r.$4 = null) : r.$5(r.$33));
+                r.$4 === e && (t ? (r.$4 = null) : r.$5(r.$34));
               }
             }
           }),
@@ -104,25 +104,26 @@ __d(
                 ? c
                 : null),
             (this.$15 = new m(function () {
-              return r.$28();
+              return r.$29();
             }, this)),
-            (this.$23 = t == null ? void 0 : t.resolverContext),
+            (this.$24 = t == null ? void 0 : t.resolverContext),
             (this.$21 = new (n("relay-runtime/store/RelayStoreSubscriptions"))(
               t == null ? void 0 : t.log,
               this.$15,
-              this.$23,
+              this.$24,
             )),
             (this.$22 = new Set()),
-            (this.$25 =
+            (this.$23 = new Set()),
+            (this.$26 =
               (d = t == null ? void 0 : t.treatMissingFieldsAsNull) != null
                 ? d
                 : !1),
-            (this.$26 =
+            (this.$27 =
               (p = t == null ? void 0 : t.deferDeduplicatedFields) != null
                 ? p
                 : !1),
-            (this.$24 = t == null ? void 0 : t.actorIdentifier),
-            (this.$27 = null),
+            (this.$25 = t == null ? void 0 : t.actorIdentifier),
+            (this.$28 = null),
             v(this.$14));
         }
         var r = t.prototype;
@@ -134,7 +135,7 @@ __d(
           (r.getOperationLoader = function () {
             return this.$12;
           }),
-          (r.$28 = function () {
+          (r.$29 = function () {
             var e;
             return (e = this.$13) != null ? e : this.$14;
           }),
@@ -152,19 +153,19 @@ __d(
             }
           }),
           (r.experimental_batchUpdates = function (t) {
-            if (this.$27 != null)
+            if (this.$28 != null)
               throw new Error(
                 "RelayModernStore: Cannot batch updates while already batching updates.",
               );
             var e = this.__log;
             e != null && e({ name: "store.batch.start" });
             var n = { sourceOperations: [], invalidateStore: !1 };
-            this.$27 = n;
+            this.$28 = n;
             try {
               t();
             } finally {
-              ((this.$27 = null), this.notify(void 0, n.invalidateStore));
-              for (var r of n.sourceOperations) this.$29(r, this.$1, !1);
+              ((this.$28 = null), this.notify(void 0, n.invalidateStore));
+              for (var r of n.sourceOperations) this.$30(r, this.$1, !1);
               e != null &&
                 e({
                   name: "store.batch.complete",
@@ -194,7 +195,7 @@ __d(
               s,
               u,
               m = t.root,
-              p = this.$28(),
+              p = this.$29(),
               _ = this.$7,
               f =
                 (e =
@@ -252,7 +253,7 @@ __d(
                         t.fetchTime != null &&
                         o != null &&
                         t.fetchTime <= Date.now() - o;
-                    a ? (e.$18 || e.$17.delete(n), e.scheduleGC()) : e.$30(n);
+                    a ? (e.$18 || e.$17.delete(n), e.scheduleGC()) : e.$31(n);
                   }
                 }
               },
@@ -282,7 +283,7 @@ __d(
                 t,
                 e,
                 this.$15,
-                this.$23,
+                this.$24,
               );
             return (
               e != null && e({ name: "store.lookup.end", selector: t }),
@@ -291,7 +292,7 @@ __d(
           }),
           (r.notify = function (t, r) {
             var e = this,
-              o = this.$27;
+              o = this.$28;
             if (o != null)
               return (
                 t != null && o.sourceOperations.push(t),
@@ -307,11 +308,10 @@ __d(
                 this.$15.invalidateDataIDs(this.$22));
             var i = this.getSource(),
               l = [];
-            return (
-              !n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY ||
-              this.$22.size > 0
-                ? this.$21.updateSubscriptions(i, this.$22, l, t)
-                : this.$21.updateStaleSubscriptions(i, this.$22, l, t),
+            (!n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY ||
+            this.$22.size > 0
+              ? this.$21.updateSubscriptions(i, this.$22, l, t)
+              : this.$21.updateStaleSubscriptions(i, this.$22, l, t),
               n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY &&
                 (this.$22.size > 0 ||
                   l.length > 0 ||
@@ -324,9 +324,9 @@ __d(
                 this.$10.size > 0 ||
                 r === !0) &&
                 this.$9.forEach(function (t) {
-                  e.$31(t, r === !0);
+                  e.$32(t, r === !0);
                 }),
-              t != null && this.$29(t, this.$1, !1),
+              t != null && this.$30(t, this.$1, !1),
               a != null &&
                 a({
                   name: "store.notify.complete",
@@ -335,14 +335,20 @@ __d(
                   invalidatedRecordIDs: this.$10,
                   subscriptionsSize: this.$21.size(),
                   updatedOwners: l,
-                }),
+                }));
+            var s = this.$23.size > 0 ? new Set(this.$22) : null;
+            return (
               this.$22.clear(),
               this.$10.clear(),
               (this.$8 = !1),
+              s != null &&
+                this.$23.forEach(function (e) {
+                  return e(s);
+                }),
               l
             );
           }),
-          (r.$29 = function (t, n, r) {
+          (r.$30 = function (t, n, r) {
             var e = t.request.identifier,
               o = this.$17.get(e);
             if (o != null) ((o.epoch = n), (o.fetchTime = Date.now()));
@@ -357,10 +363,10 @@ __d(
                 epoch: n,
                 fetchTime: Date.now(),
               };
-              (this.$17.set(e, a), this.$30(e));
+              (this.$17.set(e, a), this.$31(e));
             }
           }),
-          (r.$30 = function (t) {
+          (r.$31 = function (t) {
             if ((this.$16.push(t), this.$16.length > this.$3)) {
               var e = this.$16.shift();
               (e != null && !this.$18 && this.$17.delete(e), this.scheduleGC());
@@ -368,7 +374,7 @@ __d(
           }),
           (r.publish = function (t, n) {
             var e,
-              r = this.$28();
+              r = this.$29();
             S(r, t, this.$1 + 1, n, this.$22, this.$10);
             var o = this.__log;
             (o != null &&
@@ -381,7 +387,7 @@ __d(
                 this.scheduleGC());
           }),
           (r.publishWithDeferredNotify = function (t, n, r) {
-            (this.publish(t, r), (this.$8 = !0), this.$29(n, this.$1 + 1, !0));
+            (this.publish(t, r), (this.$8 = !0), this.$30(n, this.$1 + 1, !0));
           }),
           (r.subscribe = function (t, n) {
             return this.$21.subscribe(t, n);
@@ -400,6 +406,20 @@ __d(
           }),
           (r.getEpoch = function () {
             return this.$1;
+          }),
+          (r.observeUpdatedRecordIDs = function (t) {
+            var e = this,
+              n = function (n) {
+                return t(n);
+              };
+            return (
+              this.$23.add(n),
+              {
+                dispose: function () {
+                  e.$23.delete(n);
+                },
+              }
+            );
           }),
           (r.__getUpdatedRecordIDs = function () {
             return this.$22;
@@ -440,7 +460,7 @@ __d(
               };
             return (this.$9.add(r), { dispose: o });
           }),
-          (r.$31 = function (t, n) {
+          (r.$32 = function (t, n) {
             var e = this,
               r = t.callback,
               o = t.invalidationState,
@@ -481,13 +501,13 @@ __d(
               this.$19 = !0;
               return;
             }
-            this.$4 || ((this.$4 = this.$32()), this.$5(this.$33));
+            this.$4 || ((this.$4 = this.$33()), this.$5(this.$34));
           }),
           (r.__gc = function () {
             if (this.$13 == null)
-              for (var e = this.$32(); e.next().done !== !0; );
+              for (var e = this.$33(); e.next().done !== !0; );
           }),
-          (r.$32 = function* () {
+          (r.$33 = function* () {
             if (!(this.$18 && this.$11 == null)) {
               var t = this.__log;
               e: for (;;) {
@@ -567,9 +587,9 @@ __d(
               path: t,
               getDataID: this.$6,
               log: this.__log,
-              treatMissingFieldsAsNull: this.$25,
-              deferDeduplicatedFields: this.$26,
-              actorIdentifier: this.$24,
+              treatMissingFieldsAsNull: this.$26,
+              deferDeduplicatedFields: this.$27,
+              actorIdentifier: this.$25,
             };
           }),
           (r.__notifyUpdatedSubscribers = function (t) {

@@ -9,14 +9,20 @@ __d(
       c,
       d = new Set(["default", "communications"]),
       m = " - ";
-    function p(t) {
+    function p(e, t) {
+      return t ? f(e) : { devices: e, toVisibleId: _ };
+    }
+    function _(e) {
+      return e;
+    }
+    function f(t) {
       var n = new Map(),
         r = t.filter(function (e) {
           return e.deviceId !== "" && !d.has(e.deviceId);
         });
       for (var a of t)
         if (d.has(a.deviceId)) {
-          var i = f(a, r);
+          var i = h(a, r);
           if (i == null) {
             o("WALogger").LOG(
               e ||
@@ -29,7 +35,7 @@ __d(
                 ])),
               a.deviceId,
               a.label,
-              g(a),
+              y(a),
               r.length,
             );
             continue;
@@ -49,19 +55,19 @@ __d(
                   "",
                 ])),
               a.deviceId,
-              g(a),
+              y(a),
               p.label,
               p.deviceId.slice(0, 8),
-              g(p),
+              y(p),
               l,
             );
-            var h = n.get(p.deviceId);
-            if (h == null) n.set(p.deviceId, a.deviceId);
-            else if (h !== a.deviceId) {
-              var y =
-                  a.deviceId === "default" ? [a.deviceId, h] : [h, a.deviceId],
-                C = y[0],
-                b = y[1];
+            var _ = n.get(p.deviceId);
+            if (_ == null) n.set(p.deviceId, a.deviceId);
+            else if (_ !== a.deviceId) {
+              var f =
+                  a.deviceId === "default" ? [a.deviceId, _] : [_, a.deviceId],
+                C = f[0],
+                b = f[1];
               (o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -109,11 +115,11 @@ __d(
       return {
         devices: S,
         toVisibleId: function (t) {
-          return _(n, t);
+          return g(n, t);
         },
       };
     }
-    function _(e, t) {
+    function g(e, t) {
       for (var n = t, r = 0; r < e.size; r++) {
         var o = e.get(n);
         if (o == null) break;
@@ -121,7 +127,7 @@ __d(
       }
       return n;
     }
-    function f(e, t) {
+    function h(e, t) {
       var n = function (n) {
           return e.label.endsWith(m + n.label);
         },
@@ -137,10 +143,10 @@ __d(
       var a = t.filter(n);
       return a.length === 1 ? { rule: "label", twins: a } : null;
     }
-    function g(e) {
+    function y(e) {
       return e.groupId == null ? "none" : e.groupId.slice(0, 8);
     }
-    l.dedupeAudioDevices = p;
+    ((l.toVisibleAudioDeviceList = p), (l.dedupeAudioDevices = f));
   },
   98,
 );

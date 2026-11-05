@@ -297,18 +297,7 @@ __d(
     ((l.sendIndividualReportRPC = e),
       (l.parseIndividualReportResponseError = u),
       (l.parseIndividualReportResponseSuccess = c),
-      (l.makeIndividualReportRequestSpamListMessage = d),
-      (l.makeIndividualReportRequestSpamListCall = m),
-      (l.makeIndividualReportRequestSpamListUserInitiatedExtension = p),
-      (l.makeIndividualReportRequest = _),
-      (l.mergeMessageSenderOrRecipientMixinGroup = f),
-      (l.mergeTCTokenMixin = h),
-      (l.makeUIStateSetUistatesetUistate = y),
-      (l.mergeUIStateSetMixin = b),
-      (l.makeUserInitiatedExtensionExtensionScreen = v),
-      (l.mergeUserInitiatedExtensionMixin = R),
-      (l.mergeMessageSenderMixin = E),
-      (l.mergePrivacyTokenContentsMixin = I));
+      (l.makeIndividualReportRequest = _));
   },
   98,
 );

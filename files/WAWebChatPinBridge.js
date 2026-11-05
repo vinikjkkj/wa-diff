@@ -4,6 +4,7 @@ __d(
     "WAWebAuraGating",
     "WAWebPinChatLimits",
     "WAWebPinChatSync",
+    "WAWebProductFeature",
     "WAWebSyncdCoreApi",
     "WAWebSyncdWamAppState",
     "asyncToGeneratorRuntime",
@@ -61,9 +62,11 @@ __d(
       var t;
       return e.isNewsletter()
         ? o("WAWebPinChatLimits").MAX_PINNED_NEWSLETTERS
-        : (t = r("WAWebAuraGating").getPinnedChatsBenefitLimit()) != null
-          ? t
-          : o("WAWebPinChatLimits").MAX_PINNED_CHATS;
+        : o("WAWebProductFeature").isInternalProduct()
+          ? o("WAWebPinChatLimits").MAX_PINNED_CHATS_PREMIUM
+          : (t = r("WAWebAuraGating").getPinnedChatsBenefitLimit()) != null
+            ? t
+            : o("WAWebPinChatLimits").MAX_PINNED_CHATS;
     }
     function p(e) {
       return e.isNewsletter()

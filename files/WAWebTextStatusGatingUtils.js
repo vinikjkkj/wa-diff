@@ -20,9 +20,15 @@ __d(
         "text_status_creation_support",
       );
     }
+    function c() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "whats_happening_emoji_only_creation_enabled",
+      );
+    }
     ((l.receiveTextStatusEnabled = e),
       (l.receiveTextStatusForNewSurfacesEnabled = s),
-      (l.sendTextStatusEnabled = u));
+      (l.sendTextStatusEnabled = u),
+      (l.emojiOnlyAboutCreationEnabled = c));
   },
   98,
 );

@@ -2,10 +2,14 @@ __d(
   "WASmaxMdSetPasskeyPrologueRPC",
   [
     "WAComms",
-    "WASmaxInMdSetPasskeyPrologueResponseSuccess",
-    "WASmaxOutMdSetPasskeyPrologueRequest",
+    "WASmaxChildren",
+    "WASmaxInMdIQResultResponseMixin",
+    "WASmaxJsx",
+    "WASmaxOutMdBaseIQSetRequestMixin",
+    "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
+    "WAWap",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,13 +19,9 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o(
-              "WASmaxOutMdSetPasskeyPrologueRequest",
-            ).makeSetPasskeyPrologueRequest(e),
+          var n = d(e),
             r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = o(
-              "WASmaxInMdSetPasskeyPrologueResponseSuccess",
-            ).parseSetPasskeyPrologueResponseSuccess(r, n);
+            a = u(r, n);
           if (a.success)
             return {
               name: "SetPasskeyPrologueResponseSuccess",
@@ -36,7 +36,46 @@ __d(
         s.apply(this, arguments)
       );
     }
-    l.sendSetPasskeyPrologueRPC = e;
+    function u(e, t) {
+      var n = o("WASmaxParseUtils").assertTag(e, "iq");
+      if (!n.success) return n;
+      var r = o("WASmaxInMdIQResultResponseMixin").parseIQResultResponseMixin(
+        e,
+        t,
+      );
+      return (r.success, r);
+    }
+    function c(e) {
+      var t = e.pairingHandoffProofElementValue,
+        n = o("WASmaxJsx").smax("pairing_handoff_proof", null, t);
+      return n;
+    }
+    function d(e) {
+      var t,
+        n = e.pairingHandoffProofArgs,
+        r = e.credentialIdElementValue,
+        a = e.webauthnAssertionElementValue,
+        i = e.prologuePayloadElementValue,
+        l = o("WASmaxOutMdBaseIQSetRequestMixin").mergeBaseIQSetRequestMixin(
+          (t = o("WASmaxJsx")).smax(
+            "iq",
+            { to: o("WAWap").S_WHATSAPP_NET, xmlns: "md" },
+            t.smax(
+              "passkey_prologue",
+              null,
+              t.smax("credential_id", null, r),
+              t.smax("webauthn_assertion", null, a),
+              t.smax("prologue_payload", null, i),
+              o("WASmaxChildren").OPTIONAL_CHILD(c, n),
+            ),
+          ),
+        );
+      return l;
+    }
+    ((l.sendSetPasskeyPrologueRPC = e),
+      (l.parseSetPasskeyPrologueResponseSuccess = u),
+      (l.makeSetPasskeyPrologueRequestPasskeyProloguePairingHandoffProof = c),
+      (l.makeSetPasskeyPrologueRequest = d));
   },
   98,
 );

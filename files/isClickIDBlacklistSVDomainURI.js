@@ -18,7 +18,7 @@ __d(
           )
         : !1;
     }
-    i.exports = s;
+    l.default = s;
   },
-  34,
+  98,
 );

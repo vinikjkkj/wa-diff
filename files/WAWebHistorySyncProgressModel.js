@@ -27,6 +27,7 @@ __d(
                 "WAWebUserPrefsHistorySync",
               ).getHistorySyncRemainingPausedSeconds(),
             )),
+            (e.pausedForCall = o("WAWebModelUtils").prop(!1)),
             (e._fakePausedCompletionTimeout = o("WAWebModelUtils").prop()),
             (e._progressIncrementTimeout = o("WAWebModelUtils").prop()),
             (e._lastUpdateSeconds = o("WAWebModelUtils").prop(
@@ -61,6 +62,9 @@ __d(
               "WAWebUserPrefsHistorySync",
             ).setHistorySyncRemainingPausedSeconds(null),
               (this.remainingPausedSeconds = null));
+          }),
+          (r.setPausedForCall = function (t) {
+            this.pausedForCall = t;
           }),
           (r.pausedExpiryCheckpoint = function (n) {
             var t = this;

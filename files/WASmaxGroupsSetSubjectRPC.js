@@ -192,9 +192,7 @@ __d(
       (l.parseSetSubjectResponseClientError = u),
       (l.parseSetSubjectResponseServerError = c),
       (l.parseSetSubjectResponseSuccess = d),
-      (l.makeSetSubjectRequest = m),
-      (l.parseSetSubjectClientErrors = p),
-      (l.mergeSetSubjectChangeSubjectMixin = f));
+      (l.makeSetSubjectRequest = m));
   },
   98,
 );

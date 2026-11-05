@@ -434,17 +434,7 @@ __d(
       (l.parseGetInviteGroupInfoResponseClientError = u),
       (l.parseGetInviteGroupInfoResponseServerError = c),
       (l.parseGetInviteGroupInfoResponseSuccess = d),
-      (l.parseInviteLinkGroupInfoParticipant = m),
-      (l.parseInviteLinkGroupInfoParent = p),
-      (l.parseInviteLinkGroupInfoLinkedParent = _),
-      (l.parseInviteLinkGroupInfoMembershipApprovalMode = f),
-      (l.parseInviteLinkGroupInfoMembershipApprovalRequest = g),
-      (l.parseInviteLinkGroupInfoEphemeral = h),
-      (l.parseInviteLinkGroupInfoMixin = y),
-      (l.makeGetInviteGroupInfoRequest = C),
-      (l.parseGetInviteGroupInfoClientErrors = b),
-      (l.parseIQErrorGrowthLockedGrowthLocked = v),
-      (l.parseIQErrorGrowthLockedMixin = S));
+      (l.makeGetInviteGroupInfoRequest = C));
   },
   98,
 );

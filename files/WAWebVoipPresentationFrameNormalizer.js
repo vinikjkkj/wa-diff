@@ -195,9 +195,9 @@ __d(
       return e > 0 && t > 0;
     }
     function C(e, t, n) {
-      return (n == null ? void 0 : n.startsWith("portrait")) === !0
+      return n != null && n.startsWith("portrait")
         ? t > e
-        : (n == null ? void 0 : n.startsWith("landscape")) === !0
+        : n != null && n.startsWith("landscape")
           ? e > t
           : !1;
     }

@@ -211,7 +211,30 @@ __d(
       }
       return e;
     }
-    function N(e, t) {
+    function N(e, t, n, r) {
+      var o,
+        a,
+        i =
+          (o = Object.entries(r != null ? r : {}).find(function (e) {
+            var t = e[0];
+            return t === "fontVariationSettings";
+          })) == null
+            ? void 0
+            : o[1];
+      if (typeof i == "string") return i;
+      var l = P(e, t);
+      if (l != null) {
+        var s = ((a = l.split(",")[0]) != null ? a : "").trim();
+        return s !== "Optimistic AI VF" &&
+          s !== '"Optimistic AI VF"' &&
+          s !== "'Optimistic AI VF'"
+          ? "normal"
+          : n === "dark"
+            ? '"DRKM" 1'
+            : '"DRKM" 0';
+      }
+    }
+    function M(e, t) {
       var n,
         r,
         a,
@@ -239,7 +262,8 @@ __d(
       (l.getMaxTextSizePx = x),
       (l.getLineHeight = $),
       (l.getFontFamily = P),
-      (l.getTextShadow = N));
+      (l.getFontVariationSettings = N),
+      (l.getTextShadow = M));
   },
   98,
 );

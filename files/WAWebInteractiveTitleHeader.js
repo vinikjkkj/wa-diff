@@ -6,6 +6,7 @@ __d(
     "WAWebFlex.react",
     "WAWebFormatHeaderFooter",
     "WAWebL10N",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WDSMargins.stylex",
@@ -45,7 +46,11 @@ __d(
           ]),
           (t[0] = a))
         : (a = t[0]);
-      var i = o("useWAWebMsgValues").useMsgValues(n, a),
+      var i = o("useWAWebMsgValues").useMsgValues(
+          n,
+          o("WAWebMsgCasts").castToInteractiveMsg,
+          a,
+        ),
         l = i[0],
         m = i[1],
         p;

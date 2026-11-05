@@ -85,12 +85,7 @@ __d(
       var t = f();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    ((l.sendClientNotificationRPC = e),
-      (l.makeClientNotificationRequest = u),
-      (l.mergeInternalTestMixin = d),
-      (l.mergeStateTypes = m),
-      (l.mergeComposingMixin = _),
-      (l.mergePausedMixin = g));
+    ((l.sendClientNotificationRPC = e), (l.makeClientNotificationRequest = u));
   },
   98,
 );

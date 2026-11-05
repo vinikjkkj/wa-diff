@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WAWebFrontendMsgGetters",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WAWebPollCreationUtils",
     "WAWebPollOptionsRenderUtils",
@@ -41,7 +42,11 @@ __d(
           ]),
           (t[0] = b))
         : (b = t[0]);
-      var v = o("useWAWebMsgValues").useMsgValues(c, b),
+      var v = o("useWAWebMsgValues").useMsgValues(
+          c,
+          o("WAWebMsgCasts").castToPollMsg,
+          b,
+        ),
         S = v[0],
         R = v[1],
         L;

@@ -135,13 +135,6 @@ __d(
               .COMPOSER_XOUT_TAPPED,
           });
         }),
-        (n.logStatusPrivacyUpdated = function (t) {
-          this.logEvent({
-            statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
-              .STATUS_PRIVACY_UPDATED,
-            statusAudienceSize: t,
-          });
-        }),
         (n.logPostStatusRequest = function (t, n, r) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE

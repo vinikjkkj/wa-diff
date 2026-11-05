@@ -5,18 +5,18 @@ __d(
     "use strict";
     var e = "(none)";
     function s(e) {
-      if (m(e)) return { kind: "loaded", text: "" };
+      if (p(e)) return { kind: "loaded", text: "" };
       if (e.kind !== "Ok" || !o("WAWebHatchJsonReaders").isObject(e.value))
         return { kind: "failed" };
-      var t = p(e.value);
+      var t = _(e.value);
       return t == null
         ? { kind: "failed" }
-        : f(e.value, t)
+        : g(e.value, t)
           ? { kind: "too_long" }
           : { kind: "loaded", text: t };
     }
     function u(e) {
-      if (m(e)) return { kind: "undated" };
+      if (p(e)) return { kind: "undated" };
       if (e.kind !== "Ok" || !o("WAWebHatchJsonReaders").isObject(e.value))
         return { kind: "failed" };
       var t = o("WAWebHatchJsonReaders").readInteger(e.value, "modified_ms");
@@ -29,13 +29,13 @@ __d(
       if (t.kind !== "Ok" || !o("WAWebHatchJsonReaders").isObject(t.value))
         return null;
       var r = t.value,
-        a = d(r, "emoji"),
+        a = m(r, "emoji"),
         i = {
-          creature: (n = d(r, "creature")) != null ? n : d(r, "description"),
+          creature: (n = m(r, "creature")) != null ? n : m(r, "description"),
           emoji: a === e ? null : a,
-          name: d(r, "name"),
-          tagline: d(r, "tagline"),
-          vibe: d(r, "vibe"),
+          name: m(r, "name"),
+          tagline: m(r, "tagline"),
+          vibe: m(r, "vibe"),
         };
       return Object.values(i).some(function (e) {
         return e != null;
@@ -43,7 +43,10 @@ __d(
         ? i
         : null;
     }
-    function d(e, t) {
+    function d(e) {
+      return e.kind === "Ok" && o("WAWebHatchJsonReaders").isObject(e.value);
+    }
+    function m(e, t) {
       var n,
         r =
           (n = o("WAWebHatchJsonReaders").readString(e, t)) == null
@@ -51,21 +54,21 @@ __d(
             : n.trim();
       return r == null || r === "" ? null : r;
     }
-    function m(e) {
+    function p(e) {
       return (
         e.kind === "Rejected" &&
         (e.statusCode === 404 || e.errorCode === "not_found")
       );
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebHatchJsonReaders").readNonEmptyString(e, "text");
       if (t != null) return t;
       var n = o("WAWebHatchJsonReaders").readString(e, "data_base64");
       return n == null
         ? o("WAWebHatchJsonReaders").readString(e, "text")
-        : _(n);
+        : f(n);
     }
-    function _(e) {
+    function f(e) {
       try {
         return o("WABase64").isBase64(e)
           ? new TextDecoder("utf-8", { fatal: !0 }).decode(
@@ -76,7 +79,7 @@ __d(
         return null;
       }
     }
-    function f(e, t) {
+    function g(e, t) {
       var n;
       return (
         o("WAWebHatchJsonReaders").readBool(e, "eof") === !1 ||
@@ -90,7 +93,8 @@ __d(
     }
     ((l.decodeHatchAgentDocumentRead = s),
       (l.decodeHatchAgentDocumentStat = u),
-      (l.decodeHatchAgentProfile = c));
+      (l.decodeHatchAgentProfile = c),
+      (l.isHatchAgentProfileRead = d));
   },
   98,
 );

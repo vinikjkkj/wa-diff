@@ -40,11 +40,6 @@ __d(
           (i.hasOngoingJoinableGroupCalls = function () {
             return this.length > 0;
           }),
-          (i.chatHasOngoingJoinableGroupCall = function (t) {
-            return this.toArray().some(function (e) {
-              return e.id.remote === t.id;
-            });
-          }),
           (i.getByCallId = function (t) {
             return this.toArray().find(function (e) {
               return e.id.id === t;

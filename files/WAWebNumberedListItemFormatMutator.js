@@ -3,16 +3,16 @@ __d(
   [
     "WAWebCreateRegexMutator",
     "WAWebNumberedListFormatMutator",
+    "WAWebNumberedListItemFormatRegex",
     "WAWebNumberedListItemMutatorComponent.react",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = /(?:^)(\d{1,2}\.)( (?! +)[^\n]+(?:$))/gm,
-      c = /(?:^)(\d{1,2}\.)( (?! +)[^\n]*(?:$))/gm,
-      d = new Set([r("WAWebNumberedListFormatMutator")]);
-    function m(e) {
+      u = /(?:^)(\d{1,2}\.)( (?! +)[^\n]*(?:$))/gm,
+      c = new Set([r("WAWebNumberedListFormatMutator")]);
+    function d(e) {
       var t,
         n = r("WAWebCreateRegexMutator")(e, 2),
         o =
@@ -41,7 +41,7 @@ __d(
           })(n)),
           (t.displayName = "NumberedListItem"),
           (t.nestable = function (e) {
-            return d.has(e);
+            return c.has(e);
           }),
           (t.unformatDecorations = {
             pre: function (t) {
@@ -51,9 +51,9 @@ __d(
           t);
       return o;
     }
-    var p = m(u),
-      _ = m(c);
-    ((l.NumberedListItem = p), (l.NumberedListItemWithEmpty = _));
+    var m = d(r("WAWebNumberedListItemFormatRegex")),
+      p = d(u);
+    ((l.NumberedListItem = m), (l.NumberedListItemWithEmpty = p));
   },
   98,
 );

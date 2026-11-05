@@ -7,49 +7,48 @@ __d(
     "FBLogger",
     "emptyFunction",
   ],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      l = (function () {
-        "use strict";
+      s = (function () {
         function t() {
-          ((this.$2 = new (n("EventSubscriptionVendor"))()), (this.$1 = null));
+          ((this.$2 = new (r("EventSubscriptionVendor"))()), (this.$1 = null));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.addListener = function (t, r, o) {
+          (n.addListener = function (t, n, o) {
             return this.$2.addSubscription(
               t,
-              new (n("EmitterSubscription"))(this.$2, r, o),
+              new (r("EmitterSubscription"))(this.$2, n, o),
             );
           }),
-          (r.removeListener = function (t) {
+          (n.removeListener = function (t) {
             this.$2.removeSubscription(t);
           }),
-          (r.once = function (t, n, r) {
+          (n.once = function (t, n, r) {
             var e = this;
             return this.addListener(t, function () {
               (e.removeCurrentListener(), n.apply(r, arguments));
             });
           }),
-          (r.removeAllListeners = function (t) {
+          (n.removeAllListeners = function (t) {
             this.$2.removeAllSubscriptions(t);
           }),
-          (r.removeCurrentListener = function () {
+          (n.removeCurrentListener = function () {
             if (!this.$1)
-              throw n("FBLogger")("emitter").mustfixThrow(
+              throw r("FBLogger")("emitter").mustfixThrow(
                 "Not in an emitting cycle; there is no current subscription",
               );
             this.$2.removeSubscription(this.$1);
           }),
-          (r.listeners = function (t) {
+          (n.listeners = function (t) {
             var e = this.$2.getSubscriptionsForType(t);
             return e
-              ? e.filter(n("emptyFunction").thatReturnsTrue).map(function (e) {
+              ? e.filter(r("emptyFunction").thatReturnsTrue).map(function (e) {
                   return e.listener;
                 })
               : [];
           }),
-          (r.emit = function (t) {
+          (n.emit = function (t) {
             var e = this.$2.getSubscriptionsForType(t);
             if (e) {
               for (var n = Object.keys(e), r, o = 0; o < n.length; o++) {
@@ -75,16 +74,16 @@ __d(
               this.$1 = null;
             }
           }),
-          (r.__emitToSubscription = function (r, o) {
+          (n.__emitToSubscription = function (n, o) {
             for (
               var t = arguments.length, a = new Array(t > 2 ? t - 2 : 0), i = 2;
               i < t;
               i++
             )
               a[i - 2] = arguments[i];
-            (e || (e = n("ErrorGuard"))).applyWithGuard(
-              r.listener,
-              r.context,
+            (e || (e = r("ErrorGuard"))).applyWithGuard(
+              n.listener,
+              n.context,
               a,
               { name: "EventEmitter " + o + " event" },
             );
@@ -92,7 +91,7 @@ __d(
           t
         );
       })();
-    a.exports = l;
+    l.default = s;
   },
-  null,
+  98,
 );

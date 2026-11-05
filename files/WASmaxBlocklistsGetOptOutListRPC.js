@@ -227,9 +227,7 @@ __d(
       (l.parseGetOptOutListResponseInternalServerError = u),
       (l.parseGetOptOutListResponseInvalidRequest = c),
       (l.parseGetOptOutListResponseSuccessWithMatch = d),
-      (l.parseGetOptOutListResponseSuccessWithMismatchListItem = m),
       (l.parseGetOptOutListResponseSuccessWithMismatch = p),
-      (l.makeGetOptOutListRequestItem = _),
       (l.makeGetOptOutListRequest = f));
   },
   98,

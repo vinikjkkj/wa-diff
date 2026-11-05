@@ -1,17 +1,17 @@
 __d(
   "TimeSliceSham",
   ["Env", "ErrorGuard", "IntervalTrackingBoundedBuffer"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      l,
-      s = (e || (e = n("Env"))).timesliceBufferSize;
-    s == null && (s = 5e3);
-    var u = new (n("IntervalTrackingBoundedBuffer"))(s),
-      c = {
+      s,
+      u = (e || (e = r("Env"))).timesliceBufferSize;
+    u == null && (u = 5e3);
+    var c = new (r("IntervalTrackingBoundedBuffer"))(u),
+      d = {
         PropagationType: { CONTINUATION: 0, EXECUTION: 1, ORPHAN: 2 },
-        guard: function (t, r) {
-          return (l || (l = n("ErrorGuard"))).guard(t, {
-            name: "TimeSlice" + (r ? ": " + r : ""),
+        guard: function (t, n) {
+          return (s || (s = r("ErrorGuard"))).guard(t, {
+            name: "TimeSlice" + (n ? ": " + n : ""),
           });
         },
         copyGuardForWrapper: function (t, n) {
@@ -35,7 +35,7 @@ __d(
           return e;
         },
         getReusableContinuation: function (t) {
-          return c.getPlaceholderReusableContinuation();
+          return d.getPlaceholderReusableContinuation();
         },
         getPlaceholderReusableContinuation: function () {
           function e(e) {
@@ -49,10 +49,12 @@ __d(
         registerExecutionContextObserver: function (t) {},
         catchUpOnDemandExecutionContextObservers: function (t) {},
         getBuffer: function () {
-          return u;
+          return c;
         },
       };
-    ((t.TimeSlice = c), (a.exports = c));
+    t.TimeSlice = d;
+    var m = d;
+    l.default = m;
   },
-  6,
+  102,
 );

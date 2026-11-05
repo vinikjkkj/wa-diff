@@ -148,7 +148,6 @@ __d(
     ((l.sendNewsletterReportRPC = e),
       (l.parseNewsletterReportResponseError = u),
       (l.parseNewsletterReportResponseSuccess = c),
-      (l.makeNewsletterReportRequestSpamListMessage = d),
       (l.makeNewsletterReportRequest = m));
   },
   98,

@@ -45,19 +45,19 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            if (r >= d) throw ie("catalog_too_many_pages", b);
-            var a = yield J(function (t) {
+            if (r >= d) throw le("catalog_too_many_pages", b);
+            var a = yield Z(function (t) {
               return t.credentialCatalog(e);
             }, "catalog");
-            if (a.kind === "not_found") throw ie("catalog_not_found", ae(404));
+            if (a.kind === "not_found") throw le("catalog_not_found", ie(404));
             var i = o(
               "WAWebHatchSecureCredentialDecoder",
             ).decodeHatchSecureCredentialCatalogPage(a.value);
-            if (i == null) throw ie("catalog_malformed", C);
+            if (i == null) throw le("catalog_malformed", C);
             var l = [].concat(n, i.items),
               s = i.nextCursor;
             if (s == null) return l;
-            if (t.has(s)) throw ie("catalog_cursor_repeated", b);
+            if (t.has(s)) throw le("catalog_cursor_repeated", b);
             return (t.add(s), S(s, t, l, r + 1));
           },
         )),
@@ -70,14 +70,14 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield J(function (t) {
+          var t = yield Z(function (t) {
             return t.credentialDetails(e);
           }, "details");
           if (t.kind === "not_found") return p;
           var n = o(
             "WAWebHatchSecureCredentialDecoder",
           ).decodeHatchSecureCredentialDetails(t.value, e);
-          if (n == null) throw ie("details_malformed", C);
+          if (n == null) throw le("details_malformed", C);
           return { kind: "ok", value: n };
         })),
         E.apply(this, arguments)
@@ -93,13 +93,13 @@ __d(
           (e.username != null &&
             t.push({ name: "username", protected: !0, value: e.username }),
             t.push({ name: "password", protected: !0, value: e.password }));
-          var n = e.requestId == null ? null : yield H(e.requestId, e.signal);
+          var n = e.requestId == null ? null : yield G(e.requestId, e.signal);
           if ((n == null ? void 0 : n.kind) === "no_session")
-            throw ie("capture_no_session", n.failure);
-          var r = yield Z(
+            throw le("capture_no_session", n.failure);
+          var r = yield ee(
             function (r) {
               return r.credentialCapture(
-                babelHelpers.extends({}, X(n == null ? void 0 : n.value), {
+                babelHelpers.extends({}, Y(n == null ? void 0 : n.value), {
                   fields: t,
                   idempotency_key: e.idempotencyKey,
                   label: null,
@@ -112,11 +112,11 @@ __d(
             !1,
             e.signal,
           );
-          if (r.kind === "not_found") throw ie("capture_not_found", ae(404));
+          if (r.kind === "not_found") throw le("capture_not_found", ie(404));
           var a = o(
             "WAWebHatchSecureCredentialDecoder",
           ).decodeHatchSecureCredentialCaptureId(r.value);
-          if (a == null) throw ie("capture_malformed", C);
+          if (a == null) throw le("capture_malformed", C);
           return a;
         })),
         I.apply(this, arguments)
@@ -137,7 +137,7 @@ __d(
             t.length === 0 && e.agentPermission == null)
           )
             return { kind: "ok", value: null };
-          var n = yield Z(function (n) {
+          var n = yield ee(function (n) {
             return n.credentialUpdate(
               babelHelpers.extends(
                 { fields: t, id: e.id },
@@ -149,7 +149,7 @@ __d(
           }, "update");
           if (n.kind === "not_found") return p;
           if (o("WAWebHatchJsonReaders").readBool(n.value, "updated") !== !0)
-            throw ie("update_refused", b);
+            throw le("update_refused", b);
           return { kind: "ok", value: null };
         })),
         D.apply(this, arguments)
@@ -161,12 +161,12 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield Z(function (t) {
+          var t = yield ee(function (t) {
             return t.credentialDelete(e);
           }, "delete");
           if (t.kind === "not_found") return p;
           if (o("WAWebHatchJsonReaders").readBool(t.value, "deleted") !== !0)
-            throw ie("delete_refused", b);
+            throw le("delete_refused", b);
           return { kind: "ok", value: null };
         })),
         $.apply(this, arguments)
@@ -179,7 +179,7 @@ __d(
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = !1);
-          var r = yield O(
+          var r = yield B(
             babelHelpers.extends(
               {
                 api_key: { key: t },
@@ -213,7 +213,7 @@ __d(
             var a;
             r === void 0 && (r = !1);
             var i = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-              l = yield O(
+              l = yield B(
                 o(
                   "WAWebHatchCustomOAuthConnectorRequest",
                 ).customOAuthConnectorRegisterBody(e, t, n, r),
@@ -232,8 +232,8 @@ __d(
               ).isSafeHatchCustomOAuthAuthorizeUrl(e, s)
             )
               throw (
-                yield A(e.name, i),
-                ie(
+                yield F(e.name, i),
+                le(
                   s === ""
                     ? "register_no_authorize_url"
                     : "register_unsafe_authorize_url",
@@ -254,16 +254,22 @@ __d(
         w.apply(this, arguments)
       );
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
-    }
-    function F() {
+    function A() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        o("WAWebHatchFrontendGating").isHatchSecureCredentialsEnabled() &&
+        o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()
+      );
+    }
+    function F(e, t) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r =
             o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t;
           if (!r) {
-            var a = yield Z(function (a) {
+            var a = yield ee(function (a) {
               return (
                 (r =
                   o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !==
@@ -301,20 +307,20 @@ __d(
                 .sendLogs("hatch-secure-credentials-register-cleanup");
           }
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, r;
           if (!o("WAWebHatchFrontendGating").isHatchCustomConnectorsEnabled())
-            throw ie("register_disabled", b);
+            throw le("register_disabled", b);
           var a = !1,
-            i = yield Z(
+            i = yield ee(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
@@ -335,7 +341,7 @@ __d(
               "register",
             );
           if (a) return _;
-          if (i.kind === "not_found") throw ie("register_not_found", ae(404));
+          if (i.kind === "not_found") throw le("register_not_found", ie(404));
           var l =
             (t = o("WAWebHatchJsonReaders").readObject(i.value, "result")) !=
             null
@@ -346,100 +352,98 @@ __d(
               ? r
               : "") === ""
           )
-            throw ie("register_unconfirmed", C);
+            throw le("register_unconfirmed", C);
           return { kind: "stored", registration: l };
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W() {
-      return q.apply(this, arguments);
-    }
     function q() {
+      return U.apply(this, arguments);
+    }
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebHatchFrontendGating").isHatchCustomConnectorsEnabled())
-            return [];
-          var e = yield J(function (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!A()) return [];
+          var e = yield Z(function (e) {
             return e.customConnectorList();
           }, "custom_connectors");
           if (e.kind === "not_found")
-            throw ie("custom_connectors_not_found", ae(404));
+            throw le("custom_connectors_not_found", ie(404));
           var t = o("WAWebHatchCustomConnector").decodeHatchCustomConnectorList(
             e.value,
           );
-          if (t == null) throw ie("custom_connectors_malformed", C);
+          if (t == null) throw le("custom_connectors_malformed", C);
           return t;
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
-      return V.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebHatchFrontendGating").isHatchCustomConnectorsEnabled())
-            throw ie("custom_connector_delete_disabled", b);
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!A()) throw le("custom_connector_delete_disabled", b);
           if (
             !o("WAWebHatchCustomConnectorRequest").isHatchCustomConnectorName(e)
           )
-            throw ie("custom_connector_delete_invalid", b);
-          var t = yield Z(function (t) {
+            throw le("custom_connector_delete_invalid", b);
+          var t = yield ee(function (t) {
             return t.connectorDisconnect(e, null);
           }, "custom_connector_delete");
           if (t.kind === "not_found") return p;
           if (
             o("WAWebHatchJsonReaders").readBool(t.value, "disconnected") !== !0
           )
-            throw ie("custom_connector_delete_refused", b);
+            throw le("custom_connector_delete_refused", b);
           return { kind: "ok", value: null };
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H(e, t) {
-      return G.apply(this, arguments);
+    function G(e, t) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield o(
               "WAWebHatchVmConnection",
             ).connectHatchVmApiWithResult(t != null ? t : void 0);
             if (n.kind !== "ready") {
-              var r = te(n.failure, n.cause);
+              var r = ne(n.failure, n.cause);
               return (
-                Y(r.raw),
+                J(r.raw),
                 f.has(n.failure) ? { failure: r, kind: "no_session" } : g
               );
             }
-            return { kind: "context", value: yield z(n.api, e) };
+            return { kind: "context", value: yield j(n.api, e) };
           } catch (e) {
-            return { kind: "context", value: Y("read_failed") };
+            return { kind: "context", value: J("read_failed") };
           }
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e, t) {
-      return j.apply(this, arguments);
+    function j(e, t) {
+      return K.apply(this, arguments);
     }
-    function j() {
+    function K() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a = Date.now() + m,
             i = function () {
               return { timeoutMs: a - Date.now() };
             },
-            l = yield K(function () {
+            l = yield Q(function () {
               return e.chats(i());
             });
-          if (l == null) return Y("chats_read_failed");
+          if (l == null) return J("chats_read_failed");
           var s =
             (n = o("WAWebHatchBoundChatDecoder").decodeHatchBoundChat(
               l,
@@ -447,37 +451,37 @@ __d(
             )) == null
               ? void 0
               : n.chatId;
-          if (s == null) return Y("no_whatsapp_chat");
-          var u = yield K(function () {
+          if (s == null) return J("no_whatsapp_chat");
+          var u = yield Q(function () {
             return e.chatMessage(s, t, i());
           });
           return u == null
-            ? Y("message_read_failed")
+            ? J("message_read_failed")
             : (r = o(
                   "WAWebHatchSecureCredentialDecoder",
                 ).decodeHatchSecureCredentialCaptureContext(u)) != null
               ? r
-              : Y("not_a_capture_card");
+              : J("not_a_capture_card");
         })),
-        j.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    function Q() {
+    function X() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield e();
           return (
             t.kind === "Failure" && (t = yield e()),
             t.kind === "Ok" ? t.value : null
           );
         })),
-        Q.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function X(e) {
+    function Y(e) {
       if (e == null) return {};
       var t = e.captureAuthorization,
         n = e.sessionId;
@@ -485,7 +489,7 @@ __d(
         ? { session_id: n }
         : { capture_authorization: t, session_id: n };
     }
-    function Y(t) {
+    function J(t) {
       return (
         o("WALogger")
           .WARN(
@@ -500,30 +504,30 @@ __d(
         null
       );
     }
-    function J(e, t) {
-      return Z(e, t, !0);
+    function Z(e, t) {
+      return ee(e, t, !0);
     }
-    function Z(e, t, n, r) {
-      return ee.apply(this, arguments);
+    function ee(e, t, n, r) {
+      return te.apply(this, arguments);
     }
-    function ee() {
+    function te() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var o;
             n === void 0 && (n = !1);
-            var a = yield ne(t, r),
+            var a = yield re(t, r),
               i = yield e(a);
-            if (oe(i)) {
-              if (((i = yield e(yield ne(t, r))), oe(i)))
-                throw ie(t + "_stream_refused", y);
+            if (ae(i)) {
+              if (((i = yield e(yield re(t, r))), ae(i)))
+                throw le(t + "_stream_refused", y);
             } else n && i.kind === "Failure" && (i = yield e(a));
             if (i.kind === "Ok") return { kind: "ok", value: i.value };
             if (i.kind === "Rejected") {
               if (i.statusCode === 404) return p;
-              throw ie(t + "_rejected", ae(i.statusCode));
+              throw le(t + "_rejected", ie(i.statusCode));
             }
-            throw ie(
+            throw le(
               t + "_" + i.kind.toLowerCase(),
               i.kind === "Failure"
                 ? h[(o = i.reason) != null ? o : "TRANSPORT"]
@@ -531,38 +535,38 @@ __d(
             );
           },
         )),
-        ee.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function te(e, t) {
+    function ne(e, t) {
       return {
         raw: t == null ? "session." + e : "session." + e + "." + t,
         reason: "session",
       };
     }
-    function ne(e, t) {
-      return re.apply(this, arguments);
+    function re(e, t) {
+      return oe.apply(this, arguments);
     }
-    function re() {
+    function oe() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
             t != null ? t : void 0,
           );
           if (n.kind !== "ready")
-            throw ie(e + "_no_session", te(n.failure, n.cause));
+            throw le(e + "_no_session", ne(n.failure, n.cause));
           return n.api;
         })),
-        re.apply(this, arguments)
+        oe.apply(this, arguments)
       );
     }
-    function oe(e) {
+    function ae(e) {
       return e.kind === "Failure" && e.reason === "NO_CHANNEL";
     }
-    function ae(e) {
+    function ie(e) {
       return { raw: e == null ? "http" : "http." + e, reason: "http" };
     }
-    function ie(e, t) {
+    function le(e, t) {
       return (
         o("WALogger")
           .WARN(
@@ -586,8 +590,8 @@ __d(
       (l.deleteHatchSecureCredential = x),
       (l.registerHatchCustomConnector = P),
       (l.registerHatchCustomOAuthConnector = M),
-      (l.requestHatchCustomConnectors = W),
-      (l.deleteHatchCustomConnector = U));
+      (l.requestHatchCustomConnectors = q),
+      (l.deleteHatchCustomConnector = V));
   },
   98,
 );

@@ -1281,6 +1281,8 @@ __d(
         "post_ad_guidance_bm_gen_ai_agent_upsell_click",
       POST_AD_CREATION_GUIDANCE_CARD_IMPRESSION:
         "post_ad_creation_guidance_card_impression",
+      POST_AD_GUIDANCE_DAYBREAK_UPSELL_CLICK:
+        "post_ad_guidance_daybreak_upsell_click",
       BIZWEB_POST_AD_SUBCARD_LEAD_GEN_UPSELL_CLICK:
         "bizweb_post_ad_subcard_lead_gen_upsell_click",
       POST_AD_CREATION_CALL_INSIGHTS_UPSELL_CLICK:
@@ -1781,6 +1783,7 @@ __d(
       BULK_BOOST_BOTTOM_SHEET_CLOSE: "bulk_boost_bottom_sheet_close",
       BULK_BOOST_LISTING_SELECTION_CHANGED:
         "bulk_boost_listing_selection_changed",
+      ELIGIBILITY_CHECK_FAILED: "eligibility_check_failed",
       PROACTIVE_CHAT_DEFAULT_OPTIN_ELIGIBILITY_CHECK_SUCCESS:
         "proactive_chat_default_optin_eligibility_check_success",
       PROACTIVE_CHAT_DEFAULT_OPTIN_ELIGIBILITY_CHECK_FAIL:
@@ -1949,7 +1952,6 @@ __d(
       GENAI_TEXT_TO_AUDIENCE_DISMISS: "genai_text_to_audience_dismiss",
       LISTEN_NOW_EXPOSURE: "listen_now_exposure",
       LISTEN_NOW_TRIGGER_DETECTED: "listen_now_trigger_detected",
-      LISTEN_NOW_GOAL_TILE: "listen_now_goal_tile",
       LISTEN_NOW_CTA: "listen_now_cta",
       LISTEN_NOW_GOAL_CHANGE: "listen_now_goal_change",
       LISTEN_NOW_CAPTION_PREFILL: "listen_now_caption_prefill",

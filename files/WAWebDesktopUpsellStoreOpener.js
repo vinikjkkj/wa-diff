@@ -12,47 +12,61 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(t) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m = "com.whatsapp";
+    function p(t) {
       var n =
-        t == null
-          ? o("WAWebExternalLink.react").ANDROID_STORE_URIS.touchscreen_overlay
-          : o("WAWebExternalLink.react").ANDROID_STORE_URIS
-              .touchscreen_overlay +
-            "%26wa_web_visit_id%3D" +
-            t;
+          t == null
+            ? o("WAWebExternalLink.react").ANDROID_STORE_URIS
+                .touchscreen_overlay
+            : o("WAWebExternalLink.react").ANDROID_STORE_URIS
+                .touchscreen_overlay +
+              "%26wa_web_visit_id%3D" +
+              t,
+        a = t != null && R() ? L(t, n) : null;
       try {
-        o("WAWebExternalLink.react").openExternalLink(n, {
-          target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB,
-        });
+        return a != null
+          ? (window.open(a, "_blank", "noopener,noreferrer"),
+            "whatsapp_app_link")
+          : (o("WAWebExternalLink.react").openExternalLink(n, {
+              target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB,
+            }),
+            "google_play");
       } catch (t) {
-        o("WALogger")
-          .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[android-tablet-interstitial] Google Play open failed",
-              ])),
-          )
-          .catching(r("getErrorSafe")(t))
-          .sendLogs("android-tablet-play-store-open");
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[android-tablet-interstitial] WhatsApp or Google Play open failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("android-tablet-play-store-open"),
+          null
+        );
       }
     }
-    function p(e) {
+    function _(e) {
       var t = e.ctaSource,
         n = e.isBetaUpsell,
         r = e.isBetaUser,
         a = e.qrScreenExperimentGroup,
         i = o("WAWebDesktopUpsellUtils").getUserDesktopOs();
       (i === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS
-        ? h(t)
+        ? y(t)
         : i === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS
-          ? C(t, n)
+          ? b(t, n)
           : t ===
               o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
                 .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
                 .LINK_DEVICE_APPLE_TOUCHSCREEN_OVERLAY
-            ? _()
-            : o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled() && f(t),
+            ? f()
+            : o("WAWebDesktopUpsellUtils").isAndroidAppUpsellEnabled() && g(t),
         new (o("WAWebWebcNativeUpsellCtaWamEvent").WebcNativeUpsellCtaWamEvent)(
           {
             webcNativeUpsellCtaEventType: o(
@@ -70,7 +84,7 @@ __d(
           },
         ).commitAndWaitForFlush(!0));
     }
-    function _() {
+    function f() {
       try {
         o("WAWebExternalLink.react").openExternalLink(
           o("WAWebExternalLink.react").IOS_STORE_URIS.touchscreen_overlay,
@@ -91,9 +105,9 @@ __d(
           .sendLogs("desktop-upsell-ios-store-open-failed");
       }
     }
-    function f(e) {
+    function g(e) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(g(e), {
+        o("WAWebExternalLink.react").openExternalLink(h(e), {
           target: o("WAWebExternalLink.react").ExternalLinkTarget.NEW_TAB,
         });
       } catch (e) {
@@ -108,7 +122,7 @@ __d(
           .sendLogs("desktop-upsell-google-play-open-failed");
       }
     }
-    function g(e) {
+    function h(e) {
       e: {
         if (
           e ===
@@ -126,9 +140,9 @@ __d(
         throw r("err")("Invalid CTA source: " + e);
       }
     }
-    function h(e) {
+    function y(e) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(y(e), {
+        o("WAWebExternalLink.react").openExternalLink(C(e), {
           target: o("WAWebExternalLink.react").ExternalLinkTarget
             .DEEPLINK_IN_CURRENT_TAB,
         });
@@ -144,7 +158,7 @@ __d(
           .sendLogs("desktop-upsell-ms-store-open-failed");
       }
     }
-    function y(e) {
+    function C(e) {
       switch (e) {
         case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
           .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.QR_SLIM_BANNER:
@@ -184,9 +198,9 @@ __d(
       }
       throw r("err")("Invalid CTA source: " + e);
     }
-    function C(e, t) {
+    function b(e, t) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(b(e, t), {
+        o("WAWebExternalLink.react").openExternalLink(v(e, t), {
           target: o("WAWebExternalLink.react").ExternalLinkTarget
             .DEEPLINK_IN_CURRENT_TAB,
         });
@@ -202,11 +216,11 @@ __d(
           .sendLogs("desktop-upsell-mac-download-failed");
       }
     }
-    function b(e, t) {
+    function v(e, t) {
       return t === !0
         ? o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI_BETA +
             "&src=whatsapp_beta_webclient_" +
-            v(e)
+            S(e)
         : e ===
             o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
               .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
@@ -214,9 +228,9 @@ __d(
           ? o("WAWebExternalLink.react").IOS_STORE_URIS.touchscreen_overlay
           : o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI +
             "&src=whatsapp_webclient_" +
-            v(e);
+            S(e);
     }
-    function v(e) {
+    function S(e) {
       var t = Object.entries(
         o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
           .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE,
@@ -227,8 +241,19 @@ __d(
       });
       return t ? t[0].toLowerCase() : "unknown";
     }
-    ((l.openExternalWhatsAppAndroidTabletDownloadUrl = m),
-      (l.openExternalWhatsAppDesktopDownloadUrl = p));
+    function R() {
+      return self.navigator.userAgentData != null;
+    }
+    function L(e, t) {
+      return (
+        "intent://www.whatsapp.com/dl?wa_web_visit_id=" +
+        e +
+        ("#Intent;scheme=https;package=" + m + ";") +
+        ("S.browser_fallback_url=" + encodeURIComponent(t) + ";end")
+      );
+    }
+    ((l.openExternalWhatsAppAndroidTabletDownloadUrl = p),
+      (l.openExternalWhatsAppDesktopDownloadUrl = _));
   },
   98,
 );

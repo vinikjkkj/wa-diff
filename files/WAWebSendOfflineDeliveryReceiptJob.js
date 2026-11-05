@@ -16,7 +16,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -134,24 +133,24 @@ __d(
           t.forEach(function (e) {
             var t = e.author,
               n = e.externalId,
-              a = e.from,
-              i = e.receiptClass,
-              l = e.statusAckType;
-            if (l != null && r("justknobx")._("6393")) {
+              r = e.from,
+              a = e.receiptClass,
+              i = e.statusAckType;
+            if (i != null) {
               y.push({
                 ackClass: "status",
                 ackId: n,
-                to: String(a),
+                to: String(r),
                 tag: "ack",
                 participant: null,
-                type: l,
+                type: i,
                 error: null,
               });
               return;
             }
             o("WAWebDeliveryReceiptClassUtils").addReceiptByClass(f, e);
-            var s = { from: String(a), author: String(t), externalId: n };
-            (i != null && (s.receiptClass = i), g.push(s));
+            var l = { from: String(r), author: String(t), externalId: n };
+            (a != null && (l.receiptClass = a), g.push(l));
           });
           var C = String(o("WATimeUtils").unixTime()),
             b = [];

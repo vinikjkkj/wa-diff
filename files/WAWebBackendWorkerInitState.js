@@ -105,7 +105,7 @@ __d(
             l = o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus();
           (e.fireAndForget("workerInit", "setup", {
             globals: {
-              deviceJid: o("WAWebGlobals").getMyDeviceJid(),
+              deviceJid: o("WAWebGlobals").getMaybeMyDeviceJid(),
               allowHistorySyncPutAllowDuplicate:
                 o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
               lidDeviceJid: i != null ? String(i) : null,

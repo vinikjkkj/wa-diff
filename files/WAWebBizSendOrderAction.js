@@ -200,6 +200,11 @@ __d(
                 total_amount: { value: n, offset: a },
                 order_request_id: u.id,
                 br_receipt_and_state_enabled: s ? !0 : void 0,
+                br_receipt_and_state_bubble_version: s
+                  ? o(
+                      "WAWebPaymentsGatingUtils",
+                    ).getReceiptAndStateBubbleVersionOnSend()
+                  : void 0,
               };
             (yield m({
               caption: null,
@@ -351,7 +356,14 @@ __d(
                 },
               },
               t != null && { referral: t },
-              { br_receipt_and_state_enabled: s ? !0 : void 0 },
+              {
+                br_receipt_and_state_enabled: s ? !0 : void 0,
+                br_receipt_and_state_bubble_version: s
+                  ? o(
+                      "WAWebPaymentsGatingUtils",
+                    ).getReceiptAndStateBubbleVersionOnSend()
+                  : void 0,
+              },
             );
           (yield m({
             caption: null,

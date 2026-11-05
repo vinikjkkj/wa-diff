@@ -5,7 +5,6 @@ __d(
     "WAWebOrgAdminGroupCandidate",
     "WAWebOrgAdminMemberTagOptions",
     "WAWebOrgAdminRosterCSVParser",
-    "WAWebOrgAdminRosterUploadRequest",
     "WAWebPhoneUtils",
     "intlNumUtils",
   ],
@@ -107,8 +106,7 @@ __d(
                   s._param(
                     "maximum people",
                     r("intlNumUtils").formatNumberWithThousandDelimiters(
-                      o("WAWebOrgAdminRosterUploadRequest")
-                        .MAX_ORG_ADMIN_ROSTER_REPLACE_ENTRIES,
+                      e.maxRosterEntries,
                       0,
                     ),
                   ),

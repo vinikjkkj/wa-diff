@@ -318,11 +318,8 @@ __d(
     ((l.sendUpdateOptOutListRPC = e),
       (l.parseUpdateOptOutListResponseInvalidRequest = u),
       (l.parseUpdateOptOutListResponseServerError = c),
-      (l.parseUpdateOptOutListResponseSuccessWithMatchListItem = d),
       (l.parseUpdateOptOutListResponseSuccessWithMatch = m),
-      (l.parseUpdateOptOutListResponseSuccessWithMismatchListItem = p),
       (l.parseUpdateOptOutListResponseSuccessWithMismatch = _),
-      (l.parseUpdateOptoutErrors = f),
       (l.makeUpdateOptOutListRequest = g));
   },
   98,

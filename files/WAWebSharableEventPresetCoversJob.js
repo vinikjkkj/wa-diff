@@ -17,7 +17,7 @@ __d(
     function d() {
       var e = o("WATimeUtils").unixTimeMs();
       if (c != null && e < c.expiresAtMs) return c.promise;
-      var t = p(),
+      var t = m(),
         n = { promise: t, expiresAtMs: e + u };
       return (
         (c = n),
@@ -28,14 +28,11 @@ __d(
       );
     }
     function m() {
-      c = null;
+      return p.apply(this, arguments);
     }
     function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
             n = yield o("WAWebRelayClient").fetchQuery(
@@ -75,11 +72,10 @@ __d(
             return e.displayOrder - t.displayOrder;
           });
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.listSharableEventPresetCovers = d),
-      (l.resetSharableEventPresetCoversForTest = m));
+    l.listSharableEventPresetCovers = d;
   },
   98,
 );

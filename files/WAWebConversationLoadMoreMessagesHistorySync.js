@@ -83,7 +83,20 @@ __d(
     function h() {
       return s._(/*BTDS*/ "Click here to get older messages from your phone.");
     }
-    function y() {
+    function y(e, t) {
+      return e
+        ? o(
+            "WAWebHistorySyncUIText",
+          ).SYNCING_PAUSED_FOR_CALL_CONTEXTUAL_SYSTEM_MESSAGE_TEXT()
+        : t
+          ? o(
+              "WAWebHistorySyncUIText",
+            ).SYNCING_PAUSED_CONTEXTUAL_SYSTEM_MESSAGE_TEXT()
+          : o(
+              "WAWebHistorySyncUIText",
+            ).SYNC_IN_PROGRESS_CONTEXTUAL_SYSTEM_MESSAGE_TEXT();
+    }
+    function C() {
       var e = m.jsx(r("WDSText.react"), {
           type: "Headline2",
           colorName: "contentDefault",
@@ -134,7 +147,7 @@ __d(
         }),
       );
     }
-    function C(t) {
+    function b(t) {
       var n = t.chatId,
         a = t.mdHistorySyncTransferState,
         i = t.threadId,
@@ -142,35 +155,37 @@ __d(
           [
             o("WAWebHistorySyncProgressGetters").getInProgress,
             o("WAWebHistorySyncProgressGetters").getPaused,
+            o("WAWebHistorySyncProgressGetters").getHistorySyncPausedForCall,
           ],
         ),
         d = l[0],
         _ = l[1],
-        f =
+        f = l[2],
+        g =
           a ===
           o("WAWebChatConstants").ConversationEndOfHistoryTransferModelPropType
             .INCOMPLETE,
-        g = n == null ? void 0 : n.toJid(),
-        C = p(function () {
-          return g != null
+        b = n == null ? void 0 : n.toJid(),
+        v = p(function () {
+          return b != null
             ? new Set(
                 o(
                   "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
                 ).inFlightHistorySyncOnDemandRequests.values(),
-              ).has(g)
+              ).has(b)
             : !1;
         }),
-        b = C[0],
-        v = C[1],
-        S = p(null),
-        R = S[0],
-        L = S[1];
+        S = v[0],
+        R = v[1],
+        L = p(null),
+        E = L[0],
+        k = L[1];
       (o("useWAWebListener").useListener(
         o("WAWebHistorySyncOnDemandEvents").WAWebHistorySyncOnDemandEvents,
         "history_sync_on_demand_events:success_history_sync_od",
         function (t) {
           o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() &&
-            t === g &&
+            t === b &&
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -179,8 +194,8 @@ __d(
                 ])),
               n == null ? void 0 : n.toLogString(),
             ),
-            v(!1),
-            L(!0),
+            R(!1),
+            k(!0),
             a ===
               o("WAWebChatConstants")
                 .ConversationEndOfHistoryTransferModelPropType
@@ -188,7 +203,7 @@ __d(
               o(
                 "WAWebSyncGatingUtils",
               ).isHistorySyncOnDemandCompleteCompanionEnabled() &&
-              y());
+              C());
         },
       ),
         o("useWAWebListener").useListener(
@@ -196,7 +211,7 @@ __d(
           "history_sync_on_demand_events:error_history_sync_od",
           function (e) {
             o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() &&
-              e === g &&
+              e === b &&
               (o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -205,22 +220,17 @@ __d(
                   ])),
                 n == null ? void 0 : n.toLogString(),
               ),
-              v(!1),
-              L(!1));
+              R(!1),
+              k(!1));
           },
         ));
-      var E, k, I;
+      var I, T, D;
       if (i != null)
-        E = s._(/*BTDS*/ "Use WhatsApp on your phone to see older messages.");
-      else if (f && d)
-        ((E = _
-          ? o(
-              "WAWebHistorySyncUIText",
-            ).SYNCING_PAUSED_CONTEXTUAL_SYSTEM_MESSAGE_TEXT()
-          : o(
-              "WAWebHistorySyncUIText",
-            ).SYNC_IN_PROGRESS_CONTEXTUAL_SYSTEM_MESSAGE_TEXT()),
-          (k = _
+        I = s._(/*BTDS*/ "Use WhatsApp on your phone to see older messages.");
+      else if (g && d) {
+        var x = _ || f;
+        ((I = y(f, _)),
+          (T = x
             ? m.jsx(r("WDSIconIcErrorFilled.react"), {
                 width: 16,
                 height: 16,
@@ -232,7 +242,7 @@ __d(
                 width: 24,
                 viewBox: { x: -10, y: -5, width: 32, height: 32 },
               })),
-          (I = _
+          (D = x
             ? function () {
                 o("WAWebModalManager").ModalManager.open(
                   m.jsx(r("WAWebHistorySyncPausedPopup.react"), {}),
@@ -243,12 +253,12 @@ __d(
                   m.jsx(r("WAWebHistorySyncInProgressPopup.react"), {}),
                 );
               }));
-      else {
+      } else {
         if (
           o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() &&
           a != null &&
           !d &&
-          !b &&
+          !S &&
           !o("WAWebNonMessageDataRequestHistorySyncOnDemandUtils")
             .historySyncOnDemandRequestsFailureRecord.disableRequestSending
         )
@@ -270,20 +280,20 @@ __d(
               )
                 break;
               n != null &&
-                (R !== !1
-                  ? (E = h())
-                  : ((E = s._(
+                (E !== !1
+                  ? (I = h())
+                  : ((I = s._(
                       /*BTDS*/ "Couldn't get older messages. Open WhatsApp on your phone and click here to try again.",
                     )),
-                    (k = m.jsx(r("WDSIconIcErrorFilled.react"), {
+                    (T = m.jsx(r("WDSIconIcErrorFilled.react"), {
                       width: 16,
                       height: 16,
                       colorName: "secondaryWarning",
                       testid: "alert-sync-paused",
                     }))),
-                (I = function () {
-                  (v(!0),
-                    L(null),
+                (D = function () {
+                  (R(!0),
+                    k(null),
                     o("WAWebSendNonMessageDataRequest")
                       .sendPeerDataOperationRequest(
                         o("WAWebProtobufsE2E.pb")
@@ -302,8 +312,8 @@ __d(
                             n == null ? void 0 : n.toLogString(),
                           )
                           .sendLogs("history-sync-on-demand-request-failed"),
-                          v(!1),
-                          L(!1));
+                          R(!1),
+                          k(!1));
                       }));
                 }));
               break;
@@ -311,7 +321,7 @@ __d(
             case o("WAWebChatConstants")
               .ConversationEndOfHistoryTransferModelPropType
               .COMPLETE_ON_DEMAND_SYNC_BUT_MORE_MSG_REMAIN_ON_PRIMARY:
-              E = s._(
+              I = s._(
                 /*BTDS*/ "Use WhatsApp on your phone to see older messages.",
               );
               break;
@@ -325,17 +335,17 @@ __d(
               .NOT_INCLUDED_IN_HIST_SYNC:
               break;
           }
-        if (E == null) {
-          var T = o("WAWebClock").Clock.relativeDateStr(
+        if (I == null) {
+          var $ = o("WAWebClock").Clock.relativeDateStr(
             o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate(),
           );
-          E = s._(
+          I = s._(
             /*BTDS*/ "Use WhatsApp on your phone to see older messages from before {date}.",
-            [s._param("date", T)],
+            [s._param("date", $)],
           );
         }
       }
-      if (o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() && b)
+      if (o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() && S)
         return m.jsx("div", {
           className: "x78zum5 x1okw0bk xl56j7k xexx8yu xyri2b xvg22vi x1c1uobl",
           children: m.jsx("div", {
@@ -348,26 +358,26 @@ __d(
             }),
           }),
         });
-      var D = m.jsxs("div", {
+      var P = m.jsxs("div", {
           className: "x78zum5 x6s0dn4 x1r0jzty x17zd0t2",
-          children: [k, m.jsx("div", { children: E })],
+          children: [T, m.jsx("div", { children: I })],
         }),
-        x = {
+        N = {
           0: "x9f619 x1rg5ohu x1okw0bk x193iq5w x123j3cw xpdmqnj x10b6aqq x1g0dm76 x13a8xbf xdod15v x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a",
           2: "x1bvqhpb x1iyt1tq x1s0q3zl x9f619 x1rg5ohu x1okw0bk x193iq5w x123j3cw xpdmqnj x10b6aqq x1g0dm76 x13a8xbf xdod15v x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a",
           1: "x1bvqhpb x1280gxy x1b9z3ur x9f619 x1rg5ohu x1okw0bk x193iq5w x123j3cw xpdmqnj x10b6aqq x1g0dm76 x13a8xbf xdod15v x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a",
           3: "x1bvqhpb x1280gxy x1b9z3ur x9f619 x1rg5ohu x1okw0bk x193iq5w x123j3cw xpdmqnj x10b6aqq x1g0dm76 x13a8xbf xdod15v x2b8uid xyi3aci xwf5gio x1p453bz x1suzm8a",
-        }[(!f << 1) | (!!f << 0)],
-        $ =
-          I != null
-            ? m.jsx("button", { className: x, onClick: I, children: D })
-            : m.jsx("div", { className: x, children: D });
+        }[(!g << 1) | (!!g << 0)],
+        M =
+          D != null
+            ? m.jsx("button", { className: N, onClick: D, children: P })
+            : m.jsx("div", { className: N, children: P });
       return m.jsx("div", {
         className: "x78zum5 x1okw0bk xl56j7k xqy66fx xyri2b x1hhzuzn x1c1uobl",
-        children: $,
+        children: M,
       });
     }
-    ((C.displayName = C.name + " [from " + i.id + "]"), (l.default = C));
+    ((b.displayName = b.name + " [from " + i.id + "]"), (l.default = b));
   },
   226,
 );

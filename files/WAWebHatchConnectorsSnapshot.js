@@ -15,6 +15,24 @@ __d(
           (t.getChannelFbid = function () {
             return this.$2;
           }),
+          (t.findConnector = function (t) {
+            var e, n, o, a;
+            return ((e =
+              (n = r("WAWebHatchLinkedStatusManager").getLinkedStatus()) == null
+                ? void 0
+                : n.channelFbid) != null
+              ? e
+              : null) !== this.$2
+              ? null
+              : (o =
+                    (a = this.$1) == null
+                      ? void 0
+                      : a.find(function (e) {
+                          return e.id === t;
+                        })) != null
+                ? o
+                : null;
+          }),
           (t.replace = function (t) {
             var e, n;
             ((this.$1 = t),

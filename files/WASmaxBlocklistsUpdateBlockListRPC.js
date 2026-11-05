@@ -741,36 +741,14 @@ __d(
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendUpdateBlockListRPC = e),
-      (l.parseUpdateBlockListResponseCAPISuccessWithMismatchListItem = u),
       (l.parseUpdateBlockListResponseCAPISuccessWithMismatch = c),
       (l.parseUpdateBlockListResponseInvalidRequest = d),
-      (l.parseUpdateBlockListResponseMigratedSuccessWithMismatchListItem = m),
       (l.parseUpdateBlockListResponseMigratedSuccessWithMismatch = p),
       (l.parseUpdateBlockListResponseServerError = _),
       (l.parseUpdateBlockListResponseSuccessWithMatch = f),
-      (l.parseUpdateBlockListResponseSuccessWithMismatchListItem = g),
       (l.parseUpdateBlockListResponseSuccessWithMismatch = h),
-      (l.parseUpdateBlocklistErrors = y),
-      (l.makeUpdateBlockListRequestItemBizOptOut = C),
       (l.makeUpdateBlockListRequest = b),
-      (l.ENUM_LID_PN = v),
-      (l.parseIQErrorNotAllowedMixin = S),
-      (l.mergeUpdateBlockListBlockOrUpdateBlockListUnblockItemMixinGroup = R),
-      (l.mergeUpdateBlockListReportBlockEntryPointMixin = E),
-      (l.mergeUpdateBlockListUnblockItemMixin = I),
-      (l.mergeUpdateBlockListBlockItemMixin = D),
-      (l.mergeUpdateBlockListOrUpdateBlockListNonMigratedBlockItemMixinGroup =
-        x),
-      (l.mergeUpdateBlockListMigratedBlockItemMixin = P),
-      (l.mergeUpdateBlockListNonMigratedBlockItemMixin = M),
-      (l.mergeBlocklistIdentifierMixin = A),
-      (l.mergeBlocklistIds = F),
-      (l.mergeGuestNameAndDisplayNameMixin = B),
-      (l.mergeGuestNameMixin = q),
-      (l.mergePnJidMixin = V),
-      (l.mergeUnknownIdentifierMixin = G),
-      (l.mergeUsernameMixin = j),
-      (l.mergeDisplayNameMixin = Q));
+      (l.ENUM_LID_PN = v));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebApiHistorySyncNotification",
   [
     "WALogger",
+    "WAWebBackgroundPauseState",
     "WAWebHistorySyncLogUtils",
     "WAWebHistorySyncProgress",
     "WAWebProtobufsHistorySync.pb",
@@ -23,13 +24,14 @@ __d(
       f,
       g,
       h = new Set(),
-      y = {};
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+      y = new Set(),
+      C = {};
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             e ===
             o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
@@ -87,7 +89,7 @@ __d(
                     i,
                   )
                   .tags("history-sync"),
-                yield L(n, e, t),
+                yield E(n, e, t),
                 !1)
               : (o("WALogger")
                   .LOG(
@@ -105,15 +107,15 @@ __d(
                   .tags("history-sync"),
                 !1);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             (o("WALogger").LOG(
               m ||
@@ -152,7 +154,7 @@ __d(
                     a.progress,
                   )
                   .tags("history-sync"),
-                yield L(n, e, t),
+                yield E(n, e, t),
                 !1)
               : (o("WALogger")
                   .LOG(
@@ -170,10 +172,10 @@ __d(
                   .tags("history-sync"),
                 !1);
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(t) {
+    function L(t) {
       return o("WAWebSchemaHistorySyncNotification")
         .getHistorySyncNotificationTable()
         .equals(["processed"], 0, { shouldDecrypt: !1 })
@@ -215,9 +217,12 @@ __d(
                     (a.syncType ===
                     o("WAWebProtobufsHistorySync.pb")
                       .HistorySync$HistorySyncType.RECENT
-                      ? (s = yield v(a.syncType, i, a.msgKey))
-                      : (s = yield C(a.syncType, i, a.msgKey)),
-                    o("WAWebHistorySyncProgress").handleChunkProgress(s),
+                      ? (s = yield S(a.syncType, i, a.msgKey))
+                      : (s = yield b(a.syncType, i, a.msgKey)),
+                    o("WAWebHistorySyncProgress").handleChunkProgress(
+                      s,
+                      a.syncType,
+                    ),
                     !s)
                   )
                     return;
@@ -234,7 +239,7 @@ __d(
           })(),
         );
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       return (
         o("WALogger").LOG(
           s ||
@@ -246,7 +251,7 @@ __d(
           t,
           n,
         ),
-        h.delete(e),
+        D(e),
         o("WAWebSchemaHistorySyncNotification")
           .getHistorySyncNotificationTable()
           .remove(e)
@@ -264,18 +269,33 @@ __d(
           })
       );
     }
-    function E(e) {
+    function k(e) {
       return (
-        h.delete(e),
+        D(e),
         o("WAWebSchemaHistorySyncNotification")
           .getHistorySyncNotificationTable()
           .merge(e, { reuploadPending: !0 })
       );
     }
-    function k(e) {
-      h.delete(e);
-    }
     function I(e) {
+      D(e);
+    }
+    function T(e, t) {
+      (h.add(e),
+        t ===
+          o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+            .ON_DEMAND && (y.add(e), x()));
+    }
+    function D(e) {
+      (h.delete(e), y.delete(e) && x());
+    }
+    function x() {
+      var e = y.size > 0;
+      o("WAWebBackgroundPauseState").onDemandHistorySyncInFlightState.get() !==
+        e &&
+        o("WAWebBackgroundPauseState").onDemandHistorySyncInFlightState.set(e);
+    }
+    function $(e) {
       var t = o("WAWebHistorySyncLogUtils").getHistorySyncBasicChunkInfoString(
           e.syncType,
           e.chunkOrder,
@@ -302,14 +322,14 @@ __d(
           .createOrMerge(e.msgKey, l)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function D() {
+    function N() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t === void 0 && (t = !1),
-            yield I(e).then(function () {
+            yield $(e).then(function () {
               o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 e.syncType,
                 o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
@@ -317,17 +337,17 @@ __d(
                 e.chunkOrder,
               );
             }),
-            t && h.add(e.msgKey));
+            t && T(e.msgKey, e.syncType));
         })),
-        D.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function x() {
-      return $.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function $() {
+    function w() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (h.size > 0)
             return (
               o("WALogger").LOG(
@@ -340,7 +360,7 @@ __d(
               ),
               null
             );
-          var e = yield R();
+          var e = yield L();
           if (e) {
             var t = o(
               "WAWebHistorySyncLogUtils",
@@ -361,7 +381,7 @@ __d(
               delete e.filehash,
               (e.downloadOptions.encFilehash = e.encFilehash),
               delete e.encFilehash,
-              h.add(e.msgKey));
+              T(e.msgKey, e.syncType));
           } else
             o("WALogger").LOG(
               g ||
@@ -371,16 +391,16 @@ __d(
             );
           return e;
         })),
-        $.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
     ((l.inFlightChunk = h),
-      (l.recentSyncChunkHandlingTriedCount = y),
-      (l.updateCurrentlyProcessed = L),
-      (l.markChunkForReuploadPending = E),
-      (l.removeLocalFailureFromInFlightChunk = k),
-      (l.enqueueNotification = T),
-      (l.fetchNextHistorySyncChunkForProcessing = x));
+      (l.recentSyncChunkHandlingTriedCount = C),
+      (l.updateCurrentlyProcessed = E),
+      (l.markChunkForReuploadPending = k),
+      (l.removeLocalFailureFromInFlightChunk = I),
+      (l.enqueueNotification = P),
+      (l.fetchNextHistorySyncChunkForProcessing = M));
   },
   98,
 );

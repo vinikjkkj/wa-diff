@@ -489,29 +489,13 @@ __d(
     }
     ((l.sendBotListRPC = e),
       (l.parseBotListResponseError = u),
-      (l.parseBotListResponseSuccessV2BotSectionBotTheme = c),
-      (l.parseBotListResponseSuccessV2BotSectionBot = d),
-      (l.parseBotListResponseSuccessV2BotSection = m),
       (l.parseBotListResponseSuccessV2 = p),
-      (l.parseBotListResponseSuccessV3BotSectionBot = _),
-      (l.parseBotListResponseSuccessV3BotSection = f),
-      (l.parseBotListResponseSuccessV3BotDefault = g),
       (l.parseBotListResponseSuccessV3 = h),
       (l.ENUM_ALL_CATEGORY_FEATURED = y),
       (l.ENUM_DARK_LIGHT = C),
       (l.ENUM_HIDDEN_HSCROLL_HSCROLLICEBREAKERS_HSCROLLLARGE_HSCROLLSMALL_LISTVIEW =
         b),
-      (l.parseIQErrorResponseMixin = v),
-      (l.parseIQResultResponseMixin = S),
-      (l.makeBotListRequestBotBot = R),
-      (l.makeBotListRequest = L),
-      (l.parseBotListErrors = E),
-      (l.parseIQErrorBadRequestMixin = k),
-      (l.parseIQErrorForbiddenMixin = I),
-      (l.parseIQErrorInternalServerErrorMixin = T),
-      (l.parseIQErrorNotAllowedMixin = D),
-      (l.mergeBotListIQMixin = $),
-      (l.mergeBaseIQGetRequestMixin = N));
+      (l.makeBotListRequest = L));
   },
   98,
 );

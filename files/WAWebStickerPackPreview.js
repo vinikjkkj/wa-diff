@@ -13,6 +13,7 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebMediaThumbnail.react",
     "WAWebMessageDeeperContainer.react",
+    "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -57,24 +58,30 @@ __d(
     function _(e) {
       var t,
         n = e.msgKey,
-        a = o("useWAWebMsgValues").useMsgValues(n, [
-          o("WAWebMsgGetters").getIsSentByMe,
-          o("WAWebFrontendMsgGetters").getStickers,
-          o("WAWebMsgGetters").getDescription,
-          o("WAWebMsgGetters").getFilename,
-        ]),
+        a = o("useWAWebMsgValues").useMsgValues(
+          n,
+          o("WAWebMsgCasts").castToStickerPackMsg,
+          [
+            o("WAWebMsgGetters").getIsSentByMe,
+            o("WAWebMsgGetters").getDescription,
+            o("WAWebMsgGetters").getFilename,
+          ],
+        ),
         i = a[0],
         l = a[1],
         u = a[2],
-        _ = a[3],
-        g = (t = l == null ? void 0 : l.length) != null ? t : 0;
-      function h() {
-        return u != null && u !== ""
-          ? u
-          : g >= 1
+        _ = o("useWAWebMsgValues").useMsgValues(n, [
+          o("WAWebFrontendMsgGetters").getStickers,
+        ]),
+        g = _[0],
+        h = (t = g == null ? void 0 : g.length) != null ? t : 0;
+      function y() {
+        return l != null && l !== ""
+          ? l
+          : h >= 1
             ? s._(
                 /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
-                [s._plural(g, "stickerCount")],
+                [s._plural(h, "stickerCount")],
               )
             : "";
       }
@@ -94,7 +101,7 @@ __d(
                 isPreload: !1,
               }));
       }, []);
-      var y = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
+      var C = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
       return c.jsx(r("WAWebMessageDeeperContainer.react"), {
         xstyle: p.deepContainer,
         outgoingMsg: i,
@@ -141,8 +148,8 @@ __d(
                     isBotPluginLink: !1,
                     isCompose: !1,
                     isStatus: !1,
-                    title: _,
-                    titleDir: y,
+                    title: u,
+                    titleDir: C,
                     titleDirMismatch: !1,
                   }),
                 }),
@@ -154,7 +161,7 @@ __d(
                     isHighQualityLayout: !1,
                     isStatus: !1,
                     useTextLimit: !1,
-                    children: h(),
+                    children: y(),
                   }),
                 }),
               ],

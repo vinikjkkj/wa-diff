@@ -25,15 +25,14 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n,
-            a = e.expiration,
-            i = e.invitee,
-            l = e.isSentByMe,
-            s = e.newsletterWid;
-          if (!(s == null || a == null)) {
-            var c = r("WAWebNewsletterCollection").get(s);
-            if (!l) {
-              var d = o(
+            n = e.expiration,
+            a = e.invitee,
+            i = e.isSentByMe,
+            l = e.newsletterWid;
+          if (!(l == null || n == null)) {
+            var s = r("WAWebNewsletterCollection").get(l);
+            if (!i) {
+              var c = o(
                 "WAWebWamoPDFNGatingUtils",
               ).hasAckedNewsletterAdminInviteNuxOrTos();
               return o("WAWebModalManager").ModalManager.open(
@@ -44,27 +43,25 @@ __d(
                   verifyTosAccepted: o("WAWebWamoPDFNGatingUtils")
                     .hasAckedNewsletterAdminInviteNuxOrTos,
                   runIfTosAccepted: function () {
-                    return m(s, a, d);
+                    return m(l, n, c);
                   },
                 }),
               );
             }
-            var p =
-              i != null
-                ? o("WAWebContactCollection").ContactCollection.get(i)
+            var d =
+              a != null
+                ? o("WAWebContactCollection").ContactCollection.get(a)
                 : null;
-            c != null &&
-              (t =
-                c == null || (n = c.newsletterMetadata) == null
-                  ? void 0
-                  : n.iAmAdminOrOwner()) != null &&
-              t &&
-              p != null &&
+            s != null &&
+              s != null &&
+              (t = s.newsletterMetadata) != null &&
+              t.iAmAdminOrOwner() &&
+              d != null &&
               o("WAWebModalManager").ModalManager.open(
                 u.jsx(
                   o("WAWebNewsletterRevokeInvitePopup.react")
                     .NewsletterRevokeInvitePopupWithNewsletterInformation,
-                  { chatId: c.id, contact: p },
+                  { chatId: s.id, contact: d },
                 ),
               );
           }

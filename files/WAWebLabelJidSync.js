@@ -8,7 +8,6 @@ __d(
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebBackendApi",
-    "WAWebCTWAAeDetectionGating",
     "WAWebContactSystemMsg",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDetectedOutcomeLabelConstants",
@@ -129,9 +128,9 @@ __d(
                 o("WAWebDetectedOutcomeLabelConstants").DO_LEAD_PREDEFINED_ID;
               if (
                 s == null ||
-                !o(
-                  "WAWebCTWAAeDetectionGating",
-                ).isCtwaAeModelMetadataIngestionEnabled()
+                !o("WAWebABProps").getABPropConfigValue(
+                  "ctwa_ae_model_meta_data_enabled",
+                )
               ) {
                 i.detectedOutcomeSignalEmission = { lead: _ };
                 return;

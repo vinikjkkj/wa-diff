@@ -1,12 +1,12 @@
 __d(
   "SessionName",
   ["SessionNameConfig"],
-  function (t, n, r, o, a, i) {
-    a.exports = {
+  function (t, n, r, o, a, i, l) {
+    i.exports = {
       getName: function () {
-        return n("SessionNameConfig").seed;
+        return r("SessionNameConfig").seed;
       },
     };
   },
-  null,
+  34,
 );

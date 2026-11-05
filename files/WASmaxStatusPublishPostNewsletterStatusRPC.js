@@ -384,29 +384,7 @@ __d(
     ((l.sendPostNewsletterStatusRPC = e),
       (l.parsePostNewsletterStatusResponseNegative = u),
       (l.parsePostNewsletterStatusResponseSuccess = c),
-      (l.makePostNewsletterStatusRequest = d),
-      (l.mergeClientPostNewsletterStatusAndServerOrPostNewsletterStatusIDMixinGroup =
-        m),
-      (l.mergePostNewsletterStatusClientAndServerIDMixin = _),
-      (l.mergePostNewsletterStatusClientIDMixin = g),
-      (l.mergeStatusAIContentMetaMixin = y),
-      (l.mergeStatusNewsletterReactionOrReactionRevokeOrQuestionResponseMixinGroup =
-        C),
-      (l.mergeStatusNewsletterReactionRevokeMixin = v),
-      (l.mergeNewsletterClientIdContent = S),
-      (l.mergeStatusNewsletterQuestionPublishMixin = L),
-      (l.mergeStatusNewsletterQuestionResharePublishMixin = k),
-      (l.mergeStatusNewsletterQuestionResponseMixin = T),
-      (l.mergeStatusNewsletterReactionMixin = x),
-      (l.mergeStatusNewsletterRevokeMixin = P),
-      (l.mergeStatusNewsletterTextMixin = M),
-      (l.mergeStatusAdminRevokeMixin = A),
-      (l.mergeStatusNewsletterInteractionTypeQuestionMixin = O),
-      (l.mergeStatusNewsletterInteractionTypeQuestionReshareMixin = W),
-      (l.mergeStatusNewsletterInteractionTypeQuestionResponseMixin = U),
-      (l.mergeStatusNewsletterMediaPublishMixin = H),
-      (l.mergeStatusNewsletterMediaMixin = z),
-      (l.mergeNewsletterPlaintextPayloadMixin = K));
+      (l.makePostNewsletterStatusRequest = d));
   },
   98,
 );

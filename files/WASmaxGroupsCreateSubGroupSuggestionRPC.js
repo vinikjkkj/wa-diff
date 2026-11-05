@@ -526,32 +526,11 @@ __d(
     }
     ((l.sendCreateSubGroupSuggestionRPC = e),
       (l.parseCreateSubGroupSuggestionResponseClientError = u),
-      (l.parseCreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccessSubGroupSuggestionGroup =
-        c),
       (l.parseCreateSubGroupSuggestionResponseExistingGroupsSuggestionSuccess =
         d),
-      (l.parseCreateSubGroupSuggestionResponseNewGroupSuggestionSuccessSubGroupSuggestionDescription =
-        m),
       (l.parseCreateSubGroupSuggestionResponseNewGroupSuggestionSuccess = p),
       (l.parseCreateSubGroupSuggestionResponseServerError = _),
-      (l.parseSubGroupNotAuthorizedOrNotExistOrConflictOrSuggestionNotAllowedOrResourceLimitOrBadRequestOrNotAcceptableOrServerErrorMixinGroup =
-        f),
-      (l.parseSubGroupSuggestionNotAllowedMixin = g),
-      (l.makeCreateSubGroupSuggestionRequest = h),
-      (l.mergeSuggestionForCreateSubGroupSuggestionNewGroupOrCreateSubGroupSuggestionExistingGroupsMixinGroup =
-        y),
-      (l.parseCreateSubGroupSuggestionErrors = C),
-      (l.makeCreateSubGroupSuggestionSuggestionForExistingGroupsGroup = b),
-      (l.makeCreateSubGroupSuggestionSuggestionForExistingGroupsGroupHiddenGroup =
-        v),
-      (l.mergeCreateSubGroupSuggestionSuggestionForExistingGroupsMixin = R),
-      (l.makeCreateSubGroupSuggestionSuggestionForNewGroupDescription = L),
-      (l.makeCreateSubGroupSuggestionSuggestionForNewGroupLocked = E),
-      (l.makeCreateSubGroupSuggestionSuggestionForNewGroupAnnouncement = k),
-      (l.makeCreateSubGroupSuggestionSuggestionForNewGroupHiddenGroup = I),
-      (l.makeCreateSubGroupSuggestionSuggestionForNewGroupMembershipApprovalMode =
-        T),
-      (l.mergeCreateSubGroupSuggestionSuggestionForNewGroupMixin = x));
+      (l.makeCreateSubGroupSuggestionRequest = h));
   },
   98,
 );

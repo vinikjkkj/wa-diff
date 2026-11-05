@@ -18,6 +18,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebInteractiveNativeFlowOrderHeader",
     "WAWebL10N",
+    "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebNativeFlowPaymentInfoOrderDetailsHeader",
@@ -73,7 +74,11 @@ __d(
         ]),
           (t[0] = l));
       } else l = t[0];
-      var d = o("useWAWebMsgValues").useMsgValues(i, l),
+      var d = o("useWAWebMsgValues").useMsgValues(
+          i,
+          o("WAWebMsgCasts").castToNativeFlowMsg,
+          l,
+        ),
         f = d[0],
         h = d[1],
         b = d[2],

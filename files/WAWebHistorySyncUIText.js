@@ -75,7 +75,29 @@ __d(
         /*BTDS*/ "Syncing of older messages has paused. Open WhatsApp on your phone to continue syncing. You can still send and receive messages here.",
       );
     }
-    ((S.displayName = S.name + " [from " + i.id + "]"),
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R() {
+      return s._(
+        /*BTDS*/ "Syncing paused while you're on a call. It'll continue after the call ends.",
+      );
+    }
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L() {
+      return s._(
+        /*BTDS*/ "Syncing paused while you're on a call. It'll continue after the call ends.",
+      );
+    }
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E() {
+      return s._(/*BTDS*/ "Paused while you're on a call");
+    }
+    E.displayName = E.name + " [from " + i.id + "]";
+    function k() {
+      return s._(
+        /*BTDS*/ "Syncing of older messages is paused while you're on a call. It'll continue after the call ends. You can still send and receive messages here.",
+      );
+    }
+    ((k.displayName = k.name + " [from " + i.id + "]"),
       (l.SYNC_IN_PROGRESS_CONTEXTUAL_DRAWER = c),
       (l.SYNC_IN_PROGRESS_CONTEXTUAL_SYSTEM_MESSAGE_TEXT = d),
       (l.SYNCING_OLDER_MESSAGES_MODAL_TITLE = m),
@@ -88,7 +110,11 @@ __d(
       (l.SYNCING_PAUSED_GLOBAL_SETTINGS_TITLE = C),
       (l.SYNCING_PAUSED_GLOBAL_SETTINGS_SUBTITLE = b),
       (l.SYNCING_PAUSED_POPUP_TITLE = v),
-      (l.SYNCING_PAUSED_POPUP_DESC = S));
+      (l.SYNCING_PAUSED_POPUP_DESC = S),
+      (l.SYNCING_PAUSED_FOR_CALL_CONTEXTUAL_SYSTEM_MESSAGE_TEXT = R),
+      (l.SYNCING_PAUSED_FOR_CALL_CONTEXTUAL_TEXT = L),
+      (l.SYNCING_PAUSED_FOR_CALL_GLOBAL_SETTINGS_SUBTITLE = E),
+      (l.SYNCING_PAUSED_FOR_CALL_POPUP_DESC = k));
   },
   226,
 );

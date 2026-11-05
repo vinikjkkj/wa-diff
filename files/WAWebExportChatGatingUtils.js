@@ -4,12 +4,16 @@ __d(
     "WAWebABProps",
     "WAWebChatGetters",
     "WAWebLimitSharingUIUtils",
+    "WAWebProductFeature",
     "WAWebUserPrefsHistorySync",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return o("WAWebABProps").getABPropConfigValue("wa_web_export_chat");
+      return (
+        !o("WAWebProductFeature").isInternalProduct() &&
+        o("WAWebABProps").getABPropConfigValue("wa_web_export_chat")
+      );
     }
     function s(e) {
       return e.msgs.length > 0 || e.lastReceivedKey != null;

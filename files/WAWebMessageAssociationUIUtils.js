@@ -208,11 +208,11 @@ __d(
           if (
             !(
               e == null ||
-              ((n = o("WAWebInvisiblePlaceholderViewModeProcessor")
-                .InvisiblePlaceholderViewModeProcessor
-                .compatibleMessageTypes) == null
-                ? void 0
-                : n.includes(e.type)) !== !0
+              !(
+                (n = o("WAWebInvisiblePlaceholderViewModeProcessor")
+                  .InvisiblePlaceholderViewModeProcessor
+                  .compatibleMessageTypes) != null && n.includes(e.type)
+              )
             )
           ) {
             var r = L(t);

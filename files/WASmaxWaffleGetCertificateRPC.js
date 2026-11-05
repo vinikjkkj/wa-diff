@@ -267,15 +267,7 @@ __d(
     ((l.sendGetCertificateRPC = e),
       (l.parseGetCertificateResponseError = u),
       (l.parseGetCertificateResponseSuccess = c),
-      (l.makeGetCertificateRequestPayloadEncCertificates = d),
-      (l.makeGetCertificateRequestPasswordPem = m),
-      (l.makeGetCertificateRequest = p),
-      (l.parseGetCertificateErrors = _),
-      (l.parseGetCertificateResponseEncryptionPem = f),
-      (l.parseGetCertificateResponseSignaturePem = g),
-      (l.parseGetCertificateResponsePasswordPem = h),
-      (l.parseGetCertificateResponseMixin = y),
-      (l.parseIQErrorFeatureNotImplementedMixin = C));
+      (l.makeGetCertificateRequest = p));
   },
   98,
 );

@@ -47,8 +47,9 @@ __d(
               debug: String(t),
             }).commit(),
             !1)
-          : p
-            ? ((_ = !0),
+          : !p || o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null
+            ? !1
+            : ((_ = !0),
               (p = !1),
               (g = !0),
               o("WALogger").LOG(
@@ -64,7 +65,6 @@ __d(
                 debug: String(t),
               }).commit(),
               !0)
-            : !1
         : !1;
     }
     function C() {
@@ -73,7 +73,10 @@ __d(
     function b() {
       if (
         _ ||
-        !o("WAWebABProps").getABPropConfigValue("prefer_lid_for_chatd_login")
+        (!o("WAWebABProps").getABPropConfigValue(
+          "prefer_lid_for_chatd_login",
+        ) &&
+          o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null)
       )
         return null;
       var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);

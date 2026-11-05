@@ -219,11 +219,8 @@ __d(
     ((l.sendRevokeRequestCodeRPC = e),
       (l.parseRevokeRequestCodeResponseClientError = u),
       (l.parseRevokeRequestCodeResponseServerError = c),
-      (l.parseRevokeRequestCodeResponseSuccessRevokeParticipant = d),
       (l.parseRevokeRequestCodeResponseSuccess = m),
-      (l.makeRevokeRequestCodeRequestRevokeParticipant = p),
-      (l.makeRevokeRequestCodeRequest = _),
-      (l.parseClientErrors = f));
+      (l.makeRevokeRequestCodeRequest = _));
   },
   98,
 );

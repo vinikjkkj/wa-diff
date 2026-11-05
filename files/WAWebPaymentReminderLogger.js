@@ -18,7 +18,6 @@ __d(
     "WAWebQbmPaymentReminderInteractionWamEvent",
     "WAWebUnifiedSession",
     "WAWebUserPrefsGeneral",
-    "WAWebUtilsPnhSmbLoggingHelper",
     "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumContactType",
     "asyncToGeneratorRuntime",
@@ -27,151 +26,218 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 1e4,
-      c = new Set();
-    function d(e) {
-      if (c.has(e)) return !1;
-      if (c.size >= u) {
-        var t = c.values().next().value;
-        t != null && c.delete(t);
+      u,
+      c,
+      d,
+      m = 100,
+      p = new Set(),
+      _ = !1;
+    function f(e) {
+      return e >= m;
+    }
+    function g(e) {
+      if (p.has(e)) return !1;
+      if (p.size >= m) {
+        var t = p.values().next().value;
+        t != null && p.delete(t);
       }
-      return (c.add(e), !0);
+      return (p.add(e), !0);
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function p() {
+    function y() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "utility_payment_reminder_m1_logging_enabled",
             )
           ) {
-            var i = t.safe();
+            var a = t.safe();
             if (
               !(
-                i.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-                i.type !== o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW
+                a.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+                a.type !== o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW
               )
             ) {
-              var l = o(
+              var i = o(
                 "WAWebPaymentReminder",
-              ).getSmartHydratedPaymentReminderInfo(i);
-              if (l != null) {
-                var u = o("WAWebMsgGetters").getId(t).toString(),
-                  m =
-                    a ===
+              ).getSmartHydratedPaymentReminderInfo(a);
+              if (i != null) {
+                var l = o("WAWebMsgGetters").getId(t).toString(),
+                  c =
+                    n ===
                     o("WAWebPaymentReminderLoggerLazy")
                       .PaymentReminderActionType.MESSAGE_RECEIVE;
-                if (!(m && !d(u)))
+                if (!(c && !g(l))) {
+                  var d = !1;
                   try {
-                    var p,
-                      f,
-                      g = o("WAWebFrontendMsgGetters").getChat(t),
-                      h = o("WAWebContactCollection").ContactCollection.get(
-                        g.id,
+                    c &&
+                      f(p.size) &&
+                      !_ &&
+                      ((_ = !0),
+                      o("WALogger")
+                        .LOG(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[payment-reminder] receive dedupe cache reached ",
+                              " entries",
+                            ])),
+                          m,
+                        )
+                        .sendLogs(
+                          "payment-reminder-receive-dedupe-cache-full",
+                        ));
+                    var h = o("WAWebFrontendMsgGetters").getChat(t),
+                      y = o("WAWebContactCollection").ContactCollection.get(
+                        h.id,
                       ),
-                      y =
-                        h != null && o("WAWebContactGetters").getIsBusiness(h),
-                      C = _(
-                        y,
-                        h != null &&
-                          o("WAWebContactGetters").getIsEnterprise(h),
+                      b =
+                        y != null && o("WAWebContactGetters").getIsBusiness(y),
+                      S = v(
+                        b,
+                        y != null &&
+                          o("WAWebContactGetters").getIsEnterprise(y),
                       ),
-                      b = g.archive
+                      R = h.archive
                         ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE
                             .ARCHIVED
                         : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE
                             .INBOX,
-                      v =
-                        o("WAWebChatGetters").getMuteExpiration(g) > Date.now(),
-                      S =
-                        h != null &&
-                        o("WAWebFrontendContactGetters").getIsMyContact(h),
-                      R = Date.now(),
-                      L = Math.round(
-                        (R - o("WAWebMsgGetters").getT(t) * 1e3) / 1e3,
-                      ),
-                      E = o("WAWebChatGetters").getId(g).toString(),
-                      k = yield (s || (s = n("Promise"))).all([
-                        o("WAWebChatThreadLogging").getMessageIDHMAC(u),
-                        o("WAWebChatThreadLogging").getChatThreadIDHMAC(E),
-                      ]),
-                      I = k[0],
-                      T = k[1],
-                      D = o("WAWebMsgGetters").getClientReceivedTsMillis(t),
-                      x = D != null ? Math.round((R - D) / 1e3) : void 0,
-                      $ =
+                      L =
+                        o("WAWebChatGetters").getMuteExpiration(h) > Date.now(),
+                      E =
+                        y != null &&
+                        o("WAWebFrontendContactGetters").getIsMyContact(y),
+                      k =
                         o("WAWebUserPrefsGeneral").getUserPrivacySettings()
-                          .readReceipts !== "none";
-                    (new (o(
-                      "WAWebQbmPaymentReminderInteractionWamEvent",
-                    ).QbmPaymentReminderInteractionWamEvent)({
-                      actionTypePaymentReminder: a,
-                      chatsFolderType: b,
-                      contactType: C,
-                      deltaTime: L,
-                      deltaTimeReceived: x,
-                      isBizIntent: y,
-                      isInsubContact: S,
-                      isMuted: v,
-                      isPaymentOverdue: l.isOverdue,
-                      messageIdHmac: I != null ? I : void 0,
-                      readReceiptsEnabled: $,
-                      threadIdHmac: T != null ? T : void 0,
-                      unifiedSessionId:
-                        (p = o(
-                          "WAWebUnifiedSession",
-                        ).UnifiedSessionManager.getSessionId()) != null
-                          ? p
-                          : void 0,
-                    }).commit(),
-                      new (o(
+                          .readReceipts !== "none",
+                      I = {
+                        actionTypePaymentReminder: n,
+                        chatsFolderType: R,
+                        contactType: S,
+                        isBizIntent: b,
+                        isInsubContact: E,
+                        isMuted: L,
+                        isPaymentOverdue: i.isOverdue,
+                        readReceiptsEnabled: k,
+                      };
+                    d = yield C(t, l, h, I);
+                    try {
+                      var T, D;
+                      (new (o(
                         "WAWebBusinessTemplatePaymentReminderWamEvent",
-                      ).BusinessTemplatePaymentReminderWamEvent)({
-                        actionTypePaymentReminder: a,
-                        businessJid: o(
-                          "WAWebUtilsPnhSmbLoggingHelper",
-                        ).jidToPnString(o("WAWebChatGetters").getId(g)),
-                        chatsFolderType: b,
-                        contactType: C,
-                        isBizIntent: y,
-                        isInsubContact: S,
-                        isMuted: v,
-                        isPaymentOverdue: l.isOverdue,
-                        readReceiptsEnabled: $,
-                        templateId: (f = t.templateId) != null ? f : void 0,
-                      }).commit());
-                  } catch (t) {
-                    (m && c.delete(u),
+                      ).BusinessTemplatePaymentReminderWamEvent)(
+                        babelHelpers.extends({}, I, {
+                          businessJid:
+                            (T = h.accountLid) == null ? void 0 : T.toString(),
+                          templateId: (D = t.templateId) != null ? D : void 0,
+                        }),
+                      ).commit(),
+                        (d = !0));
+                    } catch (e) {
                       o("WALogger")
                         .WARN(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[payment-reminder] interaction logging failed",
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[payment-reminder] BusinessTemplate event commit failed",
                             ])),
                         )
-                        .catching(r("getErrorSafe")(t))
+                        .catching(r("getErrorSafe")(e))
                         .sendLogs(
-                          "payment-reminder-interaction-logging-failed",
-                        ));
+                          "payment-reminder-business-template-logging-failed",
+                        );
+                    }
+                  } catch (e) {
+                    o("WALogger")
+                      .WARN(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "[payment-reminder] interaction logging failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("payment-reminder-interaction-logging-failed");
+                  } finally {
+                    c && !d && p.delete(l);
                   }
+                }
               }
             }
           }
         })),
-        p.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function _(e, t) {
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, a, i) {
+            try {
+              var l,
+                s = Date.now(),
+                u = Math.round((s - o("WAWebMsgGetters").getT(e) * 1e3) / 1e3),
+                m = yield (d || (d = n("Promise"))).all([
+                  o("WAWebChatThreadLogging").getMessageIDHMAC(t),
+                  o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                    o("WAWebChatGetters").getId(a).toString(),
+                  ),
+                ]),
+                p = m[0],
+                _ = m[1],
+                f = o("WAWebMsgGetters").getClientReceivedTsMillis(e),
+                g = f != null ? Math.round((s - f) / 1e3) : void 0;
+              return (
+                new (o(
+                  "WAWebQbmPaymentReminderInteractionWamEvent",
+                ).QbmPaymentReminderInteractionWamEvent)(
+                  babelHelpers.extends({}, i, {
+                    deltaTime: u,
+                    deltaTimeReceived: g,
+                    messageIdHmac: p != null ? p : void 0,
+                    threadIdHmac: _ != null ? _ : void 0,
+                    unifiedSessionId:
+                      (l = o(
+                        "WAWebUnifiedSession",
+                      ).UnifiedSessionManager.getSessionId()) != null
+                        ? l
+                        : void 0,
+                  }),
+                ).commit(),
+                !0
+              );
+            } catch (e) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[payment-reminder] QBM event commit failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("payment-reminder-qbm-logging-failed"),
+                !1
+              );
+            }
+          },
+        )),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t) {
       return t
         ? o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE
         : e
           ? o("WAWebWamEnumContactType").CONTACT_TYPE.SMB
           : o("WAWebWamEnumContactType").CONTACT_TYPE.CONSUMER;
     }
-    l.logPaymentReminderInteraction = m;
+    ((l.hasReceiveCacheReachedCapacity = f),
+      (l.logPaymentReminderInteraction = h));
   },
   98,
 );

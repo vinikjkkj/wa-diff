@@ -4,7 +4,9 @@ __d(
     "WAArrayDifferenceBy",
     "WALogger",
     "WATimeUtils",
+    "WAWebBizCoexUtils",
     "WAWebDBDeviceListFanout",
+    "WAWebDBUpdateMessageTable",
     "WAWebMsgFanoutTypes",
     "WAWebMsgUtilsBridge",
     "WAWebSendMsgCommonApi",
@@ -18,22 +20,22 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e) {
-      return g.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g;
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.ackTime,
-            r = t.chatId,
-            a = t.excludeList,
-            i = t.metricReporter,
-            l = t.msgProtobuf,
-            _ = t.msgRecord,
-            f = t.scheduledMsgMetadata,
-            g = _.data.to,
-            y = _.data.id.id;
+            a = t.chatId,
+            i = t.excludeList,
+            l = t.metricReporter,
+            f = t.msgProtobuf,
+            g = t.msgRecord,
+            h = t.scheduledMsgMetadata,
+            y = g.data.to,
+            b = g.data.id.id;
           o("WALogger")
             .LOG(
               e ||
@@ -42,13 +44,13 @@ __d(
                   " to ",
                   "",
                 ])),
-              y,
-              g.toString(),
+              b,
+              y.toString(),
             )
             .tags("messaging");
-          var C = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
-          if (o("WATimeUtils").unixTime() - n > C) {
-            var b;
+          var S = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
+          if (o("WATimeUtils").unixTime() - n > S) {
+            var R;
             (o("WALogger")
               .LOG(
                 s ||
@@ -57,29 +59,33 @@ __d(
                     ": skip resending due to ",
                     " min timeout",
                   ])),
-                y,
-                C / 60,
+                b,
+                S / 60,
               )
               .tags("messaging"),
-              (b = i.sendReporter) == null ||
-                b.postFailure({
+              (R = l.sendReporter) == null ||
+                R.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_EXPIRED,
                   isTerminal: !1,
                 }),
-              (i.sendReporter = null));
+              (l.sendReporter = null));
             return;
           }
           try {
-            var v = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-              S = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: [g, v],
+            var L = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+              E = yield o("WAWebDBDeviceListFanout").getFanOutList({
+                chatWidSetToIncludeHostedInFanoutOneToOneChatOnly: y,
+                wids: [y, L],
               }),
-              R = o("WAArrayDifferenceBy").differenceBy(S, a, String);
-            if (R.length === 0) {
-              var L;
-              if (yield h(g, v, a)) {
-                var E;
+              k = yield C(
+                y,
+                o("WAArrayDifferenceBy").differenceBy(E, i, String),
+              );
+            if (k.length === 0) {
+              var I;
+              if (yield v(y, L, i)) {
+                var T;
                 (o("WALogger")
                   .LOG(
                     u ||
@@ -87,11 +93,11 @@ __d(
                         "[aea] resendUserMsg: ",
                         ": skip, only devices AEA excludes are missing",
                       ])),
-                    y,
+                    b,
                   )
                   .tags("messaging"),
-                  (E = i.sendReporter) == null || E.postSuccess(),
-                  (i.sendReporter = null));
+                  (T = l.sendReporter) == null || T.postSuccess(),
+                  (l.sendReporter = null));
                 return;
               }
               (o("WALogger")
@@ -101,16 +107,16 @@ __d(
                       "resendUserMsg: ",
                       ": skip resending to the empty list",
                     ])),
-                  y,
+                  b,
                 )
                 .tags("messaging"),
-                (L = i.sendReporter) == null ||
-                  L.postFailure({
+                (I = l.sendReporter) == null ||
+                  I.postFailure({
                     result: o("WAWebWamEnumMessageSendResultType")
                       .MESSAGE_SEND_RESULT_TYPE.ERROR_BACKFILL_USYNC_FAILED,
                     isTerminal: !1,
                   }),
-                (i.sendReporter = null));
+                (l.sendReporter = null));
               return;
             }
             if (
@@ -122,11 +128,11 @@ __d(
                       ": resending to devices: ",
                       "",
                     ])),
-                  y,
-                  R.join(","),
+                  b,
+                  k.join(","),
                 )
                 .tags("messaging"),
-              _.data.isOverwrittenByRevoke === !0)
+              g.data.isOverwrittenByRevoke === !0)
             ) {
               o("WALogger")
                 .LOG(
@@ -135,66 +141,122 @@ __d(
                       "resendUserMsg: ",
                       ": skip, msg overwritten by revoke",
                     ])),
-                  y,
+                  b,
                 )
                 .tags("messaging");
               return;
             }
-            var k = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
-                chatId: r,
-                deviceWids: R,
-                metricReporter: i,
-                msgProtobuf: l,
-                msgRecord: _,
+            o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(k) &&
+              o("WAWebDBUpdateMessageTable")
+                .updateMessageTable(g.data.id, {
+                  senderOrRecipientAccountTypeHosted: !0,
+                })
+                .catch(function (e) {
+                  o("WALogger")
+                    .WARN(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "resendUserMsg: ",
+                          ": failed to persist the hosted marker",
+                        ])),
+                      b,
+                    )
+                    .catching(r("getErrorSafe")(e));
+                });
+            var D = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
+                chatId: a,
+                deviceWids: k,
+                metricReporter: l,
+                msgProtobuf: f,
+                msgRecord: g,
                 option: {
                   fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT,
                   isResendingMsg: !0,
                 },
-                scheduledMsgMetadata: f,
+                scheduledMsgMetadata: h,
               }),
-              I = k.phash;
-            I != null &&
+              x = D.phash;
+            x != null &&
               (o("WALogger")
                 .LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "resendUserMsg: ",
                       ": got phash during the resend",
                     ])),
-                  y,
+                  b,
                 )
                 .tags("messaging"),
               o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-                [g, v],
+                [y, L],
                 "message",
-                I,
+                x,
               ));
           } catch (e) {
-            var T;
+            var $;
             throw (
-              (T = i.sendReporter) == null ||
-                T.postFailure({
+              ($ = l.sendReporter) == null ||
+                $.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !1,
                 }),
-              (i.sendReporter = null),
+              (l.sendReporter = null),
               e
             );
           }
           yield o("WAWebMsgUtilsBridge").logMessageSendForChatThreadLogging(
-            _.data,
+            g.data,
           );
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            n("cr:627") == null ||
+            !o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(t)
+          )
+            return t;
+          try {
+            return o("WAArrayDifferenceBy").differenceBy(
+              t,
+              yield n("cr:627").getAeaExcludedSendDevices(e, t),
+              String,
+            );
+          } catch (n) {
+            return (
+              o("WALogger")
+                .WARN(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[aea] resendUserMsg: failed to read the devices AEA excludes from ",
+                      ", skipping hosted devices",
+                    ])),
+                  e.toLogString(),
+                )
+                .catching(r("getErrorSafe")(n))
+                .sendLogs("aea-resend-excluded-devices-read-fail"),
+              t.filter(function (t) {
+                return !(t.isHosted() && t.isSameAccountAndAddressingMode(e));
+              })
+            );
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t, n) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           if (n("cr:627") == null || !e.isUser()) return !1;
           try {
             var i = o("WAArrayDifferenceBy").differenceBy(
@@ -211,8 +273,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[aea] resendUserMsg: failed to read the devices AEA excluded from ",
                       "",
                     ])),
@@ -224,10 +286,10 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    l.resendUserMsg = f;
+    l.resendUserMsg = h;
   },
   98,
 );

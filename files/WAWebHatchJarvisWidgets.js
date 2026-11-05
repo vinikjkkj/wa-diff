@@ -1,6 +1,7 @@
 __d(
   "WAWebHatchJarvisWidgets",
   [
+    "WAWebHatchApiKeyGating",
     "WAWebHatchBrowserTask",
     "WAWebHatchJarvisMedia",
     "WAWebHatchJsonReaders",
@@ -54,7 +55,11 @@ __d(
     }
     function c(e, t) {
       var n = o("WAWebHatchUrl").getHatchConnectLinkConnectorId(e.linkUrl);
-      return e.linkUrl == null || n == null || e.flight != null
+      return e.linkUrl == null ||
+        n == null ||
+        e.flight != null ||
+        (o("WAWebHatchUrl").isHatchApiKeyConnectLink(e.linkUrl) &&
+          !o("WAWebHatchApiKeyGating").isHatchApiKeyConnectEnabled())
         ? null
         : {
             __typename: "GenAIMuseConnectorActionCardPrimitive",

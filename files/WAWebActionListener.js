@@ -108,32 +108,35 @@ __d(
             .BOTTOM_SHEET,
         ],
       ]);
-    function f(e, t, n) {
-      var r = _.get(n);
-      if (r != null) {
-        var a = e.contact;
-        if (a != null) {
-          var i = o(
+    function f(e) {
+      var t = e.chat,
+        n = e.muteEntryPoint,
+        r = e.shouldMute,
+        a = _.get(n);
+      if (a != null) {
+        var i = t.contact;
+        if (i != null) {
+          var l = o(
             "WAWebMarketingMessagesUserFeedbackGatingUtils",
           ).isMMUserControlsEligible({
-            id: a.id,
+            id: i.id,
             isEverOptedOutOfMarketingMessages:
-              a.isEverOptedOutOfMarketingMessages,
-            isMarketingMessageThread: a.isMarketingMessageThread,
+              i.isEverOptedOutOfMarketingMessages,
+            isMarketingMessageThread: i.isMarketingMessageThread,
           });
-          !i ||
+          !l ||
             !o(
               "WAWebMarketingMessagesUserFeedbackGatingUtils",
             ).isSimplifiedManageMessagesLoggingSymmetryEnabled() ||
             o(
               "WAWebMMUserControlsLogger",
             ).logMarketingMessageUserControlsJourney({
-              action: t
+              action: r
                 ? o("WAWebWamEnumMmUserControlsAction").MM_USER_CONTROLS_ACTION
                     .MUTE
                 : o("WAWebWamEnumMmUserControlsAction").MM_USER_CONTROLS_ACTION
                     .UNMUTE,
-              entryPoint: r,
+              entryPoint: a,
               isSuccess: !0,
             });
         }
@@ -233,7 +236,7 @@ __d(
                   o(
                     "WAWebMmSignalSharingLoggingEvents",
                   ).logMmSignalSharingUserMuteEvent({ chat: t }),
-                  f(t, !0, e));
+                  f({ chat: t, muteEntryPoint: e, shouldMute: !0 }));
               };
               if (e) {
                 var p = s._(/*BTDS*/ "Mute notifications");
@@ -279,7 +282,7 @@ __d(
                   new (o(
                     "WAWebBusinessUnmuteWamEvent",
                   ).BusinessUnmuteWamEvent)().commit(),
-                f(t, !1, h));
+                f({ chat: t, muteEntryPoint: h, shouldMute: !1 }));
             }
           }),
           (a[6] = d),
@@ -1165,7 +1168,7 @@ __d(
         o("WAWebMmSignalSharingLoggingEvents").logMmSignalSharingUserMuteEvent({
           chat: e,
         }),
-        f(e, !0, n));
+        f({ chat: e, muteEntryPoint: n, shouldMute: !0 }));
     }
     function q(e) {
       ((e.pendingAction = e.pendingAction + 1),

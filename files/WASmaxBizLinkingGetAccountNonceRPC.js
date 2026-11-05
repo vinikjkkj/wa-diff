@@ -192,13 +192,8 @@ __d(
     }
     ((l.sendGetAccountNonceRPC = e),
       (l.parseGetAccountNonceResponseError = u),
-      (l.parseGetAccountNonceResponseSuccessDetailRequest = c),
       (l.parseGetAccountNonceResponseSuccess = d),
-      (l.makeGetAccountNonceRequestIdentifier = m),
-      (l.makeGetAccountNonceRequest = p),
-      (l.parseAccountNonceErrors = _),
-      (l.parseIQErrorBadRequestMixin = f),
-      (l.parseIQErrorNoticeRequiredMixin = g));
+      (l.makeGetAccountNonceRequest = p));
   },
   98,
 );

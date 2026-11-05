@@ -2,6 +2,7 @@ __d(
   "WAWebUserPrefsMultiDevice",
   [
     "Promise",
+    "WAJids",
     "WAWebBizCoexGatingUtils",
     "WAWebEventEmitter",
     "WAWebMobilePlatforms",
@@ -30,10 +31,14 @@ __d(
               e.MD_KEYS.INITIAL_HISTORY_SYNCED,
               e.MD_KEYS.WEB_ENC_SALT,
             ];
-          (t.push(e.KEYS.LAST_WID_MD),
+          (t.push(e.KEYS.LAST_WID_MD, e.KEYS.LID),
+            o("WAWebUserPrefsMeUser").clearGetMaybeMeLidUserCache(),
             t.map(function (e) {
               r("WAWebUserPrefsStore").set(e, void 0);
             }),
+            r("WAWebUserPrefsLocalStorage").removeItemFromLocalStorage(
+              e.MD_NOISE_KEYS.NOISE_INFO,
+            ),
             yield o(
               "WAWebUserPrefsCacheStorage",
             ).userPrefsCacheStorage.clearCacheStorage());
@@ -147,7 +152,14 @@ __d(
       );
     }
     function L() {
-      return !!(m() && o("WAWebUserPrefsMeUser").getMaybeMeDevicePn());
+      if (m() == null) return !1;
+      if (o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null) return !0;
+      var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
+      return (
+        e != null &&
+        o("WAJids").interpretAndValidateJid(e.toString()).jidType ===
+          "lidDevice"
+      );
     }
     function E(e) {
       return k.apply(this, arguments);

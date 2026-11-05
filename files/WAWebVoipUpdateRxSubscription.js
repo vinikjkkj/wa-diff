@@ -11,13 +11,14 @@ __d(
     "use strict";
     var e,
       s,
-      u = n("$InternalEnum")({ DEFAULT: 0, LOW: 1, MEDIUM: 2, HIGH: 3, HD: 4 });
-    function c(e) {
-      return d.apply(this, arguments);
+      u = 70020,
+      c = n("$InternalEnum")({ DEFAULT: 0, LOW: 1, MEDIUM: 2, HIGH: 3, HD: 4 });
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
@@ -26,19 +27,20 @@ __d(
             var a = [],
               i = [];
             for (var l of t) {
-              var c;
+              var d;
               (a.push(l.wid.toString()),
-                i.push((c = l.quality) != null ? c : u.DEFAULT));
+                i.push((d = l.quality) != null ? d : c.DEFAULT));
             }
-            var d = yield n.updateParticipantsRxSubscription(a, i);
-            d !== 0 &&
+            var m = yield n.updateParticipantsRxSubscription(a, i);
+            m !== 0 &&
+              m !== u &&
               o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[voip] updateRxSubscription failed status=",
                     "",
                   ])),
-                d,
+                m,
               );
           } catch (e) {
             o("WALogger").WARN(
@@ -51,10 +53,10 @@ __d(
             );
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    ((l.VideoQuality = u), (l.updateRxSubscription = c));
+    ((l.VideoQuality = c), (l.updateRxSubscription = d));
   },
   98,
 );

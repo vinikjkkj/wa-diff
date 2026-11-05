@@ -2,8 +2,6 @@ __d(
   "WAWebSyncdRequestBuilderBuild",
   [
     "Promise",
-    "WABaseGlobals",
-    "WAJids",
     "WALogger",
     "WAWap",
     "WAWebABProps",
@@ -25,8 +23,10 @@ __d(
     "WAWebSyncdRequestBuilderTypesConverter",
     "WAWebSyncdRequestEncode",
     "WAWebSyncdWamAppState",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
+    "nullthrows",
     "sortBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -375,9 +375,12 @@ __d(
         })
       );
     }
-    function E(e, t, n, r) {
-      var a = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid()),
-        i = o("encodeProtobuf")
+    function E(e, t, n, a) {
+      var i = r("nullthrows")(
+          o("WAWebUserPrefsMeUser").getMaybeMeDeviceId(),
+          "self device ID",
+        ),
+        l = o("encodeProtobuf")
           .encodeProtobuf(o("WAWebProtobufSyncAction.pb").PatchDebugDataSpec, {
             isSenderPrimary: !1,
             senderPlatform: o("WAWebProtobufSyncAction.pb")
@@ -388,9 +391,9 @@ __d(
         keyId: { id: o("WAWebSyncdKeyTypes").fromSyncKeyId(t) },
         mutations: e,
         snapshotMac: n,
-        patchMac: r,
-        deviceIndex: a,
-        clientDebugData: i,
+        patchMac: a,
+        deviceIndex: i,
+        clientDebugData: l,
       });
     }
     function k(e) {

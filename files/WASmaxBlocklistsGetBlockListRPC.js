@@ -502,18 +502,13 @@ __d(
       return n;
     }
     ((l.sendGetBlockListRPC = e),
-      (l.parseGetBlockListResponseCAPISuccessWithMismatchListItem = u),
       (l.parseGetBlockListResponseCAPISuccessWithMismatch = c),
-      (l.parseGetBlockListResponseForceMigratedSuccessWithMismatchListItem = d),
       (l.parseGetBlockListResponseForceMigratedSuccessWithMismatch = m),
       (l.parseGetBlockListResponseInternalServerError = p),
       (l.parseGetBlockListResponseInvalidRequest = _),
-      (l.parseGetBlockListResponseMigratedSuccessWithMismatchListItem = f),
       (l.parseGetBlockListResponseMigratedSuccessWithMismatch = g),
       (l.parseGetBlockListResponseSuccessWithMatch = h),
-      (l.parseGetBlockListResponseSuccessWithMismatchListItem = y),
       (l.parseGetBlockListResponseSuccessWithMismatch = C),
-      (l.makeGetBlockListRequestItem = b),
       (l.makeGetBlockListRequest = v));
   },
   98,

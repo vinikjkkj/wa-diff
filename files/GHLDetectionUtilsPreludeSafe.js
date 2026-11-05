@@ -13,9 +13,9 @@ __d(
       for (var t = "3f0a7c1b9e42d685"; t.length < e; ) t += t;
       return t.slice(0, e);
     }
-    function c(e) {
-      for (var t = " "; t.length < e; ) t += t;
-      return t.slice(0, e);
+    function c(e, t) {
+      for (var n = t; n.length < e; ) n += n;
+      return n.slice(0, e);
     }
     function d() {
       for (var e = ["Spon", "sored", "Data"], t = "", n = 0; n < e.length; n++)
@@ -42,7 +42,7 @@ __d(
       );
     }
     var p = d();
-    function _(e) {
+    function _(e, t) {
       return (
         '{"data":' +
         p +
@@ -54,18 +54,18 @@ __d(
         u(16) +
         '","extensions":{"is_final":true}' +
         e +
-        c(4079) +
+        c(4079, t) +
         "}"
       );
     }
-    var f = _(""),
+    var f = _("", " "),
       g = null;
     function h() {
       return typeof window == "undefined" ||
         window.Env == null ||
         !("ubzald07" in window.Env)
         ? f
-        : (g == null && (g = _(m())), g);
+        : (g == null && (g = _(m(), "	")), g);
     }
     var y = null,
       C = null,

@@ -178,10 +178,12 @@ __d(
               "WAWebDesktopUpsellUtils",
             ).isWebUserOnSupportedWindowsOSForUWPAsync());
           var h = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
-            y = o("WAWebWidToJid").widToMyJids(h);
+            y = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1),
+            C = o("WAWebWidToJid").widToMyJids(h);
           (o("WAWebGlobals").setGlobals({
             jidUtils: o("WAJids").createJidUtils({ platform: "whatsapp" }),
-            myJids: y,
+            myJids: C,
+            lidDeviceJid: y == null ? void 0 : y.toString(),
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
           }),
             o("WAWebUserPrefsMultiDevice").isRegistered() &&

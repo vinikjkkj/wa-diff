@@ -217,9 +217,7 @@ __d(
       (l.parseSetDescriptionResponseClientError = u),
       (l.parseSetDescriptionResponseServerError = c),
       (l.parseSetDescriptionResponseSuccess = d),
-      (l.makeSetDescriptionRequestDescriptionBody = m),
-      (l.makeSetDescriptionRequest = p),
-      (l.parseSetDescriptionClientErrors = _));
+      (l.makeSetDescriptionRequest = p));
   },
   98,
 );

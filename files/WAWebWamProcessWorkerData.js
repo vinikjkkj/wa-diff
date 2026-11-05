@@ -63,6 +63,7 @@ __d(
     "WAWebWebcDbOpenWamEvent",
     "WAWebWebcJobInfoWamEvent",
     "WAWebWebcLinkPreviewResponseHandleWamEvent",
+    "WAWebWebcMinorEventLogWamEvent",
     "WAWebWebcOfflineNotificationProcessWamEvent",
     "WAWebWebcPageResumeWamEvent",
     "WAWebWebcRawPlatformsWamEvent",
@@ -183,6 +184,7 @@ __d(
         n("WAWebCommunityTabActionWamEvent").CommunityTabActionWamEvent,
         n("WAWebDailyWamEvent").DailyWamEvent,
         n("WAWebKeepInChatNotifWamEvent").KeepInChatNotifWamEvent,
+        n("WAWebWebcMinorEventLogWamEvent").WebcMinorEventLogWamEvent,
         n("WAWebNotificationEngagementWamEvent").NotificationEngagementWamEvent,
         n("WAWebWebcOfflineNotificationProcessWamEvent")
           .WebcOfflineNotificationProcessWamEvent);

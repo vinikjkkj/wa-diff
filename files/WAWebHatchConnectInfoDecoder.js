@@ -3,7 +3,7 @@ __d(
   ["WAWebHatchConnectorsListDecoder", "WAWebHatchJsonReaders"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Set(["consent_only", "foa_auth", "oauth"]);
+    var e = new Set(["api_key", "consent_only", "foa_auth", "oauth"]);
     function s(e) {
       var t,
         n =
@@ -44,11 +44,13 @@ __d(
           ? { kind: "oauth", url: n }
           : { kind: "unsupported", wireType: t };
       }
-      return t === "foa_auth"
-        ? { kind: "foa_auth" }
-        : t === "consent_only"
-          ? { kind: "consent_only" }
-          : { kind: "unsupported", wireType: t };
+      return t === "api_key"
+        ? { kind: "api_key" }
+        : t === "foa_auth"
+          ? { kind: "foa_auth" }
+          : t === "consent_only"
+            ? { kind: "consent_only" }
+            : { kind: "unsupported", wireType: t };
     }
     ((l.RUNNABLE_CONNECT_ACTION_TYPES = e),
       (l.decodeHatchConnectInfo = s),

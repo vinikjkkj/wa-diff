@@ -40,162 +40,171 @@ __d(
     function T(t) {
       var n,
         a,
-        i = o("react-compiler-runtime").c(38),
-        l = t.externalStyle,
-        s = t.node,
-        c;
-      i[0] !== s
-        ? ((c = s.getExpression(f)), (i[0] = s), (i[1] = c))
-        : (c = i[1]);
-      var T = c,
-        $ = s.get(S),
-        P;
-      i[2] !== s ? ((P = s.getSubNode(_)), (i[2] = s), (i[3] = P)) : (P = i[3]);
-      var N = P,
-        M = s.getSubNode(R),
-        w = s.get(g),
-        A = s.get(h),
-        F = s.get(y),
-        O = s.get(C),
-        B = s.get(L),
-        W = s.get(E),
-        q = s.get(k),
-        U = s.get(p),
-        V;
-      i[4] !== s ? ((V = s.get(d)), (i[4] = s), (i[5] = V)) : (V = i[5]);
-      var H = V,
-        G = s.get(m),
-        z = s.get(b),
-        j = s.get(I),
-        K = o("WebBloksStyle").useStyle(s, l, T != null),
-        Q = K.style,
-        X = K.wrapper,
-        Y = K.wrapperProps,
-        J = o(
+        i,
+        l = o("react-compiler-runtime").c(39),
+        s = t.externalStyle,
+        c = t.node,
+        T;
+      l[0] !== c
+        ? ((T = c.getExpression(f)), (l[0] = c), (l[1] = T))
+        : (T = l[1]);
+      var $ = T,
+        P = c.get(S),
+        N;
+      l[2] !== c ? ((N = c.getSubNode(_)), (l[2] = c), (l[3] = N)) : (N = l[3]);
+      var M = N,
+        w = c.getSubNode(R),
+        A = c.get(g),
+        F = c.get(h),
+        O = c.get(y),
+        B = c.get(C),
+        W = c.get(L),
+        q = c.get(E),
+        U = c.get(k),
+        V = c.get(p),
+        H;
+      l[4] !== c ? ((H = c.get(d)), (l[4] = c), (l[5] = H)) : (H = l[5]);
+      var G = H,
+        z = c.get(m),
+        j = c.get(b),
+        K = c.get(I),
+        Q = o("WebBloksStyle").useStyle(c, s, $ != null),
+        X = Q.style,
+        Y = Q.wrapper,
+        J = Q.wrapperProps,
+        Z = o(
           "WebBloksAnchorTagExtensionHandlerUtils",
-        ).useWebBloksAnchorTagExtensionProps(s),
-        Z = J !== null,
-        ee = Z ? "a" : "span",
-        te = (J == null ? void 0 : J.preferNativeNavigation) === !0,
-        ne;
-      i[6] !== J
-        ? ((ne = J != null ? J : {}), (i[6] = J), (i[7] = ne))
-        : (ne = i[7]);
-      var re;
-      if (i[8] !== ne) {
-        var oe = ne,
-          ae = oe.preferNativeNavigation,
-          ie = babelHelpers.objectWithoutPropertiesLoose(oe, e);
-        ((re = ie), (i[8] = ne), (i[9] = re));
-      } else re = i[9];
-      var le = r("useClickablePropsForWebBloks")(s, T, null, Z && !te, te),
-        se = o("WebBloksComponentContext").useWebBloksContext(),
-        ue = se.bloksContext,
-        ce = se.renderNode,
-        de = o("WebBloksTheme").useTheme().getTheme(),
-        me = ue.objectSet.environment.fontFamilyMappings,
-        pe = M != null ? ce(M) : s.get(v),
-        _e;
-      i[10] !== l || i[11] !== N || i[12] !== s
-        ? ((_e =
-            N != null
-              ? u.jsx(r("WebBloksTextSpanImage"), { node: s, externalStyle: l })
+        ).useWebBloksAnchorTagExtensionProps(c),
+        ee = Z !== null,
+        te = ee ? "a" : "span",
+        ne = (Z == null ? void 0 : Z.preferNativeNavigation) === !0,
+        re;
+      l[6] !== Z
+        ? ((re = Z != null ? Z : {}), (l[6] = Z), (l[7] = re))
+        : (re = l[7]);
+      var oe;
+      if (l[8] !== re) {
+        var ae = re,
+          ie = ae.preferNativeNavigation,
+          le = babelHelpers.objectWithoutPropertiesLoose(ae, e);
+        ((oe = le), (l[8] = re), (l[9] = oe));
+      } else oe = l[9];
+      var se = r("useClickablePropsForWebBloks")(c, $, null, ee && !ne, ne),
+        ue = o("WebBloksComponentContext").useWebBloksContext(),
+        ce = ue.bloksContext,
+        de = ue.renderNode,
+        me = o("WebBloksTheme").useTheme().getTheme(),
+        pe = ce.objectSet.environment.fontFamilyMappings,
+        _e = w != null ? de(w) : c.get(v),
+        fe;
+      l[10] !== s || l[11] !== M || l[12] !== c
+        ? ((fe =
+            M != null
+              ? u.jsx(r("WebBloksTextSpanImage"), { node: c, externalStyle: s })
               : null),
-          (i[10] = l),
-          (i[11] = N),
-          (i[12] = s),
-          (i[13] = _e))
-        : (_e = i[13]);
-      var fe = _e,
-        ge = D(G, T, N),
-        he = ge === "button" || ge === "link" ? 0 : void 0,
-        ye;
-      i[14] !== H || i[15] !== ge || i[16] !== he
-        ? ((ye = { role: ge, label: H, tabIndex: he }),
-          (i[14] = H),
-          (i[15] = ge),
-          (i[16] = he),
-          (i[17] = ye))
-        : (ye = i[17]);
-      var Ce = ye,
-        be = o("WebBloksTextStyle").getTextColor($, q, de),
-        ve = o("WebBloksTextStyle").getTextStyle(W),
-        Se = "inline",
-        Re = o("WebBloksUtils").toPx(B),
-        Le =
-          (n = o("WebBloksTextStyle").getFontFamily(U, me)) != null
+          (l[10] = s),
+          (l[11] = M),
+          (l[12] = c),
+          (l[13] = fe))
+        : (fe = l[13]);
+      var ge = fe,
+        he = D(z, $, M),
+        ye = he === "button" || he === "link" ? 0 : void 0,
+        Ce;
+      l[14] !== G || l[15] !== he || l[16] !== ye
+        ? ((Ce = { role: he, label: G, tabIndex: ye }),
+          (l[14] = G),
+          (l[15] = he),
+          (l[16] = ye),
+          (l[17] = Ce))
+        : (Ce = l[17]);
+      var be = Ce,
+        ve = o("WebBloksTextStyle").getTextColor(P, U, me),
+        Se = o("WebBloksTextStyle").getTextStyle(q),
+        Re = "inline",
+        Le = o("WebBloksUtils").toPx(W),
+        Ee =
+          (n = o("WebBloksTextStyle").getFontFamily(V, pe)) != null
             ? n
             : void 0,
-        Ee = x(z, j),
         ke =
-          (a = o("WebBloksTextStyle").getTextShadow(
-            {
-              shadow_color: w,
-              shadow_offset_dx: A,
-              shadow_offset_dy: F,
-              shadow_radius: O,
-            },
-            de,
-          )) != null
+          (a = o("WebBloksTextStyle").getFontVariationSettings(V, pe, me, X)) !=
+          null
             ? a
             : void 0,
-        Ie;
-      i[18] !== Q ||
-      i[19] !== Re ||
-      i[20] !== Le ||
-      i[21] !== Ee ||
-      i[22] !== ke ||
-      i[23] !== be ||
-      i[24] !== ve
-        ? ((Ie = babelHelpers.extends({}, Q, be, ve, {
-            display: Se,
-            fontSize: Re,
-            fontFamily: Le,
-            textDecoration: Ee,
-            textShadow: ke,
+        Ie = x(j, K),
+        Te =
+          (i = o("WebBloksTextStyle").getTextShadow(
+            {
+              shadow_color: A,
+              shadow_offset_dx: F,
+              shadow_offset_dy: O,
+              shadow_radius: B,
+            },
+            me,
+          )) != null
+            ? i
+            : void 0,
+        De;
+      l[18] !== X ||
+      l[19] !== Le ||
+      l[20] !== Ee ||
+      l[21] !== ke ||
+      l[22] !== Ie ||
+      l[23] !== Te ||
+      l[24] !== ve ||
+      l[25] !== Se
+        ? ((De = babelHelpers.extends({}, X, ve, Se, {
+            display: Re,
+            fontSize: Le,
+            fontFamily: Ee,
+            fontVariationSettings: ke,
+            textDecoration: Ie,
+            textShadow: Te,
             whiteSpace: "pre-wrap",
             overflowWrap: "break-word",
           })),
-          (i[18] = Q),
-          (i[19] = Re),
-          (i[20] = Le),
-          (i[21] = Ee),
-          (i[22] = ke),
-          (i[23] = be),
-          (i[24] = ve),
-          (i[25] = Ie))
-        : (Ie = i[25]);
-      var Te;
-      i[26] !== ee ||
-      i[27] !== Ce ||
-      i[28] !== le ||
-      i[29] !== re ||
-      i[30] !== fe ||
-      i[31] !== Ie ||
-      i[32] !== pe ||
-      i[33] !== Y
-        ? ((Te = u.jsxs(
-            ee,
-            babelHelpers.extends({}, Y, { style: Ie }, le, Ce, re, {
-              children: [pe, fe],
+          (l[18] = X),
+          (l[19] = Le),
+          (l[20] = Ee),
+          (l[21] = ke),
+          (l[22] = Ie),
+          (l[23] = Te),
+          (l[24] = ve),
+          (l[25] = Se),
+          (l[26] = De))
+        : (De = l[26]);
+      var xe;
+      l[27] !== te ||
+      l[28] !== be ||
+      l[29] !== se ||
+      l[30] !== oe ||
+      l[31] !== ge ||
+      l[32] !== De ||
+      l[33] !== _e ||
+      l[34] !== J
+        ? ((xe = u.jsxs(
+            te,
+            babelHelpers.extends({}, J, { style: De }, se, be, oe, {
+              children: [_e, ge],
             }),
           )),
-          (i[26] = ee),
-          (i[27] = Ce),
-          (i[28] = le),
-          (i[29] = re),
-          (i[30] = fe),
-          (i[31] = Ie),
-          (i[32] = pe),
-          (i[33] = Y),
-          (i[34] = Te))
-        : (Te = i[34]);
-      var De;
+          (l[27] = te),
+          (l[28] = be),
+          (l[29] = se),
+          (l[30] = oe),
+          (l[31] = ge),
+          (l[32] = De),
+          (l[33] = _e),
+          (l[34] = J),
+          (l[35] = xe))
+        : (xe = l[35]);
+      var $e;
       return (
-        i[35] !== Te || i[36] !== X
-          ? ((De = X(Te)), (i[35] = Te), (i[36] = X), (i[37] = De))
-          : (De = i[37]),
-        De
+        l[36] !== xe || l[37] !== Y
+          ? (($e = Y(xe)), (l[36] = xe), (l[37] = Y), (l[38] = $e))
+          : ($e = l[38]),
+        $e
       );
     }
     function D(e, t, n) {

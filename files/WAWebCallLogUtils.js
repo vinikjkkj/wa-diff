@@ -425,24 +425,27 @@ __d(
             ? t
               ? s._(/*BTDS*/ "No answer")
               : s._(/*BTDS*/ "Call ended")
-            : e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere ||
-                e === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
+            : e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere
               ? s._(/*BTDS*/ "Answered elsewhere")
-              : e === o("WAWebVoipWaCallEnums").CallLogResult.Failed
-                ? s._(/*BTDS*/ "Call failed")
-                : e ===
-                      o("WAWebVoipWaCallEnums").CallLogResult.ConnectedLonely ||
-                    e === o("WAWebVoipWaCallEnums").CallLogResult.Unavailable ||
-                    e === o("WAWebVoipWaCallEnums").CallLogResult.Invalid ||
-                    e === null ||
-                    e === void 0
-                  ? s._(/*BTDS*/ "Call ended")
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })()
+              : e === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
+                ? s._(/*BTDS*/ "Screening elsewhere")
+                : e === o("WAWebVoipWaCallEnums").CallLogResult.Failed
+                  ? s._(/*BTDS*/ "Call failed")
+                  : e ===
+                        o("WAWebVoipWaCallEnums").CallLogResult
+                          .ConnectedLonely ||
+                      e ===
+                        o("WAWebVoipWaCallEnums").CallLogResult.Unavailable ||
+                      e === o("WAWebVoipWaCallEnums").CallLogResult.Invalid ||
+                      e === null ||
+                      e === void 0
+                    ? s._(/*BTDS*/ "Call ended")
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })()
       );
     }
     w.displayName = w.name + " [from " + i.id + "]";

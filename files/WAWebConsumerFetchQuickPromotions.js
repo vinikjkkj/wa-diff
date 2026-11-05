@@ -20,7 +20,6 @@ __d(
     "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilterClause.graphql",
     "WAWebConsumerFetchQuickPromotionsQuery_QuickPromotion.graphql",
     "WAWebFetchQuickPromotionsCore",
-    "WAWebJobUpdateQPSurfaces",
     "WAWebL10NCountryCodes",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
@@ -31,6 +30,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWebp",
     "qpl",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -50,56 +50,59 @@ __d(
       v,
       S,
       R,
-      L = r("qpl")._(1029379849, "2322"),
-      E = { type: "error" },
-      k = 1,
-      I = 1e3,
-      T = 3e3,
-      D =
+      L = r("requireDeferred")("WAWebJobUpdateQPSurfaces").__setRef(
+        "WAWebConsumerFetchQuickPromotions",
+      ),
+      E = r("qpl")._(1029379849, "2322"),
+      k = { type: "error" },
+      I = 1,
+      T = 1e3,
+      D = 3e3,
+      x =
         e !== void 0
           ? e
           : (e = n("WAWebConsumerFetchQuickPromotionsQuery.graphql")),
-      x =
+      $ =
         s !== void 0
           ? s
           : (s = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QuickPromotion.graphql",
             )),
-      $ =
+      P =
         u !== void 0
           ? u
           : (u = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QPCreative.graphql",
             )),
-      P =
+      N =
         c !== void 0
           ? c
           : (c = n("WAWebConsumerFetchQuickPromotionsQuery_QPAction.graphql")),
-      N =
+      M =
         d !== void 0
           ? d
           : (d = n("WAWebConsumerFetchQuickPromotionsQuery_QPText.graphql")),
-      M =
+      w =
         m !== void 0
           ? m
           : (m = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilterClause.graphql",
             )),
-      w =
+      A =
         p !== void 0
           ? p
           : (p = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilter.graphql",
             ));
-    function A(e) {
+    function F(e) {
       o("WAWebCommonCTWAQplHelpers").qplAnnotateGraphQLError({
         error: e,
-        event: L,
+        event: E,
         errorAnnotationName: "fetch_consumer_promotions_error",
         errorMessageAnnotationName: "fetch_consumer_promotions_error_message",
       });
     }
-    function F() {
+    function O() {
       return o("WAWebMobilePlatforms").isSMB()
         ? (R || (R = n("Promise"))).resolve({ type: "not-enabled" })
         : o("WAWebCanonicalUtils").isCanonicalPresent()
@@ -110,21 +113,21 @@ __d(
                   return o("WAWebBackendApi")
                     .frontendSendAndReceive("getUserLocale")
                     .then(function (e) {
-                      return O(e);
+                      return B(e);
                     });
                 },
               )
               .waitUntilCompleted()
           : (R || (R = n("Promise"))).resolve({ type: "error" });
     }
-    function O(e) {
+    function B(e) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAPromiseTimeout")
             .promiseTimeout(
-              B(e),
-              o("WAWebCTWAConstants").QP_FETCH_TIMEOUT_MS * (k + 1),
+              W(e),
+              o("WAWebCTWAConstants").QP_FETCH_TIMEOUT_MS * (I + 1),
             )
             .then(function (t) {
               return t.type === "success"
@@ -134,10 +137,13 @@ __d(
                         "fetchConsumerQuickPromotions: success",
                       ])),
                   ),
-                  o("WAWebJobUpdateQPSurfaces")
-                    .updateQPSurfacesFromGraphQLFetch(t.quickPromotions, e)
+                  L.load()
+                    .then(function (n) {
+                      var r = n.updateQPSurfacesFromGraphQLFetch;
+                      return r(t.quickPromotions, e);
+                    })
                     .then(function () {
-                      return (o("WAWebQplFlowWrapper").QPL.markerEnd(L, 2), t);
+                      return (o("WAWebQplFlowWrapper").QPL.markerEnd(E, 2), t);
                     })
                     .catch(function (e) {
                       return (
@@ -156,8 +162,8 @@ __d(
                                   "fetchConsumerQuickPromotions: failed while saving to the DB",
                                 ])),
                             ),
-                        A(e),
-                        o("WAWebQplFlowWrapper").QPL.markerEnd(L, 3),
+                        F(e),
+                        o("WAWebQplFlowWrapper").QPL.markerEnd(E, 3),
                         { type: "error" }
                       );
                     }))
@@ -176,10 +182,10 @@ __d(
               if (e instanceof o("WACustomError").TimeoutError)
                 return (
                   o("WAWebQplFlowWrapper").QPL.markerPoint(
-                    L,
+                    E,
                     "fetch_promotions_end",
                   ),
-                  o("WAWebQplFlowWrapper").QPL.markerEnd(L, 105),
+                  o("WAWebQplFlowWrapper").QPL.markerEnd(E, 105),
                   o("WALogger").WARN(
                     y ||
                       (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -192,30 +198,30 @@ __d(
             });
         });
     }
-    function B(e) {
+    function W(e) {
       return (
-        o("WAWebQplFlowWrapper").QPL.markerStart(L),
-        o("WAWebQplFlowWrapper").QPL.markerPoint(L, "fetch_promotions_start"),
-        W(e).then(function (e) {
+        o("WAWebQplFlowWrapper").QPL.markerStart(E),
+        o("WAWebQplFlowWrapper").QPL.markerPoint(E, "fetch_promotions_start"),
+        q(e).then(function (e) {
           return e.type === "success"
             ? (o("WAWebQplFlowWrapper").QPL.markerPoint(
-                L,
+                E,
                 "fetch_promotions_end",
               ),
               e)
             : (o("WAWebQplFlowWrapper").QPL.markerPoint(
-                L,
+                E,
                 "fetch_promotions_end",
               ),
-              o("WAWebQplFlowWrapper").QPL.markerEnd(L, 3),
+              o("WAWebQplFlowWrapper").QPL.markerEnd(E, 3),
               e);
         })
       );
     }
-    function W(e) {
-      var t = k,
+    function q(e) {
+      var t = I,
         n = function (r) {
-          return q(e)
+          return U(e)
             .then(function (e) {
               if (e.type === "success") r(e);
               else {
@@ -230,12 +236,12 @@ __d(
         },
         r = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           name: "fetchConsumerQuickPromotions",
-          timer: { algo: { type: "exponential", first: I }, max: T },
+          timer: { algo: { type: "exponential", first: T }, max: D },
           code: n,
         });
       return (r.start(), r.promise());
     }
-    function q(e) {
+    function U(e) {
       var t,
         r = Array.from(
           o("WAWebQuickPromotionGating").qpSurfaceIdsUsingGraphQLConsumer(),
@@ -252,7 +258,7 @@ __d(
         l;
       return o("WAWebRelayClient")
         .fetchQuery(
-          D,
+          x,
           {
             nux_ids: r,
             trigger_context: {
@@ -272,7 +278,7 @@ __d(
           },
         )
         .then(function (e) {
-          if (e == null) return E;
+          if (e == null) return k;
           var t = e.quick_promotion_multiverse_batch_fetch_root,
             n = new Map(),
             a = [];
@@ -318,7 +324,7 @@ __d(
                       s = e.priority,
                       u = e.time_range;
                     if (i != null) {
-                      var c = l(x, i),
+                      var c = l($, i),
                         d = c.ab_prop_name,
                         m = c.client_side_dry_run,
                         p = c.content_attributes,
@@ -337,11 +343,11 @@ __d(
                           k = p.wa_primary_cta_alternative_url;
                         if (E != null) {
                           var I = f.map(function (e) {
-                              return l($, e);
+                              return l(P, e);
                             }),
                             T = I[0],
                             D,
-                            M,
+                            x,
                             w,
                             A,
                             F,
@@ -350,23 +356,23 @@ __d(
                           if (T != null) {
                             var W = T.accessibility_text_for_image,
                               q = T.content,
-                              V = T.dismiss_action,
+                              U = T.dismiss_action,
                               H = T.primary_action,
                               G = T.title,
                               z = T.wa_dark_mode_media_details,
                               j = T.wa_light_mode_media_details;
                             if (G == null || q == null) return;
                             if (
-                              ((A = l(N, G).text),
-                              (F = l(N, q).text),
+                              ((A = l(M, G).text),
+                              (F = l(M, q).text),
                               H != null)
                             ) {
-                              var K = l(P, H),
+                              var K = l(N, H),
                                 Q = K.limit,
                                 X = K.title,
                                 Y = K.url;
-                              if (((M = Q), X != null)) {
-                                var J = l(N, X);
+                              if (((x = Q), X != null)) {
+                                var J = l(M, X);
                                 J.text != null &&
                                   (D = {
                                     text: J == null ? void 0 : J.text,
@@ -376,7 +382,7 @@ __d(
                               }
                             }
                             if (
-                              ((w = V == null ? void 0 : V.limit),
+                              ((w = U == null ? void 0 : U.limit),
                               (O = T.is_dismissible),
                               W != null)
                             ) {
@@ -444,18 +450,18 @@ __d(
                                 );
                               }, []),
                               re =
-                                y != null || M != null || w != null
+                                y != null || x != null || w != null
                                   ? {
                                       promotionConfig: {
                                         maxImpressions: y != null ? y : -1,
                                         maxDismisses: w != null ? w : 0,
-                                        maxPrimaryClicks: M != null ? M : 0,
+                                        maxPrimaryClicks: x != null ? x : 0,
                                         maxSecondaryClicks: 0,
                                       },
                                       userInfo: void 0,
                                     }
                                   : void 0,
-                              oe = _ != null ? U(_, l) : void 0,
+                              oe = _ != null ? V(_, l) : void 0,
                               ae =
                                 g != null
                                   ? {
@@ -530,26 +536,26 @@ __d(
           );
         })
         .catch(function (e) {
-          return (A(e), E);
+          return (F(e), k);
         });
     }
-    function U(e, t) {
-      var n = t(M, e),
+    function V(e, t) {
+      var n = t(w, e),
         r = n.clause_type,
         a = n.filters;
       return o("WAWebFetchQuickPromotionsCore").parseFilterClause(
         { clause_type: r, filters: a },
         e.clauses,
         function (e) {
-          return U(e, t);
+          return V(e, t);
         },
         function (e) {
-          return V(e, t);
+          return H(e, t);
         },
       );
     }
-    function V(e, t) {
-      var n = t(w, e),
+    function H(e, t) {
+      var n = t(A, e),
         r = n.filter_name,
         a = n.filter_result,
         i = n.parameters,
@@ -565,7 +571,7 @@ __d(
         passes_if_client_not_supported: l,
       });
     }
-    l.fetchConsumerQuickPromotions = F;
+    l.fetchConsumerQuickPromotions = O;
   },
   98,
 );

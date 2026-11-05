@@ -147,8 +147,7 @@ __d(
       (l.parseDeleteParentGroupResponseClientError = u),
       (l.parseDeleteParentGroupResponseServerError = c),
       (l.parseDeleteParentGroupResponseSuccess = d),
-      (l.makeDeleteParentGroupRequest = m),
-      (l.parseDeleteParentGroupClientError = p));
+      (l.makeDeleteParentGroupRequest = m));
   },
   98,
 );

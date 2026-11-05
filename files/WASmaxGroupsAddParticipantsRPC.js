@@ -572,17 +572,8 @@ __d(
     ((l.sendAddParticipantsRPC = e),
       (l.parseAddParticipantsResponseClientError = u),
       (l.parseAddParticipantsResponseServerError = c),
-      (l.parseAddParticipantsResponseSuccessAddParticipant = d),
       (l.parseAddParticipantsResponseSuccess = m),
-      (l.makeAddParticipantsRequestAddParticipant = p),
-      (l.makeAddParticipantsRequest = _),
-      (l.parseAddParticipantsClientErrors = f),
-      (l.parseAddParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup =
-        g),
-      (l.parseAddParticipantsParticipantAddedResponseMixin = h),
-      (l.parseAddParticipantsParticipantMixins = y),
-      (l.parseParticipantGroupJoinRequestMixin = C),
-      (l.parseParticipantInBanListMixin = b));
+      (l.makeAddParticipantsRequest = _));
   },
   98,
 );

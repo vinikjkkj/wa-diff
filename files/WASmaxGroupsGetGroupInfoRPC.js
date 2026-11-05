@@ -276,15 +276,8 @@ __d(
     ((l.sendGetGroupInfoRPC = e),
       (l.parseGetGroupInfoResponseClientError = u),
       (l.parseGetGroupInfoResponseServerError = c),
-      (l.parseGetGroupInfoResponseSuccessGroup = d),
       (l.parseGetGroupInfoResponseSuccess = m),
-      (l.makeGetGroupInfoRequestQueryAddRequest = p),
-      (l.makeGetGroupInfoRequest = _),
-      (l.mergeGetGroupInfoRequestTypeMixin = g),
-      (l.parseGetGroupInfoClientErrors = h),
-      (l.mergeAddRequestMixin = C),
-      (l.mergeCodeMixin = v),
-      (l.mergeGetGroupInfoRequestTypeAttributeMixin = R));
+      (l.makeGetGroupInfoRequest = _));
   },
   98,
 );

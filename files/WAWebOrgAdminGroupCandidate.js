@@ -140,9 +140,7 @@ __d(
       var r = e.rosterEntry;
       if (
         [e.displayName, r.memberTag, r.emailAddress].some(function (e) {
-          return (
-            (e == null ? void 0 : e.toLocaleLowerCase().includes(t)) === !0
-          );
+          return e == null ? void 0 : e.toLocaleLowerCase().includes(t);
         })
       )
         return !0;

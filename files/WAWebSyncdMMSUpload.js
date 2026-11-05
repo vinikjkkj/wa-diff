@@ -2,14 +2,14 @@ __d(
   "WAWebSyncdMMSUpload",
   [
     "WABase64",
-    "WABaseGlobals",
-    "WAJids",
     "WAMediaCalculateFilehash",
     "WAWebSyncdGatingUtils",
     "WAWebSyncdKeyTypes",
     "WAWebSyncdNetCallbacksApi",
     "WAWebSyncdRequestEncode",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -65,15 +65,18 @@ __d(
     function f(e) {
       var t = e.externalMutations,
         n = e.keyId,
-        r = e.patchMac,
-        a = e.snapshotMac,
-        i = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid());
+        a = e.patchMac,
+        i = e.snapshotMac,
+        l = r("nullthrows")(
+          o("WAWebUserPrefsMeUser").getMaybeMeDeviceId(),
+          "self device ID",
+        );
       return o("WAWebSyncdRequestEncode").encodeSyncdPatch({
         keyId: { id: o("WAWebSyncdKeyTypes").fromSyncKeyId(n) },
         externalMutations: t,
-        snapshotMac: a,
-        patchMac: r,
-        deviceIndex: i,
+        snapshotMac: i,
+        patchMac: a,
+        deviceIndex: l,
       });
     }
     function g(t) {

@@ -180,10 +180,8 @@ __d(
     }
     ((l.sendStateExistsRPC = e),
       (l.parseStateExistsResponseError = u),
-      (l.parseStateExistsResponseSuccessSuspendedState = c),
       (l.parseStateExistsResponseSuccess = d),
-      (l.makeStateExistsRequest = m),
-      (l.parseStateExistsErrors = p));
+      (l.makeStateExistsRequest = m));
   },
   98,
 );

@@ -46,12 +46,8 @@ __d(
         )
       );
     }
-    function c() {
-      e = null;
-    }
     ((l.isPostCallNotificationsUpsellApplicable = s),
-      (l.shouldShowPostCallNotificationsUpsell = u),
-      (l.resetPostCallNotificationsUpsellForTesting = c));
+      (l.shouldShowPostCallNotificationsUpsell = u));
   },
   98,
 );

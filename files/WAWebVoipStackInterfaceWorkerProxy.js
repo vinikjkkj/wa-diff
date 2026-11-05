@@ -160,7 +160,7 @@ __d(
       o("WAWebCrashAnnotations").logVoipWorkerBootstrapModeForCrash(a);
       var i = new (r("WAWebVoipInitializationBarrier"))(),
         l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
-      o("WAWebVoipWasmArtifactRecoveryEvents").onVoipWasmArtifactRecovered(
+      o("WAWebVoipWasmArtifactRecoveryEvents").onVoipWasmReloadRequested(
         function () {
           l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
         },

@@ -9,14 +9,23 @@ __d(
       d = u("realProgress"),
       m = u("fakeProgress"),
       p = u("incomplete"),
-      _ = s(
+      _ = u("pausedForCall"),
+      f = s(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t && n == null;
+        },
+        [_, c],
+      ),
+      g = s(
         function (e) {
           var t = e[0];
           return t != null;
         },
         [c],
       ),
-      f = s(
+      h = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -24,7 +33,7 @@ __d(
         },
         [d, m],
       ),
-      g = s(
+      y = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -33,7 +42,10 @@ __d(
         },
         [d, p, c],
       );
-    ((l.getPaused = _), (l.getProgress = f), (l.getInProgress = g));
+    ((l.getHistorySyncPausedForCall = f),
+      (l.getPaused = g),
+      (l.getProgress = h),
+      (l.getInProgress = y));
   },
   98,
 );

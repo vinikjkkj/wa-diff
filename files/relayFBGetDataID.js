@@ -30,6 +30,8 @@ __d(
         t === "XFBWearablesOrchestratorPod" ||
         t === "XFBWearablesOrchestratorDeliverable" ||
         t === "ArtemisTaskAnalysisFeedback" ||
+        t === "GlobalSupportAssignmentShiftCity" ||
+        t === "GlobalSupportAssignmentTriagerCity" ||
         (t === "XFBPAYIGUserExportForCAM" &&
           o("relayFBGetDataIDGating").shouldNamespaceIGUserExportForCAM())
       )

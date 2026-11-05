@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipStackInterfaceLoadTelemetry",
-  ["WAWebCoreActionsODS", "WAWebODS"],
+  ["WAWebODS"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -10,7 +10,7 @@ __d(
       r("WAWebODS").incr("web.call.voip_stack_interface.load_retry_exhausted");
     }
     function u() {
-      o("WAWebCoreActionsODS").logCallVoipStackInterfaceLoadRetrySuccess();
+      r("WAWebODS").incr("web.call.voip_stack_interface.load_retry_success");
     }
     ((l.logVoipStackInterfaceLoadAttemptFailure = e),
       (l.logVoipStackInterfaceLoadRetryExhausted = s),

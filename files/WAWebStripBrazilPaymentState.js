@@ -1,6 +1,6 @@
 __d(
   "WAWebStripBrazilPaymentState",
-  ["WAWebBrazilPaymentState", "WAWebBrazilPaymentStateKeys", "justknobx"],
+  ["WAWebBrazilPaymentState", "WAWebBrazilPaymentStateKeys"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = s(e, "string");
@@ -20,17 +20,16 @@ __d(
     function u(e) {
       if (e != null) {
         var t = c(o("WAWebBrazilPaymentState").getPaymentRequestParamsJson(e));
-        if (t == null || !Array.isArray(e.buttons) || !r("justknobx")._("6396"))
-          return e;
+        if (t == null || !Array.isArray(e.buttons)) return e;
         var n = e.buttons,
-          a = n[0],
-          i = babelHelpers.arrayLikeToArray(n).slice(1);
+          r = n[0],
+          a = babelHelpers.arrayLikeToArray(n).slice(1);
         return babelHelpers.extends({}, e, {
           buttons: [
-            babelHelpers.extends({}, a, {
+            babelHelpers.extends({}, r, {
               buttonParamsJson: JSON.stringify(t),
             }),
-          ].concat(i),
+          ].concat(a),
         });
       }
     }

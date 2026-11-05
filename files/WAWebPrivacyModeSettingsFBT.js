@@ -21,9 +21,6 @@ __d(
       return s._(/*BTDS*/ "Blur level for media");
     }
     function p() {
-      return s._(/*BTDS*/ "Light");
-    }
-    function _() {
       return s._(/*BTDS*/ "Strong");
     }
     ((l.privacyScreenModeTitle = e),
@@ -31,8 +28,7 @@ __d(
       (l.privacyScreenUpsellCta = c),
       (l.privacyModeGeneralLabel = d),
       (l.privacyModeMediaLabel = m),
-      (l.privacyModePresetLight = p),
-      (l.privacyModePresetStrong = _));
+      (l.privacyModePresetStrong = p));
   },
   226,
 );

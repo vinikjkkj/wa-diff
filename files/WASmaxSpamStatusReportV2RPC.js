@@ -279,16 +279,7 @@ __d(
     ((l.sendStatusReportV2RPC = e),
       (l.parseStatusReportV2ResponseError = u),
       (l.parseStatusReportV2ResponseSuccess = c),
-      (l.makeStatusReportV2Request = d),
-      (l.parseIQErrorInternalServerErrorOrBadRequestOrForbiddenOrRateOverlimitMixinGroup =
-        m),
-      (l.mergeReportableNewsletterStatusMixin = _),
-      (l.mergeStatusNewsletterTextOrMediaMixinGroup = f),
-      (l.mergeStatusNewsletterMediaMixin = h),
-      (l.mergeStatusNewsletterTextMixin = C),
-      (l.mergeNewsletterPlaintextPayloadMixin = v),
-      (l.mergeStatusContentTypeMediaMixin = R),
-      (l.mergeStatusContentTypeTextMixin = E));
+      (l.makeStatusReportV2Request = d));
   },
   98,
 );

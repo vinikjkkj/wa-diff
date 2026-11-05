@@ -16,19 +16,18 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
       s = 5e3,
-      u = 5e3,
+      u = 1e5,
       c = 25 * 1024 * 1024,
-      d = s * 2 + 2,
-      m = /^\'(?=\s*[=+\-@\t\r])/,
-      p = new Set(["name", "full name", "full_name"]),
-      _ = new Set([
+      d = /^\'(?=\s*[=+\-@\t\r])/,
+      m = new Set(["name", "full name", "full_name"]),
+      p = new Set([
         "first name",
         "first_name",
         "firstname",
         "given name",
         "given_name",
       ]),
-      f = new Set([
+      _ = new Set([
         "last name",
         "last_name",
         "lastname",
@@ -36,9 +35,9 @@ __d(
         "family name",
         "family_name",
       ]),
-      g = new Set(["member tag", "member_tag", "tag"]),
-      h = new Set(["email", "email address", "email_address"]),
-      y = new Set([
+      f = new Set(["member tag", "member_tag", "tag"]),
+      g = new Set(["email", "email address", "email_address"]),
+      h = new Set([
         "phone",
         "phone number",
         "phone_number",
@@ -46,59 +45,59 @@ __d(
         "mobile phone number",
         "mobile_phone_number",
       ]);
-    function C(e) {
-      return b.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          R(t);
-          var n = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          (n === void 0 && (n = s), S(t));
+          var r = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
             yield t.text(),
-            d,
+            n * 2 + 2,
           );
           if (
-            n.errors.some(function (e) {
-              return L(e);
+            r.errors.some(function (e) {
+              return R(e);
             }) ||
-            n.data.length === 0
+            r.data.length === 0
           )
             throw new e("invalid_file");
-          if (n.meta.truncated) throw new e("too_many_lines");
-          var r = E(n.data),
-            a = n.data[r],
-            i = k(n.data, r, a.length);
-          if (i.length === 0) throw new e("empty_roster");
-          return { columns: a.map(T), rows: i };
+          if (r.meta.truncated) throw new e("too_many_lines");
+          var a = L(r.data),
+            i = r.data[a],
+            l = E(r.data, a, i.length, n);
+          if (l.length === 0) throw new e("empty_roster");
+          return { columns: i.map(I), rows: l };
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e) {
-      var t = I(e);
-      return _.has(t)
+    function b(e) {
+      var t = k(e);
+      return p.has(t)
         ? "first_name"
-        : f.has(t)
+        : _.has(t)
           ? "last_name"
-          : h.has(t)
+          : g.has(t)
             ? "email"
-            : y.has(t)
+            : h.has(t)
               ? "phone"
-              : g.has(t)
+              : f.has(t)
                 ? "member_tag"
                 : null;
     }
-    function S(e) {
-      return p.has(I(e));
+    function v(e) {
+      return m.has(k(e));
     }
-    function R(t) {
+    function S(t) {
       if (t.size > c) throw new e("file_too_large");
       if (!t.name.toLowerCase().endsWith(".csv")) throw new e("invalid_file");
     }
-    function L(e) {
+    function R(e) {
       return e.type !== "FieldMismatch" && e.code !== "UndetectableDelimiter";
     }
-    function E(t) {
+    function L(t) {
       var n = t.findIndex(function (e) {
         return e.some(function (e) {
           return String(e).trim() !== "";
@@ -107,38 +106,38 @@ __d(
       if (n < 0) throw new e("invalid_headers");
       return n;
     }
-    function k(t, n, r) {
-      for (var o = [], a = n + 1; a < t.length; a++) {
-        var i = t[a].map(D);
+    function E(t, n, r, o) {
+      for (var a = [], i = n + 1; i < t.length; i++) {
+        var l = t[i].map(T);
         if (
-          !i.every(function (e) {
+          !l.every(function (e) {
             return e === "";
           })
         ) {
-          var l = a + 1;
-          if (i.length !== r) throw new e("row_field_count_mismatch", l);
-          if ((o.push({ cells: i, rowNumber: l }), o.length > s))
+          var s = i + 1;
+          if (l.length !== r) throw new e("row_field_count_mismatch", s);
+          if ((a.push({ cells: l, rowNumber: s }), a.length > o))
             throw new e("too_many_rows");
         }
       }
-      return o;
+      return a;
+    }
+    function k(e) {
+      return I(e).toLowerCase();
     }
     function I(e) {
-      return T(e).toLowerCase();
+      return T(String(e).replace(/^\uFEFF/, ""));
     }
     function T(e) {
-      return D(String(e).replace(/^\uFEFF/, ""));
-    }
-    function D(e) {
-      return String(e).trim().replace(m, "").trim();
+      return String(e).trim().replace(d, "").trim();
     }
     ((l.WAWebOrgAdminRosterCSVError = e),
       (l.MAX_ORG_ADMIN_ROSTER_ROWS = s),
       (l.MAX_ORG_ADMIN_ROSTER_DISPLAY_ROWS = u),
       (l.MAX_ORG_ADMIN_ROSTER_FILE_BYTES = c),
-      (l.parseOrgAdminRosterCSVTable = C),
-      (l.getOrgAdminRosterCSVHeaderField = v),
-      (l.isOrgAdminRosterCSVWholeNameHeader = S));
+      (l.parseOrgAdminRosterCSVTable = y),
+      (l.getOrgAdminRosterCSVHeaderField = b),
+      (l.isOrgAdminRosterCSVWholeNameHeader = v));
   },
   98,
 );

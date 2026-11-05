@@ -31,6 +31,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebOpusUtils",
     "WAWebOrgMemberContactName",
+    "WAWebProductFeature",
     "WAWebProtobufsProtocol.pb",
     "WAWebSendMsgChatAction",
     "WAWebSetPropertyGroupAction",
@@ -145,7 +146,8 @@ __d(
         : n.byNoUserOff();
     }
     function y(e, t, n) {
-      return e.hasCapi === !0 ||
+      return o("WAWebProductFeature").isInternalProduct() ||
+        e.hasCapi === !0 ||
         e.id.isBot() ||
         r("WAWebWid").isPSA(e.contact.id) ||
         e.contact.isEnterprise

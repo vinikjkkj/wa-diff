@@ -10,10 +10,13 @@ __d(
             {
               chatType: [1, o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE],
               dedupKey: [8, e.TYPES.INTEGER],
+              hasBlockQuote: [9, e.TYPES.BOOLEAN],
               hasBold: [2, e.TYPES.BOOLEAN],
+              hasBulletedList: [10, e.TYPES.BOOLEAN],
               hasCodeBlock: [3, e.TYPES.BOOLEAN],
               hasItalic: [4, e.TYPES.BOOLEAN],
               hasMonospace: [5, e.TYPES.BOOLEAN],
+              hasNumberedList: [11, e.TYPES.BOOLEAN],
               hasSpoiler: [6, e.TYPES.BOOLEAN],
               hasStrikethrough: [7, e.TYPES.BOOLEAN],
             },

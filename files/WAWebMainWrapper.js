@@ -2,6 +2,8 @@ __d(
   "WAWebMainWrapper",
   [
     "FBLogger",
+    "JSSPWAWebConfigInit",
+    "JsSelfProfilerIdleTraceRunner",
     "WALogger",
     "WAWebABProps",
     "WAWebCallsOnlyGating",
@@ -27,8 +29,6 @@ __d(
     "WAWebSWBusActions",
     "WAWebUserPrefsGeneral",
     "WAWebWamLoginReporter",
-    "cr:13598",
-    "cr:37102",
     "cr:8432",
     "cr:8752",
     "cr:8753",
@@ -89,7 +89,7 @@ __d(
               })),
         u());
       try {
-        n("cr:37102") == null || n("cr:37102").run();
+        r("JSSPWAWebConfigInit").run();
       } catch (e) {
         r("FBLogger")("JSSelfProfiler")
           .catching(r("getErrorSafe")(e))
@@ -111,16 +111,16 @@ __d(
       };
     }
     function u() {
-      if (!(n("cr:13598") == null || !r("justknobx")._("4085"))) {
+      if (r("justknobx")._("4085")) {
         var e = r("justknobx")._("3988");
         window.setTimeout(function () {
-          try {
-            n("cr:13598") == null || n("cr:13598").init("wa.idle");
-          } catch (e) {
-            r("FBLogger")("JSSelfProfiler")
-              .catching(r("getErrorSafe")(e))
-              .warn("failed to initialize JSSP idle trace runner");
-          }
+          r("JsSelfProfilerIdleTraceRunner")
+            .init("wa.idle")
+            .catch(function (e) {
+              r("FBLogger")("JSSelfProfiler")
+                .catching(r("getErrorSafe")(e))
+                .warn("failed to initialize JSSP idle trace runner");
+            });
         }, e);
       }
     }

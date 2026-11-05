@@ -278,14 +278,8 @@ __d(
     ((l.sendPromoteDemoteAdminRPC = e),
       (l.parsePromoteDemoteAdminResponseClientError = u),
       (l.parsePromoteDemoteAdminResponseServerError = c),
-      (l.parsePromoteDemoteAdminResponseSuccessMultiAdminAdminParticipant = d),
       (l.parsePromoteDemoteAdminResponseSuccessMultiAdmin = m),
-      (l.makePromoteDemoteAdminRequestAdminPromoteParticipant = p),
-      (l.makePromoteDemoteAdminRequestAdminPromote = _),
-      (l.makePromoteDemoteAdminRequestAdminDemoteParticipant = f),
-      (l.makePromoteDemoteAdminRequestAdminDemote = g),
-      (l.makePromoteDemoteAdminRequest = h),
-      (l.parsePromoteDemoteAdminClientErrors = y));
+      (l.makePromoteDemoteAdminRequest = h));
   },
   98,
 );

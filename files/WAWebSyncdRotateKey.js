@@ -2,15 +2,15 @@ __d(
   "WAWebSyncdRotateKey",
   [
     "WAArrayBuffersConcat",
-    "WABaseGlobals",
     "WAByteArray",
     "WACryptoDependencies",
-    "WAJids",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdKeyTypes",
+    "WAWebUserPrefsMeUser",
     "equalsSet",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -66,14 +66,15 @@ __d(
             o("WAWebSyncdKeyTypes").toSyncKeyId(n.buffer),
           )));
       } else t = o("WAWebSyncdKeyManagementUtils").generateNewKeyEpoch(e.keyId);
-      var r = o("WAJids").interpretAsNumber(
-        o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid()),
+      var a = r("nullthrows")(
+        o("WAWebUserPrefsMeUser").getMaybeMeDeviceId(),
+        "self device ID",
       );
       return {
         keyId: o("WAWebSyncdKeyTypes").toSyncKeyId(
           new Uint8Array(
             o("WAArrayBuffersConcat").concatArrayBuffers(
-              o("WAByteArray").intToBytes(2, r).buffer,
+              o("WAByteArray").intToBytes(2, a).buffer,
               o("WAByteArray").intToBytes(4, t).buffer,
             ),
           ).buffer,

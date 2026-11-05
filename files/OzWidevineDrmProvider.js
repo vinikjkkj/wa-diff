@@ -95,7 +95,7 @@ __d(
           return e;
         }),
         (t.parseLicenseResponse = function (t) {
-          var e = String.fromCharCode.apply(null, t),
+          var e = String.fromCharCode.apply(String, t),
             n;
           try {
             n = JSON.parse(e);

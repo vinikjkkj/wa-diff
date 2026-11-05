@@ -4,7 +4,9 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebAdjustDelimitedRange",
+    "WAWebBlockQuoteFormatRegex",
     "WAWebBoldFormatRegex",
+    "WAWebBulletedListItemFormatRegex",
     "WAWebCodeBlockFormatRegex",
     "WAWebExtractRangesUsingRegex",
     "WAWebGetMessageChatTypeFromWid",
@@ -12,6 +14,7 @@ __d(
     "WAWebItalicFormatRegex",
     "WAWebLinkify",
     "WAWebMsgType",
+    "WAWebNumberedListItemFormatRegex",
     "WAWebRichTextFormatMessageSendWamEvent",
     "WAWebSpoilerFormatRegex",
     "WAWebSpoilerGating",
@@ -27,8 +30,14 @@ __d(
       c = "`",
       d = "*",
       m = "_",
-      p = "~";
-    function _(t, n) {
+      p = "~",
+      _ = [
+        o("WAWebBlockQuoteFormatRegex").QUOTE_REGEX,
+        o("WAWebBulletedListItemFormatRegex").BULLETED_LIST_ITEM_REGEX,
+        o("WAWebBulletedListItemFormatRegex").HYPHEN_LIST_ITEM_REGEX,
+        r("WAWebNumberedListItemFormatRegex"),
+      ];
+    function f(t, n) {
       if (
         t.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL ||
         n.isStatus() ||
@@ -37,7 +46,7 @@ __d(
       )
         return null;
       try {
-        return f(t, n);
+        return g(t, n);
       } catch (t) {
         return (
           o("WALogger")
@@ -53,24 +62,32 @@ __d(
         );
       }
     }
-    function f(e, t) {
+    function g(e, t) {
       if (
         !o("WAWebABProps").getABPropConfigValue("rich_format_logging_enabled")
       )
         return null;
-      var n = h(e).filter(g);
+      var n = C(e).filter(h);
       if (n.length === 0) return null;
-      var a = v(n),
+      var a = R(n),
         i = a.hasCodeBlock,
         l = a.hasMonospace,
         u = a.segmentsWithExclusions,
         c = {
-          hasBold: R(r("WAWebBoldFormatRegex"), u, d),
+          hasBlockQuote: k(o("WAWebBlockQuoteFormatRegex").QUOTE_REGEX, u),
+          hasBold: E(r("WAWebBoldFormatRegex"), u, d),
+          hasBulletedList:
+            k(
+              o("WAWebBulletedListItemFormatRegex").BULLETED_LIST_ITEM_REGEX,
+              u,
+            ) ||
+            k(o("WAWebBulletedListItemFormatRegex").HYPHEN_LIST_ITEM_REGEX, u),
           hasCodeBlock: i,
-          hasItalic: R(r("WAWebItalicFormatRegex"), u, m),
+          hasItalic: E(r("WAWebItalicFormatRegex"), u, m),
           hasMonospace: l,
-          hasSpoiler: R(o("WAWebSpoilerFormatRegex").SPOILER_REGEX, u),
-          hasStrikethrough: R(r("WAWebStrikethroughFormatRegex"), u, p),
+          hasNumberedList: k(r("WAWebNumberedListItemFormatRegex"), u),
+          hasSpoiler: E(o("WAWebSpoilerFormatRegex").SPOILER_REGEX, u),
+          hasStrikethrough: E(r("WAWebStrikethroughFormatRegex"), u, p),
         },
         _ =
           c.hasSpoiler && !o("WAWebSpoilerGating").isSpoilerSenderEnabled()
@@ -98,19 +115,28 @@ __d(
         }
       };
     }
-    function g(e) {
+    function h(e) {
       return (
         (e.parsesBlockCode &&
-          S(r("WAWebCodeBlockFormatRegex"), e.text).length > 0) ||
+          L(r("WAWebCodeBlockFormatRegex"), e.text).length > 0) ||
         (e.parsesInlineCode &&
-          S(r("WAWebInlineCodeFormatRegex"), e.text, c).length > 0) ||
-        S(r("WAWebBoldFormatRegex"), e.text, d).length > 0 ||
-        S(r("WAWebItalicFormatRegex"), e.text, m).length > 0 ||
-        S(r("WAWebStrikethroughFormatRegex"), e.text, p).length > 0 ||
-        S(o("WAWebSpoilerFormatRegex").SPOILER_REGEX, e.text).length > 0
+          L(r("WAWebInlineCodeFormatRegex"), e.text, c).length > 0) ||
+        L(r("WAWebBoldFormatRegex"), e.text, d).length > 0 ||
+        L(r("WAWebItalicFormatRegex"), e.text, m).length > 0 ||
+        L(r("WAWebStrikethroughFormatRegex"), e.text, p).length > 0 ||
+        L(o("WAWebSpoilerFormatRegex").SPOILER_REGEX, e.text).length > 0 ||
+        y(e)
       );
     }
-    function h(e) {
+    function y(e) {
+      return (
+        e.parsesLineFormats &&
+        _.some(function (t) {
+          return I(t, e.text, []);
+        })
+      );
+    }
+    function C(e) {
       var t,
         n = ((t = e.mentionedJidList) != null ? t : [])
           .map(function (e) {
@@ -120,9 +146,9 @@ __d(
           .filter(function (e) {
             return e !== "@";
           });
-      return [].concat(y(e, n), C(e, n), b(e));
+      return [].concat(b(e, n), v(e, n), S(e));
     }
-    function y(e, t) {
+    function b(e, t) {
       return (e.type === o("WAWebMsgType").MSG_TYPE.CHAT ||
         e.type === o("WAWebMsgType").MSG_TYPE.COMMENT) &&
         e.body != null
@@ -131,12 +157,13 @@ __d(
               mentionTokens: t,
               parsesBlockCode: !0,
               parsesInlineCode: !0,
+              parsesLineFormats: !0,
               text: e.body,
             },
           ]
         : [];
     }
-    function C(e, t) {
+    function v(e, t) {
       var n =
         e.type !== o("WAWebMsgType").MSG_TYPE.DOCUMENT ||
         e.isCaptionByUser === !0;
@@ -146,12 +173,13 @@ __d(
               mentionTokens: t,
               parsesBlockCode: !0,
               parsesInlineCode: !0,
+              parsesLineFormats: !0,
               text: e.caption,
             },
           ]
         : [];
     }
-    function b(e) {
+    function S(e) {
       var t = [];
       if (e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
         var n;
@@ -160,6 +188,7 @@ __d(
             mentionTokens: [],
             parsesBlockCode: !0,
             parsesInlineCode: !1,
+            parsesLineFormats: !1,
             text: e.pollName,
           }),
           (n = e.pollOptions) == null ||
@@ -169,36 +198,38 @@ __d(
                   mentionTokens: [],
                   parsesBlockCode: !0,
                   parsesInlineCode: !1,
+                  parsesLineFormats: !1,
                   text: e.name,
                 });
             }));
       }
       return t;
     }
-    function v(e) {
+    function R(e) {
       var t = e.map(function (e) {
         var t = o("WAWebLinkify")
             .findLinks(e.text, !1)
             .map(function (e) {
               return { end: e.index + e.url.length, start: e.index };
             }),
-          n = E(e.text, e.mentionTokens),
+          n = D(e.text, e.mentionTokens),
           a = [].concat(t, n),
           i = e.parsesBlockCode
-            ? S(r("WAWebCodeBlockFormatRegex"), e.text).filter(function (e) {
-                return !k(e, a);
+            ? L(r("WAWebCodeBlockFormatRegex"), e.text).filter(function (e) {
+                return !x(e, a);
               })
             : [],
           l = e.parsesInlineCode
-            ? S(r("WAWebInlineCodeFormatRegex"), e.text, c)
+            ? L(r("WAWebInlineCodeFormatRegex"), e.text, c)
             : [],
           s = l.filter(function (e) {
-            return !L(e, i) && !k(e, a);
+            return !T(e, i) && !x(e, a);
           });
         return {
           excludedRanges: [].concat(i, s, a),
           hasBlock: i.length > 0,
           hasInline: s.length > 0,
+          parsesLineFormats: e.parsesLineFormats,
           text: e.text,
         };
       });
@@ -212,7 +243,7 @@ __d(
         segmentsWithExclusions: t,
       };
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       return r("WAWebExtractRangesUsingRegex")(
         t,
         e,
@@ -224,14 +255,27 @@ __d(
         return { start: t, end: n + 1 };
       });
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       return t.some(function (t) {
-        return S(e, t.text, n).some(function (e) {
-          return !L(e, t.excludedRanges);
+        return L(e, t.text, n).some(function (e) {
+          return !T(e, t.excludedRanges);
         });
       });
     }
-    function L(e, t) {
+    function k(e, t) {
+      return t.some(function (t) {
+        return t.parsesLineFormats && I(e, t.text, t.excludedRanges);
+      });
+    }
+    function I(e, t, n) {
+      e.lastIndex = 0;
+      for (var r = e.exec(t); r != null; r = e.exec(t)) {
+        var o = { end: r.index + r[0].length, start: r.index };
+        if (!T(o, n)) return ((e.lastIndex = 0), !0);
+      }
+      return !1;
+    }
+    function T(e, t) {
       return t.some(function (t) {
         return (
           e.start < t.end &&
@@ -240,7 +284,7 @@ __d(
         );
       });
     }
-    function E(e, t) {
+    function D(e, t) {
       var n = [];
       for (var r of t)
         for (var o = e.indexOf(r); o >= 0; )
@@ -248,12 +292,12 @@ __d(
             (o = e.indexOf(r, o + r.length)));
       return n;
     }
-    function k(e, t) {
+    function x(e, t) {
       return t.some(function (t) {
         return t.start <= e.start && e.end <= t.end;
       });
     }
-    l.maybeCreateRichTextFormatMessageSendCommit = _;
+    l.maybeCreateRichTextFormatMessageSendCommit = f;
   },
   98,
 );

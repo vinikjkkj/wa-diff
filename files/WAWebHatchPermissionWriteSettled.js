@@ -33,7 +33,7 @@ __d(
         return "unknown";
       }
     }
-    l.unavailableOnRejection = s;
+    ((l.unavailableOnRejection = s), (l.hatchPermissionsRejectionKind = u));
   },
   98,
 );

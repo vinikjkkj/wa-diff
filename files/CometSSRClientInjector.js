@@ -29,21 +29,26 @@ __d(
         ((u = e),
           b("ssr_init"),
           s == null && (s = new (r("CometSSRStateManager"))()),
-          s.onSSRInit(e),
+          s.onSSRInit(e));
+        var t = window;
+        ((t.__invalidateSSR = function (e) {
+          (r("FBLogger")("comet_ssr").warn(e),
+            C({ reason: e, status: "fail_js_error" }));
+        }),
           (!e.enabled || !e.gks.mwp_ssr_enabled) && C());
-      } catch (o) {
-        var t,
-          n = r("getErrorSafe")(o);
+      } catch (t) {
+        var n,
+          o = r("getErrorSafe")(t);
         throw (
           r("FBLogger")("comet_ssr")
-            .catching(n)
+            .catching(o)
             .mustfix(
               "ssrInit(): Error while processing SSR init (enabled: %s, gks.mwp_ssr_enabled: %s): %s",
               e == null ? void 0 : e.enabled,
-              e == null || (t = e.gks) == null ? void 0 : t.mwp_ssr_enabled,
-              n.message,
+              e == null || (n = e.gks) == null ? void 0 : n.mwp_ssr_enabled,
+              o.message,
             ),
-          n
+          o
         );
       }
     }

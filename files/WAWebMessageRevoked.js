@@ -7,6 +7,7 @@ __d(
     "WAWebFormatRevokedMsg",
     "WAWebMessageSpacerText.react",
     "WAWebMessageTextBubble.react",
+    "WAWebMsgCasts",
     "WAWebMsgGetters",
     "WDSIconIcBlock.react",
     "react",
@@ -46,7 +47,11 @@ __d(
         ]),
           (t[0] = l));
       } else l = t[0];
-      var d = o("useWAWebMsgValues").useMsgValues(i, l),
+      var d = o("useWAWebMsgValues").useMsgValues(
+          i,
+          o("WAWebMsgCasts").castToRevokedMsg,
+          l,
+        ),
         m = d[0],
         p = d[1],
         _ = d[2],

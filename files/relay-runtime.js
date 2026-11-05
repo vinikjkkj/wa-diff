@@ -30,6 +30,7 @@ __d(
     "relay-runtime/store/RelayModernStore",
     "relay-runtime/store/RelayOperationTracker",
     "relay-runtime/store/RelayRecordSource",
+    "relay-runtime/store/RelayReferenceMarker",
     "relay-runtime/store/RelayStoreUtils",
     "relay-runtime/store/ResolverFragments",
     "relay-runtime/store/ViewerPattern",
@@ -156,6 +157,7 @@ __d(
           .getOperationVariables,
         getLocalVariables: n("relay-runtime/store/RelayConcreteVariables")
           .getLocalVariables,
+        markReferences: n("relay-runtime/store/RelayReferenceMarker").mark,
         fetchQuery: n("relay-runtime/query/fetchQueryInternal").fetchQuery,
         fetchQueryDeduped: n("relay-runtime/query/fetchQueryInternal")
           .fetchQueryDeduped,

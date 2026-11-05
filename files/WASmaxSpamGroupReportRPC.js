@@ -187,8 +187,6 @@ __d(
     ((l.sendGroupReportRPC = e),
       (l.parseGroupReportResponseError = u),
       (l.parseGroupReportResponseSuccess = c),
-      (l.makeGroupReportRequestSpamListMessage = d),
-      (l.makeGroupReportRequestSpamListCall = m),
       (l.makeGroupReportRequest = p));
   },
   98,

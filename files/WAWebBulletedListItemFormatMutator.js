@@ -2,6 +2,7 @@ __d(
   "WAWebBulletedListItemFormatMutator",
   [
     "WAWebBulletedListFormatMutator",
+    "WAWebBulletedListItemFormatRegex",
     "WAWebBulletedListItemMutatorComponent.react",
     "WAWebCreateRegexMutator",
     "react",
@@ -9,12 +10,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = /(?:^)[\*\u2022]( (?! +)[^\n]+(?:$))/gm,
-      c = /(?:^)\-( (?! +)[^\n]+(?:$))/gm,
-      d = /(?:^)\*( (?! +)[^\n]*(?:$))/gm,
-      m = /(?:^)\-( (?! +)[^\n]*(?:$))/gm,
-      p = new Set([r("WAWebBulletedListFormatMutator")]);
-    function _(e, t) {
+      u = /(?:^)\*( (?! +)[^\n]*(?:$))/gm,
+      c = /(?:^)\-( (?! +)[^\n]*(?:$))/gm,
+      d = new Set([r("WAWebBulletedListFormatMutator")]);
+    function m(e, t) {
       var n,
         o = r("WAWebCreateRegexMutator")(e, 1),
         a =
@@ -42,20 +41,23 @@ __d(
           })(o)),
           (n.displayName = "BulletedListItem"),
           (n.nestable = function (e) {
-            return p.has(e);
+            return d.has(e);
           }),
           (n.unformatDecorations = { pre: t }),
           n);
       return a;
     }
-    var f = _(u, "*"),
-      g = _(c, "-"),
-      h = _(d, "*"),
-      y = _(m, "-");
-    ((l.BulletedListItem = f),
-      (l.HyphenListItem = g),
-      (l.BulletedListItemWithEmpty = h),
-      (l.HyphenListItemWithEmpty = y));
+    var p = m(
+        o("WAWebBulletedListItemFormatRegex").BULLETED_LIST_ITEM_REGEX,
+        "*",
+      ),
+      _ = m(o("WAWebBulletedListItemFormatRegex").HYPHEN_LIST_ITEM_REGEX, "-"),
+      f = m(u, "*"),
+      g = m(c, "-");
+    ((l.BulletedListItem = p),
+      (l.HyphenListItem = _),
+      (l.BulletedListItemWithEmpty = f),
+      (l.HyphenListItemWithEmpty = g));
   },
   98,
 );

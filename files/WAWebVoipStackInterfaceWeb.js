@@ -153,7 +153,7 @@ __d(
       }
       var i = o("WAWebVoipWasmHeapBuffer").createHeapBufferState(),
         l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
-      o("WAWebVoipWasmArtifactRecoveryEvents").onVoipWasmArtifactRecovered(
+      o("WAWebVoipWasmArtifactRecoveryEvents").onVoipWasmReloadRequested(
         function () {
           l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm");
         },

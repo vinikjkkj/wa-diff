@@ -4,9 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "@media (prefers-color-scheme: dark)",
-      s = { x1w2u7rz: "xrc8qmd x1w2u7rz", $$css: !0 },
-      u = { x1w2u7rz: "x1k16axz x1w2u7rz", $$css: !0 },
-      c = { x1w2u7rz: "xupsnwj x1w2u7rz", $$css: !0 },
+      s = { x1w2u7rz: "xz9sstw x1w2u7rz", $$css: !0 },
+      u = { x1w2u7rz: "xpxv19s x1w2u7rz", $$css: !0 },
+      c = { x1w2u7rz: "xm245bh x1w2u7rz", $$css: !0 },
       d = { auto: {}, dark: {}, light: {} },
       m = null;
     ((l.FrontierXMDSAutoTheme = s),

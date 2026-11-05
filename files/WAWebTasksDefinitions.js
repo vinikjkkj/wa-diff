@@ -25,7 +25,6 @@ __d(
     "WAWebDBPurgeExpiredRecords",
     "WAWebDBReportingTokenUtils",
     "WAWebDownloads3PDSignalsDatabaseApi",
-    "WAWebFetchQuickPromotions",
     "WAWebFingerprintJob",
     "WAWebGalaxyFlowsUtils",
     "WAWebGroupHistoryReportingTokenDBUtils",
@@ -109,17 +108,19 @@ __d(
       O,
       B,
       W,
-      q = r("requireDeferred")("WAWebBizBroadcastAudienceRefreshJob").__setRef(
+      q,
+      U = (q = r("requireDeferred"))(
+        "WAWebBizBroadcastAudienceRefreshJob",
+      ).__setRef("WAWebTasksDefinitions"),
+      V = q("WAWebCanonicalCredentialRecoveryJob").__setRef(
         "WAWebTasksDefinitions",
       ),
-      U = r("requireDeferred")("WAWebCanonicalCredentialRecoveryJob").__setRef(
+      H = q("WAWebConsumerFetchQuickPromotions").__setRef(
         "WAWebTasksDefinitions",
       ),
-      V = r("requireDeferred")("WAWebConsumerFetchQuickPromotions").__setRef(
-        "WAWebTasksDefinitions",
-      ),
-      H = o("WATimeUtils").MINUTE_SECONDS * 15,
-      G = [
+      G = q("WAWebFetchQuickPromotions").__setRef("WAWebTasksDefinitions"),
+      z = o("WATimeUtils").MINUTE_SECONDS * 15,
+      j = [
         (W = o("WAWebTasksTaskType")).TaskType.AEA_CONSUMER_BACKFILL,
         W.TaskType.CANONICAL_ENT_TOKEN_REFRESH,
         W.TaskType.CLEAN_TC_TOKENS,
@@ -161,13 +162,13 @@ __d(
         W.TaskType.FETCH_QUICK_PROMOTIONS,
         W.TaskType.SYNC_ORGS,
       ],
-      z = [
+      K = [
         W.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
         W.TaskType.CLEANUP_STALE_CAMPAIGNS,
         W.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
       ],
-      j = [W.TaskType.LOG_DB_ROW_COUNTS, W.TaskType.MONITOR_DB_STORAGE];
-    function K(t) {
+      Q = [W.TaskType.LOG_DB_ROW_COUNTS, W.TaskType.MONITOR_DB_STORAGE];
+    function X(t) {
       return t === o("WAWebTasksTaskType").TaskType.AEA_CONSUMER_BACKFILL
         ? n("cr:878") == null
           ? void 0
@@ -970,7 +971,7 @@ __d(
                                                                         },
                                                                       );
                                                                   }
-                                                                  return H;
+                                                                  return z;
                                                                 },
                                                               )
                                                             : t ===
@@ -1029,8 +1030,8 @@ __d(
                                                                         o(
                                                                           "WAWebMobilePlatforms",
                                                                         ).isSMB()
-                                                                      )
-                                                                        (o(
+                                                                      ) {
+                                                                        o(
                                                                           "WALogger",
                                                                         ).LOG(
                                                                           I ||
@@ -1040,15 +1041,17 @@ __d(
                                                                                   "fetchQuickPromotions: fetching quick promotions",
                                                                                 ],
                                                                               )),
-                                                                        ),
-                                                                          yield o(
-                                                                            "WAWebFetchQuickPromotions",
-                                                                          ).fetchQuickPromotions());
-                                                                      else {
+                                                                        );
                                                                         var e =
-                                                                            yield V.load(),
+                                                                            yield G.load(),
                                                                           t =
-                                                                            e.fetchConsumerQuickPromotions;
+                                                                            e.fetchQuickPromotions;
+                                                                        yield t();
+                                                                      } else {
+                                                                        var n =
+                                                                            yield H.load(),
+                                                                          r =
+                                                                            n.fetchConsumerQuickPromotions;
                                                                         (o(
                                                                           "WALogger",
                                                                         ).LOG(
@@ -1060,7 +1063,7 @@ __d(
                                                                                 ],
                                                                               )),
                                                                         ),
-                                                                          yield t());
+                                                                          yield r());
                                                                       }
                                                                       return (
                                                                         o(
@@ -1295,7 +1298,7 @@ __d(
                                                                                       )
                                                                                         .DAY_SECONDS;
                                                                                     var e =
-                                                                                        yield U.load(),
+                                                                                        yield V.load(),
                                                                                       t =
                                                                                         e.maybeRecoverCanonicalCredentials,
                                                                                       n =
@@ -1685,7 +1688,7 @@ __d(
                                                                                                                 .HOUR_SECONDS;
                                                                                                             try {
                                                                                                               var t =
-                                                                                                                  yield q.load(),
+                                                                                                                  yield U.load(),
                                                                                                                 n =
                                                                                                                   t.refreshTimeBasedAudiences;
                                                                                                               yield n();
@@ -1735,7 +1738,7 @@ __d(
                                                                                                       );
                                                                                                     })();
     }
-    function Q() {
+    function Y() {
       return {
         scheduledTimeResolver: {
           get: function (t) {
@@ -1752,8 +1755,8 @@ __d(
         },
       };
     }
-    function X(e) {
-      var t = K(e);
+    function J(e) {
+      var t = X(e);
       t != null &&
         (o("WALogger").LOG(
           O ||
@@ -1765,13 +1768,13 @@ __d(
         ),
         o("WATaskScheduler").registerTask(e, t));
     }
-    function Y() {
-      (o("WATaskScheduler").startScheduler(Q()),
-        G.forEach(X),
-        o("WAWebMobilePlatforms").isSMB() && z.forEach(X),
-        r("gkx")("26258") || j.forEach(X));
+    function Z() {
+      (o("WATaskScheduler").startScheduler(Y()),
+        j.forEach(J),
+        o("WAWebMobilePlatforms").isSMB() && K.forEach(J),
+        r("gkx")("26258") || Q.forEach(J));
     }
-    l.registerTasks = Y;
+    l.registerTasks = Z;
   },
   98,
 );

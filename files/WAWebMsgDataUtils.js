@@ -22,6 +22,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -181,9 +182,9 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i = t.id,
-            l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            l = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
             s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            u = t.id.isLid() ? s : l,
+            u = t.id.isLid() ? s : l != null ? l : s,
             c = void 0;
           if (o("WAWebChatGetters").getIsGroup(t)) {
             var d;
@@ -193,7 +194,7 @@ __d(
                   ? void 0
                   : d.isLidAddressingMode) === !0
                   ? s
-                  : l),
+                  : r("nullthrows")(l, "me")),
               (c = o("WAWebWidFactory").asUserWidOrThrow(u)),
               o("WAWebCurrentUser").isEmployee())
             ) {
@@ -213,7 +214,7 @@ __d(
                 c,
               );
             }
-          } else t.id.isStatus() && (c = l);
+          } else t.id.isStatus() && ((u = r("nullthrows")(l, "me")), (c = u));
           var p = new (r("WAWebMsgKey"))({
               from: u,
               to: i,

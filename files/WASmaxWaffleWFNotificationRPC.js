@@ -137,9 +137,7 @@ __d(
           })
         : a;
     }
-    ((l.receiveWFNotificationRPC = e),
-      (l.parseWFNotificationRequest = s),
-      (l.parseServerNotificationMixin = u));
+    ((l.receiveWFNotificationRPC = e), (l.parseWFNotificationRequest = s));
   },
   98,
 );

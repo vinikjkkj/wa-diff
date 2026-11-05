@@ -6,6 +6,7 @@ __d(
     "WAWebOrgAdminMemberTagOptions",
     "WAWebOrgAdminPeople",
     "WAWebOrgAdminRosterUploadMessages",
+    "WAWebOrgAdminRosterUploadRequest",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -66,7 +67,13 @@ __d(
               roster: e.roster,
               updates: [_(r, n)],
             });
-            return m(i, e.showSuccessToast);
+            return m(
+              i,
+              e.showSuccessToast,
+              o("WAWebOrgAdminRosterUploadRequest").getMaxOrgAdminRosterEntries(
+                e.memberDirectoryEnabled,
+              ),
+            );
           } catch (e) {
             return p();
           }
@@ -74,36 +81,36 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function m(e, t, n) {
       e: {
-        var n = e;
+        var r = e;
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.status === "success"
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.status === "success"
         ) {
           return (t(s._(/*BTDS*/ "Changes saved").toString()), null);
           break e;
         }
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.status === "network_changed"
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.status === "network_changed"
         )
           return s._(
             /*BTDS*/ "People or member tags in this organization have changed. Try again.",
           );
         if (
-          ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.status === "validation_error" &&
-          "errorReason" in n
+          ((typeof r == "object" && r !== null) || typeof r == "function") &&
+          r.status === "validation_error" &&
+          "errorReason" in r
         ) {
-          var r = n.errorReason;
+          var a = r.errorReason;
           return o(
             "WAWebOrgAdminRosterUploadMessages",
-          ).getRosterReplaceValidationMessage(r, null, null);
+          ).getRosterReplaceValidationMessage(a, null, null, n);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            n,
+            r,
         );
       }
     }

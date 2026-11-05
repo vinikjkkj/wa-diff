@@ -18,6 +18,7 @@ __d(
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
     "WAWebL10N",
+    "WAWebProductFeature",
     "WAWebSchemaGroupMetadata",
     "WAWebSendForNeededAddRequest",
     "WAWebUpdateSubgroupsCommunityAction",
@@ -252,7 +253,12 @@ __d(
         }),
         (n.canVerifyIdentity = function (t) {
           var e, n;
-          if (!t || o("WAWebUserPrefsMeUser").isMeAccount(t.id)) return !1;
+          if (
+            !t ||
+            o("WAWebProductFeature").isInternalProduct() ||
+            o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+          )
+            return !1;
           var r = this.getGroupMetadata();
           return !(
             ((r == null ? void 0 : r.hasCapi) === !0 &&

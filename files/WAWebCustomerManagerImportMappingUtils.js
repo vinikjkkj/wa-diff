@@ -9,16 +9,14 @@ __d(
     "WAWebContactImportSmartColumnDetection",
     "WAWebContactImportTemplateParsingUtils",
     "WAWebContactImportTypedError",
-    "WAWebCustomerManagerImportTemplateUtils",
+    "WAWebCustomerManagerImportTargets",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u,
-      c = 3;
-    function d(e) {
+      s = 3;
+    function u(e) {
       var t = e.name.toLowerCase();
       return t.endsWith(".csv")
         ? o("WAWebContactImportFileTypeValidator").FileType.CSV
@@ -31,133 +29,18 @@ __d(
           ? o("WAWebContactImportFileTypeValidator").FileType.EXCEL
           : o("WAWebContactImportFileTypeValidator").FileType.CSV;
     }
-    var m = [
-        "fullName",
-        "firstName",
-        "lastName",
-        "phone",
-        "leadStage",
-        "email",
-        "address",
-        "notes",
-        "acquisitionSource",
-        "birthday",
-        "lastOrder",
-      ],
-      p = {
-        acquisitionSource: "Source",
-        address: "Address",
-        email: "Email",
-        firstName: "First name",
-        fullName: "Full name",
-        lastName: "Last name",
-        leadStage: "Lead stage",
-        notes: "Notes",
-        phone: "Phone number",
-        birthday: "Birthday",
-        lastOrder: "Last order",
-      };
-    function _(e) {
-      return p[e];
+    function c(e) {
+      return o("WAWebCustomerManagerImportTargets").getImportTarget(e)
+        .canonicalHeader;
     }
-    function f(e) {
-      var t = new Set();
-      for (var n of e)
-        t.add(o("WAWebContactImportSmartColumnDetection").normalizeHeader(n));
-      return t;
-    }
-    var g = f([
-        (s = o("WAWebCustomerManagerImportTemplateUtils")).FBT_EMAIL,
-        "email",
-        "e-mail",
-        "e mail",
-        "email address",
-        "e mail address",
-        "e-mail address",
-        "correo",
-        "correo electronico",
-      ]),
-      h = f([
-        s.FBT_ADDRESS,
-        "address",
-        "direccion",
-        "direcci\xF3n",
-        "endereco",
-        "endere\xE7o",
-        "adresse",
-        "alamat",
-      ]),
-      y = f([
-        s.FBT_LEAD_STAGE,
-        "lead stage",
-        "leadstage",
-        "stage",
-        "etapa",
-        "fase",
-      ]),
-      C = f([
-        s.FBT_NOTES,
-        "notes",
-        "note",
-        "remark",
-        "remarks",
-        "comment",
-        "comments",
-        "nota",
-        "notas",
-        "observaciones",
-        "observacao",
-      ]),
-      b = f([
-        s.FBT_ACQUISITION_SOURCE,
-        "source",
-        "acquisition source",
-        "acquisition",
-        "origen",
-        "origem",
-        "fonte",
-      ]),
-      v = f([
-        s.FBT_BIRTHDAY,
-        "birthday",
-        "birth date",
-        "birthdate",
-        "date of birth",
-        "dob",
-      ]),
-      S = f([
-        s.FBT_LAST_ORDER,
-        "last order",
-        "last order date",
-        "date of last order",
-        "last purchase",
-        "last purchase date",
-      ]),
-      R = [
-        {
-          aliases: (u = o("WAWebContactImportSmartColumnDetection"))
-            .PHONE_HEADER_ALIASES,
-          key: "phone",
-        },
-        { aliases: u.FIRST_NAME_HEADER_ALIASES, key: "firstName" },
-        { aliases: u.FULL_NAME_HEADER_ALIASES, key: "fullName" },
-        { aliases: u.LAST_NAME_HEADER_ALIASES, key: "lastName" },
-        { aliases: y, key: "leadStage" },
-        { aliases: g, key: "email" },
-        { aliases: h, key: "address" },
-        { aliases: C, key: "notes" },
-        { aliases: b, key: "acquisitionSource" },
-        { aliases: v, key: "birthday" },
-        { aliases: S, key: "lastOrder" },
-      ];
-    function L(e) {
+    function d(e) {
       return e === "fullName"
         ? ["firstName", "lastName"]
         : e === "firstName" || e === "lastName"
           ? ["fullName"]
           : [];
     }
-    function E() {
+    function m() {
       return {
         acquisitionSource: null,
         address: null,
@@ -172,7 +55,7 @@ __d(
         lastOrder: null,
       };
     }
-    function k(e) {
+    function p(e) {
       var t,
         n,
         r,
@@ -187,15 +70,17 @@ __d(
         p = {};
       for (var _ of e)
         if (_.trim() !== "") {
-          for (var f of R)
+          for (var f of o("WAWebCustomerManagerImportTargets")
+            .MATCH_TARGET_ORDER)
             if (
-              p[f.key] == null &&
+              p[f] == null &&
               o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
                 _,
-                f.aliases,
+                o("WAWebCustomerManagerImportTargets").getImportTarget(f)
+                  .aliases,
               )
             ) {
-              p[f.key] = _;
+              p[f] = _;
               break;
             }
         }
@@ -214,29 +99,29 @@ __d(
         lastOrder: (m = p.lastOrder) != null ? m : null,
       };
     }
-    function I(e) {
+    function _(e) {
       return e.phone != null && e.phone.trim() !== "";
     }
-    function T(e) {
+    function f(e) {
       return e != null && String(e).trim() !== "";
     }
-    function D(e) {
+    function g(e) {
       return Array.isArray(e)
         ? e.map(function (e) {
             return e != null ? String(e) : "";
           })
         : null;
     }
-    function x(e, t) {
-      for (var n = [], r = t + 1; r < e.length && n.length < c; r++) {
-        var o = D(e[r]);
-        o != null && o.some(T) && n.push(o);
+    function h(e, t) {
+      for (var n = [], r = t + 1; r < e.length && n.length < s; r++) {
+        var o = g(e[r]);
+        o != null && o.some(f) && n.push(o);
       }
       return n;
     }
-    function $(e) {
+    function y(e) {
       for (var t = 0; t < e.length; t++) {
-        var n = D(e[t]);
+        var n = g(e[t]);
         if (
           n != null &&
           n.some(function (e) {
@@ -245,28 +130,28 @@ __d(
             );
           })
         )
-          return { headerIndex: t, headers: n, sampleRows: x(e, t) };
+          return { headerIndex: t, headers: n, sampleRows: h(e, t) };
       }
       for (var r = 0; r < e.length; r++) {
-        var a = D(e[r]);
-        if (a != null && a.some(T))
-          return { headerIndex: r, headers: a, sampleRows: x(e, r) };
+        var a = g(e[r]);
+        if (a != null && a.some(f))
+          return { headerIndex: r, headers: a, sampleRows: h(e, r) };
       }
       return null;
     }
-    var P = 2;
-    function N(e, t, n) {
+    var C = 2;
+    function b(e, t, n) {
       for (var r = 0; r < e.length; r++) {
-        var o = D(e[r]);
+        var o = g(e[r]);
         if (o != null) {
-          var a = k(o);
+          var a = p(o);
           if (
-            o.length >= P &&
+            o.length >= C &&
             a.phone != null &&
-            (w(o) ||
+            (S(o) ||
               (t != null &&
                 n !== !0 &&
-                M({
+                v({
                   data: e,
                   delimiter: t,
                   headerIndex: r,
@@ -278,7 +163,7 @@ __d(
       }
       return null;
     }
-    function M(e) {
+    function v(e) {
       var t = e.data,
         n = e.delimiter,
         r = e.headerIndex,
@@ -292,23 +177,25 @@ __d(
         );
       });
     }
-    function w(e) {
+    function S(e) {
       var t = [];
       for (var n of e) t.push.apply(t, n.split(/[;\t]/));
-      var r = k(t);
-      return m.some(function (e) {
-        return e !== "phone" && r[e] != null;
-      });
+      var r = p(t);
+      return o("WAWebCustomerManagerImportTargets").TARGET_ORDER.some(
+        function (e) {
+          return e !== "phone" && r[e] != null;
+        },
+      );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function F() {
+    function L() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             if (
-              d(t) === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
+              u(t) === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
             ) {
               var n = yield t.arrayBuffer(),
                 a = yield r("JSResourceForInteraction")("xlsx")
@@ -323,20 +210,20 @@ __d(
                       return e != null ? String(e) : "";
                     });
                   });
-              return $(s);
+              return y(s);
             }
-            var u = yield t.text(),
-              c = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(u),
+            var c = yield t.text(),
+              d = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(c),
               m = yield o(
                 "WAWebContactImportCSVValidation",
-              ).recoverUndetectableCSVDelimiter(u, c, N, { fullFileProbe: !0 }),
+              ).recoverUndetectableCSVDelimiter(c, d, b, { fullFileProbe: !0 }),
               p = m.result;
-            o("WAWebContactImportCSVValidation").validateCSVParseResult(u, p);
-            var _ = $(p.data);
+            o("WAWebContactImportCSVValidation").validateCSVParseResult(c, p);
+            var _ = y(p.data);
             return (
               _ != null &&
                 o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
-                  u,
+                  c,
                   p,
                   _.headerIndex,
                   m.separator,
@@ -363,14 +250,14 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function O(e, t) {
+    function E(e, t) {
       var n = new Map();
-      for (var r of m) {
+      for (var r of o("WAWebCustomerManagerImportTargets").TARGET_ORDER) {
         var a = t[r];
-        a != null && a !== "" && n.set(a, p[r]);
+        a != null && a !== "" && n.set(a, c(r));
       }
       return n.size === 0
         ? [].concat(e)
@@ -380,34 +267,37 @@ __d(
               ? t
               : o(
                     "WAWebContactImportTemplateParsingUtils",
-                  ).isParsedNameOrPhoneFieldName(e) || B(e)
+                  ).isParsedNameOrPhoneFieldName(e) || k(e)
                 ? ""
                 : e;
           });
     }
-    function B(e) {
-      return R.some(function (t) {
-        var n = t.aliases;
-        return o("WAWebContactImportSmartColumnDetection").matchHeaderToAliases(
-          e,
-          n,
-        );
-      });
+    function k(e) {
+      return o("WAWebCustomerManagerImportTargets").MATCH_TARGET_ORDER.some(
+        function (t) {
+          return o(
+            "WAWebContactImportSmartColumnDetection",
+          ).matchHeaderToAliases(
+            e,
+            o("WAWebCustomerManagerImportTargets").getImportTarget(t).aliases,
+          );
+        },
+      );
     }
-    function W(e) {
+    function I(e) {
       return /[\",\n\r]/.test(e) ? '"' + e.replace(/\"/g, '""') + '"' : e;
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function U() {
+    function D() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.text(),
             r = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(n),
             a = yield o(
               "WAWebContactImportCSVValidation",
-            ).recoverUndetectableCSVDelimiter(n, r, N, { fullFileProbe: !0 }),
+            ).recoverUndetectableCSVDelimiter(n, r, b, { fullFileProbe: !0 }),
             i = a.result;
           o("WAWebContactImportCSVValidation").validateCSVParseResult(n, i);
           var l = i.data.map(function (e) {
@@ -415,7 +305,7 @@ __d(
                 return e != null ? String(e) : "";
               });
             }),
-            s = $(l);
+            s = y(l);
           if (s == null) return e;
           (o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
             n,
@@ -423,23 +313,23 @@ __d(
             s.headerIndex,
             a.separator,
           ),
-            (l[s.headerIndex] = [].concat(O(l[s.headerIndex], t))));
+            (l[s.headerIndex] = [].concat(E(l[s.headerIndex], t))));
           var u = l
             .map(function (e) {
-              return e.map(W).join(",");
+              return e.map(I).join(",");
             })
             .join("\n");
           return new File([u], e.name, { type: "text/csv" });
         })),
-        U.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function V(e, t) {
-      return H.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function H() {
+    function $() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.arrayBuffer(),
             o = yield r("JSResourceForInteraction")("xlsx")
               .__setRef("WAWebCustomerManagerImportMappingUtils")
@@ -457,9 +347,9 @@ __d(
                   return e != null ? String(e) : "";
                 });
               }),
-            d = $(c);
+            d = y(c);
           if (d == null) return e;
-          o.utils.sheet_add_aoa(l, [[].concat(O(c[d.headerIndex], t))], {
+          o.utils.sheet_add_aoa(l, [[].concat(E(c[d.headerIndex], t))], {
             origin: { c: u.c, r: u.r + d.headerIndex },
           });
           var m = o.write(a, { bookType: "xlsx", type: "array" });
@@ -469,35 +359,35 @@ __d(
               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           });
         })),
-        H.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function G(e, t) {
-      return z.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function z() {
+    function N() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return d(e) ===
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return u(e) ===
             o("WAWebContactImportFileTypeValidator").FileType.EXCEL
-            ? V(e, t)
-            : q(e, t);
+            ? x(e, t)
+            : T(e, t);
         })),
-        z.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    ((l.getCustomerManagerImportFileType = d),
-      (l.TARGET_ORDER = m),
-      (l.canonicalHeaderFor = _),
-      (l.conflictingNameTargets = L),
-      (l.emptyMapping = E),
-      (l.suggestImportMapping = k),
-      (l.isMappingComplete = I),
-      (l.findHeaderRowInMatrix = $),
-      (l.findCustomerManagerHeaderRowForDelimiterRecovery = N),
-      (l.extractImportHeaders = A),
-      (l.renameHeaderRow = O),
-      (l.applyMappingToFile = G));
+    ((l.TARGET_ORDER = o("WAWebCustomerManagerImportTargets").TARGET_ORDER),
+      (l.getCustomerManagerImportFileType = u),
+      (l.canonicalHeaderFor = c),
+      (l.conflictingNameTargets = d),
+      (l.emptyMapping = m),
+      (l.suggestImportMapping = p),
+      (l.isMappingComplete = _),
+      (l.findHeaderRowInMatrix = y),
+      (l.findCustomerManagerHeaderRowForDelimiterRecovery = b),
+      (l.extractImportHeaders = R),
+      (l.renameHeaderRow = E),
+      (l.applyMappingToFile = P));
   },
   98,
 );

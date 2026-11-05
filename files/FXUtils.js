@@ -4,10 +4,10 @@ __d(
     "fbt",
     "$InternalEnum",
     "FBLogger",
-    "MetaBrandFacebookFilled24Icon.react",
-    "MetaBrandInstagramFilled24Icon.react",
-    "MetaBrandInstagramThreadsFilled24Icon.react",
-    "MetaBrandMetaOutline24Icon.react",
+    "MetaBrandFacebookFilled24IconGated.react",
+    "MetaBrandInstagramFilled24IconGated.react",
+    "MetaBrandInstagramThreadsFilled24IconGated.react",
+    "MetaBrandMetaOutline24IconGated.react",
     "getFXClientInterfaceName.entrypoint",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -301,13 +301,13 @@ __d(
     function E(e) {
       switch (e) {
         case 0:
-          return r("MetaBrandFacebookFilled24Icon.react");
+          return r("MetaBrandFacebookFilled24IconGated.react");
         case 1:
-          return r("MetaBrandInstagramFilled24Icon.react");
+          return r("MetaBrandInstagramFilled24IconGated.react");
         case 4:
-          return r("MetaBrandMetaOutline24Icon.react");
+          return r("MetaBrandMetaOutline24IconGated.react");
         case 5:
-          return r("MetaBrandInstagramThreadsFilled24Icon.react");
+          return r("MetaBrandInstagramThreadsFilled24IconGated.react");
         default:
           return null;
       }
