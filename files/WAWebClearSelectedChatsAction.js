@@ -6,6 +6,7 @@ __d(
     "WAWebChatGetters",
     "WAWebClearChatUtils",
     "WAWebMetaAiChatActionLogger",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebWamChatActionEventsLogger",
     "WAWebWamChatPSALogger",
     "WAWebWamEnumChatActionEntryPoint",
@@ -38,6 +39,9 @@ __d(
               operation: (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
+                    o(
+                      "WAWebQbmThreadLevelActionLogEventLazy",
+                    ).logBulkThreadAction(e, "CLEAR");
                     var t = o(
                         "WAWebMetaAiChatActionLogger",
                       ).captureMetaAiChatActionFields(e.id),

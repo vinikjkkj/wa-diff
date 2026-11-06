@@ -23,11 +23,12 @@ __d(
             r = e.extraAttributes,
             a = r === void 0 ? {} : r,
             i = e.paymentActionType,
-            l = e.pixData,
-            u = e.previousScreenName,
-            c = e.referral,
-            d = e.screen,
-            m = yield o(
+            l = e.paymentsErrorCode,
+            u = e.pixData,
+            c = e.previousScreenName,
+            d = e.referral,
+            m = e.screen,
+            _ = yield o(
               "WAWebSyncdMdSyncFieldstatMeta",
             ).MdSyncFieldStatsMeta.getMdSessionId();
           ((a.payment_method = "pix"),
@@ -39,18 +40,19 @@ __d(
                   n.id,
                 )
               ].toLowerCase()),
-            l && (a.key_type = String(l.key_type)));
-          var _ = {
+            u && (a.key_type = String(u.key_type)));
+          var f = {
             actionTarget: t,
             paymentActionType: i,
             paymentsCountryCode: s,
-            previousScreenName: u,
+            paymentsErrorCode: l,
+            previousScreenName: c,
             queryParams: JSON.stringify(a),
-            referral: c,
-            screen: d,
-            paymentsEventId: m,
+            referral: d,
+            screen: m,
+            paymentsEventId: _,
           };
-          p(_);
+          p(f);
         })),
         c.apply(this, arguments)
       );

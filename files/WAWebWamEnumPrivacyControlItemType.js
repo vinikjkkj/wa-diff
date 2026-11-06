@@ -24,7 +24,6 @@ __d(
       FACE_AND_HAND_EFFECTS: 18,
       ADVANCED: 19,
       CHAT_LOCK: 20,
-      AVATAR: 21,
       CONTACTS: 22,
       PRIVACY_CHECKUP: 23,
       PIX: 24,

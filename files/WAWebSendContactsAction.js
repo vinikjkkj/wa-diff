@@ -13,6 +13,7 @@ __d(
     "WAWebGetEphemeralFieldsMsgActionsUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebP2PPillsContactShareRequireBundle",
     "WAWebSendMsgChatAction",
     "WAWebServerPropConstants",
     "WAWebToast.react",
@@ -63,7 +64,7 @@ __d(
         });
         return;
       }
-      g(u, n, f, s, i);
+      g(u, a, l, n, f, s, i);
     }
     function _(e, t, n, r, o) {
       return f.apply(this, arguments);
@@ -116,45 +117,45 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e, t, a, i, l) {
-      var u,
-        c,
-        d = i && i.msgContextInfo(t.id),
-        m = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-        p = babelHelpers.extends(
+    function g(e, t, a, i, l, u, c) {
+      var d,
+        m,
+        p = u && u.msgContextInfo(i.id),
+        _ = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        f = babelHelpers.extends(
           {
             ack: o("WAWebAck").ACK.CLOCK,
-            from: m,
+            from: _,
             id: new (r("WAWebMsgKey"))({
-              from: m,
-              to: t.id,
+              from: _,
+              to: i.id,
               id: r("WAWebMsgKey").newId_DEPRECATED(),
-              participant: o("WAWebChatGetters").getIsGroup(t) ? m : void 0,
+              participant: o("WAWebChatGetters").getIsGroup(i) ? _ : void 0,
               selfDir: "out",
             }),
             local: !0,
             isNewMsg: !0,
             t: o("WATimeUtils").unixTime(),
-            to: t.id,
+            to: i.id,
           },
-          d,
-          { ctwaContext: l },
+          p,
+          { ctwaContext: c },
         ),
-        _ =
-          o("WAWebBotUtils").isHatchBot(t.id) || t.id.isSupportAgentBot()
+        g =
+          o("WAWebBotUtils").isHatchBot(i.id) || i.id.isSupportAgentBot()
             ? self.crypto.getRandomValues(new Uint8Array(32))
             : void 0,
-        f =
-          o("WAWebBotUtils").isHatchBot(t.id) &&
-          (u =
-            (c = o("WAWebBotProfileCollection").BotProfileCollection.get(
-              t.id,
+        h =
+          o("WAWebBotUtils").isHatchBot(i.id) &&
+          (d =
+            (m = o("WAWebBotProfileCollection").BotProfileCollection.get(
+              i.id,
             )) == null
               ? void 0
-              : c.personaId) != null
-            ? u
+              : m.personaId) != null
+            ? d
             : void 0,
-        g =
+        y =
           e.length === 1
             ? babelHelpers.extends(
                 {
@@ -162,23 +163,30 @@ __d(
                   vcardFormattedName: e[0].displayName.toString(),
                   body: e[0].vcard,
                 },
-                p,
+                f,
                 o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  t,
+                  i,
                 ),
-                { messageSecret: _, botPersonaId: f },
+                { messageSecret: g, botPersonaId: h },
               )
             : babelHelpers.extends(
                 { type: "multi_vcard", vcardList: e },
-                p,
+                f,
                 o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  t,
+                  i,
                 ),
-                { messageSecret: _, botPersonaId: f },
+                { messageSecret: g, botPersonaId: h },
               );
       n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         try {
-          yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, g)[1];
+          var e = o("WAWebP2PPillsContactShareRequireBundle")
+            .getContactCardPillsForSend(t, i, a)
+            .then(function (e) {
+              return e != null
+                ? babelHelpers.extends({}, y, { businessInteractionPills: e })
+                : y;
+            });
+          yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(i, e)[1];
         } catch (e) {
           throw (
             o("WALogger").LOG(

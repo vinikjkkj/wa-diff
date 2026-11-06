@@ -26,6 +26,20 @@ __d(
           }
         }
       },
+      logOrphanPaymentNotificationsEvictedOdsCounter: function (t) {
+        var e = t.expired,
+          n = t.overCap;
+        (e > 0 &&
+          r("WAWebODS").incr(
+            "web.payments.orphan_payment_notification_evicted_expired",
+            e,
+          ),
+          n > 0 &&
+            r("WAWebODS").incr(
+              "web.payments.orphan_payment_notification_evicted_over_cap",
+              n,
+            ));
+      },
     };
     l.PaymentsOdsBridgeApi = e;
   },

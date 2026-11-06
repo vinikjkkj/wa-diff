@@ -42,66 +42,79 @@ __d(
               e != null && this.$1.delete(e);
             }
           }),
+          (t.delete = function (t) {
+            this.$1.delete(t);
+          }),
           e
         );
       })(),
       g = new f(u),
       h = new f(c);
     function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
+      var n = h.get(e);
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = h.get(e);
-          if (n == null) {
-            var r = yield fetch(t);
-            if (!r.ok) return null;
-            ((n = yield r.text()), h.set(e, n));
-          }
-          return n;
-        })),
-        C.apply(this, arguments)
+        n == null &&
+          ((n = C(t).then(
+            function (t) {
+              return (t == null && h.delete(e), t);
+            },
+            function () {
+              return (h.delete(e), null);
+            },
+          )),
+          h.set(e, n)),
+        n
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield fetch(e);
+          if (!t.ok) return null;
+          for (var n = yield t.text(), r = [0], o = n.indexOf("\n"); o !== -1; )
+            (r.push(o + 1), (o = n.indexOf("\n", o + 1)));
+          return { lineStarts: Uint32Array.from(r), textLength: n.length };
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = { line: -1, column: -1 };
-          if (t === 0) return { line: 1, column: 0 };
-          for (var r of d) if (r.test(e)) return n;
           try {
+            if (t === 0) return { line: 1, column: 0 };
+            if (!Number.isInteger(t) || t < 0) return n;
+            for (var r of d) if (r.test(e)) return n;
             var o = _(e),
               a = o + ":" + t,
               i = g.get(a);
             if (i) return i;
             var l = yield y(o, e);
-            if (l == null || t < 0 || t > l.length) return n;
-            for (var s = l.split("\n"), u = 0, c = 0; c < s.length; c++) {
-              var m = s[c].length + 1;
-              if (u + m > t) {
-                var p = t - u,
-                  f = { line: c + 1, column: p };
-                return (g.set(a, f), f);
-              }
-              u += m;
+            if (l == null || t > l.textLength) return n;
+            for (var s = l.lineStarts, u = 0, c = s.length - 1; u < c; ) {
+              var m = Math.ceil((u + c) / 2);
+              s[m] <= t ? (u = m) : (c = m - 1);
             }
-            var h = { line: s.length, column: s[s.length - 1].length };
-            return (g.set(a, h), h);
+            var p = { line: u + 1, column: t - s[u] };
+            return (g.set(a, p), p);
           } catch (e) {
             return n;
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.MAX_POS_LRU_ENTRIES = u),
-      (l.MAX_SCRIPT_TEXT_LRU_ENTRIES = c),
+      (l.MAX_LINE_STARTS_LRU_ENTRIES = c),
       (l.BLOCKLIST_REGEXPS = d),
-      (l.getLineAndColumnFromCharPosition = b));
+      (l.getLineAndColumnFromCharPosition = v));
   },
   98,
 );

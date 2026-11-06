@@ -18,7 +18,16 @@ __d(
         ) === o("WAWebBotProduct").BotProduct.THIRD_PARTY
       );
     }
-    ((l.isSupportedThirdPartyBot = e), (l.isThirdPartyAgent = s));
+    function u(e) {
+      return (
+        o("WAWebBotProduct").botProductFromServerValue(
+          e == null ? void 0 : e.product,
+        ) === o("WAWebBotProduct").BotProduct.META_AI_THREAD
+      );
+    }
+    ((l.isSupportedThirdPartyBot = e),
+      (l.isThirdPartyAgent = s),
+      (l.isMetaAiThreadProfile = u));
   },
   98,
 );

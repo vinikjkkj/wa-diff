@@ -30,6 +30,8 @@ __d(
     "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
+    "WAWebWamEnumSgCredentialApplicabilityType",
+    "WAWebWamEnumSgCredentialStorageStateType",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumStickerMakerSourceType",
     "WAWebWamEnumTypeOfGroupEnum",
@@ -198,6 +200,19 @@ __d(
               sessionScope: [
                 91,
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
+              sgCredentialApplicability: [
+                100,
+                o("WAWebWamEnumSgCredentialApplicabilityType")
+                  .SG_CREDENTIAL_APPLICABILITY_TYPE,
+              ],
+              sgCredentialInventoryComplete: [101, e.TYPES.BOOLEAN],
+              sgCredentialInventoryConsistent: [102, e.TYPES.BOOLEAN],
+              sgCredentialSnapshotAgeMs: [103, e.TYPES.INTEGER],
+              sgCredentialStorageState: [
+                104,
+                o("WAWebWamEnumSgCredentialStorageStateType")
+                  .SG_CREDENTIAL_STORAGE_STATE_TYPE,
               ],
               sharedContactCardType: [84, e.TYPES.STRING],
               sharedContactMetadataTypes: [85, e.TYPES.STRING],

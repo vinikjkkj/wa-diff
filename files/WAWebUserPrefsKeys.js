@@ -266,7 +266,7 @@ __d(
             GUEST_ACTIVE_INVITE_CODE: "guest_active_invite_code",
             GUEST_INVITER_PUSHNAME: "guest_inviter_pushname",
             GUEST_INVITER_PROFILE_PIC_URL: "guest_inviter_profile_pic_url",
-            DISAPPEARING_MSG_DISCLAIMER_DIMISSED:
+            DISAPPEARING_MSG_DISCLAIMER_DISMISSED:
               "disappearing_msg_disclaimer_dimissed",
             TIME_SPENT_SESSION: "WAWebTimeSpentSession",
             TIME_SPENT_PENDING_BACKGROUND_NAVIGATION:
@@ -308,6 +308,7 @@ __d(
             WA_WEB_REFRESH_STATE: "wa_web_refresh_state",
             WA_WEB_META_AI_THREAD_MIGRATION_STATE:
               "WAWebMetaAIThreadMigrationState",
+            WA_WEB_HAS_EVER_HAD_META_AI_THREAD: "WAWebHasEverHadMetaAIThread",
             WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS:
               "WAWebMetaAIBotSessionLastCleanupTs",
             WA_WEB_CACHED_META_AI_NULL_STATE_PROMPTS:

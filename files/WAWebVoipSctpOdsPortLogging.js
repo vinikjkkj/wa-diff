@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipSctpOdsPortLogging",
-  ["WAWebCoreActionsODS"],
+  ["WAWebCoreActionsODS", "WAWebODS"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -34,22 +34,34 @@ __d(
     function d(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallIceConnectedPort3478,
-        o("WAWebCoreActionsODS").logCallIceConnectedPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.ice.connected.port_3478");
+        },
+        function () {
+          return r("WAWebODS").incr("web.call.ice.connected.port_3480");
+        },
       );
     }
     function m(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallIceFailedPort3478,
-        o("WAWebCoreActionsODS").logCallIceFailedPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.ice.failed.port_3478");
+        },
+        function () {
+          return r("WAWebODS").incr("web.call.ice.failed.port_3480");
+        },
       );
     }
     function p(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallIceStartedPort3478,
-        o("WAWebCoreActionsODS").logCallIceStartedPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.ice.started.port_3478");
+        },
+        function () {
+          return r("WAWebODS").incr("web.call.ice.started.port_3480");
+        },
       );
     }
     function _(e) {

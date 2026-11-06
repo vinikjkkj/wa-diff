@@ -32,13 +32,14 @@ __d(
       S = b + 65535,
       R = { kind: "aborted" },
       L = { kind: "account_changed" },
-      E = { kind: "failed" };
-    function k(e, t) {
-      return I.apply(this, arguments);
+      E = { kind: "failed", reason: "generic" },
+      k = { kind: "failed", reason: "offline" };
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t === void 0 ? {} : t,
             r = n.maxBytes,
             a = r === void 0 ? f : r,
@@ -48,7 +49,7 @@ __d(
             u = yield o("WAWebHatchDataControls").isHatchOffline();
           if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== s)
             return L;
-          if (u) return E;
+          if (u) return k;
           var c = yield o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
             e,
           );
@@ -57,18 +58,36 @@ __d(
             : e.aborted
               ? R
               : c.kind !== "ready"
-                ? E
-                : T(c.api, {
+                ? D(s)
+                : $(c.api, {
                     generation: s,
                     maxBytes: a,
                     signal: e,
                     timeoutMs: l,
+                  }).then(function (e) {
+                    return e.kind === "failed" ? D(s) : e;
                   });
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(t, a) {
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebHatchDataControls").isHatchOffline();
+          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== e
+            ? L
+            : t
+              ? k
+              : E;
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(t, a) {
       var i = a.generation,
         l = a.maxBytes,
         f = a.signal,
@@ -110,7 +129,7 @@ __d(
                       )
                       .sendLogs("hatch-data-export-transport"),
                     k(E))
-                  : D(a)
+                  : P(a)
                     ? k({ blob: new Blob(a, { type: h }), kind: "ready" })
                     : (o("WALogger")
                         .WARN(
@@ -175,8 +194,8 @@ __d(
           return;
         }
         if (C) {
-          var x;
-          (x = b) == null || x.close();
+          var D;
+          (D = b) == null || D.close();
           return;
         }
         if (b == null) {
@@ -210,10 +229,10 @@ __d(
           f.aborted && k(R));
       });
     }
-    function D(e) {
-      return x(e) && $(e);
+    function P(e) {
+      return N(e) && M(e);
     }
-    function x(e) {
+    function N(e) {
       var t = [];
       for (var n of e)
         if (
@@ -227,12 +246,12 @@ __d(
         });
       });
     }
-    function $(e) {
-      for (var t = N(e, S), n = t.length - b; n >= 0; n--)
-        if (P(t, n)) return !0;
+    function M(e) {
+      for (var t = A(e, S), n = t.length - b; n >= 0; n--)
+        if (w(t, n)) return !0;
       return !1;
     }
-    function P(e, t) {
+    function w(e, t) {
       if (
         !C.every(function (n, r) {
           return e[t + r] === n;
@@ -245,7 +264,7 @@ __d(
       );
       return t + b + n === e.length;
     }
-    function N(e, t) {
+    function A(e, t) {
       for (
         var n = e.reduce(function (e, t) {
             return e + t.length;
@@ -262,7 +281,7 @@ __d(
       }
       return r;
     }
-    l.fetchHatchAgentData = k;
+    l.fetchHatchAgentData = I;
   },
   98,
 );

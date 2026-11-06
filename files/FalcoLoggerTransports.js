@@ -464,14 +464,18 @@ __d(
         be(e, ""));
     }
     function be(e, t) {
+      var n;
       if (
         !(
           !(_ || (_ = r("ExecutionEnvironment"))).canUseDOM ||
-          (_ || (_ = r("ExecutionEnvironment"))).isInWorker
+          (_ || (_ = r("ExecutionEnvironment"))).isInWorker ||
+          ((n = (m || (m = r("AnalyticsCoreData"))).identity) == null
+            ? void 0
+            : n.appScopedIdentity) != null
         )
       ) {
-        var n = ce(),
-          o = function (o) {
+        var o = ce(),
+          a = function (o) {
             return {
               event: babelHelpers.extends(
                 {},
@@ -481,9 +485,9 @@ __d(
               odsSuffix: t + o + "." + e,
             };
           };
-        (n.log(o("log")),
-          n.logImmediately(o("logImmediately")),
-          n.logCritical(o("logCritical")));
+        (o.log(a("log")),
+          o.logImmediately(a("logImmediately")),
+          o.logCritical(a("logCritical")));
       }
     }
     function ve() {

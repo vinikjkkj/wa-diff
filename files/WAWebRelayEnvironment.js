@@ -8,6 +8,7 @@ __d(
     "WAWebCanonicalUtils",
     "WAWebDeviceIdHeader",
     "WAWebGraphQLConstants",
+    "WAWebGraphQLEmployeeRouting",
     "WAWebGraphQLPersistedQueries",
     "WAWebGraphQLRemapLocale",
     "WAWebGraphQLServerError",
@@ -89,11 +90,17 @@ __d(
         case "facebook":
           return o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
         case "whatsapp_www":
-          return o("WAWebGraphQLConstants").whatsappGraphqlEndpointWWW();
+          return o("WAWebGraphQLEmployeeRouting").addEmployeeRoutingParam(
+            o("WAWebGraphQLConstants").whatsappGraphqlEndpointWWW(),
+          );
         case "whatsapp_guest":
-          return o("WAWebGraphQLConstants").whatsappGraphqlEndpointWWW();
+          return o("WAWebGraphQLEmployeeRouting").addEmployeeRoutingParam(
+            o("WAWebGraphQLConstants").whatsappGraphqlEndpointWWW(),
+          );
         default:
-          return o("WAWebGraphQLConstants").whatsappGraphqlEndpointCatalog();
+          return o("WAWebGraphQLEmployeeRouting").addEmployeeRoutingParam(
+            o("WAWebGraphQLConstants").whatsappGraphqlEndpointCatalog(),
+          );
       }
     }
     function g(e) {
@@ -167,7 +174,13 @@ __d(
           (n != null && (c.doc_id = n), (c[i] = a));
           var d = yield o("WAWebXControllerFetchUtils").fetchFromXController(
               u,
-              { method: "POST", additionalParams: c },
+              {
+                method: "POST",
+                additionalHeaders: o(
+                  "WAWebGraphQLEmployeeRouting",
+                ).getEmployeeRoutingHeaders(),
+                additionalParams: c,
+              },
             ),
             m = yield o("WAWebXControllerFetchUtils").extractJsonFromResponse(
               d,

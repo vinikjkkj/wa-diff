@@ -58,14 +58,11 @@ __d(
           );
         }
       }
-      return (
-        r("oz-player/shims/ozvariant")(
-          !1,
-          "Malformed Headers object: %s %s",
-          typeof e,
-          String(e),
-        ),
-        null
+      r("oz-player/shims/ozvariant")(
+        !1,
+        "Malformed Headers object: %s %s",
+        typeof e,
+        String(e),
       );
     }
     ((l.OzHTTPHeaders = c), (l.maybeConvertHeadersToOzHTTPHeaders = d));

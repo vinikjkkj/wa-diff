@@ -999,7 +999,10 @@ __d(
               u = t.rmrReason,
               c = t.shouldSequenceDownload,
               m = t.shouldThrowAbortError;
-            if (!s && !o("WAWebMsgModelPropUtils").isTrusted(this))
+            if (
+              !s &&
+              !o("WAWebMsgModelPropUtils").isTrustedForAutoDownload(this)
+            )
               return (f || (f = n("Promise"))).resolve();
             if (
               !o("WAWebMsgGetters").getIsStatus(this) &&

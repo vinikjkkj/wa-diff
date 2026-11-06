@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebCoreActionsODS",
+    "WAWebODS",
     "WAWebReleaseToEventLoop",
     "WAWebVoipDtlsCertAcquire",
     "WAWebVoipGatingUtils",
@@ -116,18 +117,22 @@ __d(
     var ve = new Set(),
       Se = new Set();
     function Re(e) {
-      (o("WAWebCoreActionsODS").logCallDataChannelRelayError(),
+      (r("WAWebODS").incr("web.call.sctp.data_channel_relay_error"),
         e === "no_first_response_timeout"
-          ? o(
-              "WAWebCoreActionsODS",
-            ).logCallDataChannelRelayErrorNoFirstResponseTimeout()
+          ? r("WAWebODS").incr(
+              "web.call.sctp.data_channel_relay_error.no_first_response_timeout",
+            )
           : e === "remote_close"
-            ? o("WAWebCoreActionsODS").logCallDataChannelRelayErrorRemoteClose()
+            ? r("WAWebODS").incr(
+                "web.call.sctp.data_channel_relay_error.remote_close",
+              )
             : e === "rx_stall_timeout"
-              ? o(
-                  "WAWebCoreActionsODS",
-                ).logCallDataChannelRelayErrorRxStallTimeout()
-              : o("WAWebCoreActionsODS").logCallDataChannelRelayErrorOnError());
+              ? r("WAWebODS").incr(
+                  "web.call.sctp.data_channel_relay_error.rx_stall_timeout",
+                )
+              : r("WAWebODS").incr(
+                  "web.call.sctp.data_channel_relay_error.onerror",
+                ));
     }
     function Le(e) {
       ve.delete(e) &&
@@ -1543,9 +1548,9 @@ __d(
             ])),
           e,
         ),
-        o(
-          "WAWebCoreActionsODS",
-        ).logCallSctpIceRestartSkippedCleanupInProgress());
+        r("WAWebODS").incr(
+          "web.call.sctp.ice_restart.skipped_cleanup_in_progress",
+        ));
     }
     function _t(e) {
       return ft.apply(this, arguments);

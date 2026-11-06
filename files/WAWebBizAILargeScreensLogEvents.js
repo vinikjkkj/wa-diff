@@ -814,10 +814,13 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function Le(e, t) {
+    function Le(e, t, n) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
-        extraAttributes: { success: t },
+        extraAttributes:
+          n == null
+            ? { success: t }
+            : { success: t, stage: n.stage, error: n.reason },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
         stickyEntryPoint: !1,

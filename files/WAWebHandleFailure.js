@@ -14,6 +14,7 @@ __d(
     "WAWebJestE2ELogUtils",
     "WAWebLocalStorage",
     "WAWebLogoutReasonConstants",
+    "WAWebODS",
     "WAWebSocketModel",
     "WAWebUpdaterPlatforms",
     "WAWebUpdaterVersion",
@@ -184,9 +185,10 @@ __d(
                     "WAWebBackendEventBus",
                   ).BackendEventBus.triggerServiceUnavailable(),
                   o("WAWebCoreActionsODS").isPageLoadComplete() ||
-                    o(
-                      "WAWebCoreActionsODS",
-                    ).logPageLoadErrorServiceUnavailable());
+                    (o("WAWebCoreActionsODS").logPageLoadError(),
+                    r("WAWebODS").incr(
+                      "web.page_load.error.service_unavailable",
+                    )));
                 break;
               default:
                 return (

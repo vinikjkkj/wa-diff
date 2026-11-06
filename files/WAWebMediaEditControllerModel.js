@@ -16,20 +16,7 @@ __d(
               babelHelpers.assertThisInitialized(t)
           );
         }
-        babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
-        return (
-          (n.clearStage = function (t) {
-            t &&
-              (t.children.forEach(function (e) {
-                e.removeAllEventListeners();
-              }),
-              t.removeAllEventListeners(),
-              t.removeAllChildren(),
-              t.clear());
-          }),
-          t
-        );
+        return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WAWebBaseModel").BaseModel),
       s = o("WAWebBaseModel").defineModel(e);
     l.default = s;

@@ -386,7 +386,7 @@ __d(
         });
       }
     }
-    ((l.logPaymentInfoOrderDetailsInteractiveActionForRecepient = m),
+    ((l.logPaymentInfoOrderDetailsInteractiveActionForRecipient = m),
       (l.logPaymentRequestInteractiveAction = _),
       (l.logAPIMerchantPaymentMethodClickEvent = g),
       (l.logAPIMerchantPaymentOptionsShownEvent = y));

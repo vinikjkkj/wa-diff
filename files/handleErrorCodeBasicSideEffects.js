@@ -8,7 +8,7 @@ __d(
         o("UserMismatchExpected").getIsUserMismatchExpected() === !0
         ? !0
         : e === 1357001 || e === 1357032
-          ? (window.location.reload(!0), !0)
+          ? (window.location.reload(), !0)
           : !1;
     }
     l.default = e;

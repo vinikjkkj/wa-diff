@@ -24,89 +24,99 @@ __d(
         Partial: "partial",
         Failed: "failed",
       });
-    function _(e, t) {
+    function _(e, t, n) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield g(e, t),
-            r = n.failure,
-            a = n.result;
-          if (r == null) return a;
-          var i = yield o(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield g(e, t, n),
+            a = r.failure,
+            i = r.result;
+          if (a == null) return i;
+          var l = yield o(
             "WAWebSharableEventInviteFailedDialog.react",
-          ).askAfterSharableEventInviteFailure(r);
-          return i ? _(e, t) : a;
+          ).askAfterSharableEventInviteFailure(a);
+          return l ? _(e, t, n) : i;
         })),
         f.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function g(e, t, n) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = n.flatMap(function (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          var a = n.flatMap(function (e) {
               var t = o("WAWebLidMigrationUtils").toUserLid(e.id);
               return t == null ? [] : [t];
             }),
-            a = n.length - r.length;
+            i = n.length - a.length;
           if (
-            (a > 0 &&
+            (i > 0 &&
               o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[sharable_event][invite] ",
                     " picked contacts have no LID",
                   ])),
-                a,
+                i,
               ),
-            r.length === 0)
+            a.length === 0)
           )
-            return {
-              result: { outcome: p.Failed, invited: [] },
-              failure: { successfulCount: 0, canRetry: !1 },
-            };
+            return (
+              r == null || r.addFailed(null),
+              {
+                result: { outcome: p.Failed, invited: [] },
+                failure: { successfulCount: 0, canRetry: !1 },
+              }
+            );
           try {
-            var i = yield o(
+            var l = yield o(
                 "WAWebSharableEventAddInvitationsJob",
-              ).addSharableEventInvitations(t, r),
-              l = new Set(
-                i.newlyAddedLids.map(function (e) {
+              ).addSharableEventInvitations(t, a),
+              u = new Set(
+                l.newlyAddedLids.map(function (e) {
                   return e.toString();
                 }),
               ),
-              u = r.filter(function (e) {
-                return l.has(e.toString());
+              c = a.filter(function (e) {
+                return u.has(e.toString());
               });
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[sharable_event][invite] invited eventId=",
-                  " picked=",
-                  " withoutLid=",
-                  " newlyAdded=",
-                  " successful=",
-                  " invalid=",
-                  " failed=",
-                  " retryable=",
-                  "",
-                ])),
-              t,
-              n.length,
-              a,
-              u.length,
-              i.successfulCount,
-              i.invalidCount,
-              i.failedCount,
-              String(i.isRetryable),
-            ),
-              u.length > 0 && (yield y(t, u)));
-            var c = n.filter(function (e) {
+            if (
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][invite] invited eventId=",
+                    " picked=",
+                    " withoutLid=",
+                    " newlyAdded=",
+                    " successful=",
+                    " invalid=",
+                    " failed=",
+                    " retryable=",
+                    "",
+                  ])),
+                t,
+                n.length,
+                i,
+                c.length,
+                l.successfulCount,
+                l.invalidCount,
+                l.failedCount,
+                String(l.isRetryable),
+              ),
+              c.length > 0)
+            ) {
+              var d = yield y(t, c);
+              d
+                ? r == null || r.messageSent(c.length)
+                : r == null || r.messageFailed();
+            }
+            var m = n.filter(function (e) {
               var t, n;
-              return l.has(
+              return u.has(
                 (t =
                   (n = o("WAWebLidMigrationUtils").toUserLid(e.id)) == null
                     ? void 0
@@ -115,21 +125,23 @@ __d(
                   : "",
               );
             });
-            return a === 0 && i.failedCount === 0 && i.invalidCount === 0
-              ? { result: { outcome: p.Sent, invited: c }, failure: null }
-              : {
-                  result: { outcome: p.Partial, invited: c },
+            return i === 0 && l.failedCount === 0 && l.invalidCount === 0
+              ? { result: { outcome: p.Sent, invited: m }, failure: null }
+              : (r == null || r.addPartiallyFailed(),
+                {
+                  result: { outcome: p.Partial, invited: m },
                   failure: {
-                    successfulCount: i.successfulCount,
-                    canRetry: i.isRetryable && i.failedCount > 0,
+                    successfulCount: l.successfulCount,
+                    canRetry: l.isRetryable && l.failedCount > 0,
                   },
-                };
+                });
           } catch (e) {
             return (
               o("WAWebSharableEventFailureLogger").logSharableEventFailure(
                 "invite",
                 e,
               ),
+              r == null || r.addFailed(e),
               {
                 result: { outcome: p.Failed, invited: [] },
                 failure: { successfulCount: 0, canRetry: !0 },
@@ -153,17 +165,18 @@ __d(
               l = yield o(
                 "WAWebSendSharableEventInvitesAction",
               ).sendSharableEventInvites(e, t);
-            if (l == null) {
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite] invite message not sent: no stored event eventId=",
-                    "",
-                  ])),
-                e,
+            if (l == null)
+              return (
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] invite message not sent: no stored event eventId=",
+                      "",
+                    ])),
+                  e,
+                ),
+                !1
               );
-              return;
-            }
             var s =
               (n =
                 (a = (i = l.msg) == null ? void 0 : i.id.id) != null
@@ -171,48 +184,49 @@ __d(
                   : l.msgId) != null
                 ? n
                 : "unknown";
-            if (
-              l.messageSendResult !==
+            return l.messageSendResult !==
               o("WAWebSendMsgResultAction").SendMsgResult.OK
-            ) {
-              o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite] invite message not sent eventId=",
-                    " msgId=",
-                    " result=",
-                    "",
-                  ])),
-                e,
-                s,
-                l.messageSendResult,
-              );
-              return;
-            }
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[sharable_event][invite] invite message sent eventId=",
-                  " msgId=",
-                  " recipients=",
-                  "",
-                ])),
-              e,
-              s,
-              t.length,
-            );
+              ? (o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] invite message not sent eventId=",
+                      " msgId=",
+                      " result=",
+                      "",
+                    ])),
+                  e,
+                  s,
+                  l.messageSendResult,
+                ),
+                !1)
+              : (o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] invite message sent eventId=",
+                      " msgId=",
+                      " recipients=",
+                      "",
+                    ])),
+                  e,
+                  s,
+                  t.length,
+                ),
+                !0);
           } catch (t) {
-            o("WALogger")
-              .WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite] sending invite messages failed eventId=",
-                    "",
-                  ])),
-                e,
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("sharable-event-invite-message-failed");
+            return (
+              o("WALogger")
+                .WARN(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] sending invite messages failed eventId=",
+                      "",
+                    ])),
+                  e,
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("sharable-event-invite-message-failed"),
+              !1
+            );
           }
         })),
         C.apply(this, arguments)

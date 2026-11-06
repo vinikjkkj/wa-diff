@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventInviteeUserJourneyLogger",
     "WAWebSharableEventJoinViaLinkJob",
     "WAWebSharableEventLinkPreview",
     "WAWebSharableEventPageLoadAction",
@@ -23,15 +24,21 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            yield m(e, t);
+            (yield m(e, t),
+              o(
+                "WAWebSharableEventInviteeUserJourneyLogger",
+              ).logSharableEventInviteeRsvpCompleted(e, t));
           } catch (t) {
             var n = o(
                 "WAWebSharableEventFailureLogger",
               ).logSharableEventFailure("respond", t),
               r = n.kind;
-            (o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, { msg: _(r) }),
-            ),
+            (o(
+              "WAWebSharableEventInviteeUserJourneyLogger",
+            ).logSharableEventInviteeRsvpFailed(e, t),
+              o("WAWebToastManager").ToastManager.open(
+                u.jsx(o("WAWebToast.react").Toast, { msg: _(r) }),
+              ),
               r ===
                 o("WAWebSharableEventServerError").SharableEventErrorKind
                   .Unavailable &&

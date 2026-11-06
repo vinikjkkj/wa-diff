@@ -1,0 +1,22 @@
+__d(
+  "WAWebWamEnumEventV2CreationEntryPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      EVENTS_LIST_PAGE: 1,
+      INDIVIDUAL_CHAT_ATTACHMENT_TRAY: 2,
+      GROUP_CHAT_ATTACHMENT_TRAY: 3,
+      NEW_CHAT: 4,
+      INDIVIDUAL_CHAT_DATE_DETECTOR: 5,
+      GROUP_CHAT_DATE_DETECTOR: 6,
+      SCHEDULED_CALL_LIST: 7,
+      SCHEDULED_CALL_CALLS_TAB_H_SCROLL: 8,
+      SCHEDULED_CALL_NEW_CALL_PICKER: 9,
+      SCHEDULED_CALL_GROUP_CHAT: 10,
+      SCHEDULED_CALL_INDIVIDUAL_CHAT: 11,
+      SCHEDULED_CALL_GROUP_INFO: 12,
+    });
+    i.EVENT_V2_CREATION_ENTRY_POINT = e;
+  },
+  66,
+);

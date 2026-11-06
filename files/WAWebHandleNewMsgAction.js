@@ -329,11 +329,10 @@ __d(
           (function () {
             var a = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (n) {
-                if (
-                  (i &&
-                    ((n.unreadCount = e.unreadCount + 1 || 1),
-                    e.activeUnreadCount > 0 &&
-                      (n.activeUnreadCount = e.activeUnreadCount + 1)),
+                (i &&
+                  ((n.unreadCount = e.unreadCount + 1 || 1),
+                  e.activeUnreadCount > 0 &&
+                    (n.activeUnreadCount = e.activeUnreadCount + 1)),
                   e.set(n),
                   n.aiHandoffRemovalExpiry !== void 0 &&
                     o(
@@ -351,11 +350,19 @@ __d(
                     }),
                     o(
                       "WAWebCommonCTWALogging",
-                    ).maybeSetCtwaMessageReceivedInUserPreferenceStore(t)),
-                  t.ctwaContext != null)
+                    ).maybeSetCtwaMessageReceivedInUserPreferenceStore(t)));
+                var a = t.ctwaContext;
+                if (
+                  a != null &&
+                  !(
+                    t.type ===
+                      o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
+                    o(
+                      "WAWebCTWAGatingUtils",
+                    ).isCtwaConversionCreationSkipAgmEnabled()
+                  )
                 ) {
-                  var a = t.ctwaContext,
-                    l = a.conversionData,
+                  var l = a.conversionData,
                     s = a.conversionDelaySeconds,
                     u = a.conversionSource,
                     c = a.ctwaSignals,

@@ -48,7 +48,7 @@ __d(
       );
     }
     function _(e, t) {
-      ue(e, {
+      me(e, {
         hatchUserJourneyMetadata:
           t != null ? JSON.stringify({ browser_surface: t }) : void 0,
       });
@@ -60,13 +60,13 @@ __d(
       if (!(!t.isEligible || o.trim() === "")) {
         var a = f.get(e);
         ((r = a) == null ? void 0 : r.has(o)) !== !0 &&
-          ue(e, { hatchUserJourneyMetadata: n }) &&
+          me(e, { hatchUserJourneyMetadata: n }) &&
           (a == null && ((a = new Set()), f.set(e, a)), a.add(o));
       }
     }
     function h(e) {
       try {
-        ue(
+        me(
           e === "surface_impression"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .IDEA_SURFACE_IMPRESSION
@@ -88,23 +88,23 @@ __d(
       } catch (e) {}
     }
     function y(e) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function C(e) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function b(e) {
-      ue(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      me(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function v(e, t, n) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: S(t) }),
@@ -118,55 +118,55 @@ __d(
         .join(", ");
     }
     function R(e) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function L(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function E(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function k(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_CART_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function I(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_ORDER_SUMMARY_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function T(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function D(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function x(e, t, n) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -207,11 +207,11 @@ __d(
         settings: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
       };
     function M(e, t, n) {
-      ue($[e], A(t, n));
+      me($[e], A(t, n));
     }
     function w(t, n, r) {
       try {
-        ue(
+        me(
           o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
             .SECURE_CREDENTIAL_SAVE_ERROR,
           babelHelpers.extends({}, A(n, r), {
@@ -301,7 +301,7 @@ __d(
       if (o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()) {
         var n = t == null ? void 0 : t.connectorType,
           r = t == null ? void 0 : t.permissionFlow;
-        ue(F[e], {
+        me(F[e], {
           connectorId: t == null ? void 0 : t.connectorId,
           connectorPermissionDecisionType:
             t == null ? void 0 : t.permissionDecisionType,
@@ -379,7 +379,7 @@ __d(
       artifact_pinned: s.HATCH_ACTION_TYPE.ARTIFACT_PINNED,
     };
     function G(e, t) {
-      ue(H[e], { featureEntryPoint: P[t] });
+      me(H[e], { featureEntryPoint: P[t] });
     }
     function z(e) {
       r("ArtifactSharedFalcoEvent").log(function () {
@@ -392,7 +392,7 @@ __d(
       });
     }
     function j(e, t) {
-      ue(
+      me(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .ARTIFACT_OVERFLOW_MENU_TAP,
         {
@@ -403,7 +403,7 @@ __d(
     }
     function K(e) {
       try {
-        ue(
+        me(
           e.outcome === "success"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .SUBSCRIPTION_READ_SUCCESS
@@ -482,7 +482,7 @@ __d(
     function Z(e) {
       try {
         if (ee(e)) return;
-        ue(X[e.action], {
+        me(X[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -588,7 +588,7 @@ __d(
     };
     function re(e) {
       try {
-        ue(ne[e.action], {
+        me(ne[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -680,7 +680,7 @@ __d(
     function le(e) {
       try {
         if (!o("WAWebHatchFrontendGating").isHatchIdentityEnabled()) return;
-        ue(ie[e.action], {
+        me(ie[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -727,7 +727,127 @@ __d(
         );
       })(e);
     }
-    function ue(e, t) {
+    var ue = {
+      ai_training_keep_confirm_tap:
+        s.HATCH_ACTION_TYPE.AI_TRAINING_KEEP_CONFIRM_TAP,
+      ai_training_off_confirm_tap:
+        s.HATCH_ACTION_TYPE.AI_TRAINING_OFF_CONFIRM_TAP,
+      ai_training_toggle_tap: s.HATCH_ACTION_TYPE.AI_TRAINING_TOGGLE_TAP,
+      ai_training_update_error: s.HATCH_ACTION_TYPE.AI_TRAINING_UPDATE_ERROR,
+      data_export_cancel_tap: s.HATCH_ACTION_TYPE.DATA_EXPORT_CANCEL_TAP,
+      data_export_confirm_tap: s.HATCH_ACTION_TYPE.DATA_EXPORT_CONFIRM_TAP,
+      data_export_error: s.HATCH_ACTION_TYPE.DATA_EXPORT_ERROR,
+      data_export_success: s.HATCH_ACTION_TYPE.DATA_EXPORT_SUCCESS,
+      data_export_tap: s.HATCH_ACTION_TYPE.DATA_EXPORT_TAP,
+      import_file_selected: s.HATCH_ACTION_TYPE.IMPORT_FILE_SELECTED,
+      import_generate_memory_tap:
+        s.HATCH_ACTION_TYPE.IMPORT_GENERATE_MEMORY_TAP,
+      import_memory_submit_error:
+        s.HATCH_ACTION_TYPE.IMPORT_MEMORY_SUBMIT_ERROR,
+      import_memory_submit_tap: s.HATCH_ACTION_TYPE.IMPORT_MEMORY_SUBMIT_TAP,
+      import_memory_tap: s.HATCH_ACTION_TYPE.IMPORT_MEMORY_TAP,
+      import_prompt_copy_tap: s.HATCH_ACTION_TYPE.IMPORT_PROMPT_COPY_TAP,
+      import_see_full_prompt_tap:
+        s.HATCH_ACTION_TYPE.IMPORT_SEE_FULL_PROMPT_TAP,
+      import_upload_data_files_tap:
+        s.HATCH_ACTION_TYPE.IMPORT_UPLOAD_DATA_FILES_TAP,
+      import_upload_tap: s.HATCH_ACTION_TYPE.IMPORT_UPLOAD_TAP,
+      impression: s.HATCH_ACTION_TYPE.DATA_CONTROLS_IMPRESSION,
+    };
+    function ce(e) {
+      try {
+        me(ue[e.action], {
+          featureEntryPoint:
+            e.action === "impression"
+              ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
+              : void 0,
+          hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+            .DATA_CONTROLS_HATCH,
+          hatchUserJourneyMetadata: ae(de(e)),
+        });
+      } catch (e) {}
+    }
+    function de(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "impression" &&
+          "trainingEnabled" in e
+        ) {
+          var t = e.trainingEnabled;
+          return { training_enabled: t == null ? null : String(t) };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "ai_training_toggle_tap" &&
+          "trainingEnabled" in e
+        ) {
+          var n = e.trainingEnabled;
+          return { training_enabled: String(n) };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          (e.action === "ai_training_off_confirm_tap" ||
+            e.action === "ai_training_keep_confirm_tap")
+        )
+          return {};
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "ai_training_update_error" &&
+          "failureReason" in e &&
+          "trainingEnabled" in e
+        ) {
+          var r = e.failureReason,
+            o = e.trainingEnabled;
+          return { failure_reason: r, training_enabled: String(o) };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          (e.action === "data_export_tap" ||
+            e.action === "data_export_confirm_tap" ||
+            e.action === "data_export_cancel_tap")
+        )
+          return {};
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "data_export_success"
+        )
+          return {};
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "data_export_error" &&
+          "failureReason" in e
+        ) {
+          var a = e.failureReason;
+          return { failure_reason: a };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          (e.action === "import_memory_tap" ||
+            e.action === "import_generate_memory_tap" ||
+            e.action === "import_prompt_copy_tap" ||
+            e.action === "import_see_full_prompt_tap" ||
+            e.action === "import_memory_submit_tap" ||
+            e.action === "import_upload_tap" ||
+            e.action === "import_file_selected" ||
+            e.action === "import_upload_data_files_tap")
+        )
+          return {};
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "import_memory_submit_error" &&
+          "failureReason" in e
+        ) {
+          var i = e.failureReason;
+          return { failure_reason: i };
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
+    }
+    function me(e, t) {
       var n, r, a, i, l;
       if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) return !1;
       var s = new (o("WAWebHatchUserJourneyWamEvent").HatchUserJourneyWamEvent)(
@@ -771,12 +891,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : ce(t == null ? void 0 : t.botEntryPoint),
+              : pe(t == null ? void 0 : t.botEntryPoint),
         },
       );
       return (s.commit(), !0);
     }
-    function ce(e) {
+    function pe(e) {
       var t,
         n =
           e != null
@@ -822,7 +942,8 @@ __d(
       (l.logHatchSubscriptionRead = K),
       (l.logHatchPermission = Z),
       (l.logHatchScheduledTasks = re),
-      (l.logHatchIdentity = le));
+      (l.logHatchIdentity = le),
+      (l.logHatchDataControls = ce));
   },
   98,
 );

@@ -81,7 +81,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = k(e);
+          var t = T(e);
           yield o("WAWebSchemaBusinessProfile")
             .getBusinessProfileTable()
             .createOrMerge(t.id, t);
@@ -95,18 +95,47 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.id,
-            r = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(t);
+          var t,
+            r = e.id,
+            a = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(r),
+            i = (t = e.pills) != null ? t : a.length > 1 ? yield E(a) : void 0;
           return (m || (m = n("Promise"))).all(
-            r.map(function (t) {
-              return v(babelHelpers.extends({}, e, { id: t }));
+            a.map(function (t) {
+              return v(babelHelpers.extends({}, e, { id: t, pills: i }));
             }),
           );
         })),
         L.apply(this, arguments)
       );
     }
-    function E(t) {
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r = yield o("WAWebSchemaBusinessProfile")
+              .getBusinessProfileTable()
+              .bulkGet(
+                e.map(function (e) {
+                  return e.toString();
+                }),
+              );
+          return (t =
+            (n = r.find(function (e) {
+              return (e == null ? void 0 : e.pills) != null;
+            })) == null
+              ? void 0
+              : n.pills) != null
+            ? t
+            : void 0;
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(t) {
       var n = t.commandsDescription,
         r = o("WAWebWidFactory").createWid(t.id),
         a = o("WAWebBotTypes").BizBotAutomatedType.cast(t.automatedType),
@@ -174,7 +203,7 @@ __d(
         commandsDescription: n,
       };
     }
-    function k(e) {
+    function T(e) {
       var t = e.commandsDescription,
         n = e.id.toString(),
         r;
@@ -183,19 +212,22 @@ __d(
       e.welcomeMsgProtocolMode && (o = e.welcomeMsgProtocolMode);
       var a = e.prompts ? JSON.stringify(e.prompts) : void 0,
         i = e.commands ? JSON.stringify(e.commands) : void 0;
-      return {
-        id: n,
-        automatedType: r,
-        welcomeMsgProtocolMode: o,
-        prompts: a,
-        commandsDescription: t,
-        commands: i,
-      };
+      return babelHelpers.extends(
+        {
+          id: n,
+          automatedType: r,
+          welcomeMsgProtocolMode: o,
+          prompts: a,
+          commandsDescription: t,
+          commands: i,
+        },
+        e.pills != null ? { pills: e.pills } : null,
+      );
     }
     ((l.getBusinessProfileRow = p),
       (l.getBusinessProfileRowLidAware = C),
       (l.createOrMergeBusinessProfileRecordLidAware = R),
-      (l.businessProfileFromDbRow = E));
+      (l.businessProfileFromDbRow = I));
   },
   98,
 );

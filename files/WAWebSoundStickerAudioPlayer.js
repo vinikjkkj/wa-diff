@@ -109,7 +109,7 @@ __d(
         e.id.remote.isNewsletter() ||
         t.size >=
           o("WAWebMediaAutoDownloadQueue").AUDIO_AUTO_DOWNLOAD_SIZE_LIMIT ||
-        !o("WAWebMsgModelPropUtils").isTrusted(e) ||
+        !o("WAWebMsgModelPropUtils").isTrustedForAutoDownload(e) ||
         D(e, t, { isPreload: !0 }).catch(function (e) {
           (o("WALogger")
             .WARN(

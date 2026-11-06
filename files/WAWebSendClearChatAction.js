@@ -14,6 +14,7 @@ __d(
     "WAWebClearChatUtils",
     "WAWebNoop",
     "WAWebNullFunc",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebStateUtils",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -61,6 +62,11 @@ __d(
           )
           .then(function () {
             if (l.aborted) throw new (o("WAAbortError").AbortError)();
+            o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+              chat: t,
+              threadActionEntryPoint: "OTHER",
+              threadLevelAction: "CLEAR",
+            });
             var e = o("WAWebClearChatUtils").initClearChat(t, a);
             return e.then(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

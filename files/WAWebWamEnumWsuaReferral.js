@@ -44,6 +44,7 @@ __d(
       CUSTOMER_MANAGER: 39,
       MUSE_CHAT_THREAD: 40,
       MUSE_CHAT_INFO: 41,
+      ORIGINAL_MEDIA: 42,
     });
     i.WSUA_REFERRAL = e;
   },

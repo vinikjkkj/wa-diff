@@ -5,6 +5,7 @@ __d(
     "WAWebABPropsCache",
     "WAWebBaseModel",
     "WAWebConnGetters",
+    "WAWebProductFeature",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebVoipBackendLoadable",
@@ -78,7 +79,10 @@ __d(
             o("WAWebConnGetters").clearConnGetterCacheFor(this));
         }),
         (i.canSetMyPushname = function () {
-          return !o("WAWebConnGetters").getIsSMB(this);
+          return (
+            !o("WAWebConnGetters").getIsSMB(this) &&
+            !o("WAWebProductFeature").isInternalProduct()
+          );
         }),
         (i.$ConnImpl$p_1 = function () {
           (o("WALogger").LOG(

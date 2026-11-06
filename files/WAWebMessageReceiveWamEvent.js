@@ -21,6 +21,8 @@ __d(
     "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
+    "WAWebWamEnumSgCredentialApplicabilityType",
+    "WAWebWamEnumSgCredentialStorageStateType",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumStickerMakerSourceType",
     "WAWebWamEnumTypeOfGroupEnum",
@@ -128,6 +130,7 @@ __d(
               processingDeferred: [47, e.TYPES.BOOLEAN],
               receivedContactCardType: [58, e.TYPES.STRING],
               receivedContactMetadataTypes: [59, e.TYPES.STRING],
+              receivedForwardingScore: [76, e.TYPES.INTEGER],
               receivedPhoneNumberContactSize: [50, e.TYPES.INTEGER],
               receivedPhoneNumberWithUsernameContactSize: [51, e.TYPES.INTEGER],
               receivedUsernameContactSize: [52, e.TYPES.INTEGER],
@@ -142,6 +145,19 @@ __d(
               sessionScope: [
                 63,
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
+              sgCredentialApplicability: [
+                71,
+                o("WAWebWamEnumSgCredentialApplicabilityType")
+                  .SG_CREDENTIAL_APPLICABILITY_TYPE,
+              ],
+              sgCredentialInventoryComplete: [72, e.TYPES.BOOLEAN],
+              sgCredentialInventoryConsistent: [73, e.TYPES.BOOLEAN],
+              sgCredentialSnapshotAgeMs: [74, e.TYPES.INTEGER],
+              sgCredentialStorageState: [
+                75,
+                o("WAWebWamEnumSgCredentialStorageStateType")
+                  .SG_CREDENTIAL_STORAGE_STATE_TYPE,
               ],
               sourceExperienceIds: [70, e.TYPES.STRING],
               stanzaProcessCount: [48, e.TYPES.INTEGER],

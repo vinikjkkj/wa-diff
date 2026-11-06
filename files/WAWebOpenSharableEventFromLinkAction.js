@@ -10,6 +10,7 @@ __d(
     "WAWebSharableEventLinkDialogs.react",
     "WAWebSharableEventLinkPreview",
     "WAWebSharableEventLinkPreviewJob",
+    "WAWebSharableEventPageSource",
     "WAWebSharableEventServerError",
     "WAWebSharableEventViewerState",
     "WDSDialogBridge",
@@ -82,6 +83,10 @@ __d(
         ),
         o("WAWebOpenSharableEventPageAction").openSharableEventInEventsHome(
           r.eventId,
+          {
+            source: o("WAWebSharableEventPageSource").SharableEventPageSource
+              .EventLink,
+          },
         ));
     }
     function f(e, t) {

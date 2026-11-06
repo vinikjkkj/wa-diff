@@ -25,26 +25,36 @@ __d(
             .load();
         }),
         "WAWebGuestEventsCalendarUtils",
+      ),
+      u = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return r("JSResourceForInteraction")(
+            "WAWebSharableEventAddToCalendarUserJourneyLogger",
+          )
+            .__setRef("WAWebSharableEventAddToCalendarAction")
+            .load();
+        }),
+        "WAWebSharableEventAddToCalendarUserJourneyLogger",
       );
-    function u(e) {
-      return c.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (
             o(
               "WAWebSharableEventGatingUtils",
             ).isEventsV2OnCompanionEnabledForAction("add-to-calendar")
-          )
+          ) {
             try {
-              var n = yield s(),
-                a = n.downloadGuestEventCalendarICSFile,
-                i = n.getGuestEventCalendarDetails,
-                l = n.getGuestEventCalendarICSFile,
-                u = i(
+              var a = yield s(),
+                i = a.downloadGuestEventCalendarICSFile,
+                l = a.getGuestEventCalendarDetails,
+                c = a.getGuestEventCalendarICSFile,
+                d = l(
                   {
-                    description: f(t),
+                    description: g(t),
                     endTsSec: o(
                       "WAWebSharableEventTiming",
                     ).computeSharableEventEffectiveEndTsSec(t),
@@ -60,7 +70,7 @@ __d(
                   },
                   o("WAWebGuestCoreConsts").GuestMobilePlatform.UNKNOWN,
                 );
-              a(l(u));
+              i(c(d));
             } catch (t) {
               o("WALogger")
                 .WARN(
@@ -70,12 +80,18 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(t));
+              return;
             }
+            var m = yield u().catch(function () {
+              return null;
+            });
+            m == null || m.logSharableEventAddedToCalendar(t.id, n);
+          }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       return Math.min(
         t,
         e +
@@ -84,7 +100,7 @@ __d(
           ),
       );
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       return (
         o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
         o("WAWebSharableEventGatingUtils").isSharableEventAddToCalendarEnabled(
@@ -92,7 +108,7 @@ __d(
         ) &&
         !t.isCanceled &&
         n <
-          d(
+          m(
             t.startTsSec,
             o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(
               t,
@@ -100,7 +116,7 @@ __d(
           )
       );
     }
-    function p(e) {
+    function _(e) {
       var t,
         n,
         a = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
@@ -116,7 +132,7 @@ __d(
         o("WAWebSharableEventInviteStatus").isSharableEventInviteAccessLost(
           e.sharableEventInviteStatus,
         ) ||
-        !m(
+        !p(
           o("WAWebSharableEventGatingUtils")
             .SharableEventAddToCalendarEntryPoint.MessageContextMenu,
           {
@@ -141,23 +157,26 @@ __d(
             callLink: e.sharableEventInviteCallLink,
           };
     }
-    function _(e) {
-      return u({
-        id: e.eventId,
-        name: e.title,
-        description: e.caption,
-        startTsSec: e.startTsSec,
-        endTsSec: e.endTsSec,
-        locationName: null,
-        locationAddress: null,
-        locationLatitude: null,
-        locationLongitude: null,
-        callLinkToken: null,
-        callLinkMediaType: null,
-        callLinkUrl: e.callLink,
-      });
+    function f(e, t) {
+      return c(
+        {
+          id: e.eventId,
+          name: e.title,
+          description: e.caption,
+          startTsSec: e.startTsSec,
+          endTsSec: e.endTsSec,
+          locationName: null,
+          locationAddress: null,
+          locationLatitude: null,
+          locationLongitude: null,
+          callLinkToken: null,
+          callLinkMediaType: null,
+          callLinkUrl: e.callLink,
+        },
+        t,
+      );
     }
-    function f(e) {
+    function g(e) {
       var t,
         n,
         r =
@@ -176,11 +195,11 @@ __d(
         })
         .join("\n\n");
     }
-    ((l.addSharableEventToCalendar = u),
-      (l.getSharableEventAddToCalendarHiddenTsSec = d),
-      (l.canAddSharableEventToCalendar = m),
-      (l.getSharableEventInviteMenuCalendarFields = p),
-      (l.addSharableEventInviteToCalendar = _));
+    ((l.addSharableEventToCalendar = c),
+      (l.getSharableEventAddToCalendarHiddenTsSec = m),
+      (l.canAddSharableEventToCalendar = p),
+      (l.getSharableEventInviteMenuCalendarFields = _),
+      (l.addSharableEventInviteToCalendar = f));
   },
   98,
 );

@@ -3,8 +3,8 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
-    "WAWebCoreActionsODS",
     "WAWebNetworkStatus",
+    "WAWebODS",
     "WAWebVoipEventConstants",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
@@ -127,7 +127,7 @@ __d(
                   ])),
               ),
               yield S())
-            : (o("WAWebCoreActionsODS").logCallNetworkOffline(),
+            : (r("WAWebODS").incr("web.call.network_offline"),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([

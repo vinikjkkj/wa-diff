@@ -37,25 +37,36 @@ __d(
             a = function (l) {
               if (!(n != null && !(t != null && t.has(n)))) {
                 r = r != null ? r : l;
-                var i = Math.floor(l - r);
+                var i = Math.floor(l - r),
+                  s = e.$3;
                 e.$3 = i;
-                var s = e.$7(i);
-                for (var u of s) {
-                  var c = u[0],
-                    d = u[1],
-                    m = d.calculateTimelineAnimatedValue(i - c);
-                  m != null &&
-                    (d.setAnimatedValue(m),
-                    d.onUpdateListeners.forEach(function (e) {
+                var u = e.$7(i, s);
+                for (var c of u) {
+                  var d,
+                    m = c[0],
+                    p = c[1],
+                    _ = i - m,
+                    f = p.getTotalDuration(),
+                    g = p.animation.to,
+                    h =
+                      _ >= f
+                        ? (d = p.animation).format.apply(
+                            d,
+                            typeof g == "number" ? [g] : g,
+                          )
+                        : p.calculateTimelineAnimatedValue(_);
+                  h != null &&
+                    (p.setAnimatedValue(h),
+                    p.onUpdateListeners.forEach(function (e) {
                       return e();
                     }));
                 }
                 if (i / e.getTotalDuration() < 1)
                   e.$5 = window.requestAnimationFrame(a);
                 else {
-                  var p = e.$8(),
-                    _ = p[1];
-                  _.isInfinite
+                  var y = e.$8(),
+                    C = y[1];
+                  C.isInfinite
                     ? (e.$9(), (e.$5 = window.requestAnimationFrame(a)))
                     : e.$10();
                 }
@@ -135,12 +146,18 @@ __d(
             this.$2.push([o + l, s]);
           }
         }),
-        (t.$7 = function (t) {
-          return this.$2.filter(function (e) {
-            var n = e[0],
-              r = e[1];
-            return t >= n && t <= n + r.getTotalDuration();
-          });
+        (t.$7 = function (t, n) {
+          var e = [],
+            r = [];
+          for (var o of this.$2) {
+            var a = o[0],
+              i = o[1];
+            if (!(t < a)) {
+              var l = a + i.getTotalDuration();
+              t <= l ? r.push(o) : (n == null || n < l) && e.push(o);
+            }
+          }
+          return e.concat(r);
         }),
         (t.$13 = function () {
           for (var e = this.$2.length - 1; e > 0; ) {

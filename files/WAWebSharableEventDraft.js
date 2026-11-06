@@ -149,7 +149,7 @@ __d(
         location: i == null ? void 0 : x(i),
         max_additional_guests: e.allowPlusOne ? 1 : 0,
         hide_invitee_list: !1,
-        call_link_media_type: o == null ? void 0 : w(o.mediaType),
+        call_link_media_type: o == null ? void 0 : A(o.mediaType),
         call_link_waiting_room_enabled: o == null ? void 0 : o.requireApproval,
         cover_image_handle:
           (a == null ? void 0 : a.kind) === "preset" ? a.handle : void 0,
@@ -193,11 +193,11 @@ __d(
       if (!N(f, n.callLink) || (f != null && s)) {
         var g;
         ((a.start_ts_sec = r.startTsSec),
-          (a.call_link_media_type = f == null ? null : w(f.mediaType)),
+          (a.call_link_media_type = f == null ? null : A(f.mediaType)),
           (a.call_link_waiting_room_enabled =
             (g = f == null ? void 0 : f.requireApproval) != null ? g : !1));
       }
-      return M(r.cover) === M(n.cover)
+      return w(r.cover) === w(n.cover)
         ? a
         : babelHelpers.extends({}, a, $(r.cover));
     }
@@ -276,7 +276,10 @@ __d(
           (t == null ? void 0 : t.requireApproval)
       );
     }
-    function M(e) {
+    function M(e, t) {
+      return w(e) === w(t);
+    }
+    function w(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -306,7 +309,7 @@ __d(
         );
       })(e);
     }
-    function w(e) {
+    function A(e) {
       return e ===
         o("WAWebSharableEventStorageEnums").SharableEventCallLinkMediaType.Voice
         ? "AUDIO"
@@ -326,7 +329,10 @@ __d(
       (l.getSharableEventStoredReminder = L),
       (l.getSharableEventDraftErrors = E),
       (l.toCreateEventInput = k),
-      (l.toUpdateEventInput = I));
+      (l.toUpdateEventInput = I),
+      (l.isSameSharableEventDraftLocation = P),
+      (l.isSameSharableEventDraftCallLink = N),
+      (l.isSameSharableEventDraftCover = M));
   },
   98,
 );

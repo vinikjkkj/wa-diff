@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
+    "WAWebODS",
     "WAWebReleaseToEventLoop",
     "WAWebUserPrefsVoip",
     "WAWebVoipSctpPrewarmQpl",
@@ -25,7 +26,7 @@ __d(
       if (f != null) return f;
       var t = o("WAWebUserPrefsVoip").getSctpPrewarmSlowRecord();
       if (t != null) {
-        var r =
+        var a =
           t.ms === o("WAWebUserPrefsVoip").SCTP_PREWARM_FAILED_MS
             ? "failed"
             : "took " + t.ms + "ms";
@@ -36,14 +37,14 @@ __d(
                 "voip: [SctpPrewarm] skipped, last prewarm on this device ",
                 "",
               ])),
-            r,
+            a,
           ),
-          o("WAWebCoreActionsODS").logCallSctpPrewarmV2SkippedSlow(),
+          r("WAWebODS").incr("web.call.sctp_prewarm_v2.skipped_slow"),
           (f = (d || (d = n("Promise"))).resolve()),
           f
         );
       }
-      return (o("WAWebCoreActionsODS").logCallSctpPrewarmV2Run(), (f = y()), f);
+      return (r("WAWebODS").incr("web.call.sctp_prewarm_v2.run"), (f = y()), f);
     }
     function h(e) {
       if (e.iceGatheringState === "complete" && e.localDescription != null) {

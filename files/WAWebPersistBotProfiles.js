@@ -2,6 +2,7 @@ __d(
   "WAWebPersistBotProfiles",
   [
     "WAWebBotProfileCollection",
+    "WAWebMetaAiThreadPresenceLatch",
     "WAWebProfilePicThumbCollection",
     "WAWebSchemaBotProfile",
     "asyncToGeneratorRuntime",
@@ -37,7 +38,10 @@ __d(
               return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
                 babelHelpers.extends({ id: e.id }, e),
               );
-            }));
+            }),
+            yield o("WAWebMetaAiThreadPresenceLatch").latchMetaAiThreadPresence(
+              e,
+            ));
         })),
         c.apply(this, arguments)
       );
@@ -164,7 +168,15 @@ __d(
                 return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
                   babelHelpers.extends({ id: n }, t),
                 );
-              }));
+              }),
+              yield o(
+                "WAWebMetaAiThreadPresenceLatch",
+              ).latchMetaAiThreadPresence(
+                t.map(function (e) {
+                  var t = e.fields;
+                  return t;
+                }),
+              ));
           }
         })),
         h.apply(this, arguments)

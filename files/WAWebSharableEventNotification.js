@@ -16,6 +16,7 @@ __d(
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventNotificationConstants",
     "WAWebSharableEventNotificationStrings",
+    "WAWebSharableEventPageSource",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -219,7 +220,10 @@ __d(
             (s(), l());
             return;
           }
-          u(n.eventId);
+          u(n.eventId, {
+            source: o("WAWebSharableEventPageSource").SharableEventPageSource
+              .Notification,
+          });
         })),
         m.apply(this, arguments)
       );

@@ -57,6 +57,7 @@ __d(
     "WAWebNewsletterRevokeMsgAction",
     "WAWebNoop",
     "WAWebProductCatalogProductImageViewFlowLoadable",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebQplFlowWrapper",
     "WAWebRemoveFromFavoritesAction",
     "WAWebSendMsgResultAction",
@@ -236,7 +237,16 @@ __d(
                   o(
                     "WAWebMmSignalSharingLoggingEvents",
                   ).logMmSignalSharingUserMuteEvent({ chat: t }),
-                  f({ chat: t, muteEntryPoint: e, shouldMute: !0 }));
+                  f({ chat: t, muteEntryPoint: e, shouldMute: !0 }),
+                  o(
+                    "WAWebQbmThreadLevelActionLogEventLazy",
+                  ).logQbmThreadLevelAction({
+                    chat: t,
+                    threadActionEntryPoint: o(
+                      "WAWebQbmThreadLevelActionLogEventLazy",
+                    ).threadActionEntryPointFromMuteEntryPoint(e),
+                    threadLevelAction: "MUTE",
+                  }));
               };
               if (e) {
                 var p = s._(/*BTDS*/ "Mute notifications");
@@ -282,7 +292,16 @@ __d(
                   new (o(
                     "WAWebBusinessUnmuteWamEvent",
                   ).BusinessUnmuteWamEvent)().commit(),
-                f({ chat: t, muteEntryPoint: h, shouldMute: !1 }));
+                f({ chat: t, muteEntryPoint: h, shouldMute: !1 }),
+                o(
+                  "WAWebQbmThreadLevelActionLogEventLazy",
+                ).logQbmThreadLevelAction({
+                  chat: t,
+                  threadActionEntryPoint: o(
+                    "WAWebQbmThreadLevelActionLogEventLazy",
+                  ).threadActionEntryPointFromMuteEntryPoint(h),
+                  threadLevelAction: "UNMUTE",
+                }));
             }
           }),
           (a[6] = d),
@@ -298,9 +317,12 @@ __d(
                 [s._plural(t.length)],
               );
               if (n) {
-                var i = function (n, r, o) {
+                var i = function (n, r, i) {
                   (t.forEach(function (e) {
-                    ((e.pendingAction = e.pendingAction + 1),
+                    (o(
+                      "WAWebQbmThreadLevelActionLogEventLazy",
+                    ).logBulkThreadAction(e, "MUTE"),
+                      (e.pendingAction = e.pendingAction + 1),
                       e.mute
                         .mute({
                           expiration: n,
@@ -434,8 +456,17 @@ __d(
         ? ((ce = function (t) {
             var e = t.archive,
               n = t.chat,
-              r = t.showToast;
-            ue({ archive: e, chat: n, entryPoint: 0, showToast: r });
+              r = t.entryPoint,
+              o = t.isBulkAction,
+              a = t.showToast,
+              i = r === void 0 ? 0 : r;
+            ue({
+              archive: e,
+              chat: n,
+              entryPoint: i,
+              isBulkAction: o,
+              showToast: a,
+            });
           }),
           (a[17] = ce))
         : (ce = a[17]);
@@ -1041,7 +1072,13 @@ __d(
       return !e.id;
     }
     function P(e, t) {
-      ((e.pendingAction = e.pendingAction + 1),
+      (t ||
+        o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+          chat: e,
+          threadActionEntryPoint: "CHATLIST",
+          threadLevelAction: "MARK_AS_READ",
+        }),
+        (e.pendingAction = e.pendingAction + 1),
         o("WAWebUpdateUnreadChatAction")
           .markUnread(e, { unread: t })
           .finally(function () {
@@ -1052,14 +1089,27 @@ __d(
       var t = e.archive,
         n = e.chat,
         a = e.entryPoint,
-        i = e.showToast;
+        i = e.isBulkAction,
+        l = e.showToast,
+        s = i === void 0 ? !1 : i;
       if (o("WAWebChatGetters").getIsPSA(n) && a !== 0 && n.msgs.length > 0) {
-        var l = n.msgs.last();
-        o("WAWebWamChatPSALogger").logChatPSARemove(l, t ? 3 : 4, a);
+        var u = n.msgs.last();
+        o("WAWebWamChatPSALogger").logChatPSARemove(u, t ? 3 : 4, a);
       }
-      ((n.pendingAction = n.pendingAction + 1),
+      (n.archive !== t &&
+        o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+          chat: n,
+          isBulkAction: s,
+          threadActionEntryPoint: s
+            ? "CHATLIST"
+            : o(
+                "WAWebQbmThreadLevelActionLogEventLazy",
+              ).threadActionEntryPointFromPsaRemoveEntryPoint(a),
+          threadLevelAction: t ? "ARCHIVE" : "UNARCHIVE",
+        }),
+        (n.pendingAction = n.pendingAction + 1),
         o("WAWebSetArchiveChatAction")
-          .setArchive(n, t, i)
+          .setArchive(n, t, l)
           .catch(r("WAWebNoop"))
           .finally(function () {
             n.pendingAction = n.pendingAction - 1;
@@ -1130,9 +1180,16 @@ __d(
           var i = e.msgs.last();
           o("WAWebWamChatPSALogger").logChatPSARemove(i, 6, t);
         }
-        r.finally(function () {
-          e.pendingAction = e.pendingAction - 1;
-        });
+        (o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+          chat: e,
+          threadActionEntryPoint: o(
+            "WAWebQbmThreadLevelActionLogEventLazy",
+          ).threadActionEntryPointFromPsaRemoveEntryPoint(t),
+          threadLevelAction: "DELETE",
+        }),
+          r.finally(function () {
+            e.pendingAction = e.pendingAction - 1;
+          }));
       };
       o("WDSDialogBridge").openWDSDialog(
         m.jsx(r("WAWebDeleteChatDialogV2.react"), {
@@ -1168,10 +1225,21 @@ __d(
         o("WAWebMmSignalSharingLoggingEvents").logMmSignalSharingUserMuteEvent({
           chat: e,
         }),
-        f({ chat: e, muteEntryPoint: n, shouldMute: !0 }));
+        f({ chat: e, muteEntryPoint: n, shouldMute: !0 }),
+        o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+          chat: e,
+          threadActionEntryPoint: o(
+            "WAWebQbmThreadLevelActionLogEventLazy",
+          ).threadActionEntryPointFromMuteEntryPoint(n),
+          threadLevelAction: "MUTE",
+        }));
     }
     function q(e) {
-      ((e.pendingAction = e.pendingAction + 1),
+      (o("WAWebQbmThreadLevelActionLogEventLazy").logBulkThreadAction(
+        e,
+        "UNMUTE",
+      ),
+        (e.pendingAction = e.pendingAction + 1),
         e.mute
           .unmute({ sendDevice: !0, fromMultiselect: !0 })
           .finally(function () {

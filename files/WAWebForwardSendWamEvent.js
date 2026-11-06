@@ -43,6 +43,7 @@ __d(
                   .EPHEMERALITY_TRIGGER_ACTION_TYPE,
               ],
               fastForwardEnabled: [5, e.TYPES.BOOLEAN],
+              forwardIndividualRecipientCount: [30, e.TYPES.INTEGER],
               forwardOrigin: [
                 28,
                 o("WAWebWamEnumForwardOrigin").FORWARD_ORIGIN,
@@ -51,6 +52,7 @@ __d(
                 27,
                 o("WAWebWamEnumForwardPickerOrigin").FORWARD_PICKER_ORIGIN,
               ],
+              forwardRecipientCount: [31, e.TYPES.INTEGER],
               isForwardedForward: [22, e.TYPES.BOOLEAN],
               isFrequentlyForwarded: [14, e.TYPES.BOOLEAN],
               mediaCaptionPresent: [10, e.TYPES.BOOLEAN],

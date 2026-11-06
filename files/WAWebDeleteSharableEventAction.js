@@ -5,6 +5,7 @@ __d(
     "WAWebOpenSharableEventPageAction",
     "WAWebSharableEventDeleteJob",
     "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventHostUserJourneyLogger",
     "WAWebToast.react",
     "WAWebToastManager",
     "WDSConfirmDialog.react",
@@ -39,13 +40,19 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          o(
+            "WAWebSharableEventHostUserJourneyLogger",
+          ).logSharableEventHostDeleteTapped(e);
           try {
             yield o("WAWebSharableEventDeleteJob").deleteSharableEvent(e);
-          } catch (e) {
+          } catch (t) {
             (o("WAWebSharableEventFailureLogger").logSharableEventFailure(
               "delete",
-              e,
+              t,
             ),
+              o(
+                "WAWebSharableEventHostUserJourneyLogger",
+              ).logSharableEventHostDeleteFailed(e, t),
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Couldn't delete event. Please try again."),
@@ -53,12 +60,15 @@ __d(
               ));
             return;
           }
-          t != null
-            ? t()
-            : o(
-                "WAWebOpenSharableEventPageAction",
-              ).getSelectedSharableEventId() === e &&
-              o("WAWebOpenSharableEventPageAction").closeSharableEventPage();
+          (o(
+            "WAWebSharableEventHostUserJourneyLogger",
+          ).logSharableEventHostDeleted(e),
+            t != null
+              ? t()
+              : o(
+                  "WAWebOpenSharableEventPageAction",
+                ).getSelectedSharableEventId() === e &&
+                o("WAWebOpenSharableEventPageAction").closeSharableEventPage());
         })),
         m.apply(this, arguments)
       );

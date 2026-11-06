@@ -143,13 +143,7 @@ __d(
         ),
         o("WAWebUpdater").Updater.restart());
     }
-    ((l.isCanonicalReloadPending = o(
-      "WAWebCanonicalUtils",
-    ).isCanonicalReloadPending),
-      (l.setCanonicalReloadPending = o(
-        "WAWebCanonicalUtils",
-      ).setCanonicalReloadPending),
-      (l.scheduleCanonicalReload = f),
+    ((l.scheduleCanonicalReload = f),
       (l.restartAfterCanonicalRegistration = h));
   },
   98,

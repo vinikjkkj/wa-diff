@@ -17,12 +17,19 @@ __d(
       var n = t.prototype;
       return (
         (n.emit = function (n) {
+          var t;
           if (this.$EventEmitterWithValidation1.indexOf(n) === -1) {
             if (this.$EventEmitterWithValidation2 === !0) return;
-            var t = new TypeError(s(n, this.$EventEmitterWithValidation1));
-            throw (t.stack, t);
+            var r = new TypeError(s(n, this.$EventEmitterWithValidation1));
+            throw (r.stack, r);
           }
-          return e.prototype.emit.apply(this, arguments);
+          for (
+            var o = arguments.length, a = new Array(o > 1 ? o - 1 : 0), i = 1;
+            i < o;
+            i++
+          )
+            a[i - 1] = arguments[i];
+          return (t = e.prototype.emit).call.apply(t, [this, n].concat(a));
         }),
         t
       );

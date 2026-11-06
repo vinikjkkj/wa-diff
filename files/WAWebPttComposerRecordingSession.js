@@ -42,6 +42,7 @@ __d(
     "WAWebPttComposerRecordingStopReason",
     "WAWebPttComposerStreamingEncryptor",
     "WAWebPttDailyUtils",
+    "WAWebPttMicrophoneRecovery.react",
     "WAWebPttWamEvent",
     "WAWebRecordingSessionStateEnum",
     "WAWebStartMediaUploadQpl",
@@ -143,296 +144,310 @@ __d(
             });
           }),
           (i.start = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t = this;
-              switch (this.recordingState) {
-                case o("WAWebRecordingSessionStateEnum").RecordingSessionState
-                  .NOT_STARTED:
-                  break;
-                case o("WAWebRecordingSessionStateEnum").RecordingSessionState
-                  .RECORDING:
-                  return !0;
-                case o("WAWebRecordingSessionStateEnum").RecordingSessionState
-                  .PAUSED:
-                  return this.resume();
-                case o("WAWebRecordingSessionStateEnum").RecordingSessionState
-                  .STOPPED:
-                case o("WAWebRecordingSessionStateEnum").RecordingSessionState
-                  .ERROR:
-                  throw r("err")(
-                    "Can't start recording from state " + this.recordingState,
-                  );
-              }
-              this._uploadQpl = o(
-                "WAWebStartMediaUploadQpl",
-              ).startMediaUploadQpl({
-                entryPoint: "PttStreamingUpload",
-                mediaType: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
-                isStreamingUpload: !0,
-              });
-              var a = r("WAWebCreateMediaUploadMetrics")({
-                  type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
-                  uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
-                    this._chat,
-                  ),
-                  fileOrigin: null,
-                  userUploadAttemptCount: 0,
-                  forwardedFromWeb: !1,
-                  isViewOnce: !1,
-                  uploadQpl: this._uploadQpl,
-                }),
-                i = a.handleEncryptionStart,
-                l = a.handleEncryptionSuccess,
-                s = a.handleSendMessageStart,
-                u = a.handleStreamUploadStart,
-                f = a.handleUploadAttemptError,
-                g = a.handleUploadAttemptSuccess,
-                h = a.handleUploadError,
-                y = a.handleUploadHostFound,
-                C = a.handleUploadProgress,
-                b = a.handleUploadSuccess;
-              this._handleSendMessageStart = s;
-              try {
-                if (
-                  o(
-                    "WAWebUploadStreamerRefactorGatingUtils",
-                  ).isUploadStreamerRefactorEnabled()
-                ) {
-                  var v = r("WAWebCryptoRandomMediaKey")();
-                  this._earlyUploadPromise = new (M || (M = n("Promise")))(
-                    function (e) {
-                      t._resolveEarlyUploadPromise = e;
-                    },
-                  );
-                  var S = new AbortController();
-                  this._uploaderAbortController = S;
-                  var R = yield o(
-                      "WAMediaCalculateFilehash",
-                    ).getRandomFilehash(),
-                    L = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(
-                      {
-                        encFilehash: R,
-                        token: R,
-                        type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
-                        signal: S.signal,
-                        byteOffset: 0,
-                        onUploadHostFound: y,
-                        onUploadAttemptSuccess: g,
-                        onUploadAttemptError: f,
-                        onProgress: function (t, n) {
-                          C(t.loaded + n);
-                        },
-                        onStreamUploadStart: u,
-                        mediaId: o(
-                          "WAWebWamMediaMetricUtils",
-                        ).generateMediaEventId(),
-                      },
-                      { mediaHosts: o("WAWebMediaHosts").mediaHosts },
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var a = this;
+                switch (this.recordingState) {
+                  case o("WAWebRecordingSessionStateEnum").RecordingSessionState
+                    .NOT_STARTED:
+                    break;
+                  case o("WAWebRecordingSessionStateEnum").RecordingSessionState
+                    .RECORDING:
+                    return !0;
+                  case o("WAWebRecordingSessionStateEnum").RecordingSessionState
+                    .PAUSED:
+                    return this.resume();
+                  case o("WAWebRecordingSessionStateEnum").RecordingSessionState
+                    .STOPPED:
+                  case o("WAWebRecordingSessionStateEnum").RecordingSessionState
+                    .ERROR:
+                    throw r("err")(
+                      "Can't start recording from state " + this.recordingState,
                     );
-                  (L.startUploadFromClient(),
-                    (this._encryptor = yield o(
-                      "WAWebPttComposerStreamingEncryptor",
-                    ).createStreamingEncryptor({
-                      mediaKey: v.key,
-                      onChunkEncrypted: (function () {
-                        var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (n) {
-                            try {
-                              yield L.uploadChunkFromClient(n);
-                            } catch (n) {
-                              var a = r("getErrorSafe")(n);
-                              if (
-                                (t._resolveEarlyUploadPromise == null ||
-                                  t._resolveEarlyUploadPromise(null),
-                                (t._hasStreamingUploadFailed = !0),
-                                a.name === o("WAAbortError").ABORT_ERROR)
-                              )
-                                return;
-                              (o("WALogger")
-                                .ERROR(
-                                  e ||
-                                    (e =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "onChunkEncrypted: ptt-streaming-upload-error",
-                                      ])),
-                                )
-                                .catching(a),
-                                o("WALogger")
-                                  .ERROR(
-                                    c ||
-                                      (c =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "PTT Streaming Upload cancelled due to a problem uploading",
-                                          ],
-                                        )),
-                                  )
-                                  .sendLogs("ptt-streaming-upload-failed"),
-                                h(a));
-                            }
-                          },
-                        );
-                        function i(e) {
-                          return a.apply(this, arguments);
-                        }
-                        return i;
-                      })(),
-                      onEncryptionCompleted: (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e, n) {
-                            l();
-                            try {
-                              yield L.uploadChunkFromClient(new Uint8Array(e));
-                              var a = yield L.finalizeUploadFromClient(n);
-                              (t._resolveEarlyUploadPromise == null ||
-                                t._resolveEarlyUploadPromise({
-                                  directPath: a.directPath,
-                                  mediaKey: v.key,
-                                  mediaKeyTimestamp: v.timestamp,
-                                  encFilehash: n,
-                                  url: a.url,
-                                }),
-                                b());
-                            } catch (e) {
-                              var i = r("getErrorSafe")(e);
-                              if (
-                                (t._resolveEarlyUploadPromise == null ||
-                                  t._resolveEarlyUploadPromise(null),
-                                (t._hasStreamingUploadFailed = !0),
-                                i.name === o("WAAbortError").ABORT_ERROR)
-                              )
-                                return;
-                              (o("WALogger")
-                                .ERROR(
-                                  d ||
-                                    (d =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "onEncryptionCompleted: ptt-streaming-upload-error",
-                                      ])),
-                                )
-                                .catching(i),
-                                o("WALogger")
-                                  .ERROR(
-                                    m ||
-                                      (m =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "PTT Streaming Upload cancelled due to a problem when finalizing upload",
-                                          ],
-                                        )),
-                                  )
-                                  .sendLogs("ptt-streaming-upload-failed"),
-                                h(i));
-                            }
-                          },
-                        );
-                        function a(t, n) {
-                          return e.apply(this, arguments);
-                        }
-                        return a;
-                      })(),
-                    })));
                 }
-              } catch (e) {
-                var E;
-                throw (
-                  (E = this._uploadQpl) == null ||
-                    E.endFailWithError(
-                      "upload_setup_failed",
+                this._uploadQpl = o(
+                  "WAWebStartMediaUploadQpl",
+                ).startMediaUploadQpl({
+                  entryPoint: "PttStreamingUpload",
+                  mediaType: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                  isStreamingUpload: !0,
+                });
+                var i = r("WAWebCreateMediaUploadMetrics")({
+                    type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                    uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
+                      this._chat,
+                    ),
+                    fileOrigin: null,
+                    userUploadAttemptCount: 0,
+                    forwardedFromWeb: !1,
+                    isViewOnce: !1,
+                    uploadQpl: this._uploadQpl,
+                  }),
+                  l = i.handleEncryptionStart,
+                  s = i.handleEncryptionSuccess,
+                  u = i.handleSendMessageStart,
+                  f = i.handleStreamUploadStart,
+                  g = i.handleUploadAttemptError,
+                  h = i.handleUploadAttemptSuccess,
+                  y = i.handleUploadError,
+                  C = i.handleUploadHostFound,
+                  b = i.handleUploadProgress,
+                  v = i.handleUploadSuccess;
+                this._handleSendMessageStart = u;
+                try {
+                  if (
+                    o(
+                      "WAWebUploadStreamerRefactorGatingUtils",
+                    ).isUploadStreamerRefactorEnabled()
+                  ) {
+                    var S = r("WAWebCryptoRandomMediaKey")();
+                    this._earlyUploadPromise = new (M || (M = n("Promise")))(
+                      function (e) {
+                        a._resolveEarlyUploadPromise = e;
+                      },
+                    );
+                    var R = new AbortController();
+                    this._uploaderAbortController = R;
+                    var L = yield o(
+                        "WAMediaCalculateFilehash",
+                      ).getRandomFilehash(),
+                      E = new (o(
+                        "WAWebMmsClientUploadStreamer",
+                      ).UploadStreamer)(
+                        {
+                          encFilehash: L,
+                          token: L,
+                          type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                          signal: R.signal,
+                          byteOffset: 0,
+                          onUploadHostFound: C,
+                          onUploadAttemptSuccess: h,
+                          onUploadAttemptError: g,
+                          onProgress: function (t, n) {
+                            b(t.loaded + n);
+                          },
+                          onStreamUploadStart: f,
+                          mediaId: o(
+                            "WAWebWamMediaMetricUtils",
+                          ).generateMediaEventId(),
+                        },
+                        { mediaHosts: o("WAWebMediaHosts").mediaHosts },
+                      );
+                    (E.startUploadFromClient(),
+                      (this._encryptor = yield o(
+                        "WAWebPttComposerStreamingEncryptor",
+                      ).createStreamingEncryptor({
+                        mediaKey: S.key,
+                        onChunkEncrypted: (function () {
+                          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                            function* (t) {
+                              try {
+                                yield E.uploadChunkFromClient(t);
+                              } catch (t) {
+                                var n = r("getErrorSafe")(t);
+                                if (
+                                  (a._resolveEarlyUploadPromise == null ||
+                                    a._resolveEarlyUploadPromise(null),
+                                  (a._hasStreamingUploadFailed = !0),
+                                  n.name === o("WAAbortError").ABORT_ERROR)
+                                )
+                                  return;
+                                (o("WALogger")
+                                  .ERROR(
+                                    e ||
+                                      (e =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "onChunkEncrypted: ptt-streaming-upload-error",
+                                          ],
+                                        )),
+                                  )
+                                  .catching(n),
+                                  o("WALogger")
+                                    .ERROR(
+                                      c ||
+                                        (c =
+                                          babelHelpers.taggedTemplateLiteralLoose(
+                                            [
+                                              "PTT Streaming Upload cancelled due to a problem uploading",
+                                            ],
+                                          )),
+                                    )
+                                    .sendLogs("ptt-streaming-upload-failed"),
+                                  y(n));
+                              }
+                            },
+                          );
+                          function i(e) {
+                            return t.apply(this, arguments);
+                          }
+                          return i;
+                        })(),
+                        onEncryptionCompleted: (function () {
+                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                            function* (e, t) {
+                              s();
+                              try {
+                                yield E.uploadChunkFromClient(
+                                  new Uint8Array(e),
+                                );
+                                var n = yield E.finalizeUploadFromClient(t);
+                                (a._resolveEarlyUploadPromise == null ||
+                                  a._resolveEarlyUploadPromise({
+                                    directPath: n.directPath,
+                                    mediaKey: S.key,
+                                    mediaKeyTimestamp: S.timestamp,
+                                    encFilehash: t,
+                                    url: n.url,
+                                  }),
+                                  v());
+                              } catch (e) {
+                                var i = r("getErrorSafe")(e);
+                                if (
+                                  (a._resolveEarlyUploadPromise == null ||
+                                    a._resolveEarlyUploadPromise(null),
+                                  (a._hasStreamingUploadFailed = !0),
+                                  i.name === o("WAAbortError").ABORT_ERROR)
+                                )
+                                  return;
+                                (o("WALogger")
+                                  .ERROR(
+                                    d ||
+                                      (d =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "onEncryptionCompleted: ptt-streaming-upload-error",
+                                          ],
+                                        )),
+                                  )
+                                  .catching(i),
+                                  o("WALogger")
+                                    .ERROR(
+                                      m ||
+                                        (m =
+                                          babelHelpers.taggedTemplateLiteralLoose(
+                                            [
+                                              "PTT Streaming Upload cancelled due to a problem when finalizing upload",
+                                            ],
+                                          )),
+                                    )
+                                    .sendLogs("ptt-streaming-upload-failed"),
+                                  y(i));
+                              }
+                            },
+                          );
+                          function t(t, n) {
+                            return e.apply(this, arguments);
+                          }
+                          return t;
+                        })(),
+                      })));
+                  }
+                } catch (e) {
+                  var k;
+                  throw (
+                    (k = this._uploadQpl) == null ||
+                      k.endFailWithError(
+                        "upload_setup_failed",
+                        r("getErrorSafe")(e).message,
+                      ),
+                    (this._uploadQpl = null),
+                    e
+                  );
+                }
+                try {
+                  var I,
+                    T = !0,
+                    D = t == null ? void 0 : t.microphoneRecovery;
+                  this._recorder = new (r("WAPttComposerRecorder"))({
+                    createStream: function (t) {
+                      var e = D;
+                      return ((D = null), H(t, e));
+                    },
+                    waveformSampleRate: this.getWaveformSampleRate(),
+                    onDuration: function (t) {
+                      ((a.duration = t), (a.exceedsMinDuration = t >= F));
+                    },
+                    onPage: function (t, n) {
+                      if (
+                        !(
+                          !o(
+                            "WAWebUploadStreamerRefactorGatingUtils",
+                          ).isUploadStreamerRefactorEnabled() ||
+                          a._hasStreamingUploadFailed
+                        )
+                      )
+                        try {
+                          var e;
+                          (T && (l(), (T = !1)),
+                            (e = a._encryptor) == null || e.encryptChunk(t, n));
+                        } catch (e) {
+                          (o("WALogger").ERROR(
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
+                                "PTT Streaming Upload cancelled due to a problem encrypting",
+                              ])),
+                          ),
+                            a._resolveEarlyUploadPromise == null ||
+                              a._resolveEarlyUploadPromise(null),
+                            (a._hasStreamingUploadFailed = !0));
+                        }
+                    },
+                  });
+                  var x = yield this._recorder.start();
+                  if (x)
+                    return (
+                      (this.recordingState = o(
+                        "WAWebRecordingSessionStateEnum",
+                      ).RecordingSessionState.RECORDING),
+                      o("WAWebAppTracker").AppTracker.start(
+                        o("WAWebAppTracker").AppTrackerType.RecordPTT,
+                      ),
+                      o("WAWebPresenceCollection").PresenceCollection.update(
+                        this._chat.presence.id,
+                      ),
+                      o("WAWebPttDailyUtils").incrementPttDailyCount(
+                        o("WAWebPttDailyUtils").PttDailyCountKind.RECORD,
+                        r("nullthrows")(
+                          o("WAWebFrontendChatGetters").getKind(this._chat),
+                        ),
+                      ),
+                      !0
+                    );
+                  ((I = this._uploadQpl) == null ||
+                    I.endFailWithError(
+                      "recording_failed",
+                      "recorder_did_not_start",
+                    ),
+                    (this._uploadQpl = null));
+                } catch (e) {
+                  var $;
+                  (($ = this._uploadQpl) == null ||
+                    $.endFailWithError(
+                      "recording_failed",
                       r("getErrorSafe")(e).message,
                     ),
-                  (this._uploadQpl = null),
-                  e
-                );
-              }
-              try {
-                var k,
-                  I = !0;
-                this._recorder = new (r("WAPttComposerRecorder"))({
-                  createStream: H,
-                  waveformSampleRate: this.getWaveformSampleRate(),
-                  onDuration: function (n) {
-                    ((t.duration = n), (t.exceedsMinDuration = n >= F));
-                  },
-                  onPage: function (n, r) {
-                    if (
-                      !(
-                        !o(
-                          "WAWebUploadStreamerRefactorGatingUtils",
-                        ).isUploadStreamerRefactorEnabled() ||
-                        t._hasStreamingUploadFailed
+                    (this._uploadQpl = null),
+                    o("WALogger")
+                      .ERROR(
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            "PTT Recording Error",
+                          ])),
                       )
-                    )
-                      try {
-                        var e;
-                        (I && (i(), (I = !1)),
-                          (e = t._encryptor) == null || e.encryptChunk(n, r));
-                      } catch (e) {
-                        (o("WALogger").ERROR(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "PTT Streaming Upload cancelled due to a problem encrypting",
-                            ])),
-                        ),
-                          t._resolveEarlyUploadPromise == null ||
-                            t._resolveEarlyUploadPromise(null),
-                          (t._hasStreamingUploadFailed = !0));
-                      }
-                  },
-                });
-                var T = yield this._recorder.start();
-                if (T)
-                  return (
-                    (this.recordingState = o(
-                      "WAWebRecordingSessionStateEnum",
-                    ).RecordingSessionState.RECORDING),
-                    o("WAWebAppTracker").AppTracker.start(
-                      o("WAWebAppTracker").AppTrackerType.RecordPTT,
-                    ),
-                    o("WAWebPresenceCollection").PresenceCollection.update(
-                      this._chat.presence.id,
-                    ),
-                    o("WAWebPttDailyUtils").incrementPttDailyCount(
-                      o("WAWebPttDailyUtils").PttDailyCountKind.RECORD,
-                      r("nullthrows")(
-                        o("WAWebFrontendChatGetters").getKind(this._chat),
-                      ),
-                    ),
-                    !0
-                  );
-                ((k = this._uploadQpl) == null ||
-                  k.endFailWithError(
-                    "recording_failed",
-                    "recorder_did_not_start",
-                  ),
-                  (this._uploadQpl = null));
-              } catch (e) {
-                var D;
-                ((D = this._uploadQpl) == null ||
-                  D.endFailWithError(
-                    "recording_failed",
-                    r("getErrorSafe")(e).message,
-                  ),
-                  (this._uploadQpl = null),
-                  o("WALogger")
-                    .ERROR(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "PTT Recording Error",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e)));
-              }
-              return (
-                this._endSession(),
-                (this.recordingState = o(
-                  "WAWebRecordingSessionStateEnum",
-                ).RecordingSessionState.ERROR),
-                this._releaseGetterCache(),
-                !1
-              );
-            });
-            function a() {
+                      .catching(r("getErrorSafe")(e)));
+                }
+                return (
+                  this._endSession(),
+                  (this.recordingState = o(
+                    "WAWebRecordingSessionStateEnum",
+                  ).RecordingSessionState.ERROR),
+                  this._releaseGetterCache(),
+                  !1
+                );
+              },
+            );
+            function a(e) {
               return t.apply(this, arguments);
             }
             return a;
@@ -975,12 +990,12 @@ __d(
           return null;
       }
     }
-    function H(e) {
+    function H(e, t) {
       return G.apply(this, arguments);
     }
     function G() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (r("WAWebCallCollection").activeCall)
             return (
               o("WAWebModalManager").ModalManager.open(
@@ -993,45 +1008,40 @@ __d(
               ),
               null
             );
-          var t = o("WAWebMediaCapture").start({
+          var n = o("WAWebMediaCapture").start({
               type: o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .MICROPHONE,
               featureSurface: o("WAWebGuidePopup.react").FeatureSurface
                 .VOICE_MESSAGES,
             }),
-            n = t.asyncStream,
-            a = t.disposeStream;
+            a = n.asyncStream,
+            i = n.disposeStream;
           e.addEventListener(
             "abort",
             function () {
-              a();
+              i();
             },
             { once: !0 },
           );
           try {
-            return yield n;
+            return yield a;
           } catch (e) {
-            if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
-              var i;
+            if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError)
               return (
-                o("WAWebModalManager").ModalManager.open(
-                  A.jsx((i = o("WAWebGuidePopup.react")).GuidePopup, {
-                    messaging: i.Messaging.MIC_FAIL,
-                    type: i.GuidePopupType.GUIDE_UNBLOCK,
-                    featureSurface: i.FeatureSurface.VOICE_MESSAGES,
-                  }),
+                o("WAWebPttMicrophoneRecovery.react").showPttMicrophoneRefusal(
+                  e,
+                  t,
                 ),
                 null
               );
-            }
             if (e instanceof o("WAWebGetUserMediaErrors").GetUserMediaError) {
-              var i;
+              var l;
               return (
                 o("WAWebModalManager").ModalManager.open(
-                  A.jsx((i = o("WAWebGuidePopup.react")).GuidePopup, {
-                    messaging: i.Messaging.MIC_MISSING,
-                    type: i.GuidePopupType.GUIDE_NONE,
-                    featureSurface: i.FeatureSurface.VOICE_MESSAGES,
+                  A.jsx((l = o("WAWebGuidePopup.react")).GuidePopup, {
+                    messaging: l.Messaging.MIC_MISSING,
+                    type: l.GuidePopupType.GUIDE_NONE,
+                    featureSurface: l.FeatureSurface.VOICE_MESSAGES,
                   }),
                 ),
                 null

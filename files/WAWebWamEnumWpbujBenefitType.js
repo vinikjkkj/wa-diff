@@ -13,6 +13,7 @@ __d(
       CLOUD_STORAGE: 8,
       CUSTOM_REACTIONS: 9,
       FOCUS_LISTS: 10,
+      ORIGINAL_MEDIA: 11,
     });
     i.WPBUJ_BENEFIT_TYPE = e;
   },

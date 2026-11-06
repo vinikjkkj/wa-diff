@@ -15,20 +15,20 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
-    function c(e, t) {
+    function c(e, t, n) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
-            var n = o("WAWebSharableEventDraft").toCreateEventInput(
+            var r = o("WAWebSharableEventDraft").toCreateEventInput(
                 e,
                 o("WATimeUtils").unixTime(),
               ),
-              r = m(t);
+              a = m(t);
             return yield o("WAWebSharableEventCreateJob").createSharableEvent(
-              r == null ? n : babelHelpers.extends({}, n, { creation_ctx: r }),
+              a == null ? r : babelHelpers.extends({}, r, { creation_ctx: a }),
             );
           } catch (e) {
             return (
@@ -36,6 +36,7 @@ __d(
                 "create",
                 e,
               ),
+              n == null || n(e),
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   msg: o(

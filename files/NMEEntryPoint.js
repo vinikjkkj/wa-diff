@@ -911,6 +911,8 @@ __d(
       META_ONE_APP_PLUS_MARKETING_SITE_V1:
         "meta_one_app_plus_marketing_site_v1",
       META_ONE_BIZ_AI_BIZ_CLAW_UPSELL: "meta_one_biz_ai_biz_claw_upsell",
+      META_ONE_BIZ_AI_IG_COPILOT_UPSELL: "meta_one_biz_ai_ig_copilot_upsell",
+      META_ONE_BIZ_AI_IG_PRODASH_UPSELL: "meta_one_biz_ai_ig_prodash_upsell",
       META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE:
         "meta_one_biz_ai_mbs_aihome_quota_lifecycle",
       META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE:
@@ -1609,6 +1611,12 @@ __d(
         "nme_benefit_contextual_subscriber_upsell_ecp_ig_reels_insights_banner",
       NME_BENEFIT_CONTEXTUAL_UPSELL_ECP_IG_REELS_INSIGHTS_BANNER:
         "nme_benefit_contextual_upsell_ecp_ig_reels_insights_banner",
+      NME_BENEFIT_CONTEXTUAL_UPSELL_FB_ELS_LINKS_PAGE_LINK_EDIT_SURFACE:
+        "nme_benefit_contextual_upsell_fb_els_links_page_link_edit_surface",
+      NME_BENEFIT_CONTEXTUAL_UPSELL_FB_ELS_LINKS_PAGE_OWNER_BOTTOMSHEET:
+        "nme_benefit_contextual_upsell_fb_els_links_page_owner_bottomsheet",
+      NME_BENEFIT_CONTEXTUAL_UPSELL_FB_ELS_LINKS_PAGE_VIEWER_BOTTOMSHEET:
+        "nme_benefit_contextual_upsell_fb_els_links_page_viewer_bottomsheet",
       NME_BENEFIT_CONTEXTUAL_UPSELL_FB_ELS_LINK_EDIT_SURFACE:
         "nme_benefit_contextual_upsell_fb_els_link_edit_surface",
       NME_BENEFIT_CONTEXTUAL_UPSELL_FB_ELS_OWNER_BOTTOMSHEET:

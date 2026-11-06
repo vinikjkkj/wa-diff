@@ -127,13 +127,19 @@ __d(
               n,
             );
           }),
-          (i.archiveChat = function (t, n, r) {
-            (r === void 0 && (r = !0),
-              this.trigger("archive_chat", {
-                archive: n,
-                chat: o("WAWebStateUtils").unproxy(t),
-                showToast: r,
-              }));
+          (i.archiveChat = function (t, n, r, a) {
+            r === void 0 && (r = !0);
+            var e = a === void 0 ? {} : a,
+              i = e.entryPoint,
+              l = e.isBulkAction,
+              s = l === void 0 ? !1 : l;
+            this.trigger("archive_chat", {
+              archive: n,
+              chat: o("WAWebStateUtils").unproxy(t),
+              entryPoint: i,
+              isBulkAction: s,
+              showToast: r,
+            });
           }),
           (i.archiveChatFromEntryPoint = function (t) {
             var e = t.archive,

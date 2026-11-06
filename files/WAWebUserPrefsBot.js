@@ -6,6 +6,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -51,6 +52,34 @@ __d(
       return m({ migrationProgress: c.COMPLETE });
     }
     function f() {
+      return (
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+          o("WAWebUserPrefsKeys").KEYS.WA_WEB_HAS_EVER_HAD_META_AI_THREAD,
+        ) === !0
+      );
+    }
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+            f()
+              ? !1
+              : (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                  o("WAWebUserPrefsKeys").KEYS
+                    .WA_WEB_HAS_EVER_HAD_META_AI_THREAD,
+                  !0,
+                ),
+                !0)
+          );
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
@@ -58,7 +87,7 @@ __d(
         ? e
         : 0;
     }
-    function g(e) {
+    function C(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
         e,
@@ -72,8 +101,10 @@ __d(
       (l.setMetaAIThreadMigrationState = m),
       (l.isMetaAIThreadMigrationComplete = p),
       (l.markMetaAIThreadMigrationStateAsComplete = _),
-      (l.getMetaAiBotSessionLastCleanupTs = f),
-      (l.setMetaAiBotSessionLastCleanupTs = g));
+      (l.hasEverHadMetaAiThread = f),
+      (l.markHasEverHadMetaAiThread = g),
+      (l.getMetaAiBotSessionLastCleanupTs = y),
+      (l.setMetaAiBotSessionLastCleanupTs = C));
   },
   98,
 );

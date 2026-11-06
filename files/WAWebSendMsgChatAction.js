@@ -36,8 +36,10 @@ __d(
     "WAWebMsgInfoUtils",
     "WAWebMsgModel",
     "WAWebMsgType",
+    "WAWebNoop",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
+    "WAWebQbmMessageReplyLogEventLazy",
     "WAWebRichTextFormatMessageSendLogger",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
@@ -335,8 +337,15 @@ __d(
               e
             );
           }),
-        ),
-        g = i
+        );
+      f.then(function (e) {
+        return o("WAWebQbmMessageReplyLogEventLazy").logQbmMessageReply({
+          chat: t,
+          replyMessageType: e.type,
+          replyMsg: e,
+        });
+      }).catch(r("WAWebNoop"));
+      var g = i
           ? f.then(i).then(function () {
               return f;
             })

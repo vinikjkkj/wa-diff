@@ -8,7 +8,7 @@ __d(
     "WAWebCallRandomIdStore",
     "WAWebCallUserJourneyGating",
     "WAWebCallUserJourneyLogger",
-    "WAWebCoreActionsODS",
+    "WAWebODS",
     "WAWebVoipAppInBgWhenCallStartsStore",
     "WAWebVoipAudioCaptureBase",
     "WAWebVoipBatteryDiagnostics",
@@ -1658,7 +1658,7 @@ __d(
                 return e.port === 3478 || e.port_v6 === 3478;
               });
             });
-          (i && o("WAWebCoreActionsODS").logCallRelayPort3478(),
+          (i && r("WAWebODS").incr("web.call.relay.port_3478"),
             o("WAWebVoipGatingUtils").isWebTransportEnabled()
               ? (o(
                   "WAWebVoipWebTransportConnectionManager",

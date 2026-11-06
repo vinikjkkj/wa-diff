@@ -6,6 +6,7 @@ __d(
     "WAWebDeleteChatAction",
     "WAWebMetaAiChatActionLogger",
     "WAWebNoop",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebWamChatActionEventsLogger",
     "WAWebWamEnumChatActionEntryPoint",
     "WAWebWamEnumChatActionType",
@@ -22,6 +23,10 @@ __d(
       return o("WAWebBulkChatAction").runBulkChatAction(e, {
         operation: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            o("WAWebQbmThreadLevelActionLogEventLazy").logBulkThreadAction(
+              e,
+              "DELETE",
+            );
             var t = o(
                 "WAWebMetaAiChatActionLogger",
               ).captureMetaAiChatActionFields(e.id),

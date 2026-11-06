@@ -36,6 +36,7 @@ __d(
         "offerings",
         "parent_company_logo_url",
         "parent_company_name",
+        "pills",
         "price_tier",
         "profile_is_linked",
         "profile_options",
@@ -240,23 +241,24 @@ __d(
         T = a.offerings,
         D = a.parent_company_logo_url,
         x = a.parent_company_name,
-        $ = a.price_tier,
-        P = a.profile_is_linked,
-        N = a.profile_options,
-        M = a.prompts,
-        w = a.service_areas,
-        A = a.show_google_info,
-        F = a.show_google_reviews,
-        O = a.structured_address,
-        B = a.welcome_message_protocol_mode,
-        W = babelHelpers.objectWithoutPropertiesLoose(a, u),
-        q = { id: n };
+        $ = a.pills,
+        P = a.price_tier,
+        N = a.profile_is_linked,
+        M = a.profile_options,
+        w = a.prompts,
+        A = a.service_areas,
+        F = a.show_google_info,
+        O = a.show_google_reviews,
+        B = a.structured_address,
+        W = a.welcome_message_protocol_mode,
+        q = babelHelpers.objectWithoutPropertiesLoose(a, u),
+        U = { id: n };
       return (
-        c ? (q.businessHours = p(c)) : (q.businessHours = null),
-        L != null && (q.memberSinceText = L),
-        N && (q.profileOptions = k(N)),
+        c ? (U.businessHours = p(c)) : (U.businessHours = null),
+        L != null && (U.memberSinceText = L),
+        M && (U.profileOptions = k(M)),
         v(a) &&
-          ((q.catalogStatus = d),
+          ((U.catalogStatus = d),
           i &&
             o("WAWebCatalogCollection")
               .CatalogCollection.findCarouselCatalog(n)
@@ -273,49 +275,49 @@ __d(
                     ])),
                 );
               })),
-        O
-          ? (q.structuredAddress = {
-              streetAddress: O.street_address,
-              cityId: O.city_id,
-              localizedCityName: O.localized_city_name,
-              zipCode: O.zip_code,
+        B
+          ? (U.structuredAddress = {
+              streetAddress: B.street_address,
+              cityId: B.city_id,
+              localizedCityName: B.localized_city_name,
+              zipCode: B.zip_code,
             })
-          : (q.address = r("isStringNullOrEmpty")(l) ? null : l),
-        (q.priceTier = $ != null ? $ : null),
-        R && (q.legalEntityDetails = E(R)),
+          : (U.address = r("isStringNullOrEmpty")(l) ? null : l),
+        (U.priceTier = P != null ? P : null),
+        R && (U.legalEntityDetails = E(R)),
         h &&
-          (q.fbPage = {
+          (U.fbPage = {
             displayName: h.display_name,
             likes: h.likes,
             id: h.id,
           }),
         b &&
-          (q.igProfessional = { handle: b.ig_handle, followers: b.followers }),
-        P != null && (q.isProfileLinked = !!P),
-        g != null && (q.customUrlPath = g),
-        (q.automatedType =
+          (U.igProfessional = { handle: b.ig_handle, followers: b.followers }),
+        N != null && (U.isProfileLinked = !!N),
+        g != null && (U.customUrlPath = g),
+        (U.automatedType =
           s != null ? s : o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN),
-        (q.welcomeMsgProtocolMode =
-          B != null
-            ? B
+        (U.welcomeMsgProtocolMode =
+          W != null
+            ? W
             : o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE),
-        (q.commandsDescription = _ != null ? _ : null),
-        (q.prompts = M != null ? M : null),
-        (q.commands = m != null ? m : null),
-        (q.coverPhoto = f != null ? { id: f.id, url: f.url } : null),
-        w != null && w.length > 0
-          ? (q.serviceAreas = w)
-          : (q.serviceAreas = null),
-        T != null && T.length > 0 ? (q.offerings = T) : (q.offerings = null),
-        S != null && (q.isAuthorizedAgent = S),
-        x != null && (q.parentCompanyName = x),
-        D != null && (q.parentCompanyLogoUrl = D),
-        I != null && (q.obaPhoneNumber = I),
-        C != null && (q.googlePlaceId = C),
-        F != null && (q.showGoogleReviews = F),
-        A != null && (q.showGoogleInfo = A),
+        (U.commandsDescription = _ != null ? _ : null),
+        (U.prompts = w != null ? w : null),
+        (U.commands = m != null ? m : null),
+        (U.coverPhoto = f != null ? { id: f.id, url: f.url } : null),
+        A != null && A.length > 0
+          ? (U.serviceAreas = A)
+          : (U.serviceAreas = null),
+        T != null && T.length > 0 ? (U.offerings = T) : (U.offerings = null),
+        S != null && (U.isAuthorizedAgent = S),
+        x != null && (U.parentCompanyName = x),
+        D != null && (U.parentCompanyLogoUrl = D),
+        I != null && (U.obaPhoneNumber = I),
+        C != null && (U.googlePlaceId = C),
+        O != null && (U.showGoogleReviews = O),
+        F != null && (U.showGoogleInfo = F),
         y != null &&
-          (q.googlePlace = {
+          (U.googlePlace = {
             placeName: y.place_name,
             formattedAddress: y.formatted_address,
             rating: y.rating,
@@ -328,7 +330,7 @@ __d(
             latitude: y.latitude,
             longitude: y.longitude,
           }),
-        babelHelpers.extends({}, o("WAWebBusinessProfileModel").DEFAULTS, W, q)
+        babelHelpers.extends({}, o("WAWebBusinessProfileModel").DEFAULTS, q, U)
       );
     }
     var T = {

@@ -23,13 +23,15 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.chat,
             a = t.msg,
-            i = t.readSource;
-          (o("WAWebABProps").getABPropConfigValue(
-            "inapp_signup_m1_logging_enabled",
-          ) &&
-            (yield o(
-              "WAWebInAppSignupInfoStore",
-            ).ensureInAppSignupInfoHydrated()),
+            i = t.readSource,
+            l = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(a);
+          l != null &&
+            (o("WAWebABProps").getABPropConfigValue(
+              "inapp_signup_m1_logging_enabled",
+            ) &&
+              (yield o(
+                "WAWebInAppSignupInfoStore",
+              ).ensureInAppSignupInfoHydrated()),
             new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(a, r)
               .addCommonFields()
               .addAttributionFields()
@@ -38,22 +40,22 @@ __d(
                 (function () {
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
-                      var l,
-                        s,
+                      var s,
                         u,
-                        c = r.contact,
-                        d = !!(
-                          (l = c.id) != null &&
-                          l.isUser() &&
-                          (((s = c.name) != null && s.length) ||
-                            c.isUsernameContact)
+                        c,
+                        d = r.contact,
+                        m = !!(
+                          (s = d.id) != null &&
+                          s.isUser() &&
+                          (((u = d.name) != null && u.length) ||
+                            d.isUsernameContact)
                         ),
-                        m =
+                        p =
                           o("WAWebUserPrefsGeneral").getUserPrivacySettings()
                             .readReceipts !==
                           o("WAWebPrivacySettings").ALL_NONE.none,
-                        p = r.muteExpiration != null && r.muteExpiration > 0,
-                        _ = yield (e || (e = n("Promise"))).all([
+                        _ = r.muteExpiration != null && r.muteExpiration > 0,
+                        f = yield (e || (e = n("Promise"))).all([
                           o("WAWebChatThreadLogging").getMessageIDHMAC(
                             a.id.toString(),
                           ),
@@ -64,24 +66,25 @@ __d(
                             r.accountLid,
                           ),
                         ]),
-                        f = _[0],
-                        g = _[1],
-                        h = _[2];
+                        g = f[0],
+                        h = f[1],
+                        y = f[2];
                       new (o(
                         "WAWebQbmMessageReadWamEvent",
                       ).QbmMessageReadWamEvent)(
-                        babelHelpers.extends({}, t, h, {
-                          isInsubContact: d,
-                          isMuted: p,
+                        babelHelpers.extends({}, t, y, {
+                          messageTypeStr: l,
+                          isInsubContact: m,
+                          isMuted: _,
                           messageHasButton:
                             t.buttonValueJsonArray != null &&
                             t.buttonValueJsonArray !== "[]",
                           messageHasUrl:
-                            ((u = t.urlUniqueCountInt) != null ? u : 0) > 0,
-                          messageIdHmac: f != null ? f : void 0,
-                          readReceiptsEnabled: m,
+                            ((c = t.urlUniqueCountInt) != null ? c : 0) > 0,
+                          messageIdHmac: g != null ? g : void 0,
+                          readReceiptsEnabled: p,
                           readSource: i,
-                          threadIdHmac: g != null ? g : "",
+                          threadIdHmac: h != null ? h : "",
                         }),
                       ).commit();
                     },

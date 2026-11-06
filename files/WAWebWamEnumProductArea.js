@@ -56,7 +56,6 @@ __d(
       ACCOUNT_DELETION: 52,
       CTWA: 53,
       PRIVACY: 54,
-      AVATARS: 55,
       MEDIA_PREVIEW: 56,
       MEDIA_PICKER: 57,
       MEDIA_BROWSER: 58,

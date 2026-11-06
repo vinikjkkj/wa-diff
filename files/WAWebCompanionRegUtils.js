@@ -11,9 +11,11 @@ __d(
     "WAWebBackendEventBus",
     "WAWebClearCredentials",
     "WAWebCoreActionsODS",
+    "WAWebLabyrinthLogout",
     "WAWebLogoutReasonConstants",
     "WAWebMdSessionIdCache",
     "WAWebModelStorage",
+    "WAWebODS",
     "WAWebQplStorage",
     "WAWebReloadAfterLogout",
     "WAWebSocketLogoutJob",
@@ -78,7 +80,8 @@ __d(
               yield o("WAPromiseDelays").delayMs(5e3));
           } catch (e) {}
           (o("WAWebCoreActionsODS").isPageLoadComplete() ||
-            o("WAWebCoreActionsODS").logPageLoadErrorHistorySyncIncomplete(),
+            (o("WAWebCoreActionsODS").logPageLoadError(),
+            r("WAWebODS").incr("web.page_load.error.history_sync_incomplete")),
             o("WAWebAppTracker").AppTracker.stop(
               o("WAWebAppTracker").AppTrackerType.CriticalSync,
             ),
@@ -91,7 +94,9 @@ __d(
       );
     }
     function R() {
-      ((h = !1), (y = !1));
+      ((h = !1),
+        (y = !1),
+        o("WAWebLabyrinthLogout").stopLabyrinthCompanionOnboardingIfEnabled());
     }
     function L() {
       return E.apply(this, arguments);
@@ -121,6 +126,9 @@ __d(
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!(h || y)) {
             ((y = !0),
+              o(
+                "WAWebLabyrinthLogout",
+              ).stopLabyrinthCompanionOnboardingIfEnabled(),
               o("WAWebMdSessionIdCache").clearMdSessionId(),
               yield o("WAWebAdvSignatureApi").clearADVSecretKey());
             var e = yield r("WAWebClearCredentials")(),

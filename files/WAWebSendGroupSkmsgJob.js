@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWap",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebAdvSignatureApi",
     "WAWebApiMessageInfoStore",
@@ -384,7 +385,13 @@ __d(
               }),
             ),
               O &&
-                (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(w, z)),
+                (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(w, z),
+                o("WAWebABProps").getABPropConfigValue(
+                  "web_sender_key_rotation_fix_enabled",
+                ) &&
+                  (yield o("WAWebApiParticipantStore").consumeGroupRotateKey(
+                    w,
+                  ))),
               yield h({
                 groupData: i,
                 metricReporter: l,

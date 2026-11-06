@@ -8,6 +8,7 @@ __d(
     "WAWebFileUtils",
     "WAWebFindChatAction",
     "WAWebHatchAccountSnapshot",
+    "WAWebMediaFileTooLargeError",
     "WAWebWamEnumMediaPickerOriginType",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -23,7 +24,9 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebHatchAccountSnapshot").readHatchAccountSnapshot();
-          if (!c.test(e.name) || t == null) return { kind: "failed" };
+          if (!c.test(e.name))
+            return { kind: "failed", reason: "unsupported_file" };
+          if (t == null) return { kind: "failed", reason: "send_failed" };
           var n = yield o("WAWebFindChatAction").findOrCreateLatestChat(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               "hatchImportMemoryDrawer",
@@ -42,19 +45,22 @@ __d(
           );
           var s = l.uiProcessMsgs(1, null),
             u = s.errorMsgs;
-          if (u !== "") return (l.delete(), { kind: "rejected", message: u });
-          var d = l.getValidMedias(),
-            m = d[0];
-          return m == null
-            ? (l.delete(), { kind: "failed" })
+          if (u !== "") {
+            var d = _(l);
+            return (l.delete(), { kind: "rejected", message: u, reason: d });
+          }
+          var m = l.getValidMedias(),
+            p = m[0];
+          return p == null
+            ? (l.delete(), { kind: "failed", reason: "read_failed" })
             : {
                 account: t,
                 chat: a,
                 discard: function () {
-                  (m.delete(), l.delete());
+                  (p.delete(), l.delete());
                 },
                 kind: "ready",
-                media: m,
+                media: p,
               };
         })),
         m.apply(this, arguments)
@@ -81,21 +87,28 @@ __d(
       try {
         r.sendToChat({
           chat: n,
-          options: { caption: _(), type: r.type },
-        }).catch(f);
+          options: { caption: f(), type: r.type },
+        }).catch(g);
       } catch (e) {
-        return (f(e), null);
+        return (g(e), null);
       }
       return n;
     }
-    function _() {
+    function _(e) {
+      return e.getModelsArray().some(function (e) {
+        return e.exception instanceof r("WAWebMediaFileTooLargeError");
+      })
+        ? "too_large"
+        : "read_failed";
+    }
+    function f() {
       return s
         ._(
           /*BTDS*/ "I just uploaded an export of my chats from another AI assistant as the attached file. Please read it, extract durable facts about me \u2014 interests, preferences, recurring topics, ongoing projects \u2014 and remember them via your memory tooling. Skip anything ephemeral or sensitive. Confirm what you stored.",
         )
         .toString();
     }
-    function f(e) {
+    function g(e) {
       o("WALogger")
         .WARN(
           u ||

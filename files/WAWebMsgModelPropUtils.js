@@ -68,34 +68,44 @@ __d(
             : s.includes(n.type);
     }
     function c(e) {
-      var t = o("WAWebStateUtils").unproxy(e);
-      if (
-        o("WAWebUserPrefsMeUser").isMeAccount(
-          o("WAWebMsgGetters").getSender(t),
-        ) ||
-        (t.senderObj != null &&
-          o("WAWebFrontendContactGetters").getIsMyContact(t.senderObj))
-      )
-        return !0;
-      var n = o("WAWebFrontendMsgGetters").getChat(t);
-      if (
-        o("WAWebChatGetters").getIsGroup(n) ||
-        o("WAWebChatGetters").getIsNewsletter(n)
-      )
-        return n.isTrusted();
-      if (
-        o("WAWebMsgGetters").getIsPSA(t) ||
-        o("WAWebMsgGetters").getIsCAPISupport(t) ||
-        t.isFromTemplate
-      )
-        return !0;
-      var r = o("WAWebChatGetters").getIsGroup(n) ? t.senderObj : n.contact;
-      return (r == null ? void 0 : r.verifiedLevel) ===
-        o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH
-        ? !0
-        : n.notSpam;
+      return m(e, function (e) {
+        return e.isTrusted();
+      });
     }
     function d(e) {
+      return m(e, function (e) {
+        return e.isTrustedForAutoDownload();
+      });
+    }
+    function m(e, t) {
+      var n = o("WAWebStateUtils").unproxy(e);
+      if (
+        o("WAWebUserPrefsMeUser").isMeAccount(
+          o("WAWebMsgGetters").getSender(n),
+        ) ||
+        (n.senderObj != null &&
+          o("WAWebFrontendContactGetters").getIsMyContact(n.senderObj))
+      )
+        return !0;
+      var r = o("WAWebFrontendMsgGetters").getChat(n);
+      if (
+        o("WAWebChatGetters").getIsGroup(r) ||
+        o("WAWebChatGetters").getIsNewsletter(r)
+      )
+        return t(r);
+      if (
+        o("WAWebMsgGetters").getIsPSA(n) ||
+        o("WAWebMsgGetters").getIsCAPISupport(n) ||
+        n.isFromTemplate
+      )
+        return !0;
+      var a = o("WAWebChatGetters").getIsGroup(r) ? n.senderObj : r.contact;
+      return (a == null ? void 0 : a.verifiedLevel) ===
+        o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH
+        ? !0
+        : r.notSpam;
+    }
+    function p(e) {
       var t = e.chatContactVerifiedLevel,
         n = e.chatNotSpam,
         r = e.chatTrusted,
@@ -117,7 +127,7 @@ __d(
             ? !0
             : n === !0;
     }
-    function m(e) {
+    function _(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return (
@@ -128,8 +138,9 @@ __d(
     }
     ((l.hasSymbol = u),
       (l.isTrusted = c),
-      (l.isTrustedFor = d),
-      (l.iAmGroupParticipant = m));
+      (l.isTrustedForAutoDownload = d),
+      (l.isTrustedFor = p),
+      (l.iAmGroupParticipant = _));
   },
   98,
 );

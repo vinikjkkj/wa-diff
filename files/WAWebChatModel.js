@@ -954,6 +954,17 @@ __d(
               (this.trusted = !!e)
             );
           }),
+          (i.isTrustedForAutoDownload = function () {
+            var e;
+            return o("WAWebChatGetters").getIsGroup(this)
+              ? this.isReadOnly ||
+                  this.notSpam ||
+                  ((e = this.groupMetadata) == null
+                    ? void 0
+                    : e.isTrustedForAutoDownload()) === !0 ||
+                  this.hasMaybeSentMsgToChat()
+              : this.isTrusted();
+          }),
           (i.isGroupSafetyChecked = function () {
             var e = !1;
             if (this.groupMetadata) {

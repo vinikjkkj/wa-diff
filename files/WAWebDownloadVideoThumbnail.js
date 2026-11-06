@@ -141,7 +141,9 @@ __d(
             a = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
               entryPoint: "DownloadVideoThumbnail",
             });
-          if (!o("WAWebMsgModelPropUtils").isTrusted(n.unsafe())) {
+          if (
+            !o("WAWebMsgModelPropUtils").isTrustedForAutoDownload(n.unsafe())
+          ) {
             a.endFail("untrusted_message", {
               string: { earlyExitReason: "untrusted_message" },
             });

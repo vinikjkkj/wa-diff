@@ -20,6 +20,7 @@ __d(
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebPrivateMessageComplianceUtils",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebReportGatingUtils",
     "WAWebReportSpamJob",
     "WAWebSendClearChatAction",
@@ -129,22 +130,36 @@ __d(
       if (E != null && E.sendSpamReport) return E.sendSpamReport;
       var k = R({ spamFlow: i, msg: s, msgType: d, chat: L });
       if (k == null) return new (m || (m = n("Promise")))(r("WAWebNoop"));
-      var I = o("WAWebSpamReportAttempt").sendWithSpamReportLogging(i, f, k),
-        T =
-          L != null
-            ? L
-            : s != null
-              ? o("WAWebFrontendMsgGetters").getChat(s)
-              : null;
+      var I =
+        L != null
+          ? L
+          : s != null
+            ? o("WAWebFrontendMsgGetters").getChat(s)
+            : null;
+      f === 1 &&
+        o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+          blockEntryPoint: o(
+            "WAWebBlocklistUtils",
+          ).getBlockEventMetricFromBlockEntryPoint(
+            o("WAWebBlocklistUtils").getBlockEntryPointFromSpamFlow(i),
+          ),
+          chat: I,
+          threadActionEntryPoint:
+            i === o("WAWebSpamConstants").SpamFlow.AccountInfoReport
+              ? "PROFILE_VIEW"
+              : "OTHER",
+          threadLevelAction: "REPORT",
+        });
+      var T = o("WAWebSpamReportAttempt").sendWithSpamReportLogging(i, f, k);
       t.skipCtwa1pdNbfSignal !== !0 &&
-        T != null &&
-        I.then(function () {
+        I != null &&
+        T.then(function () {
           return o(
             "WAWebSmb1pdConversionSignalAction",
-          ).log1pdReportConversionSignal(T);
+          ).log1pdReportConversionSignal(I);
         }).catch(r("WAWebNoop"));
       var D = new (o("WAWebActionToast.react").ActionType)(C),
-        x = I.then(function (e) {
+        x = T.then(function (e) {
           return e != null &&
             s != null &&
             o("WAWebReportGatingUtils").isPostReportingAusOSAModalEnabled(L, s)
@@ -193,7 +208,7 @@ __d(
             pendingAction: x,
           }),
         ),
-        I.finally(function () {
+        T.finally(function () {
           E != null && E.sendSpamReport && (E.sendSpamReport = null);
         })
       );

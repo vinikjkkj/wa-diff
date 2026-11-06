@@ -1295,7 +1295,11 @@ __d(
             l = i === void 0 ? !1 : i,
             s = e.onError,
             u =
-              s === void 0 ? o("WAWebCoreActionsODS").logCallMediaMicError : s,
+              s === void 0
+                ? function () {
+                    return r("WAWebODS").incr("web.call.media.mic_error");
+                  }
+                : s,
             c = e.params,
             d = e.selectedDeviceId,
             m = e.suppressErrorPopup,

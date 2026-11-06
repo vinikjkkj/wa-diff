@@ -495,6 +495,12 @@ __d(
             this.$VisualCompletionTracing$p_4.pendingLoadingElements.clear(),
             this.pendingImages.clear());
         }),
+        (a.disconnectUnsubscribedObservers = function () {
+          this.$VisualCompletionTracing$p_8 == null &&
+            (this.mutationObserver && this.mutationObserver.disconnect(),
+            this.intersectionObserver && this.intersectionObserver.disconnect(),
+            this.mutationRoots.clear());
+        }),
         (a.subscribeExtraMutation = function (t) {
           var e = this,
             n = [];

@@ -7,6 +7,7 @@ __d(
     "WAWebDbErrors",
     "WAWebLoggerImpl",
     "WAWebNoop",
+    "WAWebODS",
     "WAWebUim",
     "gkx",
   ],
@@ -219,7 +220,8 @@ __d(
         a = o("WAWebLoggerImpl").Logger.logUncaughtError(n, t);
       p(n) &&
         (o("WAWebCoreActionsODS").isPageLoadComplete() ||
-          o("WAWebCoreActionsODS").logPageLoadErrorUnhandledRejection(),
+          (o("WAWebCoreActionsODS").logPageLoadError(),
+          r("WAWebODS").incr("web.page_load.error.unhandled_rejection")),
         o("WAWebCrashlog")
           .upload({
             reason: a,

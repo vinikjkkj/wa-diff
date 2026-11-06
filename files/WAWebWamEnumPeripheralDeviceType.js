@@ -26,6 +26,7 @@ __d(
       CHROMEBOOKS: 25,
       GOOGLEBOOKS: 26,
       FIRE_TABLETS: 27,
+      ANDROID_AUTO: 28,
     });
     i.PERIPHERAL_DEVICE_TYPE = e;
   },

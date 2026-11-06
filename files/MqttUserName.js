@@ -41,7 +41,7 @@ __d(
               return (
                 typeof t.payload != "string" &&
                   ((t.payload = btoa(
-                    String.fromCharCode.apply(null, t.payload),
+                    String.fromCharCode.apply(String, t.payload),
                   )),
                   (t.isBase64Publish = !0)),
                 t

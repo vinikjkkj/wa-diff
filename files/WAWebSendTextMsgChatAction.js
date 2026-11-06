@@ -43,6 +43,7 @@ __d(
     "WAWebPresenceChatAction",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
     "WAWebProductCatalogLogEvents",
+    "WAWebQbmMessageReplyLogEventLazy",
     "WAWebQuestionsGatingUtils",
     "WAWebRichTextFormatMessageSendLogger",
     "WAWebSendMsgChatActionUtils",
@@ -447,6 +448,11 @@ __d(
               ]),
               (d = m.wamMessageSendPerfReporter) == null ||
                 d.postRenderedStage(),
+              o("WAWebQbmMessageReplyLogEventLazy").logQbmMessageReply({
+                chat: e,
+                replyMessageType: m.type,
+                replyMsg: m,
+              }),
               (e.createdLocally = !1));
             var y = f.length > 0 ? [].concat(f, [t]) : [t],
               C = yield o("WAWebOrchestratorNonPersistedJob")

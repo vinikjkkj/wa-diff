@@ -16,6 +16,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebNoop",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebSmb1pdConversionSignalAction",
     "WAWebStateUtils",
     "WAWebToastManager",
@@ -43,14 +44,20 @@ __d(
         isBlock: !0,
       });
       var s = o("WAWebChatCollection").ChatCollection.get(a.id);
-      (o(
-        "WAWebMmSignalSharingLoggingEvents",
-      ).logMmSignalSharingBlockVerificationEvent({
-        blockEntryPoint: n,
+      (o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+        blockEntryPoint: l,
         chat: s,
-        reason: t == null ? void 0 : t.reason,
-        blockEntryPointMetric: l,
+        threadActionEntryPoint: "OTHER",
+        threadLevelAction: "BLOCK",
       }),
+        o(
+          "WAWebMmSignalSharingLoggingEvents",
+        ).logMmSignalSharingBlockVerificationEvent({
+          blockEntryPoint: n,
+          chat: s,
+          reason: t == null ? void 0 : t.reason,
+          blockEntryPointMetric: l,
+        }),
         o(
           "WAWebMmSignalSharingLoggingEvents",
         ).logMmSignalSharingUserBlockWithReasonEvent({

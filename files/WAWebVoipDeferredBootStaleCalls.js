@@ -8,6 +8,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCoreActionsODS",
     "WAWebDbEncryptionKey",
+    "WAWebODS",
     "WAWebVoipBootInitDecision",
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
@@ -281,7 +282,7 @@ __d(
           }
           e: {
             if (e === "offer") {
-              o("WAWebCoreActionsODS").logCallIncomingDeferredBootStaleOffer();
+              r("WAWebODS").incr("web.call.incoming.deferred_boot.stale_offer");
               break e;
             }
             if (e === "follow_up") {
@@ -315,9 +316,9 @@ __d(
     function U(e) {
       e: {
         if (e === "offer") {
-          o(
-            "WAWebCoreActionsODS",
-          ).logCallIncomingDeferredBootStaleOfferAfterHiddenPrewarm();
+          r("WAWebODS").incr(
+            "web.call.incoming.deferred_boot.stale_offer_after_hidden_prewarm",
+          );
           break e;
         }
         if (e === "follow_up") {

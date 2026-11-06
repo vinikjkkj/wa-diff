@@ -115,6 +115,7 @@ __d(
                       prompts: y.prompts,
                       commands: y.commands,
                       commandsDescription: y.commandsDescription,
+                      pills: g.pills,
                     }),
                     babelHelpers.extends({}, y, f)
                   );

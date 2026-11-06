@@ -1,6 +1,11 @@
 __d(
   "WAWebContactSyncEventWamEvent",
-  ["WAWebWamCodegenUtils", "WAWebWamEnumContactSyncSource"],
+  [
+    "WAWebWamCodegenUtils",
+    "WAWebWamEnumContactSyncSource",
+    "WAWebWamEnumSgCredentialApplicabilityType",
+    "WAWebWamEnumSgCredentialStorageStateType",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e = o("WAWebWamCodegenUtils")).defineEvents(
@@ -54,6 +59,19 @@ __d(
               contactSyncTypeIsSnapshot: [32, e.TYPES.BOOLEAN],
               dedupKey: [41, e.TYPES.INTEGER],
               followupType: [43, e.TYPES.INTEGER],
+              sgCredentialApplicability: [
+                44,
+                o("WAWebWamEnumSgCredentialApplicabilityType")
+                  .SG_CREDENTIAL_APPLICABILITY_TYPE,
+              ],
+              sgCredentialInventoryComplete: [45, e.TYPES.BOOLEAN],
+              sgCredentialInventoryConsistent: [46, e.TYPES.BOOLEAN],
+              sgCredentialSnapshotAgeMs: [47, e.TYPES.INTEGER],
+              sgCredentialStorageState: [
+                48,
+                o("WAWebWamEnumSgCredentialStorageStateType")
+                  .SG_CREDENTIAL_STORAGE_STATE_TYPE,
+              ],
             },
             [1, 20, 100],
             "regular",

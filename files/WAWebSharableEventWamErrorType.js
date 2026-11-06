@@ -1,0 +1,56 @@
+__d(
+  "WAWebSharableEventWamErrorType",
+  ["WAWebGraphQLServerError", "WAWebWamEnumEventV2ErrorType"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {
+        5049002: (e = o("WAWebWamEnumEventV2ErrorType")).EVENT_V2_ERROR_TYPE
+          .INTERNAL_SERVER_ERROR,
+        5049003: e.EVENT_V2_ERROR_TYPE.ACCOUNT_REACHOUT_RESTRICTED,
+        5049006: e.EVENT_V2_ERROR_TYPE.PERMISSION_DENIED,
+        5049007: e.EVENT_V2_ERROR_TYPE.EVENT_WRITE_FAILED,
+        5049008: e.EVENT_V2_ERROR_TYPE.EVENT_NOT_AVAILABLE,
+        5049009: e.EVENT_V2_ERROR_TYPE.EVENT_NOT_EDITABLE,
+        5049010: e.EVENT_V2_ERROR_TYPE.INVALID_INPUT,
+        5049011: e.EVENT_V2_ERROR_TYPE.MEDIA_ERROR,
+        5049012: e.EVENT_V2_ERROR_TYPE.CALL_LINK_ERROR,
+        5049013: e.EVENT_V2_ERROR_TYPE.GROUP_NOT_ELIGIBLE,
+        5049014: e.EVENT_V2_ERROR_TYPE.EVENT_CANCELED,
+        5049015: e.EVENT_V2_ERROR_TYPE.EVENT_SUSPENDED,
+        5049016: e.EVENT_V2_ERROR_TYPE.NOT_CREATOR,
+        5049017: e.EVENT_V2_ERROR_TYPE.NOT_INVITED,
+        5049018: e.EVENT_V2_ERROR_TYPE.INVALID_TITLE,
+        5049019: e.EVENT_V2_ERROR_TYPE.INVALID_START_TIME,
+        5049020: e.EVENT_V2_ERROR_TYPE.INVALID_END_TIME,
+        5049021: e.EVENT_V2_ERROR_TYPE.INVALID_REMINDER_TIME,
+        5049022: e.EVENT_V2_ERROR_TYPE.INVALID_GUEST_LIMIT,
+        5049023: e.EVENT_V2_ERROR_TYPE.INVALID_EXTRA_GUEST_COUNT,
+        5049024: e.EVENT_V2_ERROR_TYPE.INVALID_CALL_LINK_MEDIA_TYPE,
+        5049025: e.EVENT_V2_ERROR_TYPE.INVALID_COVER_IMAGE_HANDLE,
+        5049026: e.EVENT_V2_ERROR_TYPE.COVER_IMAGE_TOO_LARGE,
+        5049027: e.EVENT_V2_ERROR_TYPE.COVER_IMAGE_UPLOAD_FAILED,
+        5049028: e.EVENT_V2_ERROR_TYPE.INVALID_ADDITIONAL_GUEST_LIMIT,
+        5049029: e.EVENT_V2_ERROR_TYPE.INVALID_ADDITIONAL_GUEST_COUNT,
+        5049030: e.EVENT_V2_ERROR_TYPE.TOTAL_INVITE_LIMIT_EXCEEDED,
+        5049032: e.EVENT_V2_ERROR_TYPE.CREATION_RATE_LIMITED,
+      };
+    function u(e) {
+      if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError)
+        for (var t of (n = (r = e.source) == null ? void 0 : r.errors) != null
+          ? n
+          : []) {
+          var n,
+            r,
+            a = t.code,
+            i = s[a];
+          if (i != null) return i;
+        }
+      return navigator.onLine
+        ? o("WAWebWamEnumEventV2ErrorType").EVENT_V2_ERROR_TYPE.UNKNOWN
+        : o("WAWebWamEnumEventV2ErrorType").EVENT_V2_ERROR_TYPE
+            .NETWORK_UNAVAILABLE;
+    }
+    l.getSharableEventWamErrorType = u;
+  },
+  98,
+);

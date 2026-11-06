@@ -7,6 +7,7 @@ __d(
       DATA_SAVER: 1,
       HIGH_QUALITY: 2,
       HIGHEST_QUALITY: 3,
+      ORIGINAL: 4,
     });
     i.MEDIA_QUALITY = e;
   },

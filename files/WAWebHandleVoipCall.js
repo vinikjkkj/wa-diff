@@ -10,11 +10,11 @@ __d(
     "WAWebBackendApi",
     "WAWebCallUserJourneyGating",
     "WAWebCommsWapMd",
-    "WAWebCoreActionsODS",
     "WAWebEnvironment",
     "WAWebHandleVoipOfferNotice",
     "WAWebHandleVoipTransfer",
     "WAWebJidToWid",
+    "WAWebODS",
     "WAWebPageVisibilityRecency",
     "WAWebVoipAvailabilityCheckpoints",
     "WAWebVoipBackendLoadable",
@@ -489,7 +489,7 @@ __d(
     }
     function J() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           if ((Z(), H != null))
             return { availability: "reload_required", kind: H };
           if (
@@ -499,7 +499,7 @@ __d(
           )
             return (
               e.type === o("WAWebVoipSignalingEnums").TYPE.OFFER &&
-                o("WAWebCoreActionsODS").logCallIncomingHeldStackUnresponsive(),
+                r("WAWebODS").incr("web.call.incoming.held_stack_unresponsive"),
               o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
                 function () {
                   o("WALogger").LOG(
@@ -514,15 +514,15 @@ __d(
               ),
               { availability: "reload_required", kind: "unresponsive" }
             );
-          var a = e.type === o("WAWebVoipSignalingEnums").TYPE.OFFER;
+          var i = e.type === o("WAWebVoipSignalingEnums").TYPE.OFFER;
           e.type === o("WAWebVoipSignalingEnums").TYPE.TERMINATE &&
             o("WAWebBackendApi").frontendFireAndForget(
               "finishVoipInitReloadRecovery",
               { callId: e.call_id },
             );
-          var i = q(K(e, t), r).then(z, j);
-          if (!a) return ne(yield i);
-          var l = o("WAWebBackendApi")
+          var l = q(K(e, t), a).then(z, j);
+          if (!i) return ne(yield l);
+          var s = o("WAWebBackendApi")
             .frontendSendAndReceive("startVoipInitReloadRecovery", {
               callId: e.call_id,
               canRing: o("WAWebVoipIncomingOfferRoute").isFreshIncomingOffer(e),
@@ -532,7 +532,7 @@ __d(
                 return e === "artifact_unavailable"
                   ? "artifact_reload_required"
                   : e === "cancelled"
-                    ? i
+                    ? l
                     : e === "unavailable"
                       ? "reload_required"
                       : (function () {
@@ -543,12 +543,12 @@ __d(
                         })();
               },
               function () {
-                return i;
+                return l;
               },
             );
           try {
-            var s = yield (P || (P = n("Promise"))).race([i, l]);
-            return ne(s);
+            var u = yield (P || (P = n("Promise"))).race([l, s]);
+            return ne(u);
           } finally {
             o("WAWebBackendApi").frontendFireAndForget(
               "finishVoipInitReloadRecovery",

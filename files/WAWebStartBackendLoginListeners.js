@@ -5,12 +5,14 @@ __d(
     "WAWebBackendEventBus",
     "WAWebCoreActionsODS",
     "WAWebJestE2ELogUtils",
+    "WAWebODS",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
-      (o("WAWebCoreActionsODS").logPageLoadErrorStorageInit(),
+      (o("WAWebCoreActionsODS").logPageLoadError(),
+        r("WAWebODS").incr("web.page_load.error.storage_init"),
         o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
           "logging out due to storage initialization error",
         ),

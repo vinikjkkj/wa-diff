@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBrowserPermissionSupport",
     "WAWebMediaPermissionsUtils",
     "WAWebNoop",
     "WAWebUA",
@@ -203,7 +204,7 @@ __d(
     function R(e, t) {
       !t &&
         (e === "prompt" || e === "denied") &&
-        o("WAWebVoipBrowserPermissionButtonGating").hasBrowserPermissionButton(
+        o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
           "microphone",
         ) &&
         o(

@@ -35,6 +35,7 @@ __d(
       IAB_LPV_BODY: 29,
       IAB_LPV_V2: 30,
       IAB_LPV_BODY_V2: 31,
+      VIDEO_PLAYBACK: 32,
     });
     i.SIGNAL_TYPE = e;
   },

@@ -9,7 +9,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      (e === void 0 && (e = 1), r("vulture")("pDue51KMLJltV_Ye0Yau7NF5Ii4="));
+      e === void 0 && (e = 1);
       var t = o("WAWebCurrentMoment")
         .getCurrentMoment()
         .subtract(e * 24, "hours");

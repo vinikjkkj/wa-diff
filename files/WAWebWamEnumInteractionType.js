@@ -130,6 +130,7 @@ __d(
       CLICK_ADD_RECEIPT: 124,
       ADD_RECEIPT_STATUS: 125,
       PAYMENT_STATE_CHANGED: 126,
+      CLICK_ON_PIX_CODE: 127,
     });
     i.INTERACTION_TYPE = e;
   },

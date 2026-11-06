@@ -1855,6 +1855,8 @@ __d(
       IG_ONLY_FB_PLACEMENT_IMPRESSION: "ig_only_fb_placement_impression",
       IG_ONLY_FB_PLACEMENT_CHECK: "ig_only_fb_placement_check",
       IG_ONLY_FB_PLACEMENT_UNCHECK: "ig_only_fb_placement_uncheck",
+      IG_WEB_IG_ONLY_FB_PLACEMENT_ELIGIBILITY:
+        "ig_web_ig_only_fb_placement_eligibility",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",
@@ -1957,6 +1959,7 @@ __d(
       LISTEN_NOW_CAPTION_PREFILL: "listen_now_caption_prefill",
       LISTEN_NOW_PHRASE_PROMPT: "listen_now_phrase_prompt",
       LISTEN_NOW_SMART_LINK_TIP: "listen_now_smart_link_tip",
+      LISTEN_NOW_BUTTON_SECTION: "listen_now_button_section",
     });
     i.default = e;
   },

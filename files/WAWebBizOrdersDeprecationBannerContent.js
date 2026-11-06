@@ -9,30 +9,35 @@ __d(
       m = 1798416e6,
       p = Object.freeze({
         CHARGES: Object.freeze({
+          bannerId: "charges",
           cxtEntrypointId: u,
           getDescription: C,
           getTitle: y,
           isWarning: !0,
         }),
         CHARGES_ENDED: Object.freeze({
+          bannerId: "charges_ended",
           cxtEntrypointId: u,
           getDescription: R,
           getTitle: v,
           isWarning: !0,
         }),
         ORDERS: Object.freeze({
+          bannerId: "orders_hub",
           cxtEntrypointId: e,
           getDescription: f,
           getTitle: _,
           isWarning: !0,
         }),
         ORDERS_ENDED: Object.freeze({
+          bannerId: "orders_hub_ended",
           cxtEntrypointId: e,
           getDescription: h,
           getTitle: g,
           isWarning: !0,
         }),
         PAYMENTS_HOME: Object.freeze({
+          bannerId: "payments_home",
           cxtEntrypointId: c,
           getDescription: b,
           isWarning: !0,

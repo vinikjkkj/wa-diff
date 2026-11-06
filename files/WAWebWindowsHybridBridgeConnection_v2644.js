@@ -365,6 +365,9 @@ __d(
                     ])),
                 ),
                   yield r("WAWebEventsWaitForMainStreamReadyMd")(),
+                  o(
+                    "WAWebWindowsBackgroundRun",
+                  ).logBackgroundMessageSyncExposureInUserSession(),
                   yield o("WAWebSetWindowsPushConfig").setWindowsPushConfig(
                     a,
                     n,

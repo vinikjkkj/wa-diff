@@ -558,52 +558,55 @@ __d(
               },
             },
             j = function () {
+              var e;
               if (m.has(I)) {
-                var e = pe;
-                (r("clearTimeout")(ce), Y.remove(), m.delete(I), C(A, e));
-                var n = [].concat(ie);
+                var n = pe;
+                (r("clearTimeout")(ce), Y.remove(), m.delete(I), C(A, n));
+                var l = [].concat(ie);
                 ((ie.length = 0),
-                  n.forEach(function (t) {
-                    t(e);
+                  l.forEach(function (e) {
+                    e(n);
                   }));
-                var l = o("InteractionTracingLogger").getTraceStatus(
-                    e,
+                var s = o("InteractionTracingLogger").getTraceStatus(
+                    n,
                     t.qplActionCancelOnNavigation,
                   ),
-                  s = o("InteractionTracingLogger").logQPL(t, a, i, l, e, O);
+                  u = o("InteractionTracingLogger").logQPL(t, a, i, s, n, O);
                 if (
-                  ((e.qplAction = s),
-                  (e.traceStatus = l),
-                  (e.debugName = x),
+                  ((n.qplAction = u),
+                  (n.traceStatus = s),
+                  (n.debugName = x),
                   t.heroBootloadStatsAfterQPL === !1)
                 ) {
-                  var u;
-                  (u = a.HeroBootloadPerfStore) == null ||
-                    u.addStaticResourcesStats(e);
+                  var c;
+                  (c = a.HeroBootloadPerfStore) == null ||
+                    c.addStaticResourcesStats(n);
                 }
-                var c = [].concat(oe);
+                var d = [].concat(oe);
                 if (
                   ((oe.length = 0),
-                  c.forEach(function (n) {
-                    n(
-                      e,
+                  d.forEach(function (e) {
+                    e(
+                      n,
                       o("InteractionTracingLogger").getTraceStatus(
-                        e,
+                        n,
                         t.qplActionCancelOnNavigation,
                       ),
                     );
                   }),
                   t.heroBootloadStatsAfterQPL === !0)
                 ) {
-                  var d;
-                  (d = a.HeroBootloadPerfStore) == null ||
-                    d.addStaticResourcesStats(e);
+                  var p;
+                  (p = a.HeroBootloadPerfStore) == null ||
+                    p.addStaticResourcesStats(n);
                 }
-                (delete e.vcTracker,
-                  U(e, s),
+                ((e = n.vcTracker) == null ||
+                  e.disconnectUnsubscribedObservers(),
+                  delete n.vcTracker,
+                  U(n, u),
                   o("InteractionTracingUserTimingUtils").markInteraction(
                     a,
-                    e,
+                    n,
                     y,
                     t,
                     O,

@@ -133,6 +133,9 @@ __d(
     function T(e) {
       o("WAWebUICustomizationStore").saveCustomization(d, e);
     }
+    function D() {
+      o("WAWebUICustomizationStore").saveCustomization(d, null);
+    }
     ((l.getVisibleColumns = f),
       (l.saveVisibleColumns = g),
       (l.getColumnOrder = y),
@@ -142,7 +145,8 @@ __d(
       (l.getColumnWidths = L),
       (l.saveColumnWidths = E),
       (l.getDismissedTrialBanner = I),
-      (l.saveDismissedTrialBanner = T));
+      (l.saveDismissedTrialBanner = T),
+      (l.resetDismissedTrialBanner = D));
   },
   98,
 );

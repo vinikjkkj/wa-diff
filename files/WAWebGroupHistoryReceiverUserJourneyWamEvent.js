@@ -24,6 +24,7 @@ __d(
                   .GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE,
               ],
               groupHistoryReceiverGroupId: [3, e.TYPES.STRING],
+              groupHistoryReceiverTruncatedMessagesCount: [18, e.TYPES.INTEGER],
               groupHistoryUncountedMessagesCount: [14, e.TYPES.INTEGER],
               hasChatThemeMessage: [17, e.TYPES.BOOLEAN],
               isAutoProcess: [4, e.TYPES.BOOLEAN],

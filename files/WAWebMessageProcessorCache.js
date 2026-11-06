@@ -18,8 +18,6 @@ __d(
     "WAWebPromiseQueue",
     "WAWebSendOfflineDeliveryReceiptJob",
     "WAWebSignalProtocolStore",
-    "WAWebSignalStorageUtils",
-    "WAWebSignalStoreApi",
     "WAWebStoreMsgs",
     "WAWebWamEnumMismatchOriginType",
     "WAWebWidFactory",
@@ -598,38 +596,9 @@ __d(
       );
     }
     function D(e) {
-      return o("WAWebSignalStorageUtils")
-        .getStorage()
-        .lock(
-          [
-            "session-store",
-            "identity-store",
-            "prekey-store",
-            "senderkey-store",
-          ],
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            yield (C || (C = n("Promise"))).all([
-              o("WAWebSignalStoreApi").waSignalStore.bulkPutSession(
-                e.sessionUpdate,
-              ),
-              o(
-                "WAWebSignalStoreApi",
-              ).waSignalStore.bulkPutIdentityKeyWithRowId(e.identityUpdate),
-              o("WAWebSignalStoreApi").waSignalStore.bulkPutSenderKey(
-                e.senderKeyUpdate,
-              ),
-              o("WAWebSignalStoreApi").waSignalStore.bulkRemovePreKey(
-                e.preKeyRemove,
-              ),
-              o("WAWebSignalStoreApi").waSignalStore.bulkRemoveSession(
-                e.sessionRemove,
-              ),
-              o("WAWebSignalStoreApi").waSignalStore.bulkRemoveIdentity(
-                e.identityRemove,
-              ),
-            ]);
-          }),
-        );
+      return o("WAWebSignalProtocolStore")
+        .getPersistSignalProtocolStore()
+        .commitSnapshot(e);
     }
     function x(e) {
       return e == null

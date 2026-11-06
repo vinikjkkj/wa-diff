@@ -13,6 +13,7 @@ __d(
           FsApiSignupFlow: [
             7952,
             {
+              businessJid: [7, e.TYPES.STRING],
               dedupKey: [6, e.TYPES.INTEGER],
               signupEntryPoint: [
                 1,

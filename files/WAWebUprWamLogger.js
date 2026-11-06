@@ -257,6 +257,7 @@ __d(
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
           }).commit(),
             r != null &&
+              !i.id.fromMe &&
               (yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
                 attributes: babelHelpers.extends({}, r, { messageId: _ }),
                 bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,

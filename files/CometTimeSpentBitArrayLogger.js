@@ -21,13 +21,14 @@ __d(
       s,
       u = r("gkx")("10809"),
       c = "",
-      d = null;
-    function m() {
+      d = null,
+      m = !1;
+    function p() {
       return u
         ? Math.floor((s || (s = r("performanceAbsoluteNow")))())
         : Date.now();
     }
-    function p(e, t) {
+    function _(e, t) {
       ((e.sid_raw = c),
         r("WebTimeSpentBitArrayFalcoEvent").logImmediately(function () {
           return {
@@ -44,17 +45,17 @@ __d(
         }),
         o("CometTS2BitArrayLogger").log(e));
     }
-    function _(e) {
-      var t = g();
+    function f(e) {
+      var t = h();
       t !== c && (o("TimeSpentArray").ship(), (c = t));
     }
-    function f() {
+    function g() {
       return d;
     }
-    function g() {
+    function h() {
       return (o("WebSession").extend(), o("WebSession").getId());
     }
-    function h(e) {
+    function y(e) {
       return !!(
         e === "XWorkPostPluginCometController" ||
         e === "XWorkGroupFeedPluginCometController" ||
@@ -69,23 +70,23 @@ __d(
         (e != null && e.startsWith("shopify_whatsapp_app."))
       );
     }
-    function y(t) {
-      if (!(r("isInIframe")() && !h(t))) {
-        d = t;
-        var a = m();
+    function C(t) {
+      if (!(r("isInIframe")() && !y(t))) {
+        ((m = !0), (d = t));
+        var a = p();
         (n("cr:6036") == null ||
           n("cr:6036").addTimeSpentStartupPoint("time_spent_array_init_start"),
           o("TimeSpentArray").init(
-            p,
+            _,
             r("TimeSpentWWWCometConfig.experimental").CONFIG,
             a,
-            _,
             f,
-            { getOffsetMillis: o("ServerTime").getOffsetMillis, now: m },
+            g,
+            { getOffsetMillis: o("ServerTime").getOffsetMillis, now: p },
           ),
           n("cr:6036") == null ||
             n("cr:6036").addTimeSpentStartupPoint("time_spent_array_init_end"),
-          (c = g()),
+          (c = h()),
           r("TimeSpentImmediateActiveSecondsLogger").maybeReportActiveSecond(
             a,
           ));
@@ -99,17 +100,17 @@ __d(
           );
       }
     }
-    function C(e, t) {
-      (o("TimeSpentArray").update(e, t),
+    function b(e, t) {
+      (m && o("TimeSpentArray").update(e, t),
         r("TimeSpentImmediateActiveSecondsLogger").maybeReportActiveSecond(e));
     }
-    function b(e) {
+    function v(e) {
       d = e;
     }
-    ((l.currentTimeInMS = m),
-      (l.init = y),
-      (l.updateTimeSpentArray = C),
-      (l.changeEndpoint = b));
+    ((l.currentTimeInMS = p),
+      (l.init = C),
+      (l.updateTimeSpentArray = b),
+      (l.changeEndpoint = v));
   },
   98,
 );

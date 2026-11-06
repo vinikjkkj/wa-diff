@@ -160,7 +160,10 @@ __d(
         { type: e, value: n }
       );
     }
-    function P(e) {
+    function P(e, t, n) {
+      return t == null || e == null || !m(e) ? null : $(e, n);
+    }
+    function N(e) {
       var t = [];
       if (e != null && (e == null ? void 0 : e.adgroupSpecs) != null) {
         var n,
@@ -188,8 +191,8 @@ __d(
       }
       return t;
     }
-    var N = [2923009, 2923008, 2923011, 2923010, 2923016, 2923015],
-      M = [2446596, 2446978, 2446974, 2446862].concat(N);
+    var M = [2923009, 2923008, 2923011, 2923010, 2923016, 2923015],
+      w = [2446596, 2446978, 2446974, 2446862].concat(M);
     ((l.INSTAGRAM_LINK = u),
       (l.MESSENGER_LINK = c),
       (l.WHATSAPP_LINK = d),
@@ -210,8 +213,9 @@ __d(
       (l.showUnifiedCreationForPPE = D),
       (l.showUnifiedCreationForReachGoal = x),
       (l.getCallToActionFromType = $),
-      (l.getMessagingAppsDestinationsFromCometSpec = P),
-      (l.WhatsappSMBErrorCodes = M));
+      (l.getPostCTAToSyncOnEditOpen = P),
+      (l.getMessagingAppsDestinationsFromCometSpec = N),
+      (l.WhatsappSMBErrorCodes = w));
   },
   98,
 );

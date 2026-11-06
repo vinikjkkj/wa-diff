@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
+    "WAWebABProps",
     "WAWebAdvSignatureApi",
     "WAWebApiContact",
     "WAWebCryptoCurve25519",
@@ -424,16 +425,27 @@ __d(
       );
     }
     function U(e, t) {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_sender_key_rotation_fix_enabled",
+      )
+        ? V(e, t)
+        : o("WAWebSignalStoreApi").waSignalStore.removeSenderKey(H(e, t));
+    }
+    function V(e, t) {
+      return o("WAWebSignalProtocolStore")
+        .getPersistSignalProtocolStore()
+        .removeOwnSenderKey(H(e, t));
+    }
+    function H(e, t) {
       o("WAWebApiContact").checkPnToLidMapping(
         [t],
         o("WAWebApiContact").CheckPnToLidMappingCaller
           .WAWEB_SIGNAL_SESSION_DELETE_GROUP_SENDER_KEY_INFO,
       );
-      var n = o("WAWebSignalCommonUtils").createSignalAddress(t),
-        r = e.toString({ legacy: !0 }) + "::" + n.toString();
-      return o("WAWebSignalStoreApi").waSignalStore.removeSenderKey(r);
+      var n = o("WAWebSignalCommonUtils").createSignalAddress(t);
+      return e.toString({ legacy: !0 }) + "::" + n.toString();
     }
-    function V(e) {
+    function G(e) {
       o("WAWebApiContact").checkPnToLidMapping(
         [e],
         o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -456,7 +468,8 @@ __d(
       (l.createGroupSignalSession = O),
       (l.getGroupSenderKeyInfo = W),
       (l.deleteGroupSenderKeyInfo = U),
-      (l.deleteDeviceSenderKey = V));
+      (l.deleteOwnSenderKey = V),
+      (l.deleteDeviceSenderKey = G));
   },
   98,
 );

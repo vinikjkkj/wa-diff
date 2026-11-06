@@ -10,6 +10,7 @@ __d(
     "WAWebEnvironment",
     "WAWebForceFlushWamBuffers",
     "WAWebLoggedOutSeparationGating",
+    "WAWebODS",
     "WAWebPageLoadLogging",
     "WAWebPageLoadTierStats",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -59,7 +60,8 @@ __d(
             h == null &&
               (h = self.setTimeout(function () {
                 _ ||
-                  (o("WAWebCoreActionsODS").logPageLoadErrorTimeout(),
+                  (o("WAWebCoreActionsODS").logPageLoadError(),
+                  r("WAWebODS").incr("web.page_load.error.timeout"),
                   R(),
                   (_ = !0),
                   o("WAWebCoreActionsODS").markPageLoadComplete());
@@ -113,10 +115,10 @@ __d(
           }).commit(),
           (_ = !0),
           h != null && (self.clearTimeout(h), (h = null)),
-          o("WAWebCoreActionsODS").logPageLoadSuccess(),
+          r("WAWebODS").incr("web.page_load.success"),
           e
-            ? o("WAWebCoreActionsODS").logPageLoadSuccessQr()
-            : o("WAWebCoreActionsODS").logPageLoadSuccessMain(),
+            ? r("WAWebODS").incr("web.page_load.success.qr")
+            : r("WAWebODS").incr("web.page_load.success.main"),
           o("WAWebCoreActionsODS").markPageLoadComplete(),
           F(),
           o("WAWebABProps").getABPropConfigValue(

@@ -6,8 +6,10 @@ __d(
     "WAWebSharableEventCollection",
     "WAWebSharableEventDraft",
     "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventHostUserJourneyLogger",
     "WAWebSharableEventMutationErrors",
     "WAWebSharableEventUpdateJob",
+    "WAWebSharableEventWamFields",
     "WAWebToast.react",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -26,6 +28,9 @@ __d(
             e,
           );
           if (r == null) return !1;
+          o(
+            "WAWebSharableEventHostUserJourneyLogger",
+          ).logSharableEventHostEditSubmitted(e);
           try {
             yield o("WAWebSharableEventUpdateJob").updateSharableEvent(
               o("WAWebSharableEventDraft").toUpdateEventInput(
@@ -36,18 +41,21 @@ __d(
                 o("WATimeUtils").unixTime(),
               ),
             );
-          } catch (e) {
+          } catch (t) {
             return (
               o("WAWebSharableEventFailureLogger").logSharableEventFailure(
                 "update",
-                e,
+                t,
               ),
+              o(
+                "WAWebSharableEventHostUserJourneyLogger",
+              ).logSharableEventHostEditFailed(e, t),
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   msg: o(
                     "WAWebSharableEventMutationErrors",
                   ).getSharableEventMutationErrorMessage(
-                    e,
+                    t,
                     s._(/*BTDS*/ "Couldn't update event"),
                   ),
                 }),
@@ -56,6 +64,15 @@ __d(
             );
           }
           return (
+            o(
+              "WAWebSharableEventHostUserJourneyLogger",
+            ).logSharableEventHostEditCompleted(
+              e,
+              o("WAWebSharableEventWamFields").getSharableEventWamUpdatedFields(
+                t,
+                n,
+              ),
+            ),
             o("WAWebToastManager").ToastManager.open(
               u.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Event updated"),

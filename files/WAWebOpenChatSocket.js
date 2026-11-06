@@ -109,7 +109,7 @@ __d(
                         ? o("WABinary").Binary.build(a, N).readByteArrayView()
                         : N,
                       c = new (o("WAFrameSocket").FrameSocket)(n, u),
-                      d = e ? yield Q(K) : null;
+                      d = e ? yield Y(K) : null;
                     if (
                       (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                         "auth_handshake",
@@ -505,13 +505,17 @@ __d(
       var s = o("WAWebCryptoCurve25519").sharedSecret(a, e.privKey);
       return (t.mixIntoKey(s), l);
     }
-    var K = 0;
-    function Q(e) {
-      return X.apply(this, arguments);
-    }
+    var K = 0,
+      Q = null;
     function X() {
+      return Q;
+    }
+    function Y(e) {
+      return J.apply(this, arguments);
+    }
+    function J() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             yield o(
               "WAWebUserPrefsScreenLockWorkerCompatible",
@@ -569,15 +573,15 @@ __d(
             );
           }
         })),
-        X.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    function Y(e, t) {
-      return J.apply(this, arguments);
+    function Z(e, t) {
+      return ee.apply(this, arguments);
     }
-    function J() {
+    function ee() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = e || { passive: !1, pull: !0 },
               a = new (o(
@@ -589,12 +593,14 @@ __d(
               a.markWebcAuthHandshakeDuration(),
               a.commit(),
               (K = 0),
+              (Q = null),
               o("WAResultOrError").makeResult(i)
             );
           } catch (e) {
             var l = r("getErrorSafe")(e);
-            o("WAWebPageLoadLogging").incrementPageLoadQplSocketError();
-            var s = Z();
+            ((Q = { error: l, atMs: Date.now() }),
+              o("WAWebPageLoadLogging").incrementPageLoadQplSocketError());
+            var s = te();
             return (
               o("WALogger")
                 .LOG(
@@ -627,24 +633,24 @@ __d(
             );
           }
         })),
-        J.apply(this, arguments)
+        ee.apply(this, arguments)
       );
-    }
-    function Z() {
-      return self.navigator != null ? self.navigator.onLine : !0;
-    }
-    function ee(e, t) {
-      return te.apply(this, arguments);
     }
     function te() {
+      return self.navigator != null ? self.navigator.onLine : !0;
+    }
+    function ne(e, t) {
+      return re.apply(this, arguments);
+    }
+    function re() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return Y(e, t);
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return Z(e, t);
         })),
-        te.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    l.openChatSocket = ee;
+    ((l.getLastChatSocketOpenError = X), (l.openChatSocket = ne));
   },
   98,
 );

@@ -50,7 +50,9 @@ __d(
           o("WAWebStickerMimeUtils").WhatsAppLottieStickerMimeType &&
         e.isLottie === !0 &&
         e.isAnimated === !0;
-      return t || o("WAWebMsgModelPropUtils").isTrusted(e.unsafe());
+      return (
+        t || o("WAWebMsgModelPropUtils").isTrustedForAutoDownload(e.unsafe())
+      );
     }
     function k(e) {
       if (
@@ -273,7 +275,10 @@ __d(
             }
             return r === C.PJPEG_THUMBNAIL &&
               t.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
-              !o("WAWebDualUploadsAutoDownloadPolicy").isDualUploadHdChildMsg(t)
+              !o("WAWebDualUploadsAutoDownloadPolicy").isDualUploadHdChildMsg(
+                t,
+              ) &&
+              E(t)
               ? (this.$7({ message: t, group: "mms_thumbnail" }).catch(
                   function (e) {
                     o("WALogger")
@@ -443,14 +448,15 @@ __d(
                   r = e.message;
                 yield this.$1.enqueue(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    yield o(
-                      "WAWebDownloadProgressiveJpegThumbnail",
-                    ).downloadProgressiveJpegThumbnail({
-                      msg: r,
-                      scanCount: o(
-                        "WAWebMediaGatingUtils",
-                      ).getHQImageThumbnailInChatScans(),
-                    });
+                    E(r) &&
+                      (yield o(
+                        "WAWebDownloadProgressiveJpegThumbnail",
+                      ).downloadProgressiveJpegThumbnail({
+                        msg: r,
+                        scanCount: o(
+                          "WAWebMediaGatingUtils",
+                        ).getHQImageThumbnailInChatScans(),
+                      }));
                   }),
                   { group: t, priority: -r.t },
                 );

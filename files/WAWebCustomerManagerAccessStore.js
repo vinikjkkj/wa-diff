@@ -14,6 +14,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebSubscriptionsGatingUtils",
     "asyncToGeneratorRuntime",
+    "cr:18944",
     "getErrorSafe",
     "react",
     "react-compiler-runtime",
@@ -87,21 +88,32 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e =
+            n("cr:18944") == null
+              ? void 0
+              : n("cr:18944").startCustomerManagerDebugTrial();
+          if (e != null) return e;
           M();
-          var e = b,
-            t = yield o(
+          var t = b,
+            r = yield o(
               "WAWebCustomerManagerStartTrialMutation",
             ).startCustomerManagerTrialOnServer();
-          return (b === e && F(t), t);
+          return (b === t && F(r), r);
         })),
         L.apply(this, arguments)
       );
     }
     function E() {
+      var e;
       return o(
         "WAWebSubscriptionsGatingUtils",
       ).customerManagerSubscriptionGatingEnabled()
-        ? _
+        ? (e =
+            n("cr:18944") == null
+              ? void 0
+              : n("cr:18944").getCustomerManagerDebugAccessState()) != null
+          ? e
+          : _
         : o("WAWebCustomerManagerAccessState").ACCESS_NOT_REQUIRED;
     }
     function k() {
@@ -202,12 +214,14 @@ __d(
       });
     }
     function B(e) {
-      return (
-        v.add(e),
-        function () {
-          v.delete(e);
-        }
-      );
+      v.add(e);
+      var t =
+        n("cr:18944") == null
+          ? void 0
+          : n("cr:18944").subscribeToCustomerManagerDebugAccess(e);
+      return function () {
+        (v.delete(e), t == null || t());
+      };
     }
     ((l.refreshCustomerManagerAccessState = S),
       (l.startCustomerManagerTrial = R),

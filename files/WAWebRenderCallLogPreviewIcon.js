@@ -9,6 +9,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
+    "useWAWebVoipCallTransferEntryPointForCall",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -20,78 +21,82 @@ __d(
     function c(e) {
       var t = o("react-compiler-runtime").c(14),
         n = e.msg,
-        r;
+        a;
       if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var a;
-        ((r = [
-          (a = o("WAWebMsgGetters")).getIsVideoCall,
-          a.getIsMissedCall,
-          a.getIsSentByMe,
-          a.getIsCallLink,
-          a.getCallOutcome,
-          a.getFinalCallOutcome,
-          a.getCallParticipants,
+        var i;
+        ((a = [
+          (i = o("WAWebMsgGetters")).getIsVideoCall,
+          i.getIsMissedCall,
+          i.getIsSentByMe,
+          i.getIsCallLink,
+          i.getCallOutcome,
+          i.getFinalCallOutcome,
+          i.getCallParticipants,
+          i.getCallId,
         ]),
-          (t[0] = r));
-      } else r = t[0];
-      var i = o("useWAWebMsgValues").useMsgValues(n.id, r),
-        l = i[0],
-        c = i[1],
-        d = i[2],
-        m = i[3],
-        p = i[4],
-        _ = i[5],
-        f = i[6],
-        g =
-          p === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-          _ !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed,
-        h;
-      if (t[1] !== p || t[2] !== f || t[3] !== _ || t[4] !== c || t[5] !== d) {
-        var y = o("WAWebCallLogUtils").getIsSelfConnected(f);
-        ((h = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(
-          c,
-          y,
-          d,
-          p,
-          _,
-        )),
-          (t[1] = p),
-          (t[2] = f),
-          (t[3] = _),
-          (t[4] = c),
-          (t[5] = d),
-          (t[6] = h));
-      } else h = t[6];
-      var C = h,
+          (t[0] = a));
+      } else a = t[0];
+      var l = o("useWAWebMsgValues").useMsgValues(n.id, a),
+        c = l[0],
+        d = l[1],
+        m = l[2],
+        p = l[3],
+        _ = l[4],
+        f = l[5],
+        g = l[6],
+        h = l[7],
+        y = r("useWAWebVoipCallTransferEntryPointForCall")(h),
+        C =
+          y != null ||
+          (_ === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+            f !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed),
         b;
+      if (t[1] !== _ || t[2] !== g || t[3] !== f || t[4] !== d || t[5] !== m) {
+        var v = o("WAWebCallLogUtils").getIsSelfConnected(g);
+        ((b = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(
+          d,
+          v,
+          m,
+          _,
+          f,
+        )),
+          (t[1] = _),
+          (t[2] = g),
+          (t[3] = f),
+          (t[4] = d),
+          (t[5] = m),
+          (t[6] = b));
+      } else b = t[6];
+      var S = b,
+        R;
       t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = [u.container, u.paddingEnd2]), (t[7] = b))
-        : (b = t[7]);
-      var v = m != null ? m : !1,
-        S;
+        ? ((R = [u.container, u.paddingEnd2]), (t[7] = R))
+        : (R = t[7]);
+      var L = p != null ? p : !1,
+        E;
       return (
-        t[8] !== C || t[9] !== g || t[10] !== d || t[11] !== l || t[12] !== v
-          ? ((S = s.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: b,
+        t[8] !== S || t[9] !== C || t[10] !== m || t[11] !== c || t[12] !== L
+          ? ((E = s.jsx(o("WAWebFlex.react").FlexColumn, {
+              xstyle: R,
               align: "center",
               justify: "center",
               children: s.jsx(o("WAWebCallLogIcon.react").CallLogIcon, {
                 iconHeight: 16,
-                isMissedCall: C,
-                isVideoCall: l,
-                isFromMe: d,
-                isCallLink: v,
-                isOngoingCall: g,
+                isMissedCall: S,
+                isVideoCall: c,
+                isFromMe: m,
+                isCallLink: L,
+                isOngoingCall: C,
               }),
             })),
-            (t[8] = C),
-            (t[9] = g),
-            (t[10] = d),
-            (t[11] = l),
-            (t[12] = v),
-            (t[13] = S))
-          : (S = t[13]),
-        S
+            (t[8] = S),
+            (t[9] = C),
+            (t[10] = m),
+            (t[11] = c),
+            (t[12] = L),
+            (t[13] = E))
+          : (E = t[13]),
+        E
       );
     }
     l.default = c;

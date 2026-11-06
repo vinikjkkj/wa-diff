@@ -20,6 +20,7 @@ __d(
       "WasaHatchDebug",
       "QuickPromotionsManager",
       "MetaAiThreads",
+      "CustomerManagerTrialGating",
     ]);
     i.DeveloperMenu = e;
   },

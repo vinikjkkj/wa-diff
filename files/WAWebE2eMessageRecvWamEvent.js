@@ -51,6 +51,7 @@ __d(
                 2,
                 o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON,
               ],
+              e2eIdentityChanged: [36, e.TYPES.BOOLEAN],
               e2eSenderType: [
                 8,
                 o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE,

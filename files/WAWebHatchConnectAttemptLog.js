@@ -18,7 +18,7 @@ __d(
           o("WAWebHatchConnectorsLogging").logHatchConnectorEvent(e, t, n),
           null
         );
-      e === "connect_tap" && m(d(t), !1);
+      (e === "connect_tap" || e === "connect_message_tapped") && m(d(t), !1);
       var r = d(t);
       if (r != null) return (r.held.push({ action: e, fields: n }), r);
       _();

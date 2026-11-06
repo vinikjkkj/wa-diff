@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBrowserPermissionSupport",
     "WAWebCallCollection",
     "WAWebCoreActionsODS",
     "WAWebEnvironment",
@@ -202,7 +203,7 @@ __d(
     }
     function D(e) {
       e.isMicrophoneOff &&
-        o("WAWebVoipBrowserPermissionButtonGating").hasBrowserPermissionButton(
+        o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
           "microphone",
         ) &&
         o(
@@ -393,9 +394,9 @@ __d(
       return (
         (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            !o(
-              "WAWebVoipBrowserPermissionButtonGating",
-            ).hasBrowserPermissionButton("microphone")
+            !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+              "microphone",
+            )
           )
             return null;
           var t = yield o(

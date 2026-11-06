@@ -19,6 +19,7 @@ __d(
           n("prompts"),
           n("automatedType"),
           n("welcomeMsgProtocolMode"),
+          n("pills"),
         ])
         .view(function (e) {
           return e;

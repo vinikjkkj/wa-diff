@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventHostUserJourneyLogger",
     "WAWebSharableEventRemoveInvitationsJob",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -40,15 +41,21 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          o(
+            "WAWebSharableEventHostUserJourneyLogger",
+          ).logSharableEventHostGuestRemoveTapped(e);
           try {
             yield o(
               "WAWebSharableEventRemoveInvitationsJob",
             ).removeSharableEventInvitations(e, [t]);
-          } catch (e) {
+          } catch (t) {
             (o("WAWebSharableEventFailureLogger").logSharableEventFailure(
               "remove-guest",
-              e,
+              t,
             ),
+              o(
+                "WAWebSharableEventHostUserJourneyLogger",
+              ).logSharableEventHostGuestRemoveFailed(e, t),
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
@@ -58,13 +65,16 @@ __d(
               ));
             return;
           }
-          o("WAWebToastManager").ToastManager.open(
-            u.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "Removed {guest name} from this event", [
-                s._param("guest name", n),
-              ]),
-            }),
-          );
+          (o(
+            "WAWebSharableEventHostUserJourneyLogger",
+          ).logSharableEventHostGuestRemoved(e),
+            o("WAWebToastManager").ToastManager.open(
+              u.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(/*BTDS*/ "Removed {guest name} from this event", [
+                  s._param("guest name", n),
+                ]),
+              }),
+            ));
         })),
         m.apply(this, arguments)
       );

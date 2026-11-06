@@ -7,6 +7,7 @@ __d(
     "WAWebSharableEventCreateFlowLoadable",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventHomeDrawerLoadable",
+    "WAWebWamEnumEventV2CreationEntryPoint",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,6 +42,8 @@ __d(
       ) &&
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           s.jsx(r("WAWebSharableEventCreateFlowLoadable"), {
+            creationEntryPoint: o("WAWebWamEnumEventV2CreationEntryPoint")
+              .EVENT_V2_CREATION_ENTRY_POINT.NEW_CHAT,
             onEnd: o("WAWebDrawerManager").closeDrawerLeft,
           }),
         );

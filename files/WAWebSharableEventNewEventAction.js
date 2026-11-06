@@ -1,12 +1,22 @@
 __d(
   "WAWebSharableEventNewEventAction",
-  ["fbt", "WAWebOpenSharableEventCreateFlowAction"],
+  [
+    "fbt",
+    "WAWebOpenSharableEventCreateFlowAction",
+    "WAWebSharableEventListUserJourneyLogger",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return {
         label: s._(/*BTDS*/ "New event"),
-        onPress: o("WAWebOpenSharableEventCreateFlowAction")
-          .openSharableEventCreateDialog,
+        onPress: function () {
+          (o(
+            "WAWebSharableEventListUserJourneyLogger",
+          ).logSharableEventListNewEventTapped(),
+            o(
+              "WAWebOpenSharableEventCreateFlowAction",
+            ).openSharableEventCreateDialog());
+        },
         testid: e,
         variant: "filled",
       };

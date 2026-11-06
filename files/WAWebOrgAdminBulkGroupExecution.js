@@ -16,29 +16,35 @@ __d(
         totalGroupCount: e,
       };
     }
-    function c(e, t, n) {
+    function c(e, t, n, r) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = [];
-          return (yield m(e, 0, t, r, n), b(r, e.length));
-        })),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            r === void 0 &&
+              (r = function () {
+                return !1;
+              });
+            var o = [];
+            return (yield m(e, 0, t, o, n, r), b(o, e.length));
+          },
+        )),
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r, o) {
+    function m(e, t, n, r, o, a) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            var a = e[t];
-            if (a != null) {
-              var i = yield f(a, n);
-              if ((r.push(i), i.status === "association_failed")) {
+          function* (e, t, n, r, o, a) {
+            var i = e[t];
+            if (i != null) {
+              var l = yield f(i, n);
+              if ((r.push(l), l.status === "association_failed" || a())) {
                 (r.push.apply(
                   r,
                   e.slice(t + 1).map(function (e) {
@@ -48,7 +54,7 @@ __d(
                   _(o, b(r, e.length)));
                 return;
               }
-              (_(o, b(r, e.length)), yield m(e, t + 1, n, r, o));
+              (_(o, b(r, e.length)), yield m(e, t + 1, n, r, o, a));
             }
           },
         )),

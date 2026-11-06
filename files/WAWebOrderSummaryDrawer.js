@@ -373,7 +373,7 @@ __d(
           i());
       };
       r("WAWebUserPrefsStore").get(
-        o("WAWebUserPrefsKeys").KEYS.DISAPPEARING_MSG_DISCLAIMER_DIMISSED,
+        o("WAWebUserPrefsKeys").KEYS.DISAPPEARING_MSG_DISCLAIMER_DISMISSED,
       ) !== !0 &&
       o("WAWebOrderGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
       o("WAWebChatEphemerality").isEphemeralSettingOn(n)

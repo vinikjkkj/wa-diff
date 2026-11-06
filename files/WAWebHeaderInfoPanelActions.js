@@ -9,7 +9,9 @@ __d(
     "WAWebInfoFlowLoadable",
     "WAWebKeyboardTabUtils",
     "WAWebMessageLogQplEvents",
+    "WAWebQbmThreadLevelActionLogEventLazy",
     "WAWebStateUtils",
+    "WAWebWamEnumProfileEntryPoint",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,6 +38,15 @@ __d(
       m ||
         (r.contact.isBusiness &&
           o("WAWebMessageLogQplEvents").qplStartProfileView("Header"),
+        o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
+          chat: r,
+          threadActionEntryPoint:
+            l ===
+            o("WAWebWamEnumProfileEntryPoint").PROFILE_ENTRY_POINT.CHAT_HEADER
+              ? "CHATLIST"
+              : "OTHER",
+          threadLevelAction: "PROFILE_VISIT",
+        }),
         (o("WAWebChatGetters").getIsUser(r) ||
           o("WAWebChatGetters").getIsBroadcast(r) ||
           o("WAWebChatGetters").getIsGroup(r) ||

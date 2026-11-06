@@ -316,40 +316,39 @@ __d(
           });
         }),
         (n.$GroupMetadata$p_8 = function () {
+          return this.participants.some(function (e) {
+            return (
+              e.isAdmin &&
+              o("WAWebOrgMemberContactName").getKnownOrgMember(e.id) != null
+            );
+          });
+        }),
+        (n.$GroupMetadata$p_9 = function (t) {
+          if (t == null) return !1;
+          var e = o("WAWebContactCollection").ContactCollection.get(t);
           return (
-            o("WAWebOrgMemberContactName").getKnownOrgMember(this.owner) !=
-              null ||
-            o("WAWebOrgMemberContactName").getKnownOrgMember(this.groupAdder) !=
-              null ||
-            this.participants.some(function (e) {
-              return (
-                e.isAdmin &&
-                o("WAWebOrgMemberContactName").getKnownOrgMember(e.id) != null
-              );
-            })
+            e != null && o("WAWebFrontendContactGetters").getIsMyContact(e)
           );
         }),
         (n.isTrusted = function () {
-          if (this.stale) return this.trusted;
-          if (this.support) return (this.trusted = !0);
-          if (this.owner) {
-            if (o("WAWebUserPrefsMeUser").isMeAccount(this.owner))
-              return (this.trusted = !0);
-            var e = o("WAWebContactCollection").ContactCollection.get(
-              this.owner,
-            );
-            if (e != null && o("WAWebFrontendContactGetters").getIsMyContact(e))
-              return (this.trusted = !0);
-          }
-          if (this.groupAdder != null) {
-            var t = o("WAWebContactCollection").ContactCollection.get(
-              this.groupAdder,
-            );
-            if (t != null && o("WAWebFrontendContactGetters").getIsMyContact(t))
-              return (this.trusted = !0);
-          }
-          return (this.trusted =
-            this.$GroupMetadata$p_7() || this.$GroupMetadata$p_8());
+          return this.stale
+            ? this.trusted
+            : (this.trusted =
+                this.isTrustedForAutoDownload() ||
+                this.$GroupMetadata$p_7() ||
+                this.$GroupMetadata$p_8());
+        }),
+        (n.isTrustedForAutoDownload = function () {
+          var e = this.groupAdder,
+            t = this.owner;
+          return (
+            this.support ||
+            (t != null && o("WAWebUserPrefsMeUser").isMeAccount(t)) ||
+            this.$GroupMetadata$p_9(t) ||
+            this.$GroupMetadata$p_9(e) ||
+            o("WAWebOrgMemberContactName").getKnownOrgMember(t) != null ||
+            o("WAWebOrgMemberContactName").getKnownOrgMember(e) != null
+          );
         }),
         (n.hasJoined = function () {
           var e = this.id,

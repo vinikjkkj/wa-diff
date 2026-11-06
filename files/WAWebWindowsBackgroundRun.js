@@ -1,6 +1,12 @@
 __d(
   "WAWebWindowsBackgroundRun",
-  ["WAWebEnvironment", "WAWebProtobufsWa6.pb"],
+  [
+    "WAWebABProps",
+    "WAWebABPropsCache",
+    "WAWebEnvironment",
+    "WAWebProtobufsWa6.pb",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = "backgroundRun",
       s = {
@@ -21,35 +27,51 @@ __d(
       );
     }
     function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          m() ||
+            (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+            o("WAWebABProps").getABPropConfigValue(
+              "win_hybrid_background_message_sync",
+            ));
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f() {
       return m() ? c : null;
     }
-    function _(e) {
+    function g(e) {
       var t = s[e];
       return t == null ? !1 : ((c = t), !0);
     }
-    function f() {
+    function h() {
       u = !0;
     }
-    function g(e) {
+    function y(e) {
       d = e;
     }
-    function h() {
+    function C() {
       var e;
       return (
         d != null &&
         d !==
-          ((e = p()) != null
+          ((e = f()) != null
             ? e
             : o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
                 .USER_ACTIVATED)
       );
     }
     ((l.isWindowsBackgroundRun = m),
-      (l.getWindowsBackgroundRunConnectReason = p),
-      (l.applyWindowsBackgroundRunConnectReason = _),
-      (l.endWindowsBackgroundRun = f),
-      (l.recordWindowsLoginConnectReason = g),
-      (l.hasLoggedInWithOtherConnectReason = h));
+      (l.logBackgroundMessageSyncExposureInUserSession = p),
+      (l.getWindowsBackgroundRunConnectReason = f),
+      (l.applyWindowsBackgroundRunConnectReason = g),
+      (l.endWindowsBackgroundRun = h),
+      (l.recordWindowsLoginConnectReason = y),
+      (l.hasLoggedInWithOtherConnectReason = C));
   },
   98,
 );

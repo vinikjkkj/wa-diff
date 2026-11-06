@@ -20,9 +20,18 @@ __d(
         { type: "transaction_notification" },
       );
     }
+    function c(e) {
+      var t = e.expired,
+        n = e.overCap;
+      o("WAWebBackendApi").frontendFireAndForget(
+        "logOrphanPaymentNotificationsEvictedOdsCounter",
+        { expired: t, overCap: n },
+      );
+    }
     ((l.logDehydratedPayNodeFutureproofed = e),
       (l.logDehydratedTransactionNodeSkipped = s),
-      (l.logDehydratedTransactionNotificationSkipped = u));
+      (l.logDehydratedTransactionNotificationSkipped = u),
+      (l.logOrphanPaymentNotificationsEvicted = c));
   },
   98,
 );

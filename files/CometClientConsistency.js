@@ -127,7 +127,7 @@ __d(
                 }),
                   (f = !1),
                   (a.current = null),
-                  window.location.reload(!0));
+                  window.location.reload());
               },
               withCloseButton: !1,
             })),
@@ -153,7 +153,7 @@ __d(
                     }),
                       (g = null),
                       (h = null),
-                      window.location.reload(!0));
+                      window.location.reload());
                   },
                 },
                 icon: u.jsx(b, { reason: t }),

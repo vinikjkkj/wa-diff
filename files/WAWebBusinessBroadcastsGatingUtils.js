@@ -76,7 +76,7 @@ __d(
       return (
         m() &&
         o("WAWebABProps").getABPropConfigValue(
-          "smb_business_broadcast_pro_web_scheduled_sends_enabled",
+          "smb_business_broadcast_pro_scheduled_sends_enabled",
         )
       );
     }

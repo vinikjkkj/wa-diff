@@ -4,10 +4,11 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WAWebBrowserPermissionSupport",
     "WAWebCallCollection",
     "WAWebCallUserJourneyGating",
-    "WAWebCoreActionsODS",
     "WAWebModalManager",
+    "WAWebODS",
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipBrowserPermissionButtonGating",
     "WAWebVoipDevicePermissionDialogLoader.react",
@@ -55,9 +56,9 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
-            o(
-              "WAWebVoipBrowserPermissionButtonGating",
-            ).hasBrowserPermissionButton("microphone")
+            o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+              "microphone",
+            )
           ) {
             var e = yield o(
                 "WAWebVoipAcquireMediaStream",
@@ -141,48 +142,67 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield P(e),
-            a =
+          var a = yield P(e),
+            i =
               e &&
               !(
-                (r == null ? void 0 : r.cameraPermission) === "denied" &&
+                (a == null ? void 0 : a.cameraPermission) === "denied" &&
                 o(
                   "WAWebVoipBrowserPermissionButtonGating",
                 ).isBrowserPermissionButtonEnabled("microphone")
               ),
-            i = (r == null ? void 0 : r.micPermission) === "denied",
-            l = null,
+            l = (a == null ? void 0 : a.micPermission) === "denied",
             s = null,
-            u = yield o(
+            u = null,
+            c = yield o(
               "WAWebVoipAcquireMediaStream",
-            ).checkVoipDevicePermissions(a, null, t, {
+            ).checkVoipDevicePermissions(i, null, t, {
               shouldOpenFailureGuide: (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    var n, r;
+                    var n, a;
+                    if (
+                      ((s = e === "denied" ? yield N(i) : null),
+                      ((n = s) == null ? void 0 : n.type) === "microphone")
+                    ) {
+                      var c = l ? "blocked_before" : "at_prompt";
+                      e: {
+                        if (c === "at_prompt") {
+                          r("WAWebODS").incr(
+                            "web.call.start_mic_refused.at_prompt",
+                          );
+                          break e;
+                        }
+                        if (c === "blocked_before") {
+                          r("WAWebODS").incr(
+                            "web.call.start_mic_refused.blocked_before",
+                          );
+                          break e;
+                        }
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            c,
+                        );
+                      }
+                      u = yield o(
+                        "WAWebVoipDevicePermissionDialogLoader.react",
+                      ).loadDevicePermissionDialog();
+                    }
                     return (
-                      (l = e === "denied" ? yield N(a) : null),
-                      ((n = l) == null ? void 0 : n.type) === "microphone" &&
-                        (o("WAWebCoreActionsODS").logCallStartMicrophoneRefused(
-                          i ? "blocked_before" : "at_prompt",
-                        ),
-                        (s = yield o(
-                          "WAWebVoipDevicePermissionDialogLoader.react",
-                        ).loadDevicePermissionDialog())),
-                      s == null &&
-                        ((r = l) == null ? void 0 : r.type) !== "camera" &&
-                        !t.aborted
+                      u == null &&
+                      ((a = s) == null ? void 0 : a.type) !== "camera" &&
+                      !t.aborted
                     );
                   },
                 );
-                function r(t) {
+                function a(t) {
                   return e.apply(this, arguments);
                 }
-                return r;
+                return a;
               })(),
             });
-          if (u)
-            return e && !a
+          if (c)
+            return e && !i
               ? (o("WALogger").LOG(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -191,16 +211,16 @@ __d(
                 ),
                 B("blocked"))
               : { cameraOff: null };
-          var c = l;
-          return t.aborted || c == null
+          var d = s;
+          return t.aborted || d == null
             ? null
-            : c.type === "camera"
-              ? A(c.reason, t)
-              : s == null || !(yield O(s, c.isBlocked, t))
+            : d.type === "camera"
+              ? A(d.reason, t)
+              : u == null || !(yield O(u, d.isBlocked, t))
                 ? null
                 : x({
-                    asksCamera: a && i,
-                    checksCamera: a,
+                    asksCamera: i && l,
+                    checksCamera: i,
                     isVideo: e,
                     signal: t,
                   });
@@ -210,8 +230,30 @@ __d(
     }
     function D(e, t) {
       var n = t.cameraOff;
-      (o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(e, n != null),
-        n != null && o("WAWebCoreActionsODS").logCallOutgoingVideoCameraOff(n));
+      if (
+        (o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(e, n != null),
+        n != null)
+      )
+        e: {
+          if (n === "blocked") {
+            r("WAWebODS").incr("web.call.outgoing_video_camera_blocked");
+            break e;
+          }
+          if (n === "refused") {
+            r("WAWebODS").incr("web.call.outgoing_video_camera_refused");
+            break e;
+          }
+          if (n === "blocked_by_system") {
+            r("WAWebODS").incr(
+              "web.call.outgoing_video_camera_blocked_by_system",
+            );
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              n,
+          );
+        }
     }
     function x(e) {
       return $.apply(this, arguments);
@@ -269,9 +311,9 @@ __d(
       );
     }
     function P(e) {
-      return o(
-        "WAWebVoipBrowserPermissionButtonGating",
-      ).hasBrowserPermissionButton("microphone")
+      return o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+        "microphone",
+      )
         ? o("WAWebVoipAcquireMediaStream").queryPermissionStatus(e)
         : (f || (f = n("Promise"))).resolve(null);
     }
@@ -282,9 +324,9 @@ __d(
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            !o(
-              "WAWebVoipBrowserPermissionButtonGating",
-            ).hasBrowserPermissionButton("microphone")
+            !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+              "microphone",
+            )
           )
             return null;
           var t = yield o("WAWebVoipAcquireMediaStream").queryPermissionStatus(

@@ -158,6 +158,7 @@ __d(
         GUEST_CALLING_MEDIA_BLOCKED: "guest_calling_media_blocked",
         GUEST_CALLING_HOST_DENIED: "guest_calling_host_denied",
         GUEST_CALLING_JOIN_CANCELLED: "guest_calling_join_cancelled",
+        GUEST_CALLING_CHECKPOINT: "guest_calling_checkpoint",
         GUEST_CALLING_POST_CALL_PHONE_SUBMITTED:
           "guest_calling_post_call_phone_submitted",
       }),

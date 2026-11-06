@@ -2,7 +2,7 @@ __d(
   "BillingPayNowLandingScreenQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "28098941029771266";
+    a.exports = "29059858770319988";
   },
   null,
 );

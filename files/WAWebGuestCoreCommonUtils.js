@@ -7,10 +7,30 @@ __d(
     "WAWebGuestCoreDownloadCTAClickAction",
     "WAWebGuestCoreLocalStorage",
     "WAWebUA",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e = new Set([
+      "AbortError",
+      "ConstraintError",
+      "DataError",
+      "Error",
+      "InvalidStateError",
+      "NetworkError",
+      "NotAllowedError",
+      "NotFoundError",
+      "NotReadableError",
+      "OperationError",
+      "QuotaExceededError",
+      "RangeError",
+      "SecurityError",
+      "SyntaxError",
+      "TimeoutError",
+      "TypeError",
+      "UnknownError",
+    ]);
+    function s() {
       var e;
       return (
         (navigator.userAgent.includes("WhatsApp-AppClip") &&
@@ -22,27 +42,32 @@ __d(
             : e.postMessage) !== void 0) === !0
       );
     }
-    function s() {
-      var t = r("WAWebBrowserInfo")();
+    function u() {
+      var e = r("WAWebBrowserInfo")();
       return {
-        browserName: e() ? "WhatsApp-AppClip" : t.name,
+        browserName: s() ? "WhatsApp-AppClip" : e.name,
         browserVersion: o("WAWebUA").UA.browserVersion,
-        osName: t.os,
+        osName: e.os,
         osVersion: o("WAWebUA").UA.osVersion,
       };
     }
-    function u(e) {
+    function c(t) {
+      var n = r("getErrorSafe")(t),
+        o = n.name;
+      return e.has(o) ? o : "other";
+    }
+    function d(e) {
       var t;
       return (t = e.get("invite_code")) != null ? t : e.get("sc");
     }
-    function c(e) {
+    function m(e) {
       var t;
-      return (t = u(e)) != null ? t : e.get("ic");
+      return (t = d(e)) != null ? t : e.get("ic");
     }
-    function d(e) {
+    function p(e) {
       return e.get("sc") != null && e.get("invite_code") == null;
     }
-    function m(e) {
+    function _(e) {
       return (
         (e >= 65 && e <= 90) ||
         (e >= 97 && e <= 122) ||
@@ -53,7 +78,7 @@ __d(
         e === 126
       );
     }
-    function p(e) {
+    function f(e) {
       for (
         var t = "0123456789ABCDEF",
           n = e instanceof Uint8Array ? e : new Uint8Array(e),
@@ -63,20 +88,20 @@ __d(
         o++
       ) {
         var a = n[o];
-        m(a)
+        _(a)
           ? (r += String.fromCharCode(a))
           : (r += "%" + t[Math.floor(a / 16)] + t[a % 16]);
       }
       return r;
     }
-    function _(e, t, n) {
+    function g(e, t, n) {
       var r = e.includes("?") ? "&" : "?";
       return "" + e + r + encodeURIComponent(t) + "=" + n;
     }
-    function f(e) {
+    function h(e) {
       return o("WABase64UrlSafe").urlSafeBase64(o("WABase64").encodeB64(e));
     }
-    function g(e, t) {
+    function y(e, t) {
       var n = function () {
         document.visibilityState === "visible" &&
           o("WAWebGuestCoreLocalStorage").getGuestExperienceType() !== t &&
@@ -84,15 +109,16 @@ __d(
       };
       document.addEventListener("visibilitychange", n);
     }
-    ((l.isAppClipWebView = e),
-      (l.getBrowserAndOsDetails = s),
-      (l.getInviteCodeFromUrlParams = u),
-      (l.getPrivateInviteCodeFromUrlParams = c),
-      (l.isSSIInviteCode = d),
-      (l.percentEncodeBytes = p),
-      (l.appendPreEncodedQueryParam = _),
-      (l.encodeB64UrlSafe = f),
-      (l.addGuestExperienceVisibilityListener = g));
+    ((l.isAppClipWebView = s),
+      (l.getBrowserAndOsDetails = u),
+      (l.getGuestErrorNameCode = c),
+      (l.getInviteCodeFromUrlParams = d),
+      (l.getPrivateInviteCodeFromUrlParams = m),
+      (l.isSSIInviteCode = p),
+      (l.percentEncodeBytes = f),
+      (l.appendPreEncodedQueryParam = g),
+      (l.encodeB64UrlSafe = h),
+      (l.addGuestExperienceVisibilityListener = y));
   },
   98,
 );

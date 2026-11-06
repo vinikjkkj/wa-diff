@@ -26,7 +26,7 @@ __d(
       return g;
     }
     function C(e) {
-      return e !== "thanks" && f != null;
+      return f != null;
     }
     function b(e, t, n) {
       return v.apply(this, arguments);

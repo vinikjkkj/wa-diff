@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
-    "WAWebCoreActionsODS",
+    "WAWebODS",
     "WAWebPonyfillsIdleCallback",
     "WAWebVoipDtlsCertCache",
     "WAWebVoipDtlsCertCacheMode",
@@ -40,7 +40,7 @@ __d(
             o("WAWebVoipDtlsCertCache")
               .getOrCreateDtlsCert(t)
               .catch(function (t) {
-                (o("WAWebCoreActionsODS").logCallSctpDtlsCertPrewarmFailed(),
+                (r("WAWebODS").incr("web.call.sctp.dtls_cert.prewarm_failed"),
                   o("WALogger")
                     .WARN(
                       e ||

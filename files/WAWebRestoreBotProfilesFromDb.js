@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBotProfileCollection",
+    "WAWebMetaAiThreadPresenceLatch",
     "WAWebSchemaBotProfile",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -74,6 +75,9 @@ __d(
               babelHelpers.extends({ id: d, commands: _, prompts: p }, c),
             );
           }),
+            yield o("WAWebMetaAiThreadPresenceLatch").latchMetaAiThreadPresence(
+              t,
+            ),
             n > 0 &&
               o("WALogger")
                 .ERROR(

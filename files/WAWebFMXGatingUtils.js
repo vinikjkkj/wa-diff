@@ -16,26 +16,16 @@ __d(
           "is_expand_fmx_enabled_non_auto_expose",
         ) &&
         o("WAWebABProps").getABPropConfigValue(
-          "is_expand_fmx_account_age_ui_enabled",
-        )
-      );
-    }
-    function u() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "is_expand_fmx_enabled_non_auto_expose",
-        ) &&
-        o("WAWebABProps").getABPropConfigValue(
           "is_individual_suspicious_fmx_enabled",
         )
       );
     }
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "fmx_persistent_country_trust_signal_enabled",
       );
     }
-    function d() {
+    function c() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_enabled_non_auto_expose",
@@ -46,10 +36,9 @@ __d(
       );
     }
     ((l.isExpandFmxMexEnabled = e),
-      (l.isExpandFmxAccountAgeUiEnabled = s),
-      (l.isSuspiciousFmxEnabled = u),
-      (l.isFmxPersistentCountryTrustSignalEnabled = c),
-      (l.isExpandFmxAccountAgeBoldedEnabled = d));
+      (l.isSuspiciousFmxEnabled = s),
+      (l.isFmxPersistentCountryTrustSignalEnabled = u),
+      (l.isExpandFmxAccountAgeBoldedEnabled = c));
   },
   98,
 );

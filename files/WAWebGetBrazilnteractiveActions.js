@@ -84,7 +84,7 @@ __d(
       }
       o(
         "WAWebBrPaymentInteractionLogger",
-      ).logPaymentInfoOrderDetailsInteractiveActionForRecepient(r);
+      ).logPaymentInfoOrderDetailsInteractiveActionForRecipient(r);
     }
     function f(e) {
       var t,
