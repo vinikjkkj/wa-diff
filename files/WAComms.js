@@ -220,6 +220,12 @@ __d(
               ((e = l.socketAbortController) == null || e.abort(),
                 l.softCloseSocket == null || l.softCloseSocket());
             }),
+            (this.trySoftCloseSocket = function () {
+              var e = l.softCloseSocket;
+              return e == null
+                ? (U || (U = n("Promise"))).resolve(!1)
+                : (e(), (U || (U = n("Promise"))).resolve(!0));
+            }),
             (this.closeSocket = function () {
               l.socket &&
                 (o("WALogger").LOG(

@@ -1,17 +1,17 @@
 __d(
   "Promise",
   ["cr:6640"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      l = (e = n("cr:6640")) != null ? e : t.Promise;
-    (l.allSettled ||
-      (l.allSettled = function (e) {
+      s = (e = n("cr:6640")) != null ? e : t.Promise;
+    (s.allSettled ||
+      (s.allSettled = function (e) {
         var t;
         if ((typeof Symbol == "function" ? Symbol.iterator : "@@iterator") in e)
           t = Array.from(e);
         else
-          return new l(function () {
+          return new s(function () {
             var e = new TypeError(
               "Promise.allSettled must be passed an iterable.",
             );
@@ -26,7 +26,7 @@ __d(
                   e !== null &&
                   typeof e.then == "function";
               n[o] = r
-                ? new l(function (t, n) {
+                ? new s(function (t, n) {
                     e.then(
                       function (n) {
                         t({ status: "fulfilled", value: n });
@@ -36,7 +36,7 @@ __d(
                       },
                     );
                   })
-                : l.resolve({ status: "fulfilled", value: e });
+                : s.resolve({ status: "fulfilled", value: e });
             },
             o = 0,
             a = t.length;
@@ -44,24 +44,25 @@ __d(
           ++o
         )
           r();
-        return l.all(n);
+        return s.all(n);
       }),
-      l.prototype.finally ||
-        (l.prototype.finally = function (e) {
+      s.prototype.finally ||
+        (s.prototype.finally = function (e) {
           return this.then(
             function (t) {
-              return l.resolve(e()).then(function () {
+              return s.resolve(e()).then(function () {
                 return t;
               });
             },
             function (t) {
-              return l.resolve(e()).then(function () {
+              return s.resolve(e()).then(function () {
                 throw t;
               });
             },
           );
-        }),
-      (a.exports = l));
+        }));
+    var u = s;
+    l.default = u;
   },
-  null,
+  98,
 );

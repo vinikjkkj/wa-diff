@@ -40,6 +40,10 @@ __d(
           }
         },
         startNavigation: function (t) {},
+        addInitialLoadAnnotation: function (t, n) {
+          var e;
+          (e = c) == null || e.addAnnotation(t, n);
+        },
       };
     l.default = d;
   },

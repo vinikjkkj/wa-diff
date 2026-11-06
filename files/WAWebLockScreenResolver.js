@@ -129,10 +129,8 @@ __d(
             ).waNoiseInfo.resetCachedPasscodeDerivedKey(),
             o("WAWebDbEncryptionKey").DbEncKeyStore.deleteKeyCache(),
             o("WAWebDbEncryptionKey").DbEncKeyStore.resetDB(),
-            C(t))
-          )
-            t.softCloseSocket == null || t.softCloseSocket();
-          else {
+            !(yield t.trySoftCloseSocket()))
+          ) {
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -147,11 +145,6 @@ __d(
         })),
         y.apply(this, arguments)
       );
-    }
-    function C(e) {
-      return o("WAWebCommsGating").isCommsInWorker()
-        ? e.isSocketConnected()
-        : e.softCloseSocket != null;
     }
     ((l.LockScreenResolvable = g), (l.lockScreenAndTriggerUnlockFlow = h));
   },

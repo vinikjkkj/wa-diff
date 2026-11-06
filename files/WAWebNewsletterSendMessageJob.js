@@ -251,6 +251,10 @@ __d(
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .STREAMED_HD_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .ORIGINAL_VIDEO_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .ORIGINAL_IMAGE_DUAL_UPLOAD:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
         case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
           return (

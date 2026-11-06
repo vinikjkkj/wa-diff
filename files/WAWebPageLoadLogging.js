@@ -2,67 +2,72 @@ __d(
   "WAWebPageLoadLogging",
   [],
   function (t, n, r, o, a, i) {
-    var e = {
-      PAGE_LOAD_ID: "0",
-      endPageLoadQpl: function () {},
-      endPageLoadQplMeasure: function () {},
-      startPageLoadQplMeasure: function () {},
-      addPageLoadQplPoint: function () {},
-      addPageLoadQplAnnotation: function () {},
-      addPageLoadQplAnnotationNow: function () {},
-      incrementPageLoadQplSocketError: function () {},
-      addPageLoadValidationData: function () {},
-      setWamCompleteForValidation: function () {},
-    };
-    function l(t) {
-      e = t;
+    var e = "0",
+      l = {
+        PAGE_LOAD_ID: e,
+        endPageLoadQpl: function () {},
+        endPageLoadQplMeasure: function () {},
+        startPageLoadQplMeasure: function () {},
+        addPageLoadQplPoint: function () {},
+        addPageLoadQplAnnotation: function () {},
+        addPageLoadQplAnnotationNow: function () {},
+        incrementPageLoadQplSocketError: function () {},
+        addPageLoadValidationData: function () {},
+        setWamCompleteForValidation: function () {},
+      };
+    function s(e) {
+      l = e;
     }
-    var s = !1;
-    function u(t, n, r) {
-      return ((s = !0), e.endPageLoadQpl(t, n, r));
+    var u = !1;
+    function c(e, t, n) {
+      return ((u = !0), l.endPageLoadQpl(e, t, n));
     }
-    function c(t) {
-      return e.startPageLoadQplMeasure(t);
+    function d(e) {
+      return l.startPageLoadQplMeasure(e);
     }
-    function d(t) {
-      return e.endPageLoadQplMeasure(t);
+    function m(e) {
+      return l.endPageLoadQplMeasure(e);
     }
-    function m(t, n) {
-      return e.addPageLoadQplPoint(t, n);
+    function p(e, t) {
+      return l.addPageLoadQplPoint(e, t);
     }
-    function p(t) {
-      return e.addPageLoadQplAnnotation(t);
+    function _(e) {
+      return l.addPageLoadQplAnnotation(e);
     }
-    function _(t) {
-      return e.addPageLoadQplAnnotationNow(t);
+    function f(e) {
+      return l.addPageLoadQplAnnotationNow(e);
     }
-    function f(t, n) {
-      return e.addPageLoadValidationData(t, n);
-    }
-    function g() {
-      return e.incrementPageLoadQplSocketError();
+    function g(e, t) {
+      return l.addPageLoadValidationData(e, t);
     }
     function h() {
-      return e.setWamCompleteForValidation();
+      return l.incrementPageLoadQplSocketError();
     }
     function y() {
-      return e.PAGE_LOAD_ID;
+      return l.setWamCompleteForValidation();
     }
     function C() {
-      return s;
+      return l.PAGE_LOAD_ID;
     }
-    ((i.setImpl = l),
-      (i.endPageLoadQpl = u),
-      (i.startPageLoadQplMeasure = c),
-      (i.endPageLoadQplMeasure = d),
-      (i.addPageLoadQplPoint = m),
-      (i.addPageLoadQplAnnotation = p),
-      (i.addPageLoadQplAnnotationNow = _),
-      (i.addPageLoadValidationData = f),
-      (i.incrementPageLoadQplSocketError = g),
-      (i.setWamCompleteForValidation = h),
-      (i.getPageLoadId = y),
-      (i.wasPageLoadQplLogged = C));
+    function b() {
+      return l.PAGE_LOAD_ID === e ? null : l.PAGE_LOAD_ID;
+    }
+    function v() {
+      return u;
+    }
+    ((i.setImpl = s),
+      (i.endPageLoadQpl = c),
+      (i.startPageLoadQplMeasure = d),
+      (i.endPageLoadQplMeasure = m),
+      (i.addPageLoadQplPoint = p),
+      (i.addPageLoadQplAnnotation = _),
+      (i.addPageLoadQplAnnotationNow = f),
+      (i.addPageLoadValidationData = g),
+      (i.incrementPageLoadQplSocketError = h),
+      (i.setWamCompleteForValidation = y),
+      (i.getPageLoadId = C),
+      (i.getLoggedPageLoadId = b),
+      (i.wasPageLoadQplLogged = v));
   },
   66,
 );

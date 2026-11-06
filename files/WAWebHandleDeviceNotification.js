@@ -16,6 +16,7 @@ __d(
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebSyncDeviceAdvDeviceListJob",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -71,11 +72,12 @@ __d(
               signedKeyIndexBytes: r === g.add ? l.contentBytes() : null,
             };
             var c = n.child("device"),
-              d = o("WAJids").extractDeviceId(c.attrDeviceJid("jid")),
-              m = c.hasAttr("key-index") ? c.attrInt("key-index") : null;
+              d = c.attrDeviceJid("jid"),
+              m = o("WAJids").extractDeviceId(d),
+              p = c.hasAttr("key-index") ? c.attrInt("key-index") : null;
             if (c.hasAttr("lid")) {
-              var p = o("WAJids").extractDeviceId(c.attrDeviceJid("lid"));
-              if (p !== d)
+              var _ = o("WAJids").extractDeviceId(c.attrDeviceJid("lid"));
+              if (_ !== m)
                 throw (
                   o("WALogger").WARN(
                     s ||
@@ -86,7 +88,7 @@ __d(
                   t.createParseError("mismatched device jid and lid attributes")
                 );
             }
-            i = [{ id: d, keyIndex: m }];
+            i = [y(d, m, p)];
           }
           return {
             type: r,
@@ -105,12 +107,17 @@ __d(
           };
         },
       );
-    function y(e) {
-      return C.apply(this, arguments);
+    function y(e, t, n) {
+      return r("WAWebWid").isHosted(e)
+        ? { id: t, keyIndex: n, isHosted: !0 }
+        : { id: t, keyIndex: n };
     }
-    function C() {
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = h.parse(e);
           if (t.error)
             throw (
@@ -295,10 +302,10 @@ __d(
             i
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.handleDevicesNotification = y;
+    l.handleDevicesNotification = C;
   },
   98,
 );

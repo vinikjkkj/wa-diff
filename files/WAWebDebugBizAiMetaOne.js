@@ -273,7 +273,9 @@ __d(
                   qpConfigTriggersTrigger: [],
                   qpConfigTtlSeconds: 1440 * 60,
                   colors: null,
-                  contentAttributes: { attribute: [] },
+                  contentAttributes: {
+                    attribute: [{ key: "wa_wds_style", value: "warning" }],
+                  },
                   header: null,
                   image: null,
                   instanceId: null,

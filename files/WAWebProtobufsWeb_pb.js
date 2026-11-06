@@ -480,6 +480,7 @@ __d(
         decisionId: [82, e.TYPES.STRING],
         decisionSources: [83, e.FLAGS.REPEATED | e.TYPES.STRING],
         eventInviteAdditionalMetadata: [84, e.TYPES.MESSAGE, O],
+        groupHistoryLastCountedMessageTimestamp: [85, e.TYPES.UINT64],
       }),
       (S.name = "CommentMetadata"),
       (S.internalSpec = {

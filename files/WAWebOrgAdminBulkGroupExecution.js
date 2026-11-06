@@ -1,6 +1,6 @@
 __d(
   "WAWebOrgAdminBulkGroupExecution",
-  ["WALogger", "asyncToGeneratorRuntime", "getErrorSafe"],
+  ["WALogger", "WAWebBoolFunc", "asyncToGeneratorRuntime", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
@@ -23,12 +23,9 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            r === void 0 &&
-              (r = function () {
-                return !1;
-              });
-            var o = [];
-            return (yield m(e, 0, t, o, n, r), b(o, e.length));
+            r === void 0 && (r = o("WAWebBoolFunc").returnFalse);
+            var a = [];
+            return (yield m(e, 0, t, a, n, r), b(a, e.length));
           },
         )),
         d.apply(this, arguments)

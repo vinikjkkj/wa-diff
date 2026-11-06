@@ -1,10 +1,10 @@
 __d(
   "WAWebUploadManager",
   [
-    "WAWebABProps",
     "WAWebCreateMediaUploadMetrics",
     "WAWebUploadManagerMainThread",
     "WAWebUploadManagerWorkerBridge",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -22,15 +22,16 @@ __d(
                 isHdPhoto: t.isHdPhoto,
                 uploadQpl: t.uploadQpl,
               }),
-              n = o("WAWebABProps").getABPropConfigValue(
-                "web_media_encrypt_upload_in_worker_enabled",
-              ),
-              a = r(
-                n
-                  ? "WAWebUploadManagerWorkerBridge"
-                  : "WAWebUploadManagerMainThread",
-              );
-            return a.encryptAndUpload(t, e);
+              n = r("gkx")("28987");
+            t.uploadQpl.addAnnotations({
+              string: { upload_path: n ? "worker" : "main" },
+            });
+            var o = r(
+              n
+                ? "WAWebUploadManagerWorkerBridge"
+                : "WAWebUploadManagerMainThread",
+            );
+            return o.encryptAndUpload(t, e);
           }),
           (t.unencryptedUpload = function (t) {
             return r("WAWebUploadManagerMainThread").unencryptedUpload(t);

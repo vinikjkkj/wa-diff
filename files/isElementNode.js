@@ -1,11 +1,11 @@
 __d(
   "isElementNode",
   ["isNode"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     function e(e) {
-      return n("isNode")(e) && (e == null ? void 0 : e.nodeType) == 1;
+      return r("isNode")(e) && (e == null ? void 0 : e.nodeType) == 1;
     }
-    a.exports = e;
+    l.default = e;
   },
-  null,
+  98,
 );

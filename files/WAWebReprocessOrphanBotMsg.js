@@ -87,6 +87,7 @@ __d(
             );
           (delete l.msgInfo.offline,
             yield o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
+              entryPoint: "reprocess-orphan-bot-msg",
               msgInfo: l.msgInfo,
               msgMeta: l.msgMeta,
             }),

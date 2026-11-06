@@ -17,6 +17,7 @@ __d(
     "WAWebTextStatusUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "isStringNullOrEmpty",
     "react",
     "react-compiler-runtime",
     "useWAWebContactValues",
@@ -128,7 +129,7 @@ __d(
       t[10] !== T || t[11] !== s || t[12] !== R || t[13] !== S
         ? (($ = function () {
             if (!T) return x;
-            var e = S != null && S !== "",
+            var e = !r("isStringNullOrEmpty")(S),
               t;
             if (R != null) {
               var n = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(R);

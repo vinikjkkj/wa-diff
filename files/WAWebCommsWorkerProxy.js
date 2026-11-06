@@ -21,9 +21,11 @@ __d(
             (this.$2 = !1),
             (this.$3 = 1),
             (this.$4 = !1),
-            (this.softCloseSocket = function () {
-              t.$1.fireAndForget("comms", "softCloseSocket");
-            }),
+            (this.trySoftCloseSocket = n(
+              "asyncToGeneratorRuntime",
+            ).asyncToGenerator(function* () {
+              return t.$1.sendAndReceive("comms", "trySoftCloseSocket");
+            })),
             (this.handleStanza = function () {
               throw r("err")(
                 "WAWebCommsWorkerProxy.handleStanza is not supported",

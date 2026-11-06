@@ -29,17 +29,36 @@ __d(
         leadStage: ["Lead stage", p],
         note: ["Notes", f],
         username: ["Username", c],
+      },
+      C = {
+        acquisitionSource: [
+          _,
+          "Source",
+          "source",
+          "Acquisition source",
+          "acquisition source",
+        ],
+        leadStage: [p, "Lead stage", "lead stage"],
+        note: [f, "Notes", "notes"],
+        username: [c, "Username", "username"],
       };
-    function C(e, t) {
-      return b(e.rawRow, t);
-    }
     function b(e, t) {
+      return v(e.rawRow, t);
+    }
+    function v(e, t) {
       return o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e,
         y[t],
       );
     }
-    function v() {
+    function S(e, t) {
+      for (var n of C[t]) {
+        var r = e[n];
+        if (typeof r == "string" && r.length > 0) return r;
+      }
+      return "";
+    }
+    function R() {
       return s
         ._(
           /*BTDS*/ "For {Birthday column header}, use {recommended date format} (recommended). {month-first date format} (slashes) is month-first; {day-first date format} (hyphens) is day-first.",
@@ -64,7 +83,7 @@ __d(
         )
         .toString();
     }
-    function S() {
+    function L() {
       return s
         ._(
           /*BTDS*/ "For {Birthday column header} only, you can omit the year with {slash month-day format} or {hyphen month-day format}.",
@@ -84,7 +103,7 @@ __d(
         )
         .toString();
     }
-    var R = [
+    var E = [
       s._(/*BTDS*/ "Enter each customer's info on a separate row.").toString(),
       s
         ._(
@@ -109,12 +128,12 @@ __d(
       s
         ._(
           /*BTDS*/ "Lead stage must be one of: {lead stage values}. Leave it blank to keep an existing stage or import a new contact without one.",
-          [s._param("lead stage values", D())],
+          [s._param("lead stage values", $())],
         )
         .toString(),
       s
         ._(/*BTDS*/ "Source must be one of: {source values}.", [
-          s._param("source values", x()),
+          s._param("source values", P()),
         ])
         .toString(),
       s
@@ -127,8 +146,8 @@ __d(
           /*BTDS*/ "A Lead stage won't add an existing customer to the Lead list.",
         )
         .toString(),
-      v(),
-      S(),
+      R(),
+      L(),
       s
         ._(
           /*BTDS*/ "Put double quotes around any value containing a comma, as in the address below.",
@@ -140,21 +159,21 @@ __d(
         )
         .toString(),
     ];
-    function L(e) {
+    function k(e) {
       return '"' + e.replace(/\"/g, '""') + '"';
     }
-    var E = [
+    var I = [
         "Ada Lovelace",
         "4155550123",
         "ada",
         "ada@example.com",
-        L("12 Baker St, London"),
-        L(
+        k("12 Baker St, London"),
+        k(
           o("WAWebLeadStageNames")
             .getLeadStageName(o("WAWebLeadStage").LeadStage.QUALIFIED)
             .toString(),
         ),
-        L(
+        k(
           (e =
             (u = o(
               "WAWebCustomerProfileAcquisitionSourceNames",
@@ -171,7 +190,7 @@ __d(
         "04/15/1990",
         "Two pizzas on Oct 3",
       ].join(","),
-      k = [
+      T = [
         o("WAWebContactImportTemplateParsingUtils").FBT_NAME,
         o("WAWebContactImportTemplateParsingUtils").FBT_PHONE,
         c,
@@ -183,23 +202,23 @@ __d(
         g,
         h,
       ]
-        .map(L)
+        .map(k)
         .join(","),
-      I = R.map(L).join("\n") + "\n" + E + "\n\n" + k + "\n";
-    function T() {
+      D = E.map(k).join("\n") + "\n" + I + "\n\n" + T + "\n";
+    function x() {
       return {
         download: "customer_manager_import_template.csv",
-        href: "data:application/csv," + encodeURI(I),
+        href: "data:application/csv," + encodeURI(D),
       };
     }
-    function D() {
+    function $() {
       return o("WAWebLeadStage")
         .ALL_LEAD_STAGES.map(function (e) {
           return o("WAWebLeadStageNames").getLeadStageName(e).toString();
         })
         .join(", ");
     }
-    function x() {
+    function P() {
       return o("WAWebCustomerProfileAcquisitionSource")
         .PROFILE_ACQUISITION_SOURCE_ORDER.map(function (e) {
           var t;
@@ -222,11 +241,12 @@ __d(
       (l.FBT_NOTES = f),
       (l.FBT_BIRTHDAY = g),
       (l.FBT_LAST_ORDER = h),
-      (l.readCustomerManagerImportColumn = C),
-      (l.readCustomerManagerImportRawRowColumn = b),
-      (l.getCustomerManagerImportDateFormatInstruction = v),
-      (l.getCustomerManagerImportBirthdayFormatInstruction = S),
-      (l.getTemplateLinkProps = T));
+      (l.readCustomerManagerImportColumn = b),
+      (l.readCustomerManagerImportRawRowColumn = v),
+      (l.readCustomerManagerImportDisplayColumn = S),
+      (l.getCustomerManagerImportDateFormatInstruction = R),
+      (l.getCustomerManagerImportBirthdayFormatInstruction = L),
+      (l.getTemplateLinkProps = x));
   },
   226,
 );

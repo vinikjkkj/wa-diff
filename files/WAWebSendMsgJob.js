@@ -10,6 +10,7 @@ __d(
     "WAWebMaibaWASSMigration",
     "WAWebOutgoingMessage",
     "WAWebPnlessStanzaMigration",
+    "WAWebQueuedSendGate",
     "WAWebScheduledMsgSenderJob",
     "WAWebSendTcTokenChatAction",
     "WAWebSendUserMsgJob",
@@ -17,23 +18,23 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           var l = t.data,
-            u = l.id,
-            c = l.to,
-            d = t.data.to;
-          if (
-            (yield o(
-              "WAWebPnlessStanzaMigration",
-            ).maybeReplaceWidWithAccountLid(t),
+            c = l.id,
+            d = l.to,
+            m = t.data.to;
+          (yield o("WAWebPnlessStanzaMigration").maybeReplaceWidWithAccountLid(
+            t,
+          ),
             o(
               "WAWebSimpleSignalPNToFBIDMigration",
             ).maybeReplaceWidWithFbIdForBotSend(t),
@@ -48,7 +49,9 @@ __d(
             ).maybeReplaceWidWithFbIdForInvoke(
               t,
               "botRespOrInvocationRevokeBotWid",
-            ),
+            ));
+          var p = o("WAWebQueuedSendGate").holdQueuedSend(t);
+          try {
             o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd() ||
               (o("WALogger").LOG(
                 e ||
@@ -56,66 +59,82 @@ __d(
                     "[messaging] waiting for offline delivery end ",
                     "",
                   ])),
-                u,
+                c,
               ),
               yield o(
                 "WAWebEventsWaitForOfflineDeliveryEnd",
-              ).waitForOfflineDeliveryEnd()),
-            !u || !u.id)
-          )
-            return (s || (s = n("Promise"))).reject(
+              ).waitForOfflineDeliveryEnd());
+          } finally {
+            yield p(
+              o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd(),
+            ).catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[messaging] queued send release failed ",
+                      "",
+                    ])),
+                  c,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("queued-send-release-failed");
+            });
+          }
+          if (!c || !c.id)
+            return (u || (u = n("Promise"))).reject(
               r("err")("[messaging] sending message without an id"),
             );
-          if (!c)
-            return (s || (s = n("Promise"))).reject(
+          if (!d)
+            return (u || (u = n("Promise"))).reject(
               r("err")("[messaging] sending message without an remote id"),
             );
-          var m = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+          var _ = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Chat,
               t,
             ),
-            p = yield o(
+            f = yield o(
               "WAWebScheduledMsgSenderJob",
             ).maybeWrapScheduledMessageForSend({
-              msgProtobuf: m,
-              msgRecord: t,
-              remoteWid: c,
-              scheduledMsgMetadata: i,
-            }),
-            _ = p.msgProtobuf,
-            f = p.scheduledMsgMetadata;
-          if (c.isUser()) {
-            r("WAWebWid").isCAPISupportAccount(c) &&
-              o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
-              o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
-              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(_));
-            var g = o("WAWebSendUserMsgJob").encryptAndSendUserMsg({
-              chatId: d,
-              metricReporter: a,
               msgProtobuf: _,
               msgRecord: t,
-              scheduledMsgMetadata: f,
+              remoteWid: d,
+              scheduledMsgMetadata: i,
+            }),
+            g = f.msgProtobuf,
+            h = f.scheduledMsgMetadata;
+          if (d.isUser()) {
+            r("WAWebWid").isCAPISupportAccount(d) &&
+              o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
+              o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
+              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(g));
+            var y = o("WAWebSendUserMsgJob").encryptAndSendUserMsg({
+              chatId: m,
+              metricReporter: a,
+              msgProtobuf: g,
+              msgRecord: t,
+              scheduledMsgMetadata: h,
             });
             return (
               t.data.type !== "protocol" &&
-                o("WAWebSendTcTokenChatAction").sendTcToken(c),
-              g
+                o("WAWebSendTcTokenChatAction").sendTcToken(d),
+              y
             );
-          } else if (c.isGroup())
+          } else if (d.isGroup())
             return o("WAWebEncryptAndSendGroupMsg").encryptAndSendGroupMsg({
               metricReporter: a,
-              msgProtobuf: _,
+              msgProtobuf: g,
               msgRecord: t,
-              scheduledMsgMetadata: f,
+              scheduledMsgMetadata: h,
             });
-          return (s || (s = n("Promise"))).reject(
+          return (u || (u = n("Promise"))).reject(
             r("err")("[messaging] unsupported remote jid type"),
           );
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.encryptAndSendMsg = u;
+    l.encryptAndSendMsg = c;
   },
   98,
 );

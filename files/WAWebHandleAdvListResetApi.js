@@ -13,6 +13,7 @@ __d(
     "WAWebIdentityUpdateDeviceTableApi",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -90,7 +91,9 @@ __d(
               rawId: g,
               timestamp: v,
               devices: [
-                { id: C, keyIndex: f },
+                r("WAWebWid").isHosted(a)
+                  ? { id: C, keyIndex: f, isHosted: !0 }
+                  : { id: C, keyIndex: f },
                 { id: o("WAJids").DEFAULT_DEVICE_ID, keyIndex: 0 },
               ],
               validIndexes: null,

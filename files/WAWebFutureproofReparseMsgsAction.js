@@ -42,7 +42,11 @@ __d(
                   a.accountLid == null &&
                   (yield o(
                     "WAWebProcessMsgInfoForLid",
-                  ).maybeProcessMsgInfoForLid({ msgInfo: a, msgMeta: i }));
+                  ).maybeProcessMsgInfoForLid({
+                    entryPoint: "reparse-futureproof-msg",
+                    msgInfo: a,
+                    msgMeta: i,
+                  }));
                 var l = yield c.load(),
                   s = l.processDecryptedMessageProto;
                 yield s(

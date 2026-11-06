@@ -80,11 +80,16 @@ __d(
               });
       (n.forEach(function (e) {
         var t = e.id,
-          n = e.keyIndex;
+          n = e.isHosted,
+          r = e.keyIndex;
         t !== o("WAJids").DEFAULT_DEVICE_ID &&
-          n != null &&
-          y.has(n) &&
-          b.push({ id: t, keyIndex: n });
+          r != null &&
+          y.has(r) &&
+          b.push(
+            n === !0
+              ? { id: t, keyIndex: r, isHosted: n }
+              : { id: t, keyIndex: r },
+          );
       }),
         b.push({ id: o("WAJids").DEFAULT_DEVICE_ID, keyIndex: 0 }));
       var v = {

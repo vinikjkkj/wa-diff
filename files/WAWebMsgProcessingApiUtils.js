@@ -485,7 +485,6 @@ __d(
               renderableMsgs: [],
             };
           if (
-            r("justknobx")._("6357") &&
             o("WAWebDeviceSentMessageProtoUtils").containsDeviceSentMessage(e)
           )
             throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(

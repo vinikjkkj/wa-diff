@@ -130,6 +130,7 @@ __d(
         subscriptionSyncPayload: [5, e.TYPES.BYTES],
         isBotJidDbMigrated: [6, e.TYPES.BOOL],
         companionAddPeerPayload: [7, e.TYPES.BYTES],
+        isCompanionRegistrationFgsEnabled: [8, e.TYPES.BOOL],
       }),
       (l.DeviceProps$PlatformType = s),
       (l.DevicePropsSpec = u),

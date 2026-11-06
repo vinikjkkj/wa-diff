@@ -11,7 +11,7 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["serializedUploadQpl", "uploadId"];
+    var e = ["mediaId", "serializedUploadQpl", "uploadId"];
     function s(t, a, i) {
       var l = new Map();
       function s(e) {
@@ -20,14 +20,15 @@ __d(
       function u() {
         return (
           (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            var s = n.serializedUploadQpl,
-              u = n.uploadId,
-              d = babelHelpers.objectWithoutPropertiesLoose(n, e),
-              m = new AbortController();
-            l.set(u, m);
-            var p = c(t, u),
-              _ = o("WAWebWorkerQplProxy").createWorkerQplProxy(s),
-              f = {
+            var s = n.mediaId,
+              u = n.serializedUploadQpl,
+              d = n.uploadId,
+              m = babelHelpers.objectWithoutPropertiesLoose(n, e),
+              p = new AbortController();
+            l.set(d, p);
+            var _ = c(t, d, s),
+              f = o("WAWebWorkerQplProxy").createWorkerQplProxy(u),
+              g = {
                 start: function (n) {
                   t.fireAndForget("mainthread_appTracker", "start", {
                     type: n,
@@ -37,30 +38,30 @@ __d(
                   t.fireAndForget("mainthread_appTracker", "stop", { type: n });
                 },
               },
-              g = o(
+              h = o(
                 "WAWebMmsClientUsingDependencies",
               ).createPartialMmsClientUsingDependencies({
                 mediaHosts: a,
                 networkStatus: i,
               }),
-              h = new (o(
+              y = new (o(
                 "WAWebUploadManagerWorkerHandler",
               ).UploadManagerWorkerHandler)({
-                appTracker: f,
-                mmsClient: g,
+                appTracker: g,
+                mmsClient: h,
                 encryptMedia: o("WAWebCryptoEncryptMediaLocal")
                   .encryptMediaLocal,
                 encryptMediaFromBlob: r("WAWebCryptoEncryptMediaFromBlob"),
               }),
-              y = babelHelpers.extends({}, d, {
+              C = babelHelpers.extends({}, m, {
                 fileOrigin: null,
-                signal: m.signal,
-                uploadQpl: _,
+                signal: p.signal,
+                uploadQpl: f,
               });
             try {
-              return yield h.encryptAndUpload(y, p);
+              return yield y.encryptAndUpload(C, _);
             } finally {
-              l.delete(u);
+              l.delete(d);
             }
           })),
           u.apply(this, arguments)
@@ -75,7 +76,7 @@ __d(
     function u(e) {
       return o("WAWebDeserializeBridgedError").serializeBridgedError(e);
     }
-    function c(e, t) {
+    function c(e, t, n) {
       return {
         handleEncryptionStart: function () {
           e.fireAndForget("mainthread_uploadmanager", "handleEncryptionStart", {
@@ -169,7 +170,7 @@ __d(
             error: u(r),
           });
         },
-        mediaId: 0,
+        mediaId: n,
         handleSendMessageStart: r("WAWebNoop"),
       };
     }

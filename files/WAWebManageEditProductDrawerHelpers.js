@@ -3,7 +3,6 @@ __d(
   [
     "WAWebBizCatalogGatingUtils",
     "WAWebComplianceConstants",
-    "WAWebCurrencyUtils",
     "WAWebL10NCountryCodes",
     "WAWebSyntheticCountryCode",
     "WAWebUserPrefsMeUser",
@@ -14,24 +13,21 @@ __d(
       o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA,
       o("WAWebSyntheticCountryCode").SyntheticCountryCode.NotApplicable,
     ];
-    function s(e, t) {
-      return t ? o("WAWebCurrencyUtils").isSupportedCurrency(e) : !0;
-    }
-    function u(e) {
+    function s(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return t != null
         ? o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(t.user)
         : e;
     }
-    function c(e, t, n, r) {
+    function u(e, t, n, r) {
       if (e != null) {
         var o = e.importerAddress;
         return n === t ? r : o[t];
       }
     }
-    function d(t, n) {
+    function c(t, n) {
       if (o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled())
-        return m(t) && !n;
+        return d(t) && !n;
       if (
         !o(
           "WAWebBizCatalogGatingUtils",
@@ -41,7 +37,7 @@ __d(
       var a = t == null ? void 0 : t.countryCodeOrigin;
       return !r("isStringNullOrEmpty")(a) && !e.includes(a);
     }
-    function m(t) {
+    function d(t) {
       if (
         !o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled() ||
         !o(
@@ -52,12 +48,12 @@ __d(
       var n = t == null ? void 0 : t.countryCodeOrigin;
       return !r("isStringNullOrEmpty")(n) && !e.includes(n);
     }
-    function p(e) {
+    function m(e) {
       return o(
         "WAWebBizCatalogGatingUtils",
       ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(e);
     }
-    function _(e) {
+    function p(e) {
       var t = e.complianceInfo,
         n = e.importerInformationNotApplicableEnabled,
         r = e.showComplianceFields;
@@ -88,13 +84,12 @@ __d(
               },
             };
     }
-    ((l.canDisplayPrice = s),
-      (l.getCurrencyCountryShortcode = u),
-      (l.getImporterAddressFieldValueOnChange = c),
-      (l.shouldShowComplianceInfoImporterAddress = d),
-      (l.shouldShowComplianceInfoImporterNotApplicableToggle = m),
-      (l.shouldComplianceBeHardEnforced = p),
-      (l.getComplianceProductChanges = _));
+    ((l.getCurrencyCountryShortcode = s),
+      (l.getImporterAddressFieldValueOnChange = u),
+      (l.shouldShowComplianceInfoImporterAddress = c),
+      (l.shouldShowComplianceInfoImporterNotApplicableToggle = d),
+      (l.shouldComplianceBeHardEnforced = m),
+      (l.getComplianceProductChanges = p));
   },
   98,
 );

@@ -697,6 +697,7 @@ __d(
       win_hybrid_extension_skip_reinstall: [38870, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
       win_hybrid_log_upload_async_io_enabled: [41974, "bool", !1, !1],
+      win_hybrid_log_writer_thread_enabled: [42018, "bool", !1, !1],
       win_hybrid_media_file_prep_off_ui_enabled: [41940, "bool", !1, !1],
       win_hybrid_memory_reporter_toolhelp_enabled: [41975, "bool", !1, !1],
       win_hybrid_multi_account_enabled: [40655, "bool", !1, !0],

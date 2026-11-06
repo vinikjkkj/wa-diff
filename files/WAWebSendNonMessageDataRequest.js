@@ -27,6 +27,7 @@ __d(
     "WAWebSyncGatingUtils",
     "WAWebSyncdSnapshotRecoveryGatingUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumPeerDataResponseApplyResultType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -318,9 +319,7 @@ __d(
           return [
             {
               id: m,
-              to: o(
-                "WAWebUserPrefsMeUser",
-              ).getMyPrimaryForOutgoingPeerMessage(),
+              to: o("WAWebUserUtils").getMyPrimaryForOutgoingPeerMessage(),
               type: "protocol",
               subtype: "peer_data_operation_request_message",
               kind: o("WAWebMsgType").MsgKind.PeerMessage,

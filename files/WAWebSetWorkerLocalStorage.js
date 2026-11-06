@@ -7,6 +7,7 @@ __d(
     "WAWebGuestCoreLocalStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
@@ -20,7 +21,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = g(o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow),
+          var e = g(o("WAWebUserUtils").getMeDisplayNameOrThrow),
             t = e.itemsToWrite;
           yield o("WAWebApiLocalStorage").updateLocalStorage(t, [s]);
         })),

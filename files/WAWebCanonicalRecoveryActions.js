@@ -12,6 +12,7 @@ __d(
     "WAWebSendNonMessageDataRequest",
     "WAWebUserPrefsCanonical",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -70,7 +71,7 @@ __d(
             var e = yield o("WAWebMexCachedTokenJob").fetchCachedNonceToken(),
               t = e.accessToken,
               n = e.fbid,
-              r = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
+              r = o("WAWebUserUtils").getMaybeMeDeviceId();
             if (r == null)
               return (
                 o("WALogger").LOG(

@@ -78,6 +78,7 @@ __d(
         VR: 4,
         SMART_DISPLAY: 5,
         SMART_SPEAKER: 6,
+        AGENT: 7,
       }),
       C = s({ APPSTORE: 0, WEBSITE: 1, TESTFLIGHT: 2, INTERNAL: 3 }),
       b = s({ RELEASE: 0, BETA: 1, ALPHA: 2, DEBUG: 3 }),
@@ -136,7 +137,8 @@ __d(
       x = {},
       $ = {},
       P = {},
-      N = {};
+      N = {},
+      M = {};
     ((S.name = "HandshakeMessage"),
       (S.internalSpec = {
         clientHello: [2, (e = o("WAProtoConst")).TYPES.MESSAGE, E],
@@ -177,18 +179,18 @@ __d(
       (k.internalSpec = {
         username: [1, e.TYPES.UINT64],
         passive: [3, e.TYPES.BOOL],
-        userAgent: [5, e.TYPES.MESSAGE, P],
-        webInfo: [6, e.TYPES.MESSAGE, x],
+        userAgent: [5, e.TYPES.MESSAGE, N],
+        webInfo: [6, e.TYPES.MESSAGE, $],
         pushName: [7, e.TYPES.STRING],
         sessionId: [9, e.TYPES.SFIXED32],
         shortConnect: [10, e.TYPES.BOOL],
         connectType: [12, e.TYPES.ENUM, _],
         connectReason: [13, e.TYPES.ENUM, f],
         shards: [14, e.FLAGS.REPEATED | e.TYPES.INT32],
-        dnsSource: [15, e.TYPES.MESSAGE, D],
+        dnsSource: [15, e.TYPES.MESSAGE, x],
         connectAttemptCount: [16, e.TYPES.UINT32],
         device: [18, e.TYPES.UINT32],
-        devicePairingData: [19, e.TYPES.MESSAGE, T],
+        devicePairingData: [19, e.TYPES.MESSAGE, D],
         product: [20, e.TYPES.ENUM, m],
         fbCat: [21, e.TYPES.BYTES],
         fbUserAgent: [22, e.TYPES.BYTES],
@@ -201,7 +203,7 @@ __d(
         paddingBytes: [34, e.TYPES.BYTES],
         yearClass: [36, e.TYPES.INT32],
         memClass: [37, e.TYPES.INT32],
-        interopData: [38, e.TYPES.MESSAGE, I],
+        interopData: [38, e.TYPES.MESSAGE, T],
         trafficAnonymization: [40, e.TYPES.ENUM, c],
         lidDbMigrated: [41, e.TYPES.BOOL],
         accountType: [42, e.TYPES.ENUM, d],
@@ -212,15 +214,21 @@ __d(
         pairedPeripherals: [47, e.FLAGS.REPEATED | e.TYPES.STRING],
         testIsolationId: [48, e.TYPES.BYTES],
         messageSts: [49, e.TYPES.INT64],
+        integrationAttestation: [50, e.TYPES.MESSAGE, I],
       }),
-      (I.name = "ClientPayload$InteropData"),
+      (I.name = "ClientPayload$IntegrationAttestation"),
       (I.internalSpec = {
+        staticUnbound: [1, e.TYPES.STRING],
+        onlineSigned: [3, e.TYPES.STRING],
+      }),
+      (T.name = "ClientPayload$InteropData"),
+      (T.internalSpec = {
         accountId: [1, e.TYPES.UINT64],
         token: [2, e.TYPES.BYTES],
         enableReadReceipts: [3, e.TYPES.BOOL],
       }),
-      (T.name = "ClientPayload$DevicePairingRegistrationData"),
-      (T.internalSpec = {
+      (D.name = "ClientPayload$DevicePairingRegistrationData"),
+      (D.internalSpec = {
         eRegid: [1, e.TYPES.BYTES],
         eKeytype: [2, e.TYPES.BYTES],
         eIdent: [3, e.TYPES.BYTES],
@@ -230,22 +238,22 @@ __d(
         buildHash: [7, e.TYPES.BYTES],
         deviceProps: [8, e.TYPES.BYTES],
       }),
-      (D.name = "ClientPayload$DNSSource"),
-      (D.internalSpec = {
+      (x.name = "ClientPayload$DNSSource"),
+      (x.internalSpec = {
         dnsMethod: [15, e.TYPES.ENUM, p],
         appCached: [16, e.TYPES.BOOL],
       }),
-      (x.name = "ClientPayload$WebInfo"),
-      (x.internalSpec = {
+      ($.name = "ClientPayload$WebInfo"),
+      ($.internalSpec = {
         refToken: [1, e.TYPES.STRING],
         version: [2, e.TYPES.STRING],
-        webdPayload: [3, e.TYPES.MESSAGE, $],
+        webdPayload: [3, e.TYPES.MESSAGE, P],
         webSubPlatform: [4, e.TYPES.ENUM, h],
         browser: [5, e.TYPES.STRING],
         browserVersion: [6, e.TYPES.STRING],
       }),
-      ($.name = "ClientPayload$WebInfo$WebdPayload"),
-      ($.internalSpec = {
+      (P.name = "ClientPayload$WebInfo$WebdPayload"),
+      (P.internalSpec = {
         usesParticipantInKey: [1, e.TYPES.BOOL],
         supportsStarredMessages: [2, e.TYPES.BOOL],
         supportsDocumentMessages: [3, e.TYPES.BOOL],
@@ -258,10 +266,10 @@ __d(
         documentTypes: [10, e.TYPES.STRING],
         features: [11, e.TYPES.BYTES],
       }),
-      (P.name = "ClientPayload$UserAgent"),
-      (P.internalSpec = {
+      (N.name = "ClientPayload$UserAgent"),
+      (N.internalSpec = {
         platform: [1, e.TYPES.ENUM, v],
-        appVersion: [2, e.TYPES.MESSAGE, N],
+        appVersion: [2, e.TYPES.MESSAGE, M],
         mcc: [3, e.TYPES.STRING],
         mnc: [4, e.TYPES.STRING],
         osVersion: [5, e.TYPES.STRING],
@@ -278,8 +286,8 @@ __d(
         deviceModelType: [16, e.TYPES.STRING],
         distributionChannel: [17, e.TYPES.ENUM, C],
       }),
-      (N.name = "ClientPayload$UserAgent$AppVersion"),
-      (N.internalSpec = {
+      (M.name = "ClientPayload$UserAgent$AppVersion"),
+      (M.internalSpec = {
         primary: [1, e.TYPES.UINT32],
         secondary: [2, e.TYPES.UINT32],
         tertiary: [3, e.TYPES.UINT32],
@@ -304,13 +312,14 @@ __d(
       (l.HandshakeMessage$ServerHelloSpec = L),
       (l.HandshakeMessage$ClientHelloSpec = E),
       (l.ClientPayloadSpec = k),
-      (l.ClientPayload$InteropDataSpec = I),
-      (l.ClientPayload$DevicePairingRegistrationDataSpec = T),
-      (l.ClientPayload$DNSSourceSpec = D),
-      (l.ClientPayload$WebInfoSpec = x),
-      (l.ClientPayload$WebInfo$WebdPayloadSpec = $),
-      (l.ClientPayload$UserAgentSpec = P),
-      (l.ClientPayload$UserAgent$AppVersionSpec = N));
+      (l.ClientPayload$IntegrationAttestationSpec = I),
+      (l.ClientPayload$InteropDataSpec = T),
+      (l.ClientPayload$DevicePairingRegistrationDataSpec = D),
+      (l.ClientPayload$DNSSourceSpec = x),
+      (l.ClientPayload$WebInfoSpec = $),
+      (l.ClientPayload$WebInfo$WebdPayloadSpec = P),
+      (l.ClientPayload$UserAgentSpec = N),
+      (l.ClientPayload$UserAgent$AppVersionSpec = M));
   },
   98,
 );

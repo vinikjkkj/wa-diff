@@ -6,7 +6,9 @@ __d(
     function e(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallDtlsConnectedPort3478,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.connected.port_3478");
+        },
         o("WAWebCoreActionsODS").logCallDtlsConnectedPort3480,
       );
     }

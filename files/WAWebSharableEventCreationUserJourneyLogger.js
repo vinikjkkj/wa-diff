@@ -6,6 +6,7 @@ __d(
     "WAWebGetSharedSessionId",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
+    "WAWebNullFunc",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSharableEventWamActionTs",
     "WAWebSharableEventWamErrorType",
@@ -143,9 +144,7 @@ __d(
             },
             r = yield o("WAWebChatThreadLogging")
               .getChatThreadID(e.id.toJid())
-              .catch(function () {
-                return null;
-              });
+              .catch(o("WAWebNullFunc").returnNull);
           r != null && (n.threadId = r);
           var a = e.groupMetadata;
           return (

@@ -118,32 +118,38 @@ __d(
             n,
           );
           var p = a != null ? a : {},
-            _ = p.forceUsync,
-            f = p.getExistingChat,
-            g = p.isGroupJoin,
-            h = p.nextPrivacyMode,
-            y = p.signal;
-          if (y != null && y.aborted)
+            _ = p.buildFirstIncomingMsg,
+            f = _ === void 0 ? function () {} : _,
+            g = p.forceUsync,
+            h = p.getExistingChat,
+            y = p.isGroupJoin,
+            C = p.nextPrivacyMode,
+            b = p.signal;
+          if (b != null && b.aborted)
             throw new (o("WAAbortError").AbortError)();
-          var C = yield d(l.chatId, f);
-          if (C) return { chat: C, created: !1 };
-          var b = { createdLocally: !0 };
-          g === !0 && (b.notSpam = !0);
-          var v = l.chatId;
-          v.isLid() &&
-            (b.lidOriginType = o("WAWebUsernameTypes").LidOriginType.GENERAL);
-          var S = yield o(
+          var v = yield d(l.chatId, h);
+          if (v) return { chat: v, created: !1 };
+          var S = { createdLocally: !0 };
+          y === !0 && (S.notSpam = !0);
+          var R = l.chatId;
+          R.isLid() &&
+            (S.lidOriginType = o("WAWebUsernameTypes").LidOriginType.GENERAL);
+          var L = yield o(
               "WAWebCheckChatExistsOrCreate",
             ).checkChatExistsOrCreate({
               destinationChat: l,
               msgMeta: null,
               chatOriginType: n,
-              initialProps: b,
-              options: { forceUsync: _, nextPrivacyMode: h },
+              initialProps: S,
+              options: {
+                firstIncomingMsg: f(l.chatId),
+                forceUsync: g,
+                nextPrivacyMode: C,
+              },
             }),
-            R = yield d(l.chatId, f);
-          if (R == null) {
-            var L, E;
+            E = yield d(l.chatId, h);
+          if (E == null) {
+            var k, I;
             throw (
               o("WALogger")
                 .ERROR(
@@ -152,16 +158,16 @@ __d(
                       "findOrCreateLatestChat: new chat not found ",
                       "",
                     ])),
-                  (L = l.chatId) == null ? void 0 : L.toLogString(),
+                  (k = l.chatId) == null ? void 0 : k.toLogString(),
                 )
                 .sendLogs("findOrCreateLatestChat-new-chat-not-found"),
               r("err")(
                 "findChat: new chat not found " +
-                  ((E = l.chatId) == null ? void 0 : E.toLogString()),
+                  ((I = l.chatId) == null ? void 0 : I.toLogString()),
               )
             );
           }
-          return { chat: R, created: !S };
+          return { chat: E, created: !L };
         })),
         g.apply(this, arguments)
       );

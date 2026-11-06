@@ -34,6 +34,7 @@ __d(
         buildRootComponent: function (t, n) {
           return o("WAWebCometBuildRoot").buildRootComponent(t, n, p());
         },
+        disableVisualCompletion: o("WAWebCometBuildRoot").isLeanRouterRoot(),
         initClient: function (t) {
           return p() ? void o("WAWebAppBootstrap").bootstrapApp() : c(t);
         },

@@ -7,7 +7,7 @@ __d(
     "WAWebSyncdKeyTypes",
     "WAWebSyncdNetCallbacksApi",
     "WAWebSyncdRequestEncode",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -68,7 +68,7 @@ __d(
         a = e.patchMac,
         i = e.snapshotMac,
         l = r("nullthrows")(
-          o("WAWebUserPrefsMeUser").getMaybeMeDeviceId(),
+          o("WAWebUserUtils").getMaybeMeDeviceId(),
           "self device ID",
         );
       return o("WAWebSyncdRequestEncode").encodeSyncdPatch({

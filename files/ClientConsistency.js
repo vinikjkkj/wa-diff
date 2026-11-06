@@ -1,10 +1,9 @@
 __d(
   "ClientConsistency",
   ["ClientConsistencyEventEmitter", "FBLogger", "SiteData", "requireWeak"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("SiteData").client_revision,
-      l = !1,
+    var e = !1,
       s,
       u = {},
       c = new Set(),
@@ -13,78 +12,79 @@ __d(
         u = {};
         var e = Object.keys(t).sort().reverse();
         s === "multiple_revs" && (s = void 0);
-        var r = function () {
+        var n = function () {
           var e,
-            r = Number(o),
-            a = (e = t[r]) != null ? e : [];
-          if (a.length === 0) return (p(r), 1);
+            n = Number(o),
+            a = (e = t[n]) != null ? e : [];
+          if (a.length === 0) return (p(n), 1);
           a.forEach(function (e) {
             var t;
-            ((u[e] = Math.max((t = u[e]) != null ? t : 0, r)),
+            ((u[e] = Math.max((t = u[e]) != null ? t : 0, n)),
               !d.has(e) &&
                 (d.add(e),
-                n("requireWeak").call(null, e, function () {
+                r("requireWeak").call(null, e, function () {
                   u[e] && p(u[e], e);
                 })));
           });
         };
-        for (var o of e) if (r()) break;
+        for (var o of e) if (n()) break;
       },
-      p = function (t, r) {
+      p = function (t, n) {
         (t > 0 &&
           s == null &&
-          (n("FBLogger")("client_consistency").debug(
+          (r("FBLogger")("client_consistency").debug(
             "Consistency action needed: %s:%s",
             t,
-            String(r),
+            String(n),
           ),
           (s = "multiple_revs")),
           t === 2 &&
-            n("ClientConsistencyEventEmitter").emit(
+            r("ClientConsistencyEventEmitter").emit(
               "softRefresh",
               "multiple_revs",
             ),
           t === 3 &&
-            n("ClientConsistencyEventEmitter").emit(
+            r("ClientConsistencyEventEmitter").emit(
               "hardRefresh",
               "multiple_revs",
             ));
       },
-      _ = function (n) {
-        var t = n.actions,
-          r = n.rev;
-        r !== e && (s === "multiple_revs" && (s = void 0), t != null && m(t));
+      _ = function (t) {
+        var e = t.actions,
+          n = t.rev;
+        n !== o("SiteData").client_revision &&
+          (s === "multiple_revs" && (s = void 0), e != null && m(e));
       },
       f = {
         init: function () {
-          l ||
-            (n("ClientConsistencyEventEmitter").addListener(
+          e ||
+            (r("ClientConsistencyEventEmitter").addListener(
               "newEntry",
               function (e) {
                 _(e);
               },
             ),
-            n("ClientConsistencyEventEmitter").addListener(
+            r("ClientConsistencyEventEmitter").addListener(
               "softRefresh",
               function (e) {
                 s = e;
               },
             ),
-            n("ClientConsistencyEventEmitter").addListener(
+            r("ClientConsistencyEventEmitter").addListener(
               "hardRefresh",
               function (e) {
                 s = e;
               },
             ),
-            (l = !0));
+            (e = !0));
         },
-        recordResponseRevision: function (n) {
-          n != null && n !== e && c.add(n);
+        recordResponseRevision: function (t) {
+          t != null && t !== o("SiteData").client_revision && c.add(t);
         },
-        addAdditionalRevision: function (r) {
-          r !== e &&
-            (c.add(r),
-            n("ClientConsistencyEventEmitter").emit("newRevision", r));
+        addAdditionalRevision: function (t) {
+          t !== o("SiteData").client_revision &&
+            (c.add(t),
+            r("ClientConsistencyEventEmitter").emit("newRevision", t));
         },
         getAdditionalRevisions: function () {
           return c;
@@ -92,8 +92,9 @@ __d(
         getPendingRefresh: function () {
           return s;
         },
-      };
-    a.exports = f;
+      },
+      g = f;
+    l.default = g;
   },
-  null,
+  98,
 );

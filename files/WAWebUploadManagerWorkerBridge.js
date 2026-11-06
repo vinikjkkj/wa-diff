@@ -65,6 +65,7 @@ __d(
                     isHdPhoto: e.isHdPhoto,
                     token: e.token,
                     uploadId: a,
+                    mediaId: t.mediaId,
                     serializedUploadQpl: o(
                       "WAWebMainThreadQplHandler",
                     ).serializeQplForBridge(e.uploadQpl),

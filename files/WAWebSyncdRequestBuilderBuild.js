@@ -23,7 +23,7 @@ __d(
     "WAWebSyncdRequestBuilderTypesConverter",
     "WAWebSyncdRequestEncode",
     "WAWebSyncdWamAppState",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "nullthrows",
@@ -377,7 +377,7 @@ __d(
     }
     function E(e, t, n, a) {
       var i = r("nullthrows")(
-          o("WAWebUserPrefsMeUser").getMaybeMeDeviceId(),
+          o("WAWebUserUtils").getMaybeMeDeviceId(),
           "self device ID",
         ),
         l = o("encodeProtobuf")

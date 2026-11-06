@@ -10,6 +10,7 @@ __d(
     "WAWebIdentityUpdateDeviceTableApi",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -23,15 +24,16 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i, l, u, c) {
+            var d;
             l === void 0 && (l = !1);
-            var d = n.keyIndex,
-              m = n.timestamp,
-              p = o("WALongInt").numberOrThrowIfTooLarge(m),
-              _ = t.device;
+            var m = n.keyIndex,
+              p = n.timestamp,
+              _ = o("WALongInt").numberOrThrowIfTooLarge(p),
+              f = t.device;
             if (
-              ((_ != null && _ !== o("WAJids").DEFAULT_DEVICE_ID) ||
+              ((f != null && f !== o("WAJids").DEFAULT_DEVICE_ID) ||
                 s(0, 56259),
-              i.timestamp >= p && i.validIndexes && !i.validIndexes.includes(d))
+              i.timestamp >= _ && i.validIndexes && !i.validIndexes.includes(m))
             )
               throw (
                 o("WALogger").LOG(
@@ -43,30 +45,33 @@ __d(
                       " localDeviceRecord.validIndexes: ",
                       "",
                     ])),
-                  p,
+                  _,
                   i.timestamp,
-                  d,
+                  m,
                   i.validIndexes,
                 ),
                 r("err")(
                   "handleADVDeviceIdentity:handleNoListReset: out-of-order timestamp detected",
                 )
               );
-            var f = new Map(
+            var g = new Map(
               i.devices.map(function (e) {
-                return [e.id, e.keyIndex];
+                return [e.id, e];
               }),
             );
-            if (!f.has(_) || f.get(_) !== d) {
-              f.set(_, d);
-              var g = Array.from(f.entries(), function (e) {
-                  var t = e[0],
-                    n = e[1];
-                  return { id: t, keyIndex: n };
+            if (((d = g.get(f)) == null ? void 0 : d.keyIndex) !== m) {
+              g.set(
+                f,
+                r("WAWebWid").isHosted(t)
+                  ? { id: f, keyIndex: m, isHosted: !0 }
+                  : { id: f, keyIndex: m },
+              );
+              var h = babelHelpers.extends({}, i, {
+                  devices: Array.from(g.values()),
+                  deleted: !1,
                 }),
-                h = babelHelpers.extends({}, i, { devices: g, deleted: !1 }),
                 y = o("WAWebAdvExpectedTsApi").computeExpectedTsForDeviceRecord(
-                  { deviceRecord: h, incomingTs: p, lastDeviceJobTs: u },
+                  { deviceRecord: h, incomingTs: _, lastDeviceJobTs: u },
                 );
               ((h.expectedTs = y.expectedTs),
                 (h.expectedTsLastDeviceJobTs = y.expectedTsLastDeviceJobTs),

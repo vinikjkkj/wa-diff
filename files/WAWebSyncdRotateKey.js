@@ -8,7 +8,7 @@ __d(
     "WAWebABProps",
     "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdKeyTypes",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "equalsSet",
     "nullthrows",
   ],
@@ -67,7 +67,7 @@ __d(
           )));
       } else t = o("WAWebSyncdKeyManagementUtils").generateNewKeyEpoch(e.keyId);
       var a = r("nullthrows")(
-        o("WAWebUserPrefsMeUser").getMaybeMeDeviceId(),
+        o("WAWebUserUtils").getMaybeMeDeviceId(),
         "self device ID",
       );
       return {

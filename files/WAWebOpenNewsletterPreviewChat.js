@@ -145,6 +145,7 @@ __d(
             a = e.serverMessageId,
             i =
               a != null &&
+              a > 0 &&
               o(
                 "WAWebNewsletterGatingUtils",
               ).isNavigationToForwardedNewsletterMessageEnabled()

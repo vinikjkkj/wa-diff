@@ -6,7 +6,6 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAWebABPropsUpdateFromStorage",
-    "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebCanonicalGating",
     "WAWebCompanionRegUtils",
@@ -170,44 +169,18 @@ __d(
           return (
             o("WAComms").stopComms(),
             n("cr:18918") != null &&
-            o("WAWebCanonicalGating").isCanonicalAuthV2Enabled()
-              ? C(n("cr:18918"))
-              : (yield o("WAWebCompanionRegUtils").startLogin(),
-                yield o(
-                  "WAWebABPropsUpdateFromStorage",
-                ).updateABPropsFromStorage(),
-                o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
-                o("WAWebStartBackend").startBackend(),
-                "NO_ACK")
+              o("WAWebCanonicalGating").isCanonicalAuthV2Enabled() &&
+              (yield n("cr:18918").waitForCanonicalAuthV2Registration(
+                "continue_in_place",
+              )),
+            yield o("WAWebCompanionRegUtils").startLogin(),
+            yield o("WAWebABPropsUpdateFromStorage").updateABPropsFromStorage(),
+            o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
+            o("WAWebStartBackend").startBackend(),
+            "NO_ACK"
           );
         })),
         y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield e.waitForCanonicalAuthV2Registration();
-          return (
-            yield o("WAWebCompanionRegUtils").startLogin(),
-            t === "stored" || t === "timed_out"
-              ? (o("WAWebBackendApi").frontendFireAndForget(
-                  "restartAfterCanonicalRegistration",
-                  void 0,
-                ),
-                "NO_ACK")
-              : (yield o(
-                  "WAWebABPropsUpdateFromStorage",
-                ).updateABPropsFromStorage(),
-                o("WAWebInitializeCryptoLibrary").initializeCryptoLibrary(),
-                o("WAWebStartBackend").startBackend(),
-                "NO_ACK")
-          );
-        })),
-        b.apply(this, arguments)
       );
     }
     l.default = f;

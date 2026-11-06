@@ -1,7 +1,8 @@
 __d(
   "WAWebCometBuildRoot",
   [
-    "CometMainRoutes.react",
+    "invariant",
+    "CometPageContent.react",
     "CometPlaceholder.react",
     "CometRelayEnvironmentFactory",
     "JSResourceForInteraction",
@@ -11,17 +12,17 @@ __d(
     "lazyLoadComponent",
     "react",
     "react-compiler-runtime",
+    "useCometRouterState",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = r("lazyLoadComponent")(
+      u = e || (e = o("react")),
+      c = r("lazyLoadComponent")(
         r("JSResourceForInteraction")("WAWebCometAppShellRoot.react").__setRef(
           "WAWebCometBuildRoot",
         ),
-      ),
-      c = { contentContainerHidden: { display: "x1s85apg", $$css: !0 } };
+      );
     function d(e, t, n) {
       var a = r("buildWAWebCometRouterStateProvider")(
         babelHelpers.extends({}, e, {
@@ -33,7 +34,7 @@ __d(
         }),
       );
       return o("buildCometRootComponent").buildCometRootComponent(
-        r("justknobx")._("7144") ? s.jsx(p, {}) : s.jsx(m, {}),
+        m() ? u.jsx(_, {}) : u.jsx(p, {}),
         {
           disableTimeSpentLogging: n,
           initialLoadTraceId: t,
@@ -53,42 +54,42 @@ __d(
       );
     }
     function m() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsx(r("CometPlaceholder.react"), {
-              fallback: null,
-              name: i.id,
-              children: s.jsx(u, {}),
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return r("justknobx")._("7144");
     }
     function p() {
       var e = o("react-compiler-runtime").c(1),
         t;
       return (
         e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsx(r("CometPlaceholder.react"), {
+          ? ((t = u.jsx(r("CometPlaceholder.react"), {
               fallback: null,
               name: i.id,
-              children: s.jsx(r("CometMainRoutes.react"), {
-                contentXStyleProvider: _,
-              }),
+              children: u.jsx(c, {}),
             })),
             (e[0] = t))
           : (t = e[0]),
         t
       );
     }
-    function _(e) {
-      var t = e.isHidden;
-      return t ? c.contentContainerHidden : null;
+    function _() {
+      var e = o("react-compiler-runtime").c(2),
+        t = r("useCometRouterState")();
+      t != null || s(0, 191183);
+      var n;
+      return (
+        e[0] !== t
+          ? ((n = u.jsx(r("CometPlaceholder.react"), {
+              fallback: null,
+              name: i.id,
+              children: u.jsx(r("CometPageContent.react"), { routerState: t }),
+            })),
+            (e[0] = t),
+            (e[1] = n))
+          : (n = e[1]),
+        n
+      );
     }
-    l.buildRootComponent = d;
+    ((l.buildRootComponent = d), (l.isLeanRouterRoot = m));
   },
   98,
 );

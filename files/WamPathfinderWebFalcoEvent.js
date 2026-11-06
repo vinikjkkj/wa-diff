@@ -21,6 +21,15 @@ __d(
         app_version: s("WAWebFalcoCanonicalAppVersion").__setRef(
           "WamPathfinderWebFalcoEvent",
         ),
+        automation_run_type: s("WAWebFalcoCanonicalAutomationRunType").__setRef(
+          "WamPathfinderWebFalcoEvent",
+        ),
+        automation_session_id: s(
+          "WAWebFalcoCanonicalAutomationSessionId",
+        ).__setRef("WamPathfinderWebFalcoEvent"),
+        automation_test_name: s(
+          "WAWebFalcoCanonicalAutomationTestName",
+        ).__setRef("WamPathfinderWebFalcoEvent"),
         md_id: s("WAWebFalcoCanonicalMdId").__setRef(
           "WamPathfinderWebFalcoEvent",
         ),

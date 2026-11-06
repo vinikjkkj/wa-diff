@@ -20,6 +20,7 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataGetters",
+    "WAWebNoop",
     "WAWebProfilePicThumbGetters",
     "WAWebProfilePicThumbModel",
     "WAWebProfilePictureService",
@@ -203,6 +204,12 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
+          (i.refetchObservedStalePics = function () {
+            var e = this;
+            this.forEach(function (t) {
+              t.stale && t.hasObservers() && e.find(t.id).catch(r("WAWebNoop"));
+            });
+          }),
           (i._mirrorMeRow = function (t) {
             if (o("WAWebUserPrefsMeUser").isMeAccount(t.id)) {
               var e = t.id.toString();
@@ -461,6 +468,11 @@ __d(
           e.getModelsArray().forEach(function (e) {
             e.id.isAiHub() && e.set({ isDarkTheme: t });
           });
+        }),
+        e.listenTo(o("WAWebSocketModel").Socket, "change:stream", function () {
+          o("WAWebSocketModel").Socket.stream ===
+            o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED &&
+            e.refetchObservedStalePics();
         }),
         e
       );

@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebGuestCoreConsts",
     "WAWebLazyLoadedRetriable",
+    "WAWebNullFunc",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventInviteCoerceTimestampSeconds",
     "WAWebSharableEventInviteStatus",
@@ -82,9 +83,7 @@ __d(
                 .catching(r("getErrorSafe")(t));
               return;
             }
-            var m = yield u().catch(function () {
-              return null;
-            });
+            var m = yield u().catch(o("WAWebNullFunc").returnNull);
             m == null || m.logSharableEventAddedToCalendar(t.id, n);
           }
         })),

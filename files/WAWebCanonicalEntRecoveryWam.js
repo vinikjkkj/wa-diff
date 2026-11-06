@@ -6,7 +6,7 @@ __d(
     "WAWebCanonicalGating",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUserPrefsCanonical",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumCanonicalEntEventMarker",
     "WAWebWamEnumCanonicalEntRecoveryCompanionEvent",
   ],
@@ -29,7 +29,7 @@ __d(
       return r("WAWebPonyfillsCryptoRandomUUID")();
     }
     function p() {
-      var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
+      var e = o("WAWebUserUtils").getMaybeMeDeviceId();
       return e != null ? String(e) : "";
     }
     function _(t, n, r, a, i, l) {

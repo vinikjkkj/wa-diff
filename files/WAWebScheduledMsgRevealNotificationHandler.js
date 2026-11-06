@@ -487,10 +487,23 @@ __d(
                   ));
                 return;
               }
+              var g;
               try {
                 f = yield o(
                   "WAWebScheduledMsgRevealChatUtils",
-                ).resolveScheduledRevealChat(f);
+                ).resolveScheduledRevealChat(f, function (e) {
+                  return (
+                    (g = ne({
+                      type: "individual",
+                      chatWid: e,
+                      msgId: i,
+                      text: _,
+                      scheduledTimestampS: u,
+                      innerProto: m,
+                    })),
+                    g
+                  );
+                });
               } catch (e) {
                 o("WALogger")
                   .ERROR(
@@ -503,7 +516,7 @@ __d(
                   .sendLogs("mex-scheduled-msg-reveal-ensure-chat-failed");
                 return;
               }
-              var g;
+              var h;
               if (f.isGroup()) {
                 if (s == null) {
                   (o("WALogger")
@@ -519,9 +532,9 @@ __d(
                     ));
                   return;
                 }
-                var h;
+                var y;
                 try {
-                  h = o("WAWebWidFactory").asUserWidOrThrow(
+                  y = o("WAWebWidFactory").asUserWidOrThrow(
                     o("WAWebWidFactory").createWid(s),
                   );
                 } catch (e) {
@@ -539,17 +552,17 @@ __d(
                     ));
                   return;
                 }
-                g = {
+                h = {
                   type: "group",
                   chatWid: f,
-                  senderWid: h,
+                  senderWid: y,
                   msgId: i,
                   text: _,
                   scheduledTimestampS: u,
                   innerProto: m,
                 };
               } else
-                g = {
+                h = {
                   type: "individual",
                   chatWid: f,
                   msgId: i,
@@ -557,19 +570,19 @@ __d(
                   scheduledTimestampS: u,
                   innerProto: m,
                 };
-              var y = babelHelpers.extends({}, ne(g), {
+              var C = babelHelpers.extends({}, g != null ? g : ne(h), {
                   messageSecret: Z(m, e.outerMessageSecret),
                 }),
-                C = yield o(
+                b = yield o(
                   "WAWebLimitSharingAcp2HideReceivedMsgs",
                 ).hideMsgsReceivedInAcp2RestrictedChat({
                   messageType: f.isGroup()
                     ? o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP
                     : o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
-                  msgs: [y],
+                  msgs: [C],
                   proto: m,
                 });
-              if (C.length === 0) {
+              if (b.length === 0) {
                 (o("WALogger").LOG(
                   D ||
                     (D = babelHelpers.taggedTemplateLiteralLoose([
@@ -581,8 +594,8 @@ __d(
                   ));
                 return;
               }
-              (yield Q(f, y, i),
-                yield ee(y, e, p),
+              (yield Q(f, C, i),
+                yield ee(C, e, p),
                 o("WALogger").LOG(
                   x ||
                     (x = babelHelpers.taggedTemplateLiteralLoose([

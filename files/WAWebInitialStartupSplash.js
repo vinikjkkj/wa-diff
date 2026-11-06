@@ -5,11 +5,12 @@ __d(
     var e = "wa_web_initial_startup",
       l = "wa_web_initial_startup_logo",
       s = "wa_web_initial_startup_footer",
-      u = 1200,
-      c = 0.35,
-      d = 1.2,
-      m = "1100";
-    function p(t) {
+      u = "wa_web_initial_startup_background",
+      c = 1200,
+      d = 0.35,
+      m = 1.2,
+      p = "1100";
+    function _(t) {
       var n = t.animate,
         r = document.getElementById(e);
       if (!(r == null || r.parentNode == null)) {
@@ -26,45 +27,35 @@ __d(
           return;
         }
         var i = document.getElementById(l);
-        if (!(i instanceof SVGElement)) {
+        if (i == null) {
           o();
           return;
         }
         try {
-          var p = window.getComputedStyle(i).transform,
-            _ = window.getComputedStyle(r).backgroundColor,
-            f = document.getElementById(s);
-          ((r.style.zIndex = m),
-            (i.style.transform = p),
-            (i.style.animation = "none"));
+          var u,
+            _ = { duration: c, fill: "forwards" };
+          r.style.zIndex = p;
           var g = i.animate(
             [
-              { easing: "ease-out", offset: 0, transform: p },
+              { easing: "ease-out", offset: 0, transform: "scale(1)" },
               {
                 easing: "ease-in-out",
-                offset: c,
-                transform: "scale(" + d + ")",
+                offset: d,
+                transform: "scale(" + m + ")",
               },
               { offset: 1, transform: "scale(0)" },
             ],
-            { duration: u, fill: "forwards" },
+            _,
           );
-          (r.animate(
-            [
-              { backgroundColor: _, offset: 0 },
-              { backgroundColor: _, offset: c },
-              { backgroundColor: "transparent", offset: 1 },
-            ],
-            { duration: u, fill: "forwards" },
-          ),
-            f instanceof HTMLElement &&
-              f.animate(
+          (f(r, d, _),
+            (u = document.getElementById(s)) == null ||
+              u.animate(
                 [
                   { offset: 0, opacity: 1 },
-                  { offset: c, opacity: 1 },
+                  { offset: d, opacity: 1 },
                   { offset: 1, opacity: 0 },
                 ],
-                { duration: u, fill: "forwards" },
+                _,
               ),
             g.finished.then(function () {
               window.requestAnimationFrame(function () {
@@ -76,14 +67,37 @@ __d(
         }
       }
     }
+    function f(e, t, n) {
+      var r = document.getElementById(u);
+      if (r != null)
+        return r.animate(
+          [
+            { offset: 0, opacity: 1 },
+            { offset: t, opacity: 1 },
+            { offset: 1, opacity: 0 },
+          ],
+          n,
+        );
+      var o = window.getComputedStyle(e).backgroundColor;
+      return e.animate(
+        [
+          { backgroundColor: o, offset: 0 },
+          { backgroundColor: o, offset: t },
+          { backgroundColor: "transparent", offset: 1 },
+        ],
+        n,
+      );
+    }
     ((i.INITIAL_STARTUP_SPLASH_ID = e),
       (i.INITIAL_STARTUP_SPLASH_LOGO_ID = l),
       (i.INITIAL_STARTUP_SPLASH_FOOTER_ID = s),
-      (i.INITIAL_STARTUP_SPLASH_EXIT_DURATION_MS = u),
-      (i.INITIAL_STARTUP_SPLASH_EXIT_ZOOM_PEAK_OFFSET = c),
-      (i.INITIAL_STARTUP_SPLASH_EXIT_ZOOM_PEAK_SCALE = d),
-      (i.INITIAL_STARTUP_SPLASH_EXIT_Z_INDEX = m),
-      (i.removeInitialStartupSplash = p));
+      (i.INITIAL_STARTUP_SPLASH_BACKGROUND_ID = u),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_DURATION_MS = c),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_ZOOM_PEAK_OFFSET = d),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_ZOOM_PEAK_SCALE = m),
+      (i.INITIAL_STARTUP_SPLASH_EXIT_Z_INDEX = p),
+      (i.removeInitialStartupSplash = _),
+      (i.fadeOutInitialStartupSplashBackground = f));
   },
   66,
 );

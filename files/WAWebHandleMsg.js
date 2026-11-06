@@ -174,6 +174,7 @@ __d(
                 "WAWebCoexV2UsernameInfoUpdate",
               ).maybeGetCoexV2UsernameInfoUpdatePlan(T, D);
               yield o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
+                entryPoint: "handle-msg",
                 msgInfo: T,
                 msgMeta: D,
               });

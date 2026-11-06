@@ -15,8 +15,9 @@ __d(
       },
       u = !1,
       c = o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
-      d = null;
-    function m() {
+      d = null,
+      m = 0;
+    function p() {
       var t;
       return (
         !u &&
@@ -26,52 +27,56 @@ __d(
         ) === "1"
       );
     }
-    function p() {
-      return _.apply(this, arguments);
-    }
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          m() ||
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          p() ||
             (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
             o("WAWebABProps").getABPropConfigValue(
               "win_hybrid_background_message_sync",
             ));
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f() {
-      return m() ? c : null;
+    function g() {
+      return p() ? c : null;
     }
-    function g(e) {
+    function h(e) {
       var t = s[e];
       return t == null ? !1 : ((c = t), !0);
     }
-    function h() {
+    function y() {
       u = !0;
     }
-    function y(e) {
-      d = e;
+    function C(e) {
+      ((d = e), m++);
     }
-    function C() {
+    function b() {
+      return m;
+    }
+    function v() {
       var e;
       return (
         d != null &&
         d !==
-          ((e = f()) != null
+          ((e = g()) != null
             ? e
             : o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
                 .USER_ACTIVATED)
       );
     }
-    ((l.isWindowsBackgroundRun = m),
-      (l.logBackgroundMessageSyncExposureInUserSession = p),
-      (l.getWindowsBackgroundRunConnectReason = f),
-      (l.applyWindowsBackgroundRunConnectReason = g),
-      (l.endWindowsBackgroundRun = h),
-      (l.recordWindowsLoginConnectReason = y),
-      (l.hasLoggedInWithOtherConnectReason = C));
+    ((l.isWindowsBackgroundRun = p),
+      (l.logBackgroundMessageSyncExposureInUserSession = _),
+      (l.getWindowsBackgroundRunConnectReason = g),
+      (l.applyWindowsBackgroundRunConnectReason = h),
+      (l.endWindowsBackgroundRun = y),
+      (l.recordWindowsLoginConnectReason = C),
+      (l.getWindowsLoginCount = b),
+      (l.hasLoggedInWithOtherConnectReason = v));
   },
   98,
 );

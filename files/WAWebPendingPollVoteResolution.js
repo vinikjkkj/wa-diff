@@ -201,7 +201,6 @@ __d(
       (l.attachResolvedVotes = m),
       (l.hasUnresolvedOptions = _),
       (l.settleParkedVotes = f),
-      (l.settleParkedVoteOptions = h),
       (l.voteFromPendingRow = C));
   },
   98,

@@ -9,7 +9,7 @@ __d(
     "WAWebOutgoingPeerMsgKey",
     "WAWebProtobufsE2E.pb",
     "WAWebSendAppStateSyncMsgJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -121,7 +121,7 @@ __d(
           );
           return {
             id: i,
-            to: o("WAWebUserPrefsMeUser").getMyPrimaryForOutgoingPeerMessage(),
+            to: o("WAWebUserUtils").getMyPrimaryForOutgoingPeerMessage(),
             type: "protocol",
             subtype: "peer_data_operation_request_response_message",
             kind: o("WAWebMsgType").MsgKind.PeerMessage,

@@ -578,7 +578,7 @@ __d(
           .sendLogs("parse-device-sent-msg-max-depth");
         return;
       }
-      if (n === "relay" && r("justknobx")._("6357"))
+      if (n === "relay")
         o("WALogger")
           .ERROR(
             _ ||

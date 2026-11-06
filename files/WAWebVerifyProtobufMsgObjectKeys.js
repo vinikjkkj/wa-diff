@@ -438,7 +438,9 @@ __d(
                                                                                                                       e ===
                                                                                                                         "splitPaymentMessage" ||
                                                                                                                       e ===
-                                                                                                                        "splitPaymentUpdateMessage"
+                                                                                                                        "splitPaymentUpdateMessage" ||
+                                                                                                                      e ===
+                                                                                                                        "vpcRequestMessage"
                                                                                                                     ? c.UnknownMessageKey
                                                                                                                     : e ===
                                                                                                                         "rootSecretDistributeMessage"

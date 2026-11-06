@@ -293,7 +293,7 @@ __d(
           (n = o("enumUtils").coerce(a, r("CallToActionTypes"))) != null
             ? n
             : "NO_BUTTON";
-      return { type: l, value: I(l, i) };
+      return { type: l, value: T(l, i) };
     }
     function y(e) {
       var t;
@@ -362,7 +362,7 @@ __d(
       var t;
       if (e == null) return null;
       var n = (t = e.type) != null ? t : "NO_BUTTON";
-      return { type: n, value: I(n, e.value) };
+      return { type: n, value: T(n, e.value) };
     }
     var b = new Set(["REACH", "MESSAGES"]),
       v = new Set([
@@ -385,9 +385,17 @@ __d(
     }
     function R(e, t, n) {
       if (n !== "LEAD_GENERATION")
-        return r("qex")._("4191") !== !0 ? S(e, t, n) : L(e, t, n);
+        return r("qex")._("4191") !== !0 ? S(e, t, n) : E(e, t, n);
     }
-    function L(t, n, o) {
+    function L(e, t, n) {
+      var r;
+      return (t == null || (r = t.object_story_spec) == null
+        ? void 0
+        : r.template_data) != null
+        ? E(e, t, n)
+        : R(e, t, n);
+    }
+    function E(t, n, o) {
       var a, i, l, s, u, c, d, m;
       if (o !== "LEAD_GENERATION") {
         var p =
@@ -444,7 +452,7 @@ __d(
         return b != null && b !== "" ? b : void 0;
       }
     }
-    function E(e) {
+    function k(e) {
       var t, n;
       if (e == null) return null;
       var a = (t = e.call_to_action_type) != null ? t : "NO_BUTTON",
@@ -452,17 +460,17 @@ __d(
           (n = o("enumUtils").coerce(a, r("CallToActionTypes"))) != null
             ? n
             : "NO_BUTTON";
-      return { type: i, value: I(i, e.call_to_action_value) };
+      return { type: i, value: T(i, e.call_to_action_value) };
     }
-    function k(e) {
+    function I(e) {
       var t = e == null ? void 0 : e.type;
-      return e == null || t == null ? null : { type: t, value: I(t, e) };
+      return e == null || t == null ? null : { type: t, value: T(t, e) };
     }
-    function I(e, t) {
+    function T(e, t) {
       if (!(e === "NO_BUTTON" || t == null)) {
         var n = null;
         o("LWICometMessagingAppsSectionConstants").isMessagingAppCTAType(e) &&
-          ((n = x(e)), n == null && (n = void 0));
+          ((n = $(e)), n == null && (n = void 0));
         var r =
             e === "WHATSAPP_MESSAGE" &&
             t.whatsapp_number != null &&
@@ -496,7 +504,7 @@ __d(
         };
       }
     }
-    function T(e) {
+    function D(e) {
       var t = e.buttonDestination,
         n = e.ctaType,
         o = e.goal,
@@ -518,7 +526,7 @@ __d(
       ];
       return l.includes(i);
     }
-    function D(e) {
+    function x(e) {
       var t,
         n,
         r = e.adgroupSpecs[e.selectedAdgroupID];
@@ -527,7 +535,7 @@ __d(
         ? t
         : r.assetFeedSpecPlus;
     }
-    function x(e) {
+    function $(e) {
       switch (e) {
         case "MESSAGE_PAGE":
           return "MESSENGER";
@@ -553,11 +561,12 @@ __d(
       (l.SHOULD_DISABLE_CTA_EDITING_TYPES = v),
       (l.getLWICometLinkURL = S),
       (l.getLWICometPixelSetupLinkURL = R),
-      (l.getLWICometWebsiteLinkURL = L),
-      (l.getTypedCreativeCTA = E),
-      (l.getTypedTopLevelCTA = k),
-      (l.showCTAEditorWrapper = T),
-      (l.getAssetFeedSpecOrPlus = D));
+      (l.getLWICometPixelDomainCheckURL = L),
+      (l.getLWICometWebsiteLinkURL = E),
+      (l.getTypedCreativeCTA = k),
+      (l.getTypedTopLevelCTA = I),
+      (l.showCTAEditorWrapper = D),
+      (l.getAssetFeedSpecOrPlus = x));
   },
   98,
 );

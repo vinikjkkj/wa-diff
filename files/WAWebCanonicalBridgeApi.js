@@ -3,9 +3,6 @@ __d(
   ["WAWebCanonicalReload"],
   function (t, n, r, o, a, i, l) {
     var e = {
-      restartAfterCanonicalRegistration: function () {
-        o("WAWebCanonicalReload").restartAfterCanonicalRegistration();
-      },
       scheduleCanonicalReload: function () {
         o("WAWebCanonicalReload").scheduleCanonicalReload();
       },

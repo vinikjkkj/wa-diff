@@ -2,15 +2,19 @@ __d(
   "WAWebOrgAdminPersonEdit",
   [
     "fbt",
+    "WALogger",
     "WAWebOrgAdminGroupCandidate",
     "WAWebOrgAdminMemberTagOptions",
     "WAWebOrgAdminPeople",
     "WAWebOrgAdminRosterUploadMessages",
     "WAWebOrgAdminRosterUploadRequest",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
+    "intlNumUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
-    function e(e) {
+    var e;
+    function u(e) {
       var t;
       return (
         e.member == null &&
@@ -18,25 +22,41 @@ __d(
         ((t = e.emailAddress) != null ? t : "") !== ""
       );
     }
-    function u(e, t) {
+    function c(e, t) {
+      return m(
+        e,
+        t.map(function (e) {
+          var t = e.memberTag;
+          return t;
+        }),
+      );
+    }
+    function d(e) {
+      return m(
+        [],
+        e.map(function (e) {
+          var t = e.secondaryMemberTag;
+          return t;
+        }),
+      );
+    }
+    function m(e, t) {
       var n = new Set(
           e.map(o("WAWebOrgAdminMemberTagOptions").getCanonicalMemberTagOption),
         ),
         r = new Map();
-      for (var a of t) {
-        var i = a.memberTag;
-        if (i != null) {
-          var l = o(
+      for (var a of t)
+        if (a != null) {
+          var i = o(
             "WAWebOrgAdminMemberTagOptions",
-          ).getCanonicalMemberTagOption(i);
-          !n.has(l) &&
-            !r.has(l) &&
+          ).getCanonicalMemberTagOption(a);
+          !n.has(i) &&
+            !r.has(i) &&
             r.set(
-              l,
-              o("WAWebOrgAdminMemberTagOptions").normalizeMemberTagOption(i),
+              i,
+              o("WAWebOrgAdminMemberTagOptions").normalizeMemberTagOption(a),
             );
         }
-      }
       return [].concat(
         e,
         Array.from(r.values()).sort(function (e, t) {
@@ -44,51 +64,115 @@ __d(
         }),
       );
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function d() {
+    function _() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = o("WAWebOrgAdminPeople").getOrgAdminPersonRosterEntry(
               t,
               e.roster,
             ),
             a = r == null ? void 0 : r.emailAddress;
-          if (r == null || a == null) return p();
+          if (r == null || a == null) return C();
           try {
             var i = yield e.upload({
               entries: [babelHelpers.extends({}, n, { emailAddress: a })],
               inviteEmails: [],
               memberTagOptions: e.memberTagOptions,
               mode: "append",
-              newMemberTagOptions: f(e, n.memberTag),
+              newMemberTagOptions: S(e, n.memberTag),
               removes: [],
               roster: e.roster,
-              updates: [_(r, n)],
+              updates: [b(r, n)],
             });
-            return m(
+            return y(
               i,
-              e.showSuccessToast,
+              function () {
+                return e.showSuccessToast(
+                  s._(/*BTDS*/ "Changes saved").toString(),
+                );
+              },
               o("WAWebOrgAdminRosterUploadRequest").getMaxOrgAdminRosterEntries(
                 e.memberDirectoryEnabled,
               ),
             );
           } catch (e) {
-            return p();
+            return C();
           }
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function m(e, t, n) {
+    function f(e, t, n) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = o(
+            "WAWebOrgAdminRosterUploadRequest",
+          ).getMaxOrgAdminRosterEntries(t.memberDirectoryEnabled);
+          if (t.roster.length >= i)
+            return s._(
+              /*BTDS*/ "An organization can have up to {maximum people} people.",
+              [
+                s._param(
+                  "maximum people",
+                  r("intlNumUtils").formatNumberWithThousandDelimiters(i, 0),
+                ),
+              ],
+            );
+          try {
+            var l = yield t.upload({
+              entries: [v(n)],
+              inviteEmails: t.memberDirectoryEnabled ? [n.emailAddress] : [],
+              memberTagOptions: t.memberTagOptions,
+              mode: "append",
+              newMemberTagOptions: S(t, n.memberTag),
+              removes: [],
+              roster: t.roster,
+              updates: [null],
+            });
+            return y(l, a, i);
+          } catch (t) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[org-admin] adding a person failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("org-admin-add-person-failed"),
+              C()
+            );
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t) {
+      var n = t.trim().toLowerCase();
+      return e.find(function (e) {
+        var t;
+        return (
+          ((t = e.emailAddress) == null ? void 0 : t.trim().toLowerCase()) === n
+        );
+      });
+    }
+    function y(e, t, n) {
       e: {
         var r = e;
         if (
           ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.status === "success"
+          r.status === "success" &&
+          "invitedCount" in r
         ) {
-          return (t(s._(/*BTDS*/ "Changes saved").toString()), null);
+          var a = r.invitedCount;
+          return (t(a), null);
           break e;
         }
         if (
@@ -103,10 +187,10 @@ __d(
           r.status === "validation_error" &&
           "errorReason" in r
         ) {
-          var a = r.errorReason;
+          var i = r.errorReason;
           return o(
             "WAWebOrgAdminRosterUploadMessages",
-          ).getRosterReplaceValidationMessage(a, null, null, n);
+          ).getRosterReplaceValidationMessage(i, null, null, n);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -114,10 +198,10 @@ __d(
         );
       }
     }
-    function p() {
+    function C() {
       return s._(/*BTDS*/ "Couldn't save your changes. Try again.");
     }
-    function _(e, t) {
+    function b(e, t) {
       var n,
         r,
         a = t.lastName,
@@ -144,14 +228,35 @@ __d(
         secondaryMemberTag: null,
       };
     }
-    function f(e, t) {
+    function v(e) {
+      var t = e.emailAddress,
+        n = e.lastName,
+        r = e.memberTag,
+        o = e.name,
+        a = e.phoneNumber,
+        i = e.secondaryMemberTag,
+        l = {
+          emailAddress: t,
+          lastName: n === "" ? null : n,
+          memberTag: r,
+          name: o,
+          phoneNumber: a,
+        };
+      return i == null
+        ? l
+        : babelHelpers.extends({}, l, { secondaryMemberTag: i });
+    }
+    function S(e, t) {
       var n = e.memberDirectoryEnabled,
         r = e.memberTagOptions;
       return n && t != null && !r.includes(t) ? [t] : [];
     }
-    ((l.canEditOrgAdminPerson = e),
-      (l.getOrgAdminPersonEditMemberTags = u),
-      (l.saveOrgAdminPerson = c));
+    ((l.canEditOrgAdminPerson = u),
+      (l.getOrgAdminPersonEditMemberTags = c),
+      (l.getOrgAdminPersonEditSecondaryMemberTags = d),
+      (l.saveOrgAdminPerson = p),
+      (l.addOrgAdminPerson = f),
+      (l.findOrgAdminRosterEntryByEmail = h));
   },
   226,
 );

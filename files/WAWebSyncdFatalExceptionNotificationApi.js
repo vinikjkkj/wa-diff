@@ -7,7 +7,7 @@ __d(
     "WAWebMsgType",
     "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,9 +26,7 @@ __d(
             ),
             a = {
               id: n,
-              to: o(
-                "WAWebUserPrefsMeUser",
-              ).getMyPrimaryForOutgoingPeerMessage(),
+              to: o("WAWebUserUtils").getMyPrimaryForOutgoingPeerMessage(),
               type: "protocol",
               subtype: "app_state_fatal_exception_notification",
               kind: o("WAWebMsgType").MsgKind.PeerMessage,

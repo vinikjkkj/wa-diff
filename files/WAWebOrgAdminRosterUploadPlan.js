@@ -410,7 +410,9 @@ __d(
       (l.buildOrgAdminRosterUploadPlan = f),
       (l.getOrgAdminRosterUploadReplacement = g),
       (l.getOrgAdminRosterUploadPeopleNotInFile = h),
-      (l.getOrgAdminRosterUploadFixErrors = y));
+      (l.getOrgAdminRosterUploadFixErrors = y),
+      (l.isValidName = x),
+      (l.isValidLastName = $));
   },
   98,
 );

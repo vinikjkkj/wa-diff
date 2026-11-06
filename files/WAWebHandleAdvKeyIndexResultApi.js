@@ -77,7 +77,8 @@ __d(
           var t = e.keyIndex;
           t != null &&
             E.has(t) &&
-            (e.id === c && (e.isHosted === !0 || s(0, 76137)), L.set(e.id, t));
+            (e.id === c && n != null && (e.isHosted === !0 || s(0, 76137)),
+            L.set(e.id, t));
         }),
         b != null &&
           b.forEach(function (e) {
