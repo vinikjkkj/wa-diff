@@ -39,7 +39,7 @@ __d(
           }),
           (n.updatePreservedUserKeys = function () {
             var t = this,
-              n = this.getMaybeMeDevicePn();
+              n = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
             if (n != null) {
               var a = n.toString(),
                 i = e.prototype.get.call(
@@ -82,7 +82,9 @@ __d(
           }),
           (n.setCollection = function (t, n, r) {
             (r === void 0 && (r = !1),
-              this.getMaybeMeDevicePn() != null && !r && this.setUser(t, n));
+              o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser() != null &&
+                !r &&
+                this.setUser(t, n));
           }),
           (n.getUser = function (n) {
             var t = this.$UserPreferencesStore$p_2(n);
@@ -94,7 +96,7 @@ __d(
               (e.prototype.set.call(this, t, r, o), c == null || c(n, r));
           }),
           (n.$UserPreferencesStore$p_2 = function (t) {
-            var e = this.getMaybeMeDevicePn();
+            var e = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
             if (!e)
               return (
                 o("WALogger").WARN(

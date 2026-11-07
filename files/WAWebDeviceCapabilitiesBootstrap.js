@@ -10,6 +10,7 @@ __d(
     "WAWebPrimaryDeviceCapabilities",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -41,15 +42,17 @@ __d(
               n = o(
                 "WAWebUserPrefsDeviceCapabilities",
               ).mergeDeviceCapabilitiesToStorage(t, "self");
+            (yield o(
+              "WAWebBizBroadcastsDeviceCapability",
+            ).bootstrapBizBroadcastPrimaryCapability(),
+              yield m());
+            var a = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null;
             if (
-              (yield o(
-                "WAWebBizBroadcastsDeviceCapability",
-              ).bootstrapBizBroadcastPrimaryCapability(),
-              yield m(),
-              yield r("WAWebDeviceCapabilitiesSync").sendMutation(n),
-              o("WAWebABProps").getABPropConfigValue(
-                "device_capabilities_v2_sync_enabled",
-              ))
+              (a && (yield r("WAWebDeviceCapabilitiesSync").sendMutation(n)),
+              !a ||
+                o("WAWebABProps").getABPropConfigValue(
+                  "device_capabilities_v2_sync_enabled",
+                ))
             )
               try {
                 yield r("WAWebDeviceCapabilitiesV2Sync").sendMutation(n);

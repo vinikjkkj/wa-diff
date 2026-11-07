@@ -357,6 +357,13 @@ __d(
               (L.waitingRoomUsers = a.waitingRoomUsers),
               (L.waitingRoomUsersCount = a.waitingRoomUsersCount),
               (L.isDualStreamSsEnabled = a.isDualStreamSsEnabled),
+              (L.isCapiCall = a.participants.some(function (e) {
+                return (
+                  e.isSelf !== !0 &&
+                  e.devicePlatform ===
+                    o("WAWebVoipWaCallEnums").ClientPlatform.CAPI
+                );
+              })),
               L.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents

@@ -113,19 +113,19 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          ((e.otpSessionId = yield b(t)),
+          e.otpSessionId = yield b(t);
+          var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          (n != null &&
             (e.receiverCountryCode = String(
               o(
                 "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
-              ).getCountryCodeIso(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
-              ),
+              ).getCountryCodeIso(n.user),
             )),
             h(e, t));
-          var n = t.templateId;
-          n != null && (e.templateId = n);
-          var r = v(t);
-          (r != null && (e.otpProductType = r), y(e), C(e, t));
+          var r = t.templateId;
+          r != null && (e.templateId = r);
+          var a = v(t);
+          (a != null && (e.otpProductType = a), y(e), C(e, t));
         })),
         g.apply(this, arguments)
       );

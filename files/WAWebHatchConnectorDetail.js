@@ -16,8 +16,14 @@ __d(
       );
     }
     function s(e) {
+      var t, n;
       return (
-        e != null && (e.bullets.length > 0 || e.footerParagraphs.length > 0)
+        e != null &&
+        (e.bullets.length > 0 ||
+          e.footerParagraphs.length > 0 ||
+          ((t = (n = e.calloutParagraphs) == null ? void 0 : n.length) != null
+            ? t
+            : 0) > 0)
       );
     }
     ((l.hasHatchConnectorDetail = e), (l.hasHatchConsentCopy = s));

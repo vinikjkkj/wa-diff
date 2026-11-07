@@ -50,7 +50,7 @@ __d(
         p +
         '],"require":[' +
         p +
-        '],"r2":"' +
+        '],"b3":"' +
         u(16) +
         '","extensions":{"is_final":true}' +
         e +

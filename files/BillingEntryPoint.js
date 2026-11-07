@@ -167,6 +167,7 @@ __d(
         "aymt_flex_billing_limit_auto_decrease_tip",
       AYMT_FLEX_BILLING_UTILIZATION_WARNING_TIP:
         "aymt_flex_billing_utilization_warning_tip",
+      AYMT_FLEX_BILLING_OFFBOARDING_TIP: "aymt_flex_billing_offboarding_tip",
       BILLING_FAILED_CHARGE_RETRY: "billing_failed_charge_retry",
       BILLING_UPCOMING_CHARGE_FB: "billing_upcoming_charge_fb",
       BILLING_PAYMENT_FAILURE_PREVENTION_BY_ONE_DOLLAR_AUTH:
@@ -515,6 +516,7 @@ __d(
       LLAMA_API: "llama_api",
       LLAMA_DEV_CENTER: "llama_dev_center",
       MODEL_API: "model_api",
+      MUSE_WEB: "muse_web",
       LWI_AA_MOBILE_PAYMENT_SECTION: "lwi_aa_mobile_payment_section",
       LWI_AA_MOBILE_START_PLAN: "lwi_aa_mobile_start_plan",
       LWI_AD_CENTER_ASL_NOTICE: "lwi_ad_center_asl_notice",

@@ -40,6 +40,7 @@ __d(
             (n.offerReceivedWhileOffline = !1),
             (n.isVoiceChat = !1),
             (n.isBotGroupCall = !1),
+            (n.isCapiCall = !1),
             (n.silenceReason = null),
             (n.callLinkState = null),
             (n.callLinkToken = null),
@@ -219,6 +220,15 @@ __d(
                     this.shouldShowPeerVideo() ||
                     this.peerVideoState ===
                       o("WAWebVoipWaCallEnums").VideoState.UnknownPeer;
+          }),
+          (a.isCapiCallUiEnabled = function () {
+            return (
+              this.isCapiCall &&
+              o("WAWebVoipGatingUtils").isCapiDialpadEnabled()
+            );
+          }),
+          (a.shouldShowCapiDialpad = function () {
+            return this.isCapiCallUiEnabled() && !this.shouldShowVideoUI();
           }),
           (a.shouldShowSelfPreview = function () {
             return this.isVideo

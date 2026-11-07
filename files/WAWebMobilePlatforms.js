@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebEnvironment",
+    "WAWebInternalAccount",
     "WAWebMobilePlatformPersistence",
     "asyncToGeneratorRuntime",
     "cr:16728",
@@ -41,6 +42,11 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t === void 0 && (t = !0),
+            o("WAWebInternalAccount").setInternalAccount(
+              (n("cr:16728") == null
+                ? void 0
+                : n("cr:16728").isInternalPlatform(e)) === !0,
+            ),
             t &&
               (yield o("WAWebMobilePlatformPersistence").setLastMobilePlatform(
                 e,

@@ -380,7 +380,7 @@ __d(
             var s = o("WAWebLinkify").findLinks(
                 e,
                 !1,
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
               ),
               u = V(s, t, n, r, i, l);
             u && W(a, u);

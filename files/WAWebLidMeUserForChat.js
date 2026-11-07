@@ -13,16 +13,16 @@ __d(
         case o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon:
           return r || a || i
             ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-            : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+            : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
         case o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage:
         case o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message:
           return a
             ? i
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()
+              : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow()
             : r || i
               ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+              : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
       }
     }
     l.getMeUserLidOrJidForChat = e;

@@ -29,22 +29,30 @@ __d(
     }
     function c(e) {
       return o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
-        ? m()
+        ? p()
         : o(
             "WAWebOutContactServerSentInviteEligibility",
           ).areServerSentInvitePrerequisitesMet(e) &&
-            m() &&
+            p() &&
             o(
               "WAWebOutContactServerSentInviteEligibility",
             ).isServerSentInviteAbPropEnabled();
     }
     function d(e) {
       return (
-        !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() &&
-        e > o("WAWebGroupServerSentInviteEligibility").GROUP_SSI_MAX_INVITEES
+        e > o("WAWebGroupServerSentInviteEligibility").GROUP_SSI_MAX_INVITEES &&
+        o(
+          "WAWebGroupServerSentInviteEligibility",
+        ).isGroupServerSentInviteSenderEligible() &&
+        o(
+          "WAWebGroupServerSentInviteEligibility",
+        ).isGroupServerSentInviteAbPropEnabled()
       );
     }
-    function m() {
+    function m(e) {
+      return d(e + 1);
+    }
+    function p() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "non_wa_contact_invite_cta_enabled",
@@ -54,7 +62,8 @@ __d(
     ((l.canShow1to1OutContactsInSession = s),
       (l.canShowOutContactFor1to1Invite = u),
       (l.isContactEditInviteCtaEnabled = c),
-      (l.isOverGroupInviteLimit = d));
+      (l.isOverGroupInviteLimit = d),
+      (l.isGroupInviteLimitReached = m));
   },
   98,
 );

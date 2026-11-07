@@ -231,7 +231,12 @@ __d(
       var t,
         n = e;
       return function () {
-        return (n && ((t = n.apply(this, arguments)), (n = null)), t);
+        if (n) {
+          for (var e = arguments.length, r = new Array(e), o = 0; o < e; o++)
+            r[o] = arguments[o];
+          ((t = n.apply(this, r)), (n = null));
+        }
+        return t;
       };
     }
     function Y(e, t) {

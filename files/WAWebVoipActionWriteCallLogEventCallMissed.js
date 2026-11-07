@@ -74,10 +74,15 @@ __d(
                 isVideoCall: d,
               })),
                 (R = S.to),
-                c == null &&
-                  o(
-                    "WAWebVoipOngoingCallCollection",
-                  ).WAWebVoipOngoingCallCollection.remove(S.id));
+                c == null
+                  ? o(
+                      "WAWebVoipOngoingCallCollection",
+                    ).WAWebVoipOngoingCallCollection.remove(S.id)
+                  : (S = babelHelpers.extends({}, S, {
+                      callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
+                        .Ongoing,
+                      finalCallOutcome: v,
+                    })));
             else if (p != null) {
               var L = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                   callId: a,

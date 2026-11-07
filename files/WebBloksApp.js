@@ -33,68 +33,78 @@ __d(
         i = e.externalObjectSet,
         l = e.externalVariables,
         u = e.node,
-        _ = e.params,
-        b = _ === void 0 ? o("WebBloksUtils").EMPTY_OBJECT : _,
-        v = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        S = r("useWebBloksAccessibilityModule")(),
-        R = S.FocusAppWrapper,
-        L = p(function () {
+        _ = e.onClose,
+        b = e.params,
+        v = b === void 0 ? o("WebBloksUtils").EMPTY_OBJECT : b,
+        S = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        R = r("useWebBloksAccessibilityModule")(),
+        L = R.FocusAppWrapper,
+        E = p(function () {
           var e;
           return (
             i != null
               ? (e = i)
-              : ((e = new (r("WebBloksObjectSet"))(v)), f(e, a, u, b)),
+              : ((e = new (r("WebBloksObjectSet"))(S)), f(e, a, u, v)),
             n && (n.current = e),
             e
           );
         }),
-        E = L[0];
+        k = E[0];
       c(
         function () {
           i != null && i.navigationManager.attachAndTriggerPopStateHandler();
         },
         [i],
       );
-      var k = p(function () {
-          return E.navigationManager.getVisibleScreens();
+      var I = p(function () {
+          return k.navigationManager.getVisibleScreens();
         }),
-        I = k[0],
-        T = I.modal,
-        D = I.screens,
-        x = k[1];
-      c(
-        function () {
-          return (
-            E.navigationManager.attachNavigationListeners(),
-            E.navigationManager.screenChangeListener.on(x),
-            function () {
-              (E.navigationManager.screenChangeListener.off(x),
-                E.navigationManager.destroy());
-            }
-          );
-        },
-        [E],
-      );
-      var $ = m(!0);
+        T = I[0],
+        D = T.modal,
+        x = T.screens,
+        $ = I[1],
+        P = m(!1);
       (c(
         function () {
-          if ($.current) $.current = !1;
+          x.length > 0 || D != null
+            ? (P.current = !0)
+            : P.current && ((P.current = !1), _ == null || _());
+        },
+        [D, _, x.length],
+      ),
+        c(
+          function () {
+            return (
+              k.navigationManager.attachNavigationListeners(),
+              k.navigationManager.screenChangeListener.on($),
+              function () {
+                (k.navigationManager.screenChangeListener.off($),
+                  k.navigationManager.destroy());
+              }
+            );
+          },
+          [k],
+        ));
+      var N = m(!0);
+      (c(
+        function () {
+          if (N.current) N.current = !1;
           else {
             if (i != null) return;
-            f(E, a, u, b);
+            f(k, a, u, v);
           }
         },
-        [E, a, u, b, i],
+        [k, a, u, v, i],
       ),
-        r("useWebBloksRefreshListener")(E));
-      var P = {};
-      v.isRtl && (P = { direction: "rtl", textAlign: "right" });
-      var N = r("useFoldingAddressBar")(D),
-        M = d(
+        r("useWebBloksRefreshListener")(k));
+      var M = {};
+      S.isRtl && (M = { direction: "rtl", textAlign: "right" });
+      var w = r("useFoldingAddressBar")(x),
+        A = d(
           function () {
-            return v.embedded === !0
+            return S.embedded === !0
               ? g.bloksAppEmbedded
-              : N
+              : w
                 ? o("WebBloksStyle").classNames(
                     g.bloksAppFoldingAddressBar,
                     y.bloksAppFoldingAddressBarDVH,
@@ -102,14 +112,14 @@ __d(
                 : o("WebBloksStyle").classNames(
                     g.bloksAppFullscreen,
                     h.bloksAppFullscreenDVH,
-                    v.nonFABViewportFit ? C.nonFABViewportFitRoot : null,
+                    S.nonFABViewportFit ? C.nonFABViewportFitRoot : null,
                   );
           },
-          [v.embedded, v.nonFABViewportFit, N],
+          [S.embedded, S.nonFABViewportFit, w],
         ),
-        w = d(
+        F = d(
           function () {
-            return D.map(function (e) {
+            return x.map(function (e) {
               var t;
               return s.jsx(
                 o("WebBloksScreenWrapper").ScreenWrapper,
@@ -118,43 +128,43 @@ __d(
               );
             });
           },
-          [D, l],
+          [x, l],
         ),
-        A = s.jsx(R, {
+        O = s.jsx(L, {
           children: s.jsxs("div", {
             style: babelHelpers.extends(
               {
                 fontFamily: o("WebBloksUtils").getWrapperFontFamily(
-                  v.fontFamilyMappings,
+                  S.fontFamilyMappings,
                 ),
               },
-              P,
-              N ? { WebkitOverflowScrolling: "touch" } : null,
+              M,
+              w ? { WebkitOverflowScrolling: "touch" } : null,
             ),
             "data-testid": void 0,
             className: o("WebBloksStyle").classNames(
               o("WebBloksAppAccessibilityStyles").ACCESSIBILITY_STYLES.outlines,
-              M,
+              A,
             ),
             children: [
-              w,
-              T &&
+              F,
+              D &&
                 s.jsx(
                   r("WebBloksModalWrapper"),
-                  { modal: T, externalVariables: l },
-                  (t = T.screenIdWithStackIndex) != null ? t : T.screenId,
+                  { modal: D, externalVariables: l },
+                  (t = D.screenIdWithStackIndex) != null ? t : D.screenId,
                 ),
-              s.jsx(r("WebBloksToastPresenter"), { objectSet: E }),
+              s.jsx(r("WebBloksToastPresenter"), { objectSet: k }),
             ],
           }),
         });
       return (
-        E.environment.disableErrorBoundary !== !0 &&
-          (A = s.jsx(r("WebBloksErrorBoundary"), {
-            logger: E.environment.logger,
-            children: A,
+        k.environment.disableErrorBoundary !== !0 &&
+          (O = s.jsx(r("WebBloksErrorBoundary"), {
+            logger: k.environment.logger,
+            children: O,
           })),
-        A
+        O
       );
     }
     _.displayName = _.name + " [from " + i.id + "]";
@@ -177,7 +187,11 @@ __d(
       else if (t != null) return e.createInitialScreenWithAppId(t, a);
     }
     var g = o("WebBloksStyle").createStyles({
-        bloksAppEmbedded: { height: "100%", width: "100%" },
+        bloksAppEmbedded: {
+          position: "relative",
+          height: "100%",
+          width: "100%",
+        },
         bloksAppFullscreen: { height: "100vh", width: "100%" },
         bloksAppFoldingAddressBar: {
           height: "auto !important",

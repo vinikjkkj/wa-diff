@@ -1,7 +1,7 @@
 __d(
   "WAWebBizAiSmartComposerErrorMapping",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebBizAiAgentGating"],
+  function (t, n, r, o, a, i, l) {
     var e = new Map([
         ["SUBSCRIPTION_QUOTA_EXHAUSTED", "quota_handoff"],
         ["INTERNAL_SERVER_ERROR", "retryable_error"],
@@ -15,7 +15,7 @@ __d(
         ["UNSUPPORTED_MESSAGE_TYPE", "retryable_error"],
         ["AI_FEATURE_DISABLED", "silent_fallback"],
       ]),
-      l = {
+      s = {
         AI_FEATURE_DISABLED: 9,
         CONVERSATION_NOT_FOUND: 1,
         INTERNAL_SERVER_ERROR: 5,
@@ -28,25 +28,38 @@ __d(
         UNKNOWN: 0,
         UNSUPPORTED_MESSAGE_TYPE: 2,
       },
-      s = new Set(["INTERNAL_SERVER_ERROR", "MESSAGE_NOT_FOUND"]);
-    function u(t) {
+      u = new Set(["INTERNAL_SERVER_ERROR", "MESSAGE_NOT_FOUND"]),
+      c = new Set(["MESSAGE_NOT_FOUND", "MESSAGE_STALE"]),
+      d = new Set([
+        "CONVERSATION_NOT_FOUND",
+        "INTERNAL_SERVER_ERROR",
+        "INVALID_RESPONSE",
+        "UNSUPPORTED_MESSAGE_TYPE",
+      ]);
+    function m(t) {
       var n;
       return (n = e.get(t)) != null ? n : "silent_fallback";
     }
-    function c(e) {
-      return s.has(e);
+    function p(e) {
+      return o("WAWebBizAiAgentGating").isSmartComposerFailureCacheEnabled()
+        ? c.has(e)
+        : u.has(e);
     }
-    function d(e) {
-      return l[e];
+    function _(e) {
+      return d.has(e);
     }
-    function m(t) {
+    function f(e) {
+      return s[e];
+    }
+    function g(t) {
       for (var n of e.keys()) if (n === t) return n;
       return "UNKNOWN";
     }
-    ((i.mapSuggestedReplyErrorToState = u),
-      (i.isAutoRetryableSuggestedReplyError = c),
-      (i.getSuggestedReplyErrorWireValue = d),
-      (i.normalizeSuggestedReplyErrorCode = m));
+    ((l.mapSuggestedReplyErrorToState = m),
+      (l.isAutoRetryableSuggestedReplyError = p),
+      (l.isCacheableSuggestedReplyError = _),
+      (l.getSuggestedReplyErrorWireValue = f),
+      (l.normalizeSuggestedReplyErrorCode = g));
   },
-  66,
+  98,
 );

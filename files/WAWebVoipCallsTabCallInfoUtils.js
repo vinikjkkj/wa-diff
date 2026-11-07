@@ -19,7 +19,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = [
+    var e,
+      s = [
         {
           isShown: function (t) {
             return o("WAWebChatLockUtils").chatIsAccessible(
@@ -127,10 +128,10 @@ __d(
                 return r("WAWebCallCollection");
               },
               events: [
-                o("WAWebVoipEventConstants").getChangeEvent(
-                  o("WAWebVoipEventConstants").VoipCallCollectionEvents
-                    .ACTIVE_CALL,
+                (e = o("WAWebVoipEventConstants")).getChangeEvent(
+                  e.VoipCallCollectionEvents.ACTIVE_CALL,
                 ),
+                e.getChangeEvent(e.VoipCallCollectionEvents.ACTIVE_CALL_ID),
               ],
               delivery: "immediate",
             },
@@ -138,7 +139,7 @@ __d(
         },
         {
           isShown: function (t) {
-            return !d(t);
+            return !m(t);
           },
           triggers: [
             {
@@ -151,18 +152,18 @@ __d(
           ],
         },
       ],
-      s = e.flatMap(function (e) {
+      u = s.flatMap(function (e) {
         var t = e.triggers;
         return t;
       });
-    function u(e) {
+    function c(e) {
       return e
         .map(function (e) {
           return e.id.toString();
         })
         .join("|");
     }
-    function c(e) {
+    function d(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -173,7 +174,7 @@ __d(
         })
       );
     }
-    function d(e) {
+    function m(e) {
       var t = e.callParticipants;
       if (t == null) return !1;
       var n = t.some(function (e) {
@@ -186,15 +187,15 @@ __d(
         return !e.participant.equals(r);
       });
     }
-    function m(t) {
-      return e.every(function (e) {
-        var n = e.isShown;
-        return n(t);
+    function p(e) {
+      return s.every(function (t) {
+        var n = t.isShown;
+        return n(e);
       });
     }
-    function p(e, t) {
+    function _(e, t) {
       var n;
-      if (!m(e)) return null;
+      if (!p(e)) return null;
       var r = t[t.length - 1];
       if (r == null) return null;
       var a = e.id.toString();
@@ -205,7 +206,7 @@ __d(
       )
         return null;
       var i = r.id.toString(),
-        l = o("WAWebCallLogUtils").mergeCallRecords(c([e].concat(t))),
+        l = o("WAWebCallLogUtils").mergeCallRecords(d([e].concat(t))),
         s =
           (n = l.find(function (e) {
             var t = e.mergedMsgs;
@@ -223,11 +224,11 @@ __d(
         ? s
         : null;
     }
-    ((l.CALLS_TAB_CALL_LOG_VISIBILITY_TRIGGERS = s),
-      (l.getCallLogMsgsKey = u),
-      (l.getSortedUniqueCallLogMsgs = c),
-      (l.getShouldShowInCallsTabCallLog = m),
-      (l.getUpdatedCallLogInfoPropsForWrittenMsg = p));
+    ((l.CALLS_TAB_CALL_LOG_VISIBILITY_TRIGGERS = u),
+      (l.getCallLogMsgsKey = c),
+      (l.getSortedUniqueCallLogMsgs = d),
+      (l.getShouldShowInCallsTabCallLog = p),
+      (l.getUpdatedCallLogInfoPropsForWrittenMsg = _));
   },
   98,
 );

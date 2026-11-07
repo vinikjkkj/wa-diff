@@ -1513,6 +1513,16 @@ __d(
           }
           return t;
         })(),
+        sendCapiDtmfTone: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = yield l;
+            return t.sendCapiDtmfTone(e);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         notifyUiViewChange: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {

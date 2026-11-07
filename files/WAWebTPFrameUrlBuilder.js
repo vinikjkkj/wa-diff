@@ -6,6 +6,7 @@ __d(
     "WAXWhatsAppWebTPPdfSharerControllerRouteBuilder",
     "WAXWhatsAppWebTPPdfThumbnailControllerRouteBuilder",
     "WAXWhatsAppWebTPPdfViewerControllerRouteBuilder",
+    "WAXWhatsAppWebTPSpaceHostControllerRouteBuilder",
     "WhatsAppWebTPUrlBuilder",
     "err",
     "isStringNullOrEmpty",
@@ -51,11 +52,20 @@ __d(
         e + r("WAXWhatsAppWebTPHtmlSandboxControllerRouteBuilder").buildURL({})
       );
     }
+    function m() {
+      var e = r("WhatsAppWebTPUrlBuilder").url;
+      return r("isStringNullOrEmpty")(e)
+        ? null
+        : "" +
+            e +
+            r("WAXWhatsAppWebTPSpaceHostControllerRouteBuilder").buildURL({});
+    }
     ((l.getWAWebTPThumbnailUrl = e),
       (l.getWAWebTPPdfViewerUrl = s),
       (l.getWAWebTPPdfSharerUrl = u),
       (l.getWAWebTPPdfInlineSharerUrl = c),
-      (l.getWAWebTPHtmlSandboxUrl = d));
+      (l.getWAWebTPHtmlSandboxUrl = d),
+      (l.getWAWebTPSpaceHostUrl = m));
   },
   98,
 );

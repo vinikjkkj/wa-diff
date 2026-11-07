@@ -32,7 +32,7 @@ __d(
           var s = null;
           try {
             if (
-              ((s = o("GHLServerJSParse").readBootEntry(e.textContent)),
+              ((s = o("GHLServerJSParse").takeBootFrame(e.textContent)),
               s == null)
             )
               throw r("err")(

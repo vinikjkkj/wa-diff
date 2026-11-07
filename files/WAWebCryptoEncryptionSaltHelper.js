@@ -19,21 +19,20 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = 128,
-            r = !!o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            a = null;
+            r = null;
           return (
-            r ||
-              ((a = new Uint8Array(t)),
-              self.crypto.getRandomValues(a),
-              (a = btoa(
+            o("WAWebUserPrefsMeUser").hasLoggedIn() ||
+              ((r = new Uint8Array(t)),
+              self.crypto.getRandomValues(r),
+              (r = btoa(
                 String.fromCharCode.apply(
                   String,
-                  Array.from(new Uint8Array(a)),
+                  Array.from(new Uint8Array(r)),
                 ),
               )),
-              yield o("WAWebUserPrefsMultiDevice").setWebEncSalt(a)),
-            (a = o("WAWebUserPrefsMultiDevice").getWebEncSalt()),
-            a == null &&
+              yield o("WAWebUserPrefsMultiDevice").setWebEncSalt(r)),
+            (r = o("WAWebUserPrefsMultiDevice").getWebEncSalt()),
+            r == null &&
               (o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -44,10 +43,10 @@ __d(
               o("WAWebSocketLogoutJob").socketLogout(
                 o("WAWebLogoutReasonConstants").LogoutReason.MissingEncSalt,
               )),
-            (a = Uint8Array.from(atob(a), function (e) {
+            (r = Uint8Array.from(atob(r), function (e) {
               return e.charCodeAt(0);
             })),
-            (s || (s = n("Promise"))).resolve(a)
+            (s || (s = n("Promise"))).resolve(r)
           );
         })),
         c.apply(this, arguments)

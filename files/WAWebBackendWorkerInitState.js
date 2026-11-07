@@ -26,6 +26,7 @@ __d(
         dbInit: new c.Resolvable(),
         dbFinalKey: new c.Resolvable(),
         jidsReady: new c.Resolvable(),
+        suspiciousHostChecksModule: new c.Resolvable(),
       },
       p = !1,
       _ = null;
@@ -53,21 +54,25 @@ __d(
         });
     }
     function g(e) {
+      m.suspiciousHostChecksModule.resolveWasCalled() ||
+        m.suspiciousHostChecksModule.resolve(e);
+    }
+    function h(e) {
       m.dbInit.resolveWasCalled() ||
         m.dbInit.resolve(
           babelHelpers.extends({}, e, { salt: new Uint8Array(e.salt) }),
         );
     }
-    function h(e) {
+    function y(e) {
       m.dbFinalKey.resolveWasCalled() || m.dbFinalKey.resolve(e);
     }
-    function y() {
+    function C() {
       m.jidsReady.resolveWasCalled() || m.jidsReady.resolve();
     }
-    function C() {
-      p || ((p = !0), self.setTimeout(b, d));
-    }
     function b() {
+      p || ((p = !0), self.setTimeout(v, d));
+    }
+    function v() {
       var e = [];
       (m.dbInit.resolveWasCalled() || e.push("dbInit"),
         m.jidsReady.resolveWasCalled() || e.push("jidsReady"),
@@ -85,12 +90,12 @@ __d(
             )
             .sendLogs("backend-worker-init-data-timeout"));
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield (u || (u = n("Promise"))).all([
               m.dbInit.promise,
               m.jidsReady.promise,
@@ -124,6 +129,11 @@ __d(
               socketState: l.socketState,
             },
           }),
+            m.suspiciousHostChecksModule.promise.then(function (t) {
+              e.fireAndForget("workerInit", "setSuspiciousHostChecksModule", {
+                wasmModule: t,
+              });
+            }),
             m.abProps.promise.then(function (t) {
               e.fireAndForget("workerInit", "setAbProps", {
                 abProps: _ != null ? _ : t,
@@ -133,15 +143,16 @@ __d(
               e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
             }));
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
     ((l.recordInitAbProps = f),
-      (l.recordInitDbInit = g),
-      (l.recordInitDbFinalKey = h),
-      (l.resolveJidsReady = y),
-      (l.startWorkerInitDataTimeout = C),
-      (l.sendInitState = v));
+      (l.recordInitSuspiciousHostChecksModule = g),
+      (l.recordInitDbInit = h),
+      (l.recordInitDbFinalKey = y),
+      (l.resolveJidsReady = C),
+      (l.startWorkerInitDataTimeout = b),
+      (l.sendInitState = S));
   },
   98,
 );

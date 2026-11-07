@@ -32,6 +32,7 @@ __d(
       },
       l = {
         ACTIVE_CALL: "activeCall",
+        ACTIVE_CALL_ID: "activeCallId",
         END_CALL_TONE: "endCallTone",
         SHOULD_SHOW_POST_CALL_SURVEY: "shouldShowPostCallSurvey",
         IS_IN_CONNECTED_CALL: "isInConnectedCall",
@@ -71,6 +72,7 @@ __d(
         isInWaitingRoom: "change:isInWaitingRoom",
         networkHealth: "change:networkHealth",
         activeCall: "change:activeCall",
+        activeCallId: "change:activeCallId",
         endCallTone: "change:endCallTone",
         shouldShowPostCallSurvey: "change:shouldShowPostCallSurvey",
         isInConnectedCall: "change:isInConnectedCall",

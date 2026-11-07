@@ -4,19 +4,42 @@ __d(
     "WABase64",
     "WALogger",
     "WAWap",
+    "WAWebABProps",
     "WAWebMLModelManager",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t, r) {
+    var e,
+      s = {
+        legacy: "handleIncomingSignalingOffer",
+        fromHeap: "handleIncomingSignalingOfferFromHeap",
+      },
+      u = {
+        legacy: "handleIncomingSignalingMessage",
+        fromHeap: "handleIncomingSignalingMessageFromHeap",
+      },
+      c = {
+        legacy: "handleIncomingSignalingAck",
+        fromHeap: "handleIncomingSignalingAckFromHeap",
+      },
+      d = {
+        legacy: "handleIncomingSignalingReceipt",
+        fromHeap: "handleIncomingSignalingReceiptFromHeap",
+      };
+    function m(t, r, a) {
+      function i(e, t, n, a) {
+        var i = o("WAWap").encodeStanza(t.node());
+        return r(function (t) {
+          return _(t, e, i, n, a);
+        });
+      }
       return {
         handleIncomingSignalingOffer: (function () {
-          var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (n, a, i, l, s, u, c, d, m) {
-              o("WAWebMLModelManager")
-                .initMLModelsForCall(yield r())
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, n, r, l, u, c, d, m, p) {
+              (o("WAWebMLModelManager")
+                .initMLModelsForCall(yield a())
                 .catch(function (t) {
                   o("WALogger").WARN(
                     e ||
@@ -26,97 +49,81 @@ __d(
                       ])),
                     t,
                   );
-                });
-              var p = n.node(),
-                _ = o("WABase64").encodeB64(o("WAWap").encodeStanza(p)),
-                f = l != null ? String(l) : "0",
-                g = s != null ? String(s) : "0";
-              yield t("handleIncomingSignalingOffer", {
-                b64Stanza: _,
-                msgPlatform: a,
-                msgVersion: i,
-                msgEStr: f,
-                msgTStr: g,
-                msgOffline: u,
-                isOfferNotContact: c,
-                peerJid: d,
-                tcToken: m,
-              });
+                }),
+                yield i(
+                  s,
+                  t,
+                  {
+                    msgPlatform: n,
+                    msgVersion: r,
+                    msgEStr: l != null ? String(l) : "0",
+                    msgTStr: u != null ? String(u) : "0",
+                    msgOffline: c,
+                    isOfferNotContact: d,
+                    peerJid: m,
+                  },
+                  p,
+                ));
             },
           );
-          function i(e, t, n, r, o, i, l, s, u) {
-            return a.apply(this, arguments);
+          function r(e, n, r, o, a, i, l, s, u) {
+            return t.apply(this, arguments);
           }
-          return i;
+          return r;
         })(),
         handleIncomingSignalingMessage: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = e.msgE,
-              r = e.msgOffline,
-              a = e.msgPlatform,
-              i = e.msgT,
-              l = e.msgVersion,
-              s = e.peerJid,
-              u = e.tcToken,
-              c = e.xmlNode,
-              d = c.node(),
-              m = o("WABase64").encodeB64(o("WAWap").encodeStanza(d)),
-              p = n != null ? String(n) : "0",
-              _ = i != null ? String(i) : "0";
-            yield t("handleIncomingSignalingMessage", {
-              b64Stanza: m,
-              msgPlatform: a,
-              msgVersion: l,
-              msgEStr: p,
-              msgTStr: _,
-              msgOffline: r,
-              peerJid: s,
-              tcToken: u,
-            });
+            var t = e.msgE,
+              n = e.msgOffline,
+              r = e.msgPlatform,
+              o = e.msgT,
+              a = e.msgVersion,
+              l = e.peerJid,
+              s = e.tcToken,
+              c = e.xmlNode;
+            yield i(
+              u,
+              c,
+              {
+                msgPlatform: r,
+                msgVersion: a,
+                msgEStr: t != null ? String(t) : "0",
+                msgTStr: o != null ? String(o) : "0",
+                msgOffline: n,
+                peerJid: l,
+              },
+              s,
+            );
           });
-          function r(t) {
+          function t(t) {
             return e.apply(this, arguments);
           }
-          return r;
+          return t;
         })(),
         handleIncomingSignalingAck: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = e.ackInfoError,
-              r = e.ackInfoType,
-              a = e.peerJid,
-              i = e.tcToken,
-              l = e.xmlNode,
-              s = l.node(),
-              u = o("WABase64").encodeB64(o("WAWap").encodeStanza(s));
-            yield t("handleIncomingSignalingAck", {
-              b64Stanza: u,
-              ackInfoError: n,
-              ackInfoType: r,
-              peerJid: a,
-              tcToken: i,
-            });
+            var t = e.ackInfoError,
+              n = e.ackInfoType,
+              r = e.peerJid,
+              o = e.tcToken,
+              a = e.xmlNode;
+            yield i(c, a, { ackInfoError: t, ackInfoType: n, peerJid: r }, o);
           });
-          function r(t) {
+          function t(t) {
             return e.apply(this, arguments);
           }
-          return r;
+          return t;
         })(),
         handleIncomingSignalingReceipt: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, n, r) {
-              var a = e.node(),
-                i = o("WABase64").encodeB64(o("WAWap").encodeStanza(a));
-              yield t("handleIncomingSignalingReceipt", {
-                b64Stanza: i,
-                peerJid: n,
-                tcToken: r,
-              });
+            function* (e, t, n) {
+              yield i(d, e, { peerJid: t }, n);
             },
           );
-          function r(t, n, r) {
+          function t(t, n, r) {
             return e.apply(this, arguments);
           }
-          return r;
+          return t;
         })(),
         resendOfferOnDecryptionFailure: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -145,7 +152,33 @@ __d(
         })(),
       };
     }
-    l.createWorkerProxySignalingCalls = s;
+    function p(e) {
+      var t = e.byteOffset === 0 && e.byteLength === e.buffer.byteLength;
+      return t ? e.buffer : e.slice().buffer;
+    }
+    function _(e, t, n, r, a) {
+      if (
+        e.incomingSignalingFromHeap &&
+        o("WAWebABProps").getABPropConfigValue(
+          "web_voip_incoming_stanza_from_heap",
+        )
+      ) {
+        var i = p(n);
+        return {
+          method: t.fromHeap,
+          args: babelHelpers.extends({}, r, { frame: i }),
+          transferList: [i],
+        };
+      }
+      return {
+        method: t.legacy,
+        args: babelHelpers.extends({}, r, {
+          b64Stanza: o("WABase64").encodeB64(n),
+          tcToken: a,
+        }),
+      };
+    }
+    l.createWorkerProxySignalingCalls = m;
   },
   98,
 );

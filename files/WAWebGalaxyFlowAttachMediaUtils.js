@@ -31,7 +31,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
             ),
             n = new (r("WAWebMsgKey"))({
               from: t,

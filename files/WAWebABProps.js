@@ -27,6 +27,7 @@ __d(
         "web_low_end_device_level",
         "wa_web_pre_chat_device_id_test",
         "falco_md_id_fix_web_enabled",
+        "web_vc_css_bg_scan_children_first",
       ],
       c = null,
       d = null;

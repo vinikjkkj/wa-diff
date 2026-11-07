@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchMetadataOperationEncoder",
-  ["WALogger"],
+  ["WALogger", "WAWebHatchBodyEncoding"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -85,17 +85,28 @@ __d(
               e,
           );
         })(t),
-        r = { version: 1, type: "req", payload: n };
+        r = o("WAWebHatchBodyEncoding").acceptedHatchResponseEncodings(),
+        a = r.length > 0,
+        i = {
+          version: 1,
+          type: "req",
+          payload: a ? babelHelpers.extends({}, n, { accepts_encoding: r }) : n,
+        },
+        l = new TextEncoder().encode(JSON.stringify(i)).buffer;
       return (
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-metadata: encoding req method=",
+              " bytes_bucket=",
+              " accepts=",
               "",
             ])),
           t.method,
+          o("WAWebHatchBodyEncoding").hatchSizeBucket(l.byteLength),
+          a ? r.join(",") : "none",
         ),
-        new TextEncoder().encode(JSON.stringify(r)).buffer
+        l
       );
     }
     l.encodeHatchRequest = s;

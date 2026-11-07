@@ -1053,32 +1053,39 @@ __d(
                     .catch(function (t) {
                       throw (e.$1(r("getErrorSafe")(t), "anyOf"), t);
                     }),
+                  a,
                 );
           }),
           (a.anyOfPrimaryKeys = function (t, a, i) {
             var e = this;
             return a.length === 0
               ? (d || (d = n("Promise"))).resolve([])
-              : o("WAWebDexieCastTypes")
-                  .dexieCastToPromise(
-                    o("WAWebIdbHelpers")
-                      .applyOptions(
-                        this.table
-                          .where(
-                            o("WAWebIdbHelpers").formatQueryIndex(
-                              t,
-                              this.tableColumns,
-                            ),
-                          )
-                          .anyOf(a),
-                        i,
-                      )
-                      .distinct()
-                      .primaryKeys(),
-                  )
-                  .catch(function (t) {
-                    throw (e.$1(r("getErrorSafe")(t), "anyOfPrimaryKeys"), t);
-                  });
+              : o("WAWebStorageCrashAnnotations").annotateCrashWithIdbRead(
+                  this.table,
+                  "anyOfPrimaryKeys",
+                  a.length,
+                  o("WAWebDexieCastTypes")
+                    .dexieCastToPromise(
+                      o("WAWebIdbHelpers")
+                        .applyOptions(
+                          this.table
+                            .where(
+                              o("WAWebIdbHelpers").formatQueryIndex(
+                                t,
+                                this.tableColumns,
+                              ),
+                            )
+                            .anyOf(a),
+                          i,
+                        )
+                        .distinct()
+                        .primaryKeys(),
+                    )
+                    .catch(function (t) {
+                      throw (e.$1(r("getErrorSafe")(t), "anyOfPrimaryKeys"), t);
+                    }),
+                  a,
+                );
           }),
           (a.inAnyRange = function (t, a, i) {
             var e = this;

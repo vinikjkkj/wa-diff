@@ -15,7 +15,7 @@ __d(
     function e(e) {
       return e.isLid()
         ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-        : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+        : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
     }
     function s(t, n) {
       return new (r("WAWebMsgKey"))({

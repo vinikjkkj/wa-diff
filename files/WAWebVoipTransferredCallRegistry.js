@@ -27,37 +27,51 @@ __d(
     }
     function d(t) {
       var n = e;
-      return n != null && n.callId === t && n.hasFailed;
+      n != null &&
+        n.callId === t &&
+        (e = babelHelpers.extends({}, n, { hasEnded: !1, hasFailed: !1 }));
     }
     function m(t) {
       var n = e;
-      return n != null && n.callId === t && !n.hasEnded;
+      return n != null && n.callId === t && n.hasFailed;
     }
     function p(t) {
-      var n;
-      return m(t) ? ((n = e) == null ? void 0 : n.root.rootCallId) : null;
+      var n = e;
+      return n != null && n.callId === t && !n.hasEnded;
     }
     function _(t) {
-      var n = e;
-      return m(t) && n != null ? n.startedAt : null;
+      var n;
+      return p(t) ? ((n = e) == null ? void 0 : n.root.rootCallId) : null;
     }
     function f(t) {
+      var n = e;
+      return p(t) && n != null ? n.startedAt : null;
+    }
+    function g(t, n) {
+      var r = e;
+      return r == null || r.callId !== t
+        ? !1
+        : ((e = babelHelpers.extends({}, r, { callId: n })), !0);
+    }
+    function h(t) {
       var n;
       t != null && ((n = e) == null ? void 0 : n.callId) === t && (e = null);
     }
-    function g(t) {
+    function y(t) {
       var n = e;
       return n != null && n.callId === t ? n.root : null;
     }
     ((l.registerTransferredCall = s),
       (l.markTransferredCallEnded = u),
       (l.markTransferredCallFailed = c),
-      (l.hasTransferredCallFailed = d),
-      (l.isTransferredCallLive = m),
-      (l.getLiveTransferredCallRootId = p),
-      (l.getLiveTransferredCallStartTime = _),
-      (l.unregisterTransferredCall = f),
-      (l.getTransferredCallRoot = g));
+      (l.clearTransferredCallEndMarks = d),
+      (l.hasTransferredCallFailed = m),
+      (l.isTransferredCallLive = p),
+      (l.getLiveTransferredCallRootId = _),
+      (l.getLiveTransferredCallStartTime = f),
+      (l.rekeyTransferredCall = g),
+      (l.unregisterTransferredCall = h),
+      (l.getTransferredCallRoot = y));
   },
   98,
 );

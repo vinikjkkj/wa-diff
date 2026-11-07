@@ -31,7 +31,7 @@ __d(
         : new Set();
     }
     function c() {
-      var e = o("react-compiler-runtime").c(5),
+      var e = o("react-compiler-runtime").c(9),
         t = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "enable_1on1_call_transfer_entry_point",
         ),
@@ -50,20 +50,30 @@ __d(
         : (a = e[0]);
       var i = r("useWAWebEventTargetValue")(r("WAWebCallCollection"), a, d),
         l;
+      e[1] !== (i == null ? void 0 : i.id)
+        ? ((l = function () {
+            return i == null ? void 0 : i.id;
+          }),
+          (e[1] = i == null ? void 0 : i.id),
+          (e[2] = l))
+        : (l = e[2]);
+      var s;
+      e[3] !== i ? ((s = [i]), (e[3] = i), (e[4] = s)) : (s = e[4]);
+      var u = r("useWAWebEventTargetValue")(i, "change:id", l, s),
+        c;
       return (
-        e[1] !== i || e[2] !== n || e[3] !== t
-          ? ((l = t ? p(n, i) : new Set()),
-            (e[1] = i),
-            (e[2] = n),
-            (e[3] = t),
-            (e[4] = l))
-          : (l = e[4]),
-        l
+        e[5] !== u || e[6] !== n || e[7] !== t
+          ? ((c = t ? p(n, u) : new Set()),
+            (e[5] = u),
+            (e[6] = n),
+            (e[7] = t),
+            (e[8] = c))
+          : (c = e[8]),
+        c
       );
     }
     function d() {
-      var e;
-      return (e = r("WAWebCallCollection").activeCall) == null ? void 0 : e.id;
+      return r("WAWebCallCollection").activeCall;
     }
     function m() {
       return o(

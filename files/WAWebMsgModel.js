@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
+    "WAUrlSpoofChecksWasmInstance",
     "WAWebAck",
     "WAWebBackendRuntime",
     "WAWebBaseModel",
@@ -548,6 +549,10 @@ __d(
             (e.memberLabelData = o("WAWebBaseModel").prop()),
             (e.hatchMetadataSync = o("WAWebBaseModel").prop(null)),
             (e.musicArtwork = o("WAWebBaseModel").prop()),
+            (e.suspiciousHostChecksInitialized = o("WAWebBaseModel").session(
+              o("WAUrlSpoofChecksWasmInstance")
+                .isSuspiciousHostChecksInitialized,
+            )),
             (e.$MsgImpl$p_3 = o("WAWebBaseModel").session(function () {
               return [];
             })),

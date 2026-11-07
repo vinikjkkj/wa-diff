@@ -1,6 +1,6 @@
 __d(
   "WAWebBotUnifiedResponseGating",
-  ["WAWebABProps"],
+  ["WAWebABProps", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
@@ -30,6 +30,9 @@ __d(
       );
     }
     function m() {
+      return r("justknobx")._("7352");
+    }
+    function p() {
       return !0;
     }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
@@ -37,7 +40,8 @@ __d(
       (l.isAiRichResponseForwardingSenderEnabled = u),
       (l.isUnifiedResponseSendingEnabled = c),
       (l.isUnifiedResponseMutationEnabled = d),
-      (l.isFoABloksNodeRendererEnabled = m));
+      (l.isInlineImageNodeRendererEnabled = m),
+      (l.isFoABloksNodeRendererEnabled = p));
   },
   98,
 );

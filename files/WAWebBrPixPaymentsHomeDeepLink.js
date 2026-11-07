@@ -2,6 +2,7 @@ __d(
   "WAWebBrPixPaymentsHomeDeepLink",
   [
     "JSResourceForInteraction",
+    "WALogger",
     "WAPhoneFindCC",
     "WAWebBizFrontendGatingUtils",
     "WAWebCmd",
@@ -13,49 +14,60 @@ __d(
     "WAWebPaymentsGatingUtils",
     "WAWebPrimaryFeaturesModel",
     "WAWebUserPrefsMeUser",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = null;
-    function c() {
-      if ((d(), !m())) return !1;
+      s,
+      u = s || (s = o("react")),
+      c = null,
+      d = 0;
+    function m(e) {
+      if ((_(), !f())) return !1;
       if (o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled())
-        return (p(), !0);
+        return (g(e), !0);
       if (
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
           .customPaymentMethodsSyncSupport
       )
         return !1;
-      var e = function () {
+      var t = function () {
         (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.off(
           "change:features",
-          e,
+          t,
         ),
           queueMicrotask(function () {
-            u === e &&
-              (d(),
-              m() &&
+            c === t &&
+              (_(),
+              f() &&
                 o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled() &&
-                p());
+                g(e));
           }));
       };
       return (
-        (u = e),
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.on("change:features", e),
+        (c = t),
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.on("change:features", t),
         !1
       );
     }
-    function d() {
-      u != null &&
-        (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.off(
-          "change:features",
-          u,
-        ),
-        (u = null));
+    function p() {
+      _();
+      var e = d;
+      return function () {
+        return d === e;
+      };
     }
-    function m() {
+    function _() {
+      (d++,
+        c != null &&
+          (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.off(
+            "change:features",
+            c,
+          ),
+          (c = null)));
+    }
+    function f() {
       var e, t;
       return (
         o("WAPhoneFindCC").findCC(
@@ -68,28 +80,45 @@ __d(
         ) === "55" && o("WAWebPaymentsGatingUtils").paymentsHomeEnabled()
       );
     }
-    function p() {
+    function g(t) {
       (o("WAWebCmd").Cmd.closeStatusViewer(),
-        o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-          s.jsx(f, { isInitialStep: !0, referral: "deeplink" }),
-          { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
-        ));
+        o("WAWebDrawerManager")
+          .DrawerManager.openDrawerLeftAsync(
+            u.jsx(y, { isInitialStep: !0, referral: "deeplink" }),
+            { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
+          )
+          .then(function (e) {
+            e && (t == null || t());
+          })
+          .catch(function (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "br_pix_payments_home_deeplink: onOpened failed: ",
+                    "",
+                  ])),
+                r("getErrorSafe")(t).name,
+              )
+              .sendLogs("br-pix-payments-home-deeplink-on-opened-failed");
+          }));
     }
-    var _ = r("WAWebLazyLoadedRetriable")(function () {
+    var h = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")(
           "WAWebBizPaymentsHomeManagementFlow.react",
         )
           .__setRef("WAWebBrPixPaymentsHomeDeepLink")
           .load();
       }, "BrPixPaymentsHome"),
-      f = r("WAWebLoadable")({
-        loader: _,
+      y = r("WAWebLoadable")({
+        loader: h,
         loading: function (t) {
-          return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
+          return u.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
         },
       });
-    ((l.openBrPixPaymentsHomeDeepLink = c),
-      (l.cancelPendingBrPixPaymentsHomeDeepLink = d));
+    ((l.openBrPixPaymentsHomeDeepLink = m),
+      (l.reserveBrPixPaymentsHomeDeepLink = p),
+      (l.cancelPendingBrPixPaymentsHomeDeepLink = _));
   },
   98,
 );

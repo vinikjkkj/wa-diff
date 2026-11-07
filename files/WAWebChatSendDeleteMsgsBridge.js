@@ -39,6 +39,7 @@ __d(
                 "chat",
                 "reporting-info",
                 "message-association",
+                "quarantine-data",
               ],
               u,
               function () {

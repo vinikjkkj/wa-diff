@@ -4,6 +4,7 @@ __d(
     "WAComms",
     "WALogger",
     "WAWebLocalStorage",
+    "WAWebOfflineSyncQplSession",
     "WAWebUnpairDeviceJob",
     "WAWebUserPrefsKeys",
     "getErrorSafe",
@@ -44,6 +45,9 @@ __d(
                   "",
                 ])),
               t.status,
+            ),
+            o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(
+              o("WAWebOfflineSyncQplSession").SocketCloseReason.ClientLogout,
             ),
             o("WAComms").stopComms());
         })

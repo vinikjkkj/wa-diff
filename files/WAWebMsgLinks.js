@@ -2,6 +2,7 @@ __d(
   "WAWebMsgLinks",
   [
     "WAUnicodeUtils",
+    "WAUrlSpoofChecksWasmInstance",
     "WAWebFrontendMsgGetters",
     "WAWebLinkify",
     "WAWebMsgGetters",
@@ -12,35 +13,113 @@ __d(
     "WAWebSpoilerGating",
     "WAWebSpoilerNotificationMask",
     "WAWebStateUtils",
+    "WAWebSuspiciousLinkMetrics",
+    "justknobx",
     "uniqueBy",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = new WeakSet(),
+      s = new WeakMap(),
+      u = 1e3;
+    function c(t) {
+      if (
+        !(
+          !r("justknobx")._("7345") ||
+          !o(
+            "WAUrlSpoofChecksWasmInstance",
+          ).isSuspiciousHostChecksInitialized() ||
+          e.has(t)
+        )
+      ) {
+        e.add(t);
+        try {
+          var n = d(t);
+          if (!n) {
+            e.delete(t);
+            return;
+          }
+          t.suspiciousHostChecksInitialized = !0;
+        } catch (n) {
+          (e.delete(t),
+            o("WAWebSuspiciousLinkMetrics").recordSuspiciousLinkMetric(
+              "cache-exception",
+            ),
+            o("WAWebLinkify").logSuspiciousHostCheckFailure(n));
+        }
+      }
+    }
+    function d(e) {
+      var t = o("WAWebMsgGetters").getSender(e) != null,
+        n = !0,
+        r = Date.now(),
+        a = function (a) {
+          var e = a;
+          return (
+            a.forEach(function (i, l) {
+              var c = s.get(i),
+                d = i;
+              ((c == null || c.domain !== i.domain || r >= c.retryAt) &&
+                ((d = o("WAWebLinkify").classifyLinkBestEffort(i, t)),
+                s.set(d, {
+                  domain: d.domain,
+                  retryAt: d.suspiciousHostChecksPending === !0 ? r + u : 1 / 0,
+                }),
+                e === a && (e = a.slice()),
+                (e[l] = d)),
+                (n = n && d.suspiciousHostChecksPending !== !0));
+            }),
+            e
+          );
+        },
+        i = a(e.getRawLinks());
+      i !== e.getRawLinks() && e.setRawLinks(i);
+      var l = a(e.getRawHeaderLinks());
+      l !== e.getRawHeaderLinks() && e.setRawHeaderLinks(l);
+      var c = a(e.getRawFooterLinks());
+      c !== e.getRawFooterLinks() && e.setRawFooterLinks(c);
+      var d = e.getRawPollOptionsToLinks();
+      if (d != null) {
+        var m = new Map(
+          Array.from(d, function (e) {
+            var t = e[0],
+              n = e[1];
+            return [t, a(n)];
+          }),
+        );
+        Array.from(m).some(function (e) {
+          var t = e[0],
+            n = e[1];
+          return n !== d.get(t);
+        }) && e.setRawPollOptionsToLinks(m);
+      }
+      return n;
+    }
+    function m(e) {
       var t = e.content,
         n = e.sender,
         r = e.cachedValue,
         a = r === void 0 ? [] : r,
         i = e.currentIndex,
         l = i === void 0 ? 0 : i,
-        u = e.endIndex,
-        c = u === void 0 ? 1 / 0 : u;
-      if (l >= c) return [a, c];
-      var d = o("WAUnicodeUtils").firstNCodepoints(t, c),
-        m = !1,
-        p = o("WAWebLinkify").findLinks(d, m, n);
+        s = e.endIndex,
+        u = s === void 0 ? 1 / 0 : s;
+      if (l >= u) return [a, u];
+      var c = o("WAUnicodeUtils").firstNCodepoints(t, u),
+        d = !1,
+        m = o("WAWebLinkify").findLinks(c, d, n);
       return (
-        p.length > 0 &&
-          (p = s({
-            endIndex: c,
+        m.length > 0 &&
+          (m = p({
+            endIndex: u,
             fullText: t,
-            links: p,
+            links: m,
             sender: n,
-            truncatedText: d,
+            truncatedText: c,
           })),
-        [p, c]
+        [m, u]
       );
     }
-    var s = function (t) {
+    var p = function (t) {
       var e = t.endIndex,
         n = t.fullText,
         r = t.links,
@@ -71,55 +150,56 @@ __d(
       }
       return r;
     };
-    function u(t, n, r) {
-      var o = e({ content: t, sender: n, endIndex: r }),
-        a = o[0];
-      return a;
+    function _(e, t, n) {
+      var r = m({ content: e, sender: t, endIndex: n }),
+        o = r[0];
+      return o;
     }
-    function c(t, n) {
-      var r = o("WAWebStateUtils").unproxy(t),
-        a =
-          n != null
-            ? n
-            : r.linksIndexParsed
-              ? r.linksIndexParsed
-              : o("WAWebMsgGetters").getInitialPageSize(r) + 1,
-        i = o("WAWebFrontendMsgGetters").getText(r);
-      if (i == null || r.linksIndexParsed === 1 / 0) return r.getRawLinks();
-      var l = e({
-          content: i,
-          sender: o("WAWebMsgGetters").getSender(r),
-          cachedValue: r.getRawLinks(),
-          currentIndex: r.linksIndexParsed,
-          endIndex: a,
+    function f(e, t) {
+      var n = o("WAWebStateUtils").unproxy(e);
+      c(n);
+      var r =
+          t != null
+            ? t
+            : n.linksIndexParsed
+              ? n.linksIndexParsed
+              : o("WAWebMsgGetters").getInitialPageSize(n) + 1,
+        a = o("WAWebFrontendMsgGetters").getText(n);
+      if (a == null || n.linksIndexParsed === 1 / 0) return n.getRawLinks();
+      var i = m({
+          content: a,
+          sender: o("WAWebMsgGetters").getSender(n),
+          cachedValue: n.getRawLinks(),
+          currentIndex: n.linksIndexParsed,
+          endIndex: r,
         }),
-        s = l[0],
-        u = l[1];
-      return ((r.linksIndexParsed = u), r.setRawLinks(s), s);
+        l = i[0],
+        s = i[1];
+      return ((n.linksIndexParsed = s), n.setRawLinks(l), l);
     }
-    function d(t, n) {
-      var r,
-        a = o("WAWebStateUtils").unproxy(t);
-      if (a.pollOptions == null) return null;
-      if (a.getRawPollOptionsToLinks() == null) {
-        var i,
-          l = new Map(
-            (i = a.pollOptions) == null
+    function g(e, t) {
+      var n,
+        r = o("WAWebStateUtils").unproxy(e);
+      if ((c(r), r.pollOptions == null)) return null;
+      if (r.getRawPollOptionsToLinks() == null) {
+        var a,
+          i = new Map(
+            (a = r.pollOptions) == null
               ? void 0
-              : i.map(function (t) {
-                  var n = e({
-                      content: t.name,
-                      sender: o("WAWebMsgGetters").getSender(a),
+              : a.map(function (e) {
+                  var t = m({
+                      content: e.name,
+                      sender: o("WAWebMsgGetters").getSender(r),
                     }),
-                    r = n[0];
-                  return [t, r];
+                    n = t[0];
+                  return [e, n];
                 }),
           );
-        a.setRawPollOptionsToLinks(l);
+        r.setRawPollOptionsToLinks(i);
       }
-      return (r = a.getRawPollOptionsToLinks()) == null ? void 0 : r.get(n);
+      return (n = r.getRawPollOptionsToLinks()) == null ? void 0 : n.get(t);
     }
-    function m(e, t) {
+    function h(e, t) {
       if (t) {
         var n, r;
         return (
@@ -132,51 +212,52 @@ __d(
       }
       return e.isDynamicReplyButtonsMsg === !0 && e.title != null;
     }
-    function p(t, n) {
-      if (t.getRawHeaderLinks().length > 0) return t.getRawHeaderLinks();
-      var r = e({
-          content: n,
-          sender: o("WAWebMsgGetters").getSender(t),
-          cachedValue: t.getRawHeaderLinks(),
+    function y(e, t) {
+      if (e.getRawHeaderLinks().length > 0) return e.getRawHeaderLinks();
+      var n = m({
+          content: t,
+          sender: o("WAWebMsgGetters").getSender(e),
+          cachedValue: e.getRawHeaderLinks(),
         }),
-        a = r[0];
-      return (a.length > 0 && t.setRawHeaderLinks(a), a);
+        r = n[0];
+      return (r.length > 0 && e.setRawHeaderLinks(r), r);
     }
-    function _(e) {
+    function C(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
-      if (m(n, !0)) {
+      if ((c(n), h(n, !0))) {
         var r;
-        return p(n, ((r = n.list) == null ? void 0 : r.title) || "");
+        return y(n, ((r = n.list) == null ? void 0 : r.title) || "");
       } else {
-        if (m(n, !1)) return p(n, n.title);
+        if (h(n, !1)) return y(n, n.title);
         if (
           n.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
           ((t = n.interactiveHeader) == null ? void 0 : t.title) != null
         )
-          return p(n, n.interactiveHeader.title);
+          return y(n, n.interactiveHeader.title);
       }
       return [];
     }
-    function f(t) {
-      var n = o("WAWebStateUtils").unproxy(t),
-        r = n.footer;
-      if (!o("WAWebMsgGetters").getSupportsMessageFooterLinks(n) || r == null)
+    function b(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      c(t);
+      var n = t.footer;
+      if (!o("WAWebMsgGetters").getSupportsMessageFooterLinks(t) || n == null)
         return [];
-      if (n.getRawFooterLinks().length > 0) return n.getRawFooterLinks();
-      var a = e({
-          content: r,
-          sender: o("WAWebMsgGetters").getSender(n),
-          cachedValue: n.getRawFooterLinks(),
+      if (t.getRawFooterLinks().length > 0) return t.getRawFooterLinks();
+      var r = m({
+          content: n,
+          sender: o("WAWebMsgGetters").getSender(t),
+          cachedValue: t.getRawFooterLinks(),
         }),
-        i = a[0];
-      return (i.length > 0 && n.setRawFooterLinks(i), i);
+        a = r[0];
+      return (a.length > 0 && t.setRawFooterLinks(a), a);
     }
-    var g = new WeakMap();
-    function h(e) {
+    var v = new WeakMap();
+    function S(e) {
       var t = o("WAWebStateUtils").unproxy(e),
-        n = c(t),
-        r = v(t, n),
+        n = f(t),
+        r = k(t, n),
         a = o("WAWebMsgGetters").getLinkPreview(t),
         i = o("WAWebFrontendMsgGetters").getText(t);
       if (
@@ -191,12 +272,12 @@ __d(
           shouldRenderMessageBubble: a,
           unfilteredGalleryLinks: r,
         };
-      var l = C(t, i),
+      var l = L(t, i),
         s = n.filter(function (e) {
           return l.get(e.index) === e.href;
         }),
         u = o("WAWebMsgGetters").getMatchedText(t),
-        d = o("WAWebFrontendMsgGetters")
+        c = o("WAWebFrontendMsgGetters")
           .getLinksInFullText(t)
           .find(function (e) {
             return (
@@ -205,22 +286,22 @@ __d(
               e.href === u
             );
           }),
-        m = y(a, u, d, l),
-        p = v(t, s),
-        _ = r.length > 0 && p.length === 0;
+        d = R(a, u, c, l),
+        m = k(t, s),
+        p = r.length > 0 && m.length === 0;
       return {
-        galleryLinks: p,
-        isLinkPreviewHidden: m,
-        shouldRenderMessageBubble: a || _,
+        galleryLinks: m,
+        isLinkPreviewHidden: d,
+        shouldRenderMessageBubble: a || p,
         unfilteredGalleryLinks: r,
       };
     }
-    function y(e, t, n, r) {
+    function R(e, t, n, r) {
       return t === "" ? e : n == null || r.get(n.index) !== n.href;
     }
-    function C(e, t) {
+    function L(e, t) {
       var n = o("WAWebMsgGetters").getSender(e),
-        r = g.get(e);
+        r = v.get(e);
       if (r != null && r.text === t && r.sender === n)
         return r.visibleLinkHrefsByIndex;
       var a = o("WAWebSpoilerNotificationMask").maskSpoilersPreservingLength(
@@ -234,13 +315,13 @@ __d(
               return [e.index, e.href];
             }),
         );
-      return (g.set(e, { sender: n, text: t, visibleLinkHrefsByIndex: i }), i);
+      return (v.set(e, { sender: n, text: t, visibleLinkHrefsByIndex: i }), i);
     }
-    function b(e) {
+    function E(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return v(t, c(t));
+      return k(t, f(t));
     }
-    function v(e, t) {
+    function k(e, t) {
       if (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
         var n = o(
           "WAWebMuseGroupRichResponseLinks",
@@ -253,21 +334,21 @@ __d(
         return e.isHttp;
       });
     }
-    function S(e) {
+    function I(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return (
-        c(t).length > 0 ||
+        f(t).length > 0 ||
         (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           o(
             "WAWebMuseGroupRichResponseLinks",
           ).getMuseGroupRichResponseGalleryLinks(t).length > 0)
       );
     }
-    function R(e) {
+    function T(e) {
       var t = o("WAWebStateUtils").unproxy(e);
-      return t.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE || S(t);
+      return t.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE || I(t);
     }
-    function L(e) {
+    function D(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return o("WAWebFrontendMsgGetters")
         .getLinksInFullText(t)
@@ -276,18 +357,19 @@ __d(
           return (t = e.suspiciousCharacters) == null ? void 0 : t.size;
         });
     }
-    ((l.getLinksFromMsgImpl = e),
-      (l.getLinksFromText = u),
-      (l.getLinksFromMsg = c),
-      (l.getPollOptionLinks = d),
-      (l.shouldDisplayHeaderLinks = m),
-      (l.getHeaderLinks = _),
-      (l.getFooterLinks = f),
-      (l.getLinkGalleryRenderState = h),
-      (l.getGalleryLinks = b),
-      (l.hasLinkGalleryLinks = S),
-      (l.shouldListLinkIndexMsg = R),
-      (l.getSuspiciousLinks = L));
+    ((l.refreshSuspiciousLinkClassification = c),
+      (l.getLinksFromMsgImpl = m),
+      (l.getLinksFromText = _),
+      (l.getLinksFromMsg = f),
+      (l.getPollOptionLinks = g),
+      (l.shouldDisplayHeaderLinks = h),
+      (l.getHeaderLinks = C),
+      (l.getFooterLinks = b),
+      (l.getLinkGalleryRenderState = S),
+      (l.getGalleryLinks = E),
+      (l.hasLinkGalleryLinks = I),
+      (l.shouldListLinkIndexMsg = T),
+      (l.getSuspiciousLinks = D));
   },
   98,
 );

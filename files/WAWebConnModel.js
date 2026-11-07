@@ -103,7 +103,7 @@ __d(
               ).commit());
         }),
         (i.shouldSaveToCache = function () {
-          return !!o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() && !!this.id;
+          return o("WAWebUserPrefsMeUser").hasLoggedIn() && !!this.id;
         }),
         a
       );

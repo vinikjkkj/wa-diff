@@ -7,57 +7,56 @@ __d(
       s = [".facebook.com", ".fbcdn.net", ".whatsapp.net"],
       u = /[^!-~]|[@\\]/;
     function c(e, t) {
-      var n;
       if (!o("WAWebHatchJsonReaders").isObject(e)) return null;
-      var r =
-          (n = o("WAWebHatchJsonReaders").readArray(e, "accounts")) != null
-            ? n
-            : [e],
-        a = d(r, t);
-      return { accounts: a, groups: _(e, a) };
+      var n = o("WAWebHatchJsonReaders").readArray(e, "accounts"),
+        r = d(n != null ? n : [e], t, n != null);
+      return { accounts: r, groups: _(e, r) };
     }
-    function d(e, t) {
-      var n = [],
-        r = new Set();
-      for (var o of e) {
-        var a = m(o, t);
-        a != null && !r.has(a.id) && (r.add(a.id), n.push(a));
+    function d(e, t, n) {
+      var r = [],
+        o = new Set();
+      for (var a of e) {
+        var i = m(a, t, n);
+        i != null && !o.has(i.id) && (o.add(i.id), r.push(i));
       }
-      return n;
+      return r;
     }
-    function m(t, n) {
-      var r,
-        a,
+    function m(t, n, r) {
+      var a,
         i,
         l,
         s,
-        u = o("WAWebHatchFirstPartyConnectors").getHatchFoaAppConfig(n),
-        c =
-          (r =
-            (a = o("WAWebHatchJsonReaders").readString(t, u.idField)) != null
-              ? a
-              : o("WAWebHatchJsonReaders").readString(t, "user_fbid")) != null
-            ? r
-            : o("WAWebHatchJsonReaders").readString(t, "id");
-      return c == null || !e.test(c)
+        u,
+        c = o("WAWebHatchFirstPartyConnectors").getHatchFoaAppConfig(n),
+        d =
+          (a =
+            (i =
+              (l = o("WAWebHatchJsonReaders").readString(t, c.idField)) != null
+                ? l
+                : o("WAWebHatchJsonReaders").readString(t, "user_fbid")) != null
+              ? i
+              : o("WAWebHatchJsonReaders").readString(t, "id")) != null
+            ? a
+            : n === "facebook"
+              ? o("WAWebHatchJsonReaders").readString(t, "profile_id")
+              : null;
+      return d == null || !e.test(d)
         ? null
         : {
-            avatarUrl: p(t, u.avatarField),
+            avatarUrl: p(t, c.avatarField),
             connected:
-              (i = o("WAWebHatchJsonReaders").readBool(t, "connected")) != null
-                ? i
-                : !1,
-            id: c,
+              r && o("WAWebHatchJsonReaders").readBool(t, "connected") === !0,
+            id: d,
             name:
-              (l =
-                (s = o("WAWebHatchJsonReaders").trimToNull(
-                  o("WAWebHatchJsonReaders").readTrimmedString(t, u.nameField),
+              (s =
+                (u = o("WAWebHatchJsonReaders").trimToNull(
+                  o("WAWebHatchJsonReaders").readTrimmedString(t, c.nameField),
                 )) != null
-                  ? s
+                  ? u
                   : o("WAWebHatchJsonReaders").trimToNull(
                       o("WAWebHatchJsonReaders").readTrimmedString(t, "name"),
                     )) != null
-                ? l
+                ? s
                 : o("WAWebHatchJsonReaders").trimToNull(
                     o("WAWebHatchJsonReaders").readTrimmedString(t, "username"),
                   ),

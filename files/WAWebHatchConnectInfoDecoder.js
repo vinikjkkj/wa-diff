@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchConnectInfoDecoder",
-  ["WAWebHatchConnectorsListDecoder", "WAWebHatchJsonReaders"],
+  ["WAWebHatchJsonReaders"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Set(["api_key", "consent_only", "foa_auth", "oauth"]);
@@ -11,16 +11,7 @@ __d(
             ? t
             : e,
         r = d(o("WAWebHatchJsonReaders").readObject(n, "action"));
-      return r == null
-        ? null
-        : {
-            action: r,
-            consent: o(
-              "WAWebHatchConnectorsListDecoder",
-            ).decodeHatchConnectConsent(
-              o("WAWebHatchJsonReaders").readObject(n, "consent"),
-            ),
-          };
+      return r == null ? null : { action: r };
     }
     function u(e) {
       var t, n;

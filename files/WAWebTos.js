@@ -258,11 +258,11 @@ __d(
                     this.$TosManagerImpl$p_9(this.$TosManagerImpl$p_4())
                       .length > 0
                   ) {
-                    var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+                    var n = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
                     (yield o("WAPromiseDelays").delayMs(
                       this.$TosManagerImpl$p_2,
                     ),
-                      o("WAWebUserPrefsMeUser").getMaybeMePnUser() === n &&
+                      o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser() === n &&
                         this.run());
                   }
                 }
@@ -276,7 +276,7 @@ __d(
           (i.$TosManagerImpl$p_8 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this;
-              if (o("WAWebUserPrefsMeUser").getMaybeMePnUser()) {
+              if (o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()) {
                 var t = yield (p || (p = n("Promise"))).all([
                     this.$TosManagerImpl$p_10(),
                     this.$TosManagerImpl$p_11(),
@@ -437,7 +437,7 @@ __d(
           })()),
           (i.$TosManagerImpl$p_13 = function (t) {
             var e = this;
-            if (o("WAWebUserPrefsMeUser").getMaybeMePnUser()) {
+            if (o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()) {
               var n = this.$TosManagerImpl$p_3().map(function (t) {
                 return e.getState(t);
               });

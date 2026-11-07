@@ -258,9 +258,9 @@ __d(
         e.remote.isGroup() &&
         !(
           (n = e.participant) != null &&
-          n.equals(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE())
+          n.equals(o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow())
         ) &&
-        !t.equals(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE())
+        !t.equals(o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow())
       );
     }
     function S(e) {
@@ -544,7 +544,7 @@ __d(
                 .sendLogs("translate-msg-key-non-lid-author"));
             var b =
               C || !((h = n.author) != null && h.isLid())
-                ? o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()
+                ? o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow()
                 : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
             c = b;
           }

@@ -349,14 +349,15 @@ __d(
         Max: 183,
       }),
       b = s({ Terminal: 0, Retryable: 1, Timeout: 2 }),
-      v = s({
+      v = s({ AutoConnect: 0, LobbySwitch: 1, Transfer: 2 }),
+      S = s({
         Unknown: 0,
         AudioCapture: 1,
         AudioPlayback: 2,
         VideoCapture: 4,
         DesktopCapture: 8,
       }),
-      S = s({
+      R = s({
         Disabled: 0,
         Enabled: 1,
         Paused: 2,
@@ -371,7 +372,7 @@ __d(
         UpgradeRequestV2: 11,
         Error: 20,
       }),
-      R = s({
+      L = s({
         Unknown: 0,
         ParticipantAllocationFailure: 1,
         SetupError: 2,
@@ -382,7 +383,7 @@ __d(
         NoSamplingRatesForAudioRecord: 7,
         AudioInitError: 8,
       }),
-      L = s({
+      E = s({
         LosingPlaybackCallback: 0,
         LosingRecordCallback: 1,
         SlowPlaybackCallback: 2,
@@ -393,22 +394,22 @@ __d(
         FastPlaybackCallback: 7,
         FastRecordCallback: 8,
       }),
-      E = s({ Display: 1, Clear: 2, Max: 3 }),
-      k = s({ NotSupported: 0, Started: 1, Stopped: 2, Failed: 3 }),
-      I = s({
+      k = s({ Display: 1, Clear: 2, Max: 3 }),
+      I = s({ NotSupported: 0, Started: 1, Stopped: 2, Failed: 3 }),
+      T = s({
         None: 0,
         NotSupported: 1,
         TakeOver: 2,
         MaxParticipantsExceeded: 3,
       }),
-      T = s({
+      D = s({
         None: 0,
         PoorNetwork: 1,
         LowDataUsageSetting: 2,
         BatterySave: 3,
       }),
-      D = s({ Self: 2, MicPermissionDenied: 5, CameraPermissionDenied: 6 }),
-      x = s({
+      x = s({ Self: 2, MicPermissionDenied: 5, CameraPermissionDenied: 6 }),
+      $ = s({
         VersionInvalid: -1,
         VersionLegacy: 0,
         Version1: 1,
@@ -416,14 +417,14 @@ __d(
         Version3: 3,
         Version4: 4,
       }),
-      $ = s({
+      P = s({
         Text: 0,
         NoIndicator: 1,
         SpinnerV1: 2,
         SpinnerV2: 3,
         NoSpinner: 4,
       }),
-      P = s({
+      N = s({
         Measuring: 0,
         NoNetwork: 1,
         Poor: 2,
@@ -431,16 +432,16 @@ __d(
         Good: 4,
         Max: 5,
       }),
-      N = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
-      M = s({
+      M = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
+      w = s({
         None: 0,
         QuerySent: 1,
         QueryAcked: 2,
         JoinSent: 3,
         JoinAcked: 4,
       }),
-      w = s({ RelayBindsFailed: "relay_binds_failed" }),
-      A = s({
+      A = s({ RelayBindsFailed: "relay_binds_failed" }),
+      F = s({
         Legacy: 0,
         CallLinkJoinedCreator: 1,
         CallLinkJoinedJoiner: 2,
@@ -449,18 +450,18 @@ __d(
         WaitingRoomJoined: 5,
         WaitingRoomMultipleJoined: 6,
       }),
-      F = s({ Unknown: 0, Guest: 1 }),
-      O = "guest";
-    function B(e) {
-      return e === O ? F.Guest : F.Unknown;
+      O = s({ Unknown: 0, Guest: 1 }),
+      B = "guest";
+    function W(e) {
+      return e === B ? O.Guest : O.Unknown;
     }
-    var W = s({ None: 0, GuestsOnly: 1 }),
-      q = "guests_only";
-    function U(e) {
-      return e === q ? W.GuestsOnly : W.None;
+    var q = s({ None: 0, GuestsOnly: 1 }),
+      U = "guests_only";
+    function V(e) {
+      return e === U ? q.GuestsOnly : q.None;
     }
-    var V = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
-      H = s({
+    var H = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
+      G = s({
         Unknown: 0,
         Android: 1,
         IPhone: 2,
@@ -490,28 +491,29 @@ __d(
       (l.getSyncParticipantCallResultFromParticipantState = y),
       (l.CallEvent = C),
       (l.CallTransferFailure = b),
-      (l.DeviceTypeEnum = v),
-      (l.VideoState = S),
-      (l.CallFatalReasonCode = R),
-      (l.CallAudioRestartReason = L),
-      (l.ReactionState = E),
-      (l.ScreenShareState = k),
-      (l.ScreenShareEndReason = I),
-      (l.CameraAutoOffReason = T),
-      (l.RejectEndReason = D),
-      (l.ScreenShareVersion = x),
-      (l.ReconnectingOption = $),
-      (l.NetHealthStatus = P),
-      (l.CallUserType = N),
-      (l.CallLinkState = M),
-      (l.CallFailedReason = w),
-      (l.ServerReminderType = A),
-      (l.AccountKind = F),
-      (l.wireStringToAccountKind = B),
-      (l.WaitingRoomFilter = W),
-      (l.wireStringToWaitingRoomFilter = U),
-      (l.UiViewMode = V),
-      (l.ClientPlatform = H));
+      (l.CallAutoSwitchReason = v),
+      (l.DeviceTypeEnum = S),
+      (l.VideoState = R),
+      (l.CallFatalReasonCode = L),
+      (l.CallAudioRestartReason = E),
+      (l.ReactionState = k),
+      (l.ScreenShareState = I),
+      (l.ScreenShareEndReason = T),
+      (l.CameraAutoOffReason = D),
+      (l.RejectEndReason = x),
+      (l.ScreenShareVersion = $),
+      (l.ReconnectingOption = P),
+      (l.NetHealthStatus = N),
+      (l.CallUserType = M),
+      (l.CallLinkState = w),
+      (l.CallFailedReason = A),
+      (l.ServerReminderType = F),
+      (l.AccountKind = O),
+      (l.wireStringToAccountKind = W),
+      (l.WaitingRoomFilter = q),
+      (l.wireStringToWaitingRoomFilter = V),
+      (l.UiViewMode = H),
+      (l.ClientPlatform = G));
   },
   98,
 );

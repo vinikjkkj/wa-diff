@@ -14,57 +14,67 @@ __d(
     function e(e) {
       var t,
         n,
-        r = e.contact,
-        a = o("WAWebChatGetters").getIsGroup(e),
-        i = o("WAWebChatGetters").getIsNewsletter(e),
-        l = o("WAWebChatGetters").getIsBroadcast(e),
-        s = o("WAWebFrontendChatGetters").getGroupMetadata(e),
-        u =
-          a &&
-          ((t = s == null ? void 0 : s.participants.length) != null ? t : 0) ===
+        r = o("WAWebChatGetters").getIsGroup(e),
+        a = o("WAWebFrontendChatGetters").getGroupMetadata(e),
+        i =
+          r &&
+          ((t = a == null ? void 0 : a.participants.length) != null ? t : 0) ===
             1,
-        d =
-          a &&
-          ((s == null ? void 0 : s.participants.iAmMember()) !== !0 ||
-            ((s == null ? void 0 : s.announce) === !0 &&
+        l =
+          !c(e) ||
+          (r &&
+            (((a == null ? void 0 : a.announce) === !0 &&
               !(
-                (n = s == null ? void 0 : s.participants.iAmAdmin()) != null &&
+                (n = a == null ? void 0 : a.participants.iAmAdmin()) != null &&
                 n
               )) ||
-            (s == null ? void 0 : s.isSuspendedOrTerminated()) === !0 ||
-            u),
-        m = (s == null ? void 0 : s.hasCapi) === !0,
-        p =
-          c(r) &&
-          o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(s) !==
-            o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-          !m &&
-          !i &&
-          !d &&
-          !l;
-      return { shouldShow: p, shouldDisableStartCall: d };
+              i)),
+        s = u(e) && !l;
+      return { shouldShow: s, shouldDisableStartCall: l };
     }
-    function s(t) {
-      return e(t).shouldShow;
+    function s(e) {
+      return e.contact != null && u(e) && c(e);
     }
     function u(e) {
-      return !e.isBot() && !e.isAiHub() && !e.isPSA();
+      var t = o("WAWebFrontendChatGetters").getGroupMetadata(e);
+      return (
+        p(e.contact) &&
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t) !==
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
+        (t == null ? void 0 : t.hasCapi) !== !0 &&
+        !o("WAWebChatGetters").getIsNewsletter(e) &&
+        !o("WAWebChatGetters").getIsBroadcast(e)
+      );
     }
     function c(e) {
+      if (!o("WAWebChatGetters").getIsGroup(e)) return !0;
+      var t = o("WAWebFrontendChatGetters").getGroupMetadata(e);
+      return (
+        t != null && t.participants.iAmMember() && !t.isSuspendedOrTerminated()
+      );
+    }
+    function d(t) {
+      return e(t).shouldShow;
+    }
+    function m(e) {
+      return !e.isBot() && !e.isAiHub() && !e.isPSA();
+    }
+    function p(e) {
       return (
         !o("WAWebContactGetters").getIsMe(e) &&
         !o("WAWebFrontendContactGetters").getIsContactBlocked(e) &&
         !e.isEnterprise &&
-        u(e.id) &&
+        m(e.id) &&
         !o(
           "WAWebBizCoexGatingUtils",
         ).isCallingDisabledOnAuthAgentSoftOffboarded()
       );
     }
     ((l.getCallButtonsState = e),
-      (l.shouldShowCallButtons = s),
-      (l.canBeCallParticipant = u),
-      (l.canCallContact = c));
+      (l.canJoinOngoingCallInChat = s),
+      (l.shouldShowCallButtons = d),
+      (l.canBeCallParticipant = m),
+      (l.canCallContact = p));
   },
   98,
 );

@@ -7,8 +7,10 @@ __d(
     "WAPromiseEach",
     "WAResolvable",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebApiChatCommon",
     "WAWebCallCollection",
+    "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebCallsOnlyGating",
     "WAWebCmd",
@@ -21,6 +23,8 @@ __d(
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogWriteMutex",
+    "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
@@ -176,7 +180,7 @@ __d(
               L =
                 s != null && s !== ""
                   ? o("WAWebWidFactory").createWid(s)
-                  : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+                  : o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow();
             try {
               R = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                 callCreatorWid: L,
@@ -238,10 +242,32 @@ __d(
                 N === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
                 N ===
                   o("WAWebViewMode.flow").ViewModeType
-                    .CALL_LOG_AD_HOC_GROUP_CALL;
+                    .CALL_LOG_AD_HOC_GROUP_CALL,
+              O = !r("isStringNullOrEmpty")(m) && u != null;
+            O &&
+              (yield o(
+                "WAWebVoipOngoingCallCollection",
+              ).WAWebVoipOngoingCallCollection.waitUntilLoaded());
+            var B = yield o(
+              "WAWebVoipCallLogWriteMutex",
+            ).WACallLogWriteMutex.acquire();
             try {
-              var O,
-                B = {
+              var W,
+                q =
+                  O && u != null
+                    ? o(
+                        "WAWebVoipOngoingCallCollection",
+                      ).WAWebVoipOngoingCallCollection.getByCallId(u)
+                    : null,
+                U = o(
+                  "WAWebCallLogUtils",
+                ).getCallOutcomeFromCallResultSyncProto(
+                  r("nullthrows")(
+                    d,
+                    "generateCallLogFromCallSyncRecord: callResult is null from call log record sync",
+                  ),
+                ),
+                V = {
                   id: w,
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
@@ -250,14 +276,11 @@ __d(
                       ? o("WAWebViewMode.flow").ViewModeType
                           .HISTORY_SYNCED_CALL_LOG
                       : N,
-                  callOutcome: o(
-                    "WAWebCallLogUtils",
-                  ).getCallOutcomeFromCallResultSyncProto(
-                    r("nullthrows")(
-                      d,
-                      "generateCallLogFromCallSyncRecord: callResult is null from call log record sync",
-                    ),
-                  ),
+                  callOutcome:
+                    q != null
+                      ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
+                      : U,
+                  finalCallOutcome: q != null ? U : void 0,
                   callSilenceReason:
                     b != null
                       ? o("WAWebCallLogUtils").getCallSilenceReason(b)
@@ -267,8 +290,8 @@ __d(
                   callDuration:
                     n.duration == null
                       ? void 0
-                      : (O = o("WALongInt").maybeNumber(n.duration)) != null
-                        ? O
+                      : (W = o("WALongInt").maybeNumber(n.duration)) != null
+                        ? W
                         : void 0,
                   callParticipants: n.participants
                     .filter(function (e) {
@@ -298,7 +321,7 @@ __d(
                 };
               yield o(
                 "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(D, B, !1);
+              ).writeVoipCallLogMessageImpl(D, V, !1);
             } catch (e) {
               i
                 ? o("WALogger")
@@ -321,6 +344,8 @@ __d(
                     .catching(r("getErrorSafe")(e))
                     .tags("nexus-voip")
                     .sendLogs(l.log);
+            } finally {
+              B.release();
             }
           }
         })),
@@ -373,6 +398,7 @@ __d(
               l = i[0],
               s = i[1];
             if (
+              x(t) ||
               o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
                 s == null ? void 0 : s.viewMode,
               )
@@ -395,6 +421,21 @@ __d(
           }
         })),
         D.apply(this, arguments)
+      );
+    }
+    function x(e) {
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "enable_1on1_call_transfer_entry_point",
+        ) !== !0
+      )
+        return !1;
+      var t = o("WAWebMsgCollection").MsgCollection.get(e);
+      return (
+        t != null &&
+        t.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
+        t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
+        t.selfOtherDeviceConnected === !0
       );
     }
     l.generateCallLogFromCallSyncRecord = S;

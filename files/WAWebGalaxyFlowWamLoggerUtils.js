@@ -125,6 +125,7 @@ __d(
             : "",
         ),
         is_template: e.templateId != null ? 1 : 0,
+        hsm_tag: e.hsmTag,
         extension_status: l == null || (i = l.data) == null ? void 0 : i.mode,
       });
     }

@@ -318,9 +318,7 @@ __d(
       return (
         (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = o("WAWebUserPrefsMeUser")
-                .getMePnUserOrThrow_DO_NOT_USE()
-                .toJid(),
+            var t = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow().toJid(),
               n = e.key.id;
             return o("WAWebUserThreadIdHmac").generateUserThreadIDHMAC(t, n);
           } catch (e) {

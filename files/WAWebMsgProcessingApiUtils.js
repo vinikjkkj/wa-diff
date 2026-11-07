@@ -815,7 +815,7 @@ __d(
         a,
         i = Q(e),
         l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        s = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        s = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
         u;
       i.fromMe &&
       r("WAWebWid").isGroup(i.remote) &&
@@ -997,9 +997,7 @@ __d(
                         recipient: l,
                         sender: l.isLid()
                           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                          : o(
-                              "WAWebUserPrefsMeUser",
-                            ).getMePnUserOrThrow_DO_NOT_USE(),
+                          : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
                         ephSetting: n,
                         sharedSecret: d,
                       });
@@ -1027,9 +1025,7 @@ __d(
                         .sendLogs("gen-bcl-msgs-non-lid-recipient"));
                     var _ = babelHelpers.extends({}, e, {
                       id: s,
-                      from: o(
-                        "WAWebUserPrefsMeUser",
-                      ).getMePnUserOrThrow_DO_NOT_USE(),
+                      from: o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
                       to: l,
                       broadcast: !0,
                       ephemeralDuration: u,

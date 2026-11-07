@@ -38,21 +38,25 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
-            n =
+            n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+          if (n == null)
+            return o("WAWebProtobufsDeviceCapabilities.pb")
+              .DeviceCapabilities$AiThread$SupportLevel.NONE;
+          var r =
               '["' +
               o("WAWebSyncdConst").Actions.DeviceCapabilities +
               '","' +
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
+              n.user +
               ':0@s.whatsapp.net"]',
-            r = yield o("WAWebSyncdDb").getSyncAction(n);
-          if ((r == null ? void 0 : r.binarySyncData) == null)
+            a = yield o("WAWebSyncdDb").getSyncAction(r);
+          if ((a == null ? void 0 : a.binarySyncData) == null)
             return o("WAWebProtobufsDeviceCapabilities.pb")
               .DeviceCapabilities$AiThread$SupportLevel.NONE;
-          var a =
+          var i =
             (e =
               (t = o("decodeProtobuf").decodeProtobuf(
                 o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                r.binarySyncData,
+                a.binarySyncData,
               ).value) == null ||
               (t = t.deviceCapabilities) == null ||
               (t = t.aiThread) == null
@@ -61,7 +65,7 @@ __d(
               ? e
               : o("WAWebProtobufsDeviceCapabilities.pb")
                   .DeviceCapabilities$AiThread$SupportLevel.NONE;
-          return a;
+          return i;
         })),
         c.apply(this, arguments)
       );

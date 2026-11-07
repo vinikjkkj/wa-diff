@@ -29,6 +29,7 @@ __d(
     "WAWebE2ETestPairingConstants",
     "WAWebEnvironment",
     "WAWebHandleCanonicalRegistration",
+    "WAWebInternalAccount",
     "WAWebJidToWid",
     "WAWebLid11MigrationLifecycleWamEvent",
     "WAWebLid1X1MigrationGating",
@@ -148,8 +149,13 @@ __d(
                 (o("WAWebConnModel").Conn.platform = S),
                 yield o("WAWebMobilePlatforms").setMobilePlatform(S));
               var L = o("WAWebJidToWid").deviceJidToDeviceWid(C),
-                E = o("WAWebJidToWid").deviceJidToDeviceWid(r("nullthrows")(h));
-              (o("WAWebUserPrefsMeUser").setMePn(E),
+                E;
+              (h == null && o("WAWebInternalAccount").isInternalAccount()
+                ? (E = L)
+                : ((E = o("WAWebJidToWid").deviceJidToDeviceWid(
+                    r("nullthrows")(h),
+                  )),
+                  o("WAWebUserPrefsMeUser").setMePn(E)),
                 o("WAWebUserPrefsMeUser").setMeLid(L),
                 o("WAWebBackendWorkerInitState").resolveJidsReady());
               var T = null;

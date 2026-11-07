@@ -35,12 +35,33 @@ __d(
         ),
         u(function () {
           if (!(C == null && b == null)) {
-            var e = r.objectSet.navigationManager.getCurrentModalOrScreen();
-            if (C != null) {
-              var n = r.objectSet.navigationManager.getNavigationDirection();
-              a(t, C, [r, n]);
-            }
-            b != null && (e == null || e.setOnExitCallback(b));
+            var e = r.objectSet.navigationManager,
+              n = e.getCurrentModalOrScreen(),
+              o = !1,
+              i = !0,
+              l = 0,
+              s = function () {
+                var s = n != null && e.getCurrentModalOrScreen() === n,
+                  u = s && !o;
+                if ((o !== s && l++, (o = s), u && C != null)) {
+                  var c = e.getNavigationDirection(),
+                    d = l;
+                  r.treeManager.waitForCommittedTree().then(function () {
+                    i &&
+                      d === l &&
+                      e.getCurrentModalOrScreen() === n &&
+                      a(t, C, [r, c]);
+                  });
+                }
+              };
+            return (
+              s(),
+              e.screenChangeListener.on(s),
+              b != null && (n == null || n.setOnExitCallback(b)),
+              function () {
+                ((i = !1), e.screenChangeListener.off(s));
+              }
+            );
           }
         }, []),
         s.jsx("div", {

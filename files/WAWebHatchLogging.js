@@ -48,7 +48,7 @@ __d(
       );
     }
     function _(e, t) {
-      me(e, {
+      Ce(e, {
         hatchUserJourneyMetadata:
           t != null ? JSON.stringify({ browser_surface: t }) : void 0,
       });
@@ -60,13 +60,13 @@ __d(
       if (!(!t.isEligible || o.trim() === "")) {
         var a = f.get(e);
         ((r = a) == null ? void 0 : r.has(o)) !== !0 &&
-          me(e, { hatchUserJourneyMetadata: n }) &&
+          Ce(e, { hatchUserJourneyMetadata: n }) &&
           (a == null && ((a = new Set()), f.set(e, a)), a.add(o));
       }
     }
     function h(e) {
       try {
-        me(
+        Ce(
           e === "surface_impression"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .IDEA_SURFACE_IMPRESSION
@@ -88,23 +88,23 @@ __d(
       } catch (e) {}
     }
     function y(e) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function C(e) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function b(e) {
-      me(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      Ce(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function v(e, t, n) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: S(t) }),
@@ -118,55 +118,55 @@ __d(
         .join(", ");
     }
     function R(e) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function L(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function E(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function k(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_CART_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function I(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_ORDER_SUMMARY_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function T(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function D(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: S([e]) }),
       );
     }
     function x(e, t, n) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -207,11 +207,11 @@ __d(
         settings: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
       };
     function M(e, t, n) {
-      me($[e], A(t, n));
+      Ce($[e], A(t, n));
     }
     function w(t, n, r) {
       try {
-        me(
+        Ce(
           o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
             .SECURE_CREDENTIAL_SAVE_ERROR,
           babelHelpers.extends({}, A(n, r), {
@@ -301,7 +301,7 @@ __d(
       if (o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()) {
         var n = t == null ? void 0 : t.connectorType,
           r = t == null ? void 0 : t.permissionFlow;
-        me(F[e], {
+        Ce(F[e], {
           connectorId: t == null ? void 0 : t.connectorId,
           connectorPermissionDecisionType:
             t == null ? void 0 : t.permissionDecisionType,
@@ -379,7 +379,7 @@ __d(
       artifact_pinned: s.HATCH_ACTION_TYPE.ARTIFACT_PINNED,
     };
     function G(e, t) {
-      me(H[e], { featureEntryPoint: P[t] });
+      Ce(H[e], { featureEntryPoint: P[t] });
     }
     function z(e) {
       r("ArtifactSharedFalcoEvent").log(function () {
@@ -392,7 +392,7 @@ __d(
       });
     }
     function j(e, t) {
-      me(
+      Ce(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .ARTIFACT_OVERFLOW_MENU_TAP,
         {
@@ -403,7 +403,7 @@ __d(
     }
     function K(e) {
       try {
-        me(
+        Ce(
           e.outcome === "success"
             ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
                 .SUBSCRIPTION_READ_SUCCESS
@@ -482,7 +482,7 @@ __d(
     function Z(e) {
       try {
         if (ee(e)) return;
-        me(X[e.action], {
+        Ce(X[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -588,7 +588,7 @@ __d(
     };
     function re(e) {
       try {
-        me(ne[e.action], {
+        Ce(ne[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -680,7 +680,7 @@ __d(
     function le(e) {
       try {
         if (!o("WAWebHatchFrontendGating").isHatchIdentityEnabled()) return;
-        me(ie[e.action], {
+        Ce(ie[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -728,6 +728,10 @@ __d(
       })(e);
     }
     var ue = {
+      agent_reset_confirm_tap: s.HATCH_ACTION_TYPE.AGENT_RESET_CONFIRM_TAP,
+      agent_reset_error: s.HATCH_ACTION_TYPE.AGENT_RESET_ERROR,
+      agent_reset_success: s.HATCH_ACTION_TYPE.AGENT_RESET_SUCCESS,
+      agent_reset_tap: s.HATCH_ACTION_TYPE.AGENT_RESET_TAP,
       ai_training_keep_confirm_tap:
         s.HATCH_ACTION_TYPE.AI_TRAINING_KEEP_CONFIRM_TAP,
       ai_training_off_confirm_tap:
@@ -756,7 +760,7 @@ __d(
     };
     function ce(e) {
       try {
-        me(ue[e.action], {
+        Ce(ue[e.action], {
           featureEntryPoint:
             e.action === "impression"
               ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
@@ -823,6 +827,21 @@ __d(
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          (e.action === "agent_reset_tap" ||
+            e.action === "agent_reset_confirm_tap" ||
+            e.action === "agent_reset_success")
+        )
+          return {};
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "agent_reset_error" &&
+          "failureReason" in e
+        ) {
+          var i = e.failureReason;
+          return { failure_reason: i };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
           (e.action === "import_memory_tap" ||
             e.action === "import_generate_memory_tap" ||
             e.action === "import_prompt_copy_tap" ||
@@ -838,8 +857,8 @@ __d(
           e.action === "import_memory_submit_error" &&
           "failureReason" in e
         ) {
-          var i = e.failureReason;
-          return { failure_reason: i };
+          var l = e.failureReason;
+          return { failure_reason: l };
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -847,7 +866,129 @@ __d(
         );
       })(e);
     }
-    function me(e, t) {
+    function me(e) {
+      try {
+        Ce(
+          o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+            .SETTING_PAGE_IMPRESSION,
+          {
+            featureEntryPoint: o("WAWebWamEnumFeatureEntryPoint")
+              .FEATURE_ENTRY_POINT.CHAT,
+            hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_INFO_PAGE,
+            hatchUserJourneyMetadata: ae({ rows_shown: e.join(",") }),
+          },
+        );
+      } catch (e) {}
+    }
+    var pe = {
+        impression: s.HATCH_ACTION_TYPE.ACTIVITY_IMPRESSION,
+        item_tap: s.HATCH_ACTION_TYPE.ACTIVITY_ITEM_TAP,
+      },
+      _e = {
+        complete: "complete",
+        failed: "error",
+        in_progress: "in_progress",
+      };
+    function fe(e) {
+      try {
+        Ce(pe[e.action], {
+          featureEntryPoint:
+            e.action === "impression"
+              ? o("WAWebWamEnumFeatureEntryPoint").FEATURE_ENTRY_POINT.SETTINGS
+              : void 0,
+          hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.ACTIVITY_HATCH,
+          hatchUserJourneyMetadata: ae(ge(e)),
+        });
+      } catch (e) {}
+    }
+    function ge(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "impression" &&
+          "listState" in e
+        ) {
+          var t = e.listState;
+          return { list_state: t };
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.action === "item_tap" &&
+          "goalState" in e
+        ) {
+          var n = e.goalState;
+          return { item_status: n == null ? null : _e[n] };
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
+    }
+    var he = new Set([
+      "browser",
+      "checkout",
+      "connector",
+      "device",
+      "media",
+      "network",
+      "tool",
+      "warning",
+    ]);
+    function ye(e) {
+      try {
+        e: {
+          var t = e;
+          if (
+            ((typeof t == "object" && t !== null) || typeof t == "function") &&
+            t.action === "impression" &&
+            "listState" in t
+          ) {
+            var n = t.listState;
+            Ce(
+              o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+                .APPROVAL_HISTORY_IMPRESSION,
+              {
+                featureEntryPoint: o("WAWebWamEnumFeatureEntryPoint")
+                  .FEATURE_ENTRY_POINT.SETTINGS,
+                hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                  .APPROVAL_HISTORY_HATCH,
+                hatchUserJourneyMetadata: ae({ list_state: n }),
+              },
+            );
+            break e;
+          }
+          if (
+            ((typeof t == "object" && t !== null) || typeof t == "function") &&
+            t.action === "item_tap" &&
+            "record" in t
+          ) {
+            var r,
+              a = t.record;
+            Ce(
+              o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+                .APPROVAL_HISTORY_ITEM_TAP,
+              {
+                hatchSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                  .APPROVAL_HISTORY_HATCH,
+                hatchUserJourneyMetadata: ae({
+                  approval_status: a.status,
+                  approval_type:
+                    a.iconKey != null && he.has(a.iconKey) ? a.iconKey : null,
+                }),
+                rawHitlDecisionKind: (r = a.decision) != null ? r : void 0,
+              },
+            );
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              t,
+          );
+        }
+      } catch (e) {}
+    }
+    function Ce(e, t) {
       var n, r, a, i, l;
       if (!o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) return !1;
       var s = new (o("WAWebHatchUserJourneyWamEvent").HatchUserJourneyWamEvent)(
@@ -891,12 +1032,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : pe(t == null ? void 0 : t.botEntryPoint),
+              : be(t == null ? void 0 : t.botEntryPoint),
         },
       );
       return (s.commit(), !0);
     }
-    function pe(e) {
+    function be(e) {
       var t,
         n =
           e != null
@@ -943,7 +1084,10 @@ __d(
       (l.logHatchPermission = Z),
       (l.logHatchScheduledTasks = re),
       (l.logHatchIdentity = le),
-      (l.logHatchDataControls = ce));
+      (l.logHatchDataControls = ce),
+      (l.logHatchSettingPageImpression = me),
+      (l.logHatchActivity = fe),
+      (l.logHatchApprovalHistory = ye));
   },
   98,
 );

@@ -41,6 +41,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebRegisterPassiveTasksForConnect",
+    "WAWebSuspiciousLinkWam",
     "WAWebSyncdOrphanWorkerCompatible",
     "WAWebUA",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
@@ -317,6 +318,13 @@ __d(
                   .getJobManager()
                   .accessors.maybeCreateJob(t);
               },
+            },
+          },
+          {
+            namespace: "mainthread_suspiciousLinkMetrics",
+            handlers: {
+              commit: o("WAWebSuspiciousLinkWam")
+                .commitDedicatedSuspiciousLinkMetric,
             },
           },
           {

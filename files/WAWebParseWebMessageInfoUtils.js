@@ -27,7 +27,7 @@ __d(
     var e, s;
     function u(e) {
       return e.originalSelfAuthorUserJidString == null
-        ? o("WAWebUserPrefsMeUser").getMaybeMePnUser()
+        ? o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()
         : o("WAWebDecodeJid").decodeJid(e.originalSelfAuthorUserJidString);
     }
     function c(t, n) {
@@ -895,7 +895,9 @@ __d(
             ((t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),
               (t.subtype = "invite_auto_add"),
-              (t.recipients = [o("WAWebUserPrefsMeUser").getMaybeMePnUser()]));
+              (t.recipients = [
+                o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser(),
+              ]));
             break;
           case u.CAG_INVITE_AUTO_JOINED:
             ((t.type = "gp2"),

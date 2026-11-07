@@ -198,6 +198,11 @@ __d(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.logSocketConnectT());
         }),
+        t.BackendEventBus.onSocketStreamDisconnected(function () {
+          o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(
+            o("WAWebOfflineSyncQplSession").SocketCloseReason.Unknown,
+          );
+        }),
         t.BackendEventBus.onceOfflineDeliveryEnd(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {

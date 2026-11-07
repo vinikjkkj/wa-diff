@@ -53,13 +53,16 @@ __d(
       y,
       C,
       b,
-      v = "message_edit",
-      S = new Set([
-        o("WAWebMsgType").MSG_TYPE.REACTION,
-        o("WAWebMsgType").MSG_TYPE.REACTION_ENC,
-        o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT,
+      v,
+      S,
+      R,
+      L = "message_edit",
+      E = new Set([
+        (v = o("WAWebMsgType")).MSG_TYPE.REACTION,
+        v.MSG_TYPE.REACTION_ENC,
+        v.MSG_TYPE.KEEP_IN_CHAT,
       ]),
-      R = r("WAWebLazyLoadedRetriable")(
+      k = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return r("JSResourceForInteraction")(
             "WAWebBrAddPixKeyOfferReceiptLogging",
@@ -69,16 +72,16 @@ __d(
         }),
         "BrAddPixKeyOfferReceiptLogging",
       );
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a = (n = t.preMatChat) != null ? n : t.chat;
-          if (!k({ encDestination: e, envelopeDestination: a }))
+          if (!D({ encDestination: e, envelopeDestination: a }))
             return (
               o("WALogger")
                 .ERROR(
@@ -134,10 +137,10 @@ __d(
             l
           );
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(t) {
+    function D(t) {
       var n = t.encDestination,
         a = t.envelopeDestination;
       if (n.equals(a)) return !0;
@@ -171,12 +174,12 @@ __d(
       }
       return !1;
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function T() {
+    function $() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r =
               t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
@@ -204,15 +207,15 @@ __d(
               !1)
             : ((t.bclHashValidated = !0), !0);
         })),
-        T.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function x() {
+    function N() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.device == null ? o("WAJids").DEFAULT_DEVICE_ID : e.device;
           if (t === o("WAJids").DEFAULT_DEVICE_ID) return !0;
           var n = yield o("WAWebApiDeviceList").getDeviceIds([e]),
@@ -224,10 +227,10 @@ __d(
             })
           );
         })),
-        x.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function $(e, t) {
+    function M(e, t) {
       var n = e.buttonsMessage,
         r = e.highlyStructuredMessage,
         a = e.listMessage,
@@ -284,7 +287,7 @@ __d(
           !1)
         : !0;
     }
-    function P(e) {
+    function w(e) {
       var t,
         n = (t = e.ctwaContext) == null ? void 0 : t.alwaysShowAdAttribution;
       if (
@@ -299,7 +302,7 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
     }
-    function N(e) {
+    function A(e) {
       for (var t of Object.keys(e)) {
         var n = e[t];
         if (n != null && typeof n == "object" && "contextInfo" in n) {
@@ -309,8 +312,8 @@ __d(
       }
       return null;
     }
-    function M(e, t) {
-      var n = N(e),
+    function F(e, t) {
+      var n = A(e),
         r = n == null ? void 0 : n.externalAdReply;
       if (
         !o("WAWebMobilePlatforms").isSMB() &&
@@ -326,7 +329,7 @@ __d(
           { sendLogs: 0 },
         );
     }
-    function w(e, t) {
+    function O(e, t) {
       var n =
         (e == null ? void 0 : e.context_source) ===
         o("WAWebHandleMsgCommon").CONTEXT_SOURCE;
@@ -364,63 +367,31 @@ __d(
         );
       }
     }
-    function A(e) {
+    function B(e) {
       var t = e.bizInfo,
         n = e.info,
         a = e.msgMeta,
         i = e.proto,
         l = e.renderableMsgs;
-      if (l.length > 0 && !$(i, t))
+      if (l.length > 0 && !M(i, t))
         throw new (o("WAWebHandleMsgError").BizNodeValidationError)(
           "[messaging] Biz node validation failed due to absence of biz node in SMAX",
         );
       var s = l[0];
       if (s != null && s.type !== o("WAWebMsgType").MSG_TYPE.QUARANTINED) {
-        if (
-          o("WAWebHandleMsgMetaUtils").isReactionMsgMeta(a) &&
-          s.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
-          s.type !== o("WAWebMsgType").MSG_TYPE.REACTION_ENC
-        )
+        var u = q.find(function (e) {
+          return e.isMarkedAs(a) && !e.carries(s);
+        });
+        if (u != null)
           throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-            o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-              .INVALID_REACTION_STANZA,
+            u.errorCode,
           );
-        if (o("WAWebHandleMsgMetaUtils").isPollVoteMsgMeta(a)) {
-          var u =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
-            c =
-              s.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE &&
-              s.subtype === "poll_vote";
-          if (!u && !c)
-            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                .INVALID_POLL_UPDATE_STANZA,
-            );
-        }
-        if (o("WAWebHandleMsgMetaUtils").isCommentMsgMeta(a)) {
-          var d =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType === o("WAWebMsgType").MSG_TYPE.COMMENT,
-            _ = new Set([
-              o("WAWebMsgType").MsgKind.CommentEncrypted,
-              o("WAWebMsgType").MsgKind.CommentDecrypted,
-              o("WAWebMsgType").MsgKind.RevokedAddon,
-              o("WAWebMsgType").MsgKind.ProtocolRevoke,
-              o("WAWebMsgType").MsgKind.NewsletterQuestionResponse,
-            ]);
-          if (!d && !_.has(s.kind))
-            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                .INVALID_COMMENT_STANZA,
-            );
-        }
         if (n.edit !== o("WAWebAck").EDIT_ATTR.NONE)
           if (n.edit === o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT) {
-            var f =
+            var c =
               s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               s.futureproofType === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE;
-            if (s.type !== o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE && !f)
+            if (s.type !== o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE && !c)
               throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
                 o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                   .INVALID_PIN_IN_CHAT_STANZA,
@@ -434,10 +405,10 @@ __d(
                   o("WAWebBotUtils").isMetaAiBot(n.author))
               )
             ) {
-              var g =
+              var d =
                 s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-                s.futureproofSubtype === v;
-              if (s.subtype !== v && !g)
+                s.futureproofSubtype === L;
+              if (s.subtype !== L && !d)
                 throw new (o(
                   "WAWebHandleMsgError",
                 ).MessageProtobufMismatchError)(
@@ -453,7 +424,7 @@ __d(
               );
             n.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE ||
             n.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE
-              ? F(s, n.edit)
+              ? V(s, n.edit)
               : o("WALogger")
                   .WARN(
                     m ||
@@ -465,58 +436,9 @@ __d(
                   )
                   .sendLogs("unvalidated-edit-attribute");
           }
-        if (o("WAWebHandleMsgMetaUtils").isEventResponseMsgMeta(a)) {
-          var h =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE,
-            y = s.type === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE;
-          if (!h && !y)
-            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                .INVALID_EVENT_RESPONSE_STANZA,
-            );
-        }
-        if (o("WAWebHandleMsgMetaUtils").isEventEditMsgMeta(a)) {
-          var C =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType ===
-                o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED,
-            b = s.type === o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED;
-          if (!C && !b)
-            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                .INVALID_EVENT_EDIT_STANZA,
-            );
-        }
-        if (o("WAWebHandleMsgMetaUtils").isPollEditMsgMeta(a)) {
-          var S =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType ===
-                o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED,
-            R = s.type === o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED;
-          if (!S && !R)
-            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                .INVALID_POLL_EDIT_STANZA,
-            );
-        }
-        if (o("WAWebHandleMsgMetaUtils").isMemberTagMsgMeta(a)) {
-          var L =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-              s.futureproofSubtype === "member_label",
-            E =
-              s.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-              s.subtype === "member_label";
-          if (!L && !E)
-            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                .INVALID_MEMBER_TAG_STANZA,
-            );
-        }
         if (r("gkx")("26259")) {
-          var k = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(i);
-          k !== (a == null ? void 0 : a.type) &&
+          var _ = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(i);
+          _ !== (a == null ? void 0 : a.type) &&
             o("WALogger")
               .ERROR(
                 p ||
@@ -527,7 +449,7 @@ __d(
                     "",
                   ])),
                 a == null ? void 0 : a.type,
-                k,
+                _,
                 s.type,
               )
               .tags("messaging")
@@ -535,10 +457,100 @@ __d(
                 sampling: 0.01,
               });
         }
-        (w(a, s), M(i, s), P(s));
+        (O(a, s), F(i, s), w(s));
       }
     }
-    function F(e, t) {
+    var W = new Set([
+        v.MsgKind.CommentEncrypted,
+        v.MsgKind.CommentDecrypted,
+        v.MsgKind.RevokedAddon,
+        v.MsgKind.ProtocolRevoke,
+        v.MsgKind.NewsletterQuestionResponse,
+      ]),
+      q = [
+        {
+          isMarkedAs: (S = o("WAWebHandleMsgMetaUtils")).isReactionMsgMeta,
+          carries: function (t) {
+            return (
+              t.type === o("WAWebMsgType").MSG_TYPE.REACTION ||
+              t.type === o("WAWebMsgType").MSG_TYPE.REACTION_ENC
+            );
+          },
+          errorCode: (R = o("WAWebHandleMsgError"))
+            .MessageProtobufMismatchErrorCode.INVALID_REACTION_STANZA,
+        },
+        {
+          isMarkedAs: S.isPollVoteMsgMeta,
+          carries: function (t) {
+            return (
+              U(t, o("WAWebMsgType").MSG_TYPE.POLL_UPDATE) ||
+              (t.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE &&
+                t.subtype === "poll_vote")
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_POLL_UPDATE_STANZA,
+        },
+        {
+          isMarkedAs: S.isCommentMsgMeta,
+          carries: function (t) {
+            return U(t, o("WAWebMsgType").MSG_TYPE.COMMENT) || W.has(t.kind);
+          },
+          errorCode: R.MessageProtobufMismatchErrorCode.INVALID_COMMENT_STANZA,
+        },
+        {
+          isMarkedAs: S.isEventResponseMsgMeta,
+          carries: function (t) {
+            return (
+              U(t, o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE) ||
+              t.type === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_EVENT_RESPONSE_STANZA,
+        },
+        {
+          isMarkedAs: S.isEventEditMsgMeta,
+          carries: function (t) {
+            return (
+              U(t, o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED) ||
+              t.type === o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_EVENT_EDIT_STANZA,
+        },
+        {
+          isMarkedAs: S.isPollEditMsgMeta,
+          carries: function (t) {
+            return (
+              U(t, o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED) ||
+              t.type === o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_POLL_EDIT_STANZA,
+        },
+        {
+          isMarkedAs: S.isMemberTagMsgMeta,
+          carries: function (t) {
+            return (
+              (U(t, o("WAWebMsgType").MSG_TYPE.PROTOCOL) &&
+                t.futureproofSubtype === "member_label") ||
+              (t.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+                t.subtype === "member_label")
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_MEMBER_TAG_STANZA,
+        },
+      ];
+    function U(e, t) {
+      return (
+        e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && e.futureproofType === t
+      );
+    }
+    function V(e, t) {
       var n =
         t === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
           ? "admin_revoke"
@@ -547,7 +559,7 @@ __d(
         !(
           e.kind === o("WAWebMsgType").MsgKind.ProtocolRevoke && e.subtype === n
         ) &&
-        !(t === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE && O(e))
+        !(t === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE && H(e))
       )
         throw (
           r("gkx")("26259") &&
@@ -571,16 +583,16 @@ __d(
           )
         );
     }
-    function O(e) {
+    function H(e) {
       return (
-        S.has(e.type) ||
+        E.has(e.type) ||
         (e.kind === o("WAWebMsgType").MsgKind.Protocol &&
           e.subtype ===
             o("WAWebCommonMsgSubtypeTypes").MsgSubtype
               .ScheduledMessageUnschedule)
       );
     }
-    function B(e) {
+    function G(e) {
       var t = e.info,
         a = e.isFirstReceipt,
         i = e.isQuarantined,
@@ -593,7 +605,7 @@ __d(
         }) ||
         !o("WAWebBrAddPixKeyOfferReceipt").isAddPixKeyOfferForThisAccount(l)
         ? (b || (b = n("Promise"))).resolve()
-        : R()
+        : k()
             .then(function (e) {
               return e.logAddPixKeyOfferReceived({
                 msg: s[0],
@@ -612,7 +624,7 @@ __d(
                 .sendLogs("br-add-pix-key-offer-receipt-failed");
             });
     }
-    function W(e) {
+    function z(e) {
       var t = e.info,
         n = e.proto,
         r = e.renderableMsgs;
@@ -631,12 +643,12 @@ __d(
           { sendLogs: 0 },
         );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function U() {
+    function K() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
@@ -665,14 +677,14 @@ __d(
                 var g =
                     (t = c.protocolMessageKey) == null ? void 0 : t.toString(),
                   h = {
-                    msgKey: V(c),
+                    msgKey: Q(c),
                     stanzaId: c.id.id,
                     reportingTag: p,
                     receivedTs: o("WATimeUtils").unixTimeMs(),
                     msgTs:
                       (n = (r = m.stanzaTs) != null ? r : c.t) != null ? n : 0,
                   };
-                if (H(c)) {
+                if (X(c)) {
                   if (u) return;
                   o("WAWebGetMessageCache")
                     .getMessageCache()
@@ -740,10 +752,10 @@ __d(
             }
           }
         })),
-        U.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function V(e) {
+    function Q(e) {
       var t, n;
       return e.kind === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
         ? e.id.toString()
@@ -752,20 +764,20 @@ __d(
           ? t
           : e.id.toString();
     }
-    function H(e) {
+    function X(e) {
       return (
         e.kind === o("WAWebMsgType").MsgKind.Unknown ||
         e.kind === o("WAWebMsgType").MsgKind.AssociatedUnknown
       );
     }
-    ((l.validateMsgDestination = L),
-      (l.validateBclHash = I),
-      (l.isFromKnownDevice = D),
-      (l.validateBizNode = $),
-      (l.renderableMessagesValidation = A),
-      (l.logAddPixKeyOfferReceipt = B),
-      (l.validateAddPixKeyOfferSender = W),
-      (l.validateAndProcessReportingTokenInfo = q));
+    ((l.validateMsgDestination = I),
+      (l.validateBclHash = x),
+      (l.isFromKnownDevice = P),
+      (l.validateBizNode = M),
+      (l.renderableMessagesValidation = B),
+      (l.logAddPixKeyOfferReceipt = G),
+      (l.validateAddPixKeyOfferSender = z),
+      (l.validateAndProcessReportingTokenInfo = j));
   },
   98,
 );

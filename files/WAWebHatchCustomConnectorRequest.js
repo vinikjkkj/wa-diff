@@ -44,7 +44,6 @@ __d(
         ? null
         : {
             name: n,
-            website: r[0],
             connector: { name: n, mode: u, hosts: r, token_proxy: [a] },
           };
     }

@@ -116,8 +116,18 @@ __d(
           H,
           o("WebBloksConstants").TEXT_INPUT_ASSOCIATED_OBJECT,
           { ref: xe, text: null },
-        ),
-        Pe = c(
+        );
+      p(
+        function () {
+          Ie.updateAssociatedObject_INTERNAL(
+            H,
+            o("WebBloksConstants").TEXT_INPUT_ASSOCIATED_OBJECT,
+            { ref: xe },
+          );
+        },
+        [Ie, H],
+      );
+      var Pe = c(
           function (e) {
             Ie.updateAssociatedObject_INTERNAL(
               H,
@@ -157,12 +167,18 @@ __d(
         je = Ge[1],
         Ke = f(Ve),
         Qe = Ke[0],
-        Xe = Ke[1];
+        Xe = Ke[1],
+        Ye = _(null);
       (p(
         function () {
-          Ve !== Qe && ((De.current = !1), je(Ve != null ? Ve : ""), Xe(Ve));
+          Ve !== Qe &&
+            (Ve !== Ye.current &&
+              ((De.current = !1),
+              Pe(Ve != null ? Ve : ""),
+              je(Ve != null ? Ve : "")),
+            Xe(Ve));
         },
-        [H, Qe, Ve],
+        [H, Qe, Ve, Pe],
       ),
         p(
           function () {
@@ -174,7 +190,7 @@ __d(
           },
           [Qe, ye, fe, ze],
         ));
-      var Ye = c(
+      var Je = c(
           function (e) {
             var t = !0;
             if (
@@ -191,24 +207,23 @@ __d(
           },
           [_e, Te, Oe, Fe, H, ze, Pe],
         ),
-        Je = _(!0);
+        Ze = _(!0);
       d(
         function () {
-          var e;
-          (Je.current && ((Je.current = !1), He == null || Ve === He)) ||
-            (($e == null || (e = $e.ref) == null ? void 0 : e.current) ==
-              null &&
-              Ie.updateAssociatedObject_INTERNAL(
-                H,
-                o("WebBloksConstants").TEXT_INPUT_ASSOCIATED_OBJECT,
-                { ref: xe },
-              ),
+          var e,
+            t = (e = $e.text) != null ? e : ze;
+          if (Ze.current && ((Ze.current = !1), He == null || Ve === He)) {
+            Ye.current = t;
+            return;
+          }
+          t !== Ye.current &&
+            ((Ye.current = t),
             ce != null && Te(H, ce, [H, Ie]),
             Be != null && Be(ze));
         },
         [ze],
       );
-      var Ze = function (t) {
+      var et = function (t) {
           (t.keyCode === o("WebBloksConstants").KEY_RETURN &&
             de != null &&
             Te(H, de, [H, Ie]),
@@ -216,20 +231,20 @@ __d(
               t.keyCode === o("WebBloksConstants").KEY_SPACE) &&
               t.stopPropagation());
         },
-        et = function (t) {
+        tt = function (t) {
           t.keyCode === o("WebBloksConstants").KEY_SPACE && t.stopPropagation();
         },
-        tt =
+        nt =
           me != null
             ? function () {
                 Te(H, me, [H, Ie]);
               }
             : void 0,
-        nt = r("useQueuedBlurEventForWebBloks")(ye, function () {
+        rt = r("useQueuedBlurEventForWebBloks")(ye, function () {
           pe != null && Te(H, pe, [H, Ie]);
         }),
-        rt = pe != null ? nt : void 0,
-        ot = babelHelpers.extends(
+        ot = pe != null ? rt : void 0,
+        at = babelHelpers.extends(
           {},
           Ce,
           o("WebBloksTextStyle").getTextStyle(j),
@@ -251,11 +266,12 @@ __d(
                 : void 0,
             fontSize: o("WebBloksUtils").toPx(Q),
             lineHeight: o("WebBloksTextStyle").getLineHeight(),
+            outline: "none",
             textAlign: o("WebBloksUtils").toHyphen(X),
             caretColor: Ee,
           },
         ),
-        at = babelHelpers.extends(
+        it = babelHelpers.extends(
           {},
           ve,
           Ue,
@@ -268,12 +284,12 @@ __d(
             maxLength: qe,
             name: ie,
             onChange: function (t) {
-              return Ye(t.target.value);
+              return Je(t.target.value);
             },
-            onKeyDown: Ze,
-            onKeyUp: et,
-            onFocus: tt,
-            onBlur: rt,
+            onKeyDown: et,
+            onKeyUp: tt,
+            onFocus: nt,
+            onBlur: ot,
             className: o("WebBloksStyle").classNames(
               o("WebBloksStyle").WebBloksStyles.container,
               V.base,
@@ -285,10 +301,10 @@ __d(
             },
           },
         ),
-        it = c(
+        lt = c(
           function (e) {
             De.current ||
-              (Ye(String(e)),
+              (Je(String(e)),
               (De.current = !0),
               ce != null && Te(H, ce, [H, Ie]),
               typeof window.requestIdleCallback == "function"
@@ -299,9 +315,9 @@ __d(
                     De.current = !1;
                   }, 50));
           },
-          [Ie, Te, H, Ye, ce],
+          [Ie, Te, H, Je, ce],
         ),
-        lt = c(
+        st = c(
           function () {
             var e = ye.current;
             if (
@@ -312,7 +328,7 @@ __d(
           },
           [ye],
         ),
-        st = c(
+        ut = c(
           function () {
             var e = ye.current;
             if (
@@ -332,7 +348,7 @@ __d(
           },
           [ye],
         ),
-        ut = c(
+        ct = c(
           function () {
             var e;
             return (e = ye.current) == null ? void 0 : e.blur();
@@ -344,25 +360,25 @@ __d(
           xe,
           function () {
             return {
-              onExternalUpdate: it,
-              getSelection: lt,
-              requestFocus: st,
-              requestBlur: ut,
+              onExternalUpdate: lt,
+              getSelection: st,
+              requestFocus: ut,
+              requestBlur: ct,
             };
           },
-          [lt, it, ut, st],
+          [st, lt, ct, ut],
         ),
         be(
           ge || fe
             ? s.jsx(
                 "textarea",
-                babelHelpers.extends({}, at, fe ? { rows: 1 } : void 0, {
-                  style: babelHelpers.extends({}, ot, { resize: "none" }),
+                babelHelpers.extends({}, it, fe ? { rows: 1 } : void 0, {
+                  style: babelHelpers.extends({}, at, { resize: "none" }),
                 }),
               )
             : s.jsx(
                 "input",
-                babelHelpers.extends({ dir: "auto" }, at, { style: ot }),
+                babelHelpers.extends({ dir: "auto" }, it, { style: at }),
               ),
         )
       );

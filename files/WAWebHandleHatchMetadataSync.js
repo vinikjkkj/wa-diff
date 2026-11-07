@@ -7,6 +7,7 @@ __d(
     "WAWebHandleHatchAgentStatus",
     "WAWebHandleHatchApproval",
     "WAWebHandleHatchChannelNotification",
+    "WAWebHatchBodyEncoding",
     "WAWebHatchChannelNotificationDecoder",
     "WAWebHatchMetadataExchangeManager",
     "WAWebHatchPayloadDecoder",
@@ -16,8 +17,10 @@ __d(
     "use strict";
     var e,
       s,
-      u = new Map();
-    function c(t, n) {
+      u,
+      c,
+      d = new Map();
+    function m(t, n) {
       try {
         e: {
           var a = t;
@@ -29,8 +32,7 @@ __d(
           ) {
             var i = a.requestId,
               l = a.response;
-            i != null &&
-              r("WAWebHatchMetadataExchangeManager").resolveRequest(i, l);
+            i != null && p(i, l);
             break e;
           }
           if (
@@ -39,7 +41,7 @@ __d(
             "event" in a
           ) {
             var s = a.event;
-            d(s, n);
+            _(s, n);
             break e;
           }
           break e;
@@ -56,14 +58,69 @@ __d(
           .sendLogs("hatch-metadata-handler-error");
       }
     }
-    function d(e, t) {
+    function p(e, t) {
+      if (t.status !== "ok" || t.bodyEncoding == null) {
+        r("WAWebHatchMetadataExchangeManager").resolveRequest(e, t);
+        return;
+      }
+      var n = t.body;
+      if (typeof n != "string") {
+        r("WAWebHatchMetadataExchangeManager").failRequest(e, "decode_failed");
+        return;
+      }
+      if (r("WAWebHatchMetadataExchangeManager").isPending(e)) {
+        var a = t.method;
+        o("WAWebHatchBodyEncoding")
+          .inflateHatchResponseBody(n)
+          .then(
+            function (t) {
+              var n = t.body,
+                i = t.compressedBytes,
+                l = t.inflatedBytes;
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-metadata: inflated res method=",
+                    " wire_bucket=",
+                    " decoded_bucket=",
+                    "",
+                  ])),
+                a,
+                o("WAWebHatchBodyEncoding").hatchSizeBucket(i),
+                o("WAWebHatchBodyEncoding").hatchSizeBucket(l),
+              ),
+                r("WAWebHatchMetadataExchangeManager").resolveRequest(e, {
+                  status: "ok",
+                  method: a,
+                  body: n,
+                }));
+            },
+            function (t) {
+              (o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-metadata: gzip inflate failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("hatch-metadata-gzip-inflate-error"),
+                r("WAWebHatchMetadataExchangeManager").failRequest(
+                  e,
+                  "decode_failed",
+                ));
+            },
+          );
+      }
+    }
+    function _(e, t) {
       var n = o("WAWebHatchPayloadDecoder").decodeHatchPayload(e);
       if (
         !(
-          !o("WAWebHatchPayloadDecoder").bypassesLastWriteWins(e.opKey) && !m(e)
+          !o("WAWebHatchPayloadDecoder").bypassesLastWriteWins(e.opKey) && !f(e)
         )
       ) {
-        if ((p(t, e, n), e.operation === "REMOVE")) {
+        if ((g(t, e, n), e.operation === "REMOVE")) {
           n.kind === "approval_record" &&
             o("WAWebHandleHatchApproval").handleRemovedHatchApprovalRecord(
               n.event,
@@ -82,19 +139,19 @@ __d(
                 ).handleHatchChannelNotification(n.notification);
       }
     }
-    function m(e) {
+    function f(e) {
       var t = e.index,
         n = e.seq,
         r = e.timestamp;
       if (r == null) return !0;
-      var o = u.get(t),
+      var o = d.get(t),
         a =
           o == null ||
           r > o.timestamp ||
           (r === o.timestamp && n != null && o.seq != null && n > o.seq);
-      return (a && u.set(t, { timestamp: r, seq: n }), a);
+      return (a && d.set(t, { timestamp: r, seq: n }), a);
     }
-    function p(e, t, n) {
+    function g(e, t, n) {
       var r;
       if (o("WAWebCurrentUser").isEmployee()) {
         var a =
@@ -104,8 +161,8 @@ __d(
               : "none"
             : "n/a";
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-metadata: decoded msgId=",
               " op=",
               " action=",
@@ -121,7 +178,7 @@ __d(
         );
       }
     }
-    function _(e) {
+    function h(e) {
       return e.kind === "channel_notification"
         ? {
             kind: e.kind,
@@ -131,7 +188,7 @@ __d(
           }
         : e;
     }
-    l.handleHatchMetadataSync = c;
+    l.handleHatchMetadataSync = m;
   },
   98,
 );

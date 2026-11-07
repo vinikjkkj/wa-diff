@@ -30,20 +30,37 @@ __d(
         ReadyWaitStart: "offline_ready_wait_start",
         SuccessReceived: "success_received",
       }),
-      _ = e({ Superseded: "superseded" });
-    function f() {
+      _ = e({ SocketClosed: "socket_closed", Superseded: "superseded" }),
+      f = e({
+        ClientFailureAccountLocked: "client_failure_account_locked",
+        ClientFailureClientTooOld: "client_failure_client_too_old",
+        ClientFailureNotAuthorized: "client_failure_not_authorized",
+        ClientLogout: "client_logout",
+        ClientTabTakeover: "client_tab_takeover",
+        StreamErrorAck: "stream_error_ack",
+        StreamErrorCode515: "stream_error_code_515",
+        StreamErrorCode516: "stream_error_code_516",
+        StreamErrorCodeOther: "stream_error_code_other",
+        StreamErrorDeviceRemoved: "stream_error_device_removed",
+        StreamErrorOther: "stream_error_other",
+        StreamErrorReplaced: "stream_error_replaced",
+        StreamErrorXmlNotWellFormed: "stream_error_xml_not_well_formed",
+        Unknown: "unknown",
+      }),
+      g = "socket_close_reason";
+    function h() {
       return o("WAWebRuntimeEnvironmentUtils").isServiceWorker()
         ? "service_worker"
         : o("WAWebRuntimeEnvironmentUtils").isWorker()
           ? "worker"
           : "main";
     }
-    function g() {
+    function y() {
       return o("WAWebRuntimeEnvironmentUtils").isWorker()
         ? null
         : o("WAWebWamPlatform").getWamPlatform().toLowerCase();
     }
-    var h = (function () {
+    var C = (function () {
         function e() {
           ((this.$1 = 0), (this.$2 = null), (this.$3 = null), (this.$4 = !1));
         }
@@ -72,8 +89,8 @@ __d(
                       (n = t.guestExperienceType) != null ? n : void 0,
                     offline_resume_mode: t.mode.valueOf(),
                     offline_session_id: t.sessionId,
-                    realm: f(),
-                    webc_web_platform: (r = g()) != null ? r : void 0,
+                    realm: h(),
+                    webc_web_platform: (r = y()) != null ? r : void 0,
                   },
                 },
                 timeoutInMs: u,
@@ -107,6 +124,12 @@ __d(
           (t.markReadyWaitEnd = function () {
             this.mark(p.ReadyWaitEnd);
           }),
+          (t.markSocketClosed = function (t) {
+            var e;
+            this.$5(_.SocketClosed, {
+              string: ((e = {}), (e[g] = t.valueOf()), e),
+            });
+          }),
           (t.addAnnotations = function (t) {
             var e;
             (e = this.$3) == null || e.addAnnotations(t);
@@ -128,12 +151,13 @@ __d(
           e
         );
       })(),
-      y = new h();
+      b = new C();
     ((l.OfflineSyncMode = d),
       (l.OfflineSyncEntryPoint = m),
       (l.OfflineSyncPoint = p),
       (l.OfflineSyncEndReason = _),
-      (l.OfflineSyncQpl = y));
+      (l.SocketCloseReason = f),
+      (l.OfflineSyncQpl = b));
   },
   98,
 );

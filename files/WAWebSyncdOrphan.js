@@ -7,43 +7,58 @@ __d(
     "WAWebGetSyncAction",
     "WAWebHistorySyncLidChatGating",
     "WAWebMiscGatingUtils",
+    "WAWebStorageCrashAnnotations",
     "WAWebSyncdCollectionHandler",
     "WAWebSyncdConst",
+    "WAWebSyncdCrashAnnotations",
     "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdDisabled",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g;
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g,
+      h = [
+        o("WAWebSyncdConst").SyncActionState.Orphan,
+        o("WAWebSyncdConst").SyncActionState.Unsupported,
+      ];
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (o("WAWebSyncdDisabled").isSyncdDisabled())
             return (g || (g = n("Promise"))).resolve();
           yield (g || (g = n("Promise"))).all([
-            C(e),
-            v(t),
+            b(e),
+            S(t),
             o("WAWebSyncdDbCallbacksApi")
               .bulkGetAccountLid(t)
               .then(function (e) {
-                return R(e.filter(Boolean));
+                return L(e.filter(Boolean));
               }),
-            r != null && r.length > 0 ? D(r) : void 0,
+            r != null && r.length > 0 ? x(r) : void 0,
           ]);
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSyncdDbCallbacksApi").getAdditionalLidMsgKeys(
               e,
             ),
@@ -52,42 +67,42 @@ __d(
                   "WAWebSyncdDbCallbacksApi",
                 ).getAdditionalHistoryChatIdMsgKeys(e)
               : [];
-          yield E(e.concat(t, n), o("WAWebSyncdConst").SyncModelType.Msg);
+          yield k(e.concat(t, n), o("WAWebSyncdConst").SyncModelType.Msg);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()
             ? yield o("WAWebSyncdDbCallbacksApi").getAdditionalHistoryChatIds(e)
             : [];
-          yield E(e.concat(t), o("WAWebSyncdConst").SyncModelType.Chat);
+          yield k(e.concat(t), o("WAWebSyncdConst").SyncModelType.Chat);
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WAWebSyncdConst").SyncModelType.Account);
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield k(e, o("WAWebSyncdConst").SyncModelType.Account);
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebSyncdDisabled").isSyncdDisabled())
             return (g || (g = n("Promise"))).resolve();
           var r = yield o(
@@ -99,15 +114,15 @@ __d(
           );
           yield o("WAWebSyncdCollectionHandler").applyIndividualMutations(r);
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
-    }
     function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebSyncdDisabled").isSyncdDisabled())
             return (g || (g = n("Promise"))).resolve();
           o("WALogger").LOG(
@@ -116,73 +131,82 @@ __d(
                 "syncd: start applyAllOrphansAndUnsupported",
               ])),
           );
-          var t = yield o(
-            "WAWebGetSyncAction",
-          ).getSyncActionsByActionStatesInTransaction([
-            o("WAWebSyncdConst").SyncActionState.Orphan,
-            o("WAWebSyncdConst").SyncActionState.Unsupported,
-          ]);
-          (yield o("WAWebSyncdCollectionHandler").applyIndividualMutations(t),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: end applyAllOrphansAndUnsupported",
-                ])),
-            ));
+          var t = o(
+            "WAWebSyncdCrashAnnotations",
+          ).annotateCrashWithOrphanApplyStart();
+          try {
+            o("WAWebStorageCrashAnnotations").annotateCrashWithIdbReadCaller(
+              "SyncdOrphan.applyAllOrphansAndUnsupported",
+              h,
+            );
+            var r =
+              yield o(
+                "WAWebGetSyncAction",
+              ).getSyncActionsByActionStatesInTransaction(h);
+            yield o("WAWebSyncdCollectionHandler").applyIndividualMutations(r);
+          } finally {
+            o("WAWebSyncdCrashAnnotations").annotateCrashWithOrphanApplyEnd(t);
+          }
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "syncd: end applyAllOrphansAndUnsupported",
+              ])),
+          );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WAWebSyncdConst").SyncModelType.Thread);
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield k(e, o("WAWebSyncdConst").SyncModelType.Thread);
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WAWebSyncdConst").SyncModelType.Agent);
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield k(e, o("WAWebSyncdConst").SyncModelType.Agent);
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WAWebSyncdConst").SyncModelType.ChatAssignment);
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield k(e, o("WAWebSyncdConst").SyncModelType.ChatAssignment);
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WAWebSyncdConst").SyncModelType.UserStatusMute);
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield k(e, o("WAWebSyncdConst").SyncModelType.UserStatusMute);
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e, t) {
-      return O.apply(this, arguments);
+    function O(e, t) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             (o("WALogger").LOG(
               u ||
@@ -223,15 +247,15 @@ __d(
               r.length,
             ));
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B() {
-      return W.apply(this, arguments);
-    }
     function W() {
+      return q.apply(this, arguments);
+    }
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (o("WALogger").LOG(
               m ||
@@ -249,7 +273,7 @@ __d(
             );
             return;
           }
-          (yield F(
+          (yield O(
             o("WAWebSyncdConst").SyncModelType.FavoriteSticker,
             function () {
               var e = o("WAWebABProps").getABPropConfigValue(
@@ -275,17 +299,17 @@ __d(
                 ])),
             ));
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    ((l.checkOrphanMutations = h),
-      (l.checkOrphanMessages = C),
-      (l.checkOrphanChats = v),
-      (l.applyAllOrphansAndUnsupported = I),
-      (l.checkOrphanAgents = $),
-      (l.checkOrphanChatAssignments = N),
-      (l.checkOrphanUserStatusMutes = w),
-      (l.checkOrphanFavoriteStickers = B));
+    ((l.checkOrphanMutations = y),
+      (l.checkOrphanMessages = b),
+      (l.checkOrphanChats = S),
+      (l.applyAllOrphansAndUnsupported = T),
+      (l.checkOrphanAgents = P),
+      (l.checkOrphanChatAssignments = M),
+      (l.checkOrphanUserStatusMutes = A),
+      (l.checkOrphanFavoriteStickers = W));
   },
   98,
 );

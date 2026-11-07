@@ -26,11 +26,13 @@ __d(
     "cometComposedTextV2NodeBuilders",
     "cometComposedTextV2NodeKey",
     "err",
+    "justknobx",
     "trustHTML",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
+    var e;
+    function s(e, t, n) {
       n === void 0 && (n = 0);
       var a =
         e.depth === 1
@@ -51,9 +53,9 @@ __d(
       ).CometComposedTextV2HeadingNode)(
         { key: r("cometComposedTextV2NodeKey")(), tag: a },
         r("CometComposedTextV2HeadingNodeRenderer.react"),
-      ).appendMany(g(e.tokens, t, n));
+      ).appendMany(v(e.tokens, t, n));
     }
-    function s(e) {
+    function u(e) {
       return new (o(
         "CometComposedTextV2CodeBlockNode.react",
       ).CometComposedTextV2CodeBlockNode)(
@@ -65,7 +67,7 @@ __d(
         r("CometComposedTextV2CodeBlockNodeRenderer.react"),
       );
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       n === void 0 && (n = 0);
       var a;
       e.ordered
@@ -97,19 +99,19 @@ __d(
               value: i + a,
             },
             r("CometComposedTextV2ListItemNodeRenderer.react"),
-          ).appendMany(g(e.tokens, t, n));
+          ).appendMany(v(e.tokens, t, n));
         }),
       );
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       return (
         n === void 0 && (n = 0),
         o("cometComposedTextV2NodeBuilders")
           .buildLinkNode(e.href)
-          .appendMany(g(e.tokens, t, n))
+          .appendMany(v(e.tokens, t, n))
       );
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       return (
         n === void 0 && (n = 0),
         new (o(
@@ -117,10 +119,10 @@ __d(
         ).CometComposedTextV2ParagraphNode)(
           { key: r("cometComposedTextV2NodeKey")() },
           r("CometComposedTextV2ParagraphNodeRenderer.react"),
-        ).appendMany(g(e.tokens, t, n))
+        ).appendMany(v(e.tokens, t, n))
       );
     }
-    function m(e, t, n, a, i) {
+    function p(e, t, n, a, i) {
       return (
         i === void 0 && (i = 0),
         new (o(
@@ -137,10 +139,10 @@ __d(
             width: null,
           },
           r("CometComposedTextV2TableCellNodeRenderer.react"),
-        ).appendMany(g(e, n, i))
+        ).appendMany(v(e, n, i))
       );
     }
-    function p(e, t, n, a, i, l) {
+    function _(e, t, n, a, i, l) {
       l === void 0 && (l = 0);
       var s = e.length;
       return new (o(
@@ -150,7 +152,7 @@ __d(
         r("CometComposedTextV2TableRowNodeRenderer.react"),
       ).appendMany(
         e.map(function (e, r) {
-          return m(
+          return p(
             e,
             t,
             n,
@@ -165,7 +167,7 @@ __d(
         }),
       );
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       n === void 0 && (n = 0);
       var a = e.tokens.header.length > 0,
         i = e.tokens.cells.filter(function (e) {
@@ -186,105 +188,162 @@ __d(
         r("CometComposedTextV2TableNodeRenderer.react"),
       ).appendMany(
         [].concat(
-          a ? [p(e.tokens.header, "COLUMN", t, !0, s === 1, n)] : [],
+          a ? [_(e.tokens.header, "COLUMN", t, !0, s === 1, n)] : [],
           i.map(function (e, r) {
-            return p(e, "NO_STATUS", t, !a && r === 0, r === l - 1, n);
+            return _(e, "NO_STATUS", t, !a && r === 0, r === l - 1, n);
           }),
         ),
       );
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       if (
         (n === void 0 && (n = 0),
         e.type === "text" && e.tokens != null && e.tokens.length > 0)
       )
-        return g(e.tokens, t, n);
+        return v(e.tokens, t, n);
       var a = document.createElement("textarea");
       return (
         (a.innerHTML = r("trustHTML")(e.text)),
         [o("cometComposedTextV2NodeBuilders").buildTextNode(a.value, n)]
       );
     }
-    function g(t, n, a) {
-      a === void 0 && (a = 0);
-      var i = [];
+    var h = {
+        b: (e = r("ComposedInlineStyle")).BOLD,
+        del: e.STRIKETHROUGH,
+        em: e.ITALIC,
+        i: e.ITALIC,
+        ins: e.UNDERLINE,
+        s: e.STRIKETHROUGH,
+        strike: e.STRIKETHROUGH,
+        strong: e.BOLD,
+        u: e.UNDERLINE,
+      },
+      y = /^<(\/?)(u|ins|s|del|strike|b|strong|i|em)\s*>$/i,
+      C = /^<br\s*\/?>$/i;
+    function b(e) {
+      var t = new Set();
+      e.forEach(function (e, n) {
+        e > 0 && t.add(h[n]);
+      });
+      var n = 0;
       return (
-        t.forEach(function (t) {
-          if (t.type === "strong")
-            i.push.apply(i, g(t.tokens, n, a | r("ComposedInlineStyle").BOLD));
-          else if (t.type === "em")
-            i.push.apply(
-              i,
-              g(t.tokens, n, a | r("ComposedInlineStyle").ITALIC),
-            );
-          else if (t.type === "codespan")
-            i.push.apply(i, f(t, n, a | r("ComposedInlineStyle").CODE));
-          else if (t.type === "del")
-            i.push.apply(
-              i,
-              g(t.tokens, n, a | r("ComposedInlineStyle").STRIKETHROUGH),
-            );
-          else if (t.type === "paragraph") i.push(d(t, n, a));
-          else if (t.type === "heading") i.push(e(t, n, a));
-          else if (t.type === "table") i.push(_(t, n, a));
-          else if (t.type === "list") i.push(u(t, n, a));
-          else if (t.type === "code") i.push(s(t));
-          else if (t.type === "link") i.push(c(t, n, a));
-          else if (t.type === "text") i.push.apply(i, f(t, n, a));
-          else if (t.type === "ur-inline-entity") {
-            var l;
-            if (!(t.key in n)) return;
-            var m = n[t.key].metadata,
-              p =
-                m.__typename === "GenAILatexItem" &&
-                ((l = t.token) == null ? void 0 : l.type) === "katex-inline"
-                  ? babelHelpers.extends({}, m, {
-                      latex_expression: t.token.text,
-                    })
-                  : m,
-              h = r("cometComposedTextV2GenAiTextInlineEntityParser")(
-                p,
-                t.text ? t.text : "",
-              );
-            h && i.push.apply(i, h);
-          } else if (t.type === "katex-block" || t.type === "katex-inline")
-            i.push(o("cometComposedTextV2NodeBuilders").buildMathNode(t.text));
-          else {
-            if (t.type === "space") return;
-            if (t.type === "hr")
-              i.push(
-                o("cometComposedTextV2NodeBuilders").buildThematicBreakNode(),
-              );
-            else if (t.type === "br")
-              i.push(o("cometComposedTextV2NodeBuilders").buildNewLineNode());
-            else if (t.type === "escape")
-              i.push.apply(
-                i,
-                f({ raw: t.raw, text: t.text, type: "text" }, n, a),
-              );
-            else if (t.type === "blockquote")
-              i.push(
-                o("cometComposedTextV2NodeBuilders")
-                  .buildBlockQuoteNode()
-                  .appendMany(g(t.tokens, n, a)),
-              );
-            else if (t.type === "html")
-              i.push(
-                o("cometComposedTextV2NodeBuilders").buildTextNode(t.text),
-              );
-            else if (t.type === "image")
-              t.text !== "" &&
-                i.push.apply(
-                  i,
-                  f({ raw: t.raw, text: t.text, type: "text" }, n, a),
-                );
-            else throw r("err")("markdown token " + t.type);
-          }
+        t.forEach(function (e) {
+          n += e;
         }),
-        i
+        n
       );
     }
-    function h(e, t, n) {
+    function v(e, t, n) {
+      n === void 0 && (n = 0);
+      var a = [],
+        i = new Map();
+      return (
+        e.forEach(function (e) {
+          var l = n | b(i);
+          if (e.type === "strong")
+            a.push.apply(a, v(e.tokens, t, l | r("ComposedInlineStyle").BOLD));
+          else if (e.type === "em")
+            a.push.apply(
+              a,
+              v(e.tokens, t, l | r("ComposedInlineStyle").ITALIC),
+            );
+          else if (e.type === "codespan")
+            a.push.apply(a, g(e, t, l | r("ComposedInlineStyle").CODE));
+          else if (e.type === "del")
+            a.push.apply(
+              a,
+              v(e.tokens, t, l | r("ComposedInlineStyle").STRIKETHROUGH),
+            );
+          else if (e.type === "paragraph") a.push(m(e, t, l));
+          else if (e.type === "heading") a.push(s(e, t, l));
+          else if (e.type === "table") a.push(f(e, t, l));
+          else if (e.type === "list") a.push(c(e, t, l));
+          else if (e.type === "code") a.push(u(e));
+          else if (e.type === "link") a.push(d(e, t, l));
+          else if (e.type === "text") a.push.apply(a, g(e, t, l));
+          else if (e.type === "ur-inline-entity") {
+            var p;
+            if (!Object.hasOwn(t, e.key)) {
+              var _;
+              a.push(
+                o("cometComposedTextV2NodeBuilders").buildTextNode(
+                  (_ = e.text) != null ? _ : "",
+                  l,
+                ),
+              );
+              return;
+            }
+            var h = t[e.key].metadata,
+              S =
+                h.__typename === "GenAILatexItem" &&
+                ((p = e.token) == null ? void 0 : p.type) === "katex-inline"
+                  ? babelHelpers.extends({}, h, {
+                      latex_expression: e.token.text,
+                    })
+                  : h,
+              R = r("cometComposedTextV2GenAiTextInlineEntityParser")(
+                S,
+                e.text ? e.text : "",
+                l,
+              );
+            R && a.push.apply(a, R);
+          } else if (e.type === "katex-block" || e.type === "katex-inline")
+            a.push(o("cometComposedTextV2NodeBuilders").buildMathNode(e.text));
+          else {
+            if (e.type === "space") return;
+            if (e.type === "hr")
+              a.push(
+                o("cometComposedTextV2NodeBuilders").buildThematicBreakNode(),
+              );
+            else if (e.type === "br")
+              a.push(o("cometComposedTextV2NodeBuilders").buildNewLineNode());
+            else if (e.type === "escape")
+              a.push.apply(
+                a,
+                g({ raw: e.raw, text: e.text, type: "text" }, t, l),
+              );
+            else if (e.type === "blockquote")
+              a.push(
+                o("cometComposedTextV2NodeBuilders")
+                  .buildBlockQuoteNode()
+                  .appendMany(v(e.tokens, t, l)),
+              );
+            else if (e.type === "html") {
+              var L = e.text.trim(),
+                E = L.match(y);
+              if (!r("justknobx")._("7351"))
+                a.push(
+                  o("cometComposedTextV2NodeBuilders").buildTextNode(e.text),
+                );
+              else if (E != null) {
+                var k,
+                  I = E[2].toLowerCase(),
+                  T = (k = i.get(I)) != null ? k : 0;
+                i.set(I, E[1] === "/" ? Math.max(0, T - 1) : T + 1);
+              } else
+                C.test(L)
+                  ? a.push(
+                      o("cometComposedTextV2NodeBuilders").buildNewLineNode(),
+                    )
+                  : a.push(
+                      o("cometComposedTextV2NodeBuilders").buildTextNode(
+                        e.text,
+                        l,
+                      ),
+                    );
+            } else if (e.type === "image")
+              e.text !== "" &&
+                a.push.apply(
+                  a,
+                  g({ raw: e.raw, text: e.text, type: "text" }, t, l),
+                );
+            else throw r("err")("markdown token " + e.type);
+          }
+        }),
+        a
+      );
+    }
+    function S(e, t, n) {
       var r,
         a,
         i,
@@ -297,11 +356,11 @@ __d(
         p,
         _,
         f,
+        g,
         h,
         y,
         C,
         b,
-        v,
         S,
         R,
         L,
@@ -345,24 +404,24 @@ __d(
                 : void 0,
             thinkingBlock:
               (f =
-                n == null || (h = n.plugins) == null
+                n == null || (g = n.plugins) == null
                   ? void 0
-                  : h.thinkingBlock) != null
+                  : g.thinkingBlock) != null
                 ? f
                 : void 0,
             urInlineEntity:
-              (y =
-                n == null || (C = n.plugins) == null
+              (h =
+                n == null || (y = n.plugins) == null
                   ? void 0
-                  : C.urInlineEntity) != null
-                ? y
+                  : y.urInlineEntity) != null
+                ? h
                 : o("MarkedURInlineEntityPlugin").urInlineEntity,
           },
           rules: {
             block:
-              (b = n == null || (v = n.rules) == null ? void 0 : v.block) !=
+              (C = n == null || (b = n.rules) == null ? void 0 : b.block) !=
               null
-                ? b
+                ? C
                 : void 0,
             inline: babelHelpers.extends(
               {},
@@ -384,7 +443,7 @@ __d(
         .tokenize(e, k)
         .reduce(function (e, t) {
           try {
-            e.push.apply(e, g([t], E));
+            e.push.apply(e, v([t], E));
           } catch (t) {
             var n = t instanceof Error ? t.message : String(t);
             e.push(
@@ -396,7 +455,7 @@ __d(
           return e;
         }, []);
     }
-    l.default = h;
+    l.default = S;
   },
   98,
 );

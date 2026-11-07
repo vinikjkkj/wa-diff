@@ -176,7 +176,7 @@ __d(
           }
           var s = yield (d || (d = n("Promise"))).all([
               o("WAWebApiContact").getContactRecord(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
               ),
               o("WAWebApiContact").getContactRecord(e),
             ]),

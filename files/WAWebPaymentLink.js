@@ -37,7 +37,7 @@ __d(
       var r = o("WAWebLinkify").findLinks(
         t,
         !1,
-        o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+        o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
       );
       return (
         (n = o("WAWebLoggingPaymentLinkWithoutPreviewFeature").getMetadata(

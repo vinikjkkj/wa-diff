@@ -5,18 +5,6 @@ __d(
     "use strict";
     var e = {
       ai_group_tee_history_share_group_level_enabled: [32501, "bool", !1, !1],
-      group_history_messages_time_limit_secs_group_level: [
-        26270,
-        "int",
-        1209600,
-        1209600,
-      ],
-      group_history_out_of_window_pin_sender_group_level: [
-        26269,
-        "bool",
-        !1,
-        !1,
-      ],
       group_history_send_admin_set_default_on_group_level: [
         36505,
         "bool",

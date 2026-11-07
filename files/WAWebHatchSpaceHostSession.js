@@ -5,26 +5,16 @@ __d(
     "WAWebHatchNoiseBytes",
     "WAWebHatchSpaceDocument",
     "WAWebHatchSpaceTunnel",
-    "WAXWhatsAppWebTPSpaceHostControllerRouteBuilder",
-    "WhatsAppWebTPUrlBuilder",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 16;
     function s() {
-      var e = r("WhatsAppWebTPUrlBuilder").url;
-      return e == null || e === ""
-        ? null
-        : "" +
-            e +
-            r("WAXWhatsAppWebTPSpaceHostControllerRouteBuilder").buildURL({});
-    }
-    function u() {
       return o("WAWebHatchNoiseBytes").bytesToHex(
         self.crypto.getRandomValues(new Uint8Array(e)),
       );
     }
-    var c = (function () {
+    var u = (function () {
       function e(e, t, n) {
         ((this.$1 = !1),
           (this.$2 = !1),
@@ -100,9 +90,7 @@ __d(
         e
       );
     })();
-    ((l.getHatchSpaceShellUrl = s),
-      (l.mintHatchSpaceSecret = u),
-      (l.WAWebHatchSpaceHostSession = c));
+    ((l.mintHatchSpaceSecret = s), (l.WAWebHatchSpaceHostSession = u));
   },
   98,
 );

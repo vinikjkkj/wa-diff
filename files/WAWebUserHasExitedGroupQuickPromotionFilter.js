@@ -37,25 +37,24 @@ __d(
           if (l == null) return s;
           var m = !l.participants.iAmMember();
           if (!m) return u;
-          var p = l.pastParticipants.get(
-            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-          );
-          if (p == null) return c;
-          var _ = o(
+          var p = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser(),
+            _ = p == null ? null : l.pastParticipants.get(p);
+          if (_ == null) return c;
+          var f = o(
               "WAWebQuickPromotionValidatorUtils",
             ).convertFilterParametersIntoMap(a),
-            f = parseInt(r("nullthrows")(_.get("param")), 10);
+            g = parseInt(r("nullthrows")(f.get("param")), 10);
           if (
             !o("WATimeUtils").isInFuture(
               o("WATimeUtils").futureUnixTime(
-                f,
-                o("WATimeUtils").castToUnixTime(p.leaveTs),
+                g,
+                o("WATimeUtils").castToUnixTime(_.leaveTs),
               ),
             )
           )
             return d;
-          var g = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
-          return g.groupAdd !== "all"
+          var h = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
+          return h.groupAdd !== "all"
             ? e
             : o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
         },

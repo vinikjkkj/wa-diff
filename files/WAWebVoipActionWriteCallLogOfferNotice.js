@@ -111,9 +111,7 @@ __d(
                         fromMe: g,
                         id: h,
                       }),
-                      to: o(
-                        "WAWebUserPrefsMeUser",
-                      ).getMeDevicePnOrThrow_DO_NOT_USE(),
+                      to: o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow(),
                     },
                     v,
                   ))
@@ -124,9 +122,7 @@ __d(
                         fromMe: g,
                         id: h,
                       }),
-                      to: o(
-                        "WAWebUserPrefsMeUser",
-                      ).getMeDevicePnOrThrow_DO_NOT_USE(),
+                      to: o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow(),
                     },
                     b,
                   )),

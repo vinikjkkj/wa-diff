@@ -12,174 +12,190 @@ __d(
       u = 5e3,
       c = 5,
       d = 64,
-      m = 1e3,
-      p = 32,
-      _ = 1e3,
-      f = new Set(),
-      g = null,
-      h = !1,
-      y = new WeakMap(),
-      C = new Map(),
-      b = !1,
-      v = !1,
-      S = null,
-      R = {},
-      L = !1,
-      E = new Set(),
-      k = null,
-      I = !1;
-    function T(e, t) {
+      m = 64,
+      p = 1e3,
+      _ = 32,
+      f = 1e3,
+      g = new Set(),
+      h = null,
+      y = !1,
+      C = new WeakMap(),
+      b = new WeakMap(),
+      v = new Map(),
+      S = !1,
+      R = !1,
+      L = null,
+      E = {},
+      k = !1,
+      I = new Set(),
+      T = null,
+      D = !1;
+    function x(e, t) {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:bulk",
         function () {
-          y.set(t, e.slice(0, d));
+          C.set(t, e.slice(0, d));
         },
       );
     }
-    function D(t, n) {
+    function $(t, n) {
       return (
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
           "wa:bulkSum",
           function () {
-            return W(t.name, n.length);
+            return V(t.name, n.length);
           },
         ),
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
           "wa:bulk",
           function () {
-            if (n.length < e || f.size >= s) return null;
+            if (n.length < e || g.size >= s) return null;
             var r = {
               t: t.name,
-              c: y.get(n),
+              c: C.get(n),
               n: n.length,
               h: o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
             };
             return (
               o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(r.h),
-              f.add(r),
-              B(),
+              g.add(r),
+              U(),
               r
             );
           },
         )
       );
     }
-    function x(e, t) {
+    function P(e, t) {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:bulk",
         function () {
           e != null &&
-            (f.delete(e),
-            (g = {
+            (g.delete(e),
+            (h = {
               t: e.t,
               c: e.c,
               n: e.n,
               h: o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
               ms: Math.round(t),
             }),
-            o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(g.h),
-            B());
+            o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(h.h),
+            U());
         },
       );
     }
-    function $(e) {
+    function N(e) {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:resume",
         function () {
-          ((R.m = e.message), V());
+          ((E.m = e.message), z());
         },
       );
     }
-    function P(e) {
+    function M(e) {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:resume",
         function () {
-          ((R.pr = e.length), V());
+          ((E.pr = e.length), z());
         },
       );
     }
-    function N(e, t, n, r) {
+    function w(e, t) {
+      o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+        "wa:idbRead",
+        function () {
+          b.set(t, e.slice(0, m));
+        },
+      );
+    }
+    function A(e, t, n, r, a) {
       return (
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
           "wa:idbRead",
           function () {
-            var a = { t: e.name, op: t, k: n != null ? n : void 0 },
-              i = self.performance.now(),
-              l = !1,
-              s =
-                n != null && n >= m
+            var i = {
+                t: e.name,
+                op: t,
+                c: a != null ? b.get(a) : void 0,
+                k: n != null ? n : void 0,
+              },
+              l = self.performance.now(),
+              s = !1,
+              u =
+                n != null && n >= p
                   ? null
                   : self.setTimeout(function () {
                       return o(
                         "WAWebSafeCrashAnnotation",
                       ).runCrashAnnotationSafely("wa:idbRead", function () {
-                        l || M(a);
+                        s || F(i);
                       });
-                    }, _),
-              u = function (t) {
+                    }, f),
+              c = function (t) {
                 return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                   "wa:idbRead",
                   function () {
                     var e;
-                    ((l = !0),
-                      s != null && self.clearTimeout(s),
-                      w(
-                        a,
+                    ((s = !0),
+                      u != null && self.clearTimeout(u),
+                      O(
+                        i,
                         (e = t == null ? void 0 : t.length) != null ? e : 0,
-                        self.performance.now() - i,
+                        self.performance.now() - l,
                       ));
                   },
                 );
               };
-            (r.then(u, function () {
-              return u(null);
+            (r.then(c, function () {
+              return c(null);
             }),
-              s == null && M(a));
+              u == null && F(i));
           },
         ),
         r
       );
     }
-    function M(e) {
-      if (E.size >= p) {
+    function F(e) {
+      if (I.size >= _) {
         var t,
           n,
-          r = O();
+          r = q();
         if (
           r == null ||
           ((t = r.k) != null ? t : 0) > ((n = e.k) != null ? n : 0)
         )
           return;
-        E.delete(r);
+        I.delete(r);
       }
       ((e.h = o("WAWebHeapCrashAnnotations").readUsedHeapMB()),
         o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(e.h),
-        E.add(e),
-        A());
+        I.add(e),
+        B());
     }
-    function w(e, t, n) {
-      var r = E.delete(e);
-      if (t >= m)
-        ((k = {
+    function O(e, t, n) {
+      var r = I.delete(e);
+      if (t >= p)
+        ((T = {
           t: e.t,
           op: e.op,
+          c: e.c,
           n: t,
           h: o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
           ms: Math.round(n),
         }),
-          o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(k.h));
+          o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(T.h));
       else if (!r) return;
-      A();
+      B();
     }
-    function A() {
-      if (!I) {
-        I = !0;
+    function B() {
+      if (!D) {
+        D = !0;
         var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
           "wa:idbRead",
           function () {
             return (
               o("WAWebLogForCrash").onLogForCrashReady(function () {
-                ((I = !1),
+                ((D = !1),
                   o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                     "wa:idbRead",
                     function () {
@@ -187,8 +203,8 @@ __d(
                       return o("WAWebLogForCrash").logForCrash(
                         "wa:idbRead",
                         JSON.stringify({
-                          cur: (e = F()) != null ? e : void 0,
-                          last: k != null ? k : void 0,
+                          cur: (e = W()) != null ? e : void 0,
+                          last: T != null ? T : void 0,
                         }),
                       );
                     },
@@ -198,11 +214,11 @@ __d(
             );
           },
         );
-        e !== !0 && (I = !1);
+        e !== !0 && (D = !1);
       }
     }
-    function F() {
-      return Array.from(E).reduce(function (e, t) {
+    function W() {
+      return Array.from(I).reduce(function (e, t) {
         var n, r;
         return e == null ||
           ((n = t.k) != null ? n : 0) > ((r = e.k) != null ? r : 0)
@@ -210,8 +226,8 @@ __d(
           : e;
       }, null);
     }
-    function O() {
-      return Array.from(E).reduce(function (e, t) {
+    function q() {
+      return Array.from(I).reduce(function (e, t) {
         var n, r;
         return e == null ||
           ((n = t.k) != null ? n : 0) < ((r = e.k) != null ? r : 0)
@@ -219,15 +235,15 @@ __d(
           : e;
       }, null);
     }
-    function B() {
-      if (!h) {
-        h = !0;
+    function U() {
+      if (!y) {
+        y = !0;
         var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
           "wa:bulk",
           function () {
             return (
               o("WAWebLogForCrash").onLogForCrashReady(function () {
-                ((h = !1),
+                ((y = !1),
                   o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                     "wa:bulk",
                     function () {
@@ -235,8 +251,8 @@ __d(
                       return o("WAWebLogForCrash").logForCrash(
                         "wa:bulk",
                         JSON.stringify({
-                          cur: (e = H()) != null ? e : void 0,
-                          last: g != null ? g : void 0,
+                          cur: (e = j()) != null ? e : void 0,
+                          last: h != null ? h : void 0,
                         }),
                       );
                     },
@@ -246,39 +262,39 @@ __d(
             );
           },
         );
-        e !== !0 && (h = !1);
+        e !== !0 && (y = !1);
       }
     }
-    function W(e, t) {
-      var n = C.get(e);
-      (n == null ? C.set(e, [1, t]) : ((n[0] += 1), (n[1] += t)), q());
+    function V(e, t) {
+      var n = v.get(e);
+      (n == null ? v.set(e, [1, t]) : ((n[0] += 1), (n[1] += t)), H());
     }
-    function q() {
-      if (!(b || v)) {
-        var e = S == null ? 0 : S + u - self.performance.now();
+    function H() {
+      if (!(S || R)) {
+        var e = L == null ? 0 : L + u - self.performance.now();
         if (e <= 0) {
-          U();
+          G();
           return;
         }
         (self.setTimeout(function () {
-          ((v = !1),
+          ((R = !1),
             o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
               "wa:bulkSum",
-              U,
+              G,
             ));
         }, e),
-          (v = !0));
+          (R = !0));
       }
     }
-    function U() {
-      b = !0;
+    function G() {
+      S = !0;
       var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:bulkSum",
         function () {
           return (
             o("WAWebLogForCrash").onLogForCrashReady(function () {
-              ((b = !1),
-                (S = self.performance.now()),
+              ((S = !1),
+                (L = self.performance.now()),
                 o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                   "wa:bulkSum",
                   function () {
@@ -286,7 +302,7 @@ __d(
                       "wa:bulkSum",
                       JSON.stringify(
                         Object.fromEntries(
-                          Array.from(C)
+                          Array.from(v)
                             .sort(function (e, t) {
                               var n = e[1],
                                 r = t[1];
@@ -303,23 +319,23 @@ __d(
           );
         },
       );
-      e !== !0 && (b = !1);
+      e !== !0 && (S = !1);
     }
-    function V() {
-      if (!L) {
-        L = !0;
+    function z() {
+      if (!k) {
+        k = !0;
         var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
           "wa:resume",
           function () {
             return (
               o("WAWebLogForCrash").onLogForCrashReady(function () {
-                ((L = !1),
+                ((k = !1),
                   o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                     "wa:resume",
                     function () {
                       return o("WAWebLogForCrash").logForCrash(
                         "wa:resume",
-                        JSON.stringify(R),
+                        JSON.stringify(E),
                       );
                     },
                   ));
@@ -328,20 +344,21 @@ __d(
             );
           },
         );
-        e !== !0 && (L = !1);
+        e !== !0 && (k = !1);
       }
     }
-    function H() {
-      return Array.from(f).reduce(function (e, t) {
+    function j() {
+      return Array.from(g).reduce(function (e, t) {
         return e == null || t.n > e.n ? t : e;
       }, null);
     }
-    ((l.annotateCrashWithBulkWriteCaller = T),
-      (l.annotateCrashWithBulkWriteStart = D),
-      (l.annotateCrashWithBulkWriteEnd = x),
-      (l.annotateCrashWithOfflineResumeMessages = $),
-      (l.annotateCrashWithPeerReceiptRows = P),
-      (l.annotateCrashWithIdbRead = N));
+    ((l.annotateCrashWithBulkWriteCaller = x),
+      (l.annotateCrashWithBulkWriteStart = $),
+      (l.annotateCrashWithBulkWriteEnd = P),
+      (l.annotateCrashWithOfflineResumeMessages = N),
+      (l.annotateCrashWithPeerReceiptRows = M),
+      (l.annotateCrashWithIdbReadCaller = w),
+      (l.annotateCrashWithIdbRead = A));
   },
   98,
 );

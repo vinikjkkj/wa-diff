@@ -2,8 +2,6 @@ __d(
   "WAWebFavoriteStickerCollection",
   [
     "Promise",
-    "WABaseGlobals",
-    "WAJids",
     "WALogger",
     "WAWebABProps",
     "WAWebBaseCollection",
@@ -15,9 +13,11 @@ __d(
     "WAWebStickerGetters",
     "WAWebStickerModel",
     "WAWebStickerUtils",
+    "WAWebUserUtils",
     "WAWebWebpCalculateWebpFilehashWithoutMetadata",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g;
@@ -224,10 +224,9 @@ __d(
             function* (e, t, a) {
               var i = this;
               a === void 0 &&
-                (a = o("WAJids").interpretAsNumber(
-                  o("WAJids").extractDeviceId(
-                    o("WABaseGlobals").getMyDeviceJid(),
-                  ),
+                (a = r("nullthrows")(
+                  o("WAWebUserUtils").getMaybeMeDeviceId(),
+                  "self device ID",
                 ));
               var l = e.filter(function (e) {
                 return !i.get(e.id);

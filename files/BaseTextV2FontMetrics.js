@@ -18,23 +18,23 @@ __d(
         unitsPerEm: 2e3,
       },
       s = {
+        ascent: 1955,
+        capHeight: 1400,
+        descent: -554,
+        lineGap: 0,
+        unitsPerEm: 2e3,
+      },
+      u = {
         ascent: 1980,
         capHeight: 1453,
         descent: -562,
         lineGap: 0,
         unitsPerEm: 2048,
       },
-      u = {
+      c = {
         ascent: 2210,
         capHeight: 1444,
         descent: -514,
-        lineGap: 0,
-        unitsPerEm: 2048,
-      },
-      c = {
-        ascent: 1900,
-        capHeight: 1456,
-        descent: -500,
         lineGap: 0,
         unitsPerEm: 2048,
       },
@@ -44,13 +44,21 @@ __d(
         descent: -500,
         lineGap: 0,
         unitsPerEm: 2048,
+      },
+      m = {
+        ascent: 1900,
+        capHeight: 1456,
+        descent: -500,
+        lineGap: 0,
+        unitsPerEm: 2048,
       };
     ((i.OptimisticDisplayFontMetrics = e),
       (i.OptimisticFontMetrics = l),
-      (i.AppleSystemFontMetrics = s),
-      (i.WindowsSystemFontMetrics = u),
-      (i.RobotoFontMetrics = c),
-      (i.RobotoFlexFontMetrics = d));
+      (i.OptimisticAIFontMetrics = s),
+      (i.AppleSystemFontMetrics = u),
+      (i.WindowsSystemFontMetrics = c),
+      (i.RobotoFontMetrics = d),
+      (i.RobotoFlexFontMetrics = m));
   },
   66,
 );

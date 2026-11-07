@@ -3,6 +3,7 @@ __d(
   [
     "WebBloksComponentContext",
     "WebBloksStyle",
+    "WebBloksTheme",
     "react",
     "react-compiler-runtime",
   ],
@@ -12,6 +13,7 @@ __d(
         "accessibility_label",
         "badge_count",
         "className",
+        "disabled",
         "icon",
         "role",
         "tabIndex",
@@ -22,7 +24,7 @@ __d(
       u = s || (s = o("react"));
     function c(t) {
       var n,
-        r = o("react-compiler-runtime").c(36),
+        r = o("react-compiler-runtime").c(43),
         a,
         i,
         l,
@@ -31,16 +33,18 @@ __d(
         m,
         p,
         _,
-        f;
+        f,
+        g;
       r[0] !== t
         ? ((a = t.accessibility_label),
           (i = t.badge_count),
           (l = t.className),
+          (m = t.disabled),
           (s = t.icon),
-          (m = t.role),
-          (p = t.tabIndex),
-          (_ = t.title),
-          (f = t.trailing),
+          (p = t.role),
+          (_ = t.tabIndex),
+          (f = t.title),
+          (g = t.trailing),
           (c = babelHelpers.objectWithoutPropertiesLoose(t, e)),
           (r[0] = t),
           (r[1] = a),
@@ -51,7 +55,8 @@ __d(
           (r[6] = m),
           (r[7] = p),
           (r[8] = _),
-          (r[9] = f))
+          (r[9] = f),
+          (r[10] = g))
         : ((a = r[1]),
           (i = r[2]),
           (l = r[3]),
@@ -60,114 +65,145 @@ __d(
           (m = r[6]),
           (p = r[7]),
           (_ = r[8]),
-          (f = r[9]));
-      var g = m === void 0 ? "button" : m,
-        h = p === void 0 ? 0 : p,
-        y = o("WebBloksComponentContext").useWebBloksContext(),
-        C = y.objectSet;
-      if (s == null && _ == null) return null;
-      var b = d.abstractButton,
-        v = _ == null,
-        S = (n = _ != null ? _ : a) != null ? n : "",
-        R = null;
+          (f = r[9]),
+          (g = r[10]));
+      var h = m === void 0 ? !1 : m,
+        y = p === void 0 ? "button" : p,
+        C = _ === void 0 ? 0 : _,
+        b = o("WebBloksComponentContext").useWebBloksContext(),
+        v = b.objectSet;
+      if (s == null && f == null) return null;
+      var S = d.abstractButton,
+        R = f == null,
+        L = (n = f != null ? f : a) != null ? n : "",
+        E = null;
       if (s != null) {
-        var L = C.environment,
-          E = L.AssetRenderer,
-          k = L.logger;
-        if (!E)
-          k.mustfix(
+        var k = v.environment,
+          I = k.AssetRenderer,
+          T = k.logger;
+        if (!I)
+          T.mustfix(
             "Trying to render an asset, but AssetRenderer is not defined for %s",
             JSON.stringify(s),
           );
         else {
-          var I;
-          r[10] !== S || r[11] !== v
-            ? ((I = {}),
-              S && ((I.alt = ""), v || (I.className = d.marginRight4)),
-              (r[10] = S),
-              (r[11] = v),
-              (r[12] = I))
-            : (I = r[12]);
-          var T;
-          (r[13] !== E || r[14] !== s || r[15] !== I
-            ? ((T = u.jsx(E, babelHelpers.extends({ src: s }, I))),
-              (r[13] = E),
-              (r[14] = s),
-              (r[15] = I),
-              (r[16] = T))
-            : (T = r[16]),
-            (R = T));
+          var D;
+          r[11] !== L || r[12] !== R
+            ? ((D = {}),
+              L && ((D.alt = ""), R || (D.className = d.marginRight4)),
+              (r[11] = L),
+              (r[12] = R),
+              (r[13] = D))
+            : (D = r[13]);
+          var x;
+          (r[14] !== I || r[15] !== s || r[16] !== D
+            ? ((x = u.jsx(I, babelHelpers.extends({ src: s }, D))),
+              (r[14] = I),
+              (r[15] = s),
+              (r[16] = D),
+              (r[17] = x))
+            : (x = r[17]),
+            (E = x));
         }
       }
-      var D;
-      r[17] !== c
-        ? ((D = function (t) {
-            ((t.key === "Enter" || t.key === " ") &&
-              (t.preventDefault(), t.currentTarget.click()),
-              c.onKeyDown == null || c.onKeyDown(t));
+      var $;
+      r[18] !== h || r[19] !== c
+        ? (($ = function (t) {
+            if (!(h || t.target !== t.currentTarget)) {
+              if (c.onKeyDown != null) {
+                c.onKeyDown(t);
+                return;
+              }
+              (t.key === "Enter" || t.key === " ") &&
+                (t.preventDefault(), t.currentTarget.click());
+            }
           }),
-          (r[17] = c),
-          (r[18] = D))
-        : (D = r[18]);
-      var x = D,
-        $ = f === !0 ? d.TrailingButton : "",
-        P;
-      r[19] !== l || r[20] !== $
-        ? ((P = o("WebBloksStyle").classNames($, b, l)),
-          (r[19] = l),
-          (r[20] = $),
-          (r[21] = P))
-        : (P = r[21]);
-      var N;
-      r[22] !== S || r[23] !== v
-        ? ((N = v
+          (r[18] = h),
+          (r[19] = c),
+          (r[20] = $))
+        : ($ = r[20]);
+      var P = $,
+        N = h ? -1 : C,
+        M = h || void 0,
+        w = h ? void 0 : c.onClick,
+        A = h ? void 0 : c.onClickCapture,
+        F = h ? void 0 : c.onKeyUp,
+        O = g === !0 ? d.TrailingButton : "",
+        B = h ? d.disabled : null,
+        W;
+      r[21] !== l || r[22] !== O || r[23] !== B
+        ? ((W = o("WebBloksStyle").classNames(O, S, l, B)),
+          (r[21] = l),
+          (r[22] = O),
+          (r[23] = B),
+          (r[24] = W))
+        : (W = r[24]);
+      var q;
+      r[25] !== L || r[26] !== R
+        ? ((q = R
             ? u.jsx("span", {
                 className: d.abstractButton + "_accessible_elem",
-                children: S,
+                children: L,
               })
-            : S),
-          (r[22] = S),
-          (r[23] = v),
-          (r[24] = N))
-        : (N = r[24]);
-      var M;
-      r[25] !== x ||
-      r[26] !== R ||
-      r[27] !== c ||
-      r[28] !== g ||
-      r[29] !== P ||
-      r[30] !== N ||
-      r[31] !== h
-        ? ((M = u.jsxs(
+            : L),
+          (r[25] = L),
+          (r[26] = R),
+          (r[27] = q))
+        : (q = r[27]);
+      var U;
+      r[28] !== P ||
+      r[29] !== E ||
+      r[30] !== c ||
+      r[31] !== y ||
+      r[32] !== W ||
+      r[33] !== q ||
+      r[34] !== N ||
+      r[35] !== M ||
+      r[36] !== w ||
+      r[37] !== A ||
+      r[38] !== F
+        ? ((U = u.jsxs(
             "div",
-            babelHelpers.extends({ role: g, tabIndex: h }, c, {
-              onKeyDown: x,
-              className: P,
-              children: [R, N],
+            babelHelpers.extends({ role: y, tabIndex: N }, c, {
+              "aria-disabled": M,
+              onClick: w,
+              onClickCapture: A,
+              onKeyUp: F,
+              onKeyDown: P,
+              className: W,
+              children: [E, q],
             }),
           )),
-          (r[25] = x),
-          (r[26] = R),
-          (r[27] = c),
-          (r[28] = g),
-          (r[29] = P),
-          (r[30] = N),
-          (r[31] = h),
-          (r[32] = M))
-        : (M = r[32]);
-      var w = i != null && i > 0 ? i : void 0,
-        A;
+          (r[28] = P),
+          (r[29] = E),
+          (r[30] = c),
+          (r[31] = y),
+          (r[32] = W),
+          (r[33] = q),
+          (r[34] = N),
+          (r[35] = M),
+          (r[36] = w),
+          (r[37] = A),
+          (r[38] = F),
+          (r[39] = U))
+        : (U = r[39]);
+      var V = i != null && i > 0 ? i : void 0,
+        H;
       return (
-        r[33] !== M || r[34] !== w
-          ? ((A = u.jsxs(u.Fragment, { children: [M, w] })),
-            (r[33] = M),
-            (r[34] = w),
-            (r[35] = A))
-          : (A = r[35]),
-        A
+        r[40] !== U || r[41] !== V
+          ? ((H = u.jsxs(u.Fragment, { children: [U, V] })),
+            (r[40] = U),
+            (r[41] = V),
+            (r[42] = H))
+          : (H = r[42]),
+        H
       );
     }
     var d = o("WebBloksStyle").createStyles({
+      disabled: {
+        color: o("WebBloksTheme").WebBloksThemeVars["fds-gray-65"],
+        cursor: "default",
+      },
       TrailingButton: {
         backgroundColor: "transparent",
         border: "none",

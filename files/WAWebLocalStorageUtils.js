@@ -1,15 +1,10 @@
 __d(
   "WAWebLocalStorageUtils",
-  ["WAWebLocalStorage", "WAWebUserPrefsKeys"],
+  ["WAWebLocalStorage", "WAWebUserPrefsHasLoggedIn", "WAWebUserPrefsKeys"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
-        !(
-          r("WAWebLocalStorage") != null &&
-          r("WAWebLocalStorage").getItem(
-            o("WAWebUserPrefsKeys").KEYS.LAST_WID_MD,
-          )
-        ) &&
+        !o("WAWebUserPrefsHasLoggedIn").hasLoggedInLightweight() &&
         !(
           r("WAWebLocalStorage") != null &&
           r("WAWebLocalStorage").getItem(o("WAWebUserPrefsKeys").KEYS.LAST_WID)

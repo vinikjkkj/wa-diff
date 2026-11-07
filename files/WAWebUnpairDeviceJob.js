@@ -35,7 +35,7 @@ __d(
               },
               n.wap("remove-companion-device", {
                 jid: o("WAWebCommsWapMd").DEVICE_JID(
-                  o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+                  o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow(),
                 ),
                 reason: n.CUSTOM_STRING(t),
               }),

@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
-      var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      var n = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
       if (!n) {
         o("WALogger").WARN(
           e ||

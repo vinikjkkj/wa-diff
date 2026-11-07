@@ -164,7 +164,6 @@ __d(
             ACTIVE_USAGE_DAYS_SINCE_DIALOG_OPENED:
               "WAActiveUsageDaysSinceDialogOpened",
             BANNER_STATES: "WABannerStates",
-            LID: "WALid",
             ME_DISPLAY_NAME: "me-display-name",
             PRESERVED_USER_KEYS: "preserved_user_keys",
             LAST_STATUS_USAGE: "last-status-usage",

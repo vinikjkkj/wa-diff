@@ -3,8 +3,8 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebBrAddPixKeyLinkErrorDialogLoadable",
     "WAWebBrAddPixKeyOfferLoggerLoadable",
-    "WAWebBrPixPaymentsHomeDeepLink",
     "WAWebLazyLoadedRetriable",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -29,7 +29,7 @@ __d(
           var n;
           try {
             n = yield s();
-          } catch (t) {
+          } catch (n) {
             (o("WALogger")
               .WARN(
                 e ||
@@ -37,15 +37,17 @@ __d(
                     "br_add_pix_key_code: bundle failed to load: ",
                     "",
                   ])),
-                r("getErrorSafe")(t).name,
+                r("getErrorSafe")(n).name,
               )
               .sendLogs("br-add-pix-key-code-bundle-failed"),
               o(
                 "WAWebBrAddPixKeyOfferLoggerLoadable",
               ).logAddPixKeyLinkDiscarded("link_unusable", null),
               o(
-                "WAWebBrPixPaymentsHomeDeepLink",
-              ).openBrPixPaymentsHomeDeepLink());
+                "WAWebBrAddPixKeyLinkErrorDialogLoadable",
+              ).openPaymentsHomeWithLinkRetryDialogLazily(function () {
+                u(t);
+              }));
             return;
           }
           yield n.openAddPixKeyCodeLink(t);

@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebCrashlog",
-    "WAWebLocalStorage",
     "WAWebMdSessionIdCache",
     "WAWebODS",
     "WAWebPathfinderHealthReporter",
@@ -13,7 +12,7 @@ __d(
     "WAWebPathfinderUnsamplingConfig",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUnifiedSession",
-    "WAWebUserPrefsLoginKeys",
+    "WAWebUserPrefsHasLoggedIn",
     "WamPathfinderWebFalcoEvent",
     "WamPathfinderWebUnsampledFalcoEvent",
     "err",
@@ -218,12 +217,7 @@ __d(
       return (w == null && (w = r("qex")._("2703") === !0), w);
     }
     function F() {
-      return !!(
-        r("WAWebLocalStorage") != null &&
-        r("WAWebLocalStorage").getItem(
-          o("WAWebUserPrefsLoginKeys").WAWebUserPrefsLoginKeys.LAST_WID_MD,
-        )
-      );
+      return o("WAWebUserPrefsHasLoggedIn").hasLoggedInLightweight();
     }
     function O() {
       return r("justknobx")._("918") ? !1 : F() || A();

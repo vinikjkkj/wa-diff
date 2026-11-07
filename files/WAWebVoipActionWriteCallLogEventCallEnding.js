@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -10,6 +11,7 @@ __d(
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
@@ -78,29 +80,41 @@ __d(
                 i != null
                   ? i
                   : p
-                    ? o(
-                        "WAWebUserPrefsMeUser",
-                      ).getMeDevicePnOrThrow_DO_NOT_USE()
+                    ? o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow()
                     : h,
               T = f === !0 || !r("isStringNullOrEmpty")(c);
             if (k != null) {
-              var D = babelHelpers.extends({}, k.toJSON(), {
-                  callDuration: m == null ? k.callDuration : m,
-                  callOutcome: L,
-                  finalCallOutcome: L,
-                  terminatedByDeviceSwitch: b,
-                  screenedElsewhere: E,
-                  bytesSent: S,
-                  bytesReceived: R,
-                }),
+              var D = _ != null,
                 x = yield o(
-                  "WAWebVoipActionWriteCallLogImpl",
-                ).writeVoipCallLogMessageImpl(D.to, D, !1);
-              x != null &&
-                o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(l);
+                  "WAWebVoipCallLogWriteMutex",
+                ).WACallLogWriteMutex.acquire();
+              try {
+                var $ = o(
+                  "WAWebVoipOngoingCallCollection",
+                ).WAWebVoipOngoingCallCollection.getByCallId(l);
+                if ($ == null) return;
+                var P = babelHelpers.extends({}, $.toJSON(), {
+                    callDuration: m == null ? $.callDuration : m,
+                    callOutcome: D
+                      ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
+                      : L,
+                    finalCallOutcome: L,
+                    terminatedByDeviceSwitch: b,
+                    screenedElsewhere: E,
+                    bytesSent: S,
+                    bytesReceived: R,
+                  }),
+                  N = yield o(
+                    "WAWebVoipActionWriteCallLogImpl",
+                  ).writeVoipCallLogMessageImpl(P.to, P, !1);
+                N != null &&
+                  o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(l);
+              } finally {
+                x.release();
+              }
             } else {
               if (_ != null || T) return;
-              var $ = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
+              var M = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                   callCreatorWid: I,
                   peerWid: h,
                   callId: l,
@@ -110,32 +124,32 @@ __d(
                     return e.jid;
                   }),
                 }),
-                P = $.callCreatorUserWid,
-                N = $.chatId,
-                M = $.fromMe,
-                w = $.msgKeyId,
-                A = $.participant,
-                F = $.viewMode,
-                O = {
+                w = M.callCreatorUserWid,
+                A = M.chatId,
+                F = M.fromMe,
+                O = M.msgKeyId,
+                B = M.participant,
+                W = M.viewMode,
+                q = {
                   id: new (r("WAWebMsgKey"))({
-                    remote: N,
-                    participant: A,
-                    fromMe: M,
-                    id: w,
+                    remote: A,
+                    participant: B,
+                    fromMe: F,
+                    id: O,
                   }),
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
-                  viewMode: F,
+                  viewMode: W,
                   callOutcome: L,
                   isVideoCall: v != null ? v : !1,
                   callCreator: I,
                   callDuration: m == null ? void 0 : m,
-                  from: P,
+                  from: w,
                   t: C,
                   callParticipants: g.map(function (e) {
                     return { participant: e.jid, outcome: e.result };
                   }),
-                  to: N,
+                  to: A,
                   isCallLink: !1,
                   callLinkToken: c != null ? c : void 0,
                   finalCallOutcome: L,
@@ -144,10 +158,10 @@ __d(
                   bytesSent: S,
                   bytesReceived: R,
                 },
-                B = yield o(
+                U = yield o(
                   "WAWebVoipActionWriteCallLogImpl",
-                ).writeVoipCallLogMessageImpl(N, O, !1);
-              B != null &&
+                ).writeVoipCallLogMessageImpl(A, q, !1);
+              U != null &&
                 o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(l);
             }
           } catch (e) {

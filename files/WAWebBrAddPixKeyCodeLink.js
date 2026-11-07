@@ -2,6 +2,7 @@ __d(
   "WAWebBrAddPixKeyCodeLink",
   [
     "WALogger",
+    "WAWebBrAddPixKeyLinkErrorDialog.react",
     "WAWebBrAddPixKeyOfferLogger",
     "WAWebBrAddPixKeyPartnerDirectory",
     "WAWebBrPixPaymentsHomeDeepLink",
@@ -32,31 +33,36 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = "resolving";
           try {
-            var a = yield C(function () {
-              return h(t);
+            var a = yield b(function () {
+              return y(t);
             });
-            if (a == null) {
+            if (a.kind !== "offered") {
               ((n = "discarded"),
                 o("WAWebBrAddPixKeyOfferLogger").logAddPixKeyLinkDiscarded(
                   "link_unusable",
                   null,
                 ),
-                o(
-                  "WAWebBrPixPaymentsHomeDeepLink",
-                ).openBrPixPaymentsHomeDeepLink());
+                a.kind === "rejected"
+                  ? o(
+                      "WAWebBrAddPixKeyLinkErrorDialog.react",
+                    ).openPaymentsHomeWithUnusableLinkDialog()
+                  : o(
+                      "WAWebBrAddPixKeyLinkErrorDialog.react",
+                    ).openPaymentsHomeWithLinkRetryDialog(h(t)));
               return;
             }
+            var i = a.offer;
             ((n = "handed_off"),
               o("WAWebBrSavePartnerPixKeyFeature").openAddPixKeyDeepLinkScreen(
                 "add_pix_key_deeplink",
                 o("WAWebPaymentsUserActionPartnerReferral").asPartnerReferral(
                   p,
                 ),
-                a.prefill,
-                a.attribution,
-                a.catalogId,
+                i.prefill,
+                i.attribution,
+                i.catalogId,
               ));
-          } catch (t) {
+          } catch (a) {
             (o("WALogger")
               .WARN(
                 e ||
@@ -66,38 +72,46 @@ __d(
                     "",
                   ])),
                 n,
-                r("getErrorSafe")(t).name,
+                r("getErrorSafe")(a).name,
               )
               .sendLogs("br-add-pix-key-code-open-failed"),
-              g(n));
+              g(n, t));
           }
         })),
         f.apply(this, arguments)
       );
     }
-    function g(e) {
-      (e === "resolving" &&
-        o("WAWebBrAddPixKeyOfferLogger").logAddPixKeyLinkDiscarded(
-          "link_unusable",
-          null,
-        ),
-        e !== "discarded" &&
-          o("WAWebBrPixPaymentsHomeDeepLink").openBrPixPaymentsHomeDeepLink());
+    function g(e, t) {
+      e === "resolving"
+        ? (o("WAWebBrAddPixKeyOfferLogger").logAddPixKeyLinkDiscarded(
+            "link_unusable",
+            null,
+          ),
+          o(
+            "WAWebBrAddPixKeyLinkErrorDialog.react",
+          ).openPaymentsHomeWithLinkRetryDialog(h(t)))
+        : e === "handed_off" &&
+          o("WAWebBrPixPaymentsHomeDeepLink").openBrPixPaymentsHomeDeepLink();
     }
     function h(e) {
-      return y.apply(this, arguments);
+      return function () {
+        _(e);
+      };
     }
-    function y() {
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebBrResolvePaymentAccountLinkQuery",
           ).resolvePaymentAccountLink(e);
-          if (t.kind !== "offered") return null;
+          if (t.kind !== "offered") return t;
           var n = null,
-            a = R(t.verifiedName);
+            a = L(t.verifiedName);
           try {
-            ((n = L(t.businessWid)), (a = yield v(t.verifiedName, n)));
+            ((n = E(t.businessWid)), (a = yield S(t.verifiedName, n)));
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -110,17 +124,20 @@ __d(
               )
               .sendLogs("br-add-pix-key-code-catalogue-failed");
           }
-          return { attribution: a, catalogId: n, prefill: t.prefill };
+          return {
+            kind: "offered",
+            offer: { attribution: a, catalogId: n, prefill: t.prefill },
+          };
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = !1,
             n = window.setTimeout(function () {
               ((t = !0),
@@ -135,16 +152,16 @@ __d(
               t && o("WAWebModalManager").ModalManager.close());
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = R(e);
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = L(e);
           if (n.kind !== "none" || t == null) return n;
           var r = yield o(
             "WAWebBrSenderPixKeyAttribution",
@@ -154,14 +171,14 @@ __d(
           );
           return r.kind === "verified" && r.bankName !== "" ? r : m;
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
+    function L(e) {
       var t = e.trim();
       return t === "" ? m : { bankName: t, kind: "verified", logoUrl: "" };
     }
-    function L(e) {
+    function E(e) {
       return e == null
         ? null
         : o(

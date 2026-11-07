@@ -25,6 +25,7 @@ __d(
     "WAWebBotUtils",
     "WAWebBrAddPixKeyCodeLinkLoadable",
     "WAWebBrAddPixKeyDeepLinkGating",
+    "WAWebBrAddPixKeyLinkErrorDialogLoadable",
     "WAWebBrAddPixKeyLinkPixOnWebGate",
     "WAWebBrAddPixKeyOfferLoggerLoadable",
     "WAWebBrPixPaymentsHomeDeepLink",
@@ -896,8 +897,8 @@ __d(
                       "WAWebBrAddPixKeyOfferLoggerLoadable",
                     ).logAddPixKeyLinkDiscarded("link_unusable", null),
                     o(
-                      "WAWebBrPixPaymentsHomeDeepLink",
-                    ).openBrPixPaymentsHomeDeepLink(),
+                      "WAWebBrAddPixKeyLinkErrorDialogLoadable",
+                    ).openPaymentsHomeWithUnusableLinkDialogLazily(),
                     !0)
                 : (o(
                     "WAWebBrAddPixKeyOfferLoggerLoadable",

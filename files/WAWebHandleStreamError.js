@@ -12,6 +12,7 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebInitializeCryptoLibrary",
     "WAWebJestE2ELogUtils",
+    "WAWebOfflineSyncQplSession",
     "WAWebSocketModel",
     "WAWebStartBackend",
     "WAWebUserPrefsTabMutex",
@@ -29,7 +30,9 @@ __d(
       d,
       m,
       p,
-      _ = new (r("WADeprecatedWapParser"))("streamErrorParser", function (t) {
+      _ = 515,
+      f = 516,
+      g = new (r("WADeprecatedWapParser"))("streamErrorParser", function (t) {
         if ((t.assertTag("stream:error"), t.hasChild("conflict"))) {
           var n = t.child("conflict"),
             r = n.attrString("type");
@@ -62,13 +65,13 @@ __d(
                   ),
                   { type: "other" });
       });
-    function f(e) {
-      return g.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = _.parse(e);
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = g.parse(e);
           if (t.error)
             return (
               o("WALogger").ERROR(
@@ -81,10 +84,14 @@ __d(
               ),
               (p || (p = n("Promise"))).reject(t.error)
             );
-          var a = t.success;
-          if (a.type === "code" && a.code >= 500 && a.code < 600) {
-            if (a.code === 515) return h();
-            if (a.code === 516)
+          var a = t.success,
+            i = a.type === "code" ? v(a.code) : S(a.type);
+          if (
+            (o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(i),
+            a.type === "code" && a.code >= 500 && a.code < 600)
+          ) {
+            if (a.code === _) return C();
+            if (a.code === f)
               return (
                 o("WAComms").stopComms(),
                 o("WAWebCoreActionsODS").isPageLoadComplete() ||
@@ -157,15 +164,15 @@ __d(
           }
           return (p || (p = n("Promise"))).resolve("CLOSE_SOCKET");
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h() {
-      return y.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             o("WAComms").stopComms(),
             n("cr:18918") != null &&
@@ -180,10 +187,32 @@ __d(
             "NO_ACK"
           );
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.default = f;
+    function v(e) {
+      return e === _
+        ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorCode515
+        : e === f
+          ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorCode516
+          : o("WAWebOfflineSyncQplSession").SocketCloseReason
+              .StreamErrorCodeOther;
+    }
+    function S(e) {
+      return e === "replaced"
+        ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorReplaced
+        : e === "device_removed"
+          ? o("WAWebOfflineSyncQplSession").SocketCloseReason
+              .StreamErrorDeviceRemoved
+          : e === "ack"
+            ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorAck
+            : e === "xml-not-well-formed"
+              ? o("WAWebOfflineSyncQplSession").SocketCloseReason
+                  .StreamErrorXmlNotWellFormed
+              : o("WAWebOfflineSyncQplSession").SocketCloseReason
+                  .StreamErrorOther;
+    }
+    l.default = h;
   },
   98,
 );

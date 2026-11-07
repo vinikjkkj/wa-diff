@@ -44,6 +44,9 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          yield o(
+            "WAWebVoipOngoingCallCollection",
+          ).WAWebVoipOngoingCallCollection.waitUntilLoaded();
           var n = yield o(
             "WAWebVoipCallLogWriteMutex",
           ).WACallLogWriteMutex.acquire();
@@ -108,6 +111,9 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o(
+            "WAWebVoipOngoingCallCollection",
+          ).WAWebVoipOngoingCallCollection.waitUntilLoaded();
           var t = yield o(
             "WAWebVoipCallLogWriteMutex",
           ).WACallLogWriteMutex.acquire();

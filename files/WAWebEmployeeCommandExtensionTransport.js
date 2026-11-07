@@ -12,33 +12,48 @@ __d(
       _ = Symbol("timed_out"),
       f = s,
       g = "idle",
-      h = [],
-      y = "not_checked";
-    function C() {
-      g === "idle" &&
-        ((g = "running"),
-        I().then(function (e) {
-          var t = e.extensionIds,
-            n = e.state,
-            r = e.timedOut;
-          ((h = t), (y = n), (g = r && E("thanks") == null ? "idle" : "done"));
-        }));
-    }
+      h = null,
+      y = [],
+      C = "not_checked";
     function b() {
-      return y;
+      g === "idle" && v();
     }
-    function v(e) {
-      return E(e) != null;
-    }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
-    }
-    function R() {
+    function v() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = E(e);
+        h == null &&
+          (h = D()
+            .then(function (e) {
+              var t = e.extensionIds,
+                n = e.state,
+                r = e.timedOut;
+              return (
+                (y = t),
+                (C = n),
+                (g = r && I("thanks") == null ? "idle" : "done"),
+                n
+              );
+            })
+            .finally(function () {
+              h = null;
+            })),
+        h
+      );
+    }
+    function S() {
+      return C;
+    }
+    function R(e) {
+      return I(e) != null;
+    }
+    function L(e, t, n) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = I(e);
           if (r == null) return { ok: !1, error: "disabled" };
-          var o = yield N(
+          var o = yield w(
             r,
             babelHelpers.extends({}, n, {
               type: "wa_employee_command",
@@ -48,63 +63,65 @@ __d(
             }),
             p,
           );
-          return P(e, o);
+          return M(e, o);
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e) {
+    function k(e) {
       (e === void 0 && (e = s),
         (f = e),
         (g = "idle"),
-        (h = []),
-        (y = "not_checked"));
+        (h = null),
+        (y = []),
+        (C = "not_checked"));
     }
-    function E(e) {
-      return h.find(function (t) {
+    function I(e) {
+      return y.find(function (t) {
         return e !== "thanks" || t !== f;
       });
     }
-    function k() {
+    function T() {
       var e = r("WAWebEnvironment").getEnvironment() === "prod" ? [u] : [u, c];
       return f === "" ? e : [f].concat(e);
     }
-    function I() {
-      return T.apply(this, arguments);
+    function D() {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = k(),
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = T(),
             r = yield (e || (e = n("Promise"))).all(
               t.map(function (e) {
-                return N(e, d, m);
+                return w(e, d, m);
               }),
-            );
+            ),
+            o = t.filter(function (e, t) {
+              return N(r[t]) || (r[t] === _ && y.includes(e));
+            });
           return {
-            extensionIds: t.filter(function (e, t) {
-              return $(r[t]);
-            }),
-            state: D(r),
+            extensionIds: o,
+            state: o.length > 0 ? "on" : $(r),
             timedOut: r.includes(_),
           };
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function D(e) {
-      return e.some($)
+    function $(e) {
+      return e.some(N)
         ? "on"
         : e.includes(_)
           ? "no_answer"
-          : e.some(x)
+          : e.some(P)
             ? "off"
             : "absent";
     }
-    function x(e) {
+    function P(e) {
       return e != null && typeof e == "object";
     }
-    function $(e) {
+    function N(e) {
       return (
         e != null &&
         typeof e == "object" &&
@@ -113,7 +130,7 @@ __d(
         e.enabled === !0
       );
     }
-    function P(e, t) {
+    function M(e, t) {
       return t === _
         ? { ok: !1, error: "timeout" }
         : t == null || typeof t != "object"
@@ -125,8 +142,8 @@ __d(
                 error: typeof t.error == "string" ? t.error : "create_error",
               };
     }
-    function N(t, r, o) {
-      var a = M();
+    function w(t, r, o) {
+      var a = A();
       return a == null
         ? (e || (e = n("Promise"))).resolve(null)
         : new (e || (e = n("Promise")))(function (e) {
@@ -145,18 +162,19 @@ __d(
             }
           });
     }
-    function M() {
+    function A() {
       var e,
         t = (e = window.chrome) == null ? void 0 : e.runtime;
       return typeof (t == null ? void 0 : t.sendMessage) == "function"
         ? t
         : null;
     }
-    ((l.prewarmEmployeeCommandExtension = C),
-      (l.getEmployeeCommandExtensionState = b),
-      (l.isEmployeeCommandExtensionReady = v),
-      (l.runInEmployeeCommandExtension = S),
-      (l.resetEmployeeCommandExtensionForTesting = L));
+    ((l.prewarmEmployeeCommandExtension = b),
+      (l.refreshEmployeeCommandExtension = v),
+      (l.getEmployeeCommandExtensionState = S),
+      (l.isEmployeeCommandExtensionReady = R),
+      (l.runInEmployeeCommandExtension = L),
+      (l.resetEmployeeCommandExtensionForTesting = k));
   },
   98,
 );

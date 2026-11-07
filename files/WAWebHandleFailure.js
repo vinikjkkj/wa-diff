@@ -15,6 +15,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebLogoutReasonConstants",
     "WAWebODS",
+    "WAWebOfflineSyncQplSession",
     "WAWebSocketModel",
     "WAWebUpdaterPlatforms",
     "WAWebUpdaterVersion",
@@ -101,7 +102,14 @@ __d(
                 ),
                   o("WAWebCoreActionsODS").isPageLoadComplete() ||
                     o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
-                  r("justknobx")._("4751") && o("WAComms").stopComms(),
+                  r("justknobx")._("4751") &&
+                    (o(
+                      "WAWebOfflineSyncQplSession",
+                    ).OfflineSyncQpl.markSocketClosed(
+                      o("WAWebOfflineSyncQplSession").SocketCloseReason
+                        .ClientFailureNotAuthorized,
+                    ),
+                    o("WAComms").stopComms()),
                   yield o(
                     "WAWebSocketModel",
                   ).Socket.clearCredentialsAndStoredData(),
@@ -126,6 +134,12 @@ __d(
                   belowSoft: !1,
                   belowHard: 0,
                 }),
+                  o(
+                    "WAWebOfflineSyncQplSession",
+                  ).OfflineSyncQpl.markSocketClosed(
+                    o("WAWebOfflineSyncQplSession").SocketCloseReason
+                      .ClientFailureClientTooOld,
+                  ),
                   o("WAComms").stopComms());
                 break;
               }
@@ -241,7 +255,12 @@ __d(
           (n === s &&
             (t != null || a != null) &&
             (l = { logoutMessageHeader: t, logoutMessageSubtext: a }),
-            r("justknobx")._("4751") && o("WAComms").stopComms(),
+            r("justknobx")._("4751") &&
+              (o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(
+                o("WAWebOfflineSyncQplSession").SocketCloseReason
+                  .ClientFailureAccountLocked,
+              ),
+              o("WAComms").stopComms()),
             yield o("WAWebSocketModel").Socket.clearCredentialsAndStoredData(
               o("WAWebLogoutReasonConstants").LogoutReason.AccountLocked,
               l,

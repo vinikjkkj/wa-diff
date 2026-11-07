@@ -21,6 +21,7 @@ __d(
             (e.pendingVoipCapChecks = {}),
             (e.isInConnectedCall = !1),
             (e.lastActiveCall = null),
+            (e.lastEndedCall = null),
             (e.pendingCallLink = null),
             (e.pendingOutgoingCall = null),
             babelHelpers.assertThisInitialized(e) ||
@@ -91,7 +92,8 @@ __d(
           (a.setActiveCall = function (t) {
             var e;
             if (
-              ((this.activeCall = t),
+              ((this.lastEndedCall = t == null ? this.activeCall : null),
+              (this.activeCall = t),
               this.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallCollectionEvents
@@ -116,6 +118,12 @@ __d(
                   ),
                 ));
             }
+          }),
+          (a.takeLastEndedCall = function (t) {
+            var e = this.lastEndedCall;
+            return (e == null ? void 0 : e.id) !== t
+              ? null
+              : ((this.lastEndedCall = null), e);
           }),
           (a.setIsInConnectedCall = function (t) {
             this.isInConnectedCall !== t &&

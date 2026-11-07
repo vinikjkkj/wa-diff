@@ -1310,6 +1310,7 @@ __d(
         MetaAiIcon: "META_AI_ICON",
         MetaHorizonIcon: "META_HORIZON_ICON",
         OculusIcon: "OCULUS_ICON",
+        TakesIcon: "TAKES_ICON",
         ThreadsIcon: "THREADS_ICON",
         VibesIcon: "VIBES_ICON",
       }),

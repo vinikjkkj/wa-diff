@@ -19,7 +19,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
             a = e.msgContextInfo(n.id),
-            i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            i = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
             l = t.title || "",
             s = t.description || "",
             u = s !== "" ? l + "\n" + s : l,

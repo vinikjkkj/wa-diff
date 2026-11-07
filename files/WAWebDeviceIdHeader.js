@@ -5,7 +5,7 @@ __d(
     function e() {
       var e,
         t =
-          (e = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
+          (e = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidDevice()) == null
             ? void 0
             : e.getDeviceId();
       return t != null ? String(t) : null;

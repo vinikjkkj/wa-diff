@@ -3,8 +3,6 @@ __d(
   [
     "Promise",
     "WABase64",
-    "WABaseGlobals",
-    "WAJids",
     "WALogger",
     "WAWebFavoriteStickerCollection",
     "WAWebMiscGatingUtils",
@@ -14,7 +12,9 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -23,7 +23,7 @@ __d(
       c,
       d,
       m = (function (t) {
-        function r() {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -33,16 +33,16 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.getVersion = function () {
+          (i.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (i.getAction = function () {
             return o("WAWebSyncdConst").Actions.FavoriteSticker;
           }),
-          (a.applyMutations = (function () {
+          (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var r = this,
@@ -227,26 +227,25 @@ __d(
             }
             return r;
           })()),
-          (a.generateFavoriteSyncMutation = function (t, n, r) {
+          (i.generateFavoriteSyncMutation = function (t, n, a) {
             var e,
-              a,
-              i = {
+              i,
+              l = {
                 stickerAction: {
                   fileEncSha256: o("WABase64").decodeB64(
                     (e = t.encFilehash) != null ? e : "",
                   ),
                   mediaKey: o("WABase64").decodeB64(
-                    (a = t.mediaKey) != null ? a : "",
+                    (i = t.mediaKey) != null ? i : "",
                   ),
                   mimetype: t.mimetype,
                   height: t.height,
                   width: t.width,
                   directPath: t.directPath != null ? t.directPath : void 0,
                   isFavorite: n,
-                  deviceIdHint: o("WAJids").interpretAsNumber(
-                    o("WAJids").extractDeviceId(
-                      o("WABaseGlobals").getMyDeviceJid(),
-                    ),
+                  deviceIdHint: r("nullthrows")(
+                    o("WAWebUserUtils").getMaybeMeDeviceId(),
+                    "self device ID",
                   ),
                 },
               };
@@ -256,12 +255,12 @@ __d(
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,
               version: this.getVersion(),
-              value: i,
-              timestamp: r,
+              value: l,
+              timestamp: a,
               action: this.getAction(),
             });
           }),
-          r
+          a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       p = new m();

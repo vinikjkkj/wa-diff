@@ -697,6 +697,22 @@ __d(
                 : o("WAWebVoipWaCallEnums").CallTransferFailure.Terminal,
           };
         },
+        parseCallAutoSwitchData: function (t) {
+          var e = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (e == null) throw r("err")("Invalid call auto switch data");
+          var n = e.old_call_id,
+            a = e.current_call_id;
+          if (n == null && a == null) return null;
+          if (r("isStringNullOrEmpty")(n) || r("isStringNullOrEmpty")(a))
+            throw r("err")("Invalid call auto switch data");
+          return {
+            oldCallId: n,
+            currentCallId: a,
+            reason: o("WAWebVoipWaCallEnums").CallAutoSwitchReason.cast(
+              e.reason,
+            ),
+          };
+        },
       },
       m = d;
     function p(e) {

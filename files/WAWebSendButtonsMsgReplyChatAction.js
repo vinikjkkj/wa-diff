@@ -17,7 +17,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var a = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
             i = e.msgContextInfo(n.id),
             l = babelHelpers.extends(
               {

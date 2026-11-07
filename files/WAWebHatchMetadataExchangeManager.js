@@ -29,6 +29,9 @@ __d(
           (r.resolveRequest = function (t, n) {
             this.$3(t, { outcome: "response", response: n });
           }),
+          (r.isPending = function (t) {
+            return this.$1.has(t);
+          }),
           (r.failRequest = function (t, n) {
             t != null &&
               this.$3(

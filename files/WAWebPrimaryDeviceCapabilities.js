@@ -18,24 +18,26 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t,
-            n =
+            n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+          if (n == null) return null;
+          var r =
               '["' +
               o("WAWebSyncdConst").Actions.DeviceCapabilities +
               '","' +
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
+              n.user +
               ":" +
               e +
               '@s.whatsapp.net"]',
-            r = yield o("WAWebSyncdDb").getSyncAction(n);
-          if ((r == null ? void 0 : r.binarySyncData) == null) return null;
-          var a =
+            a = yield o("WAWebSyncdDb").getSyncAction(r);
+          if ((a == null ? void 0 : a.binarySyncData) == null) return null;
+          var i =
             (t = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-              r.binarySyncData,
+              a.binarySyncData,
             ).value) == null
               ? void 0
               : t.deviceCapabilities;
-          return a;
+          return i;
         })),
         u.apply(this, arguments)
       );

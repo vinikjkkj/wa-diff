@@ -2,6 +2,7 @@ __d(
   "WAWebAppBootstrap",
   [
     "JSResource",
+    "WAGetUrlSpoofChecksWasm",
     "WAJids",
     "WALogger",
     "WAWap",
@@ -38,12 +39,16 @@ __d(
     "WAWebPrefetchHatchDetailsOnLogin",
     "WAWebRunInTransaction",
     "WAWebStorageErrorHandlingUtils",
+    "WAWebSuspiciousLinkCacheRefresh",
+    "WAWebSuspiciousLinkMetrics",
+    "WAWebSuspiciousLinkWam",
     "WAWebSyncdUploadFatalErrorMetric",
     "WAWebTransitions",
     "WAWebUim",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
+    "WAWebVCCssBgScanChildrenFirst",
     "WAWebWam",
     "WAWebWamPageLoadReporter",
     "WAWebWamWorkerSpecificEvents",
@@ -59,6 +64,7 @@ __d(
     "getErrorSafe",
     "gkx",
     "initWAWebPlatformWebPage",
+    "justknobx",
     "velocity-animate",
     "velocity-animate-ui",
   ],
@@ -69,33 +75,66 @@ __d(
       u,
       c,
       d,
-      m = r("JSResource")("WAWebPrefetchDiscoveryStickerPacks").__setRef(
+      m,
+      p = r("JSResource")("WAWebPrefetchDiscoveryStickerPacks").__setRef(
         "WAWebAppBootstrap",
       ),
-      p = (e = n("cr:13019")) != null ? e : {},
-      _ = p.reportPotentialWebDataLoss,
-      f = null;
-    function g() {
-      return h.apply(this, arguments);
-    }
+      _ = (e = n("cr:13019")) != null ? e : {},
+      f = _.reportPotentialWebDataLoss,
+      g = null;
     function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (f != null || (f = y()), f);
-        })),
-        h.apply(this, arguments)
-      );
+      return y.apply(this, arguments);
     }
     function y() {
-      return C.apply(this, arguments);
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            g != null ||
+              (o("WAWebMainThreadLogger").initializeWAWebMainThreadLogger(),
+              o("WAWebSuspiciousLinkMetrics").configureSuspiciousLinkMetrics(
+                "main",
+                o("WAWebSuspiciousLinkWam").commitSuspiciousLinkMetric,
+              ),
+              r("justknobx")._("7345") &&
+                (o(
+                  "WAWebSuspiciousLinkCacheRefresh",
+                ).initSuspiciousLinkCacheRefresh(),
+                o("WAGetUrlSpoofChecksWasm")
+                  .preloadSuspiciousHostChecks()
+                  .then(
+                    o("WAWebBackendWorkerInitState")
+                      .recordInitSuspiciousHostChecksModule,
+                  )
+                  .catch(function (e) {
+                    (o("WAWebSuspiciousLinkMetrics").recordSuspiciousLinkMetric(
+                      "init-exception",
+                    ),
+                      o("WALogger")
+                        .ERROR(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "Host-check initialization failed",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("suspicious-host-checks-init-failed"));
+                  })),
+              (g = C())),
+            g
+          );
+        })),
+        y.apply(this, arguments)
+      );
     }
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, a, i;
           (r("WAWebODS").incr("web.app.bootstrap"),
             n("cr:5203") == null || n("cr:5203")(),
-            o("WAWebMainThreadLogger").initializeWAWebMainThreadLogger(),
             o("WDSShortcutResolver").registerWDSShortcutResolver(
               o("WAWebKeyboardShortcuts").getWDSShortcuts,
             ),
@@ -123,9 +162,9 @@ __d(
                 : e.getWindowsBridge(
                     r("WAWebWindowsHybridBridgeInitiator").WAWebAppBootstrap,
                   ),
-            p = (t = n("cr:34988")) != null ? t : {},
-            f = p.initializeWindowsSettingChangeHandlers;
-          (f == null || f(),
+            s = (t = n("cr:34988")) != null ? t : {},
+            _ = s.initializeWindowsSettingChangeHandlers;
+          (_ == null || _(),
             r("WAWebEnvironment").isWindows &&
               o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
                 o("WAWebUserPrefsKeys").UserPrefs
@@ -140,6 +179,7 @@ __d(
               "WAWebMetricsAttributionObservers",
             ).initializeMetricsAttributionObservers(),
             o("WAWebLoomStuckTraceEviction").initWebLoomStuckTraceEviction(),
+            o("WAWebVCCssBgScanChildrenFirst").initVCCssBgScanChildrenFirst(),
             n("WAWebWamWorkerSpecificEvents"),
             o("WAWebWamPageLoadReporter").exeTimer.start(),
             (window.Velocity = n("velocity-animate")),
@@ -154,8 +194,8 @@ __d(
             var g = r("getErrorSafe")(e);
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[emoji-trie] EmojiKeywordToUnicode setup failed: ",
                     ", stack: ",
                     "",
@@ -193,9 +233,11 @@ __d(
               swScope: "/",
             }),
             o("WAWebStorageErrorHandlingUtils").persistAppReloadMarker(),
-            r("WAWebEnvironment").isWindows && h == null && (_ == null || _()),
+            r("WAWebEnvironment").isWindows &&
+              !o("WAWebUserPrefsMeUser").hasLoggedIn() &&
+              (f == null || f()),
             o("WAWebUim").setupUimListeners(),
-            m.load().then(
+            p.load().then(
               function (e) {
                 var t = e.initDiscoveryStickerPackPrefetch;
                 return t();
@@ -203,8 +245,8 @@ __d(
               function (e) {
                 o("WALogger")
                   .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "Failed to load discovery sticker prefetch",
                       ])),
                   )
@@ -223,24 +265,24 @@ __d(
             ).initImagineActionMediaInputLogging(),
             n("cr:17677") == null || n("cr:17677").init(),
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[app] bootstrap done",
                 ])),
             ),
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[app] version: ",
                   "",
                 ])),
               o("WAWebBuildConstants").VERSION_STR,
             ));
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.bootstrapApp = g;
+    l.bootstrapApp = h;
   },
   98,
 );

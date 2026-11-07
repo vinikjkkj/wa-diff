@@ -61,14 +61,17 @@ __d(
             e.button === 0 && (e.preventDefault(), (C = !0), v());
           }
           function k(e) {
-            (e.keyCode === o("WebBloksConstants").KEY_SPACE &&
-              e.preventDefault(),
+            e.target === e.currentTarget &&
+              (e.keyCode === o("WebBloksConstants").KEY_SPACE &&
+                e.preventDefault(),
               (e.keyCode === o("WebBloksConstants").KEY_SPACE ||
                 e.keyCode === o("WebBloksConstants").KEY_RETURN) &&
                 v());
           }
           function I(e) {
-            (e.key === "Enter" || e.key === " ") && S();
+            e.target === e.currentTarget &&
+              (e.key === "Enter" || e.key === " ") &&
+              S();
           }
           function T(t) {
             var n = t.changedTouches[0];

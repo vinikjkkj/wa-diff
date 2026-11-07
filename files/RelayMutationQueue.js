@@ -14,44 +14,61 @@ __d(
         }),
         (t.push = function (t) {
           var e = this,
-            n;
+            n = null,
+            r = t.onServerCompleted
+              ? function (e, r) {
+                  ((n = r), t.updater == null || t.updater(e, r));
+                }
+              : t.updater,
+            o;
           (t.optimisticResponse || t.optimisticUpdater) &&
-            (n = this.$1.applyMutation(this.$4(t)));
-          var r = function (r) {
-              (r === void 0 && (r = function () {}),
+            (o = this.$1.applyMutation(this.$4(t)));
+          var a = function (r) {
+              if (
+                (r === void 0 && (r = function () {}),
                 (e.$2 = null),
-                n && n.dispose(),
-                r(),
-                e.$5());
+                o && o.dispose(),
+                t.onServerCompleted != null)
+              )
+                try {
+                  r();
+                } finally {
+                  e.$5();
+                }
+              else (r(), e.$5());
             },
-            o = {
+            i = {
               configs: t.configs,
               mutation: t.mutation,
-              onCompleted: function (n) {
-                r(function () {
-                  t.onCompleted && t.onCompleted(n);
+              onCompleted: function (r, o) {
+                a(function () {
+                  try {
+                    t.onCompleted == null || t.onCompleted(r);
+                  } finally {
+                    t.onServerCompleted == null || t.onServerCompleted(n, o);
+                  }
                 });
               },
               onError: function (n) {
-                r(function () {
+                a(function () {
                   t.onError && t.onError(n);
                 });
               },
-              updater: t.updater,
+              updater: r,
               uploadables: t.uploadables,
               variables: t.variables,
             };
           return (
-            this.$3.add(o),
+            this.$3.add(i),
             this.$5(),
             {
               dispose: function () {
-                if (e.$2 && e.$2.config === o) {
-                  (e.$2.disposable.dispose(), r());
+                if (e.$2 && e.$2.config === i) {
+                  (e.$2.disposable.dispose(), a());
                   return;
                 }
-                var t = e.$3.has(o);
-                t && (e.$3.delete(o), n && n.dispose());
+                var t = e.$3.has(i);
+                t && (e.$3.delete(i), o && o.dispose());
               },
             }
           );

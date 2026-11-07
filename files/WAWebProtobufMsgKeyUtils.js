@@ -17,7 +17,7 @@ __d(
       if ((d.isGroup() || d.isBroadcast()) && n) {
         var m;
         c =
-          (m = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
+          (m = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()) != null
             ? m
             : void 0;
       }

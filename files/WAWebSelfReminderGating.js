@@ -2,27 +2,52 @@ __d(
   "WAWebSelfReminderGating",
   ["WAWebABProps", "WAWebEnvironment", "gkx"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s(
+    var e = !1,
+      s = new Set();
+    function u() {
+      return c(
         o("WAWebABProps").getABPropConfigValue(
           "web_employee_slash_commands_enabled",
         ) === !0,
+        e,
       );
     }
-    function s(e) {
+    function c(e, t) {
       return r("gkx")("9092")
-        ? (function (t) {
-            if (t === "intern") return r("gkx")("28886") || e;
-            if (t === "dev") return e;
-            if (t === "prod") return !1;
+        ? (function (n) {
+            if (n === "intern") return r("gkx")("28886") || e || t;
+            if (n === "dev") return e;
+            if (n === "prod") return !1;
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                t,
+                n,
             );
           })(r("WAWebEnvironment").getEnvironment())
         : !1;
     }
-    ((l.isSelfReminderEnabled = e), (l.isEmployeeCommandsEnabled = s));
+    function d() {
+      return e;
+    }
+    function m(t) {
+      t !== e &&
+        ((e = t),
+        s.forEach(function (e) {
+          return e();
+        }));
+    }
+    function p(e) {
+      return (
+        s.add(e),
+        function () {
+          s.delete(e);
+        }
+      );
+    }
+    ((l.isSelfReminderEnabled = u),
+      (l.isEmployeeCommandsEnabled = c),
+      (l.isEmployeeCommandExtensionAllowed = d),
+      (l.updateEmployeeCommandExtensionAccess = m),
+      (l.subscribeToEmployeeCommandExtensionAccess = p));
   },
   98,
 );

@@ -23,17 +23,14 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WALogger").LOG(
+          o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "[InitFromStorage] init metadata from storage",
               ])),
-          ),
-            o("WAWebConnModel").Conn.trigger("me_ready"),
-            (o("WAWebConnModel").Conn.meReadyTriggered = !0));
-          var t = o("WAWebUserPrefsGeneral").getPushname(),
-            n = yield o("WAWebUserPrefsGeneral").getLastMobilePlatform();
-          if (n == null)
+          );
+          var t = o("WAWebUserPrefsGeneral").getLastMobilePlatform();
+          if (t == null)
             return (
               o("WALogger").ERROR(
                 s ||
@@ -45,9 +42,12 @@ __d(
                 o("WAWebLogoutReasonConstants").LogoutReason.UnknownCompanion,
               )
             );
-          (yield o("WAWebMobilePlatforms").setMobilePlatform(n, !1),
-            (o("WAWebConnModel").Conn.pushname = t),
-            (o("WAWebConnModel").Conn.platform = n),
+          (yield o("WAWebMobilePlatforms").setMobilePlatform(t, !1),
+            o("WAWebConnModel").Conn.trigger("me_ready"),
+            (o("WAWebConnModel").Conn.meReadyTriggered = !0));
+          var n = o("WAWebUserPrefsGeneral").getPushname();
+          ((o("WAWebConnModel").Conn.pushname = n),
+            (o("WAWebConnModel").Conn.platform = t),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([

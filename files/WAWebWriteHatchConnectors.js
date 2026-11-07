@@ -23,7 +23,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield O(function (t) {
+          var t = yield B(function (t) {
             return t.oauthCallback(e.code, e.state);
           }, "oauth_callback");
           return t == null
@@ -41,92 +41,100 @@ __d(
         d.apply(this, arguments)
       );
     }
-    var m = /^[A-Za-z0-9._:-]{1,128}$/;
-    function p(e, t) {
-      return _.apply(this, arguments);
+    var m = /^[A-Za-z0-9._:-]{1,128}$/,
+      p = 6e4;
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o(
             "WAWebHatchFirstPartyConnectors",
           ).getHatchFirstPartyConnector(e);
-          if (n == null) throw z("foa_auth_invalid_provider");
+          if (n == null) throw j("foa_auth_invalid_provider");
           var r = [];
           for (var a of t) {
-            if (!m.test(a)) throw z("foa_auth_invalid_account");
+            if (!m.test(a)) throw j("foa_auth_invalid_account");
             r.includes(a) || r.push(a);
           }
-          if (r.length === 0) throw z("foa_auth_empty_accounts");
-          yield O(function (e) {
+          if (r.length === 0) throw j("foa_auth_empty_accounts");
+          yield B(function (e) {
             return e.foaAuthCallback(n.connectorId, r, {
               timeoutMs: o("WAWebRequestHatchConnectors").CONNECTORS_TIMEOUT_MS,
             });
           }, "foa_auth_callback");
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = o("WAWebHatchFirstPartyConnectors").getHatchFirstPartyConnector(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n,
+            r = o("WAWebHatchFirstPartyConnectors").getHatchFirstPartyConnector(
               e,
             ),
-            r = (t = n == null ? void 0 : n.connectorId) != null ? t : e;
-          if (!m.test(r)) throw z("consent_auth_invalid_input");
-          var a = yield W("consent_auth"),
-            i = yield o(
+            a = (n = r == null ? void 0 : r.connectorId) != null ? n : e;
+          if (!m.test(a)) throw j("consent_auth_invalid_input");
+          var i = yield q("consent_auth"),
+            l = yield o(
               "WAWebRequestHatchConnectors",
-            ).readHatchWhatsAppSessionId(a);
-          if (r === "meta_business") {
-            var l = yield a.connectorConnect(r, i, {
+            ).readHatchWhatsAppSessionId(i);
+          if ((t == null || t.isWanted == null ? void 0 : t.isWanted()) === !1)
+            throw o("WAWebHatchWriteError").createHatchWriteError(
+              "consent_auth_cancelled",
+            );
+          if (a === "meta_business") {
+            var s = yield i.connectorConnect(a, l, {
               timeoutMs: o("WAWebRequestHatchConnectors").CONNECTORS_TIMEOUT_MS,
             });
-            if (l.kind === "Ok" && j(l.value, r)) return;
+            if (s.kind === "Ok" && K(s.value, a)) return;
             if (
-              l.kind !== "Rejected" ||
-              l.statusCode == null ||
-              l.statusCode < 400 ||
-              l.statusCode >= 500
+              s.kind !== "Rejected" ||
+              s.statusCode == null ||
+              s.statusCode < 400 ||
+              s.statusCode >= 500
             )
-              throw z("meta_business_connect_failed");
+              throw j("meta_business_connect_failed");
           }
-          yield U(function () {
-            return a.consentAuthCallback(r, i, {
-              timeoutMs: o("WAWebRequestHatchConnectors").CONNECTORS_TIMEOUT_MS,
-            });
+          var u = yield V(function () {
+            return i.consentAuthCallback(a, l, { timeoutMs: p });
           }, "consent_auth_callback");
+          if (
+            o("WAWebHatchJsonReaders").readTrimmedString(u, "status") !==
+            "connected"
+          )
+            throw j("consent_auth_callback_not_connected");
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    var h = /^[a-z0-9_-]{1,64}$/;
-    function y(e, t) {
-      return C.apply(this, arguments);
+    var y = /^[a-z0-9_-]{1,64}$/;
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = t.trim();
-          if (!h.test(e) || r === "") throw z("api_key_auth_invalid_input");
-          var a = yield H(function () {
+          if (!y.test(e) || r === "") throw j("api_key_auth_invalid_input");
+          var a = yield G(function () {
             return o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
               new AbortController().signal,
             );
           }, "api_key_auth_vm_connect_failed");
-          if (a.kind !== "ready") throw z("api_key_auth_no_session");
+          if (a.kind !== "ready") throw j("api_key_auth_no_session");
           var i = a.api,
-            l = yield H(function () {
+            l = yield G(function () {
               return o(
                 "WAWebRequestHatchConnectors",
               ).readHatchWhatsAppSessionId(i);
             }, "api_key_auth_session_lookup_failed"),
-            s = yield U(
+            s = yield V(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
                   return yield i.apiKeyAuthCallback(e, r, l, {
@@ -134,31 +142,31 @@ __d(
                       .CONNECTORS_TIMEOUT_MS,
                   });
                 } catch (e) {
-                  throw z("api_key_auth_callback_failure");
+                  throw j("api_key_auth_callback_failure");
                 }
               }),
               "api_key_auth_callback",
             );
           if (o("WAWebHatchJsonReaders").readBool(s, "ok") !== !0)
-            throw z("api_key_auth_refused");
+            throw j("api_key_auth_refused");
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield W("disconnect").catch(function (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield q("disconnect").catch(function (e) {
               throw (t == null || t(!1), e);
             }),
             r = yield o(
               "WAWebRequestHatchConnectors",
             ).readHatchWhatsAppSessionId(n);
           try {
-            var a = yield U(function () {
+            var a = yield V(function () {
               return n.connectorDisconnect(e, r);
             }, "disconnect").then(
               function (e) {
@@ -169,9 +177,9 @@ __d(
               },
             );
             if (o("WAWebHatchJsonReaders").readBool(a, "disconnected") !== !0)
-              throw z("disconnect_refused");
+              throw j("disconnect_refused");
           } catch (t) {
-            if (yield S(e)) throw t;
+            if (yield R(e)) throw t;
             o("WALogger")
               .WARN(
                 s ||
@@ -182,10 +190,10 @@ __d(
               .sendLogs("hatch-connectors-disconnect-landed");
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       return o("WAWebRequestHatchConnectors")
         .requestHatchConnectors()
         .then(function (t) {
@@ -194,38 +202,38 @@ __d(
           });
         }, o("WAWebBoolFunc").returnTrue);
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield O(function (t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield B(function (t) {
               return t.connectorAccountsLink(e);
             }, "accounts_link"),
             n = o(
               "WAWebHatchConnectorAccountsDecoder",
             ).decodeHatchConnectorAccountLinkUrl(t);
-          if (n == null) throw z("accounts_link_malformed");
+          if (n == null) throw j("accounts_link_malformed");
           return n;
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            var n = yield O(function (n) {
+            var n = yield B(function (n) {
               return n.connectorAccountUnlink(e, t);
             }, "account_unlink");
             if (o("WAWebHatchJsonReaders").readBool(n, "unlinked") !== !0)
-              throw z("account_unlink_refused");
+              throw j("account_unlink_refused");
           } catch (n) {
-            if (yield I(e, t)) throw n;
+            if (yield T(e, t)) throw n;
             o("WALogger")
               .WARN(
                 u ||
@@ -236,10 +244,10 @@ __d(
               .sendLogs("hatch-connectors-unlink-landed");
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e, t) {
+    function T(e, t) {
       return o("WAWebRequestHatchConnectors")
         .requestHatchConnectorAccounts(e)
         .then(function (e) {
@@ -248,24 +256,24 @@ __d(
           });
         }, o("WAWebBoolFunc").returnTrue);
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
             a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (a == null) throw z("set_permissions_no_session");
+          if (a == null) throw j("set_permissions_no_session");
           var i = yield a.connectorSetPermissions(e, ((r = {}), (r[t] = n), r));
-          if (i.kind === "Rejected") throw z("set_permissions_rejected");
-          if (i.kind === "Failure" && !(yield x(e, t, n)))
-            throw z("set_permissions_failure");
+          if (i.kind === "Rejected") throw j("set_permissions_rejected");
+          if (i.kind === "Failure" && !(yield $(e, t, n)))
+            throw j("set_permissions_failure");
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
+    function $(e, t, n) {
       return o("WAWebRequestHatchConnectors")
         .requestHatchConnectorPermissions(e)
         .then(function (e) {
@@ -278,36 +286,36 @@ __d(
           });
         }, o("WAWebBoolFunc").returnFalse);
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (n == null) throw z("reset_permissions_no_session");
+          if (n == null) throw j("reset_permissions_no_session");
           var r = yield n.connectorResetPermissions(e);
-          if (w(r)) throw z("reset_permissions_rejected");
+          if (A(r)) throw j("reset_permissions_rejected");
           var a = yield o(
             "WAWebRequestHatchConnectors",
           ).requestHatchConnectorPermissions(e);
           if (
             r.kind !== "Ok" &&
             r.kind !== "Unreadable" &&
-            !N(t, a) &&
+            !M(t, a) &&
             o(
               "WAWebHatchConnectorPermissionsDecoder",
             ).hasHatchConnectorUserOverrides(a)
           )
-            throw z("reset_permissions_" + r.kind.toLowerCase());
+            throw j("reset_permissions_" + r.kind.toLowerCase());
           return a;
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t) {
+    function M(e, t) {
       var n = new Set(
-        M(t)
+        w(t)
           .filter(function (e) {
             return e.modeSource === "default";
           })
@@ -315,103 +323,103 @@ __d(
             return e.key;
           }),
       );
-      return M(e).some(function (e) {
+      return w(e).some(function (e) {
         return e.modeSource === "user_override" && n.has(e.key);
       });
     }
-    function M(e) {
+    function w(e) {
       return e.flatMap(function (e) {
         return e.groups.flatMap(function (e) {
           return e.methods;
         });
       });
     }
-    function w(e) {
+    function A(e) {
       if (e.kind !== "Rejected" || e.statusCode == null) return !1;
       var t = e.statusCode;
       return t >= 400 && t < 500 && t !== 408 && t !== 429;
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
+    function F(e, t) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield O(function (n) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield B(function (n) {
               return n.connectorScopeLink(e, t);
             }, "scope_link"),
             r = o("WAWebHatchJsonReaders").readTrimmedString(n, "link_url");
           if (r === "") return null;
           if (!o("WAWebHatchConnectInfoDecoder").isUsableHttpsUrl(r))
-            throw z("scope_link_malformed");
+            throw j("scope_link_malformed");
           return r;
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (n == null) throw z(t + "_no_session");
-          return U(function () {
+          if (n == null) throw j(t + "_no_session");
+          return V(function () {
             return e(n);
           }, t);
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
             new AbortController().signal,
           );
-          if (t.kind !== "ready") throw z(e + "_no_session");
+          if (t.kind !== "ready") throw j(e + "_no_session");
           return t.api;
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e, t) {
-      return V.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e();
           if (n.kind !== "Ok")
-            throw z(t + "_" + n.kind.toLowerCase(), {
+            throw j(t + "_" + n.kind.toLowerCase(), {
               httpStatus: n.kind === "Rejected" ? n.statusCode : void 0,
               vmFailure: n.kind === "Failure" ? n.reason : void 0,
             });
           return n.value;
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H(e, t) {
-      return G.apply(this, arguments);
+    function G(e, t) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return yield e();
           } catch (e) {
-            throw e instanceof o("WAAbortError").AbortError ? e : z(t);
+            throw e instanceof o("WAAbortError").AbortError ? e : j(t);
           }
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(t, n) {
+    function j(t, n) {
       return (
         o("WALogger")
           .WARN(
@@ -426,7 +434,7 @@ __d(
         o("WAWebHatchWriteError").createHatchWriteError(t, n)
       );
     }
-    function j(e, t) {
+    function K(e, t) {
       return (
         o("WAWebHatchJsonReaders").readBool(e, "ok") !== !1 &&
         o("WAWebHatchJsonReaders").readBool(e, "connected") === !0 &&
@@ -434,15 +442,15 @@ __d(
       );
     }
     ((l.completeHatchConnectorOAuth = c),
-      (l.grantHatchFoaAccounts = p),
-      (l.connectHatchConsentConnector = f),
-      (l.connectHatchApiKeyConnector = y),
-      (l.disconnectHatchConnector = b),
-      (l.requestHatchConnectorAccountLink = R),
-      (l.unlinkHatchConnectorAccount = E),
-      (l.setHatchConnectorPermissionMode = T),
-      (l.resetHatchConnectorPermissions = $),
-      (l.requestHatchConnectorScopeLink = A));
+      (l.grantHatchFoaAccounts = _),
+      (l.connectHatchConsentConnector = g),
+      (l.connectHatchApiKeyConnector = C),
+      (l.disconnectHatchConnector = v),
+      (l.requestHatchConnectorAccountLink = L),
+      (l.unlinkHatchConnectorAccount = k),
+      (l.setHatchConnectorPermissionMode = D),
+      (l.resetHatchConnectorPermissions = P),
+      (l.requestHatchConnectorScopeLink = F));
   },
   98,
 );

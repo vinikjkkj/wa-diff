@@ -33,7 +33,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null) {
+          if (!o("WAWebUserPrefsMeUser").hasLoggedIn()) {
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([

@@ -303,6 +303,8 @@ __d(
         "edit_flow_budget_lowered_below_existing",
       HONOR_DEFAULT_DURATION_STICKY_BELOW_DEFAULT:
         "honor_default_duration_sticky_below_default",
+      CEIL_TIERED_OFF_STEP_DEFAULT: "ceil_tiered_off_step_default",
+      CEIL_TIERED_EXPOSURE_LOGGED: "ceil_tiered_exposure_logged",
       GEN_BUDGET_LADDER_ROUNDING: "gen_budget_ladder_rounding",
       GEN_DEFAULT_AUDIENCE_FAILURE: "gen_default_audience_failure",
       DEFAULT_IG_AUDIENCE_LAL_GENERATION: "default_ig_audience_lal_generation",
@@ -1142,6 +1144,7 @@ __d(
       DEFAULT_CTA_ML_OUTPUT: "default_cta_ml_output",
       BUDGET_FLEX_CAMPAIGN_GROUP_SEARCH: "budget_flex_campaign_group_search",
       BUDGET_FLEX_AD_CAMPAIGN_MERGE: "budget_flex_ad_campaign_merge",
+      BUDGET_FLEX_V2: "budget_flex_v2",
       ADD_QUESTION_TO_CTMLG_TEMPLATE: "add_question_to_ctmlg_template",
       CLOSE_CTMLG_TEMPLATE_WITH_CHANGES: "close_ctmlg_template_with_changes",
       CLOSE_CTMLG_TEMPLATE_WITH_NO_CHANGES:

@@ -7,74 +7,125 @@ __d(
     "WAWebInlineCodeFormatMutator",
     "WAWebItalicFormatMutator",
     "WAWebLinkMutatorComponent.react",
+    "WAWebLinkify",
     "WAWebSpoilerFormatMutator",
     "WAWebStrikethroughFormatMutator",
+    "WAWebSuspiciousLinkChecksState",
     "WAWebSuspiciousLinkMutatorComponent.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
+    "useWAWebCollectionValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = s || (s = o("react")),
-      c = (function (t) {
-        function n() {
-          return t.apply(this, arguments) || this;
+      c = s.useMemo,
+      d = (function (e) {
+        function t() {
+          return e.apply(this, arguments) || this;
         }
         return (
-          babelHelpers.inheritsLoose(n, t),
-          (n.jsx = function (n, o, a) {
-            var t = a.dataTab,
-              i = a.linkXstyle,
-              l = a.onLinkClick,
-              s = a.selectable,
-              c = s === void 0 ? !1 : s,
-              d = o.href,
-              m = o.suspiciousCharacters;
-            return m != null && m.size
-              ? u.jsx(r("WAWebSuspiciousLinkMutatorComponent.react"), {
-                  onClick: l,
-                  className: (e || (e = r("stylex")))(i),
-                  link: o,
-                  selectable: c,
-                  dataTab: t,
-                  children: n,
-                })
-              : u.jsx(r("WAWebLinkMutatorComponent.react"), {
-                  xstyle: i,
-                  onClick: l,
-                  href: d,
-                  selectable: c,
-                  dataTab: t,
-                  children: n,
-                });
+          babelHelpers.inheritsLoose(t, e),
+          (t.jsx = function (t, n, r) {
+            return n.suspiciousHostChecksPending === !0
+              ? u.jsx(p, { link: n, opts: r, children: t })
+              : _(t, n, r);
           }),
-          n
+          t
         );
       })(r("WAWebFormatMutator"));
-    ((c.format = !1),
-      (c.compatibility = !0),
-      (c.match = function (e, t, n) {
+    ((d.format = !1),
+      (d.compatibility = !0),
+      (d.useWAWebReclassifiedLink = m),
+      (d.match = function (e, t, n) {
         if (!t) return [];
         var r = t.links,
           o = r === void 0 ? [] : r;
-        return o.map(d);
+        return o.map(f);
       }),
-      (c.conflictResolvers = new Map([
-        [r("WAWebBoldFormatMutator"), m],
-        [r("WAWebItalicFormatMutator"), m],
-        [r("WAWebStrikethroughFormatMutator"), m],
-        [r("WAWebInlineCodeFormatMutator"), m],
-        [o("WAWebCodeFormatMutator").Code, m],
-        [r("WAWebSpoilerFormatMutator"), m],
+      (d.conflictResolvers = new Map([
+        [r("WAWebBoldFormatMutator"), g],
+        [r("WAWebItalicFormatMutator"), g],
+        [r("WAWebStrikethroughFormatMutator"), g],
+        [r("WAWebInlineCodeFormatMutator"), g],
+        [o("WAWebCodeFormatMutator").Code, g],
+        [r("WAWebSpoilerFormatMutator"), g],
       ])));
-    function d(e) {
+    function m(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = [
+            o("WAWebSuspiciousLinkChecksState")
+              .getSuspiciousLinkChecksInitialized,
+          ]),
+          (t[0] = n))
+        : (n = t[0]);
+      var r = o("useWAWebCollectionValues").useModelGetterValues(
+          o("WAWebSuspiciousLinkChecksState").SuspiciousLinkChecksState,
+          n,
+        ),
+        a = r[0],
+        i;
+      return (
+        t[1] !== a || t[2] !== e
+          ? ((i = a ? o("WAWebLinkify").reclassifySuspiciousLink(e) : e),
+            (t[1] = a),
+            (t[2] = e),
+            (t[3] = i))
+          : (i = t[3]),
+        i
+      );
+    }
+    function p(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.children,
+        r = e.link,
+        a = e.opts,
+        i = m(r),
+        l;
+      return (
+        t[0] !== n || t[1] !== i || t[2] !== a
+          ? ((l = _(n, i, a)), (t[0] = n), (t[1] = i), (t[2] = a), (t[3] = l))
+          : (l = t[3]),
+        l
+      );
+    }
+    function _(t, n, o) {
+      var a,
+        i = o.dataTab,
+        l = o.linkXstyle,
+        s = o.onLinkClick,
+        c = o.selectable,
+        d = c === void 0 ? !1 : c;
+      return (a = n.suspiciousCharacters) != null && a.size
+        ? u.jsx(r("WAWebSuspiciousLinkMutatorComponent.react"), {
+            onClick: s,
+            className: (e || (e = r("stylex")))(l),
+            link: n,
+            selectable: d,
+            dataTab: i,
+            children: t,
+          })
+        : u.jsx(r("WAWebLinkMutatorComponent.react"), {
+            xstyle: l,
+            onClick: s,
+            href: n.href,
+            selectable: d,
+            dataTab: i,
+            children: t,
+          });
+    }
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
       var t = e.index,
         n = e.url,
         r = t + n.length - 1;
       return [t, t, r, r, e];
     }
-    function m(e, t) {
+    function g(e, t) {
       for (var n = 0, r = 0; n < e.length && r < t.length; ) {
         var o = t[r][3] - e[n][3];
         if (o > 0) n++;
@@ -91,7 +142,7 @@ __d(
         }
       }
     }
-    l.default = c;
+    l.default = d;
   },
   98,
 );

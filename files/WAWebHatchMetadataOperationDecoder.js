@@ -1,6 +1,12 @@
 __d(
   "WAWebHatchMetadataOperationDecoder",
-  ["WALongInt", "WAWebHatchDecodeError", "WAWebHatchJsonReaders", "cr:7454"],
+  [
+    "WALongInt",
+    "WAWebHatchBodyEncoding",
+    "WAWebHatchDecodeError",
+    "WAWebHatchJsonReaders",
+    "cr:7454",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "ideas.execute.record";
@@ -199,27 +205,45 @@ __d(
         );
       e: {
         var a = o("WAWebHatchJsonReaders").readString(e, "status");
-        if (a === "ok")
+        if (a === "ok") {
+          var i = o("WAWebHatchJsonReaders").readField(n, "body_encoding"),
+            l = o("WAWebHatchJsonReaders").readField(n, "body");
+          if (i == null)
+            return {
+              type: "res",
+              requestId: t,
+              response: { status: "ok", method: r, body: l },
+            };
+          if (
+            i !== o("WAWebHatchBodyEncoding").HATCH_BODY_ENCODING_GZIP ||
+            typeof l != "string"
+          )
+            throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+              o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+            );
           return {
             type: "res",
             requestId: t,
             response: {
               status: "ok",
               method: r,
-              body: o("WAWebHatchJsonReaders").readField(n, "body"),
+              body: l,
+              bodyEncoding: o("WAWebHatchBodyEncoding")
+                .HATCH_BODY_ENCODING_GZIP,
             },
           };
+        }
         if (a === "error") {
-          var i = o("WAWebHatchJsonReaders").readField(n, "body");
+          var s = o("WAWebHatchJsonReaders").readField(n, "body");
           return {
             type: "res",
             requestId: t,
             response: {
               status: "error",
               method: r,
-              errorCode: o("WAWebHatchJsonReaders").readString(i, "error_code"),
+              errorCode: o("WAWebHatchJsonReaders").readString(s, "error_code"),
               errorMessage: o("WAWebHatchJsonReaders").readString(
-                i,
+                s,
                 "error_message",
               ),
             },

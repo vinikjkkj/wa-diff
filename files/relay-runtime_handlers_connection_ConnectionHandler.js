@@ -60,8 +60,9 @@ __d(
                 N = v && D.after === $,
                 M = v && $ === P;
               if (N || M) {
-                var w = new Set();
-                (C(k, T, w), C(E, T, w));
+                var w = new Set(),
+                  A = [];
+                (C(k, A, w), C(E, A, w), (T = A));
               } else {
                 n("warning")(
                   !1,
@@ -73,8 +74,9 @@ __d(
               }
             } else if (D.before != null)
               if (v && D.before === v.getValue(p)) {
-                var A = new Set();
-                (C(E, T, A), C(k, T, A));
+                var F = new Set(),
+                  O = [];
+                (C(E, O, F), C(k, O, F), (T = O));
               } else {
                 n("warning")(
                   !1,
@@ -90,12 +92,12 @@ __d(
             if (D.after == null && D.before == null) v.copyFieldsFrom(f);
             else if (D.before != null || (D.after == null && D.last)) {
               v.setValue(!!f.getValue(u), u);
-              var F = f.getValue(p);
-              typeof F == "string" && v.setValue(F, p);
+              var B = f.getValue(p);
+              typeof B == "string" && v.setValue(B, p);
             } else if (D.after != null || (D.before == null && D.first)) {
               v.setValue(!!f.getValue(s), s);
-              var O = f.getValue(l);
-              typeof O == "string" && v.setValue(O, l);
+              var W = f.getValue(l);
+              typeof W == "string" && v.setValue(W, l);
             }
           }
         } else {

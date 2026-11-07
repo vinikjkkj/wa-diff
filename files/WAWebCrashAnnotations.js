@@ -25,27 +25,27 @@ __d(
       _ = 1024 * 1024 * 1024,
       f = ["web_syncd_individual_mutation_index_lookup"],
       g = /^([A-Za-z]{1,40})\.([A-Za-z]{1,40})\.(-?\d{1,11})\.(\d{1,11})$/,
-      h = null;
-    function y() {
+      h = null,
+      y = new Map();
+    function C() {
       o("WAWebLogForCrash").onLogForCrashReady(function () {
-        S();
+        R();
       });
     }
-    function C() {
+    function b() {
       (o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "subplatform",
         function () {
-          return o("WAWebLogForCrash").onLogForCrashReady(function () {
+          var e = r("WAWebEnvironment").isWindows ? "hybrid" : "web";
+          (o("WAWebLogForCrash").onLogForCrashReady(function () {
             return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
               "subplatform",
               function () {
-                return o("WAWebLogForCrash").logForCrash(
-                  "subplatform",
-                  r("WAWebEnvironment").isWindows ? "hybrid" : "web",
-                );
+                return o("WAWebLogForCrash").logForCrash("subplatform", e);
               },
             );
-          });
+          }),
+            y.set("subplatform", e));
         },
       ),
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
@@ -57,7 +57,7 @@ __d(
                 (e = o("WAWebBuildConstants").getWindowsBuild()) != null
                   ? e
                   : "unknown";
-              o("WAWebLogForCrash").onLogForCrashReady(function () {
+              (o("WAWebLogForCrash").onLogForCrashReady(function () {
                 return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                   "wa:windowsBuild",
                   function () {
@@ -67,7 +67,8 @@ __d(
                     );
                   },
                 );
-              });
+              }),
+                y.set("wa:windowsBuild", t));
             }
           },
         ),
@@ -75,9 +76,9 @@ __d(
           "wa:prevFail",
           function () {
             if (r("WAWebEnvironment").isWindows) {
-              var e = b();
+              var e = v();
               e != null &&
-                o("WAWebLogForCrash").onLogForCrashReady(function () {
+                (o("WAWebLogForCrash").onLogForCrashReady(function () {
                   return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
                     "wa:prevFail",
                     function () {
@@ -87,12 +88,13 @@ __d(
                       );
                     },
                   );
-                });
+                }),
+                y.set("wa:prevFail", e));
             }
           },
         ));
     }
-    function b() {
+    function v() {
       var e,
         t,
         n =
@@ -115,38 +117,48 @@ __d(
             age: Math.round(Date.now() / 1e3) - Number(r[4]),
           });
     }
-    function v() {
+    function S() {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:loadCount",
         function () {
-          var e = T();
-          o("WAWebLogForCrash").onLogForCrashReady(function () {
+          var e = D();
+          (o("WAWebLogForCrash").onLogForCrashReady(function () {
             return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
               "wa:loadCount",
               function () {
                 return o("WAWebLogForCrash").logForCrash("wa:loadCount", e);
               },
             );
-          });
+          }),
+            y.set("wa:loadCount", e));
         },
       );
     }
-    function S() {
-      (o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
-        "wa:nav",
-        function () {
-          (I(),
-            document.addEventListener("prerenderingchange", I, { once: !0 }));
-        },
-      ),
-        (h = null),
-        R(),
-        self.setInterval(R, m));
-    }
     function R() {
-      (E(), L());
+      (y.forEach(function (e, t) {
+        return (
+          t === "subplatform"
+            ? o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely
+            : o("WAWebAICrashAnnotationGate").runAICrashAnnotation
+        )(t, function () {
+          return o("WAWebLogForCrash").logForCrash(t, e);
+        });
+      }),
+        o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+          "wa:nav",
+          function () {
+            (T(),
+              document.addEventListener("prerenderingchange", T, { once: !0 }));
+          },
+        ),
+        (h = null),
+        L(),
+        self.setInterval(L, m));
     }
     function L() {
+      (k(), E());
+    }
+    function E() {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:crashArms",
         function () {
@@ -168,25 +180,25 @@ __d(
         },
       );
     }
-    function E() {
+    function k() {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "used_js_heap_size",
         function () {
-          var e = x(self.performance, "memory");
-          (k("used_js_heap_size", x(e, "usedJSHeapSize")),
-            k("js_heap_size_limit", x(e, "jsHeapSizeLimit")));
-          var t = x(navigator, "deviceMemory");
-          (k("device_memory", typeof t == "number" ? t * _ : void 0),
+          var e = $(self.performance, "memory");
+          (I("used_js_heap_size", $(e, "usedJSHeapSize")),
+            I("js_heap_size_limit", $(e, "jsHeapSizeLimit")));
+          var t = $(navigator, "deviceMemory");
+          (I("device_memory", typeof t == "number" ? t * _ : void 0),
             o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(
               o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
             ));
         },
       );
     }
-    function k(e, t) {
+    function I(e, t) {
       typeof t == "number" && o("WAWebLogForCrash").logForCrash(e, t, p);
     }
-    function I() {
+    function T() {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:nav",
         function () {
@@ -198,24 +210,24 @@ __d(
                 ? void 0
                 : e[0],
             n = document,
-            r = x(t, "activationStart");
+            r = $(t, "activationStart");
           o("WAWebLogForCrash").logForCrash(
             "wa:nav",
             JSON.stringify({
-              type: x(t, "type"),
+              type: $(t, "type"),
               act: typeof r == "number" && r > 0 ? Math.round(r) : void 0,
-              pre: x(n, "prerendering") === !0 ? 1 : void 0,
-              disc: x(n, "wasDiscarded") === !0 ? 1 : void 0,
+              pre: $(n, "prerendering") === !0 ? 1 : void 0,
+              disc: $(n, "wasDiscarded") === !0 ? 1 : void 0,
               vis: document.visibilityState,
             }),
           );
         },
       );
     }
-    function T() {
+    function D() {
       var t = Date.now(),
         n = []
-          .concat(D(), [t])
+          .concat(x(), [t])
           .filter(function (e) {
             return e <= t && t - e < c;
           })
@@ -234,7 +246,7 @@ __d(
       }
       return n.length;
     }
-    function D() {
+    function x() {
       try {
         var e,
           t = JSON.parse(
@@ -259,10 +271,10 @@ __d(
         );
       }
     }
-    function x(e, t) {
+    function $(e, t) {
       return e != null && typeof e == "object" ? e[t] : void 0;
     }
-    function $(e) {
+    function P(e) {
       o("WAWebLogForCrash").onLogForCrashReady(function () {
         o("WAWebLogForCrash").logForCrash(
           "wa:voipBootstrapMode",
@@ -270,10 +282,10 @@ __d(
         );
       });
     }
-    ((l.initCrashAnnotations = y),
-      (l.annotateCrashWithPlatform = C),
-      (l.annotateCrashWithRecentLoads = v),
-      (l.logVoipWorkerBootstrapModeForCrash = $));
+    ((l.initCrashAnnotations = C),
+      (l.annotateCrashWithPlatform = b),
+      (l.annotateCrashWithRecentLoads = S),
+      (l.logVoipWorkerBootstrapModeForCrash = P));
   },
   98,
 );
