@@ -17,6 +17,11 @@ __d(
         {
           args: null,
           kind: "FragmentSpread",
+          name: "WAWebBizBroadcastProNewBroadcastAudienceSection_query",
+        },
+        {
+          args: null,
+          kind: "FragmentSpread",
           name: "WAWebBizBroadcastProNewBroadcastSendActions_query",
         },
         {

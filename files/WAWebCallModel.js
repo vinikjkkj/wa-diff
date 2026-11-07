@@ -227,9 +227,6 @@ __d(
               o("WAWebVoipGatingUtils").isCapiDialpadEnabled()
             );
           }),
-          (a.shouldShowCapiDialpad = function () {
-            return this.isCapiCallUiEnabled() && !this.shouldShowVideoUI();
-          }),
           (a.shouldShowSelfPreview = function () {
             return this.isVideo
               ? !0

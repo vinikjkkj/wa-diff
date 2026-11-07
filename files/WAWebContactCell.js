@@ -1,6 +1,7 @@
 __d(
   "WAWebContactCell",
   [
+    "WAWebBotUtils",
     "WAWebChatStatus",
     "WAWebChatTextStatusWrapper",
     "WAWebContactGetters",
@@ -24,13 +25,15 @@ __d(
           ellipsify: !0,
           you: !0,
         }),
-        n;
-      o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
-        ? (n = s.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {
+        n = null;
+      o("WAWebBotUtils").isMetaAiBot(e.id)
+        ? (n = s.jsx(o("WAWebChatStatus").MetaAiSubtitle, {}))
+        : e.id.isRegularUser() &&
+          o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
+          (n = s.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {
             contactId: e.id,
             waitIdle: !0,
-          }))
-        : (n = s.jsx(o("WAWebChatStatus").StatusWrapper, { id: e.id }));
+          }));
       var a = s.jsx(r("WAWebContactImage.react"), { contact: e, size: 40 });
       return { primary: t, secondary: n, detailLeft: a };
     }

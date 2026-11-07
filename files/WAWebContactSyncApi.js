@@ -23,7 +23,6 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebLocalStorage",
     "WAWebPhashUtils",
-    "WAWebTextStatusCollection",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUpdateTextStatusForContact",
@@ -59,35 +58,34 @@ __d(
       v,
       S,
       R,
-      L,
-      E = 500,
-      k = 20;
-    function I(e) {
-      return T.apply(this, arguments);
+      L = 500,
+      E = 20;
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.contactIds,
             n = e.mode,
             a = e.shouldDelayBetweenChunks;
           if (r("justknobx")._("6839") && !o("WAComms").isCommsInitialized()) {
             o("WALogger")
               .LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[contact-sync] comms not initialized, skipping chunked contact sync",
                   ])),
               )
               .tags("contact-sync");
             return;
           }
-          var i = E,
+          var i = L,
             l = Math.ceil(t.length / i);
           o("WALogger")
             .LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[contact-sync] start ",
                   " contacts, ",
                   " chunks, size=",
@@ -100,22 +98,22 @@ __d(
             .tags("contact-sync");
           for (var s = 0; s < t.length; s += i) {
             var u = t.slice(s, s + i);
-            (a && (yield o("WAPromiseDelays").delayMs(k * 1e3)),
-              yield D(
+            (a && (yield o("WAPromiseDelays").delayMs(E * 1e3)),
+              yield T(
                 { contactIds: u, shouldSyncDevice: !0, mode: n },
                 o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.PERIODIC_SYNC,
               ));
           }
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = e.businessProfileVersion,
             i = e.contactIds,
             l = e.mode,
@@ -125,8 +123,8 @@ __d(
             return (
               o("WALogger")
                 .LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[contact-sync] comms not initialized, skipping contact sync",
                     ])),
                 )
@@ -137,12 +135,11 @@ __d(
             o("WAWebAppTracker").AppTrackerType.ContactSync,
           );
           try {
-            var u = yield G(i),
+            var u = yield V(i),
               c = new (o("WAWebUsync").USyncQuery)()
                 .withContext("background")
                 .withMode(l)
-                .withBusinessProtocol(a)
-                .withStatusProtocol();
+                .withBusinessProtocol(a);
             (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
               c.withTextStatusProtocol(),
               s && c.withDeviceProtocol(),
@@ -163,7 +160,7 @@ __d(
                 requestedCount: u.length,
                 protocols: c.protocols,
               }),
-              m = u
+              _ = u
                 .filter(function (e) {
                   return !e.id.isLid();
                 })
@@ -171,7 +168,7 @@ __d(
                   return o("WAWebWidFactory").asUserWidOrThrow(e.id);
                 }),
               f = new Map(
-                r("compactMap")(m, function (e) {
+                r("compactMap")(_, function (e) {
                   var t = o("WAWebApiContact").getCurrentLid(e);
                   return t == null ? null : [e.toString(), t];
                 }),
@@ -183,7 +180,7 @@ __d(
                 .map(function (e) {
                   return e.id;
                 }),
-              h = yield V(u),
+              h = yield q(u),
               y = o("WAWebContactSyncPrivacyHints").usyncPrivacyHintsEnabled()
                 ? yield o("WAWebContactSyncPrivacyHints").getUsyncPrivacyHints(
                     u.map(function (e) {
@@ -212,9 +209,9 @@ __d(
                 C = yield c.execute();
                 var S = C.error.all;
                 if (S) {
-                  var R;
+                  var L;
                   throw (
-                    (v = (R = S.errorBackoff) != null ? R : 10 * Math.random()),
+                    (v = (L = S.errorBackoff) != null ? L : 10 * Math.random()),
                     r("err")(
                       "syncContactList: error " +
                         S.errorCode +
@@ -228,8 +225,8 @@ __d(
                 (b === 0 &&
                   (o("WALogger")
                     .ERROR(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "failed to execute usync query",
                         ])),
                     )
@@ -249,21 +246,20 @@ __d(
             for (var T of Object.keys(k)) I.push(k[T]);
             if (I.length > 0) {
               var D = Math.min.apply(Math, I);
-              j(D);
+              G(D);
             }
-            yield A(C);
-            var x = o("WAWebContactSyncLogger").createUpdateCounter();
+            yield M(C);
+            var $ = o("WAWebContactSyncLogger").createUpdateCounter();
             return (
-              yield (L || (L = n("Promise"))).all([
-                s ? q(C, g, x) : (L || (L = n("Promise"))).resolve(),
-                M(C, x),
+              yield (R || (R = n("Promise"))).all([
+                s ? B(C, g, $) : (R || (R = n("Promise"))).resolve(),
+                P(C, $),
                 o("WAWebHandleUsernameSync").handleUsernameSync(C),
-                $(C, x),
-                P(C),
-                O(C, x),
+                x(C),
+                A(C, $),
               ]),
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(d, C, x),
-              yield W(i),
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(d, C, $),
+              yield O(i),
               a == null || C.error.business == null
             );
           } finally {
@@ -272,42 +268,22 @@ __d(
             );
           }
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $(t, n) {
-      var r = t.error.status;
-      if (r) {
-        o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "handleSyncStatus: failed ",
-              " : ",
-              "",
-            ])),
-          r.errorCode,
-          r.errorText,
-        );
-        return;
-      }
-      t.list.map(function (e) {
-        var t = o("WAWebTextStatusCollection").TextStatusCollection.get(e.id);
-        t && e.status && (t.set({ status: e.status }), n.statusChange++);
-      });
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
+    function $() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled())
-            return (L || (L = n("Promise"))).resolve();
+            return (R || (R = n("Promise"))).resolve();
           var t = e.error.text_status;
           if (t) {
             o("WALogger").WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "handleSyncTextStatus: failed ",
                   " : ",
                   "",
@@ -317,7 +293,7 @@ __d(
             );
             return;
           }
-          yield (L || (L = n("Promise"))).all(
+          yield (R || (R = n("Promise"))).all(
             e.list.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -348,20 +324,20 @@ __d(
             ),
           );
         })),
-        N.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function w() {
+    function N() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = e.error.status;
           if (r) {
             o("WALogger").WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "handleDisappearingMode: failed ",
                   " : ",
                   "",
@@ -371,7 +347,7 @@ __d(
             );
             return;
           }
-          yield (L || (L = n("Promise"))).all(
+          yield (R || (R = n("Promise"))).all(
             e.list.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -396,20 +372,20 @@ __d(
             ),
           );
         })),
-        w.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function F() {
+    function w() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.error.lid;
           t &&
             o("WALogger").WARN(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "handleLidSync: error ",
                   ": ",
                   "",
@@ -451,8 +427,8 @@ __d(
           }),
             a > 0 &&
               o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: skip ",
                     " missing id",
                   ])),
@@ -460,8 +436,8 @@ __d(
               ),
             l > 0 &&
               o("WALogger").WARN(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: skip ",
                     " lidResults (lid as id) => ",
                     "",
@@ -471,8 +447,8 @@ __d(
               ),
             u > 0 &&
               o("WALogger").WARN(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: skip ",
                     " pnResults (pn as id) => ",
                     "",
@@ -483,8 +459,8 @@ __d(
             n.length > 0 &&
               r.length > 0 &&
               o("WALogger").WARN(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: mixed types - lid: ",
                     ", pn: ",
                     "",
@@ -500,15 +476,15 @@ __d(
               learningSource: "usync",
             }));
         })),
-        F.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function B() {
+    function F() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = e.list.filter(function (e) {
             var t = e.business;
             return !!t;
@@ -530,42 +506,42 @@ __d(
                 }),
               ));
         })),
-        B.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function W(e) {
-      var t = e.map(function (e) {
+    function O(t) {
+      var n = t.map(function (e) {
         var t = o("WAWebWidToJid").widToUserJid(e);
         return { id: t, isContactSyncCompleted: 1 };
       });
       return (
         o("WALogger")
           .LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
                 "mark ",
                 " contacts completed for contact sync",
               ])),
-            t.length,
+            n.length,
           )
           .tags("contact-sync"),
         r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-          t,
+          n,
           "ContactSyncApi.markContactsSyncCompleted",
         )
       );
     }
-    function q(e, t, n) {
-      return U.apply(this, arguments);
+    function B(e, t, n) {
+      return W.apply(this, arguments);
     }
-    function U() {
+    function W() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = e.error.devices;
           r &&
             o("WALogger").WARN(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "handleSyncDevice: error ",
                   ": ",
                   "",
@@ -588,8 +564,8 @@ __d(
           return (
             (n.deviceChange = a.length),
             o("WALogger").LOG(
-              R ||
-                (R = babelHelpers.taggedTemplateLiteralLoose([
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
                   "handleSyncDevice: skipping ",
                   " out of ",
                   " records",
@@ -609,15 +585,15 @@ __d(
             o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(a)
           );
         })),
-        U.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function H() {
+    function U() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "username_antiscraping_send_cached_un",
@@ -640,15 +616,15 @@ __d(
             t
           );
         })),
-        H.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function z() {
+    function H() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebApiDeviceList").getDeviceIds(e),
             r = t.map(function (e) {
               return e == null
@@ -661,7 +637,7 @@ __d(
                     );
                   });
             }),
-            a = yield (L || (L = n("Promise"))).all(
+            a = yield (R || (R = n("Promise"))).all(
               r.map(function (e) {
                 return e.length === 0 ? "" : o("WAWebPhashUtils").phashV2(e);
               }),
@@ -671,15 +647,15 @@ __d(
             });
           return i;
         })),
-        z.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function j(e) {
+    function G(e) {
       if (Number.isNaN(e) || e <= o("WATimeUtils").HOUR_SECONDS) {
         o("WALogger")
           .WARN(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "invalid contact sync refresh period: ",
                 "",
               ])),
@@ -690,8 +666,8 @@ __d(
       }
       (o("WALogger")
         .LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "set contact sync refresh period: ",
               "",
             ])),
@@ -703,10 +679,10 @@ __d(
           String(e),
         ));
     }
-    ((l.syncContactListInChunks = I),
-      (l.syncContactList = D),
-      (l.handleLidSync = A),
-      (l.markContactsSyncCompleted = W));
+    ((l.syncContactListInChunks = k),
+      (l.syncContactList = T),
+      (l.handleLidSync = M),
+      (l.markContactsSyncCompleted = O));
   },
   98,
 );

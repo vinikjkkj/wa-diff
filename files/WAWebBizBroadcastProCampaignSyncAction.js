@@ -7,7 +7,7 @@ __d(
     "WAWebBroadcastCampaignSync",
     "WAWebProtobufSyncAction.pb",
     "WAWebSyncdCoreApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,7 +62,7 @@ __d(
               "WAWebBizBroadcastDeviceCapabilityCommon",
             ).getPrimarySupportsBusinessBroadcastPro()
           ) {
-            var p = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
+            var p = o("WAWebUserUtils").getMaybeMeDeviceId();
             if (p == null) {
               o("WALogger")
                 .WARN(

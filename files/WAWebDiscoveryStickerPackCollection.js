@@ -31,7 +31,13 @@ __d(
       m = "WADiscoveryStickerPacks",
       p = 2,
       _ = 10080 * 60,
-      f = (function (t) {
+      f = [
+        "Failed to fetch",
+        "Load failed",
+        "NetworkError when attempting to fetch resource.",
+        "The network connection was lost.",
+      ],
+      g = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -48,13 +54,13 @@ __d(
           (i.isLoadedFor = function (t, n) {
             return (
               this.fetchState === d.SUCCESS &&
-              this.$DiscoveryStickerPackCollection$p_2 === C(t, n)
+              this.$DiscoveryStickerPackCollection$p_2 === b(t, n)
             );
           }),
           (i.fetch = function (t, n) {
             var e,
               a = this,
-              i = C(t, n);
+              i = b(t, n);
             if (
               this.$DiscoveryStickerPackCollection$p_3 != null &&
               this.$DiscoveryStickerPackCollection$p_2 === i
@@ -71,18 +77,20 @@ __d(
               .catch(function (e) {
                 if (a.$DiscoveryStickerPackCollection$p_1 === l) {
                   var t = r("getErrorSafe")(e);
-                  t.name !== o("WAAbortError").ABORT_ERROR &&
-                    (o("WALogger")
-                      .WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "Failed to fetch discovery sticker packs",
-                          ])),
-                      )
-                      .catching(t)
-                      .sendLogs("discovery-sticker-packs-fetch-failed"),
-                    (a.fetchState = a.length > 0 ? d.SUCCESS : d.ERROR),
-                    a.trigger("change:fetchState"));
+                  if (t.name !== o("WAAbortError").ABORT_ERROR) {
+                    var n = o("WALogger")
+                        .WARN(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "Failed to fetch discovery sticker packs",
+                            ])),
+                        )
+                        .catching(t),
+                      i = v(t) ? n.tags("non-sad") : n;
+                    (i.sendLogs("discovery-sticker-packs-fetch-failed"),
+                      (a.fetchState = a.length > 0 ? d.SUCCESS : d.ERROR),
+                      a.trigger("change:fetchState"));
+                  }
                 }
               })
               .finally(function () {
@@ -99,7 +107,7 @@ __d(
                   (yield o(
                     "WAWebUserPrefsIndexedDBStorage",
                   ).userPrefsIdb.init(),
-                    (i = h(
+                    (i = y(
                       o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m),
                       t,
                     )));
@@ -119,7 +127,7 @@ __d(
                   !(
                     i != null &&
                     (this.$DiscoveryStickerPackCollection$p_6(i.stickerPacks),
-                    y(i))
+                    C(i))
                   )
                 ) {
                   var l = yield o(
@@ -209,18 +217,18 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    f.model = o("WAWebStickerPackModelMd").StickerPackModel;
-    var g = new f();
-    function h(e, t) {
+    g.model = o("WAWebStickerPackModelMd").StickerPackModel;
+    var h = new g();
+    function y(e, t) {
       return e == null || e.context !== t || !Array.isArray(e.stickerPacks)
         ? null
         : e;
     }
-    function y(e) {
+    function C(e) {
       var t = e.fetchedAt;
       return t != null && o("WATimeUtils").unixTime() - t < _;
     }
-    function C(e, t) {
+    function b(e, t) {
       var n,
         a =
           o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
@@ -252,7 +260,15 @@ __d(
         i
       );
     }
-    ((l.DiscoveryFetchState = d), (l.DiscoveryStickerPackCollectionMd = g));
+    function v(e) {
+      return (
+        e.name === "TypeError" &&
+        f.some(function (t) {
+          return e.message.includes(t);
+        })
+      );
+    }
+    ((l.DiscoveryFetchState = d), (l.DiscoveryStickerPackCollectionMd = h));
   },
   98,
 );

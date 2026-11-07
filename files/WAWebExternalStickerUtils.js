@@ -1,6 +1,6 @@
 __d(
   "WAWebExternalStickerUtils",
-  ["WAIsWebP", "err"],
+  ["WAIsWebP", "WAWebUnsupportedExternalStickerAnimationError", "err"],
   function (t, n, r, o, a, i, l) {
     var e = 512e3,
       s = 512,
@@ -51,7 +51,11 @@ __d(
             t.getUint8(a + 21) * 256 +
             t.getUint8(a + 22) * 65536;
           if (((n += s), s < c || n > d))
-            throw r("err")("Unsupported external sticker animation");
+            throw new (o(
+              "WAWebUnsupportedExternalStickerAnimationError",
+            ).UnsupportedExternalStickerAnimationError)(
+              "Unsupported external sticker animation",
+            );
         }
         a = l;
       }

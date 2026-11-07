@@ -14,7 +14,6 @@ __d(
     "WAWebSendRequestPhoneNumberChatAction",
     "WAWebSendSharePhoneNumberChatAction",
     "WAWebSetUsernameJob",
-    "WAWebStatusContactAction",
     "WAWebUpdateLidMetadataJob",
     "WAWebUsernameCreationActionLogger",
     "WAWebUsernameTypes",
@@ -270,15 +269,6 @@ __d(
     k.doc = "Set the own username at the account level.";
     function I(e) {
       return (
-        r("vulture")("2C0u9w0IwwSAMn7XXyDwV-XwFcM="),
-        o("WAWebStatusContactAction").getStatus(
-          o("WAWebWidFactory").createUserWidOrThrow(e),
-        )
-      );
-    }
-    I.doc = "Get the about (about 1.0) status for a given JID";
-    function T(e) {
-      return (
         r("vulture")("jVSCrFoGVVvZTaO6Fd_70ywChrg="),
         o("WAWebContactTextStatusBridge").getTextStatus(
           o("WAWebWidFactory").createUserWidOrThrow(e),
@@ -286,8 +276,8 @@ __d(
         )
       );
     }
-    T.doc = "Get the text status (about 2.0) for a given JID";
-    var D = {
+    I.doc = "Get the text status (about 2.0) for a given JID";
+    var T = {
       setUsername: k,
       createLidPnMappingsJob: b,
       setUsernames: _,
@@ -301,10 +291,9 @@ __d(
       sendSharePhoneNumber: E,
       updateLidMetadataJob: d,
       clearLidMetadata: m,
-      getAboutStatus: I,
-      getTextStatus: T,
+      getTextStatus: I,
     };
-    l.default = D;
+    l.default = T;
   },
   98,
 );

@@ -286,6 +286,7 @@ __d(
             a("groupHistoryBundleMessageKey"),
             a("groupHistoryBundleMetadata"),
             a("groupHistoryIndividualMessageInfo"),
+            a("groupHistoryLastCountedMessageTimestamp"),
             a("internalThreadIDs"),
             a("nonJidMentions"),
             a("botGroupParticipant"),

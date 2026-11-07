@@ -4,11 +4,9 @@ __d(
     "fbt",
     "WAWebBox.react",
     "WAWebChatInfoDrawerSection.react",
-    "WAWebChatStatus",
     "WAWebChatTextStatusWrapper",
     "WAWebExternalLink.react",
     "WAWebMiscGatingUtils",
-    "WAWebTextStatusGatingUtils",
     "WAWebUseAboutDisplayStatus",
     "WAWebWid",
     "WDSMargins.stylex",
@@ -116,11 +114,9 @@ __d(
       if (!i) return null;
       var R;
       t[12] !== n.id
-        ? ((R = o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
-            ? u.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {
-                contactId: n.id,
-              })
-            : u.jsx(o("WAWebChatStatus").StatusWrapper, { id: n.id })),
+        ? ((R = u.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {
+            contactId: n.id,
+          })),
           (t[12] = n.id),
           (t[13] = R))
         : (R = t[13]);

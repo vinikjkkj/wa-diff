@@ -448,7 +448,17 @@ __d(
         isNewGroup: p,
       };
     }
-    var $ = new (r("WADeprecatedWapParser"))(
+    var $ = Object.keys(
+      o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG,
+    ).map(function (e) {
+      return o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG[e];
+    });
+    function P(e) {
+      return $.find(function (t) {
+        return t === e;
+      });
+    }
+    var N = new (r("WADeprecatedWapParser"))(
       "groupNotificationParser",
       function (e) {
         if ((e.assertTag("notification"), e.hasAttr("to"))) {
@@ -516,24 +526,36 @@ __d(
         var R,
           $ = e
             .mapChildren(function (t) {
-              var n,
-                a = t.tag();
-              switch (a) {
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.CREATE:
+              var n = P(t.tag());
+              if (n == null)
+                throw e.createParseError(
+                  "Unrecognized group action " + t.tag(),
+                );
+              e: {
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .CREATE
+                )
                   return x(u, t, c);
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.ADD:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .ADD
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.ADD,
-                    participants: b(u, t, a),
+                    participants: b(u, t, n),
                     reason: t.hasAttr("reason")
                       ? L(t.attrString("reason"))
                       : null,
                     isLidAddressingMode: h,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.DELETE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .DELETE
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.DELETE,
                     reason: t.hasAttr("reason")
@@ -541,59 +563,80 @@ __d(
                       : null,
                     groupDatas: [{ id: u, subject: "" }],
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.REMOVE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .REMOVE
+                )
                   return {
                     actionType: o("WAWebHandleGroupNotificationConst")
                       .GROUP_NOTIFICATION_TAG.REMOVE,
-                    participants: b(u, t, a),
+                    participants: b(u, t, n),
                     reason: t.hasAttr("reason")
                       ? E(t.attrString("reason"))
                       : null,
                     isLidAddressingMode: h,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.PROMOTE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .PROMOTE
+                )
                   return {
                     actionType: o("WAWebHandleGroupNotificationConst")
                       .GROUP_NOTIFICATION_TAG.PROMOTE,
-                    participants: b(u, t, a),
+                    participants: b(u, t, n),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.DEMOTE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .DEMOTE
+                )
                   return {
                     actionType: o("WAWebHandleGroupNotificationConst")
                       .GROUP_NOTIFICATION_TAG.DEMOTE,
-                    participants: b(u, t, a),
+                    participants: b(u, t, n),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.LINKED_GROUP_PROMOTE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .LINKED_GROUP_PROMOTE
+                )
                   return babelHelpers.extends(
                     {
                       actionType: o("WAWebHandleGroupNotificationConst")
                         .GROUP_NOTIFICATION_TAG.LINKED_GROUP_PROMOTE,
-                      participants: b(u, t, a),
+                      participants: b(u, t, n),
                     },
                     v(t),
                   );
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.LINKED_GROUP_DEMOTE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .LINKED_GROUP_DEMOTE
+                )
                   return babelHelpers.extends(
                     {
                       actionType: o("WAWebHandleGroupNotificationConst")
                         .GROUP_NOTIFICATION_TAG.LINKED_GROUP_DEMOTE,
-                      participants: b(u, t, a),
+                      participants: b(u, t, n),
                     },
                     v(t),
                   );
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.MODIFY:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .MODIFY
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.MODIFY,
-                    participants: b(u, t, a),
+                    participants: b(u, t, n),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.SUBJECT:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .SUBJECT
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.SUBJECT,
                     subject: t.attrString("subject"),
@@ -610,8 +653,11 @@ __d(
                     subjectOwnerUsername: t.maybeAttrString("s_o_username"),
                     s_t: t.maybeAttrTime("s_t"),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.DESC:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .DESC
+                )
                   return t.hasChild("delete")
                     ? {
                         actionType:
@@ -626,64 +672,96 @@ __d(
                           : null,
                         descTime: g,
                       };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.SUSPENDED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .SUSPENDED
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.SUSPEND,
                     value: !0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.UNSUSPENDED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .UNSUSPENDED
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.SUSPEND,
                     value: !1,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.LOCKED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .LOCKED
+                ) {
+                  var a;
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.RESTRICT,
                     value: !0,
                     threshold:
-                      (n = t.maybeAttrString("threshold")) != null ? n : void 0,
+                      (a = t.maybeAttrString("threshold")) != null ? a : void 0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.UNLOCKED:
+                }
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .UNLOCKED
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.RESTRICT,
                     value: !1,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.ANNOUNCE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .ANNOUNCE
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.ANNOUNCE,
                     value: !0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.NOT_ANNOUNCE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .NOT_ANNOUNCE
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.ANNOUNCE,
                     value: !1,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.NO_FREQUENTLY_FORWARDED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .NO_FREQUENTLY_FORWARDED
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.NO_FORWARD,
                     value: !0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.FREQUENTLY_FORWARDED_OK:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .FREQUENTLY_FORWARDED_OK
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.NO_FORWARD,
                     value: !1,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.INVITE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .INVITE
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.INVITE_CODE,
                     code: t.attrString("code"),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.EPHEMERAL:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .EPHEMERAL
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
                     duration: t.attrInt("expiration"),
@@ -692,14 +770,20 @@ __d(
                       : void 0,
                     initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(c),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.NOT_EPHEMERAL:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .NOT_EPHEMERAL
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
                     duration: 0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.REVOKE_INVITE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .REVOKE_INVITE
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE,
                     participants: t.mapChildrenWithTag(
@@ -714,21 +798,30 @@ __d(
                       },
                     ),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.GROWTH_UNLOCKED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .GROWTH_UNLOCKED
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.GROWTH_UNLOCKED,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.GROWTH_LOCKED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .GROWTH_LOCKED
+                )
                   return {
                     actionType: o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED,
                     expiration: t.attrInt("expiration"),
                     type: t.attrString("type"),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.LINK: {
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .LINK
+                ) {
                   var i = t.attrString("link_type"),
                     l = {
                       sub_group:
@@ -768,11 +861,17 @@ __d(
                         }),
                       };
                 }
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.UNLINK:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .UNLINK
+                )
                   return D(t);
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.MEMBERSHIP_APPROVAL_MODE: {
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .MEMBERSHIP_APPROVAL_MODE
+                ) {
                   var d;
                   return {
                     actionType:
@@ -787,8 +886,11 @@ __d(
                       : void 0,
                   };
                 }
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.MEMBERSHIP_APPROVAL_REQUEST: {
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .MEMBERSHIP_APPROVAL_REQUEST
+                ) {
                   var m;
                   return {
                     actionType:
@@ -805,8 +907,11 @@ __d(
                       : void 0,
                   };
                 }
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.ALLOW_ADMIN_REPORTS:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .ALLOW_ADMIN_REPORTS
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS,
@@ -817,8 +922,11 @@ __d(
                       ? t.attrString("triggered")
                       : void 0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.NOT_ALLOW_ADMIN_REPORTS:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .NOT_ALLOW_ADMIN_REPORTS
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS,
@@ -829,16 +937,22 @@ __d(
                       ? t.attrString("triggered")
                       : void 0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.REPORTS:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .REPORTS
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED,
                     shouldSkipGenMsg: !0,
                     value: g,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.CREATED_MEMBERSHIP_REQUESTS: {
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .CREATED_MEMBERSHIP_REQUESTS
+                ) {
                   var p;
                   return {
                     actionType:
@@ -875,8 +989,11 @@ __d(
                       t.maybeAttrString("suppress_sys_msg") === "true",
                   };
                 }
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.REVOKED_MEMBERSHIP_REQUESTS:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .REVOKED_MEMBERSHIP_REQUESTS
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
@@ -887,25 +1004,33 @@ __d(
                       );
                     }),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .ALLOW_NON_ADMIN_SUB_GROUP_CREATION
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .ALLOW_NON_ADMIN_SUB_GROUP_CREATION,
                     value: !0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG
-                  .NOT_ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .NOT_ALLOW_NON_ADMIN_SUB_GROUP_CREATION
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .ALLOW_NON_ADMIN_SUB_GROUP_CREATION,
                     value: !1,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.CREATED_SUBGROUP_SUGGESTION:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .CREATED_SUBGROUP_SUGGESTION
+                )
                   return babelHelpers.extends(
                     {
                       actionType:
@@ -915,8 +1040,11 @@ __d(
                     },
                     S(t),
                   );
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.REVOKED_SUB_GROUP_SUGGESTIONS:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .REVOKED_SUB_GROUP_SUGGESTIONS
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
@@ -939,8 +1067,11 @@ __d(
                       },
                     ),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.CHANGE_NUMBER:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .CHANGE_NUMBER
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
@@ -961,8 +1092,11 @@ __d(
                       t.attrUserJid("jid"),
                     ),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.MEMBER_ADD_MODE:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .MEMBER_ADD_MODE
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.MEMBER_ADD_MODE,
@@ -970,27 +1104,45 @@ __d(
                       "WAWebSchemaGroupMetadata",
                     ).MemberAddMode.cast(t.contentString()),
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.AUTO_ADD_DISABLED:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .AUTO_ADD_DISABLED
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .GENERAL_CHAT_AUTO_ADD_DISABLED,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.GROUP_SAFETY_CHECK:
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .GROUP_SAFETY_CHECK
+                )
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK,
                     value: !0,
                   };
-                case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.MISSING_PARTICIPANT_IDENTIFICATION: {
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .MISSING_PARTICIPANT_IDENTIFICATION
+                ) {
                   R = !0;
                   return;
                 }
-                default:
-                  throw e.createParseError("Unrecognized group action " + a);
+                throw n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .IS_CAPI_HOSTED_GROUP ||
+                  n ===
+                    o("WAWebHandleGroupNotificationConst")
+                      .GROUP_NOTIFICATION_TAG.LIMIT_SHARING_ENABLED
+                  ? e.createParseError("Unrecognized group action " + n)
+                  : Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        n,
+                    );
               }
             })
             .filter(Boolean);
@@ -1010,7 +1162,7 @@ __d(
         };
       },
     );
-    function P(e) {
+    function M(e) {
       var t = e.content;
       if (t != null && Array.isArray(t) && t.length > 0) {
         var r = t[0],
@@ -1022,7 +1174,7 @@ __d(
             ).handleGroupsDirtyNotificationJob(e),
           );
       }
-      var i = $.parse(e);
+      var i = N.parse(e);
       return i.error
         ? (o("WALogger").ERROR(
             f ||
@@ -1037,7 +1189,7 @@ __d(
             i.success,
           );
     }
-    l.handleGroupNotification = P;
+    l.handleGroupNotification = M;
   },
   98,
 );

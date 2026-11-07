@@ -16,7 +16,9 @@ __d(
         l,
         c,
         d,
-        m = babelHelpers.extends({}, t),
+        m = babelHelpers.extends({}, t, {
+          groupHistoryLastCountedMessageTimestamp: void 0,
+        }),
         p = e.type,
         _ = u(p)
           ? {

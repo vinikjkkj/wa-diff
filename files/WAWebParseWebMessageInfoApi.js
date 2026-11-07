@@ -12,6 +12,7 @@ __d(
     "WAWebEphemeralKeepInChat",
     "WAWebEphemeralityTypes",
     "WAWebGroupHistoryProtoUtils",
+    "WAWebGroupHistoryStoredHint",
     "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
     "WAWebMessagingGatingUtils",
     "WAWebMsgHistorySyncExtensions",
@@ -201,12 +202,13 @@ __d(
           });
           return (m(t, T), p(t, T), T);
         }
-        return (
-          o(
-            "WAWebParseLimitSharingHistorySyncProto",
-          ).parseLimitSharingFromProtocolHistorySyncMessage(t, L),
-          o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(t, L)
-        );
+        o(
+          "WAWebParseLimitSharingHistorySyncProto",
+        ).parseLimitSharingFromProtocolHistorySyncMessage(t, L);
+        var D = o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(t, L);
+        return o(
+          "WAWebGroupHistoryStoredHint",
+        ).maybeRestoreGroupHistoryStoredHint(D, t);
       }
     }
     function m(e, t) {

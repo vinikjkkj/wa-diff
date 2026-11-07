@@ -30,7 +30,10 @@ __d(
         className: "x1lliihq x6ikm8r x10wlt62 xhslqc4 xlyipyv xuxw1ft",
         children: s._(/*BTDS*/ "Ask me anything"),
       });
-    function g(e) {
+    function g() {
+      return f;
+    }
+    function h(e) {
       var t = o("react-compiler-runtime").c(13),
         n = e.status,
         a = e.waitIdle,
@@ -101,14 +104,14 @@ __d(
         C
       );
     }
-    function h(e) {
+    function y(e) {
       var t = o("WAWebTextStatusCollection").TextStatusCollection.get(e);
       if (!t) return !0;
       if (!e.isRegularUser()) return (o("WAWebBotUtils").isMetaAiBot(e), !0);
       var n = t.status;
       return n !== void 0 ? r("isStringNotNullAndNotWhitespaceOnly")(n) : !0;
     }
-    function y(e) {
+    function C(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.id,
         a;
@@ -124,7 +127,7 @@ __d(
         s = i[1],
         c = m(null),
         f,
-        h;
+        g;
       if (
         (t[2] !== n
           ? ((f = function () {
@@ -134,19 +137,19 @@ __d(
                 s(t.getStatus());
               }
             }),
-            (h = [n]),
+            (g = [n]),
             (t[2] = n),
             (t[3] = f),
-            (t[4] = h))
-          : ((f = t[3]), (h = t[4])),
-        d(f, h),
+            (t[4] = g))
+          : ((f = t[3]), (g = t[4])),
+        d(f, g),
         !l)
       )
         return _;
       var y;
       return (
         t[5] !== e.waitIdle || t[6] !== l
-          ? ((y = u.jsx(g, { status: l, waitIdle: e.waitIdle })),
+          ? ((y = u.jsx(h, { status: l, waitIdle: e.waitIdle })),
             (t[5] = e.waitIdle),
             (t[6] = l),
             (t[7] = y))
@@ -154,7 +157,9 @@ __d(
         y
       );
     }
-    ((l.willStatusDisplayContent = h), (l.StatusWrapper = y));
+    ((l.MetaAiSubtitle = g),
+      (l.willStatusDisplayContent = y),
+      (l.StatusWrapper = C));
   },
   226,
 );

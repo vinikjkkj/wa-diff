@@ -1,21 +1,20 @@
 __d(
   "WAWebHandleBusinessNotification",
   [
+    "$InternalEnum",
     "WADeprecatedWapParser",
     "WALogger",
     "WASmaxBizCtwaAdAccountNonceNotificationRPC",
     "WASmaxParseUtils",
-    "WASmaxSmbMeteredMessagesCampaignBbProCampaignStatusNotificationRPC",
-    "WASmaxSmbMeteredMessagesCampaignCampaignStateChangedNotificationRPC",
     "WAWap",
     "WAWebBackendJobsCommon",
-    "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
     "WAWebBizSuggestionsGatingUtils",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCTWAGatingUtils",
     "WAWebCTWAParsePrivacy",
     "WAWebCTWAParseSuggestion",
     "WAWebCommonParsersVerifiedName",
+    "WAWebHandleBizBroadcastMarketingCampaignNotification",
     "WAWebHandleBizBroadcastProCampaignNotification",
     "WAWebHandleBusinessNameChange",
     "WAWebHandleBusinessProductCatalogNotification",
@@ -141,41 +140,25 @@ __d(
               );
             } else if (e.hasChild("mm_campaign")) {
               var h = o(
-                  "WASmaxSmbMeteredMessagesCampaignCampaignStateChangedNotificationRPC",
-                ).receiveCampaignStateChangedNotificationRPC(e.node()),
-                y = h.parsedRequest;
-              if (
-                y.mmCampaignAdCreativeId != null &&
-                y.mmCampaignAdGroupId != null &&
-                y.mmCampaignAdId != null
-              )
-                return babelHelpers.extends(
-                  {
-                    type: "mm_campaign",
-                    adCreativeId: y.mmCampaignAdCreativeId,
-                    adGroupId: y.mmCampaignAdGroupId,
-                    adId: y.mmCampaignAdId,
-                    status: y.mmCampaignStatus,
-                  },
-                  i,
-                );
+                "WAWebHandleBizBroadcastMarketingCampaignNotification",
+              ).parseMarketingCampaignNotification(e.node());
+              if (h != null)
+                return babelHelpers.extends({ type: "mm_campaign" }, h, i);
             } else if (
               o("WASmaxParseUtils").flattenedChildWithTag(
                 e.node(),
                 "bb_pro_campaign",
               ).success
-            ) {
-              var C = o(
-                "WASmaxSmbMeteredMessagesCampaignBbProCampaignStatusNotificationRPC",
-              ).receiveBbProCampaignStatusNotificationRPC(e.node());
+            )
               return babelHelpers.extends(
                 {
                   type: "bb_pro_campaign",
-                  campaignId: C.parsedRequest.bbProCampaignCampaignId,
+                  campaignId: o(
+                    "WAWebHandleBizBroadcastProCampaignNotification",
+                  ).parseBizBroadcastProCampaignId(e.node()),
                 },
                 i,
               );
-            }
           }
           return babelHelpers.extends({ type: "unknown" }, i);
         },
@@ -228,31 +211,12 @@ __d(
       }
       return babelHelpers.extends({ type: "unknown" }, t);
     }
-    function c(e, t, n) {
-      return n
-        ? o("WAWap").wap(
-            "ack",
-            {
-              id: o("WAWap").CUSTOM_STRING(e),
-              to: t,
-              class: "notification",
-              type: "business",
-            },
-            o("WAWap").wap("user", { side_list: "out" }),
-          )
-        : o("WAWap").wap("ack", {
-            id: o("WAWap").CUSTOM_STRING(e),
-            to: t,
-            class: "notification",
-            type: "business",
-          });
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = s.parse(t);
           if (n.error)
             throw (
@@ -266,127 +230,14 @@ __d(
               ),
               n.error
             );
-          var r = n.success;
-          switch (r.type) {
-            case "verified_name_hash": {
-              var a = yield o(
-                "WAWebHandleBusinessNameChange",
-              ).handleVerifiedBusinessNameNotificationHash(r);
-              return c(r.stanzaId, r.from, !a);
-            }
-            case "verified_name_jid":
-              return (
-                yield o(
-                  "WAWebHandleBusinessNameChange",
-                ).handleVerifiedBusinessNameNotificationContact(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "remove_hash": {
-              var i = yield o(
-                "WAWebHandleBusinessRemoval",
-              ).handleBusinessRemovalNotificationHash(r);
-              return c(r.stanzaId, r.from, !i);
-            }
-            case "remove_jid":
-              return (
-                yield o(
-                  "WAWebHandleBusinessRemoval",
-                ).handleBusinessRemovalNotificationContact(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "profile":
-              return (
-                yield o("WAWebHandleBusinessProfile").handleBusinessProfile(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "profile_hash": {
-              var l = yield o(
-                "WAWebHandleBusinessProfile",
-              ).handleBusinessProfileHash(r);
-              return c(r.stanzaId, r.from, !l);
-            }
-            case "product":
-              return (
-                yield o(
-                  "WAWebHandleBusinessProductCatalogNotification",
-                ).handleProductNotification(r.productsIds),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "collection":
-              return (
-                yield o(
-                  "WAWebHandleBusinessProductCatalogNotification",
-                ).handleCollectionNotification(r),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "subscriptions": {
-              yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-                r.subscriptions,
-                r.featureFlags,
-                "update",
-              );
-              var u = r.uiNotification;
-              return (
-                u != null &&
-                  o(
-                    "WAWebSubscriptionNotificationDelivery",
-                  ).deliverSubscriptionNotification(u),
-                c(r.stanzaId, r.from, !1)
-              );
-            }
-            case "ctwa_suggestion":
-              return (
-                yield o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
-                  r.suggestion,
-                ),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "privacy":
-              return (
-                o(
-                  "WAWebHandlePrivacySettingsNotification",
-                ).handleSmbDataSharingSettingNotification(
-                  r.privacy.smbDataSharingSetting,
-                  r.privacy.smbDataSharingVersion,
-                ),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "wa_ad_account_nonce":
-              return (
-                o(
-                  "WAWebCTWABizAccessTokenNonceManager",
-                ).setNonceFromPushNotification(r.nonce),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "mm_campaign":
-              return (
-                o(
-                  "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
-                ).marketingCampaignNotificationEmitter.emit({
-                  adCreativeId: r.adCreativeId,
-                  adGroupId: r.adGroupId,
-                  adId: r.adId,
-                  status: r.status,
-                  timestamp: r.ts,
-                  backgroundSendHandling: !1,
-                }),
-                c(r.stanzaId, r.from, !1)
-              );
-            case "bb_pro_campaign":
-              return (
-                o(
-                  "WAWebHandleBizBroadcastProCampaignNotification",
-                ).handleBizBroadcastProCampaignNotification(r.campaignId),
-                c(r.stanzaId, r.from, !1)
-              );
-            default:
-              return (r.type, c(r.stanzaId, r.from, !1));
-          }
+          var r = n.success,
+            a = yield _(r);
+          return h(r.stanzaId, r.from, a);
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e) {
+    function m(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -394,13 +245,261 @@ __d(
         .createNonPersistedJob(
           "handleBusinessNotification",
           function (e) {
-            return d(e.node);
+            return c(e.node);
           },
           { priority: t },
         )
         .waitUntilCompleted({ node: e });
     }
-    ((l.handleBusinessNotification = d), (l.handleBusinessNotificationJob = p));
+    var p = n("$InternalEnum").Mirrored(["Handled", "SideListOutOfDate"]);
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e: {
+            var t = e;
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "verified_name_hash"
+            ) {
+              var n = t,
+                r = yield o(
+                  "WAWebHandleBusinessNameChange",
+                ).handleVerifiedBusinessNameNotificationHash(n);
+              return g(r);
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "verified_name_jid"
+            ) {
+              var a = t;
+              return (
+                yield o(
+                  "WAWebHandleBusinessNameChange",
+                ).handleVerifiedBusinessNameNotificationContact(a),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "remove_hash"
+            ) {
+              var i = t,
+                l = yield o(
+                  "WAWebHandleBusinessRemoval",
+                ).handleBusinessRemovalNotificationHash(i);
+              return g(l);
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "remove_jid"
+            ) {
+              var s = t;
+              return (
+                yield o(
+                  "WAWebHandleBusinessRemoval",
+                ).handleBusinessRemovalNotificationContact(s),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "profile"
+            ) {
+              var u = t;
+              return (
+                yield o("WAWebHandleBusinessProfile").handleBusinessProfile(u),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "profile_hash"
+            ) {
+              var c = t,
+                d = yield o(
+                  "WAWebHandleBusinessProfile",
+                ).handleBusinessProfileHash(c);
+              return g(d);
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "product"
+            ) {
+              var m = t;
+              return (
+                yield o(
+                  "WAWebHandleBusinessProductCatalogNotification",
+                ).handleProductNotification(m.productsIds),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "collection"
+            ) {
+              var _ = t;
+              return (
+                yield o(
+                  "WAWebHandleBusinessProductCatalogNotification",
+                ).handleCollectionNotification(_),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "subscriptions"
+            ) {
+              var f = t;
+              yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
+                f.subscriptions,
+                f.featureFlags,
+                "update",
+              );
+              var h = f.uiNotification;
+              return (
+                h != null &&
+                  o(
+                    "WAWebSubscriptionNotificationDelivery",
+                  ).deliverSubscriptionNotification(h),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "ctwa_suggestion"
+            ) {
+              var y = t;
+              return (
+                yield o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
+                  y.suggestion,
+                ),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "privacy"
+            ) {
+              var C = t;
+              return (
+                o(
+                  "WAWebHandlePrivacySettingsNotification",
+                ).handleSmbDataSharingSettingNotification(
+                  C.privacy.smbDataSharingSetting,
+                  C.privacy.smbDataSharingVersion,
+                ),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "wa_ad_account_nonce"
+            ) {
+              var b = t;
+              return (
+                o(
+                  "WAWebCTWABizAccessTokenNonceManager",
+                ).setNonceFromPushNotification(b.nonce),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "mm_campaign"
+            ) {
+              var v = t;
+              return (
+                o(
+                  "WAWebHandleBizBroadcastMarketingCampaignNotification",
+                ).handleMarketingCampaignNotification(v),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "bb_pro_campaign"
+            ) {
+              var S = t;
+              return (
+                o(
+                  "WAWebHandleBizBroadcastProCampaignNotification",
+                ).handleBizBroadcastProCampaignNotification(S.campaignId),
+                p.Handled
+              );
+              break e;
+            }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "unknown"
+            )
+              return p.Handled;
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                t,
+            );
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return e ? p.Handled : p.SideListOutOfDate;
+    }
+    function h(e, t, n) {
+      return n === p.Handled
+        ? o("WAWap").wap("ack", {
+            id: o("WAWap").CUSTOM_STRING(e),
+            to: t,
+            class: "notification",
+            type: "business",
+          })
+        : n === p.SideListOutOfDate
+          ? o("WAWap").wap(
+              "ack",
+              {
+                id: o("WAWap").CUSTOM_STRING(e),
+                to: t,
+                class: "notification",
+                type: "business",
+              },
+              o("WAWap").wap("user", { side_list: "out" }),
+            )
+          : (function () {
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  n,
+              );
+            })();
+    }
+    ((l.handleBusinessNotification = c), (l.handleBusinessNotificationJob = m));
   },
   98,
 );

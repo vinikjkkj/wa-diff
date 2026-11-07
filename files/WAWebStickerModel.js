@@ -11,6 +11,7 @@ __d(
     "WAWebMediaStickers",
     "WAWebMediaTypes",
     "WAWebStickerGetters",
+    "WAWebUnsupportedExternalStickerAnimationError",
     "err",
     "getErrorSafe",
     "once",
@@ -19,19 +20,20 @@ __d(
     var e,
       s,
       u,
-      c = r("JSResourceForInteraction")(
+      c,
+      d = r("JSResourceForInteraction")(
         "WAWebDownloadExternalStickerAction",
       ).__setRef("WAWebStickerModel"),
-      d = r("once")(function () {
-        return new f({ id: "placeholder", isPlaceholder: !0 });
-      }),
       m = r("once")(function () {
-        return new f({ id: "createButton", actionTile: "create" });
+        return new g({ id: "placeholder", isPlaceholder: !0 });
       }),
       p = r("once")(function () {
-        return new f({ id: "sendMusicButton", actionTile: "send_music" });
+        return new g({ id: "createButton", actionTile: "create" });
       }),
-      _ = (function (t) {
+      _ = r("once")(function () {
+        return new g({ id: "sendMusicButton", actionTile: "send_music" });
+      }),
+      f = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -102,62 +104,52 @@ __d(
           (i.downloadMedia = function (a) {
             var t = this;
             if (this.externalUrl != null) {
-              var i, l, d;
+              var i, l, s;
               if ((i = this.$Sticker$p_2) != null && i.signal.aborted) {
-                var m = this.$Sticker$p_1,
-                  p = function () {
+                var u = this.$Sticker$p_1,
+                  m = function () {
                     return (
-                      t.$Sticker$p_1 === m &&
+                      t.$Sticker$p_1 === u &&
                         ((t.$Sticker$p_1 = null), (t.$Sticker$p_2 = null)),
                       t.downloadMedia(a)
                     );
                   };
-                return (u || (u = n("Promise"))).resolve(m).then(p, p);
+                return (c || (c = n("Promise"))).resolve(u).then(m, m);
               }
-              var _ =
+              var p =
                 (l = this.$Sticker$p_2) != null ? l : new AbortController();
-              this.$Sticker$p_2 = _;
-              var f =
-                (d = this.$Sticker$p_1) != null
-                  ? d
-                  : c.load().then(function (e) {
+              this.$Sticker$p_2 = p;
+              var _ =
+                (s = this.$Sticker$p_1) != null
+                  ? s
+                  : d.load().then(function (e) {
                       var n = e.downloadExternalSticker;
-                      return (_.signal.throwIfAborted(), n(t, _.signal));
+                      return (p.signal.throwIfAborted(), n(t, p.signal));
                     });
               return (
-                (this.$Sticker$p_1 = f),
-                f
-                  .catch(function (n) {
-                    if (_.signal.aborted) {
-                      if (
-                        (t.$Sticker$p_2 === _ &&
-                          (t.mediaData.mediaStage =
-                            o("WAWebMediaTypes").MediaDataStage.INIT),
-                        a === !0)
-                      )
-                        throw r("err")("External sticker download cancelled");
-                      return;
-                    }
+                (this.$Sticker$p_1 = _),
+                _.catch(function (e) {
+                  if (p.signal.aborted) {
                     if (
-                      ((t.mediaData.mediaStage =
-                        o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING),
-                      o("WALogger")
-                        .ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "External sticker download failed",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(n))
-                        .sendLogs("external-sticker-download-failed"),
+                      (t.$Sticker$p_2 === p &&
+                        (t.mediaData.mediaStage =
+                          o("WAWebMediaTypes").MediaDataStage.INIT),
                       a === !0)
                     )
-                      throw r("err")("External sticker download failed");
-                  })
-                  .finally(function () {
-                    t.$Sticker$p_1 === f &&
-                      ((t.$Sticker$p_1 = null), (t.$Sticker$p_2 = null));
-                  })
+                      throw r("err")("External sticker download cancelled");
+                    return;
+                  }
+                  if (
+                    ((t.mediaData.mediaStage =
+                      o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING),
+                    h(e),
+                    a === !0)
+                  )
+                    throw r("err")("External sticker download failed");
+                }).finally(function () {
+                  t.$Sticker$p_1 === _ &&
+                    ((t.$Sticker$p_1 = null), (t.$Sticker$p_2 = null));
+                })
               );
             }
             return o("WAWebMediaStickers")
@@ -166,17 +158,17 @@ __d(
                 sticker: this,
                 type: "STICKER",
               })
-              .catch(function (e) {
+              .catch(function (n) {
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "id: ",
                         ", error",
                       ])),
                     t.id,
                   )
-                  .catching(r("getErrorSafe")(e))
+                  .catching(r("getErrorSafe")(n))
                   .tags("non-sad")
                   .sendLogs("sticker-panel:sticker download failed");
               });
@@ -217,12 +209,41 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((_.Proxy = "sticker"),
-      (_.getPlaceholder = d),
-      (_.getCreateButton = m),
-      (_.getSendMusicButton = p));
-    var f = o("WAWebBaseModel").defineModel(_);
-    ((f.getPlaceholder = d), (l.Sticker = _), (l.StickerModel = f));
+    ((f.Proxy = "sticker"),
+      (f.getPlaceholder = m),
+      (f.getCreateButton = p),
+      (f.getSendMusicButton = _));
+    var g = o("WAWebBaseModel").defineModel(f);
+    g.getPlaceholder = m;
+    function h(e) {
+      if (
+        e instanceof
+        o("WAWebUnsupportedExternalStickerAnimationError")
+          .UnsupportedExternalStickerAnimationError
+      ) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "External sticker animation unsupported",
+              ])),
+          )
+          .catching(e)
+          .tags("non-sad")
+          .sendLogs("external-sticker-animation-unsupported");
+        return;
+      }
+      o("WALogger")
+        .ERROR(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "External sticker download failed",
+            ])),
+        )
+        .catching(r("getErrorSafe")(e))
+        .sendLogs("external-sticker-download-failed");
+    }
+    ((l.Sticker = f), (l.StickerModel = g));
   },
   98,
 );

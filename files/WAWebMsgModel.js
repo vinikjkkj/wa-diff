@@ -596,6 +596,8 @@ __d(
             (e.groupHistoryBundleMetadata = o("WAWebBaseModel").prop(null)),
             (e.groupHistoryIndividualMessageInfo =
               o("WAWebBaseModel").prop(null)),
+            (e.groupHistoryLastCountedMessageTimestamp =
+              o("WAWebBaseModel").prop(null)),
             (e.nonJidMentions = o("WAWebBaseModel").prop(null)),
             (e.createdMediaDataOnInit = o("WAWebBaseModel").session(!1)),
             (e.createdMediaDataOnUpdate = o("WAWebBaseModel").session(!1)),

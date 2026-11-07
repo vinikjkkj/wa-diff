@@ -1754,40 +1754,41 @@ __d(
       ),
       Wa = _("finalCallOutcome"),
       qa = _("groupHistoryBundleMessageKey"),
-      Ua = _("groupHistoryBundleMetadata"),
-      Va = _("groupHistoryIndividualMessageInfo"),
-      Ha = p(
+      Ua = _("groupHistoryLastCountedMessageTimestamp", { default: null }),
+      Va = _("groupHistoryBundleMetadata"),
+      Ha = _("groupHistoryIndividualMessageInfo"),
+      Ga = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [Va, qa],
-      ),
-      Ga = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
-        },
-        [Va],
+        [Ha, qa],
       ),
       za = p(
         function (e) {
           var t = e[0];
-          return t == null ? void 0 : t.bundleSender;
+          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
         },
-        [Va],
+        [Ha],
       ),
       ja = p(
+        function (e) {
+          var t = e[0];
+          return t == null ? void 0 : t.bundleSender;
+        },
+        [Ha],
+      ),
+      Ka = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t != null && r("WAWebWid").equals(t.remote, n);
         },
-        [Ha, P],
+        [Ga, P],
       );
-    function Ka(e) {
+    function Qa(e) {
       var t =
         v(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(I(e));
@@ -2120,13 +2121,14 @@ __d(
       (l.getIsAdHocGroupCall = Oa),
       (l.getIsGroupCall = Ba),
       (l.getFinalCallOutcome = Wa),
-      (l.getGroupHistoryBundleMetadata = Ua),
-      (l.getGroupHistoryIndividualMessageInfo = Va),
-      (l.getGroupHistoryBundleMessageKey = Ha),
-      (l.getIsEditedAfterReceivedAsHistory = Ga),
-      (l.getGroupHistoryBundleSender = za),
-      (l.getIsGroupHistoryMessageInOwnChat = ja),
-      (l.isRealMessage = Ka));
+      (l.getGroupHistoryLastCountedMessageTimestamp = Ua),
+      (l.getGroupHistoryBundleMetadata = Va),
+      (l.getGroupHistoryIndividualMessageInfo = Ha),
+      (l.getGroupHistoryBundleMessageKey = Ga),
+      (l.getIsEditedAfterReceivedAsHistory = za),
+      (l.getGroupHistoryBundleSender = ja),
+      (l.getIsGroupHistoryMessageInOwnChat = Ka),
+      (l.isRealMessage = Qa));
   },
   98,
 );

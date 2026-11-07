@@ -40,7 +40,6 @@ __d(
     "WAWebSettingGatingUtils",
     "WAWebSettingsFlowLoadable",
     "WAWebSocketModel",
-    "WAWebTextStatusCollection",
     "WAWebThemeContext",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
@@ -299,17 +298,15 @@ __d(
             : !1;
       r && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft();
       var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-        i = o("WAWebTextStatusCollection").TextStatusCollection.assertGet(a),
-        l = o(
+        i = o(
           "WAWebProfilePicThumbCollection",
         ).ProfilePicThumbCollection.assertGet(a),
-        s = o("WAWebContactCollection").ContactCollection.assertGet(a);
+        l = o("WAWebContactCollection").ContactCollection.assertGet(a);
       (o("WAWebCmd").Cmd.closeActiveChat(),
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           f.jsx(n("cr:1923"), {
-            status: i,
-            profilePicThumb: l,
-            contact: s,
+            profilePicThumb: i,
+            contact: l,
             conn: o("WAWebConnModel").Conn,
             onClose: o("WAWebDrawerManager").closeDrawerLeft,
             isInitialStep: !0,

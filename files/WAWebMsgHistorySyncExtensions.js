@@ -11,13 +11,13 @@ __d(
     }
     function s(e) {
       var t = e.pollAdditionalMetadata;
-      return t == null
-        ? e
-        : babelHelpers.extends({}, e, {
-            pollAdditionalMetadata: babelHelpers.extends({}, t, {
-              pollNameHashHistory: [],
-            }),
-          });
+      return babelHelpers.extends({}, e, {
+        groupHistoryLastCountedMessageTimestamp: void 0,
+        pollAdditionalMetadata:
+          t == null
+            ? t
+            : babelHelpers.extends({}, t, { pollNameHashHistory: [] }),
+      });
     }
     ((l.parseHistorySyncMsgExtensions = e),
       (l.omitPrimaryOnlyHistorySyncFields = s));

@@ -344,12 +344,9 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
+          o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
             id: e.toString(),
-          }),
-            o("WAWebBackendApi").frontendFireAndForget("refreshTextStatus", {
-              contactId: e.toString(),
-            }));
+          });
           var t;
           if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
             var r = yield o("WAWebApiContact").getContactRecord(

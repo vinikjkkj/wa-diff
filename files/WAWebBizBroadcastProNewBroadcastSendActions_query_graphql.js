@@ -101,6 +101,13 @@ __d(
                   alias: null,
                   args: null,
                   kind: "ScalarField",
+                  name: "minimum_scheduled_send_lead_time_seconds",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
                   name: "upsell_business_verification",
                   storageKey: null,
                 },

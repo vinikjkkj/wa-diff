@@ -91,7 +91,6 @@ __d(
     "WAWebStatusAttachMediaFlowLoadable",
     "WAWebStatusNavigateTo",
     "WAWebStickerStoreFlowLoadable",
-    "WAWebTextStatusCollection",
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateUtmAction",
@@ -917,19 +916,15 @@ __d(
           try {
             o("WAWebCmd").Cmd.closeStatusViewer();
             var xe = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              $e = o(
-                "WAWebTextStatusCollection",
-              ).TextStatusCollection.assertGet(xe),
-              Pe = o("WAWebContactCollection").ContactCollection.assertGet(xe),
-              Ne = o(
+              $e = o("WAWebContactCollection").ContactCollection.assertGet(xe),
+              Pe = o(
                 "WAWebProfilePicThumbCollection",
               ).ProfilePicThumbCollection.assertGet(xe);
             return (
               o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
                 B.jsx(n("cr:1923"), {
-                  status: $e,
-                  profilePicThumb: Ne,
-                  contact: Pe,
+                  profilePicThumb: Pe,
+                  contact: $e,
                   conn: o("WAWebConnModel").Conn,
                   onClose: o("WAWebDrawerManager").closeDrawerLeft,
                   isInitialStep: !0,
@@ -970,11 +965,11 @@ __d(
             );
           try {
             o("WAWebCmd").Cmd.closeStatusViewer();
-            var Me = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-              we = o("WAWebContactCollection").ContactCollection.assertGet(Me),
-              Ae = o("WAWebUsernameTypes").serializeMaybeUsername(we.username);
+            var Ne = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              Me = o("WAWebContactCollection").ContactCollection.assertGet(Ne),
+              we = o("WAWebUsernameTypes").serializeMaybeUsername(Me.username);
             return (
-              r("isStringNullOrEmpty")(Ae)
+              r("isStringNullOrEmpty")(we)
                 ? (o("WAWebModalManager").ModalManager.open(
                     B.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                       onOK: o("WAWebModalManager").closeModalManager,
@@ -991,8 +986,8 @@ __d(
                   ))
                 : (o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
                     B.jsx(r("WAWebUsernameManagementDrawerLoadable"), {
-                      contactId: we.id,
-                      username: Ae,
+                      contactId: Me.id,
+                      username: we,
                     }),
                     {
                       focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
@@ -1019,8 +1014,8 @@ __d(
           }
         }
         case "BROADCAST": {
-          var Fe = t.data.feature;
-          switch (Fe) {
+          var Ae = t.data.feature;
+          switch (Ae) {
             case o("WAWebBroadcastApiParse").BroadcastFeatureType.Newsletter:
               o("WAWebOpenNewsletterTab").openNewsletterTab();
               break;
@@ -1033,8 +1028,8 @@ __d(
           return !0;
         }
         case "STATUS_POST": {
-          var Oe = t.data.postType;
-          switch (Oe) {
+          var Fe = t.data.postType;
+          switch (Fe) {
             case o("WAWebStatusApiParse").StatusPostType.Text:
               o("WAWebModalManager").ModalManager.openMedia(
                 B.jsx(
@@ -1058,8 +1053,8 @@ __d(
           return !0;
         }
         case "CALL_USER": {
-          var Be = t.data.phone,
-            We = t.data.video === !0;
+          var Oe = t.data.phone,
+            Be = t.data.video === !0;
           return (
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
@@ -1067,7 +1062,7 @@ __d(
               isExternal: i,
             }),
             o("WAWebVoipGatingUtils").isCallingEnabled()
-              ? Be == null
+              ? Oe == null
                 ? (o("WALogger")
                     .LOG(
                       b ||
@@ -1099,7 +1094,7 @@ __d(
                     }),
                   ),
                   !0)
-                : (X(Be, We), !0)
+                : (X(Oe, Be), !0)
               : (o("WAWebModalManager").ModalManager.open(
                   B.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
                     onOK: o("WAWebModalManager").closeModalManager,
@@ -1154,7 +1149,7 @@ __d(
             : !1;
         case "OPEN_CATALOG": {
           if (i || !o("WAWebMobilePlatforms").isSMB()) return !1;
-          var qe = {
+          var We = {
             entryPoint: o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
               .CATALOG_ENTRY_POINT_DEEPLINK,
             isInitialStep: !0,
@@ -1162,18 +1157,18 @@ __d(
           return (
             (t.data.campaignType === "chat_psa" ||
               t.data.campaignType === "banner") &&
-              (qe.promotionCampaign = "video-upload"),
+              (We.promotionCampaign = "video-upload"),
             o("WAWebCatalogManagementFlowLoadable").openCatalogManagementFlow(
-              qe,
+              We,
             ),
             !0
           );
         }
         case "CATALOG_LINKING_CHAT_PSA": {
-          var Ue = t.data.deepLinkType;
+          var qe = t.data.deepLinkType;
           return (
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
-              deepLinkType: Ue,
+              deepLinkType: qe,
               isExternal: i,
             }),
             o("WAWebExternalLink.react").openExternalLink(
@@ -1205,7 +1200,7 @@ __d(
               !0
             );
           o("WAWebCmd").Cmd.closeStatusViewer();
-          var Ve = (function () {
+          var Ue = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
@@ -1232,11 +1227,11 @@ __d(
               return e.apply(this, arguments);
             };
           })();
-          return (Ve(t.data.token), !0);
+          return (Ue(t.data.token), !0);
         }
         case "UGC_BOT": {
           o("WAWebCmd").Cmd.closeStatusViewer();
-          var He = (function () {
+          var Ve = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = o("WAWebWidFactory").createUserWidOrThrow(e + "@bot"),
@@ -1257,16 +1252,16 @@ __d(
               return e.apply(this, arguments);
             };
           })();
-          return (He(t.data.fbid), !0);
+          return (Ve(t.data.fbid), !0);
         }
         case "STICKER_PACK": {
-          var Ge = t.data.url;
+          var He = t.data.url;
           return (
             o("WAWebDrawerManager").DrawerManager.openDrawerRight(
               B.jsx(
                 r("WAWebStickerStoreFlowLoadable").StickerStoreFlowLoadable,
                 {
-                  stickerPackId: Ge,
+                  stickerPackId: He,
                   onSticker: r("WAWebSendStickerToActiveChatStickersAction"),
                 },
               ),
@@ -1295,27 +1290,27 @@ __d(
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("voip-click-call-link-log-failed");
               });
-          var ze = q;
+          var Ge = q;
           return (
-            ze == null &&
+            Ge == null &&
               n("cr:9382") != null &&
-              (ze = n("cr:9382").handleClickCallLink),
-            ze == null || ze(t, K(i, a)),
+              (Ge = n("cr:9382").handleClickCallLink),
+            Ge == null || Ge(t, K(i, a)),
             !0
           );
         }
         case "CTWA_ADS_DATA_SHARING": {
           if (!o("WAWebMobilePlatforms").isSMB()) return !1;
-          var je = t.source,
-            Ke;
-          switch (je) {
+          var ze = t.source,
+            je;
+          switch (ze) {
             case "ads_manager_3pd_guidance_card":
-              Ke = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
+              je = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
                 .SMB_DATA_SHARING_CONSENT_SETTING_ENTRY_POINT
                 .ENTRY_POINT_DEEP_LINK_ADS_MANAGER_3PD_GUIDANCE_CARD;
               break;
             default:
-              Ke = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
+              je = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
                 .SMB_DATA_SHARING_CONSENT_SETTING_ENTRY_POINT
                 .ENTRY_POINT_UNKNOWN;
               break;
@@ -1324,7 +1319,7 @@ __d(
             o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
               B.jsx(r("WAWebSMBDataSharingDrawer.react"), {
                 onClose: o("WAWebDrawerManager").closeDrawerLeft,
-                entrypoint: Ke,
+                entrypoint: je,
               }),
             ),
             !0
@@ -1363,7 +1358,7 @@ __d(
               !0)
             : !1;
         case "BIZ_BROADCAST_HOME": {
-          var Qe;
+          var Ke;
           if (
             (o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
@@ -1383,38 +1378,38 @@ __d(
                 ).isBizBroadcastEnabledAndDeviceSupported(!1)))
           )
             return !1;
-          var Xe = t.data.source,
-            Ye;
-          switch (Xe) {
+          var Qe = t.data.source,
+            Xe;
+          switch (Qe) {
             case "qp_chat_list_banner":
-              Ye = o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER;
+              Xe = o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER;
               break;
             default:
-              Ye = o("WAWebWamEnumEntryPoint").ENTRY_POINT.DEEP_LINK;
+              Xe = o("WAWebWamEnumEntryPoint").ENTRY_POINT.DEEP_LINK;
               break;
           }
-          var Je = l !== !0;
-          Je &&
+          var Ye = l !== !0;
+          Ye &&
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.setDeeplinkAttribution(
-              Ye,
+              Xe,
               t.data.moment,
             );
-          var Ze = Je
-              ? Ye
-              : (Qe = o(
+          var Je = Ye
+              ? Xe
+              : (Ke = o(
                     "WAWebBusinessBroadcastUserJourneyLogger",
                   ).BusinessBroadcastUserJourneyLogger.getEntryPoint()) != null
-                ? Qe
-                : Ye,
-            et = function () {
+                ? Ke
+                : Xe,
+            Ze = function () {
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                 B.jsx(
                   o("WAWebBusinessBroadcastHomeFlowLoadable")
                     .WAWebBusinessBroadcastHomeFlowLoadable,
                   {
-                    entryPoint: Ze,
+                    entryPoint: Je,
                     onClose: function () {
                       return o(
                         "WAWebDrawerManager",
@@ -1429,7 +1424,7 @@ __d(
             i
               ? o("WAWebReleaseToEventLoop")
                   .releaseToEventLoop()
-                  .then(et)
+                  .then(Ze)
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
@@ -1441,7 +1436,7 @@ __d(
                       .catching(r("getErrorSafe")(e))
                       .sendLogs("bb-home-deeplink-drawer-fail");
                   })
-              : et(),
+              : Ze(),
             !0
           );
         }
@@ -1454,13 +1449,13 @@ __d(
             n("cr:38809") == null
           )
             return !1;
-          var tt = n("cr:38809").WAWebVoipOngoingCallCollection,
-            nt = tt.findOngoingCallActiveOnOtherSelfDevice();
-          if (nt == null) return !0;
+          var et = n("cr:38809").WAWebVoipOngoingCallCollection,
+            tt = et.findOngoingCallActiveOnOtherSelfDevice();
+          if (tt == null) return !0;
           try {
             o("WAWebVoipStartCall")
               .joinOngoingCallByCallId(
-                nt.id.id,
+                tt.id.id,
                 o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
                   .XDR_CALL_TRANSFER,
               )
@@ -1483,10 +1478,10 @@ __d(
           return !0;
         }
         case "CHAT_OPEN": {
-          var rt = t.data,
-            ot = rt.fromDefaultProtocol,
-            at = rt.lid,
-            it = rt.session;
+          var nt = t.data,
+            rt = nt.fromDefaultProtocol,
+            ot = nt.lid,
+            at = nt.session;
           try {
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
@@ -1494,9 +1489,9 @@ __d(
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Chats,
               ));
-            var lt = o("WAWebWidFactory").createWid(at);
+            var it = o("WAWebWidFactory").createWid(ot);
             o("WAWebFindChatAction")
-              .findOrCreateLatestChat(lt, "newChatFlow")
+              .findOrCreateLatestChat(it, "newChatFlow")
               .then(function (e) {
                 var t = e.chat;
                 o("WAWebCmd")
@@ -1509,7 +1504,7 @@ __d(
                     (e &&
                       (o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),
                       o("WAWebCmd").Cmd.trigger("scroll_to_active_chat")),
-                      it != null &&
+                      at != null &&
                         new (o(
                           "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                         ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1520,10 +1515,10 @@ __d(
                             : o("WAWebWamEnumMdLinkedDevicesWindowsXdrStage")
                                 .MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                                 .DEEPLINK_NAVIGATION_FAILURE,
-                          mdXdrSessionUuid: it,
+                          mdXdrSessionUuid: at,
                         }).commit(),
                       o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
-                        ot,
+                        rt,
                         e,
                       ));
                   });
@@ -1535,7 +1530,7 @@ __d(
                       "Opening chat via chatOpen failed with async exception",
                     ])),
                 ),
-                  it != null &&
+                  at != null &&
                     new (o(
                       "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                     ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1543,10 +1538,10 @@ __d(
                         "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                       ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                         .DEEPLINK_NAVIGATION_FAILURE,
-                      mdXdrSessionUuid: it,
+                      mdXdrSessionUuid: at,
                     }).commit(),
                   o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
-                    ot,
+                    rt,
                     !1,
                   ));
               });
@@ -1557,7 +1552,7 @@ __d(
                   "Opening chat via chatOpen failed with exceptions",
                 ])),
             ),
-              it != null &&
+              at != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1565,27 +1560,27 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_FAILURE,
-                  mdXdrSessionUuid: it,
+                  mdXdrSessionUuid: at,
                 }).commit(),
-              o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(ot, !1));
+              o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(rt, !1));
           }
           return !0;
         }
         case "APP_OPEN": {
-          var st,
-            ut = (st = t.data) == null ? void 0 : st.session;
+          var lt,
+            st = (lt = t.data) == null ? void 0 : lt.session;
           try {
-            var ct;
+            var ut;
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebCmd").Cmd.closeActiveChat(),
-              (ct = o("WAWebDrawerManager")).DrawerManager.closeDrawerLeft(),
-              ct.DrawerManager.closeDrawerMid(),
-              ct.DrawerManager.closeDrawerRight(),
-              ct.DrawerManager.closeDrawerFullscreen(),
+              (ut = o("WAWebDrawerManager")).DrawerManager.closeDrawerLeft(),
+              ut.DrawerManager.closeDrawerMid(),
+              ut.DrawerManager.closeDrawerRight(),
+              ut.DrawerManager.closeDrawerFullscreen(),
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Chats,
               ),
-              ut != null &&
+              st != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1593,7 +1588,7 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_SUCCESS,
-                  mdXdrSessionUuid: ut,
+                  mdXdrSessionUuid: st,
                 }).commit());
           } catch (e) {
             (o("WALogger").ERROR(
@@ -1602,7 +1597,7 @@ __d(
                   "Handling appOpen failed with exceptions",
                 ])),
             ),
-              ut != null &&
+              st != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1610,7 +1605,7 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_FAILURE,
-                  mdXdrSessionUuid: ut,
+                  mdXdrSessionUuid: st,
                 }).commit());
           }
           return !0;
@@ -1673,19 +1668,19 @@ __d(
           return !0;
         }
         case "WORK_CONTACT_SYNC": {
-          var dt;
+          var ct;
           return r("gkx")("26258") ||
-            !((dt = t.data) != null && dt.compressedData)
+            !((ct = t.data) != null && ct.compressedData)
             ? !1
             : (n("cr:2679") == null ||
                 n("cr:2679").handleWorkContactSync(t.data.compressedData),
               !0);
         }
         case "SEND_FILE": {
-          var mt;
-          return (mt =
+          var dt;
+          return (dt =
             n("cr:12407") == null ? void 0 : n("cr:12407")(t.data)) != null
-            ? mt
+            ? dt
             : !1;
         }
         case "NEWSLETTER_STATUS_DEEPLINK":
