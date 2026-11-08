@@ -245,7 +245,9 @@ __d(
                 );
               if (T != null) {
                 var H;
-                (H = R()) == null || H.captureAddPeerPayload(N, T);
+                yield (H = R()) == null
+                  ? void 0
+                  : H.captureAddPeerPayload(N, T);
               }
               ((F.deviceSignature = yield o(
                 "WAWebAdvSignatureApi",

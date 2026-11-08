@@ -196,6 +196,7 @@ __d(
       n[27] !== R || n[28] !== L
         ? ((z = c.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
+            testid: "self_profile_about_content",
             children: [R, L],
           })),
           (n[27] = R),

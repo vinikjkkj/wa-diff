@@ -355,6 +355,8 @@ __d(
       FB_REELS_AQP_PRO_BIZ: "fb_reels_aqp_pro_biz",
       FB_REELS_PLAYBACK_CONTROLS_PICTURE_IN_PICTURE_UPSELL:
         "fb_reels_playback_controls_picture_in_picture_upsell",
+      FB_REELS_REACTION_SHEET_SUPER_LIKE_UPSELL:
+        "fb_reels_reaction_sheet_super_like_upsell",
       FB_REELS_REWATCH_INSIGHTS_TILE_UPSELL:
         "fb_reels_rewatch_insights_tile_upsell",
       FB_REELS_SELF_VIEW_FOLLOW_CTA_UPSELL:
@@ -1433,6 +1435,7 @@ __d(
         "mv4b_mobile_support_home_soft_deflect",
       MV4B_NME_LINKS_IN_POSTS_WARNING_EMAIL: "nme_links_in_posts_warning_email",
       MV4B_NON_SUBSCRIBED_ASSET_SCREEN: "mv4b_non_subscribed_asset_screen",
+      MV4B_OFFBOARDING_META_ONE_SWITCH: "mv4b_offboarding_meta_one_switch",
       MV4B_ONBOARDING_IMMEDIATE_DOWNGRADE_SCREEN:
         "mv4b_onboarding_immediate_downgrade_screen",
       MV4B_OUTRO_CONFIRMATION_SCREEN: "mv4b_outro_confirmation_screen",
@@ -1583,6 +1586,7 @@ __d(
       MV4C_MOBILE_IG_PROMINENCE_UNITS: "mv4c_mobile_ig_prominence_units",
       MV4C_NME_LINKS_IN_POSTS_WARNING_EMAIL:
         "mv4c_nme_links_in_posts_warning_email",
+      MV4C_OFFBOARDING_META_ONE_SWITCH: "mv4c_offboarding_meta_one_switch",
       MV4C_PAYHUB_RECEIPT_CANCEL: "mv4c_payhub_receipt_cancel",
       MV4C_PAYHUB_RECEIPT_MANAGE: "mv4c_payhub_receipt_manage",
       MV4C_PAYHUB_RECEIPT_RESUBSCRIBE: "mv4c_payhub_receipt_resubscribe",

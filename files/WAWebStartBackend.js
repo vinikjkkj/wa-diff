@@ -65,6 +65,7 @@ __d(
     "WAWebInitializeBots",
     "WAWebL10NCountryCodes",
     "WAWebL10NHelpers",
+    "WAWebLabyrinthAddPeerPayloadCopy",
     "WAWebLazyPersistedQueue",
     "WAWebLid1x1MigrationManager",
     "WAWebLocalStorage",
@@ -237,7 +238,10 @@ __d(
         ).registerIncompatibleAgentRequestRejectsOnResume(),
         t.BackendEventBus.onOpenSocketStream(function () {
           var e;
-          (e = $()) == null || e.runLabyrinthCompanionOnboarding();
+          (o(
+            "WAWebLabyrinthAddPeerPayloadCopy",
+          ).deleteAddPeerPayloadCopyWhileOnboardingOff(),
+            (e = $()) == null || e.runLabyrinthCompanionOnboarding());
         }),
         (D = !0));
     }

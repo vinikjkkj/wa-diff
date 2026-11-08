@@ -38,6 +38,7 @@ __d(
         enableBindSubtreeReuse: !1,
         enableNoOpVariableWriteFilter: !1,
         cssOnlyAspectRatio: !1,
+        alignImageSpansToFont: !1,
         enableFBLOXVideoDiagnostics: !1,
         enableBindInstrumentation: !1,
         enableDeterministicTextSize: !1,
@@ -196,7 +197,8 @@ __d(
         M,
         w,
         A,
-        F;
+        F,
+        O;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -251,52 +253,56 @@ __d(
                 : e.enableNoOpVariableWriteFilter,
             cssOnlyAspectRatio:
               (h = t.cssOnlyAspectRatio) != null ? h : e.cssOnlyAspectRatio,
-            enableFBLOXVideoDiagnostics:
-              (y = t.enableFBLOXVideoDiagnostics) != null
+            alignImageSpansToFont:
+              (y = t.alignImageSpansToFont) != null
                 ? y
+                : e.alignImageSpansToFont,
+            enableFBLOXVideoDiagnostics:
+              (C = t.enableFBLOXVideoDiagnostics) != null
+                ? C
                 : e.enableFBLOXVideoDiagnostics,
             enableDeterministicTextSize:
-              (C = t.enableDeterministicTextSize) != null
-                ? C
+              (b = t.enableDeterministicTextSize) != null
+                ? b
                 : e.enableDeterministicTextSize,
             enableBindInstrumentation:
-              (b = t.enableBindInstrumentation) != null
-                ? b
+              (v = t.enableBindInstrumentation) != null
+                ? v
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (v = t.loadingFallback) != null ? v : e.loadingFallback,
+              (S = t.loadingFallback) != null ? S : e.loadingFallback,
             dataModulesStore: f(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (S = t.navigationTrackingUtils) != null
-                ? S
+              (R = t.navigationTrackingUtils) != null
+                ? R
                 : e.navigationTrackingUtils,
-            logger: (R = t.logger) != null ? R : e.logger,
+            logger: (L = t.logger) != null ? L : e.logger,
             disableErrorBoundary:
-              (L = t.disableErrorBoundary) != null ? L : e.disableErrorBoundary,
-            AssetRenderer: (E = t.AssetRenderer) != null ? E : e.AssetRenderer,
-            staticAssets: (k = t.staticAssets) != null ? k : e.staticAssets,
+              (E = t.disableErrorBoundary) != null ? E : e.disableErrorBoundary,
+            AssetRenderer: (k = t.AssetRenderer) != null ? k : e.AssetRenderer,
+            staticAssets: (I = t.staticAssets) != null ? I : e.staticAssets,
             globalStateStore:
-              (I = t.globalStateStore) != null ? I : e.globalStateStore,
+              (T = t.globalStateStore) != null ? T : e.globalStateStore,
             fontFamilyMappings:
-              (T = t.fontFamilyMappings) != null ? T : e.fontFamilyMappings,
-            timeoutIDS: (D = t.timeoutIDS) != null ? D : e.timeoutIDS,
+              (D = t.fontFamilyMappings) != null ? D : e.fontFamilyMappings,
+            timeoutIDS: (x = t.timeoutIDS) != null ? x : e.timeoutIDS,
             screenQueryTemplate:
-              (x = t.screenQueryTemplate) != null ? x : e.screenQueryTemplate,
+              ($ = t.screenQueryTemplate) != null ? $ : e.screenQueryTemplate,
             accessibilityModule:
-              ($ = t.accessibilityModule) != null ? $ : e.accessibilityModule,
-            gkx: (P = t.gkx) != null ? P : e.gkx,
+              (P = t.accessibilityModule) != null ? P : e.accessibilityModule,
+            gkx: (N = t.gkx) != null ? N : e.gkx,
             enableSameControllerReporting:
-              (N = t.enableSameControllerReporting) != null
-                ? N
+              (M = t.enableSameControllerReporting) != null
+                ? M
                 : e.enableSameControllerReporting,
             controllerNavigationLogger:
-              (M = t.controllerNavigationLogger) != null
-                ? M
+              (w = t.controllerNavigationLogger) != null
+                ? w
                 : e.controllerNavigationLogger,
-            versioningID: (w = t.versioningID) != null ? w : e.versioningID,
-            onInteraction: (A = t.onInteraction) != null ? A : e.onInteraction,
+            versioningID: (A = t.versioningID) != null ? A : e.versioningID,
+            onInteraction: (F = t.onInteraction) != null ? F : e.onInteraction,
             renderDiagnostics:
-              (F = t.renderDiagnostics) != null ? F : e.renderDiagnostics,
+              (O = t.renderDiagnostics) != null ? O : e.renderDiagnostics,
           }
         : e;
     }

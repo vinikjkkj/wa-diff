@@ -17,16 +17,16 @@ __d(
       return e && u;
     }
     function m(t) {
-      (r("vulture")("rIqQBj0TDECcJEYCo8j6qEWBynE="),
-        !(!e || u === t) &&
-          ((u = t),
-          r("WAWebUserPrefsStore").set(
-            r("WAWebUserPrefsDebugKeys").DEBUG_VPV_OVERLAY_ENABLED,
-            t,
-          ),
-          c.forEach(function (e) {
-            (r("vulture")("POyCst-464f8Y7NtTRmAkj944lY="), e(u));
-          })));
+      !e ||
+        u === t ||
+        ((u = t),
+        r("WAWebUserPrefsStore").set(
+          r("WAWebUserPrefsDebugKeys").DEBUG_VPV_OVERLAY_ENABLED,
+          t,
+        ),
+        c.forEach(function (e) {
+          (r("vulture")("POyCst-464f8Y7NtTRmAkj944lY="), e(u));
+        }));
     }
     function p() {
       (r("vulture")("TQK2e44FOOUngJV1fU4_Ln0z01k="), m(!u));

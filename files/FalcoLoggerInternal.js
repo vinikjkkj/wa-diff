@@ -183,7 +183,22 @@ __d(
           );
     }
     var L = f.observable;
-    function E(e, t, n) {
+    function E() {
+      var e = f.logQueue.getQueueNameSuffix().split("^#", 3),
+        t = e[0],
+        n = e[1],
+        r = e[2];
+      return t == null ||
+        t === "" ||
+        t === "0" ||
+        n == null ||
+        n === "" ||
+        n === "0" ||
+        r !== ""
+        ? null
+        : n;
+    }
+    function k(e, t, n) {
       var r = f.logCriticalQueue,
         o = f.logImmediatelyQueue,
         a = f.logQueue;
@@ -205,7 +220,7 @@ __d(
         },
       };
     }
-    ((l.observable = L), (l.create = E));
+    ((l.observable = L), (l.getDefaultLogActorID = E), (l.create = k));
   },
   98,
 );

@@ -2,11 +2,14 @@ __d(
   "WAWebOrgAdminGroupChatAction",
   [
     "WALogger",
+    "WAWebApiContact",
     "WAWebChatCollection",
     "WAWebChatEntryPoint",
     "WAWebCmd",
+    "WAWebContactCollection",
     "WAWebDrawerManager",
     "WAWebOrgAdminGroupParticipantsAction",
+    "WAWebWidFactory",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,7 +39,32 @@ __d(
               .sendLogs("org-admin-open-group-chat-failed");
           }));
     }
-    ((l.getOrgAdminGroupChat = s), (l.openOrgAdminGroupChat = u));
+    function c(e, t) {
+      var n,
+        r,
+        a,
+        i =
+          e == null || (n = e.groupMetadata) == null ? void 0 : n.participants;
+      if (i == null || t == null) return null;
+      var l;
+      try {
+        l = o("WAWebWidFactory").createUserLidOrThrow(t, "lid");
+      } catch (e) {
+        return null;
+      }
+      var s = o("WAWebApiContact").getAlternateUserWid(l),
+        u = (r = i.get(l)) != null ? r : s == null ? null : i.get(s);
+      return u == null || !i.canVerifyIdentity(u)
+        ? null
+        : u.id.isLid()
+          ? u.contact
+          : (a = o("WAWebContactCollection").ContactCollection.get(l)) != null
+            ? a
+            : null;
+    }
+    ((l.getOrgAdminGroupChat = s),
+      (l.openOrgAdminGroupChat = u),
+      (l.getOrgAdminGroupVerifyContact = c));
   },
   98,
 );

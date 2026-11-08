@@ -11,7 +11,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = ["action"],
+    var e = ["action", "onDismiss"],
       s,
       u = s || (s = o("react")),
       c = r("BaseToasterStateManager").getInstance(),
@@ -29,7 +29,7 @@ __d(
               babelHelpers.extends({}, t, {
                 loadImmediately: !0,
                 onDismiss: function () {
-                  return a.expire(i);
+                  (a.expire(i), t.onDismiss == null || t.onDismiss());
                 },
               }),
             ),
@@ -38,39 +38,40 @@ __d(
           return i;
         } else {
           var l = t.action,
-            s = babelHelpers.objectWithoutPropertiesLoose(t, e),
-            m = babelHelpers.extends({ withoutCloseButton: !0 }, s),
-            p = o("basePushToast").pushAlertToast(
-              babelHelpers.extends({}, m),
+            s = t.onDismiss,
+            m = babelHelpers.objectWithoutPropertiesLoose(t, e),
+            p = babelHelpers.extends({ withoutCloseButton: !0 }, m),
+            _ = o("basePushToast").pushAlertToast(
+              babelHelpers.extends({}, p),
               u.jsx(
                 d,
                 babelHelpers.extends(
                   {
                     loadImmediately: !0,
                     onDismiss: function () {
-                      return a.expire(p);
+                      (a.expire(_), s == null || s());
                     },
                   },
-                  s,
+                  m,
                 ),
               ),
               a,
             );
-          return p;
+          return _;
         }
-      var _ = a.push(
+      var f = a.push(
         u.jsx(
           d,
           babelHelpers.extends({}, t, {
             loadImmediately: !0,
             onDismiss: function () {
-              return a.expire(_);
+              (a.expire(f), t.onDismiss == null || t.onDismiss());
             },
           }),
         ),
         n,
       );
-      return _;
+      return f;
     }
     function p(e, t) {
       return m({ message: e }, t);

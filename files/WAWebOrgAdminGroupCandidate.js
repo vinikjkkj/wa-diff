@@ -124,37 +124,38 @@ __d(
       return n == null || n === "" ? null : r;
     }
     function v(e, t) {
-      if (e.source === "directory") {
-        var n;
+      if (e.source === "directory")
         return (
           o(
             "WAWebOrgAdminDirectoryMemberDisplay",
           ).orgAdminDirectoryMemberMatchesQuery(e.directoryMember, t) ||
-          e.displayName.toLocaleLowerCase().includes(t) ||
-          ((n = e.memberTag) == null
-            ? void 0
-            : n.toLocaleLowerCase().includes(t)) === !0
+          [e.displayName, e.memberTag, C(e)].some(function (e) {
+            return (
+              (e == null ? void 0 : e.toLocaleLowerCase().includes(t)) === !0
+            );
+          })
         );
-      }
       if (t === "") return !0;
-      var r = e.rosterEntry;
+      var n = e.rosterEntry;
       if (
-        [e.displayName, r.memberTag, r.emailAddress].some(function (e) {
-          return e == null ? void 0 : e.toLocaleLowerCase().includes(t);
-        })
+        [e.displayName, n.memberTag, n.secondaryMemberTag, n.emailAddress].some(
+          function (e) {
+            return e == null ? void 0 : e.toLocaleLowerCase().includes(t);
+          },
+        )
       )
         return !0;
-      var a = o(
+      var r = o(
           "WAWebOrgAdminDirectoryMemberDisplay",
         ).normalizeOrgAdminPhoneSearchValue(t),
-        i = L(r.phoneNumber);
+        a = L(n.phoneNumber);
       return (
-        i != null &&
-        a !== "" &&
+        a != null &&
+        r !== "" &&
         /^[\t-\r \(\)\+\x2D\.0-9\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]+$/.test(
           t,
         ) &&
-        i.includes(a)
+        a.includes(r)
       );
     }
     function S(e) {

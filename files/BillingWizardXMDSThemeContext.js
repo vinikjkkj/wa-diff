@@ -5,7 +5,7 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = s.createContext({ isXMDS: !1 }),
+      u = s.createContext({}),
       c = u;
     l.default = c;
   },

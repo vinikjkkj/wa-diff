@@ -8,6 +8,7 @@ __d(
     "WAWebFavoriteStickerCollection",
     "WAWebRecentStickerCollectionMd",
     "WAWebStickerDownloadCollection",
+    "WAWebStickerSuggestionEmojiGroups",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -19,15 +20,29 @@ __d(
     function u(e, t) {
       var n = [],
         r = new Set(),
-        a = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e),
+        a = new Set(
+          o("WAWebStickerSuggestionEmojiGroups")
+            .getStickerSuggestionEmojiGroup(e)
+            .map(function (e) {
+              var t;
+              return (t =
+                o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e)) != null
+                ? t
+                : e;
+            }),
+        ),
         i = function (t) {
           var e;
           r.has(t.id) ||
             !(
               (e = t.mediaData.emojis) != null &&
               e.some(function (e) {
-                return (
-                  o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e) === a
+                var t;
+                return a.has(
+                  (t = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e)) !=
+                    null
+                    ? t
+                    : e,
                 );
               })
             ) ||

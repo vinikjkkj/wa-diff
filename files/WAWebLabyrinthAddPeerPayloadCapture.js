@@ -6,6 +6,7 @@ __d(
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthPendingAddPeerPayload",
     "WAWebODS",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
@@ -13,46 +14,67 @@ __d(
     var e,
       s = 59,
       u = 4096;
-    function c(t, n) {
-      o("WAWebLabyrinthPendingAddPeerPayload").holdAddPeerPayload(null);
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield o("WAWebLabyrinthPendingAddPeerPayload").holdAddPeerPayload(
+            m(e, t),
+          );
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(t, n) {
       try {
         if (
           (r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.received"),
           r("justknobx")._("6730") === !0)
-        ) {
-          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.killswitch");
-          return;
-        }
-        if (n.byteLength < s) {
-          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.undersized");
-          return;
-        }
-        if (n.byteLength > u) {
-          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.oversized");
-          return;
-        }
-        (o("WAWebLabyrinthPendingAddPeerPayload").holdAddPeerPayload({
+        )
+          return (
+            r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.killswitch"),
+            null
+          );
+        if (n.byteLength < s)
+          return (
+            r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.undersized"),
+            null
+          );
+        if (n.byteLength > u)
+          return (
+            r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.oversized"),
+            null
+          );
+        var a = {
           advSecret: o("WAWebLabyrinthOpaqueTypes").makeAdvSecret(
             o("WABase64").decodeB64(t),
           ),
           sealedPayload: o(
             "WAWebLabyrinthOpaqueTypes",
-          ).makeSealedAddPeerDevicePayload(d(n)),
-        }),
-          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.captured"));
+          ).makeSealedAddPeerDevicePayload(p(n)),
+        };
+        return (
+          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.captured"),
+          a
+        );
       } catch (t) {
-        (o("WALogger")
-          .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[labyrinth add peer] capturing the pairing payload failed",
-              ])),
-          )
-          .catching(r("getErrorSafe")(t)),
-          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.error"));
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[labyrinth add peer] capturing the pairing payload failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t)),
+          r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.error"),
+          null
+        );
       }
     }
-    function d(e) {
+    function p(e) {
       return e instanceof ArrayBuffer ? e.slice(0) : e.slice().buffer;
     }
     l.captureAddPeerPayload = c;
