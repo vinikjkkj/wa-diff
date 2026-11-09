@@ -4,6 +4,7 @@ __d(
     "WebBloksComponentQueryStore",
     "WebBloksContext",
     "WebBloksErrors",
+    "WebBloksGlobalSheetManager",
     "WebBloksGlobalState",
     "WebBloksInterpreterEnvironment",
     "WebBloksIsUnitTest",
@@ -22,7 +23,8 @@ __d(
     var e = (function () {
       function e(e, t) {
         var n, a, i;
-        ((this.$1 = new Map()),
+        ((this.globalSheetManager = new (r("WebBloksGlobalSheetManager"))()),
+          (this.$1 = new Map()),
           (this.environment = e),
           (this.globalStateDataModule = new (o(
             "WebBloksGlobalState",

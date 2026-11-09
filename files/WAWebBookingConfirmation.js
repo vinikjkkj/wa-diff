@@ -128,9 +128,19 @@ __d(
       var a = t.buttonParamsJson;
       return a == null ? null : e(a);
     }
+    function m(e, t) {
+      var n =
+        e.endDatetime != null
+          ? Math.floor(Date.parse(e.endDatetime) / 1e3)
+          : null;
+      if (n != null && !Number.isNaN(n)) return n < t;
+      var r = Math.floor(Date.parse(e.startDatetime) / 1e3);
+      return Number.isNaN(r) ? !1 : r < t;
+    }
     ((l.getBookingConfirmationInfo = s),
       (l.getBookingConfirmationInfoFor = u),
-      (l.parseBookingConfirmationButton = d));
+      (l.parseBookingConfirmationButton = d),
+      (l.isBookingConfirmationPast = m));
   },
   98,
 );

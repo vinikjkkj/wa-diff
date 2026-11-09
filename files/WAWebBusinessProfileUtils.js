@@ -206,16 +206,25 @@ __d(
           commerceExperience: t.commerce_experience,
           directConnection: t.direct_connection,
         };
-        return (
-          t.cart_enabled != null && (e.cartEnabled = t.cart_enabled),
+        (t.cart_enabled != null && (e.cartEnabled = t.cart_enabled),
           t.shop_url != null && (e.shopURL = t.shop_url),
           t.commerce_manager_url != null &&
             (e.commerceManagerURL = t.commerce_manager_url),
           t.is_banned != null && (e.isBanned = t.is_banned),
           t.is_profile_edit_disabled != null &&
-            (e.isProfileEditDisabled = t.is_profile_edit_disabled),
-          e
-        );
+            (e.isProfileEditDisabled = t.is_profile_edit_disabled));
+        var n = t.business_calling;
+        if (n != null) {
+          var r;
+          e.businessCalling = {
+            enabled: n.enabled,
+            isVideoCallingEnabled: n.video_calling_enabled,
+            callIconVisibility: n.call_icon_visibility,
+            limitToUserCountries:
+              (r = n.limit_to_user_countries) != null ? r : null,
+          };
+        }
+        return e;
       };
     function I(t) {
       var n = t.id,

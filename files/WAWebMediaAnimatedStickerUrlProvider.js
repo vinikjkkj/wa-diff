@@ -18,9 +18,8 @@ __d(
       c = u.useCallback,
       d = u.useEffect,
       m = u.useImperativeHandle,
-      p = u.useRef,
-      _ = u.useState;
-    function f(e) {
+      p = u.useState;
+    function _(e) {
       var t = e.children,
         n = e.downloadMedia,
         a = e.mediaData,
@@ -31,10 +30,9 @@ __d(
           o("WAWebMediaDataGetters").getMediaStage,
         ]),
         u = s[0],
-        f = s[1],
-        g = p(null),
-        h = r("useWAWebIsBlobInMemoryCache")(u),
-        y = c(function (e) {
+        _ = s[1],
+        f = r("useWAWebIsBlobInMemoryCache")(u),
+        g = c(function (e) {
           var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
             e,
           );
@@ -42,49 +40,44 @@ __d(
             throw r("err")(
               "Cannot call createURL when the blob does not exist.",
             );
-          g.current = t;
           var n = new Blob([t], { type: t.type }),
             a = o("WAWebCreateMediaBlobUrl").createMediaBlobUrl(n);
-          return a;
+          return { blob: t, url: a };
         }, []),
-        C = _(function () {
-          return h ? y(u) : null;
+        h = p(function () {
+          return f ? g(u) : null;
         }),
-        b = C[0],
-        v = C[1],
-        S = function (t) {
+        y = h[0],
+        C = h[1];
+      f && y == null && C(g(u));
+      var b = y == null ? void 0 : y.url,
+        v = function (t) {
           window.URL.revokeObjectURL(t);
         };
       (d(function () {
-        !h && f === o("WAWebMediaTypes").MediaDataStage.RESOLVED && n && n();
+        !f && _ === o("WAWebMediaTypes").MediaDataStage.RESOLVED && n && n();
       }, []),
         r("useWAWebOnUnmount")(function () {
-          b != null && S(b);
+          b != null && v(b);
         }));
-      var R = function () {
-        var e = g.current;
+      var S = function () {
+        var e = y == null ? void 0 : y.blob;
         if (!e)
           throw r("err")(
             "Cannot call refreshBlob when the blob does not exist.",
           );
         var t = new Blob([e], { type: e.type }),
           n = o("WAWebCreateMediaBlobUrl").createMediaBlobUrl(t);
-        (b != null && window.URL.revokeObjectURL(b), v(n));
+        (b != null && window.URL.revokeObjectURL(b), C({ blob: e, url: n }));
       };
       return (
-        d(
-          function () {
-            h && b == null && v(y(u));
-          },
-          [h, u, b, y],
-        ),
         m(l, function () {
-          return { refreshBlob: R };
+          return { refreshBlob: S };
         }),
         b == null ? i() : t(b)
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   98,
 );

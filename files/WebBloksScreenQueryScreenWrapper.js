@@ -26,9 +26,15 @@ __d(
       return (
         u(
           function () {
+            var e;
             if (l != null) {
-              var e = r.objectSet.navigationManager.getCurrentModalOrScreen();
-              e == null || e.setContainerConfigModel(r, l);
+              var t =
+                (e = r.objectSet.globalSheetManager.getSheetForTree(
+                  r.treeManager,
+                )) != null
+                  ? e
+                  : r.objectSet.navigationManager.getCurrentModalOrScreen();
+              t == null || t.setContainerConfigModel(r, l);
             }
           },
           [r, l],
@@ -36,30 +42,34 @@ __d(
         u(function () {
           if (!(C == null && b == null)) {
             var e = r.objectSet.navigationManager,
-              n = e.getCurrentModalOrScreen(),
-              o = !1,
-              i = !0,
-              l = 0,
-              s = function () {
-                var s = n != null && e.getCurrentModalOrScreen() === n,
-                  u = s && !o;
-                if ((o !== s && l++, (o = s), u && C != null)) {
-                  var c = e.getNavigationDirection(),
-                    d = l;
+              n = r.objectSet.globalSheetManager,
+              o = n.getSheetForTree(r.treeManager),
+              i = o != null ? o : e.getCurrentModalOrScreen(),
+              l = function () {
+                return o != null
+                  ? n.getSheet() === o
+                  : e.getCurrentModalOrScreen() === i;
+              },
+              s = !1,
+              u = !0,
+              c = 0,
+              d = function () {
+                var n = i != null && l(),
+                  o = n && !s;
+                if ((s !== n && c++, (s = n), o && C != null)) {
+                  var d = e.getNavigationDirection(),
+                    m = c;
                   r.treeManager.waitForCommittedTree().then(function () {
-                    i &&
-                      d === l &&
-                      e.getCurrentModalOrScreen() === n &&
-                      a(t, C, [r, c]);
+                    u && m === c && l() && a(t, C, [r, d]);
                   });
                 }
               };
             return (
-              s(),
-              e.screenChangeListener.on(s),
-              b != null && (n == null || n.setOnExitCallback(b)),
+              d(),
+              e.screenChangeListener.on(d),
+              b != null && (i == null || i.setOnExitCallback(b)),
               function () {
-                ((i = !1), e.screenChangeListener.off(s));
+                ((u = !1), e.screenChangeListener.off(d));
               }
             );
           }

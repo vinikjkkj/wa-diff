@@ -6,6 +6,7 @@ __d(
     var e = new Set([
         "about",
         "accountscenter",
+        "agentcloud",
         "aidemos",
         "aistudio",
         "apk",

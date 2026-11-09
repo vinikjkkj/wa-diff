@@ -14,111 +14,111 @@ __d(
         a,
         i,
         l = e.maybeChild("address"),
-        c = l ? l.contentString() : void 0,
-        d,
-        m = e.maybeChild("description");
-      m && (d = m.contentString());
-      var p = e.maybeChild("email"),
-        _ = p ? p.contentString() : void 0,
-        f = e.maybeChild("price_tier"),
-        g = f ? f.attrString("id") : void 0,
-        h,
+        d = l ? l.contentString() : void 0,
+        m,
+        p = e.maybeChild("description");
+      p && (m = p.contentString());
+      var _ = e.maybeChild("email"),
+        f = _ ? _.contentString() : void 0,
+        g = e.maybeChild("price_tier"),
+        h = g ? g.attrString("id") : void 0,
         y,
         C,
-        b;
+        b,
+        v;
       if (o("WAWebBizProfileGatingUtils").isGoogleProfileIntegrationEnabled()) {
-        var v = e.maybeChild("place_id");
-        h = v ? v.contentString() : void 0;
-        var S = e.maybeChild("show_google_reviews");
-        y = S ? S.contentString() === "true" : void 0;
-        var R = e.maybeChild("show_google_info");
+        var S = e.maybeChild("place_id");
+        y = S ? S.contentString() : void 0;
+        var R = e.maybeChild("show_google_reviews");
         C = R ? R.contentString() === "true" : void 0;
-        var L = e.maybeChild("google_place");
-        if (L) {
-          var E,
-            k,
+        var L = e.maybeChild("show_google_info");
+        b = L ? L.contentString() === "true" : void 0;
+        var E = e.maybeChild("google_place");
+        if (E) {
+          var k,
             I,
             T,
             D,
-            x = [];
-          L.forEachChildWithTag("weekday_hours", function (e) {
+            x,
+            $ = [];
+          E.forEachChildWithTag("weekday_hours", function (e) {
             var t = e.contentString();
-            t !== "" && x.push(t);
+            t !== "" && $.push(t);
           });
-          var $ = L.maybeChild("rating"),
-            P = L.maybeChild("user_rating_count"),
-            N = L.maybeChild("latitude"),
-            M = L.maybeChild("longitude"),
-            w = L.maybeChild("google_open_now");
-          b = {
+          var P = E.maybeChild("rating"),
+            N = E.maybeChild("user_rating_count"),
+            M = E.maybeChild("latitude"),
+            w = E.maybeChild("longitude"),
+            A = E.maybeChild("google_open_now");
+          v = {
             place_name:
-              (E = L.maybeChild("place_name")) == null
-                ? void 0
-                : E.contentString(),
-            formatted_address:
-              (k = L.maybeChild("formatted_address")) == null
+              (k = E.maybeChild("place_name")) == null
                 ? void 0
                 : k.contentString(),
-            rating: $ ? parseFloat($.contentString()) : void 0,
-            user_rating_count: P ? parseInt(P.contentString(), 10) : void 0,
-            reviews_uri:
-              (I = L.maybeChild("reviews_uri")) == null
+            formatted_address:
+              (I = E.maybeChild("formatted_address")) == null
                 ? void 0
                 : I.contentString(),
-            google_maps_uri:
-              (T = L.maybeChild("google_maps_uri")) == null
+            rating: P ? parseFloat(P.contentString()) : void 0,
+            user_rating_count: N ? parseInt(N.contentString(), 10) : void 0,
+            reviews_uri:
+              (T = E.maybeChild("reviews_uri")) == null
                 ? void 0
                 : T.contentString(),
-            website_uri:
-              (D = L.maybeChild("website_uri")) == null
+            google_maps_uri:
+              (D = E.maybeChild("google_maps_uri")) == null
                 ? void 0
                 : D.contentString(),
-            weekday_hours: x.length > 0 ? x : void 0,
-            google_open_now: w ? w.contentString() === "true" : void 0,
-            latitude: N ? parseFloat(N.contentString()) : void 0,
-            longitude: M ? parseFloat(M.contentString()) : void 0,
+            website_uri:
+              (x = E.maybeChild("website_uri")) == null
+                ? void 0
+                : x.contentString(),
+            weekday_hours: $.length > 0 ? $ : void 0,
+            google_open_now: A ? A.contentString() === "true" : void 0,
+            latitude: M ? parseFloat(M.contentString()) : void 0,
+            longitude: w ? parseFloat(w.contentString()) : void 0,
           };
         }
       }
-      var A = e.maybeChild("latitude"),
-        F = A ? parseFloat(A.contentString()) : void 0,
-        O = e.maybeChild("longitude"),
-        B = O ? parseFloat(O.contentString()) : void 0,
-        W = [];
+      var F = e.maybeChild("latitude"),
+        O = F ? parseFloat(F.contentString()) : void 0,
+        B = e.maybeChild("longitude"),
+        W = B ? parseFloat(B.contentString()) : void 0,
+        q = [];
       e.forEachChildWithTag("website", function (e) {
-        W.push({ url: e.contentString() });
+        q.push({ url: e.contentString() });
       });
-      var q,
-        U = e.maybeChild("member_since_text");
-      U && (q = U.contentString());
-      var V,
-        H,
+      var U,
+        V = e.maybeChild("member_since_text");
+      V && (U = V.contentString());
+      var H,
         G,
         z,
-        j = e.maybeChild("authorized_agent");
-      if (j) {
-        V = j.maybeAttrString("is_authorized_agent") === "true";
-        var K = j.maybeChild("parent_company_name");
-        H = K ? K.contentString() : void 0;
-        var Q = j.maybeChild("parent_company_logo_url");
+        j,
+        K = e.maybeChild("authorized_agent");
+      if (K) {
+        H = K.maybeAttrString("is_authorized_agent") === "true";
+        var Q = K.maybeChild("parent_company_name");
         G = Q ? Q.contentString() : void 0;
-        var X = j.maybeChild("oba_phone_number");
+        var X = K.maybeChild("parent_company_logo_url");
         z = X ? X.contentString() : void 0;
+        var Y = K.maybeChild("oba_phone_number");
+        j = Y ? Y.contentString() : void 0;
       }
-      var Y = [],
-        J = e.maybeChild("categories");
-      J &&
-        J.forEachChildWithTag("category", function (e) {
+      var J = [],
+        Z = e.maybeChild("categories");
+      Z &&
+        Z.forEachChildWithTag("category", function (e) {
           var t = e.attrString("id");
-          Y.push({ id: t, localized_display_name: e.contentString() });
+          J.push({ id: t, localized_display_name: e.contentString() });
         });
-      var Z,
-        ee = e.maybeChild("business_hours");
-      if (ee) {
-        var te = ee.maybeAttrString("timezone"),
-          ne = [];
-        (ee.forEachChildWithTag("business_hours_config", function (e) {
-          ne.push({
+      var ee,
+        te = e.maybeChild("business_hours");
+      if (te) {
+        var ne = te.maybeAttrString("timezone"),
+          re = [];
+        (te.forEachChildWithTag("business_hours_config", function (e) {
+          re.push({
             day_of_week: e.attrString("day_of_week"),
             mode: e.attrString("mode"),
             open_time: e.hasAttr("open_time")
@@ -129,54 +129,56 @@ __d(
               : 0,
           });
         }),
-          (Z = { config: ne }),
-          te != null && (Z.timezone = te));
+          (ee = { config: re }),
+          ne != null && (ee.timezone = ne));
       }
-      var re,
-        oe = e.maybeChild("profile_options");
-      if (oe) {
-        re = {};
-        var ae = oe.maybeChild("commerce_experience");
-        if (ae) {
-          var ie;
-          re.commerce_experience =
-            (ie = o("WAWebBusinessProfileTypes").CommerceExperienceTypes.cast(
-              ae.contentString(),
+      var oe,
+        ae = e.maybeChild("profile_options");
+      if (ae) {
+        oe = {};
+        var ie = ae.maybeChild("commerce_experience");
+        if (ie) {
+          var le;
+          oe.commerce_experience =
+            (le = o("WAWebBusinessProfileTypes").CommerceExperienceTypes.cast(
+              ie.contentString(),
             )) != null
-              ? ie
+              ? le
               : o("WAWebBusinessProfileTypes").CommerceExperienceTypes.NONE;
         }
-        var le = oe.maybeChild("cart_enabled");
-        le && (re.cart_enabled = le.contentString() === "true");
-        var se = oe.maybeChild("shop_url");
-        se && (re.shop_url = se.contentString());
-        var ue = oe.maybeChild("commerce_manager_url");
-        ue && (re.commerce_manager_url = ue.contentString());
-        var ce = oe.maybeChild("is_banned");
-        ce && (re.is_banned = ce.contentString() === "true");
-        var de = oe.maybeChild("direct_connection");
-        de && (re.direct_connection = de.contentString() === "true");
-        var me = oe.maybeChild("is_profile_edit_disabled");
-        me && (re.is_profile_edit_disabled = me.contentString() === "true");
+        var se = ae.maybeChild("cart_enabled");
+        se && (oe.cart_enabled = se.contentString() === "true");
+        var ue = ae.maybeChild("shop_url");
+        ue && (oe.shop_url = ue.contentString());
+        var ce = ae.maybeChild("commerce_manager_url");
+        ce && (oe.commerce_manager_url = ce.contentString());
+        var de = ae.maybeChild("is_banned");
+        de && (oe.is_banned = de.contentString() === "true");
+        var me = ae.maybeChild("direct_connection");
+        me && (oe.direct_connection = me.contentString() === "true");
+        var pe = ae.maybeChild("is_profile_edit_disabled");
+        pe && (oe.is_profile_edit_disabled = pe.contentString() === "true");
+        var _e = ae.maybeChild("business_calling");
+        _e && (oe.business_calling = s(_e));
       }
-      var pe = e.maybeChild("direct_connection"),
-        _e;
-      if (pe) {
-        var fe = pe.maybeChild("default_postcode");
-        _e = {
-          enabled: pe.maybeAttrString("enabled") === "true",
-          defaultPostcode: fe
+      var fe = e.maybeChild("direct_connection"),
+        ge;
+      if (fe) {
+        var he = fe.maybeChild("default_postcode");
+        ge = {
+          enabled: fe.maybeAttrString("enabled") === "true",
+          defaultPostcode: he
             ? {
-                code: fe.attrString("code"),
-                locationName: fe.attrString("location_name"),
+                code: he.attrString("code"),
+                locationName: he.attrString("location_name"),
               }
             : void 0,
         };
       }
-      var ge = [],
-        he = e.maybeChild("service_areas");
-      he &&
-        he.forEachChildWithTag("service_area", function (e) {
+      var ye = [],
+        Ce = e.maybeChild("service_areas");
+      Ce &&
+        Ce.forEachChildWithTag("service_area", function (e) {
           var t = e.maybeChild("area_radius_meters"),
             n = e.maybeChild("area_center"),
             r = e.maybeChild("area_description");
@@ -185,7 +187,7 @@ __d(
               a = n.maybeChild("longitude");
             if (o && a) {
               var i;
-              ge.push({
+              ye.push({
                 radius: parseFloat(t.contentString()),
                 latitude: parseFloat(o.contentString()),
                 longitude: parseFloat(a.contentString()),
@@ -195,12 +197,12 @@ __d(
             }
           }
         });
-      var ye = e.maybeChild("catalog_status"),
-        Ce = ye ? ye.attrString("status") : void 0,
-        be = [],
-        ve = e.maybeChild("offerings");
-      ve &&
-        ve.forEachChildWithTag("category", function (e) {
+      var be = e.maybeChild("catalog_status"),
+        ve = be ? be.attrString("status") : void 0,
+        Se = [],
+        Re = e.maybeChild("offerings");
+      Re &&
+        Re.forEachChildWithTag("category", function (e) {
           var t = e.attrString("id"),
             n = e.attrString("name"),
             r = [];
@@ -211,67 +213,67 @@ __d(
               is_offered: e.maybeAttrString("is_offered") === "true",
             });
           }),
-            be.push({ id: t, name: n, offerings: r }));
+            Se.push({ id: t, name: n, offerings: r }));
         });
-      var Se = {},
-        Re = {},
-        Le = !1,
-        Ee,
-        ke = e.maybeChild("linked_accounts");
-      if (ke) {
-        Le = !0;
-        var Ie = ke.maybeChild("fb_page");
-        if (Ie) {
-          var Te = Ie.maybeChild("display_name"),
-            De = Ie.maybeChild("likes");
-          ((Se.display_name = Te == null ? void 0 : Te.contentString()),
-            (Se.likes = De == null ? void 0 : De.contentInt()));
-          var xe = Ie.maybeAttrString("id");
-          xe != null && (Se.id = xe);
+      var Le = {},
+        Ee = {},
+        ke = !1,
+        Ie,
+        Te = e.maybeChild("linked_accounts");
+      if (Te) {
+        ke = !0;
+        var De = Te.maybeChild("fb_page");
+        if (De) {
+          var xe = De.maybeChild("display_name"),
+            $e = De.maybeChild("likes");
+          ((Le.display_name = xe == null ? void 0 : xe.contentString()),
+            (Le.likes = $e == null ? void 0 : $e.contentInt()));
+          var Pe = De.maybeAttrString("id");
+          Pe != null && (Le.id = Pe);
         }
-        var $e = ke.maybeChild("ig_professional");
-        if ($e) {
-          var Pe = $e.maybeChild("ig_handle"),
-            Ne = $e.maybeChild("followers");
-          Re = {
-            ig_handle: Pe == null ? void 0 : Pe.contentString(),
-            followers: Ne == null ? void 0 : Ne.contentInt(),
+        var Ne = Te.maybeChild("ig_professional");
+        if (Ne) {
+          var Me = Ne.maybeChild("ig_handle"),
+            we = Ne.maybeChild("followers");
+          Ee = {
+            ig_handle: Me == null ? void 0 : Me.contentString(),
+            followers: we == null ? void 0 : we.contentInt(),
           };
         }
       }
-      var Me = e.maybeChild("cover_photo"),
-        we = Me
-          ? { id: Me.attrString("id"), url: new URL(Me.contentString()) }
+      var Ae = e.maybeChild("cover_photo"),
+        Fe = Ae
+          ? { id: Ae.attrString("id"), url: new URL(Ae.contentString()) }
           : void 0,
-        Ae = e.maybeChild("custom_url");
-      Ae && (Ee = Ae.contentString());
-      var Fe = o("WAWebBotTypes").BizBotAutomatedType.cast(
+        Oe = e.maybeChild("custom_url");
+      Oe && (Ie = Oe.contentString());
+      var Be = o("WAWebBotTypes").BizBotAutomatedType.cast(
           (t = e.maybeChild("automated_type")) == null
             ? void 0
             : t.contentString(),
         ),
-        Oe = o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.cast(
+        We = o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.cast(
           (r = e.maybeChild("welcome_message_protocol_mode")) == null
             ? void 0
             : r.contentString(),
         ),
-        Be,
-        We = e.maybeChild("prompts");
-      We && (Be = s(We));
-      var qe =
+        qe,
+        Ue = e.maybeChild("prompts");
+      Ue && (qe = u(Ue));
+      var Ve =
           (a = e.maybeChild("commands")) == null ||
           (a = a.maybeChild("description")) == null
             ? void 0
             : a.contentString(),
-        Ue,
-        Ve = e.maybeChild("commands");
-      (Ve && (Ue = u(Ve)),
+        He,
+        Ge = e.maybeChild("commands");
+      (Ge && (He = c(Ge)),
         n("cr:17670") &&
           n("cr:17670").debugBotConfigs.injectBizBotFields === !0 &&
-          ((Oe = o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.BASIC),
-          (d =
+          ((We = o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.BASIC),
+          (m =
             "Hello! I'm Midjourney, your personal assistant. I'm here to assist you with anything you might need, from travel information to workout plans, and even caring for your plants. I can even sketch your imagination!"),
-          (Be = [
+          (qe = [
             { emoji: "\u2728", text: "Create an alien world!" },
             { emoji: "\uD83D\uDD25", text: "Show a future city!" },
             { emoji: "\u2728", text: "Fantasy landscape? Generate now!" },
@@ -288,8 +290,8 @@ __d(
               text: "Imagine yourself as a time traveler who has just stepped into an ancient civilization. You find yourself surrounded by towering structures and exotic landscapes that are unfamiliar to you. Take a moment to observe the surroundings, notice the intricate details on the buildings and the unique attire worn by the people. Now, let the bot generate an image that captures the essence of this unexplored world, bringing forth a visual representation that transcends time and space!",
             },
           ]),
-          (qe = "Try these commands to get started"),
-          (Ue = [
+          (Ve = "Try these commands to get started"),
+          (He = [
             { description: "Create images with Midjourney", name: "imagine" },
             {
               description: "View and adjust your personal settings",
@@ -305,54 +307,87 @@ __d(
               name: "subscribe",
             },
           ]),
-          W.length === 0 && (W = [{ url: "https://meta.com" }])));
-      var He = {
-        address: c,
-        description: d,
-        email: _,
-        latitude: F,
-        longitude: B,
-        website: W,
-        categories: Y,
-        business_hours: Z,
-        catalog_status: Ce,
-        profile_options: re,
-        fb_page: Se,
-        ig_professional: Re,
-        profile_is_linked: Le,
-        directConnection: _e,
-        service_areas: ge.length > 0 ? ge : void 0,
-        offerings: be.length > 0 ? be : void 0,
-        cover_photo: we,
-        custom_url: Ee,
-        prompts: Be,
-        commands: Ue,
-        commands_description: qe,
-        automated_type: Fe,
-        welcome_message_protocol_mode: Oe,
-        member_since_text: q,
-        price_tier: g,
-        is_authorized_agent: V,
-        parent_company_name: H,
-        parent_company_logo_url: G,
-        oba_phone_number: z,
-        google_place_id: h,
-        show_google_reviews: y,
-        show_google_info: C,
-        google_place: b,
+          q.length === 0 && (q = [{ url: "https://meta.com" }])));
+      var ze = {
+        address: d,
+        description: m,
+        email: f,
+        latitude: O,
+        longitude: W,
+        website: q,
+        categories: J,
+        business_hours: ee,
+        catalog_status: ve,
+        profile_options: oe,
+        fb_page: Le,
+        ig_professional: Ee,
+        profile_is_linked: ke,
+        directConnection: ge,
+        service_areas: ye.length > 0 ? ye : void 0,
+        offerings: Se.length > 0 ? Se : void 0,
+        cover_photo: Fe,
+        custom_url: Ie,
+        prompts: qe,
+        commands: He,
+        commands_description: Ve,
+        automated_type: Be,
+        welcome_message_protocol_mode: We,
+        member_since_text: U,
+        price_tier: h,
+        is_authorized_agent: H,
+        parent_company_name: G,
+        parent_company_logo_url: z,
+        oba_phone_number: j,
+        google_place_id: y,
+        show_google_reviews: C,
+        show_google_info: b,
+        google_place: v,
         pills:
           (i = o("WAWebParseProfilePills").parseProfilePills(e)) != null
             ? i
             : void 0,
       };
       return (
-        Object.keys(He).forEach(function (e) {
-          He[e] == null && delete He[e];
+        Object.keys(ze).forEach(function (e) {
+          ze[e] == null && delete ze[e];
         }),
-        He
+        ze
       );
     }
     function s(e) {
+      var t,
+        n,
+        r = e.maybeChild("user_initiated_calling"),
+        o = r == null ? void 0 : r.maybeChild("call_icon_visibility"),
+        a = o == null ? void 0 : o.maybeChild("limit_to_user_countries"),
+        i =
+          a != null && a.hasContent()
+            ? a
+                .contentString()
+                .split(",")
+                .map(function (e) {
+                  return e.trim().toUpperCase();
+                })
+                .filter(function (e) {
+                  return e !== "";
+                })
+            : [];
+      return babelHelpers.extends(
+        {
+          enabled: e.maybeAttrString("enabled") === "true",
+          video_calling_enabled:
+            (r == null || (t = r.maybeChild("video_calling")) == null
+              ? void 0
+              : t.maybeAttrString("enabled")) === "true",
+          call_icon_visibility:
+            (n = o == null ? void 0 : o.maybeAttrInt("visibility")) != null
+              ? n
+              : 0,
+        },
+        i.length > 0 ? { limit_to_user_countries: i } : null,
+      );
+    }
+    function u(e) {
       var t = [];
       return (
         e.forEachChildWithTag("prompt", function (e) {
@@ -367,7 +402,7 @@ __d(
         t
       );
     }
-    function u(e) {
+    function c(e) {
       var t = [];
       return (
         e.forEachChildWithTag("command", function (e) {
