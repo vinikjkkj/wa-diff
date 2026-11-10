@@ -12,6 +12,7 @@ __d(
     "WASmaxInPingsClientResponseServerResponse",
     "WASmaxOutPingsClientRequest",
     "WASmaxParseUtils",
+    "WASocketCloseReason",
     "WATimeUtils",
     "WAWap",
     "asyncToGeneratorRuntime",
@@ -154,7 +155,10 @@ __d(
                       ])),
                     e,
                   ),
-                  l.softCloseSocket && l.softCloseSocket());
+                  l.softCloseSocket &&
+                    l.softCloseSocket(
+                      o("WASocketCloseReason").CommsCloseReason.DeadSocket,
+                    ));
               },
             )),
             (this.healthCheckTimer = new (o("WAShiftTimer").ShiftTimer)(
@@ -162,12 +166,12 @@ __d(
                 l.socketId && l.sendPing();
               },
             )),
-            (this.stopComms = function () {
-              var e;
+            (this.stopComms = function (e) {
+              var t;
               (l.socketLoop.endWithValue(),
-                (e = l.socket) == null || e.close());
+                (t = l.socket) == null || t.close(e));
             }),
-            (this.closeSocketAndPreventRetry = function () {
+            (this.closeSocketAndPreventRetry = function (e) {
               (l.socketLoop.endWithValue(),
                 l.socket &&
                   (o("WALogger").LOG(
@@ -176,9 +180,9 @@ __d(
                         "[comms] closeSocketAndPreventRetry called",
                       ])),
                   ),
-                  l.socket.close()));
+                  l.socket.close(e)));
             }),
-            (this.closeSocketAndPause = function () {
+            (this.closeSocketAndPause = function (e) {
               (l.socketLoop.pauseOnNextIteration(),
                 l.socket &&
                   (o("WALogger").LOG(
@@ -187,9 +191,9 @@ __d(
                         "[comms] closeSocketAndPause called",
                       ])),
                   ),
-                  l.socket.close()));
+                  l.socket.close(e)));
             }),
-            (this.closeSocketAndResume = function () {
+            (this.closeSocketAndResume = function (e) {
               (l.socketLoop.unpause(),
                 l.socket &&
                   (o("WALogger").LOG(
@@ -198,7 +202,7 @@ __d(
                         "[comms] closeSocketAndResume called",
                       ])),
                   ),
-                  l.socket.close()));
+                  l.socket.close(e)));
             }),
             (this.openSocketLoop = function () {
               l.socketLoop.start();
@@ -218,15 +222,24 @@ __d(
             (this.forceAbortSocketConnection = function () {
               var e;
               ((e = l.socketAbortController) == null || e.abort(),
-                l.softCloseSocket == null || l.softCloseSocket());
+                l.softCloseSocket == null ||
+                  l.softCloseSocket(
+                    o("WASocketCloseReason").CommsCloseReason.ConnectionAborted,
+                  ));
             }),
-            (this.trySoftCloseSocket = function () {
-              var e = l.softCloseSocket;
-              return e == null
+            (this.trySoftCloseSocket = function (e) {
+              var t = l.softCloseSocket;
+              return t == null
                 ? (U || (U = n("Promise"))).resolve(!1)
-                : (e(), (U || (U = n("Promise"))).resolve(!0));
+                : (t(
+                    e != null
+                      ? e
+                      : o("WASocketCloseReason").CommsCloseReason
+                          .ClientCloseUnspecified,
+                  ),
+                  (U || (U = n("Promise"))).resolve(!0));
             }),
-            (this.closeSocket = function () {
+            (this.closeSocket = function (e) {
               l.socket &&
                 (o("WALogger").LOG(
                   _ ||
@@ -242,7 +255,7 @@ __d(
                       "[comms] closeSocket called",
                     ])),
                 ),
-                l.socket.close());
+                l.socket.close(e));
             }),
             (this.closeSocketInDebugMode = function () {
               var e = l.socket;
@@ -330,11 +343,11 @@ __d(
                         (l.$7 = self.performance.now()),
                         (l.$6 = 0),
                         l.$8(!0, t),
-                        (l.softCloseSocket = function () {
+                        (l.softCloseSocket = function (e) {
                           ((l.softCloseSocket = null),
                             l.socket &&
                               l.config.shouldCloseStaleSocket &&
-                              (l.socket.close(), (l.socket = null), l.$8(!1)),
+                              (l.socket.close(e), (l.socket = null), l.$8(!1)),
                             r.resolve());
                         }),
                         l.socketLoop.resetTimeoutAfter(1e4),
@@ -343,7 +356,7 @@ __d(
                         n.setOnFrame(function (e) {
                           return l.parseAndHandleStanza(t, e);
                         }),
-                        n.setOnClose(function () {
+                        n.setOnClose(function (e) {
                           (o("WALogger").LOG(
                             b ||
                               (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -369,7 +382,7 @@ __d(
                               l.$8(!1, t),
                               l.onConnectionChange("disconnected"),
                               l.config.handlers.onDisconnect == null ||
-                                l.config.handlers.onDisconnect(),
+                                l.config.handlers.onDisconnect(e),
                               r.resolve()));
                         }),
                         l.onConnectionChange("connected"),
@@ -760,7 +773,11 @@ __d(
                         ])),
                     );
                     var r = e.socket;
-                    r && r.close();
+                    r &&
+                      r.close(
+                        o("WASocketCloseReason").CommsCloseReason
+                          .StanzaHandlerRequested,
+                      );
                   } else n === "NO_ACK" || e.castStanza(n);
                   return "NO_ACK";
                 }
@@ -1026,21 +1043,21 @@ __d(
       var o = H(e, t, n);
       return ((V = o), r && setTimeout(te, 0), o);
     }
-    function Y() {
-      var e = Ce("stopComms");
-      (e.stopComms(), (V = null));
+    function Y(e) {
+      var t = Ce("stopComms");
+      (t.stopComms(e), (V = null));
     }
-    function J() {
-      var e = Ce("closeSocketAndPreventRetry");
-      e.closeSocketAndPreventRetry();
+    function J(e) {
+      var t = Ce("closeSocketAndPreventRetry");
+      t.closeSocketAndPreventRetry(e);
     }
-    function Z() {
-      var e = Ce("closeSocketAndPause");
-      e.closeSocketAndPause();
+    function Z(e) {
+      var t = Ce("closeSocketAndPause");
+      t.closeSocketAndPause(e);
     }
-    function ee() {
-      var e = Ce("closeSocketAndResume");
-      e.closeSocketAndResume();
+    function ee(e) {
+      var t = Ce("closeSocketAndResume");
+      t.closeSocketAndResume(e);
     }
     function te() {
       var e = Ce("openSocketLoop");
@@ -1073,9 +1090,9 @@ __d(
       var e = Ce("socketLoopIteration");
       return e.socketLoopIteration();
     }
-    function se() {
-      var e = Ce("closeSocket");
-      e.closeSocket();
+    function se(e) {
+      var t = Ce("closeSocket");
+      t.closeSocket(e);
     }
     function ue() {
       var e = Ce("onStreamErrorReceived");

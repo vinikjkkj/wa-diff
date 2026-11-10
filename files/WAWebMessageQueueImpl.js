@@ -8,7 +8,12 @@ __d(
     function s() {
       return e() ? "one_queue" : "legacy";
     }
-    ((l.isOneQueueAdoptionEnabled = e), (l.getMessageQueueImpl = s));
+    function u(t, n) {
+      return !t || (n && e());
+    }
+    ((l.isOneQueueAdoptionEnabled = e),
+      (l.getMessageQueueImpl = s),
+      (l.shouldFlushMessageImmediately = u));
   },
   98,
 );

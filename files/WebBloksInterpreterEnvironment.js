@@ -197,7 +197,7 @@ __d(
                 h = o(
                   "WebBloksExternalVariables",
                 ).getProcessedExternalVariables(n, g);
-              a.synchronouslyAddTreeResources(c, h);
+              (a.synchronouslyAddTreeResources(c, h), this.$6(c));
               var y = this.createBloksModelScopedContext(
                 o("WebBloksUtils").EMPTY_KEY_PATH,
               );
@@ -206,7 +206,73 @@ __d(
               a.endUpdates();
             }
           }),
-          (r.$6 = function () {
+          (r.$6 = function (t) {
+            var e = this.bloksContext.objectSet;
+            for (var n of t.resources.hoistedComponentQueryPayloads.values())
+              if (n.id.startsWith("{")) {
+                var r = void 0;
+                try {
+                  r = JSON.parse(n.id);
+                } catch (t) {
+                  e.environment.logger.mustfix(
+                    "FetchInline: corrupt hoisted id, skipping entry: " +
+                      String(t),
+                  );
+                  continue;
+                }
+                if (
+                  r == null ||
+                  typeof r != "object" ||
+                  typeof r.app_id != "string" ||
+                  r.params == null ||
+                  typeof r.params != "object" ||
+                  Array.isArray(r.params)
+                ) {
+                  e.environment.logger.mustfix(
+                    "FetchInline: malformed hoisted id, skipping entry",
+                  );
+                  continue;
+                }
+                var a = void 0;
+                try {
+                  a = JSON.parse(n.payload);
+                } catch (t) {
+                  e.environment.logger.mustfix(
+                    "FetchInline: corrupt hoisted payload for " +
+                      r.app_id +
+                      ": " +
+                      String(t),
+                  );
+                  continue;
+                }
+                if (
+                  a == null ||
+                  typeof a != "object" ||
+                  Array.isArray(a) ||
+                  !Array.isArray(a.components)
+                ) {
+                  e.environment.logger.mustfix(
+                    "FetchInline: malformed hoisted payload for " + r.app_id,
+                  );
+                  continue;
+                }
+                try {
+                  e.componentQueryStore.writeToCache(
+                    r.app_id,
+                    o("WebBloksUtils").cast(r.params),
+                    a,
+                  );
+                } catch (t) {
+                  e.environment.logger.mustfix(
+                    "FetchInline: failed to seed hoisted entry for " +
+                      r.app_id +
+                      ": " +
+                      String(t),
+                  );
+                }
+              }
+          }),
+          (r.$7 = function () {
             var e = null,
               n = new t(this.bloksContext, e, this.$4, this.$1, this.$5);
             return (
@@ -219,14 +285,14 @@ __d(
           }),
           (r.createBloksModelScopedContext = function (t) {
             if (t === this.scope) return this;
-            var e = this.$6();
+            var e = this.$7();
             return (
               (e.scope = t != null ? t : o("WebBloksUtils").EMPTY_KEY_PATH),
               e
             );
           }),
           (r.createScopedContext = function () {
-            var e = this.$6();
+            var e = this.$7();
             return (
               (e.scope = o("WebBloksScopedIds").extendKeyPath(this.scope)),
               e
@@ -234,7 +300,7 @@ __d(
           }),
           (r.createScopedContextWithDepth = function (t) {
             if (t == null) return this.createScopedContext();
-            var e = this.$6();
+            var e = this.$7();
             return (
               (e.scope = o("WebBloksScopedIds").truncateKeyPath(this.scope, t)),
               e

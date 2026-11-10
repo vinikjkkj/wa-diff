@@ -278,11 +278,11 @@ __d(
         x.apply(this, arguments)
       );
     }
-    function $(e) {
-      var t = o("WAWebSignalCommonUtils").createSignalAddress(e).toString();
+    function $(e, t) {
+      var n = o("WAWebSignalCommonUtils").createSignalAddress(e, t).toString();
       return o("WAWebSignalProtocolStore")
         .getPersistSignalProtocolStore()
-        .maybeCleanUpUnconvertedSession(t);
+        .maybeCleanUpUnconvertedSession(n);
     }
     function P(e, t) {
       return N.apply(this, arguments);

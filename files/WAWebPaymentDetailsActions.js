@@ -39,16 +39,20 @@ __d(
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!P(e)) return !1;
           var t = o("WATimeUtils").unixTimeMs(),
-            r = yield z(e, function (e) {
+            r = o("WAWebBrazilPaymentState").getPaymentDetailsFlow(
+              e.interactivePayload,
+            ),
+            a = yield z(e, function (e) {
               return o("WAWebBrazilPaymentState").applyStatusUpdate(
                 e,
                 o("WAWebPaymentDetailsModels").PaymentDetailsStatus
                   .MARKED_AS_PAID,
                 o("WAWebPaymentDetailsModels").PaymentDetailsActor.REQUESTER,
                 t,
+                r,
               );
             });
-          if (r.status === "unchanged" && !V(r.current))
+          if (a.status === "unchanged" && !V(a.current))
             return (
               o("WALogger")
                 .WARN(
@@ -60,8 +64,8 @@ __d(
                 .sendLogs("br-payment-state-mark-as-paid-stale"),
               !1
             );
-          if (r.status !== "applied") return r.status === "unchanged";
-          var a = yield X(
+          if (a.status !== "applied") return a.status === "unchanged";
+          var i = yield X(
             o("WAWebFrontendMsgGetters").getChat(e),
             (E || (E = n("Promise"))).resolve(
               o(
@@ -70,7 +74,7 @@ __d(
             ),
           );
           return (
-            a
+            i
               ? o("WAWebPaymentDetailsLogger").logLocalPaymentStateChange({
                   change: o("WAWebPaymentDetailsLogger").PaymentStateChange
                     .STATUS,
@@ -78,8 +82,8 @@ __d(
                   paymentStatus: o("WAWebPaymentDetailsModels")
                     .PaymentDetailsStatus.MARKED_AS_PAID,
                 })
-              : yield K(e, H(r.previous, t)),
-            a
+              : yield K(e, H(a.previous, t)),
+            i
           );
         })),
         I.apply(this, arguments)
@@ -125,7 +129,12 @@ __d(
                   paymentMsg: e,
                   paymentStatus: o(
                     "WAWebBrazilPaymentState",
-                  ).getPaymentDetailsStatus(r.previous),
+                  ).getPaymentDetailsStatus(
+                    r.previous,
+                    o("WAWebBrazilPaymentState").getPaymentDetailsFlow(
+                      e.interactivePayload,
+                    ),
+                  ),
                 })
               : yield K(e, G(r.previous, t)),
             a

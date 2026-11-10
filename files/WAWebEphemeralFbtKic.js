@@ -10,7 +10,6 @@ __d(
     "WAWebEphemeralFbtKicTypes",
     "WAWebFrontendContactGetters",
     "WAWebMiscGatingUtils",
-    "WAWebOrgMemberContactName",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d;
@@ -436,19 +435,13 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function v(e, t) {
-      var n;
-      t === void 0 &&
-        (t = o("WAWebOrgMemberContactName").getOrgMemberDisplayName);
-      var r = o("WAWebContactCollection").ContactCollection.assertGet(e);
-      if (o("WAWebContactGetters").getIsMe(r))
+    function v(e) {
+      var t = o("WAWebContactCollection").ContactCollection.assertGet(e);
+      if (o("WAWebContactGetters").getIsMe(t))
         return s._(/*BTDS*/ "Kept by you");
-      var a =
-        (n = t(r)) != null
-          ? n
-          : o("WAWebFrontendContactGetters").getFormattedName(r);
+      var n = o("WAWebFrontendContactGetters").getFormattedName(t);
       return s._(/*BTDS*/ "Kept by {person-name}", [
-        s._param("person-name", a),
+        s._param("person-name", n),
       ]);
     }
     ((l.getDisappearingMessageOutOfSyncDifferentBody = m),

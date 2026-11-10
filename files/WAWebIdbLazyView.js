@@ -187,6 +187,11 @@ __d(
               return e.all(t, n);
             });
           }),
+          (a.allKeys = function (t) {
+            return this.$5(function (e) {
+              return e.allKeys(t);
+            });
+          }),
           (a.allPrimaryKeys = function () {
             return this.$5(function (e) {
               return e.allPrimaryKeys();
@@ -240,6 +245,11 @@ __d(
           (a.between = function (t, n, r, o, a, i) {
             return this.$5(function (e) {
               return e.between(t, n, r, o, a, i);
+            });
+          }),
+          (a.betweenKeys = function (t, n, r, o) {
+            return this.$5(function (e) {
+              return e.betweenKeys(t, n, r, o);
             });
           }),
           (a.forEachSortedBy = function (t, n) {

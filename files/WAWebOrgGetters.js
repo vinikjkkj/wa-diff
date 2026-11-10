@@ -11,12 +11,16 @@ __d(
       d = u("name"),
       m = u("iconThumbUrl"),
       p = u("memberCount"),
-      _ = u("memberTagOptions");
+      _ = u("memberTagOptions"),
+      f = u("isMemberDirectoryEnabled"),
+      g = u("viewerRole");
     ((l.clearOrgGetterCacheFor = c),
       (l.getOrgName = d),
       (l.getOrgIconThumbUrl = m),
       (l.getOrgMemberCount = p),
-      (l.getOrgMemberTagOptions = _));
+      (l.getOrgMemberTagOptions = _),
+      (l.getOrgIsMemberDirectoryEnabled = f),
+      (l.getOrgViewerRole = g));
   },
   98,
 );

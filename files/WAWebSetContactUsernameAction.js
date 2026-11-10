@@ -6,6 +6,7 @@ __d(
     "WAWebSetUsernameJob",
     "WAWebUserPrefsUsername",
     "WAWebUsernameCreationActionLogger",
+    "WAWebUsernameRevocationUserPrefs",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -25,6 +26,10 @@ __d(
           if (a) {
             var i = e != null ? "ACTIVE" : null;
             (o("WAWebUserPrefsUsername").setUsernameState(i),
+              e != null &&
+                o(
+                  "WAWebUsernameRevocationUserPrefs",
+                ).clearUsernameRevokedForNewUsername(e),
               o("WAWebCmd").Cmd.trigger("username_state_updated", i));
           }
           return a;

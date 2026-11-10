@@ -1255,6 +1255,7 @@ __d(
           return (
             t === o("WAWebMsgType").MSG_TYPE.PTT ||
             t === o("WAWebMsgType").MSG_TYPE.PTV ||
+            t === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
             (n && t === o("WAWebMsgType").MSG_TYPE.AUDIO)
           );
         },

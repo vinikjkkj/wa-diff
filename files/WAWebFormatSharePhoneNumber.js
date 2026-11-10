@@ -1,11 +1,6 @@
 __d(
   "WAWebFormatSharePhoneNumber",
-  [
-    "fbt",
-    "WAWebContactCollection",
-    "WAWebFrontendContactGetters",
-    "WAWebOrgMemberContactName",
-  ],
+  ["fbt", "WAWebContactCollection", "WAWebFrontendContactGetters"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r;
@@ -15,7 +10,7 @@ __d(
         );
       var a = o("WAWebContactCollection").ContactCollection.gadd(e),
         i =
-          (r = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(a)) !=
+          (r = o("WAWebFrontendContactGetters").getShownOrgMemberName(a)) !=
           null
             ? r
             : o("WAWebFrontendContactGetters").getIsMyContact(a)

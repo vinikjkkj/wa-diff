@@ -11,7 +11,6 @@ __d(
     "WAWebEphemeralityTypes",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebOrgMemberContactName",
     "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
@@ -32,30 +31,21 @@ __d(
       ) {
         var s = null;
         if (!l) {
-          var u,
-            c = o("WAWebContactCollection").ContactCollection.gadd(
-              r("nullthrows")(a),
-            );
-          s =
-            (u = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(c)) !=
-            null
-              ? u
-              : o("WAWebFrontendContactGetters").getFormattedName(c);
+          var u = o("WAWebContactCollection").ContactCollection.gadd(
+            r("nullthrows")(a),
+          );
+          s = o("WAWebFrontendContactGetters").getFormattedName(u);
         }
         return d({ initiatorIsMe: l, initiatorUsername: s, newDuration: i });
       }
       if (l) t = o("WAWebEphemeralFbtKic").getDisappearingModeYouStringKic(i);
       else {
-        var m,
-          p = o("WAWebContactCollection").ContactCollection.gadd(
-            r("nullthrows")(a),
-          );
+        var c = o("WAWebContactCollection").ContactCollection.gadd(
+          r("nullthrows")(a),
+        );
         t = o("WAWebEphemeralFbtKic").getDisappearingModeOtherStringKic(
           i,
-          (m = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(p)) !=
-            null
-            ? m
-            : o("WAWebFrontendContactGetters").getFormattedName(p),
+          o("WAWebFrontendContactGetters").getFormattedName(c),
         );
       }
       return t;
@@ -125,32 +115,27 @@ __d(
         i = o("WAWebUserPrefsMeUser").isMeAccount(r("nullthrows")(n)),
         l = null;
       if (!i) {
-        var u,
-          c = o("WAWebContactCollection").ContactCollection.gadd(
-            r("nullthrows")(n),
-          );
-        l =
-          (u = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(c)) !=
-          null
-            ? u
-            : o("WAWebFrontendContactGetters").getFormattedName(c);
+        var u = o("WAWebContactCollection").ContactCollection.gadd(
+          r("nullthrows")(n),
+        );
+        l = o("WAWebFrontendContactGetters").getFormattedName(u);
       }
       if (
         o("WAWebAfterReadUtils").isAfterReadDuration(a) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
       )
         return m({ initiatorIsMe: i, initiatorUsername: l, newDuration: a });
-      var d = p({ initiatorIsMe: i, initiatorUsername: l }),
-        f = o(
+      var c = p({ initiatorIsMe: i, initiatorUsername: l }),
+        d = o(
           "WAWebEphemeralFbtKic",
         ).getDisappearingMessageExplanationStringKic(a),
-        g = _({ initiatorIsMe: i });
+        f = _({ initiatorIsMe: i });
       return {
         text: s._(/*BTDS*/ "{ddm-event} {ddm-explanation}", [
-          s._param("ddm-event", d),
-          s._param("ddm-explanation", f),
+          s._param("ddm-event", c),
+          s._param("ddm-explanation", d),
         ]),
-        ctaText: g,
+        ctaText: f,
       };
     }
     function h(e) {
@@ -358,7 +343,7 @@ __d(
             n.initiatingUser,
           );
         a =
-          (s = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(c)) !=
+          (s = o("WAWebFrontendContactGetters").getShownOrgMemberName(c)) !=
           null
             ? s
             : o("WAWebFrontendContactGetters").getIsMyContact(c)

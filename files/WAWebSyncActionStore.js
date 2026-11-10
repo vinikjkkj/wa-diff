@@ -147,6 +147,31 @@ __d(
             }
             return t;
           })()),
+          (r.getIndexesByActionStates = function (t) {
+            return o("WAWebSchemaSyncActions")
+              .getSyncActionsTable()
+              .anyOfPrimaryKeys(["actionState"], t);
+          }),
+          (r.getByIndexes = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield o("WAWebSchemaSyncActions")
+                    .getSyncActionsTable()
+                    .bulkGet(e),
+                  n = [];
+                for (var r of t)
+                  r != null &&
+                    n.push(
+                      o("WAWebSchemaSyncActions").convertToSyncActionFromRow(r),
+                    );
+                return n;
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (r.getByModelInfos = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

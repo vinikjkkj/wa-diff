@@ -1019,6 +1019,7 @@ __d(
         "meta_subs_edits_video_gen_quota_banner",
       META_SUBS_EXPIRATION_REMINDER_NOTIF:
         "meta_subs_expiration_reminder_notif",
+      META_SUBS_FB_GRACE_PERIOD_AQP: "meta_subs_fb_grace_period_aqp",
       META_SUBS_FB_IMAGINE_INTENTS_QUOTA_BANNER:
         "meta_subs_fb_imagine_intents_quota_banner",
       META_SUBS_FB_IMAGINE_VIDEO_QUOTA_BANNER:
@@ -1047,6 +1048,8 @@ __d(
       META_SUBS_FB_WELCOME_TOAST: "meta_subs_fb_welcome_toast",
       META_SUBS_IG_FEED_IMAGE_GEN_QUOTA_BANNER:
         "meta_subs_ig_feed_image_gen_quota_banner",
+      META_SUBS_IG_GRACE_PERIOD_NETEGO_QP:
+        "meta_subs_ig_grace_period_netego_qp",
       META_SUBS_IG_INTEGRITY_VIOLATION_APPEAL_RESULT_NOTIF:
         "meta_subs_ig_integrity_violation_appeal_result_notif",
       META_SUBS_IG_INTEGRITY_VIOLATION_NOTIF:

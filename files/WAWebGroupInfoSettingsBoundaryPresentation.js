@@ -1,13 +1,12 @@
 __d(
   "WAWebGroupInfoSettingsBoundaryPresentation",
-  ["WDSSectionDivider.react", "react"],
+  ["WAWebGroupInfoDivider.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e, t, n, o) {
       if (!e) return { footer: void 0, emptyState: void 0, end: null };
-      var a = s.jsx(r("WDSSectionDivider.react"), {
-        divider: !0,
+      var a = s.jsx(r("WAWebGroupInfoDivider.react"), {
         testid: "group-info-settings-end",
       });
       return t

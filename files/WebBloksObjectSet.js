@@ -53,6 +53,7 @@ __d(
                   e.traversalKeys,
                   e.useMinification,
                   e.minificationMaps,
+                  e.logger,
                 )),
           (this.mountEffectsQueue = new (r("WebBloksMountEffectsQueue"))()));
       }
@@ -98,48 +99,77 @@ __d(
             this.$2(l, i);
             return;
           }
-          a != null && this.componentQueryStore.writeInitialPayload(n, i, a);
-          var s = t.screen_query_payload.open_screen_script;
-          if (s == null)
+          (a != null && this.componentQueryStore.writeInitialPayload(n, i, a),
+            this.$3(t.screen_query_payload.component_query_responses, null));
+          var s = t.screen_query_payload,
+            u = s.hoisted_async_components,
+            c = s.open_screen_script;
+          if (c == null)
             throw new (o("WebBloksErrors").WebBloksError)(
               "WebBloksScreenQuery response missing both ssr_payload and open_screen_script",
             );
-          var u = new (r("WebBloksParseResult"))(
+          var d = new Map();
+          if (u != null)
+            for (var m = 0; m < u.length; m++) {
+              var p = u[m];
+              d.set(p.id, p);
+            }
+          var _ = new (r("WebBloksParseResult"))(
               o("WebBloksModel").createSyntheticWebBloksModel("-2"),
-              new (o("WebBloksTreeResources").WebBloksTreeResources)(),
+              new (o("WebBloksTreeResources").WebBloksTreeResources)(
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                d,
+              ),
             ),
-            c = new (r("WebBloksTreeManager"))(u),
-            d = new (o("WebBloksContext").WebBloksContext)(c, this),
-            m = new (r("WebBloksInterpreterEnvironment"))(d);
-          m.executeCatch(s, []);
+            f = new (r("WebBloksTreeManager"))(_),
+            g = new (o("WebBloksContext").WebBloksContext)(f, this),
+            h = new (r("WebBloksInterpreterEnvironment"))(g);
+          h.executeCatch(c, []);
         }),
-        (t.$2 = function (t, n) {
-          var e,
-            r,
-            a = t.component_query_responses;
-          if (a != null)
-            for (var i = 0; i < a.length; i++) {
-              var l = a[i];
-              if (l.payload !== "") {
-                var s = JSON.parse(l.payload);
+        (t.$3 = function (t, n) {
+          if (t != null)
+            for (var e = 0; e < t.length; e++) {
+              var r = t[e];
+              if (r.payload !== "") {
+                var o = void 0;
+                try {
+                  o = JSON.parse(r.payload);
+                } catch (e) {
+                  this.environment.logger.mustfix(
+                    "Dropping malformed preloaded component query payload for app %s: %s",
+                    r.app_id,
+                    e instanceof Error ? e.message : "unknown parse error",
+                  );
+                  continue;
+                }
                 this.componentQueryStore.writeInitialPayload(
-                  l.app_id,
-                  l.consumed_params,
-                  s,
+                  r.app_id,
+                  r.consumed_params,
+                  o,
                 );
               } else
-                l.component_id != null &&
+                r.component_id != null &&
+                  n != null &&
                   this.componentQueryStore.writeInitialPayload(
-                    l.app_id,
-                    l.consumed_params,
-                    {
-                      components: [
-                        { id: l.component_id, payload: t.screen_content },
-                      ],
-                    },
+                    r.app_id,
+                    r.consumed_params,
+                    { components: [{ id: r.component_id, payload: n }] },
                   );
             }
-          var u = babelHelpers.extends(
+        }),
+        (t.$2 = function (t, n) {
+          var e, r;
+          this.$3(t.component_query_responses, t.screen_content);
+          var a = babelHelpers.extends(
             {},
             (e = t.root_consumed_params) != null ? e : n,
           );
@@ -148,7 +178,7 @@ __d(
               this,
               t.screen_content,
               t.container_config,
-              u,
+              a,
               window.location.href,
               t.client_params_expressions,
             ),
@@ -156,7 +186,7 @@ __d(
           ),
             this.pushStackedScreens(
               t.stacked_screens,
-              u,
+              a,
               (r = t.stacked_screens_delay_ms) != null ? r : 0,
             ));
         }),

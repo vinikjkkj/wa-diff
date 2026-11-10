@@ -530,6 +530,7 @@ __d(
               s = {
                 spamListSpamFlow: r,
                 spamListWiTraceId: a,
+                spamListJid: o("WAWebWidToJid").widToUserJid(e.id),
                 messageArgs: l.filter(Boolean),
               },
               u = yield o(

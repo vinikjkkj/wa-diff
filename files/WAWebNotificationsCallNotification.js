@@ -22,7 +22,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotificationTone",
-    "WAWebOrgMemberContactName",
     "WAWebParticipantListUtils",
     "WAWebPushNotificationsGatingUtils",
     "WAWebSWBus",
@@ -666,14 +665,10 @@ __d(
       ).WANotificationController.triggerNotification(new S(e));
     }
     function L(e) {
-      var t,
-        n = o("WAWebContactCollection").ContactCollection.get(e);
-      return n == null
+      var t = o("WAWebContactCollection").ContactCollection.get(e);
+      return t == null
         ? o("WAWebWidFormat").widToFormattedUser(e)
-        : (t = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(n)) !=
-            null
-          ? t
-          : o("WAWebFrontendContactGetters").getFormattedName(n);
+        : o("WAWebFrontendContactGetters").getFormattedName(t);
     }
     function E(e, t) {
       return !o("WAWebUA").UA.hasEmoji ||

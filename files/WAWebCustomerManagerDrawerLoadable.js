@@ -3,10 +3,10 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebCustomerManagerLoadingDrawer.react",
     "WAWebCustomerManagerOpenQpl",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "WAWebLoadingDrawer.react",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -50,7 +50,9 @@ __d(
       d = r("WAWebLoadable")({
         loader: c,
         loading: function (t) {
-          return u.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
+          return u.jsx(r("WAWebCustomerManagerLoadingDrawer.react"), {
+            error: !!t.error,
+          });
         },
       });
     l.WAWebCustomerManagerDrawerLoadable = d;

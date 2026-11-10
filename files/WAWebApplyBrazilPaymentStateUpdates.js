@@ -6,6 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebBrazilPaymentReceiptAddedNoticeMsg",
+    "WAWebBrazilPaymentState",
     "WAWebBrazilPaymentStateDb",
     "WAWebBrazilPaymentStateUpdatePayload",
     "WAWebBrazilPaymentStateUpdateRules",
@@ -77,34 +78,41 @@ __d(
             ).findBrazilPaymentRequestMsg(e.id.remote, t.paymentMsgId),
             r = n.paymentMsg;
           if (r == null) return !n.isPending;
-          var a = e.id.fromMe === r.id.fromMe;
+          var a = e.id.fromMe === r.id.fromMe,
+            i = o("WAWebBrazilPaymentState").getPaymentDetailsFlow(
+              r.interactivePayload,
+            );
           if (
-            !o("WAWebBrazilPaymentStateUpdateRules").isAllowedStatusUpdate(t, a)
+            !o("WAWebBrazilPaymentStateUpdateRules").isAllowedStatusUpdate(
+              t,
+              a,
+              i,
+            )
           )
             return (
               o("WALogger").WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[br-payment-state] rejecting a status only the requester can set",
+                    "[br-payment-state] rejecting a status this sender cannot set",
                   ])),
               ),
               !0
             );
-          var i = o(
+          var l = o(
               "WAWebBrazilPaymentStateUpdateRules",
             ).hasAcceptedReceiptUpdate(t, a),
-            l = o("WAWebBrazilPaymentStateUpdateRules").getUpdateTimestampMs(
+            c = o("WAWebBrazilPaymentStateUpdateRules").getUpdateTimestampMs(
               t,
               D(e) * f,
             ),
-            c = yield o(
+            d = yield o(
               "WAWebBrazilPaymentStateDb",
             ).updateStoredBrazilPaymentState(r.id, function (e) {
               return o(
                 "WAWebBrazilPaymentStateUpdateRules",
-              ).getNextBrazilPaymentState(e, t, a, l);
+              ).getNextBrazilPaymentState(e, t, a, c, i);
             });
-          return c == null
+          return d == null
             ? (o("WALogger")
                 .WARN(
                   u ||
@@ -114,9 +122,9 @@ __d(
                 )
                 .sendLogs("br-payment-state-write-failed"),
               !1)
-            : (C(r.id, c.updatedPayload),
-              i
-                ? b({ paymentMsgKey: r.id, update: t, updateMsg: e, write: c })
+            : (C(r.id, d.updatedPayload),
+              l
+                ? b({ paymentMsgKey: r.id, update: t, updateMsg: e, write: d })
                 : !0);
         })),
         y.apply(this, arguments)

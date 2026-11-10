@@ -1,6 +1,7 @@
 __d(
   "WAWebOrgFetchDirectoryAction",
   [
+    "Promise",
     "WALogger",
     "WAWebOrgAdminGraphQL",
     "WAWebOrgBridgeApi",
@@ -16,38 +17,60 @@ __d(
       u,
       c,
       d,
-      m = new Map(),
-      p = new Set();
-    function _(e, t) {
+      m,
+      p = new Map(),
+      _ = new Map();
+    function f(e, t) {
       var n = t.createModels,
         r = t.force,
         o = r === void 0 ? !1 : r,
-        a = n || p.has(e),
-        i = m.get(e);
+        a = n || h(e),
+        i = p.get(e);
       if (i != null)
         return a && !i.createModels
           ? i.promise.then(function (t) {
-              return C(e, t);
+              return v(e, t);
             })
           : i.promise;
-      var l = h(e, a, o).finally(function () {
+      var l = C(e, a, o).finally(function () {
         var t;
-        ((t = m.get(e)) == null ? void 0 : t.promise) === l && m.delete(e);
+        ((t = p.get(e)) == null ? void 0 : t.promise) === l && p.delete(e);
       });
-      return (m.set(e, { createModels: a, promise: l }), l);
+      return (p.set(e, { createModels: a, promise: l }), l);
     }
-    function f(e) {
-      return p.has(e);
+    function g(e) {
+      if (
+        !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(
+          o("WAWebOrgCollection").OrgCollection.get(e),
+        )
+      )
+        return (m || (m = n("Promise"))).resolve({ status: "not_allowed" });
+      if (h(e)) return (m || (m = n("Promise"))).resolve({ status: "success" });
+      var t = _.get(e);
+      return t != null
+        ? (m || (m = n("Promise"))).resolve({
+            memberCount: t,
+            status: "roster_too_large",
+          })
+        : f(e, { createModels: !0 });
     }
-    function g() {
-      ((m = new Map()), (p = new Set()));
-    }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function h(e) {
+      var t;
+      return (
+        ((t = o("WAWebOrgCollection").OrgCollection.get(e)) == null
+          ? void 0
+          : t.members.isComplete) === !0
+      );
     }
     function y() {
+      ((p = new Map()), (_ = new Map()));
+    }
+    function C(e, t, n) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (
             !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(
               o("WAWebOrgCollection").OrgCollection.get(t),
@@ -59,10 +82,11 @@ __d(
               !a &&
               (yield o("WAWebOrgDirectorySyncJob").isStoredOrgDirectoryFresh(t))
             )
-              return n && !p.has(t) ? b(t) : { status: "success" };
+              return n && !h(t) ? S(t) : { status: "success" };
             var i = yield o("WAWebOrgDirectorySyncJob").syncOrgDirectory(t);
             if (i.status === "roster_too_large")
               return (
+                _.set(t, i.memberCount),
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -94,11 +118,11 @@ __d(
                 }),
               o("WAWebOrgBridgeApi").applyOrgDirectory({
                 createModels: n,
+                inServerOrder: !0,
                 lids: l,
                 orgId: t,
                 rows: d,
               }),
-              n && p.add(t),
               { status: "success" }
             );
           } catch (e) {
@@ -119,18 +143,18 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return t.status === "success" ? b(e) : t;
+    function v(e, t) {
+      return t.status === "success" ? S(e) : t;
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebOrgDirectorySyncJob").loadStoredOrgDirectory(
                 e,
@@ -148,11 +172,11 @@ __d(
               ),
               o("WAWebOrgBridgeApi").applyOrgDirectory({
                 createModels: !0,
+                inServerOrder: !1,
                 lids: n,
                 orgId: e,
                 rows: a,
               }),
-              p.add(e),
               { status: "success" }
             );
           } catch (e) {
@@ -171,12 +195,13 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.fetchOrgDirectory = _),
-      (l.isOrgDirectoryLoaded = f),
-      (l.resetOrgDirectoryDownloads = g));
+    ((l.fetchOrgDirectory = f),
+      (l.loadOrgDirectoryMembers = g),
+      (l.isOrgDirectoryLoaded = h),
+      (l.resetOrgDirectoryDownloads = y));
   },
   98,
 );

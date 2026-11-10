@@ -40,8 +40,9 @@ __d(
       S = new Map(),
       R = -1 / 0,
       L = null,
-      E = new Set();
-    function k() {
+      E = new Set(),
+      k = (c || (c = n("Promise"))).resolve();
+    function I() {
       return (
         g != null ||
           (g = new (o("WAOneQueue").WAOneQueue)({
@@ -68,7 +69,7 @@ __d(
             scheduler: o(
               "WAWebOneQueuePromiseScheduler",
             ).makeOneQueuePromiseScheduler({
-              lifecycleListener: O,
+              lifecycleListener: B,
               name: _,
               timeoutMs: f,
             }),
@@ -76,19 +77,20 @@ __d(
         g
       );
     }
-    function I(e) {
+    function T(e) {
       var t = e.action,
         n = e.isOffline,
         r = e.waitForAdmission,
         a = function () {
-          return k().enqueue(
+          var e = I().enqueue(
             function () {
-              return t(B());
+              return t(W());
             },
             { flush: !n, operationType: "wa_web_message_queue" },
           );
+          return (n && (k = e), e);
         },
-        i = r == null ? a() : F(r, a);
+        i = r == null ? a() : O(r, a);
       return i.catch(function (e) {
         throw (
           e instanceof o("TaskSchedulerError").TaskSchedulerTimeoutError &&
@@ -100,21 +102,21 @@ __d(
         );
       });
     }
-    function T(e) {
+    function D(e) {
       var t = C,
         n = e.attrs.offline;
-      if (t == null || !n) return D;
-      x(parseInt(String(n), 10));
+      if (t == null || !n) return x;
+      $(parseInt(String(n), 10));
       var r = function () {
-        return $(t);
+        return P(t);
       };
-      return e.tag === "message" || e.tag === "status" ? r : (r(), D);
+      return e.tag === "message" || e.tag === "status" ? r : (r(), x);
     }
-    function D() {}
-    function x(e) {
-      (b > 0 && v >= b) || (v++, N().stanzaReceived(e));
-    }
+    function x() {}
     function $(e) {
+      (b > 0 && v >= b) || (v++, M().stanzaReceived(e));
+    }
+    function P(e) {
       var t;
       if (
         !(
@@ -123,13 +125,13 @@ __d(
             ((t = o("WAComms").getComms()) == null ? void 0 : t.socketId)
         )
       ) {
-        var n = N();
-        (n.stanzaProcessed(), n.shouldFlash() && P());
+        var n = M();
+        (n.stanzaProcessed(), n.shouldFlash() && N());
       }
     }
-    function P() {
-      A(function () {
-        return k().enqueue(
+    function N() {
+      F(function () {
+        return I().enqueue(
           function () {
             return (c || (c = n("Promise"))).resolve();
           },
@@ -147,7 +149,7 @@ __d(
           .sendLogs("one-queue-offline-batch-flush-failed", { sampling: 0.01 });
       });
     }
-    function N() {
+    function M() {
       return (
         y != null ||
           (y = new (o("WAPullMode").PullMode)(function (e) {
@@ -166,22 +168,22 @@ __d(
         y
       );
     }
-    function M(e) {
+    function w(e) {
       ((C = e > 0 ? { socketId: h } : null),
         (b = 0),
         (v = 0),
-        N().offlineStart());
+        M().offlineStart());
     }
-    function w() {
+    function A() {
       var e;
       ((C = null), (e = y) == null || e.clear());
     }
-    function A(e) {
+    function F(e) {
       return E.size === 0
         ? e()
         : (c || (c = n("Promise"))).allSettled(Array.from(E)).then(e);
     }
-    function F(e, t) {
+    function O(e, t) {
       var n = e();
       E.add(n);
       var r = function () {
@@ -189,7 +191,7 @@ __d(
       };
       return (n.then(r, r), n.then(t));
     }
-    function O(e) {
+    function B(e) {
       var t = self.performance.now();
       e: {
         var n = e;
@@ -235,7 +237,7 @@ __d(
         );
       }
     }
-    function B() {
+    function W() {
       var e = L;
       return (
         (L = null),
@@ -247,10 +249,10 @@ __d(
             }
       );
     }
-    function W(e) {
+    function q(e) {
       if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
-        var t = k();
-        (U(t),
+        var t = I();
+        (V(t),
           t.handleOfflineStartStanza({
             appdata: 0,
             count: e.count,
@@ -258,33 +260,33 @@ __d(
             notification: e.notification,
             receipt: e.receipt,
           }),
-          M(e.count));
+          w(e.count));
       }
     }
-    function q() {
+    function U() {
       var e;
       if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
-        var t = k();
+        var t = I();
         (h !== ((e = o("WAComms").getComms()) == null ? void 0 : e.socketId) &&
-          U(t),
-          V());
+          V(t),
+          H());
       }
     }
-    function U(e) {
+    function V(e) {
       var t;
       (e.newConnection(),
         (h = (t = o("WAComms").getComms()) == null ? void 0 : t.socketId));
     }
-    function V() {
+    function H() {
       if (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()) {
-        w();
-        var e = k(),
+        A();
+        var e = I(),
           t = h;
-        A(function () {
+        F(function () {
           return e.handleOfflineEndStanza(t);
         })
           .then(function () {
-            return H(t);
+            return G(t);
           })
           .catch(function (e) {
             o("WALogger").ERROR(
@@ -298,15 +300,15 @@ __d(
           });
       }
     }
-    function H(e) {
+    function G(e) {
       var t = e != null && e !== h ? "replaced" : "dropped",
-        n = k().waitForWAInfraOfflineSyncEnd();
-      return G(n).then(function (e) {
+        n = I().waitForWAInfraOfflineSyncEnd();
+      return z(n).then(function (e) {
         e &&
           o("WAWebOfflineResumeCounters").logOneQueueOfflineEndNotResolved(t);
       });
     }
-    function G(e) {
+    function z(e) {
       var t = {};
       return (c || (c = n("Promise"))).race([e, c.resolve(t)]).then(function (
         e,
@@ -314,16 +316,29 @@ __d(
         return e === t;
       }, o("WAWebBoolFunc").returnFalse);
     }
-    function z() {
-      return j.apply(this, arguments);
-    }
     function j() {
+      return K.apply(this, arguments);
+    }
+    function K() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (E.size > 0 &&
+            (yield (c || (c = n("Promise"))).allSettled(Array.from(E))),
+            yield k.catch(x));
+        })),
+        K.apply(this, arguments)
+      );
+    }
+    function Q() {
+      return X.apply(this, arguments);
+    }
+    function X() {
+      return (
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           E.size > 0 &&
             (yield (c || (c = n("Promise"))).allSettled(Array.from(E)));
           try {
-            yield k().enqueue(
+            yield I().enqueue(
               function () {
                 return (c || (c = n("Promise"))).resolve();
               },
@@ -341,16 +356,17 @@ __d(
               .sendLogs("one-queue-offline-drain-failed", { sampling: 0.01 });
           }
         })),
-        j.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    ((l.getWAWebOneQueue = k),
-      (l.enqueueOnOneQueue = I),
-      (l.countOfflineStanzaForPullMode = T),
-      (l.handleOneQueueOfflineStart = W),
-      (l.handleOneQueueOfflineIb = q),
-      (l.handleOneQueueOfflineEnd = V),
-      (l.waitForOneQueueOfflineWorkDrained = z));
+    ((l.getWAWebOneQueue = I),
+      (l.enqueueOnOneQueue = T),
+      (l.countOfflineStanzaForPullMode = D),
+      (l.handleOneQueueOfflineStart = q),
+      (l.handleOneQueueOfflineIb = U),
+      (l.handleOneQueueOfflineEnd = H),
+      (l.waitForOneQueueOfflineWorkProcessed = j),
+      (l.waitForOneQueueOfflineWorkDrained = Q));
   },
   98,
 );

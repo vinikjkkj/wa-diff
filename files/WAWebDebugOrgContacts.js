@@ -7,7 +7,6 @@ __d(
     "WAWebOrgAdminDirectoryAdapters",
     "WAWebOrgAdminFlowLoadable",
     "WAWebOrgCollection",
-    "WAWebOrgContactCollection",
     "WAWebOrgFetchDirectoryAction",
     "WAWebOrgRefreshListAction",
     "WAWebUserPrefsMeUser",
@@ -28,30 +27,29 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, n;
           r("vulture")("EVcoPsWPrNoNDb7yOwp5q89-0J8=");
-          var t = yield m(e),
-            n = new Set(t.populated),
-            a = o("WAWebOrgAdminDirectoryAdapters").toOrgAdminDirectoryMembers(
-              o("WAWebOrgContactCollection")
-                .OrgContactCollection.getOrgContactsForOrg(t.orgID)
+          var a = yield m(e),
+            i = new Set(a.populated),
+            l = o("WAWebOrgAdminDirectoryAdapters").toOrgAdminDirectoryMembers(
+              ((t =
+                (n = o("WAWebOrgCollection").OrgCollection.get(a.orgID)) == null
+                  ? void 0
+                  : n.members.toArray()) != null
+                ? t
+                : []
+              )
                 .filter(function (e) {
-                  return n.has(e.id);
+                  return i.has(e.id);
                 })
                 .map(function (e) {
-                  var n, r, o;
+                  var t;
                   return {
                     displayName: e.memberName,
                     lid: e.id,
-                    memberTag:
-                      (n =
-                        (r = e.orgMetadata[t.orgID]) == null
-                          ? void 0
-                          : r.memberTag) != null
-                        ? n
-                        : "",
+                    memberTag: (t = e.memberTag) != null ? t : "",
                     phoneNumber: e.phoneNumber,
-                    role:
-                      (o = e.orgMetadata[t.orgID]) == null ? void 0 : o.role,
+                    role: e.role,
                     username: e.username,
                   };
                 }),
@@ -61,23 +59,23 @@ __d(
               s.jsx(r("WAWebOrgAdminFlowLoadable"), {
                 initialPage: "people",
                 previewData: {
-                  directory: a,
+                  directory: l,
                   directoryTruncated: !1,
                   groups: [],
                   orgs: [
                     {
-                      id: t.orgID,
+                      id: a.orgID,
                       isMemberDirectoryEnabled: !0,
-                      memberCount: a.length,
-                      name: t.orgName,
+                      memberCount: l.length,
+                      name: a.orgName,
                       viewerRole: "ADMIN",
                     },
                   ],
-                  selectedOrgID: t.orgID,
+                  selectedOrgID: a.orgID,
                 },
               }),
             ),
-            t
+            a
           );
         })),
         d.apply(this, arguments)
@@ -91,30 +89,35 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, n;
           r("vulture")("ZEogMoZDjvp77dOrNw2VJK24ZWw=");
-          var t = yield f(e),
-            n = yield o("WAWebOrgFetchDirectoryAction").fetchOrgDirectory(t, {
+          var a = yield f(e),
+            i = yield o("WAWebOrgFetchDirectoryAction").fetchOrgDirectory(a, {
               createModels: !0,
             });
-          if (n.status === "failed") throw n.error;
+          if (i.status === "failed") throw i.error;
           _();
-          var a = [],
-            i = o(
-              "WAWebOrgContactCollection",
-            ).OrgContactCollection.getOrgContactsForOrg(t),
-            l = function* (t) {
+          var l = [],
+            s =
+              (t =
+                (n = o("WAWebOrgCollection").OrgCollection.get(a)) == null
+                  ? void 0
+                  : n.members.toArray()) != null
+                ? t
+                : [],
+            c = function* (t) {
               if (t.id === o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user)
                 return 0;
               var e = o("WAWebWidFactory").createUserLidOrThrow(t.id, "lid"),
                 n = o("WAWebApiContact").getPhoneNumber(e);
               if (n == null) return 0;
               var r = t.phoneNumber,
-                i = t.username;
+                a = t.username;
               (u.push(function () {
-                t.set({ phoneNumber: r, username: i });
+                t.set({ phoneNumber: r, username: a });
               }),
                 t.set({ phoneNumber: n.user, username: null }));
-              var l = function* () {
+              var i = function* () {
                 var e = o("WAWebContactCollection").ContactCollection.get(s),
                   t =
                     e != null
@@ -128,18 +131,18 @@ __d(
                 }),
                   t.set({ username: null }));
               };
-              for (var s of [e, n]) yield* l();
-              a.push(t.id);
+              for (var s of [e, n]) yield* i();
+              l.push(t.id);
             },
-            s;
-          for (var c of i) s = yield* l(c);
+            d;
+          for (var m of s) d = yield* c(m);
           return {
-            orgID: t,
+            orgID: a,
             orgName: r("nullthrows")(
-              o("WAWebOrgCollection").OrgCollection.get(t),
+              o("WAWebOrgCollection").OrgCollection.get(a),
             ).name,
-            populated: a,
-            skipped: i.length - a.length,
+            populated: l,
+            skipped: s.length - l.length,
           };
         })),
         p.apply(this, arguments)

@@ -63,7 +63,10 @@ __d(
             seeking: r.seeking,
           });
     }
-    function m(e, t) {
+    function m(e) {
+      return e.enableLive && e.manifestType === "dynamic" && !e.isLivePlayback;
+    }
+    function p(e, t) {
       var n,
         o,
         a,
@@ -80,40 +83,46 @@ __d(
                 ? n
                 : e.host.clock().perfMs)
             : 0,
-        m = d({
+        p = d({
           currentTimeAbsoluteMs: c,
           debugOverlay: l.debugOverlay,
           snapshot: s,
         }),
-        p = (a = t.scrollPositionAPI) == null ? void 0 : a.getCurrent(),
-        _ = 1,
-        f = !1;
+        _ = (a = t.scrollPositionAPI) == null ? void 0 : a.getCurrent(),
+        f = t.state === "linked_to_worker" ? t.dashManifestParsed.state : null,
+        g =
+          (f == null ? void 0 : f.state) === "parsed" &&
+          !m({
+            enableLive: l.enableLive,
+            isLivePlayback: l.isLivePlayback,
+            manifestType: f.data.metadata.manifestType,
+          })
+            ? f.data
+            : null,
+        h = 1,
+        y = !1;
       if ((u || (u = r("ExecutionEnvironment"))).canUseDOM) {
-        var g;
-        ((_ = (g = window.devicePixelRatio) != null ? g : 1),
-          (f = document.hidden));
+        var C;
+        ((h = (C = window.devicePixelRatio) != null ? C : 1),
+          (y = document.hidden));
       }
       return {
         abrConfig: t.abrConfig,
         configFromMain: l,
-        dashManifestData:
-          t.state === "linked_to_worker" &&
-          t.dashManifestParsed.state.state === "parsed"
-            ? t.dashManifestParsed.state.data
-            : null,
-        devicePixelRatio: _,
-        isDocumentHidden: f,
-        mediaElementSnapshot: m,
+        dashManifestData: g,
+        devicePixelRatio: h,
+        isDocumentHidden: y,
+        mediaElementSnapshot: p,
         mediaSourceIndexApplied:
           (i = t.mediaElement.state.mediaSourceIndex) != null ? i : null,
         playerViewportDimensions: t.playerViewportDimensions,
-        scrollPositionInfo: p,
+        scrollPositionInfo: _,
         selectedMediaVariant: t.selectedMediaVariant,
         selectedVideoQualityDisplayLabel: t.selectedVideoQualityDisplayLabel,
         shouldSendPlayerStateForDebug: t.shouldSendPlayerStateForDebug,
       };
     }
-    function p(e) {
+    function _(e) {
       return function (t, n, r) {
         e(
           {
@@ -125,7 +134,7 @@ __d(
         );
       };
     }
-    var _ = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
+    var f = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
       null,
       function (e) {
         var t = e.args,
@@ -171,6 +180,7 @@ __d(
           lastDashManifestUrl: null,
           lastForcedWorkerKickPerfMs: null,
           liveConsecutiveWatchdogKicks: 0,
+          liveEdgeIslandWaitingSincePerfMs: null,
           liveLatencyPlaybackRate: {
             appliedRate: 1,
             changedAtPerfMs: null,
@@ -181,6 +191,7 @@ __d(
           liveManifestRefreshTimerHandle: null,
           liveNoProgressWatchdogTimerHandle: null,
           liveStartTimestampSecIsManifestDerived: !1,
+          liveWatchdogWasPaused: !0,
           mediaElement: d(
             "mediaElement",
             o("VideoPlayerNextgendashMediaElement")
@@ -237,95 +248,95 @@ __d(
           l = n.onManifestUpdated,
           u = n.onPrefetchCacheResult,
           d = n.onSendHaltedToWorkerChanged,
-          _ = n.onVideoRepresentationChanged,
-          S = n.playerInstanceKey,
-          I = n.playerSubOrigin,
-          U = n.prefetchResultInitial,
-          V = n.videoFBID,
-          H = n.workerPortFactories,
-          G = t.env,
-          z = t.event,
-          j = t.makeChildSm,
-          K = t.sendToOther,
-          Q = t.sendToSelf,
-          X = t.state,
+          m = n.onVideoRepresentationChanged,
+          f = n.playerInstanceKey,
+          R = n.playerSubOrigin,
+          I = n.prefetchResultInitial,
+          T = n.videoFBID,
+          D = n.workerPortFactories,
+          x = t.env,
+          $ = t.event,
+          N = t.makeChildSm,
+          Y = t.sendToOther,
+          J = t.sendToSelf,
+          Z = t.state,
           ee = t.unexpectedEvent;
-        if (X.state !== "__disposed__" && z.type === "debug_config")
-          return X.state === "linked_to_worker"
-            ? y(
-                G,
-                S,
-                babelHelpers.extends({}, X, {
+        if (Z.state !== "__disposed__" && $.type === "debug_config")
+          return Z.state === "linked_to_worker"
+            ? C(
+                x,
+                f,
+                babelHelpers.extends({}, Z, {
                   shouldSendPlayerStateForDebug:
-                    z.shouldSendPlayerStateForDebug,
+                    $.shouldSendPlayerStateForDebug,
                 }),
-                z.type,
+                $.type,
               )
-            : babelHelpers.extends({}, X, {
-                shouldSendPlayerStateForDebug: z.shouldSendPlayerStateForDebug,
+            : babelHelpers.extends({}, Z, {
+                shouldSendPlayerStateForDebug: $.shouldSendPlayerStateForDebug,
               });
-        if (X.state !== "__disposed__" && z.type === "_log_player_warning")
-          return (de(z.warning), X);
+        if (Z.state !== "__disposed__" && $.type === "_log_player_warning")
+          return (ne($.warning), Z);
         if (
-          X.state !== "__disposed__" &&
-          z.type === "update_player_viewport_dimensions"
+          Z.state !== "__disposed__" &&
+          $.type === "update_player_viewport_dimensions"
         )
-          return babelHelpers.extends({}, X, {
-            playerViewportDimensions: z.playerViewportDimensions,
+          return babelHelpers.extends({}, Z, {
+            playerViewportDimensions: $.playerViewportDimensions,
           });
         if (
-          X.state !== "__disposed__" &&
-          z.type === "update_expired_video_url_refresh_handler"
+          Z.state !== "__disposed__" &&
+          $.type === "update_expired_video_url_refresh_handler"
         ) {
-          K(X.dashManifestParsed, {
+          Y(Z.dashManifestParsed, {
             expiredVideoUrlRefreshHandlerState:
-              z.expiredVideoUrlRefreshHandlerState,
+              $.expiredVideoUrlRefreshHandlerState,
             type: "update_expired_video_url_refresh_handler",
           });
           return;
         }
         if (
-          X.state !== "__disposed__" &&
-          z.type === "update_scroll_position_api"
+          Z.state !== "__disposed__" &&
+          $.type === "update_scroll_position_api"
         ) {
-          X.scrollPositionSubscription != null &&
-            X.scrollPositionSubscription.remove();
-          var le = null;
+          Z.scrollPositionSubscription != null &&
+            Z.scrollPositionSubscription.remove();
+          var te = null;
           return (
-            (le = z.scrollPositionAPI.subscribe(function () {
-              Q({ type: "_send_state_to_worker" });
+            (te = $.scrollPositionAPI.subscribe(function () {
+              J({ type: "_send_state_to_worker" });
             })),
-            X.state === "linked_to_worker"
-              ? y(
-                  G,
-                  S,
-                  babelHelpers.extends({}, X, {
-                    scrollPositionAPI: z.scrollPositionAPI,
-                    scrollPositionSubscription: le,
+            Z.state === "linked_to_worker"
+              ? C(
+                  x,
+                  f,
+                  babelHelpers.extends({}, Z, {
+                    scrollPositionAPI: $.scrollPositionAPI,
+                    scrollPositionSubscription: te,
                   }),
-                  z.type,
+                  $.type,
                 )
-              : babelHelpers.extends({}, X, {
-                  scrollPositionAPI: z.scrollPositionAPI,
-                  scrollPositionSubscription: le,
+              : babelHelpers.extends({}, Z, {
+                  scrollPositionAPI: $.scrollPositionAPI,
+                  scrollPositionSubscription: te,
                 })
           );
         }
-        function de(e) {
-          X.state !== "__disposed__" &&
-            G.logging.log(G, {
+        function ne(e) {
+          Z.state !== "__disposed__" &&
+            x.logging.log(x, {
               error: o("nextgendasherr").nextgendasherrFromCause(
-                G,
+                x,
                 e,
-                "VideoPlayerNextgendashMainWith" + X.workerType,
+                "VideoPlayerNextgendashMainWith" + Z.workerType,
               ),
               type: "generic_error_as_warning",
             });
         }
-        function pe(e) {
+        function re(e) {
           var t = o(
             "VideoPlayerNextgendashConnectionMainToWorker",
-          ).connectToWorker(G, H, e, S, function (e) {
+          ).connectToWorker(x, D, e, f, function (e) {
             if (e.type === "from_worker_to_main_prefetch_cache_result") {
               u == null ||
                 u({
@@ -335,43 +346,43 @@ __d(
                 });
               return;
             }
-            Q(e);
+            J(e);
           });
           return (d == null || d(t.sendHaltedToWorker), t);
         }
-        function _e(e, t) {
+        function oe(e, t) {
           (d == null || d(null),
             e.sendToWorker({
               eventToWorker: {
-                playerInstanceKey: S,
+                playerInstanceKey: f,
                 type: "from_main_to_worker_unlink_player",
               },
               type: "send_to_worker",
             }),
             e.disconnectFromWorker(t));
         }
-        function fe(t) {
+        function ae(t) {
           if (
-            X.state !== "__disposed__" &&
-            (X.workerType === "RealWorker" || X.workerType === "RealWorkerV2")
+            Z.state !== "__disposed__" &&
+            (Z.workerType === "RealWorker" || Z.workerType === "RealWorkerV2")
           ) {
             var n,
               r = o("nextgendasherr").nextgendasherrFromCause(
-                G,
+                x,
                 t,
                 "VideoPlayerNextgendashMainWith" +
-                  X.workerType +
+                  Z.workerType +
                   "/FallbackToVirtualWorker",
-                "Fallback to VirtualWorker from " + X.workerType,
+                "Fallback to VirtualWorker from " + Z.workerType,
               );
-            G.logging.log(G, { error: r, type: "generic_error" });
-            var a = X.playerStateForDebug,
-              i = X.playerStateFromMainSent,
-              l = X.playerStateFromWorker,
-              s = X.workerConnection,
-              u = babelHelpers.objectWithoutPropertiesLoose(X, e);
+            x.logging.log(x, { error: r, type: "generic_error" });
+            var a = Z.playerStateForDebug,
+              i = Z.playerStateFromMainSent,
+              l = Z.playerStateFromWorker,
+              s = Z.workerConnection,
+              u = babelHelpers.objectWithoutPropertiesLoose(Z, e);
             return (
-              s != null && _e(s, r),
+              s != null && oe(s, r),
               babelHelpers.extends({}, u, {
                 pendingEvents: (n = u.pendingEvents) != null ? n : [],
                 state: "waiting_worker_connection",
@@ -380,7 +391,7 @@ __d(
             );
           } else throw t;
         }
-        function ge(e, t, n, r) {
+        function ue(e, t, n, r) {
           var o =
             r != null
               ? {
@@ -401,11 +412,11 @@ __d(
               "Expected either mediaSourceHandle or mediaSource from Worker.",
             );
           (r != null &&
-            (G.host.mediaSinkReceivedSourceHandle == null ||
-              G.host.mediaSinkReceivedSourceHandle(G, r)),
-            K(e, o));
+            (x.host.mediaSinkReceivedSourceHandle == null ||
+              x.host.mediaSinkReceivedSourceHandle(x, r)),
+            Y(e, o));
         }
-        function he(e, t) {
+        function ge(e, t) {
           var n,
             r,
             o =
@@ -417,16 +428,16 @@ __d(
                 ? r
                 : null;
           a !== o &&
-            G.workQueue.enqueueWork(function () {
-              _(o, a);
+            x.workQueue.enqueueWork(function () {
+              m(o, a);
             });
         }
-        function ye(e, t) {
+        function he(e, t) {
           var n = t.dashManifestUrl,
             a = t.dashManifestXmlString;
           if (a != null)
             return (
-              K(e.dashManifestParsed, {
+              Y(e.dashManifestParsed, {
                 baseURLFallback: n,
                 dashManifestXmlString: a,
                 type: "parse_dash_manifest_xml",
@@ -440,24 +451,24 @@ __d(
             l = null,
             s = null;
           if (n != null) {
-            ((s = G.host.clock().perfMs), (i += 1));
+            ((s = x.host.clock().perfMs), (i += 1));
             var u = {
               qplName: "dash_manifest_from_url",
-              requestCreatedClock: G.host.clock(),
+              requestCreatedClock: x.host.clock(),
               requestID: "dash_manifest_from_url_" + i,
               requestInfo: n,
               responseMode: "text",
             };
-            ((l = j(
+            ((l = N(
               "dashManifestFromUrl",
               o("VideoPlayerNextgendashFetchedResource")
                 .VideoPlayerNextgendashFetchedResourceSM,
               {
                 onNetworkDiagnostics: r("emptyFunction"),
-                onTransitioned: G.config.releasePastStateMachineStates
-                  ? p(Q)
+                onTransitioned: x.config.releasePastStateMachineStates
+                  ? _(J)
                   : function (e, t, n) {
-                      Q(
+                      J(
                         {
                           fromState: e,
                           toState: t,
@@ -469,7 +480,7 @@ __d(
                 request: u,
               },
             )),
-              K(l, { type: "start" }));
+              Y(l, { type: "start" }));
           }
           return babelHelpers.extends({}, e, {
             dashManifestFromUrl: l,
@@ -478,41 +489,41 @@ __d(
             lastDashManifestUrl: n != null ? n : e.lastDashManifestUrl,
           });
         }
-        switch (X.state) {
+        switch (Z.state) {
           case "waiting_worker_connection":
-            switch (z.type) {
+            switch ($.type) {
               case "__enter": {
-                var Ce = pe(X.workerType);
+                var ve = re(Z.workerType);
                 return (
-                  Ce.sendToWorker({
+                  ve.sendToWorker({
                     eventToWorker: {
                       nextgendashInstanceIndex: a,
-                      playerInstanceKey: S,
-                      playerStateFromMain: m(G, X),
-                      playerSubOrigin: I,
+                      playerInstanceKey: f,
+                      playerStateFromMain: p(x, Z),
+                      playerSubOrigin: R,
                       prefetchKey:
-                        V != null
+                        T != null
                           ? o(
                               "VideoPlayerNextgendashWorkerPrefetchCache",
                             ).getVideoPlayerNextgendashPrefetchKeyForSink(
-                              V,
-                              G.config.mediaSinkType,
+                              T,
+                              x.config.mediaSinkType,
                             )
                           : null,
-                      prefetchResultInitial: U,
+                      prefetchResultInitial: I,
                       type: "from_main_to_worker_link_player",
-                      videoFBID: V,
+                      videoFBID: T,
                     },
                     type: "send_to_worker",
                   }),
-                  babelHelpers.extends({}, X, {
+                  babelHelpers.extends({}, Z, {
                     state: "waiting_linked_to_worker",
-                    workerConnection: Ce,
+                    workerConnection: ve,
                   })
                 );
               }
               case "__exception":
-                return fe(z.exception);
+                return ae($.exception);
               case "__dispose":
                 return;
               case "debug_config":
@@ -522,18 +533,18 @@ __d(
               case "update_player_viewport_dimensions":
                 return;
               case "update_dash_manifest":
-                return G.config.handleUpdateDashManifestInWaitingStates
-                  ? ye(X, z)
-                  : (X.pendingEvents.push(z), X);
+                return x.config.handleUpdateDashManifestInWaitingStates
+                  ? he(Z, $)
+                  : (Z.pendingEvents.push($), Z);
               case "update_scroll_position_api":
                 return;
               default:
-                return (z.type, X.pendingEvents.push(z), X);
+                return ($.type, Z.pendingEvents.push($), Z);
             }
           case "waiting_linked_to_worker":
-            switch (z.type) {
+            switch ($.type) {
               case "__enter": {
-                var be = X.pendingEvents.reduce(
+                var Re = Z.pendingEvents.reduce(
                     function (e, t) {
                       return (
                         t.type ===
@@ -555,17 +566,17 @@ __d(
                       thisStatePendingEvents: [],
                     },
                   ),
-                  ve = be.nextStatePendingEvents,
-                  Se = be.thisStatePendingEvents;
+                  Le = Re.nextStatePendingEvents,
+                  Ee = Re.thisStatePendingEvents;
                 return (
-                  Se.forEach(function (e) {
-                    Q(e);
+                  Ee.forEach(function (e) {
+                    J(e);
                   }),
-                  babelHelpers.extends({}, X, { pendingEvents: ve })
+                  babelHelpers.extends({}, Z, { pendingEvents: Le })
                 );
               }
               case "__exception":
-                return fe(z.exception);
+                return ae($.exception);
               case "__dispose":
                 return;
               case "debug_config":
@@ -575,48 +586,48 @@ __d(
               case "update_player_viewport_dimensions":
                 return;
               case "from_worker_to_main_player_new_media_source": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                ge(
-                  X.mediaElement,
-                  z.mediaSourceIndex,
-                  z.mediaSource,
-                  z.mediaSourceHandle,
+                ue(
+                  Z.mediaElement,
+                  $.mediaSourceIndex,
+                  $.mediaSource,
+                  $.mediaSourceHandle,
                 );
-                var Re = X.pendingEvents,
-                  Le = babelHelpers.objectWithoutPropertiesLoose(X, s);
+                var ke = Z.pendingEvents,
+                  Ie = babelHelpers.objectWithoutPropertiesLoose(Z, s);
                 return (
-                  Re.forEach(function (e) {
-                    Q(e);
+                  ke.forEach(function (e) {
+                    J(e);
                   }),
-                  babelHelpers.extends({}, Le, {
-                    playerStateForDebug: g(
-                      z.playerStateForDebug,
-                      X.mediaElement.state.mediaElementSnapshot,
+                  babelHelpers.extends({}, Ie, {
+                    playerStateForDebug: h(
+                      $.playerStateForDebug,
+                      Z.mediaElement.state.mediaElementSnapshot,
                     ),
                     playerStateFromMainSent: null,
                     playerStateFromWorker: o(
                       "VideoPlayerNextgendashStateMachine",
-                    ).skipAutoDisposeInsideThisObject(z.playerStateFromWorker),
+                    ).skipAutoDisposeInsideThisObject($.playerStateFromWorker),
                     state: "linked_to_worker",
                   })
                 );
               }
               case "from_worker_to_main_player_unlinked": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                Q({
+                J({
                   exception:
-                    z.exceptionSnapshot != null
+                    $.exceptionSnapshot != null
                       ? o("nextgendasherr").nextgendasherrFromCause(
-                          G,
+                          x,
                           o("nextgendasherr").nextgendasherrFromSnapshot(
-                            z.exceptionSnapshot,
+                            $.exceptionSnapshot,
                           ),
                           "VideoPlayerNextgendashMainUnexpectedUnlinkedBeforeLinked",
                         )
                       : o("nextgendasherr").nextgendasherr(
-                          G,
+                          x,
                           "VideoPlayerNextgendashMainUnexpectedUnlinkedBeforeLinked",
                         ),
                   type: "__exception",
@@ -624,23 +635,23 @@ __d(
                 return;
               }
               case "from_worker_to_main_player_warning": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                de(
+                ne(
                   o("nextgendasherr").nextgendasherrFromSnapshot(
-                    z.warningErrorSnapshot,
+                    $.warningErrorSnapshot,
                   ),
                 );
                 return;
               }
               case "from_worker_to_main_player_fatal_error": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                Q({
+                J({
                   exception: o("nextgendasherr").nextgendasherrFromCause(
-                    G,
+                    x,
                     o("nextgendasherr").nextgendasherrFromSnapshot(
-                      z.errorSnapshot,
+                      $.errorSnapshot,
                     ),
                     "VideoPlayerNextgendashMainFatalFromWorkerPlayerBeforeLinked",
                   ),
@@ -649,392 +660,454 @@ __d(
                 return;
               }
               case "update_dash_manifest":
-                return G.config.handleUpdateDashManifestInWaitingStates
-                  ? ye(X, z)
-                  : (X.pendingEvents.push(z), X);
+                return x.config.handleUpdateDashManifestInWaitingStates
+                  ? he(Z, $)
+                  : (Z.pendingEvents.push($), Z);
               case "update_scroll_position_api":
                 return;
               default:
-                return (z.type, X.pendingEvents.push(z), X);
+                return ($.type, Z.pendingEvents.push($), Z);
             }
           case "linked_to_worker":
-            switch (z.type) {
+            switch ($.type) {
               case "__enter": {
-                he(z.prevState.playerStateFromWorker, X.playerStateFromWorker);
+                ge($.prevState.playerStateFromWorker, Z.playerStateFromWorker);
                 return;
               }
               case "__exception":
-                return G.config.isLivePlayback &&
-                  z.exception.name.includes("DashManifest")
-                  ? (G.logging.log(G, {
-                      error: z.exception,
+                return x.config.isLivePlayback &&
+                  $.exception.name.includes("DashManifest")
+                  ? (x.logging.log(x, {
+                      error: $.exception,
                       format:
                         "live manifest-refresh __exception absorbed in linked_to_worker",
                       type: "generic_error_as_warning",
                     }),
-                    X)
+                    Z)
                   : void 0;
               case "__dispose": {
-                f(
-                  G,
+                g(
+                  x,
                   "explicit",
-                  X.liveManifestRefreshTimerHandle,
-                  X.liveNoProgressWatchdogTimerHandle,
+                  Z.liveManifestRefreshTimerHandle,
+                  Z.liveNoProgressWatchdogTimerHandle,
                 );
                 return;
               }
               case "_dash_manifest_from_url_transitioned": {
                 if (
-                  (b(G, z.fromState, z.toState, X.dashManifestParsed, Q, K),
-                  G.config.enableLive &&
-                    X.lastDashManifestUrl != null &&
-                    z.toState.state === "failed")
+                  (v(x, $.fromState, $.toState, Z.dashManifestParsed, J, Y),
+                  x.config.enableLive &&
+                    Z.lastDashManifestUrl != null &&
+                    $.toState.state === "failed")
                 ) {
-                  X.liveManifestRefreshTimerHandle != null &&
-                    G.host.timers.clearTimeout(
-                      X.liveManifestRefreshTimerHandle,
+                  Z.liveManifestRefreshTimerHandle != null &&
+                    x.host.timers.clearTimeout(
+                      Z.liveManifestRefreshTimerHandle,
                     );
-                  var Ee = X.liveManifestRefreshRetryCount,
-                    ke = o(
+                  var Te = Z.liveManifestRefreshRetryCount,
+                    De = o(
                       "VideoPlayerNextgendashRetryLogic",
                     ).calculateExponentialDelayWithJitter(
-                      ne,
-                      Ee,
-                      G.host.random.random,
+                      de,
+                      Te,
+                      x.host.random.random,
                     ),
-                    Ie = G.host.timers.setTimeout(function () {
-                      Q({ type: "_manifest_refresh_timer_fired" });
-                    }, ke);
-                  return babelHelpers.extends({}, X, {
-                    liveManifestRefreshRetryCount: Ee + 1,
-                    liveManifestRefreshTimerHandle: Ie,
+                    xe = x.host.timers.setTimeout(function () {
+                      J({ type: "_manifest_refresh_timer_fired" });
+                    }, De);
+                  return babelHelpers.extends({}, Z, {
+                    liveManifestRefreshRetryCount: Te + 1,
+                    liveManifestRefreshTimerHandle: xe,
                   });
                 }
                 return;
               }
               case "_dash_manifest_parsed_transitioned": {
-                var Te = v(G, X, z.fromState, z.toState, Q, l),
-                  De = Te != null ? Te : X;
-                if (z.toState.state === "parsed") {
-                  var xe,
-                    $e = se(G, De, z.toState),
-                    Pe =
-                      $e.liveManifestRefreshRetryCount > 0
-                        ? babelHelpers.extends({}, $e, {
+                var $e = S(x, Z, $.fromState, $.toState, J, l),
+                  Pe = $e != null ? $e : Z;
+                if ($.toState.state === "parsed") {
+                  var Ne,
+                    Me = ye(x, Pe, $.toState),
+                    we =
+                      Me.liveManifestRefreshRetryCount > 0
+                        ? babelHelpers.extends({}, Me, {
                             liveManifestRefreshRetryCount: 0,
                           })
-                        : $e,
-                    Ne = (xe = re(G, Pe, z.toState, Q)) != null ? xe : Pe;
-                  return q(G, Ne, Q);
+                        : Me,
+                    Ae = (Ne = me(x, we, $.toState, J)) != null ? Ne : we,
+                    Fe = X(x, Ae, J);
+                  return x.config.isLivePlayback ? C(x, f, Fe, $.type) : Fe;
                 }
                 if (
-                  G.config.isLivePlayback &&
-                  G.config.enableLive &&
-                  De.lastDashManifestUrl != null &&
-                  z.toState.state === "failed_to_parse"
+                  x.config.isLivePlayback &&
+                  x.config.enableLive &&
+                  Pe.lastDashManifestUrl != null &&
+                  $.toState.state === "failed_to_parse"
                 ) {
-                  De.liveManifestRefreshTimerHandle != null &&
-                    G.host.timers.clearTimeout(
-                      De.liveManifestRefreshTimerHandle,
+                  Pe.liveManifestRefreshTimerHandle != null &&
+                    x.host.timers.clearTimeout(
+                      Pe.liveManifestRefreshTimerHandle,
                     );
-                  var Me = De.liveManifestRefreshRetryCount,
-                    we = o(
+                  var Oe = Pe.liveManifestRefreshRetryCount,
+                    Be = o(
                       "VideoPlayerNextgendashRetryLogic",
                     ).calculateExponentialDelayWithJitter(
-                      ne,
-                      Me,
-                      G.host.random.random,
+                      de,
+                      Oe,
+                      x.host.random.random,
                     ),
-                    Ae = G.host.timers.setTimeout(function () {
-                      Q({ type: "_manifest_refresh_timer_fired" });
-                    }, we);
-                  return babelHelpers.extends({}, De, {
-                    liveManifestRefreshRetryCount: Me + 1,
-                    liveManifestRefreshTimerHandle: Ae,
+                    We = x.host.timers.setTimeout(function () {
+                      J({ type: "_manifest_refresh_timer_fired" });
+                    }, Be);
+                  return babelHelpers.extends({}, Pe, {
+                    liveManifestRefreshRetryCount: Oe + 1,
+                    liveManifestRefreshTimerHandle: We,
                   });
                 }
-                return Te;
+                return $e;
               }
               case "_manifest_refresh_timer_fired": {
-                var Fe = X.lastDashManifestUrl,
-                  Oe = X.dashManifestParsed.state;
+                var qe = Z.lastDashManifestUrl,
+                  Ue = Z.dashManifestParsed.state;
                 if (
-                  !G.config.enableLive ||
-                  Fe == null ||
-                  Oe.state !== "parsed" ||
-                  Oe.data.metadata.manifestType !== "dynamic"
+                  !x.config.enableLive ||
+                  qe == null ||
+                  Ue.state !== "parsed" ||
+                  Ue.data.metadata.manifestType !== "dynamic"
                 )
-                  return X.liveManifestRefreshTimerHandle != null
-                    ? (G.host.timers.clearTimeout(
-                        X.liveManifestRefreshTimerHandle,
+                  return Z.liveManifestRefreshTimerHandle != null
+                    ? (x.host.timers.clearTimeout(
+                        Z.liveManifestRefreshTimerHandle,
                       ),
-                      babelHelpers.extends({}, X, {
+                      babelHelpers.extends({}, Z, {
                         liveManifestRefreshTimerHandle: null,
                       }))
                     : void 0;
-                var Be = G.host.timers.setTimeout(
+                var Ve = x.host.timers.setTimeout(
                     function () {
-                      Q({ type: "_manifest_refresh_timer_fired" });
+                      J({ type: "_manifest_refresh_timer_fired" });
                     },
-                    oe(G, Oe.data),
+                    pe(x, Ue.data),
                   ),
-                  We = G.host.clock().perfMs,
-                  qe = ae(X.dashManifestFromUrl);
+                  He = x.host.clock().perfMs,
+                  Ge = _e(Z.dashManifestFromUrl);
                 if (
-                  !ie({
-                    fetchInFlight: qe,
-                    fetchStartedPerfMs: X.dashManifestFromUrlStartedPerfMs,
-                    fetchTimeoutMs: te,
-                    nowPerfMs: We,
+                  !fe({
+                    fetchInFlight: Ge,
+                    fetchStartedPerfMs: Z.dashManifestFromUrlStartedPerfMs,
+                    fetchTimeoutMs: ce,
+                    nowPerfMs: He,
                   })
                 )
-                  return babelHelpers.extends({}, X, {
-                    liveManifestRefreshTimerHandle: Be,
+                  return babelHelpers.extends({}, Z, {
+                    liveManifestRefreshTimerHandle: Ve,
                   });
-                qe &&
-                  G.logging.log(G, {
+                Ge &&
+                  x.logging.log(x, {
                     format:
                       "live manifest refresh fetch did not finish within %sms, replacing it",
-                    params: [String(te)],
+                    params: [String(ce)],
                     type: "generic_warning",
                   });
-                var Ue = ye(X, {
-                  dashManifestUrl: Fe,
+                var ze = he(Z, {
+                  dashManifestUrl: qe,
                   dashManifestXmlString: null,
                   type: "update_dash_manifest",
                 });
-                return babelHelpers.extends({}, Ue, {
-                  liveManifestRefreshTimerHandle: Be,
+                return babelHelpers.extends({}, ze, {
+                  liveManifestRefreshTimerHandle: Ve,
                 });
               }
               case "_live_no_progress_watchdog_tick": {
-                var Ve, He, Ge, ze, je, Ke, Qe;
+                var je, Ke, Qe, Xe, Ye, Je, Ze, et, tt, nt;
                 if (
-                  !G.config.isLivePlayback ||
-                  !G.config.enableLive ||
-                  G.config.liveNoProgressWatchdogThresholdSec <= 0
+                  !x.config.isLivePlayback ||
+                  !x.config.enableLive ||
+                  x.config.liveNoProgressWatchdogThresholdSec <= 0
                 )
-                  return X.liveNoProgressWatchdogTimerHandle != null
-                    ? (G.host.timers.clearTimeout(
-                        X.liveNoProgressWatchdogTimerHandle,
+                  return Z.liveNoProgressWatchdogTimerHandle != null
+                    ? (x.host.timers.clearTimeout(
+                        Z.liveNoProgressWatchdogTimerHandle,
                       ),
-                      babelHelpers.extends({}, X, {
+                      babelHelpers.extends({}, Z, {
                         liveNoProgressWatchdogTimerHandle: null,
                       }))
                     : void 0;
-                var Xe = X.mediaElement.state.mediaElementSnapshot,
-                  Ye = c(G, X),
-                  Je = G.host.clock().perfMs,
-                  Ze = $(X.playheadLastSeenTimeSec, Ye, L),
-                  et = Ze ? Je : X.playheadLastMovedAtPerfMs,
-                  tt = Ze ? Ye : X.playheadLastSeenTimeSec,
-                  nt = Xe != null ? P(Xe.buffered, Ye) : null,
-                  rt = Xe != null ? N(Xe.buffered, Ye) : null,
-                  ot = Z({
-                    currentTimeSec: Ye,
-                    liveEdgeOffsetSec: me,
-                    liveEdgeTimeSec: X.playerStateFromWorker.liveEdgeTimeSec,
-                    maxSeekTargetSec: rt,
-                    minBehindLiveEdgeSec: J,
+                var rt = Z.mediaElement.state.mediaElementSnapshot,
+                  ot = c(x, Z),
+                  at = x.host.clock().perfMs,
+                  it = O(Z.playheadLastSeenTimeSec, ot, E),
+                  lt = (je = rt == null ? void 0 : rt.paused) != null ? je : !0,
+                  st = lt
+                    ? {
+                        forceKickPlayheadLastMovedAtPerfMs: at,
+                        forceKickPlayheadLastSeenTimeSec:
+                          ot != null ? ot : Z.forceKickPlayheadLastSeenTimeSec,
+                      }
+                    : null,
+                  ut = F({
+                    currentTimeSec: ot,
+                    lastMovedAtPerfMs: Z.playheadLastMovedAtPerfMs,
+                    lastSeenTimeSec: Z.playheadLastSeenTimeSec,
+                    nowPerfMs: at,
+                    paused: lt,
+                    progressed: it,
                   }),
-                  at = M({
-                    bufferedAheadSec: nt,
+                  ct = ut.lastMovedAtPerfMs,
+                  dt = ut.lastSeenTimeSec,
+                  mt = rt != null ? B(rt.buffered, ot) : null,
+                  pt = rt != null ? W(rt.buffered, ot) : null,
+                  _t = se({
+                    currentTimeSec: ot,
+                    liveEdgeOffsetSec: Se,
+                    liveEdgeTimeSec: Z.playerStateFromWorker.liveEdgeTimeSec,
+                    maxSeekTargetSec: pt,
+                    minBehindLiveEdgeSec: le,
+                  }),
+                  ft = q({
+                    bufferedAheadSec: mt,
                     ended:
-                      (Ve = Xe == null ? void 0 : Xe.ended) != null ? Ve : !1,
-                    hasError: (Xe == null ? void 0 : Xe.error) != null,
-                    lastMovedAtPerfMs: et,
-                    liveCatchUpSeekTargetSec: ot,
-                    nowPerfMs: Je,
+                      (Ke = rt == null ? void 0 : rt.ended) != null ? Ke : !1,
+                    hasError: (rt == null ? void 0 : rt.error) != null,
+                    lastMovedAtPerfMs: ct,
+                    liveCatchUpSeekTargetSec: _t,
+                    nowPerfMs: at,
                     paused:
-                      (He = Xe == null ? void 0 : Xe.paused) != null ? He : !0,
+                      (Qe = rt == null ? void 0 : rt.paused) != null ? Qe : !0,
                     seeking:
-                      (Ge = Xe == null ? void 0 : Xe.seeking) != null ? Ge : !1,
-                    starvationBufferAheadSec: R,
-                    thresholdSec: G.config.liveNoProgressWatchdogThresholdSec,
+                      (Xe = rt == null ? void 0 : rt.seeking) != null ? Xe : !1,
+                    starvationBufferAheadSec: L,
+                    thresholdSec: x.config.liveNoProgressWatchdogThresholdSec,
                   }),
-                  it = W(G, Q),
-                  lt = A(X.liveConsecutiveWatchdogKicks, Ze, at),
-                  st = O(
-                    (ze =
-                      (je = X.playerStateFromWorker) == null
+                  gt = Q(x, J),
+                  ht = V(Z.liveConsecutiveWatchdogKicks, it, ft),
+                  yt = j(
+                    (Ye =
+                      (Je = Z.playerStateFromWorker) == null
                         ? void 0
-                        : je.liveEdgeTimeSec) != null
-                      ? ze
+                        : Je.liveEdgeTimeSec) != null
+                      ? Ye
                       : null,
-                    Ye,
-                    G.config.liveFellBehindEdgeReseekDriftSec,
+                    ot,
+                    x.config.liveFellBehindEdgeReseekDriftSec,
                   ),
-                  ut =
-                    G.config.liveProactiveEdgeReseekEnabled &&
-                    B({
-                      followEdgeActive: G.config.liveFollowEdgeActive,
-                      largeDrift: st,
+                  Ct = H(
+                    (Ze =
+                      (et = Z.playerStateFromWorker) == null
+                        ? void 0
+                        : et.liveEdgeTimeSec) != null
+                      ? Ze
+                      : null,
+                    ot,
+                    k,
+                    P,
+                  ),
+                  bt =
+                    x.config.liveProactiveEdgeReseekToIslandEnabled &&
+                    rt != null &&
+                    ot != null
+                      ? G(rt.buffered, ot, Ct)
+                      : null,
+                  vt =
+                    x.config.liveProactiveEdgeReseekEnabled &&
+                    K({
+                      followEdgeActive: x.config.liveFollowEdgeActive,
+                      largeDrift: yt,
                       paused:
-                        (Ke = Xe == null ? void 0 : Xe.paused) != null
-                          ? Ke
+                        (tt = rt == null ? void 0 : rt.paused) != null
+                          ? tt
                           : !0,
                       seeking:
-                        (Qe = Xe == null ? void 0 : Xe.seeking) != null
-                          ? Qe
+                        (nt = rt == null ? void 0 : rt.seeking) != null
+                          ? nt
                           : !1,
-                      shouldKick: at,
-                    });
+                      shouldKick: ft,
+                    }),
+                  St = z({
+                    bufferedAheadSec: mt,
+                    islandGateEnabled:
+                      x.config.liveProactiveEdgeReseekToIslandEnabled,
+                    islandTargetSec: bt,
+                    nowPerfMs: at,
+                    reseekWanted: vt,
+                    waitingSincePerfMs: Z.liveEdgeIslandWaitingSincePerfMs,
+                  }),
+                  Rt = vt && St.canReseek;
                 if (
-                  (at &&
-                    (st || w(lt, G.config.liveStallReseekToEdgeAfterKicks))) ||
-                  ut
+                  (ft &&
+                    (yt || U(ht, x.config.liveStallReseekToEdgeAfterKicks))) ||
+                  Rt
                 ) {
-                  var ct,
-                    dt,
-                    mt,
-                    pt = F(
-                      (ct =
-                        (dt = X.playerStateFromWorker) == null
-                          ? void 0
-                          : dt.liveEdgeTimeSec) != null
-                        ? ct
-                        : null,
-                      Ye,
-                      E,
-                      k,
-                    ),
-                    _t =
-                      (mt = X.mediaElement) == null || (mt = mt.state) == null
+                  var Lt,
+                    Et = !ft && bt != null ? bt : Ct,
+                    kt =
+                      (Lt = Z.mediaElement) == null || (Lt = Lt.state) == null
                         ? void 0
-                        : mt.mediaElement;
-                  if (pt != null && _t != null)
+                        : Lt.mediaElement;
+                  if (Et != null && kt != null)
                     return (
-                      G.logging.log(G, {
+                      x.logging.log(x, {
                         format:
                           "live no-progress watchdog: recovering in-engine by re-seeking the playhead to the live edge (largeDrift=%s proactive=%s)",
-                        params: [String(st), String(ut)],
+                        params: [String(yt), String(Rt)],
                         type: "generic_warning",
                       }),
-                      G.host.mediaElementSetPlayhead(G, _t, pt),
-                      babelHelpers.extends({}, X, {
+                      x.host.mediaElementSetPlayhead(x, kt, Et),
+                      babelHelpers.extends({}, Z, {
                         liveConsecutiveWatchdogKicks: 0,
-                        liveNoProgressWatchdogTimerHandle: it,
-                        playheadLastMovedAtPerfMs: Je,
-                        playheadLastSeenTimeSec: Ye,
+                        liveEdgeIslandWaitingSincePerfMs: null,
+                        liveNoProgressWatchdogTimerHandle: gt,
+                        playheadLastMovedAtPerfMs: at,
+                        playheadLastSeenTimeSec: ot,
                       })
                     );
                 }
-                var ft = X.mediaElement.state.mediaElement,
-                  gt = null;
+                var It = Z.mediaElement.state.mediaElement,
+                  Tt = null;
                 if (
-                  (at &&
-                    ot != null &&
-                    ft != null &&
-                    (G.host.mediaElementSetPlayhead(G, ft, ot), (gt = ot)),
-                  gt != null)
+                  (ft &&
+                    _t != null &&
+                    It != null &&
+                    (x.host.mediaElementSetPlayhead(x, It, _t), (Tt = _t)),
+                  Tt != null)
                 ) {
-                  var ht;
-                  G.logging.log(G, {
+                  var Dt;
+                  x.logging.log(x, {
                     format:
                       "live no-progress watchdog: playhead frozen (starved or stale-live), seeking toward the live edge. %s %s %s %s",
                     params: [
-                      "currentTimeSec=" + (Ye != null ? Ye : "unknown"),
+                      "currentTimeSec=" + (ot != null ? ot : "unknown"),
                       "liveEdgeTimeSec=" +
-                        ((ht = X.playerStateFromWorker.liveEdgeTimeSec) != null
-                          ? ht
+                        ((Dt = Z.playerStateFromWorker.liveEdgeTimeSec) != null
+                          ? Dt
                           : "unknown"),
-                      "bufferedEndSec=" + (rt != null ? rt : "unknown"),
-                      "seekTargetSec=" + gt,
+                      "bufferedEndSec=" + (pt != null ? pt : "unknown"),
+                      "seekTargetSec=" + Tt,
                     ],
                     type: "generic_warning",
                   });
                 }
-                return babelHelpers.extends({}, X, {
-                  liveConsecutiveWatchdogKicks: lt,
-                  liveNoProgressWatchdogTimerHandle: it,
-                  playheadLastMovedAtPerfMs: gt != null ? Je : et,
-                  playheadLastSeenTimeSec: gt != null ? gt : tt,
+                return babelHelpers.extends({}, Z, st, {
+                  liveConsecutiveWatchdogKicks: ht,
+                  liveEdgeIslandWaitingSincePerfMs: St.waitingSincePerfMs,
+                  liveNoProgressWatchdogTimerHandle: gt,
+                  playheadLastMovedAtPerfMs: Tt != null ? at : ct,
+                  playheadLastSeenTimeSec: Tt != null ? Tt : dt,
                 });
               }
               case "_media_element_transitioned": {
-                var yt,
-                  Ct,
-                  bt,
-                  vt = X.dashManifestParsed.state;
+                var xt,
+                  $t,
+                  Pt,
+                  Nt,
+                  Mt = Z.dashManifestParsed.state;
                 if (
-                  ce({
-                    currentTimeSec: c(G, X),
-                    isLivePlayback: G.config.isLivePlayback,
+                  be({
+                    currentTimeSec: c(x, Z),
+                    isLivePlayback: x.config.isLivePlayback,
                     isManifestDynamic:
-                      vt.state === "parsed" &&
-                      vt.data.metadata.manifestType === "dynamic",
-                    startTimestampSec: G.config.startTimestampSec,
+                      Mt.state === "parsed" &&
+                      Mt.data.metadata.manifestType === "dynamic",
+                    startTimestampSec: x.config.startTimestampSec,
                   })
                 ) {
-                  var St,
-                    Rt =
-                      (St = X.mediaElement) == null || (St = St.state) == null
+                  var wt,
+                    At =
+                      (wt = Z.mediaElement) == null || (wt = wt.state) == null
                         ? void 0
-                        : St.mediaElement;
-                  if (Rt != null) {
+                        : wt.mediaElement;
+                  if (At != null) {
                     if (
-                      X.liveStartTimestampSecIsManifestDerived &&
-                      vt.state === "parsed"
+                      Z.liveStartTimestampSecIsManifestDerived &&
+                      Mt.state === "parsed"
                     ) {
-                      var Lt;
-                      G.config.startTimestampSec =
-                        (Lt = ue(vt.data)) != null
-                          ? Lt
-                          : G.config.startTimestampSec;
+                      var Ft;
+                      x.config.startTimestampSec =
+                        (Ft = Ce(Mt.data)) != null
+                          ? Ft
+                          : x.config.startTimestampSec;
                     }
-                    G.host.mediaElementSetPlayhead(
-                      G,
-                      Rt,
-                      G.config.startTimestampSec,
+                    x.host.mediaElementSetPlayhead(
+                      x,
+                      At,
+                      x.config.startTimestampSec,
                     );
                   }
                 }
-                var Et = X.mediaElement.state.mediaElementSnapshot,
-                  kt = c(G, X),
-                  It = G.host.clock().perfMs,
-                  Tt = Y(G, X, kt, It),
-                  Dt = $(X.forceKickPlayheadLastSeenTimeSec, kt, L),
-                  xt = Dt ? It : X.forceKickPlayheadLastMovedAtPerfMs,
-                  $t = Dt ? kt : X.forceKickPlayheadLastSeenTimeSec,
-                  Pt = x({
-                    currentTimeSec: kt,
-                    enabled: G.config.liveForceWorkerKickOnStallEnabled,
+                var Ot = Z.mediaElement.state.mediaElementSnapshot,
+                  Bt = c(x, Z),
+                  Wt = x.host.clock().perfMs,
+                  qt = ie(x, Z, Bt, Wt),
+                  Ut = O(Z.forceKickPlayheadLastSeenTimeSec, Bt, E),
+                  Vt = (xt = Ot == null ? void 0 : Ot.paused) != null ? xt : !0,
+                  Ht =
+                    x.config.isLivePlayback && (Vt || Z.liveWatchdogWasPaused),
+                  Gt = F({
+                    currentTimeSec: Bt,
+                    lastMovedAtPerfMs: Z.forceKickPlayheadLastMovedAtPerfMs,
+                    lastSeenTimeSec: Z.forceKickPlayheadLastSeenTimeSec,
+                    nowPerfMs: Wt,
+                    paused: Ht,
+                    progressed: Ut,
+                  }),
+                  zt = Gt.lastMovedAtPerfMs,
+                  jt = Gt.lastSeenTimeSec,
+                  Kt = F({
+                    currentTimeSec: Bt,
+                    lastMovedAtPerfMs: Z.playheadLastMovedAtPerfMs,
+                    lastSeenTimeSec: Z.playheadLastSeenTimeSec,
+                    nowPerfMs: Wt,
+                    paused: Ht,
+                    progressed: !1,
+                  }),
+                  Qt = Kt.lastMovedAtPerfMs,
+                  Xt = Kt.lastSeenTimeSec,
+                  Yt = {
+                    liveWatchdogWasPaused: Vt,
+                    playheadLastMovedAtPerfMs: Qt,
+                    playheadLastSeenTimeSec: Xt,
+                  },
+                  Jt = A({
+                    currentTimeSec: Bt,
+                    enabled: x.config.liveForceWorkerKickOnStallEnabled,
                     ended:
-                      (yt = Et == null ? void 0 : Et.ended) != null ? yt : !1,
-                    frozenThresholdMs: D,
-                    hasError: (Et == null ? void 0 : Et.error) != null,
-                    isLivePlayback: G.config.isLivePlayback,
-                    lastForcedWorkerKickPerfMs: X.lastForcedWorkerKickPerfMs,
-                    minIntervalMs: T,
-                    nowPerfMs: It,
+                      ($t = Ot == null ? void 0 : Ot.ended) != null ? $t : !1,
+                    frozenThresholdMs: w,
+                    hasError: (Ot == null ? void 0 : Ot.error) != null,
+                    isLivePlayback: x.config.isLivePlayback,
+                    lastForcedWorkerKickPerfMs: Z.lastForcedWorkerKickPerfMs,
+                    minIntervalMs: M,
+                    nowPerfMs: Wt,
                     paused:
-                      (Ct = Et == null ? void 0 : Et.paused) != null ? Ct : !0,
-                    playheadLastMovedAtPerfMs: xt,
+                      (Pt = Ot == null ? void 0 : Ot.paused) != null ? Pt : !0,
+                    playheadLastMovedAtPerfMs: zt,
                     seeking:
-                      (bt = Et == null ? void 0 : Et.seeking) != null ? bt : !1,
+                      (Nt = Ot == null ? void 0 : Ot.seeking) != null ? Nt : !1,
                   });
-                return Pt
+                return Jt
                   ? babelHelpers.extends(
                       {},
-                      C(G, S, X, z.type + ":force_worker_kick_on_stall"),
+                      b(x, f, Z, $.type + ":force_worker_kick_on_stall"),
+                      Yt,
                       {
-                        forceKickPlayheadLastMovedAtPerfMs: xt,
-                        forceKickPlayheadLastSeenTimeSec: $t,
-                        lastForcedWorkerKickPerfMs: It,
-                        liveLatencyPlaybackRate: Tt,
+                        forceKickPlayheadLastMovedAtPerfMs: zt,
+                        forceKickPlayheadLastSeenTimeSec: jt,
+                        lastForcedWorkerKickPerfMs: Wt,
+                        liveLatencyPlaybackRate: qt,
                       },
                     )
-                  : babelHelpers.extends({}, y(G, S, X, z.type), {
-                      forceKickPlayheadLastMovedAtPerfMs: xt,
-                      forceKickPlayheadLastSeenTimeSec: $t,
-                      liveLatencyPlaybackRate: Tt,
+                  : babelHelpers.extends({}, C(x, f, Z, $.type), Yt, {
+                      forceKickPlayheadLastMovedAtPerfMs: zt,
+                      forceKickPlayheadLastSeenTimeSec: jt,
+                      liveLatencyPlaybackRate: qt,
                     });
               }
               case "_request_recovery_from_source_reset": {
-                X.workerConnection.sendToWorker({
+                Z.workerConnection.sendToWorker({
                   eventToWorker: {
-                    mediaSourceIndex: z.mediaSourceIndex,
-                    playerInstanceKey: S,
+                    mediaSourceIndex: $.mediaSourceIndex,
+                    playerInstanceKey: f,
                     type: "from_main_to_worker_request_recovery_from_source_reset",
                   },
                   type: "send_to_worker",
@@ -1042,10 +1115,10 @@ __d(
                 return;
               }
               case "_notify_deliberate_detach_for_unmount": {
-                X.workerConnection.sendToWorker({
+                Z.workerConnection.sendToWorker({
                   eventToWorker: {
-                    mediaSourceIndex: z.mediaSourceIndex,
-                    playerInstanceKey: S,
+                    mediaSourceIndex: $.mediaSourceIndex,
+                    playerInstanceKey: f,
                     type: "from_main_to_worker_notify_deliberate_detach_for_unmount",
                   },
                   type: "send_to_worker",
@@ -1057,48 +1130,48 @@ __d(
               case "update_player_viewport_dimensions":
                 return;
               case "update_dash_manifest":
-                return ye(X, z);
+                return he(Z, $);
               case "_send_state_to_worker":
-                return y(G, S, X, z.type);
+                return C(x, f, Z, $.type);
               case "update_media_element":
                 return (
-                  K(X.mediaElement, {
-                    mediaElement: z.mediaElement,
+                  Y(Z.mediaElement, {
+                    mediaElement: $.mediaElement,
                     type: "update_media_element",
                   }),
-                  G.config.eagerResyncOnMediaElementAttach &&
-                  z.mediaElement != null
-                    ? h(G, S, X, z.type)
+                  x.config.eagerResyncOnMediaElementAttach &&
+                  $.mediaElement != null
+                    ? y(x, f, Z, $.type)
                     : void 0
                 );
               case "update_config_from_env":
-                return C(G, S, X, z.type);
+                return b(x, f, Z, $.type);
               case "select_video_quality":
-                return y(
-                  G,
-                  S,
-                  babelHelpers.extends({}, X, {
+                return C(
+                  x,
+                  f,
+                  babelHelpers.extends({}, Z, {
                     selectedVideoQualityDisplayLabel:
-                      z.videoQualityDisplayLabel,
+                      $.videoQualityDisplayLabel,
                   }),
-                  z.type,
+                  $.type,
                 );
               case "select_media_variant":
-                return y(
-                  G,
-                  S,
-                  babelHelpers.extends({}, X, {
-                    selectedMediaVariant: z.mediaVariant,
+                return C(
+                  x,
+                  f,
+                  babelHelpers.extends({}, Z, {
+                    selectedMediaVariant: $.mediaVariant,
                   }),
-                  z.type,
+                  $.type,
                 );
               case "debug_log_stall_details": {
-                X.workerConnection.sendToWorker({
+                Z.workerConnection.sendToWorker({
                   eventToWorker: {
                     mediaElementSnapshotFromMain:
-                      X.mediaElement.state.mediaElementSnapshot,
-                    playerInstanceKey: S,
-                    stallStartClock: z.stallStartClock,
+                      Z.mediaElement.state.mediaElementSnapshot,
+                    playerInstanceKey: f,
+                    stallStartClock: $.stallStartClock,
                     type: "from_main_to_worker_debug_log_stall_details",
                   },
                   type: "send_to_worker",
@@ -1106,208 +1179,208 @@ __d(
                 return;
               }
               case "from_worker_to_main_player_new_media_source": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                ge(
-                  X.mediaElement,
-                  z.mediaSourceIndex,
-                  z.mediaSource,
-                  z.mediaSourceHandle,
+                ue(
+                  Z.mediaElement,
+                  $.mediaSourceIndex,
+                  $.mediaSource,
+                  $.mediaSourceHandle,
                 );
-                var Nt = o(
+                var Zt = o(
                   "VideoPlayerNextgendashStateMachine",
-                ).skipAutoDisposeInsideThisObject(z.playerStateFromWorker);
+                ).skipAutoDisposeInsideThisObject($.playerStateFromWorker);
                 return (
-                  he(X.playerStateFromWorker, Nt),
-                  babelHelpers.extends({}, X, {
-                    playerStateForDebug: g(
-                      z.playerStateForDebug,
-                      X.mediaElement.state.mediaElementSnapshot,
+                  ge(Z.playerStateFromWorker, Zt),
+                  babelHelpers.extends({}, Z, {
+                    playerStateForDebug: h(
+                      $.playerStateForDebug,
+                      Z.mediaElement.state.mediaElementSnapshot,
                     ),
-                    playerStateFromWorker: Nt,
+                    playerStateFromWorker: Zt,
                   })
                 );
               }
               case "from_worker_to_main_player_unlinked": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                var Mt =
-                  z.exceptionSnapshot != null
+                var en =
+                  $.exceptionSnapshot != null
                     ? o("nextgendasherr").nextgendasherrFromCause(
-                        G,
+                        x,
                         o("nextgendasherr").nextgendasherrFromSnapshot(
-                          z.exceptionSnapshot,
+                          $.exceptionSnapshot,
                         ),
                         "VideoPlayerNextgendashMainUnexpectedUnlinkedFromWorker",
-                        "Reason: " + z.reason,
+                        "Reason: " + $.reason,
                       )
                     : o("nextgendasherr").nextgendasherr(
-                        G,
+                        x,
                         "VideoPlayerNextgendashMainUnexpectedUnlinkedFromWorker",
-                        "Reason: " + z.reason,
+                        "Reason: " + $.reason,
                       );
                 if (
-                  (X.workerType === "RealWorker" ||
-                    X.workerType === "RealWorkerV2") &&
-                  !G.config.disableFallbackFromRealWorkerAfterLinked
+                  (Z.workerType === "RealWorker" ||
+                    Z.workerType === "RealWorkerV2") &&
+                  !x.config.disableFallbackFromRealWorkerAfterLinked
                 )
-                  return fe(Mt);
-                Q({ exception: Mt, type: "__exception" });
+                  return ae(en);
+                J({ exception: en, type: "__exception" });
                 return;
               }
               case "from_worker_to_main_player_warning": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                de(
+                ne(
                   o("nextgendasherr").nextgendasherrFromSnapshot(
-                    z.warningErrorSnapshot,
+                    $.warningErrorSnapshot,
                   ),
                 );
-                var wt = o(
+                var tn = o(
                   "VideoPlayerNextgendashStateMachine",
-                ).skipAutoDisposeInsideThisObject(z.playerStateFromWorker);
+                ).skipAutoDisposeInsideThisObject($.playerStateFromWorker);
                 return (
-                  he(X.playerStateFromWorker, wt),
-                  babelHelpers.extends({}, X, {
-                    playerStateForDebug: g(
-                      z.playerStateForDebug,
-                      X.mediaElement.state.mediaElementSnapshot,
+                  ge(Z.playerStateFromWorker, tn),
+                  babelHelpers.extends({}, Z, {
+                    playerStateForDebug: h(
+                      $.playerStateForDebug,
+                      Z.mediaElement.state.mediaElementSnapshot,
                     ),
-                    playerStateFromWorker: wt,
+                    playerStateFromWorker: tn,
                   })
                 );
               }
               case "from_worker_to_main_player_fatal_error": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                Q({
+                J({
                   exception: o("nextgendasherr").nextgendasherrFromCause(
-                    G,
+                    x,
                     o("nextgendasherr").nextgendasherrFromSnapshot(
-                      z.errorSnapshot,
+                      $.errorSnapshot,
                     ),
                     "VideoPlayerNextgendashMainFatalFromWorkerPlayer",
                   ),
                   type: "__exception",
                 });
-                var At = o(
+                var nn = o(
                   "VideoPlayerNextgendashStateMachine",
-                ).skipAutoDisposeInsideThisObject(z.playerStateFromWorker);
+                ).skipAutoDisposeInsideThisObject($.playerStateFromWorker);
                 return (
-                  he(X.playerStateFromWorker, At),
-                  babelHelpers.extends({}, X, {
-                    playerStateForDebug: g(
-                      z.playerStateForDebug,
-                      X.mediaElement.state.mediaElementSnapshot,
+                  ge(Z.playerStateFromWorker, nn),
+                  babelHelpers.extends({}, Z, {
+                    playerStateForDebug: h(
+                      $.playerStateForDebug,
+                      Z.mediaElement.state.mediaElementSnapshot,
                     ),
-                    playerStateFromWorker: At,
+                    playerStateFromWorker: nn,
                   })
                 );
               }
               case "from_worker_to_main_playback_loop_state": {
-                if (z.workerType !== X.workerType || z.playerInstanceKey !== S)
+                if ($.workerType !== Z.workerType || $.playerInstanceKey !== f)
                   return;
-                var Ft = o(
+                var rn = o(
                   "VideoPlayerNextgendashStateMachine",
-                ).skipAutoDisposeInsideThisObject(z.playerStateFromWorker);
+                ).skipAutoDisposeInsideThisObject($.playerStateFromWorker);
                 return (
-                  he(X.playerStateFromWorker, Ft),
-                  babelHelpers.extends({}, X, { playerStateFromWorker: Ft })
+                  ge(Z.playerStateFromWorker, rn),
+                  babelHelpers.extends({}, Z, { playerStateFromWorker: rn })
                 );
               }
               case "from_worker_to_main_player_state_for_debug":
-                return z.workerType !== X.workerType ||
-                  z.playerInstanceKey !== S
+                return $.workerType !== Z.workerType ||
+                  $.playerInstanceKey !== f
                   ? void 0
-                  : babelHelpers.extends({}, X, {
-                      playerStateForDebug: g(
-                        z.playerStateForDebug,
-                        X.mediaElement.state.mediaElementSnapshot,
+                  : babelHelpers.extends({}, Z, {
+                      playerStateForDebug: h(
+                        $.playerStateForDebug,
+                        Z.mediaElement.state.mediaElementSnapshot,
                       ),
                     });
               case "from_worker_to_main_refresh_urls": {
-                X.dashManifestParsed.sendEvent({
+                Z.dashManifestParsed.sendEvent({
                   type: "handle_worker_url_refresh_request",
-                  urls: z.urls,
+                  urls: $.urls,
                 });
                 return;
               }
               case "update_scroll_position_api":
                 return;
               default:
-                z.type;
+                $.type;
                 return;
             }
           case "__disposed__":
-            switch (z.type) {
+            switch ($.type) {
               case "__enter": {
-                var Ot = z.prevState;
-                f(
-                  G,
+                var on = $.prevState;
+                g(
+                  x,
                   "terminal",
-                  Ot.liveManifestRefreshTimerHandle,
-                  Ot.liveNoProgressWatchdogTimerHandle,
+                  on.liveManifestRefreshTimerHandle,
+                  on.liveNoProgressWatchdogTimerHandle,
                 );
-                var Bt =
+                var an =
                     "VideoPlayerNextgendashMainWith" +
-                    Ot.workerType +
+                    on.workerType +
                     "/Disposed[" +
-                    X.reason +
+                    Z.reason +
                     "@" +
-                    Ot.state +
+                    on.state +
                     "]",
-                  Wt =
+                  ln =
                     "Disposed: " +
-                    X.reason +
+                    Z.reason +
                     "@" +
-                    Ot.state +
+                    on.state +
                     "; playerStateFromWorker=%s",
-                  qt = function () {
+                  sn = function () {
                     var e;
-                    return (e = JSON.stringify(Ot.playerStateFromWorker)) !=
+                    return (e = JSON.stringify(on.playerStateFromWorker)) !=
                       null
                       ? e
                       : "undefined";
                   },
-                  Ut =
-                    X.exception != null
+                  un =
+                    Z.exception != null
                       ? o("nextgendasherr").nextgendasherrFromCause(
-                          G,
-                          X.exception,
-                          Bt,
-                          Wt,
-                          qt(),
+                          x,
+                          Z.exception,
+                          an,
+                          ln,
+                          sn(),
                         )
                       : null;
-                (Ot.workerConnection != null &&
-                  _e(
-                    Ot.workerConnection,
-                    Ut != null
-                      ? Ut
+                (on.workerConnection != null &&
+                  oe(
+                    on.workerConnection,
+                    un != null
+                      ? un
                       : function () {
                           return o("nextgendasherr").nextgendasherr(
-                            G,
-                            Bt,
-                            Wt,
-                            qt(),
+                            x,
+                            an,
+                            ln,
+                            sn(),
                           );
                         },
                   ),
-                  Ot.scrollPositionSubscription != null &&
-                    Ot.scrollPositionSubscription.remove(),
-                  Ut != null && i(Ut));
+                  on.scrollPositionSubscription != null &&
+                    on.scrollPositionSubscription.remove(),
+                  un != null && i(un));
                 return;
               }
               default:
                 return;
             }
           default:
-            X.state;
+            Z.state;
             return;
         }
       },
     );
-    function f(e, t, n, r) {
+    function g(e, t, n, r) {
       var o = e.config.enableDisposalResourceCleanup
         ? t === "terminal"
         : t === "explicit";
@@ -1315,7 +1388,7 @@ __d(
         (n != null && e.host.timers.clearTimeout(n),
         r != null && e.host.timers.clearTimeout(r));
     }
-    function g(e, t) {
+    function h(e, t) {
       return e == null || t == null
         ? e
         : o(
@@ -1330,8 +1403,8 @@ __d(
             }),
           );
     }
-    function h(e, t, n, r) {
-      var o = m(e, n),
+    function y(e, t, n, r) {
+      var o = p(e, n),
         a = {
           mediaElementSnapshot: o.mediaElementSnapshot,
           mediaSourceIndexApplied: o.mediaSourceIndexApplied,
@@ -1350,8 +1423,8 @@ __d(
         babelHelpers.extends({}, n, { playerStateFromMainSent: o })
       );
     }
-    function y(e, t, n, o) {
-      var a = m(e, n);
+    function C(e, t, n, o) {
+      var a = p(e, n);
       return r("deepEquals")(a, n.playerStateFromMainSent)
         ? n
         : (n.workerConnection.sendToWorker({
@@ -1366,8 +1439,8 @@ __d(
           }),
           babelHelpers.extends({}, n, { playerStateFromMainSent: a }));
     }
-    function C(e, t, n, r) {
-      var o = m(e, n);
+    function b(e, t, n, r) {
+      var o = p(e, n);
       return (
         n.workerConnection.sendToWorker({
           eventToWorker: {
@@ -1381,7 +1454,7 @@ __d(
         babelHelpers.extends({}, n, { playerStateFromMainSent: o })
       );
     }
-    function b(e, t, n, r, a, i) {
+    function v(e, t, n, r, a, i) {
       if (n.state !== t.state)
         switch (n.state) {
           case "completed": {
@@ -1436,7 +1509,7 @@ __d(
           }
         }
     }
-    function v(e, t, n, r, a, i) {
+    function S(e, t, n, r, a, i) {
       var l, s;
       if (
         r.state !== n.state ||
@@ -1482,15 +1555,20 @@ __d(
             return;
         }
     }
-    var S = 0.001,
-      R = 0.5,
-      L = 1,
-      E = 2,
-      k = 4,
-      I = 2e3,
-      T = 1e3,
-      D = 2e3;
-    function x(e) {
+    var R = 0.001,
+      L = 0.5,
+      E = 1,
+      k = 2,
+      I = 1,
+      T = 8,
+      D = 0.1,
+      x = 1e4,
+      $ = 1.5,
+      P = 4,
+      N = 2e3,
+      M = 1e3,
+      w = 2e3;
+    function A(e) {
       var t = e.currentTimeSec,
         n = e.enabled,
         r = e.ended,
@@ -1507,15 +1585,29 @@ __d(
       var p = d != null && u - d >= o;
       return !(!p || (l != null && u - l < s));
     }
-    function $(e, t, n) {
-      return t == null ? !1 : e == null || t < e - S ? !0 : t - e >= n;
+    function F(e) {
+      if (e.progressed || e.paused) {
+        var t;
+        return {
+          lastMovedAtPerfMs: e.nowPerfMs,
+          lastSeenTimeSec:
+            (t = e.currentTimeSec) != null ? t : e.lastSeenTimeSec,
+        };
+      }
+      return {
+        lastMovedAtPerfMs: e.lastMovedAtPerfMs,
+        lastSeenTimeSec: e.lastSeenTimeSec,
+      };
     }
-    function P(e, t) {
+    function O(e, t, n) {
+      return t == null ? !1 : e == null || t < e - R ? !0 : t - e >= n;
+    }
+    function B(e, t) {
       if (t == null) return null;
-      var n = N(e, t);
+      var n = W(e, t);
       return n != null ? Math.max(0, n - t) : 0;
     }
-    function N(e, t) {
+    function W(e, t) {
       if (t == null) return null;
       for (var n = 0; n < e.length; n++) {
         var r = e[n];
@@ -1523,7 +1615,7 @@ __d(
       }
       return null;
     }
-    function M(e) {
+    function q(e) {
       var t = e.bufferedAheadSec,
         n = e.ended,
         r = e.hasError,
@@ -1540,21 +1632,48 @@ __d(
         p = i - o >= c * 1e3;
       return s && !(p && d) ? !1 : p && (d || m);
     }
-    function w(e, t) {
+    function U(e, t) {
       return t > 0 && e >= t;
     }
-    function A(e, t, n) {
+    function V(e, t, n) {
       return t ? 0 : n ? e + 1 : e;
     }
-    function F(e, t, n, r) {
+    function H(e, t, n, r) {
       if (e == null || t == null || e - t < r) return null;
       var o = e - n;
       return o > t ? o : null;
     }
-    function O(e, t, n) {
+    function G(e, t, n) {
+      if (n == null) return null;
+      for (var r = e.length - 1; r >= 0; r--) {
+        var o = e[r],
+          a = o[0],
+          i = o[1];
+        if (a <= t) return null;
+        if (i - a >= I && i >= n - T)
+          return Math.max(a + D, Math.min(n, i - I));
+      }
+      return null;
+    }
+    function z(e) {
+      var t = e.bufferedAheadSec,
+        n = e.islandGateEnabled,
+        r = e.islandTargetSec,
+        o = e.nowPerfMs,
+        a = e.reseekWanted,
+        i = e.waitingSincePerfMs;
+      if (!a || !n || r != null)
+        return { canReseek: !0, waitingSincePerfMs: null };
+      var l = i != null ? i : o;
+      return {
+        canReseek: o - l >= x || (t != null && t < $),
+        waitingSincePerfMs: l,
+      };
+    }
+    function j(e, t, n) {
       return n > 0 && e != null && t != null && e - t > n;
     }
-    function B(e) {
+    function K(e) {
       var t = e.followEdgeActive,
         n = e.largeDrift,
         r = e.paused,
@@ -1562,56 +1681,68 @@ __d(
         a = e.shouldKick;
       return n && !a && t && !r && !o;
     }
-    function W(e, t) {
+    function Q(e, t) {
       return e.host.timers.setTimeout(function () {
         t({ type: "_live_no_progress_watchdog_tick" });
-      }, I);
+      }, N);
     }
-    function q(e, t, n) {
+    function X(e, t, n) {
       return !e.config.isLivePlayback ||
         !e.config.enableLive ||
         e.config.liveNoProgressWatchdogThresholdSec <= 0 ||
         t.liveNoProgressWatchdogTimerHandle != null
         ? t
         : babelHelpers.extends({}, t, {
-            liveNoProgressWatchdogTimerHandle: W(e, n),
+            liveNoProgressWatchdogTimerHandle: Q(e, n),
           });
     }
-    var U = 0.8,
-      V = 1.1,
-      H = 1,
-      G = 10,
-      z = 18,
-      j = 4e3,
-      K = 2e3,
-      Q = 1e3;
-    function X(e) {
+    var Y = 0.8,
+      J = 1.1,
+      Z = 1,
+      ee = 10,
+      te = 18,
+      ne = 4e3,
+      re = 2e3,
+      oe = 1e3;
+    function ae(e) {
       var t = e.active,
         n = e.appliedRate,
         r = e.bufferedAheadSec,
         o = e.changedAtPerfMs,
         a = e.currentRate,
         i = e.inNewestBufferedRange,
-        l = e.latencySec,
-        s = e.nowPerfMs,
-        u = e.preferredLatencySec;
-      if (a !== 1 && a !== n) return null;
-      var c = 1;
+        l = e.isManifestDynamic,
+        s = e.isPausedOrSeeking,
+        u = e.latencySec,
+        c = e.nowPerfMs,
+        d = e.preferredLatencySec;
+      if (a !== 1 && a !== n)
+        return a > 1 &&
+          l &&
+          !s &&
+          u != null &&
+          u <= d &&
+          i &&
+          r != null &&
+          r < Z
+          ? 1
+          : null;
+      var m = 1;
       if (
         (t &&
           i &&
           r != null &&
-          l != null &&
-          (r < H ? (c = U) : l > u && (c = V)),
-        c === a)
+          u != null &&
+          (r < Z ? (m = Y) : u > d && (m = J)),
+        m === a)
       )
         return null;
-      var d = o != null ? s - o : 1 / 0;
-      return (c === 1 && t && d < K) || (c === V && a === 1 && d < Q)
+      var p = o != null ? c - o : 1 / 0;
+      return (m === 1 && t && p < re) || (m === J && a === 1 && p < oe)
         ? null
-        : c;
+        : m;
     }
-    function Y(e, t, n, r) {
+    function ie(e, t, n, r) {
       var o = t.liveLatencyPlaybackRate,
         a = t.mediaElement.state,
         i = a.mediaElement,
@@ -1624,51 +1755,49 @@ __d(
       )
         return o;
       var s = a.isBuffering === !0,
-        u = l.paused || l.seeking || s ? r + j : o.holdUntilPerfMs,
+        u = l.paused || l.seeking || s ? r + ne : o.holdUntilPerfMs,
         c = o.hadInPlayStall || (s && a.isBufferingInitial === !1),
         d = t.dashManifestParsed.state,
         m = t.playerStateFromWorker.liveEdgeTimeSec,
         p = l.buffered,
         _ = p.length > 0 ? p[p.length - 1] : null,
-        f = X({
-          active:
-            e.config.liveFollowEdgeActive &&
-            d.state === "parsed" &&
-            d.data.metadata.manifestType === "dynamic" &&
-            !l.ended &&
-            r >= u,
+        f = d.state === "parsed" && d.data.metadata.manifestType === "dynamic",
+        g = ae({
+          active: e.config.liveFollowEdgeActive && f && !l.ended && r >= u,
           appliedRate: o.appliedRate,
-          bufferedAheadSec: P(p, n),
+          bufferedAheadSec: B(p, n),
           changedAtPerfMs: o.changedAtPerfMs,
           currentRate: l.playbackRate,
           inNewestBufferedRange:
             n != null && _ != null && _[0] <= n && n <= _[1],
+          isManifestDynamic: f && !l.ended,
+          isPausedOrSeeking: l.paused || l.seeking,
           latencySec: m != null && n != null ? m - n : null,
           nowPerfMs: r,
-          preferredLatencySec: c ? z : G,
+          preferredLatencySec: c ? te : ee,
         });
-      return f == null
+      return g == null
         ? u === o.holdUntilPerfMs && c === o.hadInPlayStall
           ? o
           : babelHelpers.extends({}, o, {
               hadInPlayStall: c,
               holdUntilPerfMs: u,
             })
-        : (e.host.mediaElementSetPlaybackRate(e, i, f),
+        : (e.host.mediaElementSetPlaybackRate(e, i, g),
           e.logging.log(e, {
             format: "live latency control: playbackRate %s -> %s",
-            params: [String(l.playbackRate), String(f)],
+            params: [String(l.playbackRate), String(g)],
             type: "generic_info",
           }),
           {
-            appliedRate: f,
+            appliedRate: g,
             changedAtPerfMs: r,
             hadInPlayStall: c,
             holdUntilPerfMs: u,
           });
     }
-    var J = 15;
-    function Z(e) {
+    var le = 15;
+    function se(e) {
       var t = e.currentTimeSec,
         n = e.liveEdgeOffsetSec,
         r = e.liveEdgeTimeSec,
@@ -1678,9 +1807,9 @@ __d(
       var i = Math.min(Math.max(0, r - n), o);
       return i > t ? i : null;
     }
-    var ee = 2e3,
-      te = 1e4,
-      ne = Object.freeze({
+    var ue = 2e3,
+      ce = 1e4,
+      de = Object.freeze({
         backoffMultiplier: 2,
         initialDelayMs: 200,
         jitterPercent: 0.2,
@@ -1688,7 +1817,7 @@ __d(
         retryBehavior: "exponential",
         retryCount: 1 / 0,
       });
-    function re(e, t, n, r) {
+    function me(e, t, n, r) {
       if (
         (t.liveManifestRefreshTimerHandle != null &&
           e.host.timers.clearTimeout(t.liveManifestRefreshTimerHandle),
@@ -1706,19 +1835,19 @@ __d(
         function () {
           r({ type: "_manifest_refresh_timer_fired" });
         },
-        oe(e, n.data),
+        pe(e, n.data),
       );
       return babelHelpers.extends({}, t, { liveManifestRefreshTimerHandle: o });
     }
-    function oe(e, t) {
+    function pe(e, t) {
       var n;
       return e.config.liveManifestRefreshIntervalMs > 0
         ? e.config.liveManifestRefreshIntervalMs
         : (n = t.metadata.minimumUpdatePeriodMs) != null
           ? n
-          : ee;
+          : ue;
     }
-    function ae(e) {
+    function _e(e) {
       switch (e == null ? void 0 : e.state.state) {
         case "waiting_start":
         case "waiting_headers":
@@ -1730,23 +1859,28 @@ __d(
           return !1;
       }
     }
-    function ie(e) {
+    function fe(e) {
       var t = e.fetchInFlight,
         n = e.fetchStartedPerfMs,
         r = e.fetchTimeoutMs,
         o = e.nowPerfMs;
       return t ? n == null || o - n >= r : !0;
     }
-    function le(e) {
+    function ge(e) {
       var t = e.enableLive,
         n = e.isManifestParsed,
         r = e.manifestType;
       return t && n && r === "dynamic";
     }
-    function se(e, t, n) {
+    function he(e) {
+      ((e.isLivePlayback = !0),
+        e.liveReleasePastStateMachineStates &&
+          (e.releasePastStateMachineStates = !0));
+    }
+    function ye(e, t, n) {
       var r;
       if (
-        !le({
+        !ge({
           enableLive: e.config.enableLive,
           isManifestParsed: n.state === "parsed",
           manifestType:
@@ -1755,16 +1889,16 @@ __d(
         n.state !== "parsed"
       )
         return t;
-      e.config.isLivePlayback = !0;
+      he(e.config);
       var o = t.liveStartTimestampSecIsManifestDerived;
       if (
-        de({
+        ve({
           isManifestDerived: o,
           playheadSec: (r = c(e, t)) != null ? r : 0,
           startTimestampSec: e.config.startTimestampSec,
         })
       ) {
-        var a = ue(n.data);
+        var a = Ce(n.data);
         a != null && ((e.config.startTimestampSec = a), (o = !0));
       }
       return o === t.liveStartTimestampSecIsManifestDerived
@@ -1773,33 +1907,33 @@ __d(
             liveStartTimestampSecIsManifestDerived: o,
           });
     }
-    function ue(e) {
+    function Ce(e) {
       var t = e.manifestRepresentations,
         n = e.metadata;
-      return ge({
-        audioWindow: fe(t.audio),
+      return ke({
+        audioWindow: Ee(t.audio),
         minBufferTimeSec: n.minBufferTimeSec,
         suggestedPresentationDelaySec: n.suggestedPresentationDelaySec,
-        videoWindow: fe(t.video),
+        videoWindow: Ee(t.video),
       });
     }
-    function ce(e) {
+    function be(e) {
       var t = e.currentTimeSec,
         n = e.isLivePlayback,
         r = e.isManifestDynamic,
         o = e.startTimestampSec;
       return n && r && o > 0 && t === 0;
     }
-    function de(e) {
+    function ve(e) {
       var t = e.isManifestDerived,
         n = e.playheadSec,
         r = e.startTimestampSec;
       return r === 0 ? !0 : t && n === 0;
     }
-    var me = 5,
-      pe = 5,
-      _e = 3;
-    function fe(e) {
+    var Se = 5,
+      Re = 5,
+      Le = 3;
+    function Ee(e) {
       var t = null,
         n = null,
         r = 0;
@@ -1824,7 +1958,7 @@ __d(
         ? null
         : { earliestStartSec: t, latestEndSec: n, maxSegmentDurationSec: r };
     }
-    function ge(e) {
+    function ke(e) {
       var t = e.audioWindow,
         n = e.minBufferTimeSec,
         r = e.suggestedPresentationDelaySec,
@@ -1856,35 +1990,35 @@ __d(
         r != null && r > 0
           ? (u = r)
           : s > 0
-            ? (u = Math.max(s * _e, n != null ? n : 0))
-            : (u = pe),
-        (u = Math.max(u, pe)),
+            ? (u = Math.max(s * Le, n != null ? n : 0))
+            : (u = Re),
+        (u = Math.max(u, Re)),
         Math.min(Math.max(i - u, l), i)
       );
     }
-    function he(e) {
+    function Ie(e) {
       var t = e.state;
       if (t.state === "__null__" || t.state === "__disposed__") return null;
       var n = t.dashManifestParsed.state;
       return n.state !== "parsed" ? null : n;
     }
-    function ye(e) {
-      var t = he(e);
+    function Te(e) {
+      var t = Ie(e);
       return t == null
         ? null
         : t.data.metadata.manifestIsMixedCodecVideo ||
             t.data.metadata.manifestIsMixedCodecAudio;
     }
-    function Ce(e) {
+    function De(e) {
       var t, n;
       return (t =
-        (n = he(e)) == null ? void 0 : n.data.metadata.manifestIdentifier) !=
+        (n = Ie(e)) == null ? void 0 : n.data.metadata.manifestIdentifier) !=
         null
         ? t
         : null;
     }
-    function be(e) {
-      var t = he(e);
+    function xe(e) {
+      var t = Ie(e);
       return t == null
         ? null
         : t.data.manifestRepresentations.video.some(function (e) {
@@ -1894,11 +2028,11 @@ __d(
             );
           });
     }
-    function ve(e) {
+    function $e(e) {
       var t = e.state;
       return t.state === "linked_to_worker" ? t.playerStateFromWorker : null;
     }
-    function Se(e) {
+    function Pe(e) {
       var t = e.state;
       return t.state !== "__null__" &&
         t.state !== "__disposed__" &&
@@ -1911,26 +2045,26 @@ __d(
           )
         : null;
     }
-    function Re(e) {
+    function Ne(e) {
       var t,
-        n = he(e);
+        n = Ie(e);
       return (t = n == null ? void 0 : n.data.manifestRepresentations.video) !=
         null
         ? t
         : [];
     }
-    function Le(e) {
+    function Me(e) {
       var t,
-        n = he(e);
+        n = Ie(e);
       return (t = n == null ? void 0 : n.data.manifestRepresentations.audio) !=
         null
         ? t
         : [];
     }
-    function Ee(e, t) {
+    function we(e, t) {
       var n,
         r,
-        o = ve(e),
+        o = $e(e),
         a = new Set(
           (n =
             o == null || (r = o.blockedRepresentationIds) == null
@@ -1943,13 +2077,13 @@ __d(
         return !a.has(e.representationId);
       });
     }
-    function ke(e) {
-      return Ee(e, Re(e));
+    function Ae(e) {
+      return we(e, Ne(e));
     }
-    function Ie(e, t) {
+    function Fe(e, t) {
       var n,
         r,
-        o = ve(e),
+        o = $e(e),
         a = new Set(
           (n =
             o == null || (r = o.blockedRepresentationIds) == null
@@ -1962,13 +2096,13 @@ __d(
         return !a.has(e.representationId);
       });
     }
-    function Te(e) {
-      return Ie(e, Le(e));
+    function Oe(e) {
+      return Fe(e, Me(e));
     }
-    function De(e, t) {
+    function Be(e, t) {
       var n,
         r,
-        o = ve(e),
+        o = $e(e),
         a = new Set(
           (n =
             o == null || (r = o.targetVariantRepresentationIds) == null
@@ -1981,78 +2115,78 @@ __d(
         return a.has(e.representationId);
       });
     }
-    function xe(e, t, n) {
+    function We(e, t, n) {
       return o(
         "VideoPlayerNextgendashMediaUtils",
       ).findTimeRangeAnnotationAtMediaTime(e, t, n);
     }
-    function $e(e, t) {
+    function qe(e, t) {
       var n,
-        r = ve(e),
-        o = t === void 0 ? Se(e) : t,
-        a = xe(
+        r = $e(e),
+        o = t === void 0 ? Pe(e) : t,
+        a = We(
           o,
           r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
             : n.audio,
           r == null ? void 0 : r.targetRepresentationId.audio,
         ),
-        i = Le(e).find(function (e) {
+        i = Me(e).find(function (e) {
           return e.representationId === a;
         });
       return i;
     }
-    function Pe(e, t) {
+    function Ue(e, t) {
       var n,
-        r = ve(e),
-        o = t === void 0 ? Se(e) : t,
-        a = xe(
+        r = $e(e),
+        o = t === void 0 ? Pe(e) : t,
+        a = We(
           o,
           r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
             : n.video,
           r == null ? void 0 : r.targetRepresentationId.video,
         ),
-        i = Re(e).find(function (e) {
+        i = Ne(e).find(function (e) {
           return e.representationId === a;
         });
       return i;
     }
-    function Ne(e) {
-      var t = Se(e);
-      return { audio: $e(e, t), video: Pe(e, t) };
+    function Ve(e) {
+      var t = Pe(e);
+      return { audio: qe(e, t), video: Ue(e, t) };
     }
-    function Me(e, t) {
+    function He(e, t) {
       var n,
-        r = ve(e),
-        o = xe(
+        r = $e(e),
+        o = We(
           t,
           r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
             : n.video,
           null,
         );
-      return Re(e).find(function (e) {
+      return Ne(e).find(function (e) {
         return e.representationId === o;
       });
     }
-    function we(e) {
-      var t = ve(e),
+    function Ge(e) {
+      var t = $e(e),
         n = t == null ? void 0 : t.targetRepresentationId.audio,
-        r = Le(e).find(function (e) {
+        r = Me(e).find(function (e) {
           return e.representationId === n;
         });
       return r;
     }
-    function Ae(e) {
-      var t = ve(e),
+    function ze(e) {
+      var t = $e(e),
         n = t == null ? void 0 : t.targetRepresentationId.video,
-        r = Re(e).find(function (e) {
+        r = Ne(e).find(function (e) {
           return e.representationId === n;
         });
       return r;
     }
-    function Fe(e) {
+    function je(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -2060,7 +2194,7 @@ __d(
             : t.selectedMediaVariant;
       return n;
     }
-    function Oe(e) {
+    function Ke(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -2069,41 +2203,46 @@ __d(
       return n;
     }
     ((l.internal_collectMediaElementSnapshotForWorker = d),
-      (l.VideoPlayerNextgendashMainSM = _),
-      (l.internal_clearLivePlaybackTimers = f),
-      (l.internal_shouldForceWorkerKickOnStall = x),
-      (l.internal_didPlayheadMakeProgress = $),
-      (l.internal_getBufferedAheadSec = P),
-      (l.internal_getBufferedEndSec = N),
-      (l.internal_shouldKickStalledPlaybackWatchdog = M),
-      (l.internal_shouldRecoverAfterKick = w),
-      (l.internal_getNextConsecutiveWatchdogKicks = A),
-      (l.internal_getLiveEdgeReseekTargetSec = F),
-      (l.internal_shouldReseekToEdgeImmediatelyForLargeDrift = O),
-      (l.internal_shouldProactivelyReseekToEdgeForLargeDrift = B),
-      (l.internal_getLiveLatencyPlaybackRate = X),
-      (l.internal_getLiveCatchUpSeekTargetSec = Z),
-      (l.internal_shouldStartLiveManifestRefreshFetch = ie),
-      (l.internal_shouldMarkLivePlayback = le),
-      (l.internal_shouldSeekToLiveStartPosition = ce),
-      (l.internal_shouldUpdateLiveStartTimestampSec = de),
-      (l.internal_getLiveStreamWindow = fe),
-      (l.internal_computeLiveStartPositionSec = ge),
-      (l.getIsMixedCodecManifest = ye),
-      (l.getManifestIdentifier = Ce),
-      (l.getIsPredictiveDash = be),
-      (l.getAvailableVideoRepresentations = ke),
-      (l.getAvailableAudioRepresentations = Te),
-      (l.filterVideoRepresentationsByTargetVariant = De),
-      (l.internal_findCurrentPlayingRepresentationID = xe),
-      (l.getCurrentPlayingAudioRepresentation = $e),
-      (l.getCurrentPlayingVideoRepresentation = Pe),
-      (l.getCurrentPlayingRepresentations = Ne),
-      (l.getVideoRepresentationAtMediaTime = Me),
-      (l.getCurrentTargetAudioRepresentation = we),
-      (l.getCurrentTargetVideoRepresentation = Ae),
-      (l.getSelectedMediaVariant = Fe),
-      (l.getSelectedVideoQualityDisplayLabel = Oe));
+      (l.internal_shouldWithholdManifestFromWorker = m),
+      (l.VideoPlayerNextgendashMainSM = f),
+      (l.internal_clearLivePlaybackTimers = g),
+      (l.internal_shouldForceWorkerKickOnStall = A),
+      (l.internal_getLiveWatchdogPlayheadAnchors = F),
+      (l.internal_didPlayheadMakeProgress = O),
+      (l.internal_getBufferedAheadSec = B),
+      (l.internal_getBufferedEndSec = W),
+      (l.internal_shouldKickStalledPlaybackWatchdog = q),
+      (l.internal_shouldRecoverAfterKick = U),
+      (l.internal_getNextConsecutiveWatchdogKicks = V),
+      (l.internal_getLiveEdgeReseekTargetSec = H),
+      (l.internal_getBufferedLiveEdgeIslandTargetSec = G),
+      (l.internal_getLiveEdgeIslandWait = z),
+      (l.internal_shouldReseekToEdgeImmediatelyForLargeDrift = j),
+      (l.internal_shouldProactivelyReseekToEdgeForLargeDrift = K),
+      (l.internal_getLiveLatencyPlaybackRate = ae),
+      (l.internal_getLiveCatchUpSeekTargetSec = se),
+      (l.internal_shouldStartLiveManifestRefreshFetch = fe),
+      (l.internal_shouldMarkLivePlayback = ge),
+      (l.internal_markConfigLivePlayback = he),
+      (l.internal_shouldSeekToLiveStartPosition = be),
+      (l.internal_shouldUpdateLiveStartTimestampSec = ve),
+      (l.internal_getLiveStreamWindow = Ee),
+      (l.internal_computeLiveStartPositionSec = ke),
+      (l.getIsMixedCodecManifest = Te),
+      (l.getManifestIdentifier = De),
+      (l.getIsPredictiveDash = xe),
+      (l.getAvailableVideoRepresentations = Ae),
+      (l.getAvailableAudioRepresentations = Oe),
+      (l.filterVideoRepresentationsByTargetVariant = Be),
+      (l.internal_findCurrentPlayingRepresentationID = We),
+      (l.getCurrentPlayingAudioRepresentation = qe),
+      (l.getCurrentPlayingVideoRepresentation = Ue),
+      (l.getCurrentPlayingRepresentations = Ve),
+      (l.getVideoRepresentationAtMediaTime = He),
+      (l.getCurrentTargetAudioRepresentation = Ge),
+      (l.getCurrentTargetVideoRepresentation = ze),
+      (l.getSelectedMediaVariant = je),
+      (l.getSelectedVideoQualityDisplayLabel = Ke));
   },
   98,
 );

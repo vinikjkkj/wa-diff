@@ -75,7 +75,7 @@ __d(
                   )
                   .tags("messaging"),
                 o("WAWebSignalSessionApi")
-                  .maybeDeleteUnconvertedSession(t)
+                  .maybeDeleteUnconvertedSession(t, d)
                   .catch(function (e) {
                     o("WALogger")
                       .WARN(

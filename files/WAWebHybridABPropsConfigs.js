@@ -121,6 +121,8 @@ __d(
       ],
       call_screening_caller_version: [37323, "int", 0, 0],
       call_screening_voicemail_beep_tone: [34940, "int", 0, 0],
+      call_spam_prompt_logging_enabled: [42406, "bool", !0, !0],
+      call_spam_prompt_session_id_enabled: [42407, "bool", !1, !1],
       callee_accept_timeout_ms: [6007, "int", 3e4, 3e4],
       calling_32p_version: [7709, "int", 0, 3],
       calling_abprop_bucket_codes: [40587, "string", "", ""],

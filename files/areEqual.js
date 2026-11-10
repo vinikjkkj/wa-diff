@@ -5,10 +5,11 @@ __d(
     var e = [],
       l = [];
     function s(t, n, r) {
-      var o = e.length ? e.pop() : [],
-        a = l.length ? l.pop() : [],
-        i = u(t, n, o, a, r);
-      return ((o.length = 0), (a.length = 0), e.push(o), l.push(a), i);
+      var o,
+        a = (o = e.pop()) != null ? o : [],
+        i = l.length ? l.pop() : [],
+        s = u(t, n, a, i, r);
+      return ((a.length = 0), (i.length = 0), e.push(a), l.push(i), s);
     }
     function u(e, t, n, r, o) {
       if (e === t) return e !== 0 || 1 / e == 1 / t;

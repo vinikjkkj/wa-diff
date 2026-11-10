@@ -5,7 +5,6 @@ __d(
     "WAWebApiContact",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
-    "WAWebOrgMemberContactName",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -21,7 +20,7 @@ __d(
       var n,
         r = o("WAWebContactCollection").ContactCollection.gadd(t.from),
         a =
-          (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(r)) !=
+          (n = o("WAWebFrontendContactGetters").getShownOrgMemberName(r)) !=
           null
             ? n
             : o("WAWebFrontendContactGetters").getFormattedName(r);

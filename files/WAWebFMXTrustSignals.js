@@ -7,7 +7,6 @@ __d(
     "WAWebCountriesUtils",
     "WAWebFMXGatingUtils",
     "WAWebFrontendContactGetters",
-    "WAWebOrgMemberContactName",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -104,7 +103,7 @@ __d(
     function g(e) {
       return (
         !o("WAWebFrontendContactGetters").getIsMyContact(e) &&
-        o("WAWebOrgMemberContactName").getKnownOrgMember(e.id) == null
+        o("WAWebFrontendContactGetters").getOrgPrimaryId(e) == null
       );
     }
     function h(e) {

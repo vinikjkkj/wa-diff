@@ -17,6 +17,7 @@ __d(
     "WAWebMomentLocaleResolver",
     "WAWebMomentLocales",
     "WAWebParseLocaleSubtags",
+    "WAWebReloadCrashAnnotations",
     "WAWebSupportedLocales",
     "WAWebUserPrefsLocales",
     "asyncToGeneratorRuntime",
@@ -357,6 +358,9 @@ __d(
                   "[reload] reloadPageDueToLocaleChange",
                 ])),
             ),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "reloadPageDueToLocaleChange",
+              ),
               self.setTimeout(function () {
                 window.location.reload();
               }, 100));

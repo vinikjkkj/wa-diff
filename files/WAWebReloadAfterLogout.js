@@ -1,6 +1,11 @@
 __d(
   "WAWebReloadAfterLogout",
-  ["WALogger", "WAWebLogoutReason", "WAWebLogoutReasonConstants"],
+  [
+    "WALogger",
+    "WAWebLogoutReason",
+    "WAWebLogoutReasonConstants",
+    "WAWebReloadCrashAnnotations",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = [
@@ -37,6 +42,9 @@ __d(
           ])),
         t,
       ),
+        o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+          "reloadAfterLogout",
+        ),
         (window.location.href = window.location.pathname + "?" + i.toString()));
     }
     ((l.POST_LOGOUT_URL_MARKERS = s), (l.reloadAfterLogout = u));

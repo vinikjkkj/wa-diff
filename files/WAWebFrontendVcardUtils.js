@@ -24,16 +24,20 @@ __d(
       if (o("WAWebUserPrefsMeUser").isMeAccount(e.id))
         t =
           o("WAWebContactGetters").getName(e) ||
-          o("WAWebFrontendContactGetters").getDisplayName(e);
+          o("WAWebFrontendContactGetters").getContactDisplayName(e);
       else {
         var a = o("WAWebFrontendContactGetters")
-          .getFormattedName(e)
-          .split(o("WAWebFrontendContactGetters").getFormattedShortName(e))
+          .getContactFormattedName(e)
+          .split(
+            o("WAWebFrontendContactGetters").getContactFormattedShortName(e),
+          )
           .filter(Boolean);
         ((n = a.length ? a[0].trim() : void 0),
           (t = r("isStringNullOrEmpty")(n)
-            ? o("WAWebFrontendContactGetters").getFormattedName(e)
-            : o("WAWebFrontendContactGetters").getFormattedShortName(e)));
+            ? o("WAWebFrontendContactGetters").getContactFormattedName(e)
+            : o("WAWebFrontendContactGetters").getContactFormattedShortName(
+                e,
+              )));
       }
       return s(n) + ";" + s(t) + ";;;";
     }
@@ -42,8 +46,8 @@ __d(
       o("WAWebUserPrefsMeUser").isMeAccount(t.id)
         ? (d =
             o("WAWebContactGetters").getName(t) ||
-            o("WAWebFrontendContactGetters").getDisplayName(t))
-        : (d = o("WAWebFrontendContactGetters").getDisplayName(t));
+            o("WAWebFrontendContactGetters").getContactDisplayName(t))
+        : (d = o("WAWebFrontendContactGetters").getContactDisplayName(t));
       var m = s(d),
         p = o("WAWebFrontendContactGetters").getUsername(t),
         _ = o("WAWebContactGetters").getId(t),

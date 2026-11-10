@@ -7,7 +7,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupAgentAddAttribution",
     "WAWebMsgModelUtils",
-    "WAWebOrgMemberContactName",
     "WAWebWidFormat",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,25 +19,24 @@ __d(
         l = a[0],
         s = l ? o("WAWebContactCollection").ContactCollection.get(l) : void 0,
         u;
-      if (s) {
-        var c;
-        u =
-          (c = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(s)) !=
-          null
-            ? c
-            : o("WAWebFrontendContactGetters").getFormattedName(s);
-      } else l ? (u = o("WAWebWidFormat").widToFormattedUser(l)) : (u = "");
-      return o("WAWebFormatAddNotification").formatAddNotification({
-        author: r,
-        authorClickable: n,
-        museAgentAddAttribution: o(
-          "WAWebGroupAgentAddAttribution",
-        ).groupAgentAddAttributionFromBody(t.get("body")),
-        subject: l,
-        subjectClickable: u,
-        participantsClickable: i,
-        recipients: a,
-      });
+      return (
+        s
+          ? (u = o("WAWebFrontendContactGetters").getFormattedName(s))
+          : l
+            ? (u = o("WAWebWidFormat").widToFormattedUser(l))
+            : (u = ""),
+        o("WAWebFormatAddNotification").formatAddNotification({
+          author: r,
+          authorClickable: n,
+          museAgentAddAttribution: o(
+            "WAWebGroupAgentAddAttribution",
+          ).groupAgentAddAttributionFromBody(t.get("body")),
+          subject: l,
+          subjectClickable: u,
+          participantsClickable: i,
+          recipients: a,
+        })
+      );
     }
     l.default = e;
   },

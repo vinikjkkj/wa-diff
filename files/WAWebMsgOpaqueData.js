@@ -5,6 +5,7 @@ __d(
     "WAWebMsgKey",
     "WAWebPollsDbUtils",
     "WAWebProtobufsMdStorageMsgRowOpaqueData.pb",
+    "WAWebReloadCrashAnnotations",
     "WAWebUserPrefsInfoStore",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
@@ -20,7 +21,10 @@ __d(
           var t = o("WAWebUserPrefsInfoStore").waNoiseInfo
             .cachedPasscodeDerivedKey;
           if (t == null) {
-            location.reload();
+            (o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+              "encryptDataInMsgModel: no passcode key",
+            ),
+              location.reload());
             return;
           }
           var n = m(e),

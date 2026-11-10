@@ -35,7 +35,8 @@ __d(
       Math.abs(s - t) > 6e4 && ((s = Math.round(t)), (c = Date.now()));
     }
     function v() {
-      return c === null ? null : Date.now() - c;
+      var e = c;
+      return e === null ? null : Date.now() - e;
     }
     var S = y,
       R = C;

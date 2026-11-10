@@ -45,12 +45,13 @@ __d(
                     var t = o(
                         "WAWebMetaAiChatActionLogger",
                       ).captureMetaAiChatActionFields(e.id),
-                      n = o("WAWebClearChatUtils").initClearChat(e, r),
-                      a = o("WAWebClearChatUtils").finalizeClearChat(e, n);
-                    (e.addPendingAction(a), yield a);
-                    var l = yield t.resolve();
+                      n = e.unreadCount,
+                      a = o("WAWebClearChatUtils").initClearChat(e, r),
+                      l = o("WAWebClearChatUtils").finalizeClearChat(e, a, n);
+                    (e.addPendingAction(l), yield l);
+                    var s = yield t.resolve();
                     return (
-                      l != null &&
+                      s != null &&
                         o("WAWebWamChatActionEventsLogger").logChatActionEvent(
                           babelHelpers.extends(
                             {
@@ -58,7 +59,7 @@ __d(
                               chatActionType: o("WAWebWamEnumChatActionType")
                                 .CHAT_ACTION_TYPE.CLEAR,
                             },
-                            l,
+                            s,
                           ),
                         ),
                       !0

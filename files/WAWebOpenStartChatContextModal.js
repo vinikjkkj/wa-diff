@@ -9,7 +9,9 @@ __d(
     "WAWebContactCollection",
     "WAWebCountriesUtils",
     "WAWebFMXGatingUtils",
-    "WAWebFindCommonGroupsContactAction",
+    "WAWebFindChatAction",
+    "WAWebGetPrioritizedCommonGroupsAction",
+    "WAWebHeaderInfoPanelActions",
     "WAWebModalManager",
     "WAWebNoop",
     "WAWebStartChatContextLogging",
@@ -23,49 +25,50 @@ __d(
     var e,
       s,
       u,
-      c = u || (u = o("react")),
-      d = 5e3,
-      m = 3e3;
-    function p() {
+      c,
+      d = c || (c = o("react")),
+      m = 5e3,
+      p = 3e3;
+    function _() {
       return r("JSResourceForInteraction")("WAWebStartChatContextModal.react")
         .__setRef("WAWebOpenStartChatContextModal")
         .load();
     }
-    function _() {
-      p().catch(r("WAWebNoop"));
+    function f() {
+      _().catch(r("WAWebNoop"));
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entryPoint,
             a = e.joinDateMs,
             i = e.onBeforeOpen,
             l = e.signal,
-            u = e.wid,
-            m = o("WAWebContactCollection").ContactCollection.gadd(u),
-            _ = yield (s || (s = n("Promise"))).all([
-              o("WAPromiseTimeout").promiseTimeout(p(), d),
-              y(m),
+            s = e.wid,
+            c = o("WAWebContactCollection").ContactCollection.gadd(s),
+            p = yield (u || (u = n("Promise"))).all([
+              o("WAPromiseTimeout").promiseTimeout(_(), m),
+              C(c),
             ]),
-            f = _[0],
-            g = _[1];
+            f = p[0],
+            g = p[1];
           if ((l == null ? void 0 : l.aborted) === !0) return "dismiss";
-          var C = { entryPoint: t, isBusiness: m.isBusiness === !0 },
+          var h = { entryPoint: t, isBusiness: c.isBusiness === !0 },
             b = function (t) {
               return o(
                 "WAWebStartChatContextLogging",
-              ).logStartChatContextUiAction(t, C);
+              ).logStartChatContextUiAction(t, h);
             };
-          return new s(function (e) {
+          return new u(function (e) {
             var t = !1,
               n = !1,
               s = r("once")(function (r, a) {
                 ((n = !0),
                   l == null || l.removeEventListener("abort", u),
-                  t && b(h(r)),
+                  t && b(y(r)),
                   a && o("WDSDialogBridge").closeWDSDialog(),
                   o("WAWebModalManager").ModalManager.setForceRequestFocusMedia(
                     null,
@@ -84,9 +87,10 @@ __d(
                   "modal",
                 ),
                 o("WDSDialogBridge").openWDSDialog(
-                  c.jsx(f, {
+                  d.jsx(f, {
+                    commonGroupName: g.commonGroupName,
                     commonGroupsCount: g.commonGroupsCount,
-                    contact: m,
+                    contact: c,
                     countryName: g.countryName,
                     joinDateMs: a,
                     onCancel: function () {
@@ -97,6 +101,9 @@ __d(
                     },
                     onDismiss: function () {
                       return s("dismiss", !0);
+                    },
+                    onGroupsInCommon: function () {
+                      (b("GROUPS_IN_COMMON_TAPPED"), s("dismiss", !0), v(c));
                     },
                     onLearnMore: function () {
                       return b("LEARN_MORE_TAPPED");
@@ -110,10 +117,10 @@ __d(
                 b("BOTTOM_SHEET_OPENED")));
           });
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
+    function y(e) {
       return e === "continue"
         ? "CONTINUE_TO_CHAT_BTN"
         : e === "cancel"
@@ -127,72 +134,103 @@ __d(
                 );
               })();
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (s || (s = n("Promise"))).all([
-              S(b(e)),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            r = yield (u || (u = n("Promise"))).all([
+              L(S(e)),
               e.isBusiness
                 ? null
-                : S(
-                    o("WAWebFindCommonGroupsContactAction").findCommonGroups(e),
+                : L(
+                    o(
+                      "WAWebGetPrioritizedCommonGroupsAction",
+                    ).getPrioritizedCommonGroups(e),
                   ),
             ]),
-            r = t[0],
-            a = t[1];
+            a = r[0],
+            i = r[1];
           return {
+            commonGroupName:
+              (i == null || (t = i.priority) == null ? void 0 : t.group) != null
+                ? o(
+                    "WAWebGetPrioritizedCommonGroupsAction",
+                  ).getCommonGroupTitle(i.priority.group)
+                : null,
             commonGroupsCount: e.isBusiness
               ? null
-              : a == null
+              : i == null
                 ? void 0
-                : a.length,
-            countryName: r,
+                : i.commonGroups.length,
+            countryName: a,
           };
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(t) {
+      o("WAWebFindChatAction")
+        .findOrCreateLatestChat(t.id, "debugOpenChatFlow")
+        .then(function (e) {
+          var t = e.chat;
+          return o("WAWebHeaderInfoPanelActions").openInfoPanel({
+            chat: t,
+            uim: null,
+          });
+        })
+        .catch(function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[start-chat-context] groups in common failed to open",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("start-chat-context-groups-in-common-open-failed");
+        });
     }
-    function v() {
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebApiContactUsernameFields",
           ).getOrFetchContactUsernameCountryCode(e.id);
           if (t == null) return null;
           var n = yield o("WAWebApiContactUsernameFields")
             .getOrFetchMeContactUsernameCountryCode()
-            .catch(R);
+            .catch(E);
           return n === t &&
             !o("WAWebFMXGatingUtils").isFmxPersistentCountryTrustSignalEnabled()
             ? null
             : o("WAWebCountriesUtils").getCountryNameFromCountryCode(t);
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function S(e) {
-      return o("WAPromiseTimeout").promiseTimeout(e, m).catch(R);
+    function L(e) {
+      return o("WAPromiseTimeout").promiseTimeout(e, p).catch(E);
     }
-    function R(t) {
+    function E(e) {
       return (
         o("WALogger")
           .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[start-chat-context] trust signal unavailable",
               ])),
           )
-          .catching(r("getErrorSafe")(t)),
+          .catching(r("getErrorSafe")(e)),
         null
       );
     }
-    ((l.preloadStartChatContextModal = _), (l.openStartChatContextModal = f));
+    ((l.preloadStartChatContextModal = f), (l.openStartChatContextModal = g));
   },
   98,
 );

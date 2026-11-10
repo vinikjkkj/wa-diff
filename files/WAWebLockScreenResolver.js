@@ -5,15 +5,18 @@ __d(
     "WAComms",
     "WALogger",
     "WAResolvable",
+    "WAWebAppCommsCloseReason",
     "WAWebCallCollection",
     "WAWebChatCollection",
     "WAWebCmd",
-    "WAWebCommsGating",
     "WAWebConfirmPopup.react",
     "WAWebCryptoEncKeyHelper",
     "WAWebDbEncryptionKey",
     "WAWebModalManager",
     "WAWebMsgCollection",
+    "WAWebPathfinderHeldBackScope.react",
+    "WAWebPathfinderHeldBackSurface",
+    "WAWebReloadCrashAnnotations",
     "WAWebUserPrefsInfoStore",
     "asyncToGeneratorRuntime",
     "react",
@@ -26,7 +29,9 @@ __d(
       m,
       p,
       _ = p || (p = o("react")),
-      f = (function () {
+      f = null,
+      g = null,
+      h = (function () {
         function e() {
           this.deferred = new (o("WAResolvable").Resolvable)();
         }
@@ -51,43 +56,89 @@ __d(
             this.deferred.resolve(t);
           }),
           (t.correctPasscodeEntered = function (t) {
-            ((this.deferred = new (o("WAResolvable").Resolvable)()),
+            (o("WAWebPathfinderHeldBackSurface").noteScreenUnlocked(),
+              f == null || f(),
+              (f = null),
+              (this.deferred = new (o("WAResolvable").Resolvable)()),
               o("WAWebCmd").Cmd.correctPasscodeLockScreen(t),
-              o("WAWebModalManager").ModalManager.close());
+              o("WAWebPathfinderHeldBackSurface").openHeldBack(
+                o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK,
+                function () {
+                  return o("WAWebModalManager").ModalManager.close();
+                },
+              ));
           }),
           e
         );
       })(),
-      g = new f();
-    function h() {
-      return y.apply(this, arguments);
-    }
-    function y() {
+      y = new h();
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        g != null ||
+          (g = b().finally(function () {
+            g = null;
+          })),
+        g
+      );
+    }
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (r("WAWebCallCollection").activeCall != null) {
-            (o("WALogger").LOG(
+            o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[screen-lock] blocked: active call in progress",
                 ])),
-            ),
-              o("WAWebModalManager").ModalManager.open(
-                _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  tsNavigationData: {
-                    surface: "unknown",
-                    viewName: "screen-lock-active-call-blocker",
-                  },
-                  title: s._(/*BTDS*/ "You can't lock the app during a call"),
-                  onOK: o("WAWebModalManager").closeModalManager,
-                  okText: s._(/*BTDS*/ "OK"),
-                  children: s._(
-                    /*BTDS*/ "End your call before locking the app.",
-                  ),
-                }),
-              ));
+            );
+            var t = _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: {
+                surface: "unknown",
+                viewName: "screen-lock-active-call-blocker",
+              },
+              title: s._(/*BTDS*/ "You can't lock the app during a call"),
+              onOK: o("WAWebModalManager").closeModalManager,
+              okText: s._(/*BTDS*/ "OK"),
+              children: s._(/*BTDS*/ "End your call before locking the app."),
+            });
+            o("WAWebPathfinderHeldBackSurface").openHeldBack(
+              o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+                .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
+              function () {
+                return o("WAWebModalManager").ModalManager.open(
+                  _.jsx(r("WAWebPathfinderHeldBackScope.react"), {
+                    name: o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+                      .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
+                    children: t,
+                  }),
+                );
+              },
+            );
             return;
           }
+          f == null || f();
+          var n = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(
+            o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK,
+          );
+          f = n;
+          try {
+            yield S();
+          } catch (e) {
+            throw (n(), f === n && (f = null), e);
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o("WAWebUserPrefsInfoStore").waNoiseInfo.cachedPasscodeDerivedKey ==
             null
@@ -106,30 +157,38 @@ __d(
                     "[reload] lockScreenAndTriggerUnlockFlow: no passcode key",
                   ])),
               ),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "lockScreenAndTriggerUnlockFlow: no passcode key",
+              ),
               location.reload());
             return;
           }
-          var t = o("WAComms").getComms();
-          if (t == null) {
+          var e = o("WAComms").getComms();
+          if (e == null) {
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[reload] lockScreenAndTriggerUnlockFlow: no comms",
                 ])),
             ),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "lockScreenAndTriggerUnlockFlow: no comms",
+              ),
               location.reload());
             return;
           }
-          var n = o("WAWebChatCollection").ChatCollection.getActive();
+          var t = o("WAWebChatCollection").ChatCollection.getActive();
           if (
-            (n && o("WAWebCmd").Cmd.closeChat(n),
+            (t && o("WAWebCmd").Cmd.closeChat(t),
             yield o("WAWebMsgCollection").MsgCollection.encryptAndClearModels(),
             o(
               "WAWebUserPrefsInfoStore",
             ).waNoiseInfo.resetCachedPasscodeDerivedKey(),
             o("WAWebDbEncryptionKey").DbEncKeyStore.deleteKeyCache(),
             o("WAWebDbEncryptionKey").DbEncKeyStore.resetDB(),
-            !(yield t.trySoftCloseSocket()))
+            !(yield e.trySoftCloseSocket(
+              o("WAWebAppCommsCloseReason").AppCommsCloseReason.AppLock,
+            )))
           ) {
             (o("WALogger").LOG(
               m ||
@@ -137,16 +196,19 @@ __d(
                   "[reload] lockScreenAndTriggerUnlockFlow",
                 ])),
             ),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "lockScreenAndTriggerUnlockFlow",
+              ),
               location.reload());
             return;
           }
           (yield o("WAWebCryptoEncKeyHelper").initEncSalt(),
-            o("WAWebCommsGating").isCommsInWorker() || t.openSocketLoop());
+            e.openSocketLoop());
         })),
-        y.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.LockScreenResolvable = g), (l.lockScreenAndTriggerUnlockFlow = h));
+    ((l.LockScreenResolvable = y), (l.lockScreenAndTriggerUnlockFlow = C));
   },
   226,
 );

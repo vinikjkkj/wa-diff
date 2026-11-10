@@ -10,7 +10,7 @@ __d(
     "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataModel",
     "WAWebIsCagGroupCache",
-    "WAWebOrgContactCollection",
+    "WAWebOrgCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebStaleBaseCollection",
     "WAWebUpdateSubgroupsCommunityAction",
@@ -90,8 +90,8 @@ __d(
               "change:defaultSubgroup",
               a._handleDefaultSubgroupChange,
             ),
-            o("WAWebOrgContactCollection").OrgContactCollection.on(
-              o("WAWebOrgContactCollection").ORG_CONTACTS_APPLIED,
+            o("WAWebOrgCollection").OrgCollection.on(
+              o("WAWebOrgCollection").ORG_MEMBERS_APPLIED,
               function () {
                 return a.$GroupMetadataCollection$p_1();
               },

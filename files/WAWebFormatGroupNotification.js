@@ -36,7 +36,6 @@ __d(
     "WAWebMessageCommunityWelcomeAdminTitle.react",
     "WAWebMessageCommunityWelcomeMemberTitle.react",
     "WAWebMsgModelUtils",
-    "WAWebOrgMemberContactName",
     "WAWebUserPrefsMeUser",
     "WAWebWidFormat",
   ],
@@ -58,15 +57,14 @@ __d(
         h = f[0],
         y = h ? o("WAWebContactCollection").ContactCollection.get(h) : void 0,
         C;
-      if (y) {
-        var b;
-        C =
-          (b = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(y)) !=
-          null
-            ? b
-            : o("WAWebFrontendContactGetters").getFormattedName(y);
-      } else h ? (C = o("WAWebWidFormat").widToFormattedUser(h)) : (C = "");
-      switch (l) {
+      switch (
+        (y
+          ? (C = o("WAWebFrontendContactGetters").getFormattedName(y))
+          : h
+            ? (C = o("WAWebWidFormat").widToFormattedUser(h))
+            : (C = ""),
+        l)
+      ) {
         case "add":
           a = o("WAWebFormatAddNotification").formatAddNotification({
             author: c,
@@ -112,11 +110,11 @@ __d(
           });
           break;
         case "modify": {
-          var v = o("WAWebContactCollection").ContactCollection.get(c),
-            S =
-              v != null &&
-              o("WAWebFrontendContactGetters").getIsUsernameContact(v);
-          if (S) {
+          var b = o("WAWebContactCollection").ContactCollection.get(c),
+            v =
+              b != null &&
+              o("WAWebFrontendContactGetters").getIsUsernameContact(b);
+          if (v) {
             a = s._(/*BTDS*/ "{name} updated their contact info", [
               s._param("name", u),
             ]);
@@ -274,13 +272,13 @@ __d(
         case "auto_add":
         case "default_sub_group_admin_add":
         case "invite_auto_add": {
-          var R = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
+          var S = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
             author: c,
             subject: h,
             subtype: l,
             templateParams: t.templateParams,
           });
-          R != null && (a = R);
+          S != null && (a = S);
           break;
         }
         case "community_participant_add_rich":
@@ -356,10 +354,10 @@ __d(
           );
           break;
         case "empty_subgroup_create": {
-          var L = t.templateParams[2];
+          var R = t.templateParams[2];
           a = o(
             "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
-          ).communityEmptySubgroupWelcomeTitle(L);
+          ).communityEmptySubgroupWelcomeTitle(R);
           break;
         }
         case "created_subgroup_suggestion": {
@@ -371,22 +369,22 @@ __d(
           break;
         }
         case "general_chat_add": {
-          var E = t.templateParams[1];
+          var L = t.templateParams[1];
           a = o(
             "WAWebMessageCommunityGeneralChatWelcomeTitle.react",
-          ).communityGeneralChatWelcomeTitle(E);
+          ).communityGeneralChatWelcomeTitle(L);
           break;
         }
         case "general_group_auto_add_disabled": {
-          var k, I;
+          var E, k;
           a = o(
             "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
           ).communityGeneralChatAutoAddDisabledNotification(
-            (k =
-              (I = o("WAWebFrontendMsgGetters").getChat(t)) == null
+            (E =
+              (k = o("WAWebFrontendMsgGetters").getChat(t)) == null
                 ? void 0
-                : I.formattedTitle) != null
-              ? k
+                : k.formattedTitle) != null
+              ? E
               : "",
             t.templateParams,
           );

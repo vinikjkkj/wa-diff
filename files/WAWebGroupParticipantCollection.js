@@ -103,7 +103,11 @@ __d(
               subject: c,
             });
           }),
-          a.listenTo(a, "change:contact.name", a.$ParticipantCollection$p_1),
+          a.listenTo(
+            a,
+            ["change:contact.name", "change:contact.orgMemberName"],
+            a.$ParticipantCollection$p_1,
+          ),
           a.listenTo(
             r("WAWebL10N"),
             "locale_change",

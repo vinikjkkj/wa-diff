@@ -40,6 +40,8 @@ __d(
         ANDROID_TABLET_OVERLAY_COUNTRY: "android_tablet_overlay_country",
         ANDROID_TABLET_DETECTION_FAILED: "android_tablet_detection_failed",
         ANDROID_TABLET_ARM_ASSIGNED: "android_tablet_arm_assigned",
+        ANDROID_TABLET_OVERLAY_RETURNED_AFTER_DOWNLOAD:
+          "android_tablet_overlay_returned_after_download",
         APPLE_TOUCHSCREEN_OVERLAY_CONTINUE_TO_WEB:
           "apple_touchscreen_overlay_continue_to_web",
         HYBRID_REG_WELCOME_SCREEN_LOADED: "hybrid_reg_welcome_screen_loaded",
@@ -162,7 +164,9 @@ __d(
                     ? 7
                     : e === s.ANDROID_TABLET_ARM_ASSIGNED
                       ? 8
-                      : null;
+                      : e === s.ANDROID_TABLET_OVERLAY_RETURNED_AFTER_DOWNLOAD
+                        ? 9
+                        : null;
     }
     function g() {
       var e = r("WAWebUserPrefsStore").get(

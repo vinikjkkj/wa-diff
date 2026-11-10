@@ -5,7 +5,7 @@ __d(
     "WAPromiseBackoffs",
     "WAPromiseManagement",
     "WARetryPromise",
-    "WASuspiciousLinks",
+    "WAUrlSpoofChecksWasmInstance",
     "WAWasmModuleCache",
     "asyncToGeneratorRuntime",
     "bx",
@@ -52,7 +52,17 @@ __d(
               };
             })(),
           );
-          return (o("WASuspiciousLinks").initializeSuspiciousHostChecks(t), t);
+          return (
+            o(
+              "WAUrlSpoofChecksWasmInstance",
+            ).isSuspiciousHostChecksInitialized() ||
+              o(
+                "WAUrlSpoofChecksWasmInstance",
+              ).initializeSuspiciousHostChecksFromInstance(
+                yield WebAssembly.instantiate(t),
+              ),
+            t
+          );
         }),
       ),
       d = c;

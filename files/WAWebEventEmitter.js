@@ -29,11 +29,12 @@ __d(
             )
               return this;
             var e = this,
-              o = !1,
-              a = function () {
-                o || ((o = !0), e.off(t, a), n.apply(this, arguments));
+              o = n,
+              a = !1,
+              i = function () {
+                a || ((a = !0), e.off(t, i), o.apply(this, arguments));
               };
-            return ((a._callback = n), this.on(t, a, r));
+            return ((i._callback = n), this.on(t, i, r));
           }),
           (n.off = function (t, n, r) {
             var e = this.$1;

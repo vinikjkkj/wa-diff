@@ -50,6 +50,7 @@ __d(
         "groupInviteMessage",
         "imageMessage",
         "instantImageMessage",
+        "instantVideoMessage",
         "interactiveMessage",
         "interactiveResponseMessage",
         "listMessage",
@@ -62,6 +63,7 @@ __d(
         "newsletterAdminInviteMessage",
         "newsletterFollowerInviteMessageV2",
         "orderMessage",
+        "paymentDetailsMessage",
         "pollCreationMessage",
         "pollCreationMessageV2",
         "pollCreationMessageV3",
@@ -127,6 +129,7 @@ __d(
         groupInviteMessage: _(e.groupInviteMessage),
         imageMessage: _(e.imageMessage),
         instantImageMessage: _(e.instantImageMessage),
+        instantVideoMessage: _(e.instantVideoMessage),
         interactiveMessage: _(e.interactiveMessage),
         interactiveResponseMessage: _(e.interactiveResponseMessage),
         listMessage: _(e.listMessage),
@@ -141,6 +144,7 @@ __d(
           e.newsletterFollowerInviteMessageV2,
         ),
         orderMessage: _(e.orderMessage),
+        paymentDetailsMessage: _(e.paymentDetailsMessage),
         pollCreationMessage: _(e.pollCreationMessage),
         pollCreationMessageV2: _(e.pollCreationMessageV2),
         pollCreationMessageV3: _(e.pollCreationMessageV3),
@@ -190,6 +194,14 @@ __d(
             s,
             u,
             { contextInfo: h(e.instantImageMessage.contextInfo) },
+          )),
+        e.instantVideoMessage != null &&
+          (t.instantVideoMessage = babelHelpers.extends(
+            {},
+            e.instantVideoMessage,
+            s,
+            u,
+            { contextInfo: h(e.instantVideoMessage.contextInfo) },
           )),
         e.videoMessage != null &&
           (t.videoMessage = babelHelpers.extends({}, e.videoMessage, s, u, {

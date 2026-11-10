@@ -1,20 +1,22 @@
 __d(
   "WDSDialogBridge",
-  ["WDSDialogDismissRegistry"],
+  ["WDSDialogDismissRegistry", "WDSPresentationObservers"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 150,
       s = null,
       u = null,
-      c = null;
-    function d(e) {
-      s != null ? s(e) : (c = e);
+      c = null,
+      d = null;
+    function m(e) {
+      ((d = o("WDSPresentationObservers").captureWDSPresentationContext()),
+        s != null ? s(e) : (c = e));
     }
-    function m() {
+    function p() {
       (o("WDSDialogDismissRegistry").clearDialogDismissHandler(),
-        u != null ? u() : c != null && (c = null));
+        u != null ? u() : c != null && ((c = null), (d = null)));
     }
-    function p(e, t) {
+    function _(e, t) {
       if (((s = e), (u = t), c != null)) {
         var n = c;
         ((c = null), e(n));
@@ -23,10 +25,15 @@ __d(
         ((s = null), (u = null));
       };
     }
+    function f() {
+      var e = d;
+      return ((d = null), e);
+    }
     ((l.DIALOG_EXIT_ANIMATION_DURATION = e),
-      (l.openWDSDialog = d),
-      (l.closeWDSDialog = m),
-      (l.registerDialogManager = p));
+      (l.openWDSDialog = m),
+      (l.closeWDSDialog = p),
+      (l.registerDialogManager = _),
+      (l.takeOpenedDialogPresentationContext = f));
   },
   98,
 );

@@ -25,7 +25,7 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaPendingMutations")
             .getPendingMutationsTable()
-            .all({ index: ["collection"], returnKeyType: "keys" });
+            .allKeys({ index: ["collection"], returnKeyType: "keys" });
           return new Set(e);
         })),
         c.apply(this, arguments)

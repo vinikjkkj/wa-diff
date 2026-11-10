@@ -21,11 +21,18 @@ __d(
             (this.$2 = !1),
             (this.$3 = 1),
             (this.$4 = !1),
-            (this.trySoftCloseSocket = n(
-              "asyncToGeneratorRuntime",
-            ).asyncToGenerator(function* () {
-              return t.$1.sendAndReceive("comms", "trySoftCloseSocket");
-            })),
+            (this.trySoftCloseSocket = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  return t.$1.sendAndReceive("comms", "trySoftCloseSocket", {
+                    reason: e,
+                  });
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })()),
             (this.handleStanza = function () {
               throw r("err")(
                 "WAWebCommsWorkerProxy.handleStanza is not supported",
@@ -55,23 +62,27 @@ __d(
                 void 0,
               );
             }),
-            (this.stopComms = function () {
-              t.$1.fireAndForget("comms", "stopComms", void 0);
+            (this.stopComms = function (e) {
+              t.$1.fireAndForget("comms", "stopComms", { reason: e });
             }),
-            (this.closeSocket = function () {
-              t.$1.fireAndForget("comms", "closeSocket", void 0);
+            (this.closeSocket = function (e) {
+              t.$1.fireAndForget("comms", "closeSocket", { reason: e });
             }),
             (this.closeSocketInDebugMode = function () {
               t.$1.fireAndForget("comms", "closeSocketInDebugMode", void 0);
             }),
-            (this.closeSocketAndPreventRetry = function () {
-              t.$1.fireAndForget("comms", "closeSocketAndPreventRetry", void 0);
+            (this.closeSocketAndPreventRetry = function (e) {
+              t.$1.fireAndForget("comms", "closeSocketAndPreventRetry", {
+                reason: e,
+              });
             }),
-            (this.closeSocketAndPause = function () {
-              t.$1.fireAndForget("comms", "closeSocketAndPause");
+            (this.closeSocketAndPause = function (e) {
+              t.$1.fireAndForget("comms", "closeSocketAndPause", { reason: e });
             }),
-            (this.closeSocketAndResume = function () {
-              t.$1.fireAndForget("comms", "closeSocketAndResume");
+            (this.closeSocketAndResume = function (e) {
+              t.$1.fireAndForget("comms", "closeSocketAndResume", {
+                reason: e,
+              });
             }),
             (this.openSocketLoop = function () {
               t.$1.fireAndForget("comms", "openSocketLoop");

@@ -19,6 +19,7 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMsgKey",
     "WAWebMsgProcessingApiUtils",
+    "WAWebParseWebMessageInfoApi",
     "WAWebReportingTokenConstants",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -68,18 +69,19 @@ __d(
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var t,
-                      a = null,
-                      i = [];
+                      a,
+                      i = null,
+                      l = [];
                     if (e.key.fromMe === !0)
-                      ((a = o("WAWebUserPrefsMeUser").getMeUserOrThrow()),
-                        (i = e.userReceipt.filter(function (e) {
+                      ((i = o("WAWebUserPrefsMeUser").getMeUserOrThrow()),
+                        (l = e.userReceipt.filter(function (e) {
                           return (
                             e.readTimestamp != null && e.readTimestamp !== 0
                           );
                         })));
                     else {
-                      var l = e.participant;
-                      if (l == null)
+                      var c = e.participant;
+                      if (c == null)
                         return (
                           o("WALogger").LOG(
                             s ||
@@ -89,9 +91,9 @@ __d(
                           ),
                           (d || (d = n("Promise"))).resolve()
                         );
-                      a = o("WAWebWidFactory").createWid(l);
+                      i = o("WAWebWidFactory").createWid(c);
                     }
-                    var c = {
+                    var m = {
                       type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS,
                       externalId: r("nullthrows")(
                         e.key.id,
@@ -106,7 +108,7 @@ __d(
                       chat: o("WAWebWidFactory").createWid(
                         o("WAJids").STATUS_JID,
                       ),
-                      author: a,
+                      author: i,
                       pushname: null,
                       isDirect: !1,
                     };
@@ -122,54 +124,63 @@ __d(
                           .sendLogs("history-sync-missing-status-msg"),
                         (d || (d = n("Promise"))).resolve()
                       );
-                    var m = o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                      p = yield o("WAWebMsgProcessingApiUtils").parseMessage({
-                        info: c,
-                        ciphertextType: m,
+                    var p = o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                      f = yield o("WAWebMsgProcessingApiUtils").parseMessage({
+                        info: m,
+                        ciphertextType: p,
                         msgProtobuf: r("nullthrows")(
                           e.message,
                           "HistorySync:handleStatusMessages: missing message",
                         ),
                         hsmInfo: null,
                       }),
-                      f = p.renderableMsgs && p.renderableMsgs;
-                    if (!f || f.length !== 1)
+                      g = f.renderableMsgs && f.renderableMsgs;
+                    if (!g || g.length !== 1)
                       return (d || (d = n("Promise"))).resolve();
-                    var g = f[0].id,
-                      h = f[0].author,
-                      y = babelHelpers.extends({}, f[0], {
+                    var h = g[0].id,
+                      y = g[0].author,
+                      C = o(
+                        "WAWebParseWebMessageInfoApi",
+                      ).getWebMessageInfoSecret(e),
+                      b = babelHelpers.extends({}, g[0], {
+                        messageSecret: (t = g[0].messageSecret) != null ? t : C,
                         author:
-                          h &&
-                          o("WAWebLidStatusMigrationUtils").matWidConvert(h),
+                          y &&
+                          o("WAWebLidStatusMigrationUtils").matWidConvert(y),
                         id: new (r("WAWebMsgKey"))({
-                          fromMe: g.fromMe,
-                          remote: g.remote,
-                          id: g.id,
+                          fromMe: h.fromMe,
+                          remote: h.remote,
+                          id: h.id,
                           participant:
-                            g.participant == null
+                            h.participant == null
                               ? void 0
                               : o("WAWebLidStatusMigrationUtils").matWidConvert(
-                                  g.participant,
+                                  h.participant,
                                 ),
                         }),
                       });
-                    if (e.participant === "0@s.whatsapp.net")
-                      return (d || (d = n("Promise"))).resolve();
-                    var C = e.ignore === !0;
                     if (
-                      (C &&
-                        (y = babelHelpers.extends({}, y, {
+                      (o(
+                        "WAWebParseWebMessageInfoApi",
+                      ).maybeCountWebMessageInfoSecretFallback(b, C),
+                      e.participant === "0@s.whatsapp.net")
+                    )
+                      return (d || (d = n("Promise"))).resolve();
+                    var v = e.ignore === !0;
+                    if (
+                      (v &&
+                        (b = babelHelpers.extends({}, b, {
                           invis: !0,
                           ack: o("WAAckLevel").ACK.READ,
                         })),
                       yield o(
                         "WAWebHandleSingleMsgWorkerCompatible",
                       ).handleSingleMsg({
-                        chatId: y.id.remote,
-                        newMsg: y,
+                        chatId: b.id.remote,
+                        newMsg: b,
                         handleSingleMsgOrigin: "historyStatusMessages",
                       }),
-                      i.forEach(function (e) {
+                      l.forEach(function (e) {
                         var t,
                           n = o("WALongInt").numberOrThrowIfTooLarge(
                             (t = e.readTimestamp) != null ? t : 0,
@@ -181,30 +192,30 @@ __d(
                           ts: n,
                           ack: o("WAAckLevel").ACK.READ,
                           receiverId: r,
-                          msgKeys: [y.id.toString()],
+                          msgKeys: [b.id.toString()],
                         });
                       }),
                       o(
                         "WAWebMessagingGatingUtils",
                       ).isReportingTagSyncingEnabled() &&
-                        ((t = e.reportingTokenInfo) == null
+                        ((a = e.reportingTokenInfo) == null
                           ? void 0
-                          : t.reportingTag) != null)
+                          : a.reportingTag) != null)
                     ) {
-                      var b;
-                      y = babelHelpers.extends({}, y, {
+                      var S;
+                      b = babelHelpers.extends({}, b, {
                         reportingTokenInfo: {
                           reportingTag: new Uint8Array(
-                            (b = e.reportingTokenInfo) == null
+                            (S = e.reportingTokenInfo) == null
                               ? void 0
-                              : b.reportingTag,
+                              : S.reportingTag,
                           ),
                           version: o("WAWebReportingTokenConstants")
                             .REPORTING_TOKEN_VERSION.HISTORY_SYNC,
                         },
                       });
                     }
-                    return (_.push(y), !0);
+                    return (_.push(b), !0);
                   },
                 );
                 return function (t) {

@@ -90,8 +90,6 @@ __d(
                       r != null &&
                         !o("WAWebContactGetters").getIsMe(r) &&
                         !o("WAWebFrontendContactGetters").getIsMyContact(r) &&
-                        r.pushname != null &&
-                        r.pushname.trim() !== "" &&
                         e.set(n, r);
                     }
                     return e;
@@ -116,10 +114,10 @@ __d(
           );
         }),
         (n.$WAWebNonContactPushNameSearchModel$p_6 = function (t, n) {
-          var e = t.pushname;
-          return e == null
-            ? !1
-            : o("WAWebSearchUtils").normalizeString(e).includes(n);
+          var e = g(t);
+          return (
+            e != null && o("WAWebSearchUtils").normalizeString(e).includes(n)
+          );
         }),
         (n.queryFn = function (t, n) {
           var e = this,
@@ -165,18 +163,27 @@ __d(
       );
     })(o("WAWebSearchModel").Search);
     f.CACHE_TTL_MS = o("WATimeUtils").MINUTE_MILLISECONDS;
-    var g;
-    function h() {
-      return (g == null && (g = new f()), g);
+    function g(e) {
+      var t,
+        n =
+          (t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e)) !=
+          null
+            ? t
+            : e.pushname;
+      return n == null || n.trim() === "" ? null : n;
     }
-    function y(e) {
+    var h;
+    function y() {
+      return (h == null && (h = new f()), h);
+    }
+    function C(e) {
       if (
         !e ||
         !o("WAWebContactSearchGatingUtils").isNonContactPushNameSearchEnabled()
       )
         return d;
       try {
-        var t = h()
+        var t = y()
           .queryFn(e)
           .results.map(function (e) {
             return e.data;
@@ -192,8 +199,8 @@ __d(
       (l.canonicalDedupeId = p),
       (l.dedupeNonContactPushnames = _),
       (l.WAWebNonContactPushNameSearchModel = f),
-      (l.getNonContactPushNameSearch = h),
-      (l.searchNonContactPushnames = y));
+      (l.getNonContactPushNameSearch = y),
+      (l.searchNonContactPushnames = C));
   },
   226,
 );

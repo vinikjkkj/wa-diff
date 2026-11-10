@@ -27,7 +27,7 @@ __d(
             a = t.members,
             i = t.memberUpdatedTsUsec,
             l = a.flatMap(function (t) {
-              return g(e, t);
+              return y(e, t);
             });
           if (l.length !== a.length) throw r("err")("INCOMPLETE_DIRECTORY");
           var s = yield o("WAWebDBOrg").replaceCompleteOrgRoster(
@@ -52,28 +52,9 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
+    var c = new Set();
     function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (yield o("WAWebDBOrg").getOrgs()).find(function (t) {
-              return t.orgId === e;
-            }),
-            n = t != null ? t : {},
-            r = n.directoryIsComplete,
-            a = n.memberListTsUsec,
-            i = n.memberUpdatedTsUsec;
-          return (
-            r === !0 &&
-            a != null &&
-            i != null &&
-            o("WAWebOrgOrder").compareUnsignedDecimalStrings(a, i) >= 0
-          );
-        })),
-        d.apply(this, arguments)
-      );
+      c = new Set();
     }
     function m(e) {
       return p.apply(this, arguments);
@@ -81,6 +62,35 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = (yield o("WAWebDBOrg").getOrgs()).find(function (t) {
+              return t.orgId === e;
+            }),
+            n = t != null ? t : {},
+            r = n.directoryIsComplete,
+            a = n.memberListTsUsec,
+            i = n.memberUpdatedTsUsec;
+          if (
+            r !== !0 ||
+            a == null ||
+            i == null ||
+            o("WAWebOrgOrder").compareUnsignedDecimalStrings(a, i) < 0
+          )
+            return !1;
+          if (c.has(e)) return !0;
+          var l = (yield o("WAWebDBOrg").getOrgContacts(e)).every(function (e) {
+            return e.firstName != null;
+          });
+          return (l && c.add(e), l);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = (yield o("WAWebDBOrg").getOrgContacts(e)).map(function (e) {
             return e.lid;
           });
@@ -89,15 +99,15 @@ __d(
             rows: yield o("WAWebDBOrg").getOrgContactsByLids(t),
           };
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebOrgAdminGraphQL").loadOrgAdminMemberSearchPage(
               e,
               t,
@@ -105,7 +115,7 @@ __d(
               null,
             ),
             r = n.members.flatMap(function (t) {
-              return g(e, t);
+              return y(e, t);
             });
           return {
             lids: r.map(function (e) {
@@ -114,10 +124,10 @@ __d(
             rows: yield o("WAWebDBOrg").mergeOrgContacts(r),
           };
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(t, n) {
+    function y(t, n) {
       var r,
         a = o("WAWebSchemaOrg").OrgMemberRole.cast(n.role);
       if (a == null)
@@ -135,16 +145,18 @@ __d(
           []
         );
       var i = {
-          lid: n.lid,
-          memberName:
-            n.memberName == null || n.memberName === ""
-              ? n.displayName
-              : n.memberName,
-          memberTag: (r = n.memberTag) != null ? r : "",
-          orgId: t,
-          role: a,
-        },
-        l = o("WAWebUsernameTypes").asMaybeUsername(n.username);
+        lid: n.lid,
+        memberName:
+          n.memberName == null || n.memberName === ""
+            ? n.displayName
+            : n.memberName,
+        memberTag: (r = n.memberTag) != null ? r : "",
+        orgId: t,
+        role: a,
+      };
+      (n.firstName != null && (i.firstName = n.firstName),
+        n.lastName != null && n.lastName !== "" && (i.lastName = n.lastName));
+      var l = o("WAWebUsernameTypes").asMaybeUsername(n.username);
       return (
         l != null && (i.username = l),
         n.phoneNumber != null && (i.phoneNumber = n.phoneNumber),
@@ -152,10 +164,11 @@ __d(
       );
     }
     ((l.syncOrgDirectory = s),
-      (l.isStoredOrgDirectoryFresh = c),
-      (l.loadStoredOrgDirectory = m),
-      (l.searchOrgDirectory = _),
-      (l.toOrgContactRow = g));
+      (l.resetStoredOrgDirectoryChecks = d),
+      (l.isStoredOrgDirectoryFresh = m),
+      (l.loadStoredOrgDirectory = _),
+      (l.searchOrgDirectory = g),
+      (l.toOrgContactRow = y));
   },
   98,
 );

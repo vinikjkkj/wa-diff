@@ -9,6 +9,7 @@ __d(
     "WAWebEnvironment",
     "WAWebHeapCrashAnnotations",
     "WAWebLogForCrash",
+    "WAWebReloadCrashAnnotations",
     "WAWebSafeCrashAnnotation",
     "WAWebTemporaryStorage",
     "WAWebWindowsQueryParams",
@@ -118,7 +119,7 @@ __d(
           });
     }
     function S() {
-      o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+      (o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:loadCount",
         function () {
           var e = D();
@@ -132,7 +133,26 @@ __d(
           }),
             y.set("wa:loadCount", e));
         },
-      );
+      ),
+        o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+          "wa:reloadReason",
+          function () {
+            var e = o("WAWebReloadCrashAnnotations").takeReloadReasonForCrash();
+            e != null &&
+              (o("WAWebLogForCrash").onLogForCrashReady(function () {
+                return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+                  "wa:reloadReason",
+                  function () {
+                    return o("WAWebLogForCrash").logForCrash(
+                      "wa:reloadReason",
+                      e,
+                    );
+                  },
+                );
+              }),
+              y.set("wa:reloadReason", e));
+          },
+        ));
     }
     function R() {
       (y.forEach(function (e, t) {

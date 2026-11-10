@@ -70,10 +70,10 @@ __d(
                     .getBackendEventBus()
                     .triggerOpenSocketStream());
             },
-            onDisconnect: function () {
+            onDisconnect: function (t) {
               o("WAWebBackendEventBusWorkerCompatible")
                 .getBackendEventBus()
-                .triggerSocketStreamDisconnected();
+                .triggerSocketStreamDisconnected(t);
             },
             onSocketOpen: function () {
               o("WAWebBackendEventBusWorkerCompatible")

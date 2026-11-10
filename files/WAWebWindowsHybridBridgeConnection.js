@@ -7,6 +7,7 @@ __d(
     "WAPromiseDelays",
     "WAResolvable",
     "WAShiftTimer",
+    "WAWebAppCommsCloseReason",
     "WAWebCallCollection",
     "WAWebEventsWaitForMainStreamReadyMd",
     "WAWebEventsWaitForOfflineDeliveryEnd",
@@ -169,7 +170,10 @@ __d(
                       a.$21(t)))
                   )
                     return;
-                  (o("WAComms").closeSocketAndPause(),
+                  (o("WAComms").closeSocketAndPause(
+                    o("WAWebAppCommsCloseReason").AppCommsCloseReason
+                      .WindowsHybridDisconnect,
+                  ),
                     o("WALogger").LOG(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -438,7 +442,10 @@ __d(
                   (a
                     ? e && ((this.$2 = !0), yield this.$24(), yield this.$25())
                     : ((this.$2 = !0),
-                      o("WAComms").closeSocketAndResume(),
+                      o("WAComms").closeSocketAndResume(
+                        o("WAWebAppCommsCloseReason").AppCommsCloseReason
+                          .WindowsHybridReconnect,
+                      ),
                       o("WALogger").LOG(
                         b ||
                           (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -516,7 +523,10 @@ __d(
                 }
                 ((this.$5 =
                   o("WAWebWindowsBackgroundRun").getWindowsLoginCount() + 1),
-                  o("WAComms").closeSocketAndResume(),
+                  o("WAComms").closeSocketAndResume(
+                    o("WAWebAppCommsCloseReason").AppCommsCloseReason
+                      .WindowsHybridReconnect,
+                  ),
                   o("WALogger").LOG(
                     L ||
                       (L = babelHelpers.taggedTemplateLiteralLoose([

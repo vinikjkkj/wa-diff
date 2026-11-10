@@ -5,7 +5,6 @@ __d(
     "WAWebChatContactUtils",
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
-    "WAWebOrgMemberContactName",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["chat"];
@@ -16,7 +15,7 @@ __d(
         formattedName: o("WAWebFrontendContactGetters").getFormattedName(t),
         isMyContact: o("WAWebFrontendContactGetters").getIsMyContact(t),
         notifyName: o("WAWebContactGetters").getNotifyName(t),
-        orgMemberName: o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+        orgMemberName: o("WAWebFrontendContactGetters").getShownOrgMemberName(
           t,
         ),
       });

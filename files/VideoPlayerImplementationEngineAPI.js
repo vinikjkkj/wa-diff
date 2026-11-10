@@ -348,6 +348,7 @@ __d(
           latencyLevel: R,
           loopCount: L,
           loopCurrent: E,
+          mediaSinkType: n.mediaSinkType,
           muted: k,
           paused: ne,
           playerInstanceKey: n.playerInstanceKey,

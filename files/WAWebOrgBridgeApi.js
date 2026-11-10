@@ -5,16 +5,15 @@ __d(
     "WALogger",
     "WAWebLazyLoadedRetriable",
     "WAWebOrgCollection",
-    "WAWebOrgContactCollection",
-    "WAWebOrgContactProjection",
+    "WAWebOrgContactIdentitySync",
+    "WAWebOrgMemberCollection",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = r("WAWebLazyLoadedRetriable")(
+      u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return r("JSResourceForInteraction")("WAWebBootstrapOrgDirectory")
             .__setRef("WAWebOrgBridgeApi")
@@ -22,7 +21,7 @@ __d(
         }),
         "OrgDirectoryBootstrap",
       ),
-      d = r("WAWebLazyLoadedRetriable")(
+      c = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return r("JSResourceForInteraction")("WAWebOrgBackgroundSyncAction")
             .__setRef("WAWebOrgBridgeApi")
@@ -30,19 +29,11 @@ __d(
         }),
         "OrgBackgroundSync",
       ),
-      m = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebOrgRequestContactAction")
-            .__setRef("WAWebOrgBridgeApi")
-            .load();
-        }),
-        "OrgRequestContactAction",
-      ),
-      p = {
-        applyOrgContactRows: y,
-        applyOrgRows: h,
+      d = {
+        applyOrgContactRows: p,
+        applyOrgRows: m,
         bootstrapOrgs: function () {
-          c()
+          u()
             .then(function (e) {
               return e.bootstrapOrgs();
             })
@@ -58,34 +49,16 @@ __d(
                 .sendLogs("org-directory-bootstrap-failed");
             });
         },
-        markOrgContactsChecked: function (t) {
-          var e = t.lids;
-          m()
-            .then(function (t) {
-              return t.markOrgContactsChecked(e);
-            })
-            .catch(function (e) {
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[org-directory] could not record notified people",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("org-contacts-checked-failed");
-            });
-        },
         syncOrgsInBackground: function (t) {
-          d()
+          c()
             .then(function (e) {
               return e.syncOrgsInBackground(t);
             })
             .catch(function (e) {
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[org-directory] background sync failed",
                     ])),
                 )
@@ -93,20 +66,11 @@ __d(
                 .sendLogs("org-background-sync-failed");
             });
         },
-      },
-      _ = new Set();
-    function f(e) {
-      e.forEach(function (e) {
-        return _.add(e);
-      });
-    }
-    function g() {
-      _ = new Set();
-    }
-    function h(e) {
+      };
+    function m(e) {
       var t = e.isFullList,
         n = e.rows,
-        r = L();
+        r = b();
       if (t) {
         var a = new Set(
             n.map(function (e) {
@@ -119,33 +83,37 @@ __d(
               return !a.has(e.id);
             });
         if (i.length > 0) {
-          o("WAWebOrgCollection").OrgCollection.remove(i);
-          var l = i.map(function (e) {
+          var l = i.flatMap(function (e) {
+            return y(e.id);
+          });
+          (o("WAWebOrgCollection").OrgCollection.remove(i),
+            i.forEach(function (e) {
+              return e.members.clearMembers();
+            }));
+          var s = i.map(function (e) {
             return e.id;
           });
-          o("WAWebOrgContactCollection").OrgContactCollection.notifyApplied(
-            l,
-            S(new Set(l)),
-          );
+          (o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(l),
+            o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(s, l));
         }
       }
-      (o("WAWebOrgCollection").OrgCollection.addRows(n), E(r, L()) || R());
+      (o("WAWebOrgCollection").OrgCollection.addRows(n),
+        v(r, b()) ||
+          o("WAWebOrgContactIdentitySync").syncAllContactOrgIdentity());
     }
-    function y(e) {
-      var t = e.lids.flatMap(function (e) {
-        var t, n;
-        return Object.keys(
-          (t =
-            (n = o("WAWebOrgContactCollection").OrgContactCollection.get(e)) ==
-            null
-              ? void 0
-              : n.orgMetadata) != null
-            ? t
-            : {},
-        );
-      });
-      (v(e),
-        o("WAWebOrgContactCollection").OrgContactCollection.notifyApplied(
+    function p(e) {
+      var t = o("WAWebOrgCollection")
+        .OrgCollection.filter(function (t) {
+          return e.lids.some(function (e) {
+            return t.members.get(e) != null;
+          });
+        })
+        .map(function (e) {
+          return e.id;
+        });
+      (h(e, null),
+        o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(e.lids),
+        o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(
           [].concat(
             t,
             e.rows.map(function (e) {
@@ -155,121 +123,124 @@ __d(
           e.lids,
         ));
     }
-    function C(e) {
+    function _(e) {
       var t = e.createModels,
-        n = e.lids,
-        r = e.orgId,
-        a = e.rows,
-        i = new Set(n),
-        l = o("WAWebOrgContactCollection")
-          .OrgContactCollection.getOrgContactsForOrg(r)
-          .filter(function (e) {
-            return !i.has(e.id);
-          }),
-        s = L();
-      (l.forEach(function (e) {
-        return o("WAWebOrgContactCollection").OrgContactCollection.applyAttrs(
-          o("WAWebOrgContactProjection").withoutOrgMemberships(
-            o("WAWebOrgContactCollection").toOrgContactAttrs(e),
-            new Set([r]),
-            s,
-          ),
-        );
-      }),
-        v({ createModels: t, lids: n, rows: a }),
-        o("WAWebOrgContactCollection").OrgContactCollection.notifyApplied(
-          [r].concat(
-            a.map(function (e) {
+        n = e.inServerOrder,
+        r = e.lids,
+        a = e.orgId,
+        i = e.rows,
+        l = new Set(r),
+        s = y(a).filter(function (e) {
+          return !l.has(e);
+        });
+      g({ createModels: t, inServerOrder: n, lids: r, orgId: a, rows: i });
+      var u = [].concat(r, s);
+      (o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(u),
+        o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(
+          [a].concat(
+            i.map(function (e) {
               return e.orgId;
             }),
           ),
-          [].concat(
-            n,
-            l.map(function (e) {
-              return e.id;
+          u,
+        ));
+    }
+    function f(e) {
+      var t,
+        n = e.orgId,
+        r = y(n);
+      ((t = o("WAWebOrgCollection").OrgCollection.get(n)) == null ||
+        t.members.clearMembers(),
+        o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(r),
+        o("WAWebOrgCollection").OrgCollection.notifyMembersApplied([n], r));
+    }
+    function g(e) {
+      var t,
+        n = e.createModels,
+        r = e.inServerOrder,
+        a = e.lids,
+        i = e.orgId,
+        l = e.rows,
+        s = new Map(
+          l
+            .filter(function (e) {
+              return e.orgId === i;
+            })
+            .map(function (e) {
+              return [e.lid, e];
             }),
-          ),
-        ));
-    }
-    function b(e) {
-      var t = e.orgId,
-        n = o(
-          "WAWebOrgContactCollection",
-        ).OrgContactCollection.getOrgContactsForOrg(t);
-      (S(new Set([t])),
-        o("WAWebOrgContactCollection").OrgContactCollection.notifyApplied(
-          [t],
-          n.map(function (e) {
-            return e.id;
+        );
+      ((t = o("WAWebOrgCollection").OrgCollection.get(i)) == null ||
+        t.members.applyList(
+          a.flatMap(function (e) {
+            var t = s.get(e);
+            return t == null
+              ? []
+              : [o("WAWebOrgMemberCollection").toOrgMemberAttrs(t)];
           }),
-        ));
+          { complete: n, inServerOrder: r },
+        ),
+        h({ createModels: n, lids: a, rows: l }, i));
     }
-    function v(e) {
-      var t = e.createModels,
-        n = e.lids,
-        r = e.rows,
-        a = L(),
-        i = o("WAWebOrgContactProjection").groupOrgContactRowsByLid(r);
-      n.forEach(function (e) {
-        var n,
-          r = o("WAWebOrgContactProjection").projectOrgContact(
-            e,
-            (n = i.get(e)) != null ? n : [],
-            a,
-          ),
-          l =
-            o("WAWebOrgContactCollection").OrgContactCollection.get(e) != null;
-        (l || (t && Object.keys(r.orgMetadata).length > 0)) &&
-          o("WAWebOrgContactCollection").OrgContactCollection.applyAttrs(r, {
-            silent: !_.has(e),
+    function h(e, t) {
+      var n = e.createModels,
+        r = e.lids,
+        a = e.rows,
+        i = o("WAWebOrgCollection").OrgCollection.filter(function (e) {
+          return e.id !== t;
+        }),
+        l = C(a);
+      r.forEach(function (e) {
+        var t,
+          r = o("WAWebOrgCollection").OrgCollection.some(function (t) {
+            return t.members.get(e) != null;
           });
+        if (!(!r && !n)) {
+          var a = (t = l.get(e)) != null ? t : [];
+          i.forEach(function (t) {
+            var n = a.find(function (e) {
+              var n = e.orgId;
+              return n === t.id;
+            });
+            n == null
+              ? t.members.removeMember(e)
+              : t.members.upsertMember(
+                  o("WAWebOrgMemberCollection").toOrgMemberAttrs(n),
+                );
+          });
+        }
       });
     }
-    function S(e) {
-      var t = L(),
-        n = o("WAWebOrgContactCollection")
-          .OrgContactCollection.getModelsArray()
-          .filter(function (t) {
-            return Object.keys(t.orgMetadata).some(function (t) {
-              return e.has(t);
-            });
-          });
+    function y(e) {
+      var t, n;
+      return (t =
+        (n = o("WAWebOrgCollection").OrgCollection.get(e)) == null
+          ? void 0
+          : n.members.getModelsArray().map(function (e) {
+              return e.id;
+            })) != null
+        ? t
+        : [];
+    }
+    function C(e) {
+      var t = new Map();
       return (
-        n.forEach(function (n) {
-          return o("WAWebOrgContactCollection").OrgContactCollection.applyAttrs(
-            o("WAWebOrgContactProjection").withoutOrgMemberships(
-              o("WAWebOrgContactCollection").toOrgContactAttrs(n),
-              e,
-              t,
-            ),
-          );
+        e.forEach(function (e) {
+          var n,
+            r = (n = t.get(e.lid)) != null ? n : [];
+          (r.push(e), t.set(e.lid, r));
         }),
-        n.map(function (e) {
-          return e.id;
-        })
+        t
       );
     }
-    function R() {
-      var e = L();
-      o("WAWebOrgContactCollection")
-        .OrgContactCollection.getModelsArray()
-        .forEach(function (t) {
-          return o("WAWebOrgContactCollection").OrgContactCollection.applyAttrs(
-            o("WAWebOrgContactProjection").reorderOrgContactAttrs(
-              o("WAWebOrgContactCollection").toOrgContactAttrs(t),
-              e,
-            ),
-          );
-        });
-    }
-    function L() {
+    function b() {
       return o("WAWebOrgCollection")
         .OrgCollection.getOrderedOrgs()
         .map(function (e) {
           return e.id;
         });
     }
-    function E(e, t) {
+    function v(e, t) {
       return (
         e.length === t.length &&
         e.every(function (e, n) {
@@ -277,13 +248,11 @@ __d(
         })
       );
     }
-    ((l.OrgBridgeApi = p),
-      (l.noteOrgContactsRequested = f),
-      (l.resetOrgContactRequests = g),
-      (l.applyOrgRows = h),
-      (l.applyOrgContactRows = y),
-      (l.applyOrgDirectory = C),
-      (l.removeOrgContacts = b));
+    ((l.OrgBridgeApi = d),
+      (l.applyOrgRows = m),
+      (l.applyOrgContactRows = p),
+      (l.applyOrgDirectory = _),
+      (l.removeOrgContacts = f));
   },
   98,
 );

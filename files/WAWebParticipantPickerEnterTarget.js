@@ -2,9 +2,10 @@ __d(
   "WAWebParticipantPickerEnterTarget",
   [
     "WAWebLidMigrationUtils",
-    "WAWebOrgMemberPickerRows",
-    "WAWebOrgMemberSearchRows",
     "WAWebOutContactModel",
+    "WAWebParticipantPickerContactUtils",
+    "WAWebPersonRowCache",
+    "WAWebPersonRowPolicy",
     "WAWebWODirectory.react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,18 +16,14 @@ __d(
           return !(e instanceof r("WAWebOutContactModel"));
         }),
         i = e.filteredOutContacts[0],
-        l = e.showOrgMembers
-          ? o("WAWebOrgMemberPickerRows").getOrgMemberToOpenOnEnter(
-              e.orgMembers,
-            )
-          : null,
+        l = o("WAWebPersonRowCache").getPersonRowToOpenOnEnter(e.people),
         s = o("WAWebWODirectory.react").getWODirectoryContactToOpenOnEnter(
           e.directoryContacts,
         );
       return n != null
         ? { kind: "contact", contact: n }
         : l != null
-          ? babelHelpers.extends({ kind: "org" }, l)
+          ? { kind: "person", row: l }
           : a != null && !(a instanceof r("WAWebOutContactModel"))
             ? { kind: "contact", contact: a }
             : i instanceof r("WAWebOutContactModel")
@@ -45,10 +42,27 @@ __d(
       );
       return e({
         separateContacts: t.separateContacts.filter(function (e) {
-          return !n.has(u(e.id));
+          return o(
+            "WAWebParticipantPickerContactUtils",
+          ).isUnpickedParticipantPickerContact(
+            t.participants,
+            e,
+            !0,
+            n.has(u(e.id)),
+          );
         }),
         contacts: t.contacts.filter(function (e) {
-          return e instanceof r("WAWebOutContactModel") || !n.has(u(e.id));
+          return (
+            e instanceof r("WAWebOutContactModel") ||
+            o(
+              "WAWebParticipantPickerContactUtils",
+            ).isUnpickedParticipantPickerContact(
+              t.participants,
+              e,
+              !0,
+              n.has(u(e.id)),
+            )
+          );
         }),
         filteredOutContacts: t.contacts.flatMap(function (e) {
           return e instanceof r("WAWebOutContactModel") &&
@@ -57,10 +71,8 @@ __d(
             ? [e]
             : [];
         }),
-        showOrgMembers: !0,
-        orgMembers: t.orgMembers.filter(function (e) {
-          var t = o("WAWebOrgMemberSearchRows").toOrgMemberLid(e);
-          return t != null && !n.has(u(t));
+        people: t.people.filter(function (e) {
+          return !n.has(u(o("WAWebPersonRowPolicy").toPersonLid(e)));
         }),
         directoryContacts: t.directoryContacts.filter(function (e) {
           return !n.has(u(e.lid));

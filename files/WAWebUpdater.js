@@ -8,6 +8,7 @@ __d(
     "WAWebCallCollection",
     "WAWebFeatureDetectionSwSupport",
     "WAWebMiscBrowserUtils",
+    "WAWebReloadCrashAnnotations",
     "WAWebStartupResourcesPrefetchBeforeUpdatePrompt",
     "WAWebStreamModel",
     "WAWebSwUpdater",
@@ -204,6 +205,9 @@ __d(
                   (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[reload] Updater.restart",
                   ])),
+              ),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "Updater.restart",
               ),
               n("cr:12474") == null || n("cr:12474").saveRefreshState(),
               r("WAWebMiscBrowserUtils").hardRefresh(),

@@ -208,7 +208,7 @@ __d(
             r = o("WAWebFetchMessagesInThread").endOfThread(e),
             a = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .between(["internalThreadIDs"], t, r, {
+              .betweenKeys(["internalThreadIDs"], t, r, {
                 lowerInclusive: !1,
                 upperInclusive: !1,
                 returnKeyType: "primary_key",

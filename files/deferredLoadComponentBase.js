@@ -70,26 +70,21 @@ __d(
                 "Loading bootloaded and T3 components are disabled during SSR",
               );
             var h = m === !0 ? b() : v();
-            throw (
-              (c || (c = o("PromiseAnnotate"))).setDisplayName(
-                h,
-                S.displayName,
-              ),
-              h
-            );
+            throw ((c || (c = o("PromiseAnnotate"))).setDisplayName(h, L), h);
           }
         }
         return _.jsx(p, babelHelpers.extends({}, f, { ref: i }));
       }
       S.displayName = S.name + " [from " + i.id + "]";
       var R = t.getModuleId();
-      (t.isRequireDeferredForDisplay() === !0
+      t.isRequireDeferredForDisplay() === !0
         ? (R = "requireDeferredForDisplay" + ("(" + t.getModuleId() + ")"))
         : t.isRequireDeferredForDisplay() === !1 &&
-          (R = "requireDeferred" + ("(" + t.getModuleId() + ")")),
-        (S.displayName = "deferredLoadComponent(" + R + ")"));
-      var L = S;
-      return (y(t, L), L);
+          (R = "requireDeferred" + ("(" + t.getModuleId() + ")"));
+      var L = "deferredLoadComponent(" + R + ")";
+      S.displayName = L;
+      var E = S;
+      return (y(t, E), E);
     }
     l.default = b;
   },

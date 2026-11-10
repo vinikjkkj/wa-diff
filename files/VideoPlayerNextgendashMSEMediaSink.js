@@ -281,6 +281,29 @@ __d(
           } catch (e) {}
           return !1;
         },
+        mediaSourceSetLiveSeekableRange: function (t, n, r, a) {
+          if (
+            !(
+              n instanceof
+              o("VideoPlayerNextgendashHostAPI")
+                .VideoPlayerNextgendashHostSinkMediaSource
+            )
+          ) {
+            var e = o(
+              "VideoPlayerNextgendashHostAPI",
+            ).unopaqueVideoPlayerNextgendashHostMediaSource(n);
+            if (
+              !(
+                typeof e.setLiveSeekableRange != "function" ||
+                e.readyState !== "open" ||
+                !(r >= 0 && a >= r)
+              )
+            )
+              try {
+                e.setLiveSeekableRange(r, a);
+              } catch (e) {}
+          }
+        },
         sourceBufferAbort: function (n, r, a, i) {
           var t = i.mimeCodecsParsed,
             l = i.representationId,

@@ -383,6 +383,8 @@ __d(
                                                                                                                         e ===
                                                                                                                           "groupStatusMessageV2" ||
                                                                                                                         e ===
+                                                                                                                          "instantVideoMessage" ||
+                                                                                                                        e ===
                                                                                                                           "invoiceMessage" ||
                                                                                                                         e ===
                                                                                                                           "lottieStickerMessage" ||
@@ -438,6 +440,8 @@ __d(
                                                                                                                           "questionReplyMessage" ||
                                                                                                                         e ===
                                                                                                                           "groupRootKeyShare" ||
+                                                                                                                        e ===
+                                                                                                                          "paymentDetailsMessage" ||
                                                                                                                         e ===
                                                                                                                           "paymentReminderMessage" ||
                                                                                                                         e ===

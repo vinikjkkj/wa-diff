@@ -95,6 +95,8 @@ __d(
                 o = yield this.$5(e, t, "app");
               return {
                 components: o.components,
+                component_query_responses: o.component_query_responses,
+                component_query_resources: o.component_query_resources,
                 stacked_screens:
                   (n = o.server_data) == null ? void 0 : n.stacked_screens,
                 stacked_screens_delay_ms:

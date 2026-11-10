@@ -19,16 +19,19 @@ __d(
       var t = o("WAWebHatchJsonReaders").readArray(e, "tasks");
       if (t == null) return null;
       var n = [],
-        r = 0;
-      for (var a of t) {
-        if (!p(a)) {
-          r++;
+        r = [],
+        a = 0;
+      for (var i of t) {
+        if (!p(i)) {
+          a++;
+          var l = o("WAWebHatchJsonReaders").readString(i, "browser_task_id");
+          l != null && l !== "" && r.push(l);
           continue;
         }
-        var i = m(a);
-        i != null && n.push(i);
+        var s = m(i);
+        s != null && n.push(s);
       }
-      return { malformedCount: r, tasks: n };
+      return { malformedCount: a, malformedIDs: r, tasks: n };
     }
     function d(e, t) {
       return e === u ? c(t) : null;

@@ -17,6 +17,7 @@ __d(
     "WAWebAlarm",
     "WAWebApiChat",
     "WAWebApiPendingDeviceSync",
+    "WAWebAppCommsCloseReason",
     "WAWebBackendEventBus",
     "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebCanonicalTokenExchange",
@@ -503,7 +504,9 @@ __d(
             (o("WAWebSocketModel").Socket.stream = o(
               "WAWebSocketConstants",
             ).SOCKET_STREAM.DISCONNECTED),
-            yield o("WAComms").stopComms());
+            yield o("WAComms").stopComms(
+              o("WAWebAppCommsCloseReason").AppCommsCloseReason.DebugClose,
+            ));
         })),
         B.apply(this, arguments)
       );

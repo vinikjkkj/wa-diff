@@ -62,11 +62,29 @@ __d(
         { SyncActionStore: !0 },
         function (t) {
           var n = t.SyncActionStore;
+          return n.getIndexesByActionStates(e);
+        },
+      );
+    }
+    function _(e) {
+      return o("WAWebRunInTransaction").runInTransaction(
+        { SyncActionStore: !0 },
+        function (t) {
+          var n = t.SyncActionStore;
+          return n.getByIndexes(e);
+        },
+      );
+    }
+    function f(e) {
+      return o("WAWebRunInTransaction").runInTransaction(
+        { SyncActionStore: !0 },
+        function (t) {
+          var n = t.SyncActionStore;
           return n.getByModelInfos(e);
         },
       );
     }
-    function _() {
+    function g() {
       return o("WAWebRunInTransaction").runInTransaction(
         { SyncActionStore: !0 },
         function (e) {
@@ -75,7 +93,7 @@ __d(
         },
       );
     }
-    function f(e) {
+    function h(e) {
       return o("WAWebRunInTransaction").runInTransaction(
         { SyncActionStore: !0 },
         function (t) {
@@ -99,9 +117,11 @@ __d(
       (l.getSyncActionsByIndexMacsInTransaction = c),
       (l.getSyncActionsByCollectionAndIndexesInTransaction = d),
       (l.getSyncActionsByActionStatesInTransaction = m),
-      (l.getSyncActionsByModelInfosInTransaction = p),
-      (l.getAllSyncActions = _),
-      (l.getOrphanSyncActionsByModelTypeInTransaction = f));
+      (l.getSyncActionIndexesByActionStatesInTransaction = p),
+      (l.getSyncActionsByIndexesInTransaction = _),
+      (l.getSyncActionsByModelInfosInTransaction = f),
+      (l.getAllSyncActions = g),
+      (l.getOrphanSyncActionsByModelTypeInTransaction = h));
   },
   98,
 );

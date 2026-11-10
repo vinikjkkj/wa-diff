@@ -8,7 +8,6 @@ __d(
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebOrgMemberContactName",
     "WAWebSystemMessageGatingUtils",
     "WAWebWidFormat",
   ],
@@ -29,42 +28,36 @@ __d(
       if (r != null && o("WAWebContactGetters").getIsMe(r)) {
         var d = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
         if (o("WAWebChatGetters").getIsUser(d)) {
-          var m,
-            p =
-              (m = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
-                d.contact,
-              )) != null
-                ? m
-                : o("WAWebFrontendContactGetters").getFormattedName(d.contact);
+          var m = o("WAWebFrontendContactGetters").getFormattedName(d.contact);
           t
             ? i
               ? e.isThisDeviceAdded
                 ? (a = s._(
                     /*BTDS*/ "Your security code with {contactName} changed because there was a login on this device.",
-                    [s._param("contactName", p)],
+                    [s._param("contactName", m)],
                   ))
                 : (a = s._(
                     /*BTDS*/ "Your security code with {contactName} changed because there was a login on a new device of yours.",
-                    [s._param("contactName", p)],
+                    [s._param("contactName", m)],
                   ))
               : l
                 ? (a = s._(
                     /*BTDS*/ "Your security code with {contactName} changed because there was a logout from one of your devices.",
-                    [s._param("contactName", p)],
+                    [s._param("contactName", m)],
                   ))
                 : c &&
                   (a = s._(
                     /*BTDS*/ "Your security code with {contactName} changed because there was a login or logout from one or more of your devices.",
-                    [s._param("contactName", p)],
+                    [s._param("contactName", m)],
                   ))
             : (a = n
                 ? s._(
                     /*BTDS*/ "Your security code with {contactName} changed",
-                    [s._param("contactName", p)],
+                    [s._param("contactName", m)],
                   )
                 : s._(
                     /*BTDS*/ "Your security code with {contactName} changed. Click to learn more",
-                    [s._param("contactName", p)],
+                    [s._param("contactName", m)],
                   ));
         } else
           o("WAWebChatGetters").getIsGroup(d)
@@ -116,41 +109,37 @@ __d(
                         /*BTDS*/ "Your security code with all recipients changed. Click to learn more",
                       )));
       } else {
-        var _,
-          f = e.body;
+        var p = e.body;
         r =
-          f == null
+          p == null
             ? null
-            : o("WAWebContactCollection").ContactCollection.get(f);
-        var g = r
-          ? (_ = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(r)) !=
-            null
-            ? _
-            : o("WAWebFrontendContactGetters").getFormattedName(r)
-          : o("WAWebWidFormat").widToFormattedUser(f);
+            : o("WAWebContactCollection").ContactCollection.get(p);
+        var _ = r
+          ? o("WAWebFrontendContactGetters").getFormattedName(r)
+          : o("WAWebWidFormat").widToFormattedUser(p);
         t
           ? i
             ? (a = s._(
                 /*BTDS*/ "Your security code with {contactName} changed because they registered WhatsApp on their phone again.",
-                [s._param("contactName", g)],
+                [s._param("contactName", _)],
               ))
             : l
               ? (a = s._(
                   /*BTDS*/ "Your security code with {contactName} changed because there was a logout from one of their devices.",
-                  [s._param("contactName", g)],
+                  [s._param("contactName", _)],
                 ))
               : c &&
                 (a = s._(
                   /*BTDS*/ "Your security code with {contactName} changed because there was a login or logout from one or more of their devices.",
-                  [s._param("contactName", g)],
+                  [s._param("contactName", _)],
                 ))
           : (a = n
               ? s._(/*BTDS*/ "Your security code with {contactName} changed", [
-                  s._param("contactName", g),
+                  s._param("contactName", _),
                 ])
               : s._(
                   /*BTDS*/ "Your security code with {contactName} changed. Click to learn more",
-                  [s._param("contactName", g)],
+                  [s._param("contactName", _)],
                 ));
       }
       return (a != null || u(0, 56348), { text: a });

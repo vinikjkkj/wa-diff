@@ -5,6 +5,7 @@ __d(
     "WAComms",
     "WALogger",
     "WAWebAbPropsSyncJob",
+    "WAWebAppCommsCloseReason",
     "WAWebBackendApi",
     "WAWebStartBackend",
     "WAWebUserPrefsGeneral",
@@ -51,7 +52,10 @@ __d(
                 "WAWebExternalBetaApi: Restarting backend",
               ])),
           ),
-            o("WAComms").stopComms(),
+            o("WAComms").stopComms(
+              o("WAWebAppCommsCloseReason").AppCommsCloseReason
+                .BetaOptInChanged,
+            ),
             yield o("WAWebStartBackend").startWebComms(),
             yield o("WAComms").startHandlingRequests(),
             (yield o(

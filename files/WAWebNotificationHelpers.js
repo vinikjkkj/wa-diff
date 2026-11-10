@@ -18,7 +18,6 @@ __d(
     "WAWebMuteGetters",
     "WAWebNotificationPermission",
     "WAWebOfflineHandler",
-    "WAWebOrgMemberContactName",
     "WAWebParticipantListUtils",
     "WAWebQuotedMsgModelUtils",
     "WAWebSettingsGetters",
@@ -154,24 +153,22 @@ __d(
               ])
               .toString();
       }
-      var i = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(e.contact);
-      if (i != null) return i;
-      var l = o("WAWebFrontendContactGetters").getFormattedNameAndType(
+      var i = o("WAWebFrontendContactGetters").getFormattedNameAndType(
           e.contact,
         ),
-        u = l.displayName,
-        c = l.type;
+        l = i.displayName,
+        u = i.type;
       return (
         !o("WAWebChatGetters").getIsGroup(e) &&
           e.contact != null &&
-          c ===
+          u ===
             o("WAWebWamEnumOppositeVisibleIdentificationType")
               .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER &&
           o("WAWebUnknownUserDisplayEnricher").logUnknownUserDisplayed(
             "push_notification",
             e.contact.id,
           ),
-        u || y(e).toString()
+        l || y(e).toString()
       );
     }
     function b(t) {

@@ -1147,21 +1147,23 @@ __d(
         : babelHelpers.extends({}, l, { rosterPartial: a });
     }
     function ct(e, t, n, r, a, i, l) {
-      return e == null || e === "" || t == null || r == null
-        ? []
-        : [
-            {
-              displayName: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
-                t === e ? "" : t,
-                n,
-              ),
-              lid: e,
-              memberTag: i,
-              phoneNumber: l,
-              role: r,
-              username: a,
-            },
-          ];
+      if (e == null || e === "" || t == null || r == null) return [];
+      var s = t === e ? "" : t;
+      return [
+        {
+          displayName: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+            s,
+            n,
+          ),
+          firstName: s,
+          lastName: n != null ? n : null,
+          lid: e,
+          memberTag: i,
+          phoneNumber: l,
+          role: r,
+          username: a,
+        },
+      ];
     }
     function dt(e, t) {
       return e == null || t == null ? [] : [{ lid: e, role: t }];

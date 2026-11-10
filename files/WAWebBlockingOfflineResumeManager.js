@@ -458,12 +458,16 @@ __d(
                     .QueueDrainStart,
                 ),
                 yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
-                  ? o("WAWebOneQueue").waitForOneQueueOfflineWorkDrained()
+                  ? o("WAWebOneQueue").waitForOneQueueOfflineWorkProcessed()
                   : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
                 o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
                   o("WAWebOfflineSyncQplSession").OfflineSyncPoint
                     .QueueDrainEnd,
                 ),
+                o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
+                  (yield o(
+                    "WAWebOneQueue",
+                  ).waitForOneQueueOfflineWorkDrained()),
                 o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                   "waitForOfflineMessageQueue",
                 ),

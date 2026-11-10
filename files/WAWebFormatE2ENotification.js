@@ -11,7 +11,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
-    "WAWebOrgMemberContactName",
     "WAWebSupportChatStrings",
     "WAWebSystemMessageGatingUtils",
     "WAWebUserPrefsMeUser",
@@ -27,12 +26,11 @@ __d(
       ).systemMessageActionTextStylingEnabled();
       switch (t.subtype) {
         case "identity": {
-          var a,
-            i =
-              t.body == null
-                ? null
-                : o("WAWebContactCollection").ContactCollection.get(t.body);
-          if (i != null && o("WAWebContactGetters").getIsMe(i)) {
+          var a =
+            t.body == null
+              ? null
+              : o("WAWebContactCollection").ContactCollection.get(t.body);
+          if (a != null && o("WAWebContactGetters").getIsMe(a)) {
             o("WALogger")
               .ERROR(
                 e ||
@@ -41,31 +39,24 @@ __d(
                   ])),
               )
               .sendLogs("SelfIdentityNotificationError");
-            var l = o("WAWebFrontendMsgGetters").getChat(t.unsafe());
-            if (o("WAWebChatGetters").getIsUser(l)) {
-              var u,
-                c = l.contact
-                  ? (u = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
-                      l.contact,
-                    )) != null
-                    ? u
-                    : o("WAWebFrontendContactGetters").getFormattedName(
-                        l.contact,
-                      )
-                  : o("WAWebWidFormat").widToFormattedUser(l.id);
+            var i = o("WAWebFrontendMsgGetters").getChat(t.unsafe());
+            if (o("WAWebChatGetters").getIsUser(i)) {
+              var l = i.contact
+                ? o("WAWebFrontendContactGetters").getFormattedName(i.contact)
+                : o("WAWebWidFormat").widToFormattedUser(i.id);
               return {
                 text: n
                   ? s._(
                       /*BTDS*/ "Your security code with {contactName} changed",
-                      [s._param("contactName", c)],
+                      [s._param("contactName", l)],
                     )
                   : s._(
                       /*BTDS*/ "Your security code with {contactName} changed. Click to learn more",
-                      [s._param("contactName", c)],
+                      [s._param("contactName", l)],
                     ),
               };
             } else {
-              if (o("WAWebChatGetters").getIsGroup(l))
+              if (o("WAWebChatGetters").getIsGroup(i))
                 return {
                   text: n
                     ? s._(
@@ -75,7 +66,7 @@ __d(
                         /*BTDS*/ "Your security code with all members changed. Click to learn more",
                       ),
                 };
-              if (o("WAWebChatGetters").getIsBroadcast(l))
+              if (o("WAWebChatGetters").getIsBroadcast(i))
                 return {
                   text: n
                     ? s._(
@@ -87,20 +78,17 @@ __d(
                 };
             }
           }
-          var d = i
-            ? (a = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(i)) !=
-              null
-              ? a
-              : o("WAWebFrontendContactGetters").getFormattedName(i)
+          var u = a
+            ? o("WAWebFrontendContactGetters").getFormattedName(a)
             : o("WAWebWidFormat").widToFormattedUser(t.body);
           return {
             text: n
               ? s._(/*BTDS*/ "Your security code with {contactName} changed", [
-                  s._param("contactName", d),
+                  s._param("contactName", u),
                 ])
               : s._(
                   /*BTDS*/ "Your security code with {contactName} changed. Click to learn more",
-                  [s._param("contactName", d)],
+                  [s._param("contactName", u)],
                 ),
           };
         }
@@ -114,8 +102,8 @@ __d(
             ).getE2ENotificationForDeviceChangeEnum(t),
           };
         case "encrypt": {
-          var m = t.id.remote;
-          return r("WAWebWid").isGroup(m)
+          var c = t.id.remote;
+          return r("WAWebWid").isGroup(c)
             ? o("WAWebChatGroupUtils").isSupportGroup(
                 o("WAWebFrontendMsgGetters").getMaybeChat(t.unsafe()),
               )
@@ -134,11 +122,11 @@ __d(
                     .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
                 }
             : o("WAWebMsgGetters").getIsCAPISupport(t.unsafe()) ||
-                m.isSupportAgentBot()
+                c.isSupportAgentBot()
               ? {
                   text: o("WAWebSupportChatStrings").SupportChatSystemMessage(),
                 }
-              : r("WAWebWid").isBroadcast(m)
+              : r("WAWebWid").isBroadcast(c)
                 ? {
                     text: n
                       ? s._(
@@ -150,7 +138,7 @@ __d(
                     enumType: o("WAWebWamEnumSystemMessageTypeType")
                       .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_BROADCAST_LIST,
                   }
-                : o("WAWebUserPrefsMeUser").isMeAccount(m)
+                : o("WAWebUserPrefsMeUser").isMeAccount(c)
                   ? {
                       text: n
                         ? s._(

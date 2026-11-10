@@ -84,24 +84,18 @@ __d(
       return (e = _()) != null ? e : p();
     }
     function I() {
-      var e;
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? L()
-        : (e = S()) != null
-          ? e
-          : L();
+        : R();
     }
     function T() {
-      var e;
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? p()
-        : (e = _()) != null
-          ? e
-          : p();
+        : m();
     }
     function D(e) {
       (y(),

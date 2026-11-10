@@ -123,159 +123,187 @@ __d(
       Se,
       Re = 0,
       Le = new ArrayBuffer(128);
-    function Ee(e) {
+    function Ee(e, t, n) {
       return ke.apply(this, arguments);
     }
     function ke() {
       return (
-        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return (Se || (Se = n("Promise"))).resolve();
-          var t = Math.random().toString(36).substr(2, 5),
-            r = e.sort(function (e, t) {
-              return e.timestamp - t.timestamp;
-            }),
-            a = Ie(r);
-          o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd: start applyIndividualMutations",
-              ])),
-          );
-          var i = o(
-              "WAWebSyncdCollectionHandlerTypesConverter",
-            ).syncActionsToDecryptedMutation(r),
-            l = i.reduce(function (e, t) {
-              var n,
-                r = (n = e.get(t.collection)) != null ? n : [];
-              return (r.push(t), e.set(t.collection, r), e);
-            }, new Map()),
-            s = Array.from(
-              l.keys(),
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (r) {
-                    o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          " syncd: apply individual mutations for collection ",
-                          "",
-                        ])),
-                      t,
-                      r,
-                    );
-                    var i = l.get(r);
-                    if (i !== void 0) {
-                      var s = yield Ye(
-                          r,
-                          i,
-                          o("WAWebSyncdConst").SyncDataType.Local,
-                          t,
-                          null,
-                          null,
-                        ),
-                        u = s.pendingSetMutationsToDrop,
-                        c = s.setMutationsToPersist,
-                        d = c.map(function (e) {
-                          return {
-                            actionState: e.actionState,
-                            index: e.index,
-                            modelId: e.modelId,
-                            modelType: e.modelType,
-                          };
-                        }),
-                        h = d;
-                      (o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "[",
-                            "] syncd: filter individual mutations for collection ",
-                            ", mutations: ",
-                            ", mutationsWithoutMacs: ",
-                            "",
-                          ])),
-                        t,
-                        r,
-                        e.length,
-                        d.length,
-                      ),
-                        (h = d.filter(function (e) {
-                          var t = a(e.index);
-                          return t == null
-                            ? (o("WALogger")
-                                .ERROR(
-                                  _ ||
-                                    (_ =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "syncd: could not find original individual mutation",
-                                      ])),
-                                )
-                                .sendLogs(
-                                  "syncd: could not find original individual mutation",
-                                ),
-                              !0)
-                            : e.actionState !== t.actionState ||
-                                e.modelId !== t.modelId ||
-                                e.modelType !== t.modelType;
-                        })),
-                        o("WALogger").LOG(
-                          f ||
-                            (f = babelHelpers.taggedTemplateLiteralLoose([
-                              "[",
-                              "] syncd: end apply individual mutations for collection ",
+        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r) {
+            if (
+              (t === void 0 && (t = []),
+              r === void 0 && (r = !1),
+              e.length === 0)
+            )
+              return (Se || (Se = n("Promise"))).resolve();
+            var a = Math.random().toString(36).substr(2, 5),
+              i = e.sort(function (e, t) {
+                return e.timestamp - t.timestamp;
+              }),
+              l = Te(i);
+            Ie(r, function () {
+              return o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: start applyIndividualMutations",
+                  ])),
+              );
+            });
+            var s = o(
+                "WAWebSyncdCollectionHandlerTypesConverter",
+              ).syncActionsToDecryptedMutation(i),
+              u = Je(s),
+              c = Je(
+                o(
+                  "WAWebSyncdCollectionHandlerTypesConverter",
+                ).syncActionsToDecryptedMutation([].concat(t)),
+              ),
+              y = Array.from(
+                u.keys(),
+                (function () {
+                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (t) {
+                      Ie(r, function () {
+                        return o("WALogger").LOG(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "",
+                              " syncd: apply individual mutations for collection ",
                               "",
                             ])),
+                          a,
                           t,
-                          r,
-                        ),
-                        yield o("WAWebRunInTransaction").runInTransaction(
-                          { SyncActionStore: !0, PendingMutationStore: !0 },
-                          (function () {
-                            var e = n(
-                              "asyncToGeneratorRuntime",
-                            ).asyncToGenerator(function* (e) {
-                              var t = e.PendingMutationStore,
-                                n = e.SyncActionStore;
-                              (h.length > 0 && (yield n.bulkUpdate(h)),
-                                u.length > 0 && (yield t.bulkRemove(u)));
-                            });
-                            return function (t) {
-                              return e.apply(this, arguments);
+                        );
+                      });
+                      var i = u.get(t);
+                      if (i !== void 0) {
+                        var s = yield tt(
+                            t,
+                            i,
+                            o("WAWebSyncdConst").SyncDataType.Local,
+                            a,
+                            null,
+                            null,
+                            !1,
+                            c.get(t),
+                            r,
+                          ),
+                          d = s.pendingSetMutationsToDrop,
+                          h = s.setMutationsToPersist,
+                          y = h.map(function (e) {
+                            return {
+                              actionState: e.actionState,
+                              index: e.index,
+                              modelId: e.modelId,
+                              modelType: e.modelType,
                             };
-                          })(),
-                        ),
-                        o("WALogger").LOG(
-                          g ||
-                            (g = babelHelpers.taggedTemplateLiteralLoose([
-                              "",
-                              " syncd: end update db after apply individual mutations for collection ",
-                              "",
-                            ])),
-                          t,
-                          r,
-                        ));
-                    }
-                  },
+                          }),
+                          C = y;
+                        (Ie(r, function () {
+                          return o("WALogger").LOG(
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
+                                "[",
+                                "] syncd: filter individual mutations for collection ",
+                                ", mutations: ",
+                                ", mutationsWithoutMacs: ",
+                                "",
+                              ])),
+                            a,
+                            t,
+                            e.length,
+                            y.length,
+                          );
+                        }),
+                          (C = y.filter(function (e) {
+                            var t = l(e.index);
+                            return t == null
+                              ? (o("WALogger")
+                                  .ERROR(
+                                    _ ||
+                                      (_ =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "syncd: could not find original individual mutation",
+                                          ],
+                                        )),
+                                  )
+                                  .sendLogs(
+                                    "syncd: could not find original individual mutation",
+                                  ),
+                                !0)
+                              : e.actionState !== t.actionState ||
+                                  e.modelId !== t.modelId ||
+                                  e.modelType !== t.modelType;
+                          })),
+                          Ie(r, function () {
+                            return o("WALogger").LOG(
+                              f ||
+                                (f = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[",
+                                  "] syncd: end apply individual mutations for collection ",
+                                  "",
+                                ])),
+                              a,
+                              t,
+                            );
+                          }),
+                          yield o("WAWebRunInTransaction").runInTransaction(
+                            { SyncActionStore: !0, PendingMutationStore: !0 },
+                            (function () {
+                              var e = n(
+                                "asyncToGeneratorRuntime",
+                              ).asyncToGenerator(function* (e) {
+                                var t = e.PendingMutationStore,
+                                  n = e.SyncActionStore;
+                                (C.length > 0 && (yield n.bulkUpdate(C)),
+                                  d.length > 0 && (yield t.bulkRemove(d)));
+                              });
+                              return function (t) {
+                                return e.apply(this, arguments);
+                              };
+                            })(),
+                          ),
+                          Ie(r, function () {
+                            return o("WALogger").LOG(
+                              g ||
+                                (g = babelHelpers.taggedTemplateLiteralLoose([
+                                  "",
+                                  " syncd: end update db after apply individual mutations for collection ",
+                                  "",
+                                ])),
+                              a,
+                              t,
+                            );
+                          }));
+                      }
+                    },
+                  );
+                  return function (e) {
+                    return t.apply(this, arguments);
+                  };
+                })(),
+              );
+            (yield (Se || (Se = n("Promise"))).all(y),
+              Ie(r, function () {
+                return o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      " syncd: end applyIndividualMutations",
+                    ])),
+                  a,
                 );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            );
-          (yield (Se || (Se = n("Promise"))).all(s),
-            o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "",
-                  " syncd: end applyIndividualMutations",
-                ])),
-              t,
-            ));
-        })),
+              }));
+          },
+        )),
         ke.apply(this, arguments)
       );
     }
-    function Ie(e) {
+    function Ie(e, t) {
+      e || t();
+    }
+    function Te(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "web_syncd_individual_mutation_index_lookup",
@@ -292,12 +320,12 @@ __d(
         return t.get(e);
       };
     }
-    function Te(e) {
-      return De.apply(this, arguments);
+    function De(e) {
+      return xe.apply(this, arguments);
     }
-    function De() {
+    function xe() {
       return (
-        (De = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.collectionDetails,
             n = e.localVersion,
             a = e.session,
@@ -326,7 +354,7 @@ __d(
                 snapshotSizeBytes:
                   (_ = t.snapshot) == null ? void 0 : _.fileSizeBytes,
               });
-            var f = yield Fe(l, s, u, n),
+            var f = yield Oe(l, s, u, n),
               g = f[0],
               h = f[1];
             i == null ||
@@ -336,7 +364,7 @@ __d(
               });
             var x = performance.now();
             if (g != null)
-              (yield qe(
+              (yield Ue(
                 l,
                 g,
                 h,
@@ -400,7 +428,7 @@ __d(
                     n,
                     $,
                   ),
-                  yield xe(l, h[0]),
+                  yield $e(l, h[0]),
                   yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(l),
                   o("WALogger")
                     .ERROR(
@@ -424,7 +452,7 @@ __d(
                   )
                 );
               }
-              (yield Ge(
+              (yield ze(
                 l,
                 h,
                 i,
@@ -479,7 +507,7 @@ __d(
                   ", numUniqueIndex: " +
                   A,
               ),
-                yield Pe(l, m, d, c, a));
+                yield Ne(l, m, d, c, a));
               var F = yield o(
                 "WAWebSyncdWamReportingUtils",
               ).getShortMdSessionId();
@@ -651,15 +679,15 @@ __d(
                   });
           }
         })),
-        De.apply(this, arguments)
+        xe.apply(this, arguments)
       );
     }
-    function xe(e, t) {
-      return $e.apply(this, arguments);
+    function $e(e, t) {
+      return Pe.apply(this, arguments);
     }
-    function $e() {
+    function Pe() {
       return (
-        ($e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield o(
                 "WAWebSyncdDecryptMutationsWrapper",
@@ -697,15 +725,15 @@ __d(
             );
           }
         })),
-        $e.apply(this, arguments)
+        Pe.apply(this, arguments)
       );
     }
-    function Pe(e, t, n, r, o) {
-      return Ne.apply(this, arguments);
+    function Ne(e, t, n, r, o) {
+      return Me.apply(this, arguments);
     }
-    function Ne() {
+    function Me() {
       return (
-        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Me = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a, i) {
             var l,
               s =
@@ -721,7 +749,7 @@ __d(
                   index: s ? e.index : void 0,
                 };
               });
-            yield Me(i, e, a, u);
+            yield we(i, e, a, u);
             var c = yield o("WAWebSyncdAntiTampering").computeLtHash({
                 collection: e,
                 direction: o("WAWebSyncdAntiTampering").SyncdPatchDirection
@@ -828,7 +856,7 @@ __d(
                 "pre-processing outgoing patch " + t + ".",
                 i,
               ),
-              yield je(e, t, a, i));
+              yield Ke(e, t, a, i));
             var h = null;
             if (
               (yield o("WAWebRunInTransaction").runInTransaction(
@@ -843,7 +871,7 @@ __d(
                       var a = n.CollectionVersionStore,
                         l = n.PendingMutationStore,
                         s = n.SyncActionStore;
-                      ((h = yield at(e, t, "outgoing patch", a, i)),
+                      ((h = yield ut(e, t, "outgoing patch", a, i)),
                         h == null
                           ? (yield s.bulkRemove(f),
                             yield s.bulkSet(p),
@@ -891,15 +919,15 @@ __d(
             );
           },
         )),
-        Ne.apply(this, arguments)
+        Me.apply(this, arguments)
       );
     }
-    function Me(e, t, n, r) {
-      return we.apply(this, arguments);
+    function we(e, t, n, r) {
+      return Ae.apply(this, arguments);
     }
-    function we() {
+    function Ae() {
       return (
-        (we = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Ae = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             try {
               var i = yield (Se || (Se = n("Promise"))).all([
@@ -995,20 +1023,20 @@ __d(
                 "\n\n      REMOVE fetch by index: " +
                 l
                   .map(function (e) {
-                    return Ae(e);
+                    return Fe(e);
                   })
                   .join("\n	") +
                 "\n      SET fetch by index: " +
                 s
                   .map(function (e) {
-                    return Ae(e);
+                    return Fe(e);
                   })
                   .join("\n	") +
                 "\n      SET fetch by mac: " +
                 u
                   .map(function (e) {
                     return e.map(function (e) {
-                      return Ae(e);
+                      return Fe(e);
                     });
                   })
                   .join("\n	") +
@@ -1036,10 +1064,10 @@ __d(
             }
           },
         )),
-        we.apply(this, arguments)
+        Ae.apply(this, arguments)
       );
     }
-    function Ae(e) {
+    function Fe(e) {
       var t = o("WAWebSyncdActionUtils").getMutationNameFromIndex(
         e.collection,
         e.index,
@@ -1055,12 +1083,12 @@ __d(
         (t != null ? t : "no-mutation-name")
       );
     }
-    function Fe(e, t, n, r) {
-      return Oe.apply(this, arguments);
+    function Oe(e, t, n, r) {
+      return Be.apply(this, arguments);
     }
-    function Oe() {
+    function Be() {
       return (
-        (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Be = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l = (Se || (Se = n("Promise"))).resolve(),
               s = 0,
@@ -1176,10 +1204,10 @@ __d(
             return [_, f];
           },
         )),
-        Oe.apply(this, arguments)
+        Be.apply(this, arguments)
       );
     }
-    function Be(e, t) {
+    function We(e, t) {
       var r = (function () {
           var r = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (n, r) {
@@ -1231,7 +1259,7 @@ __d(
         measuredTryDecryptSnapshot: a,
       };
     }
-    function We(e) {
+    function qe(e) {
       var t = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (t, n, r, a, i) {
@@ -1283,12 +1311,12 @@ __d(
         measuredTryDecryptPatch: r,
       };
     }
-    function qe(e, t, n, r, o, a) {
-      return Ue.apply(this, arguments);
+    function Ue(e, t, n, r, o, a) {
+      return Ve.apply(this, arguments);
     }
-    function Ue() {
+    function Ve() {
       return (
-        (Ue = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Ve = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, s) {
             var u, c;
             yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
@@ -1315,7 +1343,7 @@ __d(
                 (u = (c = t.keyId) == null ? void 0 : c.id) != null ? u : null),
               (p.wireSnapshotMac = t.mac));
             try {
-              var _ = Be(i, l),
+              var _ = We(i, l),
                 f = _.measuredComputeLtHashAndValidateSnapshot,
                 g = _.measuredTryDecryptSnapshot;
               (i == null ||
@@ -1463,7 +1491,7 @@ __d(
                 o("WAWebSyncdWamReportingUtils").reportSyncdWamAccumulator(
                   babelHelpers.extends({}, p),
                 ),
-                yield je(e, t.version.version, v, l),
+                yield Ke(e, t.version.version, v, l),
                 o("WAWebSyncdWamAppState").addMutationCount(t.records.length),
                 o(
                   "WAWebSyncdMetricCriticalBootstrapStage",
@@ -1479,7 +1507,7 @@ __d(
               o(
                 "WAWebSyncdCriticalBootstrapProcessingApi",
               ).recordCriticalCollectionMutations(e, v.length);
-              var k = yield Ye(
+              var k = yield tt(
                   e,
                   v,
                   o("WAWebSyncdConst").SyncDataType.Snapshot,
@@ -1535,7 +1563,7 @@ __d(
                         var n = t.CollectionVersionStore,
                           r = t.PendingMutationStore,
                           a = t.SyncActionStore;
-                        ((D = yield at(e, E, "snapshot", n, l)),
+                        ((D = yield ut(e, E, "snapshot", n, l)),
                           D == null
                             ? (yield a.bulkSet(T),
                               yield r.bulkRemove(I),
@@ -1618,7 +1646,7 @@ __d(
                     source: o("WAWebSyncdConst").SyncDataType.Patch,
                     patchCount: a.length,
                   }),
-                yield Ge(e, a, i, l, s),
+                yield ze(e, a, i, l, s),
                 i == null ||
                   i.mark("apply_end", {
                     source: o("WAWebSyncdConst").SyncDataType.Patch,
@@ -1626,15 +1654,15 @@ __d(
                   })));
           },
         )),
-        Ue.apply(this, arguments)
+        Ve.apply(this, arguments)
       );
     }
-    function Ve(e) {
-      return He.apply(this, arguments);
+    function He(e) {
+      return Ge.apply(this, arguments);
     }
-    function He() {
+    function Ge() {
       return (
-        (He = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebABProps").getABPropConfigValue(
             "web_syncd_max_mutations_to_process_during_resume",
           );
@@ -1661,15 +1689,15 @@ __d(
               ));
           }
         })),
-        He.apply(this, arguments)
+        Ge.apply(this, arguments)
       );
     }
-    function Ge(e, t, n, r, o) {
-      return ze.apply(this, arguments);
+    function ze(e, t, n, r, o) {
+      return je.apply(this, arguments);
     }
-    function ze() {
+    function je() {
       return (
-        (ze = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (je = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l) {
             var s = t.length === 0 ? "n/a" : t[t.length - 1].version.version;
             if (
@@ -1707,7 +1735,7 @@ __d(
               var u = r("sumBy")(t, function (e) {
                 return e.mutations.length;
               });
-              yield Ve(u);
+              yield He(u);
               for (var c = 0; c < t.length; c++) {
                 if (c <= 4 || c % 10 === 0) {
                   var d;
@@ -1725,7 +1753,7 @@ __d(
                       ((d = t[c].deviceIndex) != null ? d : "n/a"),
                   );
                 }
-                (yield Qe(e, t[c], a, c <= 1, l, i),
+                (yield Xe(e, t[c], a, c <= 1, l, i),
                   (c <= 4 || c % 10 === 0) &&
                     (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                       e,
@@ -1765,15 +1793,15 @@ __d(
             }
           },
         )),
-        ze.apply(this, arguments)
+        je.apply(this, arguments)
       );
     }
-    function je(e, t, n, r) {
-      return Ke.apply(this, arguments);
+    function Ke(e, t, n, r) {
+      return Qe.apply(this, arguments);
     }
-    function Ke() {
+    function Qe() {
       return (
-        (Ke = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Qe = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (
               e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
@@ -1827,15 +1855,15 @@ __d(
             }
           },
         )),
-        Ke.apply(this, arguments)
+        Qe.apply(this, arguments)
       );
     }
-    function Qe(e, t, n, r, o, a) {
-      return Xe.apply(this, arguments);
+    function Xe(e, t, n, r, o, a) {
+      return Ye.apply(this, arguments);
     }
-    function Xe() {
+    function Ye() {
       return (
-        (Xe = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Ye = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, s) {
             var u, c;
             i === void 0 && (i = !1);
@@ -1967,7 +1995,7 @@ __d(
                     e,
                   )
                   .sendLogs("syncd: " + e + ": empty patch found"));
-            var b = We(a),
+            var b = qe(a),
               v = b.measuredComputeLtHashAndValidatePatch,
               S = b.measuredTryDecryptPatch,
               R = yield o("WAWebSyncdWamReportingUtils").getShortMdSessionId(),
@@ -2014,7 +2042,7 @@ __d(
                   version: t.version.version,
                 });
               }),
-              yield je(e, t.version.version, E, s),
+              yield Ke(e, t.version.version, E, s),
               i &&
                 (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   e,
@@ -2060,7 +2088,7 @@ __d(
                 E,
                 o("WAWebSyncdConst").SyncDataType.Patch,
               ));
-            var T = nt(E),
+            var T = it(E),
               D = T.filter(function (e) {
                 return (
                   e.operation ===
@@ -2068,7 +2096,7 @@ __d(
                     .REMOVE
                 );
               }),
-              x = yield Ze(e, D, s),
+              x = yield rt(e, D, s),
               $ = x.pendingMutationsToDrop;
             o("WALogger").LOG(
               ie ||
@@ -2089,7 +2117,7 @@ __d(
                     .SET
                 );
               }),
-              N = yield Ye(
+              N = yield tt(
                 e,
                 P,
                 o("WAWebSyncdConst").SyncDataType.Patch,
@@ -2136,7 +2164,7 @@ __d(
                       var n = t.CollectionVersionStore,
                         r = t.PendingMutationStore,
                         a = t.SyncActionStore;
-                      ((O = yield at(e, F, "incoming patch", n, s)),
+                      ((O = yield ut(e, F, "incoming patch", n, s)),
                         O == null
                           ? (yield a.bulkRemove(
                               D.map(function (e) {
@@ -2239,37 +2267,71 @@ __d(
             }
           },
         )),
-        Xe.apply(this, arguments)
+        Ye.apply(this, arguments)
       );
     }
-    function Ye(e, t, n, r, o, a, i) {
-      return Je.apply(this, arguments);
+    function Je(e) {
+      return e.reduce(function (e, t) {
+        var n,
+          r = (n = e.get(t.collection)) != null ? n : [];
+        return (r.push(t), e.set(t.collection, r), e);
+      }, new Map());
     }
-    function Je() {
+    function Ze(e, t) {
+      return et.apply(this, arguments);
+    }
+    function et() {
       return (
-        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l, s) {
+        (et = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = lt(
+              e,
+              o("WAWebSyncdValidateMutations").validateAndTypeSetMutations(
+                e,
+                t,
+              ),
+            ),
+            r = n.supportedMutations,
+            a = r.filter(function (e) {
+              return e.actionName === o("WAWebSyncdConst").Actions.Star;
+            });
+          if (a.length === 0) return [];
+          var i = yield o("WAWebSyncdResolveConflict").resolveConflict(e, a),
+            l = i.remoteMutationsToApply;
+          return l;
+        })),
+        et.apply(this, arguments)
+      );
+    }
+    function tt(e, t, n, r, o, a, i, l, s) {
+      return nt.apply(this, arguments);
+    }
+    function nt() {
+      return (
+        (nt = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i, l, s, u, c) {
             (s === void 0 && (s = !1),
+              u === void 0 && (u = null),
+              c === void 0 && (c = !1),
               o(
                 "WAWebSyncdCriticalBootstrapProcessingApi",
               ).logCriticalBootstrapStageIfNecessary(
                 o("WAWebWamEnumBootstrapAppStateDataStageCode")
                   .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.ABOUT_TO_APPLY_MUTATIONS,
               ));
-            var u =
+            var d =
                 n === o("WAWebSyncdConst").SyncDataType.Local
                   ? " (individual mutations)"
                   : "",
-              c = [],
-              d = o("WAWebSyncdValidateMutations").validateAndTypeSetMutations(
+              m = [],
+              p = o("WAWebSyncdValidateMutations").validateAndTypeSetMutations(
                 e,
                 t,
               ),
-              m = rt(e, d),
-              p = m.supportedMutations,
-              _ = m.unsupportedMutations;
-            (_.forEach(function (e) {
-              return c.push(
+              _ = lt(e, p),
+              f = _.supportedMutations,
+              g = _.unsupportedMutations;
+            (g.forEach(function (e) {
+              return m.push(
                 o(
                   "WAWebSyncdCollectionHandlerTypesConverter",
                 ).setMutationToSyncAction({
@@ -2282,47 +2344,51 @@ __d(
                 i.mark("conflict_resolution_start", {
                   source: n,
                   collectionName: e,
-                  count: p.length,
+                  count: f.length,
                 }),
-              o("WALogger").LOG(
-                de ||
-                  (de = babelHelpers.taggedTemplateLiteralLoose([
+              Ie(c, function () {
+                return o("WALogger").LOG(
+                  de ||
+                    (de = babelHelpers.taggedTemplateLiteralLoose([
+                      "[",
+                      "] syncd: before resolveConflict for ",
+                      " v",
+                      "",
+                    ])),
+                  a,
+                  e,
+                  l,
+                );
+              }));
+            var h = yield o("WAWebSyncdResolveConflict").resolveConflict(e, f),
+              y = h.pendingSetMutationsToDrop,
+              C = h.remoteMutationsToApply;
+            Ie(c, function () {
+              return o("WALogger").LOG(
+                me ||
+                  (me = babelHelpers.taggedTemplateLiteralLoose([
                     "[",
-                    "] syncd: before resolveConflict for ",
+                    "] syncd: after resolveConflict for ",
                     " v",
                     "",
                   ])),
                 a,
                 e,
                 l,
-              ));
-            var f = yield o("WAWebSyncdResolveConflict").resolveConflict(e, p),
-              g = f.pendingSetMutationsToDrop,
-              h = f.remoteMutationsToApply;
-            o("WALogger").LOG(
-              me ||
-                (me = babelHelpers.taggedTemplateLiteralLoose([
-                  "[",
-                  "] syncd: after resolveConflict for ",
-                  " v",
-                  "",
-                ])),
-              a,
-              e,
-              l,
-            );
-            var y = p.filter(function (e) {
-              return !h.includes(e);
+              );
+            });
+            var b = f.filter(function (e) {
+              return !C.includes(e);
             });
             (i == null ||
               i.mark("conflict_resolution_end", {
                 source: n,
                 collectionName: e,
-                apply: h.length,
-                drop: y.length,
+                apply: C.length,
+                drop: b.length,
               }),
-              y.forEach(function (e) {
-                return c.push(
+              b.forEach(function (e) {
+                return m.push(
                   o(
                     "WAWebSyncdCollectionHandlerTypesConverter",
                   ).setMutationToSyncAction({
@@ -2336,191 +2402,215 @@ __d(
                 i.mark("apply_set_mutations_start", {
                   source: n,
                   collectionName: e,
-                  count: h.length,
+                  count: C.length,
                 }));
-            for (var C = ot(h), b = null, v = 0; v < C.length; v++) {
-              var S = s && v <= 1,
-                R = C[v][0].actionHandler,
-                L = C[v].map(function (e) {
-                  var t;
-                  return (
-                    e.binarySyncData
-                      ? (t = r("nullthrows")(
-                          o("decodeProtobuf").decodeProtobuf(
-                            o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                            e.binarySyncData,
-                          ).value,
-                        ))
-                      : (t = o("decodeProtobuf").decodeProtobuf(
-                          o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                          e.binarySyncAction,
-                        )),
-                    (b == null || b < e.timestamp) && (b = e.timestamp),
-                    {
-                      operation: "set",
-                      indexParts: e.indexArr,
-                      value: t,
-                      timestamp: e.timestamp,
-                    }
-                  );
-                });
-              S &&
-                (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                  e,
-                  a +
-                    " after deserialize. mutationsToApply length: " +
-                    L.length,
-                ));
-              var E = [],
-                k = !1;
-              try {
-                (o("WAWebCurrentUser").isEmployee() &&
-                  o("WALogger").LOG(
-                    pe ||
-                      (pe = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: applying mutations ",
-                        " for handler ",
-                        " ",
-                        "",
-                      ])),
-                    JSON.stringify(L.slice(0, 3), null, 2),
-                    R.getAction(),
-                    u,
-                  ),
-                  o("WALogger").LOG(
-                    _e ||
-                      (_e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[",
-                        "] syncd: before apply mutation batch for ",
-                        " v",
-                        ", mutations count: ",
-                        " ",
-                        "",
-                      ])),
-                    a,
-                    e,
-                    l,
-                    L.length,
-                    u,
-                  ),
-                  (E = yield R.applyMutations(
-                    L,
-                    {
-                      setMutationsPendingToPersist: c,
-                      allSupportedSetMutations: h,
-                    },
-                    S,
-                  )));
-                var I = o("WAWebCurrentUser").isEmployee()
-                  ? R.getAction()
-                  : "-";
-                (o("WALogger").LOG(
-                  fe ||
-                    (fe = babelHelpers.taggedTemplateLiteralLoose([
-                      "[",
-                      "] syncd: after apply mutation batch for ",
-                      " v",
-                      ", mutations count: ",
-                      ", handler: ",
-                      " ",
-                      "",
-                    ])),
-                  a,
-                  e,
-                  l,
-                  L.length,
-                  I,
-                  u,
-                ),
-                  S &&
+            for (
+              var v = u == null ? [] : yield Ze(e, u),
+                S = v.length > 0 ? [].concat(C, v) : C,
+                R = st(C),
+                L = null,
+                E = function* () {
+                  var t = s && k <= 1,
+                    n = R[k][0].actionHandler,
+                    i = R[k].map(function (e) {
+                      var t;
+                      return (
+                        e.binarySyncData
+                          ? (t = r("nullthrows")(
+                              o("decodeProtobuf").decodeProtobuf(
+                                o("WAWebProtobufSyncAction.pb")
+                                  .SyncActionDataSpec,
+                                e.binarySyncData,
+                              ).value,
+                            ))
+                          : (t = o("decodeProtobuf").decodeProtobuf(
+                              o("WAWebProtobufSyncAction.pb")
+                                .SyncActionValueSpec,
+                              e.binarySyncAction,
+                            )),
+                        (L == null || L < e.timestamp) && (L = e.timestamp),
+                        {
+                          operation: "set",
+                          indexParts: e.indexArr,
+                          value: t,
+                          timestamp: e.timestamp,
+                        }
+                      );
+                    });
+                  t &&
                     (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                       e,
-                      "[" +
-                        a +
-                        "] after apply group " +
-                        v +
-                        "/" +
-                        C.length +
-                        " for " +
-                        e +
-                        " " +
-                        (l != null ? l : "") +
-                        ". result length: " +
-                        E.length,
-                    )));
-              } catch (t) {
-                if (
-                  t instanceof o("WAWebSyncdError").SyncdFatalError ||
-                  e === o("WAWebSyncdConst").CollectionName.CriticalBlock
-                )
-                  throw t;
-                ((k = !0),
-                  o("WALogger").WARN(
-                    ge ||
-                      (ge = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: catching error during applySetMutations: ",
-                        "",
-                      ])),
-                    t,
-                  ));
-              }
-              o("WALogger").LOG(
-                he ||
-                  (he = babelHelpers.taggedTemplateLiteralLoose([
-                    "[",
-                    "] syncd: after apply mutation batch for ",
-                    " ",
-                    "",
-                  ])),
-                a,
-                e,
-                u,
-              );
-              for (var T = 0; T < C[v].length; T++) {
-                var D,
-                  x,
-                  $ = k
-                    ? o("WAWebSyncdConst").SyncActionState.Failed
-                    : E[T].actionState;
-                c.push(
-                  o(
-                    "WAWebSyncdCollectionHandlerTypesConverter",
-                  ).setMutationToSyncAction({
-                    action: C[v][T].actionName,
-                    actionState: $,
-                    modelId:
-                      k || (D = E[T].orphanModel) == null ? void 0 : D.modelId,
-                    modelType:
-                      k || (x = E[T].orphanModel) == null
-                        ? void 0
-                        : x.modelType,
-                    setMutation: C[v][T],
-                  }),
-                );
-              }
-            }
-            var P = b,
-              N =
-                P == null
+                      a +
+                        " after deserialize. mutationsToApply length: " +
+                        i.length,
+                    ));
+                  var u = [],
+                    p = !1;
+                  try {
+                    (Ie(c, function () {
+                      o("WAWebCurrentUser").isEmployee() &&
+                        o("WALogger").LOG(
+                          fe ||
+                            (fe = babelHelpers.taggedTemplateLiteralLoose([
+                              "syncd: applying mutations ",
+                              " for handler ",
+                              " ",
+                              "",
+                            ])),
+                          JSON.stringify(i.slice(0, 3), null, 2),
+                          n.getAction(),
+                          d,
+                        );
+                    }),
+                      Ie(c, function () {
+                        return o("WALogger").LOG(
+                          ge ||
+                            (ge = babelHelpers.taggedTemplateLiteralLoose([
+                              "[",
+                              "] syncd: before apply mutation batch for ",
+                              " v",
+                              ", mutations count: ",
+                              " ",
+                              "",
+                            ])),
+                          a,
+                          e,
+                          l,
+                          i.length,
+                          d,
+                        );
+                      }),
+                      (u = yield n.applyMutations(
+                        i,
+                        {
+                          setMutationsPendingToPersist: m,
+                          allSupportedSetMutations: S,
+                        },
+                        t,
+                      )));
+                    var _ = o("WAWebCurrentUser").isEmployee()
+                      ? n.getAction()
+                      : "-";
+                    (Ie(c, function () {
+                      return o("WALogger").LOG(
+                        he ||
+                          (he = babelHelpers.taggedTemplateLiteralLoose([
+                            "[",
+                            "] syncd: after apply mutation batch for ",
+                            " v",
+                            ", mutations count: ",
+                            ", handler: ",
+                            " ",
+                            "",
+                          ])),
+                        a,
+                        e,
+                        l,
+                        i.length,
+                        _,
+                        d,
+                      );
+                    }),
+                      t &&
+                        (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                          e,
+                          "[" +
+                            a +
+                            "] after apply group " +
+                            k +
+                            "/" +
+                            R.length +
+                            " for " +
+                            e +
+                            " " +
+                            (l != null ? l : "") +
+                            ". result length: " +
+                            u.length,
+                        )));
+                  } catch (t) {
+                    if (
+                      t instanceof o("WAWebSyncdError").SyncdFatalError ||
+                      e === o("WAWebSyncdConst").CollectionName.CriticalBlock
+                    )
+                      throw t;
+                    ((p = !0),
+                      o("WALogger").WARN(
+                        ye ||
+                          (ye = babelHelpers.taggedTemplateLiteralLoose([
+                            "syncd: catching error during applySetMutations: ",
+                            "",
+                          ])),
+                        t,
+                      ));
+                  }
+                  Ie(c, function () {
+                    return o("WALogger").LOG(
+                      Ce ||
+                        (Ce = babelHelpers.taggedTemplateLiteralLoose([
+                          "[",
+                          "] syncd: after apply mutation batch for ",
+                          " ",
+                          "",
+                        ])),
+                      a,
+                      e,
+                      d,
+                    );
+                  });
+                  for (var f = 0; f < R[k].length; f++) {
+                    var g,
+                      h,
+                      y = p
+                        ? o("WAWebSyncdConst").SyncActionState.Failed
+                        : u[f].actionState;
+                    m.push(
+                      o(
+                        "WAWebSyncdCollectionHandlerTypesConverter",
+                      ).setMutationToSyncAction({
+                        action: R[k][f].actionName,
+                        actionState: y,
+                        modelId:
+                          p || (g = u[f].orphanModel) == null
+                            ? void 0
+                            : g.modelId,
+                        modelType:
+                          p || (h = u[f].orphanModel) == null
+                            ? void 0
+                            : h.modelType,
+                        setMutation: R[k][f],
+                      }),
+                    );
+                  }
+                },
+                k = 0;
+              k < R.length;
+              k++
+            )
+              yield* E();
+            var I = L,
+              T =
+                I == null
                   ? null
-                  : o("WATimeUtils").daysDiff(o("WATimeUtils").unixTimeMs(), P);
-            (o("WALogger").LOG(
-              ye ||
-                (ye = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: max timestamp from recent patch: ",
-                  " days agp",
-                ])),
-              N != null ? N : "n/a",
-            ),
+                  : o("WATimeUtils").daysDiff(o("WATimeUtils").unixTimeMs(), I);
+            (Ie(c, function () {
+              return o("WALogger").LOG(
+                pe ||
+                  (pe = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: max timestamp from recent patch: ",
+                    " days agp",
+                  ])),
+                T != null ? T : "n/a",
+              );
+            }),
               s &&
                 (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   e,
                   a +
                     " max timestamp from recent patch: " +
-                    (N != null ? N : "n/a") +
+                    (T != null ? T : "n/a") +
                     " days ago",
                 )));
-            var M = c.reduce(function (e, t) {
+            var D = m.reduce(function (e, t) {
               var n = t.actionState;
               return (e[n] == null && (e[n] = 0), e[n]++, e);
             }, {});
@@ -2529,8 +2619,8 @@ __d(
                 i.mark(
                   "apply_set_mutations_end",
                   babelHelpers.extends(
-                    { source: n, collectionName: e, count: h.length },
-                    M,
+                    { source: n, collectionName: e, count: C.length },
+                    D,
                   ),
                 ),
               o(
@@ -2548,41 +2638,43 @@ __d(
                     " v" +
                     (l != null ? l : "n/a") +
                     ": " +
-                    c
+                    m
                       .map(function (e) {
                         return e.actionState;
                       })
                       .join(", "),
                 )),
-              o("WALogger").LOG(
-                Ce ||
-                  (Ce = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    " syncd: completed apply set mutations for ",
-                    " ",
-                    "",
-                  ])),
-                a,
-                e,
-                u,
-              ),
-              { setMutationsToPersist: c, pendingSetMutationsToDrop: g }
+              Ie(c, function () {
+                return o("WALogger").LOG(
+                  _e ||
+                    (_e = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      " syncd: completed apply set mutations for ",
+                      " ",
+                      "",
+                    ])),
+                  a,
+                  e,
+                  d,
+                );
+              }),
+              { setMutationsToPersist: m, pendingSetMutationsToDrop: y }
             );
           },
         )),
-        Je.apply(this, arguments)
+        nt.apply(this, arguments)
       );
     }
-    function Ze(e, t, n) {
-      return et.apply(this, arguments);
+    function rt(e, t, n) {
+      return ot.apply(this, arguments);
     }
-    function et() {
+    function ot() {
       return (
-        (et = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ot = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
-            var r = tt(t),
+            var r = at(t),
               a = r.supportedMutations,
-              i = ot(a),
+              i = st(a),
               l = yield o("WAWebSyncdResolveConflict").resolveRemoveConflicts(
                 e,
                 a,
@@ -2601,7 +2693,7 @@ __d(
               var u = i[s][0].actionHandler;
               yield u.applyMutations(
                 i[s].map(function (t) {
-                  return { operation: "remove", indexParts: lt(e, t.index) };
+                  return { operation: "remove", indexParts: dt(e, t.index) };
                 }),
                 {
                   setMutationsPendingToPersist: [],
@@ -2632,10 +2724,10 @@ __d(
             );
           },
         )),
-        et.apply(this, arguments)
+        ot.apply(this, arguments)
       );
     }
-    function tt(t) {
+    function at(t) {
       var n = [],
         r = 0,
         a = [],
@@ -2643,7 +2735,7 @@ __d(
         l = t.map(function (e) {
           if (e.version > o("WAWebSyncdGetActionHandler").maxSupportedVersion())
             return { unsupported: e };
-          var t = lt(e.collection, e.index),
+          var t = dt(e.collection, e.index),
             l = o("WAWebSyncdConst").Actions.cast(t[0]);
           if (!l)
             return (r++, n.length < 3 && n.push(t[0]), { unsupported: e });
@@ -2696,7 +2788,7 @@ __d(
         { supportedMutations: u, unsupportedMutations: c }
       );
     }
-    function nt(e) {
+    function it(e) {
       var t = e.filter(function (e) {
           return (
             e.operation ===
@@ -2721,7 +2813,7 @@ __d(
         t
       );
     }
-    function rt(e, t) {
+    function lt(e, t) {
       var n = [],
         r = 0,
         a = [],
@@ -2729,7 +2821,7 @@ __d(
         l = t.map(function (t) {
           if (t.version > o("WAWebSyncdGetActionHandler").maxSupportedVersion())
             return { unsupported: t };
-          var l = lt(e, t.index),
+          var l = dt(e, t.index),
             s = o("WAWebSyncdConst").Actions.cast(l[0]);
           if (!s)
             return (r++, n.length < 3 && n.push(l[0]), { unsupported: t });
@@ -2785,7 +2877,7 @@ __d(
         { supportedMutations: s, unsupportedMutations: d }
       );
     }
-    function ot(e) {
+    function st(e) {
       return e.reduce(function (e, t) {
         return (
           e.length !== 0 && t.actionName === e[e.length - 1][0].actionName
@@ -2795,12 +2887,12 @@ __d(
         );
       }, []);
     }
-    function at(e, t, n, r, o) {
-      return it.apply(this, arguments);
+    function ut(e, t, n, r, o) {
+      return ct.apply(this, arguments);
     }
-    function it() {
+    function ct() {
       return (
-        (it = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ct = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, o) {
             var a = yield r.get(e);
             if ((a == null ? void 0 : a.version) != null && a.version >= t)
@@ -2818,10 +2910,10 @@ __d(
               );
           },
         )),
-        it.apply(this, arguments)
+        ct.apply(this, arguments)
       );
     }
-    function lt(e, t) {
+    function dt(e, t) {
       var n = o("WAWebSyncdActionUtils").parseIndex(e, t);
       if (n == null)
         throw (
@@ -2834,7 +2926,7 @@ __d(
         );
       return n;
     }
-    ((l.applyIndividualMutations = Ee), (l.applyAppStateSyncResponse = Te));
+    ((l.applyIndividualMutations = Ee), (l.applyAppStateSyncResponse = De));
   },
   98,
 );

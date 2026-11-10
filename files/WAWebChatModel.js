@@ -378,6 +378,11 @@ __d(
               (this.listenTo(this.contact, "change:name", this.$ChatImpl$p_10),
               this.listenTo(
                 this.contact,
+                "change:orgMemberName",
+                this.$ChatImpl$p_10,
+              ),
+              this.listenTo(
+                this.contact,
                 "change:isContactBlocked",
                 this.$ChatImpl$p_11,
               ),

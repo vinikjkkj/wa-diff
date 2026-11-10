@@ -12,7 +12,6 @@ __d(
     "WAWebFuzzyMatcher",
     "WAWebFuzzySearchMatchResult",
     "WAWebL10NAccentFold",
-    "WAWebOrgMemberContactName",
     "WAWebPrefixSearchMatchResult",
     "WAWebSearchMatchStrategies",
     "WAWebTrunkPrefixUtils",
@@ -102,17 +101,17 @@ __d(
     }
     function f(e, t, n, a, i) {
       var l = o("WAWebFrontendContactGetters").getSearchName(e),
-        u = y(e);
+        u = o("WAWebFrontendContactGetters").getShownOrgMemberName(e);
       if (!r("isStringNullOrEmpty")(a))
         return g({
           contact: e,
           label: a,
           matchFn: i,
-          orgMemberNames: u,
+          orgMemberName: u,
           term: t,
         });
       if (!t) return null;
-      var d = h(u.shown, t, i);
+      var d = h(u, t, i);
       if (d != null) return d;
       if (!r("isStringNullOrEmpty")(l)) {
         var p = i(l, t);
@@ -123,65 +122,61 @@ __d(
         var f = _.indexOf(t);
         return { match: _, results: [{ startIndex: f, length: t.length }] };
       }
-      var C = m(e, n);
-      if (C != null && n != null) {
-        var b = C.indexOf(n);
-        return { match: C, results: [{ startIndex: b, length: n.length }] };
+      var y = m(e, n);
+      if (y != null && n != null) {
+        var C = y.indexOf(n);
+        return { match: y, results: [{ startIndex: C, length: n.length }] };
       }
-      var v = o("WAWebFrontendContactGetters").getSearchVerifiedName(e);
-      if (!r("isStringNullOrEmpty")(v)) {
-        var S = i(v, t);
-        if (S != null) return { match: v, results: S };
+      var b = o("WAWebFrontendContactGetters").getSearchVerifiedName(e);
+      if (!r("isStringNullOrEmpty")(b)) {
+        var v = i(b, t);
+        if (v != null) return { match: b, results: v };
       }
       if (e.pushname) {
-        var R = i(o("WAWebL10NAccentFold").accentFold(e.pushname), t);
-        if (R != null) return { match: e.pushname, results: R };
+        var S = i(o("WAWebL10NAccentFold").accentFold(e.pushname), t);
+        if (S != null) return { match: e.pushname, results: S };
       }
-      var L = e.username;
-      if (L != null) {
-        var E = o("WAWebUsernameTypes").serializeUsername(L),
-          k = o("WAWebL10NAccentFold").accentFold(E),
-          I = i(k, t);
+      var R = e.username;
+      if (R != null) {
+        var L = o("WAWebUsernameTypes").serializeUsername(R),
+          E = o("WAWebL10NAccentFold").accentFold(L),
+          k = i(E, t);
         if (
-          I != null &&
+          k != null &&
           o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
         )
-          return { match: E, results: I };
+          return { match: L, results: k };
       }
-      var T = h(u.hidden, t, i);
-      if (T != null) return T;
       if (o("WAWebContactGetters").getIsMe(e)) {
-        var D = o("WAWebL10NAccentFold").accentFold(
+        var I = o("WAWebL10NAccentFold").accentFold(
             s._(/*BTDS*/ "Me").toString(),
           ),
-          x = i(D, t);
-        if (x != null) return { match: D, results: x };
+          T = i(I, t);
+        if (T != null) return { match: I, results: T };
       }
       return null;
     }
     function g(e) {
       var t,
-        n,
-        a = e.contact,
-        i = e.label,
-        l = e.matchFn,
-        s = e.orgMemberNames,
-        u = e.term,
-        c = o("WAWebFrontendContactGetters").getSearchName(a),
-        d = o("WAWebUsernameTypes").serializeMaybeUsername(
-          o("WAWebFrontendContactGetters").getUsername(a),
+        n = e.contact,
+        a = e.label,
+        i = e.matchFn,
+        l = e.orgMemberName,
+        s = e.term,
+        u = o("WAWebFrontendContactGetters").getSearchName(n),
+        c = o("WAWebUsernameTypes").serializeMaybeUsername(
+          o("WAWebFrontendContactGetters").getUsername(n),
         );
-      return u &&
-        h((t = s.shown) != null ? t : s.hidden, u, l) == null &&
-        !r("isStringNullOrEmpty")(c) &&
-        l(c, u) == null &&
-        !r("isStringNullOrEmpty")(d) &&
-        l(d, u) == null
+      return s &&
+        h(l, s, i) == null &&
+        ![u, c].some(function (e) {
+          return !r("isStringNullOrEmpty")(e) && i(e, s) != null;
+        })
         ? null
-        : (n = a.labels) != null && n.includes(i)
+        : (t = n.labels) != null && t.includes(a)
           ? {
-              match: i,
-              results: u ? [{ startIndex: 0, length: i.length }] : [],
+              match: a,
+              results: s ? [{ startIndex: 0, length: a.length }] : [],
             }
           : null;
     }
@@ -191,16 +186,6 @@ __d(
       return a == null ? null : { match: e, results: a };
     }
     function y(e) {
-      var t,
-        n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(e);
-      if (n != null) return { hidden: null, shown: n };
-      var r =
-        (t = o("WAWebOrgMemberContactName").getKnownOrgMember(e.id)) == null
-          ? void 0
-          : t.memberName.trim();
-      return { hidden: r === "" ? null : r, shown: null };
-    }
-    function C(e) {
       var t = e.input,
         n = e.query,
         a = e.similarityThreshold;
@@ -216,12 +201,12 @@ __d(
       });
       return i.isMatch() && i.getSimilarityRating() >= a ? i : null;
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = t.split(/\s+/).filter(Boolean);
       if (n.length === 0) return null;
-      var r = y(e),
+      var r = o("WAWebFrontendContactGetters").getShownOrgMemberName(e),
         a = [
-          r.shown == null ? null : o("WAWebL10NAccentFold").accentFold(r.shown),
+          r == null ? null : o("WAWebL10NAccentFold").accentFold(r),
           o("WAWebFrontendContactGetters").getSearchName(e),
           o("WAWebFrontendContactGetters").getSearchVerifiedName(e),
           o("WAWebL10NAccentFold").accentFold(e.pushname),
@@ -236,11 +221,6 @@ __d(
                 ]
               : [],
           )
-          .concat(
-            r.hidden == null
-              ? []
-              : [o("WAWebL10NAccentFold").accentFold(r.hidden)],
-          )
           .filter(Boolean),
         i =
           1 -
@@ -248,7 +228,7 @@ __d(
       for (var l of a) {
         var s = [];
         for (var u of n) {
-          var c = C({ input: l, query: u, similarityThreshold: i });
+          var c = y({ input: l, query: u, similarityThreshold: i });
           if (c == null) break;
           s.push(c);
         }
@@ -256,7 +236,7 @@ __d(
       }
       return null;
     }
-    function v(e, t, n, r) {
+    function b(e, t, n, r) {
       if (
         t.startsWith("@") &&
         o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
@@ -269,7 +249,7 @@ __d(
       }
       return _({ contact: e, label: r, numeric: n, term: t });
     }
-    function S(e, t, n, r) {
+    function v(e, t, n, r) {
       if (
         t.startsWith("@") &&
         o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
@@ -282,20 +262,20 @@ __d(
       }
       return p({ contact: e, label: r, numeric: n, term: t });
     }
-    function R(e, t) {
+    function S(e, t) {
       if (
         t.startsWith("@") &&
         o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
       ) {
         var n,
           r = d(t);
-        return (n = b(e, r)) != null ? n : b(e, t);
+        return (n = C(e, r)) != null ? n : C(e, t);
       }
-      return b(e, t);
+      return C(e, t);
     }
-    ((l.searchMatchPrefix = v),
-      (l.searchMatchExact = S),
-      (l.searchMatchFuzzy = R));
+    ((l.searchMatchPrefix = b),
+      (l.searchMatchExact = v),
+      (l.searchMatchFuzzy = S));
   },
   226,
 );

@@ -18,7 +18,14 @@ __d(
         );
       }
     }
-    l.handleParticipantPickerSearchKey = e;
+    function s(e, t) {
+      var n = e.target;
+      return (
+        !t || !(n instanceof Element) || n.closest('[role="checkbox"]') == null
+      );
+    }
+    ((l.handleParticipantPickerSearchKey = e),
+      (l.shouldFocusParticipantPickerSearch = s));
   },
   98,
 );

@@ -5,31 +5,27 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebMsgGetters",
-    "WAWebOrgMemberContactName",
     "WAWebWidFormat",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e = function (t, n) {
-      n === void 0 &&
-        (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName);
+    var e = function (t) {
       var e = o("WAWebContactCollection").ContactCollection.get(t);
       return e
         ? e.shortName ||
             e.name ||
-            n(e) ||
             o("WAWebFrontendContactGetters").getDisplayName(e)
         : o("WAWebWidFormat").widToFormattedUser(t);
     };
     function u(e) {
       return c(o("WAWebMsgGetters").getIsRevokedByMe(e), e.revokeSender);
     }
-    function c(t, n, r) {
+    function c(t, n) {
       return t
         ? s._(/*BTDS*/ "You deleted this message as admin")
         : n == null
           ? s._(/*BTDS*/ "This message was deleted by an admin")
           : s._(/*BTDS*/ "This message was deleted by admin {admin}", [
-              s._param("admin", e(n, r)),
+              s._param("admin", e(n)),
             ]);
     }
     function d(e) {
@@ -61,13 +57,12 @@ __d(
       });
     }
     function f(e) {
-      var t = e.getOrgName,
-        n = e.isNewsletterMsg,
-        r = e.isRevokedByMe,
-        o = e.isSentByMe,
-        a = e.revokeSender,
-        i = e.subtype;
-      return i !== "admin" ? m(o) : n ? g(r) : c(r, a, t);
+      var t = e.isNewsletterMsg,
+        n = e.isRevokedByMe,
+        r = e.isSentByMe,
+        o = e.revokeSender,
+        a = e.subtype;
+      return a !== "admin" ? m(r) : t ? g(n) : c(n, o);
     }
     function g(e) {
       return e

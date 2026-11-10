@@ -32,36 +32,20 @@ __d(
         SuccessReceived: "success_received",
       }),
       _ = e({ SocketClosed: "socket_closed", Superseded: "superseded" }),
-      f = e({
-        ClientFailureAccountLocked: "client_failure_account_locked",
-        ClientFailureClientTooOld: "client_failure_client_too_old",
-        ClientFailureNotAuthorized: "client_failure_not_authorized",
-        ClientLogout: "client_logout",
-        ClientTabTakeover: "client_tab_takeover",
-        StreamErrorAck: "stream_error_ack",
-        StreamErrorCode515: "stream_error_code_515",
-        StreamErrorCode516: "stream_error_code_516",
-        StreamErrorCodeOther: "stream_error_code_other",
-        StreamErrorDeviceRemoved: "stream_error_device_removed",
-        StreamErrorOther: "stream_error_other",
-        StreamErrorReplaced: "stream_error_replaced",
-        StreamErrorXmlNotWellFormed: "stream_error_xml_not_well_formed",
-        Unknown: "unknown",
-      }),
-      g = "socket_close_reason";
-    function h() {
+      f = "socket_close_reason";
+    function g() {
       return o("WAWebRuntimeEnvironmentUtils").isServiceWorker()
         ? "service_worker"
         : o("WAWebRuntimeEnvironmentUtils").isWorker()
           ? "worker"
           : "main";
     }
-    function y() {
+    function h() {
       return o("WAWebRuntimeEnvironmentUtils").isWorker()
         ? null
         : o("WAWebWamPlatform").getWamPlatform().toLowerCase();
     }
-    var C = (function () {
+    var y = (function () {
         function e() {
           ((this.$1 = 0), (this.$2 = null), (this.$3 = null), (this.$4 = !1));
         }
@@ -91,8 +75,8 @@ __d(
                       (n = t.guestExperienceType) != null ? n : void 0,
                     offline_resume_mode: t.mode.valueOf(),
                     offline_session_id: t.sessionId,
-                    realm: h(),
-                    webc_web_platform: (r = y()) != null ? r : void 0,
+                    realm: g(),
+                    webc_web_platform: (r = h()) != null ? r : void 0,
                   },
                 },
                 timeoutInMs: u,
@@ -128,9 +112,7 @@ __d(
           }),
           (t.markSocketClosed = function (t) {
             var e;
-            this.$5(_.SocketClosed, {
-              string: ((e = {}), (e[g] = t.valueOf()), e),
-            });
+            this.$5(_.SocketClosed, { string: ((e = {}), (e[f] = t), e) });
           }),
           (t.addAnnotations = function (t) {
             var e;
@@ -153,13 +135,12 @@ __d(
           e
         );
       })(),
-      b = new C();
+      C = new y();
     ((l.OfflineSyncMode = d),
       (l.OfflineSyncEntryPoint = m),
       (l.OfflineSyncPoint = p),
       (l.OfflineSyncEndReason = _),
-      (l.SocketCloseReason = f),
-      (l.OfflineSyncQpl = b));
+      (l.OfflineSyncQpl = C));
   },
   98,
 );

@@ -1,20 +1,19 @@
 __d(
   "WAWebVoipCaptureCap",
-  ["WALogger", "WAWebVoipMobileDevice", "justknobx"],
+  ["WAWebVoipMobileDevice"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = [
-        { minParticipants: 3, cap: { width: 640, height: 480 } },
-        { minParticipants: 9, cap: { width: 480, height: 360 } },
-      ];
-    function u(e) {
-      if (!m() || !o("WAWebVoipMobileDevice").isVoipMobileDevice()) return null;
-      var t = null;
-      for (var n of s) e >= n.minParticipants && (t = n.cap);
-      return t;
+    var e = [
+      { minParticipants: 3, cap: { width: 640, height: 480 } },
+      { minParticipants: 9, cap: { width: 480, height: 360 } },
+    ];
+    function s(t) {
+      if (!o("WAWebVoipMobileDevice").isVoipMobileDevice()) return null;
+      var n = null;
+      for (var r of e) t >= r.minParticipants && (n = r.cap);
+      return n;
     }
-    function c(e, t) {
+    function u(e, t) {
       return t == null
         ? e
         : {
@@ -23,27 +22,7 @@ __d(
             maxFps: e.maxFps,
           };
     }
-    var d = !1;
-    function m() {
-      try {
-        return r("justknobx")._("6514");
-      } catch (t) {
-        return (
-          d ||
-            ((d = !0),
-            o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [CaptureCap] capture cap JK unavailable, using fallback=true: ",
-                  "",
-                ])),
-              String(t),
-            )),
-          !0
-        );
-      }
-    }
-    ((l.getGroupCallCaptureCap = u), (l.applyCaptureCap = c));
+    ((l.getGroupCallCaptureCap = s), (l.applyCaptureCap = u));
   },
   98,
 );

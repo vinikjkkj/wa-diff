@@ -5,6 +5,7 @@ __d(
     "WAWebApiParticipantStore",
     "WAWebBroadcastSenderKeyManager",
     "WAWebChatCollection",
+    "WAWebDeleteRetrySessions",
     "WAWebProcessRetryKeyBundle",
     "WAWebSessionScope",
     "WAWebSignal",
@@ -93,23 +94,27 @@ __d(
                 C,
                 p,
               ),
-              yield o("WAWebSignal").Session.deleteRemoteSession(f)));
+              yield o("WAWebDeleteRetrySessions").deleteRetrySessions(f, {
+                reason: "registration_mismatch",
+              })));
           var S = 2;
           if (_ === S)
             return o("WAWebSignal").Session.saveSessionBaseKey(f, d, g);
           if (_ > S) {
             var R = yield o("WAWebSignal").Session.hasSameBaseKey(f, d, g);
-            if (R) {
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "updateLocalSignalSession: delete local session due to same base key",
-                  ])),
+            if (R)
+              return (
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "updateLocalSignalSession: delete local session due to same base key",
+                    ])),
+                ),
+                o("WAWebDeleteRetrySessions").deleteRetrySessions(f, {
+                  reason: "unchanged_base_key",
+                  sessionScope: g,
+                })
               );
-              var L =
-                g === o("WAWebSessionScope").SessionScope.STATUS ? g : void 0;
-              return o("WAWebSignal").Session.deleteRemoteSession(f, L);
-            }
           }
         })),
         d.apply(this, arguments)

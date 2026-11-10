@@ -614,6 +614,7 @@ __d(
       switch (e) {
         case o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE:
         case o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT:
+        case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
           return o("WAWebMediaTypes").TYPE.IMAGE;
         case o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO:
           return o("WAWebMediaTypes").TYPE.VIDEO;

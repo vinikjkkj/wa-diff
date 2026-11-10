@@ -1,6 +1,6 @@
 __d(
   "WAWebOrgModel",
-  ["WAWebBaseModel", "WAWebOrgCollection"],
+  ["WAWebBaseModel", "WAWebOrgCollection", "WAWebOrgMemberCollection"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -8,6 +8,9 @@ __d(
           r[a] = arguments[a];
         return (
           (t = e.call.apply(e, [this].concat(r)) || this),
+          (t.members = o("WAWebBaseModel").collection(
+            o("WAWebOrgMemberCollection").OrgMemberCollection,
+          )),
           (t.id = o("WAWebBaseModel").prop()),
           (t.name = o("WAWebBaseModel").prop()),
           (t.description = o("WAWebBaseModel").prop()),

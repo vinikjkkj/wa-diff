@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAWebABPropsUpdateFromStorage",
     "WAWebApiContact",
+    "WAWebAppCommsCloseReason",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendEventBusWorkerCompatible",
@@ -85,7 +86,9 @@ __d(
             "reconnect_socket triggered, resetting socket loop",
           ])),
       ),
-        o("WAComms").closeSocketAndResume());
+        o("WAComms").closeSocketAndResume(
+          o("WAWebAppCommsCloseReason").AppCommsCloseReason.ReconnectSocket,
+        ));
     });
     function C(e) {
       (o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(

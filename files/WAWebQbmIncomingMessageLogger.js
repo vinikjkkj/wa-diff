@@ -8,6 +8,7 @@ __d(
     "WAWebInAppSignupInfoStore",
     "WAWebLidAwareContactsDB",
     "WAWebMsgGetters",
+    "WAWebNullFunc",
     "WAWebP2PPillsThreadOriginStore",
     "WAWebQBMLoggerBuilder",
     "WAWebQbmIncomingMessageWamEvent",
@@ -88,9 +89,7 @@ __d(
                         .sendLogs(
                           "qbm-incoming-verified-business-name-lookup-failed",
                         ),
-                      i.map(function () {
-                        return null;
-                      })
+                      i.map(o("WAWebNullFunc").returnNull)
                     );
                   }),
               ]),

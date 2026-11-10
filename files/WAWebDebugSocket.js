@@ -2,6 +2,7 @@ __d(
   "WAWebDebugSocket",
   [
     "WAComms",
+    "WAWebAppCommsCloseReason",
     "WAWebJSHaltDetector",
     "WAWebLogoutReasonConstants",
     "WAWebSocketModel",
@@ -41,7 +42,9 @@ __d(
     d.doc = "Take client back online";
     function m() {
       (r("vulture")("5j4V9hwPNRnAp4Nf2shCHPsdQZg="),
-        o("WAComms").closeSocketAndPreventRetry());
+        o("WAComms").closeSocketAndPreventRetry(
+          o("WAWebAppCommsCloseReason").AppCommsCloseReason.DebugClose,
+        ));
     }
     m.doc = "Closes the socket and prevents it from reopening";
     var p = {

@@ -939,6 +939,31 @@ __d(
               }),
             );
           }),
+          (a.allKeys = function (t) {
+            var e = this,
+              n = o("WAWebIdbHelpers").applyOptions(
+                this.table.orderBy(
+                  t.index
+                    ? o("WAWebIdbHelpers").formatQueryIndex(
+                        t.index,
+                        this.tableColumns,
+                      )
+                    : ":id",
+                ),
+                t,
+              ),
+              a = t.returnKeyType === "keys" ? n.keys() : n.primaryKeys();
+            return o("WAWebStorageCrashAnnotations").annotateCrashWithIdbRead(
+              this.table,
+              "allKeys",
+              t.limit,
+              o("WAWebDexieCastTypes")
+                .dexieCastToPromise(a)
+                .catch(function (t) {
+                  throw (e.$1(r("getErrorSafe")(t), "all"), t);
+                }),
+            );
+          }),
           (a.allPrimaryKeys = function () {
             return o("WAWebDexieCastTypes").dexieCastToPromise(
               this.table.orderBy(":id").primaryKeys(),
@@ -1268,6 +1293,23 @@ __d(
             return c.catch(function (t) {
               throw (e.$1(r("getErrorSafe")(t), "between"), t);
             });
+          }),
+          (a.betweenKeys = function (t, n, a, i) {
+            var e = this,
+              l = o("WAWebIdbHelpers").applyOptions(
+                this.table
+                  .where(
+                    o("WAWebIdbHelpers").formatQueryIndex(t, this.tableColumns),
+                  )
+                  .between(n, a, !!i.lowerInclusive, !!i.upperInclusive),
+                i,
+              ),
+              s = i.returnKeyType === "keys" ? l.keys() : l.primaryKeys();
+            return o("WAWebDexieCastTypes")
+              .dexieCastToPromise(s)
+              .catch(function (t) {
+                throw (e.$1(r("getErrorSafe")(t), "between"), t);
+              });
           }),
           (a.betweenCount = function (t, n, a, i) {
             var e = this,

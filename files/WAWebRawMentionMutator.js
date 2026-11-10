@@ -7,7 +7,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebMentionDisplayUtils",
     "WAWebMentionFormatMutator",
-    "WAWebOrgMemberContactName",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -21,7 +20,7 @@ __d(
         var n,
           r = t.contact,
           a =
-            (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(r)) !=
+            (n = o("WAWebFrontendContactGetters").getShownOrgMemberName(r)) !=
             null
               ? n
               : o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(r)

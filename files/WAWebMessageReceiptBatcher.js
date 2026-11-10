@@ -24,6 +24,7 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -36,25 +37,26 @@ __d(
       _,
       f,
       g,
-      h = Object.freeze(
+      h,
+      y = Object.freeze(
         ((e = {}),
-        (e[(g = o("WAWebAck")).ACK.SENT] = g.ACK_STRING.DELIVERY),
-        (e[g.ACK.RECEIVED] = g.ACK_STRING.DELIVERY),
-        (e[g.ACK.READ] = g.ACK_STRING.READ),
-        (e[g.ACK.PLAYED] = g.ACK_STRING.PLAYED),
-        (e[g.ACK.INACTIVE] = g.ACK_STRING.INACTIVE),
+        (e[(h = o("WAWebAck")).ACK.SENT] = h.ACK_STRING.DELIVERY),
+        (e[h.ACK.RECEIVED] = h.ACK_STRING.DELIVERY),
+        (e[h.ACK.READ] = h.ACK_STRING.READ),
+        (e[h.ACK.PLAYED] = h.ACK_STRING.PLAYED),
+        (e[h.ACK.INACTIVE] = h.ACK_STRING.INACTIVE),
         e),
       ),
-      y = { delayMs: 1e3 },
-      C = (function () {
+      C = { delayMs: 1e3 },
+      b = (function () {
         function e() {
           var e = this;
-          ((this.$1 = o("WABatcher").createSimpleBatcher(y, function (t) {
+          ((this.$1 = o("WABatcher").createSimpleBatcher(C, function (t) {
             return e.$2(t).then(function () {
               return [];
             });
           })),
-            (this.$3 = o("WABatcher").createSimpleBatcher(y, function (t) {
+            (this.$3 = o("WABatcher").createSimpleBatcher(C, function (t) {
               return e.$4(t).then(function () {
                 return [];
               });
@@ -69,7 +71,7 @@ __d(
             return this.$3.accept(t);
           }),
           (t.runActiveBatches = function () {
-            return (f || (f = n("Promise")))
+            return (g || (g = n("Promise")))
               .all([this.$1.runActiveBatch(), this.$3.runActiveBatch()])
               .then(r("WAWebNoop"));
           }),
@@ -205,7 +207,7 @@ __d(
                   c =
                     (r = l.device) != null ? r : o("WAJids").DEFAULT_DEVICE_ID;
                 i.forEach(function (t) {
-                  var r = h[a];
+                  var r = y[a];
                   if (r == null) {
                     n.length < 3 && n.push(a);
                     return;
@@ -214,7 +216,7 @@ __d(
                     l = e.get(i);
                   if (l)
                     (r !== o("WAWebAck").ACK_STRING.INACTIVE &&
-                      (l[r] = S(l[r], s)),
+                      (l[r] = L(l[r], s)),
                       l.deviceDelivered.add(c));
                   else {
                     var d = { deviceDelivered: new Set([c]) };
@@ -267,7 +269,7 @@ __d(
                       ["message-info", "message", "chat", "participant"],
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
-                          var l = yield (f || (f = n("Promise"))).all([
+                          var l = yield (g || (g = n("Promise"))).all([
                               o("WAWebSchemaMessageInfo")
                                 .getMessageInfoTable()
                                 .bulkGet(
@@ -311,9 +313,9 @@ __d(
                                   return s.add(e);
                                 }),
                                 babelHelpers.extends({}, e, {
-                                  delivery: S(e.delivery, l.delivery),
-                                  read: S(e.read, l.read),
-                                  played: S(e.played, l.played),
+                                  delivery: L(e.delivery, l.delivery),
+                                  read: L(e.read, l.read),
+                                  played: L(e.played, l.played),
                                   deviceDelivered: Array.from(s),
                                   deviceNotDelivered:
                                     e.deviceNotDelivered.filter(function (e) {
@@ -439,7 +441,7 @@ __d(
                   return !e.isOffline;
                 });
                 if (t) {
-                  (yield o("WAPromiseMap").promiseMap(e, b),
+                  (yield o("WAPromiseMap").promiseMap(e, v),
                     o("WALogger").LOG(
                       _ ||
                         (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -467,12 +469,12 @@ __d(
           e
         );
       })();
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgKeys.map(function (e) {
             return r("WAWebMsgKey").from(e);
           });
@@ -497,22 +499,57 @@ __d(
                 e.ts,
               );
             if (e.ack === o("WAWebAck").ACK.PLAYED)
-              return o("WAWebBackendApi").frontendSendAndReceive(
-                "updateMsgPeerAcks",
-                { msgKeys: t, ack: e.ack, t: e.ts },
+              return (
+                yield R(e.msgKeys).catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                          "handleOnlinePeerReceipt: failed to store played acks",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("online-peer-played-db-update-failed");
+                }),
+                o("WAWebBackendApi").frontendSendAndReceive(
+                  "updateMsgPeerAcks",
+                  { msgKeys: t, ack: o("WAWebAck").ACK.PLAYED, t: e.ts },
+                )
               );
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e, t) {
+    function R(e) {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(
+          ["message"],
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(e);
+            yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .bulkCreateOrMerge(
+                r("compactMap")(t, function (e) {
+                  var t;
+                  return e != null &&
+                    ((t = e.ack) != null ? t : Number.NEGATIVE_INFINITY) <
+                      o("WAWebAck").ACK.PLAYED
+                    ? { id: e.id, ack: o("WAWebAck").ACK.PLAYED }
+                    : null;
+                }),
+              );
+          }),
+        );
+    }
+    function L(e, t) {
       if (e != null && t != null) return Math.min(e, t);
       var n = e != null ? e : t;
       return n != null ? n : void 0;
     }
-    var R = new C();
-    l.receiptBatcher = R;
+    var E = new b();
+    l.receiptBatcher = E;
   },
   98,
 );

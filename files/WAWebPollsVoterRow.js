@@ -29,7 +29,7 @@ __d(
     "stylex",
     "useWAWebContactFormattedUsernameOrPhoneByChat",
     "useWAWebContactValues",
-    "useWAWebOrgMemberIdentity",
+    "useWAWebOrgMemberBadge",
     "useWAWebPollVoteValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -155,9 +155,11 @@ __d(
         L = _[5],
         E = _[6],
         k = _[7],
-        I = r("useWAWebOrgMemberIdentity")(u, f),
-        T = I.displayName,
-        D = I.membership,
+        I = o("useWAWebContactValues").useContactValues(u.id, [
+          o("WAWebFrontendContactGetters").getShownOrgMemberName,
+        ]),
+        T = I[0],
+        D = r("useWAWebOrgMemberBadge")(u, f),
         x = o("WAWebFrontendMsgGetters").getChat(p.unsafe()),
         $ =
           a != null &&

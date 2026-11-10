@@ -11,8 +11,9 @@ __d(
           e = n.textContent != null ? "textContent" : "innerText";
         }
         if (e === "textContent") return t.textContent || "";
-        var o = t.innerText;
-        return typeof o == "string" ? o : "";
+        var o = t,
+          a = o.innerText;
+        return typeof a == "string" ? a : "";
       } else return "";
     }
     l.default = s;

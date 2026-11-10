@@ -23,6 +23,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebPruneExpiredMessagesWithAddOns",
     "WAWebPushNotificationsOfflineBbApi",
+    "WAWebReloadCrashAnnotations",
     "WAWebReloadReason",
     "WAWebSocketLogoutJob",
     "WAWebWamOfflineResumeReporter",
@@ -151,6 +152,9 @@ __d(
           string: { unload_reason: e },
         }),
         o("WAWebReloadReason").recordReloadReason(e, t),
+        o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+          "refreshWindow: " + e,
+        ),
         (n = window.location) == null || n.reload());
     }
     function I(e, t) {

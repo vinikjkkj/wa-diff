@@ -56,7 +56,8 @@ __d(
     }
     ((l.combineSegmentTemplateURL = e),
       (l.addTlbweParamToURLMaybe = s),
-      (l.addByteRangeParamsToURL = u));
+      (l.addByteRangeParamsToURL = u),
+      (l.isAbsoluteUrl = p));
   },
   98,
 );

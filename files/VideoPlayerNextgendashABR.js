@@ -51,38 +51,68 @@ __d(
       }
       return r;
     }
-    function u(t, n) {
+    var u = 8e3;
+    function c(e) {
+      if (e.isLookAheadFromPlayhead) {
+        var t = 2 * u;
+        return {
+          isAudioTrack: !1,
+          playbackDurationInfo: {
+            bufferDurationMs: e.bufferAheadMs,
+            playbackPositionMs: e.lookAheadMs,
+            videoDurationMs: t,
+          },
+          totalWindowDurationMs: e.lookAheadMs,
+          unbufferedWindowDurationMs: e.lookAheadMs - e.bufferAheadMs,
+        };
+      }
+      var n = e.playheadMediaTimeSec * 1e3,
+        r = e.bufferAheadMs + n;
+      return {
+        isAudioTrack: !1,
+        playbackDurationInfo: {
+          bufferDurationMs: r,
+          playbackPositionMs: n,
+          videoDurationMs: e.mediaDurationWithFallbackMs,
+        },
+        totalWindowDurationMs: e.lookAheadMs,
+        unbufferedWindowDurationMs: e.lookAheadMs - r,
+      };
+    }
+    function d(t, n) {
       var r,
         a,
         i,
         l,
         u = n.abrConfig,
-        c = n.bandwidthDiagnostics,
-        d = n.cacheQualityScoreInRepresentation,
-        m = n.devicePixelRatio,
-        p = n.isDocumentHidden,
-        _ = n.mediaDurationSec,
-        f = n.playerDimensions,
-        g = n.playheadMediaTimeSec,
-        h = n.prefetchResult,
-        y = n.sourceBufferBufferedRangesSec,
-        C = n.useSimpleBandwidthEstimate,
-        b = s(u, t),
-        v = u.sidneeConfig,
-        S = b.every(function (e) {
+        d = n.bandwidthDiagnostics,
+        m = n.cacheQualityScoreInRepresentation,
+        p = n.devicePixelRatio,
+        _ = n.isDocumentHidden,
+        f = n.isLookAheadFromPlayhead,
+        g = f === void 0 ? !1 : f,
+        h = n.mediaDurationSec,
+        y = n.playerDimensions,
+        C = n.playheadMediaTimeSec,
+        b = n.prefetchResult,
+        v = n.sourceBufferBufferedRangesSec,
+        S = n.useSimpleBandwidthEstimate,
+        R = s(u, t),
+        L = u.sidneeConfig,
+        E = R.every(function (e) {
           return e.playbackResolutionCsvqmScoreCurve != null;
         })
           ? "csvqm"
           : "mos",
-        R = e(b, f, v.useDpr, m, S, d),
-        L =
-          _ === "NOT_A_NUMBER" || isNaN(_) || !isFinite(_)
-            ? v.defaultVideoDurationMs
-            : _ * 1e3,
-        E =
+        k = e(R, y, L.useDpr, p, E, m),
+        I =
+          h === "NOT_A_NUMBER" || isNaN(h) || !isFinite(h)
+            ? L.defaultVideoDurationMs
+            : h * 1e3,
+        T =
           o("oz-player/utils/OzBufferingUtils").getBufferAheadFromCurrentTime(
-            g,
-            (r = y.map(function (e) {
+            C,
+            (r = v.map(function (e) {
               var t = e[0],
                 n = e[1];
               return { endTime: n, startTime: t };
@@ -90,51 +120,47 @@ __d(
               ? r
               : [],
           ) * 1e3,
-        k = E + g * 1e3,
-        I = v.lookAheadMs - k,
-        T = {
-          isAudioTrack: !1,
-          playbackDurationInfo: {
-            bufferDurationMs: k,
-            playbackPositionMs: g * 1e3,
-            videoDurationMs: L,
-          },
-          totalWindowDurationMs: v.lookAheadMs,
-          unbufferedWindowDurationMs: I,
-        },
-        D = o("SidneeAbrAlgorithm").sidneeAbrSelectQualityImpl(
-          R,
-          v,
-          T,
+        D = c({
+          bufferAheadMs: T,
+          isLookAheadFromPlayhead: g,
+          lookAheadMs: L.lookAheadMs,
+          mediaDurationWithFallbackMs: I,
+          playheadMediaTimeSec: C,
+        }),
+        x = o("SidneeAbrAlgorithm").sidneeAbrSelectQualityImpl(
+          k,
+          L,
+          D,
           o(
             "VideoPlayerNextgendashNetworkDiagnosticsUtils",
-          ).getBandwidthEstimateFn(c, C),
+          ).getBandwidthEstimateFn(d, S),
         ),
-        x =
-          (a = b.find(function (e) {
-            return e.representationId === D.chosenRepresentation.id;
+        $ =
+          (a = R.find(function (e) {
+            return e.representationId === x.chosenRepresentation.id;
           })) != null
             ? a
             : null,
-        $ = {
+        P = {
           bestRepresentationId:
-            (i = x == null ? void 0 : x.representationId) != null ? i : null,
+            (i = $ == null ? void 0 : $.representationId) != null ? i : null,
           bestRepresentationIsPrefetched:
             (l =
-              h == null
+              b == null
                 ? void 0
-                : h.prefetchedRepresentationIds.includes(
-                    D.chosenRepresentation.id,
+                : b.prefetchedRepresentationIds.includes(
+                    x.chosenRepresentation.id,
                   )) != null
               ? l
               : !1,
           hasMadeInitialDecision: !0,
-          lastEvaluationReason: D.decisionReasonDetails,
+          lastEvaluationReason: x.decisionReasonDetails,
         };
-      return { bestRepresentation: x, nextABRState: $ };
+      return { bestRepresentation: $, nextABRState: P };
     }
     ((l.filterVideoRepresentationsByVideoPreferredMinimumSmallestDimension = s),
-      (l.evaluateVideoPlayerNextgendashABRForVideo = u));
+      (l.internal_getObservingWindowPlayerInfo = c),
+      (l.evaluateVideoPlayerNextgendashABRForVideo = d));
   },
   98,
 );

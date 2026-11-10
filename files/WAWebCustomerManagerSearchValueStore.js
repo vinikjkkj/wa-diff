@@ -132,7 +132,7 @@ __d(
           u(n.LabelCollection, "reset", g),
           u(
             o("WAWebContactCollection").ContactCollection,
-            "add remove change:name change:pushname change:username change:verifiedName change:verifiedLevel change:phoneNumber change:locale change:labels",
+            "add remove change:name change:orgMemberName change:pushname change:username change:verifiedName change:verifiedLevel change:phoneNumber change:locale change:labels",
             h,
           ),
           u(o("WAWebContactCollection").ContactCollection, "change:id", C),

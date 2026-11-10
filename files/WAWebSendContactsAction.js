@@ -11,14 +11,15 @@ __d(
     "WAWebCreateFile",
     "WAWebFrontendVcardUtils",
     "WAWebGetEphemeralFieldsMsgActionsUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgKey",
+    "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebP2PPillsContactShareRequireBundle",
     "WAWebSendMsgChatAction",
     "WAWebServerPropConstants",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
     "WAWebVcardUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -121,7 +122,10 @@ __d(
       var d,
         m,
         p = u && u.msgContextInfo(i.id),
-        _ = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        _ = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
+          i,
+          o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
+        ),
         f = babelHelpers.extends(
           {
             ack: o("WAWebAck").ACK.CLOCK,

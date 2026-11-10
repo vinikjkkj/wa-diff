@@ -43,7 +43,7 @@ __d(
                           }),
                         );
                       ((t = e.map(function (e, t) {
-                        return U(e, a[t]);
+                        return H(e, a[t]);
                       })),
                         yield o.bulkCreateOrReplace(t));
                     },
@@ -97,14 +97,14 @@ __d(
                             return !c.has(e);
                           });
                       ((t = e.map(function (e) {
-                        return U(e, d.get(e.orgId));
+                        return H(e, d.get(e.orgId));
                       })),
                         t.length > 0 && (yield i.bulkCreateOrReplace(t)),
                         yield (s || (s = n("Promise"))).all(
                           m.map(function (e) {
                             return (s || (s = n("Promise"))).all([
                               i.remove(e),
-                              B(l, e),
+                              q(l, e),
                             ]);
                           }),
                         ));
@@ -138,7 +138,7 @@ __d(
                       r = t[1],
                       o = n,
                       a = r;
-                    (yield o.remove(e), yield B(a, e));
+                    (yield o.remove(e), yield q(a, e));
                   },
                 );
                 return function (e) {
@@ -171,11 +171,11 @@ __d(
                         i = o,
                         l = a,
                         u = yield i.bulkGet(e);
-                      ((t = u.filter(Boolean).map(x)),
+                      ((t = u.filter(Boolean).map(P)),
                         yield i.bulkCreateOrReplace(t),
                         yield (s || (s = n("Promise"))).all(
                           e.map(function (e) {
-                            return B(l, e);
+                            return q(l, e);
                           }),
                         ));
                     },
@@ -237,16 +237,16 @@ __d(
                               return [e.lid, e];
                             }),
                           );
-                        (yield B(p, e),
+                        (yield q(p, e),
                           yield p.bulkCreateOrReplace(
                             t.map(function (t) {
-                              return N(
+                              return w(
                                 babelHelpers.extends({}, t, { orgId: e }),
                                 h.get(t.lid),
                               );
                             }),
                           ));
-                        var y = $(
+                        var y = N(
                           babelHelpers.extends({}, f, {
                             directoryIsComplete: i,
                             memberCount: a,
@@ -264,7 +264,7 @@ __d(
                             }),
                           ),
                         );
-                        s = { org: y, rows: yield P(p, Array.from(C)) };
+                        s = { org: y, rows: yield M(p, Array.from(C)) };
                       },
                     );
                     return function (e) {
@@ -300,16 +300,16 @@ __d(
                         a = o,
                         i = new Map(
                           (yield a.anyOf(["lid"], t)).map(function (e) {
-                            return [M(e.orgId, e.lid), e];
+                            return [A(e.orgId, e.lid), e];
                           }),
                         );
                       ((r = Array.from(e).flatMap(function (e) {
                         var t = e[0],
                           n = e[1];
                         return n.map(function (e) {
-                          return N(
+                          return w(
                             babelHelpers.extends({}, e, { lid: t }),
-                            i.get(M(e.orgId, t)),
+                            i.get(A(e.orgId, t)),
                           );
                         });
                       })),
@@ -355,15 +355,15 @@ __d(
                         ),
                         i = new Map(
                           (yield o.anyOf(["lid"], a)).map(function (e) {
-                            return [M(e.orgId, e.lid), e];
+                            return [A(e.orgId, e.lid), e];
                           }),
                         );
                       (yield o.bulkCreateOrReplace(
                         e.map(function (e) {
-                          return N(e, i.get(M(e.orgId, e.lid)));
+                          return w(e, i.get(A(e.orgId, e.lid)));
                         }),
                       ),
-                        (t = yield P(o, a)));
+                        (t = yield M(o, a)));
                     },
                   );
                   return function (e) {
@@ -377,12 +377,52 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x(t) {
+    function x(e, t, n) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = !1;
+          return (
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                [u],
+                (function () {
+                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (n) {
+                      var o = n[0],
+                        i = o,
+                        l = yield i.get(e);
+                      (l == null ? void 0 : l.directoryIsComplete) !== !0 ||
+                        l.memberUpdatedTsUsec !== t ||
+                        (yield i.createOrReplace(
+                          babelHelpers.extends({}, l, {
+                            memberCount: r,
+                            memberListTsUsec: t,
+                          }),
+                        ),
+                        (a = !0));
+                    },
+                  );
+                  return function (e) {
+                    return o.apply(this, arguments);
+                  };
+                })(),
+              ),
+            a
+          );
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(t) {
       var n = t.memberListTsUsec,
         r = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return babelHelpers.extends({}, r, { directoryIsComplete: !1 });
     }
-    function $(e, t) {
+    function N(e, t) {
       if (t == null) return e;
       var n =
         e.memberUpdatedTsUsec == null ||
@@ -397,21 +437,27 @@ __d(
         memberUpdatedTsUsec: n,
       });
     }
-    function P(e, t) {
+    function M(e, t) {
       return t.length === 0
         ? (s || (s = n("Promise"))).resolve([])
         : e.anyOf(["lid"], t);
     }
-    function N(e, t) {
-      var n, r, o, a;
-      return q({
+    function w(e, t) {
+      var n,
+        r,
+        o,
+        a,
+        i =
+          e.memberName === "" && t != null
+            ? babelHelpers.extends({}, t, {
+                firstName: (n = t.firstName) != null ? n : "",
+              })
+            : e;
+      return V({
+        firstName: i.firstName,
+        lastName: i.lastName,
         lid: e.lid,
-        memberName:
-          e.memberName === ""
-            ? (n = t == null ? void 0 : t.memberName) != null
-              ? n
-              : ""
-            : e.memberName,
+        memberName: i.memberName,
         memberTag: e.memberTag,
         orgId: e.orgId,
         phoneNumber:
@@ -421,15 +467,15 @@ __d(
           (a = e.username) != null ? a : t == null ? void 0 : t.username,
       });
     }
-    function M(e, t) {
+    function A(e, t) {
       return e + "" + t;
     }
-    function w(e, t, n, r) {
-      return A.apply(this, arguments);
+    function F(e, t, n, r) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = !1,
               l = o("WAWebModelStorageUtils")
@@ -473,15 +519,15 @@ __d(
             return (yield l, i);
           },
         )),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F(e, t, n) {
-      return O.apply(this, arguments);
+    function B(e, t, n) {
+      return W.apply(this, arguments);
     }
-    function O() {
+    function W() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = !1,
             i = o("WAWebModelStorageUtils")
               .getStorage()
@@ -533,21 +579,21 @@ __d(
               );
           return (yield i, a);
         })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e, t) {
-      return W.apply(this, arguments);
-    }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield e.bulkDeleteRange(["orgId", "lid"], [t, d], [t, m]);
-        })),
         W.apply(this, arguments)
       );
     }
-    function q(e) {
+    function q(e, t) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield e.bulkDeleteRange(["orgId", "lid"], [t, d], [t, m]);
+        })),
+        U.apply(this, arguments)
+      );
+    }
+    function V(e) {
       var t = {
         orgId: e.orgId,
         lid: e.lid,
@@ -555,19 +601,21 @@ __d(
         memberTag: e.memberTag,
       };
       return (
+        e.firstName != null && (t.firstName = e.firstName),
+        e.lastName != null && e.lastName !== "" && (t.lastName = e.lastName),
         e.role != null && (t.role = e.role),
         e.username != null && (t.username = e.username),
         e.phoneNumber != null && (t.phoneNumber = e.phoneNumber),
         t
       );
     }
-    function U(e, t) {
+    function H(e, t) {
       var n = { orgId: e.orgId, name: e.name };
-      (V(n, e), H(n, e, t));
-      var r = z(e, t);
+      (G(n, e), z(n, e, t));
+      var r = K(e, t);
       return (r != null && (n.directoryIsComplete = r), n);
     }
-    function V(e, t) {
+    function G(e, t) {
       (t.description != null && (e.description = t.description),
         t.isMemberDirectoryEnabled != null &&
           (e.isMemberDirectoryEnabled = t.isMemberDirectoryEnabled),
@@ -578,25 +626,25 @@ __d(
         t.iconFullUrl != null && (e.iconFullUrl = t.iconFullUrl),
         t.viewerRole != null && (e.viewerRole = t.viewerRole));
     }
-    function H(e, t, n) {
-      var r = G(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
+    function z(e, t, n) {
+      var r = j(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
       r != null && (e.orgUpdatedTsUsec = r);
-      var o = G(
+      var o = j(
         t.memberUpdatedTsUsec,
         n == null ? void 0 : n.memberUpdatedTsUsec,
       );
       o != null && (e.memberUpdatedTsUsec = o);
-      var a = G(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
+      var a = j(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
       a != null && (e.memberListTsUsec = a);
-      var i = G(t.managedGroups, n == null ? void 0 : n.managedGroups);
+      var i = j(t.managedGroups, n == null ? void 0 : n.managedGroups);
       i != null && (e.managedGroups = i);
-      var l = G(t.managedChannels, n == null ? void 0 : n.managedChannels);
+      var l = j(t.managedChannels, n == null ? void 0 : n.managedChannels);
       l != null && (e.managedChannels = l);
     }
-    function G(e, t) {
+    function j(e, t) {
       return e === void 0 ? t : e;
     }
-    function z(e, t) {
+    function K(e, t) {
       if (
         e.directoryIsComplete != null ||
         (t == null ? void 0 : t.directoryIsComplete) == null
@@ -620,11 +668,12 @@ __d(
       (l.replaceCompleteOrgRoster = L),
       (l.replaceOrgMembershipsForLids = k),
       (l.mergeOrgContacts = T),
-      (l.readRowsByLids = P),
-      (l.mergeOrgContactRow = N),
-      (l.updateOrgMemberRole = w),
-      (l.removeOrgMember = F),
-      (l.removeOrgRoster = B));
+      (l.markOrgDirectoryFresh = x),
+      (l.readRowsByLids = M),
+      (l.mergeOrgContactRow = w),
+      (l.updateOrgMemberRole = F),
+      (l.removeOrgMember = B),
+      (l.removeOrgRoster = q));
   },
   98,
 );

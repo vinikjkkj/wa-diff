@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATypeUtils",
     "WAWebApp.react",
+    "WAWebAppCommsCloseReason",
     "WAWebAppTracker",
     "WAWebBuildConstants",
     "WAWebExternalLink.react",
@@ -25,7 +26,10 @@ __d(
             !o("WAWebExternalLink.react").isOpeningDeeplinkInCurrentTab()
           )
             try {
-              ((t = !0), o("WAComms").closeSocketAndPreventRetry());
+              ((t = !0),
+                o("WAComms").closeSocketAndPreventRetry(
+                  o("WAWebAppCommsCloseReason").AppCommsCloseReason.PageUnload,
+                ));
             } catch (t) {
               o("WALogger").ERROR(
                 e ||

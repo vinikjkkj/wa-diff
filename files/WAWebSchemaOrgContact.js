@@ -26,6 +26,8 @@ __d(
           n("username"),
           n("phoneNumber"),
           a("lid"),
+          n("firstName"),
+          n("lastName"),
         ])
         .view(function (e) {
           return e;

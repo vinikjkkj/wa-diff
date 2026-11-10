@@ -1,79 +1,91 @@
 __d(
   "WDSToastImperativeHost",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WDSToastPresentationContexts"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null,
-      l = [],
-      s = 0;
-    function u(t) {
-      if (e == null) {
-        l = m(l, t);
+      s = [],
+      u = 0;
+    function c(t) {
+      var n = babelHelpers.extends({}, t);
+      if (
+        (o("WDSToastPresentationContexts").rememberToastPresentationContext(n),
+        e == null)
+      ) {
+        s = p(s, n);
         return;
       }
-      e.showToast(t);
+      e.showToast(n);
     }
-    function c(t, n) {
+    function d(t, n) {
       (n === void 0 && (n = []), (e = t));
-      var r = p(l, n);
-      ((l = []),
+      var r = _(s, n);
+      ((s = []),
         r.forEach(function (e) {
           var n = e.item;
           return t.showToast(n);
         }));
     }
-    function d(t) {
+    function m(t) {
       e === t && (e = null);
     }
-    function m(e, t) {
-      var n = s++,
+    function p(e, t) {
+      var n = u++,
         r =
           t.dedupId == null
             ? -1
             : e.findIndex(function (e) {
                 return e.item.dedupId === t.dedupId;
               }),
-        o = {
+        a = {
           firstSequence: r === -1 ? n : e[r].firstSequence,
           item: t,
           sequence: n,
         };
       return r === -1
-        ? [].concat(e, [o])
-        : e.map(function (e, t) {
-            return t === r ? o : e;
-          });
+        ? [].concat(e, [a])
+        : (o("WDSToastPresentationContexts").carryToastPresentationContext(
+            e[r].item,
+            t,
+          ),
+          e.map(function (e, t) {
+            return t === r ? a : e;
+          }));
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = [],
         r = new Map();
-      for (var o of [].concat(e, t)) {
-        var a = o.item.dedupId;
-        if (a == null) {
-          n.push(o);
-          continue;
-        }
-        var i = r.get(a);
+      for (var a of [].concat(e, t)) {
+        var i = a.item.dedupId;
         if (i == null) {
-          r.set(a, o);
+          n.push(a);
           continue;
         }
-        var l = i.sequence > o.sequence ? i : o;
-        r.set(
-          a,
-          babelHelpers.extends({}, l, {
-            firstSequence: Math.min(i.firstSequence, o.firstSequence),
-          }),
-        );
+        var l = r.get(i);
+        if (l == null) {
+          r.set(i, a);
+          continue;
+        }
+        var s = l.sequence > a.sequence ? l : a;
+        (o("WDSToastPresentationContexts").carryToastPresentationContext(
+          s === a ? l.item : a.item,
+          s.item,
+        ),
+          r.set(
+            i,
+            babelHelpers.extends({}, s, {
+              firstSequence: Math.min(l.firstSequence, a.firstSequence),
+            }),
+          ));
       }
       return [].concat(n, Array.from(r.values())).sort(function (e, t) {
         return e.firstSequence - t.firstSequence;
       });
     }
-    ((i.showWDSToast = u),
-      (i.registerImperativeHost = c),
-      (i.unregisterImperativeHost = d),
-      (i.enqueuePendingToast = m));
+    ((l.showWDSToast = c),
+      (l.registerImperativeHost = d),
+      (l.unregisterImperativeHost = m),
+      (l.enqueuePendingToast = p));
   },
-  66,
+  98,
 );

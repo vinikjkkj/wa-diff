@@ -12,7 +12,7 @@ __d(
     "WDSIconIcBlock.react",
     "react",
     "react-compiler-runtime",
-    "useWAWebChatOrgMemberNames",
+    "useWAWebChatOrgIdentityRefresh",
     "useWAWebEventTargetValue",
     "useWAWebMsgValues",
   ],
@@ -31,7 +31,7 @@ __d(
         text: { marginTop: "xr9ek0c", marginBottom: "xjpr12u", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(19),
+      var t = o("react-compiler-runtime").c(18),
         n = e.displayAuthor,
         a = e.displayType,
         i = e.msgKey,
@@ -56,22 +56,17 @@ __d(
         p = d[1],
         _ = d[2],
         f = d[3],
-        g = d[4],
-        h = r("useWAWebChatOrgMemberNames")(i.remote),
-        y;
+        g = d[4];
+      r("useWAWebChatOrgIdentityRefresh")(i.remote);
+      var h;
       t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = ["add", "remove", "change:name"]), (t[1] = y))
-        : (y = t[1]);
-      var C, b;
-      t[2] !== h ||
-      t[3] !== p ||
-      t[4] !== _ ||
-      t[5] !== f ||
-      t[6] !== g ||
-      t[7] !== m
-        ? ((C = function () {
+        ? ((h = ["add", "remove", "change:name", "change:orgMemberName"]),
+          (t[1] = h))
+        : (h = t[1]);
+      var y, C;
+      t[2] !== p || t[3] !== _ || t[4] !== f || t[5] !== g || t[6] !== m
+        ? ((y = function () {
             return o("WAWebFormatRevokedMsg").formatRevokedMsgFor({
-              getOrgName: h,
               isNewsletterMsg: p,
               isRevokedByMe: _,
               isSentByMe: f,
@@ -79,25 +74,24 @@ __d(
               subtype: m,
             });
           }),
-          (b = [h, p, _, f, g, m]),
-          (t[2] = h),
-          (t[3] = p),
-          (t[4] = _),
-          (t[5] = f),
-          (t[6] = g),
-          (t[7] = m),
-          (t[8] = C),
-          (t[9] = b))
-        : ((C = t[8]), (b = t[9]));
-      var v = r("useWAWebEventTargetValue")(
+          (C = [p, _, f, g, m]),
+          (t[2] = p),
+          (t[3] = _),
+          (t[4] = f),
+          (t[5] = g),
+          (t[6] = m),
+          (t[7] = y),
+          (t[8] = C))
+        : ((y = t[7]), (C = t[8]));
+      var b = r("useWAWebEventTargetValue")(
           o("WAWebContactCollection").ContactCollection,
+          h,
           y,
           C,
-          b,
         ),
-        S;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = s.jsx(r("WAWebFlexItem.react"), {
+        v;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = s.jsx(r("WAWebFlexItem.react"), {
             xstyle: u.icon,
             children: s.jsx(r("WDSIconIcBlock.react"), {
               height: 22,
@@ -105,43 +99,43 @@ __d(
               width: 22,
             }),
           })),
-          (t[10] = S))
-        : (S = t[10]);
-      var R;
-      t[11] !== i || t[12] !== v
-        ? ((R = s.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[9] = v))
+        : (v = t[9]);
+      var S;
+      t[10] !== i || t[11] !== b
+        ? ((S = s.jsxs(o("WAWebFlex.react").FlexRow, {
             children: [
-              S,
+              v,
               s.jsx(r("WAWebFlexItem.react"), {
                 xstyle: u.text,
                 children: s.jsx(r("WAWebMessageSpacerText.react"), {
                   msgKey: i,
                   theme: "placeholder",
-                  children: v,
+                  children: b,
                 }),
               }),
             ],
           })),
-          (t[11] = i),
-          (t[12] = v),
-          (t[13] = R))
-        : (R = t[13]);
-      var L;
+          (t[10] = i),
+          (t[11] = b),
+          (t[12] = S))
+        : (S = t[12]);
+      var R;
       return (
-        t[14] !== n || t[15] !== a || t[16] !== i || t[17] !== R
-          ? ((L = s.jsx(r("WAWebMessageTextBubble.react"), {
+        t[13] !== n || t[14] !== a || t[15] !== i || t[16] !== S
+          ? ((R = s.jsx(r("WAWebMessageTextBubble.react"), {
               msgKey: i,
               displayType: a,
               displayAuthor: n,
-              children: R,
+              children: S,
             })),
-            (t[14] = n),
-            (t[15] = a),
-            (t[16] = i),
-            (t[17] = R),
-            (t[18] = L))
-          : (L = t[18]),
-        L
+            (t[13] = n),
+            (t[14] = a),
+            (t[15] = i),
+            (t[16] = S),
+            (t[17] = R))
+          : (R = t[17]),
+        R
       );
     }
     l.default = c;

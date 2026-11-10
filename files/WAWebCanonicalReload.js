@@ -9,6 +9,7 @@ __d(
     "WAWebCanonicalUtils",
     "WAWebCmd",
     "WAWebODS",
+    "WAWebReloadCrashAnnotations",
     "WAWebStreamModel",
     "WAWebUpdater",
     "WAWebUserPrefsAppStateSync",
@@ -129,6 +130,9 @@ __d(
             (c = babelHelpers.taggedTemplateLiteralLoose([
               "[reload][canonical] restarting app after canonical recovery",
             ])),
+        ),
+        o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+          "canonicalRecovery.reload",
         ),
         o("WAWebUpdater").Updater.restart());
     }

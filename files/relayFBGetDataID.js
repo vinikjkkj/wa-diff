@@ -14,6 +14,7 @@ __d(
         t === "MessengerGlobalFBGroupChat" ||
         t === "XOCFBHorizonEventView" ||
         t === "XOCHorizonWorldsFBSocialVRCustomWorldView" ||
+        t === "XOCHorizonWorldsFBSocialVRCustomWorldSnapshotView" ||
         t === "XFBHorizonWorldDestination" ||
         t === "XOCFBSocialVRCustomWorldAccountLinkView" ||
         t === "XOCHorizonWorldsFBTogetherAppUserView" ||

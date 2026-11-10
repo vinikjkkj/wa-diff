@@ -8,6 +8,7 @@ __d(
     "WAWebMiscBrowserUtils",
     "WAWebModalManager",
     "WAWebODS",
+    "WAWebReloadCrashAnnotations",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebVoipAvailabilityCheckpoints",
@@ -172,6 +173,9 @@ __d(
           onOK: function () {
             (o("WAWebModalManager").closeModalManager(),
               o("WAWebVoipAvailabilityCheckpoints").logVoipUnavailableReload(),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "VoipCallBlockedModals.reload",
+              ),
               r("WAWebMiscBrowserUtils").hardRefresh());
           },
           onOverlayClick: o("WAWebModalManager").closeModalManager,

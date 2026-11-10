@@ -54,7 +54,9 @@ __d(
       }
       return {
         displayName:
-          m != null ? o("WAWebFrontendContactGetters").getDisplayName(m) : "",
+          m != null
+            ? o("WAWebFrontendContactGetters").getContactDisplayName(m)
+            : "",
         phone:
           m != null
             ? u(

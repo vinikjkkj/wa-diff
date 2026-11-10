@@ -11,7 +11,6 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
-    "WAWebOrgMemberContactName",
     "WAWebWamEnumNotificationTypeEnum",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -105,20 +104,14 @@ __d(
       );
     })(o("WAWebBaseNotification").WABaseNotification);
     function u(e) {
-      var t,
-        n = o("WAWebContactCollection").ContactCollection.get(
+      var t = o("WAWebContactCollection").ContactCollection.get(
           r("nullthrows")(e.author, "comment author cannot be null"),
         ),
-        a = n
-          ? (t = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(n)) !=
-            null
-            ? t
-            : o("WAWebFrontendContactGetters").getFormattedUser(n)
-          : "",
-        i = s._(/*BTDS*/ "{name} replied to your announcement message", [
-          s._param("name", a),
+        n = t ? o("WAWebFrontendContactGetters").getFormattedUser(t) : "",
+        a = s._(/*BTDS*/ "{name} replied to your announcement message", [
+          s._param("name", n),
         ]);
-      return { body: i.toString() };
+      return { body: a.toString() };
     }
     l.WACommentNotification = e;
   },

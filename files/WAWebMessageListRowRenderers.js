@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBotPluginCarouselWrapper.react",
     "WAWebErrorBoundary.react",
+    "WAWebInstantStackRow.react",
     "WAWebMessageAlbumRow.react",
     "WAWebMessageDateMarker.react",
     "WAWebMessageHistoryBundleInfoNotification.react",
@@ -55,31 +56,48 @@ __d(
                     lastMsgs: l,
                   }),
                 }),
-                a.map(function (e) {
-                  switch (e.type) {
+                a.map(function (n) {
+                  switch (n.type) {
                     case "msg":
                       return t.msg(
-                        e.msg,
-                        e.isFocused,
-                        e.groupedWithPrev,
-                        e.groupedWithNext,
+                        n.msg,
+                        n.isFocused,
+                        n.groupedWithPrev,
+                        n.groupedWithNext,
                         !1,
-                        e.isFollowUpReply,
+                        n.isFollowUpReply,
                       );
                     case "album":
                       return t.album(
-                        e.msgs,
-                        e.albumId,
-                        e.groupedWithPrev,
-                        e.groupedWithNext,
-                        e.isFocusedAlbum,
-                        e.focusedMsgIndex,
+                        n.msgs,
+                        n.albumId,
+                        n.groupedWithPrev,
+                        n.groupedWithNext,
+                        n.isFocusedAlbum,
+                        n.focusedMsgIndex,
                         !1,
-                        e.isFollowUpReply,
+                        n.isFollowUpReply,
+                      );
+                    case "instantStack":
+                      return s.jsx(
+                        r("WAWebInstantStackRow.react"),
+                        {
+                          groupedWithNext: n.groupedWithNext,
+                          groupedWithPrev: n.groupedWithPrev,
+                          handleMsgRendered: e.handleMsgRendered,
+                          isFocused: n.focusedMsgIndex != null,
+                          isMsgVisible: e.isMsgVisible,
+                          msgs: n.msgs,
+                          onMessageSelect: e.onMessageSelect,
+                          selectable: e.selectable,
+                          selectedMessages: e.selectedMessages,
+                          setFocusedMessage: e.setFocusedMessage,
+                        },
+                        "instant-stack-" + n.stackId,
                       );
                     default:
-                      var n = e.type;
-                      throw r("err")("Invalid message list row type " + e.type);
+                      var o = n.type;
+                      throw r("err")("Invalid message list row type " + n.type);
                   }
                 }),
               ],

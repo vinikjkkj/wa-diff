@@ -12,13 +12,15 @@ __d(
     function s(t) {
       var n = t.displayAuthor,
         r = t.msg,
-        a = e(r.type, r.subtype);
-      return a == null || a.renderMsg == null
+        a = t.position,
+        i = e(r.type, r.subtype);
+      return i == null || i.renderMsg == null
         ? void 0
-        : a.renderMsg({
+        : i.renderMsg({
             chat: o("WAWebStateUtils").unproxy(t.chat),
             msg: o("WAWebStateUtils").unproxy(t.msg),
             displayAuthor: n,
+            position: a,
           });
     }
     l.renderMsg = s;

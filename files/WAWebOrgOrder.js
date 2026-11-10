@@ -40,7 +40,8 @@ __d(
     }
     ((i.compareOrgsForDisplay = l),
       (i.sortOrgsForDisplay = s),
-      (i.compareUnsignedDecimalStrings = u));
+      (i.compareUnsignedDecimalStrings = u),
+      (i.compareNamesCaseInsensitive = c));
   },
   66,
 );

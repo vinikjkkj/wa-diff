@@ -13,7 +13,9 @@ __d(
     "WAWebMsgActionCapability",
     "WAWebMsgMentionMap",
     "WAWebMsgType",
+    "WAWebMuseResponseCopyText",
     "WAWebRichResponseCopyText",
+    "WAWebRichResponseCopyTextRegistry",
     "WAWebRichTextInputConst",
     "WAWebUnifiedResponseUtils",
     "asyncToGeneratorRuntime",
@@ -179,19 +181,35 @@ __d(
     function g(e) {
       var t = e.unifiedResponse;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) {
-        var n = r("getPlainTextFromUnifiedResponse")(t);
-        if (n !== "") {
-          o("WAWebCopyToClipboard").copyTextToClipboard(n);
+        var n = o(
+          "WAWebRichResponseCopyTextRegistry",
+        ).getRegisteredRichResponseCopyText(e);
+        if (n != null) {
+          n !== "" && o("WAWebCopyToClipboard").copyTextToClipboard(n);
+          return;
+        }
+        if (t != null && o("WAWebMuseResponseCopyText").isMuseResponse(t)) {
+          o("WAWebMuseResponseCopyText").copyMuseResponseText(t, function () {
+            return h(e);
+          });
+          return;
+        }
+        var a = r("getPlainTextFromUnifiedResponse")(t);
+        if (a !== "") {
+          o("WAWebCopyToClipboard").copyTextToClipboard(a);
           return;
         }
       }
-      var a = e.richResponse;
-      if (a != null) {
-        var i = o("WAWebRichResponseCopyText").getRichResponseCopyText(a);
-        i != null && o("WAWebCopyToClipboard").copyTextToClipboard(i);
-      }
+      var i = h(e);
+      i != null && o("WAWebCopyToClipboard").copyTextToClipboard(i);
     }
     function h(e) {
+      var t = e.richResponse;
+      return t != null
+        ? o("WAWebRichResponseCopyText").getRichResponseCopyText(t)
+        : null;
+    }
+    function y(e) {
       var t, n;
       ((e.type === o("WAWebMsgType").MSG_TYPE.CHAT ||
         o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
@@ -213,12 +231,12 @@ __d(
           o("WAWebRichResponseCopyText").canCopyRichResponseMessage(e) &&
           g(e));
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return null;
           var t = e
             .filter(function (e) {
@@ -253,10 +271,10 @@ __d(
             t.length
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
+    function v(e) {
       var t = window.getSelection();
       if (t != null) {
         var n = o("WAWebCopyPasteClipboard").Clipboard.fromSelection(e, t);
@@ -266,9 +284,9 @@ __d(
     ((l.canCopyMessage = e),
       (l.canCopySelection = s),
       (l.getMentionAwareClipboardContent = c),
-      (l.copyMessageToClipboard = h),
-      (l.copyMessagesToClipboard = y),
-      (l.copySelection = b));
+      (l.copyMessageToClipboard = y),
+      (l.copyMessagesToClipboard = C),
+      (l.copySelection = v));
   },
   98,
 );

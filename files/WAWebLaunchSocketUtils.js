@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAComms",
     "WAGzip",
+    "WAWebAppCommsCloseReason",
     "WAWebCommsConfig",
     "WAWebCommsHandleStanza",
     "asyncToGeneratorRuntime",
@@ -12,7 +13,10 @@ __d(
     "use strict";
     var e;
     function s() {
-      (o("WAComms").stopComms(), u());
+      (o("WAComms").stopComms(
+        o("WAWebAppCommsCloseReason").AppCommsCloseReason.RefreshQr,
+      ),
+        u());
     }
     function u() {
       return c.apply(this, arguments);

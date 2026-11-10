@@ -76,6 +76,8 @@ __d(
               typeof r.timestamp == "number" && r.timestamp > 0
                 ? r.timestamp
                 : 0,
+            bankName: f(r.bank_name),
+            transactionE2eId: f(r.transaction_e2e_id),
           };
     }
     function p(e) {

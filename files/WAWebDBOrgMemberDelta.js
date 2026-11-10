@@ -19,7 +19,8 @@ __d(
             i = r.memberUpdatedTsUsec,
             l = r.removedLids,
             s = r.removesViewer,
-            u = { status: "missing_org" };
+            u = r.updated,
+            m = { status: "missing_org" };
           return (
             yield o("WAWebModelStorageUtils")
               .getStorage()
@@ -28,37 +29,40 @@ __d(
                 (function () {
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (r) {
-                      var d = r[0],
-                        m = r[1],
-                        p = d,
-                        _ = m,
-                        f = yield p.get(t);
-                      if (f != null) {
-                        if (!c(i, f.memberUpdatedTsUsec)) {
-                          u = { status: "stale" };
+                      var p = r[0],
+                        _ = r[1],
+                        f = p,
+                        g = _,
+                        h = yield f.get(t);
+                      if (h != null) {
+                        if (!d(i, h.memberUpdatedTsUsec)) {
+                          m = { status: "stale" };
                           return;
                         }
                         if (s) {
-                          (yield p.remove(t),
-                            yield o("WAWebDBOrg").removeOrgRoster(_, t),
-                            (u = {
-                              orgs: yield p.all(),
+                          (yield f.remove(t),
+                            yield o("WAWebDBOrg").removeOrgRoster(g, t),
+                            (m = {
+                              orgs: yield f.all(),
                               status: "viewer_removed",
                             }));
                           return;
                         }
-                        var g = Array.from(
+                        var y = Array.from(
                             new Set(
                               [].concat(
                                 a.map(function (e) {
                                   return e.lid;
                                 }),
                                 l,
+                                u.map(function (e) {
+                                  return e.lid;
+                                }),
                               ),
                             ),
                           ),
-                          h = new Map(
-                            (yield _.anyOf(["lid"], g))
+                          C = new Map(
+                            (yield g.anyOf(["lid"], y))
                               .filter(function (e) {
                                 return e.orgId === t;
                               })
@@ -68,24 +72,31 @@ __d(
                           );
                         (yield (e || (e = n("Promise"))).all(
                           l.map(function (e) {
-                            return _.remove([t, e]);
+                            return g.remove([t, e]);
                           }),
                         ),
-                          yield _.bulkCreateOrReplace(
+                          yield g.bulkCreateOrReplace(
                             a.map(function (e) {
                               return o("WAWebDBOrg").mergeOrgContactRow(
                                 babelHelpers.extends({}, e, { orgId: t }),
-                                h.get(e.lid),
+                                C.get(e.lid),
                               );
                             }),
                           ));
-                        var y = babelHelpers.extends({}, f, {
+                        var b = new Set(l);
+                        yield g.bulkCreateOrReplace(
+                          u.flatMap(function (e) {
+                            var t = C.get(e.lid);
+                            return t == null || b.has(e.lid) ? [] : [c(t, e)];
+                          }),
+                        );
+                        var v = babelHelpers.extends({}, h, {
                           memberUpdatedTsUsec: i,
                         });
-                        (yield p.createOrReplace(y),
-                          (u = {
-                            org: y,
-                            rows: yield o("WAWebDBOrg").readRowsByLids(_, g),
+                        (yield f.createOrReplace(v),
+                          (m = {
+                            org: v,
+                            rows: yield o("WAWebDBOrg").readRowsByLids(g, y),
                             status: "applied",
                           }));
                       }
@@ -96,13 +107,21 @@ __d(
                   };
                 })(),
               ),
-            u
+            m
           );
         })),
         u.apply(this, arguments)
       );
     }
     function c(e, t) {
+      var n = t.memberTag,
+        r = t.role;
+      return babelHelpers.extends({}, e, {
+        memberTag: n != null ? n : e.memberTag,
+        role: r != null ? r : e.role,
+      });
+    }
+    function d(e, t) {
       return (
         t == null || o("WAWebOrgOrder").compareUnsignedDecimalStrings(e, t) > 0
       );

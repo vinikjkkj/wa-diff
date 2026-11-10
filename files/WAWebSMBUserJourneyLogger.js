@@ -28,6 +28,9 @@ __d(
           (t.getEntryPoint = function (t) {
             return this.$3.get(t);
           }),
+          (t.clearEntryPoint = function (t) {
+            (this.$3.delete(t), this.$4.delete(t));
+          }),
           (t.setEntryPointDetails = function (t, n) {
             this.$4.set(n, t);
           }),

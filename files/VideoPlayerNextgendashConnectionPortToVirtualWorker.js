@@ -47,29 +47,38 @@ __d(
           );
         },
         p = n("cr:9585") != null ? n("cr:9585") : e.getModuleIfRequireable();
-      return (
-        p != null
-          ? m(p)
-          : e
-              .load()
-              .then(function (e) {
-                m(e);
-              })
-              .catch(function (e) {
-                var t = r("fb-error").getErrorSafe(e);
-                r("fb-error")
-                  .FBLogger(
-                    "comet_video_player_nextgendash",
-                    "WorkerEnvironmentJSResourceLoadRejection",
-                  )
-                  .catching(t)
-                  .fatal(
-                    'Failed to load module "VideoPlayerNextgendashWorkerEnvironment" / ' +
-                      String(t),
-                  );
-              }),
-        d
-      );
+      if (p != null) m(p);
+      else {
+        var _ = i.enableVirtualWorkerMessageQueue ? [] : null,
+          f = function (t) {
+            _ == null || _.push(t);
+          };
+        (_ != null && c.addEventListener("message", f),
+          e
+            .load()
+            .then(function (e) {
+              if (
+                (_ != null && c.removeEventListener("message", f),
+                m(e),
+                _ != null)
+              )
+                for (var t of _) u.postMessage(t.data, t.ports);
+            })
+            .catch(function (e) {
+              var t = r("fb-error").getErrorSafe(e);
+              r("fb-error")
+                .FBLogger(
+                  "comet_video_player_nextgendash",
+                  "WorkerEnvironmentJSResourceLoadRejection",
+                )
+                .catching(t)
+                .fatal(
+                  'Failed to load module "VideoPlayerNextgendashWorkerEnvironment" / ' +
+                    String(t),
+                );
+            }));
+      }
+      return d;
     };
     ((l.preloadWorkerEnvironmentJSResourceWhenVirtualWorkerOnly = s),
       (l.createVideoPlayerNextgendashConnectionPortToVirtualWorker = u));

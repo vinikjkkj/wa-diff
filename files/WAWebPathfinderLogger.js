@@ -6,6 +6,7 @@ __d(
     "WAWebMdSessionIdCache",
     "WAWebODS",
     "WAWebPathfinderHealthReporter",
+    "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderPIIFilter",
     "WAWebPathfinderReservedMetadataKeys",
     "WAWebPathfinderTraceEnvelope",
@@ -505,7 +506,7 @@ __d(
     }
     function Ge(e) {
       var t, n, a, i, l, s;
-      if (Ue(e)) {
+      if (!(o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e) || !Ue(e))) {
         var u = Ve(e),
           c = y[u.eventType],
           d = c != null ? I(u, c.eventName) : null;

@@ -76,7 +76,7 @@ __d(
             a = o("WAWebDBMessageUtils").endOfChat(t),
             i = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .between(["internalId"], r, a, {
+              .betweenKeys(["internalId"], r, a, {
                 lowerInclusive: !1,
                 upperInclusive: !1,
                 returnKeyType: "primary_key",

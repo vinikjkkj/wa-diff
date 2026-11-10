@@ -1188,95 +1188,89 @@ __d(
           function* (e, t, n) {
             if (!le) {
               var r = o(
-                "WAWebVoipRelayConnectionUtils",
-              ).getConnectionIdentifier(t, n);
-              if (!(ce && xt(r, e))) {
-                var a = te.get(r),
-                  i = Ge(r);
-                if (a == null) {
-                  if (i == null) {
-                    if (xt(r, e)) return;
-                    Tt(e, "no_relay_info");
-                    var l = Array.from(ne.keys()).join(",");
-                    o("WALogger").LOG(
-                      q ||
-                        (q = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [WebTransportConnectionManager] No relay info for ",
-                          ", skipping send (pruned candidate). knownRelays=[",
-                          "]",
-                        ])),
-                      r,
-                      l,
-                    );
-                    return;
-                  }
-                  var s = i.clusterDomain,
-                    u = s != null ? oe.get(s) : void 0,
-                    c = u != null ? te.get(u) : void 0;
-                  c != null ? (a = c) : ((a = He(r, i)), te.set(r, a));
-                }
-                a.stats.firstSendRequestTime === 0 &&
-                  (a.stats.firstSendRequestTime = Date.now());
-                var d =
-                  o("WAWebVoipRelayConnectionUtils").inspectPacketType(e) !==
-                  o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN;
-                if (
-                  (d &&
-                    ne.has(r) &&
-                    a.state !==
-                      o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
-                    !o(
-                      "WAWebVoipGatingUtils",
-                    ).isWebTransportFastSetupEnabled() &&
-                    Dt(),
-                  a.state ===
-                    o("WAWebVoipRelayConnectionUtils").ConnectionState.Open)
-                ) {
-                  var m,
-                    p =
-                      (m = o(
-                        "WAWebVoipWebTransportDataChannelThreadManager",
-                      ).getWebTransportDataChannelThread()) == null
-                        ? void 0
-                        : m.send(
-                            a.id,
-                            o("WAWebVoipRelayConnectionUtils").copyArrayBuffer(
-                              e,
-                            ),
-                          );
-                  p !== !0 && a.localDroppedPackets++;
+                  "WAWebVoipRelayConnectionUtils",
+                ).getConnectionIdentifier(t, n),
+                a = te.get(r),
+                i = Ge(r);
+              if (a == null) {
+                if (i == null) {
+                  if (xt(r, e)) return;
+                  Tt(e, "no_relay_info");
+                  var l = Array.from(ne.keys()).join(",");
+                  o("WALogger").LOG(
+                    q ||
+                      (q = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [WebTransportConnectionManager] No relay info for ",
+                        ", skipping send (pruned candidate). knownRelays=[",
+                        "]",
+                      ])),
+                    r,
+                    l,
+                  );
                   return;
                 }
-                if (wt(d, a)) {
-                  Tt(e, "dropped");
-                  return;
-                }
-                var _ = Lt(
-                  a,
-                  o("WAWebVoipRelayConnectionUtils").copyArrayBuffer(e),
-                );
-                (_
-                  ? Tt(e, "buffered")
-                  : (Tt(e, "dropped"),
-                    o("WALogger").WARN(
-                      U ||
-                        (U = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [WebTransportConnectionManager] Dropping packet for ",
-                          ": size ",
-                          " exceeds max buffer size",
-                        ])),
-                      r,
-                      e.byteLength,
-                    )),
-                  (a.state ===
-                    o("WAWebVoipRelayConnectionUtils").ConnectionState.None ||
-                    a.state ===
-                      o("WAWebVoipRelayConnectionUtils").ConnectionState
-                        .Closed) &&
-                    i != null &&
-                    ne.has(r) &&
-                    ht(i));
+                var s = i.clusterDomain,
+                  u = s != null ? oe.get(s) : void 0,
+                  c = u != null ? te.get(u) : void 0;
+                c != null ? (a = c) : ((a = He(r, i)), te.set(r, a));
               }
+              a.stats.firstSendRequestTime === 0 &&
+                (a.stats.firstSendRequestTime = Date.now());
+              var d =
+                o("WAWebVoipRelayConnectionUtils").inspectPacketType(e) !==
+                o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN;
+              if (
+                (d &&
+                  ne.has(r) &&
+                  a.state !==
+                    o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
+                  !o("WAWebVoipGatingUtils").isWebTransportFastSetupEnabled() &&
+                  Dt(),
+                a.state ===
+                  o("WAWebVoipRelayConnectionUtils").ConnectionState.Open)
+              ) {
+                var m,
+                  p =
+                    (m = o(
+                      "WAWebVoipWebTransportDataChannelThreadManager",
+                    ).getWebTransportDataChannelThread()) == null
+                      ? void 0
+                      : m.send(
+                          a.id,
+                          o("WAWebVoipRelayConnectionUtils").copyArrayBuffer(e),
+                        );
+                p !== !0 && a.localDroppedPackets++;
+                return;
+              }
+              if (wt(d, a)) {
+                Tt(e, "dropped");
+                return;
+              }
+              var _ = Lt(
+                a,
+                o("WAWebVoipRelayConnectionUtils").copyArrayBuffer(e),
+              );
+              (_
+                ? Tt(e, "buffered")
+                : (Tt(e, "dropped"),
+                  o("WALogger").WARN(
+                    U ||
+                      (U = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [WebTransportConnectionManager] Dropping packet for ",
+                        ": size ",
+                        " exceeds max buffer size",
+                      ])),
+                    r,
+                    e.byteLength,
+                  )),
+                (a.state ===
+                  o("WAWebVoipRelayConnectionUtils").ConnectionState.None ||
+                  a.state ===
+                    o("WAWebVoipRelayConnectionUtils").ConnectionState
+                      .Closed) &&
+                  i != null &&
+                  ne.has(r) &&
+                  ht(i));
             }
           },
         )),
@@ -1294,7 +1288,7 @@ __d(
       de || ((de = !0), $e());
     }
     function xt(e, t) {
-      return (ne.size > 0 && !(ce && ne.has(e))) ||
+      return ne.size > 0 ||
         !o("WAWebVoipGatingUtils").isWebTransportFastSetupEnabled() ||
         o("WAWebVoipRelayConnectionUtils").inspectPacketType(t) ===
           o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN

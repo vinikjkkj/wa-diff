@@ -25,7 +25,7 @@ __d(
           )),
           o.listenTo(
             o,
-            "change:contact.name",
+            ["change:contact.name", "change:contact.orgMemberName"],
             o.$PendingParticipantCollection$p_1,
           ),
           o.listenTo(

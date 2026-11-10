@@ -2,6 +2,7 @@ __d(
   "WAWebBrazilPaymentState",
   [
     "WAWebBizOrderDetailsParams",
+    "WAWebBrazilPaymentAppSwitchStatus",
     "WAWebBrazilPaymentStateKeys",
     "WAWebPaymentDetailsModels",
     "WAWebPaymentDetailsStatusPolicy",
@@ -11,7 +12,7 @@ __d(
     function s(e) {
       var t;
       return (
-        ((t = R(e)) == null
+        ((t = k(e)) == null
           ? void 0
           : t[o("WAWebBrazilPaymentStateKeys").RECEIPT_AND_STATE_STAMP_KEY]) ===
         !0
@@ -20,22 +21,39 @@ __d(
     function u(e) {
       var t;
       return (
-        ((t = R(e)) == null
+        S(e) &&
+        ((t = k(e)) == null
+          ? void 0
+          : t[
+              o("WAWebBrazilPaymentStateKeys")
+                .APP_SWITCH_RECEIPT_AND_STATE_STAMP_KEY
+            ]) === !0
+      );
+    }
+    function c(e) {
+      return u(e)
+        ? o("WAWebPaymentDetailsModels").PaymentDetailsFlow.APP_SWITCH
+        : o("WAWebPaymentDetailsModels").PaymentDetailsFlow.COPY_PASTE;
+    }
+    function d(e) {
+      var t;
+      return (
+        ((t = k(e)) == null
           ? void 0
           : t[o("WAWebBrazilPaymentStateKeys").BUBBLE_VERSION_KEY]) !==
         o("WAWebBrazilPaymentStateKeys").BUBBLE_VERSION_WITHOUT_ADD_RECEIPT
       );
     }
-    function c(t) {
+    function m(t) {
       var n;
-      return E((n = R(t)) == null ? void 0 : n[e]);
+      return T((n = k(t)) == null ? void 0 : n[e]);
     }
-    function d(e) {
+    function p(e) {
       var t,
         n,
         r,
-        a = L(
-          (t = R(e)) == null
+        a = I(
+          (t = k(e)) == null
             ? void 0
             : t[o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY],
         );
@@ -44,33 +62,35 @@ __d(
         : {
             status:
               (n = o("WAWebPaymentDetailsModels").PaymentDetailsStatus.cast(
-                E(a.status),
+                T(a.status),
               )) != null
                 ? n
                 : null,
             actor:
               (r = o("WAWebPaymentDetailsModels").PaymentDetailsActor.cast(
-                E(a.actor),
+                T(a.actor),
               )) != null
                 ? r
                 : null,
-            statusUpdatedAtMs: k(a.updated_at),
-            receiptMsgId: E(a.receipt_message_id),
-            receiptAddedAtMs: k(a.receipt_added_at),
+            statusUpdatedAtMs: D(a.updated_at),
+            receiptMsgId: T(a.receipt_message_id),
+            receiptAddedAtMs: D(a.receipt_added_at),
+            bankName: T(a.bank_name),
+            transactionE2eId: T(a.transaction_e2e_id),
           };
     }
-    function m(e) {
-      var t;
-      return (t = e.status) != null
-        ? t
-        : o("WAWebPaymentDetailsModels").PaymentDetailsStatus.NOT_CONFIRMED;
+    function _(e, t) {
+      var n;
+      return (n = e.status) != null
+        ? n
+        : o("WAWebPaymentDetailsStatusPolicy").getDefaultPaymentStatus(t);
     }
-    function p(e, t) {
+    function f(e, t) {
       var n,
         r,
         a,
         i,
-        l = R(e);
+        l = k(e);
       if (l == null) return e;
       var s = e.buttons,
         u = s[0],
@@ -84,13 +104,17 @@ __d(
                 l,
                 ((i = {}),
                 (i[o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY] =
-                  {
-                    status: (n = t.status) != null ? n : null,
-                    actor: (r = t.actor) != null ? r : null,
-                    updated_at: t.statusUpdatedAtMs,
-                    receipt_message_id: (a = t.receiptMsgId) != null ? a : null,
-                    receipt_added_at: t.receiptAddedAtMs,
-                  }),
+                  babelHelpers.extends(
+                    {
+                      status: (n = t.status) != null ? n : null,
+                      actor: (r = t.actor) != null ? r : null,
+                      updated_at: t.statusUpdatedAtMs,
+                      receipt_message_id:
+                        (a = t.receiptMsgId) != null ? a : null,
+                      receipt_added_at: t.receiptAddedAtMs,
+                    },
+                    R(t),
+                  )),
                 i),
               ),
             ),
@@ -98,12 +122,19 @@ __d(
         ].concat(c),
       });
     }
-    function _(e, t, n, r) {
-      var a = e.status,
-        i =
-          a != null &&
-          o("WAWebPaymentDetailsStatusPolicy").isTerminalPaymentStatus(a);
-      return i || r < e.statusUpdatedAtMs
+    function g(e, t, n, r, a) {
+      if (a === o("WAWebPaymentDetailsModels").PaymentDetailsFlow.APP_SWITCH)
+        return o("WAWebBrazilPaymentAppSwitchStatus").applyAppSwitchStatus(
+          e,
+          t,
+          n,
+          r,
+        );
+      var i = e.status,
+        l =
+          i != null &&
+          o("WAWebPaymentDetailsStatusPolicy").isTerminalPaymentStatus(i);
+      return l || r < e.statusUpdatedAtMs
         ? e
         : babelHelpers.extends({}, e, {
             status: t,
@@ -111,12 +142,12 @@ __d(
             statusUpdatedAtMs: r,
           });
     }
-    function f(e, t, n) {
+    function h(e, t, n) {
       return n < e.receiptAddedAtMs
         ? e
         : babelHelpers.extends({}, e, { receiptMsgId: t, receiptAddedAtMs: n });
     }
-    function g(e, t) {
+    function y(e, t) {
       return t < e.receiptAddedAtMs
         ? e
         : babelHelpers.extends({}, e, {
@@ -124,28 +155,30 @@ __d(
             receiptAddedAtMs: t,
           });
     }
-    function h(e, t) {
+    function C(e, t) {
       return (
         e.status === t.status &&
         e.actor === t.actor &&
         e.statusUpdatedAtMs === t.statusUpdatedAtMs &&
         e.receiptMsgId === t.receiptMsgId &&
-        e.receiptAddedAtMs === t.receiptAddedAtMs
+        e.receiptAddedAtMs === t.receiptAddedAtMs &&
+        e.bankName === t.bankName &&
+        e.transactionE2eId === t.transactionE2eId
       );
     }
-    function y(e) {
+    function b(e) {
       var t,
-        n = (t = S(e)) == null ? void 0 : t.name;
+        n = (t = E(e)) == null ? void 0 : t.name;
       return typeof n == "string" &&
         o("WAWebBrazilPaymentStateKeys").PAYMENT_REQUEST_BUTTON_NAMES.has(n)
         ? n
         : null;
     }
-    function C(e) {
+    function v(e) {
       var t,
-        n = y(e);
+        n = b(e);
       if (n == null) return null;
-      var r = E((t = S(e)) == null ? void 0 : t.buttonParamsJson);
+      var r = T((t = E(e)) == null ? void 0 : t.buttonParamsJson);
       return n ===
         o("WAWebBrazilPaymentStateKeys").PIX_CODE_REQUEST_BUTTON_NAME &&
         !(
@@ -157,64 +190,75 @@ __d(
         ? null
         : r;
     }
-    function b(e) {
-      var t = R(e),
+    function S(e) {
+      var t = k(e),
         n = t == null ? void 0 : t.payment_settings;
       return (
-        y(e) ===
+        b(e) ===
           o("WAWebBrazilPaymentStateKeys").PIX_CODE_REQUEST_BUTTON_NAME &&
-        !v(t) &&
+        !L(t) &&
         Array.isArray(n) &&
         n.some(function (e) {
           var t;
           return (
-            ((t = L(e)) == null ? void 0 : t.type) ===
+            ((t = I(e)) == null ? void 0 : t.type) ===
             o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE
           );
         })
       );
     }
-    function v(e) {
+    function R(e) {
+      var t = {};
+      return (
+        e.bankName != null && (t.bank_name = e.bankName),
+        e.transactionE2eId != null &&
+          (t.transaction_e2e_id = e.transactionE2eId),
+        t
+      );
+    }
+    function L(e) {
       var t,
-        n = (t = L(e == null ? void 0 : e.order)) == null ? void 0 : t.items;
+        n = (t = I(e == null ? void 0 : e.order)) == null ? void 0 : t.items;
       return Array.isArray(n) && n.length > 0;
     }
-    function S(e) {
+    function E(e) {
       var t,
-        n = (t = L(e)) == null ? void 0 : t.buttons;
-      return Array.isArray(n) ? L(n[0]) : null;
+        n = (t = I(e)) == null ? void 0 : t.buttons;
+      return Array.isArray(n) ? I(n[0]) : null;
     }
-    function R(e) {
-      var t = C(e);
+    function k(e) {
+      var t = v(e);
       if (t == null) return null;
       try {
-        return L(JSON.parse(t));
+        return I(JSON.parse(t));
       } catch (e) {
         return null;
       }
     }
-    function L(e) {
+    function I(e) {
       return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
     }
-    function E(e) {
+    function T(e) {
       return typeof e == "string" && e !== "" ? e : null;
     }
-    function k(e) {
+    function D(e) {
       return typeof e == "number" && e > 0 ? e : 0;
     }
     ((l.isReceiptAndStateStamped = s),
-      (l.hasBubbleAddReceipt = u),
-      (l.getPaymentNote = c),
-      (l.getBrazilPaymentState = d),
-      (l.getPaymentDetailsStatus = m),
-      (l.withBrazilPaymentState = p),
-      (l.applyStatusUpdate = _),
-      (l.applyReceiptUpdate = f),
-      (l.applyReceiptRemoval = g),
-      (l.isSameBrazilPaymentState = h),
-      (l.getPaymentRequestButtonName = y),
-      (l.getPaymentRequestParamsJson = C),
-      (l.isPixCodeRequestPayload = b));
+      (l.isAppSwitchReceiptAndStateStamped = u),
+      (l.getPaymentDetailsFlow = c),
+      (l.hasBubbleAddReceipt = d),
+      (l.getPaymentNote = m),
+      (l.getBrazilPaymentState = p),
+      (l.getPaymentDetailsStatus = _),
+      (l.withBrazilPaymentState = f),
+      (l.applyStatusUpdate = g),
+      (l.applyReceiptUpdate = h),
+      (l.applyReceiptRemoval = y),
+      (l.isSameBrazilPaymentState = C),
+      (l.getPaymentRequestButtonName = b),
+      (l.getPaymentRequestParamsJson = v),
+      (l.isPixCodeRequestPayload = S));
   },
   98,
 );

@@ -369,8 +369,8 @@ __d(
           (i.openMetaAiThreadDrawer = function (t, n) {
             this.trigger("open_meta_ai_thread_drawer", t, n);
           }),
-          (i.openCustomerManager = function () {
-            this.trigger("open_customer_manager");
+          (i.openCustomerManager = function (t) {
+            this.trigger("open_customer_manager", t);
           }),
           (i.updateAiThreadlistSelection = function () {
             this.trigger("update_ai_thread_list_selection");

@@ -203,18 +203,21 @@ __d(
       var t = e.map(function (e) {
         var t,
           n,
-          r = o("WAWebSchemaOrg").OrgMemberRole.cast(e.role),
-          a = o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
+          r,
+          a = o("WAWebSchemaOrg").OrgMemberRole.cast(e.role),
+          i = o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
             (t = e.display_name) != null ? t : "",
             e.display_last_name,
           );
-        return e.org_id == null || e.org_id === "" || r == null
+        return e.org_id == null || e.org_id === "" || a == null
           ? null
           : {
-              memberName: a,
-              memberTag: (n = e.member_tag) != null ? n : "",
+              firstName: (n = e.display_name) != null ? n : "",
+              lastName: e.display_last_name,
+              memberName: i,
+              memberTag: (r = e.member_tag) != null ? r : "",
               orgId: e.org_id,
-              role: r,
+              role: a,
             };
       });
       return t.some(function (e) {

@@ -89,6 +89,7 @@ __d(
           queryParams: e.getQueryParams(),
           serializer: r,
           subdomain: e.getSubdomain(),
+          userInfo: "",
         },
         a = babelHelpers.extends({}, o, t),
         i = t.queryParams != null && t.queryParams.size !== 0;

@@ -3,7 +3,7 @@ __d(
   ["WebBloksFunctionTableManager", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
-        function e(e, t, n, r, o, a, i, l, s, u) {
+        function e(e, t, n, r, o, a, i, l, s, u, c) {
           ((this.$1 = !0),
             (this.variableDefinitions = e != null ? e : []),
             (this.payloads = t != null ? t : new Map()),
@@ -14,10 +14,17 @@ __d(
             (this.ftInclude = i),
             (this.values = s != null ? s : []),
             (this.templates = l != null ? l : new Map()),
-            (this.depth = u));
+            (this.depth = u),
+            (this.hoistedComponentQueryPayloads = c != null ? c : new Map()));
         }
         var t = e.prototype;
         return (
+          (t.getHoistedComponentQueryPayload = function (t) {
+            var e;
+            return (e = this.hoistedComponentQueryPayloads.get(t)) != null
+              ? e
+              : null;
+          }),
           (t.setShouldCommitPublishStateUpdates = function (t) {
             (t === void 0 && (t = !0), (this.$1 = t));
           }),
@@ -36,6 +43,7 @@ __d(
               this.templates,
               this.values,
               this.depth,
+              this.hoistedComponentQueryPayloads,
             );
           }),
           (e.empty = function () {

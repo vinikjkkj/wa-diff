@@ -36,11 +36,13 @@ __d(
                   .PIX_STATIC_CODE
               ],
         d = o("WAWebBrazilPaymentState").getBrazilPaymentState(l),
-        m = s(u);
+        m = o("WAWebBrazilPaymentState").getPaymentDetailsFlow(l),
+        p = s(u);
       return {
         pov: o("WAWebPaymentDetailsModels").getPaymentDetailsPov(i),
+        flow: m,
         state: d,
-        status: o("WAWebBrazilPaymentState").getPaymentDetailsStatus(d),
+        status: o("WAWebBrazilPaymentState").getPaymentDetailsStatus(d, m),
         recipientName:
           (n = c == null ? void 0 : c.merchant_name) != null ? n : "",
         pixKey: (r = c == null ? void 0 : c.key) != null ? r : "",
@@ -52,13 +54,13 @@ __d(
             : null,
         note: o("WAWebBrazilPaymentState").getPaymentNote(l),
         amount:
-          m != null
+          p != null
             ? o("WAWebCurrencyUtils").formatAmount1000({
-                amount: m.amount1000,
-                currency: m.currency,
+                amount: p.amount1000,
+                currency: p.currency,
               })
             : null,
-        requestedAmount: m,
+        requestedAmount: p,
       };
     }
     function s(e) {

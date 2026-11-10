@@ -14,21 +14,22 @@ __d(
       f,
       g,
       h,
-      y = 65536,
-      C = 300 * 1e3,
-      b = 3e3,
-      v = 1,
-      S = 2,
-      R = 6005,
-      L = 113760892,
-      E = 0,
-      k = "none",
-      I = {
+      y,
+      C = 65536,
+      b = 300 * 1e3,
+      v = 3e3,
+      S = 1,
+      R = 2,
+      L = 6005,
+      E = 113760892,
+      k = 0,
+      I = "none",
+      T = {
         putBuffer: function (t, r, o) {
-          return (h || (h = n("Promise"))).resolve();
+          return (y || (y = n("Promise"))).resolve();
         },
       },
-      T = (function () {
+      D = (function () {
         function t(t) {
           var n = this;
           ((this.$2 = []),
@@ -36,7 +37,7 @@ __d(
             (this.$4 = !1),
             (this.$5 = new Map()),
             (this.$8 = -1),
-            (this.$9 = I),
+            (this.$9 = T),
             (this.$10 = null),
             (this.deinitialize = function () {
               ((n.$4 = !1),
@@ -44,12 +45,12 @@ __d(
                 n.$3.clear(),
                 (n.$5 = new Map()),
                 (n.$8 = -1),
-                (n.$9 = I),
+                (n.$9 = T),
                 n.serializePending.cancel(),
                 n.finalizeBuffers.cancel());
             }),
             (this.enqueueEvent = function (e, t, r, o, a, i) {
-              var l = v;
+              var l = S;
               (n.$2.push({
                 type: l,
                 id: e,
@@ -59,10 +60,10 @@ __d(
                 fields: o,
                 resolve: i,
               }),
-                n.$4 && n.serializePending.onOrBefore(b));
+                n.$4 && n.serializePending.onOrBefore(v));
             }),
             (this.enqueueAttributesUpdate = function (t) {
-              var r = { type: S, delta: [] };
+              var r = { type: R, delta: [] };
               (t.forEach(function (e, t) {
                 e !== void 0 && r.delta.push([t, e]);
               }),
@@ -84,7 +85,18 @@ __d(
             )),
             (this.serializePending = new (o("WAShiftTimer").ShiftTimer)(
               function () {
-                n.serializePending__INTERNAL();
+                n.serializePending__INTERNAL().catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "WAM: Failed to serialize pending events: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("wam-serializePending");
+                });
               },
             )),
             (this.forceSerializePending = function () {
@@ -98,8 +110,8 @@ __d(
             if (this.$4) {
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "WAM: Failed to initialize already initialized WAM",
                     ])),
                 )
@@ -113,8 +125,8 @@ __d(
               this.$11() && this.serializePending.forceRunNow(),
               (this.$4 = !0),
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "WAM: Initialized with stream id ",
                     "",
                   ])),
@@ -125,12 +137,12 @@ __d(
             (this.$5.forEach(function (e) {
               e.finalize();
             }),
-              this.$5.size > 0 && this.serializePending.onOrBefore(b));
+              this.$5.size > 0 && this.serializePending.onOrBefore(v));
           }),
           (n.$12 = function (t) {
             var e;
             return (e = this.$7) != null && e.multipleSequences
-              ? t === E
+              ? t === k
                 ? "null-psid"
                 : t
               : "regular";
@@ -142,8 +154,8 @@ __d(
             if (this.$10 == null) {
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "WAM: Sequence number generator not initialised for channel ",
                       "",
                     ])),
@@ -166,35 +178,35 @@ __d(
               if (this.$6 == null)
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "WAM: Tried to create a private buffer without setting private stats ids",
                       ])),
                   )
                   .sendLogs("wam-serializePending");
               else {
-                var a = t === E ? k : this.$6.get(t);
+                var a = t === k ? I : this.$6.get(t);
                 a == null
                   ? o("WALogger")
                       .ERROR(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "WAM: Tried to create a private buffer without setting private stats id",
                           ])),
                       )
                       .sendLogs("wam-serializePending")
-                  : e.writeGlobal(R, a);
+                  : e.writeGlobal(L, a);
               }
             return e;
           }),
           (n.serializePending__INTERNAL = function () {
             var e = this,
               t = [];
-            this.finalizeBuffers.onOrBefore(C);
+            this.finalizeBuffers.onOrBefore(b);
             var n = new Map(),
               r = -1;
             this.$2.forEach(function (a, i) {
-              if (a.type === v) {
+              if (a.type === S) {
                 var l = !0;
                 n.forEach(function (e) {
                   o("WAWamBuffer").canWriteGlobal(e) || (l = !1);
@@ -213,8 +225,8 @@ __d(
                         a.psIdIntValue == null
                           ? o("WALogger")
                               .ERROR(
-                                p ||
-                                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                                _ ||
+                                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                                     "A WAM event in channel private was dropped before serialization. Reason: missing psIdIntValue in the event payload",
                                   ])),
                               )
@@ -234,8 +246,8 @@ __d(
                     u.writeEvent(a.commitTime, a.id, a.fields, a.weight));
                 } else
                   o("WALogger").WARN(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "A WAM event in channel ",
                         " was dropped before serialization. Event correct: ",
                         ", pending attributes correct: ",
@@ -251,22 +263,22 @@ __d(
                 for (var c = 0; c < a.delta.length; ++c) {
                   var d = a.delta[c],
                     m = d[0],
-                    f = d[1];
-                  n.set(m, f);
+                    p = d[1];
+                  n.set(m, p);
                 }
               }
             });
             var a = !1;
             this.$5.forEach(function (e) {
-              (e.isFinalized() || e.getSize() > y) && (a = !0);
+              (e.isFinalized() || e.getSize() > C) && (a = !0);
             });
             var i = [];
             this.$5.forEach(function (t, n) {
               t.hasEvents()
                 ? i.push([t.getKey(), t.peek(), e.$12(n)])
                 : o("WALogger").WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "Skipping putting buffer to sink, as it does not contain any events",
                       ])),
                   );
@@ -293,7 +305,7 @@ __d(
             return (
               this.$2.length > 0 &&
               this.$2.some(function (e) {
-                return e.type === v;
+                return e.type === S;
               })
             );
           }),
@@ -322,8 +334,8 @@ __d(
             if (this.$1 !== "private") {
               o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "WAM: Tried to set private stats ids on a non-private channel",
                     ])),
                 )
@@ -335,7 +347,7 @@ __d(
           t
         );
       })();
-    ((l.PRIVATE_STATS_DEFAULT_PS_ID_KEY_HASH_INT = L), (l.Wam = T));
+    ((l.PRIVATE_STATS_DEFAULT_PS_ID_KEY_HASH_INT = E), (l.Wam = D));
   },
   98,
 );

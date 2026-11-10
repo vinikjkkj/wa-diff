@@ -29,7 +29,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
-    "WAWebOrgMemberContactName",
     "WAWebProtobufsE2E.pb",
     "WAWebRichResponsePreviewText",
     "WAWebUserPrefsMeUser",
@@ -484,7 +483,7 @@ __d(
         b.verifiedName
       )
         return b.verifiedName;
-      var S = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(b);
+      var S = o("WAWebFrontendContactGetters").getShownOrgMemberName(b);
       if (S != null) return S;
       if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
         var R = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(b);

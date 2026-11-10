@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumMessageSecretErrorType",
     "compactMap",
     "isStringNullOrEmpty",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,75 +25,76 @@ __d(
         n,
         a,
         i,
-        l = e.baseMessage,
-        s = e.messageProtobuf,
-        u = e.msgContext,
-        c = s.pollCreationMessage,
-        d = s.pollCreationMessageV2,
-        m = s.pollCreationMessageV3,
-        p = s.pollCreationMessageV5,
-        _ = s.pollCreationMessageV6,
-        f =
-          (t = (n = (a = c != null ? c : d) != null ? a : m) != null ? n : p) !=
+        l,
+        s = e.baseMessage,
+        u = e.messageProtobuf,
+        c = e.msgContext,
+        d = u.pollCreationMessage,
+        m = u.pollCreationMessageV2,
+        p = u.pollCreationMessageV3,
+        _ = u.pollCreationMessageV5,
+        f = u.pollCreationMessageV6,
+        g =
+          (t = (n = (a = d != null ? d : m) != null ? a : p) != null ? n : _) !=
           null
             ? t
-            : _,
-        g = r("WAWebNewsletterIsNewsletterMsg")(l),
-        h = !g;
-      if (f == null) return null;
-      var y = f.contextInfo,
-        C = f.correctAnswer,
-        b = f.name,
-        v = f.options,
-        S = f.selectableOptionsCount,
-        R = o("WAWebPollCreationUtils").getPollContentTypeFromE2EValue(
-          f.pollContentType,
+            : f,
+        h = r("WAWebNewsletterIsNewsletterMsg")(s),
+        y = !h;
+      if (g == null) return null;
+      var C = g.contextInfo,
+        b = g.correctAnswer,
+        v = g.name,
+        S = g.options,
+        R = g.selectableOptionsCount,
+        L = o("WAWebPollCreationUtils").getPollContentTypeFromE2EValue(
+          g.pollContentType,
         ),
-        L = o("WAWebPollCreationUtils").getPollTypeFromE2EValue(f.pollType),
-        E = R === o("WAWebPollCreationUtils").PollContentType.IMAGE,
-        k = o("WALongInt").maybeNumber(f.endTime),
-        I = f.hideParticipantName != null,
-        T = f.allowAddOption != null,
-        D = k != null || I || T;
-      if (D) {
-        var x =
-            k != null &&
+        E = o("WAWebPollCreationUtils").getPollTypeFromE2EValue(g.pollType),
+        k = L === o("WAWebPollCreationUtils").PollContentType.IMAGE,
+        I = o("WALongInt").maybeNumber(g.endTime),
+        T = g.hideParticipantName != null,
+        D = g.allowAddOption != null,
+        x = I != null || T || D;
+      if (x) {
+        var $ =
+            I != null &&
             !o("WAWebPollsGatingUtils").isPollEndTimeReceivingEnabled(),
-          $ =
-            I && !o("WAWebPollsGatingUtils").isPollHideVotersReceivingEnabled(),
           P =
-            T && !o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled();
-        if (x || $ || P)
+            T && !o("WAWebPollsGatingUtils").isPollHideVotersReceivingEnabled(),
+          N =
+            D && !o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled();
+        if ($ || P || N)
           return {
-            msgData: babelHelpers.extends({}, l, {
+            msgData: babelHelpers.extends({}, s, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
               kind: o("WAWebMsgType").MsgKind.Unknown,
               futureproofType: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
             }),
-            contextInfo: y,
+            contextInfo: C,
           };
       }
       if (
-        E &&
-        !o("WAWebIsPhotoPollReceiverEnabled").isPhotoPollReceiverEnabled(l)
+        k &&
+        !o("WAWebIsPhotoPollReceiverEnabled").isPhotoPollReceiverEnabled(s)
       )
         return {
-          msgData: babelHelpers.extends({}, l, {
+          msgData: babelHelpers.extends({}, s, {
             type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
             kind: o("WAWebMsgType").MsgKind.Unknown,
             futureproofType: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
           }),
-          contextInfo: y,
+          contextInfo: C,
         };
-      if (b == null)
+      if (v == null)
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .MISSING_NAME,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
       if (
-        b.length === 0 ||
-        b.length >
+        v.length === 0 ||
+        v.length >
           o("WAWebPollsGatingUtils").MAX_POLL_NAME_LENGTH_FOR_INCOMING_MESSAGES
       )
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
@@ -100,20 +102,26 @@ __d(
             .INVALID_NAME,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      if (u === "quoted" || u === "history_quoted") {
-        var N = babelHelpers.extends({}, l, {
+      if (c === "quoted" || c === "history_quoted") {
+        var M = babelHelpers.extends({}, s, {
           type: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
           kind: o("WAWebMsgType").MsgKind.PollCreation,
-          pollName: b,
+          pollName: v,
           pollOptions: null,
           pollSelectableOptionsCount: null,
-          pollContentType: R,
-          pollType: L,
+          pollContentType: L,
+          pollType: E,
         });
-        return { msgData: N, contextInfo: y };
+        return { msgData: M, contextInfo: C };
       }
-      var M = (i = s.messageContextInfo) == null ? void 0 : i.messageSecret;
-      if (h && M == null)
+      var w =
+        (i = (l = u.messageContextInfo) == null ? void 0 : l.messageSecret) !=
+        null
+          ? i
+          : c === "history" && r("justknobx")._("7525")
+            ? s.messageSecret
+            : null;
+      if (y && w == null)
         throw (
           new (o(
             "WAWebMessageSecretErrorsWamEvent",
@@ -130,7 +138,7 @@ __d(
               .MISSING_MESSAGE_SECRET,
           )
         );
-      if (h && (M == null ? void 0 : M.byteLength) !== 32)
+      if (y && (w == null ? void 0 : w.byteLength) !== 32)
         throw (
           new (o(
             "WAWebMessageSecretErrorsWamEvent",
@@ -147,31 +155,31 @@ __d(
               .MESSAGE_SECRET_INVALID,
           )
         );
-      if (v.length === 0)
+      if (S.length === 0)
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .MISSING_OPTIONS,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      if (S == null)
+      if (R == null)
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .MISSING_SELECTABLE_OPTIONS_COUNT,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var w = new Set(),
-        A = new Set(),
-        F,
-        O = o("WAWebNewsletterQuizOptionShuffler").applyViewerQuizOptionOrder(
-          v,
+      var A = new Set(),
+        F = new Set(),
+        O,
+        B = o("WAWebNewsletterQuizOptionShuffler").applyViewerQuizOptionOrder(
+          S,
           {
-            isFromMe: l.id.fromMe,
-            isNewsletter: g,
-            isQuiz: L === o("WAWebPollCreationUtils").PollType.QUIZ,
-            stanzaId: l.id.id,
+            isFromMe: s.id.fromMe,
+            isNewsletter: h,
+            isQuiz: E === o("WAWebPollCreationUtils").PollType.QUIZ,
+            stanzaId: s.id.id,
           },
         ),
-        B = r("compactMap")(O, function (e) {
+        W = r("compactMap")(B, function (e) {
           var t = e.optionHash,
             n = e.optionName;
           if (
@@ -189,7 +197,7 @@ __d(
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          if (w.has(n))
+          if (A.has(n))
             throw new (o(
               "WAWebPollsValidationError",
             ).PollCreationValidationError)(
@@ -198,7 +206,7 @@ __d(
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          if (E) {
+          if (k) {
             if (r("isStringNullOrEmpty")(t))
               throw new (o(
                 "WAWebPollsValidationError",
@@ -208,7 +216,7 @@ __d(
                 o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                   .INVALID_MESSAGE,
               );
-            if (A.has(t))
+            if (F.has(t))
               throw new (o(
                 "WAWebPollsValidationError",
               ).PollCreationValidationError)(
@@ -217,13 +225,13 @@ __d(
                 o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                   .INVALID_MESSAGE,
               );
-            A.add(t);
+            F.add(t);
           }
-          var a = w.size;
+          var a = A.size;
           return (
-            w.add(n),
-            (C == null ? void 0 : C.optionName) === n && (F = a),
-            E
+            A.add(n),
+            (b == null ? void 0 : b.optionName) === n && (O = a),
+            k
               ? {
                   name: n,
                   hash: o(
@@ -235,34 +243,34 @@ __d(
           );
         });
       if (
-        B.length < 2 ||
-        B.length > o("WAWebPollsGatingUtils").getMaxPollOptionCount()
+        W.length < 2 ||
+        W.length > o("WAWebPollsGatingUtils").getMaxPollOptionCount()
       )
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .INVALID_OPTIONS_COUNT,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      if (S < 0 || S > B.length)
+      if (R < 0 || R > W.length)
         throw new (o("WAWebPollsValidationError").PollCreationValidationError)(
           o("WAWebPollsValidationError").PollCreationValidationErrorCode
             .INVALID_SELECTABLE_OPTIONS_COUNT,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var W = babelHelpers.extends({}, l, {
+      var q = babelHelpers.extends({}, s, {
         type: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
         kind: o("WAWebMsgType").MsgKind.PollCreation,
-        pollName: b,
-        pollOptions: B,
-        pollSelectableOptionsCount: S,
-        pollContentType: R,
-        pollType: L,
-        correctOptionIndex: F,
-        pollEndTime: k,
-        pollHideVoterNames: f.hideParticipantName,
-        pollAllowAddOption: f.allowAddOption,
+        pollName: v,
+        pollOptions: W,
+        pollSelectableOptionsCount: R,
+        pollContentType: L,
+        pollType: E,
+        correctOptionIndex: O,
+        pollEndTime: I,
+        pollHideVoterNames: g.hideParticipantName,
+        pollAllowAddOption: g.allowAddOption,
       });
-      return { msgData: W, contextInfo: y };
+      return { msgData: q, contextInfo: C };
     }
     l.default = e;
   },

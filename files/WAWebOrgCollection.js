@@ -9,56 +9,67 @@ __d(
     "WAWebOrgOrder",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = (function (e) {
-      function t() {
-        for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
-          r[a] = arguments[a];
-        return (
-          (t = e.call.apply(e, [this].concat(r)) || this),
-          (t.allOrganizations = o("WAWebCollectionUtils").aggregated(
-            o("WAWebBoolFunc").returnTrue,
-          )),
-          babelHelpers.assertThisInitialized(t) ||
-            babelHelpers.assertThisInitialized(t)
-        );
-      }
-      babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
-      return (
-        (n.remove = function (n, r) {
-          var t = e.prototype.remove.call(this, n, r);
+    var e = "org_members_applied",
+      s = "org_identity_changed",
+      u = (function (t) {
+        function n() {
+          for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+            r[a] = arguments[a];
           return (
-            t.forEach(function (e) {
-              e != null && o("WAWebOrgGetters").clearOrgGetterCacheFor(e);
-            }),
-            t
+            (e = t.call.apply(t, [this].concat(r)) || this),
+            (e.allOrganizations = o("WAWebCollectionUtils").aggregated(
+              o("WAWebBoolFunc").returnTrue,
+            )),
+            babelHelpers.assertThisInitialized(e) ||
+              babelHelpers.assertThisInitialized(e)
           );
-        }),
-        (n.reset = function () {
-          (this.forEach(function (e) {
-            return o("WAWebOrgGetters").clearOrgGetterCacheFor(e);
+        }
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
+        return (
+          (r.remove = function (n, r) {
+            var e = t.prototype.remove.call(this, n, r);
+            return (
+              e.forEach(function (e) {
+                e != null && o("WAWebOrgGetters").clearOrgGetterCacheFor(e);
+              }),
+              e
+            );
           }),
-            e.prototype.reset.call(this));
-        }),
-        (n.addRows = function (t) {
-          return this.add(t.map(u), { merge: !0 });
-        }),
-        (n.getOrderedOrgs = function () {
-          return o("WAWebOrgOrder").sortOrgsForDisplay(this.getModelsArray());
-        }),
-        (n.getViewerPrimaryOrgId = function () {
-          var e, t;
-          return (e = (t = this.getOrderedOrgs()[0]) == null ? void 0 : t.id) !=
-            null
-            ? e
-            : null;
-        }),
-        t
-      );
-    })(o("WAWebBaseCollection").BaseCollection);
-    e.model = o("WAWebOrgModel").Org;
-    var s = new e();
-    function u(e) {
+          (r.reset = function () {
+            (this.forEach(function (e) {
+              return o("WAWebOrgGetters").clearOrgGetterCacheFor(e);
+            }),
+              t.prototype.reset.call(this));
+          }),
+          (r.addRows = function (t) {
+            return this.add(t.map(d), { merge: !0 });
+          }),
+          (r.getOrderedOrgs = function () {
+            return o("WAWebOrgOrder").sortOrgsForDisplay(this.getModelsArray());
+          }),
+          (r.getViewerPrimaryOrgId = function () {
+            var e, t;
+            return (e =
+              (t = this.getOrderedOrgs()[0]) == null ? void 0 : t.id) != null
+              ? e
+              : null;
+          }),
+          (r.notifyMembersApplied = function (n, r) {
+            this.trigger(e, {
+              lids: Array.from(new Set(r)),
+              orgIds: Array.from(new Set(n)),
+            });
+          }),
+          (r.notifyIdentityChanged = function (t) {
+            this.trigger(s, { lids: t });
+          }),
+          n
+        );
+      })(o("WAWebBaseCollection").BaseCollection);
+    u.model = o("WAWebOrgModel").Org;
+    var c = new u();
+    function d(e) {
       var t, n, r, o, a, i, l, s, u, c, d;
       return {
         description: (t = e.description) != null ? t : null,
@@ -77,7 +88,9 @@ __d(
         viewerRole: (d = e.viewerRole) != null ? d : null,
       };
     }
-    l.OrgCollection = s;
+    ((l.ORG_MEMBERS_APPLIED = e),
+      (l.ORG_IDENTITY_CHANGED = s),
+      (l.OrgCollection = c));
   },
   98,
 );

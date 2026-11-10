@@ -461,39 +461,37 @@ __d(
           te = e.initialLoggingMetaData.productAttribution;
         if (Q === "watch_scroll" && te && te.v2) {
           var ne,
-            re = {
-              0: babelHelpers.extends({}, te[0]),
-              v2: [babelHelpers.extends({}, te.v2[0])],
-            },
-            oe =
+            re = babelHelpers.extends({}, te.v2[0]),
+            oe = { 0: babelHelpers.extends({}, te[0]), v2: [re] },
+            ae =
               (ne = n.productAttribution) == null || (ne = ne.v2) == null
                 ? void 0
                 : ne[0];
-          if (oe) {
-            var ae = re.v2[0];
-            ((ae.class = oe.class),
-              (ae.scope_id = oe.scope_id),
-              (ae.ts = oe.ts));
+          if (ae) {
+            var ie = re;
+            ((ie.class = ae.class),
+              (ie.scope_id = ae.scope_id),
+              (ie.ts = ae.ts));
           }
-          te = re;
+          te = oe;
         }
-        var ie = null,
-          le = null;
-        ((ie =
+        var le = null,
+          se = null;
+        ((le =
           te != null
             ? o("CometProductAttribution").minifyProductAttributionV2(te)
             : null),
-          (le = te != null ? O(te) : null));
-        var se = N(k, I, q != null ? q : 0),
-          ue = {
+          (se = te != null ? O(te) : null));
+        var ue = N(k, I, q != null ? q : 0),
+          ce = {
             access_token: e.initialLoggingMetaData.accessToken,
             ad_client_token: a.adClientToken,
             attribution_id:
               te != null && Object.prototype.hasOwnProperty.call(te, "0")
                 ? JSON.stringify({ 0: te[0] })
                 : null,
-            attribution_id_v2: ie,
-            attribution_id_v2_root: le,
+            attribution_id_v2: le,
+            attribution_id_v2_root: se,
             audio_only: a.audioOnly,
             audio_representation_id: I.uncontrolledState.audioRepresentationID,
             autoplay_eligible:
@@ -543,7 +541,7 @@ __d(
             is_pip: I.controlledState.isDesktopPictureInPicture,
             is_predictive_playback: I.uncontrolledState.isPredictiveDash,
             is_sound_on: !I.controlledState.muted,
-            is_stalling: se,
+            is_stalling: ue,
             is_templated_manifest: Y || J,
             last_viewability_percentage: _.lastLoggedViewabilityPercentage,
             mpd_validation_errors: I.uncontrolledState.mpdValidationErrors,
@@ -587,38 +585,38 @@ __d(
               I.uncontrolledState.videoElementPlayheadPosition,
             web_client_revision: r("SiteData").client_revision,
           },
-          ce = L.has(S) ? ++_.sequenceNumber : null,
-          de = {
+          de = L.has(S) ? ++_.sequenceNumber : null,
+          me = {
             event_seq_num: ++_.vplEventSequenceNumber,
-            seq_num: ce,
+            seq_num: de,
             time_ms: Date.now(),
             vpts: (u || (u = r("performanceAbsoluteNow")))(),
           },
-          me = {};
+          pe = {};
         t.forEach(function (e, t) {
-          me[t] = e;
+          pe[t] = e;
         });
-        var pe = a.loggingToVPLAdditionalData,
-          _e = babelHelpers.extends({}, pe, me),
-          fe = babelHelpers.extends({}, _e, ue, E, de),
-          ge = (h = _.initialSuborigin) != null ? h : a.subOrigin,
-          he = (y = fe.source_VPL_LOGGING_HACK) != null ? y : ge,
-          ye = (C = a.initialTracePolicy) != null ? C : a.routeTracePolicy,
-          Ce = {
+        var _e = a.loggingToVPLAdditionalData,
+          fe = babelHelpers.extends({}, _e, pe),
+          ge = babelHelpers.extends({}, fe, ce, E, me),
+          he = (h = _.initialSuborigin) != null ? h : a.subOrigin,
+          ye = (y = ge.source_VPL_LOGGING_HACK) != null ? y : he,
+          Ce = (C = a.initialTracePolicy) != null ? C : a.routeTracePolicy,
+          be = {
             eventType: S,
-            logData: fe,
-            routeTracePolicy: ye,
-            source_VPL_LOGGING_HACK: he,
+            logData: ge,
+            routeTracePolicy: Ce,
+            source_VPL_LOGGING_HACK: ye,
           };
-        (s.push(Ce),
-          _.initialSuborigin == null && ge != null && (_.initialSuborigin = ge),
+        (s.push(be),
+          _.initialSuborigin == null && he != null && (_.initialSuborigin = he),
           (_.lastLoggedFullscreenState = K),
           (_.lastLoggedPlaybackSpeed = ee),
           S === "viewability_changed" &&
             (_.lastLoggedViewabilityPercentage = X),
           b &&
             g(e.debugLogId, "[_push] " + S, {
-              loggedEvent: Ce,
+              loggedEvent: be,
               loggerEventsLength: s.length,
               loggingState: JSON.stringify(_),
             }));

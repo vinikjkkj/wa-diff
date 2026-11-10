@@ -5,7 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebMiscErrors",
-    "WAWebOrgMemberSearchRows",
+    "WAWebResolvePersonToContact",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
   ],
@@ -29,8 +29,9 @@ __d(
         r = { phoneNumber: t.phoneNumber, username: t.username };
       return r.phoneNumber != null || r.username != null
         ? r
-        : (n = o("WAWebOrgMemberSearchRows").getKnownOrgMemberIdentifiers(e)) !=
-            null
+        : (n = o("WAWebResolvePersonToContact").getKnownOrgMemberIdentifiers(
+              e,
+            )) != null
           ? n
           : r;
     }

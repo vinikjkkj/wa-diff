@@ -7,6 +7,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebMsgType",
     "WAWebPaymentsGatingUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["msgKey"];
@@ -28,12 +29,15 @@ __d(
       );
     }
     function d(e, t) {
-      var n = e.remote;
+      var n = e.remote,
+        a = f(t);
       return (
         n.isUser() &&
         !n.isBot() &&
         (!o("WAWebMobilePlatforms").isSMB() || e.fromMe) &&
-        o("WAWebBrazilPaymentState").isReceiptAndStateStamped(f(t))
+        (o("WAWebBrazilPaymentState").isReceiptAndStateStamped(a) ||
+          (o("WAWebBrazilPaymentState").isAppSwitchReceiptAndStateStamped(a) &&
+            r("justknobx")._("7531")))
       );
     }
     function m(e) {

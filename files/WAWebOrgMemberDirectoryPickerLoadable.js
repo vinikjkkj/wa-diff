@@ -16,102 +16,104 @@ __d(
     "react-compiler-runtime",
     "useWAWebOrgInfoDisplayEnabled",
     "useWAWebOrgValues",
-    "useWAWebSourceSnapshot",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["onBack", "orgName", "showHeader"],
+    var e = ["onBack", "orgId", "orgName", "showHeader"],
       s,
       u = s || (s = o("react"));
     function c(t) {
       var n,
-        a = o("react-compiler-runtime").c(18),
+        a = o("react-compiler-runtime").c(20),
         i,
         l,
         s,
-        c;
+        c,
+        d;
       a[0] !== t
         ? ((i = t.onBack),
-          (l = t.orgName),
-          (c = t.showHeader),
-          (s = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (l = t.orgId),
+          (s = t.orgName),
+          (d = t.showHeader),
+          (c = babelHelpers.objectWithoutPropertiesLoose(t, e)),
           (a[0] = t),
           (a[1] = i),
           (a[2] = l),
           (a[3] = s),
-          (a[4] = c))
-        : ((i = a[1]), (l = a[2]), (s = a[3]), (c = a[4]));
-      var m = c === void 0 ? !0 : c,
+          (a[4] = c),
+          (a[5] = d))
+        : ((i = a[1]), (l = a[2]), (s = a[3]), (c = a[4]), (d = a[5]));
+      var p = d === void 0 ? !0 : d,
         _ = r("useWAWebOrgInfoDisplayEnabled")(),
-        f = r("useWAWebSourceSnapshot")(
-          o("WAWebOrgCollection").OrgCollection,
-          "add remove reset sort change",
-          d,
-        ),
-        g = f[0],
-        h =
-          (n = r("useWAWebOrgValues")(g == null ? void 0 : g.id, [
+        f =
+          (n = r("useWAWebOrgValues")(l, [
             o("WAWebOrgGetters").getOrgName,
+            o("WAWebOrgGetters").getOrgViewerRole,
+            o("WAWebOrgGetters").getOrgIsMemberDirectoryEnabled,
           ])) != null
             ? n
             : [""],
-        y = h[0];
-      if (!_ || !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(g))
+        g = f[0];
+      if (
+        !_ ||
+        !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(
+          o("WAWebOrgCollection").OrgCollection.get(l),
+        )
+      )
         return null;
-      var C;
-      a[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = { className: "x78zum5 xdt5ytf x1iyjqo2 x2lwn1j" }), (a[5] = C))
-        : (C = a[5]);
-      var b;
-      a[6] !== y || a[7] !== i || a[8] !== l || a[9] !== m
-        ? ((b = m
+      var h;
+      a[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = { className: "x78zum5 xdt5ytf x1iyjqo2 x2lwn1j" }), (a[6] = h))
+        : (h = a[6]);
+      var y;
+      a[7] !== g || a[8] !== i || a[9] !== s || a[10] !== p
+        ? ((y = p
             ? u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
                 onBack: i,
-                title: l != null ? l : y,
+                title: s != null ? s : g,
                 type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
               })
             : null),
-          (a[6] = y),
-          (a[7] = i),
-          (a[8] = l),
-          (a[9] = m),
-          (a[10] = b))
-        : (b = a[10]);
-      var v;
-      a[11] !== i || a[12] !== l || a[13] !== s
-        ? ((v = u.jsx(
-            p,
-            babelHelpers.extends({}, s, {
+          (a[7] = g),
+          (a[8] = i),
+          (a[9] = s),
+          (a[10] = p),
+          (a[11] = y))
+        : (y = a[11]);
+      var C;
+      a[12] !== i || a[13] !== l || a[14] !== s || a[15] !== c
+        ? ((C = u.jsx(
+            m,
+            babelHelpers.extends({}, c, {
               onBack: i,
-              orgName: l,
+              orgId: l,
+              orgName: s,
               showHeader: !1,
             }),
           )),
-          (a[11] = i),
-          (a[12] = l),
-          (a[13] = s),
-          (a[14] = v))
-        : (v = a[14]);
-      var S;
+          (a[12] = i),
+          (a[13] = l),
+          (a[14] = s),
+          (a[15] = c),
+          (a[16] = C))
+        : (C = a[16]);
+      var b;
       return (
-        a[15] !== b || a[16] !== v
-          ? ((S = u.jsxs(
+        a[17] !== y || a[18] !== C
+          ? ((b = u.jsxs(
               "div",
-              babelHelpers.extends({}, C, {
+              babelHelpers.extends({}, h, {
                 "data-testid": "org_member_directory_loadable",
-                children: [b, v],
+                children: [y, C],
               }),
             )),
-            (a[15] = b),
-            (a[16] = v),
-            (a[17] = S))
-          : (S = a[17]),
-        S
+            (a[17] = y),
+            (a[18] = C),
+            (a[19] = b))
+          : (b = a[19]),
+        b
       );
     }
-    function d(e) {
-      return e.getOrderedOrgs();
-    }
-    var m = r("WAWebLazyLoadedRetriable")(
+    var d = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return r("JSResourceForInteraction")(
             "WAWebOrgMemberDirectoryPicker.react",
@@ -121,8 +123,8 @@ __d(
         }),
         "OrgMemberDirectoryPicker",
       ),
-      p = r("WAWebLoadable")({
-        loader: m,
+      m = r("WAWebLoadable")({
+        loader: d,
         renderLoadingImmediately: !0,
         loading: function (t) {
           var e = t.error,

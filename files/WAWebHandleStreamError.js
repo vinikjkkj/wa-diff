@@ -6,13 +6,13 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAWebABPropsUpdateFromStorage",
+    "WAWebAppCommsCloseReason",
     "WAWebBackendEventBus",
     "WAWebCanonicalGating",
     "WAWebCompanionRegUtils",
     "WAWebCoreActionsODS",
     "WAWebInitializeCryptoLibrary",
     "WAWebJestE2ELogUtils",
-    "WAWebOfflineSyncQplSession",
     "WAWebSocketModel",
     "WAWebStartBackend",
     "WAWebUserPrefsTabMutex",
@@ -86,14 +86,11 @@ __d(
             );
           var a = t.success,
             i = a.type === "code" ? v(a.code) : S(a.type);
-          if (
-            (o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(i),
-            a.type === "code" && a.code >= 500 && a.code < 600)
-          ) {
-            if (a.code === _) return C();
+          if (a.type === "code" && a.code >= 500 && a.code < 600) {
+            if (a.code === _) return C(i);
             if (a.code === f)
               return (
-                o("WAComms").stopComms(),
+                o("WAComms").stopComms(i),
                 o("WAWebCoreActionsODS").isPageLoadComplete() ||
                   o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
                 yield o("WAWebWamDeviceLinkReporter").commitDeviceLinkEvent(
@@ -111,7 +108,7 @@ __d(
                 o(
                   "WAWebBackendEventBus",
                 ).BackendEventBus.triggerStartingLogout(),
-                o("WAComms").stopComms(),
+                o("WAComms").stopComms(i),
                 o("WAWebCoreActionsODS").isPageLoadComplete() ||
                   o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
                 yield o(
@@ -142,7 +139,7 @@ __d(
                     .sendLogs("invalid-session-replacement", {
                       sampling: 0.01,
                     }),
-                o("WAComms").stopComms(),
+                o("WAComms").stopComms(i),
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );
             a.type === "xml-not-well-formed" &&
@@ -167,14 +164,14 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C() {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
-            o("WAComms").stopComms(),
+            o("WAComms").stopComms(e),
             n("cr:18918") != null &&
               o("WAWebCanonicalGating").isCanonicalAuthV2Enabled() &&
               (yield n("cr:18918").waitForCanonicalAuthV2Registration(
@@ -192,24 +189,24 @@ __d(
     }
     function v(e) {
       return e === _
-        ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorCode515
+        ? o("WAWebAppCommsCloseReason").AppCommsCloseReason.StreamErrorCode515
         : e === f
-          ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorCode516
-          : o("WAWebOfflineSyncQplSession").SocketCloseReason
+          ? o("WAWebAppCommsCloseReason").AppCommsCloseReason.StreamErrorCode516
+          : o("WAWebAppCommsCloseReason").AppCommsCloseReason
               .StreamErrorCodeOther;
     }
     function S(e) {
       return e === "replaced"
-        ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorReplaced
+        ? o("WAWebAppCommsCloseReason").AppCommsCloseReason.StreamErrorReplaced
         : e === "device_removed"
-          ? o("WAWebOfflineSyncQplSession").SocketCloseReason
+          ? o("WAWebAppCommsCloseReason").AppCommsCloseReason
               .StreamErrorDeviceRemoved
           : e === "ack"
-            ? o("WAWebOfflineSyncQplSession").SocketCloseReason.StreamErrorAck
+            ? o("WAWebAppCommsCloseReason").AppCommsCloseReason.StreamErrorAck
             : e === "xml-not-well-formed"
-              ? o("WAWebOfflineSyncQplSession").SocketCloseReason
+              ? o("WAWebAppCommsCloseReason").AppCommsCloseReason
                   .StreamErrorXmlNotWellFormed
-              : o("WAWebOfflineSyncQplSession").SocketCloseReason
+              : o("WAWebAppCommsCloseReason").AppCommsCloseReason
                   .StreamErrorOther;
     }
     l.default = h;

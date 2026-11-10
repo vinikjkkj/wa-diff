@@ -13,9 +13,17 @@ __d(
     function u(e, t) {
       var n = {};
       for (var r in t) t[r] !== void 0 && (n[r] = t[r]);
-      return e + ":" + c(n);
+      return e + ":" + d(n);
     }
     function c(e, t) {
+      var n = {};
+      for (var r in e) {
+        var a = t[e[r]];
+        a != null && (n[r] = a);
+      }
+      return o("WebBloksUtils").cast(n);
+    }
+    function d(e, t) {
       t === void 0 && (t = !1);
       var n = Array.isArray(e),
         r = o("WebBloksUtils").isObject(e);
@@ -24,12 +32,12 @@ __d(
         if (a.length) {
           for (var i = a.sort(), l = [], s = 0; s < i.length; s++) {
             var u = i[s],
-              d = e[u];
-            if (!(t && d == null && r)) {
+              c = e[u];
+            if (!(t && c == null && r)) {
               var m = void 0;
-              (o("WebBloksUtils").isObject(d) || Array.isArray(d)
-                ? (m = c(d, t))
-                : (m = JSON.stringify(d)),
+              (o("WebBloksUtils").isObject(c) || Array.isArray(c)
+                ? (m = d(c, t))
+                : (m = JSON.stringify(c)),
                 l.push(u + ":" + m));
             }
           }
@@ -38,7 +46,9 @@ __d(
       }
       return JSON.stringify(e);
     }
-    ((l.isResponseFresh = s), (l.generateCacheKey = u));
+    ((l.isResponseFresh = s),
+      (l.generateCacheKey = u),
+      (l.resolveConsumedParams = c));
   },
   98,
 );

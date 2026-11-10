@@ -3,6 +3,7 @@ __d(
   [
     "WAWebCommentRenderMsg",
     "WAWebContactInfoCardRenderMsg.react",
+    "WAWebInstantCardRenderMsg",
     "WAWebStatusMentionRenderMsg.react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -53,7 +54,11 @@ __d(
       { type: "groups_v4_invite", subtype: void 0, renderMsg: null },
       { type: "hsm", subtype: void 0, renderMsg: null },
       { type: "image", subtype: void 0, renderMsg: null },
-      { type: "instant_image", subtype: void 0, renderMsg: null },
+      {
+        type: "instant_image",
+        subtype: void 0,
+        renderMsg: r("WAWebInstantCardRenderMsg"),
+      },
       { type: "interactive", subtype: void 0, renderMsg: null },
       { type: "interactive_response", subtype: void 0, renderMsg: null },
       { type: "keep_in_chat", subtype: void 0, renderMsg: null },

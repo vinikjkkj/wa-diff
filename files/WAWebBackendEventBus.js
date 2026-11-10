@@ -511,7 +511,7 @@ __d(
               this
             );
           }),
-          (a.triggerSocketStreamDisconnected = function () {
+          (a.triggerSocketStreamDisconnected = function (t) {
             (o("WALogger").LOG(
               y ||
                 (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -521,6 +521,7 @@ __d(
               this.trigger(
                 o("WAWebBackendEventBusTypes").BackendEvent
                   .SOCKET_STREAM_DISCONNECTED,
+                t,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerSocketStreamDisconnectedFromBridge",

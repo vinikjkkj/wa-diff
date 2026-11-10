@@ -37,12 +37,12 @@ __d(
             var t = a.$7++;
             a.$5.enqueueHandlers(_(a.$2, t, void 0, e), a.$15);
           }),
-          (this.$13 = function () {
+          (this.$13 = function (e) {
             ((a.$9 = !0),
               a.$5.wait().then(function () {
                 a.$9 = !1;
-                var e = a.$11;
-                e && e();
+                var t = a.$11;
+                t && t(e);
               }));
           }),
           (this.$15 = function (e) {
@@ -79,8 +79,8 @@ __d(
         (r.setOnClose = function (t) {
           this.$11 = t;
         }),
-        (r.close = function () {
-          this.$1.close();
+        (r.close = function (t) {
+          this.$1.close(t);
         }),
         t
       );

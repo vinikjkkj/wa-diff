@@ -67,14 +67,15 @@ __d(
               threadActionEntryPoint: "OTHER",
               threadLevelAction: "CLEAR",
             });
-            var e = o("WAWebClearChatUtils").initClearChat(t, a);
-            return e.then(
+            var e = t.unreadCount,
+              r = o("WAWebClearChatUtils").initClearChat(t, a);
+            return r.then(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 ((t.endOfHistoryTransferType =
                   o(
                     "WAWebChatConstants",
                   ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
-                  yield o("WAWebClearChatUtils").finalizeClearChat(t, e));
+                  yield o("WAWebClearChatUtils").finalizeClearChat(t, r, e));
               }),
             );
           })

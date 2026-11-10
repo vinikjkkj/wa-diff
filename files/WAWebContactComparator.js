@@ -14,14 +14,19 @@ __d(
     var e;
     (R(), o("WAWebCmd").Cmd.on("set_collator", R));
     function s(e) {
-      if (e instanceof r("WAWebOutContactModel")) return e.getName();
-      if (e.name) return e.name;
-      if (
-        e.verifiedLevel ===
-          o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
-        e.verifiedName
-      )
-        return e.verifiedName;
+      var t;
+      return e instanceof r("WAWebOutContactModel")
+        ? e.getName()
+        : e.name
+          ? e.name
+          : e.verifiedLevel ===
+                o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
+              e.verifiedName
+            ? e.verifiedName
+            : (t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e)) !=
+                null
+              ? t
+              : void 0;
     }
     function u(e) {
       var t;

@@ -8,6 +8,7 @@ __d(
     "WAWebContactCollection",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebFrontendChatGetters",
+    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetNotificationStrings",
     "WAWebMsgGetters",
@@ -18,7 +19,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotificationsDailyUtils",
-    "WAWebOrgMemberContactName",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWidFormat",
@@ -248,7 +248,7 @@ __d(
           (l =
             (u = c.name) != null
               ? u
-              : o("WAWebOrgMemberContactName").getOrgMemberDisplayName(c)) !=
+              : o("WAWebFrontendContactGetters").getShownOrgMemberName(c)) !=
           null
             ? l
             : o("WAWebWidFormat").widToFormattedUser(c.id);

@@ -18,7 +18,7 @@ __d(
     }
     function d(e, t, r) {
       return n("relay-runtime/network/RelayObservable").create(function (o) {
-        var a = g(e),
+        var a = h(e),
           i = a.get(t);
         return (
           i ||
@@ -40,19 +40,19 @@ __d(
                     a.set(t, i));
                 },
                 next: function (n) {
-                  var e = h(a, t);
+                  var e = y(a, t);
                   (e.subject.next(n), e.subjectForInFlightStatus.next(n));
                 },
                 error: function (n) {
-                  var e = h(a, t);
+                  var e = y(a, t);
                   (e.subject.error(n), e.subjectForInFlightStatus.error(n));
                 },
                 complete: function () {
-                  var e = h(a, t);
+                  var e = y(a, t);
                   (e.subject.complete(), e.subjectForInFlightStatus.complete());
                 },
                 unsubscribe: function (n) {
-                  var e = h(a, t);
+                  var e = y(a, t);
                   (e.subject.unsubscribe(),
                     e.subjectForInFlightStatus.complete());
                 },
@@ -97,7 +97,7 @@ __d(
       });
     }
     function _(t, r) {
-      var o = g(t),
+      var o = h(t),
         a = o.get(r.identifier);
       if (!a || !t.isRequestActive(a.identifier)) return null;
       var i = new (e || (e = n("Promise")))(function (e, n) {
@@ -114,17 +114,33 @@ __d(
       return i;
     }
     function f(e, t) {
-      var n = g(e),
+      var n = h(e),
         r = n.get(t.identifier);
       return !r || !e.isRequestActive(r.identifier) ? null : p(e, n, r);
     }
-    function g(e) {
+    function g(e, t) {
+      var r,
+        o = (r = u.get(e)) == null ? void 0 : r.get(t);
+      return o == null
+        ? null
+        : n("relay-runtime/network/RelayObservable").create(function (e) {
+            var t = o.subjectForInFlightStatus.subscribe({
+              complete: e.complete,
+              error: e.error,
+              unsubscribe: e.complete,
+            });
+            return function () {
+              return t.unsubscribe();
+            };
+          });
+    }
+    function h(e) {
       var t = u.get(e);
       if (t != null) return t;
       var n = new Map();
       return (u.set(e, n), n);
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = e.get(t);
       return (n != null || l(0, 15079), n);
     }
@@ -133,6 +149,7 @@ __d(
       fetchQueryDeduped: d,
       getPromiseForActiveRequest: _,
       getObservableForActiveRequest: f,
+      getObservableForRequestCompletion: g,
     };
   },
   null,

@@ -129,6 +129,7 @@ __d(
         䃸: "bk.types.CanvasPathQuadTo",
         䄣: "bk.components.screen.ScreenWrapper",
         䄨: "bk.data.screen.ScreenConfig",
+        䅨: "bk.data.bloks.AsyncComponentCacheWriteOptions",
         䅲: "bk.data.screen.CloseParams",
         䆀: "bk.data.screen.NavigationCallbacks",
         䆾: "bk.types.CanvasTransformSkewV2",

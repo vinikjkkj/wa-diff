@@ -4,7 +4,7 @@ __d(
     "WAWebApiContact",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
-    "WAWebOrgMemberSearchRows",
+    "WAWebResolvePersonToContact",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
@@ -17,7 +17,7 @@ __d(
     }
     function s(e, t) {
       var n,
-        r = o("WAWebOrgMemberSearchRows").getOrgMemberIdentifiers(t, e),
+        r = o("WAWebResolvePersonToContact").getOrgMemberIdentifiers(t, e),
         a = r.phoneNumber,
         i = r.username,
         l = m(t, a);
@@ -65,7 +65,7 @@ __d(
       return d(e, t, { includePhoneNumber: !0, includeUsername: !0 }) != null;
     }
     function d(e, t, n) {
-      var r = o("WAWebOrgMemberSearchRows").getOrgMemberIdentifiers(t, e),
+      var r = o("WAWebResolvePersonToContact").getOrgMemberIdentifiers(t, e),
         a = r.username,
         i =
           n.includeUsername &&

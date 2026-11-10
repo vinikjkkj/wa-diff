@@ -32,7 +32,10 @@ __d(
         a = e.msgKey,
         i = o("WAWebPaymentDetailsModels").getPaymentDetailsPov(a.fromMe),
         l = o("WAWebBrazilPaymentState").getBrazilPaymentState(n),
-        s = o("WAWebBrazilPaymentState").getPaymentDetailsStatus(l),
+        s = o("WAWebBrazilPaymentState").getPaymentDetailsStatus(
+          l,
+          o("WAWebBrazilPaymentState").getPaymentDetailsFlow(n),
+        ),
         u = [];
       return (
         o("WAWebPaymentDetailsStatusPolicy").canMarkAsPaid(i, s) &&

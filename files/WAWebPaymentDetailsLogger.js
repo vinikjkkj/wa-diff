@@ -43,7 +43,11 @@ __d(
         PAYMENT_RECEIPT: "pix_payment_receipt",
         DELETE_RECEIPT_DIALOG: "pix_delete_receipt_dialog",
       }),
-      f = c({ PIX_KEY: "pix_key", PIX_CODE: "pix_code" }),
+      f = c({
+        PIX_KEY: "pix_key",
+        PIX_CODE: "pix_code",
+        APP_SWITCH: "app_switch",
+      }),
       g = c({ SUCCESS: "success", FAILURE: "failure" }),
       h = c({
         CREATED: "created",
@@ -124,10 +128,12 @@ __d(
       });
     }
     function k(e) {
-      return o("WAWebBrazilPaymentState").isPixCodeRequestPayload(
-        e.interactivePayload,
-      )
-        ? f.PIX_CODE
+      var t = e.interactivePayload;
+      return o("WAWebBrazilPaymentState").isPixCodeRequestPayload(t)
+        ? o("WAWebBrazilPaymentState").getPaymentDetailsFlow(t) ===
+          o("WAWebPaymentDetailsModels").PaymentDetailsFlow.APP_SWITCH
+          ? f.APP_SWITCH
+          : f.PIX_CODE
         : f.PIX_KEY;
     }
     function I(e) {
@@ -160,7 +166,7 @@ __d(
                 o("WAWebFrontendMsgGetters").getChat(t),
               ),
               m = k(t),
-              p = m === f.PIX_CODE,
+              p = m !== f.PIX_KEY,
               _ = r != null ? r : void 0;
             (new (o(
               "WAWebPsStructuredMessageInteractionWamEvent",

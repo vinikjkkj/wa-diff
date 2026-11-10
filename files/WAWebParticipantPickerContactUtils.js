@@ -7,7 +7,9 @@ __d(
     "WAWebContactGetters",
     "WAWebGroupMetadataCollection",
     "WAWebL10NAccentFold",
+    "WAWebLidMigrationUtils",
     "WAWebPhoneNumberSearch",
+    "WAWebReachoutTimelockUtils",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
@@ -84,9 +86,68 @@ __d(
         return e.searchMatchExact(r, a) != null;
       });
     }
+    function c(e) {
+      return m(e.id);
+    }
+    function d(e, t) {
+      var n = m(t);
+      return e.find(function (e) {
+        return c(e) === n;
+      });
+    }
+    function m(e) {
+      var t = e.isRegularUser()
+        ? o("WAWebLidMigrationUtils").toUserLid(e)
+        : null;
+      return (t != null ? t : e).toString();
+    }
+    function p(e, t) {
+      return d(e, t.id);
+    }
+    function _(e, t, n) {
+      if (!n)
+        return e.filter(function (e) {
+          return !e.id.equals(t.id);
+        });
+      var r = c(t);
+      return e.filter(function (e) {
+        return c(e) !== r;
+      });
+    }
+    function f(e) {
+      return (
+        !o("WAWebReachoutTimelockUtils").isUserReachoutTimelockedAndVisible() ||
+        e.canSendMsgWhileTimelocked
+      );
+    }
+    function g(e, t, n, r) {
+      return !n || (!(r != null ? r : p(e, t) != null) && f(t));
+    }
+    function h(e, t, n) {
+      return n
+        ? p(e, t)
+        : e.find(function (e) {
+            return e.id.equals(t.id);
+          });
+    }
+    function y(e, t, n) {
+      var r = n ? new Set(e.map(c)).size : e.length;
+      return r + t;
+    }
+    function C(e, t, n, r, o) {
+      return o && p(t, e) != null ? "duplicate" : n >= r ? "limit" : "add";
+    }
     ((l.getParticipantPickerContacts = e),
       (l.getParticipantPickerSuggestions = s),
-      (l.getParticipantPickerSourceContacts = u));
+      (l.getParticipantPickerSourceContacts = u),
+      (l.getParticipantPickerContactKey = c),
+      (l.findSelectedParticipantPickerContactForWid = d),
+      (l.findSelectedParticipantPickerContact = p),
+      (l.getParticipantsWithoutContact = _),
+      (l.isUnpickedParticipantPickerContact = g),
+      (l.getParticipantPickerSelectedContact = h),
+      (l.getParticipantPickerSelectedCount = y),
+      (l.getParticipantPickerContactAddition = C));
   },
   98,
 );

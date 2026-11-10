@@ -263,7 +263,7 @@ __d(
     function $(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       return t != null
-        ? o("WAWebFrontendContactGetters").getDisplayName(t)
+        ? o("WAWebFrontendContactGetters").getContactDisplayName(t)
         : null;
     }
     ((l.upsertAsCustomer = d),

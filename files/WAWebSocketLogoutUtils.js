@@ -3,8 +3,8 @@ __d(
   [
     "WAComms",
     "WALogger",
+    "WAWebAppCommsCloseReason",
     "WAWebLocalStorage",
-    "WAWebOfflineSyncQplSession",
     "WAWebUnpairDeviceJob",
     "WAWebUserPrefsKeys",
     "getErrorSafe",
@@ -46,10 +46,9 @@ __d(
                 ])),
               t.status,
             ),
-            o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(
-              o("WAWebOfflineSyncQplSession").SocketCloseReason.ClientLogout,
-            ),
-            o("WAComms").stopComms());
+            o("WAComms").stopComms(
+              o("WAWebAppCommsCloseReason").AppCommsCloseReason.ClientLogout,
+            ));
         })
         .catch(function (e) {
           var t = r("getErrorSafe")(e);

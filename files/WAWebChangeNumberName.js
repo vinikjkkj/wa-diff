@@ -1,17 +1,13 @@
 __d(
   "WAWebChangeNumberName",
-  [
-    "WAWebContactCollection",
-    "WAWebFrontendContactGetters",
-    "WAWebOrgMemberContactName",
-  ],
+  ["WAWebContactCollection", "WAWebFrontendContactGetters"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n,
         r = o("WAWebContactCollection").ContactCollection.gadd(t);
       return o("WAWebFrontendContactGetters").getIsMyContact(r)
         ? o("WAWebFrontendContactGetters").getFormattedName(r)
-        : (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+        : (n = o("WAWebFrontendContactGetters").getShownOrgMemberName(
               e.contact,
             )) != null
           ? n

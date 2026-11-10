@@ -382,10 +382,20 @@ __d(
               var n = t.getPublishMessages();
               n.forEach(function (t) {
                 typeof t.payload == "string"
-                  ? e.publish(t.topic, t.payload, {
-                      qos: t.qos,
-                      skipBuffer: !0,
-                    })
+                  ? e
+                      .publish(t.topic, t.payload, {
+                        qos: t.qos,
+                        skipBuffer: !0,
+                      })
+                      .catch(function (t) {
+                        (e.$11.logError(
+                          r("getErrorSafe")(t),
+                          "ExtraConnectPayload publish failed",
+                        ),
+                          e.$11.bumpCounter(
+                            "connectPayloadProvider_publish_error",
+                          ));
+                      })
                   : e.publishBinary(t.topic, t.payload, {
                       qos: t.qos,
                       skipBuffer: !0,

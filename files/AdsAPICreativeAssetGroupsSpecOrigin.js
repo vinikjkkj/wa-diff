@@ -93,6 +93,7 @@ __d(
       IAF_INTERNAL_TEST_A: "iaf_internal_test_a",
       IG_BOOST_DELIVERY_OPTIMIZATION: "ig_boost_delivery_optimization",
       IMAGE_ANIMATION: "image_animation",
+      IMAGE_TEXT_TRANSLATION: "image_text_translation",
       LONG_ATTRIBUTIONS_WINDOW: "long_attributions_window",
       LPV: "landing_page_view",
       MAE_WEB_APP_PARITY: "mae_web_app_parity",

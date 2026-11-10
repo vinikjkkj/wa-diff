@@ -6,8 +6,8 @@ __d(
     "WAWebDBMessageSerialization",
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
-    "WAWebMsgGetters",
     "WAWebSchemaMessage",
+    "WAWebStartChatContextPreCheck",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -45,7 +45,11 @@ __d(
           );
           return t == null
             ? !1
-            : t.getAllMsgs().some(g)
+            : t
+                  .getAllMsgs()
+                  .some(
+                    o("WAWebStartChatContextPreCheck").isConversationMessage,
+                  )
               ? !0
               : p(t.id, o("WAWebDBMessageUtils").endOfChat(t.id), s);
         })),
@@ -77,13 +81,9 @@ __d(
     function f(e) {
       return (
         o("WAWebDBMessageStoreUtils").shouldRenderInUI(e) &&
-        g(o("WAWebDBMessageSerialization").messageFromDbRow(e))
-      );
-    }
-    function g(e) {
-      return (
-        o("WAWebMsgGetters").isRealMessage(e) &&
-        !o("WAWebMsgGetters").getIsNotification(e)
+        o("WAWebStartChatContextPreCheck").isConversationMessage(
+          o("WAWebDBMessageSerialization").messageFromDbRow(e),
+        )
       );
     }
     l.getStartChatContextIneligibleReason = u;

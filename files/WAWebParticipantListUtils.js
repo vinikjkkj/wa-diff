@@ -16,7 +16,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupAgentProfileRouting",
     "WAWebMiscGatingUtils",
-    "WAWebOrgMemberContactName",
     "WAWebWidFactory",
     "WAWebWidFormat",
     "compactMap",
@@ -98,7 +97,7 @@ __d(
           }),
           function (e) {
             return (
-              o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+              o("WAWebFrontendContactGetters").getShownOrgMemberName(
                 e.contact,
               ) != null
             );
@@ -165,7 +164,7 @@ __d(
       var h = r("WAWebCompactMapString")(u, function (e) {
           var t;
           return o("WAWebMiscGatingUtils").isDropLastNameEnabled()
-            ? (t = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+            ? (t = o("WAWebFrontendContactGetters").getShownOrgMemberName(
                 e.contact,
               )) == null
               ? void 0
@@ -184,8 +183,11 @@ __d(
       return e.id.isBot() ? t : p(t);
     }
     function m(e) {
-      var t = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(e);
-      return t == null ? null : p(t);
+      var t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e);
+      if (t == null) return null;
+      if (r("isStringNullOrEmpty")(e.orgMemberName)) return p(t);
+      var n = e.orgMemberFirstName;
+      return r("isStringNullOrEmpty")(n) ? t : n;
     }
     function p(e) {
       var t = e.split(/\s/),
@@ -291,7 +293,7 @@ __d(
       )
         return r("compactMap")(n, function (e) {
           var n = e.contact,
-            r = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(n);
+            r = o("WAWebFrontendContactGetters").getShownOrgMemberName(n);
           return r != null
             ? r.replace(/\s/g, " ")
             : t.hasUniqueShortNameMention(n)

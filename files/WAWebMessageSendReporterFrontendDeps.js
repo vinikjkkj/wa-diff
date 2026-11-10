@@ -10,7 +10,7 @@ __d(
       ChatCollection: o("WAWebChatCollection").ChatCollection,
       ContactCollection: o("WAWebContactCollection").ContactCollection,
       getFormattedUserAndType: o("WAWebFrontendContactGetters")
-        .getFormattedUserAndType,
+        .getContactFormattedUserAndType,
     };
     l.MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS = e;
   },

@@ -440,7 +440,7 @@ __d(
                   .QueueDrainStart,
               ),
                 yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
-                  ? o("WAWebOneQueue").waitForOneQueueOfflineWorkDrained()
+                  ? o("WAWebOneQueue").waitForOneQueueOfflineWorkProcessed()
                   : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
                 o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
                   o("WAWebOfflineSyncQplSession").OfflineSyncPoint
@@ -452,6 +452,10 @@ __d(
                 o(
                   "WAWebWamOfflineResumeReporter",
                 ).OfflineResumeReporter.logLastStanzaT(),
+                o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
+                  (yield o(
+                    "WAWebOneQueue",
+                  ).waitForOneQueueOfflineWorkDrained()),
                 o("WAWebThreadMetadata").resetThreadMeta(),
                 o("WALogger").LOG(
                   C ||

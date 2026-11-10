@@ -28,9 +28,7 @@ __d(
       return e == null || e === "" || e === "0" ? null : e;
     }
     function h(e, t) {
-      if (!r("gkx")("9636") || m(e)) return e;
-      var n = t;
-      return m(n) ? n : null;
+      return !r("gkx")("9636") || m(e) ? e : _(t);
     }
     function y(e) {
       return e;

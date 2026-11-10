@@ -12,7 +12,7 @@ __d(
     "WDSText.react",
     "react",
     "react-compiler-runtime",
-    "useWAWebChatOrgMemberNames",
+    "useWAWebChatOrgIdentityRefresh",
     "useWAWebChatValues",
     "useWAWebContactValues",
   ],
@@ -73,6 +73,7 @@ __d(
             o("WAWebFrontendContactGetters").getFormattedName,
             o("WAWebFrontendContactGetters").getIsMyContact,
             o("WAWebContactGetters").getNotifyName,
+            o("WAWebFrontendContactGetters").getShownOrgMemberName,
           ]),
           (n[0] = l))
         : (l = n[0]);
@@ -80,23 +81,24 @@ __d(
         d = c[0],
         p = c[1],
         _ = c[2],
-        f =
+        f = c[3],
+        g =
           (t = o("useWAWebChatValues").useOptionalChatValues(a, [
             o("WAWebFrontendChatGetters").getGroupMetadata,
           ])) != null
             ? t
             : [null],
-        g = f[0],
-        h = r("useWAWebChatOrgMemberNames")(a),
-        y;
+        h = g[0];
+      r("useWAWebChatOrgIdentityRefresh")(a);
+      var y;
       return (
         n[1] !== a ||
         n[2] !== i ||
         n[3] !== d ||
         n[4] !== h ||
-        n[5] !== g ||
-        n[6] !== p ||
-        n[7] !== _
+        n[5] !== p ||
+        n[6] !== _ ||
+        n[7] !== f
           ? ((y = u.jsx(m, {
               label: s._(/*BTDS*/ "Added by {contributor-name}", [
                 s._param(
@@ -106,10 +108,10 @@ __d(
                       chatId: a,
                       contact: i,
                       formattedName: d,
-                      groupMetadata: g,
+                      groupMetadata: h,
                       isMyContact: p,
                       notifyName: _,
-                      orgMemberName: h(i),
+                      orgMemberName: f,
                     },
                   ),
                 ),
@@ -119,9 +121,9 @@ __d(
             (n[2] = i),
             (n[3] = d),
             (n[4] = h),
-            (n[5] = g),
-            (n[6] = p),
-            (n[7] = _),
+            (n[5] = p),
+            (n[6] = _),
+            (n[7] = f),
             (n[8] = y))
           : (y = n[8]),
         y

@@ -1,6 +1,6 @@
 __d(
   "WASocketTransport",
-  ["Promise", "WABinary", "WALogger", "err"],
+  ["Promise", "WABinary", "WALogger", "WASocketCloseReason", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -50,8 +50,8 @@ __d(
         }
         var n = t.prototype;
         return (
-          (n.close = function () {
-            this.$2 || (this.$1.close(), this.$6());
+          (n.close = function (t) {
+            this.$2 || (this.$1.close(), this.$6(void 0, t));
           }),
           (n.requestSend = function () {
             if (this.$2) {
@@ -68,8 +68,13 @@ __d(
             this.dataToSend.size() &&
               this.$1.send(this.dataToSend.readBuffer());
           }),
-          (n.$6 = function (t) {
-            ((this.$2 = !0), this.onClose && this.onClose(t));
+          (n.$6 = function (t, n) {
+            ((this.$2 = !0),
+              this.onClose &&
+                this.onClose(
+                  t,
+                  n != null ? n : o("WASocketCloseReason").wsCloseReason(t),
+                ));
           }),
           t
         );

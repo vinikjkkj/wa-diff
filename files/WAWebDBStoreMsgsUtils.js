@@ -7,7 +7,7 @@ __d(
       return (
         n === void 0 && (n = !1),
         t
-          .all({
+          .allKeys({
             reverse: !n,
             limit: 1,
             index: ["rowId"],

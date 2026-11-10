@@ -1,6 +1,6 @@
 __d(
   "WAFrameSocket",
-  ["WABinary", "WAErrors", "WALogger"],
+  ["WABinary", "WAErrors", "WALogger", "WASocketCloseReason"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -37,7 +37,7 @@ __d(
             (this.$5 = function (e) {
               (r.$3.writeByteArray(e), r.convertBufferedToFrames());
             }),
-            (this.$6 = function () {
+            (this.$6 = function (t, n) {
               if (r.$3.peek(p)) {
                 (o("WALogger").LOG(
                   e ||
@@ -48,7 +48,7 @@ __d(
                   (r.$4 = !0));
                 return;
               }
-              r.$9();
+              r.$9(n);
             }),
             (this.$7 = function (e) {}),
             (this.$2 = n),
@@ -77,7 +77,7 @@ __d(
                 this.$1.requestSend());
             }
           }),
-          (n.$9 = function () {
+          (n.$9 = function (t) {
             if (!this.closed) {
               (o("WALogger").LOG(
                 s ||
@@ -88,7 +88,7 @@ __d(
                 (this.$4 = !1),
                 (this.closed = !0));
               var e = this.onClose;
-              e && e();
+              e && e(t);
             }
           }),
           (n.$8 = function (t) {
@@ -113,7 +113,11 @@ __d(
                 r = e.readByteArrayView(n);
               (t(r), (t = this.onFrame));
             }
-            (this.$4 && !e.peek(p) && this.$9(),
+            (this.$4 &&
+              !e.peek(p) &&
+              this.$9(
+                o("WASocketCloseReason").CommsCloseReason.FrameSocketDrained,
+              ),
               t &&
                 e.size() &&
                 o("WALogger").LOG(
@@ -128,8 +132,8 @@ __d(
           (n.throwIfClosed = function () {
             if (this.closed) throw new d();
           }),
-          (n.close = function () {
-            this.$1.close();
+          (n.close = function (t) {
+            this.$1.close(t);
           }),
           t
         );

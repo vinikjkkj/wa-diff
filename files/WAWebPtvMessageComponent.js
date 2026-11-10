@@ -312,7 +312,7 @@ __d(
               le(!0, "ptv-click");
             }
           },
-          [ee],
+          [ee, le],
         ),
         ue = m(
           function (e) {

@@ -118,16 +118,28 @@ __d(
       } else if (e.responseFetch != null) return e.responseFetch.state;
       return null;
     }
-    var H = {
+    function H(e, t, n) {
+      return e.some(function (e) {
+        if (!e.activeDemands.has(t) || e.evictedClock != null) return !1;
+        var r = V(e, n);
+        return (
+          r == null ||
+          (r.state !== "failed" &&
+            r.state !== "aborted" &&
+            r.state !== "__disposed__")
+        );
+      });
+    }
+    var G = {
       audioLang: null,
       audioRole: null,
       videoLang: null,
       videoRole: null,
     };
-    function G(e) {
+    function z(e) {
       return e.byteLength;
     }
-    function z(e) {
+    function j(e) {
       switch (e.operationType) {
         case "append_operation": {
           var t = e.appendInfo;
@@ -162,7 +174,7 @@ __d(
       }
       return "unknown";
     }
-    function j(e) {
+    function K(e) {
       var t = e.attempt,
         n = e.attemptStartedClock,
         r = e.eventClock,
@@ -179,7 +191,7 @@ __d(
         ).perfMs >= F
       );
     }
-    function K(e, t, n) {
+    function Q(e, t, n) {
       if (
         (n === void 0 && (n = $),
         e == null || e.operationState !== "wait_updateend")
@@ -192,7 +204,7 @@ __d(
             "VideoPlayerNextgendashHostAPI",
           ).diffVideoPlayerNextgendashClockstamp(t, r).unixMs >= n;
     }
-    function Q(e, t) {
+    function X(e, t) {
       return t.type === "BaseURLByteRange"
         ? o("VideoPlayerNextgendashURLUtils").addByteRangeParamsToURL(
             e,
@@ -209,12 +221,12 @@ __d(
               t.relativeURL,
             );
     }
-    function X(e, t) {
+    function Y(e, t) {
       return function (n, r, o) {
         e({ requestID: t, type: "_fetch_transitioned" }, o);
       };
     }
-    var Y = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
+    var J = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
       null,
       function (e) {
         var t,
@@ -232,12 +244,12 @@ __d(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject({
               loopIteration: 0,
-              loopReasons: we(i, 0, h, "0:initial"),
+              loopReasons: Oe(i, 0, h, "0:initial"),
               loopScheduledToUnixMs: l.unixMs,
               loopTimerDelayMs: null,
               loopTimerID: null,
             }),
-            mediaSourceState: Pe(i, s, a, null, r.dashManifestData),
+            mediaSourceState: we(i, s, a, null, r.dashManifestData),
             playerStateFromMain: r,
             playerWarningDedupMap: C(i, new Map()),
             recoveringFromMediaError: null,
@@ -254,7 +266,7 @@ __d(
                 })
               : null,
           };
-        return (t = Fe(i, u, u.loopState.loopIteration, e)) != null ? t : u;
+        return (t = We(i, u, u.loopState.loopIteration, e)) != null ? t : u;
       },
       function (t) {
         var n = t.args,
@@ -308,7 +320,7 @@ __d(
             d = c,
             m = d.mediaSourceState;
           m.mediaSourceCleanup();
-          var p = Pe(
+          var p = we(
             i,
             u,
             r,
@@ -327,7 +339,7 @@ __d(
               ),
             ),
             (c = babelHelpers.extends({}, c, {
-              debugPlaybackLoopRecentChanges: Me(
+              debugPlaybackLoopRecentChanges: Fe(
                 c.debugPlaybackLoopRecentChanges,
                 [
                   "recoveringFromError:" + t.name,
@@ -380,7 +392,7 @@ __d(
               case "__dispose":
                 return;
               case "_fetch_transitioned":
-                return Se(i, t, l.type + ":" + l.requestID, 0, c);
+                return Ee(i, t, l.type + ":" + l.requestID, 0, c);
               case "update_player_state_from_main": {
                 var p,
                   _,
@@ -391,13 +403,13 @@ __d(
                   h = babelHelpers.extends({}, c, { playerStateFromMain: g }),
                   y = h.playerStateFromMain.dashManifestData;
                 if (
-                  ($e(i, y),
+                  (Me(i, y),
                   i.config.mediaSinkType === "HYBRID" &&
                     c.playerStateFromMain.dashManifestData == null &&
                     y != null &&
                     (c.mediaSourceState.mediaSourceCleanup(),
                     (h = babelHelpers.extends({}, h, {
-                      mediaSourceState: Pe(
+                      mediaSourceState: we(
                         i,
                         u,
                         r,
@@ -432,76 +444,102 @@ __d(
                           : v.currentTime) != null
                         ? b
                         : null;
-                  ((h = babelHelpers.extends({}, h, {
-                    streams: h.streams.map(function (e) {
-                      var t = nn(i, S, e, y);
-                      if (R || L) {
-                        var n = {};
-                        for (var r of t.playableRepresentations)
-                          if (r.segmentsInfo.type === "SegmentTemplate") {
-                            var a = r.segmentsInfo,
-                              l = i.config.enableLive
-                                ? a.segmentTimelinePredictive
-                                : null,
-                              s = Vt(a, !0),
-                              u = Yt(i, t.type, r.representationId, s, !0),
-                              c = t.sidxByRepresentationId[r.representationId],
-                              d = Ht(c != null ? c : [], u);
-                            if (L) {
-                              n[r.representationId] = Gt(
-                                d.type === "merged"
-                                  ? d.sidx
-                                  : c != null
-                                    ? c
-                                    : [],
-                              );
-                              continue;
-                            }
-                            if (d.type === "timeline_reset")
-                              throw o("nextgendasherr").nextgendasherr(
-                                i,
-                                "VideoPlayerNextgendashPlaybackLoopLiveTimelineReset",
-                                "%s:%s - refreshed timeline ends at %s, before the indexed window starts at %s",
-                                t.type,
-                                r.representationId,
-                                d.freshEndSec,
-                                d.existingStartSec,
-                              );
-                            var m = d.sidx;
-                            ((m = zt(m, E, i.config.liveLookbackBufferSec)),
-                              (n[r.representationId] =
-                                l != null ? Xt(l, m, a.timescale) : m));
-                          } else
-                            t.sidxByRepresentationId[r.representationId] !=
-                              null &&
-                              (n[r.representationId] =
-                                t.sidxByRepresentationId[r.representationId]);
-                        t = babelHelpers.extends({}, t, {
-                          sidxByRepresentationId: o(
-                            "VideoPlayerNextgendashStateMachine",
-                          ).skipAutoDisposeInsideThisObject(n),
-                        });
-                      }
-                      return t;
-                    }),
-                  })),
+                  if (
+                    ((h = babelHelpers.extends({}, h, {
+                      streams: h.streams.map(function (e) {
+                        var t = bn(i, S, e, y);
+                        if (R || L) {
+                          var n = {};
+                          for (var r of t.playableRepresentations)
+                            if (r.segmentsInfo.type === "SegmentTemplate") {
+                              var a = r.segmentsInfo,
+                                l = i.config.enableLive
+                                  ? a.segmentTimelinePredictive
+                                  : null,
+                                s = ln(a, !0),
+                                u = fn(i, t.type, r.representationId, s, !0),
+                                c =
+                                  t.sidxByRepresentationId[r.representationId],
+                                d = sn(c != null ? c : [], u);
+                              if (L) {
+                                n[r.representationId] = un(
+                                  d.type === "merged"
+                                    ? d.sidx
+                                    : c != null
+                                      ? c
+                                      : [],
+                                );
+                                continue;
+                              }
+                              if (d.type === "timeline_reset")
+                                throw o("nextgendasherr").nextgendasherr(
+                                  i,
+                                  "VideoPlayerNextgendashPlaybackLoopLiveTimelineReset",
+                                  "%s:%s - refreshed timeline ends at %s, before the indexed window starts at %s",
+                                  t.type,
+                                  r.representationId,
+                                  d.freshEndSec,
+                                  d.existingStartSec,
+                                );
+                              var m = d.sidx;
+                              ((m = cn(m, E, i.config.liveLookbackBufferSec)),
+                                (n[r.representationId] =
+                                  l != null
+                                    ? _n(
+                                        l,
+                                        m,
+                                        a.timescale,
+                                        i.config.isLivePlayback &&
+                                          i.config
+                                            .livePredictiveSegmentFetchKeyByNumber,
+                                      )
+                                    : m));
+                            } else
+                              t.sidxByRepresentationId[r.representationId] !=
+                                null &&
+                                (n[r.representationId] =
+                                  t.sidxByRepresentationId[r.representationId]);
+                          t = babelHelpers.extends({}, t, {
+                            sidxByRepresentationId: o(
+                              "VideoPlayerNextgendashStateMachine",
+                            ).skipAutoDisposeInsideThisObject(n),
+                          });
+                        }
+                        return t;
+                      }),
+                    })),
                     (h = babelHelpers.extends({}, h, {
-                      debugPlaybackLoopRecentChanges: Me(
+                      debugPlaybackLoopRecentChanges: Fe(
                         h.debugPlaybackLoopRecentChanges,
                         S,
                       ),
-                    })));
+                    })),
+                    R &&
+                      i.config.isLivePlayback &&
+                      i.config.liveSetSeekableRangeEnabled &&
+                      i.config.mediaSinkType === "MSE")
+                  ) {
+                    var k = ct(h.streams);
+                    k != null &&
+                      (i.host.mediaSourceSetLiveSeekableRange == null ||
+                        i.host.mediaSourceSetLiveSeekableRange(
+                          i,
+                          h.mediaSourceState.mediaSource,
+                          0,
+                          k,
+                        ));
+                  }
                 }
-                var k = (_ = g.mediaElementSnapshot) == null ? void 0 : _.error,
-                  I = W(k, i.config.fatalErrorOnMediaErrorRecoveryCapReached);
+                var I = (_ = g.mediaElementSnapshot) == null ? void 0 : _.error,
+                  T = W(I, i.config.fatalErrorOnMediaErrorRecoveryCapReached);
                 if (
-                  k != null &&
+                  I != null &&
                   !h.recoveringFromMediaError &&
-                  h.recoveringFromMediaErrorAttempt < I
+                  h.recoveringFromMediaErrorAttempt < T
                 )
                   h = m(
                     h,
-                    o("nextgendasherr").nextgendasherrFromMediaError(i, k),
+                    o("nextgendasherr").nextgendasherrFromMediaError(i, I),
                   );
                 else if (
                   h.recoveringFromMediaError &&
@@ -510,19 +548,19 @@ __d(
                   g.mediaSourceIndexApplied ===
                     h.mediaSourceState.mediaSourceIndex
                 ) {
-                  var T = h,
-                    D = T.recoveringFromMediaError;
+                  var D = h,
+                    x = D.recoveringFromMediaError;
                   (a(
                     o("nextgendasherr").nextgendasherrFromCause(
                       i,
-                      D,
+                      x,
                       "VideoPlayerNextgendashPlaybackLoopRecoveredFromMediaError",
                     ),
                   ),
                     (h = babelHelpers.extends({}, h, {
-                      debugPlaybackLoopRecentChanges: Me(
+                      debugPlaybackLoopRecentChanges: Fe(
                         h.debugPlaybackLoopRecentChanges,
-                        ["recoveringFromMediaError:" + D.name + ":recovered"],
+                        ["recoveringFromMediaError:" + x.name + ":recovered"],
                       ),
                       recoveringFromMediaError: null,
                       streams: h.streams.map(function (e) {
@@ -534,79 +572,79 @@ __d(
                       }),
                     })));
                 } else if (
-                  k != null &&
+                  I != null &&
                   !h.recoveringFromMediaError &&
-                  h.recoveringFromMediaErrorAttempt >= I &&
+                  h.recoveringFromMediaErrorAttempt >= T &&
                   i.config.fatalErrorOnMediaErrorRecoveryCapReached
                 )
                   return (
                     u({
                       exception: o("nextgendasherr").nextgendasherrFromCause(
                         i,
-                        o("nextgendasherr").nextgendasherrFromMediaError(i, k),
+                        o("nextgendasherr").nextgendasherrFromMediaError(i, I),
                         "VideoPlayerNextgendashPlaybackLoopMediaErrorRecoveryAttemptsExhausted",
                         "Reached media error recovery attempt cap (%s) with media element still in error",
-                        I,
+                        T,
                       ),
                       type: "__exception",
                     }),
                     h
                   );
-                return (f = Se(i, t, l.type + ":" + l.reason, 0, h)) != null
+                return (f = Ee(i, t, l.type + ":" + l.reason, 0, h)) != null
                   ? f
                   : h;
               }
               case "notify_deliberate_detach_for_unmount": {
-                var x,
-                  $ = c,
-                  P =
+                var $,
+                  P = c,
+                  N =
                     "DeliberateDetachForUnmount:" +
                     l.mediaSourceIndex +
                     ":" +
-                    $.mediaSourceState.mediaSourceIndex;
+                    P.mediaSourceState.mediaSourceIndex;
                 return (
-                  l.mediaSourceIndex === $.mediaSourceState.mediaSourceIndex
-                    ? ($ = babelHelpers.extends({}, $, {
-                        debugPlaybackLoopRecentChanges: Me(
-                          $.debugPlaybackLoopRecentChanges,
-                          [P + "->expectSourceClose"],
+                  l.mediaSourceIndex === P.mediaSourceState.mediaSourceIndex
+                    ? (P = babelHelpers.extends({}, P, {
+                        debugPlaybackLoopRecentChanges: Fe(
+                          P.debugPlaybackLoopRecentChanges,
+                          [N + "->expectSourceClose"],
                         ),
                         expectSourceCloseForMediaSourceIndex:
                           l.mediaSourceIndex,
                       }))
-                    : ($ = babelHelpers.extends({}, $, {
-                        debugPlaybackLoopRecentChanges: Me(
-                          $.debugPlaybackLoopRecentChanges,
-                          [P + "->mediaSourceIndexMismatch"],
+                    : (P = babelHelpers.extends({}, P, {
+                        debugPlaybackLoopRecentChanges: Fe(
+                          P.debugPlaybackLoopRecentChanges,
+                          [N + "->mediaSourceIndexMismatch"],
                         ),
                       })),
-                  (x = Se(i, t, "" + l.type, 0, $)) != null ? x : $
+                  ($ = Ee(i, t, "" + l.type, 0, P)) != null ? $ : P
                 );
               }
               case "request_recovery_from_source_reset": {
-                var N,
-                  M = c,
-                  w =
+                var M,
+                  w = c,
+                  F =
                     "SourceResetRecoveryRequest:" +
                     l.mediaSourceIndex +
                     ":" +
-                    M.mediaSourceState.mediaSourceIndex;
-                if (l.mediaSourceIndex !== M.mediaSourceState.mediaSourceIndex)
-                  M = babelHelpers.extends({}, M, {
-                    debugPlaybackLoopRecentChanges: Me(
-                      M.debugPlaybackLoopRecentChanges,
-                      [w + "->mediaSourceIndexMismatch"],
+                    w.mediaSourceState.mediaSourceIndex;
+                if (l.mediaSourceIndex !== w.mediaSourceState.mediaSourceIndex)
+                  w = babelHelpers.extends({}, w, {
+                    debugPlaybackLoopRecentChanges: Fe(
+                      w.debugPlaybackLoopRecentChanges,
+                      [F + "->mediaSourceIndexMismatch"],
                     ),
                   });
                 else if (
-                  !M.recoveringFromMediaError &&
-                  M.recoveringFromMediaErrorAttempt < A
+                  !w.recoveringFromMediaError &&
+                  w.recoveringFromMediaErrorAttempt < A
                 )
-                  M = m(
-                    babelHelpers.extends({}, M, {
-                      debugPlaybackLoopRecentChanges: Me(
-                        M.debugPlaybackLoopRecentChanges,
-                        [w + "->beginErrorRecoveryDueToElementSourceReset"],
+                  w = m(
+                    babelHelpers.extends({}, w, {
+                      debugPlaybackLoopRecentChanges: Fe(
+                        w.debugPlaybackLoopRecentChanges,
+                        [F + "->beginErrorRecoveryDueToElementSourceReset"],
                       ),
                     }),
                     o("nextgendasherr").nextgendasherr(
@@ -615,89 +653,89 @@ __d(
                     ),
                   );
                 else {
-                  var F = [];
-                  (M.recoveringFromMediaError &&
-                    F.push("StillAttemptingPreviousRecovery"),
-                    M.recoveringFromMediaErrorAttempt >= A &&
-                      F.push("ReachedRetryCap"),
-                    (M = babelHelpers.extends({}, M, {
-                      debugPlaybackLoopRecentChanges: Me(
-                        M.debugPlaybackLoopRecentChanges,
-                        [w + "->" + F.join(":")],
+                  var O = [];
+                  (w.recoveringFromMediaError &&
+                    O.push("StillAttemptingPreviousRecovery"),
+                    w.recoveringFromMediaErrorAttempt >= A &&
+                      O.push("ReachedRetryCap"),
+                    (w = babelHelpers.extends({}, w, {
+                      debugPlaybackLoopRecentChanges: Fe(
+                        w.debugPlaybackLoopRecentChanges,
+                        [F + "->" + O.join(":")],
                       ),
                     })));
                 }
-                return (N = Se(i, t, "" + l.type, 0, M)) != null ? N : M;
+                return (M = Ee(i, t, "" + l.type, 0, w)) != null ? M : w;
               }
               case "_media_source_event": {
-                var O,
-                  B = c,
-                  q =
+                var B,
+                  q = c,
+                  U =
                     "mediaSourceEvent:" +
                     l.mediaSourceIndex +
                     ":" +
                     l.mediaSourceEventType;
                 if (
-                  l.mediaSource !== B.mediaSourceState.mediaSource ||
-                  l.mediaSourceIndex !== B.mediaSourceState.mediaSourceIndex
+                  l.mediaSource !== q.mediaSourceState.mediaSource ||
+                  l.mediaSourceIndex !== q.mediaSourceState.mediaSourceIndex
                 )
-                  B = babelHelpers.extends(
+                  q = babelHelpers.extends(
                     {},
-                    B,
+                    q,
                     {
-                      debugPlaybackLoopRecentChanges: Me(
-                        B.debugPlaybackLoopRecentChanges,
+                      debugPlaybackLoopRecentChanges: Fe(
+                        q.debugPlaybackLoopRecentChanges,
                         [
-                          q +
+                          U +
                             "->mediaSourceMismatch:" +
-                            B.mediaSourceState.mediaSourceIndex,
+                            q.mediaSourceState.mediaSourceIndex,
                         ],
                       ),
                     },
                     l.mediaSourceEventType === "sourceclose" &&
-                      B.expectSourceCloseForMediaSourceIndex ===
+                      q.expectSourceCloseForMediaSourceIndex ===
                         l.mediaSourceIndex
                       ? { expectSourceCloseForMediaSourceIndex: null }
                       : null,
                   );
                 else if (
-                  B.mediaSourceState.waitingForFirstSourceopen &&
+                  q.mediaSourceState.waitingForFirstSourceopen &&
                   l.mediaSourceEventType === "sourceopen"
                 )
-                  B = babelHelpers.extends({}, B, {
-                    debugPlaybackLoopRecentChanges: Me(
-                      B.debugPlaybackLoopRecentChanges,
-                      [q + "->first"],
+                  q = babelHelpers.extends({}, q, {
+                    debugPlaybackLoopRecentChanges: Fe(
+                      q.debugPlaybackLoopRecentChanges,
+                      [U + "->first"],
                     ),
                     expectSourceCloseForMediaSourceIndex: null,
                     mediaSourceState: babelHelpers.extends(
                       {},
-                      B.mediaSourceState,
+                      q.mediaSourceState,
                       { waitingForFirstSourceopen: !1 },
                     ),
                   });
                 else if (l.mediaSourceEventType === "sourceclose")
                   if (
-                    B.expectSourceCloseForMediaSourceIndex != null &&
-                    B.expectSourceCloseForMediaSourceIndex ===
+                    q.expectSourceCloseForMediaSourceIndex != null &&
+                    q.expectSourceCloseForMediaSourceIndex ===
                       l.mediaSourceIndex
                   )
-                    B = babelHelpers.extends({}, B, {
-                      debugPlaybackLoopRecentChanges: Me(
-                        B.debugPlaybackLoopRecentChanges,
-                        [q + "->expectedDetachForUnmount"],
+                    q = babelHelpers.extends({}, q, {
+                      debugPlaybackLoopRecentChanges: Fe(
+                        q.debugPlaybackLoopRecentChanges,
+                        [U + "->expectedDetachForUnmount"],
                       ),
                       expectSourceCloseForMediaSourceIndex: null,
                     });
                   else if (
-                    !B.recoveringFromMediaError &&
-                    B.recoveringFromMediaErrorAttempt < A
+                    !q.recoveringFromMediaError &&
+                    q.recoveringFromMediaErrorAttempt < A
                   )
-                    B = m(
-                      babelHelpers.extends({}, B, {
-                        debugPlaybackLoopRecentChanges: Me(
-                          B.debugPlaybackLoopRecentChanges,
-                          [q + "->beginErrorRecoveryBeforeSeeingMediaError"],
+                    q = m(
+                      babelHelpers.extends({}, q, {
+                        debugPlaybackLoopRecentChanges: Fe(
+                          q.debugPlaybackLoopRecentChanges,
+                          [U + "->beginErrorRecoveryBeforeSeeingMediaError"],
                         ),
                       }),
                       o("nextgendasherr").nextgendasherr(
@@ -706,20 +744,20 @@ __d(
                       ),
                     );
                   else {
-                    var U = [];
+                    var V = [];
                     if (
-                      (B.recoveringFromMediaError &&
-                        U.push("StillAttemptingPreviousRecovery"),
-                      B.recoveringFromMediaErrorAttempt >= A &&
-                        U.push("ReachedRetryCap"),
-                      (B = babelHelpers.extends({}, B, {
-                        debugPlaybackLoopRecentChanges: Me(
-                          B.debugPlaybackLoopRecentChanges,
-                          [q + "->" + U.join(":")],
+                      (q.recoveringFromMediaError &&
+                        V.push("StillAttemptingPreviousRecovery"),
+                      q.recoveringFromMediaErrorAttempt >= A &&
+                        V.push("ReachedRetryCap"),
+                      (q = babelHelpers.extends({}, q, {
+                        debugPlaybackLoopRecentChanges: Fe(
+                          q.debugPlaybackLoopRecentChanges,
+                          [U + "->" + V.join(":")],
                         ),
                       })),
-                      !B.recoveringFromMediaError &&
-                        B.recoveringFromMediaErrorAttempt >= A &&
+                      !q.recoveringFromMediaError &&
+                        q.recoveringFromMediaErrorAttempt >= A &&
                         i.config.fatalErrorOnMediaErrorRecoveryCapReached)
                     )
                       return (
@@ -732,139 +770,139 @@ __d(
                           ),
                           type: "__exception",
                         }),
-                        B
+                        q
                       );
                   }
                 else
-                  B = babelHelpers.extends(
+                  q = babelHelpers.extends(
                     {},
-                    B,
+                    q,
                     {
-                      debugPlaybackLoopRecentChanges: Me(
-                        B.debugPlaybackLoopRecentChanges,
-                        [q],
+                      debugPlaybackLoopRecentChanges: Fe(
+                        q.debugPlaybackLoopRecentChanges,
+                        [U],
                       ),
                     },
                     l.mediaSourceEventType === "sourceopen"
                       ? { expectSourceCloseForMediaSourceIndex: null }
                       : null,
                   );
-                return (O = Se(
+                return (B = Ee(
                   i,
                   t,
                   l.type + ":" + l.mediaSourceEventType,
                   0,
-                  B,
+                  q,
                 )) != null
-                  ? O
-                  : B;
+                  ? B
+                  : q;
               }
               case "_native_sidx_result": {
-                var V,
-                  H,
-                  G = l.parse,
-                  Q = G.representation,
-                  X = c.streams.find(function (e) {
-                    return e.nativeSidxParse === G;
+                var H,
+                  G,
+                  z = l.parse,
+                  X = z.representation,
+                  Y = c.streams.find(function (e) {
+                    return e.nativeSidxParse === z;
                   });
                 if (
-                  X == null ||
-                  G.mediaSourceIndex !== c.mediaSourceState.mediaSourceIndex
+                  Y == null ||
+                  z.mediaSourceIndex !== c.mediaSourceState.mediaSourceIndex
                 )
                   return;
-                var Y = X.nativeSidxParse,
-                  J = babelHelpers.objectWithoutPropertiesLoose(X, e),
-                  Z = J,
-                  ee = [];
+                var J = Y.nativeSidxParse,
+                  Z = babelHelpers.objectWithoutPropertiesLoose(Y, e),
+                  ee = Z,
+                  te = [];
                 if (l.result === "failed") {
-                  var te = c.playerStateFromMain.dashManifestData;
-                  te != null &&
-                    (Z = rn(i, a, ee, Z, te, Q.representationId, l.error));
+                  var ne = c.playerStateFromMain.dashManifestData;
+                  ne != null &&
+                    (ee = vn(i, a, te, ee, ne, X.representationId, l.error));
                 } else {
-                  var ne,
-                    re,
+                  var re,
                     oe,
                     ae,
                     ie,
-                    le = l.items,
-                    se = i.config
+                    le,
+                    se = l.items,
+                    ue = i.config
                       .sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime
                       ? 0
-                      : ((ne = (re = le[0]) == null ? void 0 : re.startTicks) !=
+                      : ((re = (oe = se[0]) == null ? void 0 : oe.startTicks) !=
                         null
-                          ? ne
+                          ? re
                           : 0) /
-                        ((oe = (ae = le[0]) == null ? void 0 : ae.timescale) !=
+                        ((ae = (ie = se[0]) == null ? void 0 : ie.timescale) !=
                         null
-                          ? oe
+                          ? ae
                           : 1),
-                    ue = Yt(
+                    ce = fn(
                       i,
-                      Z.type,
-                      Q.representationId,
-                      le.map(function (e, t) {
+                      ee.type,
+                      X.representationId,
+                      se.map(function (e, t) {
                         return {
-                          isEndingSegment: t === le.length - 1,
+                          isEndingSegment: t === se.length - 1,
                           mediaFileByteRange: {
                             byteLength: e.byteLength,
                             byteOffset: e.byteOffset,
                           },
                           mediaTimeRange: [
-                            e.startTicks / e.timescale - se,
-                            (e.startTicks + e.durationTicks) / e.timescale - se,
+                            e.startTicks / e.timescale - ue,
+                            (e.startTicks + e.durationTicks) / e.timescale - ue,
                           ],
                           segmentId: t,
                         };
                       }),
                       !1,
                     );
-                  ((Z = babelHelpers.extends({}, Z, {
+                  ((ee = babelHelpers.extends({}, ee, {
                     sidxByRepresentationId: o(
                       "VideoPlayerNextgendashStateMachine",
                     ).skipAutoDisposeInsideThisObject(
                       babelHelpers.extends(
                         {},
-                        Z.sidxByRepresentationId,
-                        ((ie = {}), (ie[Q.representationId] = ue), ie),
+                        ee.sidxByRepresentationId,
+                        ((le = {}), (le[X.representationId] = ce), le),
                       ),
                     ),
                   })),
-                    ee.push(
-                      Z.type +
+                    te.push(
+                      ee.type +
                         ":" +
-                        Q.representationId +
+                        X.representationId +
                         ":sidx/native:" +
-                        le.length +
+                        se.length +
                         ":" +
-                        ue.length,
+                        ce.length,
                     ));
                 }
-                var ce = babelHelpers.extends({}, c, {
-                  debugPlaybackLoopRecentChanges: Me(
+                var de = babelHelpers.extends({}, c, {
+                  debugPlaybackLoopRecentChanges: Fe(
                     c.debugPlaybackLoopRecentChanges,
-                    ee,
+                    te,
                   ),
                   fetchDemands:
-                    (V = pt(
+                    (H = xt(
                       c.fetchDemands,
                       function (e) {
-                        return e === je(Q);
+                        return e === Xe(X);
                       },
                       t.args.fetchPoolAPI,
                     )) != null
-                      ? V
+                      ? H
                       : c.fetchDemands,
                   streams: c.streams.map(function (e) {
-                    return e === X ? Z : e;
+                    return e === Y ? ee : e;
                   }),
                 });
-                return Z.streamFatalError != null && X.streamFatalError == null
+                return ee.streamFatalError != null && Y.streamFatalError == null
                   ? (u({
                       exception: o(
                         "nextgendasherr",
                       ).nextgendasherrFromMultipleCauses(
                         i,
-                        ce.streams
+                        de.streams
                           .map(function (e) {
                             return e.streamFatalError != null
                               ? [e.type, e.streamFatalError]
@@ -875,13 +913,13 @@ __d(
                       ),
                       type: "__exception",
                     }),
-                    ce)
-                  : (H = Se(i, t, l.type, 0, ce)) != null
-                    ? H
-                    : ce;
+                    de)
+                  : (G = Ee(i, t, l.type, 0, de)) != null
+                    ? G
+                    : de;
               }
               case "_source_buffer_event": {
-                var de = c.streams.find(function (e) {
+                var me = c.streams.find(function (e) {
                     var t;
                     return (
                       ((t = e.sourceBufferState) == null
@@ -889,21 +927,21 @@ __d(
                         : t.sourceBuffer) === l.sourceBuffer
                     );
                   }),
-                  me =
-                    de == null
+                  pe =
+                    me == null
                       ? void 0
-                      : de.appendState.currSourceBufferOperation;
-                if (de != null && me != null) {
-                  var pe = !1,
-                    _e = [],
-                    fe = c.streams.map(function (e) {
+                      : me.appendState.currSourceBufferOperation;
+                if (me != null && pe != null) {
+                  var _e = !1,
+                    fe = [],
+                    ge = c.streams.map(function (e) {
                       var t, n;
-                      if (e !== de) return e;
-                      var r = kt(
+                      if (e !== me) return e;
+                      var r = Vt(
                         i,
                         a,
                         e,
-                        _e,
+                        fe,
                         l,
                         s,
                         (t =
@@ -914,67 +952,67 @@ __d(
                           ? t
                           : 0,
                         function () {
-                          return Lt(i, e.sourceBufferState);
+                          return qt(i, e.sourceBufferState);
                         },
                       );
                       return r != null
-                        ? ((pe = !0), babelHelpers.extends({}, e, r))
+                        ? ((_e = !0), babelHelpers.extends({}, e, r))
                         : e;
                     }),
-                    ge = babelHelpers.extends({}, c, {
-                      debugPlaybackLoopRecentChanges: Me(
+                    he = babelHelpers.extends({}, c, {
+                      debugPlaybackLoopRecentChanges: Fe(
                         c.debugPlaybackLoopRecentChanges,
-                        _e,
+                        fe,
                       ),
-                      streams: fe,
+                      streams: ge,
                     });
-                  if (pe) {
-                    var he;
-                    return (he = Se(
+                  if (_e) {
+                    var ye;
+                    return (ye = Ee(
                       i,
                       t,
                       l.type +
                         ":" +
                         l.sourceBufferEventType +
                         ":" +
-                        me.operationState +
+                        pe.operationState +
                         ":stateHasChanged",
                       0,
-                      ge,
+                      he,
                     )) != null
-                      ? he
-                      : ge;
+                      ? ye
+                      : he;
                   } else
                     return i.config.disablePlaybackLoopSchedulingOnTimer
                       ? c
-                      : Se(
+                      : Ee(
                           i,
                           t,
                           l.type +
                             ":" +
                             l.sourceBufferEventType +
                             ":" +
-                            me.operationState +
+                            pe.operationState +
                             ":!stateHasChanged",
-                          Ce,
+                          Se,
                           c,
                         );
                 } else
                   return i.config.disablePlaybackLoopSchedulingOnTimer
                     ? c
-                    : Se(
+                    : Ee(
                         i,
                         t,
                         l.type +
                           ":" +
                           l.sourceBufferEventType +
                           ":null_currSourceBufferOperation",
-                        Ce,
+                        Se,
                         c,
                       );
               }
               case "_observe_and_act": {
-                var ye = j({
+                var Ce = K({
                     attempt: c.recoveringFromMediaErrorAttempt,
                     attemptStartedClock:
                       c.recoveringFromMediaErrorAttemptStartedClock,
@@ -988,9 +1026,9 @@ __d(
                     : c,
                   be =
                     i.config.isLivePlayback &&
-                    ye.recoveringFromMediaError == null
-                      ? ye.streams.find(function (e) {
-                          return K(e.appendState.currSourceBufferOperation, s);
+                    Ce.recoveringFromMediaError == null
+                      ? Ce.streams.find(function (e) {
+                          return Q(e.appendState.currSourceBufferOperation, s);
                         })
                       : null,
                   ve =
@@ -1004,14 +1042,14 @@ __d(
                 ) {
                   var Re,
                     Le,
-                    Ee,
-                    ke = ve.operationTiming,
-                    Ie = ke.started;
-                  if (Ie == null) return Fe(i, ye, l.loopIteration, t);
-                  var Te = o(
+                    ke,
+                    Ie = ve.operationTiming,
+                    Te = Ie.started;
+                  if (Te == null) return We(i, Ce, l.loopIteration, t);
+                  var De = o(
                       "VideoPlayerNextgendashHostAPI",
-                    ).diffVideoPlayerNextgendashClockstamp(s, Ie).unixMs,
-                    De = o("nextgendasherr").nextgendasherr(
+                    ).diffVideoPlayerNextgendashClockstamp(s, Te).unixMs,
+                    xe = o("nextgendasherr").nextgendasherr(
                       i,
                       "VideoPlayerNextgendashPlaybackLoopLiveSourceBufferOperationTimedOut",
                       "%s:%s SourceBuffer operation stuck in wait_updateend for %sms: %s",
@@ -1019,10 +1057,10 @@ __d(
                       (Re = be.targetRepresentationId) != null
                         ? Re
                         : "no_target_representation",
-                      Te,
-                      z(ve),
+                      De,
+                      j(ve),
                     ),
-                    xe =
+                    $e =
                       "liveSourceBufferOperationTimedOut:" +
                       be.type +
                       ":" +
@@ -1030,36 +1068,36 @@ __d(
                         ? Le
                         : "no_target_representation") +
                       ":" +
-                      Te +
+                      De +
                       "ms";
-                  if (ye.recoveringFromMediaErrorAttempt < A) {
-                    var Ne,
-                      we = babelHelpers.extends({}, ye, {
-                        debugPlaybackLoopRecentChanges: Me(
-                          ye.debugPlaybackLoopRecentChanges,
-                          [xe + "->beginErrorRecovery:" + z(ve)],
+                  if (Ce.recoveringFromMediaErrorAttempt < A) {
+                    var Pe,
+                      Ne = babelHelpers.extends({}, Ce, {
+                        debugPlaybackLoopRecentChanges: Fe(
+                          Ce.debugPlaybackLoopRecentChanges,
+                          [$e + "->beginErrorRecovery:" + j(ve)],
                         ),
                       }),
-                      Ae = m(we, De);
-                    return (Ne = Se(
+                      Ae = m(Ne, xe);
+                    return (Pe = Ee(
                       i,
                       t,
                       l.type + ":liveSourceBufferOperationTimedOut",
                       0,
                       Ae,
                     )) != null
-                      ? Ne
+                      ? Pe
                       : Ae;
                   }
-                  var Oe = babelHelpers.extends({}, ye, {
-                    debugPlaybackLoopRecentChanges: Me(
-                      ye.debugPlaybackLoopRecentChanges,
+                  var Oe = babelHelpers.extends({}, Ce, {
+                    debugPlaybackLoopRecentChanges: Fe(
+                      Ce.debugPlaybackLoopRecentChanges,
                       [
                         "liveSourceBufferOperationTimedOut:" +
                           be.type +
                           ":" +
-                          ((Ee = be.targetRepresentationId) != null
-                            ? Ee
+                          ((ke = be.targetRepresentationId) != null
+                            ? ke
                             : "no_target_representation") +
                           "->ReachedRetryCap",
                       ],
@@ -1069,7 +1107,7 @@ __d(
                     u({
                       exception: o("nextgendasherr").nextgendasherrFromCause(
                         i,
-                        De,
+                        xe,
                         "VideoPlayerNextgendashPlaybackLoopLiveSourceBufferOperationTimeoutRecoveryAttemptsExhausted",
                         "Reached media error recovery attempt cap (%s) with SourceBuffer operation still stuck in wait_updateend",
                         A,
@@ -1079,7 +1117,7 @@ __d(
                     Oe
                   );
                 }
-                return Fe(i, ye, l.loopIteration, t);
+                return We(i, Ce, l.loopIteration, t);
               }
               default:
                 l.type;
@@ -1102,7 +1140,7 @@ __d(
         }
       },
     );
-    function J(e, t, n, r, a) {
+    function Z(e, t, n, r, a) {
       var i = a.templateNumber,
         l = a.templateTime,
         s = r;
@@ -1131,7 +1169,7 @@ __d(
       }
       return s;
     }
-    function Z(e, t) {
+    function ee(e, t) {
       return e.slice().sort(function (e, n) {
         var r = t.indexOf(e.representationId);
         r === -1 && (r = Number.POSITIVE_INFINITY);
@@ -1148,12 +1186,12 @@ __d(
         );
       });
     }
-    function ee(e) {
+    function te(e) {
       for (var t of e.dataKeyToResponseByteRange.keys())
         if (!t.startsWith("init-") && !t.startsWith("sidx-")) return !1;
       return !0;
     }
-    function te(e, t, n, r, o, a) {
+    function ne(e, t, n, r, o, a) {
       for (var i = 0; i < t.length; ++i) {
         var l = t[i],
           s = V(l, a);
@@ -1171,7 +1209,7 @@ __d(
               s.state === "waiting_headers" ||
               s.state === "waiting_data"
             ) {
-              var c = ee(l);
+              var c = te(l);
               if (c) {
                 var d;
                 n.set(
@@ -1205,62 +1243,79 @@ __d(
         }
       }
     }
-    var ne = 5 * 1e3;
-    function re(e, t) {
+    var re = 5 * 1e3;
+    function oe(e, t) {
       if (e.config.isLivePlayback) return !1;
       var n = o("videoUrlUtils").parseCdnUrlParams(t).expirationDate;
-      return n != null && n.getTime() - ne <= e.host.clock().unixMs;
-    }
-    function oe(e, t) {
-      return (
-        re(e, t.baseURL) || (t.type === "BaseURLInitURL" && re(e, t.initURL))
-      );
+      return n != null && n.getTime() - re <= e.host.clock().unixMs;
     }
     function ae(e, t) {
+      return (
+        !e.config.enableLive ||
+        o("VideoPlayerNextgendashURLUtils").isAbsoluteUrl(t)
+      );
+    }
+    function ie(e, t) {
+      return (
+        oe(e, t.baseURL) ||
+        (t.type === "BaseURLInitURL" && ae(e, t.initURL) && oe(e, t.initURL))
+      );
+    }
+    function le(e, t) {
       for (var n = 0; n < e.length; n++) {
         var r = e[n];
         if (r[0] <= t && t <= r[1]) return (r[1] - t) * 1e3;
       }
       return 0;
     }
-    function ie(e, t) {
+    function se(e, t) {
       return e > 0 ? e : t;
     }
-    function le(e, t) {
+    function ue(e, t) {
       for (var n = 0; n < e.length; n++) {
         var r = e[n];
         if (r[0] <= t && t <= r[1]) return Math.max(t, r[1]);
       }
       return t;
     }
-    function se(e, t, n) {
-      return e !== void 0 && t < n && Wt(e, [t, n], b);
-    }
-    function ue(e, t, n) {
-      return e !== void 0 && t >= n && Wt(e, [n, t], b);
-    }
     function ce(e, t, n) {
-      if (t == null || n == null) return !0;
-      var r = e.segmentsInfo;
-      if (r.type !== "SegmentTemplate") return !0;
-      var o = le(t, n),
-        a = Vt(r, !0),
-        i = a.find(function (e) {
-          return e.mediaTimeRange[1] > o - x;
-        });
-      return i != null && i.mediaTimeRange[0] <= o + b;
+      return e !== void 0 && t < n && rn(e, [t, n], b);
     }
-    function de(e, t) {
+    function de(e, t, n) {
+      return e !== void 0 && t >= n && rn(e, [n, t], b);
+    }
+    var me = 2;
+    function pe(e, t, n, r) {
+      if ((r === void 0 && (r = !1), t == null || n == null)) return !0;
+      var o = e.segmentsInfo;
+      if (o.type !== "SegmentTemplate") return !0;
+      var a = ue(t, n),
+        i = ln(o, !0),
+        l = i.find(function (e) {
+          return e.mediaTimeRange[1] > a - x;
+        }),
+        s = o.segmentTimelinePredictive,
+        u = i[i.length - 1];
+      if (l == null && r && s != null && s.endNumber != null && u != null) {
+        var c =
+          s.segmentAverageDuration != null
+            ? s.segmentAverageDuration / o.timescale
+            : u.mediaTimeRange[1] - u.mediaTimeRange[0];
+        return u.mediaTimeRange[1] + me * c >= a - b;
+      }
+      return l != null && l.mediaTimeRange[0] <= a + b;
+    }
+    function _e(e, t) {
       return t ? (e < 2e3 ? 3 : e < 5e3 ? 2 : 1) : 1;
     }
-    function me(e, t, n) {
+    function fe(e, t, n) {
       n === void 0 && (n = 3e4);
       var r = e.filter(function (e) {
         return t - e < n;
       });
       return Math.min(r.length / 3, 1);
     }
-    function pe(e, t, n) {
+    function ge(e, t, n) {
       n === void 0 && (n = T);
       var r = e.filter(function (e) {
         return t - e.timestamp < n;
@@ -1278,7 +1333,7 @@ __d(
         i = Math.sqrt(a) / o;
       return Math.min(Math.max((i - 0.1) / 0.4, 0), 1);
     }
-    function _e(e, t, n, r) {
+    function he(e, t, n, r) {
       var o = e,
         a = t;
       n != null &&
@@ -1302,7 +1357,7 @@ __d(
         { bandwidthSamples: o, lastBandwidthDiagnosticsSignature: a }
       );
     }
-    function fe(e, t, n) {
+    function ye(e, t, n) {
       n === void 0 && (n = 1e4);
       var r = e
         .filter(function (e) {
@@ -1339,9 +1394,9 @@ __d(
         y = (g + h) / 2;
       return { confidence: y, slopePerSecond: m, trend: _ };
     }
-    function ge(e, t, n, r, o) {
+    function Ce(e, t, n, r, o) {
       if (t.length <= 1) return null;
-      var a = fe(n, o),
+      var a = ye(n, o),
         i = a.confidence,
         l = a.slopePerSecond,
         s = a.trend;
@@ -1360,18 +1415,18 @@ __d(
         ? null
         : { confidence: i, representation: p, trend: s };
     }
-    function he(e, t, n, r, o, a, i, l) {
+    function be(e, t, n, r, o, a, i, l) {
       for (var s = 2, u = 1, c = 1, d = 0; d < t.length; ++d) {
         var m = t[d];
         if (!(m.responseFetch != null || m.poolTrackingID != null)) {
-          if (e.config.enableCdnUrlRefresh && oe(e, m.requestInfoArgs)) {
+          if (e.config.enableCdnUrlRefresh && ie(e, m.requestInfoArgs)) {
             m.isAwaitingUrlRefresh ||
               (t[d] = babelHelpers.extends({}, m, {
                 isAwaitingUrlRefresh: !0,
               }));
             continue;
           }
-          var p = ee(m),
+          var p = te(m),
             _ =
               e.config.enableCombinedInitSidxFetch ||
               (!p && e.config.enableAdaptiveConcurrentSegmentFetching),
@@ -1395,7 +1450,7 @@ __d(
                 b,
                 v = (C = i.get(m.streamType)) != null ? C : 0,
                 S = (b = l.get(m.streamType)) != null ? b : !1;
-              g = de(v, S);
+              g = _e(v, S);
             } else g = u;
           } else {
             var R,
@@ -1441,10 +1496,10 @@ __d(
         }
       }
     }
-    function ye(e, t, n, r, a, i, l) {
+    function ve(e, t, n, r, a, i, l) {
       var s = new Map(),
         u = new Map();
-      te(e, n, s, u, r, t.args.fetchPoolAPI);
+      ne(e, n, s, u, r, t.args.fetchPoolAPI);
       var c =
         e.config.trackScrollPosition && e.config.qplEnabled ? new Map() : null;
       function d(n) {
@@ -1465,7 +1520,7 @@ __d(
           m = t.makeChildSm,
           p = t.sendToOther,
           _ = t.sendToSelf,
-          f = Q(e, n.requestInfoArgs),
+          f = X(e, n.requestInfoArgs),
           g =
             e.host.nativeMedia != null
               ? {
@@ -1479,7 +1534,7 @@ __d(
           var h = d.fetchPoolAPI.submitFetchRequest(
             babelHelpers.extends({}, n.requestDraft, g, { requestInfo: f }),
             e.config.releasePastStateMachineStates
-              ? X(_, n.requestDraft.requestID)
+              ? Y(_, n.requestDraft.requestID)
               : function (e, t, r) {
                   _(
                     {
@@ -1498,7 +1553,7 @@ __d(
               .VideoPlayerNextgendashFetchedResourceSM,
             {
               onTransitioned: e.config.releasePastStateMachineStates
-                ? X(_, n.requestDraft.requestID)
+                ? Y(_, n.requestDraft.requestID)
                 : function (e, t, r) {
                     _(
                       {
@@ -1517,7 +1572,7 @@ __d(
           return (p(y, { type: "start" }), y);
         }
       }
-      if ((he(e, n, s, u, d, r, i, l), c != null && c.size > 0)) {
+      if ((be(e, n, s, u, d, r, i, l), c != null && c.size > 0)) {
         var m,
           p,
           _,
@@ -1534,12 +1589,12 @@ __d(
       }
       return n;
     }
-    var Ce = 1e3,
-      be = 20;
-    function ve(e, t, n) {
+    var Se = 1e3,
+      Re = 20;
+    function Le(e, t, n) {
       return Math.max(0, e, t ? n : 0);
     }
-    function Se(e, t, a, i, l, s) {
+    function Ee(e, t, a, i, l, s) {
       s === void 0 && (s = 0);
       var u = t.args.sendPlayerWarningToMain,
         c = t.sendToSelf,
@@ -1549,7 +1604,7 @@ __d(
       if (p.loopScheduledToUnixMs == null || m < p.loopScheduledToUnixMs) {
         var _ = p.loopTimerID;
         _ != null && (e.host.timers.clearTimeout(_), (_ = null));
-        var f = ve(
+        var f = Le(
             m - d,
             e.config.isLivePlayback,
             e.config.liveObserveAndActMinDelayMs,
@@ -1584,7 +1639,7 @@ __d(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject(
               babelHelpers.extends({}, p, {
-                loopReasons: we(e, p.loopIteration, p.loopReasons, C),
+                loopReasons: Oe(e, p.loopIteration, p.loopReasons, C),
                 loopScheduledToUnixMs: d + f,
                 loopTimerDelayMs: f,
                 loopTimerID: f > 0 ? e.host.timers.setTimeout(b, f) : null,
@@ -1593,7 +1648,7 @@ __d(
           });
         return f > 0
           ? v
-          : s >= be
+          : s >= Re
             ? (u(
                 o("nextgendasherr").nextgendasherr(
                   e,
@@ -1610,17 +1665,17 @@ __d(
                 .then(b)
                 .catch(r("emptyFunction")),
               v)
-            : Fe(e, v, h, t, s);
+            : We(e, v, h, t, s);
       } else return;
     }
-    var Re = " ** ",
-      Le = /^(.*)[ ][*][*][ ](\d+)$/;
-    function Ee(e) {
+    var ke = " ** ",
+      Ie = /^(.*)[ ][*][*][ ](\d+)$/;
+    function Te(e) {
       var t = [],
         n = null,
         r = 0;
       for (var o of e) {
-        var a = o.includes(Re) ? Le.exec(o) : null,
+        var a = o.includes(ke) ? Ie.exec(o) : null,
           i = 1;
         if (a != null) {
           var l = parseInt(a[2], 10);
@@ -1631,17 +1686,17 @@ __d(
           r += i;
           continue;
         }
-        (ke(t, n, r), (n = s), (r = i));
+        (De(t, n, r), (n = s), (r = i));
       }
-      return (ke(t, n, r), t);
+      return (De(t, n, r), t);
     }
-    function ke(e, t, n) {
+    function De(e, t, n) {
       t != null && e.push("" + t + (n === 1 ? "" : " ** " + n));
     }
-    function Ie(e, t, n, r) {
+    function xe(e, t, n, r) {
       return n ? e : Math.max(0, t - r);
     }
-    function Te(e, t, n, r) {
+    function $e(e, t, n, r) {
       var a;
       if (
         !e.host.mediaSourceEndOfStreamCallIsExpectedToBeSafeAndNotNoop(
@@ -1712,11 +1767,11 @@ __d(
                       function (e) {
                         return (
                           e.representationId === t.targetRepresentationId &&
-                          Ye(e.segment, _)
+                          et(e.segment, _)
                         );
                       },
                     )),
-                g = Ie(p[0], p[1], f, e.config.endOfStreamBufferToleranceSec);
+                g = xe(p[0], p[1], f, e.config.endOfStreamBufferToleranceSec);
               c.some(function (e) {
                 return o("VideoPlayerNextgendashMediaUtils").isWithinRange(
                   e,
@@ -1742,8 +1797,8 @@ __d(
           n.push("endOfStream call attempted"))
         : n.push("endOfStream skipped: !shouldCallEndOfStreamAll");
     }
-    var De = 2e3;
-    function xe(e, t, n, r, a) {
+    var Pe = 2e3;
+    function Ne(e, t, n, r, a) {
       var i, l;
       if (t.recoveringFromMediaError || r.streamFatalError != null)
         return { abortFurtherStreamProcessing: !0, stream: r };
@@ -1847,7 +1902,7 @@ __d(
       }
       return { abortFurtherStreamProcessing: !1, stream: r };
     }
-    function $e(e, t) {
+    function Me(e, t) {
       if (
         !(e.host.nativeMedia == null || t == null) &&
         (t.metadata.manifestType === "dynamic" ||
@@ -1866,8 +1921,8 @@ __d(
           "Native playback requires MP4 SegmentBase VOD",
         );
     }
-    function Pe(e, t, n, r, a) {
-      $e(e, a);
+    function we(e, t, n, r, a) {
+      Me(e, a);
       var i = [];
       e.config.mediaSinkType === "HYBRID" &&
         a != null &&
@@ -1904,17 +1959,17 @@ __d(
         )
       );
     }
-    var Ne = 60;
-    function Me(e, t) {
+    var Ae = 60;
+    function Fe(e, t) {
       return t.length === 0
         ? e
         : o(
             "VideoPlayerNextgendashStateMachine",
           ).skipAutoDisposeInsideThisObject(
-            [].concat(e.slice(0, -1), Ee([].concat(e.slice(-1), t))).slice(-Ne),
+            [].concat(e.slice(0, -1), Te([].concat(e.slice(-1), t))).slice(-Ae),
           );
     }
-    function we(e, t, n, r) {
+    function Oe(e, t, n, r) {
       return e.config.logStallDetailsAsPlayerWarning ||
         e.config.debugViz ||
         e.config.debugLog
@@ -1928,24 +1983,25 @@ __d(
           })
         : h;
     }
-    function Ae(e) {
+    function Be(e, t) {
       return new Set(
-        e
+        t
           .filter(function (e) {
             return e.isAwaitingUrlRefresh;
           })
-          .map(function (e) {
-            var t = [e.requestInfoArgs.baseURL];
+          .map(function (t) {
+            var n = [t.requestInfoArgs.baseURL];
             return (
-              e.requestInfoArgs.type === "BaseURLInitURL" &&
-                t.push(e.requestInfoArgs.initURL),
-              t
+              t.requestInfoArgs.type === "BaseURLInitURL" &&
+                ae(e, t.requestInfoArgs.initURL) &&
+                n.push(t.requestInfoArgs.initURL),
+              n
             );
           })
           .flat(),
       );
     }
-    function Fe(e, t, n, r, a) {
+    function We(e, t, n, r, a) {
       var i, l;
       a === void 0 && (a = 0);
       var s = r.eventClock,
@@ -1955,7 +2011,7 @@ __d(
         var d = t.loopState.loopTimerID;
         d != null && (e.host.timers.clearTimeout(d), (d = null));
         var m = t.playerStateFromMain.dashManifestData;
-        $e(e, m);
+        Me(e, m);
         var p = 10,
           _ = 10,
           f = [],
@@ -1963,7 +2019,7 @@ __d(
           h = 0,
           y = s,
           b = y,
-          v = e.config.enableCdnUrlRefresh ? Ae(t.fetchDemands) : null,
+          v = e.config.enableCdnUrlRefresh ? Be(e, t.fetchDemands) : null,
           k = t.fetchDemands,
           I = t.streams,
           x = I,
@@ -1974,18 +2030,27 @@ __d(
             try {
               if (m) {
                 var a = U(e, t.playerStateFromMain.mediaElementSnapshot),
-                  i = it({
+                  i = Rt({
                     enableLive: e.config.enableLive,
                     fellBehindWindowSec: S,
                     followEdgeActive: e.config.liveFollowEdgeActive,
                     isLivePlayback: e.config.isLivePlayback,
                     pairedRefetchEnabled:
-                      e.config.liveFellBehindPairedRefetchEnabled,
+                      e.config.liveFellBehindPairedRefetchEnabled &&
+                      !vt(
+                        e.config.livePausedEdgeRefetchSuspendEnabled,
+                        t.playerStateFromMain.mediaElementSnapshot,
+                      ),
                     playheadMediaTimeSec: a,
                     proactiveDriftSec:
                       e.config.liveFellBehindEdgeReseekDriftSec,
                     refetchBehindEdgeSec: L,
-                    refetchEnabled: e.config.liveFellBehindWindowRefetchEnabled,
+                    refetchEnabled:
+                      e.config.liveFellBehindWindowRefetchEnabled &&
+                      !vt(
+                        e.config.livePausedEdgeRefetchSuspendEnabled,
+                        t.playerStateFromMain.mediaElementSnapshot,
+                      ),
                     starvationBufferAheadSec: R,
                     streams: x
                       .filter(function (e) {
@@ -1997,11 +2062,11 @@ __d(
                             ? e.sidxByRepresentationId[e.targetRepresentationId]
                             : null;
                         return {
-                          bufferedAheadSec: rt(
+                          bufferedAheadSec: Ct(
                             e.appendState.sourceBufferRanges,
                             a,
                           ),
-                          confirmedLiveEdgeMediaTimeSec: et(t),
+                          confirmedLiveEdgeMediaTimeSec: ut(t),
                         };
                       }),
                   }),
@@ -2038,7 +2103,7 @@ __d(
                                 sourceBufferRangesAnnotated: [],
                                 workaroundForSegmentBufferedInsufficiently: [],
                               }),
-                              appliedPresentationTimeOffsetSec: We(
+                              appliedPresentationTimeOffsetSec: Ve(
                                 e,
                                 m.manifestRepresentations.video,
                               ),
@@ -2061,7 +2126,7 @@ __d(
                               videoABRStateClock: null,
                               videoABRSwitchClock: null,
                             }),
-                            (c = nn(e, g, c, m)))
+                            (c = bn(e, g, c, m)))
                           : a === "audio" &&
                             ((c = {
                               appendState: o(
@@ -2078,7 +2143,7 @@ __d(
                                 sourceBufferRangesAnnotated: [],
                                 workaroundForSegmentBufferedInsufficiently: [],
                               }),
-                              appliedPresentationTimeOffsetSec: We(
+                              appliedPresentationTimeOffsetSec: Ve(
                                 e,
                                 m.manifestRepresentations.audio,
                               ),
@@ -2098,7 +2163,7 @@ __d(
                               targetVariantRepresentationIds: C(e, []),
                               type: "audio",
                             }),
-                            (c = nn(e, g, c, m))));
+                            (c = bn(e, g, c, m))));
                       var d =
                         s == null && c != null
                           ? "added"
@@ -2115,14 +2180,14 @@ __d(
                               ":" +
                               d +
                               ":manifestRepresentations=" +
-                              vt(m.manifestRepresentations[a]),
+                              Ot(m.manifestRepresentations[a]),
                           )),
                         c != null)
                       ) {
                         var p = c,
                           _ = g.length;
                         try {
-                          var f = Ue(
+                          var f = Ge(
                             e,
                             t,
                             m,
@@ -2201,7 +2266,7 @@ __d(
         );
         var M = [];
         if (!P) {
-          var w = Z(
+          var w = ee(
             k,
             e.config.fetchInitSidxOfAllRepresentations
               ? I.map(function (e) {
@@ -2237,12 +2302,12 @@ __d(
             O = t.playerStateFromMain.mediaElementSnapshot,
             B = U(e, O);
           for (var W of I) {
-            var q = ae(W.appendState.sourceBufferRanges, B);
+            var q = le(W.appendState.sourceBufferRanges, B);
             (A.set(W.type, q),
               F.set(W.type, W.appendState.appendChain != null));
           }
           if (
-            ((k = ye(
+            ((k = ve(
               e,
               r,
               w,
@@ -2253,7 +2318,7 @@ __d(
             )),
             e.config.enableCdnUrlRefresh)
           ) {
-            var V = Array.from(Ae(k)).filter(function (e) {
+            var V = Array.from(Be(e, k)).filter(function (e) {
               return v != null && !v.has(e);
             });
             V.length > 0 &&
@@ -2285,11 +2350,11 @@ __d(
                 ((K = [].concat(K, [z])), (X = !0));
             };
           for (var J of I) Y(J);
-          var ee = e.host.networkDiagnosticsReadBandwidth(
+          var Z = e.host.networkDiagnosticsReadBandwidth(
               e.config.enableBandwidthDiagnosticsFallback,
               e.config.bandwidthDiagnosticsFallbackDefaultEstimate,
             ),
-            te = _e(Q, G.lastBandwidthDiagnosticsSignature, ee, z),
+            te = he(Q, G.lastBandwidthDiagnosticsSignature, Z, z),
             ne = te.lastBandwidthDiagnosticsSignature;
           ((te.bandwidthSamples !== Q ||
             ne !== G.lastBandwidthDiagnosticsSignature) &&
@@ -2316,14 +2381,14 @@ __d(
           );
           if (re != null && re.bandwidthEstimate > 0) {
             var oe = null,
-              ie = function () {
+              ae = function () {
                 var t = se.type;
                 if (t !== "video" && t !== "audio") return 0;
                 var r = se.playableRepresentations;
                 if (r.length <= 1) return 0;
                 var o = se.targetRepresentationId;
                 if (o == null) return 0;
-                var a = ge(
+                var a = Ce(
                   o,
                   r,
                   H.bandwidthSamples,
@@ -2333,7 +2398,7 @@ __d(
                 if (a != null && a.confidence > D) {
                   var i = a.representation;
                   if (i.segmentsInfo.type === "SegmentBase") {
-                    var l = je(i),
+                    var l = Xe(i),
                       u = se.sidxByRepresentationId[i.representationId] != null,
                       c = k.some(function (e) {
                         return e.activeDemands.has(l);
@@ -2354,14 +2419,14 @@ __d(
                           );
                         });
                         if (_) {
-                          var f = pt(k, function (e) {
+                          var f = xt(k, function (e) {
                             return e === p;
                           });
                           f != null && (k = f);
                         }
                       }
                       var g = n * 1e4 + 1e6;
-                      ((k = [].concat(k, [Ke(e, g, i)])),
+                      ((k = [].concat(k, [Ye(e, g, i)])),
                         oe == null &&
                           (oe = new Map(H.pendingSpeculativeSidxKeys)),
                         oe.set(t, l));
@@ -2369,8 +2434,8 @@ __d(
                   }
                 }
               },
-              le;
-            for (var se of I) le = ie();
+              ie;
+            for (var se of I) ie = ae();
             oe != null &&
               (H = C(
                 e,
@@ -2392,27 +2457,27 @@ __d(
           var de = !1,
             me = !0,
             pe = null;
-          for (var fe of I)
-            if (!(fe.type !== "video" && fe.type !== "audio")) {
+          for (var _e of I)
+            if (!(_e.type !== "video" && _e.type !== "audio")) {
               de = !0;
-              var he =
-                  fe.targetRepresentationId != null
-                    ? fe.sidxByRepresentationId[fe.targetRepresentationId]
+              var fe =
+                  _e.targetRepresentationId != null
+                    ? _e.sidxByRepresentationId[_e.targetRepresentationId]
                     : null,
-                be = tt({
+                ge = dt({
                   playheadMediaTimeSec: ue,
-                  sidx: he,
+                  sidx: fe,
                   toleranceSec: E,
                 });
-              if (be == null) {
+              if (ge == null) {
                 me = !1;
                 break;
               }
-              pe = pe == null ? be : Math.min(pe, be);
+              pe = pe == null ? ge : Math.min(pe, ge);
             }
           ce = de && me ? pe : null;
         }
-        var ve = nt({
+        var ye = mt({
             confirmSec: e.config.liveEndedStallConfirmSec,
             drainedTailEndSec: ce,
             enabled: e.config.liveEndedTransitionOnStallEnabled,
@@ -2425,21 +2490,21 @@ __d(
             nowUnixMs: e.host.clock().unixMs,
             prev: t.liveEndedStallState,
           }),
-          Re = ve.confirmed,
-          Le = ve.next,
-          Ee = babelHelpers.extends({}, t, {
-            debugPlaybackLoopRecentChanges: Me(
+          be = ye.confirmed,
+          Re = ye.next,
+          Le = babelHelpers.extends({}, t, {
+            debugPlaybackLoopRecentChanges: Fe(
               t.debugPlaybackLoopRecentChanges,
               f.concat(M),
             ),
             fetchDemands: k,
-            liveEndedStallState: Le,
+            liveEndedStallState: Re,
             loopState: o(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject(
               babelHelpers.extends({}, t.loopState, {
                 loopIteration: n,
-                loopReasons: we(e, n, t.loopState.loopReasons),
+                loopReasons: Oe(e, n, t.loopState.loopReasons),
                 loopScheduledToUnixMs: null,
                 loopTimerDelayMs: null,
                 loopTimerID: d,
@@ -2450,26 +2515,26 @@ __d(
           }),
           ke = [],
           Ie = !1,
-          De = !1;
+          Te = !1;
         if (
-          (Ee.streams.forEach(function (e) {
+          (Le.streams.forEach(function (e) {
             (e.type !== "video" && e.type !== "audio") ||
               ((e.appendState.currSourceBufferOperation != null ||
                 e.appendState.pendingAppendOperations.length !== 0 ||
                 e.appendState.pendingRemoveOperations.length !== 0) &&
                 (Ie = !0),
-              e.streamFatalError != null && (De = !0));
+              e.streamFatalError != null && (Te = !0));
           }),
-          Ie || De || Ee.recoveringFromMediaError != null)
+          Ie || Te || Le.recoveringFromMediaError != null)
         )
           ke.push(
             "endOfStream skipped: " +
               [
                 Ie ? "current or pending operation" : null,
-                De ? "pending stream fatal error(s)" : null,
-                Ee.recoveringFromMediaError != null
+                Te ? "pending stream fatal error(s)" : null,
+                Le.recoveringFromMediaError != null
                   ? "recovering from MediaError " +
-                    Ee.recoveringFromMediaError.name
+                    Le.recoveringFromMediaError.name
                   : null,
               ]
                 .filter(Boolean)
@@ -2477,7 +2542,7 @@ __d(
           );
         else
           try {
-            Te(e, Ee, ke, Re);
+            $e(e, Le, ke, be);
           } catch (t) {
             return (
               u({
@@ -2487,18 +2552,18 @@ __d(
                   "VideoPlayerNextgendashPlaybackLoopCheckAndCallEndOfStreamError",
                   "%s",
                   "debugPlaybackLoopRecentChanges:\n " +
-                    Ee.debugPlaybackLoopRecentChanges.join("\n "),
+                    Le.debugPlaybackLoopRecentChanges.join("\n "),
                   "endOfStreamDebugReasons:\n " + ke.join("\n "),
                 ),
                 type: "__exception",
               }),
-              Ee
+              Le
             );
           }
         ke.length === 0 && ke.push("endOfStream: checked, unknown result");
-        var xe = babelHelpers.extends({}, Ee, {
-          debugPlaybackLoopRecentChanges: Me(
-            Ee.debugPlaybackLoopRecentChanges,
+        var De = babelHelpers.extends({}, Le, {
+          debugPlaybackLoopRecentChanges: Fe(
+            Le.debugPlaybackLoopRecentChanges,
             ke,
           ),
         });
@@ -2507,7 +2572,7 @@ __d(
             u({
               exception: o("nextgendasherr").nextgendasherrFromMultipleCauses(
                 e,
-                xe.streams
+                De.streams
                   .map(function (e) {
                     return e.streamFatalError != null
                       ? [e.type, e.streamFatalError]
@@ -2517,12 +2582,12 @@ __d(
                 "VideoPlayerNextgendashPlaybackLoopStreamFatalErrors",
                 "%s",
                 "debugPlaybackLoopRecentChanges:\n " +
-                  xe.debugPlaybackLoopRecentChanges
+                  De.debugPlaybackLoopRecentChanges
                     .concat(
-                      xe.recoveringFromMediaErrorAttempt > 0
+                      De.recoveringFromMediaErrorAttempt > 0
                         ? [
                             "recoveringFromMediaErrorAttempt:" +
-                              xe.recoveringFromMediaErrorAttempt,
+                              De.recoveringFromMediaErrorAttempt,
                           ]
                         : [],
                     )
@@ -2530,31 +2595,31 @@ __d(
               ),
               type: "__exception",
             }),
-            xe
+            De
           );
-        if (xe.streams !== t.streams) {
-          var Pe;
-          return (Pe = Se(
+        if (De.streams !== t.streams) {
+          var xe;
+          return (xe = Ee(
             e,
             r,
             "streamsChanged:(" + f.join(",") + ")",
             0,
-            xe,
+            De,
             a + 1,
           )) != null
-            ? Pe
-            : xe;
-        } else {
-          var Ne;
-          return e.config.disablePlaybackLoopSchedulingOnTimer
             ? xe
-            : (Ne = Se(e, r, "!streamsChanged", 10 * Ce, xe, a + 1)) != null
-              ? Ne
-              : xe;
+            : De;
+        } else {
+          var Pe;
+          return e.config.disablePlaybackLoopSchedulingOnTimer
+            ? De
+            : (Pe = Ee(e, r, "!streamsChanged", 10 * Se, De, a + 1)) != null
+              ? Pe
+              : De;
         }
       }
     }
-    function Oe(e, t, n) {
+    function qe(e, t, n) {
       var r = e,
         a = r.sourceBufferState;
       if (a != null && t !== a.mediaSourceIndex) {
@@ -2592,14 +2657,14 @@ __d(
       }
       return r;
     }
-    function Be(e, t, n, r, a, i, l, s, u) {
+    function Ue(e, t, n, r, a, i, l, s, u) {
       var c,
         d,
         m = t,
         p = n,
         _ = r,
         f = a.representationId,
-        g = Ge(a);
+        g = Ke(a);
       if (
         e.host.nativeMedia != null &&
         ((c = m.appendState.appendChain) == null
@@ -2611,7 +2676,7 @@ __d(
           abortFurtherProcessing: !1,
           fetchDemandOrderNext: _,
           fetchDemands:
-            (h = pt(
+            (h = xt(
               p,
               function (e) {
                 return e === g;
@@ -2624,12 +2689,12 @@ __d(
           stream: m,
         };
       }
-      var y = dt(p, g, s, !0),
+      var y = Tt(p, g, s, !0),
         C = y == null ? void 0 : y.fetchState,
         b = y == null || (d = y.responseInfo) == null ? void 0 : d.buffer;
       if (b == null && C != null && C.state === "completed")
         return (
-          (m = rn(
+          (m = vn(
             e,
             l,
             u,
@@ -2653,25 +2718,61 @@ __d(
             stream: m,
           }
         );
-      if (C != null && C.state === "failed")
-        return (
-          (m = rn(
+      if (C != null && C.state === "failed") {
+        var v,
+          S = o("nextgendasherr").nextgendasherrFromCause(
             e,
-            l,
-            u,
-            m,
-            i,
+            C.error,
+            "VideoPlayerNextgendashPlaybackLoopInitFetchFailed",
+            "%s:%s - Failed to fetch init; mimeCodecs=%s",
+            m.type,
             f,
-            o("nextgendasherr").nextgendasherrFromCause(
-              e,
-              C.error,
-              "VideoPlayerNextgendashPlaybackLoopInitFetchFailed",
-              "%s:%s - Failed to fetch init; mimeCodecs=%s",
-              m.type,
-              f,
-              a.mimeCodecsParsed.mimeCodecs,
-            ),
-          )),
+            a.mimeCodecsParsed.mimeCodecs,
+          ),
+          R = e.host.clock().unixMs,
+          L = (v = m.liveSegmentFetchFailingSinceUnixMs) != null ? v : R;
+        if (
+          rt({
+            enableLive: e.config.enableLive,
+            errorName: S.name,
+            failingSinceUnixMs: L,
+            isLastPlayableRepresentation: m.playableRepresentations.length <= 1,
+            isLivePlayback: e.config.isLivePlayback,
+            nowUnixMs: R,
+            retryIndefinitely:
+              e.config.liveSegmentFetchRetryNetworkFailuresIndefinitely,
+            toleranceMs: e.config.liveSegmentFetchNetworkFailureToleranceMs,
+          })
+        ) {
+          var E;
+          return (
+            u.push(m.type + ":" + f + ":live_init_fetch_failed_retry"),
+            {
+              abortFurtherProcessing: !0,
+              fetchDemandOrderNext: _,
+              fetchDemands:
+                (E = xt(
+                  p,
+                  function (e) {
+                    return e === g;
+                  },
+                  s,
+                )) != null
+                  ? E
+                  : p,
+              initBuffer: null,
+              stream: babelHelpers.extends({}, m, {
+                liveOutageFailedRepresentationIds: at(
+                  m.liveOutageFailedRepresentationIds,
+                  f,
+                ),
+                liveSegmentFetchFailingSinceUnixMs: L,
+              }),
+            }
+          );
+        }
+        return (
+          (m = vn(e, l, u, m, i, f, S)),
           {
             abortFurtherProcessing: !0,
             fetchDemandOrderNext: _,
@@ -2680,15 +2781,15 @@ __d(
             stream: m,
           }
         );
-      if (y == null) {
-        var v =
+      } else if (y == null) {
+        var k =
           e.config.enableCombinedInitSidxFetch &&
           a.segmentsInfo.type === "SegmentBase" &&
           m.sidxByRepresentationId[f] == null &&
-          dt(p, je(a), s, !1) == null;
-        v
-          ? (p = [].concat(p, [Qe(e, ++_, a)]))
-          : (p = [].concat(p, [ze(e, ++_, a)]));
+          Tt(p, Xe(a), s, !1) == null;
+        k
+          ? (p = [].concat(p, [Je(e, ++_, a)]))
+          : (p = [].concat(p, [Qe(e, ++_, a)]));
       }
       return {
         abortFurtherProcessing: !1,
@@ -2698,7 +2799,7 @@ __d(
         stream: m,
       };
     }
-    function We(e, t) {
+    function Ve(e, t) {
       if (
         !e.config.applyManifestPresentationTimeOffset ||
         e.config.mediaSinkType !== "MSE"
@@ -2723,7 +2824,7 @@ __d(
         ? r
         : null;
     }
-    function qe(e, t, n, r, a, i) {
+    function He(e, t, n, r, a, i) {
       var l = t,
         s = l.sourceBufferState;
       if (s == null)
@@ -2786,7 +2887,7 @@ __d(
         }
       return l;
     }
-    function Ue(e, t, n, a, i, l, s, u, c) {
+    function Ge(e, t, n, a, i, l, s, u, c) {
       var d,
         m,
         p,
@@ -2809,46 +2910,46 @@ __d(
         O = a.sendToSelf,
         B = l,
         W = s * 1e4,
-        q = xe(e, t, F, i, c),
-        z = q.abortFurtherStreamProcessing,
-        j = q.stream;
-      if (j.streamFatalError != null || z)
-        return { fetchDemands: B, stream: j };
-      j = Oe(j, t.mediaSourceState.mediaSourceIndex, c);
-      var K = j.appendState.sourceBufferRanges,
-        Q = null,
-        X = n.manifestRepresentations[j.type].find(function (e) {
-          return e.representationId === j.targetRepresentationId;
+        q = Ne(e, t, F, i, c),
+        j = q.abortFurtherStreamProcessing,
+        K = q.stream;
+      if (K.streamFatalError != null || j)
+        return { fetchDemands: B, stream: K };
+      K = qe(K, t.mediaSourceState.mediaSourceIndex, c);
+      var Q = K.appendState.sourceBufferRanges,
+        X = null,
+        Y = n.manifestRepresentations[K.type].find(function (e) {
+          return e.representationId === K.targetRepresentationId;
         }),
-        Y = j.targetRepresentationReason,
-        J = !1;
-      if (X != null)
-        switch (j.type) {
+        J = K.targetRepresentationReason,
+        Z = !1;
+      if (Y != null)
+        switch (K.type) {
           case "video": {
-            var Z,
-              ee = t.playerStateFromMain.selectedMediaVariant;
-            J = wt(
-              ee,
-              ee != null ? ee : H,
-              (Z = j.prevSelectedMediaVariant) != null ? Z : H,
+            var ee,
+              te = t.playerStateFromMain.selectedMediaVariant;
+            Z = Jt(
+              te,
+              te != null ? te : G,
+              (ee = K.prevSelectedMediaVariant) != null ? ee : G,
               t.playerStateFromMain.selectedVideoQualityDisplayLabel,
-              j.prevSelectedVideoQualityDisplayLabel,
+              K.prevSelectedVideoQualityDisplayLabel,
             );
             break;
           }
           case "audio": {
-            var te,
-              ne = t.playerStateFromMain.selectedMediaVariant;
-            J = At(
-              ne,
-              ne != null ? ne : H,
-              (te = j.prevSelectedMediaVariant) != null ? te : H,
+            var ne,
+              re = t.playerStateFromMain.selectedMediaVariant;
+            Z = Zt(
+              re,
+              re != null ? re : G,
+              (ne = K.prevSelectedMediaVariant) != null ? ne : G,
             );
             break;
           }
         }
-      if (X == null || J) {
-        var re = Ot(
+      if (Y == null || Z) {
+        var oe = tn(
           e,
           A,
           t.playerWarningDedupMap,
@@ -2856,63 +2957,63 @@ __d(
           t.playerStateFromMain,
           n,
           M,
+          Q,
           K,
-          j,
           c,
         );
-        ((Q = re.prevTargetRepresentation),
-          (j = re.stream),
-          (X = re.targetRepresentation),
-          (Y = re.targetRepresentationReason));
+        ((X = oe.prevTargetRepresentation),
+          (K = oe.stream),
+          (Y = oe.targetRepresentation),
+          (J = oe.targetRepresentationReason));
       }
-      var oe = Q,
-        ae = X,
-        le = Y,
-        se = ae.representationId;
-      j = qe(e, j, t.mediaSourceState, ae, O, c);
-      var ue = j.sourceBufferState,
-        ce = Be(e, j, B, W, ae, n, A, a.args.fetchPoolAPI, c);
-      if (ce != null && ce.abortFurtherProcessing)
-        return { fetchDemands: ce.fetchDemands, stream: ce.stream };
-      ce != null &&
-        ((j = ce.stream), (B = ce.fetchDemands), (W = ce.fetchDemandOrderNext));
-      var de = ce == null ? void 0 : ce.initBuffer,
-        _e = j.sidxByRepresentationId[se],
-        fe = ae.segmentsInfo,
-        ge = je(ae),
-        he = dt(B, ge, a.args.fetchPoolAPI, !0),
-        ye = he == null ? void 0 : he.fetchState,
-        Ce = he == null ? void 0 : he.responseInfo,
-        be = Ce == null ? void 0 : Ce.buffer;
-      if (_e == null && (Ce == null ? void 0 : Ce.kind) === "native") {
-        var ve, Se;
-        if (fe.type !== "SegmentBase")
+      var ae = X,
+        ie = Y,
+        le = J,
+        ue = ie.representationId;
+      K = He(e, K, t.mediaSourceState, ie, O, c);
+      var ce = K.sourceBufferState,
+        de = Ue(e, K, B, W, ie, n, A, a.args.fetchPoolAPI, c);
+      if (de != null && de.abortFurtherProcessing)
+        return { fetchDemands: de.fetchDemands, stream: de.stream };
+      de != null &&
+        ((K = de.stream), (B = de.fetchDemands), (W = de.fetchDemandOrderNext));
+      var me = de == null ? void 0 : de.initBuffer,
+        pe = K.sidxByRepresentationId[ue],
+        _e = ie.segmentsInfo,
+        he = Xe(ie),
+        ye = Tt(B, he, a.args.fetchPoolAPI, !0),
+        Ce = ye == null ? void 0 : ye.fetchState,
+        be = ye == null ? void 0 : ye.responseInfo,
+        ve = be == null ? void 0 : be.buffer;
+      if (pe == null && (be == null ? void 0 : be.kind) === "native") {
+        var Se, Re;
+        if (_e.type !== "SegmentBase")
           throw o("nextgendasherr").nextgendasherr(
             e,
             "VideoPlayerNextgendashPlaybackLoopNativeSidxUnsupported",
           );
         if (
-          ((ve = j.nativeSidxParse) == null ? void 0 : ve.representation) !==
-            ae ||
-          ((Se = j.nativeSidxParse) == null ? void 0 : Se.mediaSourceIndex) !==
+          ((Se = K.nativeSidxParse) == null ? void 0 : Se.representation) !==
+            ie ||
+          ((Re = K.nativeSidxParse) == null ? void 0 : Re.mediaSourceIndex) !==
             t.mediaSourceState.mediaSourceIndex
         ) {
-          var Re = {
+          var Le = {
             mediaSourceIndex: t.mediaSourceState.mediaSourceIndex,
-            representation: ae,
+            representation: ie,
           };
-          j = babelHelpers.extends({}, j, { nativeSidxParse: Re });
-          var Le = Ce.buffer;
+          K = babelHelpers.extends({}, K, { nativeSidxParse: Le });
+          var Ee = be.buffer;
           r("promiseDone")(
-            Le.body.parseIndex({
-              byteLength: Le.byteLength,
-              byteOffset: Le.byteOffset,
-              fileOffset: fe.indexByteRange.byteOffset,
+            Ee.body.parseIndex({
+              byteLength: Ee.byteLength,
+              byteOffset: Ee.byteOffset,
+              fileOffset: _e.indexByteRange.byteOffset,
             }),
             function (e) {
               return O({
                 items: e,
-                parse: Re,
+                parse: Le,
                 result: "parsed",
                 type: "_native_sidx_result",
               });
@@ -2924,42 +3025,42 @@ __d(
                   t,
                   "VideoPlayerNextgendashPlaybackLoopSidxParseFailed",
                 ),
-                parse: Re,
+                parse: Le,
                 result: "failed",
                 type: "_native_sidx_result",
               });
             },
           );
         }
-      } else if (_e == null && be instanceof Uint8Array) {
-        var Ee = ae.mimeCodecsParsed.containerType,
-          ke = null;
+      } else if (pe == null && ve instanceof Uint8Array) {
+        var ke = ie.mimeCodecsParsed.containerType,
+          Ie = null;
         try {
-          switch (Ee) {
+          switch (ke) {
             case "mp4": {
-              var Ie =
-                fe.type === "SegmentBase" ? fe.indexByteRange.byteOffset : null;
-              if (Ie == null)
+              var Te =
+                _e.type === "SegmentBase" ? _e.indexByteRange.byteOffset : null;
+              if (Te == null)
                 throw o("nextgendasherr").nextgendasherr(
                   e,
                   "VideoPlayerNextgendashPlaybackLoopSidxParseMp4MissingSidxByteOffset",
                 );
-              ke = o("VideoPlayerNextgendashMp4SidxParser").parseMp4Sidx(
+              Ie = o("VideoPlayerNextgendashMp4SidxParser").parseMp4Sidx(
                 e,
-                be,
-                Ie,
-                j.appliedPresentationTimeOffsetSec,
+                ve,
+                Te,
+                K.appliedPresentationTimeOffsetSec,
               );
               break;
             }
             case "webm": {
-              de instanceof Uint8Array
-                ? (ke = o("VideoPlayerNextgendashWebmSidxParser").parseWebmSidx(
+              me instanceof Uint8Array
+                ? (Ie = o("VideoPlayerNextgendashWebmSidxParser").parseWebmSidx(
                     e,
-                    be,
-                    de,
+                    ve,
+                    me,
                   ))
-                : (ke = null);
+                : (Ie = null);
               break;
             }
             default:
@@ -2967,41 +3068,41 @@ __d(
                 e,
                 "VideoPlayerNextgendashPlaybackLoopSidxParseUnexpectedContainerType",
                 "Unexpected container type for sidx parsing: %s",
-                Ee,
+                ke,
               );
           }
         } catch (t) {
           return (
-            (j = rn(
+            (K = vn(
               e,
               A,
               c,
-              j,
+              K,
               n,
-              se,
+              ue,
               o("nextgendasherr").nextgendasherrFromCause(
                 e,
                 t,
                 "VideoPlayerNextgendashPlaybackLoopSidxParseFailed",
                 "%s:%s - Failed to parse sidx; mimeCodecs=%s",
-                j.type,
-                se,
-                ae.mimeCodecsParsed.mimeCodecs,
+                K.type,
+                ue,
+                ie.mimeCodecsParsed.mimeCodecs,
               ),
             )),
-            { fetchDemands: B, stream: j }
+            { fetchDemands: B, stream: K }
           );
         }
-        var Te = ke;
-        if (Te != null) {
-          var De, $e;
-          ((_e = Yt(
+        var De = Ie;
+        if (De != null) {
+          var xe, $e;
+          ((pe = fn(
             e,
-            j.type,
-            se,
-            Te.map(function (e, t) {
+            K.type,
+            ue,
+            De.map(function (e, t) {
               return {
-                isEndingSegment: t === Te.length - 1,
+                isEndingSegment: t === De.length - 1,
                 mediaFileByteRange: e.mediaFileByteRange,
                 mediaTimeRange: e.mediaTimeRange,
                 segmentId: t,
@@ -3010,24 +3111,24 @@ __d(
             !1,
           )),
             c.push(
-              j.type + ":" + se + ":sidx/buffer:" + Te.length + ":" + _e.length,
+              K.type + ":" + ue + ":sidx/buffer:" + De.length + ":" + pe.length,
             ),
-            (j = babelHelpers.extends({}, j, {
+            (K = babelHelpers.extends({}, K, {
               sidxByRepresentationId: o(
                 "VideoPlayerNextgendashStateMachine",
               ).skipAutoDisposeInsideThisObject(
                 babelHelpers.extends(
                   {},
-                  j.sidxByRepresentationId,
-                  ((De = {}), (De[se] = _e), De),
+                  K.sidxByRepresentationId,
+                  ((xe = {}), (xe[ue] = pe), xe),
                 ),
               ),
             })),
             (B =
-              ($e = pt(
+              ($e = xt(
                 B,
                 function (e) {
-                  return e === ge;
+                  return e === he;
                 },
                 a.args.fetchPoolAPI,
               )) != null
@@ -3035,421 +3136,454 @@ __d(
                 : B));
         }
       } else {
-        if (be == null && ye != null && ye.state === "completed")
+        if (ve == null && Ce != null && Ce.state === "completed")
           return (
-            (j = rn(
+            (K = vn(
               e,
               A,
               c,
-              j,
+              K,
               n,
-              se,
+              ue,
               o("nextgendasherr").nextgendasherr(
                 e,
                 "VideoPlayerNextgendashPlaybackLoopSidxFetchBufferExtractionFailed",
                 "%s:%s - Failed to extract sidx buffer from the completed response; mimeCodecs=%s",
-                j.type,
-                se,
-                ae.mimeCodecsParsed.mimeCodecs,
+                K.type,
+                ue,
+                ie.mimeCodecsParsed.mimeCodecs,
               ),
             )),
-            { fetchDemands: B, stream: j }
+            { fetchDemands: B, stream: K }
           );
-        if (_e == null && ye != null && ye.state === "failed")
+        if (pe == null && Ce != null && Ce.state === "failed")
           return (
-            (j = rn(
+            (K = vn(
               e,
               A,
               c,
-              j,
+              K,
               n,
-              se,
+              ue,
               o("nextgendasherr").nextgendasherrFromCause(
                 e,
-                ye.error,
+                Ce.error,
                 "VideoPlayerNextgendashPlaybackLoopSidxFetchFailed",
                 "%s:%s - Failed to fetch sidx; mimeCodecs=%s",
-                j.type,
-                se,
-                ae.mimeCodecsParsed.mimeCodecs,
+                K.type,
+                ue,
+                ie.mimeCodecsParsed.mimeCodecs,
               ),
             )),
-            { fetchDemands: B, stream: j }
+            { fetchDemands: B, stream: K }
           );
-        if (_e == null && fe.type === "SegmentTemplate") {
+        if (pe == null && _e.type === "SegmentTemplate") {
           var Pe,
-            Ne = n.metadata.manifestType === "dynamic",
-            Me = Vt(fe, Ne),
-            we = e.config.enableLive ? fe.segmentTimelinePredictive : null;
-          _e = Yt(e, j.type, se, Me, Ne);
-          var Ae = we != null ? Xt(we, _e, fe.timescale) : _e;
+            Me = n.metadata.manifestType === "dynamic",
+            we = ln(_e, Me),
+            Ae = e.config.enableLive ? _e.segmentTimelinePredictive : null;
+          pe = fn(e, K.type, ue, we, Me || e.config.isLivePlayback);
+          var Fe =
+            Ae != null
+              ? _n(
+                  Ae,
+                  pe,
+                  _e.timescale,
+                  e.config.isLivePlayback &&
+                    e.config.livePredictiveSegmentFetchKeyByNumber,
+                )
+              : pe;
           (c.push(
-            j.type +
+            K.type +
               ":" +
-              se +
+              ue +
               ":sidx/template" +
-              (we != null ? "/predictive" : "") +
+              (Ae != null ? "/predictive" : "") +
               ":" +
-              Me.length +
+              we.length +
               ":" +
-              Ae.length,
+              Fe.length,
           ),
-            (j = babelHelpers.extends({}, j, {
+            (K = babelHelpers.extends({}, K, {
               sidxByRepresentationId: o(
                 "VideoPlayerNextgendashStateMachine",
               ).skipAutoDisposeInsideThisObject(
                 babelHelpers.extends(
                   {},
-                  j.sidxByRepresentationId,
-                  ((Pe = {}), (Pe[se] = Ae), Pe),
+                  K.sidxByRepresentationId,
+                  ((Pe = {}), (Pe[ue] = Fe), Pe),
                 ),
               ),
             })));
-        } else if (_e == null && he == null) {
-          var Fe;
+        } else if (pe == null && ye == null) {
+          var Oe;
           B = [].concat(
-            (Fe = pt(
+            (Oe = xt(
               B,
               function (e) {
-                return e !== ge && e.startsWith("sidx-" + ae.type + "-");
+                return e !== he && e.startsWith("sidx-" + ie.type + "-");
               },
               a.args.fetchPoolAPI,
             )) != null
-              ? Fe
+              ? Oe
               : B,
-            [Ke(e, ++W, ae)],
+            [Ye(e, ++W, ie)],
           );
         }
       }
-      var We = _e,
-        Ue = t.playerStateFromMain.mediaElementSnapshot,
-        Xe = U(e, Ue);
+      var Be = pe,
+        We = t.playerStateFromMain.mediaElementSnapshot,
+        Ve = U(e, We);
       if (
-        ((d = j.appendState.appendChain) == null ? void 0 : d.mediaTail) != null
+        ((d = K.appendState.appendChain) == null ? void 0 : d.mediaTail) != null
       ) {
-        var tt = Zt(
+        var Ge = hn(
           e,
-          j.type,
-          se,
-          j.appendState.appendChain,
-          Xe,
-          K,
+          K.type,
+          ue,
+          K.appendState.appendChain,
+          Ve,
+          Q,
           t.mediaSourceState.mediaSource,
           c,
         );
-        tt !== j.appendState.appendChain &&
-          (j = babelHelpers.extends({}, j, {
+        Ge !== K.appendState.appendChain &&
+          (K = babelHelpers.extends({}, K, {
             appendState: o(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject(
-              babelHelpers.extends({}, j.appendState, { appendChain: tt }),
+              babelHelpers.extends({}, K.appendState, { appendChain: Ge }),
             ),
           }));
       }
-      var nt =
-        oe != null &&
-        (((m = ae.role) != null ? m : null) !==
-          ((p = oe.role) != null ? p : null) ||
-          ((_ = ae.lang) != null ? _ : null) !==
-            ((f = oe.lang) != null ? f : null));
+      var Ze =
+        ae != null &&
+        (((m = ie.role) != null ? m : null) !==
+          ((p = ae.role) != null ? p : null) ||
+          ((_ = ie.lang) != null ? _ : null) !==
+            ((f = ae.lang) != null ? f : null));
       if (
-        oe != null &&
-        se !== oe.representationId &&
-        (le === "selected_switch" || nt)
+        ae != null &&
+        ue !== ae.representationId &&
+        (le === "selected_switch" || Ze)
       ) {
-        var it = 5,
-          lt = nt ? 0 : Xe + it,
-          _t = [lt, Number.POSITIVE_INFINITY],
-          gt = {
+        var tt = 5,
+          nt = Ze ? 0 : Ve + tt,
+          ot = [nt, Number.POSITIVE_INFINITY],
+          ct = {
             operationState: "wait_start",
             operationTiming: { created: e.host.clock() },
             operationType: "remove_operation",
-            removeRange: _t,
+            removeRange: ot,
           };
         (c.push(
-          j.type +
+          K.type +
             ":" +
-            se +
+            ue +
             ":pendingRemoveOperations:newRemoveOperation:" +
             o("VideoPlayerNextgendashMediaUtils").debugStringifyTimeRange(
-              gt.removeRange,
+              ct.removeRange,
             ),
         ),
-          (j = babelHelpers.extends({}, j, {
+          (K = babelHelpers.extends({}, K, {
             appendState: o(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject(
-              babelHelpers.extends({}, j.appendState, {
+              babelHelpers.extends({}, K.appendState, {
                 pendingAppendOperations: [],
                 pendingRemoveOperations: [].concat(
-                  j.appendState.pendingRemoveOperations,
-                  [gt],
+                  K.appendState.pendingRemoveOperations,
+                  [ct],
                 ),
               }),
             ),
           })));
       }
-      var yt = e.config.mediaSinkType === "HYBRID" && !e.config.isLivePlayback,
-        Ct = yt
+      var dt = e.config.mediaSinkType === "HYBRID" && !e.config.isLivePlayback,
+        mt = dt
           ? e.config.nativeBackBufferRetentionSec
           : e.config.isLivePlayback
             ? e.config.liveBackBufferRetentionSec
             : 0;
       if (
-        Ct > 0 &&
-        j.sourceBufferState != null &&
-        j.appendState.currSourceBufferOperation == null &&
-        j.appendState.pendingAppendOperations.length === 0 &&
-        j.appendState.pendingRemoveOperations.length === 0
+        mt > 0 &&
+        K.sourceBufferState != null &&
+        K.appendState.currSourceBufferOperation == null &&
+        K.appendState.pendingAppendOperations.length === 0 &&
+        K.appendState.pendingRemoveOperations.length === 0
       ) {
-        var bt = ot(
-          K,
-          Xe,
-          Ct,
-          yt ? e.config.nativeBackBufferMinRemovableSec : w,
+        var pt = bt(
+          Q,
+          Ve,
+          mt,
+          dt ? e.config.nativeBackBufferMinRemovableSec : w,
         );
         if (
-          bt != null &&
+          pt != null &&
           e.host.mediaSourceCollectSnapshot(e, t.mediaSourceState.mediaSource)
             .readyState === "open"
         ) {
-          var vt = {
+          var _t = {
             operationState: "wait_start",
             operationTiming: { created: e.host.clock() },
             operationType: "remove_operation",
-            removeRange: [0, bt],
+            removeRange: [0, pt],
           };
           (c.push(
-            j.type +
+            K.type +
               ":" +
-              se +
+              ue +
               ":pendingRemoveOperations:newLiveBackBufferRemoveOperation:" +
               o("VideoPlayerNextgendashMediaUtils").debugStringifyTimeRange(
-                vt.removeRange,
+                _t.removeRange,
               ),
           ),
-            (j = babelHelpers.extends({}, j, {
+            (K = babelHelpers.extends({}, K, {
               appendState: o(
                 "VideoPlayerNextgendashStateMachine",
               ).skipAutoDisposeInsideThisObject(
-                babelHelpers.extends({}, j.appendState, {
+                babelHelpers.extends({}, K.appendState, {
                   pendingRemoveOperations: [].concat(
-                    j.appendState.pendingRemoveOperations,
-                    [vt],
+                    K.appendState.pendingRemoveOperations,
+                    [_t],
                   ),
                 }),
               ),
             })));
         }
       }
-      var St =
+      var ft =
         (g =
           (h =
             (C =
-              j.appendState.pendingAppendOperations[
-                j.appendState.pendingAppendOperations.length - 1
+              K.appendState.pendingAppendOperations[
+                K.appendState.pendingAppendOperations.length - 1
               ]) == null
               ? void 0
               : C.appendInfo.representationId) != null
             ? h
-            : j.appendState.currSourceBufferOperation != null &&
-                j.appendState.currSourceBufferOperation.operationType ===
+            : K.appendState.currSourceBufferOperation != null &&
+                K.appendState.currSourceBufferOperation.operationType ===
                   "append_operation"
-              ? j.appendState.currSourceBufferOperation.appendInfo
+              ? K.appendState.currSourceBufferOperation.appendInfo
                   .representationId
               : null) != null
           ? g
-          : j.appendState.lastAppendOperation != null &&
-              j.appendState.lastAppendOperation.operationState === "succeeded"
-            ? j.appendState.lastAppendOperation.appendInfo.representationId
+          : K.appendState.lastAppendOperation != null &&
+              K.appendState.lastAppendOperation.operationState === "succeeded"
+            ? K.appendState.lastAppendOperation.appendInfo.representationId
             : null;
-      if (ue != null && se !== St && de != null) {
-        var Rt = {
+      if (ce != null && ue !== ft && me != null) {
+        var yt = {
           appendInfo: {
             appendInfoType: "init",
-            mimeCodecsParsed: ae.mimeCodecsParsed,
-            representationId: se,
+            mimeCodecsParsed: ie.mimeCodecsParsed,
+            representationId: ue,
           },
-          buffer: de,
+          buffer: me,
           operationState: "wait_start",
           operationTiming: { created: e.host.clock() },
           operationType: "append_operation",
         };
         (c.push(
-          j.type +
+          K.type +
             ":" +
-            se +
+            ue +
             ":pendingAppendOperations:initAppendOperation:" +
-            ht(Rt.appendInfo),
+            Mt(yt.appendInfo),
         ),
-          (j = babelHelpers.extends({}, j, {
+          (K = babelHelpers.extends({}, K, {
             appendState: o(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject(
-              babelHelpers.extends({}, j.appendState, {
-                pendingAppendOperations: [Rt],
+              babelHelpers.extends({}, K.appendState, {
+                pendingAppendOperations: [yt],
               }),
             ),
           })));
       }
-      var Lt = 16.924449682236,
-        Et = e.config.isLivePlayback ? 20 : 22,
-        kt =
+      var Rt = 16.924449682236,
+        Lt = e.config.isLivePlayback ? 20 : 22,
+        $t =
           t.playerStateFromMain.mediaElementSnapshot == null
             ? "initial"
             : t.playerStateFromMain.mediaElementSnapshot.paused
               ? "paused"
               : "playing",
-        It = {
-          initial: yt
+        Nt = {
+          initial: dt
             ? Math.max(0, e.config.bufferAheadTargetNoMediaElementSec)
-            : ie(e.config.bufferAheadTargetNoMediaElementSec, Lt),
+            : se(e.config.bufferAheadTargetNoMediaElementSec, Rt),
           paused: e.config.bufferAheadTargetPausedSec,
-          playing: (E = e.config.bufferAheadTargetPlayingSec) != null ? E : Et,
-        }[kt],
-        Tt =
-          e.config.enableQuotaExceededRecovery && !yt
+          playing: (E = e.config.bufferAheadTargetPlayingSec) != null ? E : Lt,
+        }[$t],
+        wt =
+          e.config.enableQuotaExceededRecovery && !dt
             ? Math.max(
                 e.config.quotaExceededMinBufferTargetSec,
-                It * j.quotaExceededBufferTargetRatio,
+                Nt * K.quotaExceededBufferTargetRatio,
               )
-            : It,
-        Dt = Tt,
-        xt = t.volatilityState;
+            : Nt,
+        At = wt,
+        Ft = t.volatilityState;
       if (
         e.config.enableDynamicBufferWatermarks &&
-        !yt &&
-        kt === "playing" &&
-        xt != null
+        !dt &&
+        $t === "playing" &&
+        Ft != null
       ) {
-        var $t = F.unixMs,
-          Pt = me(xt.abrSwitchTimestamps, $t),
-          Nt = pe(xt.bandwidthSamples, $t),
-          Mt = Math.max(Pt, Nt),
-          Ft = Mt * I,
-          Bt = e.config.enableQuotaExceededRecovery
-            ? Ft * j.quotaExceededBufferTargetRatio
-            : Ft;
-        Dt = Tt + Bt;
+        var Ot = F.unixMs,
+          Bt = fe(Ft.abrSwitchTimestamps, Ot),
+          Wt = ge(Ft.bandwidthSamples, Ot),
+          qt = Math.max(Bt, Wt),
+          Ut = qt * I,
+          Vt = e.config.enableQuotaExceededRecovery
+            ? Ut * K.quotaExceededBufferTargetRatio
+            : Ut;
+        At = wt + Vt;
       }
-      var Wt =
-          (k = j.appendState.appendChain) == null
+      var Ht =
+          (k = K.appendState.appendChain) == null
             ? void 0
             : k.playheadMinimumTimeSec,
-        Ht = et(We),
-        Gt = rt(K, Xe),
-        zt = at({
-          bufferedAheadSec: Gt,
+        Gt = ut(Be),
+        zt = vt(
+          e.config.livePausedEdgeRefetchSuspendEnabled,
+          t.playerStateFromMain.mediaElementSnapshot,
+        ),
+        jt = Ct(Q, Ve),
+        Kt = St({
+          bufferedAheadSec: jt,
           enableLive: e.config.enableLive,
           fellBehindWindowSec: S,
           followEdgeActive: e.config.liveFollowEdgeActive,
           isLivePlayback: e.config.isLivePlayback,
-          liveEdgeMediaTimeSec: Ht,
-          playheadMediaTimeSec: Xe,
+          liveEdgeMediaTimeSec: Gt,
+          playheadMediaTimeSec: Ve,
           proactiveDriftSec: e.config.liveFellBehindEdgeReseekDriftSec,
-          refetchEnabled: e.config.liveFellBehindWindowRefetchEnabled,
+          refetchEnabled: e.config.liveFellBehindWindowRefetchEnabled && !zt,
           starvationBufferAheadSec: R,
         }),
-        Jt =
+        Qt =
           e.config.liveFellBehindPairedRefetchEnabled &&
+          !zt &&
           e.config.isLivePlayback &&
           e.config.enableLive &&
           e.config.liveFollowEdgeActive
             ? u
             : null,
-        nn = Gt != null ? Xe + Gt : Xe,
-        ln = Jt != null && nn < Jt - b,
-        sn = zt || ln,
-        un = Jt != null ? Jt : Ht != null ? Ht - L : null,
+        Xt = jt != null ? Ve + jt : Ve,
+        Yt = Qt != null && Xt < Qt - b,
+        en = Kt || Yt,
+        rn = Qt != null ? Qt : Gt != null ? Gt - L : null,
+        sn =
+          en && rn != null
+            ? rn
+            : Ht != null && Ht > Ve
+              ? Ht - b
+              : K.appendState.appendChain != null
+                ? Ve - b
+                : Ve,
+        un = en && Gt != null ? Gt + At : Ve + At,
         cn =
-          sn && un != null
-            ? un
-            : Wt != null && Wt > Xe
-              ? Wt - b
-              : j.appendState.appendChain != null
-                ? Xe - b
-                : Xe,
-        dn = sn && Ht != null ? Ht + Dt : Xe + Dt,
-        mn =
-          j.appendState.currSourceBufferOperation != null &&
-          j.appendState.currSourceBufferOperation.operationType ===
+          K.appendState.currSourceBufferOperation != null &&
+          K.appendState.currSourceBufferOperation.operationType ===
             "append_operation"
-            ? j.appendState.currSourceBufferOperation.appendInfo
+            ? K.appendState.currSourceBufferOperation.appendInfo
                 .appendInfoType === "data" &&
-              j.appendState.currSourceBufferOperation.appendInfo
+              K.appendState.currSourceBufferOperation.appendInfo
                 .dataByteRangeLength > 0
-              ? j.appendState.currSourceBufferOperation.appendInfo
+              ? K.appendState.currSourceBufferOperation.appendInfo
               : null
-            : j.appendState.lastAppendOperation != null &&
-                j.appendState.lastAppendOperation.operationState ===
+            : K.appendState.lastAppendOperation != null &&
+                K.appendState.lastAppendOperation.operationState ===
                   "succeeded" &&
-                j.appendState.lastAppendOperation.appendInfo.appendInfoType ===
+                K.appendState.lastAppendOperation.appendInfo.appendInfoType ===
                   "data" &&
-                j.appendState.lastAppendOperation.appendInfo
+                K.appendState.lastAppendOperation.appendInfo
                   .dataByteRangeLength > 0
-              ? j.appendState.lastAppendOperation.appendInfo
+              ? K.appendState.lastAppendOperation.appendInfo
               : null;
-      function pn(t, n) {
-        return Ut(
-          j.appendState.appendChain,
+      function gn(t, n) {
+        return an(
+          K.appendState.appendChain,
           t,
           n,
           e.config.isLivePlayback && e.config.liveTimeBasedAppendAnchorEnabled,
         );
       }
-      var _n = We != null ? We : [],
-        fn =
-          yt &&
+      var bn = Be != null ? Be : [],
+        Ln =
+          dt &&
           t.playerStateFromMain.mediaSourceIndexApplied ===
             t.mediaSourceState.mediaSourceIndex &&
           t.playerStateFromMain.mediaElementSnapshot != null,
-        gn =
-          fn &&
+        En =
+          Ln &&
           ((T = t.playerStateFromMain.mediaElementSnapshot) == null
             ? void 0
             : T.seeking) === !0 &&
-          Number.isFinite(Xe) &&
-          Xe >= 0 &&
-          K != null &&
-          !K.some(function (e) {
+          Number.isFinite(Ve) &&
+          Ve >= 0 &&
+          Q != null &&
+          !Q.some(function (e) {
             var t = e[0],
               n = e[1];
-            return t <= Xe && Xe < n;
+            return t <= Ve && Ve < n;
           }),
-        hn = yt && Dt <= 0,
-        yn =
-          hn &&
+        kn = dt && At <= 0,
+        In =
+          kn &&
           ((D = t.playerStateFromMain.mediaElementSnapshot) == null
             ? void 0
             : D.paused) === !0 &&
           t.playerStateFromMain.mediaSourceIndexApplied ===
             t.mediaSourceState.mediaSourceIndex,
-        Cn =
-          yn &&
+        Tn =
+          In &&
           ((x = t.playerStateFromMain.mediaElementSnapshot) == null
             ? void 0
             : x.seeking) === !0,
-        bn = Math.round(Xe * 1e3);
-      function vn(e) {
-        return Math.abs(Math.round(e * 1e3) - bn) <= 1;
+        Dn =
+          e.config.nativeNextFirstMediaPrewarm && bn.length > 0
+            ? Et(ie, bn[0])
+            : null,
+        xn = K.appendState.appendChain,
+        $n =
+          e.config.nativeNextFirstMediaPrewarm &&
+          $t === "initial" &&
+          kn &&
+          !Ln &&
+          Ve === 0 &&
+          Dn != null &&
+          (K.nativeNextFirstMediaKey == null
+            ? xn == null ||
+              (xn.mediaTail == null &&
+                xn.playheadMinimumTimeSec === 0 &&
+                xn.representationId === ue)
+            : K.nativeNextFirstMediaKey === Dn &&
+              H(B, Dn, a.args.fetchPoolAPI)),
+        Pn = Math.round(Ve * 1e3);
+      function Nn(e) {
+        return Math.abs(Math.round(e * 1e3) - Pn) <= 1;
       }
-      function Sn(e) {
+      function Mn(e) {
         return (
-          gn &&
-          e.segment.mediaTimeRange[0] <= Xe &&
-          Xe < e.segment.mediaTimeRange[1] &&
-          (e.nativeSeekRetry == null || !vn(e.nativeSeekRetry.targetSec))
+          En &&
+          e.segment.mediaTimeRange[0] <= Ve &&
+          Ve < e.segment.mediaTimeRange[1] &&
+          (e.nativeSeekRetry == null || !Nn(e.nativeSeekRetry.targetSec))
         );
       }
-      function Rn(e) {
+      function wn(e) {
         var t;
         if (
-          !fn ||
+          !Ln ||
           ((t = e.nativeSeekRetry) == null ? void 0 : t.pending) !== !0 ||
-          !vn(e.nativeSeekRetry.targetSec)
+          !Nn(e.nativeSeekRetry.targetSec)
         )
           return !1;
-        var n = st(ae, e.segment);
+        var n = Et(ie, e.segment);
         return B.some(function (e) {
           if (e.isNativeSeek !== !0 || !e.activeDemands.has(n)) return !1;
           var t = V(e, a.args.fetchPoolAPI);
@@ -3460,228 +3594,245 @@ __d(
                 t.state !== "__disposed__";
         });
       }
-      var Ln = _n.filter(function (e) {
-          if (hn && !yn) return !1;
+      var An = bn.filter(function (e) {
+          if (kn && !In)
+            return (
+              $n &&
+              e === bn[0] &&
+              !on(Q, e) &&
+              !K.appendState.workaroundForSegmentBufferedInsufficiently.some(
+                function (t) {
+                  return t.representationId === ue && et(t.segment, e);
+                },
+              ) &&
+              !gn(ue, e)
+            );
           if (
-            !qt(K, e) &&
-            !j.appendState.workaroundForSegmentBufferedInsufficiently.some(
+            !on(Q, e) &&
+            !K.appendState.workaroundForSegmentBufferedInsufficiently.some(
               function (t) {
                 return (
-                  t.representationId === se &&
-                  Ye(t.segment, e) &&
-                  !Sn(t) &&
-                  !Rn(t)
+                  t.representationId === ue &&
+                  et(t.segment, e) &&
+                  !Mn(t) &&
+                  !wn(t)
                 );
               },
             )
           ) {
-            if (hn) {
-              var t = st(ae, e),
+            if (kn) {
+              var t = Et(ie, e),
                 n = B.some(function (e) {
                   return e.isNativeSeek === !0 && e.activeDemands.has(t);
                 });
               return (
-                (Cn || n) &&
-                ((e.mediaTimeRange[0] <= Xe + v && Xe <= e.mediaTimeRange[1]) ||
-                  (e.isEndingSegment && Xe > e.mediaTimeRange[1])) &&
-                !pn(se, e)
+                (Tn || n) &&
+                ((e.mediaTimeRange[0] <= Ve + v && Ve <= e.mediaTimeRange[1]) ||
+                  (e.isEndingSegment && Ve > e.mediaTimeRange[1])) &&
+                !gn(ue, e)
               );
             }
-            if (e.isEndingSegment && Xe > e.mediaTimeRange[1])
-              return !pn(se, e);
+            if (e.isEndingSegment && Ve > e.mediaTimeRange[1])
+              return !gn(ue, e);
             var r = o("VideoPlayerNextgendashMediaUtils").isWithinRange(
               e.mediaTimeRange,
-              cn,
+              sn,
             );
-            if (r) return !pn(se, e);
+            if (r) return !gn(ue, e);
             var a = o("VideoPlayerNextgendashMediaUtils").isWithinRange(
               e.mediaTimeRange,
-              dn,
+              un,
             );
-            if (a) return !pn(se, e);
-            var i = cn <= e.mediaTimeRange[0] && e.mediaTimeRange[1] <= dn;
-            if (i) return !pn(se, e);
+            if (a) return !gn(ue, e);
+            var i = sn <= e.mediaTimeRange[0] && e.mediaTimeRange[1] <= un;
+            if (i) return !gn(ue, e);
           }
           return !1;
         }),
-        En = fe.type === "SegmentTemplate" ? fe : null,
-        kn =
-          ($ = En == null ? void 0 : En.segmentTimelinePredictive) != null
+        Fn = _e.type === "SegmentTemplate" ? _e : null,
+        On =
+          ($ = Fn == null ? void 0 : Fn.segmentTimelinePredictive) != null
             ? $
             : null,
-        In = We != null && We.length > 0 ? We[We.length - 1] : null,
-        Tn = En != null ? jt(En) : null;
+        Bn = Be != null && Be.length > 0 ? Be[Be.length - 1] : null,
+        Wn = Fn != null ? dn(Fn) : null;
       if (
         e.config.isLivePlayback &&
         e.config.enableLive &&
-        Ln.length === 0 &&
-        We != null &&
-        En != null &&
-        kn != null &&
-        In != null &&
-        Kt(In, kn, e.config.liveRollingPdashReseedAfterStripEnabled, Tn, dn) &&
-        Qt(In, kn) !== j.predictiveTemplateNumberLastFailed
+        An.length === 0 &&
+        Be != null &&
+        Fn != null &&
+        On != null &&
+        Bn != null &&
+        mn(Bn, On, e.config.liveRollingPdashReseedAfterStripEnabled, Wn, un) &&
+        pn(Bn, On) !== K.predictiveTemplateNumberLastFailed
       ) {
-        var Dn = In.isPredictiveSegment !== !0,
-          xn = Xt(kn, We, En.timescale);
-        if (xn.length > We.length) {
-          var $n;
-          ((j = babelHelpers.extends({}, j, {
+        var qn = Bn.isPredictiveSegment !== !0,
+          Un = _n(
+            On,
+            Be,
+            Fn.timescale,
+            e.config.isLivePlayback &&
+              e.config.livePredictiveSegmentFetchKeyByNumber,
+          );
+        if (Un.length > Be.length) {
+          var Vn;
+          ((K = babelHelpers.extends({}, K, {
             sidxByRepresentationId: o(
               "VideoPlayerNextgendashStateMachine",
             ).skipAutoDisposeInsideThisObject(
               babelHelpers.extends(
                 {},
-                j.sidxByRepresentationId,
-                (($n = {}), ($n[se] = xn), $n),
+                K.sidxByRepresentationId,
+                ((Vn = {}), (Vn[ue] = Un), Vn),
               ),
             ),
           })),
-            (We = xn));
-          var Pn = xn[xn.length - 1];
-          ((Ln = [Pn]),
+            (Be = Un));
+          var Hn = Un[Un.length - 1];
+          ((An = [Hn]),
             c.push(
-              j.type +
+              K.type +
                 ":" +
-                se +
+                ue +
                 ":" +
-                (Dn ? "rolling_pdash_reseed" : "rolling_pdash") +
+                (qn ? "rolling_pdash_reseed" : "rolling_pdash") +
                 ":" +
-                String(Pn.templateNumber),
+                String(Hn.templateNumber),
             ));
         }
       }
-      var Nn = new Set(),
-        Mn = null,
-        wn = j.appendState.workaroundForSegmentBufferedInsufficiently.find(
+      var Gn = new Set(),
+        zn = null,
+        jn = K.appendState.workaroundForSegmentBufferedInsufficiently.find(
           function (e) {
             return (
-              e.representationId === se &&
-              (Sn(e) || Rn(e)) &&
-              Ln.some(function (t) {
-                return Ye(t, e.segment);
+              e.representationId === ue &&
+              (Mn(e) || wn(e)) &&
+              An.some(function (t) {
+                return et(t, e.segment);
               })
             );
           },
         );
       if (
-        !hn &&
-        wn == null &&
-        Ln.length > 1 &&
-        ae.segmentsInfo.type === "SegmentBase"
+        !kn &&
+        jn == null &&
+        An.length > 1 &&
+        ie.segmentsInfo.type === "SegmentBase"
       ) {
-        for (var An, Fn = [], On = 0; On < Ln.length; ++On) {
-          var Bn = Ln[On],
-            Wn = st(ae, Bn);
-          Nn.add(Wn);
-          var qn = mt(e, Mn != null ? Mn : B, Wn);
-          ((Mn = qn != null ? qn : Mn), qn == null && Fn.push(Bn));
+        for (var Kn, Qn = [], Xn = 0; Xn < An.length; ++Xn) {
+          var Yn = An[Xn],
+            Jn = Et(ie, Yn);
+          Gn.add(Jn);
+          var Zn = Dt(e, zn != null ? zn : B, Jn);
+          ((zn = Zn != null ? Zn : zn), Zn == null && Qn.push(Yn));
         }
         for (
-          var Un =
-              M != null && M.prefetchedRepresentationIds.includes(se)
+          var er =
+              M != null && M.prefetchedRepresentationIds.includes(ue)
                 ? [0]
                 : [],
-            Vn = Ve(
-              Fn,
-              Un,
+            tr = ze(
+              Qn,
+              er,
               e.host.nativeMedia != null
-                ? (An =
+                ? (Kn =
                     e.host.nativeMedia.getMaxBodyBytes == null
                       ? void 0
                       : e.host.nativeMedia.getMaxBodyBytes()) != null
-                  ? An
+                  ? Kn
                   : 16 * 1024 * 1024
                 : void 0,
             ),
-            Hn = 0;
-          Hn < Vn.length;
-          ++Hn
+            nr = 0;
+          nr < tr.length;
+          ++nr
         ) {
-          var Gn = Vn[Hn];
-          ((Mn = Mn != null ? Mn : [].concat(B)), Mn.push(ct(e, ++W, ae, Gn)));
+          var rr = tr[nr];
+          ((zn = zn != null ? zn : [].concat(B)), zn.push(It(e, ++W, ie, rr)));
         }
       } else
-        Ln.forEach(function (t) {
-          var n = st(ae, t);
-          Nn.add(n);
-          var r = mt(e, Mn != null ? Mn : B, n);
-          Mn = r != null ? r : Mn;
-          var o = Cn || (wn != null && Ye(wn.segment, t));
+        An.forEach(function (t) {
+          var n = Et(ie, t);
+          Gn.add(n);
+          var r = Dt(e, zn != null ? zn : B, n);
+          zn = r != null ? r : zn;
+          var o = Tn || (jn != null && et(jn.segment, t));
           (o &&
             r != null &&
-            (Mn = r.map(function (e) {
+            (zn = r.map(function (e) {
               return e.activeDemands.has(n)
                 ? babelHelpers.extends({}, e, { isNativeSeek: !0 })
                 : e;
             })),
             r == null &&
-              ((Mn = Mn != null ? Mn : [].concat(B)),
-              Mn.push(
+              ((zn = zn != null ? zn : [].concat(B)),
+              zn.push(
                 babelHelpers.extends(
                   {},
-                  ut(e, ++W, ae, t),
+                  kt(e, ++W, ie, t),
                   o ? { isNativeSeek: !0 } : {},
                 ),
               )));
         });
       {
-        var zn = new Set();
-        ((Mn != null ? Mn : B).forEach(function (t) {
+        var or = new Set();
+        ((zn != null ? zn : B).forEach(function (t) {
           var r = F.perfMs - t.demandedAtClock.perfMs,
             o = 0;
           r < o ||
             t.activeDemands.forEach(function (t) {
-              t.startsWith("segment-" + j.type + "-") &&
-                !Nn.has(t) &&
+              t.startsWith("segment-" + K.type + "-") &&
+                !Gn.has(t) &&
                 ![
-                  mn,
-                  j.appendState.currSourceBufferOperation != null &&
-                  j.appendState.currSourceBufferOperation.operationType ===
+                  cn,
+                  K.appendState.currSourceBufferOperation != null &&
+                  K.appendState.currSourceBufferOperation.operationType ===
                     "append_operation"
-                    ? j.appendState.currSourceBufferOperation.appendInfo
+                    ? K.appendState.currSourceBufferOperation.appendInfo
                     : null,
                 ]
                   .concat(
-                    j.appendState.pendingAppendOperations.map(function (e) {
+                    K.appendState.pendingAppendOperations.map(function (e) {
                       return e.appendInfo;
                     }),
                   )
                   .filter(Boolean)
                   .some(function (r) {
-                    var o = He(
+                    var o = je(
                       e,
-                      n.manifestRepresentations[j.type],
+                      n.manifestRepresentations[K.type],
                       r.representationId,
                     );
                     switch (r.appendInfoType) {
                       case "init":
-                        return t === Ge(o);
+                        return t === Ke(o);
                       case "data":
-                        return t === st(o, r.segment);
+                        return t === Et(o, r.segment);
                       default:
                         r.appendInfoType;
                     }
                   }) &&
-                zn.add(t);
+                or.add(t);
             });
         }),
-          zn.size > 0 &&
-            (Mn = pt(
-              Mn != null ? Mn : B,
+          or.size > 0 &&
+            (zn = xt(
+              zn != null ? zn : B,
               function (e) {
-                return zn.has(e);
+                return or.has(e);
               },
               a.args.fetchPoolAPI,
             )));
       }
       {
-        var jn = Mn != null ? Mn : B,
-          Kn = a.args.fetchPoolAPI,
-          Qn = jn.reduce(
+        var ar = zn != null ? zn : B,
+          ir = a.args.fetchPoolAPI,
+          lr = ar.reduce(
             function (e, t) {
-              if (t.streamType === j.type && t.activeDemands.size > 0) {
-                var n = V(t, Kn);
+              if (t.streamType === K.type && t.activeDemands.size > 0) {
+                var n = V(t, ir);
                 if (n == null) e.unfulfilledDemandsCountForThisStream += 1;
                 else {
                   var r = n.state;
@@ -3699,12 +3850,94 @@ __d(
               inflightFetchesCountForThisStream: 0,
               unfulfilledDemandsCountForThisStream: 0,
             },
+          ),
+          sr =
+            e.config.isLivePlayback &&
+            e.config.liveAbrDuringSlowSegmentFetchEnabled &&
+            K.type === "video" &&
+            K.appendState.currSourceBufferOperation == null &&
+            lr.inflightFetchesCountForThisStream > 0
+              ? gt(ar, ir, K, ie, Ct(Q, Ve), F.perfMs)
+              : null,
+          ur =
+            sr != null
+              ? ht(
+                  K.playableRepresentations,
+                  K.targetVariantRepresentationIds,
+                  t.playerStateFromMain.selectedVideoQualityDisplayLabel !=
+                    null,
+                  ie.bandwidth,
+                  sr.bandwidthSample,
+                )
+              : null;
+        if (sr != null && ur != null) {
+          var cr;
+          sr.hasReportedBandwidthSample ||
+            e.host.networkDiagnosticsUpdate({
+              bandwidthSample: sr.bandwidthSample,
+              clock: F,
+            });
+          var dr = "segment-" + K.type + "-" + ue + "-";
+          c.push(
+            K.type +
+              ":" +
+              ue +
+              ":live_slow_fetch_downswitch:" +
+              ur.representationId,
           );
+          var mr = nn(
+            e,
+            K,
+            c,
+            ie,
+            ur,
+            "abr_switch",
+            K.targetVariantRepresentationIds,
+            K.prevSelectedMediaVariant,
+            K.prevSelectedVideoQualityDisplayLabel,
+          );
+          return {
+            fetchDemands:
+              (cr = xt(
+                ar,
+                function (e) {
+                  var t;
+                  return (
+                    e.startsWith(dr) &&
+                    ((t = Tt(ar, e, ir, !1)) == null ||
+                    (t = t.fetchState) == null
+                      ? void 0
+                      : t.state) !== "completed"
+                  );
+                },
+                ir,
+              )) != null
+                ? cr
+                : ar,
+            stream: babelHelpers.extends({}, mr, {
+              appendState:
+                cn != null && cn.representationId === ue
+                  ? o(
+                      "VideoPlayerNextgendashStateMachine",
+                    ).skipAutoDisposeInsideThisObject(
+                      babelHelpers.extends({}, K.appendState, {
+                        lastAppendOperation: null,
+                      }),
+                    )
+                  : K.appendState,
+              liveSlowFetchEvaluatedFetchDataKey: sr.fetchDataKey,
+            }),
+          };
+        }
         if (
-          Qn.inflightFetchesCountForThisStream === 0 &&
-          Qn.unfulfilledDemandsCountForThisStream > 0
+          (sr != null &&
+            (K = babelHelpers.extends({}, K, {
+              liveSlowFetchEvaluatedFetchDataKey: sr.fetchDataKey,
+            })),
+          lr.inflightFetchesCountForThisStream === 0 &&
+            lr.unfulfilledDemandsCountForThisStream > 0)
         ) {
-          var Xn = Ot(
+          var pr = tn(
             e,
             A,
             t.playerWarningDedupMap,
@@ -3712,77 +3945,83 @@ __d(
             t.playerStateFromMain,
             n,
             M,
+            Q,
             K,
-            j,
             c,
           );
-          if (Xn.stream.targetRepresentationId !== j.targetRepresentationId)
-            return { fetchDemands: B, stream: Xn.stream };
-          j = Xn.stream;
+          if (pr.stream.targetRepresentationId !== K.targetRepresentationId)
+            return { fetchDemands: B, stream: pr.stream };
+          K = pr.stream;
         }
       }
       if (
         e.config.fetchInitSidxOfAllRepresentations &&
-        se != null &&
-        j.playableRepresentations.length > 1 &&
+        ue != null &&
+        K.playableRepresentations.length > 1 &&
         ((P = t.playerStateFromMain.mediaElementSnapshot) == null
           ? void 0
           : P.bufferedFully) !== !0
       ) {
-        for (var Yn of j.playableRepresentations)
-          if (Yn.representationId !== se) {
-            var Jn =
-                dt(Mn != null ? Mn : B, Ge(Yn), a.args.fetchPoolAPI, !1) !=
+        for (var _r of K.playableRepresentations)
+          if (_r.representationId !== ue) {
+            var fr =
+                Tt(zn != null ? zn : B, Ke(_r), a.args.fetchPoolAPI, !1) !=
                 null,
-              Zn =
-                j.sidxByRepresentationId[Yn.representationId] != null ||
-                dt(Mn != null ? Mn : B, je(Yn), a.args.fetchPoolAPI, !1) !=
+              gr =
+                K.sidxByRepresentationId[_r.representationId] != null ||
+                Tt(zn != null ? zn : B, Xe(_r), a.args.fetchPoolAPI, !1) !=
                   null;
-            if (!Jn || !Zn) {
-              var er =
+            if (!fr || !gr) {
+              var hr =
                 e.config.enableCombinedInitSidxFetch &&
-                Yn.segmentsInfo.type === "SegmentBase" &&
-                !Jn &&
-                !Zn;
-              er
-                ? ((Mn = Mn != null ? Mn : [].concat(B)),
-                  Mn.push(Qe(e, ++W, Yn)))
-                : (Jn ||
-                    ((Mn = Mn != null ? Mn : [].concat(B)),
-                    Mn.push(ze(e, ++W, Yn))),
-                  Zn ||
-                    ((Mn = Mn != null ? Mn : [].concat(B)),
-                    Mn.push(Ke(e, ++W, Yn))));
+                _r.segmentsInfo.type === "SegmentBase" &&
+                !fr &&
+                !gr;
+              hr
+                ? ((zn = zn != null ? zn : [].concat(B)),
+                  zn.push(Je(e, ++W, _r)))
+                : (fr ||
+                    ((zn = zn != null ? zn : [].concat(B)),
+                    zn.push(Qe(e, ++W, _r))),
+                  gr ||
+                    ((zn = zn != null ? zn : [].concat(B)),
+                    zn.push(Ye(e, ++W, _r))));
             }
           }
       }
-      B = Mn != null ? Mn : B;
-      var tr = j.appendState.workaroundForSegmentBufferedInsufficiently;
+      ((B = zn != null ? zn : B),
+        $n &&
+          K.nativeNextFirstMediaKey == null &&
+          Dn != null &&
+          H(B, Dn, a.args.fetchPoolAPI) &&
+          ((K = babelHelpers.extends({}, K, { nativeNextFirstMediaKey: Dn })),
+          c.push(K.type + ":nativeNextFirstMediaDemand")));
+      var yr = K.appendState.workaroundForSegmentBufferedInsufficiently;
       if (
-        (tr.some(function (e) {
+        (yr.some(function (e) {
           var t;
           return (
             (((t = e.nativeSeekRetry) == null ? void 0 : t.pending) === !0 &&
-              !Rn(e)) ||
-            (e === wn && Sn(e))
+              !wn(e)) ||
+            (e === jn && Mn(e))
           );
         }) &&
-          (j = babelHelpers.extends({}, j, {
-            appendState: babelHelpers.extends({}, j.appendState, {
-              workaroundForSegmentBufferedInsufficiently: tr.map(function (e) {
+          (K = babelHelpers.extends({}, K, {
+            appendState: babelHelpers.extends({}, K.appendState, {
+              workaroundForSegmentBufferedInsufficiently: yr.map(function (e) {
                 var t = e.nativeSeekRetry;
-                return e === wn &&
-                  Sn(e) &&
+                return e === jn &&
+                  Mn(e) &&
                   B.some(function (t) {
                     return (
                       t.isNativeSeek === !0 &&
-                      t.activeDemands.has(st(ae, e.segment))
+                      t.activeDemands.has(Et(ie, e.segment))
                     );
                   })
                   ? babelHelpers.extends({}, e, {
-                      nativeSeekRetry: { pending: !0, targetSec: bn / 1e3 },
+                      nativeSeekRetry: { pending: !0, targetSec: Pn / 1e3 },
                     })
-                  : t != null && t.pending && !Rn(e)
+                  : t != null && t.pending && !wn(e)
                     ? babelHelpers.extends({}, e, {
                         nativeSeekRetry: babelHelpers.extends({}, t, {
                           pending: !1,
@@ -3793,335 +4032,394 @@ __d(
             }),
           })),
         !(
-          j.appendState.pendingAppendOperations.length > 0 ||
-          j.appendState.currSourceBufferOperation != null
+          K.appendState.pendingAppendOperations.length > 0 ||
+          K.appendState.currSourceBufferOperation != null
         ))
       ) {
-        var nr = null;
-        if (mn != null)
-          nr = {
-            dataByteRangeStart: mn.dataByteRangeStart + mn.dataByteRangeLength,
-            incompleteChunkedAppendInfo: mn,
-            mimeCodecsParsed: mn.mimeCodecsParsed,
-            representationId: mn.representationId,
-            segment: mn.segment,
+        var Cr = null;
+        if (cn != null)
+          Cr = {
+            dataByteRangeStart: cn.dataByteRangeStart + cn.dataByteRangeLength,
+            incompleteChunkedAppendInfo: cn,
+            mimeCodecsParsed: cn.mimeCodecsParsed,
+            representationId: cn.representationId,
+            segment: cn.segment,
           };
-        else if (Ln.length > 0) {
-          var rr = Ln[0];
-          nr = {
+        else if (An.length > 0) {
+          var br = An[0];
+          Cr = {
             dataByteRangeStart: 0,
             incompleteChunkedAppendInfo: null,
-            mimeCodecsParsed: ae.mimeCodecsParsed,
-            representationId: se,
-            segment: rr,
+            mimeCodecsParsed: ie.mimeCodecsParsed,
+            representationId: ue,
+            segment: br,
           };
         }
-        var or = nr;
-        if (or != null) {
+        var vr = Cr;
+        if (vr != null) {
           if (
-            j.appendState.appendChain != null &&
-            j.appendState.appendChain.representationId === or.representationId
+            K.appendState.appendChain != null &&
+            K.appendState.appendChain.representationId === vr.representationId
           ) {
-            var ar = He(
+            var Sr = je(
                 e,
-                n.manifestRepresentations[j.type],
-                or.representationId,
+                n.manifestRepresentations[K.type],
+                vr.representationId,
               ),
-              ir = st(ar, or.segment),
-              lr = dt(B, ir, a.args.fetchPoolAPI);
+              Rr = Et(Sr, vr.segment),
+              Lr = Tt(B, Rr, a.args.fetchPoolAPI);
             if (
-              lr == null &&
-              or.incompleteChunkedAppendInfo != null &&
-              or.segment.isPredictiveSegment === !0
+              Lr == null &&
+              vr.incompleteChunkedAppendInfo != null &&
+              vr.segment.isPredictiveSegment === !0
             )
               return (
                 c.push(
-                  j.type +
+                  K.type +
                     ":" +
-                    or.representationId +
+                    vr.representationId +
                     ":abandon_incomplete_predictive_append:" +
-                    String(or.segment.templateNumber),
+                    String(vr.segment.templateNumber),
                 ),
-                (j = babelHelpers.extends({}, j, {
+                (K = babelHelpers.extends({}, K, {
                   appendState: o(
                     "VideoPlayerNextgendashStateMachine",
                   ).skipAutoDisposeInsideThisObject(
-                    babelHelpers.extends({}, j.appendState, {
+                    babelHelpers.extends({}, K.appendState, {
                       lastAppendOperation: null,
                     }),
                   ),
                 })),
-                { fetchDemands: B, stream: j }
+                { fetchDemands: B, stream: K }
               );
-            if (lr == null)
+            if (Lr == null)
               throw o("nextgendasherr").nextgendasherr(
                 e,
-                or.incompleteChunkedAppendInfo != null
+                vr.incompleteChunkedAppendInfo != null
                   ? "VideoPlayerNextgendashPlaybackLoopMissingFetchDemandForSegmentToContinueChunkedAppend"
                   : "VideoPlayerNextgendashPlaybackLoopMissingFetchDemandForSegmentToAppend",
                 "%s:%s - nextAppendInfo=%s segmentFetchDemandKey=%s fetchDemands=%s",
-                j.type,
-                se != null ? se : "no_target_representation",
-                JSON.stringify(or),
-                ir,
-                ft(B),
+                K.type,
+                ue != null ? ue : "no_target_representation",
+                JSON.stringify(vr),
+                Rr,
+                Pt(B),
               );
-            var sr = null,
-              ur = lr.fetchState;
-            ur != null && ur.state === "failed"
-              ? (sr = o("nextgendasherr").nextgendasherrFromCause(
+            var Er = null,
+              kr = Lr.fetchState;
+            kr != null && kr.state === "failed"
+              ? (Er = o("nextgendasherr").nextgendasherrFromCause(
                   e,
-                  ur.error,
+                  kr.error,
                   "VideoPlayerNextgendashPlaybackLoopSegmentFetchFailed",
                   "%s:%s - Fetch failed for media segment needed to append; segmentFetchDemandKey=%s nextAppendInfo=%s",
-                  j.type,
-                  se,
-                  ir,
-                  JSON.stringify(or),
+                  K.type,
+                  ue,
+                  Rr,
+                  JSON.stringify(vr),
                 ))
-              : ur != null &&
-                ur.state === "aborted" &&
-                (sr = o("nextgendasherr").nextgendasherr(
+              : kr != null &&
+                kr.state === "aborted" &&
+                (Er = o("nextgendasherr").nextgendasherr(
                   e,
                   "VideoPlayerNextgendashPlaybackLoopSegmentFetchAborted",
                   "%s:%s - Fetch aborted for media segment needed to append; segmentFetchDemandKey=%s nextAppendInfo=%s",
-                  j.type,
-                  se,
-                  ir,
-                  JSON.stringify(or),
+                  K.type,
+                  ue,
+                  Rr,
+                  JSON.stringify(vr),
                 ));
-            var cr = lr == null ? void 0 : lr.responseInfo;
-            if (sr != null) {
-              var dr,
-                mr =
-                  (dr = j.liveSegmentFetchFailingSinceUnixMs) != null
-                    ? dr
-                    : F.unixMs;
+            var Ir = Lr == null ? void 0 : Lr.responseInfo,
+              Tr =
+                vr.segment.isPredictiveSegment !== !0 &&
+                vr.segment.fetchKeyNumber != null &&
+                B.some(function (e) {
+                  return (
+                    e.requestDraft.requestID === Rr &&
+                    e.isPredictiveSegmentFetch === !0
+                  );
+                }),
+              Dr = function (t) {
+                return (
+                  c.push(
+                    K.type + ":" + vr.representationId + ":" + t + ":" + Rr,
+                  ),
+                  {
+                    fetchDemands: B.filter(function (e) {
+                      return e.requestDraft.requestID !== Rr;
+                    }),
+                    stream:
+                      vr.incompleteChunkedAppendInfo != null
+                        ? babelHelpers.extends({}, K, {
+                            appendState: o(
+                              "VideoPlayerNextgendashStateMachine",
+                            ).skipAutoDisposeInsideThisObject(
+                              babelHelpers.extends({}, K.appendState, {
+                                lastAppendOperation: null,
+                              }),
+                            ),
+                          })
+                        : K,
+                  }
+                );
+              };
+            if (Er != null) {
+              var xr;
+              if (Tr)
+                return Dr("confirmed_segment_predictive_fetch_failed_refetch");
+              var $r =
+                (xr = K.liveSegmentFetchFailingSinceUnixMs) != null
+                  ? xr
+                  : F.unixMs;
               if (
-                or.segment.isPredictiveSegment !== !0 &&
-                Je({
+                vr.segment.isPredictiveSegment !== !0 &&
+                rt({
                   enableLive: e.config.enableLive,
-                  errorName: sr.name,
-                  failingSinceUnixMs: mr,
+                  errorName: Er.name,
+                  failingSinceUnixMs: $r,
+                  isLastPlayableRepresentation:
+                    K.playableRepresentations.length <= 1,
                   isLivePlayback: e.config.isLivePlayback,
                   nowUnixMs: F.unixMs,
+                  retryIndefinitely:
+                    e.config.liveSegmentFetchRetryNetworkFailuresIndefinitely,
                   toleranceMs:
                     e.config.liveSegmentFetchNetworkFailureToleranceMs,
                 })
               )
                 return (
                   c.push(
-                    j.type +
+                    K.type +
                       ":" +
-                      or.representationId +
+                      vr.representationId +
                       ":live_segment_fetch_failed_retry:" +
-                      ir,
+                      Rr,
                   ),
-                  (j = babelHelpers.extends({}, j, {
+                  (K = babelHelpers.extends({}, K, {
                     appendState:
-                      or.incompleteChunkedAppendInfo != null
+                      vr.incompleteChunkedAppendInfo != null
                         ? o(
                             "VideoPlayerNextgendashStateMachine",
                           ).skipAutoDisposeInsideThisObject(
-                            babelHelpers.extends({}, j.appendState, {
+                            babelHelpers.extends({}, K.appendState, {
                               lastAppendOperation: null,
                             }),
                           )
-                        : j.appendState,
-                    liveSegmentFetchFailingSinceUnixMs: mr,
+                        : K.appendState,
+                    liveOutageFailedRepresentationIds: at(
+                      K.liveOutageFailedRepresentationIds,
+                      vr.representationId,
+                    ),
+                    liveSegmentFetchFailingSinceUnixMs: $r,
                   })),
                   (B = B.filter(function (e) {
-                    return e.requestDraft.requestID !== ir;
+                    return e.requestDraft.requestID !== Rr;
                   })),
-                  { fetchDemands: B, stream: j }
+                  { fetchDemands: B, stream: K }
                 );
-              if (or.segment.isPredictiveSegment === !0) {
-                var pr = j.sidxByRepresentationId[or.representationId];
-                if (pr != null) {
-                  var _r, fr;
-                  ((j = babelHelpers.extends({}, j, {
+              if (vr.segment.isPredictiveSegment === !0) {
+                var Pr = K.sidxByRepresentationId[vr.representationId];
+                if (Pr != null) {
+                  var Nr, Mr;
+                  ((K = babelHelpers.extends({}, K, {
                     predictiveTemplateNumberLastFailed:
-                      (_r = or.segment.templateNumber) != null ? _r : null,
+                      (Nr = vr.segment.templateNumber) != null ? Nr : null,
                     sidxByRepresentationId: o(
                       "VideoPlayerNextgendashStateMachine",
                     ).skipAutoDisposeInsideThisObject(
                       babelHelpers.extends(
                         {},
-                        j.sidxByRepresentationId,
-                        ((fr = {}),
-                        (fr[or.representationId] = pr.filter(function (e) {
+                        K.sidxByRepresentationId,
+                        ((Mr = {}),
+                        (Mr[vr.representationId] = Pr.filter(function (e) {
                           return e.isPredictiveSegment !== !0;
                         })),
-                        fr),
+                        Mr),
                       ),
                     ),
                   })),
                     c.push(
-                      j.type +
+                      K.type +
                         ":" +
-                        or.representationId +
+                        vr.representationId +
                         ":predictive_segment_fetch_failed",
                     ));
                 }
                 return (
                   (B = B.filter(function (e) {
-                    return e.requestDraft.requestID !== ir;
+                    return e.requestDraft.requestID !== Rr;
                   })),
-                  { fetchDemands: B, stream: j }
+                  { fetchDemands: B, stream: K }
                 );
               }
               return (
-                (j = rn(e, A, c, j, n, se, sr)),
-                { fetchDemands: B, stream: j }
+                (K = vn(e, A, c, K, n, ue, Er)),
+                { fetchDemands: B, stream: K }
               );
-            } else if (cr != null) {
+            } else if (Ir != null) {
+              if (K.liveSegmentFetchFailingSinceUnixMs != null) {
+                var wr = it(
+                  K.liveOutageFailedRepresentationIds,
+                  vr.representationId,
+                );
+                ((K = babelHelpers.extends({}, K, {
+                  liveOutageFailedRepresentationIds: null,
+                  liveSegmentFetchFailingSinceUnixMs: null,
+                })),
+                  wr && (K = lt(e, c, K, n)));
+              }
               if (
-                (j.liveSegmentFetchFailingSinceUnixMs != null &&
-                  (j = babelHelpers.extends({}, j, {
-                    liveSegmentFetchFailingSinceUnixMs: null,
-                  })),
-                Ze(or.segment, or.dataByteRangeStart, cr))
-              ) {
-                var gr = j.sidxByRepresentationId[or.representationId];
-                if (gr != null) {
-                  var hr, yr;
-                  ((j = babelHelpers.extends({}, j, {
+                Tr &&
+                st(
+                  babelHelpers.extends({}, vr.segment, {
+                    isPredictiveSegment: !0,
+                  }),
+                  vr.dataByteRangeStart,
+                  Ir,
+                )
+              )
+                return Dr("confirmed_segment_predictive_fetch_empty_refetch");
+              if (st(vr.segment, vr.dataByteRangeStart, Ir)) {
+                var Ar = K.sidxByRepresentationId[vr.representationId];
+                if (Ar != null) {
+                  var Fr, Or;
+                  ((K = babelHelpers.extends({}, K, {
                     predictiveTemplateNumberLastFailed:
-                      (hr = or.segment.templateNumber) != null ? hr : null,
+                      (Fr = vr.segment.templateNumber) != null ? Fr : null,
                     sidxByRepresentationId: o(
                       "VideoPlayerNextgendashStateMachine",
                     ).skipAutoDisposeInsideThisObject(
                       babelHelpers.extends(
                         {},
-                        j.sidxByRepresentationId,
-                        ((yr = {}),
-                        (yr[or.representationId] = gr.filter(function (e) {
+                        K.sidxByRepresentationId,
+                        ((Or = {}),
+                        (Or[vr.representationId] = Ar.filter(function (e) {
                           return e.isPredictiveSegment !== !0;
                         })),
-                        yr),
+                        Or),
                       ),
                     ),
                   })),
                     c.push(
-                      j.type +
+                      K.type +
                         ":" +
-                        or.representationId +
+                        vr.representationId +
                         ":predictive_segment_fetch_empty",
                     ));
                 }
                 return (
                   (B = B.filter(function (e) {
-                    return e.requestDraft.requestID !== ir;
+                    return e.requestDraft.requestID !== Rr;
                   })),
-                  { fetchDemands: B, stream: j }
+                  { fetchDemands: B, stream: K }
                 );
               }
-              var Cr = or.segment.mediaFileByteRange.byteLength,
-                br =
-                  cr.isFetchComplete ||
-                  (cr.responseByteRange.byteLength != null &&
-                    cr.chunksByteLength >=
-                      cr.responseByteRange.byteOffset +
-                        cr.responseByteRange.byteLength),
-                vr = 6,
-                Sr = 1e5,
-                Rr = br
+              var Br = vr.segment.mediaFileByteRange.byteLength,
+                Wr =
+                  Ir.isFetchComplete ||
+                  (Ir.responseByteRange.byteLength != null &&
+                    Ir.chunksByteLength >=
+                      Ir.responseByteRange.byteOffset +
+                        Ir.responseByteRange.byteLength),
+                qr = 6,
+                Ur = 1e5,
+                Vr = Wr
                   ? null
                   : e.config.dataAppendOperationMinBytes === "ozplayer-like"
-                    ? vr > 0 && Cr != null && Cr > 0
-                      ? Math.ceil(Cr / vr)
-                      : Sr > 0
-                        ? Sr
+                    ? qr > 0 && Br != null && Br > 0
+                      ? Math.ceil(Br / qr)
+                      : Ur > 0
+                        ? Ur
                         : null
                     : e.config.dataAppendOperationMinBytes,
-                Lr = cr.responseByteRange.byteOffset + or.dataByteRangeStart,
-                Er =
-                  cr.responseByteRange.byteLength != null
-                    ? cr.responseByteRange.byteLength - or.dataByteRangeStart
+                Hr = Ir.responseByteRange.byteOffset + vr.dataByteRangeStart,
+                Gr =
+                  Ir.responseByteRange.byteLength != null
+                    ? Ir.responseByteRange.byteLength - vr.dataByteRangeStart
                     : null,
-                kr =
-                  cr.kind === "native"
+                zr =
+                  Ir.kind === "native"
                     ? null
-                    : en(
-                        cr.chunks,
-                        Lr,
-                        Rr != null ? (Er != null ? Math.min(Er, Rr) : Rr) : Er,
+                    : yn(
+                        Ir.chunks,
+                        Hr,
+                        Vr != null ? (Gr != null ? Math.min(Gr, Vr) : Vr) : Gr,
                       ),
-                Ir = null;
-              if (cr.kind === "native") {
-                var Tr = cr.buffer.body;
+                jr = null;
+              if (Ir.kind === "native") {
+                var Kr = Ir.buffer.body;
                 if (
-                  Er == null ||
-                  !Number.isSafeInteger(Er) ||
-                  Er < 0 ||
-                  !Number.isSafeInteger(Lr) ||
-                  Lr < 0 ||
-                  Lr + Er > Tr.byteLength
+                  Gr == null ||
+                  !Number.isSafeInteger(Gr) ||
+                  Gr < 0 ||
+                  !Number.isSafeInteger(Hr) ||
+                  Hr < 0 ||
+                  Hr + Gr > Kr.byteLength
                 )
                   throw o("nextgendasherr").nextgendasherr(
                     e,
                     "VideoPlayerNextgendashPlaybackLoopNativeAppendRangeInvalid",
                   );
-                Ir =
-                  Er === 0
+                jr =
+                  Gr === 0
                     ? y
                     : {
-                        body: Tr,
-                        byteLength: Er,
-                        byteOffset: Lr,
+                        body: Kr,
+                        byteLength: Gr,
+                        byteOffset: Hr,
                         kind: "native",
                       };
               } else if (
-                kr != null &&
-                (Rr === null || kr.copyTotalBytesCount >= Rr)
+                zr != null &&
+                (Vr === null || zr.copyTotalBytesCount >= Vr)
               ) {
-                if (((Ir = tn(cr.chunks, kr)), Ir == null))
+                if (((jr = Cn(Ir.chunks, zr)), jr == null))
                   throw o("nextgendasherr").nextgendasherr(
                     e,
                     "VideoPlayerNextgendashPlaybackLoopFailedToCombineChunksToAppend",
                     "%s/data#%s - Failed to copy %sB from chunks #%s(%sB)..#%s(%sB) into an append buffer (out of %s chunks of total %sB).",
-                    or.representationId,
-                    or.segment.segmentId,
-                    kr.copyTotalBytesCount,
-                    kr.startChunkIndex,
-                    kr.startChunkByteOffset,
-                    kr.endChunkIndex,
-                    kr.endChunkBytesCount,
-                    cr.chunks.length,
-                    cr.chunksByteLength,
+                    vr.representationId,
+                    vr.segment.segmentId,
+                    zr.copyTotalBytesCount,
+                    zr.startChunkIndex,
+                    zr.startChunkByteOffset,
+                    zr.endChunkIndex,
+                    zr.endChunkBytesCount,
+                    Ir.chunks.length,
+                    Ir.chunksByteLength,
                   );
-              } else br && (Ir = y);
-              if (Ir != null) {
-                var Dr = {
+              } else Wr && (jr = y);
+              if (jr != null) {
+                var Qr = {
                     appendInfoType: "data",
-                    dataByteRangeLength: G(Ir),
-                    dataByteRangeStart: or.dataByteRangeStart,
-                    mimeCodecsParsed: or.mimeCodecsParsed,
-                    representationId: or.representationId,
-                    segment: or.segment,
+                    dataByteRangeLength: z(jr),
+                    dataByteRangeStart: vr.dataByteRangeStart,
+                    mimeCodecsParsed: vr.mimeCodecsParsed,
+                    representationId: vr.representationId,
+                    segment: vr.segment,
                   },
-                  xr = {
-                    appendInfo: Dr,
-                    buffer: Ir,
+                  Xr = {
+                    appendInfo: Qr,
+                    buffer: jr,
                     operationState: "wait_start",
                     operationTiming: { created: e.host.clock() },
                     operationType: "append_operation",
                   };
                 (c.push(
-                  j.type +
+                  K.type +
                     ":" +
-                    se +
+                    ue +
                     ":pendingAppendOperations:dataAppendOperation:" +
-                    ht(Dr),
+                    Mt(Qr),
                 ),
-                  (j = babelHelpers.extends({}, j, {
+                  (K = babelHelpers.extends({}, K, {
                     appendState: o(
                       "VideoPlayerNextgendashStateMachine",
                     ).skipAutoDisposeInsideThisObject(
-                      babelHelpers.extends({}, j.appendState, {
+                      babelHelpers.extends({}, K.appendState, {
                         pendingAppendOperations: [].concat(
-                          j.appendState.pendingAppendOperations,
-                          [xr],
+                          K.appendState.pendingAppendOperations,
+                          [Xr],
                         ),
                       }),
                     ),
@@ -4129,7 +4427,7 @@ __d(
               }
             } else if (
               e.host.nativeMedia != null &&
-              (ur == null ? void 0 : ur.state) === "completed"
+              (kr == null ? void 0 : kr.state) === "completed"
             )
               throw o("nextgendasherr").nextgendasherr(
                 e,
@@ -4138,33 +4436,33 @@ __d(
           }
         }
       }
-      var $r = on(e, A, j, c, ae, t.mediaSourceState.mediaSource, Xe);
-      $r != null && (j = babelHelpers.extends({}, j, $r));
-      var Pr = an(e, A, j, c, ae, Xe, t.mediaSourceState.mediaSource);
-      Pr != null && (j = babelHelpers.extends({}, j, Pr));
-      var Nr = j.appendState.lastSourceBufferOperation;
+      var Yr = Sn(e, A, K, c, ie, t.mediaSourceState.mediaSource, Ve);
+      Yr != null && (K = babelHelpers.extends({}, K, Yr));
+      var Jr = Rn(e, A, K, c, ie, Ve, t.mediaSourceState.mediaSource);
+      Jr != null && (K = babelHelpers.extends({}, K, Jr));
+      var Zr = K.appendState.lastSourceBufferOperation;
       if (
         e.config.enableQuotaExceededRecovery &&
-        j.quotaExceededBufferTargetRatio < 1 &&
-        Nr != null &&
-        Nr.operationState === "succeeded" &&
-        Nr.operationType === "append_operation" &&
-        Nr.operationTiming.created.unixMs !==
-          j.quotaExceededLastRewardedCreatedMs
+        K.quotaExceededBufferTargetRatio < 1 &&
+        Zr != null &&
+        Zr.operationState === "succeeded" &&
+        Zr.operationType === "append_operation" &&
+        Zr.operationTiming.created.unixMs !==
+          K.quotaExceededLastRewardedCreatedMs
       ) {
-        var Mr = Math.min(
+        var eo = Math.min(
           1,
-          j.quotaExceededBufferTargetRatio +
+          K.quotaExceededBufferTargetRatio +
             e.config.quotaExceededBufferTargetReward,
         );
-        j = babelHelpers.extends({}, j, {
-          quotaExceededBufferTargetRatio: Mr,
-          quotaExceededLastRewardedCreatedMs: Nr.operationTiming.created.unixMs,
+        K = babelHelpers.extends({}, K, {
+          quotaExceededBufferTargetRatio: eo,
+          quotaExceededLastRewardedCreatedMs: Zr.operationTiming.created.unixMs,
         });
       }
-      return { fetchDemands: B, stream: j };
+      return { fetchDemands: B, stream: K };
     }
-    function Ve(e, t, n) {
+    function ze(e, t, n) {
       for (var r = [], o = 0; o < e.length; ++o) {
         var a = e[o];
         if (r.length === 0) r.push([a]);
@@ -4188,7 +4486,7 @@ __d(
       }
       return r;
     }
-    function He(e, t, n) {
+    function je(e, t, n) {
       var r = t.find(function (e) {
         return e.representationId === n;
       });
@@ -4202,11 +4500,11 @@ __d(
         );
       return r;
     }
-    function Ge(e) {
+    function Ke(e) {
       return "init-" + e.type + "-" + e.representationId;
     }
-    function ze(e, t, n) {
-      var r = Ge(n),
+    function Qe(e, t, n) {
+      var r = Ke(n),
         a =
           n.segmentsInfo.type === "SegmentBase"
             ? {
@@ -4252,10 +4550,10 @@ __d(
         streamType: n.type,
       };
     }
-    function je(e) {
+    function Xe(e) {
       return "sidx-" + e.type + "-" + e.representationId;
     }
-    function Ke(e, t, n) {
+    function Ye(e, t, n) {
       var r = n.segmentsInfo;
       if (r.type !== "SegmentBase")
         throw o("nextgendasherr").nextgendasherr(
@@ -4265,7 +4563,7 @@ __d(
           n.type,
           n.representationId,
         );
-      var a = je(n),
+      var a = Xe(n),
         i = { byteLength: r.indexByteRange.byteLength, byteOffset: 0 },
         l = o(
           "VideoPlayerNextgendashStateMachine",
@@ -4298,7 +4596,7 @@ __d(
         streamType: n.type,
       };
     }
-    function Qe(e, t, n) {
+    function Je(e, t, n) {
       var r = n.segmentsInfo;
       if (r.type !== "SegmentBase")
         throw o("nextgendasherr").nextgendasherr(
@@ -4308,8 +4606,8 @@ __d(
           n.type,
           n.representationId,
         );
-      var a = Ge(n),
-        i = je(n),
+      var a = Ke(n),
+        i = Xe(n),
         l = r.initByteRange,
         s = r.indexByteRange,
         u = Math.min(l.byteOffset, s.byteOffset),
@@ -4353,30 +4651,89 @@ __d(
         streamType: n.type,
       };
     }
-    function Xe(e) {
-      return e.templateTime != null ? "t" + e.templateTime : "" + e.segmentId;
+    function Ze(e) {
+      return e.fetchKeyNumber != null
+        ? "n" + e.fetchKeyNumber
+        : e.templateTime != null
+          ? "t" + e.templateTime
+          : "" + e.segmentId;
     }
-    function Ye(e, t) {
-      return e.templateTime != null && t.templateTime != null
-        ? e.templateTime === t.templateTime
-        : e.segmentId === t.segmentId;
+    function et(e, t) {
+      return e.fetchKeyNumber != null && t.fetchKeyNumber != null
+        ? e.fetchKeyNumber === t.fetchKeyNumber
+        : e.templateTime != null && t.templateTime != null
+          ? e.templateTime === t.templateTime
+          : e.segmentId === t.segmentId;
     }
-    function Je(e) {
-      if (
-        !e.isLivePlayback ||
-        !e.enableLive ||
-        e.toleranceMs <= 0 ||
-        e.nowUnixMs - e.failingSinceUnixMs > e.toleranceMs
-      )
-        return !1;
-      var t = e.errorName.match(/FetchHTTP(\d{3})/);
+    var tt = 600 * 1e3;
+    function nt(e) {
+      var t = e.match(/FetchHTTP(\d{3})/);
       return t != null
         ? Number(t[1]) >= 500
+          ? "server_error"
+          : null
         : /FetchedResource(FetchFailure|Offline|NativeRejection|NativeOffline|FetchException)|FetchResponseStreamReader/.test(
-            e.errorName,
-          );
+              e,
+            )
+          ? "without_response"
+          : null;
     }
-    function Ze(e, t, n) {
+    function rt(e) {
+      if (!e.isLivePlayback || !e.enableLive || e.toleranceMs <= 0) return !1;
+      var t = nt(e.errorName);
+      if (t == null) return !1;
+      var n = e.nowUnixMs - e.failingSinceUnixMs;
+      return n <= e.toleranceMs
+        ? !0
+        : e.retryIndefinitely
+          ? t === "without_response" ||
+            (e.isLastPlayableRepresentation && n <= tt)
+          : !1;
+    }
+    function ot(e) {
+      return Object.keys(e).filter(function (t) {
+        var n = e[t];
+        return n != null && nt(n.name) != null;
+      });
+    }
+    function at(e, t) {
+      var n = e != null ? e : [];
+      return n.includes(t) ? n : [].concat(n, [t]);
+    }
+    function it(e, t) {
+      var n;
+      return (n = e == null ? void 0 : e.includes(t)) != null ? n : !1;
+    }
+    function lt(e, t, n, r) {
+      var a =
+        e.config.isLivePlayback &&
+        e.config.liveSegmentFetchRetryNetworkFailuresIndefinitely &&
+        n.playableRepresentations.length <= 1
+          ? ot(n.blockedRepresentations)
+          : [];
+      if (a.length === 0) return n;
+      var i = babelHelpers.extends({}, n.blockedRepresentations);
+      for (var l of a) delete i[l];
+      return (
+        t.push(
+          n.type +
+            ":blockedRepresentations-" +
+            a.join(",") +
+            ":live_outage_recovered",
+        ),
+        bn(
+          e,
+          t,
+          babelHelpers.extends({}, n, {
+            blockedRepresentations: o(
+              "VideoPlayerNextgendashStateMachine",
+            ).skipAutoDisposeInsideThisObject(i),
+          }),
+          r,
+        )
+      );
+    }
+    function st(e, t, n) {
       return (
         e.isPredictiveSegment === !0 &&
         t === 0 &&
@@ -4384,7 +4741,7 @@ __d(
         n.chunksByteLength === 0
       );
     }
-    function et(e) {
+    function ut(e) {
       if (e == null) return null;
       for (var t = e.length - 1; t >= 0; t--) {
         var n = e[t];
@@ -4392,14 +4749,27 @@ __d(
       }
       return null;
     }
-    function tt(e) {
+    function ct(e) {
+      var t = null;
+      for (var n of e) {
+        var r = ut(
+          n.targetRepresentationId != null
+            ? n.sidxByRepresentationId[n.targetRepresentationId]
+            : null,
+        );
+        if (r == null) return null;
+        t = t == null ? r : Math.min(t, r);
+      }
+      return t;
+    }
+    function dt(e) {
       var t = e.playheadMediaTimeSec,
         n = e.sidx,
         r = e.toleranceSec,
-        o = et(n);
+        o = ut(n);
       return o == null ? null : t >= o - r ? o : null;
     }
-    function nt(e) {
+    function mt(e) {
       var t = e.confirmSec,
         n = e.drainedTailEndSec,
         r = e.enabled,
@@ -4425,12 +4795,85 @@ __d(
         d = l - c.sinceUnixMs >= u * 1e3;
       return { confirmed: d, next: c };
     }
-    function rt(e, t) {
+    var pt = 3e3,
+      _t = 1,
+      ft = 0.8;
+    function gt(e, t, n, r, o, a) {
+      if (
+        o == null ||
+        o >= _t ||
+        !n.playableRepresentations.some(function (e) {
+          return e.bandwidth < r.bandwidth;
+        })
+      )
+        return null;
+      var i = "segment-" + n.type + "-" + r.representationId + "-";
+      for (var l of e) {
+        var s = l.requestDraft.requestID;
+        if (
+          !(
+            l.streamType !== n.type ||
+            !s.startsWith(i) ||
+            s === n.liveSlowFetchEvaluatedFetchDataKey
+          )
+        ) {
+          var u = V(l, t);
+          if (!(u == null || u.state !== "waiting_data")) {
+            var c = u.responseData.state;
+            if (c.state === "reading_stream") {
+              var d = a - c.startedReadingClock.perfMs;
+              if (!(d < pt)) {
+                var m = { bytes: c.dataBytesLengthTotal, timeInMs: d },
+                  p = c.predictiveResponseChunkBytes,
+                  _ = c.predictiveResponseChunkArrivedPerfMs;
+                if (
+                  (p != null &&
+                    _ != null &&
+                    (m = {
+                      bytes: p,
+                      timeInMs: _ - c.startedReadingClock.perfMs,
+                    }),
+                  m.timeInMs > 0 &&
+                    (m.bytes * 8e3) / m.timeInMs < r.bandwidth * ft)
+                )
+                  return {
+                    bandwidthSample: m,
+                    fetchDataKey: s,
+                    hasReportedBandwidthSample: c.hasReportedBandwidthSample,
+                  };
+              }
+            }
+          }
+        }
+      }
+      return null;
+    }
+    function ht(e, t, n, r, o) {
+      if (n) return null;
+      var a = o.timeInMs > 0 ? (o.bytes * 8e3) / o.timeInMs : 0,
+        i = null,
+        l = null;
+      for (var s of e)
+        s.bandwidth >= r ||
+          (t.length > 0 && !t.includes(s.representationId)) ||
+          ((i == null || s.bandwidth < i.bandwidth) && (i = s),
+          s.bandwidth <= a * ft &&
+            (l == null || s.bandwidth > l.bandwidth) &&
+            (l = s));
+      return l != null ? l : i;
+    }
+    function yt(e) {
+      return (
+        e.enableBandwidthDiagnosticsFallback ||
+        (e.isLivePlayback && e.liveBandwidthDiagnosticsFallbackEnabled)
+      );
+    }
+    function Ct(e, t) {
       if (e == null) return null;
       for (var n of e) if (n[0] <= t && t <= n[1]) return n[1] - t;
       return 0;
     }
-    function ot(e, t, n, r) {
+    function bt(e, t, n, r) {
       var o;
       if (n <= 0 || e == null) return null;
       var a = (o = e[0]) == null ? void 0 : o[0];
@@ -4438,7 +4881,10 @@ __d(
       var i = t - n;
       return i - a >= r ? i : null;
     }
-    function at(e) {
+    function vt(e, t) {
+      return e && (t == null || t.paused);
+    }
+    function St(e) {
       var t = e.bufferedAheadSec,
         n = e.enableLive,
         r = e.fellBehindWindowSec,
@@ -4455,7 +4901,7 @@ __d(
       var p = l - s;
       return c > 0 && a && p > c ? !0 : t > m ? !1 : p > r;
     }
-    function it(e) {
+    function Rt(e) {
       var t = e.enableLive,
         n = e.fellBehindWindowSec,
         r = e.followEdgeActive,
@@ -4473,7 +4919,7 @@ __d(
         var _ = p.confirmedLiveEdgeMediaTimeSec;
         if (
           _ != null &&
-          at({
+          St({
             bufferedAheadSec: p.bufferedAheadSec,
             enableLive: t,
             fellBehindWindowSec: n,
@@ -4492,11 +4938,11 @@ __d(
       }
       return m;
     }
-    function lt(e, t) {
+    function Lt(e, t) {
       var n = e.findIndex(function (e) {
           return (
             e.representationId === t.representationId &&
-            Ye(e.segment, t.segment)
+            et(e.segment, t.segment)
           );
         }),
         r = n >= 0 ? e[n].nativeSeekRetry : null,
@@ -4516,12 +4962,12 @@ __d(
               : e;
       return o.length > P ? o.slice(o.length - P) : o;
     }
-    function st(e, t) {
-      return "segment-" + e.type + "-" + e.representationId + "-" + Xe(t);
+    function Et(e, t) {
+      return "segment-" + e.type + "-" + e.representationId + "-" + Ze(t);
     }
-    function ut(e, t, n, r) {
+    function kt(e, t, n, r) {
       var a = n.segmentsInfo,
-        i = st(n, r),
+        i = Et(n, r),
         l =
           n.segmentsInfo.type === "SegmentBase"
             ? { byteLength: r.mediaFileByteRange.byteLength, byteOffset: 0 }
@@ -4529,51 +4975,62 @@ __d(
         s = o(
           "VideoPlayerNextgendashStateMachine",
         ).skipAutoDisposeInsideThisObject(new Map([[i, l]]));
-      return {
-        activeDemands: o(
-          "VideoPlayerNextgendashStateMachine",
-        ).skipAutoDisposeInsideThisObject(new Set(s.keys())),
-        dataKeyToResponseByteRange: s,
-        demandedAtClock: e.host.clock(),
-        evictedClock: null,
-        evictedReason: null,
-        fetchDemandOrder: t,
-        poolTrackingID: null,
-        representationId: n.representationId,
-        requestDraft: o(
-          "VideoPlayerNextgendashStateMachine",
-        ).skipAutoDisposeInsideThisObject({
-          qplName: n.type + "_segment",
-          reportToBandwidthEstimator: !0,
-          requestID: i,
-          responseMode: "stream",
-        }),
-        requestInfoArgs:
-          a.type === "SegmentBase"
-            ? {
-                baseURL: a.baseURL,
-                byteRange: r.mediaFileByteRange,
-                type: "BaseURLByteRange",
-              }
-            : {
-                baseURL: a.baseURL,
-                relativeURL: J(
-                  e,
-                  n.type,
-                  n.representationId,
-                  r.isPredictiveSegment === !0 &&
-                    a.segmentTimelinePredictive != null
-                    ? a.segmentTimelinePredictive.segmentURLTemplate
-                    : a.segmentURLTemplate,
-                  r,
-                ),
-                type: "BaseURLRelativeURL",
-              },
-        responseFetch: null,
-        streamType: n.type,
-      };
+      return babelHelpers.extends(
+        {
+          activeDemands: o(
+            "VideoPlayerNextgendashStateMachine",
+          ).skipAutoDisposeInsideThisObject(new Set(s.keys())),
+          dataKeyToResponseByteRange: s,
+          demandedAtClock: e.host.clock(),
+          evictedClock: null,
+          evictedReason: null,
+          fetchDemandOrder: t,
+        },
+        r.isPredictiveSegment === !0 ? { isPredictiveSegmentFetch: !0 } : null,
+        {
+          poolTrackingID: null,
+          representationId: n.representationId,
+          requestDraft: o(
+            "VideoPlayerNextgendashStateMachine",
+          ).skipAutoDisposeInsideThisObject({
+            bandwidthSampleServerPacedBitsPerSecond:
+              r.isPredictiveSegment === !0 &&
+              e.config.isLivePlayback &&
+              e.config.liveBandwidthSampleRequiresContinuousTransfer
+                ? n.bandwidth
+                : null,
+            qplName: n.type + "_segment",
+            reportToBandwidthEstimator: !0,
+            requestID: i,
+            responseMode: "stream",
+          }),
+          requestInfoArgs:
+            a.type === "SegmentBase"
+              ? {
+                  baseURL: a.baseURL,
+                  byteRange: r.mediaFileByteRange,
+                  type: "BaseURLByteRange",
+                }
+              : {
+                  baseURL: a.baseURL,
+                  relativeURL: Z(
+                    e,
+                    n.type,
+                    n.representationId,
+                    r.isPredictiveSegment === !0 &&
+                      a.segmentTimelinePredictive != null
+                      ? a.segmentTimelinePredictive.segmentURLTemplate
+                      : a.segmentURLTemplate,
+                    r,
+                  ),
+                  type: "BaseURLRelativeURL",
+                },
+          responseFetch: null,
+          streamType: n.type,
+        },
+      );
     }
-    function ct(e, t, n, r) {
+    function It(e, t, n, r) {
       if (r.length === 0)
         throw o("nextgendasherr").nextgendasherr(
           e,
@@ -4582,7 +5039,7 @@ __d(
           n.type,
           n.representationId,
         );
-      if (r.length === 1) return ut(e, t, n, r[0]);
+      if (r.length === 1) return kt(e, t, n, r[0]);
       var a = n.segmentsInfo;
       if (a.type !== "SegmentBase")
         throw o("nextgendasherr").nextgendasherr(
@@ -4600,7 +5057,7 @@ __d(
           new Map(
             r.map(function (e) {
               return [
-                st(n, e),
+                Et(n, e),
                 {
                   byteLength: e.mediaFileByteRange.byteLength,
                   byteOffset: e.mediaFileByteRange.byteOffset - i.byteOffset,
@@ -4658,7 +5115,7 @@ __d(
         streamType: n.type,
       };
     }
-    function dt(e, t, n, r) {
+    function Tt(e, t, n, r) {
       r === void 0 && (r = !1);
       for (var o = !1, a = null, i = 0; i < e.length; ++i) {
         var l = e[i],
@@ -4719,14 +5176,14 @@ __d(
       ) {
         var g = p.state === "done_stream" || p.state === "done_buffer",
           h = p.state === "done_buffer" ? [p.buffer] : p.chunks,
-          y = p.state === "done_buffer" ? G(p.buffer) : p.dataBytesLengthTotal,
+          y = p.state === "done_buffer" ? z(p.buffer) : p.dataBytesLengthTotal,
           C = null;
         if (
           r &&
           (g || (m.byteLength != null && y >= m.byteOffset + m.byteLength))
         ) {
-          var b = en(h, m.byteOffset, m.byteLength);
-          C = b != null ? tn(h, b) : null;
+          var b = yn(h, m.byteOffset, m.byteLength);
+          C = b != null ? Cn(h, b) : null;
         }
         return {
           fetchState: d,
@@ -4741,7 +5198,7 @@ __d(
       }
       return { fetchState: d, responseInfo: null };
     }
-    function mt(e, t, n) {
+    function Dt(e, t, n) {
       for (var r = null, a = 0; a < t.length; ++a) {
         var i = t[a];
         if (i.dataKeyToResponseByteRange.has(n)) {
@@ -4762,7 +5219,7 @@ __d(
       }
       return r;
     }
-    function pt(e, t, n) {
+    function xt(e, t, n) {
       var r = !1,
         a = e.map(function (e) {
           var a = null;
@@ -4788,7 +5245,7 @@ __d(
         });
       return r ? a.filter(Boolean) : null;
     }
-    function _t(e, t, n) {
+    function $t(e, t, n) {
       return e.map(function (e) {
         var r,
           o,
@@ -4831,16 +5288,16 @@ __d(
             function (e) {
               var t = e[0],
                 n = e[1];
-              return [t, gt(n)];
+              return [t, Nt(n)];
             },
           );
         return [u, i, s, l];
       });
     }
-    function ft(e, t) {
-      return (t === void 0 && (t = !1), JSON.stringify(_t(e, t)));
+    function Pt(e, t) {
+      return (t === void 0 && (t = !1), JSON.stringify($t(e, t)));
     }
-    function gt(e) {
+    function Nt(e) {
       return (
         "[" +
         e.byteOffset +
@@ -4851,7 +5308,7 @@ __d(
         "]"
       );
     }
-    function ht(e) {
+    function Mt(e) {
       switch (e.appendInfoType) {
         case "init":
           return (
@@ -4870,7 +5327,7 @@ __d(
               e.segment.mediaTimeRange,
               e.segment.isEndingSegment,
             ) +
-            gt(e.segment.mediaFileByteRange) +
+            Nt(e.segment.mediaFileByteRange) +
             "<" +
             (e.segment.mediaFileByteRange.byteOffset + e.dataByteRangeStart) +
             "B" +
@@ -4890,14 +5347,14 @@ __d(
           return (e.appendInfoType, "");
       }
     }
-    function yt(e) {
+    function wt(e) {
       var t = e.segment.mediaFileByteRange.byteLength;
       return (
         e.dataByteRangeLength === 0 ||
         (t != null && e.dataByteRangeStart + e.dataByteRangeLength >= t)
       );
     }
-    function Ct(e) {
+    function At(e) {
       return e == null
         ? "null"
         : e.representationId +
@@ -4911,7 +5368,7 @@ __d(
                 "]"
               : "null]");
     }
-    function bt(e) {
+    function Ft(e) {
       return (
         Object.entries(e)
           .map(function (e) {
@@ -4922,7 +5379,7 @@ __d(
           .join(",") || "none"
       );
     }
-    function vt(e) {
+    function Ot(e) {
       return (
         e
           .map(function (e) {
@@ -4939,7 +5396,7 @@ __d(
           .join(",") || "none"
       );
     }
-    function St(e) {
+    function Bt(e) {
       return (
         e
           .map(function (e) {
@@ -4955,7 +5412,7 @@ __d(
           .join(",") || "none"
       );
     }
-    function Rt(e) {
+    function Wt(e) {
       return (
         e
           .map(function (e) {
@@ -4971,12 +5428,12 @@ __d(
           .join(",") || "none"
       );
     }
-    function Lt(e, t) {
+    function qt(e, t) {
       return t != null
         ? e.host.sourceBufferSnapshotBuffered(e, t.sourceBuffer)
         : void 0;
     }
-    function Et(e) {
+    function Ut(e) {
       return (
         "MSreadyState:" +
         e.readyState +
@@ -4994,7 +5451,7 @@ __d(
         (e.exception != null ? "MSexception:" + e.exception.name : "")
       );
     }
-    function kt(e, t, n, r, a, i, l, g) {
+    function Vt(e, t, n, r, a, i, l, g) {
       var h = n.appendState,
         y = h.currSourceBufferOperation;
       if (y == null) return null;
@@ -5036,13 +5493,13 @@ __d(
                         ? t.appendInfoType === "data"
                           ? {
                               int: {
-                                byteLength: G(y.buffer),
+                                byteLength: z(y.buffer),
                                 dataByteRangeLength: t.dataByteRangeLength,
                                 dataByteRangeStart: t.dataByteRangeStart,
                                 segmentId: t.segment.segmentId,
                               },
                             }
-                          : { int: { byteLength: G(y.buffer) } }
+                          : { int: { byteLength: z(y.buffer) } }
                         : y.operationType === "remove_operation"
                           ? {
                               string: {
@@ -5113,7 +5570,7 @@ __d(
                     error: L,
                     operationState: "errored",
                     operationTiming: R,
-                    waitForMediaElementErrorUntilUnixMs: i.unixMs + De,
+                    waitForMediaElementErrorUntilUnixMs: i.unixMs + Pe,
                   });
                   if (k.operationType === "append_operation") {
                     var I = k.buffer,
@@ -5135,7 +5592,7 @@ __d(
                   var $ = y.appendInfo.segment,
                     P = y.buffer,
                     N = babelHelpers.objectWithoutPropertiesLoose(y, u);
-                  if (((v = g()), v != null && !qt(v, $))) {
+                  if (((v = g()), v != null && !on(v, $))) {
                     var M;
                     ((C = {
                       representationId: y.appendInfo.representationId,
@@ -5150,7 +5607,7 @@ __d(
                           (M = n.targetRepresentationId) != null
                             ? M
                             : "no_target_representation",
-                          ht(y.appendInfo),
+                          Mt(y.appendInfo),
                           JSON.stringify($.mediaTimeRange),
                           JSON.stringify(v),
                         ),
@@ -5224,13 +5681,13 @@ __d(
                     error: U,
                     operationState: "errored",
                     operationTiming: V,
-                    waitForMediaElementErrorUntilUnixMs: i.unixMs + De,
+                    waitForMediaElementErrorUntilUnixMs: i.unixMs + Pe,
                   });
                   if (H.operationType === "append_operation") {
-                    var z = H.buffer,
+                    var G = H.buffer,
                       j = babelHelpers.objectWithoutPropertiesLoose(H, d);
                     return babelHelpers.extends({}, j, {
-                      buffer: z instanceof Uint8Array ? z : void 0,
+                      buffer: G instanceof Uint8Array ? G : void 0,
                     });
                   }
                   return H;
@@ -5294,7 +5751,7 @@ __d(
                       error: ne,
                       operationState: "errored",
                       operationTiming: ie,
-                      waitForMediaElementErrorUntilUnixMs: i.unixMs + De,
+                      waitForMediaElementErrorUntilUnixMs: i.unixMs + Pe,
                     });
                     if (le.operationType === "append_operation") {
                       var se = le.buffer,
@@ -5405,11 +5862,11 @@ __d(
                       n.type === "video" &&
                       n.targetRepresentationReason === "abr_switch_live_tail" &&
                       v != null
-                        ? le(v, l)
+                        ? ue(v, l)
                         : l,
                     representationId: I.appendInfo.representationId,
                   }
-                : yt(I.appendInfo)
+                : wt(I.appendInfo)
                   ? N != null &&
                     N.playheadMinimumTimeSec >
                       I.appendInfo.segment.mediaTimeRange[1] + b
@@ -5432,7 +5889,7 @@ __d(
                       : N
                   : N
               : N,
-          w = It(
+          w = Ht(
             h.sourceBufferRangesAnnotated,
             v,
             (T = S) == null ? void 0 : T.segment.mediaTimeRange,
@@ -5443,7 +5900,7 @@ __d(
             "" +
             y.operationType +
             (y.operationType === "append_operation"
-              ? "/" + ht(y.appendInfo)
+              ? "/" + Mt(y.appendInfo)
               : "") +
             ":" +
             y.operationState +
@@ -5473,7 +5930,7 @@ __d(
             r.push(
               F +
                 "...:lastAppendOperation:" +
-                ($ != null ? ht($.appendInfo) : "null"),
+                ($ != null ? Mt($.appendInfo) : "null"),
             ),
           P !== h.lastRemoveOperation &&
             r.push(
@@ -5485,10 +5942,10 @@ __d(
                     ).debugStringifyTimeRange(P.removeRange)
                   : "null"),
             ),
-          M !== N && r.push(F + "...:appendChain:" + Ct(N) + "-->" + Ct(M)));
+          M !== N && r.push(F + "...:appendChain:" + At(N) + "-->" + At(M)));
         var O =
           L != null
-            ? lt(h.workaroundForSegmentBufferedInsufficiently, L)
+            ? Lt(h.workaroundForSegmentBufferedInsufficiently, L)
             : h.workaroundForSegmentBufferedInsufficiently;
         if (
           E &&
@@ -5503,7 +5960,7 @@ __d(
             return (
               ((t = e.nativeSeekRetry) == null ? void 0 : t.pending) === !0 &&
               e.representationId === B.representationId &&
-              Ye(e.segment, B.segment)
+              et(e.segment, B.segment)
             );
           }) &&
             (O = O.map(function (e) {
@@ -5511,7 +5968,7 @@ __d(
               return t != null &&
                 t.pending &&
                 e.representationId === B.representationId &&
-                Ye(e.segment, B.segment)
+                et(e.segment, B.segment)
                 ? babelHelpers.extends({}, e, {
                     nativeSeekRetry: babelHelpers.extends({}, t, {
                       pending: !1,
@@ -5540,7 +5997,7 @@ __d(
       }
       return null;
     }
-    function It(e, t, n, r, o) {
+    function Ht(e, t, n, r, o) {
       if (t == null) return null;
       var a = e[0],
         i = a != null ? a[2] : null,
@@ -5605,7 +6062,7 @@ __d(
         return _;
       } else return e.length > 0 ? [] : null;
     }
-    function Tt(e) {
+    function Gt(e) {
       var t = new Map();
       for (var n of e) {
         var r = o(
@@ -5615,7 +6072,7 @@ __d(
       }
       return Array.from(t.values());
     }
-    function Dt(e, t, n) {
+    function zt(e, t, n) {
       var r = function (n, r) {
           return e.filter(function (e) {
             return e.lang === n && e.role === r;
@@ -5675,13 +6132,13 @@ __d(
       }
       return { debugFallbacksTried: o, filteredRepresentations: a };
     }
-    function xt(e, t) {
-      var n = Dt(e, t.videoLang, t.videoRole),
+    function jt(e, t) {
+      var n = zt(e, t.videoLang, t.videoRole),
         r = n.debugFallbacksTried,
         o = n.filteredRepresentations;
-      return { debugFallbacksTried: r, representationsByVariant: Tt(o) };
+      return { debugFallbacksTried: r, representationsByVariant: Gt(o) };
     }
-    function $t(e, t) {
+    function Kt(e, t) {
       var n = e.some(function (e) {
           return (
             t == null ||
@@ -5700,13 +6157,13 @@ __d(
         });
       return r;
     }
-    function Pt(e, t) {
-      var n = Dt(e, t.audioLang, t.audioRole),
+    function Qt(e, t) {
+      var n = zt(e, t.audioLang, t.audioRole),
         r = n.debugFallbacksTried,
         o = n.filteredRepresentations;
       return { debugFallbacksTried: r, representationsByVariant: o };
     }
-    function Nt(e, t, n) {
+    function Xt(e, t, n) {
       if (!(!e.config.qplEnabled || n.outcome === "no_candidates")) {
         var r = "smart_player_static_capability_filter:" + n.outcome;
         t.has(r) ||
@@ -5723,7 +6180,7 @@ __d(
             }));
       }
     }
-    function Mt(e, t, n, a, i, l, s, u, c, d, m, p, _, f, g, h, y, b, v, S) {
+    function Yt(e, t, n, a, i, l, s, u, c, d, m, p, _, f, g, h, y, b, v, S) {
       var R,
         L = e.config.enableSmartPlayerStaticCapabilityFiltering,
         E = l,
@@ -5741,7 +6198,7 @@ __d(
           e.config.smartPlayerVideoDecodeCapabilities,
           s,
         );
-        ((k = I.representations), Nt(e, n, I));
+        ((k = I.representations), Xt(e, n, I));
       }
       var T =
           (R = l.find(function (e) {
@@ -5754,8 +6211,8 @@ __d(
         $ = g,
         P = h,
         N = y,
-        M = p != null ? p : H,
-        w = xt(k, M),
+        M = p != null ? p : G,
+        w = jt(k, M),
         A = w.debugFallbacksTried,
         F = w.representationsByVariant,
         O = C(
@@ -5764,7 +6221,7 @@ __d(
             return e.representationId;
           }),
         ),
-        B = $t(F, _);
+        B = Kt(F, _);
       if (
         (A.length > 0 &&
           !A.every(function (e) {
@@ -5784,10 +6241,10 @@ __d(
           ].join(":"),
           U = 1 + ((W = n.get(q)) != null ? W : 0);
         if ((n.set(q, U), U === 1)) {
-          var V = St(l),
-            G = St(k),
-            z = St(F),
-            j = St(B);
+          var V = Bt(l),
+            H = Bt(k),
+            z = Bt(F),
+            j = Bt(B);
           t(
             o("nextgendasherr").nextgendasherr(
               e,
@@ -5802,8 +6259,8 @@ __d(
               "selectedVariant=" + JSON.stringify(p),
               "targetVariant=" + (M === p ? "same" : JSON.stringify(M)),
               "manifestRepresentations=" + V,
-              "playableRepresentations=" + (G === V ? "same" : G),
-              "blockedRepresentations=" + bt(u),
+              "playableRepresentations=" + (H === V ? "same" : H),
+              "blockedRepresentations=" + Ft(u),
               "targetVariantRepresentations=" + z,
               "filteredRepresentations=" + (j === z ? "same" : j),
               "fallbacksTried=" + A.join(";"),
@@ -5811,8 +6268,8 @@ __d(
           );
         }
       }
-      var K = d != null ? d : H,
-        Q = wt(p, M, K, _, m);
+      var K = d != null ? d : G,
+        Q = Jt(p, M, K, _, m);
       if (B.length > 0) {
         var X = null;
         if (g == null && f != null) {
@@ -5872,22 +6329,29 @@ __d(
           se = Q || x == null || X == null || (ie && le);
         if (se) {
           var ue,
-            de = i(e, B, g),
-            me = de.bestRepresentation,
-            pe = !r("deepEquals")(de.nextABRState, g);
+            ce = i(e, B, g),
+            de = ce.bestRepresentation,
+            me = !r("deepEquals")(ce.nextABRState, g);
           if (
-            (pe && ($ = C(e, de.nextABRState)),
-            (re || pe || e.config.enableStableAbrEvaluationCooldown) &&
+            (me && ($ = C(e, ce.nextABRState)),
+            (re || me || e.config.enableStableAbrEvaluationCooldown) &&
               (P = e.host.clock()),
-            me != null &&
-              me.representationId !==
+            de != null &&
+              de.representationId !==
                 ((ue = x) == null ? void 0 : ue.representationId))
           ) {
-            var _e = !Q && x != null && me.bandwidth > x.bandwidth,
+            var _e = !Q && x != null && de.bandwidth > x.bandwidth,
               fe = b && _e,
-              ge = !fe || ce(me, S, v);
+              ge =
+                !fe ||
+                pe(
+                  de,
+                  S,
+                  v,
+                  e.config.liveAbrTailSwitchAllowPredictiveContinuation,
+                );
             ge
-              ? ((x = me),
+              ? ((x = de),
                 re && (N = e.host.clock()),
                 Q
                   ? (D = "selected_switch")
@@ -5924,20 +6388,20 @@ __d(
         videoABRSwitchClock: N,
       };
     }
-    function wt(e, t, n, r, o) {
+    function Jt(e, t, n, r, o) {
       return (
         (e != null &&
           (t.videoLang !== n.videoLang || t.videoRole !== n.videoRole)) ||
         (r != null && r !== o)
       );
     }
-    function At(e, t, n) {
+    function Zt(e, t, n) {
       return (
         e != null &&
         (t.audioLang !== n.audioLang || t.audioRole !== n.audioRole)
       );
     }
-    function Ft(e, t, n, r, a, i, l, s, u) {
+    function en(e, t, n, r, a, i, l, s, u) {
       var c,
         d =
           (c = r.find(function (e) {
@@ -5947,8 +6411,8 @@ __d(
             : null,
         m,
         p = d,
-        _ = u != null ? u : H,
-        f = Pt(a, _),
+        _ = u != null ? u : G,
+        f = Qt(a, _),
         g = f.debugFallbacksTried,
         h = f.representationsByVariant,
         y = C(
@@ -5976,10 +6440,10 @@ __d(
           ].join(":"),
           R = 1 + ((v = n.get(S)) != null ? v : 0);
         if ((n.set(S, R), R === 1)) {
-          var L = Rt(r),
-            E = Rt(a),
-            k = Rt(h),
-            I = Rt(b);
+          var L = Wt(r),
+            E = Wt(a),
+            k = Wt(h),
+            I = Wt(b);
           t(
             o("nextgendasherr").nextgendasherr(
               e,
@@ -5995,7 +6459,7 @@ __d(
               "targetVariant=" + (_ === u ? "same" : JSON.stringify(_)),
               "manifestRepresentations=" + L,
               "playableRepresentations=" + (E === L ? "same" : E),
-              "blockedRepresentations=" + bt(i),
+              "blockedRepresentations=" + Ft(i),
               "targetVariantRepresentations=" + k,
               "filteredRepresentations=" + (I === k ? "same" : I),
               "fallbacksTried=" + g.join(";"),
@@ -6003,8 +6467,8 @@ __d(
           );
         }
       }
-      var T = s != null ? s : H,
-        D = At(u, _, T);
+      var T = s != null ? s : G,
+        D = Zt(u, _, T);
       if (b.length > 0) {
         var x,
           $ = b
@@ -6040,7 +6504,7 @@ __d(
         targetVariantRepresentationIds: y,
       };
     }
-    function Ot(e, t, n, r, a, i, l, s, u, c) {
+    function tn(e, t, n, r, a, i, l, s, u, c) {
       var d = u,
         m,
         p,
@@ -6051,7 +6515,7 @@ __d(
           h,
           y,
           b = U(e, a.mediaElementSnapshot),
-          v = Mt(
+          v = Yt(
             e,
             t,
             n,
@@ -6070,13 +6534,16 @@ __d(
               ).evaluateVideoPlayerNextgendashABRForVideo(c, {
                 abrConfig: a.abrConfig,
                 bandwidthDiagnostics: e.host.networkDiagnosticsReadBandwidth(
-                  e.config.enableBandwidthDiagnosticsFallback,
+                  yt(e.config),
                   e.config.bandwidthDiagnosticsFallbackDefaultEstimate,
                 ),
                 cacheQualityScoreInRepresentation:
                   e.config.cacheQualityScoreInRepresentation,
                 devicePixelRatio: a.devicePixelRatio,
                 isDocumentHidden: a.isDocumentHidden,
+                isLookAheadFromPlayhead:
+                  e.config.isLivePlayback &&
+                  e.config.liveAbrLookAheadFromPlayhead,
                 mediaDurationSec:
                   (i =
                     (u = a.mediaElementSnapshot) == null
@@ -6150,7 +6617,7 @@ __d(
             })));
         }
       } else if (d.type === "audio") {
-        var x = Ft(
+        var x = en(
           e,
           t,
           n,
@@ -6202,13 +6669,13 @@ __d(
               (N.map(function (e) {
                 return e.representationId;
               }).join(",") || "none"),
-            "blockedRepresentations=" + bt(d.blockedRepresentations),
+            "blockedRepresentations=" + Ft(d.blockedRepresentations),
           )
         );
       }
       return {
         prevTargetRepresentation: m,
-        stream: Bt(
+        stream: nn(
           e,
           d,
           c,
@@ -6223,7 +6690,7 @@ __d(
         targetRepresentationReason: p,
       };
     }
-    function Bt(e, t, n, r, a, i, l, s, u) {
+    function nn(e, t, n, r, a, i, l, s, u) {
       if (a != null && a.type !== t.type)
         throw o("nextgendasherr").nextgendasherr(
           e,
@@ -6267,7 +6734,7 @@ __d(
         );
       } else return t;
     }
-    function Wt(e, t, n) {
+    function rn(e, t, n) {
       for (var r = 0, a = e.length; r < a; ++r) {
         var i = e[r];
         if (
@@ -6278,20 +6745,20 @@ __d(
       }
       return !1;
     }
-    function qt(e, t) {
+    function on(e, t) {
       return (
-        Wt(e, t.mediaTimeRange, 0.05) ||
-        (t.isEndingSegment && Wt(e, t.mediaTimeRange, 0.05))
+        rn(e, t.mediaTimeRange, 0.05) ||
+        (t.isEndingSegment && rn(e, t.mediaTimeRange, 0.05))
       );
     }
-    function Ut(e, t, n, r) {
+    function an(e, t, n, r) {
       return e == null || t !== e.representationId || e.mediaTail == null
         ? !1
         : r
           ? n.mediaTimeRange[1] <= e.mediaTail.mediaTimeSec + x
           : n.segmentId <= e.mediaTail.segmentId;
     }
-    function Vt(e, t) {
+    function ln(e, t) {
       for (
         var n = [],
           r = e.segmentTimeline,
@@ -6321,40 +6788,57 @@ __d(
         }
       return n;
     }
-    function Ht(e, t) {
+    function sn(e, t) {
       var n = e.filter(function (e) {
         return e.isPredictiveSegment !== !0;
       });
       if (t.length === 0) return { sidx: n, type: "merged" };
-      var r = e[e.length - 1];
+      var r = e.filter(function (e) {
+          return e.isPredictiveSegment === !0;
+        }),
+        o = function (t, n) {
+          var e = r[n],
+            o = e == null ? void 0 : e.fetchKeyNumber;
+          if (e == null || o == null) return t;
+          var a =
+            0.5 *
+            Math.min(
+              t.mediaTimeRange[1] - t.mediaTimeRange[0],
+              e.mediaTimeRange[1] - e.mediaTimeRange[0],
+            );
+          return Math.abs(t.mediaTimeRange[0] - e.mediaTimeRange[0]) <= a
+            ? babelHelpers.extends({}, t, { fetchKeyNumber: o })
+            : t;
+        },
+        a = e[e.length - 1];
       if (n.length === 0)
-        return r == null
+        return a == null
           ? { sidx: t, type: "merged" }
           : {
               sidx: t.map(function (e, t) {
-                return babelHelpers.extends({}, e, {
-                  segmentId: r.segmentId + 1 + t,
+                return babelHelpers.extends({}, o(e, t), {
+                  segmentId: a.segmentId + 1 + t,
                 });
               }),
               type: "merged",
             };
-      var o = n[0].mediaTimeRange[0],
-        a = t[t.length - 1].mediaTimeRange[1];
-      if (a < o - x)
-        return { existingStartSec: o, freshEndSec: a, type: "timeline_reset" };
-      var i = n[n.length - 1],
-        l = i.mediaTimeRange[1],
-        s = [];
-      for (var u of t)
-        u.mediaTimeRange[0] >= l - x &&
-          s.push(
-            babelHelpers.extends({}, u, {
-              segmentId: i.segmentId + 1 + s.length,
+      var i = n[0].mediaTimeRange[0],
+        l = t[t.length - 1].mediaTimeRange[1];
+      if (l < i - x)
+        return { existingStartSec: i, freshEndSec: l, type: "timeline_reset" };
+      var s = n[n.length - 1],
+        u = s.mediaTimeRange[1],
+        c = [];
+      for (var d of t)
+        d.mediaTimeRange[0] >= u - x &&
+          c.push(
+            babelHelpers.extends({}, o(d, c.length), {
+              segmentId: s.segmentId + 1 + c.length,
             }),
           );
-      return { sidx: [].concat(n, s), type: "merged" };
+      return { sidx: [].concat(n, c), type: "merged" };
     }
-    function Gt(e) {
+    function un(e) {
       var t = e.filter(function (e) {
         return e.isPredictiveSegment !== !0;
       });
@@ -6367,7 +6851,7 @@ __d(
               : babelHelpers.extends({}, e, { isEndingSegment: r });
           });
     }
-    function zt(e, t, n) {
+    function cn(e, t, n) {
       if (n <= 0 || t == null || e.length <= 1) return e;
       for (
         var r = t - n, o = 0;
@@ -6376,14 +6860,14 @@ __d(
         o++;
       return o === 0 ? e : e.slice(o);
     }
-    function jt(e) {
+    function dn(e) {
       var t = e.segmentTimeline,
         n = e.timescale;
       if (t.length === 0) return null;
       var r = t[t.length - 1];
       return (r.t + (r.r + 1) * r.d) / n;
     }
-    function Kt(e, t, n, r, o) {
+    function mn(e, t, n, r, o) {
       return e.mediaTimeRange[1] > o + x
         ? !1
         : e.isPredictiveSegment === !0
@@ -6393,37 +6877,38 @@ __d(
             r != null &&
             e.mediaTimeRange[1] >= r - x;
     }
-    function Qt(e, t) {
+    function pn(e, t) {
       return e.isPredictiveSegment === !0 && e.templateNumber != null
         ? e.templateNumber + 1
         : t.endNumber != null
           ? t.endNumber + 1
           : null;
     }
-    function Xt(e, t, n) {
-      var r = t[t.length - 1];
-      if (r == null || e.endNumber == null) return t;
-      var a = Qt(r, e);
-      if (a == null) return t;
-      var i = r.mediaTimeRange[1] - r.mediaTimeRange[0],
-        l = e.segmentAverageDuration != null ? e.segmentAverageDuration / n : i,
-        s = r.mediaTimeRange[1],
-        u = Math.round(s * n);
+    function _n(e, t, n, r) {
+      r === void 0 && (r = !1);
+      var a = t[t.length - 1];
+      if (a == null || e.endNumber == null) return t;
+      var i = pn(a, e);
+      if (i == null) return t;
+      var l = a.mediaTimeRange[1] - a.mediaTimeRange[0],
+        s = e.segmentAverageDuration != null ? e.segmentAverageDuration / n : l,
+        u = a.mediaTimeRange[1],
+        c = Math.round(u * n);
       return t.concat([
-        {
+        babelHelpers.extends({}, r ? { fetchKeyNumber: i } : null, {
           isEndingSegment: !1,
           isPredictiveSegment: !0,
           mediaFileByteRange: o("VideoPlayerNextgendashMediaUtils")
             .ZERO_TO_EOF_OPEN_ENDED_BYTE_RANGE,
-          mediaTimeRange: [s, s + l],
-          segmentId: r.segmentId + 1,
-          templateNumber: a,
-          templateTime: u,
-        },
+          mediaTimeRange: [u, u + s],
+          segmentId: a.segmentId + 1,
+          templateNumber: i,
+          templateTime: c,
+        }),
       ]);
     }
-    function Yt(e, t, n, r, a) {
-      var i = a ? Jt(r) : r,
+    function fn(e, t, n, r, a) {
+      var i = a ? gn(r) : r,
         l = void 0,
         s = void 0,
         u = function (t, n) {
@@ -6489,7 +6974,7 @@ __d(
         return !d;
       });
     }
-    function Jt(e) {
+    function gn(e) {
       for (
         var t = e.length > 0 ? e.length - 1 : 0, n = e.length - 1;
         n > 0;
@@ -6502,7 +6987,7 @@ __d(
       }
       return t === 0 ? e : e.slice(t);
     }
-    function Zt(e, t, n, r, a, i, l, s) {
+    function hn(e, t, n, r, a, i, l, s) {
       if (r.mediaTail == null) return r;
       var u = r.playheadMinimumTimeSec,
         c = r.mediaTail.mediaTimeSec;
@@ -6519,9 +7004,9 @@ __d(
       if (!o("VideoPlayerNextgendashMediaUtils").isWithinRange([u, c + b], a)) {
         if (
           e.config.isLivePlayback &&
-          (se(i, a, u) ||
+          (ce(i, a, u) ||
             (e.config.liveAppendChainForwardCoveredEscapeEnabled &&
-              ue(i, a, c)))
+              de(i, a, c)))
         )
           return r;
         var d = {
@@ -6534,9 +7019,9 @@ __d(
               ":" +
               n +
               ":appendChain:" +
-              Ct(r) +
+              At(r) +
               "-->" +
-              Ct(d) +
+              At(d) +
               "(playhead_outside)",
           ),
           d
@@ -6544,7 +7029,7 @@ __d(
       }
       if (Math.abs(c - u) > b) {
         var m = [u, Math.max(a, c - b)];
-        if (i === void 0 || !Wt(i, m, 0)) {
+        if (i === void 0 || !rn(i, m, 0)) {
           var p = {
             playheadMinimumTimeSec: a,
             representationId: r.representationId,
@@ -6555,9 +7040,9 @@ __d(
                 ":" +
                 n +
                 ":appendChain:" +
-                Ct(r) +
+                At(r) +
                 "-->" +
-                Ct(p) +
+                At(p) +
                 "(GapFoundIn" +
                 o("VideoPlayerNextgendashMediaUtils").debugStringifyTimeRange(
                   m,
@@ -6569,7 +7054,7 @@ __d(
                     ).debugStringifyTimeRanges(i)
                   : "Unavailable") +
                 ":MSEstate=" +
-                Et(e.host.mediaSourceCollectSnapshot(e, l)) +
+                Ut(e.host.mediaSourceCollectSnapshot(e, l)) +
                 ")",
             ),
             p
@@ -6578,7 +7063,7 @@ __d(
       }
       return r;
     }
-    function en(e, t, n) {
+    function yn(e, t, n) {
       for (
         var r = null,
           o = null,
@@ -6619,7 +7104,7 @@ __d(
             startChunkIndex: r,
           };
     }
-    function tn(e, t) {
+    function Cn(e, t) {
       var n = t.startChunkByteOffset,
         r = t.startChunkIndex,
         o = t.copyTotalBytesCount,
@@ -6652,7 +7137,7 @@ __d(
         }
       return l;
     }
-    function nn(e, t, n, r, a) {
+    function bn(e, t, n, r, a) {
       var i,
         l,
         s,
@@ -6672,8 +7157,8 @@ __d(
         d = null;
       if (u.length > 0 && c.length === 0) {
         var m,
-          p = vt(u),
-          _ = vt(c),
+          p = Ot(u),
+          _ = Ot(c),
           f = [
             "VideoPlayerNextgendashPlaybackLoopBlockedAllRepresentations[" +
               n.type +
@@ -6685,7 +7170,7 @@ __d(
               : "no_target_representation",
             "manifestRepresentations=" + p,
             "playableRepresentations=" + (_ === p ? "same" : _),
-            "blockedRepresentations=" + bt(n.blockedRepresentations),
+            "blockedRepresentations=" + Ft(n.blockedRepresentations),
           ];
         d =
           a != null
@@ -6751,7 +7236,7 @@ __d(
         streamFatalError: d != null ? d : n.streamFatalError,
       });
     }
-    function rn(e, t, n, r, a, i, l) {
+    function vn(e, t, n, r, a, i, l) {
       var s,
         u,
         c = r.blockedRepresentations[i];
@@ -6769,7 +7254,7 @@ __d(
                   : "%s:%s - %s",
                 r.type,
                 i,
-                "blockedRepresentations=" + bt(r.blockedRepresentations),
+                "blockedRepresentations=" + Ft(r.blockedRepresentations),
               )
             : l,
         ),
@@ -6784,7 +7269,7 @@ __d(
             ":" +
             l.name,
         ),
-        nn(
+        bn(
           e,
           n,
           babelHelpers.extends({}, r, {
@@ -6803,7 +7288,7 @@ __d(
         )
       );
     }
-    function on(e, t, n, r, a, i, l) {
+    function Sn(e, t, n, r, a, i, l) {
       var s = n.appendState,
         u = s.pendingRemoveOperations,
         c = u[0],
@@ -6884,7 +7369,7 @@ __d(
         );
         var C = void 0;
         try {
-          var b = kt(
+          var b = Vt(
             e,
             t,
             {
@@ -6903,7 +7388,7 @@ __d(
             e.host.clock(),
             l,
             function () {
-              return Lt(e, d);
+              return qt(e, d);
             },
           );
           (b != null && (y = babelHelpers.extends({}, y, b)),
@@ -6924,7 +7409,7 @@ __d(
               "VideoPlayerNextgendashPlaybackLoopSourceBufferRemoveException/HostAPISourceBufferRemoveNoopNothingBuffered")
           ) {
             C = void 0;
-            var v = kt(
+            var v = Vt(
               e,
               t,
               {
@@ -6943,14 +7428,14 @@ __d(
               e.host.clock(),
               l,
               function () {
-                return Lt(e, d);
+                return qt(e, d);
               },
             );
             v != null && (y = babelHelpers.extends({}, y, v));
           }
         }
         if (C != null) {
-          var S = kt(
+          var S = Vt(
             e,
             t,
             {
@@ -6970,7 +7455,7 @@ __d(
             e.host.clock(),
             l,
             function () {
-              return Lt(e, d);
+              return qt(e, d);
             },
           );
           S != null && (y = babelHelpers.extends({}, y, S));
@@ -6979,7 +7464,7 @@ __d(
       }
       return null;
     }
-    function an(e, t, n, r, a, i, l) {
+    function Rn(e, t, n, r, a, i, l) {
       var s = n.appendState,
         u = s.pendingRemoveOperations,
         c = s.pendingAppendOperations,
@@ -7039,11 +7524,11 @@ __d(
               ":" +
               p +
               ":pendingAppendOperations:currSourceBufferOperation:" +
-              ht(d.appendInfo),
+              Mt(d.appendInfo),
           ),
           h.appendInfoType === "data" && h.dataByteRangeLength === 0)
         ) {
-          var b = kt(
+          var b = Vt(
             e,
             t,
             {
@@ -7062,14 +7547,14 @@ __d(
             e.host.clock(),
             i,
             function () {
-              return Lt(e, m);
+              return qt(e, m);
             },
           );
           b != null && (C = babelHelpers.extends({}, C, b));
         } else {
           var v;
           try {
-            var S = kt(
+            var S = Vt(
               e,
               t,
               {
@@ -7088,7 +7573,7 @@ __d(
               e.host.clock(),
               i,
               function () {
-                return Lt(e, m);
+                return qt(e, m);
               },
             );
             (S != null && (C = babelHelpers.extends({}, C, S)),
@@ -7098,7 +7583,7 @@ __d(
                     ":" +
                     p +
                     ":abort:MSEbefore=" +
-                    Et(e.host.mediaSourceCollectSnapshot(e, l)),
+                    Ut(e.host.mediaSourceCollectSnapshot(e, l)),
                 ),
                 e.host.sourceBufferAbort(e, l, m.sourceBuffer, {
                   mimeCodecsParsed: h.mimeCodecsParsed,
@@ -7124,7 +7609,7 @@ __d(
                     "VideoPlayerNextgendashMediaUtils",
                   ).debugStringifyMimeCodecs(h.mimeCodecsParsed) +
                   ":MSEbefore=" +
-                  Et(e.host.mediaSourceCollectSnapshot(e, l)),
+                  Ut(e.host.mediaSourceCollectSnapshot(e, l)),
               ),
               e.host.sourceBufferChangeType(e, m.sourceBuffer, {
                 mimeCodecsParsed: h.mimeCodecsParsed,
@@ -7142,7 +7627,7 @@ __d(
                   ":" +
                   p +
                   ":append:MSEbefore=" +
-                  Et(e.host.mediaSourceCollectSnapshot(e, l)),
+                  Ut(e.host.mediaSourceCollectSnapshot(e, l)),
               ));
             var T = {
               mimeCodecsParsed: h.mimeCodecsParsed,
@@ -7236,7 +7721,7 @@ __d(
             );
           }
           if (v != null) {
-            var A = kt(
+            var A = Vt(
               e,
               t,
               {
@@ -7256,7 +7741,7 @@ __d(
               e.host.clock(),
               i,
               function () {
-                return Lt(e, m);
+                return qt(e, m);
               },
             );
             A != null && (C = babelHelpers.extends({}, C, A));
@@ -7269,68 +7754,79 @@ __d(
     ((l.internal_getMediaErrorRecoveryAttemptsCap = W),
       (l.internal_predictPlayhead = q),
       (l.internal_getPlayheadTimeSec = U),
-      (l.originalMediaVariant = H),
-      (l.internal_shouldResetLiveRecoveryAttempts = j),
-      (l.internal_isSourceBufferOperationTimedOut = K),
-      (l.VideoPlayerNextgendashPlaybackLoopSM = Y),
-      (l.internal_substituteParamsInSegmentURLTemplate = J),
-      (l.internal_prioritizeFetchDemands = Z),
-      (l.internal_evictFetchDemandsByFetchState = te),
-      (l.internal_getNoMediaElementBufferAheadTargetSec = ie),
-      (l.internal_getLiveABRTailSwitchAnchorTimeSec = le),
-      (l.internal_isLiveAppendChainAheadOfPlayheadCoveredByBuffer = se),
-      (l.internal_isPlayheadCoveredByBufferAheadOfAppendChainTail = ue),
-      (l.internal_canLiveABRTailSwitchAppendAtBufferedTail = ce),
-      (l.internal_computeABRVolatility = me),
-      (l.internal_computeNetworkVolatility = pe),
-      (l.internal_updateBandwidthVolatilitySamples = _e),
-      (l.internal_computeBandwidthTrend = fe),
-      (l.internal_evaluateSidxPrefetchTarget = ge),
-      (l.internal_startFetchRequestsForFetchDemands = he),
-      (l.internal_fulfillFetchDemands = ye),
-      (l.internal_clampObserveAndActDelayMs = ve),
-      (l.internal_coalesceAdjacentDebugLogLines = Ee),
-      (l.internal_getEndOfStreamCheckpointSec = Ie),
-      (l.internal_getStreamPresentationTimeOffsetSec = We),
-      (l.internal_groupSegmentsToFetch = Ve),
-      (l.internal_makeSegmentFetchKeyIdPart = Xe),
-      (l.internal_isSameSegmentIdentity = Ye),
-      (l.internal_shouldRetryLiveSegmentAfterFetchFailure = Je),
-      (l.internal_isEmptyCompletePredictiveSegmentFetch = Ze),
-      (l.internal_getConfirmedSidxLiveEdgeTimeSec = et),
-      (l.internal_getStreamDrainedConfirmedTailEndSec = tt),
-      (l.internal_updateLiveEndedByStallState = nt),
-      (l.internal_getBufferedAheadSecForPlayhead = rt),
-      (l.internal_getBackBufferRemoveEndSec = ot),
-      (l.internal_shouldRefetchAtLiveEdge = at),
-      (l.internal_computePairedRefetchAnchorSec = it),
-      (l.internal_addBoundedWorkaroundForSegmentBufferedInsufficiently = lt),
-      (l.makeSegmentFetchDataKey = st),
-      (l.internal_makeGroupOfSegmentsFetchDemand = ct),
-      (l.findDataForDataKey = dt),
-      (l.debugPrepareFetchDemands = _t),
-      (l.internal_handleSourceBufferEvent = kt),
-      (l.internal_updateSourceBufferRangesAnnotated = It),
-      (l.internal_filterVideoRepresentationsByVariant = xt),
-      (l.internal_filterAudioRepresentationsByVariant = Pt),
-      (l.internal_selectTargetVideoRepresentation = Mt),
-      (l.internal_selectTargetAudioRepresentation = Ft),
-      (l.internal_checkRangeBufferedWithoutGap = Wt),
-      (l.internal_isSegmentBeforeAppendAnchor = Ut),
-      (l.internal_makeSidxFromSegmentTemplate = Vt),
-      (l.internal_mergeLiveSidx = Ht),
-      (l.internal_finalizeLiveSidxAtStaticFlip = Gt),
-      (l.internal_trimSidxToLiveLookbackBuffer = zt),
-      (l.internal_getSegmentTemplateLiveEdgeMediaTimeSec = jt),
-      (l.internal_canExtendPredictiveChainFromTail = Kt),
-      (l.internal_getNextPredictiveTemplateNumber = Qt),
-      (l.internal_addPredictiveSegmentsToSidx = Xt),
-      (l.internal_validateAndNormalizeSidx = Yt),
-      (l.internal_selectDataChunksToAppend = en),
-      (l.internal_combineDataChunksIntoContiguousBuffer = tn),
-      (l.internal_blockRepresentationInStream = rn),
-      (l.internal_startPendingRemoveOperation = on),
-      (l.internal_startPendingAppendOperation = an));
+      (l.originalMediaVariant = G),
+      (l.internal_shouldResetLiveRecoveryAttempts = K),
+      (l.internal_isSourceBufferOperationTimedOut = Q),
+      (l.VideoPlayerNextgendashPlaybackLoopSM = J),
+      (l.internal_substituteParamsInSegmentURLTemplate = Z),
+      (l.internal_prioritizeFetchDemands = ee),
+      (l.internal_evictFetchDemandsByFetchState = ne),
+      (l.internal_isInitURLRefreshedSeparately = ae),
+      (l.internal_isRequestInfoArgsExpiredOrSoonExpiring = ie),
+      (l.internal_getNoMediaElementBufferAheadTargetSec = se),
+      (l.internal_getLiveABRTailSwitchAnchorTimeSec = ue),
+      (l.internal_isLiveAppendChainAheadOfPlayheadCoveredByBuffer = ce),
+      (l.internal_isPlayheadCoveredByBufferAheadOfAppendChainTail = de),
+      (l.internal_canLiveABRTailSwitchAppendAtBufferedTail = pe),
+      (l.internal_computeABRVolatility = fe),
+      (l.internal_computeNetworkVolatility = ge),
+      (l.internal_updateBandwidthVolatilitySamples = he),
+      (l.internal_computeBandwidthTrend = ye),
+      (l.internal_evaluateSidxPrefetchTarget = Ce),
+      (l.internal_startFetchRequestsForFetchDemands = be),
+      (l.internal_fulfillFetchDemands = ve),
+      (l.internal_clampObserveAndActDelayMs = Le),
+      (l.internal_coalesceAdjacentDebugLogLines = Te),
+      (l.internal_getEndOfStreamCheckpointSec = xe),
+      (l.internal_getStreamPresentationTimeOffsetSec = Ve),
+      (l.internal_groupSegmentsToFetch = ze),
+      (l.internal_makeSegmentFetchKeyIdPart = Ze),
+      (l.internal_isSameSegmentIdentity = et),
+      (l.internal_classifyLiveRetryableFetchError = nt),
+      (l.internal_shouldRetryLiveSegmentAfterFetchFailure = rt),
+      (l.internal_getLiveRepresentationsToUnblockAfterOutage = ot),
+      (l.internal_withLiveOutageFailedRepresentation = at),
+      (l.internal_isLiveOutageStreamWide = it),
+      (l.internal_isEmptyCompletePredictiveSegmentFetch = st),
+      (l.internal_getConfirmedSidxLiveEdgeTimeSec = ut),
+      (l.internal_getLiveSeekableRangeEndSec = ct),
+      (l.internal_getStreamDrainedConfirmedTailEndSec = dt),
+      (l.internal_updateLiveEndedByStallState = mt),
+      (l.internal_findSlowLiveSegmentFetch = gt),
+      (l.internal_selectLiveSlowFetchDownswitchRepresentation = ht),
+      (l.internal_isABRBandwidthDiagnosticsFallbackEnabled = yt),
+      (l.internal_getBufferedAheadSecForPlayhead = Ct),
+      (l.internal_getBackBufferRemoveEndSec = bt),
+      (l.internal_isLiveEdgeRefetchSuspended = vt),
+      (l.internal_shouldRefetchAtLiveEdge = St),
+      (l.internal_computePairedRefetchAnchorSec = Rt),
+      (l.internal_addBoundedWorkaroundForSegmentBufferedInsufficiently = Lt),
+      (l.makeSegmentFetchDataKey = Et),
+      (l.internal_makeGroupOfSegmentsFetchDemand = It),
+      (l.findDataForDataKey = Tt),
+      (l.debugPrepareFetchDemands = $t),
+      (l.internal_handleSourceBufferEvent = Vt),
+      (l.internal_updateSourceBufferRangesAnnotated = Ht),
+      (l.internal_filterVideoRepresentationsByVariant = jt),
+      (l.internal_filterAudioRepresentationsByVariant = Qt),
+      (l.internal_selectTargetVideoRepresentation = Yt),
+      (l.internal_selectTargetAudioRepresentation = en),
+      (l.internal_checkRangeBufferedWithoutGap = rn),
+      (l.internal_isSegmentBeforeAppendAnchor = an),
+      (l.internal_makeSidxFromSegmentTemplate = ln),
+      (l.internal_mergeLiveSidx = sn),
+      (l.internal_finalizeLiveSidxAtStaticFlip = un),
+      (l.internal_trimSidxToLiveLookbackBuffer = cn),
+      (l.internal_getSegmentTemplateLiveEdgeMediaTimeSec = dn),
+      (l.internal_canExtendPredictiveChainFromTail = mn),
+      (l.internal_getNextPredictiveTemplateNumber = pn),
+      (l.internal_addPredictiveSegmentsToSidx = _n),
+      (l.internal_validateAndNormalizeSidx = fn),
+      (l.internal_selectDataChunksToAppend = yn),
+      (l.internal_combineDataChunksIntoContiguousBuffer = Cn),
+      (l.internal_blockRepresentationInStream = vn),
+      (l.internal_startPendingRemoveOperation = Sn),
+      (l.internal_startPendingAppendOperation = Rn));
   },
   98,
 );

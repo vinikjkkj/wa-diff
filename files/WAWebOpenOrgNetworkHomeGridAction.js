@@ -11,8 +11,9 @@ __d(
     var e,
       s,
       u = s || (s = o("react")),
-      c = null;
-    function d(t) {
+      c = null,
+      d = null;
+    function m(t) {
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -21,23 +22,24 @@ __d(
       );
       var n = u.jsx(r("WAWebOrgNetworkHomeGridLoadable"), { orgId: t });
       ((c = n),
+        (d = t),
         o("WAWebDrawerManager").DrawerManager.openDrawerMid(n, {
           disableRotateFocus: !0,
           transition: "none",
         }));
     }
-    function m() {
+    function p() {
       var e = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
         "mid",
       );
-      e != null && p(e.drawer) && e.closeDrawer(e.drawerId);
+      e != null && _(e.drawer) && e.closeDrawer(e.drawerId);
     }
-    function p(e) {
-      return c != null && e === c;
+    function _(e, t) {
+      return c != null && e === c && (t == null || t === d);
     }
-    ((l.openOrgNetworkHomeGrid = d),
-      (l.closeOrgNetworkHomeGrid = m),
-      (l.isOrgNetworkHomeGrid = p));
+    ((l.openOrgNetworkHomeGrid = m),
+      (l.closeOrgNetworkHomeGrid = p),
+      (l.isOrgNetworkHomeGrid = _));
   },
   98,
 );

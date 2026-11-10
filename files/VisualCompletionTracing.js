@@ -72,7 +72,7 @@ __d(
           ))()),
           (d.$VisualCompletionTracing$p_8 = null),
           (d.intersectionObserverCallback = function (e) {
-            Array.prototype.forEach.call(e, function (e) {
+            e.forEach(function (e) {
               var t = d.pendingMutations.get(e.target);
               if (t) {
                 var n = e.time;

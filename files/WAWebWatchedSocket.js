@@ -5,6 +5,7 @@ __d(
     "WABinary",
     "WASocketTransport",
     "WAWebABProps",
+    "WAWebAppCommsCloseReason",
     "WAWebEventsWaitForEvent",
     "WAWebNoop",
   ],
@@ -24,7 +25,10 @@ __d(
             n.$WatchedSocket$p_2.signal,
           )
             .then(function () {
-              return n.close();
+              return n.close(
+                o("WAWebAppCommsCloseReason").AppCommsCloseReason
+                  .NetworkOffline,
+              );
             })
             .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))),
           o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4") &&

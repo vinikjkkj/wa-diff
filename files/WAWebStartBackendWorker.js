@@ -173,10 +173,11 @@ __d(
                   "WAWebBackendEventBus",
                 ).BackendEventBus.triggerStorageInitializationError();
               },
-              triggerSocketStreamDisconnected: function () {
+              triggerSocketStreamDisconnected: function (t) {
+                var e = t.reason;
                 o(
                   "WAWebBackendEventBus",
-                ).BackendEventBus.triggerSocketStreamDisconnected();
+                ).BackendEventBus.triggerSocketStreamDisconnected(e);
               },
               triggerOpenSocketStream: function () {
                 o(

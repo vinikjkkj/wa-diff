@@ -33,6 +33,7 @@ __d(
     "relay-runtime/store/RelayReferenceMarker",
     "relay-runtime/store/RelayStoreUtils",
     "relay-runtime/store/ResolverFragments",
+    "relay-runtime/store/TypeID",
     "relay-runtime/store/ViewerPattern",
     "relay-runtime/store/createFragmentSpecResolver",
     "relay-runtime/store/createRelayContext",
@@ -158,6 +159,8 @@ __d(
         getLocalVariables: n("relay-runtime/store/RelayConcreteVariables")
           .getLocalVariables,
         markReferences: n("relay-runtime/store/RelayReferenceMarker").mark,
+        generateTypeID: n("relay-runtime/store/TypeID").generateTypeID,
+        isTypeID: n("relay-runtime/store/TypeID").isTypeID,
         fetchQuery: n("relay-runtime/query/fetchQueryInternal").fetchQuery,
         fetchQueryDeduped: n("relay-runtime/query/fetchQueryInternal")
           .fetchQueryDeduped,
@@ -166,6 +169,9 @@ __d(
         getObservableForActiveRequest: n(
           "relay-runtime/query/fetchQueryInternal",
         ).getObservableForActiveRequest,
+        getObservableForRequestCompletion: n(
+          "relay-runtime/query/fetchQueryInternal",
+        ).getObservableForRequestCompletion,
         NormalizationEngine: n("relay-runtime/store/NormalizationEngine"),
         ExecTimeS2CDataChecker: n("relay-runtime/store/ExecTimeS2CDataChecker"),
         normalizeResponse: n("relay-runtime/store/normalizeResponse"),

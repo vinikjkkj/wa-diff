@@ -23,6 +23,7 @@ __d(
     "WAWebRichResponseMsgUtils",
     "WAWebSendTextMsgChatAction",
     "asyncToGeneratorRuntime",
+    "cr:19180",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d;
@@ -32,16 +33,22 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield P(),
-            n = yield o("WAWebCmd").Cmd.openChatFromUnread({
-              chat: t,
-              chatEntryPoint: e,
+          var t,
+            r = (t = n("cr:19180")) != null ? t : {},
+            a = r.logWindowsMetaAiStage,
+            i = yield P();
+          a == null || a("chat-open-start");
+          var l = yield o("WAWebCmd")
+            .Cmd.openChatFromUnread({ chat: i, chatEntryPoint: e })
+            .catch(function (e) {
+              throw (a == null || a("chat-open-failed"), e);
             });
-          return n
-            ? (o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),
+          return l
+            ? (a == null || a("chat-open-complete"),
+              o("WAWebComposeBoxActions").ComposeBoxActions.focus(i),
               o("WAWebCmd").Cmd.scrollToActiveChat(),
-              t)
-            : null;
+              i)
+            : (a == null || a("chat-open-cancelled"), null);
         })),
         p.apply(this, arguments)
       );
@@ -249,7 +256,10 @@ __d(
           e.aiThreads.add([n]));
       }
     }
-    function $(t, n) {
+    function $(t, r) {
+      var a,
+        i = (a = n("cr:19180")) != null ? a : {},
+        l = i.logWindowsMetaAiStage;
       (o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -257,10 +267,16 @@ __d(
             ", chatId=",
             "",
           ])),
-        n.type,
+        r.type,
         t.id.toString(),
       ),
-        o("WAWebCmd").Cmd.openMetaAiThreadDrawer(t, n));
+        l == null || l("chat-open-start"));
+      try {
+        o("WAWebCmd").Cmd.openMetaAiThreadDrawer(t, r);
+      } catch (e) {
+        throw (l == null || l("chat-open-failed"), e);
+      }
+      l == null || l("chat-open-complete");
     }
     function P() {
       return N.apply(this, arguments);
@@ -268,20 +284,24 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[getMetaAiChat] finding chat wid=",
-                "",
-              ])),
-            o("WAWebBotUtils").META_BOT_PN_WID.toString(),
-          );
+          var e,
+            t = (e = n("cr:19180")) != null ? e : {},
+            r = t.logWindowsMetaAiStage;
+          (r == null || r("chat-lookup-start"),
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[getMetaAiChat] finding chat wid=",
+                  "",
+                ])),
+              o("WAWebBotUtils").META_BOT_PN_WID.toString(),
+            ));
           try {
-            var e = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+            var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
                 o("WAWebBotUtils").META_BOT_PN_WID,
                 "metaBotChatListShortcut",
               ),
-              t = e.chat;
+              i = a.chat;
             return (
               o("WALogger").LOG(
                 c ||
@@ -289,9 +309,10 @@ __d(
                     "[getMetaAiChat] success, chatId=",
                     "",
                   ])),
-                t.id.toString(),
+                i.id.toString(),
               ),
-              t
+              r == null || r("chat-lookup-complete"),
+              i
             );
           } catch (e) {
             throw (
@@ -301,6 +322,7 @@ __d(
                     "[getMetaAiChat] failed with error",
                   ])),
               ),
+              r == null || r("chat-lookup-failed"),
               e
             );
           }

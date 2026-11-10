@@ -41,7 +41,7 @@ __d(
             r = o("WAWebUserPrefsTypes").PixKeyType.cast(
               o("WAWebBrPaymentSettingsUtils").getFirstPixStaticKeyType(e),
             );
-          v({
+          R({
             code:
               n == null
                 ? null
@@ -116,7 +116,7 @@ __d(
         onClick: function () {
           var e = o("WAWebBrPaymentSettingsUtils").getPaymentLinkUri(n);
           if (e == null) {
-            b(s._(/*BTDS*/ "Couldn't open payment link"));
+            S(s._(/*BTDS*/ "Couldn't open payment link"));
             return;
           }
           o("WAWebExternalLink.react").openExternalLink(e);
@@ -154,7 +154,7 @@ __d(
       return {
         label: s._(/*BTDS*/ "Copy boleto code"),
         onClick: function () {
-          v({
+          R({
             code: o("WAWebBrPaymentSettingsUtils").getBoletoCode(n),
             failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
             onCopy: function () {
@@ -184,45 +184,50 @@ __d(
       };
     }
     function y(e, t) {
-      var n = o("WAWebBrPaymentSettingsUtils").getPixStaticCodeSetting(t);
-      if (n == null) return null;
-      var a =
-          n[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
-            .key,
-        i =
-          n[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
-            .merchant_name,
-        l = t.totalAmount,
-        u = t.referenceId;
-      if (a == null || i == null || l == null) return null;
-      var c = o("WAWebPixCodeUtils").getPixStaticCode({
-          merchantName: i,
-          pixKey: a,
-          referenceId: u,
-          transactionAmount: l.toFixed(2),
-        }),
-        d = s._(/*BTDS*/ "Pix code copied"),
-        m = s._(/*BTDS*/ "Could not copy Pix code");
-      return {
-        label: s._(/*BTDS*/ "Copy Pix code"),
-        onClick: function () {
-          v({
-            code: c,
-            failureMsg: m,
-            onCopy: function () {
-              var n = f(e);
-              n != null &&
-                o(
-                  "WAWebBrPaymentInteractionLogger",
-                ).logPaymentRequestInteractiveAction(n, t);
+      return b(t) == null
+        ? null
+        : {
+            label: s._(/*BTDS*/ "Copy Pix code"),
+            onClick: function () {
+              C(t, function () {
+                var n = f(e);
+                n != null &&
+                  o(
+                    "WAWebBrPaymentInteractionLogger",
+                  ).logPaymentRequestInteractiveAction(n, t);
+              });
             },
-            successMsg: d,
-          });
-        },
-        Icon: r("WDSIconIcContentCopy.react"),
-      };
+            Icon: r("WDSIconIcContentCopy.react"),
+          };
     }
-    function C(e) {
+    function C(e, t) {
+      R({
+        code: e != null ? b(e) : null,
+        failureMsg: s._(/*BTDS*/ "Could not copy Pix code"),
+        onCopy: t,
+        successMsg: s._(/*BTDS*/ "Pix code copied"),
+      });
+    }
+    function b(e) {
+      var t = o("WAWebBrPaymentSettingsUtils").getPixStaticCodeSetting(e);
+      if (t == null) return null;
+      var n =
+          t[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
+            .key,
+        r =
+          t[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
+            .merchant_name,
+        a = e.totalAmount;
+      return n == null || r == null || a == null
+        ? null
+        : o("WAWebPixCodeUtils").getPixStaticCode({
+            merchantName: r,
+            pixKey: n,
+            referenceId: e.referenceId,
+            transactionAmount: a.toFixed(2),
+          });
+    }
+    function v(e) {
       var t = e.msgKey,
         n = e.orderInfo,
         a = e.surface,
@@ -235,7 +240,7 @@ __d(
         label: s._(/*BTDS*/ "Copy Pix code"),
         onClick: function () {
           var e = o("WAWebBrPaymentSettingsUtils").getDynamicPixCode(n);
-          v({
+          R({
             code:
               e == null
                 ? null
@@ -271,18 +276,18 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function b(e) {
+    function S(e) {
       o("WAWebToastManager").ToastManager.open(
         m.jsx(o("WAWebToast.react").Toast, { msg: e }),
       );
     }
-    function v(e) {
+    function R(e) {
       var t = e.code,
         n = e.failureMsg,
         r = e.onCopy,
         a = e.successMsg;
       if (t == null) {
-        b(n);
+        S(n);
         return;
       }
       o("WAWebCopyTextWithToast").copyTextWithToast({
@@ -292,7 +297,7 @@ __d(
         text: t,
       });
     }
-    function S(e) {
+    function L(e) {
       var t,
         n,
         r = o("WAWebOrderDetails").getOrderInfo(e);
@@ -311,7 +316,7 @@ __d(
           : !1;
       return a;
     }
-    function R(e) {
+    function E(e) {
       var t;
       if (
         e.nativeFlowName ===
@@ -338,10 +343,10 @@ __d(
       }
       return !1;
     }
-    function L(e) {
+    function k(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        R(e) &&
+        E(e) &&
         o("WAWebMsgGetters").getIsSentByMe(e.unsafe())
       );
     }
@@ -349,9 +354,10 @@ __d(
       (l.getOpenPaymentLinkInteractiveAction = g),
       (l.getCopyBoletoCodeInteractiveAction = h),
       (l.getCopyPixStaticCodeInteractiveAction = y),
-      (l.getCopyPixCodeInteractiveAction = C),
-      (l.hasOrderOffsiteCardPay = S),
-      (l.shouldHideOffsiteCardPayConfirmation = L));
+      (l.copyPixStaticCode = C),
+      (l.getCopyPixCodeInteractiveAction = v),
+      (l.hasOrderOffsiteCardPay = L),
+      (l.shouldHideOffsiteCardPayConfirmation = k));
   },
   226,
 );

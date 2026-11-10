@@ -135,7 +135,9 @@ __d(
         b = C === void 0 ? {} : C,
         v = e.ft_declare,
         S = e.ft_include,
-        R = e.depth;
+        R = e.depth,
+        L = e.hoisted_async_components,
+        E = L === void 0 ? [] : L;
       return new (o("WebBloksTreeResources").WebBloksTreeResources)(
         m,
         new Map(
@@ -163,6 +165,11 @@ __d(
           });
         }),
         R,
+        new Map(
+          E.map(function (e) {
+            return [e.id, e];
+          }),
+        ),
       );
     }
     ((l.parseBloksModelFromJSON = s), (l.parseBloksTreeResources = u));

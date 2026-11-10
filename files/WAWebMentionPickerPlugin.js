@@ -38,6 +38,7 @@ __d(
     "WDSMargins.stylex",
     "asyncToGeneratorRuntime",
     "countWhere",
+    "cr:19180",
     "nullthrows",
     "react",
     "react-compiler-runtime",
@@ -224,29 +225,36 @@ __d(
               }
               if (t.type !== "contact" && t.type !== "group") return;
               var e = t;
-              N(e.id)
-                ? o("WAWebBotDisclaimerManager")
-                    .enterBotTosFlow({
-                      noticeId: String(
-                        o("WAWebBotTosIds").getApplicableBotNoticeId(
-                          o("WAWebBotLogging").BotEntryPointType.Invoke,
-                        ),
-                      ),
-                      botEntryPoint:
+              if (N(e.id)) {
+                var a,
+                  l = (a = n("cr:19180")) != null ? a : {},
+                  s = l.logWindowsMetaAiStage;
+                o("WAWebBotDisclaimerManager")
+                  .enterBotTosFlow({
+                    noticeId: String(
+                      o("WAWebBotTosIds").getApplicableBotNoticeId(
                         o("WAWebBotLogging").BotEntryPointType.Invoke,
-                      chat: i,
-                      wamEntryPoint:
-                        E != null
-                          ? o("WAWebWamEnumBotEntryPointType")
-                              .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_GROUP
-                          : o("WAWebWamEnumBotEntryPointType")
-                              .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_1ON1,
-                    })
-                    .then(function () {
-                      re(e);
-                    })
-                    .catch(r("WAWebNoop"))
-                : re(e);
+                      ),
+                    ),
+                    botEntryPoint:
+                      o("WAWebBotLogging").BotEntryPointType.Invoke,
+                    chat: i,
+                    wamEntryPoint:
+                      E != null
+                        ? o("WAWebWamEnumBotEntryPointType")
+                            .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_GROUP
+                        : o("WAWebWamEnumBotEntryPointType")
+                            .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_1ON1,
+                    onStage: function (t) {
+                      o("WAWebBotUtils").isMetaAiBot(i.id) &&
+                        (s == null || s(t));
+                    },
+                  })
+                  .then(function () {
+                    re(e);
+                  })
+                  .catch(r("WAWebNoop"));
+              } else re(e);
             }
           }),
           (a[16] = i),

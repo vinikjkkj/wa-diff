@@ -17,6 +17,7 @@ __d(
     "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebMessageDestinationChat",
     "WAWebMessageProcessorCache",
+    "WAWebMessageQueueImpl",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgType",
     "WAWebProtobufsAdv.pb",
@@ -170,7 +171,11 @@ __d(
                   g.map(function (e) {
                     return { msg: e };
                   }),
-                  !l,
+                  o("WAWebMessageQueueImpl").shouldFlushMessageImmediately(
+                    l,
+                    o("WAWebBackendEventBus").BackendEventBus
+                      .isOfflineDeliveryEnd,
+                  ),
                 )
                 .then(function () {
                   o(

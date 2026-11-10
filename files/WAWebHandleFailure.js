@@ -5,6 +5,7 @@ __d(
     "WAComms",
     "WADeprecatedWapParser",
     "WALogger",
+    "WAWebAppCommsCloseReason",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebChatdLoginIdentity",
@@ -15,7 +16,6 @@ __d(
     "WAWebLocalStorage",
     "WAWebLogoutReasonConstants",
     "WAWebODS",
-    "WAWebOfflineSyncQplSession",
     "WAWebSocketModel",
     "WAWebUpdaterPlatforms",
     "WAWebUpdaterVersion",
@@ -103,13 +103,10 @@ __d(
                   o("WAWebCoreActionsODS").isPageLoadComplete() ||
                     o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
                   r("justknobx")._("4751") &&
-                    (o(
-                      "WAWebOfflineSyncQplSession",
-                    ).OfflineSyncQpl.markSocketClosed(
-                      o("WAWebOfflineSyncQplSession").SocketCloseReason
+                    o("WAComms").stopComms(
+                      o("WAWebAppCommsCloseReason").AppCommsCloseReason
                         .ClientFailureNotAuthorized,
                     ),
-                    o("WAComms").stopComms()),
                   yield o(
                     "WAWebSocketModel",
                   ).Socket.clearCredentialsAndStoredData(),
@@ -134,13 +131,10 @@ __d(
                   belowSoft: !1,
                   belowHard: 0,
                 }),
-                  o(
-                    "WAWebOfflineSyncQplSession",
-                  ).OfflineSyncQpl.markSocketClosed(
-                    o("WAWebOfflineSyncQplSession").SocketCloseReason
+                  o("WAComms").stopComms(
+                    o("WAWebAppCommsCloseReason").AppCommsCloseReason
                       .ClientFailureClientTooOld,
-                  ),
-                  o("WAComms").stopComms());
+                  ));
                 break;
               }
               case o("WAWebFailureErrorCodes").FAILURE_REASON
@@ -256,11 +250,10 @@ __d(
             (t != null || a != null) &&
             (l = { logoutMessageHeader: t, logoutMessageSubtext: a }),
             r("justknobx")._("4751") &&
-              (o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(
-                o("WAWebOfflineSyncQplSession").SocketCloseReason
+              o("WAComms").stopComms(
+                o("WAWebAppCommsCloseReason").AppCommsCloseReason
                   .ClientFailureAccountLocked,
               ),
-              o("WAComms").stopComms()),
             yield o("WAWebSocketModel").Socket.clearCredentialsAndStoredData(
               o("WAWebLogoutReasonConstants").LogoutReason.AccountLocked,
               l,

@@ -14,6 +14,7 @@ __d(
     "WAWebContactBlocklistUtils",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebContactOrgIdentityRegistry",
     "WAWebContactSearchMatcher",
     "WAWebContactShortName",
     "WAWebContactTextStatusExpiry",
@@ -93,6 +94,10 @@ __d(
             (e.meTextStatusExpiryTimer = o("WAWebBaseModel").session()),
             (e.maybeCommonGroupChatModel = o("WAWebBaseModel").session()),
             (e.canSendMsgWhileTimelocked = o("WAWebBaseModel").session(!0)),
+            (e.orgMemberName = o("WAWebBaseModel").session()),
+            (e.orgMemberFirstName = o("WAWebBaseModel").session()),
+            (e.orgPrimaryId = o("WAWebBaseModel").session()),
+            (e.orgPrimaryTag = o("WAWebBaseModel").session()),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -160,17 +165,28 @@ __d(
                 o("WAWebBizLabelUtils").initializeLabels(this));
               var r = this.id;
               if (r.isLid()) {
+                this.$Contact$p_4();
                 var a =
                   this.phoneNumber || o("WAWebApiContact").getPhoneNumber(r);
                 a != null && this.copyFieldsFromPnContact(a);
               } else
                 this.id.isUser() &&
-                  (this.$Contact$p_4(),
-                  this.listenTo(this, "change:name", this.$Contact$p_4),
-                  this.listenTo(this, "change:statusMute", this.$Contact$p_4));
+                  (this.$Contact$p_5(),
+                  this.listenTo(this, "change:name", this.$Contact$p_5),
+                  this.listenTo(this, "change:statusMute", this.$Contact$p_5));
               this.id.isBot() &&
                 o("WAWebInitializeBotContact").initializeBotContact(this);
             }
+          }),
+          (r.$Contact$p_4 = function () {
+            var e = o("WAWebContactOrgIdentityRegistry").getContactOrgIdentity(
+              this.id,
+            );
+            e != null &&
+              ((this.orgMemberName = e.fullName),
+              (this.orgMemberFirstName = e.firstName),
+              (this.orgPrimaryId = e.primaryOrgId),
+              (this.orgPrimaryTag = e.primaryOrgMemberTag));
           }),
           (r.$Contact$p_1 = function () {
             o("WAWebBizBusinessChangeAction").handleBusinessChange(this);
@@ -197,7 +213,7 @@ __d(
               e != null && this.set("shortName", e);
             }
           }),
-          (r.$Contact$p_5 = function () {
+          (r.$Contact$p_6 = function () {
             var e = o("WAWebWidFactory").asUserWidOrThrow(this.id);
             if (e.isLid()) return this;
             var t = o("WAWebApiContact").getCurrentLid(e);
@@ -205,8 +221,8 @@ __d(
               ? o("WAWebContactCollection").ContactCollection.get(t)
               : null;
           }),
-          (r.$Contact$p_4 = function () {
-            var e = this.$Contact$p_5();
+          (r.$Contact$p_5 = function () {
+            var e = this.$Contact$p_6();
             e &&
               (e.set({ name: this.name }),
               e.set({ parentStatusMute: this.statusMute }));
@@ -233,11 +249,11 @@ __d(
           (r.addPendingAction = function (t) {
             var e = this,
               n = function () {
-                e.$Contact$p_6();
+                e.$Contact$p_7();
               };
             return (t.then(n, n), this.pendingAction++, t);
           }),
-          (r.$Contact$p_6 = function () {
+          (r.$Contact$p_7 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(

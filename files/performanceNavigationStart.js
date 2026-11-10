@@ -24,16 +24,17 @@ __d(
             return c;
           };
         }
-        u.isPolyfilled = !0;
+        var d = u;
+        d.isPolyfilled = !0;
       }
     else {
-      var d = function () {
+      var m = function () {
         return 0;
       };
-      ((u = d), (d.isPolyfilled = !0));
+      ((u = m), (m.isPolyfilled = !0));
     }
-    var m = u;
-    l.default = m;
+    var p = u;
+    l.default = p;
   },
   98,
 );

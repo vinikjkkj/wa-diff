@@ -7,7 +7,6 @@ __d(
     "WAWebContactManagementGating",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
-    "WAWebOrgMemberContactName",
     "WAWebPrimaryFeaturesModel",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
@@ -56,7 +55,7 @@ __d(
             u,
             d =
               (s =
-                (u = o("WAWebOrgMemberContactName").getOrgMemberDisplayName(
+                (u = o("WAWebFrontendContactGetters").getShownOrgMemberName(
                   e,
                 )) != null
                   ? u

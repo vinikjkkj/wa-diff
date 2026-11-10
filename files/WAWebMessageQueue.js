@@ -105,38 +105,40 @@ __d(
             n = e.isOffline,
             r = e.msgCategory,
             a = e.skipOfflineWait;
-          return n &&
+          return (
+            k(r) &&
+              (yield o(
+                "WAWebWaitForInitialChatsSynced",
+              ).waitForInitialChatsSynced()),
+            n &&
             !o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.isResumeFromRestartComplete()
-            ? (o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
-                "offline",
-                "one_queue",
-              ),
-              S(t, r))
-            : (k(r) &&
-                (yield o(
-                  "WAWebWaitForInitialChatsSynced",
-                ).waitForInitialChatsSynced()),
-              o(
-                "WAWebOfflineResumeCounters",
-              ).maybeLogOfflineMsgRoutedToOnlineQueue(n, "one_queue"),
-              o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
-                "online",
-                "one_queue",
-              ),
-              R(
-                "online",
-                I({
-                  enqueue: function () {
-                    return o("WAWebOneQueue").enqueueOnOneQueue({
-                      action: t,
-                      isOffline: !1,
-                    });
-                  },
-                  skipOfflineWait: a,
-                }),
-              ));
+              ? (o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+                  "offline",
+                  "one_queue",
+                ),
+                S(t))
+              : (o(
+                  "WAWebOfflineResumeCounters",
+                ).maybeLogOfflineMsgRoutedToOnlineQueue(n, "one_queue"),
+                o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+                  "online",
+                  "one_queue",
+                ),
+                R(
+                  "online",
+                  I({
+                    enqueue: function () {
+                      return o("WAWebOneQueue").enqueueOnOneQueue({
+                        action: t,
+                        isOffline: !1,
+                      });
+                    },
+                    skipOfflineWait: a,
+                  }),
+                ))
+          );
         })),
         b.apply(this, arguments)
       );
@@ -144,31 +146,27 @@ __d(
     function v() {
       return babelHelpers.extends({}, _);
     }
-    function S(e, t) {
-      var r = null;
+    function S(e) {
+      var t = null;
       return o("WAWebOneQueue")
         .enqueueOnOneQueue({
           action: e,
           isOffline: !0,
           waitForAdmission: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (k(t) &&
-                (yield o(
-                  "WAWebWaitForInitialChatsSynced",
-                ).waitForInitialChatsSynced()),
-                (r = L("offline")),
+              ((t = L("offline")),
                 yield o(
                   "WAWebEventsWaitForReadyForOffline",
                 ).waitForOfflineProcessReady());
             });
-            function a() {
+            function r() {
               return e.apply(this, arguments);
             }
-            return a;
+            return r;
           })(),
         })
         .finally(function () {
-          return r == null ? void 0 : r();
+          return t == null ? void 0 : t();
         });
     }
     function R(e, t) {

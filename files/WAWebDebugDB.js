@@ -23,7 +23,7 @@ __d(
           r("vulture")("xuKE0QbrcxD9lk9oSBSEDLeBJjI=");
           var n = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .all({ returnKeyType: "primary_key" }),
+              .allKeys({ returnKeyType: "primary_key" }),
             a = n.find(function (e) {
               return e.match(t);
             });

@@ -78,29 +78,29 @@ __d(
       ),
       g = m(
         d.asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebOrgPrimaryDirectoryStore")
+          return r("JSResourceForInteraction")("WAWebOrgMemberSourceQuery")
             .__setRef("WAWebOrgLazyActions")
             .load();
         }),
-        "OrgPrimaryDirectoryStore",
+        "OrgMemberSourceQuery",
         {
           onFinalFailure: function (t) {
             o("WALogger")
               .ERROR(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[org-directory] primary directory store load failed",
+                    "[org-members] member query load failed",
                   ])),
               )
               .catching(t)
-              .sendLogs("org-primary-directory-store-load-failed");
+              .sendLogs("org-member-source-query-load-failed");
           },
         },
       );
     ((l.loadOrgRequestContactAction = p),
       (l.loadOrgFetchDirectoryAction = _),
       (l.loadOrgSearchMembersAction = f),
-      (l.loadOrgPrimaryDirectoryStore = g));
+      (l.loadOrgMemberSourceQuery = g));
   },
   98,
 );

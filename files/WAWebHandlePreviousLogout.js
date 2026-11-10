@@ -7,6 +7,7 @@ __d(
     "WAWebLocalStorageUtils",
     "WAWebLogoutReason",
     "WAWebReloadAfterLogout",
+    "WAWebReloadCrashAnnotations",
     "WAWebURLUtils",
     "WAWebWAWCInit",
     "asyncToGeneratorRuntime",
@@ -73,6 +74,9 @@ __d(
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[reload] handlePreviousLogoutFailures",
                   ])),
+              ),
+              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+                "handlePreviousLogoutFailures",
               ),
               (window.location.href =
                 window.location.pathname + "?" + i.toString()));

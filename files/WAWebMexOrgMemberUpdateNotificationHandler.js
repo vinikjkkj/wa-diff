@@ -3,10 +3,12 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebDBOrg",
     "WAWebDBOrgMemberDelta",
     "WAWebMexOrgMemberUpdateNotificationHandlerQuery.graphql",
     "WAWebOrgGatingUtils",
     "WAWebOrgMemberDisplayName",
+    "WAWebOrgMembersPhash",
     "WAWebSchemaOrg",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -14,15 +16,15 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
+    var e, s, u, c, d, m, p, _, f;
     e !== void 0 ||
       (e = n("WAWebMexOrgMemberUpdateNotificationHandlerQuery.graphql"));
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = t.xwa2_notify_org_on_member_update;
           if (a == null)
@@ -30,18 +32,19 @@ __d(
           if (o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled()) {
             var i = a.org_id,
               l = a.org_member_updated_ts_usec,
-              s = g(i, (n = a.members) != null ? n : []),
+              s = b(i, (n = a.members) != null ? n : []),
               u = s.added,
-              _ = s.removedLids,
-              f = yield o("WAWebDBOrgMemberDelta").applyOrgMemberDelta(i, {
+              f = s.removedLids,
+              g = s.updated,
+              h = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user,
+              C = yield o("WAWebDBOrgMemberDelta").applyOrgMemberDelta(i, {
                 added: u,
                 memberUpdatedTsUsec: l,
-                removedLids: _,
-                removesViewer: _.includes(
-                  o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user,
-                ),
+                removedLids: f,
+                removesViewer: f.includes(h),
+                updated: g,
               });
-            if (f.status === "missing_org") {
+            if (C.status === "missing_org") {
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -54,7 +57,7 @@ __d(
                 ));
               return;
             }
-            if (f.status === "stale") {
+            if (C.status === "stale") {
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -63,7 +66,7 @@ __d(
               );
               return;
             }
-            if (f.status === "viewer_removed") {
+            if (C.status === "viewer_removed") {
               (o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -72,7 +75,7 @@ __d(
               ),
                 o("WAWebBackendApi").frontendFireAndForget("applyOrgRows", {
                   isFullList: !0,
-                  rows: f.orgs,
+                  rows: C.orgs,
                 }));
               return;
             }
@@ -81,49 +84,97 @@ __d(
                 (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[org-notification] applied added=",
                   " removed=",
+                  " updated=",
                   "",
                 ])),
               u.length,
-              _.length,
+              f.length,
+              g.length,
             );
-            var h = Array.from(
+            var v = Array.from(
               new Set(
                 [].concat(
                   u.map(function (e) {
                     return e.lid;
                   }),
-                  _,
+                  f,
+                  g.map(function (e) {
+                    return e.lid;
+                  }),
                 ),
               ),
             );
             (o("WAWebBackendApi").frontendFireAndForget("applyOrgContactRows", {
               createModels: !0,
-              lids: h,
-              rows: f.rows,
+              lids: v,
+              rows: C.rows,
             }),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "markOrgContactsChecked",
-                { lids: h },
-              ));
+              g.some(function (e) {
+                return e.lid === h;
+              }) &&
+                (o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[org-notification] the viewer's membership changed, syncing orgs",
+                    ])),
+                ),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "syncOrgsInBackground",
+                  { bypassCooldown: !0, forceDirectory: !1 },
+                )),
+              C.org.directoryIsComplete === !0 && (yield y(i, a.phash, l)));
           }
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      var n = { added: [], removedLids: [] };
+    function y(e, t, n) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield o("WAWebDBOrg").getOrgContacts(e),
+            a =
+              (yield o("WAWebOrgMembersPhash").computeOrgMembersPhash(r)) === t;
+          (a && (yield o("WAWebDBOrg").markOrgDirectoryFresh(e, n, r.length)),
+            o("WALogger").LOG(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-notification] stored directory hash matches=",
+                  "",
+                ])),
+              String(a),
+            ));
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e, t) {
+      var n = { added: [], removedLids: [], updated: [] };
       return (
         t.forEach(function (t) {
-          var r = t == null ? null : y(t.member_lid);
+          var r = t == null ? null : S(t.member_lid);
           if (!(t == null || r == null))
             e: {
               var a = t.member_action;
               if (a === "ADD") {
-                n.added.push(h(e, r, t));
+                n.added.push(v(e, r, t));
                 break e;
               }
               if (a === "REMOVE") {
                 n.removedLids.push(r);
+                break e;
+              }
+              if (a === "UPDATE") {
+                n.updated.push({
+                  lid: r,
+                  memberTag: t.member_tag,
+                  role:
+                    t.role == null
+                      ? null
+                      : o("WAWebSchemaOrg").OrgMemberRole.cast(t.role),
+                });
                 break e;
               }
               {
@@ -143,15 +194,17 @@ __d(
         n
       );
     }
-    function h(e, t, n) {
-      var r, a;
+    function v(e, t, n) {
+      var r, a, i;
       return {
+        firstName: (r = n.display_name) != null ? r : "",
+        lastName: n.display_last_name,
         lid: t,
         memberName: o("WAWebOrgMemberDisplayName").getOrgMemberFullName(
-          (r = n.display_name) != null ? r : "",
+          (a = n.display_name) != null ? a : "",
           n.display_last_name,
         ),
-        memberTag: (a = n.member_tag) != null ? a : "",
+        memberTag: (i = n.member_tag) != null ? i : "",
         orgId: e,
         role:
           n.role == null
@@ -159,7 +212,7 @@ __d(
             : o("WAWebSchemaOrg").OrgMemberRole.cast(n.role),
       };
     }
-    function y(e) {
+    function S(e) {
       try {
         return o("WAWebWidFactory").createUserLidOrThrow(e).user;
       } catch (e) {
@@ -176,7 +229,7 @@ __d(
         );
       }
     }
-    l.mexHandleOrgMemberUpdate = _;
+    l.mexHandleOrgMemberUpdate = g;
   },
   98,
 );

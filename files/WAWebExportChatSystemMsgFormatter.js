@@ -20,7 +20,7 @@ __d(
         return r("WAWebFbtCommon")("You").toString();
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       if (t != null) {
-        var n = o("WAWebFrontendContactGetters").getFormattedName(t);
+        var n = o("WAWebFrontendContactGetters").getContactFormattedName(t);
         if (n !== "") return n;
       }
       return (

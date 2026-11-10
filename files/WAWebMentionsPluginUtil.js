@@ -9,7 +9,6 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
-    "WAWebOrgMemberContactName",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "isStringNullOrEmpty",
@@ -21,8 +20,7 @@ __d(
       c = !1;
     function d(e, t, n) {
       var r;
-      n === void 0 &&
-        (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName);
+      n === void 0 && (n = o("WAWebFrontendContactGetters").getFormattedName);
       var a =
           (r =
             t == null
@@ -93,26 +91,24 @@ __d(
     function p(e, t, n) {
       if (
         (n === void 0 &&
-          (n = o("WAWebOrgMemberContactName").getOrgMemberDisplayName),
+          (n = o("WAWebFrontendContactGetters").getFormattedName),
         o("WAWebContactGetters").getIsMe(t))
       )
         return !1;
       var a = [
           o("WAWebFrontendContactGetters").getSearchName(t) ||
-            o("WAWebFrontendContactGetters").getFormattedName(t),
+            n(t).toLowerCase(),
         ],
         i = o("WAWebContactGetters").getNotifyName(t);
       !o("WAWebFrontendContactGetters").getIsMyContact(t) &&
         !r("isStringNullOrEmpty")(i) &&
         a.push(i.toLowerCase());
-      var l = n(t);
-      l != null && a.push(l.toLowerCase());
-      var s = o("WAWebUsernameTypes").serializeMaybeUsername(
+      var l = o("WAWebUsernameTypes").serializeMaybeUsername(
           o("WAWebFrontendContactGetters").getUsername(t),
         ),
-        u = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
+        s = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
       return (
-        !r("isStringNullOrEmpty")(s) && u && a.push(s.toLowerCase()),
+        !r("isStringNullOrEmpty")(l) && s && a.push(l.toLowerCase()),
         a.some(function (t) {
           return _(e, t);
         })

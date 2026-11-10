@@ -8,6 +8,7 @@ __d(
     "WAGzip",
     "WALogger",
     "WAPromiseTimeout",
+    "WASocketCloseReason",
     "WAWebABPropsCache",
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
@@ -199,9 +200,9 @@ __d(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.logSocketConnectT());
         }),
-        t.BackendEventBus.onSocketStreamDisconnected(function () {
+        t.BackendEventBus.onSocketStreamDisconnected(function (e) {
           o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markSocketClosed(
-            o("WAWebOfflineSyncQplSession").SocketCloseReason.Unknown,
+            e != null ? e : o("WASocketCloseReason").CommsCloseReason.Unknown,
           );
         }),
         t.BackendEventBus.onceOfflineDeliveryEnd(
