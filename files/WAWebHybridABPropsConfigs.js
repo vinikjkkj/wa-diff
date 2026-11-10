@@ -720,6 +720,12 @@ __d(
       win_hybrid_vsr_button_enabled_2: [34279, "bool", !1, !1],
       win_hybrid_vsr_device_setting_enabled_2: [35194, "bool", !1, !0],
       win_hybrid_vsr_enabled_2: [34280, "bool", !1, !0],
+      win_hybrid_watchdog_normal_priority_ping_relay_enabled: [
+        42259,
+        "bool",
+        !1,
+        !1,
+      ],
       win_hybrid_webview_lifecycle_skip_redundant_calls_enabled: [
         41968,
         "bool",

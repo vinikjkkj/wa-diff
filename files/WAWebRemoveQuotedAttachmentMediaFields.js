@@ -183,6 +183,14 @@ __d(
           (t.imageMessage = babelHelpers.extends({}, e.imageMessage, s, u, {
             contextInfo: h(e.imageMessage.contextInfo),
           })),
+        e.instantImageMessage != null &&
+          (t.instantImageMessage = babelHelpers.extends(
+            {},
+            e.instantImageMessage,
+            s,
+            u,
+            { contextInfo: h(e.instantImageMessage.contextInfo) },
+          )),
         e.videoMessage != null &&
           (t.videoMessage = babelHelpers.extends({}, e.videoMessage, s, u, {
             contextInfo: h(e.videoMessage.contextInfo),

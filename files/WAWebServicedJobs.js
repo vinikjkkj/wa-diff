@@ -58,7 +58,6 @@ __d(
       "incrementNewsletterForwardCounter",
       "queryAndUpdateGroupsMetadataByJids",
       "queryProductList",
-      "setAbout",
       "setTextStatus",
     ]);
     function d(e) {

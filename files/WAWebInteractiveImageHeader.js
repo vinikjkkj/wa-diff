@@ -3,6 +3,7 @@ __d(
   [
     "WAWebFrontendMsgGetters",
     "WAWebMessagePicture.react",
+    "WAWebMsgCasts",
     "WAWebNoop",
     "react",
     "react-compiler-runtime",
@@ -22,7 +23,11 @@ __d(
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((u = [o("WAWebFrontendMsgGetters").getMediaData]), (t[0] = u))
         : (u = t[0]);
-      var c = o("useWAWebMsgValues").useMsgValues(i, u),
+      var c = o("useWAWebMsgValues").useMsgValues(
+          i,
+          o("WAWebMsgCasts").castToInteractiveMsg,
+          u,
+        ),
         d = c[0],
         m = r("useWAWebIsMsgTrusted")(i),
         p;

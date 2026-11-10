@@ -34,7 +34,7 @@ __d(
         case o("WAWebStreamModel").StreamMode.SYNCING:
           return (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
             i &&
-            o("WAWebUserPrefsMeUser").isMeUserRestored() === !0
+            o("WAWebUserPrefsMeUser").hasLoggedIn() === !0
             ? o("WAWebAppScreenTypes").AppScreen.MAIN
             : o("WAWebAppScreenTypes").AppScreen.SYNCING;
         case o("WAWebStreamModel").StreamMode.OFFLINE:

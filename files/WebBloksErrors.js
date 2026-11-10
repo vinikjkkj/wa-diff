@@ -14,8 +14,10 @@ __d(
               t +
               (n ? ": " + n.toString() : "")),
             (o.name = o.constructor.name),
-            n && ((o.cause = n), n.stack && (o.stack = n.stack)),
-            !o.stack &&
+            n &&
+              ((o.cause = n),
+              n.stack != null && n.stack !== "" && (o.stack = n.stack)),
+            (o.stack == null || o.stack === "") &&
               (typeof process == "undefined" ||
                 process.env.JEST_WORKER_ID === void 0))
           ) {

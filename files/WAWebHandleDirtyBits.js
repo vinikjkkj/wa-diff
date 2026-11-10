@@ -23,7 +23,7 @@ __d(
     "WAWebSyncd",
     "WAWebSyncdConst",
     "WAWebTos",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamoNewsletterGatingUtils",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
@@ -115,7 +115,7 @@ __d(
             ),
           o("WAWebAccountSyncJob").getDevices("notification")
         );
-      var t = o("WAWebUserPrefsMeUser")
+      var t = o("WAWebUserUtils")
         .getMeDeviceWids()
         .map(function (e) {
           return e.toString();

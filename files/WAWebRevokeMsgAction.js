@@ -468,6 +468,11 @@ __d(
         i,
         l = o("WAWebFrontendMsgGetters").getMaybeChat(e);
       if (
+        !o("WAWebRevoke").canRevokeOutsideWindow({
+          associationType: e.associationType,
+          revokedMsgKey: e.id,
+          subtype: t.subtype,
+        }) &&
         !o("WAWebRevoke").isWithinRevokeWindow({
           revokedMsgKey: e.id,
           revokedMsgTimestamp: e.t,

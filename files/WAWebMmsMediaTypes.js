@@ -73,6 +73,8 @@ __d(
             : a === !0
               ? e.NATIVE_AD_IMAGE
               : e.IMAGE;
+        case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
+          return e.IMAGE;
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
           return l
             ? i === !0
@@ -199,9 +201,11 @@ __d(
     function L(e) {
       var t,
         n,
-        r =
+        r = new Set([C, b, v]),
+        a =
           ((t = {}),
-          (t[(n = o("WAWebMsgType")).MSG_TYPE.IMAGE] = new Set([C, b, v])),
+          (t[(n = o("WAWebMsgType")).MSG_TYPE.IMAGE] = r),
+          (t[n.MSG_TYPE.INSTANT_IMAGE] = r),
           (t[n.MSG_TYPE.STICKER] = o(
             "WAWebStickerMimeUtils",
           ).getValidStickerMimeTypes()),
@@ -210,7 +214,7 @@ __d(
           (t[n.MSG_TYPE.PTT] = new Set([_, f, g, h, y])),
           (t[n.MSG_TYPE.PTV] = new Set([S, R])),
           t);
-      return e != null ? r[e] : null;
+      return e != null ? a[e] : null;
     }
     ((l.MEDIA_TYPES = e),
       (l.MEDIA_TYPE_VALUES = s),

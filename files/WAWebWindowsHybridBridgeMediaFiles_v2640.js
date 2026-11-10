@@ -16,6 +16,8 @@ __d(
         function t(e, t) {
           var n = this;
           ((this.$2 = new Map()),
+            (this.allowDragOutDownload = null),
+            (this.registerCachedMediaFileForDragOut = null),
             (this.$1 = e),
             t == null ||
               t.addEventListener("sharedbufferreceived", function (e) {

@@ -73,6 +73,9 @@ __d(
                 o("WAWebMessageAssociation.flow").MessageAssociationType
                   .POLL_ADD_OPTION ||
               e ===
+                o("WAWebMessageAssociation.flow").MessageAssociationType
+                  .STICKER_ANNOTATION ||
+              e ===
                 o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
             ? null
             : (function () {

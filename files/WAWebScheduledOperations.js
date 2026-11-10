@@ -26,7 +26,6 @@ __d(
         RESEND_USER_MSG: "resendUserMsg",
         ROTATE_KEY: "rotateKey",
         SEND_REQUESTED_KEY_SHARE: "sendRequestedKeyShare",
-        SET_ABOUT: "setAbout",
         SET_TEXT_STATUS: "setTextStatus",
         USER_EXPOSURE_TO_QUICK_PROMOTION: "userExposureToQuickPromotion",
         VERIFY_POSTCODE: "verifyPostcode",
@@ -57,7 +56,6 @@ __d(
                 t === e.QUERY_AND_UPDATE_GROUPS_METADATA_BY_JIDS ||
                 t === e.QUERY_PRODUCT_LIST ||
                 t === e.ROTATE_KEY ||
-                t === e.SET_ABOUT ||
                 t === e.SET_TEXT_STATUS ||
                 t === e.USER_EXPOSURE_TO_QUICK_PROMOTION
               ? o("TaskSchedulerPriority").BACKGROUND_PRIORITY

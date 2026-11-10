@@ -21,6 +21,7 @@ __d(
     "WAWebFormatRevokedMsg",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
+    "WAWebInstantsStrings",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebL10N",
@@ -235,6 +236,11 @@ __d(
           f = "" + A + O;
           break;
         }
+        case "instant_image":
+          f =
+            (o("WAWebUA").UA.hasEmoji ? "\u26A1 " : "") +
+            o("WAWebInstantsStrings").getInstantLabel();
+          break;
         case "ptt": {
           var B = "",
             W = s._(/*BTDS*/ "Voice message").toString();

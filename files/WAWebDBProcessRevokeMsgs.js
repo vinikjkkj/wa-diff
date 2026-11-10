@@ -359,12 +359,16 @@ __d(
                                 S.push(e));
                               return;
                             }
+                            var d = r("WAWebMsgKey").fromString(u.id);
                             if (
                               e.skipRevokeWindow !== !0 &&
+                              !o("WAWebRevoke").canRevokeOutsideWindow({
+                                associationType: u.associationType,
+                                revokedMsgKey: d,
+                                subtype: e.subtype,
+                              }) &&
                               !o("WAWebRevoke").isWithinRevokeWindow({
-                                revokedMsgKey: r("WAWebMsgKey").fromString(
-                                  u.id,
-                                ),
+                                revokedMsgKey: d,
                                 revokedMsgTimestamp: u.t,
                                 revokeTimestamp: e.revokeTimestamp,
                               })
@@ -378,12 +382,12 @@ __d(
                               l.push(String(u.rowId)),
                               u.associationType != null &&
                                 H.push([u.id, u.associationType]));
-                            var d = o("WAWebRevoke").getMsgKeyAfterRevoke({
+                            var m = o("WAWebRevoke").getMsgKeyAfterRevoke({
                                 originalKey: r("WAWebMsgKey").from(u.id),
                                 revokeKey: e.newMsgKey,
                               }),
-                              m = {
-                                id: d.toString(),
+                              p = {
+                                id: m.toString(),
                                 ack: u.ack,
                                 to: u.to,
                                 author: u.author,
@@ -416,16 +420,16 @@ __d(
                                 ),
                               };
                             if (
-                              (i.push(m),
+                              (i.push(p),
                               o("WAWebMsgGetters").getIsImportantMessage(u))
                             ) {
-                              var p = r("WAWebMsgKey").fromString(u.id),
-                                _ = p.remote.toString();
-                              if (b.has(_)) {
-                                var f,
-                                  g = (f = b.get(_)) != null ? f : [];
-                                b.set(_, [].concat(g, [u.id]));
-                              } else b.set(_, [u.id]);
+                              var _ = r("WAWebMsgKey").fromString(u.id),
+                                f = _.remote.toString();
+                              if (b.has(f)) {
+                                var g,
+                                  h = (g = b.get(f)) != null ? g : [];
+                                b.set(f, [].concat(h, [u.id]));
+                              } else b.set(f, [u.id]);
                             }
                           }),
                           x.length > 0 &&

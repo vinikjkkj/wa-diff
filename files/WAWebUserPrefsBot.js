@@ -32,41 +32,22 @@ __d(
         : o("WAWebProtobufsDeviceCapabilities.pb")
             .DeviceCapabilities$AiThread$SupportLevel.NONE;
     }
-    var c = { IN_PROGRESS: "IN_PROGRESS", COMPLETE: "COMPLETE" };
-    function d() {
-      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_MIGRATION_STATE,
-      );
-    }
-    function m(e) {
-      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_MIGRATION_STATE,
-        e,
-      );
-    }
-    function p() {
-      var e = d();
-      return (e == null ? void 0 : e.migrationProgress) === c.COMPLETE;
-    }
-    function _() {
-      return m({ migrationProgress: c.COMPLETE });
-    }
-    function f() {
+    function c() {
       return (
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
           o("WAWebUserPrefsKeys").KEYS.WA_WEB_HAS_EVER_HAD_META_AI_THREAD,
         ) === !0
       );
     }
-    function g() {
-      return h.apply(this, arguments);
+    function d() {
+      return m.apply(this, arguments);
     }
-    function h() {
+    function m() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            f()
+            c()
               ? !1
               : (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                   o("WAWebUserPrefsKeys").KEYS
@@ -76,10 +57,10 @@ __d(
                 !0)
           );
         })),
-        h.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function y() {
+    function p() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
@@ -87,7 +68,7 @@ __d(
         ? e
         : 0;
     }
-    function C(e) {
+    function _(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
         e,
@@ -96,15 +77,10 @@ __d(
     ((l.getBotListLastRequestedTimestamp = e),
       (l.setBotListLastRequestedTimestamp = s),
       (l.getPrimaryAiThreadSupportLevelFromLocalStorage = u),
-      (l.MetaAIThreadMigrationProgress = c),
-      (l.getMetaAIThreadMigrationState = d),
-      (l.setMetaAIThreadMigrationState = m),
-      (l.isMetaAIThreadMigrationComplete = p),
-      (l.markMetaAIThreadMigrationStateAsComplete = _),
-      (l.hasEverHadMetaAiThread = f),
-      (l.markHasEverHadMetaAiThread = g),
-      (l.getMetaAiBotSessionLastCleanupTs = y),
-      (l.setMetaAiBotSessionLastCleanupTs = C));
+      (l.hasEverHadMetaAiThread = c),
+      (l.markHasEverHadMetaAiThread = d),
+      (l.getMetaAiBotSessionLastCleanupTs = p),
+      (l.setMetaAiBotSessionLastCleanupTs = _));
   },
   98,
 );

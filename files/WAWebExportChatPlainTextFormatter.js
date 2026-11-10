@@ -6,6 +6,7 @@ __d(
     "WAWebExportChatMarkdownFormatter",
     "WAWebExportChatSystemMsgFormatter",
     "WAWebGetPlainTextFromBotMsg",
+    "WAWebInstantsStrings",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUnformatMsg",
@@ -107,6 +108,8 @@ __d(
         return o("WAWebExportChatSystemMsgFormatter").formatSystemMsgForExport(
           t,
         );
+      if (i === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE)
+        return "<" + o("WAWebInstantsStrings").getInstantLabel() + ">";
       if (i === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
         return s
           ._(/*BTDS*/ "Waiting for this message. This may take a while.")

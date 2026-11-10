@@ -253,6 +253,42 @@ __d(
               )
             );
           }),
+          (a.allowDragOutDownload = function (t) {
+            var e = this;
+            return (
+              r("WAWebODS").incr(
+                "web.hybrid.bridge.media_files.send.try_allow_drag_out_download",
+              ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "mediaFiles",
+                  method: "tryAllowDragOutDownload",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.tryAllowDragOutDownload(t);
+                },
+              )
+            );
+          }),
+          (a.registerCachedMediaFileForDragOut = function (t, n) {
+            var e = this;
+            return (
+              r("WAWebODS").incr(
+                "web.hybrid.bridge.media_files.send.try_register_cached_media_file_for_drag_out",
+              ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "mediaFiles",
+                  method: "tryRegisterCachedMediaFileForDragOut",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.tryRegisterCachedMediaFileForDragOut(t, n);
+                },
+              )
+            );
+          }),
           (a.$3 = function (t) {
             if (
               t.additionalData != null &&

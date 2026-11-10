@@ -31,6 +31,9 @@ __d(
     "WAWebWamEnumPeerDataResponseApplyResultType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "cr:19090",
+    "cr:19091",
+    "err",
     "gkx",
     "justknobx",
     "nullthrows",
@@ -51,47 +54,64 @@ __d(
       C,
       b,
       v,
-      S = 3e3;
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+      S,
+      R,
+      L = (e = n("cr:19091")) != null ? e : {},
+      E = L.getOmittedMetadataIdentityForChat,
+      k = (s = n("cr:19090")) != null ? s : {},
+      I = k.getOmittedHistorySyncAnchor,
+      T = k.isOmittedHistorySyncOnDemandEnabled,
+      D = 3e3;
+    function x(e, t, n) {
+      return $.apply(this, arguments);
     }
-    function L() {
+    function $() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = r != null ? r : {},
-            i = a.skipStoringMessage,
-            l = yield E(e, t);
-          if (l == null) {
-            o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] peer data op request object is null",
-                ])),
-            );
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          var i = a != null ? a : {},
+            l = i.skipStoringMessage,
+            s = yield P(e, t);
+          if (s == null) {
+            if (
+              (o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[rdu] peer data op request object is null",
+                  ])),
+              ),
+              t.omittedHistory === !0)
+            )
+              throw r("err")("Could not build the omitted-chat ODHS request");
             return;
           }
-          var s = yield I(l, r);
-          if (s == null || s.length === 0) {
-            o("WALogger").WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] peer data operation request msg is null/empty",
-                ])),
-            );
+          var u = yield M(s, a);
+          if (u == null || u.length === 0) {
+            if (
+              (o("WALogger").WARN(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[rdu] peer data operation request msg is null/empty",
+                  ])),
+              ),
+              t.omittedHistory === !0)
+            )
+              throw r("err")(
+                "Could not address the omitted-chat ODHS request to primary",
+              );
             return;
           }
-          var u = F(e),
-            p = O(e);
-          yield (v || (v = n("Promise"))).all(
-            s.map(
+          var c = H(e),
+            d = G(e);
+          yield (R || (R = n("Promise"))).all(
+            u.map(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
-                    (w(e, t),
+                    (U(e, t),
                       o(
                         "WAWebNonMessageDataRequestLoggingUtils",
                       ).logNonMessagePeerDataRequest(e, t),
-                      i !== !0 &&
+                      l !== !0 &&
                         (yield o("WAWebApiPeerMessageStore").storePeerMessages([
                           t,
                         ])),
@@ -103,8 +123,8 @@ __d(
                         "WAWebSendAppStateSyncMsgJob",
                       ).encryptAndSendKeyMsg({
                         msg: t,
-                        pushPriority: u != null ? u : void 0,
-                        privacySensitive: p != null ? p : void 0,
+                        pushPriority: c != null ? c : void 0,
+                        privacySensitive: d != null ? d : void 0,
                       }));
                   },
                 );
@@ -114,34 +134,34 @@ __d(
               })(),
             ),
           );
-          var _ = s.slice(0, 3).map(function (e) {
+          var f = u.slice(0, 3).map(function (e) {
             return e.id.id;
           });
           o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[rdu] rdu msgs built type=",
                 " cnt=",
                 " ids=",
                 "",
               ])),
             e,
-            s.length,
-            _,
+            u.length,
+            f,
           );
         })),
-        L.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function k() {
+    function N() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[rdu] start building rdu request object, ## type: ",
                 "",
               ])),
@@ -165,28 +185,28 @@ __d(
               break;
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .UPLOAD_STICKER: {
-              var r = D(t);
+              var r = A(t);
               if (r == null) return null;
               n.requestStickerReupload = r;
               break;
             }
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .GENERATE_LINK_PREVIEW: {
-              var a = x(t);
+              var a = F(t);
               if (a == null) return null;
               n.requestUrlPreview = a;
               break;
             }
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .HISTORY_SYNC_ON_DEMAND: {
-              var i = yield P(t);
+              var i = yield B(t);
               if (i == null) return null;
               n.historySyncOnDemandRequest = i;
               break;
             }
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .PLACEHOLDER_MESSAGE_RESEND: {
-              var l = M(t);
+              var l = q(t);
               if (l == null) return null;
               n.placeholderMessageResendRequest = l;
               break;
@@ -194,8 +214,8 @@ __d(
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .FULL_HISTORY_SYNC_ON_DEMAND: {
               o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "full history sync on demand not supported in web",
                   ])),
               );
@@ -204,8 +224,8 @@ __d(
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .COMPANION_META_NONCE_FETCH: {
               o("WALogger").WARN(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "companion meta nonce fetch is not supported in web",
                   ])),
               );
@@ -223,14 +243,14 @@ __d(
               )
                 return (
                   o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "Syncd Snapshot recovery is not enabled",
                       ])),
                   ),
                   null
                 );
-              var s = $(t);
+              var s = O(t);
               if (s == null) return null;
               n.syncdCollectionFatalRecoveryRequest = s;
               break;
@@ -238,8 +258,8 @@ __d(
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .HISTORY_SYNC_CHUNK_RETRY: {
               o("WALogger").WARN(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "history sync chunk retry is not supported in web",
                   ])),
               );
@@ -248,8 +268,8 @@ __d(
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .RECENT_CONVERSATIONS_ON_DEMAND_REQUEST: {
               o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "recent conversations on demand request is not supported in web",
                   ])),
               );
@@ -281,15 +301,15 @@ __d(
           }
           return n;
         })),
-        k.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function T() {
+    function w() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = t != null ? t : {},
             i = a.fanout,
             l = a.msgId;
@@ -297,7 +317,7 @@ __d(
             var s = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
               u = { wids: [s] },
               c = yield o("WAWebDBDeviceListFanout").getFanOutList(u),
-              d = yield (v || (v = n("Promise"))).all(
+              d = yield (R || (R = n("Promise"))).all(
                 c.map(function (e) {
                   return r("WAWebMsgKey").newId();
                 }),
@@ -327,10 +347,10 @@ __d(
             },
           ];
         })),
-        T.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function D(e) {
+    function A(e) {
       var t,
         n = e.fileSha256Arr,
         r =
@@ -343,7 +363,7 @@ __d(
             ? void 0
             : t.map(function (e) {
                 return (
-                  A({
+                  V({
                     inFlightRequests: o(
                       "WAWebNonMessageDataRequestMediaHandlingUtils",
                     ).inFlightStickerRequests,
@@ -356,7 +376,7 @@ __d(
               });
       return (r == null ? void 0 : r.length) === 0 ? null : r;
     }
-    function x(e) {
+    function F(e) {
       var t = e.urls;
       return t == null
         ? void 0
@@ -364,98 +384,148 @@ __d(
             return { url: t, includeHqThumbnail: e.includeHqThumbnail };
           });
     }
-    function $(e) {
+    function O(e) {
       return {
         collectionName: r("nullthrows")(e.collectionName),
         timestamp: e.timestamp,
       };
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function N() {
+    function W() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled())
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            a,
+            i,
+            l = e.omittedHistory === !0;
+          if (
+            !(l
+              ? (T == null ? void 0 : T()) === !0
+              : o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled())
+          ) {
+            if (l)
+              throw r("err")("Omitted-chat ODHS is disabled or unsupported");
             return null;
+          }
           if (
             o("WAWebNonMessageDataRequestHistorySyncOnDemandUtils")
               .historySyncOnDemandRequestsFailureRecord.disableRequestSending
-          )
-            return (
-              o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+          ) {
+            if (
+              (o("WALogger").LOG(
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "[rdu] history sync on demand disabled: too many failures",
                   ])),
               ),
-              null
+              l)
+            )
+              throw r("err")(
+                "ODHS requests are temporarily disabled after failures",
+              );
+            return null;
+          }
+          var s = e.chatId;
+          if (s == null) return null;
+          var u = yield o("WAWebApiChatCommon").getChatRecord(s),
+            c = l && u != null ? yield E == null ? void 0 : E(u) : null,
+            d = l ? yield I == null ? void 0 : I(s) : null;
+          if (l && (c == null || d == null))
+            throw r("err")(
+              "Omitted ODHS requires matched metadata and a real local message anchor",
             );
-          var t = e.chatId;
-          if (t == null) return null;
-          var n = yield o("WAWebApiChatCommon").getChatRecord(t),
-            r =
-              (n == null ? void 0 : n.historyChatId) != null
-                ? o("WAWebWidFactory").createWid(n.historyChatId).toJid()
-                : o("WAWebCommsWapMd").CHAT_JID(t).toString();
+          var m =
+              (t = c == null ? void 0 : c.historyId) != null
+                ? t
+                : u == null
+                  ? void 0
+                  : u.historyChatId,
+            p =
+              m != null
+                ? o("WAWebWidFactory").createWid(m).toJid()
+                : o("WAWebCommsWapMd").CHAT_JID(s).toString();
           if (
             new Set(
               o(
                 "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
               ).inFlightHistorySyncOnDemandRequests.values(),
-            ).has(r)
-          )
-            return (
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+            ).has(p)
+          ) {
+            if (
+              (o("WALogger").LOG(
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
                     "[rdu] drop history sync on demand request as it's in flight",
                   ])),
               ),
-              null
-            );
-          var a = yield o(
-              "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-            ).getOldestMsgInChatFromDB(t),
-            i = yield o("WAWebABProps").getABPropConfigValue(
+              l)
+            )
+              throw r("err")(
+                "An ODHS request for this chat is already in flight",
+              );
+            return null;
+          }
+          var _ = l
+              ? null
+              : yield o(
+                  "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
+                ).getOldestMsgInChatFromDB(s),
+            f = yield o("WAWebABProps").getABPropConfigValue(
               "history_sync_on_demand_message_count",
             );
           return {
-            chatJid: r,
-            oldestMsgId: a == null ? void 0 : a.id.id,
-            oldestMsgFromMe: a == null ? void 0 : a.id.fromMe,
-            onDemandMsgCount: i,
+            chatJid: p,
+            oldestMsgId:
+              (n = d == null ? void 0 : d.id.id) != null
+                ? n
+                : _ == null
+                  ? void 0
+                  : _.id.id,
+            oldestMsgFromMe:
+              (a = d == null ? void 0 : d.id.fromMe) != null
+                ? a
+                : _ == null
+                  ? void 0
+                  : _.id.fromMe,
+            onDemandMsgCount: f,
             oldestMsgTimestampMs:
-              (a == null ? void 0 : a.t) != null ? a.t * 1e3 : void 0,
+              (i = d == null ? void 0 : d.timestampMs) != null
+                ? i
+                : (_ == null ? void 0 : _.t) != null
+                  ? _.t * 1e3
+                  : void 0,
             supportInlineResponse: !0,
           };
         })),
-        N.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function M(t) {
-      var n = t.msgKeys;
-      return n == null || n.length === 0
+    function q(e) {
+      var t = e.msgKeys;
+      return t == null || t.length === 0
         ? null
         : (o("WAWebCurrentUser").isEmployee() &&
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[rdu] send placeholder message backfill request for ",
                   "",
                 ])),
-              n.map(function (e) {
+              t.map(function (e) {
                 return e.toString();
               }),
             ),
-          n
+          t
             .filter(function (e) {
               return !o(
                 "WAWebNonMessageDataRequestPlaceholderMessageResendUtils",
               ).inFlightPlaceholderResendRequests.has(e.id);
             })
             .map(function (e) {
-              A({
+              V({
                 inFlightRequests: o(
                   "WAWebNonMessageDataRequestPlaceholderMessageResendUtils",
                 ).inFlightPlaceholderResendRequests,
@@ -479,7 +549,7 @@ __d(
               };
             }));
     }
-    function w(e, t) {
+    function U(e, t) {
       switch (e) {
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .UPLOAD_STICKER: {
@@ -518,19 +588,19 @@ __d(
                 ? void 0
                 : i.historySyncOnDemandRequest;
           if (l != null) {
-            var u,
-              c = (u = l.chatJid) != null ? u : "";
+            var s,
+              u = (s = l.chatJid) != null ? s : "";
             o(
               "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-            ).inFlightHistorySyncOnDemandRequests.set(t.id.id, c);
+            ).inFlightHistorySyncOnDemandRequests.set(t.id.id, u);
             var d = o("WAWebABProps").getABPropConfigValue(
                 "history_sync_on_demand_timeout_ms",
               ),
               m = function () {
                 var e = r("gkx")("26258") ? "" : t.id.id;
                 (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[rdu] history sync on demand timeout key=",
                       "",
                     ])),
@@ -538,7 +608,7 @@ __d(
                 ),
                   o(
                     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-                  ).handleHistorySyncOnDemandFailure(c),
+                  ).handleHistorySyncOnDemandFailure(u),
                   o(
                     "WAWebNonMessageDataRequestLoggingUtils",
                   ).logHistorySyncOnDemandResponse(
@@ -547,7 +617,7 @@ __d(
                     t.id.id,
                   ));
               };
-            A({
+            V({
               inFlightRequests: o(
                 "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
               ).inFlightHistorySyncOnDemandRequests,
@@ -582,19 +652,19 @@ __d(
           break;
       }
     }
-    function A(e) {
+    function V(e) {
       var t = e.inFlightRequests,
         n = e.key,
         a = e.requestTimeoutMs,
-        i = a === void 0 ? S : a,
+        i = a === void 0 ? D : a,
         l = e.requestType,
         s = e.timeoutHandling;
       new (o("WAShiftTimer").ShiftTimer)(function () {
         if (t.has(n)) {
           var e = r("gkx")("26258") ? "" : n;
           (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[rdu] clean req key=",
                 " type=",
                 "",
@@ -607,7 +677,7 @@ __d(
         }
       }).onOrAfter(i);
     }
-    function F(e) {
+    function H(e) {
       switch (e) {
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .GENERATE_LINK_PREVIEW:
@@ -633,7 +703,7 @@ __d(
           return null;
       }
     }
-    function O(e) {
+    function G(e) {
       if (
         !r("justknobx")._("4199") &&
         e ===
@@ -643,7 +713,7 @@ __d(
         return o("WAWebSendMsgCreateDeviceStanza").PrivacySensitiveType
           .OnDemand;
     }
-    l.sendPeerDataOperationRequest = R;
+    l.sendPeerDataOperationRequest = x;
   },
   98,
 );

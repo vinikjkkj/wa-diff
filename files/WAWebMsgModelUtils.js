@@ -61,6 +61,7 @@ __d(
       var t;
       switch (e.type) {
         case "image":
+        case "instant_image":
         case "video":
         case "ptv":
         case "audio":

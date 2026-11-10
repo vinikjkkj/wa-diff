@@ -17,6 +17,7 @@ __d(
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "justknobx",
     "requireDeferred",
@@ -41,7 +42,7 @@ __d(
       });
     function c(e) {
       return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-        o("WAWebUserPrefsMeUser").getMeDeviceWids(),
+        o("WAWebUserUtils").getMeDeviceWids(),
         e,
         null,
       );

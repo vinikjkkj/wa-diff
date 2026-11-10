@@ -78,8 +78,10 @@ __d(
                 );
                 var a = this.getCurrentModalOrScreen(),
                   i =
-                    this.currentScreenPointer.isModal ||
-                    (a == null ? void 0 : a.getIsOverlay()) === !0,
+                    (a == null ? void 0 : a.options.isSSRStackedScreen) !==
+                      !0 &&
+                    (this.currentScreenPointer.isModal ||
+                      (a == null ? void 0 : a.getIsOverlay()) === !0),
                   l = this.$4;
                 (this.$9(a) || this.$10(a),
                   a == null || a.onExit(this.navigationDirection),
@@ -116,11 +118,10 @@ __d(
                 }
                 if (!u) {
                   var m =
-                    i &&
                     !this.currentScreenPointer.isModal &&
                     this.$4 === l &&
                     this.getCurrentScreen() === l;
-                  this.$12(m ? "overlay_dismiss" : "navigation");
+                  this.$12(i && m ? "overlay_dismiss" : "navigation");
                 }
                 t.pageTitle != null &&
                   o("WebBloksSSRUtils").canUseDOM &&

@@ -9,18 +9,23 @@ __d(
     "WAWebBackendRuntime",
     "WAWebDBMessageDelete",
     "WAWebDBProcessMessage",
+    "WAWebDBUpdateMessageTable",
     "WAWebEncryptAndSendStatusMsg",
+    "WAWebFrontendMsgGetters",
     "WAWebLidStatusMigrationUtils",
     "WAWebLogStatusRevoke",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMessageStoreService",
+    "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
+    "WAWebNoop",
     "WAWebOutgoingMessage",
     "WAWebPostSendStatusFailure",
     "WAWebSendMsgMetricReporter",
+    "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
     "WAWebStatusPosterActionsLogger",
     "WAWebUserPrefsMeUser",
@@ -32,14 +37,27 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e, u, c, d, m, p;
+    var e,
+      u,
+      c,
+      d,
+      m = new Map();
+    function p(e, t) {
+      var n = t.id.toString(),
+        r = m.get(n);
+      if (r != null) return r;
+      var o = _(e, t).finally(function () {
+        m.delete(n);
+      });
+      return (m.set(n, o), o);
+    }
     function _(e, t) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a, i, l, _, f;
+          var a, i, l;
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -48,104 +66,102 @@ __d(
               ])),
             n.id,
           );
-          var h = new (o(
+          var s = new (o(
             "WAWebStatusPosterActionsLogger",
           ).StatusPosterActionsLogger)();
-          h.logDeleteStatusRequest();
-          var y = yield g(n);
-          y != null || s(0, 74709);
-          var C = new (o("WAWebMsgModel").Msg)(y);
-          C.wamMessageSendPerfReporter = new (o(
-            "WAWebMessageSendPerfReporter",
-          ).MessageSendPerfReporter)({
-            chatWid: n.to,
-            mediaType: o("WAWebWamMsgUtils").getWamMediaType(n),
-            messageType: o("WAWebWamMsgUtils").getWamMessageType(n),
-          });
-          var b = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
-            C,
-            o("WAWebMessageSendReporterFrontendDeps")
-              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
-          );
-          ((b.sendReporter =
-            (a = b.sendReporter) != null ? a : b.createSendReporter()),
-            (i = b.sendPerfReporter) == null || i.startSavedStage(),
+          if (
+            (s.logDeleteStatusRequest(),
+            o("WAWebFrontendMsgGetters").getIsUnsentMedia(n) &&
+              o("WAWebMsgGetters").getAck(n) === o("WAWebAck").ACK.CLOCK)
+          )
+            return (
+              s.logDeleteStatusFailure("media_upload_pending"),
+              o("WAWebSendMsgResultAction").SendMsgResult.ERROR_UNKNOWN
+            );
+          var m;
+          try {
+            m = yield g(n);
+          } catch (e) {
+            var p;
+            return (
+              s.logDeleteStatusFailure(
+                (p = r("getErrorSafe")(e)) == null ? void 0 : p.message,
+              ),
+              o("WAWebSendMsgResultAction").SendMsgResult.ERROR_UNKNOWN
+            );
+          }
+          var _ = m,
+            f = _.metricsReporter,
+            h = _.rec,
+            C = _.sendMsgRecordType;
+          try {
+            yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
+              metricsReporter: f,
+              msgProtobuf: o(
+                "WAWebOutgoingMessage",
+              ).createOutgoingMessageProtobuf(
+                o("WAWebOutgoingMessage").OutgoingMessageOriginType.Status,
+                C,
+              ),
+              sendMsgRecord: C,
+            });
+          } catch (e) {
+            (o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "sendStatusRevokeMsgAction: failed",
+                ])),
+            ),
+              yield y(h, e));
+            var b = r("getErrorSafe")(e);
+            s.logDeleteStatusFailure(b == null ? void 0 : b.message);
+            var v = yield o("WAWebUserPrefsStatus").getStatusPrivacySetting();
+            return (
+              o("WAWebPostSendStatusFailure").postStatusSendFailure(b, f, v),
+              o("WAWebSendMsgResultAction").SendMsgResult.ERROR_UNKNOWN
+            );
+          }
+          (o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "sendStatusRevokeMsgAction: done",
+              ])),
+          ),
+            yield o("WAWebDBUpdateMessageTable")
+              .updateMessageTable(h.id, { ack: o("WAWebAck").ACK.SENT })
+              .catch(r("WAWebNoop")),
+            (a = f.sendReporter) == null || a.postSuccess(),
+            o("WAWebLogStatusRevoke").logStatusRevoke(n));
+          try {
             yield (
               o("WAWebBackendRuntime").isWebDiBackendEnabled()
                 ? o("WAWebBackendRuntime").runtime(
                     o("WAWebMessageStoreService").MessageStoreService,
-                  ).storeMessages
-                : o("WAWebDBProcessMessage").storeMessages
-            )([y], C.to),
-            (l = b.sendPerfReporter) == null || l.postSavedStage(),
-            (_ = b.sendPerfReporter) == null || _.startRenderedStage(),
-            t.revokeMsgs([n.id.toString()]),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendStatusRevokeMsgAction: sending revoke msg ",
-                  "",
-                ])),
-              n.id,
-            ),
-            (f = b.sendPerfReporter) == null || f.postRenderedStage());
-          var v = {
-              type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-              data: C,
-            },
-            S = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Status,
-              v,
-            );
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "sendStatusRevokeMsgAction: generate protobuf ",
-                "",
-              ])),
-            n.id,
-          );
-          try {
-            var R;
-            (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
-              metricsReporter: b,
-              msgProtobuf: S,
-              sendMsgRecord: v,
-            }),
-              o("WALogger").LOG(
+                  ).removeStatusMessage
+                : o("WAWebDBMessageDelete").removeStatusMessage
+            )([n]);
+          } catch (e) {
+            var S;
+            return (
+              o("WALogger").WARN(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendStatusRevokeMsgAction: done",
+                    "sendStatusRevokeMsgAction: revoke sent, local delete failed",
                   ])),
               ),
-              (R = b.sendReporter) == null || R.postSuccess(),
-              h.logDeleteStatusSuccess(),
-              o("WAWebLogStatusRevoke").logStatusRevoke(n),
-              yield (
-                o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                  ? o("WAWebBackendRuntime").runtime(
-                      o("WAWebMessageStoreService").MessageStoreService,
-                    ).removeStatusMessage
-                  : o("WAWebDBMessageDelete").removeStatusMessage
-              )([n]),
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendStatusRevokeMsgAction: remove status from storage",
-                  ])),
-              ));
-          } catch (e) {
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendStatusRevokeMsgAction: failed",
-                ])),
+              s.logDeleteStatusFailure(
+                (S = r("getErrorSafe")(e)) == null ? void 0 : S.message,
+              ),
+              o("WAWebSendMsgResultAction").SendMsgResult.ERROR_UNKNOWN
             );
-            var L = r("getErrorSafe")(e);
-            h.logDeleteStatusFailure(L == null ? void 0 : L.message);
-            var E = yield o("WAWebUserPrefsStatus").getStatusPrivacySetting();
-            o("WAWebPostSendStatusFailure").postStatusSendFailure(L, b, E);
           }
+          return (
+            (i = f.sendPerfReporter) == null || i.startRenderedStage(),
+            t.revokeMsgs([n.id.toString()]),
+            (l = f.sendPerfReporter) == null || l.postRenderedStage(),
+            s.logDeleteStatusSuccess(),
+            o("WAWebSendMsgResultAction").SendMsgResult.OK
+          );
         })),
         f.apply(this, arguments)
       );
@@ -156,6 +172,67 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r,
+            a = yield C(e);
+          a != null || s(0, 74709);
+          var i = new (o("WAWebMsgModel").Msg)(a);
+          i.wamMessageSendPerfReporter = new (o(
+            "WAWebMessageSendPerfReporter",
+          ).MessageSendPerfReporter)({
+            chatWid: e.to,
+            mediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
+            messageType: o("WAWebWamMsgUtils").getWamMessageType(e),
+          });
+          var l = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
+            i,
+            o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+          );
+          return (
+            (l.sendReporter =
+              (t = l.sendReporter) != null ? t : l.createSendReporter()),
+            (n = l.sendPerfReporter) == null || n.startSavedStage(),
+            yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageStoreService").MessageStoreService,
+                  ).storeMessages
+                : o("WAWebDBProcessMessage").storeMessages
+            )([a], i.to),
+            (r = l.sendPerfReporter) == null || r.postSavedStage(),
+            {
+              metricsReporter: l,
+              rec: i,
+              sendMsgRecordType: {
+                type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
+                data: i,
+              },
+            }
+          );
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e, t) {
+      var n =
+        t instanceof o("WAWebEncryptAndSendStatusMsg").StatusServerRejectedError
+          ? { isSendFailure: !0, ack: o("WAWebAck").ACK.FAILED }
+          : { isSendFailure: !0 };
+      return (
+        e.set(n),
+        o("WAWebDBUpdateMessageTable")
+          .updateMessageTable(e.id, n)
+          .catch(r("WAWebNoop"))
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             n = o("WAWebLidStatusMigrationUtils").matWidConvert(
               o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
@@ -187,10 +264,10 @@ __d(
             };
           return s;
         })),
-        h.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.sendStatusRevokeMsgAction = _), (l.createRevokeStatusMsgData = g));
+    ((l.sendStatusRevokeMsgAction = p), (l.createRevokeStatusMsgData = C));
   },
   98,
 );

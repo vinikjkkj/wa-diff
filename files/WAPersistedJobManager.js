@@ -38,8 +38,9 @@ __d(
       P,
       N,
       M,
-      w = 1,
-      A = (function () {
+      w,
+      A = 1,
+      F = (function () {
         function e(e) {
           this.feature = e;
         }
@@ -51,7 +52,7 @@ __d(
           e
         );
       })(),
-      F = (function () {
+      O = (function () {
         function e(e) {
           this.backoffOptions = e;
         }
@@ -63,7 +64,7 @@ __d(
           e
         );
       })(),
-      O = (function (e) {
+      B = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -76,13 +77,13 @@ __d(
           t
         );
       })(babelHelpers.wrapNativeSuper(Error)),
-      B = function (t) {
+      W = function (t) {
         this.result = t;
       },
-      W = "$unstarted",
-      q = "$finished",
-      U = 5,
-      V = (function () {
+      q = "$unstarted",
+      U = "$finished",
+      V = 5,
+      H = (function () {
         function t(t) {
           var r = this,
             a,
@@ -95,9 +96,9 @@ __d(
                 u = [];
               return (
                 t.forEach(function (e) {
-                  e.stepHardStartCountAfterTimeout >= U ? a.push(e) : u.push(e);
+                  e.stepHardStartCountAfterTimeout >= V ? a.push(e) : u.push(e);
                 }),
-                (M || (M = n("Promise")))
+                (w || (w = n("Promise")))
                   .all(
                     a.map(function (t) {
                       return (
@@ -109,7 +110,7 @@ __d(
                                 ": stuck on the step ",
                                 ", aborting the job",
                               ])),
-                            G(t),
+                            z(t),
                             t.step,
                           )
                           .sendLogs("job-stuck-" + t.type),
@@ -126,7 +127,7 @@ __d(
                               "",
                               ": restarting",
                             ])),
-                          H(e),
+                          G(e),
                         ),
                         c.set(e.jobId, r.$1(e, l)));
                     });
@@ -192,7 +193,7 @@ __d(
           }),
           (r.$4 = function (t, r) {
             if (r == null || r.length === 0)
-              return (M || (M = n("Promise"))).resolve();
+              return (w || (w = n("Promise"))).resolve();
             var e = this.stepBlockers,
               a = e.get(r);
             return (
@@ -201,7 +202,7 @@ __d(
                   r.map(function (e) {
                     return e();
                   }),
-                  j,
+                  K,
                 )),
                 e.set(r, a)),
               a(t)
@@ -214,7 +215,7 @@ __d(
               l = n.findIndex(function (e) {
                 return e.stepName === i;
               }),
-              s = n[l].info(t.current, t.original, K(t, r)),
+              s = n[l].info(t.current, t.original, Q(t, r)),
               u = s.code,
               d = s.requirements,
               m = this.$4(t, d);
@@ -223,11 +224,11 @@ __d(
               m
                 .then(function () {
                   return e.$6(t, function () {
-                    return u(t.current, t.original, K(t, r));
+                    return u(t.current, t.original, Q(t, r));
                   });
                 })
                 .then(function (a) {
-                  if (a instanceof B)
+                  if (a instanceof W)
                     return (
                       o("WALogger").LOG(
                         c ||
@@ -235,7 +236,7 @@ __d(
                             "",
                             ": InterruptJob",
                           ])),
-                        z(t),
+                        j(t),
                       ),
                       a.result
                     );
@@ -259,7 +260,7 @@ __d(
           }),
           (r.$6 = function (t, r) {
             var e = function () {
-                return (M || (M = n("Promise"))).resolve().then(function () {
+                return (w || (w = n("Promise"))).resolve().then(function () {
                   return (
                     o("WALogger").LOG(
                       d ||
@@ -267,7 +268,7 @@ __d(
                           "",
                           ": running step",
                         ])),
-                      z(t),
+                      j(t),
                     ),
                     r()
                   );
@@ -289,11 +290,11 @@ __d(
                   u = this.listeners,
                   c = u.onJobFinished,
                   d = u.onJobStarted,
-                  D = yield this.$3(e.type),
-                  x = s[e.type];
-                if (!D) {
-                  if (x) {
-                    if (x === "NOOP")
+                  x = yield this.$3(e.type),
+                  $ = s[e.type];
+                if (!x) {
+                  if ($) {
+                    if ($ === "NOOP")
                       return (
                         o("WALogger").WARN(
                           p ||
@@ -321,10 +322,10 @@ __d(
                       yield i.deletePersistedJob(e.jobId),
                       null
                     );
-                  D = yield x();
+                  x = yield $();
                 }
-                var $ = D;
-                x &&
+                var P = x;
+                $ &&
                   o("WALogger").LOG(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -333,59 +334,59 @@ __d(
                       ])),
                     e.type,
                   );
-                var P =
+                var N =
                   (r = e.stepFirstStartTime) != null
                     ? r
                     : o("WATimeUtils").unixTime();
                 if (
-                  ((e.stepFirstStartTime = P),
+                  ((e.stepFirstStartTime = N),
                   (e.stepUnexpectedErrorCount =
                     e.stepUnexpectedErrorCount || 0),
                   (e.backedOffCount = e.backedOffCount || 0),
-                  e.step === q)
+                  e.step === U)
                 ) {
-                  var N = e.waitUntil,
-                    O = o("WATimeUtils").secondsUntil(P);
+                  var M = e.waitUntil,
+                    B = o("WATimeUtils").secondsUntil(N);
                   return (
-                    N != null &&
-                      o("WATimeUtils").isInFuture(N) &&
-                      O > 0 &&
+                    M != null &&
+                      o("WATimeUtils").isInFuture(M) &&
+                      B > 0 &&
                       (o("WALogger").LOG(
                         f ||
                           (f = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             ": skew detected, adjusting accordingly",
                           ])),
-                        H(e),
+                        G(e),
                       ),
-                      (N = o("WATimeUtils").castToUnixTime(N - O)),
-                      o("WATimeUtils").isInFuture(N) &&
+                      (M = o("WATimeUtils").castToUnixTime(M - B)),
+                      o("WATimeUtils").isInFuture(M) &&
                         ((e.stepFirstStartTime = o(
                           "WATimeUtils",
-                        ).castToUnixTime(P - O)),
-                        (e.waitUntil = N),
+                        ).castToUnixTime(N - B)),
+                        (e.waitUntil = M),
                         yield this.accessors.updatePersistedJob(e))),
-                    (N == null || !o("WATimeUtils").isInFuture(N)) &&
+                    (M == null || !o("WATimeUtils").isInFuture(M)) &&
                       (o("WALogger").LOG(
                         g ||
                           (g = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             ": removing completed, expired job from db",
                           ])),
-                        H(e),
+                        G(e),
                       ),
                       yield i.deletePersistedJob(e.jobId)),
                     l.delete(e.jobId),
                     e.current
                   );
                 }
-                var B =
-                  e.step !== W
-                    ? D.find(function (t) {
+                var W =
+                  e.step !== q
+                    ? x.find(function (t) {
                         return t.stepName === e.step;
                       })
-                    : D[0];
-                if (!B)
+                    : x[0];
+                if (!W)
                   return (
                     o("WALogger")
                       .ERROR(
@@ -402,10 +403,10 @@ __d(
                     yield i.deletePersistedJob(e.jobId),
                     null
                   );
-                e.step = B.stepName;
-                var U = function () {
+                e.step = W.stepName;
+                var V = function () {
                     var r = e.waitUntil,
-                      i = (M || (M = n("Promise"))).resolve();
+                      i = (w || (w = n("Promise"))).resolve();
                     if (r != null) {
                       var l = o("WATimeUtils").futureUnixTime(
                         o("WATimeUtils").DAY_SECONDS,
@@ -419,7 +420,7 @@ __d(
                                 " to ",
                                 "",
                               ])),
-                            z(e),
+                            j(e),
                             r,
                             l,
                           ),
@@ -436,7 +437,7 @@ __d(
                                 ": delaying until ",
                                 "",
                               ])),
-                            z(e),
+                            j(e),
                             r,
                           ),
                           (i = o("WATimeUtils").delayUntil(r)));
@@ -446,14 +447,14 @@ __d(
                         return (
                           (e.waitUntil = null),
                           o("WATimeUtils").happenedWithin(
-                            P,
+                            N,
                             o("WATimeUtils").DAY_SECONDS,
                           ) || e.stepHardStartCountAfterTimeout++,
                           a.accessors.updatePersistedJob(e)
                         );
                       };
-                      return a.$5(e, $, t, r).catch(function (t) {
-                        if (t instanceof A)
+                      return a.$5(e, P, t, r).catch(function (t) {
+                        if (t instanceof F)
                           return (
                             o("WALogger").LOG(
                               b ||
@@ -461,21 +462,35 @@ __d(
                                   "",
                                   ": requires page",
                                 ])),
-                              z(e),
+                              j(e),
                             ),
                             e.stepHardStartCountAfterTimeout > 0 &&
                               (--e.stepHardStartCountAfterTimeout,
-                              a.accessors.updatePersistedJob(e)),
-                            new (M || (M = n("Promise")))(function () {})
+                              a.accessors
+                                .updatePersistedJob(e)
+                                .catch(function (t) {
+                                  o("WALogger")
+                                    .ERROR(
+                                      v ||
+                                        (v =
+                                          babelHelpers.taggedTemplateLiteralLoose(
+                                            ["", ": failed to update job ", ""],
+                                          )),
+                                      j(e),
+                                      t,
+                                    )
+                                    .sendLogs("job-update-failed");
+                                })),
+                            new (w || (w = n("Promise")))(function () {})
                           );
-                        if (t instanceof F) {
+                        if (t instanceof O) {
                           o("WALogger").LOG(
-                            v ||
-                              (v = babelHelpers.taggedTemplateLiteralLoose([
+                            S ||
+                              (S = babelHelpers.taggedTemplateLiteralLoose([
                                 "",
                                 ": RetryOnBackoff",
                               ])),
-                            z(e),
+                            j(e),
                           );
                           var r = o("WAPromiseBackoffs").getDelay(
                             ++e.backedOffCount,
@@ -487,49 +502,49 @@ __d(
                             )),
                             e.stepHardStartCountAfterTimeout > 0 &&
                               --e.stepHardStartCountAfterTimeout,
-                            a.accessors.updatePersistedJob(e).then(U)
+                            a.accessors.updatePersistedJob(e).then(V)
                           );
-                        } else if (e.stepUnexpectedErrorCount < w)
+                        } else if (e.stepUnexpectedErrorCount < A)
                           return (
-                            o("WALogger").WARN(
-                              S ||
-                                (S = babelHelpers.taggedTemplateLiteralLoose([
-                                  "",
-                                  ": Unhandled exception. Tried ",
-                                  " times",
-                                ])),
-                              z(e),
-                              e.stepUnexpectedErrorCount,
-                            ),
                             o("WALogger").WARN(
                               R ||
                                 (R = babelHelpers.taggedTemplateLiteralLoose([
                                   "",
+                                  ": Unhandled exception. Tried ",
+                                  " times",
+                                ])),
+                              j(e),
+                              e.stepUnexpectedErrorCount,
+                            ),
+                            o("WALogger").WARN(
+                              L ||
+                                (L = babelHelpers.taggedTemplateLiteralLoose([
+                                  "",
                                   ": Unhandled exception: ",
                                   "",
                                 ])),
-                              z(e),
+                              j(e),
                               t,
                             ),
                             e.stepUnexpectedErrorCount++,
-                            a.accessors.updatePersistedJob(e).then(U)
+                            a.accessors.updatePersistedJob(e).then(V)
                           );
                         throw t;
                       });
                     });
                   },
-                  V = U(),
-                  G = V.then(
+                  H = V(),
+                  z = H.then(
                     (function () {
                       var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (t) {
                           o("WALogger").LOG(
-                            L ||
-                              (L = babelHelpers.taggedTemplateLiteralLoose([
+                            E ||
+                              (E = babelHelpers.taggedTemplateLiteralLoose([
                                 "",
                                 ": finished job",
                               ])),
-                            z(e),
+                            j(e),
                           );
                           var n = null;
                           try {
@@ -537,8 +552,8 @@ __d(
                           } catch (t) {
                             o("WALogger")
                               .ERROR(
-                                E ||
-                                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                                k ||
+                                  (k = babelHelpers.taggedTemplateLiteralLoose([
                                     "onJobFinished for ",
                                     " threw exception ",
                                     "",
@@ -552,7 +567,7 @@ __d(
                             ? ((e.waitUntil = o("WATimeUtils").futureUnixTime(
                                 Math.ceil(n / 1e3),
                               )),
-                              (e.step = q),
+                              (e.step = U),
                               (e.current = t),
                               (e.stepFirstStartTime =
                                 o("WATimeUtils").unixTime()),
@@ -570,8 +585,8 @@ __d(
                         function* (n) {
                           o("WALogger")
                             .ERROR(
-                              k ||
-                                (k = babelHelpers.taggedTemplateLiteralLoose([
+                              I ||
+                                (I = babelHelpers.taggedTemplateLiteralLoose([
                                   "",
                                   " failed with error ",
                                   "",
@@ -580,13 +595,13 @@ __d(
                               n,
                             )
                             .sendLogs("job-threw-exception-" + e.type);
-                          var r = $.find(function (t) {
+                          var r = P.find(function (t) {
                             return t.stepName === e.step;
                           });
                           if (!r)
                             o("WALogger").ERROR(
-                              I ||
-                                (I = babelHelpers.taggedTemplateLiteralLoose([
+                              T ||
+                                (T = babelHelpers.taggedTemplateLiteralLoose([
                                   "",
                                   ": ",
                                   " step not found",
@@ -595,12 +610,12 @@ __d(
                               e.step,
                             );
                           else {
-                            var a = r.info(e.current, e.original, K(e, t));
+                            var a = r.info(e.current, e.original, Q(e, t));
                             a.stopRetryIf != null &&
                               (yield a.stopRetryIf.onStopRetry(
                                 e.current,
                                 e.original,
-                                K(e, t),
+                                Q(e, t),
                               ));
                           }
                           (yield i.deletePersistedJob(e.jobId),
@@ -617,8 +632,8 @@ __d(
                 } catch (t) {
                   o("WALogger")
                     .ERROR(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
                           "onJobStarted for ",
                           " threw exception ",
                           "",
@@ -628,8 +643,8 @@ __d(
                     )
                     .sendLogs("onJobStarted-threw");
                 }
-                return G.then(function () {
-                  return V;
+                return z.then(function () {
+                  return H;
                 });
               },
             );
@@ -644,8 +659,8 @@ __d(
             if (r.has(t)) {
               o("WALogger")
                 .ERROR(
-                  D ||
-                    (D = babelHelpers.taggedTemplateLiteralLoose([
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose([
                       "addPersistedJobImplementation called twice for ",
                       "",
                     ])),
@@ -679,17 +694,17 @@ __d(
           }),
           (r.fireAndForgetNonPersisted = function (t) {
             o("WALogger").LOG(
-              x ||
-                (x = babelHelpers.taggedTemplateLiteralLoose([
+              $ ||
+                ($ = babelHelpers.taggedTemplateLiteralLoose([
                   "fireAndForgetNonPersisted not implemented in PersistedJobManager",
                 ])),
             );
           }),
           (r.waitUntilCompletedNonPersisted = function (t) {
-            return (M || (M = n("Promise"))).resolve(function () {
+            return (w || (w = n("Promise"))).resolve(function () {
               return o("WALogger").LOG(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                P ||
+                  (P = babelHelpers.taggedTemplateLiteralLoose([
                     "waitUntilCompletedNonPersisted not implemented in PersistedJobManager",
                   ])),
               );
@@ -698,55 +713,55 @@ __d(
           t
         );
       })();
-    function H(e) {
+    function G(e) {
       return "Job[" + e.jobId + "] (" + e.type + ")";
     }
-    function G(e) {
+    function z(e) {
       return "[Job " + e.type + "] ";
     }
-    function z(e) {
+    function j(e) {
       return "Job[" + e.jobId + "] (" + e.type + "." + e.step + ")";
     }
-    function j(e, t, n) {
+    function K(e, t, n) {
       e === "unsatisfiable"
         ? o("WALogger").LOG(
-            P ||
-              (P = babelHelpers.taggedTemplateLiteralLoose([
+            N ||
+              (N = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " halting because of ",
                 "",
               ])),
-            z(n),
+            j(n),
             t,
           )
         : e === "unsatisfied" &&
           o("WALogger").LOG(
-            N ||
-              (N = babelHelpers.taggedTemplateLiteralLoose([
+            M ||
+              (M = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " waiting on ",
                 "",
               ])),
-            z(n),
+            j(n),
             t,
           );
     }
-    function K(e, t) {
+    function Q(e, t) {
       return (
         t === void 0 && (t = !1),
-        { jobStartTime: e.startTime, afterCrash: t, interruptJob: Q }
+        { jobStartTime: e.startTime, afterCrash: t, interruptJob: X }
       );
     }
-    function Q(e) {
-      return new B(e);
+    function X(e) {
+      return new W(e);
     }
-    ((l.RetryOnBackoff = F),
-      (l.NonRetryableError = O),
-      (l.InterruptJob = B),
-      (l.UNSTARTED_JOB = W),
-      (l.FINISHED_JOB = q),
-      (l.MAX_STEP_HARD_START_COUNT_AFTER_TIMEOUT = U),
-      (l.PersistedJobManager = V));
+    ((l.RetryOnBackoff = O),
+      (l.NonRetryableError = B),
+      (l.InterruptJob = W),
+      (l.UNSTARTED_JOB = q),
+      (l.FINISHED_JOB = U),
+      (l.MAX_STEP_HARD_START_COUNT_AFTER_TIMEOUT = V),
+      (l.PersistedJobManager = H));
   },
   98,
 );

@@ -33,7 +33,6 @@ __d(
     "WAWebThreadCommonModelUtils",
     "WAWebThreadMsgUtils",
     "WAWebUnreadMentionModel",
-    "WAWebUserPrefsBot",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -223,20 +222,11 @@ __d(
             var k = o(
               "WAWebThreadCommonModelUtils",
             ).getAggregatedThreadDetailUpdatesFromMessages(L);
-            (E.push(
+            E.push(
               o(
                 "WAWebBulkCreateOrUpdateThreadsMetadata",
               ).bulkCreateOrUpdateThreadsMetadata(k),
-            ),
-              k.some(
-                o("WAWebThreadCommonModelUtils")
-                  .isAiThreadNonHistoricalMetaAiThread,
-              ) &&
-                E.push(
-                  o(
-                    "WAWebUserPrefsBot",
-                  ).markMetaAIThreadMigrationStateAsComplete(),
-                ));
+            );
           }
           o("WAWebDBReportingTokenUtils").handleHistorySyncedReportingInfo(
             b.messages,

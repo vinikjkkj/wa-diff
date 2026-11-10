@@ -14,6 +14,7 @@ __d(
     "WAWebLinkDeviceExperience",
     "WAWebLocalStorage",
     "WAWebMdLinkDeviceCompanionWamEvent",
+    "WAWebStartupLaunchAttribution",
     "WAWebWamEnumMdLinkDeviceCompanionStage",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -60,6 +61,9 @@ __d(
           var r = yield k(e, t);
           return (
             (d = {
+              launchAttribution: o(
+                "WAWebStartupLaunchAttribution",
+              ).getLaunchAttributionAppContextPart(window.location.search),
               regStartTime: n,
               sessionId: r,
               visitId: o(
@@ -155,18 +159,23 @@ __d(
           var s = c,
             u = a.visitId;
           (u != null && (s.waWebVisitId = u),
-            o("WAWebAppTracker").attachWAMAppContext(s, i * 1e3),
-            (_ = s.commitAndWaitForFlush(!0).catch(function (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to commit device link WAM event",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("device-link-wam-commit-failed");
-            })),
+            o("WAWebAppTracker").attachWAMAppContext(s, i * 1e3));
+          var f = a.launchAttribution;
+          if (f != null) {
+            var g = s.appContext;
+            s.appContext = g == null || g === "" ? f : g + "+" + f;
+          }
+          ((_ = s.commitAndWaitForFlush(!0).catch(function (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to commit device link WAM event",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("device-link-wam-commit-failed");
+          })),
             (n = p) == null || n.resolve(),
             (t != null ||
               s.mdLinkDeviceCompanionStage ===

@@ -13,7 +13,7 @@ __d(
     "WAWebGetIdentityKeysJob",
     "WAWebIdentityFunction",
     "WAWebPhashUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
@@ -128,7 +128,7 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield m({
-            wids: o("WAWebUserPrefsMeUser").getMeDeviceWids(),
+            wids: o("WAWebUserUtils").getMeDeviceWids(),
             context: null,
             phash: null,
           });

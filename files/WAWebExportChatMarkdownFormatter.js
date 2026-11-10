@@ -8,6 +8,7 @@ __d(
     "WAWebFormatMsgTextUtils",
     "WAWebFormatPaymentMsg",
     "WAWebGetPlainTextFromBotMsg",
+    "WAWebInstantsStrings",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPaymentStatusText",
@@ -100,6 +101,8 @@ __d(
         p = "";
       if (l === o("WAWebMsgType").MSG_TYPE.REVOKED)
         p = s._(/*BTDS*/ "This message was deleted").toString();
+      else if (l === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE)
+        p = o("WAWebInstantsStrings").getInstantLabel();
       else if (c.has(l)) {
         var _ = h(l),
           f = o("WAWebMsgGetters").getCaption(a);
@@ -217,6 +220,8 @@ __d(
           o("WAWebExportChatSystemMsgFormatter").formatSystemMsgForExport(i) +
           "__"
         );
+      if (l === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE)
+        return "_" + o("WAWebInstantsStrings").getInstantLabel() + "_";
       if (l === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
         return (
           "_" +

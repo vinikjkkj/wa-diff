@@ -89,11 +89,45 @@ __d(
           (t.pairStarted = function () {
             this.$4("pair_started");
           }),
+          (t.clientPropsDone = function () {
+            this.$4("client_props_done");
+          }),
           (t.pairSuccess = function () {
             (this.$4("pair_success"), this.$5(2));
           }),
-          (t.pairFailed = function () {
-            (this.$4("pair_failed"), this.$5(3));
+          (t.pairFailed = function (t) {
+            var e;
+            ((e = this.$1) == null ||
+              e.annotate({
+                string: (function (e) {
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    e.reason === "exception" &&
+                    "error" in e
+                  ) {
+                    var t = e.error;
+                    return {
+                      pair_fail_reason: "exception",
+                      pair_fail_error_name: t.name,
+                    };
+                  }
+                  if (
+                    ((typeof e == "object" && e !== null) ||
+                      typeof e == "function") &&
+                    "reason" in e
+                  ) {
+                    var n = e.reason;
+                    return { pair_fail_reason: n };
+                  }
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })(t),
+              }),
+              this.$4("pair_failed"),
+              this.$5(3));
           }),
           (t.stayLoggedInToggleClicked = function (t) {
             (this.$4(t ? "stay_logged_in_enabled" : "stay_logged_in_disabled"),

@@ -1,6 +1,7 @@
 __d(
   "WAWebHandleWorkerCompatibleRecentSyncChunk",
   [
+    "JSResourceForInteraction",
     "WALogger",
     "WATimeUtils",
     "WAWebABPropsCache",
@@ -17,6 +18,7 @@ __d(
     "WAWebMetricsAttributionActions",
     "WAWebMmsClient",
     "WAWebMsgKey",
+    "WAWebOmittedConversationMetadataCapabilities",
     "WAWebProtobufsHistorySync.pb",
     "WAWebSendHistSyncServerErrorReceiptJob",
     "WAWebSendReceiptJobCommon",
@@ -26,19 +28,32 @@ __d(
     "WAWebUserPrefsTypes",
     "asyncToGeneratorRuntime",
     "err",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e, t) {
-      return f.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g = r("JSResourceForInteraction")(
+        "WAWebOmittedConversationMetadataReceiver",
+      ).__setRef("WAWebHandleWorkerCompatibleRecentSyncChunk");
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function f() {
+    function y() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
             entryPoint: "HandleWorkerCompatibleRecentSyncChunk",
           });
           try {
+            var i;
             (o("WALogger")
               .LOG(
                 e ||
@@ -53,19 +68,22 @@ __d(
               o(
                 "WAWebMetricsAttributionActions",
               ).startHistorySyncAttributionTracking(t.syncType));
-            var i = yield o(
+            var l = yield o(
                 "WAWebGetHistorySyncProgress",
               ).getHistorySyncProgress(t),
-              l = t.downloadedHistorySyncPayload,
-              _ = yield o("WAWebGetHistorySyncMetrics").getHistorySyncMetrics(
+              _ = o("WAWebHistorySyncNotificationUtils").maybeGetInlinePayload(
                 t,
-                !0,
               ),
-              f = _.historySyncDataAppliedMetric,
-              g = _.historySyncDownloadedMetric,
-              h = _.historySyncStartDownloadingMetric,
-              y = null;
-            if (l != null)
+              f = (i = t.downloadedHistorySyncPayload) != null ? i : _,
+              h = yield o("WAWebGetHistorySyncMetrics").getHistorySyncMetrics(
+                t,
+                _ == null,
+              ),
+              y = h.historySyncDataAppliedMetric,
+              b = h.historySyncDownloadedMetric,
+              v = h.historySyncStartDownloadingMetric,
+              S = null;
+            if (f != null)
               (a.addPoint("history_sync_predownloaded_payload"),
                 o("WALogger")
                   .LOG(
@@ -79,7 +97,7 @@ __d(
                     ).getHistorySyncLogDetailsString(t),
                   )
                   .tags("history-sync"),
-                (y = l));
+                (S = f));
             else {
               (o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 t.syncType,
@@ -90,7 +108,7 @@ __d(
                 o(
                   "WAWebHistorySyncNotificationUtils",
                 ).commitHistoryStartDownloadingMetric(
-                  h,
+                  v,
                   t.historySyncStepStartedTs,
                   o("WATimeUtils").unixTimeMs(),
                 ));
@@ -107,7 +125,7 @@ __d(
                     ).getHistorySyncLogDetailsString(t),
                   )
                   .tags("history-sync"),
-                  (y = yield o(
+                  (S = yield o(
                     "WAWebDownloadManager",
                   ).downloadManager.downloadAndMaybeDecrypt(
                     babelHelpers.extends(
@@ -134,7 +152,7 @@ __d(
                   ).removeLocalFailureFromInFlightChunk(t.msgKey);
                   return;
                 }
-                var C = r("WAWebMsgKey").fromString(t.msgKey);
+                var R = r("WAWebMsgKey").fromString(t.msgKey);
                 (o(
                   "WAWebHistorySyncNotificationUtils",
                 ).commitHistoryDownloadedMetric({
@@ -142,13 +160,13 @@ __d(
                   failureReason: o(
                     "WAWebMdSyncDownloadFailureReason",
                   ).getMdSyncDownloadFailureReason(e),
-                  historySyncDownloadMetric: g,
+                  historySyncDownloadMetric: b,
                   isSuccess: !1,
                   startTs: t.historySyncStepStartedTs,
                 }),
                   r("WAWebSendHistSyncServerErrorReceiptJob")(
-                    C.remote,
-                    C.id,
+                    R.remote,
+                    R.id,
                     t.downloadOptions.mediaKey,
                   ),
                   yield o(
@@ -184,61 +202,104 @@ __d(
                   ).isBackendWorkerBridgeReady(),
                 },
               }));
-            var b = yield o(
+            var L = yield o(
               "WAWebBackendWorkerClient",
             ).getBackendWorkerBridge();
             (n.addPoint("get_bridge_end"),
               n.addPoint("process_in_worker_start", {
-                int: { dataSize: y.byteLength },
+                int: { dataSize: S.byteLength },
               }));
-            var v = yield b.sendAndReceive(
-              "historySync",
-              "processV2",
-              { data: y, chunkInfo: t },
-              !1,
-              void 0,
-              void 0,
-              [y],
-            );
+            var E = o(
+                "WAWebOmittedConversationMetadataCapabilities",
+              ).canReadOmittedMetadata(),
+              k = E ? yield g.load() : null,
+              I = yield L.sendAndReceive(
+                "historySync",
+                "processV2",
+                { data: S, chunkInfo: t, omittedMetadataEnabled: E },
+                !1,
+                void 0,
+                void 0,
+                [S],
+              );
             if (
               (n.addPoint("process_in_worker_end"),
               n.addPoint("post_processing_start"),
-              !v.success)
+              !I.success)
             )
               throw (
                 o(
                   "WAWebHistorySyncNotificationUtils",
                 ).commitHistoryDataAppliedMetric({
-                  historySyncDataAppliedMetric: f,
+                  historySyncDataAppliedMetric: y,
                   startTs: t.historySyncStepStartedTs,
                   isSuccess: !1,
                   forceFlushWamBuffer: !0,
-                  failureReason: v.error,
+                  failureReason: I.error,
                 }),
-                n.endFail(v.error),
-                r("err")(v.error)
+                n.endFail(I.error),
+                r("err")(I.error)
               );
+            if (I.value.omittedMetadata != null) {
+              try {
+                var T = yield k == null
+                  ? void 0
+                  : k.handleDecodedOmittedMetadata(I.value.omittedMetadata, t);
+                if (T !== !0)
+                  throw r("err")("Omitted metadata receiver is unavailable");
+              } finally {
+                o(
+                  "WAWebMetricsAttributionActions",
+                ).stopHistorySyncAttributionTracking(t.syncType);
+              }
+              (a.isActive() && a.endSuccess(), n.endSuccess());
+              return;
+            }
+            if (
+              (yield k == null
+                ? void 0
+                : k.recordOrdinaryRecentForOmittedMetadata(t.syncType),
+              t.syncType ===
+                o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+                  .RECENT && !r("gkx")("26258"))
+            ) {
+              var D;
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[odhs-v2] [RECENT] STORED: ordinary worker chunk order=",
+                    ", conversations=",
+                    ", messages=",
+                    ", progress=",
+                    "%.",
+                  ])),
+                (D = t.chunkOrder) != null ? D : "unknown",
+                I.value.conversationLength,
+                I.value.totalChunkMsgCount,
+                l,
+              );
+            }
             (yield o(
               "WAWebApiHistorySyncNotification",
             ).updateCurrentlyProcessed(t.msgKey, t.syncType, t.chunkOrder),
               o(
                 "WAWebHistorySyncNotificationUtils",
               ).commitHistoryDataAppliedMetric({
-                historySyncDataAppliedMetric: f,
+                historySyncDataAppliedMetric: y,
                 startTs: t.historySyncStepStartedTs,
                 isSuccess: !0,
               }));
-            var S = r("WAWebMsgKey").fromString(t.msgKey),
-              R = new Map();
-            (R.set(S.remote, [S.id]),
+            var x = r("WAWebMsgKey").fromString(t.msgKey),
+              $ = new Map();
+            ($.set(x.remote, [x.id]),
               t.syncType !==
                 o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
                   .INITIAL_STATUS_V3 &&
                 o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                  to: S.remote,
+                  to: x.remote,
                   type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
                     .HISTORY_SYNC_COMPLETION,
-                  groupedReceipt: R,
+                  groupedReceipt: $,
                 }),
               t.downloadOptions.encFilehash != null &&
                 r("WAWebMmsClient")
@@ -253,33 +314,13 @@ __d(
                   })
                   .catch(function (e) {
                     o("WALogger").WARN(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "MMS client delete error",
                         ])),
                     );
                   }),
-              i === 100 &&
-                (o("WALogger")
-                  .LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync][recent sync] Recent history sync complete",
-                      ])),
-                  )
-                  .tags("history-sync"),
-                o(
-                  "WAWebMetricsAttributionActions",
-                ).stopHistorySyncAttributionTracking(t.syncType),
-                yield o("WAWebUserPrefsHistorySync").setHistorySyncStatus({
-                  recentCompleted: !0,
-                }),
-                o(
-                  "WAWebBackendEventBus",
-                ).BackendEventBus.triggerRecentChatHistorySynced()),
-              n.addPoint("post_processing_end"),
-              n.addPoint("history_sync_process_end"),
-              a.isActive() && a.endSuccess());
+              yield C(t, l, n, a));
           } catch (e) {
             throw (
               a.isActive() &&
@@ -291,10 +332,50 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.handleWorkerCompatibleRecentSyncChunk = _;
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            (t === 100 &&
+              (o("WALogger")
+                .LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][recent sync] Recent history sync complete",
+                    ])),
+                )
+                .tags("history-sync"),
+              o(
+                "WAWebMetricsAttributionActions",
+              ).stopHistorySyncAttributionTracking(e.syncType),
+              yield o("WAWebUserPrefsHistorySync").setHistorySyncStatus({
+                recentCompleted: !0,
+              }),
+              r("gkx")("26258") ||
+                o("WALogger").LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[odhs-v2] [RECENT] DONE: ordinary worker RECENT reached 100% and completion persisted.",
+                    ])),
+                ),
+              o(
+                "WAWebBackendEventBus",
+              ).BackendEventBus.triggerRecentChatHistorySynced()),
+              n.addPoint("post_processing_end"),
+              n.addPoint("history_sync_process_end"),
+              a.isActive() && a.endSuccess());
+          },
+        )),
+        b.apply(this, arguments)
+      );
+    }
+    l.handleWorkerCompatibleRecentSyncChunk = h;
   },
   98,
 );

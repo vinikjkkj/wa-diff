@@ -40,6 +40,15 @@ __d(
                 o("WAWebProtobufsHistorySync.pb").HistorySyncSpec,
                 f,
               );
+            if (
+              a.omittedMetadataEnabled === !0 &&
+              g.omittedConversationMetadata != null
+            )
+              return o("WAResultOrError").makeResult({
+                totalChunkMsgCount: 0,
+                conversationLength: g.conversations.length,
+                omittedMetadata: g,
+              });
             l = g.conversations.length;
             var h = [];
             (g.phoneNumberToLidMappings.forEach(function (e) {

@@ -21,6 +21,7 @@ __d(
       s = [
         "loading_media",
         "image",
+        "instant_image",
         "video",
         "ptv",
         "audio",

@@ -15,8 +15,9 @@ __d(
         n = e.isStatusWithMusic,
         r = e.mediaId,
         a = e.mediaIdString,
-        i = e.videoOrigin,
-        l = {
+        i = e.playRequestedAtMs,
+        l = e.videoOrigin,
+        s = {
           media_id: r != null ? r : "-1",
           media_id_string: a != null ? a : "",
           current_watching_module: o(
@@ -25,25 +26,25 @@ __d(
           is_copyright_muted: t,
         };
       if (r != null) {
-        var s = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId({
+        var u = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId({
           forMediaId: r,
           isMusic: n === !0 || e.msg.type === o("WAWebMsgType").MSG_TYPE.MUSIC,
           msg: e.msg,
-          videoOrigin: i,
+          videoOrigin: l,
         });
-        s != null && (l.persistent_id = s);
+        u != null && (s.persistent_id = u);
       }
-      var u = {
+      var c = {
         loggingToSNAPLCreateLogFlusher: function (t, n) {
           return new (o(
             "WAWebMediaPlaybackLogFlusher",
-          ).WhatsAppMediaPlaybackLogFlusher)(n, i);
+          ).WhatsAppMediaPlaybackLogFlusher)(n, l, i);
         },
         loggingToSNAPLCreateMetadataProvider: o("WAWebVideoMetadataProvider")
           .createWAVideoMetadataProvider,
         loggingToSNAPLEnabled: !0,
       };
-      return { loggingConfig: u, loggingToSNAPLAdditionalData: l };
+      return { loggingConfig: c, loggingToSNAPLAdditionalData: s };
     }
     function s() {
       return {

@@ -25,7 +25,6 @@ __d(
               var n = yield o("WAWebMexClient").fetchQuery(s, {
                 input: { query_input: t, telemetry: e.telemetry },
                 include_username: e.fetch.username === !0,
-                include_about_status: e.fetch.about_status === !0,
                 include_country_code: e.fetch.country_code === !0,
                 include_orgs: e.fetch.orgs === !0,
               });

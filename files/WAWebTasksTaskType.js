@@ -40,8 +40,6 @@ __d(
       SEND_WAM_FINGERPRINT: "sendWamFingerprint",
       INACTIVE_GROUP_LID_MIGRATION: "inactiveGroupLidMigration",
       QUERY_MISSING_PARENT_GROUPS: "queryMissingParentGroups",
-      MIGRATE_META_AI_MESSAGES_TO_HISTORICAL_THREAD:
-        "migrateMetaAIMessagesToHistoricalThread",
       CLEAN_META_AI_BOT_SESSION: "cleanMetaAIBotSession",
       CLEAN_WEBTP_SHARED_SESSIONS: "cleanWebTPSharedSessions",
       CLEANUP_STALE_CAMPAIGNS: "cleanupStaleCampaigns",

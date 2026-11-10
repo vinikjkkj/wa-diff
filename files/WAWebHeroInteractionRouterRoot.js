@@ -5,6 +5,7 @@ __d(
     "Env",
     "WAWebEnvironment",
     "WAWebNoopGC",
+    "WAWebQplEmployeeSampling",
     "createHeroInteractionRouterRoot",
     "qpl",
   ],
@@ -15,24 +16,26 @@ __d(
         (e || (e = r("Env"))).brsid != null
           ? String((e || (e = r("Env"))).brsid)
           : null,
-      u = r("createHeroInteractionRouterRoot")(),
-      c = null,
-      d = {
-        Component: u.Component,
+      u = r("qpl")._(858078457, "1005"),
+      c = r("createHeroInteractionRouterRoot")(),
+      d = null,
+      m = {
+        Component: c.Component,
         startInitialLoad: function (t) {
           var e;
-          if (c == null) {
-            o("WAWebNoopGC").installGCNoopWrapper();
+          if (d == null) {
+            (o("WAWebNoopGC").installGCNoopWrapper(),
+              o("WAWebQplEmployeeSampling").sampleEveryEmployeeInstance(u));
             var n = "wa.web." + t;
-            ((c = u.startInitialLoad({
+            ((d = c.startInitialLoad({
               tracePolicy: n,
-              qplEvent: r("qpl")._(858078457, "1005"),
+              qplEvent: u,
               metadata: {
                 subplatform: r("WAWebEnvironment").isWindows ? "hybrid" : "web",
                 environment: r("WAWebEnvironment").getEnvironment(),
               },
             })),
-              (e = c) == null ||
+              (e = d) == null ||
                 e.onComplete(function (e) {
                   s != null &&
                     o("CometAddInlineTiming").addInlineTiming(e.traceId, s, 0);
@@ -42,10 +45,10 @@ __d(
         startNavigation: function (t) {},
         addInitialLoadAnnotation: function (t, n) {
           var e;
-          (e = c) == null || e.addAnnotation(t, n);
+          (e = d) == null || e.addAnnotation(t, n);
         },
       };
-    l.default = d;
+    l.default = m;
   },
   98,
 );

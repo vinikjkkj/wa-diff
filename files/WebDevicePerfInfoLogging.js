@@ -8,7 +8,6 @@ __d(
     "WebPerfDeviceInfoLogFalcoEvent",
     "XDeviceClassRealtimeControllerRouteBuilder",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -160,7 +159,7 @@ __d(
     }
     function f() {
       var e = c();
-      r("WebDevicePerfInfoData").needsFullUpdate && r("justknobx")._("6465")
+      r("WebDevicePerfInfoData").needsFullUpdate
         ? m()
             .then(function (t) {
               return _(babelHelpers.extends({}, e, t));

@@ -75,22 +75,24 @@ __d(
               (this.$DiscoveryStickerPackCollection$p_2 = i));
             var u = this.$DiscoveryStickerPackCollection$p_4(l, i, t, n)
               .catch(function (e) {
-                if (a.$DiscoveryStickerPackCollection$p_1 === l) {
-                  var t = r("getErrorSafe")(e);
-                  if (t.name !== o("WAAbortError").ABORT_ERROR) {
-                    var n = o("WALogger")
-                        .WARN(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "Failed to fetch discovery sticker packs",
-                            ])),
-                        )
-                        .catching(t),
-                      i = v(t) ? n.tags("non-sad") : n;
-                    (i.sendLogs("discovery-sticker-packs-fetch-failed"),
-                      (a.fetchState = a.length > 0 ? d.SUCCESS : d.ERROR),
-                      a.trigger("change:fetchState"));
-                  }
+                if (a.$DiscoveryStickerPackCollection$p_1 !== l) {
+                  var t = a.$DiscoveryStickerPackCollection$p_3;
+                  return t != null ? t : void 0;
+                }
+                var n = r("getErrorSafe")(e);
+                if (n.name !== o("WAAbortError").ABORT_ERROR) {
+                  var i = o("WALogger")
+                      .WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "Failed to fetch discovery sticker packs",
+                          ])),
+                      )
+                      .catching(n),
+                    u = v(n) ? i.tags("non-sad") : i;
+                  (u.sendLogs("discovery-sticker-packs-fetch-failed"),
+                    (a.fetchState = a.length > 0 ? d.SUCCESS : d.ERROR),
+                    a.trigger("change:fetchState"));
                 }
               })
               .finally(function () {
@@ -197,7 +199,12 @@ __d(
                   (i = u.stickers) == null ||
                     i.forEach(function (e) {
                       var t = c.get(e.id);
-                      t != null && (e.mediaData.emojis = t);
+                      if (t != null) {
+                        var n;
+                        ((n = e.mediaObject) == null ||
+                          n.consolidate({ emojis: t }),
+                          e.mediaData.set({ emojis: t }));
+                      }
                     }),
                   t.add(u));
               }),

@@ -31,6 +31,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSignupGating",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWid",
     "WAWebWidFactory",
@@ -571,9 +572,10 @@ __d(
             ? ((l = o("WAWebUserPrefsMeUser").isMeAccount(f)),
               (!d.isUser() || f.isBot()) &&
                 (l
-                  ? (c = o(
-                      "WAWebUserPrefsMeUser",
-                    ).getMeUserMatchingAddressingModeOrThrow(f))
+                  ? (c =
+                      o(
+                        "WAWebUserUtils",
+                      ).getMeUserMatchingAddressingModeOrThrow(f))
                   : (c = f)))
             : (l = !0);
         }

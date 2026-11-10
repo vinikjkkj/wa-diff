@@ -648,6 +648,12 @@ __d(
     function lr() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(214);
     }
+    function sr() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(215);
+    }
+    function ur() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(216);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -862,7 +868,9 @@ __d(
       (l.sharableEventInviteeCreateTable = or),
       (l.sharableEventInviteLinkTokenCreateTable = ar),
       (l.sharableEventInviteMessageCreateTable = ir),
-      (l.p2pPillsThreadOriginCreateTable = lr));
+      (l.p2pPillsThreadOriginCreateTable = lr),
+      (l.omittedConversationMetadataCreateTable = sr),
+      (l.omittedConversationMetadataSnapshotCreateTable = ur));
   },
   98,
 );

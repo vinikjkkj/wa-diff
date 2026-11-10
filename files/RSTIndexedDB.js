@@ -46,8 +46,8 @@ __d(
                 t.$5(),
                 t.$6(r("RSTConfig").INDEX_DB_TABLE_NAME, !0));
             }),
-              (o.onsuccess = function (n) {
-                ((t.$1 = n.target.result), t.$5(), e(n.target.result));
+              (o.onsuccess = function () {
+                ((t.$1 = o.result), t.$5(), e(o.result));
               }),
               (o.onblocked = function () {
                 n("Database open blocked by another tab");

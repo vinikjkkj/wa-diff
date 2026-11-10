@@ -181,6 +181,7 @@ __d(
         case "message_edit_encrypted":
         case "poll_add_option_decrypted":
         case "music":
+        case "instant_image":
           break;
         default:
           throw r("err")("CAG - Invalid type: " + l);

@@ -10,6 +10,7 @@ __d(
     "WAWebExternalLink.react",
     "WAWebMiscBrowserUtils",
     "WAWebTrackBrowserTabHidden",
+    "WAWebWindowDropGuard",
     "fbs",
   ],
   function (t, n, r, o, a, i, l) {
@@ -93,12 +94,7 @@ __d(
             }
           }
         }),
-        window.addEventListener("dragover", function (e) {
-          e.preventDefault();
-        }),
-        window.addEventListener("drop", function (e) {
-          e.preventDefault();
-        }),
+        o("WAWebWindowDropGuard").registerWindowDragGuard(),
         o("WAWebTrackBrowserTabHidden").trackBrowserTabHidden());
     }
     function p() {

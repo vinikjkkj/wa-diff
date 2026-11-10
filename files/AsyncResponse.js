@@ -51,7 +51,8 @@ __d(
           return this.errorSummary;
         }),
         (t.setErrorSummary = function (t) {
-          return ((t = t === void 0 ? null : t), (this.errorSummary = t), this);
+          var e = t === void 0 ? null : t;
+          return ((this.errorSummary = e), this);
         }),
         (t.getErrorDescription = function () {
           return this.errorDescription;
@@ -80,13 +81,17 @@ __d(
         (t.getResponseHeader = function (t) {
           var e = this.responseHeaders;
           if (!e) return null;
-          ((e = e.replace(/^\n/, "")), (t = t.toLowerCase()));
-          for (var n = e.split("\r\n"), r = 0; r < n.length; ++r) {
-            var o = n[r],
-              a = o.indexOf(": ");
-            if (!(a <= 0)) {
-              var i = o.substring(0, a).toLowerCase();
-              if (i === t) return o.substring(a + 2);
+          e = e.replace(/^\n/, "");
+          for (
+            var n = t.toLowerCase(), r = e.split("\r\n"), o = 0;
+            o < r.length;
+            ++o
+          ) {
+            var a = r[o],
+              i = a.indexOf(": ");
+            if (!(i <= 0)) {
+              var l = a.substring(0, i).toLowerCase();
+              if (l === n) return a.substring(i + 2);
             }
           }
           return null;

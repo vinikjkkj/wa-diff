@@ -333,7 +333,7 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e.error.status;
+          var r = e.error.disappearing_mode;
           if (r) {
             o("WALogger").WARN(
               f ||

@@ -40,14 +40,17 @@ __d(
               }
               return i;
             },
-            i = Object.prototype.hasOwnProperty.call(
-              o("WebBloksTextInputHelpers")
-                .WEBBLOKS_TEXT_INPUT_TYPES_WITH_INPUT_MODES,
-              t.get(e),
-            )
-              ? void 0
-              : "text";
-          return { onBeforeChange: a, maxLength: r.length, typeOverride: i };
+            i = t.get(e),
+            l =
+              i != null &&
+              Object.prototype.hasOwnProperty.call(
+                o("WebBloksTextInputHelpers")
+                  .WEBBLOKS_TEXT_INPUT_TYPES_WITH_INPUT_MODES,
+                i,
+              )
+                ? void 0
+                : "text";
+          return { onBeforeChange: a, maxLength: r.length, typeOverride: l };
         }
       }
     }

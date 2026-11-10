@@ -7,6 +7,7 @@ __d(
     "WAWebDualUploadsAssociationProcessor",
     "WAWebMediaPollAssociationProcessor",
     "WAWebPollAddOptionAssociationProcessor",
+    "WAWebStickerAnnotationAssociationProcessor",
     "WAWebUnknownAssociationProcessor",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,6 +18,7 @@ __d(
         r("WAWebBotPluginAssociationProcessor"),
         r("WAWebMediaPollAssociationProcessor"),
         r("WAWebPollAddOptionAssociationProcessor"),
+        r("WAWebStickerAnnotationAssociationProcessor"),
         (e = o("WAWebDualUploadsAssociationProcessor"))
           .ImageDualUploadsAssociationProcessor,
         e.VideoDualUploadsAssociationProcessor,

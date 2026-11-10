@@ -74,6 +74,11 @@ __d(
         },
         { type: "hsm", subtype: void 0, generateWebMessageInfo: null },
         { type: "image", subtype: void 0, generateWebMessageInfo: e },
+        {
+          type: "instant_image",
+          subtype: void 0,
+          generateWebMessageInfo: null,
+        },
         { type: "interactive", subtype: void 0, generateWebMessageInfo: null },
         {
           type: "interactive_response",

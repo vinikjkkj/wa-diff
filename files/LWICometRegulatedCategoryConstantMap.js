@@ -4,8 +4,8 @@ __d(
     "fbt",
     "meta-brand-bullhorn-outline-20",
     "meta-brand-credit-card-outline-20",
-    "meta-brand-diamond-tassel-outline-20",
     "meta-brand-discs-stacked-outline-20",
+    "meta-brand-graduation-cap-outline-20",
     "meta-brand-house-outline-20",
     "meta-brand-rectangle-handle-outline-20",
   ],
@@ -21,8 +21,8 @@ __d(
         ),
       },
       EDUCATION: {
-        icon: o("meta-brand-diamond-tassel-outline-20")
-          .metaBrandDiamondTasselMortarBoardOutline20,
+        icon: o("meta-brand-graduation-cap-outline-20")
+          .metaBrandGraduationCapOutline20,
         name: s._(/*BTDS*/ "Education"),
         subText: s._(/*BTDS*/ "Ads for educational opportunities"),
       },

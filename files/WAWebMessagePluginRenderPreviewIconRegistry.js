@@ -10,6 +10,7 @@ __d(
     "WAWebRenderEventCreationPreviewIcon.react",
     "WAWebRenderGroupInvitePreviewIcon.react",
     "WAWebRenderImagePreviewIcon",
+    "WAWebRenderInstantPreviewIcon",
     "WAWebRenderInteractivePreviewIcon",
     "WAWebRenderLocationPreviewIcon",
     "WAWebRenderMusicPreviewIcon",
@@ -109,6 +110,11 @@ __d(
           type: "image",
           subtype: void 0,
           renderPreviewIcon: r("WAWebRenderImagePreviewIcon"),
+        },
+        {
+          type: "instant_image",
+          subtype: void 0,
+          renderPreviewIcon: r("WAWebRenderInstantPreviewIcon"),
         },
         {
           type: "interactive",

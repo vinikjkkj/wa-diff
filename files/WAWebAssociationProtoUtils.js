@@ -11,6 +11,7 @@ __d(
     "WAWebNewsletterIsNewsletterMsg",
     "WAWebProtobufMsgKeyUtils",
     "WAWebProtobufsE2E.pb",
+    "WAWebStickerReactionGating",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
     "WAWebWidFactory",
@@ -41,7 +42,11 @@ __d(
       var t = o("WAWebMessageAssociation.flow").MessageAssociationType.cast(
         o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType.getName(e),
       );
-      return m.has(t)
+      return m.has(t) ||
+        (t ===
+          o("WAWebMessageAssociation.flow").MessageAssociationType
+            .STICKER_ANNOTATION &&
+          !o("WAWebStickerReactionGating").isStickerReactionReceivingEnabled())
         ? o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
         : t != null
           ? t
@@ -64,6 +69,8 @@ __d(
           .ORIGINAL_IMAGE_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .STICKER_ANNOTATION:
           throw r("err")("Invalid outgoing association type");
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_IMAGE_DUAL_UPLOAD:
@@ -100,6 +107,8 @@ __d(
           .ORIGINAL_IMAGE_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .STICKER_ANNOTATION:
           return !1;
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_IMAGE_DUAL_UPLOAD:

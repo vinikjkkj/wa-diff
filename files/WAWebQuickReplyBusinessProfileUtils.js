@@ -3,7 +3,7 @@ __d(
   ["WAWebBusinessProfileCollection", "WAWebUserPrefsMeUser"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      if (o("WAWebUserPrefsMeUser").isMeUserRestored()) {
+      if (o("WAWebUserPrefsMeUser").hasLoggedIn()) {
         var e = o(
           "WAWebBusinessProfileCollection",
         ).BusinessProfileCollection.get(

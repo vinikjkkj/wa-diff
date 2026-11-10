@@ -61,8 +61,8 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:1064",
-    "cr:17724",
     "cr:18918",
+    "cr:19084",
     "decodeProtobuf",
     "encodeProtobuf",
     "getErrorSafe",
@@ -159,7 +159,10 @@ __d(
                 o("WAWebUserPrefsMeUser").setMeLid(L),
                 o("WAWebBackendWorkerInitState").resolveJidsReady());
               var T = null;
-              _ && (T = yield v(_));
+              (_ && (T = yield v(_)),
+                o(
+                  "WAWebQrDeviceLinkingQpl",
+                ).companionDeviceLinkingScreenQpl.clientPropsDone());
               var D = o("decodeProtobuf").decodeProtobuf(
                   o("WAWebProtobufsAdv.pb").ADVSignedDeviceIdentityHMACSpec,
                   f,
@@ -191,7 +194,9 @@ __d(
                   (y = !1),
                   o(
                     "WAWebQrDeviceLinkingQpl",
-                  ).companionDeviceLinkingScreenQpl.pairFailed(),
+                  ).companionDeviceLinkingScreenQpl.pairFailed({
+                    reason: "hmac_mismatch",
+                  }),
                   m()
                 );
               var F = o("decodeProtobuf").decodeProtobuf(
@@ -240,7 +245,9 @@ __d(
                   (y = !1),
                   o(
                     "WAWebQrDeviceLinkingQpl",
-                  ).companionDeviceLinkingScreenQpl.pairFailed(),
+                  ).companionDeviceLinkingScreenQpl.pairFailed({
+                    reason: "account_signature_invalid",
+                  }),
                   m()
                 );
               if (T != null) {
@@ -334,7 +341,10 @@ __d(
                 o("WAWebCoreActionsODS").logSessionForcedLogout(),
                 o(
                   "WAWebQrDeviceLinkingQpl",
-                ).companionDeviceLinkingScreenQpl.pairFailed(),
+                ).companionDeviceLinkingScreenQpl.pairFailed({
+                  reason: "exception",
+                  error: X,
+                }),
                 yield o("WAWebWamDeviceLinkReporter").commitDeviceLinkEvent(-1),
                 yield o("WAWebSocketLogoutJob").socketLogout(
                   o("WAWebLogoutReasonConstants").LogoutReason.UnknownCompanion,
@@ -410,7 +420,7 @@ __d(
       );
     }
     function R() {
-      return n("cr:17724");
+      return n("cr:19084");
     }
     function L(e) {
       return E.apply(this, arguments);

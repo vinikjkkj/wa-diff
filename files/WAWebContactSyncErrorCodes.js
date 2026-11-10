@@ -10,12 +10,11 @@ __d(
       d = 1101,
       m = 1102,
       p = 1103,
-      _ = 1200,
-      f = 1201,
-      g = 1300,
-      h = 1400,
-      y = 1600,
-      C = 1601;
+      _ = 1201,
+      f = 1300,
+      g = 1400,
+      h = 1600,
+      y = 1601;
     ((i.SAVE_CONTACT = e),
       (i.SAVE_CONTACT_BATCH = l),
       (i.DELETE_CONTACT = s),
@@ -24,12 +23,11 @@ __d(
       (i.QUERY_USERNAME_EXIST = d),
       (i.QUERY_USERNAME_DEPRECATED = m),
       (i.QUERY_BUSINESS = p),
-      (i.GET_ABOUT_STATUS = _),
-      (i.GET_DISAPPEARING_MODE = f),
-      (i.DEVICE_SYNC = g),
-      (i.BACKGROUND_SYNC = h),
-      (i.BIZ_BROADCAST_VERIFY = y),
-      (i.CUSTOMER_MANAGER_IMPORT_VERIFY = C));
+      (i.GET_DISAPPEARING_MODE = _),
+      (i.DEVICE_SYNC = f),
+      (i.BACKGROUND_SYNC = g),
+      (i.BIZ_BROADCAST_VERIFY = h),
+      (i.CUSTOMER_MANAGER_IMPORT_VERIFY = y));
   },
   66,
 );

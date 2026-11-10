@@ -6,9 +6,6 @@ __d(
       rotateKey: function () {
         return { type: "rotateKey", args: {}, uniqKey: "rotateKey" };
       },
-      setAbout: function (t) {
-        return { type: "setAbout", args: { content: t }, uniqKey: "setAbout" };
-      },
       queryProductList: function (t, n, r, a, i) {
         if (
           (r === void 0 && (r = null),

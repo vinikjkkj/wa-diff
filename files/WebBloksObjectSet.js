@@ -176,12 +176,15 @@ __d(
                       i.container_config,
                       n,
                     );
-                  (((r = l.container) == null || (r = r.config) == null
-                    ? void 0
-                    : r.getIsOverlay()) === !0 &&
-                    (l.options = babelHelpers.extends({}, l.options, {
-                      isModal: !0,
-                    })),
+                  ((l.options = babelHelpers.extends({}, l.options, {
+                    isSSRStackedScreen: !0,
+                  })),
+                    ((r = l.container) == null || (r = r.config) == null
+                      ? void 0
+                      : r.getIsOverlay()) === !0 &&
+                      (l.options = babelHelpers.extends({}, l.options, {
+                        isModal: !0,
+                      })),
                     e.navigationManager.push(l));
                 }
               };

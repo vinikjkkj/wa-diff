@@ -97,6 +97,7 @@ __d(
           subtype: void 0,
           msgDisplayClass: r("WAWebImageMsgDisplayClass"),
         },
+        { type: "instant_image", subtype: void 0, msgDisplayClass: null },
         {
           type: "interactive",
           subtype: void 0,

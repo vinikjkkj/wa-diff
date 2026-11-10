@@ -56,6 +56,7 @@ __d(
       }
       return n.type === o("WAWebMsgType").MSG_TYPE.STICKER ||
         n.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
+        n.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
         o("WAWebFrontendMsgGetters").getAsRevoked(n) ||
         n.isViewOnce === !0 ||
         o("WAWebMsgGetters").getIsViewOncePlaceholder(n)

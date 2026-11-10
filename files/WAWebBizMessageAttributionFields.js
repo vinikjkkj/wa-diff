@@ -36,7 +36,7 @@ __d(
         buttons_response: "buttons_message",
         product: "product_message",
         order: "order_message",
-        native_flow: "interactive_message",
+        native_flow: "buttons_message",
         poll_creation: "poll_creation_message",
         reaction: "reaction_message",
       },
@@ -53,20 +53,20 @@ __d(
         _ = s || d || m || p || t != null || n != null;
       if (!_) return { messagePaths: i, submessagePaths: l };
       var f = o("WAWebMsgGetters").getType(e),
-        g = (r = c[f]) != null ? r : f;
-      if ((i.push(g), t != null)) {
-        l.push(g + ".hydrated_buttons");
-        var h = new Set();
-        for (var y of t)
-          if (y != null && typeof y == "object" && !Array.isArray(y))
-            for (var C of Object.keys(y)) {
-              var b = y[C];
-              b != null && typeof b == "object" && h.add(u(C));
+        h = (r = c[f]) != null ? r : f;
+      if ((i.push(h), t != null)) {
+        l.push(h + ".hydrated_buttons");
+        var y = new Set();
+        for (var C of t)
+          if (C != null && typeof C == "object" && !Array.isArray(C))
+            for (var b of Object.keys(C)) {
+              var v = C[b];
+              v != null && typeof v == "object" && y.add(u(b));
             }
-        for (var v of h) l.push(g + ".hydrated_buttons." + v);
+        for (var S of y) l.push(h + ".hydrated_buttons." + S);
       }
       return (
-        n != null && l.push(g + ".buttons"),
+        n != null && l.push.apply(l, g(f, h)),
         { messagePaths: i, submessagePaths: l }
       );
     }
@@ -123,48 +123,78 @@ __d(
       return n;
     }
     function f(e) {
+      return Array.isArray(e)
+        ? e
+            .map(function (e) {
+              if (e == null || typeof e != "object" || Array.isArray(e))
+                return null;
+              var t = e.nativeFlowInfo;
+              if (t == null || typeof t != "object" || Array.isArray(t))
+                return null;
+              var n = t;
+              return { name: n.name, buttonParamsJson: n.paramsJson };
+            })
+            .filter(function (e) {
+              return e != null;
+            })
+        : null;
+    }
+    function g(e, t) {
+      return e === "interactive"
+        ? [t + ".native_flow_message", t + ".native_flow_message.buttons"]
+        : [t + ".buttons", t + ".buttons.native_flow_info"];
+    }
+    function h(e) {
       var t = e,
         n = t.hydratedButtons,
         r = Array.isArray(n) && n.length > 0 ? n : null,
-        a = t.nativeFlowButtons,
+        a = (function (n) {
+          if (n === "interactive") {
+            var r;
+            return (r = o("WAWebMsgGetters").getInteractivePayload(e)) == null
+              ? void 0
+              : r.buttons;
+          }
+          return n === "native_flow" ? f(t.nativeFlowButtons) : null;
+        })(o("WAWebMsgGetters").getType(e)),
         i = Array.isArray(a) && a.length > 0 ? a : null,
         l = m(e, r, i),
         u = l.messagePaths,
         c = l.submessagePaths,
         d = p(r, i),
-        f = [].concat(
+        g = [].concat(
           s(o("WAWebMsgGetters").getBody(e)),
           s(o("WAWebMsgGetters").getCaption(e)),
           s(o("WAWebMsgGetters").getFooter(e)),
           s(o("WAWebMsgGetters").getTitle(e)),
         ),
-        g = f.length,
-        h = new Set(
-          f.map(function (e) {
+        h = g.length,
+        y = new Set(
+          g.map(function (e) {
             return e.toLowerCase();
           }),
         ),
-        y = h.size,
-        C = _(r, i),
-        b = new Set(
-          C.map(function (e) {
+        C = y.size,
+        b = _(r, i),
+        v = new Set(
+          b.map(function (e) {
             return e.toLowerCase();
           }),
         ),
-        v = b.size,
-        S = new Set([].concat(Array.from(h), Array.from(b))),
-        R = S.size;
+        S = v.size,
+        R = new Set([].concat(Array.from(y), Array.from(v))),
+        L = R.size;
       return {
         messageFieldJsonArray: u.length > 0 ? JSON.stringify(u) : void 0,
         submessageFieldJsonArray: c.length > 0 ? JSON.stringify(c) : void 0,
         buttonValueJsonArray: d.length > 0 ? JSON.stringify(d) : void 0,
-        bodyUrlCountInt: g,
-        bodyUrlUniqueCountInt: y,
-        ctaUrlUniqueCountInt: v,
-        urlUniqueCountInt: R,
+        bodyUrlCountInt: h,
+        bodyUrlUniqueCountInt: C,
+        ctaUrlUniqueCountInt: S,
+        urlUniqueCountInt: L,
       };
     }
-    l.extractBizMessageAttribution = f;
+    l.extractBizMessageAttribution = h;
   },
   98,
 );

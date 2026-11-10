@@ -10,6 +10,7 @@ __d(
       }),
       l = n("$InternalEnum")({
         Image: "image",
+        InstantImage: "instant_image",
         Video: "video",
         Ptv: "ptv",
         Audio: "audio",

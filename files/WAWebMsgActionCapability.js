@@ -269,6 +269,7 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER:
         case o("WAWebMsgType").MSG_TYPE.EVENT_CREATION:
         case o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE:
+        case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
         case o("WAWebMsgType").MSG_TYPE.NEWSLETTER_ADMIN_INVITE:
         case o("WAWebMsgType").MSG_TYPE.ORDER:
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
@@ -460,6 +461,7 @@ __d(
             !o("WAWebMsgGetters").getIsNotification(r) &&
             !o("WAWebMsgGetters").getIsFutureproof(r) &&
             !r.isViewOnce &&
+            r.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE &&
             r.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
             r.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
             !(
@@ -478,6 +480,7 @@ __d(
         o("WAWebChatGetters").getIsBroadcast(i) ||
         o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(i) ||
         a.isViewOnce === !0 ||
+        a.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
         a.subtype === "view_once_unavailable_fanout" ||
         a.subtype === "acp_unavailable_fanout" ||
         i.id.isBot()

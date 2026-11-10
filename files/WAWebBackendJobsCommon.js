@@ -63,6 +63,8 @@ __d(
         switch (t) {
           case o("WAWebBackendJobs.flow").EncMediaType.Image:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.PHOTO;
+          case o("WAWebBackendJobs.flow").EncMediaType.InstantImage:
+            return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
           case o("WAWebBackendJobs.flow").EncMediaType.Video:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.VIDEO;
           case o("WAWebBackendJobs.flow").EncMediaType.Ptv:
@@ -165,6 +167,8 @@ __d(
       } else {
         if (e.imageMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Image;
+        if (e.instantImageMessage)
+          return o("WAWebBackendJobs.flow").EncMediaType.InstantImage;
         if (e.stickerMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Sticker;
         if (e.stickerPackMessage)
@@ -235,6 +239,8 @@ __d(
           switch (e) {
             case o("WAWebBackendJobs.flow").EncMediaType.Image:
               return "image";
+            case o("WAWebBackendJobs.flow").EncMediaType.InstantImage:
+              return "instant_image";
             case o("WAWebBackendJobs.flow").EncMediaType.Video:
               return "video";
             case o("WAWebBackendJobs.flow").EncMediaType.Ptv:

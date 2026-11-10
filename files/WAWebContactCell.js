@@ -2,10 +2,10 @@ __d(
   "WAWebContactCell",
   [
     "WAWebBotUtils",
-    "WAWebChatStatus",
     "WAWebChatTextStatusWrapper",
     "WAWebContactGetters",
     "WAWebContactImage.react",
+    "WAWebMetaAiSubtitle.react",
     "WAWebMobilePlatforms",
     "WAWebName.react",
     "WAWebTextStatusGatingUtils",
@@ -27,7 +27,7 @@ __d(
         }),
         n = null;
       o("WAWebBotUtils").isMetaAiBot(e.id)
-        ? (n = s.jsx(o("WAWebChatStatus").MetaAiSubtitle, {}))
+        ? (n = s.jsx(r("WAWebMetaAiSubtitle.react"), {}))
         : e.id.isRegularUser() &&
           o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
           (n = s.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {

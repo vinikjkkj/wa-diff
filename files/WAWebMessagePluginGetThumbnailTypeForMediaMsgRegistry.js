@@ -107,6 +107,11 @@ __d(
         getThumbnailTypeForMediaMsg: r("WAWebGetThumbnailTypeForMediaImageMsg"),
       },
       {
+        type: "instant_image",
+        subtype: void 0,
+        getThumbnailTypeForMediaMsg: null,
+      },
+      {
         type: "interactive",
         subtype: void 0,
         getThumbnailTypeForMediaMsg: r(

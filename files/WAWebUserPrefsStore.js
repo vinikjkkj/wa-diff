@@ -24,9 +24,6 @@ __d(
         babelHelpers.inheritsLoose(t, e);
         var n = t.prototype;
         return (
-          (n.getMaybeMeDevicePn = function () {
-            return o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          }),
           (n.getKeys = function (t, n, r) {
             r === void 0 && (r = !1);
             var e = {};

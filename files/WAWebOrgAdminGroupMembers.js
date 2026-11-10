@@ -52,15 +52,9 @@ __d(
       return n != null && n !== "" && a.includes(n);
     }
     function _(e) {
-      var t,
-        n,
-        r = e.isViewer ? e.label.toString() : "";
+      var t = e.isViewer ? e.label.toString() : "";
       return o("WAWebL10NAccentFold").accentFold(
-        r +
-          " " +
-          ((t = e.name) != null ? t : "") +
-          " " +
-          ((n = e.memberTag) != null ? n : ""),
+        [t, e.name, e.memberTag, e.secondaryMemberTag].join(" "),
       );
     }
     function f(e) {
@@ -78,8 +72,8 @@ __d(
         isAdmin: e.role === "ADMIN" || e.role === "SUPERADMIN",
         isViewer: u,
         key: (a != null ? a : "") + ":" + t.toString(),
-        label: u ? r("WAWebFbtCommon")("You") : h(a, d, n.identitiesLoading),
-        memberTag: i == null ? void 0 : i.memberTag,
+        label: u ? r("WAWebFbtCommon")("You") : y(a, d, n.identitiesLoading),
+        memberTag: h(i, s),
         name: d,
         participant: e,
         phoneNumber: o("WAWebOrgAdminPersonName").getOrgAdminPersonPhoneNumber(
@@ -87,9 +81,18 @@ __d(
           s,
           l,
         ),
+        secondaryMemberTag: s == null ? void 0 : s.secondaryMemberTag,
       };
     }
-    function h(e, t, n) {
+    function h(e, t) {
+      var n;
+      return (n = e == null ? void 0 : e.memberTag) != null
+        ? n
+        : t == null
+          ? void 0
+          : t.memberTag;
+    }
+    function y(e, t, n) {
       return e == null
         ? s._(/*BTDS*/ "Unknown member")
         : t != null

@@ -247,7 +247,10 @@ __d(
                     .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_MEDIA_STRIP ||
                 n ===
                   o("WAWebWamEnumMediaPickerOriginType")
-                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_GIF,
+                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_GIF ||
+                n ===
+                  o("WAWebWamEnumMediaPickerOriginType")
+                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_POST_RESHARE,
               v = null,
               S = null;
             if (b && p.canvas != null) {

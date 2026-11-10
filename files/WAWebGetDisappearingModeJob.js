@@ -60,8 +60,8 @@ __d(
               },
               o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
             );
-          if (d.error.all || d.error.status) {
-            var m = d.error.all || d.error.status;
+          if (d.error.all || d.error.disappearing_mode) {
+            var m = d.error.all || d.error.disappearing_mode;
             return (
               o("WALogger").WARN(
                 s ||

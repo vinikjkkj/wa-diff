@@ -5,16 +5,17 @@ __d(
     "WATypeUtils",
     "WAWebApiContact",
     "WAWebUserPrefsKeys",
+    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
         n = (
-          (t = r("WAWebUserPrefsStore").getMaybeMeDevicePn()) != null ? t : ""
+          (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null ? t : ""
         ).toString(),
-        a = e.toString();
-      return o("WAMd5").md5(n + "-" + a);
+        r = e.toString();
+      return o("WAMd5").md5(n + "-" + r);
     }
     var s = (function () {
         function t() {

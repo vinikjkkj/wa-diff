@@ -23,6 +23,7 @@ __d(
     "WAWebUnjoinedSubgroupMetadataCollection",
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "compactMap",
@@ -218,7 +219,7 @@ __d(
         }),
         (n.canSetEphemeralSetting = function () {
           var e = this;
-          return o("WAWebUserPrefsMeUser")
+          return o("WAWebUserUtils")
             .getMeDeviceWids()
             .some(function (t) {
               return e.userCanSetEphemeralSetting(

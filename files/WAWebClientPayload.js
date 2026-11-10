@@ -12,6 +12,7 @@ __d(
     "WAWebClientPayloadLoginShared",
     "WAWebCompanionPlatformType",
     "WAWebEnvironment",
+    "WAWebOmittedConversationMetadataCapabilities",
     "WAWebProtobufsCompanionReg.pb",
     "WAWebProtobufsWa6.pb",
     "WAWebSyncdMdSyncFieldstatMeta",
@@ -169,7 +170,10 @@ __d(
               }));
           }
           var s = r("WAWebEnvironment").isWindows && !r("justknobx")._("1836");
-          s && ((a.onDemandReady = !0), (a.completeOnDemandReady = !0));
+          (s && ((a.onDemandReady = !0), (a.completeOnDemandReady = !0)),
+            o(
+              "WAWebOmittedConversationMetadataCapabilities",
+            ).configureOmittedMetadataReceiver(a));
           var u = {
               os: e.os,
               version: t,

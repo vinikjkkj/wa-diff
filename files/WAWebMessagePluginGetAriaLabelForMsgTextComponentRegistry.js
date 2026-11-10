@@ -111,6 +111,11 @@ __d(
         getAriaLabelForMsgTextComponent: r("WAWebImageAriaLabelForMsgText"),
       },
       {
+        type: "instant_image",
+        subtype: void 0,
+        getAriaLabelForMsgTextComponent: null,
+      },
+      {
         type: "interactive",
         subtype: void 0,
         getAriaLabelForMsgTextComponent: null,

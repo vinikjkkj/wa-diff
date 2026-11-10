@@ -1088,9 +1088,7 @@ __d(
       (Ft.internalSpec = {
         payloadSchemaVersion: [1, e.TYPES.UINT32],
         requestId: [2, e.TYPES.STRING],
-        launchRef: [3, e.TYPES.STRING],
-        invitationExpiresAtMs: [4, e.TYPES.INT64],
-        scopeHint: [5, e.TYPES.ENUM, x],
+        scopeHint: [3, e.TYPES.ENUM, x],
       }),
       (Ot.name = "Message$RequestLocationUpdateMessage"),
       (Ot.internalSpec = {
@@ -2410,6 +2408,7 @@ __d(
           85,
           e.FLAGS.REPEATED | e.FLAGS.PACKED | e.TYPES.UINT32,
         ],
+        foaMutualsSignature: [86, e.TYPES.BYTES],
       }),
       (yo.name = "ContextInfo$InstagramThreadLink"),
       (yo.internalSpec = { url: [1, e.TYPES.STRING] }),

@@ -9,6 +9,7 @@ __d(
     "WAWebDualUploadsAutoDownloadPolicy",
     "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaGatingUtils",
+    "WAWebMessageAssociation.flow",
     "WAWebMsgGetters",
     "WAWebMsgModelPropUtils",
     "WAWebMsgModelUtils",
@@ -56,6 +57,7 @@ __d(
     }
     function k(e) {
       if (
+        I(e) ||
         !o(
           "WAWebDualUploadsAutoDownloadPolicy",
         ).shouldAutoDownloadAssociatedChild(e)
@@ -79,6 +81,13 @@ __d(
       return !1;
     }
     function I(e) {
+      return (
+        e.unsafe().associationType ===
+        o("WAWebMessageAssociation.flow").MessageAssociationType
+          .STICKER_ANNOTATION
+      );
+    }
+    function T(e) {
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.IMAGE:
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
@@ -93,7 +102,7 @@ __d(
       }
       return !1;
     }
-    var T = (function () {
+    var D = (function () {
         function t() {
           this.$1 = new (r("WAConcurrentPriorityPromiseQueue"))(S, {
             photos: 2,
@@ -127,7 +136,7 @@ __d(
                 E(t) &&
                 t.isNewMsg &&
                 k(t) &&
-                I(t) &&
+                T(t) &&
                 this.getEnqueuedTasksCount() < R;
             if (i)
               switch (t.type) {
@@ -470,14 +479,14 @@ __d(
           t
         );
       })(),
-      D = new T();
+      x = new D();
     ((l.AutoDownloadTypes = C),
       (l.MAX_AUTO_DOWNLOAD_SIZE = b),
       (l.AUDIO_AUTO_DOWNLOAD_SIZE_LIMIT = v),
       (l.shouldTrustMedia = E),
       (l.shouldAutoDownloadMedia = k),
-      (l.validateMediaSize = I),
-      (l.AutoDownloadQueue = D));
+      (l.validateMediaSize = T),
+      (l.AutoDownloadQueue = x));
   },
   98,
 );

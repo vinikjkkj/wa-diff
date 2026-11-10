@@ -18,7 +18,6 @@ __d(
     "WAWebResendUserMsgJob",
     "WAWebRotateKeyJob",
     "WAWebSendRequestedKeyShareJob",
-    "WAWebSetAboutJob",
     "WAWebSetTextStatusJob",
     "WAWebVerifyPostcodeJob",
   ],
@@ -28,11 +27,6 @@ __d(
         rotateKey: function () {
           return (e || (e = n("Promise"))).resolve(
             o("WAWebRotateKeyJob").rotateKey,
-          );
-        },
-        setAbout: function () {
-          return (e || (e = n("Promise"))).resolve(
-            o("WAWebSetAboutJob").setAbout,
           );
         },
         setTextStatus: function () {

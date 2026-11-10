@@ -16,14 +16,15 @@ __d(
     var e = new Set(),
       s = new Map(),
       u = [],
-      c = new WeakMap(),
-      d = 0,
-      m = new Map();
-    function p(e) {
-      var t = m.get(e);
-      return (t == null && ((t = r("getURLPathParser")(e)), m.set(e, t)), t);
+      c = new Map(),
+      d = new WeakMap(),
+      m = 0,
+      p = new Map();
+    function _(e) {
+      var t = p.get(e);
+      return (t == null && ((t = r("getURLPathParser")(e)), p.set(e, t)), t);
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r = e.instanceParams,
         o = e.routeConflicts,
         a = e.routePath;
@@ -31,7 +32,7 @@ __d(
         return t.getPath() === n
           ? babelHelpers.extends({}, r, t.getQueryData())
           : null;
-      var i = p(a),
+      var i = _(a),
         l = i.test(t);
       if (l && a.includes("{")) {
         var s = o == null ? void 0 : o[a];
@@ -39,7 +40,7 @@ __d(
           if (t.getPath() !== n) return null;
         } else if (
           s.some(function (e) {
-            return p(e).test(t);
+            return _(e).test(t);
           })
         )
           return null;
@@ -50,7 +51,7 @@ __d(
           ? babelHelpers.extends({}, t.getQueryData(), i.getParams(t))
           : babelHelpers.extends({}, r, t.getQueryData());
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = e.rawPath,
         o = e.routeMatchInfos,
         a = [];
@@ -58,7 +59,7 @@ __d(
         var l = i.instanceParams,
           s = i.routeParams,
           u = i.serverParamAccesses,
-          c = t == null ? l : _(i, t, n);
+          c = t == null ? l : f(i, t, n);
         if (c == null) return null;
         if (u == null) {
           a.push(
@@ -96,20 +97,20 @@ __d(
             a.push.apply(a, Array.from(o));
           },
           m;
-        for (var p of [].concat(S(i)).sort()) if (((m = d(p)), m)) return m.v;
+        for (var p of [].concat(R(i)).sort()) if (((m = d(p)), m)) return m.v;
       }
       return JSON.stringify(a);
     }
-    function g(e, t) {
-      var n = f(e, null);
-      return n != null && n === f(e, t);
-    }
     function h(e, t) {
-      return e.routeMatchInfos.every(function (n) {
-        return _(n, t, e.rawPath) != null;
-      });
+      var n = g(e, null);
+      return n != null && n === g(e, t);
     }
     function y(e, t) {
+      return e.routeMatchInfos.every(function (n) {
+        return f(n, t, e.rawPath) != null;
+      });
+    }
+    function C(e, t) {
       return (
         e.routeMatchInfos.length === t.routeMatchInfos.length &&
         e.routeMatchInfos.every(function (e, n) {
@@ -119,17 +120,17 @@ __d(
             i = e.routePath;
           return (
             i === a.routePath &&
-            C(e.routeParams, a.routeParams) &&
-            b(
+            b(e.routeParams, a.routeParams) &&
+            v(
               i == null ? null : (r = e.routeConflicts) == null ? void 0 : r[i],
               i == null ? null : (o = a.routeConflicts) == null ? void 0 : o[i],
             ) &&
-            v(e, a)
+            S(e, a)
           );
         })
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = Object.keys(e);
       return n.length !== Object.keys(t).length
         ? !1
@@ -145,11 +146,11 @@ __d(
                 r.enumType === o.enumType &&
                 r.path === o.path &&
                 r.significant === o.significant &&
-                b(r.legacyNames, o.legacyNames))
+                v(r.legacyNames, o.legacyNames))
             );
           });
     }
-    function b(e, t) {
+    function v(e, t) {
       return (
         e === t ||
         (e != null &&
@@ -160,9 +161,9 @@ __d(
           }))
       );
     }
-    function v(e, t) {
-      var n = S(e),
-        r = S(t);
+    function S(e, t) {
+      var n = R(e),
+        r = R(t);
       return (
         n.length === r.length &&
         n.every(function (e) {
@@ -170,7 +171,7 @@ __d(
         })
       );
     }
-    function S(e) {
+    function R(e) {
       var t = e.serverParamAccesses;
       return t != null
         ? Array.from(
@@ -188,36 +189,34 @@ __d(
             );
           });
     }
-    function R(e) {
+    function L(e) {
       var t,
         n =
           (t = e.routeMatchInfos[e.routeMatchInfos.length - 1]) == null
             ? void 0
             : t.routePath;
-      return n == null ? !0 : p(n).regex.test(e.rawPath);
+      return n == null ? !0 : _(n).regex.test(e.rawPath);
     }
-    function L(e, t) {
+    function E(e, t) {
       return e.result.type === "routeRedirect" && t.has(e.result);
     }
-    function E(e, t, n, r) {
+    function k(e, t, n, r) {
       for (var o of t)
-        if (!L(o, r)) {
-          var a = W(e, o);
-          (a && R(o) && !R(e)) ||
-            (((a && (!y(e, o) || g(o, n))) ||
-              (e.rawPath === o.rawPath && g(o, n))) &&
-              B(o));
+        if (!E(o, r)) {
+          var a = H(e, o);
+          (a && L(o) && !L(e)) ||
+            ((a || e.rawPath === o.rawPath) && h(o, n) && V(o));
         }
     }
-    function k(e) {
+    function I(e) {
       var t = s.get(e.getPath());
-      return t == null ? void 0 : I(t, e);
+      return t == null ? void 0 : T(t, e);
     }
-    function I(e, t) {
+    function T(e, t) {
       var n = t.getPath(),
         r = null;
       for (var o of e) {
-        var a = f(o.sample, t);
+        var a = g(o.sample, t);
         for (var i of a == null
           ? []
           : (l = o.entriesByKey.get(a)) != null
@@ -226,18 +225,18 @@ __d(
           var l,
             s,
             u,
-            d = i.rawPath === n;
+            c = i.rawPath === n;
           (r == null ||
-            (d && r.rawPath !== n) ||
-            (d === (r.rawPath === n) &&
-              ((s = c.get(i)) != null ? s : 0) >
-                ((u = c.get(r)) != null ? u : 0))) &&
+            (c && r.rawPath !== n) ||
+            (c === (r.rawPath === n) &&
+              ((s = d.get(i)) != null ? s : 0) >
+                ((u = d.get(r)) != null ? u : 0))) &&
             (r = i);
         }
       }
       return r;
     }
-    function T(e) {
+    function D(e) {
       var t = !1;
       for (var n of e) {
         var r = n.routeParams,
@@ -249,42 +248,65 @@ __d(
       }
       return t ? "dynamic" : "legacy";
     }
-    function D() {
+    function x() {
       for (var t of e)
         if (
           t.result.type === "routeRedirect" &&
           t.result.routeRedirect.prefetchable !== !1 &&
-          T(t.routeMatchInfos) === "dynamic"
+          D(t.routeMatchInfos) === "dynamic"
         )
           return !0;
       return !1;
     }
-    function x(t, n, r, o) {
-      if (T(t.routeMatchInfos) === "skip") {
-        ($(t, n, o), e.add(t), F(t));
+    function $(t, n, r, o) {
+      if (D(t.routeMatchInfos) === "skip") {
+        (P(t, n, o, !0), e.add(t), q(t));
         return;
       }
-      var a = O(t, n, r);
-      (E(t, a, n, o),
+      var a = U(t, n, r);
+      (k(t, a, n, o),
         r &&
           a.forEach(function (e) {
-            !L(e, o) &&
-              T(e.routeMatchInfos) !== "legacy" &&
-              ((t.rawPath === e.rawPath && g(e, n)) || W(t, e)) &&
-              B(e);
+            !E(e, o) &&
+              D(e.routeMatchInfos) !== "legacy" &&
+              ((t.rawPath === e.rawPath && h(e, n)) || H(t, e)) &&
+              V(e);
           }),
         e.add(t),
-        F(t));
+        q(t));
     }
-    function $(e, t, n) {
-      var r = O(e, t, !0);
-      r.forEach(function (r) {
-        !L(r, n) &&
-          ((W(r, e) && h(r, t)) || (e.rawPath === r.rawPath && g(r, t))) &&
-          B(r);
+    function P(e, t, n, r) {
+      U(e, t, r).forEach(function (o) {
+        var a = H(o, e);
+        !E(o, n) &&
+          ((r && a && y(o, t)) ||
+            ((a || e.rawPath === o.rawPath) && h(o, t))) &&
+          V(o);
       });
     }
-    function P(e) {
+    function N(e, t, n) {
+      var r = t.getQueryData(),
+        o = new Set(
+          e.routeMatchInfos.map(function (e) {
+            return e.routePath;
+          }),
+        );
+      new Set([e.rawPath].concat(M(e))).forEach(function (e) {
+        for (var t = z[e]; t != null; ) {
+          o.add(t.routePath);
+          var a = j(t.routeParams, babelHelpers.extends({}, t.pathParams, r)),
+            i = t.results[a];
+          if ((i == null ? void 0 : i.type) === "routeMatch") {
+            t = i.routeMatch;
+            continue;
+          }
+          (i != null && !n.has(i) && delete t.results[a], (t = null));
+        }
+      });
+      for (var a = le.length - 1; a >= 0; a--)
+        o.has(le[a].routePath) && le.splice(a, 1);
+    }
+    function M(e) {
       var t = e.routeMatchInfos[e.routeMatchInfos.length - 1],
         n = t == null ? void 0 : t.routePath;
       if (n == null) return [e.rawPath];
@@ -292,11 +314,11 @@ __d(
       var o = r("normalizeCometRouterConstUri")(n);
       return o === e.rawPath ? [e.rawPath] : [e.rawPath, o];
     }
-    function N(t, n, r) {
+    function w(t, n, r) {
       var o = r;
       return (
         e.forEach(function (e) {
-          var n = P(e);
+          var n = M(e);
           (e.rawPath.startsWith(t) ||
             n.some(function (e) {
               return e.startsWith(t);
@@ -304,7 +326,7 @@ __d(
             (o = !0);
         }),
         e.forEach(function (e) {
-          var r = P(e),
+          var r = M(e),
             a = e.routeMatchInfos.some(function (e) {
               var n;
               return (
@@ -314,24 +336,39 @@ __d(
             i =
               a ||
               (r.length === 0
-                ? e.rawPath.startsWith(t) || (!o && n != null && h(e, n))
+                ? e.rawPath.startsWith(t) || (!o && n != null && y(e, n))
                 : r.some(function (e) {
                     return e.startsWith(t);
                   }));
-          i && B(e);
+          i && V(e);
         }),
         o
       );
     }
-    function M(e) {
+    function A(e) {
       return (
         s.has(e.getPath()) ||
-        u.some(function (t) {
-          return h(t.sample, e);
+        O(e).some(function (t) {
+          return y(t.sample, e);
         })
       );
     }
-    function w(e, t) {
+    function F(e) {
+      var t = e.routeMatchInfos;
+      return t.some(function (e) {
+        var t = e.routeConflicts,
+          n = e.routePath;
+        return (
+          n == null || (n.includes("{") && (t == null ? void 0 : t[n]) == null)
+        );
+      });
+    }
+    function O(e) {
+      if (e == null) return [].concat(u, Array.from(c.values()).flat());
+      var t = c.get(e.getPath());
+      return t == null ? u : [].concat(t, u);
+    }
+    function B(e, t) {
       var n = function (t) {
         var e = t.rawPath,
           n = t.routeMatchInfos;
@@ -340,7 +377,7 @@ __d(
             r = t.routePath;
           return (
             r == null ||
-            !p(r).regex.test(e) ||
+            !_(r).regex.test(e) ||
             (r.includes("{") && (n == null ? void 0 : n[r]) == null)
           );
         });
@@ -348,8 +385,8 @@ __d(
       return (
         !n(e) &&
         !n(t) &&
-        W(e, t) &&
-        y(e, t) &&
+        H(e, t) &&
+        C(e, t) &&
         e.routeMatchInfos.every(function (e, n) {
           return (
             (e.serverParamAccesses == null) ==
@@ -358,23 +395,23 @@ __d(
         })
       );
     }
-    function A(e) {
-      var t = P(e);
-      return t.length === 0
-        ? [u]
-        : t.map(function (e) {
-            var t = s.get(e);
-            return (t == null && ((t = []), s.set(e, t)), t);
-          });
+    function W(e) {
+      var t = M(e);
+      if (t.length === 0 && !F(e)) return [u];
+      var n = t.length === 0 ? c : s;
+      return (t.length === 0 ? [e.rawPath] : t).map(function (e) {
+        var t = n.get(e);
+        return (t == null && ((t = []), n.set(e, t)), t);
+      });
     }
-    function F(e) {
-      c.set(e, ++d);
-      var t = f(e, null);
-      A(e).forEach(function (n) {
+    function q(e) {
+      d.set(e, ++m);
+      var t = g(e, null);
+      W(e).forEach(function (n) {
         var r,
           o = n.find(function (t) {
             var n = t.sample;
-            return w(n, e);
+            return B(n, e);
           });
         (o == null && ((o = { entriesByKey: new Map(), sample: e }), n.push(o)),
           o.entriesByKey.set(
@@ -383,9 +420,9 @@ __d(
           ));
       });
     }
-    function O(e, t, n) {
+    function U(e, t, n) {
       var r,
-        o = P(e),
+        o = M(e),
         a =
           o.length > 0
             ? [].concat(
@@ -393,17 +430,20 @@ __d(
                   var t;
                   return (t = s.get(e)) != null ? t : [];
                 }),
-                u.filter(function (e) {
-                  return h(e.sample, t);
+                O(t).filter(function (e) {
+                  return y(e.sample, t);
                 }),
               )
-            : [].concat((r = s.get(t.getPath())) != null ? r : [], u),
+            : [].concat(
+                (r = s.get(t.getPath())) != null ? r : [],
+                O(n ? null : t),
+              ),
         i = new Set();
       return (
         a.forEach(function (r) {
           var o = r.entriesByKey,
             a = r.sample;
-          if (W(e, a) && (n || !y(e, a)))
+          if (n && H(e, a))
             o.forEach(function (e) {
               return e.forEach(function (e) {
                 return i.add(e);
@@ -411,7 +451,7 @@ __d(
             });
           else {
             var l,
-              s = f(a, t);
+              s = g(a, t);
             (s == null ? [] : (l = o.get(s)) != null ? l : []).forEach(
               function (e) {
                 return i.add(e);
@@ -422,30 +462,31 @@ __d(
         Array.from(i)
       );
     }
-    function B(t) {
+    function V(t) {
+      var n;
       if (e.delete(t)) {
-        var n = f(t, null);
-        (A(t).forEach(function (e) {
-          var r,
+        var r = g(t, null);
+        (W(t).forEach(function (e) {
+          var n,
             o,
             a = e.findIndex(function (e) {
-              var r;
+              var n;
               return (
-                ((r = e.entriesByKey.get(n)) == null
+                ((n = e.entriesByKey.get(r)) == null
                   ? void 0
-                  : r.includes(t)) === !0
+                  : n.includes(t)) === !0
               );
             }),
             i = e[a];
           if (i != null) {
-            var l = ((r = i.entriesByKey.get(n)) != null ? r : []).filter(
+            var l = ((n = i.entriesByKey.get(r)) != null ? n : []).filter(
               function (e) {
                 return e !== t;
               },
             );
             l.length === 0
-              ? i.entriesByKey.delete(n)
-              : i.entriesByKey.set(n, l);
+              ? i.entriesByKey.delete(r)
+              : i.entriesByKey.set(r, l);
             var s =
               (o = i.entriesByKey.values().next().value) == null
                 ? void 0
@@ -453,42 +494,44 @@ __d(
             s == null ? e.splice(a, 1) : (i.sample = s);
           }
         }),
-          P(t).forEach(function (e) {
+          M(t).forEach(function (e) {
             var t;
             ((t = s.get(e)) == null ? void 0 : t.length) === 0 && s.delete(e);
-          }));
+          }),
+          ((n = c.get(t.rawPath)) == null ? void 0 : n.length) === 0 &&
+            c.delete(t.rawPath));
       }
     }
-    function W(e, t) {
+    function H(e, t) {
       return (
         e.routeMatchInfos.length === t.routeMatchInfos.length &&
         e.routeMatchInfos.every(function (e, n) {
-          return q(e) === q(t.routeMatchInfos[n]);
+          return G(e) === G(t.routeMatchInfos[n]);
         })
       );
     }
-    function q(e) {
+    function G(e) {
       var t = e.routePath;
       return t == null || t.includes("{")
         ? t
         : r("normalizeCometRouterConstUri")(t);
     }
-    var U = {};
-    function V(e, t) {
+    var z = {};
+    function j(e, t) {
       return r("stableStringify")(r("buildRouteParams")(e, t, "significant"));
     }
-    function H(e) {
+    function K(e) {
       var t = e.instanceParams,
         n = e.routeParams,
         o = e.routePath,
         a = r("buildRouteParams")(n, t, "path");
       return { pathParams: a, results: {}, routeParams: n, routePath: o };
     }
-    var G = new Map();
-    function z() {
-      G.clear();
+    var Q = new Map();
+    function X() {
+      Q.clear();
     }
-    function j(e, t, n, o) {
+    function Y(e, t, n, o) {
       return r("buildCometRouteFromDefinition")(
         e.hostableView != null || e.cannotBeHosted === !0
           ? e
@@ -498,7 +541,7 @@ __d(
         o,
       );
     }
-    function K(e, t, n, a, i, l, s) {
+    function J(e, t, n, a, i, l, s) {
       if (t.type === "routeRedirect") {
         var u,
           c,
@@ -548,7 +591,7 @@ __d(
           );
         }
         m != null && (m = m.removeQueryParams(d.strip));
-        var v = ee(
+        var v = oe(
           (u = (c = m) == null ? void 0 : c.toString()) != null ? u : "",
           s,
         );
@@ -557,7 +600,7 @@ __d(
       if (t.type === "routeDefinition") {
         if (t.routeDefinition.prefetchable === !1) return !1;
         var S = babelHelpers.extends({}, a, l);
-        return j(t.routeDefinition, e, r("buildRouteParams")(n, S, null), i);
+        return Y(t.routeDefinition, e, r("buildRouteParams")(n, S, null), i);
       }
       if (t.type === "routeResolver") {
         var R = t.routeResolver;
@@ -588,69 +631,69 @@ __d(
         null
       );
     }
-    function Q(e, t, n, r) {
-      var o = V(t.routeParams, babelHelpers.extends({}, t.pathParams, n)),
+    function Z(e, t, n, r) {
+      var o = j(t.routeParams, babelHelpers.extends({}, t.pathParams, n)),
         a = t.results[o];
       return a == null
         ? null
         : a.type === "routeMatch"
-          ? Q(e, a.routeMatch, n, r)
-          : K(e, a, t.routeParams, t.pathParams, t.routePath, n, r);
+          ? Z(e, a.routeMatch, n, r)
+          : J(e, a, t.routeParams, t.pathParams, t.routePath, n, r);
     }
-    function X(e, t, n) {
-      var o = Y(t);
+    function ee(e, t, n) {
+      var o = te(t);
       if (o.length === 0) return null;
       var a = o[0],
         i = [],
         l = [];
       for (var s of o) {
-        if (J(a, s) !== 0) break;
+        if (ne(a, s) !== 0) break;
         s.type === "cachedPath" ? l.push(s) : i.push(s.group);
       }
-      var u = I(i, t);
-      if (u != null) return Z(e, u, t, n);
+      var u = T(i, t);
+      if (u != null) return re(e, u, t, n);
       for (var c of l) {
         var d = c.results,
           m = c.routeParams,
-          _ = c.routePath,
-          f = babelHelpers.extends({}, t.getQueryData(), p(_).getParams(t)),
-          g = d[V(m, f)];
+          p = c.routePath,
+          f = babelHelpers.extends({}, t.getQueryData(), _(p).getParams(t)),
+          g = d[j(m, f)];
         if (g != null)
           return g.prefetchable === !1
             ? !1
-            : j(g, e, r("buildRouteParams")(m, f, null), _);
+            : Y(g, e, r("buildRouteParams")(m, f, null), p);
       }
       return null;
     }
-    function Y(e) {
+    function te(e) {
       var t = [];
-      for (var n of re) {
+      for (var n of le) {
         var r = n.pathConflicts,
           o = n.routePath,
-          a = p(o);
+          a = _(o);
         a.test(e) &&
           !r.some(function (t) {
-            return p(t).test(e);
+            return _(t).test(e);
           }) &&
           t.push(n);
       }
       var i = [];
-      for (var l of u) {
+      for (var l of O(e)) {
         var s = l.sample.routeMatchInfos[l.sample.routeMatchInfos.length - 1],
-          c = s == null ? void 0 : s.routePath;
+          u = s == null ? void 0 : s.routePath;
         s != null &&
-          c != null &&
-          h(l.sample, e) &&
+          u != null &&
+          y(l.sample, e) &&
           i.push({
             group: l,
             routeParams: s.routeParams,
-            routePath: c,
+            routePath: u,
             type: "dynamic",
           });
       }
-      return (i.length > 0 && (t.push.apply(t, i), t.sort(J)), t);
+      return (i.length > 0 && (t.push.apply(t, i), t.sort(ne)), t);
     }
-    function J(e, t) {
+    function ne(e, t) {
       return o("CometRoutePathComparator").compare(
         e.routePath,
         t.routePath,
@@ -658,13 +701,13 @@ __d(
         t.routeParams,
       );
     }
-    function Z(e, t, n, o) {
+    function re(e, t, n, o) {
       var a = t.routeMatchInfos[t.routeMatchInfos.length - 1];
       if (a == null) return null;
-      var i = _(a, n, t.rawPath);
+      var i = f(a, n, t.rawPath);
       return i == null
         ? null
-        : K(
+        : J(
             e,
             t.result,
             a.routeParams,
@@ -674,7 +717,7 @@ __d(
             o,
           );
     }
-    function ee(e, t) {
+    function oe(e, t) {
       var n = r("normalizeCometRouterConstUri")(e);
       if (t.has(n))
         return (
@@ -685,7 +728,7 @@ __d(
           null
         );
       t.add(n);
-      var a = G.get(n);
+      var a = Q.get(n);
       if (a != null) return a;
       var i = "",
         l = {},
@@ -696,51 +739,51 @@ __d(
         if (
           ((l = c.getQueryData()),
           (i = c.getPath()),
-          (u = k(c)),
+          (u = I(c)),
           u != null && u.rawPath === i)
         ) {
-          var d = Z(n, u, c, t);
-          return (d !== !1 && d != null && G.set(n, d), d);
+          var d = re(n, u, c, t);
+          return (d !== !1 && d != null && Q.set(n, d), d);
         }
         s = u === null;
       }
-      var m = U[i];
+      var m = z[i];
       if (m != null) {
-        var p = Q(n, m, l, t);
+        var p = Z(n, m, l, t);
         if (p === !1) return !1;
-        if (p != null) return (G.set(n, p), p);
+        if (p != null) return (Q.set(n, p), p);
       }
       if (u != null && c != null) {
-        var _ = Z(n, u, c, t);
-        return (_ !== !1 && _ != null && G.set(n, _), _);
+        var _ = re(n, u, c, t);
+        return (_ !== !1 && _ != null && Q.set(n, _), _);
       }
       if (s) return null;
       if (c != null) {
-        var f = X(n, c, t);
-        return (f !== !1 && f != null && G.set(n, f), f);
+        var f = ee(n, c, t);
+        return (f !== !1 && f != null && Q.set(n, f), f);
       }
       return null;
     }
-    function te(e) {
-      return G.get(r("normalizeCometRouterConstUri")(e));
+    function ae(e) {
+      return Q.get(r("normalizeCometRouterConstUri")(e));
     }
-    function ne(e) {
-      var t = ee(e, new Set());
+    function ie(e) {
+      var t = oe(e, new Set());
       return t === !1 ? null : t;
     }
-    var re = [];
-    function oe(e, t, n, r, a) {
+    var le = [];
+    function se(e, t, n, r, a) {
       if (r != null) {
-        var i = re.find(function (t) {
+        var i = le.find(function (t) {
           return t.routePath === e;
         });
         if (i == null) {
-          for (var l = 0, s = re.length; l < s; ) {
+          for (var l = 0, s = le.length; l < s; ) {
             var u = Math.floor((l + s) / 2),
               c = o("CometRoutePathComparator").compare(
-                re[u].routePath,
+                le[u].routePath,
                 e,
-                re[u].routeParams,
+                le[u].routeParams,
                 t,
               );
             c < 0 ? (l = u + 1) : (s = u);
@@ -752,13 +795,13 @@ __d(
             routePath: e,
             type: "cachedPath",
           }),
-            re.splice(l, 0, i));
+            le.splice(l, 0, i));
         }
-        var d = V(t, a != null ? a : {});
+        var d = j(t, a != null ? a : {});
         i.results[d] = n;
       }
     }
-    function ae(e, t) {
+    function ue(e, t) {
       var n = t.instanceParams,
         r = t.routeConflicts,
         o = t.routeParams,
@@ -767,9 +810,9 @@ __d(
         a != null &&
         r != null &&
         a.includes("{") &&
-        oe(a, o, e.routeDefinition, r[a], n);
+        se(a, o, e.routeDefinition, r[a], n);
     }
-    function ie(e) {
+    function ce(e) {
       var t = new Set(),
         n = function (r) {
           (r.routePath != null && t.add(r.routePath),
@@ -780,14 +823,14 @@ __d(
         };
       return (n(e), t);
     }
-    function le(e, t) {
+    function de(e, t) {
       var n = !1,
         r = !1;
       return (
         Object.keys(e.results).forEach(function (o) {
           var a = e.results[o];
           if ((a == null ? void 0 : a.type) === "routeMatch") {
-            var i = le(a.routeMatch, t);
+            var i = de(a.routeMatch, t);
             ((n = n || i.didRemove),
               i.hasResults ? (r = !0) : (delete e.results[o], (n = !0)));
           } else
@@ -798,19 +841,19 @@ __d(
         { didRemove: n, hasResults: r }
       );
     }
-    function se(e, t) {
+    function me(e, t) {
       var n = new Set();
       e.routeMatchInfos.forEach(function (e) {
         var t = e.routePath;
         t != null && n.add(t);
       });
-      var r = new Set([e.rawPath].concat(P(e))),
+      var r = new Set([e.rawPath].concat(M(e))),
         o = new Set(n),
         a = !1;
-      Object.keys(U).forEach(function (e) {
-        var i = U[e];
+      Object.keys(z).forEach(function (e) {
+        var i = z[e];
         if (i != null) {
-          var l = ie(i);
+          var l = ce(i);
           if (
             !(
               !r.has(e) &&
@@ -825,42 +868,42 @@ __d(
               }),
               t.size === 0)
             ) {
-              (delete U[e], (a = !0));
+              (delete z[e], (a = !0));
               return;
             }
-            var s = le(i, t);
-            ((a = a || s.didRemove), s.hasResults || (delete U[e], (a = !0)));
+            var s = de(i, t);
+            ((a = a || s.didRemove), s.hasResults || (delete z[e], (a = !0)));
           }
         }
       });
-      for (var i = re.length - 1; i >= 0; i--)
-        o.has(re[i].routePath) && (re.splice(i, 1), (a = !0));
+      for (var i = le.length - 1; i >= 0; i--)
+        o.has(le[i].routePath) && (le.splice(i, 1), (a = !0));
       return a;
     }
-    function ue(e) {
+    function pe(e) {
       var t = o("ConstUriUtils").getUri(r("normalizeCometRouterConstUri")(e));
-      return t != null && M(t);
+      return t != null && A(t);
     }
-    function ce(e, t) {
-      return (t === void 0 && (t = !0), (t && D()) || ue(e));
+    function _e(e, t) {
+      return (t === void 0 && (t = !0), (t && x()) || pe(e));
     }
-    function de(e, t, n, a, i) {
+    function fe(e, t, n, a, i) {
       var l = o("ConstUriUtils").getUri(r("normalizeCometRouterConstUri")(e));
       if (l != null) {
         var s = { rawPath: l.getPath(), result: t, routeMatchInfos: n },
-          u = T(n);
+          u = D(n);
         if (!(u === "legacy" && !a)) {
-          var c = se(s, i);
-          (u === "legacy" && !M(l) && !c) || (x(s, l, !0, i), z());
+          var c = me(s, i);
+          (u === "legacy" && !A(l) && !c) || ($(s, l, !0, i), X());
         }
       }
     }
-    function me(e) {
+    function ge(e) {
       var t =
-          D() ||
+          x() ||
           e.some(function (e) {
             var t = e.routePath;
-            return !t.includes("{") && ue(t);
+            return !t.includes("{") && pe(t);
           }),
         n = new Set();
       for (var r of e) {
@@ -873,7 +916,7 @@ __d(
           if (!i.includes("{")) {
             var u = { routeRedirect: s, type: "routeRedirect" };
             (n.add(u),
-              _e(
+              ye(
                 {
                   rawUrl: i,
                   redirectUrl: s.url,
@@ -889,8 +932,8 @@ __d(
         } else
           o != null &&
             (i.includes("{")
-              ? oe(i, a, o, l)
-              : _e(
+              ? se(i, a, o, l)
+              : ye(
                   {
                     rawUrl: i,
                     result: { routeDefinition: o, type: "routeDefinition" },
@@ -902,36 +945,38 @@ __d(
                   n,
                 ));
       }
-      e.length > 0 && z();
+      e.length > 0 && X();
     }
-    function pe(e, t, n, a, i) {
+    function he(e, t, n, a, i) {
       var l = "",
         s = {},
         u = r("normalizeCometRouterConstUri")(e),
         c = o("ConstUriUtils").getUri(u);
       c != null && ((s = c.getQueryData()), (l = c.getPath()));
-      var d = T(n);
+      var d = D(n);
       if (d !== "legacy") {
         if (c == null) return;
         var m = { rawPath: l, result: t, routeMatchInfos: n };
-        (se(m, i), x(m, c, !1, i), z());
+        (N(m, c, i), $(m, c, !1, i), X());
         return;
       }
-      c != null && a && $({ rawPath: l, result: t, routeMatchInfos: n }, c, i);
-      var p = U[l];
-      p == null && ((p = U[l] = H(n[0])), ae(t, n[0]));
+      c != null &&
+        a &&
+        P({ rawPath: l, result: t, routeMatchInfos: n }, c, i, !1);
+      var p = z[l];
+      p == null && ((p = z[l] = K(n[0])), ue(t, n[0]));
       var _ = p;
       n.slice(1).forEach(function (e) {
         var n = _,
           r = n.results,
-          o = V(_.routeParams, babelHelpers.extends({}, _.pathParams, s)),
-          a = H(e);
-        (ae(t, e), (r[o] = { routeMatch: a, type: "routeMatch" }), (_ = a));
+          o = j(_.routeParams, babelHelpers.extends({}, _.pathParams, s)),
+          a = K(e);
+        (ue(t, e), (r[o] = { routeMatch: a, type: "routeMatch" }), (_ = a));
       });
-      var f = V(_.routeParams, babelHelpers.extends({}, _.pathParams, s));
-      ((_.results[f] = t), z());
+      var f = j(_.routeParams, babelHelpers.extends({}, _.pathParams, s));
+      ((_.results[f] = t), X());
     }
-    function _e(e, t, n) {
+    function ye(e, t, n) {
       var r = e.rawUrl,
         o = e.result,
         a = e.routeMatchInfos;
@@ -940,19 +985,19 @@ __d(
           o.routeDefinition.prefetchable === !1) ||
         (o.type === "routeRedirect" && o.routeRedirect.prefetchable === !1)
       ) {
-        de(r, o, a, t, n);
+        fe(r, o, a, t, n);
         return;
       }
-      pe(r, o, a, t, n);
+      he(r, o, a, t, n);
     }
-    function fe(e) {
+    function Ce(e) {
       var t =
           e.some(function (e) {
-            return T(e.routeMatchInfos) !== "legacy";
+            return D(e.routeMatchInfos) !== "legacy";
           }) ||
-          D() ||
+          x() ||
           e.some(function (e) {
-            return ue(e.rawUrl);
+            return pe(e.rawUrl);
           }),
         n = new Set();
       (e.forEach(function (e) {
@@ -972,7 +1017,7 @@ __d(
             u != null &&
             (l !== u ||
               (s != null &&
-                !g(
+                !h(
                   { rawPath: l, result: i, routeMatchInfos: e.routeMatchInfos },
                   s,
                 ))) &&
@@ -980,11 +1025,11 @@ __d(
         }
       }),
         e.forEach(function (e) {
-          return _e(e, t, n);
+          return ye(e, t, n);
         }));
     }
-    function ge(e, t, n) {
-      fe([
+    function be(e, t, n) {
+      Ce([
         {
           rawUrl: e,
           result: { routeDefinition: t, type: "routeDefinition" },
@@ -992,8 +1037,8 @@ __d(
         },
       ]);
     }
-    function he(e, t, n) {
-      fe([
+    function ve(e, t, n) {
+      Ce([
         {
           rawUrl: e,
           result: { routeResolver: t, type: "routeResolver" },
@@ -1001,8 +1046,8 @@ __d(
         },
       ]);
     }
-    function ye(e, t, n) {
-      fe([
+    function Se(e, t, n) {
+      Ce([
         {
           rawUrl: e,
           redirectUrl: t.url,
@@ -1011,40 +1056,40 @@ __d(
         },
       ]);
     }
-    function Ce(e) {
+    function Re(e) {
       var t = new Set(),
         n = o("ConstUriUtils").getUri(r("normalizeCometRouterConstUri")(e)),
-        a = Object.keys(U).filter(function (t) {
+        a = Object.keys(z).filter(function (t) {
           return t.startsWith(e);
         }),
-        i = N(e, n, a.length > 0);
+        i = w(e, n, a.length > 0);
       a.forEach(function (e) {
         var n;
-        (t.add((n = U[e]) == null ? void 0 : n.routePath), delete U[e]);
+        (t.add((n = z[e]) == null ? void 0 : n.routePath), delete z[e]);
       });
-      for (var l = re.length - 1; l >= 0; l--) {
-        var s = re[l];
+      for (var l = le.length - 1; l >= 0; l--) {
+        var s = le[l];
         (t.has(s.routePath) ||
           s.routePath.startsWith(e) ||
-          (!i && n != null && p(s.routePath).test(n))) &&
-          re.splice(l, 1);
+          (!i && n != null && _(s.routePath).test(n))) &&
+          le.splice(l, 1);
       }
-      z();
+      X();
     }
-    var be = null,
-      ve = {
-        dump: be,
-        getCachedRoute: te,
-        getRoute: ne,
-        installBatch: fe,
-        installPaths: me,
-        installRedirect: ye,
-        installRoute: ge,
-        installRouteResolver: he,
-        invalidatePath: Ce,
-        needsDynamicCacheReconciliation: ce,
+    var Le = null,
+      Ee = {
+        dump: Le,
+        getCachedRoute: ae,
+        getRoute: ie,
+        installBatch: Ce,
+        installPaths: ge,
+        installRedirect: Se,
+        installRoute: be,
+        installRouteResolver: ve,
+        invalidatePath: Re,
+        needsDynamicCacheReconciliation: _e,
       };
-    l.default = ve;
+    l.default = Ee;
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "QPLFlow",
     "WAWebABProps",
+    "WAWebQplEmployeeSampling",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebWamPlatform",
     "qpl",
@@ -74,6 +75,7 @@ __d(
             (this.$5(_.Superseded),
               (this.$1 = 0),
               (this.$4 = !1),
+              o("WAWebQplEmployeeSampling").sampleEveryEmployeeInstance(s),
               (this.$3 = o("QPLFlow").startQPLFlow(s, {
                 annotations: {
                   bool: {

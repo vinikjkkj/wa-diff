@@ -16,6 +16,7 @@ __d(
       "STREAMED_HD_VIDEO_DUAL_UPLOAD",
       "ORIGINAL_VIDEO_DUAL_UPLOAD",
       "ORIGINAL_IMAGE_DUAL_UPLOAD",
+      "STICKER_ANNOTATION",
     ]);
     function l(e) {
       return e.associationType != null;

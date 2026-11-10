@@ -1,6 +1,7 @@
 __d(
   "WAWebDualUploadsPreferredMsg",
   [
+    "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaGatingUtils",
     "WAWebMediaLocalAvailability",
     "WAWebMediaTypes",
@@ -29,7 +30,6 @@ __d(
               .MessageAssociationType.AV1_VIDEO_DUAL_UPLOAD,
             isEnabled: o("WAWebMediaGatingUtils")
               .isAv1VideoDualUploadConsumptionEnabled,
-            isPlayOnly: !0,
           },
           {
             associationType: o("WAWebMessageAssociation.flow")
@@ -50,16 +50,34 @@ __d(
       return n;
     }
     function u(e) {
-      var t = d(
-          o("WAWebMessageAssociationUIUtils").getHiddenAssociatedMessages(e.id),
-          e.type,
-          "save",
-        ),
+      var t = c(e),
         n = t == null ? void 0 : t.mediaData;
-      return t != null &&
-        n != null &&
-        n.mediaStage === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
-        n.filehash != null &&
+      if (t == null || n == null || n.filehash == null) return e;
+      if (
+        e.type === o("WAWebMsgType").MSG_TYPE.VIDEO &&
+        !o("WAWebMediaGatingUtils").isSaveRemoteHdVideoLegEnabled()
+      ) {
+        if (
+          t.associationType ===
+          o("WAWebMessageAssociation.flow").MessageAssociationType
+            .AV1_VIDEO_DUAL_UPLOAD
+        )
+          return e;
+      } else if (e.type === o("WAWebMsgType").MSG_TYPE.VIDEO) {
+        var r = t.mediaObject;
+        return r == null ||
+          r.lastDownloadFailureResult != null ||
+          r.entries.getDownloadEntry(
+            o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
+              t,
+            ),
+          ) == null ||
+          n.mediaStage === o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING ||
+          n.mediaStage === o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED
+          ? e
+          : t;
+      }
+      return n.mediaStage === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
         o("WAWebMediaLocalAvailability").isMsgMediaAvailableLocally(t)
         ? t
         : e;
@@ -70,19 +88,17 @@ __d(
         e.type,
       );
     }
-    function d(t, n, r) {
-      r === void 0 && (r = "play");
-      var o = function (n) {
-          if (r === "save" && n.isPlayOnly === !0) return 0;
+    function d(t, n) {
+      var r = function (n) {
           var e = t.find(function (e) {
             return e.associationType === n.associationType;
           });
           if (e != null && n.isEnabled()) return { v: e };
         },
-        a;
-      for (var i of (l = e.get(n)) != null ? l : []) {
-        var l;
-        if (((a = o(i)), a !== 0 && a)) return a.v;
+        o;
+      for (var a of (i = e.get(n)) != null ? i : []) {
+        var i;
+        if (((o = r(a)), o)) return o.v;
       }
       return null;
     }

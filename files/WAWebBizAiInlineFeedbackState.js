@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebCmd",
     "WAWebMsgKey",
+    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "WAWebWidFactory",
     "getErrorSafe",
@@ -18,21 +19,21 @@ __d(
       d = R(),
       m = !1;
     function p() {
-      if (r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null) return R();
+      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return R();
       L();
       var e = y(r("WAWebUserPrefsStore").getUser(u));
       return ((d = e), e);
     }
     function _(e, t) {
       var n;
-      if (r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null) return R();
-      var o = p(),
-        a = e.remote.toString(),
-        i = o[a],
-        l = { feedbackKind: t, messageKey: e.toString() };
-      if (v(i, l)) return o;
-      var s = babelHelpers.extends({}, o, ((n = {}), (n[a] = l), n));
-      return (r("WAWebUserPrefsStore").setUser(u, s), (d = s), k(), s);
+      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return R();
+      var a = p(),
+        i = e.remote.toString(),
+        l = a[i],
+        s = { feedbackKind: t, messageKey: e.toString() };
+      if (v(l, s)) return a;
+      var c = babelHelpers.extends({}, a, ((n = {}), (n[i] = s), n));
+      return (r("WAWebUserPrefsStore").setUser(u, c), (d = c), k(), c);
     }
     function f(e) {
       var t = p()[e.remote.toString()];
@@ -54,7 +55,7 @@ __d(
       );
     }
     function h() {
-      if (r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null) {
+      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) {
         d = R();
         return;
       }
@@ -116,8 +117,8 @@ __d(
         (m = !0));
     }
     function E() {
-      var e = r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null ? d : p();
-      (r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null ? d : p();
+      (o("WAWebUserPrefsMeUser").getMaybeMePnUser() != null &&
         r("WAWebUserPrefsStore").setUser(u, null),
         (d = R()),
         S(e) && k());

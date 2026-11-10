@@ -24,7 +24,7 @@ __d(
         iconGreen: { color: "x1x3uvgb", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(14),
+      var t = o("react-compiler-runtime").c(13),
         n = e.msgKey,
         a;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -32,6 +32,7 @@ __d(
             o("WAWebMsgGetters").getAck,
             o("WAWebMsgGetters").getIsSentByMe,
             o("WAWebMsgGetters").getType,
+            o("WAWebFrontendMsgGetters").getAsPttLike,
           ]),
           (t[0] = a))
         : (a = t[0]);
@@ -43,65 +44,60 @@ __d(
         l = i[0],
         c = i[1],
         m = i[2],
-        p;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = [o("WAWebFrontendMsgGetters").getAsPttLike]), (t[1] = p))
-        : (p = t[1]);
-      var _ = o("useWAWebMsgValues").useMsgValues(n, p),
-        f = _[0],
-        g = l === o("WAWebAck").ACK.PLAYED,
-        h;
-      t[2] !== c || t[3] !== g
-        ? ((h = d(g, c)), (t[2] = c), (t[3] = g), (t[4] = h))
-        : (h = t[4]);
-      var y = h,
-        C = m === "ptt" || f,
-        b,
-        v;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = { className: "xexx8yu xrw5ot4 x18d9i69 x7coems" }),
-          (v = { className: "x11uqc5h x78zum5 x6s0dn4" }),
-          (t[5] = b),
-          (t[6] = v))
-        : ((b = t[5]), (v = t[6]));
-      var S = r(
-          C
+        p = i[3],
+        _ = l === o("WAWebAck").ACK.PLAYED,
+        f;
+      t[1] !== c || t[2] !== _
+        ? ((f = d(_, c)), (t[1] = c), (t[2] = _), (t[3] = f))
+        : (f = t[3]);
+      var g = f,
+        h = m === "ptt" || p,
+        y,
+        C;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = { className: "xexx8yu xrw5ot4 x18d9i69 x7coems" }),
+          (C = { className: "x11uqc5h x78zum5 x6s0dn4" }),
+          (t[4] = y),
+          (t[5] = C))
+        : ((y = t[4]), (C = t[5]));
+      var b = r(
+          h
             ? "WDSIconIcKeyboardVoiceFilled.react"
             : "WDSIconIcHeadphonesFilled.react",
         ),
-        R = C ? "ptt-status" : "audio-status",
-        L = c ? u.audioBadgeOutgoing : u.audioBadgeIncoming,
-        E;
-      t[7] !== L
-        ? ((E = [u.audioBadge, L]), (t[7] = L), (t[8] = E))
-        : (E = t[8]);
-      var k;
+        v = h ? "ptt-status" : "audio-status",
+        S = c ? u.audioBadgeOutgoing : u.audioBadgeIncoming,
+        R;
+      t[6] !== S
+        ? ((R = [u.audioBadge, S]), (t[6] = S), (t[7] = R))
+        : (R = t[7]);
+      var L;
       return (
-        t[9] !== y || t[10] !== S || t[11] !== R || t[12] !== E
-          ? ((k = s.jsx(
+        t[8] !== g || t[9] !== b || t[10] !== v || t[11] !== R
+          ? ((L = s.jsx(
               "div",
-              babelHelpers.extends({}, b, {
+              babelHelpers.extends({}, y, {
                 children: s.jsx(
                   "div",
-                  babelHelpers.extends({}, v, {
+                  babelHelpers.extends({}, C, {
                     children: s.jsx(r("WAWebPttAudioStatusBadge.react"), {
-                      Icon: S,
+                      Icon: b,
                       iconSize: 16,
-                      iconXstyle: y,
-                      testid: R,
-                      xstyle: E,
+                      iconXstyle: g,
+                      testid: v,
+                      xstyle: R,
                     }),
                   }),
                 ),
               }),
             )),
-            (t[9] = y),
-            (t[10] = S),
+            (t[8] = g),
+            (t[9] = b),
+            (t[10] = v),
             (t[11] = R),
-            (t[12] = E),
-            (t[13] = k))
-          : (k = t[13]),
-        k
+            (t[12] = L))
+          : (L = t[12]),
+        L
       );
     }
     function d(e, t) {

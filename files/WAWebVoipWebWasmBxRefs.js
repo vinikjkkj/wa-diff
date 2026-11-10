@@ -3,6 +3,14 @@ __d(
   ["bx"],
   function (t, n, r, o, a, i, l) {
     var e = {
+      "5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0": {
+        wasm: function () {
+          return r("bx")("5991");
+        },
+        workerGlue: function () {
+          return r("bx")("14949");
+        },
+      },
       "317b0d80a831cd15b7f79e578ec3e1bd25329133590db6e9c02975d34aa35dd0": {
         wasm: function () {
           return r("bx")("111118");
@@ -123,21 +131,13 @@ __d(
           return r("bx")("110763");
         },
       },
-      "36fbf8c2030073613c71269bc9db7b9931a0859f1a0297088c0c90b2008f4b3c": {
-        wasm: function () {
-          return r("bx")("110750");
-        },
-        workerGlue: function () {
-          return r("bx")("110751");
-        },
-      },
     };
     function s() {
       return r("bx")("32180");
     }
     function u() {
       return e[
-        "317b0d80a831cd15b7f79e578ec3e1bd25329133590db6e9c02975d34aa35dd0"
+        "5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0"
       ].wasm();
     }
     ((l.getUnversionedVoipWasmBxRef = s),

@@ -9,7 +9,7 @@ __d(
     function c(e, t) {
       if (s)
         try {
-          (m(e), (e.srcObject = t));
+          (m(e), (e.srcObject = t != null ? t : null));
         } catch (e) {
           throw (
             r("FBLogger")("rt_web")

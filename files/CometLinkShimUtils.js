@@ -10,7 +10,6 @@ __d(
     "isLinkshimURI",
     "isRelativeURL",
     "isTrustedDestination",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -53,7 +52,7 @@ __d(
           S = o("ConstUriUtils").getUri(String(b));
         if (S != null) {
           var R = C.get("ai");
-          (typeof R == "string" && r("justknobx")._("6449") && (y = R),
+          (typeof R == "string" && (y = R),
             (f = S),
             p == null && (h = String(v)));
         }

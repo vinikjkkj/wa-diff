@@ -76,6 +76,7 @@ __d(
       return (
         o("WAWebMsgGetters").getIsEphemeral(e) &&
         e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+        e.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE &&
         !e.isViewOnce &&
         !o("WAWebFrontendMsgGetters").getAsAlbum(e)
       );

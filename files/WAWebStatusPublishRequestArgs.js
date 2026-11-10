@@ -176,6 +176,10 @@ __d(
                                                     .EncMediaType.Hsm ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")
+                                                    .EncMediaType
+                                                    .InstantImage ||
+                                                e ===
+                                                  o("WAWebBackendJobs.flow")
                                                     .EncMediaType.List ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")

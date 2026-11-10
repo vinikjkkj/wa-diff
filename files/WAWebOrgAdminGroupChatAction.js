@@ -13,14 +13,14 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e, s;
+    function u(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebOrgAdminGroupParticipantsAction").getOrgAdminGroupJid(e),
       );
       return t == null || t.isLocked ? null : t;
     }
-    function u(t) {
+    function c(t) {
       (o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
         o("WAWebCmd")
           .Cmd.openChatFromUnread({
@@ -39,7 +39,7 @@ __d(
               .sendLogs("org-admin-open-group-chat-failed");
           }));
     }
-    function c(e, t) {
+    function d(e, t) {
       var n,
         r,
         a,
@@ -50,21 +50,29 @@ __d(
       try {
         l = o("WAWebWidFactory").createUserLidOrThrow(t, "lid");
       } catch (e) {
-        return null;
+        return (
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[org-admin] managed group member has an invalid LID",
+              ])),
+          ),
+          null
+        );
       }
-      var s = o("WAWebApiContact").getAlternateUserWid(l),
-        u = (r = i.get(l)) != null ? r : s == null ? null : i.get(s);
-      return u == null || !i.canVerifyIdentity(u)
+      var u = o("WAWebApiContact").getPnIfLidIsLatestMapping(l),
+        c = (r = i.get(l)) != null ? r : u == null ? null : i.get(u);
+      return c == null || !i.canVerifyIdentity(c)
         ? null
-        : u.id.isLid()
-          ? u.contact
+        : c.id.isLid()
+          ? c.contact
           : (a = o("WAWebContactCollection").ContactCollection.get(l)) != null
             ? a
             : null;
     }
-    ((l.getOrgAdminGroupChat = s),
-      (l.openOrgAdminGroupChat = u),
-      (l.getOrgAdminGroupVerifyContact = c));
+    ((l.getOrgAdminGroupChat = u),
+      (l.openOrgAdminGroupChat = c),
+      (l.getOrgAdminGroupVerifyContact = d));
   },
   98,
 );

@@ -22,7 +22,8 @@ __d(
             return this.__setParam(t, "String", n);
           }),
           (n.setExists = function (t, n) {
-            return (n === !1 && (n = void 0), this.__setParam(t, "Exists", n));
+            var e = n === !1 ? void 0 : n;
+            return this.__setParam(t, "Exists", e);
           }),
           (n.setBool = function (t, n) {
             return this.__setParam(t, "Bool", n);

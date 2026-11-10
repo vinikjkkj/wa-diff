@@ -59,7 +59,7 @@ __d(
       );
     }
     function E() {
-      return !r("gkx")("23871") && !r("gkx")("27715")
+      return !r("gkx")("23871") && !r("gkx")("7031")
         ? (m || (m = n("Promise"))).reject(
             r("err")("Labyrinth storage is disabled"),
           )

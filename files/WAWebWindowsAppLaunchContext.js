@@ -1,24 +1,27 @@
 __d(
   "WAWebWindowsAppLaunchContext",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebStartupLaunchAttribution"],
+  function (t, n, r, o, a, i, l) {
     var e =
       /^(off|skip|guard)\.(reused|added|failed)\.(lt25|lt50|lt100|lt250|lt1000|ge1000)$/;
-    function l(t, n) {
+    function s(t, n) {
       var r,
-        o,
-        a = new URLSearchParams(n),
-        i = t,
-        l = (r = a.get("launchContext")) != null ? r : "";
-      l !== "" && (i = i == null ? l : i + "+launch:" + l);
-      var s = (o = a.get("extensionsStartup")) != null ? o : "";
-      if (e.test(s)) {
-        var u = "ext:" + s;
-        i = i == null ? u : i + "+" + u;
+        a,
+        i = new URLSearchParams(n),
+        l = t,
+        s = (r = i.get("launchContext")) != null ? r : "";
+      s !== "" && (l = l == null ? s : l + "+launch:" + s);
+      var u = (a = i.get("extensionsStartup")) != null ? a : "";
+      if (e.test(u)) {
+        var c = "ext:" + u;
+        l = l == null ? c : l + "+" + c;
       }
-      return i;
+      var d = o(
+        "WAWebStartupLaunchAttribution",
+      ).getLaunchAttributionAppContextPart(n);
+      return (d != null && (l = l == null ? d : l + "+" + d), l);
     }
-    i.getNativeLaunchAppContext = l;
+    l.getNativeLaunchAppContext = s;
   },
-  66,
+  98,
 );

@@ -28,6 +28,7 @@ __d(
         "wa_web_pre_chat_device_id_test",
         "falco_md_id_fix_web_enabled",
         "web_vc_css_bg_scan_children_first",
+        "wa_web_drag_and_drop_capabilities",
       ],
       c = null,
       d = null;

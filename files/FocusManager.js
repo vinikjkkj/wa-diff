@@ -104,7 +104,15 @@ __d(
         try {
           e = a || !1;
           var h = t.__lexicalEditor;
-          if (h !== void 0) h.focus();
+          if (h !== void 0)
+            g
+              ? h.update(
+                  function () {
+                    return h.focus();
+                  },
+                  { tag: "skip-scroll-into-view" },
+                )
+              : h.focus();
           else if (!g) E(t);
           else if (s) E(t, { preventScroll: !0 });
           else {

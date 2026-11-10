@@ -8,6 +8,7 @@ __d(
     "WAWebBizAiMessageEditEducationPolicy",
     "WAWebCmd",
     "WAWebEventEmitter",
+    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "getErrorSafe",
   ],
@@ -33,7 +34,7 @@ __d(
       v = !1,
       S = new Set();
     function R() {
-      return r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null
+      return o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null
         ? H()
         : M(r("WAWebUserPrefsStore").getUser(_));
     }
@@ -48,62 +49,62 @@ __d(
       );
     }
     function E() {
-      r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+      o("WAWebUserPrefsMeUser").getMaybeMePnUser() != null &&
         r("WAWebUserPrefsStore").setUser(f, !0);
     }
     function k() {
       return (
-        r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+        o("WAWebUserPrefsMeUser").getMaybeMePnUser() != null &&
         r("WAWebUserPrefsStore").getUser(f) === !0
       );
     }
-    function I(e, t, n, a) {
-      a === void 0 && (a = o("WATimeUtils").unixTime());
-      var i = r("WAWebUserPrefsStore").getMaybeMeDevicePn();
-      if (i == null) return H();
-      var l = {
+    function I(e, t, n, r) {
+      r === void 0 && (r = o("WATimeUtils").unixTime());
+      var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      if (a == null) return H();
+      var i = {
           chatId: e.id.remote,
           didSendEdit: t,
           isWithinEditingWindow: n,
           messageId: e.id.id,
-          startedAtSeconds: a,
+          startedAtSeconds: r,
         },
-        s = e.getCollection(),
-        u = function (n) {
-          n.id.equals(e.id) && $(l);
+        l = e.getCollection(),
+        s = function (n) {
+          n.id.equals(e.id) && $(i);
         },
-        c = function () {
-          $(l);
+        u = function () {
+          $(i);
         },
+        c = !1,
         d = !1,
-        m = !1,
-        p = function () {
-          (d &&
-            ((d = !1),
+        m = function () {
+          (c &&
+            ((c = !1),
             q(function () {
-              s.off("remove", u);
+              l.off("remove", s);
             })),
-            m &&
-              ((m = !1),
+            d &&
+              ((d = !1),
               q(function () {
-                e.off("revoked", c);
+                e.off("revoked", u);
               })));
         };
       try {
         return (
+          (c = !0),
+          l.on("remove", s),
           (d = !0),
-          s.on("remove", u),
-          (m = !0),
-          e.on("revoked", c),
+          e.on("revoked", u),
           w({
-            hint: l,
-            nowSeconds: a,
-            ownerUserId: i.toString(),
-            targetCleanup: p,
+            hint: i,
+            nowSeconds: r,
+            ownerUserId: a.toString(),
+            targetCleanup: m,
           })
         );
       } catch (e) {
-        throw (g === l ? $(l) : p(), e);
+        throw (g === i ? $(i) : m(), e);
       }
     }
     function T(e) {
@@ -138,7 +139,7 @@ __d(
       return T() !== e || b ? null : ((b = !0), e.isWithinEditingWindow);
     }
     function N() {
-      (r("WAWebUserPrefsStore").getMaybeMeDevicePn() != null &&
+      (o("WAWebUserPrefsMeUser").getMaybeMePnUser() != null &&
         (r("WAWebUserPrefsStore").setUser(_, null),
         r("WAWebUserPrefsStore").setUser(f, null)),
         x());
@@ -264,14 +265,14 @@ __d(
     function U() {
       var e, t;
       return (e =
-        (t = r("WAWebUserPrefsStore").getMaybeMeDevicePn()) == null
+        (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
           ? void 0
           : t.toString()) != null
         ? e
         : null;
     }
     function V(e) {
-      if (r("WAWebUserPrefsStore").getMaybeMeDevicePn() == null) return H();
+      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return H();
       var t = M(e);
       return (r("WAWebUserPrefsStore").setUser(_, t), t);
     }

@@ -118,12 +118,12 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k() {
+    function k(e) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!(h || y)) {
             ((y = !0),
               o(
@@ -131,9 +131,9 @@ __d(
               ).stopLabyrinthCompanionOnboardingIfEnabled(),
               o("WAWebMdSessionIdCache").clearMdSessionId(),
               yield o("WAWebAdvSignatureApi").clearADVSecretKey());
-            var e = yield r("WAWebClearCredentials")(),
-              t = e || (yield T());
-            o("WAWebReloadAfterLogout").reloadAfterLogout(t);
+            var t = yield r("WAWebClearCredentials")(),
+              n = t || (yield T());
+            o("WAWebReloadAfterLogout").reloadAfterLogout(n, e);
           }
         })),
         I.apply(this, arguments)

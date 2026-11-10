@@ -1,93 +1,21 @@
 __d(
   "WAWebContactStatusBridge",
   [
-    "WAComms",
-    "WALogger",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebApiStatus",
-    "WAWebGetAboutQueryJob",
-    "WAWebMexUsersGetAboutStatus",
-    "WAWebPersistedJobDefinitions",
-    "WAWebPersistedJobManagerWorkerCompatible",
-    "WAWebRestOperations",
-    "WAWebScheduledOperations",
     "WAWebSendReadReceiptJob",
-    "WAWebSetAboutJob",
     "asyncToGeneratorRuntime",
-    "cr:11133",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e() {
+      return o("WAWebApiStatus").getAllStatuses();
+    }
+    function s(e, t, n) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.wid;
-          if (
-            (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
-            o("WAComms").getComms() == null
-          )
-            return { id: r, stale: !0, status: null };
-          if (
-            o("WAWebABProps").getABPropConfigValue("mex_usync_about_status")
-          ) {
-            var a = yield o(
-                "WAWebMexUsersGetAboutStatus",
-              ).getMexUsersAboutStatus(t),
-              i = a.state,
-              l = a.status;
-            return i == null
-              ? { id: r, status: l }
-              : { id: r, stale: !0, status: null };
-          }
-          return o("WAWebGetAboutQueryJob")
-            .getAbout(t)
-            .then(function (t) {
-              return t.error
-                ? (o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "getStatus: failed ",
-                        " : ",
-                        "",
-                      ])),
-                    t.error.errorCode,
-                    t.error.errorText,
-                  ),
-                  { id: t.id, stale: !0, status: "" })
-                : { id: t.id, status: t.status };
-            });
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
-      return o("WAWebRestOperations").runRestOperation(
-        o("WAWebScheduledOperations").ScheduledOperation.SET_ABOUT,
-        function () {
-          return o("WAWebSetAboutJob").sendSetAbout(e);
-        },
-        function () {
-          return o("WAWebPersistedJobManagerWorkerCompatible")
-            .getJobManager()
-            .waitUntilCompleted(
-              o("WAWebPersistedJobDefinitions").jobSerializers.setAbout(e),
-            );
-        },
-      );
-    }
-    function d() {
-      return o("WAWebApiStatus").getAllStatuses();
-    }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             return (
               yield o("WAWebSendReadReceiptJob").markStatusRead(e, t, n),
@@ -98,13 +26,10 @@ __d(
             return !1;
           }
         })),
-        p.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    ((l.getStatus = s),
-      (l.setMyStatus = c),
-      (l.queryStatusAll = d),
-      (l.sendReadStatus = m));
+    ((l.queryStatusAll = e), (l.sendReadStatus = s));
   },
   98,
 );

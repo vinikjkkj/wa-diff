@@ -39,6 +39,7 @@ __d(
     "cr:17219",
     "err",
     "getErrorSafe",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -54,6 +55,7 @@ __d(
         function a() {
           var a, i;
           ((i = t.call(this) || this),
+            (i.$ProfilePicThumbCollectionImpl$p_1 = new Set()),
             (i.findImpl = function (t) {
               var a;
               if (!(t instanceof r("WAWebWid")))
@@ -72,28 +74,28 @@ __d(
                     ),
                   )
                 );
-              var i = t.isNewsletter()
+              var l = t.isNewsletter()
                   ? r("WAWebNewsletterCollection")
                   : o("WAWebChatCollection").ChatCollection,
-                l = i.get(t),
-                s =
+                s = l.get(t),
+                u =
                   o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
-                    l == null ? void 0 : l.groupMetadata,
+                    s == null ? void 0 : s.groupMetadata,
                   ) === o("WAWebGroupType").GroupType.COMMUNITY,
-                u = r("WAWebUnjoinedSubgroupMetadataCollection").get(
+                c = r("WAWebUnjoinedSubgroupMetadataCollection").get(
                   t.toString(),
                 ),
-                c = l == null ? void 0 : l.newsletterMetadata;
+                d = s == null ? void 0 : s.newsletterMetadata;
               if (
-                (l != null &&
-                  l.isReadOnly &&
-                  !s &&
-                  !(l != null && o("WAWebChatGetters").getIsNewsletter(l)) &&
-                  u == null) ||
-                (l != null && (a = l.groupMetadata) != null && a.terminated) ||
-                (c != null && c.terminated) ||
-                (c != null &&
-                  o("WAWebNewsletterMetadataGetters").getIsPreview(c))
+                (s != null &&
+                  s.isReadOnly &&
+                  !u &&
+                  !(s != null && o("WAWebChatGetters").getIsNewsletter(s)) &&
+                  c == null) ||
+                (s != null && (a = s.groupMetadata) != null && a.terminated) ||
+                (d != null && d.terminated) ||
+                (d != null &&
+                  o("WAWebNewsletterMetadataGetters").getIsPreview(d))
               )
                 return (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 });
               if (h(t)) return (_ || (_ = n("Promise"))).resolve({ id: t });
@@ -103,24 +105,24 @@ __d(
                   r("WAWebWid").isNewsletter(t)) &&
                 !r("WAWebWid").isPSA(t)
               ) {
-                var d,
-                  m = s
+                var m,
+                  p = u
                     ? t
-                    : l == null || (d = l.groupMetadata) == null
+                    : s == null || (m = s.groupMetadata) == null
                       ? void 0
-                      : d.parentGroup;
-                u != null && (m = u.parentGroupId);
-                var p =
+                      : m.parentGroup;
+                c != null && (p = c.parentGroupId);
+                var f =
                   o("WAWebSocketModel").Socket.stream !==
                     o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED ||
                   (o("WAWebVoipGatingUtils").isGuestViewer() &&
                     o("WAComms").isSocketConnected());
-                if (p) {
-                  var f;
+                if (f) {
+                  var g;
                   if (r("WAWebWid").isUser(t)) {
-                    var g,
-                      y = o("WAWebContactCollection").ContactCollection.get(t),
-                      C = o("WAWebChatCollection").ChatCollection.get(t);
+                    var y,
+                      C = o("WAWebContactCollection").ContactCollection.get(t),
+                      b = o("WAWebChatCollection").ChatCollection.get(t);
                     return (
                       o("WAWebBackendRuntime").isWebDiBackendEnabled()
                         ? o("WAWebBackendRuntime").runtime(
@@ -131,14 +133,14 @@ __d(
                             .requestProfilePicFromServer
                     )({
                       id: t,
-                      parentGroupId: m,
-                      tcToken: C == null ? void 0 : C.tcToken,
+                      parentGroupId: p,
+                      tcToken: b == null ? void 0 : b.tcToken,
                       commonGid:
-                        (C == null ? void 0 : C.tcToken) == null
-                          ? y == null ||
-                            (g = y.maybeCommonGroupChatModel) == null
+                        (b == null ? void 0 : b.tcToken) == null
+                          ? C == null ||
+                            (y = C.maybeCommonGroupChatModel) == null
                             ? void 0
-                            : g.id
+                            : y.id
                           : null,
                     });
                   }
@@ -151,16 +153,19 @@ __d(
                           .requestProfilePicFromServer
                   )({
                     id: t,
-                    parentGroupId: m,
+                    parentGroupId: p,
                     newsletterRole: t.isNewsletter()
-                      ? (f = r("WAWebNewsletterMetadataCollection").get(t)) ==
+                      ? (g = r("WAWebNewsletterMetadataCollection").get(t)) ==
                         null
                         ? void 0
-                        : f.membershipType
+                        : g.membershipType
                       : void 0,
                   });
                 }
-                return (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 });
+                return (
+                  i.$ProfilePicThumbCollectionImpl$p_1.add(t),
+                  (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 })
+                );
               }
               return (_ || (_ = n("Promise"))).resolve({ id: t, tag: null });
             }),
@@ -204,11 +209,18 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
-          (i.refetchObservedStalePics = function () {
-            var e = this;
-            this.forEach(function (t) {
-              t.stale && t.hasObservers() && e.find(t.id).catch(r("WAWebNoop"));
-            });
+          (i.fetchPicsSkippedWhileDisconnected = function () {
+            var e = Array.from(this.$ProfilePicThumbCollectionImpl$p_1);
+            this.$ProfilePicThumbCollectionImpl$p_1.clear();
+            for (var t of e) {
+              var n = this.get(t);
+              (n == null ? void 0 : n.stale) === !0 &&
+                n.hasObservers() &&
+                this.find(t).catch(r("WAWebNoop"));
+            }
+          }),
+          (i.clearPicsSkippedWhileDisconnected = function () {
+            this.$ProfilePicThumbCollectionImpl$p_1.clear();
           }),
           (i._mirrorMeRow = function (t) {
             if (o("WAWebUserPrefsMeUser").isMeAccount(t.id)) {
@@ -472,7 +484,9 @@ __d(
         e.listenTo(o("WAWebSocketModel").Socket, "change:stream", function () {
           o("WAWebSocketModel").Socket.stream ===
             o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED &&
-            e.refetchObservedStalePics();
+            (r("gkx")("15714")
+              ? e.fetchPicsSkippedWhileDisconnected()
+              : e.clearPicsSkippedWhileDisconnected());
         }),
         e
       );

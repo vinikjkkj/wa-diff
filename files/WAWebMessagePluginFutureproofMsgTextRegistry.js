@@ -81,6 +81,7 @@ __d(
       { type: "groups_v4_invite", subtype: void 0, futureproofMsgText: null },
       { type: "hsm", subtype: void 0, futureproofMsgText: null },
       { type: "image", subtype: void 0, futureproofMsgText: null },
+      { type: "instant_image", subtype: void 0, futureproofMsgText: null },
       { type: "interactive", subtype: void 0, futureproofMsgText: null },
       {
         type: "interactive_response",

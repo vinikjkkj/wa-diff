@@ -10,7 +10,7 @@ __d(
     "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
@@ -111,7 +111,7 @@ __d(
                 },
                 {
                   participant: o(
-                    "WAWebUserPrefsMeUser",
+                    "WAWebUserUtils",
                   ).getMeUserMatchingAddressingModeOrThrow(e.peerWid),
                   outcome: o("WAWebVoipWaCallEnums").CallParticipantState
                     .Connected,

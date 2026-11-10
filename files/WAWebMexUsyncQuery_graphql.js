@@ -7,29 +7,24 @@ __d(
       var e = {
           defaultValue: null,
           kind: "LocalArgument",
-          name: "include_about_status",
-        },
-        t = {
-          defaultValue: null,
-          kind: "LocalArgument",
           name: "include_country_code",
         },
-        n = { defaultValue: null, kind: "LocalArgument", name: "include_orgs" },
-        r = {
+        t = { defaultValue: null, kind: "LocalArgument", name: "include_orgs" },
+        n = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "include_username",
         },
-        o = { defaultValue: null, kind: "LocalArgument", name: "input" },
-        a = [{ kind: "Variable", name: "input", variableName: "input" }],
-        i = {
+        r = { defaultValue: null, kind: "LocalArgument", name: "input" },
+        o = [{ kind: "Variable", name: "input", variableName: "input" }],
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "jid",
           storageKey: null,
         },
-        l = {
+        i = {
           condition: "include_country_code",
           kind: "Condition",
           passingValue: !0,
@@ -43,14 +38,14 @@ __d(
             },
           ],
         },
-        s = {
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        u = {
+        s = {
           kind: "InlineFragment",
           selections: [
             {
@@ -64,7 +59,7 @@ __d(
           type: "XWA2ResponseStatus",
           abstractKey: null,
         },
-        c = {
+        u = {
           condition: "include_orgs",
           kind: "Condition",
           passingValue: !0,
@@ -77,7 +72,7 @@ __d(
               name: "orgs_info",
               plural: !1,
               selections: [
-                s,
+                l,
                 {
                   kind: "InlineFragment",
                   selections: [
@@ -131,20 +126,13 @@ __d(
                   type: "XWA2Orgs",
                   abstractKey: null,
                 },
-                u,
+                s,
               ],
               storageKey: null,
             },
           ],
         },
-        d = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "timestamp",
-          storageKey: null,
-        },
-        m = {
+        c = {
           condition: "include_username",
           kind: "Condition",
           passingValue: !0,
@@ -157,7 +145,7 @@ __d(
               name: "username_info",
               plural: !1,
               selections: [
-                s,
+                l,
                 {
                   kind: "InlineFragment",
                   selections: [
@@ -175,7 +163,13 @@ __d(
                       name: "state",
                       storageKey: null,
                     },
-                    d,
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "timestamp",
+                      storageKey: null,
+                    },
                     {
                       alias: null,
                       args: null,
@@ -187,64 +181,27 @@ __d(
                   type: "XWA2Username",
                   abstractKey: null,
                 },
-                u,
+                s,
               ],
               storageKey: null,
             },
           ],
-        },
-        p = {
-          kind: "InlineFragment",
-          selections: [
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "text",
-              storageKey: null,
-            },
-            d,
-          ],
-          type: "XWA2AboutStatus",
-          abstractKey: null,
         };
       return {
         fragment: {
-          argumentDefinitions: [e, t, n, r, o],
+          argumentDefinitions: [e, t, n, r],
           kind: "Fragment",
           metadata: null,
           name: "WAWebMexUsyncQuery",
           selections: [
             {
               alias: null,
-              args: a,
+              args: o,
               concreteType: null,
               kind: "LinkedField",
               name: "xwa2_fetch_wa_users",
               plural: !0,
-              selections: [
-                i,
-                l,
-                c,
-                m,
-                {
-                  condition: "include_about_status",
-                  kind: "Condition",
-                  passingValue: !0,
-                  selections: [
-                    {
-                      alias: null,
-                      args: null,
-                      concreteType: null,
-                      kind: "LinkedField",
-                      name: "about_status_info",
-                      plural: !1,
-                      selections: [p, u],
-                      storageKey: null,
-                    },
-                  ],
-                },
-              ],
+              selections: [a, i, u, c],
               storageKey: null,
             },
           ],
@@ -253,40 +210,23 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [o, r, e, t, n],
+          argumentDefinitions: [r, n, e, t],
           kind: "Operation",
           name: "WAWebMexUsyncQuery",
           selections: [
             {
               alias: null,
-              args: a,
+              args: o,
               concreteType: null,
               kind: "LinkedField",
               name: "xwa2_fetch_wa_users",
               plural: !0,
               selections: [
-                s,
-                i,
                 l,
+                a,
+                i,
+                u,
                 c,
-                m,
-                {
-                  condition: "include_about_status",
-                  kind: "Condition",
-                  passingValue: !0,
-                  selections: [
-                    {
-                      alias: null,
-                      args: null,
-                      concreteType: null,
-                      kind: "LinkedField",
-                      name: "about_status_info",
-                      plural: !1,
-                      selections: [s, p, u],
-                      storageKey: null,
-                    },
-                  ],
-                },
                 {
                   kind: "InlineFragment",
                   selections: [
@@ -307,7 +247,7 @@ __d(
           ],
         },
         params: {
-          id: "40892126693719999",
+          id: "28340427968970000",
           metadata: {},
           name: "WAWebMexUsyncQuery",
           operationKind: "query",

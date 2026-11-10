@@ -16,11 +16,17 @@ __d(
     var e = "ds",
       s = "payment_reminder";
     function u(e) {
-      if (e.isFromTemplate !== !0) return e.type;
-      var t = e.safe();
-      return (t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        t.type !== o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) ||
-        o("WAWebPaymentReminder").getSmartHydratedPaymentReminderInfo(t) == null
+      var t, n, r, a;
+      return e.isFromTemplate !== !0 ||
+        (e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+          e.type !== o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) ||
+        o("WAWebPaymentReminder").getSmartHydratedPaymentReminderInfoFor({
+          interactivePayload: (t = e.interactivePayload) != null ? t : null,
+          interactiveType: (n = e.interactiveType) != null ? n : null,
+          nativeFlowButtons: (r = e.nativeFlowButtons) != null ? r : null,
+          nativeFlowName: (a = e.nativeFlowName) != null ? a : null,
+          type: e.type,
+        }) == null
         ? e.type
         : o("WAWebABProps").getABPropConfigValue(
               "utility_payment_reminder_m1_logging_enabled",
@@ -28,7 +34,17 @@ __d(
           ? s
           : null;
     }
-    var c = (function () {
+    function c(e) {
+      return u({
+        interactivePayload: e.interactivePayload,
+        interactiveType: e.interactiveType,
+        isFromTemplate: e.isFromTemplate,
+        nativeFlowButtons: e.nativeFlowButtons,
+        nativeFlowName: e.nativeFlowName,
+        type: e.type,
+      });
+    }
+    var d = (function () {
       function t(e, t) {
         ((this.msg = e), (this.chat = t), (this.sharedFields = {}));
       }
@@ -104,7 +120,7 @@ __d(
             (this.sharedFields = babelHelpers.extends(
               {},
               this.sharedFields,
-              d(this.chat.id.toString()),
+              m(this.chat.id.toString()),
             )),
             this
           );
@@ -160,7 +176,7 @@ __d(
         t
       );
     })();
-    function d(e) {
+    function m(e) {
       var t, n, r;
       if (
         !o("WAWebABProps").getABPropConfigValue(
@@ -178,9 +194,10 @@ __d(
             iasEntryPoint: (r = a.iasEntryPoint) != null ? r : void 0,
           };
     }
-    ((l.getQbmMessageTypeStrForLogging = u),
-      (l.QBMLoggerBuilder = c),
-      (l.getIasQbmFields = d));
+    ((l.getQbmMessageTypeStrForLoggingFromData = u),
+      (l.getQbmMessageTypeStrForLogging = c),
+      (l.QBMLoggerBuilder = d),
+      (l.getIasQbmFields = m));
   },
   98,
 );

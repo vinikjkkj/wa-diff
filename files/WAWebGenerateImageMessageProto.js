@@ -4,6 +4,7 @@ __d(
     "WATypeUtils",
     "WAWebE2EProtoUtils",
     "WAWebMediaGatingUtils",
+    "WAWebMsgType",
     "WAWebWid",
     "err",
   ],
@@ -66,7 +67,9 @@ __d(
           s,
           r("WAWebWid").isNewsletter(n.to),
         ),
-        { imageMessage: s }
+        n.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE
+          ? { instantImageMessage: s }
+          : { imageMessage: s }
       );
     }
     l.default = e;

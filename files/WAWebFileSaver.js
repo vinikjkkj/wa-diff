@@ -66,18 +66,21 @@ __d(
                         )
                       : l,
                   m = e.shouldThrowAbortError,
-                  _ = m === void 0 ? !1 : m,
-                  f = a ? i : p(i);
+                  _ = m === void 0 ? !1 : m;
                 r("WAWebMiscBrowserUtils").startDownloading();
                 try {
-                  var g,
+                  var f,
+                    g,
                     h,
-                    y,
-                    C = yield o(
-                      "WAWebFileSaverDownloadData",
-                    ).getMultiMsgDownloadData(f, _);
+                    y = yield p(
+                      Array.isArray(i) && i.length === 1 ? i[0] : i,
+                      a,
+                      _,
+                    ),
+                    C = y.data,
+                    b = y.msg;
                   if (r("isStringNullOrEmpty")(C.url) && !C.blob) {
-                    var b = f;
+                    var v = b;
                     o("WALogger")
                       .ERROR(
                         s ||
@@ -85,35 +88,35 @@ __d(
                             "Assertion failed! ",
                             "",
                           ])),
-                        Array.isArray(b)
+                        Array.isArray(v)
                           ? "download a zip file"
                           : "download " +
-                              b.id.toString() +
+                              v.id.toString() +
                               " type " +
-                              b.type +
+                              v.type +
                               " with state " +
-                              (b.mediaData && b.mediaData.mediaStage),
+                              (v.mediaData && v.mediaData.mediaStage),
                       )
                       .sendLogs("download-url-creation-error");
                   }
-                  var v =
-                    (g = C.url) != null
-                      ? g
+                  var S =
+                    (f = C.url) != null
+                      ? f
                       : window.URL.createObjectURL(C.blob);
-                  [].concat(f).forEach(function (e) {
+                  [].concat(b).forEach(function (e) {
                     if (r("WAWebMediaGatingShouldClearDownloadedBlobs")(e)) {
                       var t;
                       (t = e.mediaObject) == null || t.clearBlob({ reset: !0 });
                     }
                   });
-                  var S = o("WAWebDataLink").createDataLink(v);
+                  var R = o("WAWebDataLink").createDataLink(S);
                   if (
-                    ((S.download = C.name),
-                    (S.style.display = "none"),
-                    Array.isArray(f) && f.length === 1 && (f = f[0]),
-                    !S.href)
+                    ((R.download = C.name),
+                    (R.style.display = "none"),
+                    Array.isArray(b) && b.length === 1 && (b = b[0]),
+                    !R.href)
                   ) {
-                    var R = f;
+                    var L = b;
                     o("WALogger")
                       .ERROR(
                         u ||
@@ -121,36 +124,36 @@ __d(
                             "Assertion failed! ",
                             "",
                           ])),
-                        Array.isArray(R)
+                        Array.isArray(L)
                           ? "download a zip file"
                           : "download " +
-                              R.id.toString() +
+                              L.id.toString() +
                               " type " +
-                              R.type +
+                              L.type +
                               " with state " +
-                              (R.mediaData && R.mediaData.mediaStage),
+                              (L.mediaData && L.mediaData.mediaStage),
                       )
                       .sendLogs("no-download-url");
                   }
                   (yield d(
-                    S.href,
-                    S.download,
-                    Array.isArray(f)
+                    R.href,
+                    R.download,
+                    Array.isArray(b)
                       ? ""
-                      : (h = (y = f.mediaData) == null ? void 0 : y.filehash) !=
+                      : (g = (h = b.mediaData) == null ? void 0 : h.filehash) !=
                           null
-                        ? h
+                        ? g
                         : "",
                   ),
-                    document.body && document.body.appendChild(S),
-                    S.click(),
-                    document.body && document.body.removeChild(S),
+                    document.body && document.body.appendChild(R),
+                    R.click(),
+                    document.body && document.body.removeChild(R),
                     r("isStringNullOrEmpty")(C.url) &&
                       (yield o("WAPromiseDelays").delayMs(100),
-                      window.URL.revokeObjectURL(S.href)));
+                      window.URL.revokeObjectURL(R.href)));
                 } catch (e) {
-                  var L = r("getErrorSafe")(e);
-                  if (_ && L.name === o("WAAbortError").ABORT_ERROR) throw L;
+                  var E = r("getErrorSafe")(e);
+                  if (_ && E.name === o("WAAbortError").ABORT_ERROR) throw E;
                   o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -184,13 +187,65 @@ __d(
           t
         );
       })();
-    function p(e) {
-      return Array.isArray(e)
-        ? o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsgs(e)
-        : o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    var _ = new m();
-    l.FileSaver = _;
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t) {
+                return {
+                  data: yield o(
+                    "WAWebFileSaverDownloadData",
+                  ).getMultiMsgDownloadData(e, r, t),
+                  msg: e,
+                };
+              },
+            );
+            return function (n, r) {
+              return e.apply(this, arguments);
+            };
+          })();
+          if (t) return a(e);
+          if (!Array.isArray(e))
+            return o("WAWebFileSaverDownloadData").withSdLegFallback(
+              o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e),
+              e,
+              (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (t) {
+                    return t === e
+                      ? a(t)
+                      : {
+                          data: yield o(
+                            "WAWebFileSaverDownloadData",
+                          ).getMsgDownloadData(t, r),
+                          msg: t,
+                        };
+                  },
+                );
+                return function (e) {
+                  return t.apply(this, arguments);
+                };
+              })(),
+            );
+          var i = new Map();
+          for (var l of e) {
+            var s = o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(l);
+            s !== l && i.set(s, l);
+          }
+          return a(
+            o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsgs(e),
+            i,
+          );
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    var f = new m();
+    l.FileSaver = f;
   },
   98,
 );

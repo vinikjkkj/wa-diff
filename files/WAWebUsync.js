@@ -17,7 +17,6 @@ __d(
     "WAWebUsyncFeature",
     "WAWebUsyncLid",
     "WAWebUsyncPicture",
-    "WAWebUsyncStatus",
     "WAWebUsyncTextStatus",
     "WAWebUsyncUsername",
     "WAWebWid",
@@ -33,7 +32,6 @@ __d(
         DEVICE: "devices",
         CONTACT: "contact",
         PICTURE: "picture",
-        STATUS: "status",
         BUSINESS: "business",
         DISAPPEARING_MODE: "disappearing_mode",
         LID: "lid",
@@ -46,7 +44,6 @@ __d(
         devices: o("WAWebUsyncDevice").deviceParser,
         contact: o("WAWebUsyncContact").contactParser,
         picture: o("WAWebUsyncPicture").pictureParser,
-        status: o("WAWebUsyncStatus").statusParser,
         business: o("WAWebUsyncBusiness").businessParser,
         disappearing_mode: o("WAWebUsyncDisappearingMode")
           .disappearingModeParser,
@@ -166,14 +163,6 @@ __d(
             return (
               this.protocols.push(
                 new (o("WAWebUsyncPicture").USyncPictureProtocol)(),
-              ),
-              this
-            );
-          }),
-          (t.withStatusProtocol = function () {
-            return (
-              this.protocols.push(
-                new (o("WAWebUsyncStatus").USyncStatusProtocol)(),
               ),
               this
             );

@@ -85,7 +85,7 @@ __d(
           onJobStarted: r("WAWebNoop"),
           onJobFinished: o("WAWebNullFunc").returnNull,
         },
-        deprecatedJobs: {},
+        deprecatedJobs: { setAbout: "NOOP" },
         executionScheduler: r("WAWebPersistedJobTaskScheduler"),
         useExecutionScheduler: g,
       });

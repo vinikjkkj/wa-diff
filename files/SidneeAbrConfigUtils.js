@@ -2,13 +2,14 @@ __d(
   "SidneeAbrConfigUtils",
   [
     "MetaConfig",
-    "SidneeAbrConfigDefault",
     "cr:11245",
     "cr:11338",
     "cr:11403",
+    "cr:19096",
     "cr:824",
     "cr:9415",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -33,7 +34,7 @@ __d(
               ? n("cr:9415").createSidneeAbrConfig()
               : n("cr:824")
                 ? n("cr:824").createSidneeAbrConfig()
-                : o("SidneeAbrConfigDefault").createSidneeAbrConfig();
+                : r("nullthrows")(n("cr:19096")).createSidneeAbrConfig();
     }
     ((l.shouldUseSidneeAbr = e), (l.createSidneeAbrConfig = s));
   },

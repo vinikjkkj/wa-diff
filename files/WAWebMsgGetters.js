@@ -311,6 +311,7 @@ __d(
             case "interactive":
             case "chat":
             case "image":
+            case "instant_image":
             case "video":
             case "ptv":
             case "audio":

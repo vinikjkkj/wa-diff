@@ -135,20 +135,8 @@ __d(
         consumeLoginNextParam: function (t) {
           var e = new URLSearchParams(t),
             n = e.get("next"),
-            r;
-          if (n == null) r = "/";
-          else {
-            if (
-              !n.startsWith("/") ||
-              n.startsWith("//") ||
-              n.includes("\\") ||
-              n === "/login" ||
-              n.startsWith("/login/") ||
-              n.startsWith("/login?")
-            )
-              return "/";
-            r = n;
-          }
+            r = n == null ? "/" : m(n);
+          if (r == null) return "/";
           e.delete("next");
           var o = e.toString();
           if (o === "") return r;
@@ -165,9 +153,25 @@ __d(
           var a = "/login/?next=" + encodeURIComponent(t);
           return r === "" ? a : a + "&" + r;
         },
-      },
-      m = d;
-    l.default = m;
+      };
+    function m(e) {
+      if (!e.startsWith("/")) return null;
+      var t = self.location.origin,
+        n;
+      try {
+        n = new URL(e, t);
+      } catch (e) {
+        return null;
+      }
+      return n.origin !== t ||
+        n.pathname.startsWith("//") ||
+        n.pathname === "/login" ||
+        n.pathname.startsWith("/login/")
+        ? null
+        : n.pathname + n.search + n.hash;
+    }
+    var p = d;
+    l.default = p;
   },
   98,
 );

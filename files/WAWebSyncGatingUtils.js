@@ -12,6 +12,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
+      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.historySyncOnDemand;
+    }
+    function u() {
       if (!o("WAWebPrimaryFeaturesModel").PrimaryFeatures.historySyncOnDemand)
         return !1;
       var t = o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete(),
@@ -36,41 +39,42 @@ __d(
         ? !0
         : r("WAWebEnvironment").isWindows
           ? o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-              .extendedHistorySyncOnDemand && p()
+              .extendedHistorySyncOnDemand && _()
           : !0;
     }
-    function u() {
-      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.historySyncOnDemand;
-    }
     function c() {
-      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-        .webLinkPreviewNseSupport;
+      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.historySyncOnDemand;
     }
     function d() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-        .messagePlaceholderResendNseSupport;
+        .webLinkPreviewNseSupport;
     }
     function m() {
+      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+        .messagePlaceholderResendNseSupport;
+    }
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_noncritical_history_sync_message_processing_break_iteration",
       );
     }
-    function p() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "history_sync_on_demand_companion",
       );
     }
-    function _() {
+    function f() {
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
         .completeHistorySyncOnDemand;
     }
-    ((l.isHistorySyncOnDemandEnabled = s),
-      (l.shouldPopulateStarMessageWithTimestamp = u),
-      (l.isWebLinkPreviewNseSupportEnabled = c),
-      (l.isMessagePlaceholderResendNseSupportEnabled = d),
-      (l.getRecentSyncMessageProcessingBreakIteration = m),
-      (l.isOnDemandExtendedHistorySyncForHybridEnabled = p),
-      (l.isHistorySyncOnDemandCompleteCompanionEnabled = _));
+    ((l.isHistorySyncOnDemandSupportedByPrimary = s),
+      (l.isHistorySyncOnDemandEnabled = u),
+      (l.shouldPopulateStarMessageWithTimestamp = c),
+      (l.isWebLinkPreviewNseSupportEnabled = d),
+      (l.isMessagePlaceholderResendNseSupportEnabled = m),
+      (l.getRecentSyncMessageProcessingBreakIteration = p),
+      (l.isOnDemandExtendedHistorySyncForHybridEnabled = _),
+      (l.isHistorySyncOnDemandCompleteCompanionEnabled = f));
   },
   98,
 );

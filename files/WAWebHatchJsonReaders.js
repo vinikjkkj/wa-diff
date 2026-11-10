@@ -77,6 +77,50 @@ __d(
       var r;
       return ((r = R(t, n)) != null ? r : []).filter(e);
     }
+    var E = (function (e) {
+      function t() {
+        return e.apply(this, arguments) || this;
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(babelHelpers.wrapNativeSuper(Error));
+    function k(e) {
+      try {
+        return e();
+      } catch (e) {
+        if (e instanceof E) return null;
+        throw e;
+      }
+    }
+    function I(e, t) {
+      var n = s(e, t);
+      if (n == null) return null;
+      if (typeof n != "string") throw new E();
+      return n;
+    }
+    function T(t, n) {
+      var r = s(t, n);
+      if (r == null) return null;
+      if (!e(r)) throw new E();
+      return r;
+    }
+    function D(e, t) {
+      var n = I(e, t);
+      if (n == null) throw new E();
+      return n;
+    }
+    function x(e, t) {
+      var n = s(e, t);
+      if (typeof n != "boolean") throw new E();
+      return n;
+    }
+    function $(e, t) {
+      var n = D(e, t);
+      if (n === "") throw new E();
+      return n;
+    }
+    function P(e) {
+      return e == null || C(e) ? null : e;
+    }
     ((l.isObject = e),
       (l.readField = s),
       (l.readString = u),
@@ -93,7 +137,15 @@ __d(
       (l.trimToNull = v),
       (l.readTextOrNumber = S),
       (l.readArray = R),
-      (l.readObjects = L));
+      (l.readObjects = L),
+      (l.HatchMalformedJsonError = E),
+      (l.decodeOrNull = k),
+      (l.optString = I),
+      (l.optObject = T),
+      (l.requireString = D),
+      (l.requireBool = x),
+      (l.requireId = $),
+      (l.nonBlank = P));
   },
   98,
 );

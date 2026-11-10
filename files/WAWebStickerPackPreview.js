@@ -67,23 +67,21 @@ __d(
             o("WAWebMsgGetters").getIsSentByMe,
             o("WAWebMsgGetters").getDescription,
             o("WAWebMsgGetters").getFilename,
+            o("WAWebFrontendMsgGetters").getStickers,
           ],
         ),
         i = a[0],
         l = a[1],
         u = a[2],
-        _ = o("useWAWebMsgValues").useMsgValues(n, [
-          o("WAWebFrontendMsgGetters").getStickers,
-        ]),
-        g = _[0],
-        h = (t = g == null ? void 0 : g.length) != null ? t : 0;
-      function y() {
+        _ = a[3],
+        g = (t = _ == null ? void 0 : _.length) != null ? t : 0;
+      function h() {
         return l != null && l !== ""
           ? l
-          : h >= 1
+          : g >= 1
             ? s._(
                 /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
-                [s._plural(h, "stickerCount")],
+                [s._plural(g, "stickerCount")],
               )
             : "";
       }
@@ -107,7 +105,7 @@ __d(
                 isPreload: !1,
               }));
       }, []);
-      var C = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
+      var y = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
       return c.jsx(r("WAWebMessageDeeperContainer.react"), {
         xstyle: p.deepContainer,
         outgoingMsg: i,
@@ -155,7 +153,7 @@ __d(
                     isCompose: !1,
                     isStatus: !1,
                     title: u,
-                    titleDir: C,
+                    titleDir: y,
                     titleDirMismatch: !1,
                   }),
                 }),
@@ -167,7 +165,7 @@ __d(
                     isHighQualityLayout: !1,
                     isStatus: !1,
                     useTextLimit: !1,
-                    children: y(),
+                    children: h(),
                   }),
                 }),
               ],

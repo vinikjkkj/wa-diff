@@ -86,10 +86,16 @@ __d(
                 "WAWebDiscoveryStickerGating",
               ).getDiscoveryStickerPackCount(),
               c = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
-            return (
-              i.isLoadedFor(l, c) || (yield i.fetch(l, c)),
-              (n == null ? void 0 : n.aborted) === !0 ? [] : p(t, i)
-            );
+            if (
+              (i.isLoadedFor(l, c) || (yield i.fetch(l, c)),
+              (n == null ? void 0 : n.aborted) === !0)
+            )
+              return [];
+            var d = o(
+                "WAWebDiscoveryStickerGating",
+              ).getDiscoveryStickerPackCount(),
+              m = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
+            return i.isLoadedFor(d, m) ? p(t, i) : u(t);
           } catch (a) {
             return (n == null ? void 0 : n.aborted) === !0
               ? []

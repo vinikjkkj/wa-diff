@@ -340,14 +340,17 @@ __d(
       );
     }
     function E(e) {
-      return [
+      return ([
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
           .INITIAL_BOOTSTRAP,
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
           .INITIAL_STATUS_V3,
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType.PUSH_NAME,
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType.ON_DEMAND,
-      ].includes(e.syncType) &&
+      ].includes(e.syncType) ||
+        e.syncType ===
+          o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+            .RECENT) &&
         e.initialHistBootstrapInlinePayload != null &&
         (e == null ? void 0 : e.initialHistBootstrapInlinePayload.byteLength) >
           0

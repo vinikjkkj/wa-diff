@@ -8,44 +8,53 @@ __d(
       u = "rate_limit_hit",
       c = 1e4,
       d = 3600 * 1e3,
-      m = { capacity: c, refillIntervalMs: d / c },
-      p = null;
-    function _(t, n) {
-      var r = (e || (e = o("QPLEvent"))).getMarkerId(t);
-      if (f().check(String(r)).allowed) {
-        var a;
-        return o("QPLFlow").startQPLFlow(
-          t,
-          babelHelpers.extends({}, n, {
-            annotations: babelHelpers.extends(
-              {},
-              n == null ? void 0 : n.annotations,
-              {
-                bool: babelHelpers.extends(
-                  {},
-                  n == null || (a = n.annotations) == null ? void 0 : a.bool,
-                  { wmi_qpl_flow: !0 },
-                ),
-              },
-            ),
-          }),
-        );
-      }
-      return (
-        o("WmiOds").wmiOdsBump(s, u + "." + r),
-        o("QPLFlow").startNoopQPLFlow()
+      m = new Map();
+    function p(t, n, r) {
+      var a,
+        i = (e || (e = o("QPLEvent"))).getMarkerId(t),
+        l = !_(r == null ? void 0 : r.maxFlowsPerHour).check(String(i)).allowed;
+      if (
+        l &&
+        (o("WmiOds").wmiOdsBump(s, u + "." + i),
+        (r == null ? void 0 : r.emitRateLimitedFlows) !== !0)
+      )
+        return o("QPLFlow").startNoopQPLFlow();
+      var c = l
+        ? { wmi_qpl_flow: !0, wmi_qpl_rate_limited: !0 }
+        : { wmi_qpl_flow: !0 };
+      return o("QPLFlow").startQPLFlow(
+        t,
+        babelHelpers.extends({}, n, {
+          annotations: babelHelpers.extends(
+            {},
+            n == null ? void 0 : n.annotations,
+            {
+              bool: babelHelpers.extends(
+                {},
+                n == null || (a = n.annotations) == null ? void 0 : a.bool,
+                c,
+              ),
+            },
+          ),
+        }),
       );
     }
-    function f() {
+    function _(e) {
+      var t = e != null && Number.isFinite(e) && e >= 1 ? e : c,
+        n = m.get(t);
       return (
-        p == null &&
-          (p = new (o(
+        n == null &&
+          ((n = new (o(
             "WMIInMemoryTokenBucketRateLimiter",
-          ).WMIInMemoryTokenBucketRateLimiter)(m)),
-        p
+          ).WMIInMemoryTokenBucketRateLimiter)({
+            capacity: t,
+            refillIntervalMs: d / t,
+          })),
+          m.set(t, n)),
+        n
       );
     }
-    l.startQplFlow = _;
+    l.startQplFlow = p;
   },
   98,
 );

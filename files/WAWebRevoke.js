@@ -2,6 +2,7 @@ __d(
   "WAWebRevoke",
   [
     "WAWebBotUtils",
+    "WAWebMessageAssociation.flow",
     "WAWebMsgKey",
     "WAWebRevokeMsgConstants",
     "WAWebUserPrefsMeUser",
@@ -28,7 +29,18 @@ __d(
         l = i + o("WAWebRevokeMsgConstants").REVOKE_WINDOW_RECEIVER_MARGIN;
       return a - n <= l;
     }
-    function u(e) {
+    var u = new Set([
+      o("WAWebMessageAssociation.flow").MessageAssociationType
+        .STICKER_ANNOTATION,
+      o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN,
+    ]);
+    function c(e) {
+      var t = e.associationType,
+        n = e.revokedMsgKey,
+        r = e.subtype;
+      return n.fromMe && r === "sender_revoke" && t != null && u.has(t);
+    }
+    function d(e) {
       var t = e.revokeKey,
         n = e.revoker,
         r = e.targetKey;
@@ -42,7 +54,8 @@ __d(
     }
     ((l.getMsgKeyAfterRevoke = e),
       (l.isWithinRevokeWindow = s),
-      (l.isMyRevokeOfHatchAgentReply = u));
+      (l.canRevokeOutsideWindow = c),
+      (l.isMyRevokeOfHatchAgentReply = d));
   },
   98,
 );

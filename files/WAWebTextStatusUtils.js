@@ -1,6 +1,6 @@
 __d(
   "WAWebTextStatusUtils",
-  ["WATimeUtils", "WAWebTextStatusGatingUtils", "fbs"],
+  ["WATimeUtils", "WAWebTextStatusGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e = -1,
       s = -3;
@@ -54,13 +54,6 @@ __d(
         })
       );
     }
-    function S(e) {
-      return e.status === void 0;
-    }
-    function R(e) {
-      var t = r("fbs")._(/*BTDS*/ "Hey there! I am using WhatsApp.").toString();
-      return e.isValidTextStatus() && e.status !== t;
-    }
     ((l.TEXT_STATUS_NOT_FETCHED = e),
       (l.TEXT_STATUS_NOT_AUTHORIZED = s),
       (l.isTextStatusNotFetched = u),
@@ -75,9 +68,7 @@ __d(
       (l.TEXT_STATUS_DURATION_INFINITE = y),
       (l.hasTextStatusSet = C),
       (l.isEphemeralTextStatus = b),
-      (l.shouldDisplayTextStatus = v),
-      (l.isLegacyAboutNotFetched = S),
-      (l.hasCustomAboutSet = R));
+      (l.shouldDisplayTextStatus = v));
   },
-  226,
+  98,
 );

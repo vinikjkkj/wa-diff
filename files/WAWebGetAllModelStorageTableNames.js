@@ -43,6 +43,8 @@ __d(
       "newsletter-polls-votes",
       "newsletter-reactions",
       "non-message-data-request",
+      "omitted-conversation-metadata",
+      "omitted-conversation-metadata-snapshot",
       "orphan-payment-notification",
       "orphan-receipt",
       "orphan-revoke",

@@ -12,7 +12,7 @@ __d(
     var e,
       s = "WALabyrinthPendingAddPeerPayload";
     function u() {
-      r("gkx")("27715") ||
+      r("gkx")("7031") ||
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s) == null ||
         c();
     }

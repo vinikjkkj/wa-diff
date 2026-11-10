@@ -256,6 +256,8 @@ __d(
           .ORIGINAL_IMAGE_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .STICKER_ANNOTATION:
         case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
           return (
             o("WALogger")

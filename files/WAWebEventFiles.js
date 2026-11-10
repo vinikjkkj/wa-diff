@@ -1,25 +1,25 @@
 __d(
   "WAWebEventFiles",
-  ["Promise", "WAWebCreateFile", "WAWebImageUtils", "WAWebMediaLoadErrors"],
+  [
+    "Promise",
+    "WAWebCreateFile",
+    "WAWebImageUtils",
+    "WAWebMediaDragFiles",
+    "WAWebMediaLoadErrors",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, r) {
       var a,
         i = t.target.files,
         l = i || ((a = t.dataTransfer) == null ? void 0 : a.files),
-        s = l ? Array.from(l) : [];
-      if (r != null && r !== "") {
-        var u = typeof r == "string" ? [r] : r,
-          c = u.map(function (e) {
-            return new RegExp(e);
-          });
-        s = s.filter(function (e) {
-          return c.some(function (t) {
-            return e.type.match(t);
-          });
-        });
-      }
+        s = u(l ? Array.from(l) : [], r);
       if (s.length) return (e || (e = n("Promise"))).resolve(s);
+      var c = o("WAWebMediaDragFiles").takeMediaDragFiles(t.dataTransfer);
+      if (c != null)
+        return c.then(function (e) {
+          return u(e, r);
+        });
       var d = t.dataTransfer;
       if (d && d.getData("text/uri-list"))
         return o("WAWebImageUtils")
@@ -52,6 +52,18 @@ __d(
         }
       }
       return (e || (e = n("Promise"))).resolve([]);
+    }
+    function u(e, t) {
+      if (t == null || t === "") return e;
+      var n = typeof t == "string" ? [t] : t,
+        r = n.map(function (e) {
+          return new RegExp(e);
+        });
+      return e.filter(function (e) {
+        return r.some(function (t) {
+          return e.type.match(t);
+        });
+      });
     }
     l.getFiles = s;
   },

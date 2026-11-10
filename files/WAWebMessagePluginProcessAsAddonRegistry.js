@@ -41,6 +41,7 @@ __d(
       { type: "groups_v4_invite", processor: null },
       { type: "hsm", processor: null },
       { type: "image", processor: null },
+      { type: "instant_image", processor: null },
       { type: "interactive", processor: null },
       { type: "interactive_response", processor: null },
       { type: "keep_in_chat", processor: null },

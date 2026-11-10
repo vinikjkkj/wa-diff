@@ -11,11 +11,11 @@ __d(
       var n = new Map(),
         r = function (t) {
           var e,
-            r = h(function () {
+            r = o("WAWebHatchJsonReaders").decodeOrNull(function () {
               return d(t);
             });
           if (r == null) return 1;
-          var o =
+          var a =
             (e = n.get(r.id)) != null
               ? e
               : {
@@ -24,16 +24,16 @@ __d(
                   subtitle: null,
                   title: r.title,
                 };
-          (n.set(r.id, o), o.subtitle == null && (o.subtitle = r.subtitle));
-          var a = function (t) {
-            var e = h(function () {
+          (n.set(r.id, a), a.subtitle == null && (a.subtitle = r.subtitle));
+          var i = function (t) {
+            var e = o("WAWebHatchJsonReaders").decodeOrNull(function () {
               return m(t, []);
             });
             e != null &&
-              !o.cardIds.has(e.id) &&
-              (o.cardIds.add(e.id), o.cards.push(e));
+              !a.cardIds.has(e.id) &&
+              (a.cardIds.add(e.id), a.cards.push(e));
           };
-          for (var i of r.rawCards) a(i);
+          for (var l of r.rawCards) i(l);
         };
       for (var a of t) r(a);
       return Array.from(n, function (e) {
@@ -46,11 +46,11 @@ __d(
       });
     }
     function c(e) {
-      return h(function () {
+      return o("WAWebHatchJsonReaders").decodeOrNull(function () {
         var t = o("WAWebHatchJsonReaders").readField(e, "card"),
           n = o("WAWebHatchJsonReaders").readField(t, "items");
         if (!o("WAWebHatchJsonReaders").isObject(t) || !Array.isArray(n))
-          throw new g();
+          throw new (o("WAWebHatchJsonReaders").HatchMalformedJsonError)();
         var r = [],
           a = new Set();
         for (var i of n) {
@@ -62,54 +62,83 @@ __d(
     }
     function d(e) {
       var t = o("WAWebHatchJsonReaders").readField(e, "cards");
-      if (!Array.isArray(t)) throw new g();
+      if (!Array.isArray(t))
+        throw new (o("WAWebHatchJsonReaders").HatchMalformedJsonError)();
       return {
-        id: S(e, "id"),
-        title: b(e, "title"),
-        subtitle: R(y(e, "subtitle")),
+        id: o("WAWebHatchJsonReaders").requireId(e, "id"),
+        title: o("WAWebHatchJsonReaders").requireString(e, "title"),
+        subtitle: o("WAWebHatchJsonReaders").nonBlank(
+          o("WAWebHatchJsonReaders").optString(e, "subtitle"),
+        ),
         rawCards: t,
       };
     }
     function m(e, t) {
       var n,
         r,
-        o,
-        a = S(e, "id"),
-        i = C(e, "content"),
-        l = C(e, "presentation"),
-        s = R(y(e, "title")),
-        u = R(y(e, "summary"));
+        a,
+        i,
+        l = (i = o("WAWebHatchJsonReaders")).requireId(e, "id"),
+        s = i.optObject(e, "content"),
+        u = i.optObject(e, "presentation"),
+        c = i.nonBlank(i.optString(e, "title")),
+        d = i.nonBlank(i.optString(e, "summary"));
       return {
-        id: a,
-        title: (n = (r = R(y(i, "title"))) != null ? r : s) != null ? n : "",
-        summary: (o = R(y(i, "summary"))) != null ? o : u,
-        detail: R(y(i, "detailDescription")),
-        actionLabel: R(y(l, "actionLabel")),
-        iconPath: _(C(l, "icon")),
+        id: l,
+        title:
+          (n =
+            (r = o("WAWebHatchJsonReaders").nonBlank(
+              o("WAWebHatchJsonReaders").optString(s, "title"),
+            )) != null
+              ? r
+              : c) != null
+            ? n
+            : "",
+        summary:
+          (a = o("WAWebHatchJsonReaders").nonBlank(
+            o("WAWebHatchJsonReaders").optString(s, "summary"),
+          )) != null
+            ? a
+            : d,
+        detail: o("WAWebHatchJsonReaders").nonBlank(
+          o("WAWebHatchJsonReaders").optString(s, "detailDescription"),
+        ),
+        actionLabel: o("WAWebHatchJsonReaders").nonBlank(
+          o("WAWebHatchJsonReaders").optString(u, "actionLabel"),
+        ),
+        iconPath: _(o("WAWebHatchJsonReaders").optObject(u, "icon")),
         isBuilt: f(e),
         items: t,
       };
     }
     function p(e) {
       var t = o("WAWebHatchJsonReaders").readField(e, "content");
-      if (!o("WAWebHatchJsonReaders").isObject(t)) throw new g();
+      if (!o("WAWebHatchJsonReaders").isObject(t))
+        throw new (o("WAWebHatchJsonReaders").HatchMalformedJsonError)();
       return {
-        id: S(e, "id"),
-        type: b(e, "type"),
-        title: b(t, "title"),
-        summary: R(y(t, "summary")),
-        selectable: v(e, "selectable"),
-        isSelected: v(e, "isSelected"),
+        id: o("WAWebHatchJsonReaders").requireId(e, "id"),
+        type: o("WAWebHatchJsonReaders").requireString(e, "type"),
+        title: o("WAWebHatchJsonReaders").requireString(t, "title"),
+        summary: o("WAWebHatchJsonReaders").nonBlank(
+          o("WAWebHatchJsonReaders").optString(t, "summary"),
+        ),
+        selectable: o("WAWebHatchJsonReaders").requireBool(e, "selectable"),
+        isSelected: o("WAWebHatchJsonReaders").requireBool(e, "isSelected"),
       };
     }
     function _(e) {
       var t;
       if (e == null) return null;
       var n = o("WAWebHatchJsonReaders").readField(e, "variants");
-      if (!Array.isArray(n)) throw new g();
+      if (!Array.isArray(n))
+        throw new (o("WAWebHatchJsonReaders").HatchMalformedJsonError)();
       var r = n.map(function (e) {
-          if (!o("WAWebHatchJsonReaders").isObject(e)) throw new g();
-          return { url: b(e, "url"), role: y(e, "role") };
+          if (!o("WAWebHatchJsonReaders").isObject(e))
+            throw new (o("WAWebHatchJsonReaders").HatchMalformedJsonError)();
+          return {
+            url: o("WAWebHatchJsonReaders").requireString(e, "url"),
+            role: o("WAWebHatchJsonReaders").optString(e, "role"),
+          };
         }),
         a =
           (t = r.find(function (e) {
@@ -117,57 +146,13 @@ __d(
           })) != null
             ? t
             : r[0];
-      return R(a == null ? void 0 : a.url);
+      return o("WAWebHatchJsonReaders").nonBlank(a == null ? void 0 : a.url);
     }
     function f(t) {
-      var n = y(t, "buildStatus"),
-        r = y(t, "build_status"),
-        o = n == null || n === "" ? r : n;
-      return o != null && e.has(o.toLowerCase());
-    }
-    var g = (function (e) {
-      function t() {
-        return e.apply(this, arguments) || this;
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(babelHelpers.wrapNativeSuper(Error));
-    function h(e) {
-      try {
-        return e();
-      } catch (e) {
-        if (e instanceof g) return null;
-        throw e;
-      }
-    }
-    function y(e, t) {
-      var n = o("WAWebHatchJsonReaders").readField(e, t);
-      if (n == null) return null;
-      if (typeof n != "string") throw new g();
-      return n;
-    }
-    function C(e, t) {
-      var n = o("WAWebHatchJsonReaders").readField(e, t);
-      if (n == null) return null;
-      if (!o("WAWebHatchJsonReaders").isObject(n)) throw new g();
-      return n;
-    }
-    function b(e, t) {
-      var n = y(e, t);
-      if (n == null) throw new g();
-      return n;
-    }
-    function v(e, t) {
-      var n = o("WAWebHatchJsonReaders").readField(e, t);
-      if (typeof n != "boolean") throw new g();
-      return n;
-    }
-    function S(e, t) {
-      var n = b(e, t);
-      if (n === "") throw new g();
-      return n;
-    }
-    function R(e) {
-      return e == null || o("WAWebHatchJsonReaders").isBlankText(e) ? null : e;
+      var n = o("WAWebHatchJsonReaders").optString(t, "buildStatus"),
+        r = o("WAWebHatchJsonReaders").optString(t, "build_status"),
+        a = n == null || n === "" ? r : n;
+      return a != null && e.has(a.toLowerCase());
     }
     ((l.decodeHatchIdeasFeed = u), (l.decodeHatchIdeaCard = c));
   },

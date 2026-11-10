@@ -44,7 +44,7 @@ __d(
               return this.$QuickReplyCollectionImpl$p_1;
             if (
               (o("WAWebQuickReplySmartDefaults").addSmartDefaults(),
-              !o("WAWebUserPrefsMeUser").isMeUserRestored())
+              !o("WAWebUserPrefsMeUser").hasLoggedIn())
             )
               return (s || (s = n("Promise"))).resolve();
             if (
