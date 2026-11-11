@@ -26,113 +26,117 @@ __d(
     function s(t) {
       var n,
         a,
-        i = t.baseMessage,
-        l = t.bizInfo,
-        s = t.bizSource,
-        d = t.messageProtobuf,
-        _ = t.msgContext,
-        f = d.interactiveMessage;
-      if (f != null) {
-        var g = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(f);
-        if (!g || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(g))
-          return p(i, f);
-        var h = f.body,
-          y = f.footer,
-          C = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(g),
-          b = {
+        i,
+        l = t.baseMessage,
+        s = t.bizInfo,
+        d = t.bizSource,
+        _ = t.messageProtobuf,
+        f = t.msgContext,
+        g = _.interactiveMessage;
+      if (g != null) {
+        var h = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(g);
+        if (!h || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(h))
+          return p(l, g);
+        var y = g.body,
+          C = g.footer,
+          b = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(h),
+          v = {
             type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
             kind: o("WAWebMsgType").MsgKind.Interactive,
             caption:
               (n = o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-                h == null ? void 0 : h.text,
+                y == null ? void 0 : y.text,
               )) != null
                 ? n
                 : "",
-            interactiveType: g,
-            interactivePayload: f[C],
-            pmCampaignId: l == null ? void 0 : l.campaignId,
-            bizSource: s,
+            interactiveType: h,
+            interactivePayload: g[b],
+            pmCampaignId:
+              (a = s == null ? void 0 : s.campaignId) != null
+                ? a
+                : l.pmCampaignId,
+            bizSource: d,
           };
         if (
-          !o("WAWebE2EProtoUtils").isSupportedInteractiveMessageVersion(g, f[C])
+          !o("WAWebE2EProtoUtils").isSupportedInteractiveMessageVersion(h, g[b])
         )
-          return p(i, f);
-        var v = m(f),
-          S = (v == null ? void 0 : v.type) === e,
-          R = null,
-          L = f.carouselMessage;
+          return p(l, g);
+        var S = m(g),
+          R = (S == null ? void 0 : S.type) === e,
+          L = null,
+          E = g.carouselMessage;
         if (
-          L != null &&
-          ((R = c({
-            baseMessage: i,
-            bizInfo: l,
-            bizSource: s,
-            carouselMessage: L,
-            msgContext: _,
+          E != null &&
+          ((L = c({
+            baseMessage: l,
+            bizInfo: s,
+            bizSource: d,
+            carouselMessage: E,
+            msgContext: f,
           })),
-          R == null)
+          L == null)
         )
-          return p(i, f);
-        if (g === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
-          var E = r("WAWebInteractiveMessagesNativeFlowName").cast(
+          return p(l, g);
+        if (h === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
+          var k = r("WAWebInteractiveMessagesNativeFlowName").cast(
             o("WAWebE2EProtoUtils").getBizNativeFlowName({
-              interactiveMessage: f,
+              interactiveMessage: g,
             }),
           );
           if (
-            ((b = babelHelpers.extends({}, b, {
-              nativeFlowName: E,
+            ((v = babelHelpers.extends({}, v, {
+              nativeFlowName: k,
               interactivePayload: o(
                 "WAWebStripBrazilPaymentState",
-              ).stripBrazilPaymentState(f.nativeFlowMessage),
+              ).stripBrazilPaymentState(g.nativeFlowMessage),
             })),
-            !S && (_ === "relay" || _ === "history"))
+            !R && (f === "relay" || f === "history"))
           ) {
-            var k,
-              I,
-              T =
-                (i == null || (k = i.id) == null ? void 0 : k.remote) != null &&
-                (o("WAWebBotUtils").isAnyMetaAiBot(i.id.remote) ||
-                  o("WAWebMaibaWASSMigration").isMaibaAiHubLid(i.id.remote) ||
-                  i.id.remote.isSupportAgentBot()),
+            var I,
+              T,
               D =
-                T ||
+                (l == null || (I = l.id) == null ? void 0 : I.remote) != null &&
+                (o("WAWebBotUtils").isAnyMetaAiBot(l.id.remote) ||
+                  o("WAWebMaibaWASSMigration").isMaibaAiHubLid(l.id.remote) ||
+                  l.id.remote.isSupportAgentBot()),
+              x =
+                D ||
                 o("WAWebE2EProtoUtils").isValidNativeFlowName({
-                  name: E,
-                  bizInfo: l,
-                  msgContext: _,
+                  name: k,
+                  bizInfo: s,
+                  msgContext: f,
                 });
             if (
-              !D ||
+              !x ||
               !o("WAWebNativeFlowValidation").isValidNativeFlowMessage({
-                baseMessage: i,
-                bizSource: s,
-                fromMe: i == null || (I = i.id) == null ? void 0 : I.fromMe,
-                msg: b,
+                baseMessage: l,
+                bizSource: d,
+                fromMe: l == null || (T = l.id) == null ? void 0 : T.fromMe,
+                msg: v,
               })
             )
-              return p(i, f);
+              return p(l, g);
           }
         }
-        var x = f.header != null ? u(f.header, i, _) : void 0;
+        var $ = g.header != null ? u(g.header, l, f) : void 0;
         return {
           msgData: babelHelpers.extends(
             {},
-            i,
-            (a = x == null ? void 0 : x.headerMessage) != null ? a : {},
-            b,
+            l,
+            (i = $ == null ? void 0 : $.headerMessage) != null ? i : {},
+            v,
             {
-              interactiveHeader: x == null ? void 0 : x.interactiveHeader,
-              footer: y
+              interactiveHeader: $ == null ? void 0 : $.interactiveHeader,
+              footer: C
                 ? o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-                    y.text,
+                    C.text,
                   )
-                : i.footer,
-              carouselCardsParsed: R != null ? R : void 0,
-              bloksWidget: v,
+                : l.footer,
+              carouselCardsParsed: L != null ? L : void 0,
+              bloksWidget: S,
             },
           ),
-          contextInfo: f.contextInfo,
+          contextInfo: g.contextInfo,
         };
       }
     }
@@ -255,68 +259,72 @@ __d(
     }
     function d(e) {
       var t,
-        n = e.baseMessage,
-        a = e.bizInfo,
-        i = e.bizSource,
-        l = e.card,
-        s = e.msgContext,
-        c = l.body,
-        d = l.header,
-        m = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(l);
-      if (!m || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(m))
+        n,
+        a = e.baseMessage,
+        i = e.bizInfo,
+        l = e.bizSource,
+        s = e.card,
+        c = e.msgContext,
+        d = s.body,
+        m = s.header,
+        p = o("WAWebE2EProtoUtils").getInteractiveMessageTypeForProto(s);
+      if (!p || !o("WAWebE2EProtoUtils").isInteractiveMessageTypeEnabled(p))
         return null;
-      var p = babelHelpers.extends({}, d, {
+      var _ = babelHelpers.extends({}, m, {
           type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
           kind: o("WAWebMsgType").MsgKind.Interactive,
           caption:
             (t = o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-              c == null ? void 0 : c.text,
+              d == null ? void 0 : d.text,
             )) != null
               ? t
               : "",
-          interactiveType: m,
-          interactivePayload: l.nativeFlowMessage,
-          pmCampaignId: a == null ? void 0 : a.campaignId,
-          bizSource: i,
+          interactiveType: p,
+          interactivePayload: s.nativeFlowMessage,
+          pmCampaignId:
+            (n = i == null ? void 0 : i.campaignId) != null
+              ? n
+              : a.pmCampaignId,
+          bizSource: l,
         }),
-        _ = d != null ? u(d, n, s) : void 0,
-        f = _ == null ? void 0 : _.headerMessage;
-      if (_ == null || f == null) return null;
-      var g = babelHelpers.extends({}, _.interactiveHeader, {
+        f = m != null ? u(m, a, c) : void 0,
+        g = f == null ? void 0 : f.headerMessage;
+      if (f == null || g == null) return null;
+      var h = babelHelpers.extends({}, f.interactiveHeader, {
           title: null,
           subtitle: null,
         }),
-        h = new (r("WAWebMsgKey"))({
-          fromMe: f.id.fromMe,
-          remote: f.id.remote,
-          participant: f.id.participant,
+        y = new (r("WAWebMsgKey"))({
+          fromMe: g.id.fromMe,
+          remote: g.id.remote,
+          participant: g.id.participant,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
-      if (f.type === o("WAWebMsgType").MSG_TYPE.VIDEO)
-        return babelHelpers.extends({}, f, p, {
-          id: h,
-          interactiveHeader: g,
+      if (g.type === o("WAWebMsgType").MSG_TYPE.VIDEO)
+        return babelHelpers.extends({}, g, _, {
+          id: y,
+          interactiveHeader: h,
           footer: null,
           isCarouselCard: !0,
-          parentMsgId: n.id.clone(),
+          parentMsgId: a.id.clone(),
           bloksWidget: null,
         });
-      if (f.type === o("WAWebMsgType").MSG_TYPE.IMAGE)
-        return babelHelpers.extends({}, f, p, {
-          id: h,
-          interactiveHeader: g,
+      if (g.type === o("WAWebMsgType").MSG_TYPE.IMAGE)
+        return babelHelpers.extends({}, g, _, {
+          id: y,
+          interactiveHeader: h,
           footer: null,
           isCarouselCard: !0,
-          parentMsgId: n.id.clone(),
+          parentMsgId: a.id.clone(),
           bloksWidget: null,
         });
-      if (f.type === o("WAWebMsgType").MSG_TYPE.PRODUCT)
-        return babelHelpers.extends({}, f, p, {
-          id: h,
-          interactiveHeader: g,
+      if (g.type === o("WAWebMsgType").MSG_TYPE.PRODUCT)
+        return babelHelpers.extends({}, g, _, {
+          id: y,
+          interactiveHeader: h,
           footer: null,
           isCarouselCard: !0,
-          parentMsgId: n.id.clone(),
+          parentMsgId: a.id.clone(),
           bloksWidget: null,
         });
     }

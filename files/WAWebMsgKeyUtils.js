@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebIsCagGroupCache",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -45,13 +46,13 @@ __d(
     }
     function m(e, t) {
       return d(t, e)
-        ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+        ? o("WAWebUserUtils").getMeLidUserOrThrow()
         : e === u.Addon
           ? r("WAWebIsCagGroupCache").isCag(t.remote)
-            ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-            : o("WAWebUserPrefsMeUser").getMeUserOrThrow()
+            ? o("WAWebUserUtils").getMeLidUserOrThrow()
+            : o("WAWebUserUtils").getMeUserOrThrow()
           : e === u.EditMessage || e === u.Message
-            ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
+            ? o("WAWebUserUtils").getMeUserOrThrow()
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

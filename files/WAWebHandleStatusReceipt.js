@@ -16,6 +16,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -50,7 +51,7 @@ __d(
                 .sendLogs("handleStatusSimpleReceipt: failed");
               return;
             }
-            var y = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            var y = o("WAWebUserUtils").getMeUserOrThrow(),
               C = o("WAWebWidFactory").asUserWidOrThrow(p),
               b = o("WAWebUserPrefsMeUser").isMeAccount(C),
               v = t.participantPn;

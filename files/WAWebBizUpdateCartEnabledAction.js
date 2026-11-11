@@ -3,7 +3,7 @@ __d(
   [
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
             n = o(
               "WAWebBusinessProfileCollection",
             ).BusinessProfileCollection.getValid(
-              o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              o("WAWebUserUtils").getMeUserOrThrow(),
             ),
             r = n == null ? void 0 : n.profileOptions;
           n &&

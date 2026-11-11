@@ -7,7 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebDefinePersistedJob",
     "WAWebNetworkStatus",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,7 +28,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
+          var t = o("WAWebUserUtils").getMeLidUserOrThrow().toString(),
             n = yield s.load();
           return n.enqueueMetaAiThreadServerDelete(e, t);
         })),

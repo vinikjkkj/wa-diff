@@ -4,6 +4,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebAddonRetryRequestUtils",
+    "WAWebAeaAccountState",
     "WAWebApiContact",
     "WAWebApiMessageInfoStore",
     "WAWebCoexV2RetryAuthorization",
@@ -11,16 +12,18 @@ __d(
     "WAWebE2eRetryRejectWamEvent",
     "WAWebLidMigrationUtils",
     "WAWebManageE2ESessionsJob",
+    "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebPQGatingUtils",
+    "WAWebProcessKeyBundle",
     "WAWebSchemaMessage",
     "WAWebSendMsgTypes",
     "WAWebSessionScope",
     "WAWebSessionScopeWamUtils",
     "WAWebSignal",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumDeviceType",
     "WAWebWamEnumEncryptionTypeCode",
     "WAWebWamEnumPqFallbackReason",
@@ -29,15 +32,17 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:17732",
+    "cr:510",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h;
-    function y(e, t) {
-      return C.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y;
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = new (r("WAWebMsgKey"))({
               id: t,
@@ -45,7 +50,7 @@ __d(
               fromMe: !0,
               participant: e.isUser()
                 ? void 0
-                : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                : o("WAWebUserUtils").getMeLidUserOrThrow(),
             }),
             i = o("WAWebLidMigrationUtils").getAlternateMsgKey(a),
             l =
@@ -93,26 +98,26 @@ __d(
                 }
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return e.isGroup() ? y(e, t) : null;
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return e.isGroup() ? C(e, t) : null;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.chat,
             r = t.identity,
             a = t.isPq,
@@ -121,7 +126,7 @@ __d(
             c = t.requester,
             d = t.retryCount,
             m = t.sessionScope,
-            p = i != null ? i : yield y(n, l);
+            p = i != null ? i : yield C(n, l);
           if (p == null)
             return (
               o("WALogger").WARN(
@@ -157,12 +162,12 @@ __d(
               ),
               null
             );
-          var C = yield o(
+          var y = yield o(
               "WAWebCoexV2RetryAuthorization",
             ).getCoexV2RelayRetryEligibility(c, l),
             b =
-              C != null
-                ? { hasAdditionalRetryTargets: !1, retryEligibility: C }
+              y != null
+                ? { hasAdditionalRetryTargets: !1, retryEligibility: y }
                 : yield o(
                     "WAWebApiMessageInfoStore",
                   ).getRetryEligibilityWithMetadata({
@@ -183,7 +188,7 @@ __d(
                 )
               : null;
           if (L) {
-            var E = yield o(
+            var k = yield o(
               "WAWebApiMessageInfoStore",
             ).getRetryEligibilityWithMetadata({
               identityRowId: h,
@@ -191,10 +196,11 @@ __d(
               msgKey: f,
               receiver: L,
             });
-            ((v = E.hasAdditionalRetryTargets), (S = E.retryEligibility));
+            ((v = k.hasAdditionalRetryTargets), (S = k.retryEligibility));
           }
           (g.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
             (yield g.data.waitForPrep()),
+            (S = E(S, g)),
             o("WALogger")
               .LOG(
                 u ||
@@ -209,11 +215,11 @@ __d(
                 S,
               )
               .tags("messaging"));
-          var k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER,
-            I = !1;
+          var I = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER,
+            T = !1;
           switch (
             (g.data.type === o("WAWebMsgType").MSG_TYPE.REVOKED &&
-              ((I = !0),
+              ((T = !0),
               (g.data.type = "protocol"),
               (g.data.subtype =
                 g.data.subtype === "admin" ? "admin_revoke" : "sender_revoke")),
@@ -223,23 +229,28 @@ __d(
               return {
                 msgRecord: g,
                 retryContext: { hasAdditionalRetryTargets: v },
-                isIdentityChangedSinceSend: C == null && (h == null || _ < h),
+                isIdentityChangedSinceSend: y == null && (h == null || _ < h),
               };
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult
               .INELIGIBLE_ALREADY_DELIVERED:
-              k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
+              I = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
                 .DOUBLE_CHECKMARK;
               break;
             case o("WAWebApiMessageInfoStore").RetryEligibilityResult
               .INELIGIBLE_CHANGED_IDENTITY:
-              k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
+              I = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
                 .IDENTITY_CHANGE;
               break;
+            case o("WAWebApiMessageInfoStore").RetryEligibilityResult
+              .INELIGIBLE_NOT_SENDING_DEVICE:
+              I = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON
+                .DEVICE_NOT_RECIPIENT;
+              break;
             default:
-              k = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER;
+              I = o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON.OTHER;
               break;
           }
-          var T = new (o("WAWebE2eRetryRejectWamEvent").E2eRetryRejectWamEvent)(
+          var D = new (o("WAWebE2eRetryRejectWamEvent").E2eRetryRejectWamEvent)(
               {
                 isPq: a === !0,
                 pqFallbackReason:
@@ -252,41 +263,53 @@ __d(
                   : o("WAWebWamEnumDeviceType").DEVICE_TYPE.PRIMARY,
                 messageType: o("WAWebWamMsgUtils").getWamMessageType(g.data),
                 msgRetryCount: d,
-                retryRevoke: I,
-                retryRejectReason: k,
+                retryRevoke: T,
+                retryRejectReason: I,
                 sessionScope: o(
                   "WAWebSessionScopeWamUtils",
                 ).sessionScopeToWamType(m),
               },
             ),
-            D = o("WAWebWamMsgUtils").getWamE2eSenderType(c);
+            x = o("WAWebWamMsgUtils").getWamE2eSenderType(c);
           return (
-            D != null && (T.e2eSenderType = D),
+            x != null && (D.e2eSenderType = x),
             c.isHosted() &&
-              (T.encryptionType = o(
+              (D.encryptionType = o(
                 "WAWebWamEnumEncryptionTypeCode",
               ).ENCRYPTION_TYPE_CODE.COEX),
-            T.commit(),
+            D.commit(),
             null
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return e ===
+        o("WAWebApiMessageInfoStore").RetryEligibilityResult.ELIGIBLE &&
+        t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
+        t.data.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+        o("WAWebMsgGetters").getIsStatus(t.data) &&
+        t.data.local !== !0 &&
+        r("justknobx")._("7583")
+        ? o("WAWebApiMessageInfoStore").RetryEligibilityResult
+            .INELIGIBLE_NOT_SENDING_DEVICE
+        : e;
     }
-    function E() {
+    function k(e) {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.is1on1,
-            n = e.keyBundle,
-            r = e.offline,
-            a = e.remoteRegId,
-            i = e.requester,
-            l = e.savedRegId,
-            s = e.sessionScope;
-          if (a == null || !n || (n.type === "regular_retry" && !n.key))
+            r = e.keyBundle,
+            a = e.offline,
+            i = e.remoteRegId,
+            l = e.requester,
+            s = e.savedRegId,
+            u = e.sessionScope;
+          if (i == null || !r || (r.type === "regular_retry" && !r.key))
             return (
               o("WALogger").LOG(
                 c ||
@@ -296,8 +319,8 @@ __d(
               ),
               !1
             );
-          if (r) {
-            if (l == null)
+          if (a) {
+            if (s == null)
               return (
                 o("WALogger").LOG(
                   d ||
@@ -305,10 +328,10 @@ __d(
                       "processKeyBundle: missing session for retry",
                     ])),
                 ),
-                yield D(i),
+                yield N(l),
                 !1
               );
-            if (l !== a)
+            if (s !== i)
               return (
                 o("WALogger").LOG(
                   m ||
@@ -317,10 +340,10 @@ __d(
                       " recv=",
                       "",
                     ])),
-                  l,
-                  a,
+                  s,
+                  i,
                 ),
-                yield D(i),
+                yield N(l),
                 !1
               );
             o("WALogger").LOG(
@@ -336,27 +359,61 @@ __d(
                   "processKeyBundle: update session w/ retry bundle",
                 ])),
             );
-          return (
-            yield o("WAWebSignal").Session.createSignalSession(
-              {
-                wid: i,
-                regId: a,
-                identity: n.identity,
-                deviceIdentity: n.deviceIdentity,
-                key: n.key,
-                skey: n.skey,
-              },
-              s,
-            ),
-            k({ is1on1: t, requester: i, sessionScope: s }) &&
-              (yield I({ keyBundle: n, regId: a, requester: i })),
-            !0
-          );
+          var g = yield T(l, r);
+          return (n("cr:510") == null
+            ? void 0
+            : n("cr:510").shouldRejectAeaKeyResponse(g)) === !0
+            ? (o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[aea] rejected retry key bundle for ",
+                    "",
+                  ])),
+                l.toLogString(),
+              ),
+              !1)
+            : (yield o("WAWebSignal").Session.createSignalSession(
+                {
+                  wid: l,
+                  regId: i,
+                  identity: r.identity,
+                  deviceIdentity: r.deviceIdentity,
+                  key: r.key,
+                  skey: r.skey,
+                },
+                u,
+              ),
+              yield o("WAWebProcessKeyBundle").commitAeaKeyResponse(g),
+              x({ is1on1: t, requester: l, sessionScope: u }) &&
+                (yield $({ keyBundle: r, regId: i, requester: l })),
+              !0);
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e) {
+    function T(e, t) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.aeaEvidence,
+            r = t.identity;
+          if ((n == null ? void 0 : n.signedClaim) == null) return null;
+          var a = yield o("WAWebProcessKeyBundle").prepareAeaKeyResponses([
+              { wid: e, identity: r, aeaEvidence: n },
+            ]),
+            i = a[0],
+            l = i == null ? void 0 : i.evaluation.decision;
+          return (l == null ? void 0 : l.kind) === "store" &&
+            l.accountState === o("WAWebAeaAccountState").AeaAccountState.E2EE
+            ? null
+            : i;
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e) {
       var t = e.is1on1,
         n = e.requester,
         r = e.sessionScope;
@@ -369,12 +426,12 @@ __d(
         o("WAWebPQGatingUtils").isPq1on1MessageEnabled()
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function T() {
+    function P() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.keyBundle,
             n = e.regId,
             r = e.requester,
@@ -391,8 +448,8 @@ __d(
                   o("WAWebSessionScope").SessionScope.PQ,
                 ),
                 o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "processKeyBundle: dropped PQ session, retry bundle has PQ prekey: ",
                       "",
                     ])),
@@ -414,16 +471,16 @@ __d(
               o("WAWebSessionScope").SessionScope.PQ,
             ),
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "processKeyBundle: established PQXDH session from retry bundle",
                   ])),
               ));
           } catch (e) {
             o("WALogger")
               .WARN(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "processKeyBundle: failed to build PQXDH session from retry bundle: ",
                     "",
                   ])),
@@ -432,15 +489,15 @@ __d(
               .sendLogs("retry-pqxdh-session-fail");
           }
         })),
-        T.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function x() {
+    function M() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           (((t = e.device) != null ? t : o("WAJids").DEFAULT_DEVICE_ID) ===
             o("WAJids").DEFAULT_DEVICE_ID &&
@@ -449,12 +506,12 @@ __d(
               : n("cr:17732").saveAeaIdentityChangeBaseline(e)),
             yield o("WAWebSignal").Session.deleteRemoteInfo(e));
         })),
-        x.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    ((l.loadGroupSentMessage = b),
-      (l.getMsgIfAuthorized = S),
-      (l.processKeyBundle = L));
+    ((l.loadGroupSentMessage = v),
+      (l.getMsgIfAuthorized = R),
+      (l.processKeyBundle = k));
   },
   98,
 );

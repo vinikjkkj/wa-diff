@@ -12,7 +12,7 @@ __d(
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsHistorySync",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -76,7 +76,7 @@ __d(
                                     p = s.participants,
                                     _ = c == null ? void 0 : c.trim(),
                                     f = _ != null && _.length > 0 ? _ : void 0,
-                                    g = o("WAWebUserPrefsMeUser")
+                                    g = o("WAWebUserUtils")
                                       .getMeLidUserOrThrow()
                                       .toString(),
                                     h = (p != null ? p : []).filter(

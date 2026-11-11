@@ -5,7 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebDecodeJid",
     "WAWebMsgKey",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "nullthrows",
   ],
@@ -15,7 +15,7 @@ __d(
         n = e.outerParticipant,
         a = !!t.fromMe,
         i = o("WAWebDecodeJid").decodeJid(t.remoteJid),
-        l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        l = o("WAWebUserUtils").getMeLidUserOrThrow(),
         s;
       if (
         (a

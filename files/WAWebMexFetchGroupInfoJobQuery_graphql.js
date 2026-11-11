@@ -361,11 +361,29 @@ __d(
         F = {
           alias: null,
           args: null,
+          concreteType: "XWA2GroupCustomReactions",
+          kind: "LinkedField",
+          name: "group_custom_reactions",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "default_reactions",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        O = {
+          alias: null,
+          args: null,
           kind: "ScalarField",
           name: "membership_approval_mode_enabled",
           storageKey: null,
         },
-        O = {
+        B = {
           kind: "InlineFragment",
           selections: [
             {
@@ -393,6 +411,7 @@ __d(
                 w,
                 A,
                 F,
+                O,
                 x,
                 {
                   alias: null,
@@ -426,7 +445,7 @@ __d(
           type: "XWA2CommunitySubGroup",
           abstractKey: null,
         },
-        B = {
+        W = {
           kind: "InlineFragment",
           selections: [
             {
@@ -454,6 +473,7 @@ __d(
                 w,
                 A,
                 F,
+                O,
                 {
                   alias: null,
                   args: null,
@@ -472,14 +492,14 @@ __d(
           type: "XWA2GroupRegularGroup",
           abstractKey: null,
         },
-        W = {
+        q = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        q = {
+        U = {
           condition: "include_username",
           kind: "Condition",
           passingValue: !0,
@@ -491,19 +511,19 @@ __d(
               kind: "LinkedField",
               name: "username_info",
               plural: !1,
-              selections: [W, u],
+              selections: [q, u],
               storageKey: null,
             },
           ],
         },
-        U = {
+        V = {
           alias: null,
           args: null,
           concreteType: "XWA2User",
           kind: "LinkedField",
           name: "creator",
           plural: !1,
-          selections: [a, l, s, q],
+          selections: [a, l, s, U],
           storageKey: null,
         };
       return {
@@ -585,8 +605,8 @@ __d(
                 b,
                 E,
                 P,
-                O,
                 B,
+                W,
               ],
               storageKey: null,
             },
@@ -608,10 +628,10 @@ __d(
               name: "xwa2_group_query_by_id",
               plural: !1,
               selections: [
-                W,
+                q,
                 a,
                 i,
-                U,
+                V,
                 m,
                 {
                   alias: null,
@@ -620,7 +640,7 @@ __d(
                   kind: "LinkedField",
                   name: "subject",
                   plural: !1,
-                  selections: [U, i, p],
+                  selections: [V, i, p],
                   storageKey: null,
                 },
                 {
@@ -630,7 +650,7 @@ __d(
                   kind: "LinkedField",
                   name: "description",
                   plural: !1,
-                  selections: [a, i, U, p],
+                  selections: [a, i, V, p],
                   storageKey: null,
                 },
                 {
@@ -656,7 +676,7 @@ __d(
                           kind: "LinkedField",
                           name: "node",
                           plural: !1,
-                          selections: [a, l, s, _, q],
+                          selections: [a, l, s, _, U],
                           storageKey: null,
                         },
                         f,
@@ -673,15 +693,15 @@ __d(
                 b,
                 E,
                 P,
-                O,
                 B,
+                W,
               ],
               storageKey: null,
             },
           ],
         },
         params: {
-          id: "27508847222068472",
+          id: "29024140840540682",
           metadata: {},
           name: "WAWebMexFetchGroupInfoJobQuery",
           operationKind: "query",

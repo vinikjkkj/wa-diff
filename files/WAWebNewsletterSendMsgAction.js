@@ -39,7 +39,7 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSendTextMsgChatAction",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamMsgUtils",
@@ -570,7 +570,7 @@ __d(
               ),
               c = u.inviteExpiration,
               d = r("nullthrows")(r("WAWebNewsletterCollection").get(l)),
-              m = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              m = o("WAWebUserUtils").getMeUserOrThrow(),
               p = babelHelpers.extends(
                 {
                   ack: o("WAAckLevel").ACK.CLOCK,

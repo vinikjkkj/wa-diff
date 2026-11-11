@@ -152,7 +152,7 @@ __d(
         "fds-duration-extra-short-in": "200ms",
         "fds-duration-extra-short-out": "150ms",
         "cds-close-handle": "#D1D3D5",
-        "cds-overlay-alpha-80": "rgba(28, 43, 51, 0.80)",
+        "cds-overlay-on-surface": "rgba(0, 0, 0, 0.6)",
         "cds-surface-background": ["#FFFFFF", "#1F1F20"],
       },
       T = D(I);

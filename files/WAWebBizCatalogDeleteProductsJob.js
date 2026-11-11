@@ -6,7 +6,7 @@ __d(
     "WAWebBizCatalogManagementDeleteProduct",
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -18,7 +18,7 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            n = o("WAWebUserUtils").getMeUserOrThrow(),
             a = yield o("WAWebBizCatalogManagementDeleteProduct").deleteProduct(
               {
                 biz_jid:

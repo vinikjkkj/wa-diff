@@ -26,8 +26,8 @@ __d(
     "WAWebSendUserMsgJob",
     "WAWebStatusGatingUtils",
     "WAWebStatusSessionGatingUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWidFactory",
@@ -106,7 +106,7 @@ __d(
                 remote: e,
                 fromMe: !0,
               }),
-              { from: o("WAWebUserPrefsMeUser").getMeUserOrThrow(), to: e },
+              { from: o("WAWebUserUtils").getMeUserOrThrow(), to: e },
             ),
             i = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
               a,
@@ -141,7 +141,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var a = o("WAWebUserUtils").getMeLidUserOrThrow(),
             i = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             l = v(
               new (r("WAWebMsgKey"))({

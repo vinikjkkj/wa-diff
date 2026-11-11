@@ -54,7 +54,10 @@ __d(
       }
       return (e.set(p, i), u.set(p, l), p);
     }
-    function d(t, n) {
+    function d(t) {
+      (e.delete(t), u.delete(t));
+    }
+    function m(t, n) {
       for (var r of e) {
         var a = r[1],
           i = a.get(t);
@@ -67,7 +70,9 @@ __d(
         }
       }
     }
-    ((l.beginDBTableUsage = c), (l.recordTableUsageStat = d));
+    ((l.beginDBTableUsage = c),
+      (l.discardDBTableUsage = d),
+      (l.recordTableUsageStat = m));
   },
   98,
 );

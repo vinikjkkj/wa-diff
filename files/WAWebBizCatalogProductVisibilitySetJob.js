@@ -6,7 +6,7 @@ __d(
     "WAWebBizCatalogManagementUpdateProductVisibility",
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -24,7 +24,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r,
-            a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = o("WAWebUserUtils").getMeUserOrThrow(),
             i = yield o(
               "WAWebBizCatalogManagementUpdateProductVisibility",
             ).updateProductVisibility({

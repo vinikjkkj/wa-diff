@@ -9,8 +9,8 @@ __d(
     "WAWebBizCoexGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebFeatureControlCache",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -31,7 +31,7 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t;
           try {
-            t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+            t = o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE();
           } catch (e) {
             o("WALogger").WARN(
               s ||

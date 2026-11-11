@@ -17,6 +17,7 @@ __d(
     "WAWebLogoutReasonConstants",
     "WAWebSocketLogoutJob",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -324,7 +325,7 @@ __d(
     function k(e) {
       return o("WAWebUserPrefsMeUser").isMeAccount(e)
         ? o("WAWebABProps").getABPropConfigValue("web_self_adv_daily_use_lid")
-          ? e.equals(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())
+          ? e.equals(o("WAWebUserUtils").getMeLidUserOrThrow())
           : !0
         : !1;
     }

@@ -161,16 +161,15 @@ __d(
             )
           ) {
             var l;
+            i ===
+              o("WAWebCTWAConstants").ALLOWED_PREDEFINED_LABEL_IDS
+                .NEW_CUSTOMER ||
             i === o("WAWebCTWAConstants").FOLLOW_UP_PREDEFINED_ID ||
             i === o("WAWebCTWAConstants").LEAD_PREDEFINED_ID ||
             i === o("WAWebCTWAConstants").IMPORTANT_PREDEFINED_ID
               ? (l = "lead_created")
               : i ===
-                    o("WAWebCTWAConstants").ALLOWED_PREDEFINED_LABEL_IDS
-                      .NEW_ORDER ||
-                  i ===
-                    o("WAWebCTWAConstants").ALLOWED_PREDEFINED_LABEL_IDS
-                      .NEW_CUSTOMER
+                  o("WAWebCTWAConstants").ALLOWED_PREDEFINED_LABEL_IDS.NEW_ORDER
                 ? (l = "order_created")
                 : (l = "order_updated");
             var s,

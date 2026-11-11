@@ -51,34 +51,43 @@ __d(
     function f() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Deleted AI knowledge"),
+          msg: s._(
+            /*BTDS*/ "Your AI agent is adding info from the links you shared. Check Knowledge later.",
+          ),
         }),
       );
     }
     function g() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Product info deleted"),
+          msg: s._(/*BTDS*/ "Deleted AI knowledge"),
         }),
       );
     }
     function h() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Example response deleted"),
+          msg: s._(/*BTDS*/ "Product info deleted"),
         }),
       );
     }
     function y() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Example response deleted"),
+        }),
       );
     }
     function C() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+      );
+    }
+    function b() {
       return !navigator.onLine;
     }
-    function b(e, t) {
-      if (C()) {
+    function v(e, t) {
+      if (b()) {
         (o("WAWebBizAILargeScreensLogEvents").logApiSaveRuleResult(!1),
           c(),
           t.onError());
@@ -100,7 +109,7 @@ __d(
           ),
           e.isSuccess)
         )
-          (y(), t.onSuccess());
+          (C(), t.onSuccess());
         else if (e.isContentPolicyViolation === !0) {
           var n;
           (d(), ((n = t.onContentPolicyViolation) != null ? n : t.onError)());
@@ -116,11 +125,12 @@ __d(
       (l.showDeletedToast = m),
       (l.showDeletedFileToast = p),
       (l.showGoogleDriveFilesAddedToast = _),
-      (l.showDeletedAIKnowledgeToast = f),
-      (l.showDeletedProductInfoToast = g),
-      (l.showDeletedExampleResponseToast = h),
-      (l.showUpdatedToast = y),
-      (l.saveBizAISetting = b));
+      (l.showWebsitesAddedToast = f),
+      (l.showDeletedAIKnowledgeToast = g),
+      (l.showDeletedProductInfoToast = h),
+      (l.showDeletedExampleResponseToast = y),
+      (l.showUpdatedToast = C),
+      (l.saveBizAISetting = v));
   },
   226,
 );

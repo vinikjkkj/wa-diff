@@ -79,48 +79,49 @@ __d(
         }),
           (p[a] = f));
       }
-      var y = f.targetToCallbacksMap.get(t);
-      (y == null &&
+      var y = f,
+        C = f.targetToCallbacksMap.get(t);
+      (C == null &&
         (t instanceof Element
           ? f.intersectionObserver.observe(t)
           : t.observeUsing(f.intersectionObserver),
         (f.referenceCount += 1),
-        (y = []),
-        f.targetToCallbacksMap.set(t, y)),
-        y.push(n));
-      var C = t,
-        b = n,
-        v = !1,
-        S = function () {
-          if (!v) {
-            var e = C,
-              t = b;
+        (C = []),
+        f.targetToCallbacksMap.set(t, C)),
+        C.push(n));
+      var b = t,
+        v = n,
+        S = !1,
+        R = function () {
+          if (!S) {
+            var e = b,
+              t = v;
             (e != null || s(0, 173939), t != null || s(0, 173937));
-            var n = f.targetToCallbacksMap.get(e);
+            var n = y.targetToCallbacksMap.get(e);
             if ((n != null || s(0, 2440), n.length === 1))
               (e instanceof Element
-                ? f.intersectionObserver.unobserve(e)
-                : e.unobserveUsing(f.intersectionObserver),
-                f.targetToCallbacksMap.delete(e),
-                (f.referenceCount -= 1),
-                (C = null));
+                ? y.intersectionObserver.unobserve(e)
+                : e.unobserveUsing(y.intersectionObserver),
+                y.targetToCallbacksMap.delete(e),
+                (y.referenceCount -= 1),
+                (b = null));
             else {
               var r = n.indexOf(t);
               (r !== -1 || s(0, 2441), n.splice(r, 1));
             }
-            (f.referenceCount === 0 &&
+            (y.referenceCount === 0 &&
               (p != null || s(0, 2442),
               delete p[a],
               l && Object.keys(p).length === 0 && d.delete(i)),
+              (v = null),
               (b = null),
-              (C = null),
               (l = null),
-              (v = !0));
+              (S = !0));
           }
         };
       return {
         remove: function () {
-          S && (S(), (S = null));
+          R && (R(), (R = null));
         },
       };
     }

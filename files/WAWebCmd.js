@@ -893,20 +893,6 @@ __d(
           (i.newMediaMsg = function (t) {
             this.trigger("new_media_msg", t);
           }),
-          (i.alertCall = function (t, n, r, o, a, i, l) {
-            this.trigger("alert_call", {
-              wid: t,
-              msgId: n,
-              isVideo: r,
-              isGroup: o,
-              isSilenced: a,
-              groupJid: i,
-              groupCallParticipants: l,
-            });
-          }),
-          (i.cancelCall = function (t) {
-            this.trigger("cancel_call", t);
-          }),
           (i.windowError = function (t) {}),
           (i.onPanesWillChange = function (t) {
             this.trigger("panes_will_change", t);
@@ -919,9 +905,6 @@ __d(
           }),
           (i.openGroupsV4InviteRequestFlow = function (t, n, r, o, a) {
             this.trigger("open_groups_v4_invite_request_flow", t, n, r, o, a);
-          }),
-          (i.toggleLidDebugBadge = function () {
-            this.trigger("toggle_lid_debug_badge");
           }),
           (i.openCommandPalette = function () {
             this.trigger("open_command_palette");

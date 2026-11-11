@@ -32,6 +32,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVcardParsingUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
@@ -442,7 +443,7 @@ __d(
           if (l || s) return t.remote;
           if (n)
             return u
-              ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
+              ? o("WAWebUserUtils").getMeUserOrThrow()
               : c instanceof r("WAWebWid")
                 ? c
                 : null;

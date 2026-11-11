@@ -4,7 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebDeviceCapabilitiesSyncBase",
     "WAWebSyncdConst",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +19,7 @@ __d(
             return o("WAWebSyncdConst").Actions.DeviceCapabilitiesV2;
           }),
           (r.getJidIndex = function () {
-            return o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().toString();
+            return o("WAWebUserUtils").getMeDeviceLidOrThrow().toString();
           }),
           (r.getValueField = function () {
             return "deviceCapabilitiesV2";

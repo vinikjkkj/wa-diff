@@ -12,6 +12,7 @@ __d(
     "WAWebLogReceivedMessages",
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
+    "WAWebMessageQueueImpl",
     "WAWebMessageQueueTimeout",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterMsgParser",
@@ -67,7 +68,13 @@ __d(
                           ? o("WAWebMessageProcessorCache")
                               .messageProcessorCache.addMessages(
                                 [{ msg: _ }],
-                                !m,
+                                o(
+                                  "WAWebMessageQueueImpl",
+                                ).shouldFlushMessageImmediately(
+                                  m,
+                                  o("WAWebBackendEventBus").BackendEventBus
+                                    .isOfflineDeliveryEnd,
+                                ),
                               )
                               .then(function () {
                                 (o(

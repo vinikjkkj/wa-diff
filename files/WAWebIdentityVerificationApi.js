@@ -19,6 +19,7 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebVoipGatingUtils",
@@ -237,8 +238,8 @@ __d(
                   ])),
               )
               .sendLogs("identity-verification-migrated-client-no-lid");
-          var y = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            C = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var y = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
+            C = o("WAWebUserUtils").getMeLidUserOrThrow(),
             b = yield o("WAWebApiContactUsernameFields").getContactUsername(C),
             v,
             R;

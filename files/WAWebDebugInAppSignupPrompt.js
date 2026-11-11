@@ -9,7 +9,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "vulture",
@@ -38,7 +38,7 @@ __d(
             );
             return;
           }
-          var i = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var i = o("WAWebUserUtils").getMeUserOrThrow(),
             l = t != null ? t : c,
             m = [
               {

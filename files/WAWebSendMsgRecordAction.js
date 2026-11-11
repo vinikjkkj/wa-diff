@@ -14,7 +14,7 @@ __d(
     "WAWebBackendRuntime",
     "WAWebBlocklistCollection",
     "WAWebBotGating",
-    "WAWebBotGenTypingIndicatorMsg",
+    "WAWebBotTypingIndicatorAfterSend",
     "WAWebCmd",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactBlockedErrorAction",
@@ -346,7 +346,7 @@ __d(
                             "WAWebAddOnsUpdateSendStatesAction",
                           ).maybeUpdateAddOnAckForMsgAction(e.data, r)),
                         o(
-                          "WAWebBotGenTypingIndicatorMsg",
+                          "WAWebBotTypingIndicatorAfterSend",
                         ).maybeGenBotTypingIndicatorMessage(t, i),
                         E && (E.markMessageSendT(), E.commit()),
                         y ||

@@ -5,6 +5,7 @@ __d(
     "ConstUriUtils",
     "Deferred",
     "FBLogger",
+    "GraphQLVideoP2PSettings",
     "JSResourceForInteraction",
     "NetworkStatus",
     "OzActiveActiveFailoverNetworkRequestStreamHandler",
@@ -252,7 +253,11 @@ __d(
                   renderStatsCallback: fe,
                 },
                 debugLevel: "off",
-                hiveTechOrder: ["HiveJS", "StatsJS", "HiveJava"],
+                hiveTechOrder: [
+                  o("GraphQLVideoP2PSettings").HiveTechOrder.HiveJS,
+                  o("GraphQLVideoP2PSettings").HiveTechOrder.StatsJS,
+                  o("GraphQLVideoP2PSettings").HiveTechOrder.HiveJava,
+                ],
                 onActiveSession: _e,
                 onError: pe,
                 onSessionStateChange: ge,
@@ -275,7 +280,9 @@ __d(
               V != null &&
               V.startsWith("https://livestream-lookaside")
             ) {
-              var Se = he.hiveTechOrder.indexOf("HiveJava");
+              var Se = he.hiveTechOrder.indexOf(
+                o("GraphQLVideoP2PSettings").HiveTechOrder.HiveJava,
+              );
               Se >= 0 && he.hiveTechOrder.splice(Se, 1);
             }
             if (c) c.SensitiveInfo.restrictedConnectivityInfo = !0;

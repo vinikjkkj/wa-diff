@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebQueryLinkedAccountNonceJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -88,9 +88,8 @@ __d(
               adCreationUrl: u + i.toString(),
               nonce: R,
               pageId: l,
-              phoneNumber: o(
-                "WAWebUserPrefsMeUser",
-              ).getMePnUserOrThrow_DO_NOT_USE().user,
+              phoneNumber:
+                o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE().user,
             });
           }
           return u + i.toString();

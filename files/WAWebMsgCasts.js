@@ -10,6 +10,8 @@ __d(
         t.MSG_TYPE.TEMPLATE_BUTTON_REPLY,
         t.MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
         t.MSG_TYPE.INTERACTIVE,
+        t.MSG_TYPE.LIST_RESPONSE,
+        t.MSG_TYPE.BUTTONS_RESPONSE,
       ]);
     }
     function u(e) {

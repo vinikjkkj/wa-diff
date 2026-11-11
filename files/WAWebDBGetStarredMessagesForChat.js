@@ -8,7 +8,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, r, a) {
+    function s(e) {
+      return o("WAWebSchemaMessage")
+        .getMessageTable()
+        .betweenCount(
+          ["internalId", "isStarred"],
+          [o("WAWebDBMessageUtils").beginningOfChat(e), 0],
+          [o("WAWebDBMessageUtils").endOfChat(e), 1 / 0],
+          { lowerInclusive: !1, upperInclusive: !1 },
+        );
+    }
+    function u(t, r, a) {
       return (e || (e = n("Promise")))
         .resolve()
         .then(function () {
@@ -36,7 +46,7 @@ __d(
             });
         });
     }
-    l.getStarredMessagesForChat = s;
+    ((l.countStarredMessagesForChat = s), (l.getStarredMessagesForChat = u));
   },
   98,
 );

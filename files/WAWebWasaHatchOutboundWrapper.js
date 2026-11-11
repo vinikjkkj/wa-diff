@@ -8,6 +8,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWasaGenerateSecretEncryptedMessageProto",
     "WAWebWasaRootSecretDb",
     "WAWebWasaRootSecretWriter",
@@ -68,7 +69,7 @@ __d(
           var i = a.rootSecret,
             l = a.targetId,
             s = o("WAWebWidToJid").widToUserJid(
-              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              o("WAWebUserUtils").getMeLidUserOrThrow(),
             ),
             u = o("WAWebWidToJid").widToUserJid(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,

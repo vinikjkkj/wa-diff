@@ -5,7 +5,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNewsletterMsgEditUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "err",
   ],
@@ -68,9 +68,7 @@ __d(
             id: n.id,
           }),
           from: n.from,
-          to: n.isSender
-            ? n.from
-            : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          to: n.isSender ? n.from : o("WAWebUserUtils").getMeUserOrThrow(),
           t: (u = a.metaOriginalMsgT) != null ? u : n.t,
           serverId: n.serverId,
           lastUpdateFromServerTs:

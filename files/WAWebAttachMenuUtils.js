@@ -10,13 +10,13 @@ __d(
     "WAWebLinkedCatalogHelper",
     "WAWebOrderGatingUtils",
     "WAWebProductCatalogMetaLinkingGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       if (o("WAWebChatGetters").getIsNewsletter(e) || e.id.isAiHub()) return !1;
       var t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        o("WAWebUserUtils").getMeUserOrThrow(),
       );
       return !(
         !c() ||
@@ -42,7 +42,7 @@ __d(
         return !1;
       if (o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled()) return !0;
       var t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        o("WAWebUserUtils").getMeUserOrThrow(),
       );
       return (
         o("WAWebOrderGatingUtils").orderDetailsFromCatalogEnabled() &&
@@ -52,7 +52,7 @@ __d(
     function c() {
       if (!o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)) return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        o("WAWebUserUtils").getMeUserOrThrow(),
       );
       return !o("WAWebBusinessProfileUtils").hasShop(e);
     }

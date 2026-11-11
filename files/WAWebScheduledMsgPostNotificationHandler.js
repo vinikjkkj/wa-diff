@@ -28,7 +28,7 @@ __d(
     "WAWebScheduledMsgRevealChatUtils",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -100,7 +100,7 @@ __d(
               ).OfflineMessageHandler.isResumeFromRestartComplete();
             yield o("WAWebMessageQueue")
               .onMessageQueue({
-                chatWid: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                chatWid: o("WAWebUserUtils").getMeLidUserOrThrow(),
                 isOffline: _,
                 msgCategory: null,
                 action: (function () {
@@ -226,7 +226,7 @@ __d(
               .sendLogs("mex-scheduled-msg-post-ensure-chat-failed");
             return;
           }
-          var d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var d = o("WAWebUserUtils").getMeLidUserOrThrow(),
             m = o(
               "WAWebScheduledMsgOutgoingMsgKey",
             ).buildScheduledMsgOutgoingMsgKey(a, c, d),

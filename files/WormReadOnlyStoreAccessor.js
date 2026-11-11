@@ -36,9 +36,10 @@ __d(
                 );
                 return (a == null || a.endSuccess(), i);
               } catch (e) {
-                a == null || a.endFail("error");
                 var l = r("getErrorSafe")(e);
                 throw (
+                  a == null ||
+                    a.endFail("error", { string: { error_name: l.name } }),
                   r("FBLogger")("worm")
                     .catching(l)
                     .mustfix("Error performing %s", n),

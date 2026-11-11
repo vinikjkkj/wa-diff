@@ -30,6 +30,7 @@ __d(
     "WAWebMetricsAttributionActions",
     "WAWebNonAddressBookContactsJob",
     "WAWebOrchestratorNonPersistedJob",
+    "WAWebPhoneNumberSharingSettingsBootstrap",
     "WAWebProtobufsHistorySync.pb",
     "WAWebQueryAndUpdateGroupMetadataJob",
     "WAWebSchemaHistorySyncNotification",
@@ -504,9 +505,6 @@ __d(
           (a.isSyncDBootstrapInProcess = function () {
             return this.$3 === ve.InProcess || this.$4 === ve.InProcess;
           }),
-          (a.isSyncDBootstrapGroupMetadataQueryInProcess = function () {
-            return this.$5 === ve.InProcess;
-          }),
           (a.$20 = function () {
             var e = this;
             this.$7 == null &&
@@ -791,37 +789,7 @@ __d(
               var a = o(
                   "WAWebSyncDeviceAdvDeviceListJob",
                 ).syncMyDeviceListJob(),
-                i = new (pe || (pe = n("Promise")))(function (t, n) {
-                  o("WAWebAccountSyncJob")
-                    .updatePrivacySettings()
-                    .then(function () {
-                      return e.setReadReceiptsSynced();
-                    })
-                    .then(t)
-                    .catch(n);
-                }).catch(function (e) {
-                  var t = r("getErrorSafe")(e);
-                  (o("WALogger")
-                    .ERROR(
-                      M ||
-                        (M = babelHelpers.taggedTemplateLiteralLoose([
-                          "failed to sync privacy settings",
-                        ])),
-                    )
-                    .catching(t)
-                    .verbose()
-                    .sendLogs(
-                      "failed to update privacy settings from privacy request to server",
-                    ),
-                    o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
-                      "failed to sync privacy settings, logging out",
-                    ),
-                    o("WAWebCoreActionsODS").logSessionForcedLogout(),
-                    o("WAWebSocketLogoutJob").socketLogout(
-                      o("WAWebLogoutReasonConstants").LogoutReason
-                        .AccountSyncError,
-                    ));
-                });
+                i = this.$22();
               (this.$20(), (this.$3 = ve.InProcess));
               var l = a
                   .then(function () {
@@ -834,8 +802,8 @@ __d(
                     n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                       if (
                         (o("WALogger").LOG(
-                          w ||
-                            (w = babelHelpers.taggedTemplateLiteralLoose([
+                          M ||
+                            (M = babelHelpers.taggedTemplateLiteralLoose([
                               "[bootstrap][syncd] critical collection processing completed: state=",
                               ", syncdCritical=",
                               "",
@@ -863,8 +831,8 @@ __d(
                   var t = r("getErrorSafe")(e);
                   o("WALogger")
                     .ERROR(
-                      A ||
-                        (A = babelHelpers.taggedTemplateLiteralLoose([
+                      w ||
+                        (w = babelHelpers.taggedTemplateLiteralLoose([
                           "failed to sync default disappearing mode",
                         ])),
                     )
@@ -874,7 +842,7 @@ __d(
                       "failed initial sync of default disappearing mode",
                     );
                 });
-              yield pe.all([i, l, u]);
+              yield (pe || (pe = n("Promise"))).all([i, l, u]);
             });
             function t() {
               return e.apply(this, arguments);
@@ -882,6 +850,43 @@ __d(
             return t;
           })()),
           (a.$22 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              try {
+                (yield o("WAWebAccountSyncJob").updatePrivacySettings(),
+                  o(
+                    "WAWebPhoneNumberSharingSettingsBootstrap",
+                  ).bootstrapPhoneNumberSharingSettings(),
+                  yield this.setReadReceiptsSynced());
+              } catch (t) {
+                var e = r("getErrorSafe")(t);
+                (o("WALogger")
+                  .ERROR(
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
+                        "failed to sync privacy settings",
+                      ])),
+                  )
+                  .catching(e)
+                  .verbose()
+                  .sendLogs(
+                    "failed to update privacy settings from privacy request to server",
+                  ),
+                  o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
+                    "failed to sync privacy settings, logging out",
+                  ),
+                  o("WAWebCoreActionsODS").logSessionForcedLogout(),
+                  o("WAWebSocketLogoutJob").socketLogout(
+                    o("WAWebLogoutReasonConstants").LogoutReason
+                      .AccountSyncError,
+                  ));
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$23 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (
                 !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd
@@ -976,7 +981,7 @@ __d(
             }
             return t;
           })()),
-          (a.$23 = (function () {
+          (a.$24 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               o("WALogger").LOG(
                 q ||
@@ -988,7 +993,7 @@ __d(
                 (yield o(
                   "WAWebDbEncryptionKey",
                 ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-                  yield this.$22());
+                  yield this.$23());
               } catch (t) {
                 var e = r("getErrorSafe")(t);
                 o("WALogger")
@@ -1006,7 +1011,7 @@ __d(
                     "[history sync][continueProgressiveHistorySyncProcessingV2] finish main flow",
                   ])),
               ),
-                this.$24());
+                this.$25());
               var t = yield o(
                 "WAWebUserPrefsHistorySync",
               ).getHistorySyncStatus();
@@ -1191,11 +1196,11 @@ __d(
               o("WAWebBackgroundPauseGating").isVoipPauseHistorySyncEnabled()
             );
           }),
-          (a.$25 = function () {
+          (a.$26 = function () {
             var e = this.$15();
             return (e && (this.$12 = !0), e);
           }),
-          (a.$26 = (function () {
+          (a.$27 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               try {
                 var e = yield o("WAWebSchemaHistorySyncNotification")
@@ -1237,18 +1242,18 @@ __d(
             }
             return t;
           })()),
-          (a.$27 = function () {
+          (a.$28 = function () {
             return this.$6 || this.$1.initialChatHistory === !0;
           }),
-          (a.$28 = function () {
+          (a.$29 = function () {
             var e = this;
-            if (!this.$27() || !this.getIsHistorySyncRunning()) {
+            if (!this.$28() || !this.getIsHistorySyncRunning()) {
               ke(!1);
               return;
             }
-            this.$26()
+            this.$27()
               .then(function (t) {
-                return e.$29(t && e.getIsHistorySyncRunning());
+                return e.$30(t && e.getIsHistorySyncRunning());
               })
               .catch(function (e) {
                 o("WALogger")
@@ -1262,15 +1267,15 @@ __d(
                   .sendLogs("history-sync-on-demand-carve-out-failed");
               });
           }),
-          (a.$24 = function () {
-            this.$15() && this.$28();
+          (a.$25 = function () {
+            this.$15() && this.$29();
           }),
-          (a.$29 = function (t) {
+          (a.$30 = function (t) {
             var e = this.$15(),
-              n = t && this.$27();
+              n = t && this.$28();
             return (ke(e && n), e && !n);
           }),
-          (a.$30 = function () {
+          (a.$31 = function () {
             var e = this;
             if ((this.setupHistorySyncJobQuotaOverride(), !this.$13)) {
               ((this.$13 = !0), (this.$12 = this.$15()));
@@ -1278,7 +1283,7 @@ __d(
                 var t = e.$15(),
                   n = e.$12 && !t;
                 ((e.$12 = t),
-                  t ? e.$28() : ke(!1),
+                  t ? e.$29() : ke(!1),
                   n &&
                     (o("WALogger")
                       .LOG(
@@ -1314,7 +1319,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = this;
-                if ((this.$30(), !this.$27()))
+                if ((this.$31(), !this.$28()))
                   return (
                     ke(!1),
                     o("WALogger").LOG(
@@ -1335,7 +1340,7 @@ __d(
                   ).getHistorySyncStatus();
                   if ((a == null ? void 0 : a.recentCompleted) === !0)
                     return (
-                      this.$24(),
+                      this.$25(),
                       o("WALogger").LOG(
                         le ||
                           (le = babelHelpers.taggedTemplateLiteralLoose([
@@ -1345,9 +1350,9 @@ __d(
                       (pe || (pe = n("Promise"))).resolve()
                     );
                 }
-                if (this.$25()) {
-                  var i = yield this.$26();
-                  if (this.$29(i))
+                if (this.$26()) {
+                  var i = yield this.$27();
+                  if (this.$30(i))
                     return (
                       o("WALogger")
                         .LOG(
@@ -1375,7 +1380,7 @@ __d(
                                 ])),
                               e,
                             ),
-                            t.$23()
+                            t.$24()
                           );
                         },
                       );

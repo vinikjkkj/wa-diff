@@ -9,21 +9,29 @@ __d(
         function () {
           return r("WAWebODS").incr("web.call.dtls.connected.port_3478");
         },
-        o("WAWebCoreActionsODS").logCallDtlsConnectedPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.connected.port_3480");
+        },
       );
     }
     function s(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallDtlsFailedPcFailedPort3478,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.failed.pc_failed.port_3478");
+        },
         o("WAWebCoreActionsODS").logCallDtlsFailedPcFailedPort3480,
       );
     }
     function u(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallDtlsFailedStallPort3478,
-        o("WAWebCoreActionsODS").logCallDtlsFailedStallPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.failed.stall.port_3478");
+        },
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.failed.stall.port_3480");
+        },
       );
     }
     function c(e) {

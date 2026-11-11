@@ -102,10 +102,25 @@ __d(
       }
       return null;
     }
+    function m(t, n) {
+      var r = function (n) {
+          var e = t.find(function (e) {
+            return e.associationType === n.associationType;
+          });
+          if (e != null) return { v: { hdChild: e, isEnabled: n.isEnabled } };
+        },
+        o;
+      for (var a of (i = e.get(n)) != null ? i : []) {
+        var i;
+        if (((o = r(a)), o)) return o.v;
+      }
+      return null;
+    }
     ((l.getPreferredMediaMsgs = s),
       (l.getPreferredMediaMsg = u),
       (l.getHdChildMsg = c),
-      (l.findHdChildMsg = d));
+      (l.findHdChildMsg = d),
+      (l.findPairedHdChild = m));
   },
   98,
 );

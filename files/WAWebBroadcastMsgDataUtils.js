@@ -10,7 +10,7 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -23,7 +23,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWid(e),
-            n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+            n = o("WAWebUserUtils").getMeLidUserOrThrow();
           n != null || s(0, 107072, e);
           var a = new (r("WAWebMsgKey"))({
             from: n,
@@ -115,7 +115,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+          var a = o("WAWebUserUtils").getMeLidUserOrThrow();
           a != null || s(0, 107072, t);
           var i = n.type,
             l;

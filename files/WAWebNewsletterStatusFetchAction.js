@@ -28,7 +28,7 @@ __d(
     "WAWebNullFunc",
     "WAWebStatusCollection",
     "WAWebStatusGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -238,7 +238,7 @@ __d(
                     });
                 if (d.length === 0) return;
                 var m = o("WATimeUtils").unixTimeMs(),
-                  p = o("WAWebUserPrefsMeUser").getMeUserOrThrow().toJid();
+                  p = o("WAWebUserUtils").getMeUserOrThrow().toJid();
                 yield o(
                   "WAWebDBCreateOrUpdateReactions",
                 ).createOrUpdateReactions(

@@ -4,14 +4,14 @@ __d(
     "WAWebDeviceSwitchingPopupLoadable",
     "WAWebModalManager",
     "WAWebNotificationBackend",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var t = o("WAWebUserUtils").getMeUserOrThrow(),
         n = { wid: t, otpCode: e };
       (o("WAWebNotificationBackend").showDeviceSwitchNotification(n),
         o("WAWebModalManager").ModalManager.open(

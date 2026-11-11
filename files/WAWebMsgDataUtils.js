@@ -16,6 +16,7 @@ __d(
     "WAWebMsgType",
     "WAWebSilentProtocolMsg",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebWid",
@@ -183,7 +184,7 @@ __d(
           var a,
             i = t.id,
             l = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            s = o("WAWebUserUtils").getMeLidUserOrThrow(),
             u = t.id.isLid() ? s : l != null ? l : s,
             c = void 0;
           if (o("WAWebChatGetters").getIsGroup(t)) {

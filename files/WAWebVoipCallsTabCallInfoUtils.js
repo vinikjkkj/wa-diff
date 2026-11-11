@@ -10,6 +10,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipCallTransferEntryPointStore",
@@ -181,7 +182,7 @@ __d(
           return e.participant.isLid();
         }),
         r = n
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return !t.some(function (e) {
         return !e.participant.equals(r);

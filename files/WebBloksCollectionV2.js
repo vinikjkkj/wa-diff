@@ -5,6 +5,7 @@ __d(
     "WebBloksCollectionChildBase",
     "WebBloksCollectionHelpers",
     "WebBloksCollectionMinificationKeys",
+    "WebBloksCollectionPagingAnchor",
     "WebBloksCollectionScrollRefs",
     "WebBloksEnvironmentContext",
     "WebBloksStyle",
@@ -55,49 +56,52 @@ __d(
         node: l,
         scrollableElementRef: h,
       });
-      var I = r("useWebBloksCollectionStopPropagation")(h),
-        T = o("WebBloksCollectionHelpers").getDirectionPropNames(d),
-        D = T.crossAxisSize,
-        x = T.mainAxisMarginEnd,
-        $ = T.mainAxisMarginStart,
-        P = T.mainAxisSize,
-        N = {};
-      ((N[P] = "max-content"),
-        (N[D] = "100%"),
-        (N[$] = f != null ? o("WebBloksUtils").toPx(f) : void 0),
-        (N[x] = _ != null ? o("WebBloksUtils").toPx(_) : void 0));
-      var M;
+      var I = function (t, n) {
+          return s.jsx(c, { scrollerRef: h, node: t, collectionNode: l }, n);
+        },
+        T = r("useWebBloksCollectionStopPropagation")(h),
+        D = o("WebBloksCollectionHelpers").getDirectionPropNames(d),
+        x = D.crossAxisSize,
+        $ = D.mainAxisMarginEnd,
+        P = D.mainAxisMarginStart,
+        N = D.mainAxisSize,
+        M = {};
+      ((M[N] = "max-content"),
+        (M[x] = "100%"),
+        (M[P] = f != null ? o("WebBloksUtils").toPx(f) : void 0),
+        (M[$] = _ != null ? o("WebBloksUtils").toPx(_) : void 0));
+      var w;
       a[0] !== S
-        ? ((M = o("WebBloksStyle").classNames.apply(
+        ? ((w = o("WebBloksStyle").classNames.apply(
             void 0,
             [o("WebBloksStyle").WebBloksStyles.container].concat(S),
           )),
           (a[0] = S),
-          (a[1] = M))
-        : (M = a[1]);
-      var w;
-      a[2] !== l
-        ? ((w = o("WebBloksCollectionHelpers").getContainerType(l)),
-          (a[2] = l),
-          (a[3] = w))
-        : (w = a[3]);
+          (a[1] = w))
+        : (w = a[1]);
       var A;
+      a[2] !== l
+        ? ((A = o("WebBloksCollectionHelpers").getContainerType(l)),
+          (a[2] = l),
+          (a[3] = A))
+        : (A = a[3]);
+      var F;
       return (
-        a[4] !== R || a[5] !== y || a[6] !== w
-          ? ((A = babelHelpers.extends({}, R, y, {
+        a[4] !== R || a[5] !== y || a[6] !== A
+          ? ((F = babelHelpers.extends({}, R, y, {
               display: "block",
               pointerEvents: "auto",
-              containerType: w,
+              containerType: A,
             })),
             (a[4] = R),
             (a[5] = y),
-            (a[6] = w),
-            (a[7] = A))
-          : (A = a[7]),
+            (a[6] = A),
+            (a[7] = F))
+          : (F = a[7]),
         C(
           s.jsx(
             "div",
-            babelHelpers.extends({}, b, { ref: h, className: M, style: A }, I, {
+            babelHelpers.extends({}, b, { ref: h, className: w, style: F }, T, {
               children: s.jsx("div", {
                 ref: L,
                 style: babelHelpers.extends(
@@ -106,17 +110,21 @@ __d(
                     flexDirection: d,
                     gap: o("WebBloksUtils").toPx(m),
                   },
-                  N,
+                  M,
                 ),
-                children:
-                  u &&
-                  u.map(function (e) {
-                    return s.jsx(
-                      c,
-                      { scrollerRef: h, node: e, collectionNode: l },
-                      e.clientId,
-                    );
-                  }),
+                children: o("WebBloksBooleanUtils").isTrue(p)
+                  ? s.jsx(r("WebBloksCollectionPagingAnchor"), {
+                      containerRef: L,
+                      isRtl: k,
+                      isVertical: d === "column",
+                      items: u != null ? u : [],
+                      renderItem: I,
+                      scrollerRef: h,
+                    })
+                  : u &&
+                    u.map(function (e) {
+                      return I(e, e.clientId);
+                    }),
               }),
             }),
           ),

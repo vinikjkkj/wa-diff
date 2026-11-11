@@ -10,7 +10,7 @@ __d(
     "WAWebOrgMemberDisplayName",
     "WAWebOrgMembersPhash",
     "WAWebSchemaOrg",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -37,7 +37,7 @@ __d(
               u = s.added,
               f = s.removedLids,
               g = s.updated,
-              h = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user,
+              h = o("WAWebUserUtils").getMeLidUserOrThrow().user,
               C = yield o("WAWebDBOrgMemberDelta").applyOrgMemberDelta(i, {
                 added: u,
                 memberUpdatedTsUsec: l,

@@ -10,22 +10,17 @@ __d(
           o("WAWebABProps").getABPropConfigValue(
             "web_employee_slash_commands_enabled",
           ) === !0,
-        isProdPropOn:
-          o("WAWebABProps").getABPropConfigValue(
-            "web_employee_commands_prod_enabled",
-          ) === !0,
         isExtensionAllowed: e,
       });
     }
     function c(e) {
       var t = e.isExtensionAllowed,
-        n = e.isProdPropOn,
-        o = e.isSlashCommandsPropOn;
+        n = e.isSlashCommandsPropOn;
       return r("gkx")("9092")
         ? (function (e) {
-            if (e === "intern") return r("gkx")("28886") || o || t;
-            if (e === "dev") return o;
-            if (e === "prod") return n;
+            if (e === "intern") return r("gkx")("28886") || n || t;
+            if (e === "dev") return n;
+            if (e === "prod") return t;
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                 e,

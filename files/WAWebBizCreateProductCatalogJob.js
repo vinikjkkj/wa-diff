@@ -7,7 +7,7 @@ __d(
     "WAWebBizCatalogManagementCreateCatalog",
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +19,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            n = o("WAWebUserUtils").getMeUserOrThrow(),
             r = yield o("WAWebBizCatalogManagementCreateCatalog").createCatalog(
               {
                 product_catalog: {

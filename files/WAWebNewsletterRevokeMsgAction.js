@@ -16,7 +16,7 @@ __d(
     "WAWebNewsletterValidationUtils",
     "WAWebSendMsgResultAction",
     "WAWebUpdateNewsletterMsgUIAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
   ],
@@ -95,7 +95,7 @@ __d(
                   .ERROR_CANCELLED,
               }
             );
-          var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var a = o("WAWebUserUtils").getMeUserOrThrow(),
             i = y(t, n, a);
           try {
             var l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(

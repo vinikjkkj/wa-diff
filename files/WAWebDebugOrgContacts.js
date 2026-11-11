@@ -9,7 +9,7 @@ __d(
     "WAWebOrgCollection",
     "WAWebOrgFetchDirectoryAction",
     "WAWebOrgRefreshListAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -106,7 +106,7 @@ __d(
                 ? t
                 : [],
             c = function* (t) {
-              if (t.id === o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user)
+              if (t.id === o("WAWebUserUtils").getMeLidUserOrThrow().user)
                 return 0;
               var e = o("WAWebWidFactory").createUserLidOrThrow(t.id, "lid"),
                 n = o("WAWebApiContact").getPhoneNumber(e);

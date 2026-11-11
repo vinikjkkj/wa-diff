@@ -546,7 +546,7 @@ __d(
             var b =
               C || !((h = n.author) != null && h.isLid())
                 ? o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+                : o("WAWebUserUtils").getMeLidUserOrThrow();
             c = b;
           }
         } else c = o("WAWebDecodeJid").decodeJid(t.participant);

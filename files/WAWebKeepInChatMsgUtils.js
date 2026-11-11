@@ -13,6 +13,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
   ],
@@ -54,7 +55,7 @@ __d(
       return !1;
     }
     function d(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+      var t = o("WAWebUserUtils").getMeUserOrThrow();
       return p(e, t);
     }
     function m(e, t) {

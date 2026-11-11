@@ -18,6 +18,7 @@ __d(
     "WAWebProtobufsWeb.pb",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumPeerDataResponseApplyResultType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -278,7 +279,7 @@ __d(
       n.remote.isGroup()
         ? (i = n.remote)
         : n.fromMe
-          ? (i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())
+          ? (i = o("WAWebUserUtils").getMeLidUserOrThrow())
           : (i = n.remote);
       var l;
       t.participant != null

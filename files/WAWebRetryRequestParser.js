@@ -1,99 +1,107 @@
 __d(
   "WAWebRetryRequestParser",
-  ["WADeprecatedWapParser", "WASignalPQTypes", "WAWebJidToWid"],
+  ["WADeprecatedWapParser", "WASignalPQTypes", "WAWebJidToWid", "cr:475"],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))("retryRequestParser", function (
         e,
       ) {
         var t;
         e.assertTag("receipt");
-        var n = e.attrString("type");
-        if (n !== "retry" && n !== "enc_rekey_retry")
+        var r = e.attrString("type");
+        if (r !== "retry" && r !== "enc_rekey_retry")
           throw e.createParseError(
-            'to have type "retry" or "enc_rekey_retry", got "' + n + '"',
+            'to have type "retry" or "enc_rekey_retry", got "' + r + '"',
           );
-        var r = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
-          a = e.hasAttr("participant")
+        var a = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
+          i = e.hasAttr("participant")
             ? o("WAWebJidToWid").deviceJidToDeviceWid(
                 e.attrDeviceJid("participant"),
               )
             : null,
-          i = !1;
-        a != null &&
-          a.isBot() &&
+          l = !1;
+        i != null &&
+          i.isBot() &&
           e.hasAttr("is_lid") &&
-          (i = e.attrString("is_lid") === "true");
-        var l = e.hasAttr("recipient")
+          (l = e.attrString("is_lid") === "true");
+        var s = e.hasAttr("recipient")
             ? o("WAWebJidToWid").deviceJidToUserWid(
                 e.attrDeviceJid("recipient"),
               )
             : null,
-          s = e.child("retry"),
-          u = e.maybeChild("keys"),
-          c = null;
-        if (u != null) {
-          var d,
-            m,
-            p = u.child("skey"),
-            _ = (d = u.maybeChild("pqkey")) != null ? d : u.maybeChild("pq"),
-            f;
-          if (_ != null)
+          u = e.child("retry"),
+          c = e.maybeChild("keys"),
+          d = null;
+        if (c != null) {
+          var m,
+            p,
+            _,
+            f = c.child("skey"),
+            g = (m = c.maybeChild("pqkey")) != null ? m : c.maybeChild("pq"),
+            h;
+          if (g != null)
             try {
-              f = {
-                id: _.child("id").contentUint(3),
-                publicKey: _.child("value").contentBytes(
-                  o("WASignalPQTypes").KYBER_PUBLIC_KEY_BYTES,
-                ),
-                signature: _.child("signature").contentBytes(64),
+              h = {
+                id: g.child("id").contentUint(3),
+                publicKey: g
+                  .child("value")
+                  .contentBytes(o("WASignalPQTypes").KYBER_PUBLIC_KEY_BYTES),
+                signature: g.child("signature").contentBytes(64),
               };
             } catch (e) {
-              f = void 0;
+              h = void 0;
             }
-          var g = {
-            identity: u.child("identity").contentBytes(32),
+          var y = {
+            identity: c.child("identity").contentBytes(32),
             deviceIdentity:
-              (m = u.maybeChild("device-identity")) == null
+              (p = c.maybeChild("device-identity")) == null
                 ? void 0
-                : m.contentBytes(),
+                : p.contentBytes(),
             skey: {
-              id: p.child("id").contentUint(3),
-              pubkey: p.child("value").contentBytes(32),
-              signature: p.child("signature").contentBytes(64),
+              id: f.child("id").contentUint(3),
+              pubkey: f.child("value").contentBytes(32),
+              signature: f.child("signature").contentBytes(64),
             },
-            kyberKey: f,
+            kyberKey: h,
+            aeaEvidence:
+              (_ =
+                n("cr:475") == null
+                  ? void 0
+                  : n("cr:475").parseAeaEvidenceFromIdentity(c)) != null
+                ? _
+                : void 0,
           };
-          if (r.isFbidBot() || (r.isGroup() && a != null && a.isFbidBot())) {
-            var h = null,
-              y = u.maybeChild("key");
-            (y != null &&
-              (h = {
-                id: y.child("id").contentUint(3),
-                pubkey: y.child("value").contentBytes(32),
+          if (a.isFbidBot() || (a.isGroup() && i != null && i.isFbidBot())) {
+            var C = null,
+              b = c.maybeChild("key");
+            (b != null &&
+              (C = {
+                id: b.child("id").contentUint(3),
+                pubkey: b.child("value").contentBytes(32),
               }),
-              (c = babelHelpers.extends({ type: "bot_retry" }, g, { key: h })));
+              (d = babelHelpers.extends({ type: "bot_retry" }, y, { key: C })));
           } else {
-            var C = u.child("key");
-            c = babelHelpers.extends({ type: "regular_retry" }, g, {
+            var v = c.child("key");
+            d = babelHelpers.extends({ type: "regular_retry" }, y, {
               key: {
-                id: C.child("id").contentUint(3),
-                pubkey: C.child("value").contentBytes(32),
+                id: v.child("id").contentUint(3),
+                pubkey: v.child("value").contentBytes(32),
               },
             });
           }
         }
         return {
           stanzaId: e.attrString("id"),
-          originalMsgId: s.attrString("id"),
+          originalMsgId: u.attrString("id"),
           ts: e.attrTime("t"),
-          retryCount: (t = s.maybeAttrInt("count")) != null ? t : 0,
+          retryCount: (t = u.maybeAttrInt("count")) != null ? t : 0,
           regId: e.child("registration").contentUint(4),
           offline: e.hasAttr("offline"),
-          from: r,
-          participant: a,
-          isLid: i,
-          recipient: l,
-          keyBundle: c,
-          type: n,
+          from: a,
+          participant: i,
+          isLid: l,
+          recipient: s,
+          keyBundle: d,
+          type: r,
         };
       }),
       s = e;

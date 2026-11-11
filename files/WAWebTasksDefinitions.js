@@ -53,7 +53,7 @@ __d(
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebServicedJobs",
     "WAWebSyncContactsJob",
-    "WAWebSyncdAntiTampering",
+    "WAWebSyncdAntiTamperingLtHash",
     "WAWebSyncdReportKeyStatsJob",
     "WAWebSyncdReportSyncdStatJob",
     "WAWebSyncdRequestAllSyncdMissingKeysJob",
@@ -462,7 +462,7 @@ __d(
                                     ? 24 * o("WATimeUtils").HOUR_SECONDS
                                     : (e ||
                                         (yield o(
-                                          "WAWebSyncdAntiTampering",
+                                          "WAWebSyncdAntiTamperingLtHash",
                                         ).checkLtHash("abc")),
                                       t * o("WATimeUtils").HOUR_SECONDS);
                                 });

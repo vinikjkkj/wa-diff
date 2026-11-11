@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WARandomHex",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebDBTableUsage",
     "WAWebGetAllModelStorageTableNames",
@@ -495,20 +496,26 @@ __d(
                         )
                         .sendLogs("slow-offline-resume", { sampling: f }));
                 } else
-                  this.isInitialSync
-                    ? o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume] skip: initial sync",
-                          ])),
-                      )
-                    : r &&
-                      o("WALogger").LOG(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume] skip: no envelopes",
-                          ])),
-                      );
+                  (o("WAWebABProps").getABPropConfigValue(
+                    "web_memlab_fixes_4",
+                  ) &&
+                    o("WAWebDBTableUsage").discardDBTableUsage(
+                      this.endTableUsageMetric,
+                    ),
+                    this.isInitialSync
+                      ? o("WALogger").LOG(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "[offline-resume] skip: initial sync",
+                            ])),
+                        )
+                      : r &&
+                        o("WALogger").LOG(
+                          _ ||
+                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                              "[offline-resume] skip: no envelopes",
+                            ])),
+                        ));
                 this.offlineResume = null;
               }
             });

@@ -6,7 +6,7 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -19,9 +19,7 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebSignalCommonUtils")
-              .createSignalAddress(
-                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-              )
+              .createSignalAddress(o("WAWebUserUtils").getMeLidUserOrThrow())
               .toString(),
             t = r("nullthrows")(
               yield o("WAWebSignalProtocolStore")

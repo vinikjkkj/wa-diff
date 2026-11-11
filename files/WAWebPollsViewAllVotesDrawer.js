@@ -45,8 +45,8 @@ __d(
       return (
         t[3] !== i.remote || t[4] !== n || t[5] !== r
           ? ((l = i.remote.isNewsletter()
-              ? d.jsx(f, babelHelpers.extends({}, n, { ref: r }))
-              : d.jsx(_, babelHelpers.extends({}, n, { ref: r }))),
+              ? d.jsx(_, babelHelpers.extends({}, n, { ref: r }))
+              : d.jsx(p, babelHelpers.extends({}, n, { ref: r }))),
             (t[3] = i.remote),
             (t[4] = n),
             (t[5] = r),
@@ -55,8 +55,7 @@ __d(
         l
       );
     }
-    var p = m;
-    function _(e) {
+    function p(e) {
       var t = o("react-compiler-runtime").c(9),
         n = e.associatedMessages,
         r = e.msgKey,
@@ -76,7 +75,7 @@ __d(
         t[5] !== s ||
         t[6] !== c ||
         t[7] !== u
-          ? ((m = d.jsx(g, {
+          ? ((m = d.jsx(f, {
               associatedMessages: n,
               mode: "e2ee",
               onBack: a,
@@ -100,7 +99,7 @@ __d(
         m
       );
     }
-    function f(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.associatedMessages,
         r = e.msgKey,
@@ -127,7 +126,7 @@ __d(
         t[7] !== s ||
         t[8] !== m ||
         t[9] !== u
-          ? ((p = d.jsx(g, {
+          ? ((p = d.jsx(f, {
               associatedMessages: n,
               mode: "newsletter",
               withSectioning: !0,
@@ -152,7 +151,7 @@ __d(
         p
       );
     }
-    function g(t) {
+    function f(t) {
       var n,
         a = t.associatedMessages,
         i = t.mode,
@@ -256,8 +255,8 @@ __d(
         "poll-details-drawer",
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.ViewAllVotesDrawer = p));
+    ((f.displayName = f.name + " [from " + i.id + "]"),
+      (l.ViewAllVotesDrawer = m));
   },
   226,
 );

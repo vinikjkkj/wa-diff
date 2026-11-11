@@ -1,17 +1,26 @@
 __d(
   "WAWebVoipAudioContextResume",
-  ["WALogger", "asyncToGeneratorRuntime"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebVoipSharedCallAudioContext",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = 3e3;
-    function c(e, t) {
-      return d.apply(this, arguments);
+      u,
+      c,
+      d,
+      m = 3e3,
+      p = 2e3;
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function d() {
+    function f() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r = Date.now(),
             a = self.setTimeout(function () {
               o("WALogger").WARN(
@@ -23,16 +32,16 @@ __d(
                     "",
                   ])),
                 n,
-                u,
+                m,
                 t.state,
               );
-            }, u);
+            }, m);
           try {
             yield t.resume();
           } finally {
             self.clearTimeout(a);
             var i = Date.now() - r;
-            i >= u &&
+            i >= m &&
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -47,10 +56,68 @@ __d(
               );
           }
         })),
-        d.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.resumeAudioContextLoggingDelays = c;
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = _(e, t);
+          return o(
+            "WAWebVoipSharedCallAudioContext",
+          ).isAudioPipelineV2Enabled() && !(yield b(n, p))
+            ? (o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:",
+                    "] continuing with AudioContext.resume() pending after ",
+                    "ms, state=",
+                    "",
+                  ])),
+                t,
+                p,
+                e.state,
+              ),
+              !1)
+            : (yield n, !0);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield g(e, "startCapture")) &&
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV:startCapture] AudioContext resumed successfully",
+                ])),
+            );
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e, t) {
+      return new (d || (d = n("Promise")))(function (n) {
+        var r = self.setTimeout(function () {
+            n(!1);
+          }, t),
+          o = function () {
+            (self.clearTimeout(r), n(!0));
+          };
+        e.then(o, o);
+      });
+    }
+    ((l.resumeAudioContextLoggingDelays = _),
+      (l.resumeAudioContextWithinV2Wait = g),
+      (l.resumeCaptureAudioContext = y));
   },
   98,
 );

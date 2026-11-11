@@ -450,9 +450,6 @@ __d(
           (n.$12 = function () {
             return (this.$1 != null || s(0, 56544), this.$1);
           }),
-          (n.isConfigured = function () {
-            return this.$1 != null;
-          }),
           (n.isEmoji = function (t) {
             return this.normalizeEmoji(t) != null;
           }),

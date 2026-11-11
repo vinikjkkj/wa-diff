@@ -715,6 +715,10 @@ __d(
           _.groupSafetyCheck = !!a.value;
           break;
         }
+        case o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS: {
+          _.groupReactionSettings = a.value;
+          break;
+        }
         case o("WAWebGroupType").GROUP_ACTIONS
           .MEMBER_SHARE_GROUP_HISTORY_MODE: {
           _.memberShareGroupHistoryMode = a.value;

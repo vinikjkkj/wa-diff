@@ -6,7 +6,7 @@ __d(
     "WAWebQueryPrivacyDisallowedListLidJob",
     "WAWebQueryPrivacyDisallowedListMexJob",
     "WAWebQueryPrivacyDisallowedListPnJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "justknobx",
   ],
@@ -23,7 +23,7 @@ __d(
               "mex_get_privacy_contact_list_enabled",
             )
           ) {
-            var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+            var n = o("WAWebUserUtils").getMeDeviceLidOrThrow();
             try {
               return yield o(
                 "WAWebQueryPrivacyDisallowedListMexJob",

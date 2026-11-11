@@ -140,14 +140,6 @@ __d(
               currentScreen: t,
             });
           }),
-          (t.helpIconClick = function () {
-            this.$3({
-              actionTaken: o("WAWebWamEnumCommunityCreationActionTakenType")
-                .COMMUNITY_CREATION_ACTION_TAKEN_TYPE.HELP_ICON_CLICK,
-              currentScreen: o("WAWebWamEnumCommunityCreationCurrentScreenType")
-                .COMMUNITY_CREATION_CURRENT_SCREEN_TYPE.COMMUNITY_INFO,
-            });
-          }),
           (t.linkGroupConfirmationOk = function () {
             this.$3({
               actionTaken: o("WAWebWamEnumCommunityCreationActionTakenType")

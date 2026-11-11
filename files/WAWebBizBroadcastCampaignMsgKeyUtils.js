@@ -3,7 +3,7 @@ __d(
   [
     "WAWebMsgKey",
     "WAWebParseMsgKeyString",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,7 +18,7 @@ __d(
       return new (r("WAWebMsgKey"))({
         fromMe: !0,
         id: u(e),
-        participant: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        participant: o("WAWebUserUtils").getMeLidUserOrThrow(),
         remote: o("WAWebWidFactory").createWid(t),
       });
     }

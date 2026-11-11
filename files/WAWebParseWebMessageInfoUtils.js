@@ -21,6 +21,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "getErrorSafe",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -1190,6 +1191,15 @@ __d(
               }));
             break;
           }
+          case u.GROUP_CUSTOM_REACTIONS:
+            if (!r("justknobx")._("7606")) {
+              t.templateParams = void 0;
+              break;
+            }
+            ((t.type = "gp2"),
+              (t.kind = o("WAWebMsgType").MsgKind.Gp2),
+              (t.subtype = "group_default_reactions"));
+            break;
           case u.GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE:
             ((t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),

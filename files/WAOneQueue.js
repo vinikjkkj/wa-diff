@@ -219,26 +219,30 @@ __d(
               (e = o("WAComms").getComms()) == null ? void 0 : e.socketId;
           }),
           (a.connectionDropped = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              (S.WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "Drop offline queue as per loosing connection",
-                  ])),
-              ),
-                (this.$10 = null),
-                this.$6.clear(),
-                yield this.$19({
-                  name: "flush_on_connection_drop",
-                  fn: function () {
-                    return e.$18();
-                  },
-                  priority: o("TaskSchedulerPriority").BLOCKING_PRIORITY,
-                }),
-                this.$1.publish({ type: "connection-lost" }));
-            });
-            function t() {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
+                (S.WARN(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "Drop offline queue as per loosing connection",
+                    ])),
+                ),
+                  (this.$10 = null),
+                  this.$6.clear(),
+                  yield this.$19({
+                    name: "flush_on_connection_drop",
+                    fn: function () {
+                      return t.$18();
+                    },
+                    priority: o("TaskSchedulerPriority").BLOCKING_PRIORITY,
+                  }),
+                  this.$1.publish(
+                    babelHelpers.extends({ type: "connection-lost" }, e),
+                  ));
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

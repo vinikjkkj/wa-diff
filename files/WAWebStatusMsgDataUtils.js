@@ -10,7 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebSpoilerFormatRegex",
     "WAWebSpoilerGating",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -35,7 +35,7 @@ __d(
                 ? n
                 : o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             m = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              o("WAWebUserUtils").getMeUserOrThrow(),
             ),
             p = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
             _ = void 0;

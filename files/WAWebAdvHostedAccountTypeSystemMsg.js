@@ -7,6 +7,7 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsAdv.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +18,7 @@ __d(
         i = e.useEncryptNowSubtype,
         l = i === void 0 ? !1 : i;
       if (!n.isUser()) return null;
-      var s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+      var s = o("WAWebUserUtils").getMeLidUserOrThrow(),
         u = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: n,
@@ -49,7 +50,7 @@ __d(
     }
     function s(e, t) {
       if (!e.isUser()) return null;
-      var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+      var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -68,7 +69,7 @@ __d(
     }
     function u(e, t) {
       if (!e.isUser()) return null;
-      var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+      var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -92,7 +93,7 @@ __d(
         ).smbHostedLazySystemMsgInsertInHistorySyncEnabled() &&
         e.isUser()
       ) {
-        var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
           a = new (r("WAWebMsgKey"))({
             fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
             remote: e,

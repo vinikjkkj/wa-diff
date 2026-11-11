@@ -18,7 +18,7 @@ __d(
     "WAWebPaymentsODS",
     "WAWebSchemaOrphanPaymentNotification",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "justknobx",
@@ -336,7 +336,7 @@ __d(
             subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
               .PaymentInviteAccountSetUp,
             from: e,
-            to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            to: o("WAWebUserUtils").getMeUserOrThrow(),
             recipients: [],
             t: t,
             templateParams: [e],

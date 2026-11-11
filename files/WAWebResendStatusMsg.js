@@ -30,6 +30,7 @@ __d(
     "WAWebStatusPublishRequestArgs",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -490,7 +491,7 @@ __d(
             wids: [t],
           });
           var i = r.data.id,
-            l = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+            l = o("WAWebUserUtils").getMeDeviceLidOrThrow();
           o("WALogger")
             .LOG(
               d ||

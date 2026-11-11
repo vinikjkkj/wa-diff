@@ -10,7 +10,7 @@ __d(
     "WAWebSharableEventNotificationRows",
     "WAWebSharableEventServerRows",
     "WAWebSharableEventStorageEnums",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
@@ -32,7 +32,7 @@ __d(
               "[sharable_event] invite notification is missing event fields",
             );
           var n = o("WAWebWidToJid").userLidtoLidUserJid(
-            o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            o("WAWebUserUtils").getMeLidUserOrThrow(),
           );
           yield o(
             "WAWebSharableEventNotificationPersistJob",
@@ -79,7 +79,7 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidToJid").userLidtoLidUserJid(
-            o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            o("WAWebUserUtils").getMeLidUserOrThrow(),
           );
           o("WAWebSharableEventServerRows").toStoredLid(e.removed_lid) === t &&
             (yield o(

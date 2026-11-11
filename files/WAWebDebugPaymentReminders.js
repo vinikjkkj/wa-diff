@@ -9,7 +9,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "vulture",
   ],
@@ -41,7 +41,7 @@ __d(
             );
             return;
           }
-          var h = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var h = o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
             y = m({
               accountCard: n,
               amountDue: a,

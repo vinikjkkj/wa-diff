@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebMexClient",
     "WAWebMexRequestClientLogsForBugJobMutation.graphql",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -44,9 +44,7 @@ __d(
             input: {
               bug_id: t,
               participant_ids: a,
-              reporter_id: o("WAWebUserPrefsMeUser")
-                .getMeLidUserOrThrow()
-                .toString(),
+              reporter_id: o("WAWebUserUtils").getMeLidUserOrThrow().toString(),
               up_to_timestamp_secs: i,
             },
           };

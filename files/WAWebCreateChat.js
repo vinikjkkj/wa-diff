@@ -35,7 +35,7 @@ __d(
     "WAWebPsFmxActionWamEvent",
     "WAWebQueryBusinessProfile",
     "WAWebUpdateLidMetadataJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebWamEnumFmxEntryPoint",
     "WAWebWamEnumFmxEvent",
@@ -125,7 +125,7 @@ __d(
               "Origin type is missing when creating LID chat",
             );
             var P = yield o("WAWebApiContact").getContactRecord(
-              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              o("WAWebUserUtils").getMeLidUserOrThrow(),
             );
             t === "username_contactless_search" &&
               (P == null ? void 0 : P.username) == null &&
@@ -609,7 +609,7 @@ __d(
           );
           var i = yield (C || (C = n("Promise"))).all([
               o("WAWebApiContact").getContactRecord(
-                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                o("WAWebUserUtils").getMeLidUserOrThrow(),
               ),
               o("WAWebApiContact").getContactRecord(r),
             ]),

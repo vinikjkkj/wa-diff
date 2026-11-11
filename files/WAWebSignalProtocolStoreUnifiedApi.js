@@ -15,6 +15,7 @@ __d(
     "WAWebSignalStorageUtils",
     "WAWebSignalStoreApi",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFromSignalAddress",
     "asyncToGeneratorRuntime",
     "err",
@@ -167,7 +168,7 @@ __d(
                   if (r != null) {
                     var a = o("WAWebSignalCommonUtils")
                         .createSignalAddress(
-                          o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                          o("WAWebUserUtils").getMeLidUserOrThrow(),
                         )
                         .toString(),
                       i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),

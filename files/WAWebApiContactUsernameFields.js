@@ -6,7 +6,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebMexUsersGetCountryCode",
     "WAWebModelStorageUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -55,7 +55,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return m(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
+          return m(o("WAWebUserUtils").getMeLidUserOrThrow());
         })),
         d.apply(this, arguments)
       );

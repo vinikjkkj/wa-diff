@@ -18,7 +18,7 @@ __d(
     "WAWebSentGroupAgentRequests",
     "WAWebSetUsernameJob",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
@@ -476,8 +476,8 @@ __d(
               "WAWebUsernameGatingUtils",
             ).lidGroupMigrationNonMemberIQEnabled(),
             a = r
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+              ? o("WAWebUserUtils").getMeLidUserOrThrow()
+              : o("WAWebUserUtils").getMeUserOrThrow();
           try {
             var i = yield (
                 o("WAWebBackendRuntime").isWebDiBackendEnabled()

@@ -23,6 +23,7 @@ __d(
         hasCapi: e.hasCapi,
         iAmAdmin: e.participants.iAmAdmin(),
         iAmSuperAdmin: e.participants.iAmSuperAdmin(),
+        isAnnouncementGroup: e.announce === !0,
         memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
       };
     }
@@ -65,7 +66,7 @@ __d(
           });
     }
     function m(e, t, n, r) {
-      return p(t) && h(e, n, r).eligible;
+      return p(t) && y(e, t, n, r).eligible;
     }
     function p(e) {
       return _(e);
@@ -102,7 +103,7 @@ __d(
         return { eligible: !1, reason: "bot" };
       var a = (r = e.joinTime) != null ? r : t;
       if (a == null) return { eligible: !1, reason: "no_join_time" };
-      if (y(e.groupHistorySentState))
+      if (C(e.groupHistorySentState))
         return { eligible: !1, reason: "already_received" };
       var i = o("WAWebABProps").getABPropConfigValue(
         "group_history_new_user_threshold_secs",
@@ -111,7 +112,13 @@ __d(
         ? { eligible: !1, reason: "window_expired" }
         : { eligible: !0 };
     }
-    function y(e) {
+    function y(e, t, n, r) {
+      return t.isAnnouncementGroup &&
+        o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e.id)
+        ? { eligible: !1, reason: "agent_in_announcement_group" }
+        : h(e, n, r);
+    }
+    function C(e) {
       return (
         e ===
           o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
@@ -120,7 +127,7 @@ __d(
           o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState.NOTICE_SENT
       );
     }
-    function C(e) {
+    function b(e) {
       var t,
         n =
           (t = r("WAWebGroupMetadataCollection").get(e)) == null
@@ -128,7 +135,7 @@ __d(
             : t.participants.getModelsArray().find(function (e) {
                 return (
                   o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e.id) &&
-                  y(e.groupHistorySentState)
+                  C(e.groupHistorySentState)
                 );
               });
       return n == null ||
@@ -136,7 +143,7 @@ __d(
         ? null
         : o("WAWebFrontendContactGetters").getFormattedName(n.contact);
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       if (e == null || !e.startOfHistoryLoaded) return !1;
       var r = e.earliestShareableMsgT,
         a = e.latestShareableMsgT;
@@ -151,15 +158,15 @@ __d(
       }
       return !1;
     }
-    function v(e, t, n, r, o) {
+    function S(e, t, n, r, o) {
       var a;
       return (
-        m(e, t, n, o) && !b(r, (a = e.joinTime) != null ? a : n, t.groupWid)
+        m(e, t, n, o) && !v(r, (a = e.joinTime) != null ? a : n, t.groupWid)
       );
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       return (
-        v(
+        S(
           e,
           t,
           n,
@@ -169,7 +176,7 @@ __d(
         ) && g(t.groupWid)
       );
     }
-    function R(t) {
+    function L(t) {
       if (
         !o(
           "WAWebGroupHistoryGating",
@@ -191,12 +198,13 @@ __d(
       (l.getPostJoinHistoryGroupEligibility = f),
       (l.isPostJoinHistoryExperimentArmEnabled = g),
       (l.getParticipantPostJoinEligibility = h),
-      (l.isAlreadyReceivedState = y),
-      (l.getNameOfMuseAgentWithSharedHistory = C),
-      (l.hasNoShareableHistoryBeforeJoin = b),
-      (l.canSendPostJoinHistoryToParticipant = v),
-      (l.shouldOfferPostJoinHistoryToParticipant = S),
-      (l.getEligiblePostJoinParticipants = R));
+      (l.getParticipantPostJoinEligibilityInGroup = y),
+      (l.isAlreadyReceivedState = C),
+      (l.getNameOfMuseAgentWithSharedHistory = b),
+      (l.hasNoShareableHistoryBeforeJoin = v),
+      (l.canSendPostJoinHistoryToParticipant = S),
+      (l.shouldOfferPostJoinHistoryToParticipant = R),
+      (l.getEligiblePostJoinParticipants = L));
   },
   98,
 );

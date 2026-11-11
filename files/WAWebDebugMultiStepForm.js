@@ -10,7 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebMultiStepFormButton",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "vulture",
@@ -34,7 +34,7 @@ __d(
             );
             return;
           }
-          var l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var l = o("WAWebUserUtils").getMeLidUserOrThrow(),
             c = {
               type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
               kind: "interactive",

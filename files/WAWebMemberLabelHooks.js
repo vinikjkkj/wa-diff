@@ -4,7 +4,7 @@ __d(
     "WAWebMemberLabelCollection",
     "WAWebMemberLabelKey",
     "WAWebMemberLabelsFrontendUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "isStringNotNullAndNotWhitespaceOnly",
     "react",
     "react-compiler-runtime",
@@ -60,7 +60,7 @@ __d(
       var t = o("react-compiler-runtime").c(4),
         n;
       if (t[0] !== e) {
-        var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+        var a = o("WAWebUserUtils").getMeLidUserOrThrow();
         ((n = o("WAWebMemberLabelsFrontendUtils").memberLabelKeyFrom({
           from: "chat_and_member",
           chatId: e,

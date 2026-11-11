@@ -6,7 +6,7 @@ __d(
     "WAWebMexLidChangeNotification",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -19,7 +19,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+          var n = o("WAWebUserUtils").getMeUserOrThrow();
           return {
             id: new (r("WAWebMsgKey"))({
               remote: e,

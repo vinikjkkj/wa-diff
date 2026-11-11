@@ -7,11 +7,12 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebOrderRequestMsg.flow",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      var e = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+      var e = o("WAWebUserUtils").getMeUserOrThrow();
       return s(e);
     }
     function s(e) {

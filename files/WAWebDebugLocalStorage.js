@@ -5,7 +5,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsLocalStorage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "err",
     "nullthrows",
     "vulture",
@@ -17,7 +17,7 @@ __d(
         n = r("WAWebUserPrefsLocalStorage").getItemFromLocalStorage(e);
       if (n != null) return ((t.value = n), t);
       var a = r("nullthrows")(
-          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          o("WAWebUserUtils").getMeUserOrThrow(),
         ).toString(),
         i = o("WAMd5").md5(a + ":" + e);
       return (

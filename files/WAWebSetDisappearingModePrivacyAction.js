@@ -6,7 +6,7 @@ __d(
     "WAWebDisappearingModeService",
     "WAWebSetDisappearingModeJob",
     "WAWebUpdateDisappearingModeForContact",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,7 +23,7 @@ __d(
                 ).setDisappearingMode
               : o("WAWebSetDisappearingModeJob").setDisappearingMode
           )(e);
-          var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+          var t = o("WAWebUserUtils").getMeUserOrThrow();
           yield (
             o("WAWebBackendRuntime").isWebDiBackendEnabled()
               ? o("WAWebBackendRuntime").runtime(

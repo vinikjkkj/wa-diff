@@ -11,7 +11,7 @@ __d(
     "WAWebNewsletterSendMessageJob",
     "WAWebNewsletterValidationUtils",
     "WAWebSendMsgResultAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,7 +33,7 @@ __d(
               ),
               o("WAWebSendMsgResultAction").SendMsgResult.ERROR_CANCELLED
             );
-          var i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var i = o("WAWebUserUtils").getMeLidUserOrThrow(),
             l = o("WAWebFrontendMsgGetters").getChat(t).id,
             u = o("WATimeUtils").unixTime(),
             c = new (r("WAWebMsgKey"))({

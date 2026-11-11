@@ -11,6 +11,7 @@ __d(
     "WAWebHatchNoiseBytes",
     "WAWebHatchVmConnection",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -38,7 +39,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var t = o("WAWebUserUtils").getMeLidUserOrThrow(),
             n = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
             r = yield R(e);
           if (r.kind !== "secret") return r;

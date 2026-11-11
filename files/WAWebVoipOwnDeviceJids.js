@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebSendMsgDatabaseJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -27,7 +27,7 @@ __d(
           )
             try {
               var n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([
-                  o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  o("WAWebUserUtils").getMeLidUserOrThrow(),
                 ]),
                 a = n
                   .filter(function (e) {

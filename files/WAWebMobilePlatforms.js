@@ -65,9 +65,17 @@ __d(
       );
     }
     function f() {
-      return c === u.SMBA || c === u.SMBI;
+      return (
+        d() != null &&
+        !g() &&
+        !o("WAWebInternalAccount").isInternalAccount() &&
+        (h() || y())
+      );
     }
     function g() {
+      return c === u.SMBA || c === u.SMBI;
+    }
+    function h() {
       return (
         c === u.ANDROID ||
         c === u.SMBA ||
@@ -76,7 +84,7 @@ __d(
           : n("cr:16728").isAndroidPlatform(c)) === !0
       );
     }
-    function h() {
+    function y() {
       return (
         c === u.IPHONE ||
         c === u.IPAD ||
@@ -88,9 +96,10 @@ __d(
       (l.getMaybeMobilePlatform = d),
       (l.getMobilePlatform = m),
       (l.setMobilePlatform = p),
-      (l.isSMB = f),
-      (l.isAndroidPrimary = g),
-      (l.isIOSPrimary = h));
+      (l.isConsumerPrimary = f),
+      (l.isSMB = g),
+      (l.isAndroidPrimary = h),
+      (l.isIOSPrimary = y));
   },
   98,
 );

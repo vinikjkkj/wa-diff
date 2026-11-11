@@ -49,7 +49,7 @@ __d(
     "WAWebSendMsgRecordAction",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumKicActionNameType",
     "WAWebWamEnumKicActorType",
@@ -166,7 +166,7 @@ __d(
             c,
             d,
             m,
-            p = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            p = o("WAWebUserUtils").getMeUserOrThrow(),
             _ = o("WAWebFrontendMsgGetters").getChat(t),
             f = new (r("WAWebMsgKey"))({
               fromMe: !0,

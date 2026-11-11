@@ -2,6 +2,7 @@ __d(
   "WAWebPathfinderLogger",
   [
     "WALogger",
+    "WATimeUtils",
     "WAWebCrashlog",
     "WAWebMdSessionIdCache",
     "WAWebODS",
@@ -348,7 +349,7 @@ __d(
             if (!O()) return null;
             var e = o(
               "WAWebPathfinderTraceEnvelope",
-            ).buildPathfinderTraceEnvelope(je());
+            ).buildPathfinderTraceEnvelope(Qe());
             return e != null &&
               o("WAWebPathfinderTraceEnvelope").exceedsTraceByteBudget(e)
               ? (o("WALogger")
@@ -430,6 +431,24 @@ __d(
           (me = !0)));
     }
     function We(e) {
+      return Math.round(e - o("WATimeUtils").getClockSkew() * 1e3);
+    }
+    function qe(e) {
+      var t =
+        e.eventType === "SCREEN_CHANGED"
+          ? [e.destinationName, e.screenName]
+          : [e.screenName];
+      return Array.from(
+        new Set(
+          t.flatMap(function (e) {
+            return o(
+              "WAWebPathfinderUnsamplingConfig",
+            ).getUnsamplingRuleIdsForScreen(e);
+          }),
+        ),
+      );
+    }
+    function Ue(e) {
       return (
         C.has(e.eventType) &&
         (e.targetTrackingId == null || e.targetTrackingId === "") &&
@@ -437,7 +456,7 @@ __d(
         r("justknobx")._("3611")
       );
     }
-    function qe(e) {
+    function Ve(e) {
       return (
         (e.targetTrackingId != null &&
           o("WAWebPathfinderPIIFilter").hasUnsafePathfinderTrackingId(
@@ -450,8 +469,8 @@ __d(
           ))
       );
     }
-    function Ue(e) {
-      return !O() || (ve(), ge) || qe(e)
+    function He(e) {
+      return !O() || (ve(), ge) || Ve(e)
         ? !1
         : se >= _e || ue >= fe
           ? (ce++,
@@ -471,8 +490,8 @@ __d(
             !1)
           : Oe(e)
             ? (Be(), !1)
-            : We(e)
-              ? (He(),
+            : Ue(e)
+              ? (ze(),
                 X(
                   o("WAWebPathfinderHealthReporter")
                     .COUNTER_TARGETLESS_TOUCH_DROPS,
@@ -481,9 +500,9 @@ __d(
                 !1)
               : B.has(e.eventType) && !Z(e)
                 ? !1
-                : (He(), !0);
+                : (ze(), !0);
     }
-    function Ve(e) {
+    function Ge(e) {
       var t = e.targetTrackingId,
         n = e.triggeringTestId,
         r =
@@ -501,13 +520,13 @@ __d(
             triggeringTestId: a,
           });
     }
-    function He() {
+    function ze() {
       (se++, ue++);
     }
-    function Ge(e) {
+    function je(e) {
       var t, n, a, i, l, s;
-      if (!(o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e) || !Ue(e))) {
-        var u = Ve(e),
+      if (!(o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e) || !He(e))) {
+        var u = Ge(e),
           c = y[u.eventType],
           d = c != null ? I(u, c.eventName) : null;
         if (u.eventType === "CUSTOM_EVENT" && d == null) {
@@ -558,7 +577,7 @@ __d(
             x = {
               event_category: c.category,
               event_name: d,
-              client_timestamp_ms: String(u.timestampMs),
+              client_timestamp_ms: String(We(u.timestampMs)),
               unified_session_id: $(),
               process_id: D(),
               debounce_count:
@@ -600,6 +619,7 @@ __d(
                 md_session_id: w(),
                 sampling_reason: "TRIGGER_SCREEN",
                 session_flag_rule_id: M,
+                session_flag_rule_ids: qe(u),
               });
             });
           }
@@ -646,7 +666,7 @@ __d(
           }
       }
     }
-    function ze() {
+    function Ke() {
       for (var e = [], t = 0; t < Re; t++) {
         var n = (Ee + t) % Re,
           r = Le[n];
@@ -654,17 +674,17 @@ __d(
       }
       return e;
     }
-    function je() {
-      return { entries: ze(), headClipped: Ie > Re, totalRecorded: Ie };
+    function Qe() {
+      return { entries: Ke(), headClipped: Ie > Re, totalRecorded: Ie };
     }
     ((l.FALCO_MAP = y),
       (l.isPathfinderLoggingEnabled = O),
       (l.resetPathfinderSessionState = Se),
       (l.registerPathfinderEmitObserver = Ne),
       (l.PATHFINDER_RING_BUFFER_OVERFLOW_ODS_KEY = Me),
-      (l.emitPathfinderEvent = Ge),
-      (l.getPathfinderLogSnapshot = ze),
-      (l.getPathfinderLogSnapshotWithMeta = je));
+      (l.emitPathfinderEvent = je),
+      (l.getPathfinderLogSnapshot = Ke),
+      (l.getPathfinderLogSnapshotWithMeta = Qe));
   },
   98,
 );

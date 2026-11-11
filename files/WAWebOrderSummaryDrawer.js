@@ -35,8 +35,8 @@ __d(
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXOrderAction",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebUserUtils",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "WDSText.react",
@@ -534,7 +534,7 @@ __d(
         var le;
         n[44] === Symbol.for("react.memo_cache_sentinel")
           ? ((le = d.jsx(r("WAWebOrderDetailSellerProfile.react"), {
-              sellerWid: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              sellerWid: o("WAWebUserUtils").getMeUserOrThrow(),
             })),
             (n[44] = le))
           : (le = n[44]);

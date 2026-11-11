@@ -377,7 +377,7 @@ __d(
                   .AI_SUBSCRIPTION_METERING_ENABLED,
               ]
             : [],
-          o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
+          o("WAWebBotBaseGating").isAiSubscriptionPurchaseCtaEnabled() &&
             o("WAWebSubscriptionAgeGating").isEligibleForSubscriptionsByAge()
             ? [
                 o("WAWebProtobufsAICommon.pb")

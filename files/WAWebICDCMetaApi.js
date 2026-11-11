@@ -5,6 +5,7 @@ __d(
     "WAWebE2EProtoGenerator",
     "WAWebIdentityIcdcApi",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,7 +15,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
             r,
             a,
             i = !1,

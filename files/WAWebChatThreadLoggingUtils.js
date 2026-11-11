@@ -13,7 +13,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWamEnumEphemeralityInitiatorType",
     "WAWebWamEnumEphemeralityTriggerActionType",
@@ -195,7 +195,7 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var e = o("WAWebUserUtils").getMeLidUserOrThrow(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return o("WAWebUsernameTypes").isPresentUsername(
             t == null ? void 0 : t.username,
@@ -210,7 +210,7 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var e = o("WAWebUserUtils").getMeLidUserOrThrow(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return (t == null ? void 0 : t.usernameKey) != null;
         })),

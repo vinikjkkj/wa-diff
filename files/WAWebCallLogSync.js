@@ -10,8 +10,8 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebVoipActionWriteCallLogSync",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
@@ -24,8 +24,7 @@ __d(
       var n = t.callCreatorJid,
         r = t.fromMe,
         a = t.peerJid,
-        i =
-          n != null ? n : r ? o("WAWebUserPrefsMeUser").getMeUserOrThrow() : a;
+        i = n != null ? n : r ? o("WAWebUserUtils").getMeUserOrThrow() : a;
       return i.isUser()
         ? o("WAWebWidFactory").asUserWidOrThrow(i)
         : (o("WALogger")

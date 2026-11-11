@@ -17,7 +17,7 @@ __d(
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WDSButton.react",
     "WDSIconIcEdit.react",
     "WDSIconIcMood.react",
@@ -40,7 +40,7 @@ __d(
         a = t.promptKey,
         i;
       if (n[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var l = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+        var l = o("WAWebUserUtils").getMeUserOrThrow();
         ((i = o("WAWebContactCollection").ContactCollection.assertGet(l)),
           (n[0] = i));
       } else i = n[0];

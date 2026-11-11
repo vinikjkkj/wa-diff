@@ -8,7 +8,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebCommunitySubgroupSuggestionsUtils",
     "WAWebLidMigrationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -122,7 +122,7 @@ __d(
                               : a.error;
                         }
                         var i = o("WAWebWidFactory").createWid(e.jid),
-                          l = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+                          l = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
                           s =
                             e.creator != null
                               ? o("WAWebWidFactory").createWid(e.creator)

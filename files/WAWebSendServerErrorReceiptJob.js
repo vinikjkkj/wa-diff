@@ -13,7 +13,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -77,7 +77,7 @@ __d(
               f != null
                 ? o("WAWebCommsWapMd").USER_JID(f)
                 : o("WAWap").DROP_ATTR,
-            h = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            h = o("WAWebUserUtils").getMeLidUserOrThrow(),
             y = o("WAWap").wap(
               "receipt",
               {

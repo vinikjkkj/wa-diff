@@ -36,6 +36,7 @@ __d(
     "WAWebSyncGroupBotSupportFields",
     "WAWebUpdateDbForCommunityAction",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -432,7 +433,7 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE: {
               var ee = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                te = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
+                te = o("WAWebUserUtils").getMeLidUserOrThrow().toString(),
                 ne = k == null ? void 0 : k.toString();
               if (r("isStringNullOrEmpty")(ne) || k == null) {
                 o("WALogger").WARN(
@@ -999,6 +1000,16 @@ __d(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(l, {
                   groupSafetyCheck: !!a.value,
                 }),
+              );
+              break;
+            }
+            case o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS: {
+              B.push(
+                o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                  l,
+                  { groupReactionSettings: a.value },
+                  i,
+                ),
               );
               break;
             }

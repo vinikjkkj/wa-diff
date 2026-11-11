@@ -9,7 +9,7 @@ __d(
     "WAWebL10NCountryCodes",
     "WAWebLidMigrationUtils",
     "WAWebMobilePlatforms",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -27,7 +27,7 @@ __d(
       return p(e) || u();
     }
     function d() {
-      return p(o("WAWebUserPrefsMeUser").getMeUserOrThrow());
+      return p(o("WAWebUserUtils").getMeUserOrThrow());
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");

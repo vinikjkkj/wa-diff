@@ -23,7 +23,6 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
           (t === void 0 && (t = {}),
             o("WAWebDexieBootstrap").patchDexie(),
             c == null &&
@@ -60,25 +59,27 @@ __d(
                     t
                   );
                 }))),
-            yield c);
-          var a = o("WAWebWorkerStorageUtils")
-            .getStorage()
-            .table("local_storage");
-          if (t.clearPushOfflineResumeTreatment === !0) {
-            (yield a.bulkRemove([s]),
-              t.onPushOfflineResumeTreatment == null ||
-                t.onPushOfflineResumeTreatment(!1));
-            return;
-          }
-          t.onPushOfflineResumeTreatment == null ||
-            t.onPushOfflineResumeTreatment(
-              ((n = yield a.get(s)) == null ? void 0 : n.value) === u,
-            );
+            yield c,
+            t.clearPushOfflineResumeTreatment === !0 &&
+              (yield o("WAWebSchemaLocalStorage").getTable().bulkRemove([s])));
         })),
         m.apply(this, arguments)
       );
     }
     function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield d();
+          var e = yield o("WAWebSchemaLocalStorage").getTable().get(s);
+          return (e == null ? void 0 : e.value) === u;
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f() {
       return o("WAWebWorkerStorageUtils")
         .destroyStorage()
         .catch(function () {
@@ -94,7 +95,8 @@ __d(
     }
     ((l.getLocalStorageTable = o("WAWebSchemaLocalStorage").getTable),
       (l.initialize = d),
-      (l.destroy = p));
+      (l.hasPushOfflineResumeTreatment = p),
+      (l.destroy = f));
   },
   98,
 );

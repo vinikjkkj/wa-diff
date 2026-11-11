@@ -12,6 +12,7 @@ __d(
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
+    "WAWebGroupReactionSettings",
     "WAWebGroupType",
     "WAWebGroupsQueryApi",
     "WAWebHandleGroupNotificationConst",
@@ -23,9 +24,11 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "getErrorSafe",
     "isStringNullOrEmpty",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -316,97 +319,97 @@ __d(
         : { actionType: i, groupDatas: r };
     }
     function x(e, t, n) {
-      var r,
-        a,
+      var a,
         i,
         l,
         s,
         u,
         c,
         d,
-        m = t.child("group"),
-        p = t.hasAttr("type") && t.attrString("type") === "new",
-        _ = b(
+        m,
+        p = t.child("group"),
+        _ = t.hasAttr("type") && t.attrString("type") === "new",
+        f = b(
           e,
-          m,
+          p,
           o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.CREATE,
         ),
-        f = y(m),
-        g = C(m, p),
-        h = o("WAWebGroupsQueryApi").extractLinkedParent(m),
-        v = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-        S = {
-          subject: m.attrString("subject"),
-          restrict: m.hasChild("locked"),
-          announce: m.hasChild("announcement"),
-          noFrequentlyForwarded: m.hasChild("no_frequently_forwarded"),
-          ephemeralDuration: g ? g.ephemeralDuration : void 0,
+        g = y(p),
+        h = C(p, _),
+        v = o("WAWebGroupsQueryApi").extractLinkedParent(p),
+        S = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
+        L = {
+          subject: p.attrString("subject"),
+          restrict: p.hasChild("locked"),
+          announce: p.hasChild("announcement"),
+          noFrequentlyForwarded: p.hasChild("no_frequently_forwarded"),
+          ephemeralDuration: h ? h.ephemeralDuration : void 0,
           disappearingModeTrigger:
-            g && g.disappearingModeTrigger != null
-              ? g.disappearingModeTrigger
+            h && h.disappearingModeTrigger != null
+              ? h.disappearingModeTrigger
               : void 0,
-          disappearingModeInitiatedByMe: g
-            ? g.disappearingModeInitiatedByMe
+          disappearingModeInitiatedByMe: h
+            ? h.disappearingModeInitiatedByMe
             : void 0,
-          owner: m.hasAttr("creator")
-            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("creator"))
+          owner: p.hasAttr("creator")
+            ? o("WAWebJidToWid").userJidToUserWid(p.attrUserJid("creator"))
             : void 0,
-          creatorPn: m.hasAttr("creator_pn")
-            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("creator_pn"))
+          creatorPn: p.hasAttr("creator_pn")
+            ? o("WAWebJidToWid").userJidToUserWid(p.attrUserJid("creator_pn"))
             : null,
           creatorCountryCode:
-            v && m.hasAttr("creator_country_code")
+            S && p.hasAttr("creator_country_code")
               ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                  m.attrString("creator_country_code"),
+                  p.attrString("creator_country_code"),
                 )
               : null,
           creatorUsername:
-            v && m.hasAttr("creator_username")
-              ? m.attrString("creator_username")
+            S && p.hasAttr("creator_username")
+              ? p.attrString("creator_username")
               : null,
-          creation: m.attrTime("creation"),
-          participants: _,
-          desc: f ? f.content : void 0,
-          descId: f ? f.id : void 0,
-          subjectOwner: m.hasAttr("s_o")
-            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("s_o"))
+          creation: p.attrTime("creation"),
+          participants: f,
+          desc: g ? g.content : void 0,
+          descId: g ? g.id : void 0,
+          subjectOwner: p.hasAttr("s_o")
+            ? o("WAWebJidToWid").userJidToUserWid(p.attrUserJid("s_o"))
             : void 0,
-          subjectOwnerPn: m.hasAttr("s_o_pn")
-            ? o("WAWebJidToWid").userJidToUserWid(m.attrUserJid("s_o_pn"))
+          subjectOwnerPn: p.hasAttr("s_o_pn")
+            ? o("WAWebJidToWid").userJidToUserWid(p.attrUserJid("s_o_pn"))
             : void 0,
-          subjectOwnerUsername: v ? m.maybeAttrString("s_o_username") : void 0,
-          subjectTime: (r = m.maybeAttrTime("s_t")) != null ? r : void 0,
-          support: m.hasChild("support"),
-          isParentGroup: m.hasChild("parent"),
+          subjectOwnerUsername: S ? p.maybeAttrString("s_o_username") : void 0,
+          subjectTime: (a = p.maybeAttrTime("s_t")) != null ? a : void 0,
+          support: p.hasChild("support"),
+          isParentGroup: p.hasChild("parent"),
           isParentGroupClosed:
-            ((a = m.maybeChild("parent")) == null
+            ((i = p.maybeChild("parent")) == null
               ? void 0
-              : a.maybeAttrString("default_membership_approval_mode")) ===
+              : i.maybeAttrString("default_membership_approval_mode")) ===
             "request_required",
-          parentGroup: h ? h.parentGroup : void 0,
-          defaultSubgroup: m.hasChild("default_sub_group"),
-          generalSubgroup: m.hasChild("general_chat"),
-          size: (i = m.maybeAttrInt("size")) != null ? i : void 0,
+          parentGroup: v ? v.parentGroup : void 0,
+          defaultSubgroup: p.hasChild("default_sub_group"),
+          generalSubgroup: p.hasChild("general_chat"),
+          size: (l = p.maybeAttrInt("size")) != null ? l : void 0,
           membershipApprovalMode:
-            (m == null ||
-            (l = m.maybeChild("membership_approval_mode")) == null ||
-            (l = l.maybeChild("group_join")) == null
+            (p == null ||
+            (s = p.maybeChild("membership_approval_mode")) == null ||
+            (s = s.maybeChild("group_join")) == null
               ? void 0
-              : l.maybeAttrString("state")) === "on",
+              : s.maybeAttrString("state")) === "on",
           allowNonAdminSubGroupCreation:
-            m == null
+            p == null
               ? void 0
-              : m.hasChild("allow_non_admin_sub_group_creation"),
+              : p.hasChild("allow_non_admin_sub_group_creation"),
           generalChatAutoAddDisabled:
-            (s = t.hasChild("auto_add_disabled")) != null ? s : void 0,
-          hiddenSubgroup: m == null ? void 0 : m.hasChild("hidden_group"),
+            (u = t.hasChild("auto_add_disabled")) != null ? u : void 0,
+          hiddenSubgroup: p == null ? void 0 : p.hasChild("hidden_group"),
           groupSafetyCheck:
-            m == null ? void 0 : m.hasChild("group_safety_check"),
+            p == null ? void 0 : p.hasChild("group_safety_check"),
           groupAdder: n || void 0,
-          hasCapi: m == null ? void 0 : m.hasChild("capi"),
+          hasCapi: p == null ? void 0 : p.hasChild("capi"),
           limitSharingEnabled: o("WAWebLimitSharingGatingUtils").isOpusEnabled()
             ? !1
-            : m.hasChild("limit_sharing_enabled"),
+            : p.hasChild("limit_sharing_enabled"),
           memberLinkMode: (function (e) {
             if (
               e === o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
@@ -416,21 +419,27 @@ __d(
             if (e === o("WAWebGroupMemberLinkMode").MemberLinkMode.ADMIN_LINK)
               return o("WAWebGroupMemberLinkMode").MemberLinkMode.ADMIN_LINK;
           })(
-            (u = m.maybeChild("member_link_mode")) == null
-              ? void 0
-              : u.contentString(),
-          ),
-          memberAddMode: o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
-            (c = m.maybeChild("member_add_mode")) == null
+            (c = p.maybeChild("member_link_mode")) == null
               ? void 0
               : c.contentString(),
+          ),
+          groupReactionSettings:
+            r("justknobx")._("7606") && p.hasChild("group_reaction_settings")
+              ? o("WAWebGroupReactionSettings").parseGroupReactionSettings(
+                  p.child("group_reaction_settings"),
+                )
+              : void 0,
+          memberAddMode: o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
+            (d = p.maybeChild("member_add_mode")) == null
+              ? void 0
+              : d.contentString(),
           ),
           memberShareGroupHistoryMode: o(
             "WAWebGroupHistoryShareMode",
           ).MemberShareGroupHistoryMode.cast(
-            (d = m.maybeChild("member_share_group_history_mode")) == null
+            (m = p.maybeChild("member_share_group_history_mode")) == null
               ? void 0
-              : d.contentString(),
+              : m.contentString(),
           ),
         };
       return {
@@ -444,8 +453,8 @@ __d(
               t.attrGroupJid("context_group_jid"),
             )
           : null,
-        groupInfo: S,
-        isNewGroup: p,
+        groupInfo: L,
+        isNewGroup: _,
       };
     }
     var $ = Object.keys(
@@ -464,7 +473,7 @@ __d(
         if ((e.assertTag("notification"), e.hasAttr("to"))) {
           var t,
             n = e.attrString("to"),
-            a = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().toJid(),
+            a = o("WAWebUserUtils").getMeDeviceLidOrThrow().toJid(),
             i =
               (t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
                 ? void 0
@@ -1092,6 +1101,21 @@ __d(
                       t.attrUserJid("jid"),
                     ),
                   };
+                if (
+                  n ===
+                  o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                    .GROUP_REACTION_SETTINGS
+                )
+                  return r("justknobx")._("7606")
+                    ? {
+                        actionType:
+                          o("WAWebGroupType").GROUP_ACTIONS
+                            .GROUP_REACTION_SETTINGS,
+                        value: o(
+                          "WAWebGroupReactionSettings",
+                        ).parseGroupReactionSettings(t),
+                      }
+                    : void 0;
                 if (
                   n ===
                   o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG

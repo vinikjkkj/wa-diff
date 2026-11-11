@@ -5,9 +5,15 @@ __d(
     "WALogger",
     "WASignalKeys",
     "WAWebNoop",
+    "WAWebSchemaBasekey",
+    "WAWebSchemaIdentity",
+    "WAWebSchemaMeta",
+    "WAWebSchemaPrekey",
+    "WAWebSchemaSenderkey",
+    "WAWebSchemaSession",
+    "WAWebSchemaSignedPrekey",
     "WAWebSignalCommonUtils",
     "WAWebSignalConst",
-    "WAWebSignalStorage",
     "WAWebSignalStorageUtils",
     "asyncToGeneratorRuntime",
     "err",
@@ -23,7 +29,7 @@ __d(
         var a = t.prototype;
         return (
           (a.getMeta = function (t) {
-            var e = o("WAWebSignalStorage").getMetaTable();
+            var e = o("WAWebSchemaMeta").getTable();
             return e.get(t).then(function (e) {
               return e ? e.value : null;
             });
@@ -31,7 +37,7 @@ __d(
           (a.putMeta = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = o("WAWebSignalStorage").getMetaTable(),
+                var t = o("WAWebSchemaMeta").getTable(),
                   r = e.map(function (e) {
                     return t.createOrReplace(e);
                   });
@@ -65,27 +71,23 @@ __d(
             );
           }),
           (a.getPreKeysByRange = function (t, n) {
-            var e = o("WAWebSignalStorage").getPreKeyTable();
+            var e = o("WAWebSchemaPrekey").getTable();
             return e.greaterThan(["keyId"], t - 1, { limit: n });
           }),
           (a.getPreKeyById = function (t) {
-            var e = o("WAWebSignalStorage").getPreKeyTable();
+            var e = o("WAWebSchemaPrekey").getTable();
             return e.get(t);
           }),
-          (a.removePreKeyById = function (t) {
-            var e = o("WAWebSignalStorage").getPreKeyTable();
-            return e.remove(t);
-          }),
           (a.bulkRemovePreKey = function (t) {
-            var e = o("WAWebSignalStorage").getPreKeyTable();
+            var e = o("WAWebSchemaPrekey").getTable();
             return e.bulkRemove(t);
           }),
           (a.putPreKeys = function (t) {
-            var e = o("WAWebSignalStorage").getPreKeyTable();
+            var e = o("WAWebSchemaPrekey").getTable();
             return e.bulkCreateOrReplace(t);
           }),
           (a.markPreKeyAsDirectDistribution = function (t) {
-            var e = o("WAWebSignalStorage").getPreKeyTable();
+            var e = o("WAWebSchemaPrekey").getTable();
             return e.merge(t, { isDirectDistribution: 1 });
           }),
           (a.getSignedPreKey = function () {
@@ -102,7 +104,7 @@ __d(
               return (s || (s = n("Promise"))).resolve(
                 this.idToSignedPreKey.get(t),
               );
-            var r = o("WAWebSignalStorage").getSignedPreKeyTable();
+            var r = o("WAWebSchemaSignedPrekey").getTable();
             return r.get(t).then(function (n) {
               return (e.idToSignedPreKey.set(t, n), n);
             });
@@ -110,7 +112,7 @@ __d(
           (a.putSignedPreKeys = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = o("WAWebSignalStorage").getSignedPreKeyTable(),
+                var t = o("WAWebSchemaSignedPrekey").getTable(),
                   a = e.map(function (e) {
                     var n = e.keyId,
                       o = e.keyPair,
@@ -133,29 +135,29 @@ __d(
             return t;
           })()),
           (a.putSession = function (t, n) {
-            var e = o("WAWebSignalStorage").getSessionTable();
+            var e = o("WAWebSchemaSession").getTable();
             return e.createOrReplace({ address: t, session: n });
           }),
           (a.bulkPutSession = function (t) {
-            var e = o("WAWebSignalStorage").getSessionTable();
+            var e = o("WAWebSchemaSession").getTable();
             return e.bulkCreateOrReplace(t);
           }),
           (a.removeSession = function (t) {
-            var e = o("WAWebSignalStorage").getSessionTable();
+            var e = o("WAWebSchemaSession").getTable();
             return e.remove(t);
           }),
           (a.bulkRemoveSession = function (t) {
-            var e = o("WAWebSignalStorage").getSessionTable();
+            var e = o("WAWebSchemaSession").getTable();
             return e.bulkRemove(t);
           }),
           (a.getSession = function (t) {
-            var e = o("WAWebSignalStorage").getSessionTable();
+            var e = o("WAWebSchemaSession").getTable();
             return e.get(t).then(function (e) {
               return e ? e.session : null;
             });
           }),
           (a.bulkGetSession = function (t) {
-            var e = o("WAWebSignalStorage").getSessionTable();
+            var e = o("WAWebSchemaSession").getTable();
             return e.bulkGet(t).then(function (e) {
               return e.map(function (e) {
                 return e ? e.session : null;
@@ -163,37 +165,23 @@ __d(
             });
           }),
           (a.putIdentity = function (t, n) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.createOrReplace({ identifier: t, identityKey: n });
           }),
           (a.bulkPutIdentity = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkCreateOrReplace(t);
           }),
-          (a.bulkGetIdentity = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
-            return e.bulkGet(t).then(function (e) {
-              return e.map(function (e) {
-                return e ? e.identityKey : null;
-              });
-            });
-          }),
-          (a.getIdentity = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
-            return e.get(t).then(function (e) {
-              return e ? e.identityKey : null;
-            });
-          }),
           (a.removeIdentity = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.remove(t);
           }),
           (a.bulkRemoveIdentity = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkRemove(t);
           }),
           (a.getIdentityKeyWithRowId = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.get(t).then(function (e) {
               return e
                 ? {
@@ -206,7 +194,7 @@ __d(
             });
           }),
           (a.bulkGetIdentityKeyWithRowId = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkGet(t).then(function (e) {
               return e.map(function (e) {
                 return e
@@ -220,14 +208,14 @@ __d(
             });
           }),
           (a.getAllIdentityRows = function () {
-            return o("WAWebSignalStorage").getIdentityTable().all();
+            return o("WAWebSchemaIdentity").getTable().all();
           }),
           (a.bulkPutIdentityKeyWithRowId = function (t) {
-            var e = o("WAWebSignalStorage").getIdentityTable();
+            var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkCreateOrReplace(t);
           }),
           (a.saveBaseKey = function (t, n, r) {
-            var e = o("WAWebSignalStorage").getBaseKeyTable();
+            var e = o("WAWebSchemaBasekey").getTable();
             return e.createOrReplace({
               address: t,
               originalMsgId: n,
@@ -235,45 +223,29 @@ __d(
             });
           }),
           (a.loadBaseKey = function (t, n) {
-            var e = o("WAWebSignalStorage").getBaseKeyTable();
+            var e = o("WAWebSchemaBasekey").getTable();
             return e
               .equals(["address", "originalMsgId"], [t, n])
               .then(function (e) {
                 return e && e.length !== 0 ? e[0].baseKey : null;
               });
           }),
-          (a.deleteBaseKey = function (t, n) {
-            var e = o("WAWebSignalStorage").getBaseKeyTable();
-            return e
-              .equals(["address", "originalMsgId"], [t, n])
-              .then(function (t) {
-                if (t && t.length !== 0) return e.remove(t[0].id);
-              });
-          }),
-          (a.putSenderKey = function (t, n, r) {
-            var e = o("WAWebSignalStorage").getSenderKeyTable();
-            return e.createOrReplace({
-              senderKeyName: t,
-              senderId: n,
-              senderKey: r,
-            });
-          }),
           (a.bulkPutSenderKey = function (t) {
-            var e = o("WAWebSignalStorage").getSenderKeyTable();
+            var e = o("WAWebSchemaSenderkey").getTable();
             return e.bulkCreateOrReplace(t);
           }),
           (a.removeSenderKey = function (t) {
-            var e = o("WAWebSignalStorage").getSenderKeyTable();
+            var e = o("WAWebSchemaSenderkey").getTable();
             return e.remove(t);
           }),
           (a.getSenderKey = function (t) {
-            var e = o("WAWebSignalStorage").getSenderKeyTable();
+            var e = o("WAWebSchemaSenderkey").getTable();
             return e.get(t).then(function (e) {
               return e ? e.senderKey : null;
             });
           }),
           (a.removeSenderKeyBySenderId = function (t) {
-            var e = o("WAWebSignalStorage").getSenderKeyTable();
+            var e = o("WAWebSchemaSenderkey").getTable();
             return e.equals(["senderId"], t).then(function (t) {
               return e.bulkRemove(
                 t.map(function (e) {
@@ -283,18 +255,17 @@ __d(
             });
           }),
           (a.clearCredential = function () {
-            var e;
             ((this.registrationInfo = null), this.idToSignedPreKey.clear());
-            var t = [
-              (e = o("WAWebSignalStorage")).getIdentityTable(),
-              e.getMetaTable(),
-              e.getPreKeyTable(),
-              e.getSessionTable(),
-              e.getSignedPreKeyTable(),
+            var e = [
+              o("WAWebSchemaIdentity").getTable(),
+              o("WAWebSchemaMeta").getTable(),
+              o("WAWebSchemaPrekey").getTable(),
+              o("WAWebSchemaSession").getTable(),
+              o("WAWebSchemaSignedPrekey").getTable(),
             ];
             return (s || (s = n("Promise")))
               .all(
-                t.map(function (e) {
+                e.map(function (e) {
                   return e.clear();
                 }),
               )

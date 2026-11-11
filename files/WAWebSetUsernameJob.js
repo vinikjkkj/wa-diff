@@ -9,8 +9,8 @@ __d(
     "WAWebBackendApi",
     "WAWebMexSetUsernameJob",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsUsername",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "asyncToGeneratorRuntime",
   ],
@@ -30,7 +30,7 @@ __d(
               source: "USER_INPUT",
             });
             if (n) {
-              var r = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+              var r = o("WAWebUserUtils").getMeUserOrThrow();
               return (
                 yield p([
                   e != null

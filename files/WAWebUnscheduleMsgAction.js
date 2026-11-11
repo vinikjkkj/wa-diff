@@ -16,7 +16,7 @@ __d(
     "WAWebScheduledMsgUnscheduleDirectSend",
     "WAWebSendMsgMetricReporter",
     "WAWebSendMsgTypes",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "err",
@@ -101,8 +101,8 @@ __d(
                 ? void 0
                 : i.isLidAddressingMode) === !0,
             f = _
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              ? o("WAWebUserUtils").getMeLidUserOrThrow()
+              : o("WAWebUserUtils").getMeUserOrThrow(),
             g = m.isGroup() ? f : void 0,
             h = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),

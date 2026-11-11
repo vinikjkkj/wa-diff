@@ -322,6 +322,8 @@ __d(
                                                   e.OperationName ===
                                                     "NotificationGroupMemberShareGroupHistoryModePropertyUpdate" ||
                                                   e.OperationName ===
+                                                    "NotificationGroupCustomReactionsPropertyUpdate" ||
+                                                  e.OperationName ===
                                                     "NotificationGroupAppealStatusUpdate"
                                                 ? C(
                                                     e,
@@ -583,6 +585,7 @@ __d(
         type: "mex",
       });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e, t) {
       return R.apply(this, arguments);
     }

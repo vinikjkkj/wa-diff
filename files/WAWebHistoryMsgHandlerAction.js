@@ -62,6 +62,7 @@ __d(
     "WAWebUserPrefsModelStorage",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebVoipActionWriteCallLogSync",
     "WAWebWid",
@@ -314,9 +315,8 @@ __d(
                         var h = o(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeChangeNotificationMsg({
-                          accountTypeChangedUser: o(
-                            "WAWebUserPrefsMeUser",
-                          ).getMeUserOrThrow(),
+                          accountTypeChangedUser:
+                            o("WAWebUserUtils").getMeUserOrThrow(),
                           chatId: C,
                           newAdvAccountType: o("WAWebProtobufsAdv.pb")
                             .ADVEncryptionType.E2EE,
@@ -334,7 +334,7 @@ __d(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeSelfTransitionToCoexNotificationMsg(
                           C,
-                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                          o("WAWebUserUtils").getMeUserOrThrow(),
                         );
                         (O.push(y),
                           o(
@@ -347,9 +347,8 @@ __d(
                         var b = o(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeChangeNotificationMsg({
-                          accountTypeChangedUser: o(
-                            "WAWebUserPrefsMeUser",
-                          ).getMeUserOrThrow(),
+                          accountTypeChangedUser:
+                            o("WAWebUserUtils").getMeUserOrThrow(),
                           chatId: C,
                           newAdvAccountType: o("WAWebProtobufsAdv.pb")
                             .ADVEncryptionType.HOSTED,

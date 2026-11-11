@@ -19,6 +19,7 @@ __d(
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupQueryJob",
     "WAWebGroupSystemMsg",
+    "WAWebGroupType",
     "WAWebHandleGroupNotificationAction",
     "WAWebHandleGroupNotificationConst",
     "WAWebHandleSingleMsgWorkerCompatible",
@@ -47,6 +48,7 @@ __d(
           : o("WAWap").DROP_ATTR,
       });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e, t) {
       return g.apply(this, arguments);
     }
@@ -244,7 +246,10 @@ __d(
       };
       function s(e, r) {
         return r.actionType ===
-          o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.CREATE
+          o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+            .CREATE ||
+          r.actionType ===
+            o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS
           ? null
           : {
               writeGroupInfoUpdates: (function () {

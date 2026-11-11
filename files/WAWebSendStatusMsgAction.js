@@ -23,8 +23,8 @@ __d(
     "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
     "WAWebStatusPosterActionsLogger",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamEnumStatusContentType",
     "WAWebWamMsgUtils",
@@ -151,7 +151,7 @@ __d(
               }),
               from: o("WAWebLidStatusMigrationUtils").matWidConvert(g.from),
               author: o("WAWebLidStatusMigrationUtils").matWidConvert(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                o("WAWebUserUtils").getMeUserOrThrow(),
               ),
               canBeReshared: !1,
             }),

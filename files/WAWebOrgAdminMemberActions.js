@@ -53,8 +53,7 @@ __d(
                   "[org-admin] member removed",
                 ])),
             ),
-            v(t, l),
-            i ? f(e) : !0
+            C(e, t, l, i)
           );
         })),
         _.apply(this, arguments)
@@ -128,27 +127,33 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
+    function C(e, t, n, r) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return (v(t, n), f(e));
-        })),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = n.org,
+              i = n.rows;
+            return (
+              r === void 0 && (r = !0),
+              a != null &&
+                o("WAWebOrgBridgeApi").applyOrgRows({
+                  isFullList: !1,
+                  rows: [a],
+                }),
+              o("WAWebOrgBridgeApi").applyOrgContactRows({
+                createModels: !1,
+                lids: [t],
+                rows: i,
+              }),
+              r ? f(e) : !0
+            );
+          },
+        )),
         b.apply(this, arguments)
       );
-    }
-    function v(e, t) {
-      var n = t.org,
-        r = t.rows;
-      (n != null &&
-        o("WAWebOrgBridgeApi").applyOrgRows({ isFullList: !1, rows: [n] }),
-        o("WAWebOrgBridgeApi").applyOrgContactRows({
-          createModels: !1,
-          lids: [e],
-          rows: r,
-        }));
     }
     ((l.updateOrgMemberRole = d),
       (l.removeOrgMemberFromOrg = p),

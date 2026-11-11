@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebODS",
-    "WAWebSignalStorage",
+    "WAWebSchemaSession",
     "WAWebSignalStoreApi",
     "WAWebUserPrefsSignalSessionCleanup",
     "asyncToGeneratorRuntime",
@@ -26,8 +26,8 @@ __d(
           )
             try {
               var t = [];
-              (yield o("WAWebSignalStorage")
-                .getSessionTable()
+              (yield o("WAWebSchemaSession")
+                .getTable()
                 .forEach(function (e) {
                   var n = e.address,
                     r = e.session;

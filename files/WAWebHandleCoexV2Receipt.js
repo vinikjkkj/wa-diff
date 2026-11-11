@@ -16,6 +16,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -122,7 +123,7 @@ __d(
             ) {
               yield o("WAWebHandleDirectChatReceipt").handleChatSimpleReceipt(
                 babelHelpers.extends({}, t, {
-                  from: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  from: o("WAWebUserUtils").getMeLidUserOrThrow(),
                   participant: null,
                   recipient: S.partner,
                   offline: y ? m : null,
@@ -195,7 +196,7 @@ __d(
             )
           : null
         : e === o("WAWebAck").ACK_STRING.READ_SELF
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : null;
     }
     function C(e, t) {
@@ -213,7 +214,7 @@ __d(
     function b(e, t, n) {
       return e === o("WAWebAck").ACK_STRING.SENDER ||
         e === o("WAWebAck").ACK_STRING.PLAYED_SELF
-        ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+        ? o("WAWebUserUtils").getMeLidUserOrThrow()
         : e === o("WAWebAck").ACK_STRING.PLAYED
           ? t != null
             ? o("WAWebLidMigrationUtils").toUserLid(

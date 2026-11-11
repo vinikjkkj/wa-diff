@@ -1,6 +1,13 @@
 __d(
   "WAWebUserUtils",
-  ["WALogger", "WAWebUserPrefsMeUser", "WAWebWidFactory", "err", "nullthrows"],
+  [
+    "WALogger",
+    "WAWebBeyondPhoneNumberGatingUtils",
+    "WAWebUserPrefsMeUser",
+    "WAWebWidFactory",
+    "err",
+    "nullthrows",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
@@ -16,7 +23,7 @@ __d(
       );
     }
     function c() {
-      var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+      var e = h();
       return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
         e.user,
         e.server,
@@ -24,13 +31,12 @@ __d(
       );
     }
     function d() {
-      return [
-        o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-        o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
-      ].filter(Boolean);
+      return [h(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
+        Boolean,
+      );
     }
     function m(t) {
-      if (t.isLid()) return o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+      if (t.isLid()) return g();
       var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       if (n != null) return n;
       throw (
@@ -45,11 +51,47 @@ __d(
         r("err")("no matching self PN for given PN wid")
       );
     }
+    function p() {
+      return o(
+        "WAWebBeyondPhoneNumberGatingUtils",
+      ).removePnDependenciesEnabled()
+        ? g()
+        : f();
+    }
+    function _() {
+      return o(
+        "WAWebBeyondPhoneNumberGatingUtils",
+      ).removePnDependenciesEnabled()
+        ? h()
+        : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+    }
+    function f() {
+      return o("WAWebWidFactory").asUserWidOrThrow(
+        o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+      );
+    }
+    function g() {
+      return r("nullthrows")(
+        o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
+        "meLidUser",
+      );
+    }
+    function h() {
+      return r("nullthrows")(
+        o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
+        "meLid",
+      );
+    }
     ((l.getMaybeMeDeviceId = s),
       (l.getMeDisplayNameOrThrow = u),
       (l.getMyPrimaryForOutgoingPeerMessage = c),
       (l.getMeDeviceWids = d),
-      (l.getMeUserMatchingAddressingModeOrThrow = m));
+      (l.getMeUserMatchingAddressingModeOrThrow = m),
+      (l.getMeUserOrThrow = p),
+      (l.getMeDeviceOrThrow = _),
+      (l.getMePnUserOrThrow_DO_NOT_USE = f),
+      (l.getMeLidUserOrThrow = g),
+      (l.getMeDeviceLidOrThrow = h));
   },
   98,
 );

@@ -21,7 +21,7 @@ __d(
     "WAWebMsgProcessingApiUtils",
     "WAWebParseWebMessageInfoApi",
     "WAWebReportingTokenConstants",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -73,7 +73,7 @@ __d(
                       i = null,
                       l = [];
                     if (e.key.fromMe === !0)
-                      ((i = o("WAWebUserPrefsMeUser").getMeUserOrThrow()),
+                      ((i = o("WAWebUserUtils").getMeUserOrThrow()),
                         (l = e.userReceipt.filter(function (e) {
                           return (
                             e.readTimestamp != null && e.readTimestamp !== 0

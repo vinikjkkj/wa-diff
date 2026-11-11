@@ -31,6 +31,7 @@ __d(
     "WAWebShouldTriggerQueryGroupInfo",
     "WAWebUpdateDbForGroupActionApi",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "justknobx",
   ],
@@ -125,8 +126,8 @@ __d(
     function D(e, t, n) {
       var r =
         n.defaultSubgroup === !0 || n.isLidAddressingMode === !0
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
+          : o("WAWebUserUtils").getMeUserOrThrow();
       if (
         (!o("WAWebUserPrefsMeUser").isMeAccount(e.author) ||
           t.reason === o("WAWebGroupType").ADD_REASON.INVITE_AUTO_ADD) &&

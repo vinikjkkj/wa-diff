@@ -8,6 +8,7 @@ __d(
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchMinPrimaryVersions",
     "WAWebHatchUrl",
+    "WAWebMuseCtaLinkOverride",
     "WAWebMuseDefaultAssistantVariant",
     "WAWebMuseDefaultAssistantVariantSource",
     "WAWebPrimaryFeaturesModel",
@@ -256,7 +257,9 @@ __d(
             .MuseAlways
         ? !1
         : o("WAWebBotGating").isBotShortcutEntryPointEnabled() &&
-            (t || o("WAWebHatchUrl").getHatchJoinUrl() != null) &&
+            (t ||
+              (o("WAWebHatchUrl").getHatchJoinUrl() != null &&
+                !o("WAWebMuseCtaLinkOverride").isTryMuseKillSwitchOn())) &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
     function A(e) {

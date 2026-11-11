@@ -10,6 +10,7 @@ __d(
     "WAWebProtobufsMmsRetry.pb",
     "WAWebRequestMediaReuploadManager",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -104,7 +105,7 @@ __d(
               l != null
                 ? l
                 : o("WAWebCommsWapMd").USER_JID(
-                    o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                    o("WAWebUserUtils").getMeUserOrThrow(),
                   ),
             participant: f || o("WAWap").DROP_ATTR,
           });

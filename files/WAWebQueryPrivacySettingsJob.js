@@ -9,7 +9,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebMexGetPrivacySetting",
     "WAWebPrivacySettings",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -144,7 +144,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+          var e = o("WAWebUserUtils").getMeDeviceLidOrThrow();
           if (
             o("WAWebABProps").getABPropConfigValue(
               "mex_get_privacy_settings_mode",

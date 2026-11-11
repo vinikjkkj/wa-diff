@@ -9,7 +9,7 @@ __d(
     "WAWebCanonicalUtils",
     "WAWebODS",
     "WAWebUserPrefsCanonical",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -91,9 +91,7 @@ __d(
               return;
             }
             if (t !== !0 && !b(i)) return;
-            var u = o("WAWebUserPrefsMeUser")
-                .getMeDeviceLidOrThrow()
-                .getDeviceId(),
+            var u = o("WAWebUserUtils").getMeDeviceLidOrThrow().getDeviceId(),
               y = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken(
                 { userId: Number(s), deviceId: u, nonce: l },
                 "recovery",

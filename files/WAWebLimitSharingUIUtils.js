@@ -40,6 +40,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumToggleUpdateAction",
     "WAWebWid",
     "WAWebWidFactory",
@@ -197,7 +198,7 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebLimitSharingGatingUtils").isOpusEnabled()) {
             var t = g(e == null ? void 0 : e.limitSharing),
-              a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              a = o("WAWebUserUtils").getMeLidUserOrThrow(),
               i = o("WATimeUtils").unixTime(),
               l = {
                 sharingLimited: !t,

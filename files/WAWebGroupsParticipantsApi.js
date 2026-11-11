@@ -11,6 +11,7 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -71,7 +72,7 @@ __d(
             l = t.toString(),
             s = !1,
             u = [],
-            c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            c = o("WAWebUserUtils").getMeLidUserOrThrow(),
             d = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
               .get(l);
@@ -169,7 +170,7 @@ __d(
             a = e.participants,
             i = t.toString(),
             l = [],
-            s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            s = o("WAWebUserUtils").getMeLidUserOrThrow(),
             u = a.some(function (e) {
               return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
             }),

@@ -28,8 +28,8 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
     "WAWebStatusPosterActionsLogger",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamMsgUtils",
     "WAWebWidFactory",
@@ -235,7 +235,7 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             n = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              o("WAWebUserUtils").getMeUserOrThrow(),
             ),
             a = o("WAWebLidStatusMigrationUtils").matWidConvert(n),
             i = new (r("WAWebMsgKey"))({

@@ -1,6 +1,6 @@
 __d(
   "WAWebOutgoingPeerMsgKey",
-  ["WAWebMsgKey", "WAWebUserPrefsMeUser"],
+  ["WAWebMsgKey", "WAWebUserPrefsMeUser", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t;
@@ -9,7 +9,7 @@ __d(
         remote:
           (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
             ? t
-            : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            : o("WAWebUserUtils").getMeLidUserOrThrow(),
         id: e,
       });
     }

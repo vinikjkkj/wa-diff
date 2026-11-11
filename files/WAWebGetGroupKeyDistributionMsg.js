@@ -13,6 +13,7 @@ __d(
     "WAWebIdentityIcdcApi",
     "WAWebSendMsgCommonApi",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -130,7 +131,7 @@ __d(
             a = e.proto,
             i = e.shouldWrapDeviceSendMessage,
             l = e.skDistributionList,
-            s = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            s = o("WAWebUserUtils").getMeUserOrThrow(),
             c = [].concat(
               Array.from(new Set(l.map(o("WAWebWidFactory").asUserWidOrThrow))),
             ),

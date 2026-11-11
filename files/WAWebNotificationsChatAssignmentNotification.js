@@ -12,7 +12,7 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -104,7 +104,7 @@ __d(
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
               this.abortController.signal,
               o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
             );

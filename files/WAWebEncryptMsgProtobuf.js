@@ -12,7 +12,7 @@ __d(
     "WAWebSendMsgCommonApi",
     "WAWebSignal",
     "WAWebSignalSessionApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumE2eDestination",
     "WAWebWamEnumEditType",
@@ -156,7 +156,7 @@ __d(
               ),
               m = o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
             m != null && (d.agentEngagementType = m);
-            var p = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+            var p = o("WAWebUserUtils").getMeDeviceLidOrThrow();
             try {
               return babelHelpers.extends(
                 {},

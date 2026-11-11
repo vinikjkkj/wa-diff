@@ -2,17 +2,16 @@ __d(
   "WAWebStickerPackUtils",
   [
     "Promise",
-    "WABlobToArrayBuffer",
     "WAMediaCalculateFilehash",
     "WAWebApiParse",
     "WAWebCanvasUtils",
+    "WAWebMediaBoundedUnzip",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaLoad",
     "WAWebStickerModel",
     "WAWebStickerPackConstants",
     "asyncToGeneratorRuntime",
     "err",
-    "fflate",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,8 +24,10 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e instanceof Blob ? e : e.getBlob();
           if (t == null) throw r("err")("blob is null");
-          var n = yield o("WABlobToArrayBuffer").blobToArrayBuffer(t);
-          return o("fflate").unzipSync(new Uint8Array(n));
+          return o("WAWebMediaBoundedUnzip").unzipBlobWithLimits(
+            t,
+            o("WAWebMediaBoundedUnzip").STICKER_PACK_ZIP_LIMITS,
+          );
         })),
         u.apply(this, arguments)
       );

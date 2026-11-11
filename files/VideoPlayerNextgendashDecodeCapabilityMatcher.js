@@ -51,17 +51,24 @@ __d(
               "VideoPlayerSmartPlayerDecodeCapabilityPolicy",
             ).isVideoPlayerSmartPlayerDecodeCapabilityPlayable(l) && r.push(i));
       }
-      return {
-        candidateCount: n.length,
-        matchedCount: a,
-        outcome:
-          r.length < n.length
-            ? "filtered"
-            : a > 0
-              ? "matched_unfiltered"
-              : "unmatched",
-        representations: r,
-      };
+      return r.length === 0
+        ? {
+            candidateCount: n.length,
+            matchedCount: a,
+            outcome: "all_filtered",
+            representations: n,
+          }
+        : {
+            candidateCount: n.length,
+            matchedCount: a,
+            outcome:
+              r.length < n.length
+                ? "filtered"
+                : a > 0
+                  ? "matched_unfiltered"
+                  : "unmatched",
+            representations: r,
+          };
     }
     ((l.getVideoPlayerNextgendashDecodeCapability = e),
       (l.isVideoPlayerNextgendashRepresentationPlayable = s),

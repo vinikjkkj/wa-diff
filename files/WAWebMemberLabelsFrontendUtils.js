@@ -8,6 +8,7 @@ __d(
     "WAWebMemberLabelCollection",
     "WAWebMemberLabelHooks",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidToJid",
   ],
@@ -53,12 +54,12 @@ __d(
     }
     function _(e) {
       if (e == null) return !1;
-      var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+      var t = o("WAWebUserUtils").getMeLidUserOrThrow();
       return p({ from: "chat_and_member", chatId: e, member: t });
     }
     function f(t) {
       if (t) {
-        var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
           r = e(t, n);
         if (r) return g(r);
       }

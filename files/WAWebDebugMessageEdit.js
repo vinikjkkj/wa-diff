@@ -20,7 +20,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUserPrefsDebugMsgEdit",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -260,7 +260,7 @@ __d(
               },
             ).join(""),
             s = t != null ? t : "ORPHAN_TEST_" + l,
-            u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            u = o("WAWebUserUtils").getMeUserOrThrow(),
             c = i.isGroup() ? o("WAWebWidFactory").asUserWidOrThrow(u) : void 0,
             d = new (r("WAWebMsgKey"))({
               id: r("WAWebMsgKey").newId_DEPRECATED(),

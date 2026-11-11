@@ -616,8 +616,7 @@ __d(
         ie.apply(this, arguments)
       );
     }
-    ((l.getStatusContacts = o("WAWebStatusContactUtils").getStatusContacts),
-      (l.setStatusPrivacyConfig = c),
+    ((l.setStatusPrivacyConfig = c),
       (l.calculateStatusPrivacyUpdateEntries = d),
       (l.getStatusPrivacySetting = m),
       (l.getStatusAllowList = _),

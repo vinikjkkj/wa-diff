@@ -417,6 +417,9 @@ __d(
         case "CHANNEL_STATUS_ADMIN_INSIGHTS":
           return o("WAWebCommonNewsletterEnums").NewsletterCapability
             .CHANNEL_STATUS_ADMIN_INSIGHTS;
+        case "QUESTION_RESPONSE_LIKES":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .QUESTION_RESPONSE_LIKES;
         default:
           return (
             o("WALogger")

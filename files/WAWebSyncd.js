@@ -8,7 +8,7 @@ __d(
     "WAWebGetPendingMutation",
     "WAWebGetSyncAction",
     "WAWebGetSyncKey",
-    "WAWebSyncdAntiTampering",
+    "WAWebSyncdAntiTamperingLtHash",
     "WAWebSyncdCollectionsStateMachine",
     "WAWebSyncdConst",
     "WAWebSyncdCriticalBootstrapProcessingApi",
@@ -429,7 +429,7 @@ __d(
               {
                 collection: e[0],
                 lidMigrationStage: o(
-                  "WAWebSyncdAntiTampering",
+                  "WAWebSyncdAntiTamperingLtHash",
                 ).getLidMigrationStage(),
               },
             ));

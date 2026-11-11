@@ -30,6 +30,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
     "WAWebVoipActivityTracker",
@@ -1007,7 +1008,7 @@ __d(
                 o("WAWebVoipCancelOutgoingCall").cancelPendingOutgoingCall();
                 return;
               }
-              var _ = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              var _ = o("WAWebUserUtils").getMeLidUserOrThrow(),
                 f = _
                   ? o("WAWebContactCollection").ContactCollection.get(_)
                   : null,
@@ -1802,7 +1803,7 @@ __d(
       return (
         (at = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = !1);
-          var r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var r = o("WAWebUserUtils").getMeLidUserOrThrow(),
             a = e.map(function (e) {
               return o("WAWebLidMigrationUtils").toLid(e);
             }),

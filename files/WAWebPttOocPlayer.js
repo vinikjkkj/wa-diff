@@ -402,6 +402,7 @@ __d(
         var k;
         (t[5] !== n || t[6] !== a
           ? ((k = s.jsx(o("WAWebName.react").ContactAndGroupName, {
+              showOrgIcon: !1,
               contact: n,
               chatId: a,
               xstyle: b.senderName,
@@ -428,6 +429,7 @@ __d(
         var T;
         (t[11] !== n || t[12] !== L
           ? ((T = s.jsx(o("WAWebName.react").Name, {
+              showOrgIcon: !1,
               contact: n,
               useShortName: !0,
               xstyle: b.senderName,

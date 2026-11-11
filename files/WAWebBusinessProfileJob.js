@@ -9,7 +9,7 @@ __d(
     "WAWebBizGetPriceTiersQuery",
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -81,7 +81,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            n = o("WAWebUserUtils").getMeUserOrThrow(),
             a = yield o(
               "WAWebBizCatalogManagementUpdateCommerceSettings",
             ).updateCommerceSettings({

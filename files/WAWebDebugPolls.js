@@ -19,7 +19,7 @@ __d(
     "WAWebPollsSendPollResultSnapshotMsgAction",
     "WAWebPollsSendVoteMsgAction",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -42,7 +42,7 @@ __d(
           ? t
           : r("WAWebNewsletterCollection").getActive();
       if (u == null) throw r("err")("You must open a chat first");
-      var c = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var c = o("WAWebUserUtils").getMeUserOrThrow(),
         d = u.contact.id,
         m = Math.round(Date.now() / 1e3),
         p = new (r("WAWebMsgKey"))({

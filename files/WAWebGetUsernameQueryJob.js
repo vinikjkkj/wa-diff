@@ -8,8 +8,8 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSetUsernameJob",
     "WAWebSetUsernameKeyQueryJob",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsUsername",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "asyncToGeneratorRuntime",
   ],
@@ -59,7 +59,7 @@ __d(
                         ])),
                     )
                     .sendLogs("getUsernameJob-invalid-username-key"));
-            var u = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+            var u = o("WAWebUserUtils").getMeUserOrThrow();
             return (
               yield o("WAWebSetUsernameJob").setUsernamesJob([
                 i != null

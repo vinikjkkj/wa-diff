@@ -10,7 +10,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUtilsYoutubeUrlParser",
     "WAWebWidFactory",
     "WAWebWidToJid",
@@ -29,7 +29,7 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.nonce != null) return e.nonce;
           var t = o("WAWebMsgGetters").getSender(e),
-            n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+            n = o("WAWebUserUtils").getMeLidUserOrThrow();
           if (t == null) return null;
           var r = e.messageSecret,
             a = e.rcat;

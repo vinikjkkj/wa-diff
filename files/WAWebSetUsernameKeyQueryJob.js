@@ -7,7 +7,7 @@ __d(
     "WAWebMexSetUsernameKeyJob",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,7 +31,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var t = o("WAWebUserUtils").getMeUserOrThrow(),
             a = t.toJid(),
             i = { id: a, usernameKey: e != null ? e : void 0 };
           (yield o("WAWebModelStorageUtils")

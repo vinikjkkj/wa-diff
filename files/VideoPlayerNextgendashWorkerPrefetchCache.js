@@ -406,26 +406,28 @@ __d(
           );
         }),
         a = r;
-      n.enableSmartPlayerStaticCapabilityFiltering === !0 &&
-        (a = r.filter(function (e) {
+      if (n.enableSmartPlayerStaticCapabilityFiltering === !0) {
+        var i = r.filter(function (e) {
           return o(
             "VideoPlayerNextgendashDecodeCapabilityMatcher",
           ).isVideoPlayerNextgendashRepresentationPlayable(
             n.smartPlayerVideoDecodeCapabilities,
             z(e, !1),
           );
-        }));
-      var i =
+        });
+        i.length > 0 && (a = i);
+      }
+      var l =
           e.config.mediaSinkType === "WEBCODECS"
             ? o(
                 "VideoPlayerNextgendashWebCodecsDimensions",
               ).filterVideoPlayerNextgendashWebCodecsRepresentations(a)
             : a,
-        l = i.filter(function (e) {
+        s = l.filter(function (e) {
           var t = Math.min(e.width, e.height);
           return t / n.devicePixelRatio <= n.prefetchResolutionThreshold;
         });
-      return l.length > 0 ? l : i.length > 0 ? [i[0]] : [];
+      return s.length > 0 ? s : l.length > 0 ? [l[0]] : [];
     }
     function K(e, t, n) {
       var r = e.get(t);

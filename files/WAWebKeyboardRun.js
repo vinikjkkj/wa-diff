@@ -42,8 +42,8 @@ __d(
     "WAWebSocketModel",
     "WAWebThemeContext",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsScreenLock",
+    "WAWebUserUtils",
     "WAWebVoipCallStateUtils",
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipMicrophonePermissionDeniedGuideLoadable.react",
@@ -297,7 +297,7 @@ __d(
             ? e
             : !1;
       r && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft();
-      var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var a = o("WAWebUserUtils").getMeUserOrThrow(),
         i = o(
           "WAWebProfilePicThumbCollection",
         ).ProfilePicThumbCollection.assertGet(a),
@@ -626,7 +626,7 @@ __d(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
-            var n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
               r = e.isHandRaisedForParticipant(n);
             (o("WAWebCallUserJourneyInCallAction").logInCallAction(
               r

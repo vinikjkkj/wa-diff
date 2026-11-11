@@ -1,10 +1,10 @@
 __d(
   "WAWebSelfCatalogLookup",
-  ["WAWebCatalogCollection", "WAWebUserPrefsMeUser"],
+  ["WAWebCatalogCollection", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebCatalogCollection").CatalogCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        o("WAWebUserUtils").getMeUserOrThrow(),
       );
     }
     l.getSelfCatalog = e;

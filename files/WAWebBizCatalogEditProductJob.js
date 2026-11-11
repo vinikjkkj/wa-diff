@@ -7,7 +7,7 @@ __d(
     "WAWebBizCatalogManagementParseProductGraphql",
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -36,7 +36,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
-            i = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            i = o("WAWebUserUtils").getMeUserOrThrow(),
             l = yield o("WAWebBizCatalogManagementEditProduct").editProduct({
               product: {
                 biz_jid:

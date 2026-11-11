@@ -6,7 +6,7 @@ __d(
     "WAWebAddonEncryption",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "err",
@@ -90,7 +90,7 @@ __d(
             l = i == null ? void 0 : i.id;
           if (n == null || a == null || l == null || t == null)
             throw r("err")("[coexv2] incomplete secret-encrypted edit");
-          var s = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var s = o("WAWebUserUtils").getMeUserOrThrow(),
             u = yield o("WAWebAddonEncryption").decryptAddOn(
               {
                 type: o("WAWebMsgType").MsgKind.MessageEditEncrypted,

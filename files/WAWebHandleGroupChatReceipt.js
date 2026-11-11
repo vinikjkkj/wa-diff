@@ -10,6 +10,7 @@ __d(
     "WAWebOfflineHandler",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -64,8 +65,8 @@ __d(
           } else
             h =
               _.isLid() || u
-                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+                ? o("WAWebUserUtils").getMeLidUserOrThrow()
+                : o("WAWebUserUtils").getMeUserOrThrow();
           var y = i.map(function (e) {
             return new (r("WAWebMsgKey"))({
               id: e,

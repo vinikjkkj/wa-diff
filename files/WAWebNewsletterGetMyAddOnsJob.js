@@ -9,7 +9,7 @@ __d(
     "WAWebNewsletterDBUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPollOptionHashUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -84,7 +84,7 @@ __d(
         ? null
         : {
             parentMsgKey: a,
-            senderUserJid: o("WAWebUserPrefsMeUser").getMeUserOrThrow().toJid(),
+            senderUserJid: o("WAWebUserUtils").getMeUserOrThrow().toJid(),
             reactionText: i,
             timestamp: l * 1e3,
             orphan: 0,

@@ -8,7 +8,7 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebProductSelectors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,7 +26,7 @@ __d(
             fromMe: !0,
           }),
           from: n,
-          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          to: o("WAWebUserUtils").getMeUserOrThrow(),
           t: o("WATimeUtils").unixTime(),
           type: o("WAWebMsgType").MSG_TYPE.PRODUCT,
           kind: o("WAWebMsgType").MsgKind.Product,

@@ -139,7 +139,12 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!(!o("WAWebBotBaseGating").isAiSubscriptionEnabled() || !C()))
+          if (
+            !(
+              !o("WAWebBotBaseGating").isAiSubscriptionPurchaseCtaEnabled() ||
+              !C()
+            )
+          )
             try {
               yield o(
                 "WAWebSubscriptionAgeGatingPrefs",

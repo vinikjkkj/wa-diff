@@ -31,6 +31,7 @@ __d(
     "WAWebScheduledMsgRevealChatUtils",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -653,7 +654,7 @@ __d(
         i = e.msgId,
         l = e.scheduledTimestampS,
         s = e.text,
-        u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        u = o("WAWebUserUtils").getMeLidUserOrThrow(),
         c = e.type === "group" ? e.senderWid : null,
         d = i.includes("_") ? r("WAWebMsgKey").fromString(i).id : i,
         m = new (r("WAWebMsgKey"))({

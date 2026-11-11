@@ -33,9 +33,6 @@ __d(
         (t.setSenderKeyDistributionCount = function (t) {
           this.$4 = t;
         }),
-        (t.setMessageIsInvisible = function (t) {
-          this.$12 = t;
-        }),
         (t.setMessageIsFirstUserMessage = function (t) {
           this.$13 = t;
         }),

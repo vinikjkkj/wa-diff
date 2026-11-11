@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebMexUsync",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "vulture",
   ],
@@ -21,9 +21,7 @@ __d(
               ? {
                   users: [
                     {
-                      jid: o("WAWebUserPrefsMeUser")
-                        .getMeDeviceLidOrThrow()
-                        .toJid(),
+                      jid: o("WAWebUserUtils").getMeDeviceLidOrThrow().toJid(),
                     },
                   ],
                   telemetry: { context: "INTERACTIVE" },

@@ -41,12 +41,21 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    function u(e) {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebMessageQueryService").MessageQueryService,
+            ).msgCountStarred
+          : o("WAWebDBMessageFindLocal").msgCountStarred
+      )({ chat: e });
+    }
+    function c(e, t, n) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r =
               typeof t == "number" && !Number.isNaN(t)
                 ? t
@@ -66,15 +75,15 @@ __d(
             "msgCollectionGetEvents",
           );
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r =
               typeof t == "number" && !Number.isNaN(t)
                 ? t
@@ -90,15 +99,15 @@ __d(
             "msgCollectionGetGroupMemberUpdates",
           );
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
               typeof e == "number" && !isNaN(e)
                 ? e
@@ -117,15 +126,15 @@ __d(
             "msgCollectionGetVoipCallLogs",
           );
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.count,
             n = e.direction,
             r = e.msgKey,
@@ -150,15 +159,15 @@ __d(
             "msgCollectionGetAllMedia",
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebDBGroupAgentRichResponseLinkBackfill",
           ).backfillGroupAgentRichResponseLinkIndex(e);
@@ -171,15 +180,15 @@ __d(
                 "msgCollectionQueryMedia",
               );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o) {
-      return b.apply(this, arguments);
+    function b(e, t, n, r, o) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
             var i =
                 o("WATypeUtils").isNumber(t) && t !== 0
@@ -216,16 +225,17 @@ __d(
                 });
           },
         )),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
     ((l.getStarred = e),
-      (l.getEventMsgs = u),
-      (l.getGroupMemberUpdateMsgs = d),
-      (l.getVoipCallLogMsgs = p),
-      (l.getAllDocsMsgs = f),
-      (l.backfillGroupAgentRichResponseLinks = h),
-      (l.queryMedia = C));
+      (l.countStarred = u),
+      (l.getEventMsgs = c),
+      (l.getGroupMemberUpdateMsgs = m),
+      (l.getVoipCallLogMsgs = _),
+      (l.getAllDocsMsgs = g),
+      (l.backfillGroupAgentRichResponseLinks = y),
+      (l.queryMedia = b));
   },
   98,
 );

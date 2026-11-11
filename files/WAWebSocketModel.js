@@ -36,6 +36,7 @@ __d(
     "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebUserUtils",
     "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
@@ -562,7 +563,7 @@ __d(
               }));
           }),
           (i.openStream = function () {
-            var e = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+            var e = o("WAWebUserUtils").getMeUserOrThrow();
             if (e) {
               var t;
               return (

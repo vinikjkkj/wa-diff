@@ -164,7 +164,11 @@ __d(
           }),
           (t.isGroupReactionsDescriptionTransportEnabled = function () {
             return (
-              r("gkx")("26258") === !1 && this.isGroupReactionsEditorEnabled()
+              r("gkx")("26258") === !1 &&
+              this.isGroupReactionsEditorEnabled() &&
+              !o("WAWebABProps").getABPropConfigValue(
+                "aura_group_reactions_server_field_enabled",
+              )
             );
           }),
           (t.canUsePremiumSticker = function (t) {

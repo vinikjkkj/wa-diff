@@ -7,7 +7,7 @@ __d(
     "WAWebNewsletterAdminProfilesSmaxUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebReactionsBEUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -26,7 +26,7 @@ __d(
             jidType: "newsletter",
             newsletterJid: i.from,
           }),
-          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          to: o("WAWebUserUtils").getMeUserOrThrow(),
           newsletterAdminProfile: o(
             "WAWebNewsletterAdminProfilesSmaxUtils",
           ).mapAdminProfileInfoFromAdminProfileMixin(i.adminProfileMetaMixin),

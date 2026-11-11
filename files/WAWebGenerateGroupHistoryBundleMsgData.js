@@ -26,7 +26,7 @@ __d(
     "WAWebSerializeGroupHistoryMessages",
     "WAWebStartMediaUploadQpl",
     "WAWebUploadManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumUploadOriginType",
     "WAWebWidFactory",
@@ -123,7 +123,7 @@ __d(
               k.byteLength,
             );
             var $ = self.crypto.getRandomValues(new Uint8Array(32)),
-              P = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              P = o("WAWebUserUtils").getMeLidUserOrThrow(),
               N = new (r("WAWebMsgKey"))({
                 fromMe: !0,
                 remote: f,

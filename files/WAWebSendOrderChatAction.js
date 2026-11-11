@@ -11,6 +11,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -93,7 +94,7 @@ __d(
             i = e.message,
             l = e.order,
             s = e.thumbnail,
-            u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            u = o("WAWebUserUtils").getMeUserOrThrow(),
             c = l.price.total,
             d = {
               type: "order",

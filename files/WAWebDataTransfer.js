@@ -24,19 +24,6 @@ __d(
         }
         var r = t.prototype;
         return (
-          (r.getItems = function () {
-            var e = this;
-            if (this.data.items)
-              return Array.prototype.slice.call(this.data.items);
-            var t = this.$1();
-            return this.types.map(function (n) {
-              return {
-                type: n,
-                data: e.data.getData(n),
-                kind: t.includes(n) ? "string" : "file",
-              };
-            });
-          }),
           (r.$1 = function () {
             return Array.prototype.slice
               .call(this.data.files)

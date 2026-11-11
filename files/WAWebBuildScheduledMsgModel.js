@@ -11,7 +11,7 @@ __d(
     "WAWebMsgType",
     "WAWebScheduledMsgExtractText",
     "WAWebScheduledMsgOutgoingMsgKey",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "getErrorSafe",
@@ -42,7 +42,7 @@ __d(
           null
         );
       }
-      var u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+      var u = o("WAWebUserUtils").getMeLidUserOrThrow(),
         c = l.isGroup(),
         d = o(
           "WAWebScheduledMsgOutgoingMsgKey",

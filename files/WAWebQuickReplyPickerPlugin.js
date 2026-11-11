@@ -23,6 +23,7 @@ __d(
     "WAWebSendTextMsgChatAction",
     "WAWebUserPrefsCustomPaymentMethods",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumPaymentActionTypes",
     "WDSButton.react",
     "WDSIconIcEdit.react",
@@ -258,7 +259,7 @@ __d(
         a =
           (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
             ? t
-            : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            : o("WAWebUserUtils").getMeUserOrThrow(),
         i = o(
           "WAWebQuickReplyBusinessProfileUtils",
         ).getOwnQuickReplyBusinessProfile(),
@@ -297,7 +298,7 @@ __d(
         a =
           (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
             ? t
-            : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            : o("WAWebUserUtils").getMeUserOrThrow(),
         i = o("WAWebContactCollection").ContactCollection.get(a);
       !n ||
         !i ||

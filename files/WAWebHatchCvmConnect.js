@@ -11,7 +11,7 @@ __d(
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchVmCredentials",
     "WAWebHatchVmSession",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -34,7 +34,7 @@ __d(
           var t = e.acceptLanguage,
             n = e.credentials,
             a = e.isStillWanted,
-            i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            i = o("WAWebUserUtils").getMeLidUserOrThrow(),
             l = yield o("WAWebHatchCvmSecretPref").readHatchCvmSecret();
           if (l == null)
             return {
@@ -174,7 +174,7 @@ __d(
     function R(e) {
       o("WAWebHatchCvmSecretPref")
         .saveHatchCvmVmType(
-          o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          o("WAWebUserUtils").getMeLidUserOrThrow(),
           e.confidential === !0 ? "confidential" : "standard",
         )
         .catch(function (e) {

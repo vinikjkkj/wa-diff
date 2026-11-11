@@ -10,7 +10,7 @@ __d(
     "WAWebFetchWassBotListProfilesGQL",
     "WAWebHatchLinkedStatusManager",
     "WAWebReconcileBotSupportFields",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,10 +33,7 @@ __d(
             "WAWebFetchWassBotListProfilesGQL",
           ).fetchWassBotListProfilesGQL();
           if (e.type !== "success") return null;
-          var t = g(
-            e.profiles,
-            o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user,
-          );
+          var t = g(e.profiles, o("WAWebUserUtils").getMeLidUserOrThrow().user);
           return t == null
             ? null
             : o("WAWebReconcileBotSupportFields").upsertListedAgentProfile(

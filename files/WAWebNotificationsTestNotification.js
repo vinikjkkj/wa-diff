@@ -5,7 +5,7 @@ __d(
     "WAWebBaseNotification",
     "WAWebNotificationIconUtils",
     "WAWebPushNotificationsGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "fbs",
   ],
@@ -50,7 +50,7 @@ __d(
                 .toString();
             return babelHelpers.extends(
               {
-                wid: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                wid: o("WAWebUserUtils").getMeUserOrThrow(),
                 title: e,
                 body: t,
                 doNotOpenChat: !0,

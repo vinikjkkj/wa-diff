@@ -190,6 +190,19 @@ __d(
         "wa_web_status_composer_quick_replies_enabled",
       );
     }
+    function B() {
+      return q(1);
+    }
+    function W() {
+      return q(2);
+    }
+    function q(e) {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_status_viewer_refresh_level",
+        ) >= e
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isStatusLikesPosterCounterEnabled = d),
@@ -218,7 +231,9 @@ __d(
       (l.isStatusFileDropEnabled = w),
       (l.isStatusCompanionReadSyncEnabled = A),
       (l.isStatusBadUxLoggingParityEnabled = F),
-      (l.isStatusComposerQuickRepliesEnabled = O));
+      (l.isStatusComposerQuickRepliesEnabled = O),
+      (l.isStatusViewerFramedMediaEnabled = B),
+      (l.isStatusViewerFramedControlsEnabled = W));
   },
   98,
 );

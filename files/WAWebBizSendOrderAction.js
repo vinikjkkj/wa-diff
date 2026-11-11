@@ -28,6 +28,7 @@ __d(
     "WAWebUserPrefsCustomPaymentMethods",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsPaymentInfo",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -67,7 +68,7 @@ __d(
             d = e.nativeFlowName,
             m = e.nfmInteractiveMsg,
             p = e.thumbnail,
-            _ = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            _ = o("WAWebUserUtils").getMeUserOrThrow(),
             f = p
               ? {
                   title: void 0,

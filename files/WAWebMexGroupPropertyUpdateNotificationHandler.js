@@ -5,11 +5,13 @@ __d(
     "WATimeUtils",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
+    "WAWebGroupReactionSettings",
     "WAWebGroupType",
     "WAWebHandleParsedGroupNotification",
     "WAWebSuspendAppealStatusType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -19,85 +21,101 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r,
-            a,
+          var a,
             i,
-            l = n.xwa2_notify_group_on_prop_change,
-            s = l.id,
-            u = l.lid_migration_state,
-            c = l.properties,
-            d = l.update_time,
-            m = l.updated_by,
-            p = m.id,
-            _ = m.notify_name,
-            f = m.pn,
-            g;
+            l,
+            s,
+            u = n.xwa2_notify_group_on_prop_change,
+            c = u.id,
+            d = u.lid_migration_state,
+            m = u.properties,
+            p = u.update_time,
+            _ = u.updated_by,
+            f = _.id,
+            g = _.notify_name,
+            h = _.pn,
+            y;
           switch (t.OperationName) {
             case "NotificationGroupPropertyUpdate": {
-              c.allow_non_admin_sub_group_creation != null &&
-                (g = {
+              m.allow_non_admin_sub_group_creation != null &&
+                (y = {
                   actionType:
                     o("WAWebGroupType").GROUP_ACTIONS
                       .ALLOW_NON_ADMIN_SUB_GROUP_CREATION,
-                  value: c.allow_non_admin_sub_group_creation,
+                  value: m.allow_non_admin_sub_group_creation,
                 });
               break;
             }
             case "NotificationGroupHiddenPropertyUpdate":
-              g = {
+              y = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.HIDDEN_GROUP,
-                value: (r = c.hidden_group) != null ? r : !1,
+                value: (a = m.hidden_group) != null ? a : !1,
               };
               break;
             case "NotificationGroupSafetyCheckPropertyUpdate":
-              g = {
+              y = {
                 actionType:
                   o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK,
-                value: (a = c.group_safety_check) != null ? a : !1,
+                value: (i = m.group_safety_check) != null ? i : !1,
               };
               break;
             case "NotificationGroupMemberLinkPropertyUpdate":
-              g = {
+              y = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE,
                 value: o(
                   "WAWebGroupMemberLinkMode",
-                ).getMemberLinkModeFromMexType(c.member_link_mode),
+                ).getMemberLinkModeFromMexType(m.member_link_mode),
               };
               break;
             case "NotificationGroupMemberShareGroupHistoryModePropertyUpdate":
-              g = {
+              y = {
                 actionType:
                   o("WAWebGroupType").GROUP_ACTIONS
                     .MEMBER_SHARE_GROUP_HISTORY_MODE,
                 value: o(
                   "WAWebGroupHistoryShareMode",
                 ).getMemberShareGroupHistoryModeFromMexType(
-                  c.member_share_group_history_mode,
+                  m.member_share_group_history_mode,
+                ),
+              };
+              break;
+            case "NotificationGroupCustomReactionsPropertyUpdate":
+              if (!r("justknobx")._("7606") || !("group_custom_reactions" in m))
+                return;
+              y = {
+                actionType:
+                  o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS,
+                value: o(
+                  "WAWebGroupReactionSettings",
+                ).getGroupReactionSettingsFromMex(
+                  (l = m.group_custom_reactions) == null
+                    ? void 0
+                    : l.default_reactions,
                 ),
               };
               break;
             case "NotificationGroupAppealStatusUpdate":
-              g = {
+              y = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL,
                 appealStatus: o(
                   "WAWebSuspendAppealStatusType",
-                ).toSuspendAppealStatus(c.appeal_status),
-                appealUpdateTime: (i = c.appeal_update_time) != null ? i : null,
+                ).toSuspendAppealStatus(m.appeal_status),
+                appealUpdateTime: (s = m.appeal_update_time) != null ? s : null,
               };
               break;
           }
-          if (g != null) {
-            var h = {
-              chatId: o("WAWebWidFactory").createWid(s),
-              ts: o("WATimeUtils").castMilliSecondsToUnixTime(Number(d)),
-              actions: [g],
-              author: p != null ? o("WAWebWidFactory").createWid(p) : null,
+          if (y != null) {
+            var C = {
+              chatId: o("WAWebWidFactory").createWid(c),
+              ts: o("WATimeUtils").castMilliSecondsToUnixTime(Number(p)),
+              actions: [y],
+              author: f != null ? o("WAWebWidFactory").createWid(f) : null,
               authorPhoneNumber:
-                f != null ? o("WAWebWidFactory").createWid(f) : null,
+                h != null ? o("WAWebWidFactory").createWid(h) : null,
               isLidAddressingMode:
-                (u == null ? void 0 : u.addressing_mode) == null ||
-                (u == null ? void 0 : u.addressing_mode) === "LID",
-              pushname: _,
+                (d == null ? void 0 : d.addressing_mode) == null ||
+                (d == null ? void 0 : d.addressing_mode) === "LID",
+              pushname: g,
               externalId: t.stanzaId,
               offline: t.offline,
               hasIncompleteParticipantInformation: !1,
@@ -105,7 +123,7 @@ __d(
             try {
               yield o(
                 "WAWebHandleParsedGroupNotification",
-              ).handleParsedGroupNotification(h);
+              ).handleParsedGroupNotification(C);
             } catch (t) {
               o("WALogger")
                 .ERROR(

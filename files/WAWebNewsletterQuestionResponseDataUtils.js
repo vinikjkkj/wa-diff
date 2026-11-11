@@ -9,7 +9,7 @@ __d(
     "WAWebNewsletterQuestionResponseModel",
     "WAWebProfilePicThumbCollection",
     "WAWebReferentialMsgKey",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "err",
@@ -61,7 +61,7 @@ __d(
         },
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         from: e.parentMsgKey.remote,
-        to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        to: o("WAWebUserUtils").getMeLidUserOrThrow(),
       };
     }
     function m(e) {

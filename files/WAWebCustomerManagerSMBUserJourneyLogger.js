@@ -1,6 +1,7 @@
 __d(
   "WAWebCustomerManagerSMBUserJourneyLogger",
   [
+    "WAWebCustomerManagerChatHeaderJourneyLogger",
     "WAWebCustomerManagerColumnWamPayload",
     "WAWebCustomerManagerFilterWamPayload",
     "WAWebCustomerManagerSMBUserJourneyTypes",
@@ -859,6 +860,21 @@ __d(
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
+          }),
+          (t.editChatHeaderLeadStageCommit = function (t) {
+            o(
+              "WAWebCustomerManagerChatHeaderJourneyLogger",
+            ).editChatHeaderLeadStageCommit(t);
+          }),
+          (t.editChatHeaderLeadStagePick = function (t) {
+            o(
+              "WAWebCustomerManagerChatHeaderJourneyLogger",
+            ).editChatHeaderLeadStagePick(t);
+          }),
+          (t.clickChatHeaderLeadStageRow = function () {
+            o(
+              "WAWebCustomerManagerChatHeaderJourneyLogger",
+            ).clickChatHeaderLeadStageRow();
           }),
           (t.editLeadStage = function (t, n, r) {
             this.$2({

@@ -44,7 +44,7 @@ __d(
     "WAWebSignal",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumMismatchOriginType",
@@ -372,7 +372,7 @@ __d(
               (S = l.sendPerfReporter) == null ||
                 S.setSenderKeyDistributionCount(V.length));
             var G = H.concat(V),
-              z = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+              z = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
               j = yield o("WAWebPhashUtils").phashV2(
                 [].concat(G, [z], q),
                 o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&

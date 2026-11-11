@@ -50,14 +50,6 @@ __d(
               e
             );
           }),
-          (n.decBusy = function (t) {
-            if (t != null) {
-              var e = this.busyMap.get(t);
-              e == null ||
-                e === 0 ||
-                (e === 1 ? this.clearBusy(t) : this.busyMap.set(t, e - 1));
-            }
-          }),
           (n.clearBusy = function (t) {
             var e = this.busyMap.get(t);
             (e != null && this.busyMap.delete(t),

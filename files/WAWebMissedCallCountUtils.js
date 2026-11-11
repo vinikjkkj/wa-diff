@@ -7,6 +7,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsVoip",
+    "WAWebUserUtils",
     "WAWebVoipWaCallEnums",
     "countWhere",
   ],
@@ -45,7 +46,7 @@ __d(
             ? t
             : !1,
         l = i
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         s =
           a == null

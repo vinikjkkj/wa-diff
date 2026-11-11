@@ -99,10 +99,7 @@ __d(
               a = t.downloadQpl,
               i = t.partialVideoOpts,
               l = (n = t.mimetype) != null ? n : "application/octet-stream",
-              s = o("WAWebABProps").getABPropConfigValue(
-                "web_use_kaleidoscope_media_check_enabled",
-              ),
-              u = function () {
+              s = function () {
                 return (
                   a.addPoint("download_and_decrypt_start"),
                   x(t).then(function (e) {
@@ -116,7 +113,6 @@ __d(
                             type: t.type,
                             rawMimeType: l,
                             downloadQpl: a,
-                            ksClassifyEnabled: s,
                             failClosed: !1,
                             onSuspiciousContent: t.onSuspiciousContent,
                           })
@@ -125,7 +121,7 @@ __d(
                   })
                 );
               },
-              c = {
+              u = {
                 priority: -T(t.type),
                 group:
                   t.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.HISTORY_SYNC
@@ -134,32 +130,29 @@ __d(
                 signal: t.signal,
               };
             return t.isPreload === !0
-              ? e.preloader.enqueue(u, c)
+              ? e.preloader.enqueue(s, u)
               : t.shouldSequenceDownload === !0
                 ? e.loadSequence.enqueue(
-                    u,
-                    babelHelpers.extends({}, c, { group: "thumbnail" }),
+                    s,
+                    babelHelpers.extends({}, u, { group: "thumbnail" }),
                   )
-                : u();
+                : s();
           },
         )),
         (this.downloadAndMaybeDecrypt = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n,
               r = t.downloadOrigin,
-              a = t.downloadQpl,
-              i = t.partialVideoOpts,
-              l = t.type,
-              s = (n = t.mimetype) != null ? n : "application/octet-stream",
-              u = o("WAWebABProps").getABPropConfigValue(
-                "web_use_kaleidoscope_media_check_enabled",
-              );
+              o = t.downloadQpl,
+              a = t.partialVideoOpts,
+              i = t.type,
+              l = (n = t.mimetype) != null ? n : "application/octet-stream";
             return (
-              a.addAnnotations({
-                bool: { ksClassifyEnabled: u, isPartialVideo: i != null },
+              o.addAnnotations({
+                bool: { ksClassifyEnabled: !0, isPartialVideo: a != null },
                 string: {
-                  mediaType: l,
-                  rawMimeType: s,
+                  mediaType: i,
+                  rawMimeType: l,
                   downloadOrigin: r == null ? "unknown" : r.toString(),
                 },
                 int: {
@@ -168,8 +161,8 @@ __d(
                     e.loadSequence.getRunningTasksCount(),
                 },
               }),
-              G({ downloadOrigin: r, partialVideoOpts: i }) &&
-                H(l, s, t.isMimetypeAllowed),
+              G({ downloadOrigin: r, partialVideoOpts: a }) &&
+                H(i, l, t.isMimetypeAllowed),
               e.$1(t)
             );
           });
@@ -724,23 +717,20 @@ __d(
           var t = e.downloadOrigin,
             n = e.downloadQpl,
             r = e.input,
-            a = e.mimetype,
-            i = e.onSuspiciousContent,
-            l = e.type;
+            o = e.mimetype,
+            a = e.onSuspiciousContent,
+            i = e.type;
           if (!G({ downloadOrigin: t, partialVideoOpts: null })) return r;
-          var s = a != null ? a : "application/octet-stream";
+          var l = o != null ? o : "application/octet-stream";
           return (
-            H(l, s),
+            H(i, l),
             W({
               input: r,
-              type: l,
-              rawMimeType: s,
+              type: i,
+              rawMimeType: l,
               downloadQpl: n,
-              ksClassifyEnabled: o("WAWebABProps").getABPropConfigValue(
-                "web_use_kaleidoscope_media_check_enabled",
-              ),
               failClosed: !0,
-              onSuspiciousContent: i,
+              onSuspiciousContent: a,
             })
           );
         })),
@@ -756,23 +746,21 @@ __d(
           var t = e.downloadQpl,
             n = e.failClosed,
             a = e.input,
-            i = e.ksClassifyEnabled,
-            l = e.onSuspiciousContent,
-            s = e.rawMimeType,
-            u = e.type;
+            i = e.onSuspiciousContent,
+            l = e.rawMimeType,
+            s = e.type;
           if (
-            !i ||
             !(yield o(
               "WAWebKaleidoscopeWasmFeatureSupport",
             ).checkKaleidoscopeWasmFeatureSupport())
           )
             return a;
           t.addPoint("kaleidoscope_classify_start");
-          var c = yield o("WAWebMediaWorkerProxy")
+          var u = yield o("WAWebMediaWorkerProxy")
               .kaleidoscopeClassifyInWorker({
                 mediaType:
-                  o("WAWebMmsMediaTypes").mediaTypeToKaleidoscopeMediaType(u),
-                rawMimeType: s,
+                  o("WAWebMmsMediaTypes").mediaTypeToKaleidoscopeMediaType(s),
+                rawMimeType: l,
                 input: a,
                 eventFlow: t,
               })
@@ -785,30 +773,30 @@ __d(
                   }),
                 };
               }),
-            d = c.result;
-          if (d.success) {
-            var m = d.value,
-              p = m.mimetype,
-              _ = m.score;
+            c = u.result;
+          if (c.success) {
+            var d = c.value,
+              m = d.mimetype,
+              p = d.score;
             t.addPoint("kaleidoscope_classify_end", {
-              string: { ksMimeType: p },
-              int: { ksScore: _ },
+              string: { ksMimeType: m },
+              int: { ksScore: p },
             });
-            var f = U({
-              ksScore: _,
-              ksMimeType: p,
-              rawMimeType: s,
-              mediaType: u,
+            var _ = U({
+              ksScore: p,
+              ksMimeType: m,
+              rawMimeType: l,
+              mediaType: s,
             });
-            if (f === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
+            if (_ === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
               throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
-                "Kaleidoscope dangerous score " + _ + " for media type " + u,
-                u,
+                "Kaleidoscope dangerous score " + p + " for media type " + s,
                 s,
+                l,
               );
-            l == null || l(f);
+            i == null || i(_);
           } else {
-            var g;
+            var f;
             if (
               (o("WALogger").WARN(
                 E ||
@@ -817,27 +805,27 @@ __d(
                     ", errorMessage: ",
                     "",
                   ])),
-                d.error.errorName,
-                d.error.errorMessage,
+                c.error.errorName,
+                c.error.errorMessage,
               ),
-              t.addPoint(d.error.errorName, {
+              t.addPoint(c.error.errorName, {
                 string: {
                   ksFailReason:
-                    (g = d.error.errorMessage) != null ? g : d.error.errorName,
+                    (f = c.error.errorMessage) != null ? f : c.error.errorName,
                 },
               }),
               t.addPoint("kaleidoscope_classify_fail"),
               n)
             )
               throw r("err")(
-                "kaleidoscope classify failed: " + d.error.errorName,
+                "kaleidoscope classify failed: " + c.error.errorName,
               );
-            V(u) &&
+            V(s) &&
               (t.addPoint("kaleidoscope_classify_fail_warned"),
-              l == null ||
-                l(o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP));
+              i == null ||
+                i(o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP));
           }
-          return c.transferredBuffer;
+          return u.transferredBuffer;
         })),
         q.apply(this, arguments)
       );

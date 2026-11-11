@@ -28,6 +28,7 @@ __d(
     "WAWebUserDisclosureCollection",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
@@ -263,7 +264,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.devices,
             r = t.wid,
-            a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            a = o("WAWebUserUtils").getMeLidUserOrThrow(),
             i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           if (!o("WAWebUserPrefsMeUser").isMeAccount(r))
             return (

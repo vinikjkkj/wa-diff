@@ -91,6 +91,7 @@ __d(
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateUtmAction",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameManagementDrawerLoadable",
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
@@ -746,7 +747,7 @@ __d(
         }
         case "MESSAGE_YOURSELF": {
           try {
-            var ke = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
+            var ke = o("WAWebUserUtils").getMeUserOrThrow();
             o("WAWebOpenChatWithContactAction").openChatWithContact({
               chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
               findChatOrigin: "newChatFlow",
@@ -844,7 +845,7 @@ __d(
         case "EDIT_PROFILE_PICTURE": {
           try {
             o("WAWebCmd").Cmd.closeStatusViewer();
-            var xe = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            var xe = o("WAWebUserUtils").getMeUserOrThrow(),
               $e = o("WAWebContactCollection").ContactCollection.assertGet(xe),
               Pe = o(
                 "WAWebProfilePicThumbCollection",
@@ -894,7 +895,7 @@ __d(
             );
           try {
             o("WAWebCmd").Cmd.closeStatusViewer();
-            var Ne = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            var Ne = o("WAWebUserUtils").getMeLidUserOrThrow(),
               Me = o("WAWebContactCollection").ContactCollection.assertGet(Ne),
               we = o("WAWebUsernameTypes").serializeMaybeUsername(Me.username);
             return (

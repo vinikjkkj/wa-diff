@@ -44,8 +44,8 @@ __d(
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebStateUtils",
     "WAWebUpdateLastAddOnPreviewChatAction",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebWamMsgUtils",
@@ -125,8 +125,8 @@ __d(
             );
           var h =
               f.id.remote.isGroup() && s.type === "addon"
-                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                ? o("WAWebUserUtils").getMeLidUserOrThrow()
+                : o("WAWebUserUtils").getMeUserOrThrow(),
             y =
               f.id.remote.isGroup() &&
               ((t = o("WAWebFrontendMsgGetters").getChat(f).groupMetadata) ==
@@ -135,8 +135,7 @@ __d(
                 : t.isLidAddressingMode),
             C = void 0;
           f.id.remote.isGroup() &&
-            (C =
-              y === !0 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow() : h);
+            (C = y === !0 ? o("WAWebUserUtils").getMeLidUserOrThrow() : h);
           var b = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),
               remote: f.id.remote,
@@ -148,8 +147,7 @@ __d(
             I = k - o("WAWebMsgGetters").getT(f),
             T = {
               id: b,
-              from:
-                y === !0 ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow() : h,
+              from: y === !0 ? o("WAWebUserUtils").getMeLidUserOrThrow() : h,
               to: f.id.remote,
               author: C,
               t: k,

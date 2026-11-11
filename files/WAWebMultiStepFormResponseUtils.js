@@ -9,7 +9,7 @@ __d(
     "WAWebMsgType",
     "WAWebMultiStepFormButton",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
   ],
@@ -89,7 +89,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var a = o("WAWebUserUtils").getMeLidUserOrThrow(),
             i = {
               type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
               kind: o("WAWebMsgType").MsgKind.InteractiveResponse,

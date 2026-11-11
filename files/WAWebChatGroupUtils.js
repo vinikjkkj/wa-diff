@@ -30,8 +30,8 @@ __d(
     "WAWebStateUtils",
     "WAWebTosCountryGating",
     "WAWebTosGating",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["isReadOnly"],
@@ -232,8 +232,8 @@ __d(
       );
     }
     function A(e, t, n) {
-      var r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
-      return r.equals(e) ? o("WAWebUserPrefsMeUser").getMeUserOrThrow() : e;
+      var r = o("WAWebUserUtils").getMeLidUserOrThrow();
+      return r.equals(e) ? o("WAWebUserUtils").getMeUserOrThrow() : e;
     }
     function F(e) {
       var t,

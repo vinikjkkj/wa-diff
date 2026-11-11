@@ -10,34 +10,28 @@ __d(
     var e,
       s = (e || (e = o("react"))).useSyncExternalStore;
     function u() {
-      var e = o("react-compiler-runtime").c(4),
+      var e = o("react-compiler-runtime").c(3),
         t =
           o("useWAWebABPropConfigValue").useABPropConfigValue(
             "web_employee_slash_commands_enabled",
           ) === !0,
-        n =
-          o("useWAWebABPropConfigValue").useABPropConfigValue(
-            "web_employee_commands_prod_enabled",
-          ) === !0,
-        r = s(
+        n = s(
           o("WAWebSelfReminderGating")
             .subscribeToEmployeeCommandExtensionAccess,
           o("WAWebSelfReminderGating").isEmployeeCommandExtensionAllowed,
         ),
-        a;
+        r;
       return (
-        e[0] !== r || e[1] !== n || e[2] !== t
-          ? ((a = o("WAWebSelfReminderGating").isEmployeeCommandsEnabled({
+        e[0] !== n || e[1] !== t
+          ? ((r = o("WAWebSelfReminderGating").isEmployeeCommandsEnabled({
               isSlashCommandsPropOn: t,
-              isProdPropOn: n,
-              isExtensionAllowed: r,
+              isExtensionAllowed: n,
             })),
-            (e[0] = r),
-            (e[1] = n),
-            (e[2] = t),
-            (e[3] = a))
-          : (a = e[3]),
-        a
+            (e[0] = n),
+            (e[1] = t),
+            (e[2] = r))
+          : (r = e[2]),
+        r
       );
     }
     l.useIsEmployeeComposerExtensionAllowed = u;

@@ -7,8 +7,8 @@ __d(
     "WAWebGetUsernameQueryJob",
     "WAWebSetUsernameJob",
     "WAWebSetUsernameKeyQueryJob",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsUsername",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -61,7 +61,7 @@ __d(
             return;
           }
           var i = o("WAWebWidFactory").createUserWidOrThrow(a);
-          if (!i.equals(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())) {
+          if (!i.equals(o("WAWebUserUtils").getMeLidUserOrThrow())) {
             o("WALogger").WARN(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([

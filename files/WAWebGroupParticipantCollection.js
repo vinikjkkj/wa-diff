@@ -23,6 +23,7 @@ __d(
     "WAWebSendForNeededAddRequest",
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "gkx",
   ],
@@ -333,7 +334,7 @@ __d(
           });
         }),
         (n.getMeParticipant = function () {
-          var e = this.get(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
+          var e = this.get(o("WAWebUserUtils").getMeLidUserOrThrow());
           if (e) return e;
           var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           return t != null ? this.get(t) : void 0;

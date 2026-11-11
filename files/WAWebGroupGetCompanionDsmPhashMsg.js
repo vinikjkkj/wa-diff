@@ -9,7 +9,7 @@ __d(
     "WAWebE2EProtoGenerator",
     "WAWebEncryptMsgProtobuf",
     "WAWebIdentityIcdcApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,7 +25,7 @@ __d(
             i = t.groupId,
             l = t.msgProtobuf;
           if (r.length === 0) return null;
-          var u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var u = o("WAWebUserUtils").getMeUserOrThrow(),
             c = yield o("WAWebApiDeviceList").bulkGetDeviceRecord([u]),
             d = c[0],
             m = null;

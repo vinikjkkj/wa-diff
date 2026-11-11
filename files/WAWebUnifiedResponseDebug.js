@@ -8,7 +8,7 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebRichResponse.flow",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,7 +33,7 @@ __d(
           }),
           t: o("WATimeUtils").unixTime(),
           from: n.id,
-          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          to: o("WAWebUserUtils").getMeUserOrThrow(),
           type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
           body: s,
           richResponse: {

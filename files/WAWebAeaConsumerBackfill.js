@@ -45,15 +45,14 @@ __d(
       C,
       b,
       v,
-      S,
-      R = 50,
-      L = 50;
-    function E() {
-      return k.apply(this, arguments);
+      S = 50,
+      R = 50;
+    function L() {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebAeaRollout").isAeaBackfillEnabled())
             return (
               o("WALogger").LOG(
@@ -71,16 +70,16 @@ __d(
             ).waitForOfflineDeliveryEnd(),
             !o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
           )
-            return I("offline_delivery_timeout", {
+            return k("offline_delivery_timeout", {
               incompleteReason: o("WAWebAeaConsumerBackfillRunHistory")
                 .AeaBackfillRunResult.OFFLINE_DELIVERY_NOT_READY,
             });
           yield o(
             "WAWebAeaIdentityChangeBaseline",
           ).restoreAeaIdentityChangeBaselines();
-          var e = yield T(),
+          var e = yield I(),
             t = e.suspectedNonE2eeAccounts,
-            r = yield $(t, new Set());
+            r = yield x(t, new Set());
           o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -91,7 +90,7 @@ __d(
             String(t.length),
             String(r.length),
           );
-          var a = yield M(
+          var a = yield N(
               r.map(function (e) {
                 var t = e.user;
                 return t;
@@ -99,102 +98,61 @@ __d(
             ),
             i = a.refetchedLids,
             l = a.unavailableLids,
-            s = yield T(),
-            u = yield A(N(s.suspectedNonE2eeAccounts)),
-            c = u.unsetIdentities,
-            d = c
-              .filter(function (e) {
-                var t = e.accountLid;
-                return s.lidsReadyForE2eeDefault.has(t);
-              })
-              .map(function (e) {
-                var t = e.row;
-                return t;
-              });
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "[aea][backfill] default_e2ee count=",
-                " not_ready=",
-                "",
-              ])),
-            String(d.length),
-            String(c.length - d.length),
-          );
-          var g = o("WAWebSignalProtocolStore").getPersistSignalProtocolStore();
-          yield o("WAWebRunInBatches").runInBatches(
-            d,
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  yield (S || (S = n("Promise"))).all(
-                    e.map(function (e) {
-                      return g.compareAndSetAccountEncryptionState(
-                        e.identifier,
-                        e.identityKey,
-                        e.accountEncryptionState,
-                        String(o("WAWebAeaAccountState").AeaAccountState.E2EE),
-                      );
-                    }),
-                  );
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-            { batchSize: L },
-          );
-          var h = yield T(),
-            y = h.suspectedNonE2eeAccounts,
-            C = yield (S || (S = n("Promise"))).all([$(y, i, l), A(N(y))]),
-            b = C[0],
-            v = C[1],
-            R = v.identityCount,
-            E = v.unsetIdentities;
+            s = yield I(),
+            u = s.contactSyncedLids,
+            c = s.suspectedNonE2eeAccounts,
+            d = yield (v || (v = n("Promise"))).all([x(c, i, l), w(P(c))]),
+            f = d[0],
+            g = d[1],
+            h = g.identityCount,
+            y = g.unsetIdentities,
+            C = y.filter(function (e) {
+              var t = e.accountLid;
+              return !u.has(t);
+            });
           if (!o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
-            return I("offline_delivery_reset", {
+            return k("offline_delivery_reset", {
               incompleteReason: o("WAWebAeaConsumerBackfillRunHistory")
                 .AeaBackfillRunResult.OFFLINE_DELIVERY_NOT_READY,
             });
-          var k = {
-            unconfirmedCount: b.length,
-            leftUnsetCount: E.length,
-            suspectedCount: y.length,
-            accountCount: R,
+          var b = {
+            unconfirmedCount: f.length,
+            leftUnsetCount: C.length,
+            suspectedCount: c.length,
+            accountCount: h,
           };
-          return b.length > 0 || E.length > 0
-            ? I(
+          return f.length > 0 || C.length > 0
+            ? k(
                 "unconfirmed_non_e2ee=" +
-                  String(b.length) +
+                  String(f.length) +
                   " left_unset=" +
-                  String(E.length),
+                  String(C.length),
                 babelHelpers.extends(
                   {
                     incompleteReason:
-                      b.length > 0
+                      f.length > 0
                         ? o("WAWebAeaConsumerBackfillRunHistory")
                             .AeaBackfillRunResult.PREKEY_FETCH_FAILED
                         : o("WAWebAeaConsumerBackfillRunHistory")
                             .AeaBackfillRunResult.CONTACTS_NOT_SYNCED,
                   },
-                  k,
+                  b,
                 ),
               )
             : (o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[aea][backfill] status=complete suspected_non_e2ee=",
                     "",
                   ])),
                 String(t.length),
               ),
-              babelHelpers.extends({ status: "complete" }, k));
+              babelHelpers.extends({ status: "complete" }, b));
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(t, n) {
+    function k(t, n) {
       return (
         o("WALogger").LOG(
           e ||
@@ -208,13 +166,13 @@ __d(
         babelHelpers.extends({ status: "incomplete" }, n)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
+    function I() {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (S || (S = n("Promise"))).all([
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (v || (v = n("Promise"))).all([
               r("WAWebLidAwareContactsDB").all(),
               o("WAWebApiDeviceList").getAllDeviceLists(),
               o("WAWebSchemaVerifiedBusinessName")
@@ -229,7 +187,7 @@ __d(
             u = new Set();
           for (var c of a) {
             var d,
-              m = x(
+              m = D(
                 c.id,
                 "device_list",
                 o("WAWebWidFactory").createUserWidFromDeviceListPk,
@@ -238,13 +196,13 @@ __d(
               var p = o("WAWebLidMigrationUtils").toUserLid(m);
               if (p != null) {
                 var _ = p.toString(),
-                  f = o("WAWebAeaAdvState").aeaStateFromDeviceListRow(c);
-                f != null &&
+                  g = o("WAWebAeaAdvState").aeaStateFromDeviceListRow(c);
+                g != null &&
                   (s.add(_),
-                  o("WAWebAeaAccountState").isAeaNonE2eeAccountState(f) &&
+                  o("WAWebAeaAccountState").isAeaNonE2eeAccountState(g) &&
                     ((d = l.get(_)) == null ? void 0 : d.suspectedState) !==
                       o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
-                    l.set(_, { user: p, suspectedState: f }));
+                    l.set(_, { user: p, suspectedState: g }));
               }
             }
           }
@@ -253,9 +211,9 @@ __d(
               C = h.isContactSyncCompleted,
               b = h.isHosted;
             {
-              var v = x(y, "contact", o("WAWebWidFactory").createWid);
-              if (v == null || !v.isRegularUser()) continue;
-              var R = o("WAWebLidMigrationUtils").toUserLid(v);
+              var S = D(y, "contact", o("WAWebWidFactory").createWid);
+              if (S == null || !S.isRegularUser()) continue;
+              var R = o("WAWebLidMigrationUtils").toUserLid(S);
               if (R == null) continue;
               var L = R.toString();
               if ((C === 1 && u.add(L), b !== !0)) continue;
@@ -279,8 +237,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[aea][backfill] skipped unparseable business row",
                       ])),
                   )
@@ -289,11 +247,11 @@ __d(
                 continue;
               }
               if (!T.isRegularUser()) continue;
-              var D = o("WAWebLidMigrationUtils").toUserLid(T);
-              D != null &&
-                !l.has(D.toString()) &&
-                l.set(D.toString(), {
-                  user: D,
+              var x = o("WAWebLidMigrationUtils").toUserLid(T);
+              x != null &&
+                !l.has(x.toString()) &&
+                l.set(x.toString(), {
+                  user: x,
                   suspectedState: o("WAWebAeaAccountState").AeaAccountState
                     .NON_E2EE,
                 });
@@ -301,13 +259,13 @@ __d(
           }
           return {
             suspectedNonE2eeAccounts: Array.from(l.values()),
-            lidsReadyForE2eeDefault: u,
+            contactSyncedLids: u,
           };
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
+    function D(e, t, n) {
       try {
         return n(e);
       } catch (n) {
@@ -320,7 +278,7 @@ __d(
                 "",
               ])),
             t,
-            B(e),
+            O(e),
           ),
           o("WALogger")
             .WARN(
@@ -336,14 +294,14 @@ __d(
         );
       }
     }
-    function $(e, t, n) {
-      return P.apply(this, arguments);
+    function x(e, t, n) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = new Set());
-          var r = yield W(e, function (e) {
+          var r = yield B(e, function (e) {
               var t = e.user;
               return t;
             }),
@@ -365,10 +323,10 @@ __d(
                   !t.has(l.toString());
           });
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e) {
+    function P(e) {
       return new Set(
         e.map(function (e) {
           var t = e.user;
@@ -376,12 +334,12 @@ __d(
         }),
       );
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function w() {
+    function M() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(),
             a = new Set();
           return (
@@ -391,8 +349,8 @@ __d(
                 var i = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (i) {
                     o("WALogger").LOG(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
                           "[aea][backfill] prekey batch size=",
                           " total=",
                           "",
@@ -413,8 +371,8 @@ __d(
                       s.length > 0 &&
                         o("WALogger")
                           .WARN(
-                            y ||
-                              (y = babelHelpers.taggedTemplateLiteralLoose([
+                            h ||
+                              (h = babelHelpers.taggedTemplateLiteralLoose([
                                 "[aea][backfill] prekey errors=",
                                 "",
                               ])),
@@ -424,7 +382,7 @@ __d(
                       var c = u.filter(function (e) {
                           return !e.wid.isCompanion();
                         }),
-                        d = yield (S || (S = n("Promise"))).allSettled(
+                        d = yield (v || (v = n("Promise"))).allSettled(
                           c.map(function (e) {
                             return o("WAWebAeaRefresh").processAeaPrimaryBundle(
                               e,
@@ -441,8 +399,8 @@ __d(
                           if (e.status === "rejected") {
                             o("WALogger")
                               .WARN(
-                                C ||
-                                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                                y ||
+                                  (y = babelHelpers.taggedTemplateLiteralLoose([
                                     "[aea][backfill] processing a primary bundle failed",
                                   ])),
                               )
@@ -483,8 +441,8 @@ __d(
                       }
                       o("WALogger")
                         .WARN(
-                          b ||
-                            (b = babelHelpers.taggedTemplateLiteralLoose([
+                          C ||
+                            (C = babelHelpers.taggedTemplateLiteralLoose([
                               "[aea][backfill] prekey batch failed",
                             ])),
                         )
@@ -497,12 +455,12 @@ __d(
                   return i.apply(this, arguments);
                 };
               })(),
-              { batchSize: R },
+              { batchSize: S },
             ),
             a.size > 0 &&
               o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[aea][backfill] unavailable=",
                     "",
                   ])),
@@ -511,29 +469,29 @@ __d(
             { refetchedLids: t, unavailableLids: a }
           );
         })),
-        w.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function F() {
+    function A() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSignalProtocolStore")
               .getPersistSignalProtocolStore()
               .getAllIdentityRows(),
             n = [],
             r = 0;
           for (var a of t) {
-            var i = O(a);
+            var i = F(a);
             i != null &&
               (r++,
               a.accountEncryptionState == null &&
                 !e.has(i.toString()) &&
                 n.push({ row: a, accountLid: i }));
           }
-          var l = yield W(n, function (e) {
+          var l = yield B(n, function (e) {
             var t = e.accountLid;
             return t;
           });
@@ -546,10 +504,10 @@ __d(
             identityCount: r,
           };
         })),
-        F.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function O(e) {
+    function F(e) {
       if (e.identifier.includes("@hosted")) return null;
       try {
         var t = o("WAWebWidFromSignalAddress").widFromSignalAddress(
@@ -571,7 +529,7 @@ __d(
                   "[aea][backfill] unparseable identity row identifier=",
                   "",
                 ])),
-              B(e.identifier),
+              O(e.identifier),
             ),
             o("WALogger")
               .WARN(
@@ -589,16 +547,16 @@ __d(
         );
       }
     }
-    function B(e) {
+    function O(e) {
       var t = r("justknobx")._("7009") ? r("gkx")("9092") : !r("gkx")("26258");
       return t ? e : e.replace(/\d+/g, "#");
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function q() {
+    function W() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = [];
           return (
             yield o("WAWebRunInBatches").runInBatches(
@@ -606,7 +564,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    var a = yield (S || (S = n("Promise"))).all(
+                    var a = yield (v || (v = n("Promise"))).all(
                       e.map(function (e) {
                         return o(
                           "WAWebAeaAccountCategory",
@@ -622,15 +580,15 @@ __d(
                   return e.apply(this, arguments);
                 };
               })(),
-              { batchSize: L },
+              { batchSize: R },
             ),
             r
           );
         })),
-        q.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    ((l.runAeaConsumerBackfill = E), (l.aeaIdentifierForLog = B));
+    ((l.runAeaConsumerBackfill = L), (l.aeaIdentifierForLog = O));
   },
   98,
 );

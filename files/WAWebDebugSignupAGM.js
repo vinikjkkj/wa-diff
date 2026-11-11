@@ -9,7 +9,7 @@ __d(
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
     "WAWebSignupMetadataFetcher",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "vulture",
@@ -33,7 +33,7 @@ __d(
             );
             return;
           }
-          var a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var a = o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
             i = {
               type: o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
               kind: o("WAWebMsgType").MsgKind.AutomatedGreetingMessage,

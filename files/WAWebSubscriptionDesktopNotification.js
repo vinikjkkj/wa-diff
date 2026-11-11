@@ -11,7 +11,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSubscriptionUserActionWamEvent",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumWsuaAction",
     "WAWebWamEnumWsuaActionTarget",
     "WAWebWamEnumWsuaProductType",
@@ -67,7 +67,7 @@ __d(
               i = _(n),
               l = f(n);
             return {
-              wid: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              wid: o("WAWebUserUtils").getMeUserOrThrow(),
               tag: u,
               title: a != null ? a : s._(/*BTDS*/ "Meta One").toString(),
               body: r,

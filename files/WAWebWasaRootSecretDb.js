@@ -8,13 +8,14 @@ __d(
     "WAWebMsgType",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return e.isLid()
-        ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+        ? o("WAWebUserUtils").getMeLidUserOrThrow()
         : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
     }
     function s(t, n) {

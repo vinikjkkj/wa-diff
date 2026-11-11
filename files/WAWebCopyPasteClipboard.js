@@ -311,9 +311,6 @@ __d(
           (t.hasAppText = function () {
             return !!this.$2;
           }),
-          (t.toAppText = function () {
-            return this.hasAppText() ? this.$2 : new u(this.toPlainString());
-          }),
           (t.toPlainString = function () {
             return this.$1.toString();
           }),

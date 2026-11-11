@@ -44,7 +44,7 @@ __d(
           : e === "sender_not_allowed"
             ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
                 .GROUP_HISTORY_INELIGIBILITY_REASON.SENDER_NOT_ELIGIBLE
-            : e === "bot"
+            : e === "bot" || e === "agent_in_announcement_group"
               ? o("WAWebWamEnumGroupHistoryIneligibilityReason")
                   .GROUP_HISTORY_INELIGIBILITY_REASON.RECEIVER_NOT_ELIGIBLE
               : e === "no_join_time"

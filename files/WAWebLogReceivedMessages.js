@@ -40,7 +40,7 @@ __d(
     "WAWebSignupQPLLogger",
     "WAWebStickerPremiumStatus",
     "WAWebUprReceivedWamLogger",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWamAddressingModeUtils",
@@ -133,9 +133,8 @@ __d(
             C = r.meHasUsername,
             b = r.meHasUsernamePin,
             v =
-              (a = y.get(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow().toJid(),
-              )) == null
+              (a = y.get(o("WAWebUserUtils").getMeUserOrThrow().toJid())) ==
+              null
                 ? void 0
                 : a.ephemeralDuration;
           yield (p || (p = n("Promise"))).all(
@@ -360,7 +359,7 @@ __d(
                 return e.id.remote.toJid();
               }),
           );
-          t.add(o("WAWebUserPrefsMeUser").getMeUserOrThrow().toJid());
+          t.add(o("WAWebUserUtils").getMeUserOrThrow().toJid());
           var n = Array.from(t),
             a;
           return o("WAWebRuntimeEnvironmentUtils").isWorker()

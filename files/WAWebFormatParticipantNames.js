@@ -231,6 +231,7 @@ __d(
         silent: !0,
       });
       return u.jsx(o("WAWebName.react").Name, {
+        showOrgIcon: !1,
         contact: l,
         showNotifyName: !0,
         elevatedPushNamesEnabled: !0,

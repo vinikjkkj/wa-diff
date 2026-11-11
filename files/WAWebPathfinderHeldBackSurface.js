@@ -14,6 +14,7 @@ __d(
       }),
       l = new Set([
         "confirm-logout-app-lock-link",
+        "mi-chatlock",
         "mi-logout menu-item",
         "mi-screen-lock menu-item",
       ]),
@@ -41,23 +42,24 @@ __d(
     function f() {
       c++;
     }
-    function g() {
+    var g = new Set([e.CHAT_LOCK_SECRET_CODE]);
+    function h() {
       var e;
       return (e = s.findLast(function (e) {
-        return e.rootTestId != null;
+        return e.rootTestId != null && !g.has(e.name);
       })) == null
         ? void 0
         : e.name;
     }
-    function h(e, t) {
-      var n = y(e);
+    function y(e, t) {
+      var n = C(e);
       try {
         t();
       } finally {
         n();
       }
     }
-    function y(e, t) {
+    function C(e, t) {
       var n = u++;
       return (
         s.push({ name: e, rootTestId: t, token: n }),
@@ -69,20 +71,20 @@ __d(
         }
       );
     }
-    function C(e) {
+    function b(e) {
       for (var t = s.length - 1; t >= 0; t--) {
         var n = s[t],
           r = n.name,
           o = n.rootTestId;
-        if (o == null || v(e, o)) return r;
+        if (o == null || S(e, o)) return r;
       }
       return null;
     }
-    function b(e) {
-      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : C();
+    function v(e) {
+      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : b();
       return t != null || d(e.screenName) || d(e.destinationName);
     }
-    function v(e, t) {
+    function S(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );
@@ -93,11 +95,11 @@ __d(
       (i.isHeldBackTapTrackingId = p),
       (i.getScreenUnlockCount = _),
       (i.noteScreenUnlocked = f),
-      (i.getOpenScopedHeldBackSurface = g),
-      (i.openHeldBack = h),
-      (i.enterHeldBackSurface = y),
-      (i.captureHeldBackSurface = C),
-      (i.isHeldBackEvent = b));
+      (i.getOpenScopedHeldBackSurface = h),
+      (i.openHeldBack = y),
+      (i.enterHeldBackSurface = C),
+      (i.captureHeldBackSurface = b),
+      (i.isHeldBackEvent = v));
   },
   66,
 );

@@ -23,6 +23,7 @@ __d(
     "WAWebRequestMethodType",
     "WAWebSchemaGroupMetadata",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -294,7 +295,11 @@ __d(
             p = null,
             _ = [],
             f = c,
-            g = t.actionType,
+            g =
+              t.actionType ===
+              o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS
+                ? "group_default_reactions"
+                : t.actionType,
             h = null,
             y,
             C = t.parentGroupId,
@@ -669,6 +674,21 @@ __d(
               g = "hidden_group";
               break;
             }
+            case o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS: {
+              var G, z;
+              ((g = "group_default_reactions"),
+                (h = [
+                  ((G =
+                    (z = t.value) == null || (z = z.defaultReactions) == null
+                      ? void 0
+                      : z.length) != null
+                    ? G
+                    : 0) > 0
+                    ? "changed"
+                    : "reset",
+                ]));
+              break;
+            }
             case o("WAWebGroupType").GROUP_ACTIONS
               .MEMBER_SHARE_GROUP_HISTORY_MODE: {
               h = [t.value];
@@ -689,7 +709,7 @@ __d(
             body: r("isStringNullOrEmpty")(p) ? void 0 : p,
             author: c,
             from: l,
-            to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            to: o("WAWebUserUtils").getMeUserOrThrow(),
             recipients: _.map(o("WAWebWidFactory").asUserWidOrThrow) || [],
             subtype: g,
             t: i != null ? i : a.ts,
@@ -717,7 +737,7 @@ __d(
             : "remove",
         recipients: [],
         from: e,
-        to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        to: o("WAWebUserUtils").getMeUserOrThrow(),
         id: new (r("WAWebMsgKey"))({
           remote: e,
           fromMe: i,
@@ -739,7 +759,7 @@ __d(
         }),
         author: t,
         from: i,
-        to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        to: o("WAWebUserUtils").getMeUserOrThrow(),
         recipients: [],
         subtype: "ephemeral",
         t: a,
@@ -757,7 +777,7 @@ __d(
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         }),
         from: e,
-        to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        to: o("WAWebUserUtils").getMeUserOrThrow(),
         recipients: [],
         subtype: "initial_pHash_mismatch",
         t: t,

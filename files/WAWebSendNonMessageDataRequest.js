@@ -26,7 +26,6 @@ __d(
     "WAWebSendMsgCreateDeviceStanza",
     "WAWebSyncGatingUtils",
     "WAWebSyncdSnapshotRecoveryGatingUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWamEnumPeerDataResponseApplyResultType",
     "WAWebWidFactory",
@@ -314,7 +313,7 @@ __d(
             i = a.fanout,
             l = a.msgId;
           if (i) {
-            var s = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            var s = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
               u = { wids: [s] },
               c = yield o("WAWebDBDeviceListFanout").getFanOutList(u),
               d = yield (R || (R = n("Promise"))).all(

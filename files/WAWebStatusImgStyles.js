@@ -34,6 +34,13 @@ __d(
         height: "x5yr21d",
         $$css: !0,
       },
+      squareCornersInFrame: {
+        borderStartStartRadius: "x1bczwif",
+        borderStartEndRadius: "x17un8ov",
+        borderEndEndRadius: "x1e7945m",
+        borderEndStartRadius: "x11o6v7j",
+        $$css: !0,
+      },
       thumbnailImage: {
         display: "x1lliihq",
         width: "xh8yej3",

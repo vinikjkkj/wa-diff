@@ -21,7 +21,7 @@ __d(
     "WAWebSignupLoadingState",
     "WAWebSignupMetadataFetcher",
     "WAWebSignupQPLLogger",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumSignupEntryPoint",
     "WAWebWidFactory",
@@ -205,7 +205,7 @@ __d(
                 );
               }
             }
-            var k = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            var k = o("WAWebUserUtils").getMeUserOrThrow(),
               I = {
                 type: o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
                 kind: o("WAWebMsgType").MsgKind.AutomatedGreetingMessage,

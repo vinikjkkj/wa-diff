@@ -12,7 +12,7 @@ __d(
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgToDeviceList",
     "WAWebSyncDeviceAdvDeviceListJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumMessageSendResultType",
     "asyncToGeneratorRuntime",
     "cr:10198",
@@ -73,7 +73,7 @@ __d(
             return;
           }
           try {
-            var L = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            var L = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
               E = yield o("WAWebDBDeviceListFanout").getFanOutList({
                 chatWidSetToIncludeHostedInFanoutOneToOneChatOnly: y,
                 wids: [y, L],

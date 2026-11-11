@@ -32,6 +32,7 @@ __d(
     "WAWebReportingTokenContent",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumMessageSecretAllowedType",
     "WAWebWamEnumMessageSecretErrorType",
     "WAWebWamEnumReportingTokenValidationFailureReason",
@@ -108,7 +109,7 @@ __d(
       var l = S(e),
         s = R(e),
         u = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-        c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        c = o("WAWebUserUtils").getMeLidUserOrThrow(),
         d = t.isLid()
           ? [
               { senderWid: s, receiverWid: c },
@@ -199,32 +200,31 @@ __d(
             "WAWebMessagingGatingUtils",
           ).getSenderReportingTokenVersion();
           if (i <= 0) return null;
-          var l = v(e),
-            s = T(e),
-            u = s.jidType,
-            c = s.remoteJid;
-          if (u === "interopUser" || l == null || c == null) return null;
-          var d = e.reportingTokenContentInfo;
-          if (d == null) {
+          var l = T(e),
+            s = l.jidType,
+            u = l.remoteJid;
+          if (s === "interopUser" || u == null) return null;
+          var c = e.reportingTokenContentInfo;
+          if (c == null) {
             if (b.has(e.type)) return null;
-            var m = o("encodeProtobuf").encodeProtobuf(
+            var d = o("encodeProtobuf").encodeProtobuf(
                 o("WAWebProtobufsE2E.pb").MessageSpec,
                 t,
               ),
-              p = m.readByteArrayView();
-            d = N(p, i);
+              m = d.readByteArrayView();
+            c = N(m, i);
           }
-          var f = d,
-            g = f.content,
-            h = f.version;
-          if (g.length === 0) return null;
-          var y =
+          var p = c,
+            f = p.content,
+            g = p.version;
+          if (f.length === 0) return null;
+          var h =
             (r = e.messageSecret) != null
               ? r
               : (a = t.messageContextInfo) == null
                 ? void 0
                 : a.messageSecret;
-          if (y == null)
+          if (h == null)
             return (
               new (o(
                 "WAWebMessageSecretErrorsWamEvent",
@@ -242,20 +242,20 @@ __d(
               }).commit(),
               null
             );
-          var C = yield E({
-              messageSecret: y,
+          var y = yield E({
+              messageSecret: h,
               stanzaId: e.id.id,
               senderJid: o("WAWebWidToJid").widToUserJid(
-                o("WAWebWidFactory").asUserWidOrThrow(l),
+                o("WAWebUserUtils").getMeLidUserOrThrow(),
               ),
-              remoteJid: c,
+              remoteJid: u,
             }),
-            S = yield o("WACryptoHmac").hmacSha256(
-              new Uint8Array(C),
-              g != null ? g : new Uint8Array(0),
+            C = yield o("WACryptoHmac").hmacSha256(
+              new Uint8Array(y),
+              f != null ? f : new Uint8Array(0),
               _,
             );
-          return { version: h, reportingToken: new Uint8Array(S) };
+          return { version: g, reportingToken: new Uint8Array(C) };
         })),
         $.apply(this, arguments)
       );
@@ -415,8 +415,8 @@ __d(
       var n = e.id.remote;
       return n.isRegularUser()
         ? n.isLid()
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-          : o("WAWebUserPrefsMeUser").getMeUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
+          : o("WAWebUserUtils").getMeUserOrThrow()
         : n;
     }
     function q(e, t) {

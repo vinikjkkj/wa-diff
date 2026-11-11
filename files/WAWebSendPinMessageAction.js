@@ -18,7 +18,7 @@ __d(
     "WAWebReferentialMsgKey",
     "WAWebSendAddonMsgChatAction",
     "WAWebSendMsgResultAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -38,7 +38,7 @@ __d(
             u = t.pinType,
             c = o("WAWebFrontendMsgGetters").getChat(i),
             d = c.id,
-            m = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            m = o("WAWebUserUtils").getMeLidUserOrThrow(),
             _ = o("WAWebChatGetters").getIsGroup(c)
               ? o("WAWebWidFactory").asUserWidOrThrow(m)
               : void 0,

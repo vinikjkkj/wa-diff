@@ -6,7 +6,7 @@ __d(
     "WAPhoneFindCC",
     "WAWebContactImportTypedError",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -31,7 +31,7 @@ __d(
       try {
         var n = t.trim();
         if (!n.startsWith("+")) {
-          var r = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var r = o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
             a = o("WAPhoneFindCC").findCC(r.user),
             i = o("WAPhoneFindCC").findCC(n);
           if (a !== i) {

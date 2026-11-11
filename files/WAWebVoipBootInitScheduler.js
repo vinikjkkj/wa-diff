@@ -14,6 +14,7 @@ __d(
     "WAWebVoipDeferredBootLogging",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitABPropExposure",
+    "WAWebVoipInitEventEmitter",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -197,7 +198,9 @@ __d(
             return;
           }
           if (!(e != null && G()) && !H()) {
-            var i = a.VoipInitEventEmitter.getIsVoipInited();
+            var i = o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getIsVoipInited();
             (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WALogger").LOG(
@@ -223,7 +226,9 @@ __d(
                         "",
                       ])),
                     n,
-                    a.VoipInitEventEmitter.getIsVoipInited(),
+                    o(
+                      "WAWebVoipInitEventEmitter",
+                    ).VoipInitEventEmitter.getIsVoipInited(),
                   );
                 },
               ));

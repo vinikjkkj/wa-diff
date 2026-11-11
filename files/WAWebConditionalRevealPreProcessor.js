@@ -18,7 +18,7 @@ __d(
     "WAWebScheduledMsgOutgoingMsgKey",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebScheduledMsgStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "WAWebWidToJid",
@@ -80,7 +80,7 @@ __d(
             .buildScheduledMsgOutgoingMsgKey(
               t,
               a,
-              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              o("WAWebUserUtils").getMeLidUserOrThrow(),
             )
             .toString();
     }

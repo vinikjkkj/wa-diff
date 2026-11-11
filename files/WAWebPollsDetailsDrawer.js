@@ -330,8 +330,7 @@ __d(
         i
       );
     }
-    var y = h;
-    l.DetailsDrawer = y;
+    l.DetailsDrawer = h;
   },
   226,
 );

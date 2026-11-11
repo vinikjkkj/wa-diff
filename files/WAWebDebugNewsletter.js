@@ -52,7 +52,7 @@ __d(
     "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebTos",
     "WAWebUserDisclosureCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -109,7 +109,7 @@ __d(
     function f() {
       return (
         r("vulture")("kGH1sG_nwpAtGt_M4t6HyMDqGgU="),
-        { id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString() }
+        { id: o("WAWebUserUtils").getMeLidUserOrThrow().toString() }
       );
     }
     var g = {

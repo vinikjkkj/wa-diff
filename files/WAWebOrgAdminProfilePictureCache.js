@@ -1,6 +1,11 @@
 __d(
   "WAWebOrgAdminProfilePictureCache",
-  ["Promise", "WAWebOrgAdminProfilePictures", "asyncToGeneratorRuntime"],
+  [
+    "Promise",
+    "WAWebNullFunc",
+    "WAWebOrgAdminProfilePictures",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 3e4,
@@ -9,12 +14,11 @@ __d(
       d = new Set(),
       m = new Map(),
       p = new Map(),
-      _ = new Map(),
-      f = new Map();
-    function g() {
+      _ = new Map();
+    function f() {
       return m;
     }
-    function h(e) {
+    function g(e) {
       return (
         d.add(e),
         function () {
@@ -22,77 +26,68 @@ __d(
         }
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = Date.now(),
             o = new Set(),
             a = [];
           for (var i of new Set(t)) {
-            var l = f.get(i);
-            l != null ? o.add(l) : v(i, r) && a.push(i);
+            var l,
+              s = _.get(i);
+            s != null
+              ? o.add(s)
+              : ((l = p.get(i)) != null ? l : 0) <= r && a.push(i);
           }
-          (a.length > 0 && o.add(S(a)), yield (e || (e = n("Promise"))).all(o));
+          (a.length > 0 && o.add(b(a)), yield (e || (e = n("Promise"))).all(o));
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b() {
-      ((m = new Map()), (p = new Map()), (_ = new Map()), (f = new Map()));
+    function C() {
+      ((m = new Map()), (p = new Map()), (_ = new Map()));
     }
-    function v(e, t) {
-      var n;
-      if (((n = _.get(e)) != null ? n : 0) > t) return !1;
-      var r = p.get(e);
-      return r == null || t - r >= c;
-    }
-    function S(e) {
+    function b(e) {
       var t = o("WAWebOrgAdminProfilePictures")
         .fetchOrgAdminProfilePictures(e)
-        .catch(function () {
-          return null;
-        })
+        .catch(o("WAWebNullFunc").returnNull)
         .then(function (n) {
-          for (var r of e) f.get(r) === t && f.delete(r);
-          R(e, n);
+          var r = e.filter(function (e) {
+            return _.get(e) === t;
+          });
+          (r.forEach(function (e) {
+            return _.delete(e);
+          }),
+            v(r, n));
         });
-      for (var n of e) f.set(n, t);
+      for (var n of e) _.set(n, t);
       return t;
     }
-    function R(e, t) {
+    function v(e, t) {
       var n = Date.now(),
-        r = new Map(m);
-      for (var o of e) {
-        var a = t == null ? void 0 : t.profilePictureURLByLID.get(o);
-        a != null
-          ? (r.set(o, a), p.set(o, n), _.delete(o))
-          : (t == null ? void 0 : t.unavailableLIDs.has(o)) === !0
-            ? (r.delete(o), p.delete(o), _.set(o, n + u))
-            : _.set(o, n + s);
+        r = new Map(m),
+        o = !1;
+      for (var a of e) {
+        var i = t == null ? void 0 : t.profilePictureURLByLID.get(a);
+        i != null
+          ? ((o = o || r.get(a) !== i), r.set(a, i), p.set(a, n + c))
+          : (t == null ? void 0 : t.unavailableLIDs.has(a)) === !0
+            ? ((o = r.delete(a) || o), p.set(a, n + u))
+            : p.set(a, n + s);
       }
-      L(r, m) ||
+      o &&
         ((m = r),
         d.forEach(function (e) {
           return e();
         }));
     }
-    function L(e, t) {
-      return (
-        e.size === t.size &&
-        Array.from(e).every(function (e) {
-          var n = e[0],
-            r = e[1];
-          return t.get(n) === r;
-        })
-      );
-    }
-    ((l.getOrgAdminProfilePictures = g),
-      (l.subscribeToOrgAdminProfilePictures = h),
-      (l.loadOrgAdminProfilePictures = y),
-      (l.resetOrgAdminProfilePictures = b));
+    ((l.getOrgAdminProfilePictures = f),
+      (l.subscribeToOrgAdminProfilePictures = g),
+      (l.loadOrgAdminProfilePictures = h),
+      (l.resetOrgAdminProfilePictures = C));
   },
   98,
 );

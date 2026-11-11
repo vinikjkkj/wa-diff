@@ -7,7 +7,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebCatalogCollection",
     "WAWebNullFunc",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -29,7 +29,7 @@ __d(
     }
     function d() {
       return o("WAWebCatalogCollection").CatalogCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        o("WAWebUserUtils").getMeUserOrThrow(),
       );
     }
     function m(e) {
@@ -69,7 +69,7 @@ __d(
             .resolve()
             .then(function () {
               return o("WAWebCatalogCollection").CatalogCollection.find(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                o("WAWebUserUtils").getMeUserOrThrow(),
               );
             })
             .then(function () {

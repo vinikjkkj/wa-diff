@@ -10,7 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
     "WAWebUpdateLidMetadataJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "err",
@@ -44,7 +44,7 @@ __d(
               "request phone number for a blocked contact",
               a,
             );
-          var i = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+          var i = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
             l = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),
               remote: t.id,

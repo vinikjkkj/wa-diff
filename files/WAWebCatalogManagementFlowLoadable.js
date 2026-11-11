@@ -14,7 +14,7 @@ __d(
     "WAWebLoadingDrawer.react",
     "WAWebProductCatalogContext",
     "WAWebProductCatalogSession",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "react",
@@ -77,7 +77,7 @@ __d(
       });
     }
     function _(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var t = o("WAWebUserUtils").getMeUserOrThrow(),
         n = o("WAWebCatalogCollection").CatalogCollection.get(t);
       n == null
         ? o("WAWebCatalogCollection")

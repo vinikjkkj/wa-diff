@@ -50,6 +50,7 @@ __d(
     "WAWebSmb3pdAggregatedConversionSignalAction",
     "WAWebUnreadMentionModel",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebWamEnumCtwaDirectionFrom",
@@ -412,7 +413,7 @@ __d(
                       ));
                   });
                 var p = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                  _ = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+                  _ = o("WAWebUserUtils").getMeLidUserOrThrow();
                 if (
                   t.type === "gp2" &&
                   (t.subtype === "add" || t.subtype === "create")

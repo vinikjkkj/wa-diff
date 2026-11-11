@@ -5,7 +5,7 @@ __d(
     "WAWebMsgKey",
     "WAWebSyncdConst",
     "WAWebSyncdMetrics",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumMdSyncdCriticalEventCode",
     "WAWebWid",
     "WAWebWidFactory",
@@ -54,7 +54,7 @@ __d(
             null
           );
         a === "1"
-          ? (l = o("WAWebUserPrefsMeUser").getMeUserOrThrow())
+          ? (l = o("WAWebUserUtils").getMeUserOrThrow())
           : (l = o("WAWebWidFactory").createWid(i));
       }
       return new (r("WAWebMsgKey"))({

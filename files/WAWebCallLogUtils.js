@@ -15,6 +15,7 @@ __d(
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbGetters",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipConnectingStatus.react",
     "WAWebVoipWaCallEnums",
@@ -32,7 +33,7 @@ __d(
           return e.participant.isLid();
         }),
         r = n
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return (
         ((t = e.find(function (e) {
@@ -358,7 +359,7 @@ __d(
           return e.participant.isLid();
         }),
         l = i
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         s = o("WAWebMsgGetters").getIsSentByMe(t),
         u = s ? null : o("WAWebMsgGetters").getSender(t);
@@ -480,7 +481,7 @@ __d(
           return e.isLid();
         }),
         u = s
-          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+          ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         c = o("WAWebMsgGetters").getIsSentByMe(t),
         d = c ? null : o("WAWebMsgGetters").getSender(t);

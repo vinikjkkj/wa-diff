@@ -9,6 +9,7 @@ __d(
     "WAWebDeviceListPk",
     "WAWebSchemaDeviceList",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -334,7 +335,7 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMeDeviceOrThrow(),
+          var e = o("WAWebUserUtils").getMeDeviceOrThrow(),
             t = yield f(e);
           if ((t == null || t.deleted) && e.isLid()) {
             var n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();

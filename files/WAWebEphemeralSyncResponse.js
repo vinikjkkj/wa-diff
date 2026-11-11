@@ -35,7 +35,7 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSendMsgRecordAction",
     "WAWebUpdateEphemeralSettingChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumEsrFailureReasonType",
     "asyncToGeneratorRuntime",
     "err",
@@ -296,7 +296,7 @@ __d(
           var m = n.duration,
             p = n.initiator,
             h = n.settingTimestamp,
-            y = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            y = o("WAWebUserUtils").getMeUserOrThrow(),
             C = new (r("WAWebMsgKey"))({
               fromMe: !0,
               remote: l,

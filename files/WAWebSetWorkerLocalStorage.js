@@ -51,7 +51,7 @@ __d(
       return o("WAWebApiLocalStorage").applyLocalStorageChanges([], [s]);
     }
     function g(t) {
-      var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+      var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
         a = [{ key: "lidDeviceJid", value: n.toString() }],
         i = [],
         l = t();

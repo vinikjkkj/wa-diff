@@ -79,19 +79,7 @@ __d(
           s = null;
         });
     }
-    ((l.getBaseKeyTable = o("WAWebSchemaBasekey").getTable),
-      (l.getIdentityTable = o("WAWebSchemaIdentity").getTable),
-      (l.getKyberLastResortKeyTable = o(
-        "WAWebSchemaKyberLastResortKey",
-      ).getTable),
-      (l.getKyberPreKeyTable = o("WAWebSchemaKyberPrekey").getTable),
-      (l.getMetaTable = o("WAWebSchemaMeta").getTable),
-      (l.getPreKeyTable = o("WAWebSchemaPrekey").getTable),
-      (l.getSenderKeyTable = o("WAWebSchemaSenderkey").getTable),
-      (l.getSessionTable = o("WAWebSchemaSession").getTable),
-      (l.getSignedPreKeyTable = o("WAWebSchemaSignedPrekey").getTable),
-      (l.initialize = u),
-      (l.destroy = d));
+    ((l.initialize = u), (l.destroy = d));
   },
   98,
 );

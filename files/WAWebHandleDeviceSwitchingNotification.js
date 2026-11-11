@@ -6,7 +6,7 @@ __d(
     "WATimeUtils",
     "WAWap",
     "WAWebBackendApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWaOldCodeWamEvent",
     "asyncToGeneratorRuntime",
   ],
@@ -80,7 +80,7 @@ __d(
           o("WAWebBackendApi").frontendFireAndForget("showDeviceSwitchOtp", {
             otpCode: c,
           });
-          var d = o("WAWebUserPrefsMeUser")
+          var d = o("WAWebUserUtils")
             .getMeDeviceOrThrow()
             .getDeviceId()
             .toString();

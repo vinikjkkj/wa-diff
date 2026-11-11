@@ -9,6 +9,7 @@ __d(
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -22,7 +23,7 @@ __d(
               i = r("WAWebGroupMetadataCollection").assertGet(n),
               l = i.participants,
               s = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-              u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              u = o("WAWebUserUtils").getMeLidUserOrThrow(),
               c = l.get(a.contact) != null,
               d = s != null && l.get(s) != null,
               m = l.get(u) != null,
@@ -35,7 +36,7 @@ __d(
           a.add(t, { silent: !0 }),
           (a.contact = n));
         var i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-          l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+          l = o("WAWebUserUtils").getMeLidUserOrThrow();
         return (
           i != null &&
             a.listenTo(

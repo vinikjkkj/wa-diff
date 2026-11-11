@@ -280,6 +280,7 @@ __d(
         SPLIT_PAYMENT_MARKED_AS_PAID: 289,
         POLL_OPTIONS_REMOVED: 290,
         POLL_ADDED_OPTION_REMOVED: 291,
+        GROUP_CUSTOM_REACTIONS: 293,
       }),
       p = c({
         ERROR: 0,

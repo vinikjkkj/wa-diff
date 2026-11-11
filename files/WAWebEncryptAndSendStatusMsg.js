@@ -42,6 +42,7 @@ __d(
     "WAWebStatusSessionGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumPrekeysFetchContext",
@@ -130,7 +131,7 @@ __d(
             i = e.sendMsgRecord,
             l = i.data.id,
             s = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            h = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
             y = ue(a),
             C = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(a);
           C === "reaction" &&

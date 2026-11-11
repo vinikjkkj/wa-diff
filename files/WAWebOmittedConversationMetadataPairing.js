@@ -6,7 +6,7 @@ __d(
     "WAWebSignalCommonUtils",
     "WAWebSignalConst",
     "WAWebSignalStoreApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -18,7 +18,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().toString(),
+          var t = o("WAWebUserUtils").getMeDeviceLidOrThrow().toString(),
             a = yield (e || (e = n("Promise"))).all([
               o("WAWebSignalStoreApi").waSignalStore.getMeta(
                 o("WAWebSignalConst").META_KEYS.REG_ID,

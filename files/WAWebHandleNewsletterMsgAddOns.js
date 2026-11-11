@@ -8,7 +8,7 @@ __d(
     "WAWebDBCreateOrUpdateReactions",
     "WAWebNewsletterDBUtils",
     "WAWebPollOptionHashUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,9 +40,7 @@ __d(
               parentMsgKey: o("WAWebNewsletterDBUtils")
                 .craftNewsletterMsgKeyFromServerId(a, t)
                 .toString(),
-              senderUserJid: o("WAWebUserPrefsMeUser")
-                .getMeUserOrThrow()
-                .toJid(),
+              senderUserJid: o("WAWebUserUtils").getMeUserOrThrow().toJid(),
               reactionText: r,
               timestamp: i * 1e3,
               orphan: 0,
@@ -104,7 +102,7 @@ __d(
                     msgKey: e.id,
                     parentMsgKey: c.id,
                     selectedOptionLocalIds: a != null ? a : [],
-                    sender: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                    sender: o("WAWebUserUtils").getMeUserOrThrow(),
                     senderTimestampMs: l * 1e3,
                     t: l,
                   },

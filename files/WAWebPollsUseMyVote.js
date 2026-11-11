@@ -7,7 +7,7 @@ __d(
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteCollection",
     "WAWebPollsPollVoteModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "react-compiler-runtime",
     "useWAWebEventTargetValue",
@@ -27,7 +27,7 @@ __d(
       var d = c,
         m;
       a[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()), (a[2] = m))
+        ? ((m = o("WAWebUserUtils").getMeLidUserOrThrow()), (a[2] = m))
         : (m = a[2]);
       var p = m,
         _;

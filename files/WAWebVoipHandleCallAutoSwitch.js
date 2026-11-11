@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebCallCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipEventConstants",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
@@ -148,9 +148,7 @@ __d(
       );
     }
     function b(t, n) {
-      var r = t.outgoing
-        ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
-        : t.peerJid;
+      var r = t.outgoing ? o("WAWebUserUtils").getMeUserOrThrow() : t.peerJid;
       return r == null
         ? (o("WALogger")
             .WARN(

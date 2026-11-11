@@ -18,8 +18,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v;
-    function S(t, n) {
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L;
+    function E(t, n) {
       var r = t.type;
       if (r !== "sharedBufferReady")
         if (r === "resamplingConfigured")
@@ -96,16 +96,16 @@ __d(
         } else return !1;
       return !0;
     }
-    var R = 8192,
-      L = 8,
-      E = r("err")("Audio capture start cancelled");
-    function k(e) {
-      if (e()) throw E;
+    var k = 8192,
+      I = 8,
+      T = r("err")("Audio capture start cancelled");
+    function D(e) {
+      if (e()) throw T;
     }
-    function I(e, t) {
-      return e === E || t();
+    function x(e, t) {
+      return e === T || t();
     }
-    function T() {
+    function $() {
       try {
         return (
           o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix(
@@ -126,7 +126,7 @@ __d(
         );
       }
     }
-    function D(e, t, n) {
+    function P(e, t, n) {
       return e
         ? t
           ? "skipped_native_stopped"
@@ -135,7 +135,7 @@ __d(
             : null
         : null;
     }
-    function x(e) {
+    function N(e) {
       e &&
         (o("WAWebVoipMainThreadLockODS").logMainThreadLockAudioStopEvent(
           "capture_stop",
@@ -148,12 +148,12 @@ __d(
             ])),
         ));
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function P() {
+    function w() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t != null &&
             (yield o("WAWebVoipSharedBufferRingRelease").didWorkletStop(t)),
             o("WAWebVoipSharedBufferRingQuarantine").holdSharedBufferRing(
@@ -161,10 +161,10 @@ __d(
               { ringBufferPtr: e, workletStopped: t },
             ));
         })),
-        P.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    var N = (function () {
+    var A = (function () {
       function e() {
         var e = this;
         ((this.audioWorkletNode = null),
@@ -208,12 +208,19 @@ __d(
             var a = t.audioWorklet
               .addModule(n)
               .then(function () {
-                ((e.isWorkletPreloaded = !0), (e.workletPreloadPromise = null));
+                (o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Capture] Worklet processor module preloaded",
+                    ])),
+                ),
+                  (e.isWorkletPreloaded = !0),
+                  (e.workletPreloadPromise = null));
               })
               .catch(function (t) {
                 (o("WALogger").ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:SharedBuffer:Capture] Worklet preload failed, will load during start: ",
                       "",
                     ])),
@@ -266,52 +273,58 @@ __d(
                   throw r("err")(
                     "voip: [AV:SharedBuffer:Capture] WASM module not initialized",
                   );
-                var p = R,
-                  _ = p * Float32Array.BYTES_PER_ELEMENT + L;
+                var p = k,
+                  _ = p * Float32Array.BYTES_PER_ELEMENT + I;
                 ((this.ringBufferPtr =
                   yield o("WAWebAudioUtility").mallocWasmBuffer(_)),
-                  k(l));
-                var h = this.ringBufferPtr;
-                if (h == null)
+                  D(l));
+                var f = this.ringBufferPtr;
+                if (f == null)
                   throw r("err")(
                     "voip: [AV:SharedBuffer:Capture] Failed to allocate ring buffer",
                   );
-                var y = m.GROWABLE_HEAP_U8();
-                (y.fill(0, h, h + _), yield this.$12(a, l), k(l));
-                var C = new AudioWorkletNode(
+                var C = m.GROWABLE_HEAP_U8();
+                (C.fill(0, f, f + _), yield this.$12(a, l), D(l));
+                var b = new AudioWorkletNode(
                   a,
                   "voip-shared-buffer-capture-processor",
                   { numberOfInputs: 1, numberOfOutputs: 0 },
                 );
-                this.audioWorkletNode = C;
-                var b = new (o("WAResolvable").Resolvable)();
-                ((this.$5 = b),
-                  (C.port.onmessage = function (e) {
+                this.audioWorkletNode = b;
+                var v = new (o("WAResolvable").Resolvable)();
+                ((this.$5 = v),
+                  (b.port.onmessage = function (e) {
                     var t = e.data;
                     if (!(typeof t != "object" || t == null))
                       if (t.type === "ready") {
                         var r;
                         ((n.isProcessorReady = !0),
+                          o("WALogger").LOG(
+                            g ||
+                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [AV:SharedBuffer:Capture] Processor ready",
+                              ])),
+                          ),
                           (r = n.processorReadyResolvable) == null ||
                             r.resolve(),
                           (n.processorReadyResolvable = null));
-                      } else if (t.type === "stopped") b.resolve();
+                      } else if (t.type === "stopped") v.resolve();
                       else if (t.type === "level") {
-                        var o = t.rmsDbfs;
-                        if (typeof o == "number" && Number.isFinite(o)) {
-                          var a;
-                          (a = n.$4) == null || a.forward(o);
+                        var a = t.rmsDbfs;
+                        if (typeof a == "number" && Number.isFinite(a)) {
+                          var i;
+                          (i = n.$4) == null || i.forward(a);
                         }
-                      } else (n.$11(t), S(t, "Capture"));
+                      } else (n.$11(t), E(t, "Capture"));
                   }),
                   yield this.waitForProcessorReady(),
-                  k(l));
-                var v = m.GROWABLE_HEAP_F32(),
-                  E = v.buffer;
-                (C.port.postMessage({
+                  D(l));
+                var S = m.GROWABLE_HEAP_F32(),
+                  R = S.buffer;
+                (b.port.postMessage({
                   type: "initSharedBuffer",
-                  heapBuffer: E,
-                  heapBufferOffset: h,
+                  heapBuffer: R,
+                  heapBufferOffset: f,
                   bufferSize: p,
                   targetSampleRate: t.sampleRate,
                   reportInputLevel: this.$4 != null,
@@ -322,29 +335,29 @@ __d(
                 }),
                   (this.$6 = !0),
                   (this.mediaStreamSource = s),
-                  s.connect(C),
-                  k(l),
+                  s.connect(b),
+                  D(l),
                   o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix(
                     "capture_start",
                   ));
-                var T = o(
+                var L = o(
                     "WAWebVoipMainThreadLockMarker",
                   ).startMainThreadLockMarker("capture_start", "main"),
-                  D = window.performance.now(),
-                  x,
-                  $;
+                  T = window.performance.now(),
+                  $,
+                  P;
                 try {
-                  ((x = m.startAudioReaderThread(h, p, i)),
-                    ($ = window.performance.now() - D));
+                  (($ = m.startAudioReaderThread(f, p, i)),
+                    (P = window.performance.now() - T));
                 } finally {
                   o("WAWebVoipMainThreadLockODS").logMainThreadLockCallDuration(
                     "capture_start",
                     o(
                       "WAWebVoipMainThreadLockMarker",
-                    ).finishMainThreadLockMarker(T),
+                    ).finishMainThreadLockMarker(L),
                   );
                 }
-                if (!x)
+                if (!$)
                   throw r("err")(
                     "voip: [AV:SharedBuffer:Capture] Failed to start audio reader thread",
                   );
@@ -352,22 +365,22 @@ __d(
                   (this.$3 = c),
                   o(
                     "WAWebVoipSharedBufferRingQuarantine",
-                  ).releaseHeldSharedBufferRings("mic", h),
-                  C.port.postMessage({ type: "start" }),
+                  ).releaseHeldSharedBufferRings("mic", f),
+                  b.port.postMessage({ type: "start" }),
                   o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Capture] capture started, [AV:capture-skew] startAudioReaderThread took ",
                         "ms",
                       ])),
-                    $.toFixed(1),
+                    P.toFixed(1),
                   ));
               } catch (e) {
                 if (
-                  I(e, l) ||
+                  x(e, l) ||
                   (o("WALogger").ERROR(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Capture] Failed to start capture: ",
                         "",
                       ])),
@@ -396,7 +409,7 @@ __d(
             function* (e, t) {
               if (
                 (this.workletPreloadPromise != null &&
-                  (yield this.workletPreloadPromise, k(t)),
+                  (yield this.workletPreloadPromise, D(t)),
                 !this.isWorkletPreloaded)
               ) {
                 var n = r(
@@ -406,7 +419,14 @@ __d(
                   throw r("err")(
                     "voip: [AV:SharedBuffer:Capture] Missing worklet module url",
                   );
-                (yield e.audioWorklet.addModule(n), k(t));
+                (yield e.audioWorklet.addModule(n),
+                  D(t),
+                  o("WALogger").LOG(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:SharedBuffer:Capture] Worklet processor module loaded",
+                      ])),
+                  ));
               }
             },
           );
@@ -452,13 +472,13 @@ __d(
             function* (t, n) {
               try {
                 var r = (n == null ? void 0 : n.nativeStopped) === !0,
-                  a = T(),
+                  a = $(),
                   i = t != null ? t : this.$3,
                   l = i == null ? e.$2 == null : e.$2 === i,
                   s = o("WAWebAudioUtility").getCachedWasmModule(),
                   u = !1;
                 if (l && s != null) {
-                  var c = D(a, r, i);
+                  var c = P(a, r, i);
                   try {
                     if (c == null) {
                       var d = o(
@@ -466,7 +486,7 @@ __d(
                       ).startMainThreadLockMarker("capture_stop", "main");
                       try {
                         s.isAudioReaderThreadRunning() &&
-                          (s.stopAudioReaderThread(), x(r));
+                          (s.stopAudioReaderThread(), N(r));
                       } finally {
                         o(
                           "WAWebVoipMainThreadLockODS",
@@ -483,8 +503,8 @@ __d(
                           "WAWebVoipMainThreadLockODS",
                         ).logMainThreadLockAudioStopEvent("capture_stop", c),
                         o("WALogger").LOG(
-                          h ||
-                            (h = babelHelpers.taggedTemplateLiteralLoose([
+                          b ||
+                            (b = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [AV:SharedBuffer:Capture] main thread reader stop skipped: ",
                               "",
                             ])),
@@ -494,8 +514,8 @@ __d(
                       this.$3 === i && (this.$3 = null));
                   } catch (e) {
                     o("WALogger").WARN(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:SharedBuffer:Capture] reader stop err: ",
                           "",
                         ])),
@@ -525,8 +545,8 @@ __d(
                   (this.$4 = null));
               } catch (e) {
                 o("WALogger").ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:SharedBuffer:Capture] Cleanup error: ",
                       "",
                     ])),
@@ -551,7 +571,7 @@ __d(
               var n = this.ringBufferPtr;
               if (n != null) {
                 if (((this.ringBufferPtr = null), t)) {
-                  yield $(n, e);
+                  yield M(n, e);
                   return;
                 }
                 try {
@@ -560,8 +580,8 @@ __d(
                   ).freeRingBufferAfterWorkletStop(n, e, "Capture");
                 } catch (e) {
                   o("WALogger").WARN(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Capture] Error freeing ring buffer: ",
                         "",
                       ])),
@@ -585,8 +605,8 @@ __d(
             this.audioWorkletNode != null &&
               (t.connect(this.audioWorkletNode),
               o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Capture] Reconnected to new stream",
                   ])),
               )));
@@ -594,10 +614,10 @@ __d(
         e
       );
     })();
-    ((N.$1 = 0),
-      (N.$2 = null),
-      (l.handleSharedBufferWorkletDiagnostics = S),
-      (l.WAWebVoipAudioCaptureSharedBufferWorklet = N));
+    ((A.$1 = 0),
+      (A.$2 = null),
+      (l.handleSharedBufferWorkletDiagnostics = E),
+      (l.WAWebVoipAudioCaptureSharedBufferWorklet = A));
   },
   98,
 );

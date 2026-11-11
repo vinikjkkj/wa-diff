@@ -19,6 +19,8 @@ __d(
     "WAWebRunInTransaction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdAntiTampering",
+    "WAWebSyncdAntiTampering.flow",
+    "WAWebSyncdAntiTamperingLtHash",
     "WAWebSyncdCollectionHandlerTypesConverter",
     "WAWebSyncdCollectionUtils",
     "WAWebSyncdConst",
@@ -752,7 +754,7 @@ __d(
             yield we(i, e, a, u);
             var c = yield o("WAWebSyncdAntiTampering").computeLtHash({
                 collection: e,
-                direction: o("WAWebSyncdAntiTampering").SyncdPatchDirection
+                direction: o("WAWebSyncdAntiTampering.flow").SyncdPatchDirection
                   .Outgoing,
                 fallbackQueryForValueMac: null,
                 mutations: u,
@@ -851,7 +853,9 @@ __d(
                 i,
                 "pre-processing outgoing patch v" + t,
               ),
-              yield o("WAWebSyncdAntiTampering").reportCollectionInconsistency(
+              yield o(
+                "WAWebSyncdAntiTamperingLtHash",
+              ).reportCollectionInconsistency(
                 e,
                 "pre-processing outgoing patch " + t + ".",
                 i,
@@ -1882,7 +1886,7 @@ __d(
                 "pre-processing incoming patch " + t.version.version + ".",
               ),
                 yield o(
-                  "WAWebSyncdAntiTampering",
+                  "WAWebSyncdAntiTamperingLtHash",
                 ).reportCollectionInconsistency(
                   e,
                   "[" +

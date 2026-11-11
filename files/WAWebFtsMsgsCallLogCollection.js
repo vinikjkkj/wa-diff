@@ -6,6 +6,7 @@ __d(
     "WAWebMsgQueryUtils",
     "WAWebPhoneNumberSearch",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,7 +41,7 @@ __d(
                   ? t
                   : !1,
               a = r
-                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+                ? o("WAWebUserUtils").getMeLidUserOrThrow()
                 : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
             return n.some(function (e) {
               return !e.participant.equals(a);

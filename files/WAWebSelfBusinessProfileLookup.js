@@ -1,10 +1,10 @@
 __d(
   "WAWebSelfBusinessProfileLookup",
-  ["WAWebBusinessProfileCollection", "WAWebUserPrefsMeUser"],
+  ["WAWebBusinessProfileCollection", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        o("WAWebUserUtils").getMeUserOrThrow(),
       );
     }
     l.getSelfBusinessProfile = e;

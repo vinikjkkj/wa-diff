@@ -1687,6 +1687,8 @@ __d(
       INSTANT_ADS_CLICK_FOOTER_BACK: "instant_ads_click_footer_back",
       INSTANT_ADS_NUX_IMPRESSION: "instant_ads_nux_impression",
       INSTANT_ADS_NUX_DISMISS: "instant_ads_nux_dismiss",
+      INSTANT_ADS_TERMS_NOTICE_IMPRESSION:
+        "instant_ads_terms_notice_impression",
       INSTANT_ADS_PRODUCT_PICKER_IMPRESSION:
         "instant_ads_product_picker_impression",
       INSTANT_ADS_PRODUCT_PICKER_HOVER: "instant_ads_product_picker_hover",

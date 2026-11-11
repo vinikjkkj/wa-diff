@@ -21,7 +21,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUiIdleEventBus",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
@@ -41,7 +41,7 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              o("WAWebUserUtils").getMeLidUserOrThrow(),
             ),
             n = new (r("WAWebMsgKey"))({
               from: t,

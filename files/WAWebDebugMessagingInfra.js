@@ -20,6 +20,8 @@ __d(
     "WAWebProcessKeyBundle",
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
+    "WAWebSchemaSenderkey",
+    "WAWebSchemaSession",
     "WAWebSendClearChatAction",
     "WAWebSendTextMsgChatAction",
     "WAWebSessionScope",
@@ -27,7 +29,6 @@ __d(
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
     "WAWebSignalSessionApi",
-    "WAWebSignalStorage",
     "WAWebUserPrefsStatus",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -127,7 +128,7 @@ __d(
           var e = o("WAWebSignalProtocolStore")
               .getPersistSignalProtocolStore()
               .cache_TESTONLY(),
-            t = yield o("WAWebSignalStorage").getSessionTable().all(),
+            t = yield o("WAWebSchemaSession").getTable().all(),
             a = new Map();
           (yield (J || (J = n("Promise"))).all(
             t.map(
@@ -169,7 +170,7 @@ __d(
               ),
             ),
             (Z = a));
-          var i = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
+          var i = yield o("WAWebSchemaSenderkey").getTable().all(),
             l = new Map();
           (yield J.all(
             i.map(
@@ -250,7 +251,7 @@ __d(
             t = o("WAWebSignalProtocolStore")
               .getPersistSignalProtocolStore()
               .cache_TESTONLY(),
-            a = yield o("WAWebSignalStorage").getSessionTable().all(),
+            a = yield o("WAWebSchemaSession").getTable().all(),
             i = new Map();
           (yield (J || (J = n("Promise"))).all(
             a.map(
@@ -355,7 +356,7 @@ __d(
               }),
             ),
             D = ee != null ? ee : new Map(),
-            x = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
+            x = yield o("WAWebSchemaSenderkey").getTable().all(),
             $ = new Map();
           (yield J.all(
             x.map(

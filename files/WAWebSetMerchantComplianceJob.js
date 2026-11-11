@@ -4,7 +4,7 @@ __d(
     "WAWebBizSetMerchantCompliance",
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -49,7 +49,7 @@ __d(
             s = e.grievanceOfficerDetails,
             u = e.isRegistered,
             c = u === void 0 ? !1 : u,
-            m = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            m = o("WAWebUserUtils").getMeUserOrThrow(),
             p = {};
           if (
             ((p.is_registered = c),

@@ -24,7 +24,7 @@ __d(
     "WAWebBizGraphQLRefreshCartJob",
     "WAWebCatalogCollection",
     "WAWebProductModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -387,7 +387,7 @@ __d(
       var t;
       r("vulture")("oQZmftS5cO6JTdRjYo1xaPXgZyU=");
       var n = o("WAWebCatalogCollection").CatalogCollection.get(
-        o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
       );
       return n == null || (t = n.productCollection) == null ? void 0 : t.get(e);
     }

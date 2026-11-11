@@ -6,7 +6,7 @@ __d(
     "WAWebPQGatingUtils",
     "WAWebSendMsgDatabaseJob",
     "WAWebSessionScope",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -19,7 +19,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
               a = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob(
                 t != null ? [t, n] : [n],
               );

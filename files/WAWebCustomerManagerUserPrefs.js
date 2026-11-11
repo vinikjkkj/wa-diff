@@ -7,25 +7,26 @@ __d(
       u = "customer_manager_sort_config",
       c = "customer_manager_column_widths",
       d = "customer_manager_dismissed_trial_banner",
-      m = new Map(
+      m = "customer_manager_trial_banner_view_days",
+      p = new Map(
         o("WAWebCustomerManagerListViewColumns").ALL_COLUMN_KEYS.map(
           function (e) {
             return [e, e];
           },
         ),
       );
-    function p(e) {
+    function _(e) {
       if (!Array.isArray(e)) return null;
       var t = e
         .map(function (e) {
-          return typeof e == "string" ? m.get(e) : null;
+          return typeof e == "string" ? p.get(e) : null;
         })
         .filter(function (e) {
           return e != null;
         });
       return t.length === 0 ? null : t;
     }
-    function _(e) {
+    function f(e) {
       if (!Array.isArray(e)) return null;
       var t = new Set(e);
       return o("WAWebCustomerManagerListViewColumns").ALL_COLUMN_KEYS.filter(
@@ -34,9 +35,9 @@ __d(
         },
       );
     }
-    function f() {
+    function g() {
       var t = new Set(
-        o("WAWebUICustomizationStore").getCustomization(e, _, []),
+        o("WAWebUICustomizationStore").getCustomization(e, f, []),
       );
       return o("WAWebCustomerManagerListViewColumns").ALL_COLUMN_KEYS.filter(
         function (e) {
@@ -48,7 +49,7 @@ __d(
         },
       );
     }
-    function g(t) {
+    function h(t) {
       var n = new Set(t);
       o("WAWebUICustomizationStore").saveCustomization(
         e,
@@ -59,8 +60,8 @@ __d(
         ),
       );
     }
-    function h(e) {
-      var t = p(e);
+    function y(e) {
+      var t = _(e);
       if (t == null) return null;
       var n = new Set(t),
         r = o("WAWebCustomerManagerListViewColumns").ALL_COLUMN_KEYS.filter(
@@ -70,17 +71,17 @@ __d(
         );
       return r.length === 0 ? t : [].concat(t, r);
     }
-    function y() {
+    function C() {
       return o("WAWebUICustomizationStore").getCustomization(
         s,
-        h,
+        y,
         o("WAWebCustomerManagerListViewColumns").ALL_COLUMN_KEYS,
       );
     }
-    function C(e) {
+    function b(e) {
       o("WAWebUICustomizationStore").saveCustomization(s, [].concat(e));
     }
-    function b(e) {
+    function v(e) {
       if (!Array.isArray(e) || e.length !== 2) return null;
       var t = e[0],
         n = e[1],
@@ -93,23 +94,23 @@ __d(
         ? null
         : { direction: n, key: r };
     }
-    function v() {
-      return o("WAWebUICustomizationStore").getCustomization(u, b, null);
+    function S() {
+      return o("WAWebUICustomizationStore").getCustomization(u, v, null);
     }
-    function S(e) {
+    function R(e) {
       o("WAWebUICustomizationStore").saveCustomization(
         u,
         e == null ? null : [e.key, e.direction],
       );
     }
-    function R(e) {
+    function L(e) {
       if (!Array.isArray(e)) return null;
       var t = new Map();
       for (var n of e)
         if (Array.isArray(n)) {
           var r = n[0],
             o = n[1],
-            a = typeof r == "string" ? m.get(r) : void 0;
+            a = typeof r == "string" ? p.get(r) : void 0;
           a != null &&
             typeof o == "number" &&
             Number.isFinite(o) &&
@@ -118,35 +119,57 @@ __d(
         }
       return Array.from(t);
     }
-    function L() {
-      return o("WAWebUICustomizationStore").getCustomization(c, R, []);
-    }
-    function E(e) {
-      o("WAWebUICustomizationStore").saveCustomization(c, [].concat(e));
+    function E() {
+      return o("WAWebUICustomizationStore").getCustomization(c, L, []);
     }
     function k(e) {
+      o("WAWebUICustomizationStore").saveCustomization(c, [].concat(e));
+    }
+    function I(e) {
       return e === "trial_halfway" || e === "trial_ending" ? e : null;
     }
-    function I() {
-      return o("WAWebUICustomizationStore").getCustomization(d, k, null);
+    function T() {
+      return o("WAWebUICustomizationStore").getCustomization(d, I, null);
     }
-    function T(e) {
+    function D(e) {
       o("WAWebUICustomizationStore").saveCustomization(d, e);
     }
-    function D() {
-      o("WAWebUICustomizationStore").saveCustomization(d, null);
+    function x(e) {
+      if (!Array.isArray(e) || e.length !== 3) return null;
+      var t = e[0],
+        n = e[1],
+        r = e[2],
+        o = I(t);
+      return o != null && typeof n == "number" && typeof r == "string"
+        ? { count: n, lastDay: r, stage: o }
+        : null;
     }
-    ((l.getVisibleColumns = f),
-      (l.saveVisibleColumns = g),
-      (l.getColumnOrder = y),
-      (l.saveColumnOrder = C),
-      (l.getSortConfig = v),
-      (l.saveSortConfig = S),
-      (l.getColumnWidths = L),
-      (l.saveColumnWidths = E),
-      (l.getDismissedTrialBanner = I),
-      (l.saveDismissedTrialBanner = T),
-      (l.resetDismissedTrialBanner = D));
+    function $() {
+      return o("WAWebUICustomizationStore").getCustomization(m, x, null);
+    }
+    function P(e) {
+      var t = e.count,
+        n = e.lastDay,
+        r = e.stage;
+      o("WAWebUICustomizationStore").saveCustomization(m, [r, t, n]);
+    }
+    function N() {
+      (o("WAWebUICustomizationStore").saveCustomization(d, null),
+        o("WAWebUICustomizationStore").saveCustomization(m, null));
+    }
+    ((l.getVisibleColumns = g),
+      (l.saveVisibleColumns = h),
+      (l.getColumnOrder = C),
+      (l.saveColumnOrder = b),
+      (l.getSortConfig = S),
+      (l.saveSortConfig = R),
+      (l.getColumnWidths = E),
+      (l.saveColumnWidths = k),
+      (l.getDismissedTrialBanner = T),
+      (l.saveDismissedTrialBanner = D),
+      (l.getTrialBannerViewDays = $),
+      (l.saveTrialBannerViewDays = P),
+      (l.resetTrialBanner = N));
   },
   98,
 );

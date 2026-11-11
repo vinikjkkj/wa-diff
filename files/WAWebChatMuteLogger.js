@@ -16,7 +16,7 @@ __d(
       s,
       u,
       c = r("JSResourceForInteraction")(
-        "WAWebMetaAiChatActionIdentity",
+        "WAWebMetaAiConversationThreadId",
       ).__setRef("WAWebChatMuteLogger");
     function d(e, t, n) {
       p(e, {

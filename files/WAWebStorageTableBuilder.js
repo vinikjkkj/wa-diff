@@ -44,11 +44,6 @@ __d(
             this
           );
         }),
-        (n.devOnlyDoNotUseInitWithMaxVersion = function (t, n) {
-          var e = this.versionManager.getMax() + 1,
-            r = e;
-          return this.version(r, t, n);
-        }),
         (n.delete = function (n) {
           var t = this.versionManager.claim(
             n,

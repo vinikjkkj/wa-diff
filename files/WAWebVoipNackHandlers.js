@@ -125,7 +125,10 @@ __d(
           ? s._(/*BTDS*/ "{name} can't join WhatsApp group calls right now.", [
               s._param(
                 "name",
-                v.jsx(o("WAWebName.react").Name, { contact: a }),
+                v.jsx(o("WAWebName.react").Name, {
+                  showOrgIcon: !1,
+                  contact: a,
+                }),
               ),
             ])
           : s._(

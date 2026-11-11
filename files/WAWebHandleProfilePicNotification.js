@@ -15,6 +15,7 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebProfilePicConstants",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -120,8 +121,7 @@ __d(
                           l,
                           _,
                           a.ts,
-                          a.author ||
-                            o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                          a.author || o("WAWebUserUtils").getMeUserOrThrow(),
                         );
                         return o(
                           "WAWebHandleSingleMsgWorkerCompatible",

@@ -4,8 +4,9 @@ __d(
     "Promise",
     "WALogger",
     "WAWebMessageQueueImpl",
+    "WAWebSchemaSenderkey",
+    "WAWebSchemaSession",
     "WAWebSignalProtocolStore",
-    "WAWebSignalStorage",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,8 +21,8 @@ __d(
               .getPersistSignalProtocolStore()
               .cache_TESTONLY(),
             r = yield (s || (s = n("Promise"))).all([
-              o("WAWebSignalStorage").getSessionTable().all(),
-              o("WAWebSignalStorage").getSenderKeyTable().all(),
+              o("WAWebSchemaSession").getTable().all(),
+              o("WAWebSchemaSenderkey").getTable().all(),
             ]),
             a = r[0],
             i = r[1],

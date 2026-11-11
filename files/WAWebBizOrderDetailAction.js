@@ -8,7 +8,7 @@ __d(
     "WAWebOrderGatingUtils",
     "WAWebProductDetailsFlowLoadable",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,7 +39,7 @@ __d(
         l = e.sellerJid,
         u = e.status,
         c = e.token,
-        d = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+        d = o("WAWebUserUtils").getMeUserOrThrow(),
         m =
           (r =
             (a = o("WAWebMsgGetters").getSender(e.unsafe())) == null

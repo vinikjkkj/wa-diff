@@ -97,12 +97,6 @@ __d(
               selectedMessages: t,
             });
           }),
-          (n.forwardToolbarDismissed = function () {
-            this.$9({
-              action: o("WAWebWamEnumForwardActionUserJourneyAction")
-                .FORWARD_ACTION_USER_JOURNEY_ACTION.FORWARD_TOOLBAR_DISMISSED,
-            });
-          }),
           (n.selectTappedInContextMenu = function () {
             this.$9({
               action: o("WAWebWamEnumForwardActionUserJourneyAction")

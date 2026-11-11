@@ -16,7 +16,7 @@ __d(
     "WAWebSelfReminderGating",
     "WAWebSelfReminderMarkStore",
     "WAWebSendScheduledMsgAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -41,7 +41,7 @@ __d(
             return "invalid_time";
           try {
             var s = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                o("WAWebUserUtils").getMeUserOrThrow(),
                 "createChat",
               ),
               u = s.chat;

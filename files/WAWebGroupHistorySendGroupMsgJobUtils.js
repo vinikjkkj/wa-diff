@@ -7,7 +7,7 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebMaybe",
     "WAWebSendGroupMsgJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -47,7 +47,7 @@ __d(
             s = e.filter(function (e) {
               return i.has(String(e)) || l(e);
             }),
-            u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            u = o("WAWebUserUtils").getMeLidUserOrThrow(),
             c = n.normalizeAddressingModeFn([].concat(s, [u])).filter(Boolean),
             d = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: c });
           return {

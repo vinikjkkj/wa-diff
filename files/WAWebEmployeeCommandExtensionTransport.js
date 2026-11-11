@@ -14,24 +14,21 @@ __d(
       g = "idle",
       h = null,
       y = [],
-      C = "not_checked";
-    function b() {
-      g === "idle" && v();
-    }
+      C = [],
+      b = "not_checked";
     function v() {
+      g === "idle" && S();
+    }
+    function S() {
       return (
         h == null &&
-          (h = D()
+          (h = x()
             .then(function (e) {
               var t = e.extensionIds,
                 n = e.state,
-                r = e.timedOut;
-              return (
-                (y = t),
-                (C = n),
-                (g = r && I("thanks") == null ? "idle" : "done"),
-                n
-              );
+                r = e.thanksIds,
+                o = e.timedOut;
+              return ((y = t), (C = r), (b = n), (g = o ? "idle" : "done"), n);
             })
             .finally(function () {
               h = null;
@@ -39,21 +36,21 @@ __d(
         h
       );
     }
-    function S() {
-      return C;
+    function R() {
+      return b;
     }
-    function R(e) {
-      return I(e) != null;
+    function L(e) {
+      return T(e) != null;
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = I(e);
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = T(e);
           if (r == null) return { ok: !1, error: "disabled" };
-          var o = yield w(
+          var o = yield F(
             r,
             babelHelpers.extends({}, n, {
               type: "wa_employee_command",
@@ -63,65 +60,70 @@ __d(
             }),
             p,
           );
-          return M(e, o);
+          return A(e, o);
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
+    function I(e) {
       (e === void 0 && (e = s),
         (f = e),
         (g = "idle"),
         (h = null),
         (y = []),
-        (C = "not_checked"));
+        (C = []),
+        (b = "not_checked"));
     }
-    function I(e) {
-      return y.find(function (t) {
-        return e !== "thanks" || t !== f;
-      });
+    function T(e) {
+      return e === "thanks" ? C[0] : y[0];
     }
-    function T() {
+    function D() {
       var e = r("WAWebEnvironment").getEnvironment() === "prod" ? [u] : [u, c];
       return f === "" ? e : [f].concat(e);
     }
-    function D() {
-      return x.apply(this, arguments);
-    }
     function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = T(),
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = D(),
             r = yield (e || (e = n("Promise"))).all(
               t.map(function (e) {
-                return w(e, d, m);
+                return F(e, d, m);
               }),
             ),
-            o = t.filter(function (e, t) {
-              return N(r[t]) || (r[t] === _ && y.includes(e));
-            });
+            o = function (n, o) {
+              return t.filter(function (e, t) {
+                return n(r[t]) || (r[t] === _ && o.includes(e));
+              });
+            },
+            a = o(M, y);
           return {
-            extensionIds: o,
-            state: o.length > 0 ? "on" : $(r),
-            timedOut: r.includes(_),
+            extensionIds: a,
+            state: a.length > 0 ? "on" : P(r),
+            thanksIds: o(w, C),
+            timedOut: t.some(function (e, t) {
+              return r[t] === _ && !a.includes(e);
+            }),
           };
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return e.some(N)
+    function P(e) {
+      return e.some(M)
         ? "on"
         : e.includes(_)
           ? "no_answer"
-          : e.some(P)
+          : e.some(N)
             ? "off"
             : "absent";
     }
-    function P(e) {
+    function N(e) {
       return e != null && typeof e == "object";
     }
-    function N(e) {
+    function M(e) {
       return (
         e != null &&
         typeof e == "object" &&
@@ -130,7 +132,10 @@ __d(
         e.enabled === !0
       );
     }
-    function M(e, t) {
+    function w(e) {
+      return M(e) && e != null && typeof e == "object" && e.thanks === !0;
+    }
+    function A(e, t) {
       return t === _
         ? { ok: !1, error: "timeout" }
         : t == null || typeof t != "object"
@@ -142,8 +147,8 @@ __d(
                 error: typeof t.error == "string" ? t.error : "create_error",
               };
     }
-    function w(t, r, o) {
-      var a = A();
+    function F(t, r, o) {
+      var a = O();
       return a == null
         ? (e || (e = n("Promise"))).resolve(null)
         : new (e || (e = n("Promise")))(function (e) {
@@ -162,19 +167,19 @@ __d(
             }
           });
     }
-    function A() {
+    function O() {
       var e,
         t = (e = window.chrome) == null ? void 0 : e.runtime;
       return typeof (t == null ? void 0 : t.sendMessage) == "function"
         ? t
         : null;
     }
-    ((l.prewarmEmployeeCommandExtension = b),
-      (l.refreshEmployeeCommandExtension = v),
-      (l.getEmployeeCommandExtensionState = S),
-      (l.isEmployeeCommandExtensionReady = R),
-      (l.runInEmployeeCommandExtension = L),
-      (l.resetEmployeeCommandExtensionForTesting = k));
+    ((l.prewarmEmployeeCommandExtension = v),
+      (l.refreshEmployeeCommandExtension = S),
+      (l.getEmployeeCommandExtensionState = R),
+      (l.isEmployeeCommandExtensionReady = L),
+      (l.runInEmployeeCommandExtension = E),
+      (l.resetEmployeeCommandExtensionForTesting = I));
   },
   98,
 );

@@ -25,7 +25,7 @@ __d(
     "WAWebStatusGetters",
     "WAWebStatusModel",
     "WAWebStatusUpdatesService",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWebcStatusSessionWamEvent",
     "WAWebWebcStatusSyncWamEvent",
@@ -249,7 +249,7 @@ __d(
             (t.id.remote.isStatus() &&
               (a = t.id.fromMe
                 ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                    o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                    o("WAWebUserUtils").getMeUserOrThrow(),
                   )
                 : t.author),
             this.hasSynced())

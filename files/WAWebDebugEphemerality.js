@@ -12,7 +12,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUpdateDisappearingModeForContact",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -91,7 +91,7 @@ __d(
                     id: r("WAWebMsgKey").newId_DEPRECATED(),
                   }),
                   from: e.id,
-                  to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                  to: o("WAWebUserUtils").getMeUserOrThrow(),
                   recipients: [],
                   subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
                     .EphemeralKeepInChat,

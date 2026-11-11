@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAPQRollbackProtocol",
     "WAWebKyberPreKeyStore",
-    "WAWebSignalStorage",
+    "WAWebSchemaSession",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,7 +26,7 @@ __d(
             );
             return;
           }
-          var n = o("WAWebSignalStorage").getSessionTable(),
+          var n = o("WAWebSchemaSession").getTable(),
             r = (yield n.all())
               .map(function (e) {
                 var t = e.address;

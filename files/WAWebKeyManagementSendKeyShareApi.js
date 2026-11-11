@@ -12,6 +12,7 @@ __d(
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdKeyTypes",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -61,7 +62,7 @@ __d(
                   .sendLogs("key-share-non-peer");
                 return;
               }
-              var f = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+              var f = o("WAWebUserUtils").getMeDeviceLidOrThrow();
               i = [
                 o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
                   f.user,

@@ -5,6 +5,7 @@ __d(
     "WAWebOrgGatingUtils",
     "WAWebOrgMemberLidEligibility",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,7 +33,7 @@ __d(
     }
     function u(e) {
       var t,
-        n = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().user,
+        n = o("WAWebUserUtils").getMeLidUserOrThrow().user,
         r =
           (t = o("WAWebOrgCollection").OrgCollection.get(e)) == null ||
           (t = t.members.get(n)) == null

@@ -19,6 +19,7 @@ __d(
     "WAWebSessionScope",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -105,7 +106,7 @@ __d(
               var C = yield o(
                 "WAWebBroadcastEphemeralUtils",
               ).buildBroadcastRetryEphemeral({
-                authorId: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                authorId: o("WAWebUserUtils").getMeLidUserOrThrow(),
                 broadcastJid: l,
                 proto: n,
                 recipient: o("WAWebWidFactory").asUserWidOrThrow(i),

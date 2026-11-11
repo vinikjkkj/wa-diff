@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
     "WAWebODS",
@@ -31,18 +32,26 @@ __d(
       L = 1e4,
       E = 2e3,
       k = null;
-    function I(t, n) {
-      var a;
-      if (
-        ((a = o("WAWebAudioUtility").getCachedWasmModule()) == null ||
-        a.isAudioPipelineV2Enabled == null
+    function I() {
+      var e;
+      return (
+        ((e = o("WAWebAudioUtility").getCachedWasmModule()) == null ||
+        e.isAudioPipelineV2Enabled == null
           ? void 0
-          : a.isAudioPipelineV2Enabled()) !== !0
+          : e.isAudioPipelineV2Enabled()) === !0
+      );
+    }
+    function T(t, n) {
+      if (
+        !I() ||
+        o("WAWebABProps").getABPropConfigValue(
+          "web_voip_audio_shared_call_context",
+        ) !== !0
       )
         return null;
-      var i = k;
-      if (i != null && i.context.state !== "closed")
-        return i.context.sampleRate !== n
+      var a = k;
+      if (a != null && a.context.state !== "closed")
+        return a.context.sampleRate !== n
           ? (r("WAWebODS").incr("web.call.audio.call_context.rate_mismatch"),
             o("WALogger").WARN(
               e ||
@@ -54,10 +63,10 @@ __d(
                 ])),
               t,
               n,
-              i.context.sampleRate,
+              a.context.sampleRate,
             ),
             null)
-          : (i.holders.add(t),
+          : (a.holders.add(t),
             r("WAWebODS").incr("web.call.audio.call_context.joined"),
             o("WALogger").LOG(
               s ||
@@ -67,12 +76,12 @@ __d(
                   "",
                 ])),
               t,
-              i.context.state,
+              a.context.state,
             ),
-            i.context);
-      var l = j(n),
-        c = {
-          context: l,
+            a.context);
+      var i = Q(n),
+        l = {
+          context: i,
           holders: new Set([t]),
           isRecovering: !1,
           isRecoveryScheduled: !1,
@@ -85,8 +94,8 @@ __d(
           stopWatchingOutputDevices: null,
         };
       return (
-        $(c),
-        (k = c),
+        N(l),
+        (k = l),
         r("WAWebODS").incr("web.call.audio.call_context.created"),
         o("WALogger").LOG(
           u ||
@@ -96,17 +105,17 @@ __d(
               "",
             ])),
           t,
-          l.state,
+          i.state,
         ),
-        l
+        i
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = k;
           if (n == null || e == null || n.context !== e) return t();
           (n.outputChangesInFlight++, (n.outputFailed = !1));
@@ -114,14 +123,14 @@ __d(
             return yield t();
           } finally {
             self.setTimeout(function () {
-              (n.outputChangesInFlight--, P(n));
+              (n.outputChangesInFlight--, M(n));
             }, 0);
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t) {
+    function $(e, t) {
       var n = k;
       return n == null || n.context !== t
         ? !1
@@ -160,12 +169,16 @@ __d(
               ),
               !0));
     }
-    function $(e) {
+    function P(e) {
+      var t;
+      return ((t = k) == null ? void 0 : t.context) === e;
+    }
+    function N(e) {
       var t = e.context;
       (t.addEventListener("error", function () {
         (r("WAWebODS").incr("web.call.audio.call_context.error"),
           (e.outputFailed = !0),
-          M(e, "error"));
+          A(e, "error"));
       }),
         t.addEventListener("statechange", function () {
           t.state === "suspended" &&
@@ -175,15 +188,15 @@ __d(
               r("WAWebODS").incr(
                 "web.call.audio.call_context.unrequested_suspend",
               ),
-            M(e, "suspension"));
+            A(e, "suspension"));
         }));
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.context;
           if (e.isRecovering) {
             e.outputChangedMidRecovery = !0;
@@ -201,10 +214,10 @@ __d(
                 ),
                 e.outputFailed)
               ) {
-                M(e, "output change error");
+                A(e, "output change error");
                 return;
               }
-              var n = yield O(e, "resume");
+              var n = yield W(e, "resume");
               n === "resumed"
                 ? ((e.recoveryLevel = 0),
                   o("WALogger").LOG(
@@ -221,26 +234,26 @@ __d(
                       ])),
                   ),
                   (e.outputFailed = !0),
-                  M(e, "output change"));
+                  A(e, "output change"));
             }
           }
         })),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(e, t) {
+    function A(e, t) {
       e.isRecoveryScheduled ||
         ((e.isRecoveryScheduled = !0),
         self.setTimeout(function () {
-          ((e.isRecoveryScheduled = !1), w(e, t));
+          ((e.isRecoveryScheduled = !1), F(e, t));
         }, 0));
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
+    function F(e, t) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.context;
           if (
             (n.state === "running" && (e.outputFailed = !1),
@@ -251,7 +264,7 @@ __d(
               e.isRecovering
             ))
           ) {
-            var a = F(e, t);
+            var a = B(e, t);
             if (a != null) {
               o("WALogger").LOG(
                 g ||
@@ -263,7 +276,7 @@ __d(
                 t,
                 a,
               );
-              var i = yield O(e, a);
+              var i = yield W(e, a);
               i === "resumed"
                 ? (r("WAWebODS").incr("web.call.audio.call_context.recovered"),
                   o("WALogger").LOG(
@@ -278,14 +291,14 @@ __d(
                   (r("WAWebODS").incr(
                     "web.call.audio.call_context.recovery_failed",
                   ),
-                  M(e, "failed " + a));
+                  A(e, "failed " + a));
             }
           }
         })),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F(e, t) {
+    function B(e, t) {
       if (
         (Date.now() - e.lastRecoveryMs > L &&
           ((e.recoveries = 0), (e.recoveryLevel = 0)),
@@ -315,16 +328,16 @@ __d(
         S[Math.min(n, S.length - 1)]
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           ((e.isRecovering = !0), (e.outputChangedMidRecovery = !1));
           var n = "not resumed";
           try {
-            n = yield W(e, t);
+            n = yield U(e, t);
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -352,37 +365,13 @@ __d(
                     ])),
                   t,
                 ),
-                P(e),
+                M(e),
                 a ? "resumed" : "output changed")
               : n === "move pending"
                 ? "output changed"
                 : a
                   ? "resumed"
                   : "failed"
-          );
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e, t) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = !0;
-          return (
-            t === "default output"
-              ? (n = yield U(e, ""))
-              : t === "no output" && (n = yield U(e, { type: "none" })),
-            k !== e
-              ? "not resumed"
-              : (t === "no output" && z(e),
-                n
-                  ? (yield G(e.context))
-                    ? "resumed"
-                    : "not resumed"
-                  : "move pending")
           );
         })),
         q.apply(this, arguments)
@@ -394,12 +383,36 @@ __d(
     function V() {
       return (
         (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = !0;
+          return (
+            t === "default output"
+              ? (n = yield H(e, ""))
+              : t === "no output" && (n = yield H(e, { type: "none" })),
+            k !== e
+              ? "not resumed"
+              : (t === "no output" && K(e),
+                n
+                  ? (yield j(e.context))
+                    ? "resumed"
+                    : "not resumed"
+                  : "move pending")
+          );
+        })),
+        V.apply(this, arguments)
+      );
+    }
+    function H(e, t) {
+      return G.apply(this, arguments);
+    }
+    function G() {
+      return (
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.context,
             a = n.setSinkId;
           if (typeof a != "function") return !0;
           (e.outputChangesInFlight++, (e.outputFailed = !1));
           var i = a.call(n, t);
-          if (!(yield H(i))) {
+          if (!(yield z(i))) {
             (r("WAWebODS").incr(
               "web.call.audio.call_context.output_move_pending",
             ),
@@ -416,17 +429,17 @@ __d(
                 "web.call.audio.call_context.output_move_settled_late",
               ),
                 self.setTimeout(function () {
-                  (e.outputChangesInFlight--, P(e));
+                  (e.outputChangesInFlight--, M(e));
                 }, 0));
             };
             return (i.then(l, l), !1);
           }
           return (e.outputChangesInFlight--, yield i, !0);
         })),
-        V.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function H(e) {
+    function z(e) {
       return new (v || (v = n("Promise")))(function (t) {
         var n = self.setTimeout(function () {
             t(!1);
@@ -437,7 +450,7 @@ __d(
         e.then(r, r);
       });
     }
-    function G(e) {
+    function j(e) {
       return new (v || (v = n("Promise")))(function (t) {
         var n = self.setTimeout(function () {
           t(!1);
@@ -452,12 +465,12 @@ __d(
         );
       });
     }
-    function z(e) {
+    function K(e) {
       var t = navigator.mediaDevices;
       if (!(e.stopWatchingOutputDevices != null || t == null)) {
         var n = e.context,
           r = function () {
-            T(e.context, function () {
+            D(e.context, function () {
               return o("WAWebAudioDeviceManager").applyPreferredAudioOutputSink(
                 n,
                 "AV:SharedContext",
@@ -475,7 +488,7 @@ __d(
           }));
       }
     }
-    function j(e) {
+    function Q(e) {
       var t,
         n =
           (t = o(
@@ -489,9 +502,11 @@ __d(
         sinkId: n,
       });
     }
-    ((l.acquireSharedCallAudioContext = I),
-      (l.changeCallAudioOutput = T),
-      (l.releaseSharedCallAudioContext = x));
+    ((l.isAudioPipelineV2Enabled = I),
+      (l.acquireSharedCallAudioContext = T),
+      (l.changeCallAudioOutput = D),
+      (l.releaseSharedCallAudioContext = $),
+      (l.isSharedCallAudioContext = P));
   },
   98,
 );

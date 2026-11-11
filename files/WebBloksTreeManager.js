@@ -13,10 +13,10 @@ __d(
     "WebBloksRenderDiagnostics",
     "WebBloksScopedIds",
     "WebBloksScriptExecutor",
+    "WebBloksTreePendingUpdates",
     "WebBloksTreeResources",
     "WebBloksUpdateTraversal",
     "WebBloksUtils",
-    "WebBloksVariableUpdates",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -44,7 +44,7 @@ __d(
           (this.$2 = !1),
           (this.$3 = !1),
           (this.$4 = !1),
-          (this.variableUpdates = new (r("WebBloksVariableUpdates"))()),
+          (this.variableUpdates = new (r("WebBloksTreePendingUpdates"))()),
           (this.onNewTreeAndVariablesListener = new (o(
             "WebBloksUtils",
           ).EventEmitter)()),

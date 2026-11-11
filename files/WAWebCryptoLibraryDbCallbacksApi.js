@@ -9,10 +9,11 @@ __d(
     "WASignalLocalStorageProtocol.pb",
     "WASignalOther",
     "WAWebApiContact",
+    "WAWebSchemaKyberLastResortKey",
+    "WAWebSchemaKyberPrekey",
     "WAWebSessionScope",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "WAWebSignalStorage",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -338,15 +339,13 @@ __d(
         },
         loadKyberPreKey: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield o("WAWebSignalStorage").getKyberPreKeyTable().get(e);
+            var t = yield o("WAWebSchemaKyberPrekey").getTable().get(e);
             if (t != null)
               return {
                 secretKey: new Uint8Array(t.keyPair.privKey),
                 shouldDeleteAfterUse: !0,
               };
-            var n = yield o("WAWebSignalStorage")
-              .getKyberLastResortKeyTable()
-              .get(e);
+            var n = yield o("WAWebSchemaKyberLastResortKey").getTable().get(e);
             return n == null
               ? null
               : {
@@ -361,7 +360,7 @@ __d(
         })(),
         deleteKyberPreKey: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            yield o("WAWebSignalStorage").getKyberPreKeyTable().remove(e);
+            yield o("WAWebSchemaKyberPrekey").getTable().remove(e);
           });
           function t(t) {
             return e.apply(this, arguments);

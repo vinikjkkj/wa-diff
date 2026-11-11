@@ -26,6 +26,7 @@ __d(
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWamEnumMessageType",
@@ -191,7 +192,7 @@ __d(
                 .sendLogs("broadcast-ensure-e2e-sessions-failed");
             }
           var q = yield o("WAWebPhashUtils").phashV2(h),
-            U = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            U = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
             V = yield o("WAWebPhashUtils").phashV2([].concat(E, [U])),
             H = new Map(),
             G = new Map(),

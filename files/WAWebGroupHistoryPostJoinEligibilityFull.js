@@ -21,32 +21,32 @@ __d(
             i = e.participant,
             l = o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).getPostJoinHistoryGroupEligibility(
-              o(
-                "WAWebGroupHistoryPostJoinEligibility",
-              ).groupContextFromMetadata(n),
-            );
-          if (!l.eligible) return l;
-          var s = o(
+            ).groupContextFromMetadata(n),
+            s = o(
+              "WAWebGroupHistoryPostJoinEligibility",
+            ).getPostJoinHistoryGroupEligibility(l);
+          if (!s.eligible) return s;
+          var u = o(
             "WAWebGroupHistoryPostJoinEligibility",
-          ).getParticipantPostJoinEligibility(
+          ).getParticipantPostJoinEligibilityInGroup(
             i,
+            l,
             a,
             o("WAWebGroupHistoryRestrictionHelper")
               .isPostJoinHistoryRestrictedWid,
           );
-          if (!s.eligible) return s;
-          var u = (t = i.joinTime) != null ? t : a;
-          if (u == null) return { eligible: !1, reason: "no_join_time" };
-          var c = yield o(
+          if (!u.eligible) return u;
+          var c = (t = i.joinTime) != null ? t : a;
+          if (c == null) return { eligible: !1, reason: "no_join_time" };
+          var d = yield o(
             "WAWebGetGroupHistoryBundleMessagesCount",
           ).getGroupHistoryBundleMessageCount({
             groupWid: r,
-            targetStartMessageTime: u,
+            targetStartMessageTime: c,
           });
-          return c === 0
+          return d === 0
             ? { eligible: !1, reason: "no_available_messages" }
-            : { eligible: !0, messageCount: c };
+            : { eligible: !0, messageCount: d };
         })),
         s.apply(this, arguments)
       );

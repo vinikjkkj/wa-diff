@@ -14,8 +14,8 @@ __d(
     "WAWebSessionScope",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebStatusSessionGatingUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumPrekeysFetchContext",
     "WAWebWamNumberToSizeBucket",
@@ -50,7 +50,7 @@ __d(
               l.list,
               o("WAWebLidMigrationUtils").toUserLid,
             );
-            var m = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+            var m = o("WAWebUserUtils").getMeDeviceLidOrThrow();
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,7 +89,7 @@ __d(
             );
             n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([
               h,
-              o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+              o("WAWebUserUtils").getMeDeviceLidOrThrow(),
             ]);
           }
           try {

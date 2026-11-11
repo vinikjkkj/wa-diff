@@ -14,7 +14,7 @@ __d(
     "WAWebSlicedMatcher",
     "WAWebSocketConstants",
     "WAWebSocketModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["cancelAt"],
@@ -159,7 +159,7 @@ __d(
             return i == null ? [] : o("WAWebSlicedMatcher").drainMatcherSync(i);
           }),
           (i.getMeContact = function () {
-            return this.get(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
+            return this.get(o("WAWebUserUtils").getMeLidUserOrThrow());
           }),
           a
         );

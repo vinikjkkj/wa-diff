@@ -31,6 +31,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSimpleSignalDowngradeStore",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumDeviceType",
     "WAWebWamEnumDsmError",
@@ -621,7 +622,7 @@ __d(
                   "WAWebEphemeralDecodeBroadcastSetting",
                 ).decodeBroadcastEphemeralSetting({
                   broadcastJid: C.chat,
-                  recipient: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  recipient: o("WAWebUserUtils").getMeLidUserOrThrow(),
                   sender: re,
                   ephSetting: oe,
                   sharedSecret: ae,
@@ -820,7 +821,7 @@ __d(
         n,
         a,
         i = Q(e),
-        l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        l = o("WAWebUserUtils").getMeLidUserOrThrow(),
         s = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
         u;
       i.fromMe &&
@@ -1002,7 +1003,7 @@ __d(
                         broadcastJid: m,
                         recipient: l,
                         sender: l.isLid()
-                          ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+                          ? o("WAWebUserUtils").getMeLidUserOrThrow()
                           : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
                         ephSetting: n,
                         sharedSecret: d,

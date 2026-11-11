@@ -26,7 +26,7 @@ __d(
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "WAWebUpdateTextStatusForContact",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -144,7 +144,7 @@ __d(
             throw r("err")(
               "Error: genContactChangeNotificationMsg invalid type",
             );
-          var n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var n = o("WAWebUserUtils").getMeUserOrThrow(),
             a = r("nullthrows")(t.oldJid),
             i = r("nullthrows")(t.jid),
             l;

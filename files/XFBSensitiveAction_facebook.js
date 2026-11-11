@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum").Mirrored([
         "ACCOUNT_DEACTIVATION",
+        "ACCOUNT_DELETION_AND_DEACTIVATION",
         "ACCOUNT_LINK",
         "ACCOUNT_UNLINK",
         "ADDITIONAL_PROFILE_PLUS_CREATION",

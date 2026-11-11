@@ -10,6 +10,7 @@ __d(
     "WAWebQuickReplyModel",
     "WAWebQuickReplySmartDefaults",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,7 +61,7 @@ __d(
               );
             var i = o("WAWebBusinessProfileCollection")
               .BusinessProfileCollection.fetchBizProfile(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                o("WAWebUserUtils").getMeUserOrThrow(),
               )
               .then(function () {
                 var e;

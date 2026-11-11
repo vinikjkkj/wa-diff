@@ -47,9 +47,21 @@ __d(
       for (var t of d().rules) if (t.triggerScreenKeys.has(e)) return t.ruleId;
       return null;
     }
+    function p(e) {
+      return e == null
+        ? []
+        : d()
+            .rules.filter(function (t) {
+              return t.triggerScreenKeys.has(e);
+            })
+            .map(function (e) {
+              return e.ruleId;
+            });
+    }
     ((l.parseUnsamplingConfig = u),
       (l.getUnsamplingConfig = d),
-      (l.getUnsamplingRuleIdForScreen = m));
+      (l.getUnsamplingRuleIdForScreen = m),
+      (l.getUnsamplingRuleIdsForScreen = p));
   },
   98,
 );

@@ -1218,10 +1218,7 @@ __d(
               "web.call.voip_init.retry_idle_wait.hidden_long",
             )));
     }
-    ((l.VoipInitEventEmitter = o(
-      "WAWebVoipInitEventEmitter",
-    ).VoipInitEventEmitter),
-      (l.initWAWebVoip = te),
+    ((l.initWAWebVoip = te),
       (l.canRetryWAWebVoipInitAfterFailure = re),
       (l.retryWAWebVoipInitAfterFailure = oe),
       (l.restartVoipInitAfterArtifactRecovery = ie));

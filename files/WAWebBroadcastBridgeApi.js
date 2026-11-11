@@ -34,11 +34,14 @@ __d(
       h = r("JSResourceForInteraction")(
         "WAWebBizBroadcastProLocalCampaignCardAction",
       ).__setRef("WAWebBroadcastBridgeApi"),
-      y = {
+      y = r("JSResourceForInteraction")(
+        "WAWebBizBroadcastProCampaignStatusCollection",
+      ).__setRef("WAWebBroadcastBridgeApi"),
+      C = {
         createBizBroadcastProLocalCampaignCards: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.campaigns;
-            yield (g || (g = n("Promise"))).all(t.map(C));
+            yield (g || (g = n("Promise"))).all(t.map(b));
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -46,11 +49,12 @@ __d(
           return t;
         })(),
         invalidateBizBroadcastProCampaign: function (t) {
-          var e = t.campaignId;
+          var e,
+            n = t.campaignId;
           try {
             o("WAWebCmd").Cmd.trigger(
               "biz_broadcast_pro_campaign_invalidated",
-              e,
+              n,
             );
           } catch (e) {
             o("WALogger")
@@ -63,6 +67,9 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("bb-pro-campaign-invalidation-listener-error");
           }
+          (e = y.getModuleIfRequired()) == null ||
+            (e = e.get(n)) == null ||
+            e.markStale();
         },
         loadedBizBroadcastCampaignInsights: function (t) {
           var e = t.rows;
@@ -249,12 +256,12 @@ __d(
               ));
         },
       };
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.broadcastJid,
             n = e.campaignId,
             a = e.campaignTimestamp,
@@ -289,10 +296,10 @@ __d(
               .sendLogs("bb-pro-local-campaign-card-creation-failed");
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    l.BroadcastBridgeApi = y;
+    l.BroadcastBridgeApi = C;
   },
   98,
 );

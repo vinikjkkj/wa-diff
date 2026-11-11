@@ -17,7 +17,7 @@ __d(
     "WAWebSharableEventNotificationConstants",
     "WAWebSharableEventNotificationStrings",
     "WAWebSharableEventPageSource",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -61,7 +61,7 @@ __d(
               wid:
                 (e = this.senderWid) != null
                   ? e
-                  : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  : o("WAWebUserUtils").getMeLidUserOrThrow(),
               title: this.computeTitle(),
               body:
                 (t = o(

@@ -13,7 +13,7 @@ __d(
     "WAWebSharableEventLoadStates",
     "WAWebSharableEventServerError",
     "WAWebSharableEventStoredDataJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -93,7 +93,7 @@ __d(
               "WAWebSharableEventStoredDataJob",
             ).loadStoredSharableEventViewerInvitations(
               o("WAWebWidToJid").userLidtoLidUserJid(
-                o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                o("WAWebUserUtils").getMeLidUserOrThrow(),
               ),
             );
             (o("WALogger").LOG(

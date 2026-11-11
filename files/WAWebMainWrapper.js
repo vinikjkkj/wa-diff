@@ -5,7 +5,6 @@ __d(
     "JSSPWAWebConfigInit",
     "JsSelfProfilerIdleTraceRunner",
     "WALogger",
-    "WAWebABProps",
     "WAWebCallsOnlyGating",
     "WAWebCrashAnnotations",
     "WAWebEmojiAssetLoader",
@@ -20,7 +19,6 @@ __d(
     "WAWebMain.react",
     "WAWebMediaAv1Support",
     "WAWebMediaWorkerProxy",
-    "WAWebNewsletterGatingUtils",
     "WAWebNoop",
     "WAWebNotificationBackend",
     "WAWebPathfinderCrashLog",
@@ -75,18 +73,14 @@ __d(
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
           (n("cr:9486") == null || n("cr:9486")(),
           o("WAWebMediaAv1Support").startAv1DecodingProbe(),
-          (o("WAWebABProps").getABPropConfigValue(
-            "web_use_kaleidoscope_media_check_enabled",
-          ) ||
-            o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled()) &&
-            o("WAWebKaleidoscopeWasmFeatureSupport")
-              .checkKaleidoscopeWasmFeatureSupport()
-              .then(function (e) {
-                e &&
-                  o("WAWebMediaWorkerProxy").prewarmMediaWasmWorker(
-                    "kaleidoscopeClassify",
-                  );
-              })),
+          o("WAWebKaleidoscopeWasmFeatureSupport")
+            .checkKaleidoscopeWasmFeatureSupport()
+            .then(function (e) {
+              e &&
+                o("WAWebMediaWorkerProxy").prewarmMediaWasmWorker(
+                  "kaleidoscopeClassify",
+                );
+            })),
         u());
       try {
         r("JSSPWAWebConfigInit").run();

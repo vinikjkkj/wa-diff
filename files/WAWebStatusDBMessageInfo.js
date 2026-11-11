@@ -7,6 +7,7 @@ __d(
     "WAPromiseMap",
     "WAWebApiMessageInfoStore",
     "WAWebLidStatusMigrationUtils",
+    "WAWebStatusContactUtils",
     "WAWebUserPrefsStatus",
     "asyncToGeneratorRuntime",
   ],
@@ -55,7 +56,9 @@ __d(
                                 return new Set(e.map(String));
                               })),
                           a == null &&
-                            (a = o("WAWebUserPrefsStatus").getStatusContacts()),
+                            (a = o(
+                              "WAWebStatusContactUtils",
+                            ).getStatusContacts()),
                           {
                             msgKey: t,
                             receiverIds: yield (d || (d = n("Promise")))
@@ -80,7 +83,9 @@ __d(
                       case "contacts":
                         return (
                           a == null &&
-                            (a = o("WAWebUserPrefsStatus").getStatusContacts()),
+                            (a = o(
+                              "WAWebStatusContactUtils",
+                            ).getStatusContacts()),
                           { msgKey: t, receiverIds: yield a }
                         );
                       default:

@@ -18,7 +18,7 @@ __d(
     "WAWebSendMsgToDeviceList",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebSyncDeviceAdvDeviceListJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "cr:10198",
@@ -54,7 +54,7 @@ __d(
               C,
             )
             .tags("messaging");
-          var L = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+          var L = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
             E = { wids: [R, L] };
           R != null &&
             R.isUser() &&

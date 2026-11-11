@@ -14,6 +14,7 @@ __d(
     "WAWebPinsDbSerialization",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -145,7 +146,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var a = o("WAWebUserUtils").getMeLidUserOrThrow(),
             i = o("WAWebUserPrefsMeUser").isMeAccount(n);
           return {
             id: new (r("WAWebMsgKey"))({

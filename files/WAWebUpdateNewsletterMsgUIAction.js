@@ -20,7 +20,7 @@ __d(
     "WAWebReactionsMsgAction",
     "WAWebRevokeMsgAction",
     "WAWebUpdateLastAddOnPreviewChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -94,7 +94,7 @@ __d(
                 parentMsgKey: o("WAWebNewsletterDBUtils")
                   .craftNewsletterMsgKeyFromServerId(r, e.from)
                   .toString(),
-                senderUserJid: o("WAWebUserPrefsMeUser")
+                senderUserJid: o("WAWebUserUtils")
                   .getMeUserOrThrow()
                   .toString(),
                 reactionText: n,
@@ -160,7 +160,7 @@ __d(
                   subtype: t.subtype,
                   msgKey: t.id,
                   sender: o("WAWebMsgGetters").getIsSentByMe(t)
-                    ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
+                    ? o("WAWebUserUtils").getMeUserOrThrow()
                     : t.from,
                   revokeTimestamp: t.t,
                   viewMode: t.viewMode,

@@ -11,7 +11,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSchemaGroupMetadata",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -106,7 +106,7 @@ __d(
                   return [e.groupId, e.participants];
                 }),
             ),
-            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString();
+            n = o("WAWebUserUtils").getMeUserOrThrow().toString();
           return function (e) {
             var r, o;
             return (r =

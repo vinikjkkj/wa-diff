@@ -8,7 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebSendMsgChatAction",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,8 +32,8 @@ __d(
                 ? void 0
                 : t.isLidAddressingMode) === !0,
             p = m
-              ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              ? o("WAWebUserUtils").getMeLidUserOrThrow()
+              : o("WAWebUserUtils").getMeUserOrThrow(),
             _ = d.id,
             f = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),

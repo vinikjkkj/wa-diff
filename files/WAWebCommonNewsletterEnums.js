@@ -84,6 +84,7 @@ __d(
         SCHEDULED_UPDATES: 24,
         CHANNEL_STATUS_API: 25,
         CHANNEL_STATUS_ADMIN_INSIGHTS: 26,
+        QUESTION_RESPONSE_LIKES: 27,
       }),
       f = e.Mirrored(["ACTIVE", "INACTIVE"]),
       g = e.Mirrored([

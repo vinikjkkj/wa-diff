@@ -6,7 +6,7 @@ __d(
     "WAWebBizCatalogViewWamEvent",
     "WAWebCatalogBizWamEvent",
     "WAWebProductCatalogContext",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumCatalogBizAction",
     "WAWebWamEnumCatalogViewAction",
   ],
@@ -28,7 +28,7 @@ __d(
       });
     }
     function d(t, n, r) {
-      var a = t === o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString(),
+      var a = t === o("WAWebUserUtils").getMeUserOrThrow().toString(),
         i = r.bizPlatform,
         l = r.collectionStats,
         d = babelHelpers.objectWithoutPropertiesLoose(r, s),

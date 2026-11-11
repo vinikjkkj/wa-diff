@@ -13,6 +13,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -139,7 +140,7 @@ __d(
           (i.getMeBusinessProfile = function () {
             var e;
             for (var t of [
-              o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              o("WAWebUserUtils").getMeLidUserOrThrow(),
               o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
             ])
               if (t != null) {

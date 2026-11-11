@@ -161,6 +161,23 @@ __d(
         GUEST_CALLING_CHECKPOINT: "guest_calling_checkpoint",
         GUEST_CALLING_POST_CALL_PHONE_SUBMITTED:
           "guest_calling_post_call_phone_submitted",
+        GUEST_CALLING_POST_CALL_IMPRESSION:
+          "guest_calling_post_call_impression",
+        GUEST_CALLING_POST_CALL_SIGNUP_FORM_CODE_LOADED:
+          "guest_calling_post_call_signup_form_code_loaded",
+        GUEST_CALLING_POST_CALL_SIGNUP_FORM_CODE_LOAD_FAILED:
+          "error_guest_calling_post_call_signup_form_code_load_failed",
+        GUEST_CALLING_POST_CALL_SMS_SENT: "guest_calling_post_call_sms_sent",
+        GUEST_CALLING_POST_CALL_SMS_FAILED:
+          "error_guest_calling_post_call_sms_failed",
+        GUEST_CALLING_POST_CALL_DOWNLOAD_CLICKED:
+          "guest_calling_post_call_download_clicked",
+        GUEST_CALLING_POST_CALL_REJOIN_CLICKED:
+          "guest_calling_post_call_rejoin_clicked",
+        GUEST_CALLING_POST_CALL_LOGIN_CLICKED:
+          "guest_calling_post_call_login_clicked",
+        GUEST_CALLING_POST_CALL_LINK_DEVICE_CLICKED:
+          "guest_calling_post_call_link_device_clicked",
       }),
       m = e.Mirrored([
         "GuestActiveInviteCode",

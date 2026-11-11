@@ -8,7 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -46,7 +46,7 @@ __d(
             fromMe: !0,
             remote: t,
             id: e,
-            participant: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            participant: o("WAWebUserUtils").getMeLidUserOrThrow(),
           })
         : new (r("WAWebMsgKey"))({ fromMe: !0, remote: t, id: e });
     }

@@ -12,7 +12,7 @@ __d(
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
     "WAWebSendTextMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -106,7 +106,7 @@ __d(
             n = e.chat,
             a = e.paramsJson,
             i = e.quotedMsg,
-            l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            l = o("WAWebUserUtils").getMeLidUserOrThrow(),
             s = babelHelpers.extends(
               {
                 type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,

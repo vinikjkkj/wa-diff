@@ -291,7 +291,11 @@ __d(
           );
           var s = !1;
           try {
-            if (l.VoipInitEventEmitter.getIsVoipInited())
+            if (
+              o(
+                "WAWebVoipInitEventEmitter",
+              ).VoipInitEventEmitter.getIsVoipInited()
+            )
               return (
                 o(
                   "WAWebVoipDeferredBootLogging",
@@ -315,8 +319,12 @@ __d(
                 Math.round(self.performance.now() - a),
                 t,
               ),
-              !l.VoipInitEventEmitter.getIsVoipInited() &&
-                l.VoipInitEventEmitter.getDidVoipInitError() &&
+              !o(
+                "WAWebVoipInitEventEmitter",
+              ).VoipInitEventEmitter.getIsVoipInited() &&
+                o(
+                  "WAWebVoipInitEventEmitter",
+                ).VoipInitEventEmitter.getDidVoipInitError() &&
                 ((s = !0),
                 o(
                   "WAWebVoipDeferredBootLogging",
@@ -331,7 +339,9 @@ __d(
                   );
                 }),
                 yield l.retryWAWebVoipInitAfterFailure()),
-              l.VoipInitEventEmitter.getIsVoipInited())
+              o(
+                "WAWebVoipInitEventEmitter",
+              ).VoipInitEventEmitter.getIsVoipInited())
             )
               return (
                 o(

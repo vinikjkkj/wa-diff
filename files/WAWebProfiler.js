@@ -156,11 +156,6 @@ __d(
           (n.export = function () {
             return r("gkx")("26258") ? "" : JSON.stringify(this.reports);
           }),
-          (n.getAllReports = function () {
-            return r("gkx")("26258")
-              ? {}
-              : ((this.reports.lock = this.lockReport()), this.reports);
-          }),
           t
         );
       })(),

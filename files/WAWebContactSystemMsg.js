@@ -8,6 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -17,7 +18,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var n = o("WAWebUserUtils").getMeUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
           remote: e,
@@ -70,7 +71,7 @@ __d(
         n = e.chatId,
         a = e.duration,
         i = e.initiatedByMe,
-        l = i ? o("WAWebUserPrefsMeUser").getMeUserOrThrow() : n;
+        l = i ? o("WAWebUserUtils").getMeUserOrThrow() : n;
       if (l == null)
         throw r("err")(
           "Cannot set null initiator for DDM system message: " +
@@ -137,8 +138,8 @@ __d(
       });
     }
     function f(e, t) {
-      var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-        a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
+        a = o("WAWebUserUtils").getMeUserOrThrow(),
         i = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e),
           remote: e,

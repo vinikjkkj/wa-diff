@@ -27,7 +27,7 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebSendTextMsgChatAction",
     "WAWebSetArchiveChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -220,7 +220,7 @@ __d(
             throw r("err")("You need to select a message by right clicking it");
           if (!o("WAWebMsgGetters").getIsGroupMsg(n))
             throw r("err")("You need to select a group message");
-          var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var a = o("WAWebUserUtils").getMeUserOrThrow(),
             i = o("WAWebFrontendMsgGetters").getChat(n),
             l;
           if (e) l = a;

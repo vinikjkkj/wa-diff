@@ -22,7 +22,7 @@ __d(
     "WAWebOutgoingMessage",
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWidFactory",
@@ -32,7 +32,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b;
     function v() {
-      return o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+      return o("WAWebUserUtils").getMeLidUserOrThrow();
     }
     function S(e) {
       return R.apply(this, arguments);

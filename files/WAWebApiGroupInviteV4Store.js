@@ -3,7 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebSchemaGroupInviteV4",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,7 +50,7 @@ __d(
       );
     }
     function d(e) {
-      var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString();
+      var t = o("WAWebUserUtils").getMeLidUserOrThrow().toString();
       return o("WAWebSchemaGroupInviteV4")
         .getGroupInviteV4Table()
         .equals(["from", "groupId"], [t, e.toString()])

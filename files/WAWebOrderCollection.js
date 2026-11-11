@@ -11,6 +11,7 @@ __d(
     "WAWebOrderModel",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,7 +34,7 @@ __d(
           (i.addOrder = function () {
             var e,
               n = r("WAWebBizOrderGetFriendlyRandomIdAction")(),
-              a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              a = o("WAWebUserUtils").getMeUserOrThrow(),
               i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
               l =
                 i != null

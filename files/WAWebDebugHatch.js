@@ -24,7 +24,7 @@ __d(
     "WAWebPrimaryVersion",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
@@ -318,7 +318,7 @@ __d(
           }),
           t: o("WATimeUtils").unixTime(),
           from: t.id,
-          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          to: o("WAWebUserUtils").getMeUserOrThrow(),
           type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
           caption:
             "*New: Meet Muse, your personal AI agent*\nHand off everyday tasks like managing your email, booking reservations, and tracking prices right from WhatsApp.\n\nJust download the Muse app and add WhatsApp as a messaging channel.",

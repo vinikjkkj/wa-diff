@@ -19,7 +19,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebStateUtils",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "err",
     "react",
   ],
@@ -119,7 +119,7 @@ __d(
       var t;
       if (!o("WAWebChatGetters").getIsGroup(e))
         return (c || (c = n("Promise"))).resolve(!0);
-      var a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+      var a = o("WAWebUserUtils").getMeUserOrThrow(),
         i = o("WAWebApiContact").getAlternateUserWid(a);
       if (
         ((t = e.groupMetadata) == null || t.participants.remove(a), i != null)

@@ -16,6 +16,7 @@ __d(
     "WAWebFileUtils",
     "WAWebHttpErrors",
     "WAWebInMemoryLottieStickerCache",
+    "WAWebMediaBoundedUnzip",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDataUtils",
     "WAWebMediaEntry",
@@ -44,7 +45,6 @@ __d(
     "WAWebWebcProgressiveImageWamEvent",
     "asyncToGeneratorRuntime",
     "err",
-    "fflate",
     "getErrorSafe",
     "isStringNullOrEmpty",
     "justknobx",
@@ -1085,9 +1085,10 @@ __d(
     function H() {
       return (
         (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WABlobToArrayBuffer").blobToArrayBuffer(e),
-            n = new Uint8Array(t);
-          return o("fflate").unzipSync(n);
+          return o("WAWebMediaBoundedUnzip").unzipBlobWithLimits(
+            e,
+            o("WAWebMediaBoundedUnzip").LOTTIE_ZIP_LIMITS,
+          );
         })),
         H.apply(this, arguments)
       );

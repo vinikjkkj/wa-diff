@@ -16,7 +16,6 @@ __d(
     "WAWebTos",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "justknobx",
@@ -69,19 +68,25 @@ __d(
       g = new (r("WAPromiseCache"))(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            var t,
-              n = yield o("WAWebQueryPrivacySettingsJob").getPrivacy();
-            o("WAWebUserPrefsGeneral").setUserPrivacySettings(n);
-            var r = yield s.load(),
-              a = r.syncPrivacyDisallowedLists,
-              i = yield a([
-                (t = o("WAWebSchemaPrivacyDisallowedList"))
-                  .PrivacyDisallowedListType.About,
-                t.PrivacyDisallowedListType.GroupAdd,
-                t.PrivacyDisallowedListType.LastSeen,
-                t.PrivacyDisallowedListType.ProfilePicture,
+            var t = yield o("WAWebQueryPrivacySettingsJob").getPrivacy(),
+              n = babelHelpers.extends({}, t),
+              r = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+              a = r.phoneNumberSharing;
+            (a != null && (n.phoneNumberSharing = a),
+              o("WAWebUserPrefsGeneral").setUserPrivacySettings(n));
+            var i = yield s.load(),
+              l = i.syncPrivacyDisallowedLists,
+              u = yield l([
+                o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+                  .About,
+                o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+                  .GroupAdd,
+                o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+                  .LastSeen,
+                o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+                  .ProfilePicture,
               ]);
-            return { privacySettings: n, privacyDisallowedRows: i };
+            return { privacySettings: n, privacyDisallowedRows: u };
           } catch (t) {
             throw (
               o("WALogger")
@@ -156,7 +161,7 @@ __d(
           yield o(
             "WAWebUpdateDisappearingModeForContact",
           ).updateDisappearingModeForContact({
-            contactId: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            contactId: o("WAWebUserUtils").getMeLidUserOrThrow(),
             newDuration: e.duration,
             newSettingTimestamp: e.t,
           });

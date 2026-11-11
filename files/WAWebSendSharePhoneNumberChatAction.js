@@ -9,7 +9,7 @@ __d(
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
     "WAWebUpdateLidMetadataJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "err",
@@ -43,7 +43,7 @@ __d(
               "share phone number for a blocked contact",
               a,
             );
-          var i = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+          var i = o("WAWebUserUtils").getMeDeviceLidOrThrow();
           a.shareOwnPn !== !0 &&
             (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob([
               { lid: n, data: { shareOwnPn: !0 } },

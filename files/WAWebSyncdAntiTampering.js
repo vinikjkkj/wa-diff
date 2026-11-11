@@ -1470,17 +1470,7 @@ __d(
         ie.apply(this, arguments)
       );
     }
-    ((l.SyncdPatchDirection = o(
-      "WAWebSyncdAntiTampering.flow",
-    ).SyncdPatchDirection),
-      (l.checkLtHash = o("WAWebSyncdAntiTamperingLtHash").checkLtHash),
-      (l.getLidMigrationStage = o(
-        "WAWebSyncdAntiTamperingLtHash",
-      ).getLidMigrationStage),
-      (l.reportCollectionInconsistency = o(
-        "WAWebSyncdAntiTamperingLtHash",
-      ).reportCollectionInconsistency),
-      (l.indexAndValueMacToString = O),
+    ((l.indexAndValueMacToString = O),
       (l.computeLtHashAndValidateSnapshot = W),
       (l.computeLtHashAndValidatePatch = U),
       (l.computeOutgoingSnapshotAndPatchMacs = X),

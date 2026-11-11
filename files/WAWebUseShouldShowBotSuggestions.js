@@ -40,7 +40,6 @@ __d(
             var t = o("WAWebBotBaseGating").isBotEnabled() && e.id.isBot();
             if (
               !t ||
-              o("WAWebBotBaseGating").isMetaAIHomeEnabled() ||
               (o("WAWebBotUtils").isMetaAiBot(e.id) &&
                 o("WAWebBotFrontendUtils").isMetaAiChatEmpty(i) &&
                 i.msgs.msgLoadState.noEarlierMsgs &&

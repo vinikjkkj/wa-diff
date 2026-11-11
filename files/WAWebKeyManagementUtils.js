@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebApiDeviceList",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -16,7 +16,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = [],
-            n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+            n = o("WAWebUserUtils").getMeDeviceLidOrThrow();
           try {
             var r = yield o("WAWebApiDeviceList").getMyDeviceList();
             r.devices.forEach(function (e) {

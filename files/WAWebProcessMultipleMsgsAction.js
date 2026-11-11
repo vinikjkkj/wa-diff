@@ -36,7 +36,7 @@ __d(
     "WAWebThreadModelResolver",
     "WAWebThreadWriteThroughAction",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -112,7 +112,7 @@ __d(
               (r("WAWebWid").isStatus(i) &&
                 (x = T.id.fromMe
                   ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                      o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                      o("WAWebUserUtils").getMeUserOrThrow(),
                     )
                   : T.author),
               x == null)

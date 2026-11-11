@@ -7,8 +7,8 @@ __d(
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterStorageUtils",
     "WAWebNewsletterValidationUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNewsletter",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -52,7 +52,7 @@ __d(
                   ? o("WAWebWidFactory").createUserWidOrThrow(i.user.id)
                   : null;
             if (!u) return;
-            var c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            var c = o("WAWebUserUtils").getMeLidUserOrThrow(),
               d = o("WAWebMexNewsletterUtils").mapRoleToMembership(
                 i.user_new_role,
               );

@@ -16,7 +16,7 @@ __d(
     "WAWebGroupsPrivacyTokenUtils",
     "WAWebJidToWid",
     "WAWebSchemaChat",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -150,7 +150,7 @@ __d(
             );
           if (y !== 0) {
             var I = yield o("WAWebApiContact").getContactRecord(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                o("WAWebUserUtils").getMeUserOrThrow(),
               ),
               T = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(I),
               D = o(

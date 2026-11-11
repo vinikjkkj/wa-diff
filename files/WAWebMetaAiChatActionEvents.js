@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebChatActionWamEvent",
-    "WAWebMetaAiChatActionIdentity",
+    "WAWebMetaAiConversationThreadId",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumChatActionChatType",
     "asyncToGeneratorRuntime",
@@ -22,7 +22,7 @@ __d(
           try {
             var u,
               c = yield o(
-                "WAWebMetaAiChatActionIdentity",
+                "WAWebMetaAiConversationThreadId",
               ).getMetaAiConversationThreadId(i, a);
             if (
               ((u = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
@@ -69,7 +69,7 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield o(
-              "WAWebMetaAiChatActionIdentity",
+              "WAWebMetaAiConversationThreadId",
             ).getMetaAiConversationThreadId(e, t);
             return n != null
               ? {

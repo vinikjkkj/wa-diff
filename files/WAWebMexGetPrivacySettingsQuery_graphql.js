@@ -112,7 +112,7 @@ __d(
           ],
         },
         params: {
-          id: "25637004609323493",
+          id: "29205276772462415",
           metadata: {},
           name: "WAWebMexGetPrivacySettingsQuery",
           operationKind: "query",

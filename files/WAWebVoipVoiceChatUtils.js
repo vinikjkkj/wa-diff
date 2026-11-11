@@ -11,7 +11,7 @@ __d(
     "WAWebGroupStoreService",
     "WAWebLidMigrationUtils",
     "WAWebPhashUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -70,7 +70,7 @@ __d(
                 });
               }),
           );
-          var r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+          var r = o("WAWebUserUtils").getMeLidUserOrThrow(),
             a = new Map([[r.toString(), r]]);
           for (var i of t) {
             var l = o("WAWebLidMigrationUtils").toUserLid(i);

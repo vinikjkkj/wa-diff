@@ -23,7 +23,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebUpdateEphemeralSettingTimestampChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumPreviousEphemeralityType",
     "WAWebWamNumberToPreciseSizeBucket",
     "asyncToGeneratorRuntime",
@@ -79,7 +79,7 @@ __d(
               disappearingModeTrigger: i,
               disappearingModeInitiatedByMe: !0,
             },
-            f = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            f = o("WAWebUserUtils").getMeLidUserOrThrow(),
             g = f,
             h = babelHelpers.extends(
               {

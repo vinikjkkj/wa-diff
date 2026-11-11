@@ -12,8 +12,8 @@ __d(
     "WAWebContactCollection",
     "WAWebDBUpdateChatTable",
     "WAWebJidToWid",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -26,7 +26,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.productIds,
               r = o("WAWebCatalogCollection").CatalogCollection.get(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString(),
+                o("WAWebUserUtils").getMeUserOrThrow().toString(),
               );
             if (r) {
               var a = t.map(function (e) {
@@ -43,7 +43,7 @@ __d(
         updateCatalogCollectionReviewStatuses: function (t) {
           var e = t.notification,
             n = o("WAWebCatalogCollection").CatalogCollection.get(
-              o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString(),
+              o("WAWebUserUtils").getMeUserOrThrow().toString(),
             );
           if (n != null && n.collections)
             for (var r = 0; r < e.collectionIds.length; r++) {

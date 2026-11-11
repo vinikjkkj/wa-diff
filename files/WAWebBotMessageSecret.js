@@ -24,6 +24,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
@@ -109,7 +110,7 @@ __d(
             p = o("WAWebWidToJid").widToUserJid(
               (i = s.targetSenderJid) != null
                 ? i
-                : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                : o("WAWebUserUtils").getMeUserOrThrow(),
             ),
             _ = o("WAWebWidToJid").widToUserJid(
               r("nullthrows")(l.author, "decryptMsmsgBotMessage: author"),
@@ -182,7 +183,7 @@ __d(
       var t = e.chat,
         n = e.targetId,
         a = e.targetSenderJid,
-        i = a != null ? a : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        i = a != null ? a : o("WAWebUserUtils").getMeLidUserOrThrow(),
         l = {
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(i),
           remote: t,
@@ -208,7 +209,7 @@ __d(
             m =
               (i = d.targetSenderJid) != null
                 ? i
-                : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                : o("WAWebUserUtils").getMeLidUserOrThrow(),
             p = c.externalId,
             _ = null;
           ((l == null ? void 0 : l.botEditType) ===

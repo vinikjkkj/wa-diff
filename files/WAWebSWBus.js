@@ -126,7 +126,7 @@ __d(
           e
         );
       })();
-    l.default = d;
+    ((d.REQUEST_REPLY_WAIT_MS = 5e3), (l.default = d));
   },
   98,
 );

@@ -12,7 +12,7 @@ __d(
     "WAWebHttpErrors",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebNetworkStatus",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -33,7 +33,7 @@ __d(
             ).commerceFeaturesDisabledBySanctions()
           )
             throw new (o("WAWebBackendErrors").E451)();
-          var l = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          var l = o("WAWebUserUtils").getMeUserOrThrow(),
             s = yield o(
               "WAWebBizCatalogManagementCreateCollection",
             ).createCollection({
@@ -71,7 +71,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = o("WAWebUserUtils").getMeUserOrThrow(),
             i = yield o(
               "WAWebBizCatalogManagementDeleteCollections",
             ).deleteCollections({
@@ -127,7 +127,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             var l,
-              s = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              s = o("WAWebUserUtils").getMeUserOrThrow(),
               u = {
                 collection: {
                   id: e,
@@ -188,7 +188,7 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = o("WAWebUserUtils").getMeUserOrThrow(),
             i = yield o(
               "WAWebBizCatalogManagementAppealCollection",
             ).appealCollection({
@@ -241,7 +241,7 @@ __d(
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            n = o("WAWebUserUtils").getMeUserOrThrow(),
             a = yield o(
               "WAWebBizCatalogManagementUpdateCollectionList",
             ).updateCollectionList({
