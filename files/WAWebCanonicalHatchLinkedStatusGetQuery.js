@@ -3,7 +3,10 @@ __d(
   [
     "WAPromiseTimeout",
     "WAWebCanonicalHatchLinkedStatusGetQuery.graphql",
+    "WAWebCanonicalUtils",
+    "WAWebGraphQLConstants",
     "WAWebGraphQLServerError",
+    "WAWebHatchLinkedStatusFetchFailure",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
@@ -28,7 +31,8 @@ __d(
             r,
             a,
             i,
-            l = yield o("WAPromiseTimeout")
+            l = o("WAWebCanonicalUtils").isCanonicalPresent(),
+            c = yield o("WAPromiseTimeout")
               .promiseTimeout(
                 o("WAWebRelayClient").fetchQuery(
                   u,
@@ -38,21 +42,23 @@ __d(
                 s,
                 "hatch linked status query timed out",
               )
-              .catch(_),
-            c =
-              l == null || (e = l.wa_genai_hatch_channel_metadata) == null
+              .catch(function (e) {
+                return _(e, l);
+              }),
+            d =
+              c == null || (e = c.wa_genai_hatch_channel_metadata) == null
                 ? void 0
                 : e.linked_status;
-          return c == null
+          return d == null
             ? null
             : {
-                hasChannel: (t = c.has_channel) != null ? t : !1,
-                isPaired: (n = c.is_paired) != null ? n : !1,
-                status: (r = c.status) != null ? r : null,
-                channelFbid: (a = c.channel_fbid) != null ? a : null,
-                isChannelAbsent: c.has_channel === !1,
-                vmType: m(c),
-                vmState: p((i = c.vm_info) == null ? void 0 : i.vm_state),
+                hasChannel: (t = d.has_channel) != null ? t : !1,
+                isPaired: (n = d.is_paired) != null ? n : !1,
+                status: (r = d.status) != null ? r : null,
+                channelFbid: (a = d.channel_fbid) != null ? a : null,
+                isChannelAbsent: d.has_channel === !1,
+                vmType: m(d),
+                vmState: p((i = d.vm_info) == null ? void 0 : i.vm_state),
               };
         })),
         d.apply(this, arguments)
@@ -68,13 +74,27 @@ __d(
     function p(e) {
       return e === "ACTIVE" || e === "TRANSFERRING" ? e : null;
     }
-    function _(e) {
-      throw e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-        ? r("err")(
-            "hatch linked status query failed: " +
-              o("WAWebGraphQLServerError").formatGraphQLServerError(e),
-          )
-        : e;
+    function _(e, t) {
+      if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+        var n =
+          "hatch linked status query failed: " +
+          o("WAWebGraphQLServerError").formatGraphQLServerError(e);
+        throw f(e)
+          ? new (o(
+              "WAWebHatchLinkedStatusFetchFailure",
+            ).HatchLinkedStatusUnauthorizedError)(n, t)
+          : r("err")(n);
+      }
+      throw e;
+    }
+    function f(e) {
+      return e.source.errors.some(function (e) {
+        var t = e.code;
+        return (
+          t ===
+          o("WAWebGraphQLConstants").WHATSAPP_GRAPHQL_UNAUTHORIZED_ERROR_CODE
+        );
+      });
     }
     l.fetchHatchLinkedStatus = c;
   },

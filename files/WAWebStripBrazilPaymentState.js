@@ -41,18 +41,26 @@ __d(
           n == null ||
           typeof n != "object" ||
           Array.isArray(n) ||
-          !Object.hasOwn(
+          (!Object.hasOwn(
             n,
             o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY,
-          )
+          ) &&
+            !Object.hasOwn(
+              n,
+              o("WAWebBrazilPaymentStateKeys").BUBBLE_VIEW_LOGGED_KEY,
+            ))
         )
           return null;
         var r = n[o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY],
-          a = babelHelpers.objectWithoutPropertiesLoose(
+          a = n[o("WAWebBrazilPaymentStateKeys").BUBBLE_VIEW_LOGGED_KEY],
+          i = babelHelpers.objectWithoutPropertiesLoose(
             n,
-            [o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY].map(e),
+            [
+              o("WAWebBrazilPaymentStateKeys").BRAZIL_PAYMENT_STATE_KEY,
+              o("WAWebBrazilPaymentStateKeys").BUBBLE_VIEW_LOGGED_KEY,
+            ].map(e),
           );
-        return a;
+        return i;
       } catch (e) {
         return null;
       }

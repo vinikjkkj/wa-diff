@@ -174,6 +174,7 @@ __d(
             }),
             k,
             v,
+            e.displayType,
           ));
       else if (
         g === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
@@ -390,17 +391,20 @@ __d(
         o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
       );
     }
-    function f(e, t, n, a) {
-      return t
-        ? s.jsx(
-            o("WAWebPaymentDetailsBubbleHeaderLoadable")
-              .WAWebPaymentDetailsBubbleHeaderLoadable,
-            { msgKey: e },
-          )
-        : s.jsx(r("WAWebNativeFlowPaymentInfoOrderDetailsHeader"), {
-            isSentByMe: a,
-            orderInfo: n,
-          });
+    function f(e, t, n, a, i) {
+      return s.jsx(
+        o("WAWebPaymentDetailsBubbleHeaderLoadable")
+          .WAWebPaymentInfoBubbleHeader,
+        {
+          displayType: i,
+          isPaymentDetailsEnabled: t,
+          legacyHeader: s.jsx(
+            r("WAWebNativeFlowPaymentInfoOrderDetailsHeader"),
+            { isSentByMe: a, orderInfo: n },
+          ),
+          msgKey: e,
+        },
+      );
     }
     ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = d));
   },

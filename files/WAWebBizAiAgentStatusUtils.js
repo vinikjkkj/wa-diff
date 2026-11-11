@@ -43,29 +43,46 @@ __d(
     var d = ["change:automatedType", "change:dataSource"],
       m = ["add"].concat(d);
     function p(e) {
-      "use no forget";
-      return r("useWAWebEventTargetValue")(
-        e
-          ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
-          : null,
-        m,
-        function () {
-          return e && c();
-        },
-        [e],
+      var t = o("react-compiler-runtime").c(3),
+        n,
+        a;
+      return (
+        t[0] !== e
+          ? ((n = function () {
+              return e && c();
+            }),
+            (a = [e]),
+            (t[0] = e),
+            (t[1] = n),
+            (t[2] = a))
+          : ((n = t[1]), (a = t[2])),
+        r("useWAWebEventTargetValue")(
+          e
+            ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
+            : null,
+          m,
+          n,
+          a,
+        )
       );
     }
     function _(e, t) {
-      "use no forget";
-      o("useWAWebListener").useListener(
-        e
-          ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
-          : null,
-        m,
-        function (e) {
-          o("WAWebUserPrefsMeUser").isMeAccount(e.id) && t();
-        },
-      );
+      var n = o("react-compiler-runtime").c(2),
+        r;
+      (n[0] !== t
+        ? ((r = function (n) {
+            o("WAWebUserPrefsMeUser").isMeAccount(n.id) && t();
+          }),
+          (n[0] = t),
+          (n[1] = r))
+        : (r = n[1]),
+        o("useWAWebListener").useListener(
+          e
+            ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
+            : null,
+          m,
+          r,
+        ));
     }
     function f(e) {
       return (

@@ -40,7 +40,7 @@ __d(
       );
     }
     function m(e) {
-      return o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
+      return o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrderFor(e)
         ? 5e3
         : o("WAWebABProps").getABPropConfigValue(
             "order_details_total_maximum_value",

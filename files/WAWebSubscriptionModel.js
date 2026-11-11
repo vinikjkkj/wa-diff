@@ -17,7 +17,6 @@ __d(
           (t.tier = o("WAWebBaseModel").prop()),
           (t.status = o("WAWebBaseModel").prop()),
           (t.source = o("WAWebBaseModel").prop()),
-          (t.isPlatformChanged = o("WAWebBaseModel").prop()),
           (t.startTime = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
@@ -37,7 +36,6 @@ __d(
                 t.tier === this.tier &&
                 t.status === this.status &&
                 t.source === this.source &&
-                t.isPlatformChanged === this.isPlatformChanged &&
                 t.startTime === this.startTime
             : !1;
         }),

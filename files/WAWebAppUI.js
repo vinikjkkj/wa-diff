@@ -15,6 +15,7 @@ __d(
     "WAWebFavicon.react",
     "WAWebFbtCommon",
     "WAWebInactiveTabConflict.react",
+    "WAWebInactiveTabRedirectOnMount.react",
     "WAWebLinkDeviceScreen.react",
     "WAWebLockScreenLoadable",
     "WAWebLogoutLoadingScreen.react",
@@ -93,11 +94,14 @@ __d(
           return {
             appScreenUI: [
               {
-                ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
-                  children: u.jsx(r("WAWebInactiveTabConflict.react"), {
-                    takingOver: _.takingOver,
-                    onUseHere: m,
-                  }),
+                ui: u.jsxs(o("WAWebFavicon.react").ErrorFavicon, {
+                  children: [
+                    u.jsx(r("WAWebInactiveTabRedirectOnMount.react"), {}),
+                    u.jsx(r("WAWebInactiveTabConflict.react"), {
+                      takingOver: _.takingOver,
+                      onUseHere: m,
+                    }),
+                  ],
                 }),
                 errorBoundaryName: f,
               },

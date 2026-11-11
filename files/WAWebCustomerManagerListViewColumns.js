@@ -10,6 +10,7 @@ __d(
     "WAWebCustomerManagerListCell.react",
     "WAWebCustomerManagerListViewColumnWidths",
     "WAWebCustomerManagerNotesCell.react",
+    "WAWebCustomerManagerSMBUserJourneyLogger",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
     "WAWebL10N",
@@ -93,29 +94,41 @@ __d(
         draggable: { cursor: "x1jm3nie", $$css: !0 },
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
-    function y(e, t, n) {
-      return n == null || $.includes(e)
+    function y(e, t, n, r) {
+      return r == null || $.includes(e)
         ? null
         : {
             draggable: !0,
             onDragStart: function (r) {
               (r.dataTransfer.setData("text/plain", e),
                 (r.dataTransfer.effectAllowed = "move"),
-                t(!0));
+                n(!0));
             },
             onDragEnd: function () {
-              t(!1);
+              n(!1);
             },
             onDragOver: function (t) {
               (t.preventDefault(), (t.dataTransfer.dropEffect = "move"));
             },
-            onDrop: function (r) {
-              r.preventDefault();
-              var t = r.dataTransfer.getData("text/plain"),
-                o = P.find(function (e) {
-                  return e === t;
+            onDrop: function (a) {
+              a.preventDefault();
+              var n = a.dataTransfer.getData("text/plain"),
+                i = P.find(function (e) {
+                  return e === n;
                 });
-              o != null && o !== e && n(o, e);
+              if (i != null && i !== e) {
+                var l = t.indexOf(i),
+                  s = t.indexOf(e);
+                (r(i, e),
+                  l !== -1 &&
+                    s !== -1 &&
+                    o(
+                      "WAWebCustomerManagerSMBUserJourneyLogger",
+                    ).CustomerManagerUserJourneyLogger.editColumnReorderDrag(
+                      l,
+                      s,
+                    ));
+              }
             },
           };
     }
@@ -212,8 +225,19 @@ __d(
       var b = C,
         v;
       u[6] !== y
-        ? ((v = function () {
-            (m(!1), (f.current = null), y(s._(/*BTDS*/ "Dropped")));
+        ? ((v = function (t) {
+            var e = f.current;
+            (e != null &&
+              e !== t &&
+              o(
+                "WAWebCustomerManagerSMBUserJourneyLogger",
+              ).CustomerManagerUserJourneyLogger.editColumnReorderKeyboard(
+                e,
+                t,
+              ),
+              m(!1),
+              (f.current = null),
+              y(s._(/*BTDS*/ "Dropped")));
           }),
           (u[6] = y),
           (u[7] = v))
@@ -283,7 +307,7 @@ __d(
       u[21] !== L || u[22] !== S || u[23] !== T
         ? ((D = function (t, n) {
             return t.key === "Enter" || t.key === " "
-              ? (t.preventDefault(), S(), !0)
+              ? (t.preventDefault(), S(n), !0)
               : t.key === "Escape"
                 ? (t.preventDefault(), L(n), !0)
                 : T(t, n);
@@ -438,7 +462,7 @@ __d(
             ]);
     }
     function I(t) {
-      var n = o("react-compiler-runtime").c(49),
+      var n = o("react-compiler-runtime").c(50),
         a = t.columnKey,
         i = t.label,
         l = t.onColumnReorder,
@@ -450,19 +474,19 @@ __d(
         f = p[0],
         g = p[1],
         v;
-      n[0] !== a || n[1] !== l
-        ? ((v = y(a, g, l)), (n[0] = a), (n[1] = l), (n[2] = v))
-        : (v = n[2]);
+      n[0] !== a || n[1] !== l || n[2] !== d
+        ? ((v = y(a, d, g, l)), (n[0] = a), (n[1] = l), (n[2] = d), (n[3] = v))
+        : (v = n[3]);
       var E = v,
         I = String(i),
         T;
-      n[3] !== a || n[4] !== E || n[5] !== d
+      n[4] !== a || n[5] !== E || n[6] !== d
         ? ((T = E != null && d.includes(a)),
-          (n[3] = a),
-          (n[4] = E),
-          (n[5] = d),
-          (n[6] = T))
-        : (T = n[6]);
+          (n[4] = a),
+          (n[5] = E),
+          (n[6] = d),
+          (n[7] = T))
+        : (T = n[7]);
       var D = T,
         x = C(),
         $ = x.revealed,
@@ -472,40 +496,40 @@ __d(
         w = N.handleReorderKeyDown,
         A = m != null && m.key === a ? m.direction : null,
         F;
-      n[7] !== a || n[8] !== u
+      n[8] !== a || n[9] !== u
         ? ((F = function () {
             u == null || u(a);
           }),
-          (n[7] = a),
-          (n[8] = u),
-          (n[9] = F))
-        : (F = n[9]);
+          (n[8] = a),
+          (n[9] = u),
+          (n[10] = F))
+        : (F = n[10]);
       var O = F,
         B;
-      n[10] !== a || n[11] !== w || n[12] !== u
+      n[11] !== a || n[12] !== w || n[13] !== u
         ? ((B = function (t) {
             w(t) ||
               (u != null &&
                 (t.key === "Enter" || t.key === " ") &&
                 (t.preventDefault(), u(a)));
           }),
-          (n[10] = a),
-          (n[11] = w),
-          (n[12] = u),
-          (n[13] = B))
-        : (B = n[13]);
+          (n[11] = a),
+          (n[12] = w),
+          (n[13] = u),
+          (n[14] = B))
+        : (B = n[14]);
       var W = B;
       if (u == null && !D) {
         var q;
-        n[14] === Symbol.for("react.memo_cache_sentinel")
+        n[15] === Symbol.for("react.memo_cache_sentinel")
           ? ((q = {
               className: "x6s0dn4 xhslqc4 x1trrmfo x78zum5 x193iq5w x1n2onr6",
             }),
-            (n[14] = q))
-          : (q = n[14]);
+            (n[15] = q))
+          : (q = n[15]);
         var U;
         return (
-          n[15] !== i
+          n[16] !== i
             ? ((U = c.jsx(
                 "div",
                 babelHelpers.extends({}, q, {
@@ -517,14 +541,14 @@ __d(
                   }),
                 }),
               )),
-              (n[15] = i),
-              (n[16] = U))
-            : (U = n[16]),
+              (n[16] = i),
+              (n[17] = U))
+            : (U = n[17]),
           U
         );
       }
       var V;
-      n[17] !== f || n[18] !== u
+      n[18] !== f || n[19] !== u
         ? ((V = (e || (e = r("stylex"))).props(
             h.wrapper,
             u != null && h.sortable,
@@ -533,66 +557,66 @@ __d(
             u == null && h.draggable,
             f && h.dragging,
           )),
-          (n[17] = f),
-          (n[18] = u),
-          (n[19] = V))
-        : (V = n[19]);
+          (n[18] = f),
+          (n[19] = u),
+          (n[20] = V))
+        : (V = n[20]);
       var H;
-      n[20] !== I || n[21] !== A || n[22] !== i || n[23] !== u
+      n[21] !== I || n[22] !== A || n[23] !== i || n[24] !== u
         ? ((H = u != null ? k(i, A) : I),
-          (n[20] = I),
-          (n[21] = A),
-          (n[22] = i),
-          (n[23] = u),
-          (n[24] = H))
-        : (H = n[24]);
+          (n[21] = I),
+          (n[22] = A),
+          (n[23] = i),
+          (n[24] = u),
+          (n[25] = H))
+        : (H = n[25]);
       var G;
-      n[25] !== D
-        ? ((G = D ? b() : void 0), (n[25] = D), (n[26] = G))
-        : (G = n[26]);
+      n[26] !== D
+        ? ((G = D ? b() : void 0), (n[26] = D), (n[27] = G))
+        : (G = n[27]);
       var z;
-      n[27] !== E
-        ? ((z = E != null ? E : {}), (n[27] = E), (n[28] = z))
-        : (z = n[28]);
+      n[28] !== E
+        ? ((z = E != null ? E : {}), (n[28] = E), (n[29] = z))
+        : (z = n[29]);
       var j = u != null ? O : void 0,
         K;
-      n[29] !== D || n[30] !== $
+      n[30] !== D || n[31] !== $
         ? ((K = D && c.jsx(R, { revealed: $ })),
-          (n[29] = D),
-          (n[30] = $),
-          (n[31] = K))
-        : (K = n[31]);
+          (n[30] = D),
+          (n[31] = $),
+          (n[32] = K))
+        : (K = n[32]);
       var Q;
-      n[32] !== i
+      n[33] !== i
         ? ((Q = c.jsx(r("WDSText.react"), {
             maxLines: 1,
             type: "Body2Emphasized",
             colorName: "contentDeemphasized",
             children: i,
           })),
-          (n[32] = i),
-          (n[33] = Q))
-        : (Q = n[33]);
+          (n[33] = i),
+          (n[34] = Q))
+        : (Q = n[34]);
       var X;
-      n[34] !== A || n[35] !== u
+      n[35] !== A || n[36] !== u
         ? ((X = u != null && c.jsx(L, { direction: A })),
-          (n[34] = A),
-          (n[35] = u),
-          (n[36] = X))
-        : (X = n[36]);
+          (n[35] = A),
+          (n[36] = u),
+          (n[37] = X))
+        : (X = n[37]);
       var Y;
       return (
-        n[37] !== W ||
-        n[38] !== M ||
-        n[39] !== P ||
-        n[40] !== K ||
-        n[41] !== Q ||
-        n[42] !== X ||
-        n[43] !== V ||
-        n[44] !== H ||
-        n[45] !== G ||
-        n[46] !== z ||
-        n[47] !== j
+        n[38] !== W ||
+        n[39] !== M ||
+        n[40] !== P ||
+        n[41] !== K ||
+        n[42] !== Q ||
+        n[43] !== X ||
+        n[44] !== V ||
+        n[45] !== H ||
+        n[46] !== G ||
+        n[47] !== z ||
+        n[48] !== j
           ? ((Y = c.jsxs(
               "div",
               babelHelpers.extends(
@@ -608,19 +632,19 @@ __d(
                 { onBlur: M, onClick: j, onKeyDown: W, children: [K, Q, X] },
               ),
             )),
-            (n[37] = W),
-            (n[38] = M),
-            (n[39] = P),
-            (n[40] = K),
-            (n[41] = Q),
-            (n[42] = X),
-            (n[43] = V),
-            (n[44] = H),
-            (n[45] = G),
-            (n[46] = z),
-            (n[47] = j),
-            (n[48] = Y))
-          : (Y = n[48]),
+            (n[38] = W),
+            (n[39] = M),
+            (n[40] = P),
+            (n[41] = K),
+            (n[42] = Q),
+            (n[43] = X),
+            (n[44] = V),
+            (n[45] = H),
+            (n[46] = G),
+            (n[47] = z),
+            (n[48] = j),
+            (n[49] = Y))
+          : (Y = n[49]),
         Y
       );
     }

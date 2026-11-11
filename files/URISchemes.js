@@ -118,6 +118,7 @@ __d(
         "origami-internal",
         "origami-public",
         "stella",
+        "subway",
         "mwa",
         "mattermost",
         "logaggregator",

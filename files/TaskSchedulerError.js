@@ -5,10 +5,12 @@ __d(
     "use strict";
     var e = (function (e) {
       function t(t, n) {
-        var r;
+        var r,
+          o = "Run timeout exceeded: " + t + ":" + n;
         return (
-          (r = e.call(this, "Run timeout exceeded: " + t + ":" + n) || this),
+          (r = e.call(this, o) || this),
           (r.name = "TaskSchedulerTimeoutError"),
+          (r.message = o),
           r
         );
       }

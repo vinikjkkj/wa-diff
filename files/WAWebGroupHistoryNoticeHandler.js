@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebGroupHistoryPostJoinTypes",
-    "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
     "WAWebPersistAndSyncGroupHistoryToggle",
@@ -101,13 +101,14 @@ __d(
                             : new Map();
                       for (var u of t) {
                         var c,
-                          d = o("WAWebLidMigrationUtils").toUserLid(u);
+                          d = o(
+                            "WAWebGroupHistoryParticipantJob",
+                          ).toGroupHistoryParticipantKey(u);
                         if (d != null) {
-                          var m = o("WAWebWidToJid").userLidtoLidUserJid(d),
-                            p = s.get(m);
-                          s.set(m, {
+                          var m = s.get(d);
+                          s.set(d, {
                             joinTime:
-                              (c = p == null ? void 0 : p.joinTime) != null
+                              (c = m == null ? void 0 : m.joinTime) != null
                                 ? c
                                 : null,
                             groupHistorySentState: r,
@@ -160,18 +161,19 @@ __d(
                     if (i == null) return !1;
                     for (var l of t) {
                       var s,
-                        u = o("WAWebLidMigrationUtils").toUserLid(l);
+                        u = o(
+                          "WAWebGroupHistoryParticipantJob",
+                        ).toGroupHistoryParticipantKey(l);
                       if (u == null) return !1;
-                      var c = o("WAWebWidToJid").userLidtoLidUserJid(u),
-                        d =
-                          (s = i.get(c)) == null
-                            ? void 0
-                            : s.groupHistorySentState;
+                      var c =
+                        (s = i.get(u)) == null
+                          ? void 0
+                          : s.groupHistorySentState;
                       if (
-                        d !==
+                        c !==
                           o("WAWebGroupHistoryPostJoinTypes")
                             .GroupHistorySentState.NOTICE_SENT &&
-                        d !==
+                        c !==
                           o("WAWebGroupHistoryPostJoinTypes")
                             .GroupHistorySentState.HISTORY_SENT
                       )

@@ -68,13 +68,6 @@ __d(
                     alias: null,
                     args: null,
                     kind: "ScalarField",
-                    name: "is_platform_changed",
-                    storageKey: null,
-                  },
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
                     name: "start_time",
                     storageKey: null,
                   },
@@ -101,13 +94,6 @@ __d(
                     args: null,
                     kind: "ScalarField",
                     name: "enabled",
-                    storageKey: null,
-                  },
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
-                    name: "expiration_time",
                     storageKey: null,
                   },
                   {

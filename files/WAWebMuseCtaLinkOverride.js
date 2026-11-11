@@ -35,13 +35,16 @@ __d(
     }
     function d(e) {
       var t;
-      return e == null || !c(e) || r("justknobx")._("5912")
+      return e == null || !c(e) || m()
         ? e
         : (t = o("WAWebHatchUrl").getHatchJoinUrl()) != null
           ? t
           : e;
     }
-    l.overrideCtaUrlIfNeeded = d;
+    function m() {
+      return r("justknobx")._("5912");
+    }
+    ((l.overrideCtaUrlIfNeeded = d), (l.isTryMuseKillSwitchOn = m));
   },
   98,
 );

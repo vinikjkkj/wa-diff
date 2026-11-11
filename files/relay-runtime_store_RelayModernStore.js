@@ -174,18 +174,6 @@ __d(
                 });
             }
           }),
-          (r.batchLiveStateUpdatesWithoutNotify = function (t) {
-            this.__log != null &&
-              this.__log({ name: "liveresolver.batch.start" });
-            var e = !1;
-            try {
-              e = this.$15.batchLiveStateUpdatesWithoutNotify(t);
-            } finally {
-              this.__log != null &&
-                this.__log({ name: "liveresolver.batch.end" });
-            }
-            return e;
-          }),
           (r.check = function (t, r) {
             var e,
               o,

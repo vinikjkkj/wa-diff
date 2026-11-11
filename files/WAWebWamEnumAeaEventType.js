@@ -1,0 +1,24 @@
+__d(
+  "WAWebWamEnumAeaEventType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      VERIFICATION_SUCCESS: 1,
+      VERIFICATION_FAILED: 2,
+      VERIFICATION_FAILED_KEY_CHANGE_FALLBACK: 3,
+      ADV_STATE_CONFLICT: 4,
+      AUTOMATIC_E2EE_UPDATE: 5,
+      AUTOMATIC_NON_E2EE_UPDATE: 6,
+      SEND_REJECT: 7,
+      STATE_ACCEPT_IMPLICIT_DOWNGRADE: 8,
+      RECEIVE_GOSSIP_MISMATCH: 9,
+      ATTESTATION_BACKFILL: 10,
+      USYNC_IGNORED_DURING_COOLDOWN: 11,
+      USYNC_AEA_THREAD_UPDATE: 12,
+      WASS_GOSSIP_KEY_CHANGE: 13,
+      STATE_UPDATE: 14,
+    });
+    i.AEA_EVENT_TYPE = e;
+  },
+  66,
+);

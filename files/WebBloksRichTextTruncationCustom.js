@@ -81,11 +81,15 @@ __d(
         $ = x ? "left" : "right",
         P = a === 1,
         N = o("WebBloksTextStyle").getMaxTextSizePx(i, g) * E,
-        M = {
-          fontSize: k,
-          maxHeight: T + "px",
-          wordBreak: P ? "break-all" : "break-word",
-        },
+        M = babelHelpers.extends(
+          {},
+          o("WebBloksTextStyle").getClampedTextHeadroomStyle(k),
+          {
+            fontSize: k,
+            maxHeight: T + "px",
+            wordBreak: P ? "break-all" : "break-word",
+          },
+        ),
         w = _(i);
       return s.jsxs("div", {
         style: M,
@@ -120,7 +124,7 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     var f = o("WebBloksStyle").createStyles({
-      container: { overflow: "hidden" },
+      container: { boxSizing: "content-box", overflow: "hidden" },
       content: { float: "none" },
     });
     l.default = _;

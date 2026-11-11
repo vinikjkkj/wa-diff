@@ -37,27 +37,30 @@ __d(
         i = o.root || c,
         l = i,
         p = d.get(i);
-      p == null && ((p = {}), d.set(i, p));
-      var _ = p[a];
-      if (_ == null) {
-        var f = void 0;
+      if (p == null) {
+        var _ = {};
+        ((p = _), d.set(i, _));
+      }
+      var f = p[a];
+      if (f == null) {
+        var g = void 0;
         Array.isArray(o.threshold)
-          ? (f = o.threshold.slice())
-          : typeof o.threshold == "number" && (f = [o.threshold]);
-        var g = new IntersectionObserver(
+          ? (g = o.threshold.slice())
+          : typeof o.threshold == "number" && (g = [o.threshold]);
+        var h = new IntersectionObserver(
           function (t) {
             t.forEach(function (t) {
-              _ != null || s(0, 2439);
+              f != null || s(0, 2439);
               var n = [],
                 o = t.target.reactFragments;
               o != null &&
                 o.forEach(function (e) {
                   var t,
                     r =
-                      (t = _) == null ? void 0 : t.targetToCallbacksMap.get(e);
+                      (t = f) == null ? void 0 : t.targetToCallbacksMap.get(e);
                   r != null && (n = n.concat(r));
                 });
-              var a = _.targetToCallbacksMap.get(t.target);
+              var a = f.targetToCallbacksMap.get(t.target);
               (a != null && (n = n.concat(a)),
                 n.length > 0 &&
                   n.forEach(function (n) {
@@ -67,57 +70,57 @@ __d(
                   }));
             });
           },
-          babelHelpers.extends({}, o, { threshold: f }),
+          babelHelpers.extends({}, o, { threshold: g }),
         );
-        ((_ = {
-          intersectionObserver: g,
+        ((f = {
+          intersectionObserver: h,
           referenceCount: 0,
           targetToCallbacksMap: u ? new WeakMap() : new Map(),
         }),
-          (p[a] = _));
+          (p[a] = f));
       }
-      var h = _.targetToCallbacksMap.get(t);
-      (h == null &&
+      var y = f.targetToCallbacksMap.get(t);
+      (y == null &&
         (t instanceof Element
-          ? _.intersectionObserver.observe(t)
-          : t.observeUsing(_.intersectionObserver),
-        (_.referenceCount += 1),
-        (h = []),
-        _.targetToCallbacksMap.set(t, h)),
-        h.push(n));
-      var y = t,
-        C = n,
-        b = !1,
-        v = function () {
-          if (!b) {
-            var e = y,
-              t = C;
+          ? f.intersectionObserver.observe(t)
+          : t.observeUsing(f.intersectionObserver),
+        (f.referenceCount += 1),
+        (y = []),
+        f.targetToCallbacksMap.set(t, y)),
+        y.push(n));
+      var C = t,
+        b = n,
+        v = !1,
+        S = function () {
+          if (!v) {
+            var e = C,
+              t = b;
             (e != null || s(0, 173939), t != null || s(0, 173937));
-            var n = _.targetToCallbacksMap.get(e);
+            var n = f.targetToCallbacksMap.get(e);
             if ((n != null || s(0, 2440), n.length === 1))
               (e instanceof Element
-                ? _.intersectionObserver.unobserve(e)
-                : e.unobserveUsing(_.intersectionObserver),
-                _.targetToCallbacksMap.delete(e),
-                (_.referenceCount -= 1),
-                (y = null));
+                ? f.intersectionObserver.unobserve(e)
+                : e.unobserveUsing(f.intersectionObserver),
+                f.targetToCallbacksMap.delete(e),
+                (f.referenceCount -= 1),
+                (C = null));
             else {
               var r = n.indexOf(t);
               (r !== -1 || s(0, 2441), n.splice(r, 1));
             }
-            (_.referenceCount === 0 &&
+            (f.referenceCount === 0 &&
               (p != null || s(0, 2442),
               delete p[a],
               l && Object.keys(p).length === 0 && d.delete(i)),
+              (b = null),
               (C = null),
-              (y = null),
               (l = null),
-              (b = !0));
+              (v = !0));
           }
         };
       return {
         remove: function () {
-          v && (v(), (v = null));
+          S && (S(), (S = null));
         },
       };
     }

@@ -5,22 +5,30 @@ __d(
     var e = !1,
       s = new Set();
     function u() {
-      return c(
-        o("WAWebABProps").getABPropConfigValue(
-          "web_employee_slash_commands_enabled",
-        ) === !0,
-        e,
-      );
+      return c({
+        isSlashCommandsPropOn:
+          o("WAWebABProps").getABPropConfigValue(
+            "web_employee_slash_commands_enabled",
+          ) === !0,
+        isProdPropOn:
+          o("WAWebABProps").getABPropConfigValue(
+            "web_employee_commands_prod_enabled",
+          ) === !0,
+        isExtensionAllowed: e,
+      });
     }
-    function c(e, t) {
+    function c(e) {
+      var t = e.isExtensionAllowed,
+        n = e.isProdPropOn,
+        o = e.isSlashCommandsPropOn;
       return r("gkx")("9092")
-        ? (function (n) {
-            if (n === "intern") return r("gkx")("28886") || e || t;
-            if (n === "dev") return e;
-            if (n === "prod") return !1;
+        ? (function (e) {
+            if (e === "intern") return r("gkx")("28886") || o || t;
+            if (e === "dev") return o;
+            if (e === "prod") return n;
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                n,
+                e,
             );
           })(r("WAWebEnvironment").getEnvironment())
         : !1;

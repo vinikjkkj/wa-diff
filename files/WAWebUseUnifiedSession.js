@@ -21,7 +21,7 @@ __d(
             (o("WAWebUnifiedSession").UnifiedSessionManager.generateSessionId(
               t,
             ),
-              n());
+              n(t));
           }),
           (t[0] = n),
           (t[1] = a))

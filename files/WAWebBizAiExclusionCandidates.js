@@ -15,7 +15,13 @@ __d(
       var n = [];
       for (var r of t) {
         var a = c(r) ? d(r) : null;
-        a != null && n.push({ chat: r, name: a, startsWithLetter: e.test(a) });
+        a != null &&
+          n.push({
+            chatId: r.id,
+            contactId: r.contact.id,
+            name: a,
+            startsWithLetter: e.test(a),
+          });
       }
       var i = o("WAWebContactComparator").getCollator();
       return n
@@ -23,8 +29,10 @@ __d(
           return m(e, t, i.compare);
         })
         .map(function (e) {
-          var t = e.chat;
-          return t;
+          var t = e.chatId,
+            n = e.contactId,
+            r = e.name;
+          return { chatId: t, contactId: n, name: r };
         });
     }
     function u(e, t) {
@@ -32,10 +40,8 @@ __d(
       return n === ""
         ? e
         : e.filter(function (e) {
-            var t;
-            return o("WAWebL10NAccentFold")
-              .accentFold((t = d(e)) != null ? t : "")
-              .includes(n);
+            var t = e.name;
+            return o("WAWebL10NAccentFold").accentFold(t).includes(n);
           });
     }
     function c(e) {

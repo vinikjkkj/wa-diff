@@ -21,7 +21,7 @@ __d(
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(
-            /*BTDS*/ "This content may go against Meta Business AI policies and can't be saved. Edit it and try again.",
+            /*BTDS*/ "This content can't be saved. Edit it and try again.",
           ),
         }),
       );

@@ -299,7 +299,9 @@ __d(
               i.getSubscription == null
                 ? void 0
                 : i.getSubscription();
-              u != null && (yield H(u));
+              u != null
+                ? yield H(u)
+                : n("cr:27584").getPushPreferences() != null && x();
             } catch (t) {
               o("WALogger")
                 .WARN(
@@ -595,6 +597,7 @@ __d(
     ((l.SubscribePushManagerUserPrefs = R),
       (l.updatePushManager = x),
       (l.handleOfflineNotifications = B),
+      (l.syncCurrentPushPreferences = V),
       (l.unsubscribePushManager = ae));
   },
   98,

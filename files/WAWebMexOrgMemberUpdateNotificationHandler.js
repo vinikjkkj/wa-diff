@@ -11,6 +11,7 @@ __d(
     "WAWebOrgMembersPhash",
     "WAWebSchemaOrg",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -210,6 +211,7 @@ __d(
           n.role == null
             ? null
             : o("WAWebSchemaOrg").OrgMemberRole.cast(n.role),
+        username: o("WAWebUsernameTypes").asMaybeUsername(n.username),
       };
     }
     function S(e) {

@@ -56,6 +56,7 @@ __d(
     "countWhere",
     "decodeProtobuf",
     "err",
+    "justknobx",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -232,13 +233,13 @@ __d(
               G = U.reportingInfoRows,
               z = U.skipReasonCounts,
               j = N[2],
-              Q = j.addonPromises,
-              Y = j.parsedMessages,
-              Z = j.reportingInfoRows,
-              te = [].concat(F, H, Y),
-              oe = [].concat(w, V, Q),
-              ae = [].concat(W, G, Z);
-            if (te.length === 0) {
+              K = j.addonPromises,
+              X = j.parsedMessages,
+              J = j.reportingInfoRows,
+              ee = [].concat(F, H, X),
+              ne = [].concat(w, V, K),
+              ae = [].concat(W, G, J);
+            if (ee.length === 0) {
               (o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -279,17 +280,17 @@ __d(
                   " msgs (",
                   " OOW pins), injecting",
                 ])),
-              te.length,
+              ee.length,
               H.length,
             );
-            var ie = yield K(te),
+            var ie = yield Q(ee),
               le = new Set(
-                Y.map(function (e) {
+                X.map(function (e) {
                   return e.id.toString();
                 }),
               ),
-              se = A(yield X(ie, a), le),
-              ue = yield J(oe, x),
+              se = A(yield Y(ie, a), le),
+              ue = yield Z(ne, x),
               ce =
                 se.filter(function (e) {
                   return !le.has(e.id.toString());
@@ -315,7 +316,7 @@ __d(
                 }),
               );
             if (
-              (yield ee(se, a, e.id, function (e) {
+              (yield te(se, a, e.id, function (e) {
                 var t,
                   n = new Set(
                     e.map(function (e) {
@@ -325,7 +326,7 @@ __d(
                 ((h = !0),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "logGroupHistoryDbInserted",
-                    babelHelpers.extends({}, ne(e, de, le, B), {
+                    babelHelpers.extends({}, re(e, de, le, B), {
                       applyDurationMs: Math.round(self.performance.now() - i),
                       dbIgnoredOlderMessages:
                         ce ===
@@ -337,9 +338,9 @@ __d(
                       )).formatReceiverFailureReason(
                         t.mergeReasonCounts([
                           ["", q],
-                          ["", re(F, me, pe, n)],
+                          ["", oe(F, me, pe, n)],
                           [t.OUT_WINDOW_PIN_REASON_PREFIX, z],
-                          [t.OUT_WINDOW_PIN_REASON_PREFIX, re(H, me, pe, n)],
+                          [t.OUT_WINDOW_PIN_REASON_PREFIX, oe(H, me, pe, n)],
                         ]),
                       ),
                     }),
@@ -501,56 +502,67 @@ __d(
               x = o(
                 "WAWebGroupHistoryGating",
               ).shouldSkipUnsupportedMessagesFromBundle(),
-              $ = 0;
-            $ < i.length;
-            $++
+              $ =
+                c != null && r("justknobx")._("7544")
+                  ? V(c.messageBytesArray)
+                  : null,
+              P = 0;
+            P < i.length;
+            P++
           ) {
-            var P = i[$];
+            var w,
+              A = i[P],
+              F = (w = A.key) == null ? void 0 : w.id;
             try {
-              if (x && q(P)) {
-                var w, A;
+              if (x && q(A)) {
+                var O, G;
                 U(
                   I,
-                  (w = (A = P.key) == null ? void 0 : A.id) != null
-                    ? w
+                  (O = (G = A.key) == null ? void 0 : G.id) != null
+                    ? O
                     : "unknown",
                 );
                 continue;
               }
-              var F = M({
+              var z = M({
                 baseMessage: t,
                 bundleMessageKey: a,
-                messageInfo: P,
+                messageInfo: A,
                 scrubUnattestableFields: x,
               });
-              if (F == null) {
+              if (z == null) {
                 T++;
                 continue;
               }
-              if (x && !W(F)) {
-                U(k, F.id);
+              if (x && !W(z)) {
+                U(k, z.id);
                 continue;
               }
-              if (!B(F, l)) {
-                U(S, F.id);
+              if (!B(z, l)) {
+                U(S, z.id);
                 continue;
               }
-              if (z(F, v)) {
-                U(R, F.id);
+              if (j(z, v)) {
+                U(R, z.id);
                 continue;
               }
-              if (!u && j(F, v)) {
-                U(L, F.id);
+              if (!u && K(z, v)) {
+                U(L, z.id);
                 continue;
               }
-              (c != null &&
-                D.push(V({ index: $, parsedMsg: F, validationCtx: c })),
-                d.push(F),
-                N(P) && m.add(F.id.toString()),
+              if (c != null) {
+                var Q = c.messageBytesArray[P];
+                ($ != null && (Q = F == null ? null : $.get(F)),
+                  D.push(
+                    H({ msgWithBytes: Q, parsedMsg: z, validationCtx: c }),
+                  ));
+              }
+              (d.push(z),
+                N(A) && m.add(z.id.toString()),
                 p.push(
                   o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
-                    webMsgInfo: P,
-                    parsedWebMsgInfo: F,
+                    webMsgInfo: A,
+                    parsedWebMsgInfo: z,
                     isFromCag: !1,
                   }),
                 ));
@@ -563,13 +575,13 @@ __d(
                       ": ",
                       "",
                     ])),
-                  $,
+                  P,
                   r("WAWebSerializeError")(e),
                 ));
             }
           }
-          for (var O of yield (E || (E = n("Promise"))).all(D))
-            O != null && b.push(O);
+          for (var X of yield (E || (E = n("Promise"))).all(D))
+            X != null && b.push(X);
           return (
             k.count > 0 &&
               o("WALogger").WARN(
@@ -903,40 +915,48 @@ __d(
       (e.count++, e.ids.length < k && e.ids.push(t.toString()));
     }
     function V(e) {
-      return H.apply(this, arguments);
+      var t = new Map();
+      for (var n of e) {
+        var r,
+          o = (r = n.key) == null ? void 0 : r.id;
+        o != null && t.set(o, t.has(o) ? null : n);
+      }
+      return t;
     }
-    function H() {
+    function H(e) {
+      return G.apply(this, arguments);
+    }
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.index,
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgWithBytes,
             n = e.parsedMsg,
-            a = e.validationCtx,
-            i = a.messageBytesArray[t];
-          if (i == null) return null;
+            a = e.validationCtx;
+          if (t == null) return null;
           try {
-            var l = yield o(
+            var i = yield o(
                 "WAWebGroupHistoryReportingTokenValidator",
-              ).validateAndBuildReportingInfoRow(n, i, a),
-              s = l.failureReason,
-              u = l.row;
-            if (s != null && G(s)) {
-              var c = o("WAWebReportingTokenUtils").genDebugMsgInfo(n);
+              ).validateAndBuildReportingInfoRow(n, t, a),
+              l = i.failureReason,
+              s = i.row;
+            if (l != null && z(l)) {
+              var u = o("WAWebReportingTokenUtils").genDebugMsgInfo(n);
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
-                externalId: c.externalId,
+                externalId: u.externalId,
                 nackReason: o("WAWebCreateNackFromStanza").NackReason
                   .ParsingError,
-                msgInfo: c,
+                msgInfo: u,
                 offline: !1,
                 additionalInfo:
                   "[ghs] reporting token validation failed (reason " +
-                  s +
+                  l +
                   ") for msg " +
                   n.id.toString(),
               });
             }
-            return u;
+            return s;
           } catch (e) {
             return (
               o("WALogger").WARN(
@@ -953,10 +973,10 @@ __d(
             );
           }
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function G(e) {
+    function z(e) {
       return (
         e !==
           o("WAWebWamEnumReportingTokenValidationFailureReason")
@@ -970,7 +990,7 @@ __d(
         ).isReportingTokenValidationFailureDebugPlaceholderEnabled()
       );
     }
-    function z(e, t) {
+    function j(e, t) {
       var n,
         r = e.ephemeralDuration;
       if (r == null || r === 0) return !1;
@@ -978,7 +998,7 @@ __d(
         i = a + r;
       return !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState) && i <= t;
     }
-    function j(e, t) {
+    function K(e, t) {
       var n,
         r = (n = e.t) != null ? n : 0;
       if (r === 0) return !1;
@@ -987,12 +1007,12 @@ __d(
       );
       return r + 2 * a < t;
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    function Q() {
+    function X() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = e.map(function (e) {
                 return e.id.toString();
@@ -1019,15 +1039,15 @@ __d(
             return !n[t];
           });
         })),
-        Q.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function X(e, t) {
-      return Y.apply(this, arguments);
+    function Y(e, t) {
+      return J.apply(this, arguments);
     }
-    function Y() {
+    function J() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
           if (n == null) return e;
           var r = n.ephemeralDuration;
@@ -1040,15 +1060,15 @@ __d(
               : e;
           });
         })),
-        Y.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    function J(e, t) {
-      return Z.apply(this, arguments);
+    function Z(e, t) {
+      return ee.apply(this, arguments);
     }
-    function Z() {
+    function ee() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r,
             a = yield (E || (E = n("Promise"))).all(e),
             i = (r = []).concat.apply(r, a);
@@ -1067,15 +1087,15 @@ __d(
             return babelHelpers.extends({}, e, r, { id: n });
           });
         })),
-        Z.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    function ee(e, t, n, r) {
-      return te.apply(this, arguments);
+    function te(e, t, n, r) {
+      return ne.apply(this, arguments);
     }
-    function te() {
+    function ne() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i = null;
             try {
@@ -1097,7 +1117,7 @@ __d(
                   "WAWebApiFilterAndReplaceMessages",
                 ).filterAndReplaceMessages(e),
                 f = _.newMsgs,
-                g = oe(f, p == null ? void 0 : p.t),
+                g = ae(f, p == null ? void 0 : p.t),
                 h = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
                   g,
                   !1,
@@ -1153,7 +1173,7 @@ __d(
                   return y.has(e.id.toString());
                 }),
               ),
-                yield ae(g, t, i));
+                yield ie(g, t, i));
             } catch (e) {
               if (e instanceof r("WAWeb-dexie").BulkError) {
                 var C = i != null ? i.anchorInChatMsgId - 1 : null,
@@ -1234,10 +1254,10 @@ __d(
             }
           },
         )),
-        te.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    function ne(e, t, n, o) {
+    function re(e, t, n, o) {
       var a = r("countWhere")(e, function (e) {
           return t.has(e.id.toString());
         }),
@@ -1253,7 +1273,7 @@ __d(
         uncountedCount: i,
       };
     }
-    function re(e, t, n, a) {
+    function oe(e, t, n, a) {
       var i = e.map(function (e) {
         return e.id.toString();
       });
@@ -1281,19 +1301,19 @@ __d(
         ],
       ]);
     }
-    function oe(e, t) {
+    function ae(e, t) {
       var n = t != null ? t : 0;
       return e.filter(function (e) {
         var t;
         return ((t = e.t) != null ? t : 0) > n;
       });
     }
-    function ae(e, t, n) {
-      return ie.apply(this, arguments);
+    function ie(e, t, n) {
+      return le.apply(this, arguments);
     }
-    function ie() {
+    function le() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
             var a,
               i =
@@ -1311,7 +1331,7 @@ __d(
             );
           },
         )),
-        ie.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
     l.processMessageHistoryBundle = D;

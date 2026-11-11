@@ -2,7 +2,6 @@ __d(
   "WAWebShouldShowCallButtons",
   [
     "WAWebBizCoexGatingUtils",
-    "WAWebChatGetters",
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
@@ -14,98 +13,126 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
+      return s({
+        chatId: e.id,
+        contact: e.contact,
+        groupMetadata: o("WAWebFrontendChatGetters").getGroupMetadata(e),
+      });
+    }
+    function s(e) {
       var t,
         n,
-        r = o("WAWebChatGetters").getIsGroup(e),
-        a = o("WAWebFrontendChatGetters").getGroupMetadata(e),
+        r = e.chatId,
+        o = e.groupMetadata,
+        a = r.isGroup(),
         i =
-          r &&
-          ((t = a == null ? void 0 : a.participants.length) != null ? t : 0) ===
+          a &&
+          ((t = o == null ? void 0 : o.participants.length) != null ? t : 0) ===
             1,
         l =
-          !c(e) ||
-          (r &&
-            (((a == null ? void 0 : a.announce) === !0 &&
+          !d(r, o) ||
+          (a &&
+            (((o == null ? void 0 : o.announce) === !0 &&
               !(
-                (n = a == null ? void 0 : a.participants.iAmAdmin()) != null &&
+                (n = o == null ? void 0 : o.participants.iAmAdmin()) != null &&
                 n
               )) ||
               i)),
-        s = u(e) && !l;
+        s = c(e) && !l;
       return { shouldShow: s, shouldDisableStartCall: l };
     }
-    function s(e) {
-      return e.contact != null && u(e) && c(e);
-    }
     function u(e) {
-      var t = o("WAWebFrontendChatGetters").getGroupMetadata(e);
-      return (
-        g(e.contact) &&
-        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t) !==
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-        (t == null ? void 0 : t.hasCapi) !== !0 &&
-        !o("WAWebChatGetters").getIsNewsletter(e) &&
-        !o("WAWebChatGetters").getIsBroadcast(e)
-      );
+      if (e.contact == null) return !1;
+      var t = {
+        chatId: e.id,
+        contact: e.contact,
+        groupMetadata: o("WAWebFrontendChatGetters").getGroupMetadata(e),
+      };
+      return c(t) && d(t.chatId, t.groupMetadata);
     }
     function c(e) {
-      if (!o("WAWebChatGetters").getIsGroup(e)) return !0;
-      var t = o("WAWebFrontendChatGetters").getGroupMetadata(e);
+      var t = e.chatId,
+        n = e.contact,
+        r = e.groupMetadata;
       return (
-        t != null && t.participants.iAmMember() && !t.isSuspendedOrTerminated()
+        C(n) &&
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(r) !==
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
+        (r == null ? void 0 : r.hasCapi) !== !0 &&
+        !t.isNewsletter() &&
+        !t.isBroadcast()
       );
     }
-    function d(t) {
+    function d(e, t) {
+      return e.isGroup()
+        ? t != null &&
+            t.participants.iAmMember() &&
+            !t.isSuspendedOrTerminated()
+        : !0;
+    }
+    function m(t) {
       return e(t).shouldShow;
     }
-    function m(e) {
+    function p(e) {
+      return s(e).shouldShow;
+    }
+    function _(e) {
       return !e.isBot() && !e.isAiHub() && !e.isPSA();
     }
-    function p(e) {
+    function f(e) {
       var t = e.contact;
       return (
         t == null ||
-        !h(t) ||
+        !b(t) ||
         o("WAWebVoipCapiBusinessCalling").canVideoCallCapiBusiness(t)
       );
     }
-    function _(e) {
-      var t = e.contact;
-      return t == null || !h(t);
-    }
-    function f(e) {
-      return !e.isEnterprise && y(e);
-    }
     function g(e) {
+      var t = e.contact;
       return (
-        y(e) &&
+        !b(t) || o("WAWebVoipCapiBusinessCalling").canVideoCallCapiBusiness(t)
+      );
+    }
+    function h(e) {
+      var t = e.contact;
+      return t == null || !b(t);
+    }
+    function y(e) {
+      return !e.isEnterprise && v(e);
+    }
+    function C(e) {
+      return (
+        v(e) &&
         (!e.isEnterprise ||
           o("WAWebVoipCapiBusinessCalling").canCallCapiBusiness(e))
       );
     }
-    function h(e) {
+    function b(e) {
       return (
         e.isEnterprise &&
         o("WAWebVoipGatingUtils").isCapiCallingEntryPointEnabled()
       );
     }
-    function y(e) {
+    function v(e) {
       return (
         !o("WAWebContactGetters").getIsMe(e) &&
         !o("WAWebFrontendContactGetters").getIsContactBlocked(e) &&
-        m(e.id) &&
+        _(e.id) &&
         !o(
           "WAWebBizCoexGatingUtils",
         ).isCallingDisabledOnAuthAgentSoftOffboarded()
       );
     }
     ((l.getCallButtonsState = e),
-      (l.canJoinOngoingCallInChat = s),
-      (l.shouldShowCallButtons = d),
-      (l.canBeCallParticipant = m),
-      (l.canVideoCallInChat = p),
-      (l.canAddChatContactToCall = _),
-      (l.canCallContact = f));
+      (l.getCallButtonsStateFor = s),
+      (l.canJoinOngoingCallInChat = u),
+      (l.shouldShowCallButtons = m),
+      (l.shouldShowCallButtonsFor = p),
+      (l.canBeCallParticipant = _),
+      (l.canVideoCallInChat = f),
+      (l.canVideoCallInChatFor = g),
+      (l.canAddChatContactToCall = h),
+      (l.canCallContact = y));
   },
   98,
 );

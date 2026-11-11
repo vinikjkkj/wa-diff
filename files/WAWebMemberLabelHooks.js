@@ -63,7 +63,7 @@ __d(
         var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
         ((n = o("WAWebMemberLabelsFrontendUtils").memberLabelKeyFrom({
           from: "chat_and_member",
-          chat: e,
+          chatId: e,
           member: a,
         })),
           (t[0] = e),

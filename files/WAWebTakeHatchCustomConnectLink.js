@@ -19,6 +19,7 @@ __d(
       return (
         o("WAWebHatchConnectLinkShape").getHatchCustomConnectLinkFlow(e) !=
           null &&
+        o("WAWebHatchFrontendGating").isHatchConnectorsEnabled() &&
         o("WAWebHatchFrontendGating").isHatchCustomConnectorsEnabled() &&
         !r("WAWebHatchLinkedStatusManager").isUnlinked()
       );

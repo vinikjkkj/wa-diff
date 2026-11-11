@@ -10,46 +10,82 @@ __d(
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["msgKey"];
-    function s(e) {
-      return u(babelHelpers.extends({}, _(e), { msgKey: e.id }));
+    var e = ["msgKey"],
+      s = ["msgKey"];
+    function u(e) {
+      return c(babelHelpers.extends({}, b(e), { msgKey: e.id }));
     }
-    function u(t) {
+    function c(t) {
       var n = t.msgKey,
         r = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return (
-        d(n, r) &&
+        m(n, r) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
       );
     }
-    function c(e) {
+    function d(e) {
       return (
-        d(e.id, _(e)) &&
+        m(e.id, b(e)) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentStateSyncAvailable()
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       var n = e.remote,
-        a = f(t);
+        r = v(t);
       return (
         n.isUser() &&
         !n.isBot() &&
         (!o("WAWebMobilePlatforms").isSMB() || e.fromMe) &&
-        (o("WAWebBrazilPaymentState").isReceiptAndStateStamped(a) ||
-          (o("WAWebBrazilPaymentState").isAppSwitchReceiptAndStateStamped(a) &&
-            r("justknobx")._("7531")))
+        (o("WAWebBrazilPaymentState").isReceiptAndStateStamped(r) ||
+          (o("WAWebBrazilPaymentState").isAppSwitchReceiptAndStateStamped(r) &&
+            p()))
       );
     }
-    function m(e) {
+    function p() {
+      return r("justknobx")._("7531");
+    }
+    function _(e) {
+      return f(babelHelpers.extends({}, b(e), { msgKey: e.id }));
+    }
+    function f(e) {
+      var t = e.msgKey,
+        n = babelHelpers.objectWithoutPropertiesLoose(e, s),
+        a = v(n);
+      return (
+        r("justknobx")._("7565") &&
+        a != null &&
+        g(a) &&
+        h(t) &&
+        o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
+      );
+    }
+    function g(e) {
+      return (
+        o("WAWebBrazilPaymentState").getReceiptAndStateBubbleVersion(e) !=
+          null &&
+        !o("WAWebBrazilPaymentState").isBubbleViewLogged(e) &&
+        (!o("WAWebBrazilPaymentState").isAppSwitchPaymentRequest(e) || p())
+      );
+    }
+    function h(e) {
+      var t = e.remote;
+      return (
+        !e.fromMe &&
+        t.isUser() &&
+        !t.isBot() &&
+        !o("WAWebMobilePlatforms").isSMB()
+      );
+    }
+    function y(e) {
       return (
         (!o("WAWebMobilePlatforms").isSMB() || e) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
       );
     }
-    function p(e) {
-      return f(_(e));
+    function C(e) {
+      return v(b(e));
     }
-    function _(e) {
+    function b(e) {
       return {
         interactivePayload: e.interactivePayload,
         interactiveType: e.interactiveType,
@@ -57,7 +93,7 @@ __d(
         type: e.type,
       };
     }
-    function f(e) {
+    function v(e) {
       var t = e.interactivePayload,
         n = e.interactiveType,
         a = e.nativeFlowName,
@@ -69,20 +105,21 @@ __d(
       )
         return null;
       var l = t;
-      return g(a, l) ? l : null;
+      return S(a, l) ? l : null;
     }
-    function g(e, t) {
+    function S(e, t) {
       return (
         e === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
         (e === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
           o("WAWebBrazilPaymentState").isPixCodeRequestPayload(t))
       );
     }
-    ((l.isPaymentDetailsEnabledForMsg = s),
-      (l.isPaymentDetailsEnabledFor = u),
-      (l.isPaymentStateSyncEnabledForMsg = c),
-      (l.isPaymentDetailsEnabledForReceiptNotice = m),
-      (l.getPaymentRequestPayload = p));
+    ((l.isPaymentDetailsEnabledForMsg = u),
+      (l.isPaymentDetailsEnabledFor = c),
+      (l.isPaymentStateSyncEnabledForMsg = d),
+      (l.canLogPaymentBubbleView = _),
+      (l.isPaymentDetailsEnabledForReceiptNotice = y),
+      (l.getPaymentRequestPayload = C));
   },
   98,
 );

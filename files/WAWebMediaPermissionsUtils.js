@@ -2,24 +2,19 @@ __d(
   "WAWebMediaPermissionsUtils",
   [
     "Promise",
-    "WALogger",
-    "WAWebNoop",
+    "WAWebPermissionStatusWatcher",
     "WAWebVoipLocalVideoPolicy",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c = new WeakMap();
-    function d(e, t) {
-      return m.apply(this, arguments);
+    var e;
+    function s(e, t) {
+      return u.apply(this, arguments);
     }
-    function m() {
+    function u() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             !o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
               o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
@@ -27,18 +22,18 @@ __d(
             )
           )
             return { granted: !1, denied: !1 };
-          var n = yield p(e, t);
+          var n = yield c(e, t);
           return { granted: n === "granted", denied: n === "denied" };
         })),
-        m.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function _() {
+    function d() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = t != null ? t : navigator;
             if (!n.permissions) return "unknown";
@@ -48,93 +43,52 @@ __d(
             return "unknown";
           }
         })),
-        _.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
-      var o = (n != null ? n : navigator).permissions;
-      if (o == null) return r("WAWebNoop");
-      var a = S(o, e),
-        i = a.listeners,
-        l = function (n) {
-          return t(n);
-        };
-      return (
-        i.add(l),
-        function () {
-          i.delete(l);
-        }
+    function m(e, t, n) {
+      return o("WAWebPermissionStatusWatcher").subscribeToPermissionChange(
+        e,
+        t,
+        n,
       );
     }
-    function g(e, t, n) {
-      var r = !0,
-        o = function (n) {
-          r && t(n);
-        },
-        a = (n != null ? n : navigator).permissions;
-      if (a == null)
-        return (
-          queueMicrotask(function () {
-            return o("unknown");
-          }),
-          function () {
-            r = !1;
-          }
-        );
-      var i = S(a, e),
-        l = i.listeners,
-        s = i.status;
-      return (
-        s.then(
-          function (e) {
-            r && (l.add(o), t(e.state));
-          },
-          function () {
-            return o("unknown");
-          },
+    function p(e, t, n) {
+      return o("WAWebPermissionStatusWatcher").watchPermissionState(e, t, n);
+    }
+    function _(e, t) {
+      return o("WAWebPermissionStatusWatcher").getKnownPermissionState(e, t);
+    }
+    function f(e) {
+      (o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed() &&
+        o("WAWebPermissionStatusWatcher").listenForPermissionChanges(
+          "camera",
+          e,
         ),
-        function () {
-          ((r = !1), l.delete(o));
-        }
-      );
+        o("WAWebPermissionStatusWatcher").listenForPermissionChanges(
+          "microphone",
+          e,
+        ));
     }
-    function h(e, t) {
-      var n,
-        r,
-        o,
-        a = (t != null ? t : navigator).permissions;
-      if (a == null) return "unknown";
-      var i = (n = c.get(a)) == null ? void 0 : n.get(e);
-      return (r =
-        i == null || (o = i.resolved.status) == null ? void 0 : o.state) != null
-        ? r
-        : "unknown";
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function y(e) {
-      var t = e.permissions;
-      t != null &&
-        (o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed() && S(t, "camera"),
-        S(t, "microphone"));
-    }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    function h() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (u || (u = n("Promise"))).all(
-            e.map(function (e) {
-              return d(e, t);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          var o = yield (e || (e = n("Promise"))).all(
+            t.map(function (e) {
+              return s(e, r);
             }),
           );
-          return r.some(function (e) {
+          return o.some(function (e) {
             return e.denied;
           });
         })),
-        b.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function v(e, t) {
+    function y(e, t) {
       return (function (e) {
         return ((typeof e == "object" && e !== null) ||
           typeof e == "function") &&
@@ -148,70 +102,14 @@ __d(
             : "camera_and_mic";
       })({ micGranted: e, camGranted: t });
     }
-    function S(t, n) {
-      var a = R(t),
-        i = a.get(n);
-      if (i != null) return i;
-      var l = new Set(),
-        s = { status: null },
-        u = t.query({ name: n }).then(function (e) {
-          return (
-            (s.status = e),
-            e.addEventListener("change", function () {
-              return L(l, e.state);
-            }),
-            e
-          );
-        }),
-        c = { listeners: l, resolved: s, status: u };
-      return (
-        a.set(n, c),
-        u.catch(function (t) {
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [MediaPermissions] could not watch the ",
-                  " permission",
-                ])),
-              n,
-            )
-            .catching(r("getErrorSafe")(t));
-        }),
-        c
-      );
-    }
-    function R(e) {
-      var t = c.get(e);
-      if (t != null) return t;
-      var n = new Map();
-      return (c.set(e, n), n);
-    }
-    function L(e, t) {
-      for (var n of Array.from(e))
-        if (e.has(n))
-          try {
-            n(t);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [MediaPermissions] permission change listener failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("voip-media-permission-listener-failed");
-          }
-    }
-    ((l.checkMediaPermissionState = d),
-      (l.queryMediaPermissionStateStrict = p),
-      (l.subscribeToMediaPermissionChange = f),
-      (l.watchMediaPermissionState = g),
-      (l.getKnownMediaPermissionState = h),
-      (l.listenForMediaPermissionChanges = y),
-      (l.isAnyMediaPermissionDenied = C),
-      (l.getDeviceSpecificPermissionMessaging = v));
+    ((l.checkMediaPermissionState = s),
+      (l.queryMediaPermissionStateStrict = c),
+      (l.subscribeToMediaPermissionChange = m),
+      (l.watchMediaPermissionState = p),
+      (l.getKnownMediaPermissionState = _),
+      (l.listenForMediaPermissionChanges = f),
+      (l.isAnyMediaPermissionDenied = g),
+      (l.getDeviceSpecificPermissionMessaging = y));
   },
   98,
 );

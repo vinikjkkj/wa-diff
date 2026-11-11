@@ -574,7 +574,7 @@ __d(
               (this.viewRepliesThreads = new (o(
                 "WAWebViewRepliesCollection",
               ).ViewRepliesCollection)(this.id)),
-              E(this.id) && k(this.id),
+              k(this.id) && I(this.id),
               o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
                 (this.listenTo(
                   this,
@@ -827,7 +827,7 @@ __d(
                 this.$ChatImpl$p_40(),
                 o(
                   "WAWebMemoryPressureCacheRegistry",
-                ).registerMemoryPressureCache(D),
+                ).registerMemoryPressureCache(x),
                 this.$ChatImpl$p_41());
               var a = Array.from(this.$ChatImpl$p_1);
               ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
@@ -891,7 +891,7 @@ __d(
           }),
           (i.trimMessagesForMemoryPressure = function () {
             var e = this.msgs;
-            if (e.length <= 1 || this.active || T(e)) return 0;
+            if (e.length <= 1 || this.active || D(e)) return 0;
             var t = o("WAWebFrontendChatGetters").getPreviewMessage(this),
               n = t != null ? e.indexOf(t) : -1,
               r = n >= 0 ? n : e.length - 1;
@@ -984,21 +984,12 @@ __d(
             return (this.groupSafetyChecked = !!e);
           }),
           (i.isSuspendedOrTerminated = function () {
-            if (o("WAWebChatGetters").getIsGroup(this)) {
-              var e;
-              return !!(
-                (e = this.groupMetadata) != null && e.isSuspendedOrTerminated()
-              );
-            } else if (o("WAWebChatGetters").getIsNewsletter(this)) {
-              var t = this.newsletterMetadata;
-              return (
-                t != null &&
-                o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(
-                  t,
-                )
-              );
-            }
-            return !1;
+            return R({
+              groupMetadata: this.groupMetadata,
+              isGroup: o("WAWebChatGetters").getIsGroup(this),
+              isNewsletter: o("WAWebChatGetters").getIsNewsletter(this),
+              newsletterMetadata: this.newsletterMetadata,
+            });
           }),
           (i.title = function () {
             var e;
@@ -1653,13 +1644,25 @@ __d(
       })(r("WAWebSuperChatMsgs"));
     ((v.Proxy = "chat"), (v.idClass = r("WAWebWid")));
     var S = o("WAWebBaseModel").defineModel(v);
-    function R() {
+    function R(e) {
+      var t = e.groupMetadata,
+        n = e.isGroup,
+        r = e.isNewsletter,
+        a = e.newsletterMetadata;
+      return n
+        ? !!(t != null && t.isSuspendedOrTerminated())
+        : r
+          ? a != null &&
+            o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(a)
+          : !1;
+    }
+    function L() {
       var e = 0;
       for (var t of o("WAWebChatCollection").ChatCollection.getModelsArray())
-        e += L(t);
+        e += E(t);
       return e;
     }
-    function L(e) {
+    function E(e) {
       try {
         return e.trimMessagesForMemoryPressure();
       } catch (e) {
@@ -1677,7 +1680,7 @@ __d(
         );
       }
     }
-    function E(e) {
+    function k(e) {
       return (
         e.isFbidBot() &&
         !o("WAWebBotProfileCollection").BotProfileCollection.get(e) &&
@@ -1685,12 +1688,12 @@ __d(
         !e.isSupportAgentBot()
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o("WAWebBotProfileCollection").BotProfileCollection.find(e);
           } catch (e) {
@@ -1704,17 +1707,17 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e) {
+    function D(e) {
       var t = e.msgLoadState;
       return (
         t.isLoadingEarlierMsgs || t.isLoadingRecentMsgs || t.isLoadingAroundMsgs
       );
     }
-    var D = { name: "inactive_chat_msgs", unit: "messages", release: R };
-    l.Chat = S;
+    var x = { name: "inactive_chat_msgs", unit: "messages", release: L };
+    ((l.Chat = S), (l.isSuspendedOrTerminatedFor = R));
   },
   226,
 );

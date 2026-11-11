@@ -80,7 +80,6 @@ __d(
                                           e.startTime != null
                                             ? Number(e.startTime)
                                             : null,
-                                        isPlatformChanged: e.isPlatformChanged,
                                         source:
                                           e.source != null
                                             ? o(
@@ -101,10 +100,6 @@ __d(
                                         name: (t = e.name) != null ? t : "",
                                         enabled:
                                           (n = e.enabled) != null ? n : !1,
-                                        expirationTime:
-                                          e.expirationTime != null
-                                            ? Number(e.expirationTime)
-                                            : null,
                                         limit: (r = e.limit) != null ? r : null,
                                       };
                                     });

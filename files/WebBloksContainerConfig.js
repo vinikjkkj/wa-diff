@@ -10,6 +10,9 @@ __d(
         (t.mergeWith = function (t) {
           return t;
         }),
+        (t.inheritForPush = function (t) {
+          return this;
+        }),
         (e.fromBloksModel = function (t) {
           throw new (o("WebBloksErrors").WebBloksError)("Abstract");
         }),

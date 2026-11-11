@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAPromiseEach",
+    "WAProtoEntryLimitError",
     "WAWebApiDeferredMessagesStorage",
     "WAWebApiHydrateWidsUtil",
     "WAWebHandleHistorySyncNotification",
@@ -14,16 +15,17 @@ __d(
     "WAWebProtobufsE2E.pb",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
-    }
+    var e, s;
     function u() {
+      return c.apply(this, arguments);
+    }
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o(
             "WAWebApiDeferredMessagesStorage",
           ).getDeferredMessages();
@@ -36,27 +38,47 @@ __d(
                     var a = t.bizInfo,
                       i = t.info,
                       l = t.paymentInfo,
-                      s = t.plaintext,
-                      u = t.type,
-                      c = o("WAWebApiHydrateWidsUtil").hydrateWids(i),
-                      d = o("decodeProtobuf").decodeProtobuf(
+                      u = t.plaintext,
+                      c = t.type,
+                      d = o("WAWebApiHydrateWidsUtil").hydrateWids(i),
+                      m;
+                    try {
+                      m = o("decodeProtobuf").decodeProtobuf(
                         o("WAWebProtobufsE2E.pb").MessageSpec,
-                        s,
-                      ),
-                      m = o("WAWebMsgProcessingApiUtils").getFrom(c),
-                      p = yield o(
+                        u,
+                      );
+                    } catch (t) {
+                      if (
+                        t instanceof
+                          o("WAProtoEntryLimitError").ProtobufEntryLimitError &&
+                        r("justknobx")._("7544")
+                      ) {
+                        o("WALogger").ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[deferred-message] message over protobuf entry limit: ",
+                              "",
+                            ])),
+                          t.code,
+                        );
+                        return;
+                      }
+                      throw t;
+                    }
+                    var p = o("WAWebMsgProcessingApiUtils").getFrom(d),
+                      _ = yield o(
                         "WAWebMsgProcessingApiUtils",
                       ).parseProtocolMessage({
-                        info: c,
-                        msgProtobuf: d,
+                        info: d,
+                        msgProtobuf: m,
                         paymentInfo: l,
                         bizInfo: a,
                         hsmInfo: null,
                       });
-                    if (p == null) {
+                    if (_ == null) {
                       o("WALogger").ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "[push-notification] deferred: parseProtocolMessage failed",
                           ])),
                       );
@@ -64,21 +86,21 @@ __d(
                     }
                     e: {
                       if (
-                        u ===
+                        c ===
                         o("WAWebParsedProtocolMsgType")
                           .PARSED_PROTOCOL_MESSAGE_TYPE.HISTORY
                       ) {
                         yield o(
                           "WAWebHandleHistorySyncNotification",
                         ).handleHistorySyncNotification(
-                          r("nullthrows")(p == null ? void 0 : p.history),
-                          m,
-                          c.externalId,
+                          r("nullthrows")(_ == null ? void 0 : _.history),
+                          p,
+                          d.externalId,
                         );
                         break e;
                       }
                       if (
-                        u ===
+                        c ===
                         o("WAWebParsedProtocolMsgType")
                           .PARSED_PROTOCOL_MESSAGE_TYPE.APP_STATE_SYNC_KEY_SHARE
                       ) {
@@ -86,14 +108,14 @@ __d(
                           "WAWebKeyManagementHandleKeyShareApi",
                         ).handleAppStateSyncKeyShare(
                           r("nullthrows")(
-                            p == null ? void 0 : p.appStateSyncKeyShare,
+                            _ == null ? void 0 : _.appStateSyncKeyShare,
                           ),
-                          m,
+                          p,
                         );
                         break e;
                       }
                       if (
-                        u ===
+                        c ===
                         o("WAWebParsedProtocolMsgType")
                           .PARSED_PROTOCOL_MESSAGE_TYPE
                           .APP_STATE_SYNC_KEY_REQUEST
@@ -102,14 +124,14 @@ __d(
                           "WAWebKeyManagementHandleKeyRequestApi",
                         ).handleAppStateSyncKeyRequest(
                           r("nullthrows")(
-                            p == null ? void 0 : p.appStateSyncKeyRequest,
+                            _ == null ? void 0 : _.appStateSyncKeyRequest,
                           ),
-                          m,
+                          p,
                         );
                         break e;
                       }
                       if (
-                        u ===
+                        c ===
                         o("WAWebParsedProtocolMsgType")
                           .PARSED_PROTOCOL_MESSAGE_TYPE
                           .PEER_DATA_OPERATION_REQUEST_RESPONSE_MESSAGE
@@ -117,17 +139,17 @@ __d(
                         yield o(
                           "WAWebNonMessageDataRequestHandler",
                         ).handlePeerDataOperationRequestResponse(
-                          c.externalId,
+                          d.externalId,
                           r("nullthrows")(
-                            p == null
+                            _ == null
                               ? void 0
-                              : p.peerDataOperationRequestResponseMessage,
+                              : _.peerDataOperationRequestResponseMessage,
                           ),
                         );
                         break e;
                       }
                       if (
-                        u ===
+                        c ===
                         o("WAWebParsedProtocolMsgType")
                           .PARSED_PROTOCOL_MESSAGE_TYPE
                           .PEER_DATA_OPERATION_REQUEST_MESSAGE
@@ -135,18 +157,18 @@ __d(
                         yield o(
                           "WAWebNonMessageDataRequestHandler",
                         ).handlePeerDataOperationRequest(
-                          c.externalId,
+                          d.externalId,
                           r("nullthrows")(
-                            p == null
+                            _ == null
                               ? void 0
-                              : p.peerDataOperationRequestMessage,
+                              : _.peerDataOperationRequestMessage,
                           ),
                         );
                         break e;
                       }
                       throw Error(
                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          u,
+                          c,
                       );
                     }
                     yield o(
@@ -161,10 +183,10 @@ __d(
             })(),
           );
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.default = s;
+    l.default = u;
   },
   98,
 );

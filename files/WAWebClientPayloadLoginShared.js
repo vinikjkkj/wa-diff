@@ -34,7 +34,6 @@ __d(
           {
             lc: o("WAWebUserPrefsGeneral").getLoginCounter(),
             connectAttemptCount: s,
-            lidDbMigrated: !0,
           },
         )
       );

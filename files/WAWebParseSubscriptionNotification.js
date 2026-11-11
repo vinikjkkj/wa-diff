@@ -96,11 +96,9 @@ __d(
         r.forEachChildWithTag("feature_flag", function (e) {
           var r = e.attrString("name"),
             a = e.attrString("enabled").toLowerCase() === "true",
-            i = e.maybeAttrString("expiration_time"),
-            l = e.maybeAttrString("limit"),
-            s = i != null ? parseInt(i, 10) : null,
-            u = l != null ? parseInt(l, 10) : null;
-          (t.push({ name: r, enabled: a, expirationTime: s, limit: u }),
+            i = e.maybeAttrString("limit"),
+            l = i != null ? parseInt(i, 10) : null;
+          (t.push({ name: r, enabled: a, limit: l }),
             o("WAWebFeatureFlagName").FeatureFlagName.cast(r) ===
               o("WAWebFeatureFlagName").FeatureFlagName.NEW_CHATS_LIMIT &&
               (n = a));

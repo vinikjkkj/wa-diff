@@ -7,6 +7,7 @@ __d(
     "WebBloksRichTextTruncation",
     "WebBloksRichTextVerticalAlign",
     "WebBloksStyle",
+    "WebBloksTextStyle",
     "WebBloksUtils",
     "react",
     "useClickablePropsForWebBloks",
@@ -38,77 +39,82 @@ __d(
         l = n.getSubNodes(y),
         u = n.get(b),
         L = n.get(S),
-        E = n.get(g),
-        k = n.get(m),
-        I = n.get(p),
-        T = n.get(f),
-        D = n.getSubNodes(C),
-        x = n.getSubNodes(v),
-        $ = o("WebBloksStyle").useStyle(n, t, a != null),
-        P = $.style,
-        N = $.wrapper,
-        M = $.wrapperProps,
-        w = r("useClickablePropsForWebBloks")(n, a),
-        A = o("WebBloksComponentContext").useWebBloksContext(),
-        F = A.bloksContext,
-        O = A.renderChildren,
-        B = F.objectSet.environment.enableDeterministicTextSize,
-        W = i.slice(-1)[0],
-        q = r("useWebBloksRichTextDimensions")(i, T, l, D, x, L, B),
-        U = L === !0,
-        V = d(!1),
-        H = V[0],
-        G = V[1],
-        z = c(
-          function () {
-            return {
-              maxNumberOfLines: E != null ? E : 1,
-              isRootFontSizeEnabled: H,
-              setIsRootFontSizeEnabled: G,
-            };
-          },
-          [H, E],
-        ),
+        k = n.get(g),
+        I = n.get(m),
+        T = n.get(p),
+        D = n.get(f),
+        x = n.getSubNodes(C),
+        $ = n.getSubNodes(v),
+        P = o("WebBloksStyle").useStyle(n, t, a != null),
+        N = P.style,
+        M = P.wrapper,
+        w = P.wrapperProps,
+        A = r("useClickablePropsForWebBloks")(n, a),
+        F = o("WebBloksComponentContext").useWebBloksContext(),
+        O = F.bloksContext,
+        B = F.renderChildren,
+        W = O.objectSet.environment.enableDeterministicTextSize,
+        q = i.slice(-1)[0],
+        U = r("useWebBloksRichTextDimensions")(i, D, l, x, $, L, W),
+        V = L === !0,
+        H = d(!1),
+        G = H[0],
+        z = H[1],
         j = c(
           function () {
-            return U
-              ? s.jsx(r("WebBloksRichTextContext").Provider, {
-                  value: z,
-                  children: O(l),
-                })
-              : O(i);
+            return {
+              maxNumberOfLines: k != null ? k : 1,
+              isRootFontSizeEnabled: G,
+              setIsRootFontSizeEnabled: z,
+            };
           },
-          [U, i, l, O, z],
+          [G, k],
+        ),
+        K = c(
+          function () {
+            return V
+              ? s.jsx(r("WebBloksRichTextContext").Provider, {
+                  value: j,
+                  children: B(l),
+                })
+              : B(i);
+          },
+          [V, i, l, B, j],
         );
-      return N(
+      return M(
         s.jsx(
           "div",
           babelHelpers.extends(
             {},
-            M,
+            w,
             {
               dir: "auto",
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: babelHelpers.extends({}, P, {
-                lineHeight: q.lineHeight,
-                display: "block",
-                color: W == null ? void 0 : W.get(R),
-                textAlign: o("WebBloksUtils").toHyphen(u),
-                overflow: "hidden",
-              }),
+              style: babelHelpers.extends(
+                {},
+                N,
+                {
+                  lineHeight: U.lineHeight,
+                  display: "block",
+                  color: q == null ? void 0 : q.get(R),
+                  textAlign: o("WebBloksUtils").toHyphen(u),
+                  overflow: "hidden",
+                },
+                k != null && k > 0 ? E(N, U.textSizePx) : null,
+              ),
             },
-            w,
+            A,
             {
               children: s.jsx(r("WebBloksRichTextVerticalAlign"), {
-                baselineSpacing: k,
-                capSpacing: I,
-                dimensions: q,
+                baselineSpacing: I,
+                capSpacing: T,
+                dimensions: U,
                 children: s.jsx(r("WebBloksRichTextTruncation"), {
-                  dimensions: q,
-                  maxNumberOfLines: E,
-                  spansForTruncation: D,
-                  truncationSpans: x,
-                  children: j,
+                  dimensions: U,
+                  maxNumberOfLines: k,
+                  spansForTruncation: x,
+                  truncationSpans: $,
+                  children: K,
                 }),
               }),
             },
@@ -116,7 +122,35 @@ __d(
         ),
       );
     }
-    ((L.displayName = L.name + " [from " + i.id + "]"), (l.default = L));
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E(e, t) {
+      if (
+        e.height != null ||
+        e.minHeight != null ||
+        e.maxHeight != null ||
+        e.flexBasis != null ||
+        e.flex != null ||
+        e.margin != null ||
+        e.padding != null
+      )
+        return null;
+      var n = o("WebBloksTextStyle").getClampedTextHeadroomStyle(t),
+        r = n.marginTop,
+        a = n.paddingTop,
+        i = k(e.marginTop, r),
+        l = k(e.paddingTop, a);
+      return i == null || l == null ? null : { marginTop: i, paddingTop: l };
+    }
+    function k(e, t) {
+      return e == null
+        ? t
+        : typeof e == "number"
+          ? e + t
+          : typeof e == "string" && e !== "auto"
+            ? "calc(" + e + " + " + t + "px)"
+            : null;
+    }
+    l.default = L;
   },
   98,
 );

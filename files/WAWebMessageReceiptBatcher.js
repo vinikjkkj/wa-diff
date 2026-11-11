@@ -525,7 +525,7 @@ __d(
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
-          ["message"],
+          ["message", "chat"],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(e);
             yield o("WAWebSchemaMessage")

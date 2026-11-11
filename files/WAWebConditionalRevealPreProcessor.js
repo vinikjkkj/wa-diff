@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAProtoEntryLimitError",
     "WATimeUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactSystemMsg",
@@ -24,6 +25,7 @@ __d(
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -254,6 +256,12 @@ __d(
               { proto: s, protoBytes: l }
             );
           } catch (e) {
+            if (
+              e instanceof
+                o("WAProtoEntryLimitError").ProtobufEntryLimitError &&
+              r("justknobx")._("7544")
+            )
+              throw e;
             return (
               o("WALogger")
                 .ERROR(
@@ -499,6 +507,12 @@ __d(
                 ])),
             );
           } catch (e) {
+            if (
+              e instanceof
+                o("WAProtoEntryLimitError").ProtobufEntryLimitError &&
+              r("justknobx")._("7544")
+            )
+              throw e;
             o("WALogger")
               .ERROR(
                 I ||

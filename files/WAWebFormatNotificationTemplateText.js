@@ -27,6 +27,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetBusinessNameFromMsg",
     "WAWebGroupAgentPrivacyNoticeKind",
+    "WAWebGroupHistoryPostJoinEligibility",
     "WAWebHostedGroupUtils",
     "WAWebLabelConstants",
     "WAWebLimitSharingUIUtils",
@@ -934,6 +935,9 @@ __d(
                                                                                                                                                                                                                                             "group_transition_to_bot_group"
                                                                                                                                                                                                                                           ? J(
                                                                                                                                                                                                                                               a,
+                                                                                                                                                                                                                                              e
+                                                                                                                                                                                                                                                .id
+                                                                                                                                                                                                                                                .remote,
                                                                                                                                                                                                                                             )
                                                                                                                                                                                                                                           : i ===
                                                                                                                                                                                                                                               "biz_broadcast_status"
@@ -1521,43 +1525,61 @@ __d(
         ).systemMessageActionTextStylingEnabled()
       );
     }
-    function J(e) {
-      var t = o("WAWebGroupAgentPrivacyNoticeKind").getGroupAgentPrivacyNotice(
+    function J(e, t) {
+      var n = o("WAWebGroupAgentPrivacyNoticeKind").getGroupAgentPrivacyNotice(
           e,
         ),
-        n = t.agent,
-        r = t.kind,
-        a = Y(e);
-      return r ===
+        r = n.agent,
+        a = n.kind,
+        i = Y(e);
+      return a ===
         o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
-          .THIRD_PARTY && n != null
-        ? te(n)
-        : r ===
+          .THIRD_PARTY && r != null
+        ? ne(r)
+        : a ===
               o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
                 .MUSE &&
             o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled()
-          ? Z(a)
-          : r ===
+          ? Z(
+              i,
+              o(
+                "WAWebGroupHistoryPostJoinEligibility",
+              ).getNameOfMuseAgentWithSharedHistory(t),
+            )
+          : a ===
                 o("WAWebGroupAgentPrivacyNoticeKind")
                   .GroupAgentPrivacyNoticeKind.MUSE ||
-              r ===
+              a ===
                 o("WAWebGroupAgentPrivacyNoticeKind")
                   .GroupAgentPrivacyNoticeKind.GENERIC
-            ? ee(a)
+            ? te(i)
             : s._(
                 /*BTDS*/ "A group member added Meta AI to this chat. Meta can read new messages. Group admins can remove Meta AI at any time. Click to learn more.",
               );
     }
-    function Z(e) {
+    function Z(e, t) {
+      return t != null
+        ? ee(e, t)
+        : e
+          ? s._(
+              /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime",
+            )
+          : s._(
+              /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime. Learn more",
+            );
+    }
+    function ee(e, t) {
       return e
         ? s._(
-            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime",
+            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat and the message history shared with {museName}. The Muse owner or admins can remove it anytime",
+            [s._param("museName", t)],
           )
         : s._(
-            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime. Learn more",
+            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat and the message history shared with {museName}. The Muse owner or admins can remove it anytime. Learn more",
+            [s._param("museName", t)],
           );
     }
-    function ee(e) {
+    function te(e) {
       return e
         ? s._(
             /*BTDS*/ "A member added an AI agent to this chat. Messages are sent through a secure Meta service. Admins can remove it anytime",
@@ -1566,7 +1588,7 @@ __d(
             /*BTDS*/ "A member added an AI agent to this chat. Messages are sent through a secure Meta service. Admins can remove it anytime. Learn more",
           );
     }
-    function te(e) {
+    function ne(e) {
       var t,
         n =
           (t = o("WAWebBotProfileCollection").BotProfileCollection.get(e)) ==

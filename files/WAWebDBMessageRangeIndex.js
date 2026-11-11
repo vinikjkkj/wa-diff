@@ -7,19 +7,23 @@ __d(
       Outgoing: "2",
       SystemMessage: "3",
     });
-    function s(t, n, r, a) {
-      var i;
+    function s(t) {
+      var n = t.chatId,
+        r = t.isIncoming,
+        a = t.isSystemMessage,
+        i = t.timestamp,
+        l;
       return (
-        r
-          ? (i = e.SystemMessage)
-          : n
-            ? (i = e.IncomingChatMessage)
-            : (i = e.Outgoing),
-        t +
+        a
+          ? (l = e.SystemMessage)
+          : r
+            ? (l = e.IncomingChatMessage)
+            : (l = e.Outgoing),
+        n +
           "_" +
-          i +
+          l +
           "_" +
-          (a != null ? o("WAWebOrderPreservingHex").orderPreservingHex(a) : "")
+          (i != null ? o("WAWebOrderPreservingHex").orderPreservingHex(i) : "")
       );
     }
     ((l.MessagePropertyType = e), (l.craftMessageRangeIndex = s));

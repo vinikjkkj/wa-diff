@@ -11,6 +11,8 @@ __d(
     "WAWebUserPrefsStore",
     "WAWebWamEnumTsSurface",
     "react",
+    "react-compiler-runtime",
+    "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -212,14 +214,33 @@ __d(
       f,
       g = [];
     function h(e) {
-      p(function () {
-        if (e != null) {
-          var t = y(e);
-          return function () {
-            return b(t);
-          };
-        }
-      }, []);
+      var t = o("react-compiler-runtime").c(5),
+        n;
+      t[0] !== e
+        ? ((n = function () {
+            if (e != null) {
+              var t = y(e);
+              return function () {
+                return b(t);
+              };
+            }
+          }),
+          (t[0] = e),
+          (t[1] = n))
+        : (n = t[1]);
+      var a = r("useWAWebStableCallback")(n),
+        i,
+        l;
+      (t[2] !== a
+        ? ((i = function () {
+            return a();
+          }),
+          (l = [a]),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = l))
+        : ((i = t[3]), (l = t[4])),
+        p(i, l));
     }
     function y(e) {
       var t,
@@ -228,8 +249,9 @@ __d(
           ? { id: n, surface: "unknown", viewName: e.viewName }
           : babelHelpers.extends({}, e, { id: n }),
         o =
-          (t = g[g.length - 1]) != null ? t : { surface: "background", id: -1 };
-      return (g.push(r), R(o), n);
+          (t = g[g.length - 1]) != null ? t : { surface: "background", id: -1 },
+        a = A();
+      return (g.push(r), R(o, a), n);
     }
     function C(e) {
       return (
@@ -253,8 +275,9 @@ __d(
         );
         return;
       }
-      var r = g[n];
-      (g.splice(n, 1), R(r));
+      var r = g[n],
+        a = A();
+      (g.splice(n, 1), R(r, a));
     }
     var v = [],
       S = new (o("WAShiftTimer").ShiftTimer)(function () {
@@ -276,19 +299,18 @@ __d(
           (e.destId === t.sourceId
             ? ((t.event.navigationSource = e.event.navigationSource),
               (t.event.relativeTimestampMs = e.event.relativeTimestampMs),
-              (t.sourceSurface = e.sourceSurface))
-            : (e.event.commit(),
-              P(e.sourceSurface, e.destSurface, e.destNavigationSurface)),
+              (t.sourceSurface = e.sourceSurface),
+              (t.snapshot = babelHelpers.extends({}, t.snapshot, {
+                realSource: e.snapshot.realSource,
+                realSourceId: e.snapshot.realSourceId,
+              })))
+            : (e.event.commit(), M(e)),
             (e = t));
         }
-        (e != null &&
-          (e.event.commit(),
-          P(e.sourceSurface, e.destSurface, e.destNavigationSurface)),
-          (v = []));
+        (e != null && (e.event.commit(), M(e)), (v = []));
       });
-    function R(e) {
-      var t,
-        n,
+    function R(e, t) {
+      var n,
         r,
         a,
         i,
@@ -296,9 +318,10 @@ __d(
         s,
         d,
         m,
-        p = g[g.length - 1];
+        p,
+        h = g[g.length - 1];
       if (
-        (p == null &&
+        (h == null &&
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -307,11 +330,11 @@ __d(
               ])),
             e.surface,
           ),
-          (p = { surface: "unknown", id: -1 })),
-        p.id !== ((t = f) == null ? void 0 : t.id))
+          (h = { surface: "unknown", id: -1 })),
+        h.id !== ((n = f) == null ? void 0 : n.id))
       ) {
-        var h = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
-        if ((T(), !(e.surface === "unknown" && p.surface === "unknown"))) {
+        var y = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
+        if ((T(), !(e.surface === "unknown" && h.surface === "unknown"))) {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -321,44 +344,45 @@ __d(
                 "",
               ])),
             e.surface,
-            p.surface,
-            p.viewName,
+            h.surface,
+            h.viewName,
           );
-          var y = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
-              tsSessionId: h.id,
-              relativeTimestampMs: h.relativeTimestampMs,
+          var C = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
+              tsSessionId: y.id,
+              relativeTimestampMs: y.relativeTimestampMs,
               navigationSource: _[e.surface],
-              navigationDestination: _[p.surface],
+              navigationDestination: _[h.surface],
               navigationDestinationProductArea:
-                (n = p.extras) == null
+                (r = h.extras) == null
                   ? void 0
-                  : n.navigationDestinationProductArea,
-              groupSize: (r = p.extras) == null ? void 0 : r.groupSize,
-              typeOfGroup: (a = p.extras) == null ? void 0 : a.typeOfGroup,
-              threadType: (i = p.extras) == null ? void 0 : i.threadType,
+                  : r.navigationDestinationProductArea,
+              groupSize: (a = h.extras) == null ? void 0 : a.groupSize,
+              typeOfGroup: (i = h.extras) == null ? void 0 : i.typeOfGroup,
+              threadType: (l = h.extras) == null ? void 0 : l.threadType,
               cid:
-                (l = p.extras) == null || (l = l.channelWid) == null
+                (s = h.extras) == null || (s = s.channelWid) == null
                   ? void 0
-                  : l.user,
+                  : s.user,
               isCanonicalEntPresent: o(
                 "WAWebCanonicalUtils",
               ).isCanonicalPresent(),
             }),
-            C = (s = p.viewName) != null ? s : "";
-          (C != null && (y.navigationDestinationViewName = C),
-            h.tsTimestampMs != null && (y.tsTimestampMs = h.tsTimestampMs),
-            h.unifiedSessionId != null &&
-              (y.unifiedSessionId = h.unifiedSessionId),
+            b = (d = h.viewName) != null ? d : "";
+          (b != null && (C.navigationDestinationViewName = b),
+            y.tsTimestampMs != null && (C.tsTimestampMs = y.tsTimestampMs),
+            y.unifiedSessionId != null &&
+              (C.unifiedSessionId = y.unifiedSessionId),
             v.push({
               sourceId: e.id,
-              destId: p.id,
-              sourceSurface: (d = e.viewName) != null ? d : e.surface,
-              destSurface: (m = p.viewName) != null ? m : p.surface,
-              destNavigationSurface: p.surface,
-              event: y,
+              destId: h.id,
+              sourceSurface: (m = e.viewName) != null ? m : e.surface,
+              destSurface: (p = h.viewName) != null ? p : h.surface,
+              destNavigationSurface: h.surface,
+              snapshot: x(t, A()),
+              event: C,
             }),
             S.onOrBefore(100),
-            (f = p));
+            (f = h));
         }
       }
     }
@@ -427,19 +451,38 @@ __d(
     function D() {
       L != null && b(L);
     }
-    var x = new Set();
+    function x(e, t) {
+      var n, r;
+      return {
+        navigatedAtMs: Date.now(),
+        realSource: $(e),
+        realSourceId: (n = e == null ? void 0 : e.id) != null ? n : -1,
+        realDestination: $(t),
+        realDestinationId: (r = t == null ? void 0 : t.id) != null ? r : -1,
+      };
+    }
     function $(e) {
+      var t;
+      return e == null ? "unknown" : (t = e.viewName) != null ? t : e.surface;
+    }
+    var P = new Set();
+    function N(e) {
       return (
-        x.add(e),
+        P.add(e),
         function () {
-          x.delete(e);
+          P.delete(e);
         }
       );
     }
-    function P(e, t, n) {
-      for (var r of x)
+    function M(e) {
+      for (var t of P)
         try {
-          r(e, t, n);
+          t(
+            e.sourceSurface,
+            e.destSurface,
+            e.destNavigationSurface,
+            e.snapshot,
+          );
         } catch (e) {
           o("WALogger").ERROR(
             d ||
@@ -451,13 +494,23 @@ __d(
           );
         }
     }
+    function w() {
+      var e = A();
+      return e == null ? null : { name: $(e), surface: e.surface };
+    }
+    function A() {
+      for (var e = g.length - 1; e >= 0; e--)
+        if (g[e].surface !== "background") return g[e];
+      return null;
+    }
     ((l.useTsNavigation = h),
       (l.tsNavigationEnter = y),
       (l.tsNavigationExit = b),
       (l.logTsBackgroundNavigation = E),
       (l.setPendingBackgroundNavigation = I),
       (l.logTsForegroundNavigation = D),
-      (l.addNavigationListener = $));
+      (l.addNavigationListener = N),
+      (l.getTopVisibleSurfaceName = w));
   },
   98,
 );

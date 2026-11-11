@@ -127,7 +127,7 @@ __d(
           return {
             type: "success",
             subscriptions: s.map(function (e) {
-              var t, n, r, o, a, i;
+              var t, n, r, o, a;
               return {
                 expirationDate: (t = e.end_time) != null ? t : null,
                 id: (n = e.id) != null ? n : "",
@@ -136,18 +136,15 @@ __d(
                 newMessageCappingEnabled: m,
                 tier: (o = e.tier) != null ? o : null,
                 source: C(e.source),
-                isPlatformChanged:
-                  (a = e.is_platform_changed) != null ? a : null,
-                startTime: (i = e.start_time) != null ? i : null,
+                startTime: (a = e.start_time) != null ? a : null,
               };
             }),
             featureFlags: u.map(function (e) {
-              var t, n, r, o;
+              var t, n, r;
               return {
                 name: (t = e.name) != null ? t : "",
                 enabled: (n = e.enabled) != null ? n : !1,
-                expirationTime: (r = e.expiration_time) != null ? r : null,
-                limit: (o = e.limit) != null ? o : null,
+                limit: (r = e.limit) != null ? r : null,
               };
             }),
           };

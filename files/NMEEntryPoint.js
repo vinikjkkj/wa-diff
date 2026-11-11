@@ -353,6 +353,7 @@ __d(
       FB_QUOTA_LIMIT_UPSELL: "fb_quota_limit_upsell",
       FB_REELS_AQP_PRO_AC: "fb_reels_aqp_pro_ac",
       FB_REELS_AQP_PRO_BIZ: "fb_reels_aqp_pro_biz",
+      FB_REELS_KEY_MOMENTS_UPSELL: "fb_reels_key_moments_upsell",
       FB_REELS_PLAYBACK_CONTROLS_PICTURE_IN_PICTURE_UPSELL:
         "fb_reels_playback_controls_picture_in_picture_upsell",
       FB_REELS_REACTION_SHEET_SUPER_LIKE_UPSELL:
@@ -1195,6 +1196,7 @@ __d(
       MSGR_THINK_HARD_QUOTA_TOAST: "msgr_think_hard_quota_toast",
       MSGR_WELCOME_TOAST: "msgr_welcome_toast",
       MSG_ACCOUNT_CENTER_SETTINGS: "msg_account_center_settings",
+      MSO_DEADEND_META_ONE_CTA: "mso_deadend_meta_one_cta",
       MSO_FB_BOOKMARK: "mso_fb_bookmark",
       MSO_IG_EDIT_PROFILE: "mso_ig_edit_profile",
       MSO_IG_POST_BOOST_UPSELL: "mso_ig_post_boost_upsell",

@@ -3,6 +3,7 @@ __d(
   [
     "LSRelayEntryPointQueryPreload",
     "LSRelayEntryPointQueryPreloader",
+    "LSRelaySharedServerRequests",
     "ReactiveExecutorImplementation",
     "nullthrows",
     "performance",
@@ -11,178 +12,264 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(t, n, a, i, l, s, u) {
+    function s(e, t, n, r, a, i, l, s) {
+      return !o("ReactiveExecutorImplementation")
+        .reportsServerResponseEmitted ||
+        !Array.isArray(n.metadata.server_variables) ||
+        (t == null ? void 0 : t()) !== !0
+        ? null
+        : o("LSRelaySharedServerRequests").getServerRequestKey(
+            e,
+            n,
+            r,
+            a,
+            i,
+            l,
+            s,
+          );
+    }
+    function u(t, n, a, i, l, u, m, p) {
       (i === void 0 && (i = !1), l === void 0 && (l = !1));
-      var c = o("ReactiveExecutorImplementation").createExecutor(n, a, i);
-      function d(e, t, n, r, o, a, i, l) {
-        return p(e, t, n, r, o, a, i, l, null);
+      var _ = o("ReactiveExecutorImplementation").createExecutor(n, a, i),
+        f = o("LSRelaySharedServerRequests").createSharedServerRequests();
+      function g(e, t, n, r, o, a, i, l) {
+        return y(e, t, n, r, o, a, i, l, null);
       }
-      function m(e, t, n, r, o) {
-        return p(e, t, n, null, null, null, null, o, r);
+      function h(e, t, n, r, o) {
+        return y(e, t, n, null, null, null, null, o, r);
       }
-      function p(a, i, d, m, p, _, f, g, h) {
-        var y = a.metadata.is_ls_relay_request === !0,
-          C = a.metadata.operation;
-        if (!y && C == null)
-          return h != null ? h : t.execute(a, i, d, m, p, _, f, g);
-        var b = { kind: "Request", operation: r("nullthrows")(C), params: a };
-        return o("relay-runtime").Observable.create(function (y) {
-          var C,
-            v = h == null && a.id == null && a.text == null,
-            S = !1;
-          if (h == null && !v && g != null) {
-            var R = g.checkOperation,
-              L = g.parentOperation;
-            if (L != null) {
-              if (b.operation.has_server_to_client_resolvers !== !0)
-                v = R(L).status === "available";
+      function y(a, i, g, h, y, C, b, v, S) {
+        var R = a.metadata.is_ls_relay_request === !0,
+          L = a.metadata.operation;
+        if (!R && L == null) {
+          if (S != null) return S;
+          var E =
+            v != null && v.parentOperation == null
+              ? s(f, p, a, i, g, h, C, b)
+              : null;
+          return E != null
+            ? d(f, E, c(t, a, i, g, h, y, C, b))
+            : t.execute(a, i, g, h, y, C, b, v);
+        }
+        var k = { kind: "Request", operation: r("nullthrows")(L), params: a };
+        return o("relay-runtime").Observable.create(function (d) {
+          var R,
+            L = S == null && a.id == null && a.text == null,
+            E = !1;
+          if (S == null && !L && v != null) {
+            var I = v.checkOperation,
+              T = v.parentOperation;
+            if (T != null) {
+              if (k.operation.has_server_to_client_resolvers !== !0)
+                L = I(T).status === "available";
               else if (
                 o("ReactiveExecutorImplementation").supportsStoreBackedS2C &&
-                (u == null ? void 0 : u.isEnabled()) === !0
+                (m == null ? void 0 : m.isEnabled()) === !0
               ) {
-                var E = (e || (e = r("performance"))).now(),
-                  k = R(L),
-                  I = k.status;
-                I === "available"
-                  ? (S = !0)
+                var D = (e || (e = r("performance"))).now(),
+                  x = I(T),
+                  $ = x.status;
+                $ === "available"
+                  ? (E = !0)
                   : n == null ||
                     n({
                       endTime: (e || (e = r("performance"))).now(),
                       executionCount: 0,
-                      outcome: I,
-                      startTime: E,
+                      outcome: $,
+                      startTime: D,
                       type: "store_backed_s2c",
                     });
               }
             }
           }
-          var T =
-            l ||
-            ((C = b.operation.use_network_normalization_provider) == null
-              ? void 0
-              : C.get()) === !0 ||
-            b.operation.has_server_to_client_resolvers === !0 ||
-            b.operation.has_client_to_server_resolvers === !0;
-          if (v && !T) {
-            var D = o("relay-runtime").__internal.getOperationVariables(
-                b.operation,
-                b.params.providedVariables,
+          var P =
+              l ||
+              ((R = k.operation.use_network_normalization_provider) == null
+                ? void 0
+                : R.get()) === !0 ||
+              k.operation.has_server_to_client_resolvers === !0 ||
+              k.operation.has_client_to_server_resolvers === !0,
+            N = L ? null : s(f, p, a, i, g, h, C, b),
+            M =
+              N == null
+                ? null
+                : o("LSRelaySharedServerRequests").createServerRequestShare(
+                    f,
+                    N,
+                    S != null ? S : c(t, a, i, g, h, y, C, b),
+                    S != null,
+                  );
+          if (L && !P) {
+            var w = o("relay-runtime").__internal.getOperationVariables(
+                k.operation,
+                k.params.providedVariables,
                 i,
               ),
-              x = c
-                .execute(o("relay-runtime").createRequestDescriptor(b, D))
-                .subscribe({
-                  complete: y.complete,
-                  error: y.error,
-                  next: function (t) {
-                    if (t.kind !== "WAITING") {
-                      var e = t.payload,
-                        n = e.extensions;
-                      (n != null &&
-                        ((n.is_client_only = !0),
-                        (n.is_ls_relay_response = !0)),
-                        y.next(e));
-                    }
-                  },
-                }),
-              $ = x.unsubscribe;
-            return function () {
-              $();
-            };
-          }
-          var P = o("relay-runtime").__internal.getOperationVariables(
-            b.operation,
-            b.params.providedVariables,
-            i,
-          );
-          if (T) {
-            var N;
-            v
-              ? (N = o("relay-runtime").Observable.create(function (e) {
-                  e.complete();
-                }))
-              : S
-                ? (N = o("relay-runtime").Observable.create(function (e) {
-                    return t.execute(a, i, d, m, p, _, f).subscribe(e);
-                  }))
-                : (N = h != null ? h : t.execute(a, i, d, m, p, _, f));
-            var M = c
-                .executeWithNetwork(
-                  o("relay-runtime").createRequestDescriptor(b, P),
-                  N,
-                  {
-                    checkOperation: g == null ? void 0 : g.checkOperation,
-                    checkOperationWithUnpublished:
-                      g == null ? void 0 : g.checkOperationWithUnpublished,
-                    network: t,
-                    normalizeResponse:
-                      o("relay-runtime").__internal.normalizeResponse,
-                    operationLoader: s,
-                    storeBackedS2C: S ? u : null,
-                  },
-                )
-                .subscribe({
-                  complete: y.complete,
-                  error: y.error,
-                  next: y.next,
-                }),
-              w = M.unsubscribe;
-            return function () {
-              return w();
-            };
-          }
-          var A = !1;
-          function F() {
-            A ? y.complete() : (A = !0);
-          }
-          var O = !1,
-            B = null,
-            W = null;
-          function q() {
-            O || ((O = !0), B == null || B(), W == null || W());
-          }
-          function U(e) {
-            O || (y.error(e), q());
-          }
-          var V = h != null ? h : t.execute(a, i, d, m, p, _, f),
-            H = V.subscribe({ complete: F, error: U, next: y.next }),
-            G = H.unsubscribe;
-          if (((B = G), O)) return q;
-          var z = c
-              .execute(o("relay-runtime").createRequestDescriptor(b, P))
-              .subscribe({
-                complete: F,
-                error: U,
+              A = _.execute(
+                o("relay-runtime").createRequestDescriptor(k, w),
+              ).subscribe({
+                complete: d.complete,
+                error: d.error,
                 next: function (t) {
                   if (t.kind !== "WAITING") {
                     var e = t.payload,
                       n = e.extensions;
-                    (n != null && (n.is_ls_relay_response = !0), y.next(e));
+                    (n != null &&
+                      ((n.is_client_only = !0), (n.is_ls_relay_response = !0)),
+                      d.next(e));
                   }
                 },
               }),
-            j = z.unsubscribe;
-          return ((W = j), q);
+              F = A.unsubscribe;
+            return function () {
+              F();
+            };
+          }
+          var O = o("relay-runtime").__internal.getOperationVariables(
+            k.operation,
+            k.params.providedVariables,
+            i,
+          );
+          if (P) {
+            var B;
+            L
+              ? (B = o("relay-runtime").Observable.create(function (e) {
+                  e.complete();
+                }))
+              : M != null
+                ? (B = o(
+                    "LSRelaySharedServerRequests",
+                  ).observeServerRequestShare(M))
+                : E
+                  ? (B = c(t, a, i, g, h, y, C, b))
+                  : (B = S != null ? S : t.execute(a, i, g, h, y, C, b));
+            var W = _.executeWithNetwork(
+                o("relay-runtime").createRequestDescriptor(k, O),
+                B,
+                {
+                  checkOperation: v == null ? void 0 : v.checkOperation,
+                  checkOperationWithUnpublished:
+                    v == null ? void 0 : v.checkOperationWithUnpublished,
+                  network: t,
+                  normalizeResponse:
+                    o("relay-runtime").__internal.normalizeResponse,
+                  onServerResponseEmitted:
+                    M == null
+                      ? null
+                      : function () {
+                          return o(
+                            "LSRelaySharedServerRequests",
+                          ).markServerResponseEmitted(M);
+                        },
+                  operationLoader: u,
+                  storeBackedS2C: E ? m : null,
+                },
+              ).subscribe({
+                complete: d.complete,
+                error: d.error,
+                next: d.next,
+              }),
+              q = W.unsubscribe;
+            return function () {
+              (q(),
+                M != null &&
+                  o("LSRelaySharedServerRequests").releaseServerRequestShare(
+                    M,
+                  ));
+            };
+          }
+          var U = !1;
+          function V() {
+            U ? d.complete() : (U = !0);
+          }
+          var H = !1,
+            G = null,
+            z = null;
+          function j() {
+            H ||
+              ((H = !0),
+              G == null || G(),
+              z == null || z(),
+              M != null &&
+                o("LSRelaySharedServerRequests").releaseServerRequestShare(M));
+          }
+          function K(e) {
+            H || (d.error(e), j());
+          }
+          var Q =
+              M != null
+                ? o("LSRelaySharedServerRequests").observeServerRequestShare(M)
+                : S != null
+                  ? S
+                  : t.execute(a, i, g, h, y, C, b),
+            X = Q.subscribe({
+              complete: function () {
+                (M != null &&
+                  o("LSRelaySharedServerRequests").markServerResponseEmitted(M),
+                  V());
+              },
+              error: K,
+              next: d.next,
+            }),
+            Y = X.unsubscribe;
+          if (((G = Y), H)) return j;
+          var J = _.execute(
+              o("relay-runtime").createRequestDescriptor(k, O),
+            ).subscribe({
+              complete: V,
+              error: K,
+              next: function (t) {
+                if (t.kind !== "WAITING") {
+                  var e = t.payload,
+                    n = e.extensions;
+                  (n != null && (n.is_ls_relay_response = !0), d.next(e));
+                }
+              },
+            }),
+            Z = J.unsubscribe;
+          return ((z = Z), j);
         });
       }
-      var _ = r("LSRelayEntryPointQueryPreloader")(d);
-      function f(e, t, n, r, o, a, i, l) {
-        return _.execute(e, t, n, r, o, a, i, l);
+      var C = r("LSRelayEntryPointQueryPreloader")(g);
+      function b(e, t, n, r, o, a, i, l) {
+        return C.execute(e, t, n, r, o, a, i, l);
       }
-      function g(e, t, n, r, o) {
-        return _.executeWithPreloadedSource(e, t, n, function () {
-          return m(e, t, n, r, o);
+      function v(e, t, n, r, o) {
+        return C.executeWithPreloadedSource(e, t, n, function () {
+          return h(e, t, n, r, o);
         });
       }
       return {
         UNSTABLE_preloadQueryOnQueryAstLoad: function (t, n) {
-          _.preloadQueryOnQueryAstLoad(t, n);
+          C.preloadQueryOnQueryAstLoad(t, n);
         },
-        execute: f,
-        executeWithPreloadedSource: g,
+        execute: b,
+        executeWithPreloadedSource: v,
       };
     }
-    var u = function (t) {
+    function c(e, t, n, r, a, i, l, s) {
+      return o("relay-runtime").Observable.create(function (o) {
+        return e.execute(t, n, r, a, i, l, s).subscribe(o);
+      });
+    }
+    function d(e, t, n) {
+      return o("relay-runtime").Observable.create(function (r) {
+        var a = o("LSRelaySharedServerRequests").createServerRequestShare(
+            e,
+            t,
+            n,
+            !1,
+          ),
+          i = o("LSRelaySharedServerRequests")
+            .observeServerRequestShare(a)
+            .subscribe(r);
+        return function () {
+          (i.unsubscribe(),
+            o("LSRelaySharedServerRequests").releaseServerRequestShare(a));
+        };
+      });
+    }
+    var m = function (t) {
       var e, n;
       if (((e = t.extensions) == null ? void 0 : e.is_ls_relay_response) !== !0)
         return o("relay-runtime").__internal.normalizeResponse.apply(
@@ -202,8 +289,8 @@ __d(
     ((l.preloadQueryOnQueryAstLoad = o(
       "LSRelayEntryPointQueryPreload",
     ).preloadQueryOnQueryAstLoad),
-      (l.injectLSRelayHandler = s),
-      (l.normalizeResponse = u));
+      (l.injectLSRelayHandler = u),
+      (l.normalizeResponse = m));
   },
   98,
 );

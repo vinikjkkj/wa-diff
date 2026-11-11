@@ -141,6 +141,12 @@ __d(
                 (a = this.container) == null ? void 0 : a.config,
               ));
         }),
+        (t.inheritContainerForPush = function (t) {
+          var e,
+            n = this.container,
+            r = (e = t.container) == null ? void 0 : e.config;
+          n == null || r == null || (n.config = n.config.inheritForPush(r));
+        }),
         (t.setOnContainerUpdate = function (t) {
           this.onContainerUpdate = t;
         }),

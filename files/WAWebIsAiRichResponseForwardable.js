@@ -4,9 +4,9 @@ __d(
     "JSResourceForInteraction",
     "WAWebBotTypes",
     "WAWebBotUnifiedResponseGating",
-    "WAWebBotUtils",
     "WAWebFrontendMsgGetters",
     "WAWebHatchJarvisPayload",
+    "WAWebIsAccountBoundAiRichResponse",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
   ],
@@ -23,20 +23,11 @@ __d(
         !o(
           "WAWebBotUnifiedResponseGating",
         ).isAiRichResponseForwardingSenderEnabled(e.t) ||
+        o("WAWebIsAccountBoundAiRichResponse").isAccountBoundAiRichResponse(
+          e,
+        ) ||
         u(e, t.unifiedResponse) ||
-        o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(
-          t.unifiedResponse,
-        ) ||
-        o("WAWebUnifiedResponseUtils").unifiedResponseHasConnectorActionCard(
-          t.unifiedResponse,
-        ) ||
-        d(e, t.unifiedResponse) ||
-        o("WAWebUnifiedResponseUtils").unifiedResponseHasSpaceCard(
-          t.unifiedResponse,
-        ) ||
-        o("WAWebUnifiedResponseUtils").unifiedResponseHasBrowserTaskCard(
-          t.unifiedResponse,
-        )
+        o("WAWebUnifiedResponseUtils").isQuotaUpsellResponse(t.unifiedResponse)
       )
         return !1;
       if (o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)) return !0;
@@ -64,16 +55,6 @@ __d(
       var n = e.getModuleIfRequired();
       return (
         (n == null ? void 0 : n.inspectHatchJarvisForwardability(t).ok) === !0
-      );
-    }
-    function d(e, t) {
-      return (
-        o(
-          "WAWebUnifiedResponseUtils",
-        ).unifiedResponseHasSecureCredentialRequest(t) ||
-        (t != null &&
-          o("WAWebBotUtils").isHatchBot(e.id.remote) &&
-          o("WAWebUnifiedResponseUtils").hasNestedOrEmbeddedContent(t))
       );
     }
     l.isAiRichResponseForwardable = s;

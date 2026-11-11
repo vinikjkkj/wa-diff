@@ -2,6 +2,7 @@ __d(
   "WAWebPaymentsGatingUtils",
   [
     "WAWebABProps",
+    "WAWebBrazilPaymentStateKeys",
     "WAWebClientFeatureFlags",
     "WAWebComplianceConstants",
     "WAWebL10NCountryCodes",
@@ -25,7 +26,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        I(t) &&
+        T(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         )
@@ -40,7 +41,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        I(t) &&
+        T(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         )
@@ -55,7 +56,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        I(t) &&
+        T(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "pix_payment_request_web_enabled",
         )
@@ -70,7 +71,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        I(t) &&
+        T(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         )
@@ -85,7 +86,7 @@ __d(
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        I(t) &&
+        T(t) &&
         o("WAWebABProps").getABPropConfigValue(
           "br_consumer_payments_web_enabled",
         )
@@ -102,7 +103,7 @@ __d(
           (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
             ? void 0
             : e.user;
-      return t != null && I(t) && p();
+      return t != null && T(t) && p();
     }
     function f() {
       return (
@@ -113,61 +114,68 @@ __d(
       );
     }
     function g(e) {
-      return (
-        !o("WAWebMobilePlatforms").isSMB() &&
-        S(e) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "payments_receipt_and_state_copy_pix_key_p2p",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB() || !R(e)
+        ? null
+        : y(
+            o("WAWebABProps").getABPropConfigValue(
+              "payments_receipt_and_state_copy_pix_key_p2p",
+            ),
+          );
     }
     function h(e) {
-      return (
-        !o("WAWebMobilePlatforms").isSMB() &&
-        S(e) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "payments_receipt_and_state_copy_pix_code_p2p",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB() || !R(e)
+        ? null
+        : y(
+            o("WAWebABProps").getABPropConfigValue(
+              "payments_receipt_and_state_copy_pix_code_p2p",
+            ),
+          );
     }
-    function y() {
-      var e = o("WAWebABProps").getABPropConfigValue(
-        "payments_receipt_and_state_bubble_version",
-      );
-      return e === 0 ? void 0 : e;
+    function y(e) {
+      return e
+        ? o("WAWebABProps").getABPropConfigValue(
+            "payments_receipt_and_state_bubble_version",
+          )
+        : o("WAWebBrazilPaymentStateKeys").CONTROL_BUBBLE_VERSION;
     }
     function C(e) {
-      return o("WAWebMobilePlatforms").isSMB() && S(e);
+      return (
+        e != null &&
+        e !== o("WAWebBrazilPaymentStateKeys").CONTROL_BUBBLE_VERSION
+      );
     }
-    function b() {
+    function b(e) {
+      return o("WAWebMobilePlatforms").isSMB() && R(e);
+    }
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "payments_receipt_and_state_copy_pix_key_p2m",
       );
     }
-    function v() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "payments_receipt_and_state_copy_pix_code_p2m",
       );
     }
-    function S(e) {
+    function R(e) {
       return e.id.isUser() && !e.id.isBot() && !e.contact.isBusiness && f();
     }
-    function R(e) {
+    function L(e) {
       var t;
       if (!e) return !1;
       var n =
         (t = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : t.user;
-      return n == null ? !1 : T(n) || I(n);
+      return n == null ? !1 : D(n) || T(n);
     }
-    function L() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "payments_link_to_lite_consumer_enabled",
       );
     }
-    function E(e) {
-      return k(e.contact.id);
-    }
     function k(e) {
+      return I(e.contact.id);
+    }
+    function I(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
           t == null ? void 0 : t.user,
@@ -178,11 +186,11 @@ __d(
         );
       return n === "BR" && a === "BR";
     }
-    function I(e) {
+    function T(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e);
       return t === "BR";
     }
-    function T(e) {
+    function D(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""),
         n = o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA;
       return (
@@ -201,16 +209,17 @@ __d(
       (l.isBrazilPaymentStateUpdateSupported = p),
       (l.isBrazilPaymentStateSyncAvailable = _),
       (l.isBrazilPaymentDetailsAvailable = f),
-      (l.isPixKeyReceiptAndStateAssignedOnSend = g),
-      (l.isPixCodeReceiptAndStateAssignedOnSend = h),
+      (l.getPixKeyReceiptAndStateBubbleVersionOnSend = g),
+      (l.getPixCodeReceiptAndStateBubbleVersionOnSend = h),
       (l.getReceiptAndStateBubbleVersionOnSend = y),
-      (l.isReceiptAndStateP2mEligibleChat = C),
-      (l.isPixKeyReceiptAndStateP2mEnabled = b),
-      (l.isPixCodeReceiptAndStateP2mEnabled = v),
-      (l.isWidInPaymentsCountry = R),
-      (l.isMessageWithLinkNfmEnabled = L),
-      (l.isBrazilToBrazilOrder = E),
-      (l.isBrazilToBrazilOrderFor = k));
+      (l.isTreatmentBubbleVersion = C),
+      (l.isReceiptAndStateP2mEligibleChat = b),
+      (l.isPixKeyReceiptAndStateP2mEnabled = v),
+      (l.isPixCodeReceiptAndStateP2mEnabled = S),
+      (l.isWidInPaymentsCountry = L),
+      (l.isMessageWithLinkNfmEnabled = E),
+      (l.isBrazilToBrazilOrder = k),
+      (l.isBrazilToBrazilOrderFor = I));
   },
   98,
 );

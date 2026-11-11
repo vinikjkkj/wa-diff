@@ -1,13 +1,20 @@
 __d(
   "WAWebHatchJarvisPayload",
-  ["WAWebHatchJsonReaders", "WAWebHatchSecureMediaDecoder"],
+  ["WAWebHatchJsonReaders", "WAWebHatchSecureMediaDecoder", "WAWebHatchUrl"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "XMSGGenAIJarvisPayload",
       s = "1",
       u = "delta.presentation",
-      c = "citation";
-    function d(e) {
+      c = "citation",
+      d = new Set([
+        "connector",
+        "connector_add_account",
+        "connector_reconnect",
+        "connector_scope",
+        "credentials_vault",
+      ]);
+    function m(e) {
       return (function (e) {
         return (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -15,24 +22,61 @@ __d(
         );
       })(e == null ? void 0 : e.passthrough_payload);
     }
-    function m(e) {
-      if (e == null || !d(e)) return !1;
-      var t = f(e);
+    function p(e) {
+      if (e == null || !m(e)) return !1;
+      var t = h(e);
       return t == null || t.declaresFiles;
     }
-    function p(t) {
+    function _(e) {
+      var t,
+        n = e != null ? ((t = h(e)) == null ? void 0 : t.presentation) : null;
+      return (function (e) {
+        if (e === "browser_task" || e === "space_build_completed") return !0;
+        if (e === "internal_link_action_card") {
+          var t, r;
+          return d.has(
+            (t =
+              (r = o("WAWebHatchJsonReaders").readString(
+                n == null ? void 0 : n.data,
+                "type",
+              )) == null
+                ? void 0
+                : r.trim().toLowerCase()) != null
+              ? t
+              : "",
+          );
+        }
+        return e === "generic_list"
+          ? o("WAWebHatchJsonReaders")
+              .readObjects(n == null ? void 0 : n.data, "items")
+              .some(y)
+          : !1;
+      })(n == null ? void 0 : n.kind);
+    }
+    function f(t) {
       var n = t.passthrough_payload;
       return n == null || n.__typename !== e || n.envelope_schema_version !== s
         ? null
-        : g(n.jarvis_envelope);
+        : C(n.jarvis_envelope);
     }
-    var _ = new WeakMap();
-    function f(e) {
-      if (_.has(e)) return _.get(e);
-      var t = p(e);
-      return (_.set(e, t), t);
+    var g = new WeakMap();
+    function h(e) {
+      if (g.has(e)) return g.get(e);
+      var t = f(e);
+      return (g.set(e, t), t);
     }
-    function g(e) {
+    function y(e) {
+      return (
+        o("WAWebHatchJsonReaders").readString(e, "type") === "link" &&
+        o("WAWebHatchUrl").getHatchConnectLinkConnectorId(
+          o("WAWebHatchJsonReaders").readString(
+            o("WAWebHatchJsonReaders").readObject(e, "data"),
+            "url",
+          ),
+        ) != null
+      );
+    }
+    function C(e) {
       var t, n, r;
       try {
         r = JSON.parse(e);
@@ -43,7 +87,7 @@ __d(
       if (a == null) return null;
       var i = o("WAWebHatchJsonReaders").readString(a, "event_name") === u,
         l = i ? o("WAWebHatchJsonReaders").readObject(a, "payload") : null,
-        s = h(l),
+        s = b(l),
         c =
           (t = [
             o("WAWebHatchJsonReaders").readString(l, "fallback_text"),
@@ -63,19 +107,19 @@ __d(
         m = o("WAWebHatchJsonReaders").readObject(r, "file_metadata"),
         p = o("WAWebHatchJsonReaders").readArray(r, "inline_widgets");
       return {
-        citations: C(o("WAWebHatchJsonReaders").readArray(a, "resources")),
-        declaresFiles: b(m),
+        citations: S(o("WAWebHatchJsonReaders").readArray(a, "resources")),
+        declaresFiles: R(m),
         displayText: c,
         displayTextReady: d,
-        fileMetadata: v(m),
-        hasInlineWidgets: L(p),
-        inlineWidgets: s == null && d ? y(p) : [],
+        fileMetadata: L(m),
+        hasInlineWidgets: I(p),
+        inlineWidgets: s == null && d ? v(p) : [],
         isPresentationRow: i,
         messageId: o("WAWebHatchJsonReaders").readString(a, "message_id"),
         presentation: s,
       };
     }
-    function h(e) {
+    function b(e) {
       var t,
         n = o("WAWebHatchJsonReaders").readNonEmptyString(e, "kind");
       return n == null
@@ -89,16 +133,16 @@ __d(
             kind: n,
           };
     }
-    function y(e) {
+    function v(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
-        var r = o("WAWebHatchJsonReaders").isObject(n) ? h(n) : null;
+        var r = o("WAWebHatchJsonReaders").isObject(n) ? b(n) : null;
         r != null && t.push(r);
       }
       return t;
     }
-    function C(e) {
+    function S(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -111,7 +155,7 @@ __d(
             a == null
           )
         ) {
-          var i = R(o("WAWebHatchJsonReaders").readString(n, "metadata"));
+          var i = k(o("WAWebHatchJsonReaders").readString(n, "metadata"));
           t.push({
             domain: o("WAWebHatchJsonReaders").readString(i, "domain"),
             faviconUrl: o("WAWebHatchJsonReaders").readString(i, "favicon_url"),
@@ -122,10 +166,10 @@ __d(
       }
       return t;
     }
-    function b(e) {
+    function R(e) {
       return e != null && typeof e == "object" && Object.keys(e).length > 0;
     }
-    function v(e) {
+    function L(e) {
       var t = new Map();
       if (e == null || typeof e != "object") return t;
       for (var n of Object.keys(e)) {
@@ -134,7 +178,7 @@ __d(
         if (a != null) {
           var i = o("WAWebHatchJsonReaders").readObject(r, "encrypted_media");
           t.set(n, {
-            encryptedMedia: S(i),
+            encryptedMedia: E(i),
             envelopeFilehash: o("WAWebHatchJsonReaders").readNonEmptyString(
               i,
               "file_sha256_b64",
@@ -158,7 +202,7 @@ __d(
       }
       return t;
     }
-    function S(e) {
+    function E(e) {
       var t = o("WAWebHatchSecureMediaDecoder").hasMmgTransport(e)
           ? o("WAWebHatchSecureMediaDecoder").decodeMmgMediaKeys(e)
           : null,
@@ -178,7 +222,7 @@ __d(
             width: o("WAWebHatchJsonReaders").readInteger(e, "width"),
           });
     }
-    function R(e) {
+    function k(e) {
       if (e == null) return null;
       try {
         var t = JSON.parse(e);
@@ -187,13 +231,14 @@ __d(
         return null;
       }
     }
-    function L(e) {
+    function I(e) {
       return e != null && e.length > 0;
     }
-    ((l.hasHatchJarvisPayload = d),
-      (l.hatchJarvisPayloadMayCarryMedia = m),
-      (l.parseHatchJarvisPayload = p),
-      (l.getHatchJarvisPayload = f));
+    ((l.hasHatchJarvisPayload = m),
+      (l.hatchJarvisPayloadMayCarryMedia = p),
+      (l.isHatchJarvisAccountBoundPayload = _),
+      (l.parseHatchJarvisPayload = f),
+      (l.getHatchJarvisPayload = h));
   },
   98,
 );

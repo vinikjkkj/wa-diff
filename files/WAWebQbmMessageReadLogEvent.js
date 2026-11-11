@@ -25,7 +25,7 @@ __d(
             a = t.msg,
             i = t.readSource,
             l = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(a);
-          l != null &&
+          o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(l) &&
             (o("WAWebABProps").getABPropConfigValue(
               "inapp_signup_m1_logging_enabled",
             ) &&

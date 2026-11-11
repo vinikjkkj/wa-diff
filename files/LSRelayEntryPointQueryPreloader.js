@@ -1,6 +1,14 @@
 __d(
   "LSRelayEntryPointQueryPreloader",
-  ["clearTimeout", "err", "gkx", "nullthrows", "relay-runtime", "setTimeout"],
+  [
+    "LSRelaySharedServerRequests",
+    "clearTimeout",
+    "err",
+    "gkx",
+    "nullthrows",
+    "relay-runtime",
+    "setTimeout",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 3e4,
@@ -32,21 +40,7 @@ __d(
         JSON.stringify(o("relay-runtime").stableCopy(n))
       );
     }
-    function m(e, t, n, r) {
-      return (
-        t == null &&
-        n == null &&
-        r == null &&
-        e.poll == null &&
-        e.liveConfigId == null &&
-        e.onSubscribe == null &&
-        e.onPause == null &&
-        e.onResume == null &&
-        e.metadata == null &&
-        e.transactionId == null
-      );
-    }
-    function p(e, t) {
+    function m(e, t) {
       t === void 0 && (t = u);
       var n = new Map();
       function a(e, t) {
@@ -70,7 +64,7 @@ __d(
           (n = e.onLoadDisposable) == null || n.dispose(),
           (e.onLoadDisposable = null));
       }
-      function p(e) {
+      function m(e) {
         var t;
         e.isDisposed ||
           ((e.isDisposed = !0),
@@ -80,10 +74,10 @@ __d(
           (e.producerSubscription = null),
           e.subject.complete());
       }
-      function _(e) {
-        e != null && e.producerSubscription == null && p(e);
+      function p(e) {
+        e != null && e.producerSubscription == null && m(e);
       }
-      function f(e) {
+      function _(e) {
         var t;
         e.isDisposed ||
           ((e.isDisposed = !0),
@@ -92,23 +86,23 @@ __d(
           (t = e.producerSubscription) == null || t.unsubscribe(),
           (e.producerSubscription = null));
       }
-      function g(e) {
+      function f(e) {
         return e.isDisposed || e.producerSubscription == null
           ? !1
           : (l(e), s(e), !0);
       }
-      function h(e, t, n) {
+      function g(e, t, n) {
         var r = e.subject.subscribe(t),
           o = function () {
             var t = r;
             t != null &&
               ((r = null),
               t.unsubscribe(),
-              e.subject.getObserverCount() === 0 && (p(e), n()));
+              e.subject.getObserverCount() === 0 && (m(e), n()));
           };
         return (t.closed && o(), o);
       }
-      function y(t, n) {
+      function h(t, n) {
         var s;
         if (!(t.isDisposed || a(t.queryID, t.variablesKey) !== t)) {
           ((s = t.onLoadDisposable) == null || s.dispose(),
@@ -117,25 +111,25 @@ __d(
           try {
             u = c(n.operation);
           } catch (e) {
-            p(t);
+            m(t);
             return;
           }
           if (!u) {
-            p(t);
+            m(t);
             return;
           }
-          var m = d(t.variables, n.params.providedVariables);
-          if (m !== t.variablesKey) {
-            if ((l(t), a(t.queryID, m) != null)) {
-              p(t);
+          var p = d(t.variables, n.params.providedVariables);
+          if (p !== t.variablesKey) {
+            if ((l(t), a(t.queryID, p) != null)) {
+              m(t);
               return;
             }
-            ((t.variablesKey = m), i(t));
+            ((t.variablesKey = p), i(t));
           }
-          var _;
+          var f;
           try {
-            if (!r("gkx")("11696")) {
-              p(t);
+            if (!r("gkx")("29104")) {
+              m(t);
               return;
             }
             var g = o("relay-runtime").__internal.withProvidedVariables(
@@ -143,22 +137,22 @@ __d(
               n.params.providedVariables,
               new Map(),
             );
-            _ = e(n.params, g, { force: !0 });
+            f = e(n.params, g, { force: !0 });
           } catch (e) {
             (t.subject.error(
               e instanceof Error
                 ? e
                 : r("err")("Failed to start query execution"),
             ),
-              f(t));
+              _(t));
             return;
           }
-          _.subscribe({
+          f.subscribe({
             complete: function () {
               t.subject.complete();
             },
             error: function (n) {
-              (t.subject.error(n), f(t));
+              (t.subject.error(n), _(t));
             },
             next: function (n) {
               t.subject.next(n);
@@ -169,7 +163,7 @@ __d(
           });
         }
       }
-      function C(e, n) {
+      function y(e, n) {
         var r = o("relay-runtime").PreloadableQueryRegistry.get(e),
           l = d(n, r == null ? void 0 : r.params.providedVariables);
         if (a(e, l) != null) return { dispose: function () {} };
@@ -185,74 +179,74 @@ __d(
         };
         return (
           (s.timeoutID = t.schedule(function () {
-            a(s.queryID, s.variablesKey) === s && p(s);
+            a(s.queryID, s.variablesKey) === s && m(s);
           })),
           i(s),
           r != null
-            ? y(s, r)
+            ? h(s, r)
             : (s.onLoadDisposable = o(
                 "relay-runtime",
               ).PreloadableQueryRegistry.onLoad(e, function (e) {
-                y(s, e);
+                h(s, e);
               })),
           {
             dispose: function () {
-              a(s.queryID, s.variablesKey) === s && p(s);
+              a(s.queryID, s.variablesKey) === s && m(s);
             },
           }
         );
       }
-      function b(e, t) {
+      function C(e, t) {
         var o,
           a = (o = e.id) != null ? o : r("nullthrows")(e.cacheID),
           i = n.get(a);
         return i == null ? null : i.get(d(t, e.providedVariables));
       }
-      function v(t, n, r, a, i, l, s, u) {
+      function b(t, n, r, a, i, l, s, u) {
         var c = function () {
           return e(t, n, r, a, i, l, s, u);
         };
-        if (t.metadata.operation == null) return (_(b(t, n)), c());
-        var d = m(r, a, l, s),
-          p = null,
-          f = !1;
+        if (t.metadata.operation == null) return (p(C(t, n)), c());
+        var d = o("LSRelaySharedServerRequests").canShareResponse(r, a, l, s),
+          m = null,
+          _ = !1;
         return o("relay-runtime").Observable.create(function (e) {
-          var r = p;
+          var r = m;
           if (r != null && !r.isDisposed)
-            return h(r, e, function () {
-              p === r && (p = null);
+            return g(r, e, function () {
+              m === r && (m = null);
             });
-          if (!f) {
-            f = !0;
-            var o = b(t, n);
+          if (!_) {
+            _ = !0;
+            var o = C(t, n);
             if (o != null) {
-              if (d && g(o))
+              if (d && f(o))
                 return (
-                  (p = o),
-                  h(o, e, function () {
-                    p === o && (p = null);
+                  (m = o),
+                  g(o, e, function () {
+                    m === o && (m = null);
                   })
                 );
-              _(o);
+              p(o);
             }
           }
           return c().subscribe(e);
         });
       }
-      function S(e, t, n, r) {
+      function v(e, t, n, r) {
         if (e.metadata.operation == null) return r();
         var a = !1;
         return o("relay-runtime").Observable.create(function (n) {
-          return (a || ((a = !0), _(b(e, t))), r().subscribe(n));
+          return (a || ((a = !0), p(C(e, t))), r().subscribe(n));
         });
       }
       return {
-        execute: v,
-        executeWithPreloadedSource: S,
-        preloadQueryOnQueryAstLoad: C,
+        execute: b,
+        executeWithPreloadedSource: v,
+        preloadQueryOnQueryAstLoad: y,
       };
     }
-    l.default = p;
+    l.default = m;
   },
   98,
 );

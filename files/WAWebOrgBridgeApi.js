@@ -30,7 +30,7 @@ __d(
         "OrgBackgroundSync",
       ),
       d = {
-        applyOrgContactRows: p,
+        applyOrgContactRows: _,
         applyOrgRows: m,
         bootstrapOrgs: function () {
           u()
@@ -70,38 +70,50 @@ __d(
     function m(e) {
       var t = e.isFullList,
         n = e.rows,
-        r = b();
+        r = v();
       if (t) {
         var a = new Set(
-            n.map(function (e) {
-              return e.orgId;
-            }),
-          ),
-          i = o("WAWebOrgCollection")
+          n.map(function (e) {
+            return e.orgId;
+          }),
+        );
+        p(
+          o("WAWebOrgCollection")
             .OrgCollection.getModelsArray()
+            .map(function (e) {
+              return e.id;
+            })
             .filter(function (e) {
-              return !a.has(e.id);
-            });
-        if (i.length > 0) {
-          var l = i.flatMap(function (e) {
-            return y(e.id);
-          });
-          (o("WAWebOrgCollection").OrgCollection.remove(i),
-            i.forEach(function (e) {
-              return e.members.clearMembers();
-            }));
-          var s = i.map(function (e) {
-            return e.id;
-          });
-          (o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(l),
-            o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(s, l));
-        }
+              return !a.has(e);
+            }),
+        );
       }
       (o("WAWebOrgCollection").OrgCollection.addRows(n),
-        v(r, b()) ||
+        S(r, v()) ||
           o("WAWebOrgContactIdentitySync").syncAllContactOrgIdentity());
     }
     function p(e) {
+      var t = o("WAWebOrgCollection").OrgCollection.filter(function (t) {
+        return e.includes(t.id);
+      });
+      if (t.length !== 0) {
+        var n = t.flatMap(function (e) {
+          return C(e.id);
+        });
+        (o("WAWebOrgCollection").OrgCollection.remove(t),
+          t.forEach(function (e) {
+            return e.members.clearMembers();
+          }),
+          o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(n),
+          o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(
+            t.map(function (e) {
+              return e.id;
+            }),
+            n,
+          ));
+      }
+    }
+    function _(e) {
       var t = o("WAWebOrgCollection")
         .OrgCollection.filter(function (t) {
           return e.lids.some(function (e) {
@@ -111,7 +123,7 @@ __d(
         .map(function (e) {
           return e.id;
         });
-      (h(e, null),
+      (y(e, null),
         o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(e.lids),
         o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(
           [].concat(
@@ -123,17 +135,17 @@ __d(
           e.lids,
         ));
     }
-    function _(e) {
+    function f(e) {
       var t = e.createModels,
         n = e.inServerOrder,
         r = e.lids,
         a = e.orgId,
         i = e.rows,
         l = new Set(r),
-        s = y(a).filter(function (e) {
+        s = C(a).filter(function (e) {
           return !l.has(e);
         });
-      g({ createModels: t, inServerOrder: n, lids: r, orgId: a, rows: i });
+      h({ createModels: t, inServerOrder: n, lids: r, orgId: a, rows: i });
       var u = [].concat(r, s);
       (o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(u),
         o("WAWebOrgCollection").OrgCollection.notifyMembersApplied(
@@ -145,16 +157,16 @@ __d(
           u,
         ));
     }
-    function f(e) {
+    function g(e) {
       var t,
         n = e.orgId,
-        r = y(n);
+        r = C(n);
       ((t = o("WAWebOrgCollection").OrgCollection.get(n)) == null ||
         t.members.clearMembers(),
         o("WAWebOrgContactIdentitySync").syncContactOrgIdentity(r),
         o("WAWebOrgCollection").OrgCollection.notifyMembersApplied([n], r));
     }
-    function g(e) {
+    function h(e) {
       var t,
         n = e.createModels,
         r = e.inServerOrder,
@@ -180,16 +192,16 @@ __d(
           }),
           { complete: n, inServerOrder: r },
         ),
-        h({ createModels: n, lids: a, rows: l }, i));
+        y({ createModels: n, lids: a, rows: l }, i));
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = e.createModels,
         r = e.lids,
         a = e.rows,
         i = o("WAWebOrgCollection").OrgCollection.filter(function (e) {
           return e.id !== t;
         }),
-        l = C(a);
+        l = b(a);
       r.forEach(function (e) {
         var t,
           r = o("WAWebOrgCollection").OrgCollection.some(function (t) {
@@ -211,7 +223,7 @@ __d(
         }
       });
     }
-    function y(e) {
+    function C(e) {
       var t, n;
       return (t =
         (n = o("WAWebOrgCollection").OrgCollection.get(e)) == null
@@ -222,7 +234,7 @@ __d(
         ? t
         : [];
     }
-    function C(e) {
+    function b(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -233,14 +245,14 @@ __d(
         t
       );
     }
-    function b() {
+    function v() {
       return o("WAWebOrgCollection")
         .OrgCollection.getOrderedOrgs()
         .map(function (e) {
           return e.id;
         });
     }
-    function v(e, t) {
+    function S(e, t) {
       return (
         e.length === t.length &&
         e.every(function (e, n) {
@@ -250,9 +262,10 @@ __d(
     }
     ((l.OrgBridgeApi = d),
       (l.applyOrgRows = m),
-      (l.applyOrgContactRows = p),
-      (l.applyOrgDirectory = _),
-      (l.removeOrgContacts = f));
+      (l.removeOrgsFromMemory = p),
+      (l.applyOrgContactRows = _),
+      (l.applyOrgDirectory = f),
+      (l.removeOrgContacts = g));
   },
   98,
 );

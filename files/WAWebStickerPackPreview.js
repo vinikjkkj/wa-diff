@@ -28,7 +28,9 @@ __d(
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "useWAWebMsgValues",
+    "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -59,122 +61,203 @@ __d(
       };
     function _(e) {
       var t,
-        n = e.msgKey,
-        a = o("useWAWebMsgValues").useMsgValues(
-          n,
-          o("WAWebMsgCasts").castToStickerPackMsg,
-          [
+        n = o("react-compiler-runtime").c(29),
+        a = e.msgKey,
+        i;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
             o("WAWebMsgGetters").getIsSentByMe,
             o("WAWebMsgGetters").getDescription,
             o("WAWebMsgGetters").getFilename,
             o("WAWebFrontendMsgGetters").getStickers,
-          ],
+          ]),
+          (n[0] = i))
+        : (i = n[0]);
+      var l = o("useWAWebMsgValues").useMsgValues(
+          a,
+          o("WAWebMsgCasts").castToStickerPackMsg,
+          i,
         ),
-        i = a[0],
-        l = a[1],
-        u = a[2],
-        _ = a[3],
-        g = (t = _ == null ? void 0 : _.length) != null ? t : 0;
-      function h() {
-        return l != null && l !== ""
-          ? l
-          : g >= 1
-            ? s._(
-                /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
-                [s._plural(g, "stickerCount")],
-              )
-            : "";
-      }
-      d(function () {
-        var e,
-          t =
-            (e = o("WAWebMsgCollection").MsgCollection.get(n)) == null
-              ? void 0
-              : e.safe();
-        t == null ||
-          t.type !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
-          (r("isStringNullOrEmpty")(t.thumbnailDirectPath)
-            ? f(t)
-            : (o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebMediaDownloadService").MediaDownloadService,
-                  ).downloadMmsThumbnail
-                : r("WAWebMediaDownloadMmsThumbnail"))({
-                msg: o("WAWebStateUtils").unproxy(t),
-                chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
-                isPreload: !1,
-              }));
-      }, []);
-      var y = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
-      return c.jsx(r("WAWebMessageDeeperContainer.react"), {
-        xstyle: p.deepContainer,
-        outgoingMsg: i,
-        children: c.jsxs(o("WAWebFlex.react").FlexRow, {
-          xstyle: m.paddingInlineEnd14,
-          align: "start",
-          children: [
-            c.jsx(o("WAWebFlex.react").FlexItem, {
-              shrink: 0,
-              grow: 0,
-              align: "center",
-              children: c.jsx(r("WAWebMediaThumbnail.react"), {
-                msgKey: n,
-                containerClassName: "xcbkimw x1n2onr6 x1dmp6jm",
-                thumbnailPlaceholder: c.jsx(
-                  "div",
-                  {
-                    children: c.jsx(r("WDSIconIcImage.react"), {
-                      height: 42,
-                      testid: "image",
-                      width: 42,
-                    }),
-                  },
-                  "default",
-                ),
+        u = l[0],
+        _ = l[1],
+        g = l[2],
+        h = l[3],
+        y = (t = h == null ? void 0 : h.length) != null ? t : 0,
+        C;
+      n[1] !== _ || n[2] !== y
+        ? ((C = function () {
+            return _ != null && _ !== ""
+              ? _
+              : y >= 1
+                ? s._(
+                    /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
+                    [s._plural(y, "stickerCount")],
+                  )
+                : "";
+          }),
+          (n[1] = _),
+          (n[2] = y),
+          (n[3] = C))
+        : (C = n[3]);
+      var b = C,
+        v;
+      n[4] !== a
+        ? ((v = function () {
+            var e,
+              t =
+                (e = o("WAWebMsgCollection").MsgCollection.get(a)) == null
+                  ? void 0
+                  : e.safe();
+            t == null ||
+              t.type !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
+              (r("isStringNullOrEmpty")(t.thumbnailDirectPath)
+                ? f(t)
+                : (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebMediaDownloadService").MediaDownloadService,
+                      ).downloadMmsThumbnail
+                    : r("WAWebMediaDownloadMmsThumbnail"))({
+                    msg: o("WAWebStateUtils").unproxy(t),
+                    chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
+                    isPreload: !1,
+                  }));
+          }),
+          (n[4] = a),
+          (n[5] = v))
+        : (v = n[5]);
+      var S = r("useWAWebStableCallback")(v),
+        R,
+        L;
+      (n[6] !== S
+        ? ((R = function () {
+            S();
+          }),
+          (L = [S]),
+          (n[6] = S),
+          (n[7] = R),
+          (n[8] = L))
+        : ((R = n[7]), (L = n[8])),
+        d(R, L));
+      var E = r("WAWebL10N").isRTL() ? "rtl" : "ltr",
+        k;
+      n[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = "xcbkimw x1n2onr6 x1dmp6jm"), (n[9] = k))
+        : (k = n[9]);
+      var I;
+      n[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = c.jsx(
+            "div",
+            {
+              children: c.jsx(r("WDSIconIcImage.react"), {
+                height: 42,
+                testid: "image",
+                width: 42,
               }),
+            },
+            "default",
+          )),
+          (n[10] = I))
+        : (I = n[10]);
+      var T;
+      n[11] !== a
+        ? ((T = c.jsx(o("WAWebFlex.react").FlexItem, {
+            shrink: 0,
+            grow: 0,
+            align: "center",
+            children: c.jsx(r("WAWebMediaThumbnail.react"), {
+              msgKey: a,
+              containerClassName: k,
+              thumbnailPlaceholder: I,
             }),
-            c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              align: "start",
-              grow: 1,
-              justify: "center",
-              xstyle: [
-                p.text,
-                o("WDSMargins.stylex").wdsMargins.marginVer0,
-                r("WAWebL10N").isRTL() && p.textRTL,
-                m.marginInline10,
-                p.fixedTextHeight,
-                m.paddingInlineEnd10,
-                m.paddingBlock6,
-              ],
-              children: [
-                c.jsx(o("WAWebFlex.react").FlexItem, {
-                  children: c.jsx(r("WAWebMediaLinkPreviewTitle.react"), {
-                    isBotPluginLink: !1,
-                    isCompose: !1,
-                    isStatus: !1,
-                    title: u,
-                    titleDir: y,
-                    titleDirMismatch: !1,
-                  }),
-                }),
-                c.jsx(o("WAWebFlex.react").FlexItem, {
-                  children: c.jsx(r("WAWebMediaLinkPreviewDescription.react"), {
-                    isCompose: !1,
-                    isComposeHQPreview: !1,
-                    isFullPreview: !1,
-                    isHighQualityLayout: !1,
-                    isStatus: !1,
-                    useTextLimit: !1,
-                    children: h(),
-                  }),
-                }),
-              ],
+          })),
+          (n[11] = a),
+          (n[12] = T))
+        : (T = n[12]);
+      var D;
+      n[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = [
+            p.text,
+            o("WDSMargins.stylex").wdsMargins.marginVer0,
+            r("WAWebL10N").isRTL() && p.textRTL,
+            m.marginInline10,
+            p.fixedTextHeight,
+            m.paddingInlineEnd10,
+            m.paddingBlock6,
+          ]),
+          (n[13] = D))
+        : (D = n[13]);
+      var x;
+      n[14] !== g
+        ? ((x = c.jsx(o("WAWebFlex.react").FlexItem, {
+            children: c.jsx(r("WAWebMediaLinkPreviewTitle.react"), {
+              isBotPluginLink: !1,
+              isCompose: !1,
+              isStatus: !1,
+              title: g,
+              titleDir: E,
+              titleDirMismatch: !1,
             }),
-          ],
-        }),
-      });
+          })),
+          (n[14] = g),
+          (n[15] = x))
+        : (x = n[15]);
+      var $;
+      n[16] !== b ? (($ = b()), (n[16] = b), (n[17] = $)) : ($ = n[17]);
+      var P;
+      n[18] !== $
+        ? ((P = c.jsx(o("WAWebFlex.react").FlexItem, {
+            children: c.jsx(r("WAWebMediaLinkPreviewDescription.react"), {
+              isCompose: !1,
+              isComposeHQPreview: !1,
+              isFullPreview: !1,
+              isHighQualityLayout: !1,
+              isStatus: !1,
+              useTextLimit: !1,
+              children: $,
+            }),
+          })),
+          (n[18] = $),
+          (n[19] = P))
+        : (P = n[19]);
+      var N;
+      n[20] !== x || n[21] !== P
+        ? ((N = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            align: "start",
+            grow: 1,
+            justify: "center",
+            xstyle: D,
+            children: [x, P],
+          })),
+          (n[20] = x),
+          (n[21] = P),
+          (n[22] = N))
+        : (N = n[22]);
+      var M;
+      n[23] !== N || n[24] !== T
+        ? ((M = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: m.paddingInlineEnd14,
+            align: "start",
+            children: [T, N],
+          })),
+          (n[23] = N),
+          (n[24] = T),
+          (n[25] = M))
+        : (M = n[25]);
+      var w;
+      return (
+        n[26] !== u || n[27] !== M
+          ? ((w = c.jsx(r("WAWebMessageDeeperContainer.react"), {
+              xstyle: p.deepContainer,
+              outgoingMsg: u,
+              children: M,
+            })),
+            (n[26] = u),
+            (n[27] = M),
+            (n[28] = w))
+          : (w = n[28]),
+        w
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       return g.apply(this, arguments);
     }

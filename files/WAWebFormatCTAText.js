@@ -95,26 +95,35 @@ __d(
         u = e.recipients,
         c = e.shareableHistoryInfo,
         d = e.subtype,
-        _ = e.templateParams;
-      if (
-        o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
+        _ = e.templateParams,
+        f = o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
           d,
           u,
           n,
-        ) != null
-      )
-        return null;
+        );
+      if (f != null)
+        return o(
+          "WAWebGroupAgentAddedRowProfile",
+        ).canOfferHistoryOnAddedAgentRow(f)
+          ? p({
+              chat: n,
+              latestJoinTimeByRecipient: i,
+              msgT: l,
+              recipients: u,
+              shareableHistoryInfo: c,
+            })
+          : null;
       if (
         o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(d)
       ) {
-        var f = p({
+        var g = p({
           chat: n,
           latestJoinTimeByRecipient: i,
           msgT: l,
           recipients: u,
           shareableHistoryInfo: c,
         });
-        if (f != null) return f;
+        if (g != null) return g;
       }
       switch (d) {
         case "growth_unlocked":

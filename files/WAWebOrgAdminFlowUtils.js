@@ -172,19 +172,6 @@ __d(
         }).length
       );
     }
-    function L(e) {
-      return Array.from(
-        new Set(
-          e.flatMap(function (e) {
-            return e.memberTag == null || e.memberTag === ""
-              ? []
-              : [e.memberTag];
-          }),
-        ),
-      ).sort(function (e, t) {
-        return e.localeCompare(t);
-      });
-    }
     ((l.EMPTY_PRIVATE_DIRECTORY = c),
       (l.getHomeLoadErrorMessage = d),
       (l.getOrganizationStatusMessage = m),
@@ -196,8 +183,7 @@ __d(
       (l.canStartRosterAppend = b),
       (l.getRosterUploadStatus = v),
       (l.withRosterMemberCount = S),
-      (l.getManagedMemberCount = R),
-      (l.getRosterMemberTags = L));
+      (l.getManagedMemberCount = R));
   },
   226,
 );

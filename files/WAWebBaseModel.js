@@ -10,6 +10,7 @@ __d(
     "WAWebUiIdleEventBus",
     "cr:18506",
     "err",
+    "gkx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,7 +42,7 @@ __d(
           var a = r.__defaults,
             i = a ? babelHelpers.extends({}, a, e) : e;
           return (
-            i && !_(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
+            i && !g(i) && r.set(i, babelHelpers.extends({ silent: !0 }, n)),
             r.initialize(),
             (r.__initialized = !0),
             r
@@ -146,7 +147,7 @@ __d(
               ? this._set({ keyOrAttrs: t, maybeOptions: i, valueOrOptions: r })
               : ((i = r),
                 (e = i) != null && e.merge
-                  ? this._set({ keyOrAttrs: f(t), valueOrOptions: i })
+                  ? this._set({ keyOrAttrs: h(t), valueOrOptions: i })
                   : this._set({ keyOrAttrs: t, valueOrOptions: i }));
           }),
           (i._markChange = function (t, n) {
@@ -166,10 +167,11 @@ __d(
                 typeof o == "string" ? [((e = {}), (e[o] = i), e), a] : [o, i],
               u = s[0],
               c = s[1],
-              d = new Set();
+              d = new Set(),
+              m = _();
             if (
               (Object.keys(u).forEach(function (e) {
-                var t = n._setKV(e, u[e], c);
+                var t = n._setKV(e, u[e], c, m);
                 t == null ||
                   t.forEach(function (e) {
                     d.add(e);
@@ -178,18 +180,18 @@ __d(
               d.size > 0)
             )
               for (
-                var m = r("nullthrows")(
+                var p = r("nullthrows")(
                     this._topo,
                     "_topo unexpectedly undefined",
                   ),
-                  p = r("nullthrows")(this._topoIndexMap),
-                  _ = function (t) {
-                    var e = m[t];
+                  f = r("nullthrows")(this._topoIndexMap),
+                  g = function (t) {
+                    var e = p[t];
                     if (!d.has(e)) return 1;
                     var o = n._setD(e);
                     o == null ||
                       o.forEach(function (e) {
-                        var n = r("nullthrows")(p.get(e));
+                        var n = r("nullthrows")(f.get(e));
                         if (n < t)
                           throw r("err")(
                             "Circular derived properties / event listeners",
@@ -197,32 +199,32 @@ __d(
                         d.add(e);
                       });
                   },
-                  f = 0;
-                f < m.length;
-                f++
+                  h = 0;
+                h < p.length;
+                h++
               )
-                _(f);
-            var g = c == null ? void 0 : c.silent;
-            if (g !== !0 && this.hasUnfiredChanges()) {
+                g(h);
+            var y = c == null ? void 0 : c.silent;
+            if (y !== !0 && this.hasUnfiredChanges()) {
               for (
-                var h = (this.__fired = {}),
-                  y = this._getChanges(),
-                  C = y.length > 0;
-                y.length;
+                var C = (this.__fired = {}),
+                  b = this._getChanges(),
+                  v = b.length > 0;
+                b.length;
               ) {
-                var b = y.shift(),
-                  v = b.key,
-                  S = b.oldValue;
-                if (!h[v]) {
-                  h[v] = !0;
-                  var R = this._definition[v].evt;
-                  if (this.isListening(R) || this.isListening("all")) {
-                    var L = this[v];
-                    this.trigger(R, this, L, S);
+                var S = b.shift(),
+                  R = S.key,
+                  L = S.oldValue;
+                if (!C[R]) {
+                  C[R] = !0;
+                  var E = this._definition[R].evt;
+                  if (this.isListening(E) || this.isListening("all")) {
+                    var k = this[R];
+                    this.trigger(E, this, k, L);
                   }
                 }
               }
-              ((C && this.isListening("change")) || this.isListening("all")) &&
+              ((v && this.isListening("change")) || this.isListening("all")) &&
                 this.trigger("change", this);
             }
             return (
@@ -232,28 +234,28 @@ __d(
               this
             );
           }),
-          (i._setKV = function (t, n, a) {
+          (i._setKV = function (t, n, a, i) {
             var e;
             if (this._collections[t]) {
               this[t].set(n, a);
               return;
             }
-            var i = this._definition[t];
-            if (i) {
-              if (i.attr === o("WAWebModelUtils").Attr.DERIVED)
+            var l = this._definition[t];
+            if (l) {
+              if (l.attr === o("WAWebModelUtils").Attr.DERIVED)
                 throw r("err")(
                   "Attempting to directly set derived property: " + t,
                 );
             } else {
-              this[t] = n;
+              f(this, t, n, i);
               return;
             }
-            var l = i.sk,
-              s = this[t];
-            if (n !== s)
+            var s = l.sk,
+              u = this[t];
+            if (n !== u)
               return (
-                (this[l] = n),
-                this._markChange(t, s),
+                f(this, s, n, i),
+                this._markChange(t, u),
                 (e = this._deps) == null ? void 0 : e[t]
               );
           }),
@@ -361,11 +363,24 @@ __d(
       }
       return n;
     }
-    function _(e) {
+    function _() {
+      return r("gkx")("29076");
+    }
+    function f(e, t, n, r) {
+      r && !(t in e)
+        ? Object.defineProperty(e, t, {
+            value: n,
+            writable: !0,
+            enumerable: !0,
+            configurable: !0,
+          })
+        : (e[t] = n);
+    }
+    function g(e) {
       for (var t in e) if (Object.hasOwn(e, t)) return !1;
       return !0;
     }
-    function f(e) {
+    function h(e) {
       for (var t = Object.keys(e), n = t.length, r = {}, o = 0; o < n; o++) {
         var a = t[o];
         e[a] !== void 0 && (r[a] = e[a]);

@@ -20,10 +20,12 @@ __d(
     "WAWebGalaxyFlowsSessionsCache",
     "WAWebGalaxyFlowsShowToastAction",
     "WAWebGalaxyFlowsWamEventParser",
+    "WAWebGetMaybeChatById",
     "WAWebInteractiveMessageSync",
     "WAWebModalManager",
     "WAWebMsgType",
     "WAWebQplFlowWrapper",
+    "WAWebShowGenericErrorToastAction",
     "WAWebWamCodegenWamEvent",
     "asyncToGeneratorRuntime",
     "qpl",
@@ -35,20 +37,23 @@ __d(
       u,
       c,
       d,
-      m = d || (d = o("react")),
-      p = r("qpl")._(200750681, "3410"),
-      _ = r("qpl")._(200743350, "3411"),
-      f = r("qpl")._(200739086, "3412");
-    function g(e) {
+      m,
+      p,
+      _,
+      f = _ || (_ = o("react")),
+      g = r("qpl")._(200750681, "3410"),
+      h = r("qpl")._(200743350, "3411"),
+      y = r("qpl")._(200739086, "3412");
+    function C(e) {
       return e === 200750681
-        ? p
+        ? g
         : e === 200743350
-          ? _
+          ? h
           : e === 200739086
-            ? f
+            ? y
             : null;
     }
-    function h(e) {
+    function b(e) {
       return {
         public_key: o(
           "WAWebGalaxyFlowsDrawerUtils",
@@ -57,37 +62,49 @@ __d(
         errorMessage: "",
       };
     }
-    function y(t) {
-      var a = t.chat,
+    function v(t) {
+      var a = t.chatId,
         i = t.flowInitData,
         l = t.galaxyFlowData,
-        d = t.getFileDownloadRef,
-        p = t.msg,
-        _ = t.onCancel,
-        f = t.phoneNumber,
-        y = t.responseViewer;
+        _ = t.getFileDownloadRef,
+        g = t.msg,
+        h = t.onCancel,
+        y = t.phoneNumber,
+        v = t.responseViewer;
       return function (t) {
-        var C = t.eventName,
-          b = t.payload;
-        return new (c || (c = n("Promise")))(
+        var S = t.eventName,
+          R = t.payload;
+        return new (p || (p = n("Promise")))(
           (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                switch (C) {
+                switch (S) {
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
-                    .WAFlowsGetFlowData:
+                    .WAFlowsGetFlowData: {
+                    var n = o("WAWebGetMaybeChatById").getMaybeChatById(a);
+                    if (n == null) {
+                      (o("WALogger").WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[galaxy-flows] flow data skipped, chat left the collection",
+                          ])),
+                      ),
+                        t(null));
+                      break;
+                    }
                     t(
                       o("WAWebGalaxyFlowsDrawerUtils").getFlowInitDataPayload({
-                        chat: a,
+                        chat: n,
                         flowInitData: i,
                         messageData: l,
-                        responseViewer: y,
+                        responseViewer: v,
                       }),
                     );
                     break;
+                  }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsGetPublicKey:
-                    t(h(l.flowFetchedMetadata));
+                    t(b(l.flowFetchedMetadata));
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsLearnMore:
@@ -100,20 +117,20 @@ __d(
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsGetClientAbProps: {
-                    var n = b;
+                    var p = R;
                     o("WAWebGalaxyFlowsABPropsUtils")
-                      .getActualABPropData(n)
+                      .getActualABPropData(p)
                       .then(function (e) {
                         t(e);
                       })
-                      .catch(function (n) {
+                      .catch(function (e) {
                         (o("WALogger").ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
                               "[Galaxy Flows] Failed to get ABProp data: ",
                               "",
                             ])),
-                          n,
+                          e,
                         ),
                           t(
                             o(
@@ -125,45 +142,45 @@ __d(
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsNavigate: {
-                    var c = b;
-                    if (c != null && typeof c == "object") {
-                      var v = c.disable_cta,
-                        S = c.extension_screen_length,
-                        R = c.is_restored,
-                        L = c.is_success,
-                        E = c.is_terminal_error,
-                        k = c.is_terminal_success,
-                        I = c.layout_type,
-                        T = c.screen_progress,
-                        D = c.sequence_number;
+                    var L = R;
+                    if (L != null && typeof L == "object") {
+                      var E = L.disable_cta,
+                        k = L.extension_screen_length,
+                        I = L.is_restored,
+                        T = L.is_success,
+                        D = L.is_terminal_error,
+                        x = L.is_terminal_success,
+                        $ = L.layout_type,
+                        P = L.screen_progress,
+                        N = L.sequence_number;
                       if (
-                        ((l.screenLength = S),
-                        (l.isRestoredFromCache = R),
-                        (l.layoutType = I),
-                        (l.screenProgress = T),
-                        (l.sequenceNumber = D),
-                        (l.isTerminalError = E === !0),
-                        (l.isTerminalSuccess = k === !0),
-                        (l.isSuccess = L === !0),
-                        v === !0)
+                        ((l.screenLength = k),
+                        (l.isRestoredFromCache = I),
+                        (l.layoutType = $),
+                        (l.screenProgress = P),
+                        (l.sequenceNumber = N),
+                        (l.isTerminalError = D === !0),
+                        (l.isTerminalSuccess = x === !0),
+                        (l.isSuccess = T === !0),
+                        E === !0)
                       ) {
-                        var x;
+                        var M;
                         o(
                           "WAWebGalaxyDisableCTACollection",
                         ).GalaxyDisableCTACollection.addMessageId(
-                          p.id.toString(),
+                          g.id.toString(),
                         );
-                        var $ =
-                          p.type ===
+                        var w =
+                          g.type ===
                           o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
-                            ? (x = p.unsafe().ctwaContext) == null
+                            ? (M = g.unsafe().ctwaContext) == null
                               ? void 0
-                              : x.sourceId
+                              : M.sourceId
                             : void 0;
                         r("WAWebInteractiveMessageSync").sendDisableCTAMutation(
-                          p.id,
+                          g.id,
                           l.flowId,
-                          $,
+                          w,
                         );
                       }
                     }
@@ -171,19 +188,34 @@ __d(
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsClose:
-                    _();
+                    h();
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
-                    .WAFlowsComplete:
-                    (_(),
+                    .WAFlowsComplete: {
+                    var A = o("WAWebGetMaybeChatById").getMaybeChatById(a);
+                    if (A == null) {
+                      (o("WALogger").WARN(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "[galaxy-flows] complete skipped for flow ",
+                            ", chat left the collection",
+                          ])),
+                        l.flowId,
+                      ),
+                        r("WAWebShowGenericErrorToastAction")(),
+                        t(null));
+                      break;
+                    }
+                    (h(),
                       o("WAWebGalaxyFlowsCompleteAction").onFlowsCompleteAction(
-                        { chat: a, messageData: l, msg: p, payload: b },
+                        { chat: A, messageData: l, msg: g, payload: R },
                       ));
                     break;
+                  }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsOpenURL: {
-                    typeof (b == null ? void 0 : b.url) == "string" &&
-                      o("WAWebExternalLink.react").openExternalLink(b.url);
+                    typeof (R == null ? void 0 : R.url) == "string" &&
+                      o("WAWebExternalLink.react").openExternalLink(R.url);
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
@@ -198,55 +230,66 @@ __d(
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsSpamReport:
-                    o("WAWebGalaxyFlowsNavBarUtils.react").reportGalaxyFlow(p);
+                    o("WAWebGalaxyFlowsNavBarUtils.react").reportGalaxyFlow(g);
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsMediaSelect: {
                     o("WAWebModalManager").ModalManager.open(
-                      m.jsx(r("WAWebGalaxyFlowMediaPicker.react"), {
-                        mediaPayload: b,
+                      f.jsx(r("WAWebGalaxyFlowMediaPicker.react"), {
+                        mediaPayload: R,
                       }),
                     );
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsDownloadResponse: {
-                    var P;
+                    var F,
+                      O = o("WAWebGetMaybeChatById").getMaybeChatById(a);
+                    if (O == null) {
+                      (o("WALogger").WARN(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[galaxy-flows] download response skipped, chat left the collection",
+                          ])),
+                      ),
+                        t(null));
+                      break;
+                    }
                     o("WAWebModalManager").ModalManager.open(
-                      m.jsx(r("WAWebGalaxyFlowsResponseDownloadFlow.react"), {
+                      f.jsx(r("WAWebGalaxyFlowsResponseDownloadFlow.react"), {
                         bizPlatform: o(
                           "WAWebGalaxyFlowWamLoggerUtils",
-                        ).getFlowsMaybeBizPlatform(a),
-                        businessOwnerJid: f != null ? f : "",
+                        ).getFlowsMaybeBizPlatform(O),
+                        businessOwnerJid: y != null ? y : "",
                         flowId: l.flowId,
                         flowName: l.flowName,
                         flowResponseMessage: l.flowResponseMessage,
                         flowWAMMessageId: l.flowWAMMessageId,
                         flowWAMSessionId:
-                          (P = l.flowWAMSessionId) != null ? P : "",
-                        getFileDownloadRef: d,
-                        phoneNumber: f,
-                        timestamp: p.t,
+                          (F = l.flowWAMSessionId) != null ? F : "",
+                        getFileDownloadRef: _,
+                        phoneNumber: y,
+                        timestamp: g.t,
                       }),
                     );
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsDataExchangeDuringNavigation: {
-                    var N = p.id.id.toString();
+                    var B = g.id.id.toString();
                     if (
-                      b != null &&
-                      typeof b == "object" &&
-                      b.screen != null &&
-                      b.data != null &&
-                      typeof b.data == "object"
+                      R != null &&
+                      typeof R == "object" &&
+                      R.screen != null &&
+                      R.data != null &&
+                      typeof R.data == "object"
                     ) {
-                      var M = b.data;
+                      var W = R.data;
                       o("WAWebGalaxyFlowsSessionsCache").addDataToLatestSession(
                         {
-                          data: M,
-                          messageId: N,
-                          screenName: String(b.screen),
+                          data: W,
+                          messageId: B,
+                          screenName: String(R.screen),
                           sessionId: l.flowQPLMessageId,
                         },
                       );
@@ -259,119 +302,119 @@ __d(
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsMediaDelete: {
-                    b != null &&
-                    typeof b == "object" &&
-                    typeof b.collectionId == "string" &&
-                    typeof b.mediaId == "string"
+                    R != null &&
+                    typeof R == "object" &&
+                    typeof R.collectionId == "string" &&
+                    typeof R.mediaId == "string"
                       ? o(
                           "WAWebGalaxyFlowMediaEditorCollection",
                         ).GalaxyFlowMediaEditorCollection.deleteMsg(
-                          b.collectionId,
-                          b.mediaId,
+                          R.collectionId,
+                          R.mediaId,
                         )
                       : o("WALogger").WARN(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "[WhatsAppBridge]: Invalid payload for WAFlowsMediaDelete: ",
                               "",
                             ])),
-                          JSON.stringify(b),
+                          JSON.stringify(R),
                         );
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAFlowsShowToast:
                     o("WAWebGalaxyFlowsShowToastAction").onFlowShowToastAction(
-                      b,
+                      R,
                     );
                     break;
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAMLogger: {
-                    var w = o(
+                    var q = o(
                       "WAWebGalaxyFlowsWamEventParser",
-                    ).parseRawWamEvent(b);
-                    (w != null &&
+                    ).parseRawWamEvent(R);
+                    (q != null &&
                       new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
-                        w,
+                        q,
                       ).commit(),
                       t(null));
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAQPLLoggerAnnotate: {
-                    var A = b;
-                    if (A != null && typeof A == "object") {
-                      var F = A.boolAnnotations,
-                        O = A.event,
-                        B = A.instanceKey,
-                        W = A.intAnnotations,
-                        q = A.stringAnnotations,
-                        U = {
+                    var U = R;
+                    if (U != null && typeof U == "object") {
+                      var V = U.boolAnnotations,
+                        H = U.event,
+                        G = U.instanceKey,
+                        z = U.intAnnotations,
+                        j = U.stringAnnotations,
+                        K = {
                           string:
-                            q != null && typeof q == "object"
+                            j != null && typeof j == "object"
                               ? o(
                                   "WAWebGalaxyFlowQPLLoggerUtils",
-                                ).qplBuildAnnotations(q).string
+                                ).qplBuildAnnotations(j).string
                               : null,
                           bool:
-                            F != null && typeof F == "object"
+                            V != null && typeof V == "object"
                               ? o(
                                   "WAWebGalaxyFlowQPLLoggerUtils",
-                                ).qplBuildAnnotations(F).bool
+                                ).qplBuildAnnotations(V).bool
                               : null,
                           int:
-                            W != null && typeof W == "object"
+                            z != null && typeof z == "object"
                               ? o(
                                   "WAWebGalaxyFlowQPLLoggerUtils",
-                                ).qplBuildAnnotations(W).int
+                                ).qplBuildAnnotations(z).int
                               : null,
                         },
-                        V = g(O);
-                      V != null &&
-                        o("WAWebQplFlowWrapper").QPL.markerAnnotate(V, U, {
-                          instanceKey: B,
+                        Q = C(H);
+                      Q != null &&
+                        o("WAWebQplFlowWrapper").QPL.markerAnnotate(Q, K, {
+                          instanceKey: G,
                         });
                     }
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAQPLLoggerStart: {
-                    var H = b;
-                    if (H != null && typeof H == "object") {
-                      var G = H.event,
-                        z = H.instanceKey,
-                        j = g(G);
-                      j != null &&
-                        o("WAWebQplFlowWrapper").QPL.markerStart(j, {
-                          instanceKey: z,
+                    var X = R;
+                    if (X != null && typeof X == "object") {
+                      var Y = X.event,
+                        J = X.instanceKey,
+                        Z = C(Y);
+                      Z != null &&
+                        o("WAWebQplFlowWrapper").QPL.markerStart(Z, {
+                          instanceKey: J,
                         });
                     }
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAQPLLoggerEnd: {
-                    var K = b;
-                    if (K != null && typeof K == "object") {
-                      var Q = K.action,
-                        X = K.event,
-                        Y = K.instanceKey,
-                        J = g(X);
-                      J != null &&
-                        o("WAWebQplFlowWrapper").QPL.markerEnd(J, Q, {
-                          instanceKey: Y,
+                    var ee = R;
+                    if (ee != null && typeof ee == "object") {
+                      var te = ee.action,
+                        ne = ee.event,
+                        re = ee.instanceKey,
+                        oe = C(ne);
+                      oe != null &&
+                        o("WAWebQplFlowWrapper").QPL.markerEnd(oe, te, {
+                          instanceKey: re,
                         });
                     }
                     break;
                   }
                   case o("WAFlowsBridgeEvents").WAFlowsWebBridgeEventNames
                     .WAQPLLoggerPoint: {
-                    var Z = b;
-                    if (Z != null && typeof Z == "object") {
-                      var ee = Z.event,
-                        te = Z.name,
-                        ne = g(ee);
-                      ne != null &&
-                        o("WAWebQplFlowWrapper").QPL.markerPoint(ne, te);
+                    var ae = R;
+                    if (ae != null && typeof ae == "object") {
+                      var ie = ae.event,
+                        le = ae.name,
+                        se = C(ie);
+                      se != null &&
+                        o("WAWebQplFlowWrapper").QPL.markerPoint(se, le);
                     }
                     break;
                   }
@@ -382,12 +425,12 @@ __d(
                   }
                   default:
                     (o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "[WhatsAppBridge]: Unsupported event: ",
                           "",
                         ])),
-                      C,
+                      S,
                     ),
                       t(null));
                     break;
@@ -401,7 +444,7 @@ __d(
         );
       };
     }
-    l.getInvokeHandler = y;
+    l.getInvokeHandler = v;
   },
   98,
 );

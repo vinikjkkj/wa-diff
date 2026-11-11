@@ -9,9 +9,7 @@ __d(
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupMetadataCollection",
     "WAWebGroupStoreService",
-    "WAWebLidMigrationUtils",
     "WAWebWidFactory",
-    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -63,9 +61,11 @@ __d(
             )(t);
             if (a == null || a.size === 0) return;
             for (var i of n.getModelsArray()) {
-              var l = o("WAWebLidMigrationUtils").toUserLid(i.id);
+              var l = o(
+                "WAWebGroupHistoryParticipantJob",
+              ).toGroupHistoryParticipantKey(i.id);
               if (l != null) {
-                var s = a.get(o("WAWebWidToJid").userLidtoLidUserJid(l));
+                var s = a.get(l);
                 s != null && f(i, s);
               }
             }

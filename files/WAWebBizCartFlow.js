@@ -107,13 +107,13 @@ __d(
             : (x = t[11]);
           var $;
           (t[12] !== h ||
-          t[13] !== i ||
+          t[13] !== i.id ||
           t[14] !== L ||
           t[15] !== k ||
           t[16] !== l ||
           t[17] !== x
             ? (($ = u.jsx(g, {
-                chat: i,
+                chatId: i.id,
                 sellerJid: l,
                 onProductDetail: k,
                 onProductCatalog: L,
@@ -121,7 +121,7 @@ __d(
                 canLogQpl: h,
               })),
               (t[12] = h),
-              (t[13] = i),
+              (t[13] = i.id),
               (t[14] = L),
               (t[15] = k),
               (t[16] = l),

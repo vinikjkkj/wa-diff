@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebChannelVideoDashPrefetchODS",
+    "WAWebGetChannelVideoDashManifestUrl",
     "WAWebVideoDashManifestCache",
     "WAWebVideoDashManifestErrors",
     "getErrorSafe",
@@ -10,41 +11,44 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = 200,
-      u = "https://mmg.whatsapp.net",
-      c = "/channel/dash",
-      d = new Map(),
-      m = new Set(),
-      p = 0,
-      _ = 0,
-      f = 0;
-    function g(e) {
-      if ((m.delete(e), !C(e))) {
+      u = new Map(),
+      c = new Set(),
+      d = 0,
+      m = 0,
+      p = 0;
+    function _(e) {
+      if (
+        (c.delete(e),
+        !o(
+          "WAWebGetChannelVideoDashManifestUrl",
+        ).isServerMintedChannelDashManifestUrl(e))
+      ) {
         o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchSkip("URL_SHAPE");
         return;
       }
-      var t = d.get(e);
+      var t = u.get(e);
       if (o("WAWebVideoDashManifestCache").peekVideoDashManifest(e) != null) {
-        (t == null && R(e, "OK"),
+        (t == null && b(e, "OK"),
           o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchSkip(
             t == null ? "CACHED" : "SEEN_CACHED",
           ));
         return;
       }
       if (t === "IN_FLIGHT" || t === "FAILED") {
-        o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchSkip(b(t));
+        o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchSkip(h(t));
         return;
       }
       (t == null
-        ? R(e, "IN_FLIGHT")
-        : (d.delete(e),
-          d.set(e, "IN_FLIGHT"),
+        ? b(e, "IN_FLIGHT")
+        : (u.delete(e),
+          u.set(e, "IN_FLIGHT"),
           o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchResult(
             "REFETCHED",
           )),
-        _++,
+        m++,
         o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchResult("REQUESTED"),
-        o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchInFlightAtStart(_));
-      var n = f;
+        o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchInFlightAtStart(m));
+      var n = p;
       o("WAWebVideoDashManifestCache")
         .loadVideoDashManifest({
           timeoutMs: o("WAWebVideoDashManifestCache").MANIFEST_FETCH_TIMEOUT_MS,
@@ -52,39 +56,25 @@ __d(
         })
         .then(
           function (t) {
-            return S(e, t.kind, n);
+            return C(e, t.kind, n);
           },
           function (t) {
-            (v(t), S(e, "FAILED", n));
+            (y(t), C(e, "FAILED", n));
           },
         );
     }
-    function h(e) {
+    function f(e) {
       (o("WAWebVideoDashManifestCache").invalidateVideoDashManifest(e),
-        d.get(e) === "IN_FLIGHT" && m.add(e));
+        u.get(e) === "IN_FLIGHT" && c.add(e));
     }
-    function y() {
-      (d.clear(),
-        m.clear(),
-        (p = 0),
-        f++,
+    function g() {
+      (u.clear(),
+        c.clear(),
+        (d = 0),
+        p++,
         o("WAWebVideoDashManifestCache").clearVideoDashManifestCache());
     }
-    function C(e) {
-      var t;
-      try {
-        t = new URL(e);
-      } catch (e) {
-        return !1;
-      }
-      return (
-        t.origin === u &&
-        t.pathname === c &&
-        t.username === "" &&
-        t.password === ""
-      );
-    }
-    function b(e) {
+    function h(e) {
       return e === "IN_FLIGHT"
         ? "SEEN_IN_FLIGHT"
         : e === "FAILED"
@@ -96,7 +86,7 @@ __d(
               );
             })();
     }
-    function v(t) {
+    function y(t) {
       t instanceof o("WAWebVideoDashManifestErrors").DashManifestError ||
         o("WALogger")
           .ERROR(
@@ -108,26 +98,26 @@ __d(
           .catching(r("getErrorSafe")(t))
           .sendLogs("video-dash-manifest-prefetch-unexpected");
     }
-    function S(e, t, n) {
-      (_--,
-        n === f &&
-          m.delete(e) &&
+    function C(e, t, n) {
+      (m--,
+        n === p &&
+          c.delete(e) &&
           o("WAWebVideoDashManifestCache").invalidateVideoDashManifest(e),
-        n === f && d.has(e) && d.set(e, t),
+        n === p && u.has(e) && u.set(e, t),
         o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchResult(t));
     }
-    function R(e, t) {
-      if (d.size >= s) {
-        var n = d.keys().next().value;
-        n != null && d.delete(n);
+    function b(e, t) {
+      if (u.size >= s) {
+        var n = u.keys().next().value;
+        n != null && u.delete(n);
       }
-      (d.set(e, t),
-        p++,
-        o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchSessionReached(p));
+      (u.set(e, t),
+        d++,
+        o("WAWebChannelVideoDashPrefetchODS").bumpPrefetchSessionReached(d));
     }
-    ((l.prefetchChannelVideoDashManifest = g),
-      (l.dropChannelVideoDashManifest = h),
-      (l.clearChannelVideoDashManifests = y));
+    ((l.prefetchChannelVideoDashManifest = _),
+      (l.dropChannelVideoDashManifest = f),
+      (l.clearChannelVideoDashManifests = g));
   },
   98,
 );

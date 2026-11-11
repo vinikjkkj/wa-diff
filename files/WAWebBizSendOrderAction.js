@@ -163,29 +163,29 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i,
-              l =
-                o("WAWebPaymentsGatingUtils").isReceiptAndStateP2mEligibleChat(
-                  e,
-                ) &&
-                (yield L(e)) &&
-                o(
-                  "WAWebPaymentsGatingUtils",
-                ).isPixCodeReceiptAndStateP2mEnabled(),
+              l,
               s =
-                o(
+                (i = o(
                   "WAWebPaymentsGatingUtils",
-                ).isPixCodeReceiptAndStateAssignedOnSend(e) || l,
-              u = o("WAWebOrderCollection").OrderCollection.addOrder(),
-              c = {
+                ).getPixCodeReceiptAndStateBubbleVersionOnSend(e)) != null
+                  ? i
+                  : yield L(
+                      e,
+                      o("WAWebPaymentsGatingUtils")
+                        .isPixCodeReceiptAndStateP2mEnabled,
+                    ),
+              u = o("WAWebPaymentsGatingUtils").isTreatmentBubbleVersion(s),
+              c = o("WAWebOrderCollection").OrderCollection.addOrder(),
+              d = {
                 reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
                 type: "physical-goods",
                 payment_configuration: "merchant_categorization_code",
                 payment_settings: [
-                  ((i = {
+                  ((l = {
                     type: o("WAWebBizOrderDetailsParams").PaymentSettingType
                       .PIX_STATIC_CODE,
                   }),
-                  (i[
+                  (l[
                     o(
                       "WAWebBizOrderDetailsParams",
                     ).PaymentSettingType.PIX_STATIC_CODE
@@ -194,30 +194,26 @@ __d(
                     key: t.key,
                     key_type: t.key_type,
                   }),
-                  i),
+                  l),
                 ],
                 currency: "BRL",
                 total_amount: { value: n, offset: a },
-                order_request_id: u.id,
-                br_receipt_and_state_enabled: s ? !0 : void 0,
-                br_receipt_and_state_bubble_version: s
-                  ? o(
-                      "WAWebPaymentsGatingUtils",
-                    ).getReceiptAndStateBubbleVersionOnSend()
-                  : void 0,
+                order_request_id: c.id,
+                br_receipt_and_state_enabled: u ? !0 : void 0,
+                br_receipt_and_state_bubble_version: s != null ? s : void 0,
               };
             (yield m({
               caption: null,
               chat: e,
               nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
                 .ORDER_DETAILS,
-              buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(c),
+              buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(d),
               errorMessage: "Pix payment request send to chat failure",
               thumbnail: "",
               buttonName: "review_and_pay",
               nfmInteractiveMsg: !0,
             }),
-              s && R(!0));
+              u && R(!0));
           },
         )),
         f.apply(this, arguments)
@@ -284,48 +280,49 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
+          var n, a;
           t === void 0 && (t = null);
-          var a = o("WAWebOrderCollection").OrderCollection.addOrder(),
-            i = o("WAWebUserPrefsCustomPaymentMethods").getPIX();
-          if (!i) throw r("err")("pix key not found");
-          var l =
-              o("WAWebPaymentsGatingUtils").isReceiptAndStateP2mEligibleChat(
-                e,
-              ) &&
-              (yield L(e)) &&
-              o("WAWebPaymentsGatingUtils").isPixKeyReceiptAndStateP2mEnabled(),
-            s =
-              o(
+          var i = o("WAWebOrderCollection").OrderCollection.addOrder(),
+            l = o("WAWebUserPrefsCustomPaymentMethods").getPIX();
+          if (!l) throw r("err")("pix key not found");
+          var s =
+              (n = o(
                 "WAWebPaymentsGatingUtils",
-              ).isPixKeyReceiptAndStateAssignedOnSend(e) || l,
-            u = babelHelpers.extends(
+              ).getPixKeyReceiptAndStateBubbleVersionOnSend(e)) != null
+                ? n
+                : yield L(
+                    e,
+                    o("WAWebPaymentsGatingUtils")
+                      .isPixKeyReceiptAndStateP2mEnabled,
+                  ),
+            u = o("WAWebPaymentsGatingUtils").isTreatmentBubbleVersion(s),
+            c = babelHelpers.extends(
               {
                 reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
                 type: "physical-goods",
                 payment_configuration: "merchant_categorization_code",
                 payment_settings: [
-                  ((n = {
+                  ((a = {
                     type: o("WAWebBizOrderDetailsParams").PaymentSettingType
                       .PIX_STATIC_CODE,
                   }),
-                  (n[
+                  (a[
                     o(
                       "WAWebBizOrderDetailsParams",
                     ).PaymentSettingType.PIX_STATIC_CODE
                   ] = {
-                    merchant_name: i.display_name,
-                    key: i.key,
-                    key_type: i.key_type,
+                    merchant_name: l.display_name,
+                    key: l.key,
+                    key_type: l.key_type,
                   }),
-                  n),
+                  a),
                 ],
-                currency: a.currency,
+                currency: i.currency,
                 total_amount: {
                   value: 0,
                   offset: o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET,
                 },
-                order_request_id: a.id,
+                order_request_id: i.id,
                 order: {
                   status: o("WAWebOrderStatus").getDefaultOrderStatus(),
                   items: [
@@ -357,12 +354,8 @@ __d(
               },
               t != null && { referral: t },
               {
-                br_receipt_and_state_enabled: s ? !0 : void 0,
-                br_receipt_and_state_bubble_version: s
-                  ? o(
-                      "WAWebPaymentsGatingUtils",
-                    ).getReceiptAndStateBubbleVersionOnSend()
-                  : void 0,
+                br_receipt_and_state_enabled: u ? !0 : void 0,
+                br_receipt_and_state_bubble_version: s != null ? s : void 0,
               },
             );
           (yield m({
@@ -370,13 +363,13 @@ __d(
             chat: e,
             nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
               .PAYMENT_INFO,
-            buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(u),
+            buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(c),
             errorMessage: "Pix Order message send to chat failure",
             thumbnail: "",
             buttonName: "payment_info",
             nfmInteractiveMsg: !0,
           }),
-            s && R(!1));
+            u && R(!1));
         })),
         v.apply(this, arguments)
       );
@@ -405,12 +398,29 @@ __d(
             .sendLogs("br-payment-request-created-logging-failed");
         });
     }
-    function L(e) {
+    function L(e, t) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return !o(
+            "WAWebPaymentsGatingUtils",
+          ).isReceiptAndStateP2mEligibleChat(e) || !(yield k(e))
+            ? null
+            : o(
+                "WAWebPaymentsGatingUtils",
+              ).getReceiptAndStateBubbleVersionOnSend(t());
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.contact.isContactSyncCompleted === 1)
             return !e.contact.isBusiness;
           try {
@@ -436,15 +446,15 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.discount,
@@ -558,15 +568,15 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function D() {
+    function $() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.offset,
             a = e.orderInfo,
@@ -579,7 +589,7 @@ __d(
             _ = a.referenceId,
             f = p[0].id,
             g = d(c, f),
-            h = x({
+            h = P({
               offset: n,
               orderInfo: a,
               orderStatus: l,
@@ -604,10 +614,10 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        D.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function x(e) {
+    function P(e) {
       var t = e.offset,
         n = e.orderInfo,
         r = e.orderStatus,
@@ -647,12 +657,12 @@ __d(
         u
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function P() {
+    function M() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.offset,
@@ -665,7 +675,7 @@ __d(
             _ = i.referenceId,
             f = (t = i.items.at(0)) == null ? void 0 : t.id,
             g = d(p, f),
-            h = x({
+            h = P({
               offset: a,
               orderInfo: i,
               orderStatus: s,
@@ -690,15 +700,15 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        P.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function M() {
+    function A() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.offset,
@@ -710,7 +720,7 @@ __d(
             p = i.referenceId,
             _ = (t = i.items.at(0)) == null ? void 0 : t.id,
             f = d(c, _),
-            g = x({
+            g = P({
               offset: a,
               orderInfo: i,
               orderStatus: l,
@@ -735,17 +745,17 @@ __d(
             nfmInteractiveMsg: !1,
           });
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
     ((l.sendPixPaymentRequestMessage = _),
       (l.sendUprPaymentRequestMessage = g),
       (l.sendPixQuickReplyMessageAndDismissTryItPixKeyPromoBanner = y),
       (l.sendPixKeyPaymentInfoMessage = b),
-      (l.sendOrderDetailsMessageAsMerchant = k),
-      (l.sendOrderStatusMessageAsMerchant = T),
-      (l.sendOrderPaymentStatusMessageAsMerchant = $),
-      (l.sendOrderPaymentMethodUpdate = N));
+      (l.sendOrderDetailsMessageAsMerchant = T),
+      (l.sendOrderStatusMessageAsMerchant = x),
+      (l.sendOrderPaymentStatusMessageAsMerchant = N),
+      (l.sendOrderPaymentMethodUpdate = w));
   },
   98,
 );

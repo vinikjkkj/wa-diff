@@ -11,7 +11,7 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(8),
+      var t = o("react-compiler-runtime").c(9),
         n = e.children,
         a = e.dimensions,
         i = e.maxNumberOfLines,
@@ -22,61 +22,80 @@ __d(
       if (d == null || d.length < 1) {
         var m;
         return (
-          t[0] !== n || t[1] !== i
-            ? ((m = s.jsx(c, { children: n, maxNumberOfLines: i })),
+          t[0] !== n || t[1] !== a.textSizePx || t[2] !== i
+            ? ((m = s.jsx(c, {
+                children: n,
+                maxNumberOfLines: i,
+                textSizePx: a.textSizePx,
+              })),
               (t[0] = n),
-              (t[1] = i),
-              (t[2] = m))
-            : (m = t[2]),
+              (t[1] = a.textSizePx),
+              (t[2] = i),
+              (t[3] = m))
+            : (m = t[3]),
           m
         );
       }
       var p;
       return (
-        t[3] !== n || t[4] !== a || t[5] !== i || t[6] !== d
+        t[4] !== n || t[5] !== a || t[6] !== i || t[7] !== d
           ? ((p = s.jsx(r("WebBloksRichTextTruncationCustom"), {
               dimensions: a,
               maxNumberOfLines: i,
               truncationSpans: d,
               children: n,
             })),
-            (t[3] = n),
-            (t[4] = a),
-            (t[5] = i),
-            (t[6] = d),
-            (t[7] = p))
-          : (p = t[7]),
+            (t[4] = n),
+            (t[5] = a),
+            (t[6] = i),
+            (t[7] = d),
+            (t[8] = p))
+          : (p = t[8]),
         p
       );
     }
     function c(e) {
-      var t = o("react-compiler-runtime").c(5),
+      var t = o("react-compiler-runtime").c(10),
         n = e.children,
         r = e.maxNumberOfLines,
-        a;
+        a = e.textSizePx,
+        i;
       t[0] !== r
-        ? ((a = o("WebBloksTextStyle").getLineClampStyle(r, !1)),
+        ? ((i = o("WebBloksTextStyle").getLineClampStyle(r, !1)),
           (t[0] = r),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
+          (t[1] = i))
+        : (i = t[1]);
+      var l;
+      t[2] !== a
+        ? ((l = o("WebBloksTextStyle").getClampedTextHeadroomStyle(a)),
+          (t[2] = a),
+          (t[3] = l))
+        : (l = t[3]);
+      var u;
+      t[4] !== i || t[5] !== l
+        ? ((u = babelHelpers.extends({}, i, l)),
+          (t[4] = i),
+          (t[5] = l),
+          (t[6] = u))
+        : (u = t[6]);
+      var c = u,
+        m;
       return (
-        t[2] !== n || t[3] !== i
-          ? ((l = s.jsx("div", {
+        t[7] !== n || t[8] !== c
+          ? ((m = s.jsx("div", {
               className: d.container,
-              style: i,
+              style: c,
               children: n,
             })),
-            (t[2] = n),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
+            (t[7] = n),
+            (t[8] = c),
+            (t[9] = m))
+          : (m = t[9]),
+        m
       );
     }
     var d = o("WebBloksStyle").createStyles({
-      container: { overflow: "hidden" },
+      container: { boxSizing: "content-box", overflow: "hidden" },
     });
     l.default = u;
   },

@@ -2,6 +2,7 @@ __d(
   "WAWebChatContextMenu",
   [
     "fbt",
+    "WALogger",
     "WAWebChatAssignmentUtils",
     "WAWebChatCellDebugMenuItems.react",
     "WAWebChatContextMenuItemAddContact.react",
@@ -16,6 +17,7 @@ __d(
     "WAWebChatContextMenuItemPin.react",
     "WAWebCmd",
     "WAWebDropdownItemSeparator.react",
+    "WAWebGetMaybeChatById",
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebMetaAiChatActionLogger",
@@ -33,15 +35,19 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u = e || (e = o("react"));
-    function c(e) {
+      u,
+      c,
+      d,
+      m,
+      p = m || (m = o("react"));
+    function _(e) {
       var t,
         n = o("react-compiler-runtime").c(3),
         a = (t = e.testid) != null ? t : "remove_favorite_icon",
         i;
       return (
         n[0] !== e || n[1] !== a
-          ? ((i = u.jsx(
+          ? ((i = p.jsx(
               r("WDSIconIcUnfavourite.react"),
               babelHelpers.extends({}, e, { testid: a }),
             )),
@@ -52,84 +58,89 @@ __d(
         i
       );
     }
-    function d(e) {
-      var t = e.assignChat,
-        a = e.cellRef,
-        i = e.chat,
-        l = e.chatListIndex,
-        d = e.multiSelection,
-        m = e.onStartMultiSelect,
-        p = e.searchQuery,
-        _ = e.selectableState,
-        f = o("WAWebMetaAiChatActionLogger").getMetaAiChatListRow(p, l),
-        g = [
-          u.jsx(
+    function f(t) {
+      var a = t.active,
+        i = t.assignChat,
+        l = t.cellRef,
+        m = t.chatId,
+        f = t.chatListIndex,
+        g = t.groupMetadata,
+        h = t.isCAG,
+        y = t.isFavorite,
+        C = t.kind,
+        b = t.multiSelection,
+        v = t.onStartMultiSelect,
+        S = t.searchQuery,
+        R = t.selectableState,
+        L = o("WAWebMetaAiChatActionLogger").getMetaAiChatListRow(S, f),
+        E = [
+          p.jsx(
             r("WAWebChatContextMenuItemAddContact.react"),
-            { chatId: i.id },
+            { chatId: m },
             "AddContact",
           ),
-          u.jsx(
+          p.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chatId: i.id, metaAiChatListRow: f },
+            { chatId: m, metaAiChatListRow: L },
             "Archive",
           ),
-          u.jsx(
-            r("WAWebChatContextMenuItemLock.react"),
-            { chatId: i.id },
-            "Lock",
-          ),
-          u.jsx(
-            r("WAWebChatContextMenuItemMute.react"),
-            { chatId: i.id },
-            "Mute",
-          ),
-          u.jsx(
+          p.jsx(r("WAWebChatContextMenuItemLock.react"), { chatId: m }, "Lock"),
+          p.jsx(r("WAWebChatContextMenuItemMute.react"), { chatId: m }, "Mute"),
+          p.jsx(
             r("WAWebChatContextMenuItemPin.react"),
-            { chatId: i.id, cellRef: a, metaAiChatListRow: f },
+            { chatId: m, cellRef: l, metaAiChatListRow: L },
             "Pin",
           ),
         ];
       if (
         (o("WAWebChatAssignmentUtils").canAssignChats() &&
-          g.push(
-            u.jsx(r("WDSMenuItem.react"), {
+          E.push(
+            p.jsx(r("WDSMenuItem.react"), {
               Icon: r("WDSIconWdsIcTransferOwnership.react"),
               title: s._(/*BTDS*/ "Assign chat"),
-              onPress: t,
+              onPress: i,
               testid: "mi-assign-chat",
             }),
           ),
-        g.push(
-          u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), {
-            chatId: i.id,
-          }),
+        E.push(
+          p.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), { chatId: m }),
         ),
         o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
       ) {
-        var h, y;
-        (i.isFavorite
-          ? ((y = o(
+        var k, I;
+        (y
+          ? ((I = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Remove from favourites")
               : s._(/*BTDS*/ "Remove from Favorites")),
-            (h = c))
-          : ((y = o(
+            (k = _))
+          : ((I = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Add to favourites")
               : s._(/*BTDS*/ "Add to Favorites")),
-            (h = r("WDSIconIcFavorite.react"))),
-          g.push(
-            u.jsx(
+            (k = r("WDSIconIcFavorite.react"))),
+          E.push(
+            p.jsx(
               r("WDSMenuItem.react"),
               {
-                Icon: h,
-                title: y,
+                Icon: k,
+                title: I,
                 onPress: function () {
-                  return o("WAWebCmd").Cmd.favoriteChat(
-                    i,
-                    !i.isFavorite,
+                  var t = o("WAWebGetMaybeChatById").getMaybeChatById(m);
+                  if (t == null) {
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[chat-context-menu] favorite skipped, chat left the collection",
+                        ])),
+                    );
+                    return;
+                  }
+                  o("WAWebCmd").Cmd.favoriteChat(
+                    t,
+                    !t.isFavorite,
                     o("WAWebWamEnumFavoritesUpdateEntryPoint")
                       .FAVORITES_UPDATE_ENTRY_POINT.CHAT_HEADER_CONTEXT_MENU,
                   );
@@ -140,17 +151,27 @@ __d(
             ),
           ));
       }
-      i.active &&
+      a &&
         (n("cr:23046") == null
           ? void 0
           : n("cr:23046").isWindowsHybridEnabled()) === !0 &&
-        g.push(
-          u.jsx(
+        E.push(
+          p.jsx(
             r("WDSMenuItem.react"),
             {
               title: s._(/*BTDS*/ "Close chat"),
               onPress: function () {
-                return o("WAWebCmd").Cmd.closeChat(i);
+                var e = o("WAWebGetMaybeChatById").getMaybeChatById(m);
+                if (e == null) {
+                  o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[chat-context-menu] close chat skipped, chat left the collection",
+                      ])),
+                  );
+                  return;
+                }
+                o("WAWebCmd").Cmd.closeChat(e);
               },
               testid: "mi-close-chat",
               Icon: r("WDSIconIcCancel.react"),
@@ -158,37 +179,57 @@ __d(
             "close-chat",
           ),
         );
-      var C = function () {
+      var T = function () {
+        var e = o("WAWebGetMaybeChatById").getMaybeChatById(m);
+        if (e == null) {
+          o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[chat-context-menu] label chat skipped, chat left the collection",
+              ])),
+          );
+          return;
+        }
         o("WAWebChatContextMenuItemEditLabel.react").handleLabelMenuItemClick({
-          chat: i,
-          multiSelection: d,
-          onStartMultiSelect: m,
-          searchQuery: p,
-          selectableState: _,
+          chat: e,
+          multiSelection: b,
+          onStartMultiSelect: v,
+          searchQuery: S,
+          selectableState: R,
         });
       };
-      (g.push(
-        u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-          chat: i,
+      (E.push(
+        p.jsx(r("WAWebChatContextMenuItemEditList.react"), {
+          chatId: m,
           displayContext: "chat-list",
-          onSMBLabelMenuItemClick: C,
+          onSMBLabelMenuItemClick: T,
         }),
       ),
-        g.push(u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
-        i.id.isBot() ||
-          g.push(
-            u.jsx(r("WAWebChatContextMenuItemBlock.react"), { chatId: i.id }),
+        E.push(p.jsx(r("WAWebDropdownItemSeparator.react"), {})),
+        m.isBot() ||
+          E.push(
+            p.jsx(r("WAWebChatContextMenuItemBlock.react"), { chatId: m }),
           ));
-      var b = s._(/*BTDS*/ "Clear chat");
+      var D = s._(/*BTDS*/ "Clear chat");
       return (
-        g.push(
-          u.jsx(
+        E.push(
+          p.jsx(
             r("WDSMenuItem.react"),
             {
               Icon: r("WDSIconIcDoNotDisturbOn.react"),
-              title: b,
+              title: D,
               onPress: function () {
-                return o("WAWebCmd").Cmd.clearChat(i, void 0, f);
+                var e = o("WAWebGetMaybeChatById").getMaybeChatById(m);
+                if (e == null) {
+                  o("WALogger").WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[chat-context-menu] clear chat skipped, chat left the collection",
+                      ])),
+                  );
+                  return;
+                }
+                o("WAWebCmd").Cmd.clearChat(e, void 0, L);
               },
               testid: "mi-clear",
               destructive: !0,
@@ -196,23 +237,28 @@ __d(
             "clear",
           ),
         ),
-        g.push(
-          u.jsx(
+        E.push(
+          p.jsx(
             r("WAWebChatContextMenuItemDelete.react"),
-            { chat: i, metaAiChatListRow: f },
+            { chatId: m, metaAiChatListRow: L },
             "Delete",
           ),
         ),
-        g.push.apply(
-          g,
-          o("WAWebChatCellDebugMenuItems.react").getWAWebChatCellDebugMenuItems(
-            i,
-          ),
+        E.push.apply(
+          E,
+          o(
+            "WAWebChatCellDebugMenuItems.react",
+          ).getWAWebChatCellDebugMenuItemsFor({
+            chatId: m,
+            groupMetadata: g,
+            isCAG: h,
+            kind: C,
+          }),
         ),
-        g
+        E
       );
     }
-    l.getChatContextMenuItems = d;
+    l.getChatContextMenuItems = f;
   },
   226,
 );

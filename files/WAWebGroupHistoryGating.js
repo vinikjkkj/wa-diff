@@ -71,25 +71,30 @@ __d(
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_once_default_on",
+        "ai_hatch_group_history_share_enabled",
       );
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_send_default_on",
+        "group_history_send_once_default_on",
       );
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_sender_speed_bump_dialog_display_times",
+        "group_history_send_default_on",
       );
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_history_per_group_toggle_md_sync",
+        "group_history_sender_speed_bump_dialog_display_times",
       );
     }
     function C() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_per_group_toggle_md_sync",
+      );
+    }
+    function b() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistorySenderEnabled = e),
@@ -99,11 +104,12 @@ __d(
       (l.isGroupHistoryPostJoinSenderEnabled = d),
       (l.getGroupHistoryMessagesTimeLimitSecs = m),
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = _),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = f),
-      (l.isGroupHistorySendDefaultOnEnabled = g),
-      (l.getGroupHistorySpeedBumpDialogDisplayTimes = h),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = y),
-      (l.shouldSkipUnsupportedMessagesFromBundle = C));
+      (l.isMuseGroupHistoryShareEnabled = f),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = g),
+      (l.isGroupHistorySendDefaultOnEnabled = h),
+      (l.getGroupHistorySpeedBumpDialogDisplayTimes = y),
+      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = C),
+      (l.shouldSkipUnsupportedMessagesFromBundle = b));
   },
   98,
 );

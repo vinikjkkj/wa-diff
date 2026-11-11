@@ -55,7 +55,7 @@ __d(
         !o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)
       )
         return null;
-      var n = C(t);
+      var n = b(t);
       if (n == null) return null;
       var r = n.media,
         a = r.height,
@@ -65,10 +65,10 @@ __d(
       return l == null || l === ""
         ? null
         : n.kind === "image"
-          ? { kind: "image", mimetype: R(i, "image", u), url: l }
+          ? { kind: "image", mimetype: L(i, "image", u), url: l }
           : s == null || s === 0 || a == null || a === 0
             ? null
-            : { kind: "video", mimetype: R(i, "video", c), url: l };
+            : { kind: "video", mimetype: L(i, "video", c), url: l };
     }
     function f(e) {
       var t;
@@ -78,45 +78,48 @@ __d(
         ? t
         : "";
     }
-    function g(t) {
-      var n = Array.from(f(t));
+    function g(e) {
+      return h(f(e));
+    }
+    function h(t) {
+      var n = Array.from(t);
       return n.length <= e ? n.join("") : n.slice(0, e).join("") + s;
     }
-    function h(e) {
+    function y(e) {
       return m(e) && _(e) != null;
     }
-    function y(e) {
+    function C(e) {
       if (!m(e)) return null;
       var t = _(e);
       if (t == null) return null;
       var n = g(e);
       return n === "" ? null : { caption: n, kind: t.kind };
     }
-    function C(e) {
+    function b(e) {
       for (var t of e.sections)
         for (var n of o("WAWebUnifiedResponseUtils").getPrimitives(
           t.view_model,
         )) {
-          var r = b(n);
+          var r = v(n);
           if (r != null) return r;
         }
       return null;
     }
-    function b(e) {
+    function v(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.__typename === "GenAIImagePrimitive"
         ) {
           var t = e;
-          return v(t.full_image);
+          return S(t.full_image);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.__typename === "GenAIImaginePrimitive"
         ) {
           var n = e;
-          return L(n)
+          return E(n)
             ? {
                 kind: o("WAWebUnifiedResponseUtils").isAnimateImagineType(
                   n.imagine_type,
@@ -130,27 +133,28 @@ __d(
         return null;
       })(e);
     }
-    function v(e) {
-      return e != null && S(e) ? { kind: "image", media: e } : null;
-    }
     function S(e) {
+      return e != null && R(e) ? { kind: "image", media: e } : null;
+    }
+    function R(e) {
       return (e == null ? void 0 : e.url) != null && e.url !== "";
     }
-    function R(e, t, n) {
+    function L(e, t, n) {
       return e != null && e.startsWith(t + "/") ? e : n;
     }
-    function L(e) {
+    function E(e) {
       var t,
         n = (t = e.status) == null ? void 0 : t.status;
-      return (n == null || String(n) === d) && S(e.media);
+      return (n == null || String(n) === d) && R(e.media);
     }
     ((l.isMuseGroupAgentRichResponse = m),
       (l.canForwardMuseGroupRichResponse = p),
       (l.getMuseGroupForwardMedia = _),
       (l.getMuseGroupForwardText = f),
       (l.getMuseGroupForwardCaption = g),
-      (l.hasMuseGroupForwardMedia = h),
-      (l.getMuseGroupForwardCaptionPreview = y));
+      (l.truncateForwardMediaCaption = h),
+      (l.hasMuseGroupForwardMedia = y),
+      (l.getMuseGroupForwardCaptionPreview = C));
   },
   98,
 );

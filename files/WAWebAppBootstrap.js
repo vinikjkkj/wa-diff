@@ -24,6 +24,7 @@ __d(
     "WAWebFrontendL10nHelpers",
     "WAWebGlobals",
     "WAWebHandlePreviousLogout",
+    "WAWebHatchChatListActivityText",
     "WAWebImagineActionMediaInputLogging",
     "WAWebInfraErrorLogger",
     "WAWebInvocationInterface",
@@ -235,6 +236,9 @@ __d(
             o(
               "WAWebPrefetchHatchDetailsOnLogin",
             ).initHatchDetailsPrefetchOnLogin(),
+            o(
+              "WAWebHatchChatListActivityText",
+            ).registerHatchChatListActivityText(),
             o(
               "WAWebBrLastUsedPaymentMethodCache",
             ).initLastUsedBrPaymentMethodCacheLifecycle(),

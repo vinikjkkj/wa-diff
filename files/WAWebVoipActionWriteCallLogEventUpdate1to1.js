@@ -53,11 +53,14 @@ __d(
               });
             yield o(
               "WAWebVoipActionWriteCallLogImpl",
-            ).updateVoipCallLogOutcomeImpl({
-              callOutcome: s(i),
-              chatId: u,
-              msgKey: p,
-            });
+            ).updateVoipCallLogOutcomeImpl(
+              babelHelpers.extends(
+                { callOutcome: s(i), chatId: u, msgKey: p },
+                i === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere
+                  ? { screenedElsewhere: !1 }
+                  : null,
+              ),
+            );
           } catch (t) {
             o("WALogger")
               .ERROR(

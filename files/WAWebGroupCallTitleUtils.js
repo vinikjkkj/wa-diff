@@ -4,13 +4,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = e == null ? void 0 : e.groupMetadata;
-      if (!(t == null || !o("WAWebGroupMetadataGetters").getIsUnnamed(t)))
+      return s(e == null ? void 0 : e.groupMetadata);
+    }
+    function s(e) {
+      if (!(e == null || !o("WAWebGroupMetadataGetters").getIsUnnamed(e)))
         return o(
           "WAWebParticipantListUtils",
-        ).calculateUnnamedGroupParticipantsList(t);
+        ).calculateUnnamedGroupParticipantsList(e);
     }
-    l.getUnnamedGroupCallNameOverride = e;
+    ((l.getUnnamedGroupCallNameOverride = e),
+      (l.getUnnamedGroupCallNameOverrideFor = s));
   },
   98,
 );

@@ -2,10 +2,12 @@ __d(
   "WAWebHatchFrontendGating",
   [
     "WAWebABProps",
+    "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchMinPrimaryVersions",
+    "WAWebHatchUrl",
     "WAWebMuseDefaultAssistantVariant",
     "WAWebMuseDefaultAssistantVariantSource",
     "WAWebPrimaryFeaturesModel",
@@ -238,14 +240,23 @@ __d(
           "WAWebMuseDefaultAssistantVariantSource",
         ).readMuseDefaultAssistantVariantSource(),
       );
-      return e !==
-        o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
-          .MuseAfterLinking &&
+      if (
+        e !==
+          o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+            .MuseAfterLinking &&
+        e !==
+          o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+            .MuseAlways
+      )
+        return !1;
+      var t = r("WAWebHatchLinkedStatusManager").isLinked();
+      return !t &&
         e !==
           o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
             .MuseAlways
         ? !1
-        : r("WAWebHatchLinkedStatusManager").isLinked() &&
+        : o("WAWebBotGating").isBotShortcutEntryPointEnabled() &&
+            (t || o("WAWebHatchUrl").getHatchJoinUrl() != null) &&
             o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled");
     }
     function A(e) {

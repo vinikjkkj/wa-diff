@@ -41,7 +41,7 @@ __d(
             o == null &&
               (o = (s || (s = n("Promise"))).all(
                 e.map(function (e) {
-                  return f(e, r);
+                  return g(e, r);
                 }),
               )),
             o
@@ -50,15 +50,18 @@ __d(
       };
     }
     function p(e) {
-      return _.apply(this, arguments);
+      return e.sources();
     }
-    function _() {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.chat,
             r = t.media;
           try {
-            return yield h(yield r.sources(), n);
+            return yield y(yield r.sources(), n);
           } catch (t) {
             var a = t instanceof d ? t : new d("upload_failed");
             throw (
@@ -76,15 +79,15 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = e.descriptor,
             a = e.ref,
@@ -104,28 +107,28 @@ __d(
             throw new d("source_hash");
           return { buffer: l, fileSha256: u, ref: a };
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.length === 0) return [];
-          var n = yield v(e[0], yield C(e[0], t));
-          return [n].concat(yield h(e.slice(1), t));
+          var n = yield S(e[0], yield b(e[0], t));
+          return [n].concat(yield y(e.slice(1), t));
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.buffer,
             a = e.ref,
             i = new AbortController(),
@@ -156,15 +159,15 @@ __d(
             self.clearTimeout(l);
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.fileSha256,
             r = e.ref;
           if (
@@ -191,12 +194,13 @@ __d(
             previewMedia: a,
           };
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
     ((l.HatchJarvisForwardError = d),
       (l.createHatchJarvisForwardMedia = m),
-      (l.prepareHatchJarvisForwardSend = p));
+      (l.downloadHatchJarvisForwardMedia = p),
+      (l.prepareHatchJarvisForwardSend = _));
   },
   98,
 );

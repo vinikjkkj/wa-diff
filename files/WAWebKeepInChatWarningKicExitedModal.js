@@ -11,6 +11,7 @@ __d(
     "WAWebWamEnumKicErrorCodeType",
     "react",
     "react-compiler-runtime",
+    "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -71,35 +72,73 @@ __d(
       );
     }
     function m(e) {
-      var t = e.action,
-        n = e.message,
-        r = e.onClose;
-      c(function () {
-        var e =
-            t === "keep"
-              ? o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL
-              : o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL,
-          r = o("WAWebEphemeralKeepInChatWamUtils").getBaseErrorLog(n, e);
-        (r.set({
-          kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
-            .MESSAGE_FROM_EX_MEMBER,
-        }),
-          r.commit());
-      }, []);
-      var a = null;
-      return (
-        t === "keep"
-          ? (a = s._(
+      var t = o("react-compiler-runtime").c(11),
+        n = e.action,
+        a = e.message,
+        i = e.onClose,
+        l;
+      t[0] !== n || t[1] !== a
+        ? ((l = function () {
+            var e =
+                n === "keep"
+                  ? o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL
+                  : o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL,
+              t = o("WAWebEphemeralKeepInChatWamUtils").getBaseErrorLog(a, e);
+            (t.set({
+              kicErrorCode: o("WAWebWamEnumKicErrorCodeType")
+                .KIC_ERROR_CODE_TYPE.MESSAGE_FROM_EX_MEMBER,
+            }),
+              t.commit());
+          }),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = l))
+        : (l = t[2]);
+      var m = r("useWAWebStableCallback")(l),
+        p,
+        _;
+      (t[3] !== m
+        ? ((p = function () {
+            m();
+          }),
+          (_ = [m]),
+          (t[3] = m),
+          (t[4] = p),
+          (t[5] = _))
+        : ((p = t[4]), (_ = t[5])),
+        c(p, _));
+      var f;
+      if (n === "keep") {
+        var g;
+        (t[6] === Symbol.for("react.memo_cache_sentinel")
+          ? ((g = s._(
               /*BTDS*/ "This message can't be kept because the message author left the chat.",
-            ))
-          : (a = s._(
+            )),
+            (t[6] = g))
+          : (g = t[6]),
+          (f = g));
+      } else {
+        var h;
+        (t[7] === Symbol.for("react.memo_cache_sentinel")
+          ? ((h = s._(
               /*BTDS*/ "This message can't be unkept because the message author left the chat.",
             )),
-        u.jsx(d, { content: a, onClose: r })
+            (t[7] = h))
+          : (h = t[7]),
+          (f = h));
+      }
+      var y;
+      return (
+        t[8] !== f || t[9] !== i
+          ? ((y = u.jsx(d, { content: f, onClose: i })),
+            (t[8] = f),
+            (t[9] = i),
+            (t[10] = y))
+          : (y = t[10]),
+        y
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"),
-      (l.WarningKICSenderExitedModal = m));
+    l.WarningKICSenderExitedModal = m;
   },
   226,
 );

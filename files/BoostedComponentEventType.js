@@ -316,6 +316,11 @@ __d(
       SELECT_MESSENGER_OPTION: "select_messenger_option",
       SELECT_WHATSAPP_OPTION: "select_whatsapp_option",
       SET_DEFAULT_MESSAGING_DESTINATION: "set_default_messaging_destination",
+      PTWA_DESTINATION_SECTION_IMPRESSION:
+        "ptwa_destination_section_impression",
+      PTWA_WHATSAPP_DESTINATION_DESELECTED:
+        "ptwa_whatsapp_destination_deselected",
+      PTWA_WHATSAPP_DESTINATION_SELECTED: "ptwa_whatsapp_destination_selected",
       SWITCH_BACK_FROM_CATALOG_CREATIVE: "switch_back_from_catalog_creative",
       SWITCH_TO_CATALOG_CREATIVE: "switch_to_catalog_creative",
       CREATE_AND_SELECT_NEW_PRODUCT_SET: "create_and_select_new_product_set",
@@ -1835,6 +1840,14 @@ __d(
         "hawk_ai_open_in_erg_segment_review_click",
       LWI_PERFORMANCE_CALL_INSIGHTS_CTA_CLICK:
         "lwi_performance_call_insights_cta_click",
+      LWI_CALL_TRANSCRIPT_TOGGLE_CLICK: "lwi_call_transcript_toggle_click",
+      LWI_CALL_TRANSCRIPT_ENABLE_DIALOG_IMPRESSION:
+        "lwi_call_transcript_enable_dialog_impression",
+      LWI_CALL_TRANSCRIPT_ENABLE_DIALOG_CONFIRM:
+        "lwi_call_transcript_enable_dialog_confirm",
+      LWI_CALL_TRANSCRIPT_ENABLE_DIALOG_CANCEL:
+        "lwi_call_transcript_enable_dialog_cancel",
+      LWI_CALL_TRANSCRIPT_ENABLE_FAILURE: "lwi_call_transcript_enable_failure",
       LOG_IG_PLACEMENT_INFO: "log_ig_placement_info",
       LOCAL_ADS_SECTION_IMPRESSION: "local_ads_section_impression",
       LOCAL_ADS_TOGGLE_INTERACTION: "local_ads_toggle_interaction",
@@ -1853,6 +1866,8 @@ __d(
         "ig_placement_recoverable_by_ad_account_amd_ig_media_boost",
       IG_PLACEMENT_RECOVERED_BY_AD_ACCOUNT_AMD:
         "ig_placement_recovered_by_ad_account_amd",
+      IG_PLACEMENT_RECOVERABLE_BY_AD_ACCOUNT_API:
+        "ig_placement_recoverable_by_ad_account_api",
       FB_PLACEMENT_AUTO_DESELECTED: "fb_placement_auto_deselected",
       FB_PLACEMENT_AUTO_RESELECTED: "fb_placement_auto_reselected",
       IG_ONLY_FB_PLACEMENT_IMPRESSION: "ig_only_fb_placement_impression",
@@ -1897,6 +1912,15 @@ __d(
       MAIBA_AUDIENCE_SUBMIT_OUTCOME: "maiba_audience_submit_outcome",
       MAIBA_AUDIENCE_SUBMIT_OUTCOME_SUCCESS:
         "maiba_audience_submit_outcome_success",
+      MAIBA_COPILOT_ENTRY_POINT_IMPRESSION:
+        "maiba_copilot_entry_point_impression",
+      MAIBA_COPILOT_ENTRY_POINT_CLICK: "maiba_copilot_entry_point_click",
+      MAIBA_COPILOT_ENTRY_POINT_MENU_CLICK:
+        "maiba_copilot_entry_point_menu_click",
+      MAIBA_COPILOT_APPLY_CLICKED: "maiba_copilot_apply_clicked",
+      MAIBA_COPILOT_APPLY_OUTCOME: "maiba_copilot_apply_outcome",
+      MAIBA_COPILOT_UNDO_CLICKED: "maiba_copilot_undo_clicked",
+      MAIBA_COPILOT_SUBMIT_OUTCOME: "maiba_copilot_submit_outcome",
       PROACTIVE_RESULTS_DELIVERY_SCHEDULED:
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:

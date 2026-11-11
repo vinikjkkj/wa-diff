@@ -113,8 +113,7 @@ __d(
         var t,
           n,
           r,
-          o,
-          a = {
+          o = {
             id: e.id,
             isAutoRenewing: e.status === "ACTIVE",
             isDeactivated: !p.includes(e.status),
@@ -130,26 +129,26 @@ __d(
             tier: (t = e.tier) != null ? t : null,
             status: (n = e.status) != null ? n : null,
             source: (r = e.source) != null ? r : null,
-            isPlatformChanged: (o = e.isPlatformChanged) != null ? o : null,
+            isPlatformChanged: null,
             startTime:
               e.startTime != null ? parseInt(String(e.startTime), 10) : null,
           };
         return (
           e.status === "CANCELED" &&
-            (a.expirationDate || 0) > Date.now() / 1e3 &&
-            (a.isDeactivated = !1),
-          a
+            (o.expirationDate || 0) > Date.now() / 1e3 &&
+            (o.isDeactivated = !1),
+          o
         );
       });
     }
     function b(e) {
       return e.map(function (e) {
-        var t, n;
+        var t;
         return {
           id: e.name,
           enabled: e.enabled,
-          expirationTime: (t = e.expirationTime) != null ? t : null,
-          limit: (n = e.limit) != null ? n : null,
+          expirationTime: null,
+          limit: (t = e.limit) != null ? t : null,
         };
       });
     }

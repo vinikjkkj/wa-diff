@@ -1,8 +1,10 @@
 __d(
   "WAWebGroupHistorySendGroupMsgJobUtils",
   [
+    "JSResourceForInteraction",
     "WAWebApiContact",
     "WAWebDBDeviceListFanout",
+    "WAWebLazyLoadedRetriable",
     "WAWebMaybe",
     "WAWebSendGroupMsgJob",
     "WAWebUserPrefsMeUser",
@@ -11,12 +13,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
-      return s.apply(this, arguments);
+    var e = r("WAWebLazyLoadedRetriable")(
+      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        return r("JSResourceForInteraction")("WAWebGroupHistoryAgentBundle")
+          .__setRef("WAWebGroupHistorySendGroupMsgJobUtils")
+          .load();
+      }),
+      "WAWebGroupHistoryAgentBundle",
+    );
+    function s(e, t, n) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = t.skDistribList,
             a = t.skList,
             i = new Set(
@@ -45,10 +55,11 @@ __d(
             deviceList: [].concat(d),
           };
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.getGroupSendListForGroupHistoryBundle = e;
+    ((l.loadAgentHistoryBundle = e),
+      (l.getGroupSendListForGroupHistoryBundle = s));
   },
   98,
 );

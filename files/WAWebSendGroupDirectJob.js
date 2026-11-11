@@ -18,16 +18,17 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.additionalBotBody,
-            r = t.additionalBotShouldHaveIdentity,
-            a = t.deviceList,
-            i = t.groupData,
-            l = t.metricReporter,
-            d = t.msgProtobuf,
-            m = t.msgRecord,
-            p = t.scheduledMsgMetadata,
-            _ = t.sessionScope,
-            f = m.data.to;
+          var n = t.ackParticipant,
+            r = t.additionalBotBody,
+            a = t.additionalBotShouldHaveIdentity,
+            i = t.deviceList,
+            l = t.groupData,
+            d = t.metricReporter,
+            m = t.msgProtobuf,
+            p = t.msgRecord,
+            _ = t.scheduledMsgMetadata,
+            f = t.sessionScope,
+            g = p.data.to;
           o("WALogger")
             .LOG(
               e ||
@@ -36,34 +37,35 @@ __d(
                   " with group ",
                   "",
                 ])),
-              m.data.id,
-              f.toLogString(),
+              p.data.id,
+              g.toLogString(),
             )
             .tags("messaging");
-          var g = a.filter(function (e) {
+          var h = i.filter(function (e) {
               return !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e);
             }),
-            h = yield o(
+            y = yield o(
               "WAWebSendDirectMsgToDeviceList",
             ).sendDirectMsgToDeviceList({
-              additionalBotBody: n,
-              additionalBotShouldHaveIdentity: r,
-              deviceList: g,
-              groupData: i,
-              metricReporter: l,
-              msgProtobuf: d,
-              msgRecord: m,
+              ackParticipant: n,
+              additionalBotBody: r,
+              additionalBotShouldHaveIdentity: a,
+              deviceList: h,
+              groupData: l,
+              metricReporter: d,
+              msgProtobuf: m,
+              msgRecord: p,
               option: {
                 fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
-                sessionScope: _,
+                sessionScope: f,
               },
-              scheduledMsgMetadata: p,
+              scheduledMsgMetadata: _,
             }),
-            y = h.addressingMode,
-            C = h.phash;
+            C = y.addressingMode,
+            b = y.phash;
           return (
-            C != null &&
-              C !== "" &&
+            b != null &&
+              b !== "" &&
               (o("WALogger")
                 .LOG(
                   s ||
@@ -71,20 +73,20 @@ __d(
                       "[encryptAndSendGroupDirectMsg] phash mismatch, server: ",
                       "",
                     ])),
-                  C,
+                  b,
                 )
                 .tags("messaging"),
               o("WAWebResendGroupMsg")
                 .resendPersistedGroupMsgWrapper({
                   isDirect: !0,
-                  msgRecord: m,
-                  msgProtobuf: d,
-                  oldList: g,
+                  msgRecord: p,
+                  msgProtobuf: m,
+                  oldList: h,
                   ackTime: o("WATimeUtils").unixTime(),
-                  groupData: i,
-                  phash: C,
-                  metricReporter: l,
-                  serverAddressingMode: y,
+                  groupData: l,
+                  phash: b,
+                  metricReporter: d,
+                  serverAddressingMode: C,
                 })
                 .catch(function (e) {
                   (o("WALogger")
@@ -95,8 +97,8 @@ __d(
                           ", type: ",
                           "",
                         ])),
-                      m.data.id.toString(),
-                      m.data.type,
+                      p.data.id.toString(),
+                      p.data.type,
                     )
                     .tags("messaging"),
                     o("WALogger")
@@ -111,7 +113,7 @@ __d(
                       .tags("messaging")
                       .sendLogs("message-resend-failed", { sampling: 0.01 }));
                 })),
-            h
+            y
           );
         })),
         m.apply(this, arguments)

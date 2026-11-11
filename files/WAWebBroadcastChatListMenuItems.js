@@ -1,6 +1,7 @@
 __d(
   "WAWebBroadcastChatListMenuItems",
   [
+    "WALogger",
     "WAWebBizBroadcastsCreationStrings",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebChatCellDebugMenuItems.react",
@@ -13,6 +14,7 @@ __d(
     "WAWebChatContextMenuItemPin.react",
     "WAWebChatEntryPoint",
     "WAWebCmd",
+    "WAWebGetMaybeChatById",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
@@ -24,9 +26,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = e.useEffect;
-    function c(e) {
+      s,
+      u,
+      c = u || (u = o("react")),
+      d = u.useEffect;
+    function m(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.audienceId,
         r,
@@ -43,43 +47,56 @@ __d(
             (t[1] = r),
             (t[2] = a))
           : ((r = t[1]), (a = t[2])),
-        u(r, a),
+        d(r, a),
         null
       );
     }
-    function d(e) {
-      var t = e.cellRef,
-        n = e.chat,
-        a = e.multiSelection,
-        i = e.onStartMultiSelect,
-        l = e.searchQuery,
-        u = e.selectableState,
-        d = o("WAWebWidToJid").widToBroadcastJid(n.id),
-        m = function () {
+    function p(t) {
+      var n = t.cellRef,
+        a = t.chatId,
+        i = t.groupMetadata,
+        l = t.isCAG,
+        u = t.kind,
+        d = t.multiSelection,
+        p = t.onStartMultiSelect,
+        _ = t.searchQuery,
+        f = t.selectableState,
+        g = o("WAWebWidToJid").widToBroadcastJid(a),
+        h = function () {
+          var t = o("WAWebGetMaybeChatById").getMaybeChatById(a);
+          if (t == null) {
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[broadcast-chat-list-menu] audience info skipped, chat left the collection",
+                ])),
+            );
+            return;
+          }
           (o(
             "WAWebBusinessBroadcastUserJourneyLogger",
           ).BusinessBroadcastUserJourneyLogger.audienceInfoButtonClicked(
             o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
             o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
-            d,
+            g,
           ),
             o("WAWebCmd")
               .Cmd.openChatBottom({
-                chat: n,
+                chat: t,
                 chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
                   .Chatlist,
               })
               .then(function () {
-                o("WAWebCmd").Cmd.chatInfoDrawer(n);
+                o("WAWebCmd").Cmd.chatInfoDrawer(t);
               }));
         },
-        p = [
-          s.jsx(c, { audienceId: d }, "logger"),
-          s.jsx(
+        y = [
+          c.jsx(m, { audienceId: g }, "logger"),
+          c.jsx(
             r("WDSMenuItem.react"),
             {
               testid: "mi-broadcast-info",
-              onPress: m,
+              onPress: h,
               Icon: r("WDSIconIcInfo.react"),
               title: o(
                 "WAWebBizBroadcastsCreationStrings",
@@ -87,76 +104,87 @@ __d(
             },
             "info",
           ),
-          s.jsx(
+          c.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chatId: n.id },
+            { chatId: a },
             "Archive",
           ),
-          s.jsx(
-            r("WAWebChatContextMenuItemMute.react"),
-            { chatId: n.id },
-            "Mute",
-          ),
-          s.jsx(
+          c.jsx(r("WAWebChatContextMenuItemMute.react"), { chatId: a }, "Mute"),
+          c.jsx(
             r("WAWebChatContextMenuItemPin.react"),
-            { chatId: n.id, cellRef: t },
+            { chatId: a, cellRef: n },
             "Pin",
           ),
         ],
-        _ = function () {
+        C = function () {
           o(
             "WAWebBusinessBroadcastUserJourneyLogger",
           ).BusinessBroadcastUserJourneyLogger.labelChatClicked(
             o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
             o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
-            d,
+            g,
           );
         },
-        f = function () {
-          (_(),
+        b = function () {
+          var e = o("WAWebGetMaybeChatById").getMaybeChatById(a);
+          if (e == null) {
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[broadcast-chat-list-menu] label chat skipped, chat left the collection",
+                ])),
+            );
+            return;
+          }
+          (C(),
             o(
               "WAWebChatContextMenuItemEditLabel.react",
             ).handleLabelMenuItemClick({
-              chat: n,
-              multiSelection: a,
-              onStartMultiSelect: i,
-              searchQuery: l,
-              selectableState: u,
+              chat: e,
+              multiSelection: d,
+              onStartMultiSelect: p,
+              searchQuery: _,
+              selectableState: f,
             }));
         };
       return (
-        p.push(
-          s.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-            chat: n,
+        y.push(
+          c.jsx(r("WAWebChatContextMenuItemEditList.react"), {
+            chatId: a,
             displayContext: "chat-list",
-            onSMBLabelMenuItemClick: f,
+            onSMBLabelMenuItemClick: b,
           }),
         ),
-        p.push(
-          s.jsx(
+        y.push(
+          c.jsx(
             r("WAWebChatContextMenuItemMarkUnread.react"),
-            { chatId: n.id },
+            { chatId: a },
             "MarkUnread",
           ),
         ),
-        p.push(s.jsx(r("WDSMenuItem.react"), { type: "separator" })),
-        p.push(
-          s.jsx(
+        y.push(c.jsx(r("WDSMenuItem.react"), { type: "separator" })),
+        y.push(
+          c.jsx(
             r("WAWebChatContextMenuItemDelete.react"),
-            { chat: n },
+            { chatId: a },
             "Delete",
           ),
         ),
-        p.push.apply(
-          p,
-          o("WAWebChatCellDebugMenuItems.react").getWAWebChatCellDebugMenuItems(
-            n,
-          ),
+        y.push.apply(
+          y,
+          o(
+            "WAWebChatCellDebugMenuItems.react",
+          ).getWAWebChatCellDebugMenuItemsFor({
+            chatId: a,
+            groupMetadata: i,
+            isCAG: l,
+            kind: u,
+          }),
         ),
-        p
+        y
       );
     }
-    l.getBroadcastChatListMenuItems = d;
+    l.getBroadcastChatListMenuItems = p;
   },
   98,
 );

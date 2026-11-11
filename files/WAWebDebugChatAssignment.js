@@ -142,7 +142,6 @@ __d(
       o("WAWebFeatureFlagCollection").FeatureFlagCollection.add({
         id: o("WAWebFeatureFlagName").FeatureFlagName.CHAT_ASSIGNMENT,
         enabled: !0,
-        expirationTime: null,
         limit: null,
       });
     }

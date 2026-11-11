@@ -49,8 +49,11 @@ __d(
         /*BTDS*/ "Update recipient errors before saving your audience.",
       );
     }
-    function b() {
-      return s._(/*BTDS*/ "Delete all errors");
+    function b(e) {
+      return s._(
+        /*BTDS*/ '_j{"*":"Remove recipients with errors","_1":"Remove recipient with an error"}',
+        [s._plural(e)],
+      );
     }
     function v(e) {
       return s._(
@@ -80,7 +83,7 @@ __d(
       (l.getRecipientsHeader = h),
       (l.getRecipientsNotImportedLabel = y),
       (l.getUpdateRecipientErrorsLabel = C),
-      (l.getDeleteAllErrorsLabel = b),
+      (l.getRemoveRecipientsWithErrorsLabel = b),
       (l.getDeleteAllErrorsSuccessToastLabel = v),
       (l.getDeleteErrorSuccessToastLabel = S),
       (l.getEditErrorSuccessToastLabel = R));

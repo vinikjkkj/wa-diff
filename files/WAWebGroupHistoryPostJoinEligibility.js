@@ -3,10 +3,13 @@ __d(
   [
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebBotUtils",
+    "WAWebFrontendContactGetters",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistoryShareMode",
+    "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebUserPrefsMeUser",
@@ -61,8 +64,8 @@ __d(
             );
           });
     }
-    function m(e, t, n) {
-      return p(t) && h(e, n).eligible;
+    function m(e, t, n, r) {
+      return p(t) && h(e, n, r).eligible;
     }
     function p(e) {
       return _(e);
@@ -89,18 +92,22 @@ __d(
         "WAWebGroupHistoryGating",
       ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e);
     }
-    function h(e, t) {
-      var n;
-      if (o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid(e.id))
+    function h(e, t, n) {
+      var r;
+      if (
+        (n === void 0 &&
+          (n = o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid),
+        n(e.id))
+      )
         return { eligible: !1, reason: "bot" };
-      var r = (n = e.joinTime) != null ? n : t;
-      if (r == null) return { eligible: !1, reason: "no_join_time" };
+      var a = (r = e.joinTime) != null ? r : t;
+      if (a == null) return { eligible: !1, reason: "no_join_time" };
       if (y(e.groupHistorySentState))
         return { eligible: !1, reason: "already_received" };
-      var a = o("WAWebABProps").getABPropConfigValue(
+      var i = o("WAWebABProps").getABPropConfigValue(
         "group_history_new_user_threshold_secs",
       );
-      return o("WATimeUtils").unixTime() - r > a
+      return o("WATimeUtils").unixTime() - a > i
         ? { eligible: !1, reason: "window_expired" }
         : { eligible: !0 };
     }
@@ -113,7 +120,23 @@ __d(
           o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState.NOTICE_SENT
       );
     }
-    function C(e, t, n) {
+    function C(e) {
+      var t,
+        n =
+          (t = r("WAWebGroupMetadataCollection").get(e)) == null
+            ? void 0
+            : t.participants.getModelsArray().find(function (e) {
+                return (
+                  o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e.id) &&
+                  y(e.groupHistorySentState)
+                );
+              });
+      return n == null ||
+        !o("WAWebGroupHistoryGating").isMuseGroupHistoryShareEnabled()
+        ? null
+        : o("WAWebFrontendContactGetters").getFormattedName(n.contact);
+    }
+    function b(e, t, n) {
       if (e == null || !e.startOfHistoryLoaded) return !1;
       var r = e.earliestShareableMsgT,
         a = e.latestShareableMsgT;
@@ -128,14 +151,25 @@ __d(
       }
       return !1;
     }
-    function b(e, t, n, r) {
-      var o;
-      return m(e, t, n) && !C(r, (o = e.joinTime) != null ? o : n, t.groupWid);
+    function v(e, t, n, r, o) {
+      var a;
+      return (
+        m(e, t, n, o) && !b(r, (a = e.joinTime) != null ? a : n, t.groupWid)
+      );
     }
-    function v(e, t, n, r) {
-      return b(e, t, n, r) && g(t.groupWid);
+    function S(e, t, n, r) {
+      return (
+        v(
+          e,
+          t,
+          n,
+          r,
+          o("WAWebGroupHistoryRestrictionHelper")
+            .isPostJoinHistoryRestrictedWid,
+        ) && g(t.groupWid)
+      );
     }
-    function S(t) {
+    function R(t) {
       if (
         !o(
           "WAWebGroupHistoryGating",
@@ -158,10 +192,11 @@ __d(
       (l.isPostJoinHistoryExperimentArmEnabled = g),
       (l.getParticipantPostJoinEligibility = h),
       (l.isAlreadyReceivedState = y),
-      (l.hasNoShareableHistoryBeforeJoin = C),
-      (l.canSendPostJoinHistoryToParticipant = b),
-      (l.shouldOfferPostJoinHistoryToParticipant = v),
-      (l.getEligiblePostJoinParticipants = S));
+      (l.getNameOfMuseAgentWithSharedHistory = C),
+      (l.hasNoShareableHistoryBeforeJoin = b),
+      (l.canSendPostJoinHistoryToParticipant = v),
+      (l.shouldOfferPostJoinHistoryToParticipant = S),
+      (l.getEligiblePostJoinParticipants = R));
   },
   98,
 );

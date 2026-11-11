@@ -1,12 +1,14 @@
 __d(
   "WAWebCallScreeningSettingGating",
-  ["WAWebABProps"],
+  ["WAWebABProps", "WAWebPrivacySettings"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
+    function e(e) {
+      var t = e.callAdd,
+        n = o("WAWebABProps").getABPropConfigValue(
           "call_screening_setting_data_version",
-        ) >= 1
+        );
+      return (
+        n >= 2 || (n === 1 && t === o("WAWebPrivacySettings").CALL_ADD.screen)
       );
     }
     l.isCallScreeningSettingEnabled = e;

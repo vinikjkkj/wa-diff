@@ -6,17 +6,31 @@ __d(
     var e = 100,
       s = new Map();
     function u(t, n, r) {
-      var a = t.toString();
+      var a,
+        i = t.toString();
       if (
         (r == null ? void 0 : r.keepAnyOutcome) !== !0 &&
         n !== o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere
       )
-        return (s.delete(a), !1);
-      var i = s.get(a);
+        return (s.delete(i), !1);
+      var l = s.get(i),
+        u =
+          (a = r == null ? void 0 : r.screenedElsewhere) != null
+            ? a
+            : l == null
+              ? void 0
+              : l.outcome.screenedElsewhere;
       return (
-        (i == null ? void 0 : i.outcome.callOutcome) === n ||
-          (i == null && s.size >= e && c(),
-          s.set(a, { callId: t.id, outcome: { callOutcome: n } })),
+        ((l == null ? void 0 : l.outcome.callOutcome) === n &&
+          (l == null ? void 0 : l.outcome.screenedElsewhere) === u) ||
+          (l == null && s.size >= e && c(),
+          s.set(i, {
+            callId: t.id,
+            outcome:
+              u != null
+                ? { callOutcome: n, screenedElsewhere: u }
+                : { callOutcome: n },
+          })),
         !0
       );
     }
@@ -39,13 +53,17 @@ __d(
       if (t == null || e.kind !== "callLog")
         return { callLogMessage: e, pendingOutcome: null };
       var n = d(t);
-      return n == null ||
-        (e.callOutcome !== o("WAWebCallLogMsgData.flow").CallOutcome.Missed &&
-          e.callOutcome !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown)
+      if (n == null) return { callLogMessage: e, pendingOutcome: n };
+      var r =
+          e.callOutcome === o("WAWebCallLogMsgData.flow").CallOutcome.Missed ||
+          e.callOutcome === o("WAWebCallLogMsgData.flow").CallOutcome.Unknown,
+        a = n.screenedElsewhere === !1 && e.screenedElsewhere !== !1;
+      return !r && !a
         ? { callLogMessage: e, pendingOutcome: n }
         : {
             callLogMessage: babelHelpers.extends({}, e, {
-              callOutcome: n.callOutcome,
+              callOutcome: r ? n.callOutcome : e.callOutcome,
+              screenedElsewhere: a ? !1 : e.screenedElsewhere,
             }),
             pendingOutcome: n,
           };
@@ -70,7 +88,9 @@ __d(
           n !== o("WAWebCallLogMsgData.flow").CallOutcome.Missed &&
           n !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
         )
-          return (p(a, r), { type: "skip", reason: "terminal" });
+          return n != null && r.screenedElsewhere === !1
+            ? { type: "apply", callOutcome: n, pendingOutcome: l }
+            : (p(a, r), { type: "skip", reason: "terminal" });
       }
       return {
         type: "apply",

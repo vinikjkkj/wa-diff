@@ -6,11 +6,15 @@ __d(
     "WAWebBizFrontendGatingUtils",
     "WAWebBrPixRequestRowAttributes",
     "WAWebBrazilPaymentState",
+    "WAWebBrazilPaymentStateDb",
+    "WAWebBrazilPaymentStateKeys",
     "WAWebBuyerEventLogger",
     "WAWebContactUtils",
     "WAWebFrontendMsgGetters",
     "WAWebMobilePlatforms",
+    "WAWebMsgCollection",
     "WAWebMsgType",
+    "WAWebPaymentDetailsGating",
     "WAWebPaymentDetailsModelFactory",
     "WAWebPaymentDetailsModels",
     "WAWebPaymentsUserActionWamEvent",
@@ -29,62 +33,137 @@ __d(
       s,
       u,
       c,
-      d = "BR",
-      m = "local",
-      p = (c = n("$InternalEnum"))({
+      d,
+      m = "BR",
+      p = "local",
+      _ = (d = n("$InternalEnum"))({
         CHAT_BUBBLE: "chat_bubble",
         SYSTEM_MESSAGE: "system_message",
       }),
-      _ = c({
+      f = d({
         CHAT: "chat",
         PAYMENT_DETAILS: "pix_payment_details",
         MARK_AS_PAID_DIALOG: "pix_mark_as_paid_dialog",
         ADD_RECEIPT_SHEET: "pix_add_receipt_sheet",
         PAYMENT_RECEIPT: "pix_payment_receipt",
         DELETE_RECEIPT_DIALOG: "pix_delete_receipt_dialog",
+        PAYMENT_BUBBLE: "pix_payment_bubble",
       }),
-      f = c({
+      g = d({
         PIX_KEY: "pix_key",
         PIX_CODE: "pix_code",
         APP_SWITCH: "app_switch",
       }),
-      g = c({ SUCCESS: "success", FAILURE: "failure" }),
-      h = c({
+      h = d({ SUCCESS: "success", FAILURE: "failure" }),
+      y = d({
         CREATED: "created",
         STATUS: "status",
         RECEIPT_REMOVED: "receipt_removed",
       }),
-      y = c.Mirrored(["P2P", "P2M"]),
-      C = { referral: p.CHAT_BUBBLE, screen: _.CHAT };
-    function b(e, t) {
-      return P(
+      C = d.Mirrored(["P2P", "P2M"]),
+      b = { referral: _.CHAT_BUBBLE, screen: f.CHAT };
+    function v(e, t) {
+      return F(
         e,
         o("WAWebWamEnumPaymentActionTypes").PAYMENT_ACTION_TYPES.VIEW,
         t,
       );
     }
-    function v(e, t) {
-      return P(
+    function S(e, t) {
+      return F(
         e,
         o("WAWebWamEnumPaymentActionTypes").PAYMENT_ACTION_TYPES.CLICK,
         t,
       );
     }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+    var R = new Set();
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function R() {
+    function E() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebMsgCollection").MsgCollection.get(e),
+            n = e.toString();
+          if (
+            !(
+              t == null ||
+              R.has(n) ||
+              !o("WAWebPaymentDetailsGating").canLogPaymentBubbleView(t)
+            )
+          ) {
+            var a = o(
+              "WAWebBrazilPaymentState",
+            ).getReceiptAndStateBubbleVersion(t.interactivePayload);
+            if (a != null) {
+              R.add(n);
+              var i = !1;
+              try {
+                var l = yield o(
+                    "WAWebSyncdMdSyncFieldstatMeta",
+                  ).MdSyncFieldStatsMeta.getMdSessionId(),
+                  u = yield o(
+                    "WAWebBrazilPaymentStateDb",
+                  ).markStoredBubbleViewLogged(e, function () {
+                    (k(t, a, l), (i = !0));
+                  });
+                u != null ? t.set({ interactivePayload: u }) : i || R.delete(n);
+              } catch (e) {
+                (i || R.delete(n),
+                  o("WALogger")
+                    .WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[br-payment-details] could not log the payment bubble view",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("br-payment-bubble-view-logging-failed"));
+              }
+            }
+          }
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e, t, n) {
+      new (o("WAWebPaymentsUserActionWamEvent").PaymentsUserActionWamEvent)({
+        paymentActionType: o("WAWebWamEnumPaymentActionTypes")
+          .PAYMENT_ACTION_TYPES.VIEW,
+        paymentsCountryCode: m,
+        paymentsEventId: n,
+        queryParams: JSON.stringify({
+          payment_flow: o("WAWebBrazilPaymentState").isAppSwitchPaymentRequest(
+            e.interactivePayload,
+          )
+            ? g.APP_SWITCH
+            : $(e),
+          flow_type: P(e),
+          is_requester: !1,
+          variant:
+            t === o("WAWebBrazilPaymentStateKeys").CONTROL_BUBBLE_VERSION
+              ? "control"
+              : "test",
+          bubble_version: t,
+        }),
+        screen: f.PAYMENT_BUBBLE,
+      }).commit();
+    }
+    function I(e, t, n) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             var a = e.safe();
             if (a.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE) return;
-            yield T(a, e, t, n);
+            yield N(a, e, t, n);
           } catch (e) {
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[br-payment-details] could not log a payment message interaction",
                   ])),
               )
@@ -92,14 +171,14 @@ __d(
               .sendLogs("br-payment-details-message-logging-failed");
           }
         })),
-        R.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function L(e) {
+    function D(e) {
       var t = e.change,
         n = e.paymentMsg,
         r = e.paymentStatus;
-      x(function () {
+      w(function () {
         var e = n.id.fromMe ? null : n.id.remote.toJid();
         return {
           bizPlatform:
@@ -108,48 +187,48 @@ __d(
               : void 0,
           businessOwnerJid: e != null ? e : void 0,
           change: t,
-          flowType: I(n),
-          paymentFlow: k(n),
+          flowType: P(n),
+          paymentFlow: $(n),
           paymentStatus: r,
         };
       });
     }
-    function E(e) {
-      x(function () {
+    function x(e) {
+      w(function () {
         return {
           bizPlatform: void 0,
           businessOwnerJid: void 0,
-          change: h.CREATED,
-          flowType: o("WAWebMobilePlatforms").isSMB() ? y.P2M : y.P2P,
+          change: y.CREATED,
+          flowType: o("WAWebMobilePlatforms").isSMB() ? C.P2M : C.P2P,
           paymentFlow: e,
           paymentStatus: o("WAWebPaymentDetailsModels").PaymentDetailsStatus
             .NOT_CONFIRMED,
         };
       });
     }
-    function k(e) {
+    function $(e) {
       var t = e.interactivePayload;
       return o("WAWebBrazilPaymentState").isPixCodeRequestPayload(t)
         ? o("WAWebBrazilPaymentState").getPaymentDetailsFlow(t) ===
           o("WAWebPaymentDetailsModels").PaymentDetailsFlow.APP_SWITCH
-          ? f.APP_SWITCH
-          : f.PIX_CODE
-        : f.PIX_KEY;
+          ? g.APP_SWITCH
+          : g.PIX_CODE
+        : g.PIX_KEY;
     }
-    function I(e) {
+    function P(e) {
       var t = e.id.fromMe
         ? o("WAWebMobilePlatforms").isSMB()
         : o("WAWebContactUtils").getMaybeBizPlatformForLogging(
             e.id.remote.toJid(),
           ) !== o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN;
-      return t ? y.P2M : y.P2P;
+      return t ? C.P2M : C.P2P;
     }
-    function T(e, t, n, r) {
-      return D.apply(this, arguments);
+    function N(e, t, n, r) {
+      return M.apply(this, arguments);
     }
-    function D() {
+    function M() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a,
               i = yield o("WAWebBrPixRequestRowAttributes").genOrderFunnelId(
@@ -165,8 +244,8 @@ __d(
               d = o("WAWebBrPixRequestRowAttributes").getChatTypeString(
                 o("WAWebFrontendMsgGetters").getChat(t),
               ),
-              m = k(t),
-              p = m !== f.PIX_KEY,
+              m = $(t),
+              p = m !== g.PIX_KEY,
               _ = r != null ? r : void 0;
             (new (o(
               "WAWebPsStructuredMessageInteractionWamEvent",
@@ -181,7 +260,7 @@ __d(
                   p
                     ? o(
                         "WAWebBrPixRequestRowAttributes",
-                      ).getCopyPixCodeAttributes(c, d, i, $(t))
+                      ).getCopyPixCodeAttributes(c, d, i, A(t))
                     : o(
                         "WAWebBrPixRequestRowAttributes",
                       ).getCopyPixKeyAttributes(c, d, i),
@@ -213,10 +292,10 @@ __d(
                 })));
           },
         )),
-        D.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function x(t) {
+    function w(t) {
       try {
         var n = t(),
           a = n.bizPlatform,
@@ -237,7 +316,7 @@ __d(
             payment_flow: u,
             change: l,
             payment_status: c,
-            origin: m,
+            origin: p,
           }),
           messageInteraction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
             .PAYMENT_STATE_CHANGED,
@@ -255,7 +334,7 @@ __d(
           .sendLogs("br-payment-details-state-logging-failed");
       }
     }
-    function $(e) {
+    function A(e) {
       var t = o("WAWebPaymentDetailsModelFactory").getPaymentDetailsModel({
           isPaymentFromMe: e.id.fromMe,
           payload: e.interactivePayload,
@@ -263,21 +342,21 @@ __d(
         n = t.requestedAmount;
       return n != null ? n.amount1000 / 1e3 : null;
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    function F(e, t, n) {
+      return O.apply(this, arguments);
     }
-    function N() {
+    function O() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = e.paymentMsg,
             i = e.referral,
             l = n.actionTarget,
             s = n.previousScreen,
-            c = n.screen;
+            u = n.screen;
           try {
-            var m = JSON.stringify({
-              payment_flow: k(a),
-              flow_type: I(a),
+            var d = JSON.stringify({
+              payment_flow: $(a),
+              flow_type: P(a),
               is_requester: a.id.fromMe,
             });
             new (o(
@@ -285,20 +364,20 @@ __d(
             ).PaymentsUserActionWamEvent)({
               actionTarget: l,
               paymentActionType: t,
-              paymentsCountryCode: d,
+              paymentsCountryCode: m,
               paymentsEventId: yield o(
                 "WAWebSyncdMdSyncFieldstatMeta",
               ).MdSyncFieldStatsMeta.getMdSessionId(),
               previousScreenName: s != null ? s : void 0,
-              queryParams: m,
+              queryParams: d,
               referral: i,
-              screen: c,
+              screen: u,
             }).commit();
           } catch (e) {
             o("WALogger")
               .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[br-payment-details] could not log a payment details action",
                   ])),
               )
@@ -306,23 +385,24 @@ __d(
               .sendLogs("br-payment-details-logging-failed");
           }
         })),
-        N.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    ((l.PaymentDetailsReferral = p),
-      (l.PaymentDetailsScreen = _),
-      (l.PaymentFlow = f),
-      (l.ReceiptAttachStatus = g),
-      (l.PaymentStateChange = h),
-      (l.PaymentFlowType = y),
-      (l.BUBBLE_ORIGIN = C),
-      (l.logPaymentDetailsView = b),
-      (l.logPaymentDetailsClick = v),
-      (l.logPaymentDetailsMessageInteraction = S),
-      (l.logLocalPaymentStateChange = L),
-      (l.logLocalPaymentRequestCreated = E),
-      (l.getPaymentFlow = k),
-      (l.getPaymentFlowType = I));
+    ((l.PaymentDetailsReferral = _),
+      (l.PaymentDetailsScreen = f),
+      (l.PaymentFlow = g),
+      (l.ReceiptAttachStatus = h),
+      (l.PaymentStateChange = y),
+      (l.PaymentFlowType = C),
+      (l.BUBBLE_ORIGIN = b),
+      (l.logPaymentDetailsView = v),
+      (l.logPaymentDetailsClick = S),
+      (l.logPaymentBubbleViewOnce = L),
+      (l.logPaymentDetailsMessageInteraction = I),
+      (l.logLocalPaymentStateChange = D),
+      (l.logLocalPaymentRequestCreated = x),
+      (l.getPaymentFlow = $),
+      (l.getPaymentFlowType = P));
   },
   98,
 );

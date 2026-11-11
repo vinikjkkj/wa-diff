@@ -8,9 +8,12 @@ __d(
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
     "WAWebBotUtils",
+    "WAWebChatCollection",
+    "WAWebChatContactUtils",
     "WAWebCompactMapString",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebElevatedPushNamesFlag",
     "WAWebFbtCommon",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
@@ -285,67 +288,83 @@ __d(
         }),
         i = a[0],
         l = a[1];
+      n = l.concat(i);
+      var s = o("WAWebChatCollection").ChatCollection.get(t.id),
+        u =
+          s != null &&
+          o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabled(s);
       if (
-        ((n = l.concat(i)),
         o("WAWebMiscGatingUtils").isDropLastNameEnabled() &&
-          t.isOpenBotGroup !== !0 &&
-          t.isTeeBotGroup !== !0)
+        t.isOpenBotGroup !== !0 &&
+        t.isTeeBotGroup !== !0
       )
         return r("compactMap")(n, function (e) {
           var n = e.contact,
             r = o("WAWebFrontendContactGetters").getShownOrgMemberName(n);
-          return r != null
-            ? r.replace(/\s/g, " ")
-            : t.hasUniqueShortNameMention(n)
-              ? o(
-                  "WAWebFrontendContactGetters",
-                ).getFormattedShortNameWithNonBreakingSpaces(n)
-              : o("WAWebFrontendContactGetters")
-                  .getFormattedName(n)
-                  .replace(/\s/g, " ");
+          if (r != null) return r.replace(/\s/g, " ");
+          if (t.hasUniqueShortNameMention(n))
+            return o(
+              "WAWebFrontendContactGetters",
+            ).getFormattedShortNameWithNonBreakingSpaces(n);
+          var a = C(n, u);
+          return a != null
+            ? a
+            : o("WAWebFrontendContactGetters")
+                .getFormattedName(n)
+                .replace(/\s/g, " ");
         });
       if (t.hasCapi === !0) {
-        var s = r("partitionArray")(n, function (e) {
+        var c = r("partitionArray")(n, function (e) {
             return e.id.equals(t.owner);
           }),
-          u = s[0],
-          c = s[1];
-        n = u.concat(c);
+          p = c[0],
+          _ = c[1];
+        n = p.concat(_);
       }
-      var p = null;
+      var f = null;
       if (
         (o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
         t.isOpenBotGroup === !0
-          ? (p = o("WAWebBotUtils").META_BOT_FBID_WID)
+          ? (f = o("WAWebBotUtils").META_BOT_FBID_WID)
           : t.isTeeBotGroup === !0 &&
-            (p = o("WAWebBotUtils").META_BOT_TEE_FBID_WID),
-        p != null)
+            (f = o("WAWebBotUtils").META_BOT_TEE_FBID_WID),
+        f != null)
       ) {
-        var _ = r("partitionArray")(n, function (e) {
-            return e.id.equals(p);
+        var g = r("partitionArray")(n, function (e) {
+            return e.id.equals(f);
           }),
-          f = _[0],
-          g = _[1];
-        n = f.concat(g);
+          h = g[0],
+          y = g[1];
+        n = h.concat(y);
       }
       return r("WAWebCompactMapString")(n, function (e) {
         var t,
           n = e.contact,
-          a = (t = m(n)) != null ? t : d(n);
-        if (!r("isStringNullOrEmpty")(a)) return a;
-        var i = o("WAWebContactGetters").getNotifyName(n);
+          a = C(n, u);
+        if (a != null) return a;
+        var i = (t = m(n)) != null ? t : d(n);
         if (!r("isStringNullOrEmpty")(i)) return i;
-        var l = o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(n);
-        return r("isStringNullOrEmpty")(l) ? "" : l;
+        var l = o("WAWebContactGetters").getNotifyName(n);
+        if (!r("isStringNullOrEmpty")(l)) return l;
+        var s = o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(n);
+        return r("isStringNullOrEmpty")(s) ? "" : s;
       });
     }
-    function C(e) {
-      return f(e.participants.toArray(), e);
+    function C(e, t) {
+      if (!t || !o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(e))
+        return null;
+      var n = o("WAWebContactGetters").getNotifyName(e);
+      return r("isStringNullOrEmpty")(n)
+        ? null
+        : o("WAWebChatContactUtils").getFormattedNotifyName(n);
     }
     function b(e) {
+      return f(e.participants.toArray(), e);
+    }
+    function v(e) {
       return y(e.participants.getAdmins(), e);
     }
-    function v(e, t) {
+    function S(e, t) {
       t === void 0 && (t = !0);
       var n = e.length;
       if (n === 0) return s._(/*BTDS*/ "Group call").toString();
@@ -427,9 +446,9 @@ __d(
       (l.getFirstNameForContact = d),
       (l.getOrgMemberFirstName = m),
       (l.getGroupAgentIndicator = _),
-      (l.calculateParticipantsList = C),
-      (l.calculateAdminsList = b),
-      (l.formatParticipantWidsPreserveOrder = v));
+      (l.calculateParticipantsList = b),
+      (l.calculateAdminsList = v),
+      (l.formatParticipantWidsPreserveOrder = S));
   },
   226,
 );

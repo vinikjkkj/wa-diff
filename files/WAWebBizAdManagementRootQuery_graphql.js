@@ -29,14 +29,18 @@ __d(
           name: "id",
           storageKey: null,
         },
-        c = {
+        c = [
+          { kind: "Variable", name: "page_id", variableName: "draft_page_id" },
+          { kind: "Literal", name: "product", value: "BOOSTED_MESSAGE" },
+        ],
+        d = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        d = {
+        m = {
           alias: null,
           args: [{ kind: "Literal", name: "is_forced", value: !0 }],
           concreteType: "AdAccount",
@@ -55,59 +59,59 @@ __d(
           ],
           storageKey: "ad_account(is_forced:true)",
         },
-        m = {
+        p = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "message",
           storageKey: null,
         },
-        p = {
+        _ = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "picture",
           storageKey: null,
         },
-        _ = {
+        f = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "image_hash",
           storageKey: null,
         },
-        f = {
+        g = {
           alias: null,
           args: null,
           concreteType: "AdObjectStoryChildLinkDataSpecification",
           kind: "LinkedField",
           name: "child_attachments",
           plural: !0,
-          selections: [p],
-          storageKey: null,
-        },
-        g = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "image_url",
+          selections: [_],
           storageKey: null,
         },
         h = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "video_id",
+          name: "image_url",
           storageKey: null,
         },
         y = {
           alias: null,
           args: null,
           kind: "ScalarField",
+          name: "video_id",
+          storageKey: null,
+        },
+        C = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
           name: "formatted_for_lwi",
           storageKey: null,
         },
-        C = [
+        b = [
           {
             alias: null,
             args: null,
@@ -123,7 +127,7 @@ __d(
             name: "spec",
             plural: !1,
             selections: [
-              c,
+              d,
               {
                 alias: null,
                 args: null,
@@ -159,10 +163,10 @@ __d(
                 kind: "LinkedField",
                 name: "budget",
                 plural: !1,
-                selections: [y],
+                selections: [C],
                 storageKey: null,
               },
-              d,
+              m,
               {
                 alias: null,
                 args: null,
@@ -193,7 +197,7 @@ __d(
                         name: "body",
                         storageKey: null,
                       },
-                      g,
+                      h,
                       {
                         alias: null,
                         args: null,
@@ -217,7 +221,7 @@ __d(
                             name: "link_data",
                             plural: !1,
                             selections: [
-                              m,
+                              p,
                               {
                                 alias: null,
                                 args: null,
@@ -225,7 +229,7 @@ __d(
                                 name: "link",
                                 storageKey: null,
                               },
-                              f,
+                              g,
                             ],
                             storageKey: null,
                           },
@@ -236,7 +240,7 @@ __d(
                             kind: "LinkedField",
                             name: "video_data",
                             plural: !1,
-                            selections: [m, h, g],
+                            selections: [p, y, h],
                             storageKey: null,
                           },
                         ],
@@ -294,7 +298,7 @@ __d(
             name: "boosting_info",
             plural: !1,
             selections: [
-              c,
+              d,
               {
                 alias: null,
                 args: [
@@ -320,7 +324,7 @@ __d(
                     name: "currency",
                     storageKey: null,
                   },
-                  y,
+                  C,
                 ],
                 storageKey: null,
               },
@@ -497,18 +501,7 @@ __d(
               selections: [
                 {
                   alias: null,
-                  args: [
-                    {
-                      kind: "Variable",
-                      name: "page_id",
-                      variableName: "draft_page_id",
-                    },
-                    {
-                      kind: "Literal",
-                      name: "product",
-                      value: "BOOSTED_MESSAGE",
-                    },
-                  ],
+                  args: c,
                   concreteType: "AdsLWIDraftWrapper",
                   kind: "LinkedField",
                   name: "latest_wa_web_draft",
@@ -530,8 +523,8 @@ __d(
                       name: "spec",
                       plural: !1,
                       selections: [
-                        c,
                         d,
+                        m,
                         {
                           alias: null,
                           args: null,
@@ -564,7 +557,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "link_data",
                                       plural: !1,
-                                      selections: [m, p, _, f],
+                                      selections: [p, _, f, g],
                                       storageKey: null,
                                     },
                                     {
@@ -575,7 +568,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "video_data",
                                       plural: !1,
-                                      selections: [m, g, _, h],
+                                      selections: [p, h, f, y],
                                       storageKey: null,
                                     },
                                   ],
@@ -589,6 +582,24 @@ __d(
                           storageKey: null,
                         },
                       ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: c,
+                  concreteType: "CTWADraftThumbnail",
+                  kind: "LinkedField",
+                  name: "latest_wa_web_draft_thumbnail",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "url",
                       storageKey: null,
                     },
                   ],
@@ -618,7 +629,7 @@ __d(
                           name: "node",
                           plural: !1,
                           selections: [
-                            c,
+                            d,
                             {
                               kind: "InlineFragment",
                               selections: [u],
@@ -643,7 +654,7 @@ __d(
                               name: "wrapper_renderer",
                               plural: !1,
                               selections: [
-                                c,
+                                d,
                                 {
                                   kind: "InlineFragment",
                                   selections: [
@@ -655,7 +666,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "boosted_component",
                                       plural: !1,
-                                      selections: C,
+                                      selections: b,
                                       storageKey: null,
                                     },
                                   ],
@@ -673,7 +684,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "async_request",
                                       plural: !1,
-                                      selections: C,
+                                      selections: b,
                                       storageKey: null,
                                     },
                                   ],

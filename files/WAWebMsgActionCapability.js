@@ -38,6 +38,7 @@ __d(
     "WAWebHatchFrontendGating",
     "WAWebHatchJarvisPayload",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebIsAccountBoundAiRichResponse",
     "WAWebIsAiRichResponseForwardable",
     "WAWebKeepInChatMsgUtils",
     "WAWebLimitSharingGatingUtils",
@@ -191,20 +192,27 @@ __d(
     }
     function k(e) {
       return o(
-        "WAWebMuseGroupRichResponseForward",
-      ).isMuseGroupAgentRichResponse(e)
-        ? o(
-            "WAWebMuseGroupRichResponseForward",
-          ).canForwardMuseGroupRichResponse(e)
-        : o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(e.unifiedResponse)
-          ? !I(e) &&
-            o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
-              e,
-            ) &&
-            o("WAWebBotBaseGating").isRichResponseJarvisForwardSendingEnabled()
-          : o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
-              e,
-            ) && o("WAWebBotBaseGating").isRichResponseForwardSendingEnabled();
+        "WAWebIsAccountBoundAiRichResponse",
+      ).isAccountBoundAiRichResponse(e)
+        ? !1
+        : o("WAWebMuseGroupRichResponseForward").isMuseGroupAgentRichResponse(e)
+          ? o(
+              "WAWebMuseGroupRichResponseForward",
+            ).canForwardMuseGroupRichResponse(e)
+          : o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(
+                e.unifiedResponse,
+              )
+            ? !I(e) &&
+              o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
+                e,
+              ) &&
+              o(
+                "WAWebBotBaseGating",
+              ).isRichResponseJarvisForwardSendingEnabled()
+            : o("WAWebIsAiRichResponseForwardable").isAiRichResponseForwardable(
+                e,
+              ) &&
+              o("WAWebBotBaseGating").isRichResponseForwardSendingEnabled();
     }
     function I(e) {
       var t = e.forwardedAiBotMessageInfo;

@@ -22,6 +22,10 @@ __d(
           r("WAWebODS").incr("web.video_dash_manifest.at_open.cached");
           break e;
         }
+        if (e === "URL_REJECTED") {
+          r("WAWebODS").incr("web.video_dash_manifest.at_open.url_rejected");
+          break e;
+        }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             e,

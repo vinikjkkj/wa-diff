@@ -62,12 +62,15 @@ __d(
       },
     );
     function c(e) {
+      return d(e.contact.id);
+    }
+    function d(e) {
       if (!s()) return !1;
-      var t = p(e.contact.id),
+      var t = f(e),
         n = t == null ? void 0 : t.user;
       return n == null ? !1 : u(n);
     }
-    function d(e, t) {
+    function m(e, t) {
       var n, r;
       return s()
         ? e.length > 0 &&
@@ -75,9 +78,12 @@ __d(
             ((r = e.at(0)) == null ? void 0 : r.currency) !== t
         : !1;
     }
-    function m(e) {
-      var t = p(o("WAWebUserPrefsMeUser").getMaybeMePnUser()),
-        n = p(e.contact.id);
+    function p(e) {
+      return _(e.contact.id);
+    }
+    function _(e) {
+      var t = f(o("WAWebUserPrefsMeUser").getMaybeMePnUser()),
+        n = f(e);
       return (
         t != null &&
         n != null &&
@@ -85,14 +91,16 @@ __d(
           o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n.user)
       );
     }
-    function p(e) {
+    function f(e) {
       return e != null ? o("WAWebLidMigrationUtils").toPn(e) : e;
     }
     ((l.isOrderExpansionBannerEnabled = e),
       (l.isOrderExpansionEnabled = s),
       (l.isContactCountrySupported = c),
-      (l.shouldPreventCatalogProductSelection = d),
-      (l.isSellerCountrySameAsBuyer = m));
+      (l.isContactCountrySupportedFor = d),
+      (l.shouldPreventCatalogProductSelection = m),
+      (l.isSellerCountrySameAsBuyer = p),
+      (l.isSellerCountrySameAsBuyerFor = _));
   },
   98,
 );

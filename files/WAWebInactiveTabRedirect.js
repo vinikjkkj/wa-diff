@@ -2,7 +2,6 @@ __d(
   "WAWebInactiveTabRedirect",
   [
     "WALogger",
-    "WAWebAppScreenTypes",
     "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebEnvironment",
@@ -13,47 +12,42 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      e === void 0 && (e = window.location);
-      var t = !1;
-      return function (n) {
-        t || (t = u(n, e));
-      };
-    }
-    function u(t, n) {
+    function s(t) {
       if (
-        t !== o("WAWebAppScreenTypes").AppScreen.ANOTHER_SESSION ||
-        r("WAWebEnvironment").isWindows ||
-        !navigator.onLine ||
-        !r("gkx")("28610")
-      )
-        return !1;
-      var a = new URLSearchParams({
-        locale: r("WAWebL10N").getLocale(),
-        theme: c(),
-      });
-      o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
-        a.set("smb", "1");
-      var i = "/inactive/?" + a.toString();
-      o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "[md takeover] redirecting to ",
-            "",
-          ])),
-        i,
-      );
-      var l = "" + n.pathname + n.search + n.hash;
-      return (n.replace(i + "#" + encodeURIComponent(l)), !0);
+        (t === void 0 && (t = window.location),
+        !(
+          r("WAWebEnvironment").isWindows ||
+          !navigator.onLine ||
+          !r("gkx")("28610")
+        ))
+      ) {
+        var n = new URLSearchParams({
+          locale: r("WAWebL10N").getLocale(),
+          theme: u(),
+        });
+        o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
+          n.set("smb", "1");
+        var a = "/inactive/?" + n.toString();
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[md takeover] redirecting to ",
+              "",
+            ])),
+          a,
+        );
+        var i = "" + t.pathname + t.search + t.hash;
+        t.replace(a + "#" + encodeURIComponent(i));
+      }
     }
-    function c() {
+    function u() {
       return o("WAWebUserPrefsGeneral").getSystemThemeMode()
         ? "system"
         : o("WAWebThemeContext").isDarkTheme()
           ? "dark"
           : "light";
     }
-    l.createInactiveTabPageRedirect = s;
+    l.maybeRedirectToInactiveTabPage = s;
   },
   98,
 );

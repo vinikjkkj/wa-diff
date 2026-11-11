@@ -7,14 +7,17 @@ __d(
         "WAWebEphemeralityUtils",
       ).isEphemeralityDisabledForMessagingWithContact(e);
     }
-    function s(t) {
-      return (
-        e(t.contact) &&
-        (t.ephemeralDuration === 0 || t.ephemeralDuration == null)
-      );
+    function s(e) {
+      return u({ contact: e.contact, ephemeralDuration: e.ephemeralDuration });
+    }
+    function u(t) {
+      var n = t.contact,
+        r = t.ephemeralDuration;
+      return e(n) && (r === 0 || r == null);
     }
     ((l.isEphemeralityDisabledInUIForContact = e),
-      (l.isEphemeralityDisabledInUIForChat = s));
+      (l.isEphemeralityDisabledInUIForChat = s),
+      (l.isEphemeralityDisabledInUIForChatValues = u));
   },
   98,
 );

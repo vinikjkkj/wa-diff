@@ -10,7 +10,6 @@ __d(
           (t = e.call.apply(e, [this].concat(r)) || this),
           (t.id = o("WAWebBaseModel").prop()),
           (t.enabled = o("WAWebBaseModel").prop(!1)),
-          (t.expirationTime = o("WAWebBaseModel").prop()),
           (t.limit = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

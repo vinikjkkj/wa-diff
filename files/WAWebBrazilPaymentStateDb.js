@@ -18,26 +18,26 @@ __d(
             var r = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (n) {
                 var r = n[0],
-                  a = yield r.bulkGet(u(e).map(String), !1),
+                  a = yield r.bulkGet(c(e).map(String), !1),
                   i = a.find(function (e) {
-                    return c(e) != null;
+                    return d(e) != null;
                   }),
-                  l = c(i);
+                  l = d(i);
                 if (i == null || l == null) return null;
                 var s = o("WAWebBrazilPaymentState").getBrazilPaymentState(l),
-                  d = t(s);
-                if (o("WAWebBrazilPaymentState").isSameBrazilPaymentState(s, d))
-                  return { previous: s, next: d, updatedPayload: null };
+                  u = t(s);
+                if (o("WAWebBrazilPaymentState").isSameBrazilPaymentState(s, u))
+                  return { previous: s, next: u, updatedPayload: null };
                 var m = o("WAWebBrazilPaymentState").withBrazilPaymentState(
                   l,
-                  d,
+                  u,
                 );
                 return m === l
                   ? null
                   : (yield r.bulkCreateOrMerge([
                       { id: i.id, interactivePayload: m },
                     ]),
-                    { previous: s, next: d, updatedPayload: m });
+                    { previous: s, next: u, updatedPayload: m });
               },
             );
             return function (e) {
@@ -46,7 +46,43 @@ __d(
           })(),
         );
     }
-    function s(e) {
+    function s(e, t) {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(
+          ["message"],
+          (function () {
+            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (n) {
+                var r = n[0],
+                  a = yield r.bulkGet(c(e).map(String), !1),
+                  i = a.find(function (e) {
+                    return d(e) != null;
+                  }),
+                  l = d(i);
+                if (
+                  i == null ||
+                  l == null ||
+                  o("WAWebBrazilPaymentState").isBubbleViewLogged(l)
+                )
+                  return null;
+                var s = o("WAWebBrazilPaymentState").withBubbleViewLogged(l);
+                return s === l
+                  ? null
+                  : (yield r.bulkCreateOrMerge([
+                      { id: i.id, interactivePayload: s },
+                    ]),
+                    t(),
+                    s);
+              },
+            );
+            return function (e) {
+              return r.apply(this, arguments);
+            };
+          })(),
+        );
+    }
+    function u(e) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -55,7 +91,7 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n = t[0],
-                  r = u(e),
+                  r = c(e),
                   a = yield n.bulkGet(r.map(String), !1),
                   i = a.findIndex(function (e) {
                     return (
@@ -82,11 +118,11 @@ __d(
           })(),
         );
     }
-    function u(e) {
+    function c(e) {
       var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
       return t == null ? [e] : [e, t];
     }
-    function c(e) {
+    function d(e) {
       var t;
       if (e != null && (t = e.interactivePayload) != null && t.buttons) {
         var n = e.interactivePayload;
@@ -94,7 +130,9 @@ __d(
       }
       return null;
     }
-    ((l.updateStoredBrazilPaymentState = e), (l.hideStoredReceiptImage = s));
+    ((l.updateStoredBrazilPaymentState = e),
+      (l.markStoredBubbleViewLogged = s),
+      (l.hideStoredReceiptImage = u));
   },
   98,
 );

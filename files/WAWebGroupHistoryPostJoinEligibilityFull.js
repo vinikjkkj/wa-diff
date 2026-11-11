@@ -3,6 +3,7 @@ __d(
   [
     "WAWebGetGroupHistoryBundleMessagesCount",
     "WAWebGroupHistoryPostJoinEligibility",
+    "WAWebGroupHistoryRestrictionHelper",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,7 +29,12 @@ __d(
           if (!l.eligible) return l;
           var s = o(
             "WAWebGroupHistoryPostJoinEligibility",
-          ).getParticipantPostJoinEligibility(i, a);
+          ).getParticipantPostJoinEligibility(
+            i,
+            a,
+            o("WAWebGroupHistoryRestrictionHelper")
+              .isPostJoinHistoryRestrictedWid,
+          );
           if (!s.eligible) return s;
           var u = (t = i.joinTime) != null ? t : a;
           if (u == null) return { eligible: !1, reason: "no_join_time" };

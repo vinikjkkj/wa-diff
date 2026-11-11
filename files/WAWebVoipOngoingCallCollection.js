@@ -49,8 +49,11 @@ __d(
             });
           }),
           (i.getByChat = function (t) {
+            return this.getByChatId(t.id);
+          }),
+          (i.getByChatId = function (t) {
             return this.toArray().find(function (e) {
-              return e.id.remote === t.id;
+              return e.id.remote === t;
             });
           }),
           (i.findOngoingCallActiveOnOtherSelfDevice = function () {

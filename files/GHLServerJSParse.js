@@ -21,86 +21,96 @@ __d(
         ((o += t.slice(a, r) + s), (a = r + e.length), (r = t.indexOf(e, a)));
       return o + t.slice(a);
     }
-    function m(e) {
-      return "\uFEFF" + e;
+    function m(e, t) {
+      return (t ? "\v" : "\uFEFF") + e;
     }
     function p(e) {
       var t = null,
         n = window.Env,
-        a = n != null && "v9k2mt7q" in n,
-        i = n != null && "d3hf9km2" in n,
-        l = n != null && "k8pq2mnb" in n,
-        s = n != null && "n5tq2wjb" in n,
-        p = e;
-      l && p != null && (p = d(p, s));
-      var _ =
-          a &&
+        a = n != null && "rk21poeg" in n,
+        i = n != null && "v9k2mt7q" in n,
+        l = n != null && "d3hf9km2" in n,
+        s = n != null && "k8pq2mnb" in n,
+        p = n != null && "n5tq2wjb" in n,
+        _ = e;
+      s && _ != null && (_ = d(_, p));
+      var f =
+          i &&
           (o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed() ||
-            (i &&
+            (l &&
               o(
                 "GHLDetectionUtilsPreludeSafe",
               ).isJSONParseBehaviorallyShimmed())),
-        f = n != null && "c6mw9qtk" in n,
-        g = n != null && "j6dw4ztx" in n,
-        h = !1;
+        g = n != null && "c6mw9qtk" in n,
+        h = n != null && "j6dw4ztx" in n,
+        y = !1;
       if (
+        g &&
         f &&
-        _ &&
-        p != null &&
-        (!g || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
+        _ != null &&
+        (!h || o("GHLDetectionUtilsPreludeSafe").isBoxedParseEffective())
       )
         try {
-          var y = JSON.parse('{"q7z":' + p + "}");
-          y != null && y.q7z != null && ((t = y.q7z), (h = !0));
+          var C = JSON.parse('{"q7z":' + _ + "}");
+          C != null && C.q7z != null && ((t = C.q7z), (y = !0));
         } catch (e) {
-          h = !1;
+          y = !1;
         }
       if (
-        !h &&
-        _ &&
+        !y &&
+        f &&
         n != null &&
         "x8kf2pw6" in n &&
-        p != null &&
-        (!g || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
+        _ != null &&
+        (!h || o("GHLDetectionUtilsPreludeSafe").isWrappedParseEffective())
       )
         try {
-          var C = JSON.parse("[" + p + "]");
-          Array.isArray(C) && C.length === 1 && ((t = C[0]), (h = !0));
+          var b = JSON.parse("[" + _ + "]");
+          Array.isArray(b) && b.length === 1 && ((t = b[0]), (y = !0));
         } catch (e) {
-          h = !1;
+          y = !1;
         }
-      if (!h && _)
+      if (!y && f)
         try {
-          var b = o(
+          var v = o(
               "GHLDetectionUtilsPreludeSafe",
             ).isStringBehaviorallyShimmed(),
-            v = n != null && "r4wt7kmj" in n;
-          v && b && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var S = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
-            R = !1;
-          if (S != null)
+            S = n != null && "r4wt7kmj" in n;
+          S && v && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
+          var R = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
+            L = !1;
+          if (R != null)
             try {
-              ((t = S(p)), (R = !0));
+              ((t = R(_)), (L = !0));
             } catch (e) {
-              R = !1;
+              L = !1;
             }
-          R || (t = r("json5").fromFragment(m(p)));
+          if (!L) {
+            var E = m(_, a);
+            t = a ? r("json5").fromScrap(E) : r("json5").fromFragment(E);
+          }
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
             .mustfix("Failed to parse ServerJS payload using json5"),
-            (t = JSON.parse(p)));
+            (t = JSON.parse(_)));
         }
-      else h || (t = JSON.parse(p));
+      else y || (t = JSON.parse(_));
       return (
-        l &&
+        s &&
           t != null &&
-          p.indexOf(c) !== -1 &&
+          _.indexOf(c) !== -1 &&
           o("GHLTypenameRestore").restoreTypenameValues(t, c, u),
         t
       );
     }
-    l.takeBootFrame = p;
+    function _(e) {
+      return p(e);
+    }
+    function f(e) {
+      return p(e);
+    }
+    ((l.grabBootSlice = _), (l.takeBootFrame = f));
   },
   98,
 );

@@ -281,6 +281,7 @@ __d(
                       configuredGroupAgentParticipants: C,
                       encMediaType: L,
                       groupAgentParticipants: b,
+                      isAgentHistoryBundle: !1,
                       isOpenBotGroupSend:
                         (f = i.isOpenBotGroup) != null ? f : !1,
                       isScheduledMessage:
@@ -684,128 +685,126 @@ __d(
           var t = e.configuredGroupAgentParticipants,
             n = e.encMediaType,
             r = e.groupAgentParticipants,
-            a = e.isOpenBotGroupSend,
-            i = e.isScheduledMessage,
-            l = e.msg,
-            s = e.msgProtobuf,
-            u = e.shouldGateInvokedBot,
-            c = o("WAWebMsgGetters").getIsBotFeedbackMessage(l),
-            d = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(l),
-            m = yield o(
+            a = e.isAgentHistoryBundle,
+            i = e.isOpenBotGroupSend,
+            l = e.isScheduledMessage,
+            s = e.msg,
+            u = e.msgProtobuf,
+            c = e.shouldGateInvokedBot,
+            d = o("WAWebMsgGetters").getIsBotFeedbackMessage(s),
+            m = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(s),
+            p = yield o(
               "WAWebResolveGroupAgentParticipants",
             ).hasMuseNoticeGroupAgent(t),
-            p = w({
+            _ = A({
               configuredGroupAgentParticipants: t,
               groupAgentParticipants: r,
-              isBotFeedbackMessage: c,
-              isBotRespOrInvocationRevoke: d,
-              isOpenBotGroupSend: a,
-              msg: l,
-              omitNonParticipantInvokedBot: m === !0,
-              shouldGateInvokedBot: u,
+              isBotFeedbackMessage: d,
+              isBotRespOrInvocationRevoke: m,
+              isOpenBotGroupSend: i,
+              msg: s,
+              omitNonParticipantInvokedBot: p === !0,
+              shouldGateInvokedBot: c,
             }),
-            _ = p[0];
-          if (_ == null) return [null, !1];
-          var f = p.some(function (e) {
+            f = _[0];
+          if (f == null) return [null, !1];
+          var g = _.some(function (e) {
               return e.equals(o("WAWebBotUtils").META_BOT_FBID_WID);
             }),
-            g = N(l, p, r),
-            h = M(p, r, c, d),
-            y = !f && !g && h,
-            C = a && m;
+            h = M(s, _, r),
+            y = w(_, r, d, m),
+            C = !g && !h && y,
+            b = i && p;
           (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(
-            p.map(function (e) {
-              return { msgKey: l.id, receiverId: e };
+            _.map(function (e) {
+              return { msgKey: s.id, receiverId: e };
             }),
           ),
             yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
               identityChanged: !1,
               sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-              wids: [_],
+              wids: [f],
             }));
-          var b = yield o(
+          var v = yield o(
             "WAWebE2EProtoGenerator",
           ).updateBotInvokeMsgProtoCopyForCapi({
-            message: s,
-            messageSecret: l.messageSecret,
-            botMessageSecret: l.botMessageSecret,
-            groupHasMuseAgent: C,
-            hasGroupAgentTarget: h,
-            hasOpenBotTarget: f,
-            isGroupAgentParticipantSend: y,
+            message: u,
+            messageSecret: s.messageSecret,
+            botMessageSecret: s.botMessageSecret,
+            groupHasMuseAgent: b,
+            hasGroupAgentTarget: y,
+            hasOpenBotTarget: g,
+            isGroupAgentParticipantSend: C,
             isGroupMsg: !0,
             isOpenBotGroup:
-              o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() && a,
-            mentionedJidList: y ? null : l.mentionedJidList,
+              o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() && i,
+            mentionedJidList: C ? null : s.mentionedJidList,
           });
-          (_.isFbidBot() &&
-            (b = o("WAWebE2EProtoGenerator").updateFbidBotProtobuf(b)),
-            d &&
-              _.isFbidBot() &&
-              (b = o("WAWebE2EProtoGenerator").updateFbidBotInvokeProtobuf(b)));
-          var v = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
-              _,
+          (f.isFbidBot() &&
+            (v = o("WAWebE2EProtoGenerator").updateFbidBotProtobuf(v)),
+            m &&
+              f.isFbidBot() &&
+              (v = o("WAWebE2EProtoGenerator").updateFbidBotInvokeProtobuf(v)));
+          var S = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+              f,
               0,
-              b,
-              l,
+              v,
+              s,
               0,
             ),
-            S = v.ciphertext,
-            R = v.type,
-            L = null;
-          (h || C) &&
-            (L = i ? n : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(b));
-          var E = o("WAWap").wap(
+            R = S.ciphertext,
+            L = S.type,
+            E = null;
+          (y || b) &&
+            (E = l ? n : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(v));
+          var k = o("WAWap").wap(
               "enc",
               {
                 v: o("WAWap").CUSTOM_STRING(
                   o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
                 ),
-                type: o("WAWap").CUSTOM_STRING(R),
-                mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(L),
+                type: o("WAWap").CUSTOM_STRING(L),
+                mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(E),
               },
-              S,
+              R,
             ),
-            k =
-              p.length === 1
+            I =
+              _.length === 1
                 ? [
                     o("WAWap").wap(
                       "to",
-                      { jid: o("WAWebCommsWapMd").DEVICE_JID(_) },
-                      E,
+                      { jid: o("WAWebCommsWapMd").DEVICE_JID(f) },
+                      k,
                     ),
                   ]
                 : [].concat(
-                    p.map(function (e) {
+                    _.map(function (e) {
                       return o("WAWap").wap("to", {
                         jid: o("WAWebCommsWapMd").DEVICE_JID(e),
                       });
                     }),
-                    [E],
+                    [k],
                   ),
-            I = o("WAWebSendMsgBotStanza").getBotAgentEngagementType(
-              a || y,
-              null,
-              l,
-            ),
             T = o("WAWap").wap(
               "bot",
               {
-                type: c ? "feedback" : o("WAWap").DROP_ATTR,
-                agent_engagement_type:
-                  I != null
-                    ? o("WAWap").CUSTOM_STRING(I)
-                    : o("WAWap").DROP_ATTR,
+                type: d ? "feedback" : o("WAWap").DROP_ATTR,
+                agent_engagement_type: N(i || C, a, s),
               },
-              k,
+              I,
             );
-          return [T, R === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg];
+          return [T, L === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg];
         })),
         P.apply(this, arguments)
       );
     }
     function N(e, t, n) {
-      var r = B(e.invokedBotWid);
+      if (t) return o("WAWap").DROP_ATTR;
+      var r = o("WAWebSendMsgBotStanza").getBotAgentEngagementType(e, null, n);
+      return r != null ? o("WAWap").CUSTOM_STRING(r) : o("WAWap").DROP_ATTR;
+    }
+    function M(e, t, n) {
+      var r = W(e.invokedBotWid);
       return (
         r != null &&
         !r.equals(o("WAWebBotUtils").META_BOT_FBID_WID) &&
@@ -817,7 +816,7 @@ __d(
         })
       );
     }
-    function M(e, t, n, r) {
+    function w(e, t, n, r) {
       return (
         !n &&
         !r &&
@@ -828,7 +827,7 @@ __d(
         })
       );
     }
-    function w(e) {
+    function A(e) {
       var t = e.configuredGroupAgentParticipants,
         n = e.groupAgentParticipants,
         r = e.isBotFeedbackMessage,
@@ -838,12 +837,12 @@ __d(
         s = e.omitNonParticipantInvokedBot,
         u = e.shouldGateInvokedBot;
       if (r) {
-        var c = F(l, r, a);
+        var c = O(l, r, a);
         return c == null ? [] : [c];
       }
       var d = new Map();
       if (a) {
-        var m = F(l, r, a);
+        var m = O(l, r, a);
         return (
           m != null && d.set(m.toString(), m),
           n.forEach(function (e) {
@@ -853,14 +852,14 @@ __d(
         );
       }
       var p = o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() && i,
-        _ = !p || A(l),
+        _ = !p || F(l),
         f = p && _;
       f &&
         d.set(
           o("WAWebBotUtils").META_BOT_FBID_WID.toString(),
           o("WAWebBotUtils").META_BOT_FBID_WID,
         );
-      var g = O({
+      var g = B({
         configuredGroupAgentParticipants: t,
         groupAgentParticipants: n,
         isOpenBotGroupSend: i,
@@ -882,7 +881,7 @@ __d(
         Array.from(d.values())
       );
     }
-    function A(t) {
+    function F(t) {
       return o("WAWebMsgGetters").getIsRevoke(t) ||
         o("WAWebBotTos").hasAcceptedMetaAiOpenGroupNotice()
         ? !0
@@ -901,21 +900,21 @@ __d(
             }),
           !1);
     }
-    function F(e, t, n) {
+    function O(e, t, n) {
       if (t) {
         var r;
-        return B((r = e.protocolMessageKey) == null ? void 0 : r.participant);
+        return W((r = e.protocolMessageKey) == null ? void 0 : r.participant);
       }
-      return n ? B(e.botRespOrInvocationRevokeBotWid) : null;
+      return n ? W(e.botRespOrInvocationRevokeBotWid) : null;
     }
-    function O(e) {
+    function B(e) {
       var t = e.configuredGroupAgentParticipants,
         n = e.groupAgentParticipants,
         r = e.isOpenBotGroupSend,
         a = e.msg,
         i = e.omitNonParticipantInvokedBot,
         l = e.shouldGateInvokedBot,
-        s = B(a.invokedBotWid);
+        s = W(a.invokedBotWid);
       return s == null
         ? null
         : n.some(function (e) {
@@ -930,7 +929,7 @@ __d(
             ? null
             : s;
     }
-    function B(e) {
+    function W(e) {
       return e != null && e.isBot() ? e : null;
     }
     ((l.encryptAndSendSenderKeyMsg = S), (l.createBotFanoutNode = $));

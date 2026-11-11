@@ -28,11 +28,7 @@ __d(
           type: e.type,
         }) == null
         ? e.type
-        : o("WAWebABProps").getABPropConfigValue(
-              "utility_payment_reminder_m1_logging_enabled",
-            )
-          ? s
-          : null;
+        : s;
     }
     function c(e) {
       return u({
@@ -44,7 +40,15 @@ __d(
         type: e.type,
       });
     }
-    var d = (function () {
+    function d(e) {
+      return (
+        e !== s ||
+        o("WAWebABProps").getABPropConfigValue(
+          "utility_payment_reminder_m1_logging_enabled",
+        )
+      );
+    }
+    var m = (function () {
       function t(e, t) {
         ((this.msg = e), (this.chat = t), (this.sharedFields = {}));
       }
@@ -120,7 +124,7 @@ __d(
             (this.sharedFields = babelHelpers.extends(
               {},
               this.sharedFields,
-              m(this.chat.id.toString()),
+              p(this.chat.id.toString()),
             )),
             this
           );
@@ -176,7 +180,7 @@ __d(
         t
       );
     })();
-    function m(e) {
+    function p(e) {
       var t, n, r;
       if (
         !o("WAWebABProps").getABPropConfigValue(
@@ -196,8 +200,9 @@ __d(
     }
     ((l.getQbmMessageTypeStrForLoggingFromData = u),
       (l.getQbmMessageTypeStrForLogging = c),
-      (l.QBMLoggerBuilder = d),
-      (l.getIasQbmFields = m));
+      (l.isQbmMessageTypeLoggingEnabled = d),
+      (l.QBMLoggerBuilder = m),
+      (l.getIasQbmFields = p));
   },
   98,
 );

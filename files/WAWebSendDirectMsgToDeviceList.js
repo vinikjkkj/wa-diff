@@ -24,67 +24,68 @@ __d(
             l,
             s,
             u,
-            c = t.additionalBotBody,
-            d = t.additionalBotShouldHaveIdentity,
-            m = t.deviceList,
-            p = t.groupData,
-            _ = t.metricReporter,
-            f = t.msgProtobuf,
-            g = t.msgRecord,
-            h = t.option,
-            y = t.scheduledMsgMetadata,
-            C = g.data,
-            b = C.id,
-            v = C.to,
-            S = g.data.to,
-            R = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
+            c = t.ackParticipant,
+            d = t.additionalBotBody,
+            m = t.additionalBotShouldHaveIdentity,
+            p = t.deviceList,
+            _ = t.groupData,
+            f = t.metricReporter,
+            g = t.msgProtobuf,
+            h = t.msgRecord,
+            y = t.option,
+            C = t.scheduledMsgMetadata,
+            b = h.data,
+            v = b.id,
+            S = b.to,
+            R = h.data.to,
+            L = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
               {
-                additionalBotBody: c,
-                additionalBotShouldHaveIdentity: d,
-                chatId: S,
-                deviceList: m,
-                groupData: p,
-                metricReporter: _,
-                msgProtobuf: f,
-                msgRecord: g,
-                option: h,
-                scheduledMsgMetadata: y,
+                additionalBotBody: d,
+                additionalBotShouldHaveIdentity: m,
+                chatId: R,
+                deviceList: p,
+                groupData: _,
+                metricReporter: f,
+                msgProtobuf: g,
+                msgRecord: h,
+                option: y,
+                scheduledMsgMetadata: C,
               },
             ),
-            L = R.stanza;
+            E = L.stanza;
           (yield o("WAWebSignalProtocolStore")
             .getSignalProtocolStore()
             .flushBufferToDiskIfNotMemOnlyMode(),
-            (a = _.sendPerfReporter) == null || a.postReadyToSendStage(),
-            (i = _.sendPerfReporter) == null || i.startWrittenWireStage());
-          var E = yield o(
+            (a = f.sendPerfReporter) == null || a.postReadyToSendStage(),
+            (i = f.sendPerfReporter) == null || i.startWrittenWireStage());
+          var k = yield o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
-              L,
+              E,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: b.id,
+                id: v.id,
                 class: "message",
-                from: v,
-                participant: null,
+                from: S,
+                participant: c,
               }),
             ),
-            k = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(E);
-          return k.error
+            I = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(k);
+          return I.error
             ? (e || (e = n("Promise"))).reject(
                 r("err")(
                   "[messaging] encryptAndSendGroupDirectMsg: Invalid ack from server",
                 ),
               )
-            : ((l = _.sendReporter) == null ||
+            : ((l = f.sendReporter) == null ||
                 l.setMessageDistributionType(
                   o("WAWebWamEnumMessageDistributionEnumType")
                     .MESSAGE_DISTRIBUTION_ENUM_TYPE.DIRECT_MESSAGE,
                 ),
-              (s = _.sendPerfReporter) == null || s.postWrittenWireStage(),
-              (_.sendPerfReporter = null),
-              (u = _.sendReporter) == null || u.postSuccess(),
-              (_.sendReporter = null),
-              k.success);
+              (s = f.sendPerfReporter) == null || s.postWrittenWireStage(),
+              (f.sendPerfReporter = null),
+              (u = f.sendReporter) == null || u.postSuccess(),
+              (f.sendReporter = null),
+              I.success);
         })),
         u.apply(this, arguments)
       );

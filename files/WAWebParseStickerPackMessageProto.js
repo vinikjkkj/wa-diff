@@ -4,36 +4,59 @@ __d(
     "WALongInt",
     "WATimeUtils",
     "WAWebE2EProtoParserApi",
+    "WAWebHandleMsgError",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMsgType",
+    "WAWebWamEnumE2eFailureReason",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t,
-        n,
-        r,
-        a = e.baseMessage,
-        i = e.messageProtobuf,
-        l = e.msgContext,
-        s = i.stickerPackMessage;
-      if (s == null) return null;
-      var u = s.caption,
-        c = o(
+    var e = 60,
+      s = 3,
+      u = e * s;
+    function c(t) {
+      var n,
+        a,
+        i,
+        l = t.baseMessage,
+        s = t.messageProtobuf,
+        c = t.msgContext,
+        d = s.stickerPackMessage;
+      if (d == null) return null;
+      if (r("justknobx")._("7544")) {
+        var m,
+          p = (m = d.stickers) != null ? m : [],
+          _ = p.reduce(function (e, t) {
+            var n, r;
+            return (
+              e +
+              ((n = (r = t.emojis) == null ? void 0 : r.length) != null ? n : 0)
+            );
+          }, 0);
+        if (p.length > e || _ > u)
+          throw new (o("WAWebHandleMsgError").MessageValidationError)(
+            "sticker_pack_over_limit",
+            o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+              .INVALID_PROTOCOL_BUFFER,
+          );
+      }
+      var f = d.caption,
+        g = o(
           "WAWebMediaMessageGetValidatedProperties",
         ).getValidatedMediaMessageProperties(
-          s,
-          a,
+          d,
           l,
+          c,
           o("WAWebMsgType").MSG_TYPE.STICKER_PACK,
         ),
-        d = c.fileEncSha256,
-        m = c.fileSha256,
-        p = c.mediaKey,
-        _ = c.url,
-        f = [];
-      (t = s.stickers) == null ||
-        t.forEach(function (e) {
-          f.push({
+        h = g.fileEncSha256,
+        y = g.fileSha256,
+        C = g.mediaKey,
+        b = g.url,
+        v = [];
+      (n = d.stickers) == null ||
+        n.forEach(function (e) {
+          v.push({
             fileName: e.fileName,
             emojis: e.emojis,
             isLottie: e.isLottie,
@@ -42,43 +65,43 @@ __d(
             accessibilityLabel: e.accessibilityLabel,
           });
         });
-      var g = babelHelpers.extends({}, a, {
+      var S = babelHelpers.extends({}, l, {
         type: o("WAWebMsgType").MSG_TYPE.STICKER_PACK,
         kind: o("WAWebMsgType").MsgKind.StickerPack,
-        caption: u,
-        deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(_),
-        description: s.packDescription,
-        isCaptionByUser: u != null,
-        filename: s.name,
-        filehash: o("WAWebE2EProtoParserApi").decodeBytes(m),
-        encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(d),
-        mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(p),
-        directPath: s.directPath,
-        stickerPackId: s.stickerPackId,
-        thumbnailDirectPath: s.thumbnailDirectPath,
+        caption: f,
+        deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(b),
+        description: d.packDescription,
+        isCaptionByUser: f != null,
+        filename: d.name,
+        filehash: o("WAWebE2EProtoParserApi").decodeBytes(y),
+        encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(h),
+        mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(C),
+        directPath: d.directPath,
+        stickerPackId: d.stickerPackId,
+        thumbnailDirectPath: d.thumbnailDirectPath,
         thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(
-          s.thumbnailSha256,
+          d.thumbnailSha256,
         ),
         thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(
-          s.thumbnailEncSha256,
+          d.thumbnailEncSha256,
         ),
         mediaKeyTimestamp:
-          s.mediaKeyTimestamp != null
-            ? o("WALongInt").numberOrThrowIfTooLarge(s.mediaKeyTimestamp)
+          d.mediaKeyTimestamp != null
+            ? o("WALongInt").numberOrThrowIfTooLarge(d.mediaKeyTimestamp)
             : o("WATimeUtils").unixTime(),
-        stickers: f,
-        stickerPackPublisher: s.publisher,
+        stickers: v,
+        stickerPackPublisher: d.publisher,
         stickerPackSize: o("WALongInt").numberOrThrowIfTooLarge(
-          (n = s.stickerPackSize) != null ? n : 0,
+          (a = d.stickerPackSize) != null ? a : 0,
         ),
-        trayIconFileName: s.trayIconFileName,
+        trayIconFileName: d.trayIconFileName,
         size: o("WALongInt").numberOrThrowIfTooLarge(
-          (r = s.fileLength) != null ? r : 0,
+          (i = d.fileLength) != null ? i : 0,
         ),
       });
-      return { msgData: g, contextInfo: null };
+      return { msgData: S, contextInfo: null };
     }
-    l.default = e;
+    l.default = c;
   },
   98,
 );

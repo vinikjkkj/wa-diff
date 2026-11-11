@@ -5,20 +5,29 @@ __d(
     "use strict";
     var e = (function () {
       var e = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "draft_page_id",
+        },
+        t = [
+          { kind: "Variable", name: "page_id", variableName: "draft_page_id" },
+          { kind: "Literal", name: "product", value: "BOOSTED_MESSAGE" },
+        ],
+        n = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "message",
           storageKey: null,
         },
-        t = {
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "picture",
           storageKey: null,
         },
-        n = {
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -27,7 +36,7 @@ __d(
         };
       return {
         argumentDefinitions: [
-          { defaultValue: null, kind: "LocalArgument", name: "draft_page_id" },
+          e,
           { defaultValue: null, kind: "LocalArgument", name: "page_id_1" },
         ],
         kind: "Fragment",
@@ -95,18 +104,7 @@ __d(
             selections: [
               {
                 alias: null,
-                args: [
-                  {
-                    kind: "Variable",
-                    name: "page_id",
-                    variableName: "draft_page_id",
-                  },
-                  {
-                    kind: "Literal",
-                    name: "product",
-                    value: "BOOSTED_MESSAGE",
-                  },
-                ],
+                args: t,
                 concreteType: "AdsLWIDraftWrapper",
                 kind: "LinkedField",
                 name: "latest_wa_web_draft",
@@ -191,9 +189,9 @@ __d(
                                         name: "link_data",
                                         plural: !1,
                                         selections: [
-                                          e,
-                                          t,
                                           n,
+                                          r,
+                                          o,
                                           {
                                             alias: null,
                                             args: null,
@@ -202,7 +200,7 @@ __d(
                                             kind: "LinkedField",
                                             name: "child_attachments",
                                             plural: !0,
-                                            selections: [t],
+                                            selections: [r],
                                             storageKey: null,
                                           },
                                         ],
@@ -217,7 +215,7 @@ __d(
                                         name: "video_data",
                                         plural: !1,
                                         selections: [
-                                          e,
+                                          n,
                                           {
                                             alias: null,
                                             args: null,
@@ -225,7 +223,7 @@ __d(
                                             name: "image_url",
                                             storageKey: null,
                                           },
-                                          n,
+                                          o,
                                           {
                                             alias: null,
                                             args: null,
@@ -254,6 +252,38 @@ __d(
                   },
                 ],
                 storageKey: null,
+              },
+              {
+                kind: "InlineDataFragmentSpread",
+                name: "useWAWebBizAdManagementDraftItem_ctwa",
+                selections: [
+                  {
+                    alias: null,
+                    args: t,
+                    concreteType: "CTWADraftThumbnail",
+                    kind: "LinkedField",
+                    name: "latest_wa_web_draft_thumbnail",
+                    plural: !1,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "url",
+                        storageKey: null,
+                      },
+                    ],
+                    storageKey: null,
+                  },
+                ],
+                args: [
+                  {
+                    kind: "Variable",
+                    name: "draft_page_id",
+                    variableName: "draft_page_id",
+                  },
+                ],
+                argumentDefinitions: [e],
               },
             ],
             storageKey: null,

@@ -24,18 +24,21 @@ __d(
         marginTop15: { marginTop: "xcxhlts", $$css: !0 },
       };
     function c(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
+      return d({ chatId: t.id, groupMetadata: t.groupMetadata });
+    }
+    function d(e) {
       var t,
         n = r("WAWebFbtCommon")("Exit Group");
       return (
-        o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e) &&
-          ((t = o("WAWebStateUtils").unproxy(e).groupMetadata) == null
-            ? void 0
-            : t.getParentGroupChat()) != null &&
+        o("WAWebChatGroupUtils").isCommunityAnnouncementGroupFor(e) &&
+          ((t = e.groupMetadata) == null ? void 0 : t.getParentGroupChat()) !=
+            null &&
           (n = r("WAWebFbtCommon")("Exit Community")),
         n
       );
     }
-    function d(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(7),
         n = e.content,
         a = e.icon,
@@ -72,7 +75,9 @@ __d(
         d
       );
     }
-    ((l.getLeaveGroupString = c), (l.SuspendedModalBodyParagraph = d));
+    ((l.getLeaveGroupString = c),
+      (l.getLeaveGroupStringFor = d),
+      (l.SuspendedModalBodyParagraph = m));
   },
   98,
 );

@@ -20,7 +20,7 @@ __d(
           },
           onOverlayClick: n.closeModalManager,
           children: s.jsx(r("WAWebGroupAdminSelection.react"), {
-            chat: e,
+            chatId: e.id,
             groupMetadata: t,
             onConfirm: n.closeModalManager,
             onCancel: n.closeModalManager,

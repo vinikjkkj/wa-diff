@@ -402,12 +402,14 @@ __d(
         i.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
           (f.messageRangeIndex = o(
             "WAWebDBMessageRangeIndex",
-          ).craftMessageRangeIndex(
-            t,
-            !r("WAWebMsgKey").fromString(i.id).fromMe,
-            o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(i.type),
-            v,
-          ));
+          ).craftMessageRangeIndex({
+            chatId: t,
+            isIncoming: !r("WAWebMsgKey").fromString(i.id).fromMe,
+            isSystemMessage: o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(
+              i.type,
+            ),
+            timestamp: v,
+          }));
       } catch (e) {
         o("WALogger").ERROR(
           u ||

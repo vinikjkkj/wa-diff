@@ -161,8 +161,7 @@ __d(
     function L(e) {
       return e.type === "roster" ? [e.entry.id] : [];
     }
-    ((l.ORG_ADMIN_ROSTER_REMOVE_BATCH_LIMIT = e),
-      (l.getOrgAdminMemberPersonKey = c),
+    ((l.getOrgAdminMemberPersonKey = c),
       (l.getOrgAdminRosterPersonKey = d),
       (l.getOrgAdminPerson = m),
       (l.getOrgAdminPersonGroupCandidates = p),

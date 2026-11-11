@@ -15,6 +15,7 @@ __d(
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
@@ -237,9 +238,9 @@ __d(
                   ).WACallLogWriteMutex.acquire()
                 : null;
             try {
-              var E,
-                k = o("WAWebMsgCollection").MsgCollection.get(b),
-                I = S(e, k == null ? void 0 : k.callOutcome);
+              var k,
+                I = o("WAWebMsgCollection").MsgCollection.get(b),
+                T = E(e, I == null ? void 0 : I.callOutcome);
               if (
                 o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
                 (o("WAWebVoipTransferredCallRegistry").markTransferredCallEnded(
@@ -262,29 +263,29 @@ __d(
                   ));
                 return;
               }
-              var T = {
+              var D = {
                   id: b,
                   type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                   kind: o("WAWebMsgType").MsgKind.CallLog,
                   viewMode: g,
-                  callOutcome: h(e, I),
+                  callOutcome: h(e, T),
                   isVideoCall: e.videoEnabled,
                   callCreator: R,
                   from: a,
                   to: i,
                   t:
-                    (E = k == null ? void 0 : k.t) != null
-                      ? E
+                    (k = I == null ? void 0 : I.t) != null
+                      ? k
                       : o(
                           "WAWebVoipCallLogTimestamp",
                         ).resolveCallLogTimestampFromOfferTime(
                           e.offerEpochTimeMs,
                         ),
-                  callDuration: y(e, k == null ? void 0 : k.callDuration),
+                  callDuration: y(e, I == null ? void 0 : I.callDuration),
                   callParticipants: C(
                     e,
-                    k == null ? void 0 : k.callParticipants,
-                    I,
+                    I == null ? void 0 : I.callParticipants,
+                    T,
                   ),
                   finalCallOutcome: o(
                     "WAWebCallLogUtils",
@@ -293,19 +294,20 @@ __d(
                     e.callDuration,
                   ),
                 },
-                D =
-                  k != null &&
-                  !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState),
-                x = yield o(
+                x =
+                  I != null &&
+                  !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
+                  !S(I, D),
+                $ = yield o(
                   "WAWebVoipActionWriteCallLogImpl",
-                ).writeVoipCallLogMessageImpl(i, T, !1, !0, D);
+                ).writeVoipCallLogMessageImpl(i, D, !1, !0, x);
               return (
-                x != null &&
+                $ != null &&
                   o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
                   o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(
                     e.callId,
                   ),
-                x
+                $
               );
             } finally {
               L == null || L.release();
@@ -328,6 +330,44 @@ __d(
       );
     }
     function S(e, t) {
+      return (
+        e.callOutcome !== t.callOutcome ||
+        e.finalCallOutcome !== t.finalCallOutcome ||
+        !R(e.callParticipants, t.callParticipants)
+      );
+    }
+    function R(e, t) {
+      var n = L(e),
+        r = L(t);
+      return (
+        n.size === r.size &&
+        Array.from(r).every(function (e) {
+          var t = e[0],
+            r = e[1];
+          return n.get(t) === r;
+        })
+      );
+    }
+    function L(e) {
+      var t = new Map();
+      return (
+        e == null ||
+          e.forEach(function (e) {
+            var n = e.outcome,
+              r = e.participant,
+              a = (
+                r.isUser() ? o("WAWebWidFactory").asUserWidOrThrow(r) : r
+              ).toString();
+            t.has(a) ||
+              t.set(
+                a,
+                n === o("WAWebVoipWaCallEnums").CallParticipantState.Connected,
+              );
+          }),
+        t
+      );
+    }
+    function E(e, t) {
       var n =
         o("WAWebVoipCallStateUtils").isCallConnected(e.callState) &&
         o("WAWebVoipTransferredCallRegistry").isTransferredCallLive(e.callId) &&

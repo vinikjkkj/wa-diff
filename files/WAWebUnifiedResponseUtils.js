@@ -179,8 +179,8 @@ __d(
     function D(e) {
       return e == null
         ? !1
-        : w(e).some(function (e) {
-            return c(e.view_model).some(x);
+        : A(e).some(function (e) {
+            return c(e).some(x);
           });
     }
     function x(e) {

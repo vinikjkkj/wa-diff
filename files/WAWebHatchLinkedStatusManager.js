@@ -4,11 +4,11 @@ __d(
     "Promise",
     "WALogger",
     "WAResolvable",
+    "WAWebHatchLinkedStatusFetchFailure",
     "WAWebLocalStorage",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumMuseChannelStatus",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,9 +17,8 @@ __d(
       u,
       c,
       d,
-      m,
-      p = "hatch-linked-status",
-      _ = (function () {
+      m = "hatch-linked-status",
+      p = (function () {
         function t() {
           ((this.$1 = null),
             (this.$2 = "not_loaded"),
@@ -32,13 +31,13 @@ __d(
             (this.$9 = new (o("WAResolvable").Resolvable)()),
             (this.$10 = !1));
         }
-        var a = t.prototype;
+        var r = t.prototype;
         return (
-          (a.registerFetcher = function (t) {
+          (r.registerFetcher = function (t) {
             var e = this.$8 != null;
             ((this.$6 = t), this.$11(), e && this.fetchAndUpdateStatus());
           }),
-          (a.subscribeToLinkedStatus = function (t) {
+          (r.subscribeToLinkedStatus = function (t) {
             var e = this;
             return (
               this.$5.push(t),
@@ -49,16 +48,16 @@ __d(
               }
             );
           }),
-          (a.getLinkedStatus = function () {
+          (r.getLinkedStatus = function () {
             return this.$1;
           }),
-          (a.getLinkedStatusState = function () {
+          (r.getLinkedStatusState = function () {
             return this.$2;
           }),
-          (a.getLastConfirmedLinkedStatusState = function () {
+          (r.getLastConfirmedLinkedStatusState = function () {
             return this.$3;
           }),
-          (a.getMuseChannelStatusForLogging = function () {
+          (r.getMuseChannelStatusForLogging = function () {
             var e = this;
             return (function (t) {
               return t === "linked"
@@ -71,17 +70,17 @@ __d(
                       .UNKNOWN;
             })(this.$2);
           }),
-          (a.isLinked = function () {
+          (r.isLinked = function () {
             return this.$3 === "linked";
           }),
-          (a.isUnlinked = function () {
+          (r.isUnlinked = function () {
             return this.$3 === "unlinked";
           }),
-          (a.getKnownConfirmedLinkedStatusState = function () {
+          (r.getKnownConfirmedLinkedStatusState = function () {
             var e;
-            return (e = this.$3) != null ? e : h();
+            return (e = this.$3) != null ? e : g();
           }),
-          (a.fetchConfirmedLinkedStatusStateIfUnknown = (function () {
+          (r.fetchConfirmedLinkedStatusStateIfUnknown = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this.getKnownConfirmedLinkedStatusState();
               return e != null
@@ -93,61 +92,56 @@ __d(
             }
             return t;
           })()),
-          (a.markUnlinked = function () {
+          (r.markUnlinked = function () {
             ((this.$1 = null),
               (this.$2 = "unlinked"),
               (this.$3 = "unlinked"),
-              g("unlinked"),
+              f("unlinked"),
               this.$11(),
               this.$13());
           }),
-          (a.fetchAndUpdateStatus = function () {
+          (r.fetchAndUpdateStatus = function () {
             var t = this;
-            if (this.$8 != null) {
-              this.$10 = !0;
-              return;
-            }
+            if (this.$8 != null) return ((this.$10 = !0), !0);
             var n = this.$6;
-            if (n == null) {
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[HatchLinkedStatusManager] no fetcher registered, skipping",
-                  ])),
+            if (n == null)
+              return (
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[HatchLinkedStatusManager] no fetcher registered, skipping",
+                    ])),
+                ),
+                !1
               );
-              return;
-            }
-            var a = this.$7,
-              i = n()
+            var r = this.$7,
+              a = n()
                 .then(function (e) {
-                  a === t.$7 && t.$14(e);
+                  r === t.$7 && t.$14(e);
                 })
                 .catch(function (e) {
-                  a === t.$7 &&
-                    (o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[HatchLinkedStatusManager] fetch failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("hatch-linked-status-fetch-fail"),
+                  r === t.$7 &&
+                    (o(
+                      "WAWebHatchLinkedStatusFetchFailure",
+                    ).logHatchLinkedStatusFetchFailure(e),
                     t.$15());
                 });
-            ((this.$8 = i),
-              i.then(function () {
-                t.$8 === i &&
+            return (
+              (this.$8 = a),
+              a.then(function () {
+                t.$8 === a &&
                   ((t.$8 = null),
                   t.$10 && ((t.$10 = !1), t.fetchAndUpdateStatus()));
-              }));
+              }),
+              !0
+            );
           }),
-          (a.$12 = (function () {
+          (r.$12 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this.$8;
               return e == null || this.$3 != null
                 ? this.$3
-                : (yield (m || (m = n("Promise"))).race([e, this.$9.promise]),
+                : (yield (d || (d = n("Promise"))).race([e, this.$9.promise]),
                   this.$12());
             });
             function t() {
@@ -155,41 +149,41 @@ __d(
             }
             return t;
           })()),
-          (a.$14 = function (t) {
-            var e = t != null && f(t) ? "linked" : "unlinked";
+          (r.$14 = function (t) {
+            var e = t != null && _(t) ? "linked" : "unlinked";
             ((this.$1 = t),
               (this.$2 = e),
               (this.$3 = e),
               e === "linked" && (this.$4 = !0),
-              g(e),
+              f(e),
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[HatchLinkedStatusManager] fetched linked status",
                   ])),
               ),
               this.$13());
           }),
-          (a.$15 = function () {
+          (r.$15 = function () {
             ((this.$2 = "failed"), this.$13());
           }),
-          (a.$11 = function () {
+          (r.$11 = function () {
             ((this.$7 += 1),
               (this.$8 = null),
               (this.$10 = !1),
               this.$9.resolve(),
               (this.$9 = new (o("WAResolvable").Resolvable)()));
           }),
-          (a.$13 = function () {
+          (r.$13 = function () {
             for (var e of [].concat(this.$5)) e(this.$1);
           }),
           t
         );
       })();
-    function f(e) {
+    function _(e) {
       return e.hasChannel && e.status === "ACTIVE" && e.isPaired;
     }
-    function g(e) {
+    function f(e) {
       try {
         var t,
           n =
@@ -199,21 +193,21 @@ __d(
         n != null &&
           (r("WAWebLocalStorage") == null ||
             r("WAWebLocalStorage").setItem(
-              p,
+              m,
               JSON.stringify({ owner: n, state: e }),
             ));
       } catch (e) {
         o("WALogger")
           .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[HatchLinkedStatusManager] storing the confirmed state failed",
               ])),
           )
           .sendLogs("hatch-linked-status-store-failed", { sampling: 0.01 });
       }
     }
-    function h() {
+    function g() {
       try {
         var e,
           t =
@@ -223,14 +217,14 @@ __d(
           n =
             r("WAWebLocalStorage") == null
               ? void 0
-              : r("WAWebLocalStorage").getItem(p);
-        return t == null || n == null ? null : y(JSON.parse(n), t);
+              : r("WAWebLocalStorage").getItem(m);
+        return t == null || n == null ? null : h(JSON.parse(n), t);
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[HatchLinkedStatusManager] reading the confirmed state failed",
                 ])),
             )
@@ -239,15 +233,15 @@ __d(
         );
       }
     }
-    function y(e, t) {
+    function h(e, t) {
       if (e == null || typeof e != "object") return null;
       var n = e.owner,
         r = e.state;
       return n === t && (r === "linked" || r === "unlinked") ? r : null;
     }
-    var C = new _(),
-      b = C;
-    l.default = b;
+    var y = new p(),
+      C = y;
+    l.default = C;
   },
   98,
 );

@@ -79,7 +79,7 @@ __d(
             var s = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(
               i,
             );
-            s != null &&
+            o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(s) &&
               (o("WAWebABProps").getABPropConfigValue(
                 "inapp_signup_m1_logging_enabled",
               ) &&

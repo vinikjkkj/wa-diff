@@ -317,7 +317,7 @@ __d(
                       onClick: V,
                       children: [
                         s.jsx(E, { msg: n }),
-                        s.jsx(L, { author: n.senderObj, chat: f }),
+                        s.jsx(L, { author: n.senderObj, chatId: f.id }),
                       ],
                     }),
                   }),
@@ -357,9 +357,9 @@ __d(
       );
     }
     function L(e) {
-      var t = o("react-compiler-runtime").c(26),
+      var t = o("react-compiler-runtime").c(29),
         n = e.author,
-        a = e.chat,
+        a = e.chatId,
         i = r("useWAWebMeasure")(),
         l = i[0],
         u = i[1],
@@ -369,113 +369,135 @@ __d(
         p = d[1],
         _ = p.width,
         f;
-      t[0] !== a
-        ? ((f = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(a)),
-          (t[0] = a),
-          (t[1] = f))
-        : (f = t[1]);
-      var g = f,
-        h;
-      if (o("WAWebChatGetters").getIsGroup(a)) {
-        var y;
-        (t[2] !== n || t[3] !== a.id
-          ? ((y = s.jsx(o("WAWebName.react").ContactAndGroupName, {
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = [
+            o("WAWebChatGetters").getIsGroup,
+            o("WAWebChatGetters").getIsNewsletter,
+            o("WAWebFrontendChatGetters").getIsCAG,
+            o("WAWebFrontendChatGetters").getGroupMetadata,
+          ]),
+          (t[0] = f))
+        : (f = t[0]);
+      var g = o("useWAWebChatValues").useChatValues(a, f),
+        h = g[0],
+        y = g[1],
+        C = g[2],
+        v = g[3],
+        S = (v == null ? void 0 : v.participants.length) || 1,
+        R;
+      t[1] !== C || t[2] !== h || t[3] !== S
+        ? ((R = o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabledFor({
+            isCAG: C,
+            isGroup: h,
+            participantCount: S,
+          })),
+          (t[1] = C),
+          (t[2] = h),
+          (t[3] = S),
+          (t[4] = R))
+        : (R = t[4]);
+      var L = R,
+        E;
+      if (h) {
+        var k;
+        (t[5] !== n || t[6] !== a
+          ? ((k = s.jsx(o("WAWebName.react").ContactAndGroupName, {
               contact: n,
-              chatId: a.id,
+              chatId: a,
               xstyle: b.senderName,
             })),
-            (t[2] = n),
-            (t[3] = a.id),
-            (t[4] = y))
-          : (y = t[4]),
-          (h = y));
-      } else if (o("WAWebChatGetters").getIsNewsletter(a)) {
-        var C;
-        (t[5] !== a.id || t[6] !== g
-          ? ((C = s.jsx(o("WAWebNewsletterName.react").NewsletterName, {
-              chatId: a.id,
-              elevatedPushNamesEnabled: g,
+            (t[5] = n),
+            (t[6] = a),
+            (t[7] = k))
+          : (k = t[7]),
+          (E = k));
+      } else if (y) {
+        var I;
+        (t[8] !== a || t[9] !== L
+          ? ((I = s.jsx(o("WAWebNewsletterName.react").NewsletterName, {
+              chatId: a,
+              elevatedPushNamesEnabled: L,
               xstyle: b.senderName,
             })),
-            (t[5] = a.id),
-            (t[6] = g),
-            (t[7] = C))
-          : (C = t[7]),
-          (h = C));
+            (t[8] = a),
+            (t[9] = L),
+            (t[10] = I))
+          : (I = t[10]),
+          (E = I));
       } else {
-        var v;
-        (t[8] !== n || t[9] !== g
-          ? ((v = s.jsx(o("WAWebName.react").Name, {
+        var T;
+        (t[11] !== n || t[12] !== L
+          ? ((T = s.jsx(o("WAWebName.react").Name, {
               contact: n,
               useShortName: !0,
               xstyle: b.senderName,
-              elevatedPushNamesEnabled: g,
+              elevatedPushNamesEnabled: L,
             })),
-            (t[8] = n),
-            (t[9] = g),
-            (t[10] = v))
-          : (v = t[10]),
-          (h = v));
+            (t[11] = n),
+            (t[12] = L),
+            (t[13] = T))
+          : (T = t[13]),
+          (E = T));
       }
-      var S = _ > c,
-        R;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = { className: "xoiwuju x5yr21d x6ikm8r x10wlt62 x10l6tqk" }),
-          (t[11] = R))
-        : (R = t[11]);
-      var L;
-      t[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = { className: "xlshs6z x10l6tqk xomak03 xx7j5b9" }), (t[12] = L))
-        : (L = t[12]);
-      var E;
-      t[13] !== m || t[14] !== h
-        ? ((E = s.jsx(
+      var D = _ > c,
+        x;
+      t[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = { className: "xoiwuju x5yr21d x6ikm8r x10wlt62 x10l6tqk" }),
+          (t[14] = x))
+        : (x = t[14]);
+      var $;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = { className: "xlshs6z x10l6tqk xomak03 xx7j5b9" }), (t[15] = $))
+        : ($ = t[15]);
+      var P;
+      t[16] !== m || t[17] !== E
+        ? ((P = s.jsx(
             "div",
-            babelHelpers.extends({ ref: m }, L, { children: h }),
+            babelHelpers.extends({ ref: m }, $, { children: E }),
           )),
-          (t[13] = m),
-          (t[14] = h),
-          (t[15] = E))
-        : (E = t[15]);
-      var k;
-      t[16] !== l || t[17] !== E
-        ? ((k = s.jsx(
-            "div",
-            babelHelpers.extends({ ref: l }, R, { children: E }),
-          )),
-          (t[16] = l),
+          (t[16] = m),
           (t[17] = E),
-          (t[18] = k))
-        : (k = t[18]);
-      var I;
-      t[19] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = {
+          (t[18] = P))
+        : (P = t[18]);
+      var N;
+      t[19] !== l || t[20] !== P
+        ? ((N = s.jsx(
+            "div",
+            babelHelpers.extends({ ref: l }, x, { children: P }),
+          )),
+          (t[19] = l),
+          (t[20] = P),
+          (t[21] = N))
+        : (N = t[21]);
+      var M;
+      t[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((M = {
             className:
               "xuxw1ft xbrixnn x6ikm8r x10wlt62 x193iq5w x5yr21d x78zum5 x6s0dn4",
           }),
-          (t[19] = I))
-        : (I = t[19]);
-      var T;
-      t[20] !== h || t[21] !== S
-        ? ((T = s.jsx(
+          (t[22] = M))
+        : (M = t[22]);
+      var w;
+      t[23] !== E || t[24] !== D
+        ? ((w = s.jsx(
             "div",
-            babelHelpers.extends({}, I, {
-              children: S ? s.jsx(r("WAWebPttOocMarquee"), { children: h }) : h,
+            babelHelpers.extends({}, M, {
+              children: D ? s.jsx(r("WAWebPttOocMarquee"), { children: E }) : E,
             }),
           )),
-          (t[20] = h),
-          (t[21] = S),
-          (t[22] = T))
-        : (T = t[22]);
-      var D;
+          (t[23] = E),
+          (t[24] = D),
+          (t[25] = w))
+        : (w = t[25]);
+      var A;
       return (
-        t[23] !== k || t[24] !== T
-          ? ((D = s.jsxs(s.Fragment, { children: [k, T] })),
-            (t[23] = k),
-            (t[24] = T),
-            (t[25] = D))
-          : (D = t[25]),
-        D
+        t[26] !== w || t[27] !== N
+          ? ((A = s.jsxs(s.Fragment, { children: [N, w] })),
+            (t[26] = w),
+            (t[27] = N),
+            (t[28] = A))
+          : (A = t[28]),
+        A
       );
     }
     function E(e) {

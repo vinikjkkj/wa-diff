@@ -32,7 +32,8 @@ __d(
         g = 0,
         h = [],
         y = !1,
-        C = function () {
+        C = !1,
+        b = function () {
           var e = h;
           if (
             e != null &&
@@ -40,32 +41,36 @@ __d(
             (y = o("WAWebABProps").getABPropConfigValue(
               "web_getters_lazy_slot_allocation",
             )),
+            (C = y),
             !y)
           )
             for (var t = 0; t < e.length; t++) v(e[t], f());
         },
-        b = function () {
+        S = function () {
           var t = {
             prevResultIndex: e,
             changedAtIndex: e,
             checkedAtIndex: e,
             allocateGetterId: f,
-            resolveAllocationOrder: C,
+            resolveAllocationOrder: b,
           };
           return (h != null ? h.push(t) : y || v(t, f()), t);
         },
-        S =
+        R =
           a != null
             ? a
             : _({
                 getterGroupId: m,
-                slots: b(),
+                slots: S(),
                 resultEqualityCheck: i != null ? i : E,
                 cache: d,
+                issuesIncreasingRevisions: function () {
+                  return C;
+                },
               });
-      if (S.kind !== "identity")
+      if (R.kind !== "identity")
         throw r("err")(
-          "root must be an identity getter but got kind " + S.kind,
+          "root must be an identity getter but got kind " + R.kind,
         );
       return {
         field: function (t, n) {
@@ -94,12 +99,12 @@ __d(
                   }),
             p({
               getterGroupId: m,
-              slots: b(),
-              root: S,
+              slots: S(),
+              root: R,
               cache: d,
               resultFunc: l,
               resultEqualityCheck: i,
-              props: { kind: "field", dependencyKey: t, dependencies: [S] },
+              props: { kind: "field", dependencyKey: t, dependencies: [R] },
             })
           );
         },
@@ -109,15 +114,15 @@ __d(
             a = o === void 0 ? E : o;
           return p({
             getterGroupId: m,
-            slots: b(),
-            root: S,
+            slots: S(),
+            root: R,
             cache: d,
             resultFunc: t,
             resultEqualityCheck: a,
             props: { kind: "computed", dependencies: n },
           });
         },
-        unsafeIdentityGetter: S,
+        unsafeIdentityGetter: R,
         clearCacheFor: function (t) {
           d.delete(I(t));
         },
@@ -175,27 +180,35 @@ __d(
     function _(e) {
       var t = e.cache,
         n = e.getterGroupId,
-        r = e.resultEqualityCheck,
-        o = e.slots;
+        r = e.issuesIncreasingRevisions,
+        o = e.resultEqualityCheck,
+        a = e.slots,
+        i = 0;
       return f({
         getterGroupId: n,
-        slots: o,
+        slots: a,
         root: null,
         cache: t,
         props: { kind: "identity", dependencies: [] },
-        recomputeIfNeeded: function (t, a, i) {
-          b(o);
-          var e = o.changedAtIndex,
-            l = o.checkedAtIndex,
-            s = o.prevResultIndex,
-            u = i[n],
-            c = u[s],
-            d = t,
-            m = u[l],
-            p = t == null ? 0 : t.revisionNumber || 0;
-          if (c !== void 0 && m === p && r(d, T(c))) return a;
-          var _ = a + 1;
-          return ((u[s] = d === void 0 ? R : d), (u[e] = _), (u[l] = p), _);
+        recomputeIfNeeded: function (t, l, s) {
+          b(a);
+          var e = a.changedAtIndex,
+            u = a.checkedAtIndex,
+            c = a.prevResultIndex,
+            d = s[n],
+            m = d[c],
+            p = t,
+            _ = d[u],
+            f = t == null ? 0 : t.revisionNumber || 0;
+          if (m !== void 0 && _ === f && o(p, T(m))) return l;
+          var g = l + 1;
+          return (
+            r() && ((g = Math.max(g, i + 1)), (i = g)),
+            (d[c] = p === void 0 ? R : p),
+            (d[e] = g),
+            (d[u] = f),
+            g
+          );
         },
       });
     }

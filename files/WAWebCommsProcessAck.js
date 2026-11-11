@@ -84,14 +84,15 @@ __d(
               .merge(s, {
                 messageRangeIndex: o(
                   "WAWebDBMessageRangeIndex",
-                ).craftMessageRangeIndex(
-                  a.toString(),
-                  !1,
-                  d ===
+                ).craftMessageRangeIndex({
+                  chatId: a.toString(),
+                  isIncoming: !1,
+                  isSystemMessage:
+                    d ===
                     o("WAWebDBMessageRangeIndex").MessagePropertyType
                       .SystemMessage,
-                  i,
-                ),
+                  timestamp: i,
+                }),
                 rcat: r,
               });
           } catch (t) {

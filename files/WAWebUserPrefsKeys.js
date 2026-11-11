@@ -106,6 +106,8 @@ __d(
             GLOBAL_MUTE_PREVIEWS: "WAGlobalPreviews",
             GLOBAL_OFFLINE_NOTIFICATIONS_ENABLED:
               "WAGlobalOfflineNotificationsEnabled",
+            OFFLINE_CALL_NOTIFICATIONS_ENABLED:
+              "WAOfflineCallNotificationsEnabled",
             GLOBAL_NOTIFICATIONS_ENABLED: "WAGlobalNotificationsEnabled",
             GLOBAL_NOTIFICATION_REACTIONS_ENABLED:
               "WAGlobalNotificationReactionsEnabled",

@@ -162,7 +162,7 @@ __d(
           c = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLoggingFromData(
             e,
           );
-        if (c != null) {
+        if (o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(c)) {
           var p =
               (t == null ? void 0 : t.archive) === !0
                 ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED

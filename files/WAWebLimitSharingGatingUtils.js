@@ -35,10 +35,10 @@ __d(
       return e.isGroup() ? m() : c();
     }
     function f(e) {
-      return g(e, e.acp2Setting);
+      return g(e.id, e.acp2Setting);
     }
     function g(e, t) {
-      return (t == null ? void 0 : t.enabled) === !0 && p(e);
+      return (t == null ? void 0 : t.enabled) === !0 && _(e);
     }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),

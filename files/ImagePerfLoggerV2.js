@@ -164,7 +164,7 @@ __d(
       var t = e.match(/\.(\w+)(\?|$)/);
       return t && t.length > 1 ? t[1] : "";
     }
-    var E = { marlSpandrel: "feedImage", shaleTrunnion: "feedImage" };
+    var E = { shaleTrunnion: "feedImage", chertPurlin: "feedImage" };
     function k(e) {
       var t,
         n = e.getAttribute("data-imgperflogname");

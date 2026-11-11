@@ -4,6 +4,8 @@ __d(
     "WATimeUtils",
     "WAWebContactGetters",
     "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
+    "WAWebStateUtils",
+    "WAWebTrustedContactsUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsTypes",
     "asyncToGeneratorRuntime",
@@ -16,7 +18,7 @@ __d(
       var n = o("WATimeUtils").unixTime(),
         r = n > t.cycle_end_timestamp;
       return r
-        ? (I(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
+        ? (T(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
         : t.capping_status ===
             o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.CAPPED &&
             o(
@@ -65,18 +67,34 @@ __d(
     }
     function _(e) {
       var t = e.chat,
-        n = e.contact;
-      return !o("WAWebContactGetters").getIsUser(n) ||
-        o("WAWebContactGetters").getIsMe(n) ||
-        o("WAWebContactGetters").getIsEnterprise(n) ||
-        o("WAWebContactGetters").getIsSupportAccount(n) ||
-        n.id.isBot() ||
-        o("WAWebContactGetters").getIsBroadcast(n) ||
-        o("WAWebContactGetters").getIsPSA(n)
-        ? !0
-        : (t == null ? void 0 : t.getTcToken()) != null;
+        n = e.contact,
+        r = t == null ? null : o("WAWebStateUtils").unproxy(t);
+      return f({
+        contact: n,
+        tcToken: r == null ? void 0 : r.tcToken,
+        tcTokenTimestamp: r == null ? void 0 : r.tcTokenTimestamp,
+      });
     }
     function f(e) {
+      var t = e.contact,
+        n = e.tcToken,
+        r = e.tcTokenTimestamp;
+      return !o("WAWebContactGetters").getIsUser(t) ||
+        o("WAWebContactGetters").getIsMe(t) ||
+        o("WAWebContactGetters").getIsEnterprise(t) ||
+        o("WAWebContactGetters").getIsSupportAccount(t) ||
+        t.id.isBot() ||
+        o("WAWebContactGetters").getIsBroadcast(t) ||
+        o("WAWebContactGetters").getIsPSA(t)
+        ? !0
+        : n != null &&
+            r != null &&
+            !o("WAWebTrustedContactsUtils").isTokenExpired(
+              r,
+              o("WAWebTrustedContactsUtils").TcTokenMode.Receiver,
+            );
+    }
+    function g(e) {
       var t;
       return (t = o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.cast(
         e,
@@ -84,7 +102,7 @@ __d(
         ? t
         : o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE;
     }
-    function g(e) {
+    function h(e) {
       var t;
       return (t = o(
         "WAWebUserPrefsTypes",
@@ -92,7 +110,7 @@ __d(
         ? t
         : o("WAWebUserPrefsTypes").NewChatMessageCappingOTEStatusType.ELIGIBLE;
     }
-    function h(e) {
+    function y(e) {
       var t;
       return (t = o(
         "WAWebUserPrefsTypes",
@@ -100,7 +118,7 @@ __d(
         ? t
         : o("WAWebUserPrefsTypes").NewChatMessageCappingMVStatusType.NOT_ACTIVE;
     }
-    function y(e) {
+    function C(e) {
       var t;
       return (t = o(
         "WAWebUserPrefsTypes",
@@ -109,7 +127,7 @@ __d(
         : o("WAWebUserPrefsTypes").NewChatMessageCappingSubscriptionStatusType
             .NOT_ACTIVE;
     }
-    function C(e) {
+    function b(e) {
       var t;
       return (t = o(
         "WAWebUserPrefsTypes",
@@ -118,13 +136,13 @@ __d(
         : o("WAWebUserPrefsTypes").NewChatMessageCappingSubscriptionName
             .UNKNOWN;
     }
-    function b() {
+    function v() {
       var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
       if (t == null) return !1;
       var n = o("WATimeUtils").unixTime(),
         r = n > t.cycle_end_timestamp;
       return r
-        ? (I(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
+        ? (T(o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType.NONE), !1)
         : (t.capping_status ===
             o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType
               .FIRST_WARNING ||
@@ -135,16 +153,16 @@ __d(
               "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
             ).isIndividualNewChatMessageCappingEnabled();
     }
-    function v() {
-      return b() ? m() : null;
-    }
     function S() {
+      return v() ? m() : null;
+    }
+    function R() {
       var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
       return t == null || t.total_quota === 0
         ? 0
         : Math.min(100, Math.max(0, (t.used_quota / t.total_quota) * 100));
     }
-    function R(t) {
+    function L(t) {
       var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
       if (n == null || n.cycle_end_timestamp === 0) return "";
       var r = new Date(n.cycle_end_timestamp * 1e3);
@@ -154,7 +172,7 @@ __d(
         year: "numeric",
       });
     }
-    function L() {
+    function E() {
       var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
       return t == null
         ? !1
@@ -162,12 +180,12 @@ __d(
             o("WAWebUserPrefsTypes").NewChatMessageCappingOTEStatusType
               .ELIGIBLE;
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
           n != null &&
             (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
@@ -178,21 +196,21 @@ __d(
                 cycle_start_timestamp: Number(t.cycle_start_timestamp),
                 cycle_end_timestamp: Number(t.cycle_end_timestamp),
                 server_sent_timestamp: Number(t.server_sent_timestamp),
-                ote_status: g(t.ote_status),
-                mv_status: h(t.mv_status),
-                capping_status: f(t.capping_status),
+                ote_status: h(t.ote_status),
+                mv_status: y(t.mv_status),
+                capping_status: g(t.capping_status),
               }),
             ));
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
           n != null &&
             (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
@@ -200,7 +218,7 @@ __d(
               babelHelpers.extends({}, n, { capping_status: t }),
             ));
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
     ((l.NEW_CHAT_MESSAGE_CAPPING_IDB_KEY = e),
@@ -210,18 +228,19 @@ __d(
       (l.getCappingStatus = m),
       (l.getCappingData = p),
       (l.canSendMsgWhileCapped = _),
-      (l.getCappingStatusType = f),
-      (l.getCappingOTEStatusType = g),
-      (l.getCappingMVStatusType = h),
-      (l.getCappingSubscriptionStatusType = y),
-      (l.getCappingSubscriptionName = C),
-      (l.isUserWarned = b),
-      (l.getCappingWarningLevel = v),
-      (l.getUsagePercentage = S),
-      (l.getCycleEndDateFormatted = R),
-      (l.isOTEEligible = L),
-      (l.updateCappingDataFromOTEResponse = E),
-      (l.resetCappingStatus = I));
+      (l.canSendMsgWhileCappedFor = f),
+      (l.getCappingStatusType = g),
+      (l.getCappingOTEStatusType = h),
+      (l.getCappingMVStatusType = y),
+      (l.getCappingSubscriptionStatusType = C),
+      (l.getCappingSubscriptionName = b),
+      (l.isUserWarned = v),
+      (l.getCappingWarningLevel = S),
+      (l.getUsagePercentage = R),
+      (l.getCycleEndDateFormatted = L),
+      (l.isOTEEligible = E),
+      (l.updateCappingDataFromOTEResponse = k),
+      (l.resetCappingStatus = T));
   },
   98,
 );

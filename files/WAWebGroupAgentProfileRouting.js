@@ -6,7 +6,6 @@ __d(
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
     "WAWebBotStaticProfiles",
-    "WAWebChatGetters",
     "WAWebHatchFrontendGating",
     "WAWebUserPrefsMeUser",
   ],
@@ -18,42 +17,58 @@ __d(
       }),
       s = n("$InternalEnum")({ HATCH_CHAT: "hatch_chat", NONE: "none" });
     function u(e, t, n) {
-      return (n === void 0 && (n = h(e)), C(e, t) ? y(e, n) : null);
+      return (n === void 0 && (n = v(e)), c(e, t == null ? void 0 : t.id, n));
     }
-    function c(e, t) {
-      return (t === void 0 && (t = h(e)), b(e) ? y(e, t) : null);
+    function c(e, t, n) {
+      return (n === void 0 && (n = v(e)), R(e, t) ? S(e, n) : null);
     }
     function d(e, t) {
-      if (!C(e, t)) return !1;
-      var n = h(e);
-      return E(e, v(n), n == null ? void 0 : n.creatorLid);
+      return (t === void 0 && (t = v(e)), L(e) ? S(e, t) : null);
     }
     function m(e, t) {
+      if (!R(e, t == null ? void 0 : t.id)) return !1;
+      var n = v(e);
+      return D(e, E(n), n == null ? void 0 : n.creatorLid);
+    }
+    function p(e) {
+      if (!L(e)) return !1;
+      var t = v(e);
+      return t == null || t.isDeleted === !0 || t.isDeprecated === !0
+        ? !1
+        : D(e, E(t), t.creatorLid);
+    }
+    function _(e, t) {
       var n = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       if (
         (n == null ? void 0 : n.lastFetchedTimeMs) == null ||
         n.isDeleted === !0 ||
         n.isDeprecated === !0 ||
-        !C(e, t)
+        !R(e, t == null ? void 0 : t.id)
       )
         return !1;
       var r = o("WAWebBotProduct").botProductFromServerValue(n.product);
       return r != null &&
         r !== o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
-        !R(e, r)
+        !I(e, r)
         ? !1
         : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
     }
-    function p(e, t, n) {
-      return _(u(e, t), n);
+    function f(e, t, n) {
+      return g(e, t == null ? void 0 : t.id, n);
     }
-    function _(t, n) {
+    function g(e, t, n) {
+      return h(c(e, t), n);
+    }
+    function h(t, n) {
       return t == null ? null : { info: t === e.OWNER_CARD, remove: n };
     }
-    function f(e) {
+    function y(e) {
       return e.info || e.remove;
     }
-    function g(t, n) {
+    function C(e, t) {
+      return b(e, t == null ? void 0 : t.id);
+    }
+    function b(t, n) {
       return (function (t) {
         if (t === e.OWNER_CARD) return s.HATCH_CHAT;
         if (t === e.BASIC_CARD) return s.NONE;
@@ -62,9 +77,9 @@ __d(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             t,
         );
-      })(u(t, n));
+      })(c(t, n));
     }
-    function h(e) {
+    function v(e) {
       var t = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return t == null
         ? null
@@ -76,41 +91,41 @@ __d(
             product: t.product,
           };
     }
-    function y(t, n) {
-      var r = v(n);
-      return (r != null && !R(t, r)) ||
+    function S(t, n) {
+      var r = E(n);
+      return (r != null && !I(t, r)) ||
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? null
-        : L(t, r, n == null ? void 0 : n.creatorLid)
+        : T(t, r, n == null ? void 0 : n.creatorLid)
           ? e.OWNER_CARD
           : e.BASIC_CARD;
     }
-    function C(e, t) {
-      return t == null ? !1 : o("WAWebChatGetters").getIsGroup(t) && b(e);
+    function R(e, t) {
+      return t == null ? !1 : t.isGroup() && L(e);
     }
-    function b(e) {
+    function L(e) {
       return e.isFbidBot() && !o("WAWebBotStaticProfiles").isStaticProfile(e);
     }
-    function v(e) {
+    function E(e) {
       return e == null || e.lastFetchedTimeMs == null
         ? null
         : o("WAWebBotProduct").botProductFromServerValue(e.product);
     }
-    function S(e, t) {
+    function k(e, t) {
       return o("WAWebBotProduct").isMuseAgentProduct(e, t);
     }
-    function R(e, t) {
-      return S(e, t);
+    function I(e, t) {
+      return k(e, t);
     }
-    function L(e, t, n) {
+    function T(e, t, n) {
       return (
-        E(e, t, n) && o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
+        D(e, t, n) && o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
       );
     }
-    function E(e, t, n) {
+    function D(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return (
-        S(e, t) &&
+        k(e, t) &&
         n != null &&
         r != null &&
         n === r.user &&
@@ -120,14 +135,18 @@ __d(
     ((l.GroupAgentProfileDestination = e),
       (l.GroupAgentOneToOneTarget = s),
       (l.getGroupAgentProfileDestination = u),
-      (l.getMuseAgentProfileDestinationOutsideGroup = c),
-      (l.isViewerOwnMuseGroupAgent = d),
-      (l.isOpenGroupAiAgent = m),
-      (l.getGroupAgentParticipantActions = p),
-      (l.getGroupAgentParticipantActionsForDestination = _),
-      (l.hasGroupAgentParticipantAction = f),
-      (l.getGroupAgentOneToOneTarget = g),
-      (l.isMuseGroupAgentProfileProduct = S));
+      (l.getGroupAgentProfileDestinationFor = c),
+      (l.getMuseAgentProfileDestinationOutsideGroup = d),
+      (l.isViewerOwnMuseGroupAgent = m),
+      (l.isViewerOwnLiveMuseAgent = p),
+      (l.isOpenGroupAiAgent = _),
+      (l.getGroupAgentParticipantActions = f),
+      (l.getGroupAgentParticipantActionsFor = g),
+      (l.getGroupAgentParticipantActionsForDestination = h),
+      (l.hasGroupAgentParticipantAction = y),
+      (l.getGroupAgentOneToOneTarget = C),
+      (l.getGroupAgentOneToOneTargetFor = b),
+      (l.isMuseGroupAgentProfileProduct = k));
   },
   98,
 );

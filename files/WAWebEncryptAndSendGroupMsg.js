@@ -8,6 +8,7 @@ __d(
     "WAWebE2EProtoGenerator",
     "WAWebGenerateBotGroupMetadata",
     "WAWebGroupAgentRetryFanout",
+    "WAWebGroupHistoryAgentBundleFilter",
     "WAWebGroupHistorySendGroupMsgJobUtils",
     "WAWebGroupMsgSendUtils",
     "WAWebLidMigrationUtils",
@@ -39,9 +40,9 @@ __d(
         i = t.msgProtobuf,
         l = t.msgRecord,
         m = t.scheduledMsgMetadata,
-        g = l.data,
-        y = g.id,
-        C = g.to;
+        _ = l.data,
+        g = _.id,
+        y = _.to;
       return (
         o("WALogger")
           .LOG(
@@ -50,14 +51,14 @@ __d(
                 "encryptAndSendGroupMsg: queued ",
                 "",
               ])),
-            y,
+            g,
           )
           .tags("messaging"),
         (r = a.sendPerfReporter) == null || r.startWaitingToEncryptStage(),
         o("WAWebSendMsgQueueMap").sendMsgQueueMap.enqueue(
-          C.toString(),
+          y.toString(),
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e, t, n, r, b, v, S;
+            var e, t, n, r, S, L, E;
             (o("WALogger")
               .LOG(
                 s ||
@@ -65,39 +66,39 @@ __d(
                     "encryptAndSendGroupMsg: sending ",
                     "",
                   ])),
-                y,
+                g,
               )
               .tags("messaging"),
               (e = a.sendPerfReporter) == null || e.postWaitingToEncryptStage(),
               (t = a.sendPerfReporter) == null || t.startReadyToSendStage());
-            var R = _(i),
-              L = h(i),
-              E = f(i),
-              k = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
-                C.toString(),
+            var k = b(i),
+              I = R(i),
+              T = v(i),
+              D = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+                y.toString(),
               ),
-              I = yield o("WAWebGroupMsgSendUtils").getGroupData(
-                C.toString(),
-                k,
+              x = yield o("WAWebGroupMsgSendUtils").getGroupData(
+                y.toString(),
+                D,
                 l,
               );
-            ((n = a.sendReporter) == null || n.setGroupData(I),
-              (r = a.sendPerfReporter) == null || r.setGroupData(I));
-            var T =
-                (b =
-                  k == null
+            ((n = a.sendReporter) == null || n.setGroupData(x),
+              (r = a.sendPerfReporter) == null || r.setGroupData(x));
+            var $ =
+                (S =
+                  D == null
                     ? void 0
-                    : k.participants.map(function (e) {
+                    : D.participants.map(function (e) {
                         return o("WAWebWidFactory").createUserWidOrThrow(e);
                       })) != null
-                  ? b
+                  ? S
                   : [],
-              D = yield o("WAWebMsgRcatUtils").genContentBindingForMsg(g, T),
-              x = !!I.isLidAddressingMode,
-              $;
-            if (I.isCag === !0) {
-              var P,
-                N = !!I.amIAdmin;
+              P = yield o("WAWebMsgRcatUtils").genContentBindingForMsg(_, $),
+              N = !!x.isLidAddressingMode,
+              M;
+            if (x.isCag === !0) {
+              var w,
+                A = !!x.amIAdmin;
               o("WALogger")
                 .LOG(
                   u ||
@@ -105,48 +106,48 @@ __d(
                       "encryptAndSendGroupMsg: CAG ",
                       " ",
                     ])),
-                  N ? "admin" : "non-admin",
+                  A ? "admin" : "non-admin",
                 )
                 .tags("messaging");
-              var M =
+              var F =
                 i == null ||
-                (P = i.messageHistoryBundle) == null ||
-                (P = P.messageHistoryMetadata) == null
+                (w = i.messageHistoryBundle) == null ||
+                (w = w.messageHistoryMetadata) == null
                   ? void 0
-                  : P.historyReceivers;
-              if (M != null && M.length > 0) {
-                var w = yield o(
+                  : w.historyReceivers;
+              if (F != null && F.length > 0) {
+                var O = yield o(
                     "WAWebApiParticipantStore",
-                  ).getGroupSenderKeyListFromParticipantRecord(C, k),
-                  A = function (t) {
+                  ).getGroupSenderKeyListFromParticipantRecord(y, D),
+                  B = function (t) {
                     return t.map(
-                      o("WAWebLidMigrationUtils").toAddressingModeFactory(x),
+                      o("WAWebLidMigrationUtils").toAddressingModeFactory(N),
                     );
                   },
-                  F = yield o(
+                  W = yield o(
                     "WAWebGroupHistorySendGroupMsgJobUtils",
                   ).getGroupSendListForGroupHistoryBundle(
-                    M.map(o("WAWebWidFactory").createWid),
-                    w,
-                    { normalizeAddressingModeFn: A, isLidAddressingMode: x },
+                    F.map(o("WAWebWidFactory").createWid),
+                    O,
+                    { normalizeAddressingModeFn: B, isLidAddressingMode: N },
                   );
-                $ = o("WAWebSendGroupMsgJob").filterIncorrectlyAddressedDevices(
-                  F,
-                  I,
+                M = o("WAWebSendGroupMsgJob").filterIncorrectlyAddressedDevices(
+                  W,
+                  x,
                 );
               } else
-                $ = yield o("WAWebSendGroupMsgJob").getCagMessageSendList({
-                  editedMsgKey: L,
-                  groupId: C,
-                  isAdmin: N,
-                  isLidAddressingMode: x,
-                  keptMessageKey: E,
+                M = yield o("WAWebSendGroupMsgJob").getCagMessageSendList({
+                  editedMsgKey: I,
+                  groupId: y,
+                  isAdmin: A,
+                  isLidAddressingMode: N,
+                  keptMessageKey: T,
                   msgRecord: l,
-                  participantRecord: k,
-                  revokeMsgKey: R,
+                  participantRecord: D,
+                  revokeMsgKey: k,
                 });
             } else {
-              var O;
+              var q;
               o("WALogger")
                 .LOG(
                   c ||
@@ -155,126 +156,211 @@ __d(
                       " group size: ",
                       "",
                     ])),
-                  o("WAWebGroupMsgSendUtils").formatGroupTypeForLog(I),
-                  k == null ? void 0 : k.participants.length,
+                  o("WAWebGroupMsgSendUtils").formatGroupTypeForLog(x),
+                  D == null ? void 0 : D.participants.length,
                 )
                 .tags("messaging");
-              var B = yield o("WAWebSendGroupMsgJob").getMessageSendList(
-                C,
+              var U = yield o("WAWebSendGroupMsgJob").getMessageSendList(
+                y,
+                D,
                 k,
-                R,
-                L,
-                x,
-                i == null ||
-                  (O = i.messageHistoryBundle) == null ||
-                  (O = O.messageHistoryMetadata) == null
-                  ? void 0
-                  : O.historyReceivers,
-              );
-              $ = o("WAWebSendGroupMsgJob").filterIncorrectlyAddressedDevices(
-                B,
                 I,
+                N,
+                i == null ||
+                  (q = i.messageHistoryBundle) == null ||
+                  (q = q.messageHistoryMetadata) == null
+                  ? void 0
+                  : q.historyReceivers,
+              );
+              M = o("WAWebSendGroupMsgJob").filterIncorrectlyAddressedDevices(
+                U,
+                x,
               );
             }
-            var W = R != null ? p(T, g.botGroupParticipants, I) : [],
-              q;
-            R != null
-              ? (q = {
-                  configuredGroupAgentParticipants: W,
-                  resolvedGroupAgentParticipants: W,
-                })
-              : $.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.SKMSG
-                ? (q = yield o(
-                    "WAWebResolveGroupAgentParticipants",
-                  ).resolveGroupAgentFanoutForGroupSend(I))
-                : (q = {
-                    configuredGroupAgentParticipants: [],
-                    resolvedGroupAgentParticipants: [],
-                  });
-            var U =
-                g.isGroupStatus === !0
+            var V = k != null ? C($, _.botGroupParticipants, x) : [],
+              H = yield p({
+                groupData: x,
+                isDirectSend:
+                  M.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.DIRECT,
+                isRevoke: k != null,
+                msgProtobuf: i,
+              }),
+              G = yield f({
+                groupData: x,
+                historyAgentTargets: H,
+                isRevoke: k != null,
+                isSenderKeySend:
+                  M.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.SKMSG,
+                revokeAgentTargets: V,
+              }),
+              z =
+                _.isGroupStatus === !0
                   ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
                   : void 0,
-              V =
-                (I == null ? void 0 : I.isCapiGroup) === !0
+              j =
+                (x == null ? void 0 : x.isCapiGroup) === !0
                   ? o("WAWebE2EProtoGenerator").updateGroupMsgProtoWithCapiFlag(
                       i,
                     )
                   : i,
-              H = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
+              K = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
                 o(
                   "WAWebRemoveQuotedAttachmentMediaFields",
-                ).isGroupWithAgentParticipant(I)
+                ).isGroupWithAgentParticipant(x)
                   ? o(
                       "WAWebRemoveQuotedAttachmentMediaFields",
-                    ).removeQuotedAttachmentMediaFields(V)
-                  : V,
-                (v = I.groupAgentParticipants) != null ? v : [],
+                    ).removeQuotedAttachmentMediaFields(j)
+                  : j,
+                (L = x.groupAgentParticipants) != null ? L : [],
               );
             if (
               (yield o(
                 "WAWebGroupAgentRetryFanout",
               ).maybePersistOriginalBotGroupParticipants({
-                groupAgentFanout: q,
-                groupMsgProtobuf: H,
-                isOpenBotGroup: I.isOpenBotGroup === !0,
-                isRevoke: R != null,
+                groupAgentFanout: G,
+                groupMsgProtobuf: K,
+                isOpenBotGroup: x.isOpenBotGroup === !0,
+                isRevoke: k != null,
                 msgRecord: l,
               }),
-              $.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.DIRECT)
+              M.type === o("WAWebSendGroupMsgJob").GROUP_MSG_TYPE.DIRECT)
             ) {
-              var G,
-                z,
-                j = [null, !1];
-              if (R != null) {
-                var K = yield d.load(),
-                  Q = K.createBotFanoutNode;
-                j = yield Q({
-                  configuredGroupAgentParticipants: W,
-                  encMediaType: null,
-                  groupAgentParticipants: W,
-                  isOpenBotGroupSend: W.some(
-                    o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid,
-                  ),
-                  isScheduledMessage: !1,
-                  msg: g,
-                  msgProtobuf: H,
-                  shouldGateInvokedBot: !1,
-                });
-              }
-              var X = j,
-                Y = X[0],
-                J = X[1],
-                Z = $,
-                ee = Z.deviceList;
+              var Q,
+                X,
+                Y = yield h({
+                  historyAgentTargets: H,
+                  isRevoke: k != null,
+                  msg: _,
+                  msgProtobuf: K,
+                  revokeAgentTargets: V,
+                }),
+                J = Y[0],
+                Z = Y[1],
+                ee = H.length > 0 ? [] : M.deviceList;
               return (
-                (G = a.sendReporter) == null || G.setDeviceCount(ee.length),
-                (z = a.sendPerfReporter) == null || z.setIsDirectedMessage(!0),
+                (Q = a.sendReporter) == null || Q.setDeviceCount(ee.length),
+                (X = a.sendPerfReporter) == null || X.setIsDirectedMessage(!0),
                 o("WAWebSendGroupDirectJob").encryptAndSendGroupDirectMsg({
-                  additionalBotBody: Y,
-                  additionalBotShouldHaveIdentity: J,
+                  ackParticipant: H[0],
+                  additionalBotBody: J,
+                  additionalBotShouldHaveIdentity: Z,
                   deviceList: ee,
-                  groupData: I,
+                  groupData: x,
                   metricReporter: a,
-                  msgProtobuf: H,
+                  msgProtobuf: K,
                   msgRecord: l,
                   scheduledMsgMetadata: m,
-                  sessionScope: U,
+                  sessionScope: z,
                 })
               );
             }
-            var te = $,
+            var te = M,
               ne = te.senderKeyList;
-            (S = a.sendReporter) == null ||
-              S.setDeviceCount(ne.skList.length + ne.skDistribList.length);
+            (E = a.sendReporter) == null ||
+              E.setDeviceCount(ne.skList.length + ne.skDistribList.length);
             var re = yield d.load(),
               oe = re.encryptAndSendSenderKeyMsg;
-            return oe(l, H, ne, I, a, D, m, q, U);
+            return oe(l, K, ne, x, a, P, m, G, z);
           }),
         )
       );
     }
-    function p(e, t, n) {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.groupData,
+            r = e.isDirectSend,
+            a = e.isRevoke,
+            i = e.msgProtobuf,
+            l =
+              (t = i.messageHistoryBundle) == null ||
+              (t = t.messageHistoryMetadata) == null
+                ? void 0
+                : t.historyReceivers;
+          if (
+            a ||
+            !r ||
+            l == null ||
+            !o("WAWebGroupHistoryAgentBundleFilter").isAgentHistoryBundle(
+              l.map(o("WAWebWidFactory").createWid),
+            )
+          )
+            return [];
+          var s = yield o(
+              "WAWebGroupHistorySendGroupMsgJobUtils",
+            ).loadAgentHistoryBundle(),
+            u = s.getAgentHistoryBundleTargets;
+          return u(l, n);
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupData,
+            n = e.historyAgentTargets,
+            r = e.isRevoke,
+            a = e.isSenderKeySend,
+            i = e.revokeAgentTargets;
+          return r
+            ? {
+                configuredGroupAgentParticipants: i,
+                resolvedGroupAgentParticipants: i,
+              }
+            : a
+              ? o(
+                  "WAWebResolveGroupAgentParticipants",
+                ).resolveGroupAgentFanoutForGroupSend(t)
+              : {
+                  configuredGroupAgentParticipants: n,
+                  resolvedGroupAgentParticipants: n,
+                };
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.historyAgentTargets,
+            n = e.isRevoke,
+            r = e.msg,
+            a = e.msgProtobuf,
+            i = e.revokeAgentTargets,
+            l = t.length > 0;
+          if (!n && !l) return [null, !1];
+          var s = n ? i : t,
+            u = yield d.load(),
+            c = u.createBotFanoutNode;
+          return c({
+            configuredGroupAgentParticipants: s,
+            encMediaType: null,
+            groupAgentParticipants: s,
+            isAgentHistoryBundle: l,
+            isOpenBotGroupSend: s.some(
+              o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid,
+            ),
+            isScheduledMessage: !1,
+            msg: r,
+            msgProtobuf: a,
+            shouldGateInvokedBot: !1,
+          });
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, n) {
       if (
         n.isCag === !0 ||
         (n.isAnnouncementGroup === !0 &&
@@ -291,7 +377,7 @@ __d(
         Array.from(r.values())
       );
     }
-    function _(e) {
+    function b(e) {
       var t = e.protocolMessage,
         n = null;
       if (
@@ -316,7 +402,7 @@ __d(
       }
       return n;
     }
-    function f(e) {
+    function v(e) {
       var t = e.keepInChatMessage;
       if (t != null && t.key) {
         var n = t.key,
@@ -339,7 +425,7 @@ __d(
       }
       return null;
     }
-    function g(e) {
+    function S(e) {
       var t = e.id,
         n = e.participant,
         a = e.remoteJid;
@@ -354,7 +440,7 @@ __d(
             participant: o("WAWebWidFactory").createWid(n),
           });
     }
-    function h(e) {
+    function R(e) {
       var t,
         n,
         r = e.protocolMessage,
@@ -364,7 +450,7 @@ __d(
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT &&
         r != null &&
         r.key
-          ? (a = g(r.key))
+          ? (a = S(r.key))
           : ((t = e.secretEncryptedMessage) == null
               ? void 0
               : t.secretEncType) ===
@@ -373,7 +459,7 @@ __d(
             ((n = e.secretEncryptedMessage) == null
               ? void 0
               : n.targetMessageKey) != null &&
-            (a = g(e.secretEncryptedMessage.targetMessageKey)),
+            (a = S(e.secretEncryptedMessage.targetMessageKey)),
         a
       );
     }

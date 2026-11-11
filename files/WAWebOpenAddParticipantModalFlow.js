@@ -13,7 +13,6 @@ __d(
     "WAWebGroupMetadataTypeUtils",
     "WAWebMiscGatingUtils",
     "WAWebModalManager",
-    "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumTsSurface",
@@ -90,7 +89,7 @@ __d(
             enterFlowTimestamp: f,
             messageCountPromise: g,
             children: c.jsx(r("WAWebAddGroupParticipantFlowLoadable.react"), {
-              chat: o("WAWebStateUtils").unproxy(n),
+              chatId: n.id,
               communityName: a,
               entryPoint: i,
               onBack: u,

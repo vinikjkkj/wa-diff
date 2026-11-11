@@ -51,7 +51,7 @@ __d(
               .GroupMembershipRequestsService,
           ).queryAndUpdateGroupMembershipApprovalRequests
         : o("WAWebGroupGetMembershipApprovalRequestsJob")
-            .queryAndUpdateGroupMembershipApprovalRequests)(e.id).catch(
+            .queryAndUpdateGroupMembershipApprovalRequests)(e).catch(
         function (e) {
           o("WALogger")
             .WARN(

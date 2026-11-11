@@ -15,12 +15,15 @@ __d(
       o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
         ? o("WDSDialogBridge").openWDSDialog(
             s.jsx(r("WAWebReportContactDialogV2.react"), {
-              chat: e,
+              chatId: e.id,
               spamFlow: t,
             }),
           )
         : o("WAWebModalManager").ModalManager.open(
-            s.jsx(r("WAWebReportContactPopup.react"), { chat: e, spamFlow: t }),
+            s.jsx(r("WAWebReportContactPopup.react"), {
+              chatId: e.id,
+              spamFlow: t,
+            }),
           );
     }
     l.openReportContactPopup = u;

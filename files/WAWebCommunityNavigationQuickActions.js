@@ -53,7 +53,7 @@ __d(
                 var n = t.ViewCommunityMembersModal;
                 o("WAWebModalManager").ModalManager.open(
                   u.jsx(n, {
-                    parentChat: e,
+                    parentChatId: e.id,
                     onInviteMembersClick: r("WAWebNoop"),
                   }),
                 );

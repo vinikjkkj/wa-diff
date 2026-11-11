@@ -28,11 +28,11 @@ __d(
           transition: "none",
         }));
     }
-    function p() {
-      var e = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
+    function p(e) {
+      var t = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
         "mid",
       );
-      e != null && _(e.drawer) && e.closeDrawer(e.drawerId);
+      t != null && _(t.drawer, e) && t.closeDrawer(t.drawerId);
     }
     function _(e, t) {
       return c != null && e === c && (t == null || t === d);

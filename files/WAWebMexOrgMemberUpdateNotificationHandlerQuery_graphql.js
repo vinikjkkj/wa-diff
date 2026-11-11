@@ -84,6 +84,13 @@ __d(
                   name: "member_tag",
                   storageKey: null,
                 },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "username",
+                  storageKey: null,
+                },
               ],
               storageKey: null,
             },
@@ -109,7 +116,7 @@ __d(
           selections: e,
         },
         params: {
-          id: "29277030441915580",
+          id: "29436659042625391",
           metadata: {},
           name: "WAWebMexOrgMemberUpdateNotificationHandlerQuery",
           operationKind: "query",

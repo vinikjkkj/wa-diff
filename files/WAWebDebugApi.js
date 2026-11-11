@@ -19,7 +19,6 @@ __d(
       u,
       c = u || (u = o("react"));
     function d(t, n) {
-      r("vulture")("RwtlZGDWnBeG6RJRqzGM2GFFZG0=");
       var a = o("WAWebApiParse").parseAPICmd(t);
       if (a.resultType === o("WAWebApi").APICmd.INVALID) {
         o("WALogger").LOG(

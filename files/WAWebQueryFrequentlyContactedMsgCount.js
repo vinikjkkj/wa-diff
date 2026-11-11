@@ -38,15 +38,20 @@ __d(
                     function* (e) {
                       var t = o(
                           "WAWebDBMessageRangeIndex",
-                        ).craftMessageRangeIndex(e, !1, !1, r),
+                        ).craftMessageRangeIndex({
+                          chatId: e,
+                          isIncoming: !1,
+                          isSystemMessage: !1,
+                          timestamp: r,
+                        }),
                         n =
                           "" +
-                          o("WAWebDBMessageRangeIndex").craftMessageRangeIndex(
-                            e,
-                            !1,
-                            !1,
-                            null,
-                          ) +
+                          o("WAWebDBMessageRangeIndex").craftMessageRangeIndex({
+                            chatId: e,
+                            isIncoming: !1,
+                            isSystemMessage: !1,
+                            timestamp: null,
+                          }) +
                           s,
                         i = yield a.betweenCount(["messageRangeIndex"], t, n, {
                           lowerInclusive: !0,

@@ -55,7 +55,7 @@ __d(
           s.jsx(
             o("WAWebGroupSafetyCheckModalLoadable")
               .GroupSafetyCheckModalLoadable,
-            { chat: e },
+            { chatId: e.id },
           ),
           { transition: "modal-flow" },
         );

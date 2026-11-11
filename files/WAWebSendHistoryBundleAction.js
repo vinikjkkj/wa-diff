@@ -5,6 +5,7 @@ __d(
     "WAWebFindChatAction",
     "WAWebGenerateGroupHistoryBundleMsgData",
     "WAWebGenerateGroupHistoryNoticeMsgData",
+    "WAWebGroupHistoryAgentBundleFilter",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryNoticeHandler",
     "WAWebGroupHistorySenderUserJourneyLogger",
@@ -16,15 +17,15 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t, n, r, o, a) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t, n, r, o, a) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a, i, l) {
-            var u = yield o(
+            var c = yield o(
                 "WAWebGenerateGroupHistoryBundleMsgData",
               ).generateGroupHistoryBundleMsgData({
                 chatId: t,
@@ -33,57 +34,70 @@ __d(
                 selectedMessageCount: a,
                 targetStartMessageTime: i,
               }),
-              c = u.msgData,
-              d = u.stats,
-              p = yield o("WAWebFindChatAction").findExistingChat(
+              d = c.msgData,
+              m = c.stats,
+              _ = yield o("WAWebFindChatAction").findExistingChat(
                 o("WAWebJidToWid").groupJidToWid(t),
                 "messageHistorySend",
               ),
-              _ = o("WAWebSendMsgChatAction").addAndSendMsgToChat(p, c),
-              f = _[0],
-              g = _[1];
+              f = o("WAWebSendMsgChatAction").addAndSendMsgToChat(_, d),
+              g = f[0],
+              h = f[1];
             l != null &&
               o(
                 "WAWebGroupHistorySenderUserJourneyLogger",
-              ).GroupHistorySenderUserJourneyLogger.bundleMessageSent(l, d);
-            var h = yield g,
-              y = h.messageSendResult;
-            if (y !== o("WAWebSendMsgResultAction").SendMsgResult.OK)
-              return (
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[group-history] Failed to send history bundle message",
-                      ])),
-                  )
-                  .sendLogs("group-history-bundle-send-failed"),
-                { bundleAcked: !1, noticeAcked: !1 }
-              );
-            var C = c.groupHistoryBundleMetadata;
-            if (C == null)
+              ).GroupHistorySenderUserJourneyLogger.bundleMessageSent(l, m);
+            var y = yield h,
+              C = y.ackErrorCode,
+              b = y.messageSendResult;
+            if (b !== o("WAWebSendMsgResultAction").SendMsgResult.OK)
+              return o(
+                "WAWebGroupHistoryAgentBundleFilter",
+              ).isAgentHistoryBundle(n)
+                ? (o("WALogger")
+                    .WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[group-history] agent history bundle nacked: ",
+                          "",
+                        ])),
+                      String(C),
+                    )
+                    .sendLogs("group-history-agent-bundle-send-failed"),
+                  { bundleAcked: !1, noticeAcked: !1 })
+                : (o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[group-history] Failed to send history bundle message",
+                        ])),
+                    )
+                    .sendLogs("group-history-bundle-send-failed"),
+                  { bundleAcked: !1, noticeAcked: !1 });
+            var v = d.groupHistoryBundleMetadata;
+            if (v == null)
               return (
                 o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[group-history] bundleMetadata is null",
                     ])),
                 ),
                 { bundleAcked: !0, noticeAcked: !1 }
               );
-            var b = yield m(p, C, l);
-            return { bundleAcked: !0, noticeAcked: b };
+            var S = yield p(_, v, l);
+            return { bundleAcked: !0, noticeAcked: S };
           },
         )),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield o(
               "WAWebGenerateGroupHistoryNoticeMsgData",
             ).generateGroupHistoryNoticeMsgData({
@@ -98,12 +112,12 @@ __d(
               "WAWebGroupHistorySenderUserJourneyLogger",
             ).GroupHistorySenderUserJourneyLogger.noticeMessageSent(n);
           var s = yield l,
-            c = s.messageSendResult;
-          return c !== o("WAWebSendMsgResultAction").SendMsgResult.OK
+            u = s.messageSendResult;
+          return u !== o("WAWebSendMsgResultAction").SendMsgResult.OK
             ? (o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[group-history] Failed to send history notice message",
                     ])),
                 )
@@ -114,15 +128,15 @@ __d(
               ).markGroupHistoryNoticeSent(e.id, t.historyReceivers),
               !0);
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebMsgGetters").getType(e) ===
               o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE &&
@@ -143,17 +157,17 @@ __d(
                   e.id.remote,
                   "messageHistorySend",
                 );
-                yield m(r, t);
+                yield p(r, t);
               }
             }
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.sendHistoryBundleAction = c),
-      (l.completeGroupHistorySend = m),
-      (l.completeGroupHistorySendOnBundleResend = _));
+    ((l.sendHistoryBundleAction = d),
+      (l.completeGroupHistorySend = p),
+      (l.completeGroupHistorySendOnBundleResend = f));
   },
   98,
 );

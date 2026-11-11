@@ -21,18 +21,18 @@ __d(
             a = t.incoming,
             i = t.searchingBefore,
             l = t.startTimestampSeconds,
-            s = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex(
-              n,
-              a,
-              !1,
-              l,
-            ),
-            u = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex(
-              n,
-              a,
-              !1,
-              r,
-            ),
+            s = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex({
+              chatId: n,
+              isIncoming: a,
+              isSystemMessage: !1,
+              timestamp: l,
+            }),
+            u = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex({
+              chatId: n,
+              isIncoming: a,
+              isSystemMessage: !1,
+              timestamp: r,
+            }),
             c = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .between(

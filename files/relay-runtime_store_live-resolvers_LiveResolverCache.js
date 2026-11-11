@@ -200,20 +200,6 @@ __d(
               (this.$5 = !1));
           }
         }),
-        (r.batchLiveStateUpdatesWithoutNotify = function (t) {
-          (!this.$5 || l(0, 65685), (this.$5 = !0));
-          try {
-            t();
-          } finally {
-            var e = this.$6 != null;
-            return (
-              this.$6 != null && this.$4.publish(this.$6),
-              (this.$6 = null),
-              (this.$5 = !1),
-              e
-            );
-          }
-        }),
         (r.$10 = function (r, o, a, i) {
           var t = null,
             l = null;

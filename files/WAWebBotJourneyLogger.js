@@ -114,17 +114,19 @@ __d(
             });
           }),
           (n.logFabClick = function (t) {
-            var e = t.isMetaAiAssistant;
+            var e = t.fabAction,
+              n = t.isMetaAiAssistant;
             try {
-              var n,
-                a = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
+              var a,
+                i = o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
               new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
                 appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
                 actionType: o("WAWebWamEnumChatFilterActionTypes")
                   .CHAT_FILTER_ACTION_TYPES.AI_FAB_CLICK,
-                botEntryPoint: a,
-                rawBotEntryPoint: (n = c(a)) != null ? n : void 0,
-                isMetaAiAssistant: e,
+                botEntryPoint: i,
+                rawBotEntryPoint: (a = c(i)) != null ? a : void 0,
+                isMetaAiAssistant: n,
+                metaData: p({ fabAction: e, isMetaAiAssistant: n }),
                 museChannelStatus: r(
                   "WAWebHatchLinkedStatusManager",
                 ).getMuseChannelStatusForLogging(),
@@ -251,6 +253,11 @@ __d(
         );
       })(),
       m = new d();
+    function p(e) {
+      var t = e.fabAction,
+        n = e.isMetaAiAssistant;
+      if (!(n || t == null)) return JSON.stringify({ fab_action: "muse:" + t });
+    }
     l.BotJourneyLogger = m;
   },
   98,

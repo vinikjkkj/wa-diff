@@ -27,10 +27,30 @@ __d(
                   d = c + 86400 - 1,
                   m = (r = o(
                     "WAWebDBMessageRangeIndex",
-                  )).craftMessageRangeIndex(t, !0, !1, c),
-                  p = r.craftMessageRangeIndex(t, !0, !1, d),
-                  _ = r.craftMessageRangeIndex(t, !1, !1, c),
-                  f = r.craftMessageRangeIndex(t, !1, !1, d),
+                  )).craftMessageRangeIndex({
+                    chatId: t,
+                    isIncoming: !0,
+                    isSystemMessage: !1,
+                    timestamp: c,
+                  }),
+                  p = r.craftMessageRangeIndex({
+                    chatId: t,
+                    isIncoming: !0,
+                    isSystemMessage: !1,
+                    timestamp: d,
+                  }),
+                  _ = r.craftMessageRangeIndex({
+                    chatId: t,
+                    isIncoming: !1,
+                    isSystemMessage: !1,
+                    timestamp: c,
+                  }),
+                  f = r.craftMessageRangeIndex({
+                    chatId: t,
+                    isIncoming: !1,
+                    isSystemMessage: !1,
+                    timestamp: d,
+                  }),
                   g = a;
                 (s.push(
                   (e || (e = n("Promise")))

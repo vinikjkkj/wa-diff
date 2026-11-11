@@ -8,6 +8,7 @@ __d(
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatThemeGatingUtils",
     "WAWebChatlistAppearanceSettingsGating",
+    "WAWebClosedTabCallPushGating",
     "WAWebCommonCTWADataSharing",
     "WAWebListsGatingUtils",
     "WAWebMediaGatingUtils",
@@ -114,6 +115,7 @@ __d(
               "show_reaction_notifications",
               "sounds",
               "show-calls-notification",
+              "offline-call-notifications",
               "option-play-call-ringtone",
             ],
           },
@@ -413,6 +415,25 @@ __d(
             title: o("WAWebSettingsFBT").showCallsTitle,
             searchCriteria: String(
               o("WAWebSettingsFBT").showCallsTitle(),
+            ).toLowerCase(),
+          },
+          {
+            step:
+              o("WAWebABProps").getABPropConfigValue(
+                "wa_web_enable_granular_notifications",
+              ) === !0
+                ? o("WAWebSettingsConst").SettingsSteps.Calls
+                : o("WAWebSettingsConst").SettingsSteps.Notifications,
+            id: "offline-call-notifications",
+            isAvailable: function () {
+              return (
+                window.Notification != null &&
+                o("WAWebClosedTabCallPushGating").isClosedTabCallPushAvailable()
+              );
+            },
+            title: o("WAWebSettingsFBT").offlineCallNotificationsTitle,
+            searchCriteria: String(
+              o("WAWebSettingsFBT").offlineCallNotificationsTitle(),
             ).toLowerCase(),
           },
           {
@@ -763,11 +784,12 @@ __d(
             isAvailable: r("gkx")("9092"),
             searchCriteria: "Report a bug",
             title: function () {
-              return "Report a bug (internal)";
+              return "Report a bug";
             },
             secondaryTitle: function () {
               return "Tell us what went wrong";
             },
+            isDevOnly: !0,
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps.DownloadLogs,

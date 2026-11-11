@@ -125,20 +125,21 @@ __d(
       );
     }
     function v(e) {
-      var t = e.filter(function (e) {
-        return !o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid(
-          e.id,
-        );
-      });
-      return t.length === 0
+      var t =
+          e.length === 1
+            ? o("WAWebGroupHistoryRestrictionHelper")
+                .isPostJoinHistoryRestrictedWid
+            : o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid,
+        n = e.filter(function (e) {
+          return !t(e.id);
+        });
+      return n.length === 0
         ? { recipients: e, restrictedWids: [] }
         : {
-            recipients: t,
+            recipients: n,
             restrictedWids: e
               .filter(function (e) {
-                return o(
-                  "WAWebGroupHistoryRestrictionHelper",
-                ).isHistoryRestrictedWid(e.id);
+                return t(e.id);
               })
               .map(function (e) {
                 return e.contact.id;
@@ -654,6 +655,14 @@ __d(
             d = e.uiSurface,
             p = o("WAWebGroupHistoryRestrictionHelper").filterParticipants(
               [u].concat(c),
+              function (e) {
+                return (
+                  e !== u ||
+                  o(
+                    "WAWebGroupHistoryRestrictionHelper",
+                  ).isPostJoinHistoryRestrictedWid(e)
+                );
+              },
             ),
             _ = p.historyReceivers,
             g = p.nonHistoryReceivers;

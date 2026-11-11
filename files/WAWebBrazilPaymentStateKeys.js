@@ -11,14 +11,18 @@ __d(
       c = "br_receipt_and_state_enabled",
       d = "br_app_switch_receipt_and_state_enabled",
       m = "br_receipt_and_state_bubble_version",
-      p = 1;
+      p = "br_bubble_view_logged",
+      _ = 1,
+      f = -1;
     ((l.PIX_CODE_REQUEST_BUTTON_NAME = e),
       (l.PAYMENT_REQUEST_BUTTON_NAMES = s),
       (l.BRAZIL_PAYMENT_STATE_KEY = u),
       (l.RECEIPT_AND_STATE_STAMP_KEY = c),
       (l.APP_SWITCH_RECEIPT_AND_STATE_STAMP_KEY = d),
       (l.BUBBLE_VERSION_KEY = m),
-      (l.BUBBLE_VERSION_WITHOUT_ADD_RECEIPT = p));
+      (l.BUBBLE_VIEW_LOGGED_KEY = p),
+      (l.BUBBLE_VERSION_WITHOUT_ADD_RECEIPT = _),
+      (l.CONTROL_BUBBLE_VERSION = f));
   },
   98,
 );

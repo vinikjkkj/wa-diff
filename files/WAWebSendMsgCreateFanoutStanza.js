@@ -65,8 +65,69 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h;
-    function y(e, t, n) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g,
+      h,
+      y = {
+        body: null,
+        botBody: null,
+        deviceEncs: [],
+        isPq: null,
+        shouldHaveIdentity: !1,
+      };
+    function C(e, t) {
+      return e.length === 0 && t != null;
+    }
+    function b(e, t) {
+      return e ? (h || (h = n("Promise"))).resolve(y) : k(t);
+    }
+    function v(e) {
+      var t = e.isAgentOnly,
+        n = e.msgProtobuf,
+        r = e.option,
+        a = e.scheduledMsgMetadata;
+      if (
+        r.fanoutType !== o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT ||
+        t
+      )
+        return null;
+      var i =
+        (a == null ? void 0 : a.kind) === "schedule"
+          ? a.originalMediaType
+          : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(n);
+      return o("WAWap").wap("enc", {
+        v: o("WAWap").CUSTOM_STRING(
+          o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
+        ),
+        type: o("WAWap").CUSTOM_STRING(
+          o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+        ),
+        mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(i),
+      });
+    }
+    function S(e) {
+      var t = e.isAgentOnly,
+        r = e.msg,
+        a = e.msgProtobuf,
+        i = e.option;
+      return t
+        ? (h || (h = n("Promise"))).resolve(null)
+        : o("WAWebReportingTokenUtils").genReportingTokenBodyForStanza(
+            r,
+            a,
+            r.id.toString(),
+            i.isResendingMsg === !0 ? "resend" : "send",
+          );
+    }
+    function R(e, t, n) {
       return {
         ciphertext: t,
         isPqSession: o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(t),
@@ -74,12 +135,12 @@ __d(
         type: n,
       };
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function b() {
+    function E() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.sessionScope;
           if (
             (n != null && n !== o("WAWebSessionScope").SessionScope.DEFAULT) ||
@@ -97,15 +158,15 @@ __d(
             a = r[0];
           return a ? o("WAWebSessionScope").SessionScope.PQ : n;
         })),
-        b.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function S() {
+    function I() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a = e.botStanzaAttrs,
             i = e.coexV2RelayPlan,
@@ -117,28 +178,28 @@ __d(
             _ = e.fbidBotPersonaType,
             f = e.msg,
             g = e.msgProtobuf,
-            b = e.option,
-            v = e.scheduledMsgMetadata,
-            S = e.stanzaTo,
-            E =
-              (v == null ? void 0 : v.kind) === "schedule"
-                ? v.originalMediaType
+            y = e.option,
+            C = e.scheduledMsgMetadata,
+            b = e.stanzaTo,
+            v =
+              (C == null ? void 0 : C.kind) === "schedule"
+                ? C.originalMediaType
                 : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(g),
-            k = o("WAWebBackendJobsCommon").nativeFlowNameTypeFromProtobuf(g),
-            I =
+            S = o("WAWebBackendJobsCommon").nativeFlowNameTypeFromProtobuf(g),
+            E =
               o("WAWebBotBaseGating").isBotEnabled() &&
               ((t = f.invokedBotWid) == null ? void 0 : t.isBot()) === !0,
-            T =
+            k =
               o("WAWebBotBaseGating").isBotEnabled() &&
               o("WAWebMsgGetters").getIsBotFeedbackMessage(f),
-            D =
+            I =
               o("WAWebBotBaseGating").isBotEnabled() &&
-              o("WAWebSendMsgBotStanza").getIsBizBotFeedback(f, S),
-            x = (T && S.isBot()) || D,
-            $ = T && !S.isBot() && !D,
+              o("WAWebSendMsgBotStanza").getIsBizBotFeedback(f, b),
+            x = (k && b.isBot()) || I,
+            $ = k && !b.isBot() && !I,
             P = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(f),
             N = yield o("WAWebCoexV2RelayEligibility").getCoexV2AgentSendPlan(
-              S,
+              b,
               g,
             ),
             M =
@@ -150,25 +211,25 @@ __d(
                     hasFbidBotDevice: m.some(function (e) {
                       return e.isFbidBot();
                     }),
-                    isBotInvokeMessage: I,
-                    isResendingMsg: b.isResendingMsg === !0,
+                    isBotInvokeMessage: E,
+                    isResendingMsg: y.isResendingMsg === !0,
                     isRevokeForMsgFromOrDeliveredToBot: P,
                     relayPlan: i,
                   }),
             w = M != null;
           if (
-            b.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
+            y.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
             m.length === 1 &&
             o("WAWebSendMsgCommonApi").isPrimaryDevice(m[0]) &&
             !$ &&
-            !o("WAWebBotUtils").isMetaAiBot(S) &&
+            !o("WAWebBotUtils").isMetaAiBot(b) &&
             !w
           ) {
             var A = m[0],
               F = o("WAWebUserPrefsMeUser").isMeAccount(A)
                 ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
                     g,
-                    S,
+                    b,
                   )
                 : g,
               O = F;
@@ -181,7 +242,7 @@ __d(
                 mentionedJidList: f.mentionedJidList,
               })),
               o("WAWebWasaHatchOutboundWrapper").shouldWrapHatchOutbound(
-                S,
+                b,
                 A,
                 f.subtype,
               ) &&
@@ -192,8 +253,8 @@ __d(
             var B = o(
                 "WAWebCoexV2RelayEligibility",
               ).shouldUseCoexV2StatelessSession(l, A),
-              W = yield C(A, b),
-              U = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+              W = yield L(A, y),
+              q = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
                 A,
                 0,
                 O,
@@ -202,39 +263,39 @@ __d(
                 W,
                 B,
               ),
-              V = U.ciphertext,
-              H = U.type,
-              G = null;
+              U = q.ciphertext,
+              V = q.type,
+              H = null;
             (x || _ != null) &&
-              (G = o("WAWap").wap("bot", {
+              (H = o("WAWap").wap("bot", {
                 type: x ? "feedback" : o("WAWap").DROP_ATTR,
                 persona_type: _
                   ? o("WAWap").CUSTOM_STRING(_)
                   : o("WAWap").DROP_ATTR,
               }));
-            var z = o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(V)
+            var G = o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(U)
               ? !0
               : void 0;
             return {
-              deviceEncs: c ? [y(A, V, H)] : [],
+              deviceEncs: c ? [R(A, U, V)] : [],
               shouldHaveIdentity:
-                H === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+                V === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
               body: o("WAWap").wap(
                 "enc",
                 {
                   v: o("WAWap").CUSTOM_STRING(
                     o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
                   ),
-                  type: o("WAWap").CUSTOM_STRING(H),
-                  session_type: z
+                  type: o("WAWap").CUSTOM_STRING(V),
+                  session_type: G
                     ? o("WAWap").CUSTOM_STRING("pq")
                     : o("WAWap").DROP_ATTR,
                   state:
-                    B && H === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                    B && V === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
                       ? o("WAWap").CUSTOM_STRING("false")
                       : o("WAWap").DROP_ATTR,
                   mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(
-                    E,
+                    v,
                   ),
                   "decrypt-fail": o(
                     "WAWebBackendJobsCommon",
@@ -243,12 +304,12 @@ __d(
                   ),
                   native_flow_name: o(
                     "WAWebBackendJobsCommon",
-                  ).encodeMaybeNativeFlowName(k),
+                  ).encodeMaybeNativeFlowName(S),
                 },
-                V,
+                U,
               ),
-              botBody: G,
-              isPq: z,
+              botBody: H,
+              isPq: G,
             };
           }
           var j = !1,
@@ -259,13 +320,13 @@ __d(
                     var t = o("WAWebUserPrefsMeUser").isMeAccount(e)
                         ? o(
                             "WAWebDeviceSentMessageProtoUtils",
-                          ).wrapDeviceSentMessage(g, S)
+                          ).wrapDeviceSentMessage(g, b)
                         : g,
                       n =
-                        b.fanoutType ===
+                        y.fanoutType ===
                         o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
                           ? o("WAWebWidFactory").asUserWidOrThrow(e)
-                          : o("WAWebWidFactory").asUserWidOrThrow(S);
+                          : o("WAWebWidFactory").asUserWidOrThrow(b);
                     yield o("WAWebICDCMetaApi").populateICDCMeta(n, t);
                     var r =
                         d == null
@@ -276,9 +337,9 @@ __d(
                           ? o("WAWap").wap("content_binding", null, r)
                           : null;
                     try {
-                      var i = e.isBot() && (I || $ || P),
+                      var i = e.isBot() && (E || $ || P),
                         m = e.isBot() && x,
-                        _ = yield L({
+                        _ = yield D({
                           coexV2AgentSend: w,
                           content: t,
                           isAgentFeedbackCopy: m,
@@ -289,7 +350,7 @@ __d(
                       if (
                         o(
                           "WAWebWasaHatchOutboundWrapper",
-                        ).shouldWrapHatchOutbound(S, e, f.subtype)
+                        ).shouldWrapHatchOutbound(b, e, f.subtype)
                       )
                         try {
                           _ = yield o(
@@ -310,30 +371,30 @@ __d(
                       var h = o(
                           "WAWebCoexV2RelayEligibility",
                         ).shouldUseCoexV2StatelessSession(l, e),
-                        v = yield C(e, b),
-                        R = yield o(
+                        C = yield L(e, y),
+                        k = yield o(
                           "WAWebEncryptMsgProtobuf",
-                        ).encryptMsgProtobuf(e, 0, _, f, p, v, h),
-                        T = R.ciphertext,
-                        D = R.type;
-                      D === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
+                        ).encryptMsgProtobuf(e, 0, _, f, p, C, h),
+                        I = k.ciphertext,
+                        T = k.type;
+                      T === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
                         (j = !0);
-                      var N = o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(T)
+                      var N = o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(I)
                         ? !0
                         : void 0;
                       if (w && e.isFbidBot())
                         return {
                           coexV2AgentCopy: {
                             agentWid: e,
-                            encType: D,
+                            encType: T,
                             sharedEnc: o(
                               "WAWebCoexV2SendContribution",
                             ).genCoexV2AgentSharedEncNode({
-                              ciphertext: T,
-                              mediaType: E,
+                              ciphertext: I,
+                              mediaType: v,
                               msgProtobuf: g,
                               retryCount: 0,
-                              type: D,
+                              type: T,
                               useStatelessSession: h,
                             }),
                           },
@@ -349,19 +410,19 @@ __d(
                               "WAWebBackendJobsCommon",
                             ).CIPHERTEXT_VERSION.toString(),
                           ),
-                          type: o("WAWap").CUSTOM_STRING(D),
+                          type: o("WAWap").CUSTOM_STRING(T),
                           session_type: N
                             ? o("WAWap").CUSTOM_STRING("pq")
                             : o("WAWap").DROP_ATTR,
                           state:
                             h &&
-                            D ===
+                            T ===
                               o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
                               ? o("WAWap").CUSTOM_STRING("false")
                               : o("WAWap").DROP_ATTR,
                           mediatype: o(
                             "WAWebBackendJobsCommon",
-                          ).encodeMaybeMediaType(E),
+                          ).encodeMaybeMediaType(v),
                           "decrypt-fail": o(
                             "WAWebBackendJobsCommon",
                           ).encodeMaybeDecryptFail(
@@ -371,12 +432,12 @@ __d(
                           ),
                           native_flow_name: o(
                             "WAWebBackendJobsCommon",
-                          ).encodeMaybeNativeFlowName(k),
+                          ).encodeMaybeNativeFlowName(S),
                         },
-                        T,
+                        I,
                       );
                       return {
-                        deviceEnc: c ? y(e, T, D) : null,
+                        deviceEnc: c ? R(e, I, T) : null,
                         isPq: N,
                         shouldFanoutToBot: i,
                         node: o("WAWap").wap(
@@ -387,7 +448,7 @@ __d(
                         ),
                       };
                     } catch (t) {
-                      if (q(t)) throw t;
+                      if (z(t)) throw t;
                       return (
                         o("WALogger").WARN(
                           s ||
@@ -422,7 +483,7 @@ __d(
               })(),
             ),
             Q = yield (h || (h = n("Promise"))).all(K),
-            X = R(Q),
+            X = T(Q),
             Y = X.botSuccessNodes,
             J = X.coexV2AgentCopies,
             Z = X.deviceEncs,
@@ -444,7 +505,7 @@ __d(
               re,
               oe = o("WAWebSendMsgBotStanza").getBotAgentEngagementType(
                 !1,
-                S,
+                b,
                 f,
               ),
               ae = (ne = J[0]) == null ? void 0 : ne.agentWid,
@@ -454,10 +515,10 @@ __d(
                 agentCopies: J,
                 agentEngagementType: oe,
                 botAttrs: a,
-                isFeedback: T,
+                isFeedback: k,
                 msg: f,
                 personaType:
-                  ae == null || ae.equals(S)
+                  ae == null || ae.equals(b)
                     ? _
                     : yield o(
                         "WAWebSimpleSignalPNToFBIDMigration",
@@ -480,7 +541,7 @@ __d(
                     : o("WAWebSendMsgBotStanza").genBotFanoutNode({
                         agentEngagementType: oe,
                         botSuccessNodes: Y,
-                        isBotFeedbackMessage: T,
+                        isBotFeedbackMessage: k,
                         isBotFeedbackMessageInAgentChat: x,
                         personaType: _ != null ? _ : null,
                       }),
@@ -499,10 +560,10 @@ __d(
             ),
           );
         })),
-        S.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function R(t) {
+    function T(t) {
       var n = [],
         r = [],
         a = [],
@@ -543,12 +604,12 @@ __d(
         }
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function E() {
+    function x() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.coexV2AgentSend,
             n = e.content,
             r = e.isAgentFeedbackCopy,
@@ -578,15 +639,15 @@ __d(
             c
           );
         })),
-        E.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function I() {
+    function P() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
             i,
@@ -599,88 +660,88 @@ __d(
             g = e.additionalBotShouldHaveIdentity,
             h = g === void 0 ? !1 : g,
             y = e.aeaBaseline,
-            C = e.chatId,
-            b = e.collectDeviceEncs,
-            S = b === void 0 ? !1 : b,
-            R = e.deviceList,
-            L = e.groupData,
-            E = e.metricReporter,
-            k = e.msgProtobuf,
-            I = e.msgRecord,
-            x = e.option,
-            N = e.scheduledMsgMetadata,
-            M = I.data,
-            w = M.from,
-            A = M.id,
-            F = M.subtype,
-            W = M.to,
-            q = yield o(
+            R = e.chatId,
+            L = e.collectDeviceEncs,
+            E = L === void 0 ? !1 : L,
+            k = e.deviceList,
+            I = e.groupData,
+            T = e.metricReporter,
+            D = e.msgProtobuf,
+            x = e.msgRecord,
+            $ = e.option,
+            P = e.scheduledMsgMetadata,
+            w = x.data,
+            O = w.from,
+            B = w.id,
+            W = w.subtype,
+            q = w.to,
+            U = yield o(
               "WAWebCoexV2RelayEligibility",
-            ).resolveCoexV2SimpleSignalPolicy({ chatId: C, stanzaTo: W });
+            ).resolveCoexV2SimpleSignalPolicy({ chatId: R, stanzaTo: q });
           yield o(
             "WAWebCoexV2RelayEligibility",
-          ).deleteCoexV2SimpleSignalPrimarySessions(q, R);
+          ).deleteCoexV2SimpleSignalPrimarySessions(U, k);
           try {
-            var U, V, H;
-            (U = E.sendPerfReporter) == null || U.startPrekeysFetchStage();
-            var G = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+            var G, z, j;
+            (G = T.sendPerfReporter) == null || G.startPrekeysFetchStage();
+            var K = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 aeaOptions:
-                  x.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT
+                  $.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT
                     ? {
                         isBeforeEnforcedSendDecision:
                           (y == null ? void 0 : y.isEnforced) === !0,
                         sendRecipient:
                           y != null
-                            ? o("WAWebWidFactory").asUserWidOrThrow(W)
+                            ? o("WAWebWidFactory").asUserWidOrThrow(q)
                             : void 0,
                         isMonitoredSend:
                           (n("cr:627") == null
                             ? void 0
                             : n("cr:627").isAeaSendMonitoringCandidate({
-                                recipient: W,
-                                fanoutDevices: R,
-                                message: k,
+                                recipient: q,
+                                fanoutDevices: k,
+                                message: D,
                                 isBotFeedbackMessage:
                                   o("WAWebMsgGetters").getIsBotFeedbackMessage(
-                                    M,
+                                    w,
                                   ),
                               })) === !0,
                       }
                     : void 0,
                 identityChanged: !1,
                 sessionScope:
-                  x.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
-                  (x.sessionScope == null ||
-                    x.sessionScope ===
+                  $.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
+                  ($.sessionScope == null ||
+                    $.sessionScope ===
                       o("WAWebSessionScope").SessionScope.DEFAULT) &&
                   o("WAWebPQGatingUtils").isPq1on1MessageEnabled()
                     ? o("WAWebSessionScope").SessionScope.PQ
-                    : (V = x.sessionScope) != null
-                      ? V
+                    : (z = $.sessionScope) != null
+                      ? z
                       : o("WAWebSessionScope").SessionScope.DEFAULT,
-                wids: R,
+                wids: k,
               }),
-              z = G == null ? void 0 : G.missedPrekeyCount;
-            if (z != null) {
-              var j;
-              (j = E.sendPerfReporter) == null || j.setFetchedPrekeyCount(z);
+              Q = K == null ? void 0 : K.missedPrekeyCount;
+            if (Q != null) {
+              var X;
+              (X = T.sendPerfReporter) == null || X.setFetchedPrekeyCount(Q);
             }
-            ((H = E.sendPerfReporter) == null || H.postPrekeysFetchStage(),
+            ((j = T.sendPerfReporter) == null || j.postPrekeysFetchStage(),
               o(
                 "WAWebPostPrekeysDepletionMetric",
               ).maybePostPrekeysDepletionMetric({
-                count: G == null ? void 0 : G.depletedPrekeyCount,
+                count: K == null ? void 0 : K.depletedPrekeyCount,
                 prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                   .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                 messageType:
-                  x.fanoutType ===
+                  $.fanoutType ===
                   o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
                     ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
                     : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL,
                 deviceSizeBucket:
-                  x.fanoutType ===
+                  $.fanoutType ===
                   o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
-                    ? r("WAWebWamNumberToSizeBucket")(R.length)
+                    ? r("WAWebWamNumberToSizeBucket")(k.length)
                     : null,
               }));
           } catch (e) {
@@ -689,10 +750,10 @@ __d(
                 y != null &&
                   n("cr:627") != null &&
                   (yield n("cr:627").applyAeaFirstUseAfterFailedSetup({
-                    recipient: W,
-                    fanoutDevices: R,
-                    message: k,
-                    msgRecord: I,
+                    recipient: q,
+                    fanoutDevices: k,
+                    message: D,
+                    msgRecord: x,
                     baseline: y,
                   })),
                 e
@@ -706,121 +767,110 @@ __d(
               )
               .tags("messaging");
           }
-          var K = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(M, C),
-            Q =
+          var Y = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(w, R),
+            J =
               (o("WAWebBotBaseGating").isBotEnabled() &&
-                o("WAWebMsgGetters").getIsBotFeedbackMessage(M) &&
-                C.isBot()) ||
-              K,
-            X = o("WAWebThreadMsgUtils").getMsgAiThread(M),
-            Y = yield o(
+                o("WAWebMsgGetters").getIsBotFeedbackMessage(w) &&
+                R.isBot()) ||
+              Y,
+            Z = o("WAWebThreadMsgUtils").getMsgAiThread(w),
+            ee = yield o(
               "WAWebMetaAiConversationThreadId",
-            ).getMessageConversationThreadId(C, X),
-            J = o("WAWebSendMsgBotStanza").getBotStanzaAttrs(
-              M,
-              K,
-              X != null ? X.key.id : null,
+            ).getMessageConversationThreadId(R, Z),
+            te = o("WAWebSendMsgBotStanza").getBotStanzaAttrs(
+              w,
+              Y,
+              Z != null ? Z.key.id : null,
             ),
-            Z = R;
+            ne = k;
           (y != null &&
             n("cr:627") != null &&
-            ((Z = yield n("cr:627").reconcileAeaBeforeEncryption({
-              recipient: W,
-              fanoutDevices: R,
-              message: k,
-              msgRecord: I,
+            ((ne = yield n("cr:627").reconcileAeaBeforeEncryption({
+              recipient: q,
+              fanoutDevices: k,
+              message: D,
+              msgRecord: x,
               baseline: y,
             })),
-            y.isEnforced && (yield D(I, Z))),
-            x.isResendingMsg &&
-              (Z = yield o(
+            y.isEnforced && (yield M(x, ne))),
+            $.isResendingMsg &&
+              (ne = yield o(
                 "WAWebSendMsgCommonApi",
-              ).filterDeviceWithChangedIdentity(I, O(x, R))));
-          var ee = Z.map(function (e) {
-            return { msgKey: A, receiverId: e };
+              ).filterDeviceWithChangedIdentity(x, V($, k))));
+          var re = ne.map(function (e) {
+            return { msgKey: B, receiverId: e };
           });
-          (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(ee),
-            (t = E.sendPerfReporter) == null || t.startClientEncryptStage());
-          var te = yield o("WAWebMsgRcatUtils").genContentBindingForMsg(
-              M,
-              $(w, Z),
+          (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(re),
+            (t = T.sendPerfReporter) == null || t.startClientEncryptStage());
+          var oe = yield o("WAWebMsgRcatUtils").genContentBindingForMsg(
+              w,
+              A(O, ne),
             ),
-            ne = o("WAWebMsgGetters").getWamEditType(M),
-            re = o("WAWebChatCollection").ChatCollection.get(C),
-            oe = {
-              chat: re,
-              chatId: C,
-              msgProtobuf: k,
-              option: x,
-              stanzaTo: W,
+            ae = o("WAWebMsgGetters").getWamEditType(w),
+            ie = o("WAWebChatCollection").ChatCollection.get(R),
+            le = {
+              chat: ie,
+              chatId: R,
+              msgProtobuf: D,
+              option: $,
+              stanzaTo: q,
               isAeaE2eeSend:
                 n("cr:627") == null ||
                 (a = n("cr:627").getAeaDecidedSend(y)) == null
                   ? void 0
                   : a.isE2eeSend,
             },
-            ae = yield o("WAWebCoexV2RelayEligibility").getCoexV2RelaySendPlan(
-              oe,
+            se = yield o("WAWebCoexV2RelayEligibility").getCoexV2RelaySendPlan(
+              le,
             ),
-            ie = yield o(
+            ue = yield o(
               "WAWebSimpleSignalPNToFBIDMigration",
-            ).genFbidBotPersonaType(W),
-            le = yield v({
-              msg: M,
-              stanzaTo: W,
-              deviceList: Z,
-              msgProtobuf: k,
-              option: x,
-              contentBindingMap: te,
-              editType: ne,
-              coexV2SimpleSignalPolicy: q,
-              scheduledMsgMetadata: N,
-              collectDeviceEncs: S,
-              coexV2RelayPlan: ae,
-              botStanzaAttrs: J,
-              fbidBotPersonaType: ie,
+            ).genFbidBotPersonaType(q),
+            ce = C(ne, f),
+            de = yield b(ce, {
+              msg: w,
+              stanzaTo: q,
+              deviceList: ne,
+              msgProtobuf: D,
+              option: $,
+              contentBindingMap: oe,
+              editType: ae,
+              coexV2SimpleSignalPolicy: U,
+              scheduledMsgMetadata: P,
+              collectDeviceEncs: E,
+              coexV2RelayPlan: se,
+              botStanzaAttrs: te,
+              fbidBotPersonaType: ue,
             });
-          ((i = E.sendReporter) == null || i.setIsPq(le.isPq),
-            (l = E.sendPerfReporter) == null || l.setIsPq(le.isPq),
-            (s = E.sendPerfReporter) == null || s.postClientEncryptStage());
-          var se = null;
-          if (
-            x.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
-          ) {
-            var ue =
-              (N == null ? void 0 : N.kind) === "schedule"
-                ? N.originalMediaType
-                : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(k);
-            se = o("WAWap").wap("enc", {
-              v: o("WAWap").CUSTOM_STRING(
-                o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
-              ),
-              type: o("WAWap").CUSTOM_STRING(
-                o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-              ),
-              mediatype: o("WAWebBackendJobsCommon").encodeMaybeMediaType(ue),
-            });
-          }
-          var ce = o("WAWebE2EProtoUtils").getBizNativeFlowName(k),
-            de = M.nativeFlowInteractiveMsg,
-            me,
-            pe = o("WAWebContactCollection").ContactCollection.get(C),
-            _e =
-              (u = q == null ? void 0 : q.privacyMode) != null
+          ((i = T.sendReporter) == null || i.setIsPq(de.isPq),
+            (l = T.sendPerfReporter) == null || l.setIsPq(de.isPq),
+            (s = T.sendPerfReporter) == null || s.postClientEncryptStage());
+          var me = v({
+              isAgentOnly: ce,
+              msgProtobuf: D,
+              option: $,
+              scheduledMsgMetadata: P,
+            }),
+            pe = o("WAWebE2EProtoUtils").getBizNativeFlowName(D),
+            _e = w.nativeFlowInteractiveMsg,
+            fe,
+            ge = o("WAWebContactCollection").ContactCollection.get(R),
+            he =
+              (u = U == null ? void 0 : U.privacyMode) != null
                 ? u
-                : pe == null
+                : ge == null
                   ? void 0
-                  : pe.privacyMode;
-          if (_e != null) {
-            var fe;
-            me = (fe = o("WAWap")).wap("biz", {
-              host_storage: fe.INT(_e.hostStorage),
-              actual_actors: fe.INT(_e.actualActors),
-              privacy_mode_ts: fe.INT(_e.privacyModeTs),
-              native_flow_name: fe.MAYBE_CUSTOM_STRING(ce),
+                  : ge.privacyMode;
+          if (he != null) {
+            var ye;
+            fe = (ye = o("WAWap")).wap("biz", {
+              host_storage: ye.INT(he.hostStorage),
+              actual_actors: ye.INT(he.actualActors),
+              privacy_mode_ts: ye.INT(he.privacyModeTs),
+              native_flow_name: ye.MAYBE_CUSTOM_STRING(pe),
             });
           }
-          var ge, he, ye, Ce;
+          var Ce, be, ve, Se;
           if (
             (o("WALogger").LOG(
               d ||
@@ -832,31 +882,31 @@ __d(
                   ".\n      contact has phone number: ",
                   "",
                 ])),
-              re != null,
-              pe != null,
-              C.isLid(),
-              re == null ? void 0 : re.lidOriginType,
-              (pe == null ? void 0 : pe.phoneNumber) != null,
+              ie != null,
+              ge != null,
+              R.isLid(),
+              ie == null ? void 0 : ie.lidOriginType,
+              (ge == null ? void 0 : ge.phoneNumber) != null,
             ),
-            C.isLid() &&
-              (((re == null ? void 0 : re.lidOriginType) == null ||
-                (re == null ? void 0 : re.lidOriginType) ===
+            R.isLid() &&
+              (((ie == null ? void 0 : ie.lidOriginType) == null ||
+                (ie == null ? void 0 : ie.lidOriginType) ===
                   o("WAWebUsernameTypes").LidOriginType.PNH_CTWA) &&
-                (pe == null ? void 0 : pe.shareOwnPn) !== !0 &&
-                (pe == null ? void 0 : pe.phoneNumber) != null &&
-                (ge = pe == null ? void 0 : pe.phoneNumber),
+                (ge == null ? void 0 : ge.shareOwnPn) !== !0 &&
+                (ge == null ? void 0 : ge.phoneNumber) != null &&
+                (Ce = ge == null ? void 0 : ge.phoneNumber),
               o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-                (pe == null ? void 0 : pe.username) != null &&
-                (Ce = pe.username)),
-            W.isLid()
-              ? (re == null ? void 0 : re.lidOriginType) !==
+                (ge == null ? void 0 : ge.username) != null &&
+                (Se = ge.username)),
+            q.isLid()
+              ? (ie == null ? void 0 : ie.lidOriginType) !==
                   o("WAWebUsernameTypes").LidOriginType.PNH_CTWA &&
-                (ye = o("WAWebApiContact").getPhoneNumber(W))
-              : W.isUser() &&
-                re != null &&
-                re.accountLid &&
-                ((he = re == null ? void 0 : re.accountLid),
-                he.isLid() ||
+                (ve = o("WAWebApiContact").getPhoneNumber(q))
+              : q.isUser() &&
+                ie != null &&
+                ie.accountLid &&
+                ((be = ie == null ? void 0 : ie.accountLid),
+                be.isLid() ||
                   o("WALogger")
                     .ERROR(
                       m ||
@@ -864,180 +914,178 @@ __d(
                           "createFanoutMsgStanza: peerRecipientLid is not a LID: ",
                           "",
                         ])),
-                      he.toLogString(),
+                      be.toLogString(),
                     )
                     .sendLogs("peer-recipient-lid-not-lid-fanout")),
-            me == null && ce != null && de === !0)
+            fe == null && pe != null && _e === !0)
           ) {
-            var fe;
-            me = (fe = o("WAWap")).wap(
+            var ye;
+            fe = (ye = o("WAWap")).wap(
               "biz",
               null,
-              fe.wap(
+              ye.wap(
                 "interactive",
-                { v: "1", type: fe.CUSTOM_STRING("native_flow") },
-                fe.wap("native_flow", { name: fe.CUSTOM_STRING(ce) }),
+                { v: "1", type: ye.CUSTOM_STRING("native_flow") },
+                ye.wap("native_flow", { name: ye.CUSTOM_STRING(pe) }),
               ),
             );
           } else
-            me == null &&
-              ce != null &&
-              (me = o("WAWap").wap("biz", {
-                native_flow_name: o("WAWap").CUSTOM_STRING(ce),
+            fe == null &&
+              pe != null &&
+              (fe = o("WAWap").wap("biz", {
+                native_flow_name: o("WAWap").CUSTOM_STRING(pe),
               }));
-          (x.isResendingMsg ||
-            (yield o("WAWebSendMsgCommonApi").updateIdentityRange(I, Z)),
+          ($.isResendingMsg ||
+            (yield o("WAWebSendMsgCommonApi").updateIdentityRange(x, ne)),
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode());
-          var be =
-              te == null
+          var Re =
+              oe == null
                 ? void 0
-                : te.get(
+                : oe.get(
                     o("WAWebWidToJid").widToUserJid(
-                      o("WAWebWidFactory").asUserWidOrThrow(w),
+                      o("WAWebWidFactory").asUserWidOrThrow(O),
                     ),
                   ),
-            ve =
-              be != null
-                ? o("WAWap").wap("sender_content_binding", null, be)
-                : null,
-            Se = f != null ? f : le.botBody,
-            Re = Se == null ? ie : null,
             Le =
-              Se == null
-                ? o("WAWebSendMsgBotStanza").getBotAgentEngagementType(!1, W, M)
+              Re != null
+                ? o("WAWap").wap("sender_content_binding", null, Re)
                 : null,
-            Ee =
-              (x.fanoutType ===
+            Ee = f != null ? f : de.botBody,
+            ke = Ee == null ? ue : null,
+            Ie =
+              Ee == null
+                ? o("WAWebSendMsgBotStanza").getBotAgentEngagementType(!1, q, w)
+                : null,
+            Te =
+              ($.fanoutType ===
                 o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT &&
-                x.isResendingMsg === !0) ||
-              le.hasCoexV2RepresentedTargets === !0
+                $.isResendingMsg === !0) ||
+              de.hasCoexV2RepresentedTargets === !0
                 ? null
                 : o("WAWebSendMsgBotStanza").genBotStanzaNode(
-                    J,
-                    Re != null ? Re : null,
-                    Le,
-                    X != null,
+                    te,
+                    ke != null ? ke : null,
+                    Ie,
+                    Z != null,
                   ),
-            ke = !1,
-            Ie = null;
-          Se == null &&
-            ((Ie = yield o(
+            De = !1,
+            xe = null;
+          Ee == null &&
+            ((xe = yield o(
               "WAWebCoexV2SendContribution",
             ).buildCoexV2RelayContribution({
-              botAttrs: J,
-              editType: ne,
-              msg: M,
-              msgProtobuf: k,
-              relayPlan: ae,
+              botAttrs: te,
+              editType: ae,
+              msg: w,
+              msgProtobuf: D,
+              relayPlan: se,
             })),
-            Ie != null &&
-              ((Ee = Ie.node),
-              (ke = Ie.shouldHaveIdentity),
-              yield Ie.seedReceipts()));
-          var Te = o("WAWebSendMsgMetaNode").genMetaNode({
-              chatId: C,
-              groupData: L,
+            xe != null &&
+              ((Te = xe.node),
+              (De = xe.shouldHaveIdentity),
+              yield xe.seedReceipts()));
+          var $e = o("WAWebSendMsgMetaNode").genMetaNode({
+              chatId: R,
+              groupData: I,
               includeAttributes: {
-                origin: re == null ? void 0 : re.lidOriginType,
-                hashedAiThreadId: Y,
+                origin: ie == null ? void 0 : ie.lidOriginType,
+                hashedAiThreadId: ee,
                 appendHostedSenderIntent:
-                  Ie != null || le.hasCoexV2RepresentedTargets === !0,
+                  xe != null || de.hasCoexV2RepresentedTargets === !0,
                 hasPairwisePayload:
-                  x.fanoutType ===
+                  $.fanoutType ===
                   o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
-                sessionScope: x.sessionScope,
+                sessionScope: $.sessionScope,
               },
-              msgProtobuf: k,
-              msgRecord: I,
-              scheduledMsgMetadata: N,
+              msgProtobuf: D,
+              msgRecord: x,
+              scheduledMsgMetadata: P,
             }),
-            De = null;
-          if (le.shouldHaveIdentity || h || ke) {
-            var xe = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
-            De = o("WAWap").wap("device-identity", null, xe);
+            Pe = null;
+          if (de.shouldHaveIdentity || h || De) {
+            var Ne = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
+            Pe = o("WAWap").wap("device-identity", null, Ne);
           }
-          var $e = yield o(
-              "WAWebReportingTokenUtils",
-            ).genReportingTokenBodyForStanza(
-              M,
-              k,
-              A.toString(),
-              x.isResendingMsg === !0 ? "resend" : "send",
-            ),
-            Pe = (p = yield P(re)) != null ? p : yield B(re, C),
-            Ne;
-          L != null &&
-            (Ne =
-              (L == null ? void 0 : L.isLidAddressingMode) === !0
+          var Me = yield S({
+              isAgentOnly: ce,
+              msg: w,
+              msgProtobuf: D,
+              option: $,
+            }),
+            we = (p = yield F(ie)) != null ? p : yield H(ie, R),
+            Ae;
+          I != null &&
+            (Ae =
+              (I == null ? void 0 : I.isLidAddressingMode) === !0
                 ? o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid
                 : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn);
-          var Me = o("WAWebSendMsgCtwaAttributionNode").getCtwaAttributionNode(
-              re,
+          var Fe = o("WAWebSendMsgCtwaAttributionNode").getCtwaAttributionNode(
+              ie,
             ),
-            we = o("WAWap").wap(
+            Oe = o("WAWap").wap(
               "message",
               {
-                id: o("WAWap").CUSTOM_STRING(A.id),
-                to: o("WAWebCommsWapMd").CHAT_JID(W),
+                id: o("WAWap").CUSTOM_STRING(B.id),
+                to: o("WAWebCommsWapMd").CHAT_JID(q),
                 type:
-                  (_ = N == null ? void 0 : N.originalStanzaType) != null
+                  (_ = P == null ? void 0 : P.originalStanzaType) != null
                     ? _
-                    : o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(k),
-                peer_recipient_lid: he
-                  ? o("WAWebCommsWapMd").USER_JID(he)
+                    : o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(D),
+                peer_recipient_lid: be
+                  ? o("WAWebCommsWapMd").USER_JID(be)
                   : o("WAWap").DROP_ATTR,
-                peer_recipient_pn: ye
-                  ? o("WAWebCommsWapMd").USER_JID(ye)
+                peer_recipient_pn: ve
+                  ? o("WAWebCommsWapMd").USER_JID(ve)
                   : o("WAWap").DROP_ATTR,
                 peer_recipient_username:
-                  Ce !== void 0
+                  Se !== void 0
                     ? o("WAWap").CUSTOM_STRING(
-                        o("WAWebUsernameTypes").serializeUsername(Ce),
+                        o("WAWebUsernameTypes").serializeUsername(Se),
                       )
                     : o("WAWap").DROP_ATTR,
-                edit: o("WAWebSendMsgCommonApi").editAttribute(k, F),
+                edit: o("WAWebSendMsgCommonApi").editAttribute(D, W),
                 device_fanout:
-                  x.isResendingMsg === !0 || Q ? "false" : o("WAWap").DROP_ATTR,
-                recipient_pn: ge
-                  ? o("WAWebCommsWapMd").USER_JID(ge)
+                  $.isResendingMsg === !0 || J ? "false" : o("WAWap").DROP_ATTR,
+                recipient_pn: Ce
+                  ? o("WAWebCommsWapMd").USER_JID(Ce)
                   : o("WAWap").DROP_ATTR,
                 addressing_mode:
-                  Ne != null
-                    ? o("WAWap").CUSTOM_STRING(Ne)
+                  Ae != null
+                    ? o("WAWap").CUSTOM_STRING(Ae)
                     : o("WAWap").DROP_ATTR,
               },
-              le.body,
-              Se,
-              se,
-              De,
-              me,
-              Te,
-              ve,
+              de.body,
               Ee,
-              $e,
+              me,
               Pe,
+              fe,
+              $e,
+              Le,
+              Te,
               Me,
+              we,
+              Fe,
             );
-          if (!W.isGroup() && !W.isStatus()) {
-            var Ae;
-            (Ae = E.sendReporter) == null ||
-              Ae.setOppositeHasUsername(Ce != null);
+          if (!q.isGroup() && !q.isStatus()) {
+            var Be;
+            (Be = T.sendReporter) == null ||
+              Be.setOppositeHasUsername(Se != null);
           }
-          T(E, le, Ie, ae);
-          var Fe = o("WAWebCommsAckParser").toCoreAckTemplate({
-            id: A.id,
+          N(T, de, xe, se);
+          var We = o("WAWebCommsAckParser").toCoreAckTemplate({
+            id: B.id,
             class: "message",
-            from: M.to,
+            from: w.to,
             participant: null,
           });
-          return { stanza: we, ackTemplate: Fe, deviceEncs: le.deviceEncs };
+          return { stanza: Oe, ackTemplate: We, deviceEncs: de.deviceEncs };
         })),
-        I.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function T(e, t, n, r) {
+    function N(e, t, n, r) {
       var o,
         a =
           (o = t.coexV2SelfHosted) != null
@@ -1052,12 +1100,12 @@ __d(
         (i = e.sendReporter) == null || i.setCoexV2SendMode(a);
       }
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function x() {
+    function w() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebBizCoexUtils").fanoutListContainsHostedDevice(t);
           if (
             !(
@@ -1085,10 +1133,10 @@ __d(
               );
             }
         })),
-        x.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function $(e, t) {
+    function A(e, t) {
       var n = new Map();
       n.set(e.user, o("WAWebWidFactory").asUserWidOrThrow(e));
       for (var r of t)
@@ -1096,12 +1144,12 @@ __d(
           n.set(r.user, o("WAWebWidFactory").asUserWidOrThrow(r));
       return Array.from(n.values());
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function N() {
+    function O() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return null;
           var t = e.tcToken,
             n = e.tcTokenTimestamp;
@@ -1114,26 +1162,26 @@ __d(
             ? null
             : o("WAWap").wap("tctoken", null, t);
         })),
-        N.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    var M = null,
-      w = null,
-      A = new Map(),
-      F = 5;
-    function O(e, t) {
+    var B = null,
+      W = null,
+      q = new Map(),
+      U = 5;
+    function V(e, t) {
       return e.fanoutType !== o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
         ? t
         : t.filter(function (e) {
             return !e.isBot();
           });
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function H(e, t) {
+      return G.apply(this, arguments);
     }
-    function W() {
+    function G() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "wa_nct_token_send_enabled",
@@ -1167,11 +1215,11 @@ __d(
             );
           try {
             var a;
-            n === M && w != null
-              ? (a = w)
-              : ((a = o("WABase64").decodeB64(n)), (M = n), (w = a), A.clear());
+            n === B && W != null
+              ? (a = W)
+              : ((a = o("WABase64").decodeB64(n)), (B = n), (W = a), q.clear());
             var i = r.toString(),
-              l = A.get(i);
+              l = q.get(i);
             if (l != null) return o("WAWap").wap("cstoken", null, l);
             var s = new Uint8Array(
               yield o("WACryptoHmac").hmacSha256(
@@ -1179,11 +1227,11 @@ __d(
                 new TextEncoder().encode(i),
               ),
             );
-            if (A.size >= F) {
-              var u = A.keys().next().value;
-              u != null && A.delete(u);
+            if (q.size >= U) {
+              var u = q.keys().next().value;
+              u != null && q.delete(u);
             }
-            return (A.set(i, s), o("WAWap").wap("cstoken", null, s));
+            return (q.set(i, s), o("WAWap").wap("cstoken", null, s));
           } catch (e) {
             return (
               o("WALogger").WARN(
@@ -1198,19 +1246,19 @@ __d(
             );
           }
         })),
-        W.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function q(e) {
+    function z(e) {
       return (
         e instanceof o("WAWebHandleMsgError").MessageValidationError ||
         e instanceof o("WAWebWasaHatchOutboundWrapper").WAWebWasaHatchWrapError
       );
     }
-    ((l.classifyFanoutEncNodes = R),
-      (l.genBotFanoutContent = L),
-      (l.createFanoutMsgStanza = k),
-      (l.genCsTokenBody = B));
+    ((l.classifyFanoutEncNodes = T),
+      (l.genBotFanoutContent = D),
+      (l.createFanoutMsgStanza = $),
+      (l.genCsTokenBody = H));
   },
   98,
 );

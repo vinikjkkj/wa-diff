@@ -158,38 +158,38 @@ __d(
               };
             } else n();
           }),
-          (n.$16 = function (t, n, r) {
+          (n.$16 = function (t, n, a) {
             var e = this;
-            (r === void 0 && (r = !1), this.$1 && this.$10(this.$3));
-            var a = this.getCurrentModalOrScreen();
+            (a === void 0 && (a = !1), this.$1 && this.$10(this.$3));
+            var i = this.getCurrentModalOrScreen();
             if (
-              (a == null || a.onExit("forward"),
+              (i == null || i.onExit("forward"),
               (this.navigationDirection = "forward"),
               t.options.isModal === !0)
             ) {
-              var i = this.currentScreenPointer,
-                l = i.modalIndex,
-                s = i.stackIndex,
-                u = this.$17(t, s);
-              (this.modals.splice(l + 1),
-                this.modals.push(u),
+              var l = this.currentScreenPointer,
+                s = l.modalIndex,
+                u = l.stackIndex,
+                c = this.$17(t, u);
+              (this.modals.splice(s + 1),
+                this.modals.push(c),
                 this.$18({ isModal: !0, modalIndex: this.modals.length - 1 }),
-                this.$19(t, r),
+                this.$19(t, a),
                 this.notifyChanged());
               return;
             }
-            r !== !0 &&
+            a !== !0 &&
               o("WebBloksNavigationCounter").incrementWebBloksNavigationCount(
                 t,
               );
-            var c = this.getModalCount();
-            if (c > 0) {
-              (a == null || a.clearDismissCallback(),
+            var d = this.getModalCount();
+            if (d > 0) {
+              (i == null || i.clearDismissCallback(),
                 (this.$5 = !0),
                 this.$15("close", function () {
                   e.$20("close");
                 }),
-                this.open(t, n, r));
+                this.open(t, n, a));
               return;
             }
             if (
@@ -197,7 +197,7 @@ __d(
               o(
                 "WebBloksRenderDiagnostics",
               ).isWebBloksRenderDiagnosticsInstalled() &&
-                (r !== !0 && this.getScreenCount() !== 0
+                (a !== !0 && this.getScreenCount() !== 0
                   ? o("WebBloksRenderDiagnostics").reportWebBloksNewDocument(
                       t,
                       t.appId,
@@ -209,10 +209,16 @@ __d(
                     )),
               n === !0)
             ) {
-              var d = this.$21();
-              d != null ? this.$22(t, d) : this.$23(t);
+              var m = this.$21();
+              if (m != null) {
+                var p = this.getCurrentScreen();
+                (p != null &&
+                  r("justknobx")._("7554") &&
+                  t.inheritContainerForPush(p),
+                  this.$22(t, m));
+              } else this.$23(t);
             } else this.$23(t);
-            (this.$19(t, r), this.notifyChanged(), this.$9(t) || this.$24());
+            (this.$19(t, a), this.notifyChanged(), this.$9(t) || this.$24());
           }),
           (n.close = function (t, n, r) {
             var e = this;

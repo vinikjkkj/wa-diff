@@ -7,19 +7,22 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
+      return s(e, t == null ? void 0 : t.id);
+    }
+    function s(e, t) {
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
           ? !0
-          : s(e) &&
-            o("WAWebGroupAgentProfileRouting").getGroupAgentOneToOneTarget(
+          : u(e) &&
+            o("WAWebGroupAgentProfileRouting").getGroupAgentOneToOneTargetFor(
               e,
               t,
             ) !==
               o("WAWebGroupAgentProfileRouting").GroupAgentOneToOneTarget
                 .HATCH_CHAT;
     }
-    function s(e) {
+    function u(e) {
       return (
         e != null &&
         e.isBot() &&
@@ -28,7 +31,8 @@ __d(
       );
     }
     ((l.isBotAuthorDirectMessagingBlocked = e),
-      (l.isStandardBotProfileGroupAgent = s));
+      (l.isBotAuthorDirectMessagingBlockedFor = s),
+      (l.isStandardBotProfileGroupAgent = u));
   },
   98,
 );

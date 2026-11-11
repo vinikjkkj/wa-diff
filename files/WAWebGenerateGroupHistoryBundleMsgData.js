@@ -9,6 +9,7 @@ __d(
     "WAWebAck",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDBMessageSerialization",
+    "WAWebGroupHistoryAgentBundleFilter",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReportingTokenDBUtils",
@@ -203,7 +204,11 @@ __d(
                   subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
                     .MessageHistoryBundle,
                   kind: o("WAWebMsgType").MsgKind.MessageHistoryBundle,
-                  viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+                  viewMode: o(
+                    "WAWebGroupHistoryAgentBundleFilter",
+                  ).isAgentHistoryBundle(i)
+                    ? o("WAWebViewMode.flow").ViewModeType.HIDDEN
+                    : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
                   t: o("WATimeUtils").unixTime(),
                   isNewMsg: !0,
                   local: !0,

@@ -142,28 +142,32 @@ __d(
             }
       );
     }
-    var T = 12;
-    function D(e, t) {
+    function T(e) {
+      var t = e * 0.25;
+      return { marginTop: -t, paddingTop: t };
+    }
+    var D = 12;
+    function x(e, t) {
       return t
         ? e != null
           ? parseFloat(e)
-          : T
+          : D
         : o("WebBloksSSRUtils").canUseDOM
           ? parseFloat(
               e != null ? e : window.getComputedStyle(document.body).fontSize,
             )
           : parseFloat(String(e));
     }
-    function x(e, t) {
+    function $(e, t) {
       if ((t === void 0 && (t = !1), e == null)) return 0;
-      var n = T;
+      var n = D;
       for (var r of e) {
-        var a = T;
+        var a = D;
         switch (r.styleId) {
           case d:
           case "bk.components.TextSpan": {
             var i = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(r).get(p));
-            a = D(i, t);
+            a = x(i, t);
             break;
           }
           case s:
@@ -183,14 +187,14 @@ __d(
                     });
             if (y == null) break;
             var C = o("WebBloksUtils").toPx(o("WebBloksUtils").cast(y).get(g));
-            a = D(C, t);
+            a = x(C, t);
             break;
           }
           case u:
           case "bk.data.ImageSpan": {
             var b,
               v = o("WebBloksUtils").cast(r).get(h);
-            a = (b = parseFloat(String(v))) != null ? b : T;
+            a = (b = parseFloat(String(v))) != null ? b : D;
             break;
           }
           default:
@@ -200,10 +204,10 @@ __d(
       }
       return n;
     }
-    function $(e) {
+    function P(e) {
       return (e === void 0 && (e = 1), C * e);
     }
-    function P(e, t) {
+    function N(e, t) {
       if (e === "AvenyT") return "Instagram Sans Condensed";
       if (e != null && t != null && t[e]) {
         var n = t[e].webFontName;
@@ -211,7 +215,7 @@ __d(
       }
       return e;
     }
-    function N(e, t, n, r) {
+    function M(e, t, n, r) {
       var o,
         a,
         i =
@@ -222,7 +226,7 @@ __d(
             ? void 0
             : o[1];
       if (typeof i == "string") return i;
-      var l = P(e, t);
+      var l = N(e, t);
       if (l != null) {
         var s = ((a = l.split(",")[0]) != null ? a : "").trim();
         return s !== "Optimistic AI VF" &&
@@ -234,7 +238,7 @@ __d(
             : '"DRKM" 0';
       }
     }
-    function M(e, t) {
+    function w(e, t) {
       var n,
         r,
         a,
@@ -259,11 +263,12 @@ __d(
       (l.getGradientTextStyle = L),
       (l.getVerticalSpacingStyles = E),
       (l.getLineClampStyle = I),
-      (l.getMaxTextSizePx = x),
-      (l.getLineHeight = $),
-      (l.getFontFamily = P),
-      (l.getFontVariationSettings = N),
-      (l.getTextShadow = M));
+      (l.getClampedTextHeadroomStyle = T),
+      (l.getMaxTextSizePx = $),
+      (l.getLineHeight = P),
+      (l.getFontFamily = N),
+      (l.getFontVariationSettings = M),
+      (l.getTextShadow = w));
   },
   98,
 );

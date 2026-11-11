@@ -513,13 +513,13 @@ __d(
         : (ie = a[52]);
       var le = ie,
         se;
-      (a[53] !== i || a[54] !== le
+      (a[53] !== i.id || a[54] !== le
         ? ((se = u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-            chat: i,
+            chatId: i.id,
             displayContext: "chat-header",
             onSMBLabelMenuItemClick: le,
           })),
-          (a[53] = i),
+          (a[53] = i.id),
           (a[54] = le),
           (a[55] = se))
         : (se = a[55]),
@@ -633,13 +633,13 @@ __d(
       var Ee = Le,
         ke;
       return (
-        a[75] !== i || a[76] !== Ee
+        a[75] !== i.id || a[76] !== Ee
           ? ((ke = u.jsx(
               r("WAWebDeleteMenuItem.react"),
-              { onDeleteOrExit: Ee, chat: i },
+              { onDeleteOrExit: Ee, chatId: i.id },
               "delete",
             )),
-            (a[75] = i),
+            (a[75] = i.id),
             (a[76] = Ee),
             (a[77] = ke))
           : (ke = a[77]),
@@ -662,7 +662,7 @@ __d(
         t.push(
           o(
             "WAWebBroadcastConversationMenuItems",
-          ).getBroadcastAudienceInfoMenuItem(e),
+          ).getBroadcastAudienceInfoMenuItem(e.id),
         ),
         o("WAWebMuteUtils").canMute(e.mute) &&
           t.push(
@@ -674,12 +674,12 @@ __d(
           t.push(
             o(
               "WAWebBroadcastConversationMenuItems",
-            ).getBroadcastCloseChatMenuItem(e),
+            ).getBroadcastCloseChatMenuItem(e.id),
           ),
         t.push(u.jsx(r("WDSMenuItem.react"), { type: "separator" })),
         t.push(
           o("WAWebBroadcastConversationMenuItems").getBroadcastDeleteMenuItem(
-            e,
+            e.id,
           ),
         ),
         t

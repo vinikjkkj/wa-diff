@@ -791,6 +791,7 @@ __d(
       (l.getUsernameKey = x),
       (l.getUsername = $),
       (l.getMyUsername = P),
+      (l.getIsUsernameContactField = N),
       (l.getIsEphemeralityDisabled = M),
       (l.getFormattedUsernameAndType = w),
       (l.getFormattedUsername = A),
