@@ -9,7 +9,7 @@ __d(
     "WAWebPinInChatMessageSendWamEvent",
     "WAWebPinMsgConstants",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumGroupRoleType",
     "WAWebWamEnumGroupTypeClient",
     "WAWebWamEnumPinInChatInteractionType",
@@ -76,7 +76,7 @@ __d(
             n != null ? o("WAWebWamMsgUtils").getWamMediaType(n) : void 0,
           pinCount: i,
           pinIndex: l,
-          isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+          isSelfPin: o("WAWebUserUtils").isMeAccount(
             a == null ? void 0 : a.sender,
           ),
         },

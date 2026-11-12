@@ -7,7 +7,7 @@ __d(
     "WAWebFormatParticipantNames",
     "WAWebGroupType",
     "WAWebSystemMessageGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumSystemMessageTypeType",
     "WAWebWidFactory",
   ],
@@ -121,7 +121,7 @@ __d(
                   /*BTDS*/ "New members need admin approval to join this group.",
                 ),
               }
-          : o("WAWebUserPrefsMeUser").isMeAccount(e)
+          : o("WAWebUserUtils").isMeAccount(e)
             ? {
                 text: a
                   ? s._(
@@ -155,7 +155,7 @@ __d(
                 /*BTDS*/ "Admin approval to join this group was turned off.",
               ),
             }
-          : o("WAWebUserPrefsMeUser").isMeAccount(e)
+          : o("WAWebUserUtils").isMeAccount(e)
             ? {
                 text: a
                   ? s._(

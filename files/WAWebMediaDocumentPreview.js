@@ -7,6 +7,7 @@ __d(
     "WAWebDisplayType",
     "WAWebDocumentFileIcon",
     "WAWebEmojiText.react",
+    "WAWebFilenameManager",
     "WAWebFlex.react",
     "WAWebFlexItem.react",
     "WAWebFrontendMsgGetters",
@@ -22,6 +23,7 @@ __d(
     "WAWebMessageDeeperContainer.react",
     "WAWebMessageMeta.react",
     "WAWebMessageUiUtils",
+    "WAWebMimeTypes",
     "WAWebMsgCasts",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
@@ -263,7 +265,7 @@ __d(
     function C(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(94),
+        a = o("react-compiler-runtime").c(106),
         i = e.displayType,
         l = e.embedded,
         c = e.msgKey,
@@ -289,6 +291,7 @@ __d(
           k.getMimetype,
           I.getSenderObj,
           I.getMediaData,
+          k.getT,
         ]),
           (a[0] = E));
       } else E = a[0];
@@ -301,87 +304,134 @@ __d(
         x = T[3],
         $ = T[4],
         P = T[5],
-        N = T[8],
-        M = T[9],
-        w = T[11],
-        A;
+        N = T[7],
+        M = T[8],
+        w = T[9],
+        A = T[11],
+        F = T[12],
+        O;
       if (a[1] === Symbol.for("react.memo_cache_sentinel")) {
-        var F;
-        ((A = [
-          (F = o("WAWebMediaDataGetters")).getMediaStage,
-          F.getFilename,
-          F.getPageCount,
-          F.getSize,
-          F.getMimetype,
-          F.getPreview,
-          F.getFullPreviewData,
-          F.getLoadedSize,
-          F.getFilehash,
+        var B;
+        ((O = [
+          (B = o("WAWebMediaDataGetters")).getMediaStage,
+          B.getFilename,
+          B.getPageCount,
+          B.getSize,
+          B.getMimetype,
+          B.getPreview,
+          B.getFullPreviewData,
+          B.getLoadedSize,
+          B.getFilehash,
         ]),
-          (a[1] = A));
-      } else A = a[1];
-      var O = o("useWAWebMediaDataValues").useMediaDataValues(w, A),
-        B = O[0],
-        W = O[1],
-        q = O[2],
-        U = O[3],
-        V = O[4],
-        H = O[5],
-        G = O[6],
-        z = O[7],
-        j;
-      a[2] !== W || a[3] !== V
-        ? ((j = { mimetype: V, filename: W }),
-          (a[2] = W),
-          (a[3] = V),
-          (a[4] = j))
-        : (j = a[4]);
-      var K = r("useWAWebDocumentMediaType")(j),
-        Q = !!((x || N) && D),
-        X;
-      a[5] !== Q ||
-      a[6] !== z ||
-      a[7] !== B ||
-      a[8] !== K.ext ||
-      a[9] !== q ||
-      a[10] !== U
-        ? ((X = Q
+          (a[1] = O));
+      } else O = a[1];
+      var W = o("useWAWebMediaDataValues").useMediaDataValues(A, O),
+        q = W[0],
+        U = W[1],
+        V = W[2],
+        H = W[3],
+        G = W[4],
+        z = W[5],
+        j = W[6],
+        K = W[7],
+        Q;
+      a[2] !== D || a[3] !== U || a[4] !== w || a[5] !== F || a[6] !== N
+        ? ((Q =
+            N === o("WAWebMsgType").MSG_TYPE.DOCUMENT
+              ? o("WAWebFilenameManager").getDefaultName({
+                  t: F,
+                  type: N,
+                  mimetype: w,
+                  filename: U,
+                  caption: D,
+                  vcardList: null,
+                  isVcardOverMmsDocument: !1,
+                })
+              : U),
+          (a[2] = D),
+          (a[3] = U),
+          (a[4] = w),
+          (a[5] = F),
+          (a[6] = N),
+          (a[7] = Q))
+        : (Q = a[7]);
+      var X = Q,
+        Y;
+      a[8] !== G || a[9] !== X
+        ? ((Y = { mimetype: G, filename: X }),
+          (a[8] = G),
+          (a[9] = X),
+          (a[10] = Y))
+        : (Y = a[10]);
+      var J = r("useWAWebDocumentMediaType")(Y),
+        Z;
+      a[11] !== J.mime
+        ? ((Z =
+            J.mime != null &&
+            o("WAWebMediaMessageGetValidatedProperties").isMediaMimeType(
+              J.mime,
+            )),
+          (a[11] = J.mime),
+          (a[12] = Z))
+        : (Z = a[12]);
+      var ee = Z,
+        te;
+      a[13] !== ee || a[14] !== J.mime
+        ? ((te =
+            J.mime != null &&
+            (ee || o("WAWebMimeTypes").previewType(J.mime) != null)),
+          (a[13] = ee),
+          (a[14] = J.mime),
+          (a[15] = te))
+        : (te = a[15]);
+      var ne = te,
+        re = !!((x || M) && D),
+        oe;
+      a[16] !== ne ||
+      a[17] !== re ||
+      a[18] !== K ||
+      a[19] !== q ||
+      a[20] !== J.ext ||
+      a[21] !== V ||
+      a[22] !== H
+        ? ((oe = re
             ? null
             : u.jsxs("div", {
                 className:
                   "xx3o462 x1ncwhqj xyqdw3p xyri2b xg8j3zb x1c1uobl x152skdk x1bvqhpb xt1z7ec x1yp9nv9 x186kree x1y04bub x1duis28",
                 children: [
-                  o("WAWebMessageUiUtils").ETA_SUPPORTED_STATES.has(B)
+                  o("WAWebMessageUiUtils").ETA_SUPPORTED_STATES.has(q)
                     ? u.jsx(r("WAWebMediaTimeLeftEta.react"), {
-                        size: U,
-                        loadedSize: z,
+                        size: H,
+                        loadedSize: K,
                         sampling: 3,
                         xstyle: _.metaValue,
                         children: u.jsx(f, {}),
                       })
                     : u.jsxs(u.Fragment, {
                         children: [
-                          u.jsx(h, { count: q }),
-                          u.jsx(y, { ext: K.ext }),
+                          u.jsx(h, { count: ne ? V : null }),
+                          u.jsx(y, { ext: J.ext }),
                         ],
                       }),
-                  u.jsx(g, { size: U }),
+                  u.jsx(g, { size: H }),
                 ],
               })),
-          (a[5] = Q),
-          (a[6] = z),
-          (a[7] = B),
-          (a[8] = K.ext),
-          (a[9] = q),
-          (a[10] = U),
-          (a[11] = X))
-        : (X = a[11]);
-      var Y = X,
-        J;
-      a[12] !== G || a[13] !== c
-        ? ((J = function () {
+          (a[16] = ne),
+          (a[17] = re),
+          (a[18] = K),
+          (a[19] = q),
+          (a[20] = J.ext),
+          (a[21] = V),
+          (a[22] = H),
+          (a[23] = oe))
+        : (oe = a[23]);
+      var ae = oe,
+        ie;
+      a[24] !== ne || a[25] !== j || a[26] !== c
+        ? ((ie = function () {
             var e;
-            if (!G) {
+            if (!(!ne || j)) {
               var t =
                 (e = o("WAWebMsgCollection").MsgCollection.get(c)) == null
                   ? void 0
@@ -406,309 +456,299 @@ __d(
               }
             }
           }),
-          (a[12] = G),
-          (a[13] = c),
-          (a[14] = J))
-        : (J = a[14]);
-      var Z = r("useWAWebStableCallback")(J),
-        ee,
-        te;
-      (a[15] !== Z
-        ? ((ee = function () {
-            return Z();
+          (a[24] = ne),
+          (a[25] = j),
+          (a[26] = c),
+          (a[27] = ie))
+        : (ie = a[27]);
+      var le = r("useWAWebStableCallback")(ie),
+        se,
+        ue;
+      (a[28] !== le
+        ? ((se = function () {
+            return le();
           }),
-          (te = [Z]),
-          (a[15] = Z),
-          (a[16] = ee),
-          (a[17] = te))
-        : ((ee = a[16]), (te = a[17])),
-        d(ee, te));
-      var ne;
-      a[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ne = "xiy17q3 x1tbiz1a x1gnnpzl x23j0i4"), (a[18] = ne))
-        : (ne = a[18]);
-      var re = ne,
-        oe;
-      a[19] !== W
-        ? ((oe = W || s._(/*BTDS*/ "Untitled")), (a[19] = W), (a[20] = oe))
-        : (oe = a[20]);
-      var ae = oe,
-        ie;
-      a[21] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ie = {
+          (ue = [le]),
+          (a[28] = le),
+          (a[29] = se),
+          (a[30] = ue))
+        : ((se = a[29]), (ue = a[30])),
+        d(se, ue));
+      var ce;
+      a[31] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ce = "xiy17q3 x1tbiz1a x1gnnpzl x23j0i4"), (a[31] = ce))
+        : (ce = a[31]);
+      var de = ce,
+        me;
+      a[32] !== X
+        ? ((me = X || s._(/*BTDS*/ "Untitled")), (a[32] = X), (a[33] = me))
+        : (me = a[33]);
+      var pe = me,
+        _e;
+      a[34] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_e = {
             getZoomNode: function () {
               return L.current;
             },
           }),
-          (a[21] = ie))
-        : (ie = a[21]);
-      var le = o("WAWebMediaDocumentUtils").useMediaAction(c, ie),
-        se = le[0],
-        ue = le[1],
-        ce;
-      a[22] !== se || a[23] !== i
-        ? ((ce = babelHelpers.extends({}, se)),
+          (a[34] = _e))
+        : (_e = a[34]);
+      var fe = o("WAWebMediaDocumentUtils").useMediaAction(c, _e),
+        ge = fe[0],
+        he = fe[1],
+        ye;
+      a[35] !== ge || a[36] !== i
+        ? ((ye = babelHelpers.extends({}, ge)),
           i === o("WAWebDisplayType").DISPLAY_TYPE.EDITING &&
-            (ce.onClick = null),
-          (a[22] = se),
-          (a[23] = i),
-          (a[24] = ce))
-        : (ce = a[24]);
-      var de = (H != null ? H : G) != null,
-        me;
-      a[25] !== K.mime
-        ? ((me =
-            K.mime != null &&
-            o("WAWebMediaMessageGetValidatedProperties").isMediaMimeType(
-              K.mime,
-            )),
-          (a[25] = K.mime),
-          (a[26] = me))
-        : (me = a[26]);
-      var pe = me,
-        _e;
-      a[27] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_e = {
+            (ye.onClick = null),
+          (a[35] = ge),
+          (a[36] = i),
+          (a[37] = ye))
+        : (ye = a[37]);
+      var Ce = ne && (z != null ? z : j) != null,
+        be;
+      a[38] === Symbol.for("react.memo_cache_sentinel")
+        ? ((be = {
             className:
               "x6ikm8r x10wlt62 xlyipyv x1yn0g08 x104kibb x1h7i4cw x1ua5tub",
           }),
-          (a[27] = _e))
-        : (_e = a[27]);
-      var fe;
-      a[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((fe = r("WAWebL10N").isRTL()), (a[28] = fe))
-        : (fe = a[28]);
-      var ge = P !== fe,
-        he;
-      a[29] !== ae || a[30] !== ge
-        ? ((he = u.jsx(
+          (a[38] = be))
+        : (be = a[38]);
+      var ve;
+      a[39] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ve = r("WAWebL10N").isRTL()), (a[39] = ve))
+        : (ve = a[39]);
+      var Se = P !== ve,
+        Re;
+      a[40] !== pe || a[41] !== Se
+        ? ((Re = u.jsx(
             "div",
-            babelHelpers.extends({}, _e, {
+            babelHelpers.extends({}, be, {
               children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                text: ae,
-                dirMismatch: ge,
+                text: pe,
+                dirMismatch: Se,
                 direction: "auto",
                 breakWord: !0,
               }),
             }),
           )),
-          (a[29] = ae),
-          (a[30] = ge),
-          (a[31] = he))
-        : (he = a[31]);
-      var ye = he,
-        Ce = pe && R && de,
-        be;
-      a[32] !== c || a[33] !== S
-        ? ((be =
+          (a[40] = pe),
+          (a[41] = Se),
+          (a[42] = Re))
+        : (Re = a[42]);
+      var Le = Re,
+        Ee = ee && R && Ce,
+        ke;
+      a[43] !== c || a[44] !== S
+        ? ((ke =
             S &&
             u.jsx("div", {
               className: "x10l6tqk xxx7yvo xbfrwjf",
               children: u.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: c }),
             })),
-          (a[32] = c),
-          (a[33] = S),
-          (a[34] = be))
-        : (be = a[34]);
-      var ve = be,
-        Se = v ? _.embeddedContent : _.deepContainerContent,
-        Re;
-      a[35] !== Se
-        ? ((Re = [Se, o("WDSPaddings.stylex").wdsPaddings.padding0]),
-          (a[35] = Se),
-          (a[36] = Re))
-        : (Re = a[36]);
-      var Le;
-      a[37] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Le = { className: "x1n2onr6" }), (a[37] = Le))
-        : (Le = a[37]);
-      var Ee, ke;
-      a[38] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ee = "xcbkimw x1n2onr6 xjzcg3w"),
-          (ke = "x1agz8ms xiy17q3 x18d0r48 x5yr21d x10l6tqk xh8yej3"),
-          (a[38] = Ee),
-          (a[39] = ke))
-        : ((Ee = a[38]), (ke = a[39]));
-      var Ie;
-      a[40] !== c
-        ? ((Ie = u.jsx(r("WAWebMediaThumbnail.react"), {
+          (a[43] = c),
+          (a[44] = S),
+          (a[45] = ke))
+        : (ke = a[45]);
+      var Ie = ke,
+        Te = v ? _.embeddedContent : _.deepContainerContent,
+        De;
+      a[46] !== Te
+        ? ((De = [Te, o("WDSPaddings.stylex").wdsPaddings.padding0]),
+          (a[46] = Te),
+          (a[47] = De))
+        : (De = a[47]);
+      var xe;
+      a[48] === Symbol.for("react.memo_cache_sentinel")
+        ? ((xe = { className: "x1n2onr6" }), (a[48] = xe))
+        : (xe = a[48]);
+      var $e, Pe;
+      a[49] === Symbol.for("react.memo_cache_sentinel")
+        ? (($e = "xcbkimw x1n2onr6 xjzcg3w"),
+          (Pe = "x1agz8ms xiy17q3 x18d0r48 x5yr21d x10l6tqk xh8yej3"),
+          (a[49] = $e),
+          (a[50] = Pe))
+        : (($e = a[49]), (Pe = a[50]));
+      var Ne;
+      a[51] !== c
+        ? ((Ne = u.jsx(r("WAWebMediaThumbnail.react"), {
             msgKey: c,
-            containerClassName: Ee,
-            childClassName: ke,
+            containerClassName: $e,
+            childClassName: Pe,
           })),
-          (a[40] = c),
-          (a[41] = Ie))
-        : (Ie = a[41]);
-      var Te;
-      a[42] !== M
-        ? ((Te =
-            M != null &&
-            M !== "" &&
-            o("WAWebMediaMessageGetValidatedProperties").isVideoMimeType(M) &&
+          (a[51] = c),
+          (a[52] = Ne))
+        : (Ne = a[52]);
+      var Me;
+      a[53] !== w
+        ? ((Me =
+            w != null &&
+            w !== "" &&
+            o("WAWebMediaMessageGetValidatedProperties").isVideoMimeType(w) &&
             u.jsx(r("WDSIconIcVideocamFilled.react"), {
               xstyle: _.mediaThumbVideoIcon,
               height: 14,
               width: 14,
               testid: "msg-video",
             })),
-          (a[42] = M),
-          (a[43] = Te))
-        : (Te = a[43]);
-      var De;
-      a[44] !== Ie || a[45] !== Te
-        ? ((De = u.jsx(r("WAWebFlexItem.react"), {
+          (a[53] = w),
+          (a[54] = Me))
+        : (Me = a[54]);
+      var we;
+      a[55] !== Ne || a[56] !== Me
+        ? ((we = u.jsx(r("WAWebFlexItem.react"), {
             shrink: 0,
             grow: 0,
             children: u.jsxs(
               "div",
-              babelHelpers.extends({}, Le, { children: [Ie, Te] }),
+              babelHelpers.extends({}, xe, { children: [Ne, Me] }),
             ),
           })),
-          (a[44] = Ie),
-          (a[45] = Te),
-          (a[46] = De))
-        : (De = a[46]);
-      var xe;
-      a[47] === Symbol.for("react.memo_cache_sentinel")
-        ? ((xe = [_.textContainerPadding, p.paddingBlock13]), (a[47] = xe))
-        : (xe = a[47]);
-      var $e;
-      a[48] === Symbol.for("react.memo_cache_sentinel")
-        ? (($e = [
+          (a[55] = Ne),
+          (a[56] = Me),
+          (a[57] = we))
+        : (we = a[57]);
+      var Ae;
+      a[58] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ae = [_.textContainerPadding, p.paddingBlock13]), (a[58] = Ae))
+        : (Ae = a[58]);
+      var Fe;
+      a[59] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Fe = [
             _.text,
             r("WAWebL10N").isRTL() && _.textRTL,
             p.marginInline10,
             _.fixedTextHeight,
           ]),
-          (a[48] = $e))
-        : ($e = a[48]);
-      var Pe;
-      a[49] !== ye
-        ? ((Pe = u.jsx(r("WAWebFlexItem.react"), { children: ye })),
-          (a[49] = ye),
-          (a[50] = Pe))
-        : (Pe = a[50]);
-      var Ne;
-      a[51] !== Y
-        ? ((Ne = u.jsx(r("WAWebFlexItem.react"), { children: Y })),
-          (a[51] = Y),
-          (a[52] = Ne))
-        : (Ne = a[52]);
-      var Me;
-      a[53] !== Pe || a[54] !== Ne
-        ? ((Me = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+          (a[59] = Fe))
+        : (Fe = a[59]);
+      var Oe;
+      a[60] !== Le
+        ? ((Oe = u.jsx(r("WAWebFlexItem.react"), { children: Le })),
+          (a[60] = Le),
+          (a[61] = Oe))
+        : (Oe = a[61]);
+      var Be;
+      a[62] !== ae
+        ? ((Be = u.jsx(r("WAWebFlexItem.react"), { children: ae })),
+          (a[62] = ae),
+          (a[63] = Be))
+        : (Be = a[63]);
+      var We;
+      a[64] !== Oe || a[65] !== Be
+        ? ((We = u.jsxs(o("WAWebFlex.react").FlexColumn, {
             grow: 1,
             justify: "center",
-            xstyle: $e,
-            children: [Pe, Ne],
+            xstyle: Fe,
+            children: [Oe, Be],
           })),
-          (a[53] = Pe),
-          (a[54] = Ne),
-          (a[55] = Me))
-        : (Me = a[55]);
-      var we;
-      a[56] !== ue
-        ? ((we = u.jsx(r("WAWebFlexItem.react"), {
+          (a[64] = Oe),
+          (a[65] = Be),
+          (a[66] = We))
+        : (We = a[66]);
+      var qe;
+      a[67] !== he
+        ? ((qe = u.jsx(r("WAWebFlexItem.react"), {
             grow: 0,
             shrink: 0,
-            children: ue,
+            children: he,
           })),
-          (a[56] = ue),
-          (a[57] = we))
-        : (we = a[57]);
-      var Ae;
-      a[58] !== Me || a[59] !== we
-        ? ((Ae = u.jsxs(o("WAWebFlex.react").FlexRow, {
+          (a[67] = he),
+          (a[68] = qe))
+        : (qe = a[68]);
+      var Ue;
+      a[69] !== We || a[70] !== qe
+        ? ((Ue = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "start",
-            xstyle: xe,
+            xstyle: Ae,
             grow: 1,
-            children: [Me, we],
+            children: [We, qe],
           })),
-          (a[58] = Me),
-          (a[59] = we),
-          (a[60] = Ae))
-        : (Ae = a[60]);
-      var Fe;
-      a[61] !== Re || a[62] !== De || a[63] !== Ae
-        ? ((Fe = u.jsxs(o("WAWebFlex.react").FlexRow, {
-            xstyle: Re,
-            children: [De, Ae],
+          (a[69] = We),
+          (a[70] = qe),
+          (a[71] = Ue))
+        : (Ue = a[71]);
+      var Ve;
+      a[72] !== De || a[73] !== we || a[74] !== Ue
+        ? ((Ve = u.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: De,
+            children: [we, Ue],
           })),
-          (a[61] = Re),
-          (a[62] = De),
-          (a[63] = Ae),
-          (a[64] = Fe))
-        : (Fe = a[64]);
-      var Oe = Fe,
-        Be = v ? _.embeddedContent : _.deepContainerContent,
-        We = (t = K.mime) != null ? t : "",
-        qe = (n = K.ext) != null ? n : "",
-        Ue;
-      a[65] !== We || a[66] !== qe
-        ? ((Ue = u.jsx(r("WAWebFlexItem.react"), {
+          (a[72] = De),
+          (a[73] = we),
+          (a[74] = Ue),
+          (a[75] = Ve))
+        : (Ve = a[75]);
+      var He = Ve,
+        Ge = v ? _.embeddedContent : _.deepContainerContent,
+        ze = (t = J.mime) != null ? t : "",
+        je = (n = J.ext) != null ? n : "",
+        Ke;
+      a[76] !== ze || a[77] !== je
+        ? ((Ke = u.jsx(r("WAWebFlexItem.react"), {
             shrink: 0,
             children: u.jsx("div", {
-              className: re,
+              className: de,
               children: u.jsx(r("WAWebDocumentFileIcon"), {
                 width: 26,
-                mimeType: We,
-                ext: qe,
+                mimeType: ze,
+                ext: je,
               }),
             }),
           })),
-          (a[65] = We),
-          (a[66] = qe),
-          (a[67] = Ue))
-        : (Ue = a[67]);
-      var Ve;
-      a[68] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ve = [_.text, r("WAWebL10N").isRTL() && _.textRTL]), (a[68] = Ve))
-        : (Ve = a[68]);
-      var He;
-      a[69] !== Y || a[70] !== ye
-        ? ((He = u.jsxs(r("WAWebFlexItem.react"), {
-            xstyle: Ve,
+          (a[76] = ze),
+          (a[77] = je),
+          (a[78] = Ke))
+        : (Ke = a[78]);
+      var Qe;
+      a[79] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Qe = [_.text, r("WAWebL10N").isRTL() && _.textRTL]), (a[79] = Qe))
+        : (Qe = a[79]);
+      var Xe;
+      a[80] !== ae || a[81] !== Le
+        ? ((Xe = u.jsxs(r("WAWebFlexItem.react"), {
+            xstyle: Qe,
             grow: 1,
-            children: [ye, Y],
+            children: [Le, ae],
           })),
-          (a[69] = Y),
-          (a[70] = ye),
-          (a[71] = He))
-        : (He = a[71]);
-      var Ge;
-      a[72] !== ue
-        ? ((Ge = u.jsx(r("WAWebFlexItem.react"), {
+          (a[80] = ae),
+          (a[81] = Le),
+          (a[82] = Xe))
+        : (Xe = a[82]);
+      var Ye;
+      a[83] !== he
+        ? ((Ye = u.jsx(r("WAWebFlexItem.react"), {
             grow: 0,
             shrink: 0,
-            children: ue,
+            children: he,
           })),
-          (a[72] = ue),
-          (a[73] = Ge))
-        : (Ge = a[73]);
-      var ze;
-      a[74] !== ve ||
-      a[75] !== Be ||
-      a[76] !== Ue ||
-      a[77] !== He ||
-      a[78] !== Ge
-        ? ((ze = u.jsxs(o("WAWebFlex.react").FlexRow, {
-            xstyle: Be,
+          (a[83] = he),
+          (a[84] = Ye))
+        : (Ye = a[84]);
+      var Je;
+      a[85] !== Ie ||
+      a[86] !== Ge ||
+      a[87] !== Ke ||
+      a[88] !== Xe ||
+      a[89] !== Ye
+        ? ((Je = u.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: Ge,
             align: "start",
-            children: [Ue, He, Ge, ve],
+            children: [Ke, Xe, Ye, Ie],
           })),
-          (a[74] = ve),
-          (a[75] = Be),
-          (a[76] = Ue),
-          (a[77] = He),
-          (a[78] = Ge),
-          (a[79] = ze))
-        : (ze = a[79]);
-      var je = ze,
-        Ke = Ce ? Oe : je,
-        Qe;
-      a[80] !== c || a[81] !== Ce || a[82] !== R
-        ? ((Qe =
-            R && !Ce
+          (a[85] = Ie),
+          (a[86] = Ge),
+          (a[87] = Ke),
+          (a[88] = Xe),
+          (a[89] = Ye),
+          (a[90] = Je))
+        : (Je = a[90]);
+      var Ze = Je,
+        et = Ee ? He : Ze,
+        tt;
+      a[91] !== ne || a[92] !== c || a[93] !== Ee || a[94] !== R
+        ? ((tt =
+            R && ne && !Ee
               ? u.jsx(r("WAWebMediaThumbnail.react"), {
                   msgKey: c,
                   containerClassName: "xpyat2d x1n2onr6 xh8yej3",
@@ -717,46 +757,47 @@ __d(
                   thumbnailRef: L,
                 })
               : null),
-          (a[80] = c),
-          (a[81] = Ce),
-          (a[82] = R),
-          (a[83] = Qe))
-        : (Qe = a[83]);
-      var Xe;
-      a[84] !== Ke || a[85] !== v || a[86] !== de || a[87] !== $
-        ? ((Xe = v
-            ? Ke
+          (a[91] = ne),
+          (a[92] = c),
+          (a[93] = Ee),
+          (a[94] = R),
+          (a[95] = tt))
+        : (tt = a[95]);
+      var nt;
+      a[96] !== et || a[97] !== v || a[98] !== Ce || a[99] !== $
+        ? ((nt = v
+            ? et
             : u.jsx(r("WAWebMessageDeeperContainer.react"), {
                 xstyle: _.deepContainer,
                 outgoingMsg: $,
-                position: de ? "bottom" : void 0,
+                position: Ce ? "bottom" : void 0,
                 testid: "document-thumb-details",
-                children: Ke,
+                children: et,
               })),
-          (a[84] = Ke),
-          (a[85] = v),
-          (a[86] = de),
-          (a[87] = $),
-          (a[88] = Xe))
-        : (Xe = a[88]);
-      var Ye;
+          (a[96] = et),
+          (a[97] = v),
+          (a[98] = Ce),
+          (a[99] = $),
+          (a[100] = nt))
+        : (nt = a[100]);
+      var rt;
       return (
-        a[89] !== ce || a[90] !== C || a[91] !== Qe || a[92] !== Xe
-          ? ((Ye = u.jsxs(
+        a[101] !== ye || a[102] !== C || a[103] !== tt || a[104] !== nt
+          ? ((rt = u.jsxs(
               o("WAWebClickable.react").Clickable,
               babelHelpers.extends(
                 { ref: C, xstyle: _.container, dataTestId: "document-thumb" },
-                ce,
-                { children: [Qe, Xe] },
+                ye,
+                { children: [tt, nt] },
               ),
             )),
-            (a[89] = ce),
-            (a[90] = C),
-            (a[91] = Qe),
-            (a[92] = Xe),
-            (a[93] = Ye))
-          : (Ye = a[93]),
-        Ye
+            (a[101] = ye),
+            (a[102] = C),
+            (a[103] = tt),
+            (a[104] = nt),
+            (a[105] = rt))
+          : (rt = a[105]),
+        rt
       );
     }
     l.default = C;

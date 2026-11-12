@@ -32,7 +32,7 @@ __d(
     "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumCompanionInviteOriginType",
     "WAWebWidFactory",
     "WAWebWidToJid",
@@ -908,7 +908,7 @@ __d(
                 r("WAWebFbtIntlList").DELIMITERS.COMMA,
               ).toString(),
               c =
-                t.length === 1 && o("WAWebUserPrefsMeUser").isMeAccount(t[0].id)
+                t.length === 1 && o("WAWebUserUtils").isMeAccount(t[0].id)
                   ? s._(
                       /*BTDS*/ "You were not dismissed as a community admin. Check your connection and try again.",
                     )
@@ -947,7 +947,7 @@ __d(
               r("WAWebFbtIntlList").DELIMITERS.COMMA,
             ).toString(),
             _ = new (o("WAWebActionToast.react").ActionType)(
-              t.length === 1 && o("WAWebUserPrefsMeUser").isMeAccount(t[0].id)
+              t.length === 1 && o("WAWebUserUtils").isMeAccount(t[0].id)
                 ? s._(/*BTDS*/ "Removing you as a community admin.")
                 : s._(
                     /*BTDS*/ '_j{"*":"Dismissing {userNames} as community admins.","_1":"Dismissing {userNames} as a community admin."}',
@@ -958,8 +958,7 @@ __d(
               .then(function (e) {
                 if (e.status === 207)
                   return new (o("WAWebActionToast.react").ActionType)(
-                    t.length === 1 &&
-                      o("WAWebUserPrefsMeUser").isMeAccount(t[0].id)
+                    t.length === 1 && o("WAWebUserUtils").isMeAccount(t[0].id)
                       ? s._(/*BTDS*/ "You're no longer a community admin.")
                       : s._(
                           /*BTDS*/ '_j{"*":"{userNames} are no longer community admins.","_1":"{userNames} is no longer a community admin."}',
@@ -976,8 +975,7 @@ __d(
                       ])),
                   ),
                   new (o("WAWebActionToast.react").ActionType)(
-                    t.length === 1 &&
-                      o("WAWebUserPrefsMeUser").isMeAccount(t[0].id)
+                    t.length === 1 && o("WAWebUserUtils").isMeAccount(t[0].id)
                       ? s._(
                           /*BTDS*/ "Removing you as a community admin failed.",
                         )

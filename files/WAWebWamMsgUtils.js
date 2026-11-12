@@ -9,7 +9,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumAgentEngagementEnumType",
     "WAWebWamEnumBotType",
     "WAWebWamEnumE2eDeviceType",
@@ -189,7 +189,7 @@ __d(
     }
     function f(e) {
       return e instanceof r("WAWebWid")
-        ? o("WAWebUserPrefsMeUser").isMeAccount(e)
+        ? o("WAWebUserUtils").isMeAccount(e)
           ? e.isCompanion()
             ? e.isHosted()
               ? o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE

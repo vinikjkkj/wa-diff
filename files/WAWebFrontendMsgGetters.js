@@ -32,7 +32,7 @@ __d(
     "WAWebStickerPremiumStatus",
     "WAWebStringTruncation",
     "WAWebTemplateButtonSubtype",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -936,7 +936,7 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1];
-          return !t && o("WAWebUserPrefsMeUser").isMeAccount(n);
+          return !t && o("WAWebUserUtils").isMeAccount(n);
         },
         [u.getIsNewsletterMsg, u.getSender],
       ),

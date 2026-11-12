@@ -4,7 +4,6 @@ __d(
     "WAWebOrgCollection",
     "WAWebOrgGatingUtils",
     "WAWebOrgMemberLidEligibility",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidToJid",
   ],
@@ -12,7 +11,7 @@ __d(
     function e(e) {
       if (
         !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled() ||
-        o("WAWebUserPrefsMeUser").isMeAccount(e)
+        o("WAWebUserUtils").isMeAccount(e)
       )
         return null;
       var t = o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(e);
@@ -23,7 +22,7 @@ __d(
       if (
         t == null ||
         t.isAiHub() ||
-        o("WAWebUserPrefsMeUser").isMeAccount(
+        o("WAWebUserUtils").isMeAccount(
           (n = e == null ? void 0 : e.id) != null ? n : t,
         )
       )

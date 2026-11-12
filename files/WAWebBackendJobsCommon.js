@@ -12,7 +12,7 @@ __d(
     "WAWebHandleMsgError",
     "WAWebSendMsgCommonApi",
     "WAWebSignalCommonErrors",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWamEnumE2eCiphertextType",
     "WAWebWamEnumEditType",
@@ -326,7 +326,7 @@ __d(
           case "errSignalInvalidSignedPreKey":
             try {
               if (n.msgInfo.chat.isStatus()) {
-                var i = o("WAWebUserPrefsMeUser").isMeAccount(n.msgInfo.author),
+                var i = o("WAWebUserUtils").isMeAccount(n.msgInfo.author),
                   l = o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
                     o("WAStanzaUtils").toStanzaId(n.msgInfo.externalId),
                   ),

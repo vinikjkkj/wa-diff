@@ -26,7 +26,7 @@ __d(
     "WAWebSchemaBusinessProfile",
     "WAWebSchemaParticipant",
     "WAWebSchemaProfilePicThumb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWamEnumChatOriginsType",
     "WAWebWamEnumChatType",
@@ -425,7 +425,7 @@ __d(
                             A =
                               r("WAWebWid").isStringLid(e.chatId) ||
                               (f == null ? void 0 : f.defaultSubgroup) === !0,
-                            F = o("WAWebUserPrefsMeUser").isMeAccount(p),
+                            F = o("WAWebUserUtils").isMeAccount(p),
                             O = p.isBot(),
                             B = o(
                               "WAWebChatThreadLoggingUtils",
@@ -739,7 +739,7 @@ __d(
                             m = (d = c.participants) != null ? d : [];
                           if (
                             m.some(function (e) {
-                              return o("WAWebUserPrefsMeUser").isMeAccount(
+                              return o("WAWebUserUtils").isMeAccount(
                                 o("WAWebWidFactory").createWid(e),
                               );
                             })

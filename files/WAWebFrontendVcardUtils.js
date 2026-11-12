@@ -5,7 +5,7 @@ __d(
     "WAWebApiContact",
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWid",
     "WAWebWidFactory",
@@ -21,7 +21,7 @@ __d(
     }
     function u(e) {
       var t, n;
-      if (o("WAWebUserPrefsMeUser").isMeAccount(e.id))
+      if (o("WAWebUserUtils").isMeAccount(e.id))
         t =
           o("WAWebContactGetters").getName(e) ||
           o("WAWebFrontendContactGetters").getContactDisplayName(e);
@@ -43,7 +43,7 @@ __d(
     }
     function c(t, n) {
       var a, i, l, c, d;
-      o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+      o("WAWebUserUtils").isMeAccount(t.id)
         ? (d =
             o("WAWebContactGetters").getName(t) ||
             o("WAWebFrontendContactGetters").getContactDisplayName(t))

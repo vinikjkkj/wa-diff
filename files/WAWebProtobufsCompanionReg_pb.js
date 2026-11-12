@@ -53,6 +53,7 @@ __d(
         platformType: [3, e.TYPES.ENUM, s],
         requireFullSync: [4, e.TYPES.BOOL],
         historySyncConfig: [5, e.TYPES.MESSAGE, c],
+        deviceName: [6, e.TYPES.STRING],
       }),
       (c.name = "DeviceProps$HistorySyncConfig"),
       (c.internalSpec = {

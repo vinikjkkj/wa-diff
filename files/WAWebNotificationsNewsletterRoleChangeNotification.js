@@ -8,7 +8,7 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebParticipantListUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
   ],
@@ -52,7 +52,7 @@ __d(
           }),
           (r.getBannerOptions = function () {
             var e = this.getNotificationUser(),
-              t = o("WAWebUserPrefsMeUser").isMeAccount(this.user);
+              t = o("WAWebUserUtils").isMeAccount(this.user);
             return {
               wid: this.chat.id,
               title: this.chat.name,

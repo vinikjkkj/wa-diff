@@ -54,6 +54,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsScreenLock",
     "WAWebUserPrefsTypes",
     "WAWebWamDeviceLinkReporter",
     "WAWebWamEnumMdLinkDeviceCompanionStage",
@@ -216,25 +217,22 @@ __d(
                 W.identityKeyPair.pubKey,
                 a,
               );
-              o("WAWebMdSessionIdCache").setMdSessionId(q);
-              var U = yield o(
-                "WAWebMdClientSessionIdUtils",
-              ).genMdClientSessionId(O);
-              (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
-                o("WAWebWamEnumMdLinkDeviceCompanionStage")
-                  .MD_LINK_DEVICE_COMPANION_STAGE.PAIR_SUCCESS_RECEIVED,
-              ),
+              (o("WAWebMdSessionIdCache").setMdSessionId(q),
+                yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
+                  o("WAWebWamEnumMdLinkDeviceCompanionStage")
+                    .MD_LINK_DEVICE_COMPANION_STAGE.PAIR_SUCCESS_RECEIVED,
+                ),
                 o(
                   "WAWebCompanionRegUtils",
                 ).initDevicePairingLatencyMeasurement());
-              var V = o(
+              var U = o(
                 "WAWebAdvSignatureApi",
               ).verifyDeviceIdentityAccountSignature(
                 F,
                 W.identityKeyPair.pubKey,
                 null,
               );
-              if (!V)
+              if (!U)
                 return (
                   o("WAWebCoreActionsODS").logPairError(),
                   o("WAWebCoreActionsODS").logSessionForcedLogout(),
@@ -250,6 +248,10 @@ __d(
                   }),
                   m()
                 );
+              o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(0);
+              var V = yield o(
+                "WAWebMdClientSessionIdUtils",
+              ).genMdClientSessionId(O);
               if (T != null) {
                 var H;
                 yield (H = R()) == null
@@ -316,9 +318,9 @@ __d(
                 ).companionDeviceLinkingScreenQpl.pairSuccess(),
                 r("WAWebODS").incr("web.pair.success"),
                 n("cr:1064") == null || n("cr:1064").setMdSessionId(q),
-                U != null &&
+                V != null &&
                   (n("cr:1064") == null ||
-                    n("cr:1064").setMdClientSessionId(U)),
+                    n("cr:1064").setMdClientSessionId(V)),
                 n("cr:1064") == null ||
                   n("cr:1064").trigger("post_pair_success"),
                 yield k(N, b, C),

@@ -50,6 +50,7 @@ __d(
               type: "out",
               contactHash: S(e),
               isUsernameContact: !1,
+              birthday: null,
             };
           });
           return r("WAWebLidAwareContactsDB").bulkCreateOrMerge(

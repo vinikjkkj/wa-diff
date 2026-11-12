@@ -7,7 +7,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgPhoneNumbers",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -39,7 +39,7 @@ __d(
       return ((e.phoneNumbersIndexParsed = i), (e.phoneNumbers = a), a);
     }
     function u(e) {
-      if (o("WAWebUserPrefsMeUser").isMeAccount(e.author)) return !0;
+      if (o("WAWebUserUtils").isMeAccount(e.author)) return !0;
       var t = o("WAWebContactCollection").ContactCollection.get(e.author);
       if (t != null && o("WAWebFrontendContactGetters").getIsMyContact(t))
         return !0;

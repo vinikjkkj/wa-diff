@@ -6,6 +6,7 @@ __d(
     "WAWebCrashlog",
     "WAWebMdSessionIdCache",
     "WAWebODS",
+    "WAWebPathfinderAppReactionMetadata",
     "WAWebPathfinderHealthReporter",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderPIIFilter",
@@ -52,6 +53,10 @@ __d(
         CONTENT_CHANGED: { category: 6, eventName: 14 },
         ALERT_SHOWN: { category: 5, eventName: 13 },
         ALERT_CLOSED: { category: 5, eventName: 25 },
+        TOAST_PRESENTED: { category: 5, eventName: 18 },
+        SHEET_PRESENTED: { category: 5, eventName: 26 },
+        SHEET_DISMISSED: { category: 5, eventName: 27 },
+        TOGGLE_STATE_CHANGED: { category: 5, eventName: 29 },
         CUSTOM_EVENT: { category: 6, eventName: 19 },
       },
       C = new Set([
@@ -163,6 +168,12 @@ __d(
     function k(e, t, n) {
       var o,
         a = (o = E(e, n)) != null ? o : {};
+      for (var i of (l = t.appReaction) != null ? l : []) {
+        var l,
+          s = i[0],
+          u = i[1];
+        a[s] = u;
+      }
       return (
         t.triggering_testid != null &&
           t.triggering_testid !== "" &&
@@ -416,7 +427,10 @@ __d(
         e.eventType === "CUSTOM_EVENT" &&
         (e.originalEventName == null ||
           e.originalEventName === "CUSTOM_EVENT" ||
-          !Object.prototype.hasOwnProperty.call(y, e.originalEventName))
+          !Object.prototype.hasOwnProperty.call(y, e.originalEventName) ||
+          o(
+            "WAWebPathfinderAppReactionMetadata",
+          ).FRAMEWORK_ONLY_EVENT_TYPES.has(e.originalEventName))
       );
     }
     function qe() {
@@ -599,7 +613,16 @@ __d(
               target_element_type: (L = u.targetType) != null ? L : void 0,
               event_metadata: k(
                 u.eventMetadata,
-                { triggering_testid: u.triggeringTestId, press_kind: _ },
+                {
+                  appReaction: o(
+                    "WAWebPathfinderAppReactionMetadata",
+                  ).toAppReactionEventMetadata(
+                    u.eventType,
+                    u.appReactionMetadata,
+                  ),
+                  triggering_testid: u.triggeringTestId,
+                  press_kind: _,
+                },
                 x,
               ),
               custom_metadata: E(u.customMetadata, x, !0),

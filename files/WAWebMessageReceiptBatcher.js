@@ -19,7 +19,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSchemaMessageInfo",
     "WAWebSchemaPeerReadReceipt",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
@@ -400,7 +400,7 @@ __d(
                                 s.remote.isStatus())
                             ) {
                               var u = o("WAWebWidFactory").asUserWidOrThrow(a);
-                              if (!o("WAWebUserPrefsMeUser").isMeAccount(u))
+                              if (!o("WAWebUserUtils").isMeAccount(u))
                                 return {
                                   msgKey: s,
                                   ts: i,

@@ -29,8 +29,8 @@ __d(
     "WAWebQuarantineDataStore",
     "WAWebSchemaChat",
     "WAWebSchemaGroupMetadata",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebViewMode.flow",
@@ -85,7 +85,7 @@ __d(
                   t.isLid() &&
                   o("WAWebLidMigrationUtils").toPn(t) == null &&
                   e.id.remote.isGroup() &&
-                  !o("WAWebUserPrefsMeUser").isMeAccount(t)
+                  !o("WAWebUserUtils").isMeAccount(t)
                 );
               });
             if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {

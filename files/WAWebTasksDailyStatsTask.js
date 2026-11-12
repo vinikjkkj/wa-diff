@@ -58,13 +58,13 @@ __d(
     "WAWebUserPrefsFavoritesLidMigration",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsLabelAssociationsLidMigration",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsNotifications",
     "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
     "WAWebUserPrefsScreenLock",
     "WAWebUserPrefsTypes",
     "WAWebUserPrefsUsername",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWaFsSingleEmojiMessageDailyWamEvent",
     "WAWebWamEnumLidMigrationSourceType",
@@ -920,7 +920,7 @@ __d(
         a = [];
       for (var i of e) {
         var l = o("WAWebWidFactory").createWid(i);
-        (o("WAWebUserPrefsMeUser").isMeAccount(l) && (r = !0),
+        (o("WAWebUserUtils").isMeAccount(l) && (r = !0),
           l.isRegularUser() &&
             (l.isLid()
               ? (n = !0)

@@ -14,9 +14,11 @@ __d(
       }),
       l = new Set([
         "confirm-logout-app-lock-link",
+        "contextual-banner-app-lock-upsell",
         "mi-chatlock",
         "mi-logout menu-item",
         "mi-screen-lock menu-item",
+        "screen-lock-settings-item",
       ]),
       s = [],
       u = 0,

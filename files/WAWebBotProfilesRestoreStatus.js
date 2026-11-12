@@ -17,12 +17,7 @@ __d(
     function d() {
       return u.promise;
     }
-    function m() {
-      u = s();
-    }
-    ((l.markBotProfilesRestored = c),
-      (l.waitForBotProfilesRestored = d),
-      (l.resetBotProfilesRestoreStatusForTest = m));
+    ((l.markBotProfilesRestored = c), (l.waitForBotProfilesRestored = d));
   },
   98,
 );

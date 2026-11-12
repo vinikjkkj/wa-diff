@@ -566,6 +566,7 @@ __d(
           "isQuestion",
           "questionReplyQuotedMessage",
           "questionResponsesCount",
+          "myQuestionResponsesCount",
           "readQuestionResponsesCount",
           "groupHistoryBundleMessageKey",
           "groupHistoryIndividualMessageInfo",

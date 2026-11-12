@@ -159,7 +159,7 @@ __d(
     function R(t) {
       if (t.deleted) {
         var n = o("WAWebWidFactory").createUserWidFromDeviceListPk(t.id);
-        o("WAWebUserPrefsMeUser").isMeAccount(n) &&
+        o("WAWebUserUtils").isMeAccount(n) &&
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([

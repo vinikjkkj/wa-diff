@@ -13,7 +13,7 @@ __d(
     "WAWebSchemaDanglingReceipt",
     "WAWebSendAggregateDeliveryReceipts",
     "WAWebSendReceiptJobCommon",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -157,7 +157,7 @@ __d(
           return (
             f.forEach(function (e, t) {
               e.forEach(function (e, n) {
-                var r = t.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(t),
+                var r = t.isUser() && o("WAWebUserUtils").isMeAccount(t),
                   a = r
                     ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER
                     : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,

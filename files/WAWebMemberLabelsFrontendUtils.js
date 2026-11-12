@@ -7,7 +7,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMemberLabelCollection",
     "WAWebMemberLabelHooks",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidToJid",
@@ -77,7 +76,7 @@ __d(
     function y(e, t) {
       if (e == null || t == null || !r("WAWebWid").isGroup(e)) return !1;
       var n = p({ from: "chat_and_member", chatId: e, member: t });
-      return !n && o("WAWebUserPrefsMeUser").isMeAccount(t);
+      return !n && o("WAWebUserUtils").isMeAccount(t);
     }
     ((l.memberLabelKeyFrom = s),
       (l.shouldShowMemberLabelForChat = u),

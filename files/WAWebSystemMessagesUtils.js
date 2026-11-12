@@ -2,7 +2,7 @@ __d(
   "WAWebSystemMessagesUtils",
   [
     "WAWebEmojiText.react",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "react",
     "react-compiler-runtime",
@@ -11,9 +11,7 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      return (
-        e instanceof r("WAWebWid") && o("WAWebUserPrefsMeUser").isMeAccount(e)
-      );
+      return e instanceof r("WAWebWid") && o("WAWebUserUtils").isMeAccount(e);
     }
     function c(e) {
       var t = o("react-compiler-runtime").c(2),

@@ -7,7 +7,6 @@ __d(
     "WAWebBotUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWasaGenerateSecretEncryptedMessageProto",
     "WAWebWasaRootSecretDb",
@@ -52,7 +51,7 @@ __d(
     function p(e, t, n) {
       return (
         o("WAWebBotUtils").isHatchBot(e) &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+        !o("WAWebUserUtils").isMeAccount(t) &&
         n !== o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotRequestWelcome
       );
     }

@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebFbtIntlList",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipCallStateUtils",
     "WAWebVoipConnectingStatus.react",
     "WAWebVoipWaCallEnums",
@@ -37,12 +37,12 @@ __d(
     }
     function p(e) {
       return e.filter(function (e) {
-        return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+        return !o("WAWebUserUtils").isMeAccount(e);
       });
     }
     function _(e, t) {
       return e.filter(function (e) {
-        if (o("WAWebUserPrefsMeUser").isMeAccount(e)) return !1;
+        if (o("WAWebUserUtils").isMeAccount(e)) return !1;
         var n = t.get(e.toString());
         return n === o("WAWebVoipWaCallEnums").CallParticipantState.Connected;
       });

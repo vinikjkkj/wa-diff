@@ -2215,6 +2215,7 @@ __d(
         videoContentUrl: [7, e.TYPES.STRING],
         musicMetadata: [8, e.TYPES.MESSAGE, Uo],
         videoContentCaption: [9, e.TYPES.STRING],
+        videoId: [10, e.TYPES.STRING],
       }),
       (ro.name = "Message$URLMetadata"),
       (ro.internalSpec = { fbExperimentId: [1, e.TYPES.UINT32] }),

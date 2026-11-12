@@ -7,7 +7,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -100,7 +99,7 @@ __d(
             {
               id: new (r("WAWebMsgKey"))({
                 id: yield r("WAWebMsgKey").newId(),
-                fromMe: o("WAWebUserPrefsMeUser").isMeAccount(m),
+                fromMe: o("WAWebUserUtils").isMeAccount(m),
                 remote: e,
                 participant: m,
               }),

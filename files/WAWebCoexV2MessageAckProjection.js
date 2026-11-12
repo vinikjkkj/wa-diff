@@ -14,7 +14,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebNoop",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -371,7 +371,7 @@ __d(
         e.id.remote.isUser() &&
         (!q(e) ||
           (e.metaFrom != null &&
-            o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom))) &&
+            o("WAWebUserUtils").isMeAccount(e.metaFrom))) &&
         e.isScheduledMsg !== !0 &&
         o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
       );
@@ -414,7 +414,7 @@ __d(
         t.remote.isUser() &&
         (!G(e) ||
           (e.metaFrom != null &&
-            o("WAWebUserPrefsMeUser").isMeAccount(
+            o("WAWebUserUtils").isMeAccount(
               o("WAWebWidFactory").createWidFromWidLike(e.metaFrom),
             ))) &&
         e.isScheduledMsg !== !0

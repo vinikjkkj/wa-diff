@@ -7,7 +7,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebScheduleSelfReminderAction",
     "WAWebSlashCommandsUsageLogger",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -82,7 +82,7 @@ __d(
       );
     }
     function c(e, t) {
-      return t && !o("WAWebUserPrefsMeUser").isMeAccount(e.id)
+      return t && !o("WAWebUserUtils").isMeAccount(e.id)
         ? s
             ._(/*BTDS*/ "Reminder \u00b7 {chat name}", [
               s._param("chat name", e.title()),

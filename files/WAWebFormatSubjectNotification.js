@@ -1,6 +1,6 @@
 __d(
   "WAWebFormatSubjectNotification",
-  ["fbt", "WAWebChatGroupUtils", "WAWebUserPrefsMeUser"],
+  ["fbt", "WAWebChatGroupUtils", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.author,
@@ -8,7 +8,7 @@ __d(
         r = e.chat,
         a = e.subjectValue;
       return o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(r)
-        ? o("WAWebUserPrefsMeUser").isMeAccount(t)
+        ? o("WAWebUserUtils").isMeAccount(t)
           ? s._(
               /*BTDS*/ 'You changed the community\'s name to "{community_name}"',
               [s._param("community_name", a)],
@@ -22,7 +22,7 @@ __d(
                 /*BTDS*/ 'A member changed the community\'s name to "{community_name}"',
                 [s._param("community_name", a)],
               )
-        : o("WAWebUserPrefsMeUser").isMeAccount(t)
+        : o("WAWebUserUtils").isMeAccount(t)
           ? s._(/*BTDS*/ 'You changed the group name to "{group_name}"', [
               s._param("group_name", a),
             ])

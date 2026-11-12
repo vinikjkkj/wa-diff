@@ -1,14 +1,13 @@
 __d(
   "WAWebVoipParticipantOrdering",
-  ["WAWebUserPrefsMeUser"],
+  ["WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n, r, a) {
       if (e.length === 0 || t <= 0) return { pages: [], dominantSpeakers: [] };
       var i = null,
         l = [];
-      for (var g of e)
-        o("WAWebUserPrefsMeUser").isMeAccount(g) ? (i = g) : l.push(g);
+      for (var g of e) o("WAWebUserUtils").isMeAccount(g) ? (i = g) : l.push(g);
       var h = i != null ? t - 1 : t,
         y = Math.max(1, Math.ceil((l.length + (i != null ? 1 : 0)) / t));
       if (a == null || a.pages.length === 0)
@@ -230,7 +229,7 @@ __d(
         var r = null,
           a = -1;
         for (var i of e)
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
+          if (!o("WAWebUserUtils").isMeAccount(i)) {
             var l = g(i.toString(), t, n);
             l > a && ((a = l), (r = i));
           }
@@ -262,7 +261,7 @@ __d(
       var r, a;
       if (e.length === 0) return null;
       var i = e.filter(function (e) {
-        if (!o("WAWebUserPrefsMeUser").isMeAccount(e)) return !0;
+        if (!o("WAWebUserUtils").isMeAccount(e)) return !0;
         var t = n == null ? void 0 : n.get(e.toString());
         return (t == null ? void 0 : t.isScreenSharing) === !0;
       });
@@ -285,7 +284,7 @@ __d(
     function b(e, t, n, r) {
       var a = Math.min(r, e.length),
         i = e.findIndex(function (e) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(e);
+          return o("WAWebUserUtils").isMeAccount(e);
         }),
         l = i !== -1;
       if (l && i >= a) {
@@ -297,12 +296,12 @@ __d(
       if (!(e.length <= a || c === 0)) {
         var d = new Map();
         for (var m of e)
-          o("WAWebUserPrefsMeUser").isMeAccount(m) ||
+          o("WAWebUserUtils").isMeAccount(m) ||
             d.set(m.toString(), g(m.toString(), t, n));
         for (
           var p = e
               .filter(function (e) {
-                return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+                return !o("WAWebUserUtils").isMeAccount(e);
               })
               .map(function (e) {
                 var t;
@@ -405,7 +404,7 @@ __d(
     }
     function R(e) {
       var t = e.findIndex(function (e) {
-        return o("WAWebUserPrefsMeUser").isMeAccount(e);
+        return o("WAWebUserUtils").isMeAccount(e);
       });
       if (t !== -1 && t !== e.length - 1) {
         var n = e.splice(t, 1)[0];

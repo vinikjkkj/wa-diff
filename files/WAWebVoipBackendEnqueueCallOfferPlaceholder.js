@@ -5,7 +5,7 @@ __d(
     "WAWebBackendApi",
     "WAWebMessageQueue",
     "WAWebMessageQueueTimeout",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallOfferStanzaParser",
     "getErrorSafe",
@@ -24,7 +24,7 @@ __d(
       ) {
         var n = o("WAWebVoipCallOfferStanzaParser").parseCallOfferStanza(e);
         n != null &&
-          (o("WAWebUserPrefsMeUser").isMeAccount(n.callCreator) ||
+          (o("WAWebUserUtils").isMeAccount(n.callCreator) ||
             o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(
               n.callId,
             ) ||

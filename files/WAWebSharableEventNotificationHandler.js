@@ -11,7 +11,7 @@ __d(
     "WAWebSharableEventServerEnums",
     "WAWebSharableEventShowNotificationBridge",
     "WAWebSharableEventStorageEnums",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -56,7 +56,7 @@ __d(
             .EventStartingSoon;
     }
     function R(t, n, r) {
-      return o("WAWebUserPrefsMeUser").isMeAccount(n)
+      return o("WAWebUserUtils").isMeAccount(n)
         ? (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([

@@ -2,7 +2,7 @@ __d(
   "WAWebVoipGroupCallAccentColor",
   [
     "WAWebChatParticipantColor",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipGroupCallAccentColors",
     "useWAWebDefaultProfileColors",
   ],
@@ -19,7 +19,7 @@ __d(
               o("WAWebChatParticipantColor").getAssignedColor(e, t)
             ];
       var a = o("WAWebVoipGroupCallAccentColors").getLandingPageAccentColor();
-      if (a != null && o("WAWebUserPrefsMeUser").isMeAccount(t)) return a;
+      if (a != null && o("WAWebUserUtils").isMeAccount(t)) return a;
       if (r != null) return r;
       var i =
           o("WAWebVoipGroupCallAccentColors").GROUP_CALL_DARK_COLORS.length - 1,

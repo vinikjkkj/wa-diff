@@ -18,7 +18,7 @@ __d(
     "WAWebPromiseQueue",
     "WAWebProtobufsAdv.pb",
     "WAWebSyncDeviceAdvDeviceListJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,10 +48,10 @@ __d(
               hostedBizEncMismatch: !1,
               senderOrRecipientAccountTypeHosted: !1,
             };
-          if (o("WAWebUserPrefsMeUser").isMeAccount(t) || !t.isUser()) return l;
+          if (o("WAWebUserUtils").isMeAccount(t) || !t.isUser()) return l;
           var c = r == null ? void 0 : r.deviceListMetadata;
           if (c == null) return l;
-          var d = o("WAWebUserPrefsMeUser").isMeAccount(n),
+          var d = o("WAWebUserUtils").isMeAccount(n),
             m = d ? c.receiverAccountType : c.senderAccountType,
             p = d ? t : n;
           if (m == null) return l;
@@ -197,7 +197,7 @@ __d(
             return;
           }
           var l = [],
-            s = o("WAWebUserPrefsMeUser").isMeAccount(e);
+            s = o("WAWebUserUtils").isMeAccount(e);
           (l.push({ id: e, ts: r.senderTimestamp }),
             s && t != null && l.push({ id: t, ts: r.recipientTimestamp }));
           var u = yield o(

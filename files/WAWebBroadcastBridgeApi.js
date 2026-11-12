@@ -16,7 +16,7 @@ __d(
     "WAWebChatCollection",
     "WAWebCmd",
     "WAWebContactCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -153,7 +153,7 @@ __d(
             a = t.upsertedCampaignIds;
           for (var i of e) r("WAWebBizBroadcastCampaignCollection").remove(i);
           if (a.length > 0) {
-            var l = o("WAWebUserPrefsMeUser")
+            var l = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
             (g || (g = n("Promise"))).all(

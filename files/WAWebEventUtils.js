@@ -11,7 +11,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipOngoingCallCollection",
     "asyncToGeneratorRuntime",
   ],
@@ -107,7 +107,7 @@ __d(
             return (n = t.parentMsgKey) == null ? void 0 : n.equals(e.id);
           }),
           a = r.find(function (e) {
-            return o("WAWebUserPrefsMeUser").isMeAccount(e.sender);
+            return o("WAWebUserUtils").isMeAccount(e.sender);
           });
         return (t = a == null ? void 0 : a.eventResponse) != null
           ? t

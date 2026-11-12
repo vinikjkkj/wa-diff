@@ -8,7 +8,7 @@ __d(
     "WAWebPaymentNotificationParser",
     "WAWebPaymentStatusUtils",
     "WAWebProtobufsWeb.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -104,8 +104,8 @@ __d(
         e &&
         t != null &&
         n != null &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(n)
+        !o("WAWebUserUtils").isMeAccount(t) &&
+        !o("WAWebUserUtils").isMeAccount(n)
       );
     }
     l.parseIncomingMsgPaymentInfo = e;

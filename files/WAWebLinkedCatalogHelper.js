@@ -6,7 +6,6 @@ __d(
     "WAWebCatalogCollection",
     "WAWebMobilePlatforms",
     "WAWebOrderRequestMsg.flow",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +18,7 @@ __d(
       var t;
       if (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebUserPrefsMeUser").isMeAccount(e)
+        o("WAWebUserUtils").isMeAccount(e)
       ) {
         var n = o("WAWebCatalogCollection").CatalogCollection.get(e);
         return (

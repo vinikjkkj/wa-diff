@@ -29,7 +29,7 @@ __d(
     "WAWebSetUsernameJob",
     "WAWebSyncGroupBotSupportFields",
     "WAWebUpdateDbForCommunityAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
@@ -483,7 +483,7 @@ __d(
             !n ||
             t.participants.some(function (e) {
               var t = e.id;
-              return o("WAWebUserPrefsMeUser").isMeAccount(t);
+              return o("WAWebUserUtils").isMeAccount(t);
             })
           )
             return t;
@@ -495,7 +495,7 @@ __d(
                 ? void 0
                 : r.participants.find(function (e) {
                     var t = e.id;
-                    return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                    return o("WAWebUserUtils").isMeAccount(t);
                   });
           return a == null
             ? t
@@ -544,7 +544,7 @@ __d(
                   .get(e.toString());
               if ((l == null ? void 0 : l.participants) != null) {
                 var s = l.participants.find(function (e) {
-                  return o("WAWebUserPrefsMeUser").isMeAccount(
+                  return o("WAWebUserUtils").isMeAccount(
                     o("WAWebWidFactory").createWid(e),
                   );
                 });
@@ -583,7 +583,7 @@ __d(
                     .get(p.toString());
                 if ((h == null ? void 0 : h.participants) != null) {
                   var y = h.participants.find(function (e) {
-                    return o("WAWebUserPrefsMeUser").isMeAccount(
+                    return o("WAWebUserUtils").isMeAccount(
                       o("WAWebWidFactory").createWid(e),
                     );
                   });

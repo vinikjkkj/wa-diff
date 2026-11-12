@@ -9,7 +9,7 @@ __d(
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebUnjoinedSubgroupMetadataCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "isStringNullOrEmpty",
   ],
@@ -124,7 +124,7 @@ __d(
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
       return (
         d &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
+        !o("WAWebUserUtils").isMeAccount(t.id) &&
         !o("WAWebFrontendContactGetters").getIsMyContact(t) &&
         !i
       );

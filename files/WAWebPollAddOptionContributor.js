@@ -5,14 +5,14 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebSystemMsgContactName",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WAWebMsgGetters").getSender(e);
       return t == null
         ? null
-        : o("WAWebUserPrefsMeUser").isMeAccount(t)
+        : o("WAWebUserUtils").isMeAccount(t)
           ? { kind: "me" }
           : {
               kind: "other",

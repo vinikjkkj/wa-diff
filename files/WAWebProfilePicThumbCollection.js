@@ -30,7 +30,7 @@ __d(
     "WAWebThemeSession",
     "WAWebUnjoinedSubgroupMetadataCollection",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVcardParsingUtils",
     "WAWebVoipGatingUtils",
     "WAWebWid",
@@ -223,7 +223,7 @@ __d(
             this.$ProfilePicThumbCollectionImpl$p_1.clear();
           }),
           (i._mirrorMeRow = function (t) {
-            if (o("WAWebUserPrefsMeUser").isMeAccount(t.id)) {
+            if (o("WAWebUserUtils").isMeAccount(t.id)) {
               var e = t.id.toString();
               if (!f.has(e)) {
                 var n = o("WAWebApiContact").getMeUserWids();

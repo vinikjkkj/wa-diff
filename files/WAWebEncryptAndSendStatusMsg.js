@@ -40,7 +40,6 @@ __d(
     "WAWebStatusGatingUtils",
     "WAWebStatusPublishRequestArgs",
     "WAWebStatusSessionGatingUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
     "WAWebUserUtils",
     "WAWebWamEnumMessageDistributionEnumType",
@@ -977,7 +976,7 @@ __d(
       );
       return e.some(function (e) {
         return (
-          !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+          !o("WAWebUserUtils").isMeAccount(e) &&
           !n.has(o("WAWebWidFactory").asUserWidOrThrow(e).toString())
         );
       });

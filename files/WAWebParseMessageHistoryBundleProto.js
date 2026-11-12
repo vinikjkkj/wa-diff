@@ -9,7 +9,7 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebMsgType",
     "WAWebProtobufsWeb.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamEnumE2eFailureReason",
@@ -31,7 +31,7 @@ __d(
           (t = s.messageHistoryMetadata) == null
             ? void 0
             : t.historyReceivers.some(function (e) {
-                return o("WAWebUserPrefsMeUser").isMeAccount(
+                return o("WAWebUserUtils").isMeAccount(
                   o("WAWebWidFactory").createWid(e),
                 );
               }),

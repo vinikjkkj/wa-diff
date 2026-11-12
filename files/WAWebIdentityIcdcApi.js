@@ -13,6 +13,7 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -79,7 +80,7 @@ __d(
               (_.forEach(function (e, t) {
                 e != null && (h.push(e), y.push(d[t][0]));
               }),
-              o("WAWebUserPrefsMeUser").isMeAccount(e))
+              o("WAWebUserUtils").isMeAccount(e))
             ) {
               var C = yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
@@ -100,13 +101,13 @@ __d(
           }
           return (
             (u || g(s)) && (n.timestamp = s),
-            o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+            o("WAWebUserUtils").isMeAccount(e) &&
               (yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount()) ===
                 !0 &&
               (n.senderAccountType = o(
                 "WAWebProtobufsAdv.pb",
               ).ADVEncryptionType.HOSTED),
-            !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+            !o("WAWebUserUtils").isMeAccount(e) &&
               a === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
               (n.receiverAccountType = o(
                 "WAWebProtobufsAdv.pb",

@@ -10,7 +10,7 @@ __d(
     "WAWebGroupHistoryPostJoinSubtype",
     "WAWebGroupType",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "react",
   ],
@@ -198,7 +198,7 @@ __d(
         )
           return null;
         var c = a.some(function (e) {
-          if (e == null || o("WAWebUserPrefsMeUser").isMeAccount(e) || !s(e))
+          if (e == null || o("WAWebUserUtils").isMeAccount(e) || !s(e))
             return !1;
           var t = l.participants.get(e);
           return (
@@ -217,7 +217,7 @@ __d(
       }
       if (a.length !== 1 || a[0] == null) return null;
       var d = a[0];
-      if (o("WAWebUserPrefsMeUser").isMeAccount(d) || !s(d)) return null;
+      if (o("WAWebUserUtils").isMeAccount(d) || !s(d)) return null;
       var m = l.participants.get(d);
       return m == null
         ? null

@@ -1,18 +1,12 @@
 __d(
   "WAWebChatAssignmentSystemMsg",
-  [
-    "WAWebMsgKey",
-    "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
-    "WAWebUserUtils",
-    "WAWebViewMode.flow",
-  ],
+  ["WAWebMsgKey", "WAWebMsgType", "WAWebUserUtils", "WAWebViewMode.flow"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       var a = o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
         i = r("WAWebMsgKey").newId_DEPRECATED(),
         l = new (r("WAWebMsgKey"))({
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e),
+          fromMe: o("WAWebUserUtils").isMeAccount(e),
           remote: e,
           id: i,
         });

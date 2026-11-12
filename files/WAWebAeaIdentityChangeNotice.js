@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebAeaAccountCategory",
     "WAWebSecurityCodeApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -22,7 +22,7 @@ __d(
               !o("WAWebAeaAccountCategory").isAeaEnforcementEnabledForCategory(
                 n,
               ) ||
-              o("WAWebUserPrefsMeUser").isMeAccount(t) ||
+              o("WAWebUserUtils").isMeAccount(t) ||
               o("WAWebAeaAccountCategory").isAeaBotAccount(t)
             ))
           )

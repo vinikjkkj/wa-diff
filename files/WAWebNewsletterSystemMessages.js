@@ -7,7 +7,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,7 +46,7 @@ __d(
           ),
           {
             id: new (r("WAWebMsgKey"))({
-              fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
+              fromMe: o("WAWebUserUtils").isMeAccount(t),
               remote: t,
               id:
                 i != null

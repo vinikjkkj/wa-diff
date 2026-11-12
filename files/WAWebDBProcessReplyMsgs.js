@@ -14,7 +14,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "filterObject",
@@ -217,7 +217,7 @@ __d(
             : l;
       return new (r("WAWebMsgKey"))({
         id: s,
-        fromMe: o("WAWebUserPrefsMeUser").isMeAccount(a),
+        fromMe: o("WAWebUserUtils").isMeAccount(a),
         remote: i,
         participant:
           o("WAWebMsgGetters").getIsGroupMsg(e) ||

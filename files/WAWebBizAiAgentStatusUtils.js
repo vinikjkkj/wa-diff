@@ -16,7 +16,7 @@ __d(
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
@@ -71,7 +71,7 @@ __d(
         r;
       (n[0] !== t
         ? ((r = function (n) {
-            o("WAWebUserPrefsMeUser").isMeAccount(n.id) && t();
+            o("WAWebUserUtils").isMeAccount(n.id) && t();
           }),
           (n[0] = t),
           (n[1] = r))

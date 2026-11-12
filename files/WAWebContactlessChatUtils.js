@@ -12,7 +12,7 @@ __d(
     "WAWebHttpErrors",
     "WAWebMsgGetters",
     "WAWebQueryExistsJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -40,7 +40,7 @@ __d(
             n.msgs.some(function (e) {
               return (
                 o("WAWebMsgGetters").isRealMessage(e) &&
-                !o("WAWebUserPrefsMeUser").isMeAccount(e.senderObj.id)
+                !o("WAWebUserUtils").isMeAccount(e.senderObj.id)
               );
             })
           );

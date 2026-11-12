@@ -95,7 +95,7 @@ __d(
     "WAWebUnreadMentionMetadataModel",
     "WAWebUpdateDraftMessageChatAction",
     "WAWebUpdateLastAddOnPreviewChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebValidateLidChat",
     "WAWebViewOnceState",
     "WAWebViewRepliesCollection",
@@ -722,7 +722,7 @@ __d(
             e.length && this.getEventMsgs().add(e, n);
           }),
           (i.$ChatImpl$p_36 = function () {
-            var e = o("WAWebUserPrefsMeUser")
+            var e = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
             return o("WAWebChatAssignmentCollection")

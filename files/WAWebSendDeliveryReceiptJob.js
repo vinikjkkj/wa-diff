@@ -8,7 +8,7 @@ __d(
     "WAWebCommsWapMd",
     "WAWebOnlineDanglingReceipts",
     "WAWebSendReceiptJobCommon",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -33,8 +33,8 @@ __d(
             _ = p === void 0 ? !1 : p,
             f = t.to,
             g =
-              (f.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(f)) ||
-              (l != null && o("WAWebUserPrefsMeUser").isMeAccount(l)),
+              (f.isUser() && o("WAWebUserUtils").isMeAccount(f)) ||
+              (l != null && o("WAWebUserUtils").isMeAccount(l)),
             h = m.hasInactiveMsg === !0 && !g,
             y = !h;
           c({

@@ -20,7 +20,7 @@ __d(
     "WAWebProductMessageListConstant",
     "WAWebQueryProductListCatalogJobQuery.graphql",
     "WAWebRelayClient",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "filterNulls",
@@ -231,7 +231,7 @@ __d(
         };
       })(),
       _ = function (t) {
-        return o("WAWebUserPrefsMeUser").isMeAccount(
+        return o("WAWebUserUtils").isMeAccount(
           o("WAWebWidFactory").createWid(t.catalogWid),
         )
           ? o("WAWebBizCatalogGatingUtils").graphQLForGetProductListEnabled()

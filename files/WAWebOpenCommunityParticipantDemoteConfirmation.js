@@ -8,7 +8,7 @@ __d(
     "WAWebCommunityPromoteDemotePopups.react",
     "WAWebModalManager",
     "WAWebModifyParticipantsGroupAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumCadminDemoteOriginType",
     "WAWebWamEnumCadminDemoteResultType",
     "react",
@@ -66,7 +66,7 @@ __d(
             o("WAWebModifyParticipantsGroupAction")
               .demoteCommunityParticipants(n, [t])
               .then(function () {
-                o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
+                o("WAWebUserUtils").isMeAccount(t.id) &&
                   u(
                     r
                       ? o("WAWebWamEnumCadminDemoteResultType")
@@ -85,7 +85,7 @@ __d(
                   )
                   .verbose()
                   .sendLogs("community-admin-self-demote-failed"),
-                  o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
+                  o("WAWebUserUtils").isMeAccount(t.id) &&
                     u(
                       r
                         ? o("WAWebWamEnumCadminDemoteResultType")
@@ -104,7 +104,7 @@ __d(
                         onCancel: function () {
                           return d(!0);
                         },
-                        isMe: o("WAWebUserPrefsMeUser").isMeAccount(t.id),
+                        isMe: o("WAWebUserUtils").isMeAccount(t.id),
                       },
                     ),
                   ));
@@ -121,7 +121,7 @@ __d(
           ),
             o("WAWebModalManager").ModalManager.close());
         };
-      o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+      o("WAWebUserUtils").isMeAccount(t.id)
         ? o("WAWebModalManager").ModalManager.open(
             c.jsx(r("WAWebCommunityAdminSelfDemotePopup.react"), {
               onDemote: m,

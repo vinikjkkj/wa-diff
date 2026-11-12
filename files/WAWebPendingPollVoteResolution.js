@@ -14,7 +14,7 @@ __d(
     "WAWebPollPendingOptionHashes",
     "WAWebPollsCreateOptionLocalIdMap",
     "WAWebPollsVoteDataUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -181,7 +181,7 @@ __d(
             t: (a = e.t) != null ? a : void 0,
             sender: i,
             ack: void 0,
-            read: o("WAWebUserPrefsMeUser").isMeAccount(i),
+            read: o("WAWebUserUtils").isMeAccount(i),
           };
         }
         throw e.payloadType === "add-option"

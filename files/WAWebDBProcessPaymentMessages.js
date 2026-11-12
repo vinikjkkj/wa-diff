@@ -7,7 +7,7 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsWeb.pb",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -81,7 +81,7 @@ __d(
                             });
                           else {
                             var d = i.from.isGroup() ? i.author : i.from,
-                              m = o("WAWebUserPrefsMeUser").isMeAccount(
+                              m = o("WAWebUserUtils").isMeAccount(
                                 i.paymentMessageReceiverJid,
                               ),
                               p = m ? d : i.paymentMessageReceiverJid;

@@ -3,7 +3,7 @@ __d(
   [
     "WAWebContactCollection",
     "WAWebContactExternalUserState",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "isEmptyObject",
@@ -19,11 +19,7 @@ __d(
             a = e.pushName,
             i = e.username;
           if (
-            !(
-              o("WAWebUserPrefsMeUser").isMeAccount(n) ||
-              n.isBot() ||
-              !n.isUser()
-            )
+            !(o("WAWebUserUtils").isMeAccount(n) || n.isBot() || !n.isUser())
           ) {
             var l = {};
             a != null && a !== "" && (l.pushname = a);

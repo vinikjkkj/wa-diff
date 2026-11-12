@@ -1,7 +1,7 @@
 __d(
   "WAWebWindowsNativeBridgeParseCallStateChangedData",
   [
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipJsonParserNative",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
@@ -75,7 +75,7 @@ __d(
             I.server,
           ),
           creatorDeviceJid: I,
-          isCaller: o("WAWebUserPrefsMeUser").isMeAccount(I),
+          isCaller: o("WAWebUserUtils").isMeAccount(I),
           callDuration: (t = E.CallDuration) != null ? t : 0,
           callActiveDuration: 0,
           audioDuration: (n = E.AudioDuration) != null ? n : 0,

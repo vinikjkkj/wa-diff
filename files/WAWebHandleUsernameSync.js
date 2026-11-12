@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebInsertUsernameChangeSystemMsg",
     "WAWebSetUsernameJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +38,7 @@ __d(
                   ? []
                   : "username" in e
                     ? e.username == null || e.username === ""
-                      ? o("WAWebUserPrefsMeUser").isMeAccount(e.id)
+                      ? o("WAWebUserUtils").isMeAccount(e.id)
                         ? []
                         : [{ userId: e.id, deleteUsername: !0 }]
                       : [{ userId: e.id, username: e.username }]

@@ -7,7 +7,6 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebViewMode.flow",
@@ -20,7 +19,7 @@ __d(
     function e(e, t) {
       var n = o("WAWebUserUtils").getMeUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
+          fromMe: o("WAWebUserUtils").isMeAccount(t),
           remote: e,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
@@ -141,7 +140,7 @@ __d(
       var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
         a = o("WAWebUserUtils").getMeUserOrThrow(),
         i = new (r("WAWebMsgKey"))({
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e),
+          fromMe: o("WAWebUserUtils").isMeAccount(e),
           remote: e,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });

@@ -11,6 +11,7 @@ __d(
       s = {
         hb3: r("WAWebBloksSendFieldStat"),
         hbx: r("WAWebBloksCommerceActionWithCallback"),
+        iel: r("WebBloksDummy"),
         hyf: r("WebBloksDummy"),
       },
       u = {};

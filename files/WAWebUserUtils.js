@@ -64,20 +64,16 @@ __d(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
         ? C()
-        : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+        : b();
     }
     function f() {
       return o("WAWebInternalAccount").isInternalAccount() ? y() : h();
     }
     function g() {
-      return o("WAWebInternalAccount").isInternalAccount()
-        ? C()
-        : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+      return o("WAWebInternalAccount").isInternalAccount() ? C() : b();
     }
     function h() {
-      return o("WAWebWidFactory").asUserWidOrThrow(
-        o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-      );
+      return o("WAWebWidFactory").asUserWidOrThrow(b());
     }
     function y() {
       return r("nullthrows")(
@@ -91,6 +87,28 @@ __d(
         "meLid",
       );
     }
+    function b() {
+      return r("nullthrows")(
+        o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
+        "me",
+      );
+    }
+    function v(e) {
+      return S(o("WAWebWidFactory").createWid(e));
+    }
+    function S(e) {
+      return e == null || !o("WAWebUserPrefsMeUser").isWidInstance(e)
+        ? !1
+        : L(e) || R(e);
+    }
+    function R(e) {
+      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      return t != null && e.isSameAccountAndAddressingMode(t);
+    }
+    function L(e) {
+      var t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+      return t != null && e.isSameAccountAndAddressingMode(t);
+    }
     ((l.getMaybeMeDeviceId = s),
       (l.getMeDisplayNameOrThrow = u),
       (l.getMyPrimaryForOutgoingPeerMessage = c),
@@ -102,7 +120,11 @@ __d(
       (l.getMeDevicePnLessOrFallback_DO_NOT_USE = g),
       (l.getMePnUserOrThrow_DO_NOT_USE = h),
       (l.getMeLidUserOrThrow = y),
-      (l.getMeDeviceLidOrThrow = C));
+      (l.getMeDeviceLidOrThrow = C),
+      (l.getMeDevicePnOrThrow_DO_NOT_USE = b),
+      (l.isSerializedWidMe = v),
+      (l.isMeAccount = S),
+      (l.isMePnUser = R));
   },
   98,
 );

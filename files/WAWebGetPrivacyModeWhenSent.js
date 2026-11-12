@@ -5,7 +5,7 @@ __d(
     "WAWebHandleMsgTypes",
     "WAWebPrivacyModeSystemMsg",
     "WAWebRuntimeEnvironmentUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
   ],
@@ -17,7 +17,7 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT) {
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(e.author))
+            if (!o("WAWebUserUtils").isMeAccount(e.author))
               return t.privacyMode;
             var n = t.privacyMode,
               r = o("WAWebRuntimeEnvironmentUtils").isWorker()

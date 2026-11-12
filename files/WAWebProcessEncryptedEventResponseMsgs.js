@@ -11,7 +11,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -181,7 +181,7 @@ __d(
             ),
             t: o("WAWebMsgGetters").getT(e),
             ack: (n = e.ack) != null ? n : null,
-            read: o("WAWebUserPrefsMeUser").isMeAccount(d),
+            read: o("WAWebUserUtils").isMeAccount(d),
           });
         })),
         p.apply(this, arguments)

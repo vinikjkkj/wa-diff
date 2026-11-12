@@ -5,6 +5,7 @@ __d(
     var e = n("$InternalEnum").Mirrored([
         "AUTH_ERROR",
         "CONNECTED",
+        "CREDENTIAL_REFRESH_REQUIRED",
         "DISABLED",
         "ERROR",
         "NOT_CONNECTED",

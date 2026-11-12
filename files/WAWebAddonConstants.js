@@ -9,6 +9,7 @@ __d(
         "PollVote",
         "Reaction",
         "EventResponse",
+        "NewsletterQuestionResponse",
         "None",
       ]),
       l = n("$InternalEnum").Mirrored([

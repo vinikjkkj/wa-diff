@@ -90,7 +90,6 @@ __d(
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateUtmAction",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebUsernameManagementDrawerLoadable",
     "WAWebUsernameTypes",
@@ -207,7 +206,7 @@ __d(
               .sendLogs("calling-deep-link-bad-phone");
             return;
           }
-          if (o("WAWebUserPrefsMeUser").isMeAccount(n)) {
+          if (o("WAWebUserUtils").isMeAccount(n)) {
             (o("WALogger")
               .LOG(
                 w ||

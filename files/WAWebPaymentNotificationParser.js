@@ -6,7 +6,7 @@ __d(
     "WAWebJidToWid",
     "WAWebMsgKey",
     "WAWebPaymentStatusUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))(
@@ -32,7 +32,7 @@ __d(
         n = void 0,
         a = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("sender")),
         i = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("receiver")),
-        l = o("WAWebUserPrefsMeUser").isMeAccount(a);
+        l = o("WAWebUserUtils").isMeAccount(a);
       e.hasAttr("group")
         ? ((t = o("WAWebJidToWid").jidWithTypeToWid(
             e.attrJidWithType("group"),

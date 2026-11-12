@@ -5,7 +5,7 @@ __d(
     "WAWebBackendApi",
     "WAWebDBCommunity",
     "WAWebMexFetchSubgroupSuggestionsJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -55,7 +55,7 @@ __d(
             t.isParentGroup === !0 &&
             t.allowNonAdminSubGroupCreation === !1 &&
             t.participants.some(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e.id) && e.isAdmin;
+              return o("WAWebUserUtils").isMeAccount(e.id) && e.isAdmin;
             })
           ) {
             var n = yield o("WAWebDBCommunity").getJoinedSubgroups(t.id);

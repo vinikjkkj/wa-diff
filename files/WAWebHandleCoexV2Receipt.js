@@ -15,7 +15,6 @@ __d(
     "WAWebOfflineHandler",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -167,7 +166,7 @@ __d(
         l = y(n, r);
       return i == null || l == null
         ? null
-        : o("WAWebUserPrefsMeUser").isMeAccount(l)
+        : o("WAWebUserUtils").isMeAccount(l)
           ? { direction: "incoming", partner: i, representedLid: l }
           : n === o("WAWebAck").ACK_STRING.READ && l.equals(i)
             ? { direction: "outgoing", partner: i, representedLid: l }
@@ -183,7 +182,7 @@ __d(
       if (e == null || (!e.isRegularUser() && !e.isFbidBot())) return null;
       var t = o("WAWebCoexV2ReceiptRecipient").toCoexV2ReceiptRecipient(e);
       return t != null &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+        !o("WAWebUserUtils").isMeAccount(t) &&
         !t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
         ? t
         : null;

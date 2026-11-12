@@ -15,7 +15,7 @@ __d(
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -133,7 +133,7 @@ __d(
                   orderStatusButton: _,
                 })
               : (a === s.PAYMENTS_HOME ||
-                  o("WAWebUserPrefsMeUser").isMeAccount(n.from)) &&
+                  o("WAWebUserUtils").isMeAccount(n.from)) &&
                 (n.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
                   ? y({

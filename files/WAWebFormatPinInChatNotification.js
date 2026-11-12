@@ -7,7 +7,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebSystemMsgContactName",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -27,7 +27,7 @@ __d(
             ? t
             : o("WAWebMsgGetters").getSender(e),
         ),
-        i = o("WAWebUserPrefsMeUser").isMeAccount(a);
+        i = o("WAWebUserUtils").isMeAccount(a);
       if (i) return s._(/*BTDS*/ "You pinned a message");
       var l = o("WAWebSystemMsgContactName").getSystemMsgContactName(
         o("WAWebFrontendMsgGetters").getChat(e),

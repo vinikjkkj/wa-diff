@@ -10,7 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
     "react",
     "react-compiler-runtime",
@@ -134,9 +134,9 @@ __d(
           mode: "e2ee",
         });
       var s = Array.from(e).sort(function (e, t) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(t.sender)
+          return o("WAWebUserUtils").isMeAccount(t.sender)
             ? 1
-            : o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
+            : o("WAWebUserUtils").isMeAccount(e.sender)
               ? -1
               : o("WAWebPollVoteGetters").getTimestamp(t) -
                 o("WAWebPollVoteGetters").getTimestamp(e);
@@ -154,7 +154,7 @@ __d(
           p.mode === "e2ee" &&
             (p.votes.push(c),
             (i = Math.max(i, p.votes.length)),
-            o("WAWebUserPrefsMeUser").isMeAccount(
+            o("WAWebUserUtils").isMeAccount(
               o("WAWebFrontendPollVoteGetters").getSenderObj(c).id,
             ) && (p.isVotedForByMe = !0));
         }

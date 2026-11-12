@@ -6,11 +6,11 @@ __d(
     "WAWebSharableEventJoinWindow",
     "WAWebSharableEventStorageEnums",
     "WAWebSharableEventTiming",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e != null && o("WAWebUserPrefsMeUser").isMeAccount(e);
+      return e != null && o("WAWebUserUtils").isMeAccount(e);
     }
     function s(t, n, r, a) {
       var i = e(t.creatorLid),

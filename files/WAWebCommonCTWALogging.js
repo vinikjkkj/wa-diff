@@ -5,7 +5,7 @@ __d(
     "WAWebConnModel",
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -19,7 +19,7 @@ __d(
           conversionSource: e.ctwaContext.conversionSource,
           ctwaSignals: e.ctwaContext.ctwaSignals,
         }) != null &&
-        o("WAWebUserPrefsMeUser").isMeAccount(e.to)
+        o("WAWebUserUtils").isMeAccount(e.to)
       ) {
         var t = o("WAWebUserPrefsGeneral").getCTWAMessageReceived();
         t !== !0 && o("WAWebUserPrefsGeneral").setCTWAMessageReceived(!0);

@@ -1,9 +1,9 @@
 __d(
   "WAWebBroadcastDeviceClassifier",
-  ["WAWebMobilePlatforms", "WAWebUserPrefsMeUser"],
+  ["WAWebMobilePlatforms", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("WAWebUserPrefsMeUser").isMeAccount(e);
+      var t = o("WAWebUserUtils").isMeAccount(e);
       if (t) {
         var n;
         return e.isCompanion()

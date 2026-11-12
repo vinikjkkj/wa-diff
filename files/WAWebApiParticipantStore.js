@@ -12,6 +12,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebSchemaParticipant",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamGroupMetricCache",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -376,7 +377,7 @@ __d(
                 !!n &&
                 n.admins &&
                 n.admins.some(function (e) {
-                  return o("WAWebUserPrefsMeUser").isSerializedWidMe(e);
+                  return o("WAWebUserUtils").isSerializedWidMe(e);
                 });
             return (k.set(e, r), r);
           }

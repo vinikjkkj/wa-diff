@@ -5,6 +5,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebNewsletterGatingUtils",
     "WAWebPsChannelPostForwardWamEvent",
+    "WAWebWamEnumMessageChatType",
     "WAWebWamMsgUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,29 +23,29 @@ __d(
           : (r = e.forwardedNewsletterMessageInfo) == null
             ? void 0
             : r.serverMessageId;
-      for (var u of t) {
-        var c = babelHelpers.extends(
-          {
-            channelForwardGroupType: o(
-              "WAWebGetMessageChatTypeFromWid",
-            ).getMessageChatTypeFromWid(u.id),
-            mediaType: i,
-          },
-          s({ origin: e.id.remote, destination: u })
+      for (var c of t) {
+        var d = babelHelpers.extends(
+          { channelForwardGroupType: s(c.id), mediaType: i },
+          u({ origin: e.id.remote, destination: c })
             ? {
                 cid: a == null ? void 0 : a.user,
                 postId: l == null ? void 0 : l.toString(),
-                destinationChannelId: u.id.user,
+                destinationChannelId: c.id.user,
                 isSecondOrder: e.forwardedNewsletterMessageInfo != null,
               }
             : null,
         );
         new (o(
           "WAWebPsChannelPostForwardWamEvent",
-        ).PsChannelPostForwardWamEvent)(c).commit();
+        ).PsChannelPostForwardWamEvent)(d).commit();
       }
     }
     function s(e) {
+      return e.isStatus()
+        ? o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.STATUS
+        : o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(e);
+    }
+    function u(e) {
       var t = e.destination,
         n = e.origin;
       return (

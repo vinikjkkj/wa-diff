@@ -30,7 +30,6 @@ __d(
     "WAWebPollResultSnapshotPollTypeEnvelopeEnabled",
     "WAWebProtobufsE2E.pb",
     "WAWebSignupGating",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWid",
@@ -256,8 +255,8 @@ __d(
     function v(e, t) {
       return !(
         e.remote.isGroup() &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e.participant) &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t)
+        !o("WAWebUserUtils").isMeAccount(e.participant) &&
+        !o("WAWebUserUtils").isMeAccount(t)
       );
     }
     function S(e) {
@@ -504,7 +503,7 @@ __d(
         s = i.threadMsgSenderJid;
       return new (r("WAWebMsgKey"))({
         id: l,
-        fromMe: o("WAWebUserPrefsMeUser").isMeAccount(s),
+        fromMe: o("WAWebUserUtils").isMeAccount(s),
         remote: t.chat,
         participant: s,
       });
@@ -565,7 +564,7 @@ __d(
         } else {
           var f = o("WAWebDecodeJid").decodeJid(t.participant);
           f instanceof r("WAWebWid")
-            ? ((l = o("WAWebUserPrefsMeUser").isMeAccount(f)),
+            ? ((l = o("WAWebUserUtils").isMeAccount(f)),
               (!d.isUser() || f.isBot()) &&
                 (l
                   ? (c =

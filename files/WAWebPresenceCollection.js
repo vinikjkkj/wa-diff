@@ -12,7 +12,7 @@ __d(
     "WAWebPresenceModel",
     "WAWebPresenceService",
     "WAWebStaleBaseCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -40,7 +40,7 @@ __d(
                         r("WAWebWid").isServer(n) ||
                         r("WAWebWid").isPSA(n) ||
                         r("WAWebWid").isBot(n) ||
-                        o("WAWebUserPrefsMeUser").isMeAccount(a.id)
+                        o("WAWebUserUtils").isMeAccount(a.id)
                       ? { id: n }
                       : (yield e._subscribe(n), { id: n });
                 },
@@ -117,10 +117,7 @@ __d(
                       var i = [];
                       (r.participants.forEach(function (e) {
                         var n = e.id;
-                        if (
-                          !o("WAWebUserPrefsMeUser").isMeAccount(n) &&
-                          n.isLid()
-                        ) {
+                        if (!o("WAWebUserUtils").isMeAccount(n) && n.isLid()) {
                           var r = o("WAWebWidFactory").asUserLidOrThrow(n);
                           (t.gadd(r),
                             i.push(

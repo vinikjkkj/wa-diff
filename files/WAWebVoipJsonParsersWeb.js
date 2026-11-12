@@ -4,7 +4,7 @@ __d(
     "WACamelCase",
     "WALogger",
     "WATimeUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipJsonParserNative",
     "WAWebVoipJsonParserPayloads",
     "WAWebVoipWaCallEnums",
@@ -334,7 +334,7 @@ __d(
           var n = e.is_self;
           if (n == null && e.jid != null) {
             var a = f(e.jid);
-            n = a ? o("WAWebUserPrefsMeUser").isMeAccount(a) : void 0;
+            n = a ? o("WAWebUserUtils").isMeAccount(a) : void 0;
           }
           return {
             videoState: e.video_state,

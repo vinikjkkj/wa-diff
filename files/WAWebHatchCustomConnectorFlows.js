@@ -14,13 +14,9 @@ __d(
     function c(t) {
       return t === e;
     }
-    function d() {
-      ((e += 1), (l = null));
-    }
     ((i.startHatchCustomConnectorFlow = s),
       (i.endHatchCustomConnectorFlow = u),
-      (i.isLatestHatchCustomConnectorFlow = c),
-      (i.resetHatchCustomConnectorFlowsForTests = d));
+      (i.isLatestHatchCustomConnectorFlow = c));
   },
   66,
 );

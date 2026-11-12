@@ -7,7 +7,7 @@ __d(
     "WAWebMsgKey",
     "WAWebReactionsBEUtils",
     "WAWebSchemaChat",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,7 +15,7 @@ __d(
       var t = r("WAWebMsgKey").fromString(e.parentMsgKey);
       return e.type === "comment"
         ? !0
-        : (o("WAWebUserPrefsMeUser").isSerializedWidMe(e.sender) || t.fromMe) &&
+        : (o("WAWebUserUtils").isSerializedWidMe(e.sender) || t.fromMe) &&
             !e.isOrphan;
     }
     function s(e) {

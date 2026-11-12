@@ -17,7 +17,6 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsWeb.pb",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWamEnumPeerDataResponseApplyResultType",
     "WAWebWidFactory",
@@ -290,7 +289,7 @@ __d(
       });
       if (i.isUser()) {
         if (m != null && m.length > 0) {
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(i))
+          if (!o("WAWebUserUtils").isMeAccount(i))
             throw (
               o("WALogger").LOG(
                 e ||
@@ -338,7 +337,7 @@ __d(
             ),
             r("err")("broadcast message with no participant")
           );
-        return o("WAWebUserPrefsMeUser").isMeAccount(l)
+        return o("WAWebUserUtils").isMeAccount(l)
           ? babelHelpers.extends(
               { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST },
               a,

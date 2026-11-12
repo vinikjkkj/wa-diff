@@ -1,12 +1,6 @@
 __d(
   "WAWebParseDeclinePaymentMessageProto",
-  [
-    "WAWebDecodeJid",
-    "WAWebMsgKey",
-    "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
-    "err",
-  ],
+  ["WAWebDecodeJid", "WAWebMsgKey", "WAWebMsgType", "WAWebUserUtils", "err"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.baseMessage,
@@ -40,8 +34,8 @@ __d(
         var i = o("WAWebDecodeJid").decodeJid(e.participant),
           l =
             typeof i == "string"
-              ? o("WAWebUserPrefsMeUser").isSerializedWidMe(i)
-              : o("WAWebUserPrefsMeUser").isMeAccount(i);
+              ? o("WAWebUserUtils").isSerializedWidMe(i)
+              : o("WAWebUserUtils").isMeAccount(i);
         if (t.id.fromMe || l || t.subtype === "send")
           a = o("WAWebDecodeJid").decodeJid(e.participant);
         else return null;

@@ -14,7 +14,7 @@ __d(
     "WAWebGroupQueryGroupJob",
     "WAWebGroupsQueryApi",
     "WAWebMexFetchGroupIsInternalJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -275,7 +275,7 @@ __d(
           if (
             e.membershipApprovalMode &&
             e.participants.some(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e.id) && e.isAdmin;
+              return o("WAWebUserUtils").isMeAccount(e.id) && e.isAdmin;
             })
           ) {
             var t = yield o("WAWebApiChatCommon").getChatRecord(e.id);

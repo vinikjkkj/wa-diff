@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WAResolvable",
+    "WAWebBoolFunc",
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
     "WAWebHatchLinkedStatusFetchFailure",
@@ -33,7 +34,7 @@ __d(
             (this.$4 = !1),
             (this.$5 = []),
             (this.$6 = null),
-            (this.$7 = h),
+            (this.$7 = o("WAWebBoolFunc").returnFalse),
             (this.$8 = 0),
             (this.$9 = null),
             (this.$10 = null),
@@ -46,7 +47,10 @@ __d(
         var a = t.prototype;
         return (
           (a.registerFetcher = function (t, n) {
-            if ((n === void 0 && (n = h), !(t === this.$6 && n === this.$7))) {
+            if (
+              (n === void 0 && (n = o("WAWebBoolFunc").returnFalse),
+              !(t === this.$6 && n === this.$7))
+            ) {
               var e = this.$9 != null || this.$15 != null;
               ((this.$6 = t),
                 (this.$7 = n),
@@ -95,7 +99,7 @@ __d(
           }),
           (a.getKnownConfirmedLinkedStatusState = function () {
             var e;
-            return (e = this.$3) != null ? e : S();
+            return (e = this.$3) != null ? e : v();
           }),
           (a.fetchConfirmedLinkedStatusStateIfUnknown = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -125,7 +129,7 @@ __d(
             ((this.$1 = null),
               (this.$2 = "unlinked"),
               (this.$3 = "unlinked"),
-              b("unlinked"),
+              C("unlinked"),
               this.$16(),
               this.$18());
           }),
@@ -137,12 +141,12 @@ __d(
               (this.$4 = !1),
               (this.$5 = []),
               (this.$6 = null),
-              (this.$7 = h),
+              (this.$7 = o("WAWebBoolFunc").returnFalse),
               (this.$10 = null),
               (this.$11 = null),
               (e = this.$12) == null || e.resolve(),
               this.$16(),
-              v());
+              b());
           }),
           (a.fetchAndUpdateStatus = function (n) {
             var t,
@@ -264,7 +268,7 @@ __d(
                   if (i == null || !this.$7(e)) throw e;
                   (yield (m || (m = n("Promise"))).resolve(),
                     o(),
-                    yield this.$23(y(i), t));
+                    yield this.$23(h(i), t));
                 }
                 return t() ? this.$20(e, t, r, o, a + 1) : { kind: "dropped" };
               },
@@ -297,15 +301,9 @@ __d(
                 t = this.$11;
               if (e == null || t == null || this.$3 != null) return this.$3;
               var r = yield (m || (m = n("Promise"))).race([
-                e.then(function () {
-                  return !1;
-                }),
-                this.$13.promise.then(function () {
-                  return !1;
-                }),
-                t.then(function () {
-                  return !0;
-                }),
+                e.then(o("WAWebBoolFunc").returnFalse),
+                this.$13.promise.then(o("WAWebBoolFunc").returnFalse),
+                t.then(o("WAWebBoolFunc").returnTrue),
               ]);
               return r && this.$9 === e ? this.$3 : this.$17();
             });
@@ -315,12 +313,12 @@ __d(
             return t;
           })()),
           (a.$21 = function (t) {
-            var e = t != null && C(t) ? "linked" : "unlinked";
+            var e = t != null && y(t) ? "linked" : "unlinked";
             ((this.$1 = t),
               (this.$2 = e),
               (this.$3 = e),
               e === "linked" && (this.$4 = !0),
-              b(e),
+              C(e),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -348,15 +346,12 @@ __d(
         );
       })();
     function h(e) {
-      return !1;
-    }
-    function y(e) {
       return e * (1 + (Math.random() - 0.5) * f);
     }
-    function C(e) {
+    function y(e) {
       return e.hasChannel && e.status === "ACTIVE" && e.isPaired;
     }
-    function b(e) {
+    function C(e) {
       try {
         var t,
           n =
@@ -380,7 +375,7 @@ __d(
           .sendLogs("hatch-linked-status-store-failed", { sampling: 0.01 });
       }
     }
-    function v() {
+    function b() {
       try {
         r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(p);
       } catch (e) {
@@ -394,7 +389,7 @@ __d(
           .sendLogs("hatch-linked-status-clear-failed", { sampling: 0.01 });
       }
     }
-    function S() {
+    function v() {
       try {
         var e,
           t =
@@ -405,7 +400,7 @@ __d(
             r("WAWebLocalStorage") == null
               ? void 0
               : r("WAWebLocalStorage").getItem(p);
-        return t == null || n == null ? null : R(JSON.parse(n), t);
+        return t == null || n == null ? null : S(JSON.parse(n), t);
       } catch (e) {
         return (
           o("WALogger")
@@ -420,15 +415,15 @@ __d(
         );
       }
     }
-    function R(e, t) {
+    function S(e, t) {
       if (e == null || typeof e != "object") return null;
       var n = e.owner,
         r = e.state;
       return n === t && (r === "linked" || r === "unlinked") ? r : null;
     }
-    var L = new g(),
-      E = L;
-    l.default = E;
+    var R = new g(),
+      L = R;
+    l.default = L;
   },
   98,
 );

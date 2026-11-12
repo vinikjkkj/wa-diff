@@ -9,14 +9,14 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWidFormat",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
-      if (o("WAWebUserPrefsMeUser").isMeAccount(e))
+      if (o("WAWebUserUtils").isMeAccount(e))
         return r("WAWebFbtCommon")("You").toString();
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       if (t != null) {

@@ -11,7 +11,7 @@ __d(
     "WAWebMessageStoreService",
     "WAWebMsgModel",
     "WAWebSchemaBusinessBroadcastCampaign",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -68,7 +68,7 @@ __d(
           var g = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t),
-            h = o("WAWebUserPrefsMeUser")
+            h = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId(),
             y = 0,

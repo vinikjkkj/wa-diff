@@ -28,7 +28,7 @@ __d(
     "WAWebSendReceiptJobCommon",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamChatPSALogger",
     "WAWebWamEnumReadSource",
     "WAWebWid",
@@ -341,7 +341,7 @@ __d(
             r = D(
               e
                 .filter(function (e) {
-                  return !o("WAWebUserPrefsMeUser").isSerializedWidMe(e.sender);
+                  return !o("WAWebUserUtils").isSerializedWidMe(e.sender);
                 })
                 .map(function (e) {
                   return {
@@ -503,7 +503,7 @@ __d(
           o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
         ) &&
         e.metaFrom != null &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom)
+        !o("WAWebUserUtils").isMeAccount(e.metaFrom)
       );
     }
     function N(e) {
@@ -520,7 +520,7 @@ __d(
         !n.some(P) ||
         !t.isUser() ||
         t.isBot() ||
-        o("WAWebUserPrefsMeUser").isSerializedWidMe(String(t)) ||
+        o("WAWebUserUtils").isSerializedWidMe(String(t)) ||
         !o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
       )
         return a;

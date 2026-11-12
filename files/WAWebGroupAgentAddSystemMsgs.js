@@ -13,7 +13,7 @@ __d(
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebSchemaBotProfile",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -76,7 +76,7 @@ __d(
           if (
             t.participants.some(function (e) {
               var t = e.id;
-              return o("WAWebUserPrefsMeUser").isMeAccount(t);
+              return o("WAWebUserUtils").isMeAccount(t);
             })
           )
             return [

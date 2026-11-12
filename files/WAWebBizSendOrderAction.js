@@ -26,7 +26,6 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebUprPaymentRequestParams",
     "WAWebUserPrefsCustomPaymentMethods",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsPaymentInfo",
     "WAWebUserUtils",
     "WAWebWidFactory",
@@ -106,7 +105,7 @@ __d(
               },
               l,
             );
-          if (o("WAWebUserPrefsMeUser").isMeAccount(i.id))
+          if (o("WAWebUserUtils").isMeAccount(i.id))
             try {
               yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(i, g)[0];
               return;

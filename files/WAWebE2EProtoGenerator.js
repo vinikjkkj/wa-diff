@@ -335,10 +335,14 @@ __d(
       ) {
         a.statusAttributions = e.statusAttributions;
         var v = e.statusAttributions.some(function (e) {
+          var t;
           return (
             e.type ===
-            o("WAWebProtobufsStatusAttributions.pb").StatusAttribution$Type
-              .RESHARE
+              o("WAWebProtobufsStatusAttributions.pb").StatusAttribution$Type
+                .RESHARE &&
+            ((t = e.statusReshare) == null ? void 0 : t.source) !==
+              o("WAWebProtobufsStatusAttributions.pb")
+                .StatusAttribution$StatusReshare$Source.CHANNEL_RESHARE
           );
         });
         v &&

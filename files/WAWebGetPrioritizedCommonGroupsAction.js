@@ -2,7 +2,7 @@ __d(
   "WAWebGetPrioritizedCommonGroupsAction",
   [
     "WAWebFindCommonGroupsContactAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumHighlightGroupType",
     "asyncToGeneratorRuntime",
   ],
@@ -48,7 +48,7 @@ __d(
             var t, u, p, _, f;
             if (r(e)) {
               if (
-                o("WAWebUserPrefsMeUser").isMeAccount(
+                o("WAWebUserUtils").isMeAccount(
                   (t = e.groupMetadata) == null ? void 0 : t.owner,
                 )
               ) {

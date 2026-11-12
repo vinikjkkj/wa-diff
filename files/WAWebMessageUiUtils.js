@@ -26,7 +26,7 @@ __d(
     "WAWebReactionsCollection",
     "WAWebReactionsUtils",
     "WAWebStatusUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
@@ -269,7 +269,7 @@ __d(
           "WAWebMessagePluginGetAriaLabelForMsgTextComponent",
         ).getAriaLabelForMsgTextComponent({ type: l, subtype: i, isGif: n });
       if (r != null) {
-        var d = o("WAWebUserPrefsMeUser").isMeAccount(a);
+        var d = o("WAWebUserUtils").isMeAccount(a);
         u = d ? s._(/*BTDS*/ "replied") : s._(/*BTDS*/ "replied");
       }
       return u != null || c != null
@@ -285,7 +285,7 @@ __d(
         a = n === void 0 ? !1 : n,
         i = e.isElevatedPushNamesEnabled,
         l = e.sender,
-        u = o("WAWebUserPrefsMeUser").isMeAccount(l),
+        u = o("WAWebUserUtils").isMeAccount(l),
         c = "";
       if (t != null)
         if (u) {

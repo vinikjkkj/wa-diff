@@ -14,7 +14,7 @@ __d(
     "WAWebPaymentStatusText",
     "WAWebQuotedMsgModelUtils",
     "WAWebUnformatMsg",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -116,7 +116,7 @@ __d(
     function C(e, t) {
       return e == null
         ? null
-        : o("WAWebUserPrefsMeUser").isMeAccount(e)
+        : o("WAWebUserUtils").isMeAccount(e)
           ? o("WAWebFormatPaymentMsg").getPaymentTypeTextForSelf(t)
           : o("WAWebFormatPaymentMsg").getPaymentTypeText(
               t,

@@ -7,14 +7,14 @@ __d(
     "WAWebLimitSharingGatingUtils",
     "WAWebPresenceCollection",
     "WAWebPresenceGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 25e3;
     function s(e, t) {
       t === void 0 && (t = !0);
       var n = e.id;
-      if (!u(e) && !o("WAWebUserPrefsMeUser").isMeAccount(n)) {
+      if (!u(e) && !o("WAWebUserUtils").isMeAccount(n)) {
         var r = o("WAWebPresenceCollection").PresenceCollection.get(n);
         r && (d(r, e), t && r.set({ stale: !1 }));
       }

@@ -19,7 +19,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebReportUtils",
     "WAWebSpamUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebWidToJid",
@@ -49,7 +49,7 @@ __d(
                 (!o("WAWebSpamUtils").isSpamSupportedForMessageType(s.type) &&
                   s.type !== o("WAWebMsgType").MSG_TYPE.ALBUM) ||
                 o("WAWebMsgGetters").getIsBotResponse(s) ||
-                (o("WAWebUserPrefsMeUser").isMeAccount(s.from) &&
+                (o("WAWebUserUtils").isMeAccount(s.from) &&
                   !o(
                     "WAWebGroupHistoryUtils",
                   ).shouldReportGroupHistoryBundleSender(s)) ||

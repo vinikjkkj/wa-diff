@@ -8,7 +8,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebMsgGetters",
     "WAWebSystemMsgContactName",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
@@ -34,7 +34,7 @@ __d(
             l = null;
             break e;
           }
-          if (o("WAWebUserPrefsMeUser").isMeAccount(c)) {
+          if (o("WAWebUserUtils").isMeAccount(c)) {
             var p;
             (t[5] === Symbol.for("react.memo_cache_sentinel")
               ? ((p = u.jsx(m, { label: s._(/*BTDS*/ "Added by you") })),

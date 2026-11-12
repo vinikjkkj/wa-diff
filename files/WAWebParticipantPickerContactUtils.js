@@ -10,7 +10,8 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebPhoneNumberSearch",
     "WAWebReachoutTimelockUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -18,136 +19,172 @@ __d(
         n = e.frequentlyContacted,
         a = e.members,
         i = e.participants,
-        l = e.searchText,
-        s = e.selectedSubgroup,
-        u = e.showCommunityDirectory,
-        c = e.showSubgroupFilter,
-        d,
-        m = [],
-        p = Array.from(t != null ? t : []);
-      if (s && c) {
-        var _ = r("WAWebGroupMetadataCollection").assertGet(s),
-          f = [];
-        (_.participants.forEach(function (e) {
-          o("WAWebContactGetters").getIsMe(e.contact) || f.push(e.contact);
-        }),
-          (d = Array.from(new Set(f).difference(new Set([].concat(i, p))))));
-      } else {
-        var g = o("WAWebContactCollectionUtils").getFilteredContacts(
-            o("WAWebContactCollection").ContactCollection,
-            {},
-          ),
-          h = [];
-        (a &&
-          u &&
-          ((h = a
-            .filter(function (e) {
-              var t = e.id;
-              return !o("WAWebUserPrefsMeUser").isMeAccount(t) && !t.isLid();
+        l = e.retainSelected,
+        s = e.searchText,
+        u = e.selectedSubgroup,
+        d = e.showCommunityDirectory,
+        m = e.showSubgroupFilter,
+        p = Array.from(t != null ? t : []),
+        _ = l ? [] : i;
+      if (u != null && m) {
+        var f = r("WAWebGroupMetadataCollection").assertGet(u),
+          g = f.participants
+            .map(function (e) {
+              return e.contact;
             })
-            .sort(o("WAWebContactComparator").ContactComparator)),
-          (m = Array.from(new Set(h).difference(new Set(i))))),
-          (d = Array.from(
-            new Set(g).difference(new Set([].concat(i, h, n, p))),
-          )));
-      }
-      var y = l;
-      if (!y) return { contacts: d, communityDirectory: m };
-      y = o("WAWebL10NAccentFold").accentFold(y);
-      var C = o("WAWebPhoneNumberSearch").numberSearch(y),
-        b = function (t) {
-          return t.searchMatchExact(y, C) != null;
+            .filter(function (e) {
+              return !o("WAWebContactGetters").getIsMe(e);
+            });
+        return {
+          contacts: c(S(g, [].concat(_, p), l), s),
+          communityDirectory: [],
         };
-      return { contacts: d.filter(b), communityDirectory: m.filter(b) };
+      }
+      var h =
+          d && a != null
+            ? a
+                .filter(function (e) {
+                  var t = e.id;
+                  return !o("WAWebUserUtils").isMeAccount(t) && !t.isLid();
+                })
+                .slice()
+                .sort(o("WAWebContactComparator").ContactComparator)
+            : [],
+        y = o("WAWebContactCollectionUtils").getFilteredContacts(
+          o("WAWebContactCollection").ContactCollection,
+          {},
+        ),
+        C = S(y, h, l),
+        b = S(C, [].concat(_, n, p), l);
+      return {
+        contacts: c(b, s),
+        communityDirectory: c(
+          S(l ? [].concat(h, y) : h, [].concat(R(t, i, l), C), l),
+          s,
+        ),
+      };
     }
     function s(e) {
       var t,
-        n = e.parentGroupId,
-        r = e.participants,
-        o = e.searchText,
-        a = e.sourceGroupMembers,
-        i = e.suggestedContacts;
-      return i == null ||
-        o !== "" ||
-        n != null ||
-        ((t = a == null ? void 0 : a.length) != null ? t : 0) > 0
+        n = e.excludedContacts,
+        r = e.parentGroupId,
+        o = e.participants,
+        a = e.retainSelected,
+        i = e.searchText,
+        l = e.sourceGroupMembers,
+        s = e.suggestedContacts;
+      return s == null ||
+        i !== "" ||
+        r != null ||
+        ((t = l == null ? void 0 : l.length) != null ? t : 0) > 0
         ? []
-        : Array.from(new Set(i).difference(new Set(r)));
+        : S(s, R(n, o, a), a);
     }
-    function u(e, t) {
-      if (e == null || e.length === 0) {
-        var n = [];
-        return n;
-      }
-      if (!t) return Array.from(e);
-      var r = o("WAWebL10NAccentFold").accentFold(t),
-        a = o("WAWebPhoneNumberSearch").numberSearch(r);
+    function u(e, t, n, r) {
+      var o = r ? S(e, Array.from(t != null ? t : []), !0) : e;
+      return c(o, n);
+    }
+    function c(e, t) {
+      if (t === "") return Array.from(e);
+      var n = o("WAWebL10NAccentFold").accentFold(t),
+        r = o("WAWebPhoneNumberSearch").numberSearch(n);
       return e.filter(function (e) {
-        return e.searchMatchExact(r, a) != null;
+        return e.searchMatchExact(n, r) != null;
       });
     }
-    function c(e) {
-      return m(e.id);
+    function d(e) {
+      return p(e.id);
     }
-    function d(e, t) {
-      var n = m(t);
+    function m(e, t) {
+      var n = p(t);
       return e.find(function (e) {
-        return c(e) === n;
+        return d(e) === n;
       });
     }
-    function m(e) {
+    function p(e) {
       var t = e.isRegularUser()
         ? o("WAWebLidMigrationUtils").toUserLid(e)
         : null;
       return (t != null ? t : e).toString();
     }
-    function p(e, t) {
-      return d(e, t.id);
+    function _(e, t) {
+      return m(e, t.id);
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       if (!n)
         return e.filter(function (e) {
           return !e.id.equals(t.id);
         });
-      var r = c(t);
+      var r = d(t);
       return e.filter(function (e) {
-        return c(e) !== r;
+        return d(e) !== r;
       });
     }
-    function f(e) {
+    function g(e) {
       return (
         !o("WAWebReachoutTimelockUtils").isUserReachoutTimelockedAndVisible() ||
         e.canSendMsgWhileTimelocked
       );
     }
-    function g(e, t, n, r) {
-      return !n || (!(r != null ? r : p(e, t) != null) && f(t));
+    function h(e, t, n, r) {
+      return !n || (!(r != null ? r : _(e, t) != null) && g(t));
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       return n
-        ? p(e, t)
+        ? _(e, t)
         : e.find(function (e) {
             return e.id.equals(t.id);
           });
     }
-    function y(e, t, n) {
-      var r = n ? new Set(e.map(c)).size : e.length;
+    function C(e, t, n) {
+      var r = n ? new Set(e.map(d)).size : e.length;
       return r + t;
     }
-    function C(e, t, n, r, o) {
-      return o && p(t, e) != null ? "duplicate" : n >= r ? "limit" : "add";
+    function b(e, t, n, r, o) {
+      return o && _(t, e) != null ? "duplicate" : n >= r ? "limit" : "add";
+    }
+    function v(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = d(n),
+          o = t.get(r);
+        (o == null || (n.isContactBlocked && !o.isContactBlocked)) &&
+          t.set(r, n);
+      }
+      return t;
+    }
+    function S(e, t, n) {
+      if (!n) return Array.from(new Set(e).difference(new Set(t)));
+      var a = new Set(t.map(d)),
+        i = new Set(e.map(d)),
+        l = v(
+          [].concat(
+            e,
+            o("WAWebContactCollection").ContactCollection.getModelsArray(),
+          ),
+        );
+      return Array.from(i)
+        .filter(function (e) {
+          return !a.has(e);
+        })
+        .map(function (e) {
+          return r("nullthrows")(l.get(e));
+        });
+    }
+    function R(e, t, n) {
+      return n ? Array.from(e != null ? e : []) : t;
     }
     ((l.getParticipantPickerContacts = e),
       (l.getParticipantPickerSuggestions = s),
       (l.getParticipantPickerSourceContacts = u),
-      (l.getParticipantPickerContactKey = c),
-      (l.findSelectedParticipantPickerContactForWid = d),
-      (l.findSelectedParticipantPickerContact = p),
-      (l.getParticipantsWithoutContact = _),
-      (l.isUnpickedParticipantPickerContact = g),
-      (l.getParticipantPickerSelectedContact = h),
-      (l.getParticipantPickerSelectedCount = y),
-      (l.getParticipantPickerContactAddition = C));
+      (l.getParticipantPickerContactKey = d),
+      (l.findSelectedParticipantPickerContactForWid = m),
+      (l.findSelectedParticipantPickerContact = _),
+      (l.getParticipantsWithoutContact = f),
+      (l.isUnpickedParticipantPickerContact = h),
+      (l.getParticipantPickerSelectedContact = y),
+      (l.getParticipantPickerSelectedCount = C),
+      (l.getParticipantPickerContactAddition = b));
   },
   98,
 );

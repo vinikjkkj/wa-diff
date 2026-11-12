@@ -7,8 +7,8 @@ __d(
     "WAWebGroupType",
     "WAWebModalManager",
     "WAWebNux",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNuxPreferences",
+    "WAWebUserUtils",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -44,7 +44,7 @@ __d(
       return !(
         t == null ||
         !t.participants.iAmAdmin() ||
-        o("WAWebUserPrefsMeUser").isMeAccount(t.owner) ||
+        o("WAWebUserUtils").isMeAccount(t.owner) ||
         !o("WAWebUserPrefsNuxPreferences").shouldShowNUX(
           o("WAWebNux").getCommunityAdminPromotionNuxKey(t.id.toString()),
         )

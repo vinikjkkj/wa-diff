@@ -4,12 +4,12 @@ __d(
     "WAWebCoexV2BotWid",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n = c(e, t);
-      return n == null ? null : o("WAWebUserPrefsMeUser").isMeAccount(n);
+      return n == null ? null : o("WAWebUserUtils").isMeAccount(n);
     }
     function s(e, t, n, r) {
       var a = c(e, t);

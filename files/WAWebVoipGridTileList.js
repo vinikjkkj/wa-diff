@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipGridTileList",
-  ["WAWebUserPrefsMeUser", "WAWebVoipVideoRenderSource"],
+  ["WAWebUserUtils", "WAWebVoipVideoRenderSource"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -8,7 +8,7 @@ __d(
       for (var a of e) {
         var i = t != null && a.equals(t),
           l = i && n,
-          s = o("WAWebUserPrefsMeUser").isMeAccount(a)
+          s = o("WAWebUserUtils").isMeAccount(a)
             ? o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderSource.self(
                 o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderStream
                   .CAMERA,

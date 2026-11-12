@@ -95,6 +95,11 @@ __d(
             : babelHelpers.extends({}, r, { type: "NewsletterMedia" });
         }
         case "NewsletterQuestionResponse":
+          return babelHelpers.extends({}, e, {
+            type: "NewsletterQuestionResponse",
+            payload: c(n.value),
+            responseServerId: n.value.metaResponseServerId,
+          });
         case "NewsletterText":
           return babelHelpers.extends({}, e, {
             type: "NewsletterText",
@@ -152,9 +157,9 @@ __d(
             payload: c(n.value),
           });
         case "NewsletterQuestionResponseRevokeFanout":
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            "unrecognized-newsletter-message-type",
-          );
+          return babelHelpers.extends({}, e, {
+            type: "NewsletterQuestionResponseRevokeFanout",
+          });
         default:
           throw (
             n.name,

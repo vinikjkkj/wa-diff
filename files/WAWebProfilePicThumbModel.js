@@ -7,7 +7,7 @@ __d(
     "WAWebProfilePicThumbGetters",
     "WAWebProfilePicThumbHostUtils",
     "WAWebThemeSession",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "isStringNullOrEmpty",
   ],
@@ -75,7 +75,7 @@ __d(
                   : e.participants.iAmRestrictedMember();
             return !n;
           }
-          return !!o("WAWebUserPrefsMeUser").isMeAccount(this.id);
+          return !!o("WAWebUserUtils").isMeAccount(this.id);
         }),
         (n.canDelete = function () {
           var e = !r("isStringNullOrEmpty")(this.tag);
@@ -88,7 +88,7 @@ __d(
                   : t.participants.iAmRestrictedMember();
             return !a;
           }
-          return !!(o("WAWebUserPrefsMeUser").isMeAccount(this.id) && e);
+          return !!(o("WAWebUserUtils").isMeAccount(this.id) && e);
         }),
         (n.getCollection = function () {
           return o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection;

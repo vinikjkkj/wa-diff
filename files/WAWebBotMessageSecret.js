@@ -23,7 +23,6 @@ __d(
     "WAWebOrphanBotMsgError",
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -95,7 +94,7 @@ __d(
               t,
             ),
             c = s.targetSenderJid
-              ? o("WAWebUserPrefsMeUser").isMeAccount(s.targetSenderJid)
+              ? o("WAWebUserUtils").isMeAccount(s.targetSenderJid)
               : !0,
             d = {
               fromMe: c,
@@ -184,11 +183,7 @@ __d(
         n = e.targetId,
         a = e.targetSenderJid,
         i = a != null ? a : o("WAWebUserUtils").getMeLidUserOrThrow(),
-        l = {
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(i),
-          remote: t,
-          id: n,
-        };
+        l = { fromMe: o("WAWebUserUtils").isMeAccount(i), remote: t, id: n };
       if (t.isGroup()) {
         var s;
         l.participant =

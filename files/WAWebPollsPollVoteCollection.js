@@ -6,7 +6,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMaybe",
     "WAWebPollsPollVoteModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "nullthrows",
   ],
@@ -31,7 +31,7 @@ __d(
             return (
               e.selectedOptionLocalIds.length > 0 &&
               !e.read &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
+              !o("WAWebUserUtils").isMeAccount(e.sender)
             );
           });
         }),

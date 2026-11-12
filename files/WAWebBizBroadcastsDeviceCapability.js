@@ -7,7 +7,7 @@ __d(
     "WAWebProtobufSyncAction.pb",
     "WAWebSyncdConst",
     "WAWebSyncdDb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
@@ -23,7 +23,7 @@ __d(
               '["' +
               o("WAWebSyncdConst").Actions.DeviceCapabilities +
               '","' +
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
+              o("WAWebUserUtils").getMeDevicePnOrThrow_DO_NOT_USE().user +
               ':0@s.whatsapp.net"]',
             n = yield o("WAWebSyncdDb").getSyncAction(t);
           return (n == null ? void 0 : n.binarySyncData) == null

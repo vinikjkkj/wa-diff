@@ -8,7 +8,7 @@ __d(
     "WAWebMessageReceiptBatcher",
     "WAWebMsgKey",
     "WAWebOfflineHandler",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -60,7 +60,7 @@ __d(
             (a === o("WAWebAck").ACK_STRING.READ_SELF ||
               a === o("WAWebAck").ACK_STRING.PLAYED_SELF) &&
             c != null &&
-            o("WAWebUserPrefsMeUser").isMeAccount(
+            o("WAWebUserUtils").isMeAccount(
               o("WAWebWidFactory").asUserWidOrThrow(c),
             );
           if (!_)

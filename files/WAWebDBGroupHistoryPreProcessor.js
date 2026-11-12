@@ -4,7 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebApiHydrateWidsUtil",
     "WAWebDBMessageSerialization",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -18,7 +18,7 @@ __d(
         !o("WAWebApiHydrateWidsUtil")
           .hydrateWids(e.recipients)
           .some(function (e) {
-            return o("WAWebUserPrefsMeUser").isMeAccount(e);
+            return o("WAWebUserUtils").isMeAccount(e);
           })
       );
     }

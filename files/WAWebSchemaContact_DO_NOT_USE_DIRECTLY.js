@@ -63,6 +63,7 @@ __d(
             r("isUsernameContact"),
             r("isEphemeralityDisabled"),
             r("externalUserState"),
+            r("birthday"),
           ])
           .view(function (e) {
             return e;

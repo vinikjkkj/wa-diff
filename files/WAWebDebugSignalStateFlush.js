@@ -77,7 +77,7 @@ __d(
       );
     }
     u.doc =
-      "Manual test for the OneQueue signal state flushable: compares the Signal sessions and sender keys in memory with those on disk. Once received messages have settled, every differing entry is signal state that a crash would lose. Run it with wmi_wa_web_one_queue_adoption on and off and compare.";
+      "Manual test for the OneQueue signal state flushable: compares the Signal sessions and sender keys in memory with those on disk. Once received messages have settled, every differing entry is signal state that a crash would lose. Run it with WAOneQueue on and off (QE wa_wmi_experiments, one_queue_enabled) and compare.";
     function d(e, t) {
       var n = [],
         r = [],

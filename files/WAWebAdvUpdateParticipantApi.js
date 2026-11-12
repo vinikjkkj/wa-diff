@@ -8,7 +8,7 @@ __d(
     "WAWebBackendApi",
     "WAWebPostSenderKeyExpiredMetric",
     "WAWebSchemaParticipant",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumExpiryReason",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -334,7 +334,7 @@ __d(
         (r.includes(o("WAJids").DEFAULT_DEVICE_ID) &&
         t.includes(o("WAJids").DEFAULT_DEVICE_ID)
           ? (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON.IDENTITY_CHANGE)
-          : o("WAWebUserPrefsMeUser").isMeAccount(i)
+          : o("WAWebUserUtils").isMeAccount(i)
             ? (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON
                 .PEER_COMPANION_UNPAIR)
             : (l = o("WAWebWamEnumExpiryReason").EXPIRY_REASON

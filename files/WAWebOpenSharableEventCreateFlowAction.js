@@ -29,9 +29,7 @@ __d(
         s.jsx(
           r("WAWebSharableEventCreateStepperDialogLoadable"),
           babelHelpers.extends({}, e, {
-            onClose: function () {
-              return o("WAWebModalManager").ModalManager.close();
-            },
+            onClose: o("WAWebModalManager").closeModalManager,
           }),
         ),
         { blockClose: !0 },

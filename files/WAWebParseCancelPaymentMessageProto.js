@@ -4,7 +4,7 @@ __d(
     "WAWebDecodeJid",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "err",
   ],
@@ -42,9 +42,8 @@ __d(
       var a = o("WAWebDecodeJid").decodeJid(e.participant),
         i =
           typeof a == "string"
-            ? r("WAWebWid").isWid(a) &&
-              o("WAWebUserPrefsMeUser").isSerializedWidMe(a)
-            : o("WAWebUserPrefsMeUser").isMeAccount(a),
+            ? r("WAWebWid").isWid(a) && o("WAWebUserUtils").isSerializedWidMe(a)
+            : o("WAWebUserUtils").isMeAccount(a),
         l = void 0;
       if (t.id.remote.isGroup()) {
         if (((l = t.id.participant), t.id.fromMe))

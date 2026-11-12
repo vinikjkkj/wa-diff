@@ -58,7 +58,6 @@ __d(
     "WAWebSyncdOrphan",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsModelStorage",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
@@ -749,7 +748,7 @@ __d(
               var r = o("WAWebSignalCommonUtils")
                 .createSignalAddress(n)
                 .toString();
-              o("WAWebUserPrefsMeUser").isMeAccount(n)
+              o("WAWebUserUtils").isMeAccount(n)
                 ? o("WAWebHistorySyncNotificationUtils")
                     .checkSelfHistorySyncIdentity(r, t)
                     .catch(function () {

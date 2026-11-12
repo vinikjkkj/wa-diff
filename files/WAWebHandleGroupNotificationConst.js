@@ -12,7 +12,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebNoop",
     "WAWebRuntimeEnvironmentUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
   ],
@@ -163,14 +163,14 @@ __d(
           ) {
             var f =
               t.participants.length === 1 &&
-              o("WAWebUserPrefsMeUser").isMeAccount(t.participants[0].id);
+              o("WAWebUserUtils").isMeAccount(t.participants[0].id);
             if (!f) return !0;
           }
           if (
             t.actionType ===
               o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE &&
             t.participants.length === 1 &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(t.participants[0].id)
+            !o("WAWebUserUtils").isMeAccount(t.participants[0].id)
           ) {
             var g = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
               e.chatId.toString(),
@@ -191,7 +191,7 @@ __d(
             var h = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
                 e.chatId.toString(),
               ),
-              y = o("WAWebUserPrefsMeUser").isMeAccount(e.author);
+              y = o("WAWebUserUtils").isMeAccount(e.author);
             if (!h || y) return !0;
           }
           if (

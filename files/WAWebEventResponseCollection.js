@@ -6,7 +6,7 @@ __d(
     "WAWebCollectionUtils",
     "WAWebEventResponseModel",
     "WAWebMsgGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,7 +23,7 @@ __d(
             function (e) {
               return (
                 e.isSendFailure === !0 ||
-                (o("WAWebUserPrefsMeUser").isMeAccount(e.sender) &&
+                (o("WAWebUserUtils").isMeAccount(e.sender) &&
                   e.ack != null &&
                   e.ack < o("WAWebAck").ACK.CLOCK)
               );

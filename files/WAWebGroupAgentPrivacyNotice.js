@@ -17,7 +17,7 @@ __d(
     "WAWebMsgType",
     "WAWebSchemaBotProfile",
     "WAWebSchemaChat",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -128,7 +128,7 @@ __d(
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
             !n.some(function (e) {
               var t = e.id;
-              return o("WAWebUserPrefsMeUser").isMeAccount(t);
+              return o("WAWebUserUtils").isMeAccount(t);
             })
           )
             return C({ meta: r, participants: n });
@@ -352,10 +352,10 @@ __d(
             c = l[1],
             d =
               t.some(function (e) {
-                return o("WAWebUserPrefsMeUser").isMeAccount(e);
+                return o("WAWebUserUtils").isMeAccount(e);
               }) &&
               !i.some(function (e) {
-                return o("WAWebUserPrefsMeUser").isMeAccount(e);
+                return o("WAWebUserUtils").isMeAccount(e);
               }),
             m = w({ addedTypes: s, addsMe: d, prevTypes: c }),
             p =

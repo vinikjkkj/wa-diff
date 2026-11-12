@@ -13,6 +13,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "err",
     "nullthrows",
@@ -24,7 +25,7 @@ __d(
         n = b(e),
         a = n.initiatingUser,
         i = n.newDuration,
-        l = o("WAWebUserPrefsMeUser").isMeAccount(r("nullthrows")(a));
+        l = o("WAWebUserUtils").isMeAccount(r("nullthrows")(a));
       if (
         o("WAWebAfterReadUtils").isAfterReadDuration(i) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
@@ -112,7 +113,7 @@ __d(
       var t = b(e),
         n = t.initiatingUser,
         a = t.newDuration,
-        i = o("WAWebUserPrefsMeUser").isMeAccount(r("nullthrows")(n)),
+        i = o("WAWebUserUtils").isMeAccount(r("nullthrows")(n)),
         l = null;
       if (!i) {
         var u = o("WAWebContactCollection").ContactCollection.gadd(

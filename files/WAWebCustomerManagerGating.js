@@ -5,7 +5,7 @@ __d(
     "WAWebContactGetters",
     "WAWebMetaOneGating",
     "WAWebMobilePlatforms",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 3;
@@ -84,7 +84,7 @@ __d(
     function y(e) {
       return (
         e.isUser() &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !o("WAWebUserUtils").isMeAccount(e) &&
         !e.isPSA() &&
         !e.isOfficialBizAccount() &&
         !e.isAiHub() &&

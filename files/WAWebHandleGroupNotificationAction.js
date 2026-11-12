@@ -30,7 +30,6 @@ __d(
     "WAWebSchemaChat",
     "WAWebShouldTriggerQueryGroupInfo",
     "WAWebUpdateDbForGroupActionApi",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "justknobx",
@@ -129,7 +128,7 @@ __d(
           ? o("WAWebUserUtils").getMeLidUserOrThrow()
           : o("WAWebUserUtils").getMeUserOrThrow();
       if (
-        (!o("WAWebUserPrefsMeUser").isMeAccount(e.author) ||
+        (!o("WAWebUserUtils").isMeAccount(e.author) ||
           t.reason === o("WAWebGroupType").ADD_REASON.INVITE_AUTO_ADD) &&
         r != null
       ) {

@@ -1,10 +1,10 @@
 __d(
   "WAWebGroupUtils",
-  ["WATypeUtils", "WAWebUserPrefsMeUser", "WAWebWidFactory"],
+  ["WATypeUtils", "WAWebUserUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return e.some(function (e) {
-        return o("WAWebUserPrefsMeUser").isMeAccount(
+        return o("WAWebUserUtils").isMeAccount(
           o("WATypeUtils").isString(e) ? o("WAWebWidFactory").createWid(e) : e,
         );
       });

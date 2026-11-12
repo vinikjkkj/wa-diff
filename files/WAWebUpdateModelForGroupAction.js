@@ -31,7 +31,7 @@ __d(
     "WAWebPollsInvalidateChatPollMsgsAction",
     "WAWebRemoveFromFavoritesAction",
     "WAWebUpdateModelsForCommunityAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "compactMap",
     "nullthrows",
@@ -68,7 +68,7 @@ __d(
             );
           if (
             a.participants.find(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+              return o("WAWebUserUtils").isMeAccount(e.id);
             })
           ) {
             var b = y.participants
@@ -182,7 +182,7 @@ __d(
             a.actionType === o("WAWebGroupType").GROUP_ACTIONS.ADD &&
               (I.forEach(function (e) {
                 (_.pastParticipants.remove(e),
-                  o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+                  o("WAWebUserUtils").isMeAccount(e) &&
                     _.pastParticipants.reset());
               }),
               _.membershipApprovalMode &&
@@ -204,7 +204,7 @@ __d(
                   timestamp: g != null ? g : o("WATimeUtils").unixTime(),
                 })),
             I.find(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e);
+              return o("WAWebUserUtils").isMeAccount(e);
             }))
           )
             if (a.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE) {
@@ -268,7 +268,7 @@ __d(
               var n = e.id,
                 r = e.isAdmin,
                 a = e.lid,
-                i = o("WAWebUserPrefsMeUser").isMeAccount(n);
+                i = o("WAWebUserUtils").isMeAccount(n);
               (a != null && i && r === !0 && w.push(a),
                 w.push(n),
                 A.push({
@@ -686,8 +686,7 @@ __d(
               o("WAWebWidFactory").asUserWidOrThrow(J),
             );
             if (
-              (ne && te.add(ne.toString()),
-              o("WAWebUserPrefsMeUser").isMeAccount(J))
+              (ne && te.add(ne.toString()), o("WAWebUserUtils").isMeAccount(J))
             ) {
               var re = o("WAWebNux").getCommunityAdminPromotionNuxKey(
                 _.id.toString(),

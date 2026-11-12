@@ -31,7 +31,7 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebRichResponsePreviewText",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebViewMode.flow",
     "WAWebWidFormat",
@@ -464,7 +464,7 @@ __d(
         y = u.withPushNameOnly,
         C = y === void 0 ? !1 : y;
       if (!l) return "";
-      if (o("WAWebUserPrefsMeUser").isMeAccount(l))
+      if (o("WAWebUserUtils").isMeAccount(l))
         return r("fbs")._(/*BTDS*/ "You").toString();
       if (a)
         return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)

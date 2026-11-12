@@ -510,9 +510,7 @@ __d(
                       if (
                         t.type === "gp2" &&
                         t.subtype === "add" &&
-                        o("WAWebUserPrefsMeUser").isMeAccount(
-                          t.recipients[0],
-                        ) &&
+                        o("WAWebUserUtils").isMeAccount(t.recipients[0]) &&
                         !e.contact.name
                       )
                         return;

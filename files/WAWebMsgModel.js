@@ -336,6 +336,7 @@ __d(
             (e.isSpoiler = o("WAWebBaseModel").prop(!1)),
             (e.questionReplyQuotedMessage = o("WAWebBaseModel").prop(null)),
             (e.questionResponsesCount = o("WAWebBaseModel").prop(0)),
+            (e.myQuestionResponsesCount = o("WAWebBaseModel").prop(0)),
             (e.readQuestionResponsesCount = o("WAWebBaseModel").prop(0)),
             (e.forwardsCount = o("WAWebBaseModel").prop(0)),
             (e.forwardingScore = o("WAWebBaseModel").prop()),

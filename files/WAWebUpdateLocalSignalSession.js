@@ -9,8 +9,8 @@ __d(
     "WAWebProcessRetryKeyBundle",
     "WAWebSessionScope",
     "WAWebSignal",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -63,7 +63,7 @@ __d(
               ));
           var y = o("WAWebWidFactory").asUserWidOrThrow(f),
             C = yield o("WAWebSignal").Session.getRemoteRegId(f, g);
-          if (o("WAWebUserPrefsMeUser").isMeAccount(y) && C !== p)
+          if (o("WAWebUserUtils").isMeAccount(y) && C !== p)
             throw r("err")(
               "updateLocalSignalSession: detect registration Id change remote: " +
                 p +
@@ -71,7 +71,7 @@ __d(
                 String(C) +
                 " for peer device",
             );
-          var b = t.isUser() && !o("WAWebUserPrefsMeUser").isMeAccount(y),
+          var b = t.isUser() && !o("WAWebUserUtils").isMeAccount(y),
             v = yield o("WAWebProcessRetryKeyBundle").processKeyBundle({
               is1on1: b,
               keyBundle: l,

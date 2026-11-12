@@ -11,7 +11,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSchemaMessageInfo",
     "WAWebSchemaParticipant",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -334,7 +334,7 @@ __d(
         u = [];
       i.forEach(function (e) {
         var t = o("WAWebWidFactory").createWid(e.receiverUserJid);
-        o("WAWebUserPrefsMeUser").isMeAccount(t) ||
+        o("WAWebUserUtils").isMeAccount(t) ||
           (x(e),
           E({
             isGroupMessage: l,
@@ -415,7 +415,7 @@ __d(
         : t.filter(function (e) {
             return (
               !e.endsWith("@bot") &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(
+              !o("WAWebUserUtils").isMeAccount(
                 o("WAWebWidFactory").createWid(e),
               )
             );

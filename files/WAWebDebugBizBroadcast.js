@@ -16,7 +16,7 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebTos",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -265,7 +265,7 @@ __d(
           r("vulture")("9B3P7T0Qee3i5KkBAFG2iMCYBcM=");
           var e = D(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
-            n = o("WAWebUserPrefsMeUser")
+            n = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
           (yield o("WAWebBizBroadcastCampaignAPI").createBizBroadcastCampaign({

@@ -3,10 +3,14 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebABPropsLocalStorage",
     "WAWebCriticalEventWamEvent",
     "WAWebFailureErrorCodes",
     "WAWebProtobufsWa6.pb",
+    "WAWebRuntimeEnvironmentUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -32,7 +36,7 @@ __d(
           device: t.getDeviceId(),
           product: o("WAWebProtobufsWa6.pb").ClientPayload$Product.WHATSAPP_LID,
         };
-      var n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+      var n = o("WAWebUserUtils").getMeDevicePnOrThrow_DO_NOT_USE();
       return {
         username: parseInt(n.user, 10),
         device: (e = n.device) != null ? e : s,
@@ -71,13 +75,7 @@ __d(
       g = !1;
     }
     function b() {
-      if (
-        _ ||
-        (!o("WAWebABProps").getABPropConfigValue(
-          "prefer_lid_for_chatd_login",
-        ) &&
-          o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null)
-      )
+      if (_ || (!v() && o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null))
         return null;
       var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
       return (
@@ -89,6 +87,12 @@ __d(
           }).commit()),
         e
       );
+    }
+    function v() {
+      return !o("WAWebRuntimeEnvironmentUtils").isWorker() &&
+        !o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync()
+        ? r("gkx")("29346")
+        : o("WAWebABProps").getABPropConfigValue("prefer_lid_for_chatd_login");
     }
     ((l.getChatdLoginIdentity = h),
       (l.maybeFallBackToPnLogin = y),

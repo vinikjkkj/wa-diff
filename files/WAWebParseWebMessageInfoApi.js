@@ -27,7 +27,7 @@ __d(
     "WAWebScheduledMsgOutgoingMsgKey",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebScheduledMsgStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWid",
     "WAWebWidToJid",
@@ -388,7 +388,7 @@ __d(
     }
     function b(e, t) {
       return e.isGroup()
-        ? t != null && !o("WAWebUserPrefsMeUser").isMeAccount(t)
+        ? t != null && !o("WAWebUserUtils").isMeAccount(t)
           ? t.toString()
           : null
         : e.toString();

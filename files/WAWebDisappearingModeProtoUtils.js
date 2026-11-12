@@ -1,10 +1,10 @@
 __d(
   "WAWebDisappearingModeProtoUtils",
-  ["WAWebEphemeralityTypes", "WAWebProtobufsE2E.pb", "WAWebUserPrefsMeUser"],
+  ["WAWebEphemeralityTypes", "WAWebProtobufsE2E.pb", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (e.from != null) {
-        var n = o("WAWebUserPrefsMeUser").isMeAccount(e.from);
+        var n = o("WAWebUserUtils").isMeAccount(e.from);
         if (t.initiator != null)
           switch (t.initiator) {
             case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
@@ -31,7 +31,7 @@ __d(
       }
     }
     function s(e, t) {
-      var n = o("WAWebUserPrefsMeUser").isMeAccount(e.from),
+      var n = o("WAWebUserUtils").isMeAccount(e.from),
         r = t.initiatedByMe,
         a = t.initiator,
         i = t.trigger;

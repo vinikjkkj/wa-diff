@@ -76,6 +76,7 @@ __d(
     "WAWebSchemaNewsletterMetadata",
     "WAWebSchemaNewsletterMyVotes",
     "WAWebSchemaNewsletterPollsVotes",
+    "WAWebSchemaNewsletterQuestionResponses",
     "WAWebSchemaNewsletterReactions",
     "WAWebSchemaNonMessageDataRequest",
     "WAWebSchemaNote",
@@ -269,6 +270,7 @@ __d(
             o("WAWebSchemaSharableEventInviteLinkToken").addTable(),
             o("WAWebSchemaSharableEventInviteMessage").addTable(),
             o("WAWebSchemaP2PPillsThreadOrigin").addTable(),
+            o("WAWebSchemaNewsletterQuestionResponses").addTable(),
             o("WAWebModelStorageUtils")
               .getStorage()
               .initialize()

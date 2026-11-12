@@ -10,7 +10,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebMessageStoreService",
     "WAWebStatusCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -23,7 +23,7 @@ __d(
       var t = o("WAWebStatusCollection").StatusCollection.filter(function (e) {
           var t;
           return (
-            !o("WAWebUserPrefsMeUser").isMeAccount(e.contact.id) &&
+            !o("WAWebUserUtils").isMeAccount(e.contact.id) &&
             !o("WAWebFrontendContactGetters").getIsMyContact(e.contact) &&
             (!o("WAWebContactGetters").getIsGroup(e.contact) ||
               (r("WAWebGroupMetadataCollection") == null ||

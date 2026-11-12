@@ -12,7 +12,6 @@ __d(
     "WAWebLimitSharingGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
@@ -36,7 +35,7 @@ __d(
       return o("WAWebMsgGetters").getIsUnkept(e) && n && !u(e);
     }
     function u(e) {
-      return o("WAWebUserPrefsMeUser").isMeAccount(
+      return o("WAWebUserUtils").isMeAccount(
         o("WAWebMsgGetters").getKicSender(e),
       );
     }

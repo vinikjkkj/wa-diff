@@ -8,7 +8,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebSystemMsgContactName",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -35,7 +35,7 @@ __d(
           o("WAWebFrontendMsgGetters").getChat(e),
           o("WAWebContactCollection").ContactCollection.gadd(a),
         ),
-        l = o("WAWebUserPrefsMeUser").isMeAccount(a),
+        l = o("WAWebUserUtils").isMeAccount(a),
         u = t.eventName;
       return t.isEventCanceled
         ? l

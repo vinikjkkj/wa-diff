@@ -6,7 +6,7 @@ __d(
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "err",
     "nullthrows",
@@ -39,7 +39,7 @@ __d(
         sender: t.toString(),
         t: e.t,
         ack: e.ack,
-        read: o("WAWebUserPrefsMeUser").isMeAccount(t) || e.read,
+        read: o("WAWebUserUtils").isMeAccount(t) || e.read,
       };
     }
     function c(t) {

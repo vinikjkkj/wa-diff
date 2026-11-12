@@ -266,7 +266,7 @@ __d(
             r = t.wid,
             a = o("WAWebUserUtils").getMeLidUserOrThrow(),
             i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(r))
+          if (!o("WAWebUserUtils").isMeAccount(r))
             return (
               o("WALogger")
                 .ERROR(

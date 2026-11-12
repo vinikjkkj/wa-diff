@@ -13,7 +13,7 @@ __d(
     "WAWebMaybeThrowCatalogErrors",
     "WAWebQueryCatalogProductQuery.graphql",
     "WAWebRelayClient",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -189,7 +189,7 @@ __d(
         for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
           t[n] = arguments[n];
         var r = t[0];
-        return o("WAWebUserPrefsMeUser").isMeAccount(r)
+        return o("WAWebUserUtils").isMeAccount(r)
           ? m.apply(void 0, t)
           : d.apply(void 0, t);
       },

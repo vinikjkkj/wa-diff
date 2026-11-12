@@ -12,7 +12,7 @@ __d(
     "WAWebFrontendGroupMetadataGetters",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "nullthrows",
     "react",
@@ -39,7 +39,7 @@ __d(
         d;
       t[1] !== r || t[2] !== c
         ? ((d =
-            c == null || o("WAWebUserPrefsMeUser").isMeAccount(r)
+            c == null || o("WAWebUserUtils").isMeAccount(r)
               ? s._(/*BTDS*/ "Added by someone")
               : s._(/*BTDS*/ "Added by {user_name}", [
                   s._param("user_name", c),
@@ -108,7 +108,7 @@ __d(
           ? ((y = o("WAWebClock").Clock.groupCreatedStr(
               p,
               h,
-              o("WAWebUserPrefsMeUser").isMeAccount(g),
+              o("WAWebUserUtils").isMeAccount(g),
             )),
             (n[4] = h),
             (n[5] = p),

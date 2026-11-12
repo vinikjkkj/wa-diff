@@ -7,7 +7,7 @@ __d(
     "WAWebBotUtils",
     "WAWebMsgType",
     "WAWebThreadModelResolver",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "react",
     "react-compiler-runtime",
     "useWAWebEventTargetValue",
@@ -85,7 +85,7 @@ __d(
             if (!n || n.subtype === "biz_bot_3p_disclosure") return !0;
             if (
               n.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(n.from)
+              !o("WAWebUserUtils").isMeAccount(n.from)
             ) {
               var r = e.msgs.at(e.msgs.length - 2);
               if ((r == null ? void 0 : r.subtype) === "biz_bot_3p_disclosure")

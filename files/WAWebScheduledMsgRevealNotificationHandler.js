@@ -30,7 +30,6 @@ __d(
     "WAWebScheduledMsgOrphanRevealKeyStore",
     "WAWebScheduledMsgRevealChatUtils",
     "WAWebScheduledMsgRevealKeyStore",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -301,7 +300,7 @@ __d(
     function H(e) {
       if (e == null) return !1;
       try {
-        return o("WAWebUserPrefsMeUser").isMeAccount(
+        return o("WAWebUserUtils").isMeAccount(
           o("WAWebWidFactory").createWid(e),
         );
       } catch (e) {

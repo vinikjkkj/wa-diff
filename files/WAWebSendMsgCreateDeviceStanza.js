@@ -34,7 +34,7 @@ __d(
     "WAWebSendMsgMetaNode",
     "WAWebSessionScope",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWasaHatchOutboundWrapper",
@@ -64,8 +64,7 @@ __d(
                 sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
                 wids: [l],
               }),
-              o("WAWebUserPrefsMeUser").isMeAccount(l) &&
-              a.type !== c.AppStateSync
+              o("WAWebUserUtils").isMeAccount(l) && a.type !== c.AppStateSync
                 ? (i != null || s(0, 56363),
                   (u = o(
                     "WAWebDeviceSentMessageProtoUtils",
@@ -176,7 +175,7 @@ __d(
                 : a,
               v,
             ),
-            E = o("WAWebUserPrefsMeUser").isMeAccount(d)
+            E = o("WAWebUserUtils").isMeAccount(d)
               ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
                   L,
                   p,
@@ -315,7 +314,7 @@ __d(
               h.type === "user" &&
               v.type === c.Retry &&
               !N &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(S),
+              !o("WAWebUserUtils").isMeAccount(S),
             j =
               h.type === "group"
                 ? h.sessionScope
@@ -415,7 +414,7 @@ __d(
               )));
           }
           var ie =
-              !o("WAWebUserPrefsMeUser").isMeAccount(S) &&
+              !o("WAWebUserUtils").isMeAccount(S) &&
               f.data.kind !== o("WAWebMsgType").MsgKind.PeerMessage
                 ? yield o("WAWebReportingTokenUtils").genReportingTokenBody(
                     f.data,
@@ -427,7 +426,7 @@ __d(
             se,
             ue;
           if (
-            o("WAWebUserPrefsMeUser").isMeAccount(re) &&
+            o("WAWebUserUtils").isMeAccount(re) &&
             R != null &&
             R.isRegularUser()
           )

@@ -19,7 +19,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotificationsDailyUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
@@ -98,10 +98,10 @@ __d(
               : this.parentMessage.kicNotified
                 ? r("WAWebNotificationMuteReason").AlreadyNotifiedKic
                 : o("WAWebMsgGetters").getIsEphemeral(this.parentMessage)
-                  ? o("WAWebUserPrefsMeUser").isMeAccount(
+                  ? o("WAWebUserUtils").isMeAccount(
                       o("WAWebMsgGetters").getSender(this.parentMessage),
                     )
-                    ? o("WAWebUserPrefsMeUser").isMeAccount(this.kicSender)
+                    ? o("WAWebUserUtils").isMeAccount(this.kicSender)
                       ? r("WAWebNotificationMuteReason").KicByMe
                       : o("WAWebMuteGetters").getIsMuted(
                             o("WAWebFrontendMsgGetters").getChat(

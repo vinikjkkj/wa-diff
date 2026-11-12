@@ -9,7 +9,7 @@ __d(
     "WAWebContactExternalUserState",
     "WAWebLidMigrationUtils",
     "WAWebQueryFrequentlyContactedMsgCount",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,7 +25,7 @@ __d(
       g = 750,
       h = [
         function (e) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+          return o("WAWebUserUtils").isMeAccount(e.id);
         },
         function (e) {
           return e.isContactBlocked;

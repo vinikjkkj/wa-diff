@@ -384,33 +384,35 @@ __d(
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = t.allowAv1VideoCodec,
-              n = t.input,
-              r = t.mediaType,
-              a = t.rawMimeType,
-              i = t.requestId,
-              l = t.strictJpegScanValidationEnabled,
-              s = t.strictMp4ValidationEnabled,
-              u = t.strictOggOpusValidationEnabled,
-              c = t.zipArchiveCheckEnabled,
-              d = yield o(
+              n = t.claimedTypeValidationEnabled,
+              r = t.input,
+              a = t.mediaType,
+              i = t.rawMimeType,
+              l = t.requestId,
+              s = t.strictJpegScanValidationEnabled,
+              u = t.strictMp4ValidationEnabled,
+              c = t.strictOggOpusValidationEnabled,
+              d = t.zipArchiveCheckEnabled,
+              m = yield o(
                 "WAKaleidoscopeClassify",
-              ).kaleidoscopeClassifyByMediaType(n, r, a, {
-                strictJpegScanValidationEnabled: l,
-                strictOggOpusValidationEnabled: u,
-                strictMp4ValidationEnabled: s,
-                zipArchiveCheckEnabled: c,
+              ).kaleidoscopeClassifyByMediaType(r, a, i, {
+                strictJpegScanValidationEnabled: s,
+                strictOggOpusValidationEnabled: c,
+                strictMp4ValidationEnabled: u,
+                zipArchiveCheckEnabled: d,
                 allowAv1VideoCodec: e,
+                claimedTypeValidationEnabled: n,
               });
             return p({
-              output: d.success
+              output: m.success
                 ? o("WAResultOrError").makeResult({
-                    mimetype: d.value.mimetype,
-                    extension: d.value.extension,
-                    score: d.value.score,
+                    mimetype: m.value.mimetype,
+                    extension: m.value.extension,
+                    score: m.value.score,
                   })
-                : d,
-              input: n,
-              requestId: i,
+                : m,
+              input: r,
+              requestId: l,
             });
           }),
         )

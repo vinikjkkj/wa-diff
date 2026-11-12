@@ -50,7 +50,7 @@ __d(
     "WAWebThreadMsgUtils",
     "WAWebTrustedContactsUtils",
     "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWamEnumMessageType",
@@ -226,7 +226,7 @@ __d(
             !w
           ) {
             var A = m[0],
-              F = o("WAWebUserPrefsMeUser").isMeAccount(A)
+              F = o("WAWebUserUtils").isMeAccount(A)
                 ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
                     g,
                     b,
@@ -317,7 +317,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    var t = o("WAWebUserPrefsMeUser").isMeAccount(e)
+                    var t = o("WAWebUserUtils").isMeAccount(e)
                         ? o(
                             "WAWebDeviceSentMessageProtoUtils",
                           ).wrapDeviceSentMessage(g, b)

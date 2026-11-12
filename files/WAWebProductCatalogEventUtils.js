@@ -3,7 +3,7 @@ __d(
   [
     "WAWebBizCatalogViewWamEvent",
     "WAWebCatalogBizWamEvent",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "isStringNullOrEmpty",
@@ -25,7 +25,7 @@ __d(
             ? (t = e.catalogOwnerWid)
             : e.product && (t = e.product.catalogWid)
           : (t = o("WAWebWidFactory").createWid(e.catalogOwnerJid)),
-        t instanceof r("WAWebWid") && o("WAWebUserPrefsMeUser").isMeAccount(t)
+        t instanceof r("WAWebWid") && o("WAWebUserUtils").isMeAccount(t)
       );
     }
     function u(t) {

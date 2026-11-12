@@ -5,7 +5,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,7 +60,7 @@ __d(
         o("WAWebMsgGetters").getIsMarketingTemplateTag(e) &&
         (t == null ? void 0 : t.isRegularUser()) === !0 &&
         (n == null ? void 0 : n.isHosted()) === !0 &&
-        o("WAWebUserPrefsMeUser").isMeAccount(n) &&
+        o("WAWebUserUtils").isMeAccount(n) &&
         d()
       );
     }

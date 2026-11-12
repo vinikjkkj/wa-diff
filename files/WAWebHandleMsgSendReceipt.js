@@ -17,7 +17,7 @@ __d(
     "WAWebSendReceiptJobCommon",
     "WAWebSendRetryReceiptJob",
     "WAWebSessionScopeWamUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -43,7 +43,7 @@ __d(
               b = null;
             if (
               t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT &&
-              o("WAWebUserPrefsMeUser").isMeAccount(t.author)
+              o("WAWebUserUtils").isMeAccount(t.author)
             )
               if (t.originalBotRecipient != null) b = t.originalBotRecipient;
               else {
@@ -319,7 +319,7 @@ __d(
     function _(e) {
       return (
         e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT &&
-        o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom) &&
+        o("WAWebUserUtils").isMeAccount(e.metaFrom) &&
         o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e.author, e.metaFrom)
       );
     }
@@ -331,7 +331,7 @@ __d(
           e.metaFrom,
         ) &&
         e.metaFrom != null &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom)
+        !o("WAWebUserUtils").isMeAccount(e.metaFrom)
       );
     }
     function g(e) {

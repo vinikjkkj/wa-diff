@@ -1,6 +1,6 @@
 __d(
   "WAWebSplitCommunityParticipantsUtils",
-  ["WAWebUserPrefsMeUser"],
+  ["WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (e == null) return { membersInCAG: [], membersNotInCAG: t };
@@ -21,7 +21,7 @@ __d(
             return e.contact;
           })
           .filter(function (e) {
-            var t = o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+            var t = o("WAWebUserUtils").isMeAccount(e.id);
             return (t && (r = e), !t);
           }),
         i = r ? [r].concat(a) : a;

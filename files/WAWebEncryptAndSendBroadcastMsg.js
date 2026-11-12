@@ -25,7 +25,6 @@ __d(
     "WAWebSignal",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
@@ -99,7 +98,7 @@ __d(
             x = [],
             $ = [];
           I.forEach(function (e) {
-            o("WAWebUserPrefsMeUser").isMeAccount(e) ? $.push(e) : x.push(e);
+            o("WAWebUserUtils").isMeAccount(e) ? $.push(e) : x.push(e);
           });
           var P = T === !0 ? ", rotate=1" : "";
           (o("WALogger").LOG(

@@ -25,7 +25,7 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebSignalStoreApi",
     "WAWebSignalUtilsApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:10198",
@@ -108,7 +108,7 @@ __d(
             var k =
                 b.isUser() &&
                 !b.isBot() &&
-                !o("WAWebUserPrefsMeUser").isMeAccount(
+                !o("WAWebUserUtils").isMeAccount(
                   o("WAWebWidFactory").asUserWidOrThrow(b),
                 ),
               I;
@@ -161,7 +161,7 @@ __d(
             } else if (b.isUser()) {
               if (
                 ((P = o("WAWebCommsWapMd").DEVICE_JID(b)),
-                o("WAWebUserPrefsMeUser").isMeAccount(
+                o("WAWebUserUtils").isMeAccount(
                   o("WAWebWidFactory").asUserWidOrThrow(b),
                 ))
               )

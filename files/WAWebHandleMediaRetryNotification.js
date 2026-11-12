@@ -9,7 +9,6 @@ __d(
     "WAWebCryptoMediaRetry",
     "WAWebProtobufsMmsRetry.pb",
     "WAWebRequestMediaReuploadManager",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -78,7 +77,7 @@ __d(
             _ = a.msgId,
             f = a.participant;
           (l == null ||
-            !o("WAWebUserPrefsMeUser").isMeAccount(
+            !o("WAWebUserUtils").isMeAccount(
               o("WAWebWidFactory").createDeviceWidOrThrow(l.toString()),
             )) &&
             (o("WALogger").LOG(

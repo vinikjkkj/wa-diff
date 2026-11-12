@@ -14,6 +14,7 @@ __d(
     "WAWebSchemaMessage",
     "WAWebUnattributedMessageCollection",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumMultideviceActionType",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -131,7 +132,7 @@ __d(
             (yield _(),
             !!o("WAWebChatAssignmentGatingUtils").isMessageAttributionEnabled())
           ) {
-            var e = o("WAWebUserPrefsMeUser")
+            var e = o("WAWebUserUtils")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
                 .getDeviceId(),
               t = r("WAWebMiscBrowserUtils").persistentExpiringId();

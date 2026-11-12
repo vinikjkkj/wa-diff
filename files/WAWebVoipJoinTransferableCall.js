@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebLazyLoadedRetriable",
     "WAWebVoipGatingUtils",
     "WAWebVoipHandleCallTransferFailed",
@@ -22,9 +23,7 @@ __d(
         },
         "WAWebVoipCallTransferLobbyActions",
         {
-          isTerminalError: function () {
-            return !0;
-          },
+          isTerminalError: o("WAWebBoolFunc").returnTrue,
           onFinalFailure: function (n) {
             o("WALogger")
               .ERROR(

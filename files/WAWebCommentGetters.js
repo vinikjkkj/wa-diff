@@ -1,6 +1,6 @@
 __d(
   "WAWebCommentGetters",
-  ["WAWebAck", "WAWebGetters", "WAWebGettersCaches", "WAWebUserPrefsMeUser"],
+  ["WAWebAck", "WAWebGetters", "WAWebGettersCaches", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebGetters").createGetterFactories({
         createCache: o("WAWebGettersCaches").createCommentCache,
@@ -38,7 +38,7 @@ __d(
             n = e[1],
             r = e[2],
             a =
-              o("WAWebUserPrefsMeUser").isMeAccount(r) &&
+              o("WAWebUserUtils").isMeAccount(r) &&
               t != null &&
               t < o("WAWebAck").ACK.CLOCK;
           return a || !!n;

@@ -12,7 +12,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -60,7 +60,7 @@ __d(
         : e.some(function (e) {
             return (
               e != null &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+              !o("WAWebUserUtils").isMeAccount(e) &&
               (n == null || n.get(e.toString()) === t)
             );
           });

@@ -14,7 +14,7 @@ __d(
     "WAWebModalManager",
     "WAWebName.react",
     "WAWebNoop",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipEventConstants",
     "WAWebVoipGatingUtils",
     "WAWebVoipSignalingEnums",
@@ -92,7 +92,7 @@ __d(
       );
     }
     function k(t) {
-      var n = t != null && o("WAWebUserPrefsMeUser").isMeAccount(t);
+      var n = t != null && o("WAWebUserUtils").isMeAccount(t);
       if (n) {
         (o("WALogger").LOG(
           e ||

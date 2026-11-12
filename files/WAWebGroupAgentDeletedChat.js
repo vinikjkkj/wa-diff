@@ -6,7 +6,7 @@ __d(
     "WAWebBotUtils",
     "WAWebGroupType",
     "WAWebSchemaChat",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -26,7 +26,7 @@ __d(
             .concat(t, r)
             .some(o("WAWebBotUtils").isWidGroupAgentFbidWid) ||
             t.some(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e);
+              return o("WAWebUserUtils").isMeAccount(e);
             }) ||
             !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
             ? !1

@@ -6,7 +6,7 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "isStringNullOrEmpty",
@@ -24,7 +24,7 @@ __d(
     }
     function u(e) {
       if (
-        o("WAWebUserPrefsMeUser").isMeAccount(e.id) ||
+        o("WAWebUserUtils").isMeAccount(e.id) ||
         o("WAWebFrontendContactGetters").getIsMyContact(e) ||
         o("WAWebFrontendContactGetters").getIsContactBlocked(e)
       )

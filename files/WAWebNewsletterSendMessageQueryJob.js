@@ -29,14 +29,18 @@ __d(
               var r =
                 n.value
                   .newsletterQuestionResponseOrNewsletterScheduledMessageOrNewsletterMessageAckMixinGroup;
-              return {
-                success: !0,
-                ack: { t: r.value.t },
-                serverId:
-                  r.name === "NewsletterQuestionResponseAck"
-                    ? void 0
-                    : r.value.serverId,
-              };
+              return r.name === "NewsletterQuestionResponseAck"
+                ? {
+                    success: !0,
+                    ack: { t: r.value.t },
+                    serverId: void 0,
+                    responseServerId: r.value.responseServerId,
+                  }
+                : {
+                    success: !0,
+                    ack: { t: r.value.t },
+                    serverId: r.value.serverId,
+                  };
             }
             case "NewsletterResponseNegative":
               return {

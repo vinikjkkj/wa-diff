@@ -8,7 +8,7 @@ __d(
       var r = t / n,
         a = Math.min(r / e, e / r);
       return a > s &&
-        o("WAWebStatusGatingUtils").isStatusViewerFramedMediaEnabled()
+        o("WAWebStatusGatingUtils").isStatusViewerRefreshM1Enabled()
         ? "cover"
         : "contain";
     }

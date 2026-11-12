@@ -13,7 +13,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebSupportChatStrings",
     "WAWebSystemMessageGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumSystemMessageTypeType",
     "WAWebWid",
     "WAWebWidFormat",
@@ -138,7 +138,7 @@ __d(
                     enumType: o("WAWebWamEnumSystemMessageTypeType")
                       .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_BROADCAST_LIST,
                   }
-                : o("WAWebUserPrefsMeUser").isMeAccount(c)
+                : o("WAWebUserUtils").isMeAccount(c)
                   ? {
                       text: n
                         ? s._(

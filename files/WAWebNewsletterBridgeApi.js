@@ -337,6 +337,12 @@ __d(
             ),
           );
       },
+      updateMyQuestionResponsesCounts: function (t) {
+        var e = t.counts;
+        o(
+          "WAWebNewsletterBridgeMsgAddOnsUtils",
+        ).updateMyQuestionResponsesCounts(e);
+      },
       updateNewsletterMessages: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,

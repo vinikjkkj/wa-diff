@@ -3,8 +3,9 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = null;
-    function l(t) {
+    var e = null,
+      l = null;
+    function s(t) {
       return (
         (e = t),
         function () {
@@ -12,16 +13,29 @@ __d(
         }
       );
     }
-    function s() {
-      e = null;
+    function u(e) {
+      return (
+        (l = e),
+        function () {
+          l === e && (l = null);
+        }
+      );
     }
-    function u() {
+    function c() {
+      return (l == null ? void 0 : l()) === !0;
+    }
+    function d() {
+      ((e = null), (l = null));
+    }
+    function m() {
       var t = e;
-      return ((e = null), t);
+      return ((e = null), (l = null), t);
     }
-    ((i.registerDialogDismissHandler = l),
-      (i.clearDialogDismissHandler = s),
-      (i.takeDialogDismissHandler = u));
+    ((i.registerDialogDismissHandler = s),
+      (i.registerDialogDismissBlocker = u),
+      (i.isDialogDismissBlocked = c),
+      (i.clearDialogDismissHandler = d),
+      (i.takeDialogDismissHandler = m));
   },
   66,
 );

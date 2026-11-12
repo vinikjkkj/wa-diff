@@ -28,6 +28,7 @@ __d(
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "justknobx",
@@ -80,8 +81,8 @@ __d(
           p = m.dehydratedPaymentNode,
           _ = m.paymentInfo,
           f = D(e),
-          g = $(e),
-          h = P(e, a),
+          g = P(e),
+          h = N(e, a),
           y =
             (t =
               (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
@@ -104,12 +105,12 @@ __d(
         };
       });
     function v(e, t) {
-      var n = o("WAWebUserPrefsMeUser").isMeAccount(e),
+      var n = o("WAWebUserUtils").isMeAccount(e),
         r =
           e != null &&
           t != null &&
           e.isLid() &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+          !o("WAWebUserUtils").isMeAccount(e) &&
           t.equals(e);
       if (
         e == null ||
@@ -204,7 +205,7 @@ __d(
               o("WAWebHandleMsgCommon").MSG_CATEGORY,
             ),
             offline: l.maybeAttrString("offline"),
-            senderCountryCode: N(l.maybeChild("meta")),
+            senderCountryCode: M(l.maybeChild("meta")),
           },
           _ != null ? { serverStoreTimeMicros: _ } : null,
         ),
@@ -238,7 +239,7 @@ __d(
           return e.retryCount > 0;
         }),
         L = g.isGroup() || g.isBroadcast() ? h : g;
-      if (y != null && L != null && !o("WAWebUserPrefsMeUser").isMeAccount(L))
+      if (y != null && L != null && !o("WAWebUserUtils").isMeAccount(L))
         return l.throw("Invalid recipient from non peer device");
       var E = R(l),
         k = i == null ? void 0 : i.targetChatJid,
@@ -248,7 +249,7 @@ __d(
           k != null &&
           k.isFbidBot() &&
           !k.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
-          (I == null || o("WAWebUserPrefsMeUser").isMeAccount(I)) &&
+          (I == null || o("WAWebUserUtils").isMeAccount(I)) &&
           o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
         ) {
           var T = I != null ? I : o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
@@ -282,16 +283,16 @@ __d(
           },
         );
       } else if (r && g.isFbidBot() && k != null) {
-        var M = o("WAWebWidFactory").asUserWidOrThrow(k);
+        var N = o("WAWebWidFactory").asUserWidOrThrow(k);
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT },
           f,
-          { chat: M, author: g, botParticipant: g },
+          { chat: N, author: g, botParticipant: g },
         );
       } else if (g.isUser()) {
         var w = g;
         if (y != null) {
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(g))
+          if (!o("WAWebUserUtils").isMeAccount(g))
             return l.throw("recipient on non peer chat message");
           w = y;
         }
@@ -352,7 +353,7 @@ __d(
             h.isLid() &&
             f.participantPn == null &&
             f.displayName == null &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(h) &&
+            !o("WAWebUserUtils").isMeAccount(h) &&
             (o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -413,7 +414,7 @@ __d(
         if (g.isBroadcast() && !g.isStatus())
           return h == null
             ? l.throw("broadcast message with no participant")
-            : o("WAWebUserPrefsMeUser").isMeAccount(h)
+            : o("WAWebUserUtils").isMeAccount(h)
               ? E == null && !S
                 ? l.throw("peer broadcast message with no participants node")
                 : babelHelpers.extends(
@@ -452,7 +453,7 @@ __d(
                 : U.maybeAttrString("status_setting")) != null
               ? q
               : void 0;
-          if (o("WAWebUserPrefsMeUser").isMeAccount(h) && b) {
+          if (o("WAWebUserUtils").isMeAccount(h) && b) {
             if (E == null)
               return babelHelpers.extends(
                 {
@@ -885,6 +886,12 @@ __d(
       },
     );
     function $(e) {
+      var t = e.maybeAttrString("v");
+      if (t == null) return null;
+      var n = parseInt(t, 10);
+      return Number.isNaN(n) ? null : n;
+    }
+    function P(e) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var t = e.maybeChild("reporting");
@@ -893,9 +900,8 @@ __d(
         r = t.maybeChild("reporting_token"),
         a = t.maybeChild("reporting_tag");
       if (r != null) {
-        var i;
-        ((n.reportingToken = r.contentBytes()),
-          (n.version = (i = r.maybeAttrInt("v")) != null ? i : void 0));
+        var i = $(r);
+        i != null && ((n.reportingToken = r.contentBytes()), (n.version = i));
       }
       a != null && (n.reportingTag = a.contentBytes());
       var l = t.maybeAttrString("validation_policy");
@@ -916,7 +922,7 @@ __d(
       }
       return n;
     }
-    function P(e, t) {
+    function N(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var n = t.some(function (e) {
@@ -966,15 +972,14 @@ __d(
           p = d.maybeChild("reporting_token"),
           _ = d.maybeChild("reporting_tag"),
           f = _ != null ? new Uint8Array(_.contentBytes()) : null,
-          g = { stanzaId: m, reportingTag: f, sendTs: i, validationPolicy: s };
-        if (p != null) {
-          var h,
-            C = (h = p.maybeAttrInt("v")) != null ? h : 1,
-            b = p.contentBytes();
+          g = { stanzaId: m, reportingTag: f, sendTs: i, validationPolicy: s },
+          h = p != null ? $(p) : null;
+        if (p != null && h != null) {
+          var C = p.contentBytes();
           c.push(
             babelHelpers.extends({}, g, {
-              reportingToken: new Uint8Array(b),
-              version: C,
+              reportingToken: new Uint8Array(C),
+              version: h,
             }),
           );
         } else
@@ -987,7 +992,7 @@ __d(
       }
       return c;
     }
-    function N(e) {
+    function M(e) {
       var t = e == null ? void 0 : e.maybeAttrString("sender_country_code");
       if (t != null)
         try {

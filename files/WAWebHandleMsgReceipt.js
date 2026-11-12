@@ -16,7 +16,7 @@ __d(
     "WAWebHandleStatusReceipt",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebReceiptAck",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -204,7 +204,7 @@ __d(
             )
           );
         var m = o("WAWebWidFactory").asUserWidOrThrow(t.participant);
-        if (o("WAWebUserPrefsMeUser").isMeAccount(m))
+        if (o("WAWebUserUtils").isMeAccount(m))
           return (
             o("WALogger").LOG(
               s ||

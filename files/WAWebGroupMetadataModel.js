@@ -22,7 +22,6 @@ __d(
     "WAWebSubgroupSuggestionCollection",
     "WAWebUnjoinedSubgroupMetadataCollection",
     "WAWebUpdateSubgroupsCommunityAction",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
@@ -346,7 +345,7 @@ __d(
             t = this.owner;
           return (
             this.support ||
-            (t != null && o("WAWebUserPrefsMeUser").isMeAccount(t)) ||
+            (t != null && o("WAWebUserUtils").isMeAccount(t)) ||
             this.$GroupMetadata$p_9(t) ||
             this.$GroupMetadata$p_9(e) ||
             o("WAWebOrgMemberContactName").getKnownOrgMember(t) != null ||

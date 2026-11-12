@@ -6,7 +6,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebPrepareEventResponsesToUpsert",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "compactMap",
     "nullthrows",
@@ -38,7 +38,7 @@ __d(
                 isSendFailure:
                   e.ack != null &&
                   e.ack < o("WAAckLevel").ACK.CLOCK &&
-                  o("WAWebUserPrefsMeUser").isMeAccount(t),
+                  o("WAWebUserUtils").isMeAccount(t),
               }),
             ),
           ));

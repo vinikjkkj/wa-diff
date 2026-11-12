@@ -8,7 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebNewsletterQuestionResponseDataUtils",
-    "WAWebNewsletterSendMessageJob",
+    "WAWebNewsletterSendQuestionResponseJob",
     "WAWebNewsletterValidationUtils",
     "WAWebSendMsgResultAction",
     "WAWebUserUtils",
@@ -54,9 +54,8 @@ __d(
             m = new (o("WAWebMsgModel").Msg)(d);
           try {
             var p = yield o(
-              "WAWebNewsletterSendMessageJob",
-            ).sendNewsletterMessage({
-              type: "newsletterQuestionResponse",
+              "WAWebNewsletterSendQuestionResponseJob",
+            ).sendAndStoreQuestionResponse({
               newsletterJid: o(
                 "WAWebNewsletterValidationUtils",
               ).toNewsletterJidOrThrow(l.toJid()),

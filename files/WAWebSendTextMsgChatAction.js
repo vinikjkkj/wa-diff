@@ -52,7 +52,7 @@ __d(
     "WAWebStateUtils",
     "WAWebThreadMsgUtils",
     "WAWebThreadWriteThroughAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamMsgUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -195,7 +195,7 @@ __d(
               q = W.initiatedBy,
               U = babelHelpers.objectWithoutPropertiesLoose(W, e);
             ((B = babelHelpers.extends({}, U, {
-              initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(q),
+              initiatedByMe: o("WAWebUserUtils").isMeAccount(q),
             })),
               r("WAWebWid").isGroup(t.id) &&
                 typeof B.trigger == "string" &&
@@ -286,7 +286,7 @@ __d(
               H.invokedBotWid = Q;
               var X = x == null ? void 0 : x.botTargetSenderJid;
               X != null &&
-                !o("WAWebUserPrefsMeUser").isMeAccount(X) &&
+                !o("WAWebUserUtils").isMeAccount(X) &&
                 (H.botTargetSenderJid =
                   x == null ? void 0 : x.botTargetSenderJid);
             }

@@ -9,7 +9,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebReachoutTimelockUtils",
     "WAWebStartChatContextGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +19,7 @@ __d(
         return (
           t.isRegularUser() &&
           !o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked() &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+          !o("WAWebUserUtils").isMeAccount(t) &&
           !u(t) &&
           !c(t) &&
           o("WAWebStartChatContextGatingUtils").isStartChatContextEnabled()

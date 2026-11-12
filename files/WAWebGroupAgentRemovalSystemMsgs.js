@@ -10,7 +10,7 @@ __d(
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -182,7 +182,7 @@ __d(
           if (l.length === 0) return null;
           var p = l.find(function (e) {
               var t = e.id;
-              return o("WAWebUserPrefsMeUser").isMeAccount(t);
+              return o("WAWebUserUtils").isMeAccount(t);
             }),
             _ = l.filter(function (e) {
               return e !== p;
@@ -235,7 +235,7 @@ __d(
             l = i.author;
           if (a.length === 0 || l == null) return null;
           var s =
-            o("WAWebUserPrefsMeUser").isMeAccount(l) ||
+            o("WAWebUserUtils").isMeAccount(l) ||
             (r != null
               ? r
               : yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(

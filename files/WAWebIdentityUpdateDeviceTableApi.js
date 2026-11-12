@@ -19,8 +19,8 @@ __d(
     "WAWebProtobufsAdv.pb",
     "WAWebSignalSessionApi",
     "WAWebSyncdStoreMissingKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:16885",
@@ -251,9 +251,7 @@ __d(
                   ),
                 );
               }),
-              o("WAWebUserPrefsMeUser").isMeAccount(r) &&
-                u.length > 0 &&
-                (f = !0));
+              o("WAWebUserUtils").isMeAccount(r) && u.length > 0 && (f = !0));
           }),
             b.length > 0 &&
               o("WALogger").LOG(

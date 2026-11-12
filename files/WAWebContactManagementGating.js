@@ -1,6 +1,6 @@
 __d(
   "WAWebContactManagementGating",
-  ["WAWebABProps", "WAWebPrimaryFeatures", "WAWebUserPrefsMeUser", "WAWebWid"],
+  ["WAWebABProps", "WAWebPrimaryFeatures", "WAWebUserUtils", "WAWebWid"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return s();
@@ -34,7 +34,7 @@ __d(
     function f(e, t, n) {
       return (
         e.isRegularUser() &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !o("WAWebUserUtils").isMeAccount(e) &&
         !r("WAWebWid").isIAS(e) &&
         !r("WAWebWid").isCAPISupportAccount(e) &&
         !r("WAWebWid").isSupportAccount(e) &&

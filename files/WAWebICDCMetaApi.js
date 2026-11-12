@@ -43,7 +43,7 @@ __d(
               l
             );
           try {
-            a = o("WAWebUserPrefsMeUser").isMeAccount(e)
+            a = o("WAWebUserUtils").isMeAccount(e)
               ? null
               : yield o("WAWebIdentityIcdcApi").getICDCMeta(e);
           } catch (e) {

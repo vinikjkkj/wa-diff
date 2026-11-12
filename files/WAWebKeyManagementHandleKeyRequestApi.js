@@ -6,7 +6,7 @@ __d(
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdHandleKeyRequest",
     "WAWebSyncdKeyTypes",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
@@ -18,7 +18,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
+          if (!o("WAWebUserUtils").isMeAccount(n)) {
             o("WALogger")
               .ERROR(
                 e ||

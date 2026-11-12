@@ -3,7 +3,7 @@ __d(
   [
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumE2eDeviceType",
     "WAWebWamEnumEncryptionTypeCode",
     "WAWebWamEnumMessageDropReasonType",
@@ -26,7 +26,7 @@ __d(
         !e.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
       )
         return null;
-      var n = o("WAWebUserPrefsMeUser").isMeAccount(t);
+      var n = o("WAWebUserUtils").isMeAccount(t);
       return {
         encryptionType: n
           ? o("WAWebWamEnumEncryptionTypeCode").ENCRYPTION_TYPE_CODE

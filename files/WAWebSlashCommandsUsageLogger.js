@@ -9,7 +9,7 @@ __d(
     "WAWebSelfReminderGating",
     "WAWebUA",
     "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WaWebEmployeeSlashCommandFalcoEvent",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -99,7 +99,7 @@ __d(
       try {
         b({
           action: e,
-          command: o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+          command: o("WAWebUserUtils").isMeAccount(t.id)
             ? "remindme"
             : "remindus",
           chat: t,
@@ -288,7 +288,7 @@ __d(
         ? null
         : o("WAWebChatGetters").getIsGroup(e)
           ? "group"
-          : o("WAWebUserPrefsMeUser").isMeAccount(e.id)
+          : o("WAWebUserUtils").isMeAccount(e.id)
             ? "self"
             : e.id.isRegularUser()
               ? "one_to_one"

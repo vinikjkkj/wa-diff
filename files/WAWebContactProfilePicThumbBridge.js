@@ -11,8 +11,8 @@ __d(
     "WAWebProfilePicConstants",
     "WAWebSendProfilePictureJob",
     "WAWebURLUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -225,7 +225,7 @@ __d(
       );
     }
     function D(e, t) {
-      o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+      o("WAWebUserUtils").isMeAccount(e) &&
         o("WAWebUserPrefsMultiDevice").setCachedProfilePicEURL(
           t != null ? t : "",
         );

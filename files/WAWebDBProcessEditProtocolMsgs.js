@@ -35,7 +35,7 @@ __d(
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebThreadMetadataBulkJob",
     "WAWebThreadMsgUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -494,7 +494,7 @@ __d(
     function P(e, t) {
       return (
         (o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(t.from)) ||
+          !o("WAWebUserUtils").isMeAccount(t.from)) ||
         e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ||
         e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
         o("WAWebMessageEditGatingUtils").isCrossDeviceMessageEditingEnabled() ||

@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebApiDeviceList",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -44,8 +45,7 @@ __d(
               } else {
                 var a = o("WAWebWidFactory").asUserWidOrThrow(i[t]);
                 (u.length < 3 && u.push(a.toString()),
-                  o("WAWebUserPrefsMeUser").isMeAccount(a) ||
-                    s.set(a.toString(), a));
+                  o("WAWebUserUtils").isMeAccount(a) || s.set(a.toString(), a));
               }
             }),
             u.length > 0 &&

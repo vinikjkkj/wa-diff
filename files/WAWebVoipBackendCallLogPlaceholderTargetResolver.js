@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebLidMigrationUtils",
     "WAWebMessageProcessUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -22,7 +22,7 @@ __d(
             a = t.groupJid,
             i = yield d(o("WAWebWidFactory").asUserWidOrThrow(n));
           if (i == null) return null;
-          var l = o("WAWebUserPrefsMeUser").isMeAccount(i),
+          var l = o("WAWebUserUtils").isMeAccount(i),
             s,
             u;
           if (a != null) ((s = a), (u = i));

@@ -7,7 +7,7 @@ __d(
     "WAWebBizCoexHostedAddVerification",
     "WAWebProtobufsAdv.pb",
     "WAWebSchemaChat",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -23,7 +23,7 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = { notifications: [], chatIds: [] },
             i = [];
-          if (o("WAWebUserPrefsMeUser").isMeAccount(t))
+          if (o("WAWebUserUtils").isMeAccount(t))
             o("WALogger")
               .ERROR(
                 e ||

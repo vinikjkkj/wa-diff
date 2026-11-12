@@ -187,7 +187,8 @@ __d(
       var n = t.chatWid,
         r = t.entryPoint,
         a = t.msgInfo;
-      !n.isLid() &&
+      r !== "reparse-futureproof-msg" &&
+        !n.isLid() &&
         !n.isHostedLid() &&
         o("WALogger")
           .ERROR(

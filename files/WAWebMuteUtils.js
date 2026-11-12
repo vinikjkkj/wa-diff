@@ -5,13 +5,13 @@ __d(
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = !1;
-      if (o("WAWebUserPrefsMeUser").isMeAccount(e.id)) return !1;
+      if (o("WAWebUserUtils").isMeAccount(e.id)) return !1;
       if (r("WAWebWid").isGroup(e.id)) {
         var n = r("WAWebGroupMetadataCollection").get(e.id);
         n && (t = n.participants.iAmMember());

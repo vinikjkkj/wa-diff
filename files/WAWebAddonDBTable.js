@@ -5,6 +5,7 @@ __d(
     "WAWebAddonConstants",
     "WAWebAddonEventResponseTableMode",
     "WAWebAddonInfraError",
+    "WAWebAddonNewsletterQuestionResponseTableMode",
     "WAWebAddonPinTableMode",
     "WAWebAddonPollVoteTableMode",
     "WAWebAddonReactionTableMode",
@@ -25,6 +26,9 @@ __d(
           return o("WAWebAddonReactionTableMode").reactionTableMode;
         case o("WAWebAddonConstants").AddonTableMode.EventResponse:
           return o("WAWebAddonEventResponseTableMode").eventResponseTableMode;
+        case o("WAWebAddonConstants").AddonTableMode.NewsletterQuestionResponse:
+          return o("WAWebAddonNewsletterQuestionResponseTableMode")
+            .newsletterQuestionResponseTableMode;
         case o("WAWebAddonConstants").AddonTableMode.Unified:
           return o("WAWebAddonUnifiedAddonsTableMode").unifiedAddonsTableMode;
         case o("WAWebAddonConstants").AddonTableMode.None:

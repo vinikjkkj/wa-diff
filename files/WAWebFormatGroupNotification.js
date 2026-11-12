@@ -36,7 +36,7 @@ __d(
     "WAWebMessageCommunityWelcomeAdminTitle.react",
     "WAWebMessageCommunityWelcomeMemberTitle.react",
     "WAWebMsgModelUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFormat",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -162,14 +162,14 @@ __d(
           });
           break;
         case "invite":
-          a = o("WAWebUserPrefsMeUser").isMeAccount(h)
+          a = o("WAWebUserUtils").isMeAccount(h)
             ? s._(/*BTDS*/ "You joined via an invite link")
             : s._(/*BTDS*/ "{name} joined via an invite link", [
                 s._param("name", C),
               ]);
           break;
         case "revoke_invite":
-          a = o("WAWebUserPrefsMeUser").isMeAccount(c)
+          a = o("WAWebUserUtils").isMeAccount(c)
             ? s._(
                 /*BTDS*/ "You reset this group's invite link. Click to view the new invite link.",
               )
@@ -213,7 +213,7 @@ __d(
           break;
         case "no_frequently_forwarded":
           d === "on"
-            ? (a = o("WAWebUserPrefsMeUser").isMeAccount(c)
+            ? (a = o("WAWebUserUtils").isMeAccount(c)
                 ? s._(
                     /*BTDS*/ "You changed this group's settings to not allow messages that have been forwarded many times.",
                   )
@@ -221,7 +221,7 @@ __d(
                     /*BTDS*/ "{name} changed this group's settings to not allow messages that have been forwarded many times.",
                     [s._param("name", u)],
                   ))
-            : (a = o("WAWebUserPrefsMeUser").isMeAccount(c)
+            : (a = o("WAWebUserUtils").isMeAccount(c)
                 ? s._(
                     /*BTDS*/ "You changed this group's settings to allow messages that have been forwarded many times.",
                   )

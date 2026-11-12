@@ -11,7 +11,7 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUpdateDbForCommunityAction",
     "WAWebUpdateSubgroupsCommunityAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -43,7 +43,7 @@ __d(
       var c = r("WAWebGroupMetadataCollection").assertGet(n);
       if (
         (c.set({ lastActivityTimestamp: o("WATimeUtils").unixTime() }),
-        !o("WAWebUserPrefsMeUser").isMeAccount(t))
+        !o("WAWebUserUtils").isMeAccount(t))
       ) {
         var d = a.map(function (e) {
           return new (o("WAWebCommunityActivityModel").CommunityActivity)({

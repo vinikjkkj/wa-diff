@@ -251,7 +251,7 @@ __d(
           var L = yield o("WAWebApiContactUsernameFields").getContactUsername(
               i,
             ),
-            E = o("WAWebUserPrefsMeUser").isMeAccount(i),
+            E = o("WAWebUserUtils").isMeAccount(i),
             I = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([i, y], i);
           try {
             yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
@@ -280,10 +280,8 @@ __d(
               !0,
             $ = !1;
           I.forEach(function (e) {
-            (o("WAWebUserPrefsMeUser").isMeAccount(e) &&
-              !e.isHosted() &&
-              D.push(e),
-              (!o("WAWebUserPrefsMeUser").isMeAccount(e) || E) &&
+            (o("WAWebUserUtils").isMeAccount(e) && !e.isHosted() && D.push(e),
+              (!o("WAWebUserUtils").isMeAccount(e) || E) &&
                 (e.isHosted() ? ($ = !0) : T.push(e)));
           });
           try {

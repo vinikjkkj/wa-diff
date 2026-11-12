@@ -14,7 +14,7 @@ __d(
     "WAWebHandleMsgTypes",
     "WAWebHandlePushnameUpdate",
     "WAWebQueryMissingParentGroupJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -51,8 +51,7 @@ __d(
             L = a.parentGroup,
             E = a.participants,
             k = a.subject;
-          ((f.author == null ||
-            !o("WAWebUserPrefsMeUser").isMeAccount(f.author)) &&
+          ((f.author == null || !o("WAWebUserUtils").isMeAccount(f.author)) &&
             new (o("WAWebGroupJoinCWamEvent").GroupJoinCWamEvent)().commit(),
             y &&
               b != null &&

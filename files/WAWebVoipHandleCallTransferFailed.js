@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebCallCollection",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -113,13 +114,7 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            (t === void 0 &&
-              (t = function () {
-                return !0;
-              }),
-            !t())
-          )
+          if ((t === void 0 && (t = o("WAWebBoolFunc").returnTrue), !t()))
             return !1;
           var n = e === o("WAWebVoipWaCallEnums").CallTransferFailure.Timeout;
           try {

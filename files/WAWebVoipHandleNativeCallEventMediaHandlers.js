@@ -5,7 +5,7 @@ __d(
     "WAThrottle",
     "WAWebBackendApi",
     "WAWebCallUserJourneyLogger",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipCameraFingerprintLogging",
     "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipEncodeTargetFpsState",
@@ -241,7 +241,7 @@ __d(
           );
           if (t.type === "web") {
             var n = t.parsers.parseScreenShareStateChangedData(e);
-            (o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
+            (o("WAWebUserUtils").isMeAccount(n.sharer_jid) &&
               o(
                 "WAWebVoipDualStreamScreenShareState",
               ).setSelfDualStreamScreenShareActive(
@@ -255,7 +255,7 @@ __d(
               (n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
                 n.state ===
                   o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
-                o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
+                o("WAWebUserUtils").isMeAccount(n.sharer_jid) &&
                 (o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
                 o(
                   "WAWebVoipVideoCaptureAndRendering",

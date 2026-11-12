@@ -21,7 +21,7 @@ __d(
     "WAWebSchemaPendingBusinessBroadcastMessage",
     "WAWebSendBroadcastMsgAction",
     "WAWebSendMsgResultAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -602,7 +602,7 @@ __d(
               ),
               null
             );
-          var n = o("WAWebUserPrefsMeUser")
+          var n = o("WAWebUserUtils")
             .getMeDevicePnOrThrow_DO_NOT_USE()
             .getDeviceId();
           return t.deviceId !== n

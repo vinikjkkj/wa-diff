@@ -4,7 +4,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "nullthrows",
@@ -51,7 +51,7 @@ __d(
           r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
         ),
         ack: o("WAWebMsgGetters").getAck(e),
-        read: o("WAWebUserPrefsMeUser").isMeAccount(e.from) || e.read,
+        read: o("WAWebUserUtils").isMeAccount(e.from) || e.read,
         lastSuccessfulSelectedOptionLocalIds:
           e.lastSuccessfulSelectedOptionLocalIds,
         unresolvedOptionHashes: e.unresolvedOptionHashes,

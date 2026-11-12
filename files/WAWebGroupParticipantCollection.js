@@ -52,7 +52,7 @@ __d(
           }),
           (a.$ParticipantCollection$p_3 = function (e) {
             var t, n;
-            if (!(!e || !o("WAWebUserPrefsMeUser").isMeAccount(e.id))) {
+            if (!(!e || !o("WAWebUserUtils").isMeAccount(e.id))) {
               var r = a.parent.id,
                 i = r
                   ? (t = o("WAWebChatCollection").ChatCollection.get(
@@ -192,7 +192,7 @@ __d(
           var e = this.getGroupMetadata();
           return !(
             (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
-            o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
+            o("WAWebUserUtils").isMeAccount(t.id) ||
             !this.iAmSuperAdmin() ||
             !t.isAdmin ||
             o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) !==
@@ -204,7 +204,7 @@ __d(
           return !(
             (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
             !t ||
-            o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
+            o("WAWebUserUtils").isMeAccount(t.id) ||
             !this.iAmAdmin() ||
             t.isAdmin ||
             (e != null && o("WAWebGroupMetadataGetters").getIsCag(e)) ||
@@ -221,7 +221,7 @@ __d(
               o("WAWebGroupType").GroupType.COMMUNITY &&
               o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) !==
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-              o("WAWebUserPrefsMeUser").isMeAccount(t.id))
+              o("WAWebUserUtils").isMeAccount(t.id))
           )
             return !1;
           var n = t.isSuperAdmin;
@@ -230,7 +230,7 @@ __d(
                 o("WAWebGroupType").GroupType.COMMUNITY ||
               o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-              ? o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+              ? o("WAWebUserUtils").isMeAccount(t.id)
               : !1
             : !(
                 !t.isAdmin ||
@@ -242,7 +242,7 @@ __d(
           var e = this.getGroupMetadata();
           return (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
             !t ||
-            o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+            o("WAWebUserUtils").isMeAccount(t.id)
             ? !1
             : this.iAmAdmin()
               ? !(
@@ -261,7 +261,7 @@ __d(
           if (
             !t ||
             o("WAWebProductFeature").isInternalProduct() ||
-            o("WAWebUserPrefsMeUser").isMeAccount(t.id)
+            o("WAWebUserUtils").isMeAccount(t.id)
           )
             return !1;
           var r = this.getGroupMetadata();

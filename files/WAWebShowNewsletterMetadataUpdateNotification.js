@@ -3,7 +3,7 @@ __d(
   [
     "WAWebNotificationController",
     "WAWebNotificationsNewsletterMetadataUpdateNotification",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,7 +21,7 @@ __d(
             a != null &&
             a != null &&
             a.iAmOwner() &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(r) &&
+            !o("WAWebUserUtils").isMeAccount(r) &&
             n.length !== 0
           )
             return o(

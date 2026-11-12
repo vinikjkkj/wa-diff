@@ -50,7 +50,10 @@ __d(
           loggingState: s(u),
           workQueue: o(
             "VideoPlayerNextgendashWorkQueue",
-          ).createVideoPlayerNextgendashWorkQueue(c.scheduleToRun),
+          ).createVideoPlayerNextgendashWorkQueue(
+            c.scheduleToRun,
+            l.enableWorkerOptimizations,
+          ),
         },
         m = o(
           "VideoPlayerNextgendashWorker",

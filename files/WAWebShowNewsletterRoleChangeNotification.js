@@ -5,7 +5,7 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebNotificationController",
     "WAWebNotificationsNewsletterRoleChangeNotification",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,7 +20,7 @@ __d(
       if (c == null) return (e || (e = n("Promise"))).resolve();
       var d =
         l === "promote" &&
-        o("WAWebUserPrefsMeUser").isMeAccount(u) &&
+        o("WAWebUserUtils").isMeAccount(u) &&
         s === o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner;
       if (d)
         return o(
@@ -40,17 +40,17 @@ __d(
           l === "promote" &&
           s ===
             o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(u),
+          !o("WAWebUserUtils").isMeAccount(u),
         p =
           l === "demote" &&
           s ===
             o("WAWebCommonNewsletterEnums").NewsletterMembershipType
               .Subscriber &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(u) &&
+          !o("WAWebUserUtils").isMeAccount(u) &&
           u.toJid() === (a == null ? void 0 : a.toJid()),
         _ =
           l === "demote" &&
-          o("WAWebUserPrefsMeUser").isMeAccount(u) &&
+          o("WAWebUserUtils").isMeAccount(u) &&
           u.toJid() !== (a == null ? void 0 : a.toJid());
       return m || p || _
         ? o(

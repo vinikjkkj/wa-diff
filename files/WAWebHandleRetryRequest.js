@@ -32,7 +32,7 @@ __d(
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebStatusSessionGatingUtils",
     "WAWebUpdateLocalSignalSession",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipStackInterface",
     "WAWebWamEnumDeviceType",
     "WAWebWidFactory",
@@ -284,7 +284,7 @@ __d(
               (n("cr:17733") == null
                 ? void 0
                 : n("cr:17733").isRegularUserOrAeaBot(e)) !== !0 ||
-              o("WAWebUserPrefsMeUser").isMeAccount(t)
+              o("WAWebUserUtils").isMeAccount(t)
             )
               return !1;
             try {
@@ -518,7 +518,7 @@ __d(
       return (
         e.isUser() &&
         n === o("WAWebSessionScope").SessionScope.DEFAULT &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+        !o("WAWebUserUtils").isMeAccount(t) &&
         !t.isBot() &&
         !t.isFbidBot() &&
         !t.isHosted() &&
@@ -675,7 +675,7 @@ __d(
       if (n.isBot() && r != null) return r;
       if (n.isUser()) {
         var a = o("WAWebWidFactory").asUserWidOrThrow(n);
-        if (o("WAWebUserPrefsMeUser").isMeAccount(a)) {
+        if (o("WAWebUserUtils").isMeAccount(a)) {
           if (!r) {
             var i;
             return (

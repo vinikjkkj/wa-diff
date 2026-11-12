@@ -12,7 +12,7 @@ __d(
     "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdKeyTypes",
     "WAWebSyncdUploadFatalErrorMetric",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "WAWebWamEnumMdSyncdFatalErrorCode",
     "asyncToGeneratorRuntime",
@@ -204,7 +204,7 @@ __d(
         };
       })();
     function C(e, t) {
-      return o("WAWebUserPrefsMeUser").isMeAccount(t)
+      return o("WAWebUserUtils").isMeAccount(t)
         ? y(e, t)
         : (o("WALogger")
             .ERROR(

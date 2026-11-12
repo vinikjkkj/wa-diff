@@ -5,7 +5,7 @@ __d(
     "WAWebMessageAssociation.flow",
     "WAWebMsgKey",
     "WAWebRevokeMsgConstants",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -49,7 +49,7 @@ __d(
         !r.fromMe &&
         t.fromMe &&
         t.remote.equals(r.remote) &&
-        o("WAWebUserPrefsMeUser").isMeAccount(n)
+        o("WAWebUserUtils").isMeAccount(n)
       );
     }
     ((l.getMsgKeyAfterRevoke = e),

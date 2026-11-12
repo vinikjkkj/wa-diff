@@ -118,18 +118,21 @@ __d(
           (a.handleStanza = function (t, n) {
             var e = this,
               r = this.$10;
-            return this.$19({
-              fn: function () {
-                return e.$20(t, n, r);
-              },
-              name: n.tag + "_process_stanza",
-              priority:
-                n.tag === "receipt" && n.offline == null
-                  ? o("TaskSchedulerPriority").NORMAL_PRIORITY
-                  : o("TaskSchedulerPriority").BLOCKING_PRIORITY,
-            }).then(function () {
-              return "NO_ACK";
-            });
+            return (
+              n.offline != null && this.$6.stanzaArrived(n.offline),
+              this.$19({
+                fn: function () {
+                  return e.$20(t, n, r);
+                },
+                name: n.tag + "_process_stanza",
+                priority:
+                  n.tag === "receipt" && n.offline == null
+                    ? o("TaskSchedulerPriority").NORMAL_PRIORITY
+                    : o("TaskSchedulerPriority").BLOCKING_PRIORITY,
+              }).then(function () {
+                return "NO_ACK";
+              })
+            );
           }),
           (a.handleOfflineStartStanza = function (t) {
             t.count !== 0 &&

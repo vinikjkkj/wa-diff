@@ -6,6 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
+    "WAWebContactBirthday",
     "WAWebContactCollection",
     "WAWebContactShortName",
     "WAWebContactUtils",
@@ -110,37 +111,43 @@ __d(
                                   o("WAWebSyncdConst").SyncActionState.Skipped,
                               }
                             );
-                          var c = u.firstName,
-                            d = u.fullName,
-                            m = u.lidJid,
-                            p = u.saveOnPrimaryAddressbook,
-                            _ = u.username,
-                            f = {
-                              id: a,
-                              name: d != null ? d : "",
-                              shortName:
-                                (s =
-                                  c != null
-                                    ? c
-                                    : o("WAWebContactShortName").getShortName(
-                                        d,
-                                      )) != null
-                                  ? s
-                                  : "",
-                              type: "in",
-                              syncToAddressbook: p,
-                              isAddressBookContact: 1,
-                              isContactSyncCompleted: 0,
-                              isUsernameContact: !1,
-                            };
-                          r("isStringNullOrEmpty")(_) ||
-                            (f.username =
-                              o("WAWebUsernameTypes").asUsername(_));
-                          var g =
-                            m != null
+                          var c = u.birthday,
+                            d = u.firstName,
+                            m = u.fullName,
+                            p = u.lidJid,
+                            _ = u.saveOnPrimaryAddressbook,
+                            f = u.username,
+                            g = babelHelpers.extends(
+                              {
+                                id: a,
+                                name: m != null ? m : "",
+                                shortName:
+                                  (s =
+                                    d != null
+                                      ? d
+                                      : o("WAWebContactShortName").getShortName(
+                                          m,
+                                        )) != null
+                                    ? s
+                                    : "",
+                                type: "in",
+                                syncToAddressbook: _,
+                                isAddressBookContact: 1,
+                                isContactSyncCompleted: 0,
+                                isUsernameContact: !1,
+                              },
+                              o(
+                                "WAWebContactBirthday",
+                              ).getContactSyncBirthdayFields(c),
+                            );
+                          r("isStringNullOrEmpty")(f) ||
+                            (g.username =
+                              o("WAWebUsernameTypes").asUsername(f));
+                          var C =
+                            p != null
                               ? o("WAWebWidFactory").asUserLidOrThrow(
                                   o("WAWebWidFactory").createUserWidOrThrow(
-                                    m,
+                                    p,
                                     "lid",
                                   ),
                                 )
@@ -148,17 +155,17 @@ __d(
                           if (
                             (v.set(
                               i,
-                              g != null
-                                ? g
+                              C != null
+                                ? C
                                 : o("WAWebLidMigrationUtils").toLid(i),
                             ),
-                            i.isRegularUserPn() && g)
+                            i.isRegularUserPn() && C)
                           ) {
-                            var C = g;
-                            b.push({ lid: C, pn: i });
+                            var E = C;
+                            b.push({ lid: E, pn: i });
                           }
                           return (
-                            h.push(f),
+                            h.push(g),
                             o("WAWebSyncNewContact").syncNewContact(i),
                             {
                               actionState:

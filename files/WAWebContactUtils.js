@@ -8,7 +8,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebPrimaryFeaturesModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebVcardParsingUtils",
@@ -103,7 +103,7 @@ __d(
     function m(e) {
       return (
         e.isRegularUser() &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !o("WAWebUserUtils").isMeAccount(e) &&
         !r("WAWebWid").isAiHub(e) &&
         !r("WAWebWid").isIAS(e) &&
         !r("WAWebWid").isCAPISupportAccount(e) &&
@@ -191,7 +191,8 @@ __d(
         (e.set("name", void 0),
         e.set("shortName", void 0),
         e.set("type", "out")),
-        e.set("isUsernameContact", !1));
+        e.set("isUsernameContact", !1),
+        e.birthday != null && e.set("birthday", null));
     }
     function h(e) {
       var t;

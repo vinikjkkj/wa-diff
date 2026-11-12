@@ -7,7 +7,7 @@ __d(
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterDemoteAdminJob",
     "WAWebNewsletterValidationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -40,7 +40,7 @@ __d(
               (a = t.newsletterMetadata) != null &&
               a.iAmOwner()
             ) &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(n.id)
+            !o("WAWebUserUtils").isMeAccount(n.id)
           )
             throw (
               o("WALogger")
@@ -60,7 +60,7 @@ __d(
               (i = t.newsletterMetadata) != null &&
               i.iAmAdmin()
             ) &&
-            o("WAWebUserPrefsMeUser").isMeAccount(n.id)
+            o("WAWebUserUtils").isMeAccount(n.id)
           )
             throw (
               o("WALogger")
@@ -83,7 +83,7 @@ __d(
               d,
               l,
             ),
-              o("WAWebUserPrefsMeUser").isMeAccount(n.id)
+              o("WAWebUserUtils").isMeAccount(n.id)
                 ? yield o(
                     "WAWebNewsletterBridgeApi",
                   ).NewsletterBridgeApi.updateMyNewsletterMembershipRole({

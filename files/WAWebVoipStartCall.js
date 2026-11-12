@@ -29,7 +29,6 @@ __d(
     "WAWebShouldShowCallButtons",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
@@ -1195,7 +1194,7 @@ __d(
           function* (e, t, n, a, i) {
             (n === void 0 && (n = 0), a === void 0 && (a = 0));
             var l = e.filter(function (e) {
-                return !o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+                return !o("WAWebUserUtils").isMeAccount(e.id);
               }),
               s = l.length > 1 ? ce(t, !0) : null;
             if (
@@ -1250,7 +1249,7 @@ __d(
             var i = e.filter(function (e) {
                 return (
                   o("WAWebShouldShowCallButtons").canBeCallParticipant(e) &&
-                  !o("WAWebUserPrefsMeUser").isMeAccount(e)
+                  !o("WAWebUserUtils").isMeAccount(e)
                 );
               }).length,
               l = i > 1 ? ce(t, !0) : null;
@@ -1301,7 +1300,7 @@ __d(
           )
           .sendLogs("voip-group-call-dropped-non-callable");
       var r = n.filter(function (e) {
-        return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+        return !o("WAWebUserUtils").isMeAccount(e);
       });
       return r.length === 0
         ? (o("WALogger")
@@ -1574,7 +1573,7 @@ __d(
                   );
                 })
                 .filter(function (e) {
-                  return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
+                  return e != null && !o("WAWebUserUtils").isMeAccount(e);
                 }),
               R = yield Ce({ isGroup: !0, isJoin: !0, isVideo: d });
             if (R.status !== "not_ready") {
@@ -1870,7 +1869,7 @@ __d(
           var s = [].concat(
               t ? [r] : [],
               a.filter(function (e) {
-                return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
+                return e != null && !o("WAWebUserUtils").isMeAccount(e);
               }),
             ),
             u = s.map(function (e) {

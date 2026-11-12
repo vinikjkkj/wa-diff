@@ -34,7 +34,7 @@ __d(
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebSchemaMessage",
     "WAWebSchemaPendingBusinessBroadcastMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumWebcRmrReasonCode",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -718,7 +718,7 @@ __d(
             ]),
             t = e[0],
             a = e[1],
-            i = o("WAWebUserPrefsMeUser")
+            i = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId(),
             l = o("WAWebBizBroadcastCampaignAPI").filterCampaignsByDevice(t, i);

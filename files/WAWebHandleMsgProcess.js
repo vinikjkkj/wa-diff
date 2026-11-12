@@ -46,6 +46,7 @@ __d(
     "WAWebSignal",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
+    "WAWebUserUtils",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWamEnumDsmError",
     "WAWebWamEnumE2eFailureReason",
@@ -427,7 +428,7 @@ __d(
                 ),
               )
               .sendLogs(
-                o("WAWebUserPrefsMeUser").isMeAccount(w)
+                o("WAWebUserUtils").isMeAccount(w)
                   ? "lid-migration-peer-stanza-received"
                   : "lid-migration-non-peer-stanza-received",
               );
@@ -551,7 +552,7 @@ __d(
               );
             var pe = X.rootSecretDistribute;
             if (pe != null)
-              if (o("WAWebUserPrefsMeUser").isMeAccount(s.author)) {
+              if (o("WAWebUserUtils").isMeAccount(s.author)) {
                 var _e = pe.chatJid,
                   fe = pe.rootSecret,
                   ge = pe.stanzaId;
@@ -593,9 +594,7 @@ __d(
                 serverAddressingMode: s.addressingMode,
                 isPq: i.isPq,
                 localAddressingMode: ye,
-                oppositeHasUsername: o("WAWebUserPrefsMeUser").isMeAccount(
-                  s.author,
-                )
+                oppositeHasUsername: o("WAWebUserUtils").isMeAccount(s.author)
                   ? s.peerRecipientUsername != null
                   : s.username != null,
                 sessionScope: o(

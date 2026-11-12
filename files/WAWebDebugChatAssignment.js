@@ -12,7 +12,7 @@ __d(
     "WAWebFeatureFlagCollection",
     "WAWebFeatureFlagName",
     "WAWebMobilePlatforms",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -148,9 +148,7 @@ __d(
     function _() {
       return (
         r("vulture")("-j0iAGOeyTVP_BkKkqlsNRVTPR8="),
-        o("WAWebUserPrefsMeUser")
-          .getMeDevicePnOrThrow_DO_NOT_USE()
-          .getDeviceId()
+        o("WAWebUserUtils").getMeDevicePnOrThrow_DO_NOT_USE().getDeviceId()
       );
     }
     function f() {

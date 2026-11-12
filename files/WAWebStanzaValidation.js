@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebLidMigrationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWidValidator",
     "getErrorSafe",
@@ -122,7 +122,7 @@ __d(
                     var t = o("WAWebWidFactory").asUserWidOrThrow(
                       o("WAWebWidFactory").createWid(e),
                     );
-                    (o("WAWebUserPrefsMeUser").isMeAccount(t) && (a = !0),
+                    (o("WAWebUserUtils").isMeAccount(t) && (a = !0),
                       o("WAWebLidMigrationUtils").toLid(t) != null && i++);
                   } catch (e) {}
                 }

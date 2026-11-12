@@ -9,6 +9,7 @@ __d(
     "WAWebHandleMsgTypes",
     "WAWebHandleNewsletterMsgAddOns",
     "WAWebHandleNewsletterMsgLogger",
+    "WAWebHandleNewsletterQuestionResponseFanout",
     "WAWebLogReceivedMessages",
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
@@ -29,16 +30,16 @@ __d(
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var a = r("WAWebNewsletterMsgParser")(t),
-              i = a.ack,
-              l = a.msg;
+            var t = r("WAWebNewsletterMsgParser")(e),
+              a = t.ack,
+              i = t.msg;
             if (!o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
-              return i;
-            var d = o("WATimeUtils").unixTimeMs(),
-              m = l.offline != null;
-            (m &&
+              return a;
+            var l = o("WATimeUtils").unixTimeMs(),
+              d = i.offline != null;
+            (d &&
               (o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.addOfflinePendingMessage(),
@@ -48,30 +49,40 @@ __d(
               o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.isResumeFromRestartComplete() &&
-                ((l.offline = null), (m = !1)));
-            var p = !o("WAWebNewsletterMsgProcessor").isAddOnType(l.type);
+                ((i.offline = null), (d = !1)));
+            var m = !o("WAWebNewsletterMsgProcessor").isAddOnType(i.type);
             return yield o("WAWebMessageQueue")
               .onMessageQueue({
-                chatWid: l.from,
-                isOffline: m,
+                chatWid: i.from,
+                isOffline: d,
                 msgCategory: null,
                 action: (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
-                      var t = o("WATimeUtils").unixTimeMs(),
-                        a = yield o(
+                      if (
+                        i.type === "NewsletterQuestionResponse" ||
+                        i.type === "NewsletterQuestionResponseRevokeFanout"
+                      )
+                        return (
+                          yield o(
+                            "WAWebHandleNewsletterQuestionResponseFanout",
+                          ).handleNewsletterQuestionResponseFanout(i),
+                          p({ ack: a, from: i.from, id: i.id, isOffline: d })
+                        );
+                      var e = o("WATimeUtils").unixTimeMs(),
+                        t = yield o(
                           "WAWebNewsletterMsgProcessor",
-                        ).preprocessNewsletterMsg(l),
-                        u = a.isOrphan,
-                        _ = a.msgData,
-                        f = p
+                        ).preprocessNewsletterMsg(i),
+                        r = t.isOrphan,
+                        u = t.msgData,
+                        _ = m
                           ? o("WAWebMessageProcessorCache")
                               .messageProcessorCache.addMessages(
-                                [{ msg: _ }],
+                                [{ msg: u }],
                                 o(
                                   "WAWebMessageQueueImpl",
                                 ).shouldFlushMessageImmediately(
-                                  m,
+                                  d,
                                   o("WAWebBackendEventBus").BackendEventBus
                                     .isOfflineDeliveryEnd,
                                 ),
@@ -83,20 +94,20 @@ __d(
                                   o(
                                     "WAWebLogReceivedMessages",
                                   ).logReceivedMessagesInWAM({
-                                    msgs: [_],
-                                    offline: l.offline,
-                                    tsMillis: l.t * 1e3,
-                                    clientReceivedTsMillis: d,
-                                    msgProcessStartTsMillis: t,
+                                    msgs: [u],
+                                    offline: i.offline,
+                                    tsMillis: i.t * 1e3,
+                                    clientReceivedTsMillis: l,
+                                    msgProcessStartTsMillis: e,
                                     serverAddressingMode: null,
                                     localAddressingMode: null,
                                   }));
                               })
-                              .catch(function (t) {
+                              .catch(function (e) {
                                 o("WALogger")
                                   .ERROR(
-                                    e ||
-                                      (e =
+                                    s ||
+                                      (s =
                                         babelHelpers.taggedTemplateLiteralLoose(
                                           [
                                             "[newsletter] Failed to handle newsletter message",
@@ -112,60 +123,25 @@ __d(
                       return (
                         yield o(
                           "WAWebHandleNewsletterMsgAddOns",
-                        ).maybeHandleNewsletterMsgAddOns(_, {
-                          pollVotes: l.pollVote,
+                        ).maybeHandleNewsletterMsgAddOns(u, {
+                          pollVotes: i.pollVote,
                         }),
                         o("WAWebBackendEventBus").BackendEventBus
                           .isMainStreamReadyMd &&
                           (o("WAWebBackendEventBus").BackendEventBus
-                            .isOfflineDeliveryEnd && (yield f),
+                            .isOfflineDeliveryEnd && (yield _),
                           o("WAWebBackendApi").frontendFireAndForget(
                             "updateNewsletterMessageUI",
-                            { chatID: l.from, msg: _, isOrphan: u },
+                            { chatID: i.from, msg: u, isOrphan: r },
                           )),
-                        m
-                          ? (o(
-                              "WAWebOfflineHandler",
-                            ).OfflineMessageHandler.processMessageDecryptResult(
-                              o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
-                            ),
-                            o("WAWebMessageProcessorCache")
-                              .messageProcessorCache.addMessages([
-                                {
-                                  receiptInfo: {
-                                    externalId: l.id,
-                                    from: l.from,
-                                    author: l.from,
-                                  },
-                                },
-                              ])
-                              .catch(function (e) {
-                                var t = r("getErrorSafe")(e);
-                                o("WALogger")
-                                  .ERROR(
-                                    s ||
-                                      (s =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[newsletter] Failed to handle newsletter offline ack",
-                                          ],
-                                        )),
-                                  )
-                                  .catching(t)
-                                  .tags("newsletter")
-                                  .sendLogs(
-                                    "newsletter-failed-to-store-offline-ack",
-                                  );
-                              }),
-                            null)
-                          : i
+                        p({ ack: a, from: i.from, id: i.id, isOffline: d })
                       );
                     },
                   );
-                  function a() {
-                    return t.apply(this, arguments);
+                  function t() {
+                    return e.apply(this, arguments);
                   }
-                  return a;
+                  return t;
                 })(),
               })
               .catch(function (e) {
@@ -174,11 +150,11 @@ __d(
                   "newsletter_msg",
                 );
               });
-          } catch (e) {
-            var _ = r("getErrorSafe")(e);
+          } catch (t) {
+            var _ = r("getErrorSafe")(t);
             throw (
               o("WAWebHandleNewsletterMsgLogger").handleNewsletterMsgError(_, {
-                stanza: t,
+                stanza: e,
               }),
               o("WALogger")
                 .ERROR(
@@ -196,6 +172,37 @@ __d(
         })),
         m.apply(this, arguments)
       );
+    }
+    function p(t) {
+      var n = t.ack,
+        a = t.from,
+        i = t.id,
+        l = t.isOffline;
+      return l
+        ? (o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.processMessageDecryptResult(
+            o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
+          ),
+          o("WAWebMessageProcessorCache")
+            .messageProcessorCache.addMessages([
+              { receiptInfo: { externalId: i, from: a, author: a } },
+            ])
+            .catch(function (t) {
+              var n = r("getErrorSafe")(t);
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter] Failed to handle newsletter offline ack",
+                    ])),
+                )
+                .catching(n)
+                .tags("newsletter")
+                .sendLogs("newsletter-failed-to-store-offline-ack");
+            }),
+          null)
+        : n;
     }
     l.default = d;
   },

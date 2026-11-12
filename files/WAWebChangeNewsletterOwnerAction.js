@@ -7,7 +7,7 @@ __d(
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterChangeOwnerJob",
     "WAWebNewsletterValidationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -47,7 +47,7 @@ __d(
                 .sendLogs("non-newsletter-owner-transferring-ownership"),
               r("err")("non-newslette-owner-transferring-ownership")
             );
-          if (o("WAWebUserPrefsMeUser").isMeAccount(n.id))
+          if (o("WAWebUserUtils").isMeAccount(n.id))
             throw (
               o("WALogger")
                 .ERROR(

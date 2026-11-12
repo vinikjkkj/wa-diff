@@ -1,11 +1,6 @@
 __d(
   "WAWebFormatMemberAddModeNotification",
-  [
-    "fbt",
-    "WAWebFormatParticipantNames",
-    "WAWebGroupType",
-    "WAWebUserPrefsMeUser",
-  ],
+  ["fbt", "WAWebFormatParticipantNames", "WAWebGroupType", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r;
@@ -21,7 +16,7 @@ __d(
         ) ===
           o("WAWebGroupType").GroupSettingChangeSystemMessageToggleEnabled.On;
       return a
-        ? o("WAWebUserPrefsMeUser").isMeAccount(e)
+        ? o("WAWebUserUtils").isMeAccount(e)
           ? s._(
               /*BTDS*/ "You changed this group's setting to allow all members to add others to this group. Click to change.",
             )
@@ -34,7 +29,7 @@ __d(
                 /*BTDS*/ "{author} changed this group's setting to allow all members to add others to this group",
                 [s._param("author", r)],
               )
-        : o("WAWebUserPrefsMeUser").isMeAccount(e)
+        : o("WAWebUserUtils").isMeAccount(e)
           ? s._(
               /*BTDS*/ "You changed this group's setting to allow only admins to add others to this group. Click to change.",
             )

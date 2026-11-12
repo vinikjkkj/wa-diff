@@ -24,8 +24,8 @@ __d(
     "WAWebSchemaChatAssignment",
     "WAWebSyncdCoreApi",
     "WAWebSyncdOrphan",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -38,7 +38,7 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebChatAssignmentUtils").canAssignChats()) {
-            var n = o("WAWebUserPrefsMeUser")
+            var n = o("WAWebUserUtils")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
                 .getDeviceId(),
               a = e.map(function (e) {
@@ -246,7 +246,7 @@ __d(
           ) || !o("WAWebChatAssignmentUtils").canAssignChats()
         )
       ) {
-        var n = o("WAWebUserPrefsMeUser")
+        var n = o("WAWebUserUtils")
             .getMeDevicePnOrThrow_DO_NOT_USE()
             .getDeviceId(),
           r = e.filter(function (e) {

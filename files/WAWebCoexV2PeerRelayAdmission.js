@@ -7,7 +7,7 @@ __d(
     "WAWebCreateNackFromStanza",
     "WAWebMsgProcessingApiUtils",
     "WAWebPostIncomingMessageDropMetric",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -17,7 +17,7 @@ __d(
       var t = e.metaFrom;
       return t == null ||
         !o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e.author, t) ||
-        o("WAWebUserPrefsMeUser").isMeAccount(t)
+        o("WAWebUserUtils").isMeAccount(t)
         ? null
         : t;
     }

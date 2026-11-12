@@ -1,10 +1,6 @@
 __d(
   "WAWebDeviceCapabilitiesSync",
-  [
-    "WAWebDeviceCapabilitiesSyncBase",
-    "WAWebSyncdConst",
-    "WAWebUserPrefsMeUser",
-  ],
+  ["WAWebDeviceCapabilitiesSyncBase", "WAWebSyncdConst", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
         function t() {
@@ -17,7 +13,7 @@ __d(
             return o("WAWebSyncdConst").Actions.DeviceCapabilities;
           }),
           (n.getJidIndex = function () {
-            return o("WAWebUserPrefsMeUser")
+            return o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .toString({ legacy: !0 });
           }),

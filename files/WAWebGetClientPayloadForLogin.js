@@ -2,7 +2,7 @@ __d(
   "WAWebGetClientPayloadForLogin",
   [
     "WALogger",
-    "WAWebClientPayload",
+    "WAWebClientPayloadForLoginWorkerCompatible",
     "WAWebPageLoadLogging",
     "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
     "asyncToGeneratorRuntime",
@@ -15,8 +15,10 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t || { passive: !1, pull: !0 },
-            r = self.performance.now();
+          var n,
+            r,
+            a = t || { passive: !1, pull: !0 },
+            i = self.performance.now();
           (yield o(
             "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
           ).registerPassiveTasksForConnect(),
@@ -27,17 +29,22 @@ __d(
                     "[comms] getClientPayloadForLogin reg passive tasks ",
                     "ms",
                   ])),
-                Math.ceil(self.performance.now() - r),
+                Math.ceil(self.performance.now() - i),
               )
               .tags("launch-socket-chat"),
-            (n.passive = yield o(
+            (a.passive = yield o(
               "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
             ).shouldConnectAsPassiveMode()),
             o("WAWebPageLoadLogging").addPageLoadQplAnnotationNow({
-              passive_login_flag: n.passive,
+              passive_login_flag: a.passive,
             }));
-          var a = self.performance.now(),
-            i = yield o("WAWebClientPayload").getClientPayloadForLogin(n);
+          var l = self.performance.now(),
+            u = yield o(
+              "WAWebClientPayloadForLoginWorkerCompatible",
+            ).buildClientPayloadForLogin({
+              passive: (n = a.passive) != null ? n : !1,
+              pull: (r = a.pull) != null ? r : !1,
+            });
           return (
             o("WALogger")
               .LOG(
@@ -46,10 +53,10 @@ __d(
                     "[comms] getClientPayloadForLogin generated payload in ",
                     "ms",
                   ])),
-                Math.ceil(self.performance.now() - a),
+                Math.ceil(self.performance.now() - l),
               )
               .tags("launch-socket-chat"),
-            i
+            u
           );
         })),
         c.apply(this, arguments)

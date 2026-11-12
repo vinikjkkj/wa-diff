@@ -11,7 +11,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebPhoneUtils",
     "WAWebSharableEventCreatorPushNameCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -47,7 +47,7 @@ __d(
     }
     function p(t) {
       var n = t.lid;
-      if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) return null;
+      if (!o("WAWebUserUtils").isMeAccount(n)) return null;
       var r = s._(/*BTDS*/ "You");
       return { name: r, accessibleName: r, source: e.Self };
     }

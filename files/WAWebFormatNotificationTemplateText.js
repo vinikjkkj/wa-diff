@@ -36,7 +36,7 @@ __d(
     "WAWebResolveBotProfile",
     "WAWebSupportChatStrings",
     "WAWebSystemMessageGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidToFormattedNameOrNumber",
     "nullthrows",
@@ -1146,7 +1146,7 @@ __d(
           amount: d,
           currency: i,
         });
-      return o("WAWebUserPrefsMeUser").isMeAccount(n)
+      return o("WAWebUserUtils").isMeAccount(n)
         ? s._(
             /*BTDS*/ '_j{"*":"Your payment request to {receiverName} for {currencyAndAmount} expired."}',
             [

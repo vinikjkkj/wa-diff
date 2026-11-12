@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWid",
@@ -95,7 +95,7 @@ __d(
             g = _.ephemeralityDisabled,
             h = _.t;
           if (g) {
-            var y = o("WAWebUserPrefsMeUser").isMeAccount(t);
+            var y = o("WAWebUserUtils").isMeAccount(t);
             o("WALogger")
               .ERROR(
                 u ||

@@ -1,11 +1,6 @@
 __d(
   "WAWebFormatMemberLinkModeNotification",
-  [
-    "fbt",
-    "WAWebFormatParticipantNames",
-    "WAWebGroupType",
-    "WAWebUserPrefsMeUser",
-  ],
+  ["fbt", "WAWebFormatParticipantNames", "WAWebGroupType", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r;
@@ -21,7 +16,7 @@ __d(
         ) ===
           o("WAWebGroupType").GroupSettingChangeSystemMessageToggleEnabled.On;
       return a
-        ? o("WAWebUserPrefsMeUser").isMeAccount(e)
+        ? o("WAWebUserUtils").isMeAccount(e)
           ? t
             ? s._(
                 /*BTDS*/ "You changed this group's setting to allow all members to share invite links to this group. You can currently only change this on your phone.",
@@ -38,7 +33,7 @@ __d(
                 /*BTDS*/ "{author} changed this group's setting to allow all members to share invite links to this group.",
                 [s._param("author", r)],
               )
-        : o("WAWebUserPrefsMeUser").isMeAccount(e)
+        : o("WAWebUserUtils").isMeAccount(e)
           ? t
             ? s._(
                 /*BTDS*/ "You changed this group's setting to allow only admins to share invite links to this group. You can currently only change this on your phone.",

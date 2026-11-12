@@ -7,7 +7,7 @@ __d(
     "WAWebFindChat",
     "WAWebMsgKey",
     "WAWebRuntimeEnvironmentUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipTransferredCallRegistry",
     "WAWebWaitForInitialChatsSynced",
@@ -42,9 +42,9 @@ __d(
                 (n = C == null ? void 0 : C.rootCallCreatorWid) != null ? n : l,
               ),
             }),
-            v = o("WAWebUserPrefsMeUser").isMeAccount(b),
+            v = o("WAWebUserUtils").isMeAccount(b),
             S = f.filter(function (e) {
-              return e != null && !o("WAWebUserPrefsMeUser").isMeAccount(e);
+              return e != null && !o("WAWebUserUtils").isMeAccount(e);
             });
           if (u != null) ((g = u), (h = b));
           else if (!v) g = b;

@@ -62,7 +62,7 @@ __d(
                   ? r("WAWebWid").isGroup(e.id.remote) &&
                     e.recipients &&
                     o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0]) &&
-                    !o("WAWebUserPrefsMeUser").isMeAccount(e.author)
+                    !o("WAWebUserUtils").isMeAccount(e.author)
                     ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
                     : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                   : n === "remove"

@@ -137,11 +137,7 @@ __d(
           )
           .sendLogs("meta-ai-thread-list-sync-failed", { sampling: 0.01 }));
     }
-    function R() {
-      ((m = null), (p = null), (_ = !1));
-    }
-    ((l.maybeSyncMetaAiThreadAccountList = f),
-      (l.resetMetaAiThreadAccountListSyncForTest = R));
+    l.maybeSyncMetaAiThreadAccountList = f;
   },
   98,
 );

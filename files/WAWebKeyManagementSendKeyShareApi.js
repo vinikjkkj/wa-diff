@@ -11,7 +11,6 @@ __d(
     "WAWebSendAppStateSyncMsgJob",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdKeyTypes",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -49,7 +48,7 @@ __d(
               var d = l.keys,
                 p = l.orphanKeys,
                 _ = l.peerDeviceWid;
-              if (((a = m(d, p)), !o("WAWebUserPrefsMeUser").isMeAccount(_))) {
+              if (((a = m(d, p)), !o("WAWebUserUtils").isMeAccount(_))) {
                 o("WALogger")
                   .ERROR(
                     e ||

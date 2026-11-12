@@ -113,13 +113,9 @@ __d(
           );
         });
     }
-    function v() {
-      ((m = !1), (p = null));
-    }
     ((l.MAX_FETCHED_PROFILES = u),
       (l.MAX_CONCURRENT_FETCHES = c),
-      (l.fetchMissingAiFilterBotProfiles = _),
-      (l.resetMissingAiFilterBotProfilesFetchForTest = v));
+      (l.fetchMissingAiFilterBotProfiles = _));
   },
   98,
 );

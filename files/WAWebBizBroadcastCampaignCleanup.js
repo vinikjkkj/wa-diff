@@ -6,7 +6,7 @@ __d(
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastCampaignStorageUtils",
     "WAWebSchemaBusinessBroadcastCampaign",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebUserPrefsMeUser")
+          var t = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId(),
             r = yield o(

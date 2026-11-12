@@ -13,7 +13,7 @@ __d(
     "WAWebMsgType",
     "WAWebQuotedMsgModelUtils",
     "WAWebTemplateButtonReplyMsgCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -338,7 +338,7 @@ __d(
     }
     var C = function (t) {
       var e = o("WAWebMsgGetters").getSender(t);
-      return e != null ? o("WAWebUserPrefsMeUser").isMeAccount(e) : !1;
+      return e != null ? o("WAWebUserUtils").isMeAccount(e) : !1;
     };
     l.default = u;
   },

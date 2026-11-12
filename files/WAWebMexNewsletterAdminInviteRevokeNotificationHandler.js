@@ -11,7 +11,7 @@ __d(
     "WAWebLidMigrationDbUtils",
     "WAWebLidMigrationUtils",
     "WAWebNewsletterDBUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -75,8 +75,8 @@ __d(
             }
             var b = m.OBSERVER;
             if (
-              (o("WAWebUserPrefsMeUser").isMeAccount(y) && (b = m.USER),
-              o("WAWebUserPrefsMeUser").isMeAccount(C) && (b = m.ACTOR),
+              (o("WAWebUserUtils").isMeAccount(y) && (b = m.USER),
+              o("WAWebUserUtils").isMeAccount(C) && (b = m.ACTOR),
               b === m.OBSERVER)
             ) {
               o("WALogger")

@@ -208,6 +208,7 @@ __d(
             a("viewCount"),
             a("forwardsCount"),
             a("questionResponsesCount"),
+            a("myQuestionResponsesCount"),
             a("readQuestionResponsesCount"),
             a("forwardedNewsletterMessageInfo"),
             a("forwardedAiBotMessageInfo"),

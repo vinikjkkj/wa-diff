@@ -14,7 +14,7 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebSchemaPendingBusinessBroadcastMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,7 +34,7 @@ __d(
             c = t.sendTimestamp,
             d = t.sourceCampaignId,
             m = r("WAWebPonyfillsCryptoRandomUUID")(),
-            p = o("WAWebUserPrefsMeUser")
+            p = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId(),
             _ = r("WAWebPonyfillsCryptoRandomUUID")(),

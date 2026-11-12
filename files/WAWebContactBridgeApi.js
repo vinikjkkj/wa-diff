@@ -13,7 +13,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -104,7 +104,7 @@ __d(
             s = o("WAWebChatCollection").ChatCollection.getModelsArray(),
             u = s.filter(function (e) {
               return e.id.isRegularUser()
-                ? !o("WAWebUserPrefsMeUser").isMeAccount(e.id)
+                ? !o("WAWebUserUtils").isMeAccount(e.id)
                 : !1;
             }),
             c = [],
@@ -223,7 +223,7 @@ __d(
                         : null) != null
                       ? g
                       : S,
-                  I = o("WAWebUserPrefsMeUser").isMeAccount(m.id),
+                  I = o("WAWebUserUtils").isMeAccount(m.id),
                   T = "personal";
                 (I
                   ? (T = "me")
@@ -267,6 +267,7 @@ __d(
                 isContactSyncCompleted: 0,
                 syncToAddressbook: !1,
                 isUsernameContact: !1,
+                birthday: null,
               };
             o("WAWebContactCollection").ContactCollection.add(i, n);
             var l = o("WAWebApiContact").getAlternateUserWid(

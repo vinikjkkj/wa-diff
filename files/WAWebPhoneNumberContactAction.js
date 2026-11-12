@@ -9,7 +9,7 @@ __d(
     "WAWebPsPhoneNumberHyperlinkWamEvent",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumPhoneNumHyperlinkActionType",
     "react",
   ],
@@ -34,7 +34,7 @@ __d(
         ).PsPhoneNumberHyperlinkWamEvent)({
           phoneNumHyperlinkAction: o("WAWebWamEnumPhoneNumHyperlinkActionType")
             .PHONE_NUM_HYPERLINK_ACTION_TYPE.CLICK_MESSAGE_ON_WHATSAPP,
-          isPhoneNumHyperlinkOwner: o("WAWebUserPrefsMeUser").isMeAccount(t),
+          isPhoneNumHyperlinkOwner: o("WAWebUserUtils").isMeAccount(t),
           phoneNumberStatusOnWa: !0,
         }).commit());
     }

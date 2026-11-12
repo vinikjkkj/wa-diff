@@ -3,66 +3,86 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e(e) {
-      var t = e,
-        n = null,
-        r = [],
-        o = null,
-        a = !1,
+    function e(e, t) {
+      t === void 0 && (t = !1);
+      var n = e,
+        r = null,
+        o = [],
+        a = null,
         i = !1,
-        l = !1;
-      function s() {
-        if (i) {
-          i = !1;
-          var e = o;
+        l = !1,
+        s = !1;
+      function u() {
+        if (l) {
+          l = !1;
+          var e = a;
           if (e != null)
             try {
-              ((n = []), e());
+              ((r = []), e());
             } catch (e) {
-              throw ((l = !0), e);
+              throw ((s = !0), e);
             } finally {
-              o = null;
-              var t = n;
-              (t != null && t.length > 0 && r.unshift.apply(r, t),
-                (n = null),
-                (a = !0),
-                u());
+              a = null;
+              var t = r;
+              (t != null && t.length > 0 && o.unshift.apply(o, t),
+                (r = null),
+                (i = !0),
+                c());
             }
         }
       }
-      function u() {
-        a &&
-          ((a = !1),
-          !(l || o != null || r.length <= 0 || i) &&
-            ((o = r.shift()), (i = !0), s()));
-      }
       function c() {
-        l || a || ((a = !0), t(u));
+        if (i) {
+          if (((i = !1), !t)) {
+            if (s || a != null || o.length <= 0 || l) return;
+            ((a = o.shift()), (l = !0), u());
+            return;
+          }
+          for (; !s && a == null && o.length > 0; ) {
+            var e = o.shift();
+            if (e == null) return;
+            a = e;
+            try {
+              ((r = []), e());
+            } catch (e) {
+              throw ((s = !0), e);
+            } finally {
+              a = null;
+              var n = r;
+              (n != null && n.length > 0 && o.unshift.apply(o, n),
+                (r = null),
+                (i = !1));
+            }
+          }
+        }
       }
-      var d = function () {
+      function d() {
+        s || i || ((i = !0), n(c));
+      }
+      var m = function () {
         if (!(arguments.length <= 0))
-          if (n != null) {
+          if (r != null) {
             var e;
-            (e = n).push.apply(e, arguments);
-          } else (r.push.apply(r, arguments), c());
+            (e = r).push.apply(e, arguments);
+          } else (o.push.apply(o, arguments), d());
       };
       return {
-        enqueueWork: d,
+        enqueueWork: m,
         getHalted: function () {
-          return l;
+          return s;
         },
         getQueueLength: function () {
           var e, t;
           return (
-            r.length +
-            ((e = (t = n) == null ? void 0 : t.length) != null ? e : 0)
+            o.length +
+            ((e = (t = r) == null ? void 0 : t.length) != null ? e : 0)
           );
         },
         setHalted: function (t) {
-          t ? (l = !0) : ((l = !1), c());
+          t ? (s = !0) : ((s = !1), d());
         },
-        setScheduleToRun: function (n) {
-          t = n;
+        setScheduleToRun: function (t) {
+          n = t;
         },
       };
     }

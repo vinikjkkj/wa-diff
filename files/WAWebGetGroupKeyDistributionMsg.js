@@ -12,7 +12,6 @@ __d(
     "WAWebEncryptMsgProtobuf",
     "WAWebIdentityIcdcApi",
     "WAWebSendMsgCommonApi",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -166,7 +165,7 @@ __d(
                       var l = c[n],
                         s = babelHelpers.extends({}, a),
                         u = null;
-                      if (o("WAWebUserPrefsMeUser").isMeAccount(l))
+                      if (o("WAWebUserUtils").isMeAccount(l))
                         i &&
                           ((s = o(
                             "WAWebDeviceSentMessageProtoUtils",

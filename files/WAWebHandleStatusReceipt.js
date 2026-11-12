@@ -15,7 +15,6 @@ __d(
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
@@ -53,7 +52,7 @@ __d(
             }
             var y = o("WAWebUserUtils").getMeUserOrThrow(),
               C = o("WAWebWidFactory").asUserWidOrThrow(p),
-              b = o("WAWebUserPrefsMeUser").isMeAccount(C),
+              b = o("WAWebUserUtils").isMeAccount(C),
               v = t.participantPn;
             if (v != null && p.isLid()) {
               var S = o("WAWebWidFactory").asUserLidOrThrow(p),
@@ -158,7 +157,7 @@ __d(
         r = e.statusAuthor;
       if (!n) return !0;
       var a = t === o("WAWebAck").ACK.READ,
-        i = o("WAWebUserPrefsMeUser").isMeAccount(r);
+        i = o("WAWebUserUtils").isMeAccount(r);
       return !a || !i
         ? !1
         : o("WAWebStatusGatingUtils").isStatusCompanionReadSyncEnabled();

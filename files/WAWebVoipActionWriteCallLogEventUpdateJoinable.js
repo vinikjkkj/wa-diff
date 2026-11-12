@@ -7,6 +7,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipCallLogTimestamp",
@@ -199,9 +200,9 @@ __d(
               var C,
                 b =
                   s != null
-                    ? o("WAWebUserPrefsMeUser").isMeAccount(s)
+                    ? o("WAWebUserUtils").isMeAccount(s)
                     : o("WAWebUserPrefsMeUser").isMeDevice(t) ||
-                      o("WAWebUserPrefsMeUser").isMeAccount(t),
+                      o("WAWebUserUtils").isMeAccount(t),
                 v = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                   callCreatorWid: s != null ? s : t,
                   callId: n,

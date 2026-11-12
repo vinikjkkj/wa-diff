@@ -6,7 +6,7 @@ __d(
     "WAWebFormatParticipantNames",
     "WAWebPairList",
     "WAWebStringsWithMultiplePluralParts",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -24,9 +24,7 @@ __d(
       C,
       b,
       v = function (t) {
-        return (
-          t instanceof r("WAWebWid") && o("WAWebUserPrefsMeUser").isMeAccount(t)
-        );
+        return t instanceof r("WAWebWid") && o("WAWebUserUtils").isMeAccount(t);
       };
     function S(e) {
       return !e;

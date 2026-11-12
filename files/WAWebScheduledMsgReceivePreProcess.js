@@ -6,7 +6,7 @@ __d(
     "WAWebLimitSharingAcp2HideReceivedMsgs",
     "WAWebLogReceivedMessages",
     "WAWebOfflineAttrUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -86,8 +86,7 @@ __d(
               { skipProcessing: !0 }
             );
           var C =
-              m.author != null &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(m.author)
+              m.author != null && !o("WAWebUserUtils").isMeAccount(m.author)
                 ? m.author.toString()
                 : null,
             b = yield o(
@@ -106,8 +105,7 @@ __d(
             });
           if (b.isRevealPending) {
             var v =
-              m.author != null &&
-              o("WAWebUserPrefsMeUser").isMeAccount(m.author);
+              m.author != null && o("WAWebUserUtils").isMeAccount(m.author);
             return (
               v ||
                 o(

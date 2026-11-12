@@ -13,7 +13,7 @@ __d(
     "WAWebAddonUpdateDataUtils",
     "WAWebMsgGetters",
     "WAWebNoop",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -110,7 +110,7 @@ __d(
               var d = r("nullthrows")(i.get(c));
               (l.id.equals(s.id) || d.remove.push(s),
                 d.add.push(l),
-                o("WAWebUserPrefsMeUser").isMeAccount(
+                o("WAWebUserUtils").isMeAccount(
                   o("WAWebMsgGetters").getFrom(s),
                 ) && a.push([s, l]));
             }

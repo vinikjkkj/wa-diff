@@ -14,7 +14,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipActionWriteCallLogCallStateChanged",
     "WAWebVoipActivityTracker",
     "WAWebVoipBridgeMicSilenceToast",
@@ -84,7 +84,7 @@ __d(
         for (var l of t) {
           var s = l.toString();
           a.has(s) ||
-            o("WAWebUserPrefsMeUser").isMeAccount(l) ||
+            o("WAWebUserUtils").isMeAccount(l) ||
             l.isBot() ||
             n.get(s) ===
               o("WAWebVoipWaCallEnums").CallParticipantState.Connected ||
@@ -200,7 +200,7 @@ __d(
                   ),
                   (y.callLinkCreatorJid = R),
                   R != null &&
-                    o("WAWebUserPrefsMeUser").isMeAccount(R) &&
+                    o("WAWebUserUtils").isMeAccount(R) &&
                     (y.isSelfCallLinkAdmin = !0));
               } else
                 o("WALogger").LOG(
@@ -315,7 +315,7 @@ __d(
                   return (
                     e.userType ===
                       o("WAWebVoipWaCallEnums").CallUserType.Admin &&
-                    o("WAWebUserPrefsMeUser").isMeAccount(e.jid)
+                    o("WAWebUserUtils").isMeAccount(e.jid)
                   );
                 });
                 L.isSelfCallLinkAdmin !== $ &&
@@ -534,7 +534,7 @@ __d(
             var i,
               l = (i = n.groupCallParticipantsConnected) != null ? i : [],
               s = l.filter(function (e) {
-                return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+                return !o("WAWebUserUtils").isMeAccount(e);
               });
             s.length === 1 && (a = s[0]);
           } else a = n.peerJid;
@@ -543,7 +543,7 @@ __d(
           if (e.participants) {
             for (var d of e.participants)
               if (
-                (o("WAWebUserPrefsMeUser").isMeAccount(d.jid)
+                (o("WAWebUserUtils").isMeAccount(d.jid)
                   ? (u = d.isMuted)
                   : a != null && d.jid.equals(a) && (c = d.isMuted),
                 n.isGroup)
@@ -710,7 +710,7 @@ __d(
           );
           return;
         }
-        var a = o("WAWebUserPrefsMeUser").isMeAccount(e);
+        var a = o("WAWebUserUtils").isMeAccount(e);
         (a
           ? ((n.selfAudioLevel = 1),
             n.trigger(
@@ -773,7 +773,7 @@ __d(
             t.state,
             t.sharer_version != null ? Number(t.sharer_version) : void 0,
           );
-          var n = o("WAWebUserPrefsMeUser").isMeAccount(t.sharer_jid);
+          var n = o("WAWebUserUtils").isMeAccount(t.sharer_jid);
           (n &&
             (t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
               t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
@@ -931,7 +931,7 @@ __d(
           l.isSelfCallLinkAdmin ||
           t.self.userType === o("WAWebVoipWaCallEnums").CallUserType.Admin ||
           (t.creatorJid != null &&
-            o("WAWebUserPrefsMeUser").isMeAccount(t.creatorJid));
+            o("WAWebUserUtils").isMeAccount(t.creatorJid));
         ((l.isSelfCallLinkAdmin = m),
           s !== m &&
             l.trigger(

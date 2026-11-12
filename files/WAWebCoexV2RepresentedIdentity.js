@@ -1,6 +1,6 @@
 __d(
   "WAWebCoexV2RepresentedIdentity",
-  ["WAWebCoexV2GatingUtils", "WAWebUserPrefsMeUser", "WAWebWidFactory"],
+  ["WAWebCoexV2GatingUtils", "WAWebUserUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.author,
@@ -14,7 +14,7 @@ __d(
         p = s(t, n, d);
       return p == null
         ? null
-        : o("WAWebUserPrefsMeUser").isMeAccount(p.metaFrom)
+        : o("WAWebUserUtils").isMeAccount(p.metaFrom)
           ? u(p.targetUser, r, a, i)
           : m(p.metaFrom, p.targetUser, l, c);
     }
@@ -24,7 +24,7 @@ __d(
         !t.isLid() ||
         !n.isRegularUser() ||
         !o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e, t) ||
-        o("WAWebUserPrefsMeUser").isMeAccount(n)
+        o("WAWebUserUtils").isMeAccount(n)
         ? null
         : {
             metaFrom: o("WAWebWidFactory").asUserLidOrThrow(t),
@@ -50,7 +50,7 @@ __d(
     }
     function d(e, t, n) {
       return (n.phoneNumber != null && !e.equals(n.phoneNumber)) ||
-        (t != null && o("WAWebUserPrefsMeUser").isMeAccount(t))
+        (t != null && o("WAWebUserUtils").isMeAccount(t))
         ? null
         : babelHelpers.extends({}, n, {
             identitySource: "peer-recipient",
@@ -74,7 +74,7 @@ __d(
       var n = t === "" ? null : t;
       if (e == null) return { phoneNumber: null, username: n };
       var r = _(e);
-      return r == null || o("WAWebUserPrefsMeUser").isMeAccount(r)
+      return r == null || o("WAWebUserUtils").isMeAccount(r)
         ? null
         : { phoneNumber: r, username: n };
     }

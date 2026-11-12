@@ -1,9 +1,9 @@
 __d(
   "WAWebCoexV2MessageAckProjectionEligibility",
-  ["WAWebAck", "WAWebUserPrefsMeUser"],
+  ["WAWebAck", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+      return !o("WAWebUserUtils").isMeAccount(e);
     }
     function s(t) {
       var n = t.projectedAck,

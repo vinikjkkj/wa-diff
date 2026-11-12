@@ -5,7 +5,7 @@ __d(
     "WAWebGetters",
     "WAWebGettersCaches",
     "WAWebPinInChatGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebGetters").createGetterFactories({
@@ -23,7 +23,7 @@ __d(
             n = e[1],
             r = e[2],
             a =
-              o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+              o("WAWebUserUtils").isMeAccount(t) &&
               n != null &&
               n < o("WAWebAck").ACK.CLOCK;
           return a || !!r;

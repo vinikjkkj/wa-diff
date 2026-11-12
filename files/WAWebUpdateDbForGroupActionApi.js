@@ -198,7 +198,7 @@ __d(
                     o("WAWebGroupType").REMOVE_REASON.DEFAULT_SUBGROUP_DEMOTE &&
                   a.participants.some(function (e) {
                     var t = e.id;
-                    return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                    return o("WAWebUserUtils").isMeAccount(t);
                   }) &&
                   (yield o("WAWebDBCommunity").isLastJoinedSubgroup(q)),
                 V = function (n, r) {
@@ -272,7 +272,7 @@ __d(
               if (
                 a.participants.find(function (e) {
                   var t = e.id;
-                  return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                  return o("WAWebUserUtils").isMeAccount(t);
                 })
               ) {
                 var z = yield o(
@@ -291,7 +291,7 @@ __d(
               if (j == null) break;
               (a.participants.find(function (e) {
                 var t = e.id;
-                return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                return o("WAWebUserUtils").isMeAccount(t);
               }) &&
                 (o("WAWebApiParticipantStore").setAdminshipCache(
                   l.toString(),
@@ -334,7 +334,7 @@ __d(
               if (
                 a.participants.find(function (e) {
                   var t = e.id;
-                  return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                  return o("WAWebUserUtils").isMeAccount(t);
                 })
               ) {
                 if (
@@ -446,7 +446,7 @@ __d(
                 );
                 return;
               }
-              var re = o("WAWebUserPrefsMeUser").isMeAccount(k),
+              var re = o("WAWebUserUtils").isMeAccount(k),
                 oe = [];
               if (re)
                 oe = a.participants.map(function (e) {
@@ -461,7 +461,7 @@ __d(
                 var ae,
                   ie,
                   le = a.participants.find(function (e) {
-                    return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+                    return o("WAWebUserUtils").isMeAccount(e.id);
                   });
                 if (!le) {
                   o("WALogger")
@@ -1110,7 +1110,7 @@ __d(
               var t = e.id;
               return t;
             });
-          if (!r.some(o("WAWebUserPrefsMeUser").isMeAccount)) return r;
+          if (!r.some(o("WAWebUserUtils").isMeAccount)) return r;
           var a = yield o("WAWebGroupsParticipantsApi").getParticipants(e),
             i = ((n = a == null ? void 0 : a.participants) != null ? n : [])
               .map(function (e) {

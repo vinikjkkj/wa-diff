@@ -9,8 +9,8 @@ __d(
     "WAWebDBMessageStoreUtils",
     "WAWebGroupType",
     "WAWebUnjoinedSubgroupMetadataCollection",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -81,7 +81,7 @@ __d(
               i.forEach(function (t) {
                 if (t.author != null) {
                   var i = o("WAWebWidFactory").createWidFromWidLike(t.author);
-                  if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
+                  if (!o("WAWebUserUtils").isMeAccount(i)) {
                     var l = t.t;
                     if (
                       t.subtype ===

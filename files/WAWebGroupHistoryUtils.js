@@ -5,7 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebMsgGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,7 +30,7 @@ __d(
         !(
           (n = e.groupHistoryBundleMetadata) != null &&
           n.historyReceivers.some(function (e) {
-            return o("WAWebUserPrefsMeUser").isMeAccount(e);
+            return o("WAWebUserUtils").isMeAccount(e);
           })
         ) ||
         !c(e)

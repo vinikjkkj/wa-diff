@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAResultOrError",
     "WAWebSchemaBusinessBroadcastCampaign",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -256,7 +256,7 @@ __d(
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield A(),
-            t = o("WAWebUserPrefsMeUser")
+            t = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
           return O(e, t);

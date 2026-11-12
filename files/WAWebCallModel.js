@@ -9,7 +9,7 @@ __d(
     "WAWebEventEmitter",
     "WAWebNoop",
     "WAWebPttAudioChannels",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipCallStateUtils",
     "WAWebVoipEventConstants",
     "WAWebVoipGatingUtils",
@@ -335,7 +335,7 @@ __d(
               Number.isFinite(r)
                 ? r
                 : 0;
-            (o("WAWebUserPrefsMeUser").isMeAccount(t)
+            (o("WAWebUserUtils").isMeAccount(t)
               ? ((this.$Call$p_3 = n),
                 (this.$Call$p_4 = e),
                 n === o("WAWebVoipWaCallEnums").ScreenShareState.Started &&
@@ -413,7 +413,7 @@ __d(
             var e;
             return (
               this.isDualStreamScreenShareReceiverEnabled() &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+              !o("WAWebUserUtils").isMeAccount(t) &&
               this.$Call$p_5.get(t) ===
                 o("WAWebVoipWaCallEnums").ScreenShareState.Started &&
               ((e = this.$Call$p_6.get(t)) != null ? e : 0) >= s
@@ -488,7 +488,7 @@ __d(
             var e = this.$Call$p_13.get(t.toString());
             return e != null || this.isGroup
               ? e
-              : o("WAWebUserPrefsMeUser").isMeAccount(t)
+              : o("WAWebUserUtils").isMeAccount(t)
                 ? this.selfVideoState
                 : this.peerVideoState;
           }),
@@ -502,7 +502,7 @@ __d(
             var e = this.$Call$p_14.get(t.toString());
             return e != null || this.isGroup
               ? e
-              : o("WAWebUserPrefsMeUser").isMeAccount(t)
+              : o("WAWebUserUtils").isMeAccount(t)
                 ? this.selfMicMuted
                 : this.peerMicMuted;
           }),

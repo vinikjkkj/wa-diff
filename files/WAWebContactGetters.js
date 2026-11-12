@@ -6,7 +6,7 @@ __d(
     "WAWebBusinessProfileTypes",
     "WAWebGetters",
     "WAWebGettersCaches",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "justknobx",
   ],
@@ -73,7 +73,7 @@ __d(
       W = s(
         function (e) {
           var t = e[0];
-          return o("WAWebUserPrefsMeUser").isMeAccount(t);
+          return o("WAWebUserUtils").isMeAccount(t);
         },
         [m],
       ),

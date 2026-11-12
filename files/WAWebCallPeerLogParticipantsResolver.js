@@ -7,7 +7,7 @@ __d(
     "WAWebCallCollection",
     "WAWebMsgGetters",
     "WAWebMsgQueryUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -108,7 +108,7 @@ __d(
     }
     function L(t, n) {
       var r = t.filter(function (e) {
-        return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+        return !o("WAWebUserUtils").isMeAccount(e);
       });
       if (r.length === 0)
         return (

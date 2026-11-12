@@ -10,7 +10,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebViewMode.flow",
@@ -60,7 +60,7 @@ __d(
     }
     function m(e, t) {
       var n = e.userId;
-      if (!n.isLid() || o("WAWebUserPrefsMeUser").isMeAccount(n)) return null;
+      if (!n.isLid() || o("WAWebUserUtils").isMeAccount(n)) return null;
       var r = t.get(n.toString());
       if (r == null) return null;
       var a = e.deleteUsername === !0;

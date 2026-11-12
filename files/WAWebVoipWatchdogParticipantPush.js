@@ -1,10 +1,6 @@
 __d(
   "WAWebVoipWatchdogParticipantPush",
-  [
-    "WAWebUserPrefsMeUser",
-    "WAWebVoipVideoRenderSource",
-    "WAWebVoipVideoStateUtils",
-  ],
+  ["WAWebUserUtils", "WAWebVoipVideoRenderSource", "WAWebVoipVideoStateUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = o("WAWebVoipVideoRenderSource").WAWebVoipVideoRenderSource.self(
@@ -25,7 +21,7 @@ __d(
           _ = (p = r.groupCallParticipantsConnected) != null ? p : [];
         for (var f of _) {
           var g;
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(f)) {
+          if (!o("WAWebUserUtils").isMeAccount(f)) {
             var h = c(f);
             (m.add(h),
               a.has(h) || a.set(h, l),

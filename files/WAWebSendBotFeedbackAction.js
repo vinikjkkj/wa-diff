@@ -16,7 +16,7 @@ __d(
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSendMsgRecordAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -68,7 +68,7 @@ __d(
             g = t == null ? void 0 : t.botTargetSenderJid,
             h = null;
           g != null &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(g) &&
+            !o("WAWebUserUtils").isMeAccount(g) &&
             (h = t == null ? void 0 : t.botTargetSenderJid);
           var y = babelHelpers.extends(
               {},

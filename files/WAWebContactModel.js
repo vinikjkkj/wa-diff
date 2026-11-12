@@ -70,6 +70,7 @@ __d(
             (e.usernameCountryCode = o("WAWebBaseModel").prop()),
             (e.isUsernameContact = o("WAWebBaseModel").prop(!1)),
             (e.externalUserState = o("WAWebBaseModel").prop()),
+            (e.birthday = o("WAWebBaseModel").prop()),
             (e.syncToAddressbook = o("WAWebBaseModel").prop(!1)),
             (e.isContactBlocked = o("WAWebBaseModel").session(!1)),
             (e.isContactOptedOut = o("WAWebBaseModel").session(!1)),

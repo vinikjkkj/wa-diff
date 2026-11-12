@@ -11,7 +11,7 @@ __d(
     "WAWebPollsProtobufConversion",
     "WAWebPollsValidationError",
     "WAWebPollsVoteEncryption",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -139,7 +139,7 @@ __d(
             t: r("nullthrows")(e.t),
             optionLocalIdMap: p,
             ack: e.ack,
-            read: o("WAWebUserPrefsMeUser").isMeAccount(u),
+            read: o("WAWebUserUtils").isMeAccount(u),
             allowUnresolvedOptions: d,
           });
         })),

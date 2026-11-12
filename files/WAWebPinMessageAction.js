@@ -8,7 +8,7 @@ __d(
     "WAWebPinMsgConstants",
     "WAWebPinMsgGatingUtils",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -37,7 +37,7 @@ __d(
           t: e.t,
           chatId: o("WAWebWidFactory").asChatWid(e.id.remote),
           ack: e.ack,
-          read: o("WAWebUserPrefsMeUser").isMeAccount(t),
+          read: o("WAWebUserUtils").isMeAccount(t),
         };
       return n;
     }

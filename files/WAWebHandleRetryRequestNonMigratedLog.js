@@ -3,7 +3,7 @@ __d(
   [
     "WAWebCheckChatExistsOrCreate",
     "WAWebHandleRetryRequest",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -45,11 +45,11 @@ __d(
     }
     function u(e) {
       return e.from.isGroup()
-        ? o("WAWebUserPrefsMeUser").isMeAccount(e.participant)
+        ? o("WAWebUserUtils").isMeAccount(e.participant)
           ? "did_not_find_group_message_from_self"
           : "did_not_find_group_message_from_remote"
         : e.from.isUser()
-          ? o("WAWebUserPrefsMeUser").isMeAccount(e.from)
+          ? o("WAWebUserUtils").isMeAccount(e.from)
             ? e.from.device === 0 || e.from.device == null
               ? "did_not_find_1on1_message_from_self_primary"
               : "did_not_find_1on1_message_from_self_companion"

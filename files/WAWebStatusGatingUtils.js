@@ -232,8 +232,8 @@ __d(
       (l.isStatusCompanionReadSyncEnabled = A),
       (l.isStatusBadUxLoggingParityEnabled = F),
       (l.isStatusComposerQuickRepliesEnabled = O),
-      (l.isStatusViewerFramedMediaEnabled = B),
-      (l.isStatusViewerFramedControlsEnabled = W));
+      (l.isStatusViewerRefreshM1Enabled = B),
+      (l.isStatusViewerRefreshM2Enabled = W));
   },
   98,
 );

@@ -41,30 +41,27 @@ __d(
     function k() {
       R ||
         ((R = !0),
-        x(function () {
-          T();
+        D(function () {
+          I();
         }));
     }
     function I() {
-      (L.clear(), E.clear());
+      return T.apply(this, arguments);
     }
     function T() {
-      return D.apply(this, arguments);
-    }
-    function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield $()) &&
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield x()) &&
             self.setTimeout(function () {
-              x(function () {
-                $();
+              D(function () {
+                x();
               });
             }, _);
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function x(e) {
+    function D(e) {
       var t = !1,
         n = function () {
           t || ((t = !0), e());
@@ -72,12 +69,12 @@ __d(
       (o("WAWebPonyfillsIdleCallback").requestIdleCallback(n),
         self.setTimeout(n, p));
     }
-    function $() {
-      return P.apply(this, arguments);
+    function x() {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e,
               t =
@@ -88,12 +85,12 @@ __d(
                   : e.nativeAppStateBridge;
             if ((t == null ? void 0 : t.takeStartupTrace) == null) return !1;
             var n = self.performance.now(),
-              a = yield N(t);
+              a = yield P(t);
             if (a == null) return !1;
-            var i = B(a, n).filter(function (e) {
+            var i = O(a, n).filter(function (e) {
               return !E.has(e);
             });
-            return (i.length > 0 && q(t, i), a.report.currentPending);
+            return (i.length > 0 && W(t, i), a.report.currentPending);
           } catch (e) {
             return (
               o("WALogger")
@@ -109,32 +106,32 @@ __d(
             );
           }
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield F(e);
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield A(e);
           if (t == null || t.report.current == null || t.clockSyncErrorMs <= m)
             return t;
-          var n = yield w(e);
+          var n = yield M(e);
           return n != null && n.clockSyncErrorMs < t.clockSyncErrorMs ? n : t;
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            return yield F(e);
+            return yield A(e);
           } catch (e) {
             return (
               o("WALogger")
@@ -150,15 +147,15 @@ __d(
             );
           }
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function O() {
+    function F() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = self.performance.now(),
             n = yield e.takeStartupTrace == null
               ? void 0
@@ -180,10 +177,10 @@ __d(
                 clockSyncErrorMs: (r - t) / 2,
               };
         })),
-        O.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function B(t, n) {
+    function O(t, n) {
       var r = [],
         a = t.report,
         i = a.attempts,
@@ -191,35 +188,35 @@ __d(
         s = a.firstInstallLaunch;
       return (
         l != null &&
-          (U(l)
+          (q(l)
             ? o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "WindowsStartupTraceReporter: successful launch without nav_completed",
                   ])),
               )
-            : (W(l.id, function () {
-                return V(l, t, n);
+            : (B(l.id, function () {
+                return U(l, t, n);
               }),
               r.push(l.id))),
         i.forEach(function (e, t) {
-          (W(e.id, function () {
-            return X(e, t);
+          (B(e.id, function () {
+            return Q(e, t);
           }),
             r.push(e.id));
         }),
         s != null &&
-          (W(s.id, function () {
-            return Y(s, i.length);
+          (B(s.id, function () {
+            return X(s, i.length);
           }),
           r.push(s.id)),
         r
       );
     }
-    function W(e, t) {
+    function B(e, t) {
       L.has(e) || (t(), L.add(e));
     }
-    function q(e, t) {
+    function W(e, t) {
       (t.forEach(function (e) {
         return E.add(e);
       }),
@@ -242,10 +239,10 @@ __d(
           }
         }, f));
     }
-    function U(e) {
+    function q(e) {
       return b[e.navOutcome] === 2 && e.points.nav_completed == null;
     }
-    function V(e, t, n) {
+    function U(e, t, n) {
       var r,
         a = t.clockSyncErrorMs <= m,
         i = e.points.nav_completed,
@@ -259,9 +256,9 @@ __d(
           },
         );
       a
-        ? H(u, e.points, t.processStartWeb)
-        : u.annotate({ int: babelHelpers.extends({}, G(e.points)) });
-      var c = z(u, e, t);
+        ? V(u, e.points, t.processStartWeb)
+        : u.annotate({ int: babelHelpers.extends({}, H(e.points)) });
+      var c = G(u, e, t);
       (u.annotate({
         int: babelHelpers.extends({}, e.annotations.int, {
           hyb_nav_outcome: e.navOutcome,
@@ -278,7 +275,7 @@ __d(
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(s),
         }));
     }
-    function H(e, t, n) {
+    function V(e, t, n) {
       Object.keys(t).forEach(function (r) {
         e.addPoint(r, {
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(
@@ -287,7 +284,7 @@ __d(
         });
       });
     }
-    function G(e) {
+    function H(e) {
       var t = {};
       return (
         Object.keys(e).forEach(function (n) {
@@ -296,14 +293,14 @@ __d(
         t
       );
     }
-    function z(e, t, n) {
-      return j(t, n)
+    function G(e, t, n) {
+      return z(t, n)
         ? n.clockSyncErrorMs > m
           ? C.ClockSyncError
-          : K(e, n.report.level)
+          : j(e, n.report.level)
         : C.Invalid;
     }
-    function j(e, t) {
+    function z(e, t) {
       var n,
         r = e.points,
         o = r.nav_completed,
@@ -317,33 +314,33 @@ __d(
             ((n = e.annotations.int.hyb_nav_restarts) != null ? n : 0) === 0 &&
             i(a) >= -g;
     }
-    function K(e, t) {
+    function j(e, t) {
       var n, r;
       (e.addPoint("web_time_origin", {
         timestamp: (r = o("WAWebWindowsStartupWebTimings")).toQplTimestamp(0),
       }),
-        Q(e, "bridge_ready", r.getWindowsBridgeReadyTime()),
-        Q(e, "web_first_paint", r.getFirstPaintTime()));
+        K(e, "bridge_ready", r.getWindowsBridgeReadyTime()),
+        K(e, "web_first_paint", r.getFirstPaintTime()));
       var a = r.getNavigationTiming();
       return a == null
         ? C.Incomplete
-        : (Q(e, "web_dcl", a.domContentLoadedEventStart),
+        : (K(e, "web_dcl", a.domContentLoadedEventStart),
           t >= h &&
-            (Q(e, "web_worker_start", a.workerStart),
-            Q(e, "web_fetch_start", a.fetchStart),
-            Q(e, "web_response_start", a.responseStart)),
+            (K(e, "web_worker_start", a.workerStart),
+            K(e, "web_fetch_start", a.fetchStart),
+            K(e, "web_response_start", a.responseStart)),
           ((n = a.domContentLoadedEventStart) != null ? n : 0) > 0
             ? C.Ok
             : C.Incomplete);
     }
-    function Q(e, t, n) {
+    function K(e, t, n) {
       n != null &&
         n > 0 &&
         e.addPoint(t, {
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(n),
         });
     }
-    function X(e, t) {
+    function Q(e, t) {
       var n = o("WAWebQplFlowWrapper").QPL.markerStart(
         o("WAWebWindowsStartupQplEvents").WINDOWS_HYBRID_STARTUP_ATTEMPT_EVENT,
         { instanceKey: t + 1 },
@@ -357,7 +354,7 @@ __d(
       }),
         n.end(v.has(e.navOutcome) ? 4 : 3));
     }
-    function Y(e, t) {
+    function X(e, t) {
       var n,
         r = o("WAWebQplFlowWrapper").QPL.markerStart(
           o("WAWebWindowsStartupQplEvents")
@@ -365,7 +362,7 @@ __d(
           { instanceKey: t + 1 },
         );
       (r.annotate({
-        int: babelHelpers.extends({}, e.annotations.int, G(e.points), {
+        int: babelHelpers.extends({}, e.annotations.int, H(e.points), {
           hyb_nav_outcome: e.navOutcome,
           hyb_first_launch_after_update: S,
         }),
@@ -377,9 +374,8 @@ __d(
         r.end((n = b[e.navOutcome]) != null ? n : 3));
     }
     ((l.startReportingStartupTrace = k),
-      (l.resetLoggedLaunchesForTests = I),
-      (l.reportStartupTraceWithRetry = T),
-      (l.reportStartupTrace = $));
+      (l.reportStartupTraceWithRetry = I),
+      (l.reportStartupTrace = x));
   },
   98,
 );

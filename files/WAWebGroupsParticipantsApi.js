@@ -10,7 +10,6 @@ __d(
     "WAWebPnhCagUtils",
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -172,7 +171,7 @@ __d(
             l = [],
             s = o("WAWebUserUtils").getMeLidUserOrThrow(),
             u = a.some(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+              return o("WAWebUserUtils").isMeAccount(e.id);
             }),
             c;
           if (u) {
@@ -305,7 +304,7 @@ __d(
       return (
         t != null &&
         t.some(function (e) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(
+          return o("WAWebUserUtils").isMeAccount(
             o("WAWebWidFactory").createWid(e),
           );
         })

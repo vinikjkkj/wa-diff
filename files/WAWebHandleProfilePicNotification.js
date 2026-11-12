@@ -14,7 +14,6 @@ __d(
     "WAWebJidToWid",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebProfilePicConstants",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -35,7 +34,7 @@ __d(
           else if (e.hasChild("request")) {
             ((t = "request"), (n = e.child("request")));
             var r = o("WAWebJidToWid").chatJidToChatWid(n.attrChatJid("jid"));
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(r))
+            if (!o("WAWebUserUtils").isMeAccount(r))
               throw e.createParseError("request jid must match self PN or LID");
           } else if (e.hasChild("set_avatar"))
             ((t = "set_avatar"), (n = e.child("set_avatar")));

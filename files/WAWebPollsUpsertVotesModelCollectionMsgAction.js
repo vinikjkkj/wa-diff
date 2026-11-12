@@ -15,7 +15,7 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebPollsGetVoteKey",
     "WAWebPollsPollVoteCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
     "uniqueBy",
@@ -82,7 +82,7 @@ __d(
               isSendFailure:
                 i &&
                 _.ack === o("WAAckLevel").ACK.CLOCK &&
-                o("WAWebUserPrefsMeUser").isMeAccount(_.sender),
+                o("WAWebUserUtils").isMeAccount(_.sender),
             }),
           ),
         );
@@ -99,7 +99,7 @@ __d(
               var n = r("uniqueBy")(
                   t
                     .filter(function (e) {
-                      return !o("WAWebUserPrefsMeUser").isMeAccount(e.sender);
+                      return !o("WAWebUserUtils").isMeAccount(e.sender);
                     })
                     .map(function (e) {
                       return e.parentMsgKey;

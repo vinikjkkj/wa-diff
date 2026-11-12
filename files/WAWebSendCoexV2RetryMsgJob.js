@@ -22,7 +22,7 @@ __d(
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgMetaNode",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
@@ -394,7 +394,7 @@ __d(
           for (var p of t) {
             var _ = D(p, r);
             _ != null &&
-              (o("WAWebUserPrefsMeUser").isMeAccount(_)
+              (o("WAWebUserUtils").isMeAccount(_)
                 ? l && d.push(_)
                 : s && !u && !c && m.push(_));
           }

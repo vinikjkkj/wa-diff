@@ -1,19 +1,26 @@
 __d(
   "WAWebWindowsServerTimeReporter",
-  ["WALogger", "WATimeUtils", "WAWebWindowsHybridBridgeCommon", "getErrorSafe"],
+  [
+    "Promise",
+    "WALogger",
+    "WATimeUtils",
+    "WAWebWindowsHybridBridgeCommon",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = null;
-    function u(e) {
-      ((s = o("WATimeUtils").monotonicTime()), d(e));
-    }
+      s,
+      u = null;
     function c(e) {
-      (s != null &&
-        o("WATimeUtils").monotonicTimeSince(s) <
-          o("WATimeUtils").HOUR_MILLISECONDS) ||
-        ((s = o("WATimeUtils").monotonicTime()), d(Date.now() - e * 1e3));
+      ((u = o("WATimeUtils").monotonicTime()), m(e));
     }
     function d(e) {
+      (u != null &&
+        o("WATimeUtils").monotonicTimeSince(u) <
+          o("WATimeUtils").HOUR_MILLISECONDS) ||
+        ((u = o("WATimeUtils").monotonicTime()), m(Date.now() - e * 1e3));
+    }
+    function m(e) {
       var t = o("WAWebWindowsHybridBridgeCommon").WAWebWindowsGetBridge();
       if (t != null) {
         var n;
@@ -22,19 +29,19 @@ __d(
           n.updateServerTime(e);
         return;
       }
-      m(e);
+      p(e);
     }
-    function m(t) {
-      var n,
-        a =
-          (n = self.chrome) == null ||
-          (n = n.webview) == null ||
-          (n = n.hostObjects) == null
+    function p(t) {
+      var a,
+        i =
+          (a = self.chrome) == null ||
+          (a = a.webview) == null ||
+          (a = a.hostObjects) == null
             ? void 0
-            : n.NativeAppStateBridge,
-        i = a == null ? void 0 : a.updateServerTimeAsync;
-      i != null &&
-        i.call(a, t).then(void 0, function (t) {
+            : a.NativeAppStateBridge,
+        l = i == null ? void 0 : i.updateServerTimeAsync;
+      l != null &&
+        (s || (s = n("Promise"))).resolve(l.call(i, t)).catch(function (t) {
           o("WALogger")
             .LOG(
               e ||
@@ -45,7 +52,7 @@ __d(
             .catching(r("getErrorSafe")(t));
         });
     }
-    ((l.reportLoginServerTime = u), (l.reportServerTimeFromPing = c));
+    ((l.reportLoginServerTime = c), (l.reportServerTimeFromPing = d));
   },
   98,
 );

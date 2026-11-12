@@ -7,7 +7,7 @@ __d(
     "WAWebChatAssignmentUtils",
     "WAWebSchemaChatAssignment",
     "WAWebSyncdCoreApi",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,7 +39,7 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           if (o("WAWebChatAssignmentUtils").canAssignChats()) {
-            var a = o("WAWebUserPrefsMeUser")
+            var a = o("WAWebUserUtils")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
                 .getDeviceId(),
               i = t.id,

@@ -20,6 +20,10 @@ __d(
         [e.MSG_TYPE.REACTION_ENC, s.AddonTableMode.Reaction],
         [e.MSG_TYPE.REACTION, s.AddonTableMode.Reaction],
         [e.MSG_TYPE.EVENT_RESPONSE, s.AddonTableMode.EventResponse],
+        [
+          e.MSG_TYPE.NEWSLETTER_QUESTION_RESPONSE,
+          s.AddonTableMode.NewsletterQuestionResponse,
+        ],
         [e.MSG_TYPE.EVENT_EDIT_ENCRYPTED, s.AddonTableMode.None],
         [e.MSG_TYPE.POLL_EDIT_ENCRYPTED, s.AddonTableMode.None],
         [e.MSG_TYPE.POLL_ADD_OPTION_ENCRYPTED, s.AddonTableMode.None],

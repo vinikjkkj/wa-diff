@@ -6,7 +6,7 @@ __d(
     "WAWebBusinessProfileGetters",
     "WAWebMsgGetters",
     "WAWebUseBusinessProfile.react",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "react-compiler-runtime",
     "useWAWebBusinessProfileValues",
     "useWAWebMsgValues",
@@ -22,7 +22,7 @@ __d(
     function s(e) {
       var t, n;
       (o("WAWebMsgGetters").getIsGroupMsg(e.unsafe()) ||
-        (n = o("WAWebUserPrefsMeUser").isMeAccount(e.from) ? e.to : e.from),
+        (n = o("WAWebUserUtils").isMeAccount(e.from) ? e.to : e.from),
         o("WAWebUseBusinessProfile.react").useBusinessProfile(n));
       var r =
           (t = o(

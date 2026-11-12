@@ -13,7 +13,7 @@ __d(
     "WAWebProductCatalogLogQplEvents",
     "WAWebQplFlowWrapper",
     "WAWebStaleBaseCollection",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -445,7 +445,7 @@ __d(
             return this.selfCatalogErrorEmailMask != null;
           }),
           (i.shouldUseCatalogErrorEmailMask = function (t) {
-            return !(t == null || !o("WAWebUserPrefsMeUser").isMeAccount(t));
+            return !(t == null || !o("WAWebUserUtils").isMeAccount(t));
           }),
           a
         );

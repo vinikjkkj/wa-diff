@@ -7,7 +7,7 @@ __d(
     "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipCallLogPlaceholderTracker",
@@ -64,7 +64,7 @@ __d(
               )
                 return;
             } else if (c == null && u != null) return;
-            var b = p != null ? o("WAWebUserPrefsMeUser").isMeAccount(p) : !1,
+            var b = p != null ? o("WAWebUserUtils").isMeAccount(p) : !1,
               v = f(b, l),
               S,
               R;

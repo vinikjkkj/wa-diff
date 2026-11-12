@@ -8,6 +8,7 @@ __d(
     "WAWebPairEligibilityConfig",
     "WAWebPairEligibilityEvaluator",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -43,7 +44,7 @@ __d(
       return (
         e.isRegularUser() &&
         !e.isHosted() &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(e)
+        !o("WAWebUserUtils").isMeAccount(e)
       );
     }
     function u(e) {

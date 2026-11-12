@@ -7,7 +7,7 @@ __d(
     "WAWebFrontendConstants",
     "WAWebNonEmptyString",
     "WAWebQplFlowWrapper",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "qpl",
@@ -31,9 +31,7 @@ __d(
               o("WAWebQplFlowWrapper").QPL.markerAnnotate(t, {
                 bool: {
                   IsCached: r,
-                  IsConsumer: !o("WAWebUserPrefsMeUser").isMeAccount(
-                    e.catalog.id,
-                  ),
+                  IsConsumer: !o("WAWebUserUtils").isMeAccount(e.catalog.id),
                 },
               }),
             r)

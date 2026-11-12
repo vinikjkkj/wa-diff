@@ -19,7 +19,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsHistorySync",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
@@ -380,9 +379,7 @@ __d(
         : o("WAWebMsgCollection").MsgCollection.get(
             new (r("WAWebMsgKey"))({
               remote: t,
-              fromMe: o("WAWebUserPrefsMeUser").isMeAccount(
-                i.rootCallCreatorWid,
-              ),
+              fromMe: o("WAWebUserUtils").isMeAccount(i.rootCallCreatorWid),
               id: i.rootCallId,
             }),
           );

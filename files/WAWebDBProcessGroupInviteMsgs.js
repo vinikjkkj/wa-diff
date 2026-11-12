@@ -5,7 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebApiGroupInviteV4Store",
     "WAWebLidMigrationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,7 +28,7 @@ __d(
       var n = o("WAWebLidMigrationUtils").toLid(t.from),
         r = o("WAWebLidMigrationUtils").toLid(t.to);
       if (!n || !r) {
-        var a = o("WAWebUserPrefsMeUser").isMeAccount(t.author),
+        var a = o("WAWebUserUtils").isMeAccount(t.author),
           i = t.author != null;
         (o("WALogger").LOG(
           e ||

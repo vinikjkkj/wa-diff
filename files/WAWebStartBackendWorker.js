@@ -20,6 +20,7 @@ __d(
     "WAWebBackendWorkerClient",
     "WAWebBackendWorkerInitState",
     "WAWebBackendWorkerV2Resource",
+    "WAWebClientPayload",
     "WAWebCommsHandleStanza",
     "WAWebCommsWorkerProxy",
     "WAWebCommsWorkerReady",
@@ -640,6 +641,19 @@ __d(
                 return o(
                   "WAWebRegisterPassiveTasksForConnect",
                 ).registerPassiveTasksForConnectMainThread.shouldConnectAsPassiveMode();
+              },
+            },
+          },
+          {
+            namespace: "mainthread_clientPayload",
+            handlers: {
+              buildClientPayloadForLogin: function (t) {
+                var e = t.passive,
+                  n = t.pull;
+                return o("WAWebClientPayload").getClientPayloadForLogin({
+                  passive: e,
+                  pull: n,
+                });
               },
             },
           },

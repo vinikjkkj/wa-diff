@@ -14,7 +14,7 @@ __d(
     "WAWebProductTypes",
     "WAWebQueryProductCollectionsQuery.graphql",
     "WAWebRelayClient",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -206,9 +206,7 @@ __d(
         };
       })(),
       p = function (t) {
-        return o("WAWebUserPrefsMeUser").isMeAccount(t.catalogWid)
-          ? m(t)
-          : d(t);
+        return o("WAWebUserUtils").isMeAccount(t.catalogWid) ? m(t) : d(t);
       },
       _ = p;
     l.default = _;

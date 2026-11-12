@@ -30,6 +30,15 @@ __d(
         }
     }
     function c(e) {
+      for (var t of e) {
+        var n,
+          r = t[0],
+          a = t[1];
+        (n = o("WAWebMsgCollection").MsgCollection.get(r)) == null ||
+          n.set("myQuestionResponsesCount", a);
+      }
+    }
+    function d(e) {
       if (e != null && e.size > 0)
         for (var t of e.entries()) {
           var n = t[0],
@@ -42,7 +51,7 @@ __d(
           }
         }
     }
-    function d(e) {
+    function m(e) {
       var t = [];
       for (var n of e) {
         var r = o(
@@ -57,17 +66,17 @@ __d(
         "WAWebNewsletterReactionCollection",
       ).NewsletterMessageReactionsCollection.remove(t);
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i = t.ids,
             l = t.reactionIdsToRemove,
             s = t.reactions;
-          (l != null && d(l),
+          (l != null && m(l),
             yield (e || (e = n("Promise"))).all(
               (a = i.map(function (e) {
                 return o("WAWebNewsletterReactionCollection")
@@ -90,15 +99,15 @@ __d(
               { merge: !0 },
             ));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i = t.ids,
             l = t.pollVotes;
@@ -126,7 +135,7 @@ __d(
                       ).createOptionLocalIdMap(n);
                       return {
                         id: e.parentMsgKey,
-                        pollVotesCountMap: g(e.voteCountMap, r),
+                        pollVotesCountMap: h(e.voteCountMap, r),
                         pollVotesCountMapTs: e.serverTimestamp,
                       };
                     }
@@ -144,10 +153,10 @@ __d(
             merge: !0,
           });
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = new Map();
       for (var r of e.entries()) {
         var o = r[0],
@@ -156,7 +165,7 @@ __d(
       }
       return n;
     }
-    function h(e, t) {
+    function y(e, t) {
       t != null &&
         e.forEach(function (e) {
           var n = o("WAWebMsgCollection").MsgCollection.get(e);
@@ -165,10 +174,11 @@ __d(
     }
     ((l.updateViewCounts = s),
       (l.updateQuestionResponsesCounts = u),
-      (l.updateForwardCounts = c),
-      (l.updateReactions = m),
-      (l.updatePollVotes = _),
-      (l.updateLastUpdateTs = h));
+      (l.updateMyQuestionResponsesCounts = c),
+      (l.updateForwardCounts = d),
+      (l.updateReactions = p),
+      (l.updatePollVotes = f),
+      (l.updateLastUpdateTs = y));
   },
   98,
 );

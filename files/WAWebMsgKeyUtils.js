@@ -4,7 +4,6 @@ __d(
     "$InternalEnum",
     "WALogger",
     "WAWebIsCagGroupCache",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "nullthrows",
   ],
@@ -13,7 +12,7 @@ __d(
       s,
       u = n("$InternalEnum").Mirrored(["Addon", "Message", "EditMessage"]);
     function c(e) {
-      return e.fromMe && o("WAWebUserPrefsMeUser").isMeAccount(e.remote);
+      return e.fromMe && o("WAWebUserUtils").isMeAccount(e.remote);
     }
     function d(t, n) {
       var a = t.remote;

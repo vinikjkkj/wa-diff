@@ -102,7 +102,8 @@ __d(
         _.apply(this, arguments)
       );
     }
-    ((l.copyLottieStickerToClipboard = m),
+    ((l.requireLottieWebCanvasRuntime = c),
+      (l.copyLottieStickerToClipboard = m),
       (l.createCanvasFromLottieSticker = p));
   },
   98,

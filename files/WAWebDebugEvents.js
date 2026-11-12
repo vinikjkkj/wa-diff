@@ -8,7 +8,7 @@ __d(
     "WAWebMsgType",
     "WAWebSendEventCreationMsgAction",
     "WAWebSendEventEditMsgAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "err",
     "nullthrows",
     "vulture",
@@ -64,9 +64,7 @@ __d(
         return (
           e.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION &&
           !e.isEventCanceled &&
-          o("WAWebUserPrefsMeUser").isMeAccount(
-            o("WAWebMsgGetters").getSender(e),
-          )
+          o("WAWebUserUtils").isMeAccount(o("WAWebMsgGetters").getSender(e))
         );
       });
       if (g == null)

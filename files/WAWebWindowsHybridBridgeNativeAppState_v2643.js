@@ -236,23 +236,25 @@ __d(
                 ));
           }),
           (this.updateServerTime = function (e) {
-            var n = t.$1.updateServerTimeAsync;
-            n != null &&
+            var a = t.$1.updateServerTimeAsync;
+            a != null &&
               (r("WAWebODS").incr(
                 "web.hybrid.bridge.native_app_state.send.update_server_time",
               ),
-              o("WAWebWindowsHybridBridgeTrace")
-                .traceBridgeCall(
-                  {
-                    bridge: "nativeAppStateBridge",
-                    method: "updateServerTimeAsync",
-                    type: "async",
-                  },
-                  function () {
-                    return n.call(t.$1, e);
-                  },
+              (m || (m = n("Promise")))
+                .resolve(
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    {
+                      bridge: "nativeAppStateBridge",
+                      method: "updateServerTimeAsync",
+                      type: "async",
+                    },
+                    function () {
+                      return a.call(t.$1, e);
+                    },
+                  ),
                 )
-                .then(void 0, function (e) {
+                .catch(function (e) {
                   (r("WAWebODS").incr(
                     "web.hybrid.bridge.native_app_state.send.update_server_time.fail",
                   ),

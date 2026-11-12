@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WAProtoConst",
     "WAWebProtobufSyncAction.pb",
+    "WAWebProtobufsAea.pb",
     "WAWebProtobufsChatLockSettings.pb",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsProtocol.pb",
@@ -182,6 +183,13 @@ __d(
         ],
         acp2HistoryWithheld: [65, e.TYPES.BOOL],
         groupRootKeys: [66, e.FLAGS.REPEATED | e.TYPES.MESSAGE, S],
+        isWorkGroup: [67, e.TYPES.BOOL],
+        nonE2EeType: [68, e.TYPES.INT32],
+        contactAccountEncryptionAttestationType: [
+          69,
+          e.TYPES.ENUM,
+          o("WAWebProtobufsAea.pb").NonE2EEAttestation$AccountType,
+        ],
       }),
       (v.name = "IdentityVerificationState"),
       (v.internalSpec = {

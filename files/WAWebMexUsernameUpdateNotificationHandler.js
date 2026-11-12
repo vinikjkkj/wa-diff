@@ -8,7 +8,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebQueryExistsJob",
     "WAWebSetUsernameJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameODS",
     "WAWebUsernameTypes",
@@ -132,7 +132,7 @@ __d(
               );
               return;
             }
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(a)) {
+            if (!o("WAWebUserUtils").isMeAccount(a)) {
               var i = yield o("WAWebQueryExistsJob").queryWidUsernameExists(a);
               if (!(i == null || i.usernameChanged !== !0)) {
                 var l = o("WAWebUsernameTypes").asMaybeUsername(i.username),

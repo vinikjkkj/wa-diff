@@ -3,7 +3,7 @@ __d(
   [
     "WAWebMessagingUserJourneyLogger",
     "WAWebPinInChatMetricUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumActionType",
     "WAWebWamEnumTsSurface",
     "WAWebWamMsgUtils",
@@ -76,7 +76,7 @@ __d(
             pinInChatExpirySecs: o(
               "WAWebPinInChatMetricUtils",
             ).getFiniteTimeRemainingSecs(n),
-            isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+            isSelfPin: o("WAWebUserUtils").isMeAccount(
               n == null ? void 0 : n.sender,
             ),
           });
@@ -90,7 +90,7 @@ __d(
             pinInChatExpirySecs: o(
               "WAWebPinInChatMetricUtils",
             ).getFiniteTimeRemainingSecs(n),
-            isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+            isSelfPin: o("WAWebUserUtils").isMeAccount(
               n == null ? void 0 : n.sender,
             ),
           });
@@ -104,7 +104,7 @@ __d(
             pinInChatExpirySecs: o(
               "WAWebPinInChatMetricUtils",
             ).getFiniteTimeRemainingSecs(n),
-            isSelfPin: o("WAWebUserPrefsMeUser").isMeAccount(
+            isSelfPin: o("WAWebUserUtils").isMeAccount(
               n == null ? void 0 : n.sender,
             ),
           });

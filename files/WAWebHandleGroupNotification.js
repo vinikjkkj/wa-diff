@@ -64,9 +64,7 @@ __d(
               )) != null
                 ? a
                 : i,
-            disappearingModeInitiatedByMe: o(
-              "WAWebUserPrefsMeUser",
-            ).isMeAccount(n),
+            disappearingModeInitiatedByMe: o("WAWebUserUtils").isMeAccount(n),
           };
         }
         return { ephemeralDuration: r.attrInt("expiration") };
@@ -120,7 +118,7 @@ __d(
           n.displayName == null &&
           n.phoneNumber == null &&
           n.id.isLid() &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(n.id) &&
+          !o("WAWebUserUtils").isMeAccount(n.id) &&
           (o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -777,7 +775,7 @@ __d(
                     trigger: t.hasAttr("trigger")
                       ? t.attrInt("trigger")
                       : void 0,
-                    initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(c),
+                    initiatedByMe: o("WAWebUserUtils").isMeAccount(c),
                   };
                 if (
                   n ===

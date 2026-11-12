@@ -14,7 +14,7 @@ __d(
     "WAWebProfilePictureService",
     "WAWebStateUtils",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -55,7 +55,7 @@ __d(
           : o("WAWebContactProfilePicThumbBridge").sendSetPicture
       )(d, i, r);
       a.pendingPic = i;
-      var _ = o("WAWebUserPrefsMeUser").isMeAccount(d),
+      var _ = o("WAWebUserUtils").isMeAccount(d),
         g = _
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Setting profile picture"),
@@ -147,7 +147,7 @@ __d(
           : o("WAWebContactProfilePicThumbBridge").requestDeletePicture
       )(i);
       t.pendingPic = o("WAWebProfilePicThumbGetters").getFallbackType(t);
-      var d = o("WAWebUserPrefsMeUser").isMeAccount(i),
+      var d = o("WAWebUserUtils").isMeAccount(i),
         p = d
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Removing profile picture"),

@@ -31,7 +31,7 @@ __d(
     "WAWebPhashUtils",
     "WAWebReportingTokenUtils",
     "WAWebSimpleSignalPNToFBIDMigration",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -102,7 +102,7 @@ __d(
               !1
             );
           var i = t.author;
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(i))
+          if (!o("WAWebUserUtils").isMeAccount(i))
             return (
               o("WALogger")
                 .ERROR(
@@ -292,9 +292,7 @@ __d(
         n = (t = e.ctwaContext) == null ? void 0 : t.alwaysShowAdAttribution;
       if (
         !o("WAWebMobilePlatforms").isSMB() &&
-        !o("WAWebUserPrefsMeUser").isMeAccount(
-          o("WAWebMsgGetters").getSender(e),
-        ) &&
+        !o("WAWebUserUtils").isMeAccount(o("WAWebMsgGetters").getSender(e)) &&
         n === !0
       )
         throw new (o("WAWebHandleMsgError").MessageValidationError)(

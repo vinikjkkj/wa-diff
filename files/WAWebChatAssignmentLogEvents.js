@@ -11,7 +11,7 @@ __d(
     "WAWebMdChatAssignmentSecondaryActionWamEvent",
     "WAWebMdChatAssignmentWamEvent",
     "WAWebMiscBrowserUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumChatAssignmentActionType",
     "WAWebWamEnumChatAssignmentChatType",
     "WAWebWamEnumChatAssignmentEntryPointType",
@@ -21,7 +21,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e = o("WAWebUserPrefsMeUser")
+      var e = o("WAWebUserUtils")
         .getMeDevicePnOrThrow_DO_NOT_USE()
         .getDeviceId();
       return o("WAWebAgentCollection")
@@ -130,9 +130,7 @@ __d(
         u = t.props,
         c = e(),
         d = o("WAWebAgentCollection").AgentCollection.get(l),
-        m = o("WAWebUserPrefsMeUser")
-          .getMeDevicePnOrThrow_DO_NOT_USE()
-          .getDeviceId(),
+        m = o("WAWebUserUtils").getMeDevicePnOrThrow_DO_NOT_USE().getDeviceId(),
         p = l === (c == null ? void 0 : c.id);
       return new (o("WAWebMdChatAssignmentWamEvent").MdChatAssignmentWamEvent)(
         babelHelpers.extends(

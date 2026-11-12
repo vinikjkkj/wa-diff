@@ -6,7 +6,7 @@ __d(
     "WAWebGroupHistoryMsgData.flow",
     "WAWebMessageHistoryValidation",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
   ],
@@ -27,7 +27,7 @@ __d(
           (r = r.historyReceivers) == null
             ? void 0
             : r.some(function (e) {
-                return o("WAWebUserPrefsMeUser").isMeAccount(
+                return o("WAWebUserUtils").isMeAccount(
                   o("WAWebWidFactory").createWid(e),
                 );
               });

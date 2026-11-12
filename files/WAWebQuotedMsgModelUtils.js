@@ -8,7 +8,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWid",
     "isStringNullOrEmpty",
@@ -67,7 +66,7 @@ __d(
         i = e.quotedRemoteJid ? e.quotedRemoteJid : e.id.remote,
         l = o("WAWebUserUtils").getMeUserMatchingAddressingModeOrThrow(i);
       if (!n || r("isStringNullOrEmpty")(a)) return null;
-      var s = o("WAWebUserPrefsMeUser").isMeAccount(n),
+      var s = o("WAWebUserUtils").isMeAccount(n),
         u = s ? "out" : "in",
         c = {
           id:

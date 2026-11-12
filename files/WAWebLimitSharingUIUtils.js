@@ -39,7 +39,6 @@ __d(
     "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWamEnumToggleUpdateAction",
     "WAWebWid",
@@ -151,7 +150,7 @@ __d(
             u = s
               ? o("WAWebFrontendContactGetters").getFormattedName(s)
               : o("WAWebWidFormat").widToFormattedUser(l),
-            c = o("WAWebUserPrefsMeUser").isMeAccount(l);
+            c = o("WAWebUserUtils").isMeAccount(l);
           return ((i = e.limitSharing) == null ? void 0 : i.sharingLimited) ===
             !0
             ? c
@@ -330,7 +329,7 @@ __d(
     function $(e) {
       var t;
       return (t = e.limitSharing) != null && t.initiatedBy
-        ? o("WAWebUserPrefsMeUser").isMeAccount(
+        ? o("WAWebUserUtils").isMeAccount(
             o("WAWebWidFactory").createWidFromWidLike(
               e.limitSharing.initiatedBy,
             ),
@@ -547,7 +546,7 @@ __d(
             m = d
               ? o("WAWebFrontendContactGetters").getFormattedName(d)
               : o("WAWebWidFormat").widToFormattedUser(c),
-            p = o("WAWebUserPrefsMeUser").isMeAccount(c);
+            p = o("WAWebUserUtils").isMeAccount(c);
           return ((u = e.acp2Setting) == null ? void 0 : u.enabled) === !0
             ? p
               ? n.byMeOn()

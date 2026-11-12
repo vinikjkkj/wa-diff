@@ -161,7 +161,10 @@ __d(
               h = e.env.workQueue.enqueueWork,
               y = o(
                 "VideoPlayerNextgendashWorkQueue",
-              ).createVideoPlayerNextgendashWorkQueue(g),
+              ).createVideoPlayerNextgendashWorkQueue(
+                g,
+                e.env.config.enableWorkerOptimizations,
+              ),
               C = e.env.config.releasePastStateMachineStates
                 ? babelHelpers.extends(
                     {},

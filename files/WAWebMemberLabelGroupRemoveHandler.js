@@ -6,7 +6,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMemberLabelGating",
     "WAWebMemberLabelJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
@@ -26,7 +26,7 @@ __d(
                 i = o("WAWebWidToJid").widToGroupJid(a),
                 l = [],
                 s = n.participants.some(function (e) {
-                  return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+                  return o("WAWebUserUtils").isMeAccount(e.id);
                 });
               if (s) {
                 var u = yield o(

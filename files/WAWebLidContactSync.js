@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
+    "WAWebContactBirthday",
     "WAWebContactShortName",
     "WAWebLidAwareContactsDB",
     "WAWebProtobufsServerSync.pb",
@@ -87,33 +88,39 @@ __d(
                                 l.collectionName,
                               )
                             );
-                          var u = s.firstName,
-                            c = s.fullName,
-                            d = s.username,
-                            m = o("WAWebUsernameTypes").asMaybeUsername(d),
-                            p = {
-                              id: n,
-                              name: c != null ? c : "",
-                              shortName:
-                                (i =
-                                  u != null
-                                    ? u
-                                    : o("WAWebContactShortName").getShortName(
-                                        u,
-                                      )) != null
-                                  ? i
-                                  : "",
-                              username: m != null ? m : void 0,
-                              type: "in",
-                              isAddressBookContact: 1,
-                              isContactSyncCompleted: 0,
-                              isUsernameContact: m != null,
-                            };
+                          var u = s.birthday,
+                            c = s.firstName,
+                            d = s.fullName,
+                            m = s.username,
+                            p = o("WAWebUsernameTypes").asMaybeUsername(m),
+                            _ = babelHelpers.extends(
+                              {
+                                id: n,
+                                name: d != null ? d : "",
+                                shortName:
+                                  (i =
+                                    c != null
+                                      ? c
+                                      : o("WAWebContactShortName").getShortName(
+                                          c,
+                                        )) != null
+                                    ? i
+                                    : "",
+                                username: p != null ? p : void 0,
+                                type: "in",
+                                isAddressBookContact: 1,
+                                isContactSyncCompleted: 0,
+                                isUsernameContact: p != null,
+                              },
+                              o(
+                                "WAWebContactBirthday",
+                              ).getContactSyncBirthdayFields(u),
+                            );
                           return (
                             f &&
-                              m != null &&
-                              y.push({ userId: a, username: m }),
-                            g.push(p),
+                              p != null &&
+                              y.push({ userId: a, username: p }),
+                            g.push(_),
                             o("WAWebSyncNewContact").syncNewContact(a),
                             v++,
                             {
@@ -252,19 +259,22 @@ __d(
                   y.length > 0 &&
                   (yield o("WAWebSetUsernameJob").setUsernamesJob(y));
                 var I = g.map(function (e) {
-                  return {
-                    id: e.id,
-                    name: e.name,
-                    shortName: e.shortName,
-                    type: "in",
-                    syncToAddressbook: e.syncToAddressbook === !0,
-                    isAddressBookContact: 1,
-                    isContactSyncCompleted: 0,
-                    username: o("WAWebUsernameTypes").serializeMaybeUsername(
-                      e.username,
-                    ),
-                    isUsernameContact: !0,
-                  };
+                  return babelHelpers.extends(
+                    {
+                      id: e.id,
+                      name: e.name,
+                      shortName: e.shortName,
+                      type: "in",
+                      syncToAddressbook: e.syncToAddressbook === !0,
+                      isAddressBookContact: 1,
+                      isContactSyncCompleted: 0,
+                      username: o("WAWebUsernameTypes").serializeMaybeUsername(
+                        e.username,
+                      ),
+                      isUsernameContact: !0,
+                    },
+                    o("WAWebContactBirthday").pickContactBirthdayFields(e),
+                  );
                 });
                 return (
                   I.length > 0 &&

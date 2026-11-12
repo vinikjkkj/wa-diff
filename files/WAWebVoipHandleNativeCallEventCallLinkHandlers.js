@@ -8,7 +8,7 @@ __d(
     "WAWebCallUserJourneyLogger",
     "WAWebCoreActionsODS",
     "WAWebGroupQueryJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipErrorLogUpload",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipSignalingEnums",
@@ -670,7 +670,7 @@ __d(
           );
           if (t.type === "web") {
             var n = t.parsers.parseUserRemovedData(e);
-            if (o("WAWebUserPrefsMeUser").isMeAccount(n.removeeJid)) {
+            if (o("WAWebUserUtils").isMeAccount(n.removeeJid)) {
               var a,
                 i = n.removerJid,
                 l = (a = i == null ? void 0 : i.toString()) != null ? a : null;

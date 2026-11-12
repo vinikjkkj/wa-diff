@@ -10,6 +10,7 @@ __d(
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -74,7 +75,7 @@ __d(
           !m.has(t.toString()) &&
           !c.has(t.toString()) &&
           !t.equals((e = s) == null ? void 0 : e.id) &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+          !o("WAWebUserUtils").isMeAccount(t) &&
           r === t.isLid()
         );
       };

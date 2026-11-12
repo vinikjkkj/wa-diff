@@ -43,29 +43,30 @@ __d(
         },
         [g],
       ),
-      y = p("locale"),
-      C = p("pendingAction"),
-      b = p("isContactBlocked"),
-      v = p("shareOwnPn"),
-      S = p("businessProfile"),
-      R = p("commonGroups"),
-      L = p("businessCatalog"),
-      E = p("textStatusString"),
-      k = p("textStatusEmoji"),
-      I = p("textStatusEphemeralDuration"),
-      T = p("textStatusLastUpdateTime"),
-      D = p("textStatusExpiryTs"),
-      x = p("usernameKey"),
-      $ = p("username");
-    function P() {
+      y = p("birthday"),
+      C = p("locale"),
+      b = p("pendingAction"),
+      v = p("isContactBlocked"),
+      S = p("shareOwnPn"),
+      R = p("businessProfile"),
+      L = p("commonGroups"),
+      E = p("businessCatalog"),
+      k = p("textStatusString"),
+      I = p("textStatusEmoji"),
+      T = p("textStatusEphemeralDuration"),
+      D = p("textStatusLastUpdateTime"),
+      x = p("textStatusExpiryTs"),
+      $ = p("usernameKey"),
+      P = p("username");
+    function N() {
       var e = c == null ? void 0 : c.getMeContact();
       return e != null
-        ? o("WAWebUsernameTypes").serializeMaybeUsername($(e))
+        ? o("WAWebUsernameTypes").serializeMaybeUsername(P(e))
         : null;
     }
-    var N = p("isUsernameContact"),
-      M = p("isEphemeralityDisabled"),
-      w = m(
+    var M = p("isUsernameContact"),
+      w = p("isEphemeralityDisabled"),
+      A = m(
         function (e) {
           var t = e[0];
           return o("WAWebUsernameTypes").isPresentUsername(t)
@@ -76,16 +77,16 @@ __d(
               }
             : null;
         },
-        [$],
+        [P],
       ),
-      A = m(
+      F = m(
         function (e) {
           var t = e[0];
           return t != null ? t.displayName : null;
         },
-        [w],
+        [A],
       ),
-      F = m(
+      O = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -118,9 +119,9 @@ __d(
                       .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER,
                   };
         },
-        [f, A, g, o("WAWebContactGetters").getPushname],
+        [f, F, g, o("WAWebContactGetters").getPushname],
       ),
-      O = m(
+      B = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -132,16 +133,16 @@ __d(
               }
             : n;
         },
-        [_, F],
+        [_, O],
       ),
-      B = m(
+      W = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [O],
+        [B],
       ),
-      W = m(
+      q = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -153,16 +154,16 @@ __d(
               }
             : n;
         },
-        [o("WAWebContactGetters").getName, O],
+        [o("WAWebContactGetters").getName, B],
       ),
-      q = m(
+      U = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [W],
+        [q],
       ),
-      U = m(
+      V = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -174,9 +175,9 @@ __d(
                   .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PHONE_NUMBER,
               };
         },
-        [o("WAWebContactGetters").getId, O],
+        [o("WAWebContactGetters").getId, B],
       ),
-      V = m(
+      H = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -185,28 +186,28 @@ __d(
             ? n
             : t;
         },
-        [U, w],
-      ),
-      H = m(
-        function (e) {
-          var t = e[0];
-          return t.displayName;
-        },
-        [F],
+        [V, A],
       ),
       G = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [V],
+        [O],
+      ),
+      z = m(
+        function (e) {
+          var t = e[0];
+          return t.displayName;
+        },
+        [H],
       );
-    function z(e) {
+    function j(e) {
       return e
         ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
         : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
     }
-    var j = m(
+    var K = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -216,9 +217,9 @@ __d(
             a = r != null ? (c == null ? void 0 : c.get(r)) : null;
           return a != null && a.isUsernameContact;
         },
-        [o("WAWebContactGetters").getId, N],
+        [o("WAWebContactGetters").getId, M],
       ),
-      K = m(
+      Q = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -228,13 +229,13 @@ __d(
         [
           o("WAWebContactGetters").getIsUser,
           o("WAWebContactGetters").getName,
-          j,
+          K,
         ],
       ),
-      Q = p("orgMemberName"),
-      X = p("orgPrimaryId"),
-      Y = p("orgPrimaryTag"),
-      J = m(
+      X = p("orgMemberName"),
+      Y = p("orgPrimaryId"),
+      J = p("orgPrimaryTag"),
+      Z = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -249,7 +250,7 @@ __d(
           o("WAWebContactGetters").getVerifiedName,
         ],
       ),
-      Z = m(
+      ee = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -266,16 +267,16 @@ __d(
               : n;
         },
         [
+          Y,
           X,
-          Q,
           o("WAWebContactGetters").getPushname,
-          K,
-          J,
+          Q,
+          Z,
           o("WAWebContactGetters").getIsBusiness,
         ],
       ),
-      ee = p("orgMemberFirstName"),
-      te = m(
+      te = p("orgMemberFirstName"),
+      ne = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -289,16 +290,16 @@ __d(
           }
           return r("isStringNullOrEmpty")(a) ? n : a;
         },
-        [o("WAWebContactGetters").getShortName, Z, Q, ee],
+        [o("WAWebContactGetters").getShortName, ee, X, te],
       ),
-      ne = m(
+      re = m(
         function (e) {
           var t = e[0];
           return (t == null ? void 0 : t.isAuthorizedAgent) === !0;
         },
-        [S],
+        [R],
       ),
-      re = m(
+      oe = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -310,10 +311,10 @@ __d(
         [
           o("WAWebContactGetters").getIsBusiness,
           o("WAWebContactGetters").getVerifiedLevel,
-          K,
+          Q,
         ],
       ),
-      oe = m(
+      ae = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -332,29 +333,29 @@ __d(
         [
           o("WAWebContactGetters").getName,
           o("WAWebContactGetters").getNotifyName,
-          re,
+          oe,
           o("WAWebContactGetters").getVerifiedName,
           o("WAWebContactGetters").getVerifiedLevel,
-          ne,
+          re,
         ],
       ),
-      ae = m(
+      ie = m(
         function (e) {
           var t = e[0],
             n = e[1];
           return n != null ? n : t;
         },
-        [oe, Z],
+        [ae, ee],
       ),
-      ie = se(ae),
-      le = m(
+      le = ue(ie),
+      se = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [se(oe)],
+        [ue(ae)],
       );
-    function se(e) {
+    function ue(e) {
       return m(
         function (e) {
           var t = e[0],
@@ -370,7 +371,7 @@ __d(
               }
             : r("WAWebWid").isPSA(t)
               ? {
-                  displayName: z(
+                  displayName: j(
                     o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
                   ),
                   type: null,
@@ -387,25 +388,25 @@ __d(
           o("WAWebContactGetters").getId,
           e,
           o("WAWebContactGetters").getIsMe,
-          V,
+          H,
         ],
       );
     }
-    var ue = m(
+    var ce = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [ie],
+        [le],
       ),
-      ce = m(
+      de = m(
         function (e) {
           var t = e[0];
           return t.type;
         },
-        [ie],
+        [le],
       ),
-      de = m(
+      me = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -415,7 +416,7 @@ __d(
           if (r("WAWebWid").isPSA(a))
             return {
               displayName: o("WAWebL10NAccentFold").accentFold(
-                z(o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)),
+                j(o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)),
               ),
               type: null,
             };
@@ -446,20 +447,20 @@ __d(
         },
         [
           o("WAWebContactGetters").getName,
-          G,
+          z,
           o("WAWebContactGetters").getId,
           o("WAWebContactGetters").getIsMe,
-          y,
+          C,
         ],
       ),
-      me = m(
+      pe = m(
         function (e) {
           var t = e[0];
           return t != null ? t.displayName : null;
         },
-        [de],
+        [me],
       ),
-      pe = m(
+      _e = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -477,7 +478,7 @@ __d(
                 }
               : r("WAWebWid").isPSA(n)
                 ? {
-                    displayName: z(
+                    displayName: j(
                       o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
                     ),
                     type: null,
@@ -511,28 +512,28 @@ __d(
           o("WAWebContactGetters").getId,
           o("WAWebContactGetters").getVerifiedLevel,
           o("WAWebContactGetters").getVerifiedName,
-          V,
+          H,
           o("WAWebContactGetters").getIsUser,
           o("WAWebContactGetters").getIsMe,
-          y,
+          C,
         ],
       ),
-      _e = Ee(pe),
-      fe = m(
+      fe = ke(_e),
+      ge = m(
+        function (e) {
+          var t = e[0];
+          return t.displayName;
+        },
+        [fe],
+      ),
+      he = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
         [_e],
       ),
-      ge = m(
-        function (e) {
-          var t = e[0];
-          return t.displayName;
-        },
-        [pe],
-      ),
-      he = m(
+      ye = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -550,29 +551,29 @@ __d(
           return { displayName: l && l.replace(/\s/g, " "), type: n.type };
         },
         [
-          te,
-          _e,
+          ne,
+          fe,
           o("WAWebContactGetters").getId,
           o("WAWebContactGetters").getIsMe,
-          y,
+          C,
         ],
       ),
-      ye = m(
+      Ce = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [he],
+        [ye],
       ),
-      Ce = ve(te, _e),
-      be = m(
+      be = Se(ne, fe),
+      ve = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [ve(o("WAWebContactGetters").getShortName, pe)],
+        [Se(o("WAWebContactGetters").getShortName, _e)],
       );
-    function ve(e, t) {
+    function Se(e, t) {
       return m(
         function (e) {
           var t = e[0],
@@ -596,18 +597,18 @@ __d(
           t,
           o("WAWebContactGetters").getId,
           o("WAWebContactGetters").getIsMe,
-          y,
+          C,
         ],
       );
     }
-    var Se = m(
+    var Re = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [Ce],
+        [be],
       ),
-      Re = m(
+      Le = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -618,7 +619,7 @@ __d(
           return n
             ? r("WAWebWid").isPSA(n)
               ? {
-                  displayName: z(
+                  displayName: j(
                     o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
                   ),
                   type: null,
@@ -647,12 +648,12 @@ __d(
           o("WAWebContactGetters").getId,
           o("WAWebContactGetters").getVerifiedLevel,
           o("WAWebContactGetters").getVerifiedName,
-          V,
-          y,
+          H,
+          C,
         ],
       ),
-      Le = Ee(Re);
-    function Ee(e) {
+      Ee = ke(Le);
+    function ke(e) {
       return m(
         function (e) {
           var t = e[0],
@@ -669,17 +670,17 @@ __d(
                       .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.SAVED_CONTACT_NAME,
               };
         },
-        [e, Z, Q],
+        [e, ee, X],
       );
     }
-    var ke = m(
+    var Ie = m(
         function (e) {
           var t = e[0];
           return t.displayName;
         },
-        [Le],
+        [Ee],
       ),
-      Ie = m(
+      Te = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -702,7 +703,7 @@ __d(
           o("WAWebContactGetters").getPushname,
         ],
       ),
-      Te = m(
+      De = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -715,12 +716,12 @@ __d(
           o("WAWebContactGetters").getIsBusiness,
           o("WAWebContactGetters").getName,
           o("WAWebContactGetters").getVerifiedName,
-          K,
+          Q,
           o("WAWebContactGetters").getId,
         ],
       ),
-      De = /^[^0-9]+$/,
-      xe = m(
+      xe = /^[^0-9]+$/,
+      $e = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -736,7 +737,7 @@ __d(
           o("WAWebContactGetters").getVerifiedName,
         ],
       ),
-      $e = m(
+      Pe = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -746,7 +747,7 @@ __d(
           function s(e) {
             var t = e.toLowerCase(),
               n = r("WAWebAlphaRegex").exec(t);
-            if ((n && n.index === 0) || (n && De.test(t.slice(n.index)))) {
+            if ((n && n.index === 0) || (n && xe.test(t.slice(n.index)))) {
               var a = n[0],
                 i = o("WAWebL10NRemoveAccents").removeAccents(a);
               return o("WAWebContactComparator").getCollator().compare(i, a)
@@ -772,63 +773,64 @@ __d(
           o("WAWebContactGetters").getVerifiedName,
           o("WAWebContactGetters").getVerifiedLevel,
           o("WAWebContactGetters").getNotifyName,
-          Z,
+          ee,
         ],
       );
     ((l.getPhoneNumber = _),
       (l.getIsGuest = h),
-      (l.getPendingAction = C),
-      (l.getIsContactBlocked = b),
-      (l.getShareOwnPn = v),
-      (l.getBusinessProfile = S),
-      (l.getCommonGroups = R),
-      (l.getBusinessCatalog = L),
-      (l.getTextStatusString = E),
-      (l.getTextStatusEmoji = k),
-      (l.getTextStatusEphemeralDuration = I),
-      (l.getTextStatusLastUpdateTime = T),
-      (l.getTextStatusExpiryTs = D),
-      (l.getUsernameKey = x),
-      (l.getUsername = $),
-      (l.getMyUsername = P),
-      (l.getIsUsernameContactField = N),
-      (l.getIsEphemeralityDisabled = M),
-      (l.getFormattedUsernameAndType = w),
-      (l.getFormattedUsername = A),
-      (l.getDisplayNameForLidAndType = F),
-      (l.getPnForLid = B),
-      (l.getUserDisplayNameForLid = q),
-      (l.getFormattedPhoneAndType = U),
-      (l.getFormattedUsernameOrPhoneAndType = V),
-      (l.getMaskedPhoneLid = H),
-      (l.getFormattedUsernameOrPhone = G),
-      (l.getIsUsernameContact = j),
-      (l.getIsMyContact = K),
-      (l.getOrgMemberName = Q),
-      (l.getOrgPrimaryId = X),
-      (l.getOrgPrimaryTag = Y),
-      (l.getShownOrgMemberName = Z),
-      (l.getIsNonVerified = re),
-      (l.getDisplayNameAndType = ie),
-      (l.getContactDisplayName = le),
-      (l.getDisplayName = ue),
-      (l.getDisplayNameType = ce),
-      (l.getSearchName = me),
-      (l.getContactFormattedNameAndType = pe),
-      (l.getFormattedNameAndType = _e),
-      (l.getFormattedName = fe),
-      (l.getContactFormattedName = ge),
-      (l.getFormattedShortNameWithNonBreakingSpaces = ye),
-      (l.getFormattedShortNameAndType = Ce),
-      (l.getContactFormattedShortName = be),
-      (l.getFormattedShortName = Se),
-      (l.getContactFormattedUserAndType = Re),
-      (l.getFormattedUserAndType = Le),
-      (l.getFormattedUser = ke),
-      (l.getFormattedSavedNameOrPushnameWithType = Ie),
-      (l.getShowBiz3pBotVerifiedNameAsSecondary = Te),
-      (l.getSearchVerifiedName = xe),
-      (l.getHeader = $e));
+      (l.getBirthday = y),
+      (l.getPendingAction = b),
+      (l.getIsContactBlocked = v),
+      (l.getShareOwnPn = S),
+      (l.getBusinessProfile = R),
+      (l.getCommonGroups = L),
+      (l.getBusinessCatalog = E),
+      (l.getTextStatusString = k),
+      (l.getTextStatusEmoji = I),
+      (l.getTextStatusEphemeralDuration = T),
+      (l.getTextStatusLastUpdateTime = D),
+      (l.getTextStatusExpiryTs = x),
+      (l.getUsernameKey = $),
+      (l.getUsername = P),
+      (l.getMyUsername = N),
+      (l.getIsUsernameContactField = M),
+      (l.getIsEphemeralityDisabled = w),
+      (l.getFormattedUsernameAndType = A),
+      (l.getFormattedUsername = F),
+      (l.getDisplayNameForLidAndType = O),
+      (l.getPnForLid = W),
+      (l.getUserDisplayNameForLid = U),
+      (l.getFormattedPhoneAndType = V),
+      (l.getFormattedUsernameOrPhoneAndType = H),
+      (l.getMaskedPhoneLid = G),
+      (l.getFormattedUsernameOrPhone = z),
+      (l.getIsUsernameContact = K),
+      (l.getIsMyContact = Q),
+      (l.getOrgMemberName = X),
+      (l.getOrgPrimaryId = Y),
+      (l.getOrgPrimaryTag = J),
+      (l.getShownOrgMemberName = ee),
+      (l.getIsNonVerified = oe),
+      (l.getDisplayNameAndType = le),
+      (l.getContactDisplayName = se),
+      (l.getDisplayName = ce),
+      (l.getDisplayNameType = de),
+      (l.getSearchName = pe),
+      (l.getContactFormattedNameAndType = _e),
+      (l.getFormattedNameAndType = fe),
+      (l.getFormattedName = ge),
+      (l.getContactFormattedName = he),
+      (l.getFormattedShortNameWithNonBreakingSpaces = Ce),
+      (l.getFormattedShortNameAndType = be),
+      (l.getContactFormattedShortName = ve),
+      (l.getFormattedShortName = Re),
+      (l.getContactFormattedUserAndType = Le),
+      (l.getFormattedUserAndType = Ee),
+      (l.getFormattedUser = Ie),
+      (l.getFormattedSavedNameOrPushnameWithType = Te),
+      (l.getShowBiz3pBotVerifiedNameAsSecondary = De),
+      (l.getSearchVerifiedName = $e),
+      (l.getHeader = Pe));
   },
   226,
 );

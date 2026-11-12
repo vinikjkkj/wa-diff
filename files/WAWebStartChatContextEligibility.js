@@ -8,7 +8,7 @@ __d(
     "WAWebDBMessageUtils",
     "WAWebSchemaMessage",
     "WAWebStartChatContextPreCheck",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
@@ -21,7 +21,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(e)
+          return o("WAWebUserUtils").isMeAccount(e)
             ? "self"
             : (yield o("WAWebApiContact").isAddressBookContact(
                   o("WAWebWidToJid").widToUserJid(e),

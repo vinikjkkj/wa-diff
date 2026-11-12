@@ -9,7 +9,7 @@ __d(
     "WAWebSharableEventPeople",
     "WAWebSharableEventStorageEnums",
     "WAWebSharableEventViewerState",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebWamEnumOppositeVisibleIdentificationType",
   ],
@@ -31,7 +31,7 @@ __d(
         ),
         i =
           (r = n.find(function (e) {
-            return o("WAWebUserPrefsMeUser").isMeAccount(e.inviteeLid);
+            return o("WAWebUserUtils").isMeAccount(e.inviteeLid);
           })) == null
             ? void 0
             : r.rsvpStatus,
@@ -86,7 +86,7 @@ __d(
             return t;
           })
           .filter(function (e) {
-            return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+            return !o("WAWebUserUtils").isMeAccount(e);
           }),
         r = n.filter(o("WAWebSharableEventPeople").isSharableEventKnownPerson),
         a = n.filter(function (e) {
@@ -159,7 +159,7 @@ __d(
     }
     function g(e, t, n) {
       var r = e.inviteeLid,
-        a = o("WAWebUserPrefsMeUser").isMeAccount(r),
+        a = o("WAWebUserUtils").isMeAccount(r),
         i = t != null && t.equals(r),
         l = o("WAWebSharableEventPeople").getSharableEventPersonName(
           r,
@@ -208,13 +208,13 @@ __d(
         ? null
         : {
             isPhoneNumber: !1,
-            priority: C(r, o("WAWebUserPrefsMeUser").isMeAccount(e), !0),
+            priority: C(r, o("WAWebUserUtils").isMeAccount(e), !0),
             row: {
               extraGuestCount: 0,
               isKnownPerson:
-                o("WAWebUserPrefsMeUser").isMeAccount(e) ||
+                o("WAWebUserUtils").isMeAccount(e) ||
                 o("WAWebSharableEventPeople").isSharableEventKnownPerson(e),
-              isTappable: v(e, r, o("WAWebUserPrefsMeUser").isMeAccount(e), !0),
+              isTappable: v(e, r, o("WAWebUserUtils").isMeAccount(e), !0),
               lid: e,
               name: r.name,
               role: y(n),

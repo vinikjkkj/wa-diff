@@ -10,7 +10,6 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
@@ -37,7 +36,7 @@ __d(
               order: u,
               thumbnail: c,
             });
-          if (o("WAWebUserPrefsMeUser").isMeAccount(a.id))
+          if (o("WAWebUserUtils").isMeAccount(a.id))
             return o("WAWebSendMsgChatAction")
               .addAndSendMsgToChat(a, m)[0]
               .then(r("WAWebNoop"))

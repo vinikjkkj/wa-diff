@@ -169,7 +169,7 @@ __d(
         _ = e.paymentInfo,
         f,
         g = Y(d);
-      if (!o("WAWebUserPrefsMeUser").isMeAccount(g)) {
+      if (!o("WAWebUserUtils").isMeAccount(g)) {
         R(p);
         return;
       }
@@ -310,12 +310,10 @@ __d(
             };
           switch (d.type) {
             case o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT:
-              return o("WAWebUserPrefsMeUser").isMeAccount(d.author)
-                ? D(e)
-                : N(e);
+              return o("WAWebUserUtils").isMeAccount(d.author) ? D(e) : N(e);
             case o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP:
               return d.isDirect &&
-                o("WAWebUserPrefsMeUser").isMeAccount(d.author) &&
+                o("WAWebUserUtils").isMeAccount(d.author) &&
                 !J(e)
                 ? D(e)
                 : N(e);
@@ -812,7 +810,7 @@ __d(
         return e.participant;
       if (
         !o("WAWebUserPrefsMeUser").isMeDevice(t.author) &&
-        o("WAWebUserPrefsMeUser").isMeAccount(t.author)
+        o("WAWebUserUtils").isMeAccount(t.author)
       )
         return t.author;
     }
@@ -894,7 +892,7 @@ __d(
           function* (e, t, n, a) {
             var i, l;
             if (!(n == null || a == null)) {
-              var s = n ? o("WAWebUserPrefsMeUser").isMeAccount(n) : !0,
+              var s = n ? o("WAWebUserUtils").isMeAccount(n) : !0,
                 u = { fromMe: s, remote: t, id: a },
                 c = o(
                   "WAWebMsmsgMsgSecretCache",
@@ -1072,8 +1070,8 @@ __d(
       if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT) {
         var t =
           e.metaFrom != null
-            ? o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom)
-            : o("WAWebUserPrefsMeUser").isMeAccount(e.author);
+            ? o("WAWebUserUtils").isMeAccount(e.metaFrom)
+            : o("WAWebUserUtils").isMeAccount(e.author);
         return e.botParticipant != null
           ? new (r("WAWebMsgKey"))({
               remote: e.chat,
@@ -1091,7 +1089,7 @@ __d(
       }
       return new (r("WAWebMsgKey"))({
         remote: e.chat,
-        fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e.author),
+        fromMe: o("WAWebUserUtils").isMeAccount(e.author),
         participant: o("WAWebWidFactory").asUserWidOrThrow(e.author),
         id: e.chat.isStatus()
           ? o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(e.externalId)

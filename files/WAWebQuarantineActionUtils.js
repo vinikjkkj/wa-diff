@@ -5,7 +5,7 @@ __d(
     "WAWebBotUtils",
     "WAWebFutureproofProtoUtils",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidToJid",
@@ -69,7 +69,7 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("WAWebWid").isUser(e) &&
-            !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+            !o("WAWebUserUtils").isMeAccount(e) &&
             !o("WAWebBotUtils").isMetaOperatedAccount(e) &&
             !(yield o("WAWebApiContact").isAddressBookContact(
               o("WAWebWidToJid").widToUserJid(

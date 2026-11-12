@@ -7,7 +7,7 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebScheduleIncrementNewsletterForwardCounterAction",
     "WAWebStatusGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,7 +15,7 @@ __d(
     function e(e, t) {
       if (
         !(
-          o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
+          o("WAWebUserUtils").isMeAccount(t.id) &&
           !o(
             "WAWebNewsletterGatingUtils",
           ).isNewsletterForwardCounterBumpForwardsToSelfEnabled()

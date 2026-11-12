@@ -9,7 +9,6 @@ __d(
     "WAWebMsgKey",
     "WAWebOfflineHandler",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -44,7 +43,7 @@ __d(
           }
           var _ = o("WAWebWidFactory").asUserWidOrThrow(d),
             f = a === o("WAWebAck").ACK_STRING.SENDER,
-            g = !f && o("WAWebUserPrefsMeUser").isMeAccount(_),
+            g = !f && o("WAWebUserUtils").isMeAccount(_),
             h;
           if (g) {
             if (!m) {

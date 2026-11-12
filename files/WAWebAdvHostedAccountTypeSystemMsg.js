@@ -6,7 +6,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebProtobufsAdv.pb",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
   ],
@@ -20,7 +19,7 @@ __d(
       if (!n.isUser()) return null;
       var s = o("WAWebUserUtils").getMeLidUserOrThrow(),
         u = new (r("WAWebMsgKey"))({
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
+          fromMe: o("WAWebUserUtils").isMeAccount(t),
           remote: n,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
@@ -52,7 +51,7 @@ __d(
       if (!e.isUser()) return null;
       var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
+          fromMe: o("WAWebUserUtils").isMeAccount(t),
           remote: e,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
@@ -71,7 +70,7 @@ __d(
       if (!e.isUser()) return null;
       var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
-          fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
+          fromMe: o("WAWebUserUtils").isMeAccount(t),
           remote: e,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
@@ -95,7 +94,7 @@ __d(
       ) {
         var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
           a = new (r("WAWebMsgKey"))({
-            fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
+            fromMe: o("WAWebUserUtils").isMeAccount(t),
             remote: e,
             id: r("WAWebMsgKey").newId_DEPRECATED(),
           });

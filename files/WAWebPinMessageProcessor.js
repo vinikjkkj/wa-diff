@@ -13,7 +13,6 @@ __d(
     "WAWebMsgType",
     "WAWebPinsDbSerialization",
     "WAWebProtobufsE2E.pb",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -147,7 +146,7 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            i = o("WAWebUserPrefsMeUser").isMeAccount(n);
+            i = o("WAWebUserUtils").isMeAccount(n);
           return {
             id: new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),

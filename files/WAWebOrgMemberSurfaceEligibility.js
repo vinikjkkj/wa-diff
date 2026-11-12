@@ -5,7 +5,7 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebResolvePersonToContact",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
@@ -21,7 +21,7 @@ __d(
         a = r.phoneNumber,
         i = r.username,
         l = m(t, a);
-      return o("WAWebUserPrefsMeUser").isMeAccount(t) ||
+      return o("WAWebUserUtils").isMeAccount(t) ||
         l.some(function (e) {
           return (
             e != null &&

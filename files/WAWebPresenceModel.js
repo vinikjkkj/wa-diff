@@ -31,7 +31,7 @@ __d(
     "WAWebPresenceOrder",
     "WAWebPrivacyGatingUtils",
     "WAWebTextStatusGatingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFormat",
     "getErrorSafe",
@@ -360,7 +360,7 @@ __d(
               n.forEach(function (e) {
                 var t = e.id;
                 if (
-                  !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+                  !o("WAWebUserUtils").isMeAccount(t) &&
                   !t.isBot() &&
                   t.isLid()
                 ) {

@@ -94,7 +94,7 @@ __d(
             var l = r.participants.find(function (e) {
               var t = e.id,
                 n = e.isAdmin;
-              return o("WAWebUserPrefsMeUser").isMeAccount(t) && n;
+              return o("WAWebUserUtils").isMeAccount(t) && n;
             });
             function s() {
               return !a && !l && r.defaultSubgroup === !0
@@ -236,9 +236,7 @@ __d(
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
-            a =
-              e.author != null &&
-              o("WAWebUserPrefsMeUser").isMeAccount(e.author),
+            a = e.author != null && o("WAWebUserUtils").isMeAccount(e.author),
             i,
             l;
           if (
@@ -250,7 +248,7 @@ __d(
                 o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE)
           )
             ((i = t.participants.some(function (e) {
-              return o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+              return o("WAWebUserUtils").isMeAccount(e.id);
             })),
               (l = t.participants.length));
           else return !1;
@@ -328,7 +326,7 @@ __d(
                   C &&
                   t.participants.some(function (e) {
                     var t = e.id;
-                    return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                    return o("WAWebUserUtils").isMeAccount(t);
                   })
                 )
                   if (t.generalSubgroup === !0) {
@@ -364,7 +362,7 @@ __d(
                   C != null &&
                   t.participants.some(function (e) {
                     var t = e.id;
-                    return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                    return o("WAWebUserUtils").isMeAccount(t);
                   })
                 ) {
                   var T;
@@ -414,7 +412,7 @@ __d(
                   t.defaultSubgroup &&
                   t.participants.some(function (e) {
                     var t = e.id;
-                    return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                    return o("WAWebUserUtils").isMeAccount(t);
                   })
                 ) {
                   var M, w;
@@ -432,7 +430,7 @@ __d(
               else if (
                 t.participants.some(function (e) {
                   var t = e.id;
-                  return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                  return o("WAWebUserUtils").isMeAccount(t);
                 }) &&
                 t.reason ===
                   o("WAWebGroupType").ADD_REASON.GENERAL_CHAT_AUTO_ADD
@@ -448,7 +446,7 @@ __d(
                 C &&
                 t.participants.some(function (e) {
                   var t = e.id;
-                  return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                  return o("WAWebUserUtils").isMeAccount(t);
                 }) &&
                 t.generalSubgroup === !0
               ) {
@@ -459,7 +457,7 @@ __d(
                 C &&
                 t.participants.some(function (e) {
                   var t = e.id;
-                  return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                  return o("WAWebUserUtils").isMeAccount(t);
                 })
               ) {
                 var O,
@@ -1061,7 +1059,7 @@ __d(
               i = !!(
                 a != null &&
                 a.participants.find(function (e) {
-                  return o("WAWebUserPrefsMeUser").isMeAccount(
+                  return o("WAWebUserUtils").isMeAccount(
                     o("WAWebWidFactory").createWid(e),
                   );
                 })
@@ -1132,7 +1130,7 @@ __d(
               i = !!(
                 a != null &&
                 a.participants.find(function (e) {
-                  return o("WAWebUserPrefsMeUser").isMeAccount(
+                  return o("WAWebUserUtils").isMeAccount(
                     o("WAWebWidFactory").createWid(e),
                   );
                 })

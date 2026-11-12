@@ -9,7 +9,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebParseMsgPaymentInfo",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -140,8 +140,8 @@ __d(
         var l = o("WAWebDecodeJid").decodeJid(e.participant),
           u =
             typeof l == "string"
-              ? o("WAWebUserPrefsMeUser").isSerializedWidMe(l)
-              : o("WAWebUserPrefsMeUser").isMeAccount(l);
+              ? o("WAWebUserUtils").isSerializedWidMe(l)
+              : o("WAWebUserUtils").isMeAccount(l);
         if (t.fromMe || u || n === "send")
           i = o("WAWebDecodeJid").decodeJid(e.participant);
         else return null;

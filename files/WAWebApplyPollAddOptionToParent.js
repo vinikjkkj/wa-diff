@@ -13,7 +13,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebPollsGatingUtils",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -535,45 +534,20 @@ __d(
     function H() {
       return (
         (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map();
-          for (var r of e) {
-            var a = r.merged,
-              i = r.parentMsg;
-            if (a != null) {
-              var l = i.id.remote.toString(),
-                s = a.msg,
-                u = t.get(l);
-              u != null ? u.push(s) : t.set(l, [s]);
-            }
-          }
-          var c = yield (_ || (_ = n("Promise"))).allSettled(
-            Array.from(
-              t,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e[0],
-                      n = e[1],
-                      r = o("WAWebWidFactory").createWid(t);
-                    yield o("WAWebBackendApi").frontendSendAndReceive(
-                      "processMultipleMessages",
-                      {
-                        chatId: r,
-                        msgObjs: n,
-                        meta: { add: "last", isHistory: !1 },
-                        processMessagesOrigin: "pollAddOptionMessage",
-                      },
-                    );
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-          for (var d of c)
-            d.status === "rejected" &&
+          var t = e.flatMap(function (e) {
+            var t = e.merged,
+              n = e.parentMsg;
+            return (t == null ? void 0 : t.msg.pollOptions) != null
+              ? [{ parentMsgKey: n.id, pollOptions: t.msg.pollOptions }]
+              : [];
+          });
+          if (t.length !== 0)
+            try {
+              yield o("WAWebBackendApi").frontendSendAndReceive(
+                "updatePollOptions",
+                { updates: t },
+              );
+            } catch (e) {
               o("WALogger")
                 .ERROR(
                   p ||
@@ -581,7 +555,9 @@ __d(
                       "applyPollAddOptionsToParent: frontend notification failed",
                     ])),
                 )
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("poll_add_option_notify_failed");
+            }
         })),
         H.apply(this, arguments)
       );

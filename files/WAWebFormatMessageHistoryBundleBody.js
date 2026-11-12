@@ -8,7 +8,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebL10N",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -70,7 +70,7 @@ __d(
         D = T[0] || "",
         x = (i = s.nonHistoryReceivers) != null ? i : [],
         $ = S(x, u);
-      if (l != null && o("WAWebUserPrefsMeUser").isMeAccount(l)) {
+      if (l != null && o("WAWebUserUtils").isMeAccount(l)) {
         if (I.length === 1) return $ != null ? C(D, k, $) : _(D, k);
         if (I.length === 2) {
           var P = T[1] || "";

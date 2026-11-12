@@ -17,6 +17,7 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebProtobufsWeb.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWid",
     "WAWebWidFactory",
@@ -779,7 +780,7 @@ __d(
             ((t.protocolMessageKey =
               (p = c(e, {
                 remoteJid: e.key.remoteJid,
-                fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t.from),
+                fromMe: o("WAWebUserUtils").isMeAccount(t.from),
                 id: _,
                 participant: e.key.participant,
               })) == null

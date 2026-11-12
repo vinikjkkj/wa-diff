@@ -10,7 +10,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
@@ -81,9 +81,7 @@ __d(
     function m(e, t) {
       var n = o("WAWebStateUtils").unproxy(e);
       if (
-        o("WAWebUserPrefsMeUser").isMeAccount(
-          o("WAWebMsgGetters").getSender(n),
-        ) ||
+        o("WAWebUserUtils").isMeAccount(o("WAWebMsgGetters").getSender(n)) ||
         (n.senderObj != null &&
           o("WAWebFrontendContactGetters").getIsMyContact(n.senderObj))
       )

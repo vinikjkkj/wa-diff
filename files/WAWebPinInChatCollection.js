@@ -7,7 +7,7 @@ __d(
     "WAWebFrontendPinInChatGetters",
     "WAWebPinInChatModel",
     "WAWebPinMsgConstants",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -23,7 +23,7 @@ __d(
             function (e) {
               return (
                 o("WAWebFrontendPinInChatGetters").getIsFailed(e) &&
-                o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
+                o("WAWebUserUtils").isMeAccount(e.sender)
               );
             },
           )),

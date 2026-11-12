@@ -5,7 +5,7 @@ __d(
     "WAWebGroupHistoryPostJoinSubtype",
     "WAWebGroupHistoryStoredHintGating",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,7 +46,7 @@ __d(
         return (
           e instanceof r("WAWebWid") &&
           e.isUser() &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(e)
+          !o("WAWebUserUtils").isMeAccount(e)
         );
       });
     }

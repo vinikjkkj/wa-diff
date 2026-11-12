@@ -7,7 +7,7 @@ __d(
     "WAWebSignal",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "cr:510",
     "err",
@@ -123,7 +123,7 @@ __d(
                     function* (e, t) {
                       var i =
                         (a == null ? void 0 : a.isMonitoredSend) === !0 &&
-                        o("WAWebUserPrefsMeUser").isMeAccount(e.wid);
+                        o("WAWebUserUtils").isMeAccount(e.wid);
                       if (
                         C.has(t) &&
                         a != null &&

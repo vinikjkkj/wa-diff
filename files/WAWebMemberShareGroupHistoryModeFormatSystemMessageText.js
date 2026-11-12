@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebFormatParticipantNames",
     "WAWebGroupHistoryShareMode",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u;
@@ -36,7 +36,7 @@ __d(
           ),
           ""
         );
-      var l = o("WAWebUserPrefsMeUser").isMeAccount(r.author),
+      var l = o("WAWebUserUtils").isMeAccount(r.author),
         c = r.author;
       if (l) {
         if (

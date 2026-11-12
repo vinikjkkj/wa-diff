@@ -28,7 +28,6 @@ __d(
     "WAWebSignal",
     "WAWebSignalProtocolStore",
     "WAWebStatusPublishRequestArgs",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
     "WAWebUserUtils",
     "WAWebWidFactory",
@@ -215,7 +214,7 @@ __d(
             s = e.to,
             u = babelHelpers.extends({}, a);
           n != null && (u.senderKeyDistributionMessage = n);
-          var c = o("WAWebUserPrefsMeUser").isMeAccount(t)
+          var c = o("WAWebUserUtils").isMeAccount(t)
             ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(u, s)
             : u;
           return (
@@ -403,7 +402,7 @@ __d(
             sessionScope: l,
             wids: [d],
           });
-          var m = o("WAWebUserPrefsMeUser").isMeAccount(d)
+          var m = o("WAWebUserUtils").isMeAccount(d)
             ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(n, s)
             : n;
           yield o("WAWebICDCMetaApi").populateICDCMeta(
@@ -534,7 +533,7 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebUserPrefsMeUser").isMeAccount(e)) return !0;
+          if (o("WAWebUserUtils").isMeAccount(e)) return !0;
           var t = o("WAWebWidFactory").asUserWidOrThrow(e),
             n = o("WAWebLidMigrationUtils").toUserLid(t),
             r = yield o("WAWebUserPrefsStatus").getStatusList(),

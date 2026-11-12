@@ -8,7 +8,7 @@ __d(
     "WAWebGettersCaches",
     "WAWebMsgCollection",
     "WAWebPollVoteGetters",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -45,7 +45,7 @@ __d(
             n = e[1],
             r = e[2],
             a =
-              o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+              o("WAWebUserUtils").isMeAccount(t) &&
               n != null &&
               n < o("WAWebAck").ACK.CLOCK;
           return a || !!r;

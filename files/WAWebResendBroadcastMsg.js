@@ -18,7 +18,6 @@ __d(
     "WAWebSendMsgCommonApi",
     "WAWebSessionScope",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -142,7 +141,7 @@ __d(
                 y != null ? "attached" : "none",
               )
               .tags("messaging");
-            var b = o("WAWebUserPrefsMeUser").isMeAccount(i),
+            var b = o("WAWebUserUtils").isMeAccount(i),
               v = m.has(g),
               S = yield p(h, _.id),
               R =

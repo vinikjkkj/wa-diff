@@ -1,11 +1,6 @@
 __d(
   "WAWebFormatReportToAdminNotification",
-  [
-    "fbt",
-    "WAWebFormatParticipantNames",
-    "WAWebGroupType",
-    "WAWebUserPrefsMeUser",
-  ],
+  ["fbt", "WAWebFormatParticipantNames", "WAWebGroupType", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
       var n =
@@ -20,7 +15,7 @@ __d(
             t[1].toString(),
           ) ===
             o("WAWebGroupType").GroupSettingChangeSystemMessageIsAdmin.Admin,
-        a = o("WAWebUserPrefsMeUser").isMeAccount(e);
+        a = o("WAWebUserUtils").isMeAccount(e);
       if (a) {
         var i = s._(
             /*BTDS*/ "You turned on send for admin review for this group. Click to change.",

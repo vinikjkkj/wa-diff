@@ -7,7 +7,7 @@ __d(
     "WAWebContactSyncLogger",
     "WAWebMessagePostProcessBatcher",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
   ],
@@ -92,7 +92,7 @@ __d(
                 ])),
             );
           }),
-        !o("WAWebUserPrefsMeUser").isMeAccount(r.author) &&
+        !o("WAWebUserUtils").isMeAccount(r.author) &&
           n != null &&
           o("WAWebWorkerSafeBackendApi")
             .workerSafeSendAndReceive("updateBizPrivacyStatus", {

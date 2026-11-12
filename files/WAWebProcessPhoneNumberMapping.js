@@ -9,7 +9,7 @@ __d(
     "WAWebDBCreateLidPnMappings",
     "WAWebHandleMsgTypes",
     "WAWebUpdateLidMetadataJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -48,7 +48,7 @@ __d(
             u = e.recipientPn,
             c = m(e),
             p = o("WAWebWidFactory").asUserLidOrThrow(a);
-          if (o("WAWebUserPrefsMeUser").isMeAccount(a)) {
+          if (o("WAWebUserUtils").isMeAccount(a)) {
             var _ = t == null ? void 0 : t.origin;
             if (u != null)
               ((n = {
@@ -146,7 +146,7 @@ __d(
             a = e.recipientLatestLid,
             i = e.recipientLid,
             l = m(e);
-          if (o("WAWebUserPrefsMeUser").isMeAccount(n)) {
+          if (o("WAWebUserUtils").isMeAccount(n)) {
             var s = o("WAWebWidFactory").asUserWidOrThrow(l);
             i != null
               ? (t = {
@@ -217,7 +217,7 @@ __d(
             (!n &&
               t.chat.isGroup() &&
               t.author.isLid() &&
-              !o("WAWebUserPrefsMeUser").isMeAccount(t.author) &&
+              !o("WAWebUserUtils").isMeAccount(t.author) &&
               t.participantPn == null &&
               t.displayName == null &&
               o("WALogger").ERROR(
@@ -254,7 +254,7 @@ __d(
               });
           var m = t.displayName;
           return (
-            !o("WAWebUserPrefsMeUser").isMeAccount(l) &&
+            !o("WAWebUserUtils").isMeAccount(l) &&
               m != null &&
               d({
                 lid: o("WAWebWidFactory").asUserLidOrThrow(l),

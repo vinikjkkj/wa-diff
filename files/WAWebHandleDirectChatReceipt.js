@@ -14,7 +14,7 @@ __d(
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -37,11 +37,11 @@ __d(
             f = t.ts,
             g = t.ack,
             h = a === o("WAWebAck").ACK_STRING.SENDER,
-            y = !h && o("WAWebUserPrefsMeUser").isMeAccount(m),
+            y = !h && o("WAWebUserUtils").isMeAccount(m),
             C;
           if (y || h) {
             if (!_) {
-              if (!o("WAWebUserPrefsMeUser").isMeAccount(m))
+              if (!o("WAWebUserUtils").isMeAccount(m))
                 throw r("err")(
                   "handleChatSimpleReceipt: invalid sender/peer receipt without recipient",
                 );

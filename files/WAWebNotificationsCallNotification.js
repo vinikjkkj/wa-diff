@@ -27,7 +27,7 @@ __d(
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebUA",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipCallEmoji",
     "WAWebVoipCallsTabOpenCallInfo",
     "WAWebVoipGatingUtils",
@@ -688,7 +688,7 @@ __d(
         t == null
           ? void 0
           : t.filter(function (e) {
-              return !o("WAWebUserPrefsMeUser").isMeAccount(e);
+              return !o("WAWebUserUtils").isMeAccount(e);
             });
       return a != null && a.length > 0
         ? o("WAWebParticipantListUtils").formatParticipantWidsPreserveOrder(

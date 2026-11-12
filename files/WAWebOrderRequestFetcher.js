@@ -11,6 +11,7 @@ __d(
     "WAWebNoop",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -136,7 +137,7 @@ __d(
                 r.status ===
                   o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
                     .INQUIRY) &&
-              o("WAWebUserPrefsMeUser").isMeAccount(n.to) &&
+              o("WAWebUserUtils").isMeAccount(n.to) &&
               n.type === o("WAWebMsgType").MSG_TYPE.ORDER &&
               (e.contactsAndOrderRequests.push(h(r, t)),
               e.ordersStatusInfo.push(y(n.id.id, r))),
