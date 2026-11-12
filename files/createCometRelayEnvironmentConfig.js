@@ -17,6 +17,7 @@ __d(
     "cr:1467370",
     "cr:16041",
     "cr:17286",
+    "cr:19307",
     "cr:21303",
     "cr:534",
     "cr:5655",
@@ -97,7 +98,8 @@ __d(
         a =
           r("createRelayQPLLogger") == null
             ? void 0
-            : r("createRelayQPLLogger")();
+            : r("createRelayQPLLogger")(),
+        i = n("cr:19307") == null ? void 0 : n("cr:19307").createLogFn();
       return function (r) {
         (e && e(r),
           n("cr:5655") && n("cr:5655").log(r),
@@ -105,7 +107,8 @@ __d(
           n("cr:851") && n("cr:851").log(r),
           n("cr:17286") && n("cr:17286").log(r),
           t && t(r),
-          a != null && a(r));
+          a != null && a(r),
+          i == null || i(r));
       };
     }
     function m(t, a) {

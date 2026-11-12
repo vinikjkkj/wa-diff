@@ -10,6 +10,7 @@ __d(
           contextInfo: t != null ? t : void 0,
           eventId: n == null ? void 0 : n.sharableEventInviteId,
           eventTitle: n == null ? void 0 : n.sharableEventInviteTitle,
+          caption: n == null ? void 0 : n.sharableEventInviteCaption,
           startTime: n == null ? void 0 : n.sharableEventInviteStartTime,
           endTime: n == null ? void 0 : n.sharableEventInviteEndTime,
           callLink: n == null ? void 0 : n.sharableEventInviteCallLink,

@@ -59,6 +59,22 @@ __d(
           return n ? "" + e + n : null;
         },
         [X],
+      ),
+      J = p("membershipForm"),
+      Z = p("membershipFormKeyId"),
+      ee = c(
+        function (e) {
+          var t = e[0];
+          return t != null && t.byteLength > 0;
+        },
+        [J],
+      ),
+      te = c(
+        function (e) {
+          var t = e[0];
+          return t != null;
+        },
+        [Z],
       );
     ((l.clearFrontendGroupMetadataGetterCacheFor = m),
       (l.getAfterReadDuration = _),
@@ -98,7 +114,11 @@ __d(
       (l.getUniqueShortNameMap = K),
       (l.getUnjoinedSubgroups = Q),
       (l.getInviteCode = X),
-      (l.getGroupInviteLink = Y));
+      (l.getGroupInviteLink = Y),
+      (l.getMembershipForm = J),
+      (l.getMembershipFormKeyId = Z),
+      (l.getHasMembershipForm = ee),
+      (l.getHasMembershipFormKey = te));
   },
   98,
 );

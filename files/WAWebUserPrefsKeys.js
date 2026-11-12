@@ -311,6 +311,8 @@ __d(
               "WAWebGalaxyDisableCTAAGMCollection",
             WA_WEB_REFRESH_STATE: "wa_web_refresh_state",
             WA_WEB_HAS_EVER_HAD_META_AI_THREAD: "WAWebHasEverHadMetaAIThread",
+            WA_WEB_META_AI_THREAD_LIST_LAST_SYNC_TS:
+              "WAWebMetaAIThreadListLastSyncTs",
             WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS:
               "WAWebMetaAIBotSessionLastCleanupTs",
             WA_WEB_CACHED_META_AI_NULL_STATE_PROMPTS:

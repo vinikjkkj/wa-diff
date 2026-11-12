@@ -4,54 +4,60 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = 1e3;
     function s(e, t) {
-      var n = m(t);
-      return d(e, function (e) {
+      var n = p(t);
+      return m(e, function (e) {
         return Math.max(e.startTsSec, n);
       });
     }
-    function u(e, t) {
-      var n = e.filter(function (e) {
-        return (
-          e.startTsSec <= t &&
-          t <
+    function u(e, t, n) {
+      return (
+        e.startTsSec - n <= t &&
+        t <
+          o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(e)
+      );
+    }
+    function c(e, t, n) {
+      var r = null;
+      return (
+        e.forEach(function (e) {
+          [
+            e.startTsSec - n,
             o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(
               e,
-            )
-        );
-      });
-      return n.length > 0
-        ? n
-        : e
-            .filter(function (e) {
-              return e.startTsSec > t;
-            })
-            .slice(0, 1);
+            ),
+          ].forEach(function (e) {
+            e > t && (r == null || e < r) && (r = e);
+          });
+        }),
+        r
+      );
     }
-    function c(e) {
-      return d(e, function (e) {
+    function d(e) {
+      return m(e, function (e) {
         return e.startTsSec;
       });
     }
-    function d(e, t) {
+    function m(e, t) {
       var n = null;
       return e.map(function (e) {
         var r = t(e),
-          o = p(r),
+          o = _(r),
           a = o !== n;
         return ((n = o), { event: e, dayTsSec: r, isFirstOfDay: a });
       });
     }
-    function m(t) {
+    function p(t) {
       var n = new Date(t * e);
       return (n.setHours(0, 0, 0, 0), Math.floor(n.getTime() / e));
     }
-    function p(t) {
+    function _(t) {
       var n = new Date(t * e);
       return n.getFullYear() + "-" + n.getMonth() + "-" + n.getDate();
     }
     ((l.groupUpcomingSharableEventsByDay = s),
-      (l.getFeaturedSharableEvents = u),
-      (l.groupPastSharableEventsByDay = c));
+      (l.isSharableEventHighlighted = u),
+      (l.getNextSharableEventHighlightChangeSec = c),
+      (l.groupPastSharableEventsByDay = d));
   },
   98,
 );

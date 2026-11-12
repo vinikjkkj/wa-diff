@@ -279,7 +279,6 @@ __d(
       enable_waiting_room_ui: [19819, "bool", !1, !1],
       enable_web_calling: [15461, "bool", !1, !1],
       enable_webrtc_video_jb: [27591, "bool", !1, !1],
-      enable_windows_hybrid_jumplist_contacts: [21057, "bool", !1, !0],
       enable_windows_jumplist_hybrid: [20899, "bool", !1, !0],
       enable_windows_mocks_capture_drivers: [31159, "bool", !1, !1],
       enable_windows_xdr_chat_handoff: [24783, "bool", !1, !0],
@@ -349,6 +348,7 @@ __d(
       group_member_updates_usernames_ui_enabled: [24585, "bool", !1, !1],
       group_username_updates_as_member_updates_enabled: [24477, "bool", !1, !1],
       guest_calling_call_log_mitigation_enabled: [36069, "bool", !1, !1],
+      guest_calling_discoverability_awareness: [42722, "int", 0, 0],
       hand_raise_receiver_enabled: [13540, "bool", !1, !1],
       heartbeat_interval_s: [1430, "int", 10, 5],
       hide_silent_system_message_enabled: [24268, "bool", !1, !1],
@@ -684,6 +684,7 @@ __d(
       win_hybrid_bridge_ui_thread_completion_enabled: [39187, "bool", !1, !1],
       win_hybrid_bridge_work_off_ui_thread_enabled: [40495, "bool", !1, !1],
       win_hybrid_bt_enabled: [30041, "bool", !1, !0],
+      win_hybrid_contact_activities_enabled: [42680, "bool", !1, !0],
       win_hybrid_contacts_invalid_chunked_commit_enabled: [
         41970,
         "bool",

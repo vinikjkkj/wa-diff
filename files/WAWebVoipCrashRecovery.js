@@ -334,7 +334,7 @@ __d(
               ),
               (a = !0),
               o("WAWebCoreActionsODS").logCallErrorTerminal(),
-              o("WAWebCoreActionsODS").logCallFieldstatsRecoveryFound(),
+              r("WAWebODS").incr("web.call.fieldstats.recovery_found"),
               o("WAWebVoipCallRatingStore").werePersistedFieldstatsHandedOff(l))
             ) {
               (r("WAWebODS").incr(

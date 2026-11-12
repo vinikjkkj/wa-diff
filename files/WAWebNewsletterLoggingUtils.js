@@ -70,6 +70,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ListDetails:
         case o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AgentsSettingsList:
         case o("WAWebChatEntryPoint").ChatEntryPoint.SupportAgent:

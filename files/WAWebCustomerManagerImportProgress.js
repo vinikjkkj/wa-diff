@@ -49,7 +49,19 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(t, r, a, i) {
+    function c(e, t, n, r) {
+      var o = e.reduce(function (e, n) {
+        var r;
+        return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
+      }, 0);
+      return (
+        n.skipBatch(e.length, o),
+        e.map(function () {
+          return { status: "rejected", reason: r };
+        })
+      );
+    }
+    function d(t, r, a, i) {
       var l = o("WATimeUtils").monotonicTime(),
         s =
           i != null
@@ -106,7 +118,16 @@ __d(
           C.apply(this, arguments)
         );
       }
-      function b(e, t, n) {
+      function b(e, t) {
+        ((c -= e),
+          (u = babelHelpers.extends({}, u, {
+            failureCount: u.failureCount + t,
+            processedCount: u.processedCount + t,
+            queuedCount: u.queuedCount - t,
+          })),
+          f());
+      }
+      function v(e, t, n) {
         ((_ += Math.max(0, s() - p)),
           (d += e),
           (m = 0),
@@ -126,8 +147,9 @@ __d(
             ((u = babelHelpers.extends({}, u, { phase: "checking" })),
               a == null || a(u));
           },
-          finishBatch: b,
+          finishBatch: v,
           ready: h,
+          skipBatch: b,
           startBatch: y,
           stopBeforeSave: function () {
             return h(0, 0);
@@ -137,7 +159,8 @@ __d(
     }
     ((l.initialImportProgress = e),
       (l.runImportBatch = s),
-      (l.createImportProgressReporter = c));
+      (l.failImportBatch = c),
+      (l.createImportProgressReporter = d));
   },
   98,
 );

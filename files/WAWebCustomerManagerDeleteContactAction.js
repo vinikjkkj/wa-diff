@@ -22,30 +22,65 @@ __d(
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WAWebJidToWid").chatJidToChatWid(t);
-          if (!n.isRegularUser())
-            throw r("err")("[CustomerManager] Can only delete user contacts");
-          var a = yield r("WAWebLidAwareContactsDB").get(n.toJid()),
-            i = n.isLid() ? n : o("WAWebApiContact").getCurrentLid(n);
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = _(e),
+            n = yield r("WAWebLidAwareContactsDB").get(t.toJid()),
+            a = f(t);
+          (n != null &&
+            o("WAWebCustomerManagerContactTypeQuery").isSavedContact(n) &&
+            (yield g(t, a, n)),
+            yield m(e, a));
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = _(e),
+            a = yield r("WAWebLidAwareContactsDB").get(n.toJid());
           if (
-            a != null &&
-            o("WAWebCustomerManagerContactTypeQuery").isSavedContact(a)
-          ) {
-            yield c(n, i, a);
-            var l = yield r("WAWebLidAwareContactsDB").get(n.toJid());
-            if (
-              l != null &&
-              o("WAWebCustomerManagerContactTypeQuery").isSavedContact(l)
-            )
-              throw r("err")(
-                "[CustomerManager] Contact is still saved after deletion",
-              );
-          }
-          var s = i != null ? o("WAWebWidToJid").widToChatJid(i) : t;
-          if (i != null)
+            a == null ||
+            !o("WAWebCustomerManagerContactTypeQuery").isSavedContact(a) ||
+            a.isUsernameContact === !0
+          )
+            return { kind: "single" };
+          var i = f(n),
+            l =
+              i != null &&
+              (t = o("WAWebApiContact").getPnIfLidIsLatestMapping(i)) != null
+                ? t
+                : n;
+          return l.isLid()
+            ? { kind: "single" }
+            : { kind: "batch", phoneNumber: l.user, lid: i };
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = _(t),
+            i = yield r("WAWebLidAwareContactsDB").get(a.toJid());
+          if (
+            i != null &&
+            o("WAWebCustomerManagerContactTypeQuery").isSavedContact(i)
+          )
+            throw r("err")(
+              "[CustomerManager] Contact is still saved after deletion",
+            );
+          var l = n != null ? o("WAWebWidToJid").widToChatJid(n) : t;
+          if (n != null)
             try {
-              yield o("WAWebCustomerDataAction").customerDataDeleteAction(s);
+              yield o("WAWebCustomerDataAction").customerDataDeleteAction(l);
             } catch (t) {
               o("WALogger")
                 .WARN(
@@ -58,18 +93,27 @@ __d(
                 .sendLogs("contact-manager-legacy-contact-data-remove-failed");
             }
           o("WAWebCustomerProfileChangeNotifier").notifyCustomerProfileChanged(
-            s,
+            l,
           );
         })),
-        u.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    function _(e) {
+      var t = o("WAWebJidToWid").chatJidToChatWid(e);
+      if (!t.isRegularUser())
+        throw r("err")("[CustomerManager] Can only delete user contacts");
+      return t;
     }
-    function d() {
+    function f(e) {
+      return e.isLid() ? e : o("WAWebApiContact").getCurrentLid(e);
+    }
+    function g(e, t, n) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a;
           if (n.isUsernameContact === !0) {
             var i = n.username;
@@ -92,10 +136,12 @@ __d(
             phoneNumber: l,
           });
         })),
-        d.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.deleteContactFromCustomerManager = s;
+    ((l.deleteContactFromCustomerManager = s),
+      (l.planContactDelete = c),
+      (l.finishContactDelete = m));
   },
   98,
 );

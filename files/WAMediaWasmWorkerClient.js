@@ -584,74 +584,76 @@ __d(
       return (
         (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.allowAv1VideoCodec,
-            r = e.eventFlow,
-            a = e.input,
-            i = e.mediaType,
-            l = e.rawMimeType,
-            s = e.strictJpegScanValidationEnabled,
-            u = e.strictMp4ValidationEnabled,
-            c = e.strictOggOpusValidationEnabled,
-            d = e.zipArchiveCheckEnabled,
-            m = se();
+            r = e.claimedTypeValidationEnabled,
+            a = e.eventFlow,
+            i = e.input,
+            l = e.mediaType,
+            s = e.rawMimeType,
+            u = e.strictJpegScanValidationEnabled,
+            c = e.strictMp4ValidationEnabled,
+            d = e.strictOggOpusValidationEnabled,
+            m = e.zipArchiveCheckEnabled,
+            p = se();
           H().INFO(
             I ||
               (I = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classifiy in worker, requestId: ",
                 "",
               ])),
-            m,
+            p,
           );
-          var p = yield j.getNextConnectedPortWithTimeout(r);
-          if (!p.success)
+          var _ = yield j.getNextConnectedPortWithTimeout(a);
+          if (!_.success)
             return {
-              transferredBuffer: a,
-              result: o("WAResultOrError").makeError({ errorName: p.error }),
+              transferredBuffer: i,
+              result: o("WAResultOrError").makeError({ errorName: _.error }),
             };
-          var _ = p.value;
+          var f = _.value;
           return ue(
-            _,
+            f,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = _.onMessageOnce(
+              var e = f.onMessageOnce(
                 "kaleidoscopeClassifyResponse",
                 function (e) {
-                  return e.requestId === m;
+                  return e.requestId === p;
                 },
               );
-              (_.postMessage(
+              (f.postMessage(
                 {
-                  mediaType: i,
-                  rawMimeType: l,
-                  strictJpegScanValidationEnabled: s,
-                  strictOggOpusValidationEnabled: c,
-                  strictMp4ValidationEnabled: u,
-                  zipArchiveCheckEnabled: d,
+                  mediaType: l,
+                  rawMimeType: s,
+                  strictJpegScanValidationEnabled: u,
+                  strictOggOpusValidationEnabled: d,
+                  strictMp4ValidationEnabled: c,
+                  zipArchiveCheckEnabled: m,
                   allowAv1VideoCodec: t,
-                  input: a,
-                  requestId: m,
+                  claimedTypeValidationEnabled: r,
+                  input: i,
+                  requestId: p,
                   type: "kaleidoscopeClassifyRequest",
                 },
-                [a],
+                [i],
               ),
-                r.addPoint("sent_request_to_media_worker_start"));
+                a.addPoint("sent_request_to_media_worker_start"));
               var n = yield e,
-                p = n.output,
-                f = n.transferredBuffer;
-              return p.success
+                _ = n.output,
+                g = n.transferredBuffer;
+              return _.success
                 ? (H().INFO(
                     T ||
                       (T = babelHelpers.taggedTemplateLiteralLoose([
                         "received output from worker, requestId: ",
                         "",
                       ])),
-                    m,
+                    p,
                   ),
-                  r == null || r.addPoint("sent_request_to_media_worker_end"),
-                  { transferredBuffer: f, result: p })
-                : (r.addPoint("sent_request_to_media_worker_fail"),
+                  a == null || a.addPoint("sent_request_to_media_worker_end"),
+                  { transferredBuffer: g, result: _ })
+                : (a.addPoint("sent_request_to_media_worker_fail"),
                   {
-                    transferredBuffer: f,
+                    transferredBuffer: g,
                     result: o("WAResultOrError").makeError({
-                      errorName: p.error,
+                      errorName: _.error,
                     }),
                   });
             }),

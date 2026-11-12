@@ -22,13 +22,15 @@ __d(
       u,
       c,
       d,
-      m = d || (d = o("react"));
-    function p(e) {
-      return _.apply(this, arguments);
+      m,
+      p,
+      _ = p || (p = o("react"));
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a = t.failure,
             i = t.rootCallCreatorJid,
@@ -38,16 +40,41 @@ __d(
             o(
               "WAWebVoipCallTransferEntryPointStore",
             ).WAWebVoipCallTransferEntryPointStore.remove(l, i);
-          var d =
+          var c =
             (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.id;
           if (
             o("WAWebVoipTransferredCallRegistry").getLiveTransferredCallRootId(
-              d,
-            ) !== l
-          ) {
-            o("WALogger").WARN(
+              c,
+            ) === l
+          )
+            (R(l),
+              yield h(c, a),
+              o("WAWebVoipUiManager").closeAllVoipWindows({
+                callEnded: !0,
+                surveyInteracted: !1,
+              }));
+          else if (S(l))
+            (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: handleCallTransferFailed: closing the joining lobby, failure=",
+                  "",
+                ])),
+              a,
+            ),
+              o(
+                "WAWebVoipTransferredCallRegistry",
+              ).markTransferredCallFailedForRoot(l),
+              r("WAWebCallCollection").setPendingCallTransferLobby(null),
+              (yield C(a, v)) &&
+                o("WAWebVoipUiManager").closeAllVoipWindows({
+                  callEnded: !0,
+                  surveyInteracted: !1,
+                }));
+          else {
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: handleCallTransferFailed: no live transfer for rootCallId=",
                   "",
                 ])),
@@ -55,62 +82,119 @@ __d(
             );
             return;
           }
-          o("WAWebVoipTransferredCallRegistry").markTransferredCallFailed(d);
-          var m = a === o("WAWebVoipWaCallEnums").CallTransferFailure.Timeout;
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: handleCallTransferFailed: ending segment, failure=",
-                "",
-              ])),
-            a,
-          );
+          s ? E() : L();
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (o("WAWebVoipTransferredCallRegistry").markTransferredCallFailed(e),
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: handleCallTransferFailed: ending segment, failure=",
+                  "",
+                ])),
+              t,
+            ),
+            yield C(t));
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            (t === void 0 &&
+              (t = function () {
+                return !0;
+              }),
+            !t())
+          )
+            return !1;
+          var n = e === o("WAWebVoipWaCallEnums").CallTransferFailure.Timeout;
           try {
-            var p = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            yield p == null
+            var a = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            if (!t())
+              return (
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: handleCallTransferFailed: a call started here, not ending the transfer",
+                    ])),
+                ),
+                !1
+              );
+            yield a == null
               ? void 0
-              : p.endCall(
-                  m
+              : a.endCall(
+                  n
                     ? o("WAWebVoipSignalingEnums").EndCallReason.Timeout
                     : o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
-                  m,
+                  n,
                 );
           } catch (e) {
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: handleCallTransferFailed: endCall failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("voip-call-transfer-failed-end-call");
           }
-          (o("WAWebVoipUiManager").closeAllVoipWindows({
-            callEnded: !0,
-            surveyInteracted: !1,
-          }),
-            s ? g() : f());
+          return !0;
         })),
-        _.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function f() {
+    function v() {
+      return (
+        r("WAWebCallCollection").activeCall == null &&
+        r("WAWebCallCollection").pendingOutgoingCall == null &&
+        r("WAWebCallCollection").pendingCallLink == null
+      );
+    }
+    function S(e) {
+      var t = r("WAWebCallCollection").pendingCallTransferLobby;
+      return (
+        (t == null ? void 0 : t.isJoining) === !0 &&
+        t.entryPoint.rootCallId === e
+      );
+    }
+    function R(e) {
+      var t;
+      ((t = r("WAWebCallCollection").pendingCallTransferLobby) == null
+        ? void 0
+        : t.entryPoint.rootCallId) === e &&
+        r("WAWebCallCollection").setPendingCallTransferLobby(null);
+    }
+    function L() {
       o("WAWebToastManager").ToastManager.open(
-        m.jsx(o("WAWebToast.react").Toast, {
+        _.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Couldn't connect"),
         }),
       );
     }
-    function g() {
+    function E() {
       o("WAWebToastManager").ToastManager.open(
-        m.jsx(o("WAWebToast.react").Toast, {
+        _.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Call has ended"),
         }),
       );
     }
-    ((l.handleCallTransferFailed = p),
-      (l.showCallTransferCouldNotConnectToast = f));
+    ((l.handleCallTransferFailed = f),
+      (l.showCallTransferCouldNotConnectToast = L));
   },
   226,
 );

@@ -1024,6 +1024,16 @@ __d(
               );
               break;
             }
+            case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_FORM: {
+              B.push(
+                o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                  l,
+                  { membershipForm: a.membershipForm },
+                  i,
+                ),
+              );
+              break;
+            }
             default:
               o("WALogger")
                 .ERROR(

@@ -6,7 +6,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebReleaseToEventLoop",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipCallLogPlaceholderTracker",
@@ -111,7 +111,9 @@ __d(
                         fromMe: g,
                         id: h,
                       }),
-                      to: o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow(),
+                      to: o(
+                        "WAWebUserUtils",
+                      ).getMeDevicePnLessOrFallback_DO_NOT_USE(),
                     },
                     v,
                   ))
@@ -122,7 +124,9 @@ __d(
                         fromMe: g,
                         id: h,
                       }),
-                      to: o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow(),
+                      to: o(
+                        "WAWebUserUtils",
+                      ).getMeDevicePnLessOrFallback_DO_NOT_USE(),
                     },
                     b,
                   )),

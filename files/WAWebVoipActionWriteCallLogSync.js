@@ -20,6 +20,7 @@ __d(
     "WAWebMsgType",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipActionWriteCallLogImpl",
@@ -180,7 +181,9 @@ __d(
               L =
                 s != null && s !== ""
                   ? o("WAWebWidFactory").createWid(s)
-                  : o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow();
+                  : o(
+                      "WAWebUserUtils",
+                    ).getMeDevicePnLessOrFallback_DO_NOT_USE();
             try {
               R = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                 callCreatorWid: L,

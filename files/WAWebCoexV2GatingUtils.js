@@ -1,6 +1,6 @@
 __d(
   "WAWebCoexV2GatingUtils",
-  ["WAWebABProps", "WAWebCoexV2BotWid"],
+  ["WAWebABProps", "WAWebCoexV2BotWid", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -8,9 +8,7 @@ __d(
       );
     }
     function s() {
-      return (
-        o("WAWebABProps").getABPropConfigValue("coexv2_recv_enabled") === !0
-      );
+      return !r("justknobx")._("7647");
     }
     function u(e, t) {
       return (

@@ -12,6 +12,7 @@ __d(
         ClientLogout: "client_logout",
         ClientTabTakeover: "client_tab_takeover",
         DebugClose: "debug_close",
+        HandshakeTimeout: "handshake_timeout",
         NetworkOffline: "network_offline",
         PageUnload: "page_unload",
         ReconnectSocket: "reconnect_socket",

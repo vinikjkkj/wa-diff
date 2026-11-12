@@ -208,8 +208,13 @@ __d(
       );
     }
     function ve(e) {
-      var t;
-      if (r("WAWebCallCollection").pendingOutgoingCall != null)
+      var t, n;
+      if (
+        r("WAWebCallCollection").pendingOutgoingCall != null ||
+        ((t = r("WAWebCallCollection").pendingCallTransferLobby) == null
+          ? void 0
+          : t.isJoining) === !0
+      )
         return (
           o("WALogger")
             .LOG(
@@ -223,21 +228,21 @@ __d(
           { notReady: { reason: "duplicate_start" }, status: "not_ready" }
         );
       e.isJoin || o("WAWebVoipCallAudioUnlock").releaseCallAudioUnlock();
-      var n = new AbortController();
-      ((t = o("WAWebVoipAutoPopoutLoader").getAutoPopout()) == null ||
-        t.closePreOpenedAutoPopoutOnAbort(e.popoutId, n.signal),
+      var a = new AbortController();
+      ((n = o("WAWebVoipAutoPopoutLoader").getAutoPopout()) == null ||
+        n.closePreOpenedAutoPopoutOnAbort(e.popoutId, a.signal),
         ye({
-          abortController: n,
+          abortController: a,
           isGroup: e.isGroup,
           isJoin: e.isJoin,
           isVideo: e.isVideo,
         }));
-      var a = Se(n);
+      var i = Se(a);
       return (
         o("WAWebVoipOutgoingCallBlockedLog").logOutgoingCallBlockedWhenNotReady(
-          a,
+          i,
         ),
-        { abortController: n, readiness: a, status: "started" }
+        { abortController: a, readiness: i, status: "started" }
       );
     }
     function Se(e) {
@@ -1713,11 +1718,15 @@ __d(
     function et() {
       return (
         (et = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
           return (yield o(
             "WAWebVoipCallBlockedModals",
           ).showCallBlockedModalIfNeeded())
             ? !0
-            : r("WAWebCallCollection").pendingOutgoingCall == null
+            : r("WAWebCallCollection").pendingOutgoingCall == null &&
+                ((e = r("WAWebCallCollection").pendingCallTransferLobby) == null
+                  ? void 0
+                  : e.isJoining) !== !0
               ? !1
               : (o("WALogger")
                   .LOG(

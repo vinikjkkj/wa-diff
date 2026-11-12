@@ -121,6 +121,7 @@ __d(
         e === o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter ||
         e ===
           o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter ||
+        e === o("WAWebChatEntryPoint").ChatEntryPoint.ListDetails ||
         e === o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab
         ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.CHATLIST
         : e === o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut
@@ -246,7 +247,9 @@ __d(
           e ===
             o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter ||
           e ===
-            o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter
+            o("WAWebChatEntryPoint").ChatEntryPoint
+              .ChatlistAiRespondingFilter ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.ListDetails
         )
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .CHAT_LIST;

@@ -897,6 +897,7 @@ __d(
       DRAFT_SAVED_BY_FB_IDENTITY: "draft_saved_by_fb_identity",
       DRAFT_READ_BY_WA_IDENTITY: "draft_read_by_wa_identity",
       DRAFT_READ_BY_FB_IDENTITY: "draft_read_by_fb_identity",
+      DRAFT_MEDIA_RESTORE: "draft_media_restore",
       VIEW_DRAFT_INTERSTITIAL: "view_draft_interstitial",
       EXIT_DRAFT_INTERSTITIAL: "exit_draft_interstitial",
       DRAFT_SCHEDULE_LOCKED: "draft_schedule_locked",
@@ -1877,6 +1878,12 @@ __d(
       IG_ONLY_FB_PLACEMENT_UNCHECK: "ig_only_fb_placement_uncheck",
       IG_WEB_IG_ONLY_FB_PLACEMENT_ELIGIBILITY:
         "ig_web_ig_only_fb_placement_eligibility",
+      IG_MOBILE_IG_ONLY_FB_PLACEMENT_IMPRESSION:
+        "ig_mobile_ig_only_fb_placement_impression",
+      IG_MOBILE_IG_ONLY_FB_PLACEMENT_CHECK:
+        "ig_mobile_ig_only_fb_placement_check",
+      IG_MOBILE_IG_ONLY_FB_PLACEMENT_UNCHECK:
+        "ig_mobile_ig_only_fb_placement_uncheck",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",

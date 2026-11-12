@@ -1,15 +1,28 @@
 __d(
   "VideoPlayerNextgendashHostAPIByMediaSink",
-  ["VideoPlayerNextgendashHostAPIComet", "cr:13612", "cr:17625"],
+  [
+    "VideoPlayerNextgendashHostAPIComet",
+    "VideoPlayerNextgendashTrackReuseReadiness",
+    "cr:13612",
+    "cr:17625",
+    "cr:19339",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s =
-        (e = n("cr:13612") != null ? n("cr:13612") : n("cr:17625")) != null
+      s,
+      u =
+        (e =
+          (s = n("cr:13612") != null ? n("cr:13612") : n("cr:17625")) != null
+            ? s
+            : n("cr:19339")) != null
           ? e
-          : r("VideoPlayerNextgendashHostAPIComet"),
-      u = s;
-    l.default = u;
+          : r("VideoPlayerNextgendashHostAPIComet");
+    o(
+      "VideoPlayerNextgendashTrackReuseReadiness",
+    ).selectVideoPlayerNextgendashMediaSinkType(u.mediaSinkType);
+    var c = u;
+    l.default = c;
   },
   98,
 );

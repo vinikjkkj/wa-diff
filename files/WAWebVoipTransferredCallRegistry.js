@@ -28,50 +28,57 @@ __d(
     function d(t) {
       var n = e;
       n != null &&
-        n.callId === t &&
-        (e = babelHelpers.extends({}, n, { hasEnded: !1, hasFailed: !1 }));
+        n.root.rootCallId === t &&
+        (e = babelHelpers.extends({}, n, { hasFailed: !0 }));
     }
     function m(t) {
       var n = e;
-      return n != null && n.callId === t && n.hasFailed;
+      n != null &&
+        n.callId === t &&
+        (e = babelHelpers.extends({}, n, { hasEnded: !1, hasFailed: !1 }));
     }
     function p(t) {
       var n = e;
-      return n != null && n.callId === t && !n.hasEnded;
+      return n != null && n.callId === t && n.hasFailed;
     }
     function _(t) {
-      var n;
-      return p(t) ? ((n = e) == null ? void 0 : n.root.rootCallId) : null;
+      var n = e;
+      return n != null && n.callId === t && !n.hasEnded;
     }
     function f(t) {
-      var n = e;
-      return p(t) && n != null ? n.startedAt : null;
+      var n;
+      return _(t) ? ((n = e) == null ? void 0 : n.root.rootCallId) : null;
     }
-    function g(t, n) {
+    function g(t) {
+      var n = e;
+      return _(t) && n != null ? n.startedAt : null;
+    }
+    function h(t, n) {
       var r = e;
       return r == null || r.callId !== t
         ? !1
         : ((e = babelHelpers.extends({}, r, { callId: n })), !0);
     }
-    function h(t) {
+    function y(t) {
       var n;
       t != null && ((n = e) == null ? void 0 : n.callId) === t && (e = null);
     }
-    function y(t) {
+    function C(t) {
       var n = e;
       return n != null && n.callId === t ? n.root : null;
     }
     ((l.registerTransferredCall = s),
       (l.markTransferredCallEnded = u),
       (l.markTransferredCallFailed = c),
-      (l.clearTransferredCallEndMarks = d),
-      (l.hasTransferredCallFailed = m),
-      (l.isTransferredCallLive = p),
-      (l.getLiveTransferredCallRootId = _),
-      (l.getLiveTransferredCallStartTime = f),
-      (l.rekeyTransferredCall = g),
-      (l.unregisterTransferredCall = h),
-      (l.getTransferredCallRoot = y));
+      (l.markTransferredCallFailedForRoot = d),
+      (l.clearTransferredCallEndMarks = m),
+      (l.hasTransferredCallFailed = p),
+      (l.isTransferredCallLive = _),
+      (l.getLiveTransferredCallRootId = f),
+      (l.getLiveTransferredCallStartTime = g),
+      (l.rekeyTransferredCall = h),
+      (l.unregisterTransferredCall = y),
+      (l.getTransferredCallRoot = C));
   },
   98,
 );

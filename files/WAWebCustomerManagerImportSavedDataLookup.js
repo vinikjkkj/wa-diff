@@ -27,7 +27,7 @@ __d(
             l = yield y(e),
             s =
               l != null
-                ? yield (_ || (_ = n("Promise"))).all([b(e, t, i), S(e), L(e)])
+                ? yield (_ || (_ = n("Promise"))).all([R(e, t, i), E(e), I(e)])
                 : [null, null, null],
             u = s[0],
             c = s[1],
@@ -68,9 +68,7 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = yield o(
-              "WAWebContactManagerCustomerProfilesQuery",
-            ).fetchCompleteCustomerProfileRecords({ candidateLids: t });
+            var n = yield b(t);
             return (
               n == null &&
                 o("WALogger")
@@ -105,12 +103,36 @@ __d(
         C.apply(this, arguments)
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    function b(e) {
+      return v(e, 0, []);
     }
-    function v() {
+    function v(e, t, n) {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (t >= e.length) return n;
+          var r =
+              t +
+              o("WAWebContactManagerCustomerProfilesQuery")
+                .MAX_COMPLETE_PROFILE_RECORDS,
+            a = yield o(
+              "WAWebContactManagerCustomerProfilesQuery",
+            ).fetchCompleteCustomerProfileRecords({
+              candidateLids: e.slice(t, r),
+            });
+          return a == null ? null : (n.push.apply(n, a), v(e, r, n));
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t, n) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           try {
             var i = new Set();
             for (var l of t) {
@@ -180,15 +202,15 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
               "WAWebDBCustomerDataDatabaseApi",
@@ -227,15 +249,15 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             return yield o(
               "WAWebCustomerManagerImportLeadStageLookup",
@@ -255,10 +277,10 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    l.loadCustomerLookup = f;
+    ((l.loadCustomerLookup = f), (l.fetchCompleteProfileRecordsInBatches = b));
   },
   98,
 );

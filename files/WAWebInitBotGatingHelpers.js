@@ -5,6 +5,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBotBaseGating",
+    "WAWebCanonicalHatchLinkedStatusGetQuery",
     "WAWebHatchBackendGating",
     "WAWebHatchLinkedStatusFetcher",
     "WAWebHatchLinkedStatusManager",
@@ -26,6 +27,8 @@ __d(
           (r("WAWebHatchLinkedStatusManager").registerFetcher(
             o("WAWebHatchLinkedStatusFetcher")
               .fetchHatchLinkedStatusAndSaveCvmState,
+            o("WAWebCanonicalHatchLinkedStatusGetQuery")
+              .isRetryableHatchLinkedStatusError,
           ),
             u ||
               ((u = !0),

@@ -61,7 +61,7 @@ __d(
         ));
     }
     function d(e) {
-      var t =
+      _(
         e === o("WAWebSharableEventListFilters").SharableEventListFilter.All
           ? o("WAWebWamEnumEventV2ListActionType").EVENT_V2_LIST_ACTION_TYPE
               .ALL_TAPPED
@@ -75,17 +75,13 @@ __d(
                   .NotResponded
               ? o("WAWebWamEnumEventV2ListActionType").EVENT_V2_LIST_ACTION_TYPE
                   .NOT_RESPONDED_TAPPED
-              : e ===
-                  o("WAWebSharableEventListFilters").SharableEventListFilter
-                    .Hosting
-                ? null
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
-      t != null && _(t);
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })(),
+      );
     }
     function m() {
       var t = e;

@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupGetMembershipApprovalRequestsJob",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WALogger",
     "WASmaxGroupsGetMembershipApprovalRequestsRPC",
@@ -8,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendErrors",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
+    "WAWebGroupMembershipFormGating",
     "WAWebGroupsQueryApi",
     "WAWebJidToWid",
     "WAWebRequestMethodType",
@@ -21,13 +23,35 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["addedByPn", "addedByUsername", "phoneNumber", "username"],
       s,
-      u;
-    function c(e) {
-      return d.apply(this, arguments);
+      u,
+      c = r("JSResourceForInteraction")(
+        "WAWebMexFetchMembershipApprovalRequestsJob",
+      ).__setRef("WAWebGroupGetMembershipApprovalRequestsJob");
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            !o(
+              "WAWebGroupMembershipFormGating",
+            ).isMexMembershipApprovalRequestsEnabled()
+          )
+            return p(e);
+          var t = yield c.load(),
+            n = t.fetchMexMembershipApprovalRequests;
+          return n(e);
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WASmaxGroupsGetMembershipApprovalRequestsRPC",
           ).sendGetMembershipApprovalRequestsRPC({
@@ -44,7 +68,7 @@ __d(
                       t: e.requestTime,
                       addedBy:
                         n != null ? o("WAWebJidToWid").userJidToUserWid(n) : t,
-                      requestMethod: m(e.requestMethod),
+                      requestMethod: f(e.requestMethod),
                       parentGroupId:
                         e.parentGroupJid != null
                           ? o("WAWebJidToWid").groupJidToWid(e.parentGroupJid)
@@ -89,16 +113,16 @@ __d(
               );
             case "GetMembershipApprovalRequestsResponseClientError": {
               var n = t.value.errorGetMembershipApprovalRequestsClientErrors;
-              return p(n.value);
+              return g(n.value);
             }
             default:
-              return (t.name, p(t.value.errorServerErrors.value));
+              return (t.name, g(t.value.errorServerErrors.value));
           }
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function m(e) {
+    function f(e) {
       return e === "invite_link"
         ? o("WAWebRequestMethodType").RequestMethod.InviteLink
         : e === "linked_group_join"
@@ -112,7 +136,7 @@ __d(
                 );
               })();
     }
-    function p(e) {
+    function g(e) {
       var t = e.code,
         r = e.text;
       return (
@@ -131,13 +155,13 @@ __d(
         )
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function f() {
+    function y() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield c(t),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = yield d(t),
             r = n.map(function (t) {
               var n = t.addedByPn,
                 r = t.addedByUsername,
@@ -225,10 +249,10 @@ __d(
               { groupId: t, requests: r },
             ));
         })),
-        f.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.queryAndUpdateGroupMembershipApprovalRequests = _;
+    l.queryAndUpdateGroupMembershipApprovalRequests = h;
   },
   98,
 );

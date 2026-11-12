@@ -20,60 +20,61 @@ __d(
           : (e = n("WAWebContactManagerCustomerProfilesQuery.graphql")),
       c = 50,
       d = 21,
-      m = { cursor: null, records: [] };
-    function p(e) {
-      return _.apply(this, arguments);
+      m = (d - 1) * c,
+      p = { cursor: null, records: [] };
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return f(yield g(e), e.candidateLids != null);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return g(yield h(e), e.candidateLids != null);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       if (e == null && t)
         throw r("err")(
           "[CustomerManager] fetchCustomerProfilePage: no scoped profile response",
         );
-      return e != null ? e : m;
+      return e != null ? e : p;
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.candidateLids != null && e.candidateLids.length === 0) return m;
-          var t = yield L(e);
-          return t == null ? null : { cursor: t.cursor, records: S(t) };
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.candidateLids != null && e.candidateLids.length === 0) return p;
+          var t = yield E(e);
+          return t == null ? null : { cursor: t.cursor, records: R(t) };
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return b(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+    function C(e) {
+      return v(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
         function (e) {
           return e.records;
         },
       );
     }
-    function C(e) {
-      return b(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+    function b(e) {
+      return v(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
         function (e) {
           return e.isComplete ? e.records : null;
         },
       );
     }
-    function b(e, t, n, r) {
-      return v.apply(this, arguments);
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield g(babelHelpers.extends({}, e, { cursor: t }));
+            var a = yield h(babelHelpers.extends({}, e, { cursor: t }));
             return a == null
               ? { isComplete: !1, records: r }
               : (r.push.apply(r, a.records),
@@ -91,13 +92,13 @@ __d(
                         )
                         .sendLogs("customer_manager_profiles_page_cap_hit"),
                       { isComplete: !1, records: r })
-                    : b(e, a.cursor, n + 1, r));
+                    : v(e, a.cursor, n + 1, r));
           },
         )),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       var t = [];
       for (var n of (r = e == null ? void 0 : e.profiles) != null ? r : []) {
         var r,
@@ -116,7 +117,7 @@ __d(
             ),
             birthdayIso: n.dob,
             chatJid: a,
-            customFieldValues: R(n.custom_field_values),
+            customFieldValues: L(n.custom_field_values),
             email: n.email,
             lastOrderDescription: n.last_order,
             leadStage: o(
@@ -135,7 +136,7 @@ __d(
       }
       return t;
     }
-    function R(e) {
+    function L(e) {
       var t = [];
       for (var n of e != null ? e : []) {
         var r = n.custom_field_definition,
@@ -167,12 +168,12 @@ __d(
       }
       return t;
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebCustomerManagerProfileRequest",
           ).runCustomerProfileRequest(
@@ -205,12 +206,13 @@ __d(
           );
           return t == null ? void 0 : t.xfb_wa_customer_profiles;
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.fetchCustomerProfilePage = p),
-      (l.fetchCustomerProfileRecords = y),
-      (l.fetchCompleteCustomerProfileRecords = C),
+    ((l.MAX_COMPLETE_PROFILE_RECORDS = m),
+      (l.fetchCustomerProfilePage = _),
+      (l.fetchCustomerProfileRecords = C),
+      (l.fetchCompleteCustomerProfileRecords = b),
       (l.logIfRateLimited = o(
         "WAWebCustomerManagerProfileRequest",
       ).logIfRateLimited));

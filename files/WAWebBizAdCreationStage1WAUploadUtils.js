@@ -1,7 +1,6 @@
 __d(
   "WAWebBizAdCreationStage1WAUploadUtils",
   [
-    "fbt",
     "FBLogger",
     "Promise",
     "WATimeUtils",
@@ -9,6 +8,7 @@ __d(
     "WAWebAttachMediaGetters",
     "WAWebBackendRuntime",
     "WAWebBizAdCreationCreativeMediaCap",
+    "WAWebBizAdCreationMediaToastStrings",
     "WAWebBizAdCreationMediaValidationUtils",
     "WAWebDataTransfer",
     "WAWebLidStatusMigrationUtils",
@@ -26,20 +26,17 @@ __d(
     "getErrorSafe",
     "react",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      u,
-      c = u || (u = o("react"));
+      s,
+      u = s || (s = o("react"));
+    function c(e) {
+      return d.apply(this, arguments);
+    }
     function d() {
-      return s._(/*BTDS*/ "Some media couldn't be uploaded and were removed");
-    }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebLidStatusMigrationUtils").matWidConvert(
               o("WAWebUserUtils").getMeLidUserOrThrow(),
             ),
@@ -60,16 +57,16 @@ __d(
             type: e.type,
           };
         })),
-        p.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function f() {
+    function p() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield m(e),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield c(e),
             a = r("WAWebMediaPrepMediaProps")(e.mediaPrep, t).then(
               function (e) {
                 return babelHelpers.extends({}, n, e, { type: e.type });
@@ -90,34 +87,34 @@ __d(
                 : o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep
             )(l, t),
             u = s.body,
-            c = s.fbid,
-            d = s.mediaResult.mediaEntry,
+            d = s.fbid,
+            m = s.mediaResult.mediaEntry,
             p = s.mmsThumbnailData;
-          if (!d)
+          if (!m)
             throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
               "sendStage1WAUploadMsg: media entry was not created",
             );
-          if (c == null)
+          if (d == null)
             throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
               "sendStage1WAUploadMsg: fbid was not created",
             );
-          return { body: u, fbid: c, mediaResultEntry: d, mmsThumbnailData: p };
+          return { body: u, fbid: d, mediaResultEntry: m, mmsThumbnailData: p };
         })),
-        f.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function h() {
+    function f() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.mediaCollection,
             i = t.onMediaUploadComplete,
             l = t.onMediaUploadFailure,
             s = a.getPreviewableMedias(),
             u = [],
-            m = s.map(
+            c = s.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -130,7 +127,7 @@ __d(
                           o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                             .PROCESSING),
                       u.length < 3 && u.push(e.type));
-                    var n = yield _(e, t),
+                    var n = yield m(e, t),
                       a = n.fbid,
                       i = n.mediaResultEntry;
                     if (
@@ -153,14 +150,14 @@ __d(
               " media types => " +
               String(u),
           );
-          var p = yield (e || (e = n("Promise"))).allSettled(m),
-            f = [],
-            g = 0;
+          var d = yield (e || (e = n("Promise"))).allSettled(c),
+            p = [],
+            _ = 0;
           if (
-            (p.forEach(function (e, t) {
+            (d.forEach(function (e, t) {
               e.status === "fulfilled"
-                ? f.push(e.value)
-                : (g++,
+                ? p.push(e.value)
+                : (_++,
                   a.remove(s[t]),
                   r("FBLogger")("wa_ctwa_web").mustfix(
                     "uploadAdCreativeMediaToWA: Media upload failed for item " +
@@ -169,7 +166,7 @@ __d(
                       String(e.reason),
                   ));
             }),
-            f.length === 0)
+            p.length === 0)
           ) {
             (r("FBLogger")("wa_ctwa_web").mustfix(
               "uploadAdCreativeMediaToWA: All " +
@@ -179,28 +176,37 @@ __d(
               l());
             return;
           }
-          (g > 0 &&
-            (o("WAWebToastManager").ToastManager.open(
-              c.jsx(o("WAWebToast.react").Toast, { msg: d() }),
-            ),
+          (_ > 0 &&
+            (g(),
             r("FBLogger")("wa_ctwa_web").warn(
               "[uploadAdCreativeMediaToWA] partial upload: " +
-                f.length +
+                p.length +
                 "/" +
                 s.length +
                 " succeeded, " +
-                g +
+                _ +
                 " failed and removed",
             )),
-            i(f, a));
+            i(p, a));
         })),
-        h.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function y(e, t) {
+    function g() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, {
+          id: o("WAWebBizAdCreationMediaToastStrings")
+            .PARTIAL_UPLOAD_FAILURE_TOAST_ID,
+          msg: o(
+            "WAWebBizAdCreationMediaToastStrings",
+          ).getPartialUploadFailureText(),
+        }),
+      );
+    }
+    function h(e, t) {
       var n = [];
       t.forEach(function (e, t) {
-        var r = C(e);
+        var r = y(e);
         r != null &&
           n.push({ attachment: e, key: "pending-attachment:" + t, kind: r });
       });
@@ -220,7 +226,7 @@ __d(
         i = r.actions;
       for (var l of i)
         o("WAWebToastManager").ToastManager.open(
-          c.jsx(o("WAWebToast.react").Toast, {
+          u.jsx(o("WAWebToast.react").Toast, {
             msg: o(
               "WAWebBizAdCreationMediaValidationUtils",
             ).PRUNE_TOAST_MESSAGES[l](),
@@ -230,7 +236,7 @@ __d(
         return e.attachment;
       });
     }
-    function C(e) {
+    function y(e) {
       var t,
         n = (t = e.file) == null ? void 0 : t.type;
       return n == null
@@ -241,37 +247,37 @@ __d(
             ? "image"
             : null;
     }
-    function b(e, t, n) {
+    function C(e, t, n) {
       var r = e.getPreviewableMedias();
       if (r.length === 0) {
         t([], e);
         return;
       }
       o("WAWebUiIdleEventBus").UiIdleEventBus.once("ui_idle", function () {
-        return g({
+        return _({
           mediaCollection: e,
           onMediaUploadComplete: t,
           onMediaUploadFailure: n,
         });
       });
     }
-    function v(e, t) {
+    function b(e, t) {
       var n;
       if (e) {
         e.stopPropagation();
         var r = Array.from((n = e.target.files) != null ? n : []);
-        R(r, t);
+        S(r, t);
       }
     }
-    function S(e, t) {
+    function v(e, t) {
       (e.preventDefault(), e.stopPropagation());
       var n = new (r("WAWebDataTransfer"))(e.dataTransfer);
       if (n.hasType("Files")) {
         var o = n.getFiles();
-        R(o, t);
+        S(o, t);
       }
     }
-    function R(e, t) {
+    function S(e, t) {
       var n = t.mediaCollection,
         a = t.setLoading;
       e.length &&
@@ -279,7 +285,7 @@ __d(
         o("WAWebBizAdCreationMediaValidationUtils")
           .deepCloneMediaCollection(n)
           .then(function (n) {
-            return L(n, e, t);
+            return E(n, e, t);
           })
           .catch(function (e) {
             r("FBLogger")("wa_ctwa_web")
@@ -290,69 +296,88 @@ __d(
             a(!1);
           }));
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e.length === 0) return !1;
+          var n = yield o(
+            "WAWebBizAdCreationMediaValidationUtils",
+          ).deepCloneMediaCollection(t.mediaCollection);
+          return E(n, e, t);
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t, n) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = n.items,
             i = n.onMediaUploadComplete,
             l = n.onMediaUploadFailure,
             s = n.onMediaValidationFailure,
             u = n.onSelectedMediaSave,
-            c = y(
+            c = h(
               a,
               t.map(function (e) {
                 return { file: e };
               }),
             );
-          if (c.length !== 0) {
-            var d = new Set(
-              e.getPreviewableMedias().map(function (e) {
+          if (c.length === 0) return !1;
+          var d = new Set(
+            e.getPreviewableMedias().map(function (e) {
+              return e.id;
+            }),
+          );
+          try {
+            yield e.processAttachments(
+              c,
+              void 0,
+              o("WAWebBizAdCreationMediaValidationUtils").SUPPORTED_MEDIA_TYPES,
+              o("WAWebBizAdCreationMediaValidationUtils").MAX_IMAGE_COUNT,
+            );
+          } catch (e) {
+            return (
+              (s != null ? s : l)(),
+              r("FBLogger")("wa_ctwa_web")
+                .catching(r("getErrorSafe")(e))
+                .mustfix("failed to process media for upload"),
+              !1
+            );
+          }
+          var m = new Set(
+            e
+              .getPreviewableMedias()
+              .filter(function (e) {
+                return !d.has(e.id);
+              })
+              .map(function (e) {
                 return e.id;
               }),
-            );
-            try {
-              yield e.processAttachments(
-                c,
-                void 0,
-                o("WAWebBizAdCreationMediaValidationUtils")
-                  .SUPPORTED_MEDIA_TYPES,
-                o("WAWebBizAdCreationMediaValidationUtils").MAX_IMAGE_COUNT,
-              );
-            } catch (e) {
-              ((s != null ? s : l)(),
-                r("FBLogger")("wa_ctwa_web")
-                  .catching(r("getErrorSafe")(e))
-                  .mustfix("failed to process media for upload"));
-              return;
-            }
-            var m = new Set(
-              e
-                .getPreviewableMedias()
-                .filter(function (e) {
-                  return !d.has(e.id);
-                })
-                .map(function (e) {
-                  return e.id;
-                }),
-            );
-            (u(e, m),
-              g({
-                mediaCollection: e,
-                onMediaUploadComplete: i,
-                onMediaUploadFailure: l,
-              }));
-          }
+          );
+          return (
+            u(e, m),
+            _({
+              mediaCollection: e,
+              onMediaUploadComplete: i,
+              onMediaUploadFailure: l,
+            }),
+            !0
+          );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.acceptAttachmentsUnderCap = y),
-      (l.uploadAdCreativeMediaToWA = b),
-      (l.handleMediaPick = v),
-      (l.handleFileDrop = S));
+    ((l.acceptAttachmentsUnderCap = h),
+      (l.uploadAdCreativeMediaToWA = C),
+      (l.handleMediaPick = b),
+      (l.handleFileDrop = v),
+      (l.addFilesToMediaEditor = R));
   },
-  226,
+  98,
 );

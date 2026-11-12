@@ -1,6 +1,7 @@
 __d(
   "WAWebMexGroupPropertyUpdateNotificationHandler",
   [
+    "WABase64",
     "WALogger",
     "WATimeUtils",
     "WAWebGroupHistoryShareMode",
@@ -11,111 +12,136 @@ __d(
     "WAWebSuspendAppealStatusType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i,
             l,
-            s,
-            u = n.xwa2_notify_group_on_prop_change,
-            c = u.id,
-            d = u.lid_migration_state,
-            m = u.properties,
-            p = u.update_time,
-            _ = u.updated_by,
-            f = _.id,
-            g = _.notify_name,
-            h = _.pn,
-            y;
+            u,
+            c = n.xwa2_notify_group_on_prop_change,
+            m = c.id,
+            p = c.lid_migration_state,
+            _ = c.properties,
+            f = c.update_time,
+            g = c.updated_by,
+            h = g.id,
+            y = g.notify_name,
+            C = g.pn,
+            b;
           switch (t.OperationName) {
             case "NotificationGroupPropertyUpdate": {
-              m.allow_non_admin_sub_group_creation != null &&
-                (y = {
+              _.allow_non_admin_sub_group_creation != null &&
+                (b = {
                   actionType:
                     o("WAWebGroupType").GROUP_ACTIONS
                       .ALLOW_NON_ADMIN_SUB_GROUP_CREATION,
-                  value: m.allow_non_admin_sub_group_creation,
+                  value: _.allow_non_admin_sub_group_creation,
                 });
               break;
             }
             case "NotificationGroupHiddenPropertyUpdate":
-              y = {
+              b = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.HIDDEN_GROUP,
-                value: (a = m.hidden_group) != null ? a : !1,
+                value: (a = _.hidden_group) != null ? a : !1,
               };
               break;
             case "NotificationGroupSafetyCheckPropertyUpdate":
-              y = {
+              b = {
                 actionType:
                   o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK,
-                value: (i = m.group_safety_check) != null ? i : !1,
+                value: (i = _.group_safety_check) != null ? i : !1,
               };
               break;
             case "NotificationGroupMemberLinkPropertyUpdate":
-              y = {
+              b = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE,
                 value: o(
                   "WAWebGroupMemberLinkMode",
-                ).getMemberLinkModeFromMexType(m.member_link_mode),
+                ).getMemberLinkModeFromMexType(_.member_link_mode),
               };
               break;
             case "NotificationGroupMemberShareGroupHistoryModePropertyUpdate":
-              y = {
+              b = {
                 actionType:
                   o("WAWebGroupType").GROUP_ACTIONS
                     .MEMBER_SHARE_GROUP_HISTORY_MODE,
                 value: o(
                   "WAWebGroupHistoryShareMode",
                 ).getMemberShareGroupHistoryModeFromMexType(
-                  m.member_share_group_history_mode,
+                  _.member_share_group_history_mode,
                 ),
               };
               break;
             case "NotificationGroupCustomReactionsPropertyUpdate":
-              if (!r("justknobx")._("7606") || !("group_custom_reactions" in m))
+              if (!r("justknobx")._("7606") || !("group_custom_reactions" in _))
                 return;
-              y = {
+              b = {
                 actionType:
                   o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS,
                 value: o(
                   "WAWebGroupReactionSettings",
                 ).getGroupReactionSettingsFromMex(
-                  (l = m.group_custom_reactions) == null
+                  (l = _.group_custom_reactions) == null
                     ? void 0
                     : l.default_reactions,
                 ),
               };
               break;
+            case "NotificationGroupMembershipFormPropertyUpdate": {
+              var v;
+              try {
+                var S;
+                v = d((S = _.membership_form) == null ? void 0 : S.questions);
+              } catch (t) {
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[mex][group-prop-update] invalid membership form bytes",
+                      ])),
+                  )
+                  .tags("mex")
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("mex-group-property-update-notification-fail");
+                return;
+              }
+              b = {
+                actionType: o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_FORM,
+                membershipForm: v,
+              };
+              break;
+            }
             case "NotificationGroupAppealStatusUpdate":
-              y = {
+              b = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL,
                 appealStatus: o(
                   "WAWebSuspendAppealStatusType",
-                ).toSuspendAppealStatus(m.appeal_status),
-                appealUpdateTime: (s = m.appeal_update_time) != null ? s : null,
+                ).toSuspendAppealStatus(_.appeal_status),
+                appealUpdateTime: (u = _.appeal_update_time) != null ? u : null,
               };
               break;
           }
-          if (y != null) {
-            var C = {
-              chatId: o("WAWebWidFactory").createWid(c),
-              ts: o("WATimeUtils").castMilliSecondsToUnixTime(Number(p)),
-              actions: [y],
-              author: f != null ? o("WAWebWidFactory").createWid(f) : null,
+          if (b != null) {
+            var R = {
+              chatId: o("WAWebWidFactory").createWid(m),
+              ts: o("WATimeUtils").castMilliSecondsToUnixTime(Number(f)),
+              actions: [b],
+              author: h != null ? o("WAWebWidFactory").createWid(h) : null,
               authorPhoneNumber:
-                h != null ? o("WAWebWidFactory").createWid(h) : null,
+                C != null ? o("WAWebWidFactory").createWid(C) : null,
               isLidAddressingMode:
-                (d == null ? void 0 : d.addressing_mode) == null ||
-                (d == null ? void 0 : d.addressing_mode) === "LID",
-              pushname: g,
+                (p == null ? void 0 : p.addressing_mode) == null ||
+                (p == null ? void 0 : p.addressing_mode) === "LID",
+              pushname: y,
               externalId: t.stanzaId,
               offline: t.offline,
               hasIncompleteParticipantInformation: !1,
@@ -123,12 +149,12 @@ __d(
             try {
               yield o(
                 "WAWebHandleParsedGroupNotification",
-              ).handleParsedGroupNotification(C);
-            } catch (t) {
+              ).handleParsedGroupNotification(R);
+            } catch (e) {
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[mex][group-prop-update] update failed",
                     ])),
                 )
@@ -137,10 +163,13 @@ __d(
             }
           }
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.mexHandleGroupPropertyUpdate = s;
+    function d(e) {
+      return e == null || e === "" ? null : o("WABase64").decodeB64(e);
+    }
+    l.mexHandleGroupPropertyUpdate = u;
   },
   98,
 );

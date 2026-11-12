@@ -33,6 +33,11 @@ __d(
       return r("justknobx")._("7352");
     }
     function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_hatch_reply_linkify_enabled",
+      );
+    }
+    function _() {
       return !0;
     }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
@@ -41,7 +46,8 @@ __d(
       (l.isUnifiedResponseSendingEnabled = c),
       (l.isUnifiedResponseMutationEnabled = d),
       (l.isInlineImageNodeRendererEnabled = m),
-      (l.isFoABloksNodeRendererEnabled = p));
+      (l.isUnifiedResponseTextLinkifyEnabled = p),
+      (l.isFoABloksNodeRendererEnabled = _));
   },
   98,
 );

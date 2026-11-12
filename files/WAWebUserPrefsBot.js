@@ -63,12 +63,26 @@ __d(
     function p() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
+        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_LIST_LAST_SYNC_TS,
       )) != null
         ? e
         : 0;
     }
     function _(e) {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_LIST_LAST_SYNC_TS,
+        e,
+      );
+    }
+    function f() {
+      var e;
+      return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
+      )) != null
+        ? e
+        : 0;
+    }
+    function g(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
         e,
@@ -79,8 +93,10 @@ __d(
       (l.getPrimaryAiThreadSupportLevelFromLocalStorage = u),
       (l.hasEverHadMetaAiThread = c),
       (l.markHasEverHadMetaAiThread = d),
-      (l.getMetaAiBotSessionLastCleanupTs = p),
-      (l.setMetaAiBotSessionLastCleanupTs = _));
+      (l.getMetaAiThreadListLastSyncTs = p),
+      (l.setMetaAiThreadListLastSyncTs = _),
+      (l.getMetaAiBotSessionLastCleanupTs = f),
+      (l.setMetaAiBotSessionLastCleanupTs = g));
   },
   98,
 );

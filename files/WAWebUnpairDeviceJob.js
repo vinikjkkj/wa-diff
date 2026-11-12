@@ -5,7 +5,7 @@ __d(
     "WADeprecatedWapParser",
     "WAWap",
     "WAWebCommsWapMd",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,7 +35,7 @@ __d(
               },
               n.wap("remove-companion-device", {
                 jid: o("WAWebCommsWapMd").DEVICE_JID(
-                  o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow(),
+                  o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE(),
                 ),
                 reason: n.CUSTOM_STRING(t),
               }),

@@ -81,6 +81,8 @@ __d(
               r("groupAbPropsRefreshSec"),
               r("groupAbPropsLastFetchTimestampSec"),
               r("groupReactionSettings"),
+              r("membershipForm"),
+              r("membershipFormKeyId"),
             ],
           )
           .version(n.migrateSubgroupsArray(), [

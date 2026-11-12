@@ -221,56 +221,61 @@ __d(
             d,
             m,
             p,
-            _ = e.groupWid,
-            f = yield o("WAWebSchemaGroupMetadata")
+            _,
+            f,
+            g = e.groupWid,
+            h = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
-              .get(String(_));
-          return f
+              .get(String(g));
+          return h
             ? {
-                id: _,
+                id: g,
                 owner:
-                  f.owner == null
+                  h.owner == null
                     ? null
-                    : o("WAWebWidFactory").createWid(f.owner),
-                creation: f.creation,
-                desc: (t = f.desc) != null ? t : void 0,
-                descId: (n = f.descId) != null ? n : void 0,
+                    : o("WAWebWidFactory").createWid(h.owner),
+                creation: h.creation,
+                desc: (t = h.desc) != null ? t : void 0,
+                descId: (n = h.descId) != null ? n : void 0,
                 descOwner:
-                  f.descOwner == null
+                  h.descOwner == null
                     ? null
-                    : o("WAWebWidFactory").createWid(f.descOwner),
-                descTime: (r = f.descTime) != null ? r : void 0,
-                restrict: f.restrict || !1,
-                announce: f.announce || !1,
-                noFrequentlyForwarded: f.noFrequentlyForwarded || !1,
-                ephemeralDuration: f.ephemeralDuration || 0,
+                    : o("WAWebWidFactory").createWid(h.descOwner),
+                descTime: (r = h.descTime) != null ? r : void 0,
+                restrict: h.restrict || !1,
+                announce: h.announce || !1,
+                noFrequentlyForwarded: h.noFrequentlyForwarded || !1,
+                ephemeralDuration: h.ephemeralDuration || 0,
                 membershipApprovalMode:
-                  (a = f.membershipApprovalMode) != null ? a : !1,
-                memberAddMode: f.memberAddMode,
-                memberLinkMode: f.memberLinkMode,
-                groupReactionSettings: f.groupReactionSettings,
-                subject: f.subject,
-                support: f.support === !0,
+                  (a = h.membershipApprovalMode) != null ? a : !1,
+                memberAddMode: h.memberAddMode,
+                memberLinkMode: h.memberLinkMode,
+                groupReactionSettings: h.groupReactionSettings,
+                subject: h.subject,
+                support: h.support === !0,
                 lastActivityTimestamp:
-                  (i = f.lastActivityTimestamp) != null ? i : 0,
+                  (i = h.lastActivityTimestamp) != null ? i : 0,
                 lastSeenActivityTimestamp:
-                  (l = f.lastSeenActivityTimestamp) != null ? l : 0,
+                  (l = h.lastSeenActivityTimestamp) != null ? l : 0,
                 lastReportToAdminTimestamp:
-                  (s = f.lastReportToAdminTimestamp) != null ? s : null,
-                isLidAddressingMode: f.isLidAddressingMode,
+                  (s = h.lastReportToAdminTimestamp) != null ? s : null,
+                isLidAddressingMode: h.isLidAddressingMode,
                 allowNonAdminSubGroupCreation:
-                  (u = f.allowNonAdminSubGroupCreation) != null ? u : !1,
+                  (u = h.allowNonAdminSubGroupCreation) != null ? u : !1,
                 generalChatAutoAddDisabled:
-                  (c = f.generalChatAutoAddDisabled) != null ? c : !1,
-                hasCapi: f.hasCapi === !0,
+                  (c = h.generalChatAutoAddDisabled) != null ? c : !1,
+                hasCapi: h.hasCapi === !0,
                 lastCommunityPollTimestamp:
-                  (d = f.lastCommunityPollTimestamp) != null ? d : 0,
-                isOpenBotGroup: (m = f.isOpenBotGroup) != null ? m : !1,
-                isTeeBotGroup: (p = f.isTeeBotGroup) != null ? p : !1,
+                  (d = h.lastCommunityPollTimestamp) != null ? d : 0,
+                isOpenBotGroup: (m = h.isOpenBotGroup) != null ? m : !1,
+                isTeeBotGroup: (p = h.isTeeBotGroup) != null ? p : !1,
                 shouldDefaultGroupHistoryShareOn:
-                  f.shouldDefaultGroupHistoryShareOn,
+                  h.shouldDefaultGroupHistoryShareOn,
                 hasIncompleteParticipantInformation:
-                  f.hasIncompleteParticipantInformation === !0,
+                  h.hasIncompleteParticipantInformation === !0,
+                membershipForm: (_ = h.membershipForm) != null ? _ : null,
+                membershipFormKeyId:
+                  (f = h.membershipFormKeyId) != null ? f : null,
               }
             : null;
         })),

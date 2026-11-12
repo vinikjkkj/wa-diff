@@ -57,14 +57,15 @@ __d(
       $,
       P = $ || ($ = o("react")),
       N = "server_sent_false";
-    function M(e, t, n, r, o) {
+    function M(e, t, n, r, o, a) {
       return w.apply(this, arguments);
     }
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
+          function* (e, t, n, r, o, a) {
             return B({
+              dialogObservers: a,
               entryPoint: t,
               isNewContact: o,
               isOutContactInvite: !0,
@@ -113,16 +114,17 @@ __d(
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.canSend,
-            n = e.entryPoint,
-            r = e.isNewContact,
-            a = e.isOutContactInvite,
-            i = e.name,
-            l = e.onSendStart,
-            s = e.phoneNumber,
-            c = o("WAWebPhoneNumberSearch").stripInvisibleChars(s);
+            n = e.dialogObservers,
+            r = e.entryPoint,
+            a = e.isNewContact,
+            i = e.isOutContactInvite,
+            l = e.name,
+            s = e.onSendStart,
+            c = e.phoneNumber,
+            d = o("WAWebPhoneNumberSearch").stripInvisibleChars(c);
           if (
             !o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(
-              c,
+              d,
             )
           )
             return (
@@ -134,46 +136,47 @@ __d(
               ),
               !1
             );
-          var d = o(
+          var m = o(
             "WAWebOutContactServerSentInviteEligibility",
-          ).isServerSentInviteEligible(c);
-          if (!d && !V(a)) return !1;
-          var m = q(a);
+          ).isServerSentInviteEligible(d);
+          if (!m && !V(i)) return !1;
+          var p = q(i, n);
           o("WAWebOutContactLoggingUtils").logOutContactInviteIntent({
-            entryPoint: n,
-            isServerSentInvite: d,
-            sessionId: m.sessionId,
+            entryPoint: r,
+            isServerSentInvite: m,
+            sessionId: p.sessionId,
           });
-          var p = i != null ? i : c;
-          return d
+          var _ = l != null ? l : d;
+          return m
             ? H({
                 canSend: t,
-                entryPoint: n,
-                inviteContext: m,
-                isNewContact: r,
-                name: p,
-                onSendStart: l,
-                phoneNumber: c,
+                entryPoint: r,
+                inviteContext: p,
+                isNewContact: a,
+                name: _,
+                onSendStart: s,
+                phoneNumber: d,
               })
             : (t == null ? void 0 : t()) === !1
               ? !1
-              : (l == null || l(), J(c, n, m, void 0, t));
+              : (s == null || s(), J(d, r, p, void 0, t));
         })),
         W.apply(this, arguments)
       );
     }
-    function q(e) {
-      var t = e
+    function q(e, t) {
+      var n = e
         ? o("WAWebOutContactInviteJourney").getOutContactInviteSessionId()
         : null;
       return {
+        dialogObservers: t,
         sessionId:
-          t != null
-            ? t
+          n != null
+            ? n
             : o(
                 "WAWebOutContactInviteJourney",
               ).createCompanionInviteSessionId(),
-        pickerSessionId: t,
+        pickerSessionId: n,
       };
     }
     function U(e) {
@@ -216,27 +219,30 @@ __d(
           var p = !1,
             _ = yield o(
               "WAWebOutContactInviteConfirmDialog.react",
-            ).waitForOutContactInviteConfirmDialog(
-              l,
-              u,
-              function () {
-                return (
-                  (p = !0),
-                  (t == null ? void 0 : t()) === !1 ||
-                  !o(
-                    "WAWebOutContactServerSentInviteEligibility",
-                  ).isServerSentInviteEligible(u)
-                    ? (o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[out-contact-invite][ssi] not sent: no longer available",
-                          ])),
-                      ),
-                      (x || (x = n("Promise"))).resolve(!1))
-                    : (s == null || s(), z(u, r, l, a, t))
-                );
-              },
-              i,
+            ).waitForOutContactInviteConfirmDialog.apply(
+              void 0,
+              [
+                l,
+                u,
+                function () {
+                  return (
+                    (p = !0),
+                    (t == null ? void 0 : t()) === !1 ||
+                    !o(
+                      "WAWebOutContactServerSentInviteEligibility",
+                    ).isServerSentInviteEligible(u)
+                      ? (o("WALogger").LOG(
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                              "[out-contact-invite][ssi] not sent: no longer available",
+                            ])),
+                        ),
+                        (x || (x = n("Promise"))).resolve(!1))
+                      : (s == null || s(), z(u, r, l, a, t))
+                  );
+                },
+                i,
+              ].concat(a.dialogObservers != null ? [a.dialogObservers] : []),
             );
           return (
             p ||
@@ -371,7 +377,12 @@ __d(
               (l == null ? void 0 : l()) === !1 ||
                 (o(
                   "WAWebOutContactInviteFailureDialog.react",
-                ).showOutContactInviteFailureDialog(r, u),
+                ).showOutContactInviteFailureDialog.apply(
+                  void 0,
+                  [r, u].concat(
+                    a.dialogObservers != null ? [a.dialogObservers] : [],
+                  ),
+                ),
                 o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
                   entryPoint: t,
                   inviteCodeError: n,

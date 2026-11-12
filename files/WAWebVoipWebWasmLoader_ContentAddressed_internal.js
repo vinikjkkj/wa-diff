@@ -14,8 +14,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0",
+      u = "c96a282034e1d4d525bc7b20dc1a864950519e82c9d94e60930f5869650cc59b",
       c = {
+        c96a282034e1d4d525bc7b20dc1a864950519e82c9d94e60930f5869650cc59b:
+          function () {
+            return r("bx")("111204");
+          },
         "5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0":
           function () {
             return r("bx")("14949");
@@ -76,12 +80,8 @@ __d(
           function () {
             return r("bx")("110768");
           },
-        "1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d":
-          function () {
-            return r("bx")("110763");
-          },
       },
-      d = c["5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0"],
+      d = c.c96a282034e1d4d525bc7b20dc1a864950519e82c9d94e60930f5869650cc59b,
       m = null,
       p = null;
     try {
@@ -90,6 +90,10 @@ __d(
       m = e;
     }
     var _ = {
+        c96a282034e1d4d525bc7b20dc1a864950519e82c9d94e60930f5869650cc59b:
+          function () {
+            return r("bx")("111203");
+          },
         "5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0":
           function () {
             return r("bx")("5991");
@@ -150,16 +154,12 @@ __d(
           function () {
             return r("bx")("110767");
           },
-        "1e61bd4a715ed872cf5b8a0b0f527d24103e8fa0dcad20ee9f3eb707fced3f2d":
-          function () {
-            return r("bx")("110762");
-          },
       },
-      f = _["5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0"],
+      f = _.c96a282034e1d4d525bc7b20dc1a864950519e82c9d94e60930f5869650cc59b,
       g = null,
       h;
     try {
-      h = r("bx").getURL(f(), { cacheBreaker: "1794223701231" });
+      h = r("bx").getURL(f(), { cacheBreaker: "1794448279890" });
     } catch (e) {
       g = e;
     }
@@ -198,7 +198,7 @@ __d(
         var b = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/5a6c6fa08285354464bb60f5598937e02aa57e18332b98339787c0e935ab25d0/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/c96a282034e1d4d525bc7b20dc1a864950519e82c9d94e60930f5869650cc59b/wa_voip_shared.wasm",
           ),
           g != null)
         )
@@ -922,7 +922,7 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Qe = {
-          1448148: function (t, n) {
+          1453380: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -936,7 +936,7 @@ __d(
               message: e,
             });
           },
-          1448435: function () {
+          1453667: function () {
             return Date.now();
           },
         };
@@ -7720,7 +7720,7 @@ __d(
             invoke_iifii: vu,
             invoke_iifiii: iu,
             invoke_iii: kl,
-            invoke_iiid: Ku,
+            invoke_iiid: ju,
             invoke_iiifi: Ru,
             invoke_iiii: Rl,
             invoke_iiiidd: Du,
@@ -7730,9 +7730,9 @@ __d(
             invoke_iiiiid: Ju,
             invoke_iiiiii: Al,
             invoke_iiiiiii: Dl,
-            invoke_iiiiiiiddiiid: Gu,
+            invoke_iiiiiiiddiiid: Hu,
             invoke_iiiiiiii: wl,
-            invoke_iiiiiiiidi: zu,
+            invoke_iiiiiiiidi: Gu,
             invoke_iiiiiiiifii: ru,
             invoke_iiiiiiiii: Ml,
             invoke_iiiiiiiiii: Fl,
@@ -7748,7 +7748,7 @@ __d(
             invoke_iiiiiiiiiiiiiiii: Gl,
             invoke_iiiiiiiiiiiiiiiiiffiiiii: Rs,
             invoke_iiiiiiiiiiiiiiiiii: jl,
-            invoke_iiiiiiiiiiiiiiiiiiiiiiiiiiii: Vu,
+            invoke_iiiiiiiiiiiiiiiiiiiiiiiiiii: Vu,
             invoke_iiiiiiiiiiji: ts,
             invoke_iiiiiiiiij: Ou,
             invoke_iiiiiiiiijiiiiiiiiii: $u,
@@ -7757,7 +7757,7 @@ __d(
             invoke_iiiiiiijjii: xu,
             invoke_iiiiiij: qs,
             invoke_iiiiiijiiii: Bu,
-            invoke_iiiiij: Hu,
+            invoke_iiiiij: Ku,
             invoke_iiiiiji: Nu,
             invoke_iiiiijjii: _s,
             invoke_iiiiijjiii: fs,
@@ -7823,7 +7823,7 @@ __d(
             invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: cu,
             invoke_viiiiiiij: uu,
             invoke_viiiiij: Vs,
-            invoke_viiiiiji: ju,
+            invoke_viiiiiji: zu,
             invoke_viiiij: Hs,
             invoke_viiiijiiii: Is,
             invoke_viiij: Pu,
@@ -7922,8 +7922,8 @@ __d(
           yl = (b.___get_exception_message = Pe("__get_exception_message")),
           Cl = Pe("__cxa_can_catch"),
           bl = Pe("__cxa_is_pointer_type"),
-          vl = (b.___start_em_js = 1442268),
-          Sl = (b.___stop_em_js = 1448148);
+          vl = (b.___start_em_js = 1447500),
+          Sl = (b.___stop_em_js = 1453380);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -9347,9 +9347,8 @@ __d(
           L,
           E,
           k,
-          I,
         ) {
-          var T = _l();
+          var I = _l();
           try {
             return pn(e)(
               t,
@@ -9378,23 +9377,13 @@ __d(
               L,
               E,
               k,
-              I,
             );
           } catch (e) {
-            if ((fl(T), !(e instanceof Ne))) throw e;
+            if ((fl(I), !(e instanceof Ne))) throw e;
             ul(1, 0);
           }
         }
-        function Hu(e, t, n, r, o, a) {
-          var i = _l();
-          try {
-            return pn(e)(t, n, r, o, a);
-          } catch (e) {
-            if ((fl(i), !(e instanceof Ne))) throw e;
-            ul(1, 0);
-          }
-        }
-        function Gu(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+        function Hu(e, t, n, r, o, a, i, l, s, u, c, d, m) {
           var p = _l();
           try {
             return pn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
@@ -9403,7 +9392,7 @@ __d(
             ul(1, 0);
           }
         }
-        function zu(e, t, n, r, o, a, i, l, s, u) {
+        function Gu(e, t, n, r, o, a, i, l, s, u) {
           var c = _l();
           try {
             return pn(e)(t, n, r, o, a, i, l, s, u);
@@ -9412,7 +9401,7 @@ __d(
             ul(1, 0);
           }
         }
-        function ju(e, t, n, r, o, a, i, l) {
+        function zu(e, t, n, r, o, a, i, l) {
           var s = _l();
           try {
             pn(e)(t, n, r, o, a, i, l);
@@ -9421,12 +9410,21 @@ __d(
             ul(1, 0);
           }
         }
-        function Ku(e, t, n, r) {
+        function ju(e, t, n, r) {
           var o = _l();
           try {
             return pn(e)(t, n, r);
           } catch (e) {
             if ((fl(o), !(e instanceof Ne))) throw e;
+            ul(1, 0);
+          }
+        }
+        function Ku(e, t, n, r, o, a) {
+          var i = _l();
+          try {
+            return pn(e)(t, n, r, o, a);
+          } catch (e) {
+            if ((fl(i), !(e instanceof Ne))) throw e;
             ul(1, 0);
           }
         }
@@ -10004,7 +10002,7 @@ __d(
         if (g == null && m == null) return { hadError: !1, wasm: !0, glue: !0 };
         if (g != null)
           try {
-            ((h = r("bx").getURL(f(), { cacheBreaker: "1794223701231" })),
+            ((h = r("bx").getURL(f(), { cacheBreaker: "1794448279890" })),
               (g = null));
           } catch (e) {
             return ((g = e), { hadError: !0, wasm: !1, glue: m == null });

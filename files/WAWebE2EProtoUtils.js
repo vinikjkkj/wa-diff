@@ -254,14 +254,10 @@ __d(
       return r != null && n.includes(r.toUpperCase());
     }
     function v(e, t) {
-      var n;
       return !(
         e.remote.isGroup() &&
-        !(
-          (n = e.participant) != null &&
-          n.equals(o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow())
-        ) &&
-        !t.equals(o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow())
+        !o("WAWebUserPrefsMeUser").isMeAccount(e.participant) &&
+        !o("WAWebUserPrefsMeUser").isMeAccount(t)
       );
     }
     function S(e) {
@@ -545,7 +541,7 @@ __d(
                 .sendLogs("translate-msg-key-non-lid-author"));
             var b =
               C || !((h = n.author) != null && h.isLid())
-                ? o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow()
+                ? o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE()
                 : o("WAWebUserUtils").getMeLidUserOrThrow();
             c = b;
           }

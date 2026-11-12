@@ -724,6 +724,10 @@ __d(
           _.memberShareGroupHistoryMode = a.value;
           break;
         }
+        case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_FORM: {
+          _.membershipForm = a.membershipForm;
+          break;
+        }
         default:
           o("WALogger")
             .ERROR(

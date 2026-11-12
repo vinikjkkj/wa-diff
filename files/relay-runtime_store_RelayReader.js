@@ -43,7 +43,7 @@ __d(
       D = n("relay-runtime/store/TypeID").generateTypeID;
     function x(e, t, r, o, a) {
       if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_READER)
-        return G(e, t, r, o, a);
+        return W(e, t, r, o, a);
       var i = new $(e, t, r, o != null ? o : new k(), a);
       return i.read();
     }
@@ -1071,29 +1071,8 @@ __d(
     }
     var A = Object.freeze({}),
       F = Object.freeze(((e = {}), (e[f] = !0), e)),
-      O = 16,
-      B = 64,
-      W = new WeakMap(),
-      q = Object.freeze({});
-    function U(e, t) {
-      if (!W.has(e)) {
-        var n = Object.keys(t);
-        if (n.length <= O || n.length > B) {
-          W.set(e, q);
-          return;
-        }
-        for (var r = {}, o = 0; o < n.length; o++)
-          Object.defineProperty(r, n[o], {
-            configurable: !0,
-            enumerable: !0,
-            value: void 0,
-            writable: !0,
-          });
-        W.set(e, r);
-      }
-    }
-    var V = Object.freeze([]),
-      H = (function () {
+      O = Object.freeze([]),
+      B = (function () {
         function e(e, t, n, r, o) {
           var a, i, l;
           ((this.$1 = t.parentClientEdge),
@@ -1166,7 +1145,7 @@ __d(
               isMissingData: this.$2 && u,
               missingClientEdges:
                 this.$3 != null && this.$3.length ? this.$3 : null,
-              missingLiveResolverFields: (t = this.$4) != null ? t : V,
+              missingLiveResolverFields: (t = this.$4) != null ? t : O,
               seenRecords: this.$11,
               selector: this.$13,
             };
@@ -1253,11 +1232,7 @@ __d(
               return (e === void 0 && this.$24("<record>"), (this.$7 = a), e);
             var i = o || {},
               l = this.$26(t.selections, e, i);
-            return (
-              l && o == null && t.selections.length > O && U(t, i),
-              (this.$7 = a),
-              l ? i : null
-            );
+            return ((this.$7 = a), l ? i : null);
           }),
           (t.$27 = function (t) {
             return (
@@ -1573,7 +1548,7 @@ __d(
                       fieldErrors: o.fieldErrors,
                       isMissingData: o.isMissingData,
                     }
-                  : ((o = G(e.$10, n, null, e.$15, void 0)),
+                  : ((o = W(e.$10, n, null, e.$15, void 0)),
                     {
                       data: o.data,
                       fieldErrors: o.fieldErrors,
@@ -2114,11 +2089,11 @@ __d(
           e
         );
       })();
-    function G(e, t, n, r, o) {
-      var a = new H(e, t, n, r != null ? r : new k(), o);
+    function W(e, t, n, r, o) {
+      var a = new B(e, t, n, r != null ? r : new k(), o);
       return a.read();
     }
-    a.exports = { read: x, readPerf: G };
+    a.exports = { read: x, readPerf: W };
   },
   null,
 );

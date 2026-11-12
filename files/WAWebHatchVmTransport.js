@@ -304,7 +304,27 @@ __d(
           "/link"
         );
       },
+      CONNECTORS_HOMEPAGE: function (n) {
+        return "/api/connectors/homepage?preview_limit=" + n;
+      },
       CONNECTORS_LIST: "/api/connectors",
+      CONNECTORS_LIST_CATEGORY: function (n, r, o) {
+        return (
+          "/api/connectors?limit=" +
+          r +
+          "&category=" +
+          encodeURIComponent(n) +
+          (o == null ? "" : "&cursor=" + encodeURIComponent(o))
+        );
+      },
+      CONNECTORS_LIST_CONNECTED: function (n, r) {
+        return (
+          "/api/connectors?limit=" +
+          n +
+          "&category=connected" +
+          (r == null ? "" : "&cursor=" + encodeURIComponent(r))
+        );
+      },
       CONNECTORS_LIST_SETTINGS: "/api/connectors?surface=settings",
       CONNECTORS_LIST_SUPPORTING: function (n) {
         return n.length === 0

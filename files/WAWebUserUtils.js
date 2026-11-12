@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBeyondPhoneNumberGatingUtils",
+    "WAWebInternalAccount",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "err",
@@ -23,7 +24,7 @@ __d(
       );
     }
     function c() {
-      var e = h();
+      var e = C();
       return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
         e.user,
         e.server,
@@ -31,12 +32,12 @@ __d(
       );
     }
     function d() {
-      return [h(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
+      return [C(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
         Boolean,
       );
     }
     function m(t) {
-      if (t.isLid()) return g();
+      if (t.isLid()) return y();
       var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       if (n != null) return n;
       throw (
@@ -55,28 +56,36 @@ __d(
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
-        ? g()
-        : f();
+        ? y()
+        : h();
     }
     function _() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
-        ? h()
+        ? C()
         : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
     }
     function f() {
+      return o("WAWebInternalAccount").isInternalAccount() ? y() : h();
+    }
+    function g() {
+      return o("WAWebInternalAccount").isInternalAccount()
+        ? C()
+        : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE();
+    }
+    function h() {
       return o("WAWebWidFactory").asUserWidOrThrow(
         o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
       );
     }
-    function g() {
+    function y() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
         "meLidUser",
       );
     }
-    function h() {
+    function C() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
         "meLid",
@@ -89,9 +98,11 @@ __d(
       (l.getMeUserMatchingAddressingModeOrThrow = m),
       (l.getMeUserOrThrow = p),
       (l.getMeDeviceOrThrow = _),
-      (l.getMePnUserOrThrow_DO_NOT_USE = f),
-      (l.getMeLidUserOrThrow = g),
-      (l.getMeDeviceLidOrThrow = h));
+      (l.getMePnLessOrFallback_DO_NOT_USE = f),
+      (l.getMeDevicePnLessOrFallback_DO_NOT_USE = g),
+      (l.getMePnUserOrThrow_DO_NOT_USE = h),
+      (l.getMeLidUserOrThrow = y),
+      (l.getMeDeviceLidOrThrow = C));
   },
   98,
 );

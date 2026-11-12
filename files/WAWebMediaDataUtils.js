@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WABase64",
+    "WACustomError",
     "WALogger",
     "WAPromiseCallSync",
     "WAWebABProps",
@@ -37,6 +38,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:10296",
     "err",
+    "getErrorSafe",
     "isStringNullOrEmpty",
     "nullthrows",
     "requireDeferred",
@@ -49,18 +51,19 @@ __d(
       d,
       m,
       p,
-      _ = r("requireDeferred")("WAWebMediaAnalyzer").__setRef(
+      _,
+      f = r("requireDeferred")("WAWebMediaAnalyzer").__setRef(
         "WAWebMediaDataUtils",
       ),
-      f = 2e4;
-    function g(e) {
-      return F(
+      g = 2e4;
+    function h(e) {
+      return O(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             t(e);
             var o = new Image();
             return (
-              yield new (p || (p = n("Promise")))(function (t, n) {
+              yield new (_ || (_ = n("Promise")))(function (t, n) {
                 ((o.onload = t),
                   (o.onabort = function () {
                     n(r("err")("getImageWidthHeight onabort"));
@@ -79,8 +82,8 @@ __d(
         })(),
       );
     }
-    function h(e) {
-      return new (p || (p = n("Promise")))(function (t, n) {
+    function y(e) {
+      return new (_ || (_ = n("Promise")))(function (t, n) {
         var o = new Image(),
           a = window.URL.createObjectURL(e);
         ((o.onload = function () {
@@ -98,7 +101,7 @@ __d(
           (o.src = a));
       });
     }
-    function y(t) {
+    function C(t) {
       return o("WAWebFileUtils")
         .blobToArrayBuffer(t)
         .catch(function (t) {
@@ -115,41 +118,41 @@ __d(
           );
         });
     }
-    function C(e) {
-      return F(function (t) {
+    function b(e) {
+      return O(function (t) {
         t(e);
         var n = e.getBlob();
-        if (n) return y(n);
+        if (n) return C(n);
         var a = r("nullthrows")(e.getBase64(), "b64 should be defined");
         return o("WABase64").decodeB64(a);
       });
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y(e);
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield C(e);
           return r("WAWebDecodeWebpToRgba")(t);
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y(e);
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield C(e);
           return o("WAWebWebpParseWebp").parseWebp(t);
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return F(
+    function E(e, t) {
+      return O(
         (function () {
           var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
             n(e);
@@ -166,12 +169,12 @@ __d(
         })(),
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.maxDimension,
             r = t.minDimension,
             a = t.transparency,
@@ -188,15 +191,15 @@ __d(
             throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
           return { width: u, height: l, size: s.blob.size };
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = t.maxDimension,
             i = t.minDimension,
             l = t.transparency,
@@ -218,18 +221,18 @@ __d(
               _ = d.width;
             if (p == null || p.canvas == null)
               throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
-            var g = yield o("WAWebImageUtils").rotateAndResize(
+            var f = yield o("WAWebImageUtils").rotateAndResize(
                 p.canvas,
                 o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
                 o("WAWebImageUtils").DATA_URL | o("WAWebImageUtils").CANVAS,
               ),
-              h = g.images;
+              h = f.images;
             if (h == null || h.canvas == null)
               throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
             var y = o("WAWebCanvasUtils").getResizedDataUrl(
                 h.canvas,
                 "image/jpeg",
-                f,
+                g,
               ),
               C =
                 y != null && y !== ""
@@ -297,15 +300,15 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.forceToBlob(),
             n = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
               "sticker",
@@ -345,22 +348,22 @@ __d(
             );
           }
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e._mimetype,
             a = e.accessibilityLabel,
             i = e.asGif,
             l = e.asPtt,
-            m = e.gifAttribution,
+            s = e.gifAttribution,
             p = e.opaqueData,
-            f = e.precomputedFields,
+            _ = e.precomputedFields,
             g = e.resetMediaPreview,
             h = e.setMediaPreview,
             y = e.setMimeType,
@@ -373,9 +376,9 @@ __d(
               L = new (o(
                 "WAWebVideoTranscoderWamEvent",
               ).VideoTranscoderWamEvent)({
-                sourceHeight: f == null ? void 0 : f.fullHeight,
-                sourceWidth: f == null ? void 0 : f.fullWidth,
-                sourceDuration: f == null ? void 0 : f.duration,
+                sourceHeight: _ == null ? void 0 : _.fullHeight,
+                sourceWidth: _ == null ? void 0 : _.fullWidth,
+                sourceDuration: _ == null ? void 0 : _.duration,
                 sourceFileSize: p.size(),
                 sourceFormat:
                   i === !0
@@ -399,7 +402,7 @@ __d(
             L.startTranscoderT();
             var D = null;
             if (!T) {
-              var x = yield _.load(),
+              var x = yield f.load(),
                 $ = x.checkAndRepairAudio,
                 P = x.transcodeToMp4AndMp4RepairMux,
                 N = !1,
@@ -451,8 +454,8 @@ __d(
                 }),
                 L.commit(),
                 o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "processRawAudioVideo bad video file ",
                       "",
                     ])),
@@ -479,8 +482,8 @@ __d(
                     L.commit(),
                     o("WALogger")
                       .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
                             "Assertion failed!",
                           ])),
                       )
@@ -498,31 +501,31 @@ __d(
                   mediaBlob: q,
                   mimetype: W,
                   isGif: U,
-                  gifAttribution: U ? m || 0 : void 0,
+                  gifAttribution: U ? s || 0 : void 0,
                   accessibilityLabel: a,
                   size: q.size,
                 };
                 if (
-                  f &&
-                  f.duration != null &&
-                  f.fullHeight != null &&
-                  f.fullHeight !== 0 &&
-                  f.fullWidth != null &&
-                  f.fullWidth !== 0 &&
-                  !r("isStringNullOrEmpty")(f.preview)
+                  _ &&
+                  _.duration != null &&
+                  _.fullHeight != null &&
+                  _.fullHeight !== 0 &&
+                  _.fullWidth != null &&
+                  _.fullWidth !== 0 &&
+                  !r("isStringNullOrEmpty")(_.preview)
                 ) {
-                  var G = f.duration;
+                  var G = _.duration;
                   return (
                     L.set({
-                      sourceHeight: f.fullHeight,
-                      sourceWidth: f.fullWidth,
+                      sourceHeight: _.fullHeight,
+                      sourceWidth: _.fullWidth,
                       sourceDuration: G,
                     }),
                     L.commit(),
                     babelHelpers.extends({}, H, {
-                      fullWidth: f.fullWidth,
-                      fullHeight: f.fullHeight,
-                      preview: f.preview,
+                      fullWidth: _.fullWidth,
+                      fullHeight: _.fullHeight,
+                      preview: _.preview,
                       duration: G == null ? void 0 : G.toString(),
                     })
                   );
@@ -569,11 +572,11 @@ __d(
                 var J,
                   Z,
                   ee =
-                    (J = f == null ? void 0 : f.duration) != null
+                    (J = _ == null ? void 0 : _.duration) != null
                       ? J
                       : yield o("WAWebFileUtils").getAudioDuration(q),
                   te =
-                    (Z = f == null ? void 0 : f.waveform) != null
+                    (Z = _ == null ? void 0 : _.waveform) != null
                       ? Z
                       : yield o("WAWebWaveformUtils").computeWaveform(q);
                 return {
@@ -600,8 +603,8 @@ __d(
                   L.commit(),
                   o("WALogger")
                     .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "Assertion failed!",
                         ])),
                     )
@@ -618,8 +621,8 @@ __d(
           } catch (e) {
             throw (
               o("WALogger").ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "processRawAudioVideo error: ",
                     "",
                   ])),
@@ -630,15 +633,15 @@ __d(
             );
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.type;
           if (n) {
             if (n === "image/svg+xml")
@@ -658,7 +661,7 @@ __d(
                 o("WAWebMimeTypes").MIMETYPE_DETERMINING_LENGTH,
                 e.size,
               ),
-              i = yield y(e.slice(0, a)),
+              i = yield C(e.slice(0, a)),
               l = new Uint8Array(i);
             if (
               o("WAWebMimeTypes").isMsCompoundFileBinaryFormat(l.subarray(0, 8))
@@ -686,15 +689,15 @@ __d(
             );
           }
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e, t, n, r, o, a) {
-      return A.apply(this, arguments);
+    function A(e, t, n, r, o, a) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, s) {
             var u = e.forceToBlob(),
               c = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
@@ -704,12 +707,12 @@ __d(
             try {
               var d,
                 m,
-                _ = o("WAWebMediaCleanFileName").cleanFilename(
+                p = o("WAWebMediaCleanFileName").cleanFilename(
                   u.name || (t != null ? t : ""),
                 ),
-                f = yield N(u, _),
+                f = yield M(u, p),
                 g = a ? o("WAWebFileUtils").blobToText(u) : null,
-                h = yield (p || (p = n("Promise"))).all([
+                h = yield (_ || (_ = n("Promise"))).all([
                   o("WAWebDocumentUploadEnrichment").enrich(u, f, s),
                   g,
                 ]),
@@ -735,7 +738,7 @@ __d(
                   type: l,
                   mediaBlob: R,
                   mimetype: f,
-                  filename: _ || void 0,
+                  filename: p || void 0,
                   documentPreview: b,
                   preview: S,
                   fullPreviewData: b == null ? void 0 : b.fullPreviewData,
@@ -761,10 +764,10 @@ __d(
             }
           },
         )),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e) {
+    function O(e) {
       var t = [];
       function n(e) {
         (e.retain(), t.push(e));
@@ -775,12 +778,12 @@ __d(
           for (var e = 0; e < t.length; e++) t[e].autorelease();
         });
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("WAWebNetworkGetResponseIfOnline")({
             data: null,
             method: "GET",
@@ -788,34 +791,39 @@ __d(
             url: e,
           });
           return t
-            ? (p || (p = n("Promise"))).resolve({
+            ? (_ || (_ = n("Promise"))).resolve({
                 result: t.response,
                 status: t.status,
               })
-            : (p || (p = n("Promise"))).resolve(null);
+            : (_ || (_ = n("Promise"))).resolve(null);
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W() {
+    function q() {
       return !!o("WAWebMediaLoad").canPlayOgg;
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function U(e, t) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t.retain();
-          var n, a;
+          var n,
+            a,
+            i = !1;
           try {
             switch (e.type) {
               case o("WAWebMediaTypes").TYPE.VIDEO:
               case o("WAWebMediaTypes").TYPE.PTV: {
-                var i = t.forceToBlob(),
-                  l = yield o("WAWebImageUtils").generateVideoThumbsAndDuration(
+                H(e) &&
+                  (e.consolidate({ mediaBlob: t, renderableUrl: t.url() }),
+                  (i = !0));
+                var l = t.forceToBlob(),
+                  s = yield o("WAWebImageUtils").generateVideoThumbsAndDuration(
                     {
-                      file: i,
+                      file: l,
                       maxDimensions: [
                         o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
                       ],
@@ -829,28 +837,28 @@ __d(
                       },
                     },
                   ),
-                  s = l.thumbs,
-                  u = s[0],
-                  c = l.duration,
-                  d = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
-                    r("WAWebURLUtils").parseDataURL(u.url).data,
+                  u = s.thumbs,
+                  c = u[0],
+                  d = s.duration,
+                  m = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+                    r("WAWebURLUtils").parseDataURL(c.url).data,
                   );
                 n = {
                   mediaBlob: t,
                   renderableUrl: t.url(),
-                  fullWidth: u.fullWidth,
-                  fullHeight: u.fullHeight,
-                  duration: c !== void 0 ? "" + Math.ceil(c) : void 0,
-                  fullPreviewData: d,
+                  fullWidth: c.fullWidth,
+                  fullHeight: c.fullHeight,
+                  duration: d !== void 0 ? "" + Math.ceil(d) : void 0,
+                  fullPreviewData: m,
                 };
                 break;
               }
               case o("WAWebMediaTypes").TYPE.AUDIO: {
-                var p = yield L(t);
-                (p.retain(),
-                  (n = { mediaBlob: p, renderableUrl: p.url() }),
+                var _ = yield E(t);
+                (_.retain(),
+                  (n = { mediaBlob: _, renderableUrl: _.url() }),
                   (a = function () {
-                    return p.autorelease();
+                    return _.autorelease();
                   }));
                 break;
               }
@@ -859,8 +867,8 @@ __d(
                   e.type === o("WAWebMediaTypes").TYPE.STICKER) &&
                   o("WALogger")
                     .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "object type: ",
                           "",
                         ])),
@@ -875,15 +883,51 @@ __d(
           } catch (n) {
             if (n instanceof o("WAWebMediaLoadErrors").MediaUnsupportedError)
               e.consolidate({ mediaBlob: t, renderableUrl: t.url() });
+            else if (i) z(e, n);
             else throw n;
           } finally {
             (t.autorelease(), a != null && a());
           }
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V(e) {
+    function H(e) {
+      var t = e.associatedMsgs();
+      return (
+        e.type === o("WAWebMediaTypes").TYPE.VIDEO &&
+        t.length > 0 &&
+        t.every(G) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_status_playable_before_thumbnail",
+        )
+      );
+    }
+    function G(e) {
+      var t, n;
+      return (
+        e.id.remote.isStatus() &&
+        ((t = e.mediaData) == null ? void 0 : t.preview) != null &&
+        !r("isStringNullOrEmpty")(
+          (n = e.mediaData) == null ? void 0 : n.duration,
+        )
+      );
+    }
+    function z(e, t) {
+      if (!(t instanceof o("WACustomError").TimeoutError && H(e)))
+        throw (e.clearBlob(), t);
+      o("WALogger")
+        .ERROR(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[status-video] thumbnail timed out, keeping the downloaded blob",
+            ])),
+        )
+        .catching(r("getErrorSafe")(t))
+        .tags("non-sad")
+        .sendLogs("status-video-thumbnail-timeout-blob-kept");
+    }
+    function j(e) {
       return (
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER ||
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE ||
@@ -897,7 +941,7 @@ __d(
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
       );
     }
-    function H(e) {
+    function K(e) {
       var t =
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER ||
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE ||
@@ -924,8 +968,8 @@ __d(
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_VIDEO;
       return t || n;
     }
-    function G(e, t) {
-      return new (p || (p = n("Promise")))(function (n) {
+    function Q(e, t) {
+      return new (_ || (_ = n("Promise")))(function (n) {
         var o = new Image();
         (o.setAttribute("crossorigin", "anonymous"),
           (o.onload = function () {
@@ -971,7 +1015,7 @@ __d(
           (o.src = e));
       });
     }
-    function z(e) {
+    function X(e) {
       return e
         ? e.fullPreviewData
           ? e.fullPreviewData.url()
@@ -980,24 +1024,24 @@ __d(
             : null
         : null;
     }
-    ((l.getImageWidthHeight = g),
-      (l.getImageWidthHeightNoOpaque = h),
-      (l.opaqueDataToArrayBuffer = C),
-      (l.decodeWebpToRGBANoOpaque = b),
-      (l.parseWebpNoOpaque = S),
-      (l.getImageMetadata = E),
-      (l.processRawImage = I),
-      (l.processRawSticker = D),
-      (l.processRawAudioVideo = $),
-      (l.getRawDocumentMimetype = N),
-      (l.processRawDocument = w),
-      (l.fetchMedia = O),
-      (l.canPlayOgg = W),
-      (l.attachBlobAndGatherAndSetMetadata = q),
-      (l.shouldUseMediaCache = V),
-      (l.shouldUseLruMediaStore = H),
-      (l.getResizedThumbData = G),
-      (l.getHighestQualityThumbnailUrl = z));
+    ((l.getImageWidthHeight = h),
+      (l.getImageWidthHeightNoOpaque = y),
+      (l.opaqueDataToArrayBuffer = b),
+      (l.decodeWebpToRGBANoOpaque = v),
+      (l.parseWebpNoOpaque = R),
+      (l.getImageMetadata = k),
+      (l.processRawImage = T),
+      (l.processRawSticker = x),
+      (l.processRawAudioVideo = P),
+      (l.getRawDocumentMimetype = M),
+      (l.processRawDocument = A),
+      (l.fetchMedia = B),
+      (l.canPlayOgg = q),
+      (l.attachBlobAndGatherAndSetMetadata = U),
+      (l.shouldUseMediaCache = j),
+      (l.shouldUseLruMediaStore = K),
+      (l.getResizedThumbData = Q),
+      (l.getHighestQualityThumbnailUrl = X));
   },
   98,
 );

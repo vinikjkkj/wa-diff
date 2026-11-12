@@ -1,9 +1,9 @@
 __d(
   "MqttProtocolCodec",
-  ["MqttProtocolUtils", "MqttUtils", "err"],
+  ["$InternalEnum", "MqttProtocolUtils", "MqttUtils", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = Object.freeze({
+    var e = n("$InternalEnum")({
         CONNECT: 1,
         CONNACK: 2,
         PUBLISH: 3,
@@ -54,15 +54,15 @@ __d(
           break;
         }
         case e.PINGREQ:
-          d = new m("PINGREQ");
+          d = new m(e.PINGREQ);
           break;
         case e.PINGRESP:
-          d = new m("PINGRESP");
+          d = new m(e.PINGRESP);
           break;
         case e.PUBACK:
         case e.UNSUBACK: {
           var D = o("MqttProtocolUtils").readUInt16BE(t, a);
-          d = new g(s === e.PUBACK ? "PUBACK" : "UNSUBACK", D);
+          d = new g(s === e.PUBACK ? e.PUBACK : e.UNSUBACK, D);
           break;
         }
         case e.SUBACK: {
@@ -93,16 +93,16 @@ __d(
       );
     }
     var d = (function () {
-        function t(t) {
-          this.messageType = e[t];
+        function e(e) {
+          this.messageType = e;
         }
-        var n = t.prototype;
+        var t = e.prototype;
         return (
-          (n.encode = function () {
+          (t.encode = function () {
             var e = new TypeError("Cannot abstract class WireMessage");
             throw (e.stack, e);
           }),
-          t
+          e
         );
       })(),
       m = (function (e) {
@@ -120,14 +120,14 @@ __d(
           t
         );
       })(d),
-      p = (function (e) {
-        function t() {
-          return e.call(this, "DISCONNECT") || this;
+      p = (function (t) {
+        function n() {
+          return t.call(this, e.DISCONNECT) || this;
         }
-        babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (n.encode = function () {
+          (r.encode = function () {
             var e = (this.messageType & 15) << 4,
               t = new ArrayBuffer(2),
               n = new Uint8Array(t);
@@ -137,32 +137,32 @@ __d(
               t
             );
           }),
-          t
+          n
         );
       })(d),
-      _ = (function (e) {
-        function t(t, n) {
-          var r;
+      _ = (function (t) {
+        function n(n, r) {
+          var o;
           return (
-            (r = e.call(this, "SUBACK") || this),
-            (r.messageIdentifier = t),
-            (r.returnCode = n),
-            r
+            (o = t.call(this, e.SUBACK) || this),
+            (o.messageIdentifier = n),
+            (o.returnCode = r),
+            o
           );
         }
-        return (babelHelpers.inheritsLoose(t, e), t);
+        return (babelHelpers.inheritsLoose(n, t), n);
       })(d),
-      f = (function (e) {
-        function t(t, n) {
-          var r;
+      f = (function (t) {
+        function n(n, r) {
+          var o;
           return (
-            (r = e.call(this, "CONNACK") || this),
-            (r.sessionPresent = t),
-            (r.returnCode = n),
-            r
+            (o = t.call(this, e.CONNACK) || this),
+            (o.sessionPresent = n),
+            (o.returnCode = r),
+            o
           );
         }
-        return (babelHelpers.inheritsLoose(t, e), t);
+        return (babelHelpers.inheritsLoose(n, t), n);
       })(d),
       g = (function (e) {
         function t(t, n) {
@@ -193,20 +193,20 @@ __d(
           t
         );
       })(d),
-      h = (function (e) {
-        function t(t, n) {
-          var r;
+      h = (function (t) {
+        function n(n, r) {
+          var o;
           return (
-            (r = e.call(this, "CONNECT") || this),
-            (r.clientId = t),
-            (r.connectOptions = n),
-            r
+            (o = t.call(this, e.CONNECT) || this),
+            (o.clientId = n),
+            (o.connectOptions = r),
+            o
           );
         }
-        babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (n.encode = function () {
+          (r.encode = function () {
             var e,
               t = (this.messageType & 15) << 4,
               n = s.length + 3;
@@ -241,7 +241,7 @@ __d(
               a
             );
           }),
-          t
+          n
         );
       })(d),
       y = (function (t) {
@@ -324,30 +324,30 @@ __d(
           e
         );
       })(),
-      b = (function (e) {
-        function t(t, n, r, o, a, i) {
-          var l;
+      b = (function (t) {
+        function n(n, r, o, a, i, l) {
+          var s;
           if (
-            ((l = e.call(this, "PUBLISH") || this),
-            (l.topic = t),
-            (l.payloadMessage = n),
-            (l.qos = r),
-            (l.messageIdentifier = o),
-            (l.retained = a != null ? a : !1),
-            (l.duplicate = i != null ? i : !1),
-            l.qos === 1 && l.messageIdentifier == null)
+            ((s = t.call(this, e.PUBLISH) || this),
+            (s.topic = n),
+            (s.payloadMessage = r),
+            (s.qos = o),
+            (s.messageIdentifier = a),
+            (s.retained = i != null ? i : !1),
+            (s.duplicate = l != null ? l : !1),
+            s.qos === 1 && s.messageIdentifier == null)
           ) {
-            var s = new TypeError(
+            var u = new TypeError(
               "Argument Invalid. messageIdentifier: null and qos: 1",
             );
-            throw (s.stack, s);
+            throw (u.stack, u);
           }
-          return l;
+          return s;
         }
-        babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (n.encode = function () {
+          (r.encode = function () {
             var e = (this.messageType & 15) << 4;
             (this.duplicate && (e |= 8),
               (e = e |= this.qos << 1),
@@ -376,7 +376,7 @@ __d(
               l
             );
           }),
-          t
+          n
         );
       })(d),
       v = C.createWithString,

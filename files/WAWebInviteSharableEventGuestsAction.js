@@ -24,148 +24,152 @@ __d(
         Partial: "partial",
         Failed: "failed",
       });
-    function _(e, t, n) {
+    function _(e, t, n, r) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield g(e, t, n),
-            a = r.failure,
-            i = r.result;
-          if (a == null) return i;
-          var l = yield o(
-            "WAWebSharableEventInviteFailedDialog.react",
-          ).askAfterSharableEventInviteFailure(a);
-          return l ? _(e, t, n) : i;
-        })),
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield g(e, t, n, r),
+              i = a.failure,
+              l = a.result;
+            if (i == null) return l;
+            var s = yield o(
+              "WAWebSharableEventInviteFailedDialog.react",
+            ).askAfterSharableEventInviteFailure(i);
+            return s ? _(e, t, n, r) : l;
+          },
+        )),
         f.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
+    function g(e, t, n, r) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = n.flatMap(function (e) {
-              var t = o("WAWebLidMigrationUtils").toUserLid(e.id);
-              return t == null ? [] : [t];
-            }),
-            i = n.length - a.length;
-          if (
-            (i > 0 &&
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite] ",
-                    " picked contacts have no LID",
-                  ])),
-                i,
-              ),
-            a.length === 0)
-          )
-            return (
-              r == null || r.addFailed(null),
-              {
-                result: { outcome: p.Failed, invited: [] },
-                failure: { successfulCount: 0, canRetry: !1 },
-              }
-            );
-          try {
-            var l = yield o(
-                "WAWebSharableEventAddInvitationsJob",
-              ).addSharableEventInvitations(t, a),
-              u = new Set(
-                l.newlyAddedLids.map(function (e) {
-                  return e.toString();
-                }),
-              ),
-              c = a.filter(function (e) {
-                return u.has(e.toString());
-              });
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, n, r, a) {
+            var i = n.flatMap(function (e) {
+                var t = o("WAWebLidMigrationUtils").toUserLid(e.id);
+                return t == null ? [] : [t];
+              }),
+              l = n.length - i.length;
             if (
-              (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite] invited eventId=",
-                    " picked=",
-                    " withoutLid=",
-                    " newlyAdded=",
-                    " successful=",
-                    " invalid=",
-                    " failed=",
-                    " retryable=",
-                    "",
-                  ])),
-                t,
-                n.length,
-                i,
-                c.length,
-                l.successfulCount,
-                l.invalidCount,
-                l.failedCount,
-                String(l.isRetryable),
-              ),
-              c.length > 0)
-            ) {
-              var d = yield y(t, c);
-              d
-                ? r == null || r.messageSent(c.length)
-                : r == null || r.messageFailed();
-            }
-            var m = n.filter(function (e) {
-              var t, n;
-              return u.has(
-                (t =
-                  (n = o("WAWebLidMigrationUtils").toUserLid(e.id)) == null
-                    ? void 0
-                    : n.toString()) != null
-                  ? t
-                  : "",
-              );
-            });
-            return i === 0 && l.failedCount === 0 && l.invalidCount === 0
-              ? { result: { outcome: p.Sent, invited: m }, failure: null }
-              : (r == null || r.addPartiallyFailed(),
+              (l > 0 &&
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] ",
+                      " picked contacts have no LID",
+                    ])),
+                  l,
+                ),
+              i.length === 0)
+            )
+              return (
+                r == null || r.addFailed(null),
                 {
-                  result: { outcome: p.Partial, invited: m },
-                  failure: {
-                    successfulCount: l.successfulCount,
-                    canRetry: l.isRetryable && l.failedCount > 0,
-                  },
+                  result: { outcome: p.Failed, invited: [] },
+                  failure: { successfulCount: 0, canRetry: !1 },
+                }
+              );
+            try {
+              var u = yield o(
+                  "WAWebSharableEventAddInvitationsJob",
+                ).addSharableEventInvitations(t, i),
+                c = new Set(
+                  u.newlyAddedLids.map(function (e) {
+                    return e.toString();
+                  }),
+                ),
+                d = i.filter(function (e) {
+                  return c.has(e.toString());
                 });
-          } catch (e) {
-            return (
-              o("WAWebSharableEventFailureLogger").logSharableEventFailure(
-                "invite",
-                e,
-              ),
-              r == null || r.addFailed(e),
-              {
-                result: { outcome: p.Failed, invited: [] },
-                failure: { successfulCount: 0, canRetry: !0 },
+              if (
+                (o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] invited eventId=",
+                      " picked=",
+                      " withoutLid=",
+                      " newlyAdded=",
+                      " successful=",
+                      " invalid=",
+                      " failed=",
+                      " retryable=",
+                      "",
+                    ])),
+                  t,
+                  n.length,
+                  l,
+                  d.length,
+                  u.successfulCount,
+                  u.invalidCount,
+                  u.failedCount,
+                  String(u.isRetryable),
+                ),
+                d.length > 0)
+              ) {
+                var m = yield y(t, d, a);
+                m
+                  ? r == null || r.messageSent(d.length)
+                  : r == null || r.messageFailed();
               }
-            );
-          }
-        })),
+              var _ = n.filter(function (e) {
+                var t, n;
+                return c.has(
+                  (t =
+                    (n = o("WAWebLidMigrationUtils").toUserLid(e.id)) == null
+                      ? void 0
+                      : n.toString()) != null
+                    ? t
+                    : "",
+                );
+              });
+              return l === 0 && u.failedCount === 0 && u.invalidCount === 0
+                ? { result: { outcome: p.Sent, invited: _ }, failure: null }
+                : (r == null || r.addPartiallyFailed(),
+                  {
+                    result: { outcome: p.Partial, invited: _ },
+                    failure: {
+                      successfulCount: u.successfulCount,
+                      canRetry: u.isRetryable && u.failedCount > 0,
+                    },
+                  });
+            } catch (e) {
+              return (
+                o("WAWebSharableEventFailureLogger").logSharableEventFailure(
+                  "invite",
+                  e,
+                ),
+                r == null || r.addFailed(e),
+                {
+                  result: { outcome: p.Failed, invited: [] },
+                  failure: { successfulCount: 0, canRetry: !0 },
+                }
+              );
+            }
+          },
+        )),
         h.apply(this, arguments)
       );
     }
-    function y(e, t) {
+    function y(e, t, n) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
-            var n,
-              a,
+            var a,
               i,
-              l = yield o(
+              l,
+              s = yield o(
                 "WAWebSendSharableEventInvitesAction",
-              ).sendSharableEventInvites(e, t);
-            if (l == null)
+              ).sendSharableEventInvites(e, t, n);
+            if (s == null)
               return (
                 o("WALogger").WARN(
                   u ||
@@ -177,14 +181,14 @@ __d(
                 ),
                 !1
               );
-            var s =
-              (n =
-                (a = (i = l.msg) == null ? void 0 : i.id.id) != null
-                  ? a
-                  : l.msgId) != null
-                ? n
+            var p =
+              (a =
+                (i = (l = s.msg) == null ? void 0 : l.id.id) != null
+                  ? i
+                  : s.msgId) != null
+                ? a
                 : "unknown";
-            return l.messageSendResult !==
+            return s.messageSendResult !==
               o("WAWebSendMsgResultAction").SendMsgResult.OK
               ? (o("WALogger").WARN(
                   c ||
@@ -195,8 +199,8 @@ __d(
                       "",
                     ])),
                   e,
-                  s,
-                  l.messageSendResult,
+                  p,
+                  s.messageSendResult,
                 ),
                 !1)
               : (o("WALogger").LOG(
@@ -208,7 +212,7 @@ __d(
                       "",
                     ])),
                   e,
-                  s,
+                  p,
                   t.length,
                 ),
                 !0);

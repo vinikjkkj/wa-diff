@@ -7,7 +7,7 @@ __d(
     "WAWebMsgKey",
     "WAWebProtobufsE2E.pb",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,7 +19,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
             a = e.msgContextInfo(n.id),
-            i = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
+            i = o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
             l = t.title || "",
             s = t.description || "",
             u = s !== "" ? l + "\n" + s : l,

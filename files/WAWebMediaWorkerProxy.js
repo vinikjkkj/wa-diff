@@ -72,6 +72,9 @@ __d(
               allowAv1VideoCodec: t.getABPropConfigValue(
                 "ks_allow_av1_video_codec",
               ),
+              claimedTypeValidationEnabled: t.getABPropConfigValue(
+                "ks_claimed_type_validation_enabled",
+              ),
             }),
           );
         })),

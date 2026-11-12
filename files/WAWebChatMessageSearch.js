@@ -17,6 +17,7 @@ __d(
     "WAWebLeadStage",
     "WAWebLeadStageStore",
     "WAWebMessageAssociation.flow",
+    "WAWebMetaAiChatFilter",
     "WAWebMsgCollection",
     "WAWebMsgCountReporter",
     "WAWebNewsletterMetadataGetters",
@@ -245,6 +246,12 @@ __d(
         e.SearchFilters.TO_YOU,
         function (e) {
           return e.hasUnreadMention && !e.archive;
+        },
+      ],
+      [
+        e.SearchFilters.META_AI,
+        function (e) {
+          return o("WAWebMetaAiChatFilter").isAiFilterChat(e) && !e.archive;
         },
       ],
     ]);

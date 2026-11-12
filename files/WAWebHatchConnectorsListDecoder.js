@@ -6,40 +6,63 @@ __d(
     var e = [".fbcdn.net", ".whatsapp.net"];
     function s(e) {
       var t = o("WAWebHatchJsonReaders").readArray(e, "connectors");
-      if (t == null) return null;
-      var n = [];
-      for (var r of t) {
-        var a = u(r);
-        a != null && n.push(a);
-      }
-      return n;
+      return t == null ? null : c(t);
     }
     function u(e) {
+      var t,
+        n = s(e);
+      return n == null
+        ? null
+        : {
+            connectors: n,
+            nextCursor:
+              (t = o("WAWebHatchJsonReaders").readNonEmptyString(
+                e,
+                "next_cursor",
+              )) != null
+                ? t
+                : null,
+          };
+    }
+    function c(e) {
+      var t = [];
+      for (var n of e) {
+        var r = d(n);
+        r != null && t.push(r);
+      }
+      return t;
+    }
+    function d(e) {
       var t = o("WAWebHatchJsonReaders").readTrimmedString(e, "id"),
         n = o("WAWebHatchJsonReaders").readTrimmedString(e, "name");
       return o("WAWebHatchJsonReaders").isBlankText(t) ||
         o("WAWebHatchJsonReaders").isBlankText(n)
         ? null
-        : {
-            id: t,
-            name: n,
-            description: o("WAWebHatchJsonReaders").trimToNull(
-              o("WAWebHatchJsonReaders").readTrimmedString(e, "description"),
-            ),
-            iconUrl: c(e),
-            state: d(e),
-            managementKind: m(e),
-            supportsMultipleAccounts:
-              o("WAWebHatchJsonReaders").readBool(
-                e,
-                "supports_multiple_accounts",
-              ) === !0,
-            isCustom:
-              o("WAWebHatchJsonReaders").readBool(e, "is_custom") === !0,
-            consent: p(o("WAWebHatchJsonReaders").readObject(e, "consent")),
-          };
+        : babelHelpers.extends(
+            {
+              id: t,
+              name: n,
+              description: o("WAWebHatchJsonReaders").trimToNull(
+                o("WAWebHatchJsonReaders").readTrimmedString(e, "description"),
+              ),
+              iconUrl: m(e),
+              state: p(e),
+              managementKind: _(e),
+              supportsMultipleAccounts:
+                o("WAWebHatchJsonReaders").readBool(
+                  e,
+                  "supports_multiple_accounts",
+                ) === !0,
+              isCustom:
+                o("WAWebHatchJsonReaders").readBool(e, "is_custom") === !0,
+              consent: f(o("WAWebHatchJsonReaders").readObject(e, "consent")),
+            },
+            o("WAWebHatchJsonReaders").readBool(e, "needs_reauth") === !0
+              ? { needsReauth: !0 }
+              : null,
+          );
     }
-    function c(t) {
+    function m(t) {
       var n = o("WAWebHatchJsonReaders").trimToNull(
         o("WAWebHatchJsonReaders").readTrimmedString(t, "icon_url"),
       );
@@ -51,7 +74,7 @@ __d(
         ? n
         : null;
     }
-    function d(e) {
+    function p(e) {
       return (function (e) {
         return e === "connected"
           ? "connected"
@@ -62,7 +85,7 @@ __d(
               : "unknown";
       })(o("WAWebHatchJsonReaders").readTrimmedString(e, "state"));
     }
-    function m(e) {
+    function _(e) {
       return (function (e) {
         return e === "auth"
           ? "auth"
@@ -71,15 +94,15 @@ __d(
             : "unknown";
       })(o("WAWebHatchJsonReaders").readTrimmedString(e, "management_kind"));
     }
-    function p(e) {
+    function f(e) {
       var t,
         n =
           (t = o("WAWebHatchJsonReaders").readObject(e, "hatch")) != null
             ? t
             : e,
-        r = _(n),
-        a = g(n, "footer_paragraphs"),
-        i = g(n, "callout_paragraphs");
+        r = g(n),
+        a = y(n, "footer_paragraphs"),
+        i = y(n, "callout_paragraphs");
       return i.length > 0
         ? {
             bullets: r,
@@ -93,7 +116,7 @@ __d(
           ? null
           : { bullets: r, footerParagraphs: a };
     }
-    function _(e) {
+    function g(e) {
       var t = [];
       for (var n of (r = o("WAWebHatchJsonReaders").readArray(e, "bullets")) !=
       null
@@ -105,7 +128,7 @@ __d(
           );
         a != null &&
           t.push({
-            icon: f(n),
+            icon: h(n),
             title: o("WAWebHatchJsonReaders").trimToNull(
               o("WAWebHatchJsonReaders").readTrimmedString(n, "title"),
             ),
@@ -114,7 +137,7 @@ __d(
       }
       return t;
     }
-    function f(e) {
+    function h(e) {
       return (function (e) {
         return e === "storage"
           ? "storage"
@@ -127,7 +150,7 @@ __d(
                 : "unspecified";
       })(o("WAWebHatchJsonReaders").readTrimmedString(e, "icon"));
     }
-    function g(e, t) {
+    function y(e, t) {
       var n = [];
       for (var r of (a = o("WAWebHatchJsonReaders").readArray(e, t)) != null
         ? a
@@ -140,7 +163,10 @@ __d(
       }
       return n;
     }
-    ((l.decodeHatchConnectorsList = s), (l.decodeHatchConnectConsent = p));
+    ((l.decodeHatchConnectorsList = s),
+      (l.decodeHatchConnectorsPage = u),
+      (l.decodeHatchConnectorRows = c),
+      (l.decodeHatchConnectConsent = f));
   },
   98,
 );

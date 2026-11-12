@@ -18,26 +18,35 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = !1,
-            n = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
+          var t,
+            n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
+            a = !1,
+            i = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
               function () {
-                t || (t = r("WAWebHatchLinkedStatusManager").isUnlinked());
+                a || (a = r("WAWebHatchLinkedStatusManager").isUnlinked());
               },
             ),
-            a;
+            l;
           try {
-            a = yield o(
+            l = yield o(
               "WAWebCanonicalHatchLinkedStatusGetQuery",
             ).fetchHatchLinkedStatus();
           } finally {
-            n();
+            i();
           }
-          var i = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-          if (a == null || i == null || t) return a;
+          if (
+            l == null ||
+            n == null ||
+            a ||
+            ((t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+              ? void 0
+              : t.toString()) !== n.toString()
+          )
+            return l;
           try {
             yield o("WAWebHatchCvmSecretPref").applyHatchCvmLinkedStatus({
-              ownerLid: i,
-              status: a,
+              ownerLid: n,
+              status: l,
             });
           } catch (t) {
             o("WALogger")
@@ -50,7 +59,7 @@ __d(
               .catching(r("getErrorSafe")(t))
               .sendLogs("hatch-cvm-linked-vm-type-failed");
           }
-          return a;
+          return l;
         })),
         u.apply(this, arguments)
       );

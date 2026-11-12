@@ -5,6 +5,7 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
+    "WAWebNoop",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,7 +24,12 @@ __d(
           return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
         },
       });
-    ((l.requireBundle = u), (l.CommunityPermissionsDrawerLoadable = c));
+    function d() {
+      u().catch(r("WAWebNoop"));
+    }
+    ((l.requireBundle = u),
+      (l.CommunityPermissionsDrawerLoadable = c),
+      (l.preloadCommunityPermissionsDrawer = d));
   },
   98,
 );

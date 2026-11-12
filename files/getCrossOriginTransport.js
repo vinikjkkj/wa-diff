@@ -1,11 +1,11 @@
 __d(
   "getCrossOriginTransport",
   ["invariant", "ExecutionEnvironment", "err"],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e;
-    function s() {
-      if (!(e || (e = n("ExecutionEnvironment"))).isInBrowser)
-        throw n("err")(
+    function u() {
+      if (!(e || (e = r("ExecutionEnvironment"))).isInBrowser)
+        throw r("err")(
           "getCrossOriginTransport: %s",
           "Cross origin transport unavailable in the server environment.",
         );
@@ -18,15 +18,15 @@ __d(
           t
         );
       } catch (e) {
-        throw n("err")(
+        throw r("err")(
           "getCrossOriginTransport: %s",
           e instanceof Error ? e.message : String(e),
         );
       }
     }
-    ((s.withCredentials = function () {
-      var e = s();
-      "withCredentials" in e || l(0, 5150);
+    ((u.withCredentials = function () {
+      var e = u();
+      "withCredentials" in e || s(0, 5150);
       var t = e.open;
       return (
         (e.open = function () {
@@ -35,7 +35,7 @@ __d(
         e
       );
     }),
-      (a.exports = s));
+      (l.default = u));
   },
-  null,
+  98,
 );

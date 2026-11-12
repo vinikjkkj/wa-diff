@@ -7,6 +7,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.Chatlist:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiRespondingFilter:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ListDetails:
           return o("WAWebWamEnumActionEntryPoint").ACTION_ENTRY_POINT.CHAT_LIST;
         case o("WAWebChatEntryPoint").ChatEntryPoint.Notification:
           return o("WAWebWamEnumActionEntryPoint").ACTION_ENTRY_POINT

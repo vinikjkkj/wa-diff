@@ -4,7 +4,6 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebContactImportFileProcessor",
-    "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerImportContactClassifier",
     "WAWebCustomerManagerImportErrorMessage",
     "WAWebCustomerManagerImportSavedDataLookup",
@@ -264,8 +263,8 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
-            "WAWebContactManagerCustomerProfilesQuery",
-          ).fetchCompleteCustomerProfileRecords({ candidateLids: e });
+            "WAWebCustomerManagerImportSavedDataLookup",
+          ).fetchCompleteProfileRecordsInBatches(e);
           return t != null
             ? new Set(
                 t.map(function (e) {

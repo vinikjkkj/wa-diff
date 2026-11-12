@@ -9,18 +9,19 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = {};
-    function s(e) {
+    var e = {},
+      s = new WeakMap();
+    function u(e) {
       var t = e.envForErrors,
         n = e.virtualWorkerHostAPI,
         r = e.workerEnvConfig,
         o = e.workerPortFactories,
         a = e.workerType;
       try {
-        c(o, a, r, t, n);
+        d(o, a, r, t, n);
       } catch (e) {}
     }
-    function u(e) {
+    function c(e) {
       e.addMessageListener(
         "comet_video_player_nextgendash__worker_to_main_ods_calls",
         function (e) {
@@ -30,40 +31,46 @@ __d(
         },
       );
     }
-    function c(t, n, r, a, i) {
+    function d(t, n, r, a, i) {
       var l = n + ":" + r.mediaSinkType,
-        s = e[l];
-      if (s != null) {
-        if (s.port != null) return s.port;
-        throw s.exception;
+        u = e[l];
+      if (u != null) {
+        if (u.port != null) return u.port;
+        throw u.exception;
       }
-      var c = "VideoPlayerNextgendashConnectionMainToWorker_" + n,
-        d = t[n];
-      if (d == null)
-        throw o("nextgendasherr").nextgendasherr(a, c + "/PortFactoryMissing");
+      var d = "VideoPlayerNextgendashConnectionMainToWorker_" + n,
+        m = t[n];
+      if (m == null)
+        throw o("nextgendasherr").nextgendasherr(a, d + "/PortFactoryMissing");
       try {
-        var m = d(c, babelHelpers.extends({}, r, { isInWorkerType: n }), i);
-        return (u(m), (e[l] = { port: m }), m);
+        var p = m(d, babelHelpers.extends({}, r, { isInWorkerType: n }), i);
+        return (
+          s.has(p) || s.set(p, r.enableWorkerOptimizations === !0),
+          c(p),
+          (e[l] = { port: p }),
+          p
+        );
       } catch (t) {
-        var p = o("nextgendasherr").nextgendasherrFromCause(
+        var _ = o("nextgendasherr").nextgendasherrFromCause(
           a,
           t,
-          c + "/PortFactoryException",
+          d + "/PortFactoryException",
         );
-        throw ((e[l] = { exception: p }), p);
+        throw ((e[l] = { exception: _ }), _);
       }
     }
-    function d(t, n, a, i, l) {
-      var s = "VideoPlayerNextgendashConnectionMainToWorker_" + a,
-        u = String(i),
-        d = c(n, a, t.config, t, t.host),
-        m = o(
+    function m(t, n, a, i, l) {
+      var u = "VideoPlayerNextgendashConnectionMainToWorker_" + a,
+        c = String(i),
+        m = d(n, a, t.config, t, t.host),
+        p = s.get(m) === !0,
+        _ = o(
           "VideoPlayerNextgendashConnectionUtils",
         ).createInboundOutboundQueues(
           t,
-          s,
           u,
-          d,
+          c,
+          m,
           function (e) {
             (e.type === "__exception" ||
               (e.workerType === a &&
@@ -88,12 +95,12 @@ __d(
             };
           },
           function (e, t) {
-            var n = d.addMessageListener(
+            var n = m.addMessageListener(
               "comet_video_player_nextgendash__worker_to_main",
               t,
             );
             e.push(function () {
-              d.removeMessageListener(
+              m.removeMessageListener(
                 "comet_video_player_nextgendash__worker_to_main",
                 n,
               );
@@ -101,7 +108,7 @@ __d(
           },
           function (e) {
             var n = t.loggingState.metadata.nextgendashInstanceIndex,
-              r = d.addMessageListener(
+              r = m.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_qpl_calls",
                 function (e) {
                   e.calls.forEach(function (e) {
@@ -112,14 +119,14 @@ __d(
               );
             if (
               (e.push(function () {
-                d.removeMessageListener(
+                m.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_qpl_calls",
                   r,
                 );
               }),
               t.config.debugViz)
             ) {
-              var o = d.addMessageListener(
+              var o = m.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_debug_snapshot",
                 function (e) {
                   t.logging.log(t, {
@@ -129,12 +136,12 @@ __d(
                 },
               );
               e.push(function () {
-                d.removeMessageListener(
+                m.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_debug_snapshot",
                   o,
                 );
               });
-              var a = d.addMessageListener(
+              var a = m.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_debug_events",
                 function (e) {
                   t.logging.log(t, {
@@ -144,7 +151,7 @@ __d(
                 },
               );
               e.push(function () {
-                d.removeMessageListener(
+                m.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_debug_events",
                   a,
                 );
@@ -152,44 +159,49 @@ __d(
             }
           },
         ),
-        p = m.getStats,
-        _ = m.send,
-        f = m.disconnect,
-        g = t.config.realWorkerConnectTimeoutMs;
-      if (a !== "VirtualWorker" && g > 0) {
-        var h = !1;
+        f = _.getStats,
+        g = _.send,
+        h = _.disconnect,
+        y = t.config.realWorkerConnectTimeoutMs;
+      if (a !== "VirtualWorker" && y > 0) {
+        var C = !1;
         r("promiseDone")(
-          d.fullyConnected,
+          m.fullyConnected,
           function () {
-            h = !0;
+            C = !0;
           },
           function () {
-            h = !0;
+            C = !0;
           },
         );
-        var y = t.host.timers.setTimeout(function () {
-            if (!h) {
+        var b = t.host.timers.setTimeout(function () {
+            if (!C) {
               var n = o("nextgendasherr").nextgendasherr(
-                t,
-                s + "/ConnectTimeout",
-                "Worker did not complete its handshake within %sms",
-                g,
-              );
-              for (var r of Object.keys(e)) {
-                var a;
-                ((a = e[r]) == null ? void 0 : a.port) === d &&
-                  (e[r] = { exception: n });
+                  t,
+                  u + "/ConnectTimeout",
+                  "Worker did not complete its handshake within %sms",
+                  y,
+                ),
+                r = !1;
+              for (var a of Object.keys(e)) {
+                var i;
+                ((i = e[a]) == null ? void 0 : i.port) === m &&
+                  ((e[a] = { exception: n }), (r = !0));
               }
-              l({ exception: n, type: "__exception" });
+              try {
+                p && r && t.config.mediaSinkType !== "HYBRID" && m.close();
+              } finally {
+                l({ exception: n, type: "__exception" });
+              }
             }
-          }, g),
-          C = f;
-        f = function (n) {
-          (t.host.timers.clearTimeout(y), C(n));
+          }, y),
+          v = h;
+        h = function (n) {
+          (t.host.timers.clearTimeout(b), v(n));
         };
       }
-      function b(e) {
-        d.postMessage(
+      function S(e) {
+        m.postMessage(
           {
             haltReason: e,
             type: "comet_video_player_nextgendash__main_to_worker_debug_halt",
@@ -200,13 +212,13 @@ __d(
       return o(
         "VideoPlayerNextgendashStateMachine",
       ).skipAutoDisposeInsideThisObject({
-        disconnectFromWorker: f,
-        getStats: p,
-        sendHaltedToWorker: b,
-        sendToWorker: _,
+        disconnectFromWorker: h,
+        getStats: f,
+        sendHaltedToWorker: S,
+        sendToWorker: g,
       });
     }
-    ((l.preloadWorker = s), (l.connectToWorker = d));
+    ((l.preloadWorker = u), (l.connectToWorker = m));
   },
   98,
 );

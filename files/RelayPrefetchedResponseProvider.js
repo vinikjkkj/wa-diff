@@ -1,57 +1,56 @@
 __d(
   "RelayPrefetchedResponseProvider",
   ["RelayGraphQLRequestUtils", "RelayPrefetchedStreamCache", "RelayRuntime"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("RelayRuntime").Observable,
-      l = {
-        get: function (r, o, a, i, l) {
-          return e.create(function (e) {
-            var t = function (r) {
-                if (!r) {
-                  e.complete();
-                  return;
-                }
-                if (r.errors) {
-                  for (var t of r.errors)
-                    if (t.severity === "CRITICAL") {
-                      e.error(
-                        n("RelayGraphQLRequestUtils").createErrorFromPayload(
-                          t,
-                          i,
-                        ),
-                      );
-                      return;
-                    }
-                }
-                e.next(r);
-              },
-              l = n("RelayPrefetchedStreamCache").transformQueryIDForE2ETest(
-                i,
-                o,
-              ),
-              s = n("RelayPrefetchedStreamCache").subscribe(
-                r,
-                l,
-                a,
-                {
-                  complete: e.complete,
-                  error: function (n) {
-                    return e.complete();
-                  },
-                  next: t,
-                  start: function () {},
+    var e = {
+      get: function (t, n, a, i, l) {
+        return o("RelayRuntime").Observable.create(function (e) {
+          var l = function (n) {
+              if (!n) {
+                e.complete();
+                return;
+              }
+              if (n.errors) {
+                for (var t of n.errors)
+                  if (t.severity === "CRITICAL") {
+                    e.error(
+                      r("RelayGraphQLRequestUtils").createErrorFromPayload(
+                        t,
+                        i,
+                      ),
+                    );
+                    return;
+                  }
+              }
+              e.next(n);
+            },
+            s = o("RelayPrefetchedStreamCache").transformQueryIDForE2ETest(
+              i,
+              n,
+            ),
+            u = o("RelayPrefetchedStreamCache").subscribe(
+              t,
+              s,
+              a,
+              {
+                complete: e.complete,
+                error: function (n) {
+                  return e.complete();
                 },
-                i,
-              );
-            return function () {
-              (s != null && (s.unsubscribe(), (s = null)),
-                n("RelayPrefetchedStreamCache").clear(r, l, a));
-            };
-          });
-        },
-      };
-    a.exports = l;
+                next: l,
+                start: function () {},
+              },
+              i,
+            );
+          return function () {
+            (u != null && (u.unsubscribe(), (u = null)),
+              o("RelayPrefetchedStreamCache").clear(t, s, a));
+          };
+        });
+      },
+    };
+    i.exports = e;
   },
-  null,
+  34,
 );

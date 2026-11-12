@@ -15,6 +15,7 @@ __d(
     "WAWebSharableEventLinkPreview",
     "WAWebSharableEventPageLoadAction",
     "WAWebSharableEventPageLoadable",
+    "WAWebSharableEventPageSource",
     "WAWebSideNavButtonsActivityModel",
     "react",
   ],
@@ -25,16 +26,17 @@ __d(
       c = o("WAWebSharableEventExternalStore").createSharableEventStore(null),
       d = o("WAWebSharableEventExternalStore").createSharableEventStore(null),
       m = null,
-      p = null;
-    function _(e, t, n) {
+      p = null,
+      _ = null;
+    function f(e, t, n) {
       !o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-page",
       ) ||
         c.get() === e ||
         (d.get() !== e && d.set(null),
-        (m = t != null ? t : null),
-        (p = n == null ? null : { eventId: e, source: n }),
-        I(e),
+        (p = t != null ? t : null),
+        (_ = n == null ? null : { eventId: e, source: n }),
+        D(e),
         o("WAWebDrawerManager").DrawerManager.openDrawerMid(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "sharable_event_page", eventId: e }
@@ -44,29 +46,39 @@ __d(
         o("WAWebMarkSharableEventSeenAction").markSharableEventSeen(e),
         o("WAWebSharableEventPageLoadAction").loadSharableEventPage(e));
     }
-    function f(e, t) {
+    function g(e, t) {
       (d.set((t == null ? void 0 : t.edit) === !0 ? e : null),
-        v(),
-        _(e, null, t == null ? void 0 : t.source));
+        (m = (t == null ? void 0 : t.invite) === !0 ? e : null),
+        R(),
+        f(e, null, t == null ? void 0 : t.source));
     }
-    function g(e) {
-      var t = p;
-      return t != null && t.eventId === e ? t.source : null;
-    }
-    function h() {
-      return d.get();
+    function h(e) {
+      (o("WAWebSideNavButtonsActivityModel").getLastActiveButton() ===
+        o("WAWebNavBarTypes").NavBarItems.Events &&
+        o("WAWebOpenSharableEventCreateFlowAction").reopenSharableEventHome(),
+        g(e, {
+          invite: !0,
+          source: o("WAWebSharableEventPageSource").SharableEventPageSource
+            .EventCreation,
+        }));
     }
     function y(e) {
+      return m !== e ? !1 : ((m = null), !0);
+    }
+    function C(e) {
+      var t = _;
+      return t != null && t.eventId === e ? t.source : null;
+    }
+    function b() {
+      return d.get();
+    }
+    function v(e) {
       return d.subscribe(e);
     }
-    function C() {
+    function S() {
       d.set(null);
     }
-    function b(e) {
-      (o("WAWebCmd").Cmd.setActiveNavBarItem(e),
-        o("WAWebSideNavButtonsActivityModel").setLastActiveButton(e));
-    }
-    function v() {
+    function R() {
       o("WAWebSideNavButtonsActivityModel").getLastActiveButton() !==
         o("WAWebNavBarTypes").NavBarItems.Events &&
         (o("WAWebCmd").Cmd.closeActiveChat(),
@@ -78,15 +90,15 @@ __d(
         ),
         o("WAWebOpenSharableEventCreateFlowAction").reopenSharableEventHome());
     }
-    function S() {
-      var e = m;
-      ((m = null), (p = null));
+    function L() {
+      var e = p;
+      ((p = null), (_ = null));
       var t = c.get();
       (t != null &&
         o("WAWebSharableEventPageLoadAction").clearSharableEventPageLoadState(
           t,
         ),
-        I(null),
+        D(null),
         o("WAWebDrawerManager").DrawerManager.openDrawerMid(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? {
@@ -101,21 +113,21 @@ __d(
         (e == null ? void 0 : e.isConnected) === !0 &&
           r("WAWebFocusTracer").focus(e));
     }
-    function R(e) {
-      I(e);
-    }
-    function L(e) {
-      (o("WAWebSharableEventPageLoadAction").clearSharableEventPageLoadState(e),
-        c.get() === e &&
-          ((m = null), (p = null), d.get() === e && d.set(null), I(null)));
-    }
-    function E() {
-      return c.get();
+    function E(e) {
+      D(e);
     }
     function k(e) {
+      (o("WAWebSharableEventPageLoadAction").clearSharableEventPageLoadState(e),
+        c.get() === e &&
+          ((p = null), (_ = null), d.get() === e && d.set(null), D(null)));
+    }
+    function I() {
+      return c.get();
+    }
+    function T(e) {
       return c.subscribe(e);
     }
-    function I(t) {
+    function D(t) {
       var r = c.get();
       (c.set(t),
         r != null &&
@@ -126,19 +138,20 @@ __d(
             ).dropSharableEventLinkPreview(r);
           }));
     }
-    ((l.openSharableEventPage = _),
-      (l.openSharableEventInEventsHome = f),
-      (l.getSharableEventPageSource = g),
-      (l.getPendingSharableEventEdit = h),
-      (l.subscribeToPendingSharableEventEdit = y),
-      (l.clearPendingSharableEventEdit = C),
-      (l.keepNavBarItemActive = b),
-      (l.openSharableEventHome = v),
-      (l.closeSharableEventPage = S),
-      (l.keepSharableEventPageOpen = R),
-      (l.releaseSharableEventPage = L),
-      (l.getSelectedSharableEventId = E),
-      (l.subscribeToSelectedSharableEventId = k));
+    ((l.openSharableEventPage = f),
+      (l.openSharableEventInEventsHome = g),
+      (l.openCreatedSharableEvent = h),
+      (l.takePendingSharableEventInvite = y),
+      (l.getSharableEventPageSource = C),
+      (l.getPendingSharableEventEdit = b),
+      (l.subscribeToPendingSharableEventEdit = v),
+      (l.clearPendingSharableEventEdit = S),
+      (l.openSharableEventHome = R),
+      (l.closeSharableEventPage = L),
+      (l.keepSharableEventPageOpen = E),
+      (l.releaseSharableEventPage = k),
+      (l.getSelectedSharableEventId = I),
+      (l.subscribeToSelectedSharableEventId = T));
   },
   98,
 );

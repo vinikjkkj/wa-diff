@@ -1,36 +1,36 @@
 __d(
   "CurrentWebWorker",
   ["invariant", "WorkerBootstrap", "emptyFunction", "memoize"],
-  function (t, n, r, o, a, i, l) {
-    t.importScripts || l(0, 2398);
+  function (t, n, r, o, a, i, l, s) {
+    t.importScripts || s(0, 2398);
     var e = null,
-      s = [],
-      u = null,
-      c = [];
-    function d(t) {
-      var r = t.data;
-      switch (r.type) {
+      u = [],
+      c = null,
+      d = [];
+    function m(t) {
+      var n = t.data;
+      switch (n.type) {
         case "message":
-          e !== null ? e(r.message) : s.push(d.bind(this, t));
+          e !== null ? e(n.message) : u.push(m.bind(this, t));
           break;
         case "port":
-          if (u !== null) {
-            var o = t.ports[0];
-            (u(o, t.data.message), o.start());
-          } else c.push(d.bind(this, t));
+          if (c !== null) {
+            var r = t.ports[0];
+            (c(r, t.data.message), r.start());
+          } else d.push(m.bind(this, t));
           break;
         case "ping":
-          (r.args.push(Date.now()),
-            r.args.unshift("pong"),
-            m.apply(null, r.args));
+          (n.args.push(Date.now()),
+            n.args.unshift("pong"),
+            p.apply(null, n.args));
           break;
         case "defineModules":
-          var a = r.args[0];
-          n("WorkerBootstrap").initDynamicModules(a);
+          var a = n.args[0];
+          o("WorkerBootstrap").initDynamicModules(a);
           break;
       }
     }
-    function m(e) {
+    function p(e) {
       for (
         var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
         r < t;
@@ -39,18 +39,18 @@ __d(
         n[r - 1] = arguments[r];
       self.postMessage({ type: e, args: n });
     }
-    (!t.onmessage || l(0, 2399),
+    (!t.onmessage || s(0, 2399),
       t.console ||
         ((t.console = {}),
         ["log", "error", "info", "debug", "warn"].forEach(function (e) {
           t.console[e] = function () {
             for (var t = arguments.length, n = new Array(t), r = 0; r < t; r++)
               n[r] = arguments[r];
-            (n.unshift("console", e), m.apply(this, n));
+            (n.unshift("console", e), p.apply(this, n));
           };
         })),
-      t.addEventListener("message", d));
-    var p = n("memoize")(function () {
+      t.addEventListener("message", m));
+    var _ = r("memoize")(function () {
         var e,
           t = new ArrayBuffer(0);
         try {
@@ -60,42 +60,42 @@ __d(
         }
         return e;
       }),
-      _ = (a.exports = {
+      f = (i.exports = {
         postMessage: function (t, n) {
           var e = { type: "message", message: t };
-          return (n ? self.postMessage(e, n) : self.postMessage(e), _);
+          return (n ? self.postMessage(e, n) : self.postMessage(e), f);
         },
         setChannelHandler: function (t) {
-          var e = t || n("emptyFunction"),
-            r = u === null;
+          var e = t || r("emptyFunction"),
+            n = c === null;
           return (
-            (u = e),
-            r &&
-              (c.forEach(function (e) {
+            (c = e),
+            n &&
+              (d.forEach(function (e) {
                 return e();
               }),
-              (c = [])),
-            _
+              (d = [])),
+            f
           );
         },
-        setMessageHandler: function (r) {
-          var t = r || n("emptyFunction"),
+        setMessageHandler: function (n) {
+          var t = n || r("emptyFunction"),
             o = e === null;
           return (
             (e = t),
             o &&
-              (s.forEach(function (e) {
+              (u.forEach(function (e) {
                 return e();
               }),
-              (s = [])),
-            _
+              (u = [])),
+            f
           );
         },
         terminate: function () {
-          (m("terminate"), self.close());
+          (p("terminate"), self.close());
         },
-        areTransferablesSupported: p,
+        areTransferablesSupported: _,
       });
   },
-  null,
+  34,
 );

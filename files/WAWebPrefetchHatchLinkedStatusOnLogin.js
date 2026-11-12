@@ -59,7 +59,9 @@ __d(
               "[hatch] prefetching linked status without canonical credentials",
             ])),
         ),
-        r("WAWebHatchLinkedStatusManager").fetchAndUpdateStatus());
+        r("WAWebHatchLinkedStatusManager").fetchAndUpdateStatus({
+          skipCanonicalWait: !0,
+        }));
     }
     l.maybePrefetchHatchLinkedStatusOnLogin = p;
   },

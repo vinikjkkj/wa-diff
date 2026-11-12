@@ -60,7 +60,8 @@ __d(
           (this.$6 = new Map()),
           (this.$7 = new Map()),
           (this.$8 = new Map()),
-          (this.$9 = !1));
+          (this.$9 = !1),
+          (this.$10 = !1));
       }
       var t = e.prototype;
       return (
@@ -71,7 +72,7 @@ __d(
             o = [];
           (e.incrementalPlaceholders != null &&
             e.incrementalPlaceholders.length > 0 &&
-            this.$10(
+            this.$11(
               e.incrementalPlaceholders,
               e.source,
               e.fieldPayloads,
@@ -81,11 +82,11 @@ __d(
             ),
             e.followupPayloads != null &&
               e.followupPayloads.length > 0 &&
-              this.$11(e.followupPayloads, null, e.isFinal, n, r, o));
+              this.$12(e.followupPayloads, null, e.isFinal, n, r, o));
           var a = babelHelpers.extends({}, e, {
             followupPayloads: null,
             incrementalPlaceholders: null,
-            isFinal: this.$12(e.isFinal),
+            isFinal: this.$13(e.isFinal),
             isPreNormalized: !0,
           });
           return {
@@ -115,7 +116,7 @@ __d(
               null
             );
           }
-          return i.kind === "defer" ? this.$13(t, n, i) : this.$14(t, n, i);
+          return i.kind === "defer" ? this.$14(t, n, i) : this.$15(t, n, i);
         }),
         (t.setServerComplete = function () {
           this.$9 = !0;
@@ -123,7 +124,13 @@ __d(
         (t.isFinal = function () {
           return this.$9 && this.$7.size === 0 && this.$6.size === 0;
         }),
-        (t.$13 = function (t, n, r) {
+        (t.complete = function () {
+          return (
+            (this.$9 = !0),
+            this.$10 || !this.isFinal() ? !1 : ((this.$10 = !0), !0)
+          );
+        }),
+        (t.$14 = function (t, n, r) {
           var e = this.$1(
               t,
               r.selector,
@@ -139,7 +146,7 @@ __d(
             i = [];
           (e.incrementalPlaceholders != null &&
             e.incrementalPlaceholders.length > 0 &&
-            this.$10(
+            this.$11(
               e.incrementalPlaceholders,
               e.source,
               e.fieldPayloads,
@@ -149,7 +156,7 @@ __d(
             ),
             e.followupPayloads != null &&
               e.followupPayloads.length > 0 &&
-              this.$11(e.followupPayloads, r, e.isFinal, o, a, i));
+              this.$12(e.followupPayloads, r, e.isFinal, o, a, i));
           var l = r.selector.dataID,
             s = this.$8.get(l),
             u = e.fieldPayloads;
@@ -160,7 +167,7 @@ __d(
             fieldPayloads: u,
             followupPayloads: null,
             incrementalPlaceholders: null,
-            isFinal: this.$12(e.isFinal),
+            isFinal: this.$13(e.isFinal),
             isPreNormalized: !0,
           });
           return {
@@ -169,7 +176,7 @@ __d(
             pendingModules: i,
           };
         }),
-        (t.$14 = function (t, n, r) {
+        (t.$15 = function (t, n, r) {
           var e = r.node,
             o = r.parentID,
             a = r.variables,
@@ -178,7 +185,7 @@ __d(
             throw f(
               "NormalizationEngine: Expected @stream to be used on a plural field.",
             );
-          var l = this.$15(t, o, i, a, n, r.path),
+          var l = this.$16(t, o, i, a, n, r.path),
             s = l.fieldPayloads,
             u = l.itemID,
             c = l.itemIndex,
@@ -212,7 +219,7 @@ __d(
                   fieldPayloads: g,
                   followupPayloads: null,
                   incrementalPlaceholders: null,
-                  isFinal: this.$12(m.isFinal),
+                  isFinal: this.$13(m.isFinal),
                   isPreNormalized: !0,
                   storeUpdater: _,
                 }),
@@ -222,7 +229,7 @@ __d(
             }
           );
         }),
-        (t.$15 = function (t, r, o, a, i, s) {
+        (t.$16 = function (t, r, o, a, i, s) {
           var e,
             c,
             m,
@@ -309,7 +316,7 @@ __d(
             storageKey: y,
           };
         }),
-        (t.$10 = function (t, r, o, a, i, s) {
+        (t.$11 = function (t, r, o, a, i, s) {
           for (
             var e = this,
               c = function () {
@@ -365,10 +372,10 @@ __d(
                       P = void 0;
                     if (c.kind === "defer") {
                       var N;
-                      P = e.$13($, (N = $.path) != null ? N : [], c);
+                      P = e.$14($, (N = $.path) != null ? N : [], c);
                     } else {
                       var M;
-                      P = e.$14($, (M = $.path) != null ? M : [], c);
+                      P = e.$15($, (M = $.path) != null ? M : [], c);
                     }
                     P != null &&
                       (a.push.apply(a, P.payloads),
@@ -383,19 +390,19 @@ __d(
           )
             c();
         }),
-        (t.$11 = function (t, n, r, o, a, i) {
+        (t.$12 = function (t, n, r, o, a, i) {
           for (var e = 0; e < t.length; e++) {
             var l = t[e];
-            l.kind === "ModuleImportPayload" && this.$16(l, n, r, o, a, i);
+            l.kind === "ModuleImportPayload" && this.$17(l, n, r, o, a, i);
           }
         }),
-        (t.$16 = function (t, n, r, o, a, i) {
+        (t.$17 = function (t, n, r, o, a, i) {
           var e = this,
             l = this.$2;
           if (l != null) {
             var s = l.get(t.operationReference);
             if (s != null) {
-              var u = this.$17(t, s, n, r);
+              var u = this.$18(t, s, n, r);
               (o.push.apply(o, u.payloads),
                 a.push.apply(a, u.payloadOrigins),
                 i.push.apply(i, u.pendingModules));
@@ -404,12 +411,12 @@ __d(
             var c = { payloads: [], payloadOrigins: [], pendingModules: [] };
             i.push(
               l.load(t.operationReference).then(function (o) {
-                return o != null ? e.$17(t, o, n, r) : c;
+                return o != null ? e.$18(t, o, n, r) : c;
               }),
             );
           }
         }),
-        (t.$17 = function (t, n, r, o) {
+        (t.$18 = function (t, n, r, o) {
           var e = n.kind === "SplitOperation" ? n : n.operation,
             a =
               e.kind === "SplitOperation"
@@ -428,7 +435,7 @@ __d(
             m = [];
           (l.incrementalPlaceholders != null &&
             l.incrementalPlaceholders.length > 0 &&
-            this.$10(
+            this.$11(
               l.incrementalPlaceholders,
               l.source,
               l.fieldPayloads,
@@ -438,11 +445,11 @@ __d(
             ),
             l.followupPayloads != null &&
               l.followupPayloads.length > 0 &&
-              this.$11(l.followupPayloads, r, l.isFinal, s, u, m));
+              this.$12(l.followupPayloads, r, l.isFinal, s, u, m));
           var p = babelHelpers.extends({}, l, {
             followupPayloads: null,
             incrementalPlaceholders: null,
-            isFinal: this.$12(l.isFinal),
+            isFinal: this.$13(l.isFinal),
             isPreNormalized: !0,
           });
           return {
@@ -451,8 +458,9 @@ __d(
             pendingModules: m,
           };
         }),
-        (t.$12 = function (t) {
-          return (t || this.$9) && this.$7.size === 0;
+        (t.$13 = function (t) {
+          var e = (t || this.$9) && this.$7.size === 0;
+          return (e && (this.$10 = !0), e);
         }),
         e
       );

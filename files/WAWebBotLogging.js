@@ -32,6 +32,7 @@ __d(
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .ChatlistAiRespondingFilter ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.ListDetails ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||

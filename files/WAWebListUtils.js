@@ -225,7 +225,8 @@ __d(
         e.filter === o("WAWebChatSearchFilters").SearchFilters.FAVORITES ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.COMMUNITY ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.CHANNELS ||
-        e.filter === o("WAWebChatSearchFilters").SearchFilters.TO_YOU
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.TO_YOU ||
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.META_AI
         ? (n = t.get(String(e.filter))) != null
           ? n
           : 0
@@ -243,7 +244,8 @@ __d(
         i = 0,
         l = 0,
         s = 0,
-        u = e.channelsPillCount;
+        u = 0,
+        c = e.channelsPillCount;
       return (
         t.forEach(function (e) {
           n.set(e.id, 0);
@@ -267,6 +269,9 @@ __d(
               o("WAWebChatMessageSearch").matchFilter(e, {
                 kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
               }) && i++,
+              o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.META_AI,
+              }) && u++,
               e.labels != null &&
                 e.labels.length > 0 &&
                 e.labels.forEach(function (e) {
@@ -282,8 +287,9 @@ __d(
         n.set(String(o("WAWebChatSearchFilters").SearchFilters.GROUP), a),
         n.set(String(o("WAWebChatSearchFilters").SearchFilters.FAVORITES), i),
         n.set(String(o("WAWebChatSearchFilters").SearchFilters.COMMUNITY), l),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.CHANNELS), u),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.CHANNELS), c),
         n.set(String(o("WAWebChatSearchFilters").SearchFilters.TO_YOU), s),
+        n.set(String(o("WAWebChatSearchFilters").SearchFilters.META_AI), u),
         n
       );
     }

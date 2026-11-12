@@ -33,11 +33,17 @@ __d(
       var t = e.isUploadInFlight,
         n = e.items,
         r = e.storedCreativeMedia;
-      return t ? !1 : !v(r, n);
+      return t ? !1 : !S(r, n);
     }
-    var d = new Set();
-    function m(e, t) {
-      if (e == null || e.size === 0) return d;
+    function d(e) {
+      var t = e.isUploadInFlight,
+        n = e.items,
+        r = e.storedCreativeMedia;
+      return t || n.some(f) || !S(r, n);
+    }
+    var m = new Set();
+    function p(e, t) {
+      if (e == null || e.size === 0) return m;
       var n = new Set(
           t.map(function (e) {
             return e.key;
@@ -51,26 +57,26 @@ __d(
         r
       );
     }
-    function p(e) {
+    function _(e) {
       return e.status === "ready";
     }
-    function _(e) {
+    function f(e) {
       return e.status === "pending";
     }
-    function f(e) {
+    function g(e) {
       return r("isStringNullOrEmpty")(e.resolvedUrl)
         ? r("isStringNullOrEmpty")(e.displayUrl)
           ? null
           : e.displayUrl
         : e.resolvedUrl;
     }
-    function g(e) {
+    function h(e) {
       return e.length > 0;
     }
-    function h(e, t) {
-      return y(e, t).some(_);
-    }
     function y(e, t) {
+      return C(e, t).some(f);
+    }
+    function C(e, t) {
       var n = !1,
         r = e.map(function (e) {
           if (e.source !== "upload") return e;
@@ -81,7 +87,7 @@ __d(
         });
       return n ? r : e;
     }
-    function C(e, t) {
+    function b(e, t) {
       if (t.size === 0) return e;
       var n = !1,
         r = e.map(function (e) {
@@ -102,7 +108,7 @@ __d(
         });
       return n ? r : e;
     }
-    function b(e, t) {
+    function v(e, t) {
       if (t == null || t.length === 0) return e;
       var n = new Map(
           e.map(function (e) {
@@ -124,7 +130,7 @@ __d(
         });
       return o ? e : r;
     }
-    function v(e, t) {
+    function S(e, t) {
       return e == null || e.length !== t.length
         ? !1
         : e.every(function (e, n) {
@@ -140,7 +146,7 @@ __d(
             );
           });
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       var o,
         a = (o = t[n]) == null ? void 0 : o.attachMedia;
       if (a == null) return null;
@@ -149,12 +155,12 @@ __d(
       var l = [].concat(t),
         s = l.splice(n, 1),
         u = s[0],
-        c = E(r, l.length);
+        c = k(r, l.length);
       l.splice(c, 0, u);
-      var d = R({ collection: e, from: i, landed: c, reordered: l });
+      var d = L({ collection: e, from: i, landed: c, reordered: l });
       return d === i ? null : { fromIndex: i, toIndex: d };
     }
-    function R(e) {
+    function L(e) {
       for (
         var t = e.collection,
           n = e.from,
@@ -164,39 +170,40 @@ __d(
         a >= 0;
         a--
       ) {
-        var i = L(t, o[a]);
+        var i = E(t, o[a]);
         if (i != null) return n < i ? i : i + 1;
       }
       for (var l = r + 1; l < o.length; l++) {
-        var s = L(t, o[l]);
+        var s = E(t, o[l]);
         if (s != null) return n < s ? s - 1 : s;
       }
       return n;
     }
-    function L(e, t) {
+    function E(e, t) {
       var n = t.attachMedia;
       if (n == null) return null;
       var r = e.indexOf(n);
       return r === -1 ? null : r;
     }
-    function E(e, t) {
+    function k(e, t) {
       return Math.max(0, Math.min(e, t));
     }
     ((l.creativeMediaKindFromMediaType = e),
       (l.creativeMediaKindFromMsgType = s),
       (l.creativeMediaKindFromAttachMedia = u),
       (l.shouldRecordCreativeMedia = c),
-      (l.shadowedCatalogKeysFor = m),
-      (l.isCreativeMediaReady = p),
-      (l.isCreativeMediaPending = _),
-      (l.getCreativeMediaUrl = f),
-      (l.hasCreativeMedia = g),
-      (l.isCreativeMediaResolving = h),
-      (l.withCreativeMediaStatus = y),
-      (l.withResolvedCreativeMedia = C),
-      (l.reconcileCreativeMediaOrder = b),
-      (l.creativeMediaMatchesStore = v),
-      (l.uploadReorderForCreativeMediaDrag = S));
+      (l.isCreativeMediaSettling = d),
+      (l.shadowedCatalogKeysFor = p),
+      (l.isCreativeMediaReady = _),
+      (l.isCreativeMediaPending = f),
+      (l.getCreativeMediaUrl = g),
+      (l.hasCreativeMedia = h),
+      (l.isCreativeMediaResolving = y),
+      (l.withCreativeMediaStatus = C),
+      (l.withResolvedCreativeMedia = b),
+      (l.reconcileCreativeMediaOrder = v),
+      (l.creativeMediaMatchesStore = S),
+      (l.uploadReorderForCreativeMediaDrag = R));
   },
   98,
 );

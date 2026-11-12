@@ -109,6 +109,8 @@ __d(
           (t.isInternal = o("WAWebBaseModel").session()),
           (t.memberShareGroupHistoryMode = o("WAWebBaseModel").prop()),
           (t.shouldDefaultGroupHistoryShareOn = o("WAWebBaseModel").prop()),
+          (t.membershipForm = o("WAWebBaseModel").prop(null)),
+          (t.membershipFormKeyId = o("WAWebBaseModel").prop(null)),
           (t.stale = o("WAWebBaseModel").session(!0)),
           (t.deviceStale = o("WAWebBaseModel").session(!1)),
           (t.trusted = o("WAWebBaseModel").session(!0)),

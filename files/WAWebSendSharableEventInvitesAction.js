@@ -23,16 +23,16 @@ __d(
     var e,
       s = "event_invitation",
       u = new Set();
-    function c(e, t) {
+    function c(e, t, n) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (t.length === 0) return null;
-          var n = yield o("WAWebDBSharableEvent").getSharableEvent(e);
-          if (n == null) return null;
-          var r = o("WAWebBroadcastListIdUtils").createBroadcastListJid(
+          var r = yield o("WAWebDBSharableEvent").getSharableEvent(e);
+          if (r == null) return null;
+          var a = o("WAWebBroadcastListIdUtils").createBroadcastListJid(
             function (e) {
               return (
                 u.has(e) ||
@@ -42,18 +42,19 @@ __d(
               );
             },
           );
-          u.add(r);
-          var a = babelHelpers.extends(
+          u.add(a);
+          var i = babelHelpers.extends(
             {},
-            yield o("WAWebBroadcastMsgDataUtils").createBroadcastMsgDataBase(r),
+            yield o("WAWebBroadcastMsgDataUtils").createBroadcastMsgDataBase(a),
             yield o(
               "WAWebSharableEventInviteMsg",
-            ).buildSharableEventInviteMsgFields(n),
+            ).buildSharableEventInviteMsgFields(r),
+            _(n),
           );
           return o("WAWebSendBroadcastMsgAction").sendBroadcastMsgAction({
             contextSource: s,
             isParentHidden: !0,
-            msgData: a,
+            msgData: i,
             recipients: t,
           });
         })),
@@ -111,6 +112,11 @@ __d(
         })),
         p.apply(this, arguments)
       );
+    }
+    function _(e) {
+      var t,
+        n = (t = e == null ? void 0 : e.trim()) != null ? t : "";
+      return n === "" ? {} : { sharableEventInviteCaption: n };
     }
     ((l.sendSharableEventInvites = c), (l.sendSharableEventInviteToChat = m));
   },

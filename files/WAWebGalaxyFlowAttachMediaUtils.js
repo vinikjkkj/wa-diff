@@ -13,7 +13,7 @@ __d(
     "WAWebMediaUploadService",
     "WAWebMsgKey",
     "WAWebMsgModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -31,7 +31,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
+              o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
             ),
             n = new (r("WAWebMsgKey"))({
               from: t,

@@ -16,11 +16,20 @@ __d(
         : o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled");
     }
     function u() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_lists_list_details_open_chat_enabled",
+        )
+      );
+    }
+    function c() {
       return o("WAWebMobilePlatforms").isSMB() ? !0 : s();
     }
     ((l.isListsChatListRowPillEnabled = e),
       (l.isListsM2Enabled = s),
-      (l.isLabelReorderEnabled = u));
+      (l.isListDetailsOpenChatEnabled = u),
+      (l.isLabelReorderEnabled = c));
   },
   98,
 );

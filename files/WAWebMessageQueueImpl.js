@@ -1,9 +1,9 @@
 __d(
   "WAWebMessageQueueImpl",
-  ["gkx"],
+  ["qex"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return r("gkx")("8791");
+      return r("qex")._("6048") === !0;
     }
     function s() {
       return e() ? "one_queue" : "legacy";

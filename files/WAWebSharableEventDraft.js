@@ -315,6 +315,11 @@ __d(
         ? "AUDIO"
         : "VIDEO";
     }
+    function F(e, t) {
+      return e.cover == null && t != null
+        ? babelHelpers.extends({}, e, { cover: t })
+        : e;
+    }
     ((l.SharableEventReminder = e),
       (l.SharableEventDraftError = s),
       (l.SHARABLE_EVENT_NAME_MAX_LENGTH = u),
@@ -332,7 +337,8 @@ __d(
       (l.toUpdateEventInput = I),
       (l.isSameSharableEventDraftLocation = P),
       (l.isSameSharableEventDraftCallLink = N),
-      (l.isSameSharableEventDraftCover = M));
+      (l.isSameSharableEventDraftCover = M),
+      (l.withSharableEventDefaultCover = F));
   },
   98,
 );

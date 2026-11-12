@@ -457,67 +457,69 @@ __d(
       return (
         (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.allowAv1VideoCodec,
-            n = e.eventFlow,
-            r = e.input,
-            a = e.mediaType,
-            i = e.rawMimeType,
-            l = e.strictJpegScanValidationEnabled,
-            s = e.strictMp4ValidationEnabled,
-            u = e.strictOggOpusValidationEnabled,
-            c = e.zipArchiveCheckEnabled,
-            d = G();
+            n = e.claimedTypeValidationEnabled,
+            r = e.eventFlow,
+            a = e.input,
+            i = e.mediaType,
+            l = e.rawMimeType,
+            s = e.strictJpegScanValidationEnabled,
+            u = e.strictMp4ValidationEnabled,
+            c = e.strictOggOpusValidationEnabled,
+            d = e.zipArchiveCheckEnabled,
+            m = G();
           A().INFO(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classify in worker, requestId: ",
                 "",
               ])),
-            d,
+            m,
           );
-          var m = yield V(n);
-          if (!m.success)
+          var p = yield V(r);
+          if (!p.success)
             return {
-              transferredBuffer: r,
-              result: o("WAResultOrError").makeError({ errorName: m.error }),
+              transferredBuffer: a,
+              result: o("WAResultOrError").makeError({ errorName: p.error }),
             };
-          var p = m.value,
-            _ = p.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
-              return e.requestId === d;
+          var _ = p.value,
+            f = _.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
+              return e.requestId === m;
             });
-          (p.postMessage(
+          (_.postMessage(
             {
-              mediaType: a,
-              rawMimeType: i,
-              strictJpegScanValidationEnabled: l,
-              strictOggOpusValidationEnabled: u,
-              strictMp4ValidationEnabled: s,
-              zipArchiveCheckEnabled: c,
+              mediaType: i,
+              rawMimeType: l,
+              strictJpegScanValidationEnabled: s,
+              strictOggOpusValidationEnabled: c,
+              strictMp4ValidationEnabled: u,
+              zipArchiveCheckEnabled: d,
               allowAv1VideoCodec: t,
-              input: r,
-              requestId: d,
+              claimedTypeValidationEnabled: n,
+              input: a,
+              requestId: m,
               type: "kaleidoscopeClassifyRequest",
             },
-            [r],
+            [a],
           ),
-            n.addPoint("sent_request_to_media_worker_start"));
-          var f = yield _,
-            g = f.output,
-            h = f.transferredBuffer;
-          return g.success
+            r.addPoint("sent_request_to_media_worker_start"));
+          var g = yield f,
+            h = g.output,
+            y = g.transferredBuffer;
+          return h.success
             ? (A().INFO(
                 I ||
                   (I = babelHelpers.taggedTemplateLiteralLoose([
                     "received output from worker, requestId: ",
                     "",
                   ])),
-                d,
+                m,
               ),
-              n == null || n.addPoint("sent_request_to_media_worker_end"),
-              { transferredBuffer: h, result: g })
-            : (n.addPoint("sent_request_to_media_worker_fail"),
+              r == null || r.addPoint("sent_request_to_media_worker_end"),
+              { transferredBuffer: y, result: h })
+            : (r.addPoint("sent_request_to_media_worker_fail"),
               {
-                transferredBuffer: h,
-                result: o("WAResultOrError").makeError({ errorName: g.error }),
+                transferredBuffer: y,
+                result: o("WAResultOrError").makeError({ errorName: h.error }),
               });
         })),
         te.apply(this, arguments)

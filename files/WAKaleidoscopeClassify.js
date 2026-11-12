@@ -189,26 +189,28 @@ __d(
             l,
             p = t.allowAv1VideoCodec,
             _ = t.allowedMimeTypes,
-            f = t.input,
-            h = t.strictJpegScanValidationEnabled,
-            y = t.strictMp4ValidationEnabled,
-            C = t.strictOggOpusValidationEnabled,
-            b = t.withEnforceStrictMimetypeMatch,
-            v = t.withMimetypeFuzzyMatch,
-            S = t.withMimetypeIgnoreParameters,
-            R = t.zipArchiveCheckEnabled,
-            L = o("WASI").createWasi(
+            f = t.claimedTypeValidationEnabled,
+            h = t.input,
+            y = t.strictJpegScanValidationEnabled,
+            C = t.strictMp4ValidationEnabled,
+            b = t.strictOggOpusValidationEnabled,
+            v = t.withEnforceStrictMimetypeMatch,
+            S = t.withMimetypeFuzzyMatch,
+            R = t.withMimetypeIgnoreParameters,
+            L = t.zipArchiveCheckEnabled,
+            E = o("WASI").createWasi(
               A({
-                input: f,
+                input: h,
                 mimetypeHints: _,
-                strictJpegScanValidationEnabled: h,
-                strictMp4ValidationEnabled: y,
-                strictOggOpusValidationEnabled: C,
-                zipArchiveCheckEnabled: R,
+                strictJpegScanValidationEnabled: y,
+                strictMp4ValidationEnabled: C,
+                strictOggOpusValidationEnabled: b,
+                zipArchiveCheckEnabled: L,
                 allowAv1VideoCodec: p,
-                withEnforceStrictMimetypeMatch: b,
-                withMimetypeIgnoreParameters: S,
-                withMimetypeFuzzyMatch: v,
+                claimedTypeValidationEnabled: f,
+                withEnforceStrictMimetypeMatch: v,
+                withMimetypeIgnoreParameters: R,
+                withMimetypeFuzzyMatch: S,
                 withStreamCheck: !1,
                 stderr: function (n) {
                   o("WAKaleidoscopeLogger")
@@ -230,14 +232,14 @@ __d(
                 },
               }),
             ),
-            E = L.getImportObject,
-            k = L.start,
-            I = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-            T = yield WebAssembly.instantiate(I, E()),
-            D = k(T),
-            x = D.exitCode,
-            $ = D.fs;
-          if (x !== 0)
+            k = E.getImportObject,
+            I = E.start,
+            T = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+            D = yield WebAssembly.instantiate(T, k()),
+            x = I(D),
+            $ = x.exitCode,
+            P = x.fs;
+          if ($ !== 0)
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -247,12 +249,12 @@ __d(
                       "classifyWithMediaType failed with exit code ",
                       "",
                     ])),
-                  x,
+                  $,
                 ),
               o("WAResultOrError").makeError("wasm-runtime-error")
             );
-          var P = (n = $[g]) == null ? void 0 : n.content;
-          if (typeof P != "string")
+          var N = (n = P[g]) == null ? void 0 : n.content;
+          if (typeof N != "string")
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -264,9 +266,9 @@ __d(
                 ),
               o("WAResultOrError").makeError("wasm-result-not-json")
             );
-          var N = {};
+          var M = {};
           try {
-            N = JSON.parse(P);
+            M = JSON.parse(N);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -281,7 +283,7 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json")
             );
           }
-          return typeof ((a = N) == null ? void 0 : a.score) != "number"
+          return typeof ((a = M) == null ? void 0 : a.score) != "number"
             ? (o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .MUSTFIX(
@@ -293,10 +295,10 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json"))
             : o("WAResultOrError").makeResult({
                 mimetype:
-                  ((i = N) == null ? void 0 : i.mimetype) ||
+                  ((i = M) == null ? void 0 : i.mimetype) ||
                   "application/octet-stream",
-                extension: ((l = N) == null ? void 0 : l.extension) || null,
-                score: N.score,
+                extension: ((l = M) == null ? void 0 : l.extension) || null,
+                score: M.score,
               });
         })),
         w.apply(this, arguments)
@@ -305,32 +307,34 @@ __d(
     function A(e) {
       var t,
         n = e.allowAv1VideoCodec,
-        r = e.input,
-        o = e.mimetypeHints,
-        a = e.stderr,
-        i = e.stdout,
-        l = e.strictJpegScanValidationEnabled,
-        s = e.strictMp4ValidationEnabled,
-        u = e.strictOggOpusValidationEnabled,
-        c = e.withEnforceStrictMimetypeMatch,
-        d = e.withMimetypeFuzzyMatch,
-        m = e.withMimetypeIgnoreParameters,
-        S = e.withStreamCheck,
-        R = e.zipArchiveCheckEnabled,
-        L = ["kaleidoscope"],
-        E = (l ? h : 0) + (R ? y : 0) + (n ? C : 0) + (u ? b : 0) + (s ? v : 0);
-      (E !== 0 && L.push("--flags=" + E),
-        L.push("classify"),
-        L.push("--json-report=" + _),
-        d && L.push("--with-mimetype-fuzzy-match"),
-        c && L.push("--with-enforce-strict-mimetype-match"),
-        m && L.push("--with-mimetype-ignore-parameters"),
-        S && L.push("--with-stream-check"));
-      for (var k of o) L.push("--mimetype-hints=" + k);
+        r = e.claimedTypeValidationEnabled,
+        o = e.input,
+        a = e.mimetypeHints,
+        i = e.stderr,
+        l = e.stdout,
+        s = e.strictJpegScanValidationEnabled,
+        u = e.strictMp4ValidationEnabled,
+        c = e.strictOggOpusValidationEnabled,
+        d = e.withEnforceStrictMimetypeMatch,
+        m = e.withMimetypeFuzzyMatch,
+        S = e.withMimetypeIgnoreParameters,
+        R = e.withStreamCheck,
+        L = e.zipArchiveCheckEnabled,
+        E = ["kaleidoscope"],
+        k = (s ? h : 0) + (L ? y : 0) + (n ? C : 0) + (c ? b : 0) + (u ? v : 0);
+      (k !== 0 && E.push("--flags=" + k),
+        E.push("classify"),
+        E.push("--json-report=" + _),
+        m && E.push("--with-mimetype-fuzzy-match"),
+        d && E.push("--with-enforce-strict-mimetype-match"),
+        S && E.push("--with-mimetype-ignore-parameters"),
+        R && E.push("--with-stream-check"),
+        r && E.push("--with-claimed-type-validation"));
+      for (var I of a) E.push("--mimetype-hints=" + I);
       return (
-        L.push(p),
+        E.push(p),
         {
-          args: L,
+          args: E,
           fs:
             ((t = {}),
             (t[f] = {
@@ -341,7 +345,7 @@ __d(
                 modification: new Date(),
               },
               mode: "binary",
-              content: new Uint8Array(r),
+              content: new Uint8Array(o),
             }),
             (t[g] = {
               path: g,
@@ -354,8 +358,8 @@ __d(
               content: "",
             }),
             t),
-          stdout: i,
-          stderr: a,
+          stdout: l,
+          stderr: i,
           moduleName: "WAKaleidoscopeClassify_CLI",
         }
       );

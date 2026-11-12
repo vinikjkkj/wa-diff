@@ -6,8 +6,8 @@ __d(
     "WATimeUtils",
     "WAWebChatThreadLoggingUtils",
     "WAWebDbEncryptionKey",
-    "WAWebUserPrefsMeUser",
     "WAWebUserThreadIdHmac",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
@@ -318,7 +318,9 @@ __d(
       return (
         (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow().toJid(),
+            var t = o("WAWebUserUtils")
+                .getMePnLessOrFallback_DO_NOT_USE()
+                .toJid(),
               n = e.key.id;
             return o("WAWebUserThreadIdHmac").generateUserThreadIDHMAC(t, n);
           } catch (e) {

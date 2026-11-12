@@ -8,7 +8,7 @@ __d(
     "WAWebEphemeralityResolver",
     "WAWebEphemeralityUtils",
     "WAWebSchemaChat",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -176,7 +176,7 @@ __d(
           }
           var s = yield (d || (d = n("Promise"))).all([
               o("WAWebApiContact").getContactRecord(
-                o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
+                o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
               ),
               o("WAWebApiContact").getContactRecord(e),
             ]),

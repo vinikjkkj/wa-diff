@@ -35,6 +35,7 @@ __d(
       ENABLE_PERF_STORAGE_KEYS: !1,
       ENABLE_PERF_READER: !1,
       ENABLE_PERF_PUBLISH: !1,
+      ENABLE_PERF_NOTIFY: !1,
     };
     a.exports = e;
   },

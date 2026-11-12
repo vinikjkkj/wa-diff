@@ -283,6 +283,8 @@ __d(
         "fb_link_in_media_comments_upsell_meta_one",
       FB_LINK_IN_MEDIA_COMMENT_UPSELL_META_ONE:
         "fb_link_in_media_comment_upsell_meta_one",
+      FB_LINK_IN_MEDIA_MBS_UPSELL_META_ONE:
+        "fb_link_in_media_mbs_upsell_meta_one",
       FB_LINK_IN_MEDIA_UPSELL_META_ONE: "fb_link_in_media_upsell_meta_one",
       FB_LITE_BOOKMARK: "fb_lite_bookmark",
       FB_LIVE_PRODUCER_LVA_ELIGIBILITY: "fb_live_producer_lva_eligibility",

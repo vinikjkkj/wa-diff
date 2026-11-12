@@ -6,6 +6,7 @@ __d(
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
     "WAWebBotStaticProfiles",
+    "WAWebBotUtils",
     "WAWebHatchFrontendGating",
     "WAWebUserPrefsMeUser",
   ],
@@ -28,14 +29,14 @@ __d(
     function m(e, t) {
       if (!R(e, t == null ? void 0 : t.id)) return !1;
       var n = v(e);
-      return D(e, E(n), n == null ? void 0 : n.creatorLid);
+      return x(e, E(n), n == null ? void 0 : n.creatorLid);
     }
     function p(e) {
       if (!L(e)) return !1;
       var t = v(e);
       return t == null || t.isDeleted === !0 || t.isDeprecated === !0
         ? !1
-        : D(e, E(t), t.creatorLid);
+        : x(e, E(t), t.creatorLid);
     }
     function _(e, t) {
       var n = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
@@ -49,7 +50,7 @@ __d(
       var r = o("WAWebBotProduct").botProductFromServerValue(n.product);
       return r != null &&
         r !== o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
-        !I(e, r)
+        !T(e, r)
         ? !1
         : o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled();
     }
@@ -93,10 +94,10 @@ __d(
     }
     function S(t, n) {
       var r = E(n);
-      return (r != null && !I(t, r)) ||
+      return (r != null && !T(t, r)) ||
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? null
-        : T(t, r, n == null ? void 0 : n.creatorLid)
+        : D(t, r, n == null ? void 0 : n.creatorLid)
           ? e.OWNER_CARD
           : e.BASIC_CARD;
     }
@@ -114,15 +115,24 @@ __d(
     function k(e, t) {
       return o("WAWebBotProduct").isMuseAgentProduct(e, t);
     }
-    function I(e, t) {
+    function I(e, t, n) {
+      return !o(
+        "WAWebBotGroupGatingUtils",
+      ).isStandardBotProfileGroupEnabled() ||
+        !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) ||
+        o("WAWebBotStaticProfiles").isStaticProfile(e)
+        ? !1
+        : n == null || k(e, t);
+    }
+    function T(e, t) {
       return k(e, t);
     }
-    function T(e, t, n) {
+    function D(e, t, n) {
       return (
-        D(e, t, n) && o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
+        x(e, t, n) && o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
       );
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return (
         k(e, t) &&
@@ -146,7 +156,8 @@ __d(
       (l.hasGroupAgentParticipantAction = y),
       (l.getGroupAgentOneToOneTarget = C),
       (l.getGroupAgentOneToOneTargetFor = b),
-      (l.isMuseGroupAgentProfileProduct = k));
+      (l.isMuseGroupAgentProfileProduct = k),
+      (l.isMuseGroupAgentProfileState = I));
   },
   98,
 );

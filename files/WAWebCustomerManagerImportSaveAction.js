@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAPromiseQueue",
+    "WATimeUtils",
     "WAWebApiContact",
     "WAWebContactImportFileProcessor",
     "WAWebContactManagerCustomerProfileQuery",
@@ -39,144 +40,191 @@ __d(
       f,
       g,
       h,
-      y = 10,
-      C = 50,
-      b = 60,
-      v = R(b);
-    function S(e, t) {
-      return v(e, t);
+      y,
+      C,
+      b,
+      v,
+      S = 10,
+      R = 50,
+      L = 20,
+      E = 60,
+      k = T(E);
+    function I(e, t) {
+      return k(e, t);
     }
-    function R(e, t) {
+    function T(e, t) {
+      var n;
       t === void 0 && (t = {});
-      var n = new (o("WAPromiseQueue").PromiseQueue)(),
-        r = o("WAWebCustomerManagerImportRateLimiter").createImportRateLimiter(
+      var r = new (o("WAPromiseQueue").PromiseQueue)(),
+        a = o("WAWebCustomerManagerImportRateLimiter").createImportRateLimiter(
           e,
           t,
+        ),
+        i = o("WATimeUtils").monotonicTime(),
+        l = o(
+          "WAWebCustomerManagerImportRateLimiter",
+        ).createContactSaveRetryBudget(
+          L,
+          (n = t.now) != null
+            ? n
+            : function () {
+                return o("WATimeUtils").monotonicTimeSince(i);
+              },
         );
-      return function (e, a) {
+      return function (e, n) {
         var i = o(
           "WAWebCustomerManagerImportProgress",
-        ).createImportProgressReporter(e.length, r, a, t.now);
-        return n.enqueue(function () {
-          return L(e, r, i);
+        ).createImportProgressReporter(e.length, a, n, t.now);
+        return r.enqueue(function () {
+          return D(e, a, i, l);
         });
       };
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function D(e, t, n, r) {
+      return x.apply(this, arguments);
     }
-    function E() {
+    function x() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          a.beginChecking();
-          var i = o(
-              "WAWebCustomerManagerImportPhoneRowMerge",
-            ).mergeImportedPhoneRows(e),
-            l = i.contacts,
-            s = i.sourceRowCounts,
-            u,
-            m;
-          try {
-            ((u = k(l)),
-              (m = yield x(u)),
-              (u = u.filter(function (e) {
-                return m.has(e);
-              })));
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] save stopped before writing contacts",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("cm-import-save-preflight-failed"),
-              a.stopBeforeSave(),
-              {
-                failureCount: e.length,
-                preflightFailed: !0,
-                savedContacts: [],
-                successCount: 0,
-              }
-            );
-          }
-          a.ready(u.length, he(u, s));
-          var p = W(u, m),
-            _ = p.batchable,
-            f = p.individual,
-            g = yield F(_, t.batchSize(C), function (e) {
-              return o("WAWebCustomerManagerImportProgress").runImportBatch(
-                e.map(function (e) {
-                  var t = e.contact;
-                  return t;
-                }),
-                s,
-                a,
-                function () {
-                  return fe(e, q);
-                },
-              );
-            }),
-            b = yield F(f, t.batchSize(y), function (e) {
-              return o("WAWebCustomerManagerImportProgress").runImportBatch(
-                e,
-                s,
-                a,
-                function () {
-                  return (h || (h = n("Promise"))).allSettled(
-                    e.map(function (e) {
-                      return I(e, m.get(e));
-                    }),
-                  );
-                },
-              );
-            }),
-            v = A(
-              f,
-              b,
-              m,
-              s,
-              A(
-                _.map(function (e) {
-                  var t = e.contact;
-                  return t;
-                }),
-                g,
-                m,
-                s,
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, a, i) {
+            a.beginChecking();
+            var l = o(
+                "WAWebCustomerManagerImportPhoneRowMerge",
+              ).mergeImportedPhoneRows(e),
+              s = l.contacts,
+              u = l.sourceRowCounts,
+              c,
+              d;
+            try {
+              ((c = $(s)),
+                (d = yield w(c)),
+                (c = c.filter(function (e) {
+                  return d.has(e);
+                })));
+            } catch (t) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "[cm:import] save stopped before writing contacts",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("cm-import-save-preflight-failed"),
+                a.stopBeforeSave(),
                 {
-                  failureCount: e.length - he(u, s),
+                  failureCount: e.length,
+                  preflightFailed: !0,
                   savedContacts: [],
                   successCount: 0,
-                },
-              ),
-            );
-          return (
-            o("WALogger")
-              .LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[cm:import] save complete: ",
-                    " ok, ",
-                    " failed",
-                  ])),
-                v.successCount,
-                v.failureCount,
-              )
-              .sendLogs("cm-import-save-complete"),
-            babelHelpers.extends({}, v, {
-              savedContacts: [].concat(v.savedContacts).sort(function (e, t) {
-                return e.rowIndex - t.rowIndex;
+                }
+              );
+            }
+            a.ready(c.length, $e(c, u));
+            var m = G(c, d),
+              p = m.batchable,
+              _ = m.individual,
+              h = { rateLimited: !1, retries: i },
+              y = function (t) {
+                return h.rateLimited
+                  ? (v || (v = n("Promise"))).resolve(
+                      o("WAWebCustomerManagerImportProgress").failImportBatch(
+                        t,
+                        u,
+                        a,
+                        r("err")("[cm:import] contact save rate-limited"),
+                      ),
+                    )
+                  : null;
+              },
+              C = yield U(p, t.batchSize(R), function (e) {
+                var t;
+                return (t = y(
+                  e.map(function (e) {
+                    var t = e.contact;
+                    return t;
+                  }),
+                )) != null
+                  ? t
+                  : o("WAWebCustomerManagerImportProgress").runImportBatch(
+                      e.map(function (e) {
+                        var t = e.contact;
+                        return t;
+                      }),
+                      u,
+                      a,
+                      function () {
+                        return De(e, function (e, t) {
+                          return z(e, t, function (e) {
+                            return K(e, t, h);
+                          });
+                        });
+                      },
+                    );
               }),
-            })
-          );
-        })),
-        E.apply(this, arguments)
+              b = yield U(_, t.batchSize(S), function (e) {
+                var t;
+                return (t = y(e)) != null
+                  ? t
+                  : o("WAWebCustomerManagerImportProgress").runImportBatch(
+                      e,
+                      u,
+                      a,
+                      function () {
+                        return (v || (v = n("Promise"))).allSettled(
+                          e.map(function (e) {
+                            return P(e, d.get(e), h);
+                          }),
+                        );
+                      },
+                    );
+              }),
+              L = q(
+                _,
+                b,
+                d,
+                u,
+                q(
+                  p.map(function (e) {
+                    var t = e.contact;
+                    return t;
+                  }),
+                  C,
+                  d,
+                  u,
+                  {
+                    failureCount: e.length - $e(c, u),
+                    savedContacts: [],
+                    successCount: 0,
+                  },
+                ),
+              );
+            return (
+              o("WALogger")
+                .LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] save complete: ",
+                      " ok, ",
+                      " failed",
+                    ])),
+                  L.successCount,
+                  L.failureCount,
+                )
+                .sendLogs("cm-import-save-complete"),
+              babelHelpers.extends({}, L, {
+                savedContacts: [].concat(L.savedContacts).sort(function (e, t) {
+                  return e.rowIndex - t.rowIndex;
+                }),
+              })
+            );
+          },
+        )),
+        x.apply(this, arguments)
       );
     }
-    function k(t) {
+    function $(t) {
       var n = new Map(),
         r = 0;
       return (
@@ -226,22 +274,24 @@ __d(
         })
       );
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function P(e, t, n) {
+      return N.apply(this, arguments);
     }
-    function T() {
+    function N() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = D(e, t),
-            r = yield fe([n], G),
-            o = r[0];
-          if (o.status === "rejected") throw o.reason;
-          return o.value;
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = M(e, t),
+            o = yield De([r], function (e, t) {
+              return re(e, t, n);
+            }),
+            a = o[0];
+          if (a.status === "rejected") throw a.reason;
+          return a.value;
         })),
-        T.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function D(e, t) {
+    function M(e, t) {
       var n,
         r,
         a,
@@ -269,20 +319,20 @@ __d(
           (l = t == null ? void 0 : t.wasNewProfile) != null ? l : !0,
       };
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function $() {
+    function A() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield M(e);
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield B(e);
           if (t == null)
             throw r("err")(
               "Imported customer profile existence lookup unavailable",
             );
-          var a = yield F(
+          var a = yield U(
               e,
-              C,
+              R,
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -303,14 +353,14 @@ __d(
                         return { status: "rejected", reason: t };
                       });
                     }
-                    return (h || (h = n("Promise"))).allSettled(
+                    return (v || (v = n("Promise"))).allSettled(
                       e.map(
                         (function () {
                           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                             function* (e) {
                               var t = e.lid;
                               return t != null
-                                ? P(o("WAWebJidToWid").lidUserJidToUserLid(t))
+                                ? F(o("WAWebJidToWid").lidUserJidToUserLid(t))
                                 : { savedContactName: null, wasNewContact: !1 };
                             },
                           );
@@ -334,8 +384,8 @@ __d(
               if (l.status === "rejected") {
                 o("WALogger")
                   .WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "[cm:import] saved contact state unavailable for row ",
                         "",
                       ])),
@@ -357,15 +407,15 @@ __d(
             i
           );
         })),
-        $.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function N() {
+    function O() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a = yield o("WAWebApiContact").getContactRecord(e);
@@ -381,15 +431,15 @@ __d(
               }
             : { savedContactName: null, wasNewContact: !0 };
         })),
-        N.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function w() {
+    function W() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(
             e.flatMap(function (e) {
               var t = e.lid;
@@ -410,8 +460,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] profile existence lookup failed for ",
                       " candidates; saving stopped",
                     ])),
@@ -423,10 +473,10 @@ __d(
             );
           }
         })),
-        w.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function A(e, t, n, a, i) {
+    function q(e, t, n, a, i) {
       var l = [],
         s = i.failureCount,
         c = i.successCount;
@@ -471,12 +521,12 @@ __d(
         }
       );
     }
-    function F(e, t, n, r, o) {
-      return O.apply(this, arguments);
+    function U(e, t, n, r, o) {
+      return V.apply(this, arguments);
     }
-    function O() {
+    function V() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, o) {
             if (
               (r === void 0 && (r = 0), o === void 0 && (o = []), r >= e.length)
@@ -484,33 +534,24 @@ __d(
               return o;
             var a = e.slice(r, r + t),
               i = yield n(a);
-            return F(e, t, n, r + t, [].concat(o, i));
+            return U(e, t, n, r + t, [].concat(o, i));
           },
         )),
-        O.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function B(e, t, r) {
-      return F(e, t, function (e) {
-        return (h || (h = n("Promise"))).allSettled(e.map(r));
+    function H(e, t, r) {
+      return U(e, t, function (e) {
+        return (v || (v = n("Promise"))).allSettled(e.map(r));
       });
     }
-    function W(e, t) {
+    function G(e, t) {
       var n = [],
         r = [];
       return (
         e.forEach(function (e) {
-          var o, a;
-          if (
-            ((o = (a = e.firstName) == null ? void 0 : a.trim()) != null
-              ? o
-              : "") === ""
-          ) {
-            r.push(e);
-            return;
-          }
           try {
-            n.push(D(e, t.get(e)));
+            n.push(M(e, t.get(e)));
           } catch (t) {
             r.push(e);
           }
@@ -518,23 +559,22 @@ __d(
         { batchable: n, individual: r }
       );
     }
-    function q(e, t, n) {
-      return U.apply(this, arguments);
+    function z(e, t, n) {
+      return j.apply(this, arguments);
     }
-    function U() {
+    function j() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          r === void 0 && (r = V);
-          var o = yield K(e),
-            a = yield B(
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var o = yield se(e),
+            a = yield H(
               e.map(function (e, t) {
                 return t;
               }),
-              y,
+              S,
               (function () {
                 var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (n) {
-                    if (!(yield z(e[n], t))) return !1;
+                    if (!(yield ie(e[n], t))) return !1;
                     var r = o[n];
                     if (r.status === "rejected") throw r.reason;
                     return !0;
@@ -559,72 +599,215 @@ __d(
                 : { status: "fulfilled", value: void 0 };
           });
         })),
-        U.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function V(e, t) {
-      return H.apply(this, arguments);
+    function K(e, t, n) {
+      return Q.apply(this, arguments);
     }
-    function H() {
+    function Q() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e.length === 0) return [];
-          try {
-            yield o("WAWebSaveContactAction").saveContactBatchAction(
-              e.map(function (e) {
-                var t,
-                  n,
-                  r,
-                  o = e.input;
-                return {
-                  firstName: (t = o.firstName) != null ? t : "",
-                  lastName: (n = o.lastName) != null ? n : "",
-                  phoneNumber: (r = o.phoneNumber) != null ? r : "",
-                  syncToAddressbook: !1,
-                };
+          var r = yield X(e, t, n);
+          return Ie(r, function (t) {
+            return se(
+              t.map(function (t) {
+                return e[t];
               }),
             );
-          } catch (a) {
-            o("WALogger")
-              .ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[cm:import] batched contact save failed for ",
-                    " rows; retrying them per row",
-                  ])),
-                e.length,
-              )
-              .catching(r("getErrorSafe")(a))
-              .sendLogs("cm-import-save-batch-fallback");
-            var n = yield G(e, t);
-            return n.map(function (n, o) {
-              return n.status === "fulfilled" && t.has(e[o].contact)
-                ? {
-                    status: "rejected",
-                    reason: r("err")(
-                      "[cm:import] batched contact save outcome uncertain",
-                    ),
-                  }
-                : n;
-            });
-          }
-          return K(e);
+          });
         })),
-        H.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    function G(e, t) {
-      return q(
+    function X(e, t, n, r) {
+      return Y.apply(this, arguments);
+    }
+    function Y() {
+      return (
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            if ((r === void 0 && (r = !1), e.length === 0)) return [];
+            if (n.rateLimited)
+              return J(e, "[cm:import] contact save rate-limited");
+            var a = r ? n.retries.take() : null;
+            if (r && a == null) return Z(e);
+            try {
+              return (
+                yield o("WAWebSaveContactAction").saveContactBatchAction(
+                  e.map(function (e) {
+                    var t,
+                      n,
+                      r,
+                      o = e.input;
+                    return {
+                      firstName: (t = o.firstName) != null ? t : "",
+                      lastName: (n = o.lastName) != null ? n : "",
+                      phoneNumber: (r = o.phoneNumber) != null ? r : "",
+                      syncToAddressbook: !1,
+                    };
+                  }),
+                ),
+                e.map(function () {
+                  return { status: "fulfilled", value: void 0 };
+                })
+              );
+            } catch (t) {
+              var i = ee(t, e, n, a);
+              if (i != null) return i;
+            }
+            return te(e, t, n);
+          },
+        )),
+        Y.apply(this, arguments)
+      );
+    }
+    function J(e, t) {
+      return e.map(function () {
+        return { status: "rejected", reason: r("err")(t) };
+      });
+    }
+    function Z(e) {
+      return (
+        o("WALogger")
+          .WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[cm:import] contact save retries exhausted; failing ",
+                " rows",
+              ])),
+            e.length,
+          )
+          .sendLogs("cm-import-save-retries-exhausted"),
+        J(e, "[cm:import] contact save retries exhausted")
+      );
+    }
+    function ee(e, t, n, a) {
+      return o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e)
+        ? ((n.rateLimited = !0),
+          o("WALogger")
+            .ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] contact save rate-limited for ",
+                  " rows; skipping the import's remaining contact saves",
+                ])),
+              t.length,
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("cm-import-save-batch-rate-limited"),
+          J(t, "[cm:import] contact save rate-limited"))
+        : e instanceof o("WAWebSaveContactAction").NetworkUnavailable
+          ? (a != null && n.retries.refund(a),
+            o("WALogger")
+              .WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[cm:import] contact save failed offline for ",
+                    " rows",
+                  ])),
+                t.length,
+              )
+              .sendLogs("cm-import-save-batch-offline"),
+            J(t, "[cm:import] contact save failed offline"))
+          : t.length === 1
+            ? (o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] contact save failed for 1 row",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("cm-import-save-row-contact-failed"),
+              J(t, "[cm:import] contact save failed"))
+            : (o("WALogger")
+                .ERROR(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cm:import] batched contact save failed for ",
+                      " rows; retrying them in halves",
+                    ])),
+                  t.length,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("cm-import-save-batch-fallback"),
+              null);
+    }
+    function te(e, t, n) {
+      return ne.apply(this, arguments);
+    }
+    function ne() {
+      return (
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            var o = yield H(e, S, function (e) {
+                return ie(e, t);
+              }),
+              a = e.flatMap(function (e, t) {
+                var n = o[t];
+                return n.status === "fulfilled" && n.value ? [t] : [];
+              }),
+              i = Math.ceil(a.length / 2),
+              l = a.slice(0, i),
+              s = a.slice(i),
+              u = yield X(
+                l.map(function (t) {
+                  return e[t];
+                }),
+                t,
+                n,
+                !0,
+              ),
+              c = yield X(
+                s.map(function (t) {
+                  return e[t];
+                }),
+                t,
+                n,
+                !0,
+              ),
+              d = new Map(
+                [].concat(
+                  l.map(function (e, t) {
+                    return [e, u[t]];
+                  }),
+                  s.map(function (e, t) {
+                    return [e, c[t]];
+                  }),
+                ),
+              );
+            return e.map(function (e, t) {
+              var n,
+                a = o[t];
+              return a.status === "rejected"
+                ? a
+                : (n = d.get(t)) != null
+                  ? n
+                  : {
+                      status: "rejected",
+                      reason: r("err")(
+                        "[cm:import] batched contact save outcome uncertain",
+                      ),
+                    };
+            });
+          },
+        )),
+        ne.apply(this, arguments)
+      );
+    }
+    function re(e, t, r) {
+      return z(
         e,
         t,
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield me(
-              e,
-              o("WAWebCustomerManagerCreateCustomerRecord").saveCustomerContact,
-            );
-            return pe(t, function (t) {
-              return K(
+            var t = yield ke(e, function (e) {
+              return oe(e, r);
+            });
+            return Ie(t, function (t) {
+              return se(
                 t.map(function (t) {
                   return e[t];
                 }),
@@ -637,27 +820,50 @@ __d(
         })(),
       );
     }
-    function z(e, t) {
-      return j.apply(this, arguments);
+    function oe(e, t) {
+      return ae.apply(this, arguments);
     }
-    function j() {
+    function ae() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!e.wasNewContact) return !1;
-          var n = yield P(e.input.profileWid);
-          return n.wasNewContact
-            ? !0
-            : (t.set(e.contact, X(e, n.savedContactName)), !1);
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t.rateLimited)
+            throw r("err")("[cm:import] contact save rate-limited");
+          try {
+            yield o(
+              "WAWebCustomerManagerCreateCustomerRecord",
+            ).saveCustomerContact(e);
+          } catch (e) {
+            throw (
+              o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e) &&
+                (t.rateLimited = !0),
+              e
+            );
+          }
         })),
-        j.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    function ie(e, t) {
+      return le.apply(this, arguments);
     }
-    function Q() {
+    function le() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!e.wasNewContact) return !1;
+          var n = yield F(e.input.profileWid);
+          return n.wasNewContact
+            ? !0
+            : (t.set(e.contact, ce(e, n.savedContactName)), !1);
+        })),
+        le.apply(this, arguments)
+      );
+    }
+    function se(e) {
+      return ue.apply(this, arguments);
+    }
+    function ue() {
+      return (
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
                 "WAWebCustomerManagerImportPhoneIdentity",
@@ -704,8 +910,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] phone identity check failed for ",
                       " rows; rejecting them",
                     ])),
@@ -722,34 +928,34 @@ __d(
             );
           }
         })),
-        Q.apply(this, arguments)
+        ue.apply(this, arguments)
       );
     }
-    function X(e, t) {
+    function ce(e, t) {
       return babelHelpers.extends({}, e, {
         profileName: t != null ? t : e.profileName,
         savedContactName: t,
         wasNewContact: !1,
       });
     }
-    function Y(e) {
-      return J.apply(this, arguments);
+    function de(e) {
+      return me.apply(this, arguments);
     }
-    function J() {
+    function me() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
           try {
             var t = yield o(
               "WAWebCustomerDataFieldSaver",
             ).createCustomersIfAbsent(e, { skipLeadArtifacts: !0 });
-            return t.map(Z);
+            return t.map(pe);
           } catch (t) {
             return (
               o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] batched profile create failed for ",
                       " rows",
                     ])),
@@ -766,10 +972,10 @@ __d(
             );
           }
         })),
-        J.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    function Z(e) {
+    function pe(e) {
       return e === "unresolved"
         ? {
             status: "rejected",
@@ -779,12 +985,12 @@ __d(
           }
         : { status: "fulfilled", value: e };
     }
-    function ee(e, t) {
-      return te.apply(this, arguments);
+    function _e(e, t) {
+      return fe.apply(this, arguments);
     }
-    function te() {
+    function fe() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a =
@@ -812,15 +1018,15 @@ __d(
             "existing"
           );
         })),
-        te.apply(this, arguments)
+        fe.apply(this, arguments)
       );
     }
-    function ne(e, t) {
-      return re.apply(this, arguments);
+    function ge(e, t) {
+      return he.apply(this, arguments);
     }
-    function re() {
+    function he() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.input.leadStage;
           if (
             n != null &&
@@ -841,15 +1047,15 @@ __d(
             ).reconcileImportedLeadArtifacts(e.input.chatJid, i.leadStage, a);
           }
         })),
-        re.apply(this, arguments)
+        he.apply(this, arguments)
       );
     }
-    function oe(e, t) {
-      return ae.apply(this, arguments);
+    function ye(e, t) {
+      return Ce.apply(this, arguments);
     }
-    function ae() {
+    function Ce() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = e.map(function (e, t) {
               return t;
             }),
@@ -862,7 +1068,7 @@ __d(
             s = a.filter(function (e) {
               return i[e] != null;
             }),
-            u = yield ie(e, l, t),
+            u = yield be(e, l, t),
             c = l.filter(function (e) {
               var t = u.get(e);
               return (
@@ -871,14 +1077,14 @@ __d(
               );
             }),
             d = [].concat(s, c),
-            m = yield B(
+            m = yield H(
               d,
-              y,
+              S,
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
                     var n;
-                    return ee(
+                    return _e(
                       e[t],
                       (n = i[t]) != null
                         ? n
@@ -908,20 +1114,20 @@ __d(
             })
           );
         })),
-        ae.apply(this, arguments)
+        Ce.apply(this, arguments)
       );
     }
-    function ie(e, t, n) {
-      return le.apply(this, arguments);
+    function be(e, t, n) {
+      return ve.apply(this, arguments);
     }
-    function le() {
+    function ve() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n) {
-            var r = yield B(t, y, function (t) {
-                return ue(e[t], n[t]);
+            var r = yield H(t, S, function (t) {
+                return Re(e[t], n[t]);
               }),
-              o = yield Y(
+              o = yield de(
                 r.flatMap(function (e) {
                   return e.status === "fulfilled" ? [e.value] : [];
                 }),
@@ -937,13 +1143,13 @@ __d(
             );
           },
         )),
-        le.apply(this, arguments)
+        ve.apply(this, arguments)
       );
     }
-    function se(e) {
-      return B(
+    function Se(e) {
+      return H(
         e,
-        y,
+        S,
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.input,
@@ -963,12 +1169,12 @@ __d(
         })(),
       );
     }
-    function ue(e, t) {
-      return ce.apply(this, arguments);
+    function Re(e, t) {
+      return Le.apply(this, arguments);
     }
-    function ce() {
+    function Le() {
       return (
-        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
               e.input.leadStage != null
                 ? yield o(
@@ -997,18 +1203,18 @@ __d(
             leadStage: r,
           };
         })),
-        ce.apply(this, arguments)
+        Le.apply(this, arguments)
       );
     }
-    function de(e) {
+    function Ee(e) {
       return e.flatMap(function (e, t) {
         return e.status === "fulfilled" ? [t] : [];
       });
     }
-    function me(e, t) {
-      return B(
+    function ke(e, t) {
+      return H(
         e,
-        y,
+        S,
         (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             yield t(e.input);
@@ -1019,13 +1225,13 @@ __d(
         })(),
       );
     }
-    function pe(e, t) {
-      return _e.apply(this, arguments);
+    function Ie(e, t) {
+      return Te.apply(this, arguments);
     }
-    function _e() {
+    function Te() {
       return (
-        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = de(e),
+        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = Ee(e),
             r = yield t(n),
             o = [].concat(e);
           return (
@@ -1036,23 +1242,23 @@ __d(
             o
           );
         })),
-        _e.apply(this, arguments)
+        Te.apply(this, arguments)
       );
     }
-    function fe(e, t) {
-      return ge.apply(this, arguments);
+    function De(e, t) {
+      return xe.apply(this, arguments);
     }
-    function ge() {
+    function xe() {
       return (
-        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield se(e),
+        (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield Se(e),
             a = r.map(function (e) {
               return e.status === "fulfilled"
                 ? { status: "fulfilled", value: "written" }
                 : e;
             }),
             i = new Map();
-          a = yield pe(a, function (n) {
+          a = yield Ie(a, function (n) {
             return t(
               n.map(function (t) {
                 return e[t];
@@ -1064,16 +1270,16 @@ __d(
             var t;
             return (t = i.get(e.contact)) != null ? t : e;
           });
-          a = yield pe(a, function (e) {
-            return me(
+          a = yield Ie(a, function (e) {
+            return ke(
               e.map(function (e) {
                 return l[e];
               }),
               o("WAWebCustomerManagerCreateCustomerRecord").createCustomerChat,
             );
           });
-          var s = de(a),
-            u = yield oe(
+          var s = Ee(a),
+            u = yield ye(
               s.map(function (e) {
                 return l[e];
               }),
@@ -1085,16 +1291,16 @@ __d(
             s.forEach(function (e, t) {
               a[e] = u[t];
             }),
-            (a = yield pe(a, function (e) {
-              return B(
+            (a = yield Ie(a, function (e) {
+              return H(
                 e,
-                y,
+                S,
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
                       var t = a[e],
                         n = t.status === "fulfilled" && t.value === "written";
-                      return ne(l[e], n);
+                      return ge(l[e], n);
                     },
                   );
                   return function (t) {
@@ -1103,8 +1309,8 @@ __d(
                 })(),
               );
             })),
-            (a = yield pe(a, function (e) {
-              return me(
+            (a = yield Ie(a, function (e) {
+              return ke(
                 e.map(function (e) {
                   return l[e];
                 }),
@@ -1125,18 +1331,18 @@ __d(
             })
           );
         })),
-        ge.apply(this, arguments)
+        xe.apply(this, arguments)
       );
     }
-    function he(e, t) {
+    function $e(e, t) {
       return e.reduce(function (e, n) {
         var r;
         return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
       }, 0);
     }
-    ((l.IMPORT_ROWS_PER_MINUTE = b),
-      (l.saveImportedContacts = S),
-      (l.createCustomerManagerImporter = R));
+    ((l.IMPORT_ROWS_PER_MINUTE = E),
+      (l.saveImportedContacts = I),
+      (l.createCustomerManagerImporter = T));
   },
   98,
 );

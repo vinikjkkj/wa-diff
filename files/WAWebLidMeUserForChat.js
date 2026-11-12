@@ -1,11 +1,6 @@
 __d(
   "WAWebLidMeUserForChat",
-  [
-    "WAWebChatGetters",
-    "WAWebMsgKeyUtils",
-    "WAWebUserPrefsMeUser",
-    "WAWebUserUtils",
-  ],
+  ["WAWebChatGetters", "WAWebMsgKeyUtils", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n,
@@ -18,16 +13,16 @@ __d(
         case o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon:
           return r || a || i
             ? o("WAWebUserUtils").getMeLidUserOrThrow()
-            : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
+            : o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE();
         case o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage:
         case o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message:
           return a
             ? i
               ? o("WAWebUserUtils").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow()
+              : o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE()
             : r || i
               ? o("WAWebUserUtils").getMeLidUserOrThrow()
-              : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
+              : o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE();
       }
     }
     l.getMeUserLidOrJidForChat = e;

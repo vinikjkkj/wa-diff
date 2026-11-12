@@ -3,8 +3,9 @@ __d(
   [
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebDrawerManager",
-    "WAWebSharableEventCreateDialogLoadable",
+    "WAWebModalManager",
     "WAWebSharableEventCreateFlowLoadable",
+    "WAWebSharableEventCreateStepperDialogLoadable",
     "WAWebSharableEventGatingUtils",
     "WAWebSharableEventHomeDrawerLoadable",
     "WAWebWamEnumEventV2CreationEntryPoint",
@@ -16,27 +17,27 @@ __d(
     function u() {
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create",
-      ) &&
-        o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-          s.jsx(r("WAWebSharableEventCreateDialogLoadable"), { onClose: m }),
-        );
+      ) && d({});
     }
     function c(e) {
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create-from-chat",
-      ) &&
-        o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
-          s.jsx(r("WAWebSharableEventCreateDialogLoadable"), {
-            chat: e,
+      ) && d({ chat: e });
+    }
+    function d(e) {
+      o("WAWebModalManager").ModalManager.open(
+        s.jsx(
+          r("WAWebSharableEventCreateStepperDialogLoadable"),
+          babelHelpers.extends({}, e, {
             onClose: function () {
-              return o(
-                "WAWebDrawerManager",
-              ).DrawerManager.closeDrawerFullscreen();
+              return o("WAWebModalManager").ModalManager.close();
             },
           }),
-        );
+        ),
+        { blockClose: !0 },
+      );
     }
-    function d() {
+    function m() {
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create",
       ) &&
@@ -44,11 +45,12 @@ __d(
           s.jsx(r("WAWebSharableEventCreateFlowLoadable"), {
             creationEntryPoint: o("WAWebWamEnumEventV2CreationEntryPoint")
               .EVENT_V2_CREATION_ENTRY_POINT.NEW_CHAT,
+            landsOnCreatedEvent: !0,
             onEnd: o("WAWebDrawerManager").closeDrawerLeft,
           }),
         );
     }
-    function m() {
+    function p() {
       o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
         o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
           ? { descriptorType: "sharable_event_home" }
@@ -58,8 +60,8 @@ __d(
     }
     ((l.openSharableEventCreateDialog = u),
       (l.openSharableEventCreateDialogForChat = c),
-      (l.openSharableEventCreateFlowFromNewChat = d),
-      (l.reopenSharableEventHome = m));
+      (l.openSharableEventCreateFlowFromNewChat = m),
+      (l.reopenSharableEventHome = p));
   },
   98,
 );

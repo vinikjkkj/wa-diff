@@ -1,82 +1,97 @@
 __d(
   "WAWebWindowsBackgroundRun",
   [
+    "WALogger",
     "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebEnvironment",
     "WAWebProtobufsWa6.pb",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "backgroundRun",
-      s = {
+    var e,
+      s = "backgroundRun",
+      u = {
         1: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
         2: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.USER_ACTIVATED,
       },
-      u = !1,
-      c = o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
-      d = null,
-      m = 0;
-    function p() {
-      var t;
+      c = !1,
+      d = o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
+      m = null,
+      p = 0;
+    function _() {
+      var e;
       return (
-        !u &&
+        !c &&
         r("WAWebEnvironment").isWindows &&
-        new URLSearchParams((t = self.location.search) != null ? t : "").get(
-          e,
+        new URLSearchParams((e = self.location.search) != null ? e : "").get(
+          s,
         ) === "1"
       );
     }
-    function _() {
-      return f.apply(this, arguments);
-    }
     function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          p() ||
-            (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-            o("WAWebABProps").getABPropConfigValue(
-              "win_hybrid_background_message_sync",
-            ));
-        })),
-        f.apply(this, arguments)
-      );
+      return g.apply(this, arguments);
     }
     function g() {
-      return p() ? c : null;
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!_())
+            try {
+              (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+                o("WAWebABProps").getABPropConfigValue(
+                  "win_hybrid_background_message_sync",
+                ));
+            } catch (t) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "WindowsBackgroundRun: background message sync exposure failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("windows-bgrun-exposure-failed");
+            }
+        })),
+        g.apply(this, arguments)
+      );
     }
-    function h(e) {
-      var t = s[e];
-      return t == null ? !1 : ((c = t), !0);
+    function h() {
+      return _() ? d : null;
     }
-    function y() {
-      u = !0;
+    function y(e) {
+      var t = u[e];
+      return t == null ? !1 : ((d = t), !0);
     }
-    function C(e) {
-      ((d = e), m++);
+    function C() {
+      c = !0;
     }
-    function b() {
-      return m;
+    function b(e) {
+      ((m = e), p++);
     }
     function v() {
+      return p;
+    }
+    function S() {
       var e;
       return (
-        d != null &&
-        d !==
-          ((e = g()) != null
+        m != null &&
+        m !==
+          ((e = h()) != null
             ? e
             : o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
                 .USER_ACTIVATED)
       );
     }
-    ((l.isWindowsBackgroundRun = p),
-      (l.logBackgroundMessageSyncExposureInUserSession = _),
-      (l.getWindowsBackgroundRunConnectReason = g),
-      (l.applyWindowsBackgroundRunConnectReason = h),
-      (l.endWindowsBackgroundRun = y),
-      (l.recordWindowsLoginConnectReason = C),
-      (l.getWindowsLoginCount = b),
-      (l.hasLoggedInWithOtherConnectReason = v));
+    ((l.isWindowsBackgroundRun = _),
+      (l.logBackgroundMessageSyncExposureInUserSession = f),
+      (l.getWindowsBackgroundRunConnectReason = h),
+      (l.applyWindowsBackgroundRunConnectReason = y),
+      (l.endWindowsBackgroundRun = C),
+      (l.recordWindowsLoginConnectReason = b),
+      (l.getWindowsLoginCount = v),
+      (l.hasLoggedInWithOtherConnectReason = S));
   },
   98,
 );

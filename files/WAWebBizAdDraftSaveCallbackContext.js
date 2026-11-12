@@ -7,8 +7,15 @@ __d(
       s = e || (e = o("react")),
       u = { current: null },
       c = { current: null },
-      d = s.createContext({ existingDraftIDRef: u, saveCallbackRef: c });
-    l.default = d;
+      d = { current: !1 },
+      m = { current: !1 },
+      p = s.createContext({
+        existingDraftIDRef: u,
+        mediaRestorePendingRef: d,
+        mediaSettlingRef: m,
+        saveCallbackRef: c,
+      });
+    l.default = p;
   },
   98,
 );

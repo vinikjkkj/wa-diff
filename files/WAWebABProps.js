@@ -21,6 +21,8 @@ __d(
         "web_design_refresh",
         "web_material_refresh",
         "web_socket_parallel_connection_enabled",
+        "web_socket_handshake_timeout_enabled",
+        "web_socket_handshake_timeout_seconds",
         "external_ctx_url_param_names",
         "wa_web_console_log_level",
         "web_disable_logs_low_end_device",

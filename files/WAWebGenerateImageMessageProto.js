@@ -58,6 +58,7 @@ __d(
             : o("WAWebE2EProtoUtils").encodeBytes(n.body),
           contextInfo: t,
           viewOnce: n.isViewOnce,
+          annotations: n.interactiveAnnotations,
         },
         l,
       );

@@ -5,6 +5,7 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
+    "WAWebNoop",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -28,7 +29,12 @@ __d(
           return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
         },
       });
-    ((l.requireBundle = u), (l.ManageCommunityGroupsFlowLoadable = c));
+    function d() {
+      u().catch(r("WAWebNoop"));
+    }
+    ((l.requireBundle = u),
+      (l.ManageCommunityGroupsFlowLoadable = c),
+      (l.preloadManageCommunityGroupsFlow = d));
   },
   98,
 );

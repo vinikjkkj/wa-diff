@@ -226,6 +226,34 @@ __d(
             )
           );
         }),
+        (r.connectorsHomepage = function (t, n) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTORS_HOMEPAGE(t),
+            n,
+          );
+        }),
+        (r.categoryConnectors = function (t, n, r, a) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTORS_LIST_CATEGORY(
+              t,
+              n,
+              r,
+            ),
+            a,
+          );
+        }),
+        (r.connectedConnectors = function (t, n, r) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTORS_LIST_CONNECTED(
+              t,
+              n,
+            ),
+            r,
+          );
+        }),
         (r.settingsConnectors = function (t) {
           return this.request(
             "GET",

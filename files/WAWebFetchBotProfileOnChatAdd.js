@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebBotProfileFetchPause",
+    "WAWebBotProfileFreshness",
     "WAWebBotStaticProfiles",
     "WAWebPersistBotProfiles",
     "WAWebSchemaBotProfile",
@@ -50,7 +51,34 @@ __d(
         u.apply(this, arguments)
       );
     }
-    l.fetchBotProfileOnChatAdd = s;
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!e.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
+            return !0;
+          var t = yield o("WAWebSchemaBotProfile")
+              .getBotProfileTable()
+              .get(e.toString()),
+            n = o("WATimeUtils").unixTimeMs();
+          return o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(
+            t == null ? void 0 : t.fetchPauseUntilMs,
+            n,
+          ) ||
+            ((t == null ? void 0 : t.lastFetchedTimeMs) != null &&
+              n - t.lastFetchedTimeMs <=
+                o("WAWebBotProfileFreshness").BOT_PROFILE_TTL_MS)
+            ? !0
+            : o("WAWebSyncBotSupportFields").syncBotSupportFields(e, {
+                tombstoneOnMissing: !1,
+              });
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    ((l.fetchBotProfileOnChatAdd = s), (l.fetchUnresolvedBotProfile = c));
   },
   98,
 );

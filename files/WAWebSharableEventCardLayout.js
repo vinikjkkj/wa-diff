@@ -7,15 +7,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = 8,
-      s = 12,
-      u = 56,
-      c = 68,
-      d = 16,
-      m = 24,
-      p = 20;
-    function _(e) {
+      s = 56,
+      u = 16,
+      c = 24,
+      d = 20;
+    function m(e) {
       return {
-        hasHostLine: g(e.creatorLid),
+        hasHostLine: _(e.creatorLid),
         hasPlaceLine:
           o("WAWebSharableEventStrings").getSharableEventPlaceLine({
             callLinkMediaType: e.callLinkMediaType,
@@ -24,19 +22,17 @@ __d(
           }) != null,
       };
     }
-    function f(t, n) {
+    function p(t, n) {
       n === void 0 && (n = !1);
       var r =
-          (n ? d : 0) +
-          m +
-          p +
-          (t.hasHostLine ? p : 0) +
-          (t.hasPlaceLine ? p : 0),
-        o = n ? s : e,
-        a = n ? c : u;
-      return o + Math.max(a, r) + o;
+        (n ? u : 0) +
+        c +
+        d +
+        (t.hasHostLine ? d : 0) +
+        (t.hasPlaceLine ? d : 0);
+      return e + Math.max(s, r) + e;
     }
-    function g(e) {
+    function _(e) {
       return (
         e != null &&
         !o("WAWebSharableEventViewerState").isSharableEventHostedByViewer(e) &&
@@ -44,7 +40,7 @@ __d(
           null
       );
     }
-    ((l.getSharableEventCardContent = _), (l.getSharableEventCardHeight = f));
+    ((l.getSharableEventCardContent = m), (l.getSharableEventCardHeight = p));
   },
   98,
 );

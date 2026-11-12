@@ -237,7 +237,9 @@ __d(
           bandwidthDiagnosticsFallbackDefaultEstimate: a ? x : null,
           blockDuplicatePrefetch: r("gkx")("25126"),
           bufferAheadTargetNoMediaElementSec:
-            r("gkx")("26985") || (r("gkx")("17440") && r("gkx")("18263"))
+            e.mediaSinkType === "MSE_TRACK_REUSE" ||
+            r("gkx")("26985") ||
+            (r("gkx")("17440") && r("gkx")("18263"))
               ? 4
               : t.bufferAheadTargetNoMediaElementSec,
           bufferedRangeStartToleranceSec: o(
@@ -299,6 +301,7 @@ __d(
           enableSuppressIdleTransitions: r("gkx")("7814"),
           enableTasosBwe: r("gkx")("1093"),
           enableVirtualWorkerMessageQueue: r("gkx")("29048"),
+          enableWorkerOptimizations: r("gkx")("29300"),
           fatalErrorOnMediaErrorRecoveryCapReached: r("gkx")("5957"),
           fetchHighPri: !0,
           fetchInitSidxOfAllRepresentations: r("gkx")("898"),
@@ -429,14 +432,49 @@ __d(
       );
     }
     var P = 0;
-    function N(e, t, n) {
-      return e.mediaSinkType !== "EMSS"
-        ? n
-        : babelHelpers.extends({}, n, {
-            setPlayheadPosition: function (r) {
+    function N(e, t, n, r) {
+      if (e.config.mediaSinkType === "MSE_TRACK_REUSE") {
+        var a = function () {
+          return e.host.mediaElementCollectSnapshot(e, t);
+        };
+        return babelHelpers.extends({}, r, {
+          getBufferedRanges: function () {
+            return a().buffered.map(function (e) {
+              var t = e[0],
+                n = e[1];
+              return { endTime: n, startTime: t };
+            });
+          },
+          getDuration: function () {
+            var e = a().duration;
+            return e === "NOT_A_NUMBER" ? 0 : e;
+          },
+          getEnded: function () {
+            return a().ended;
+          },
+          getLastBufferEndPosition: function () {
+            var e,
+              t,
+              n = a().buffered;
+            return (e = (t = n[n.length - 1]) == null ? void 0 : t[1]) != null
+              ? e
+              : 0;
+          },
+          getPlayheadPosition: function () {
+            return e.host.mediaElementCollectOnlyPlayheadMediaTimeSec(e, t);
+          },
+          setPlayheadPosition: function (r) {
+            e.host.mediaElementSetPlayhead(e, t, r);
+          },
+        });
+      }
+      return e.config.mediaSinkType !== "EMSS"
+        ? r
+        : babelHelpers.extends({}, r, {
+            setPlayheadPosition: function (t) {
               o(
                 "VideoPlayerNextgendashRedundantPlayheadWrite",
-              ).isRedundantPlayheadWrite(t, r) || n.setPlayheadPosition(r);
+              ).isRedundantPlayheadWrite(n, t) || r.setPlayheadPosition(t);
             },
           });
     }
@@ -708,9 +746,10 @@ __d(
                   ie.current == null ||
                   l !== ie.current.getUnderlyingVideoElement()) &&
                   (ie.current =
-                    l != null
+                    l != null && i != null
                       ? N(
-                          W,
+                          G,
+                          i,
                           l,
                           o(
                             "VideoPlayerImplementationEngineVideoElementAPI",
@@ -1041,6 +1080,7 @@ __d(
     ((l.preloadVideoPlayerNextgendashWorker = h),
       (l.prefetchUsingNextgendash = T),
       (l.releasePrefetchUsingNextgendash = D),
+      (l.internal_wrapVideoElementAPIForMediaSink = N),
       (l.getVideoPlayerNextgendashEngineHostAPI = w),
       (l.internal_isMediaLoadPendingWhileHidden = F),
       (l.createVideoPlayerNextgendashEngine = O));

@@ -7,60 +7,60 @@ __d(
     "getSameOriginTransport",
     "isFacebookURI",
   ],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      l = {
+      s = {
         rewriteURI: function (t) {
           var e = t;
-          if (!n("isFacebookURI")(e) || l._isWhitelisted(e)) return e;
-          var r = l._getRewrittenSubdomain(e);
-          return (r != null && (e = e.setSubdomain(r)), e);
+          if (!r("isFacebookURI")(e) || s._isWhitelisted(e)) return e;
+          var n = s._getRewrittenSubdomain(e);
+          return (n != null && (e = e.setSubdomain(n)), e);
         },
         getTransportBuilderForURI: function (t) {
-          return l.isRewritten(t)
-            ? n("getCrossOriginTransport").withCredentials
-            : n("getSameOriginTransport");
+          return s.isRewritten(t)
+            ? r("getCrossOriginTransport").withCredentials
+            : r("getSameOriginTransport");
         },
-        isRewriteSafe: function (r) {
+        isRewriteSafe: function (n) {
           if (
-            Object.keys(n("ZeroRewriteRules").rewrite_rules).length === 0 ||
-            !n("isFacebookURI")(r)
+            Object.keys(r("ZeroRewriteRules").rewrite_rules).length === 0 ||
+            !r("isFacebookURI")(n)
           )
             return !1;
-          var t = l._getCurrentURI().getDomain(),
-            o = new (e || (e = n("URI")))(r).qualify().getDomain();
-          return t === o || l.isRewritten(r);
+          var t = s._getCurrentURI().getDomain(),
+            o = new (e || (e = r("URI")))(n).qualify().getDomain();
+          return t === o || s.isRewritten(n);
         },
         isRewritten: function (t) {
           var e = t.getQualifiedURI();
           if (
-            Object.keys(n("ZeroRewriteRules").rewrite_rules).length === 0 ||
-            !n("isFacebookURI")(e) ||
-            l._isWhitelisted(e)
+            Object.keys(r("ZeroRewriteRules").rewrite_rules).length === 0 ||
+            !r("isFacebookURI")(e) ||
+            s._isWhitelisted(e)
           )
             return !1;
-          var r = e.getSubdomain(),
-            o = l._getCurrentURI(),
-            a = l._getRewrittenSubdomain(o);
-          return e.getDomain() !== o.getDomain() && r === a;
+          var n = e.getSubdomain(),
+            o = s._getCurrentURI(),
+            a = s._getRewrittenSubdomain(o);
+          return e.getDomain() !== o.getDomain() && n === a;
         },
         _isWhitelisted: function (t) {
           var e = t.getPath();
           return (
             e.endsWith("/") || (e += "/"),
-            n("ZeroRewriteRules").whitelist &&
-              n("ZeroRewriteRules").whitelist[e] === 1
+            r("ZeroRewriteRules").whitelist &&
+              r("ZeroRewriteRules").whitelist[e] === 1
           );
         },
         _getRewrittenSubdomain: function (t) {
           var e = t.getQualifiedURI().getSubdomain();
-          return n("ZeroRewriteRules").rewrite_rules[e];
+          return r("ZeroRewriteRules").rewrite_rules[e];
         },
         _getCurrentURI: function () {
-          return new (e || (e = n("URI")))("/").qualify();
+          return new (e || (e = r("URI")))("/").qualify();
         },
       };
-    a.exports = l;
+    i.exports = s;
   },
-  null,
+  34,
 );

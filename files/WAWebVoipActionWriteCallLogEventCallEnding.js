@@ -9,7 +9,7 @@ __d(
     "WAWebMsgType",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
@@ -80,7 +80,9 @@ __d(
                 i != null
                   ? i
                   : p
-                    ? o("WAWebUserPrefsMeUser").getMePnOrLidDeviceOrThrow()
+                    ? o(
+                        "WAWebUserUtils",
+                      ).getMeDevicePnLessOrFallback_DO_NOT_USE()
                     : h,
               T = f === !0 || !r("isStringNullOrEmpty")(c);
             if (k != null) {

@@ -496,7 +496,7 @@ __d(
       return {
         contactId: l,
         fullName: i,
-        shortName: n,
+        shortName: n || a,
         syncToAddressbook: t.syncToAddressbook,
         lid: s,
       };

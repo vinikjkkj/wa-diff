@@ -53,8 +53,6 @@ __d(
       );
     }
     function b(e, t) {
-      if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS)
-        return $(e, t);
       var r = e.dynamicKey,
         o = e.handle,
         a = e.key,
@@ -77,17 +75,13 @@ __d(
     }
     function v(e, t) {
       if (e.storageKey) return e.storageKey;
-      var r = R(e),
-        o = e.name;
-      return !r || r.length === 0
-        ? o
-        : n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS
-          ? F(e, r, o, t)
-          : E(o, C(r, t));
+      var n = R(e),
+        r = e.name;
+      return !n || n.length === 0 ? r : E(r, C(n, t));
     }
     function S(e, t) {
       if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS)
-        return K(e, t);
+        return $(e, t);
       var r = v(e, t);
       return "$r:" + r;
     }
@@ -127,14 +121,10 @@ __d(
       );
     }
     function I(e) {
-      return n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS
-        ? w(e)
-        : "" + f + e;
+      return "" + f + e;
     }
     function T(e) {
-      return n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_STORAGE_KEYS
-        ? A(e)
-        : "" + g + e;
+      return "" + g + e;
     }
     function D(e, t) {
       return "__fn:" + e + ":" + t;
@@ -176,191 +166,24 @@ __d(
       getFieldNotificationKey: D,
     };
     function $(e, t) {
-      var r = P.get(e);
-      if (r == null) {
-        var o = e.dynamicKey,
-          a = e.handle,
-          i = e.key,
-          l = e.name,
-          s = e.args,
-          u = e.filters,
-          c = n("relay-runtime/util/getRelayHandleKey")(a, i, l),
-          d = null;
-        (s &&
-          u &&
-          s.length !== 0 &&
-          u.length !== 0 &&
-          (d = s.filter(function (e) {
-            return u.indexOf(e.name) > -1;
-          })),
-          o && (d = d != null ? [o].concat(d) : [o]));
-        var m = {
-          filterArgs: d,
-          handleName: c,
-          key: c,
-          values: null,
-          variableNames: d != null ? q(d) : null,
-        };
-        ((r = m), P.set(e, m));
-      }
-      var p = r.filterArgs;
-      if (p == null) return r.handleName;
-      var _ = t != null ? r.variableNames : null;
-      if (_ != null) {
-        var f = r.values;
-        if (f != null && H(_, t, f)) return r.key;
-      }
-      var g = E(r.handleName, C(p, t));
-      return (_ != null && ((r.key = g), (r.values = V(_, t))), g);
-    }
-    var P = new WeakMap(),
-      N = new Map(),
-      M = new Map();
-    function w(e) {
-      var t = N.get(e);
-      return (t === void 0 && ((t = "" + f + e), N.set(e, t)), t);
-    }
-    function A(e) {
-      var t = M.get(e);
-      return (t === void 0 && ((t = "" + g + e), M.set(e, t)), t);
-    }
-    function F(e, t, n, r) {
-      if (r == null) return E(n, C(t, r));
-      var o = j.get(e);
-      o == null && ((o = O(t, n)), j.set(e, o));
-      var a = o.variableNames;
-      if (a != null) {
-        var i = o.values;
-        if (i != null && H(a, r, i)) return o.key;
-      }
-      return B(o, t, n, r);
-    }
-    function O(e, t) {
-      var n = W(e);
-      return {
-        byValue: n != null ? new Map() : null,
-        byVariables: new WeakMap(),
-        key: t,
-        values: null,
-        variableName: n,
-        variableNames: q(e),
-      };
-    }
-    function B(e, t, n, r) {
-      var o = e.variableName,
-        a = e.byValue;
-      if (o != null && a != null) {
-        var i = r[o];
-        if (
-          typeof i == "string" ||
-          typeof i == "number" ||
-          typeof i == "boolean"
-        ) {
-          var l = a.get(i);
-          return (
-            l == null &&
-              ((l = E(n, C(t, r))), a.size >= z && a.clear(), a.set(i, l)),
-            (e.key = l),
-            (e.values = e.variableNames != null ? V(e.variableNames, r) : null),
-            l
-          );
-        }
-      }
-      var s = e.byVariables,
-        u = s.get(r);
-      u == null && ((u = E(n, C(t, r))), s.set(r, u));
-      var c = e.variableNames;
-      return (c != null && ((e.key = u), (e.values = V(c, r))), u);
-    }
-    function W(e) {
-      for (var t = null, n = 0; n < e.length; n++) {
-        var r = e[n];
-        if (r.kind === u) {
-          if (t != null) return null;
-          t = r.variableName;
-        } else if (r.kind !== c) return null;
-      }
-      return t;
-    }
-    function q(e) {
-      var t = [];
-      return U(e, t) ? t : null;
-    }
-    function U(e, t) {
-      for (var n = 0; n < e.length; n++) {
-        var r = e[n];
-        if (!(r == null || r.kind === c))
-          if (r.kind === u) t.push(r.variableName);
-          else if (r.kind === d) {
-            if (!U(r.fields, t)) return !1;
-          } else if (r.kind === m) {
-            if (!U(r.items, t)) return !1;
-          } else return !1;
-      }
-      return !0;
-    }
-    function V(e, t) {
-      for (var n = new Array(e.length), r = 0; r < e.length; r++) {
-        var o = t[e[r]];
-        if (o === void 0) return null;
-        n[r] = o;
-      }
-      return n;
-    }
-    function H(e, t, n) {
-      for (var r = 0; r < e.length; r++) {
-        var o = t[e[r]];
-        if (o !== n[r] && !G(o, n[r])) return !1;
-      }
-      return !0;
-    }
-    function G(e, t) {
-      if (
-        e == null ||
-        t == null ||
-        typeof e != "object" ||
-        typeof t != "object" ||
-        Array.isArray(e) !== Array.isArray(t) ||
-        (Array.isArray(e) && Array.isArray(t) && e.length !== t.length)
-      )
-        return !1;
-      var n = Object.keys(e),
-        r = Object.keys(t);
-      if (n.length !== r.length) return !1;
-      for (var o = 0; o < n.length; o++) {
-        var a = n[o],
-          i = e[a];
-        if (
-          a !== r[o] ||
-          (i != null && typeof i == "object") ||
-          typeof i == "function" ||
-          i !== t[a]
-        )
-          return !1;
-      }
-      return !0;
-    }
-    var z = 1024,
-      j = new WeakMap();
-    function K(e, t) {
-      var n = Q.get(e);
+      var n = P.get(e);
       if (n != null) return n;
       var r = "$r:" + v(e, t);
-      return (n === void 0 && Q.set(e, X(R(e)) ? null : r), r);
+      return (n === void 0 && P.set(e, N(R(e)) ? null : r), r);
     }
-    var Q = new WeakMap();
-    function X(e) {
+    var P = new WeakMap();
+    function N(e) {
       if (e == null) return !1;
-      for (var t = 0; t < e.length; t++) if (Y(e[t])) return !0;
+      for (var t = 0; t < e.length; t++) if (M(e[t])) return !0;
       return !1;
     }
-    function Y(e) {
+    function M(e) {
       return e == null || e.kind === c
         ? !1
         : e.kind === d
-          ? X(e.fields)
+          ? N(e.fields)
           : e.kind === m
-            ? X(e.items)
+            ? N(e.items)
             : !0;
     }
     a.exports = x;

@@ -3,6 +3,7 @@ __d(
   [
     "relay-runtime/store/RelayReader",
     "relay-runtime/store/hasOverlappingIDs",
+    "relay-runtime/store/hasOverlappingIDsPerf",
     "relay-runtime/store/hasSignificantOverlappingIDs",
     "relay-runtime/util/RelayFeatureFlags",
     "relay-runtime/util/deepFreeze",
@@ -13,12 +14,16 @@ __d(
     var e,
       l,
       s = (function () {
-        function t(e, t, n) {
+        function t(t, r, o) {
           ((this.$1 = new Set()),
             (this.$4 = new Set()),
-            (this.__log = e),
-            (this.$2 = t),
-            (this.$3 = n));
+            (this.__log = t),
+            (this.$2 = r),
+            (this.$3 = o),
+            (this.$5 = n("relay-runtime/util/RelayFeatureFlags")
+              .ENABLE_PERF_NOTIFY
+              ? n("relay-runtime/store/hasOverlappingIDsPerf")
+              : e || (e = n("relay-runtime/store/hasOverlappingIDs"))));
         }
         var r = t.prototype;
         return (
@@ -80,7 +85,7 @@ __d(
             var e = this,
               a = n.size !== 0;
             this.$1.forEach(function (i) {
-              var l = e.$5(t, i, n, a, o);
+              var l = e.$6(t, i, n, a, o);
               l != null && r.push(l);
             });
           }),
@@ -88,49 +93,44 @@ __d(
             var e = this,
               a = n.size !== 0;
             this.$4.forEach(function (i) {
-              var l = e.$5(t, i, n, a, o);
+              var l = e.$6(t, i, n, a, o);
               l != null && r.push(l);
             });
           }),
-          (r.$5 = function (r, o, a, i, l) {
-            var t = o.backup,
-              s = o.callback,
-              u = o.snapshot,
-              c = o.stale,
-              d =
-                i &&
-                (e || (e = n("relay-runtime/store/hasOverlappingIDs")))(
-                  u.seenRecords,
-                  a,
-                );
-            if (!(!c && !d)) {
-              var m =
-                  d || !t
+          (r.$6 = function (t, r, o, a, i) {
+            var e = r.backup,
+              l = r.callback,
+              s = r.snapshot,
+              u = r.stale,
+              c = a && this.$5(s.seenRecords, o);
+            if (!(!u && !c)) {
+              var d =
+                  c || !e
                     ? n("relay-runtime/store/RelayReader").read(
-                        r,
-                        u.selector,
+                        t,
+                        s.selector,
                         this.__log,
                         this.$2,
                         this.$3,
                       )
-                    : t,
-                p = n("relay-runtime/util/recycleNodesInto")(u.data, m.data);
+                    : e,
+                m = n("relay-runtime/util/recycleNodesInto")(s.data, d.data);
               if (
-                ((m = {
-                  data: p,
-                  fieldErrors: m.fieldErrors,
-                  isMissingData: m.isMissingData,
-                  missingClientEdges: m.missingClientEdges,
-                  missingLiveResolverFields: m.missingLiveResolverFields,
-                  seenRecords: m.seenRecords,
-                  selector: m.selector,
+                ((d = {
+                  data: m,
+                  fieldErrors: d.fieldErrors,
+                  isMissingData: d.isMissingData,
+                  missingClientEdges: d.missingClientEdges,
+                  missingLiveResolverFields: d.missingLiveResolverFields,
+                  seenRecords: d.seenRecords,
+                  selector: d.selector,
                 }),
-                (o.snapshot = m),
-                (o.stale = !1),
+                (r.snapshot = d),
+                (r.stale = !1),
                 n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY &&
-                  c &&
-                  this.$4.delete(o),
-                m.data !== u.data)
+                  u &&
+                  this.$4.delete(r),
+                d.data !== s.data)
               )
                 return (
                   this.__log &&
@@ -138,23 +138,23 @@ __d(
                       .ENABLE_NOTIFY_SUBSCRIPTION &&
                     this.__log({
                       name: "store.notify.subscription",
-                      nextSnapshot: m,
-                      snapshot: u,
-                      sourceOperation: l,
+                      nextSnapshot: d,
+                      snapshot: s,
+                      sourceOperation: i,
                     }),
-                  s(m),
-                  u.selector.owner
+                  l(d),
+                  s.selector.owner
                 );
               if (
                 n("relay-runtime/util/RelayFeatureFlags")
                   .ENABLE_LOOSE_SUBSCRIPTION_ATTRIBUTION &&
-                (c ||
+                (u ||
                   n("relay-runtime/store/hasSignificantOverlappingIDs")(
-                    u.seenRecords,
-                    a,
+                    s.seenRecords,
+                    o,
                   ))
               )
-                return u.selector.owner;
+                return s.selector.owner;
             }
           }),
           (r.size = function () {

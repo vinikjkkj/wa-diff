@@ -7,7 +7,7 @@ __d(
     "WAWebMsgKey",
     "WAWebProtobufsE2E.pb",
     "WAWebSendMsgChatAction",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
+          var a = o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
             i = e.msgContextInfo(n.id),
             l = babelHelpers.extends(
               {

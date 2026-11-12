@@ -24,6 +24,7 @@ __d(
             (e.lastEndedCall = null),
             (e.pendingCallLink = null),
             (e.pendingOutgoingCall = null),
+            (e.pendingCallTransferLobby = null),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -59,10 +60,12 @@ __d(
           }),
           (a.setPendingCallLink = function (t) {
             ((this.pendingCallLink = t),
+              t != null && this.$CallCollectionImpl$p_3(),
               this.trigger("change:pendingCallLink", t));
           }),
           (a.setPendingOutgoingCall = function (t) {
             ((this.pendingOutgoingCall = t),
+              t != null && this.$CallCollectionImpl$p_3(),
               this.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallCollectionEvents
@@ -70,6 +73,22 @@ __d(
                 ),
                 t,
               ));
+          }),
+          (a.setPendingCallTransferLobby = function (t) {
+            ((this.pendingCallTransferLobby = t),
+              this.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallCollectionEvents
+                    .PENDING_CALL_TRANSFER_LOBBY,
+                ),
+                t,
+              ));
+          }),
+          (a.$CallCollectionImpl$p_3 = function () {
+            var e;
+            ((e = this.pendingCallTransferLobby) == null
+              ? void 0
+              : e.isJoining) === !1 && this.setPendingCallTransferLobby(null);
           }),
           (a.processIncomingCall = function (n, r, a) {
             if (this.get(n) != null)
@@ -94,6 +113,7 @@ __d(
             if (
               ((this.lastEndedCall = t == null ? this.activeCall : null),
               (this.activeCall = t),
+              t != null && this.$CallCollectionImpl$p_3(),
               this.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallCollectionEvents

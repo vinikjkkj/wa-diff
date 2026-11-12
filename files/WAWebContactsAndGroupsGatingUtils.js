@@ -17,16 +17,8 @@ __d(
         o("WAWebContactManagementGating").bulkAddContactGroupInfoEnabled()
       );
     }
-    function u() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_contacts_and_groups_online_now_enabled",
-        ) === !0
-      );
-    }
     ((l.isContactsAndGroupsEnabled = e),
-      (l.isContactsAndGroupsBulkSaveEnabled = s),
-      (l.isContactsAndGroupsFavoritesAndRecentEnabled = u));
+      (l.isContactsAndGroupsBulkSaveEnabled = s));
   },
   98,
 );

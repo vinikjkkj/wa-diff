@@ -181,7 +181,9 @@ __d(
                 n.getKeepAliveTimeoutSeconds,
                 this.$13.bind(
                   this,
-                  new (o("MqttProtocolCodec").WireMessage.Ping)("PINGREQ"),
+                  new (o("MqttProtocolCodec").WireMessage.Ping)(
+                    o("MqttProtocolCodec").MESSAGE_TYPE.PINGREQ,
+                  ),
                 ),
                 function (e, n) {
                   return t.$12(o("MqttTypes").MqttErrors.PING_TIMEOUT, e, n);
@@ -245,7 +247,7 @@ __d(
               );
             this.$9.bumpCounter("protocol.subscribe." + t);
             var e = new (o("MqttProtocolCodec").WireMessage.Subscription)(
-              "SUBSCRIBE",
+              o("MqttProtocolCodec").MESSAGE_TYPE.SUBSCRIBE,
               t,
               0,
               this.$15(),
@@ -260,7 +262,7 @@ __d(
               );
             this.$9.bumpCounter("protocol.unsubscribe." + t);
             var e = new (o("MqttProtocolCodec").WireMessage.Subscription)(
-              "UNSUBSCRIBE",
+              o("MqttProtocolCodec").MESSAGE_TYPE.UNSUBSCRIBE,
               t,
               0,
               this.$15(),
@@ -333,7 +335,10 @@ __d(
                   ) {
                     var l = new (o(
                       "MqttProtocolCodec",
-                    ).WireMessage.PubAckUnsubAck)("PUBACK", i);
+                    ).WireMessage.PubAckUnsubAck)(
+                      o("MqttProtocolCodec").MESSAGE_TYPE.PUBACK,
+                      i,
+                    );
                     this.$13(l);
                   }
                 }
@@ -366,7 +371,7 @@ __d(
                 (this.$9.logError(
                   r("err")(
                     "MqttProtocolClient: Received unhandled message type: " +
-                      t.messageType,
+                      String(t.messageType),
                   ),
                   "Received unhandled message type",
                 ),

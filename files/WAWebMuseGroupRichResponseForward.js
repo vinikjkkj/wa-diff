@@ -1,12 +1,9 @@
 __d(
   "WAWebMuseGroupRichResponseForward",
   [
-    "WAWebBotGroupGatingUtils",
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
-    "WAWebBotStaticProfiles",
     "WAWebBotTypes",
-    "WAWebBotUtils",
     "WAWebGetPlainTextFromBotMsg",
     "WAWebGroupAgentProfileRouting",
     "WAWebMsgGetters",
@@ -20,26 +17,21 @@ __d(
       c = "video/mp4",
       d = "READY";
     function m(e) {
+      var t = o("WAWebMsgGetters").getSender(e);
       if (
         e.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE ||
         !e.id.remote.isGroup() ||
-        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-      )
-        return !1;
-      var t = o("WAWebMsgGetters").getSender(e);
-      if (
-        t == null ||
-        !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(t) ||
-        o("WAWebBotStaticProfiles").isStaticProfile(t)
+        t == null
       )
         return !1;
       var n = o("WAWebBotProfileCollection").BotProfileCollection.get(t);
-      return (n == null ? void 0 : n.lastFetchedTimeMs) == null
-        ? !0
-        : o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileProduct(
-            t,
-            o("WAWebBotProduct").botProductFromServerValue(n.product),
-          );
+      return o("WAWebGroupAgentProfileRouting").isMuseGroupAgentProfileState(
+        t,
+        o("WAWebBotProduct").botProductFromServerValue(
+          n == null ? void 0 : n.product,
+        ),
+        n == null ? void 0 : n.lastFetchedTimeMs,
+      );
     }
     function p(e) {
       return e.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST ||

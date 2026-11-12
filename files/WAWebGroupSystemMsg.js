@@ -286,8 +286,12 @@ __d(
             i = e.ts,
             l = a.chatId,
             s = a.isAdmin,
-            u = s === void 0 ? !1 : s,
-            c =
+            u = s === void 0 ? !1 : s;
+          if (
+            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_FORM
+          )
+            return null;
+          var c =
               (a.author && o("WAWebWidFactory").asUserWidOrThrow(a.author)) ||
               void 0,
             d = l,

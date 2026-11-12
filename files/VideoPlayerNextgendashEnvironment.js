@@ -71,6 +71,7 @@ __d(
         enableSuppressIdleTransitions: !1,
         enableTasosBwe: !1,
         enableVirtualWorkerMessageQueue: !1,
+        enableWorkerOptimizations: !1,
         endOfStreamBufferToleranceSec: 0.05,
         fatalErrorOnMediaErrorRecoveryCapReached: !1,
         fetchHighPri: !1,

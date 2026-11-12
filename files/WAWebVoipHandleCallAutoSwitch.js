@@ -13,20 +13,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p;
-    function _(e) {
-      return f.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.currentCallId,
             n = e.oldCallId,
             a = r("WAWebCallCollection").activeCall;
           if (a == null) {
             var i = r("WAWebCallCollection").takeLastEndedCall(n);
             i != null
-              ? yield g(i, t)
+              ? yield h(i, t)
               : o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -56,7 +56,7 @@ __d(
             n,
             t,
           ),
-            C(a, t),
+            b(a, t),
             (a.id = t),
             a.trigger("change:id"),
             r("WAWebCallCollection").trigger(
@@ -66,19 +66,35 @@ __d(
               ),
             ));
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (C(e, t)) {
-            (o("WALogger").WARN(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (
+            ((n = r("WAWebCallCollection").pendingCallTransferLobby) == null
+              ? void 0
+              : n.isJoining) === !0
+          ) {
+            o("WALogger").WARN(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: CallAutoSwitch: a transfer is connecting, not ending ",
+                  "",
+                ])),
+              t,
+            );
+            return;
+          }
+          if (b(e, t)) {
+            (o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: CallAutoSwitch with no active call, ending ",
                   " that replaced ",
                   "",
@@ -91,38 +107,38 @@ __d(
                 t,
               ));
             try {
-              var n = yield o(
+              var a = yield o(
                 "WAWebVoipStackInterface",
               ).getVoipStackInterface();
-              if (y()) {
-                var a;
+              if (C()) {
+                var i;
                 (o("WALogger").WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: CallAutoSwitch: a call started here, not ending ",
                       "",
                     ])),
                   t,
                 ),
-                  ((a = r("WAWebCallCollection").activeCall) == null
+                  ((i = r("WAWebCallCollection").activeCall) == null
                     ? void 0
-                    : a.id) === t &&
+                    : i.id) === t &&
                     o(
                       "WAWebVoipTransferredCallRegistry",
                     ).clearTransferredCallEndMarks(t));
                 return;
               }
-              yield n == null
+              yield a == null
                 ? void 0
-                : n.endCall(
+                : a.endCall(
                     o("WAWebVoipSignalingEnums").EndCallReason.Unknown,
                     !0,
                   );
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: CallAutoSwitch: ending the unseen segment failed",
                     ])),
                 )
@@ -131,23 +147,27 @@ __d(
             }
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y() {
+    function C() {
+      var e;
       return (
         r("WAWebCallCollection").activeCall != null ||
         r("WAWebCallCollection").pendingOutgoingCall != null ||
-        r("WAWebCallCollection").pendingCallLink != null
+        r("WAWebCallCollection").pendingCallLink != null ||
+        ((e = r("WAWebCallCollection").pendingCallTransferLobby) == null
+          ? void 0
+          : e.isJoining) === !0
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       return (
         o("WAWebVoipTransferredCallRegistry").rekeyTransferredCall(e.id, t) ||
-        b(e, t)
+        v(e, t)
       );
     }
-    function b(t, n) {
+    function v(t, n) {
       var r = t.outgoing ? o("WAWebUserUtils").getMeUserOrThrow() : t.peerJid;
       return r == null
         ? (o("WALogger")
@@ -167,7 +187,7 @@ __d(
           }),
           !0);
     }
-    l.handleCallAutoSwitch = _;
+    l.handleCallAutoSwitch = f;
   },
   98,
 );

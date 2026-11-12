@@ -7,7 +7,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -16,7 +15,7 @@ __d(
     function e(e) {
       return e.isLid()
         ? o("WAWebUserUtils").getMeLidUserOrThrow()
-        : o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow();
+        : o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE();
     }
     function s(t, n) {
       return new (r("WAWebMsgKey"))({

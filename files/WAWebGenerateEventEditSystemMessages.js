@@ -8,6 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -76,7 +77,7 @@ __d(
             s,
             u = n.editedMsgData,
             c = n.protocolMsg,
-            d = o("WAWebUserPrefsMeUser").getMePnOrLidUserOrThrow(),
+            d = o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
             m = r("nullthrows")(o("WAWebMsgGetters").getSender(c)),
             p = {
               eventName: r("nullthrows")(u == null ? void 0 : u.eventName),

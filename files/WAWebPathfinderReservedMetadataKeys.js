@@ -21,6 +21,7 @@ __d(
       "is_empty",
       "network_error_endpoint_category",
       "network_error_status_code",
+      "press_kind",
       "resolution",
       "screen_name",
       "selection_id",

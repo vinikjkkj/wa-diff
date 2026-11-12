@@ -27,6 +27,7 @@ __d(
       "Chatlist",
       "ChatlistAiHandoffFilter",
       "ChatlistAiRespondingFilter",
+      "ListDetails",
       "Vcard",
       "Notification",
       "NumberChangeNotificationBanner",

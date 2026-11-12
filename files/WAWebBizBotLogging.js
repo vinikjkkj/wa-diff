@@ -55,6 +55,7 @@ __d(
           case o("WAWebChatEntryPoint").ChatEntryPoint.ChatlistAiHandoffFilter:
           case o("WAWebChatEntryPoint").ChatEntryPoint
             .ChatlistAiRespondingFilter:
+          case o("WAWebChatEntryPoint").ChatEntryPoint.ListDetails:
             r = o("WAWebWamEnumBotBizEntryPoint").BOT_BIZ_ENTRY_POINT
               .BOT_BIZ_CHAT;
             break;

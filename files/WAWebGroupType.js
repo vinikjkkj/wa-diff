@@ -59,6 +59,7 @@ __d(
         MEMBER_LINK_MODE: "member_link_mode",
         MEMBER_SHARE_GROUP_HISTORY_MODE: "member_share_group_history_mode",
         GROUP_REACTION_SETTINGS: "group_reaction_settings",
+        MEMBERSHIP_FORM: "membership_form",
         GENERAL_CHAT_AUTO_ADD_DISABLED: "general_chat_auto_add_disabled",
         COMMUNITY_OWNER_UPDATE: "community_owner_update",
         HIDDEN_GROUP: "hidden_group",
