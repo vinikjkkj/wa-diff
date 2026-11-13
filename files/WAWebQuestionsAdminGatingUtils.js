@@ -10,20 +10,22 @@ __d(
       o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin,
       o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner,
     ];
-    function s(t) {
-      var n,
-        r = (n = t.newsletterMetadata) == null ? void 0 : n.membershipType;
-      return r == null || !e.includes(r)
+    function s(e) {
+      return u(e.newsletterMetadata);
+    }
+    function u(t) {
+      var n = t == null ? void 0 : t.membershipType;
+      return n == null || !e.includes(n)
         ? !1
         : o(
               "WAWebNewsletterExtendedGatingUtils",
-            ).isNewsletterQuestionsCapabilityEnabled(t)
+            ).isNewsletterQuestionsCapabilityEnabledFor(t)
           ? !0
           : o("WAWebABProps").getABPropConfigValue(
               "channels_question_admin_enabled",
             );
     }
-    function u(t) {
+    function c(t) {
       var n,
         r = (n = t.newsletterMetadata) == null ? void 0 : n.membershipType;
       return r == null || !e.includes(r)
@@ -36,7 +38,7 @@ __d(
               "channels_question_admin_m2_enabled",
             );
     }
-    function c(t) {
+    function d(t) {
       var n,
         r = (n = t.newsletterMetadata) == null ? void 0 : n.membershipType;
       return r == null || !e.includes(r)
@@ -50,8 +52,9 @@ __d(
             );
     }
     ((l.isQuestionsFeatureEnabledForAdmins = s),
-      (l.isQuestionsM2FeatureEnabledForAdmins = u),
-      (l.isQuestionsResponseStarringEnabled = c));
+      (l.isQuestionsFeatureEnabledForAdminsFor = u),
+      (l.isQuestionsM2FeatureEnabledForAdmins = c),
+      (l.isQuestionsResponseStarringEnabled = d));
   },
   98,
 );

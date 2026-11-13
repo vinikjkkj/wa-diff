@@ -149,7 +149,7 @@ __d(
     }
     var g = function (n, a) {
         var t,
-          i = n.msgs.getModelsArray().slice(e),
+          i = n.getModelsArray().slice(e),
           l =
             (t = i.findLast(function (e) {
               var t;
@@ -172,7 +172,7 @@ __d(
       h = function (n, a, i) {
         var t;
         i === void 0 && (i = !1);
-        var l = n.msgs.getModelsArray().slice(e),
+        var l = n.getModelsArray().slice(e),
           s =
             (t = l.findLast(function (e) {
               var t = e == null ? void 0 : e.nativeFlowName;
@@ -238,24 +238,30 @@ __d(
       return e == null ? !1 : e.items.length === 0;
     }
     function b(e, t) {
-      return !e.contact.isEnterprise && C(t);
+      return v(e.contact.isEnterprise, t);
     }
     function v(e, t) {
+      return !e && C(t);
+    }
+    function S(e, t) {
       return !e.contact.isEnterprise && !C(t);
     }
-    function S() {
+    function R() {
       return o("WAWebOrderGatingUtils").isOrderStatusM1Enabled()
         ? u.PaymentRequested
         : u.Pending;
     }
-    function R(e, t) {
+    function L(e, t) {
+      return E(e.msgs, t);
+    }
+    function E(e, t) {
       var n,
         r = g(e, t),
         o = r != null ? d(r) : null;
       return (n = o == null ? void 0 : o.status) != null ? n : u.Pending;
     }
-    function L(e, t) {
-      var n = g(e, t);
+    function k(e, t) {
+      var n = g(e.msgs, t);
       if (n == null) return !1;
       var r = d(n);
       if (r == null) return !1;
@@ -269,7 +275,10 @@ __d(
             o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending;
       return !(a && i);
     }
-    function E(e, t, n) {
+    function I(e, t, n) {
+      return (n === void 0 && (n = !1), T(e.msgs, t, n));
+    }
+    function T(e, t, n) {
       n === void 0 && (n = !1);
       var a = h(e, t, n),
         i = null;
@@ -296,7 +305,7 @@ __d(
       }
       return i;
     }
-    function k(e, t) {
+    function D(e, t) {
       var n = e.msgs.reduce(
           function (e, n) {
             var r,
@@ -337,12 +346,15 @@ __d(
       (l.findOrderDetailsMessage = f),
       (l.isSimplifiedOrder = C),
       (l.isPaymentRequest = b),
-      (l.isCharge = v),
-      (l.getDefaultOrderStatus = S),
-      (l.findOrderStatus = R),
-      (l.hasOrderStatusUpdatedFromPending = L),
-      (l.findOrderPaymentStatus = E),
-      (l.getMergedOrderStatus = k));
+      (l.isPaymentRequestFor = v),
+      (l.isCharge = S),
+      (l.getDefaultOrderStatus = R),
+      (l.findOrderStatus = L),
+      (l.findOrderStatusFor = E),
+      (l.hasOrderStatusUpdatedFromPending = k),
+      (l.findOrderPaymentStatus = I),
+      (l.findOrderPaymentStatusFor = T),
+      (l.getMergedOrderStatus = D));
   },
   98,
 );

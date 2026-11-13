@@ -2,6 +2,7 @@ __d(
   "WAWebHandleGroupNotificationConst",
   [
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebApiParticipantStore",
     "WAWebBackendApi",
     "WAWebCommunityGatingUtils",
@@ -124,47 +125,22 @@ __d(
           if (
             t.actionType ===
             o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS
-          ) {
-            var i,
-              l,
-              u,
-              c,
-              d = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(
-                e.chatId,
-              ),
-              m =
-                (i =
-                  d == null || (l = d.groupReactionSettings) == null
-                    ? void 0
-                    : l.defaultReactions) != null
-                  ? i
-                  : [],
-              p =
-                (u = (c = t.value) == null ? void 0 : c.defaultReactions) !=
-                null
-                  ? u
-                  : [];
-            return (
-              m.length === p.length &&
-              m.every(function (e, t) {
-                return e === p[t];
-              })
-            );
-          }
+          )
+            return m(e.chatId, t.value);
           if (
             (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE) &&
-            (yield _(e.chatId)) === !0
+            (yield g(e.chatId)) === !0
           )
             return !0;
           if (
             t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
             t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE
           ) {
-            var f =
+            var i =
               t.participants.length === 1 &&
               o("WAWebUserUtils").isMeAccount(t.participants[0].id);
-            if (!f) return !0;
+            if (!i) return !0;
           }
           if (
             t.actionType ===
@@ -172,10 +148,10 @@ __d(
             t.participants.length === 1 &&
             !o("WAWebUserUtils").isMeAccount(t.participants[0].id)
           ) {
-            var g = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+            var l = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
               e.chatId.toString(),
             );
-            if (!g) return !0;
+            if (!l) return !0;
           }
           if (
             t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE &&
@@ -188,21 +164,21 @@ __d(
               ),
             )
           ) {
-            var h = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+            var u = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
                 e.chatId.toString(),
               ),
-              y = o("WAWebUserUtils").isMeAccount(e.author);
-            if (!h || y) return !0;
+              c = o("WAWebUserUtils").isMeAccount(e.author);
+            if (!u || c) return !0;
           }
           if (
             t.actionType ===
             o("WAWebGroupType").GROUP_ACTIONS.CREATED_SUBGROUP_SUGGESTION
           ) {
-            var C = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+            var d = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
               e.chatId.toString(),
             );
             if (
-              !C ||
+              !d ||
               (t.isExistingGroup === !0 &&
                 !o(
                   "WAWebCommunityGatingUtils",
@@ -211,19 +187,19 @@ __d(
               return !0;
           }
           if (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DELETE) {
-            var b = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(
+            var p = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(
                 e.chatId,
               ),
-              v =
-                b != null
-                  ? o("WAWebGroupMetadataGetters").getGroupType(b)
+              _ =
+                p != null
+                  ? o("WAWebGroupMetadataGetters").getGroupType(p)
                   : null;
             return t.reason ===
               o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT &&
-              v === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+              _ === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
               ? !1
               : (t.reason === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT &&
-                  v === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP,
+                  _ === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP,
                 !0);
           }
           if (
@@ -235,10 +211,10 @@ __d(
             t.actionType ===
             o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS
           ) {
-            var S = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+            var f = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
               e.chatId.toString(),
             );
-            if (!S) return !0;
+            if (!f) return !0;
           }
           if (
             (t.actionType ===
@@ -253,7 +229,7 @@ __d(
             ((t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE ||
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.MODIFY) &&
-              (yield _(e.chatId)) === !0)
+              (yield g(e.chatId)) === !0)
           )
             return !0;
           if (
@@ -262,12 +238,12 @@ __d(
             t.actionType ===
               o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE
           ) {
-            var R = t.participants.every(function (e) {
+            var h = t.participants.every(function (e) {
                 var t = e.id;
                 return t.isLid();
               }),
-              L = e.isLidAddressingMode === !0;
-            if (!L && R) return !0;
+              y = e.isLidAddressingMode === !0;
+            if (!y && h) return !0;
           }
           return !1;
         })),
@@ -280,6 +256,38 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n, r, a;
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "aura_group_reactions_blocking_enabled",
+            )
+          )
+            return !0;
+          var i = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e),
+            l =
+              (n =
+                i == null || (r = i.groupReactionSettings) == null
+                  ? void 0
+                  : r.defaultReactions) != null
+                ? n
+                : [],
+            s = (a = t == null ? void 0 : t.defaultReactions) != null ? a : [];
+          return (
+            l.length === s.length &&
+            l.every(function (e, t) {
+              return e === s[t];
+            })
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n, r;
           if (!o("WAWebRuntimeEnvironmentUtils").isWorker())
             return o("WAWebBackendApi").frontendSendAndReceive(
@@ -300,27 +308,27 @@ __d(
             return !a.has(String(t));
           });
         })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-          return !!(t != null && t.defaultSubgroup);
-        })),
         f.apply(this, arguments)
       );
     }
     function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
+          return !!(t != null && t.defaultSubgroup);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
       var t = e.author,
         n = e.authorPhoneNumber;
       return t != null ? { id: t, phoneNumber: n } : null;
     }
-    function h(t) {
+    function C(t) {
       var n,
         o,
         a =
@@ -386,10 +394,10 @@ __d(
     }
     ((l.GROUP_NOTIFICATION_TAG = e),
       (l.shouldSkipGenMsg = c),
-      (l.notAlreadyInGroup = m),
-      (l.getIsCagById = _),
-      (l.getAuthorLidPnFieldsFromMeta = g),
-      (l.getMappingsFromAction = h));
+      (l.notAlreadyInGroup = _),
+      (l.getIsCagById = g),
+      (l.getAuthorLidPnFieldsFromMeta = y),
+      (l.getMappingsFromAction = C));
   },
   98,
 );

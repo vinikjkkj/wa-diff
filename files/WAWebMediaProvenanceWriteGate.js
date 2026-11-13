@@ -4,18 +4,18 @@ __d(
     "WAKaleidoscopeProvenanceField",
     "WAWebMediaTypes",
     "WAWebNewsletterGatingUtils",
+    "WAWebSystemProvenanceGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = [];
-    function s(e) {
+    function e(e) {
       return (
         e === o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE ||
         e === o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO
       );
     }
-    function u(e) {
+    function s(e) {
       var t, n, r, o;
       return (e == null || (t = e.c2pa) == null
         ? void 0
@@ -29,26 +29,65 @@ __d(
           ? "edited"
           : null;
     }
+    var u = {
+      trainedAlgorithmicMedia: "created",
+      compositeSynthetic: "created",
+      compositeWithTrainedAlgorithmicMedia: "edited",
+      digitalCapture: "capture",
+      computationalCapture: "capture",
+    };
     function c(e) {
-      return d.apply(this, arguments);
+      var t,
+        n = e == null ? void 0 : e.digitalSourceType;
+      if (n == null) return "none";
+      var r = n.slice(n.lastIndexOf("/") + 1);
+      return (t = u[r]) != null ? t : "other";
     }
-    function d() {
+    function d(e, t) {
+      var n,
+        r = s(e),
+        a =
+          r == null
+            ? null
+            : o("WAKaleidoscopeProvenanceField").digitalSourceTypeFields(r)
+                .digitalSourceType;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.isChannel,
-            r = t.mediaType,
-            a = t.resolveVerdict;
-          if (!n || !s(r)) return e;
-          var i = u(yield a());
-          return i == null ||
-            !o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
-            ? e
-            : [o("WAKaleidoscopeProvenanceField").iptcDigitalSourceType(i)];
-        })),
-        d.apply(this, arguments)
+        a ===
+        ((n = t == null ? void 0 : t.digitalSourceType) != null ? n : null)
       );
     }
-    ((l.isMarkableMediaType = s), (l.fieldsToEmbed = c));
+    function m(e) {
+      var t = c(e);
+      return t === "none" || t === "other" ? null : e;
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.isChannel,
+            r = t.mediaType,
+            a = t.resolveSystemProvenance;
+          if (!n || !e(r)) return null;
+          var i = m(yield a());
+          return i == null ||
+            !o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
+            ? null
+            : o("WAKaleidoscopeProvenanceField").allowedProvenanceFields(
+                i,
+                o(
+                  "WAWebSystemProvenanceGating",
+                ).systemProvenanceAllowedFieldNames(),
+              );
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.isMarkableMediaType = e),
+      (l.systemProvenanceClass = c),
+      (l.systemProvenanceMatchesLegacy = d),
+      (l.fieldsToEmbed = p));
   },
   98,
 );

@@ -80,7 +80,6 @@ __d(
               return (c || (c = n("Promise"))).resolve({
                 credentials: r.credentials,
                 kind: "ok",
-                state: r.state,
               });
             var a = this.$9;
             if (a != null) return a;
@@ -184,9 +183,8 @@ __d(
                 (this.$3 = {
                   credentials: r,
                   expiresAtMs: e.notaryExpiresAtMs,
-                  state: e.state,
                 }),
-              { credentials: r, kind: "ok", state: e.state }
+              { credentials: r, kind: "ok" }
             );
           }),
           (r.$16 = (function () {

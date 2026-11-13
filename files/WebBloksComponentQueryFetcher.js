@@ -14,7 +14,18 @@ __d(
     "use strict";
     var e = 3e4;
     function s() {}
-    var u = (function () {
+    function u(e) {
+      var t = e.component_query_responses;
+      if (Array.isArray(e.components) || t == null || t.length === 0) return e;
+      var n = t[0],
+        r = babelHelpers.arrayLikeToArray(t).slice(1),
+        o = JSON.parse(n.payload);
+      return babelHelpers.extends({}, o, {
+        component_query_responses: r,
+        component_query_resources: n.resources,
+      });
+    }
+    var c = (function () {
       function t(e, t, n, o, a, i) {
         (i === void 0 && (i = new (r("WebBloksLogger"))()),
           (this.$1 = new Set()),
@@ -49,17 +60,19 @@ __d(
             l.fetchComponentQuery(n.appId, n.params)
               .then(function (l) {
                 i();
-                var s = new Map();
+                var s = new Map(),
+                  c = l;
                 try {
-                  for (var u of l.components) {
-                    var c = o("WebBloksPayloadParser").parseTree(
-                      u.payload,
+                  c = u(l);
+                  for (var d of c.components) {
+                    var m = o("WebBloksPayloadParser").parseTree(
+                      d.payload,
                       e.$6,
                       e.$7,
                       e.$5,
                       void 0,
                     );
-                    s.set(u.id, c);
+                    s.set(d.id, m);
                   }
                 } catch (e) {
                   throw new (o(
@@ -69,29 +82,29 @@ __d(
                     e instanceof Error ? e : null,
                   );
                 }
-                var d = { components: s },
-                  m = {
-                    response: d,
+                var p = { components: s },
+                  _ = {
+                    response: p,
                     responseTimestampMs: Date.now().toString(),
                     queryPurpose: n.queryPurpose,
-                    stackedScreens: l.stacked_screens,
-                    stackedScreensDelayMs: l.stacked_screens_delay_ms,
+                    stackedScreens: c.stacked_screens,
+                    stackedScreensDelayMs: c.stacked_screens_delay_ms,
                     stackedScreensConsumed: !1,
                   },
-                  p = babelHelpers.extends(
+                  f = babelHelpers.extends(
                     {
-                      result: d,
+                      result: p,
                       success: !0,
-                      resources: a ? l.component_query_resources : void 0,
+                      resources: a ? c.component_query_resources : void 0,
                     },
                     o("WebBloksCachedStackedScreens").readCachedStackedScreens(
-                      m,
+                      _,
                     ),
                   );
-                (e.$3.set(t, m),
+                (e.$3.set(t, _),
                   e.$1.delete(t),
-                  a && e.$10(l.component_query_responses, n, r, t),
-                  r(t, p));
+                  a && e.$10(c.component_query_responses, n, r, t),
+                  r(t, f));
               })
               .catch(function (a) {
                 (i(),
@@ -231,7 +244,7 @@ __d(
         t
       );
     })();
-    l.default = u;
+    l.default = c;
   },
   98,
 );

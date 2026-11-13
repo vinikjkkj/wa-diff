@@ -10,24 +10,27 @@ __d(
     var e = "muse_chat_thread",
       s = "cvm";
     function u(e) {
-      f("cvm_pin_prompt_impression", e);
+      g("cvm_pin_prompt_impression", e);
     }
     function c() {
-      f("cvm_pin_submit");
+      g("cvm_pin_submit");
     }
     function d(e, t) {
-      f("cvm_pin_result", t != null ? e + "(" + t + ")" : e);
+      g("cvm_pin_result", t != null ? e + "(" + t + ")" : e);
     }
     function m(e) {
-      f("cvm_pin_result", "failed:" + g(e));
+      g("cvm_pin_result", e != null ? "wrong_pin:" + e : "wrong_pin");
     }
-    function p() {
-      f("cvm_pin_help_tap");
+    function p(e) {
+      g("cvm_pin_result", "failed:" + h(e));
     }
-    function _(e) {
-      f("cvm_pin_sheet_closed", e);
+    function _() {
+      g("cvm_pin_help_tap");
     }
-    function f(t, n) {
+    function f(e) {
+      g("cvm_pin_sheet_closed", e);
+    }
+    function g(t, n) {
       var o = r("WAWebFalcoCanonicalMdId")();
       r("HatchOnboardingFalcoEvent").log(function () {
         return {
@@ -40,7 +43,7 @@ __d(
         };
       });
     }
-    function g(e) {
+    function h(e) {
       return e === "abra_token"
         ? "abra_mint"
         : e === "malformed_secret"
@@ -52,9 +55,10 @@ __d(
     ((l.logHatchCvmPinPromptShown = u),
       (l.logHatchCvmPinSubmitted = c),
       (l.logHatchCvmPinOutcome = d),
-      (l.logHatchCvmPinFailed = m),
-      (l.logHatchCvmPinHelpTapped = p),
-      (l.logHatchCvmPinClosed = _));
+      (l.logHatchCvmPinWrong = m),
+      (l.logHatchCvmPinFailed = p),
+      (l.logHatchCvmPinHelpTapped = _),
+      (l.logHatchCvmPinClosed = f));
   },
   98,
 );

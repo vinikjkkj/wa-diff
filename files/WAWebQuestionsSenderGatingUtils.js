@@ -7,17 +7,22 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return s({ chatId: e.id, newsletterMetadata: e.newsletterMetadata });
+    }
+    function s(e) {
+      var t = e.chatId,
+        n = e.newsletterMetadata;
       return (
-        !e.id.isAiHub() &&
-        o("WAWebQuestionsAdminGatingUtils").isQuestionsFeatureEnabledForAdmins(
-          e,
-        ) &&
+        !t.isAiHub() &&
+        o(
+          "WAWebQuestionsAdminGatingUtils",
+        ).isQuestionsFeatureEnabledForAdminsFor(n) &&
         o("WAWebQuestionsGatingUtils").isQuestionSenderEnabledForMsgType(
           o("WAWebMsgType").MSG_TYPE.CHAT,
         )
       );
     }
-    function s(e) {
+    function u(e) {
       return (
         o("WAWebQuestionsAdminGatingUtils").isQuestionsFeatureEnabledForAdmins(
           e,
@@ -27,7 +32,9 @@ __d(
         )
       );
     }
-    ((l.isQuestionSenderEnabled = e), (l.isQuestionReplySenderEnabled = s));
+    ((l.isQuestionSenderEnabled = e),
+      (l.isQuestionSenderEnabledFor = s),
+      (l.isQuestionReplySenderEnabled = u));
   },
   98,
 );

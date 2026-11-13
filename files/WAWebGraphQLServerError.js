@@ -10,6 +10,7 @@ __d(
         AD_ACCOUNT_LINKING_DISABLED: 2859050,
         CONTENT_POLICY_VIOLATION: 5001006,
         WASS_BOT_NOT_FOUND: 5171003,
+        WASS_ACCOUNT_API_NOT_ENABLED: 5171004,
       }),
       l = (function (e) {
         function t(t) {
@@ -45,9 +46,12 @@ __d(
       return s(t, e.WASS_BOT_NOT_FOUND);
     }
     function m(t) {
+      return s(t, e.WASS_ACCOUNT_API_NOT_ENABLED);
+    }
+    function p(t) {
       return s(t, e.CONTACT_MANAGER_SUBSCRIPTION_REQUIRED);
     }
-    function p(e) {
+    function _(e) {
       var t,
         n,
         r = (t = (n = e.source) == null ? void 0 : n.errors) != null ? t : [];
@@ -68,8 +72,9 @@ __d(
       (i.isRateLimitError = u),
       (i.isContentPolicyViolationError = c),
       (i.isWassBotNotFoundError = d),
-      (i.isContactManagerSubscriptionRequiredError = m),
-      (i.formatGraphQLServerError = p));
+      (i.isWassAccountApiNotEnabledError = m),
+      (i.isContactManagerSubscriptionRequiredError = p),
+      (i.formatGraphQLServerError = _));
   },
   66,
 );

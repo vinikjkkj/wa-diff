@@ -206,26 +206,27 @@ __d(
         : { ephemeralDuration: t, afterReadDuration: n };
     }
     function b(e, t, n) {
-      var a = {};
-      if ((y(e, a), e.mentionedJidList && e.mentionedJidList.length > 0)) {
-        var i = e.mentionedJidList;
-        a.mentionedJid = i.map(o("WAWebE2EProtoUtils").encodeJid);
+      var a,
+        i = {};
+      if ((y(e, i), e.mentionedJidList && e.mentionedJidList.length > 0)) {
+        var l = e.mentionedJidList;
+        i.mentionedJid = l.map(o("WAWebE2EProtoUtils").encodeJid);
       }
       if (
         (e.groupMentions &&
           e.groupMentions.length > 0 &&
-          (a.groupMentions = e.groupMentions.map(function (e) {
+          (i.groupMentions = e.groupMentions.map(function (e) {
             return {
               groupSubject: e.groupSubject,
               groupJid: o("WAWebE2EProtoUtils").encodeJid(e.groupJid),
             };
           })),
-        e.conversionTuple && Object.assign(a, e.conversionTuple),
-        e.isForwarded && (a.isForwarded = e.isForwarded),
-        e.isQuestion && (a.isQuestion = e.isQuestion),
-        e.isSpoiler === !0 && (a.isSpoiler = !0),
+        e.conversionTuple && Object.assign(i, e.conversionTuple),
+        e.isForwarded && (i.isForwarded = e.isForwarded),
+        e.isQuestion && (i.isQuestion = e.isQuestion),
+        e.isSpoiler === !0 && (i.isSpoiler = !0),
         e.questionReplyQuotedMessage &&
-          (a.questionReplyQuotedMessage = {
+          (i.questionReplyQuotedMessage = {
             serverQuestionId: e.questionReplyQuotedMessage.questionServerId,
             quotedQuestion: S(
               e.questionReplyQuotedMessage.quotedQuestion,
@@ -249,54 +250,54 @@ __d(
               "quoted",
             ),
           }),
-        e.forwardingScore && (a.forwardingScore = e.forwardingScore),
-        e.nonJidMentions != null && (a.nonJidMentions = e.nonJidMentions),
-        e.groupId && (a.groupId = e.groupId),
-        e.groupIndex && (a.groupIndex = e.groupIndex),
-        e.groupSize && (a.groupSize = e.groupSize),
+        e.forwardingScore && (i.forwardingScore = e.forwardingScore),
+        e.nonJidMentions != null && (i.nonJidMentions = e.nonJidMentions),
+        e.groupId && (i.groupId = e.groupId),
+        e.groupIndex && (i.groupIndex = e.groupIndex),
+        e.groupSize && (i.groupSize = e.groupSize),
         e.forwardedNewsletterMessageInfo)
       ) {
-        var l = e.forwardedNewsletterMessageInfo,
-          s = l.newsletterId,
-          u = l.newsletterName,
-          c = l.serverMessageId;
-        a.forwardedNewsletterMessageInfo = {
-          newsletterJid: o("WAWebE2EProtoUtils").encodeJid(s),
-          newsletterName: u,
-          serverMessageId: c,
+        var s = e.forwardedNewsletterMessageInfo,
+          u = s.newsletterId,
+          c = s.newsletterName,
+          d = s.serverMessageId;
+        i.forwardedNewsletterMessageInfo = {
+          newsletterJid: o("WAWebE2EProtoUtils").encodeJid(u),
+          newsletterName: c,
+          serverMessageId: d,
         };
       }
       if (e.forwardedAiBotMessageInfo) {
-        var d = e.forwardedAiBotMessageInfo,
-          m = d.botId,
-          p = d.botName,
-          _ = d.creatorName;
-        a.forwardedAiBotMessageInfo = {
+        var m = e.forwardedAiBotMessageInfo,
+          p = m.botId,
+          _ = m.botName,
+          f = m.creatorName;
+        i.forwardedAiBotMessageInfo = {
           botJid: o("WAWebE2EProtoUtils").encodeJid(
             o(
               "WAWebSimpleSignalPNToFBIDMigration",
-            ).maybeReplaceDeprecatedBotPnWithFbid(m),
+            ).maybeReplaceDeprecatedBotPnWithFbid(p),
           ),
-          botName: p,
-          creatorName: _,
+          botName: _,
+          creatorName: f,
         };
       }
-      var f = C(e),
-        g = f.afterReadDuration,
-        h = f.ephemeralDuration;
+      var g = C(e),
+        h = g.afterReadDuration,
+        b = g.ephemeralDuration;
       if (
-        (h != null && h > 0 && (a.expiration = h),
+        (b != null && b > 0 && (i.expiration = b),
         e.ephemeralSettingTimestamp &&
-          (a.ephemeralSettingTimestamp = e.ephemeralSettingTimestamp),
-        g != null &&
+          (i.ephemeralSettingTimestamp = e.ephemeralSettingTimestamp),
+        h != null &&
           o("WAWebAfterReadUtils").isAfterReadEnabled() &&
-          ((a.afterReadDuration = g),
-          (a.expiration = o(
+          ((i.afterReadDuration = h),
+          (i.expiration = o(
             "WAWebAfterReadUtils",
           ).getAfterReadFallbackDuration())),
         (e.disappearingModeInitiator ||
           (e.disappearingModeTrigger != null && e.to.isGroup())) &&
-          (a.disappearingMode = o(
+          (i.disappearingMode = o(
             "WAWebE2EProtoUtils",
           ).disappearingModeInitiatorToProto(
             e.disappearingModeInitiator,
@@ -304,7 +305,7 @@ __d(
             e.disappearingModeInitiatedByMe,
           )),
         e.ctwaContext &&
-          (a.externalAdReply = {
+          (i.externalAdReply = {
             sourceUrl: e.ctwaContext.sourceUrl,
             sourceId: e.ctwaContext.sourceId,
             sourceType: e.ctwaContext.sourceType,
@@ -318,23 +319,23 @@ __d(
             mediaUrl: e.ctwaContext.mediaUrl,
           }),
         n &&
-          (a.utm = {
+          (i.utm = {
             utmCampaign: n.campaign != null ? n.campaign : void 0,
             utmSource: n.source != null ? n.source : void 0,
           }),
         e.cannotBeRanked || e.canBeReshared)
       ) {
-        var b = {};
-        (e.cannotBeRanked && (b.cannotBeRanked = e.cannotBeRanked),
-          e.canBeReshared && (b.canBeReshared = e.canBeReshared),
-          (a.featureEligibilities = b));
+        var v = {};
+        (e.cannotBeRanked && (v.cannotBeRanked = e.cannotBeRanked),
+          e.canBeReshared && (v.canBeReshared = e.canBeReshared),
+          (i.featureEligibilities = v));
       }
       if (
-        (e.limitSharing && (a.limitSharingV2 = e.limitSharing),
+        (e.limitSharing && (i.limitSharingV2 = e.limitSharing),
         Array.isArray(e.statusAttributions) && e.statusAttributions.length > 0)
       ) {
-        a.statusAttributions = e.statusAttributions;
-        var v = e.statusAttributions.some(function (e) {
+        i.statusAttributions = e.statusAttributions;
+        var R = e.statusAttributions.some(function (e) {
           var t;
           return (
             e.type ===
@@ -345,24 +346,26 @@ __d(
                 .StatusAttribution$StatusReshare$Source.CHANNEL_RESHARE
           );
         });
-        v &&
-          (a.statusAttributionType = o(
+        R &&
+          (i.statusAttributionType = o(
             "WAWebProtobufsE2E.pb",
           ).ContextInfo$StatusAttributionType.RESHARED_FROM_POST);
       }
       if (
         e.aiProvenance != null &&
+        ((a = e.id) == null ? void 0 : a.remote) != null &&
+        r("WAWebWid").isNewsletter(e.id.remote) &&
         o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled()
       ) {
-        var R = o("WAWebMsgAIProvenance").aiProvenanceToProto(e.aiProvenance);
-        R != null && (a.aiProvenance = R);
+        var L = o("WAWebMsgAIProvenance").aiProvenanceToProto(e.aiProvenance);
+        L != null && (i.aiProvenance = L);
       }
-      var L = o("WAWebPairedMediaTypeProtoUtils").pairedMediaTypeToProto(
+      var E = o("WAWebPairedMediaTypeProtoUtils").pairedMediaTypeToProto(
         e.pairedMediaType,
       );
       return (
-        L != null && (a.pairedMediaType = L),
-        S(e, t, r("isEmptyObject")(a) ? void 0 : a)
+        E != null && (i.pairedMediaType = E),
+        S(e, t, r("isEmptyObject")(i) ? void 0 : i)
       );
     }
     function v(e) {

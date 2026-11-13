@@ -6,6 +6,7 @@ __d(
     "WAWeb-dexie",
     "WAWebBrokerGlobalAppState",
     "WAWebDbErrors",
+    "WAWebDbInitCrashAnnotations",
     "WAWebEnvironment",
     "WAWebGetSpecialAbProps",
     "WAWebIdbLazyView",
@@ -343,7 +344,8 @@ __d(
               var e = Array.from(this.tables.values()),
                 t = this.$3();
               if (!(!e || !t)) {
-                var n = !0;
+                var n = !0,
+                  r = null;
                 if (o("WAWebRuntimeEnvironmentUtils").isWorker())
                   (o("WALogger").LOG(
                     u ||
@@ -358,17 +360,17 @@ __d(
                     yield this.$7(t, this.versions.getMax(), e),
                     (n = !1));
                 else if (this.shouldEnableLatestDbSchemaOptimization()) {
-                  var r = yield this.getExistingDbVersion();
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[storage] existing version for the database: ",
-                        " is ",
-                        "",
-                      ])),
-                    t.getDbName(),
-                    r,
-                  );
+                  ((r = yield this.getExistingDbVersion()),
+                    o("WALogger").LOG(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[storage] existing version for the database: ",
+                          " is ",
+                          "",
+                        ])),
+                      t.getDbName(),
+                      r,
+                    ));
                   var a = r == null || r < 0;
                   (a || r === this.versions.getMax()) &&
                     (o("WALogger").LOG(
@@ -395,8 +397,21 @@ __d(
                     this.versions.getMax(),
                     t.getDbName(),
                   );
-                  for (var i = 0; i <= this.versions.getMax(); i++)
-                    yield this.$7(t, i, e);
+                  var i = o(
+                    "WAWebDbInitCrashAnnotations",
+                  ).annotateCrashWithDbInitStart(
+                    t.getDbName(),
+                    r,
+                    this.versions.getMax(),
+                  );
+                  try {
+                    for (var l = 0; l <= this.versions.getMax(); l++)
+                      yield this.$7(t, l, e);
+                  } finally {
+                    o("WAWebDbInitCrashAnnotations").annotateCrashWithDbInitEnd(
+                      i,
+                    );
+                  }
                 }
                 (yield t.open(), (this.state = g));
               }

@@ -71,7 +71,6 @@ __d(
       (l.nextZoomStep = g),
       (l.zoomAroundPoint = h),
       (l.panZoom = y),
-      (l.clampPan = C),
       (l.wheelZoomFactor = b));
   },
   98,

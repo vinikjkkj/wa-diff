@@ -20,42 +20,44 @@ __d(
       u,
       c,
       d = 15 * o("WATimeUtils").MINUTE_MILLISECONDS,
-      m = null,
+      m = 3,
       p = null,
-      _ = !1;
-    function f() {
-      return m != null
-        ? m
-        : g()
+      _ = null,
+      f = 0,
+      g = !1;
+    function h() {
+      return p != null
+        ? p
+        : y()
           ? o("WAWebCanonicalGating").isCanonicalEnabled() &&
             !o("WAWebCanonicalUtils").isCanonicalPresent()
-            ? (h(), (c || (c = n("Promise"))).resolve())
-            : ((m = y().finally(function () {
-                m = null;
+            ? (C(), (c || (c = n("Promise"))).resolve())
+            : ((p = b().finally(function () {
+                p = null;
               })),
-              m)
+              p)
           : (c || (c = n("Promise"))).resolve();
     }
-    function g() {
-      if (!o("WAWebBotGating").isMetaAiThreadAccountListSyncEnabled())
+    function y() {
+      if (!o("WAWebBotGating").isMetaAiThreadAccountListSyncEnabled() || f >= m)
         return !1;
       var e = o("WATimeUtils").unixTimeMs();
-      return p != null && e - p < d
+      return _ != null && e - _ < d
         ? !1
         : e - o("WAWebUserPrefsBot").getMetaAiThreadListLastSyncTs() >=
             o("WATimeUtils").DAY_MILLISECONDS;
     }
-    function h() {
-      _ ||
-        ((_ = !0),
+    function C() {
+      g ||
+        ((g = !0),
         o("WAWebCanonicalUtils")
           .waitForCanonicalPresent()
           .then(
             function () {
-              ((_ = !1), f());
+              ((g = !1), h());
             },
             function () {
-              ((_ = !1),
+              ((g = !1),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -69,41 +71,48 @@ __d(
             },
           ));
     }
-    function y() {
-      return C.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o(
               "WAWebFetchMetaAiThreadServerListGQL",
             ).fetchMetaAiThreadServerListGQL();
+            if (e.type === "unavailable") {
+              yield o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
+                o("WATimeUtils").unixTimeMs(),
+              );
+              return;
+            }
             if (e.type !== "success") {
-              S();
+              L();
               return;
             }
             var t = e.threads.flatMap(function (e) {
-              var t = b(e);
-              return t == null ? [] : [{ wid: t, fields: v(e) }];
+              var t = S(e);
+              return t == null ? [] : [{ wid: t, fields: R(e) }];
             });
             if (e.threads.length > 0 && t.length === 0) {
-              S();
+              L();
               return;
             }
             (yield o("WAWebPersistBotProfiles").mergeBotSupportFieldsBatch(t),
-              (p = null),
+              (_ = null),
+              (f = 0),
               yield o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
                 o("WATimeUtils").unixTimeMs(),
               ));
           } catch (e) {
-            S();
+            L();
           }
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b(e) {
+    function S(e) {
       try {
         return o("WAWebWidFactory").createUserWidOrThrow(e.botFbid + "@bot");
       } catch (e) {
@@ -120,14 +129,15 @@ __d(
         );
       }
     }
-    function v(e) {
+    function R(e) {
       var t = o("WAWebBotProduct").BotProduct.META_AI_THREAD.valueOf();
       return e.isDeprecated == null
         ? { product: t }
         : { product: t, isDeprecated: e.isDeprecated };
     }
-    function S() {
-      ((p = o("WATimeUtils").unixTimeMs()),
+    function L() {
+      ((_ = o("WATimeUtils").unixTimeMs()),
+        f++,
         o("WALogger")
           .WARN(
             u ||
@@ -137,7 +147,7 @@ __d(
           )
           .sendLogs("meta-ai-thread-list-sync-failed", { sampling: 0.01 }));
     }
-    l.maybeSyncMetaAiThreadAccountList = f;
+    l.maybeSyncMetaAiThreadAccountList = h;
   },
   98,
 );

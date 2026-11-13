@@ -50,7 +50,7 @@ __d(
         var n = t.prototype;
         return (
           (n.toString = function () {
-            if (this.$1.type === e.JID_AD || this.$1.type === e.JID_U) {
+            if (this.$1.type === e.JID_U) {
               var t = this.$1,
                 n = t.device,
                 r = t.domainType,

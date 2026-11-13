@@ -10,6 +10,8 @@ __d(
     "WAWebGroupInviteJob",
     "WAWebGroupInviteService",
     "WAWebGroupMemberLinkMode",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupType",
     "WAWebHandleMsgTypes",
     "WAWebMexFetchGroupInviteCodeJob",
     "WAWebStateUtils",
@@ -29,15 +31,20 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield (
+          var r =
+              o("WAWebGroupMetadataGetters").getGroupType(n) ===
+              o("WAWebGroupType").GroupType.COMMUNITY
+                ? null
+                : n.id,
+            a = yield (
               o("WAWebBackendRuntime").isWebDiBackendEnabled()
                 ? o("WAWebBackendRuntime").runtime(
                     o("WAWebGroupInviteService").GroupInviteService,
                   ).joinGroupViaInvite
                 : o("WAWebGroupInviteJob").joinGroupViaInvite
-            )(e, t),
-            a = r.gid,
-            i =
+            )(e, t, r),
+            i = a.gid,
+            l =
               n.hasCapi === !0
                 ? {
                     actualActors: o("WAWebHandleMsgTypes").ActualActorsEnumType
@@ -48,9 +55,9 @@ __d(
                   }
                 : void 0;
           return o("WAWebFindChatAction")
-            .findOrCreateLatestChat(a, "queryGroupInviteCode", {
+            .findOrCreateLatestChat(i, "queryGroupInviteCode", {
               isGroupJoin: !0,
-              nextPrivacyMode: i,
+              nextPrivacyMode: l,
             })
             .then(function (e) {
               var t = e.chat;

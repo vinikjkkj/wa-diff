@@ -1871,6 +1871,14 @@ __d(
         "ig_placement_recovered_by_ad_account_amd",
       IG_PLACEMENT_RECOVERABLE_BY_AD_ACCOUNT_API:
         "ig_placement_recoverable_by_ad_account_api",
+      IG_PLACEMENT_RECOVERABLE_BY_APP_ALLOWLIST_MAPI:
+        "ig_placement_recoverable_by_app_allowlist_mapi",
+      IG_PLACEMENT_BLOCKED_BY_MISSING_PROFILE_PICTURE_ADS_MANAGER:
+        "ig_placement_blocked_by_missing_profile_picture_ads_manager",
+      IG_PLACEMENT_RECOVERABLE_BY_APP_ALLOWLIST_MAPI_VIDEO:
+        "ig_placement_recoverable_by_app_allowlist_mapi_video",
+      IG_MEDIA_BOOST_DENIED_BY_MISSING_PROFILE_PICTURE:
+        "ig_media_boost_denied_by_missing_profile_picture",
       FB_PLACEMENT_AUTO_DESELECTED: "fb_placement_auto_deselected",
       FB_PLACEMENT_AUTO_RESELECTED: "fb_placement_auto_reselected",
       IG_ONLY_FB_PLACEMENT_IMPRESSION: "ig_only_fb_placement_impression",

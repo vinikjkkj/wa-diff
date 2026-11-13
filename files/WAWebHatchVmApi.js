@@ -1,6 +1,11 @@
 __d(
   "WAWebHatchVmApi",
-  ["Promise", "WAWebHatchVmTransport", "asyncToGeneratorRuntime"],
+  [
+    "Promise",
+    "WAWebHatchOAuthCallbackClient",
+    "WAWebHatchVmTransport",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -374,16 +379,23 @@ __d(
           );
         }),
         (r.connectorScopeLink = function (t, n) {
+          var e = o(
+            "WAWebHatchOAuthCallbackClient",
+          ).getHatchOAuthCallbackClient();
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_SCOPE_LINK(t, n),
-            { body: C({}) },
+            { body: C(e == null ? {} : { callback_client: e }) },
           );
         }),
         (r.connectorConnectInfo = function (t, n, r) {
           return this.request(
             "GET",
-            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT_INFO(t, n),
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_CONNECT_INFO(
+              t,
+              n,
+              o("WAWebHatchOAuthCallbackClient").getHatchOAuthCallbackClient(),
+            ),
             babelHelpers.extends({}, r, { responseShape: "flat-or-envelope" }),
           );
         }),
@@ -462,12 +474,13 @@ __d(
             babelHelpers.extends({}, r, { responseShape: "flat-or-envelope" }),
           );
         }),
-        (r.oauthCallback = function (t, n) {
+        (r.oauthCallback = function (t) {
           return this.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.OAUTH_CALLBACK,
             {
-              body: C({ auth_intent: "connect", code: t, state: n }),
+              body: C(babelHelpers.extends({ auth_intent: "connect" }, t)),
+              responseShape: "flat-or-envelope",
               service: "authd",
             },
           );
@@ -546,7 +559,10 @@ __d(
         (r.connectorAccountsLink = function (t) {
           return this.request(
             "POST",
-            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_ACCOUNTS_LINK(t),
+            o("WAWebHatchVmTransport").JarvisPaths.CONNECTOR_ACCOUNTS_LINK(
+              t,
+              o("WAWebHatchOAuthCallbackClient").getHatchOAuthCallbackClient(),
+            ),
             { body: C({}) },
           );
         }),
@@ -714,7 +730,9 @@ __d(
     }
     function L(e, t, n) {
       var r;
-      return t || !f(e) || typeof e.ok != "boolean"
+      return (t && n !== "flat-or-envelope") ||
+        !f(e) ||
+        typeof e.ok != "boolean"
         ? !1
         : e.ok === !1 ||
             n === "service-default" ||

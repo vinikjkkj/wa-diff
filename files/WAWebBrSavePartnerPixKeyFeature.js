@@ -91,13 +91,14 @@ __d(
     function h(e, t, n, r, a, i) {
       var l,
         c,
-        p = function (a, i) {
+        p = function (a, i, l) {
           o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
             e,
             t,
             n,
             a,
             i,
+            l,
           );
         },
         f = n == null ? void 0 : n.value;
@@ -126,16 +127,18 @@ __d(
             bankId: n.bankId,
             displayName: (c = n.name) != null ? c : "",
             onClose: o("WAWebModalManager").closeModalManager,
-            onOpenForm: function (t, n) {
-              (o("WAWebModalManager").ModalManager.close(),
-                p(
-                  n,
-                  m() == null
-                    ? function (e) {
-                        (t(), i == null || i(e));
-                      }
-                    : i,
-                ));
+            onOpenForm: function (n, r) {
+              if ((o("WAWebModalManager").ModalManager.close(), m() != null)) {
+                p(r, i);
+                return;
+              }
+              p(
+                r,
+                function (e) {
+                  (n(), i == null || i(e));
+                },
+                t === "chat" ? "message" : "link",
+              );
             },
             onPixKeySaved: i,
             partnerCatalogId: a,

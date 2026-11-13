@@ -2,6 +2,9 @@ __d(
   "WAWebAddHatchConnectorAccount",
   [
     "fbt",
+    "WAWebHatchOAuthAttempts",
+    "WAWebHatchOAuthCallbackReceiver",
+    "WAWebNoop",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWriteHatchConnectors",
@@ -11,17 +14,33 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e, t) {
-      return o("WAWebWriteHatchConnectors")
-        .requestHatchConnectorAccountLink(e)
-        .then(
-          function (e) {
-            return (t.navigate(e), !0);
-          },
-          function () {
-            return (t.close(), d(), !1);
-          },
-        );
+    function c(e, t, n) {
+      return (
+        n === void 0 && (n = r("WAWebNoop")),
+        o("WAWebWriteHatchConnectors")
+          .requestHatchConnectorAccountLink(e)
+          .then(
+            function (r) {
+              return (
+                o(
+                  "WAWebHatchOAuthCallbackReceiver",
+                ).ensureHatchOAuthCallbackReceiver(),
+                o("WAWebHatchOAuthAttempts").registerHatchOAuthAttempt({
+                  authorizeUrl: r,
+                  connectorId: e,
+                  flow: "add_account",
+                  onFailed: d,
+                  onSettled: n,
+                }),
+                t.navigate(r),
+                !0
+              );
+            },
+            function () {
+              return (t.close(), d(), !1);
+            },
+          )
+      );
     }
     function d() {
       o("WAWebToastManager").ToastManager.open(

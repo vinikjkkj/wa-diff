@@ -5,7 +5,6 @@ __d(
     "WAWebABProps",
     "WAWebChatGetters",
     "WAWebCommonMsgUtils",
-    "WAWebContactGetters",
     "WAWebEnvironment",
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
@@ -164,11 +163,18 @@ __d(
       );
     }
     function y(e) {
-      var t =
-        o("WAWebContactGetters").getIsUser(e) ||
-        o("WAWebContactGetters").getIsGroup(e) ||
-        o("WAWebContactGetters").getIsBroadcast(e);
-      return t
+      return C({
+        isBroadcast: o("WAWebChatGetters").getIsBroadcast(e),
+        isGroup: o("WAWebChatGetters").getIsGroup(e),
+        isUser: o("WAWebChatGetters").getIsUser(e),
+      });
+    }
+    function C(e) {
+      var t = e.isBroadcast,
+        n = e.isGroup,
+        a = e.isUser,
+        i = a || n || t;
+      return i
         ? r("WAWebEnvironment").isWindows === !0
           ? !0
           : o("WAWebABProps").getABPropConfigValue(
@@ -176,7 +182,7 @@ __d(
             ) === !0
         : !1;
     }
-    function C(e) {
+    function b(e) {
       var t = e.msg,
         n = e.msgCollection,
         r = e.threadId;
@@ -200,7 +206,8 @@ __d(
       (l.isMostRecentCMC = g),
       (l.shouldJumpToBottomForNewOwnMsg = h),
       (l.isSimplifiedChatConversationMenuEnabled = y),
-      (l.isMsgVisibleInConversation = C));
+      (l.isSimplifiedChatConversationMenuEnabledFor = C),
+      (l.isMsgVisibleInConversation = b));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupQueryJob",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WALogger",
     "WAWebABProps",
@@ -11,6 +12,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebGroupDatabaseJob",
     "WAWebGroupGetMembershipApprovalRequestsJob",
+    "WAWebGroupMembershipFormGating",
     "WAWebGroupQueryGroupJob",
     "WAWebGroupsQueryApi",
     "WAWebMexFetchGroupIsInternalJob",
@@ -39,13 +41,16 @@ __d(
       ),
       C = r("requireDeferred")(
         "WASmaxGroupsGetParticipatingGroupsRPC",
+      ).__setRef("WAWebGroupQueryJob"),
+      b = r("JSResourceForInteraction")(
+        "WAWebMexFetchGroupInviteInfoJob",
       ).__setRef("WAWebGroupQueryJob");
-    function b() {
-      return v.apply(this, arguments);
-    }
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebApiParticipantStore").clearAdminshipCache();
           var t = yield C.load(),
             r = t.sendGetParticipatingGroupsRPC,
@@ -151,27 +156,34 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y.load(),
-            r = t.sendGetInviteGroupInfoRPC,
-            a = yield r({ inviteCode: e });
-          switch (a.name) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o("WAWebGroupMembershipFormGating").isMexGroupInviteInfoEnabled()
+          ) {
+            var t = yield b.load(),
+              r = t.mexFetchGroupInviteInfoJob;
+            return r(e);
+          }
+          var a = yield y.load(),
+            i = a.sendGetInviteGroupInfoRPC,
+            l = yield i({ inviteCode: e });
+          switch (l.name) {
             case "GetInviteGroupInfoResponseSuccess":
               return o("WAWebGroupsQueryApi").parseGroupSmax(
-                a.value.groupInviteLinkGroupInfoMixin,
+                l.value.groupInviteLinkGroupInfoMixin,
               );
             case "GetInviteGroupInfoResponseClientError": {
-              var i = a.value.errorGetInviteGroupInfoClientErrors.value,
-                l = i.code,
-                s = i.text;
+              var s = l.value.errorGetInviteGroupInfoClientErrors.value,
+                u = s.code,
+                m = s.text;
               return (
                 o("WALogger").LOG(
                   c ||
@@ -180,21 +192,21 @@ __d(
                       ":",
                       "",
                     ])),
-                  l,
-                  s,
+                  u,
+                  m,
                 ),
                 (g || (g = n("Promise"))).reject(
                   new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(l),
-                    s,
+                    Number(u),
+                    m,
                   ),
                 )
               );
             }
             case "GetInviteGroupInfoResponseServerError": {
-              var u = a.value.errorServerErrors.value,
-                m = u.code,
-                p = u.text;
+              var p = l.value.errorServerErrors.value,
+                _ = p.code,
+                f = p.text;
               return (
                 o("WALogger").LOG(
                   d ||
@@ -203,28 +215,28 @@ __d(
                       ":",
                       "",
                     ])),
-                  m,
-                  p,
+                  _,
+                  f,
                 ),
                 (g || (g = n("Promise"))).reject(
                   new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(m),
-                    p,
+                    Number(_),
+                    f,
                   ),
                 )
               );
             }
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.actionType,
             n = e.id,
             r = e.request,
@@ -260,18 +272,18 @@ __d(
                 "createOrUpdateGroupMetadataFromQuery",
                 { groupInfo: p },
               ),
-              yield k(p));
+              yield I(p));
           }
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             e.membershipApprovalMode &&
             e.participants.some(function (e) {
@@ -286,15 +298,15 @@ __d(
               : void 0;
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = {
               queryContext: t,
               groupArgs: e.map(function (e) {
@@ -395,14 +407,14 @@ __d(
             }
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.queryAllGroups = b),
-      (l.queryGroupInvite = S),
-      (l.queryAndUpdateGroupMetadataById = L),
-      (l.maybeQueryAndUpdateMembershipApprovalRequests = k),
-      (l.queryGroupsById_DO_NOT_USE_DIRECTLY = T));
+    ((l.queryAllGroups = v),
+      (l.queryGroupInvite = R),
+      (l.queryAndUpdateGroupMetadataById = E),
+      (l.maybeQueryAndUpdateMembershipApprovalRequests = I),
+      (l.queryGroupsById_DO_NOT_USE_DIRECTLY = D));
   },
   98,
 );

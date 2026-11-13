@@ -2,6 +2,9 @@ __d(
   "WAWebGrantHatchConnectorScope",
   [
     "fbt",
+    "WAWebHatchOAuthAttempts",
+    "WAWebHatchOAuthCallbackReceiver",
+    "WAWebNoop",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWriteHatchConnectors",
@@ -11,19 +14,33 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e, t, n) {
-      return o("WAWebWriteHatchConnectors")
-        .requestHatchConnectorScopeLink(e, t)
-        .then(
-          function (e) {
-            return e == null
-              ? (n.close(), "unavailable")
-              : (n.navigate(e), "opened");
-          },
-          function () {
-            return (n.close(), "failed");
-          },
-        );
+    function c(e, t, n, a) {
+      return (
+        a === void 0 && (a = r("WAWebNoop")),
+        o("WAWebWriteHatchConnectors")
+          .requestHatchConnectorScopeLink(e, t)
+          .then(
+            function (t) {
+              return t == null
+                ? (n.close(), "unavailable")
+                : (o(
+                    "WAWebHatchOAuthCallbackReceiver",
+                  ).ensureHatchOAuthCallbackReceiver(),
+                  o("WAWebHatchOAuthAttempts").registerHatchOAuthAttempt({
+                    authorizeUrl: t,
+                    connectorId: e,
+                    flow: "scope_grant",
+                    onFailed: d,
+                    onSettled: a,
+                  }),
+                  n.navigate(t),
+                  "opened");
+            },
+            function () {
+              return (n.close(), "failed");
+            },
+          )
+      );
     }
     function d() {
       o("WAWebToastManager").ToastManager.open(

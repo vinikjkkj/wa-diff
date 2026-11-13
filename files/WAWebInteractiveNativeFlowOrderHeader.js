@@ -96,7 +96,7 @@ __d(
     }
     function d(e) {
       var t,
-        n = o("react-compiler-runtime").c(19),
+        n = o("react-compiler-runtime").c(16),
         a = null,
         i = e.msgKey,
         l;
@@ -143,16 +143,9 @@ __d(
           nativeFlowName: g,
           type: _,
         }),
-        I;
-      n[1] !== S || n[2] !== i
-        ? ((I = o("WAWebFrontendMsgGetters").getChatByMsgKey(i, S)),
-          (n[1] = S),
-          (n[2] = i),
-          (n[3] = I))
-        : (I = n[3]);
-      var T = I,
-        D = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          T,
+        I = o("WAWebFrontendMsgGetters").getChatByMsgKey(i, S),
+        T = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
+          I.id,
           k == null ? void 0 : k.referenceId,
           o("WAWebOrderStatus").isSimplifiedOrder(k),
         );
@@ -180,14 +173,14 @@ __d(
         g === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
       ) {
         if (k) {
-          var x =
+          var D =
             _ === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
             (b == null ? void 0 : b.mediaType) ===
               o("WAWebInteractiveMessageHeaderMediaType")
                 .InteractiveMessageHeaderMediaType.DOCUMENT;
-          if (o("WAWebOrderStatus").isSimplifiedOrder(k) && !x)
+          if (o("WAWebOrderStatus").isSimplifiedOrder(k) && !D)
             a = p({
-              chat: T,
+              chat: I,
               displayType: e.displayType,
               info: k,
               isPaymentDetailsEnabled: o(
@@ -201,49 +194,49 @@ __d(
               }),
               isSentByMe: v,
               msgKey: i,
-              orderPaymentStatus: D,
+              orderPaymentStatus: T,
             });
           else {
-            var $, P;
-            (($ =
-              (P = o(
+            var x, $;
+            ((x =
+              ($ = o(
                 "WAWebOrdersExpansionCountries",
               ).getOrdersExpansionAllowedCountries()) == null
                 ? void 0
-                : P.length) != null
-              ? $
-              : 0) === 0 && (D = null);
-            var N;
-            n[4] !== x || n[5] !== i
-              ? ((N = x
+                : $.length) != null
+              ? x
+              : 0) === 0 && (T = null);
+            var P;
+            n[1] !== D || n[2] !== i
+              ? ((P = D
                   ? s.jsx(r("WAWebMediaDocumentPreview"), {
                       embedded: !0,
                       msgKey: i,
                     })
                   : void 0),
-                (n[4] = x),
-                (n[5] = i),
-                (n[6] = N))
-              : (N = n[6]);
-            var M = N,
-              w;
-            if (n[7] !== b || n[8] !== E || n[9] !== _) {
-              var A;
-              ((w =
-                (A = c({ interactiveHeader: b, preview: E, type: _ })) != null
-                  ? A
+                (n[1] = D),
+                (n[2] = i),
+                (n[3] = P))
+              : (P = n[3]);
+            var N = P,
+              M;
+            if (n[4] !== b || n[5] !== E || n[6] !== _) {
+              var w;
+              ((M =
+                (w = c({ interactiveHeader: b, preview: E, type: _ })) != null
+                  ? w
                   : void 0),
-                (n[7] = b),
-                (n[8] = E),
-                (n[9] = _),
-                (n[10] = w));
-            } else w = n[10];
+                (n[4] = b),
+                (n[5] = E),
+                (n[6] = _),
+                (n[7] = M));
+            } else M = n[7];
             a = s.jsx(r("WAWebNativeFlowOrderDetailsHeader"), {
               amount: o("WAWebCurrencyUtils").formatAmount({
                 amount: k.totalAmount,
                 currency: k.currency,
               }),
-              documentPreview: M,
+              documentPreview: N,
               quantity: k.quantity,
               orderId: k.referenceId,
               text: o(
@@ -251,45 +244,45 @@ __d(
               ).getOrderDetailProductLabel(k.items),
               numberOfItems: k.items.length,
               isSentByMe: v,
-              thumbnail: w,
-              payIcons: m(T, k),
-              orderPaymentStatus: D,
+              thumbnail: M,
+              payIcons: m(I, k),
+              orderPaymentStatus: T,
             });
           }
         }
       } else if (
         g === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var F;
-        (n[11] !== i || n[12] !== e.displayType || n[13] !== e.quotedMsg
-          ? ((F = s.jsx(
+        var A;
+        (n[8] !== i || n[9] !== e.displayType || n[10] !== e.quotedMsg
+          ? ((A = s.jsx(
               o("WAWebInteractiveOrderStatusHeader.react")
                 .InteractiveOrderStatusHeader,
               { displayType: e.displayType, msgKey: i, quotedMsg: e.quotedMsg },
             )),
-            (n[11] = i),
-            (n[12] = e.displayType),
-            (n[13] = e.quotedMsg),
-            (n[14] = F))
-          : (F = n[14]),
-          (a = F));
+            (n[8] = i),
+            (n[9] = e.displayType),
+            (n[10] = e.quotedMsg),
+            (n[11] = A))
+          : (A = n[11]),
+          (a = A));
       } else if (
         g === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
         g === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
       ) {
-        var O;
-        (n[15] !== i || n[16] !== e.displayType || n[17] !== e.quotedMsg
-          ? ((O = s.jsx(r("WAWebInteractiveOrderQuotedMessage.react"), {
+        var F;
+        (n[12] !== i || n[13] !== e.displayType || n[14] !== e.quotedMsg
+          ? ((F = s.jsx(r("WAWebInteractiveOrderQuotedMessage.react"), {
               displayType: e.displayType,
               msgKey: i,
               quotedMsg: e.quotedMsg,
             })),
-            (n[15] = i),
-            (n[16] = e.displayType),
-            (n[17] = e.quotedMsg),
-            (n[18] = O))
-          : (O = n[18]),
-          (a = O));
+            (n[12] = i),
+            (n[13] = e.displayType),
+            (n[14] = e.quotedMsg),
+            (n[15] = F))
+          : (F = n[15]),
+          (a = F));
       }
       return a;
     }

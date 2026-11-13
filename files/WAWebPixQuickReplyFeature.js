@@ -22,23 +22,26 @@ __d(
     }
     function c(e) {
       return (
-        o("WAWebUserPrefsCustomPaymentMethods").isPIXValid() &&
-        p(e.groupMetadata) &&
-        u()
+        o("WAWebUserPrefsCustomPaymentMethods").isPIXValid() && f(e) && u()
       );
     }
     function d(e) {
+      return m(e.groupMetadata);
+    }
+    function m(e) {
       return s() && c(e);
     }
-    function m(t) {
-      var n = t.groupMetadata;
-      return n == null ||
-        n.participants.length === 0 ||
-        n.participants.length > e
-        ? !1
-        : p(n);
-    }
     function p(e) {
+      return _(e.groupMetadata);
+    }
+    function _(t) {
+      return t == null ||
+        t.participants.length === 0 ||
+        t.participants.length > e
+        ? !1
+        : f(t);
+    }
+    function f(e) {
       if (e == null) return !1;
       var t = e.participants;
       return t.every(function (e) {
@@ -48,7 +51,7 @@ __d(
         );
       });
     }
-    function _(e) {
+    function g(e) {
       if (!s() || e == null) return !1;
       var t = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
         e.id,
@@ -60,14 +63,16 @@ __d(
             o("WAWebPaymentsConstants").BRAZIL_COUNTRY_CODE,
           );
         case o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP:
-          return c(e);
+          return c(e.groupMetadata);
         default:
           return !1;
       }
     }
     ((l.showPixQuickReplyInAttachmentTrayForGroups = d),
-      (l.isEligiblePixGroupChat = m),
-      (l.shouldShowPixQuickReplyForChat = _));
+      (l.showPixQuickReplyInAttachmentTrayForGroupMetadata = m),
+      (l.isEligiblePixGroupChat = p),
+      (l.isEligiblePixGroupMetadata = _),
+      (l.shouldShowPixQuickReplyForChat = g));
   },
   98,
 );

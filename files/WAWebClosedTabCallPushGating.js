@@ -8,6 +8,7 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebPermissionStatusWatcher",
     "WAWebUserPrefsOfflineCallNotifications",
+    "WAWebUserPrefsScreenLock",
     "WAWebVoipChromiumDesktopBrowser",
     "WAWebVoipGatingUtils",
   ],
@@ -23,6 +24,7 @@ __d(
         o(
           "WAWebUserPrefsOfflineCallNotifications",
         ).getOfflineCallNotificationsSetting() &&
+        !o("WAWebUserPrefsScreenLock").getScreenLockEnabled() &&
         s()
       );
     }

@@ -42,56 +42,60 @@ __d(
         t === o("WAWebMsgType").MSG_TYPE.GP2
           ? n === "subject"
             ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
-            : n === "add" ||
-                n === "invite" ||
-                n === "invite_auto_add" ||
-                n === "linked_group_join" ||
-                n === "community_invite_auto_add_rich" ||
-                n === "auto_add" ||
-                n === "default_sub_group_admin_add"
-              ? e.recipients &&
-                o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
-                ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
-                : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-              : n === "community_owner_update"
+            : o("WAWebMsgGetters").getIsMeAddedToCommunityByOther(e)
+              ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
+              : n === "add" ||
+                  n === "invite" ||
+                  n === "invite_auto_add" ||
+                  n === "linked_group_join" ||
+                  n === "community_invite_auto_add_rich" ||
+                  n === "auto_add" ||
+                  n === "default_sub_group_admin_add"
                 ? e.recipients &&
                   o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
-                  ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
+                  ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
                   : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-                : n === "linked_group_promote" || n === "linked_group_demote"
-                  ? r("WAWebWid").isGroup(e.id.remote) &&
-                    e.recipients &&
-                    o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0]) &&
-                    !o("WAWebUserUtils").isMeAccount(e.author)
-                    ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
+                : n === "community_owner_update"
+                  ? e.recipients &&
+                    o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
+                    ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
                     : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-                  : n === "remove"
-                    ? e.recipients &&
-                      o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
-                      ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
+                  : n === "linked_group_promote" || n === "linked_group_demote"
+                    ? r("WAWebWid").isGroup(e.id.remote) &&
+                      e.recipients &&
+                      o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0]) &&
+                      !o("WAWebUserUtils").isMeAccount(e.author)
+                      ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
                       : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
-                    : n === "create" ||
-                        n === "empty_subgroup_create" ||
-                        n === "general_chat_add"
-                      ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
-                      : n === "created_subgroup_suggestion"
-                        ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
-                        : n === "parent_group_link" ||
-                            n === "community_participant_add_rich" ||
-                            n === "subgroup_admin_triggered_auto_add" ||
-                            n === "subgroup_admin_triggered_invite_auto_add" ||
-                            n === "sibling_group_link" ||
-                            n === "community_invite_rich" ||
-                            n === "sub_group_participant_add_rich" ||
-                            n === "sub_group_invite_rich" ||
-                            n === "community_link_parent_group_rich"
-                          ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
-                          : n === "membership_approval_request" ||
-                              n === "created_membership_requests" ||
-                              n === "sibling_group_unlink"
+                    : n === "remove"
+                      ? e.recipients &&
+                        o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
+                        ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
+                        : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
+                      : n === "create" ||
+                          n === "empty_subgroup_create" ||
+                          n === "general_chat_add"
+                        ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
+                        : n === "created_subgroup_suggestion"
+                          ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
+                          : n === "parent_group_link" ||
+                              n === "community_participant_add_rich" ||
+                              n === "subgroup_admin_triggered_auto_add" ||
+                              n ===
+                                "subgroup_admin_triggered_invite_auto_add" ||
+                              n === "sibling_group_link" ||
+                              n === "community_invite_rich" ||
+                              n === "sub_group_participant_add_rich" ||
+                              n === "sub_group_invite_rich" ||
+                              n === "community_link_parent_group_rich"
                             ? (a = o("WAWebCommonMsgUtils").EventType
-                                .NOTEWORTHY)
-                            : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
+                                .SIGNIFICANT)
+                            : n === "membership_approval_request" ||
+                                n === "created_membership_requests" ||
+                                n === "sibling_group_unlink"
+                              ? (a = o("WAWebCommonMsgUtils").EventType
+                                  .NOTEWORTHY)
+                              : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
           : t === o("WAWebMsgType").MSG_TYPE.BROADCAST_NOTIFICATION ||
               t === o("WAWebMsgType").MSG_TYPE.NOTIFICATION ||
               t === o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION

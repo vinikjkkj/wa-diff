@@ -10,7 +10,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t, n, r, a) {
+    function u(e, t, n, r, a, i) {
       o("WAWebPixPaymentRequestFeature").isPixPaymentRequestEnabled()
         ? o("WAWebModalManager").ModalManager.open(
             s.jsx(
@@ -22,6 +22,7 @@ __d(
                 prefillOutcome: r,
                 referral: t,
                 previousScreen: e,
+                saveSource: i,
               },
             ),
             { transition: "modal-flow" },
@@ -36,6 +37,7 @@ __d(
                 prefillOutcome: r,
                 referral: t,
                 previousScreen: e,
+                saveSource: i,
               },
             ),
           );

@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaPrepMediaProps",
   [
-    "Promise",
     "WALogger",
     "WAWebMediaDataUtils",
     "WAWebMediaInMemoryBlobCache",
@@ -16,37 +15,29 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      var t, r;
-      return (t =
-        (r = e.aiProvenancePromise) == null
-          ? void 0
-          : r.catch(o("WAWebNullFunc").returnNull)) != null
-        ? t
-        : (c || (c = n("Promise"))).resolve(null);
-    }
-    function m(t, a) {
+    var e, s, u;
+    function c(t, a) {
       return t
         .waitForPrep()
         .then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                return (
-                  a.aiProvenancePromise == null ||
-                    (yield o(
+                var t = a.provenanceDetectionPromise;
+                return t == null
+                  ? e
+                  : o(
                       "WAWebMediaSendMetadataWriterLoadable",
                     ).writeMediaMetadataForSend({
                       isChannel:
                         a.isNewsletterMsg === !0 || a.isNewsletterStatus === !0,
                       media: e,
-                      resolveVerdict: function () {
-                        return d(a);
+                      resolveSystemProvenance: function () {
+                        return t.then(function (e) {
+                          return e.systemProvenance;
+                        }, o("WAWebNullFunc").returnNull);
                       },
-                    })),
-                  e
-                );
+                    });
               },
             );
             return function (t) {
@@ -160,7 +151,7 @@ __d(
           );
         });
     }
-    l.default = m;
+    l.default = c;
   },
   98,
 );

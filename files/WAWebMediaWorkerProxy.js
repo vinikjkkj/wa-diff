@@ -99,8 +99,14 @@ __d(
           var t = yield n("cr:36997").detectAiProvenanceInWorker(e),
             r = t.engineErrorCode,
             o = t.provenance,
-            a = t.transferredBuffer;
-          return { transferredBuffer: a, provenance: h(o), engineErrorCode: r };
+            a = t.systemProvenance,
+            i = t.transferredBuffer;
+          return {
+            transferredBuffer: i,
+            provenance: h(o),
+            engineErrorCode: r,
+            systemProvenance: a,
+          };
         })),
         C.apply(this, arguments)
       );

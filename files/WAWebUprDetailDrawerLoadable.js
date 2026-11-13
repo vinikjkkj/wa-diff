@@ -40,7 +40,7 @@ __d(
         a = e.sellerWid;
       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
         u.jsx(d, {
-          chat: t,
+          chatId: t.id,
           interactiveMessage: n,
           onBack: o("WAWebDrawerManager").closeDrawerRight,
           orderInfo: r,

@@ -25,12 +25,13 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.isChannel,
             a = t.media,
-            i = t.resolveVerdict;
-          if (n) {
-            var l;
-            try {
-              l = yield o("WAPromiseTimeout").promiseTimeout(u(), s);
-            } catch (t) {
+            i = t.resolveSystemProvenance;
+          if (!n) return a;
+          var l;
+          try {
+            l = yield o("WAPromiseTimeout").promiseTimeout(u(), s);
+          } catch (t) {
+            return (
               o("WALogger")
                 .WARN(
                   e ||
@@ -39,15 +40,15 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(t))
-                .sendLogs("media-sgi-provenance-marker-failed");
-              return;
-            }
-            yield l.writeMediaMetadataForSend({
-              isChannel: n,
-              media: a,
-              resolveVerdict: i,
-            });
+                .sendLogs("media-sgi-provenance-marker-failed"),
+              a
+            );
           }
+          return l.writeMediaMetadataForSend({
+            isChannel: n,
+            media: a,
+            resolveSystemProvenance: i,
+          });
         })),
         d.apply(this, arguments)
       );

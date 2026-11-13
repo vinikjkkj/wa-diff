@@ -1,21 +1,21 @@
 __d(
   "WAFlowsWAMLoggerTypes",
-  [],
+  ["$InternalEnum"],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = Object.freeze({
+    var e = n("$InternalEnum")({
         FLOW_SUCCESS: "flow_success",
         FLOW_ERROR: "flow_error",
         USER_INTERRUPTED: "user_interrupted",
       }),
-      l = Object.freeze({
+      l = n("$InternalEnum")({
         PAYMENTS: "payments",
         CART: "cart",
         CATALOG: "catalog",
       }),
       s = Object.freeze({ BOOLEAN: 1, LONG: 2, FLOAT: 3, STRING: 4, ENUM: 5 }),
       u = Object.freeze({ REGULAR: 0, REAL_TIME: 1, PRIVATE_STATS: 2 }),
-      c = Object.freeze({
+      c = n("$InternalEnum")({
         WamExtensionsStructuredMessageInteraction:
           "WamEventExtensionsStructuredMessageInteraction",
         WamExtensionsScreenProgress: "WamEventExtensionScreenProgress",
@@ -40,6 +40,7 @@ __d(
       _ = Object.freeze({ 0: "0|message_cta", 1: "1|biz_card_cta" }),
       f = Object.freeze({ FALSE: 0, TRUE: 1 });
     ((i.WAFlowsWAMExtensionsScreenProgressFlowStatusTypes = e),
+      (i.WAMFlowsScreenProgressEmbeddedFlowTypes = l),
       (i.WAFlowsWAMFieldValuesTypes = s),
       (i.WAFlowsWAMChannelType = u),
       (i.WAFlowsWAMEventNameType = c),

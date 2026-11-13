@@ -1,6 +1,7 @@
 __d(
   "CometNewsFeedConnectionHandler",
   [
+    "CometNewsFeedConnectionDebugState",
     "FBLogger",
     "RelayFBConnectionHandler",
     "XPlatReactEnvironment",
@@ -49,6 +50,9 @@ __d(
           (y.setLinkedRecords(C, c),
             y.setValue(C.length, u),
             i.setLinkedRecord(y, t.handleKey),
+            o(
+              "CometNewsFeedConnectionDebugState",
+            ).recordConnectionUpdateForDebugging("initial"),
             d(e, C, C, y, m));
           return;
         }
@@ -70,7 +74,12 @@ __d(
           ((a = v == null ? void 0 : v.length) != null ? a : 0) === 0) &&
           _(S != null ? S : [], R, L);
         var E = _(v != null ? v : [], R, L);
-        (b.setLinkedRecords(R, c),
+        b.setLinkedRecords(R, c);
+        var k = "replace";
+        (t.args.after != null ? (k = "append") : v.length === 0 && (k = "keep"),
+          o(
+            "CometNewsFeedConnectionDebugState",
+          ).recordConnectionUpdateForDebugging(k),
           d(
             e,
             o("XPlatReactEnvironment").isWeb() && r("gkx")("20836") ? E : v,

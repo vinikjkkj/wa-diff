@@ -24,32 +24,33 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t) {
-      var n = e.contact,
-        a = o("WAWebBlocklistUtils").getSpamFlowFromBlockEntryPoint(t),
-        i = function () {
+    function u(e, t, n) {
+      n === void 0 && (n = d);
+      var a = e.contact,
+        i = o("WAWebBlocklistUtils").getSpamFlowFromBlockEntryPoint(t),
+        l = function () {
           if (e != null && o("WAWebChatGetters").getIsPSA(e)) {
-            var r = e.msgs.last(),
-              a = o(
+            var n = e.msgs.last(),
+              r = o(
                 "WAWebBlocklistUtils",
               ).getBlockPsaRemoveEntryPointFromBlockEntryPoint(t);
-            a != null && o("WAWebWamChatPSALogger").logChatPSARemove(r, 1, a);
+            r != null && o("WAWebWamChatPSALogger").logChatPSARemove(n, 1, r);
           }
           (o("WAWebBlockContactAction").blockContact({
-            contact: n,
+            contact: a,
             blockEntryPoint: t,
           }),
             o("WAWebModalManager").ModalManager.close());
         },
-        l = function () {
+        u = function () {
           (o("WAWebSendSpamChatAction").sendReport({
             chat: o("WAWebStateUtils").unproxy(e),
-            spamFlow: a,
+            spamFlow: i,
             skipCtwa1pdNbfSignal: !0,
           }),
             o("WAWebBlockContactAction")
               .blockContact({
-                contact: n,
+                contact: a,
                 blockEntryPoint: t,
                 skipCtwa1pdNbfSignal: !0,
               })
@@ -61,71 +62,77 @@ __d(
               .catch(r("WAWebNoop")),
             o("WAWebModalManager").ModalManager.close());
         },
-        u =
+        c =
           o("WAWebABProps").getABPropConfigValue("wds_web_dialog") &&
           !o("WAWebChatGetters").getIsPSA(e),
-        c;
-      (u && e.contact.isBusiness
-        ? (c = s.jsx(r("WAWebBlockBusinessDialogV2.react"), {
+        m;
+      c && e.contact.isBusiness
+        ? (m = s.jsx(r("WAWebBlockBusinessDialogV2.react"), {
             chat: e,
             blockEntryPoint: t,
             withReport: !0,
           }))
-        : u
-          ? (c = s.jsx(r("WAWebBlockContactDialogV2.react"), {
+        : c
+          ? (m = s.jsx(r("WAWebBlockContactDialogV2.react"), {
               contact: e.contact,
               isReportPreChecked: o(
                 "WAWebBlocklistUtils",
               ).isReportPreCheckedForOneToOneChats(t),
               onCancel: o("WAWebModalManager").closeModalManager,
-              onBlock: i,
-              onReportSpamBlock: l,
+              onBlock: l,
+              onReportSpamBlock: u,
             }))
           : o("WAWebChatGetters").getIsPSA(e)
-            ? (c = s.jsx(r("WAWebPsaBlockContactPopup.react"), {
+            ? (m = s.jsx(r("WAWebPsaBlockContactPopup.react"), {
                 onCancel: o("WAWebModalManager").closeModalManager,
-                onBlock: i,
+                onBlock: l,
               }))
             : e.contact.isBusiness
-              ? (c = s.jsx(r("WAWebBlockBusinessPopup.react"), {
+              ? (m = s.jsx(r("WAWebBlockBusinessPopup.react"), {
                   chat: e,
                   blockEntryPoint: t,
                   withReport: !0,
                 }))
-              : (c = s.jsx(r("WAWebBlockContactPopup.react"), {
+              : (m = s.jsx(r("WAWebBlockContactPopup.react"), {
                   contact: e.contact,
                   isReportPreChecked: o(
                     "WAWebBlocklistUtils",
                   ).isReportPreCheckedForOneToOneChats(t),
                   onCancel: o("WAWebModalManager").closeModalManager,
-                  onBlock: i,
-                  onReportSpamBlock: l,
-                })),
-        u
-          ? o("WDSDialogBridge").openWDSDialog(c)
-          : o("WAWebModalManager").ModalManager.open(c));
+                  onBlock: l,
+                  onReportSpamBlock: u,
+                }));
+      var p = n(m);
+      c
+        ? o("WDSDialogBridge").openWDSDialog(p)
+        : o("WAWebModalManager").ModalManager.open(p);
     }
-    function c(e, t) {
-      var n = function () {
-        var n = o("WAWebChatCollection").ChatCollection.get(e.id);
-        if (n != null && o("WAWebChatGetters").getIsPSA(n)) {
-          var r = n.msgs.last(),
-            a = o(
-              "WAWebBlocklistUtils",
-            ).getUnblockPsaRemoveEntryPointFromBlockEntryPoint(t);
-          a != null && o("WAWebWamChatPSALogger").logChatPSARemove(r, 2, a);
-        }
-        (o("WAWebBlockContactAction").unblockContact(e, t),
-          o("WAWebModalManager").ModalManager.close());
-      };
-      o("WDSDialogBridge").openWDSDialog(
-        s.jsx(r("WAWebUnblockContactDialogV2.react"), {
+    function c(e, t, n) {
+      n === void 0 && (n = d);
+      var a = function () {
+          var n = o("WAWebChatCollection").ChatCollection.get(e.id);
+          if (n != null && o("WAWebChatGetters").getIsPSA(n)) {
+            var r = n.msgs.last(),
+              a = o(
+                "WAWebBlocklistUtils",
+              ).getUnblockPsaRemoveEntryPointFromBlockEntryPoint(t);
+            a != null && o("WAWebWamChatPSALogger").logChatPSARemove(r, 2, a);
+          }
+          (o("WAWebBlockContactAction").unblockContact(e, t),
+            o("WAWebModalManager").ModalManager.close());
+        },
+        i = s.jsx(r("WAWebUnblockContactDialogV2.react"), {
           contact: e,
-          onUnblock: n,
-        }),
-      );
+          onUnblock: a,
+        });
+      o("WDSDialogBridge").openWDSDialog(n(i));
     }
-    ((l.handleBlock = u), (l.handleUnblock = c));
+    function d(e) {
+      return e;
+    }
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (l.handleBlock = u),
+      (l.handleUnblock = c));
   },
   98,
 );

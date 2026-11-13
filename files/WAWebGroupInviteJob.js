@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupInviteJob",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
@@ -9,6 +10,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebCommsWapMd",
     "WAWebGroupJoinRequestMetricUtils",
+    "WAWebGroupMembershipFormGating",
     "WAWebJidToWid",
     "asyncToGeneratorRuntime",
   ],
@@ -16,13 +18,16 @@ __d(
     var e,
       s,
       u,
-      c = new (r("WADeprecatedWapParser"))(
+      c = r("JSResourceForInteraction")("WAWebMexGroupJoinJob").__setRef(
+        "WAWebGroupInviteJob",
+      ),
+      d = new (r("WADeprecatedWapParser"))(
         "queryGroupInviteCodeParser",
         function (e) {
           return { code: e.child("invite").attrString("code") };
         },
       );
-    function d(e) {
+    function m(e) {
       var t = o("WAWap").wap(
         "iq",
         {
@@ -33,15 +38,15 @@ __d(
         },
         o("WAWap").wap("invite", null),
       );
-      return m(t);
+      return p(t);
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield o("WADeprecatedSendIq").deprecatedSendIq(t, c);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = yield o("WADeprecatedSendIq").deprecatedSendIq(t, d);
           return r.success
             ? r.result
             : (o("WALogger").LOG(
@@ -61,15 +66,66 @@ __d(
                 ),
               ));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = self.performance.now(),
+            a = !0,
+            i = o("WAWebGroupMembershipFormGating").isMexGroupJoinEnabled()
+              ? n
+              : null,
+            l = i != null ? i : void 0;
+          try {
+            var s = i != null ? yield h(e, t, i) : yield C(e, t);
+            return ((l = s.gid), s);
+          } catch (e) {
+            throw ((a = !1), e);
+          } finally {
+            if (t) {
+              var u = self.performance.now() - r;
+              o("WAWebGroupJoinRequestMetricUtils").logMembershipRequestCreate({
+                groupId: l,
+                isSuccessful: a,
+                responseTime: u,
+              });
+            }
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t, n) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield c.load(),
+            a = r.MexGroupJoinResult,
+            i = r.mexJoinGroupViaInviteJob,
+            l = yield i(e),
+            s = l === a.RequestCreated;
+          if (s !== t)
+            throw new (o(
+              "WAWebBackendErrors",
+            ).UnexpectedJoinGroupViaInviteResponse)(n, s);
+          return { gid: n };
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = (n = o("WAWap")).wap(
               "iq",
@@ -99,46 +155,30 @@ __d(
                 };
               },
             ),
-            l = self.performance.now(),
-            u = !0,
-            c;
-          try {
-            var d = yield o("WADeprecatedSendIq").deprecatedSendIq(a, i);
-            if (!d.success)
-              throw (
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "joinGroupInvite failed: ",
-                      ":",
-                      "",
-                    ])),
-                  d.errorCode,
-                  d.errorType,
-                ),
-                new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                  d.errorCode,
-                  d.errorText,
-                )
-              );
-            return ((c = d.result.gid), d.result);
-          } catch (e) {
-            throw ((u = !1), e);
-          } finally {
-            if (t) {
-              var m = self.performance.now() - l;
-              o("WAWebGroupJoinRequestMetricUtils").logMembershipRequestCreate({
-                groupId: c,
-                isSuccessful: u,
-                responseTime: m,
-              });
-            }
-          }
+            l = yield o("WADeprecatedSendIq").deprecatedSendIq(a, i);
+          if (!l.success)
+            throw (
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "joinGroupInvite failed: ",
+                    ":",
+                    "",
+                  ])),
+                l.errorCode,
+                l.errorType,
+              ),
+              new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                l.errorCode,
+                l.errorText,
+              )
+            );
+          return l.result;
         })),
-        f.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    ((l.resetGroupInviteCode = d), (l.joinGroupViaInvite = _));
+    ((l.resetGroupInviteCode = m), (l.joinGroupViaInvite = f));
   },
   98,
 );

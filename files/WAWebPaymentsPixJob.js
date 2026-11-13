@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
     "WASmaxBrPaymentRemoveCustomPaymentMethodRPC",
+    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebCustomPaymentMethodsSync",
     "WAWebCustomPaymentMethodsSyncLogger",
@@ -27,13 +28,15 @@ __d(
             i = t.pixKey,
             l = t.pixKeyType,
             c = t.referral,
-            d = {
+            d = t.source,
+            m = {
               accountDeviceId: o("WAJids").DEFAULT_DEVICE_ID.toString(),
               customPaymentMethodType: "pix_key",
               customPaymentMethodFlow: o("WAWebMobilePlatforms").isSMB()
                 ? "p2m"
                 : "p2p",
               customPaymentMethodUpdate: r,
+              customPaymentMethodSource: I(d),
               customPaymentMethodMetaDataInfoMixinArgs: {
                 metadataArgs: [
                   { metadataKey: "pix_key_type", metadataValue: String(l) },
@@ -50,11 +53,11 @@ __d(
                 ])),
             )
             .sendLogs("payment-brazil");
-          var m = yield o(
+          var p = yield o(
             "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
-          ).sendCreateCustomPaymentMethodRPC(d);
+          ).sendCreateCustomPaymentMethodRPC(m);
           e: {
-            if (m.name === "CreateCustomPaymentMethodResponseSuccess") {
+            if (p.name === "CreateCustomPaymentMethodResponseSuccess") {
               (o("WALogger")
                 .LOG(
                   s ||
@@ -63,14 +66,14 @@ __d(
                     ])),
                 )
                 .sendLogs("payment-brazil"),
-                yield E(m, {
+                yield E(p, {
                   referral: c,
                   referralContext: r === "true" ? "update" : "add",
                 }));
               break e;
             }
             if (
-              m.name ===
+              p.name ===
               "CreateCustomPaymentMethodResponseIQErrorWithCodeAndReason"
             ) {
               return (
@@ -82,20 +85,20 @@ __d(
                         " reason=",
                         "",
                       ])),
-                    m.value.errorCode,
-                    m.value.errorText,
+                    p.value.errorCode,
+                    p.value.errorText,
                   )
                   .sendLogs("payment-brazil"),
-                m
+                p
               );
               break e;
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                m.name,
+                p.name,
             );
           }
-          return m;
+          return p;
         })),
         b.apply(this, arguments)
       );
@@ -369,6 +372,14 @@ __d(
         })),
         k.apply(this, arguments)
       );
+    }
+    function I(e) {
+      return e != null &&
+        o("WAWebABProps").getABPropConfigValue(
+          "br_payments_pix_save_logging_source_enabled",
+        )
+        ? e
+        : void 0;
     }
     ((l.addOrUpdatePix = C), (l.removePix = v));
   },

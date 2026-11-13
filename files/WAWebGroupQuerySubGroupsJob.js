@@ -1,119 +1,135 @@
 __d(
   "WAWebGroupQuerySubGroupsJob",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WALogger",
     "WASmaxGroupsGetLinkedGroupRPC",
     "WAWebBackendErrors",
+    "WAWebGroupMembershipFormGating",
     "WAWebGroupsQueryApi",
     "WAWebJidToWid",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c = r("JSResourceForInteraction")(
+        "WAWebMexFetchLinkedGroupInfoJob",
+      ).__setRef("WAWebGroupQuerySubGroupsJob");
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.anyJoinedSubgroupId,
             a = t.parentGroupId,
-            i = t.subgroupId,
-            l = yield o("WASmaxGroupsGetLinkedGroupRPC").sendGetLinkedGroupRPC({
-              iqTo: o("WAWebWidToJid").widToGroupJid(a),
-              queryLinkedType: "sub_group",
-              queryLinkedJid: o("WAWebWidToJid").widToGroupJid(i),
-              optionalSubGroupMixinArgs: r
-                ? { anySubGroupJid: o("WAWebWidToJid").widToGroupJid(r) }
-                : null,
-            });
+            i = t.subgroupId;
+          if (
+            o("WAWebGroupMembershipFormGating").isMexLinkedGroupInfoEnabled()
+          ) {
+            var l = yield c.load(),
+              d = l.mexFetchLinkedGroupInfoJob;
+            return d({ anyJoinedSubgroupId: r, subgroupId: i });
+          }
+          var m = yield o(
+            "WASmaxGroupsGetLinkedGroupRPC",
+          ).sendGetLinkedGroupRPC({
+            iqTo: o("WAWebWidToJid").widToGroupJid(a),
+            queryLinkedType: "sub_group",
+            queryLinkedJid: o("WAWebWidToJid").widToGroupJid(i),
+            optionalSubGroupMixinArgs: r
+              ? { anySubGroupJid: o("WAWebWidToJid").widToGroupJid(r) }
+              : null,
+          });
           e: {
-            var c = l;
+            var p = m;
             if (
-              ((typeof c == "object" && c !== null) ||
-                typeof c == "function") &&
-              c.name === "GetLinkedGroupResponseSuccess" &&
-              "value" in c
+              ((typeof p == "object" && p !== null) ||
+                typeof p == "function") &&
+              p.name === "GetLinkedGroupResponseSuccess" &&
+              "value" in p
             ) {
-              var d = c.value,
-                m = d.linkedGroupLinkedGroupInfoMixin,
-                p = m.groupDescriptionGroupInfoDescriptionMixin,
-                _ = m.groupGroupInfoAttributesMixin,
-                f = _.creation,
-                g =
-                  _.namedSubjectOrUnnamedSubjectFallbackMixinGroup.value
+              var _ = p.value,
+                f = _.linkedGroupLinkedGroupInfoMixin,
+                g = f.groupDescriptionGroupInfoDescriptionMixin,
+                h = f.groupGroupInfoAttributesMixin,
+                y = h.creation,
+                C =
+                  h.namedSubjectOrUnnamedSubjectFallbackMixinGroup.value
                     .subject,
-                h = _.sO,
-                y = _.sT,
-                C = _.subjectOwnerIdentityMixin,
-                b = m.groupMembershipApprovalMode,
-                v = m.groupMembershipApprovalRequest,
-                S = m.groupParticipant,
-                R = m.groupSize,
-                L = m.groupSuspended,
-                E = m.hasGroupAdminRequestRequired,
-                k = m.hasGroupHiddenGroup,
-                I = m.jid,
-                T =
-                  p != null &&
-                  o("WAWebGroupsQueryApi").extractDescriptionSmax(p),
-                D = babelHelpers.extends(
+                b = h.sO,
+                v = h.sT,
+                S = h.subjectOwnerIdentityMixin,
+                R = f.groupMembershipApprovalMode,
+                L = f.groupMembershipApprovalRequest,
+                E = f.groupParticipant,
+                k = f.groupSize,
+                I = f.groupSuspended,
+                T = f.hasGroupAdminRequestRequired,
+                D = f.hasGroupHiddenGroup,
+                x = f.jid,
+                $ =
+                  g != null &&
+                  o("WAWebGroupsQueryApi").extractDescriptionSmax(g),
+                P = babelHelpers.extends(
                   {
-                    id: o("WAWebJidToWid").groupJidToWid(I),
-                    creation: f,
-                    subjectTime: y,
+                    id: o("WAWebJidToWid").groupJidToWid(x),
+                    creation: y,
+                    subjectTime: v,
                     participants: o(
                       "WAWebGroupsQueryApi",
-                    ).extractGroupParticipantsSmax(S),
-                    size: R,
-                    adminRequestRequired: E,
-                    membershipApprovalRequest: v != null && v.error !== "304",
+                    ).extractGroupParticipantsSmax(E),
+                    size: k,
+                    adminRequestRequired: T,
+                    membershipApprovalRequest: L != null && L.error !== "304",
                     membershipApprovalMode:
-                      (b == null ? void 0 : b.state) === "on",
-                    suspended: L != null,
-                    hiddenSubgroup: k,
+                      (R == null ? void 0 : R.state) === "on",
+                    suspended: I != null,
+                    hiddenSubgroup: D,
                   },
-                  T,
+                  $,
                 ),
-                x = o("WAWebGroupsQueryApi").parseGroupCreatorSmax(
-                  d.linkedGroupLinkedGroupInfoMixin
+                N = o("WAWebGroupsQueryApi").parseGroupCreatorSmax(
+                  _.linkedGroupLinkedGroupInfoMixin
                     .groupGroupInfoAttributesMixin,
                 ),
-                $ = x.creator,
-                P = x.creatorCountryCode,
-                N = x.creatorPn,
-                M = x.creatorUsername;
-              ($ != null &&
-                ((D.owner = $),
-                M != null && (D.creatorUsername = M),
-                P != null && (D.creatorCountryCode = P),
-                N != null && (D.creatorPn = N)),
-                g != null && (D.subject = g));
-              var w = o("WAWebGroupsQueryApi").parseSubjectOwnerSmax(h, C),
-                A = w.subjectOwner,
-                F = w.subjectOwnerPn,
-                O = w.subjectOwnerUsername;
+                M = N.creator,
+                w = N.creatorCountryCode,
+                A = N.creatorPn,
+                F = N.creatorUsername;
+              (M != null &&
+                ((P.owner = M),
+                F != null && (P.creatorUsername = F),
+                w != null && (P.creatorCountryCode = w),
+                A != null && (P.creatorPn = A)),
+                C != null && (P.subject = C));
+              var O = o("WAWebGroupsQueryApi").parseSubjectOwnerSmax(b, S),
+                B = O.subjectOwner,
+                W = O.subjectOwnerPn,
+                q = O.subjectOwnerUsername;
               return (
-                A != null &&
-                  ((D.subjectOwner = A),
-                  O != null && (D.subjectOwnerUsername = O),
-                  F != null && (D.subjectOwnerPn = F)),
-                D
+                B != null &&
+                  ((P.subjectOwner = B),
+                  q != null && (P.subjectOwnerUsername = q),
+                  W != null && (P.subjectOwnerPn = W)),
+                P
               );
               break e;
             }
             if (
-              ((typeof c == "object" && c !== null) ||
-                typeof c == "function") &&
-              c.name === "GetLinkedGroupResponseClientError" &&
-              "value" in c
+              ((typeof p == "object" && p !== null) ||
+                typeof p == "function") &&
+              p.name === "GetLinkedGroupResponseClientError" &&
+              "value" in p
             ) {
-              var B = c.value,
-                W = B.errorGetLinkedGroupClientErrors.value,
-                q = W.code,
-                U = W.text;
+              var U = p.value,
+                V = U.errorGetLinkedGroupClientErrors.value,
+                H = V.code,
+                G = V.text;
               return (
                 o("WALogger").LOG(
                   e ||
@@ -121,27 +137,27 @@ __d(
                       "joinSubgroup failed: ",
                       "",
                     ])),
-                  l.name,
+                  m.name,
                 ),
                 (u || (u = n("Promise"))).reject(
                   new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(q),
-                    U,
+                    Number(H),
+                    G,
                   ),
                 )
               );
               break e;
             }
             if (
-              ((typeof c == "object" && c !== null) ||
-                typeof c == "function") &&
-              c.name === "GetLinkedGroupResponseServerError" &&
-              "value" in c
+              ((typeof p == "object" && p !== null) ||
+                typeof p == "function") &&
+              p.name === "GetLinkedGroupResponseServerError" &&
+              "value" in p
             ) {
-              var V = c.value,
-                H = V.errorServerErrors.value,
-                G = H.code,
-                z = H.text;
+              var z = p.value,
+                j = z.errorServerErrors.value,
+                K = j.code,
+                Q = j.text;
               return (
                 o("WALogger").LOG(
                   s ||
@@ -149,12 +165,12 @@ __d(
                       "joinSubgroup failed: ",
                       "",
                     ])),
-                  l.name,
+                  m.name,
                 ),
                 (u || (u = n("Promise"))).reject(
                   new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(G),
-                    z,
+                    Number(K),
+                    Q,
                   ),
                 )
               );
@@ -162,14 +178,14 @@ __d(
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                c,
+                p,
             );
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.querySubgroup = c;
+    l.querySubgroup = d;
   },
   98,
 );

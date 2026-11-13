@@ -4,13 +4,20 @@ __d(
   function (t, n, r, o, a, i) {
     var e = n("$InternalEnum")({
         APP_LOCK_CONFIRMATION: "app-lock-confirmation",
+        BLOCKED_CONTACTS: "blocked-contacts",
         CHAT_LOCK_SECRET_CODE: "chat-lock-secret-code",
         CHAT_LOCK_SECRET_CODE_SETUP: "chat-lock-secret-code-setup",
+        CONFIRM_LOGOUT: "confirm-logout",
         SCREEN_LOCK: "screen-lock",
         SCREEN_LOCK_ACTIVE_CALL_BLOCKER: "screen-lock-active-call-blocker",
         SCREEN_LOCK_PASSCODE_REMOVAL: "screen-lock-passcode-removal",
         SCREEN_LOCK_PASSCODE_SETUP: "screen-lock-passcode-setup",
         SCREEN_LOCK_SETTINGS: "screen-lock-settings",
+        SECURITY_SETTINGS: "security-settings",
+        SELECT_CONTACTS_EXCEPT: "select-contacts-except",
+        STATUS_AUDIENCE_SELECTOR: "status-audience-selector",
+        STATUS_SELECT_CONTACTS: "status-select-contacts",
+        VERIFICATION: "verification",
       }),
       l = new Set([
         "confirm-logout-app-lock-link",
@@ -61,13 +68,14 @@ __d(
         n();
       }
     }
-    function C(e, t) {
-      var n = u++;
+    function C(e, t, n) {
+      n === void 0 && (n = !1);
+      var r = u++;
       return (
-        s.push({ name: e, rootTestId: t, token: n }),
+        s.push({ holdsUntilRootAttached: n, name: e, rootTestId: t, token: r }),
         function () {
           var e = s.findIndex(function (e) {
-            return e.token === n;
+            return e.token === r;
           });
           e !== -1 && s.splice(e, 1);
         }
@@ -75,10 +83,8 @@ __d(
     }
     function b(e) {
       for (var t = s.length - 1; t >= 0; t--) {
-        var n = s[t],
-          r = n.name,
-          o = n.rootTestId;
-        if (o == null || S(e, o)) return r;
+        var n = s[t];
+        if (S(n, e)) return n.name;
       }
       return null;
     }
@@ -87,6 +93,14 @@ __d(
       return t != null || d(e.screenName) || d(e.destinationName);
     }
     function S(e, t) {
+      var n = e.holdsUntilRootAttached,
+        r = e.rootTestId;
+      return r == null || (n && !R(r)) ? !0 : L(t, r);
+    }
+    function R(e) {
+      return document.querySelector('[data-testid="' + e + '"]') != null;
+    }
+    function L(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );

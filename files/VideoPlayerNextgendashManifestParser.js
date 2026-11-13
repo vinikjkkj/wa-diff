@@ -78,16 +78,16 @@ __d(
         g = n.baseURLFallback,
         h = n.onBaseURLFallbackUsed,
         y = n.workerOptimizationsEnabled,
-        k = y === void 0 ? !1 : y,
-        I = (r = t.MPD) == null ? void 0 : r[0];
-      if (!I) throw u(e, t, "NoMPD", "Missing MPD root");
-      var T = (a = I.Period) == null ? void 0 : a[0];
-      if (!T) throw u(e, t, "NoPeriod", "Missing MPD>Period[1]");
-      var D = T.AdaptationSet;
-      if (!D || D.length <= 0)
+        E = y === void 0 ? !1 : y,
+        k = (r = t.MPD) == null ? void 0 : r[0];
+      if (!k) throw u(e, t, "NoMPD", "Missing MPD root");
+      var I = (a = k.Period) == null ? void 0 : a[0];
+      if (!I) throw u(e, t, "NoPeriod", "Missing MPD>Period[1]");
+      var T = I.AdaptationSet;
+      if (!T || T.length <= 0)
         throw u(e, t, "NoAdaptationSet", "Missing MPD>Period[1]>AdaptationSet");
       if (
-        D.some(function (e) {
+        T.some(function (e) {
           return e.Representation == null || e.Representation.length === 0;
         })
       )
@@ -97,7 +97,7 @@ __d(
           "SomeEmptyAdaptationSets",
           "Some AdaptationSets contain no Representations",
         );
-      var x = function (r) {
+      var D = function (r) {
           var n,
             a,
             i,
@@ -108,109 +108,109 @@ __d(
             m,
             p,
             y,
-            E,
+            L,
+            k,
             I,
             T,
             D,
-            x,
-            $ = r.adaptationSetId,
-            P = r.adaptationSetMimeType,
-            N = r.adaptationSetXml,
-            M = r.representationIndex,
-            w = r.representationXml,
-            A = (n = w.$.id) != null ? n : $ + "-#" + M,
-            F =
-              (a = (i = w.$.mimeType) != null ? i : N.$.mimeType) != null
+            x = r.adaptationSetId,
+            $ = r.adaptationSetMimeType,
+            P = r.adaptationSetXml,
+            N = r.representationIndex,
+            M = r.representationXml,
+            w = (n = M.$.id) != null ? n : x + "-#" + N,
+            A =
+              (a = (i = M.$.mimeType) != null ? i : P.$.mimeType) != null
                 ? a
                 : "";
-          if (F === "" || F !== P) {
-            var O, B;
+          if (A === "" || A !== $) {
+            var F, O;
             throw u(
               e,
               t,
               "MimeTypeMismatch",
               'Representation id="%s" Representation>@mimeType="%s" and AdaptationSet>@mimeType="%s" mismatch',
-              A,
-              (O = w.$.mimeType) != null ? O : "",
-              (B = N.$.mimeType) != null ? B : "",
+              w,
+              (F = M.$.mimeType) != null ? F : "",
+              (O = P.$.mimeType) != null ? O : "",
             );
           }
-          var W =
-            (l = (s = w.$.codecs) != null ? s : N.$.codecs) != null ? l : "";
-          if (W === "") {
-            var q, U;
+          var B =
+            (l = (s = M.$.codecs) != null ? s : P.$.codecs) != null ? l : "";
+          if (B === "") {
+            var W, q;
             e.logging.log(e, {
               error: u(
                 e,
                 t,
                 "CodecsMissingOrEmpty",
                 'Representation id="%s" Representation>@codecs="%s" and AdaptationSet>@codecs="%s" is missing or empty',
-                A,
-                (q = w.$.codecs) != null ? q : "",
-                (U = N.$.codecs) != null ? U : "",
+                w,
+                (W = M.$.codecs) != null ? W : "",
+                (q = P.$.codecs) != null ? q : "",
               ),
               type: "generic_error_as_warning",
             });
           }
-          var V = o("VideoPlayerNextgendashMediaUtils").parseMimeCodecs(
-            L(F, W),
+          var U = o("VideoPlayerNextgendashMediaUtils").parseMimeCodecs(
+            R(A, B),
           );
           if (
-            V.contentType === "" ||
-            V.contentType === "unknown" ||
-            V.containerType === ""
+            U.contentType === "" ||
+            U.contentType === "unknown" ||
+            U.containerType === ""
           ) {
-            var H, G, z, j;
+            var V, H, G, z;
             throw u(
               e,
               t,
               "MimeCodecsParsedUnexpected",
               'Representation id="%s" missing contentType or containerType: %s; AdaptationSet>@mimeType="%s", AdaptationSet>@codecs="%s", Representation>@mimeType="%s", Representation>@codecs="%s"',
-              A,
-              JSON.stringify(V),
-              (H = N.$.mimeType) != null ? H : "",
-              (G = N.$.codecs) != null ? G : "",
-              (z = w.$.mimeType) != null ? z : "",
-              (j = w.$.codecs) != null ? j : "",
+              w,
+              JSON.stringify(U),
+              (V = P.$.mimeType) != null ? V : "",
+              (H = P.$.codecs) != null ? H : "",
+              (G = M.$.mimeType) != null ? G : "",
+              (z = M.$.codecs) != null ? z : "",
             );
           }
-          var K =
-              N.$.FBVariantKey === "und"
+          var j =
+              P.$.FBVariantKey === "und"
                 ? null
-                : (c = N.$.FBVariantKey) != null
+                : (c = P.$.FBVariantKey) != null
                   ? c
                   : null,
-            Q = N.$.lang === "und" ? null : (d = N.$.lang) != null ? d : null,
-            X =
+            K = P.$.lang === "und" ? null : (d = P.$.lang) != null ? d : null,
+            Q =
               (m =
-                (p = N.Role) == null || (p = p[0]) == null
+                (p = P.Role) == null || (p = p[0]) == null
                   ? void 0
                   : p.$.value) != null
                 ? m
                 : null,
-            Y = Number(w.$.bandwidth);
-          if (!Number.isFinite(Y) || Y <= 0)
+            X = Number(M.$.bandwidth);
+          if (!Number.isFinite(X) || X <= 0)
             throw u(
               e,
               t,
               "RepresentationBandwidthInvalid",
               'Representation id="%s" Representation>@bandwidth is missing or invalid: %s',
-              A,
-              w.$.bandwidth,
+              w,
+              M.$.bandwidth,
             );
-          var J = w.$.FBPlaybackResolutionMos,
-            Z = w.$.FBPlaybackResolutionCsvqm,
-            ee = e.config.cacheQualityScoreInRepresentation,
+          var Y = M.$.FBPlaybackResolutionMos,
+            J = M.$.FBPlaybackResolutionCsvqm,
+            Z = e.config.cacheQualityScoreInRepresentation,
+            ee =
+              Z && Y != null
+                ? o("QualityScoreUtils").parseQualityScoreCurve(Y)
+                : null,
             te =
-              ee && J != null
+              Z && J != null
                 ? o("QualityScoreUtils").parseQualityScoreCurve(J)
                 : null,
-            ne =
-              ee && Z != null
-                ? o("QualityScoreUtils").parseQualityScoreCurve(Z)
-                : null,
-            re = w.$.FBQualityLabel,
-            oe = ((y = w.$.FBAbrPolicyTags) != null ? y : "")
+            ne = M.$.FBQualityLabel,
+            re = ((y = M.$.FBAbrPolicyTags) != null ? y : "")
               .split(",")
               .map(function (e) {
                 return e.trim();
@@ -218,121 +218,117 @@ __d(
               .filter(function (e) {
                 return e !== "";
               }),
-            ae =
-              (E =
-                (I = w.BaseURL) == null || (I = I[0]) == null ? void 0 : I._) !=
+            oe =
+              (L =
+                (k = M.BaseURL) == null || (k = k[0]) == null ? void 0 : k._) !=
               null
-                ? E
+                ? L
                 : g;
-          if (ae == null)
+          if (oe == null)
             throw u(
               e,
               t,
               "RepresentationBaseURLMissingAndNoFallback",
               'Representation id="%s" Representation>BaseURL is missing and no fallback was provided',
-              A,
+              w,
             );
-          var ie,
-            le = (T = w.SegmentBase) == null ? void 0 : T[0],
-            se = (D = w.SegmentTemplate) == null ? void 0 : D[0];
-          if (le != null) {
-            var ue,
-              ce = (ue = le.Initialization) == null ? void 0 : ue[0];
-            if (ce == null)
+          var ae,
+            ie = (I = M.SegmentBase) == null ? void 0 : I[0],
+            le = (T = M.SegmentTemplate) == null ? void 0 : T[0];
+          if (ie != null) {
+            var se,
+              ue = (se = ie.Initialization) == null ? void 0 : se[0];
+            if (ue == null)
               throw u(
                 e,
                 t,
                 "SegmentBaseInitializationMissing",
                 'Representation id="%s" SegmentBase>Initialization is missing',
-                A,
+                w,
               );
-            var de = R(
+            var ce = S(
                 e,
                 t,
-                A,
+                w,
                 "SegmentBase>Initialization>@range",
-                ce.$.range,
+                ue.$.range,
               ),
-              me = R(e, t, A, "SegmentBase>@indexRange", le.$.indexRange);
-            if (le.$.indexRangeExact === "false")
+              de = S(e, t, w, "SegmentBase>@indexRange", ie.$.indexRange);
+            if (ie.$.indexRangeExact === "false")
               throw u(
                 e,
                 t,
                 "SegmentBaseIndexRangeExactFalseUnsupported",
                 'Representation id="%s" SegmentBase>@indexRangeExact="false" is unsupported',
-                A,
+                w,
               );
-            var pe = S(e, t, A, le);
-            ie = babelHelpers.extends(
-              {
-                baseURL: ae,
-                indexByteRange: o(
-                  "VideoPlayerNextgendashMediaUtils",
-                ).makeByteRangeFromStartEndByteIndex(e, me[0], me[1]),
-                initByteRange: o(
-                  "VideoPlayerNextgendashMediaUtils",
-                ).makeByteRangeFromStartEndByteIndex(e, de[0], de[1]),
-              },
-              pe != null ? { presentationTimeOffsetSec: pe } : null,
-              { type: "SegmentBase" },
-            );
-          } else if (se != null) {
-            var _e,
-              fe = se.$.media;
-            if (fe == null)
+            ae = {
+              baseURL: oe,
+              indexByteRange: o(
+                "VideoPlayerNextgendashMediaUtils",
+              ).makeByteRangeFromStartEndByteIndex(e, de[0], de[1]),
+              initByteRange: o(
+                "VideoPlayerNextgendashMediaUtils",
+              ).makeByteRangeFromStartEndByteIndex(e, ce[0], ce[1]),
+              type: "SegmentBase",
+            };
+          } else if (le != null) {
+            var me,
+              pe = le.$.media;
+            if (pe == null)
               throw u(
                 e,
                 t,
                 "SegmentTemplateMediaMissing",
                 'Representation id="%s" SegmentTemplate>@media is missing',
-                A,
+                w,
               );
-            var ge = se.$.initialization;
-            if (ge == null)
+            var _e = le.$.initialization;
+            if (_e == null)
               throw u(
                 e,
                 t,
                 "SegmentTemplateInitializationMissing",
                 'Representation id="%s" SegmentTemplate>@initialization is missing',
-                A,
+                w,
               );
-            var he = v(
+            var fe = v(
                 e,
                 t,
-                A,
+                w,
                 "SegmentTemplate>@timescale",
-                se.$.timescale,
+                le.$.timescale,
                 C,
               ),
-              ye =
-                se.$.startNumber != null
+              ge =
+                le.$.startNumber != null
                   ? v(
                       e,
                       t,
-                      A,
+                      w,
                       "SegmentTemplate>@startNumber",
-                      se.$.startNumber,
+                      le.$.startNumber,
                       b,
                     )
                   : null,
-              Ce = (_e = se.SegmentTimeline) == null ? void 0 : _e[0];
-            if (Ce == null)
+              he = (me = le.SegmentTimeline) == null ? void 0 : me[0];
+            if (he == null)
               throw u(
                 e,
                 t,
                 "SegmentTimelineMissing",
                 'Representation id="%s" SegmentTemplate>SegmentTimeline is missing',
-                A,
+                w,
               );
-            var be = _(e, t, A, Ce),
-              ve = f(e, t, A, Ce);
-            ie = babelHelpers.extends(
-              { baseURL: ae, initURL: ge, segmentTimeline: be },
-              ve != null ? { segmentTimelinePredictive: ve } : null,
+            var ye = _(e, t, w, he),
+              Ce = f(e, t, w, he);
+            ae = babelHelpers.extends(
+              { baseURL: oe, initURL: _e, segmentTimeline: ye },
+              Ce != null ? { segmentTimelinePredictive: Ce } : null,
               {
-                segmentURLTemplate: fe,
-                startNumber: ye,
-                timescale: he,
+                segmentURLTemplate: pe,
+                startNumber: ge,
+                timescale: fe,
                 type: "SegmentTemplate",
               },
             );
@@ -342,31 +338,31 @@ __d(
               t,
               "SegmentsInfoInvalid",
               'Representation id="%s" SegmentBase and SegmentTemplate are missing',
-              A,
+              w,
             );
           return (
-            k === !0 &&
-              ((x = w.BaseURL) == null || (x = x[0]) == null ? void 0 : x._) ==
+            E === !0 &&
+              ((D = M.BaseURL) == null || (D = D[0]) == null ? void 0 : D._) ==
                 null &&
-              (h == null || h(ie)),
+              (h == null || h(ae)),
             {
-              abrPolicyTags: oe,
-              bandwidth: Y,
-              lang: Q,
-              mimeCodecsParsed: V,
-              playbackResolutionCsvqmScoreCurve: Z,
-              playbackResolutionCsvqmScoreCurveParsed: ne,
-              playbackResolutionMosScoreCurve: J,
-              playbackResolutionMosScoreCurveParsed: te,
-              qualityLabel: re,
-              representationId: A,
-              role: X,
-              segmentsInfo: ie,
-              variantKey: K,
+              abrPolicyTags: re,
+              bandwidth: X,
+              lang: K,
+              mimeCodecsParsed: U,
+              playbackResolutionCsvqmScoreCurve: J,
+              playbackResolutionCsvqmScoreCurveParsed: te,
+              playbackResolutionMosScoreCurve: Y,
+              playbackResolutionMosScoreCurveParsed: ee,
+              qualityLabel: ne,
+              representationId: w,
+              role: Q,
+              segmentsInfo: ae,
+              variantKey: j,
             }
           );
         },
-        $ = function (t, n) {
+        x = function (t, n) {
           var e = Number.parseInt(t != null ? t : "", 10),
             r = Number.parseInt(n != null ? n : "", 10);
           return Number.isSafeInteger(e) &&
@@ -376,32 +372,32 @@ __d(
             ? { height: r, width: e }
             : null;
         },
-        P =
+        $ =
           e.config.enableLive &&
-          (I.$.type === "dynamic" || e.config.isLivePlayback),
-        N = function (t) {
+          (k.$.type === "dynamic" || e.config.isLivePlayback),
+        P = function (t) {
           var e,
             n = t.adaptationSetXml,
             r = t.representationXml;
-          return (e = $(r.$.width, r.$.height)) != null
+          return (e = x(r.$.width, r.$.height)) != null
             ? e
-            : $(n.$.width, n.$.height);
+            : x(n.$.width, n.$.height);
         },
-        M = function (t) {
+        N = function (t) {
           var e,
             n = t.adaptationSetXml;
-          return (e = N(t)) != null
+          return (e = P(t)) != null
             ? e
-            : P
-              ? $(n.$.maxWidth, n.$.maxHeight)
+            : $
+              ? x(n.$.maxWidth, n.$.maxHeight)
               : null;
         },
-        w = function (r) {
+        M = function (r) {
           var n,
-            o = x(r),
+            o = D(r),
             a = r.adaptationSetXml,
             i = r.representationXml,
-            l = M(r);
+            l = N(r);
           if (l == null)
             throw u(
               e,
@@ -423,33 +419,33 @@ __d(
             width: l.width,
           });
         },
+        w = function (t) {
+          return babelHelpers.extends({}, D(t), { type: "audio" });
+        },
         A = function (t) {
-          return babelHelpers.extends({}, x(t), { type: "audio" });
+          return babelHelpers.extends({}, D(t), { type: "application" });
         },
         F = function (t) {
-          return babelHelpers.extends({}, x(t), { type: "application" });
-        },
-        O = function (t) {
           if (t.$.mimeType != null) return t.$.mimeType;
           var e = t.Representation;
           return e && e.length > 0 && e[0].$.mimeType != null
             ? e[0].$.mimeType
             : null;
         },
-        B = D.findLast(function (e) {
+        O = T.findLast(function (e) {
           return e.Representation != null && e.Representation.length > 0;
         }),
-        W = D.map(function (e) {
+        B = T.map(function (e) {
           return e.$.id;
         }),
-        q = new Set(W).size === W.length,
-        U = D.reduce(function (n, r, o) {
+        W = new Set(B).size === B.length,
+        q = T.reduce(function (n, r, o) {
           var a,
             i,
             l,
-            s = (a = q ? r.$.id : void 0) != null ? a : "id-mpdas-" + o,
-            c = r === B,
-            d = (i = O(r)) != null ? i : "",
+            s = (a = W ? r.$.id : void 0) != null ? a : "id-mpdas-" + o,
+            c = r === O,
+            d = (i = F(r)) != null ? i : "",
             m = ((l = r.Representation) != null ? l : []).map(function (e, t) {
               return {
                 adaptationSetId: s,
@@ -468,9 +464,9 @@ __d(
           if (d.indexOf("video") === 0) {
             if (!p) {
               var g = m;
-              if (P) {
+              if ($) {
                 var h = m.filter(function (e) {
-                  return N(e) != null;
+                  return P(e) != null;
                 });
                 h.length > 0 &&
                   h.length < m.length &&
@@ -502,19 +498,19 @@ __d(
                   (g = h));
               }
               f = babelHelpers.extends({}, _, {
-                representations: g.map(w),
+                representations: g.map(M),
                 type: "video",
               });
             }
           } else
             d.indexOf("audio") === 0
               ? (f = babelHelpers.extends({}, _, {
-                  representations: m.map(A),
+                  representations: m.map(w),
                   type: "audio",
                 }))
               : d.indexOf("application") === 0
                 ? (f = babelHelpers.extends({}, _, {
-                    representations: m.map(F),
+                    representations: m.map(A),
                     type: "application",
                   }))
                 : e.logging.log(e, {
@@ -531,68 +527,75 @@ __d(
                   });
           return (f && n.push(f), n);
         }, []),
-        V = U.map(function (e) {
-          var t = e.representations;
-          return t;
-        }).flat();
-      if (V.length === 0)
+        U = q
+          .map(function (e) {
+            var t = e.representations;
+            return t;
+          })
+          .flat();
+      if (U.length === 0)
         throw u(
           e,
           t,
           "NoRepresentations",
           "Not found any Representations in any of %s AdaptationSets",
-          String(U.length),
+          String(q.length),
         );
-      var H = U.map(function (e) {
+      var V = q.map(function (e) {
         return e.adaptationSetId;
       });
-      if (new Set(H).size < H.length)
+      if (new Set(V).size < V.length)
         throw u(
           e,
           t,
           "NonUniqueAdaptationSetID",
           "AdaptationSet ids are required to be unique within the manifest: %s",
-          H.join(","),
+          V.join(","),
         );
-      var G = V.map(function (e) {
+      var H = U.map(function (e) {
         return e.representationId;
       });
-      if (new Set(G).size < G.length)
+      if (new Set(H).size < H.length)
         throw u(
           e,
           t,
           "NonUniqueRepresentationID",
           "Representation ids are required to be unique within the manifest: %s",
-          G.join(","),
+          H.join(","),
         );
-      var z = p
+      var G = p
           ? null
-          : E(
+          : L(
               e,
-              U.map(function (e) {
-                return e.type === "video" ? e : null;
-              }).filter(Boolean),
+              q
+                .map(function (e) {
+                  return e.type === "video" ? e : null;
+                })
+                .filter(Boolean),
             ),
-        j = E(
+        z = L(
           e,
-          U.map(function (e) {
-            return e.type === "audio" ? e : null;
-          }).filter(Boolean),
+          q
+            .map(function (e) {
+              return e.type === "audio" ? e : null;
+            })
+            .filter(Boolean),
         ),
-        K = U.map(function (e) {
-          return e.type === "application" ? e.representations : null;
-        })
+        j = q
+          .map(function (e) {
+            return e.type === "application" ? e.representations : null;
+          })
           .filter(Boolean)
           .flat();
-      if (z != null) {
-        if (z.selected.length === 0)
-          throw z.ignored.size > 0
+      if (G != null) {
+        if (G.selected.length === 0)
+          throw G.ignored.size > 0
             ? u(
                 e,
                 t,
                 "AllVideoRepresentationsIgnored",
                 "All video representations ignored: %s",
-                Array.from(z.ignored.entries())
+                Array.from(G.ignored.entries())
                   .map(function (e) {
                     var t = e[0],
                       n = e[1];
@@ -605,7 +608,7 @@ __d(
                 t,
                 "NoVideoRepresentations",
                 "Not found any video representations, found: %s",
-                V.map(function (e) {
+                U.map(function (e) {
                   return (
                     e.representationId +
                     ":" +
@@ -615,14 +618,14 @@ __d(
                   );
                 }).join("; "),
               );
-        z.ignored.size > 0 &&
+        G.ignored.size > 0 &&
           e.logging.log(e, {
             error: u(
               e,
               t,
               "IgnoredVideoRepresentations",
               "Some video representations ignored: %s",
-              Array.from(z.ignored.entries())
+              Array.from(G.ignored.entries())
                 .map(function (e) {
                   var t = e[0],
                     n = e[1];
@@ -633,7 +636,7 @@ __d(
             type: "generic_error_as_warning",
           });
       }
-      function Q(e) {
+      function K(e) {
         return (
           new Set(
             e.map(function (e) {
@@ -646,26 +649,26 @@ __d(
           ).size > 1
         );
       }
-      var X = Q((i = z == null ? void 0 : z.selected) != null ? i : []),
-        Y = Q(j.selected);
+      var Q = K((i = G == null ? void 0 : G.selected) != null ? i : []),
+        X = K(z.selected);
       return {
         audioOnly: p,
         createdAt: e.host.clock(),
-        debugXml: e.config.debugViz || e.config.debugLog ? I : void 0,
+        debugXml: e.config.debugViz || e.config.debugLog ? k : void 0,
         manifestRepresentations: {
-          application: K,
-          audio: j.selected,
-          video: (l = z == null ? void 0 : z.selected) != null ? l : [],
+          application: j,
+          audio: z.selected,
+          video: (l = G == null ? void 0 : G.selected) != null ? l : [],
         },
         metadata: {
-          manifestIdentifier: (s = I.$.FBManifestIdentifier) != null ? s : null,
-          manifestIsLiveTemplated: I.$.FBIsLiveTemplated === "true",
-          manifestIsMixedCodecAudio: Y,
-          manifestIsMixedCodecVideo: X,
-          manifestType: I.$.type === "dynamic" ? "dynamic" : "static",
-          minBufferTimeSec: m(I.$.minBufferTime),
-          minimumUpdatePeriodMs: c(I.$.minimumUpdatePeriod),
-          suggestedPresentationDelaySec: m(I.$.suggestedPresentationDelay),
+          manifestIdentifier: (s = k.$.FBManifestIdentifier) != null ? s : null,
+          manifestIsLiveTemplated: k.$.FBIsLiveTemplated === "true",
+          manifestIsMixedCodecAudio: X,
+          manifestIsMixedCodecVideo: Q,
+          manifestType: k.$.type === "dynamic" ? "dynamic" : "static",
+          minBufferTimeSec: m(k.$.minBufferTime),
+          minimumUpdatePeriodMs: c(k.$.minimumUpdatePeriod),
+          suggestedPresentationDelaySec: m(k.$.suggestedPresentationDelay),
         },
       };
     }
@@ -792,34 +795,7 @@ __d(
         );
       return i;
     }
-    function S(e, t, n, r) {
-      if (!e.config.applyManifestPresentationTimeOffset) return null;
-      var o = r.$,
-        a = o.presentationTimeOffset,
-        i = o.timescale;
-      return a == null
-        ? null
-        : i == null ||
-            !/^\d+$/.test(a) ||
-            !/^[1-9]\d*$/.test(i) ||
-            !Number.isSafeInteger(Number(a)) ||
-            !Number.isSafeInteger(Number(i))
-          ? (e.logging.log(e, {
-              error: u(
-                e,
-                t,
-                "InvalidSegmentBasePresentationTimeOffset",
-                'Representation id="%s" SegmentBase@presentationTimeOffset="%s" with @timescale="%s" is ignored',
-                n,
-                a,
-                String(i),
-              ),
-              type: "generic_error_as_warning",
-            }),
-            null)
-          : Number(a) / Number(i);
-    }
-    function R(e, t, n, r, o) {
+    function S(e, t, n, r, o) {
       var a = o == null ? void 0 : o.split("-").map(Number);
       if (a == null || a.length !== 2)
         throw u(
@@ -833,10 +809,10 @@ __d(
         );
       return [a[0], a[1]];
     }
-    function L(e, t) {
+    function R(e, t) {
       return e + '; codecs="' + t + '"';
     }
-    function E(e, t) {
+    function L(e, t) {
       var n = [],
         r = new Map();
       return (
@@ -881,12 +857,12 @@ __d(
         { ignored: r, selected: n }
       );
     }
-    function k(e) {
+    function E(e) {
       var t = e.height,
         n = e.qualityLabel;
       return n == null || n === "" ? String(t) + "p" : n != null ? n : "";
     }
-    function I(e) {
+    function k(e) {
       var t = e.lang,
         n = e.role,
         r = t != null ? t : "Default";
@@ -898,8 +874,8 @@ __d(
       (l.internal_parseIso8601DurationSec = m),
       (l.parseMPD = p),
       (l.internal_parseFBAverageDuration = g),
-      (l.getDisplayLabelFromVideoRepresentation = k),
-      (l.getDisplayLabelFromAudioRepresentation = I));
+      (l.getDisplayLabelFromVideoRepresentation = E),
+      (l.getDisplayLabelFromAudioRepresentation = k));
   },
   98,
 );

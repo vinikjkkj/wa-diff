@@ -27,6 +27,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebUserUtils",
     "WAWebWamoNewsletterGatingUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -250,9 +251,12 @@ __d(
                 (e == null ? void 0 : e.singleRun) !== !0 &&
                 this.$TosManagerImpl$p_9(this.$TosManagerImpl$p_4()).length > 0
               ) {
-                var n = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
+                var n =
+                  o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE();
                 (yield o("WAPromiseDelays").delayMs(this.$TosManagerImpl$p_2),
-                  o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser() === n &&
+                  o(
+                    "WAWebUserUtils",
+                  ).getMaybeMePnLessOrFallback_DO_NOT_USE() === n &&
                     this.run());
               }
             }
@@ -265,7 +269,7 @@ __d(
         (i.$TosManagerImpl$p_8 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this;
-            if (o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()) {
+            if (o("WAWebUserPrefsMeUser").hasLoggedIn()) {
               var t = yield (p || (p = n("Promise"))).all([
                   this.$TosManagerImpl$p_10(),
                   this.$TosManagerImpl$p_11(),
@@ -421,7 +425,7 @@ __d(
         })()),
         (i.$TosManagerImpl$p_13 = function (t) {
           var e = this;
-          if (o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()) {
+          if (o("WAWebUserPrefsMeUser").hasLoggedIn()) {
             var n = this.$TosManagerImpl$p_3().map(function (t) {
               return e.getState(t);
             });

@@ -213,12 +213,14 @@ __d(
           );
     }
     function S(e) {
-      var t = e.newsletterMetadata;
-      return t == null
-        ? !1
-        : u(t, o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS);
+      return R(e.newsletterMetadata);
     }
     function R(e) {
+      return e == null
+        ? !1
+        : u(e, o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS);
+    }
+    function L(e) {
       var t = e.newsletterMetadata;
       return t == null
         ? !1
@@ -227,7 +229,7 @@ __d(
             o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS_M2,
           );
     }
-    function L(e) {
+    function E(e) {
       var t = e.newsletterMetadata;
       return t == null
         ? !1
@@ -237,7 +239,7 @@ __d(
               .QUESTIONS_STARRING,
           );
     }
-    function E(e) {
+    function k(e) {
       return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -250,28 +252,20 @@ __d(
                 .ADMIN_PROFILE,
             );
     }
-    function k(e) {
-      return E(e) && e.adminProfilesSettingEnabled;
-    }
     function I(e) {
+      return k(e) && e.adminProfilesSettingEnabled;
+    }
+    function T(e) {
       return (
-        k(e) &&
+        I(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_list_enabled",
         )
       );
     }
-    function T(e) {
-      return (
-        k(e) &&
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_admin_profiles_update_enabled",
-        )
-      );
-    }
     function D(e) {
       return (
-        E(e) &&
+        I(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_update_enabled",
         )
@@ -279,17 +273,25 @@ __d(
     }
     function x(e) {
       return (
-        E(e) &&
+        k(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_admin_profiles_settings_enabled",
+          "channels_admin_profiles_update_enabled",
         )
       );
     }
     function $(e) {
       return (
+        k(e) &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_settings_enabled",
+        )
+      );
+    }
+    function P(e) {
+      return (
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_banner_enabled",
-        ) && x(e)
+        ) && $(e)
       );
     }
     ((l.isNewsletterEnabledOnPrimary = e),
@@ -307,14 +309,15 @@ __d(
       (l.isNewsletterPhotoPollCapabilityEnabled = b),
       (l.isNewsletterStatusCapabilityEnabled = v),
       (l.isNewsletterQuestionsCapabilityEnabled = S),
-      (l.isNewsletterQuestionsM2CapabilityEnabled = R),
-      (l.isNewsletterQuestionsResponsesStarringCapabilityEnabled = L),
-      (l.isNewsletterAdminProfilesSenderEnabled = k),
-      (l.isNewsletterAdminProfilesListEnabled = I),
-      (l.isNewsletterAdminProfilesUpdateEnabled = T),
-      (l.isNewsletterAdminProfilesUpdatePropsEnabled = D),
-      (l.isNewsletterAdminProfilesSettingEnabled = x),
-      (l.isNewsletterAdminProfilesUpsellBannerEnabled = $));
+      (l.isNewsletterQuestionsCapabilityEnabledFor = R),
+      (l.isNewsletterQuestionsM2CapabilityEnabled = L),
+      (l.isNewsletterQuestionsResponsesStarringCapabilityEnabled = E),
+      (l.isNewsletterAdminProfilesSenderEnabled = I),
+      (l.isNewsletterAdminProfilesListEnabled = T),
+      (l.isNewsletterAdminProfilesUpdateEnabled = D),
+      (l.isNewsletterAdminProfilesUpdatePropsEnabled = x),
+      (l.isNewsletterAdminProfilesSettingEnabled = $),
+      (l.isNewsletterAdminProfilesUpsellBannerEnabled = P));
   },
   98,
 );

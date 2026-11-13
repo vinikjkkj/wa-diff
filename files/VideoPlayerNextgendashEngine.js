@@ -236,7 +236,6 @@ __d(
         {},
         t,
         {
-          applyManifestPresentationTimeOffset: r("gkx")("28782"),
           bandwidthDiagnosticsFallbackDefaultEstimate: a ? x : null,
           blockDuplicatePrefetch: r("gkx")("25126"),
           bufferAheadTargetNoMediaElementSec:

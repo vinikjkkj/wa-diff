@@ -1,6 +1,6 @@
 __d(
   "WAWebProtobufMsgKeyUtils",
-  ["invariant", "WAWebMsgKey", "WAWebUserPrefsMeUser", "WAWebWidFactory"],
+  ["invariant", "WAWebMsgKey", "WAWebUserUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
       var n = e.fromMe,
@@ -17,7 +17,8 @@ __d(
       if ((d.isGroup() || d.isBroadcast()) && n) {
         var m;
         c =
-          (m = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()) != null
+          (m = o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE()) !=
+          null
             ? m
             : void 0;
       }

@@ -19,40 +19,49 @@ __d(
         "payments_br_pix_web_attachment_tray",
       );
     }
-    function s(t) {
-      var n =
+    function s(e) {
+      return u({
+        chatId: e.id,
+        contact: e.contact,
+        groupMetadata: e.groupMetadata,
+      });
+    }
+    function u(t) {
+      var n = t.chatId,
+        r = t.contact,
+        a = t.groupMetadata,
+        i =
           o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
           o("WAWebPixFeature").isPixEnabled() &&
           o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web") &&
           e(),
-        r =
+        l =
           !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
           o("WAWebPaymentsGatingUtils").consumerPixActionsEnabled();
       if (
-        (!n && !r) ||
-        o("WAWebContactGetters").getIsMe(t.contact) ||
-        t.contact.isEnterprise ||
-        t.id.isAiHub()
+        (!i && !l) ||
+        (r != null &&
+          (o("WAWebContactGetters").getIsMe(r) || r.isEnterprise)) ||
+        n.isAiHub()
       )
         return !1;
-      var a = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
-        t.id,
-      );
-      return a === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL
+      var s = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(n);
+      return s === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL
         ? o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(
-            t.id,
+            n,
             o("WAWebPaymentsConstants").BRAZIL_COUNTRY_CODE,
           )
-        : a === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP
-          ? r
+        : s === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP
+          ? l
             ? o("WAWebPaymentsGatingUtils").consumerSharePixGroupsEnabled() &&
-              o("WAWebPixQuickReplyFeature").isEligiblePixGroupChat(t)
+              o("WAWebPixQuickReplyFeature").isEligiblePixGroupMetadata(a)
             : o(
                 "WAWebPixQuickReplyFeature",
-              ).showPixQuickReplyInAttachmentTrayForGroups(t)
+              ).showPixQuickReplyInAttachmentTrayForGroupMetadata(a)
           : !1;
     }
-    l.shouldShowPixInAttachmentTray = s;
+    ((l.shouldShowPixInAttachmentTray = s),
+      (l.shouldShowPixInAttachmentTrayFor = u));
   },
   98,
 );

@@ -1,36 +1,64 @@
 __d(
   "WAWebGroupInviteV4QueryJoinJob",
   [
+    "JSResourceForInteraction",
     "WALogger",
     "WASmaxGroupsAcceptGroupAddRPC",
     "WASmaxGroupsGetGroupInfoRPC",
+    "WAWebBackendErrors",
+    "WAWebGroupMembershipFormGating",
     "WAWebGroupsQueryApi",
     "WAWebJidToWid",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f = 410,
+      g = r("JSResourceForInteraction")(
+        "WAWebMexFetchGroupInviteInfoJob",
+      ).__setRef("WAWebGroupInviteV4QueryJoinJob"),
+      h = r("JSResourceForInteraction")("WAWebMexGroupJoinJob").__setRef(
+        "WAWebGroupInviteV4QueryJoinJob",
+      );
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function m() {
+    function C() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.from,
             r = t.inviteCode,
             a = t.inviteCodeExp,
             i = t.inviteGrp,
-            l = t.phash,
-            u = yield o("WASmaxGroupsGetGroupInfoRPC").sendGetGroupInfoRPC({
-              addRequestArgs: {
-                addRequestExpiration: parseInt(a, 10),
-                addRequestAdmin: o("WAWebWidToJid").widToUserJid(n),
-                addRequestCode: r,
-              },
-              iqTo: i,
-              queryPhash: l,
+            l = t.phash;
+          if (
+            o(
+              "WAWebGroupMembershipFormGating",
+            ).isMexGroupAddRequestInfoEnabled()
+          )
+            return b({
+              from: n,
+              inviteCode: r,
+              inviteCodeExp: a,
+              inviteGrp: i,
             });
+          var u = yield o("WASmaxGroupsGetGroupInfoRPC").sendGetGroupInfoRPC({
+            addRequestArgs: {
+              addRequestExpiration: parseInt(a, 10),
+              addRequestAdmin: o("WAWebWidToJid").widToUserJid(n),
+              addRequestCode: r,
+            },
+            iqTo: i,
+            queryPhash: l,
+          });
           e: {
             var c = u;
             if (
@@ -118,25 +146,84 @@ __d(
             );
           }
         })),
-        m.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function _() {
+    function v() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.from,
             n = e.inviteCode,
             r = e.inviteCodeExp,
             a = e.inviteGrp,
-            i = yield o("WASmaxGroupsAcceptGroupAddRPC").sendAcceptGroupAddRPC({
-              iqTo: a,
-              acceptCode: n,
-              acceptExpiration: parseInt(r, 10),
-              acceptAdmin: o("WAWebWidToJid").widToUserJid(t),
+            i = parseInt(r, 10);
+          if (Number.isNaN(i))
+            return (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "queryGroupInviteV4: invalid expiration",
+                  ])),
+              ),
+              { status: f }
+            );
+          var l = yield g.load(),
+            s = l.mexFetchGroupAddRequestInfoJob;
+          try {
+            var d = yield s({
+              admin: o("WAWebWidToJid").widToUserJid(t),
+              code: n,
+              expiration: i,
+              groupJid: a,
             });
+            return { status: 200, groupMetadata: d };
+          } catch (e) {
+            if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError)
+              return (
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "queryGroupInviteV4: failed over MEX ",
+                      "",
+                    ])),
+                  e.status,
+                ),
+                { status: e.status }
+              );
+            throw e;
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = e.inviteCode,
+            r = e.inviteCodeExp,
+            a = e.inviteGrp;
+          if (o("WAWebGroupMembershipFormGating").isMexGroupJoinEnabled())
+            return L({
+              from: t,
+              inviteCode: n,
+              inviteCodeExp: r,
+              inviteGrp: a,
+            });
+          var i = yield o(
+            "WASmaxGroupsAcceptGroupAddRPC",
+          ).sendAcceptGroupAddRPC({
+            iqTo: a,
+            acceptCode: n,
+            acceptExpiration: parseInt(r, 10),
+            acceptAdmin: o("WAWebWidToJid").widToUserJid(t),
+          });
           switch (i.name) {
             case "AcceptGroupAddResponseSuccess":
               return { status: 200, gid: o("WAWebJidToWid").groupJidToWid(a) };
@@ -145,29 +232,29 @@ __d(
             case "AcceptGroupAddResponseClientError": {
               var l = i.value.errorAcceptGroupAddClientErrors.value,
                 s = l.code,
-                d = l.text;
+                u = l.text;
               return (
                 o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "joinGroupViaInviteV4: failed ",
                       ":",
                       "",
                     ])),
                   s,
-                  d,
+                  u,
                 ),
                 { status: Number(s) }
               );
             }
             case "AcceptGroupAddResponseServerError": {
-              var m = i.value.errorServerErrors.value,
-                p = m.code,
-                _ = m.text;
+              var c = i.value.errorServerErrors.value,
+                p = c.code,
+                _ = c.text;
               return (
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "joinGroupViaInviteV4: failed ",
                       ":",
                       "",
@@ -180,10 +267,60 @@ __d(
             }
           }
         })),
-        _.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.queryGroupInviteV4 = d), (l.joinGroupViaInviteV4 = p));
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = e.inviteCode,
+            r = e.inviteCodeExp,
+            a = e.inviteGrp,
+            i = parseInt(r, 10);
+          if (Number.isNaN(i))
+            return (
+              o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "joinGroupViaInviteV4: invalid expiration",
+                  ])),
+              ),
+              { status: f }
+            );
+          var l = yield h.load(),
+            s = l.mexAcceptGroupAddRequestJob;
+          try {
+            yield s({
+              admin: o("WAWebWidToJid").widToUserJid(t),
+              code: n,
+              expiration: i,
+              groupJid: a,
+            });
+          } catch (e) {
+            if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError)
+              return (
+                o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "joinGroupViaInviteV4: failed over MEX ",
+                      "",
+                    ])),
+                  e.status,
+                ),
+                { status: e.status }
+              );
+            throw e;
+          }
+          return { status: 200, gid: o("WAWebJidToWid").groupJidToWid(a) };
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    ((l.queryGroupInviteV4 = y), (l.joinGroupViaInviteV4 = S));
   },
   98,
 );

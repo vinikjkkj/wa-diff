@@ -95,29 +95,44 @@ __d(
       );
     }
     function d(e) {
-      if (
-        o("WAWebChatGetters").getIsBroadcast(e) ||
-        o("WAWebChatGetters").getIsMetaAiBot(e) ||
-        o("WAWebBotUtils").isBusinessAssistantBot(e.id) ||
-        o("WAWebChatGetters").getIsBotChannel(e) ||
-        e.id.isAiHub()
-      )
-        return !1;
-      var t = e.groupMetadata;
-      return t == null
-        ? !0
-        : o("WAWebFrontendChatGetters").getIsCAG(e)
-          ? o("WAWebChatGroupUtils").getGroupParticipantsCount(t) <=
-              o("WAWebABProps").getABPropConfigValue(
-                "pnh_cag_disable_polls_group_size",
-              ) && o("WAWebPollsCagsGatingUtils").isPollsCreationEnabledInCags()
-          : !0;
+      return m({
+        chatId: e.id,
+        groupMetadata: e.groupMetadata,
+        isBotChannel: o("WAWebChatGetters").getIsBotChannel(e),
+        isBroadcast: o("WAWebChatGetters").getIsBroadcast(e),
+        isCAG: o("WAWebFrontendChatGetters").getIsCAG(e),
+        isMetaAiBot: o("WAWebChatGetters").getIsMetaAiBot(e),
+      });
+    }
+    function m(e) {
+      var t = e.chatId,
+        n = e.groupMetadata,
+        r = e.isBotChannel,
+        a = e.isBroadcast,
+        i = e.isCAG,
+        l = e.isMetaAiBot;
+      return a ||
+        l ||
+        o("WAWebBotUtils").isBusinessAssistantBot(t) ||
+        r ||
+        t.isAiHub()
+        ? !1
+        : n == null
+          ? !0
+          : i
+            ? o("WAWebChatGroupUtils").getGroupParticipantsCount(n) <=
+                o("WAWebABProps").getABPropConfigValue(
+                  "pnh_cag_disable_polls_group_size",
+                ) &&
+              o("WAWebPollsCagsGatingUtils").isPollsCreationEnabledInCags()
+            : !0;
     }
     ((l.getMdChatAssignmentChatTypeFn = e),
       (l.getWebcChatTypeFn = s),
       (l.isPreviewMessage = u),
       (l.isAcp2RestrictionNotice = c),
-      (l.canSendPolls = d));
+      (l.canSendPolls = d),
+      (l.canSendPollsFor = m));
   },
   98,
 );

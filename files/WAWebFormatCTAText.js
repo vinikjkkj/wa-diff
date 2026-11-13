@@ -8,8 +8,10 @@ __d(
     "WAWebGroupGatingUtils",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinSubtype",
+    "WAWebGroupMembershipFormSystemMessageUtils",
     "WAWebGroupType",
     "WAWebMsgType",
+    "WAWebSystemMessageGatingUtils",
     "WAWebUserUtils",
     "WAWebWid",
     "react",
@@ -40,6 +42,7 @@ __d(
           g = d({
             chat: t,
             iAmAdmin: n,
+            id: a,
             latestJoinTimeByRecipient: i,
             msgT: l,
             recipients: c,
@@ -90,42 +93,43 @@ __d(
       var t,
         n = e.chat,
         a = e.iAmAdmin,
-        i = e.latestJoinTimeByRecipient,
-        l = e.msgT,
-        u = e.recipients,
-        c = e.shareableHistoryInfo,
-        d = e.subtype,
-        _ = e.templateParams,
-        f = o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
-          d,
-          u,
+        i = e.id,
+        l = e.latestJoinTimeByRecipient,
+        u = e.msgT,
+        c = e.recipients,
+        d = e.shareableHistoryInfo,
+        _ = e.subtype,
+        f = e.templateParams,
+        g = o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
+          _,
+          c,
           n,
         );
-      if (f != null)
+      if (g != null)
         return o(
           "WAWebGroupAgentAddedRowProfile",
-        ).canOfferHistoryOnAddedAgentRow(f)
+        ).canOfferHistoryOnAddedAgentRow(g)
           ? p({
               chat: n,
-              latestJoinTimeByRecipient: i,
-              msgT: l,
-              recipients: u,
-              shareableHistoryInfo: c,
+              latestJoinTimeByRecipient: l,
+              msgT: u,
+              recipients: c,
+              shareableHistoryInfo: d,
             })
           : null;
       if (
-        o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(d)
+        o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(_)
       ) {
-        var g = p({
+        var h = p({
           chat: n,
-          latestJoinTimeByRecipient: i,
-          msgT: l,
-          recipients: u,
-          shareableHistoryInfo: c,
+          latestJoinTimeByRecipient: l,
+          msgT: u,
+          recipients: c,
+          shareableHistoryInfo: d,
         });
-        if (g != null) return g;
+        if (h != null) return h;
       }
-      switch (d) {
+      switch (_) {
         case "growth_unlocked":
         case "revoke_invite":
           return s._(/*BTDS*/ "View the new invite link");
@@ -143,11 +147,21 @@ __d(
         case "membership_approval_request":
         case "created_membership_requests":
           return m();
+        case "membership_form":
+          return i != null &&
+            o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageActionTextStylingEnabled() &&
+            o(
+              "WAWebGroupMembershipFormSystemMessageUtils",
+            ).canChangeGroupMembershipFormFromMsg(i)
+            ? s._(/*BTDS*/ "Change")
+            : null;
         case "membership_approval_mode":
           return o(
             "WAWebGroupType",
           ).GroupSettingChangeSystemMessageIsAdmin.cast(
-            _ == null || (t = _[1]) == null ? void 0 : t.toString(),
+            f == null || (t = f[1]) == null ? void 0 : t.toString(),
           ) === o("WAWebGroupType").GroupSettingChangeSystemMessageIsAdmin.Admin
             ? s._(/*BTDS*/ "Change")
             : null;

@@ -9,50 +9,87 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = new Map();
     function s(e) {
-      m("modal", e);
+      _("modal", e);
     }
     function u() {
-      p("modal");
+      f("modal");
     }
     function c(e) {
-      m("alert", e);
+      _("alert", e);
     }
     function d() {
-      p("alert");
+      f("alert");
     }
-    function m(t, n) {
+    function m(t) {
+      (t === "modal" || t === "alert") && e.delete(t);
+    }
+    function p() {
+      e.clear();
+    }
+    function _(t, n) {
       var r,
         a,
-        i =
+        i = e.get(t);
+      i != null && g(i);
+      var l =
           (r =
             (a = o("WAWebPathfinderHeldBackSurface").toHeldBackSurfaceName(
-              f(n),
+              y(n),
             )) != null
               ? a
-              : _(n)) != null
+              : h(n)) != null
             ? r
             : o(
                 "WAWebPathfinderHeldBackSurface",
-              ).getOpenScopedHeldBackSurface();
-      (i != null ? e.set(t, i) : e.delete(t),
+              ).getOpenScopedHeldBackSurface(),
+        s = l != null ? l : void 0;
+      (e.set(t, {
+        unlockCount: o("WAWebPathfinderHeldBackSurface").getScreenUnlockCount(),
+        verdict:
+          s != null
+            ? s
+            : o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(),
+      }),
         o("WAWebPathfinderLogger").emitPathfinderEvent({
           eventType: "ALERT_SHOWN",
-          heldBackSurface: i != null ? i : void 0,
+          heldBackSurface: s,
           screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
           timestampMs: Date.now(),
         }));
     }
-    function p(t) {
+    function f(t) {
       var n = e.get(t);
-      (e.delete(t),
+      n != null && (e.delete(t), g(n));
+    }
+    function g(e) {
+      var t, n;
+      if (
+        e.unlockCount ===
+        o("WAWebPathfinderHeldBackSurface").getScreenUnlockCount()
+      ) {
+        var r = o(
+            "WAWebPathfinderHeldBackSurface",
+          ).getOpenScopedHeldBackSurface(),
+          a =
+            (t =
+              (n = e.verdict) != null
+                ? n
+                : o(
+                    "WAWebPathfinderHeldBackSurface",
+                  ).captureHeldBackSurface()) != null
+              ? t
+              : r != null
+                ? r
+                : void 0;
         o("WAWebPathfinderLogger").emitPathfinderEvent({
           eventType: "ALERT_CLOSED",
-          heldBackSurface: n != null ? n : void 0,
+          heldBackSurface: a != null ? a : void 0,
           screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
           timestampMs: Date.now(),
-        }));
+        });
+      }
     }
-    function _(e) {
+    function h(e) {
       return e == null ||
         typeof e != "object" ||
         e.type !== r("WAWebPathfinderHeldBackScope.react") ||
@@ -64,7 +101,7 @@ __d(
             e.props.name,
           );
     }
-    function f(e) {
+    function y(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.props;
       if (t == null || typeof t != "object") return null;
@@ -76,7 +113,9 @@ __d(
     ((l.handleModalShown = s),
       (l.handleModalClosed = u),
       (l.handleAlertShown = c),
-      (l.handleAlertClosed = d));
+      (l.handleAlertClosed = d),
+      (l.handlePopupSlotUnmounted = m),
+      (l.disposePathfinderPopups = p));
   },
   98,
 );

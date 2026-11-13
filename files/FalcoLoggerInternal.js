@@ -104,7 +104,8 @@ __d(
         extra: l,
         tags: u,
         sessionId: o("WebSession").getId(),
-        deviceId: (s || (s = r("AnalyticsCoreData"))).device_id,
+        appId: (s || (s = r("AnalyticsCoreData"))).app_id,
+        deviceId: s.device_id,
         appVersion: s.app_version,
       };
       (i.wrapAndEnqueueItem(p),

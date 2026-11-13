@@ -24,6 +24,7 @@ __d(
           subtype: "member_share_group_history_mode",
           renderPreviewIcon: null,
         },
+        { type: "gp2", subtype: "membership_form", renderPreviewIcon: null },
         {
           type: "notification",
           subtype: "br_payment_receipt_added",

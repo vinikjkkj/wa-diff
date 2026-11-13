@@ -37,7 +37,6 @@ __d(
     }
     ((m.doc = "Gimme a random numbuh"), (m.paramsToExecute = [100]));
     function p() {
-      r("vulture")("C4xEXcwgZFBCXzVYmniPbUdvFoU=");
       var e = !o("WAWebClientFeatureFlags").isFeatureEnabled("debug_commands");
       e === !0
         ? o("WAWebClientFeatureFlags").debugEnableFeatureFlag("debug_commands")

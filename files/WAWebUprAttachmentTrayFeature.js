@@ -12,38 +12,47 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
+      return s({ chatId: e.id, contact: e.contact }, t);
+    }
+    function s(e, t) {
+      var n = e.chatId,
+        r = e.contact;
       return !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
         !o("WAWebBizFrontendGatingUtils").isUprAttachmentTrayEnabled(t) ||
-        !s(e) ||
+        !u(r) ||
         !o("WAWebBizFrontendGatingUtils").isUprSendEnabledForCountry(t) ||
-        o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(e.id) !==
+        o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(n) !==
           o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL
         ? !1
-        : o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(e.id, t);
+        : o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(n, t);
     }
-    function s(e) {
-      var t = e.contact;
+    function u(e) {
       return (
-        t != null && !o("WAWebContactGetters").getIsMe(t) && !t.isEnterprise
+        e != null && !o("WAWebContactGetters").getIsMe(e) && !e.isEnterprise
       );
     }
-    function u(t) {
-      var n = new Map();
-      for (var r of o(
+    function c(e) {
+      return d({ chatId: e.id, contact: e.contact });
+    }
+    function d(e) {
+      var t = new Map();
+      for (var n of o(
         "WAWebUserPrefsCustomPaymentMethods",
       ).getAllUprStoredKeys()) {
-        var a,
-          i = (a = n.get(r.country)) != null ? a : [];
-        (i.push(r), n.set(r.country, i));
+        var r,
+          a = (r = t.get(n.country)) != null ? r : [];
+        (a.push(n), t.set(n.country, a));
       }
-      for (var l of n) {
-        var s = l[0],
-          u = l[1];
-        if (e(t, s)) return { country: s, currency: u[0].currency, keys: u };
+      for (var i of t) {
+        var l = i[0],
+          u = i[1];
+        if (s(e, l)) return { country: l, currency: u[0].currency, keys: u };
       }
       return null;
     }
-    ((l.isChatEligibleForUprCountry = e), (l.resolveUprMethodForChat = u));
+    ((l.isChatEligibleForUprCountry = e),
+      (l.resolveUprMethodForChat = c),
+      (l.resolveUprMethodForChatFor = d));
   },
   98,
 );

@@ -55,7 +55,7 @@ __d(
         n = e.contact,
         r = e.groupMetadata;
       return (
-        C(n) &&
+        b(n) &&
         o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(r) !==
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
         (r == null ? void 0 : r.hasCapi) !== !0 &&
@@ -83,37 +83,44 @@ __d(
       var t = e.contact;
       return (
         t == null ||
-        !b(t) ||
+        !v(t) ||
         o("WAWebVoipCapiBusinessCalling").canVideoCallCapiBusiness(t)
       );
     }
     function g(e) {
       var t = e.contact;
       return (
-        !b(t) || o("WAWebVoipCapiBusinessCalling").canVideoCallCapiBusiness(t)
+        !v(t) || o("WAWebVoipCapiBusinessCalling").canVideoCallCapiBusiness(t)
       );
     }
     function h(e) {
       var t = e.contact;
-      return t == null || !b(t);
+      return (
+        t == null ||
+        y({ chatId: e.id, contact: t, groupMetadata: e.groupMetadata })
+      );
     }
     function y(e) {
-      return !e.isEnterprise && v(e);
+      var t = e.contact;
+      return !v(t);
     }
     function C(e) {
+      return !e.isEnterprise && S(e);
+    }
+    function b(e) {
       return (
-        v(e) &&
+        S(e) &&
         (!e.isEnterprise ||
           o("WAWebVoipCapiBusinessCalling").canCallCapiBusiness(e))
       );
     }
-    function b(e) {
+    function v(e) {
       return (
         e.isEnterprise &&
         o("WAWebVoipGatingUtils").isCapiCallingEntryPointEnabled()
       );
     }
-    function v(e) {
+    function S(e) {
       return (
         !o("WAWebContactGetters").getIsMe(e) &&
         !o("WAWebFrontendContactGetters").getIsContactBlocked(e) &&
@@ -132,7 +139,8 @@ __d(
       (l.canVideoCallInChat = f),
       (l.canVideoCallInChatFor = g),
       (l.canAddChatContactToCall = h),
-      (l.canCallContact = y));
+      (l.canAddChatContactToCallFor = y),
+      (l.canCallContact = C));
   },
   98,
 );

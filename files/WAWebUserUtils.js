@@ -24,7 +24,7 @@ __d(
       );
     }
     function c() {
-      var e = C();
+      var e = S();
       return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
         e.user,
         e.server,
@@ -32,12 +32,12 @@ __d(
       );
     }
     function d() {
-      return [C(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
+      return [S(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
         Boolean,
       );
     }
     function m(t) {
-      if (t.isLid()) return y();
+      if (t.isLid()) return v();
       var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       if (n != null) return n;
       throw (
@@ -56,56 +56,72 @@ __d(
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
-        ? y()
-        : h();
+        ? v()
+        : b();
     }
     function _() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
-        ? C()
-        : b();
+        ? S()
+        : R();
     }
     function f() {
-      return o("WAWebInternalAccount").isInternalAccount() ? y() : h();
+      var e;
+      return (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
+        ? e
+        : o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
     }
     function g() {
-      return o("WAWebInternalAccount").isInternalAccount() ? C() : b();
+      return o("WAWebInternalAccount").isInternalAccount() ? v() : b();
     }
     function h() {
-      return o("WAWebWidFactory").asUserWidOrThrow(b());
+      return o("WAWebInternalAccount").isInternalAccount()
+        ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser()
+        : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
     }
     function y() {
+      return o("WAWebInternalAccount").isInternalAccount()
+        ? o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1)
+        : o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+    }
+    function C() {
+      return o("WAWebInternalAccount").isInternalAccount() ? S() : R();
+    }
+    function b() {
+      return o("WAWebWidFactory").asUserWidOrThrow(R());
+    }
+    function v() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
         "meLidUser",
       );
     }
-    function C() {
+    function S() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
         "meLid",
       );
     }
-    function b() {
+    function R() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
         "me",
       );
     }
-    function v(e) {
-      return S(o("WAWebWidFactory").createWid(e));
+    function L(e) {
+      return E(o("WAWebWidFactory").createWid(e));
     }
-    function S(e) {
+    function E(e) {
       return e == null || !o("WAWebUserPrefsMeUser").isWidInstance(e)
         ? !1
-        : L(e) || R(e);
+        : I(e) || k(e);
     }
-    function R(e) {
+    function k(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function L(e) {
+    function I(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
@@ -116,15 +132,18 @@ __d(
       (l.getMeUserMatchingAddressingModeOrThrow = m),
       (l.getMeUserOrThrow = p),
       (l.getMeDeviceOrThrow = _),
-      (l.getMePnLessOrFallback_DO_NOT_USE = f),
-      (l.getMeDevicePnLessOrFallback_DO_NOT_USE = g),
-      (l.getMePnUserOrThrow_DO_NOT_USE = h),
-      (l.getMeLidUserOrThrow = y),
-      (l.getMeDeviceLidOrThrow = C),
-      (l.getMeDevicePnOrThrow_DO_NOT_USE = b),
-      (l.isSerializedWidMe = v),
-      (l.isMeAccount = S),
-      (l.isMePnUser = R));
+      (l.getStableMaybeMeUser = f),
+      (l.getMePnLessOrFallback_DO_NOT_USE = g),
+      (l.getMaybeMePnLessOrFallback_DO_NOT_USE = h),
+      (l.getMaybeMeDevicePnLessOrFallback_DO_NOT_USE = y),
+      (l.getMeDevicePnLessOrFallback_DO_NOT_USE = C),
+      (l.getMePnUserOrThrow_DO_NOT_USE = b),
+      (l.getMeLidUserOrThrow = v),
+      (l.getMeDeviceLidOrThrow = S),
+      (l.getMeDevicePnOrThrow_DO_NOT_USE = R),
+      (l.isSerializedWidMe = L),
+      (l.isMeAccount = E),
+      (l.isMePnUser = k));
   },
   98,
 );

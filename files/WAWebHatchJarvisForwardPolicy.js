@@ -176,7 +176,7 @@ __d(
         : {
             envelopeFilehash: r.envelopeFilehash,
             family: i,
-            mimeType: a,
+            mimeType: a.toLowerCase(),
             url: r.url,
           };
     }

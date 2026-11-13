@@ -70,7 +70,7 @@ __d(
               : e.permissionQuestion) != null
             ? t
             : e.id,
-        s = (a = e.scopeSummary) != null ? a : e.purposeSummary;
+        s = (a = e.richExplanation) != null ? a : e.purposeSummary;
       return {
         caption: s == null || _(s, l) ? null : s,
         outcome: i,
@@ -130,7 +130,7 @@ __d(
           null
             ? n
             : 0,
-        scopeSummary: l("scope_summary"),
+        richExplanation: l("rich_explanation"),
         status:
           (r = s.get(
             o("WAWebHatchJsonReaders").readTrimmedString(e, "status"),

@@ -18,6 +18,7 @@ __d(
         t === "XFBHorizonWorldDestination" ||
         t === "XOCFBSocialVRCustomWorldAccountLinkView" ||
         t === "XOCHorizonWorldsFBTogetherAppUserView" ||
+        t === "XFBQrtTaxonomyNode" ||
         t === "XFBServiceLabExperimentV2" ||
         t === "XFBServiceLabTrialV2" ||
         t === "ShortFormVideoSoundtrackInfo" ||
@@ -42,7 +43,10 @@ __d(
           r = n == null ? e.id : n;
         return r == null ? null : t + ":" + String(r);
       }
-      return e.id;
+      var a = e.comet_ufi_action_link_owner_comment;
+      return a != null && typeof a == "object" && typeof a.id == "string"
+        ? "client:CometUFICommentActionLink:" + a.id + ":" + t
+        : e.id;
     }
     l.default = e;
   },

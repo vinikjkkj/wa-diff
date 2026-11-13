@@ -10,11 +10,11 @@ __d(
     }
     c.displayName = c.name + " [from " + i.id + "]";
     function d() {
-      return s._(/*BTDS*/ "Enabled");
+      return s._(/*BTDS*/ "On");
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m() {
-      return s._(/*BTDS*/ "Disabled");
+      return s._(/*BTDS*/ "Off");
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p() {

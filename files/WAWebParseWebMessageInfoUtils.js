@@ -16,7 +16,6 @@ __d(
     "WAWebParseMsgPaymentInfo",
     "WAWebProcessBaseMsgInfo",
     "WAWebProtobufsWeb.pb",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWid",
@@ -29,7 +28,7 @@ __d(
     var e, s;
     function u(e) {
       return e.originalSelfAuthorUserJidString == null
-        ? o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser()
+        ? o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE()
         : o("WAWebDecodeJid").decodeJid(e.originalSelfAuthorUserJidString);
     }
     function c(t, n) {
@@ -898,7 +897,7 @@ __d(
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),
               (t.subtype = "invite_auto_add"),
               (t.recipients = [
-                o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser(),
+                o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE(),
               ]));
             break;
           case u.CAG_INVITE_AUTO_JOINED:

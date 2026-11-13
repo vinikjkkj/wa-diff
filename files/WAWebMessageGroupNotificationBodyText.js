@@ -32,6 +32,7 @@ __d(
     "WAWebGroupAgentAddAttribution",
     "WAWebGroupAgentProfileRouting",
     "WAWebGroupDefaultReactionsFormatSystemMessageText",
+    "WAWebGroupMembershipFormSystemMessageBody",
     "WAWebGroupMetadataGetters",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
     "WAWebMessageCommunityEmptySubgroupWelcome.react",
@@ -641,6 +642,14 @@ __d(
             l10nBodyTextInstance: r(
               "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
             )({ msg: l.unsafe(), options: {} }),
+          };
+        case "membership_form":
+          return {
+            l10nBodyTextInstance: o(
+              "WAWebGroupMembershipFormSystemMessageBody",
+            ).formatGroupMembershipFormSystemMessageText(l.unsafe(), {
+              canShowChangeCta: a,
+            }),
           };
         default:
           o("WALogger").LOG(

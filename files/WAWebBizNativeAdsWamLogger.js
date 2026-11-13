@@ -21,7 +21,15 @@ __d(
         userHasLinkedFbPage: t,
       }).commit();
     }
-    function u(e) {
+    function u(e, t) {
+      new (o(
+        "WAWebLwiEntryPointImpressionWamEvent",
+      ).LwiEntryPointImpressionWamEvent)({
+        lwiEntryPoint: e,
+        userHasLinkedFbPage: t != null ? t : void 0,
+      }).commit();
+    }
+    function c(e) {
       new (o(
         "WAWebLwiEntryPointImpressionWamEvent",
       ).LwiEntryPointImpressionWamEvent)({
@@ -30,14 +38,14 @@ __d(
         lwiExtras: e,
       }).commit();
     }
-    function c(e) {
+    function d(e) {
       new (o(
         "WAWebManageAdsEntryPointImpressionWamEvent",
       ).ManageAdsEntryPointImpressionWamEvent)({
         manageAdsEntryPoint: e,
       }).commit();
     }
-    function d(e, t, n, r, a, i, l) {
+    function m(e, t, n, r, a, i, l) {
       new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
         ctwaAdAccountType: l != null ? l : void 0,
         lwiAdCampaignId: a != null ? a : void 0,
@@ -50,9 +58,10 @@ __d(
     }
     ((l.AdCreationEntryPointSuppressionReason = e),
       (l.logAdCreationImpression = s),
-      (l.logAdCreationEntryPointSuppressed = u),
-      (l.logManageAdsEntryPointImpression = c),
-      (l.logManageAdsScreenAction = d));
+      (l.logLwiEntryPointImpression = u),
+      (l.logAdCreationEntryPointSuppressed = c),
+      (l.logManageAdsEntryPointImpression = d),
+      (l.logManageAdsScreenAction = m));
   },
   98,
 );

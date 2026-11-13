@@ -7,25 +7,47 @@ __d(
       u = 30 * 1024,
       c = 48 * 1024,
       d = "]}",
-      m = /^\d+$/;
-    function p(e) {
+      m = /^\d+$/,
+      p = /^[1-9]\d{0,17}$/,
+      _ = 128,
+      f = 4,
+      g = 1024;
+    function h(e) {
       if (e == null) return { kind: "loggedOut" };
       var t = e.claims,
-        n = e.appScopedIdentity;
-      if (n != null)
-        return n === "" || n === "0"
+        n =
+          t.length > 0 &&
+          t.length <= f &&
+          t.every(function (e) {
+            return e !== "" && y(e) <= g;
+          }),
+        r = e.appScopedIdentity;
+      if (r != null)
+        return r === "" || r === "0"
           ? { kind: "loggedOut" }
-          : { kind: "user", identifier: n, claims: t };
-      var r = e.fbIdentity;
-      if (r == null || String(r.accountId) === "0")
+          : n
+            ? {
+                kind: "user",
+                identifierType: "appScoped",
+                identifier: r,
+                claims: t,
+              }
+            : null;
+      var o = e.fbIdentity;
+      if (o == null || String(o.accountId) === "0")
         return { kind: "loggedOut" };
-      var o = String(r.accountId),
-        a = String(r.actorId);
-      return !m.test(o) || !m.test(a)
+      var a = String(o.accountId),
+        i = String(o.actorId);
+      return !n || !m.test(a) || !m.test(i)
         ? null
-        : { kind: "user", identifier: o + ":" + a, claims: t };
+        : {
+            kind: "user",
+            identifierType: "facebook",
+            identifier: a + ":" + i,
+            claims: t,
+          };
     }
-    function _(e) {
+    function y(e) {
       for (var t = 0, n = 0; n < e.length; n++) {
         var r = e.charCodeAt(n);
         r < 128
@@ -42,14 +64,23 @@ __d(
       }
       return t;
     }
-    function f(e, t) {
-      var n = p(t.identity);
-      if (n == null) return null;
-      var r = g(t.policy.r),
-        o = JSON.stringify({
+    function C(e, t) {
+      var n = h(t.identity),
+        r = t.appId,
+        o = t.deviceId;
+      if (
+        n == null ||
+        typeof r != "string" ||
+        !p.test(r) ||
+        typeof o != "string" ||
+        y(o) > _
+      )
+        return null;
+      var a = b(t.policy.r),
+        i = JSON.stringify({
           event: t.name,
           timeInMs: t.time,
-          rate: r,
+          rate: a,
           payload: t.extra,
         });
       return {
@@ -58,15 +89,17 @@ __d(
           '{"sessionId":' +
           JSON.stringify(t.sessionId) +
           "," +
+          ('"appId":' + JSON.stringify(r) + ",") +
+          ('"machineId":' + JSON.stringify(o) + ",") +
           ('"user":' + JSON.stringify(n) + ',"events":['),
-        part: o,
-        bytes: _(o),
+        part: i,
+        bytes: y(i),
       };
     }
-    function g(e) {
+    function b(e) {
       return (Number.isInteger(e) || s(0, 185197, e), e);
     }
-    function h(t) {
+    function v(t) {
       var n = new Map();
       for (var r of t) {
         var o,
@@ -77,7 +110,7 @@ __d(
         l = function () {
           var t = s[0],
             n = s[1],
-            r = _(t) + d.length,
+            r = y(t) + d.length,
             o = [],
             a = r,
             l = function () {
@@ -107,15 +140,15 @@ __d(
       for (var s of n) l();
       return i;
     }
-    function y(e, t) {
+    function S(e, t) {
       var n = [];
       for (var r of e) {
-        var o = f(r, t(r));
+        var o = C(r, t(r));
         o != null && n.push(o);
       }
-      return h(n);
+      return v(n);
     }
-    function C(e, n) {
+    function R(e, n) {
       var r;
       if (
         typeof ((r = t.navigator) == null ? void 0 : r.sendBeacon) != "function"
@@ -127,10 +160,10 @@ __d(
         return "refused";
       }
     }
-    function b() {
+    function L() {
       return r("XFalcoBeaconControllerRouteBuilder").buildUri({}).toString();
     }
-    function v(t) {
+    function E(t) {
       var n = [],
         o = 0,
         a = void 0,
@@ -141,7 +174,7 @@ __d(
         m = new Set();
       function p(e) {
         if (e.bytes > c) {
-          g(e, !1);
+          f(e, !1);
           return;
         }
         (s.push(e), _());
@@ -150,7 +183,7 @@ __d(
         for (; s.length > 0; ) {
           var e = s[0];
           if (document.visibilityState === "hidden") {
-            var n = C(b(), e.body);
+            var n = R(L(), e.body);
             if (n === "sent") {
               (s.shift(), t.onSettled(e.entries, { kind: "assumed" }));
               continue;
@@ -158,10 +191,10 @@ __d(
             if (n === "refused") return;
           }
           if (d + e.bytes > c) return;
-          (s.shift(), g(e, !0));
+          (s.shift(), f(e, !0));
         }
       }
-      function g(e, n) {
+      function f(e, n) {
         var o = !1,
           a = function (r) {
             o || ((o = !0), m.delete(i), t.onSettled(e.entries, r));
@@ -174,7 +207,7 @@ __d(
           };
         (n && ((d += e.bytes), m.add(i)),
           r("promiseDone")(
-            window.fetch(b(), {
+            window.fetch(L(), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: e.body,
@@ -193,53 +226,53 @@ __d(
             },
           ));
       }
-      function y() {
+      function g() {
         (window.clearTimeout(a), (a = void 0), (i = !1));
         var e = n;
         ((n = []), (o = 0));
-        for (var t of h(e)) p(t);
+        for (var t of v(e)) p(t);
         _();
       }
-      function v() {
-        y();
+      function h() {
+        g();
         var e = s;
         s = [];
         for (var n of e)
           t.onSettled(
             n.entries,
-            C(b(), n.body) === "sent"
+            R(L(), n.body) === "sent"
               ? { kind: "assumed" }
               : { kind: "unsent" },
           );
         for (var r of Array.from(m)) r();
       }
-      function S(e) {
-        var n = f(e, t.getEvent(e));
+      function y(e) {
+        var n = C(e, t.getEvent(e));
         return (n == null && t.onSettled([e], { kind: "invalid" }), n);
       }
-      function R() {
+      function b() {
         l ||
           ((l = !0),
-          window.addEventListener("pagehide", y),
-          document.addEventListener("visibilitychange", y));
+          window.addEventListener("pagehide", g),
+          document.addEventListener("visibilitychange", g));
       }
-      function L(r, l) {
-        R();
-        var s = S(r);
+      function S(r, l) {
+        b();
+        var s = y(r);
         if (s != null) {
           if (
-            ((n.length >= e || (n.length > 0 && o + s.bytes > u)) && y(),
+            ((n.length >= e || (n.length > 0 && o + s.bytes > u)) && g(),
             n.push(s),
             (o += s.bytes),
             document.visibilityState === "hidden")
           ) {
-            y();
+            g();
             return;
           }
           (a == null || (l && !i)) &&
             (window.clearTimeout(a),
             (a = window.setTimeout(
-              y,
+              g,
               l ? t.immediateDelayMs : t.normalDelayMs,
             )),
             (i = l));
@@ -247,22 +280,22 @@ __d(
       }
       return {
         log: function (t) {
-          return L(t, !1);
+          return S(t, !1);
         },
         logImmediately: function (t) {
-          return L(t, !0);
+          return S(t, !0);
         },
         logCritical: function (t) {
-          R();
-          var e = S(t);
-          if (e != null) for (var n of h([e])) p(n);
+          b();
+          var e = y(t);
+          if (e != null) for (var n of v([e])) p(n);
         },
-        onUnload: v,
+        onUnload: h,
       };
     }
-    ((l.utf8ByteLength = _),
-      (l.createRequests = y),
-      (l.createFalcoBeaconTransport = v));
+    ((l.utf8ByteLength = y),
+      (l.createRequests = S),
+      (l.createFalcoBeaconTransport = E));
   },
   98,
 );

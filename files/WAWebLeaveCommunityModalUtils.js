@@ -26,10 +26,14 @@ __d(
             }),
           ))
         : o("WAWebModalManager").ModalManager.open(
-            s.jsx(
-              r("WAWebLeaveCommunityModal.react"),
-              babelHelpers.extends({}, e),
-            ),
+            s.jsx(r("WAWebLeaveCommunityModal.react"), {
+              chatId: t.id,
+              enableDeactivateIfSuperAdmin: e.enableDeactivateIfSuperAdmin,
+              onExitAndDeleteSuccess: e.onExitAndDeleteSuccess,
+              onSuccess: e.onSuccess,
+              onTransferOwnership: e.onTransferOwnership,
+              spamFlow: e.spamFlow,
+            }),
             { transition: "modal-flow" },
           );
     }

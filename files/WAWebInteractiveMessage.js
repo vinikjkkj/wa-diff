@@ -92,7 +92,7 @@ __d(
           type: g,
         }),
         M = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
-          D,
+          D.id,
           N == null ? void 0 : N.referenceId,
           o("WAWebOrderStatus").isSimplifiedOrder(N),
         ),

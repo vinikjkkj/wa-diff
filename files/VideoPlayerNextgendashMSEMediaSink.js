@@ -477,38 +477,6 @@ __d(
             );
           }
         },
-        sourceBufferSetTimestampOffset: function (t, n, r) {
-          var e = r.representationId,
-            a = r.timestampOffsetSec,
-            i = r.type,
-            l = o(
-              "VideoPlayerNextgendashHostAPI",
-            ).unopaqueVideoPlayerNextgendashHostSourceBuffer(n);
-          if (l.updating)
-            throw o("nextgendasherr").nextgendasherr(
-              t,
-              "VideoPlayerNextgendashHostAPISourceBufferSetTimestampOffsetIsUpdating",
-              "Unable to set sourceBuffer.timestampOffset=%s for " +
-                i +
-                " representation %s - updating is true.",
-              a,
-              e,
-            );
-          try {
-            l.timestampOffset = a;
-          } catch (n) {
-            throw o("nextgendasherr").nextgendasherrFromCause(
-              t,
-              n,
-              "VideoPlayerNextgendashHostAPISourceBufferSetTimestampOffsetException",
-              "Unable to set sourceBuffer.timestampOffset=%s for " +
-                i +
-                " representation %s",
-              a,
-              e,
-            );
-          }
-        },
         sourceBufferSnapshotBuffered: function (t, n) {
           var e = o(
             "VideoPlayerNextgendashHostAPI",

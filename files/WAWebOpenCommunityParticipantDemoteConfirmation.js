@@ -128,7 +128,7 @@ __d(
               onCancel: d,
               onFailure: p,
               isCommunitySuperAdmin: l,
-              parentGroupChat: n,
+              parentGroupChatId: n.id,
             }),
           )
         : o("WAWebModalManager").ModalManager.open(

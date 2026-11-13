@@ -93,6 +93,7 @@ __d(
     "WAWebOfflineSyncQplSession",
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
+    "WAWebPrefetchMetaOnePromoEligibility",
     "WAWebPrimaryFeatures",
     "WAWebPrimaryVersion",
     "WAWebPushNotificationsGatingUtils",
@@ -582,6 +583,9 @@ __d(
             ),
             o("WAWebSubscriptions").runSubscriptionsManager(),
             W(),
+            o(
+              "WAWebPrefetchMetaOnePromoEligibility",
+            ).prefetchMetaOnePromoEligibility(),
             o("WAWebBackendApi").frontendFireAndForget("updatePushManager", {}),
             o("WAWebBackendApi").frontendFireAndForget(
               "updatePeriodicBackgroundSyncRegistration",

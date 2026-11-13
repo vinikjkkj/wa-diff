@@ -8,6 +8,7 @@ __d(
     "WAWebCmd",
     "WAWebDeleteMenuItem.react",
     "WAWebGetMaybeChatById",
+    "WAWebMuteGetters",
     "WAWebMuteMenuItem.react",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumMuteEntryPoint",
@@ -17,14 +18,17 @@ __d(
     "WDSIconIcInfo.react",
     "WDSMenuItem.react",
     "react",
+    "react-compiler-runtime",
+    "useWAWebMuteValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c,
       d,
-      m = d || (d = o("react"));
-    function p(t) {
+      m,
+      p = m || (m = o("react"));
+    function _(t) {
       var n = o("WAWebWidToJid").widToBroadcastJid(t),
         a = function () {
           var r = o("WAWebGetMaybeChatById").getMaybeChatById(t);
@@ -46,7 +50,7 @@ __d(
           ),
             o("WAWebCmd").Cmd.chatInfoDrawer(r));
         };
-      return m.jsx(
+      return p.jsx(
         r("WDSMenuItem.react"),
         {
           testid: "mi-broadcast-info",
@@ -59,28 +63,61 @@ __d(
         "info",
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e) {
-      return m.jsx(
-        r("WAWebMuteMenuItem.react"),
-        {
-          onMute: function (n) {
-            return o("WAWebCmd").Cmd.muteChatFromEntryPoint(
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
+      return p.jsx(g, { chatId: e }, "mute");
+    }
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e) {
+      var t = o("react-compiler-runtime").c(7),
+        n = e.chatId,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = [o("WAWebMuteGetters").getIsMuted]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebMuteValues").useMuteValues(n, a),
+        l = i[0],
+        s;
+      t[1] !== n
+        ? ((s = function (t) {
+            var e = o("WAWebGetMaybeChatById").getMaybeChatById(n);
+            if (e == null) {
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[broadcast-thread-menu] mute skipped, chat left the collection",
+                  ])),
+              );
+              return;
+            }
+            o("WAWebCmd").Cmd.muteChatFromEntryPoint(
               e,
-              n,
+              t,
               o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
                 .CONVERSATION_SCREEN,
             );
-          },
-          chatId: e.id,
-          isMuted: !!e.mute.expiration,
-        },
-        "mute",
+          }),
+          (t[1] = n),
+          (t[2] = s))
+        : (s = t[2]);
+      var c;
+      return (
+        t[3] !== n || t[4] !== l || t[5] !== s
+          ? ((c = p.jsx(r("WAWebMuteMenuItem.react"), {
+              onMute: s,
+              chatId: n,
+              isMuted: l,
+            })),
+            (t[3] = n),
+            (t[4] = l),
+            (t[5] = s),
+            (t[6] = c))
+          : (c = t[6]),
+        c
       );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(e) {
-      return m.jsx(
+    function h(e) {
+      return p.jsx(
         r("WDSMenuItem.react"),
         {
           testid: "mi-close-chat",
@@ -88,8 +125,8 @@ __d(
             var t = o("WAWebGetMaybeChatById").getMaybeChatById(e);
             if (t == null) {
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast-thread-menu] close chat skipped, chat left the collection",
                   ])),
               );
@@ -103,17 +140,17 @@ __d(
         "close",
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
-      return m.jsx(
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e) {
+      return p.jsx(
         r("WAWebDeleteMenuItem.react"),
         {
           onDeleteOrExit: function () {
             var t = o("WAWebGetMaybeChatById").getMaybeChatById(e);
             if (t == null) {
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast-thread-menu] delete skipped, chat left the collection",
                   ])),
               );
@@ -133,11 +170,11 @@ __d(
         "delete",
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.getBroadcastAudienceInfoMenuItem = p),
-      (l.getBroadcastMuteMenuItem = _),
-      (l.getBroadcastCloseChatMenuItem = f),
-      (l.getBroadcastDeleteMenuItem = g));
+    ((y.displayName = y.name + " [from " + i.id + "]"),
+      (l.getBroadcastAudienceInfoMenuItem = _),
+      (l.getBroadcastMuteMenuItem = f),
+      (l.getBroadcastCloseChatMenuItem = h),
+      (l.getBroadcastDeleteMenuItem = y));
   },
   226,
 );

@@ -15,31 +15,23 @@ __d(
       c,
       d,
       m,
-      p = "input",
-      _ = "output",
-      f = "/" + p,
-      g = "/" + _;
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+      p,
+      _ = "input",
+      f = "output",
+      g = "/" + _,
+      h = "/" + f;
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          a === void 0 && (a = []);
-          var i = o("WASI").createWasi(
-              S({
-                hints: a,
-                input: t,
-                stderr: function (n) {
-                  o("WAKaleidoscopeLogger")
-                    .ksLogger()
-                    .DEBUG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                      n,
-                    );
-                },
-                stdout: function (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          n === void 0 && (n = []);
+          var a = o("WASI").createWasi(
+              E({
+                hints: n,
+                input: e,
+                stderr: function (t) {
                   o("WAKaleidoscopeLogger")
                     .ksLogger()
                     .DEBUG(
@@ -48,53 +40,70 @@ __d(
                       t,
                     );
                 },
+                stdout: function (t) {
+                  o("WAKaleidoscopeLogger")
+                    .ksLogger()
+                    .DEBUG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                      t,
+                    );
+                },
               }),
             ),
-            l = i.getImportObject,
-            p = i.start,
+            i = a.getImportObject,
+            l = a.start,
             _;
-          n == null || n.addPoint("extraction_start");
+          t == null || t.addPoint("extraction_start");
           try {
             var f,
-              h = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-              y = yield WebAssembly.instantiate(h, l()),
-              b = p(y),
-              R = b.exitCode,
-              L = b.fs;
-            if (R !== 0)
+              g = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+              y = yield WebAssembly.instantiate(g, i()),
+              C = l(y),
+              v = C.exitCode,
+              R = C.fs;
+            if (v !== 0)
               return (
                 o("WAKaleidoscopeLogger")
                   .ksLogger()
                   .DEBUG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "detectAiProvenance: non-zero exit code ",
                         "",
                       ])),
-                    R,
+                    v,
                   ),
-                n == null ||
-                  n.addPoint("extraction_end", { int: { exit_code: R } }),
-                { provenance: null, engineErrorCode: null }
+                t == null ||
+                  t.addPoint("extraction_end", { int: { exit_code: v } }),
+                {
+                  provenance: null,
+                  engineErrorCode: null,
+                  systemProvenance: null,
+                }
               );
-            _ = (f = L[g]) == null ? void 0 : f.content;
+            _ = (f = R[h]) == null ? void 0 : f.content;
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "detectAiProvenance failed: ",
                       "",
                     ])),
                   r("getErrorSafe")(e).message,
                 ),
-              n == null ||
-                n.addPoint("extraction_fail", {
+              t == null ||
+                t.addPoint("extraction_fail", {
                   string: { failure_reason: "wasi_error" },
                 }),
-              { provenance: null, engineErrorCode: null }
+              {
+                provenance: null,
+                engineErrorCode: null,
+                systemProvenance: null,
+              }
             );
           }
           if (typeof _ != "string")
@@ -102,54 +111,97 @@ __d(
               o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "detectAiProvenance: missing/invalid output",
                     ])),
                 ),
-              n == null ||
-                n.addPoint("extraction_fail", {
+              t == null ||
+                t.addPoint("extraction_fail", {
                   string: { failure_reason: "parse_error" },
                 }),
-              { provenance: null, engineErrorCode: null }
+              {
+                provenance: null,
+                engineErrorCode: null,
+                systemProvenance: null,
+              }
             );
-          var E;
+          var k;
           try {
-            E = JSON.parse(_);
+            k = JSON.parse(_);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "detectAiProvenance: unparseable output: ",
                       "",
                     ])),
                   r("getErrorSafe")(e).message,
                 ),
-              n == null ||
-                n.addPoint("extraction_fail", {
+              t == null ||
+                t.addPoint("extraction_fail", {
                   string: { failure_reason: "parse_error" },
                 }),
-              { provenance: null, engineErrorCode: null }
+              {
+                provenance: null,
+                engineErrorCode: null,
+                systemProvenance: null,
+              }
             );
           }
-          var k = C(E);
-          return k != null
-            ? (n == null ||
-                n.addPoint("extraction_fail", {
-                  int: { engine_error_code: k },
+          var I = S(k);
+          return I != null
+            ? (t == null ||
+                t.addPoint("extraction_fail", {
+                  int: { engine_error_code: I },
                   string: { failure_reason: "engine_error" },
                 }),
-              { provenance: null, engineErrorCode: k })
-            : (n == null || n.addPoint("extraction_end"),
-              { provenance: v(E), engineErrorCode: null });
+              { provenance: null, engineErrorCode: I })
+            : (t == null || t.addPoint("extraction_end"),
+              {
+                provenance: L(k),
+                engineErrorCode: null,
+                systemProvenance: b(k),
+              });
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
+    function b(t) {
+      if (t == null || typeof t != "object") return null;
+      var n = t.mapped_fields;
+      if (n == null || typeof n != "object") return null;
+      var r = n,
+        a = r.digital_source_type;
+      return typeof a != "string" || a === ""
+        ? (o("WAKaleidoscopeLogger")
+            .ksLogger()
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "provenance mapped_fields has no digital source type",
+                ])),
+            ),
+          null)
+        : {
+            digitalSourceType: a,
+            makeId: v(r.make_id),
+            aiSystemUsedId: v(r.ai_system_used_id),
+            publisherId: v(r.publisher_id),
+          };
+    }
+    function v(e) {
+      return typeof e == "number" &&
+        Number.isInteger(e) &&
+        e >= 0 &&
+        e <= 4294967295
+        ? e
+        : void 0;
+    }
+    function S(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
         n = t.error_code;
@@ -160,7 +212,7 @@ __d(
         ? n
         : null;
     }
-    function b(e) {
+    function R(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
         n = t.created_with_genai === !0,
@@ -169,31 +221,31 @@ __d(
       var o = {};
       return (n && (o.createdWithGenAi = !0), r && (o.editedWithGenAi = !0), o);
     }
-    function v(e) {
+    function L(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
-        n = b(t.iptc),
-        r = b(t.c2pa);
+        n = R(t.iptc),
+        r = R(t.c2pa);
       if (n == null && r == null) return null;
       var o = {};
       return (n != null && (o.iptc = n), r != null && (o.c2pa = r), o);
     }
-    function S(e) {
+    function E(e) {
       var t,
         n = e.hints,
         r = e.input,
         o = e.stderr,
         a = e.stdout,
-        i = ["kaleidoscope", "provenance", "--json-report=" + _];
+        i = ["kaleidoscope", "provenance", "--json-report=" + f];
       for (var l of n) i.push("--mimetype-hints=" + l);
       return (
-        i.push(p),
+        i.push(_),
         {
           args: i,
           fs:
             ((t = {}),
-            (t[f] = {
-              path: f,
+            (t[g] = {
+              path: g,
               timestamps: {
                 access: new Date(),
                 change: new Date(),
@@ -202,8 +254,8 @@ __d(
               mode: "binary",
               content: new Uint8Array(r),
             }),
-            (t[g] = {
-              path: g,
+            (t[h] = {
+              path: h,
               timestamps: {
                 access: new Date(),
                 change: new Date(),
@@ -219,7 +271,7 @@ __d(
         }
       );
     }
-    l.detectAiProvenanceFromBytes = h;
+    l.detectAiProvenanceFromBytes = y;
   },
   98,
 );

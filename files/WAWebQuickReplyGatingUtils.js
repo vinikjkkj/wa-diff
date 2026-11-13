@@ -10,19 +10,30 @@ __d(
     function e() {
       return o("WAWebMobilePlatforms").isSMB();
     }
-    function s(t) {
-      var n;
+    function s(e) {
+      return u({
+        chatId: e.id,
+        contact: e.contact,
+        isBroadcast: o("WAWebChatGetters").getIsBroadcast(e),
+        isNewsletter: o("WAWebChatGetters").getIsNewsletter(e),
+      });
+    }
+    function u(t) {
+      var n = t.chatId,
+        r = t.contact,
+        a = t.isBroadcast,
+        i = t.isNewsletter;
       return (
-        !o("WAWebChatGetters").getIsNewsletter(t) &&
-        !o("WAWebChatGetters").getIsBroadcast(t) &&
+        !i &&
+        !a &&
         e() &&
         !o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
-          (n = t.contact) == null ? void 0 : n.businessProfile,
+          r == null ? void 0 : r.businessProfile,
         ) &&
-        !t.id.isAiHub()
+        !n.isAiHub()
       );
     }
-    function u() {
+    function c() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebPrimaryFeatures").primaryFeatureEnabled(
@@ -32,7 +43,8 @@ __d(
     }
     ((l.canSendQuickReply = e),
       (l.canSendQuickReplyInChat = s),
-      (l.quickRepliesManagementEnabled = u));
+      (l.canSendQuickReplyInChatFor = u),
+      (l.quickRepliesManagementEnabled = c));
   },
   98,
 );

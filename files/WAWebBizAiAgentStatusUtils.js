@@ -85,45 +85,53 @@ __d(
         ));
     }
     function f(e) {
+      return g(e.id, e.contact);
+    }
+    function g(e, t) {
       return (
-        e.id.isRegularUser() &&
-        !e.id.isIAS() &&
-        !o("WAWebContactGetters").getIsMe(e.contact) &&
-        !o("WAWebContactGetters").getIsAiHub(e.contact)
+        e.isRegularUser() &&
+        !e.isIAS() &&
+        !o("WAWebContactGetters").getIsMe(t) &&
+        !o("WAWebContactGetters").getIsAiHub(t)
       );
     }
-    function g(e) {
-      return f(e) && !e.id.isSupportAccount() && !e.id.isCAPISupportAccount();
+    function h(e) {
+      return y(e.id, e.contact);
     }
-    function h(e, t) {
-      var n;
+    function y(e, t) {
+      return g(e, t) && !e.isSupportAccount() && !e.isCAPISupportAccount();
+    }
+    function C(e, t) {
+      return b(e.id, e.contact, t);
+    }
+    function b(e, t, n) {
+      var r;
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-        g(e) &&
-        ((n = t == null ? void 0 : t.hasOnboardedAiAgent) != null ? n : c()) &&
-        !y(e, t)
+        y(e, t) &&
+        ((r = n == null ? void 0 : n.hasOnboardedAiAgent) != null ? r : c()) &&
+        !v(t, n)
       );
     }
-    function y(e, t) {
+    function v(e, t) {
       if (t != null)
-        return C(
+        return S(
           t.recipientRunsAiAgent,
           t.recipientIsEnterprise,
           t.recipientIsHosted,
         );
-      var n = e.contact,
-        r = n.businessProfile;
-      return C(
-        r != null && o("WAWebBusinessProfileGetters").getIsBizBot1p(r),
-        o("WAWebContactGetters").getIsEnterprise(n),
-        o("WAWebContactGetters").getIsHosted(n),
+      var n = e.businessProfile;
+      return S(
+        n != null && o("WAWebBusinessProfileGetters").getIsBizBot1p(n),
+        o("WAWebContactGetters").getIsEnterprise(e),
+        o("WAWebContactGetters").getIsHosted(e),
       );
     }
-    function C(e, t, n) {
+    function S(e, t, n) {
       return e || (t && n !== !0);
     }
-    function b(e) {
+    function R(e) {
       return (
         e.capiThreadControl ===
         o("WAWebProtobufsE2E.pb")
@@ -131,13 +139,30 @@ __d(
           .CONTROL_TAKEN
       );
     }
-    function v(e) {
-      return b(e) && f(e);
+    function L(e) {
+      return R(e) && f(e);
     }
-    function S(e) {
-      return h(e) || v(e);
+    function E(e) {
+      return k({
+        capiThreadControl: e.capiThreadControl,
+        chatId: e.id,
+        contact: e.contact,
+      });
     }
-    function R(e) {
+    function k(e) {
+      var t = e.capiThreadControl,
+        n = e.chatId,
+        r = e.contact;
+      return (
+        b(n, r) ||
+        (t ===
+          o("WAWebProtobufsE2E.pb")
+            .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+            .CONTROL_TAKEN &&
+          g(n, r))
+      );
+    }
+    function I(e) {
       var t = o("react-compiler-runtime").c(1),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -152,13 +177,13 @@ __d(
           .CONTROL_TAKEN
       );
     }
-    function L(e) {
-      return k(e, b(e), e.forceDismissAiAgentBlockBar);
+    function T(e) {
+      return x(e, R(e), e.forceDismissAiAgentBlockBar);
     }
-    function E(e) {
+    function D(e) {
       var t,
         n = o("WAWebChatCollection").ChatCollection.get(e),
-        r = R(e),
+        r = I(e),
         a =
           (t = o("useWAWebChatValues").useOptionalChatValues(e, [
             o("WAWebFrontendChatGetters").getForceDismissAiAgentBlockBar,
@@ -166,16 +191,16 @@ __d(
             ? t
             : [],
         i = a[0];
-      return n != null && k(n, r, i);
+      return n != null && x(n, r, i);
     }
-    function k(e, t, n) {
+    function x(e, t, n) {
       return t && f(e) && n !== !0;
     }
-    function I(e) {
-      return b(e);
+    function $(e) {
+      return R(e);
     }
-    function T(e) {
-      if (!o("WAWebMobilePlatforms").isSMB() || (!g(e) && !v(e))) return null;
+    function P(e) {
+      if (!o("WAWebMobilePlatforms").isSMB() || (!h(e) && !L(e))) return null;
       var t = e.capiThreadControl;
       return t ===
         o("WAWebProtobufsE2E.pb")
@@ -191,15 +216,15 @@ __d(
           ? "handoff"
           : null;
     }
-    function D(e) {
-      return T(e) != null && o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
+    function N(e) {
+      return P(e) != null && o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
     }
-    function x(e) {
+    function M(e) {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? $(e)
+        ? w(e)
         : !1;
     }
-    function $(e) {
+    function w(e) {
       var t = e.labels;
       if (t == null || t.length === 0) return !1;
       var n = o("WAWebBizAiAgentGating").isAiListsWebUIEnabled();
@@ -212,7 +237,7 @@ __d(
         );
       });
     }
-    function P(e, t) {
+    function A(e, t) {
       return (
         t === void 0 && (t = !1),
         t &&
@@ -220,7 +245,7 @@ __d(
           e.groupMetadata,
         )
           ? !1
-          : D(e) || x(e)
+          : N(e) || M(e)
       );
     }
     ((l.getAiHubSubtitle = e),
@@ -229,18 +254,19 @@ __d(
       (l.ONBOARDING_EVENTS = d),
       (l.useHasOnboardedAiAgent = p),
       (l.useObserveAiAgentOnboarding = _),
-      (l.isChatEligibleForAiAgent = h),
-      (l.isChatAiEnabled = b),
-      (l.canChangeAiReplyStatus = S),
-      (l.useIsChatAiEnabled = R),
-      (l.shouldShowAiAgentBlockBar = L),
-      (l.useShouldShowAiAgentBlockBar = E),
-      (l.shouldMuteNotification = I),
-      (l.resolveAiChatStatus = T),
-      (l.shouldShowAiChipsForChat = D),
-      (l.shouldShowLabelPillsForChat = x),
-      (l.hasDisplayableLabels = $),
-      (l.shouldShowTertiaryRowForChat = P));
+      (l.isChatEligibleForAiAgent = C),
+      (l.isChatAiEnabled = R),
+      (l.canChangeAiReplyStatus = E),
+      (l.canChangeAiReplyStatusFor = k),
+      (l.useIsChatAiEnabled = I),
+      (l.shouldShowAiAgentBlockBar = T),
+      (l.useShouldShowAiAgentBlockBar = D),
+      (l.shouldMuteNotification = $),
+      (l.resolveAiChatStatus = P),
+      (l.shouldShowAiChipsForChat = N),
+      (l.shouldShowLabelPillsForChat = M),
+      (l.hasDisplayableLabels = w),
+      (l.shouldShowTertiaryRowForChat = A));
   },
   226,
 );

@@ -8,6 +8,7 @@ __d(
     "WAWebBizAdCreationResolvePrefillMedia",
     "WAWebMmsMediaTypes",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,40 +19,45 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.map(function (e) {
+          var n = new Map(),
+            a = e.map(function (e, o) {
               return r("WAWebBizAdCreationResolvePrefillMedia")(e, {
                 environment: t.environment,
                 legacyAdAccountID: t.legacyAdAccountID,
+              }).catch(function (e) {
+                throw (n.set(o, r("getErrorSafe")(e)), e);
               });
             }),
-            a = new (r("WAWebAttachMediaCollection"))({
+            i = new (r("WAWebAttachMediaCollection"))({
               chatParticipantCount: 1,
             });
-          yield a.processAttachments(
-            n,
+          yield i.processAttachments(
+            a,
             void 0,
             o("WAWebBizAdCreationMediaValidationUtils").SUPPORTED_MEDIA_TYPES,
             o("WAWebBizAdCreationMediaValidationUtils").MAX_IMAGE_COUNT,
           );
-          var i = a.getModelsArray(),
-            l = i.find(function (e) {
+          var l = i.getModelsArray(),
+            s = l.findIndex(function (e) {
               return (
                 e.state ===
                 o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.ERROR
               );
             });
-          if (l)
-            throw l.exception
-              ? l.exception
-              : r("FBLogger")("wa_ctwa_web").mustfixThrow(
-                  "createPrefilledMediaCollection: attachment failed to process",
-                );
-          return { collection: a, resolvedByKey: c(e, i) };
+          if (s !== -1) throw c(n.get(s), l[s].exception);
+          return { collection: i, resolvedByKey: d(e, l) };
         })),
         u.apply(this, arguments)
       );
     }
-    function c(t, n) {
+    function c(e, t) {
+      var n = e != null ? e : t;
+      if (n != null) return n;
+      throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
+        "createPrefilledMediaCollection: attachment failed to process",
+      );
+    }
+    function d(t, n) {
       n.length !== t.length &&
         r("FBLogger")("wa_ctwa_web").INFO(
           e ||
@@ -66,12 +72,12 @@ __d(
       var o = new Map();
       return (
         t.slice(0, n.length).forEach(function (e, t) {
-          o.set(n[t].id, d(e));
+          o.set(n[t].id, m(e));
         }),
         o
       );
     }
-    function d(e) {
+    function m(e) {
       return e.videoId != null
         ? {
             hash: null,

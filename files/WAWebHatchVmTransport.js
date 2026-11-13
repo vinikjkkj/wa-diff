@@ -7,153 +7,160 @@ __d(
       return e;
     }
     function l(t, n) {
+      var r = Object.keys(n).flatMap(function (e) {
+        var t = n[e];
+        return t == null ? [] : [e + "=" + encodeURIComponent(t)];
+      });
+      return r.length === 0 ? t : t + "?" + r.join("&");
+    }
+    function s(t, n) {
       var r = n.query,
         o = n.subpath,
         a = o === "" ? "" : "/" + o;
       return "/spaces/cvm/" + t + a + (r == null ? "" : "?" + r);
     }
-    function s(t, n) {
+    function u(t, n) {
       return (
         "/permissions/active?" +
         t +
         (n == null ? "" : "&cursor=" + encodeURIComponent(n))
       );
     }
-    function u(e) {
+    function c(e) {
       return encodeURIComponent(e).replace(/[!*\'()]/g, function (e) {
         return "%" + e.charCodeAt(0).toString(16).toUpperCase();
       });
     }
-    function c(e) {
+    function d(e) {
       var t = e.split("/");
       if (
         e === "" ||
         e.startsWith("/") ||
         e.includes("://") ||
         t.includes("..") ||
-        d(e)
+        m(e)
       )
         return null;
       try {
-        return t.map(u).join("/");
+        return t.map(c).join("/");
       } catch (e) {
         return null;
       }
     }
-    function d(e) {
+    function m(e) {
       for (var t = 0; t < e.length; t++) {
         var n = e.charCodeAt(t);
         if (n < 32 || n === 127) return !0;
       }
       return !1;
     }
-    function m(e) {
+    function p(e) {
       var t = e.startsWith("/") ? e.slice(1) : e;
-      return d(t) ||
-        p(t) ||
+      return m(t) ||
+        _(t) ||
         t.split("/").some(function (e) {
           return e === "" || e === "." || e === "..";
         })
         ? null
         : t;
     }
-    function p(e) {
+    function _(e) {
       try {
         return (encodeURIComponent(e), !1);
       } catch (e) {
         return !0;
       }
     }
-    function _(t, n, r) {
-      var o = m(n);
-      return o == null ? null : "" + t + o.split("/").map(u).join("/") + r;
+    function f(t, n, r) {
+      var o = p(n);
+      return o == null ? null : "" + t + o.split("/").map(c).join("/") + r;
     }
-    var f = ["/api/computer/assets/", "/api/computer/previews/"],
-      g = "sandbox://",
-      h = /^[A-Za-z0-9\-._~!$&\'()*+,;=:@/?%]*$/;
-    function y(t) {
+    var g = ["/api/computer/assets/", "/api/computer/previews/"],
+      h = "sandbox://",
+      y = /^[A-Za-z0-9\-._~!$&\'()*+,;=:@/?%]*$/;
+    function C(t) {
       if (t.includes("#")) return null;
       var n = t.indexOf("?"),
         r = n === -1 ? t : t.slice(0, n),
         o = n === -1 ? "" : t.slice(n);
-      if (!h.test(o.slice(1))) return null;
+      if (!y.test(o.slice(1))) return null;
       if (
-        f.some(function (e) {
+        g.some(function (e) {
           return r.startsWith(e);
         })
       )
-        return c(r.slice(1)) === r.slice(1) ? t : null;
-      if (!r.startsWith(g)) return null;
-      var a = c(r.slice(g.length));
+        return d(r.slice(1)) === r.slice(1) ? t : null;
+      if (!r.startsWith(h)) return null;
+      var a = d(r.slice(h.length));
       return a == null ? null : "/fs/raw/" + a + o;
     }
-    var C = "/fs/raw/",
-      b = "/fs/thumbnail/",
-      v = "workspace/",
-      S = [C, "/home/hatch/", "~/"],
-      R = /^[A-Za-z][A-Za-z0-9+.-]*:/,
-      L = /^https?:(?:\/\/[^/?#]*)?([^?#]*)([^#]*)/i,
-      E = /\/(?:fs\/raw|fs\/thumbnail|media\/raw)\//;
-    function k(e) {
+    var b = "/fs/raw/",
+      v = "/fs/thumbnail/",
+      S = "workspace/",
+      R = [b, "/home/hatch/", "~/"],
+      L = /^[A-Za-z][A-Za-z0-9+.-]*:/,
+      E = /^https?:(?:\/\/[^/?#]*)?([^?#]*)([^#]*)/i,
+      k = /\/(?:fs\/raw|fs\/thumbnail|media\/raw)\//;
+    function I(e) {
       var t = e.trim();
-      if (t.slice(0, g.length).toLowerCase() === g) return T(t.slice(g.length));
-      if (!R.test(t)) return T(t);
-      var n = L.exec(t);
+      if (t.slice(0, h.length).toLowerCase() === h) return D(t.slice(h.length));
+      if (!L.test(t)) return D(t);
+      var n = E.exec(t);
       if (n == null) return null;
       var r = n[1],
         o = n[2],
-        a = I(r);
-      return a == null ? null : T("" + a + o);
+        a = T(r);
+      return a == null ? null : D("" + a + o);
     }
-    function I(e) {
-      var t = E.exec(e);
+    function T(e) {
+      var t = k.exec(e);
       if (t != null) return e.slice(t.index + t[0].length);
-      var n = e.indexOf("/" + v);
+      var n = e.indexOf("/" + S);
       return n === -1 ? null : e.slice(n + 1);
     }
-    function T(t) {
+    function D(t) {
       var n = t.split("#"),
         r = n[0],
         o = r.indexOf("?"),
         a = o === -1 ? "" : r.slice(o),
-        i = D(o === -1 ? r : r.slice(0, o));
-      return i == null || !h.test(a.slice(1)) ? null : "" + C + i + a;
-    }
-    function D(e) {
-      var t = x(e);
-      for (var n of S) t.startsWith(n) && (t = t.slice(n.length));
-      return (
-        t.startsWith("/" + v) && (t = t.slice(1)),
-        t === "" || t.startsWith("/")
-          ? null
-          : c(t.startsWith(v) ? t : "" + v + t)
-      );
+        i = x(o === -1 ? r : r.slice(0, o));
+      return i == null || !y.test(a.slice(1)) ? null : "" + b + i + a;
     }
     function x(e) {
+      var t = $(e);
+      for (var n of R) t.startsWith(n) && (t = t.slice(n.length));
+      return (
+        t.startsWith("/" + S) && (t = t.slice(1)),
+        t === "" || t.startsWith("/")
+          ? null
+          : d(t.startsWith(S) ? t : "" + S + t)
+      );
+    }
+    function $(e) {
       try {
         return decodeURIComponent(e);
       } catch (t) {
         return e;
       }
     }
-    var $ = "/api/idea-cards/media/",
-      P = /^v=[A-Za-z0-9._~-]+$/,
-      N = 1024,
-      M = 3;
-    function w(t) {
-      if (t.length > N || t.includes("#")) return null;
+    var P = "/api/idea-cards/media/",
+      N = /^v=[A-Za-z0-9._~-]+$/,
+      M = 1024,
+      w = 3;
+    function A(t) {
+      if (t.length > M || t.includes("#")) return null;
       var n = t.indexOf("?"),
         r = n === -1 ? t : t.slice(0, n);
-      return !r.startsWith($) ||
-        r.length === $.length ||
-        c(r.slice(1)) == null ||
-        !r.split("/").every(A) ||
-        (n !== -1 && !P.test(t.slice(n + 1)))
+      return !r.startsWith(P) ||
+        r.length === P.length ||
+        d(r.slice(1)) == null ||
+        !r.split("/").every(F) ||
+        (n !== -1 && !N.test(t.slice(n + 1)))
         ? null
         : t;
     }
-    function A(e) {
-      for (var t = e, n = 0; n < M; n++) {
+    function F(e) {
+      for (var t = e, n = 0; n < w; n++) {
         var r = void 0;
         try {
           r = decodeURIComponent(t);
@@ -168,36 +175,36 @@ __d(
       }
       return !1;
     }
-    var F = /^[A-Za-z0-9\-_~]$/;
-    function O(e) {
+    var O = /^[A-Za-z0-9\-_~]$/;
+    function B(e) {
       var t = "";
       for (var n of new TextEncoder().encode(e)) {
         var r = String.fromCharCode(n);
-        t += F.test(r)
+        t += O.test(r)
           ? r
           : "%" + n.toString(16).toUpperCase().padStart(2, "0");
       }
       return t;
     }
-    var B = 1,
-      W = 50;
-    function q(t) {
-      var n = V(t);
+    var W = 1,
+      q = 50;
+    function U(t) {
+      var n = H(t);
       return n == null ? null : "/api/tasks/" + n;
     }
-    function U(t, n) {
-      var r = V(t);
+    function V(t, n) {
+      var r = H(t);
       return r == null
         ? null
-        : "/api/tasks/runs?job_id=" + r + "&limit=" + H(n);
-    }
-    function V(e) {
-      return e === "" || e === "." || e === ".." || p(e) ? null : u(e);
+        : "/api/tasks/runs?job_id=" + r + "&limit=" + G(n);
     }
     function H(e) {
-      return e >= W ? W : e >= B ? Math.trunc(e) : B;
+      return e === "" || e === "." || e === ".." || _(e) ? null : c(e);
     }
-    var G = Object.freeze({
+    function G(e) {
+      return e >= q ? q : e >= W ? Math.trunc(e) : W;
+    }
+    var z = Object.freeze({
       ACTIVITY_PAGE: function (n, r) {
         return (
           "/api/activity?limit=" +
@@ -212,9 +219,9 @@ __d(
       ACTIVITY_GOAL_STEP_REPORT: function (n, r, o) {
         return (
           "/api/activity/goals/" +
-          u(n) +
+          c(n) +
           "/actions/" +
-          u(r) +
+          c(r) +
           "?report_offset=" +
           o
         );
@@ -222,10 +229,10 @@ __d(
       ACTIVITY_GOAL_STEPS: function (n, r, o) {
         return (
           "/api/activity/goals/" +
-          u(n) +
+          c(n) +
           "/actions?limit=" +
           r +
-          (o == null ? "" : "&cursor=" + u(o))
+          (o == null ? "" : "&cursor=" + c(o))
         );
       },
       ACTIVITY_SUBSCRIBE: "/api/activity/subscribe",
@@ -235,14 +242,14 @@ __d(
         return (
           "/approvals/history?record_schema=snapshot_v1&limit=" +
           n +
-          (r == null || r.trim() === "" ? "" : "&cursor=" + u(r))
+          (r == null || r.trim() === "" ? "" : "&cursor=" + c(r))
         );
       },
       ARTIFACTS_LIST: "/api/artifacts",
       ARTIFACTS_PIN: "/api/artifacts/pin",
       ARTIFACTS_SUBSCRIBE: "/api/artifacts/subscribe",
       BROWSER_TASK: function (n, r) {
-        return "/api/browser-task/" + O(n) + "/" + r;
+        return "/api/browser-task/" + B(n) + "/" + r;
       },
       CHATS_LIST: "/api/chats/list?limit=100",
       CHATS_MESSAGE: function (n, r) {
@@ -255,7 +262,7 @@ __d(
       },
       CLIENT_REGISTER_CAPABILITIES: "/api/client/register-capabilities",
       COMPUTER_CONTEXT: "/api/computer/context",
-      COMPUTER_SCREENSHOT: y,
+      COMPUTER_SCREENSHOT: C,
       COMPUTER_SUBSCRIBE: "/api/computer/subscribe",
       CONNECTOR_ACCOUNT_UNLINK: function (n, r) {
         return (
@@ -269,19 +276,20 @@ __d(
       CONNECTOR_ACCOUNTS: function (n) {
         return "/api/connectors/" + encodeURIComponent(n) + "/accounts";
       },
-      CONNECTOR_ACCOUNTS_LINK: function (n) {
-        return "/api/connectors/" + encodeURIComponent(n) + "/accounts/link";
+      CONNECTOR_ACCOUNTS_LINK: function (t, n) {
+        return l(
+          "/api/connectors/" + encodeURIComponent(t) + "/accounts/link",
+          { callback_client: n },
+        );
       },
       CONNECTOR_CONNECT: function (n) {
         return "/connectors/" + encodeURIComponent(n) + "/connect";
       },
-      CONNECTOR_CONNECT_INFO: function (n, r) {
-        return (
-          "/connectors/" +
-          encodeURIComponent(n) +
-          "/connect/info" +
-          (r == null ? "" : "?session_id=" + encodeURIComponent(r))
-        );
+      CONNECTOR_CONNECT_INFO: function (t, n, r) {
+        return l("/connectors/" + encodeURIComponent(t) + "/connect/info", {
+          session_id: n,
+          callback_client: r,
+        });
       },
       CONNECTOR_DISCONNECT: function (n) {
         return "/api/connectors/" + encodeURIComponent(n) + "/disconnect";
@@ -359,7 +367,7 @@ __d(
           "/api/idea-cards/" + encodeURIComponent(n) + "?iconPalette=color"
         );
       },
-      IDEA_CARD_ICON: w,
+      IDEA_CARD_ICON: A,
       IDEA_CARDS: "/api/idea-cards?iconPalette=color",
       IDENTITY: "/api/identity",
       NAVIGATION_SUBSCRIBE: "/api/navigation/subscribe",
@@ -368,10 +376,10 @@ __d(
       PERMISSIONS: "/permissions",
       PERMISSIONS_ACTIVE: "/permissions/active",
       PERMISSIONS_ACTIVE_BY_SCOPE: function (t) {
-        return s("group_by=scope&limit=50", t);
+        return u("group_by=scope&limit=50", t);
       },
       PERMISSIONS_ACTIVE_WEBSITES: function (t) {
-        return s(
+        return u(
           "limit=50&lifetime=durable,today&target_type=network&kind=network_rule,transient_network_grant",
           t,
         );
@@ -391,18 +399,18 @@ __d(
         );
       },
       PERMISSIONS_SETTINGS: "/permissions/settings",
-      SCHEDULED_TASK: q,
-      SCHEDULED_TASK_RUNS: U,
+      SCHEDULED_TASK: U,
+      SCHEDULED_TASK_RUNS: V,
       SCHEDULED_TASKS: "/api/tasks",
       SCHEDULED_TASKS_SUBSCRIBE: "/api/tasks/subscribe",
-      SPACE_CVM: l,
+      SPACE_CVM: s,
       SPACE_DELETE: function (n) {
         return "/spaces/v2/" + n + "?source=space";
       },
       SPACE_EXPORT_HTML: function (n) {
         return "/spaces/" + n + "/export.html";
       },
-      SPACE_IMAGE: k,
+      SPACE_IMAGE: I,
       SPACE_RENAME: "/api/spaces/rename",
       SPACE_SHARE: function (n) {
         return "/spaces/share/" + n;
@@ -411,21 +419,21 @@ __d(
       WORKSPACE_DELETE: "/fs/delete",
       WORKSPACE_LIBRARY: "/fs/library",
       WORKSPACE_RAW: function (t) {
-        return _(C, t, "");
+        return f(b, t, "");
       },
       WORKSPACE_READ: "/fs/read",
       WORKSPACE_STAT: "/fs/stat",
       WORKSPACE_THUMBNAIL: function (t, n, r) {
-        return _(b, t, "?p=" + r + "&v=" + n);
+        return f(v, t, "?p=" + r + "&v=" + n);
       },
       WORKSPACE_WRITE: "/fs/write",
     });
-    function z(e) {
+    function j(e) {
       return e;
     }
-    ((i.confineWorkspaceMediaPath = m),
-      (i.JarvisPaths = G),
-      (i.serializeJarvisPath = z));
+    ((i.confineWorkspaceMediaPath = p),
+      (i.JarvisPaths = z),
+      (i.serializeJarvisPath = j));
   },
   66,
 );

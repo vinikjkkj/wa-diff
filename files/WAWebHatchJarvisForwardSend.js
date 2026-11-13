@@ -5,6 +5,8 @@ __d(
     "WALogger",
     "WAWebBotUtils",
     "WAWebForwardRichResponseHandler",
+    "WAWebForwardedBotMessageUtils",
+    "WAWebHatchJarvisForwardImageToMuse",
     "WAWebHatchJarvisForwardProof",
     "WAWebHatchJarvisForwardReupload",
     "WAWebHatchJarvisPayload",
@@ -18,11 +20,12 @@ __d(
         inspection: { ok: !1, reason: { kind: "unavailable" } },
         snapshot: null,
       },
-      u = r("JSResourceForInteraction")(
+      u = new Set(["image/jpeg", "image/png"]),
+      c = r("JSResourceForInteraction")(
         "WAWebHatchJarvisForwardSendPolicy",
       ).__setRef("WAWebHatchJarvisForwardSend"),
-      c = new WeakMap();
-    function d() {
+      d = new WeakMap();
+    function m() {
       return {
         inspections: new Map(),
         snapshots: o(
@@ -30,27 +33,29 @@ __d(
         ).createHatchJarvisForwardSession(),
       };
     }
-    function m(e, t, n, r) {
-      return p.apply(this, arguments);
+    function p(e, t, n, r, o) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
             if (
               o("WAWebHatchJarvisPayload").hasHatchJarvisPayload(
                 e.unifiedResponse,
               )
             ) {
-              var a = yield f(e, t, r);
-              ((n.unifiedResponseMutationMediaList = yield y(t, a)),
-                !(a == null || b(a.inspected, n)) &&
+              var i = yield f(e, t, n, r, a);
+              if (i != null) return i;
+              var l = yield y(e, t, r);
+              ((n.unifiedResponseMutationMediaList = yield v(t, l)),
+                !(l == null || R(l.inspected, n)) &&
                   (o(
                     "WAWebForwardRichResponseHandler",
                   ).updateRichResponseFields(e, n),
-                  (n.unifiedResponseRawData = a.rawBytes),
+                  (n.unifiedResponseRawData = l.rawBytes),
                   (n.botSignatureVerificationMetadata =
-                    a.proofs != null ? { proofs: a.proofs } : void 0),
+                    l.proofs != null ? { proofs: l.proofs } : void 0),
                   (n.forwardedAiBotMessageInfo = {
                     botId: o("WAWebWidFactory").asBotWidOrThrow(
                       o("WAWebBotUtils").HATCH_BOT_FBID_WID,
@@ -60,38 +65,91 @@ __d(
             }
           },
         )),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e, t, n, r, o) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            var i = e.forwardedAiBotMessageInfo;
+            if (
+              !o("WAWebBotUtils").isHatchBot(t.id) ||
+              (i != null &&
+                o("WAWebForwardedBotMessageUtils").getForwardedBotDisplayMode(
+                  i.validationStatus,
+                ) === "masked")
+            )
+              return null;
+            var l = yield b(e, r),
+              s = l.inspection,
+              c = l.snapshot;
+            if (
+              !s.ok ||
+              c == null ||
+              s.media.length === 0 ||
+              s.media.some(function (e) {
+                var t = e.ref;
+                return !u.has(t.mimeType);
+              })
+            )
+              return null;
+            var m = d.get(c);
+            return (
+              m == null &&
+                ((m = o(
+                  "WAWebHatchJarvisForwardReupload",
+                ).createHatchJarvisForwardMedia(s.media)),
+                d.set(c, m)),
+              o(
+                "WAWebHatchJarvisForwardImageToMuse",
+              ).forwardHatchJarvisImagesToMuse({
+                botPersonaId:
+                  typeof n.botPersonaId == "string" ? n.botPersonaId : void 0,
+                chat: t,
+                caption: typeof n.body == "string" ? n.body : "",
+                media: m,
+                msg: e,
+                multicast: a,
+              })
+            );
+          },
+        )),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
       return (
         e instanceof
         o("WAWebHatchJarvisForwardReupload").HatchJarvisForwardError
       );
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function g() {
+    function C() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield h(e, n),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield b(e, n),
             o = r.inspection,
             a = r.snapshot;
           if (!o.ok) return null;
           var i = t.id.isRegularUser() || t.id.isGroup();
           return i ? a : null;
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h(t, a) {
+    function b(t, a) {
       var i,
         l = t.id.toString(),
-        c =
+        u =
           (i = a.inspections.get(l)) != null
             ? i
-            : u
+            : c
                 .load()
                 .then(
                   (function () {
@@ -126,40 +184,40 @@ __d(
                     s
                   );
                 });
-      return (a.inspections.set(l, c), c);
+      return (a.inspections.set(l, u), u);
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t == null ? void 0 : t.inspected;
           if (!(t == null || !(n != null && n.ok) || n.media.length === 0)) {
-            var r = c.get(t);
+            var r = d.get(t);
             return (
               r == null &&
                 ((r = o(
                   "WAWebHatchJarvisForwardReupload",
                 ).createHatchJarvisForwardMedia(n.media)),
-                c.set(t, r)),
+                d.set(t, r)),
               o(
                 "WAWebHatchJarvisForwardReupload",
               ).prepareHatchJarvisForwardSend({ chat: e, media: r })
             );
           }
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function R(e, t) {
       return (
         e.ok && e.media.length > 0 && t.unifiedResponseMutationMediaList == null
       );
     }
-    ((l.createHatchJarvisForwardSendSession = d),
-      (l.applyHatchJarvisForwardFields = m),
-      (l.isHatchJarvisForwardFailure = _));
+    ((l.createHatchJarvisForwardSendSession = m),
+      (l.applyHatchJarvisForwardFields = p),
+      (l.isHatchJarvisForwardFailure = h));
   },
   98,
 );

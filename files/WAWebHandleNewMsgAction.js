@@ -414,10 +414,7 @@ __d(
                   });
                 var p = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
                   _ = o("WAWebUserUtils").getMeLidUserOrThrow();
-                if (
-                  t.type === "gp2" &&
-                  (t.subtype === "add" || t.subtype === "create")
-                ) {
+                if (L(t)) {
                   var C =
                     p != null &&
                     !o(
@@ -432,9 +429,9 @@ __d(
                 }
                 if (o("WAWebMsgGetters").getIsSentByMe(t)) {
                   if (e.unreadCount > 0 || e.markedUnread) {
-                    var E,
-                      k,
-                      I = e.id.toString() === t.id.remote.toString();
+                    var k,
+                      I,
+                      T = e.id.toString() === t.id.remote.toString();
                     o("WALogger").LOG(
                       y ||
                         (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -453,15 +450,15 @@ __d(
                       e.id.isLid(),
                       t.id.remote.toLogString(),
                       t.id.remote.isLid(),
-                      I,
+                      T,
                       e.unreadCount,
                       e.activeUnreadCount,
                       e.markedUnread,
-                      (E =
-                        (k = e.accountLid) == null
+                      (k =
+                        (I = e.accountLid) == null
                           ? void 0
-                          : k.toLogString()) != null
-                        ? E
+                          : I.toLogString()) != null
+                        ? k
                         : "none",
                     );
                   }
@@ -568,15 +565,15 @@ __d(
                       ),
                       e.archiveAtMentionViewedInDrawer)
                     ) {
-                      var L = new Map();
-                      (L.set(e.id.toString(), !1),
+                      var E = new Map();
+                      (E.set(e.id.toString(), !1),
                         o("WALogger").LOG(
                           h ||
                             (h = babelHelpers.taggedTemplateLiteralLoose([
                               "handleNewMsgForChat: will mark chat for archive",
                             ])),
                         ),
-                        yield o("WAWebApiChat").updateChatArchiveDrawer(L),
+                        yield o("WAWebApiChat").updateChatArchiveDrawer(E),
                         (e.archiveAtMentionViewedInDrawer = !1));
                     }
                   }
@@ -607,6 +604,12 @@ __d(
             };
           })(),
         );
+    }
+    function L(e) {
+      return (
+        (e.type === "gp2" && (e.subtype === "add" || e.subtype === "create")) ||
+        o("WAWebMsgGetters").getIsMeAddedToCommunityByOther(e)
+      );
     }
     l.handleNewMsgForChat = R;
   },

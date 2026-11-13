@@ -18,16 +18,7 @@ __d(
       c = /^\d{10}$/,
       d = 11;
     function m(e) {
-      return {
-        directoryMember: e,
-        displayName: o("WAWebOrgAdminPersonName").getOrgAdminPersonName(
-          e,
-          null,
-        ),
-        key: "directory:" + e.lid,
-        memberTag: e.memberTag,
-        source: "directory",
-      };
+      return I(e, null);
     }
     function p(e) {
       return {
@@ -55,12 +46,7 @@ __d(
           "WAWebOrgAdminManagedRosterUtils",
         ).getWAWebOrgAdminRosterDetailsByMemberLID(t);
         return l.map(function (e) {
-          return babelHelpers.extends({}, m(e), {
-            displayName: o("WAWebOrgAdminPersonName").getOrgAdminPersonName(
-              e,
-              s.get(e.lid),
-            ),
-          });
+          return I(e, s.get(e.lid));
         });
       }
       var u = new Set(
@@ -114,7 +100,9 @@ __d(
       return e.source === "roster" ? e.rosterEntry.emailAddress : null;
     }
     function C(e) {
-      return e.source === "roster" ? e.rosterEntry.secondaryMemberTag : null;
+      return e.source === "roster"
+        ? e.rosterEntry.secondaryMemberTag
+        : e.secondaryMemberTag;
     }
     function b(e) {
       if (e.source !== "roster") return null;
@@ -217,6 +205,16 @@ __d(
     function k(t) {
       var n = t.replace(e, "");
       return E(t) === "" + u + n;
+    }
+    function I(e, t) {
+      return {
+        directoryMember: e,
+        displayName: o("WAWebOrgAdminPersonName").getOrgAdminPersonName(e, t),
+        key: "directory:" + e.lid,
+        memberTag: e.memberTag,
+        secondaryMemberTag: t == null ? void 0 : t.secondaryMemberTag,
+        source: "directory",
+      };
     }
     ((l.directoryMemberToGroupCandidate = m),
       (l.rosterEntryToGroupCandidate = p),

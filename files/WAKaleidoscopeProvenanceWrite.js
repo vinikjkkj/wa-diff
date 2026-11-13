@@ -32,11 +32,8 @@ __d(
         i = e.stderr,
         l = e.stdout,
         s = ["kaleidoscope", "provenance-write"];
-      for (var u of n)
-        s.push(
-          "--field=" +
-            o("WAKaleidoscopeProvenanceField").provenanceFieldToArg(u),
-        );
+      for (var u of o("WAKaleidoscopeProvenanceField").provenanceFieldArgs(n))
+        s.push("--field=" + u);
       for (var c of r) s.push("--mimetype-hints=" + c);
       return (
         s.push(p),

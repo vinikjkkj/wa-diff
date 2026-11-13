@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebCryptoCalculateFilehash",
+    "WAWebMediaData",
     "WAWebMediaOpaqueData",
     "WAWebMediaProvenanceWriteGate",
     "WAWebMediaTypes",
@@ -78,11 +79,13 @@ __d(
         : e.mediaBlob;
     }
     function C(e, t, n) {
-      (e.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
-        e.mediaBlob.autorelease(),
-        (e.mediaBlob = t),
-        (e.size = t.size),
-        (e.filehash = n));
+      return new (r("WAWebMediaData"))(
+        babelHelpers.extends({}, e.serialize(), {
+          filehash: n,
+          mediaBlob: t,
+          size: t.size,
+        }),
+      );
     }
     function b(e, t, n) {
       return v.apply(this, arguments);
@@ -91,39 +94,33 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = y(e);
-          if (r != null) {
-            var a = e.mimetype,
-              i = yield o("WAWebMediaWorkerProxy").writeMediaMetadataInWorker({
-                fields: t,
-                hints: a != null && a !== "" ? [a] : [],
-                input: yield r.arrayBuffer(),
-                timeoutMs: h(e.type),
-              });
-            if (!n.current) {
-              if (!i.success) {
-                g(i.error);
-                return;
-              }
-              var l = new Blob([i.value], { type: r.type }),
-                s = yield o(
-                  "WAWebCryptoCalculateFilehash",
-                ).calculateFilehashFromBlob(l);
-              if (s == null || s === "") {
-                f("filehash of the marked media was empty");
-                return;
-              }
-              n.current ||
-                (C(e, l, s),
-                o("WALogger").LOG(
+          if (r == null) return e;
+          var a = e.mimetype,
+            i = yield o("WAWebMediaWorkerProxy").writeMediaMetadataInWorker({
+              fields: t,
+              hints: a != null && a !== "" ? [a] : [],
+              input: yield r.arrayBuffer(),
+              timeoutMs: h(e.type),
+            });
+          if (n.current) return e;
+          if (!i.success) return (g(i.error), e);
+          var l = new Blob([i.value], { type: r.type }),
+            s = yield o(
+              "WAWebCryptoCalculateFilehash",
+            ).calculateFilehashFromBlob(l);
+          return s == null || s === ""
+            ? (f("filehash of the marked media was empty"), e)
+            : n.current
+              ? e
+              : (o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[media-sgi] embedded provenance marker type=",
                       "",
                     ])),
                   e.type,
-                ));
-            }
-          }
+                ),
+                C(e, l, s));
         })),
         v.apply(this, arguments)
       );
@@ -136,58 +133,56 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.isChannel,
             a = e.media,
-            i = e.resolveVerdict;
+            i = e.resolveSystemProvenance;
           if (
-            !(
-              !t ||
-              !o("WAWebMediaProvenanceWriteGate").isMarkableMediaType(a.type)
-            )
-          ) {
-            var l = { current: !1 },
-              s = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var e = yield i();
-                    return l.current ? null : e;
-                  },
-                );
-                return function () {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              u = "verdict";
-            try {
-              var c = yield o("WAPromiseTimeout").promiseTimeout(
-                o("WAWebMediaProvenanceWriteGate").fieldsToEmbed({
-                  isChannel: t,
-                  mediaType: a.type,
-                  resolveVerdict: s,
-                }),
-                m,
+            !t ||
+            !o("WAWebMediaProvenanceWriteGate").isMarkableMediaType(a.type)
+          )
+            return a;
+          var l = { current: !1 },
+            s = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var e = yield i();
+                  return l.current ? null : e;
+                },
               );
-              if (c.length === 0) return;
-              ((u = "write"),
+              return function () {
+                return e.apply(this, arguments);
+              };
+            })(),
+            u = "verdict";
+          try {
+            var c = yield o("WAPromiseTimeout").promiseTimeout(
+              o("WAWebMediaProvenanceWriteGate").fieldsToEmbed({
+                isChannel: t,
+                mediaType: a.type,
+                resolveSystemProvenance: s,
+              }),
+              m,
+            );
+            return c == null
+              ? a
+              : ((u = "write"),
                 yield o("WAPromiseTimeout").promiseTimeout(
                   b(a, c, l),
                   h(a.type),
                 ));
-            } catch (e) {
-              if (e instanceof o("WACustomError").TimeoutError) {
-                ((l.current = !0),
-                  o("WALogger")
-                    .WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[media-sgi] provenance marker not written: ",
-                          " deadline exceeded",
-                        ])),
-                      u,
-                    )
-                    .sendLogs("media-sgi-provenance-marker-failed"));
-                return;
-              }
-              f("unexpected exception", r("getErrorSafe")(e));
-            }
+          } catch (e) {
+            return e instanceof o("WACustomError").TimeoutError
+              ? ((l.current = !0),
+                o("WALogger")
+                  .WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[media-sgi] provenance marker not written: ",
+                        " deadline exceeded",
+                      ])),
+                    u,
+                  )
+                  .sendLogs("media-sgi-provenance-marker-failed"),
+                a)
+              : (f("unexpected exception", r("getErrorSafe")(e)), a);
           }
         })),
         R.apply(this, arguments)

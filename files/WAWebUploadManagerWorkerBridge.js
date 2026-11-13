@@ -57,7 +57,19 @@ __d(
                   throw new (o("WAAbortError").AbortError)();
                 o(
                   "WAWebMainThreadUploadManagerHandler",
-                ).registerUploadCallbacks(i, t);
+                ).registerUploadCallbacks(
+                  i,
+                  babelHelpers.extends({}, t, {
+                    handleUploadProgress: function (r) {
+                      (t.handleUploadProgress(r),
+                        e.onProgress == null ||
+                          e.onProgress(
+                            new ProgressEvent("progress", { loaded: r }),
+                            0,
+                          ));
+                    },
+                  }),
+                );
                 var l = function () {
                   a.fireAndForget("media", "abortUpload", { uploadId: i });
                 };

@@ -3,12 +3,12 @@ __d(
   ["WALogger", "WAWebUserPrefsStore"],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, n, a) {
-      var i = r("WAWebUserPrefsStore").getUser(t);
-      if (i == null) return null;
-      if (typeof i == "object") {
-        var l = n(i);
-        if (l != null) return l;
+    function s(t, n, a, i) {
+      var l = r("WAWebUserPrefsStore").getUser(t, i);
+      if (l == null) return null;
+      if (typeof l == "object") {
+        var s = n(l);
+        if (s != null) return s;
       }
       return (
         o("WALogger")

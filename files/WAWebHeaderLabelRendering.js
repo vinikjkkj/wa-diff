@@ -49,9 +49,10 @@ __d(
       };
     }
     function d(e) {
-      var t = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
-        e.groupMetadata,
-      );
+      return m(e.groupMetadata);
+    }
+    function m(e) {
+      var t = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e);
       return (
         t === o("WAWebGroupType").GroupType.COMMUNITY ||
         t === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
@@ -59,7 +60,7 @@ __d(
         t === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
       );
     }
-    function m(e) {
+    function p(e) {
       var t = o("react-compiler-runtime").c(12),
         n = e.chat,
         a;
@@ -73,11 +74,11 @@ __d(
         ? ((s = l != null ? l : []), (t[1] = l), (t[2] = s))
         : (s = t[2]);
       var u;
-      t[3] !== s ? ((u = s.map(p)), (t[3] = s), (t[4] = u)) : (u = t[4]);
+      t[3] !== s ? ((u = s.map(_)), (t[3] = s), (t[4] = u)) : (u = t[4]);
       var c, d;
       t[5] !== l
         ? ((c = function () {
-            return _(l);
+            return f(l);
           }),
           (d = [l]),
           (t[5] = l),
@@ -90,24 +91,24 @@ __d(
           c,
           d,
         ),
-        g;
+        p;
       return (
         t[8] !== n || t[9] !== m || t[10] !== l
-          ? ((g = f(n, l, m)), (t[8] = n), (t[9] = m), (t[10] = l), (t[11] = g))
-          : (g = t[11]),
-        g
+          ? ((p = g(n, l, m)), (t[8] = n), (t[9] = m), (t[10] = l), (t[11] = p))
+          : (p = t[11]),
+        p
       );
     }
-    function p(e) {
+    function _(e) {
       return "label_updated_" + e;
     }
-    function _(e) {
+    function f(e) {
       return (e != null ? e : []).map(function (e) {
         var t = o("WAWebLabelCollection").LabelCollection.get(e);
         return t != null ? o("WAWebLabelGetters").getHexColor(t) : void 0;
       });
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         r("WAWebEnvironment").isGuest ||
@@ -161,10 +162,11 @@ __d(
         children: a,
       });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"),
+    ((g.displayName = g.name + " [from " + i.id + "]"),
       (l.createLabelsDropdownMenu = c),
       (l.isCommunityRelatedChat = d),
-      (l.WAWebHeaderLabelButton = m));
+      (l.isCommunityRelatedChatFor = m),
+      (l.WAWebHeaderLabelButton = p));
   },
   226,
 );

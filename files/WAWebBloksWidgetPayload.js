@@ -44,9 +44,7 @@ __d(
         ? e.fromMe
           ? null
           : "agent_chat"
-        : o("WAWebABProps").getABPropConfigValue("a2ui_fallback_show_timestamp")
-          ? "consumer_chat"
-          : null;
+        : "consumer_chat";
     }
     function f(e) {
       var t = p(e == null ? void 0 : e.data);

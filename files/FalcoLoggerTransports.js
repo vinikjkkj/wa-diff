@@ -243,9 +243,9 @@ __d(
             ));
           break;
         case "invalid":
-          (ge("event.non_critical_failure.beacon.invalid_identity", o),
-            r("FBLogger")("falco", "beacon_invalid_identity").warn(
-              'Falco event "%s" has a malformed identity; dropped',
+          (ge("event.non_critical_failure.beacon.invalid", o),
+            r("FBLogger")("falco", "beacon_invalid").warn(
+              'Falco event "%s" has a malformed app id, device id or identity, or a logged-in identity without claims; dropped',
               (n = o[0]) == null ? void 0 : n.name,
             ));
           break;
@@ -526,6 +526,8 @@ __d(
         }),
         appVersion: (m || (m = r("AnalyticsCoreData"))).app_version,
         sessionId: o("WebSession").getId(),
+        appId: m.app_id,
+        deviceId: m.device_id,
         identity: m.identity,
       };
     }

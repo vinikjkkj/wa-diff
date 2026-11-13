@@ -9,6 +9,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsTypes",
+    "WAWebUserUtils",
     "cr:34987",
     "unionArrays",
   ],
@@ -36,7 +37,7 @@ __d(
           }),
           (n.updatePreservedUserKeys = function () {
             var t = this,
-              n = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
+              n = o("WAWebUserUtils").getStableMaybeMeUser();
             if (n != null) {
               var a = n.toString(),
                 i = e.prototype.get.call(
@@ -79,13 +80,17 @@ __d(
           }),
           (n.setCollection = function (t, n, r) {
             (r === void 0 && (r = !1),
-              o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser() != null &&
+              o("WAWebUserPrefsMeUser").hasLoggedIn() &&
                 !r &&
                 this.setUser(t, n));
           }),
-          (n.getUser = function (n) {
+          (n.getUser = function (n, r) {
             var t = this.$UserPreferencesStore$p_2(n);
-            return t != null ? e.prototype.get.call(this, t) : null;
+            return t != null
+              ? e.prototype.get.call(this, t, {
+                  ignoreCache: r == null ? void 0 : r.ignoreCache,
+                })
+              : null;
           }),
           (n.setUser = function (n, r, o) {
             var t = this.$UserPreferencesStore$p_2(n);
@@ -93,7 +98,7 @@ __d(
               (e.prototype.set.call(this, t, r, o), c == null || c(n, r));
           }),
           (n.$UserPreferencesStore$p_2 = function (t) {
-            var e = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser();
+            var e = o("WAWebUserUtils").getStableMaybeMeUser();
             if (!e)
               return (
                 o("WALogger").WARN(

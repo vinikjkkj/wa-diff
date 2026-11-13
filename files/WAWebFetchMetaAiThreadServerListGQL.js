@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebFetchMetaAiThreadServerListGQLQuery.graphql",
+    "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -11,20 +12,21 @@ __d(
     var e,
       s,
       u,
-      c =
+      c,
+      d =
         e !== void 0
           ? e
           : (e = n("WAWebFetchMetaAiThreadServerListGQLQuery.graphql"));
-    function d() {
-      return m.apply(this, arguments);
-    }
     function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             yield r("WAWebNetworkStatus").waitIfOffline();
             var e = yield o("WAWebRelayClient").fetchQuery(
-                c,
+                d,
                 {},
                 { environmentType: "whatsapp_web" },
               ),
@@ -52,21 +54,29 @@ __d(
             }
             return { type: "success", threads: n };
           } catch (e) {
-            return (
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[fetchMetaAiThreadServerListGQL] request-failed",
-                  ])),
-              ),
-              { type: "error" }
-            );
+            return o("WAWebGraphQLServerError").isWassAccountApiNotEnabledError(
+              e,
+            )
+              ? (o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[fetchMetaAiThreadServerListGQL] account-api-not-enabled",
+                    ])),
+                ),
+                { type: "unavailable" })
+              : (o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[fetchMetaAiThreadServerListGQL] request-failed",
+                    ])),
+                ),
+                { type: "error" });
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.fetchMetaAiThreadServerListGQL = d;
+    l.fetchMetaAiThreadServerListGQL = m;
   },
   98,
 );

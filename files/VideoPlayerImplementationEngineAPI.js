@@ -442,6 +442,7 @@ __d(
           i.disableLogging === !0 || g == null
             ? null
             : g({
+                adClientToken: a.coreVideoPlayerMetaData.adClientToken,
                 mediaID: a.coreVideoPlayerMetaData.videoFBID,
                 playbackSessionID: a.loggingMetaData.instanceKey,
               });

@@ -455,6 +455,7 @@ __d(
       var n, r;
       return {
         navigatedAtMs: Date.now(),
+        navigatedAtPerfMs: self.performance.now(),
         realSource: $(e),
         realSourceId: (n = e == null ? void 0 : e.id) != null ? n : -1,
         realDestination: $(t),

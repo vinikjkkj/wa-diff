@@ -24,7 +24,7 @@ __d(
       var e = o(
         "WAWebMuteCollection",
       ).MuteCollection.getGlobalOfflineNotifications();
-      return ((e = b(e)), e);
+      return ((e = S(e)), e);
     }
     function d() {
       return o(
@@ -54,20 +54,31 @@ __d(
     }
     var _ = 1,
       f = 2;
-    function g() {
+    function g(e) {
+      return (
+        e === void 0 && (e = !0),
+        o("WAWebClosedTabCallPushGating").shouldReceiveClosedTabCallPushes()
+          ? e
+            ? _ + f
+            : f
+          : null
+      );
+    }
+    function h() {
       return o(
         "WAWebClosedTabCallPushGating",
-      ).shouldReceiveClosedTabCallPushes()
-        ? _ + f
-        : null;
-    }
-    function h(e) {
-      o("WAWebClosedTabCallPushGating").onClosedTabCallPushInputsChange(e);
+      ).shouldReceiveClosedTabCallPushes();
     }
     function y() {
-      return (C(), (u || (u = n("Promise"))).resolve());
+      o("WAWebUserPrefsNotifications").setOfflineNotificationsEnabledOnce();
     }
-    function C() {
+    function C(e) {
+      o("WAWebClosedTabCallPushGating").onClosedTabCallPushInputsChange(e);
+    }
+    function b() {
+      return (v(), (u || (u = n("Promise"))).resolve());
+    }
+    function v() {
       var e,
         t = r("WAWebFbtCommon")("WhatsApp"),
         n = s._(/*BTDS*/ "Syncing messages in the background"),
@@ -107,7 +118,7 @@ __d(
         callNotificationMissedVideoBody: g.toString(),
       });
     }
-    function b(t) {
+    function S(t) {
       var n;
       return !t &&
         ((n = window.Notification) == null ? void 0 : n.permission) ===
@@ -139,9 +150,11 @@ __d(
       (l.getOfflineNotificationsSetting = d),
       (l.shouldSubscribePushManager = m),
       (l.getPushPreferences = g),
-      (l.onPushPreferencesInputsChange = h),
-      (l.updateOfflineNotificationL10nStrings = y),
-      (l.updateOfflineNotificationL10nStringsForOfflineResume = C));
+      (l.shouldSubscribeForClosedTabCalls = h),
+      (l.preventBackgroundSyncAutoEnable = y),
+      (l.onPushPreferencesInputsChange = C),
+      (l.updateOfflineNotificationL10nStrings = b),
+      (l.updateOfflineNotificationL10nStringsForOfflineResume = v));
   },
   226,
 );

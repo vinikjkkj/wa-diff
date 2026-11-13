@@ -5,7 +5,7 @@ __d(
     "WAWebCommonQPSurfacesTypes",
     "WAWebQuickPromotionValidatorUtils",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,7 +37,7 @@ __d(
           if (l == null) return s;
           var m = !l.participants.iAmMember();
           if (!m) return u;
-          var p = o("WAWebUserPrefsMeUser").getMaybeMePnOrLidUser(),
+          var p = o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE(),
             _ = p == null ? null : l.pastParticipants.get(p);
           if (_ == null) return c;
           var f = o(
