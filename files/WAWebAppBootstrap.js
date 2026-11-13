@@ -39,6 +39,7 @@ __d(
     "WAWebPrefetchHatchDetailsOnLogin",
     "WAWebRunInTransaction",
     "WAWebStorageErrorHandlingUtils",
+    "WAWebSupportChatAuthRefresh",
     "WAWebSuspiciousLinkCacheRefresh",
     "WAWebSuspiciousLinkMetrics",
     "WAWebSuspiciousLinkWam",
@@ -245,6 +246,7 @@ __d(
             o(
               "WAWebImagineActionMediaInputLogging",
             ).initImagineActionMediaInputLogging(),
+            o("WAWebSupportChatAuthRefresh").initSupportChatAuthRefresh(),
             n("cr:17677") == null || n("cr:17677").init(),
             o("WALogger").LOG(
               c ||

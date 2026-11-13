@@ -6,6 +6,7 @@ __d(
     "WAWebContactGetters",
     "WAWebCustomerManagerChatResolver",
     "WAWebCustomerManagerContactName",
+    "WAWebCustomerManagerCustomFieldTypes",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
@@ -20,7 +21,7 @@ __d(
       var r = t.direction,
         o = t.key,
         a = e.map(function (e) {
-          return { contact: e, value: c(o, e.leadData) };
+          return { contact: e, value: d(o, e.leadData, e) };
         });
       return (
         a.sort(function (e, t) {
@@ -36,8 +37,8 @@ __d(
         return {
           contact: e,
           rowId: e.id,
-          name: c("customer", e.leadData),
-          time: c("lastMessage", e.leadData),
+          name: d("customer", e.leadData),
+          time: d("lastMessage", e.leadData),
         };
       });
       return (
@@ -67,55 +68,79 @@ __d(
       return o === "desc" ? -a : a;
     }
     function c(e, t) {
-      var n, r, a, i;
-      return e === "customer"
-        ? m(t)
-        : e === "phone"
-          ? p(t)
-          : e === "username"
-            ? _(t)
-            : e === "email"
-              ? (n = t.email) != null
-                ? n
+      var n,
+        r,
+        o,
+        a =
+          t == null
+            ? void 0
+            : t.find(function (t) {
+                return t.fieldId === e;
+              });
+      return a == null
+        ? null
+        : a.fieldType === "NUMERIC"
+          ? (n = a.numericValue) != null
+            ? n
+            : null
+          : a.fieldType === "MONEY"
+            ? (r = a.moneyAmount) != null
+              ? r
+              : null
+            : a.fieldType === "DATE"
+              ? (o = a.dateValue) != null
+                ? o
                 : null
-              : e === "address"
-                ? (r = t.address) != null
+              : (a.fieldType === "TEXT" || a.fieldType === "ENUM") &&
+                  a.value !== ""
+                ? a.value
+                : null;
+    }
+    function d(e, t, n) {
+      var r,
+        a,
+        i,
+        l,
+        s = o("WAWebCustomerManagerCustomFieldTypes").customFieldIdFromKey(e);
+      return s != null
+        ? c(s, n == null ? void 0 : n.customFieldValues)
+        : e === "customer"
+          ? p(t)
+          : e === "phone"
+            ? _(t)
+            : e === "username"
+              ? f(t)
+              : e === "email"
+                ? (r = t.email) != null
                   ? r
                   : null
-                : e === "birthday"
-                  ? d(t)
-                  : e === "acquisitionSource"
-                    ? f(t)
-                    : e === "list"
+                : e === "address"
+                  ? (a = t.address) != null
+                    ? a
+                    : null
+                  : e === "birthday"
+                    ? m(t)
+                    : e === "acquisitionSource"
                       ? g(t)
-                      : e === "lastMessage"
-                        ? (a =
-                            (i = o(
-                              "WAWebCustomerManagerChatResolver",
-                            ).resolveCustomerManagerChat(t.chatJid)) == null
-                              ? void 0
-                              : i.t) != null
-                          ? a
-                          : null
-                        : e === "select" ||
-                            e === "actions" ||
-                            e === "notes" ||
-                            e === "lastOrder"
-                          ? null
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  e,
-                              );
-                            })();
+                      : e === "list"
+                        ? h(t)
+                        : e === "lastMessage" &&
+                            (i =
+                              (l = o(
+                                "WAWebCustomerManagerChatResolver",
+                              ).resolveCustomerManagerChat(t.chatJid)) == null
+                                ? void 0
+                                : l.t) != null
+                          ? i
+                          : null;
     }
-    function d(e) {
+    function m(e) {
       var t = e.birthday;
       if (t == null || Number(t) === 0) return null;
       var n = new Date(t * 1e3);
       return n.getUTCMonth() * 32 + n.getUTCDate();
     }
-    function m(e) {
+    function p(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
       if (t == null) return null;
       var n = o("WAWebFrontendContactGetters").getFormattedUserAndType(t),
@@ -127,14 +152,14 @@ __d(
         type: a,
       });
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
       return t != null
         ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(t)
             .displayName
         : null;
     }
-    function _(e) {
+    function f(e) {
       if (!o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
         return null;
       var t = o("WAWebContactCollection").ContactCollection.get(e.chatJid);
@@ -142,7 +167,7 @@ __d(
       var n = o("WAWebFrontendContactGetters").getFormattedUsername(t);
       return n != null && n !== "" ? n : null;
     }
-    function f(e) {
+    function g(e) {
       var t = e.acquisitionSource;
       if (t == null) return null;
       var n = o(
@@ -150,7 +175,7 @@ __d(
       ).getProfileAcquisitionSourceLabel(t);
       return n != null ? String(n) : null;
     }
-    function g(e) {
+    function h(e) {
       var t,
         n,
         r = o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(

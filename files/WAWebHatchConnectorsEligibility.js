@@ -7,34 +7,35 @@ __d(
       l = "browser",
       s = new Set(["stripe_link", "shop_pay", "meta_pay"]),
       u = new Set(["stripe_link", "shop_pay"]),
-      c = "local.";
-    function d(e, t) {
-      return g(m(e, t));
-    }
+      c = 5,
+      d = "local.";
     function m(e, t) {
-      return e.filter(function (e) {
-        return !v(e) && R(e, t);
-      });
+      return h(p(e, t));
     }
     function p(e, t) {
-      var n = new Set(
-        t.map(function (e) {
-          return S(e.id);
-        }),
-      );
       return e.filter(function (e) {
-        return n.has(S(e.id));
+        return !S(e) && L(e, t);
       });
     }
     function _(e, t) {
-      var n = S(t);
-      return e.find(function (e) {
-        return S(e.id) === n;
+      var n = new Set(
+        t.map(function (e) {
+          return R(e.id);
+        }),
+      );
+      return e.filter(function (e) {
+        return n.has(R(e.id));
       });
     }
     function f(e, t) {
+      var n = R(t);
+      return e.find(function (e) {
+        return R(e.id) === n;
+      });
+    }
+    function g(e, t) {
       return e.map(function (e) {
-        var n = _(t, e.id);
+        var n = f(t, e.id);
         return n == null
           ? e
           : babelHelpers.extends({}, n, {
@@ -43,15 +44,15 @@ __d(
             });
       });
     }
-    function g(e) {
+    function h(e) {
       var t = [],
         n = [];
       for (var r of e) r.state === "connected" ? t.push(r) : n.push(r);
       return { connected: t, available: n };
     }
-    function h(e) {
+    function y(e) {
       var t = e.filter(function (e) {
-        return v(e) && R(e);
+        return S(e) && L(e);
       });
       return [].concat(
         t.filter(function (e) {
@@ -62,20 +63,20 @@ __d(
         }),
       );
     }
-    function y(e, t) {
+    function C(e, t) {
       var n = new Map(
           t.map(function (e) {
-            return [S(e.connector), e];
+            return [R(e.connector), e];
           }),
         ),
         r = [];
       for (var o of e) {
-        var a = S(o.id),
+        var a = R(o.id),
           i = n.get(a);
         o.state === "connected" &&
-          !a.startsWith(c) &&
+          !a.startsWith(d) &&
           !u.has(a) &&
-          C(i) &&
+          b(i) &&
           r.push(
             babelHelpers.extends({}, o, {
               hasCustomPermissions:
@@ -87,50 +88,51 @@ __d(
         return e.name.localeCompare(t.name);
       });
     }
-    function C(e) {
+    function b(e) {
       var t = e == null ? void 0 : e.settings;
       return t == null || (t.visible && t.managementKind !== "internal");
     }
-    function b(e) {
-      return e.managementKind === "policy_only" && S(e.id) === l;
-    }
     function v(e) {
-      return s.has(S(e.id));
+      return e.managementKind === "policy_only" && R(e.id) === l;
     }
     function S(e) {
+      return s.has(R(e.id));
+    }
+    function R(e) {
       return e.trim().toLowerCase().replace(/[- ]/g, "_");
     }
-    function R(t, n) {
-      if (E(t, n)) return L(t, n);
+    function L(t, n) {
+      if (k(t, n)) return E(t, n);
       switch (t.state) {
         case "connected":
-          return e.has(t.managementKind) || b(t);
+          return e.has(t.managementKind) || v(t);
         case "disconnected":
           return e.has(t.managementKind);
         default:
           return !1;
       }
     }
-    function L(e, t) {
-      return E(e, t) && e.state === "connected";
-    }
     function E(e, t) {
+      return k(e, t) && e.state === "connected";
+    }
+    function k(e, t) {
       return (
         (t == null ? void 0 : t.customConnectorsEnabled) === !0 && e.isCustom
       );
     }
-    ((i.groupEligibleHatchConnectors = d),
-      (i.listEligibleHatchConnectors = m),
-      (i.listHatchConnectorsInCatalog = p),
-      (i.findHatchConnectorInCatalog = _),
-      (i.withHatchCatalogEntries = f),
-      (i.groupHatchConnectorsByState = g),
-      (i.listEligibleHatchWalletConnectors = h),
-      (i.listHatchPermissionsConnectors = y),
-      (i.isHatchPermissionsOnlyConnector = b),
-      (i.isHatchWalletConnector = v),
-      (i.isManageableHatchConnector = R),
-      (i.isConnectedHatchCustomConnector = L));
+    ((i.HATCH_HOMEPAGE_PREVIEW_LIMIT = c),
+      (i.groupEligibleHatchConnectors = m),
+      (i.listEligibleHatchConnectors = p),
+      (i.listHatchConnectorsInCatalog = _),
+      (i.findHatchConnectorInCatalog = f),
+      (i.withHatchCatalogEntries = g),
+      (i.groupHatchConnectorsByState = h),
+      (i.listEligibleHatchWalletConnectors = y),
+      (i.listHatchPermissionsConnectors = C),
+      (i.isHatchPermissionsOnlyConnector = v),
+      (i.isHatchWalletConnector = S),
+      (i.isManageableHatchConnector = L),
+      (i.isConnectedHatchCustomConnector = E));
   },
   66,
 );

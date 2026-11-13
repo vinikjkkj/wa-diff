@@ -23,7 +23,9 @@ __d(
                     "WAWebSelfReminderGating",
                   ).updateEmployeeCommandExtensionAccess(e === "on");
                   var n = s[i];
-                  e === "no_answer" &&
+                  o(
+                    "WAWebEmployeeCommandExtensionTransport",
+                  ).hasEmployeeCommandExtensionTimedOut() &&
                     n != null &&
                     (r = window.setTimeout(function () {
                       return a(i + 1);

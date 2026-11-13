@@ -52,11 +52,7 @@ __d(
         case u.COMPOSITE:
           return Object.freeze({
             type: u.COMPOSITE,
-            columns: Object.freeze(
-              e.columns.map(function (e) {
-                return Object.freeze(e);
-              }),
-            ),
+            columns: Object.freeze([].concat(e.columns)),
           });
         case u.UNIQUE:
           return Object.freeze({ type: u.UNIQUE, column: e.column });

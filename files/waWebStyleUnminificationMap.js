@@ -159,6 +159,7 @@ __d(
         掛: "bk.data.WebCssKeyframe",
         摌: "bk.components.webbloks.FixedWrapper",
         擤: "bk.components.webbloks.DragExtension",
+        柼: "bk.components.LayoutDirectionExtension",
       },
       l = e;
     i.default = l;

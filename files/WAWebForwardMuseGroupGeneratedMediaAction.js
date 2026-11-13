@@ -21,30 +21,32 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
-            n = e.media,
-            r = e.msg,
-            a = e.multicast,
-            i = yield _(n.url);
-          if (i == null) return null;
-          var l = yield m(i, n.mimetype);
-          return l == null
+            n = e.forwardReachScore,
+            r = e.media,
+            a = e.msg,
+            i = e.multicast,
+            l = yield _(r.url);
+          if (l == null) return null;
+          var s = yield m(l, r.mimetype);
+          return s == null
             ? null
-            : l.sendToChat({
+            : s.sendToChat({
                 chat: t,
                 options: {
                   caption: o(
                     "WAWebMuseGroupRichResponseForward",
-                  ).getMuseGroupForwardCaption(r),
+                  ).getMuseGroupForwardCaption(a),
                   forwardedAiBotMessageInfo: o(
                     "WAWebGetAiBotContextForForwardedMsg",
-                  ).getAiBotContextForForwardedMsg(r),
+                  ).getAiBotContextForForwardedMsg(a),
                   forwardedFromWeb: !0,
                   forwardingScore: o(
                     "WAWebForwardMediaUtils",
-                  ).getMsgForwardingScoreWhenForwarded(r),
+                  ).getMsgForwardingScoreWhenForwarded(a),
+                  forwardReachScore: n,
                   isForwarded:
-                    o("WAWebMsgGetters").getShouldDisplayAsForwarded(r),
-                  multicast: a,
+                    o("WAWebMsgGetters").getShouldDisplayAsForwarded(a),
+                  multicast: i,
                 },
               });
         })),

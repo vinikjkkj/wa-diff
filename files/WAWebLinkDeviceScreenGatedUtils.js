@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "WAWebAutoLogoutGating",
+    "WAWebRegistrationQrGating",
     "gkx",
     "isWAWebFeatureDetectionAndroidTablet",
     "isWAWebFeatureDetectionAppleTouchscreen",
@@ -32,20 +33,26 @@ __d(
     }
     function d() {
       return (
+        c() === "test" ||
+        o("WAWebRegistrationQrGating").isRegistrationQrEnabled()
+      );
+    }
+    function m() {
+      return (
         !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
         r("gkx")("17622")
       );
     }
-    function m(e) {
+    function p(e) {
       return (
         e === void 0 &&
           (e = o(
             "isWAWebFeatureDetectionAndroidTablet",
           ).isWAWebFeatureDetectionAndroidTablet()),
-        e && d() && r("gkx")("27147")
+        e && m() && r("gkx")("27147")
       );
     }
-    function p() {
+    function _() {
       if (
         o(
           "isWAWebFeatureDetectionAndroidTablet",
@@ -55,18 +62,18 @@ __d(
       var e = o(
         "isWAWebFeatureDetectionAndroidTablet",
       ).getWAWebFeatureDetectionAndroidTabletInfo();
-      return e == null || e.deviceClass === "googlebook" || !d()
+      return e == null || e.deviceClass === "googlebook" || !m()
         ? "none"
-        : m(!0)
+        : p(!0)
           ? "test"
           : "control";
     }
-    function _() {
+    function f() {
       return (
         r("isWAWebFeatureDetectionAppleTouchscreen")() && r("gkx")("20339")
       );
     }
-    function f() {
+    function g() {
       return (
         !o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe() &&
         r("gkx")("28277")
@@ -75,11 +82,12 @@ __d(
     ((l.LinkDeviceScreenVariantType = e),
       (l.getLinkDeviceScreenVariant = s),
       (l.getOptimizedRegFromWebVariant = c),
-      (l.isAndroidTabletOverlayPotentiallyEnabled = d),
-      (l.isAndroidTabletOverlayEnabled = m),
-      (l.getAndroidTabletOverlayExperiment = p),
-      (l.isAppleTouchscreenOverlayEnabled = _),
-      (l.isGooglebookOverlayEnabled = f));
+      (l.isWebRegistrationEnabled = d),
+      (l.isAndroidTabletOverlayPotentiallyEnabled = m),
+      (l.isAndroidTabletOverlayEnabled = p),
+      (l.getAndroidTabletOverlayExperiment = _),
+      (l.isAppleTouchscreenOverlayEnabled = f),
+      (l.isGooglebookOverlayEnabled = g));
   },
   98,
 );

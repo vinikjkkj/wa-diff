@@ -316,6 +316,8 @@ __d(
       FB_PLUS_ACTIVATION_FB_FEED_QP: "fb_plus_activation_fb_feed_qp",
       FB_PLUS_AC_SUBSCRIPTION_HUB: "fb_plus_ac_subscription_hub",
       FB_PLUS_NEWSFEED_AQP: "fb_plus_newsfeed_aqp",
+      FB_POSTS_REACTION_SHEET_SUPER_LIKE_FOOTER_QP:
+        "fb_posts_reaction_sheet_super_like_footer_qp",
       FB_POST_POST_UPSELL: "fb_post_post_upsell",
       FB_POST_REELS_UPSELL: "fb_post_reels_upsell",
       FB_POST_STORY_UPSELL: "fb_post_story_upsell",
@@ -381,6 +383,8 @@ __d(
         "fb_story_viewer_sheet_diamond_upsell",
       FB_STORY_VIEWER_SHEET_DIAMOND_UPSELL_BOTTOMSHEET:
         "fb_story_viewer_sheet_diamond_upsell_bottomsheet",
+      FB_STORY_VIEWER_SHEET_SUPER_LIKE_UPSELL:
+        "fb_story_viewer_sheet_super_like_upsell",
       FB_STORY_VIEWER_SHEET_SUPER_REACTION_UPSELL:
         "fb_story_viewer_sheet_super_reaction_upsell",
       FB_STORY_VIEWER_SHEET_UPSELL: "fb_story_viewer_sheet_upsell",
@@ -809,6 +813,8 @@ __d(
       IG_SETTINGS_WEB_META_ONE: "ig_settings_web_meta_one",
       IG_STANDARD_SETTINGS_ENTRYPOINT_WEB:
         "ig_standard_settings_entrypoint_web",
+      IG_STORIES_MIDCARD_PRO_AC: "ig_stories_midcard_pro_ac",
+      IG_STORIES_MIDCARD_PRO_BIZ: "ig_stories_midcard_pro_biz",
       IG_STORIES_MIDCARD_UPSELL_QP: "ig_stories_midcard_upsell_qp",
       IG_STORY_AI_BACKGROUND_QUOTA_BANNER:
         "ig_story_ai_background_quota_banner",

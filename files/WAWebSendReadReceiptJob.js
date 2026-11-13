@@ -151,7 +151,7 @@ __d(
               });
             }
           }
-          var L = M(
+          var L = N(
               e.id,
               _.filter(function (e) {
                 return !y(e);
@@ -160,11 +160,11 @@ __d(
             E = L.coexV2Reads,
             k = L.coexV2Recipient,
             I = L.regularReads,
-            T = D(I),
-            x = T[0],
-            $ = T[1],
-            P = T[2],
-            N = T[3];
+            D = T(I),
+            x = D[0],
+            $ = D[1],
+            P = D[2],
+            w = D[3];
           return (
             yield (p || (p = n("Promise"))).all(
               [].concat(
@@ -199,13 +199,13 @@ __d(
                         type: h(e),
                         t: i,
                         groupedReceipt: t,
-                        maxStsByAuthor: N.get(e),
+                        maxStsByAuthor: w.get(e),
                       },
                     );
                 }),
               ),
             ),
-            yield w({
+            yield M({
               chatId: e.id,
               coexV2Reads: E,
               coexV2Recipient: k,
@@ -241,7 +241,9 @@ __d(
           }
           var i = o("WAWebMsgGetters").getIsNewsletterStatus(e),
             l = o("WAWebMsgGetters").getIsGroupStatus(e) || i ? e.id.remote : _,
-            s = a.fromMe && !R(l),
+            s =
+              a.fromMe &&
+              !o("WAWebStatusGatingUtils").isStatusCompanionReadSyncEnabled(),
             d = (n == null || n.sendReceipt === !0) && !s;
           if (d) {
             var m = i ? l : r("nullthrows")(a.participant);
@@ -256,7 +258,7 @@ __d(
                 isStatusReceipt: !0,
                 groupedReceipt: new Map([[m, [a.id]]]),
               }),
-              i)
+              i && !a.fromMe)
             ) {
               var p = e.serverId;
               p != null &&
@@ -273,7 +275,7 @@ __d(
                       .sendLogs("newsletter-status-view-receipt-fail");
                   });
             }
-          } else L(e) && (yield E(a, t));
+          } else R(e) && (yield L(a, t));
           var f = { ack: o("WAWebAck").ACK.READ };
           a.participant &&
             a.participant.isPSA() &&
@@ -288,24 +290,18 @@ __d(
     }
     function R(e) {
       return (
-        e.isStatus() &&
-        o("WAWebStatusGatingUtils").isStatusCompanionReadSyncEnabled()
-      );
-    }
-    function L(e) {
-      return (
         !e.id.fromMe &&
         e.id.participant != null &&
         o("WAWebMsgGetters").getIsGroupStatus(e) &&
         o("WAWebStatusGatingUtils").isStatusCompanionReadSyncEnabled()
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             yield o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
               to: e.remote,
@@ -328,17 +324,17 @@ __d(
               .sendLogs("status-group-read-self-fail");
           }
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = String(o("WATimeUtils").unixTime()),
-            r = D(
+            r = T(
               e
                 .filter(function (e) {
                   return !o("WAWebUserUtils").isSerializedWidMe(e.sender);
@@ -365,10 +361,10 @@ __d(
             }),
           );
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e) {
+    function T(e) {
       var t = new Map(),
         n = new Map(),
         r = new Map(),
@@ -397,12 +393,12 @@ __d(
         [t, n, r, o]
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function $() {
+    function x() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = String(e),
             i = o("WAWebBotUtils").isMetaAiBot(e),
             l = yield o(
@@ -437,7 +433,7 @@ __d(
                 botEditType: t.botEditType,
               };
             }),
-            c = M(
+            c = N(
               e,
               u.filter(function (e) {
                 return !y(e);
@@ -446,7 +442,7 @@ __d(
             d = c.coexV2Reads,
             m = c.coexV2Recipient,
             p = c.regularReads,
-            _ = D(p),
+            _ = T(p),
             C = _[0],
             b = _[1],
             v = _[2],
@@ -476,7 +472,7 @@ __d(
               groupedReceipt: L,
               maxStsByAuthor: S.get(e),
             })),
-            yield w({
+            yield M({
               chatId: e,
               coexV2Reads: d,
               coexV2Recipient: m,
@@ -486,17 +482,17 @@ __d(
           var I = l.map(function (e) {
               return r("WAWebMsgKey").fromString(e.latestEditMsgKey);
             }),
-            T = yield o("WAWebApiChat").markEditedMessageAndChatAsRead({
+            D = yield o("WAWebApiChat").markEditedMessageAndChatAsRead({
               chatId: e,
               readMsgKeys: I,
               threadId: n,
             });
-          return T;
+          return D;
         })),
-        $.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function P(e) {
+    function $(e) {
       return (
         e.senderWithDevice != null &&
         e.senderWithDevice.equals(
@@ -506,7 +502,7 @@ __d(
         !o("WAWebUserUtils").isMeAccount(e.metaFrom)
       );
     }
-    function N(e) {
+    function P(e) {
       var t = null;
       for (var n of e) {
         var r = n.serverStoreTimeMicros;
@@ -514,10 +510,10 @@ __d(
       }
       return t;
     }
-    function M(t, n) {
+    function N(t, n) {
       var a = { coexV2Reads: [], coexV2Recipient: null, regularReads: n };
       if (
-        !n.some(P) ||
+        !n.some($) ||
         !t.isUser() ||
         t.isBot() ||
         o("WAWebUserUtils").isSerializedWidMe(String(t)) ||
@@ -545,15 +541,15 @@ __d(
       }
       var l = [],
         s = [];
-      for (var u of n) P(u) ? l.push(u) : s.push(u);
+      for (var u of n) $(u) ? l.push(u) : s.push(u);
       return { coexV2Reads: l, coexV2Recipient: i, regularReads: s };
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.coexV2Reads,
             a = e.coexV2Recipient,
@@ -569,7 +565,7 @@ __d(
                   !l ||
                   g(t) ===
                     o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.READ_SELF,
-                maxSts: N(n),
+                maxSts: P(n),
                 recipient: a,
                 t: i,
               });
@@ -585,16 +581,16 @@ __d(
                 .sendLogs("coexv2-read-receipt-error");
             }
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
     ((l.getReadReceiptType = g),
       (l.getAgentReadReceiptType = h),
       (l.markChatRead = C),
       (l.markStatusRead = v),
-      (l.sendAddOnReadReceipts = I),
-      (l.groupMsgIdsByChatThenSender = D),
-      (l.markEditedMsgsRead = x));
+      (l.sendAddOnReadReceipts = k),
+      (l.groupMsgIdsByChatThenSender = T),
+      (l.markEditedMsgsRead = D));
   },
   98,
 );

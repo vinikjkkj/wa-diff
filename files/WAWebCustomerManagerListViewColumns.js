@@ -5,6 +5,9 @@ __d(
     "WAWebContactCollection",
     "WAWebCustomerManagerActionsCell.react",
     "WAWebCustomerManagerChatResolver",
+    "WAWebCustomerManagerCustomFieldDisplay",
+    "WAWebCustomerManagerCustomFieldLabels",
+    "WAWebCustomerManagerCustomFieldTypes",
     "WAWebCustomerManagerCustomerCell.react",
     "WAWebCustomerManagerDateFormatUtils",
     "WAWebCustomerManagerListCell.react",
@@ -111,22 +114,33 @@ __d(
               (t.preventDefault(), (t.dataTransfer.dropEffect = "move"));
             },
             onDrop: function (a) {
+              var n;
               a.preventDefault();
-              var n = a.dataTransfer.getData("text/plain"),
-                i = P.find(function (e) {
-                  return e === n;
-                });
-              if (i != null && i !== e) {
-                var l = t.indexOf(i),
-                  s = t.indexOf(e);
-                (r(i, e),
-                  l !== -1 &&
-                    s !== -1 &&
+              var i = a.dataTransfer.getData("text/plain"),
+                l = o(
+                  "WAWebCustomerManagerCustomFieldTypes",
+                ).customFieldIdFromKey(i),
+                s =
+                  (n = P.find(function (e) {
+                    return e === i;
+                  })) != null
+                    ? n
+                    : l != null
+                      ? o(
+                          "WAWebCustomerManagerCustomFieldTypes",
+                        ).customFieldKey(l)
+                      : null;
+              if (s != null && s !== e) {
+                var u = t.indexOf(s),
+                  c = t.indexOf(e);
+                (r(s, e),
+                  u !== -1 &&
+                    c !== -1 &&
                     o(
                       "WAWebCustomerManagerSMBUserJourneyLogger",
                     ).CustomerManagerUserJourneyLogger.editColumnReorderDrag(
-                      l,
-                      s,
+                      u,
+                      c,
                     ));
               }
             },
@@ -774,7 +788,16 @@ __d(
         return !$.includes(e) && t.includes(e);
       });
     }
-    function A(e) {
+    function A(e, t) {
+      var n = o("WAWebCustomerManagerCustomFieldTypes").customFieldIdFromKey(e);
+      if (n != null) {
+        var r = t == null ? void 0 : t.get(n);
+        return r != null
+          ? o(
+              "WAWebCustomerManagerCustomFieldLabels",
+            ).getCustomFieldColumnLabel(r)
+          : e;
+      }
       return e === "select"
         ? "Select"
         : e === "customer"
@@ -801,12 +824,7 @@ __d(
                               ? s._(/*BTDS*/ "Notes")
                               : e === "actions"
                                 ? s._(/*BTDS*/ "Actions")
-                                : (function () {
-                                    throw Error(
-                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                        e,
-                                    );
-                                  })();
+                                : e;
     }
     function F(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
@@ -880,145 +898,183 @@ __d(
           .customerManagerColumnWidths.select,
       };
     }
-    function B(e, t, n, a, i, l, u, d) {
-      var m = l != null ? l : [],
-        p = u != null ? u : r("WAWebNoop"),
-        _ = function (r, i, l) {
+    function B(e, t, n, a, i, l, u, d, m) {
+      var p = l != null ? l : [],
+        _ = u != null ? u : r("WAWebNoop"),
+        f = function (r, o) {
+          return n != null ? T(r, o, a, p, _, n, t) : void 0;
+        },
+        g = function (t, n, r) {
           return {
-            cell: l,
-            header: i,
-            key: r,
-            renderHeader: n != null ? T(i, r, a, m, p, n, t) : void 0,
+            cell: r,
+            header: n,
+            key: t,
+            renderHeader: f(n, t),
             sortable: !0,
             width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths[r],
+              .customerManagerColumnWidths[t],
           };
         },
-        f = i != null ? O(i) : null,
-        g = [].concat(f != null ? [f] : [], [
-          _("customer", s._(/*BTDS*/ "Name"), function (e) {
-            return c.jsx(r("WAWebCustomerManagerCustomerCell.react"), {
-              item: e.item.leadData,
-            });
-          }),
-          _("phone", s._(/*BTDS*/ "Phone number"), function (e) {
-            return c.jsx(D, { chatJid: e.item.chatJid });
-          }),
-          _("username", s._(/*BTDS*/ "Username"), function (e) {
-            return c.jsx(x, { chatJid: e.item.chatJid });
-          }),
-          _("list", s._(/*BTDS*/ "List"), function (e) {
-            return c.jsx(r("WAWebCustomerManagerListCell.react"), {
-              chatJid: e.item.chatJid,
-              leadStage: e.item.leadData.leadStage,
-            });
-          }),
-          _("acquisitionSource", s._(/*BTDS*/ "Source"), function (e) {
-            var t = e.item.leadData.acquisitionSource,
-              n =
-                t != null
-                  ? o(
-                      "WAWebCustomerProfileAcquisitionSourceNames",
-                    ).getProfileAcquisitionSourceLabel(t)
-                  : null;
-            return c.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "contentDeemphasized",
-              maxLines: 1,
-              children: n != null ? n : s._(/*BTDS*/ "Unknown"),
-            });
-          }),
-          _("email", s._(/*BTDS*/ "Email"), function (e) {
-            var t;
-            return c.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "contentDefault",
-              maxLines: 1,
-              children: (t = e.item.leadData.email) != null ? t : "\u2014",
-            });
-          }),
-          _("address", s._(/*BTDS*/ "Address"), function (e) {
-            var t;
-            return c.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "contentDefault",
-              maxLines: 1,
-              children: (t = e.item.leadData.address) != null ? t : "\u2014",
-            });
-          }),
-          _("birthday", s._(/*BTDS*/ "Birthday"), function (e) {
-            return c.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "contentDefault",
-              maxLines: 1,
-              children: o(
-                "WAWebCustomerManagerDateFormatUtils",
-              ).formatCustomerBirthday(e.item.leadData.birthday),
-            });
-          }),
-          _("lastMessage", s._(/*BTDS*/ "Last message"), function (e) {
-            var t = o(
-              "WAWebCustomerManagerChatResolver",
-            ).resolveCustomerManagerChat(e.item.chatJid);
-            return c.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "contentDefault",
-              maxLines: 1,
-              children: o(
-                "WAWebCustomerManagerDateFormatUtils",
-              ).formatCustomerDate(t == null ? void 0 : t.t),
-            });
-          }),
-          {
-            cell: function (t) {
-              var e;
+        h = i != null ? O(i) : null,
+        y = (m != null ? m : []).map(function (e) {
+          var t = o("WAWebCustomerManagerCustomFieldTypes").customFieldKey(
+              e.id,
+            ),
+            n = o(
+              "WAWebCustomerManagerCustomFieldLabels",
+            ).getCustomFieldColumnLabel(e);
+          return {
+            cell: function (n) {
+              return c.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDefault",
+                maxLines: 1,
+                children: o(
+                  "WAWebCustomerManagerCustomFieldDisplay",
+                ).formatCustomFieldDisplayValue(
+                  n.item.customFieldValues.find(function (t) {
+                    return t.fieldId === e.id;
+                  }),
+                ),
+              });
+            },
+            key: t,
+            renderHeader: f(n, t),
+            sortable: !0,
+            width: o("WAWebCustomerManagerListViewColumnWidths")
+              .customFieldColumnWidth,
+          };
+        }),
+        C = [].concat(
+          h != null ? [h] : [],
+          [
+            g("customer", s._(/*BTDS*/ "Name"), function (e) {
+              return c.jsx(r("WAWebCustomerManagerCustomerCell.react"), {
+                item: e.item.leadData,
+              });
+            }),
+            g("phone", s._(/*BTDS*/ "Phone number"), function (e) {
+              return c.jsx(D, { chatJid: e.item.chatJid });
+            }),
+            g("username", s._(/*BTDS*/ "Username"), function (e) {
+              return c.jsx(x, { chatJid: e.item.chatJid });
+            }),
+            g("list", s._(/*BTDS*/ "List"), function (e) {
+              return c.jsx(r("WAWebCustomerManagerListCell.react"), {
+                chatJid: e.item.chatJid,
+                leadStage: e.item.leadData.leadStage,
+              });
+            }),
+            g("acquisitionSource", s._(/*BTDS*/ "Source"), function (e) {
+              var t = e.item.leadData.acquisitionSource,
+                n =
+                  t != null
+                    ? o(
+                        "WAWebCustomerProfileAcquisitionSourceNames",
+                      ).getProfileAcquisitionSourceLabel(t)
+                    : null;
+              return c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDeemphasized",
+                maxLines: 1,
+                children: n != null ? n : s._(/*BTDS*/ "Unknown"),
+              });
+            }),
+            g("email", s._(/*BTDS*/ "Email"), function (e) {
+              var t;
               return c.jsx(r("WDSText.react"), {
                 type: "Body1",
                 colorName: "contentDefault",
                 maxLines: 1,
-                children:
-                  (e = t.item.leadData.lastOrderDescription) != null
-                    ? e
-                    : "\u2014",
+                children: (t = e.item.leadData.email) != null ? t : "\u2014",
               });
-            },
-            header: s._(/*BTDS*/ "Last order"),
-            key: "lastOrder",
-            renderHeader: T(s._(/*BTDS*/ "Last order"), "lastOrder", a, m, p),
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.lastOrder,
-          },
-          {
-            cell: function (t) {
-              return c.jsx(r("WAWebCustomerManagerNotesCell.react"), {
-                chatJid: t.item.chatJid,
+            }),
+            g("address", s._(/*BTDS*/ "Address"), function (e) {
+              var t;
+              return c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDefault",
+                maxLines: 1,
+                children: (t = e.item.leadData.address) != null ? t : "\u2014",
               });
-            },
-            header: s._(/*BTDS*/ "Notes"),
-            key: "notes",
-            renderHeader: T(s._(/*BTDS*/ "Notes"), "notes", a, m, p),
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.notes,
-          },
-          {
-            cell: function (n) {
-              return c.jsx(r("WAWebCustomerManagerActionsCell.react"), {
-                contact: n.item,
-                onChatClick: e,
-                onHiddenChange: d,
+            }),
+            g("birthday", s._(/*BTDS*/ "Birthday"), function (e) {
+              return c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDefault",
+                maxLines: 1,
+                children: o(
+                  "WAWebCustomerManagerDateFormatUtils",
+                ).formatCustomerBirthday(e.item.leadData.birthday),
               });
+            }),
+            g("lastMessage", s._(/*BTDS*/ "Last message"), function (e) {
+              var t = o(
+                "WAWebCustomerManagerChatResolver",
+              ).resolveCustomerManagerChat(e.item.chatJid);
+              return c.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDefault",
+                maxLines: 1,
+                children: o(
+                  "WAWebCustomerManagerDateFormatUtils",
+                ).formatCustomerDate(t == null ? void 0 : t.t),
+              });
+            }),
+            {
+              cell: function (t) {
+                var e;
+                return c.jsx(r("WDSText.react"), {
+                  type: "Body1",
+                  colorName: "contentDefault",
+                  maxLines: 1,
+                  children:
+                    (e = t.item.leadData.lastOrderDescription) != null
+                      ? e
+                      : "\u2014",
+                });
+              },
+              header: s._(/*BTDS*/ "Last order"),
+              key: "lastOrder",
+              renderHeader: T(s._(/*BTDS*/ "Last order"), "lastOrder", a, p, _),
+              width: o("WAWebCustomerManagerListViewColumnWidths")
+                .customerManagerColumnWidths.lastOrder,
             },
-            key: "actions",
-            stickyEnd: !0,
-            width: o("WAWebCustomerManagerListViewColumnWidths")
-              .customerManagerColumnWidths.actions,
-          },
-        ]);
-      return g.map(function (e) {
+            {
+              cell: function (t) {
+                return c.jsx(r("WAWebCustomerManagerNotesCell.react"), {
+                  chatJid: t.item.chatJid,
+                });
+              },
+              header: s._(/*BTDS*/ "Notes"),
+              key: "notes",
+              renderHeader: T(s._(/*BTDS*/ "Notes"), "notes", a, p, _),
+              width: o("WAWebCustomerManagerListViewColumnWidths")
+                .customerManagerColumnWidths.notes,
+            },
+          ],
+          y,
+          [
+            {
+              cell: function (n) {
+                return c.jsx(r("WAWebCustomerManagerActionsCell.react"), {
+                  contact: n.item,
+                  onChatClick: e,
+                  onHiddenChange: d,
+                });
+              },
+              key: "actions",
+              stickyEnd: !0,
+              width: o("WAWebCustomerManagerListViewColumnWidths")
+                .customerManagerColumnWidths.actions,
+            },
+          ],
+        );
+      return C.map(function (e) {
         return babelHelpers.extends({}, e, {
           headerInteractive:
             (e.sortable === !0 && n != null) ||
-            (a != null && m.includes(e.key)),
+            (a != null && p.includes(e.key)),
         });
       });
     }

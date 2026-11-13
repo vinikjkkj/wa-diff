@@ -10,6 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterQuestionResponseParent",
     "WAWebNewsletterQuestionResponseStorage",
+    "WAWebNullFunc",
     "WAWebSchemaMessage",
     "WAWebSchemaNewsletterQuestionResponses",
     "asyncToGeneratorRuntime",
@@ -65,9 +66,7 @@ __d(
                 "WAWebSchemaNewsletterQuestionResponses",
               ).canUseNewsletterQuestionResponsesTable()
             )
-              return e.map(function () {
-                return null;
-              });
+              return e.map(o("WAWebNullFunc").returnNull);
             var t = yield o("WAWebSchemaNewsletterQuestionResponses")
               .getTable()
               .bulkGet(

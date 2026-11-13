@@ -1,46 +1,62 @@
 __d(
   "WAWebPathfinderChatInfo",
-  ["WAWebBotUtils", "WAWebChatCollection", "WAWebWid"],
+  [
+    "WAWebBotUtils",
+    "WAWebChatCollection",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupType",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return e === "chat" || e === "channel-thread";
     }
     function s(t) {
-      var n, r, a, i;
+      var n, r, a;
       if (e(t)) {
-        var l = o("WAWebChatCollection").ChatCollection.getActive();
-        if (l != null)
-          return u({
-            id: l.id,
-            unreadCount: l.unreadCount,
+        var i = o("WAWebChatCollection").ChatCollection.getActive();
+        if (i != null) {
+          var l = i.groupMetadata;
+          return c({
+            id: i.id,
+            unreadCount: i.unreadCount,
             groupSize:
               (n =
-                (r = (a = l.groupMetadata) == null ? void 0 : a.size) != null
+                (r = l == null ? void 0 : l.size) != null
                   ? r
-                  : (i = l.groupMetadata) == null ||
-                      (i = i.participants) == null
+                  : l == null || (a = l.participants) == null
                     ? void 0
-                    : i.length) != null
+                    : a.length) != null
                 ? n
                 : 0,
-            isMetaAiThread: o("WAWebBotUtils").isMetaAiBot(l.id),
+            groupType: u(l),
+            isMetaAiThread: o("WAWebBotUtils").isMetaAiBot(i.id),
           });
+        }
       }
     }
     function u(e) {
+      return e == null || e.creation == null
+        ? null
+        : o("WAWebGroupMetadataGetters").getGroupType(e);
+    }
+    function c(e) {
       var t = {
           chat_has_unread_messages: e.unreadCount > 0 ? "true" : "false",
           chat_is_meta_ai_thread: e.isMetaAiThread ? "true" : "false",
         },
-        n = c(e.id, e.isMetaAiThread);
+        n = d(e.id, e.isMetaAiThread);
       (n != null && (t.chat_type = n),
         n === "group" &&
           e.groupSize > 0 &&
-          (t.chat_group_size = String(e.groupSize)));
-      var r = d(e.id);
+          (t.chat_group_size = String(e.groupSize)),
+        n === "group" &&
+          e.groupType != null &&
+          (t.chat_group_type = m(e.groupType)));
+      var r = p(e.id);
       return (r != null && (t.ai_bot_type = r), t);
     }
-    function c(e, t) {
+    function d(e, t) {
       return r("WAWebWid").isGroup(e)
         ? "group"
         : e.isBroadcastList()
@@ -55,7 +71,23 @@ __d(
                   ? "individual"
                   : null;
     }
-    function d(e) {
+    function m(e) {
+      return e === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+        ? "default_subgroup"
+        : e === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+            e === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
+          ? "subgroup"
+          : e === o("WAWebGroupType").GroupType.DEFAULT ||
+              e === o("WAWebGroupType").GroupType.COMMUNITY
+            ? "group"
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
+    }
+    function p(e) {
       return o("WAWebBotUtils").isMetaAiBot(e) ||
         o("WAWebBotUtils").isBusinessAssistantBot(e) ||
         e.isAiHub()
@@ -64,7 +96,7 @@ __d(
           ? "other_bot"
           : null;
     }
-    ((l.getActiveChatInfoMetadata = s), (l.buildChatInfoMetadata = u));
+    ((l.getActiveChatInfoMetadata = s), (l.buildChatInfoMetadata = c));
   },
   98,
 );

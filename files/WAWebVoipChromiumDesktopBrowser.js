@@ -2,10 +2,15 @@ __d(
   "WAWebVoipChromiumDesktopBrowser",
   ["WAWebEnvironment", "WAWebUA", "isWAWebFeatureDetectionAndroidTablet"],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e = [
+      o("WAWebUA").OS_TYPE.WINDOWS,
+      o("WAWebUA").OS_TYPE.MAC,
+      o("WAWebUA").OS_TYPE.CHROMEOS,
+    ];
+    function s() {
       return (
         o("WAWebUA").UA.isBlink &&
-        s() &&
+        u() &&
         !o("WAWebUA").UA.isOculusBrowser &&
         !o(
           "isWAWebFeatureDetectionAndroidTablet",
@@ -13,16 +18,12 @@ __d(
         !r("WAWebEnvironment").isWindows
       );
     }
-    function s() {
+    function u() {
       return (
-        [
-          o("WAWebUA").OS_TYPE.WINDOWS,
-          o("WAWebUA").OS_TYPE.MAC,
-          o("WAWebUA").OS_TYPE.CHROMEOS,
-        ].includes(o("WAWebUA").UA.os) || /\bX11\b/.test(navigator.userAgent)
+        e.includes(o("WAWebUA").UA.os) || /\bX11\b/.test(navigator.userAgent)
       );
     }
-    l.isChromiumDesktopBrowser = e;
+    l.isChromiumDesktopBrowser = s;
   },
   98,
 );

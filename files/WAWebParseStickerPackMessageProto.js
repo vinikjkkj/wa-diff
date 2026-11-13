@@ -4,6 +4,7 @@ __d(
     "WALongInt",
     "WATimeUtils",
     "WAWebE2EProtoParserApi",
+    "WAWebForwardReachGating",
     "WAWebHandleMsgError",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMsgType",
@@ -99,7 +100,12 @@ __d(
           (i = d.fileLength) != null ? i : 0,
         ),
       });
-      return { msgData: S, contextInfo: null };
+      return {
+        msgData: S,
+        contextInfo: o("WAWebForwardReachGating").isForwardReachFeatureEnabled()
+          ? d.contextInfo
+          : null,
+      };
     }
     l.default = c;
   },

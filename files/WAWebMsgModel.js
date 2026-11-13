@@ -340,6 +340,7 @@ __d(
             (e.readQuestionResponsesCount = o("WAWebBaseModel").prop(0)),
             (e.forwardsCount = o("WAWebBaseModel").prop(0)),
             (e.forwardingScore = o("WAWebBaseModel").prop()),
+            (e.forwardReachScore = o("WAWebBaseModel").prop(null)),
             (e.labels = o("WAWebBaseModel").prop()),
             (e.hasReaction = o("WAWebBaseModel").prop(!1)),
             (e.newsletterAdminProfile = o("WAWebBaseModel").prop(null)),

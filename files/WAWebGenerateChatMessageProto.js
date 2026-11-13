@@ -1,6 +1,6 @@
 __d(
   "WAWebGenerateChatMessageProto",
-  ["WAWebGenerateExtendedTextMessageProtoUtils"],
+  ["WAWebForwardReachGating", "WAWebGenerateExtendedTextMessageProtoUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.contextInfo,
@@ -12,6 +12,8 @@ __d(
         n.conversionTuple ||
         n.isForwarded ||
         n.forwardingScore ||
+        (n.forwardReachScore != null &&
+          o("WAWebForwardReachGating").isForwardReachScoreSendEnabled()) ||
         n._isPaymentNoteMsg ||
         n.ephemeralDuration ||
         n.ephemeralSettingTimestamp ||

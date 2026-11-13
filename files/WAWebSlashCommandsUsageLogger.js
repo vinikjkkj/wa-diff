@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebChatGetters",
     "WAWebEmployeeCommandExtensionTransport",
     "WAWebEnvironment",
     "WAWebSelfReminderGating",
@@ -55,7 +54,7 @@ __d(
               : t.action + ":" + i,
           u = (a = t.transport) != null ? a : x(t),
           c = F();
-        W(s)
+        B(s)
           .catch(function (t) {
             return (
               o("WALogger")
@@ -79,9 +78,6 @@ __d(
                   is_first_today: e.isFirstToday,
                   is_first_ever: e.isFirstEver,
                   trigger: t.trigger,
-                  chat_type: B(t.chat),
-                  has_text: t.hasText,
-                  has_quoted_msg: t.hasQuotedMsg,
                   prefilled: t.prefilled,
                   handback: t.handback,
                   fallback_reason: t.fallbackReason,
@@ -284,17 +280,6 @@ __d(
           : "other";
     }
     function B(e) {
-      return e == null
-        ? null
-        : o("WAWebChatGetters").getIsGroup(e)
-          ? "group"
-          : o("WAWebUserUtils").isMeAccount(e.id)
-            ? "self"
-            : e.id.isRegularUser()
-              ? "one_to_one"
-              : "other";
-    }
-    function W(e) {
       var t = C.then(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t;
@@ -304,7 +289,7 @@ __d(
               null
                 ? t
                 : {},
-            r = q(new Date()),
+            r = W(new Date()),
             a = n[e];
           if (a !== r) {
             var i;
@@ -318,7 +303,7 @@ __d(
       );
       return ((C = t.catch(function () {})), t);
     }
-    function q(e) {
+    function W(e) {
       var t = String(e.getMonth() + 1).padStart(2, "0"),
         n = String(e.getDate()).padStart(2, "0");
       return e.getFullYear() + "-" + t + "-" + n;

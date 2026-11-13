@@ -3,7 +3,6 @@ __d(
   [
     "WebBloksComponentContext",
     "WebBloksConstants",
-    "WebBloksEnvironmentContext",
     "WebBloksModel",
     "WebBloksMutations",
     "WebBloksSliderMinificationKeys",
@@ -76,7 +75,6 @@ __d(
           boxShadow: "0 0 5px gainsboro",
           position: "absolute",
           cursor: "pointer",
-          transform: "translate(-50%, 0)",
         },
       });
     function D(e) {
@@ -253,7 +251,7 @@ __d(
       );
     }
     function x(t) {
-      var n = o("react-compiler-runtime").c(76),
+      var n = o("react-compiler-runtime").c(71),
         r,
         a,
         i,
@@ -296,328 +294,313 @@ __d(
           (p = n[8]),
           (_ = n[9]),
           (f = n[10]));
-      var C = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
-        b;
+      var C;
       n[11] !== i
-        ? ((b = function (t) {
+        ? ((C = function (t) {
             i == null || i(t);
           }),
           (n[11] = i),
-          (n[12] = b))
-        : (b = n[12]);
-      var v = b,
-        S;
+          (n[12] = C))
+        : (C = n[12]);
+      var b = C,
+        v;
       n[13] !== a
-        ? ((S = function (t) {
+        ? ((v = function (t) {
             a == null || a(t);
           }),
           (n[13] = a),
-          (n[14] = S))
-        : (S = n[14]);
-      var R = S,
-        L;
+          (n[14] = v))
+        : (v = n[14]);
+      var S = v,
+        R;
       n[15] !== r
-        ? ((L = function (t) {
+        ? ((R = function (t) {
             r == null || r(t);
           }),
           (n[15] = r),
-          (n[16] = L))
-        : (L = n[16]);
-      var E = L,
-        k = C ? y - f : f,
-        I;
-      n[17] !== C || n[18] !== k
-        ? ((I = $(k, C)), (n[17] = C), (n[18] = k), (n[19] = I))
-        : (I = n[19]);
-      var D = I,
-        x = D.trackEnd,
-        N = D.trackStart,
-        M;
-      n[20] !== C || n[21] !== R || n[22] !== E || n[23] !== v || n[24] !== f
-        ? ((M = {
-            onChange: R,
-            onChangeStart: v,
-            onChangeEnd: E,
+          (n[16] = R))
+        : (R = n[16]);
+      var L = R,
+        E = "calc(" + f + "% - " + m / 2 + "px)",
+        k;
+      n[17] !== S || n[18] !== L || n[19] !== b || n[20] !== f
+        ? ((k = {
+            onChange: S,
+            onChangeStart: b,
+            onChangeEnd: L,
             min: h,
             max: y,
-            isRTL: C,
             value: f,
           }),
-          (n[20] = C),
-          (n[21] = R),
-          (n[22] = E),
-          (n[23] = v),
-          (n[24] = f),
-          (n[25] = M))
-        : (M = n[25]);
-      var w = P(M),
-        A = w.onMouseDown,
-        F = w.onPointerDown,
-        O = w.onTouchStart,
-        B = w.thumbRef,
-        W = w.wrapperRef,
-        q = g(!1),
-        U = q[0],
-        V = q[1],
-        H;
-      n[26] !== U || n[27] !== R || n[28] !== v || n[29] !== f
-        ? ((H = function (t) {
+          (n[17] = S),
+          (n[18] = L),
+          (n[19] = b),
+          (n[20] = f),
+          (n[21] = k))
+        : (k = n[21]);
+      var I = $(k),
+        D = I.onMouseDown,
+        x = I.onPointerDown,
+        P = I.onTouchStart,
+        N = I.thumbRef,
+        M = I.wrapperRef,
+        w = g(!1),
+        A = w[0],
+        F = w[1],
+        O;
+      n[22] !== A || n[23] !== S || n[24] !== b || n[25] !== f
+        ? ((O = function (t) {
             var e = f;
             if (t.keyCode === o("WebBloksConstants").KEY_LEFT) e = e - 1;
             else if (t.keyCode === o("WebBloksConstants").KEY_RIGHT) e = e + 1;
             else return;
-            (U || (V(!0), v(e)), R(e));
+            (A || (F(!0), b(e)), S(e));
           }),
-          (n[26] = U),
-          (n[27] = R),
-          (n[28] = v),
-          (n[29] = f),
-          (n[30] = H))
-        : (H = n[30]);
-      var G = H,
-        z;
-      n[31] !== E || n[32] !== f
-        ? ((z = function (t) {
+          (n[22] = A),
+          (n[23] = S),
+          (n[24] = b),
+          (n[25] = f),
+          (n[26] = O))
+        : (O = n[26]);
+      var B = O,
+        W;
+      n[27] !== L || n[28] !== f
+        ? ((W = function (t) {
             (t.keyCode !== o("WebBloksConstants").KEY_LEFT &&
               t.keyCode !== o("WebBloksConstants").KEY_RIGHT) ||
-              (V(!1), E(f));
+              (F(!1), L(f));
           }),
-          (n[31] = E),
-          (n[32] = f),
-          (n[33] = z))
-        : (z = n[33]);
-      var j = z,
-        K,
-        Q,
-        X;
-      if (n[34] !== u) {
-        var Y = u;
-        ((K = Y["aria-label"]),
-          (Q = Y.disabled),
-          (X = babelHelpers.objectWithoutPropertiesLoose(Y, s)),
-          (n[34] = u),
-          (n[35] = K),
-          (n[36] = Q),
-          (n[37] = X));
-      } else ((K = n[35]), (Q = n[36]), (X = n[37]));
-      var J;
-      n[38] !== m
-        ? ((J = { height: m }), (n[38] = m), (n[39] = J))
-        : (J = n[39]);
-      var Z;
-      n[40] !== l || n[41] !== _
-        ? ((Z = c.jsx("div", {
+          (n[27] = L),
+          (n[28] = f),
+          (n[29] = W))
+        : (W = n[29]);
+      var q = W,
+        U,
+        V,
+        H;
+      if (n[30] !== u) {
+        var G = u;
+        ((U = G["aria-label"]),
+          (V = G.disabled),
+          (H = babelHelpers.objectWithoutPropertiesLoose(G, s)),
+          (n[30] = u),
+          (n[31] = U),
+          (n[32] = V),
+          (n[33] = H));
+      } else ((U = n[31]), (V = n[32]), (H = n[33]));
+      var z;
+      n[34] !== m
+        ? ((z = { height: m }), (n[34] = m), (n[35] = z))
+        : (z = n[35]);
+      var j;
+      n[36] !== l || n[37] !== _
+        ? ((j = c.jsx("div", {
             className: T.rail,
             style: { height: _, backgroundColor: l },
           })),
-          (n[40] = l),
-          (n[41] = _),
-          (n[42] = Z))
-        : (Z = n[42]);
-      var ee = N + "%",
-        te = x + "%",
-        ne;
-      n[43] !== ee || n[44] !== te || n[45] !== p || n[46] !== _
-        ? ((ne = c.jsx("div", {
+          (n[36] = l),
+          (n[37] = _),
+          (n[38] = j))
+        : (j = n[38]);
+      var K = f + "%",
+        Q;
+      n[39] !== K || n[40] !== p || n[41] !== _
+        ? ((Q = c.jsx("div", {
             className: T.track,
-            style: { left: ee, right: te, height: _, backgroundColor: p },
+            style: { width: K, height: _, backgroundColor: p },
           })),
-          (n[43] = ee),
-          (n[44] = te),
-          (n[45] = p),
-          (n[46] = _),
-          (n[47] = ne))
-        : (ne = n[47]);
-      var re = m / 2,
-        oe = m / 2,
-        ae;
-      n[48] !== re || n[49] !== oe
-        ? ((ae = { marginLeft: re, marginRight: oe }),
-          (n[48] = re),
-          (n[49] = oe),
-          (n[50] = ae))
-        : (ae = n[50]);
-      var ie = k + "%",
-        le;
-      n[51] !== ie || n[52] !== d || n[53] !== m
-        ? ((le = { left: ie, height: m, width: m, backgroundColor: d }),
-          (n[51] = ie),
-          (n[52] = d),
-          (n[53] = m),
-          (n[54] = le))
-        : (le = n[54]);
-      var se;
-      n[55] !== K ||
-      n[56] !== Q ||
-      n[57] !== G ||
-      n[58] !== j ||
-      n[59] !== le ||
-      n[60] !== B ||
-      n[61] !== f
-        ? ((se = c.jsx("div", {
-            ref: B,
+          (n[39] = K),
+          (n[40] = p),
+          (n[41] = _),
+          (n[42] = Q))
+        : (Q = n[42]);
+      var X = m / 2,
+        Y = m / 2,
+        J;
+      n[43] !== X || n[44] !== Y
+        ? ((J = { marginLeft: X, marginRight: Y }),
+          (n[43] = X),
+          (n[44] = Y),
+          (n[45] = J))
+        : (J = n[45]);
+      var Z;
+      n[46] !== d || n[47] !== E || n[48] !== m
+        ? ((Z = {
+            marginInlineStart: E,
+            WebkitMarginStart: E,
+            height: m,
+            width: m,
+            backgroundColor: d,
+          }),
+          (n[46] = d),
+          (n[47] = E),
+          (n[48] = m),
+          (n[49] = Z))
+        : (Z = n[49]);
+      var ee;
+      n[50] !== U ||
+      n[51] !== V ||
+      n[52] !== B ||
+      n[53] !== q ||
+      n[54] !== Z ||
+      n[55] !== N ||
+      n[56] !== f
+        ? ((ee = c.jsx("div", {
+            ref: N,
             className: T.thumb,
             role: "slider",
-            "aria-label": K,
+            "aria-label": U,
             "aria-valuenow": f,
             "aria-valuemin": h,
             "aria-valuemax": y,
-            disabled: Q,
-            onKeyDown: G,
-            onKeyUp: j,
+            disabled: V,
+            onKeyDown: B,
+            onKeyUp: q,
             tabIndex: 0,
-            style: le,
+            style: Z,
           })),
-          (n[55] = K),
-          (n[56] = Q),
-          (n[57] = G),
-          (n[58] = j),
-          (n[59] = le),
-          (n[60] = B),
-          (n[61] = f),
-          (n[62] = se))
-        : (se = n[62]);
-      var ue;
-      n[63] !== ae || n[64] !== se
-        ? ((ue = c.jsx("div", {
+          (n[50] = U),
+          (n[51] = V),
+          (n[52] = B),
+          (n[53] = q),
+          (n[54] = Z),
+          (n[55] = N),
+          (n[56] = f),
+          (n[57] = ee))
+        : (ee = n[57]);
+      var te;
+      n[58] !== J || n[59] !== ee
+        ? ((te = c.jsx("div", {
             className: T.thumbWrapper,
-            style: ae,
-            children: se,
+            style: J,
+            children: ee,
           })),
-          (n[63] = ae),
-          (n[64] = se),
-          (n[65] = ue))
-        : (ue = n[65]);
-      var ce;
+          (n[58] = J),
+          (n[59] = ee),
+          (n[60] = te))
+        : (te = n[60]);
+      var ne;
       return (
-        n[66] !== A ||
-        n[67] !== F ||
-        n[68] !== O ||
-        n[69] !== X ||
-        n[70] !== ne ||
-        n[71] !== ue ||
-        n[72] !== J ||
-        n[73] !== Z ||
-        n[74] !== W
-          ? ((ce = c.jsxs(
+        n[61] !== D ||
+        n[62] !== x ||
+        n[63] !== P ||
+        n[64] !== H ||
+        n[65] !== Q ||
+        n[66] !== te ||
+        n[67] !== z ||
+        n[68] !== j ||
+        n[69] !== M
+          ? ((ne = c.jsxs(
               "div",
-              babelHelpers.extends({}, X, {
-                ref: W,
+              babelHelpers.extends({}, H, {
+                ref: M,
                 className: T.wrapper,
-                onMouseDown: A,
-                onPointerDown: F,
-                onTouchStart: O,
-                style: J,
-                children: [Z, ne, ue],
+                onMouseDown: D,
+                onPointerDown: x,
+                onTouchStart: P,
+                style: z,
+                children: [j, Q, te],
               }),
             )),
-            (n[66] = A),
-            (n[67] = F),
-            (n[68] = O),
-            (n[69] = X),
-            (n[70] = ne),
-            (n[71] = ue),
-            (n[72] = J),
-            (n[73] = Z),
-            (n[74] = W),
-            (n[75] = ce))
-          : (ce = n[75]),
-        ce
+            (n[61] = D),
+            (n[62] = x),
+            (n[63] = P),
+            (n[64] = H),
+            (n[65] = Q),
+            (n[66] = te),
+            (n[67] = z),
+            (n[68] = j),
+            (n[69] = M),
+            (n[70] = ne))
+          : (ne = n[70]),
+        ne
       );
     }
-    function $(e, t) {
-      var n, r;
-      if (((n = h), (r = y - e), t)) {
-        var o = n;
-        ((n = r), (r = o));
-      }
-      return { trackStart: n, trackEnd: r };
-    }
-    function P(e) {
-      var t = o("react-compiler-runtime").c(44),
-        n = e.isRTL,
-        r = e.max,
-        a = e.min,
-        i = e.onChange,
-        l = e.onChangeEnd,
-        s = e.onChangeStart,
-        u = e.value,
+    function $(e) {
+      var t = o("react-compiler-runtime").c(42),
+        n = e.max,
+        r = e.min,
+        a = e.onChange,
+        i = e.onChangeEnd,
+        l = e.onChangeStart,
+        s = e.value,
+        u = f(null),
         c = f(null),
         d = f(null),
-        m = f(null),
+        m = f(!1),
         p;
-      t[0] !== n || t[1] !== r || t[2] !== a || t[3] !== i || t[4] !== s
+      t[0] !== n || t[1] !== r || t[2] !== a || t[3] !== l
         ? ((p = function (t) {
             var e,
-              o = t.clientX;
-            if (c.current != null) {
-              var l = M(c.current, o, a, r, n);
-              ((e = d.current) == null || e.focus(),
-                s == null || s(l),
-                i == null || i(l));
+              o = t.clientX,
+              i = u.current;
+            if (i != null) {
+              m.current = window.getComputedStyle(i).direction === "rtl";
+              var s = N(i, o, r, n, m.current);
+              ((e = c.current) == null || e.focus(),
+                l == null || l(s),
+                a == null || a(s));
             }
           }),
           (t[0] = n),
           (t[1] = r),
           (t[2] = a),
-          (t[3] = i),
-          (t[4] = s),
-          (t[5] = p))
-        : (p = t[5]);
+          (t[3] = l),
+          (t[4] = p))
+        : (p = t[4]);
       var _ = p,
         g;
-      t[6] !== n || t[7] !== r || t[8] !== a || t[9] !== i
+      t[5] !== n || t[6] !== r || t[7] !== a
         ? ((g = function (t) {
             var e = t.clientX;
-            if (c.current != null) {
-              var o = M(c.current, e, a, r, n);
-              i == null || i(o);
+            if (u.current != null) {
+              var o = N(u.current, e, r, n, m.current);
+              a == null || a(o);
             }
           }),
-          (t[6] = n),
-          (t[7] = r),
-          (t[8] = a),
-          (t[9] = i),
-          (t[10] = g))
-        : (g = t[10]);
+          (t[5] = n),
+          (t[6] = r),
+          (t[7] = a),
+          (t[8] = g))
+        : (g = t[8]);
       var h = g,
         y;
-      t[11] !== l || t[12] !== u
+      t[9] !== i || t[10] !== s
         ? ((y = function () {
-            l == null || l(u);
+            i == null || i(s);
           }),
-          (t[11] = l),
-          (t[12] = u),
-          (t[13] = y))
-        : (y = t[13]);
+          (t[9] = i),
+          (t[10] = s),
+          (t[11] = y))
+        : (y = t[11]);
       var C = y,
         b;
       if (window.PointerEvent === void 0) {
         var v;
-        t[14] !== h
+        t[12] !== h
           ? ((v = function (t) {
               t.button === 0 &&
                 (h == null ||
                   h({ clientX: t.clientX, pageX: t.pageX, pageY: t.pageY }));
             }),
-            (t[14] = h),
-            (t[15] = v))
-          : (v = t[15]);
+            (t[12] = h),
+            (t[13] = v))
+          : (v = t[13]);
         var S = v,
           R;
-        t[16] !== S || t[17] !== C
+        t[14] !== S || t[15] !== C
           ? ((R = function (t) {
               t.button === 0 &&
                 (C == null || C(),
                 window.removeEventListener("mousemove", S, !1),
                 window.removeEventListener("mouseup", R, !1));
             }),
-            (t[16] = S),
-            (t[17] = C),
-            (t[18] = R))
-          : (R = t[18]);
+            (t[14] = S),
+            (t[15] = C),
+            (t[16] = R))
+          : (R = t[16]);
         var L;
-        t[19] !== S || t[20] !== R || t[21] !== _
+        t[17] !== S || t[18] !== R || t[19] !== _
           ? ((L = function (t) {
               t.button === 0 &&
                 (_ == null ||
@@ -627,16 +610,16 @@ __d(
                 window.addEventListener("mousemove", S, !1),
                 window.addEventListener("mouseup", R, !1));
             }),
-            (t[19] = S),
-            (t[20] = R),
-            (t[21] = _),
-            (t[22] = L))
-          : (L = t[22]);
+            (t[17] = S),
+            (t[18] = R),
+            (t[19] = _),
+            (t[20] = L))
+          : (L = t[20]);
         var E = L,
           k;
-        t[23] !== h
+        t[21] !== h
           ? ((k = function (t) {
-              var e = N(t, m);
+              var e = P(t, d);
               if (e != null) {
                 var n = e.clientX,
                   r = e.pageX,
@@ -644,33 +627,33 @@ __d(
                 h == null || h({ clientX: n, pageX: r, pageY: o });
               }
             }),
-            (t[23] = h),
-            (t[24] = k))
-          : (k = t[24]);
+            (t[21] = h),
+            (t[22] = k))
+          : (k = t[22]);
         var I = k,
           T;
-        t[25] !== C || t[26] !== I
+        t[23] !== C || t[24] !== I
           ? ((T = function (t) {
-              var e = N(t, m);
+              var e = P(t, d);
               e != null &&
                 (C == null || C(),
-                (m.current = null),
+                (d.current = null),
                 window.removeEventListener("touchmove", I, !1),
                 window.removeEventListener("touchend", T, !1),
                 window.removeEventListener("touchcancel", T, !1));
             }),
-            (t[25] = C),
-            (t[26] = I),
-            (t[27] = T))
-          : (T = t[27]);
+            (t[23] = C),
+            (t[24] = I),
+            (t[25] = T))
+          : (T = t[25]);
         var D;
-        t[28] !== _ || t[29] !== T || t[30] !== I
+        t[26] !== _ || t[27] !== T || t[28] !== I
           ? ((D = function (t) {
-              if (!(t.changedTouches.length === 0 || m.current != null)) {
+              if (!(t.changedTouches.length === 0 || d.current != null)) {
                 var e = t.changedTouches[0];
                 (t.stopPropagation(),
                   t.preventDefault(),
-                  (m.current = e.identifier),
+                  (d.current = e.identifier),
                   _ == null ||
                     _({ clientX: e.clientX, pageX: e.pageX, pageY: e.pageY }),
                   window.addEventListener("touchmove", I, !1),
@@ -678,90 +661,90 @@ __d(
                   window.addEventListener("touchcancel", T, !1));
               }
             }),
-            (t[28] = _),
-            (t[29] = T),
-            (t[30] = I),
-            (t[31] = D))
-          : (D = t[31]);
+            (t[26] = _),
+            (t[27] = T),
+            (t[28] = I),
+            (t[29] = D))
+          : (D = t[29]);
         var x = D,
           $;
-        (t[32] !== E || t[33] !== x
+        (t[30] !== E || t[31] !== x
           ? (($ = {
               onMouseDown: E,
               onTouchStart: x,
-              wrapperRef: c,
-              thumbRef: d,
+              wrapperRef: u,
+              thumbRef: c,
             }),
-            (t[32] = E),
-            (t[33] = x),
-            (t[34] = $))
-          : ($ = t[34]),
+            (t[30] = E),
+            (t[31] = x),
+            (t[32] = $))
+          : ($ = t[32]),
           (b = $));
       } else {
-        var P;
-        t[35] !== h
-          ? ((P = function (t) {
-              t.pointerId === m.current &&
+        var M;
+        t[33] !== h
+          ? ((M = function (t) {
+              t.pointerId === d.current &&
                 (h == null ||
                   h({ clientX: t.clientX, pageX: t.pageX, pageY: t.pageY }));
             }),
-            (t[35] = h),
-            (t[36] = P))
-          : (P = t[36]);
-        var w = P,
+            (t[33] = h),
+            (t[34] = M))
+          : (M = t[34]);
+        var w = M,
           A;
-        t[37] !== C || t[38] !== w
+        t[35] !== C || t[36] !== w
           ? ((A = function (t) {
-              t.pointerId === m.current &&
+              t.pointerId === d.current &&
                 (C == null || C(),
-                (m.current = null),
+                (d.current = null),
                 window.removeEventListener("pointermove", w, !1),
                 window.removeEventListener("pointerup", A, !1),
                 window.removeEventListener("pointercancel", A, !1));
             }),
-            (t[37] = C),
-            (t[38] = w),
-            (t[39] = A))
-          : (A = t[39]);
+            (t[35] = C),
+            (t[36] = w),
+            (t[37] = A))
+          : (A = t[37]);
         var F;
-        if (t[40] !== _ || t[41] !== w || t[42] !== A) {
+        if (t[38] !== _ || t[39] !== w || t[40] !== A) {
           var O = function (t) {
             t.button === 0 &&
-              m.current == null &&
+              d.current == null &&
               (_ == null ||
                 _({ clientX: t.clientX, pageX: t.pageX, pageY: t.pageY }),
               t.stopPropagation(),
               t.preventDefault(),
-              (m.current = t.pointerId),
+              (d.current = t.pointerId),
               window.addEventListener("pointermove", w, !1),
               window.addEventListener("pointerup", A, !1),
               window.addEventListener("pointercancel", A, !1));
           };
-          ((F = { onPointerDown: O, wrapperRef: c, thumbRef: d }),
-            (t[40] = _),
-            (t[41] = w),
-            (t[42] = A),
-            (t[43] = F));
-        } else F = t[43];
+          ((F = { onPointerDown: O, wrapperRef: u, thumbRef: c }),
+            (t[38] = _),
+            (t[39] = w),
+            (t[40] = A),
+            (t[41] = F));
+        } else F = t[41];
         b = F;
       }
       return b;
     }
-    function N(e, t) {
+    function P(e, t) {
       var n = Array.from(e.changedTouches).findIndex(function (e) {
         var n = e.identifier;
         return n === t.current;
       });
       return n < 0 ? null : e.changedTouches[n];
     }
-    function M(e, t, n, r, o) {
+    function N(e, t, n, r, o) {
       var a = e.getBoundingClientRect(),
         i = a.left,
         l = a.width,
         s = t - i;
-      return (o && (s = i + l - t), w((s / l) * (r - n) + n, n, r));
+      return (o && (s = i + l - t), M((s / l) * (r - n) + n, n, r));
     }
-    function w(e, t, n) {
+    function M(e, t, n) {
       return Math.min(Math.max(Math.round(e), t), n);
     }
     l.default = D;

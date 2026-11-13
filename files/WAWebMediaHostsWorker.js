@@ -3,6 +3,8 @@ __d(
   [
     "Promise",
     "WAGenericStateManager",
+    "WAPromiseRaceAbort",
+    "WAPromiseTimeout",
     "WAWebMediaHost",
     "WAWebMediaHostsErrors",
     "WAWebMediaHostsRouteSelection",
@@ -12,8 +14,9 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e,
+      s = 5e3;
+    function u(e) {
       var t = new Date(e.queryStartTime);
       return {
         auth: e.auth,
@@ -27,7 +30,7 @@ __d(
         maxBuckets: e.maxBuckets,
       };
     }
-    var u = (function () {
+    var c = (function () {
         function t(e) {
           ((this.$1 = e),
             (this.$2 = new (o("WAGenericStateManager").WAGenericStateManager)(
@@ -37,23 +40,32 @@ __d(
         var a = t.prototype;
         return (
           (a.acceptSnapshot = function (t) {
-            this.$2.set(t == null ? null : s(t));
+            this.$2.set(t == null ? null : u(t));
           }),
           (a.getHostsInfo = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = this.$2.get();
-                return (
+                if (
                   e.forceRefresh === !0 ||
                   o("WAWebMediaHostsStaleness").isExpiredOrMissing(t)
-                    ? yield this.$3()
-                    : o("WAWebMediaHostsStaleness").needsRefresh(t) &&
-                      this.$1.fireAndForget(
-                        "mainthread_mediaHostsSync",
-                        "refresh",
-                      ),
-                  this.$4(e)
-                );
+                ) {
+                  if (
+                    (yield this.$3(e.signal),
+                    o("WAWebMediaHostsStaleness").isExpiredOrMissing(
+                      this.$2.get(),
+                    ))
+                  )
+                    throw new (o("WAWebMediaHostsErrors").NoMediaHostsError)(
+                      "no fetched data",
+                    );
+                } else
+                  o("WAWebMediaHostsStaleness").needsRefresh(t) &&
+                    this.$1.fireAndForget(
+                      "mainthread_mediaHostsSync",
+                      "refresh",
+                    );
+                return this.$4(e);
               },
             );
             function t(t) {
@@ -62,25 +74,32 @@ __d(
             return t;
           })()),
           (a.$3 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t = this,
-                o = this.$2.get();
-              (yield this.$1.sendAndReceive(
-                "mainthread_mediaHostsSync",
-                "refresh",
-              ),
-                this.$2.get() === o &&
-                  (yield new (e || (e = n("Promise")))(function (e) {
-                    var n = r("WAWebNoop");
-                    n = t.$2.onSet(function () {
-                      (n(), e());
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var a = this,
+                  i = r("WAWebNoop"),
+                  l = new (e || (e = n("Promise")))(function (e) {
+                    i = a.$2.onSet(function () {
+                      return e();
                     });
-                  })));
-            });
-            function o() {
+                  });
+                this.$1.fireAndForget("mainthread_mediaHostsSync", "refresh");
+                try {
+                  yield r("WAPromiseRaceAbort")(
+                    o("WAPromiseTimeout")
+                      .promiseTimeout(l, s)
+                      .catch(r("WAWebNoop")),
+                    t,
+                  );
+                } finally {
+                  i();
+                }
+              },
+            );
+            function a(e) {
               return t.apply(this, arguments);
             }
-            return o;
+            return a;
           })()),
           (a.$4 = function (t) {
             var e = this.$2.get();
@@ -106,17 +125,17 @@ __d(
           t
         );
       })(),
-      c = null;
-    function d() {
-      return r("nullthrows")(c, "MediaHostsWorker is not initialised");
+      d = null;
+    function m() {
+      return r("nullthrows")(d, "MediaHostsWorker is not initialised");
     }
-    function m(e) {
-      var t = new u(e);
-      return ((c = t), t);
+    function p(e) {
+      var t = new c(e);
+      return ((d = t), t);
     }
-    ((l.MediaHostsWorker = u),
-      (l.getMediaHostsWorker = d),
-      (l.createAndSetMediaHostsWorker = m));
+    ((l.MediaHostsWorker = c),
+      (l.getMediaHostsWorker = m),
+      (l.createAndSetMediaHostsWorker = p));
   },
   98,
 );

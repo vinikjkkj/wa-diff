@@ -2,6 +2,7 @@ __d(
   "WAWebFormatCTAText",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebFbtCommon",
     "WAWebGroupAgentAddedRowProfile",
@@ -167,6 +168,15 @@ __d(
             : null;
         case "ephemeral_keep_in_chat":
           return r("WAWebFbtCommon")("Learn more");
+        case "group_default_reactions":
+          return o(
+            "WAWebSystemMessageGatingUtils",
+          ).systemMessageActionTextStylingEnabled() &&
+            o("WAWebABProps").getABPropConfigValue(
+              "aura_group_reactions_editor_enabled",
+            )
+            ? r("WAWebFbtCommon")("Learn more")
+            : null;
         case "join_flood_notification":
           return a !== !0 ? null : s._(/*BTDS*/ "Manage members");
         case "created_subgroup_suggestion":

@@ -15,6 +15,7 @@ __d(
     "WAWebButtonsMessageProtoUtils",
     "WAWebConversionTupleCollection",
     "WAWebE2EProtoUtils",
+    "WAWebForwardReachGating",
     "WAWebGenerateBotGroupMetadata",
     "WAWebGenerateBotMetadata",
     "WAWebGenerateThreadIds",
@@ -251,6 +252,10 @@ __d(
             ),
           }),
         e.forwardingScore && (i.forwardingScore = e.forwardingScore),
+        e.isForwarded === !0 &&
+          e.forwardReachScore != null &&
+          o("WAWebForwardReachGating").isForwardReachScoreSendEnabled() &&
+          (i.forwardReachScore = e.forwardReachScore),
         e.nonJidMentions != null && (i.nonJidMentions = e.nonJidMentions),
         e.groupId && (i.groupId = e.groupId),
         e.groupIndex && (i.groupIndex = e.groupIndex),

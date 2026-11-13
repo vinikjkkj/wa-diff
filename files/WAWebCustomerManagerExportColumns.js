@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebContactImportTemplateParsingUtils",
+    "WAWebCustomerManagerCustomFieldTypes",
     "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerManagerImportMappingUtils",
     "WAWebCustomerManagerImportTemplateUtils",
@@ -167,7 +168,7 @@ __d(
         for (var r of n.customFieldValues)
           t.has(r.fieldId) || t.set(r.fieldId, h(r));
       return Array.from(t.keys())
-        .sort(C)
+        .sort(o("WAWebCustomerManagerCustomFieldTypes").compareFieldIds)
         .map(function (e) {
           var n;
           return {
@@ -209,19 +210,14 @@ __d(
         })
       );
     }
-    function C(e, t) {
-      return e.length !== t.length
-        ? e.length - t.length
-        : e.localeCompare(t, "en");
-    }
-    function b(e) {
+    function C(e) {
       var t = p.find(function (t) {
         return t.id === e;
       });
       if (t == null) throw r("err")("Unknown export column id");
       return t;
     }
-    function v(e) {
+    function b(e) {
       return e === "select" || e === "actions"
         ? null
         : e === "customer"
@@ -246,14 +242,9 @@ __d(
                             ? "lastOrder"
                             : e === "notes"
                               ? "notes"
-                              : (function () {
-                                  throw Error(
-                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                      e,
-                                  );
-                                })();
+                              : null;
     }
-    function S(e, t) {
+    function v(e, t) {
       var n = new Set(t),
         r = ["customer"].concat(
           e.filter(function (e) {
@@ -263,8 +254,8 @@ __d(
         o = [];
       for (var a of r)
         if (a === "customer" || n.has(a)) {
-          var i = v(a);
-          i != null && o.push(b(i));
+          var i = b(a);
+          i != null && o.push(C(i));
         }
       return o;
     }
@@ -272,8 +263,8 @@ __d(
       (l.getExportHeaders = _),
       (l.getExportRow = f),
       (l.getCustomFieldExportColumns = g),
-      (l.getExportColumnById = b),
-      (l.getVisibleExportColumns = S));
+      (l.getExportColumnById = C),
+      (l.getVisibleExportColumns = v));
   },
   226,
 );

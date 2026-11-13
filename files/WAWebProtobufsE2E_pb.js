@@ -2168,6 +2168,7 @@ __d(
         thumbnailWidth: [19, e.TYPES.UINT32],
         caption: [20, e.TYPES.STRING],
         accessibilityLabel: [21, e.TYPES.STRING],
+        qrUrl: [23, e.TYPES.STRING],
       }),
       (to.name = "Message$ExtendedTextMessage"),
       (to.internalSpec = {

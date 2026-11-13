@@ -5,6 +5,11 @@ __d(
     "use strict";
     var e = 48,
       l = {
+        options: { minWidth: 160, maxWidth: 400 },
+        type: "proportional",
+        value: 10,
+      },
+      s = {
         select: { type: "pixel", px: e },
         customer: {
           options: { minWidth: 200, maxWidth: 320 },
@@ -63,7 +68,7 @@ __d(
         },
         actions: { options: { minWidth: 160 }, type: "fill" },
       };
-    function s(e) {
+    function u(e) {
       return e.reduce(function (e, t) {
         var n, r;
         return (
@@ -77,8 +82,9 @@ __d(
       }, 0);
     }
     ((i.SELECT_COLUMN_WIDTH_PX = e),
-      (i.customerManagerColumnWidths = l),
-      (i.getCustomerManagerTableMinWidth = s));
+      (i.customFieldColumnWidth = l),
+      (i.customerManagerColumnWidths = s),
+      (i.getCustomerManagerTableMinWidth = u));
   },
   66,
 );

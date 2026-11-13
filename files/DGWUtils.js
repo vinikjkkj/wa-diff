@@ -2,6 +2,7 @@ __d(
   "DGWUtils",
   [
     "Base64",
+    "DGWAuth",
     "DGWConstants",
     "DGWCppBridge",
     "DGWWebSocketGating",
@@ -92,8 +93,11 @@ __d(
                 (t[a.HEADER_CONSTANTS.HEADER_APPVERSION] = l),
                 (t[a.HEADER_CONSTANTS.HEADER_AUTHTYPE] = u),
                 (t[a.HEADER_CONSTANTS.HEADER_DGW_VERSION] = "" + m),
-                (t[a.HEADER_CONSTANTS.HEADER_UUID] = f),
-                (t[a.HEADER_CONSTANTS.HEADER_TARGET_TIER] = v),
+                (t[a.HEADER_CONSTANTS.HEADER_UUID] =
+                  u === o("DGWAuth").DGWAuth.GUEST && r("justknobx")._("7721")
+                    ? "0"
+                    : f),
+                (t[o("DGWConstants").HEADER_CONSTANTS.HEADER_TARGET_TIER] = v),
                 t);
             (_ !== void 0 &&
               (R[

@@ -475,6 +475,7 @@ __d(
             return f({
               provenance: l.provenance,
               engineErrorCode: l.engineErrorCode,
+              systemProvenance: l.systemProvenance,
               input: n,
               requestId: a,
             });
@@ -501,12 +502,14 @@ __d(
             n = e.input,
             r = e.provenance,
             o = e.requestId,
-            a = yield u.fullyConnected;
-          a.postMessage(
+            a = e.systemProvenance,
+            i = yield u.fullyConnected;
+          i.postMessage(
             {
               type: "kaleidoscopeProvenanceResponse",
               provenance: r,
               engineErrorCode: t,
+              systemProvenance: a,
               transferredBuffer: n,
               requestId: o,
             },

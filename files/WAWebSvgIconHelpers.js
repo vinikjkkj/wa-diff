@@ -14,7 +14,7 @@ __d(
       c = u || (u = o("react"));
     function d(e, t, n, r, o, a) {
       var i = e != null || t != null,
-        l = a;
+        l = a != null ? a : void 0;
       if (n != null) {
         var s = n.height,
           u = s === void 0 ? 0 : s,
@@ -26,7 +26,11 @@ __d(
           f = _ === void 0 ? 0 : _;
         l = [p, f, d, u].join(" ");
       }
-      return { height: i ? e : r, width: i ? t : o, viewBox: l };
+      return {
+        height: i ? e : r != null ? r : void 0,
+        width: i ? t : o != null ? o : void 0,
+        viewBox: l,
+      };
     }
     function m(t, n, r, o, a) {
       var i = t.height,

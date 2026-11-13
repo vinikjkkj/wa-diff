@@ -2,6 +2,7 @@ __d(
   "WAWebParseWebMessageInfoApi",
   [
     "WABase64",
+    "WACryptoUtils",
     "WALogger",
     "WATimeUtils",
     "WAWebABPropsSaga",
@@ -208,7 +209,7 @@ __d(
             bizSource: k.bizSource,
             historyLidPnMappings: n,
           });
-          return (y(t, $), C(t, $), g($, x), $);
+          return (y(t, $), C(t, $), g(t, $, x), $);
         }
         o(
           "WAWebParseLimitSharingHistorySyncProto",
@@ -233,8 +234,24 @@ __d(
         return new Uint8Array(t);
       }
     }
-    function g(e, t) {
-      t != null && e.messageSecret === t && h("fallback_used");
+    function g(e, t, n) {
+      var r,
+        a,
+        i,
+        l =
+          (r =
+            (a = e.message) == null || (a = a.protocolMessage) == null
+              ? void 0
+              : a.editedMessage) != null
+            ? r
+            : e.message;
+      n != null &&
+        t.messageSecret != null &&
+        (l == null || (i = l.messageContextInfo) == null
+          ? void 0
+          : i.messageSecret) == null &&
+        o("WACryptoUtils").uint8ArraysEqual(t.messageSecret, n) &&
+        h("fallback_used");
     }
     function h(e) {
       o("WAWebLoggerUtils").passesSampling(m) &&

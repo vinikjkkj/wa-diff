@@ -162,7 +162,7 @@ __d(
                     if (
                       (o(
                         "WAWebParseWebMessageInfoApi",
-                      ).maybeCountWebMessageInfoSecretFallback(b, C),
+                      ).maybeCountWebMessageInfoSecretFallback(e, b, C),
                       e.participant === "0@s.whatsapp.net")
                     )
                       return (d || (d = n("Promise"))).resolve();

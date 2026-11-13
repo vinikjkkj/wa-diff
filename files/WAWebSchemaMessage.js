@@ -388,6 +388,9 @@ __d(
             a("pollNameHashHistory"),
             a("pollUpdateMessageMetadata"),
           ])
+          .version(n.messageAddForwardReachScoreColumn(), [
+            a("forwardReachScore"),
+          ])
           .view(function (e) {
             return e;
           })

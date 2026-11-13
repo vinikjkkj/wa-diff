@@ -13,6 +13,7 @@ __d(
     "WAWebHandleMsgReceiptCommon",
     "WAWebHandlePrivacyModeUpdateMsgAction",
     "WAWebLidStatusMigrationKeyUtils",
+    "WAWebMessageReceiptUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebNoop",
@@ -479,7 +480,7 @@ __d(
             return r("WAWebMsgKey").from(e);
           });
           if (e.remote.isStatus()) {
-            yield o("WAWebHandleMsgReceiptCommon").markStatusesReadFromPeer(
+            yield o("WAWebMessageReceiptUtils").markStatusesReadFromPeer(
               t.map(o("WAWebLidStatusMigrationKeyUtils").matKeyConvert),
               e.ts,
             );

@@ -76,45 +76,53 @@ __d(
           var a = t.appendedText,
             i = t.associationOptions,
             l = t.chat,
-            u = t.hatchJarvisSession,
-            c = t.includeCaption,
-            d = c === void 0 ? !1 : c,
-            m = t.msg,
-            _ = t.multicast,
-            f = _ === void 0 ? !1 : _,
-            g = t.pairedMediaType;
+            u = t.forwardReachScore,
+            c = t.hatchJarvisSession,
+            d = t.includeCaption,
+            m = d === void 0 ? !1 : d,
+            _ = t.msg,
+            f = t.multicast,
+            g = f === void 0 ? !1 : f,
+            C = t.pairedMediaType;
           if (
             (o(
               "WAWebPaymentRequestForwardPolicy",
-            ).assertCanForwardPaymentRequest(m, l),
+            ).assertCanForwardPaymentRequest(_, l),
             o("WAWebIsAccountBoundAiRichResponse").isAccountBoundAiRichResponse(
-              m,
+              _,
             ))
           )
             throw r("err")("An account-bound AI card is never forwarded");
-          var C = h({
+          var b = h({
             appendedText: a,
             chat: l,
-            includeCaption: d,
-            msg: m,
-            multicast: f,
-            pairedMediaType: g,
+            forwardReachScore: u,
+            includeCaption: m,
+            msg: _,
+            multicast: g,
+            pairedMediaType: C,
             associationOptions: i,
           });
-          if (C != null) return C;
-          var b = yield S({ appendedText: a, chat: l, msg: m, multicast: f });
           if (b != null) return b;
-          var v = yield y({
+          var v = yield S({
+            appendedText: a,
+            chat: l,
+            forwardReachScore: u,
+            msg: _,
+            multicast: g,
+          });
+          if (v != null) return v;
+          var R = yield y({
               chat: l,
-              hatchJarvisSession: u,
-              msg: m,
-              multicast: f,
+              hatchJarvisSession: c,
+              msg: _,
+              multicast: g,
             }),
-            R = v.fields,
-            E = v.jarvisSendRecord;
-          if (E != null) return E;
-          if (N(m, R)) {
-            if ($(m))
+            E = R.fields,
+            k = R.jarvisSendRecord;
+          if (k != null) return k;
+          if (N(_, E)) {
+            if ($(_))
               throw r("err")(
                 "Muse group media forward failed with no text fallback",
               );
@@ -134,42 +142,43 @@ __d(
             o("WAWebBotUtils").isMetaAiBot(l.id) &&
             (a != null &&
               a !== "" &&
-              (R.body = o(
+              (E.body = o(
                 "WAWebMetaAiForwardedText",
-              ).composeMetaAiForwardedText(R.body, a)),
+              ).composeMetaAiForwardedText(E.body, a)),
             o("WAWebBotGating").isAiChatThreadsEnabled())
           ) {
-            var k;
+            var I;
             return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
               type: "MetaAiForward",
-              query: (k = R.body) != null ? k : "",
+              query: (I = E.body) != null ? I : "",
             });
           }
-          var I = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, m.type),
-            T = I.type,
-            D = babelHelpers.objectWithoutPropertiesLoose(I, e),
-            x = babelHelpers.extends(
+          var T = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, _.type),
+            D = T.type,
+            x = babelHelpers.objectWithoutPropertiesLoose(T, e),
+            P = babelHelpers.extends(
               {},
-              R,
-              D,
+              E,
+              x,
               {
                 id: o(
                   "WAWebPaymentRequestForwardFields",
-                ).getPaymentRequestForwardKey(m, l.id, D.id),
+                ).getPaymentRequestForwardKey(_, l.id, x.id),
                 participant: void 0,
                 star: !1,
                 isForwarded:
-                  o("WAWebMsgGetters").getShouldDisplayAsForwarded(m),
+                  o("WAWebMsgGetters").getShouldDisplayAsForwarded(_),
                 forwardedFromWeb: !0,
                 forwardingScore: o(
                   "WAWebForwardMediaUtils",
-                ).getMsgForwardingScoreWhenForwarded(m),
+                ).getMsgForwardingScoreWhenForwarded(_),
+                forwardReachScore: u,
               },
               o(
                 "WAWebPaymentRequestForwardFields",
-              ).getPaymentRequestForwardingOverrides(m),
+              ).getPaymentRequestForwardingOverrides(_),
               {
-                multicast: f,
+                multicast: g,
                 messageSecret:
                   o(
                     "WAWebMessagingGatingUtils",
@@ -184,25 +193,25 @@ __d(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).maybeStripNewsletterForwardMetadata({
                 isQuestionOrQuestionReply:
-                  m.isQuestion || m.questionReplyQuotedMessage != null,
-                forwardable: x,
+                  _.isQuestion || _.questionReplyQuotedMessage != null,
+                forwardable: P,
                 destination: l.id,
-                source: m.id.remote,
-                isOriginalMsgForwarded: m.isForwarded,
+                source: _.id.remote,
+                isOriginalMsgForwarded: _.isForwarded,
               }),
             );
-          var P = yield L(x);
+          var M = yield L(P);
           o("WAWebPaymentRequestForwardPolicy").assertCanForwardPaymentRequest(
-            m,
+            _,
             l,
           );
-          var M = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, P),
-            w = M[0],
-            A = M[1],
-            F = yield (p || (p = n("Promise"))).all([w, A]),
-            O = F[0],
-            B = F[1];
-          return babelHelpers.extends({}, B, { msg: O });
+          var w = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, M),
+            A = w[0],
+            F = w[1],
+            O = yield (p || (p = n("Promise"))).all([A, F]),
+            B = O[0],
+            W = O[1];
+          return babelHelpers.extends({}, W, { msg: B });
         })),
         g.apply(this, arguments)
       );
@@ -297,28 +306,30 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.appendedText,
             n = e.chat,
-            a = e.msg,
-            i = e.multicast;
+            a = e.forwardReachScore,
+            i = e.msg,
+            l = e.multicast;
           if (
             !o(
               "WAWebMuseGroupRichResponseForward",
-            ).isMuseGroupAgentRichResponse(a)
+            ).isMuseGroupAgentRichResponse(i)
           )
             return null;
-          var l = o(
+          var s = o(
             "WAWebMuseGroupRichResponseForward",
-          ).getMuseGroupForwardMedia(a);
-          if (l == null) return null;
-          var s = yield o(
+          ).getMuseGroupForwardMedia(i);
+          if (s == null) return null;
+          var u = yield o(
             "WAWebForwardMuseGroupGeneratedMediaAction",
           ).forwardMuseGroupGeneratedMedia({
             chat: n,
-            media: l,
-            msg: a,
-            multicast: i,
+            forwardReachScore: a,
+            media: s,
+            msg: i,
+            multicast: l,
           });
           if (
-            s != null &&
+            u != null &&
             o("WAWebBotUtils").isMetaAiBot(n.id) &&
             !r("isStringNullOrEmpty")(t)
           )
@@ -334,7 +345,7 @@ __d(
                 )
                 .sendLogs("forward-muse-media-appended-text-failed");
             }
-          return s;
+          return u;
         })),
         R.apply(this, arguments)
       );
@@ -410,60 +421,70 @@ __d(
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.appendedText,
             n = e.chat,
-            a = e.hatchJarvisSession,
-            i = e.includeCaption,
-            l = i === void 0 ? !1 : i,
-            s = e.msgs,
-            u = e.multicast,
-            c = u === void 0 ? !1 : u,
-            p = n.contact;
-          if (o("WAWebContactGetters").getIsUser(p) && p.isContactBlocked)
+            a = e.forwardReachScores,
+            i = e.hatchJarvisSession,
+            l = e.includeCaption,
+            s = l === void 0 ? !1 : l,
+            u = e.msgs,
+            c = e.multicast,
+            p = c === void 0 ? !1 : c,
+            _ = n.contact;
+          if (o("WAWebContactGetters").getIsUser(_) && _.isContactBlocked)
             throw new (r("WAWebContactBlockedErrorAction"))(
               "Forwarded to contact is blocked",
-              p,
+              _,
             );
-          var _ = [];
-          for (var g of s) {
-            var h = l || o("WAWebMsgGetters").getHasOriginatedFromNewsletter(g);
+          var g = [];
+          for (var h of u) {
+            var y = s || o("WAWebMsgGetters").getHasOriginatedFromNewsletter(h);
             try {
-              var y = o(
+              var C = o(
                   "WAWebForwardAssociatedChildren",
                 ).getForwardableAssociatedChildren(
                   o("WAWebForwardAssociatedChildren").getForwardDestination(n),
-                  g,
+                  h,
                 ),
-                C = y.droppedPairedTypes,
-                b = y.forwardable,
-                v =
+                b = C.droppedPairedTypes,
+                v = C.forwardable,
+                S =
                   o(
                     "WAWebForwardAssociatedChildren",
                   ).areForwardPairLabelsEnabled() &&
                   o("WAWebForwardAssociatedChildren").carriesForwardableShadow(
-                    b,
+                    v,
                   )
-                    ? g.pairedMediaType
+                    ? h.pairedMediaType
                     : void 0,
-                S = yield f({
+                R = yield f({
                   chat: n,
-                  hatchJarvisSession: a,
-                  msg: g,
-                  multicast: c,
-                  includeCaption: h,
+                  forwardReachScore:
+                    a == null ? void 0 : a.get(h.id.toString()),
+                  hatchJarvisSession: i,
+                  msg: h,
+                  multicast: p,
+                  includeCaption: y,
                   appendedText: t,
-                  pairedMediaType: v,
+                  pairedMediaType: S,
                 });
               (o(
                 "WAWebIncrementNewsletterForwardCounterAction",
-              ).incrementNewsletterForwardCounter(g, n),
+              ).incrementNewsletterForwardCounter(h, n),
                 o("WAWebForwardAssociatedChildren")
                   .forwardAssociatedChildren({
                     chat: n,
-                    children: b,
-                    droppedPairedTypes: C,
-                    multicast: c,
-                    includeCaption: h,
-                    forwardedParent: S == null ? void 0 : S.msg,
-                    sendChild: f,
+                    children: v,
+                    droppedPairedTypes: b,
+                    multicast: p,
+                    includeCaption: y,
+                    forwardedParent: R == null ? void 0 : R.msg,
+                    sendChild: function (t) {
+                      return f(
+                        babelHelpers.extends({}, t, {
+                          forwardReachScore:
+                            a == null ? void 0 : a.get(t.msg.id.toString()),
+                        }),
+                      );
+                    },
                   })
                   .catch(function (e) {
                     o("WALogger")
@@ -482,10 +503,10 @@ __d(
                     "[chat forward message] error during forwarding message",
                   ])),
               ),
-                D(g, e) && _.push(g));
+                D(h, e) && g.push(h));
             }
           }
-          return _;
+          return g;
         })),
         T.apply(this, arguments)
       );
@@ -584,6 +605,7 @@ __d(
           "latestEditSenderTimestampMs",
           "invokedBotWid",
           "botMessageSecret",
+          "forwardReachScore",
           "hatchMetadataSync",
           "botEditType",
           "botFeedbackKind",

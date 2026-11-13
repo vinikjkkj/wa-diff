@@ -68,6 +68,9 @@ __d(
           (t.switchToPhoneNumber = function () {
             (this.$4("switch_to_phone_number"), this.$5(105));
           }),
+          (t.switchToWebRegistration = function () {
+            (this.$4("switch_to_web_registration"), this.$5(105));
+          }),
           (t.qrCodeInitialised = function () {
             this.$4("qr_code_initialised");
           }),

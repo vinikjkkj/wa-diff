@@ -17,6 +17,7 @@ __d(
     "WAWebDisappearingModeProtoUtils",
     "WAWebE2EProtoParserForCtwaContext",
     "WAWebExperienceIdReceive",
+    "WAWebForwardReachGating",
     "WAWebFutureproofProtoUtils",
     "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingProtoUtils",
@@ -477,6 +478,10 @@ __d(
         (e.isQuestion = t.isQuestion),
         (e.isSpoiler = t.isSpoiler),
         (e.forwardingScore = t.forwardingScore),
+        t.forwardReachScore != null &&
+          (o("WAWebForwardReachGating").isForwardReachScoreSendEnabled() ||
+            o("WAWebForwardReachGating").isForwardReachStatsLoggingEnabled()) &&
+          (e.forwardReachScore = t.forwardReachScore),
         o("WAWebExperienceIdReceive").maybeStampExperienceIds(e, t, n),
         (e.nonJidMentions = t.nonJidMentions),
         t.expiration != null && (e.ephemeralDuration = t.expiration),

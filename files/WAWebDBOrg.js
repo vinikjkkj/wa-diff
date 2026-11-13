@@ -2,6 +2,7 @@ __d(
   "WAWebDBOrg",
   [
     "Promise",
+    "WAJids",
     "WAWebModelStorageUtils",
     "WAWebOrgOrder",
     "WAWebSchemaOrg",
@@ -612,7 +613,7 @@ __d(
     function H(e, t) {
       var n = { orgId: e.orgId, name: e.name };
       (G(n, e), z(n, e, t));
-      var r = K(e, t);
+      var r = Q(e, t);
       return (r != null && (n.directoryIsComplete = r), n);
     }
     function G(e, t) {
@@ -627,24 +628,27 @@ __d(
         t.viewerRole != null && (e.viewerRole = t.viewerRole));
     }
     function z(e, t, n) {
-      var r = j(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
+      var r = K(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
       r != null && (e.orgUpdatedTsUsec = r);
-      var o = j(
+      var o = K(
         t.memberUpdatedTsUsec,
         n == null ? void 0 : n.memberUpdatedTsUsec,
       );
       o != null && (e.memberUpdatedTsUsec = o);
-      var a = j(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
+      var a = K(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
       a != null && (e.memberListTsUsec = a);
-      var i = j(t.managedGroups, n == null ? void 0 : n.managedGroups);
+      var i = K(j(t.managedGroups), n == null ? void 0 : n.managedGroups);
       i != null && (e.managedGroups = i);
-      var l = j(t.managedChannels, n == null ? void 0 : n.managedChannels);
+      var l = K(t.managedChannels, n == null ? void 0 : n.managedChannels);
       l != null && (e.managedChannels = l);
     }
-    function j(e, t) {
-      return e === void 0 ? t : e;
+    function j(e) {
+      return e == null ? e : e.map(o("WAJids").toGroupJid);
     }
     function K(e, t) {
+      return e === void 0 ? t : e;
+    }
+    function Q(e, t) {
       if (
         e.directoryIsComplete != null ||
         (t == null ? void 0 : t.directoryIsComplete) == null

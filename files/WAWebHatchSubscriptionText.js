@@ -24,7 +24,6 @@ __d(
       return t != null && t.trim() !== "" ? t : u(e.planName);
     }
     ((l.getHatchSubscriptionUsageText = e),
-      (l.getHatchSubscriptionPlanTitle = u),
       (l.getHatchSubscriptionPlanLabel = c));
   },
   226,

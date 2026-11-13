@@ -51,49 +51,55 @@ __d(
       return (
         e.forEach(function (e) {
           e: {
+            var n = e;
             if (
-              e.id ===
-              o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                .About
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "status"
             ) {
-              t.about = e;
+              var r = n;
+              t.about = r;
               break e;
             }
             if (
-              e.id ===
-              o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                .GroupAdd
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "groupadd"
             ) {
-              t.groupadd = e;
+              var o = n;
+              t.groupadd = o;
               break e;
             }
             if (
-              e.id ===
-              o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                .LastSeen
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "last"
             ) {
-              t.last = e;
+              var a = n;
+              t.last = a;
               break e;
             }
             if (
-              e.id ===
-              o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                .ProfilePicture
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "profile"
             ) {
-              t.profile = e;
+              var i = n;
+              t.profile = i;
               break e;
             }
             if (
-              e.id ===
-              o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
-                .Pix
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "pix"
             ) {
-              t.pix = e;
+              var l = n;
+              t.pix = l;
               break e;
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e.id,
+                n,
             );
           }
         }),

@@ -29,6 +29,8 @@ __d(
         REG_WACOM_PN_SCREEN_LOADED: "reg_wacom_pn_screen_loaded",
         REG_WACOM_PN_SCREEN_CONTINUE_CLICKED:
           "reg_wacom_pn_screen_continue_clicked",
+        REG_QR_SCREEN_LOADED: "reg_qr_screen_loaded",
+        REG_QR_LOGIN_CLICKED: "reg_qr_login_clicked",
         ANDROID_TABLET_OVERLAY_SCREEN_LOADED:
           "android_tablet_overlay_screen_loaded",
         ANDROID_TABLET_OVERLAY_CLOSE: "android_tablet_overlay_close",

@@ -183,6 +183,7 @@ __d(
               groupMentions: S.groupMentions,
               isForwarded: S.isForwarded,
               forwardingScore: S.forwardingScore,
+              forwardReachScore: S.forwardReachScore,
               forwardedNewsletterMessageInfo: S.forwardedNewsletterMessageInfo,
               forwardedAiBotMessageInfo: S.forwardedAiBotMessageInfo,
               aiProvenance: S.aiProvenance,

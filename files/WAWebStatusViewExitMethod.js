@@ -1,31 +1,31 @@
 __d(
   "WAWebStatusViewExitMethod",
-  ["WAWebWamEnumStatusRowEntryMethod", "WAWebWamEnumStatusViewExitMethod"],
+  ["WAWebWamEnumStatusViewEntryMethod", "WAWebWamEnumStatusViewExitMethod"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return e ===
-        o("WAWebWamEnumStatusRowEntryMethod").STATUS_ROW_ENTRY_METHOD
-          .FOWARDS_TAP
+        o("WAWebWamEnumStatusViewEntryMethod").STATUS_VIEW_ENTRY_METHOD
+          .FORWARD_TAP
         ? o("WAWebWamEnumStatusViewExitMethod").STATUS_VIEW_EXIT_METHOD
             .FORWARD_TAP
         : e ===
-            o("WAWebWamEnumStatusRowEntryMethod").STATUS_ROW_ENTRY_METHOD
-              .BACKWARDS_TAP
+            o("WAWebWamEnumStatusViewEntryMethod").STATUS_VIEW_ENTRY_METHOD
+              .BACK_TAP
           ? o("WAWebWamEnumStatusViewExitMethod").STATUS_VIEW_EXIT_METHOD
               .BACKWARD_TAP
           : e ===
-              o("WAWebWamEnumStatusRowEntryMethod").STATUS_ROW_ENTRY_METHOD
-                .FOWARDS_SWIPE
+              o("WAWebWamEnumStatusViewEntryMethod").STATUS_VIEW_ENTRY_METHOD
+                .FORWARD_SWIPE
             ? o("WAWebWamEnumStatusViewExitMethod").STATUS_VIEW_EXIT_METHOD
                 .FORWARD_SWIPE
             : e ===
-                o("WAWebWamEnumStatusRowEntryMethod").STATUS_ROW_ENTRY_METHOD
-                  .BACKWARDS_SWIPE
+                o("WAWebWamEnumStatusViewEntryMethod").STATUS_VIEW_ENTRY_METHOD
+                  .BACK_SWIPE
               ? o("WAWebWamEnumStatusViewExitMethod").STATUS_VIEW_EXIT_METHOD
                   .BACKWARD_SWIPE
               : e ===
-                  o("WAWebWamEnumStatusRowEntryMethod").STATUS_ROW_ENTRY_METHOD
-                    .PREVIOUS_ROW_TIMEOUT
+                  o("WAWebWamEnumStatusViewEntryMethod")
+                    .STATUS_VIEW_ENTRY_METHOD.AUTO_NAVIGATE_TIMER_END
                 ? o("WAWebWamEnumStatusViewExitMethod").STATUS_VIEW_EXIT_METHOD
                     .STATUS_TIMEOUT
                 : void 0;

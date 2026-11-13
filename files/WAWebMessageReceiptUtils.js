@@ -2,6 +2,7 @@ __d(
   "WAWebMessageReceiptUtils",
   [
     "WAWebAck",
+    "WAWebBackendApi",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
     "WAWebSchemaMessage",
@@ -36,6 +37,54 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(
+              e.map(function (e) {
+                return p(r("WAWebMsgKey").fromString(e)).toString();
+              }),
+            );
+          return r("compactMap")(t, function (e) {
+            return e != null && u(e) && e.ack < o("WAWebAck").ACK.READ
+              ? r("WAWebMsgKey").fromString(e.id)
+              : null;
+          });
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      return new (r("WAWebMsgKey"))({
+        fromMe: !0,
+        remote: e.remote,
+        id: e.id,
+        participant: e.participant,
+      });
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          e.length !== 0 &&
+            (o("WAWebBackendApi").frontendFireAndForget("handleReadStatus", {
+              msgKeys: e,
+            }),
+            yield o("WAWebBackendApi").frontendSendAndReceive(
+              "updateMsgPeerAcks",
+              { msgKeys: e, ack: o("WAWebAck").ACK.READ, t: t },
+            ));
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("compactMap")(e, function (e) {
               return o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
             }),
@@ -56,12 +105,14 @@ __d(
             return t && a.has(t.toString()) ? t : e;
           });
         })),
-        m.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.isGroupOrChannelStatusRow = u),
       (l.getUnreadStatusKeysFromOthers = c),
-      (l.fixStatusReceiptKeys = d));
+      (l.getMyUnreadStatusKeysReadByMyOtherDevice = d),
+      (l.markStatusesReadFromPeer = _),
+      (l.fixStatusReceiptKeys = g));
   },
   98,
 );

@@ -1,33 +1,40 @@
 __d(
   "WAWebGenerateStickerPackMessageProto",
-  ["WAWebE2EProtoUtils"],
+  ["WAWebE2EProtoUtils", "WAWebForwardReachGating"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.json,
-        n = e.mediaMetadata,
-        r = n === void 0 ? {} : n;
+      var t = e.contextInfo,
+        n = e.json,
+        r = e.mediaMetadata,
+        a = r === void 0 ? {} : r,
+        i = t == null ? void 0 : t.forwardReachScore;
       return {
         stickerPackMessage: {
-          stickerPackId: t.stickerPackId,
-          name: t.filename,
-          publisher: t.stickerPackPublisher,
-          fileSha256: o("WAWebE2EProtoUtils").encodeBytes(r.filehash),
-          fileEncSha256: o("WAWebE2EProtoUtils").encodeBytes(r.encFilehash),
-          mediaKey: o("WAWebE2EProtoUtils").encodeBytes(r.mediaKey),
-          directPath: t.directPath,
-          caption: t.caption,
-          packDescription: t.description,
+          stickerPackId: n.stickerPackId,
+          name: n.filename,
+          publisher: n.stickerPackPublisher,
+          fileSha256: o("WAWebE2EProtoUtils").encodeBytes(a.filehash),
+          fileEncSha256: o("WAWebE2EProtoUtils").encodeBytes(a.encFilehash),
+          mediaKey: o("WAWebE2EProtoUtils").encodeBytes(a.mediaKey),
+          directPath: n.directPath,
+          caption: n.caption,
+          contextInfo:
+            i != null &&
+            o("WAWebForwardReachGating").isForwardReachScoreSendEnabled()
+              ? { forwardReachScore: i }
+              : void 0,
+          packDescription: n.description,
           thumbnailSha256: o("WAWebE2EProtoUtils").encodeBytes(
-            r.thumbnailSha256,
+            a.thumbnailSha256,
           ),
           thumbnailEncSha256: o("WAWebE2EProtoUtils").encodeBytes(
-            r.thumbnailEncSha256,
+            a.thumbnailEncSha256,
           ),
-          thumbnailDirectPath: t.thumbnailDirectPath,
-          stickers: t.stickers,
-          fileLength: t.size,
-          trayIconFileName: t.trayIconFileName,
-          stickerPackSize: t.stickerPackSize,
+          thumbnailDirectPath: n.thumbnailDirectPath,
+          stickers: n.stickers,
+          fileLength: n.size,
+          trayIconFileName: n.trayIconFileName,
+          stickerPackSize: n.stickerPackSize,
         },
       };
     }

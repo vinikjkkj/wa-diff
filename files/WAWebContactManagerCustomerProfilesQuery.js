@@ -4,6 +4,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
+    "WAWebCustomerManagerCustomFieldTypes",
     "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerManagerProfileRequest",
     "WAWebCustomerProfileBirthday",
@@ -139,32 +140,53 @@ __d(
     function L(e) {
       var t = [];
       for (var n of e != null ? e : []) {
-        var r = n.custom_field_definition,
-          a = r == null ? void 0 : r.id,
-          i = r == null ? void 0 : r.name,
-          l = r == null ? void 0 : r.field_type;
-        r == null ||
-          a == null ||
-          i == null ||
-          l == null ||
+        var r,
+          a,
+          i,
+          l,
+          s,
+          u,
+          c,
+          d,
+          m = n.custom_field_definition,
+          p = m == null ? void 0 : m.id,
+          _ = m == null ? void 0 : m.name,
+          f = m == null ? void 0 : m.field_type;
+        if (!(m == null || p == null || _ == null || f == null)) {
+          var g = f;
           t.push({
-            currency: r.currency,
-            fieldId: a,
-            fieldName: i,
+            currency: m.currency,
+            currencyDecimalPlaces:
+              (r = m.currency_decimal_places) != null ? r : null,
+            dateValue: (a = n.date_value) != null ? a : null,
+            enumOptionKey: (i = n.enum_option_key) != null ? i : null,
+            enumOptionKeys: [].concat(
+              (l = m.enum_option_keys) != null ? l : [],
+            ),
+            enumValues: [].concat((s = m.enum_values) != null ? s : []),
+            fieldId: p,
+            fieldName: _,
+            fieldType: o(
+              "WAWebCustomerManagerCustomFieldTypes",
+            ).toCustomFieldType(g),
+            moneyAmount: (u = n.money_amount) != null ? u : null,
+            numericValue: (c = n.numeric_value) != null ? c : null,
+            textValue: (d = n.text_value) != null ? d : null,
             value: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).formatCustomFieldExportValue({
-              currencyDecimalPlaces: r.currency_decimal_places,
+              currencyDecimalPlaces: m.currency_decimal_places,
               dateValue: n.date_value,
-              enumLabels: r.enum_values,
+              enumLabels: m.enum_values,
               enumOptionKey: n.enum_option_key,
-              enumOptionKeys: r.enum_option_keys,
-              fieldType: l,
+              enumOptionKeys: m.enum_option_keys,
+              fieldType: g,
               moneyAmount: n.money_amount,
               numericValue: n.numeric_value,
               textValue: n.text_value,
             }),
           });
+        }
       }
       return t;
     }

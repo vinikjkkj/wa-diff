@@ -657,6 +657,9 @@ __d(
     function cr() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(217);
     }
+    function dr() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(218);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -874,7 +877,8 @@ __d(
       (l.p2pPillsThreadOriginCreateTable = lr),
       (l.omittedConversationMetadataCreateTable = sr),
       (l.omittedConversationMetadataSnapshotCreateTable = ur),
-      (l.newsletterQuestionResponsesCreateTable = cr));
+      (l.newsletterQuestionResponsesCreateTable = cr),
+      (l.messageAddForwardReachScoreColumn = dr));
   },
   98,
 );

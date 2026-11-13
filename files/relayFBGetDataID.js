@@ -35,7 +35,9 @@ __d(
         t === "GlobalSupportAssignmentShiftCity" ||
         t === "GlobalSupportAssignmentTriagerCity" ||
         (t === "XFBPAYIGUserExportForCAM" &&
-          o("relayFBGetDataIDGating").shouldNamespaceIGUserExportForCAM())
+          o("relayFBGetDataIDGating").shouldNamespaceIGUserExportForCAM()) ||
+        ((t === "SlideUser" || t === "XDTUserDict") &&
+          o("relayFBGetDataIDGating").shouldNamespaceMessageSenderTypes())
       )
         return e.id == null ? null : t + ":" + String(e.id);
       if (t === "XFBABTestLaunchProposalReviewChecklistGuidelineResult") {

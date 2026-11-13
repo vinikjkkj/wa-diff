@@ -12,6 +12,7 @@ __d(
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
     "WAWebIdbTransactionCounter",
+    "WAWebNoop",
     "WAWebSafeCrashAnnotation",
     "WAWebStorageCmd",
     "WAWebStorageCrashAnnotations",
@@ -878,6 +879,7 @@ __d(
                       .anyOf(a)
                       .delete(),
                   )
+                  .then(r("WAWebNoop"))
                   .catch(function (t) {
                     throw (e.$1(r("getErrorSafe")(t), "bulkRemoveByIndex"), t);
                   });

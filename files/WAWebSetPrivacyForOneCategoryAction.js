@@ -122,11 +122,13 @@ __d(
             u === "contact_blacklist")
           ) {
             var m = c(l),
-              _ = {
-                id: m,
-                disallowedList: p(r("nullthrows")(t)),
-                dhash: r("nullthrows")(i.dhash),
-              };
+              _ = o(
+                "WAWebSchemaPrivacyDisallowedList",
+              ).createPrivacyDisallowedListRow(
+                m,
+                p(r("nullthrows")(t)),
+                r("nullthrows")(i.dhash),
+              );
             yield o("WAWebSchemaPrivacyDisallowedList")
               .getPrivacyDisallowedListTable()
               .createOrReplace(_);

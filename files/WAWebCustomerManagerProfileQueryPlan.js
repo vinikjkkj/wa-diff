@@ -110,16 +110,9 @@ __d(
           : t === "email" || t === "acquisitionSource"
             ? !1
             : t === "select" ||
-                t === "actions" ||
-                t === "notes" ||
-                t === "lastOrder"
-              ? !0
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      t,
-                  );
-                })();
+              t === "actions" ||
+              t === "notes" ||
+              t === "lastOrder";
     }
     function C(e) {
       return e.clientFilterKeys.length > 0 || g(e.query);

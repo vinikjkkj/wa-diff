@@ -1,13 +1,15 @@
 __d(
   "WAWebLandingPromoGating",
-  ["WAWebEnvironment", "gkx"],
+  ["WAWebEnvironment", "WAWebRegistrationQrGating", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
       return r("WAWebEnvironment").getIsShowroom() ? !1 : r("gkx")("14815");
     }
     function s() {
-      return e() ? d() : "none";
+      return !e() || o("WAWebRegistrationQrGating").isRegistrationQrEnabled()
+        ? "none"
+        : d();
     }
     function u() {
       return s() === "test";

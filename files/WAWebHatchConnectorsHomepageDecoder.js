@@ -33,21 +33,23 @@ __d(
       var t,
         n = o("WAWebHatchJsonReaders").readTrimmedString(e, "id"),
         r = o("WAWebHatchJsonReaders").readTrimmedString(e, "title");
-      return o("WAWebHatchJsonReaders").isBlankText(n) ||
+      if (
+        o("WAWebHatchJsonReaders").isBlankText(n) ||
         o("WAWebHatchJsonReaders").isBlankText(r)
-        ? null
-        : {
-            id: n,
-            title: r,
-            connectors: o(
-              "WAWebHatchConnectorsListDecoder",
-            ).decodeHatchConnectorRows(
-              (t = o("WAWebHatchJsonReaders").readArray(e, "connectors")) !=
-                null
-                ? t
-                : [],
-            ),
-          };
+      )
+        return null;
+      var a =
+        (t = o("WAWebHatchJsonReaders").readArray(e, "connectors")) != null
+          ? t
+          : [];
+      return {
+        id: n,
+        title: r,
+        connectors: o(
+          "WAWebHatchConnectorsListDecoder",
+        ).decodeHatchConnectorRows(a),
+        previewCount: a.length,
+      };
     }
     l.decodeHatchConnectorsHomepage = e;
   },

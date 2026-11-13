@@ -1,6 +1,7 @@
 __d(
   "WAWebGetNewsletterContextForForwardedMsg",
   [
+    "WAWebForwardReachGating",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebNewsletterMetadataCollection",
@@ -33,11 +34,18 @@ __d(
         !r &&
         n.type !== o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT &&
         !a
-        ? babelHelpers.extends({}, n, {
-            isForwarded: !1,
-            forwardedNewsletterMessageInfo: void 0,
-            forwardingScore: void 0,
-          })
+        ? o("WAWebForwardReachGating").isForwardReachFeatureEnabled()
+          ? babelHelpers.extends({}, n, {
+              isForwarded: !1,
+              forwardedNewsletterMessageInfo: void 0,
+              forwardingScore: void 0,
+              forwardReachScore: void 0,
+            })
+          : babelHelpers.extends({}, n, {
+              isForwarded: !1,
+              forwardedNewsletterMessageInfo: void 0,
+              forwardingScore: void 0,
+            })
         : n;
     }
     ((l.getNewsletterContextForForwardedMsg = e),

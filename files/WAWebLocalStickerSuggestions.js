@@ -6,6 +6,7 @@ __d(
     "WAWebDiscoveryStickerGating",
     "WAWebEmoji",
     "WAWebFavoriteStickerCollection",
+    "WAWebNoop",
     "WAWebRecentStickerCollectionMd",
     "WAWebStickerDownloadCollection",
     "WAWebStickerSuggestionEmojiGroups",
@@ -20,32 +21,11 @@ __d(
     function u(e, t) {
       var n = [],
         r = new Set(),
-        a = new Set(
-          o("WAWebStickerSuggestionEmojiGroups")
-            .getStickerSuggestionEmojiGroup(e)
-            .map(function (e) {
-              var t;
-              return (t =
-                o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e)) != null
-                ? t
-                : e;
-            }),
-        ),
+        a = f(e),
         i = function (t) {
           var e;
           r.has(t.id) ||
-            !(
-              (e = t.mediaData.emojis) != null &&
-              e.some(function (e) {
-                var t;
-                return a.has(
-                  (t = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e)) !=
-                    null
-                    ? t
-                    : e,
-                );
-              })
-            ) ||
+            !g((e = t.mediaData.emojis) != null ? e : [], a) ||
             (r.add(t.id), n.push(t));
         };
       if (
@@ -82,20 +62,32 @@ __d(
             var a = yield s.load(),
               i = a.DiscoveryStickerPackCollectionMd;
             if ((n == null ? void 0 : n.aborted) === !0) return [];
-            var l = o(
-                "WAWebDiscoveryStickerGating",
-              ).getDiscoveryStickerPackCount(),
-              c = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
-            if (
-              (i.isLoadedFor(l, c) || (yield i.fetch(l, c)),
-              (n == null ? void 0 : n.aborted) === !0)
-            )
-              return [];
-            var d = o(
-                "WAWebDiscoveryStickerGating",
-              ).getDiscoveryStickerPackCount(),
-              m = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
-            return i.isLoadedFor(d, m) ? p(t, i) : u(t);
+            i.retain();
+            try {
+              var l = o(
+                  "WAWebDiscoveryStickerGating",
+                ).getDiscoveryStickerPackCount(),
+                c = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
+              if (
+                (i.isLoadedFor(l, c) || (yield i.fetch(l, c)),
+                (n == null ? void 0 : n.aborted) === !0)
+              )
+                return [];
+              var d = o(
+                  "WAWebDiscoveryStickerGating",
+                ).getDiscoveryStickerPackCount(),
+                m = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
+              if (!i.isLoadedFor(d, m)) return u(t);
+              var p = f(t);
+              return (
+                i.materializeStickerSuggestions(function (e) {
+                  return g(e, p);
+                }),
+                _(t, i)
+              );
+            } finally {
+              i.release();
+            }
           } catch (a) {
             return (n == null ? void 0 : n.aborted) === !0
               ? []
@@ -122,26 +114,52 @@ __d(
       var n = o("WAWebDiscoveryStickerGating").getDiscoveryStickerPackCount(),
         r = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
       return t.DiscoveryStickerPackCollectionMd.isLoadedFor(n, r)
-        ? p(e, t.DiscoveryStickerPackCollectionMd)
+        ? _(e, t.DiscoveryStickerPackCollectionMd)
         : u(e);
     }
-    function p(e, t) {
-      var n = [];
+    function p() {
+      if (!o("WAWebDiscoveryStickerGating").isDiscoveryStickersEnabled())
+        return r("WAWebNoop");
+      var e = s.getModuleIfRequired();
+      if (e == null) return r("WAWebNoop");
+      var t = e.DiscoveryStickerPackCollectionMd;
       return (
-        t.forEach(function (e) {
-          var t;
-          return (t = e.stickers) == null
-            ? void 0
-            : t.forEach(function (e) {
-                return n.push(e);
-              });
-        }),
-        u(e, n)
+        t.retain(),
+        function () {
+          return t.release();
+        }
       );
+    }
+    function _(e, t) {
+      return u(e, t.getMaterializedStickers());
+    }
+    function f(e) {
+      return new Set(
+        o("WAWebStickerSuggestionEmojiGroups")
+          .getStickerSuggestionEmojiGroup(e)
+          .map(function (e) {
+            var t;
+            return (t =
+              o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e)) != null
+              ? t
+              : e;
+          }),
+      );
+    }
+    function g(e, t) {
+      return e.some(function (e) {
+        var n;
+        return t.has(
+          (n = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(e)) != null
+            ? n
+            : e,
+        );
+      });
     }
     ((l.getLocalStickerSuggestions = u),
       (l.getStickerSuggestions = c),
-      (l.getLoadedStickerSuggestions = m));
+      (l.getLoadedStickerSuggestions = m),
+      (l.retainLoadedStickerSuggestions = p));
   },
   98,
 );

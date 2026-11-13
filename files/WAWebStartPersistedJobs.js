@@ -2,6 +2,7 @@ __d(
   "WAWebStartPersistedJobs",
   [
     "WALogger",
+    "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebJobsMigrationGating",
     "WAWebPersistedJobManager",
     "WAWebPersistedJobManagerWorkerCompatible",
@@ -17,19 +18,17 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebJobsMigrationGating").isJobsManagerDecommissioned()) {
-            o("WAWebPersistedJobManager")
-              .retirePersistedJobs()
-              .catch(function (t) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[jobs-manager] retiring the jobs database failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("jobs-manager-retire-failed");
-              });
+            c().catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[jobs-manager] retiring the jobs database failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("jobs-manager-retire-failed");
+            });
             return;
           }
           (yield o("WAWebPersistedJobManager").startWebPersistedJobManager(),
@@ -38,6 +37,20 @@ __d(
             ));
         })),
         u.apply(this, arguments)
+      );
+    }
+    function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield o(
+            "WAWebEventsWaitForOfflineDeliveryEnd",
+          ).waitForOfflineDeliveryEnd({ ignoreInit: !0 }),
+            yield o("WAWebPersistedJobManager").retirePersistedJobs());
+        })),
+        d.apply(this, arguments)
       );
     }
     l.startPersistedJobs = s;

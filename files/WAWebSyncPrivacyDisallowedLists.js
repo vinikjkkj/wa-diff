@@ -7,6 +7,7 @@ __d(
     "WAWebQueryPrivacyDisallowedListUtil",
     "WAWebSchemaPrivacyDisallowedList",
     "asyncToGeneratorRuntime",
+    "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -16,7 +17,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield (e || (e = n("Promise"))).all(
+          var a = yield (e || (e = n("Promise"))).all(
               t.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -38,28 +39,28 @@ __d(
                 })(),
               ),
             ),
-            a = [];
-          return (
-            r.forEach(function (e) {
+            i = r("compactMap")(a, function (e) {
               var t = e.response,
                 n = t.dhash,
                 r = t.status,
-                o = t.users;
-              r !== "mismatch" ||
-                o == null ||
-                n == null ||
-                a.push({
-                  id: e.type,
-                  disallowedList: o.map(function (e) {
-                    return e.toString();
-                  }),
-                  dhash: n,
-                });
-            }),
+                a = t.users;
+              return r !== "mismatch" || a == null || n == null
+                ? null
+                : o(
+                    "WAWebSchemaPrivacyDisallowedList",
+                  ).createPrivacyDisallowedListRow(
+                    e.type,
+                    a.map(function (e) {
+                      return e.toString();
+                    }),
+                    n,
+                  );
+            });
+          return (
             yield o("WAWebSchemaPrivacyDisallowedList")
               .getPrivacyDisallowedListTable()
-              .bulkCreateOrReplace(a),
-            a
+              .bulkCreateOrReplace(i),
+            i
           );
         })),
         u.apply(this, arguments)

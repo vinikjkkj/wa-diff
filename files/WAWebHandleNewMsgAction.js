@@ -551,7 +551,8 @@ __d(
                             .catching(r("getErrorSafe")(e))
                             .sendLogs("orphan-peer-receipt-process-failed");
                         }),
-                    o("WAWebMsgGetters").getIsImportantMessage(t))
+                    o("WAWebMsgGetters").getIsImportantMessage(t) &&
+                      t.read !== !0)
                   ) {
                     var R = new (r("WAWebUnreadMentionModel"))({
                       id: t.id.toString(),
