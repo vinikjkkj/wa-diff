@@ -8,6 +8,7 @@ __d(
     "WAWebMuseResponsePlainText",
     "WAWebRichResponseCopyTextRegistry",
     "WAWebURLUtils",
+    "isStringNotNullAndNotWhitespaceOnly",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -95,14 +96,28 @@ __d(
             if (
               ((typeof e == "object" && e !== null) ||
                 typeof e == "function") &&
+              e.type === "products" &&
+              "products" in e
+            ) {
+              var a = e.products;
+              return a
+                .flatMap(function (e) {
+                  return [e.brand, e.title, e.price];
+                })
+                .filter(r("isStringNotNullAndNotWhitespaceOnly"))
+                .join("\n");
+            }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
               e.type === "link_card" &&
               "card" in e
             ) {
-              var a,
-                i = e.card;
-              return (a = i.title) != null
-                ? a
-                : r("WAWebURLUtils").hostname(i.url);
+              var i,
+                l = e.card;
+              return (i = l.title) != null
+                ? i
+                : r("WAWebURLUtils").hostname(l.url);
             }
             return "";
           })(e);

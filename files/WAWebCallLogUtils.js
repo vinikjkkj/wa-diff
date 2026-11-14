@@ -18,6 +18,7 @@ __d(
     "WAWebUserUtils",
     "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipConnectingStatus.react",
+    "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
     "nullthrows",
     "react",
@@ -74,32 +75,41 @@ __d(
       );
     }
     function p(e, t) {
-      return e === o("WAWebVoipWaCallEnums").CallState.Calling
-        ? s._(/*BTDS*/ "Calling...")
-        : e === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived
-          ? s._(/*BTDS*/ "Ringing...")
-          : e === o("WAWebVoipWaCallEnums").CallState.ReceivedCall ||
-              e === o("WAWebVoipWaCallEnums").CallState.ReceivedCallWithoutOffer
-            ? t != null && t.isVideoCall
-              ? s._(/*BTDS*/ "Video call")
-              : s._(/*BTDS*/ "Voice call")
-            : e === o("WAWebVoipWaCallEnums").CallState.Screening
-              ? (t == null ? void 0 : t.id.fromMe) === !0
-                ? s._(/*BTDS*/ "Voicemail...")
-                : s._(/*BTDS*/ "Screening call...")
-              : e === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
-                  e === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
-                ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
-                : e === o("WAWebVoipWaCallEnums").CallState.CallActive
-                  ? u.jsx(r("WAWebCallTimer.react"), { callState: e })
-                  : e === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||
-                      e === o("WAWebVoipWaCallEnums").CallState.Rejoining
-                    ? s._(/*BTDS*/ "Waiting for others...")
-                    : e == null
-                      ? s._(/*BTDS*/ "Call ended")
-                      : e != null
-                        ? o("WAWebVoipWaCallEnums").CallState.getName(e)
-                        : "unknown";
+      var n;
+      return (e === o("WAWebVoipWaCallEnums").CallState.Calling ||
+        e === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived) &&
+        o("WAWebVoipTransferredCallRegistry").isTransferredCallLive(
+          (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.id,
+        )
+        ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
+        : e === o("WAWebVoipWaCallEnums").CallState.Calling
+          ? s._(/*BTDS*/ "Calling...")
+          : e === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived
+            ? s._(/*BTDS*/ "Ringing...")
+            : e === o("WAWebVoipWaCallEnums").CallState.ReceivedCall ||
+                e ===
+                  o("WAWebVoipWaCallEnums").CallState.ReceivedCallWithoutOffer
+              ? t != null && t.isVideoCall
+                ? s._(/*BTDS*/ "Video call")
+                : s._(/*BTDS*/ "Voice call")
+              : e === o("WAWebVoipWaCallEnums").CallState.Screening
+                ? (t == null ? void 0 : t.id.fromMe) === !0
+                  ? s._(/*BTDS*/ "Voicemail...")
+                  : s._(/*BTDS*/ "Screening call...")
+                : e === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
+                    e === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
+                  ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
+                  : e === o("WAWebVoipWaCallEnums").CallState.CallActive
+                    ? u.jsx(r("WAWebCallTimer.react"), { callState: e })
+                    : e ===
+                          o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||
+                        e === o("WAWebVoipWaCallEnums").CallState.Rejoining
+                      ? s._(/*BTDS*/ "Waiting for others...")
+                      : e == null
+                        ? s._(/*BTDS*/ "Call ended")
+                        : e != null
+                          ? o("WAWebVoipWaCallEnums").CallState.getName(e)
+                          : "unknown";
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {

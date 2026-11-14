@@ -100,7 +100,7 @@ __d(
           (n = t == null ? void 0 : t.currentTime) != null
             ? n
             : e.config.startTimestampSec;
-      return e.config.isLivePlayback &&
+      return (e.config.isLivePlayback || e.config.vodStartTimestampPending) &&
         r === 0 &&
         e.config.startTimestampSec > 0
         ? e.config.startTimestampSec

@@ -10,9 +10,11 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
     "WAWebVoipBootInitDecision",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipContactUtils",
     "WAWebVoipGatingUtils",
     "WAWebVoipIncomingCallQpl",
+    "WAWebVoipLocalCallStateStore",
     "WAWebVoipPeerTcToken",
     "WAWebVoipRejectCallWithReasonEnc",
     "WAWebVoipSignalingEnums",
@@ -34,9 +36,12 @@ __d(
           var r,
             a,
             i = Date.now();
-          o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
-            o("WAWebVoipGatingUtils").isGroupCallMessage(e),
-          );
+          o("WAWebVoipCallStateUtils").isCallTerminal(
+            o("WAWebVoipLocalCallStateStore").getLocalCallState(),
+          ) &&
+            o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
+              o("WAWebVoipGatingUtils").isGroupCallMessage(e),
+            );
           var l = o("WAWebVoipIncomingCallQpl").startVoipIncomingCallQpl({
             bool: {
               boot_deferred: o(

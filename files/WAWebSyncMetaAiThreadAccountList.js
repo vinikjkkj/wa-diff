@@ -1,6 +1,7 @@
 __d(
   "WAWebSyncMetaAiThreadAccountList",
   [
+    "$InternalEnum",
     "Promise",
     "WALogger",
     "WATimeUtils",
@@ -19,45 +20,51 @@ __d(
       s,
       u,
       c,
-      d = 15 * o("WATimeUtils").MINUTE_MILLISECONDS,
-      m = 3,
-      p = null,
+      d = n("$InternalEnum")({
+        RequestFailed: "request-failed",
+        MissingList: "missing-list",
+        AllIdsInvalid: "all-ids-invalid",
+        Threw: "threw",
+      }),
+      m = 15 * o("WATimeUtils").MINUTE_MILLISECONDS,
+      p = 3,
       _ = null,
-      f = 0,
-      g = !1;
-    function h() {
-      return p != null
-        ? p
-        : y()
+      f = null,
+      g = 0,
+      h = !1;
+    function y() {
+      return _ != null
+        ? _
+        : C()
           ? o("WAWebCanonicalGating").isCanonicalEnabled() &&
             !o("WAWebCanonicalUtils").isCanonicalPresent()
-            ? (C(), (c || (c = n("Promise"))).resolve())
-            : ((p = b().finally(function () {
-                p = null;
+            ? (b(), (c || (c = n("Promise"))).resolve())
+            : ((_ = v().finally(function () {
+                _ = null;
               })),
-              p)
+              _)
           : (c || (c = n("Promise"))).resolve();
     }
-    function y() {
-      if (!o("WAWebBotGating").isMetaAiThreadAccountListSyncEnabled() || f >= m)
+    function C() {
+      if (!o("WAWebBotGating").isMetaAiThreadAccountListSyncEnabled() || g >= p)
         return !1;
       var e = o("WATimeUtils").unixTimeMs();
-      return _ != null && e - _ < d
+      return f != null && e - f < m
         ? !1
         : e - o("WAWebUserPrefsBot").getMetaAiThreadListLastSyncTs() >=
             o("WATimeUtils").DAY_MILLISECONDS;
     }
-    function C() {
-      g ||
-        ((g = !0),
+    function b() {
+      h ||
+        ((h = !0),
         o("WAWebCanonicalUtils")
           .waitForCanonicalPresent()
           .then(
             function () {
-              ((g = !1), h());
+              ((h = !1), y());
             },
             function () {
-              ((g = !1),
+              ((h = !1),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -71,12 +78,12 @@ __d(
             },
           ));
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o(
               "WAWebFetchMetaAiThreadServerListGQL",
@@ -88,31 +95,31 @@ __d(
               return;
             }
             if (e.type !== "success") {
-              L();
+              E(e.reason === "missing-list" ? d.MissingList : d.RequestFailed);
               return;
             }
             var t = e.threads.flatMap(function (e) {
-              var t = S(e);
-              return t == null ? [] : [{ wid: t, fields: R(e) }];
+              var t = R(e);
+              return t == null ? [] : [{ wid: t, fields: L(e) }];
             });
             if (e.threads.length > 0 && t.length === 0) {
-              L();
+              E(d.AllIdsInvalid);
               return;
             }
             (yield o("WAWebPersistBotProfiles").mergeBotSupportFieldsBatch(t),
-              (_ = null),
-              (f = 0),
+              (f = null),
+              (g = 0),
               yield o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
                 o("WATimeUtils").unixTimeMs(),
               ));
           } catch (e) {
-            L();
+            E(d.Threw);
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       try {
         return o("WAWebWidFactory").createUserWidOrThrow(e.botFbid + "@bot");
       } catch (e) {
@@ -129,15 +136,15 @@ __d(
         );
       }
     }
-    function R(e) {
+    function L(e) {
       var t = o("WAWebBotProduct").BotProduct.META_AI_THREAD.valueOf();
       return e.isDeprecated == null
         ? { product: t }
         : { product: t, isDeprecated: e.isDeprecated };
     }
-    function L() {
-      ((_ = o("WATimeUtils").unixTimeMs()),
-        f++,
+    function E(e) {
+      ((f = o("WATimeUtils").unixTimeMs()),
+        g++,
         o("WALogger")
           .WARN(
             u ||
@@ -145,9 +152,10 @@ __d(
                 "[bot] Meta AI thread list sync failed",
               ])),
           )
+          .tags(e)
           .sendLogs("meta-ai-thread-list-sync-failed", { sampling: 0.01 }));
     }
-    l.maybeSyncMetaAiThreadAccountList = h;
+    l.maybeSyncMetaAiThreadAccountList = y;
   },
   98,
 );

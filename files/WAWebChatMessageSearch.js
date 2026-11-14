@@ -270,14 +270,11 @@ __d(
       );
     }
     function y(e, t) {
-      var n;
       return t.leadStage == null
         ? !0
-        : ((n = o("WAWebLeadStageStore").getLeadStageFromStore(
-            e.id.toString(),
-          )) != null
-            ? n
-            : o("WAWebLeadStage").LeadStage.LEAD) === t.leadStage;
+        : o("WAWebLeadStage").getLeadStageForGrouping(
+            o("WAWebLeadStageStore").getLeadStageFromStore(e.id.toString()),
+          ) === t.leadStage;
     }
     ((l.getSearchContext = s),
       (l.fts = u),

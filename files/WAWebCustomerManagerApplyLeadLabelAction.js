@@ -12,14 +12,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            r = o("WAWebLabelCollection").LabelCollection.findFirst(
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r,
+            a = o("WAWebLabelCollection").LabelCollection.findFirst(
               function (e) {
                 return (
                   e.predefinedId ===
@@ -27,7 +27,7 @@ __d(
                 );
               },
             );
-          if (r == null) {
+          if (a == null) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -36,10 +36,10 @@ __d(
             );
             return;
           }
-          var a = o("WAWebChatCollection").ChatCollection.get(t),
-            i =
-              a != null
-                ? a
+          var i = o("WAWebChatCollection").ChatCollection.get(t),
+            l =
+              i != null
+                ? i
                 : yield o("WAWebFindChatAction")
                     .findOrCreateLatestChat(
                       o("WAWebWidFactory").createWid(t),
@@ -63,15 +63,16 @@ __d(
                         null
                       );
                     });
-          i != null &&
-            (((n = i.labels) != null ? n : []).includes(r.id) ||
+          l != null &&
+            (((r = l.labels) != null ? r : []).includes(a.id) ||
               (o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [{ id: r.id, type: "add" }],
-                [i],
+                [{ id: a.id, type: "add" }],
+                [l],
               ),
               o("WAWebListsActions").logCtwaSignalsForChats(
-                [i],
-                Number(r.id),
+                [l],
+                Number(a.id),
+                n,
               )));
         })),
         c.apply(this, arguments)

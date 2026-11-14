@@ -145,7 +145,10 @@ __d(
             return (
               yield (c || (c = n("Promise"))).all(
                 r.map(function (e) {
-                  return (c || (c = n("Promise"))).all([v(e.chatJid), R(e)]);
+                  return (c || (c = n("Promise"))).all([
+                    v(e.chatJid, e.leadStage),
+                    R(e),
+                  ]);
                 }),
               ),
               C(e, t + y)
@@ -155,16 +158,16 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e) {
+    function v(e, t) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             yield o(
               "WAWebCustomerManagerApplyLeadLabelAction",
-            ).customerManagerApplyLeadLabelToChat(e);
+            ).customerManagerApplyLeadLabelToChat(e, t);
           } catch (e) {
             o("WALogger")
               .WARN(

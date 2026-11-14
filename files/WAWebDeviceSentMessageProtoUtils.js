@@ -55,12 +55,15 @@ __d(
         g,
         h,
         y,
-        C = e == null || (t = e.deviceSentMessage) == null ? void 0 : t.message;
-      if (C == null) return null;
-      var b = babelHelpers.extends({}, C.messageContextInfo, {
+        C,
+        b,
+        v,
+        S = e == null || (t = e.deviceSentMessage) == null ? void 0 : t.message;
+      if (S == null) return null;
+      var R = babelHelpers.extends({}, S.messageContextInfo, {
         messageSecret:
           (n =
-            C == null || (r = C.messageContextInfo) == null
+            S == null || (r = S.messageContextInfo) == null
               ? void 0
               : r.messageSecret) != null
             ? n
@@ -69,7 +72,7 @@ __d(
               : o.messageSecret,
         messageAssociation:
           (a =
-            C == null || (i = C.messageContextInfo) == null
+            S == null || (i = S.messageContextInfo) == null
               ? void 0
               : i.messageAssociation) != null
             ? a
@@ -82,7 +85,7 @@ __d(
             : s.limitSharingV2,
         acp2Setting:
           (u =
-            C == null || (c = C.messageContextInfo) == null
+            S == null || (c = S.messageContextInfo) == null
               ? void 0
               : c.acp2Setting) != null
             ? u
@@ -92,7 +95,7 @@ __d(
         threadId:
           (m =
             (p =
-              C == null || (_ = C.messageContextInfo) == null
+              S == null || (_ = S.messageContextInfo) == null
                 ? void 0
                 : _.threadId) != null
               ? p
@@ -103,15 +106,24 @@ __d(
             : [],
         botMetadata:
           (g =
-            C == null || (h = C.messageContextInfo) == null
+            S == null || (h = S.messageContextInfo) == null
               ? void 0
               : h.botMetadata) != null
             ? g
             : e == null || (y = e.messageContextInfo) == null
               ? void 0
               : y.botMetadata,
+        messageAddOnDurationInSecs:
+          (C =
+            S == null || (b = S.messageContextInfo) == null
+              ? void 0
+              : b.messageAddOnDurationInSecs) != null
+            ? C
+            : e == null || (v = e.messageContextInfo) == null
+              ? void 0
+              : v.messageAddOnDurationInSecs,
       });
-      return babelHelpers.extends({}, C, { messageContextInfo: b });
+      return babelHelpers.extends({}, S, { messageContextInfo: R });
     }
     ((l.containsDeviceSentMessage = e),
       (l.wrapDeviceSentMessage = s),

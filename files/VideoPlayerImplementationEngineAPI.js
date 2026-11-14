@@ -13,6 +13,7 @@ __d(
     "VideoPlayerImplementationEngineVideoElementAPI",
     "VideoPlayerImplementationStateMachine",
     "VideoPlayerImplementationStateMachineLogger",
+    "VideoPlayerMediaElementSourceRetention",
     "VideoPlayerUsageLogging",
     "clearTimeout",
     "cr:506",
@@ -871,8 +872,11 @@ __d(
         Ne = function (t) {
           (_ && A("[cleanupVideoElement]"),
             Pe != null && (Pe(), (Pe = null)),
-            "srcObject" in t && (t.srcObject = null),
-            t.removeAttribute("src"),
+            o(
+              "VideoPlayerMediaElementSourceRetention",
+            ).shouldRetainVideoPlayerMediaElementSource(t) ||
+              ("srcObject" in t && (t.srcObject = null),
+              t.removeAttribute("src")),
             _e.forEach(function (e) {
               return e.remove();
             }),

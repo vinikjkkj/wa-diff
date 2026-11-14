@@ -255,7 +255,9 @@ __d(
                 });
             } else
               a.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE &&
-                _.membershipApprovalRequests.reset();
+                (_.membershipApprovalRequests.reset(),
+                (_.membershipForm = null),
+                (_.membershipFormKeyId = null));
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.REMOVE: {
@@ -724,7 +726,9 @@ __d(
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_FORM: {
-          _.membershipForm = a.membershipForm;
+          ((_.membershipForm = a.membershipForm),
+            a.membershipFormKeyId !== void 0 &&
+              (_.membershipFormKeyId = a.membershipFormKeyId));
           break;
         }
         default:

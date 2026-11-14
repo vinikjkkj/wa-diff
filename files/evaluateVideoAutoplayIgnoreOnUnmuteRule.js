@@ -1,15 +1,18 @@
 __d(
   "evaluateVideoAutoplayIgnoreOnUnmuteRule",
-  [],
-  function (t, n, r, o, a, i) {
+  ["gkx"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = e.muted,
-        n = e.paused;
-      return !t && !n ? "IGNORE" : "SKIP";
+      var t = e.lastMuteReason,
+        n = e.muted,
+        o = e.paused;
+      return n || o || (t === "audio_manager_initiated" && r("gkx")("11495"))
+        ? "SKIP"
+        : "IGNORE";
     }
     ((e.displayName = "evaluateVideoAutoplayIgnoreOnUnmuteRule"),
-      (i.default = e));
+      (l.default = e));
   },
-  66,
+  98,
 );

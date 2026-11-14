@@ -21,6 +21,7 @@ __d(
     "WAWebProductCatalogContext",
     "WAWebProductCatalogSession",
     "WAWebProductDetailsFlowLoadable",
+    "WAWebProductListOwnerValidation",
     "WAWebProductMessageListCollection",
     "WAWebProtobufsE2E.pb",
     "WAWebQplFlowWrapper",
@@ -40,51 +41,58 @@ __d(
       c = u || (u = o("react")),
       d = r("qpl")._(774777097, "3431");
     function m(e, t) {
-      var n = e.requiresDirectConnection,
-        r = e.isForwarded
-          ? e.businessOwnerJid
-          : e.from.toString({ legacy: !0 }),
-        a = e.list.productListInfo;
-      if (!(a == null || r == null)) {
-        var i = !!o(
-          "WAWebProductMessageListCollection",
-        ).ProductMessageListCollection.get(e.id);
-        o("WAWebQplFlowWrapper").QPL.markerStart(d, {
-          annotations: { bool: { IsCached: i } },
-        });
-        var l = o(
-          "WAWebProductMessageListCollection",
-        ).ProductMessageListCollection.getOrAdd({
-          catalogOwnerJid: r,
-          id: e.id,
-          productList: a,
-          requiresDirectConnection: n,
-          title: e.list.title,
-        });
-        l != null
-          ? o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-              c.jsx(
-                o("WAWebProductDetailsFlowLoadable").ProductDetailsFlowLoadable,
-                {
-                  chat: o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
-                  catalogOwnerJid: r,
-                  productListId: l.id,
-                },
-              ),
-              {
-                transition: "slide-left",
-                uim: t,
-                newDrawerContext: o(
-                  "WAWebProductCatalogContext",
-                ).buildProductCatalogContext(
-                  new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
-                  o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
-                  o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
-                    .CATALOG_ENTRY_POINT_PRODUCT_LIST_MESSAGE,
+      if (
+        o("WAWebProductListOwnerValidation").isProductListOwnerValid(e.unsafe())
+      ) {
+        var n = e.requiresDirectConnection,
+          r = e.isForwarded
+            ? e.businessOwnerJid
+            : e.from.toString({ legacy: !0 }),
+          a = e.list.productListInfo;
+        if (!(a == null || r == null)) {
+          var i = !!o(
+            "WAWebProductMessageListCollection",
+          ).ProductMessageListCollection.get(e.id);
+          o("WAWebQplFlowWrapper").QPL.markerStart(d, {
+            annotations: { bool: { IsCached: i } },
+          });
+          var l = o(
+            "WAWebProductMessageListCollection",
+          ).ProductMessageListCollection.getOrAdd({
+            catalogOwnerJid: r,
+            id: e.id,
+            productList: a,
+            requiresDirectConnection: n,
+            title: e.list.title,
+          });
+          l != null
+            ? o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+                c.jsx(
+                  o("WAWebProductDetailsFlowLoadable")
+                    .ProductDetailsFlowLoadable,
+                  {
+                    chat: o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
+                    catalogOwnerJid: r,
+                    productListId: l.id,
+                  },
                 ),
-              },
-            )
-          : o("WAWebQplFlowWrapper").QPL.markerDrop(d);
+                {
+                  transition: "slide-left",
+                  uim: t,
+                  newDrawerContext: o(
+                    "WAWebProductCatalogContext",
+                  ).buildProductCatalogContext(
+                    new (o(
+                      "WAWebProductCatalogSession",
+                    ).ProductCatalogSession)(),
+                    o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.ENT,
+                    o("WAWebWamEnumCatalogEntryPoint").CATALOG_ENTRY_POINT
+                      .CATALOG_ENTRY_POINT_PRODUCT_LIST_MESSAGE,
+                  ),
+                },
+              )
+            : o("WAWebQplFlowWrapper").QPL.markerDrop(d);
+        }
       }
     }
     function p(e, t) {

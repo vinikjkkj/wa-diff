@@ -1,25 +1,48 @@
 __d(
   "WAWebGroupMembershipFormInviteForm",
   [
+    "JSResourceForInteraction",
+    "Promise",
+    "WAWebBackendRuntime",
+    "WAWebGroupInviteService",
     "WAWebGroupMembershipFormDevStore",
+    "WAWebGroupMembershipFormGating",
+    "WAWebGroupMembershipFormStoredRequests",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e,
+      s = r("JSResourceForInteraction")(
+        "WAWebMexFetchGroupMembershipFormForJoinJob",
+      ).__setRef("WAWebGroupMembershipFormInviteForm");
+    function u(t, r) {
+      var a = o("WAWebWidFactory").asGroupWidOrThrow(t);
       if (o("WAWebGroupMembershipFormDevStore").isGMFDevMode()) {
-        var t;
-        return (t = o(
-          "WAWebGroupMembershipFormDevStore",
-        ).getDevInviteMembershipFormInfo(
-          o("WAWebWidFactory").asGroupWidOrThrow(e),
-        )) == null
-          ? void 0
-          : t.record;
+        var i;
+        return (e || (e = n("Promise"))).resolve(
+          (i = o(
+            "WAWebGroupMembershipFormDevStore",
+          ).getDevInviteMembershipFormInfo(a)) == null
+            ? void 0
+            : i.record,
+        );
       }
-      return null;
+      if (
+        !o("WAWebGroupMembershipFormGating").isGroupMembershipFormJoinEnabled()
+      )
+        return (e || (e = n("Promise"))).resolve(null);
+      var l = { type: "inviteCode", inviteCode: r };
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebGroupInviteService").GroupInviteService)
+            .fetchGroupMembershipFormForJoin(a, l)
+        : s.load().then(function (e) {
+            var t = e.fetchGroupMembershipFormForJoinJob;
+            return t(a, l);
+          });
     }
-    function s(e) {
+    function c(e) {
       var t,
         n = e.answers,
         a = e.groupId,
@@ -34,8 +57,8 @@ __d(
       return s == null
         ? !1
         : (o(
-            "WAWebGroupMembershipFormDevStore",
-          ).setDevStoredMembershipFormRequest(l, {
+            "WAWebGroupMembershipFormStoredRequests",
+          ).saveStoredGroupMembershipFormRequest(l, {
             inviteCode: i,
             answers: n,
             requestId: r("WAWebPonyfillsCryptoRandomUUID")(),
@@ -43,8 +66,8 @@ __d(
           }),
           !0);
     }
-    ((l.getInviteGroupMembershipFormRecord = e),
-      (l.sendDevInviteMembershipFormRequest = s));
+    ((l.fetchInviteGroupMembershipFormRecord = u),
+      (l.sendDevInviteMembershipFormRequest = c));
   },
   98,
 );

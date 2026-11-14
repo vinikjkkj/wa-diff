@@ -4,22 +4,24 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e;
-    function l(e, t, n) {
+    function l(e, t, n, r) {
       if (t != null) {
-        var r = {};
+        var o = {};
         return (
-          Object.assign(r, e),
+          Object.assign(o, e),
           Object.keys(t).forEach(function (e) {
-            var o = t[e].get;
-            if (n.has(o)) {
-              var i = n.get(o);
-              r[e] = i;
-            } else {
-              var a = o();
-              (n.set(o, a), (r[e] = a));
+            if (!(r === !0 && o[e] !== void 0)) {
+              var a = t[e].get;
+              if (n.has(a)) {
+                var l = n.get(a);
+                o[e] = l;
+              } else {
+                var i = a();
+                (n.set(a, i), (o[e] = i));
+              }
             }
           }),
-          r
+          o
         );
       } else return e;
     }

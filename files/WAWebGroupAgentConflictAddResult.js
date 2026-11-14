@@ -26,8 +26,8 @@ __d(
     function d(e) {
       var t = []
         .concat(e)
-        .sort(p)
-        .map(_)
+        .sort(_)
+        .map(f)
         .find(function (e) {
           return e != null;
         });
@@ -44,12 +44,17 @@ __d(
         [s._plural(e, "count")],
       );
     }
-    function p(e, t) {
+    function p() {
+      return s._(
+        /*BTDS*/ "Can't add to this group. A group member uses an older version of WhatsApp or AI agents aren't available in their country.",
+      );
+    }
+    function _(e, t) {
       var n = e.toString(),
         r = t.toString();
       return n === r ? 0 : n < r ? -1 : 1;
     }
-    function _(e) {
+    function f(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       if (t == null) return null;
       var n = o("WAWebContactGetters").getName(t);
@@ -65,7 +70,8 @@ __d(
     ((l.getAgentConflictRejectedWids = u),
       (l.isAgentConflictRejection = c),
       (l.formatAgentConflictRefusal = d),
-      (l.formatGenericAgentAddRefusal = m));
+      (l.formatGenericAgentAddRefusal = m),
+      (l.formatIncompatibleDeviceAddRefusal = p));
   },
   226,
 );

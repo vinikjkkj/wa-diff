@@ -6,6 +6,7 @@ __d(
     "NetworkStatus",
     "SiteData",
     "emptyFunction",
+    "getVideoPlayerLoggedDurationSec",
     "gkx",
     "hashString",
     "justknobx",
@@ -186,7 +187,10 @@ __d(
         return l.hasLoggedStartedPlaying ? "unpaused" : "started";
       }
       function R(e, t) {
-        var n = e.uncontrolledState.videoElementDuration;
+        var n = e.uncontrolledState,
+          a = n.videoElementDuration,
+          i = n.videoElementLastBufferEndPosition,
+          l = r("getVideoPlayerLoggedDurationSec")(e.playerVersion, a, i);
         return {
           client_time_ms: r("gkx")("18028")
             ? Math.floor(e.uncontrolledState.clockTimestamp).toString()
@@ -203,7 +207,7 @@ __d(
           ).toString(),
           player_instance_key: o.instanceKey,
           video_client_duration:
-            n != null ? Math.trunc(n * 1e3).toString() : void 0,
+            l != null ? Math.trunc(l * 1e3).toString() : void 0,
         };
       }
       function L(t) {

@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "Promise",
+    "WATimeUtils",
     "WAWebABProps",
     "WAWebBusinessTemplateRichOrderStatusWamEvent",
     "WAWebChatGetters",
@@ -25,7 +26,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = n("$InternalEnum")({
+      s = -1,
+      u = n("$InternalEnum")({
         ORDER_TRACKING_URL_CLICK: "order_tracking_url_click",
         VIEW_ORDER_PRIMARY_CLICK: "view_order_primary_click",
         VIEW_ORDER_SECONDARY_CLICK: "view_order_secondary_click",
@@ -34,14 +36,15 @@ __d(
         ORDER_NUMBER_COPY: "order_number_copy",
         TRACKING_NUMBER_COPY: "tracking_number_copy",
         MESSAGE_HEADER_CLICK: "message_header_click",
-        MESSAGE_CTA_CLICK: "message_cta_click",
+        MESSAGE_CTA_VIEW_ORDER_CLICK: "message_cta_view_order_click",
+        MESSAGE_CTA_TRACK_ORDER_CLICK: "message_cta_track_order_click",
       });
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a;
           if (
             o("WAWebABProps").getABPropConfigValue(
@@ -50,46 +53,48 @@ __d(
           ) {
             var i = o("WAWebFrontendMsgGetters").getChat(t),
               l = o("WAWebContactCollection").ContactCollection.get(i.id),
-              s = l ? o("WAWebContactGetters").getIsBusiness(l) : !1,
-              u = s
+              u = l ? o("WAWebContactGetters").getIsBusiness(l) : !1,
+              c = u
                 ? o("WAWebWamEnumContactType").CONTACT_TYPE.SMB
                 : o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE,
-              c = i.archive
+              d = i.archive
                 ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
                 : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
-              d = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId(),
-              m = o("WAWebChatGetters").getMuteExpiration(i),
-              p = m > Date.now(),
-              _ = l ? o("WAWebFrontendContactGetters").getIsMyContact(l) : !1,
-              f = Date.now(),
-              g = o("WAWebMsgGetters").getT(t),
-              h = Math.round((f - g * 1e3) / 1e3),
-              y = o("WAWebChatGetters").getId(i).toString(),
-              C = o("WAWebMsgGetters").getId(t),
-              b = yield (e || (e = n("Promise"))).all([
-                o("WAWebChatThreadLogging").getMessageIDHMAC(C.toString()),
-                o("WAWebChatThreadLogging").getChatThreadIDHMAC(y),
+              m = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId(),
+              p = o("WAWebChatGetters").getMuteExpiration(i),
+              _ =
+                p === s ||
+                p > o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
+              f = l ? o("WAWebFrontendContactGetters").getIsMyContact(l) : !1,
+              g = Date.now(),
+              h = o("WAWebMsgGetters").getT(t),
+              y = Math.round((g - h * 1e3) / 1e3),
+              C = o("WAWebChatGetters").getId(i).toString(),
+              b = o("WAWebMsgGetters").getId(t),
+              v = yield (e || (e = n("Promise"))).all([
+                o("WAWebChatThreadLogging").getMessageIDHMAC(b.toString()),
+                o("WAWebChatThreadLogging").getChatThreadIDHMAC(C),
               ]),
-              v = b[0],
-              S = b[1],
-              R = o("WAWebMsgGetters").getClientReceivedTsMillis(t),
-              L = R != null ? Math.round((f - R) / 1e3) : void 0,
-              E = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-              k = E.readReceipts !== "none";
+              S = v[0],
+              R = v[1],
+              L = o("WAWebMsgGetters").getClientReceivedTsMillis(t),
+              E = L != null ? Math.round((g - L) / 1e3) : void 0,
+              k = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+              I = k.readReceipts !== "none";
             (new (o(
               "WAWebQbmRichOrderStatusInteractionWamEvent",
             ).QbmRichOrderStatusInteractionWamEvent)({
               actionTypeRichOrderStatus: r,
-              chatsFolderType: c,
-              contactType: u,
-              deltaTime: h,
-              deltaTimeReceived: L,
-              isInsubContact: _,
-              isMuted: p,
-              messageIdHmac: v != null ? v : void 0,
-              readReceiptsEnabled: k,
-              threadIdHmac: S != null ? S : void 0,
-              unifiedSessionId: d != null ? d : void 0,
+              chatsFolderType: d,
+              contactType: c,
+              deltaTime: y,
+              deltaTimeReceived: E,
+              isInsubContact: f,
+              isMuted: _,
+              messageIdHmac: S != null ? S : void 0,
+              readReceiptsEnabled: I,
+              threadIdHmac: R != null ? R : void 0,
+              unifiedSessionId: m != null ? m : void 0,
             }).commit(),
               new (o(
                 "WAWebBusinessTemplateRichOrderStatusWamEvent",
@@ -98,25 +103,25 @@ __d(
                 businessJid: o("WAWebUtilsPnhSmbLoggingHelper").jidToPnString(
                   o("WAWebChatGetters").getId(i),
                 ),
-                chatsFolderType: c,
-                contactType: u,
-                isBizIntent: s,
-                isInsubContact: _,
-                isMuted: p,
-                readReceiptsEnabled: k,
+                chatsFolderType: d,
+                contactType: c,
+                isBizIntent: u,
+                isInsubContact: f,
+                isMuted: _,
+                readReceiptsEnabled: I,
                 templateId: (a = t.templateId) != null ? a : void 0,
               }).commit());
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "utility_order_status_logging_enabled",
@@ -149,18 +154,23 @@ __d(
                       C,
                       b,
                       v,
-                      S = s[h],
-                      R = u[h];
-                    (m || (m = S.name !== R.name),
-                      p || (p = S.quantity !== R.quantity),
-                      _ || (_ = S.variant !== R.variant),
-                      f || (f = S.image.file_sha256 !== R.image.file_sha256),
+                      S,
+                      R,
+                      L = s[h],
+                      E = u[h];
+                    (m || (m = L.name !== E.name),
+                      p || (p = L.quantity !== E.quantity),
+                      _ || (_ = L.variant !== E.variant),
+                      f ||
+                        (f =
+                          ((y = L.image) == null ? void 0 : y.file_sha256) !==
+                          ((C = E.image) == null ? void 0 : C.file_sha256)),
                       g ||
                         (g =
-                          ((y = S.amount) == null ? void 0 : y.value) !==
-                            ((C = R.amount) == null ? void 0 : C.value) ||
-                          ((b = S.amount) == null ? void 0 : b.offset) !==
-                            ((v = R.amount) == null ? void 0 : v.offset)));
+                          ((b = L.amount) == null ? void 0 : b.value) !==
+                            ((v = E.amount) == null ? void 0 : v.value) ||
+                          ((S = L.amount) == null ? void 0 : S.offset) !==
+                            ((R = E.amount) == null ? void 0 : R.offset)));
                   }
                   new (o(
                     "WAWebPsRichOrderStatusMessageInconsistentPayloadReceivedWamEvent",
@@ -184,12 +194,12 @@ __d(
             }
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.RichOrderStatusActionType = s),
-      (l.logRichOrderStatusInteraction = u),
-      (l.logRichOrderStatusInconsistencies = d));
+    ((l.RichOrderStatusActionType = u),
+      (l.logRichOrderStatusInteraction = c),
+      (l.logRichOrderStatusInconsistencies = m));
   },
   98,
 );

@@ -143,6 +143,16 @@ __d(
       );
     }
     function N() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "biz_ai_web_checkout_enabled",
+        ) === !0
+      );
+    }
+    function M(e) {
+      N() && e();
+    }
+    function w() {
       return (function (e) {
         return e === "EXPERIMENT"
           ? "EXPERIMENT"
@@ -155,14 +165,14 @@ __d(
           .toUpperCase(),
       );
     }
-    function M() {
+    function A() {
       return (
         o(
           "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
-        ).getPrimarySupportsBizAiWebOnboarding() && w()
+        ).getPrimarySupportsBizAiWebOnboarding() && F()
       );
     }
-    function w() {
+    function F() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_onboarding_notification_dispatch_enabled",
@@ -195,9 +205,11 @@ __d(
       (l.isGoogleDriveReconnectDisabled = x),
       (l.isIntegrationHubEnabled = $),
       (l.isAppointmentsEnabled = P),
-      (l.getResponseSettingsV2TriState = N),
-      (l.isWebOnboardingSendToPhoneEnabled = M),
-      (l.isWebOnboardingNotificationDispatchEnabled = w));
+      (l.isCheckoutEnabled = N),
+      (l.runCheckoutAction = M),
+      (l.getResponseSettingsV2TriState = w),
+      (l.isWebOnboardingSendToPhoneEnabled = A),
+      (l.isWebOnboardingNotificationDispatchEnabled = F));
   },
   98,
 );

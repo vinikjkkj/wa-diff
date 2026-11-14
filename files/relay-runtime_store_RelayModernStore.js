@@ -278,6 +278,20 @@ __d(
               o
             );
           }),
+          (r.__createSnapshotStore = function (n) {
+            return new t(n, {
+              actorIdentifier: this.$25,
+              deferDeduplicatedFields: this.$27,
+              getDataID: this.$6,
+              log: this.__log,
+              operationLoader: this.$12,
+              resolverContext: this.$24,
+              treatMissingFieldsAsNull: this.$26,
+            });
+          }),
+          (r.__unsubscribeFromLiveResolvers = function () {
+            this.$15.endLiveResolverSubscriptions();
+          }),
           (r.notify = function (t, r) {
             var e = this,
               o = this.$28;

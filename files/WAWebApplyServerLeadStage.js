@@ -118,7 +118,7 @@ __d(
                     l &&
                     ((n = s == null ? void 0 : s.subListId) != null
                       ? n
-                      : o("WAWebLeadStage").LeadStage.LEAD) === t
+                      : o("WAWebLeadStage").LeadStage.NEW_LEAD) === t
                   )
                 ) {
                   l ||

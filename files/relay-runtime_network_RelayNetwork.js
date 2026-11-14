@@ -16,6 +16,7 @@ __d(
           t,
           e.providedVariables,
           a,
+          i == null ? void 0 : i.keepProvidedVariables,
         );
         if (e.operationKind === "subscription")
           return (r || l(0, 5158), !s || l(0, 5159), r(e, c, i));

@@ -75,6 +75,7 @@ __d(
           (e = t.call(this) || this),
           (e.$LabelCollectionImpl$p_1 = new Map()),
           (e.$LabelCollectionImpl$p_2 = new Set()),
+          (e.$LabelCollectionImpl$p_3 = new Set()),
           e.listenTo(e, "remove", C),
           e
         );
@@ -88,7 +89,9 @@ __d(
               var n = t.type === o("WAWebSchemaLabel").ListType.SERVER_ASSIGNED;
               return (
                 n && e.addToServerAssignedLabelIdMap(t.id, t.predefinedId),
-                !n && !e.hideIfLegacyLeadList(t)
+                !n && o("WAWebListUtils").skipsListOfUnknownType(t.type)
+                  ? (e.$LabelCollectionImpl$p_3.add(t.id), !1)
+                  : !n && !e.hideIfLegacyLeadList(t)
               );
             }),
             r = n.map(function (e) {
@@ -162,7 +165,7 @@ __d(
                 .sendLogs("contact model is invalid for editLabelAssociation");
             var p = h(g.ERROR, d, l),
               f = o("WAWebEditLabelAssociationBridge")
-                .editLabelAssociation(this.$LabelCollectionImpl$p_3(n), a)
+                .editLabelAssociation(this.$LabelCollectionImpl$p_4(n), a)
                 .then(function () {
                   t.addOrRemoveLabelsMD(n, a);
                 });
@@ -210,7 +213,7 @@ __d(
             );
           }
         }),
-        (a.$LabelCollectionImpl$p_3 = function (t) {
+        (a.$LabelCollectionImpl$p_4 = function (t) {
           return t
             .map(function (e) {
               if (e.type === "remove") {
@@ -347,6 +350,9 @@ __d(
         }),
         (a.isLegacyLeadListId = function (t) {
           return this.$LabelCollectionImpl$p_2.has(t);
+        }),
+        (a.isUnknownTypeListId = function (t) {
+          return this.$LabelCollectionImpl$p_3.has(t);
         }),
         (a.getServerAssignedLabelIdMap = function () {
           return this.$LabelCollectionImpl$p_1;

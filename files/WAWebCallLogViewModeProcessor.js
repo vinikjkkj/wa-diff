@@ -40,6 +40,15 @@ __d(
         shouldIncludeInChatSpamReport: c.returnFalse,
       }),
       _ = e.createViewModeProcessor({
+        type: s.ViewModeType.CALL_LOG_OFFLINE_RESUME_UNCOUNTED,
+        compatibleMessageTypes: [u.MSG_TYPE.CALL_LOG],
+        messageVisibleInChat: c.returnFalse,
+        messageVisibleInChatlistPreview: c.returnFalse,
+        shouldShowInNotification: c.returnFalse,
+        shouldShowInSearch: c.returnTrue,
+        shouldIncludeInChatSpamReport: c.returnFalse,
+      }),
+      f = e.createViewModeProcessor({
         type: s.ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL,
         compatibleMessageTypes: [u.MSG_TYPE.CALL_LOG],
         messageVisibleInChat: c.returnFalse,
@@ -51,7 +60,8 @@ __d(
     ((l.HistorySyncedCallLogViewModeProcessor = d),
       (l.CallLogOfflineResumeViewModeProcessor = m),
       (l.CallLogOfflineResumePromotedViewModeProcessor = p),
-      (l.CallLogAdHocGroupCallViewModeProcessor = _));
+      (l.CallLogOfflineResumeUncountedViewModeProcessor = _),
+      (l.CallLogAdHocGroupCallViewModeProcessor = f));
   },
   98,
 );

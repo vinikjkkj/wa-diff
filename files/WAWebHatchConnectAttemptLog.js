@@ -10,63 +10,85 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = new Map(),
-      u = !1;
-    function c(e, t, n) {
-      if (!f(t))
+      s,
+      u = new Map(),
+      c = !1;
+    function d(e, t, n) {
+      if (!h(t))
         return (
-          o("WAWebHatchConnectorsLogging").logHatchConnectorEvent(e, t, n),
+          o("WAWebHatchConnectorsLogging").logHatchConnectorEventOrThrow(
+            e,
+            t,
+            n,
+          ),
           null
         );
-      (e === "connect_tap" || e === "connect_message_tapped") && m(d(t), !1);
-      var r = d(t);
+      (e === "connect_tap" || e === "connect_message_tapped") && _(p(t), !1);
+      var r = p(t);
       if (r != null) return (r.held.push({ action: e, fields: n }), r);
-      _();
+      g();
       var a = { connector: t, held: [{ action: e, fields: n }], isSettled: !1 };
-      return (s.set(t.id, a), a);
+      return (u.set(t.id, a), a);
     }
-    function d(e) {
-      return s.get(e.id);
+    function m(t, n, a) {
+      try {
+        d(t, n, a);
+      } catch (t) {
+        try {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-connectors: connect tap log failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("hatch-connectors-connect-tap-log-failed");
+        } catch (e) {}
+      }
     }
-    function m(e, t) {
+    function p(e) {
+      return u.get(e.id);
+    }
+    function _(e, t) {
       if (!(e == null || e.isSettled)) {
         e.isSettled = !0;
         var n = e.connector;
-        s.get(n.id) === e && s.delete(n.id);
+        u.get(n.id) === e && u.delete(n.id);
         for (var r of e.held) {
           var o = r.action,
             a = r.fields;
-          p(o, n, t, a);
+          f(o, n, t, a);
         }
       }
     }
-    function p(t, n, a, i) {
-      if (a) {
-        o("WAWebHatchConnectorsLogging").logHatchNativeConnectorEvent(t, n, i);
+    function f(e, t, n, a) {
+      if (n) {
+        o("WAWebHatchConnectorsLogging").logHatchNativeConnectorEvent(e, t, a);
         return;
       }
       try {
-        o("WAWebHatchConnectorsLogging").logHatchConnectorEvent(t, n, i);
-      } catch (t) {
+        o("WAWebHatchConnectorsLogging").logHatchConnectorEventOrThrow(e, t, a);
+      } catch (e) {
         o("WALogger")
           .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-connectors: attempt log failed",
               ])),
           )
-          .catching(r("getErrorSafe")(t))
+          .catching(r("getErrorSafe")(e))
           .sendLogs("hatch-connectors-attempt-log-failed");
       }
     }
-    function _() {
-      u ||
-        ((u = !0),
+    function g() {
+      c ||
+        ((c = !0),
         window.addEventListener("pagehide", function () {
-          for (var e of Array.from(s.values())) m(e, !1);
+          for (var e of Array.from(u.values())) _(e, !1);
         }));
     }
-    function f(e) {
+    function h(e) {
       return (
         e.managementKind === "auth" &&
         !e.isCustom &&
@@ -75,9 +97,10 @@ __d(
         o("WAWebHatchApiKeyGating").isHatchApiKeyConnectEnabled()
       );
     }
-    ((l.logHatchConnectAttemptEvent = c),
-      (l.getHatchConnectAttempt = d),
-      (l.settleHatchConnectAttempt = m));
+    ((l.logHatchConnectAttemptEvent = d),
+      (l.logHatchConnectAttemptEventSafely = m),
+      (l.getHatchConnectAttempt = p),
+      (l.settleHatchConnectAttempt = _));
   },
   98,
 );

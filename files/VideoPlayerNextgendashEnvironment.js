@@ -17,6 +17,7 @@ __d(
         bufferingEndRecentStallTimeoutMs: 0,
         bufferingEndStartUnpauseBufferAheadSec: 0,
         cacheQualityScoreInRepresentation: !1,
+        connectVirtualWorkerOnFallbackWhileWaiting: !1,
         dataAppendOperationMinBytes: "ozplayer-like",
         debugLog: !1,
         debugOverlay: !1,
@@ -102,6 +103,7 @@ __d(
         liveGapSkipStallThresholdMs: 500,
         liveGapSkipStuckAtRangeEndToleranceSec: 0,
         liveGapSkipStuckSeekRecoveryMs: 0,
+        liveLatencyCatchUpSeekEnabled: !1,
         liveLatencyPlaybackRateEnabled: !1,
         liveLookbackBufferSec: 0,
         liveManifestRefreshIntervalMs: 0,
@@ -158,6 +160,7 @@ __d(
         trackScrollPosition: !1,
         useExponentialBackoffRetryStrategy: !1,
         useSimpleBandwidthEstimate: !1,
+        vodStartTimestampPending: !1,
         webCodecsAudioInWorker: !1,
         webCodecsVideoInWorker: !1,
       };

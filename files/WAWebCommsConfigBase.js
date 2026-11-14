@@ -20,7 +20,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = 9e5;
-    function u() {
+    function u(e, t) {
+      !r("gkx")("16539") ||
+        n("cr:17672") == null ||
+        (o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4") &&
+          !n("cr:17672").hasDevToolHandler()) ||
+        n("cr:17672").sendNewStanzaToDevTool(e, t);
+    }
+    function c() {
       return {
         jitter: 0.1,
         max: s,
@@ -28,13 +35,13 @@ __d(
         relativeDelay: !1,
       };
     }
-    function c(t) {
-      var a = o(
+    function d(t) {
+      var n = o(
         "WAWebOfflineResumePreAckHandler",
       ).createParseAndSerializeOfflinePreAck(t.isRegistered);
-      return function (i) {
-        var l,
-          c = i || { passive: !1, pull: !1 };
+      return function (a) {
+        var i,
+          l = a || { passive: !1, pull: !1 };
         return {
           maxRetries: Number.MAX_SAFE_INTEGER,
           openChatSocket: function (n, a) {
@@ -42,12 +49,12 @@ __d(
               o("WAWebABProps").getABPropConfigValue(
                 "web_comms_socket_reconnect_enabled",
               )
-                ? (c.signal = r("nullthrows")(a))
-                : (c.signal = new AbortController().signal),
+                ? (l.signal = r("nullthrows")(a))
+                : (l.signal = new AbortController().signal),
               o("WAWebOpenChatSocket")
-                .openChatSocket(c, t.isRegistered())
+                .openChatSocket(l, t.isRegistered())
                 .then(function (e) {
-                  return (n(), (c.passive = !1), e);
+                  return (n(), (l.passive = !1), e);
                 })
             );
           },
@@ -55,7 +62,7 @@ __d(
           deadSocketTime: 2e4,
           maxSocketLoopWaitTime: s,
           shouldCloseStaleSocket: !0,
-          socketReconnectBackoffAlgo: u(),
+          socketReconnectBackoffAlgo: c(),
           shouldBlockReceivingUntilSuccess: !0,
           handlers: {
             onConnect: function () {
@@ -65,7 +72,7 @@ __d(
                   .triggerSetSocketState(
                     o("WAWebSocketConstants").SOCKET_STATE.CONNECTED,
                   ),
-                c.openStreamAfterLogin !== !0 &&
+                l.openStreamAfterLogin !== !0 &&
                   o("WAWebBackendEventBusWorkerCompatible")
                     .getBackendEventBus()
                     .triggerOpenSocketStream());
@@ -91,17 +98,17 @@ __d(
             },
             onConnectionChange: r("WAWebNoop"),
             onOptimisticConnectionChange: r("WAWebNoop"),
-            onBeforeCastStanza: function (t, n) {
+            onBeforeCastStanza: function (t, r) {
               t.tag === "ack" &&
-                !(n != null && n.preAck) &&
+                !(r != null && r.preAck) &&
                 !o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus()
                   .isOfflineDeliveryEnd &&
-                a(t);
+                n(t);
             },
-            onCastStanza: function (a) {
+            onCastStanza: function (n) {
               (r("gkx")("26259") &&
-                a.tag === "ack" &&
-                !(a.attrs.to instanceof o("WAWapJid").WapJid) &&
+                n.tag === "ack" &&
+                !(n.attrs.to instanceof o("WAWapJid").WapJid) &&
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -110,34 +117,30 @@ __d(
                         " not a WapJid: ",
                         "",
                       ])),
-                    typeof a.attrs.to,
-                    a,
+                    typeof n.attrs.to,
+                    n,
                   )
                   .sendLogs("send-string-jid"),
-                r("gkx")("16539") &&
-                  (n("cr:17672") == null ||
-                    n("cr:17672").sendNewStanzaToDevTool(a, !0)),
-                o("WAWebStanzaValidation").validateSentStanza(a));
+                u(n, !0),
+                o("WAWebStanzaValidation").validateSentStanza(n));
             },
             onHandleAck: function (t) {
               r("WAWebCommsProcessAck")(t);
             },
             onHandleStanza: function (t) {
-              r("gkx")("16539") &&
-                (n("cr:17672") == null ||
-                  n("cr:17672").sendNewStanzaToDevTool(t, !1));
+              u(t, !1);
             },
             onSendIq: o("WAWebStanzaValidation").validateSentStanza,
             onClockSkewUpdate:
-              (l = t.onClockSkewUpdate) != null
-                ? l
+              (i = t.onClockSkewUpdate) != null
+                ? i
                 : o("WAWebCommsSendPing").updateClockSkew,
           },
           isPauseEnabled: r("WAWebEnvironment").isWindows,
         };
       };
     }
-    l.createGetCommsConfig = c;
+    l.createGetCommsConfig = d;
   },
   98,
 );

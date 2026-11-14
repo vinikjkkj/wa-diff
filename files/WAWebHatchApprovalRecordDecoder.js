@@ -2,6 +2,7 @@ __d(
   "WAWebHatchApprovalRecordDecoder",
   [
     "WALogger",
+    "WAWebHatchApprovalRequestPreview",
     "WAWebHatchJsonReaders",
     "WAWebHatchSecureMediaDecoder",
     "WAWebURLUtils",
@@ -136,8 +137,17 @@ __d(
             "rich_explanation",
           ),
           detailRows: $(o("WAWebHatchJsonReaders").readArray(l, "detail_rows")),
+          requestPreview: o(
+            "WAWebHatchApprovalRequestPreview",
+          ).decodeHatchApprovalRequestPreview(
+            o("WAWebHatchJsonReaders").readField(l, "request_preview_document"),
+          ),
           payloadType: d,
           rawPayloadType: c,
+          connectorHost: o("WAWebHatchJsonReaders").readStringOrEmpty(
+            o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
+            "host",
+          ),
           iconUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_url"),
           decisionOptions: i,
         },

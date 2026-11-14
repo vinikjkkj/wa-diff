@@ -102,6 +102,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "gkx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -290,7 +291,6 @@ __d(
               (this.sendQueue = new (r("WAInOrderPromiseQueue"))()),
               (this.$ChatImpl$p_1 = new Set()),
               (this.$ChatImpl$p_2 = new Map()),
-              (this.$ChatImpl$p_3 = new AbortController()),
               this.$ChatImpl$p_4(),
               (this.msgs.msgLoadState.contextLoaded = !0),
               (this.unreadMentionMetadata = new (r(
@@ -617,7 +617,8 @@ __d(
             }
           }),
           (i.$ChatImpl$p_35 = function () {
-            ((this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
+            ($() ||
+              (this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
               this.listenTo(this.msgs, "bulk_add", this.$ChatImpl$p_38));
           }),
           (i.$ChatImpl$p_11 = function () {
@@ -1017,7 +1018,7 @@ __d(
           (i.delete = function () {
             (t.prototype.delete.call(this),
               this.getCollection().remove(this.id),
-              this.$ChatImpl$p_3.abort(),
+              this.getAbortController().abort(),
               r("WAWebAlarm").clearTimeout(this.aiHandoffRemovalEvictionTimer),
               (this.aiHandoffRemovalEvictionTimer = null),
               this.presence.delete(),
@@ -1580,7 +1581,12 @@ __d(
             return o("WAWebChatModelDerivedMethods").canSendPolls(this);
           }),
           (i.getAbortController = function () {
-            return this.$ChatImpl$p_3;
+            var e;
+            return (
+              (e = this.$ChatImpl$p_3) != null ||
+                (this.$ChatImpl$p_3 = new AbortController()),
+              this.$ChatImpl$p_3
+            );
           }),
           (i.getDeleteSignal = function () {
             return this.getAbortController().signal;
@@ -1717,6 +1723,9 @@ __d(
       );
     }
     var x = { name: "inactive_chat_msgs", unit: "messages", release: L };
+    function $() {
+      return r("gkx")("29553");
+    }
     ((l.Chat = S), (l.isSuspendedOrTerminatedFor = R));
   },
   226,

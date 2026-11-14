@@ -2,13 +2,11 @@ __d(
   "WAWebLeadStageStore",
   [
     "WALogger",
-    "WAWebApiContact",
     "WAWebDBLabelSublistDatabaseApi",
     "WAWebLeadListConstants",
     "WAWebLeadStage",
+    "WAWebLeadStageMembership",
     "WAWebLeadSublistChangeNotifier",
-    "WAWebWid",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -40,8 +38,8 @@ __d(
         d == null &&
           (d = o(
             "WAWebLeadSublistChangeNotifier",
-          ).subscribeToLeadSublistChanges(I)),
-        S(),
+          ).subscribeToLeadSublistChanges(k)),
+        v(),
         function () {
           (p.delete(e),
             p.size === 0 && (d == null || d(), (d = null), (c = null)));
@@ -51,37 +49,25 @@ __d(
     function C(e, t) {
       var n = e.get(t);
       if (n != null) return n;
-      var r = v(t);
+      var r = o("WAWebLeadStageMembership").alternateSpelling(t);
       return r != null ? e.get(r) : null;
     }
     function b() {
       for (var e of p) e();
     }
-    function v(e) {
-      var t;
-      if (!r("WAWebWid").isWid(e)) return null;
-      var n = o("WAWebWidFactory").createWid(e);
-      return n.isUser()
-        ? (t = o("WAWebApiContact").getAlternateUserWid(
-            o("WAWebWidFactory").asUserWidOrThrow(n),
-          )) == null
-          ? void 0
-          : t.toString()
-        : null;
+    function v() {
+      return (c == null && (c = S()), c);
     }
     function S() {
-      return (c == null && (c = R()), c);
+      return R.apply(this, arguments);
     }
     function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = ++m,
             n = null;
           try {
-            n = k(
+            n = E(
               yield o("WAWebDBLabelSublistDatabaseApi").getAllLabelSublist(),
             );
           } catch (t) {
@@ -100,20 +86,20 @@ __d(
               c = null;
               return;
             }
-            ((s = n), E(), b());
+            ((s = n), L(), b());
           }
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E() {
+    function L() {
       for (var e of u) {
         var t = e[0],
           n = e[1];
         C(s, t) === n && u.delete(t);
       }
     }
-    function k(e) {
+    function E(e) {
       var t = new Map();
       for (var n of e)
         if (
@@ -124,8 +110,8 @@ __d(
         }
       return t;
     }
-    function I() {
-      c = R();
+    function k() {
+      c = S();
     }
     ((l.getLeadStageFromStore = _),
       (l.getPendingLeadStage = f),

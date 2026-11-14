@@ -3,14 +3,17 @@ __d(
   ["$InternalEnum"],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = n("$InternalEnum").Mirrored(["Question", "Reply", "Response"]),
-      l = n("$InternalEnum").Mirrored([
+    var e = "like",
+      l = n("$InternalEnum").Mirrored(["Question", "Reply", "Response"]),
+      s = n("$InternalEnum").Mirrored([
         "ALL",
         "CONTACTS",
         "REPLIED",
         "STARRED",
       ]);
-    ((i.QuestionType = e), (i.ResponsesFilterType = l));
+    ((i.QUESTION_RESPONSE_LIKE_REACTION_CODE = e),
+      (i.QuestionType = l),
+      (i.ResponsesFilterType = s));
   },
   66,
 );

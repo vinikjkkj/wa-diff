@@ -64,7 +64,7 @@ __d(
         n = g(e),
         a = e.quotedStanzaID,
         i = e.quotedRemoteJid ? e.quotedRemoteJid : e.id.remote,
-        l = o("WAWebUserUtils").getMeUserMatchingAddressingModeOrThrow(i);
+        l = o("WAWebUserUtils").getMeLidUserOrThrow();
       if (!n || r("isStringNullOrEmpty")(a)) return null;
       var s = o("WAWebUserUtils").isMeAccount(n),
         u = s ? "out" : "in",
@@ -98,7 +98,7 @@ __d(
           (t = e.paymentRequestMessageKey) != null && t.remote
             ? e.paymentRequestMessageKey.remote
             : e.id.remote,
-        i = o("WAWebUserUtils").getMeUserMatchingAddressingModeOrThrow(a);
+        i = o("WAWebUserUtils").getMeLidUserOrThrow();
       if (!e.paymentRequestMessageKey || !r) return null;
       var l = e.paymentRequestMessageKey.fromMe,
         s = l ? "out" : "in",

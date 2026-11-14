@@ -1,6 +1,6 @@
 __d(
   "CometSSREntrypoint",
-  ["objectValues", "relay-runtime/util/withProvidedVariables"],
+  ["FBLogger", "objectValues", "relay-runtime/util/withProvidedVariables"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -63,13 +63,26 @@ __d(
         },
       );
     }
-    function s(e, t) {
+    function s(e) {
+      var t = e.getPreloadProps,
+        n = e.root;
+      if (t == null)
+        throw r("FBLogger")("comet_ssr").mustfixThrow(
+          "CometSSREntrypoint: entryPoint.getPreloadProps is missing",
+        );
+      if (n == null)
+        throw r("FBLogger")("comet_ssr").mustfixThrow(
+          "CometSSREntrypoint: entryPoint.root is missing",
+        );
+      return { getPreloadProps: t, root: n };
+    }
+    function u(e, t) {
       var n = e.getPreloadProps(t),
         o = n.entryPoints,
         a = n.extraProps,
         i = n.queries,
         l = i != null ? i : {},
-        u = r("objectValues")(l).filter(function (e) {
+        s = r("objectValues")(l).filter(function (e) {
           var t, n;
           return (
             e != null &&
@@ -89,29 +102,29 @@ __d(
           if (t != null) {
             var n = t.entryPoint,
               r = t.entryPointParams,
-              a = s(n, r);
-            ((u = u.concat(a.queries)),
+              a = u(n, r);
+            ((s = s.concat(a.queries)),
               (c = c.concat(a.roots)),
               (d = d.concat(a.extraProps)));
           }
         });
       }
-      return { extraProps: d, queries: u, roots: c };
+      return { extraProps: d, queries: s, roots: c };
     }
-    function u(t, n) {
-      var r = s(t, n),
+    function c(t, n) {
+      var r = u(s(t), n),
         o = r.queries,
         a = new Map();
       return o.map(function (t) {
         return e(t, a);
       });
     }
-    function c(e) {
-      return d(e, new Map());
+    function d(e) {
+      return m(e, new Map());
     }
-    function d(t, n) {
+    function m(t, n) {
       var r = t.map(function (e) {
-        return s(e.entryPoint, e.entryPointParams);
+        return u(s(e.entryPoint), e.entryPointParams);
       });
       return r.map(function (t) {
         var r = t.queries,
@@ -126,14 +139,14 @@ __d(
         };
       });
     }
-    function m(e, t) {
-      var n = p(e, t),
+    function p(e, t) {
+      var n = _(s(e), t),
         r = n.queries,
         o = n.roots;
       return { queries: r, roots: o };
     }
-    function p(e, t) {
-      var n = _(e, t),
+    function _(e, t) {
+      var n = f(e, t),
         r = n.extraProps,
         o = n.queries,
         a = n.roots;
@@ -145,8 +158,8 @@ __d(
         }),
       };
     }
-    function _(t, n) {
-      var r = s(t, n),
+    function f(t, n) {
+      var r = u(t, n),
         o = r.extraProps,
         a = r.queries,
         i = r.roots,
@@ -159,13 +172,13 @@ __d(
         roots: i,
       };
     }
-    function f() {
+    function g() {
       var e = new Error(
         "This function should not be called. It exists solely for the type-generation",
       );
       throw (e.stack, e);
     }
-    function g(t, n) {
+    function h(t, n) {
       var o,
         a,
         i = r("objectValues")(
@@ -198,19 +211,19 @@ __d(
           });
       return { deferred: l, display: i };
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = new Map(),
-        r = d(e, n),
-        o = g(n, t);
+        r = m(e, n),
+        o = h(n, t);
       return { appshellQueries: o, routeObjects: r };
     }
-    ((l.processRootEntryPoint = u),
-      (l.processRootEntryPoints = c),
-      (l.processRootEntryPointData = m),
-      (l.processRootEntryPointDataWithExtraProps = p),
-      (l.processRootEntryPointDataWithJSResources = _),
-      (l.preloadQuery = f),
-      (l.processServerEntryPoints = h));
+    ((l.processRootEntryPoint = c),
+      (l.processRootEntryPoints = d),
+      (l.processRootEntryPointData = p),
+      (l.processRootEntryPointDataWithExtraProps = _),
+      (l.processRootEntryPointDataWithJSResources = f),
+      (l.preloadQuery = g),
+      (l.processServerEntryPoints = y));
   },
   98,
 );

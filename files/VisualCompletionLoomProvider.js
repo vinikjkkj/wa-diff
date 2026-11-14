@@ -34,6 +34,7 @@ __d(
                         {
                           progress: l / e.paintedPixels,
                           type: "VISUAL_COMPLETION_PROGRESS",
+                          vcTraceId: e.traceId,
                         },
                         a + o.$2.appStart,
                       ),

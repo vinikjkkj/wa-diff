@@ -84,6 +84,7 @@ __d(
                   o("WAWebListsActions").logCtwaSignalsForChats(
                     [d],
                     Number(c.id),
+                    i,
                   )),
               yield r("WAWebLabelSublistSync").sendLabelSublistUpdate(
                 o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,

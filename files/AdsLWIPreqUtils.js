@@ -13,11 +13,8 @@ __d(
       var n = r("qex")._("4039") === !0;
       return n;
     }
-    function s(e) {
-      return (
-        e === void 0 && (e = !1),
-        e ? r("qex")._("2110") === !0 : r("qex")._("2203") === !0
-      );
+    function s() {
+      return r("qex")._("2110") === !0;
     }
     function u(e, t) {
       var n = t === void 0 ? !0 : t,

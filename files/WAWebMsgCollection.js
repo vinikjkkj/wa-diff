@@ -38,6 +38,7 @@ __d(
     "WAWebNewsletterViewModeUIUtils",
     "WAWebNoop",
     "WAWebProcessMultipleMsgsAction",
+    "WAWebProductListOwnerValidation",
     "WAWebProductMessageListCollection",
     "WAWebProtobufsE2E.pb",
     "WAWebResolveBotProfile",
@@ -252,7 +253,13 @@ __d(
               })
               .reduce(function (e, t) {
                 var n, r;
-                if (t == null) return e;
+                if (
+                  t == null ||
+                  !o("WAWebProductListOwnerValidation").isProductListOwnerValid(
+                    t,
+                  )
+                )
+                  return e;
                 var a = t.requiresDirectConnection,
                   i = t.isForwarded
                     ? t.businessOwnerJid
@@ -273,8 +280,12 @@ __d(
                   !s.isFetching()
                   ? e.then(function () {
                       return o(
-                        "WAWebProductMessageListCollection",
-                      ).ProductMessageListCollection.update(s.id);
+                        "WAWebProductListOwnerValidation",
+                      ).isProductListOwnerValid(t)
+                        ? o(
+                            "WAWebProductMessageListCollection",
+                          ).ProductMessageListCollection.update(s.id)
+                        : [];
                     })
                   : e;
               }, this.productListMessagesPrefetchChain);

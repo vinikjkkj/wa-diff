@@ -10,7 +10,21 @@ __d(
             t != null &&
             o("WAWebBizNativeAdsGatingUtils").nativeAdsCatalogBoostEnabled();
     }
-    l.shouldBoostOpenAdCreation = e;
+    function s(e) {
+      var t =
+        e === "whatsapp_smb_web_catalog_product"
+          ? "whatsapp_smb_web_catalog_product"
+          : e === "whatsapp_smb_web_catalog"
+            ? "whatsapp_smb_web_catalog"
+            : null;
+      return t == null ||
+        !o(
+          "WAWebBizNativeAdsGatingUtils",
+        ).boostCreationLogsCatalogEntryPointEnabled()
+        ? null
+        : t;
+    }
+    ((l.shouldBoostOpenAdCreation = e), (l.getCatalogBoostEntryPoint = s));
   },
   98,
 );

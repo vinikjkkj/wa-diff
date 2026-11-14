@@ -154,7 +154,12 @@ __d(
               (h == null && o("WAWebInternalAccount").isInternalAccount()
                 ? (E = L)
                 : ((E = o("WAWebJidToWid").deviceJidToDeviceWid(
-                    r("nullthrows")(h),
+                    r("nullthrows")(
+                      h,
+                      "pair-success has no PN device JID and platform " +
+                        S +
+                        " is not supported",
+                    ),
                   )),
                   o("WAWebUserPrefsMeUser").setMePn(E)),
                 o("WAWebUserPrefsMeUser").setMeLid(L),

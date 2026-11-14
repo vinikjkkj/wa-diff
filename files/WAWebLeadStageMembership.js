@@ -55,7 +55,7 @@ __d(
             var y,
               C = h.jid,
               b = h.stage;
-            (y = g.get(b != null ? b : o("WAWebLeadStage").LeadStage.LEAD)) ==
+            (y = g.get(o("WAWebLeadStage").getLeadStageForGrouping(b))) ==
               null || y.push(C);
           }
           return g;
@@ -75,7 +75,7 @@ __d(
           : t.toString()
         : null;
     }
-    l.getLeadStageMembership = e;
+    ((l.getLeadStageMembership = e), (l.alternateSpelling = u));
   },
   98,
 );

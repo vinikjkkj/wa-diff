@@ -2,6 +2,7 @@ __d(
   "WAWebListUtils",
   [
     "fbt",
+    "WALogger",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebChatMessageSearch",
@@ -20,9 +21,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = 20,
-      c = 22;
-    function d() {
+      u,
+      c = 20,
+      d = 22;
+    function m() {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
         ? Array.from(
             { length: o("WAWebLabelPillColors").PILL_COLOR_PALETTE_SIZE },
@@ -35,12 +37,12 @@ __d(
           ? o("WAWebLabelConstants").IPHONE_LABEL_COLOR_PALETTE
           : o("WAWebLabelConstants").ANDROID_LABEL_COLOR_PALETTE;
     }
-    function m(e) {
+    function p(e) {
       var t,
-        n = d();
+        n = m();
       return (t = n[e]) != null ? t : n[0];
     }
-    function p() {
+    function _() {
       var e = o("WAWebListsGatingUtils").isListsChatListRowPillEnabled();
       return e
         ? o("WAWebLabelPillColors")
@@ -51,62 +53,77 @@ __d(
                 originalIndex: e,
               };
             })
-        : d().map(function (e, t) {
+        : m().map(function (e, t) {
             return { hexColor: e, originalIndex: t };
           });
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = parseInt(e.id, 10),
         r = parseInt(t.id, 10);
       return Number.isNaN(n) || Number.isNaN(r) ? 0 : n - r;
     }
-    function f(e) {
+    function g(e) {
       e.sort(function (e, t) {
         var n = e.orderIndex - t.orderIndex;
-        return n === 0 ? _(e, t) : n;
+        return n === 0 ? f(e, t) : n;
       });
     }
-    var g = new Set([
-      (e = o("WAWebSchemaLabel")).ListType.UNREAD,
-      e.ListType.GROUPS,
-      e.ListType.FAVORITES,
-      e.ListType.COMMUNITY,
-      e.ListType.MENTIONS_AND_REPLIES,
+    var h = new Set([
+      (u = o("WAWebSchemaLabel")).ListType.UNREAD,
+      u.ListType.GROUPS,
+      u.ListType.FAVORITES,
+      u.ListType.COMMUNITY,
+      u.ListType.MENTIONS_AND_REPLIES,
     ]);
-    function h(e) {
-      return e == null ? !1 : g.has(e);
-    }
     function y(e) {
+      return e == null ? !1 : h.has(e);
+    }
+    function C(t) {
+      return t == null || o("WAWebSchemaLabel").ListType.isValid(t)
+        ? !1
+        : (o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] skipped a list of unknown type ",
+                  "",
+                ])),
+              String(t),
+            )
+            .sendLogs("unknown-list-type-skipped", { sampling: 0.01 }),
+          !0);
+    }
+    function b(e) {
       return (
         e === o("WAWebSchemaLabel").ListType.AI_HANDOFF ||
         e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
       );
     }
-    function C(e) {
+    function v(e) {
       return (
         (e == null ? void 0 : e.predefinedId) ===
           o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID &&
         o("WAWebCustomerManagerGating").customerManagerEnabled()
       );
     }
-    function b(e) {
+    function S(e) {
       return (
-        h(e == null ? void 0 : e.type) || y(e == null ? void 0 : e.type) || C(e)
+        y(e == null ? void 0 : e.type) || b(e == null ? void 0 : e.type) || v(e)
       );
     }
-    function v(e) {
+    function R(e) {
       return (
         e.filter === o("WAWebChatSearchFilters").SearchFilters.TO_YOU &&
         e.listId == null
       );
     }
-    function S(e) {
+    function L(e) {
       return (
         e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES &&
         !o("WAWebInboxFiltersGatingUtils").inboxToYouFilterEnabled()
       );
     }
-    function R(e, t) {
+    function E(e, t) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (e === o("WAWebSchemaLabel").ListType.CUSTOM ||
@@ -114,10 +131,10 @@ __d(
         t != null
       );
     }
-    function L(e) {
-      return (h(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES) || y(e);
+    function k(e) {
+      return (y(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES) || b(e);
     }
-    function E(e) {
+    function I(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(/*BTDS*/ "Unread")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
@@ -134,12 +151,12 @@ __d(
                     ? s._(/*BTDS*/ "Mentions and replies")
                     : null;
     }
-    function k(e) {
+    function T(e) {
       return e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
         ? s._(/*BTDS*/ "Mentions\u2026")
         : null;
     }
-    function I(e) {
+    function D(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(
             /*BTDS*/ "This list automatically updates with your unread chats.",
@@ -170,55 +187,55 @@ __d(
                       )
                     : null;
     }
-    function T(e, t) {
-      if ((h(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || y(t)) {
+    function x(e, t) {
+      if ((y(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || b(t)) {
         var n;
         return s._(/*BTDS*/ "{listName} (preset)", [
-          s._param("listName", (n = E(t)) != null ? n : e),
+          s._param("listName", (n = I(t)) != null ? n : e),
         ]);
       }
       return e;
     }
-    function D(e) {
+    function $(e) {
       return e === "AI_HANDOFF"
         ? s._(/*BTDS*/ "AI handoff").toString()
         : s._(/*BTDS*/ "AI responding").toString();
     }
-    function x() {
+    function P() {
       return o(
         "WAWebLabelCollection",
       ).LabelCollection.getServerAssignedLabelIdMap().size > 0
-        ? c
-        : u;
+        ? d
+        : c;
     }
-    function $() {
+    function N() {
       var e = o("WAWebLabelCollection").LabelCollection.countWhere(
         function (e) {
           return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
         },
       );
-      return e >= x();
+      return e >= P();
     }
-    function P() {
-      var e = x();
+    function M() {
+      var e = P();
       return s._(/*BTDS*/ "You can't add more than {max_count} lists", [
         s._param("max_count", e),
       ]);
     }
-    function N() {
+    function w() {
       return s._(/*BTDS*/ "You\u2019ve created the maximum number of lists.");
     }
-    function M(e) {
+    function A(e) {
       return typeof e == "function" ? e() : e;
     }
-    function w(e, t) {
+    function F(e, t) {
       if (!t) {
-        var n = k(e.listType);
+        var n = T(e.listType);
         if (n != null) return n;
       }
-      return M(e.getLabel);
+      return A(e.getLabel);
     }
-    function A(e, t) {
+    function O(e, t) {
       var n, r;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
@@ -234,9 +251,9 @@ __d(
           ? r
           : 0;
     }
-    var F = { channelsPillCount: 0, unreadPillCount: 0 };
-    function O(e) {
-      e === void 0 && (e = F);
+    var B = { channelsPillCount: 0, unreadPillCount: 0 };
+    function W(e) {
+      e === void 0 && (e = B);
       var t = o("WAWebLabelCollection").LabelCollection.toArray(),
         n = new Map(),
         r = 0,
@@ -293,7 +310,7 @@ __d(
         n
       );
     }
-    function B(e) {
+    function q(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -312,7 +329,7 @@ __d(
             return null;
         }
     }
-    function W(e) {
+    function U(e) {
       var t;
       if (
         (e.label != null
@@ -327,7 +344,7 @@ __d(
         t != null && t.name != null)
       ) {
         var n,
-          r = E(t.type);
+          r = I(t.type);
         return {
           listId: t.id,
           listName:
@@ -336,40 +353,41 @@ __d(
       }
       return null;
     }
-    function q() {
+    function V() {
       return s._(/*BTDS*/ "Lead stage");
     }
-    function U() {
+    function H() {
       return s._(/*BTDS*/ "Lead stage (preset)");
     }
-    ((l.getAllLabelColors = d),
-      (l.colorIndexToHex = m),
-      (l.getSelectableLabelColors = p),
-      (l.sortLabels = f),
-      (l.isBuiltInList = h),
-      (l.isAiList = y),
-      (l.isLeadList = C),
-      (l.hasFixedIdentity = b),
-      (l.isOverflowOnlyToYouPill = v),
-      (l.isHiddenToYouList = S),
-      (l.shouldShowListIcon = R),
-      (l.isDisableablePresetList = L),
-      (l.getPresetListLocalizedName = E),
-      (l.getPresetListShortName = k),
-      (l.getPresetListHelperText = I),
-      (l.getListDisplayName = T),
-      (l.getExpectedAiLabelName = D),
-      (l.isListFlowMaxListsCountReached = $),
-      (l.getReachMaxLabelCountTextForBizLabelDrawer = P),
-      (l.getReachMaxLabelCountText = N),
-      (l.resolvePillLabel = M),
-      (l.resolvePillLabelForState = w),
-      (l.getUnreadChatsCountForFilter = A),
-      (l.getListsUnreadChatCountMap = O),
-      (l.getListTypeFromFilter = B),
-      (l.getManageListInfo = W),
-      (l.getLeadStageListName = q),
-      (l.getLeadListManagerDisplayName = U));
+    ((l.getAllLabelColors = m),
+      (l.colorIndexToHex = p),
+      (l.getSelectableLabelColors = _),
+      (l.sortLabels = g),
+      (l.isBuiltInList = y),
+      (l.skipsListOfUnknownType = C),
+      (l.isAiList = b),
+      (l.isLeadList = v),
+      (l.hasFixedIdentity = S),
+      (l.isOverflowOnlyToYouPill = R),
+      (l.isHiddenToYouList = L),
+      (l.shouldShowListIcon = E),
+      (l.isDisableablePresetList = k),
+      (l.getPresetListLocalizedName = I),
+      (l.getPresetListShortName = T),
+      (l.getPresetListHelperText = D),
+      (l.getListDisplayName = x),
+      (l.getExpectedAiLabelName = $),
+      (l.isListFlowMaxListsCountReached = N),
+      (l.getReachMaxLabelCountTextForBizLabelDrawer = M),
+      (l.getReachMaxLabelCountText = w),
+      (l.resolvePillLabel = A),
+      (l.resolvePillLabelForState = F),
+      (l.getUnreadChatsCountForFilter = O),
+      (l.getListsUnreadChatCountMap = W),
+      (l.getListTypeFromFilter = q),
+      (l.getManageListInfo = U),
+      (l.getLeadStageListName = V),
+      (l.getLeadListManagerDisplayName = H));
   },
   226,
 );

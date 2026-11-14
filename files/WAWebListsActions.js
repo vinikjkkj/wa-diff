@@ -18,6 +18,7 @@ __d(
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebLabelReorderingSync",
+    "WAWebLeadStage",
     "WAWebListUtils",
     "WAWebListsGatingUtils",
     "WAWebListsLogging",
@@ -61,20 +62,28 @@ __d(
       R,
       L,
       E = L || (L = o("react"));
-    function k(e, t) {
-      if (e.length !== 0) {
-        var n =
+    function k(e, t, n) {
+      if (
+        e.length !== 0 &&
+        !(
+          !o("WAWebLeadStage").shouldSendLeadSignal(n) &&
+          o("WAWebListUtils").isLeadList(
+            o("WAWebLabelCollection").LabelCollection.get(String(t)),
+          )
+        )
+      ) {
+        var r =
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
             o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true,
-          r = [String(t)];
-        (o("WAWebSmbMarkAsXLabelAction").logLabelSignalForModels(e, r, n),
+          a = [String(t)];
+        (o("WAWebSmbMarkAsXLabelAction").logLabelSignalForModels(e, a, r),
           o("WAWebSmb3pdConversionSignalAction").log3pdConversionSignalForChats(
-            { isDataSharingEnabled: n, labelIds: r, models: e },
+            { isDataSharingEnabled: r, labelIds: a, models: e },
           ),
           o("WAWebCustomLabels3pdSignalUtils").processCustomLabels3pdSignals(
-            r,
+            a,
             e,
-            n,
+            r,
           ));
       }
     }

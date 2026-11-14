@@ -19,6 +19,7 @@ __d(
       "Appointments",
       "AppointmentBookingDetail",
       "CalendarBookings",
+      "PaymentRequests",
     ]);
     i.BizAIStep = e;
   },

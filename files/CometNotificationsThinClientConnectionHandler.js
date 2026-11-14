@@ -44,8 +44,9 @@ __d(
           if (x && D)
             if (N.after != null)
               if (R && N.after === R.getValue(l)) {
-                var M = new Set();
-                (m(x, P, M), m(D, P, M));
+                var M = new Set(),
+                  w = [];
+                (m(x, w, M), m(D, w, M), (P = w));
               } else {
                 r("warning")(
                   !1,
@@ -57,8 +58,9 @@ __d(
               }
             else if (N.before != null)
               if (R && N.before === R.getValue(h)) {
-                var w = new Set();
-                (m(D, P, w), m(x, P, w));
+                var A = new Set(),
+                  F = [];
+                (m(D, F, A), m(x, F, A), (P = F));
               } else {
                 r("warning")(
                   !1,
@@ -69,21 +71,22 @@ __d(
                 return;
               }
             else {
-              var A = p(x),
-                F = new Set();
-              _(D, P, A, F);
+              var O = p(x),
+                B = new Set(),
+                W = [];
+              (_(D, W, O, B), (P = W));
             }
           else D ? (P = D) : (P = x);
           if ((P != null && P !== x && T.setLinkedRecords(P, i), R && C)) {
             if (N.after == null && N.before == null) R.copyFieldsFrom(C);
             else if (N.before != null || (N.after == null && N.last)) {
               R.setValue(!!C.getValue(c), c);
-              var O = C.getValue(h);
-              typeof O == "string" && R.setValue(O, h);
+              var q = C.getValue(h);
+              typeof q == "string" && R.setValue(q, h);
             } else if (N.after != null || (N.before == null && N.first)) {
               R.setValue(!!C.getValue(u), u);
-              var B = C.getValue(l);
-              typeof B == "string" && R.setValue(B, l);
+              var U = C.getValue(l);
+              typeof U == "string" && R.setValue(U, l);
             }
           }
         } else {

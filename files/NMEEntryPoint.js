@@ -136,6 +136,7 @@ __d(
       BILLING_HUB_PAYMENT_SETTINGS: "billing_hub_payment_settings",
       BIZAI_FB_AI_CREDIT_TOPUP_NOTIF: "bizai_fb_ai_credit_topup_notif",
       BIZAI_FB_NOTIF: "bizai_fb_notif",
+      BIZAI_IG_ACTIVITY_FEED_NOTIF: "bizai_ig_activity_feed_notif",
       BIZAI_IG_AI_CREDIT_TOPUP_NOTIF: "bizai_ig_ai_credit_topup_notif",
       BIZAI_IG_NOTIF: "bizai_ig_notif",
       BIZAI_IG_SETTINGS_PAGE_AI_USAGE_SECTION:
@@ -391,6 +392,8 @@ __d(
       FB_SUBSCRIPTION_BUNDLE_PURCHASE_NOTIF:
         "fb_subscription_bundle_purchase_notif",
       FB_SUBSCRIPTION_EXPIRATION_NOTIF: "fb_subscription_expiration_notif",
+      FB_SUPER_LIKE_SOCIAL_BUBBLES_UPSELL:
+        "fb_super_like_social_bubbles_upsell",
       FB_T1_ADMIN_NEWS_FEED_DEKA_WEB_QP: "fb_t1_admin_news_feed_deka_web_qp",
       FB_THINK_HARD_QUOTA_BANNER: "fb_think_hard_quota_banner",
       FB_THINK_HARD_QUOTA_TOAST: "fb_think_hard_quota_toast",
@@ -1708,6 +1711,8 @@ __d(
       NME_FB_BOOKMARK: "nme_fb_bookmark",
       NME_FB_BOOKMARK_FB_PLUS: "nme_fb_bookmark_fb_plus",
       NME_FB_BOOKMARK_META_ONE: "nme_fb_bookmark_meta_one",
+      NME_FB_CANCELED_SUBSCRIPTION_FEED_QP:
+        "nme_fb_canceled_subscription_feed_qp",
       NME_FB_CHURN_USER_BENEIFT_NOTIF: "nme_fb_churn_user_benefit_notif",
       NME_FB_COMET_BOOKMARK: "nme_fb_comet_bookmark",
       NME_FB_COMET_BOOKMARKS_LIST: "nme_fb_comet_bookmarks_list",
@@ -1804,6 +1809,8 @@ __d(
       NME_IG_BOOST_CREATION_SUCCESS_DIALOG:
         "nme_ig_boost_creation_success_dialog",
       NME_IG_BUG_REPORT_MENU: "bug_report_menu",
+      NME_IG_CANCELED_SUBSCRIPTION_FEED_QP:
+        "nme_ig_canceled_subscription_feed_qp",
       NME_IG_CELEBRATION_MESSAGE_PROFILE_QP:
         "nme_ig_celebration_message_profile_qp",
       NME_IG_DEKA_T0_T1_PROFILE_QP: "nme_ig_deka_t0_t1_profile_qp",

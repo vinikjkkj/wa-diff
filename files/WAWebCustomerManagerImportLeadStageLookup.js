@@ -78,7 +78,7 @@ __d(
                   ? { isResolved: !1, stage: null }
                   : {
                       isResolved: !0,
-                      stage: o("WAWebLeadStage").LeadStage.LEAD,
+                      stage: o("WAWebLeadStage").LeadStage.NEW_LEAD,
                     },
             );
           }

@@ -7,12 +7,12 @@ __d(
       u = 2e3,
       c = 12;
     function d(e) {
-      if (e === "") return { birthday: null };
+      if (e == null) return {};
       if (
-        e == null ||
+        e === "" ||
         !o("WAWebContactBirthdayGatingUtils").contactBirthdaySyncEnabled()
       )
-        return {};
+        return { birthday: null };
       var t = p(e);
       return t != null ? { birthday: t } : {};
     }

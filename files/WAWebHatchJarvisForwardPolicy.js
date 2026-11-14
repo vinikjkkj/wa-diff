@@ -22,7 +22,6 @@ __d(
       ]),
       p = new Set([
         "GenAIMarkdownTextUXPrimitive",
-        "GenAIProductItemCardPrimitive",
         "GenAISearchResultPrimitive",
       ]);
     function _(e, t) {
@@ -137,7 +136,10 @@ __d(
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          (e.type === "buttons" || e.type === "link_card" || e.type === "list")
+          (e.type === "buttons" ||
+            e.type === "link_card" ||
+            e.type === "list" ||
+            e.type === "products")
         )
           return [];
         if (

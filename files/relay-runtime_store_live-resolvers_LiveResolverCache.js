@@ -413,6 +413,25 @@ __d(
           }
           return t;
         }),
+        (r.endLiveResolverSubscriptions = function () {
+          var t = this.$3();
+          for (var r of t.getRecordIDs()) {
+            var o = t.get(r);
+            if (
+              !(o == null || !w(o)) &&
+              (e || (e = n("relay-runtime/store/RelayModernRecord"))).getValue(
+                o,
+                L,
+              ) != null
+            ) {
+              A(o);
+              var a = (
+                e || (e = n("relay-runtime/store/RelayModernRecord"))
+              ).clone(o);
+              (e.setValue(a, L, null), t.set(r, a));
+            }
+          }
+        }),
         (r.unsubscribeFromLiveResolverRecords = function (t) {
           return M(this.$3(), t);
         }),

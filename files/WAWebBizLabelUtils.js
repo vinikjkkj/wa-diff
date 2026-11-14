@@ -141,7 +141,10 @@ __d(
         t.length > 0 &&
         t.forEach(function (t) {
           if (
-            !o("WAWebLabelCollection").LabelCollection.isLegacyLeadListId(t)
+            !(
+              o("WAWebLabelCollection").LabelCollection.isLegacyLeadListId(t) ||
+              o("WAWebLabelCollection").LabelCollection.isUnknownTypeListId(t)
+            )
           ) {
             var r = t,
               a = null;

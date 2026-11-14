@@ -52,10 +52,10 @@ __d(
               "WAWebGetLeadStageByChatJidJob",
             ).getLeadStageByChatJidJob({ chatJid: n.resolvedChatJid }),
             i = n.alreadyOnDetectedOutcomeLead
-              ? o("WAWebLeadStage").LeadStage.LEAD
+              ? o("WAWebLeadStage").LeadStage.NEW_LEAD
               : (t = n.pendingImportLeadStage) != null
                 ? t
-                : o("WAWebLeadStage").LeadStage.LEAD,
+                : o("WAWebLeadStage").LeadStage.NEW_LEAD,
             l = o("WAWebLeadStage").getLeadStageFromNumber(a != null ? a : i);
           if (l == null) throw r("err")("[cm:import] Lead stage unrecognized");
           return { isMember: !0, stage: l };
@@ -99,6 +99,7 @@ __d(
                   o("WAWebListsActions").logCtwaSignalsForChats(
                     [i],
                     Number(l),
+                    t,
                   ));
               }
               if (t != null) {

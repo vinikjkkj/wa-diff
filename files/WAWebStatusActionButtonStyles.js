@@ -78,6 +78,13 @@ __d(
           paddingBottom: "x1a8lsjc",
           $$css: !0,
         },
+        bottomBarContainerInsideFrame: {
+          bottom: "x1ey2m1c",
+          width: "xh8yej3",
+          maxWidth: "x1x1rfll",
+          paddingBottom: "x18d9i69",
+          $$css: !0,
+        },
         bottomBarRow: {
           display: "x78zum5",
           flexDirection: "x1q0g3np",
@@ -86,6 +93,28 @@ __d(
           paddingInlineEnd: "x2vl965",
           paddingBottom: "x1a8lsjc",
           paddingInlineStart: "xe2zdcy",
+          $$css: !0,
+        },
+        bottomBarRowInsideFrame: {
+          alignItems: "x6s0dn4",
+          columnGap: "x1trrmfo",
+          paddingTop: "x1xrf6ya",
+          paddingBottom: "xscbp6u",
+          paddingInlineStart: "x181vq82",
+          paddingInlineEnd: "x1uc92m",
+          paddingLeft: null,
+          paddingRight: null,
+          $$css: !0,
+        },
+        counterRowAlignedWithButtonInsideFrame: {
+          bottom: "x4smin3",
+          $$css: !0,
+        },
+        iconButtonInsideFrame: {
+          alignSelf: "xamitd3",
+          marginBottom: "xat24cr",
+          marginInlineStart: "x1lziwak",
+          marginInlineEnd: "x14z9mp",
           $$css: !0,
         },
       };

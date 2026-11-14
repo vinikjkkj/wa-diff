@@ -4,21 +4,19 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e === 0
-        ? s._(/*BTDS*/ "Lead")
-        : e === 1
-          ? s._(/*BTDS*/ "Intake")
-          : e === 2
-            ? s._(/*BTDS*/ "Qualified")
-            : e === 3
-              ? s._(/*BTDS*/ "Converted")
-              : e === 4
-                ? s._(/*BTDS*/ "Lost")
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
+        ? s._(/*BTDS*/ "New lead")
+        : e === 2
+          ? s._(/*BTDS*/ "Qualified")
+          : e === 3
+            ? s._(/*BTDS*/ "Converted")
+            : e === 5
+              ? s._(/*BTDS*/ "Not qualified")
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     function u() {
       return s._(/*BTDS*/ "None");
@@ -58,13 +56,21 @@ __d(
           return r;
       for (var a of o("WAWebLeadStage").ALL_LEAD_STAGES)
         if (e(a).toString().toLowerCase() === n) return a;
-      return n === g || n === h().toString().toLowerCase()
-        ? o("WAWebLeadStage").LeadStage.LEAD
+      return g.includes(n) ||
+        h().some(function (e) {
+          return e.toString().toLowerCase() === n;
+        })
+        ? o("WAWebLeadStage").LeadStage.NEW_LEAD
         : null;
     }
-    var g = "none";
+    var g = ["none", "lead", "intake", "lost"];
     function h() {
-      return s._(/*BTDS*/ "None");
+      return [
+        s._(/*BTDS*/ "None"),
+        s._(/*BTDS*/ "Lead"),
+        s._(/*BTDS*/ "Intake"),
+        s._(/*BTDS*/ "Lost"),
+      ];
     }
     ((l.getLeadStageName = e),
       (l.getNoLeadStageName = u),

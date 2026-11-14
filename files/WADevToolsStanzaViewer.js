@@ -17,7 +17,12 @@ __d(
           !0,
         );
     }
-    l.sendNewStanzaToDevTool = e;
+    function s() {
+      return o("WADevToolsBridge")
+        .getDevToolBridge()
+        .hasHandlerForNamespace("devtool");
+    }
+    ((l.sendNewStanzaToDevTool = e), (l.hasDevToolHandler = s));
   },
   98,
 );

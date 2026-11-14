@@ -206,8 +206,13 @@ __d(
                 }),
                 _.map(function (e) {
                   var t = e.error,
-                    n = e.request;
-                  return { error: t, request: n };
+                    n = e.request,
+                    r = e.response;
+                  return {
+                    error: t,
+                    request: n,
+                    wid: r == null ? void 0 : r.wid,
+                  };
                 })
               );
             } catch (e) {
@@ -346,7 +351,7 @@ __d(
                 .MembershipApprovalRequestAction.Approve,
             );
           } catch (n) {
-            throw ((i = !1), T(e, r, [t.id], n), n);
+            throw ((i = !1), x(e, r, [t.id], n), n);
           } finally {
             var l = self.performance.now() - a;
             o("WAWebGroupJoinRequestMetricUtils").logMembershipRequestApprove({
@@ -410,7 +415,7 @@ __d(
               l
             );
           } catch (t) {
-            throw (T(e, a, r, t), t);
+            throw (x(e, a, r, t), t);
           } finally {
             var s = self.performance.now() - i;
             t.forEach(function (t, r) {
@@ -458,18 +463,53 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T(e, t, n, r) {
+    function T(e, t, n) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = self.performance.now(),
+            a = null;
+          try {
+            return (
+              (a = yield f(
+                e,
+                t,
+                o("WAWebGroupMembershipRequestsActionJob")
+                  .MembershipApprovalRequestAction.Reject,
+              )),
+              a
+            );
+          } finally {
+            var i = self.performance.now() - r;
+            t.forEach(function (t, r) {
+              var l,
+                s = (l = a) == null ? void 0 : l[r];
+              o("WAWebGroupJoinRequestMetricUtils").logMembershipRequestReject({
+                groupId: e.id,
+                isSuccessful: s != null && s.error == null,
+                responseTime: i,
+                groupsInCommon: n(t),
+              });
+            });
+          }
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e, t, n, r) {
       (r instanceof c || r instanceof d) &&
         o(
           "WAWebIncompatibleAgentRequestsRejectTriggers",
         ).startIncompatibleAgentRequestRejectsAfterAnswer(e.id, t, n, []);
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = self.performance.now(),
             n = !0,
             r = o(
@@ -511,7 +551,7 @@ __d(
             });
           }
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     ((l.GroupError = c),
@@ -520,7 +560,8 @@ __d(
       (l.approveMembershipApprovalRequest = S),
       (l.approveMembershipApprovalRequests = L),
       (l.rejectMembershipApprovalRequest = k),
-      (l.cancelMembershipApprovalRequest = D));
+      (l.rejectMembershipApprovalRequests = T),
+      (l.cancelMembershipApprovalRequest = $));
   },
   98,
 );

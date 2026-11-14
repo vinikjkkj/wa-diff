@@ -64,7 +64,8 @@ __d(
     var s = function (t) {
       var e = t.eventData,
         n = t.filter,
-        r = t.threadId;
+        r = t.loggingParams,
+        a = t.threadId;
       if (
         o("WAWebInboxFiltersGatingUtils").inboxFiltersEnabled() &&
         n != null
@@ -72,34 +73,38 @@ __d(
         e.targetScreen = o(
           "WAWebWamEnumChatFilterTargetScreen",
         ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST;
-        var a;
+        var i;
         if (
           (n.label != null &&
-            (a = o("WAWebLabelCollection").LabelCollection.get(n.label)),
-          a == null)
+            (i = o("WAWebLabelCollection").LabelCollection.get(n.label)),
+          i == null)
         ) {
-          var i = o("WAWebListUtils").getListTypeFromFilter(n.kind);
-          i != null &&
-            o("WAWebListUtils").isBuiltInList(i) &&
-            (a = o("WAWebLabelCollection").LabelCollection.findFirst(
+          var l = o("WAWebListUtils").getListTypeFromFilter(n.kind);
+          l != null &&
+            o("WAWebListUtils").isBuiltInList(l) &&
+            (i = o("WAWebLabelCollection").LabelCollection.findFirst(
               function (e) {
-                return e.type === i;
+                return e.type === l;
               },
             ));
         }
-        if (a != null) {
-          (a.predefinedId != null && (e.predefinedId = a.predefinedId),
-            a.name != null && (e.labelName = a.name));
-          var l = parseInt(a.id, 10);
-          isNaN(l) || (e.listId = l);
-          var s = o("WAWebListsLogging").getListType(a.type);
-          s != null && (e.listType = s);
-          var u =
+        if (i != null) {
+          (i.predefinedId != null && (e.predefinedId = i.predefinedId),
+            i.name != null && (e.labelName = i.name));
+          var s = parseInt(i.id, 10);
+          isNaN(s) || (e.listId = s);
+          var u = o("WAWebListsLogging").getListType(i.type);
+          u != null && (e.listType = u);
+          var c =
             o("WAWebLabelCollection")
               .LabelCollection.getActiveLists()
-              .indexOf(a) + 1;
-          ((e.listIndex = u), r != null && (e.threadId = r));
-        }
+              .indexOf(i) + 1;
+          e.listIndex = c;
+        } else r != null && (e.listIndex = r.listIndex);
+        a != null &&
+          (i != null ||
+            n.kind === o("WAWebChatSearchFilters").SearchFilters.META_AI) &&
+          (e.threadId = a);
       }
     };
     function u(e) {
@@ -115,37 +120,41 @@ __d(
         ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST),
         t.commit());
     }
-    function c(t, n) {
-      var r = e(n);
-      if (r !== o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE) {
-        var a = {
+    function c(t, n, r) {
+      var a = r === void 0 ? {} : r,
+        i = a.loggingParams,
+        l = e(n);
+      if (l !== o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE) {
+        var u = {
           actionType: o("WAWebWamEnumChatFilterActionTypes")
             .CHAT_FILTER_ACTION_TYPES.SELECT_FILTER,
-          filterType: r,
+          filterType: l,
           sessionId: t,
         };
         (o("WAWebListsLabelGatingUtils").smartFiltersEnabled() &&
-          (a.targetScreen = o(
+          (u.targetScreen = o(
             "WAWebWamEnumChatFilterTargetScreen",
           ).CHAT_FILTER_TARGET_SCREEN.CHAT_LIST),
-          s({ eventData: a, filter: n }),
+          s({ eventData: u, filter: n, loggingParams: i }),
           new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-            a,
+            u,
           ).commit());
       }
     }
-    function d(t, n) {
-      var r = {
-        actionType: o("WAWebWamEnumChatFilterActionTypes")
-          .CHAT_FILTER_ACTION_TYPES.FILTER_EMPTY_STATE_VIEWED,
-        filterType: e(n),
-        targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
-          .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
-        sessionId: t,
-      };
-      (s({ eventData: r, filter: n }),
+    function d(t, n, r) {
+      var a = r === void 0 ? {} : r,
+        i = a.loggingParams,
+        l = {
+          actionType: o("WAWebWamEnumChatFilterActionTypes")
+            .CHAT_FILTER_ACTION_TYPES.FILTER_EMPTY_STATE_VIEWED,
+          filterType: e(n),
+          targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
+            .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
+          sessionId: t,
+        };
+      (s({ eventData: l, filter: n, loggingParams: i }),
         new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-          r,
+          l,
         ).commit());
     }
     function m(e) {
@@ -202,24 +211,25 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.chatId,
             r = t.filter,
-            a = t.searchResult,
-            i = t.sessionId,
-            l = {
+            a = t.loggingParams,
+            i = t.searchResult,
+            l = t.sessionId,
+            u = {
               actionType: o("WAWebWamEnumChatFilterActionTypes")
                 .CHAT_FILTER_ACTION_TYPES.SEARCH_ITEM_SELECTED,
               filterType: e(r),
-              searchResultType: m(a),
+              searchResultType: m(i),
               targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
                 .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
-              sessionId: i,
+              sessionId: l,
             },
-            u =
+            c =
               n != null
                 ? yield o("WAWebChatThreadLogging").getChatThreadID(n.toJid())
                 : null;
-          (s({ eventData: l, filter: r, threadId: u }),
+          (s({ eventData: u, filter: r, loggingParams: a, threadId: c }),
             new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-              l,
+              u,
             ).commit());
         })),
         g.apply(this, arguments)
@@ -267,6 +277,32 @@ __d(
         t,
       ).commit();
     }
+    var b = new Map(),
+      v = new Set();
+    function S(e, t) {
+      var n,
+        r =
+          t < 0
+            ? b.delete(e)
+            : ((n = b.get(e)) == null ? void 0 : n.listIndex) !== t;
+      (r && t >= 0 && b.set(e, { listIndex: t }),
+        r &&
+          v.forEach(function (e) {
+            return e();
+          }));
+    }
+    function R(e) {
+      var t;
+      return e == null ? null : (t = b.get(e)) != null ? t : null;
+    }
+    function L(e) {
+      return (
+        v.add(e),
+        function () {
+          v.delete(e);
+        }
+      );
+    }
     ((l.logOpenFilterEvent = u),
       (l.logSelectFilterEvent = c),
       (l.logEmptyStateViewedFilterEvent = d),
@@ -274,7 +310,10 @@ __d(
       (l.logSearchWithFilterEvent = _),
       (l.logSearchItemSelectedFilterEvent = f),
       (l.logSearchMsgSentFilterEvent = h),
-      (l.logLabelDropdownShownEvent = C));
+      (l.logLabelDropdownShownEvent = C),
+      (l.publishFilterPillIndex = S),
+      (l.getFilterPillLoggingParams = R),
+      (l.subscribeToFilterPillPositions = L));
   },
   98,
 );

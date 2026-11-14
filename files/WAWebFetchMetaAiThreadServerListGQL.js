@@ -39,7 +39,7 @@ __d(
                       "[fetchMetaAiThreadServerListGQL] missing-list",
                     ])),
                 ),
-                { type: "error" }
+                { type: "error", reason: "missing-list" }
               );
             var n = [];
             for (var a of t) {
@@ -70,7 +70,7 @@ __d(
                       "[fetchMetaAiThreadServerListGQL] request-failed",
                     ])),
                 ),
-                { type: "error" });
+                { type: "error", reason: "request-failed" });
           }
         })),
         p.apply(this, arguments)

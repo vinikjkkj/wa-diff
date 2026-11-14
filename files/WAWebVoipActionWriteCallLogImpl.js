@@ -22,12 +22,14 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebUpdateMessageUIAction",
     "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebVoipActionSurfaceCallLogChat",
     "WAWebVoipActivityTracker",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipPendingCallLogOutcome",
     "WAWebVoipPhaseTracker",
+    "WAWebVoipUnresolvedPlaceholderLoadable",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -81,7 +83,7 @@ __d(
             a = e.chatId,
             i = e.expectedPendingOutcome,
             l = e.msgKey,
-            _ = e.screenedElsewhere,
+            s = e.screenedElsewhere,
             f = o("WAWebVoipPhaseTracker").beginPostCallWork(),
             g = Date.now();
           o("WAWebVoipActivityTracker").trackUiActivity(
@@ -101,8 +103,8 @@ __d(
                         f,
                         h = Date.now() - g;
                       (o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "[voip] call log outcome update dequeued after ",
                             "ms",
                           ])),
@@ -113,7 +115,7 @@ __d(
                             .ICCE_WRITE_CALL_LOG_QUEUED,
                         ));
                       var y = o("WAWebMsgCollection").MsgCollection.get(l),
-                        C = oe(l),
+                        C = ce(l),
                         b = C
                           ? null
                           : (e = y == null ? void 0 : y.toJSON()) != null
@@ -122,8 +124,8 @@ __d(
                       if (b == null) {
                         if (i != null) {
                           (o("WALogger").LOG(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
                                 "[voip] deferred call log outcome skipped; row still missing for ",
                                 "",
                               ])),
@@ -139,19 +141,19 @@ __d(
                           "WAWebVoipPendingCallLogOutcome",
                         ).rememberPendingCallLogOutcome(l, t, {
                           keepAnyOutcome: C,
-                          screenedElsewhere: _,
+                          screenedElsewhere: s,
                         })
                           ? o("WALogger").LOG(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
                                   "[voip] call log outcome deferred; no row for ",
                                   "",
                                 ])),
                               l.id,
                             )
                           : o("WALogger").LOG(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
                                   "[voip] call log outcome update skipped; no row for ",
                                   "",
                                 ])),
@@ -169,8 +171,8 @@ __d(
                           : y.type !== o("WAWebMsgType").MSG_TYPE.CALL_LOG
                       ) {
                         (o("WALogger").LOG(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
                               "[voip] call log outcome update skipped; row is not a call log for ",
                               "",
                             ])),
@@ -198,8 +200,8 @@ __d(
                       if (v.type === "skip") {
                         (v.reason === "consumed" &&
                           o("WALogger").LOG(
-                            p ||
-                              (p = babelHelpers.taggedTemplateLiteralLoose([
+                            _ ||
+                              (_ = babelHelpers.taggedTemplateLiteralLoose([
                                 "[voip] deferred call log outcome skipped; token was consumed for ",
                                 "",
                               ])),
@@ -212,8 +214,8 @@ __d(
                         return;
                       }
                       var S =
-                          _ != null
-                            ? _
+                          s != null
+                            ? s
                             : i == null
                               ? void 0
                               : i.screenedElsewhere,
@@ -339,10 +341,10 @@ __d(
             a = e.chatId,
             i = e.msgKey,
             l = e.update;
-          if (oe(i)) {
+          if (ce(i)) {
             o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip] ongoing call log update skipped; placeholder awaiting merge for ",
                   "",
                 ])),
@@ -357,8 +359,8 @@ __d(
                 : yield o("WAWebDBMsgUtils").getMsgByMsgKey(i);
           if (u == null || !V(s, u)) {
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip] ongoing call log update skipped for ",
                   "",
                 ])),
@@ -422,7 +424,7 @@ __d(
             (i === void 0 && (i = !1),
               l === void 0 && (l = !1),
               s === void 0 && (s = !1));
-            var u = te(t),
+            var u = le(t),
               c = o("WAWebVoipPhaseTracker").beginPostCallWork();
             try {
               var d,
@@ -438,7 +440,7 @@ __d(
                     .ICCE_WRITE_CALL_LOG,
                 ),
                 u != null && (yield u.waitForPrevious),
-                yield ae(d, s))
+                yield de(d, s))
               )
                 return null;
               if ((u == null || u.release(), i && !a)) {
@@ -447,8 +449,8 @@ __d(
                   ).mergePendingCallLogOutcome(d),
                   _ = p.callLogMessage,
                   f = p.pendingOutcome,
-                  v = o("WAWebMsgCollection").MsgCollection.get(_.id);
-                if (!v) {
+                  g = o("WAWebMsgCollection").MsgCollection.get(_.id);
+                if (!g) {
                   var S = o("WAWebMsgCollection").MsgCollection.add(
                     babelHelpers.extends({}, _),
                   )[0];
@@ -458,12 +460,12 @@ __d(
                         "WAWebVoipPendingCallLogOutcome",
                       ).clearPendingCallLogOutcome(_.id, f),
                       o("WALogger").LOG(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
                             "[voip] call log in-mem, async IDB persist scheduled",
                           ])),
                       ),
-                      ne({ callLogMessage: _, chatId: e, msg: S }),
+                      se({ callLogMessage: _, chatId: e, msg: S }),
                       S
                     );
                 }
@@ -482,8 +484,8 @@ __d(
                         function* () {
                           var e = Date.now() - L;
                           (o("WALogger").LOG(
-                            h ||
-                              (h = babelHelpers.taggedTemplateLiteralLoose([
+                            y ||
+                              (y = babelHelpers.taggedTemplateLiteralLoose([
                                 "[voip] call log dequeued after ",
                                 "ms queue wait",
                               ])),
@@ -498,8 +500,8 @@ __d(
                               var n = Date.now() - L,
                                 r = n - e;
                               (o("WALogger").LOG(
-                                y ||
-                                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                                C ||
+                                  (C = babelHelpers.taggedTemplateLiteralLoose([
                                     "[voip] call log done: queue=",
                                     "ms write=",
                                     "ms total=",
@@ -518,8 +520,8 @@ __d(
                             .catch(function (e) {
                               (o("WALogger")
                                 .ERROR(
-                                  C ||
-                                    (C =
+                                  b ||
+                                    (b =
                                       babelHelpers.taggedTemplateLiteralLoose([
                                         "[voip] call log write failed",
                                       ])),
@@ -564,8 +566,8 @@ __d(
                     )
                       return (
                         o("WALogger").LOG(
-                          b ||
-                            (b = babelHelpers.taggedTemplateLiteralLoose([
+                          v ||
+                            (v = babelHelpers.taggedTemplateLiteralLoose([
                               "[voip] call log create skipped; row exists for ",
                               "",
                             ])),
@@ -626,7 +628,7 @@ __d(
     function j() {
       return (
         (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = te(e);
+          var n = le(e);
           try {
             return (yield n == null ? void 0 : n.waitForPrevious, yield t());
           } finally {
@@ -707,8 +709,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "[voip] deferred call log outcome replay failed for callId=",
                       "",
                     ])),
@@ -753,42 +755,21 @@ __d(
               l.viewMode ===
                 o("WAWebViewMode.flow").ViewModeType
                   .CALL_LOG_OFFLINE_RESUME_PROMOTED,
-            c =
-              u && t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE;
-          u &&
-            t.viewMode !== o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
-            o("WALogger")
-              .WARN(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "[writeVoipCallLogMessageImpl] placeholder ",
-                    " -> non-VISIBLE ",
-                    "",
-                  ])),
-                l.viewMode,
-                t.viewMode,
-              )
-              .tags("non-sad")
-              .sendLogs("voip-callog-promote-non-visible");
-          var d =
-              u && t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE
-                ? babelHelpers.extends({}, t, {
-                    viewMode:
-                      o("WAWebViewMode.flow").ViewModeType
-                        .CALL_LOG_OFFLINE_RESUME_PROMOTED,
-                  })
-                : t,
-            m = le(l.t, ue(l.screenedElsewhere, se(l.callOutcome, d)));
+            c = ie(u, l.viewMode, t.viewMode),
+            d = oe(l.viewMode, t.viewMode),
+            m = te(u, l.viewMode, t);
+          ae(u, l.viewMode, m.viewMode);
+          var p = pe(l.t, fe(l.screenedElsewhere, _e(l.callOutcome, m)));
           return (
             i
-              ? yield l.applyUpdate(m)
+              ? yield l.applyUpdate(p)
               : yield (D || (D = n("Promise"))).all([
-                  l.applyUpdate(m),
+                  l.applyUpdate(p),
                   yield o(
                     "WAWebHandleSingleMsgWorkerCompatible",
                   ).handleSingleMsg({
                     chatId: r,
-                    newMsg: m,
+                    newMsg: p,
                     handleSingleMsgOrigin: "voipNotification",
                     messageOverwriteOption: o("WAWebHandleMsgTypes")
                       .MessageOverwriteOption.VOIP_CALL_LOG,
@@ -798,13 +779,84 @@ __d(
               t.id,
               a,
             ),
+            d &&
+              o(
+                "WAWebVoipUnresolvedPlaceholderLoadable",
+              ).countShownPlaceholderAgainLoadable(t.id),
             { msg: l, surface: c ? "promoted" : "none" }
           );
         })),
         ee.apply(this, arguments)
       );
     }
-    function te(e) {
+    function te(e, t, n) {
+      var r = ne(e, t, n.viewMode);
+      return r === n.viewMode
+        ? n
+        : babelHelpers.extends({}, n, { viewMode: r });
+    }
+    function ne(e, t, n) {
+      return e && n === o("WAWebViewMode.flow").ViewModeType.VISIBLE
+        ? o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME_PROMOTED
+        : t != null &&
+            re(t) &&
+            !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+              o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+              n,
+            )
+          ? t
+          : n;
+    }
+    function re(e) {
+      return (
+        e ===
+          o("WAWebViewMode.flow").ViewModeType
+            .CALL_LOG_OFFLINE_RESUME_UNCOUNTED ||
+        (e === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME &&
+          o(
+            "WAWebVoipCallLogPlaceholderTracker",
+          ).isOfflineCallLogOrderingEnabled())
+      );
+    }
+    function oe(e, t) {
+      return (
+        e ===
+          o("WAWebViewMode.flow").ViewModeType
+            .CALL_LOG_OFFLINE_RESUME_UNCOUNTED &&
+        t === o("WAWebViewMode.flow").ViewModeType.VISIBLE
+      );
+    }
+    function ae(e, t, n) {
+      e &&
+        n !== o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME &&
+        !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+          o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+          n,
+        ) &&
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[writeVoipCallLogMessageImpl] placeholder ",
+                " -> non-VISIBLE ",
+                "",
+              ])),
+            String(t),
+            n,
+          )
+          .tags("non-sad")
+          .sendLogs("voip-callog-promote-non-visible");
+    }
+    function ie(e, t, n) {
+      return (
+        n === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
+        (e ||
+          t ===
+            o("WAWebViewMode.flow").ViewModeType
+              .CALL_LOG_OFFLINE_RESUME_UNCOUNTED)
+      );
+    }
+    function le(e) {
       var t, r;
       if (
         !o(
@@ -833,12 +885,12 @@ __d(
         },
       };
     }
-    function ne(e) {
-      return re.apply(this, arguments);
+    function se(e) {
+      return ue.apply(this, arguments);
     }
-    function re() {
+    function ue() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callLogMessage,
             a = e.chatId,
             i = e.msg,
@@ -927,10 +979,10 @@ __d(
               );
             });
         })),
-        re.apply(this, arguments)
+        ue.apply(this, arguments)
       );
     }
-    function oe(e) {
+    function ce(e) {
       return (
         o(
           "WAWebVoipCallLogPlaceholderTracker",
@@ -938,12 +990,12 @@ __d(
         o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(e.id)
       );
     }
-    function ae(e, t) {
-      return ie.apply(this, arguments);
+    function de(e, t) {
+      return me.apply(this, arguments);
     }
-    function ie() {
+    function me() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (
             !o(
@@ -984,7 +1036,7 @@ __d(
                 }
               }
             }
-            var d = ue(l, se(i, e)),
+            var d = fe(l, _e(i, e)),
               m = o(
                 "WAWebVoipPendingCallLogOutcome",
               ).mergePendingCallLogOutcome(d),
@@ -1023,13 +1075,13 @@ __d(
           }
           return !0;
         })),
-        ie.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    function le(e, t) {
+    function pe(e, t) {
       return e != null && t.t !== e ? babelHelpers.extends({}, t, { t: e }) : t;
     }
-    function se(e, t) {
+    function _e(e, t) {
       return e ===
         o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere &&
         t.kind === "callLog" &&
@@ -1040,7 +1092,7 @@ __d(
           })
         : t;
     }
-    function ue(e, t) {
+    function fe(e, t) {
       return e === !1 && t.kind === "callLog" && t.screenedElsewhere === !0
         ? babelHelpers.extends({}, t, { screenedElsewhere: !1 })
         : t;

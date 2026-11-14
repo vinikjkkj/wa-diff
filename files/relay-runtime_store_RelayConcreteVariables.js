@@ -32,18 +32,18 @@ __d(
         r || n
       );
     }
-    function u(e, t, n) {
-      var r = {};
+    function u(e, t, n, r) {
+      var o = {};
       return (
         e.argumentDefinitions.forEach(function (e) {
           var t = e.defaultValue;
-          (n[e.name] != null && (t = n[e.name]), (r[e.name] = t));
+          (n[e.name] != null && (t = n[e.name]), (o[e.name] = t));
         }),
         t != null &&
           Object.keys(t).forEach(function (e) {
-            r[e] = t[e].get();
+            (r !== !0 || n[e] === void 0) && (o[e] = t[e].get());
           }),
-        r
+        o
       );
     }
     function c(t, r, o) {

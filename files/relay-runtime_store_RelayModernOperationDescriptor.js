@@ -24,7 +24,12 @@ __d(
     function _(e, t, r, o) {
       o === void 0 && (o = p);
       var a = e.operation,
-        i = c(a, e.params.providedVariables, t);
+        i = c(
+          a,
+          e.params.providedVariables,
+          t,
+          r == null ? void 0 : r.keepProvidedVariables,
+        );
       n("relay-runtime/util/RelayFeatureFlags")
         .ENABLE_CYLE_DETECTION_IN_VARIABLES &&
         (!u(i) || l(0, 82931, e.operation.name));

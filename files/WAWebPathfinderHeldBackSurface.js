@@ -68,14 +68,17 @@ __d(
         n();
       }
     }
-    function C(e, t, n) {
-      n === void 0 && (n = !1);
-      var r = u++;
+    function C(e, t) {
+      var n = t === void 0 ? {} : t,
+        r = n.holdsUntilRootAttached,
+        o = r === void 0 ? !1 : r,
+        a = n.rootTestId,
+        i = u++;
       return (
-        s.push({ holdsUntilRootAttached: n, name: e, rootTestId: t, token: r }),
+        s.push({ holdsUntilRootAttached: o, name: e, rootTestId: a, token: i }),
         function () {
           var e = s.findIndex(function (e) {
-            return e.token === r;
+            return e.token === i;
           });
           e !== -1 && s.splice(e, 1);
         }
@@ -84,23 +87,41 @@ __d(
     function b(e) {
       for (var t = s.length - 1; t >= 0; t--) {
         var n = s[t];
-        if (S(n, e)) return n.name;
+        if (L(n, e)) return n.name;
       }
       return null;
     }
     function v(e) {
+      return s
+        .filter(function (t) {
+          return L(t, e);
+        })
+        .map(function (e) {
+          var t = e.name,
+            n = e.token;
+          return { name: t, token: n };
+        });
+    }
+    function S() {
+      return new Set(
+        s.map(function (e) {
+          return e.token;
+        }),
+      );
+    }
+    function R(e) {
       var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : b();
       return t != null || d(e.screenName) || d(e.destinationName);
     }
-    function S(e, t) {
+    function L(e, t) {
       var n = e.holdsUntilRootAttached,
         r = e.rootTestId;
-      return r == null || (n && !R(r)) ? !0 : L(t, r);
+      return r == null || (n && !E(r)) ? !0 : k(t, r);
     }
-    function R(e) {
+    function E(e) {
       return document.querySelector('[data-testid="' + e + '"]') != null;
     }
-    function L(e, t) {
+    function k(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );
@@ -115,7 +136,9 @@ __d(
       (i.openHeldBack = y),
       (i.enterHeldBackSurface = C),
       (i.captureHeldBackSurface = b),
-      (i.isHeldBackEvent = v));
+      (i.getCoveringHeldBackHolds = v),
+      (i.getActiveHeldBackTokens = S),
+      (i.isHeldBackEvent = R));
   },
   66,
 );

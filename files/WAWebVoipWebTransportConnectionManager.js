@@ -1502,8 +1502,15 @@ __d(
           : $e());
     }
     function Ht(e, t, n) {
-      var r = t.relayConnectionInfo;
-      if (r.token === n.token && r.authToken === n.authToken) {
+      var r = t.relayConnectionInfo,
+        a =
+          t.state !==
+            o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
+          t.state !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed;
+      if (
+        (o("WAWebVoipGatingUtils").isCurrentCallGroup() && a) ||
+        (r.token === n.token && r.authToken === n.authToken)
+      ) {
         t.relayConnectionInfo = n;
         return;
       }

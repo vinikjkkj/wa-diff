@@ -40,7 +40,7 @@ __d(
       );
     }
     function d(e) {
-      var t, n, r;
+      var t, n, r, a;
       return {
         type: o("WAWebMsgType").MSG_TYPE.NEWSLETTER_QUESTION_RESPONSE,
         kind: "newsletterQuestionResponse",
@@ -58,6 +58,7 @@ __d(
             (r = e.senderPictureDirectPath) != null ? r : "",
           replied: e.replied,
           starred: e.starred,
+          reactionCode: (a = e.reactionCode) != null ? a : void 0,
         },
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         from: e.parentMsgKey.remote,

@@ -186,9 +186,21 @@ __d(
               updater: null,
             }).subscribe({});
           }),
-          (r.publishWithDeferredNotify = function (t, n) {
-            var e = this.$14(
-              n,
+          (r.publishWithDeferredNotify = function (t, r) {
+            var e;
+            if (((e = r.extensions) == null ? void 0 : e.is_normalized) === !0)
+              return this.$4.publishWithDeferredNotify(t, {
+                errors: [],
+                fieldPayloads: [],
+                followupPayloads: [],
+                incrementalPlaceholders: [],
+                isFinal: !1,
+                source: new (n("relay-runtime/store/RelayRecordSource"))(
+                  r.data,
+                ),
+              });
+            var o = this.$14(
+              r,
               t.root,
               u,
               {
@@ -200,7 +212,7 @@ __d(
               },
               !1,
             );
-            return this.$4.publishWithDeferredNotify(t, e);
+            return this.$4.publishWithDeferredNotify(t, o);
           }),
           (r.commitUpdate = function (t) {
             var e = this;

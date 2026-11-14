@@ -103,10 +103,10 @@ __d(
         capture_kind: d != null ? "VERIFICATION_CODE" : "SIGN_IN",
         fields:
           d != null
-            ? [k("VERIFICATION_CODE", d, !0)]
+            ? [I("VERIFICATION_CODE", d, !0)]
             : [
-                k("USERNAME", (n = l("username_label")) != null ? n : "", !1),
-                k("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
+                I("USERNAME", (n = l("username_label")) != null ? n : "", !1),
+                I("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
               ],
         host: c.hostname,
         page_url: u,
@@ -178,7 +178,7 @@ __d(
               }
             : null,
         preview_available: a.previewAvailable === !0,
-        state: R(c, u),
+        state: L(c, u),
         status: c != null ? c : "",
         status_label: u,
         title:
@@ -196,72 +196,69 @@ __d(
         version: (r = a.version) != null ? r : 0,
       };
     }
-    function _(e) {
+    function _(e, t) {
       return o("WAWebHatchJsonReaders")
         .readObjects(e, "products")
         .flatMap(function (e) {
-          var t,
-            n,
+          var n,
             r,
             a,
             i,
-            l,
-            u =
-              (t = s(o("WAWebHatchJsonReaders").readString(e, "name"))) != null
-                ? t
+            l =
+              (n = s(o("WAWebHatchJsonReaders").readString(e, "name"))) != null
+                ? n
                 : s(o("WAWebHatchJsonReaders").readString(e, "product_name")),
-            c = o("WAWebHatchUrl").toWebUrl(
+            u = o("WAWebHatchUrl").toWebUrl(
               o("WAWebHatchJsonReaders").readString(e, "url"),
             );
-          return u == null || c == null
+          return l == null || u == null
             ? []
             : [
                 {
-                  __typename: "GenAIProductItemCardPrimitive",
-                  additional_images: [],
                   brand:
-                    (n =
-                      (r = s(
+                    (r =
+                      (a = s(
                         o("WAWebHatchJsonReaders").readString(
                           e,
                           "retailer_name",
                         ),
                       )) != null
-                        ? r
+                        ? a
                         : s(
                             o("WAWebHatchJsonReaders").readString(
                               e,
                               "merchant",
                             ),
                           )) != null
-                      ? n
-                      : f(c),
+                      ? r
+                      : g(u),
+                  imageUrl: f(
+                    o("WAWebHatchJsonReaders").readString(e, "image_url"),
+                    t,
+                  ),
                   price:
-                    (a = s(
+                    (i = s(
                       o("WAWebHatchJsonReaders").readString(e, "sale_price"),
                     )) != null
-                      ? a
-                      : s(o("WAWebHatchJsonReaders").readString(e, "price")),
-                  product_id:
-                    (i =
-                      (l = s(
-                        o("WAWebHatchJsonReaders").readString(e, "product_id"),
-                      )) != null
-                        ? l
-                        : s(o("WAWebHatchJsonReaders").readString(e, "id"))) !=
-                    null
                       ? i
-                      : c,
-                  product_url: c,
-                  title: u,
+                      : s(o("WAWebHatchJsonReaders").readString(e, "price")),
+                  productUrl: u,
+                  title: l,
                 },
               ];
         });
     }
-    function f(e) {
+    function f(e, t) {
+      return e != null &&
+        o("WAWebHatchJarvisMedia").isHatchJarvisMediaUrl(e) &&
+        t.has(e)
+        ? e
+        : null;
+    }
+    function g(e) {
       return new URL(e).hostname.replace(/^www\./, "");
     }
-    function g(e, t) {
+    function h(e, t) {
       var n,
         r = o("WAWebHatchUrl").toWebUrl(
           o("WAWebHatchJsonReaders").readString(e, "url"),
@@ -272,19 +269,19 @@ __d(
             description: s(
               o("WAWebHatchJsonReaders").readString(e, "description"),
             ),
-            imageUrl: b(o("WAWebHatchJsonReaders").readString(e, "image_url")),
+            imageUrl: v(o("WAWebHatchJsonReaders").readString(e, "image_url")),
             siteName: s(o("WAWebHatchJsonReaders").readString(e, "site_name")),
             title:
               (n = s(o("WAWebHatchJsonReaders").readString(e, "title"))) != null
                 ? n
-                : E(t, r),
+                : k(t, r),
             url: r,
           };
     }
-    function h(e) {
+    function y(e) {
       var t = o("WAWebHatchJsonReaders")
         .readObjects(e, "items")
-        .map(C)
+        .map(b)
         .filter(Boolean);
       return t.length === 0
         ? null
@@ -294,7 +291,7 @@ __d(
             title: s(o("WAWebHatchJsonReaders").readString(e, "title")),
           };
     }
-    function y(e) {
+    function C(e) {
       return e.flatMap(function (e) {
         var t = s(o("WAWebHatchJsonReaders").readString(e, "label"));
         return t != null
@@ -311,7 +308,7 @@ __d(
           : [];
       });
     }
-    function C(e) {
+    function b(e) {
       var t = s(o("WAWebHatchJsonReaders").readString(e, "title"));
       if (t == null) return null;
       var n = o("WAWebHatchJsonReaders").readString(e, "type"),
@@ -320,9 +317,9 @@ __d(
         body: s(o("WAWebHatchJsonReaders").readString(e, "subtitle")),
         flight:
           n === "flight"
-            ? v(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
+            ? S(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
             : null,
-        imageUrl: b(o("WAWebHatchJsonReaders").readString(e, "image_url")),
+        imageUrl: v(o("WAWebHatchJsonReaders").readString(e, "image_url")),
         linkUrl:
           n === "link"
             ? o("WAWebHatchUrl").toWebUrl(
@@ -333,12 +330,12 @@ __d(
         title: t,
       };
     }
-    function b(e) {
+    function v(e) {
       return e != null && o("WAWebHatchJarvisMedia").isHatchJarvisMediaUrl(e)
         ? e
         : o("WAWebHatchUrl").toWebUrl(e);
     }
-    function v(e) {
+    function S(e) {
       if (e == null) return null;
       var t = o("WAWebHatchJsonReaders").readObject(e, "bags");
       return {
@@ -352,8 +349,8 @@ __d(
         detailsUrl: o("WAWebHatchUrl").toWebUrl(
           o("WAWebHatchJsonReaders").readString(e, "flight_link"),
         ),
-        isChangeable: S(o("WAWebHatchJsonReaders").readString(e, "changeable")),
-        isRefundable: S(o("WAWebHatchJsonReaders").readString(e, "refundable")),
+        isChangeable: R(o("WAWebHatchJsonReaders").readString(e, "changeable")),
+        isRefundable: R(o("WAWebHatchJsonReaders").readString(e, "refundable")),
         legs: o("WAWebHatchJsonReaders")
           .readObjects(e, "slices")
           .map(function (e) {
@@ -381,11 +378,11 @@ __d(
         price: s(o("WAWebHatchJsonReaders").readString(e, "price")),
       };
     }
-    function S(e) {
+    function R(e) {
       return e === "yes" ? !0 : e === "no" ? !1 : null;
     }
-    function R(e, t) {
-      var n = L(t);
+    function L(e, t) {
+      var n = E(t);
       return n === "starting"
         ? "STARTING"
         : (function (e) {
@@ -408,19 +405,19 @@ __d(
                               ? "NEEDS_USER"
                               : "STOPPED"
                             : "WORKING";
-          })(L(e));
+          })(E(e));
     }
-    function L(e) {
+    function E(e) {
       return (e != null ? e : "").toLowerCase().replace(/[- ]/g, "_");
     }
-    function E(e, t) {
+    function k(e, t) {
       var n = e.trim(),
         r = "](" + t + ")";
       if (!n.startsWith("[") || !n.endsWith(r)) return null;
       var o = n.slice(1, -r.length).trim();
       return o === "" || o === t || o.includes("](") ? null : o;
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       return {
         __typename: "GenAISecureCredentialField",
         is_secret: n,
@@ -435,10 +432,10 @@ __d(
       (l.spaceCard = m),
       (l.browserTask = p),
       (l.productCards = _),
-      (l.siteName = f),
-      (l.linkCard = g),
-      (l.list = h),
-      (l.actionButtons = y));
+      (l.siteName = g),
+      (l.linkCard = h),
+      (l.list = y),
+      (l.actionButtons = C));
   },
   98,
 );

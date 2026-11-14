@@ -12,10 +12,10 @@ __d(
     "WAUseCaseSecret",
     "WAWap",
     "WAWebABProps",
+    "WAWebAddonQueryUtils",
     "WAWebApiContact",
     "WAWebCreateNackFromStanza",
     "WAWebCriticalEventWamEvent",
-    "WAWebDBMessageSerialization",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryReportingTokenDBUtils",
     "WAWebGroupHistoryReportingTokenUtils",
@@ -30,7 +30,6 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebReportingTokenConstants",
     "WAWebReportingTokenContent",
-    "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWamEnumMessageSecretAllowedType",
@@ -795,12 +794,8 @@ __d(
       return (
         (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return null;
-          var t = yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .get(e.toString());
-          return t != null
-            ? o("WAWebDBMessageSerialization").messageFromDbRow(t)
-            : null;
+          var t = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([e]);
+          return t.get(e.toString());
         })),
         ee.apply(this, arguments)
       );

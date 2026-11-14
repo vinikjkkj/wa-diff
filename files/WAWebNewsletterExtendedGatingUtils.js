@@ -240,6 +240,16 @@ __d(
           );
     }
     function k(e) {
+      var t = e.newsletterMetadata;
+      return t == null
+        ? !1
+        : u(
+            t,
+            o("WAWebCommonNewsletterEnums").NewsletterCapability
+              .QUESTION_RESPONSE_LIKES,
+          );
+    }
+    function I(e) {
       return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -252,28 +262,20 @@ __d(
                 .ADMIN_PROFILE,
             );
     }
-    function I(e) {
-      return k(e) && e.adminProfilesSettingEnabled;
-    }
     function T(e) {
+      return I(e) && e.adminProfilesSettingEnabled;
+    }
+    function D(e) {
       return (
-        I(e) &&
+        T(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_list_enabled",
         )
       );
     }
-    function D(e) {
-      return (
-        I(e) &&
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_admin_profiles_update_enabled",
-        )
-      );
-    }
     function x(e) {
       return (
-        k(e) &&
+        T(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_update_enabled",
         )
@@ -281,17 +283,25 @@ __d(
     }
     function $(e) {
       return (
-        k(e) &&
+        I(e) &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_admin_profiles_settings_enabled",
+          "channels_admin_profiles_update_enabled",
         )
       );
     }
     function P(e) {
       return (
+        I(e) &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_settings_enabled",
+        )
+      );
+    }
+    function N(e) {
+      return (
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_admin_profiles_banner_enabled",
-        ) && $(e)
+        ) && P(e)
       );
     }
     ((l.isNewsletterEnabledOnPrimary = e),
@@ -312,12 +322,13 @@ __d(
       (l.isNewsletterQuestionsCapabilityEnabledFor = R),
       (l.isNewsletterQuestionsM2CapabilityEnabled = L),
       (l.isNewsletterQuestionsResponsesStarringCapabilityEnabled = E),
-      (l.isNewsletterAdminProfilesSenderEnabled = I),
-      (l.isNewsletterAdminProfilesListEnabled = T),
-      (l.isNewsletterAdminProfilesUpdateEnabled = D),
-      (l.isNewsletterAdminProfilesUpdatePropsEnabled = x),
-      (l.isNewsletterAdminProfilesSettingEnabled = $),
-      (l.isNewsletterAdminProfilesUpsellBannerEnabled = P));
+      (l.isNewsletterQuestionResponseLikesCapabilityEnabled = k),
+      (l.isNewsletterAdminProfilesSenderEnabled = T),
+      (l.isNewsletterAdminProfilesListEnabled = D),
+      (l.isNewsletterAdminProfilesUpdateEnabled = x),
+      (l.isNewsletterAdminProfilesUpdatePropsEnabled = $),
+      (l.isNewsletterAdminProfilesSettingEnabled = P),
+      (l.isNewsletterAdminProfilesUpsellBannerEnabled = N));
   },
   98,
 );

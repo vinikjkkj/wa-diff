@@ -87,6 +87,16 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
+          (t.viewListRetry = function (t) {
+            this.$2({
+              extraAttributes: t,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: "list_retry",
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
+          }),
           (t.clickAddCustomerOnList = function (t) {
             this.$2({
               surface: this.$1(t),

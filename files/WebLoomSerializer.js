@@ -103,7 +103,7 @@ __d(
                   o.push(r.lateMutationType));
                 break;
               case "VISUAL_COMPLETION_PROGRESS":
-                o.push(r.progress);
+                (o.push(r.progress), o.push(r.vcTraceId));
                 break;
               case "JS_SCHEDULER_QUEUE":
                 (o.push(r.priority), o.push(r.queueSize));

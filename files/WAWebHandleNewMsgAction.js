@@ -128,7 +128,7 @@ __d(
         return (C || (C = n("Promise"))).resolve();
       var a = (C || (C = n("Promise"))).resolve();
       if (
-        (o("WAWebMsgGetters").getIsSentByMe(t) &&
+        (E(t) &&
           !e.notSpam &&
           !o("WAWebChatGetters").getIsNewsletter(e) &&
           (a = r("WAWebSendNotSpamAction")(e, !1)),
@@ -610,6 +610,12 @@ __d(
       return (
         (e.type === "gp2" && (e.subtype === "add" || e.subtype === "create")) ||
         o("WAWebMsgGetters").getIsMeAddedToCommunityByOther(e)
+      );
+    }
+    function E(e) {
+      return (
+        o("WAWebMsgGetters").getIsSentByMe(e) &&
+        e.type !== o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
       );
     }
     l.handleNewMsgForChat = R;

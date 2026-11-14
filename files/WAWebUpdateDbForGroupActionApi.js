@@ -302,6 +302,13 @@ __d(
                     "WAWebApiMembershipApprovalRequestStore",
                   ).removeAllMembershipApprovalRequests(l),
                 ),
+                B.push(
+                  o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                    l,
+                    { membershipForm: null, membershipFormKeyId: null },
+                    i,
+                  ),
+                ),
                 yield P(j, l)),
                 B.push(
                   o("WAWebGroupParticipantsJob")
@@ -1028,7 +1035,12 @@ __d(
               B.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
-                  { membershipForm: a.membershipForm },
+                  a.membershipFormKeyId !== void 0
+                    ? {
+                        membershipForm: a.membershipForm,
+                        membershipFormKeyId: a.membershipFormKeyId,
+                      }
+                    : { membershipForm: a.membershipForm },
                   i,
                 ),
               );

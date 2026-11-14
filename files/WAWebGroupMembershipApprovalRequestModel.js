@@ -15,6 +15,7 @@ __d(
           (t.parentGroupId = o("WAWebBaseModel").prop()),
           (t.contact = o("WAWebBaseModel").session()),
           (t.addedByContact = o("WAWebBaseModel").session()),
+          (t.membershipFormResponse = o("WAWebBaseModel").session()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

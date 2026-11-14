@@ -4,16 +4,89 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = {
-        alias: null,
-        args: null,
-        kind: "ScalarField",
-        name: "setting",
-        storageKey: null,
-      };
+      var e = [{ defaultValue: null, kind: "LocalArgument", name: "input" }],
+        t = [{ kind: "Variable", name: "input", variableName: "input" }],
+        n = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "setting",
+          storageKey: null,
+        },
+        r = {
+          alias: null,
+          args: null,
+          concreteType: "XWA2PrivacyPhoneNumberSharingListContents",
+          kind: "LinkedField",
+          name: "deny_list",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "dhash",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "entries",
+              plural: !0,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "__typename",
+                  storageKey: null,
+                },
+                {
+                  kind: "InlineFragment",
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "user_jid",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "pn_jid",
+                      storageKey: null,
+                    },
+                  ],
+                  type: "XWA2PrivacyPhoneNumberSharingUserEntry",
+                  abstractKey: null,
+                },
+                {
+                  kind: "InlineFragment",
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      kind: "ScalarField",
+                      name: "group_jid",
+                      storageKey: null,
+                    },
+                  ],
+                  type: "XWA2PrivacyPhoneNumberSharingGroupEntry",
+                  abstractKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        };
       return {
         fragment: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
           name: "WAWebFetchPhoneNumberSharingSettingsQuery",
@@ -22,13 +95,14 @@ __d(
               kind: "RequiredField",
               field: {
                 alias: null,
-                args: null,
+                args: t,
                 concreteType: "XWA2PrivacyPhoneNumberSharingGetResponse",
                 kind: "LinkedField",
                 name: "xwa2_privacy_phone_number_sharing_get",
                 plural: !1,
                 selections: [
-                  { kind: "RequiredField", field: e, action: "THROW" },
+                  { kind: "RequiredField", field: n, action: "THROW" },
+                  r,
                 ],
                 storageKey: null,
               },
@@ -40,24 +114,24 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [],
+          argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebFetchPhoneNumberSharingSettingsQuery",
           selections: [
             {
               alias: null,
-              args: null,
+              args: t,
               concreteType: "XWA2PrivacyPhoneNumberSharingGetResponse",
               kind: "LinkedField",
               name: "xwa2_privacy_phone_number_sharing_get",
               plural: !1,
-              selections: [e],
+              selections: [n, r],
               storageKey: null,
             },
           ],
         },
         params: {
-          id: "41004700485795872",
+          id: "29271621015855816",
           metadata: {},
           name: "WAWebFetchPhoneNumberSharingSettingsQuery",
           operationKind: "query",

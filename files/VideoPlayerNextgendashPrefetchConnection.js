@@ -74,6 +74,7 @@ __d(
               i,
             );
           },
+          { boundHandshake: !1 },
         );
       return {
         prefetch: function (n, o, l, s, u) {

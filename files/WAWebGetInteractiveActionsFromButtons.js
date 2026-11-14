@@ -748,7 +748,7 @@ __d(
                   ).logRichOrderStatusInteraction(
                     n,
                     o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
-                      .MESSAGE_CTA_CLICK,
+                      .MESSAGE_CTA_VIEW_ORDER_CLICK,
                   ),
                     o(
                       "WAWebBizOpenOrderStatusDrawer.react",
@@ -770,7 +770,7 @@ __d(
                   o("WAWebRichOrderStatusLogger").logRichOrderStatusInteraction(
                     e.unsafe(),
                     o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
-                      .MESSAGE_CTA_CLICK,
+                      .MESSAGE_CTA_TRACK_ORDER_CLICK,
                   ),
                   o("WAWebExternalLink.react").openExternalLink(
                     l.tracking_url,

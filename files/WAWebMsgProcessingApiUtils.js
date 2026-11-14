@@ -662,7 +662,11 @@ __d(
                   (T.isOffline = S),
                   (C.author !== T.from || C.author !== T.author) &&
                     (T.senderWithDevice = C.author),
-                  o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(T.ctwaContext)
+                  o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(
+                    T.ctwaContext,
+                    T.id.fromMe,
+                    C.chat,
+                  )
                     ? (ue = yield o(
                         "WAWebMsgAGMProcessing",
                       ).generateAutomatedGreetingMsgs(T, C))

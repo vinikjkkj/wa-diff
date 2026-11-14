@@ -1792,9 +1792,9 @@ __d(
             var e,
               a = (e = t.alias) != null ? e : t.name,
               i =
-                (t.kind === "ScalarField" &&
-                  (t.args == null ? t.name : t.storageKey)) ||
-                E(t, this.$14);
+                t.args == null && t.kind === "ScalarField"
+                  ? t.name
+                  : E(t, this.$14);
             this.$7 != null && this.$11.add(R(this.$7, i));
             var l = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))

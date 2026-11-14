@@ -3,7 +3,7 @@ __d(
   [
     "invariant",
     "relay-runtime/mutations/RelayRecordSourceMutator",
-    "relay-runtime/mutations/RelayRecordSourceProxy",
+    "relay-runtime/mutations/RelayRecordSourceProxyOptimized",
     "relay-runtime/store/ClientID",
     "relay-runtime/store/RelayConcreteVariables",
     "relay-runtime/store/RelayModernRecord",
@@ -17,28 +17,31 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = n("relay-runtime/store/ClientID").isClientID,
-      u = n("relay-runtime/store/RelayConcreteVariables").getLocalVariables,
-      c = n("relay-runtime/store/RelayRecordState").EXISTENT,
-      d = n("relay-runtime/store/RelayRecordState").UNKNOWN,
-      m = n("relay-runtime/store/TypeID").TYPE_SCHEMA_TYPE,
-      p = n("relay-runtime/store/TypeID").generateTypeID,
-      _ = n("relay-runtime/store/RelayStoreUtils").getModuleOperationKey,
-      f = n("relay-runtime/store/RelayStoreUtils").getStorageKey,
-      g = n("relay-runtime/store/RelayStoreUtils").getArgumentValues;
-    function h(e, t, n, r, o, a, i, l, s) {
+      s = n(
+        "relay-runtime/mutations/RelayRecordSourceProxyOptimized",
+      ).createRelayRecordSourceProxy,
+      u = n("relay-runtime/store/ClientID").isClientID,
+      c = n("relay-runtime/store/RelayConcreteVariables").getLocalVariables,
+      d = n("relay-runtime/store/RelayRecordState").EXISTENT,
+      m = n("relay-runtime/store/RelayRecordState").UNKNOWN,
+      p = n("relay-runtime/store/TypeID").TYPE_SCHEMA_TYPE,
+      _ = n("relay-runtime/store/TypeID").generateTypeID,
+      f = n("relay-runtime/store/RelayStoreUtils").getModuleOperationKey,
+      g = n("relay-runtime/store/RelayStoreUtils").getStorageKey,
+      h = n("relay-runtime/store/RelayStoreUtils").getArgumentValues;
+    function y(e, t, n, r, o, a, i, l, s) {
       l != null && l({ name: "store.datachecker.start", selector: r });
       var u = r.dataID,
         c = r.node,
         d = r.variables,
-        m = new y(e, t, n, d, o, a, i, l, s),
+        m = new C(e, t, n, d, o, a, i, l, s),
         p = m.check(c, u);
       return (
         l != null && l({ name: "store.datachecker.end", selector: r }),
         p
       );
     }
-    var y = (function () {
+    var C = (function () {
       function t(e, t, n, r, o, a, i, l, s) {
         ((this.$10 = e),
           (this.$11 = t),
@@ -68,13 +71,7 @@ __d(
                 this.$10(t),
                 r,
               ),
-              a = new (n("relay-runtime/mutations/RelayRecordSourceProxy"))(
-                o,
-                this.$12,
-                void 0,
-                this.$1,
-                this.$14,
-              );
+              a = s(o, this.$12, void 0, this.$1, this.$14);
             ((e = [o, a]), this.$13.set(t, e));
           }
           return e;
@@ -98,8 +95,8 @@ __d(
           this.$6 = !0;
         }),
         (r.$20 = function (t, n) {
-          if (!(t.name === "id" && t.alias == null && s(n))) {
-            var e = t.args != null ? g(t.args, this.$9) : {};
+          if (!(t.name === "id" && t.alias == null && u(n))) {
+            var e = t.args != null ? h(t.args, this.$9) : {};
             for (var r of this.$1)
               if (r.kind === "scalar") {
                 var o = r.handle(t, this.$5.get(n), e, this.$5);
@@ -111,17 +108,17 @@ __d(
                 kind: "scalar",
                 dataID: n,
                 fieldName: t.name,
-                storageKey: f(t, this.$9),
+                storageKey: g(t, this.$9),
               }),
               this.$19());
           }
         }),
         (r.$21 = function (t, n) {
-          var e = t.args != null ? g(t.args, this.$9) : {};
+          var e = t.args != null ? h(t.args, this.$9) : {};
           for (var r of this.$1)
             if (r.kind === "linked") {
               var o = r.handle(t, this.$5.get(n), e, this.$5);
-              if (o !== void 0 && (o === null || this.$3.getStatus(o) === c))
+              if (o !== void 0 && (o === null || this.$3.getStatus(o) === d))
                 return o;
             }
           (this.$14 != null &&
@@ -130,19 +127,19 @@ __d(
               kind: "linked",
               dataID: n,
               fieldName: t.name,
-              storageKey: f(t, this.$9),
+              storageKey: g(t, this.$9),
             }),
             this.$19());
         }),
         (r.$22 = function (t, n) {
           var e = this,
-            r = t.args != null ? g(t.args, this.$9) : {};
+            r = t.args != null ? h(t.args, this.$9) : {};
           for (var o of this.$1)
             if (o.kind === "pluralLinked") {
               var a = o.handle(t, this.$5.get(n), r, this.$5);
               if (a != null) {
                 var i = a.every(function (t) {
-                  return t != null && e.$3.getStatus(t) === c;
+                  return t != null && e.$3.getStatus(t) === d;
                 });
                 if (i) return a;
               } else if (a === null) return null;
@@ -153,14 +150,14 @@ __d(
               kind: "pluralLinked",
               dataID: n,
               fieldName: t.name,
-              storageKey: f(t, this.$9),
+              storageKey: g(t, this.$9),
             }),
             this.$19());
         }),
         (r.$17 = function (r, o) {
           var t = this.$3.getStatus(o);
           if (
-            (t === d &&
+            (t === m &&
               (this.$14 != null &&
                 this.$14({
                   name: "store.datachecker.missing",
@@ -168,7 +165,7 @@ __d(
                   dataID: o,
                 }),
               this.$19()),
-            t === c)
+            t === d)
           ) {
             var a = this.$7.get(o),
               i = (
@@ -202,9 +199,9 @@ __d(
                   var s = e.$3.getType(r);
                   s === o.type && e.$23(o.selections, r);
                 } else {
-                  var c = e.$3.getType(r);
-                  c != null || l(0, 22686, r);
-                  var d = p(c),
+                  var u = e.$3.getType(r);
+                  u != null || l(0, 22686, r);
+                  var d = _(u),
                     m = e.$3.getValue(d, i);
                   m === !0
                     ? e.$23(o.selections, r)
@@ -215,12 +212,12 @@ __d(
                 break;
               }
               case "LinkedHandle": {
-                var _ = n("relay-runtime/store/cloneRelayHandleSourceField")(
+                var p = n("relay-runtime/store/cloneRelayHandleSourceField")(
                   o,
                   t,
                   e.$9,
                 );
-                _.plural ? e.$25(_, r) : e.$26(_, r);
+                p.plural ? e.$25(p, r) : e.$26(p, r);
                 break;
               }
               case "ScalarHandle": {
@@ -239,7 +236,7 @@ __d(
                 break;
               case "FragmentSpread":
                 var g = e.$9;
-                ((e.$9 = u(e.$9, o.fragment.argumentDefinitions, o.args)),
+                ((e.$9 = c(e.$9, o.fragment.argumentDefinitions, o.args)),
                   e.$23(o.fragment.selections, r),
                   (e.$9 = g));
                 break;
@@ -251,7 +248,7 @@ __d(
                 var y = o.abstractKey,
                   C = e.$3.getType(r);
                 C != null || l(0, 22686, r);
-                var b = p(C),
+                var b = _(C),
                   v = e.$3.getValue(b, y);
                 v == null && e.$19();
                 break;
@@ -276,7 +273,7 @@ __d(
         (r.$28 = function (t, r) {
           var e = this.$4;
           e !== null || l(0, 13642);
-          var o = _(t.documentName),
+          var o = f(t.documentName),
             a = this.$3.getValue(r, o);
           if (a == null) {
             a === void 0 && this.$19();
@@ -285,20 +282,20 @@ __d(
           var i = e.get(a);
           if (i != null) {
             var s = n("relay-runtime/util/getOperation")(i),
-              c = this.$9;
-            ((this.$9 = u(this.$9, s.argumentDefinitions, t.args)),
+              u = this.$9;
+            ((this.$9 = c(this.$9, s.argumentDefinitions, t.args)),
               this.$17(s, r),
-              (this.$9 = c));
+              (this.$9 = u));
           } else this.$19();
         }),
         (r.$24 = function (t, n) {
-          var e = f(t, this.$9),
+          var e = g(t, this.$9),
             r = this.$3.getValue(n, e);
           r === void 0 &&
             ((r = this.$20(t, n)), r !== void 0 && this.$3.setValue(n, e, r));
         }),
         (r.$26 = function (t, n) {
-          var e = f(t, this.$9),
+          var e = g(t, this.$9),
             r = this.$3.getLinkedRecordID(n, e);
           (r === void 0 &&
             ((r = this.$21(t, n)),
@@ -309,7 +306,7 @@ __d(
         }),
         (r.$25 = function (t, n) {
           var e = this,
-            r = f(t, this.$9),
+            r = g(t, this.$9),
             o = this.$3.getLinkedRecordIDs(n, r);
           (o === void 0 &&
             ((o = this.$22(t, n)),
@@ -322,7 +319,7 @@ __d(
               }));
         }),
         (r.$27 = function (r, o) {
-          var t = f(r, this.$9),
+          var t = g(r, this.$9),
             a = this.$7.get(o),
             i =
               a != null
@@ -355,15 +352,15 @@ __d(
           if (e != null)
             for (var n of Object.keys(e))
               for (var r of e[n]) {
-                var o = p(r);
-                (this.$7.get(o) == null && this.$3.create(o, m),
+                var o = _(r);
+                (this.$7.get(o) == null && this.$3.create(o, p),
                   this.$3.getValue(o, n) == null && this.$3.setValue(o, n, !0));
               }
         }),
         t
       );
     })();
-    a.exports = { DataChecker: y, check: h };
+    a.exports = { DataChecker: C, check: y };
   },
   null,
 );

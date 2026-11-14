@@ -7,6 +7,7 @@ __d(
     "WAWebHatchAuthCredentials",
     "WAWebHatchVmFetcher",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -28,17 +29,28 @@ __d(
       y = "CVM_",
       C = "endorsement.",
       b = new Set(["DELETING", "DISABLED", "ERROR"]),
-      v = "hatch-vm-forced-wake",
-      S = (function () {
+      v = new Set(["CREATING", "UPDATING"]),
+      S = (c || (c = n("Promise"))).resolve({ kind: "ok" }),
+      R = {
+        cause: "network",
+        detail: "VM wake request threw",
+        kind: "failure",
+      },
+      L = "hatch-vm-forced-wake",
+      E = (function () {
         function t(e) {
-          var t, r, a, i, l;
+          var t, r, a, i, l, s;
           ((this.$1 = null),
             (this.$3 = null),
-            (this.$6 = 0),
-            (this.$7 = null),
+            (this.$5 = new WeakSet()),
+            (this.$6 = null),
             (this.$8 = 0),
             (this.$9 = null),
             (this.$10 = null),
+            (this.$11 = 0),
+            (this.$12 = null),
+            (this.$14 = null),
+            (this.$16 = new Map()),
             (this.$2 =
               (t = e.allowConfidentialConnection) != null
                 ? t
@@ -49,18 +61,19 @@ __d(
                 : function () {
                     return Date.now();
                   }),
-            (this.$5 = new (o("WAWebHatchVmFetcher").WAWebHatchVmFetcher)(
-              (a = e.fetch) != null ? a : P,
+            (this.$7 = new (o("WAWebHatchVmFetcher").WAWebHatchVmFetcher)(
+              (a = e.fetch) != null ? a : F,
               this.$4,
             )),
-            (this.$11 = e.mintAbraToken),
-            (this.$12 =
-              (i = e.readPastedAbraToken) != null
-                ? i
-                : o("WAWebHatchAuthCredentials").readHatchAuthAbraToken),
-            (this.$13 =
-              (l = e.sleep) != null
+            (this.$13 = (i = e.isWakeBeforeDialEnabled) != null ? i : k),
+            (this.$15 = e.mintAbraToken),
+            (this.$17 =
+              (l = e.readPastedAbraToken) != null
                 ? l
+                : o("WAWebHatchAuthCredentials").readHatchAuthAbraToken),
+            (this.$18 =
+              (s = e.sleep) != null
+                ? s
                 : function (e) {
                     return new (c || (c = n("Promise")))(function (t) {
                       return self.setTimeout(t, e);
@@ -80,10 +93,11 @@ __d(
               return (c || (c = n("Promise"))).resolve({
                 credentials: r.credentials,
                 kind: "ok",
+                slowWake: r.slowWake,
               });
-            var a = this.$9;
+            var a = this.$12;
             if (a != null) return a;
-            var i = this.$14(this.$8)
+            var i = this.$19(this.$11)
               .catch(function () {
                 return (
                   o("WALogger")
@@ -102,9 +116,9 @@ __d(
                 );
               })
               .finally(function () {
-                t.$9 === i && (t.$9 = null);
+                t.$12 === i && (t.$12 = null);
               });
-            return ((this.$9 = i), i);
+            return ((this.$12 = i), i);
           }),
           (r.refreshVm = function (t, n) {
             var e = n === void 0 ? {} : n,
@@ -113,24 +127,39 @@ __d(
               a = this.$3;
             return a != null && a.credentials !== t
               ? !1
-              : ((this.$3 = null), o && (this.$7 = t.vmId), !0);
+              : ((this.$3 = null),
+                (this.$6 = null),
+                (this.$10 = t.vmId),
+                o && (this.$9 = t.vmId),
+                !0);
+          }),
+          (r.markVmConnected = function (t) {
+            this.$5.add(t);
+            var e = this.$6;
+            (this.$3 == null &&
+              (e == null ? void 0 : e.credentials) === t &&
+              (this.$3 = e),
+              (this.$6 = null));
           }),
           (r.dropForcedWake = function () {
-            (this.$6++, (this.$7 = null));
+            (this.$8++, (this.$9 = null));
           }),
           (r.invalidate = function () {
-            (this.$8++,
+            (this.$11++,
               (this.$1 = null),
               (this.$3 = null),
-              (this.$7 = null),
-              (this.$9 = null));
+              (this.$6 = null),
+              (this.$9 = null),
+              (this.$12 = null),
+              this.$16.clear(),
+              (this.$10 = null));
           }),
-          (r.$14 = (function () {
+          (r.$19 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t,
-                  n = (t = this.$1) != null ? t : this.$12(),
-                  r = n != null ? n : yield this.$15(e);
+                  n = (t = this.$1) != null ? t : this.$17(),
+                  r = n != null ? n : yield this.$20(e);
                 if (r == null)
                   return {
                     cause: "mint_failed",
@@ -138,21 +167,21 @@ __d(
                     kind: "failure",
                   };
                 var o = r,
-                  a = yield this.$16(o, e);
+                  a = yield this.$21(o, e);
                 if (a.kind === "unauthorized" && n != null) {
-                  this.$17(n, e);
-                  var i = yield this.$15(e);
+                  this.$22(n, e);
+                  var i = yield this.$20(e);
                   if (i == null)
                     return {
                       cause: "mint_failed",
                       detail: a.detail,
                       kind: "failure",
                     };
-                  ((o = i), (a = yield this.$16(o, e)));
+                  ((o = i), (a = yield this.$21(o, e)));
                 }
                 return a.kind === "unauthorized"
-                  ? (this.$17(o, e),
-                    e === this.$8 && this.dropForcedWake(),
+                  ? (this.$22(o, e),
+                    e === this.$11 && this.dropForcedWake(),
                     {
                       cause: "unauthorized",
                       detail: a.detail,
@@ -160,7 +189,7 @@ __d(
                     })
                   : a.kind !== "ok"
                     ? a
-                    : this.$18(a, e);
+                    : this.$23(a, e);
               },
             );
             function t(t) {
@@ -168,56 +197,66 @@ __d(
             }
             return t;
           })()),
-          (r.$18 = function (t, n) {
-            if (n !== this.$8) return g;
-            var e = t.entry;
-            if (!$(e) && !this.$2())
+          (r.$23 = function (t, n) {
+            var e = this;
+            if (n !== this.$11) return g;
+            var r = t.entry;
+            if (!A(r) && !this.$2())
               return {
                 cause: "unsupported_vm_type",
                 detail: "Confidential access was turned off during the resolve",
                 kind: "failure",
               };
-            var r = L(e);
+            var o = T(r),
+              a = w(r),
+              i = {
+                credentials: o,
+                expiresAtMs: r.notaryExpiresAtMs,
+                slowWake: a,
+              };
             return (
-              t.cacheable &&
-                (this.$3 = {
-                  credentials: r,
-                  expiresAtMs: e.notaryExpiresAtMs,
-                }),
-              { credentials: r, kind: "ok" }
+              (this.$3 = i),
+              (this.$6 = null),
+              t.wake.then(function (t) {
+                t.kind !== "ok" &&
+                  e.$3 === i &&
+                  !e.$5.has(o) &&
+                  ((e.$3 = null), (e.$6 = i));
+              }),
+              { credentials: o, kind: "ok", slowWake: a }
             );
           }),
-          (r.$16 = (function () {
+          (r.$21 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                var n = yield this.$5.fetch(e);
+                var n = yield this.$7.fetch(e);
                 if (n.kind === "ok" && n.entries.length === 0) {
-                  if (this.$10 === t)
+                  if (this.$14 === t)
                     return {
                       cause: "lease_pending",
                       detail: "Leased VM is not listed yet",
                       kind: "failure",
                     };
-                  this.$10 = t;
-                  var r = yield this.$5.lease(e);
+                  this.$14 = t;
+                  var r = yield this.$7.lease(e);
                   if (r.kind === "unauthorized")
-                    return (this.$10 === t && (this.$10 = null), r);
+                    return (this.$14 === t && (this.$14 = null), r);
                   if (r.kind === "not_found")
                     return { cause: "http", detail: r.detail, kind: "failure" };
                   if (r.kind !== "ok") return r;
-                  n = yield this.$5.fetch(e);
+                  n = yield this.$7.fetch(e);
                 }
                 if (n.kind !== "ok") return n;
-                var o = I(n.entries);
+                var o = $(n.entries);
                 if (o == null)
                   return {
                     cause: "no_vm",
                     detail: "fetch_vms returned no VM",
                     kind: "failure",
                   };
-                var a = yield this.$19({ entry: o, generation: t, token: e });
-                return E(a)
-                  ? this.$20({ entry: o, generation: t, prepared: a, token: e })
+                var a = yield this.$24({ entry: o, generation: t, token: e });
+                return D(a)
+                  ? this.$25({ entry: o, generation: t, prepared: a, token: e })
                   : a;
               },
             );
@@ -226,7 +265,7 @@ __d(
             }
             return t;
           })()),
-          (r.$20 = (function () {
+          (r.$25 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t,
@@ -234,14 +273,14 @@ __d(
                   r = e.generation,
                   o = e.prepared,
                   a = e.token,
-                  i = yield this.$5.fetch(a);
+                  i = yield this.$7.fetch(a);
                 if (i.kind === "unauthorized") return i;
-                var l = i.kind === "ok" ? I(i.entries) : null;
+                var l = i.kind === "ok" ? $(i.entries) : null;
                 return l == null
                   ? o
-                  : (t = T({ after: l, before: n })) != null
+                  : (t = P({ after: l, before: n })) != null
                     ? t
-                    : this.$19({ entry: l, generation: r, token: a });
+                    : this.$24({ entry: l, generation: r, token: a });
               },
             );
             function t(t) {
@@ -249,25 +288,37 @@ __d(
             }
             return t;
           })()),
-          (r.$19 = (function () {
+          (r.$24 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t,
-                  n,
-                  r = e.entry,
-                  o = e.generation,
-                  a = e.token,
-                  i = this.$21(r);
-                if (i != null) return i;
-                var l = yield this.$22(a, r, o);
-                return l.kind !== "ok" || l.entry === r
-                  ? l
-                  : (t =
-                        (n = T({ after: l.entry, before: r })) != null
-                          ? n
-                          : this.$21(l.entry)) != null
-                    ? t
-                    : l;
+                  n = e.entry,
+                  r = e.generation,
+                  o = e.token,
+                  a = this.$26(n);
+                if (a != null) return a;
+                var i = this.$27(n.vmId, r),
+                  l = this.$28(n.vmId, r),
+                  s = l || this.$13(),
+                  u = yield this.$29(o, n, r);
+                if (u.kind !== "ok") return u;
+                var c = u.entry,
+                  d =
+                    c === n
+                      ? null
+                      : (t = P({ after: c, before: n })) != null
+                        ? t
+                        : this.$26(c);
+                return d != null
+                  ? d
+                  : s
+                    ? this.$30({
+                        entry: c,
+                        generation: r,
+                        isForced: i,
+                        token: o,
+                      })
+                    : { entry: c, kind: "ok", wake: S };
               },
             );
             function t(t) {
@@ -275,8 +326,8 @@ __d(
             }
             return t;
           })()),
-          (r.$21 = function (t) {
-            return $(t)
+          (r.$26 = function (t) {
+            return A(t)
               ? null
               : t.vmType !== h || !this.$2()
                 ? {
@@ -284,14 +335,14 @@ __d(
                     detail: "VM type " + String(t.vmType) + " is not supported",
                     kind: "failure",
                   }
-                : x(t)
+                : M(t)
                   ? {
                       cause: "cvm_replacement_in_progress",
                       detail: "Confidential VM is being replaced",
                       kind: "failure",
                     }
-                  : this.$23(t)
-                    ? D(t)
+                  : this.$31(t)
+                    ? N(t)
                       ? null
                       : {
                           cause: "cvm_vm_id_mismatch",
@@ -305,7 +356,7 @@ __d(
                         kind: "failure",
                       };
           }),
-          (r.$23 = function (t) {
+          (r.$31 = function (t) {
             var e = t.noiseNotaryToken;
             return (
               e != null &&
@@ -314,26 +365,16 @@ __d(
               t.notaryExpiresAtMs - d > this.$4()
             );
           }),
-          (r.$22 = (function () {
+          (r.$29 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n) {
                 var r,
-                  o = this.$24(t.vmId, n),
-                  a = (r = t.state) == null ? void 0 : r.toUpperCase();
-                if (a === "RUNNING")
-                  return o
-                    ? this.$25(e, t, n)
-                    : { cacheable: !0, entry: t, kind: "ok" };
-                if (a != null && b.has(a))
-                  return {
-                    cause: "vm_state",
-                    detail: "VM is " + a,
-                    kind: "failure",
-                  };
-                if (a === "CREATING" || a === "UPDATING")
-                  return this.$26(e, t.vmId, n);
-                var i = yield this.$5.wake(e, t.vmId);
-                return this.$27({ entry: t, generation: n, token: e, woke: i });
+                  o = (r = t.state) == null ? void 0 : r.toUpperCase();
+                return o != null && b.has(o)
+                  ? { cause: "vm_state", detail: "VM is " + o, kind: "failure" }
+                  : o != null && v.has(o)
+                    ? this.$32(e, t.vmId, n)
+                    : { entry: t, kind: "ok" };
               },
             );
             function t(t, n, r) {
@@ -341,64 +382,74 @@ __d(
             }
             return t;
           })()),
-          (r.$24 = function (t, n) {
-            if (n !== this.$8) return !1;
-            var e = this.$7 === t;
-            return ((this.$7 = null), e);
+          (r.$30 = function (t) {
+            var e,
+              n = this,
+              r = t.entry,
+              o = t.generation,
+              a = t.isForced,
+              i = t.token,
+              l = this.$8,
+              s = (e = this.$16.get(r.vmId)) != null ? e : this.$33(i, r.vmId);
+            return (
+              s.then(function (e) {
+                return n.$34({
+                  epoch: l,
+                  generation: o,
+                  isForced: a,
+                  vmId: r.vmId,
+                  woke: e,
+                });
+              }),
+              { entry: r, kind: "ok", wake: s }
+            );
           }),
-          (r.$25 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = this.$6,
-                  o = yield this.$5.wake(e, t.vmId);
-                return (
-                  R(o),
-                  o.kind === "unauthorized" &&
-                    n === this.$8 &&
-                    r === this.$6 &&
-                    (this.$7 = t.vmId),
-                  this.$27({ entry: t, generation: n, token: e, woke: o })
-                );
-              },
+          (r.$33 = function (t, n) {
+            var e = this,
+              r = this.$7.wake(t, n).catch(function () {
+                return R;
+              });
+            return (
+              this.$16.set(n, r),
+              r.then(function (t) {
+                (e.$16.get(n) === r && e.$16.delete(n),
+                  (t.kind === "failure" || t.kind === "not_found") &&
+                    o("WALogger")
+                      .WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "hatch-vm-credentials: wake failed, continuing",
+                          ])),
+                      )
+                      .sendLogs("hatch-vm-credentials-wake-failed"));
+              }),
+              r
             );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$27 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n = e.entry,
-                  r = e.generation,
-                  a = e.token,
-                  i = e.woke;
-                return i.kind === "unauthorized"
-                  ? i
-                  : i.kind === "not_found"
-                    ? { cause: "no_vm", detail: i.detail, kind: "failure" }
-                    : (i.kind === "failure" &&
-                        o("WALogger")
-                          .WARN(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "hatch-vm-credentials: wake failed, continuing",
-                              ])),
-                          )
-                          .sendLogs("hatch-vm-credentials-wake-failed"),
-                      ((t = n.state) == null ? void 0 : t.toUpperCase()) ===
-                        "STOPPED" || n.vmType === h
-                        ? this.$26(a, n.vmId, r)
-                        : { cacheable: i.kind === "ok", entry: n, kind: "ok" });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$26 = (function () {
+          }),
+          (r.$28 = function (t, n) {
+            if (n !== this.$11) return !1;
+            var e = this.$10 === t;
+            return ((this.$10 = null), e);
+          }),
+          (r.$27 = function (t, n) {
+            if (n !== this.$11) return !1;
+            var e = this.$9 === t;
+            return ((this.$9 = null), e);
+          }),
+          (r.$34 = function (t) {
+            var e = t.epoch,
+              n = t.generation,
+              r = t.isForced,
+              o = t.vmId,
+              a = t.woke;
+            (r && I(a),
+              r &&
+                a.kind === "unauthorized" &&
+                n === this.$11 &&
+                e === this.$8 &&
+                (this.$9 = o));
+          }),
+          (r.$32 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, o) {
                 (r === void 0 && (r = 0), o === void 0 && (o = this.$4()));
@@ -406,13 +457,13 @@ __d(
                 if (r >= _ || this.$4() - o + a > f)
                   return {
                     cause: "not_running",
-                    detail: "VM was not running in time",
+                    detail: "VM was not ready in time",
                     kind: "failure",
                   };
-                if ((yield this.$13(a), n !== this.$8)) return g;
-                var i = yield this.$5.fetch(e),
-                  l = k(i, t);
-                return l != null ? l : this.$26(e, t, n, r + 1, o);
+                if ((yield this.$18(a), n !== this.$11)) return g;
+                var i = yield this.$7.fetch(e),
+                  l = x(i, t);
+                return l != null ? l : this.$32(e, t, n, r + 1, o);
               },
             );
             function t(t, n, r, o, a) {
@@ -420,13 +471,13 @@ __d(
             }
             return t;
           })()),
-          (r.$15 = (function () {
+          (r.$20 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = yield this.$11();
+                var t = yield this.$15();
                 return t.kind !== "ok"
                   ? null
-                  : (e === this.$8 && (this.$1 = t.token), t.token);
+                  : (e === this.$11 && (this.$1 = t.token), t.token);
               },
             );
             function t(t) {
@@ -434,13 +485,16 @@ __d(
             }
             return t;
           })()),
-          (r.$17 = function (t, n) {
-            n === this.$8 && this.$1 === t && (this.$1 = null);
+          (r.$22 = function (t, n) {
+            n === this.$11 && this.$1 === t && (this.$1 = null);
           }),
           t
         );
       })();
-    function R(e) {
+    function k() {
+      return r("justknobx")._("7766");
+    }
+    function I(e) {
       var t =
         e.kind === "ok"
           ? "ok"
@@ -465,9 +519,9 @@ __d(
             ])),
           t,
         )
-        .sendLogs(v);
+        .sendLogs(L);
     }
-    function L(e) {
+    function T(e) {
       var t = {
         notaryToken: e.notaryToken,
         vmAuthToken: e.vmAuthToken,
@@ -477,10 +531,10 @@ __d(
         ? babelHelpers.extends({}, t, { confidential: !0 })
         : t;
     }
-    function E(e) {
+    function D(e) {
       return e.kind === "failure" && e.cause === "cvm_notary_unavailable";
     }
-    function k(e, t) {
+    function x(e, t) {
       var n;
       if (e.kind === "unauthorized") return e;
       if (e.kind !== "ok") return null;
@@ -493,29 +547,29 @@ __d(
           detail: "VM is no longer listed",
           kind: "failure",
         };
+      if (!A(r) && M(r))
+        return {
+          cause: "cvm_replacement_in_progress",
+          detail: "Confidential VM is being replaced",
+          kind: "failure",
+        };
       var o = (n = r.state) == null ? void 0 : n.toUpperCase();
-      return o === "RUNNING"
-        ? { cacheable: !0, entry: r, kind: "ok" }
-        : !$(r) && x(r)
-          ? {
-              cause: "cvm_replacement_in_progress",
-              detail: "Confidential VM is being replaced",
-              kind: "failure",
-            }
-          : o != null && b.has(o)
-            ? { cause: "vm_state", detail: "VM is " + o, kind: "failure" }
-            : null;
+      return o != null && b.has(o)
+        ? { cause: "vm_state", detail: "VM is " + o, kind: "failure" }
+        : o != null && v.has(o)
+          ? null
+          : { entry: r, kind: "ok" };
     }
-    function I(e) {
+    function $(e) {
       var t = e.find(function (e) {
         return e.isDefault;
       });
-      return t != null ? t : e.every($) || e.length === 1 ? e[0] : null;
+      return t != null ? t : e.every(A) || e.length === 1 ? e[0] : null;
     }
-    function T(e) {
+    function P(e) {
       var t = e.after,
         n = e.before;
-      return !$(n) && $(t)
+      return !A(n) && A(t)
         ? {
             cause: "unsupported_vm_type",
             detail: "Confidential VM came back as a standard VM",
@@ -523,7 +577,7 @@ __d(
           }
         : null;
     }
-    function D(e) {
+    function N(e) {
       var t = e.gatewayUrl,
         n = e.vmId,
         r;
@@ -535,21 +589,24 @@ __d(
       var o = r.split(".")[0];
       return n !== "" && o.toLowerCase() === n.toLowerCase();
     }
-    function x(e) {
+    function M(e) {
       var t;
       return (
         ((t = e.state) == null ? void 0 : t.toUpperCase().startsWith(y)) === !0
       );
     }
-    function $(e) {
+    function w(e) {
+      return e.vmType === h;
+    }
+    function A(e) {
       return o("WAWebHatchVmFetcher").isStandardVmType(e.vmType);
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function F(e, t) {
+      return O.apply(this, arguments);
     }
-    function N() {
+    function O() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield self.fetch(
             e,
             babelHelpers.extends({}, t, { redirect: "error" }),
@@ -562,10 +619,10 @@ __d(
             status: n.status,
           };
         })),
-        N.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    l.WAWebHatchVmCredentialsResolver = S;
+    l.WAWebHatchVmCredentialsResolver = E;
   },
   98,
 );

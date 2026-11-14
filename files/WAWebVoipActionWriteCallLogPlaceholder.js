@@ -22,6 +22,7 @@ __d(
     "WAWebSchemaMessageOrphans",
     "WAWebSendMsgChatAction",
     "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebVoipActionSurfaceCallLogChat",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipBackendCallLogPlaceholderTargetResolver",
@@ -29,6 +30,7 @@ __d(
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipPendingCallLogOutcome",
     "WAWebVoipTransferredCallRegistry",
+    "WAWebVoipUnresolvedPlaceholderLoadable",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -97,6 +99,12 @@ __d(
                 o("WAWebVoipCallLogPlaceholderTracker").markPlaceholderResolved(
                   s,
                 ),
+                h.viewMode ===
+                  o("WAWebViewMode.flow").ViewModeType
+                    .CALL_LOG_OFFLINE_RESUME &&
+                  o(
+                    "WAWebVoipUnresolvedPlaceholderLoadable",
+                  ).scheduleUnresolvedPlaceholderCheckLoadable(g.id),
                 o(
                   "WAWebVoipActionWriteCallLogImpl",
                 ).replayDeferredCallLogOutcome(f, g));
@@ -269,6 +277,7 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = !1;
           try {
             yield o(
               "WAWebVoipActionWriteCallLogImpl",
@@ -276,7 +285,7 @@ __d(
               r,
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  yield P(t, r);
+                  a = yield P(t, r);
                 } finally {
                   o(
                     "WAWebVoipCallLogPlaceholderTracker",
@@ -288,6 +297,10 @@ __d(
             (o("WAWebVoipCallLogPlaceholderTracker").markPlaceholderResolved(e),
               w(e, t));
           }
+          a ||
+            o(
+              "WAWebVoipUnresolvedPlaceholderLoadable",
+            ).scheduleUnresolvedPlaceholderCheckLoadable(r.id);
         })),
         $.apply(this, arguments)
       );
@@ -337,13 +350,14 @@ __d(
               s,
               o("WAWebHandleMsgTypes").MessageOverwriteOption.VOIP_CALL_LOG,
             );
-          (c != null &&
-            u != null &&
-            s.id != null &&
-            o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-              s.id,
-              u,
-            ),
+          return (
+            c != null &&
+              u != null &&
+              s.id != null &&
+              o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+                s.id,
+                u,
+              ),
             a.length > 0 &&
               (yield o("WAWebSchemaMessageOrphans")
                 .getMessageOrphanTable()
@@ -359,7 +373,13 @@ __d(
             r("WAWebVoipCallsTabPanelManager").trigger(
               "onWriteCallLogMessage",
               c,
-            ));
+            ),
+            c != null &&
+              o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+                o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+                s.viewMode,
+              )
+          );
         })),
         N.apply(this, arguments)
       );
@@ -371,7 +391,15 @@ __d(
               o("WAWebViewMode.flow").ViewModeType
                 .CALL_LOG_OFFLINE_RESUME_PROMOTED,
           })
-        : e;
+        : o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+              o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+              e.viewMode,
+            )
+          ? e
+          : babelHelpers.extends({}, e, {
+              viewMode:
+                o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME,
+            });
     }
     function w(e, t) {
       o("WALogger")

@@ -401,7 +401,11 @@ __d(
                       (D == null ? void 0 : D.fromMe) != null &&
                       I != null &&
                       x != null &&
-                      o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(E)
+                      o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(
+                        E,
+                        D.fromMe,
+                        C,
+                      )
                     ) {
                       var $,
                         P = new (r("WAWebMsgKey"))({

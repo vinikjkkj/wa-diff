@@ -182,21 +182,31 @@ __d(
     }
     function F() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_status_bad_ux_logging_parity_enabled",
+        "wa_web_status_unread_dot_prefetch",
       );
     }
     function O() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_status_composer_quick_replies_enabled",
+        "wa_web_status_list_prefetch_depth",
       );
     }
     function B() {
-      return q(1);
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_bad_ux_logging_parity_enabled",
+      );
     }
     function W() {
-      return q(2);
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_status_composer_quick_replies_enabled",
+      );
     }
-    function q(e) {
+    function q() {
+      return V(1);
+    }
+    function U() {
+      return V(2);
+    }
+    function V(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_status_viewer_refresh_level",
@@ -230,10 +240,12 @@ __d(
       (l.isChainFromChatListEnabled = M),
       (l.isStatusFileDropEnabled = w),
       (l.isStatusCompanionReadSyncEnabled = A),
-      (l.isStatusBadUxLoggingParityEnabled = F),
-      (l.isStatusComposerQuickRepliesEnabled = O),
-      (l.isStatusViewerRefreshM1Enabled = B),
-      (l.isStatusViewerRefreshM2Enabled = W));
+      (l.isStatusUnreadDotPrefetchEnabled = F),
+      (l.getStatusListPrefetchDepth = O),
+      (l.isStatusBadUxLoggingParityEnabled = B),
+      (l.isStatusComposerQuickRepliesEnabled = W),
+      (l.isStatusViewerRefreshM1Enabled = q),
+      (l.isStatusViewerRefreshM2Enabled = U));
   },
   98,
 );

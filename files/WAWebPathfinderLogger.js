@@ -8,6 +8,7 @@ __d(
     "WAWebODS",
     "WAWebPathfinderAppReactionMetadata",
     "WAWebPathfinderHealthReporter",
+    "WAWebPathfinderHeldBackPermit",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderPIIFilter",
     "WAWebPathfinderReservedMetadataKeys",
@@ -57,6 +58,7 @@ __d(
         SHEET_PRESENTED: { category: 5, eventName: 26 },
         SHEET_DISMISSED: { category: 5, eventName: 27 },
         TOGGLE_STATE_CHANGED: { category: 5, eventName: 29 },
+        SELECTION_MADE: { category: 5, eventName: 30 },
         CUSTOM_EVENT: { category: 6, eventName: 19 },
       },
       C = new Set([
@@ -546,7 +548,13 @@ __d(
     }
     function Qe(e) {
       var t, n, a, i, l, s;
-      if (!(o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e) || !ze(e))) {
+      if (
+        !(
+          (!o("WAWebPathfinderHeldBackPermit").takePermittedHeldBackRow(e) &&
+            o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e)) ||
+          !ze(e)
+        )
+      ) {
         var u = je(e),
           c = y[u.eventType],
           d = c != null ? D(u, c.eventName) : null;

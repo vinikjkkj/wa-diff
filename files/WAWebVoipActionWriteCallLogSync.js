@@ -397,13 +397,7 @@ __d(
               ]),
               l = i[0],
               s = i[1];
-            if (
-              x(t) ||
-              o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
-                s == null ? void 0 : s.viewMode,
-              )
-            )
-              return !1;
+            if (x(t) || $(s == null ? void 0 : s.viewMode)) return !1;
             var u = l == null ? void 0 : l.t;
             return u != null && u >= a;
           } catch (e) {
@@ -436,6 +430,13 @@ __d(
         t.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
         t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
         t.selfOtherDeviceConnected === !0
+      );
+    }
+    function $(e) {
+      return (
+        o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(e) ||
+        e ===
+          o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME_UNCOUNTED
       );
     }
     l.generateCallLogFromCallSyncRecord = S;

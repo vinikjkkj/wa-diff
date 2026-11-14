@@ -23,8 +23,13 @@ __d(
         "wa_ctwa_web_hide_ad_context_if_soft_dismissed_in_primary",
       );
     }
-    function c(e) {
-      return e != null && e.sourceApp !== "whatsapp";
+    function c(e, t, n) {
+      return (
+        e != null &&
+        e.sourceApp !== "whatsapp" &&
+        n.isRegularUser() &&
+        (t || o("WAWebMobilePlatforms").isSMB())
+      );
     }
     function d(e) {
       return (
