@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAppMutexCore",
+    "WAWebCallCollection",
     "WAWebCmd",
     "WAWebL10N",
     "WAWebLaunchSocket",
@@ -23,6 +24,9 @@ __d(
             },
             shouldPreventTakeoverOnActiveCall: function () {
               return r("justknobx")._("4316");
+            },
+            hasActiveCall: function () {
+              return r("WAWebCallCollection").activeCall != null;
             },
           })),
             o("WAWebCmd").Cmd.on("ab_props_loaded_from_bridge", c),

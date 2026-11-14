@@ -6,6 +6,8 @@ __d(
     "WAWebIntegrityChallengeUtils",
     "WAWebLazyLoadedRetriable",
     "WAWebModalManager",
+    "WAWebPathfinderHeldBackScope.react",
+    "WAWebPathfinderHeldBackSurface",
     "WAWebSocketModel",
     "WAWebUserPrefsIndexedDBStorage",
     "asyncToGeneratorRuntime",
@@ -109,14 +111,24 @@ __d(
     function v(e) {
       f()
         .then(function (t) {
-          o("WAWebModalManager").ModalManager.open(
-            _.jsx(t, {
-              onLogout: b,
-              onPasskeyComplete: h,
-              onPasskeyError: C,
-              passkeyChallenge: e,
-            }),
-            { blockClose: !0 },
+          o("WAWebPathfinderHeldBackSurface").openHeldBack(
+            o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+              .PASSKEY_CHECKPOINT,
+            function () {
+              return o("WAWebModalManager").ModalManager.open(
+                _.jsx(r("WAWebPathfinderHeldBackScope.react"), {
+                  name: o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+                    .PASSKEY_CHECKPOINT,
+                  children: _.jsx(t, {
+                    onLogout: b,
+                    onPasskeyComplete: h,
+                    onPasskeyError: C,
+                    passkeyChallenge: e,
+                  }),
+                }),
+                { blockClose: !0 },
+              );
+            },
           );
         })
         .catch(function (e) {

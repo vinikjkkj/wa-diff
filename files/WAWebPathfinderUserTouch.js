@@ -43,7 +43,8 @@ __d(
             ? a
             : null) != null
         ? n
-        : o("WAWebPathfinderHeldBackSurface").isHeldBackTapTrackingId(t)
+        : o("WAWebPathfinderHeldBackSurface").isHeldBackTapTrackingId(t) ||
+            o("WAWebPathfinderHeldBackSurface").isInsideHeldTapElement(e)
           ? o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK
           : null;
     }

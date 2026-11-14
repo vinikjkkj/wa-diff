@@ -69,7 +69,7 @@ __d(
                     "encryption error: " +
                       String(e) +
                       "; stack: " +
-                      r("getErrorSafe")(e).stack,
+                      String(r("getErrorSafe")(e).stack),
                   )
             );
           })

@@ -46,28 +46,42 @@ __d(
     }
     var p = null,
       _ = null,
-      f = null,
-      g = null,
-      h = null;
-    function y(e) {
+      f = new WeakMap(),
+      g = 0,
+      h = null,
+      y = null,
+      C = null,
+      b = null;
+    function v(e) {
+      var t;
+      return (t = o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(
+        e,
+      )) != null
+        ? t
+        : o("WAWebPathfinderHeldBackSurface").captureHeldBackScreen(
+            o("WAWebPathfinderScreenName").getCurrentScreenName(),
+          );
+    }
+    function S(e) {
       var t;
       return e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement
         ? e.value === ""
         : ((t = e.textContent) != null ? t : "") === "";
     }
-    function C(e) {
-      var t = e.target;
-      !(t instanceof HTMLElement) ||
-        !s(t) ||
-        (h != null && window.clearTimeout(h),
-        (f = t),
-        (g = o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(t)),
-        (h = window.setTimeout(function () {
-          h = null;
-          var e = f,
-            t = g;
-          if (((f = null), (g = null), e != null)) {
-            var n = y(e);
+    function R(e) {
+      var t,
+        n = e.target;
+      !(n instanceof HTMLElement) ||
+        !s(n) ||
+        (b != null && window.clearTimeout(b),
+        (y = n),
+        (C = (t = h != null && f.get(n) === h ? _ : null) != null ? t : v(n)),
+        (b = window.setTimeout(function () {
+          b = null;
+          var e = y,
+            t = C;
+          if (((y = null), (C = null), e != null)) {
+            var n = S(e);
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "CONTENT_CHANGED",
               context: JSON.stringify({ is_empty: String(n) }),
@@ -78,14 +92,16 @@ __d(
           }
         }, u)));
     }
-    function b(e) {
+    function L(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
         n != null &&
           p !== n &&
           ((p = n),
-          (_ = o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(t)),
+          (h = g++),
+          f.set(t, h),
+          (_ = v(t)),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "BEGIN_EDITING",
             heldBackSurface: _,
@@ -95,7 +111,7 @@ __d(
           }));
       }
     }
-    function v(e) {
+    function E(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
@@ -106,6 +122,7 @@ __d(
         if (p === n) {
           var r = _;
           ((p = null),
+            (h = null),
             (_ = null),
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "END_EDITING",
@@ -117,7 +134,7 @@ __d(
         }
       }
     }
-    ((l.handleInput = C), (l.handleFocusIn = b), (l.handleFocusOut = v));
+    ((l.handleInput = R), (l.handleFocusIn = L), (l.handleFocusOut = E));
   },
   98,
 );

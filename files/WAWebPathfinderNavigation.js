@@ -46,7 +46,7 @@ __d(
         e(t, n, a);
         return;
       }
-      var i = o("WAWebPathfinderHeldBackScreen").leavingVerdict(t);
+      var i = p(t, n);
       (o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(n),
         o("WAWebPathfinderScreenName").updateCurrentScreenName(n));
       var l =
@@ -67,6 +67,15 @@ __d(
     }
     function m() {
       return o("WAWebTimeSpentLoggingNavigation").addNavigationListener(d);
+    }
+    function p(e, t) {
+      var n,
+        r = o("WAWebPathfinderHeldBackScreen").enteringVerdict(t);
+      if (!(e === t && r == null))
+        return (n = o("WAWebPathfinderHeldBackScreen").leavingVerdict(e)) !=
+          null
+          ? n
+          : r;
     }
     l.initNavigationListener = m;
   },

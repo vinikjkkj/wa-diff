@@ -150,7 +150,7 @@ __d(
               throw e;
             var R = r("getErrorSafe")(e);
             throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
-              "decryption error: " + String(R) + "; stack: " + R.stack,
+              "decryption error: " + String(R) + "; stack: " + String(R.stack),
             );
           }
         })),

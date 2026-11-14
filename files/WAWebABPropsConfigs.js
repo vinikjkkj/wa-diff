@@ -1358,6 +1358,8 @@ __d(
         !1,
       ],
       ctwa_tos_filtering_enabled: [976, "bool", !1, !1],
+      ctwa_web_budgeting_na_zo_model_arm: [43013, "int", 0, 0],
+      ctwa_web_budgeting_na_zo_model_dummy_arm: [43014, "int", 0, 0],
       ctwa_web_custom_label_signals_enabled: [19985, "bool", !1, !1],
       ctwa_web_native_ads_budget_recommendation_enabled: [
         32511,
@@ -1683,6 +1685,7 @@ __d(
         1800,
       ],
       events_v2_invitation_message_version: [26618, "int", 0, 0],
+      events_v2_invite_message_self_state_enabled: [42975, "bool", !1, !1],
       evolve_about_m1_receiver_enabled: [5839, "bool", !1, !1],
       evolve_about_m1_receiver_for_new_surfaces_enabled: [6172, "bool", !1, !1],
       expanded_formatting_menu_items_enabled: [38882, "bool", !1, !1],

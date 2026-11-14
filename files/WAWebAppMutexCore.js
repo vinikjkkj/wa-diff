@@ -9,7 +9,6 @@ __d(
     "WAPromiseTimeout",
     "WAResolvable",
     "WAWebAlarm",
-    "WAWebCallCollection",
     "WAWebEventsWaitForEvent",
     "WAWebPageLoadLogging",
     "WAWebUserPrefsTabMutex",
@@ -245,7 +244,7 @@ __d(
                   o("WAWebUserPrefsTabMutex").setMutex(E.PONG + Math.random());
                 else if (e.indexOf(E.CHECK_ACTIVE_CALL) === 0) {
                   if (o("WAWebVoipGatingUtils").isCallingEnabled()) {
-                    var n = r("WAWebCallCollection").activeCall != null;
+                    var n = this.$9.hasActiveCall();
                     (o("WALogger").LOG(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([

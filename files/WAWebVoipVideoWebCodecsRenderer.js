@@ -388,12 +388,16 @@ __d(
             if (e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.H264) {
               if (!this.$WAWebVoipVideoWebCodecsRenderer$p_3)
                 throw this.$WAWebVoipVideoWebCodecsRenderer$p_5 === 0
-                  ? new C(r("err")(S + "Decoder not available, awaiting reset"))
+                  ? new C(
+                      String(
+                        r("err")(S + "Decoder not available, awaiting reset"),
+                      ),
+                    )
                   : this.$WAWebVoipVideoWebCodecsRenderer$p_5 > R
                     ? r("err")(S + "H264 Decoder closed due to fatal error")
                     : Date.now() - this.$WAWebVoipVideoWebCodecsRenderer$p_12 <
                         L
-                      ? new C(r("err")(S + "Decoder recovery cooldown"))
+                      ? new C(String(r("err")(S + "Decoder recovery cooldown")))
                       : (o("WAWebVoipVideoRendererLogging").LOG(
                           f ||
                             (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -408,8 +412,10 @@ __d(
                         ),
                         this.$WAWebVoipVideoWebCodecsRenderer$p_14(),
                         new C(
-                          r("err")(
-                            S + "Decoder recovered, requesting key frame",
+                          String(
+                            r("err")(
+                              S + "Decoder recovered, requesting key frame",
+                            ),
                           ),
                         ));
               var m = (c * 1e3) / 90;
@@ -449,7 +455,7 @@ __d(
                   this.$WAWebVoipVideoWebCodecsRenderer$p_22());
               } catch (e) {
                 throw e instanceof Error && e.name === "DataError"
-                  ? new C(e)
+                  ? new C(String(e))
                   : e;
               }
               return;
@@ -515,7 +521,7 @@ __d(
                   this.$WAWebVoipVideoWebCodecsRenderer$p_6,
                 ),
                 this.$WAWebVoipVideoWebCodecsRenderer$p_14(),
-                new C(r("err")(S + "Decoder output stalled"))
+                new C(String(r("err")(S + "Decoder output stalled")))
               );
           }),
           a
