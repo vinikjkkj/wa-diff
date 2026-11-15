@@ -839,6 +839,7 @@ __d(
             var R = E(h),
               N = D;
             ((D = o("WAWebBackendWorkerBridge").attachBridgeToPortal(C, R, [
+              "businessBroadcastProAudience",
               "historySync",
               "deviceSync",
               "crypto",

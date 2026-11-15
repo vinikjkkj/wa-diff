@@ -250,9 +250,7 @@ __d(
       ],
       [
         e.SearchFilters.META_AI,
-        function (e) {
-          return o("WAWebMetaAiChatFilter").isAiFilterChat(e) && !e.archive;
-        },
+        o("WAWebMetaAiChatFilter").isChatListedInAiFilter,
       ],
     ]);
     function h(e, t) {

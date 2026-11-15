@@ -22,7 +22,6 @@ __d(
     "VideoPlayerNextgendashMain",
     "VideoPlayerNextgendashPrefetchConnection",
     "VideoPlayerNextgendashQPL",
-    "VideoPlayerNextgendashRedundantPlayheadWrite",
     "VideoPlayerNextgendashSmartPlayerStaticSignals",
     "VideoPlayerNextgendashTrackReuseBufferTarget",
     "VideoPlayerNextgendashWebCodecsDimensions",
@@ -318,6 +317,7 @@ __d(
           isTypeSupportedIncludeContentAttributes: r("gkx")("18943"),
           liveAbrDuringSlowSegmentFetchEnabled: r("gkx")("5049"),
           liveAbrLookAheadFromPlayhead: r("gkx")("5049"),
+          liveAbrSlowFetchDownswitchHoldEnabled: r("gkx")("5049"),
           liveAbrTailSwitchAllowPredictiveContinuation: r("gkx")("5049"),
           liveAppendChainForwardCoveredEscapeEnabled: r("gkx")("5049"),
           liveBackBufferRetentionSec: r("gkx")("5049")
@@ -443,28 +443,28 @@ __d(
     var P = 0;
     function N(e, t, n, r) {
       if (e.config.mediaSinkType === "MSE_TRACK_REUSE") {
-        var a = function () {
+        var o = function () {
           return e.host.mediaElementCollectSnapshot(e, t);
         };
         return babelHelpers.extends({}, r, {
           getBufferedRanges: function () {
-            return a().buffered.map(function (e) {
+            return o().buffered.map(function (e) {
               var t = e[0],
                 n = e[1];
               return { endTime: n, startTime: t };
             });
           },
           getDuration: function () {
-            var e = a().duration;
+            var e = o().duration;
             return e === "NOT_A_NUMBER" ? 0 : e;
           },
           getEnded: function () {
-            return a().ended;
+            return o().ended;
           },
           getLastBufferEndPosition: function () {
             var e,
               t,
-              n = a().buffered;
+              n = o().buffered;
             return (e = (t = n[n.length - 1]) == null ? void 0 : t[1]) != null
               ? e
               : 0;
@@ -480,10 +480,11 @@ __d(
       return e.config.mediaSinkType !== "EMSS"
         ? r
         : babelHelpers.extends({}, r, {
-            setPlayheadPosition: function (t) {
-              o(
-                "VideoPlayerNextgendashRedundantPlayheadWrite",
-              ).isRedundantPlayheadWrite(n, t) || r.setPlayheadPosition(t);
+            getPlayheadPosition: function () {
+              return e.host.mediaElementCollectOnlyPlayheadMediaTimeSec(e, t);
+            },
+            setPlayheadPosition: function (r) {
+              e.host.mediaElementSetPlayhead(e, t, r);
             },
           });
     }
@@ -570,7 +571,8 @@ __d(
         S.mediaSinkType === "EMSS" ||
         S.mediaSinkType === "HYBRID"),
         S.mediaSinkType === "EMSS" &&
-          ((S.disableBufferGapSkipping = !0),
+          ((S.emssSeekPrerollAudioFetch = !0),
+          (S.disableBufferGapSkipping = !0),
           (S.enableDisposalResourceCleanup = !0),
           (S.bufferAheadTargetNoMediaElementSec = 9.9)),
         S.mediaSinkType === "WEBCODECS" &&

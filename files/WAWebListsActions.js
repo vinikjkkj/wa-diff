@@ -41,6 +41,7 @@ __d(
     "WAWebWamLabelEventReporter",
     "WAWebWamSmbListEventReporter",
     "asyncToGeneratorRuntime",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -497,7 +498,24 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield r("nullthrows")(
+            yield o("WAWebListUtils").loadMetaAiList(),
+          ).updateMetaAiListActive(e);
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e) {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
+            if (o("WAWebListUtils").isDeviceLocalList(e)) {
+              yield M(!0);
+              return;
+            }
             var t = o(
               "WAWebLabelCollection",
             ).LabelCollection.getNextOrderIndex();
@@ -532,15 +550,15 @@ __d(
               ));
           }
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebListUtils").isDisableablePresetList(e.type)) {
             o("WALogger").ERROR(
               b ||
@@ -552,6 +570,10 @@ __d(
           }
           try {
             var t;
+            if (o("WAWebListUtils").isDeviceLocalList(e)) {
+              yield M(!1);
+              return;
+            }
             (yield o("WAWebBizLabelEditingAction").labelEditAction(
               e.id,
               (t = e.name) != null ? t : "",
@@ -582,79 +604,114 @@ __d(
               ));
           }
         })),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function W(e) {
+      (e.forEach(function (e) {
+        var t = e.id,
+          n = e.orderIndex,
+          r = o("WAWebLabelCollection").LabelCollection.get(t);
+        r && (r.orderIndex = n);
+      }),
+        o("WAWebLabelCollection").LabelCollection.trigger("reorder"));
     }
-    function B() {
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebListsGatingUtils").isLabelReorderEnabled() &&
-            e.length !== 0
-          ) {
-            var t = e.map(function (e) {
-              var t,
-                n = o("WAWebLabelCollection").LabelCollection.get(String(e));
-              return {
-                id: String(e),
-                orderIndex:
-                  (t = n == null ? void 0 : n.orderIndex) != null ? t : 0,
-              };
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (o("WAWebListsGatingUtils").isLabelReorderEnabled()) {
+            var t = e.filter(function (e) {
+              return String(e) !== o("WAWebListUtils").META_AI_LIST_ID;
             });
-            (o("WAWebBIzLabelReorderAction").reorderLabelsAction(e),
-              o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                labelOperation: o("WAWebWamEnumLabelOperations")
-                  .LABEL_OPERATIONS.REORDER,
-                updateEntryPoint: o("WAWebWamEnumUpdateEntryPoint")
-                  .UPDATE_ENTRY_POINT.LIST_SETTINGS,
-                currentListState: e.join("+"),
-              }));
-            try {
-              var n = o("WAWebSyncdActionUtils").buildPendingMutation({
-                collection: o("WAWebSyncdConst").CollectionName.Regular,
-                indexArgs: [],
-                value: { labelReorderingAction: { sortedLabelIds: e } },
-                version: r("WAWebLabelReorderingSync").getVersion(),
-                operation: o("WAWebProtobufsServerSync.pb")
-                  .SyncdMutation$SyncdOperation.SET,
-                timestamp: o("WATimeUtils").unixTimeMs(),
-                action: r("WAWebLabelReorderingSync").getAction(),
-              });
-              yield o("WAWebSyncdCoreApi").lockForSync(
-                ["label"],
-                [n],
-                function () {
-                  return o("WAWebDBLabelsReorder").writeLabelsSortOrder(e);
-                },
-              );
-            } catch (e) {
-              (t.forEach(function (e) {
-                var t = e.id,
-                  n = e.orderIndex,
-                  r = o("WAWebLabelCollection").LabelCollection.get(t);
-                r && (r.orderIndex = n);
-              }),
-                o("WAWebLabelCollection").LabelCollection.trigger("reorder"),
-                o("WAWebToastManager").ToastManager.open(
-                  E.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Could not reorder lists"),
+            if (t.length !== 0) {
+              var n = []
+                .concat(t, [Number(o("WAWebListUtils").META_AI_LIST_ID)])
+                .map(function (e) {
+                  var t,
+                    n = o("WAWebLabelCollection").LabelCollection.get(
+                      String(e),
+                    );
+                  return {
+                    id: String(e),
+                    orderIndex:
+                      (t = n == null ? void 0 : n.orderIndex) != null ? t : 0,
+                  };
+                });
+              (o("WAWebBIzLabelReorderAction").reorderLabelsAction(e),
+                o("WAWebWamSmbListEventReporter").logSmbListEvent({
+                  labelOperation: o("WAWebWamEnumLabelOperations")
+                    .LABEL_OPERATIONS.REORDER,
+                  updateEntryPoint: o("WAWebWamEnumUpdateEntryPoint")
+                    .UPDATE_ENTRY_POINT.LIST_SETTINGS,
+                  currentListState: t.join("+"),
+                }));
+              try {
+                var a = o("WAWebSyncdActionUtils").buildPendingMutation({
+                    collection: o("WAWebSyncdConst").CollectionName.Regular,
+                    indexArgs: [],
+                    value: { labelReorderingAction: { sortedLabelIds: t } },
+                    version: r("WAWebLabelReorderingSync").getVersion(),
+                    operation: o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.SET,
+                    timestamp: o("WATimeUtils").unixTimeMs(),
+                    action: r("WAWebLabelReorderingSync").getAction(),
                   }),
-                ),
-                o("WALogger")
-                  .ERROR(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Lists] persistLabelReorder: failed to persist order",
-                      ])),
-                  )
-                  .sendLogs("lists-reorder-persist-failed"));
+                  i = yield o(
+                    "WAWebDBLabelsReorder",
+                  ).loadMetaAiListOrderForReorder();
+                yield o("WAWebSyncdCoreApi").lockForSync(
+                  ["label"],
+                  [a],
+                  function () {
+                    return o("WAWebDBLabelsReorder").writeLabelsSortOrder(t, i);
+                  },
+                );
+                var l = e.indexOf(Number(o("WAWebListUtils").META_AI_LIST_ID));
+                if (l !== -1) {
+                  var s = yield i == null
+                    ? void 0
+                    : i.placeMetaAiListAfter(
+                        e.slice(0, l).reverse().map(String),
+                      );
+                  (s == null ? void 0 : s.orderIndex) == null &&
+                    W(
+                      n.filter(function (e) {
+                        var t = e.id;
+                        return t === o("WAWebListUtils").META_AI_LIST_ID;
+                      }),
+                    );
+                  var u =
+                    s == null
+                      ? o("WAWebListUtils").isMetaAiListEnabled()
+                      : !s.moved;
+                  u && V();
+                }
+              } catch (e) {
+                (W(n),
+                  V(),
+                  o("WALogger")
+                    .ERROR(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                          "[Lists] persistLabelReorder: failed to persist order",
+                        ])),
+                    )
+                    .sendLogs("lists-reorder-persist-failed"));
+              }
             }
           }
         })),
-        B.apply(this, arguments)
+        U.apply(this, arguments)
+      );
+    }
+    function V() {
+      o("WAWebToastManager").ToastManager.open(
+        E.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Could not reorder lists"),
+        }),
       );
     }
     ((l.logCtwaSignalsForChats = k),
@@ -662,9 +719,9 @@ __d(
       (l.createNewListAction = T),
       (l.editListAction = x),
       (l.deleteListAction = P),
-      (l.activatePresetList = M),
-      (l.deactivatePresetList = A),
-      (l.persistLabelReorder = O));
+      (l.activatePresetList = A),
+      (l.deactivatePresetList = O),
+      (l.persistLabelReorder = q));
   },
   226,
 );

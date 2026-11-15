@@ -8,6 +8,7 @@ __d(
         CHAT_LOCK_SECRET_CODE: "chat-lock-secret-code",
         CHAT_LOCK_SECRET_CODE_SETUP: "chat-lock-secret-code-setup",
         CONFIRM_LOGOUT: "confirm-logout",
+        DIAL_PAD: "dial-pad-drawer",
         LOCKED_CHATS_DRAWER: "locked-chats-drawer",
         PASSKEY_CHECKPOINT: "passkey-checkpoint",
         PAYMENTS_PASSKEY_NOTICE: "payments-passkey-notice",
@@ -83,7 +84,7 @@ __d(
     function v() {
       c++;
     }
-    var S = new Set([e.CHAT_LOCK_SECRET_CODE]);
+    var S = new Set([e.CHAT_LOCK_SECRET_CODE, e.DIAL_PAD]);
     function R() {
       var e;
       return (e = s.findLast(function (e) {

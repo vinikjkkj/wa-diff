@@ -43,6 +43,7 @@ __d(
       STORAGE_LIMIT_REACHED: 38,
       THIRD_PARTY_UPSELL: 39,
       GHOST_BADGE: 40,
+      BIZ_AI_POWER_USER_UPSELL: 41,
     });
     i.WSUA_SCREEN_ELEMENT = e;
   },

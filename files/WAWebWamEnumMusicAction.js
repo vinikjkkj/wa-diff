@@ -37,6 +37,7 @@ __d(
       MUSIC_SEND_TAP: 31,
       MUSIC_RECENT_SEARCH_QUERY_TAP: 32,
       MUSIC_RECENT_SEARCH_SONG_TAP: 33,
+      MUSIC_SEARCH_QUERY: 34,
     });
     i.MUSIC_ACTION = e;
   },

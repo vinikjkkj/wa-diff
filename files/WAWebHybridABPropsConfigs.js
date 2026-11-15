@@ -8,8 +8,6 @@ __d(
       adv_accept_hosted_devices: [6939, "bool", !1, !0],
       ai_3p_agent_media_support_mode: [34393, "int", 0, 0],
       ai_3p_bot_product_enabled: [33090, "bool", !1, !1],
-      ai_asset_replacement_enabled: [28265, "bool", !1, !1],
-      ai_bizai_2way_integration_enabled: [26613, "bool", !1, !1],
       ai_bizai_2way_integration_history_sync_pre_chatd_enabled: [
         26614,
         "bool",
@@ -533,6 +531,7 @@ __d(
       poll_failure_recovery_version: [41828, "int", 0, 0],
       poll_hide_voters_enabled: [24518, "bool", !1, !1],
       poll_hide_voters_receiving_enabled: [24885, "int", 0, 0],
+      poll_option_replay_retention_days: [42973, "int", 31, 31],
       poll_participant_remove_added_option_enabled: [37734, "bool", !1, !1],
       poll_relaxed_option_count_receiving_enabled: [37909, "bool", !1, !1],
       prefer_lid_for_chatd_login: [19191, "bool", !1, !1],
@@ -740,7 +739,6 @@ __d(
       windows_contacts_initial_sync_delay: [24883, "int", 10, 1],
       windows_contacts_sync_interval: [24882, "int", 60, 5],
       windows_graceful_degradation_version: [8454, "int", 0, 0],
-      windows_ss_capture_driver_type: [10434, "int", 0, 0],
       winrt_renderer: [10966, "bool", !0, !0],
     };
     i.ABPropConfigs = e;

@@ -29,6 +29,7 @@ __d(
                 o("WAWebWamEnumMetaAiUpsellCtaSourceType")
                   .META_AI_UPSELL_CTA_SOURCE_TYPE,
               ],
+              onboardingJourneyId: [7, e.TYPES.STRING],
               proactiveMessageCampaignId: [6, e.TYPES.STRING],
               upsellBannerVariant: [4, e.TYPES.INTEGER],
             },

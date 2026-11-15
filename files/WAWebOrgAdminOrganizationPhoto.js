@@ -8,6 +8,7 @@ __d(
     "WAWebNonEmptyString",
     "WAWebProfileCropConstants",
     "asyncToGeneratorRuntime",
+    "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,43 +29,45 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = null;
           try {
-            var a,
-              i = yield o("WAWebMediaLoad").image(t),
-              l = i.fullHeight,
-              u = i.fullWidth,
-              c = Math.min(l, u),
-              d = Math.min(
+            var i;
+            a = yield m(t);
+            var l = yield o("WAWebMediaLoad").image(a),
+              u = l.fullHeight,
+              c = l.fullWidth,
+              d = Math.min(u, c),
+              p = Math.min(
                 Math.max(
-                  c,
-                  (a = o("WAWebProfileCropConstants")).PROF_PIC_MIN_SIDE,
+                  d,
+                  (i = o("WAWebProfileCropConstants")).PROF_PIC_MIN_SIDE,
                 ),
-                a.PROF_PIC_MAX_SIDE,
+                i.PROF_PIC_MAX_SIDE,
               ),
-              m = {
-                sHeight: c,
-                sWidth: c,
-                sX: (u - c) / 2,
-                sY: (l - c) / 2,
-                src: t,
+              _ = {
+                sHeight: d,
+                sWidth: d,
+                sX: (c - d) / 2,
+                sY: (u - d) / 2,
+                src: a,
               },
-              p = yield (s || (s = n("Promise"))).all([
+              f = yield (s || (s = n("Promise"))).all([
                 o("WAWebImageUtils").crop(
-                  babelHelpers.extends({}, m, { dHeight: d, dWidth: d }),
+                  babelHelpers.extends({}, _, { dHeight: p, dWidth: p }),
                 ),
                 o("WAWebImageUtils").crop(
-                  babelHelpers.extends({}, m, {
+                  babelHelpers.extends({}, _, {
                     dHeight: o("WAWebProfileCropConstants").PROF_PIC_THUMB_SIDE,
                     dWidth: o("WAWebProfileCropConstants").PROF_PIC_THUMB_SIDE,
                   }),
                 ),
               ]),
-              _ = p[0],
-              f = p[1];
+              g = f[0],
+              h = f[1];
             return {
-              full: o("WAWebNonEmptyString").asNonEmptyString(_.images.dataUrl),
+              full: o("WAWebNonEmptyString").asNonEmptyString(g.images.dataUrl),
               thumb: o("WAWebNonEmptyString").asNonEmptyString(
-                f.images.dataUrl,
+                h.images.dataUrl,
               ),
             };
           } catch (t) {
@@ -80,9 +83,28 @@ __d(
                 .sendLogs("org-admin-organization-photo-load-failed"),
               null
             );
+          } finally {
+            a != null && window.URL.revokeObjectURL(a);
           }
         })),
         d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield window.fetch(e, { cache: "no-store" });
+          if (!t.ok)
+            throw r("err")(
+              "organization photo fetch failed with status %s",
+              t.status,
+            );
+          return window.URL.createObjectURL(yield t.blob());
+        })),
+        p.apply(this, arguments)
       );
     }
     ((l.getOrgAdminOrganizationPhotoURL = u), (l.loadOrgAdminPhotoImages = c));

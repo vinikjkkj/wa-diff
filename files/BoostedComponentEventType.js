@@ -609,6 +609,14 @@ __d(
         "ig_connect_upsell_settings_connect_click",
       IG_CONNECT_UPSELL_SETTINGS_CONNECT_SUCCESS:
         "ig_connect_upsell_settings_connect_success",
+      FB_CONNECT_UPSELL_MBS_PICKER_IMPRESSION:
+        "fb_connect_upsell_mbs_picker_impression",
+      FB_CONNECT_UPSELL_MBS_PICKER_NEXT_CLICK:
+        "fb_connect_upsell_mbs_picker_next_click",
+      FB_CONNECT_UPSELL_MBS_PICKER_CONNECT_SUCCESS:
+        "fb_connect_upsell_mbs_picker_connect_success",
+      FB_CONNECT_UPSELL_MBS_PICKER_DISMISS:
+        "fb_connect_upsell_mbs_picker_dismiss",
       IG_CONNECT_UPSELL_PAC_IMPRESSION: "ig_connect_upsell_pac_impression",
       IG_CONNECT_UPSELL_PAC_CONNECT_CLICK:
         "ig_connect_upsell_pac_connect_click",

@@ -2,6 +2,7 @@ __d(
   "WAWebE2eRetryRejectWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumBotType",
     "WAWebWamEnumDeviceType",
     "WAWebWamEnumE2eDeviceType",
     "WAWebWamEnumEncryptionTypeCode",
@@ -19,6 +20,7 @@ __d(
           E2eRetryReject: [
             3578,
             {
+              botType: [15, o("WAWebWamEnumBotType").BOT_TYPE],
               dedupKey: [14, e.TYPES.INTEGER],
               e2eSenderType: [
                 10,

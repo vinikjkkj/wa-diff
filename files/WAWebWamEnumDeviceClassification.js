@@ -14,6 +14,7 @@ __d(
       AUTOMOTIVE: 8,
       SMART_DISPLAY: 9,
       SMART_SPEAKER: 10,
+      AGENT: 11,
       UNDEFINED: 100,
     });
     i.DEVICE_CLASSIFICATION = e;

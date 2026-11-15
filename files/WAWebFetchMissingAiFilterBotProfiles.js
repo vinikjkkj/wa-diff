@@ -1,38 +1,117 @@
 __d(
   "WAWebFetchMissingAiFilterBotProfiles",
-  ["JSResourceForInteraction", "WALogger", "asyncToGeneratorRuntime"],
+  [
+    "JSResourceForInteraction",
+    "WALogger",
+    "WATimeUtils",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("JSResourceForInteraction")(
+      s,
+      u = r("JSResourceForInteraction")(
         "WAWebFetchMissingAiFilterBotProfilesJob",
-      ).__setRef("WAWebFetchMissingAiFilterBotProfiles");
-    function u() {
-      return c.apply(this, arguments);
+      ).__setRef("WAWebFetchMissingAiFilterBotProfiles"),
+      c = 1e4,
+      d = 3e4,
+      m = 3,
+      p = 0,
+      _ = 0,
+      f = null,
+      g = 0,
+      h = 0,
+      y = new Set();
+    function C(t) {
+      var n = h > 0;
+      ((h = t),
+        n !== h > 0 &&
+          y.forEach(function (t) {
+            try {
+              t();
+            } catch (t) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bot] AI filter missing profile fetch subscriber failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("ai-filter-missing-profile-fetch-subscriber-failed", {
+                  sampling: 0.01,
+                });
+            }
+          }));
     }
-    function c() {
+    function b() {
+      (p++,
+        _++,
+        (f = o("WATimeUtils").monotonicTime()),
+        (g = d * Math.pow(2, p - 1)));
+    }
+    function v() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield s.load(),
-              n = t.fetchMissingAiFilterBotProfiles;
-            yield n();
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bot] AI filter missing profile fetch failed",
-                  ])),
-              )
-              .sendLogs("ai-filter-missing-profile-fetch-failed", {
-                sampling: 0.01,
-              });
-          }
-        })),
-        c.apply(this, arguments)
+        p >= m || (f != null && o("WATimeUtils").monotonicTimeSince(f) < g)
       );
     }
-    l.maybeFetchMissingAiFilterBotProfiles = u;
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!v()) {
+            var e = _;
+            C(h + 1);
+            var t = !1,
+              n = function () {
+                t || ((t = !0), C(h - 1));
+              },
+              a = window.setTimeout(n, c);
+            try {
+              var i = yield u.load(),
+                l = i.fetchMissingAiFilterBotProfiles;
+              yield l();
+            } catch (t) {
+              (_ === e && b(),
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[bot] AI filter missing profile fetch failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("ai-filter-missing-profile-fetch-failed", {
+                    sampling: 0.01,
+                  }));
+            } finally {
+              (window.clearTimeout(a), n());
+            }
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L() {
+      return h > 0;
+    }
+    function E(e) {
+      return (
+        y.add(e),
+        function () {
+          y.delete(e);
+        }
+      );
+    }
+    ((l.FAILURE_BACKOFF_BASE_MS = d),
+      (l.MAX_FAILED_RUNS = m),
+      (l.recordFailedMissingAiFilterBotProfileFetchRun = b),
+      (l.isMissingAiFilterBotProfileFetchBackedOff = v),
+      (l.maybeFetchMissingAiFilterBotProfiles = S),
+      (l.isMissingAiFilterBotProfileFetchPending = L),
+      (l.subscribeToMissingAiFilterBotProfileFetch = E));
   },
   98,
 );

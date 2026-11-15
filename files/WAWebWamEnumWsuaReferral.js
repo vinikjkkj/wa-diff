@@ -45,6 +45,8 @@ __d(
       MUSE_CHAT_THREAD: 40,
       MUSE_CHAT_INFO: 41,
       ORIGINAL_MEDIA: 42,
+      GROUP_CUSTOM_REACTIONS_SETTINGS: 43,
+      MUSE_CVM_SIGNUP: 44,
     });
     i.WSUA_REFERRAL = e;
   },

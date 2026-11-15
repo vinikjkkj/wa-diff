@@ -89,7 +89,10 @@ __d(
               var n = t.type === o("WAWebSchemaLabel").ListType.SERVER_ASSIGNED;
               return (
                 n && e.addToServerAssignedLabelIdMap(t.id, t.predefinedId),
-                !n && o("WAWebListUtils").skipsListOfUnknownType(t.type)
+                !n &&
+                (o("WAWebListUtils").skipsListOfUnknownType(t.type) ||
+                  (o("WAWebListUtils").isDeviceLocalList(t) &&
+                    !o("WAWebListUtils").isMetaAiListEnabled()))
                   ? (e.$LabelCollectionImpl$p_3.add(t.id), !1)
                   : !n && !e.hideIfLegacyLeadList(t)
               );
@@ -313,7 +316,8 @@ __d(
             return (
               e.isActive === !1 &&
               (o("WAWebListUtils").isBuiltInList(e.type) ||
-                o("WAWebListUtils").isAiList(e.type))
+                o("WAWebListUtils").isAiList(e.type) ||
+                e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD)
             );
           });
         }),

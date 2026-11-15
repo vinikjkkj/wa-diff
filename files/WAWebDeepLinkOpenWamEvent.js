@@ -25,6 +25,7 @@ __d(
               isContact: [4, e.TYPES.BOOLEAN],
               linkOwnerType: [5, o("WAWebWamEnumOwnerType").OWNER_TYPE],
               sourceSurface: [7, e.TYPES.INTEGER],
+              waWebVisitId: [11, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",

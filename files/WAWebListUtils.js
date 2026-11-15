@@ -2,6 +2,7 @@ __d(
   "WAWebListUtils",
   [
     "fbt",
+    "JSResourceForInteraction",
     "WALogger",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -18,13 +19,15 @@ __d(
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebSchemaLabel",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = 20,
-      d = 22;
-    function m() {
+      c,
+      d = 20,
+      m = 22;
+    function p() {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
         ? Array.from(
             { length: o("WAWebLabelPillColors").PILL_COLOR_PALETTE_SIZE },
@@ -37,12 +40,12 @@ __d(
           ? o("WAWebLabelConstants").IPHONE_LABEL_COLOR_PALETTE
           : o("WAWebLabelConstants").ANDROID_LABEL_COLOR_PALETTE;
     }
-    function p(e) {
+    function _(e) {
       var t,
-        n = m();
+        n = p();
       return (t = n[e]) != null ? t : n[0];
     }
-    function _() {
+    function f() {
       var e = o("WAWebListsGatingUtils").isListsChatListRowPillEnabled();
       return e
         ? o("WAWebLabelPillColors")
@@ -53,32 +56,32 @@ __d(
                 originalIndex: e,
               };
             })
-        : m().map(function (e, t) {
+        : p().map(function (e, t) {
             return { hexColor: e, originalIndex: t };
           });
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = parseInt(e.id, 10),
         r = parseInt(t.id, 10);
       return Number.isNaN(n) || Number.isNaN(r) ? 0 : n - r;
     }
-    function g(e) {
+    function h(e) {
       e.sort(function (e, t) {
         var n = e.orderIndex - t.orderIndex;
-        return n === 0 ? f(e, t) : n;
+        return n === 0 ? g(e, t) : n;
       });
     }
-    var h = new Set([
-      (u = o("WAWebSchemaLabel")).ListType.UNREAD,
-      u.ListType.GROUPS,
-      u.ListType.FAVORITES,
-      u.ListType.COMMUNITY,
-      u.ListType.MENTIONS_AND_REPLIES,
+    var y = new Set([
+      (c = o("WAWebSchemaLabel")).ListType.UNREAD,
+      c.ListType.GROUPS,
+      c.ListType.FAVORITES,
+      c.ListType.COMMUNITY,
+      c.ListType.MENTIONS_AND_REPLIES,
     ]);
-    function y(e) {
-      return e == null ? !1 : h.has(e);
+    function C(e) {
+      return e == null ? !1 : y.has(e);
     }
-    function C(t) {
+    function b(t) {
       return t == null || o("WAWebSchemaLabel").ListType.isValid(t)
         ? !1
         : (o("WALogger")
@@ -93,37 +96,40 @@ __d(
             .sendLogs("unknown-list-type-skipped", { sampling: 0.01 }),
           !0);
     }
-    function b(e) {
+    function v(e) {
       return (
         e === o("WAWebSchemaLabel").ListType.AI_HANDOFF ||
         e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
       );
     }
-    function v(e) {
+    function S(e) {
       return (
         (e == null ? void 0 : e.predefinedId) ===
           o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID &&
         o("WAWebCustomerManagerGating").customerManagerEnabled()
       );
     }
-    function S(e) {
+    function R(e) {
       return (
-        y(e == null ? void 0 : e.type) || b(e == null ? void 0 : e.type) || v(e)
+        C(e == null ? void 0 : e.type) ||
+        v(e == null ? void 0 : e.type) ||
+        S(e) ||
+        j(e)
       );
     }
-    function R(e) {
+    function L(e) {
       return (
         e.filter === o("WAWebChatSearchFilters").SearchFilters.TO_YOU &&
         e.listId == null
       );
     }
-    function L(e) {
+    function E(e) {
       return (
         e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES &&
         !o("WAWebInboxFiltersGatingUtils").inboxToYouFilterEnabled()
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (e === o("WAWebSchemaLabel").ListType.CUSTOM ||
@@ -131,10 +137,14 @@ __d(
         t != null
       );
     }
-    function k(e) {
-      return (y(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES) || b(e);
-    }
     function I(e) {
+      return (
+        (C(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES) ||
+        v(e) ||
+        e === o("WAWebSchemaLabel").ListType.META_AI_THREAD
+      );
+    }
+    function T(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(/*BTDS*/ "Unread")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
@@ -149,14 +159,16 @@ __d(
                   ? s._(/*BTDS*/ "AI responding")
                   : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
                     ? s._(/*BTDS*/ "Mentions and replies")
-                    : null;
+                    : e === o("WAWebSchemaLabel").ListType.META_AI_THREAD
+                      ? s._(/*BTDS*/ "AI")
+                      : null;
     }
-    function T(e) {
+    function D(e) {
       return e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
         ? s._(/*BTDS*/ "Mentions\u2026")
         : null;
     }
-    function D(e) {
+    function x(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(
             /*BTDS*/ "This list automatically updates with your unread chats.",
@@ -187,55 +199,59 @@ __d(
                       )
                     : null;
     }
-    function x(e, t) {
-      if ((y(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || b(t)) {
+    function $(e, t) {
+      if (t === o("WAWebSchemaLabel").ListType.META_AI_THREAD) {
         var n;
+        return (n = T(t)) != null ? n : e;
+      }
+      if ((C(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || v(t)) {
+        var r;
         return s._(/*BTDS*/ "{listName} (preset)", [
-          s._param("listName", (n = I(t)) != null ? n : e),
+          s._param("listName", (r = T(t)) != null ? r : e),
         ]);
       }
       return e;
     }
-    function $(e) {
+    function P(e) {
       return e === "AI_HANDOFF"
         ? s._(/*BTDS*/ "AI handoff").toString()
         : s._(/*BTDS*/ "AI responding").toString();
     }
-    function P() {
+    function N() {
       return o(
         "WAWebLabelCollection",
       ).LabelCollection.getServerAssignedLabelIdMap().size > 0
-        ? d
-        : c;
+        ? m
+        : d;
     }
-    function N() {
+    function M() {
       var e = o("WAWebLabelCollection").LabelCollection.countWhere(
         function (e) {
           return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
         },
       );
-      return e >= P();
+      return e >= N();
     }
-    function M() {
-      var e = P();
+    function w() {
+      var e = N();
       return s._(/*BTDS*/ "You can't add more than {max_count} lists", [
         s._param("max_count", e),
       ]);
     }
-    function w() {
+    function A() {
       return s._(/*BTDS*/ "You\u2019ve created the maximum number of lists.");
     }
-    function A(e) {
+    function F(e) {
       return typeof e == "function" ? e() : e;
     }
-    function F(e, t) {
+    function O(e, t) {
       if (!t) {
-        var n = T(e.listType);
+        var n = D(e.listType);
         if (n != null) return n;
       }
-      return A(e.getLabel);
+      return F(e.getLabel);
     }
-    function O(e, t) {
+    function B(e, t) {
       var n, r;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
@@ -251,9 +267,9 @@ __d(
           ? r
           : 0;
     }
-    var B = { channelsPillCount: 0, unreadPillCount: 0 };
-    function W(e) {
-      e === void 0 && (e = B);
+    var W = { channelsPillCount: 0, unreadPillCount: 0 };
+    function q(e) {
+      e === void 0 && (e = W);
       var t = o("WAWebLabelCollection").LabelCollection.toArray(),
         n = new Map(),
         r = 0,
@@ -310,7 +326,7 @@ __d(
         n
       );
     }
-    function q(e) {
+    function U(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -329,7 +345,7 @@ __d(
             return null;
         }
     }
-    function U(e) {
+    function V(e) {
       var t;
       if (
         (e.label != null
@@ -344,7 +360,7 @@ __d(
         t != null && t.name != null)
       ) {
         var n,
-          r = I(t.type);
+          r = T(t.type);
         return {
           listId: t.id,
           listName:
@@ -353,41 +369,73 @@ __d(
       }
       return null;
     }
-    function V() {
+    function H() {
       return s._(/*BTDS*/ "Lead stage");
     }
-    function H() {
+    function G() {
       return s._(/*BTDS*/ "Lead stage (preset)");
     }
-    ((l.getAllLabelColors = m),
-      (l.colorIndexToHex = p),
-      (l.getSelectableLabelColors = _),
-      (l.sortLabels = g),
-      (l.isBuiltInList = y),
-      (l.skipsListOfUnknownType = C),
-      (l.isAiList = b),
-      (l.isLeadList = v),
-      (l.hasFixedIdentity = S),
-      (l.isOverflowOnlyToYouPill = R),
-      (l.isHiddenToYouList = L),
-      (l.shouldShowListIcon = E),
-      (l.isDisableablePresetList = k),
-      (l.getPresetListLocalizedName = I),
-      (l.getPresetListShortName = T),
-      (l.getPresetListHelperText = D),
-      (l.getListDisplayName = x),
-      (l.getExpectedAiLabelName = $),
-      (l.isListFlowMaxListsCountReached = N),
-      (l.getReachMaxLabelCountTextForBizLabelDrawer = M),
-      (l.getReachMaxLabelCountText = w),
-      (l.resolvePillLabel = A),
-      (l.resolvePillLabelForState = F),
-      (l.getUnreadChatsCountForFilter = O),
-      (l.getListsUnreadChatCountMap = W),
-      (l.getListTypeFromFilter = q),
-      (l.getManageListInfo = U),
-      (l.getLeadStageListName = V),
-      (l.getLeadListManagerDisplayName = H));
+    var z = "-1004";
+    function j(e) {
+      return (
+        e != null &&
+        (e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD || e.id === z)
+      );
+    }
+    function K() {
+      return r("justknobx")._("7781");
+    }
+    var Q = r("JSResourceForInteraction")(
+      "WAWebMetaAiListActionsImpl",
+    ).__setRef("WAWebListUtils");
+    function X() {
+      return Q.load().catch(function () {
+        return (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] loading the Meta AI list module failed",
+                ])),
+            )
+            .sendLogs("meta-ai-list-load-failed", { sampling: 0.01 }),
+          null
+        );
+      });
+    }
+    ((l.getAllLabelColors = p),
+      (l.colorIndexToHex = _),
+      (l.getSelectableLabelColors = f),
+      (l.sortLabels = h),
+      (l.isBuiltInList = C),
+      (l.skipsListOfUnknownType = b),
+      (l.isAiList = v),
+      (l.isLeadList = S),
+      (l.hasFixedIdentity = R),
+      (l.isOverflowOnlyToYouPill = L),
+      (l.isHiddenToYouList = E),
+      (l.shouldShowListIcon = k),
+      (l.isDisableablePresetList = I),
+      (l.getPresetListLocalizedName = T),
+      (l.getPresetListShortName = D),
+      (l.getPresetListHelperText = x),
+      (l.getListDisplayName = $),
+      (l.getExpectedAiLabelName = P),
+      (l.isListFlowMaxListsCountReached = M),
+      (l.getReachMaxLabelCountTextForBizLabelDrawer = w),
+      (l.getReachMaxLabelCountText = A),
+      (l.resolvePillLabel = F),
+      (l.resolvePillLabelForState = O),
+      (l.getUnreadChatsCountForFilter = B),
+      (l.getListsUnreadChatCountMap = q),
+      (l.getListTypeFromFilter = U),
+      (l.getManageListInfo = V),
+      (l.getLeadStageListName = H),
+      (l.getLeadListManagerDisplayName = G),
+      (l.META_AI_LIST_ID = z),
+      (l.isDeviceLocalList = j),
+      (l.isMetaAiListEnabled = K),
+      (l.loadMetaAiList = X));
   },
   226,
 );

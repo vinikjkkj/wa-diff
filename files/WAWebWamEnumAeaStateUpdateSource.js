@@ -11,6 +11,8 @@ __d(
       SELF_ATTESTATION: 6,
       IDENTITY_SAVE: 7,
       DEBUG_TOOL: 8,
+      GET_IDENTITIES: 9,
+      RETRY_RECEIPT: 10,
     });
     i.AEA_STATE_UPDATE_SOURCE = e;
   },

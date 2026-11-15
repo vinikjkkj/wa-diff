@@ -10,6 +10,7 @@ __d(
     "WAWebLabelJidSync",
     "WAWebLabelSublistSync",
     "WAWebLeadListConstants",
+    "WAWebListUtils",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
     "WAWebSchemaLabelSublist",
@@ -21,7 +22,10 @@ __d(
     var e, s, u, c;
     function d(e, t) {
       var n = m(
-        e,
+        e.filter(function (e) {
+          var t = e.id;
+          return t !== o("WAWebListUtils").META_AI_LIST_ID;
+        }),
         t.map(function (e) {
           return {
             labelAssociationType: o("WAWebSchemaLabelAssociation")

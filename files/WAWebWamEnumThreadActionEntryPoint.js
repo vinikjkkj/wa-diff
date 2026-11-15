@@ -20,6 +20,7 @@ __d(
       POST_SEND_SYSTEM_MESSAGE: 15,
       NUDGE_CHAT: 16,
       BIZ_AI_ICEBREAKER: 17,
+      BIZ_AI_REPLY_PILLS: 18,
     });
     i.THREAD_ACTION_ENTRY_POINT = e;
   },

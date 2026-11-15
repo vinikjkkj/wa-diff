@@ -1,12 +1,12 @@
 __d(
   "WAWebHatchApprovalOutcomeText",
-  ["fbt", "react"],
+  ["fbt", "WAWebL10N", "react"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      return e.record.outcomeLabel != null
+      return m(e)
         ? e.record.outcomeLabel
         : e.outcome === "allowed"
           ? s._(/*BTDS*/ "Allowed")
@@ -46,6 +46,19 @@ __d(
                     e.outcome,
                 );
               })();
+    }
+    function m(e) {
+      var t = e.record;
+      return (
+        t.outcomeLabel != null &&
+        !(
+          t.outcomeLabel === "Denied" &&
+          e.outcome === "denied" &&
+          t.status === "denied" &&
+          t.decision === "deny" &&
+          r("WAWebL10N").getLocale() === "ml_IN"
+        )
+      );
     }
     ((l.hatchApprovalOutcomeText = c), (l.hatchApprovalOutcomeTone = d));
   },

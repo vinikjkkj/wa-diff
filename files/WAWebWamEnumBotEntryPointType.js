@@ -53,6 +53,8 @@ __d(
       AI_WEB_INTRO_PANEL: 48,
       AI_CONTACTS_TAB: 49,
       MEDIA_VIEWER: 50,
+      BIRTHDAY_BANNER: 51,
+      AI_TEXT_ACTION_SCHEDULED_TASK: 52,
     });
     i.BOT_ENTRY_POINT_TYPE = e;
   },

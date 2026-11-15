@@ -14,6 +14,8 @@ __d(
               keyRotationRemoveCount: [12, e.TYPES.INTEGER],
               missingKeyCount: [9, e.TYPES.INTEGER],
               mutationCount: [1, e.TYPES.INTEGER],
+              redundantMutationFiltered: [14, e.TYPES.INTEGER],
+              redundantMutationTotal: [15, e.TYPES.INTEGER],
               storedMutationCount: [7, e.TYPES.INTEGER],
               unsetActionCount: [8, e.TYPES.INTEGER],
               unsupportedActionCount: [5, e.TYPES.INTEGER],

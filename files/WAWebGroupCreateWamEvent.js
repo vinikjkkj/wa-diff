@@ -8,6 +8,7 @@ __d(
           GroupCreate: [
             594,
             {
+              callbackDomain: [5, e.TYPES.STRING],
               dedupKey: [4, e.TYPES.INTEGER],
               ephemeralityDuration: [2, e.TYPES.INTEGER],
               groupCreateEntryPoint: [

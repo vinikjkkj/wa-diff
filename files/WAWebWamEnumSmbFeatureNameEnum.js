@@ -29,6 +29,7 @@ __d(
       STATUS_CROSSPOST: 23,
       CONNECTED_MEDIA: 24,
       CONTENT_HUB: 25,
+      META_ONE_TRIAL_ACTIVATION_CARD: 26,
     });
     i.SMB_FEATURE_NAME_ENUM = e;
   },

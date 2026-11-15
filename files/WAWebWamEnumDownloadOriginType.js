@@ -23,6 +23,8 @@ __d(
       WAMO_PREFERENCES: 18,
       RICH_ORDER_STATUS: 19,
       WA_BACKUP: 20,
+      EVENT_PRESET: 21,
+      EVENT_COVER: 22,
     });
     i.DOWNLOAD_ORIGIN_TYPE = e;
   },

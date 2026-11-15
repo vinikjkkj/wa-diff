@@ -19,9 +19,7 @@ __d(
         function (e) {
           return s.jsx(r("WAWebLoadingModal.react"), {
             error: !!e.error,
-            theme:
-              o("WAWebModal.react").ModalTheme
-                .BizBroadcastProDownloadRecipients,
+            theme: o("WAWebModal.react").ModalTheme.BizBroadcastProMediumDialog,
           });
         },
       );

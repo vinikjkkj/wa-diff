@@ -15,6 +15,7 @@ __d(
             {
               contactSyncBusinessResponseNew: [20, e.TYPES.INTEGER],
               contactSyncChangedVersionRowCount: [10, e.TYPES.INTEGER],
+              contactSyncCompleteTimestamp: [49, e.TYPES.TIMER],
               contactSyncConsecutiveCount: [26, e.TYPES.INTEGER],
               contactSyncCreationTimestamp: [42, e.TYPES.TIMER],
               contactSyncDeviceResponseNew: [19, e.TYPES.INTEGER],

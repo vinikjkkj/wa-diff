@@ -8,6 +8,7 @@ __d(
     "WAWebApiMessageInfoStore",
     "WAWebBotBaseGating",
     "WAWebDBAddOnProviders",
+    "WAWebDBMessageRangeBounds",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
     "WAWebFutureproofReparseMsgsAction",
@@ -17,7 +18,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebOrderPreservingHex",
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
@@ -31,45 +31,29 @@ __d(
       c,
       d = 10,
       m = 1e9;
-    function p(e) {
-      var t = e.toString(16);
-      return (t.length - 1).toString(16) + t;
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function _(e) {
-      if (e == null || e.length < 3) return null;
-      var t = e.split("_")[2];
-      return t ? o("WAWebOrderPreservingHex").undoOrderPreservingHex(t) : null;
-    }
-    function f(e, t, n) {
-      var r = n != null ? p(n) : "";
-      return e.toString() + "_" + t + "_" + r;
-    }
-    function g(e, t) {
-      return e.toString() + "_" + t + "_g";
-    }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
-    }
-    function y() {
+    function _() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .between(["internalId"], e, t, n),
             a = r.filter(function (e) {
-              return E(e);
+              return v(e);
             });
-          return (yield k(a), a);
+          return (yield S(a), a);
         })),
-        y.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
+    function f() {
+      return g.apply(this, arguments);
     }
-    function b() {
+    function g() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaMessage")
             .getMessageTable()
             .startsWithAnyOf(
@@ -78,15 +62,15 @@ __d(
             );
           return e;
         })),
-        b.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
+    function h() {
+      return y.apply(this, arguments);
     }
-    function S() {
+    function y() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaMessage")
             .getMessageTable()
             .startsWithAnyOf(
@@ -95,10 +79,10 @@ __d(
             );
           return e;
         })),
-        S.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function R(e) {
+    function C(e) {
       if (
         !o("WAWebGroupUtils").INVALID_CAG_NON_ADMIN_SYSTEM_MSG_SUBTYPES.has(
           e.subtype,
@@ -111,17 +95,17 @@ __d(
       var n = t.participants.iAmAdmin();
       return !n;
     }
-    function L(e) {
+    function b(e) {
       return e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN;
     }
-    function E(e, t) {
+    function v(e, t) {
       t === void 0 && (t = []);
       var n = o("WAWebDBMessageSerialization").messageFromDbRow(e),
-        r = x(e),
+        r = k(e),
         a = o("WAWebDBAddOnProviders").getAddOnProviderForFutureproofMsg(n);
       return !(
         r ||
-        (L(e) && e.futureproofReparsed === !0) ||
+        (b(e) && e.futureproofReparsed === !0) ||
         (a && a.canRenderInUi(n) && !t.includes(e.id.toString())) ||
         e.type === o("WAWebMsgType").MSG_TYPE.DEBUG ||
         (!o("WAWebBotBaseGating").isBizBot1pEnabled() &&
@@ -129,13 +113,13 @@ __d(
           e.subtype === "biz_bot_1p_disclosure")
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function I() {
+    function R() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = T(e);
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = L(e);
           if (t.length !== 0) {
             var n = yield o("WAWebApiMessageInfoStore").getHighestMsgAcks(
                 t.map(function (e) {
@@ -165,10 +149,10 @@ __d(
                   .bulkCreateOrMerge(a)));
           }
         })),
-        I.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function T(t) {
+    function L(t) {
       var n = [],
         a = t.filter(function (e) {
           if (
@@ -207,7 +191,7 @@ __d(
         a
       );
     }
-    function D(e, t) {
+    function E(e, t) {
       var n,
         r = self.performance.now(),
         a = o("WAWebABProps").getABPropConfigValue(
@@ -224,16 +208,16 @@ __d(
         h = 0,
         y = function (r) {
           if (
-            R(r) ||
+            C(r) ||
             (f++,
             r.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               r.subtype !== "ephemeral_setting")
           )
             return !1;
           var n = o("WAWebDBMessageSerialization").messageFromDbRow(r),
-            u = x(r);
+            u = k(r);
           if (u) return !1;
-          if (L(r)) {
+          if (b(r)) {
             var y = o(
               "WAWebDBAddOnProviders",
             ).getAddOnProviderForFutureproofMsg(n);
@@ -307,14 +291,14 @@ __d(
           );
         });
     }
-    function x(e) {
+    function k(e) {
       if (e.type === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT) return !0;
       var t = e.futureproofType;
       return t != null
         ? o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(t)
         : o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(e.type);
     }
-    var $ = new Map([
+    var I = new Map([
       [
         o("WAWebMsgType").MSG_TYPE.GP2,
         ["remove", "add", "ephemeral", "invite", "leave"],
@@ -364,18 +348,18 @@ __d(
         ],
       ],
     ]);
-    function P(e) {
+    function T(e) {
       var t;
       return (
-        ((t = $.get(e.type)) == null ? void 0 : t.includes(e.subtype)) || !1
+        ((t = I.get(e.type)) == null ? void 0 : t.includes(e.subtype)) || !1
       );
     }
-    function N(e, t) {
+    function D(e, t) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(["internalId"], e + "_/", e + "_g", { reverse: !0 }, t);
     }
-    function M(e) {
+    function x(e) {
       return (
         (e.type === o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION &&
           e.subtype === "encrypt") ||
@@ -391,7 +375,7 @@ __d(
           e.subtype === "biz_account_type_changed_to_hosted")
       );
     }
-    function w(e) {
+    function $(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
         (e.subtype === "bot_init" ||
@@ -400,21 +384,25 @@ __d(
           e.subtype === "bot_session_transparency_notice")
       );
     }
-    ((l.extractC2STimestampFromMessageRangeIndex = _),
-      (l.beginningOfMessageRange = f),
-      (l.endOfMessageRange = g),
-      (l.queryChatMessageHelper = h),
-      (l.queryGroupStatusMsgsHelper = C),
-      (l.queryNewsletterStatusMsgsHelper = v),
-      (l.isInvalidCAGSystemMessage = R),
-      (l.isFutureproof = L),
-      (l.shouldRenderInUI = E),
-      (l.maybeUpdateMsgAck = k),
-      (l.getKeyMsgsFromChatHistory = D),
-      (l.isSecuritySensitiveMessage = P),
-      (l.getMessagesBefore = N),
-      (l.isInitialEncryptionMessage = M),
-      (l.isBotSystemMessageToPreserveOnClear = w));
+    ((l.beginningOfMessageRange = o(
+      "WAWebDBMessageRangeBounds",
+    ).beginningOfMessageRange),
+      (l.endOfMessageRange = o("WAWebDBMessageRangeBounds").endOfMessageRange),
+      (l.extractC2STimestampFromMessageRangeIndex = o(
+        "WAWebDBMessageRangeBounds",
+      ).extractC2STimestampFromMessageRangeIndex),
+      (l.queryChatMessageHelper = p),
+      (l.queryGroupStatusMsgsHelper = f),
+      (l.queryNewsletterStatusMsgsHelper = h),
+      (l.isInvalidCAGSystemMessage = C),
+      (l.isFutureproof = b),
+      (l.shouldRenderInUI = v),
+      (l.maybeUpdateMsgAck = S),
+      (l.getKeyMsgsFromChatHistory = E),
+      (l.isSecuritySensitiveMessage = T),
+      (l.getMessagesBefore = D),
+      (l.isInitialEncryptionMessage = x),
+      (l.isBotSystemMessageToPreserveOnClear = $));
   },
   98,
 );

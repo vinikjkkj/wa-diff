@@ -10,6 +10,7 @@ __d(
       COMPLETE: 5,
       GENERATE_PREKEYS: 6,
       SENT_PREKEYS: 7,
+      CONTACT_SHARING: 8,
     });
     i.MD_LINK_DEVICE_COMPANION_STAGE = e;
   },

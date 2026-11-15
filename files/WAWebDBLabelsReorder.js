@@ -3,23 +3,25 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebListUtils",
     "WAWebModelStorageUtils",
     "WAWebSchemaLabel",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
+    function u() {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(["label"], function () {
-              return d(e);
-            });
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o("WAWebListUtils").isMetaAiListEnabled() &&
+            (yield o("WAWebSchemaLabel")
+              .getLabelTable()
+              .get(o("WAWebListUtils").META_AI_LIST_ID)) != null
+            ? o("WAWebListUtils").loadMetaAiList()
+            : null;
         })),
         c.apply(this, arguments)
       );
@@ -29,7 +31,37 @@ __d(
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield u();
+          yield o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["label"], function () {
+              return p(e, t);
+            });
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t == null) return f(e);
+          yield t.keepMetaAiListInPlace(function () {
+            return f(e);
+          });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.reduce(function (e, t, n) {
             return (e.set(t, n), e);
           }, new Map([]));
@@ -66,10 +98,12 @@ __d(
             );
           }
         })),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.updateLabelsSortOrder = u), (l.writeLabelsSortOrder = d));
+    ((l.loadMetaAiListOrderForReorder = u),
+      (l.updateLabelsSortOrder = d),
+      (l.writeLabelsSortOrder = p));
   },
   98,
 );

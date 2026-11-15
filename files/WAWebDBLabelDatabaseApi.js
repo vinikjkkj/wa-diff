@@ -1,6 +1,6 @@
 __d(
   "WAWebDBLabelDatabaseApi",
-  ["WAWebSchemaLabel", "asyncToGeneratorRuntime", "err"],
+  ["WAWebListUtils", "WAWebSchemaLabel", "asyncToGeneratorRuntime", "err"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return s.apply(this, arguments);
@@ -8,7 +8,12 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaLabel").getLabelTable().all();
+          var e = (yield o("WAWebSchemaLabel").getLabelTable().all()).filter(
+            function (e) {
+              var t = e.id;
+              return t !== o("WAWebListUtils").META_AI_LIST_ID;
+            },
+          );
           if (e.length === 0) return 1;
           var t = Math.max.apply(
             Math,

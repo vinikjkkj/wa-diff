@@ -36,6 +36,7 @@ __d(
                 o("WAWebWamEnumEventV2InviteeRsvpValue")
                   .EVENT_V2_INVITEE_RSVP_VALUE,
               ],
+              joinRequiresRsvp: [10, e.TYPES.BOOLEAN],
               userJourneyFunnelId: [6, e.TYPES.STRING],
               waEventId: [7, e.TYPES.STRING],
             },

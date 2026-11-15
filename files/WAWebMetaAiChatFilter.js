@@ -2,13 +2,17 @@ __d(
   "WAWebMetaAiChatFilter",
   [
     "WAWebBotGating",
+    "WAWebBotStaticProfiles",
     "WAWebBotSupportGating",
     "WAWebBotUtils",
+    "WAWebChatCollection",
+    "WAWebFetchMissingAiFilterBotProfiles",
+    "WAWebFrontendChatGetters",
     "WAWebResolveBotProfile",
-    "WAWebUserPrefsBot",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = 2;
+    function s(e) {
       var t = e.id;
       if (
         o("WAWebBotUtils").isMetaAiBot(t) ||
@@ -23,13 +27,39 @@ __d(
         o("WAWebBotSupportGating").isThirdPartyAgent(n)
       );
     }
-    function s() {
+    function u(e) {
+      return s(e) && !e.archive;
+    }
+    function c() {
+      var t = 0;
       return (
-        o("WAWebUserPrefsBot").hasEverHadMetaAiThread() &&
-        o("WAWebBotGating").isMetaAiThreadInboxFilterEnabled()
+        o("WAWebChatCollection").ChatCollection.some(function (n) {
+          return (
+            u(n) &&
+            o("WAWebFrontendChatGetters").getShouldAppearInList(n) &&
+            ++t >= e
+          );
+        }) && o("WAWebBotGating").isMetaAiThreadInboxFilterEnabled()
       );
     }
-    ((l.isAiFilterChat = e), (l.shouldShowMetaAiFilter = s));
+    function d() {
+      o("WAWebChatCollection").ChatCollection.some(function (e) {
+        var t = e.id;
+        return (
+          t.isFbidBot() &&
+          !o("WAWebBotStaticProfiles").isStaticProfile(t) &&
+          o("WAWebResolveBotProfile").resolveBotSupportInput(t) == null
+        );
+      }) &&
+        o("WAWebBotGating").isMetaAiThreadInboxFilterEnabled() &&
+        o(
+          "WAWebFetchMissingAiFilterBotProfiles",
+        ).maybeFetchMissingAiFilterBotProfiles();
+    }
+    ((l.isAiFilterChat = s),
+      (l.isChatListedInAiFilter = u),
+      (l.shouldShowMetaAiFilter = c),
+      (l.fetchMissingAiFilterProfilesIfNeeded = d));
   },
   98,
 );

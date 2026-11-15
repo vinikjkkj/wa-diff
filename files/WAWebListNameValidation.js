@@ -1,6 +1,6 @@
 __d(
   "WAWebListNameValidation",
-  ["WAWebL10N", "WAWebLabelCollection"],
+  ["WAWebL10N", "WAWebLabelCollection", "WAWebListUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = r("WAWebL10N").getFullLocale(),
@@ -8,7 +8,11 @@ __d(
       return n === ""
         ? !1
         : o("WAWebLabelCollection").LabelCollection.some(function (e) {
-            return e.name != null && e.name.toLocaleLowerCase(t) === n;
+            return (
+              e.name != null &&
+              !o("WAWebListUtils").isDeviceLocalList(e) &&
+              e.name.toLocaleLowerCase(t) === n
+            );
           });
     }
     l.isListNameDuplicate = e;

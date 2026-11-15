@@ -6,6 +6,7 @@ __d(
     "WALongInt",
     "WATimeUtils",
     "WAWebDBDeleteAssociatedMsgsByMsgKey",
+    "WAWebDBMessageRangeBounds",
     "WAWebDBMessageRangeIndex",
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
@@ -30,22 +31,20 @@ __d(
         .getMessageTable()
         .between(
           ["messageRangeIndex"],
-          o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
+          o("WAWebDBMessageRangeBounds").beginningOfMessageRange(
             e,
-            o("WAWebDBMessageRangeIndex").MessagePropertyType
-              .IncomingChatMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
-          o("WAWebDBMessageStoreUtils").endOfMessageRange(
+          o("WAWebDBMessageRangeBounds").endOfMessageRange(
             e,
-            o("WAWebDBMessageRangeIndex").MessagePropertyType
-              .IncomingChatMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
           { lowerInclusive: !0, reverse: !0, limit: 1, shouldDecrypt: !1 },
         )
         .then(function (e) {
           var t;
           return o(
-            "WAWebDBMessageStoreUtils",
+            "WAWebDBMessageRangeBounds",
           ).extractC2STimestampFromMessageRangeIndex(
             (t = e[0]) == null ? void 0 : t.messageRangeIndex,
           );
@@ -56,35 +55,11 @@ __d(
         .getMessageTable()
         .between(
           ["messageRangeIndex"],
-          o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
+          o("WAWebDBMessageRangeBounds").beginningOfMessageRange(
             e,
             o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
-          o("WAWebDBMessageStoreUtils").endOfMessageRange(
-            e,
-            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-          ),
-          { lowerInclusive: !0, reverse: !0, limit: 1, shouldDecrypt: !1 },
-        )
-        .then(function (e) {
-          var t;
-          return o(
-            "WAWebDBMessageStoreUtils",
-          ).extractC2STimestampFromMessageRangeIndex(
-            (t = e[0]) == null ? void 0 : t.messageRangeIndex,
-          );
-        });
-    }
-    function _(e) {
-      return o("WAWebSchemaMessage")
-        .getMessageTable()
-        .between(
-          ["messageRangeIndex"],
-          o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
-            e,
-            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-          ),
-          o("WAWebDBMessageStoreUtils").endOfMessageRange(
+          o("WAWebDBMessageRangeBounds").endOfMessageRange(
             e,
             o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
@@ -93,25 +68,25 @@ __d(
         .then(function (e) {
           var t;
           return o(
-            "WAWebDBMessageStoreUtils",
+            "WAWebDBMessageRangeBounds",
           ).extractC2STimestampFromMessageRangeIndex(
             (t = e[0]) == null ? void 0 : t.messageRangeIndex,
           );
         });
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a,
             i,
             l = o("WAWebSchemaMessage")
               .getMessageTable()
               .between(
                 ["messageRangeIndex"],
-                (a = o("WAWebDBMessageStoreUtils")).beginningOfMessageRange(
+                (a = o("WAWebDBMessageRangeBounds")).beginningOfMessageRange(
                   e,
                   (i = o("WAWebDBMessageRangeIndex")).MessagePropertyType
                     .Outgoing,
@@ -155,7 +130,7 @@ __d(
                     n = r("WAWebMsgKey").fromString(t.id),
                     a =
                       (e = o(
-                        "WAWebDBMessageStoreUtils",
+                        "WAWebDBMessageRangeBounds",
                       ).extractC2STimestampFromMessageRangeIndex(
                         t.messageRangeIndex,
                       )) != null
@@ -169,15 +144,15 @@ __d(
                 };
               return i.map(l);
             }),
-            m = h(u, d),
+            m = g(u, d),
             p = m.messages,
             _ = m.newLastMessageTimestamp;
           return { messages: p, newLastMessageTimestamp: _ };
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = [],
         a = [];
       if (
@@ -187,10 +162,10 @@ __d(
         n.length < t)
       )
         return { messages: e };
-      var i = n.sort(y).slice(0, t),
+      var i = n.sort(h).slice(0, t),
         l = i[i.length - 1];
       return (
-        I(l.timestamp, "smallestTimestampMessage"),
+        k(l.timestamp, "smallestTimestampMessage"),
         {
           messages: i.concat(a),
           newLastMessageTimestamp: o("WALongInt").numberOrThrowIfTooLarge(
@@ -199,7 +174,7 @@ __d(
         }
       );
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = [e, t].map(function (e) {
           return o("WALongInt").numberOrThrowIfTooLarge(
             r("nullthrows")(e.timestamp),
@@ -209,12 +184,12 @@ __d(
         i = n[1];
       return i - a;
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.lastMessageTimestamp,
             r = e.messagePropertyType,
@@ -223,8 +198,8 @@ __d(
               .getMessageTable()
               .between(
                 ["messageRangeIndex"],
-                o("WAWebDBMessageStoreUtils").beginningOfMessageRange(t, r),
-                o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
+                o("WAWebDBMessageRangeBounds").beginningOfMessageRange(t, r),
+                o("WAWebDBMessageRangeBounds").beginningOfMessageRange(
                   t,
                   r,
                   o("WALongInt").numberOrThrowIfTooLarge(n),
@@ -289,15 +264,15 @@ __d(
             return e.id;
           });
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebDBMessageUtils").beginningOfChat(e),
             n = o("WAWebDBMessageUtils").endOfChat(e),
             r = yield o("WAWebSchemaMessage")
@@ -316,15 +291,15 @@ __d(
               return e.id;
             });
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatId,
             n = e.messages,
             a = e.options,
@@ -363,10 +338,10 @@ __d(
             u
           );
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E(e) {
+    function L(e) {
       var t = e.chatId,
         r = e.options,
         a = e.range,
@@ -386,7 +361,7 @@ __d(
                   m = [];
                 i != null &&
                   (m.push(
-                    C({
+                    y({
                       chatId: t,
                       lastMessageTimestamp: i,
                       messagePropertyType: o("WAWebDBMessageRangeIndex")
@@ -395,7 +370,7 @@ __d(
                     }),
                   ),
                   m.push(
-                    C({
+                    y({
                       chatId: t,
                       lastMessageTimestamp: i,
                       messagePropertyType: o("WAWebDBMessageRangeIndex")
@@ -406,7 +381,7 @@ __d(
                 var p = l != null ? l : i;
                 (p != null &&
                   m.push(
-                    C({
+                    y({
                       chatId: t,
                       lastMessageTimestamp: p,
                       messagePropertyType: o("WAWebDBMessageRangeIndex")
@@ -414,9 +389,9 @@ __d(
                       options: r,
                     }),
                   ),
-                  m.push(R({ chatId: t, messages: s, options: r })),
+                  m.push(S({ chatId: t, messages: s, options: r })),
                   (r == null ? void 0 : r.deleteAutomatedGreetingMessages) ===
-                    !0 && m.push(v(t)));
+                    !0 && m.push(b(t)));
                 var _ = yield (c || (c = n("Promise"))).all(m);
                 d = (a = d).concat.apply(a, _);
                 var f = r == null ? void 0 : r.skipMessages;
@@ -441,7 +416,7 @@ __d(
           })(),
         );
     }
-    function k(t) {
+    function E(t) {
       var n,
         r,
         a = t.messages,
@@ -457,12 +432,12 @@ __d(
         ),
         a.length > d)
       ) {
-        var l = h(a, d),
+        var l = g(a, d),
           s = l.messages,
           u = l.newLastMessageTimestamp;
         (u != null &&
           ((i.lastMessageTimestamp = u),
-          I(i.lastMessageTimestamp, "resultantRange")),
+          k(i.lastMessageTimestamp, "resultantRange")),
           (i.messages = s));
       }
       return (
@@ -475,7 +450,7 @@ __d(
         i
       );
     }
-    function I(e, t) {
+    function k(e, t) {
       try {
         o("WALongInt").numberOrThrowIfTooLarge(e != null ? e : 0) /
           o("WATimeUtils").unixTime() >
@@ -505,16 +480,18 @@ __d(
         );
       }
     }
-    var T = { limitAdditionalMessages: h };
-    ((l.getLastMessageTimestamp = m),
-      (l.getLastSystemMessageTimestamp = p),
-      (l.getFirstSystemMessageTimestamp = _),
-      (l.getAdditionalMessages = f),
-      (l.timestampComparison = y),
-      (l.deleteMessagesInMessageRange = E),
-      (l.fixMessageRange = k),
-      (l.logMaybeMillisecondTimestamp = I),
-      (l._test = T));
+    var I = { limitAdditionalMessages: g };
+    ((l.getLastMessageTimestamp = o(
+      "WAWebDBMessageRangeBounds",
+    ).getLastMessageTimestamp),
+      (l.getLastSystemMessageTimestamp = m),
+      (l.getFirstSystemMessageTimestamp = p),
+      (l.getAdditionalMessages = _),
+      (l.timestampComparison = h),
+      (l.deleteMessagesInMessageRange = L),
+      (l.fixMessageRange = E),
+      (l.logMaybeMillisecondTimestamp = k),
+      (l._test = I));
   },
   98,
 );

@@ -102,25 +102,30 @@ __d(
             return (e = this.$3) != null ? e : v();
           }),
           (a.fetchConfirmedLinkedStatusStateIfUnknown = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e,
-                t = this.getKnownConfirmedLinkedStatusState();
-              if (t != null) return t;
-              if (
-                this.$9 == null ||
-                this.$10 !==
-                  ((e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
-                    ? void 0
-                    : e.toString())
-              )
-                this.fetchAndUpdateStatus();
-              else {
-                var n;
-                (n = this.$12) == null || n.resolve();
-              }
-              return this.$17();
-            });
-            function t() {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  n =
+                    (e == null ? void 0 : e.ignoreStoredState) === !0
+                      ? this.$3
+                      : this.getKnownConfirmedLinkedStatusState();
+                if (n != null) return n;
+                if (
+                  this.$9 == null ||
+                  this.$10 !==
+                    ((t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+                      ? void 0
+                      : t.toString())
+                )
+                  this.fetchAndUpdateStatus();
+                else {
+                  var r;
+                  (r = this.$12) == null || r.resolve();
+                }
+                return this.$17();
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

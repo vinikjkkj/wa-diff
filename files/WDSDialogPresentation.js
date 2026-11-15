@@ -15,26 +15,30 @@ __d(
         l = null,
         s = !1,
         u = null,
-        c = !1,
-        d = function () {
+        c = null,
+        d = null,
+        m = !1,
+        p = function () {
           i = !1;
-          var e = g(a);
-          !c &&
+          var e = h(a);
+          !m &&
             l == null &&
             e != null &&
             (l = o("WDSPresentationObservers").notifyWDSDialogPresented(
               t,
               e,
               r(),
+              e === "confirmation" ? c : null,
             ));
         },
-        m = {
-          declare: function (r) {
-            c ||
+        _ = {
+          declare: function (r, o) {
+            m ||
               ((a[r] += 1),
+              o != null && (c = o),
               !i &&
                 l == null &&
-                ((i = !0), (e || (e = n("Promise"))).resolve().then(d)));
+                ((i = !0), (e || (e = n("Promise"))).resolve().then(p)));
           },
           withdraw: function (t) {
             a[t] = Math.max(0, a[t] - 1);
@@ -47,13 +51,22 @@ __d(
               s = !1;
             }
           },
+          runAsButtonPress: function (t, n) {
+            u = t;
+            try {
+              n();
+            } finally {
+              u = null;
+            }
+          },
         };
       return {
-        handle: m,
+        handle: _,
         noteCloseRequest: function () {
-          u == null &&
-            !c &&
-            (u = {
+          d == null &&
+            !m &&
+            (d = {
+              buttonRole: u,
               context: o(
                 "WDSPresentationObservers",
               ).captureWDSPresentationContext(),
@@ -61,60 +74,76 @@ __d(
             });
         },
         end: function () {
-          if (!c && ((c = !0), l != null)) {
-            var e, t;
-            o("WDSPresentationObservers").notifyWDSDialogDismissed(
-              l,
-              u != null
-                ? u.context
-                : o("WDSPresentationObservers").captureWDSPresentationContext(),
-              (e = (t = u) == null ? void 0 : t.dismissal) != null
-                ? e
-                : "closed",
-            );
-          }
+          m ||
+            ((m = !0),
+            l != null &&
+              (d != null
+                ? o("WDSPresentationObservers").notifyWDSDialogDismissed(
+                    l,
+                    d.context,
+                    d.dismissal,
+                    "request",
+                    d.buttonRole,
+                  )
+                : o("WDSPresentationObservers").notifyWDSDialogDismissed(
+                    l,
+                    o(
+                      "WDSPresentationObservers",
+                    ).captureWDSPresentationContext(),
+                    "closed",
+                    "removal",
+                  )));
         },
       };
     }
-    function f(e, t) {
-      var n,
-        r = d(p);
+    function f(e, t, n) {
+      var r,
+        o = d(p);
       return (
         m(
           function () {
-            if (!(!t || r == null))
+            if (!(!t || o == null))
               return (
-                r.declare(e),
+                o.declare(e, n),
                 function () {
-                  return r.withdraw(e);
+                  return o.withdraw(e);
                 }
               );
           },
-          [r, t, e],
+          [n, o, t, e],
         ),
-        (n = r == null ? void 0 : r.runAsUserDismissal) != null ? n : y
+        (r = o == null ? void 0 : o.runAsUserDismissal) != null ? r : C
       );
     }
-    function g(e) {
+    function g() {
+      var e,
+        t = d(p);
+      return (e = t == null ? void 0 : t.runAsButtonPress) != null ? e : b;
+    }
+    function h(e) {
       return e.confirmation > 0
         ? "confirmation"
         : e.content > 0
           ? "content"
           : null;
     }
-    function h() {
+    function y() {
       var e, t;
       return (e = (t = d(p)) == null ? void 0 : t.runAsUserDismissal) != null
         ? e
-        : y;
+        : C;
     }
-    function y(e) {
+    function C(e) {
       e();
+    }
+    function b(e, t) {
+      t();
     }
     ((l.WDSDialogPresentationContext = p),
       (l.createWDSDialogPresentation = _),
       (l.useWDSDialogPresentationDeclaration = f),
-      (l.useWDSDialogUserDismissal = h));
+      (l.useWDSDialogButtonPress = g),
+      (l.useWDSDialogUserDismissal = y));
   },
   98,
 );

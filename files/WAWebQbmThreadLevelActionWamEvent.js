@@ -61,6 +61,7 @@ __d(
               fmxHiddenReason: [67, e.TYPES.STRING],
               fmxInitiatorState: [63, e.TYPES.STRING],
               fmxStateChangeReason: [64, e.TYPES.STRING],
+              fmxSubtitleIndex: [75, e.TYPES.INTEGER],
               fmxTrustWaitMs: [65, e.TYPES.INTEGER],
               hsmTagStr: [10, e.TYPES.STRING],
               iasEntryPoint: [
@@ -119,7 +120,30 @@ __d(
             "regular",
           ],
         },
-        { QbmThreadLevelAction: [] },
+        {
+          QbmThreadLevelAction: [
+            [
+              [
+                function (e) {
+                  return (
+                    e.getValue("threadLevelAction") ===
+                    o("WAWebWamEnumThreadLevelAction").THREAD_LEVEL_ACTION
+                      .SUBTITLE_ROTATE
+                  );
+                },
+              ],
+              ["fmxSubtitleIndex"],
+              [
+                [
+                  function (e) {
+                    return e.getValue("fmxSubtitleIndex") > 0;
+                  },
+                  "fmx_subtitle_index > 0",
+                ],
+              ],
+            ],
+          ],
+        },
       );
     l.QbmThreadLevelActionWamEvent = s;
   },

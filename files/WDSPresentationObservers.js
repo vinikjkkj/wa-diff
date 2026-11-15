@@ -4,8 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = new Set();
-    function u(e) {
+      s = new Set(),
+      u = new Map(),
+      c = null;
+    function d(e) {
       var t = { observer: e };
       return (
         s.add(t),
@@ -14,52 +16,76 @@ __d(
         }
       );
     }
-    function c(e) {
+    function m(e) {
       if (s.size === 0) return null;
       var t = new Map();
       for (var n of s)
         try {
           t.set(n, n.observer.captureContext(e));
         } catch (e) {
-          C(e);
+          R(e);
         }
       return t;
     }
-    function d(e, t) {
-      if (e == null) return t;
-      if (t == null) return e;
-      var n = new Map();
-      for (var r of new Set(
-        [].concat(Array.from(e.keys()), Array.from(t.keys())),
+    function p(e) {
+      if (c != null || s.size === 0) {
+        e();
+        return;
+      }
+      var t = { context: m(null) };
+      c = t;
+      var n = !1;
+      try {
+        n = e();
+      } finally {
+        var r = function () {
+          c === t && (c = null);
+        };
+        n ? queueMicrotask(r) : r();
+      }
+    }
+    function _() {
+      return c != null
+        ? { context: c.context, source: "activation" }
+        : { context: m(null), source: "request" };
+    }
+    function f(e, t) {
+      if (e == null && t == null) return null;
+      var n = e != null ? e : u,
+        r = t != null ? t : u,
+        o = new Map();
+      for (var a of new Set(
+        [].concat(Array.from(n.keys()), Array.from(r.keys())),
       )) {
-        var o = e.get(r),
-          a = t.get(r);
-        if (!e.has(r) || !t.has(r)) {
-          n.set(r, e.has(r) ? o : a);
+        var i = n.get(a),
+          l = r.get(a),
+          c = r.has(a) ? l : i,
+          d = a.observer.combineContexts;
+        if (d == null || !s.has(a)) {
+          o.set(a, c);
           continue;
         }
-        var i = r.observer.combineContexts;
         try {
-          n.set(r, i != null ? i(o, a) : a);
+          o.set(a, d(i, l));
         } catch (e) {
-          (C(e), n.set(r, a));
+          (R(e), o.set(a, c));
         }
       }
-      return n;
+      return o;
     }
-    function m(e) {
-      y(function (t) {
+    function g(e) {
+      S(function (t) {
         return {
           kind: "toast_presented",
           context: e == null ? void 0 : e.get(t),
         };
       });
     }
-    var p = 0;
-    function _(e, t) {
-      var n = p++;
+    var h = 0;
+    function y(e, t) {
+      var n = h++;
       return (
-        y(function (r) {
+        S(function (r) {
           return {
             kind: "menu_presented",
             token: n,
@@ -70,49 +96,53 @@ __d(
         n
       );
     }
-    function f(e, t) {
-      y(function (n) {
+    function C(e, t, n) {
+      S(function (r) {
         return {
           kind: "menu_dismissed",
           token: e,
-          context: t == null ? void 0 : t.get(n),
+          context: t == null ? void 0 : t.get(r),
+          contextSource: n,
         };
       });
     }
-    function g(e, t, n) {
-      var r = p++;
+    function b(e, t, n, r) {
+      var o = h++;
       return (
-        y(function (o) {
+        S(function (a) {
           return {
             kind: "dialog_presented",
-            token: r,
-            context: e == null ? void 0 : e.get(o),
+            token: o,
+            context: e == null ? void 0 : e.get(a),
             dialogKind: t,
             element: n,
+            buttonCount: r,
           };
         }),
-        r
+        o
       );
     }
-    function h(e, t, n) {
-      y(function (r) {
+    function v(e, t, n, r, o) {
+      S(function (a) {
         return {
           kind: "dialog_dismissed",
           token: e,
-          context: t == null ? void 0 : t.get(r),
+          context: t == null ? void 0 : t.get(a),
+          contextSource: r,
           dismissal: n,
+          buttonRole: o,
         };
       });
     }
-    function y(e) {
+    function S(e) {
       for (var t of s)
         try {
           t.observer.onEvent(e(t));
         } catch (e) {
-          C(e);
+          R(e);
         }
     }
-    function C(t) {
+    function R(t) {
       try {
         o("WALogger")
           .ERROR(
@@ -125,14 +155,16 @@ __d(
           .sendLogs("wds-presentation-observer-error");
       } catch (e) {}
     }
-    ((l.registerWDSPresentationObserver = u),
-      (l.captureWDSPresentationContext = c),
-      (l.combineWDSPresentationContexts = d),
-      (l.notifyWDSToastPresented = m),
-      (l.notifyWDSMenuPresented = _),
-      (l.notifyWDSMenuDismissed = f),
-      (l.notifyWDSDialogPresented = g),
-      (l.notifyWDSDialogDismissed = h));
+    ((l.registerWDSPresentationObserver = d),
+      (l.captureWDSPresentationContext = m),
+      (l.runWDSMenuItemActivation = p),
+      (l.captureWDSCloseRequestContext = _),
+      (l.combineWDSPresentationContexts = f),
+      (l.notifyWDSToastPresented = g),
+      (l.notifyWDSMenuPresented = y),
+      (l.notifyWDSMenuDismissed = C),
+      (l.notifyWDSDialogPresented = b),
+      (l.notifyWDSDialogDismissed = v));
   },
   98,
 );

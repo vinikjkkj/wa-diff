@@ -7,6 +7,8 @@ __d(
       SETTINGS_BOTTOM_SHEET: 2,
       SELECTION_PILLS: 3,
       CLOSE_FRIENDS_UPSELL_BANNER: 4,
+      AUDIENCE_PILLS: 5,
+      CF_SHEET: 6,
     });
     i.STATUS_PRIVACY_SETTINGS_VIEW = e;
   },

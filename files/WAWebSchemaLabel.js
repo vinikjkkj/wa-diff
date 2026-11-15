@@ -22,6 +22,7 @@ __d(
       AI_RESPONDING: 11,
       LEAD: 16,
       MENTIONS_AND_REPLIES: 17,
+      META_AI_THREAD: 1004,
     });
     function s() {
       var e = o("WAWebModelStorageUtils").getStorage(),

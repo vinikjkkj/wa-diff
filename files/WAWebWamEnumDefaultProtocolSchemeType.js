@@ -8,6 +8,8 @@ __d(
       MS_VOIP_VIDEO: 2,
       IM: 3,
       MS_IPMESSAGING: 4,
+      WHATSAPP: 5,
+      LAUNCH_ARGUMENTS: 6,
     });
     i.DEFAULT_PROTOCOL_SCHEME_TYPE = e;
   },

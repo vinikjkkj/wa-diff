@@ -89,6 +89,8 @@ __d(
       CHAT_THEME_SETTING: 84,
       REQUEST_LOCATION: 85,
       REQUEST_LOCATION_UPDATE: 86,
+      INSTANT_IMAGE: 87,
+      INSTANT_VIDEO: 88,
     });
     i.MEDIA_TYPE = e;
   },

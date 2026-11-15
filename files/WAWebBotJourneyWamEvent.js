@@ -99,6 +99,7 @@ __d(
                 o("WAWebWamEnumMuseChannelStatus").MUSE_CHANNEL_STATUS,
               ],
               newBadgeVisible: [56, e.TYPES.BOOLEAN],
+              onboardingJourneyId: [61, e.TYPES.STRING],
               promptTriggerPoint: [
                 50,
                 o("WAWebWamEnumPromptTriggerPoint").PROMPT_TRIGGER_POINT,

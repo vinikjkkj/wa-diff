@@ -26,6 +26,10 @@ __d(
                 o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT,
               ],
               fmxEvent: [4, o("WAWebWamEnumFmxEvent").FMX_EVENT],
+              foaMutualsCount: [14, e.TYPES.INTEGER],
+              foaMutualsFbCount: [15, e.TYPES.INTEGER],
+              foaMutualsIgCount: [16, e.TYPES.INTEGER],
+              foaMutualsShown: [13, e.TYPES.BOOLEAN],
               highlightGroupType: [
                 5,
                 o("WAWebWamEnumHighlightGroupType").HIGHLIGHT_GROUP_TYPE,

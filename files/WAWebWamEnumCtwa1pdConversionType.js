@@ -34,6 +34,7 @@ __d(
       MESSAGE_ON_DELIVERY: 28,
       CALL_OVER_120S: 29,
       BIZ_CONV_FEEDBACK: 30,
+      PROFILE_VISIT: 31,
     });
     i.CTWA_1PD_CONVERSION_TYPE = e;
   },

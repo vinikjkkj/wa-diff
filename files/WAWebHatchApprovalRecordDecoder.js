@@ -148,6 +148,10 @@ __d(
             o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
             "host",
           ),
+          connectorMethod: o("WAWebHatchJsonReaders").readStringOrEmpty(
+            o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
+            "method",
+          ),
           iconUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_url"),
           decisionOptions: i,
         },

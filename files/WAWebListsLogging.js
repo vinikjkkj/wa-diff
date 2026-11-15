@@ -36,6 +36,7 @@ __d(
           case o("WAWebSchemaLabel").ListType.CHANNELS:
           case o("WAWebSchemaLabel").ListType.LEAD:
           case o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES:
+          case o("WAWebSchemaLabel").ListType.META_AI_THREAD:
             return null;
         }
     }

@@ -423,6 +423,7 @@ __d(
       SELECT_WA_APP: 418,
       MOBILE_RECHARGE: 419,
       GO_TO_MOBILE_POSTPAID: 420,
+      PROMOTIONS_SEE_ALL: 421,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

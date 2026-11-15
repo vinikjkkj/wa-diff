@@ -2077,7 +2077,9 @@ __d(
                 3257,
                 o("WAWebWamEnumScreeningResult").SCREENING_RESULT,
               ],
+              screeningSpeechDurationMs: [3327, e.TYPES.TIMER],
               screeningStreamingMs: [3285, e.TYPES.TIMER],
+              screeningTimeToFirstSpeechMs: [3328, e.TYPES.TIMER],
               screeningTriggerMode: [
                 3258,
                 o("WAWebWamEnumScreeningTriggerMode").SCREENING_TRIGGER_MODE,
@@ -2405,6 +2407,7 @@ __d(
               ssSharerVideoContentQp: [1717, e.TYPES.INTEGER],
               ssTimeInStaticContentType: [1459, e.TYPES.TIMER],
               ssTimeInVideoContentType: [1460, e.TYPES.TIMER],
+              stanzaRandomId: [3329, e.TYPES.STRING],
               startCallDurationMs: [1918, e.TYPES.INTEGER],
               startedInitBweProbing: [900, e.TYPES.BOOLEAN],
               streamDroppedPkts: [1287, e.TYPES.INTEGER],

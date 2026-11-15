@@ -48,7 +48,7 @@ __d(
                 );
               })();
     }
-    function m(e) {
+    function m(e, t) {
       (o("WAWebToastManager").ToastManager.close(e),
         o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
           u.jsx(
@@ -61,7 +61,14 @@ __d(
                   "WAWebDrawerManager",
                 ).DrawerManager.closeDrawerFullscreen();
               },
-              openCustomerBasePanel: !0,
+              openCustomerBasePanel:
+                t !==
+                o("WAWebBizBroadcastProPendingActions")
+                  .BizBroadcastProCustomerBaseAction.RemoveFromDataSharing,
+              openDataSharingPanel:
+                t ===
+                o("WAWebBizBroadcastProPendingActions")
+                  .BizBroadcastProCustomerBaseAction.RemoveFromDataSharing,
             },
           ),
           { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
@@ -89,7 +96,7 @@ __d(
               "WAWebBizBroadcastsHomeStrings",
             ).getReminderToastActionLabel(),
             onAction: function () {
-              return m(n);
+              return m(n, t);
             },
           },
           id: n,

@@ -13,6 +13,7 @@ __d(
       COMMUNITY: 8,
       POST_REGISTRATION_BOTTOM_SHEET: 9,
       NAV_BAR_EVENTS_TAB: 10,
+      OVERFLOW_MENU: 11,
     });
     i.EVENT_V2_LIST_ENTRY_POINT = e;
   },

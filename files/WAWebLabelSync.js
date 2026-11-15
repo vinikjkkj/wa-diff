@@ -182,6 +182,15 @@ __d(
                                 )
                               );
                             }
+                            if (
+                              p === o("WAWebListUtils").META_AI_LIST_ID ||
+                              f.type ===
+                                o("WAWebSchemaLabel").ListType.META_AI_THREAD
+                            )
+                              return {
+                                actionState:
+                                  o("WAWebSyncdConst").SyncActionState.Skipped,
+                              };
                             if (f.deleted === !0) {
                               var S = yield o("WAWebSchemaLabel")
                                 .getLabelTable()

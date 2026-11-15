@@ -19,6 +19,8 @@ __d(
       FMX_CARD_FIRST_VIEW_IN_CHAT_OPEN: 13,
       TRUST_QUESTION_TAP: 14,
       TRUST_BTN_TAPPED: 15,
+      FOA_MUTUALS: 16,
+      FOA_MUTUALS_REPLY: 17,
     });
     i.FMX_EVENT = e;
   },

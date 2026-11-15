@@ -56,6 +56,7 @@ __d(
       SUGGESTION_IMPRESSION: 50,
       SUGGESTION_TAP: 51,
       SUGGESTION_DISMISS: 52,
+      SUBTITLE_ROTATE: 53,
     });
     i.THREAD_LEVEL_ACTION = e;
   },
