@@ -269,14 +269,17 @@ __d(
             t({ error: !0 }));
           return;
         }
-        if ((!i || !i.__type) && !n) {
-          var s,
-            u =
-              "Routing payload expected for " +
-              e +
-              ", but got " +
-              ((s = JSON.stringify(i)) != null ? s : "<unstringifiable>");
-          (r("FBLogger")("comet_infra").mustfix(u), t({ error: !0 }));
+        if (!i || !i.__type) {
+          if (!n) {
+            var s,
+              u =
+                "Routing payload expected for " +
+                e +
+                ", but got " +
+                ((s = JSON.stringify(i)) != null ? s : "<unstringifiable>");
+            (r("FBLogger")("comet_infra").mustfix(u), t({ error: !0 }));
+          }
+          return;
         }
         if (i.__type === "error_response") {
           t({ error: !0 });

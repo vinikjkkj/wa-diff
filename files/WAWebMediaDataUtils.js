@@ -24,6 +24,7 @@ __d(
     "WAWebMimeTypes",
     "WAWebMmsMediaTypes",
     "WAWebNetworkGetResponseIfOnline",
+    "WAWebODS",
     "WAWebURLUtils",
     "WAWebVcardParsingUtils",
     "WAWebVideoTranscoderWamEvent",
@@ -916,16 +917,15 @@ __d(
     function z(e, t) {
       if (!(t instanceof o("WACustomError").TimeoutError && H(e)))
         throw (e.clearBlob(), t);
-      o("WALogger")
-        .ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[status-video] thumbnail timed out, keeping the downloaded blob",
-            ])),
-        )
-        .catching(r("getErrorSafe")(t))
-        .tags("non-sad")
-        .sendLogs("status-video-thumbnail-timeout-blob-kept");
+      (o("WALogger").WARN(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "[status-video] thumbnail timed out, keeping the downloaded blob: ",
+            "",
+          ])),
+        r("getErrorSafe")(t),
+      ),
+        r("WAWebODS").incr("web.status_video.thumbnail_timeout_blob_kept"));
     }
     function j(e) {
       return (

@@ -18,99 +18,109 @@ __d(
     "useWAWebOrgValues",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["onBack", "orgId", "orgName", "showHeader"],
+    var e = ["backRef", "onBack", "orgId", "orgName", "showHeader"],
       s,
       u = s || (s = o("react"));
     function c(t) {
       var n,
-        a = o("react-compiler-runtime").c(20),
+        a = o("react-compiler-runtime").c(22),
         i,
         l,
         s,
         c,
-        d;
+        d,
+        p;
       a[0] !== t
-        ? ((i = t.onBack),
-          (l = t.orgId),
-          (s = t.orgName),
-          (d = t.showHeader),
-          (c = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+        ? ((i = t.backRef),
+          (l = t.onBack),
+          (s = t.orgId),
+          (c = t.orgName),
+          (p = t.showHeader),
+          (d = babelHelpers.objectWithoutPropertiesLoose(t, e)),
           (a[0] = t),
           (a[1] = i),
           (a[2] = l),
           (a[3] = s),
           (a[4] = c),
-          (a[5] = d))
-        : ((i = a[1]), (l = a[2]), (s = a[3]), (c = a[4]), (d = a[5]));
-      var p = d === void 0 ? !0 : d,
-        _ = r("useWAWebOrgInfoDisplayEnabled")(),
-        f =
-          (n = r("useWAWebOrgValues")(l, [
+          (a[5] = d),
+          (a[6] = p))
+        : ((i = a[1]),
+          (l = a[2]),
+          (s = a[3]),
+          (c = a[4]),
+          (d = a[5]),
+          (p = a[6]));
+      var _ = p === void 0 ? !0 : p,
+        f = r("useWAWebOrgInfoDisplayEnabled")(),
+        g =
+          (n = r("useWAWebOrgValues")(s, [
             o("WAWebOrgGetters").getOrgName,
             o("WAWebOrgGetters").getOrgViewerRole,
             o("WAWebOrgGetters").getOrgIsMemberDirectoryEnabled,
           ])) != null
             ? n
             : [""],
-        g = f[0];
+        h = g[0];
       if (
-        !_ ||
+        !f ||
         !o("WAWebOrgViewerRoleUtils").canReadOrgDirectory(
-          o("WAWebOrgCollection").OrgCollection.get(l),
+          o("WAWebOrgCollection").OrgCollection.get(s),
         )
       )
         return null;
-      var h;
-      a[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = { className: "x78zum5 xdt5ytf x1iyjqo2 x2lwn1j" }), (a[6] = h))
-        : (h = a[6]);
       var y;
-      a[7] !== g || a[8] !== i || a[9] !== s || a[10] !== p
-        ? ((y = p
+      a[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = { className: "x78zum5 xdt5ytf x1iyjqo2 x2lwn1j" }), (a[7] = y))
+        : (y = a[7]);
+      var C;
+      a[8] !== i || a[9] !== h || a[10] !== l || a[11] !== c || a[12] !== _
+        ? ((C = _
             ? u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-                onBack: i,
-                title: s != null ? s : g,
+                backRef: i,
+                onBack: l,
+                title: c != null ? c : h,
                 type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
               })
             : null),
-          (a[7] = g),
           (a[8] = i),
-          (a[9] = s),
-          (a[10] = p),
-          (a[11] = y))
-        : (y = a[11]);
-      var C;
-      a[12] !== i || a[13] !== l || a[14] !== s || a[15] !== c
-        ? ((C = u.jsx(
+          (a[9] = h),
+          (a[10] = l),
+          (a[11] = c),
+          (a[12] = _),
+          (a[13] = C))
+        : (C = a[13]);
+      var b;
+      a[14] !== l || a[15] !== s || a[16] !== c || a[17] !== d
+        ? ((b = u.jsx(
             m,
-            babelHelpers.extends({}, c, {
-              onBack: i,
-              orgId: l,
-              orgName: s,
+            babelHelpers.extends({}, d, {
+              onBack: l,
+              orgId: s,
+              orgName: c,
               showHeader: !1,
             }),
           )),
-          (a[12] = i),
-          (a[13] = l),
-          (a[14] = s),
-          (a[15] = c),
-          (a[16] = C))
-        : (C = a[16]);
-      var b;
+          (a[14] = l),
+          (a[15] = s),
+          (a[16] = c),
+          (a[17] = d),
+          (a[18] = b))
+        : (b = a[18]);
+      var v;
       return (
-        a[17] !== y || a[18] !== C
-          ? ((b = u.jsxs(
+        a[19] !== C || a[20] !== b
+          ? ((v = u.jsxs(
               "div",
-              babelHelpers.extends({}, h, {
+              babelHelpers.extends({}, y, {
                 "data-testid": "org_member_directory_loadable",
-                children: [y, C],
+                children: [C, b],
               }),
             )),
-            (a[17] = y),
-            (a[18] = C),
-            (a[19] = b))
-          : (b = a[19]),
-        b
+            (a[19] = C),
+            (a[20] = b),
+            (a[21] = v))
+          : (v = a[21]),
+        v
       );
     }
     var d = r("WAWebLazyLoadedRetriable")(

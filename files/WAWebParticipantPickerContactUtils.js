@@ -8,6 +8,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebL10NAccentFold",
     "WAWebLidMigrationUtils",
+    "WAWebOutContactModel",
     "WAWebPhoneNumberSearch",
     "WAWebReachoutTimelockUtils",
     "WAWebUserUtils",
@@ -36,7 +37,7 @@ __d(
               return !o("WAWebContactGetters").getIsMe(e);
             });
         return {
-          contacts: c(S(g, [].concat(_, p), l), s),
+          contacts: c(L(g, [].concat(_, p), l), s),
           communityDirectory: [],
         };
       }
@@ -54,12 +55,12 @@ __d(
           o("WAWebContactCollection").ContactCollection,
           {},
         ),
-        C = S(y, h, l),
-        b = S(C, [].concat(_, n, p), l);
+        C = L(y, h, l),
+        b = L(C, [].concat(_, n, p), l);
       return {
         contacts: c(b, s),
         communityDirectory: c(
-          S(l ? [].concat(h, y) : h, [].concat(R(t, i, l), C), l),
+          L(l ? [].concat(h, y) : h, [].concat(E(t, i, l), C), l),
           s,
         ),
       };
@@ -78,10 +79,10 @@ __d(
         r != null ||
         ((t = l == null ? void 0 : l.length) != null ? t : 0) > 0
         ? []
-        : S(s, R(n, o, a), a);
+        : L(s, E(n, o, a), a);
     }
     function u(e, t, n, r) {
-      var o = r ? S(e, Array.from(t != null ? t : []), !0) : e;
+      var o = r ? L(e, Array.from(t != null ? t : []), !0) : e;
       return c(o, n);
     }
     function c(e, t) {
@@ -129,21 +130,63 @@ __d(
     function h(e, t, n, r) {
       return !n || (!(r != null ? r : _(e, t) != null) && g(t));
     }
-    function y(e, t, n) {
+    function y(e, t) {
+      var n = new Set(t.map(d)),
+        r = R(e);
+      return Array.from(r.values()).filter(function (e) {
+        return !n.has(d(e)) && !e.isContactBlocked && g(e);
+      });
+    }
+    function C(e, t, n) {
       return n
         ? _(e, t)
         : e.find(function (e) {
             return e.id.equals(t.id);
           });
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       var r = n ? new Set(e.map(d)).size : e.length;
       return r + t;
     }
-    function b(e, t, n, r, o) {
+    function v(e, t, n, r, o) {
       return o && _(t, e) != null ? "duplicate" : n >= r ? "limit" : "add";
     }
-    function v(e) {
+    function S(e) {
+      var t = e.allowOutContacts,
+        n = e.contacts,
+        o = e.currentCount,
+        a = e.outContacts,
+        i = e.participants,
+        l = e.retainSelected,
+        s = e.selectedOutContactIds,
+        u = e.selectionSizeLimit,
+        c = n.flatMap(function (e) {
+          return e instanceof r("WAWebOutContactModel") ? [] : [e];
+        }),
+        d = l
+          ? y(c, i)
+          : c.filter(function (e) {
+              return !e.isContactBlocked;
+            }),
+        m = new Set(s);
+      return (
+        (!l || t) &&
+          a.forEach(function (e) {
+            return m.add(e.id);
+          }),
+        {
+          contacts: d,
+          outContactIds: m,
+          overLimit: o + d.length + m.size - s.size > u,
+          hasBlockedContacts: l
+            ? c.some(function (e) {
+                return e.isContactBlocked;
+              })
+            : d.length !== c.length,
+        }
+      );
+    }
+    function R(e) {
       var t = new Map();
       for (var n of e) {
         var r = d(n),
@@ -153,11 +196,11 @@ __d(
       }
       return t;
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       if (!n) return Array.from(new Set(e).difference(new Set(t)));
       var a = new Set(t.map(d)),
         i = new Set(e.map(d)),
-        l = v(
+        l = R(
           [].concat(
             e,
             o("WAWebContactCollection").ContactCollection.getModelsArray(),
@@ -171,7 +214,7 @@ __d(
           return r("nullthrows")(l.get(e));
         });
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       return n ? Array.from(e != null ? e : []) : t;
     }
     ((l.getParticipantPickerContacts = e),
@@ -182,9 +225,11 @@ __d(
       (l.findSelectedParticipantPickerContact = _),
       (l.getParticipantsWithoutContact = f),
       (l.isUnpickedParticipantPickerContact = h),
-      (l.getParticipantPickerSelectedContact = y),
-      (l.getParticipantPickerSelectedCount = C),
-      (l.getParticipantPickerContactAddition = b));
+      (l.getNewParticipantPickerContacts = y),
+      (l.getParticipantPickerSelectedContact = C),
+      (l.getParticipantPickerSelectedCount = b),
+      (l.getParticipantPickerContactAddition = v),
+      (l.getParticipantPickerBulkSelection = S));
   },
   98,
 );

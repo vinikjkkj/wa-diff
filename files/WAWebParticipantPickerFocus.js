@@ -24,8 +24,12 @@ __d(
         !t || !(n instanceof Element) || n.closest('[role="checkbox"]') == null
       );
     }
+    function u(e, t) {
+      e || t();
+    }
     ((l.handleParticipantPickerSearchKey = e),
-      (l.shouldFocusParticipantPickerSearch = s));
+      (l.shouldFocusParticipantPickerSearch = s),
+      (l.clearParticipantPickerSearchAfterBulkPick = u));
   },
   98,
 );

@@ -13,7 +13,6 @@ __d(
     "FBLogger",
     "InitialCookieConsent",
     "RelayEnvironmentFactoryProvider",
-    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -59,13 +58,9 @@ __d(
       return (
         (e || (e = r("InitialCookieConsent"))).shouldShowCookieBanner &&
           m == null &&
-          (r("justknobx")._("1389")
-            ? r("FBLogger")("cookies", "cookie_consent").mustfix(
-                "CookieConsentDialog is null but shouldShowCookieBanner is true",
-              )
-            : r("FBLogger")("cookies", "cookie_consent").warn(
-                "CookieConsentDialog is null but shouldShowCookieBanner is true",
-              )),
+          r("FBLogger")("cookies", "cookie_consent").warn(
+            "CookieConsentDialog is null but shouldShowCookieBanner is true",
+          ),
         function () {
           return c.jsx(l, {
             children: c.jsx(

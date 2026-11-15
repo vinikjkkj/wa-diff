@@ -7,6 +7,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDBMsgUtils",
     "WAWebDBProcessMessage",
+    "WAWebFindChat",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidMigrationUtils",
     "WAWebMsgCollection",
@@ -62,7 +63,7 @@ __d(
                 "WAWebPaymentsODS",
               ).logDehydratedTransactionNotificationSkipped(),
             i != null ? yield h(i) : l != null && (yield f(l)),
-            x(n.success)
+            D(n.success)
           );
         })),
         _.apply(this, arguments)
@@ -76,8 +77,8 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(e.msgKey),
             n = o("WAWebLidMigrationUtils").getAlternateMsgKey(t),
-            a = $(t, n),
-            i = a ? o("WAWebStateUtils").unproxy(a) : yield P(t, n);
+            a = x(t, n),
+            i = a ? o("WAWebStateUtils").unproxy(a) : yield $(t, n);
           if (!i) {
             o("WALogger").WARN(
               s ||
@@ -105,10 +106,24 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.type === "account-set-up") {
-            var t = yield T(e.from, e.timestamp);
+            var t = yield r("WAWebMsgKey").newId(),
+              n = function (r) {
+                return T(r, e.timestamp, t);
+              },
+              a,
+              i = yield o("WAWebFindChat").findOrCreateLatestChat(
+                e.from,
+                "handlePaymentInviteNotification",
+                {
+                  buildFirstIncomingMsg: function (t) {
+                    return ((a = n(t)), a);
+                  },
+                },
+              ),
+              l = i.chat;
             yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-              chatId: t.from,
-              newMsg: t,
+              chatId: l.id,
+              newMsg: a != null ? a : n(l.id),
               handleSingleMsgOrigin: "handlePaymentInviteNotification",
             });
           }
@@ -128,8 +143,8 @@ __d(
           if (e.paymentRequestMessageKey != null) {
             var a = e.paymentRequestMessageKey,
               i = o("WAWebLidMigrationUtils").getAlternateMsgKey(a),
-              l = $(a, i),
-              s = l ? o("WAWebStateUtils").unproxy(l) : yield P(a, i);
+              l = x(a, i),
+              s = l ? o("WAWebStateUtils").unproxy(l) : yield $(a, i);
             s &&
               ((s.paymentStatus = e.paymentStatus),
               (s.paymentTxnStatus = o(
@@ -318,34 +333,22 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function T(e, t, n) {
+      return {
+        id: new (r("WAWebMsgKey"))({ remote: e, fromMe: !1, id: n }),
+        type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
+        kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+        viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
+          .PaymentInviteAccountSetUp,
+        from: e,
+        to: o("WAWebUserUtils").getMeUserOrThrow(),
+        recipients: [],
+        t: t,
+        templateParams: [e],
+      };
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return {
-            id: new (r("WAWebMsgKey"))({
-              remote: e,
-              fromMe: !1,
-              id: yield r("WAWebMsgKey").newId(),
-            }),
-            type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
-            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-              .PaymentInviteAccountSetUp,
-            from: e,
-            to: o("WAWebUserUtils").getMeUserOrThrow(),
-            recipients: [],
-            t: t,
-            templateParams: [e],
-          };
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
+    function D(e) {
       var t = e.from,
         n = e.stanzaId;
       return o("WAWap").wap("ack", {
@@ -355,7 +358,7 @@ __d(
         to: t,
       });
     }
-    function $(e, t) {
+    function x(e, t) {
       var n;
       return (n = o("WAWebMsgCollection").MsgCollection.get(e)) != null
         ? n
@@ -363,12 +366,12 @@ __d(
           ? o("WAWebMsgCollection").MsgCollection.get(t)
           : null;
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function N() {
+    function P() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebDBMsgUtils").getMsgByMsgKey(e);
           return (
             n == null &&
@@ -377,7 +380,7 @@ __d(
             n
           );
         })),
-        N.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     ((l.ORPHAN_PAYMENT_NOTIFICATION_TTL_SECONDS = d),
@@ -385,8 +388,8 @@ __d(
       (l.handlePaymentNotification = p),
       (l.processOrphanPaymentNotifications = S),
       (l.processAllOrphanPaymentNotifications = L),
-      (l.getMessageFromCollection = $),
-      (l.getMessageFromDb = P));
+      (l.getMessageFromCollection = x),
+      (l.getMessageFromDb = $));
   },
   98,
 );

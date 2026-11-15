@@ -135,6 +135,7 @@ __d(
       BENEFIT_STATUS: "benefit_status",
       BILLING_HUB_PAYMENT_SETTINGS: "billing_hub_payment_settings",
       BIZAI_FB_AI_CREDIT_TOPUP_NOTIF: "bizai_fb_ai_credit_topup_notif",
+      BIZAI_FB_JEWEL: "bizai_fb_jewel",
       BIZAI_FB_NOTIF: "bizai_fb_notif",
       BIZAI_IG_ACTIVITY_FEED_NOTIF: "bizai_ig_activity_feed_notif",
       BIZAI_IG_AI_CREDIT_TOPUP_NOTIF: "bizai_ig_ai_credit_topup_notif",
@@ -1046,11 +1047,15 @@ __d(
         "meta_subs_fb_meta_plus_badge_revocation_notif",
       META_SUBS_FB_META_PLUS_SUB_REVOCATION_NOTIF:
         "meta_subs_fb_meta_plus_sub_revocation_notif",
+      META_SUBS_FB_MUSE_PRO_BENEFIT_ADDED_NOTIF:
+        "meta_subs_fb_muse_pro_benefit_added_notif",
       META_SUBS_FB_NUX_REENGAGEMENT_NOTIF:
         "meta_subs_fb_nux_reengagement_notif",
       META_SUBS_FB_PROFILE_EDIT_NOTIF: "meta_subs_fb_profile_edit_notif",
       META_SUBS_FB_PRO_SUB_FEATURE_NUDGE_QP:
         "meta_subs_fb_pro_sub_feature_nudge_qp",
+      META_SUBS_FB_PRO_SUB_MUSE_PRO_BACKFILL_FEED_QP:
+        "meta_subs_fb_pro_sub_muse_pro_backfill_feed_qp",
       META_SUBS_FB_PRO_SUB_WELCOME_FEED_QP:
         "meta_subs_fb_pro_sub_welcome_feed_qp",
       META_SUBS_FB_SUBSCRIPTION_COMPLETION_NOTIF:
@@ -1074,11 +1079,15 @@ __d(
         "meta_subs_ig_meta_plus_badge_revocation_notif",
       META_SUBS_IG_META_PLUS_SUB_REVOCATION_NOTIF:
         "meta_subs_ig_meta_plus_sub_revocation_notif",
+      META_SUBS_IG_MUSE_PRO_BENEFIT_ADDED_NOTIF:
+        "meta_subs_ig_muse_pro_benefit_added_notif",
       META_SUBS_IG_NUX_REENGAGEMENT_NOTIF:
         "meta_subs_ig_nux_reengagement_notif",
       META_SUBS_IG_PROFILE_EDIT_NOTIF: "meta_subs_ig_profile_edit_notif",
       META_SUBS_IG_PRO_SUB_FEATURE_NUDGE_QP:
         "meta_subs_ig_pro_sub_feature_nudge_qp",
+      META_SUBS_IG_PRO_SUB_MUSE_PRO_BACKFILL_FEED_QP:
+        "meta_subs_ig_pro_sub_muse_pro_backfill_feed_qp",
       META_SUBS_IG_PRO_SUB_WAVE_2_BENEFIT_QP:
         "meta_subs_ig_pro_sub_wave_2_benefit_qp",
       META_SUBS_IG_PRO_SUB_WELCOME_FEED_QP:

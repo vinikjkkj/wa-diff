@@ -204,10 +204,8 @@ __d(
             l = r("nullthrows")(i.to),
             f = i.id,
             h = f.remote;
-          (r("WAWebWid").isGroup(h) &&
-            (yield r("WAWebGroupMetadataCollection").find(h)),
-            t.isTrusted() ||
-              r("WAWebSendNotSpamAction")(t).catch(r("WAWebNoop")));
+          r("WAWebWid").isGroup(h) &&
+            (yield r("WAWebGroupMetadataCollection").find(h));
           var y =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               ["sender_revoke", "admin_revoke"].includes(i.subtype),
@@ -288,12 +286,14 @@ __d(
               messageIsForward: !!i.isForwarded,
             })),
             b ||
+              (t.isTrusted() ||
+                r("WAWebSendNotSpamAction")(t).catch(r("WAWebNoop")),
               o("WAWebUpdateUnreadChatAction").sendSeen({
                 chat: t,
                 threadId: o("WAWebBotGating").isAiChatThreadsEnabled()
                   ? o("WAWebThreadMsgUtils").getMsgAiThread(i)
                   : void 0,
-              }),
+              })),
             k(e, h) &&
               (I(e)
                 ? o("WAWebMetaAiOpenGroupNux").maybeShowGroupAgentNuxes(t)
