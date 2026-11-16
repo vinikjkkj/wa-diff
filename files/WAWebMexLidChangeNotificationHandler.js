@@ -1,6 +1,7 @@
 __d(
   "WAWebMexLidChangeNotificationHandler",
   [
+    "WAWebDBProcessMessage",
     "WAWebGetChatRecordByAccountLid",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMexLidChangeNotification",
@@ -56,6 +57,10 @@ __d(
               ).getChatRecordByAccountLid(i))[0],
               s = l != null ? o("WAWebWidFactory").createWid(l.id) : i,
               u = yield e(s, a.toString());
+            if (l == null) {
+              yield o("WAWebDBProcessMessage").storeMessages([u], s);
+              return;
+            }
             yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: s,
               newMsg: u,

@@ -148,6 +148,9 @@ __d(
                 e,
               ));
           }),
+          (i.isOnline = function () {
+            return this.online;
+          }),
           (i.simulateNetworkStatus = function (t) {
             (h || r("gkx")("26256")) &&
               ((this.online = t), (this.simulatedOfflineConditions = !t));

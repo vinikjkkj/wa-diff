@@ -338,23 +338,18 @@ __d(
       }
       return r("WAWebCompactMapString")(n, function (e) {
         var t,
-          n = e.contact,
-          a = b(n, u);
-        if (a != null) return a;
-        var i = (t = p(n)) != null ? t : m(n);
+          n,
+          a = e.contact,
+          i = (t = (n = p(a)) != null ? n : b(a, u)) != null ? t : m(a);
         if (!r("isStringNullOrEmpty")(i)) return i;
-        var l = o("WAWebContactGetters").getNotifyName(n);
+        var l = o("WAWebContactGetters").getNotifyName(a);
         if (!r("isStringNullOrEmpty")(l)) return l;
-        var s = o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(n);
+        var s = o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(a);
         return r("isStringNullOrEmpty")(s) ? "" : s;
       });
     }
     function b(e, t) {
-      if (
-        !t ||
-        !o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(e) ||
-        o("WAWebFrontendContactGetters").getShownOrgMemberName(e) != null
-      )
+      if (!t || !o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(e))
         return null;
       var n = o("WAWebContactGetters").getNotifyName(e);
       return r("isStringNullOrEmpty")(n)

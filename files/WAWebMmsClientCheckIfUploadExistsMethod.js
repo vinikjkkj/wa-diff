@@ -47,6 +47,7 @@ __d(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e, n) {
+                        var u;
                         (o("WALogger").LOG(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -55,30 +56,36 @@ __d(
                             ])),
                           n + 1,
                         ),
+                          (u = a.uploadQpl) == null ||
+                            u.addAnnotations({
+                              bool: {
+                                network_online: t.networkStatus.isOnline(),
+                              },
+                            }),
                           yield t.networkStatus.waitIfOffline());
                         try {
-                          var u = yield t.mediaHosts.getHostsInfo({
+                          var _ = yield t.mediaHosts.getHostsInfo({
                               operation: r("WAWebMmsOperationsConst").UPLOAD,
                               encFilehash: i,
                               type: m,
                               signal: d,
                             }),
-                            _ = u.auth,
-                            g = u.fallbackHost,
-                            h = u.selectedHost,
-                            y = r("WAWebMmsClientSelectHost")({
-                              selectedHost: h,
-                              fallbackHost: g,
+                            g = _.auth,
+                            h = _.fallbackHost,
+                            y = _.selectedHost,
+                            C = r("WAWebMmsClientSelectHost")({
+                              selectedHost: y,
+                              fallbackHost: h,
                               lastHostUsed: f,
                               attemptCount: n,
                               lastFetchMadeProgress: p,
                             });
                           return (
-                            (f = y),
+                            (f = C),
                             yield r("WAWebMmsClientMmsCheckIfUploadExists")({
-                              auth: _,
+                              auth: g,
                               encFilehash: i,
-                              hostname: y.hostname,
+                              hostname: C.hostname,
                               type: m,
                               signal: d,
                               onProgress: function () {
@@ -90,14 +97,14 @@ __d(
                             })
                           );
                         } catch (t) {
-                          var C = r("getErrorSafe")(t);
+                          var b = r("getErrorSafe")(t);
                           if (
                             o(
                               "WAWebMmsClientIsErrorRetryable",
-                            ).isErrorRetryable(C)
+                            ).isErrorRetryable(b)
                           )
-                            return e(C);
-                          throw C;
+                            return e(b);
+                          throw b;
                         }
                       },
                     );

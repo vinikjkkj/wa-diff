@@ -150,9 +150,7 @@ __d(
                   : void 0,
               }),
               from: o("WAWebLidStatusMigrationUtils").matWidConvert(g.from),
-              author: o("WAWebLidStatusMigrationUtils").matWidConvert(
-                o("WAWebUserUtils").getMeUserOrThrow(),
-              ),
+              author: o("WAWebUserUtils").getMeLidUserOrThrow(),
               canBeReshared: !1,
             }),
             y = new (o("WAWebMsgModel").Msg)(h);

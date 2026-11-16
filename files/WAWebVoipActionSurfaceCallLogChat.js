@@ -32,6 +32,11 @@ __d(
               var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
                   t,
                   "voipCallLog",
+                  {
+                    buildFirstIncomingMsg: function () {
+                      return n;
+                    },
+                  },
                 ),
                 i = a.chat;
               (i.set({ createdLocally: !1 }),

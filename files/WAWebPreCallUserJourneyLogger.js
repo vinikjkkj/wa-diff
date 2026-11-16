@@ -8,6 +8,7 @@ __d(
     "WAWebPreCallUserJourneyCallsTabWamEvent",
     "WAWebPreCallUserJourneyChatThreadWamEvent",
     "WAWebUserJourneyEventMs",
+    "WAWebWamEnumCallSizeType",
     "WAWebWamEnumPreCallActionType",
     "WAWebWamEnumSubSurface",
   ],
@@ -29,17 +30,25 @@ __d(
       var t = o("WAWebCallRandomIdStore").getOrCreateCallRandomId(e);
       return t == null ? {} : { callRandomId: t };
     }
-    var c = null,
-      d = null;
-    function m() {
+    function c(e, t) {
+      return {
+        callSizeType: e.isUser()
+          ? o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE.ONE_TO_ONE
+          : o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE.LGC,
+        itemPosition: t,
+      };
+    }
+    var d = null,
+      m = null;
+    function p() {
       return !o(
         "WAWebCallUserJourneyGating",
-      ).isCallUserJourneyLoggingEnabled() || c == null
+      ).isCallUserJourneyLoggingEnabled() || d == null
         ? {}
-        : { surfaceSessionId: c };
+        : { surfaceSessionId: d };
     }
-    function p() {
-      var e = d;
+    function _() {
+      var e = m;
       if (
         !o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled() ||
         e == null
@@ -52,7 +61,7 @@ __d(
         t
       );
     }
-    function _(e) {
+    function f(e) {
       var t = {};
       return (
         (e == null ? void 0 : e.callSizeType) != null &&
@@ -62,31 +71,31 @@ __d(
         t
       );
     }
-    function f(e) {
+    function g(e) {
       return e == null ? {} : { subSurface: e };
     }
-    function g() {
+    function h() {
       return o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled();
     }
-    var h = (function () {
+    var y = (function () {
       function t() {
         this.$1 = o("WARandomHex").randomHex(16);
       }
       ((t.startCallsTabSession = function () {
-        c = o("WARandomHex").randomHex(16);
+        d = o("WARandomHex").randomHex(16);
       }),
         (t.endCallsTabSession = function () {
-          c = null;
+          d = null;
         }),
         (t.startChatThreadSession = function (t) {
-          d = {
+          m = {
             surfaceSessionId: o("WARandomHex").randomHex(16),
             groupSize: t.groupSize,
             isCommunityGroup: t.isCommunityGroup,
           };
         }),
         (t.endChatThreadSession = function () {
-          d = null;
+          m = null;
         }));
       var n = t.prototype;
       return (
@@ -157,62 +166,85 @@ __d(
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_CALL_INFO,
-            babelHelpers.extends({ subSurface: t }, _(n)),
+            babelHelpers.extends({ subSurface: t }, f(n)),
           );
         }),
         (n.longPress = function (t, n) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE.LONG_PRESS,
-            babelHelpers.extends({ subSurface: t }, _(n)),
+            babelHelpers.extends({ subSurface: t }, f(n)),
           );
         }),
         (n.deleteCallLog = function (t, n) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .DELETE_CALL_LOG,
-            babelHelpers.extends({ subSurface: t }, _(n)),
+            babelHelpers.extends({ subSurface: t }, f(n)),
           );
         }),
         (n.sendMessage = function (t, n) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .SEND_MESSAGE,
-            babelHelpers.extends({ subSurface: t }, _(n)),
+            babelHelpers.extends({ subSurface: t }, f(n)),
           );
         }),
         (n.selectParticipantFromCallsTab = function (t, n) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .SELECT_PARTICIPANT,
-            babelHelpers.extends({ subSurface: t }, _(n)),
+            babelHelpers.extends({ subSurface: t }, f(n)),
           );
         }),
         (n.clickAudioCallFromCallsTab = function (t, n) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_AUDIO_CALL,
-            babelHelpers.extends({}, f(t), _(n)),
+            babelHelpers.extends({}, g(t), f(n)),
           );
         }),
         (n.clickVideoCallFromCallsTab = function (t, n) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_VIDEO_CALL,
-            babelHelpers.extends({}, f(t), _(n)),
+            babelHelpers.extends({}, g(t), f(n)),
           );
         }),
         (n.clickPlusButton = function (t) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_PLUS_BUTTON,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
+          );
+        }),
+        (n.enterCallLogMultiSelect = function (t) {
+          this.$2(
+            o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
+              .CALL_LOG_MULTI_SELECT_ENTER,
+            { subSurface: t },
+          );
+        }),
+        (n.exitCallLogMultiSelect = function () {
+          this.$2(
+            o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE.DISMISS,
+            {
+              subSurface: o("WAWebWamEnumSubSurface").SUB_SURFACE
+                .CALL_LOG_MULTI_SELECT_TOOLBAR,
+            },
+          );
+        }),
+        (n.clickRejoinFromCallsTab = function () {
+          this.$2(
+            o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
+              .CLICK_REJOIN,
+            {},
           );
         }),
         (n.clickDialPadButton = function (t) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_DIAL_PAD_BUTTON,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.dialerInputStarted = function () {
@@ -254,39 +286,39 @@ __d(
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .TAP_FAVORITES_ADD,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.tapFavoritesSeeAll = function (t) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .TAP_FAVORITES_SEE_ALL,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.clickCallLink = function (t) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_CALL_LINK,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.clickCreateAudioCallLink = function (t) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_CREATE_AUDIO_CALL_LINK,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.clickAudioCallLinkShare = function (t) {
           this.$2(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_AUDIO_CALL_LINK_SHARE,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.$2 = function (t, n) {
-          g() &&
+          h() &&
             this.commitEvent(
               babelHelpers.extends({}, n, { preCallActionType: t }),
             );
@@ -303,7 +335,7 @@ __d(
                 userJourneyFunnelId: this.$1,
               },
               e(),
-              m(),
+              p(),
               r,
             ),
           ).commit();
@@ -387,7 +419,7 @@ __d(
           this.$3(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .OPEN_ATTACHMENT_TRAY,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.clickICCE = function (t) {
@@ -414,18 +446,18 @@ __d(
           this.$3(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_CALL_LINK,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.clickVideoCallLinkShareFromChat = function (t) {
           this.$3(
             o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE
               .CLICK_VIDEO_CALL_LINK_SHARE,
-            babelHelpers.extends({}, f(t)),
+            babelHelpers.extends({}, g(t)),
           );
         }),
         (n.$3 = function (t, n) {
-          g() &&
+          h() &&
             this.commitChatThreadEvent(
               babelHelpers.extends({}, n, { preCallActionType: t }),
             );
@@ -442,7 +474,7 @@ __d(
                 userJourneyFunnelId: this.$1,
               },
               e(),
-              p(),
+              _(),
               r,
             ),
           ).commit();
@@ -450,8 +482,9 @@ __d(
         t
       );
     })();
-    ((h.appSessionId = o("WARandomHex").randomHex(16)),
-      (l.PreCallUserJourneyLogger = h));
+    ((y.appSessionId = o("WARandomHex").randomHex(16)),
+      (l.getFavoriteRowContext = c),
+      (l.PreCallUserJourneyLogger = y));
   },
   98,
 );

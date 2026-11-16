@@ -61,7 +61,7 @@ __d(
                 r = t.payload,
                 i = t.peerJid,
                 l = t.shouldEncryptBeforeSending;
-              a.$10({
+              a.$12({
                 callId: n,
                 payload: r,
                 peerJid: i,
@@ -70,7 +70,7 @@ __d(
             }),
             (this.$8 = function (e) {
               var t = m(e, "signalingXmppJsonEvent");
-              t != null && a.$10(t);
+              t != null && a.$12(t);
             }),
             (this.handleCallEvent = function (e) {
               var t = o("WAWebWindowsHybridBridgeTrace").traceBridgeRead(
@@ -86,11 +86,11 @@ __d(
                 n = t.eventDataJson,
                 r = t.eventType,
                 i = t.userData;
-              a.$11({ eventDataJson: n, eventType: r, userData: i });
+              a.$13({ eventDataJson: n, eventType: r, userData: i });
             }),
             (this.$7 = function (e) {
               var t = m(e, "voipCallEventJsonEvent");
-              t != null && a.$11(t);
+              t != null && a.$13(t);
             }),
             (this.requestOpenChat = function (e) {
               var t;
@@ -154,11 +154,11 @@ __d(
                 ),
                 n = t.isVideoCall,
                 r = t.peerJid;
-              a.$12({ isVideoCall: n, peerJid: r });
+              a.$14({ isVideoCall: n, peerJid: r });
             }),
             (this.$9 = function (e) {
               var t = m(e, "callAgainJsonEvent");
-              t != null && a.$12(t);
+              t != null && a.$14(t);
             }),
             (this.handleLidCallerDisplayInfo = function (e) {
               var t;
@@ -203,6 +203,22 @@ __d(
               (t = a.$3) == null ||
                 t.onRequestJoinCall == null ||
                 t.onRequestJoinCall(String(e));
+            }),
+            (this.$10 = function (e) {
+              var t,
+                n = m(e, "callTransferStartedJsonEvent");
+              n != null &&
+                ((t = a.$3) == null ||
+                  t.onCallTransferStarted == null ||
+                  t.onCallTransferStarted(n));
+            }),
+            (this.$11 = function (e) {
+              var t,
+                n = m(e, "callTransferStartFailedJsonEvent");
+              n != null &&
+                ((t = a.$3) == null ||
+                  t.onCallTransferStartFailed == null ||
+                  t.onCallTransferStartFailed(n));
             }),
             (this.$1 = t),
             (this.$2 = n),
@@ -249,6 +265,11 @@ __d(
             this.$1.addEventListener(
               "handleRequestOngoingCallInfoEvent",
               this.requestOngoingCallInfo,
+            ),
+            this.$1.addEventListener("callTransferStartedJsonEvent", this.$10),
+            this.$1.addEventListener(
+              "callTransferStartFailedJsonEvent",
+              this.$11,
             ),
             this.$1.subscribe(null));
         }
@@ -302,9 +323,17 @@ __d(
               this.$1.removeEventListener(
                 "handleRequestOngoingCallInfoEvent",
                 this.requestOngoingCallInfo,
+              ),
+              this.$1.removeEventListener(
+                "callTransferStartedJsonEvent",
+                this.$10,
+              ),
+              this.$1.removeEventListener(
+                "callTransferStartFailedJsonEvent",
+                this.$11,
               ));
           }),
-          (a.$10 = function (t) {
+          (a.$12 = function (t) {
             var e,
               n = t.callId,
               r = t.payload,
@@ -330,7 +359,7 @@ __d(
             ),
               (e = this.$3) == null || e.onSignalingXmpp(a, n, r, i));
           }),
-          (a.$11 = function (t) {
+          (a.$13 = function (t) {
             var e,
               n = t.eventDataJson,
               r = t.eventType,
@@ -383,7 +412,7 @@ __d(
               )
             );
           }),
-          (a.$12 = function (t) {
+          (a.$14 = function (t) {
             var e,
               n = t.isVideoCall,
               r = t.peerJid;
@@ -1022,6 +1051,46 @@ __d(
               )
             );
           }),
+          (a.openCallTransferLobby = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.isVideoCall,
+                  n = e.peerActiveDevice,
+                  a = e.peerJid,
+                  i = e.peerName,
+                  l = e.rootCallCreator,
+                  s = e.rootCallId,
+                  u = this.$1;
+                if (u.openCallTransferLobby == null) return !1;
+                r("WAWebODS").incr(
+                  "web.hybrid.bridge.voip.send.open_call_transfer_lobby",
+                );
+                try {
+                  return (
+                    yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "voip",
+                        method: "openCallTransferLobby",
+                        type: "async",
+                      },
+                      function () {
+                        return u.openCallTransferLobby == null
+                          ? void 0
+                          : u.openCallTransferLobby(s, l, n, a, i, t);
+                      },
+                    ),
+                    !0
+                  );
+                } catch (e) {
+                  return !1;
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })();

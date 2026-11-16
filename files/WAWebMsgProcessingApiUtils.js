@@ -30,7 +30,6 @@ __d(
     "WAWebMsmsgMsgSecretCache",
     "WAWebSchemaMessage",
     "WAWebSimpleSignalDowngradeStore",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWamEnumDeviceType",
@@ -813,7 +812,7 @@ __d(
       )
         return e.participant;
       if (
-        !o("WAWebUserPrefsMeUser").isMeDevice(t.author) &&
+        !o("WAWebUserUtils").isMeDevice(t.author) &&
         o("WAWebUserUtils").isMeAccount(t.author)
       )
         return t.author;

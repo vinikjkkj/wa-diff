@@ -11,7 +11,6 @@ __d(
     "WAWebGroupConstants",
     "WAWebModelStorageUtils",
     "WAWebSchemaParticipant",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWamGroupMetricCache",
     "WAWebWidFactory",
@@ -232,7 +231,7 @@ __d(
         i = a && e.rotateKey;
       return (
         t.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e)) {
+          if (!o("WAWebUserUtils").isMeDevice(e)) {
             var t = String(e);
             r.has(t) ? r.set(t, n) : (!e.isLid() || (a && n)) && (i = !0);
           }

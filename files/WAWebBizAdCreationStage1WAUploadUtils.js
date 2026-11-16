@@ -11,7 +11,6 @@ __d(
     "WAWebBizAdCreationMediaToastStrings",
     "WAWebBizAdCreationMediaValidationUtils",
     "WAWebDataTransfer",
-    "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
     "WAWebMediaPrepMediaProps",
     "WAWebMediaUploadMediaWithPrep",
@@ -37,9 +36,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserUtils").getMeLidUserOrThrow(),
-            ),
+          var t = o("WAWebUserUtils").getMeLidUserOrThrow(),
             n = new (r("WAWebMsgKey"))({
               from: t,
               id: yield r("WAWebMsgKey").newId(),

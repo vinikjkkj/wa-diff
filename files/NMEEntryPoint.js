@@ -378,6 +378,8 @@ __d(
       FB_SETTINGS_SUBS_FB_PLUS: "fb_settings_subs_fb_plus",
       FB_SETTINGS_SUBS_META_ONE: "fb_settings_subs_meta_one",
       FB_SETTINGS_SUBS_META_VERIFIED: "fb_settings_subs_meta_verified",
+      FB_STORY_SUPER_LIKE_NOTIF_LANDING_UPSELL:
+        "fb_story_super_like_notif_landing_upsell",
       FB_STORY_TRAY_LONG_PRESS_SHEET_UPSELL:
         "fb_story_tray_long_press_sheet_upsell",
       FB_STORY_VIEWERSHEET_SEARCH_UPSELL: "fb_story_viewersheet_search_upsell",

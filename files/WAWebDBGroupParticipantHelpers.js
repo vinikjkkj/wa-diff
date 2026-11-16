@@ -8,7 +8,7 @@ __d(
     "WAWebLeaveReasonType",
     "WAWebLidMigrationUtils",
     "WAWebPostSenderKeyExpiredMetric",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumExpiryReason",
     "WAWebWidFactory",
     "compactMap",
@@ -20,7 +20,7 @@ __d(
         r = e.participantsAdded,
         a = new Map(n.senderKey);
       t.forEach(function (e) {
-        o("WAWebUserPrefsMeUser").isMeDevice(e) ||
+        o("WAWebUserUtils").isMeDevice(e) ||
           e.isHosted() ||
           a.set(e.toString(), !1);
       });
@@ -57,7 +57,7 @@ __d(
         r = e.participantsAdded,
         a = new Map(n.senderKey);
       t.forEach(function (e) {
-        o("WAWebUserPrefsMeUser").isMeDevice(e) ||
+        o("WAWebUserUtils").isMeDevice(e) ||
           e.isHosted() ||
           a.set(e.toString(), !1);
       });
@@ -334,7 +334,7 @@ __d(
       n != null &&
         n.length > 0 &&
         n.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (!o("WAWebUserUtils").isMeDevice(e) && !e.isHosted()) {
             var t = String(e);
             l.set(t, !1);
           }
@@ -434,7 +434,7 @@ __d(
         m = new Map();
       return (
         d.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (!o("WAWebUserUtils").isMeDevice(e) && !e.isHosted()) {
             var t = String(e);
             m.has(t) || m.set(t, !1);
           }
@@ -472,7 +472,7 @@ __d(
         u = new Map();
       if (
         (r.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (!o("WAWebUserUtils").isMeDevice(e) && !e.isHosted()) {
             var t = String(e),
               n = s == null ? void 0 : s.get(t);
             n == null ? u.set(t, !1) : (u.set(t, n), s == null || s.delete(t));
@@ -504,7 +504,7 @@ __d(
         u = new Map();
       if (
         (r.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (!o("WAWebUserUtils").isMeDevice(e) && !e.isHosted()) {
             var t = String(e),
               n = s == null ? void 0 : s.get(t);
             n == null ? u.set(t, !1) : (u.set(t, n), s == null || s.delete(t));

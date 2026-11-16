@@ -11,6 +11,9 @@ __d(
           (t.acceptUpdate = function (t) {
             this.$1.set(t);
           }),
+          (t.isOnline = function () {
+            return this.$1.get();
+          }),
           (t.waitIfOffline = function () {
             return this.$1.waitForValue(!0);
           }),

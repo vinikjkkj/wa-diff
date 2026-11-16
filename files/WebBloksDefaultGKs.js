@@ -4,7 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
-        return e.call(this, new Map()) || this;
+        return (
+          e.call(this, new Map([["bloks_web_variable_queue_batching", !1]])) ||
+          this
+        );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WebBloksEnvironmentTypes").WebBloksGKs);

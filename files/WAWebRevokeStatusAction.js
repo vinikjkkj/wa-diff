@@ -12,7 +12,6 @@ __d(
     "WAWebDBUpdateMessageTable",
     "WAWebEncryptAndSendStatusMsg",
     "WAWebFrontendMsgGetters",
-    "WAWebLidStatusMigrationUtils",
     "WAWebLogStatusRevoke",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
@@ -234,10 +233,8 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            n = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserUtils").getMeUserOrThrow(),
-            ),
-            a = o("WAWebLidStatusMigrationUtils").matWidConvert(n),
+            n = o("WAWebUserUtils").getMeLidUserOrThrow(),
+            a = n,
             i = new (r("WAWebMsgKey"))({
               from: n,
               to: t,

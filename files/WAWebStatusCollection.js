@@ -16,7 +16,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
     "WAWebLidMigrationUtils",
-    "WAWebLidStatusMigrationUtils",
     "WAWebMediaOpaqueData",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
@@ -248,9 +247,7 @@ __d(
           if (
             (t.id.remote.isStatus() &&
               (a = t.id.fromMe
-                ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                    o("WAWebUserUtils").getMeUserOrThrow(),
-                  )
+                ? o("WAWebUserUtils").getMeLidUserOrThrow()
                 : t.author),
             this.hasSynced())
           ) {

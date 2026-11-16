@@ -15,7 +15,7 @@ __d(
     "WAWebProcessKeyBundle",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -281,7 +281,7 @@ __d(
     }
     function k(e) {
       var t = e.map(function (e) {
-        return o("WAWebUserPrefsMeUser").isMeDevice(e)
+        return o("WAWebUserUtils").isMeDevice(e)
           ? o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .getLocalRegistrationId()

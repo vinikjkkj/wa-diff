@@ -19,7 +19,7 @@ __d(
             value: { db: t, f: n != null ? n : void 0, t: r },
             startMs: self.performance.now(),
           };
-          return (s.add(o), p(), o);
+          return (s.add(o), f(), o);
         },
       );
     }
@@ -27,20 +27,41 @@ __d(
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:dbInit",
         function () {
-          var t, n;
-          if (!(e == null || !s.delete(e))) {
-            var r = babelHelpers.extends({}, e.value, {
-              ms: Math.round(self.performance.now() - e.startMs),
-            });
-            ((u == null ||
-              ((t = r.ms) != null ? t : 0) > ((n = u.ms) != null ? n : 0)) &&
-              (u = r),
-              p());
+          if (!(e == null || !s.has(e) || e.openStartMs != null)) {
+            var t = self.performance.now();
+            ((e.value = babelHelpers.extends({}, e.value, {
+              ms: Math.round(t - e.startMs),
+            })),
+              (e.openStartMs = t),
+              f());
           }
         },
       );
     }
-    function p() {
+    function p(e) {
+      o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+        "wa:dbInit",
+        function () {
+          if (!(e == null || !s.delete(e))) {
+            var t = self.performance.now(),
+              n = e.openStartMs,
+              r =
+                n == null
+                  ? babelHelpers.extends({}, e.value, {
+                      ms: Math.round(t - e.startMs),
+                    })
+                  : babelHelpers.extends({}, e.value, { o: Math.round(t - n) }),
+              o = u;
+            ((o == null || _(r) > _(o)) && (u = r), f());
+          }
+        },
+      );
+    }
+    function _(e) {
+      var t, n;
+      return ((t = e.ms) != null ? t : 0) + ((n = e.o) != null ? n : 0);
+    }
+    function f() {
       if (!c) {
         c = !0;
         var e = o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
@@ -71,7 +92,9 @@ __d(
         e !== !0 && (c = !1);
       }
     }
-    ((l.annotateCrashWithDbInitStart = d), (l.annotateCrashWithDbInitEnd = m));
+    ((l.annotateCrashWithDbInitStart = d),
+      (l.annotateCrashWithDbOpenStart = m),
+      (l.annotateCrashWithDbInitEnd = p));
   },
   98,
 );

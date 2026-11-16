@@ -22,7 +22,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = ["ciphertextHmac"],
+    var e = ["ciphertextHmac", "uploadQpl"],
       s,
       u,
       c,
@@ -54,36 +54,37 @@ __d(
                 )
               ) {
                 var m = n.ciphertextHmac,
-                  p = babelHelpers.objectWithoutPropertiesLoose(n, e),
-                  _ = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(
-                    p,
+                  p = n.uploadQpl,
+                  _ = babelHelpers.objectWithoutPropertiesLoose(n, e),
+                  f = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(
+                    _,
                     { mediaHosts: t.mediaHosts },
                   );
-                return yield _.uploadCompleteFile({ ciphertextHmac: m });
+                return yield f.uploadCompleteFile({ ciphertextHmac: m });
               }
-              var f = yield l(n),
-                g = f.response,
-                h = f.retryStartTime;
+              var g = yield l(n),
+                h = g.response,
+                y = g.retryStartTime;
               return (
-                i(Date.now() - h),
+                i(Date.now() - y),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
                       "mmsClient.upload: success",
                     ])),
                 ),
-                r("nullthrows")(g)
+                r("nullthrows")(h)
               );
             } catch (e) {
-              var y = r("getErrorSafe")(e);
+              var C = r("getErrorSafe")(e);
               throw (
                 o("WAWebMmsClientMmsLogError").mmsLogError({
                   debug: d,
-                  error: y,
+                  error: C,
                   hasExpectedErrors: !1,
                   source: "mmsClient.upload",
                 }),
-                y
+                C
               );
             }
           })),
@@ -136,24 +137,31 @@ __d(
                           S + 1,
                         ));
                       try {
-                        yield t.networkStatus.waitIfOffline();
-                        var L = yield R(),
-                          E = L.auth,
-                          k = L.fallbackHost,
-                          I = L.selectedHost,
-                          T = { selectedHost: I, fallbackHost: k },
-                          D = r("WAWebMmsClientSelectHost")({
-                            selectedHost: I,
-                            fallbackHost: k,
+                        var L;
+                        ((L = e.uploadQpl) == null ||
+                          L.addAnnotations({
+                            bool: {
+                              network_online: t.networkStatus.isOnline(),
+                            },
+                          }),
+                          yield t.networkStatus.waitIfOffline());
+                        var E = yield R(),
+                          k = E.auth,
+                          I = E.fallbackHost,
+                          T = E.selectedHost,
+                          D = { selectedHost: T, fallbackHost: I },
+                          x = r("WAWebMmsClientSelectHost")({
+                            selectedHost: T,
+                            fallbackHost: I,
                             attemptCount: S,
                             lastHostUsed: v,
                             lastFetchMadeProgress: y,
                           });
                         return (
-                          (v = D),
+                          (v = x),
                           f({
-                            hostName: D.hostname,
-                            hostClass: D.class,
+                            hostName: x.hostname,
+                            hostClass: x.class,
                             failCount: S,
                           }),
                           yield r("WARetryPromise")(
@@ -163,10 +171,10 @@ __d(
                               ).asyncToGenerator(function* (t) {
                                 var c = t.retry,
                                   p = yield _({
-                                    auth: E,
+                                    auth: k,
                                     encFilehash: l,
                                     byteLength: i.byteLength,
-                                    hostname: D.hostname,
+                                    hostname: x.hostname,
                                     type: h,
                                     signal: g,
                                     byteOffset: a,
@@ -185,9 +193,9 @@ __d(
                                         ).shouldPollUploadHosts(h, i.byteLength)
                                           ? o("WAWebMmsClientPollMediaHosts")
                                               .pollMediaHosts({
-                                                connectionBlock: T,
+                                                connectionBlock: D,
                                                 getHost: function () {
-                                                  return D;
+                                                  return x;
                                                 },
                                                 getMediaHosts: function () {
                                                   return R(!0);
@@ -205,12 +213,12 @@ __d(
                                               })
                                           : null,
                                         c = r("WAWebMmsClientMmsUpload")({
-                                          auth: E,
+                                          auth: k,
                                           ciphertextHmac:
                                             p > 0
                                               ? new Uint8Array(i).subarray(p)
                                               : i,
-                                          hostname: D.hostname,
+                                          hostname: x.hostname,
                                           encFilehash: l,
                                           type: h,
                                           signal: g,
@@ -238,7 +246,7 @@ __d(
                                     },
                                   );
                                 return b.kind === "host-changed"
-                                  ? ((D = b.host), (v = D), c())
+                                  ? ((x = b.host), (v = x), c())
                                   : b.value;
                               });
                               return function (e) {
@@ -248,28 +256,28 @@ __d(
                           )
                         );
                       } catch (e) {
-                        var x = r("getErrorSafe")(e);
+                        var $ = r("getErrorSafe")(e);
                         y = !1;
-                        var $ = o(
+                        var P = o(
                             "WAWebMmsClientIsErrorRetryable",
-                          ).isErrorRetryable(x),
-                          P =
-                            !$ ||
+                          ).isErrorRetryable($),
+                          N =
+                            !P ||
                             S === r("WAWebMmsClientMmsBackoffOptions").retries;
                         if (
-                          (P ||
+                          (N ||
                             p({
-                              error: x,
+                              error: $,
                               failCount: S,
                               overallLastUploadRetryPhase: o(
                                 "WAWebWamEnumOverallLastUploadRetryPhaseType",
                               ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
                               overallT: Date.now() - C,
                             }),
-                          $)
+                          P)
                         )
-                          return b(x);
-                        throw x;
+                          return b($);
+                        throw $;
                       }
                     },
                   );

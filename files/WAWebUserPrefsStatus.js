@@ -10,8 +10,8 @@ __d(
     "WAWebStatusContactUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatusType",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -602,7 +602,7 @@ __d(
               r.senderKey.has(String(e))
                 ? (o("WAWebSendMsgCommonApi").isPrimaryDevice(e) && a.push(e),
                   l++)
-                : o("WAWebUserPrefsMeUser").isMeDevice(e) || i.push(e);
+                : o("WAWebUserUtils").isMeDevice(e) || i.push(e);
             }),
             n && l < r.senderKey.size
               ? (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(

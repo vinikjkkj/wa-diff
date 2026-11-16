@@ -5,6 +5,7 @@ __d(
     "WAWebVoipCallTransferEntryPointStore",
     "WAWebVoipHandleCallAutoSwitch",
     "WAWebVoipHandleCallTransferFailed",
+    "WAWebVoipTransferredCallSetup",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -29,6 +30,21 @@ __d(
       handleCallAutoSwitch: function (t) {
         var e = t.autoSwitchData;
         return o("WAWebVoipHandleCallAutoSwitch").handleCallAutoSwitch(e);
+      },
+      handleNativeCallTransferStarted: function (t) {
+        var e = t.transfer;
+        o("WAWebVoipTransferredCallSetup").registerCallTransferStartedByNative(
+          e,
+        );
+      },
+      handleNativeCallTransferStartFailed: function (t) {
+        var e = t.transfer;
+        (o(
+          "WAWebVoipTransferredCallSetup",
+        ).unregisterCallTransferStartedByNative(e),
+          o(
+            "WAWebVoipHandleCallTransferFailed",
+          ).showCallTransferCouldNotConnectToast());
       },
     };
     l.VoipBridgeCallTransferHandlers = e;

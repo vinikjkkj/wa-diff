@@ -138,29 +138,22 @@ __d(
     }
     function I(e) {
       if (e == null || !k(e)) return !1;
-      var t = c();
-      if (t != null && e.equals(t)) return !0;
-      var n = d();
-      return n != null && e.equals(n);
-    }
-    function T(e) {
-      if (e == null || !k(e)) return !1;
       var t = h();
       if (t != null && e.equals(t)) return !0;
       var n = _();
       return n != null && e.equals(n);
     }
-    function D() {
+    function T() {
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
       );
       return (
         (typeof e != "string" || e === "") &&
-          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), x(e)),
+          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), D(e)),
         e
       );
     }
-    function x(e) {
+    function D(e) {
       return o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
         e,
@@ -183,10 +176,9 @@ __d(
       (l.getMaybeMeDisplayName = L),
       (l.setMeDisplayName = E),
       (l.isWidInstance = k),
-      (l.isMeDevice = I),
-      (l.isMePrimary = T),
-      (l.getUnknownId = D),
-      (l.setUnknownId = x));
+      (l.isMePrimary = I),
+      (l.getUnknownId = T),
+      (l.setUnknownId = D));
   },
   98,
 );

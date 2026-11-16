@@ -4,11 +4,14 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebContactExternalUserState",
-    "WAWebFindChat",
+    "WAWebLidMigrationUtils",
+    "WAWebMessageProcessUtils",
     "WAWebMsgKey",
     "WAWebRuntimeEnvironmentUtils",
+    "WAWebSyncContactJob",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
+    "WAWebVoipCallLogMessageTarget",
     "WAWebVoipTransferredCallRegistry",
     "WAWebWaitForInitialChatsSynced",
     "WAWebWidFactory",
@@ -16,13 +19,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a,
             i,
@@ -30,14 +33,14 @@ __d(
             s = t.callId,
             u = t.groupJid,
             c = t.isCallLink,
-            m = t.peerWid,
-            _ = t.participants,
-            f = _ === void 0 ? [] : _,
+            d = t.peerWid,
+            p = t.participants,
+            f = p === void 0 ? [] : p,
             g,
             h,
             y = o("WAWebViewMode.flow").ViewModeType.VISIBLE,
             C = o("WAWebVoipTransferredCallRegistry").getTransferredCallRoot(s),
-            b = yield p({
+            b = yield _({
               callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(
                 (n = C == null ? void 0 : C.rootCallCreatorWid) != null ? n : l,
               ),
@@ -50,14 +53,14 @@ __d(
           else if (!v) g = b;
           else {
             var R = S.length === 1 ? S[0] : null;
-            c !== !0 && R != null && !(yield d(R))
-              ? (g = yield p({
+            c !== !0 && R != null && !(yield m(R))
+              ? (g = yield _({
                   callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(R),
                 }))
-              : c !== !0 && m != null && !(yield d(m))
-                ? (g = yield p({
+              : c !== !0 && d != null && !(yield m(d))
+                ? (g = yield _({
                     callDestinationWid:
-                      o("WAWebWidFactory").asUserWidOrThrow(m),
+                      o("WAWebWidFactory").asUserWidOrThrow(d),
                   }))
                 : (o("WALogger").LOG(
                     e ||
@@ -67,7 +70,7 @@ __d(
                   ),
                   (g = b),
                   (y =
-                    S.length > 0 || m != null
+                    S.length > 0 || d != null
                       ? o("WAWebViewMode.flow").ViewModeType
                           .CALL_LOG_AD_HOC_GROUP_CALL
                       : o("WAWebViewMode.flow").ViewModeType.HIDDEN));
@@ -85,15 +88,15 @@ __d(
             viewMode: y,
           };
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!e.isUser()) return !1;
           try {
             var t;
@@ -116,36 +119,78 @@ __d(
             );
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.callDestinationWid,
-            n = e.groupJid,
-            r = t;
-          if (!n) {
-            o("WAWebRuntimeEnvironmentUtils").isWorker() ||
+            n = e.groupJid;
+          if (
+            n != null ||
+            (o("WAWebRuntimeEnvironmentUtils").isWorker() ||
               (yield o(
                 "WAWebWaitForInitialChatsSynced",
-              ).waitForInitialChatsSynced());
-            var a = yield o("WAWebFindChat").findOrCreateLatestChat(
-                t,
-                "voipCallLog",
+              ).waitForInitialChatsSynced()),
+            !t.isRegularUser())
+          )
+            return t;
+          var r = o("WAWebLidMigrationUtils").toUserLid(t);
+          if (
+            (r == null &&
+              (yield o("WAWebSyncContactJob").syncContactListJob(
+                [t],
+                !0,
+                "query",
               ),
-              i = a.chat;
-            r = o("WAWebWidFactory").asUserWidOrThrow(i.id);
-          }
-          return r;
+              (r = o("WAWebLidMigrationUtils").toUserLid(t))),
+            r == null)
+          )
+            return (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip] call log target: no LID after contact sync",
+                  ])),
+              ),
+              t
+            );
+          var a = yield o(
+            "WAWebMessageProcessUtils",
+          ).selectChatForOneOnOneMessage({ lid: r });
+          return o("WAWebWidFactory").asUserWidOrThrow(a.chatId);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.getCallLogTargetDetails = u), (l.get1x1CallLidOrPnDestination = p));
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.id.remote;
+          if (!t.isRegularUser()) return e;
+          var n = o("WAWebLidMigrationUtils").toUserLid(
+            o("WAWebWidFactory").asUserWidOrThrow(t),
+          );
+          if (n == null) return e;
+          var r = yield o(
+              "WAWebMessageProcessUtils",
+            ).selectChatForOneOnOneMessage({ lid: n }),
+            a = r.chatId;
+          return o("WAWebVoipCallLogMessageTarget").withCallLogChatId(e, a);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    ((l.getCallLogTargetDetails = c),
+      (l.get1x1CallLidOrPnDestination = _),
+      (l.resolveCallLogMessageTarget = g));
   },
   98,
 );

@@ -3,12 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebVoipCallIdProvider",
-    "WAWebVoipGatingUtils",
     "WAWebVoipJoinWithoutCamera",
-    "WAWebVoipLobbyEntryPointStore",
     "WAWebVoipStackInterface",
     "WAWebVoipTransferredCallRegistry",
-    "WAWebWidFactory",
+    "WAWebVoipTransferredCallSetup",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -45,10 +43,7 @@ __d(
                 ),
                 !1
               );
-            (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!1),
-              o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
-              o("WAWebVoipCallIdProvider").resetPendingCallId(),
-              (f = o("WAWebVoipCallIdProvider").generateNewCallId()),
+            ((f = o("WAWebVoipCallIdProvider").generateNewCallId()),
               o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(f, n && i),
               o("WALogger").LOG(
                 s ||
@@ -64,9 +59,10 @@ __d(
                 String(n),
                 String(i),
               ),
-              o("WAWebVoipTransferredCallRegistry").registerTransferredCall(f, {
+              o("WAWebVoipTransferredCallSetup").prepareForTransferredCall({
+                callId: f,
+                rootCallCreator: m,
                 rootCallId: p,
-                rootCallCreatorWid: o("WAWebWidFactory").createWid(m),
               }),
               (_ = yield g.transferCallStart({
                 rootCallId: p,

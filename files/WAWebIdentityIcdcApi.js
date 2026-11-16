@@ -11,7 +11,6 @@ __d(
     "WAWebIdentityApiUtils",
     "WAWebProtobufsAdv.pb",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserUtils",
     "WAWebWidFactory",
@@ -64,9 +63,7 @@ __d(
             c.forEach(function (e) {
               var t = e[0],
                 n = e[1];
-              o("WAWebUserPrefsMeUser").isMeDevice(n)
-                ? (m = t)
-                : d.push([t, n]);
+              o("WAWebUserUtils").isMeDevice(n) ? (m = t) : d.push([t, n]);
             });
             var _ = yield o("WAWebIdentityApiUtils").getAllIdentityKeysBytes(
                 d.map(function (e) {

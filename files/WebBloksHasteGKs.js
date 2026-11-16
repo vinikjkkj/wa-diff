@@ -9,6 +9,7 @@ __d(
           e.call(
             this,
             new Map([
+              ["bloks_web_variable_queue_batching", r("gkx")("29639")],
               ["frl_xmds_3_gradient_animation_opt_out", r("gkx")("8611")],
             ]),
           ) || this

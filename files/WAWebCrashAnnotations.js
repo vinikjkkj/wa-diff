@@ -25,15 +25,21 @@ __d(
       p = { isSystem: !0 },
       _ = 1024 * 1024 * 1024,
       f = ["web_syncd_individual_mutation_index_lookup"],
-      g = /^([A-Za-z]{1,40})\.([A-Za-z]{1,40})\.(-?\d{1,11})\.(\d{1,11})$/,
-      h = null,
-      y = new Map();
-    function C() {
+      g = new Map([
+        ["130603", "control"],
+        ["130604", "rollout_test"],
+        ["130605", "stage_test"],
+      ]),
+      h = /^([A-Za-z]{1,40})\.([A-Za-z]{1,40})\.(-?\d{1,11})\.(\d{1,11})$/,
+      y = null,
+      C = null,
+      b = new Map();
+    function v() {
       o("WAWebLogForCrash").onLogForCrashReady(function () {
-        R();
+        E();
       });
     }
-    function b() {
+    function S() {
       (o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "subplatform",
         function () {
@@ -46,7 +52,7 @@ __d(
               },
             );
           }),
-            y.set("subplatform", e));
+            b.set("subplatform", e));
         },
       ),
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
@@ -69,7 +75,7 @@ __d(
                   },
                 );
               }),
-                y.set("wa:windowsBuild", t));
+                b.set("wa:windowsBuild", t));
             }
           },
         ),
@@ -77,7 +83,7 @@ __d(
           "wa:prevFail",
           function () {
             if (r("WAWebEnvironment").isWindows) {
-              var e = v();
+              var e = R();
               e != null &&
                 (o("WAWebLogForCrash").onLogForCrashReady(function () {
                   return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
@@ -90,12 +96,12 @@ __d(
                     },
                   );
                 }),
-                y.set("wa:prevFail", e));
+                b.set("wa:prevFail", e));
             }
           },
         ));
     }
-    function v() {
+    function R() {
       var e,
         t,
         n =
@@ -108,7 +114,7 @@ __d(
             ? e
             : "";
       if (n === "") return null;
-      var r = g.exec(n);
+      var r = h.exec(n);
       return r == null
         ? JSON.stringify({ bad: 1 })
         : JSON.stringify({
@@ -118,11 +124,11 @@ __d(
             age: Math.round(Date.now() / 1e3) - Number(r[4]),
           });
     }
-    function S() {
+    function L() {
       (o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:loadCount",
         function () {
-          var e = D();
+          var e = N();
           (o("WAWebLogForCrash").onLogForCrashReady(function () {
             return o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
               "wa:loadCount",
@@ -131,7 +137,7 @@ __d(
               },
             );
           }),
-            y.set("wa:loadCount", e));
+            b.set("wa:loadCount", e));
         },
       ),
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
@@ -150,12 +156,12 @@ __d(
                   },
                 );
               }),
-              y.set("wa:reloadReason", e));
+              b.set("wa:reloadReason", e));
           },
         ));
     }
-    function R() {
-      (y.forEach(function (e, t) {
+    function E() {
+      (b.forEach(function (e, t) {
         return (
           t === "subplatform"
             ? o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely
@@ -167,18 +173,19 @@ __d(
         o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
           "wa:nav",
           function () {
-            (T(),
-              document.addEventListener("prerenderingchange", T, { once: !0 }));
+            (P(),
+              document.addEventListener("prerenderingchange", P, { once: !0 }));
           },
         ),
-        (h = null),
-        L(),
-        self.setInterval(L, m));
+        (y = null),
+        (C = null),
+        k(),
+        self.setInterval(k, m));
     }
-    function L() {
-      (k(), E());
+    function k() {
+      (x(), I(), T());
     }
-    function E() {
+    function I() {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:crashArms",
         function () {
@@ -195,30 +202,49 @@ __d(
                   : [n + "=" + (typeof i == "boolean" ? Number(i) : String(i))];
               })
               .join(",") || "-";
-          e !== h &&
-            (o("WAWebLogForCrash").logForCrash("wa:crashArms", e), (h = e));
+          e !== y &&
+            (o("WAWebLogForCrash").logForCrash("wa:crashArms", e), (y = e));
         },
       );
     }
-    function k() {
+    function T() {
+      o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+        "wa:qeGroup",
+        function () {
+          var e = D();
+          e == null ||
+            e === C ||
+            (o("WAWebLogForCrash").logForCrash("wa:qeGroup", e), (C = e));
+        },
+      );
+    }
+    function D() {
+      for (var e of o("WAWebABPropsCache").getAllABPropsMap().values()) {
+        var t = e.configExpoKey,
+          n = t == null ? null : g.get(t);
+        if (n != null) return n;
+      }
+      return null;
+    }
+    function x() {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "used_js_heap_size",
         function () {
-          var e = $(self.performance, "memory");
-          (I("used_js_heap_size", $(e, "usedJSHeapSize")),
-            I("js_heap_size_limit", $(e, "jsHeapSizeLimit")));
-          var t = $(navigator, "deviceMemory");
-          (I("device_memory", typeof t == "number" ? t * _ : void 0),
+          var e = w(self.performance, "memory");
+          ($("used_js_heap_size", w(e, "usedJSHeapSize")),
+            $("js_heap_size_limit", w(e, "jsHeapSizeLimit")));
+          var t = w(navigator, "deviceMemory");
+          ($("device_memory", typeof t == "number" ? t * _ : void 0),
             o("WAWebHeapCrashAnnotations").noteUsedHeapMBForCrash(
               o("WAWebHeapCrashAnnotations").readUsedHeapMB(),
             ));
         },
       );
     }
-    function I(e, t) {
+    function $(e, t) {
       typeof t == "number" && o("WAWebLogForCrash").logForCrash(e, t, p);
     }
-    function T() {
+    function P() {
       o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
         "wa:nav",
         function () {
@@ -230,24 +256,24 @@ __d(
                 ? void 0
                 : e[0],
             n = document,
-            r = $(t, "activationStart");
+            r = w(t, "activationStart");
           o("WAWebLogForCrash").logForCrash(
             "wa:nav",
             JSON.stringify({
-              type: $(t, "type"),
+              type: w(t, "type"),
               act: typeof r == "number" && r > 0 ? Math.round(r) : void 0,
-              pre: $(n, "prerendering") === !0 ? 1 : void 0,
-              disc: $(n, "wasDiscarded") === !0 ? 1 : void 0,
+              pre: w(n, "prerendering") === !0 ? 1 : void 0,
+              disc: w(n, "wasDiscarded") === !0 ? 1 : void 0,
               vis: document.visibilityState,
             }),
           );
         },
       );
     }
-    function D() {
+    function N() {
       var t = Date.now(),
         n = []
-          .concat(x(), [t])
+          .concat(M(), [t])
           .filter(function (e) {
             return e <= t && t - e < c;
           })
@@ -266,7 +292,7 @@ __d(
       }
       return n.length;
     }
-    function x() {
+    function M() {
       try {
         var e,
           t = JSON.parse(
@@ -291,10 +317,10 @@ __d(
         );
       }
     }
-    function $(e, t) {
+    function w(e, t) {
       return e != null && typeof e == "object" ? e[t] : void 0;
     }
-    function P(e) {
+    function A(e) {
       o("WAWebLogForCrash").onLogForCrashReady(function () {
         o("WAWebLogForCrash").logForCrash(
           "wa:voipBootstrapMode",
@@ -302,10 +328,10 @@ __d(
         );
       });
     }
-    ((l.initCrashAnnotations = C),
-      (l.annotateCrashWithPlatform = b),
-      (l.annotateCrashWithRecentLoads = S),
-      (l.logVoipWorkerBootstrapModeForCrash = P));
+    ((l.initCrashAnnotations = v),
+      (l.annotateCrashWithPlatform = S),
+      (l.annotateCrashWithRecentLoads = L),
+      (l.logVoipWorkerBootstrapModeForCrash = A));
   },
   98,
 );

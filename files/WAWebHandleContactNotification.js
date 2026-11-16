@@ -10,8 +10,10 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendJobsCommon",
     "WAWebChangeProfilePicThumb",
+    "WAWebCheckChatExistsOrCreate",
     "WAWebContactSyncBridge",
     "WAWebDBCreateLidPnMappings",
+    "WAWebDBProcessMessage",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebLidAwareContactsDB",
@@ -181,10 +183,24 @@ __d(
           t.oldJid != null &&
             t.jid != null &&
             (yield r("WAWebProcessPhoneNumberChange")(t.oldJid, t.jid));
-          var n = yield g(e, t);
+          var n = e.chatId,
+            a = yield g(n, t);
+          if (
+            (e.accountLid != null &&
+              (yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate({
+                destinationChat: e,
+                msgMeta: null,
+                chatOriginType: "changeNumberNotification",
+                options: { firstIncomingMsg: a },
+              })),
+            (yield o("WAWebApiChatCommon").getChatRecord(n)) == null)
+          ) {
+            yield o("WAWebDBProcessMessage").storeMessages([a], n);
+            return;
+          }
           yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-            chatId: e,
-            newMsg: n,
+            chatId: n,
+            newMsg: a,
             handleSingleMsgOrigin: "changeNumberNotification",
           });
         })),
@@ -197,13 +213,11 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t) {
-            var n = yield o(
-              "WAWebMessageProcessUtils",
-            ).selectChatForOneOnOneMessage({ lid: t });
-            return n.chatId;
-          }
-          return e;
+          return t
+            ? o("WAWebMessageProcessUtils").selectChatForOneOnOneMessage({
+                lid: t,
+              })
+            : { chatId: e };
         })),
         v.apply(this, arguments)
       );
@@ -287,7 +301,7 @@ __d(
             );
             var l = [],
               c = yield b(t, a),
-              d = yield o("WAWebApiChatCommon").getChatRecord(c);
+              d = yield o("WAWebApiChatCommon").getChatRecord(c.chatId);
             d &&
               l.push({
                 id: d.id,
@@ -295,7 +309,7 @@ __d(
                 changeNumberOldJid: void 0,
               });
             var m = yield b(r, i),
-              p = yield o("WAWebApiChatCommon").getChatRecord(m);
+              p = yield o("WAWebApiChatCommon").getChatRecord(m.chatId);
             (p &&
               l.push({
                 id: p.id,

@@ -35,6 +35,7 @@ __d(
               return a.$6(t);
             },
           })),
+            (this.openCallTransferLobby = null),
             (this.handleVoipReady = function () {
               var e;
               (o("WAWebBackendApi").frontendFireAndForget(

@@ -47,6 +47,7 @@ __d(
     "WAWebStateUtils",
     "WAWebThreadMsgUtils",
     "WAWebThreadWriteThroughAction",
+    "WAWebVoipCallLogMessageTarget",
     "WAWebWamMsgUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -67,13 +68,22 @@ __d(
           var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
               e,
               "voipCallLog",
+              {
+                buildFirstIncomingMsg: function (n) {
+                  return o("WAWebVoipCallLogMessageTarget").withCallLogChatId(
+                    t,
+                    n,
+                  );
+                },
+              },
             ),
             i = a.chat,
-            l = o("WAWebMsgCollection").MsgCollection.add(
-              babelHelpers.extends({}, t),
+            l = o("WAWebVoipCallLogMessageTarget").withCallLogChatId(t, i.id),
+            s = o("WAWebMsgCollection").MsgCollection.add(
+              babelHelpers.extends({}, l),
             )[0];
-          if (l) {
-            var s = (function () {
+          if (s) {
+            var u = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
                   return (
@@ -81,7 +91,7 @@ __d(
                       "WAWebHandleSingleMsgWorkerCompatible",
                     ).handleSingleMsg({
                       chatId: i.id,
-                      newMsg: t,
+                      newMsg: l,
                       handleSingleMsgOrigin: "voipNotification",
                       messageOverwriteOption: r,
                     }),
@@ -93,7 +103,7 @@ __d(
                 return e.apply(this, arguments);
               };
             })();
-            return v(i, s(l));
+            return v(i, u(s));
           }
           return (p || (p = n("Promise"))).resolve(null);
         })),

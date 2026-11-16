@@ -16,7 +16,6 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetMsgUpdatesActionsUtils",
     "WAWebGhostEphemeralChatSkip",
-    "WAWebLidStatusMigrationUtils",
     "WAWebMediaAutoDownloadQueue",
     "WAWebMediaGatingUtils",
     "WAWebMediaLinkPreviewUtils",
@@ -111,9 +110,7 @@ __d(
             if (
               (r("WAWebWid").isStatus(i) &&
                 (x = T.id.fromMe
-                  ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                      o("WAWebUserUtils").getMeUserOrThrow(),
-                    )
+                  ? o("WAWebUserUtils").getMeLidUserOrThrow()
                   : T.author),
               x == null)
             ) {
@@ -153,7 +150,13 @@ __d(
                   return o("WAWebMsgCollection").MsgCollection.get(e.id);
                 })
               );
-            I = yield o("WAWebFindChatAction").findExistingChat(i, f);
+            I = yield o("WAWebFindChatAction").findExistingChat(i, f, {
+              buildFirstIncomingMsg: function () {
+                return T.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG
+                  ? T
+                  : void 0;
+              },
+            });
           }
           var M = yield I,
             w = self.performance.now(),

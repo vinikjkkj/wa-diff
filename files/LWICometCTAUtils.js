@@ -271,20 +271,36 @@ __d(
           ? ((l = babelHelpers.extends({}, l, { type: n.type })), m(t, l, o))
           : m(t, n, o);
     }
-    function f(t, n) {
+    function f(e) {
+      return e != null && e !== "" && e !== "tel:";
+    }
+    function g(e, t) {
+      var n,
+        r = t == null ? void 0 : t.link;
+      return (e == null ? void 0 : e.type) !== "CALL_NOW" ||
+        (t == null ? void 0 : t.type) !== "CALL_NOW" ||
+        f((n = e.value) == null ? void 0 : n.link) ||
+        r == null ||
+        !f(r)
+        ? e
+        : babelHelpers.extends({}, e, {
+            value: babelHelpers.extends({}, e.value, { link: r }),
+          });
+    }
+    function h(t, n) {
       var r = t == null ? void 0 : t.creative;
       if (r == null) return t;
       var o = e(r, t.assetFeedSpecPlus);
-      return ((o = g(o, n)), m(t, o));
+      return ((o = y(o, n)), m(t, o));
     }
-    function g(e, t) {
+    function y(e, t) {
       if (e == null)
         throw r("FBLogger")("pages_lwi").mustfixThrow(
           "CTA must be not null when updating CTA value",
         );
       return ((e.value = t), e);
     }
-    function h(e) {
+    function C(e) {
       var t, n;
       if (e == null) return null;
       var a = (t = e.call_to_action_type) != null ? t : "NO_BUTTON",
@@ -293,9 +309,9 @@ __d(
           (n = o("enumUtils").coerce(a, r("CallToActionTypes"))) != null
             ? n
             : "NO_BUTTON";
-      return { type: l, value: T(l, i) };
+      return { type: l, value: x(l, i) };
     }
-    function y(e) {
+    function b(e) {
       var t;
       if (e == null) return null;
       var n = e.value,
@@ -358,20 +374,20 @@ __d(
       }
       return { type: (t = e.type) != null ? t : "NO_BUTTON", value: u };
     }
-    function C(e) {
+    function v(e) {
       var t;
       if (e == null) return null;
       var n = (t = e.type) != null ? t : "NO_BUTTON";
-      return { type: n, value: T(n, e.value) };
+      return { type: n, value: x(n, e.value) };
     }
-    var b = new Set(["REACH", "MESSAGES"]),
-      v = new Set([
+    var S = new Set(["REACH", "MESSAGES"]),
+      R = new Set([
         "CALL_NOW",
         "GET_DIRECTIONS",
         "MESSAGE_PAGE",
         "WHATSAPP_MESSAGE",
       ]);
-    function S(t, n, o) {
+    function L(t, n, o) {
       var a,
         i = e(n, t);
       if (
@@ -383,19 +399,19 @@ __d(
       )
         return i == null || (a = i.value) == null ? void 0 : a.link;
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       if (n !== "LEAD_GENERATION")
-        return r("qex")._("4191") !== !0 ? S(e, t, n) : E(e, t, n);
+        return r("qex")._("4191") !== !0 ? L(e, t, n) : I(e, t, n);
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       var r;
       return (t == null || (r = t.object_story_spec) == null
         ? void 0
         : r.template_data) != null
-        ? E(e, t, n)
-        : R(e, t, n);
+        ? I(e, t, n)
+        : E(e, t, n);
     }
-    function E(t, n, o) {
+    function I(t, n, o) {
       var a, i, l, s, u, c, d, m;
       if (o !== "LEAD_GENERATION") {
         var p =
@@ -452,7 +468,7 @@ __d(
         return b != null && b !== "" ? b : void 0;
       }
     }
-    function k(e) {
+    function T(e) {
       var t, n;
       if (e == null) return null;
       var a = (t = e.call_to_action_type) != null ? t : "NO_BUTTON",
@@ -460,17 +476,17 @@ __d(
           (n = o("enumUtils").coerce(a, r("CallToActionTypes"))) != null
             ? n
             : "NO_BUTTON";
-      return { type: i, value: T(i, e.call_to_action_value) };
+      return { type: i, value: x(i, e.call_to_action_value) };
     }
-    function I(e) {
+    function D(e) {
       var t = e == null ? void 0 : e.type;
-      return e == null || t == null ? null : { type: t, value: T(t, e) };
+      return e == null || t == null ? null : { type: t, value: x(t, e) };
     }
-    function T(e, t) {
+    function x(e, t) {
       if (!(e === "NO_BUTTON" || t == null)) {
         var n = null;
         o("LWICometMessagingAppsSectionConstants").isMessagingAppCTAType(e) &&
-          ((n = $(e)), n == null && (n = void 0));
+          ((n = N(e)), n == null && (n = void 0));
         var r =
             e === "WHATSAPP_MESSAGE" &&
             t.whatsapp_number != null &&
@@ -504,7 +520,7 @@ __d(
         };
       }
     }
-    function D(e) {
+    function $(e) {
       var t = e.buttonDestination,
         n = e.ctaType,
         o = e.goal,
@@ -526,7 +542,7 @@ __d(
       ];
       return l.includes(i);
     }
-    function x(e) {
+    function P(e) {
       var t,
         n,
         r = e.adgroupSpecs[e.selectedAdgroupID];
@@ -535,7 +551,7 @@ __d(
         ? t
         : r.assetFeedSpecPlus;
     }
-    function $(e) {
+    function N(e) {
       switch (e) {
         case "MESSAGE_PAGE":
           return "MESSENGER";
@@ -553,20 +569,21 @@ __d(
       (l.setLWICometCTA = m),
       (l.getLWICTALinkData = p),
       (l.setLWICometCTAType = _),
-      (l.setLWICometCTAValue = f),
-      (l.getTypedObjectStorySpecCTA = h),
-      (l.getTypedLinkDataCTAfromAFS = y),
-      (l.getTypedAssetFeedSpecCTA = C),
-      (l.SHOULD_DISABLE_CTA_EDITING = b),
-      (l.SHOULD_DISABLE_CTA_EDITING_TYPES = v),
-      (l.getLWICometLinkURL = S),
-      (l.getLWICometPixelSetupLinkURL = R),
-      (l.getLWICometPixelDomainCheckURL = L),
-      (l.getLWICometWebsiteLinkURL = E),
-      (l.getTypedCreativeCTA = k),
-      (l.getTypedTopLevelCTA = I),
-      (l.showCTAEditorWrapper = D),
-      (l.getAssetFeedSpecOrPlus = x));
+      (l.withPostCallNowPhone = g),
+      (l.setLWICometCTAValue = h),
+      (l.getTypedObjectStorySpecCTA = C),
+      (l.getTypedLinkDataCTAfromAFS = b),
+      (l.getTypedAssetFeedSpecCTA = v),
+      (l.SHOULD_DISABLE_CTA_EDITING = S),
+      (l.SHOULD_DISABLE_CTA_EDITING_TYPES = R),
+      (l.getLWICometLinkURL = L),
+      (l.getLWICometPixelSetupLinkURL = E),
+      (l.getLWICometPixelDomainCheckURL = k),
+      (l.getLWICometWebsiteLinkURL = I),
+      (l.getTypedCreativeCTA = T),
+      (l.getTypedTopLevelCTA = D),
+      (l.showCTAEditorWrapper = $),
+      (l.getAssetFeedSpecOrPlus = P));
   },
   98,
 );

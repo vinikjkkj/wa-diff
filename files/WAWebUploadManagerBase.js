@@ -144,7 +144,8 @@ __d(
                     p = e.onUploadSuccess,
                     _ = e.signal,
                     f = e.type,
-                    g = yield a.deps.mmsClient.upload({
+                    g = e.uploadQpl,
+                    h = yield a.deps.mmsClient.upload({
                       ciphertextHmac: n,
                       encFilehash: r,
                       type: f,
@@ -159,8 +160,9 @@ __d(
                       mediaId: i,
                       token: e.token,
                       generateThumbnailOnServer: o,
+                      uploadQpl: g,
                     });
-                  return (p(), g);
+                  return (p(), h);
                 },
               );
               return function (t) {
@@ -190,18 +192,20 @@ __d(
                     b = e.onUploadSuccess,
                     v = e.signal,
                     S = e.type,
-                    R = { encFilehash: n, type: S },
-                    L = o("WAWebMediaDebugString").getDebugString(n);
+                    R = e.uploadQpl,
+                    L = { encFilehash: n, type: S },
+                    E = o("WAWebMediaDebugString").getDebugString(n);
                   o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "uploadManager._getExistingOrUpload: [",
                         "] start",
                       ])),
-                    L,
+                    E,
                   );
                   try {
-                    var E = yield a
+                    R == null || R.addPoint("handle_check_existing_start");
+                    var k = yield a
                       .$1({
                         encFilehash: n,
                         type: S,
@@ -209,6 +213,7 @@ __d(
                         mediaId: l,
                         token: e.token,
                         generateThumbnailOnServer: i,
+                        uploadQpl: R,
                       })
                       .catch(function (e) {
                         throw (s(r("getErrorSafe")(e)), e);
@@ -236,6 +241,7 @@ __d(
                               onFinalize: c,
                               onStreamUploadStart: g,
                               byteOffset: r == null ? void 0 : r.resume,
+                              uploadQpl: R,
                               mediaId: l,
                               token: e.token,
                               generateThumbnailOnServer: i,
@@ -248,9 +254,9 @@ __d(
                             "uploadManager._getExistingOrUpload: [",
                             "] success",
                           ])),
-                        L,
+                        E,
                       ),
-                      E
+                      k
                     );
                   } catch (e) {
                     throw (
@@ -262,7 +268,7 @@ __d(
                                 "uploadManager._getExistingOrUpload: [",
                                 "] canceled",
                               ])),
-                            L,
+                            E,
                           )
                         : o("WALogger").WARN(
                             _ ||
@@ -270,7 +276,7 @@ __d(
                                 "uploadManager._getExistingOrUpload: [",
                                 "] error",
                               ])),
-                            L,
+                            E,
                           ),
                       e
                     );
@@ -400,6 +406,7 @@ __d(
                       onProgress: M,
                       onFinalize: s,
                       onStreamUploadStart: k,
+                      uploadQpl: e.uploadQpl,
                       mediaId: N,
                       token: (n = e.token) != null ? n : i,
                     }).then(function (e) {

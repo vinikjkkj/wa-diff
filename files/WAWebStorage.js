@@ -386,8 +386,9 @@ __d(
                     yield this.$7(t, this.versions.getMax(), e),
                     (n = !1));
                 }
+                var i = null;
                 if (n) {
-                  o("WALogger").LOG(
+                  (o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[storage] applying v[0-",
@@ -396,24 +397,37 @@ __d(
                       ])),
                     this.versions.getMax(),
                     t.getDbName(),
-                  );
-                  var i = o(
-                    "WAWebDbInitCrashAnnotations",
-                  ).annotateCrashWithDbInitStart(
-                    t.getDbName(),
-                    r,
-                    this.versions.getMax(),
-                  );
+                  ),
+                    (i = o(
+                      "WAWebDbInitCrashAnnotations",
+                    ).annotateCrashWithDbInitStart(
+                      t.getDbName(),
+                      r,
+                      this.versions.getMax(),
+                    )));
                   try {
                     for (var l = 0; l <= this.versions.getMax(); l++)
                       yield this.$7(t, l, e);
-                  } finally {
-                    o("WAWebDbInitCrashAnnotations").annotateCrashWithDbInitEnd(
-                      i,
+                  } catch (e) {
+                    throw (
+                      o(
+                        "WAWebDbInitCrashAnnotations",
+                      ).annotateCrashWithDbInitEnd(i),
+                      e
                     );
                   }
+                  o("WAWebDbInitCrashAnnotations").annotateCrashWithDbOpenStart(
+                    i,
+                  );
                 }
-                (yield t.open(), (this.state = g));
+                try {
+                  yield t.open();
+                } finally {
+                  o("WAWebDbInitCrashAnnotations").annotateCrashWithDbInitEnd(
+                    i,
+                  );
+                }
+                this.state = g;
               }
             });
             function t() {

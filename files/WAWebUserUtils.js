@@ -125,6 +125,13 @@ __d(
       var t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
+    function T(e) {
+      if (e == null || !o("WAWebUserPrefsMeUser").isWidInstance(e)) return !1;
+      var t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+      if (t != null && e.equals(t)) return !0;
+      var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+      return n != null && e.equals(n);
+    }
     ((l.getMaybeMeDeviceId = s),
       (l.getMeDisplayNameOrThrow = u),
       (l.getMyPrimaryForOutgoingPeerMessage = c),
@@ -143,7 +150,8 @@ __d(
       (l.getMeDevicePnOrThrow_DO_NOT_USE = R),
       (l.isSerializedWidMe = L),
       (l.isMeAccount = E),
-      (l.isMePnUser = k));
+      (l.isMePnUser = k),
+      (l.isMeDevice = T));
   },
   98,
 );

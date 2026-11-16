@@ -4,7 +4,6 @@ __d(
     "WAJids",
     "WATimeUtils",
     "WAWebAck",
-    "WAWebLidStatusMigrationUtils",
     "WAWebMessagingGatingUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -34,12 +33,10 @@ __d(
               n != null
                 ? n
                 : o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            m = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserUtils").getMeUserOrThrow(),
-            ),
+            m = o("WAWebUserUtils").getMeLidUserOrThrow(),
             p = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
             _ = void 0;
-          p || (_ = o("WAWebLidStatusMigrationUtils").matWidConvert(m));
+          p || (_ = m);
           var f = new (r("WAWebMsgKey"))({
               fromMe: !0,
               remote: d,

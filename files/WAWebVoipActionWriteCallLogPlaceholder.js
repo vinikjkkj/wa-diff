@@ -26,6 +26,7 @@ __d(
     "WAWebVoipActionSurfaceCallLogChat",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipBackendCallLogPlaceholderTargetResolver",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipPendingCallLogOutcome",
@@ -86,8 +87,12 @@ __d(
                 }),
                 to: f,
               },
-              h = o("WAWebMsgCollection").MsgCollection.get(g.id);
-            if (h != null) {
+              h = yield o(
+                "WAWebVoipBackendCallLogTargetResolver",
+              ).resolveCallLogMessageTarget(g),
+              y = h.id.remote,
+              C = o("WAWebMsgCollection").MsgCollection.get(h.id);
+            if (C != null) {
               (o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -99,18 +104,18 @@ __d(
                 o("WAWebVoipCallLogPlaceholderTracker").markPlaceholderResolved(
                   s,
                 ),
-                h.viewMode ===
+                C.viewMode ===
                   o("WAWebViewMode.flow").ViewModeType
                     .CALL_LOG_OFFLINE_RESUME &&
                   o(
                     "WAWebVoipUnresolvedPlaceholderLoadable",
-                  ).scheduleUnresolvedPlaceholderCheckLoadable(g.id),
+                  ).scheduleUnresolvedPlaceholderCheckLoadable(h.id),
                 o(
                   "WAWebVoipActionWriteCallLogImpl",
-                ).replayDeferredCallLogOutcome(f, g));
+                ).replayDeferredCallLogOutcome(y, h));
               return;
             }
-            L(s, f, g);
+            L(s, y, h);
           } catch (e) {
             (o("WAWebVoipCallLogPlaceholderTracker").markPlaceholderResolved(s),
               w(n, e));

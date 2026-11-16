@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebApiDeviceList",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -38,8 +37,7 @@ __d(
                     var i = o(
                       "WAWebWidFactory",
                     ).createDeviceWidFromDeviceListPk(e.id, t.id, t.isHosted);
-                    o("WAWebUserPrefsMeUser").isMeDevice(i) ||
-                      s.set(i.toString(), i);
+                    o("WAWebUserUtils").isMeDevice(i) || s.set(i.toString(), i);
                   }
                 });
               } else {

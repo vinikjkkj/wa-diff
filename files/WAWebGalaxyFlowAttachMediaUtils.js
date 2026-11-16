@@ -5,7 +5,6 @@ __d(
     "WATimeUtils",
     "WAWebBackendRuntime",
     "WAWebGalaxyFlowMediaEditorCollection",
-    "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
     "WAWebMediaPrepMediaProps",
     "WAWebMediaUpdateMsg",
@@ -30,9 +29,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
-            ),
+          var t = o("WAWebUserUtils").getMeLidUserOrThrow(),
             n = new (r("WAWebMsgKey"))({
               from: t,
               to: t,
