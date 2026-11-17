@@ -4,7 +4,8 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "WAWebLoadingModal.react",
+    "WAWebLoadingConfirmPopup.react",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -26,7 +27,12 @@ __d(
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {
-          return s.jsx(r("WAWebLoadingModal.react"), { error: !!t.error });
+          return t.error
+            ? s.jsx(r("WAWebLoadingConfirmPopup.react"), {
+                error: !0,
+                onCancel: o("WDSDialogBridge").closeWDSDialog,
+              })
+            : s.jsx(s.Fragment, {});
         },
       });
     l.ReachoutTimelockUnrestrictedModalLoadable = c;

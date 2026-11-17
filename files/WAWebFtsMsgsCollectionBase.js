@@ -89,63 +89,67 @@ __d(
             (e = this.searchAbortController) == null || e.abort());
         }),
         (a.search = function (t) {
-          var e = this,
-            n = t.chat,
-            a = t.count,
-            i = t.filter,
-            l = i === void 0 ? {} : i,
-            s = t.searchTerm,
-            u = t.direction,
-            c = l.kind != null ? l.kind : "",
-            d = s + "__" + (l.label != null && l.label !== "" ? l.label : c);
-          this.currentLabelSearch = l.label;
-          var m = !1,
-            p = s !== this.searchTerm;
+          var e,
+            n = this,
+            a = t.chat,
+            i = t.count,
+            l = t.filter,
+            s = l === void 0 ? {} : l,
+            u = t.searchTerm,
+            c = t.direction,
+            d =
+              s.kind != null
+                ? "" + s.kind + ((e = s.orgId) != null ? e : "")
+                : "",
+            m = u + "__" + (s.label != null && s.label !== "" ? s.label : d);
+          this.currentLabelSearch = s.label;
+          var p = !1,
+            _ = u !== this.searchTerm;
           if (
-            (this.searchTerm !== d
+            (this.searchTerm !== m
               ? (this.searchTerm != null &&
                 this.searchTerm !== "" &&
-                s.indexOf(this.searchTerm) === 0
-                  ? (m = !0)
-                  : ((this.searchTerm = d), this.delete()),
-                p && ((this.resultPage = 0), (this.hasMoreMsgs = !0)))
-              : (m = !0),
+                u.indexOf(this.searchTerm) === 0
+                  ? (p = !0)
+                  : ((this.searchTerm = m), this.delete()),
+                _ && ((this.resultPage = 0), (this.hasMoreMsgs = !0)))
+              : (p = !0),
             this.searchPromise)
           ) {
-            var _;
-            if (this.searchTerm === d) return this.searchPromise;
-            (_ = this.searchAbortController) == null || _.abort();
+            var f;
+            if (this.searchTerm === m) return this.searchPromise;
+            (f = this.searchAbortController) == null || f.abort();
           }
           this.searchAbortController = new AbortController();
-          var f = this.searchAbortController.signal,
-            g = this.searchImpl({
-              chat: n,
-              count: a,
-              direction: u,
-              filter: l,
+          var g = this.searchAbortController.signal,
+            h = this.searchImpl({
+              chat: a,
+              count: i,
+              direction: c,
+              filter: s,
               page: ++this.resultPage,
-              searchTerm: s,
+              searchTerm: u,
             });
           return (
-            (this.searchPromise = r("WAPromiseRaceAbort")(g, f)
-              .then(function (t) {
+            (this.searchPromise = r("WAPromiseRaceAbort")(h, g)
+              .then(function (e) {
                 return (
-                  t.eof && (e.hasMoreMsgs = !1),
-                  e.searchTerm !== d && p && e.delete(),
-                  (e.searchTerm = d),
-                  t.messages &&
-                    ((l.kind || l.label != null) &&
-                      (t.messages = t.messages.filter(function (e) {
+                  e.eof && (n.hasMoreMsgs = !1),
+                  n.searchTerm !== m && _ && n.delete(),
+                  (n.searchTerm = m),
+                  e.messages &&
+                    ((s.kind || s.label != null) &&
+                      (e.messages = e.messages.filter(function (e) {
                         return (
                           o("WAWebFrontendMsgGetters").getChat(e) &&
                           o("WAWebChatMessageSearch").matchFilter(
                             o("WAWebFrontendMsgGetters").getChat(e),
-                            l,
+                            s,
                           )
                         );
                       })),
-                    e.add(
-                      t.messages.filter(function (e) {
+                    n.add(
+                      e.messages.filter(function (e) {
                         return (
                           !o("WAWebFrontendMsgGetters").getAsRevoked(e) &&
                           o("WAWebViewModeUtils").isViewModeVisibleInSurface(
@@ -155,19 +159,19 @@ __d(
                         );
                       }),
                     )),
-                  e.onSeachPromiseComplete(m),
-                  t
+                  n.onSeachPromiseComplete(p),
+                  e
                 );
               })
               .catch(
                 o("WAAbortError").catchAbort(function () {
-                  e.resultPage -= 1;
+                  n.resultPage -= 1;
                 }),
               )
               .finally(function () {
-                ((e.searchPromise = null),
-                  (e.searchAbortController = null),
-                  e.trigger("searchPromise_update"));
+                ((n.searchPromise = null),
+                  (n.searchAbortController = null),
+                  n.trigger("searchPromise_update"));
               })),
             this.trigger("searchPromise_update"),
             this.searchPromise

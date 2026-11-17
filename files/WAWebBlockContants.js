@@ -1,8 +1,9 @@
 __d(
   "WAWebBlockContants",
-  [],
+  ["$InternalEnum"],
   function (t, n, r, o, a, i) {
-    var e = Object.freeze({
+    var e,
+      l = (e = n("$InternalEnum"))({
         OneToOneOldSpamBannerBlock: "1_1_old_spam_banner_block",
         OneToOneSpamBannerBlock: "1_1_spam_banner_block",
         AccountInfo: "account_info",
@@ -35,15 +36,15 @@ __d(
           "chat_fmx_card_safety_tools_report_suspicious",
         OneToOneBlockedChatComposer: "one_to_one_blocked_chat_composer",
       }),
-      l = Object.freeze({
+      s = e({
         NoLongerNeeded: "no_longer_needed",
         NoSignUp: "no_sign_up",
         OffensiveMessages: "offensive_messages",
         Spam: "spam",
         Other: "other",
       }),
-      s = Object.freeze({ False: "false", True: "true", None: "none" }),
-      u = Object.freeze({
+      u = e({ False: "false", True: "true", None: "none" }),
+      c = e({
         CatalogLink: "catalog_link",
         ClickToChatLink: "click_to_chat_link",
         Ctwa: "ctwa",
@@ -51,9 +52,9 @@ __d(
         ProductLink: "product_link",
         QrCode: "qr_code",
       });
-    ((i.BlockEntryPoint = e),
-      (i.BizOptOutReason = l),
-      (i.BizOptOutFirstMessage = s));
+    ((i.BlockEntryPoint = l),
+      (i.BizOptOutReason = s),
+      (i.BizOptOutFirstMessage = u));
   },
   66,
 );

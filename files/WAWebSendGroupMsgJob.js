@@ -182,6 +182,7 @@ __d(
         case "poll_add_option_decrypted":
         case "music":
         case "instant_image":
+        case "instant_video":
           break;
         default:
           throw r("err")("CAG - Invalid type: " + l);

@@ -97,7 +97,7 @@ __d(
               n === void 0 && (n = null),
               a === void 0 && (a = S),
               i === void 0 && (i = null),
-              !o("WAWebOrgGatingUtils").isOrgHubEnabled())
+              !o("WAWebOrgGatingUtils").isOrgsEnabled())
             )
               throw r("err")("Org admin UI is disabled");
             var g = Date.now();

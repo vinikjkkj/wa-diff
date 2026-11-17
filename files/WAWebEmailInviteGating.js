@@ -1,6 +1,6 @@
 __d(
   "WAWebEmailInviteGating",
-  ["WAWebABProps", "WAWebGroupMemberLinkMode"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
@@ -8,30 +8,28 @@ __d(
       );
     }
     function s(t) {
-      return c(t) && e();
+      return d(t) && e();
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_email_invites_server_send_enabled",
       );
     }
-    function c(e) {
+    function c(e, t) {
+      var n;
+      ((n = e.groupMetadata) == null ? void 0 : n.participants.iAmAdmin()) ===
+        !0 && t();
+    }
+    function d(e) {
       var t = e.iAmAdmin,
-        n = e.iAmMember,
-        r = e.isInviteLinkRestricted,
-        a = e.isSupportGroup,
-        i = e.memberLinkMode;
-      return (
-        !a &&
-        !r &&
-        (t ||
-          (n &&
-            i === o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK))
-      );
+        n = e.isInviteLinkRestricted,
+        r = e.isSupportGroup;
+      return t && !r && !n;
     }
     ((l.isEmailInviteEntryPointEnabled = e),
       (l.isInviteByEmailEnabled = s),
-      (l.isEmailInviteServerSendEnabled = u));
+      (l.isEmailInviteServerSendEnabled = u),
+      (l.runIfGroupEmailInviteAdmin = c));
   },
   98,
 );

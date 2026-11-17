@@ -1,6 +1,7 @@
 __d(
   "ProfileCometSession",
   [
+    "ConstUriUtils",
     "ProfileCometSessionConfig",
     "ProfileCometSessionUtil",
     "ProfileEngagementFalcoEvent",
@@ -41,29 +42,42 @@ __d(
               ? "about_page"
               : "timeline";
     }
-    function d(e, t, n) {
-      r("ProfileEngagementFalcoEvent").log(function () {
-        return {
-          content_id: null,
-          profile_event_type: "profile_session_impression",
-          profile_id: e,
-          profile_product_bucket: "profile_core",
-          profile_session_id: t,
-          profile_surface: c(n),
-        };
-      });
+    function d(e) {
+      var t;
+      if (e == null) return null;
+      var n =
+        (t = o("ConstUriUtils").getUri(e)) == null
+          ? void 0
+          : t.getQueryParam("ref");
+      return typeof n == "string" && n !== "" ? n : null;
     }
-    function m(t, n) {
+    function m(e, t, n, o) {
+      (o === void 0 && (o = null),
+        r("ProfileEngagementFalcoEvent").log(function () {
+          return babelHelpers.extends(
+            { content_id: null },
+            o != null ? { event_metadata: { ref: o } } : null,
+            {
+              profile_event_type: "profile_session_impression",
+              profile_id: e,
+              profile_product_bucket: "profile_core",
+              profile_session_id: t,
+              profile_surface: c(n),
+            },
+          );
+        }));
+    }
+    function p(t, n) {
       var o = (e || (e = r("WebStorage"))).getLocalStorage();
       if (!o) return null;
       var a = r("uuidv4")();
-      return (C(t, a), d(t, a, n == null ? void 0 : n.tracePolicy), a);
+      return (b(t, a), m(t, a, n == null ? void 0 : n.tracePolicy), a);
     }
-    function p(e, t) {
-      var n = g(e);
-      return n === null ? m(e, t) : n;
+    function _(e, t) {
+      var n = h(e);
+      return n === null ? p(e, t) : n;
     }
-    function _(t) {
+    function f(t) {
       var n = (e || (e = r("WebStorage"))).getLocalStorageForRead();
       if (t == null || !n) return null;
       var o = n.getItem(t);
@@ -74,8 +88,8 @@ __d(
         s = parseInt(l, 10);
       return [i, s];
     }
-    function f(e) {
-      var t = _(e);
+    function g(e) {
+      var t = f(e);
       if (t !== null) {
         var n = t[0],
           r = t[1];
@@ -84,53 +98,53 @@ __d(
       }
       return null;
     }
-    function g(e) {
-      return f(s(e));
+    function h(e) {
+      return g(s(e));
     }
-    function h(t) {
+    function y(t) {
       var n = s(t);
       if (n === null) return null;
       var o = n + ":logging",
-        a = f(o);
+        a = g(o);
       if (a !== null) return a;
       var i = (e || (e = r("WebStorage"))).getLocalStorage();
       if (!i) return null;
       var l = r("uuidv4")();
-      return y(o, l);
+      return C(o, l);
     }
-    function y(t, n) {
+    function C(t, n) {
       var o = Date.now(),
         a = (e || (e = r("WebStorage"))).getLocalStorage();
       return a && t != null
         ? ((e || (e = r("WebStorage"))).setItemGuarded(a, t, n + ":" + o), n)
         : null;
     }
-    function C(e, t) {
-      return y(s(e), t);
-    }
     function b(e, t) {
-      var n = p(e, t);
-      return n == null ? null : (C(e, n), n);
+      return C(s(e), t);
     }
     function v(e, t) {
-      var n;
-      return r("gkx")("7772") ? ((n = g(e)) != null ? n : h(e)) : p(e, t);
+      var n = _(e, t);
+      return n == null ? null : (b(e, n), n);
     }
-    function S(e, t, n) {
-      if (t != null) {
-        var r = g(e);
-        if (r === null) return (d(e, t, n), C(e, t));
-      }
-      return b(e);
+    function S(e, t) {
+      var n;
+      return r("gkx")("7772") ? ((n = h(e)) != null ? n : y(e)) : _(e, t);
     }
     function R(e, t, n, r) {
+      if (t != null) {
+        var o = h(e);
+        if (o === null) return (m(e, t, n, d(r)), b(e, t));
+      }
+      return v(e);
+    }
+    function L(e, t, n, r) {
       return o("ProfileCometSessionUtil").isSameProfileSession(t, n) ||
         r === "popstate" ||
         r === "initial"
-        ? b(e, n)
-        : m(e, n);
+        ? v(e, n)
+        : p(e, n);
     }
-    ((l.extend = b), (l.get = v), (l.initOrExtend = S), (l.navigate = R));
+    ((l.extend = v), (l.get = S), (l.initOrExtend = R), (l.navigate = L));
   },
   98,
 );

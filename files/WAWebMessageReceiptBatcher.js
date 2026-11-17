@@ -217,7 +217,7 @@ __d(
                     l = e.get(i);
                   if (l)
                     (r !== o("WAWebAck").ACK_STRING.INACTIVE &&
-                      (l[r] = L(l[r], s)),
+                      (l[r] = D(l[r], s)),
                       l.deviceDelivered.add(c));
                   else {
                     var d = { deviceDelivered: new Set([c]) };
@@ -256,67 +256,79 @@ __d(
                       "processOtherReceipts",
                     ])),
                 );
-                var a = this.$9(e),
-                  i = Array.from(
+                var a = e.filter(function (e) {
+                    return e.integrityDrop !== !0;
+                  }),
+                  i = new Set(
+                    e
+                      .filter(function (e) {
+                        return e.integrityDrop === !0;
+                      })
+                      .flatMap(function (e) {
+                        return e.msgKeys;
+                      }),
+                  ),
+                  l = this.$9(a),
+                  s = Array.from(
                     new Set(
                       e.flatMap(function (e) {
                         return e.msgKeys;
                       }),
                     ),
                   ),
-                  l = yield o("WAWebModelStorageUtils")
+                  u = yield o("WAWebModelStorageUtils")
                     .getStorage()
                     .lock(
                       ["message-info", "message", "chat", "participant"],
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
-                          var l = yield (g || (g = n("Promise"))).all([
+                          var a = yield (g || (g = n("Promise"))).all([
                               o("WAWebSchemaMessageInfo")
                                 .getMessageInfoTable()
                                 .bulkGet(
-                                  a.map(function (e) {
+                                  l.map(function (e) {
                                     var t = e[0],
                                       n = e[1];
                                     return t;
                                   }),
                                 ),
-                              o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(i),
+                              o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(s),
                             ]),
-                            s = l[0],
-                            u = l[1],
-                            c = new Map(
-                              i.map(function (e, t) {
-                                return [e, u[t]];
+                            u = a[0],
+                            c = a[1],
+                            m = new Map(
+                              s.map(function (e, t) {
+                                return [e, c[t]];
                               }),
                             ),
-                            d = r("compactMap")(s, function (e, t) {
-                              var n = a[t],
+                            p = r("compactMap")(u, function (e, t) {
+                              var n = l[t],
                                 r = n[0],
                                 o = r[0],
-                                i = r[1],
-                                l = n[1];
-                              if (!l) return null;
+                                a = r[1],
+                                i = n[1];
+                              if (!i) return null;
                               if (!e)
                                 return {
-                                  delivery: l.delivery,
-                                  read: l.read,
-                                  played: l.played,
+                                  delivery: i.delivery,
+                                  read: i.read,
+                                  played: i.played,
                                   msgKey: o,
-                                  receiverUserJid: i,
+                                  receiverUserJid: a,
                                   deviceDelivered: Array.from(
-                                    l.deviceDelivered,
+                                    i.deviceDelivered,
                                   ),
                                   deviceNotDelivered: [],
                                 };
-                              var s = l.deviceDelivered;
+                              var s = i.deviceDelivered;
                               return (
                                 e.deviceDelivered.forEach(function (e) {
                                   return s.add(e);
                                 }),
                                 babelHelpers.extends({}, e, {
-                                  delivery: L(e.delivery, l.delivery),
-                                  read: L(e.read, l.read),
-                                  played: L(e.played, l.played),
+                                  delivery: D(e.delivery, i.delivery),
+                                  read: D(e.read, i.read),
+                                  played: D(e.played, i.played),
                                   deviceDelivered: Array.from(s),
                                   deviceNotDelivered:
                                     e.deviceNotDelivered.filter(function (e) {
@@ -327,56 +339,52 @@ __d(
                             });
                           yield o("WAWebSchemaMessageInfo")
                             .getMessageInfoTable()
-                            .bulkCreateOrReplace(d);
-                          var m = yield t.$7(e, i),
-                            p = Array.from(m.entries()),
-                            _ = r("compactMap")(p, function (e) {
+                            .bulkCreateOrReplace(p);
+                          var _ = yield t.$7(e, s),
+                            f = Array.from(_.entries()),
+                            h = r("compactMap")(f, function (e) {
                               var t = e[0],
                                 n = e[1],
                                 o = r("WAWebMsgKey").fromString(t),
                                 a = o.remote;
-                              if (a.isUser() || a.isGroup() || a.isStatus()) {
-                                var i,
-                                  l = c.get(t);
-                                if (l == null || l.isScheduledMsg === !0)
-                                  return;
-                                if (
-                                  n >
-                                  ((i = l.ack) != null
-                                    ? i
-                                    : Number.NEGATIVE_INFINITY)
-                                )
-                                  return { id: l.id.toString(), ack: n };
-                              }
-                            });
-                          return { ackUpdates: _, receiptMsgKeyToMsg: c };
+                              if (a.isUser() || a.isGroup() || a.isStatus())
+                                return L(t, m.get(t), n, i.has(t));
+                            }),
+                            y = T(h);
+                          return (
+                            yield o("WAWebSchemaMessage")
+                              .getMessageTable()
+                              .bulkCreateOrMerge(y)
+                              .catch(function (e) {
+                                throw (
+                                  o("WALogger")
+                                    .ERROR(
+                                      d ||
+                                        (d =
+                                          babelHelpers.taggedTemplateLiteralLoose(
+                                            [
+                                              "_processOtherReceipts: db msg ack update failed: ",
+                                              "",
+                                            ],
+                                          )),
+                                      e,
+                                    )
+                                    .sendLogs(
+                                      "process-other-receipts-failed-to-update-db-msg-acks",
+                                    ),
+                                  e
+                                );
+                              }),
+                            { ackUpdates: y, receiptMsgKeyToMsg: m }
+                          );
                         },
                       ),
                     );
-                (yield o("WAWebSchemaMessage")
-                  .getMessageTable()
-                  .bulkCreateOrMerge(l.ackUpdates)
-                  .catch(function (e) {
-                    throw (
-                      o("WALogger")
-                        .ERROR(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
-                              "_processOtherReceipts: db msg ack update failed: ",
-                              "",
-                            ])),
-                          e,
-                        )
-                        .sendLogs(
-                          "process-other-receipts-failed-to-update-db-msg-acks",
-                        ),
-                      e
-                    );
-                  }),
+                (k(i, u.receiptMsgKeyToMsg, u.ackUpdates),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "updateMsgModelAcks",
                     {
-                      updates: l.ackUpdates.map(function (e) {
+                      updates: u.ackUpdates.map(function (e) {
                         var t = e.ack,
                           n = e.id;
                         return { id: r("WAWebMsgKey").from(n), ack: t };
@@ -384,28 +392,28 @@ __d(
                     },
                   ),
                   o("WAWebBackendApi").frontendFireAndForget("updateMsgInfo", {
-                    updates: e
+                    updates: a
                       .flatMap(function (e) {
                         var t = e.ack,
                           n = e.msgKeys,
                           a = e.receiverId,
                           i = e.ts;
                         return n.map(function (e) {
-                          var n = l.receiptMsgKeyToMsg.get(e);
+                          var n = u.receiptMsgKeyToMsg.get(e);
                           if (n != null) {
-                            var s = r("WAWebMsgKey").from(n.id);
+                            var l = r("WAWebMsgKey").from(n.id);
                             if (
-                              s.fromMe &&
-                              (s.remote.isUser() ||
-                                s.remote.isGroup() ||
-                                s.remote.isStatus())
+                              l.fromMe &&
+                              (l.remote.isUser() ||
+                                l.remote.isGroup() ||
+                                l.remote.isStatus())
                             ) {
-                              var u = o("WAWebWidFactory").asUserWidOrThrow(a);
-                              if (!o("WAWebUserUtils").isMeAccount(u))
+                              var s = o("WAWebWidFactory").asUserWidOrThrow(a);
+                              if (!o("WAWebUserUtils").isMeAccount(s))
                                 return {
-                                  msgKey: s,
+                                  msgKey: l,
                                   ts: i,
-                                  participant: u,
+                                  participant: s,
                                   ack: t,
                                 };
                             }
@@ -414,7 +422,7 @@ __d(
                       })
                       .filter(Boolean),
                   }),
-                  this.$6(this.$5(e)).catch(function () {
+                  this.$6(this.$5(a)).catch(function () {
                     o("WALogger").ERROR(
                       m ||
                         (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -544,13 +552,74 @@ __d(
           }),
         );
     }
-    function L(e, t) {
+    function L(e, t, n, r) {
+      var a;
+      if (t != null && t.isScheduledMsg !== !0) {
+        if (n === o("WAWebAck").ACK.FAILED && r)
+          return E(e, t)
+            ? { id: t.id.toString(), ack: o("WAWebAck").ACK.FAILED }
+            : void 0;
+        if (n > ((a = t.ack) != null ? a : Number.NEGATIVE_INFINITY))
+          return { id: t.id.toString(), ack: n };
+      }
+    }
+    function E(e, t) {
+      return (
+        r("WAWebMsgKey").fromString(e).id === r("WAWebMsgKey").from(t.id).id &&
+        (t.ack === o("WAWebAck").ACK.CLOCK || t.ack === o("WAWebAck").ACK.SENT)
+      );
+    }
+    function k(e, t, n) {
+      var r = new Set(
+        n
+          .filter(function (e) {
+            var t = e.ack;
+            return t === o("WAWebAck").ACK.FAILED;
+          })
+          .map(function (e) {
+            var t = e.id;
+            return t;
+          }),
+      );
+      for (var a of e) {
+        var i = t.get(a);
+        i == null
+          ? I("no_message")
+          : r.has(i.id.toString())
+            ? I("failed")
+            : I("ignored");
+      }
+    }
+    function I(e) {
+      o("WAWebBackendApi").frontendFireAndForget("logIntegrityDropOutcome", {
+        outcome: e,
+      });
+    }
+    function T(e) {
+      var t = new Set(
+        e
+          .filter(function (e) {
+            var t = e.ack;
+            return t !== o("WAWebAck").ACK.FAILED;
+          })
+          .map(function (e) {
+            var t = e.id;
+            return t;
+          }),
+      );
+      return e.filter(function (e) {
+        var n = e.ack,
+          r = e.id;
+        return n !== o("WAWebAck").ACK.FAILED || !t.has(r);
+      });
+    }
+    function D(e, t) {
       if (e != null && t != null) return Math.min(e, t);
       var n = e != null ? e : t;
       return n != null ? n : void 0;
     }
-    var E = new b();
-    l.receiptBatcher = E;
+    var x = new b();
+    l.receiptBatcher = x;
   },
   98,
 );

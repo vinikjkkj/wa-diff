@@ -2,11 +2,9 @@ __d(
   "WAWebVelocityTransitionGroup",
   [
     "WAWebClassnames",
-    "WAWebThirdPartyMigrationGatingUtils",
     "WAWebVelocityTransition",
     "react",
     "react-compiler-runtime",
-    "react-transition-group",
     "stylex",
     "useWAWebTransitionPresence",
   ],
@@ -29,99 +27,71 @@ __d(
         : ((a = n[1]), (i = n[2]));
       var l = a,
         u = l.appear,
-        m = l.component,
-        f = l.delay,
-        g = l.displayName,
-        h = l.enter,
-        y = l.exit,
-        C = l.onAnimationComplete,
-        b = l.testid,
-        v = l.transitionName,
-        S = l.xstyle,
-        R = m === void 0 ? "span" : m,
-        L = v === void 0 ? "default" : v,
-        E;
-      n[3] !== S
-        ? ((E = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            (s || (s = r("stylex")))(S),
+        d = l.component,
+        m = l.delay,
+        _ = l.displayName,
+        f = l.enter,
+        g = l.exit,
+        h = l.onAnimationComplete,
+        y = l.testid,
+        C = l.transitionName,
+        b = l.xstyle,
+        v = d === void 0 ? "span" : d,
+        S = C === void 0 ? "default" : C,
+        R;
+      n[3] !== b
+        ? ((R = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            (s || (s = r("stylex")))(b),
           )),
-          (n[3] = S),
-          (n[4] = E))
-        : (E = n[4]);
-      var k;
-      if (
-        n[5] !== u ||
-        n[6] !== f ||
-        n[7] !== g ||
-        n[8] !== h ||
-        n[9] !== y ||
-        n[10] !== C ||
-        n[11] !== a.children ||
-        n[12] !== L
-      ) {
-        var I;
-        ((k = o(
-          "WAWebThirdPartyMigrationGatingUtils",
-        ).isVelocityAnimateMigrationEnabled()
-          ? c.jsx(p, {
-              appear: u,
-              enter: h,
-              exit: y,
-              transitionName: L,
-              delay: f,
-              onAnimationComplete: C,
-              displayName: g,
-              children: a.children,
-            })
-          : c.jsx(o("react-transition-group").TransitionGroup, {
-              component: null,
-              appear: u,
-              enter: h,
-              exit: y,
-              children:
-                (I = d.toArray(a.children)) == null
-                  ? void 0
-                  : I.map(function (e, t) {
-                      return c.jsx(
-                        r("WAWebVelocityTransition"),
-                        {
-                          transitionName: L,
-                          delay: f,
-                          onAnimationComplete: C,
-                          displayName: g,
-                          children: e,
-                        },
-                        _(e, t),
-                      );
-                    }),
-            })),
+          (n[3] = b),
+          (n[4] = R))
+        : (R = n[4]);
+      var L;
+      n[5] !== u ||
+      n[6] !== m ||
+      n[7] !== _ ||
+      n[8] !== f ||
+      n[9] !== g ||
+      n[10] !== h ||
+      n[11] !== a.children ||
+      n[12] !== S
+        ? ((L = c.jsx(p, {
+            appear: u,
+            enter: f,
+            exit: g,
+            transitionName: S,
+            delay: m,
+            onAnimationComplete: h,
+            displayName: _,
+            children: a.children,
+          })),
           (n[5] = u),
-          (n[6] = f),
-          (n[7] = g),
-          (n[8] = h),
-          (n[9] = y),
-          (n[10] = C),
+          (n[6] = m),
+          (n[7] = _),
+          (n[8] = f),
+          (n[9] = g),
+          (n[10] = h),
           (n[11] = a.children),
-          (n[12] = L),
-          (n[13] = k));
-      } else k = n[13];
-      var T;
+          (n[12] = S),
+          (n[13] = L))
+        : (L = n[13]);
+      var E;
       return (
-        n[14] !== R || n[15] !== i || n[16] !== E || n[17] !== k || n[18] !== b
-          ? ((T = c.jsx(R, {
+        n[14] !== v || n[15] !== i || n[16] !== R || n[17] !== L || n[18] !== y
+          ? ((E = c.jsx(v, {
               ref: i,
-              className: E,
-              "data-testid": b,
-              children: k,
+              className: R,
+              "data-testid": y,
+              children: L,
             })),
-            (n[14] = R),
+            (n[14] = v),
             (n[15] = i),
-            (n[16] = E),
-            (n[17] = k),
-            (n[18] = b),
-            (n[19] = T))
-          : (T = n[19]),
-        T
+            (n[16] = R),
+            (n[17] = L),
+            (n[18] = y),
+            (n[19] = E))
+          : (E = n[19]),
+        E
       );
     }
     function p(e) {

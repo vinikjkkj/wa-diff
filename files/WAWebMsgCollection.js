@@ -346,16 +346,21 @@ __d(
           })()),
           (i.search = function (t, n, r, a, i) {
             var e,
-              l = this;
+              l,
+              s = this;
             (n === void 0 && (n = 1), i === void 0 && (i = {}));
-            var s =
+            var u =
               t +
               "__" +
-              ((e = i.label) != null ? e : i.kind != null ? i.kind : "");
+              ((e = i.label) != null
+                ? e
+                : i.kind != null
+                  ? "" + i.kind + ((l = i.orgId) != null ? l : "")
+                  : "");
             if (n === 1 && !a) {
-              var u = this.ftsCache[s];
-              if (u) return u;
-              var c = this._search({
+              var c = this.ftsCache[u];
+              if (c) return c;
+              var d = this._search({
                 count: r,
                 jid: a,
                 kind: i.kind,
@@ -363,14 +368,14 @@ __d(
                 page: n,
                 searchTerm: t,
               });
-              this.ftsCache[s] = c;
-              var d = function () {
-                l.ftsCache[s] = null;
+              this.ftsCache[u] = d;
+              var m = function () {
+                s.ftsCache[u] = null;
               };
               return (
-                self.setTimeout(d, o("WAWebFtsConstants").FTS_TTL),
-                c.catch(d),
-                c
+                self.setTimeout(m, o("WAWebFtsConstants").FTS_TTL),
+                d.catch(m),
+                d
               );
             }
             return this._search({

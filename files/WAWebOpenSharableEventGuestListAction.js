@@ -10,9 +10,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t, n) {
+    function u(e, t) {
       (t === void 0 && (t = !1),
-        n === void 0 && (n = !1),
         o(
           "WAWebSharableEventGatingUtils",
         ).isEventsV2OnCompanionEnabledForAction("open-guest-list") &&
@@ -21,14 +20,12 @@ __d(
               ? {
                   descriptorType: "sharable_event_guest_list",
                   eventId: e,
-                  isNewEvent: n,
                   startsWithInvite: t,
                 }
               : s.jsx(
                   r("WAWebSharableEventGuestListFlowLoadable"),
                   {
                     eventId: e,
-                    isNewEvent: n,
                     onClose: o("WAWebDrawerManager").closeDrawerRight,
                     startsWithInvite: t,
                   },

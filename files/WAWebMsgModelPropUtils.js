@@ -22,6 +22,7 @@ __d(
         "loading_media",
         "image",
         "instant_image",
+        "instant_video",
         "video",
         "ptv",
         "audio",

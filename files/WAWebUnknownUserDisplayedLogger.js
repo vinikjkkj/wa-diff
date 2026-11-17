@@ -14,28 +14,40 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 6 * o("WATimeUtils").HOUR_SECONDS;
-    function c() {
+      u = "chat_list_";
+    function c(e) {
+      var t = e.age,
+        n = e.isCtwa,
+        r = e.lastMsg,
+        o = e.origin,
+        a = "" + u + o + "_" + r + "_" + t;
+      return n ? a + "_ctwa" : a;
+    }
+    function d(e) {
+      return e.startsWith(u);
+    }
+    var m = 6 * o("WATimeUtils").HOUR_SECONDS;
+    function p() {
       return o("WAWebPersistedPrefObject").readPersistedPrefObject(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_USER_WAM_WINDOW,
-        d,
+        _,
         "unknown-user-wam-window-malformed",
       );
     }
-    function d(e) {
+    function _(e) {
       var t = e.count,
         n = e.start;
       return typeof t != "number" || typeof n != "number"
         ? null
         : { count: t, start: o("WATimeUtils").castToUnixTime(n) };
     }
-    function m(e) {
+    function f(e) {
       o("WAWebPersistedPrefObject").writePersistedPrefObject(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_USER_WAM_WINDOW,
         e,
       );
     }
-    function p() {
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "username_unknown_user_logging_enabled",
@@ -45,23 +57,23 @@ __d(
         ).usernameAdoptionAndEngagementMonitoringEnabled()
       );
     }
-    function _() {
+    function h() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "unknown_user_wam_max_events_per_window",
       );
       if (e <= 0) return !1;
       var t = o("WATimeUtils").unixTime(),
-        n = c(),
+        n = p(),
         r,
         a;
       return (
-        n != null && t - n.start < u
+        n != null && t - n.start < m
           ? ((r = n.start), (a = n.count))
           : ((r = t), (a = 0)),
-        a >= e ? !1 : (m({ count: a + 1, start: r }), !0)
+        a >= e ? !1 : (f({ count: a + 1, start: r }), !0)
       );
     }
-    function f(e) {
+    function y(e) {
       return e.isBot()
         ? "bot"
         : e.isLid()
@@ -70,7 +82,7 @@ __d(
             ? "group"
             : "pn";
     }
-    function g(e) {
+    function C(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "unknown_user_target_rid_logging",
@@ -83,7 +95,7 @@ __d(
           : t.user;
       }
     }
-    function h(t, n, r) {
+    function b(t, n, r) {
       var a, i, l, u, c, d, m, p;
       (o("WAWebCurrentUser").isEmployee()
         ? o("WALogger")
@@ -111,8 +123,8 @@ __d(
         ).UsernameUnknownUserDisplayedWamEvent)({
           unknownUserDisplayContext: t,
           clientTsMs: r.clientTsMs,
-          jidType: f(n),
-          unknownUserDisplayLid: (a = g(n)) != null ? a : void 0,
+          jidType: y(n),
+          unknownUserDisplayLid: (a = C(n)) != null ? a : void 0,
           isFirstDisplay: (i = r.isFirstDisplay) != null ? i : void 0,
           durationInSecs: (l = r.durationInSecs) != null ? l : void 0,
           hasUn: (u = r.hasUn) != null ? u : void 0,
@@ -123,10 +135,12 @@ __d(
             (p = r.unknownUserRecoveryPath) != null ? p : void 0,
         }).commit());
     }
-    ((l.WINDOW_SECONDS = u),
-      (l.unknownUserLoggingEnabled = p),
-      (l.reserveUnknownUserEmission = _),
-      (l.commitUnknownUserDisplayed = h));
+    ((l.getChatListUnknownUserDisplayContext = c),
+      (l.isChatListUnknownUserDisplayContext = d),
+      (l.WINDOW_SECONDS = m),
+      (l.unknownUserLoggingEnabled = g),
+      (l.reserveUnknownUserEmission = h),
+      (l.commitUnknownUserDisplayed = b));
   },
   98,
 );

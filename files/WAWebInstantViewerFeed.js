@@ -4,9 +4,9 @@ __d(
     "WALogger",
     "WAWebChatGroupUtils",
     "WAWebFrontendMsgGetters",
+    "WAWebInstantMsgTypes",
     "WAWebInstantsConsumption",
     "WAWebMsgGetters",
-    "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -51,12 +51,12 @@ __d(
             .slice(0, s);
     }
     function d(e, t) {
-      return e.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE
-        ? !1
-        : o("WAWebMsgGetters").getIsSentByMe(e)
+      return o("WAWebInstantMsgTypes").isInstantMsgType(e.type)
+        ? o("WAWebMsgGetters").getIsSentByMe(e)
           ? !o("WAWebInstantsConsumption").isInstantConsumed(e) &&
             !o("WAWebChatGroupUtils").isSuspendedGroup(t)
-          : o("WAWebInstantsConsumption").canConsumeInstant(e);
+          : o("WAWebInstantsConsumption").canConsumeInstant(e)
+        : !1;
     }
     l.buildInstantViewerFeed = u;
   },

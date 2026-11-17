@@ -42,6 +42,7 @@ __d(
       { type: "hsm", processor: null },
       { type: "image", processor: null },
       { type: "instant_image", processor: null },
+      { type: "instant_video", processor: null },
       { type: "interactive", processor: null },
       { type: "interactive_response", processor: null },
       { type: "keep_in_chat", processor: null },

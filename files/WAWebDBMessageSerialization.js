@@ -3,10 +3,10 @@ __d(
   [
     "invariant",
     "WAJids",
-    "WAWebABProps",
     "WAWebApiHydrateWidsUtil",
     "WAWebDBMessageUtils",
     "WAWebDBMsgOpaqueDataKeys",
+    "WAWebInstantMsgTypes",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebMusicGatingUtils",
@@ -217,8 +217,8 @@ __d(
         (e.futureproofType = o("WAWebMsgType").MSG_TYPE.MUSIC));
     }
     function f(e) {
-      e.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE &&
-        !o("WAWebABProps").getABPropConfigValue("instants_receiver_enabled") &&
+      o("WAWebInstantMsgTypes").isInstantMsgType(e.type) &&
+        !o("WAWebInstantMsgTypes").isInstantTypeReceiverEnabled(e.type) &&
         ((e.type = o("WAWebMsgType").MSG_TYPE.UNKNOWN),
         (e.kind = o("WAWebMsgType").MsgKind.Unknown));
     }

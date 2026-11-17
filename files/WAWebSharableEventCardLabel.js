@@ -28,7 +28,7 @@ __d(
             ? {
                 text: o(
                   "WAWebSharableEventStrings",
-                ).getSharableEventHostingLabel(),
+                ).getSharableEventCreatorLabel(),
                 tone: e.Accent,
               }
             : i == null

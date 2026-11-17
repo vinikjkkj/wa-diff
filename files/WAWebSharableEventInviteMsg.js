@@ -13,22 +13,23 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 192,
-      c = 108,
-      d = 0.7;
-    function m(e) {
-      return p.apply(this, arguments);
+      u,
+      c = 192,
+      d = 108,
+      m = 0.7;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
             a =
               e.coverImageUrl == null || e.coverImageUrl === ""
                 ? null
-                : yield _(e.coverImageUrl);
+                : yield f(e.coverImageUrl);
           return {
             type: o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE,
             kind: o("WAWebMsgType").MsgKind.SharableEventInvite,
@@ -55,49 +56,78 @@ __d(
             sharableEventInviteLastUpdatedTsUsec: e.lastUpdatedTsUsec,
           };
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = "download";
           try {
-            var r,
-              a = yield window.fetch(t),
-              i = yield createImageBitmap(yield a.blob()),
-              l = document.createElement("canvas");
-            ((l.width = u),
-              (l.height = c),
-              (r = l.getContext("2d")) == null || r.drawImage(i, 0, 0, u, c),
-              i.close());
-            var m = yield new (s || (s = n("Promise")))(function (e) {
-              return l.toBlob(e, "image/jpeg", d);
+            var a,
+              i = yield window.fetch(t);
+            if (!i.ok)
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][invite] thumbnail failed: cover download returned HTTP ",
+                      " from ",
+                      "",
+                    ])),
+                  i.status,
+                  h(t),
+                ),
+                null
+              );
+            var l = yield i.blob();
+            r = "decode";
+            var p = yield createImageBitmap(l);
+            r = "encode";
+            var _ = document.createElement("canvas");
+            ((_.width = c),
+              (_.height = d),
+              (a = _.getContext("2d")) == null || a.drawImage(p, 0, 0, c, d),
+              p.close());
+            var f = yield new (u || (u = n("Promise")))(function (e) {
+              return _.toBlob(e, "image/jpeg", m);
             });
-            return m == null ? null : yield m.arrayBuffer();
-          } catch (t) {
+            return f == null ? null : yield f.arrayBuffer();
+          } catch (e) {
             return (
               o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite] thumbnail failed ",
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[sharable_event][invite] thumbnail failed at ",
+                    " of the cover from ",
+                    ": ",
                     "",
                   ])),
+                r,
+                h(t),
                 o("WAWebSharableEventFailureLogger").describeSharableEventError(
-                  t,
+                  e,
                 ),
               ),
               null
             );
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.buildSharableEventInviteMsgFields = m),
-      (l.makeSharableEventCoverThumbnail = _));
+    function h(e) {
+      try {
+        return new URL(e).host;
+      } catch (e) {
+        return "an invalid URL";
+      }
+    }
+    ((l.buildSharableEventInviteMsgFields = p),
+      (l.makeSharableEventCoverThumbnail = f));
   },
   98,
 );

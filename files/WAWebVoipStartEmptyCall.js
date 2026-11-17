@@ -11,6 +11,7 @@ __d(
     "WAWebToastManager",
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipAutoPopoutLoader",
+    "WAWebVoipCallBlockedModals",
     "WAWebVoipCreateCallLink",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
@@ -52,6 +53,10 @@ __d(
           try {
             if (o("WAWebVoipStackInterface").getVoipStackInterface == null)
               throw r("err")("not in windows env");
+            if (
+              o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()
+            )
+              return (p(l), !1);
             var d = yield o(
               "WAWebVoipAcquireMediaStream",
             ).checkVoipDevicePermissions(!0);

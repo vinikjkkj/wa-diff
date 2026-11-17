@@ -125,9 +125,6 @@ __d(
           e.sharableEventInviteEndTime,
         );
       return a == null ||
-        !o(
-          "WAWebSharableEventGatingUtils",
-        ).isSharableEventInviteDatetimeEnabled() ||
         o("WAWebSharableEventInviteStatus").isSharableEventInviteAccessLost(
           e.sharableEventInviteStatus,
         ) ||

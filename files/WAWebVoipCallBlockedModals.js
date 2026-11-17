@@ -7,6 +7,7 @@ __d(
     "WAWebEnvironment",
     "WAWebMiscBrowserUtils",
     "WAWebModalManager",
+    "WAWebNetworkStatus",
     "WAWebODS",
     "WAWebReloadCrashAnnotations",
     "WAWebToast.react",
@@ -163,6 +164,24 @@ __d(
       );
     }
     function _() {
+      return r("WAWebNetworkStatus").online
+        ? !1
+        : (o("WAWebModalManager").ModalManager.open(
+            u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              testid: "voip_no_connection_modal",
+              tsNavigationData: {
+                surface: "unknown",
+                viewName: "voip-start-call",
+              },
+              onOK: o("WAWebModalManager").closeModalManager,
+              children: s._(
+                /*BTDS*/ "Couldn't place call. Make sure your device has an internet connection and try again.",
+              ),
+            }),
+          ),
+          !0);
+    }
+    function f() {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           testid: "voip_init_unavailable_reload_modal",
@@ -186,26 +205,26 @@ __d(
         }),
       );
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return c()
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return c() || _()
             ? !0
             : o(
                   "WAWebVoipInitEventEmitter",
                 ).VoipInitEventEmitter.getIsVoipStackUnresponsive()
               ? (o("WAWebCoreActionsODS").logCallInitBlockedStackUnresponsive(),
-                _(),
+                f(),
                 !0)
               : d();
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h() {
+    function y() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "End your current call to start a new one."),
@@ -213,9 +232,10 @@ __d(
       );
     }
     ((l.showCouldNotPlaceCallModal = p),
-      (l.showVoipInitUnavailableModal = _),
-      (l.showCallBlockedModalIfNeeded = f),
-      (l.showEndCurrentCallToast = h));
+      (l.showNoConnectionModalIfOffline = _),
+      (l.showVoipInitUnavailableModal = f),
+      (l.showCallBlockedModalIfNeeded = g),
+      (l.showEndCurrentCallToast = y));
   },
   226,
 );

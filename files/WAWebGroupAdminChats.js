@@ -1,11 +1,6 @@
 __d(
   "WAWebGroupAdminChats",
-  [
-    "WAWebChatCollection",
-    "WAWebChatGetters",
-    "WAWebFrontendChatGetters",
-    "WAWebL10NAccentFold",
-  ],
+  ["WAWebChatCollection", "WAWebChatGetters", "WAWebFrontendChatGetters"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.groupMetadata;
@@ -29,19 +24,9 @@ __d(
         })
       );
     }
-    function c(e, t) {
-      var n = o("WAWebL10NAccentFold").accentFold(t.trim());
-      return (
-        n === "" ||
-        o("WAWebL10NAccentFold")
-          .accentFold(o("WAWebFrontendChatGetters").getFormattedTitle(e))
-          .includes(n)
-      );
-    }
     ((l.isAdminGroupChat = e),
       (l.getAdminGroupChats = s),
-      (l.haveSameAdminGroupChats = u),
-      (l.chatMatchesGroupSearch = c));
+      (l.haveSameAdminGroupChats = u));
   },
   98,
 );

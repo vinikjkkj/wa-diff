@@ -180,6 +180,10 @@ __d(
                                                     .InstantImage ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")
+                                                    .EncMediaType
+                                                    .InstantVideo ||
+                                                e ===
+                                                  o("WAWebBackendJobs.flow")
                                                     .EncMediaType.List ||
                                                 e ===
                                                   o("WAWebBackendJobs.flow")

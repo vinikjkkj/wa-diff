@@ -6,6 +6,7 @@ __d(
     "WAWebAudioDeviceManager",
     "WAWebCallCollection",
     "WAWebPipController",
+    "WAWebVoipCallBlockedModals",
     "WAWebVoipCallTransferEntryPointStore",
     "WAWebVoipEventConstants",
     "WAWebVoipHandleCallTransferFailed",
@@ -47,48 +48,50 @@ __d(
       F(e, !1) != null && r("WAWebPipController").openVoipUiPiPForOutgoing();
     }
     function P(t) {
-      var n,
-        a = F(t, !0);
-      if (a != null) {
-        (n = D) == null || n.stop();
-        var i = { entryPoint: a, isAbandoned: !1 };
-        I = i;
-        try {
-          r("WAWebPipController").openVoipUiPiPForOutgoing();
-        } catch (t) {
-          (o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: transferLobby: direct join failed",
-                ])),
-            )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("voip-transfer-lobby-direct-join-failed"),
-            (I = null),
-            q(),
-            o(
-              "WAWebVoipHandleCallTransferFailed",
-            ).showCallTransferCouldNotConnectToast());
-          return;
-        }
-        N(i).catch(function (e) {
-          (o("WALogger")
-            .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: transferLobby: direct join failed",
-                ])),
-            )
-            .catching(r("getErrorSafe")(e))
-            .sendLogs("voip-transfer-lobby-direct-join-failed"),
-            I === i &&
-              ((I = null),
-              W(a.rootCallId),
+      var n;
+      if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
+        var a = F(t, !0);
+        if (a != null) {
+          (n = D) == null || n.stop();
+          var i = { entryPoint: a, isAbandoned: !1 };
+          I = i;
+          try {
+            r("WAWebPipController").openVoipUiPiPForOutgoing();
+          } catch (t) {
+            (o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: transferLobby: direct join failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("voip-transfer-lobby-direct-join-failed"),
+              (I = null),
+              q(),
               o(
                 "WAWebVoipHandleCallTransferFailed",
-              ).showCallTransferCouldNotConnectToast()));
-        });
+              ).showCallTransferCouldNotConnectToast());
+            return;
+          }
+          N(i).catch(function (e) {
+            (o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: transferLobby: direct join failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("voip-transfer-lobby-direct-join-failed"),
+              I === i &&
+                ((I = null),
+                W(a.rootCallId),
+                o(
+                  "WAWebVoipHandleCallTransferFailed",
+                ).showCallTransferCouldNotConnectToast()));
+          });
+        }
       }
     }
     function N(e) {
@@ -247,7 +250,10 @@ __d(
     function O(e) {
       var t,
         n = r("WAWebCallCollection").pendingCallTransferLobby;
-      if (!(n == null || n.isJoining)) {
+      if (
+        !(n == null || n.isJoining) &&
+        !o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()
+      ) {
         var a = n.entryPoint;
         (o("WALogger").LOG(
           p ||

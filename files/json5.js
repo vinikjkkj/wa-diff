@@ -265,7 +265,7 @@ __d(
       );
     })()),
       (e.fromFragment = e.parse),
-      (e.fromScrap = e.parse),
+      (e.fromSliver = e.parse),
       (e.stringify = function (t, n, r) {
         if (n && typeof n != "function" && !s(n))
           throw new Error("Replacer must be a function or an array");

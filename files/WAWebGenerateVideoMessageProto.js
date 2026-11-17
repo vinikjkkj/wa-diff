@@ -91,7 +91,9 @@ __d(
         ),
         n.type === o("WAWebMsgType").MSG_TYPE.PTV
           ? { ptvMessage: p }
-          : { videoMessage: p }
+          : n.type === o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO
+            ? { instantVideoMessage: p }
+            : { videoMessage: p }
       );
     }
     l.default = e;

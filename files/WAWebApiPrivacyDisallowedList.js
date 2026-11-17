@@ -50,59 +50,66 @@ __d(
       };
       return (
         e.forEach(function (e) {
-          if (e.id !== "pn_sharing:deny")
-            e: {
-              var n = e;
-              if (
-                ((typeof n == "object" && n !== null) ||
-                  typeof n == "function") &&
-                n.id === "status"
-              ) {
-                var r = n;
-                t.about = r;
-                break e;
-              }
-              if (
-                ((typeof n == "object" && n !== null) ||
-                  typeof n == "function") &&
-                n.id === "groupadd"
-              ) {
-                var o = n;
-                t.groupadd = o;
-                break e;
-              }
-              if (
-                ((typeof n == "object" && n !== null) ||
-                  typeof n == "function") &&
-                n.id === "last"
-              ) {
-                var a = n;
-                t.last = a;
-                break e;
-              }
-              if (
-                ((typeof n == "object" && n !== null) ||
-                  typeof n == "function") &&
-                n.id === "profile"
-              ) {
-                var i = n;
-                t.profile = i;
-                break e;
-              }
-              if (
-                ((typeof n == "object" && n !== null) ||
-                  typeof n == "function") &&
-                n.id === "pix"
-              ) {
-                var l = n;
-                t.pix = l;
-                break e;
-              }
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  n,
-              );
+          e: {
+            var n = e;
+            if (
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "status"
+            ) {
+              var r = n;
+              t.about = r;
+              break e;
             }
+            if (
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "groupadd"
+            ) {
+              var o = n;
+              t.groupadd = o;
+              break e;
+            }
+            if (
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "last"
+            ) {
+              var a = n;
+              t.last = a;
+              break e;
+            }
+            if (
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "profile"
+            ) {
+              var i = n;
+              t.profile = i;
+              break e;
+            }
+            if (
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.id === "pix"
+            ) {
+              var l = n;
+              t.pix = l;
+              break e;
+            }
+            if (
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              (n.id === "pn_sharing:deny" ||
+                n.id === "pn_sharing:allow" ||
+                n.id === "pn_sharing:contact_exclude")
+            )
+              return;
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                n,
+            );
+          }
         }),
         t
       );

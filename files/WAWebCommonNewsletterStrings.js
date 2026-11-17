@@ -265,7 +265,37 @@ __d(
         key: "accounts-reached",
       };
     }
-    function B() {
+    function B(e) {
+      return {
+        name: s._(/*BTDS*/ "Accounts reached"),
+        description: s._(
+          /*BTDS*/ '_j{"*":"Unique accounts reached in the previous {number} days.","_1":"Unique accounts reached in the previous 1 day."}',
+          [s._plural(e, "number", e)],
+        ),
+        key: "accounts-reached",
+      };
+    }
+    function W(e) {
+      return {
+        name: s._(/*BTDS*/ "Followers and non-followers"),
+        description: s._(
+          /*BTDS*/ '_j{"*":"Unique accounts reached in the previous {number} days grouped by whether the viewer follows the channel.","_1":"Unique accounts reached in the previous 1 day grouped by whether the viewer follows the channel."}',
+          [s._plural(e, "number", e)],
+        ),
+        key: "reach-followers-and-non-followers",
+      };
+    }
+    function q(e) {
+      return {
+        name: s._(/*BTDS*/ "Top countries or regions"),
+        description: s._(
+          /*BTDS*/ '_j{"*":"Unique accounts reached in the previous {number} days grouped by country, subject to existing privacy thresholds and limits.","_1":"Unique accounts reached in the previous 1 day grouped by country, subject to existing privacy thresholds and limits."}',
+          [s._plural(e, "number", e)],
+        ),
+        key: "reach-top-countries",
+      };
+    }
+    function U() {
       return {
         name: s._(/*BTDS*/ "Followers"),
         description: s._(
@@ -274,7 +304,7 @@ __d(
         key: "followers",
       };
     }
-    function W() {
+    function V() {
       return {
         name: s._(/*BTDS*/ "Non-followers"),
         description: s._(
@@ -283,7 +313,7 @@ __d(
         key: "non-followers",
       };
     }
-    function q() {
+    function H() {
       return {
         name: s._(/*BTDS*/ "Top regions"),
         description: s._(
@@ -292,7 +322,7 @@ __d(
         key: "reach-top-regions",
       };
     }
-    function U() {
+    function G() {
       return {
         name: s._(/*BTDS*/ "Top regions"),
         description: s._(
@@ -301,7 +331,7 @@ __d(
         key: "follower-top-regions",
       };
     }
-    function V() {
+    function z() {
       return {
         name: s._(/*BTDS*/ "Total followers"),
         description: s._(
@@ -310,7 +340,7 @@ __d(
         key: "total-followers",
       };
     }
-    function H() {
+    function j() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "channels_producer_insights_min_followers",
       );
@@ -319,13 +349,13 @@ __d(
         [s._plural(e, "number", e)],
       );
     }
-    H.displayName = H.name + " [from " + i.id + "]";
-    function G() {
+    j.displayName = j.name + " [from " + i.id + "]";
+    function K() {
       return s._(
         /*BTDS*/ "To protect consumer privacy, accounts reached below 100 are not displayed.",
       );
     }
-    ((G.displayName = G.name + " [from " + i.id + "]"),
+    ((K.displayName = K.name + " [from " + i.id + "]"),
       (l.roundToThousands = c),
       (l.getNewsletterFollowersText = d),
       (l.getNewsletterDirectoryFilterLabel = m),
@@ -355,13 +385,16 @@ __d(
       (l.getNetFollowsMetricInfo = A),
       (l.getUnfollowsMetricInfo = F),
       (l.getAccountsReachMetricInfo = O),
-      (l.getReachFollowersMetricInfo = B),
-      (l.getReachNonFollowersMetricInfo = W),
-      (l.getReachTopRegionsMetricInfo = q),
-      (l.getFollowerTopRegionsMetricInfo = U),
-      (l.getTotalFollowersMetricInfo = V),
-      (l.getMetricsAvailabilityDisclaimer = H),
-      (l.getReachMetricsThreshold = G));
+      (l.getNewsletterStatusOnlyAccountsReachMetricInfo = B),
+      (l.getReachFollowersAndNonFollowersMetricInfo = W),
+      (l.getNewsletterStatusTopCountriesMetricInfo = q),
+      (l.getReachFollowersMetricInfo = U),
+      (l.getReachNonFollowersMetricInfo = V),
+      (l.getReachTopRegionsMetricInfo = H),
+      (l.getFollowerTopRegionsMetricInfo = G),
+      (l.getTotalFollowersMetricInfo = z),
+      (l.getMetricsAvailabilityDisclaimer = j),
+      (l.getReachMetricsThreshold = K));
   },
   226,
 );

@@ -14,8 +14,12 @@ __d(
     var e,
       s,
       u = (e = r("justknobx")._("3702")) != null ? e : 100,
-      c = (s = r("justknobx")._("5236")) != null ? s : 10;
-    function d(e, t) {
+      c = (s = r("justknobx")._("5236")) != null ? s : 10,
+      d = /https?:\/\/[^\s\'\"()]+?(?=:\d+:\d+|[\s\'\"()]|$)/g;
+    function m(e) {
+      return e == null ? void 0 : e.replace(d, "<url>");
+    }
+    function p(e, t) {
       return (
         t === void 0 && (t = u),
         e == null || e === ""
@@ -23,7 +27,7 @@ __d(
           : o("WAHashStringToNumber").hashStringToNumber(e) % t === 0
       );
     }
-    function m(e) {
+    function _(e) {
       return (function (t) {
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -166,7 +170,7 @@ __d(
         };
       })(e);
     }
-    function p(e) {
+    function f(e) {
       if (
         e == null ||
         typeof e != "object" ||
@@ -188,14 +192,14 @@ __d(
         ? e
         : null;
     }
-    function _(e) {
+    function g(e) {
       return e == null || typeof e != "object"
         ? null
         : e instanceof Error || ("stack" in e && "message" in e)
           ? e
           : null;
     }
-    function f(e) {
+    function h(e) {
       return e == null ||
         typeof e != "object" ||
         e instanceof o("WACustomError").TimeoutError
@@ -216,8 +220,8 @@ __d(
             }
           : null;
     }
-    function g(e, t) {
-      d(e, c) &&
+    function y(e, t) {
+      p(e, c) &&
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.OPEN,
           webtpSessionId: e,
@@ -227,8 +231,8 @@ __d(
           webtpTelemetryData: JSON.stringify({ sampleRate: c }),
         }).commit();
     }
-    function h(e, t, n, r) {
-      d(t, u) &&
+    function C(e, t, n, r) {
+      p(t, u) &&
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
             .TELEMETRY,
@@ -242,15 +246,15 @@ __d(
             .THUMBNAIL,
         }).commit();
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       if (e instanceof o("WAAbortError").AbortError) {
         var r;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: "abort",
           webtpErrorCode: "ABORT",
-          webtpErrorMessage: e.message,
-          webtpErrorStack: (r = e.stack) != null ? r : "",
+          webtpErrorMessage: m(e.message),
+          webtpErrorStack: m((r = e.stack) != null ? r : ""),
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,
@@ -264,8 +268,8 @@ __d(
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: "timeout",
           webtpErrorCode: "TIMEOUT",
-          webtpErrorMessage: e.message,
-          webtpErrorStack: (a = e.stack) != null ? a : "",
+          webtpErrorMessage: m(e.message),
+          webtpErrorStack: m((a = e.stack) != null ? a : ""),
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,
@@ -273,15 +277,15 @@ __d(
         }).commit();
         return;
       }
-      var i = p(e);
+      var i = f(e);
       if (i != null) {
         var l,
-          s = m(i);
+          s = _(i);
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: s.errorType,
-          webtpErrorMessage: s.errorMessage,
-          webtpErrorStack: s.errorStack,
+          webtpErrorMessage: m(s.errorMessage),
+          webtpErrorStack: m(s.errorStack),
           webtpErrorCode: s.errorCode,
           webtpTelemetryData: (l = s.telemetryData) != null ? l : "",
           webtpSessionId: t,
@@ -291,14 +295,14 @@ __d(
         }).commit();
         return;
       }
-      var u = f(e);
+      var u = h(e);
       if (u != null) {
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: u.type,
           webtpErrorCode: u.type,
-          webtpErrorMessage: u.message,
-          webtpErrorStack: u.stack,
+          webtpErrorMessage: m(u.message),
+          webtpErrorStack: m(u.stack),
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,
@@ -307,15 +311,15 @@ __d(
         }).commit();
         return;
       }
-      var c = _(e);
+      var c = g(e);
       if (c != null) {
         var d;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: "error",
-          webtpErrorCode: b(c),
-          webtpErrorMessage: c.message,
-          webtpErrorStack: (d = c.stack) != null ? d : "",
+          webtpErrorCode: S(c),
+          webtpErrorMessage: m(c.message),
+          webtpErrorStack: m((d = c.stack) != null ? d : ""),
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,
@@ -326,18 +330,18 @@ __d(
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
         webtpErrorType: "other",
-        webtpErrorMessage: String(e),
+        webtpErrorMessage: m(String(e)),
         webtpSessionId: t,
         webtpFileSize: n,
         webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
           .THUMBNAIL,
       }).commit();
     }
-    var C = ["webassembly", "wasm", "out of memory", "aborted(", "unreachable"];
-    function b(e) {
+    var v = ["webassembly", "wasm", "out of memory", "aborted(", "unreachable"];
+    function S(e) {
       var t = typeof e.message == "string" ? e.message.toLowerCase() : "";
       if (
-        C.some(function (e) {
+        v.some(function (e) {
           return t.includes(e);
         })
       )
@@ -346,14 +350,15 @@ __d(
       return n == null || n === "" ? "ERROR" : n;
     }
     ((l.SESSION_SAMPLE_RATE = u),
-      (l.shouldLogSession = d),
-      (l.convertTelemetryErrorEventToLogEvent = m),
-      (l.asTelemetryError = p),
-      (l.asError = _),
-      (l.logThumbnailRenderAttemptEvent = g),
-      (l.logThumbnailTelemetryDataEvent = h),
-      (l.logThumbnailRenderErrorEvent = y),
-      (l.getThumbnailNativeErrorCode = b));
+      (l.redactUrls = m),
+      (l.shouldLogSession = p),
+      (l.convertTelemetryErrorEventToLogEvent = _),
+      (l.asTelemetryError = f),
+      (l.asError = g),
+      (l.logThumbnailRenderAttemptEvent = y),
+      (l.logThumbnailTelemetryDataEvent = C),
+      (l.logThumbnailRenderErrorEvent = b),
+      (l.getThumbnailNativeErrorCode = S));
   },
   98,
 );

@@ -5,17 +5,8 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = {
-        audienceName: "",
-        currency: "USD",
-        dailyBudget: 0,
-        environment: null,
-        isEditingSavedAudience: !1,
-        legacyAdAccountID: "",
-        selectedPublisherPlatforms: [],
-        setAudienceName: function () {},
-      },
-      c = s.createContext(u);
+      u = s.createContext(null),
+      c = u;
     l.default = c;
   },
   98,

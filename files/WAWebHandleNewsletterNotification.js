@@ -2,10 +2,12 @@ __d(
   "WAWebHandleNewsletterNotification",
   [
     "$InternalEnum",
+    "JSResourceForInteraction",
     "WADeprecatedWapParser",
     "WALogger",
     "WAParsableWapNode",
     "WAPromiseQueue",
+    "WAWebLazyLoadedRetriable",
     "WAWebNewsletterHandleLiveUpdatesNotification",
     "asyncToGeneratorRuntime",
     "err",
@@ -14,9 +16,22 @@ __d(
     var e,
       s,
       u,
-      c = n("$InternalEnum")({ LiveUpdates: "live_updates" }),
-      d = new (o("WAPromiseQueue").PromiseQueueMap)(),
-      m = new (r("WADeprecatedWapParser"))(
+      c = n("$InternalEnum")({
+        LiveUpdates: "live_updates",
+        QuestionResponseReaction: "question_response_reaction",
+      }),
+      d = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return r("JSResourceForInteraction")(
+            "WAWebHandleNewsletterQuestionResponseReactionNotification",
+          )
+            .__setRef("WAWebHandleNewsletterNotification")
+            .load();
+        }),
+        "HandleNewsletterQuestionResponseReactionNotification",
+      ),
+      m = new (o("WAPromiseQueue").PromiseQueueMap)(),
+      p = new (r("WADeprecatedWapParser"))(
         "incomingNewsletterNotificationParser",
         function (t) {
           var n = t.mapFirstChild(function (e) {
@@ -57,22 +72,28 @@ __d(
           return { firstChildTag: a, from: i.newsletterJid };
         },
       );
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = m.parseOrThrow(e),
+            var t = p.parseOrThrow(e),
               n = t.firstChildTag,
               r = t.from;
-            return yield d.enqueue(r, function () {
+            return yield m.enqueue(r, function () {
               switch (n) {
                 case c.LiveUpdates:
                   return o(
                     "WAWebNewsletterHandleLiveUpdatesNotification",
                   ).handleNewsletterLiveUpdatesNotification(e);
+                case c.QuestionResponseReaction:
+                  return d().then(function (t) {
+                    return t.handleNewsletterQuestionResponseReactionNotification(
+                      e,
+                    );
+                  });
               }
             });
           } catch (e) {
@@ -95,10 +116,10 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.default = p;
+    l.default = _;
   },
   98,
 );

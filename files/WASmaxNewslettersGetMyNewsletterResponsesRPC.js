@@ -184,8 +184,6 @@ __d(
     ((l.sendGetMyNewsletterResponsesRPC = e),
       (l.parseGetMyNewsletterResponsesResponseClientError = u),
       (l.parseGetMyNewsletterResponsesResponseServerError = c),
-      (l.parseGetMyNewsletterResponsesResponseSuccessMyQuestionResponsesQuestionResponse =
-        d),
       (l.parseGetMyNewsletterResponsesResponseSuccess = m),
       (l.makeGetMyNewsletterResponsesRequest = p));
   },

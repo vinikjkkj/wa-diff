@@ -504,6 +504,7 @@ __d(
                     t,
                     i.duration,
                     null,
+                    i.afterReadDuration,
                   )));
             }
             if (

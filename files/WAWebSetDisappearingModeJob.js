@@ -48,7 +48,7 @@ __d(
                   l,
                 )
                 .tags("DM", "DDM"),
-              new Error({ errorCode: i, errorText: l })
+              new Error("setDisappearingMode: failed " + i + ", " + l)
             );
           }
         })),

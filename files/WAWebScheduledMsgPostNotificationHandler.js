@@ -136,7 +136,7 @@ __d(
                             break;
                           }
                           default:
-                            yield T(e.msgId, p);
+                            yield D(e.msgId, p);
                         }
                       } catch (e) {
                         o("WALogger")
@@ -299,6 +299,7 @@ __d(
                 invis: !1,
                 isScheduledMsg: !1,
                 scheduledTimestampS: o("WATimeUtils").castToUnixTime(R),
+                messageSecret: T(t, e.outerMessageSecret),
               },
             ),
             I = function () {
@@ -323,17 +324,17 @@ __d(
                       body: l != null ? l : "",
                     });
             },
-            T = I(),
-            D = yield o(
+            D = I(),
+            x = yield o(
               "WAWebLimitSharingAcp2HideReceivedMsgs",
             ).hideMsgsReceivedInAcp2RestrictedChat({
               messageType: u
                 ? o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP
                 : o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
-              msgs: [T],
+              msgs: [D],
               proto: t,
             });
-          if (D.length === 0) {
+          if (x.length === 0) {
             o("WALogger").LOG(
               y ||
                 (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -358,7 +359,7 @@ __d(
           try {
             yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
               chatId: c,
-              newMsg: T,
+              newMsg: D,
               handleSingleMsgOrigin: "scheduledMsgReveal",
             });
           } catch (e) {
@@ -403,11 +404,16 @@ __d(
       );
     }
     function T(e, t) {
-      return D.apply(this, arguments);
+      var n,
+        r = (n = e.messageContextInfo) == null ? void 0 : n.messageSecret;
+      return r != null ? new Uint8Array(r) : t != null ? t : void 0;
     }
-    function D() {
+    function D(e, t) {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger")
             .ERROR(
               R ||
@@ -423,7 +429,7 @@ __d(
               "FAILED",
             ));
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     l.mexHandleScheduledMsgPost = L;

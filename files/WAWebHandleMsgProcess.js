@@ -259,6 +259,7 @@ __d(
                 info: s,
                 proto: T,
                 bizInfo: t,
+                e2eInfo: null,
               }),
                 o("WAWebHandleMsgValidate").validateAddPixKeyOfferSender({
                   info: s,
@@ -460,6 +461,7 @@ __d(
                 info: s,
                 proto: T,
                 bizInfo: t,
+                e2eInfo: S ? null : i,
               }),
               o("WAWebHandleMsgValidate").logAddPixKeyOfferReceipt({
                 info: s,

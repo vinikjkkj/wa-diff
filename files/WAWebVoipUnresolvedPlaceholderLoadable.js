@@ -9,57 +9,85 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("WAWebLazyLoadedRetriable")(function () {
+      s,
+      u = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")(
           "WAWebVoipActionUncountUnresolvedPlaceholder",
         )
           .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
           .load();
       }, "VoipUncountUnresolvedPlaceholder"),
-      u = r("WAWebLazyLoadedRetriable")(function () {
+      c = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")(
           "WAWebVoipActionCountShownPlaceholder",
         )
           .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
           .load();
-      }, "VoipCountShownPlaceholder");
-    function c(e) {
-      s().then(
+      }, "VoipCountShownPlaceholder"),
+      d = r("WAWebLazyLoadedRetriable")(function () {
+        return r("JSResourceForInteraction")(
+          "WAWebVoipActionSweepUnresolvedPlaceholders",
+        )
+          .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
+          .load();
+      }, "VoipSweepUnresolvedPlaceholders");
+    function m() {
+      d().then(
+        function (e) {
+          var t = e.scheduleUnresolvedPlaceholderSweep;
+          return t();
+        },
+        function (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] unresolved placeholder sweep not loaded",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .tags("non-sad");
+        },
+      );
+    }
+    function p(e) {
+      u().then(
         function (t) {
           var n = t.scheduleUnresolvedPlaceholderCheck;
           return n(e);
         },
         function (t) {
-          return m(e, t);
+          return f(e, t);
         },
       );
     }
-    function d(e) {
-      u().then(
+    function _(e) {
+      c().then(
         function (t) {
           var n = t.queueCountShownPlaceholderAgain;
           return n(e);
         },
         function (t) {
-          return m(e, t);
+          return f(e, t);
         },
       );
     }
-    function m(t, n) {
+    function f(e, t) {
       o("WALogger")
         .WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[voip] placeholder ",
               ": unread update not loaded",
             ])),
-          t.id,
+          e.id,
         )
-        .catching(r("getErrorSafe")(n))
+        .catching(r("getErrorSafe")(t))
         .tags("non-sad");
     }
-    ((l.scheduleUnresolvedPlaceholderCheckLoadable = c),
-      (l.countShownPlaceholderAgainLoadable = d));
+    ((l.scheduleUnresolvedPlaceholderSweepLoadable = m),
+      (l.scheduleUnresolvedPlaceholderCheckLoadable = p),
+      (l.countShownPlaceholderAgainLoadable = _));
   },
   98,
 );

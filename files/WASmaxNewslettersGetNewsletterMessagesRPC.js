@@ -284,13 +284,7 @@ __d(
       (l.parseGetNewsletterMessagesResponseClientError = u),
       (l.parseGetNewsletterMessagesResponseServerError = c),
       (l.parseGetNewsletterMessagesResponseSuccess = d),
-      (l.makeGetNewsletterMessagesRequest = m),
-      (l.mergeNewsletterMessageRequestIQPayloadMixin = _),
-      (l.mergeNewsletterMessageRequestPayloadMixin = g),
-      (l.parseGetNewsletterMessagesClientErrors = h),
-      (l.mergeMessageDirections = y),
-      (l.mergeAfterMixinMixin = b),
-      (l.mergeBeforeMixinMixin = S));
+      (l.makeGetNewsletterMessagesRequest = m));
   },
   98,
 );

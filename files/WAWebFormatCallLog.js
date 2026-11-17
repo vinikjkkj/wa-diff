@@ -1,18 +1,27 @@
 __d(
   "WAWebFormatCallLog",
-  ["fbt", "WAWebCallLogUtils", "WAWebL10N", "WAWebMsgGetters"],
+  [
+    "fbt",
+    "WAWebABProps",
+    "WAWebCallLogUtils",
+    "WAWebL10N",
+    "WAWebMsgGetters",
+    "WAWebVoipCallTransferEntryPointStore",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t,
-        n = u(e),
-        o = (t = e.options.callLogCount) != null ? t : 1;
-      return o <= 1 || n === ""
-        ? n
+        n = c(e.msg);
+      if (n != null) return n;
+      var o = u(e),
+        a = (t = e.options.callLogCount) != null ? t : 1;
+      return a <= 1 || o === ""
+        ? o
         : s._(
             /*BTDS*/ '_j{"*":"{call-log-entry-text} ({call-logs-merged-count})"}',
             [
-              s._param("call-logs-merged-count", r("WAWebL10N").n(o), [0, o]),
-              s._param("call-log-entry-text", n),
+              s._param("call-logs-merged-count", r("WAWebL10N").n(a), [0, a]),
+              s._param("call-log-entry-text", o),
             ],
           );
     }
@@ -20,11 +29,11 @@ __d(
       var t = e.msg;
       if (o("WAWebMsgGetters").getIsCallSilenced(t))
         return s._(/*BTDS*/ "Silenced unknown caller");
-      var n = c(t.subtype);
+      var n = d(t.subtype);
       return n != null
         ? n
-        : (o("WAWebMsgGetters").getCallOutcome(t) &&
-            (n = d({
+        : (o("WAWebMsgGetters").getCallOutcome(t) != null &&
+            (n = m({
               isAdHocGroupCall: o("WAWebMsgGetters").getIsAdHocGroupCall(t),
               isMissedCall: o("WAWebCallLogUtils").getIsCallLogOutcomeMissed(t),
               isVideoCall: o("WAWebMsgGetters").getIsVideoCall(t),
@@ -32,6 +41,25 @@ __d(
           n != null ? n : "");
     }
     function c(e) {
+      var t = o("WAWebMsgGetters").getCallId(e);
+      if (
+        t == null ||
+        o("WAWebMsgGetters").getIsGroupCall(e) ||
+        o("WAWebABProps").getABPropConfigValue(
+          "enable_1on1_call_transfer_entry_point",
+        ) !== !0
+      )
+        return null;
+      var n = o(
+        "WAWebVoipCallTransferEntryPointStore",
+      ).WAWebVoipCallTransferEntryPointStore.getForRootCallId(t);
+      return n == null
+        ? null
+        : n.isVideoCall
+          ? s._(/*BTDS*/ "Video call \u2022 On another device")
+          : s._(/*BTDS*/ "Voice call \u2022 On another device");
+    }
+    function d(e) {
       switch (e) {
         case "miss":
           return s._(/*BTDS*/ "Missed voice call");
@@ -42,7 +70,7 @@ __d(
           return s._(/*BTDS*/ "Missed group call");
       }
     }
-    function d(e) {
+    function m(e) {
       var t = e.isAdHocGroupCall,
         n = e.isMissedCall,
         r = e.isVideoCall;

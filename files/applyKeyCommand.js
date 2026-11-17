@@ -6,7 +6,7 @@ __d(
     function e(e, t, n, o) {
       var a = r("getKeyCommand")(e);
       if (a == null) return !1;
-      for (var i = t; i != null; ) {
+      for (var i = t; i != null && i !== n; ) {
         if (i && i.applyCommand(a, e)) return !0;
         i = i && i.getParent();
       }

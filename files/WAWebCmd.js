@@ -994,6 +994,9 @@ __d(
           (i.onHistorySyncChunkProcessedFromBridge = function (t) {
             this.trigger("new_history_sync_chunk_processed_from_bridge", t);
           }),
+          (i.onChatHistoryClearedFromBridge = function (t) {
+            this.trigger("chat_history_cleared_from_bridge", t);
+          }),
           (i.onOfflineProgressUpdateFromBridge = function () {
             this.trigger("offline_progress_update_from_bridge");
           }),

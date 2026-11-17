@@ -21,7 +21,7 @@ __d(
       );
     }
     function u(e, t) {
-      return (t ? "\v" : "\uFEFF") + e;
+      return (t ? "\f" : "\uFEFF") + e;
     }
     function c(t) {
       r("gkx")("23983") &&
@@ -82,7 +82,9 @@ __d(
           try {
             var g = s(),
               h = u(t, g);
-            ((d = g ? n("cr:7329").fromScrap(h) : n("cr:7329").fromFragment(h)),
+            ((d = g
+              ? n("cr:7329").fromSliver(h)
+              : n("cr:7329").fromFragment(h)),
               (m = !0));
           } catch (e) {
             (r("FBLogger")("ad_blocker_defense_ghost_owl")

@@ -20,7 +20,6 @@ __d(
     "WAWebHandleMsgError",
     "WAWebHandleMsgMetaUtils",
     "WAWebHandleMsgTypes",
-    "WAWebInstantImageEnvelopeValidation",
     "WAWebLidMigrationUtils",
     "WAWebMessagingGatingUtils",
     "WAWebMsgAGMProcessing",
@@ -490,11 +489,6 @@ __d(
               X(C.author),
               o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_DSM,
             );
-          E != null &&
-            E.reparsing !== !0 &&
-            o(
-              "WAWebInstantImageEnvelopeValidation",
-            ).validateInstantImageEnvelope(e, E.e2eInfo.encMediaType);
           var T = babelHelpers.extends(
               {},
               o("WAWebE2EProtoParser").parseMsgProto({

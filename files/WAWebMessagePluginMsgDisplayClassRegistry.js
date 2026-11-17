@@ -104,6 +104,11 @@ __d(
           msgDisplayClass: r("WAWebInstantMsgDisplayClass"),
         },
         {
+          type: "instant_video",
+          subtype: void 0,
+          msgDisplayClass: r("WAWebInstantMsgDisplayClass"),
+        },
+        {
           type: "interactive",
           subtype: void 0,
           msgDisplayClass: r("WAWebInteractiveMsgDisplayClass"),

@@ -238,7 +238,7 @@ __d(
         t != null &&
         o("WAWebSoundStickerUtils").isSoundStickerMsg(e) &&
         (!o("WAWebSoundStickerUtils").isCompleteStickerAudio(t) ||
-          !o("WAWebSoundStickerGating").isSoundStickerCreationEnabled())
+          !o("WAWebSoundStickerGating").isSoundStickerConsumptionEnabled())
       );
     }
     ((l.getAddonsDBRowFromParentMsgs = u), (l.serializeSingleMessage = b));

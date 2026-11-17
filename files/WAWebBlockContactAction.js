@@ -36,17 +36,19 @@ __d(
       var t = e.bizOptOutArgs,
         n = e.blockEntryPoint,
         a = e.contact,
-        i = e.skipCtwa1pdNbfSignal,
-        l = o("WAWebBlocklistUtils").getBlockEventMetricFromBlockEntryPoint(n);
+        i = e.showToast,
+        l = i === void 0 ? !0 : i,
+        s = e.skipCtwa1pdNbfSignal,
+        u = o("WAWebBlocklistUtils").getBlockEventMetricFromBlockEntryPoint(n);
       o("WAWebWamBlockEventReporter").logBlockEvent({
         contact: a,
-        blockEntryPoint: l,
+        blockEntryPoint: u,
         isBlock: !0,
       });
-      var s = o("WAWebChatCollection").ChatCollection.get(a.id);
+      var c = o("WAWebChatCollection").ChatCollection.get(a.id);
       (o("WAWebQbmThreadLevelActionLogEventLazy").logQbmThreadLevelAction({
-        blockEntryPoint: l,
-        chat: s,
+        blockEntryPoint: u,
+        chat: c,
         threadActionEntryPoint: "OTHER",
         threadLevelAction: "BLOCK",
       }),
@@ -54,29 +56,29 @@ __d(
           "WAWebMmSignalSharingLoggingEvents",
         ).logMmSignalSharingBlockVerificationEvent({
           blockEntryPoint: n,
-          chat: s,
+          chat: c,
           reason: t == null ? void 0 : t.reason,
-          blockEntryPointMetric: l,
+          blockEntryPointMetric: u,
         }),
         o(
           "WAWebMmSignalSharingLoggingEvents",
         ).logMmSignalSharingUserBlockWithReasonEvent({
-          chat: s,
+          chat: c,
           reason: t == null ? void 0 : t.reason,
-          blockEntryPointMetric: l,
+          blockEntryPointMetric: u,
         }));
-      var u = y(o("WAWebStateUtils").unproxy(a), !0, n, t);
+      var d = y(o("WAWebStateUtils").unproxy(a), !0, n, t, void 0, l);
       return (
-        i !== !0 &&
-          s != null &&
-          u
+        s !== !0 &&
+          c != null &&
+          d
             .then(function () {
               return o(
                 "WAWebSmb1pdConversionSignalAction",
-              ).log1pdBlockConversionSignal(s);
+              ).log1pdBlockConversionSignal(c);
             })
             .catch(r("WAWebNoop")),
-        u
+        d
       );
     }
     function f(e, t) {
@@ -109,12 +111,13 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e, t, r, a, i) {
-      var l = e.isContactBlocked,
-        s = t && l,
-        u = !t && !l;
-      if (s || u) return (d || (d = n("Promise"))).resolve();
-      var c = b({
+    function y(e, t, r, a, i, l) {
+      l === void 0 && (l = !0);
+      var s = e.isContactBlocked,
+        u = t && s,
+        c = !t && !s;
+      if (u || c) return (d || (d = n("Promise"))).resolve();
+      var m = b({
           action: t ? "block" : "unblock",
           bizOptOutArgs: a,
           contact: e,
@@ -150,15 +153,16 @@ __d(
             };
           })(),
         ),
-        m = function () {
+        p = function () {
           return y(e, !t, r, a, i);
         },
-        p = function () {
+        _ = function () {
           return y(e, t, r, a, i);
         };
       return (
-        C({ action: c, block: t, contact: e, redo: p, toastId: i, undo: m }),
-        c
+        l &&
+          C({ action: m, block: t, contact: e, redo: _, toastId: i, undo: p }),
+        m
       );
     }
     function C(t) {
@@ -276,7 +280,7 @@ __d(
           "[blocklist] no accountLid for chat: " +
           r.id.toLogString() +
           ", entryPoint: " +
-          (t != null ? t : "null");
+          (t == null ? "null" : t);
         throw (
           o("WALogger")
             .ERROR(
@@ -291,7 +295,7 @@ __d(
         "[blocklist] trying to block a pn contact (id: " +
         n.toLogString() +
         ") without a chat,  entryPoint: " +
-        (t != null ? t : "null");
+        (t == null ? "null" : t);
       throw (
         o("WALogger")
           .ERROR(

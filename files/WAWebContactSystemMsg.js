@@ -93,15 +93,21 @@ __d(
         ),
       );
     }
-    function m(e, t, n) {
-      return f(e, {
-        type: "notification_template",
-        kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-        subtype: "disappearing_mode_update",
-        templateParams: [],
-        ephemeralDuration: t,
-        ephemeralSettingUser: n,
-      });
+    function m(e, t, n, r) {
+      return f(
+        e,
+        babelHelpers.extends(
+          {
+            type: "notification_template",
+            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+            subtype: "disappearing_mode_update",
+            templateParams: [],
+            ephemeralDuration: t,
+            ephemeralSettingUser: n,
+          },
+          r != null ? { afterReadDuration: r } : {},
+        ),
+      );
     }
     function p(e) {
       var t = e.chatId,

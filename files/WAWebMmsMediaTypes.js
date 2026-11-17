@@ -75,6 +75,8 @@ __d(
               : e.IMAGE;
         case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
           return e.IMAGE;
+        case o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO:
+          return e.VIDEO;
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
           return l
             ? i === !0
@@ -206,6 +208,7 @@ __d(
           ((t = {}),
           (t[(n = o("WAWebMsgType")).MSG_TYPE.IMAGE] = r),
           (t[n.MSG_TYPE.INSTANT_IMAGE] = r),
+          (t[n.MSG_TYPE.INSTANT_VIDEO] = new Set([S])),
           (t[n.MSG_TYPE.STICKER] = o(
             "WAWebStickerMimeUtils",
           ).getValidStickerMimeTypes()),

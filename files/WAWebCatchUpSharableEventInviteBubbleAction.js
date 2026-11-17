@@ -28,20 +28,23 @@ __d(
           if (!(t === "" || u.has(a))) {
             u.add(a);
             var i = yield o(
-                "WAWebSharableEventInviteMessageRefreshJob",
-              ).getSharableEventInviteCoverToThumbnail(e, t),
-              l =
-                i == null
-                  ? null
-                  : yield o(
-                      "WAWebSharableEventInviteMsg",
-                    ).makeSharableEventCoverThumbnail(i);
-            l != null &&
-              (yield o(
-                "WAWebSharableEventInviteMessageRefreshJob",
-              ).saveSharableEventInviteThumbnail(e, l),
-              (r = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
-                r.set({ sharableEventInviteJpegThumbnail: l }));
+              "WAWebSharableEventInviteMessageRefreshJob",
+            ).getSharableEventInviteCoverToThumbnail(e, t);
+            if (i.kind === "event-not-stored") {
+              u.delete(a);
+              return;
+            }
+            if (i.kind === "cover") {
+              var l = yield o(
+                "WAWebSharableEventInviteMsg",
+              ).makeSharableEventCoverThumbnail(i.url);
+              l != null &&
+                (yield o(
+                  "WAWebSharableEventInviteMessageRefreshJob",
+                ).saveSharableEventInviteThumbnail(e, l),
+                (r = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
+                  r.set({ sharableEventInviteJpegThumbnail: l }));
+            }
           }
         })),
         d.apply(this, arguments)

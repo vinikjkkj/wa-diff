@@ -25,6 +25,7 @@ __d(
     "WAWebUserPrefsTypes",
     "WDSIconIcContentCopy.react",
     "WDSIconIcOpenInNew.react",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -245,7 +246,9 @@ __d(
               e == null
                 ? null
                 : o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(e),
-            failureMsg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
+            failureMsg: r("justknobx")._("8068")
+              ? s._(/*BTDS*/ "Couldn't copy Pix code")
+              : s._(/*BTDS*/ "Couldn't copy Pix Code"),
             onCopy: function () {
               var e = f(t);
               e != null &&
@@ -270,7 +273,9 @@ __d(
                   ),
                 ));
             },
-            successMsg: s._(/*BTDS*/ "Pix Code copied"),
+            successMsg: r("justknobx")._("8068")
+              ? s._(/*BTDS*/ "Pix code copied")
+              : s._(/*BTDS*/ "Pix Code copied"),
           });
         },
         Icon: r("WDSIconIcContentCopy.react"),

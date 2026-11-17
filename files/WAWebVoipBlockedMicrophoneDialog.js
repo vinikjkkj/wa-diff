@@ -12,11 +12,7 @@ __d(
     function e(e, t, n) {
       o(
         "WAWebVoipDevicePermissionDialogLoader.react",
-      ).openDevicePermissionDialog(e, t, {
-        action: "unmute",
-        call: n,
-        isBlocked: !0,
-      });
+      ).openDevicePermissionDialog(e, t, { action: "unmute", call: n });
     }
     function s(t, n) {
       var a = n.isDocPip,

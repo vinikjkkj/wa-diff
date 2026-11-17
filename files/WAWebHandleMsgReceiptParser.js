@@ -163,27 +163,36 @@ __d(
       }
       a || i.push(e.stanzaId);
       var m = !1;
-      return (
-        n != null &&
-          n.isBot() &&
-          t.hasAttr("is_lid") &&
-          (m = t.attrString("is_lid") === "true"),
-        babelHelpers.extends({}, e, {
-          type: "simple",
-          externalIds: i,
-          participant: n,
-          participantPn: t.hasAttr("participant_pn")
-            ? o("WAWebJidToWid").userJidToUserWid(
-                t.attrUserJid("participant_pn"),
-              )
-            : null,
-          participantUsername: t.maybeAttrString("participant_username"),
-          recipient: r,
-          ts: t.attrTime("t"),
-          biz: l,
-          isLidBot: m,
-        })
-      );
+      n != null &&
+        n.isBot() &&
+        t.hasAttr("is_lid") &&
+        (m = t.attrString("is_lid") === "true");
+      var p = babelHelpers.extends({}, e, {
+        type: "simple",
+        externalIds: i,
+        participant: n,
+        participantPn: t.hasAttr("participant_pn")
+          ? o("WAWebJidToWid").userJidToUserWid(t.attrUserJid("participant_pn"))
+          : null,
+        participantUsername: t.maybeAttrString("participant_username"),
+        recipient: r,
+        ts: t.attrTime("t"),
+        biz: l,
+        isLidBot: m,
+      });
+      return _(p, t);
+    }
+    function _(e, t) {
+      var n;
+      return e.ackString !== "error" ||
+        ((n = t.maybeChild("error")) == null
+          ? void 0
+          : n.maybeAttrString("type")) !== "integrity-drop"
+        ? e
+        : babelHelpers.extends({}, e, {
+            ack: o("WAWebAck").ACK.FAILED,
+            integrityDrop: !0,
+          });
     }
     ((l.RECEIPT_TYPES_TO_ACK = u), (l.msgReceiptParser = c));
   },

@@ -4,8 +4,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
-        function e(e) {
-          ((this.tag = "Async"), (this.register = e));
+        function e(e, t) {
+          (t === void 0 && (t = !0),
+            (this.tag = "Async"),
+            (this.register = e),
+            (this.usesSignal = t));
         }
         var t = e.prototype;
         return (

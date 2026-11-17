@@ -37,6 +37,9 @@ __d(
       IAB_LPV: 31,
       IAB_LPV_BODY: 32,
       PAYMENT_CTA_CLICK: 33,
+      DELIVERED: 34,
+      READ: 35,
+      VIDEO_PLAYBACK: 36,
     });
     i.MM_SIGNAL_TYPE = e;
   },

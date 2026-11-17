@@ -16,7 +16,7 @@ __d(
           } else r.set(t, [e]);
         });
       }
-      for (var a = e; a != null; ) {
+      for (var a = e; a != null && a !== t; ) {
         var i = a && a.getCommandMap();
         (o(i), (a = a && a.getParent()));
       }

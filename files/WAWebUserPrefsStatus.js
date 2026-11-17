@@ -20,14 +20,57 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield m(e), p(e));
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return o("WAWebApiUserPrefs").bulkCreateOrReplaceUserPrefs(
+        _(e).map(function (e) {
+          var t = e.key,
+            n = e.value;
+          return { key: t, value: n };
+        }),
+      );
+    }
+    function p(e) {
+      var t = _(e);
+      []
+        .concat(
+          t.filter(function (e) {
+            var t = e.key;
+            return (
+              t !==
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_PRIVACY_SETTING
+            );
+          }),
+          t.filter(function (e) {
+            var t = e.key;
+            return (
+              t ===
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_PRIVACY_SETTING
+            );
+          }),
+        )
+        .forEach(function (e) {
+          var t = e.key,
+            n = e.value;
+          o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.applyCommittedSet(
+            t,
+            n,
+          );
+        });
+    }
+    function _(e) {
       var t = e.list,
         n = e.setting;
-      if (n === o("WAWebUserPrefsStatusType").StatusPrivacySettingType.Contact)
-        return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_PRIVACY_SETTING,
-          n,
-        );
-      var r = d({
+      return f({
         setting: n,
         allowList:
           n === o("WAWebUserPrefsStatusType").StatusPrivacySettingType.AllowList
@@ -38,11 +81,8 @@ __d(
             ? t
             : void 0,
       });
-      return o(
-        "WAWebUserPrefsIndexedDBStorage",
-      ).userPrefsIdb.bulkSetItemsToIndexedDB(r);
     }
-    function d(e) {
+    function f(e) {
       var t = [],
         n = e.allowList,
         r = e.denyList,
@@ -79,27 +119,27 @@ __d(
         t
       );
     }
-    function m() {
-      return p.apply(this, arguments);
+    function g() {
+      return h.apply(this, arguments);
     }
-    function p() {
+    function h() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_PRIVACY_SETTING,
             ) || o("WAWebUserPrefsStatusType").StatusPrivacySettingType.Contact
           );
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function _() {
-      return f.apply(this, arguments);
+    function y() {
+      return C.apply(this, arguments);
     }
-    function f() {
+    function C() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -111,15 +151,15 @@ __d(
           );
           return t != null ? t.map(o("WAWebWidFactory").createWid) : [];
         })),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function g() {
-      return h.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function h() {
+    function v() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -131,21 +171,21 @@ __d(
           );
           return e != null ? e.map(o("WAWebWidFactory").createWid) : [];
         })),
-        h.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function y() {
-      return C.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function C() {
+    function R() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["user-prefs", "contact"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e = yield m(),
+                var e = yield g(),
                   t;
                 switch (e) {
                   case o("WAWebUserPrefsStatusType").StatusPrivacySettingType
@@ -153,12 +193,12 @@ __d(
                     return {
                       setting: o("WAWebUserPrefsStatusType")
                         .StatusPrivacySettingType.AllowList,
-                      list: yield _(),
+                      list: yield y(),
                     };
                   case o("WAWebUserPrefsStatusType").StatusPrivacySettingType
                     .DenyList:
                     return (
-                      (t = new Set((yield g()).map(String))),
+                      (t = new Set((yield b()).map(String))),
                       {
                         setting: o("WAWebUserPrefsStatusType")
                           .StatusPrivacySettingType.DenyList,
@@ -189,77 +229,48 @@ __d(
               }),
             );
         })),
-        C.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function L() {
+      return E.apply(this, arguments);
     }
-    function v() {
+    function E() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SHARE_TO_FB,
             ) === !0
           );
         })),
-        v.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
+    function k() {
+      return I.apply(this, arguments);
     }
-    function R() {
+    function I() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
             o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SHARE_TO_IG,
             ) === !0
           );
         })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SHARE_TO_FB,
-            e,
-          );
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SHARE_TO_IG,
-            e,
-          );
-        })),
         I.apply(this, arguments)
       );
     }
-    function T() {
+    function T(e) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_RESHARE_ALLOWED,
-            ) === !0
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SHARE_TO_FB,
+            e,
           );
         })),
         D.apply(this, arguments)
@@ -272,7 +283,7 @@ __d(
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_RESHARE_ALLOWED,
+            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SHARE_TO_IG,
             e,
           );
         })),
@@ -285,67 +296,96 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_RESHARE_ALLOWED,
+            ) === !0
+          );
+        })),
+        N.apply(this, arguments)
+      );
+    }
+    function M(e) {
+      return w.apply(this, arguments);
+    }
+    function w() {
+      return (
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_RESHARE_ALLOWED,
+            e,
+          );
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    function A() {
+      return F.apply(this, arguments);
+    }
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e = yield m(),
-                  t = yield _(),
-                  n = yield g();
+                var e = yield g(),
+                  t = yield y(),
+                  n = yield b();
                 return { setting: e, allowList: t, denyList: n };
               }),
             );
         })),
-        N.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function M() {
-      return w.apply(this, arguments);
+    function O() {
+      return B.apply(this, arguments);
     }
-    function w() {
+    function B() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
           );
           return e || { rotateKey: !1, senderKey: new Set() };
         })),
-        w.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    var A = 0,
-      F = new Map(),
-      O = 0,
-      B = new Map();
-    function W() {
-      return A;
+    var W = 0,
+      q = new Map(),
+      U = 0,
+      V = new Map();
+    function H() {
+      return W;
     }
-    function q() {
-      return O;
+    function G() {
+      return U;
     }
-    function U(e) {
+    function z(e) {
       var t = e.map(String);
       return (
         t.forEach(function (e) {
           var t;
-          F.set(e, ((t = F.get(e)) != null ? t : 0) + 1);
+          q.set(e, ((t = q.get(e)) != null ? t : 0) + 1);
         }),
         function () {
           t.forEach(function (e) {
             var t,
-              n = ((t = F.get(e)) != null ? t : 1) - 1;
-            n > 0 ? F.set(e, n) : F.delete(e);
+              n = ((t = q.get(e)) != null ? t : 1) - 1;
+            n > 0 ? q.set(e, n) : q.delete(e);
           });
         }
       );
     }
-    function V(e, t) {
-      return H.apply(this, arguments);
+    function j(e, t) {
+      return K.apply(this, arguments);
     }
-    function H() {
+    function K() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = t === void 0 ? { keepPendingRotation: !1 } : t,
             a = r.epoch,
             i = r.forgetSeq,
@@ -355,12 +395,12 @@ __d(
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield M();
-                if (!(l && (t.rotateKey || a !== A))) {
+                var t = yield O();
+                if (!(l && (t.rotateKey || a !== W))) {
                   var n = t.rotateKey ? new Set() : t.senderKey;
                   (e
                     .filter(function (e) {
-                      return !G(String(e), i);
+                      return !Q(String(e), i);
                     })
                     .forEach(function (e) {
                       n.add(String(e));
@@ -374,27 +414,27 @@ __d(
               }),
             );
         })),
-        H.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function G(e, t) {
+    function Q(e, t) {
       var n;
       return t == null || !r("justknobx")._("6798") || !r("justknobx")._("7420")
         ? !1
-        : ((n = B.get(e)) != null ? n : 0) > t;
+        : ((n = V.get(e)) != null ? n : 0) > t;
     }
-    function z() {
-      return j.apply(this, arguments);
+    function X() {
+      return Y.apply(this, arguments);
     }
-    function j() {
+    function Y() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (A++,
+                (W++,
                   yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                     o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
                     { rotateKey: !1, senderKey: new Set() },
@@ -402,28 +442,28 @@ __d(
               }),
             );
         })),
-        j.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    function J(e) {
+      return Z.apply(this, arguments);
     }
-    function Q() {
+    function Z() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield M();
+                var t = yield O();
                 if (!t.rotateKey) {
                   var n = o("WAWebABProps").getABPropConfigValue(
                       "web_status_sender_key_rotation_enabled",
                     ),
                     r = e.some(function (e) {
                       return (
-                        t.senderKey.has(String(e)) || (n && F.has(String(e)))
+                        t.senderKey.has(String(e)) || (n && q.has(String(e)))
                       );
                     });
                   r &&
@@ -436,33 +476,33 @@ __d(
               }),
             );
         })),
-        Q.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function X(e) {
-      return Y.apply(this, arguments);
+    function ee(e) {
+      return te.apply(this, arguments);
     }
-    function Y() {
+    function te() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield M();
-                (O++,
+                var t = yield O();
+                (U++,
                   e.forEach(function (e) {
                     if (
                       (t.senderKey.delete(String(e)),
-                      B.set(String(e), O),
+                      V.set(String(e), U),
                       e.isUser())
                     ) {
                       var n = o("WAWebApiContact").getAlternateDeviceWid(
                         o("WAWebWidFactory").createDeviceWidFromWidOrThrow(e),
                       );
                       n != null &&
-                        (t.senderKey.delete(String(n)), B.set(String(n), O));
+                        (t.senderKey.delete(String(n)), V.set(String(n), U));
                     }
                   }),
                   yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
@@ -472,17 +512,17 @@ __d(
               }),
             );
         })),
-        Y.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function J(e, t) {
-      return Z.apply(this, arguments);
+    function ne(e, t) {
+      return re.apply(this, arguments);
     }
-    function Z() {
+    function re() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield ee(e),
-            r = yield ne(n, t),
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield oe(e),
+            r = yield ie(n, t),
             o = r.after,
             a = r.before,
             i = r.changed;
@@ -494,15 +534,15 @@ __d(
             changed: i,
           };
         })),
-        Z.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function ee(e) {
-      return te.apply(this, arguments);
+    function oe(e) {
+      return ae.apply(this, arguments);
     }
-    function te() {
+    function ae() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebApiContact").warmUpAllLidPnMappings(null);
           var t = String(e),
             n = o("WAWebApiContact").getAlternateDeviceWid(e),
@@ -515,22 +555,22 @@ __d(
             all: r != null ? [t, r] : [t],
           };
         })),
-        te.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function ne(e, t) {
-      return re.apply(this, arguments);
+    function ie(e, t) {
+      return le.apply(this, arguments);
     }
-    function re() {
+    function le() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var n = yield M(),
-                  a = oe(e, n.senderKey);
+                var n = yield O(),
+                  a = se(e, n.senderKey);
                 if (t === "preview" || e.aliasResolution === "unresolved")
                   return { before: a, after: a, changed: !1 };
                 var i = new Set(n.senderKey),
@@ -566,28 +606,28 @@ __d(
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("status-sender-key-cache-sync-failed");
                 }
-                return { before: a, after: oe(e, i), changed: !0 };
+                return { before: a, after: se(e, i), changed: !0 };
               }),
             );
         })),
-        re.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function oe(e, t) {
+    function se(e, t) {
       var n = e.alternate;
       return {
         exact: t.has(e.exact) ? [e.exact] : [],
         alternate: n != null && t.has(n) ? [n] : [],
       };
     }
-    function ae(e, t) {
-      return ie.apply(this, arguments);
+    function ue(e, t) {
+      return ce.apply(this, arguments);
     }
-    function ie() {
+    function ce() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.isFullAudience,
-            r = yield M();
+            r = yield O();
           if (r.rotateKey || r.senderKey.size === 0)
             return {
               rotateKey: r.rotateKey,
@@ -613,32 +653,34 @@ __d(
               : { rotateKey: r.rotateKey, skDistribList: i, participantList: a }
           );
         })),
-        ie.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
     ((l.setStatusPrivacyConfig = c),
-      (l.calculateStatusPrivacyUpdateEntries = d),
-      (l.getStatusPrivacySetting = m),
-      (l.getStatusAllowList = _),
-      (l.getStatusDenyList = g),
-      (l.getStatusList = y),
-      (l.getShareToFB = b),
-      (l.getShareToIG = S),
-      (l.persistShareToFB = L),
-      (l.persistShareToIG = k),
-      (l.getStatusReshareAllowed = T),
-      (l.persistStatusReshareAllowed = x),
-      (l.getStatusPrivacySettingConfig = P),
-      (l.getStatusSenderKeyMap = M),
-      (l.getStatusSenderKeyEpoch = W),
-      (l.getStatusSenderKeyForgetSeq = q),
-      (l.trackStatusSenderKeyDistribution = U),
-      (l.markStatusHasSenderKey = V),
-      (l.consumeStatusSenderKeyRotation = z),
-      (l.markStatusSenderKeyRotate = K),
-      (l.markForgetStatusSenderKey = X),
-      (l.previewOrResetStatusSenderKeyDistribution = J),
-      (l.getStatusSkDistribList = ae));
+      (l.writeStatusPrivacyConfig = m),
+      (l.applyCommittedStatusPrivacyConfig = p),
+      (l.calculateStatusPrivacyUpdateEntries = f),
+      (l.getStatusPrivacySetting = g),
+      (l.getStatusAllowList = y),
+      (l.getStatusDenyList = b),
+      (l.getStatusList = S),
+      (l.getShareToFB = L),
+      (l.getShareToIG = k),
+      (l.persistShareToFB = T),
+      (l.persistShareToIG = x),
+      (l.getStatusReshareAllowed = P),
+      (l.persistStatusReshareAllowed = M),
+      (l.getStatusPrivacySettingConfig = A),
+      (l.getStatusSenderKeyMap = O),
+      (l.getStatusSenderKeyEpoch = H),
+      (l.getStatusSenderKeyForgetSeq = G),
+      (l.trackStatusSenderKeyDistribution = z),
+      (l.markStatusHasSenderKey = j),
+      (l.consumeStatusSenderKeyRotation = X),
+      (l.markStatusSenderKeyRotate = J),
+      (l.markForgetStatusSenderKey = ee),
+      (l.previewOrResetStatusSenderKeyDistribution = ne),
+      (l.getStatusSkDistribList = ue));
   },
   98,
 );

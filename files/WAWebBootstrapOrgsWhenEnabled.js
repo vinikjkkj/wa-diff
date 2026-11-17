@@ -12,7 +12,7 @@ __d(
     var e, s;
     function u() {
       if (!o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled()) {
-        if (o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled()) {
+        if (o("WAWebOrgGatingUtils").isOrgsEnabled()) {
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -23,7 +23,7 @@ __d(
           return;
         }
         var t = function () {
-          o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled() &&
+          o("WAWebOrgGatingUtils").isOrgsEnabled() &&
             (o("WAWebBackendEventBus").BackendEventBus.off(
               o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
               t,

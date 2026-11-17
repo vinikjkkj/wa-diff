@@ -59,6 +59,11 @@ __d(
         subtype: void 0,
         renderMsg: r("WAWebInstantCardRenderMsg"),
       },
+      {
+        type: "instant_video",
+        subtype: void 0,
+        renderMsg: r("WAWebInstantCardRenderMsg"),
+      },
       { type: "interactive", subtype: void 0, renderMsg: null },
       { type: "interactive_response", subtype: void 0, renderMsg: null },
       { type: "keep_in_chat", subtype: void 0, renderMsg: null },

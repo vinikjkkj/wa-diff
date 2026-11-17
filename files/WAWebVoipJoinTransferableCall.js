@@ -7,6 +7,7 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebLazyLoadedRetriable",
+    "WAWebVoipCallBlockedModals",
     "WAWebVoipCallTransferEntryPointStore",
     "WAWebVoipGatingUtils",
     "WAWebVoipHandleCallTransferFailed",
@@ -48,22 +49,26 @@ __d(
         },
       );
     function p(e) {
-      if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-        f(function (t) {
-          return t.openCallTransferLobby(e);
-        });
-        return;
+      if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
+        if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+          f(function (t) {
+            return t.openCallTransferLobby(e);
+          });
+          return;
+        }
+        h(e);
       }
-      h(e);
     }
     function _(e) {
-      if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-        f(function (t) {
-          return t.joinCallTransferWithoutLobby(e);
-        });
-        return;
+      if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
+        if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+          f(function (t) {
+            return t.joinCallTransferWithoutLobby(e);
+          });
+          return;
+        }
+        L(e);
       }
-      L(e);
     }
     function f(e) {
       return g.apply(this, arguments);

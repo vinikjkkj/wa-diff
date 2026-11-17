@@ -48,7 +48,6 @@ __d(
               ).openDevicePermissionDialog(t, n, {
                 action: "camera",
                 call: c,
-                isBlocked: !0,
                 onAllowed: function () {
                   l()
                     .catch(function (t) {

@@ -4,7 +4,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebNewsletterQuestionResponseStateUpdateJob",
-    "WAWebQuestionResponseIntegrityUtils",
+    "WAWebQuestionsRenderingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,9 +36,7 @@ __d(
               });
               (i == null ? void 0 : i.success) === !0
                 ? n.set("starred", a)
-                : o("WAWebQuestionResponseIntegrityUtils").showStarFailureToast(
-                    a,
-                  );
+                : o("WAWebQuestionsRenderingUtils").showStarFailureToast(a);
             } catch (t) {
               (o("WALogger")
                 .ERROR(
@@ -49,9 +47,7 @@ __d(
                 )
                 .tags("newsletter", "questions")
                 .sendLogs("newsletter-failed-to-toggle-star-question-response"),
-                o("WAWebQuestionResponseIntegrityUtils").showStarFailureToast(
-                  a,
-                ));
+                o("WAWebQuestionsRenderingUtils").showStarFailureToast(a));
             } finally {
               s.delete(r);
             }

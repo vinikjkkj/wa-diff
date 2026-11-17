@@ -183,6 +183,28 @@ __d(
           (i.deleteChat = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
+                var n = !1;
+                try {
+                  yield this.$DeleteChatSync$p_2(e, t, function () {
+                    n = !0;
+                  });
+                } finally {
+                  n &&
+                    o("WAWebBackendApi").frontendFireAndForget(
+                      "chatHistoryCleared",
+                      { chatId: e.toString() },
+                    );
+                }
+              },
+            );
+            function t(t, n) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$DeleteChatSync$p_2 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
                 if (
                   (o(
                     "WAWebBizCoexUtils",
@@ -194,14 +216,15 @@ __d(
                   ).clearDedupInitialHostedSystemMsgCache(),
                   t)
                 ) {
-                  var n = yield o(
+                  var r = yield o(
                     "WAWebDBQueryAndRemoveMessageHistory",
                   ).queryAndRemoveMessagesInMessageRange(e, t, {
                     forceDeleteAllMessagesExceptInitialEncryption: !0,
                   });
-                  n.length > 0 &&
-                    (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
-                      n,
+                  r.length > 0 &&
+                    (n(),
+                    o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
+                      r,
                       { removeWholeRow: !0 },
                     ),
                     o("WAWebUiRuntime").isWebDiUiEnabled()
@@ -209,18 +232,18 @@ __d(
                           .uiRuntime(
                             o("WAWebReactionUiService").ReactionUiService,
                           )
-                          .deleteModelsForLastAddOnPreview(n)
+                          .deleteModelsForLastAddOnPreview(r)
                       : o("WAWebBackendApi").frontendFireAndForget(
                           "deleteModelsForLastAddOnPreview",
-                          { messagesIds: n },
+                          { messagesIds: r },
                         ),
                     yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                       e.toString(),
-                      n,
+                      r,
                     ),
                     yield o("WAWebBackendApi").frontendSendAndReceive(
                       "chatDeleteMessages",
-                      { chatId: e.toString(), messageIds: n },
+                      { chatId: e.toString(), messageIds: r },
                     ));
                 } else
                   (o("WALogger").LOG(
@@ -253,7 +276,7 @@ __d(
                 ).deleteChatFromInitialSyncBoundary(e);
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;
@@ -435,9 +458,9 @@ __d(
                         )
                         .readBuffer(),
                       y = babelHelpers.extends({}, e, { binarySyncAction: h });
-                    return (
-                      delete y.id,
-                      yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+                    delete y.id;
+                    var C = null,
+                      b = o("WAWebMessageRangeUtils").lockForMessageRangeSync(
                         ["message-association", "chat", "reporting-info"],
                         [y],
                         n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -461,7 +484,13 @@ __d(
                                 }),
                                 h,
                               ));
-                            var r = yield a.deleteChat(n, f);
+                            var r = yield a.$DeleteChatSync$p_2(
+                              n,
+                              f,
+                              function () {
+                                C = n.toString();
+                              },
+                            );
                             return (
                               o("WALogger").LOG(
                                 m ||
@@ -473,10 +502,18 @@ __d(
                             );
                           },
                         ),
-                      ),
-                      o("WAWebSyncdConst").ConflictResolutionState
-                        .SkipRemoteAndDropLocal
-                    );
+                      );
+                    try {
+                      yield b;
+                    } finally {
+                      C != null &&
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "chatHistoryCleared",
+                          { chatId: C },
+                        );
+                    }
+                    return o("WAWebSyncdConst").ConflictResolutionState
+                      .SkipRemoteAndDropLocal;
                   }
                 }
               },

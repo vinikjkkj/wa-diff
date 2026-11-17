@@ -84,7 +84,7 @@ __d(
         !(
           e == null ||
           t === "quoted" ||
-          !o("WAWebSoundStickerGating").isSoundStickerCreationEnabled()
+          !o("WAWebSoundStickerGating").isSoundStickerConsumptionEnabled()
         )
       )
         return {

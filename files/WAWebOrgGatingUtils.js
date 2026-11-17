@@ -8,13 +8,7 @@ __d(
         !o("WAWebProductFeature").isInternalProduct()
       );
     }
-    function s() {
-      return (
-        o("WAWebABProps").getABPropConfigValue("whatsapp_orgs_enabled") &&
-        !o("WAWebProductFeature").isInternalProduct()
-      );
-    }
-    ((l.isOrgHubEnabled = e), (l.isOrgInfoDisplayEnabled = s));
+    l.isOrgsEnabled = e;
   },
   98,
 );

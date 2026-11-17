@@ -9,9 +9,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return e.forwardedNewsletterMessageInfo != null
+        ? e.forwardedNewsletterMessageInfo
+        : s(e);
+    }
+    function s(e) {
       var t, n;
-      if (e.forwardedNewsletterMessageInfo != null)
-        return e.forwardedNewsletterMessageInfo;
       if (o("WAWebMsgGetters").getIsNewsletterMsg(e)) {
         var a = e.id.remote,
           i = r("WAWebNewsletterMetadataCollection").get(a);
@@ -23,7 +26,7 @@ __d(
         };
       }
     }
-    function s(e) {
+    function u(e) {
       var t = e.destination,
         n = e.forwardable,
         r = e.isOriginalMsgForwarded,
@@ -49,7 +52,8 @@ __d(
         : n;
     }
     ((l.getNewsletterContextForForwardedMsg = e),
-      (l.maybeStripNewsletterForwardMetadata = s));
+      (l.getNewsletterContextForNewsletterMsg = s),
+      (l.maybeStripNewsletterForwardMetadata = u));
   },
   98,
 );

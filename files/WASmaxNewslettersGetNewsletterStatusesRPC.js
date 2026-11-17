@@ -284,13 +284,7 @@ __d(
       (l.parseGetNewsletterStatusesResponseClientError = u),
       (l.parseGetNewsletterStatusesResponseServerError = c),
       (l.parseGetNewsletterStatusesResponseSuccess = d),
-      (l.makeGetNewsletterStatusesRequest = m),
-      (l.mergeNewsletterStatusRequestIQPayloadMixin = _),
-      (l.mergeNewsletterStatusRequestPayloadMixin = g),
-      (l.mergeStatusDirections = h),
-      (l.parseGetNewsletterStatusesClientErrors = y),
-      (l.mergeStatusAfterMixinMixin = b),
-      (l.mergeStatusBeforeMixinMixin = S));
+      (l.makeGetNewsletterStatusesRequest = m));
   },
   98,
 );

@@ -10,7 +10,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       if (
-        !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled() ||
+        !o("WAWebOrgGatingUtils").isOrgsEnabled() ||
         o("WAWebUserUtils").isMeAccount(e)
       )
         return null;

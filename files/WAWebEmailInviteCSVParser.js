@@ -20,7 +20,7 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
       s = 10 * 1024 * 1024,
-      u = 50,
+      u = 5,
       c = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/,
       d = u * 2 + 2,
       m = new Set(["email", "emails", "email address", "email_address"]),

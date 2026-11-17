@@ -30,7 +30,7 @@ __d(
             a = t.xwa2_notify_org_on_member_update;
           if (a == null)
             throw r("err")("unexpected null xwa2_notify_org_on_member_update");
-          if (o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled()) {
+          if (o("WAWebOrgGatingUtils").isOrgsEnabled()) {
             var i = a.org_id,
               l = a.org_member_updated_ts_usec,
               s = b(i, (n = a.members) != null ? n : []),

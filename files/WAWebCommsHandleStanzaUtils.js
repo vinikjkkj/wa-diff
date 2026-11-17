@@ -5,20 +5,32 @@ __d(
     "WALogger",
     "WAParsableWapNode",
     "WAWeb-dexie",
+    "WAWebBrokerGlobalAppState",
     "WAWebCreateNackFromStanza",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebPostUnknownStanzaMetric",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(t, n) {
-      if (p(t)) {
+    var e, s, u, c, d, m;
+    function p(t, n) {
+      if (r("WAWebBrokerGlobalAppState").isLogoutInProgress) {
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "handleMsg: msg not processed, logout in progress: ",
+              "",
+            ])),
+          n.name,
+        );
+        return;
+      }
+      if (_(t)) {
         var a;
         o("WALogger")
           .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "handleMsg: drop msg with username field",
               ])),
           )
@@ -40,8 +52,8 @@ __d(
           ).postIncomingMessageDropInvalidStanza(t),
           o("WALogger")
             .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "handleMsg: error while parsing message: ",
                   "",
                 ])),
@@ -60,8 +72,8 @@ __d(
         ).postIncomingMessageDropDBOperationFailed(t),
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "handleMsg: drop msg",
                 ])),
             )
@@ -74,8 +86,8 @@ __d(
       return (
         o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "handleMsg: drop msg, node: ",
                 "",
               ])),
@@ -84,8 +96,8 @@ __d(
           .verbose(),
         o("WALogger")
           .ERROR(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "handleMsg: drop msg",
               ])),
           )
@@ -100,7 +112,7 @@ __d(
         )
       );
     }
-    function p(e) {
+    function _(e) {
       var t = e.attrs;
       if (
         t.username != null ||
@@ -113,18 +125,18 @@ __d(
       return (
         Array.isArray(n) &&
         n.some(function (e) {
-          return p(e);
+          return _(e);
         })
       );
     }
-    function _(e) {
+    function f(e) {
       if (Array.isArray(e.content) && e.content.length > 0) {
         var t = e.content[0].tag;
         return t === "offer" || t === "accept" || t === "reject";
       }
       return !1;
     }
-    ((l.handleMessageParsingFailure = m), (l.isCallReceipt = _));
+    ((l.handleMessageParsingFailure = p), (l.isCallReceipt = f));
   },
   98,
 );

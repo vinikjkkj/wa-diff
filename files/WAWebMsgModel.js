@@ -584,6 +584,7 @@ __d(
             (e.bizContentPlaceholderType = o("WAWebBaseModel").prop(null)),
             (e.hostedBizEncStateMismatch = o("WAWebBaseModel").prop(!1)),
             (e.aeaAutoUpgrade = o("WAWebBaseModel").prop()),
+            (e.instantPlayedSelf = o("WAWebBaseModel").prop()),
             (e.senderOrRecipientAccountTypeHosted =
               o("WAWebBaseModel").prop(!1)),
             (e.placeholderCreatedWhenAccountIsHosted =

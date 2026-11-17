@@ -617,6 +617,7 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
           return o("WAWebMediaTypes").TYPE.IMAGE;
         case o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO:
+        case o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO:
           return o("WAWebMediaTypes").TYPE.VIDEO;
         case o("WAWebMediaTypes").OUTWARD_TYPES.PTV:
           return o("WAWebMediaTypes").TYPE.PTV;

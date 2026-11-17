@@ -44,7 +44,6 @@ __d(
     "WAWebSuspiciousLinkMetrics",
     "WAWebSuspiciousLinkWam",
     "WAWebSyncdUploadFatalErrorMetric",
-    "WAWebTransitions",
     "WAWebUim",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
@@ -66,8 +65,6 @@ __d(
     "gkx",
     "initWAWebPlatformWebPage",
     "justknobx",
-    "velocity-animate",
-    "velocity-animate-ui",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -179,9 +176,6 @@ __d(
             o("WAWebVCCssBgScanChildrenFirst").initVCCssBgScanChildrenFirst(),
             n("WAWebWamWorkerSpecificEvents"),
             o("WAWebWamPageLoadReporter").exeTimer.start(),
-            (window.Velocity = n("velocity-animate")),
-            n("velocity-animate-ui"),
-            n("WAWebTransitions").registerEffects(),
             o("WAWebInvocationInterface").set(r("WAWebBrokerBackendInterface")),
             o("WAWebDebugSetup").setupDebugGlobal(),
             o("WAWebConfigureWindowEvents").configureWindowEvents());

@@ -79,7 +79,7 @@ __d(
     "WAWebVerifiedNameBridgeApi",
     "WAWebVoipWebBridgeApi",
     "WAWebWamBridgeApi",
-    "cr:18906",
+    "cr:20050",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -173,8 +173,8 @@ __d(
             o("WAWebShortcakeLinkingBridgeApi").ShortcakeLinkingBridgeApi,
           ),
         ),
-        n("cr:18906") != null &&
-          o("WAWebUiRuntime").registerUiRun(n("cr:18906").run),
+        n("cr:20050") != null &&
+          o("WAWebUiRuntime").registerUiRun(n("cr:20050").run),
         o(
           "WAWebBizAiSettingsFetchOnLaunch",
         ).initHandoffRemovalTimingFetchOnLaunch());

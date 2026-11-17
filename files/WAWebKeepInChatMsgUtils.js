@@ -8,6 +8,7 @@ __d(
     "WAWebEphemeralKeepInChatAbpropUtils",
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataGetters",
+    "WAWebInstantMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingGatingUtils",
     "WAWebMsgGetters",
@@ -76,7 +77,7 @@ __d(
       return (
         o("WAWebMsgGetters").getIsEphemeral(e) &&
         e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
-        e.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE &&
+        !o("WAWebInstantMsgTypes").isInstantMsgType(e.type) &&
         !e.isViewOnce &&
         !o("WAWebFrontendMsgGetters").getAsAlbum(e)
       );

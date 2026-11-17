@@ -16,7 +16,7 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
             !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() &&
-              o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled() &&
+              o("WAWebOrgGatingUtils").isOrgsEnabled() &&
               o("WAWebBackendApi").frontendFireAndForget(
                 "syncOrgsInBackground",
                 { bypassCooldown: !1, forceDirectory: !1 },

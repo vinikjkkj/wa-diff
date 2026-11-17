@@ -2,6 +2,7 @@ __d(
   "WAWebMsgActionCanDownloadMsg",
   [
     "WAWebFrontendMsgGetters",
+    "WAWebInstantMsgTypes",
     "WAWebMediaTypes",
     "WAWebMiscGatingUtils",
     "WAWebMsgActionCapability",
@@ -56,7 +57,7 @@ __d(
       }
       return n.type === o("WAWebMsgType").MSG_TYPE.STICKER ||
         n.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
-        n.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
+        o("WAWebInstantMsgTypes").isInstantMsgType(n.type) ||
         o("WAWebFrontendMsgGetters").getAsRevoked(n) ||
         n.isViewOnce === !0 ||
         o("WAWebMsgGetters").getIsViewOncePlaceholder(n)

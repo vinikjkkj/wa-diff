@@ -13,7 +13,7 @@ __d(
       try {
         if (
           o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
-          !o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled()
+          !o("WAWebOrgGatingUtils").isOrgsEnabled()
         )
           return;
         (o("WALogger").LOG(

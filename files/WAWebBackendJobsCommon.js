@@ -64,6 +64,7 @@ __d(
           case o("WAWebBackendJobs.flow").EncMediaType.Image:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.PHOTO;
           case o("WAWebBackendJobs.flow").EncMediaType.InstantImage:
+          case o("WAWebBackendJobs.flow").EncMediaType.InstantVideo:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
           case o("WAWebBackendJobs.flow").EncMediaType.Video:
             return o("WAWebWamEnumMediaType").MEDIA_TYPE.VIDEO;
@@ -169,6 +170,8 @@ __d(
           return o("WAWebBackendJobs.flow").EncMediaType.Image;
         if (e.instantImageMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.InstantImage;
+        if (e.instantVideoMessage)
+          return o("WAWebBackendJobs.flow").EncMediaType.InstantVideo;
         if (e.stickerMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Sticker;
         if (e.stickerPackMessage)
@@ -241,6 +244,8 @@ __d(
               return "image";
             case o("WAWebBackendJobs.flow").EncMediaType.InstantImage:
               return "instant_image";
+            case o("WAWebBackendJobs.flow").EncMediaType.InstantVideo:
+              return "instant_video";
             case o("WAWebBackendJobs.flow").EncMediaType.Video:
               return "video";
             case o("WAWebBackendJobs.flow").EncMediaType.Ptv:

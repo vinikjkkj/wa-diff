@@ -24,6 +24,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -342,14 +343,20 @@ __d(
         (n != null && (t = o("WAWebFrontendContactGetters").getDisplayName(n)),
           t === "" && (t = e));
       }
-      var r =
+      var a =
         t !== ""
-          ? s._(/*BTDS*/ "You have been removed from the call by {name}.", [
+          ? (r("justknobx")._("8068") &&
+              s._(/*BTDS*/ "You've been removed from the call by {name}.", [
+                s._param("name", t),
+              ])) ||
+            s._(/*BTDS*/ "You have been removed from the call by {name}.", [
               s._param("name", t),
             ])
-          : s._(/*BTDS*/ "You have been removed from the call.");
+          : (r("justknobx")._("8068") &&
+              s._(/*BTDS*/ "You've been removed from the call.")) ||
+            s._(/*BTDS*/ "You have been removed from the call.");
       R(
-        r,
+        a,
         function () {
           o("WAWebVoipUiManager").closeAllVoipWindows({
             callEnded: !0,

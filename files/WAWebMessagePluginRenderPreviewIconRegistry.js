@@ -117,6 +117,11 @@ __d(
           renderPreviewIcon: r("WAWebRenderInstantPreviewIcon"),
         },
         {
+          type: "instant_video",
+          subtype: void 0,
+          renderPreviewIcon: r("WAWebRenderInstantPreviewIcon"),
+        },
+        {
           type: "interactive",
           subtype: void 0,
           renderPreviewIcon: r("WAWebRenderInteractivePreviewIcon"),

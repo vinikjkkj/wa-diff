@@ -699,37 +699,33 @@ __d(
     }
     Kt.displayName = Kt.name + " [from " + i.id + "]";
     function Qt() {
-      return s._(/*BTDS*/ "Switch to your primary phone");
-    }
-    Qt.displayName = Qt.name + " [from " + i.id + "]";
-    function Xt() {
       return s._(
         /*BTDS*/ "Business broadcasts need to be connected on your primary phone.",
       );
     }
-    Xt.displayName = Xt.name + " [from " + i.id + "]";
-    function Yt() {
+    Qt.displayName = Qt.name + " [from " + i.id + "]";
+    function Xt() {
       return s._(/*BTDS*/ "Send high-quality messages");
     }
-    Yt.displayName = Yt.name + " [from " + i.id + "]";
-    function Jt(e, t, n) {
+    Xt.displayName = Xt.name + " [from " + i.id + "]";
+    function Yt(e, t, n) {
       return s._(
         /*BTDS*/ '_j{"*":"{sent} of {target} sent in the last {days} days.","_1":"{sent} of {target} sent in the last day."}',
         [s._plural(n, "days"), s._param("sent", e), s._param("target", t)],
       );
     }
-    Jt.displayName = Jt.name + " [from " + i.id + "]";
-    function Zt() {
+    Yt.displayName = Yt.name + " [from " + i.id + "]";
+    function Jt() {
       return s._(/*BTDS*/ "What are high quality messages?");
     }
-    Zt.displayName = Zt.name + " [from " + i.id + "]";
-    function en() {
+    Jt.displayName = Jt.name + " [from " + i.id + "]";
+    function Zt() {
       return u.jsx(r("WDSTextualLink.react"), {
         href: o("WAWebBroadcastConsts").HIGH_QUALITY_MESSAGES_DOC_URL,
-        children: Zt(),
+        children: Jt(),
       });
     }
-    ((en.displayName = en.name + " [from " + i.id + "]"),
+    ((Zt.displayName = Zt.name + " [from " + i.id + "]"),
       (l.getBroadcastColumnHeader = c),
       (l.getAudienceColumnHeader = d),
       (l.getStatusColumnHeader = m),
@@ -877,12 +873,11 @@ __d(
       (l.getAdvancedToolsSettingsReloginNotice = zt),
       (l.getAdvancedToolsSetupReloginNotice = jt),
       (l.getAdvancedToolsTurnOffOnPhoneSubtitle = Kt),
-      (l.getConnectBroadcastsOnPhoneTitle = Qt),
-      (l.getAdvancedToolsTurnOnOnPhoneSubtitle = Xt),
-      (l.getSendHighQualityMessagesLabel = Yt),
-      (l.getSendHighQualityMessagesProgressSublabel = Jt),
-      (l.getSendHighQualityMessagesHelpLabel = Zt),
-      (l.getSendHighQualityMessagesHelpLink = en));
+      (l.getAdvancedToolsTurnOnOnPhoneSubtitle = Qt),
+      (l.getSendHighQualityMessagesLabel = Xt),
+      (l.getSendHighQualityMessagesProgressSublabel = Yt),
+      (l.getSendHighQualityMessagesHelpLabel = Jt),
+      (l.getSendHighQualityMessagesHelpLink = Zt));
   },
   226,
 );

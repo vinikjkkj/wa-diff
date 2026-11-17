@@ -10,10 +10,12 @@ __d(
     "WAWebAck",
     "WAWebApiContact",
     "WAWebApiDeviceList",
+    "WAWebBackendJobs.flow",
     "WAWebBotUtils",
     "WAWebBrAddPixKeyOfferReceipt",
     "WAWebBroadcastInvalidChannelsContextSourceMessageDropWamEvent",
     "WAWebCommonMsgSubtypeTypes",
+    "WAWebDeviceSentMessageProtoUtils",
     "WAWebE2EProtoUtils",
     "WAWebGetMessageCache",
     "WAWebHandleMessageTypes",
@@ -21,6 +23,7 @@ __d(
     "WAWebHandleMsgError",
     "WAWebHandleMsgMetaUtils",
     "WAWebHandleMsgTypes",
+    "WAWebInstantMsgTypes",
     "WAWebLazyLoadedRetriable",
     "WAWebMaibaWASSMigration",
     "WAWebMessagingGatingUtils",
@@ -367,46 +370,63 @@ __d(
     }
     function B(e) {
       var t = e.bizInfo,
-        n = e.info,
-        a = e.msgMeta,
-        i = e.proto,
-        l = e.renderableMsgs;
-      if (l.length > 0 && !M(i, t))
+        n = e.e2eInfo,
+        a = e.info,
+        i = e.msgMeta,
+        l = e.proto,
+        s = e.renderableMsgs;
+      if (s.length > 0 && !M(l, t))
         throw new (o("WAWebHandleMsgError").BizNodeValidationError)(
           "[messaging] Biz node validation failed due to absence of biz node in SMAX",
         );
-      var s = l[0];
-      if (s != null && s.type !== o("WAWebMsgType").MSG_TYPE.QUARANTINED) {
-        var u = q.find(function (e) {
-          return e.isMarkedAs(a) && !e.carries(s);
+      var u = s[0];
+      if (u != null && u.type !== o("WAWebMsgType").MSG_TYPE.QUARANTINED) {
+        var c = q.find(function (e) {
+          return e.isMarkedAs(i) && !e.carries(u);
         });
-        if (u != null)
+        if (c != null)
           throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-            u.errorCode,
+            c.errorCode,
           );
-        if (n.edit !== o("WAWebAck").EDIT_ATTR.NONE)
-          if (n.edit === o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT) {
-            var c =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofType === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE;
-            if (s.type !== o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE && !c)
+        if (n != null) {
+          var d,
+            _ =
+              (d = o(
+                "WAWebDeviceSentMessageProtoUtils",
+              ).unwrapDeviceSentMessage(l)) != null
+                ? d
+                : l,
+            f = U.find(function (e) {
+              return V(e, _, n.encMediaType);
+            });
+          if (f != null)
+            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
+              f.errorCode,
+            );
+        }
+        if (a.edit !== o("WAWebAck").EDIT_ATTR.NONE)
+          if (a.edit === o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT) {
+            var g =
+              u.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+              u.futureproofType === o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE;
+            if (u.type !== o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE && !g)
               throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
                 o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                   .INVALID_PIN_IN_CHAT_STANZA,
               );
-          } else if (n.edit === o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT) {
+          } else if (a.edit === o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT) {
             if (
               !(
-                o("WAWebHandleMsgMetaUtils").isEventEditMsgMeta(a) ||
-                o("WAWebHandleMsgMetaUtils").isPollEditMsgMeta(a) ||
-                (o("WAWebHandleMsgMetaUtils").isMediaMsgMeta(a) &&
-                  o("WAWebBotUtils").isMetaAiBot(n.author))
+                o("WAWebHandleMsgMetaUtils").isEventEditMsgMeta(i) ||
+                o("WAWebHandleMsgMetaUtils").isPollEditMsgMeta(i) ||
+                (o("WAWebHandleMsgMetaUtils").isMediaMsgMeta(i) &&
+                  o("WAWebBotUtils").isMetaAiBot(a.author))
               )
             ) {
-              var d =
-                s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-                s.futureproofSubtype === L;
-              if (s.subtype !== L && !d)
+              var h =
+                u.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+                u.futureproofSubtype === L;
+              if (u.subtype !== L && !h)
                 throw new (o(
                   "WAWebHandleMsgError",
                 ).MessageProtobufMismatchError)(
@@ -415,14 +435,14 @@ __d(
                 );
             }
           } else {
-            if (n.edit === o("WAWebAck").EDIT_ATTR.NEWSLETTER_MSG_EDIT)
+            if (a.edit === o("WAWebAck").EDIT_ATTR.NEWSLETTER_MSG_EDIT)
               throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
                 o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                   .INVALID_NEWSLETTER_EDIT_STANZA,
               );
-            n.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE ||
-            n.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE
-              ? V(s, n.edit)
+            a.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE ||
+            a.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE
+              ? G(u, a.edit)
               : o("WALogger")
                   .WARN(
                     m ||
@@ -430,13 +450,13 @@ __d(
                         "RenderableMessagesValidation: Unvalidated edit attribute ",
                         "",
                       ])),
-                    n.edit,
+                    a.edit,
                   )
                   .sendLogs("unvalidated-edit-attribute");
           }
         if (r("gkx")("26259")) {
-          var _ = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(i);
-          _ !== (a == null ? void 0 : a.type) &&
+          var y = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(l);
+          y !== (i == null ? void 0 : i.type) &&
             o("WALogger")
               .ERROR(
                 p ||
@@ -446,16 +466,16 @@ __d(
                     "]. Message type: ",
                     "",
                   ])),
-                a == null ? void 0 : a.type,
-                _,
-                s.type,
+                i == null ? void 0 : i.type,
+                y,
+                u.type,
               )
               .tags("messaging")
               .sendLogs("report-token-stanza-protobuf-type-mismatched", {
                 sampling: 0.01,
               });
         }
-        (O(a, s), F(i, s), w(s));
+        (O(i, u), F(l, u), w(u));
       }
     }
     var W = new Set([
@@ -481,7 +501,7 @@ __d(
           isMarkedAs: S.isPollVoteMsgMeta,
           carries: function (t) {
             return (
-              U(t, o("WAWebMsgType").MSG_TYPE.POLL_UPDATE) ||
+              H(t, o("WAWebMsgType").MSG_TYPE.POLL_UPDATE) ||
               (t.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE &&
                 t.subtype === "poll_vote")
             );
@@ -492,7 +512,7 @@ __d(
         {
           isMarkedAs: S.isCommentMsgMeta,
           carries: function (t) {
-            return U(t, o("WAWebMsgType").MSG_TYPE.COMMENT) || W.has(t.kind);
+            return H(t, o("WAWebMsgType").MSG_TYPE.COMMENT) || W.has(t.kind);
           },
           errorCode: R.MessageProtobufMismatchErrorCode.INVALID_COMMENT_STANZA,
         },
@@ -500,7 +520,7 @@ __d(
           isMarkedAs: S.isEventResponseMsgMeta,
           carries: function (t) {
             return (
-              U(t, o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE) ||
+              H(t, o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE) ||
               t.type === o("WAWebMsgType").MSG_TYPE.EVENT_RESPONSE
             );
           },
@@ -511,7 +531,7 @@ __d(
           isMarkedAs: S.isEventEditMsgMeta,
           carries: function (t) {
             return (
-              U(t, o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED) ||
+              H(t, o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED) ||
               t.type === o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED
             );
           },
@@ -522,7 +542,7 @@ __d(
           isMarkedAs: S.isPollEditMsgMeta,
           carries: function (t) {
             return (
-              U(t, o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED) ||
+              H(t, o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED) ||
               t.type === o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED
             );
           },
@@ -533,7 +553,7 @@ __d(
           isMarkedAs: S.isMemberTagMsgMeta,
           carries: function (t) {
             return (
-              (U(t, o("WAWebMsgType").MSG_TYPE.PROTOCOL) &&
+              (H(t, o("WAWebMsgType").MSG_TYPE.PROTOCOL) &&
                 t.futureproofSubtype === "member_label") ||
               (t.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
                 t.subtype === "member_label")
@@ -542,13 +562,57 @@ __d(
           errorCode:
             R.MessageProtobufMismatchErrorCode.INVALID_MEMBER_TAG_STANZA,
         },
+      ],
+      U = [
+        {
+          encMediaType: o("WAWebBackendJobs.flow").EncMediaType.InstantImage,
+          carries: function (t) {
+            return t.instantImageMessage != null;
+          },
+          isAllowedBody: function (t) {
+            var e;
+            return (
+              ((e = t.instantImageMessage) == null ? void 0 : e.viewOnce) !== !0
+            );
+          },
+          isReceiverEnabled: function () {
+            return o("WAWebABProps").getABPropConfigValue(
+              "instants_receiver_enabled",
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_INSTANT_IMAGE_STANZA,
+        },
+        {
+          encMediaType: o("WAWebBackendJobs.flow").EncMediaType.InstantVideo,
+          carries: function (t) {
+            return t.instantVideoMessage != null;
+          },
+          isAllowedBody: function () {
+            return !0;
+          },
+          isReceiverEnabled: function () {
+            return o("WAWebInstantMsgTypes").isInstantTypeReceiverEnabled(
+              o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,
+            );
+          },
+          errorCode:
+            R.MessageProtobufMismatchErrorCode.INVALID_INSTANT_VIDEO_STANZA,
+        },
       ];
-    function U(e, t) {
+    function V(e, t, n) {
+      var r = n === e.encMediaType,
+        o = e.carries(t);
+      return (!r && !o) || !e.isReceiverEnabled()
+        ? !1
+        : r !== o || !e.isAllowedBody(t);
+    }
+    function H(e, t) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && e.futureproofType === t
       );
     }
-    function V(e, t) {
+    function G(e, t) {
       var n =
         t === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
           ? "admin_revoke"
@@ -557,7 +621,7 @@ __d(
         !(
           e.kind === o("WAWebMsgType").MsgKind.ProtocolRevoke && e.subtype === n
         ) &&
-        !(t === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE && H(e))
+        !(t === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE && z(e))
       )
         throw (
           r("gkx")("26259") &&
@@ -581,7 +645,7 @@ __d(
           )
         );
     }
-    function H(e) {
+    function z(e) {
       return (
         E.has(e.type) ||
         (e.kind === o("WAWebMsgType").MsgKind.Protocol &&
@@ -590,7 +654,7 @@ __d(
               .ScheduledMessageUnschedule)
       );
     }
-    function G(e) {
+    function j(e) {
       var t = e.info,
         a = e.isFirstReceipt,
         i = e.isQuarantined,
@@ -622,7 +686,7 @@ __d(
                 .sendLogs("br-add-pix-key-offer-receipt-failed");
             });
     }
-    function z(e) {
+    function K(e) {
       var t = e.info,
         n = e.proto,
         r = e.renderableMsgs;
@@ -641,12 +705,12 @@ __d(
           { sendLogs: 0 },
         );
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    function K() {
+    function X() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
@@ -675,14 +739,14 @@ __d(
                 var g =
                     (t = c.protocolMessageKey) == null ? void 0 : t.toString(),
                   h = {
-                    msgKey: Q(c),
+                    msgKey: Y(c),
                     stanzaId: c.id.id,
                     reportingTag: p,
                     receivedTs: o("WATimeUtils").unixTimeMs(),
                     msgTs:
                       (n = (r = m.stanzaTs) != null ? r : c.t) != null ? n : 0,
                   };
-                if (X(c)) {
+                if (J(c)) {
                   if (u) return;
                   o("WAWebGetMessageCache")
                     .getMessageCache()
@@ -750,10 +814,10 @@ __d(
             }
           }
         })),
-        K.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function Q(e) {
+    function Y(e) {
       var t, n;
       return e.kind === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
         ? e.id.toString()
@@ -762,7 +826,7 @@ __d(
           ? t
           : e.id.toString();
     }
-    function X(e) {
+    function J(e) {
       return (
         e.kind === o("WAWebMsgType").MsgKind.Unknown ||
         e.kind === o("WAWebMsgType").MsgKind.AssociatedUnknown
@@ -773,9 +837,9 @@ __d(
       (l.isFromKnownDevice = P),
       (l.validateBizNode = M),
       (l.renderableMessagesValidation = B),
-      (l.logAddPixKeyOfferReceipt = G),
-      (l.validateAddPixKeyOfferSender = z),
-      (l.validateAndProcessReportingTokenInfo = j));
+      (l.logAddPixKeyOfferReceipt = j),
+      (l.validateAddPixKeyOfferSender = K),
+      (l.validateAndProcessReportingTokenInfo = Q));
   },
   98,
 );

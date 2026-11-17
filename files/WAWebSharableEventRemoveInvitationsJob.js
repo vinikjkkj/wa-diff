@@ -3,6 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebSharableEventCredentials",
+    "WAWebSharableEventFailureLogger",
+    "WAWebSharableEventInviteLinkJob",
     "WAWebSharableEventRemoveInvitationsJobMutation.graphql",
     "WAWebSharableEventServerClient",
     "WAWebSharableEventStoreInvitation",
@@ -16,17 +18,18 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventRemoveInvitationsJobMutation.graphql"));
-    function c(e, t) {
+    function c(e, t, n) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a,
+            i = n.resetLink;
           yield o(
             "WAWebSharableEventCredentials",
           ).waitForSharableEventCredentials("remove-invitations");
-          var a = yield o(
+          var l = yield o(
               "WAWebSharableEventServerClient",
             ).mutateSharableEventServer(u, {
               input: {
@@ -36,13 +39,13 @@ __d(
                 }),
               },
             }),
-            i = a.reader,
-            l = a.response,
-            c =
-              l == null || (n = l.xwa_event_remove_invitations) == null
+            c = l.reader,
+            d = l.response,
+            m =
+              d == null || (a = d.xwa_event_remove_invitations) == null
                 ? void 0
-                : n.privacy_aware_invitation;
-          if (c == null)
+                : a.privacy_aware_invitation;
+          if (m == null)
             throw r("err")(
               "[sharable_event] xwa_event_remove_invitations returned nothing",
             );
@@ -56,9 +59,18 @@ __d(
             e,
             t.length,
           ),
+            i &&
+              o("WAWebSharableEventInviteLinkJob")
+                .invalidateSharableEventInviteLink(e)
+                .catch(function (e) {
+                  o("WAWebSharableEventFailureLogger").logSharableEventFailure(
+                    "reset-invite-link",
+                    e,
+                  );
+                }),
             yield o(
               "WAWebSharableEventStoreInvitation",
-            ).storeAndSendSharableEventInvitation(e, i, c));
+            ).storeAndSendSharableEventInvitation(e, c, m));
         })),
         d.apply(this, arguments)
       );

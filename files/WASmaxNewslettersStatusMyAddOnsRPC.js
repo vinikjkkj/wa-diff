@@ -220,12 +220,7 @@ __d(
     ((l.sendStatusMyAddOnsRPC = e),
       (l.parseStatusMyAddOnsResponseClientError = u),
       (l.parseStatusMyAddOnsResponseServerError = c),
-      (l.parseStatusMyAddOnsResponseSuccessMyAddonsStatusesStatus = d),
-      (l.parseStatusMyAddOnsResponseSuccessMyAddonsStatuses = m),
       (l.parseStatusMyAddOnsResponseSuccess = p),
-      (l.parseStatusMyAddonsClientErrors = _),
-      (l.parseStatusNewsletterMyAddOnsMixin = f),
-      (l.parseStatusNewsletterMyReactionMixin = g),
       (l.makeStatusMyAddOnsRequest = h));
   },
   98,

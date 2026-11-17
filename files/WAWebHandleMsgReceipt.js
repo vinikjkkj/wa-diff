@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebCreateReceiptStanzaReceiveMetric",
     "WAWebHandleAckPeerSimpleReceipt",
@@ -111,7 +112,7 @@ __d(
                 i,
                 r("gkx")("9092") ? a.externalId : "...",
               ),
-                yield S(a));
+                yield R(a));
             } catch (e) {}
             d = o("WAWebReceiptAck").buildReceiptAck({
               ackString: l,
@@ -131,7 +132,7 @@ __d(
                 a.receipts.length,
                 r("gkx")("9092") ? a.externalId : "...",
               ),
-                yield R(a));
+                yield L(a));
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -163,6 +164,7 @@ __d(
         i = t.ackString,
         l = t.from,
         c = t.recipient;
+      if (S(t)) return (y || (y = n("Promise"))).resolve();
       if (a === o("WAWebAck").ACK.PEER)
         return o("WAWebHandleAckPeerSimpleReceipt").handleAckPeerSimpleReceipt(
           t,
@@ -234,6 +236,14 @@ __d(
       );
     }
     function S(e) {
+      return (
+        e.integrityDrop === !0 &&
+        o("WAWebABProps").getABPropConfigValue(
+          "integrity_drop_receipt_enabled",
+        ) !== !0
+      );
+    }
+    function R(e) {
       var t = e.ack,
         a = e.from;
       return t === o("WAWebAck").ACK.CONTENT_GONE
@@ -266,7 +276,7 @@ __d(
                 .map(v),
             );
     }
-    function R(e) {
+    function L(e) {
       return (y || (y = n("Promise"))).all(
         o("WAWebHandleMsgReceiptUtils")
           .deaggregateGroupedByMessageReceipt(e)

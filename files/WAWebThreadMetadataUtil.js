@@ -14,8 +14,10 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[getOfflineMetaPreviewForChat] accountLid null, migrated",
+                    "[getOfflineMetaPreviewForChat] accountLid null ",
+                    "",
                   ])),
+                r.toLogString(),
               )
               .sendLogs("account-lid-null-offline-metadata");
           else {

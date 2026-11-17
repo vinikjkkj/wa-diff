@@ -133,6 +133,11 @@ __d(
           subtype: void 0,
           formatMsgText: r("WAWebInstantsFormatMsgText"),
         },
+        {
+          type: "instant_video",
+          subtype: void 0,
+          formatMsgText: r("WAWebInstantsFormatMsgText"),
+        },
         { type: "interactive", subtype: void 0, formatMsgText: null },
         { type: "interactive_response", subtype: void 0, formatMsgText: null },
         {

@@ -37,6 +37,7 @@ __d(
     "WAWebGroupHistoryUtils",
     "WAWebHatchFrontendGating",
     "WAWebHatchJarvisPayload",
+    "WAWebInstantMsgTypes",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebIsAccountBoundAiRichResponse",
     "WAWebIsAiRichResponseForwardable",
@@ -268,7 +269,7 @@ __d(
             "WAWebNewsletterGatingUtils",
           ).isNewsletterAdminProfilesForwardingEnabled()) ||
         (o("WAWebSoundStickerUtils").isSoundStickerMsg(s) &&
-          !o("WAWebSoundStickerGating").isSoundStickerCreationEnabled())
+          !o("WAWebSoundStickerGating").isSoundStickerConsumptionEnabled())
       )
         return !1;
       switch (s.type) {
@@ -278,6 +279,7 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.EVENT_CREATION:
         case o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE:
         case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
+        case o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO:
         case o("WAWebMsgType").MSG_TYPE.NEWSLETTER_ADMIN_INVITE:
         case o("WAWebMsgType").MSG_TYPE.ORDER:
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
@@ -469,7 +471,7 @@ __d(
             !o("WAWebMsgGetters").getIsNotification(r) &&
             !o("WAWebMsgGetters").getIsFutureproof(r) &&
             !r.isViewOnce &&
-            r.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE &&
+            !o("WAWebInstantMsgTypes").isInstantMsgType(r.type) &&
             r.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
             r.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
             !(
@@ -488,7 +490,7 @@ __d(
         o("WAWebChatGetters").getIsBroadcast(i) ||
         o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(i) ||
         a.isViewOnce === !0 ||
-        a.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
+        o("WAWebInstantMsgTypes").isInstantMsgType(a.type) ||
         a.subtype === "view_once_unavailable_fanout" ||
         a.subtype === "acp_unavailable_fanout" ||
         i.id.isBot()

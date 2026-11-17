@@ -884,7 +884,9 @@ __d(
                   o("WAWebMusicGatingUtils").isMusicOnChatsGeogatingEnabled()
                 : t === o("WAWebMsgType").MSG_TYPE.PTV
                   ? u == null && !s
-                  : t === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE;
+                  : t === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE
+                    ? !0
+                    : t === o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO;
         },
         [
           u.getType,

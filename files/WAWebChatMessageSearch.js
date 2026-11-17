@@ -21,6 +21,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgCountReporter",
     "WAWebNewsletterMetadataGetters",
+    "WAWebOrgChatListFilter",
     "WAWebProtobufsE2E.pb",
     "WAWebStateUtils",
     "WAWebThreadModelResolver",
@@ -259,6 +260,12 @@ __d(
       if (r("isEmptyObject")(t)) return !0;
       if (t.label != null && t.label !== "")
         return n.labels == null || !n.labels.includes(t.label) ? !1 : y(n, t);
+      if (t.kind === o("WAWebChatSearchFilters").SearchFilters.NETWORK)
+        return (
+          t.orgId != null &&
+          !n.archive &&
+          o("WAWebOrgChatListFilter").isChatWithNetworkMembers(n, t.orgId)
+        );
       var a = t.kind != null ? g.get(t.kind) : null;
       if (a != null) return a(n);
       var i = o("WAWebFrontendChatGetters").getKind(n);

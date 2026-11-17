@@ -7,7 +7,15 @@ __d(
       s = null,
       u = null;
     function c() {
-      return g().decommission;
+      var e, t, n, o;
+      return (e =
+        (t = (n = u) == null ? void 0 : n.decommission) != null
+          ? t
+          : (o = s) == null
+            ? void 0
+            : o.decommission) != null
+        ? e
+        : r("gkx")("14549");
     }
     function d() {
       return g().queues;

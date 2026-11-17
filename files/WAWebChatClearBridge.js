@@ -67,6 +67,9 @@ __d(
                 });
               }),
             ),
+            o("WAWebBackendApi").frontendFireAndForget("chatHistoryCleared", {
+              chatId: t.id.toString(),
+            }),
             yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
               o("WAWebWidToJid").widToChatJid(t.id),
             ),

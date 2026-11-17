@@ -194,12 +194,14 @@ __d(
           var n = yield o("WAWebDBMsgUtils").getMsgsByMsgKey([e]),
             r = n[0],
             a = yield o("WAWebDBSharableEvent").getSharableEvent(t);
-          return r == null ||
-            (a == null ? void 0 : a.coverImageUrl) == null ||
-            r.sharableEventInviteJpegThumbnail != null ||
-            r.sharableEventInviteCoverImageHandle !== a.coverImageHandle
-            ? null
-            : a.coverImageUrl;
+          return a == null
+            ? { kind: "event-not-stored" }
+            : r == null ||
+                a.coverImageUrl == null ||
+                r.sharableEventInviteJpegThumbnail != null ||
+                r.sharableEventInviteCoverImageHandle !== a.coverImageHandle
+              ? { kind: "none" }
+              : { kind: "cover", url: a.coverImageUrl };
         })),
         R.apply(this, arguments)
       );

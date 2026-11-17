@@ -33,6 +33,7 @@ __d(
                 status: "PENDING",
                 createdAt: o("WATimeUtils").unixTime(),
                 senderJid: null,
+                outerMessageSecret: e.outerMessageSecret,
                 isAssociationChild: e.isAssociationChild === !0 ? !0 : void 0,
               }),
               !0);

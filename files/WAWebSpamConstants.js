@@ -44,6 +44,7 @@ __d(
         e.MSG_TYPE.AUDIO,
         e.MSG_TYPE.IMAGE,
         e.MSG_TYPE.INSTANT_IMAGE,
+        e.MSG_TYPE.INSTANT_VIDEO,
         e.MSG_TYPE.PTT,
         e.MSG_TYPE.PTV,
         e.MSG_TYPE.VIDEO,

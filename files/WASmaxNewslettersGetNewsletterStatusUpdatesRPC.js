@@ -209,11 +209,7 @@ __d(
       (l.parseGetNewsletterStatusUpdatesResponseClientError = u),
       (l.parseGetNewsletterStatusUpdatesResponseServerError = c),
       (l.parseGetNewsletterStatusUpdatesResponseSuccess = d),
-      (l.makeGetNewsletterStatusUpdatesRequest = m),
-      (l.mergeStatusUpdatesBeforeOrAfterMixinMixinGroup = p),
-      (l.parseGetNewsletterStatusUpdatesClientErrors = _),
-      (l.mergeStatusUpdatesAfterMixinMixin = g),
-      (l.mergeStatusUpdatesBeforeMixinMixin = y));
+      (l.makeGetNewsletterStatusUpdatesRequest = m));
   },
   98,
 );

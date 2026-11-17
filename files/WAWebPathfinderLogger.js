@@ -80,10 +80,10 @@ __d(
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[Pathfinder]",
               " dropped reserved keys: ",
-              "",
+              " (reason=reserved_key)",
             ])),
           i,
-          t.join(", "),
+          t.length,
         ),
         n.length > 0 &&
           o("WALogger").WARN(
@@ -92,11 +92,11 @@ __d(
                 "[Pathfinder]",
                 " Dropped metadata keys longer than ",
                 " chars: ",
-                "",
+                " (reason=key_too_long)",
               ])),
             i,
             S,
-            n.join(", "),
+            n.length,
           ),
         r.length > 0 &&
           o("WALogger").WARN(
@@ -105,11 +105,11 @@ __d(
                 "[Pathfinder]",
                 " truncated values >",
                 " chars: ",
-                "",
+                " (reason=value_too_long)",
               ])),
             i,
             R,
-            r.join(", "),
+            r.length,
           ),
         a.length > 0 &&
           o("WALogger").WARN(
@@ -118,13 +118,11 @@ __d(
                 "[Pathfinder]",
                 " dropped ",
                 " keys over ",
-                "-key cap: ",
-                "",
+                "-key cap (reason=key_cap)",
               ])),
             i,
             a.length,
             v,
-            a.join(", "),
           ));
     }
     function E(e, t, n) {

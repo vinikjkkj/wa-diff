@@ -166,6 +166,11 @@ __d(
           generateProtobuf: r("WAWebGenerateImageMessageProto"),
         },
         {
+          type: "instant_video",
+          subtype: void 0,
+          generateProtobuf: r("WAWebGenerateVideoMessageProto"),
+        },
+        {
           type: "interactive",
           subtype: void 0,
           generateProtobuf: r("WAWebGenerateInteractiveMessageProto"),

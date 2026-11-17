@@ -25,7 +25,7 @@ __d(
         )
         .version(
           o("WAWebModelStorageVersions").privacyDisallowedListAddDhashField(),
-          [n("dhash")],
+          [n("dhash"), n("allowedList"), n("excludedContacts")],
         )
         .view(function (e) {
           return e;

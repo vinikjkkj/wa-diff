@@ -216,7 +216,7 @@ __d(
             ? null
             : d.type === "camera"
               ? A(d.reason, t)
-              : u == null || !(yield O(u, d.isBlocked, t))
+              : u == null || !(yield O(u, t))
                 ? null
                 : x({
                     asksCamera: i && l,
@@ -338,7 +338,7 @@ __d(
             ).isBrowserPermissionButtonEnabled("microphone")
             ? null
             : t.micPermission !== "granted"
-              ? { isBlocked: t.micPermission === "denied", type: "microphone" }
+              ? { type: "microphone" }
               : { reason: w(t), type: "camera" };
         })),
         M.apply(this, arguments)
@@ -374,7 +374,7 @@ __d(
         F.apply(this, arguments)
       );
     }
-    function O(e, t, a) {
+    function O(e, t) {
       return r("WAWebCallCollection").activeCall != null
         ? (o("WALogger").LOG(
             s ||
@@ -383,57 +383,56 @@ __d(
               ])),
           ),
           (f || (f = n("Promise"))).resolve(!1))
-        : new (f || (f = n("Promise")))(function (i) {
-            var l = new AbortController(),
-              s = null,
-              c = function () {
+        : new (f || (f = n("Promise")))(function (a) {
+            var i = new AbortController(),
+              l = null,
+              s = function () {
                 (f || (f = n("Promise"))).resolve().then(function () {
-                  return s == null ? void 0 : s(!1, "closed");
+                  return l == null ? void 0 : l(!1, "closed");
                 });
               },
-              d = function (t) {
-                (s == null || s(!1, t), l.abort());
+              c = function (t) {
+                (l == null || l(!1, t), i.abort());
+              },
+              d = function () {
+                return c("cancelled with the call");
               },
               m = function () {
-                return d("cancelled with the call");
-              },
-              p = function () {
                 r("WAWebCallCollection").activeCall != null &&
-                  d("another call came in");
+                  c("another call came in");
               };
-            ((s = function (t, n) {
-              ((s = null),
-                o("WAWebModalManager").ModalManager.off("open_modal", c),
-                o("WAWebModalManager").ModalManager.off("close_modal", c),
-                r("WAWebCallCollection").off(g, p),
-                a.removeEventListener("abort", m),
+            ((l = function (n, i) {
+              ((l = null),
+                o("WAWebModalManager").ModalManager.off("open_modal", s),
+                o("WAWebModalManager").ModalManager.off("close_modal", s),
+                r("WAWebCallCollection").off(g, m),
+                t.removeEventListener("abort", d),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [start call] microphone permission button ",
                       "",
                     ])),
-                  n,
+                  i,
                 ),
-                i(t));
+                a(n));
             }),
               o(
                 "WAWebVoipDevicePermissionDialogLoader.react",
               ).openDevicePermissionDialog(h, e, {
                 action: "start",
-                cancelSignal: l.signal,
-                isBlocked: t,
+                cancelSignal: i.signal,
                 onAllowed: function () {
-                  return s == null ? void 0 : s(!0, "allowed");
+                  return l == null ? void 0 : l(!0, "allowed");
                 },
                 onDismissed: function () {
-                  return s == null ? void 0 : s(!1, "dismissed");
+                  return l == null ? void 0 : l(!1, "dismissed");
                 },
               }),
-              o("WAWebModalManager").ModalManager.on("open_modal", c),
-              o("WAWebModalManager").ModalManager.on("close_modal", c),
-              r("WAWebCallCollection").on(g, p),
-              a.addEventListener("abort", m));
+              o("WAWebModalManager").ModalManager.on("open_modal", s),
+              o("WAWebModalManager").ModalManager.on("close_modal", s),
+              r("WAWebCallCollection").on(g, m),
+              t.addEventListener("abort", d));
           });
     }
     function B(e) {

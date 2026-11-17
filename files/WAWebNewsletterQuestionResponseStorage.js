@@ -7,13 +7,14 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebNewsletterQuestionResponseParent",
+    "WAWebQuestions.flow",
     "WAWebSchemaNewsletterQuestionResponses",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      return d(
+      return p(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = yield t.bulkGet(
@@ -40,7 +41,7 @@ __d(
       );
     }
     function u(e) {
-      return d(
+      return p(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = e.map(function (e) {
@@ -60,17 +61,68 @@ __d(
         })(),
       );
     }
-    function c(t) {
-      return d(function () {
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return o(
+            "WAWebSchemaNewsletterQuestionResponses",
+          ).canUseNewsletterQuestionResponsesTable()
+            ? o("WAWebModelStorageUtils")
+                .getStorage()
+                .lock(
+                  ["newsletter-question-responses"],
+                  (function () {
+                    var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (n) {
+                        var r,
+                          a = n[0],
+                          i = yield a.get(e.toString());
+                        if (i == null) return "missing";
+                        var l = i.questionResponseInfo;
+                        if (
+                          ((r = l.reactionCode) != null ? r : null) ===
+                          (t != null ? t : null)
+                        )
+                          return "unchanged";
+                        var s =
+                          t ===
+                          o("WAWebQuestions.flow")
+                            .QUESTION_RESPONSE_LIKE_REACTION_CODE;
+                        return (
+                          yield a.merge(i.msgKey, {
+                            questionResponseInfo: babelHelpers.extends({}, l, {
+                              reactionCode: t != null ? t : void 0,
+                              likeSeen: l.likeSeen === !0 || s,
+                            }),
+                          }),
+                          s && l.likeSeen !== !0 ? "firstLike" : "updated"
+                        );
+                      },
+                    );
+                    return function (e) {
+                      return r.apply(this, arguments);
+                    };
+                  })(),
+                )
+            : "unavailable";
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(t) {
+      return p(function () {
         return (e || (e = n("Promise"))).resolve([t.toString()]);
       });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
             o(
               "WAWebSchemaNewsletterQuestionResponses",
@@ -150,12 +202,13 @@ __d(
             );
           }
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
     ((l.upsertNewsletterQuestionResponses = s),
       (l.removeNewsletterQuestionResponses = u),
-      (l.syncMyQuestionResponsesCount = c));
+      (l.applyMyQuestionResponseReaction = c),
+      (l.syncMyQuestionResponsesCount = m));
   },
   98,
 );

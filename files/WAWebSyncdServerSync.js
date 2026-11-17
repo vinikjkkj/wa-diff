@@ -18,8 +18,10 @@ __d(
     "WAWebSyncdRequestBuilder",
     "WAWebSyncdResponseParser",
     "WAWebSyncdWamAppState",
+    "WAWebSyncdWamReportingUtils",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -34,26 +36,27 @@ __d(
       f,
       g,
       h,
-      y = 5,
-      C = 500;
-    function b(e) {
-      return v.apply(this, arguments);
+      y,
+      C = 5,
+      b = 500;
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = Math.random().toString(36).substr(2, 5);
-          yield I(t, r + " start serverSync");
+          yield x(t, r + " start serverSync");
           for (
             var a = [], i = [].concat(t), l = 0;
-            (l < y || (i.length > 0 && l < C)) && i.length !== 0;
+            (l < C || (i.length > 0 && l < b)) && i.length !== 0;
           ) {
-            var s = yield S(i, r),
+            var s = yield R(i, r),
               u = s.doneCollections,
               c = s.refetchCollections;
-            (yield (h || (h = n("Promise"))).all(
+            (yield (y || (y = n("Promise"))).all(
               u.map(function (e) {
-                return I(
+                return x(
                   [e.name],
                   r +
                     " done collection " +
@@ -70,7 +73,7 @@ __d(
           }
           return (
             i.length > 0 &&
-              (yield I(i, "error: max iterations"),
+              (yield x(i, "error: max iterations"),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -93,19 +96,19 @@ __d(
             a
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.length === 0)
             return { doneCollections: [], refetchCollections: [] };
           try {
-            var r = yield L(e, t),
+            var r = yield E(e, t),
               a = r.collectionsToRefetch,
               i = r.collectionWithEncryptedMutations,
               l = r.collectionWithPendingMutationsIds,
@@ -136,7 +139,7 @@ __d(
                   })
                   .join(""),
               ));
-            var y = o(
+            var h = o(
               "WAWebSyncdResponseParser",
             ).syncResponseParser.parseOrThrow(g.node());
             (o(
@@ -153,7 +156,7 @@ __d(
                     "",
                   ])),
                 t,
-                y.map(function (e) {
+                h.map(function (e) {
                   var t = "\n" + e.name;
                   return (
                     e.version != null &&
@@ -165,7 +168,7 @@ __d(
                   );
                 }),
               ));
-            var C = y.map(function (e) {
+            var C = h.map(function (e) {
                 var t, n;
                 return babelHelpers.extends({}, e, {
                   syncedPendingMutationsId:
@@ -204,7 +207,7 @@ __d(
                 }),
               ));
             var S = new (o("WAWebSyncdMetrics").SyncdEventFlow)(),
-              R = yield (h || (h = n("Promise"))).all(
+              R = yield (y || (y = n("Promise"))).all(
                 b.map(function (e) {
                   return o(
                     "WAWebSyncdCollectionHandler",
@@ -227,9 +230,9 @@ __d(
                   return e.name;
                 }),
               ));
-            var E = [];
+            var L = [];
             return (
-              yield h.all(
+              yield y.all(
                 R.map(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -245,7 +248,7 @@ __d(
                               e.name,
                             )).length > 0;
                           t
-                            ? E.push(e.name)
+                            ? L.push(e.name)
                             : ((e.state =
                                 o("WAWebSyncdConst").CollectionState.Success),
                               v.push(e));
@@ -261,7 +264,7 @@ __d(
                             a.some(function (t) {
                               return t === e.name;
                             }))
-                            ? E.push(e.name)
+                            ? L.push(e.name)
                             : v.push(e);
                       },
                     );
@@ -271,7 +274,7 @@ __d(
                   })(),
                 ),
               ),
-              { doneCollections: v, refetchCollections: E }
+              { doneCollections: v, refetchCollections: L }
             );
           } catch (n) {
             if (n instanceof o("WAWebSyncdError").SyncdFatalError) {
@@ -286,7 +289,7 @@ __d(
                 .sendLogs(
                   "syncd: fatal error: syncd global throws " + n.message,
                 ),
-                yield I(
+                yield x(
                   e,
                   t +
                     " moving to fatal state: " +
@@ -294,7 +297,7 @@ __d(
                     " " +
                     n.message +
                     " " +
-                    n.stack,
+                    String(n.stack),
                 ));
               var k = e.map(function (e) {
                 return {
@@ -318,26 +321,26 @@ __d(
               .sendLogs(
                 "syncd: retryable error: syncd global throws " + n.message,
               ),
-              yield I(e, "[" + t + "] retryable error: " + n));
-            var T = e.map(function (e) {
+              yield x(e, "[" + t + "] retryable error: " + n));
+            var I = e.map(function (e) {
               return {
                 state: o("WAWebSyncdConst").CollectionState.ErrorRetry,
                 name: e,
                 serverBackoff: n.errorBackoff,
               };
             });
-            return { doneCollections: T, refetchCollections: [] };
+            return { doneCollections: I, refetchCollections: [] };
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebSyncdRequestBuilder").buildAppStateSyncRequest(
               e,
               t,
@@ -391,7 +394,7 @@ __d(
             t,
             c,
           ),
-            yield I(e, c));
+            yield x(e, c));
           var d = new (r("WADeprecatedWapParser"))(
               "rawSyncResponseParser",
               function (e) {
@@ -419,7 +422,7 @@ __d(
             m.success)
           )
             return (
-              yield I(e, "[" + t + "] after sendIq success"),
+              yield x(e, "[" + t + "] after sendIq success"),
               {
                 rawResponseNode: m.result,
                 collectionWithPendingMutationsIds: l,
@@ -431,12 +434,52 @@ __d(
           var p = m.errorBackoff,
             _ = m.errorCode,
             h = m.errorText;
-          throw k(_, h, p);
+          throw (
+            yield I(i, s, "error: server_error message: " + _ + " " + h),
+            D(_, h, p)
+          );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          try {
+            var a = yield o(
+              "WAWebSyncdWamReportingUtils",
+            ).getShortMdSessionId();
+            e.forEach(function (e, r) {
+              var i;
+              e.length !== 0 &&
+                o("WAWebSyncdWamReportingUtils").syncReportOutgoingToWam(
+                  r,
+                  (i = t.get(r)) != null ? i : 0,
+                  new ArrayBuffer(0),
+                  e,
+                  a,
+                  n,
+                );
+            });
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: failed to report global error to wam",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("syncd: failed to report global error to wam");
+          }
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e, t, n) {
       e: {
         if (e === 400) {
           return (
@@ -481,14 +524,14 @@ __d(
         return new (o("WAWebSyncdError").SyncdRetryableError)(t, n);
       }
     }
-    function I(e, t) {
-      return (h || (h = n("Promise"))).all(
+    function x(e, t) {
+      return (y || (y = n("Promise"))).all(
         e.map(function (e) {
           return o("WAWebSyncdDbCallbacksApi").writeSyncdLog(e, t);
         }),
       );
     }
-    l.serverSync = b;
+    l.serverSync = v;
   },
   98,
 );

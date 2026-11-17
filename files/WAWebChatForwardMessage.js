@@ -596,6 +596,7 @@ __d(
           "bizPrivacyStatus",
           "hostedBizEncStateMismatch",
           "aeaAutoUpgrade",
+          "instantPlayedSelf",
           "kicState",
           "kicKey",
           "kicTimestampMs",

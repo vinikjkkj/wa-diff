@@ -8,6 +8,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
+        chatHistoryCleared: function (t) {
+          var e = t.chatId;
+          o("WAWebCmd").Cmd.onChatHistoryClearedFromBridge(e);
+        },
         setHistorySyncPaused: function (t) {
           var e = t.paused;
           (u(),

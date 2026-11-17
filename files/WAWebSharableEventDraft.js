@@ -26,12 +26,13 @@ __d(
       f = 30,
       g = 5 * m,
       h = 365,
-      y = 1440 * m;
-    function C(e) {
+      y = 1440 * m,
+      C = [e.OneDay, e.OneHour, e.ThirtyMinutes, e.FifteenMinutes];
+    function b(e) {
       return {
         name: "",
         description: "",
-        startTsSec: v(e),
+        startTsSec: S(e),
         endTsSec: null,
         location: null,
         callLink: null,
@@ -40,46 +41,47 @@ __d(
         cover: null,
       };
     }
-    function b(t) {
-      var n,
-        r,
+    function v(t, n) {
+      var r,
         o,
-        a = t.callLinkMediaType,
-        i = t.coverImageHandle,
-        l = t.locationLatitude,
-        s = t.locationLongitude,
-        u = t.locationName;
+        a,
+        i = (r = I(t.startTsSec, t.reminderTsSec)) != null ? r : e.Never,
+        l = t.callLinkMediaType,
+        s = t.coverImageHandle,
+        u = t.locationLatitude,
+        c = t.locationLongitude,
+        d = t.locationName;
       return {
         name: t.name,
-        description: (n = t.description) != null ? n : "",
+        description: (o = t.description) != null ? o : "",
         startTsSec: t.startTsSec,
         endTsSec: t.endTsSec,
         location:
-          u == null || u === ""
+          d == null || d === ""
             ? null
             : {
-                name: u,
+                name: d,
                 address: t.locationAddress,
-                latitude: l,
-                longitude: s,
+                latitude: u,
+                longitude: c,
               },
         callLink:
-          t.callLinkToken == null || t.callLinkToken === "" || a == null
+          t.callLinkToken == null || t.callLinkToken === "" || l == null
             ? null
-            : { mediaType: a, requireApproval: t.callLinkWaitingRoomEnabled },
-        reminder: (r = L(t.startTsSec, t.reminderTsSec)) != null ? r : e.Never,
+            : { mediaType: l, requireApproval: t.callLinkWaitingRoomEnabled },
+        reminder: k(i, t.startTsSec, n) ? e.Never : i,
         allowPlusOne: t.maxAdditionalGuests > 0,
         cover:
-          i == null
+          s == null
             ? { kind: "none" }
             : {
                 kind: "preset",
-                handle: i,
-                url: (o = t.coverImageUrl) != null ? o : "",
+                handle: s,
+                url: (a = t.coverImageUrl) != null ? a : "",
               },
       };
     }
-    function v(e) {
+    function S(e) {
       var t = new Date(e * p);
       return (
         t.setSeconds(0, 0),
@@ -88,31 +90,48 @@ __d(
         t.getTime() / p
       );
     }
-    function S(e, t) {
+    function R(e, t) {
       var n = e.endTsSec;
       return babelHelpers.extends({}, e, {
         startTsSec: t,
         endTsSec: n == null ? null : n + t - e.startTsSec,
       });
     }
-    function R(t) {
+    function L(t) {
       return t.reminder != null
         ? t.reminder
         : t.callLink == null
           ? e.OneDay
           : e.OneHour;
     }
-    function L(t, n) {
+    function E(t, n) {
+      var r,
+        o,
+        a = L(t);
+      if (!k(a, t.startTsSec, n)) return a;
+      var i = (r = M(a)) != null ? r : 0;
+      return (o = C.find(function (e) {
+        var r;
+        return ((r = M(e)) != null ? r : 0) < i && !k(e, t.startTsSec, n);
+      })) != null
+        ? o
+        : e.Never;
+    }
+    function k(e, t, n) {
+      var r = M(e);
+      return r != null && t - r <= n;
+    }
+    function I(t, n) {
       var r;
       if (n == null) return e.Never;
       var o = t - n;
       return (r = Array.from(e.members()).find(function (e) {
-        return D(e) === o;
+        return M(e) === o;
       })) != null
         ? r
         : null;
     }
-    function E(e, t, n) {
+    function T(e, t, n) {
       var r = new Set(),
         o = e.name.trim();
       return (
@@ -133,7 +152,7 @@ __d(
         r
       );
     }
-    function k(e, t) {
+    function D(e, t) {
       var n,
         r,
         o = e.callLink,
@@ -145,11 +164,11 @@ __d(
         description: l === "" ? void 0 : l,
         start_ts_sec: e.startTsSec,
         end_ts_sec: (n = e.endTsSec) != null ? n : void 0,
-        reminder_ts_sec: (r = T(e, t)) != null ? r : void 0,
-        location: i == null ? void 0 : x(i),
+        reminder_ts_sec: (r = N(e, t)) != null ? r : void 0,
+        location: i == null ? void 0 : w(i),
         max_additional_guests: e.allowPlusOne ? 1 : 0,
         hide_invitee_list: !1,
-        call_link_media_type: o == null ? void 0 : A(o.mediaType),
+        call_link_media_type: o == null ? void 0 : q(o.mediaType),
         call_link_waiting_room_enabled: o == null ? void 0 : o.requireApproval,
         cover_image_handle:
           (a == null ? void 0 : a.kind) === "preset" ? a.handle : void 0,
@@ -159,7 +178,7 @@ __d(
           (a == null ? void 0 : a.kind) === "photo" ? a.base64Jpeg : void 0,
       };
     }
-    function I(e, t, n, r, o) {
+    function x(e, t, n, r, o) {
       var a = { event_id: e, last_updated_ts_sec: Math.floor(t / _) },
         i = r.name.trim();
       i !== n.name.trim() && (a.name = i);
@@ -169,8 +188,8 @@ __d(
       if (
         (s && (a.start_ts_sec = r.startTsSec),
         r.endTsSec !== n.endTsSec && (a.end_ts_sec = r.endTsSec),
-        (s || R(r) !== R(n)) && (a.reminder_ts_sec = T(r, o)),
-        !P(r.location, n.location))
+        (s || L(r) !== L(n)) && (a.reminder_ts_sec = N(r, o)),
+        !F(r.location, n.location))
       )
         if (r.location == null) a.clear_location = !0;
         else {
@@ -190,24 +209,26 @@ __d(
       r.allowPlusOne !== n.allowPlusOne &&
         (a.max_additional_guests = r.allowPlusOne ? 1 : 0);
       var f = r.callLink;
-      if (!N(f, n.callLink) || (f != null && s)) {
+      if (!O(f, n.callLink) || (f != null && s)) {
         var g;
         ((a.start_ts_sec = r.startTsSec),
-          (a.call_link_media_type = f == null ? null : A(f.mediaType)),
+          (a.call_link_media_type = f == null ? null : q(f.mediaType)),
           (a.call_link_waiting_room_enabled =
             (g = f == null ? void 0 : f.requireApproval) != null ? g : !1));
       }
-      return w(r.cover) === w(n.cover)
+      return W(r.cover) === W(n.cover)
         ? a
-        : babelHelpers.extends({}, a, $(r.cover));
+        : babelHelpers.extends({}, a, A(r.cover));
     }
-    function T(e, t) {
-      var n = D(R(e));
-      if (n == null) return null;
-      var r = e.startTsSec - n;
-      return r > t ? r : null;
+    function $(e, t, n) {
+      return Object.keys(x("", 0, e, t, n)).length > P;
     }
-    function D(t) {
+    var P = 2;
+    function N(e, t) {
+      var n = M(E(e, t));
+      return n == null ? null : e.startTsSec - n;
+    }
+    function M(t) {
       return t === e.FifteenMinutes
         ? 15 * m
         : t === e.ThirtyMinutes
@@ -225,7 +246,7 @@ __d(
                     );
                   })();
     }
-    function x(e) {
+    function w(e) {
       var t = e.address,
         n = e.latitude,
         r = e.longitude,
@@ -237,7 +258,7 @@ __d(
           n == null || r == null ? void 0 : { latitude: n, longitude: r },
       };
     }
-    function $(e) {
+    function A(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -258,7 +279,7 @@ __d(
         return { cover_image_handle: null };
       })(e);
     }
-    function P(e, t) {
+    function F(e, t) {
       return (
         (e == null ? void 0 : e.name) === (t == null ? void 0 : t.name) &&
         (e == null ? void 0 : e.address) === (t == null ? void 0 : t.address) &&
@@ -268,7 +289,7 @@ __d(
           (t == null ? void 0 : t.longitude)
       );
     }
-    function N(e, t) {
+    function O(e, t) {
       return (
         (e == null ? void 0 : e.mediaType) ===
           (t == null ? void 0 : t.mediaType) &&
@@ -276,10 +297,10 @@ __d(
           (t == null ? void 0 : t.requireApproval)
       );
     }
-    function M(e, t) {
-      return w(e) === w(t);
+    function B(e, t) {
+      return W(e) === W(t);
     }
-    function w(e) {
+    function W(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -309,16 +330,46 @@ __d(
         );
       })(e);
     }
-    function A(e) {
+    function q(e) {
       return e ===
         o("WAWebSharableEventStorageEnums").SharableEventCallLinkMediaType.Voice
         ? "AUDIO"
         : "VIDEO";
     }
-    function F(e, t) {
+    function U(e, t) {
       return e.cover == null && t != null
         ? babelHelpers.extends({}, e, { cover: t })
         : e;
+    }
+    function V(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "preset" &&
+          "url" in e
+        ) {
+          var t = e.url;
+          return t;
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "photo" &&
+          "previewUrl" in e
+        ) {
+          var n = e.previewUrl;
+          return n;
+        }
+        if (
+          e == null ||
+          (((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.kind === "none")
+        )
+          return null;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
     }
     ((l.SharableEventReminder = e),
       (l.SharableEventDraftError = s),
@@ -326,19 +377,23 @@ __d(
       (l.SHARABLE_EVENT_DESCRIPTION_MAX_BYTES = c),
       (l.SHARABLE_EVENT_DEFAULT_DURATION_SEC = d),
       (l.SHARABLE_EVENT_CALL_LINK_MAX_DAYS_AHEAD = h),
-      (l.createSharableEventDraft = C),
-      (l.draftFromSharableEvent = b),
-      (l.getDefaultSharableEventStartTsSec = v),
-      (l.moveSharableEventDraftStart = S),
-      (l.getSharableEventDraftReminder = R),
-      (l.getSharableEventStoredReminder = L),
-      (l.getSharableEventDraftErrors = E),
-      (l.toCreateEventInput = k),
-      (l.toUpdateEventInput = I),
-      (l.isSameSharableEventDraftLocation = P),
-      (l.isSameSharableEventDraftCallLink = N),
-      (l.isSameSharableEventDraftCover = M),
-      (l.withSharableEventDefaultCover = F));
+      (l.createSharableEventDraft = b),
+      (l.draftFromSharableEvent = v),
+      (l.getDefaultSharableEventStartTsSec = S),
+      (l.moveSharableEventDraftStart = R),
+      (l.getSharableEventDraftReminder = L),
+      (l.getSharableEventDraftUpcomingReminder = E),
+      (l.isSharableEventReminderPast = k),
+      (l.getSharableEventStoredReminder = I),
+      (l.getSharableEventDraftErrors = T),
+      (l.toCreateEventInput = D),
+      (l.toUpdateEventInput = x),
+      (l.hasSharableEventDraftChanges = $),
+      (l.isSameSharableEventDraftLocation = F),
+      (l.isSameSharableEventDraftCallLink = O),
+      (l.isSameSharableEventDraftCover = B),
+      (l.withSharableEventDefaultCover = U),
+      (l.getSharableEventDraftCoverUrl = V));
   },
   98,
 );

@@ -55,7 +55,8 @@ __d(
               this.query === t &&
               this.filter.kind === (n == null ? void 0 : n.kind) &&
               this.filter.label === (n == null ? void 0 : n.label) &&
-              this.filter.leadStage === (n == null ? void 0 : n.leadStage)
+              this.filter.leadStage === (n == null ? void 0 : n.leadStage) &&
+              this.filter.orgId === (n == null ? void 0 : n.orgId)
             );
           }),
           n

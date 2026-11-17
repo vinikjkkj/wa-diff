@@ -1,63 +1,38 @@
 __d(
   "WAWebSharableEventListDays",
-  ["WAWebSharableEventTiming"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     var e = 1e3;
-    function s(e, t) {
-      var n = p(t);
-      return m(e, function (e) {
+    function l(e, t) {
+      var n = c(t);
+      return u(e, function (e) {
         return Math.max(e.startTsSec, n);
       });
     }
-    function u(e, t, n) {
-      return (
-        e.startTsSec - n <= t &&
-        t <
-          o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(e)
-      );
-    }
-    function c(e, t, n) {
-      var r = null;
-      return (
-        e.forEach(function (e) {
-          [
-            e.startTsSec - n,
-            o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(
-              e,
-            ),
-          ].forEach(function (e) {
-            e > t && (r == null || e < r) && (r = e);
-          });
-        }),
-        r
-      );
-    }
-    function d(e) {
-      return m(e, function (e) {
+    function s(e) {
+      return u(e, function (e) {
         return e.startTsSec;
       });
     }
-    function m(e, t) {
+    function u(e, t) {
       var n = null;
       return e.map(function (e) {
         var r = t(e),
-          o = _(r),
+          o = d(r),
           a = o !== n;
         return ((n = o), { event: e, dayTsSec: r, isFirstOfDay: a });
       });
     }
-    function p(t) {
+    function c(t) {
       var n = new Date(t * e);
       return (n.setHours(0, 0, 0, 0), Math.floor(n.getTime() / e));
     }
-    function _(t) {
+    function d(t) {
       var n = new Date(t * e);
       return n.getFullYear() + "-" + n.getMonth() + "-" + n.getDate();
     }
-    ((l.groupUpcomingSharableEventsByDay = s),
-      (l.isSharableEventHighlighted = u),
-      (l.getNextSharableEventHighlightChangeSec = c),
-      (l.groupPastSharableEventsByDay = d));
+    ((i.groupUpcomingSharableEventsByDay = l),
+      (i.groupPastSharableEventsByDay = s));
   },
-  98,
+  66,
 );

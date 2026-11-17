@@ -1,12 +1,14 @@
 __d(
   "WAWebNewsletterBridgeApi",
   [
+    "JSResourceForInteraction",
     "WALogger",
     "WAWebCommonNewsletterEnums",
     "WAWebContactCollection",
     "WAWebDBUpdateLastAddOnPreviewChat",
     "WAWebDeleteStatusAction",
     "WAWebLastAddOnDBSerialization",
+    "WAWebLazyLoadedRetriable",
     "WAWebMexNewsletterUtils",
     "WAWebMsgAIProvenance",
     "WAWebMsgCollection",
@@ -50,12 +52,22 @@ __d(
       h,
       y = r("requireDeferred")("WAWebNewsletterRouteBridgeApi").__setRef(
         "WAWebNewsletterBridgeApi",
+      ),
+      C = r("WAWebLazyLoadedRetriable")(
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return r("JSResourceForInteraction")(
+            "WAWebQuestionResponseLikedNotification",
+          )
+            .__setRef("WAWebNewsletterBridgeApi")
+            .load();
+        }),
+        "QuestionResponseLikedNotification",
       );
-    function C(e, t, n) {
+    function b(e, t, n) {
       var o = r("WAWebNewsletterCollection").get(e);
       o == null || o.mute.setMute(t, !1, !0, n);
     }
-    function b(e) {
+    function v(e) {
       o("WALogger")
         .ERROR(
           p ||
@@ -65,7 +77,7 @@ __d(
         )
         .sendLogs("newsletter-route-bridge-load-failed");
     }
-    var v = {
+    var S = {
       updateNewsletterMessageUI: function (t) {
         var e = t.chatID,
           n = t.isOrphan,
@@ -190,7 +202,7 @@ __d(
         var e = t.fromMultiselect,
           n = t.id,
           r = t.muteExpirationValue;
-        C(n, r, e);
+        b(n, r, e);
       },
       toggleNewsletterFollowerActivityMuteState: function (t) {
         var e,
@@ -597,6 +609,17 @@ __d(
         }
         return t;
       })(),
+      displayQuestionResponseLikedNotification: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield C(),
+            n = t.showQuestionResponseLikedNotification;
+          yield n(e);
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       handleOtherUserRoleChangeNotification: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
@@ -718,14 +741,14 @@ __d(
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterReports(t);
           })
-          .catch(b);
+          .catch(v);
       },
       updateNewsletterReport: function (t) {
         y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterReport(t);
           })
-          .catch(b);
+          .catch(v);
       },
       updateNewsletterEnforcementAlerts: function (t) {
         y.load()
@@ -734,7 +757,7 @@ __d(
               t,
             );
           })
-          .catch(b);
+          .catch(v);
       },
       updateNewsletterQuestionResponses: function (t) {
         y.load()
@@ -743,14 +766,14 @@ __d(
               t,
             );
           })
-          .catch(b);
+          .catch(v);
       },
       hideNewsletterQuestionResponse: function (t) {
         y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.hideNewsletterQuestionResponse(t);
           })
-          .catch(b);
+          .catch(v);
       },
       updateNewsletterQuestionResponseStarredState: function (t) {
         y.load()
@@ -759,7 +782,7 @@ __d(
               t,
             );
           })
-          .catch(b);
+          .catch(v);
       },
       updateMyNewsletterMembershipRole: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -883,7 +906,7 @@ __d(
         return t;
       })(),
     };
-    l.NewsletterBridgeApi = v;
+    l.NewsletterBridgeApi = S;
   },
   98,
 );

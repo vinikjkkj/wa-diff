@@ -7,7 +7,13 @@ __d(
         "channels_question_view_your_responses_enabled",
       );
     }
-    l.isQuestionViewYourResponsesEnabled = e;
+    function s() {
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channels_question_response_like_follower_enabled",
+      );
+    }
+    ((l.isQuestionViewYourResponsesEnabled = e),
+      (l.isQuestionResponseLikesEnabledForFollowers = s));
   },
   98,
 );

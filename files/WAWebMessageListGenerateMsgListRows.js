@@ -5,12 +5,12 @@ __d(
     "WAThrottle",
     "WATimeUtils",
     "WAWebFrontendMsgGetters",
+    "WAWebInstantMsgTypes",
     "WAWebInstantStackGrouping",
     "WAWebMaybeInsertHistoryBundleInfo",
     "WAWebMessageListAlbums",
     "WAWebMessageListDayOfMsg",
     "WAWebMsgGetters",
-    "WAWebMsgType",
     "WAWebThreadMsgUtils",
     "err",
   ],
@@ -116,7 +116,7 @@ __d(
             (R = !1));
           continue;
         }
-        if (x.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE) {
+        if (o("WAWebInstantMsgTypes").isInstantMsgType(x.type)) {
           var ee = f(t, v, a, b),
             te = ee[ee.length - 1],
             ne = v + ee.length - 1,

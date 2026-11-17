@@ -381,7 +381,7 @@ __d(
             type: s,
             mmSignalType: i,
             surface: c,
-            signalTypeOrigin: r,
+            signalTypeOrigin: (r == null, r),
             sharingStatus: o(
               "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
             ).isMmSignalSharingUserDisclosedInCollectionWindow(
@@ -448,51 +448,44 @@ __d(
         N({ chat: r, mmSignalType: S(a) });
     }
     function v(e) {
-      var t;
       if (e == null) return o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_BLOCK;
-      var n =
-        ((t = {}),
-        (t[o("WAWebBlockContants").BizOptOutReason.NoLongerNeeded] = o(
-          "WAWebWamEnumSignalType",
-        ).SIGNAL_TYPE.USER_BLOCK_REASON_NO_LONGER_NEEDED),
-        (t[o("WAWebBlockContants").BizOptOutReason.NoSignUp] = o(
-          "WAWebWamEnumSignalType",
-        ).SIGNAL_TYPE.USER_BLOCK_REASON_NO_SIGN_UP),
-        (t[o("WAWebBlockContants").BizOptOutReason.OffensiveMessages] = o(
-          "WAWebWamEnumSignalType",
-        ).SIGNAL_TYPE.USER_BLOCK_REASON_OFFENSIVE_MESSAGES),
-        (t[o("WAWebBlockContants").BizOptOutReason.Spam] = o(
-          "WAWebWamEnumSignalType",
-        ).SIGNAL_TYPE.USER_BLOCK_REASON_SPAM),
-        (t[o("WAWebBlockContants").BizOptOutReason.Other] = o(
-          "WAWebWamEnumSignalType",
-        ).SIGNAL_TYPE.USER_BLOCK_REASON_OTHER),
-        t);
-      return n[e];
+      switch (e) {
+        case o("WAWebBlockContants").BizOptOutReason.NoLongerNeeded:
+          return o("WAWebWamEnumSignalType").SIGNAL_TYPE
+            .USER_BLOCK_REASON_NO_LONGER_NEEDED;
+        case o("WAWebBlockContants").BizOptOutReason.NoSignUp:
+          return o("WAWebWamEnumSignalType").SIGNAL_TYPE
+            .USER_BLOCK_REASON_NO_SIGN_UP;
+        case o("WAWebBlockContants").BizOptOutReason.OffensiveMessages:
+          return o("WAWebWamEnumSignalType").SIGNAL_TYPE
+            .USER_BLOCK_REASON_OFFENSIVE_MESSAGES;
+        case o("WAWebBlockContants").BizOptOutReason.Spam:
+          return o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_BLOCK_REASON_SPAM;
+        case o("WAWebBlockContants").BizOptOutReason.Other:
+          return o("WAWebWamEnumSignalType").SIGNAL_TYPE
+            .USER_BLOCK_REASON_OTHER;
+      }
     }
     function S(e) {
-      var t;
       if (e == null)
         return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.USER_BLOCK;
-      var n =
-        ((t = {}),
-        (t[o("WAWebBlockContants").BizOptOutReason.NoLongerNeeded] = o(
-          "WAWebWamEnumMmSignalType",
-        ).MM_SIGNAL_TYPE.USER_BLOCK_REASON_NO_LONGER_NEEDED),
-        (t[o("WAWebBlockContants").BizOptOutReason.NoSignUp] = o(
-          "WAWebWamEnumMmSignalType",
-        ).MM_SIGNAL_TYPE.USER_BLOCK_REASON_NO_SIGN_UP),
-        (t[o("WAWebBlockContants").BizOptOutReason.OffensiveMessages] = o(
-          "WAWebWamEnumMmSignalType",
-        ).MM_SIGNAL_TYPE.USER_BLOCK_REASON_OFFENSIVE_MESSAGES),
-        (t[o("WAWebBlockContants").BizOptOutReason.Spam] = o(
-          "WAWebWamEnumMmSignalType",
-        ).MM_SIGNAL_TYPE.USER_BLOCK_REASON_SPAM),
-        (t[o("WAWebBlockContants").BizOptOutReason.Other] = o(
-          "WAWebWamEnumMmSignalType",
-        ).MM_SIGNAL_TYPE.USER_BLOCK_REASON_OTHER),
-        t);
-      return n[e];
+      switch (e) {
+        case o("WAWebBlockContants").BizOptOutReason.NoLongerNeeded:
+          return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_BLOCK_REASON_NO_LONGER_NEEDED;
+        case o("WAWebBlockContants").BizOptOutReason.NoSignUp:
+          return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_BLOCK_REASON_NO_SIGN_UP;
+        case o("WAWebBlockContants").BizOptOutReason.OffensiveMessages:
+          return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_BLOCK_REASON_OFFENSIVE_MESSAGES;
+        case o("WAWebBlockContants").BizOptOutReason.Spam:
+          return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_BLOCK_REASON_SPAM;
+        case o("WAWebBlockContants").BizOptOutReason.Other:
+          return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_BLOCK_REASON_OTHER;
+      }
     }
     function R(e) {
       var t = e.chat;

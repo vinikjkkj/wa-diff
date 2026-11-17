@@ -2,6 +2,7 @@ __d(
   "WAWebInstantViewerLoadable",
   [
     "JSResourceForInteraction",
+    "WALogger",
     "WAWebLazyLoadLoading.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
@@ -10,8 +11,9 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
+      s,
+      u = s || (s = o("react")),
+      c = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
             "WAWebInstantViewer.react",
@@ -22,13 +24,23 @@ __d(
         }),
         "InstantViewer",
       ),
-      c = r("WAWebLoadable")({
-        loader: u,
+      d = r("WAWebLoadable")({
+        loader: c,
         loading: function (t) {
-          return s.jsx(r("WAWebLazyLoadLoading.react"), { error: !!t.error });
+          return u.jsx(r("WAWebLazyLoadLoading.react"), { error: !!t.error });
         },
       });
-    l.WAWebInstantViewerLoadable = c;
+    function m() {
+      c().catch(function (t) {
+        o("WALogger").WARN(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[instants] viewer preload failed, opening a Zap loads it again",
+            ])),
+        );
+      });
+    }
+    ((l.WAWebInstantViewerLoadable = d), (l.preloadInstantViewer = m));
   },
   98,
 );

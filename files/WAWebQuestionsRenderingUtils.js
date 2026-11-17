@@ -8,6 +8,7 @@ __d(
     "WAWebChatUnreadCount.react",
     "WAWebDBUpdateMessageTable",
     "WAWebDrawerManager",
+    "WAWebFbtCommon",
     "WAWebFrontendMsgGetters",
     "WAWebKeyboardTabUtils",
     "WAWebMessageStoreService",
@@ -23,6 +24,8 @@ __d(
     "WAWebQuestionsMyResponsesModalLoadable",
     "WAWebQuestionsSenderGatingUtils",
     "WAWebResponsesListDrawerLoadable",
+    "WAWebToast.react",
+    "WAWebToastManager",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -62,8 +65,8 @@ __d(
                     })
                   : s._(/*BTDS*/ "View responses"))
             : (_ = s._(/*BTDS*/ "Respond"));
-          var g = p ? "view-question-responses-cta" : "respond-to-question-cta",
-            h = function () {
+          var f = p ? "view-question-responses-cta" : "respond-to-question-cta",
+            g = function () {
               var n = o("WAWebMsgCollection").MsgCollection.get(t);
               if (n == null) {
                 o("WALogger").WARN(
@@ -75,7 +78,7 @@ __d(
                 return;
               }
               p
-                ? f(n, m)
+                ? h(n, m)
                 : o("WAWebModalManager").ModalManager.open(
                     c.jsx(
                       o("WAWebQuestionsCreateResponseModalLoadable")
@@ -94,7 +97,7 @@ __d(
                   isNewsletterMsg: l,
                   type: d,
                 });
-          return { label: _, testid: g, onClick: h, disabled: y };
+          return { label: _, testid: f, onClick: g, disabled: y };
         }
       }
     }
@@ -157,8 +160,35 @@ __d(
           return s._(/*BTDS*/ "Respond");
       }
     }
-    function f(e, t) {
-      g(e);
+    function f(e) {
+      var t = o("WAWebToast.react").genId(),
+        n = e
+          ? s._(/*BTDS*/ "Couldn't star response. Please try again.")
+          : s._(/*BTDS*/ "Couldn't unstar response. Please try again.");
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, { msg: n, id: t }),
+      );
+    }
+    function g(e, t) {
+      var n = o("WAWebToast.react").genId(),
+        a = e
+          ? s._(/*BTDS*/ "Couldn't like response")
+          : s._(/*BTDS*/ "Couldn't unlike response"),
+        i =
+          t == null
+            ? null
+            : {
+                actionText: r("WAWebFbtCommon")("Try again"),
+                onAction: function () {
+                  (o("WAWebToastManager").ToastManager.close(n), t());
+                },
+              };
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, { msg: a, id: n, action: i }),
+      );
+    }
+    function h(e, t) {
+      y(e);
       var n = !o(
         "WAWebQuestionsSenderGatingUtils",
       ).isQuestionReplySenderEnabled(t);
@@ -170,7 +200,7 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function g(e) {
+    function y(e) {
       return (
         (e.readQuestionResponsesCount = e.questionResponsesCount),
         (o("WAWebBackendRuntime").isWebDiBackendEnabled()
@@ -185,7 +215,9 @@ __d(
     ((l.getQuestionAction = d),
       (l.getMyQuestionResponsesAction = m),
       (l.getResponsesFilterLabel = p),
-      (l.getModalTitleFromQuestionType = _));
+      (l.getModalTitleFromQuestionType = _),
+      (l.showStarFailureToast = f),
+      (l.showLikeFailureToast = g));
   },
   226,
 );

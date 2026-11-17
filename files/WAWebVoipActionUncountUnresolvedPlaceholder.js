@@ -1,6 +1,7 @@
 __d(
   "WAWebVoipActionUncountUnresolvedPlaceholder",
   [
+    "Promise",
     "WALogger",
     "WAPromiseDelays",
     "WAWebDbErrors",
@@ -10,6 +11,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgCollection",
     "WAWebViewMode.flow",
+    "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipPlaceholderUnreadRows",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -20,56 +22,85 @@ __d(
       s,
       u,
       c,
-      d = 3e5;
-    function m(t) {
-      o("WAPromiseDelays")
-        .delayMs(d)
-        .then(function () {
-          return o("WAWebMessageQueue")
-            .onMessageQueue({
-              chatWid: t.remote,
-              isOffline: !1,
-              msgCategory: null,
-              action: function () {
-                return _(t);
-              },
-            })
-            .catch(function (e) {
-              return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
-                e,
-                "voip_placeholder_unread",
+      d,
+      m = 3e5,
+      p = new Set();
+    function _(e) {
+      (p.add(e.toString()),
+        o("WAPromiseDelays")
+          .delayMs(m)
+          .then(function () {
+            return (p.delete(e.toString()), h(e));
+          })
+          .catch(function (t) {
+            return y(e, t);
+          }));
+    }
+    function f(e) {
+      return e
+        .filter(function (e) {
+          return !p.has(e.toString());
+        })
+        .reduce(
+          function (e, t) {
+            return e.then(function () {
+              return h(t).then(
+                function () {},
+                function (e) {
+                  throw (y(t, e), e);
+                },
               );
             });
-        })
-        .catch(function (n) {
-          p(n) ||
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] placeholder ",
-                    ": unread update failed",
-                  ])),
-                t.id,
-              )
-              .catching(r("getErrorSafe")(n))
-              .sendLogs("voip-placeholder-unread-update-fail");
-        });
+          },
+          (d || (d = n("Promise"))).resolve(),
+        )
+        .catch(function () {});
     }
-    function p(e) {
+    function g(e) {
       return (
         e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
         e instanceof o("WAWebDbErrors").DbClosedOnTakeover ||
         e instanceof o("WAWebDbErrors").DbNotFoundOnTakeover
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function h(e) {
+      return o("WAWebMessageQueue")
+        .onMessageQueue({
+          chatWid: e.remote,
+          isOffline: !1,
+          msgCategory: null,
+          action: function () {
+            return C(e);
+          },
+        })
+        .catch(function (e) {
+          return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+            e,
+            "voip_placeholder_unread",
+          );
+        });
     }
-    function f() {
+    function y(t, n) {
+      g(n) ||
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] placeholder ",
+                ": unread update failed",
+              ])),
+            t.id,
+          )
+          .catching(r("getErrorSafe")(n))
+          .sendLogs("voip-placeholder-unread-update-fail");
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(e),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield v(e),
             n = t.isStopped,
             r = t.storedViewMode,
             a = t.wasUnread;
@@ -95,7 +126,7 @@ __d(
                   o("WAWebViewMode.flow").ViewModeType
                     .CALL_LOG_OFFLINE_RESUME_UNCOUNTED,
               }),
-              l != null && y(l, a, s),
+              l != null && L(l, a, s),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -106,10 +137,10 @@ __d(
               ));
           }
         })),
-        f.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function g(e) {
+    function v(e) {
       var t = e.toString(),
         r = e.remote.toString();
       return o("WAWebModelStorageUtils")
@@ -124,16 +155,16 @@ __d(
                   l,
                   u = n[0],
                   c = n[1],
-                  d = (a = yield u.get(t, !1)) == null ? void 0 : a.viewMode;
-                if (!h(d, o("WAWebMsgCollection").MsgCollection.get(e)))
-                  return { isStopped: !1, storedViewMode: d, wasUnread: !1 };
-                var m =
+                  d = (a = yield u.get(t, !1)) == null ? void 0 : a.viewMode,
+                  m = { isStopped: !1, storedViewMode: d, wasUnread: !1 };
+                if (!S(e, d)) return m;
+                var p =
                   (i = (l = yield c.get(r)) == null ? void 0 : l.unreadCount) !=
                   null
                     ? i
                     : 0;
                 if (
-                  o("WAWebVoipPlaceholderUnreadRows").hasTooManyUnreadToWalk(m)
+                  o("WAWebVoipPlaceholderUnreadRows").hasTooManyUnreadToWalk(p)
                 )
                   return (
                     o("WALogger").LOG(
@@ -144,23 +175,23 @@ __d(
                           " unread",
                         ])),
                       e.id,
-                      m,
+                      p,
                     ),
-                    { isStopped: !1, storedViewMode: d, wasUnread: !1 }
+                    m
                   );
-                var p = yield o(
+                var _ = yield o(
                   "WAWebVoipPlaceholderUnreadRows",
-                ).isAmongLastUnreadRows(u, r, t, m);
-                return (
-                  yield u.merge(t, {
-                    viewMode:
-                      o("WAWebViewMode.flow").ViewModeType
-                        .CALL_LOG_OFFLINE_RESUME_UNCOUNTED,
-                    pendingReadReceipt: null,
-                  }),
-                  p && (yield c.merge(r, { unreadCount: m - 1 })),
-                  { isStopped: !0, storedViewMode: d, wasUnread: p }
-                );
+                ).isAmongLastUnreadRows(u, r, t, p);
+                return S(e, d)
+                  ? (yield u.merge(t, {
+                      viewMode:
+                        o("WAWebViewMode.flow").ViewModeType
+                          .CALL_LOG_OFFLINE_RESUME_UNCOUNTED,
+                      pendingReadReceipt: null,
+                    }),
+                    _ && (yield c.merge(r, { unreadCount: p - 1 })),
+                    { isStopped: !0, storedViewMode: d, wasUnread: _ })
+                  : m;
               },
             );
             return function (e) {
@@ -169,7 +200,13 @@ __d(
           })(),
         );
     }
-    function h(e, t) {
+    function S(e, t) {
+      return (
+        !o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(e.id) &&
+        R(t, o("WAWebMsgCollection").MsgCollection.get(e))
+      );
+    }
+    function R(e, t) {
       return (
         e === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME &&
         (t == null ||
@@ -177,12 +214,14 @@ __d(
             o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME)
       );
     }
-    function y(e, t, n) {
+    function L(e, t, n) {
       (t && e.unreadCount > 0 && (e.unreadCount -= 1),
         n && e.activeUnreadCount > 0 && (e.activeUnreadCount -= 1));
     }
-    ((l.scheduleUnresolvedPlaceholderCheck = m),
-      (l.isSessionEndingDbError = p));
+    ((l.UNRESOLVED_PLACEHOLDER_GRACE_MS = m),
+      (l.scheduleUnresolvedPlaceholderCheck = _),
+      (l.checkUnresolvedPlaceholdersNow = f),
+      (l.isSessionEndingDbError = g));
   },
   98,
 );

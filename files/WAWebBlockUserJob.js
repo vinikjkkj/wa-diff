@@ -5,6 +5,7 @@ __d(
     "WASmaxBlocklistsUpdateBlockListRPC",
     "WASmaxPsaChatBlockSetRPC",
     "WAWebApiContact",
+    "WAWebBlockContants",
     "WAWebLidAwareContactsDB",
     "WAWebUserPrefsMultiDevice",
     "WAWebUsernameTypes",
@@ -72,27 +73,41 @@ __d(
       );
     }
     function _(e) {
+      switch (e) {
+        case o("WAWebBlockContants").BizOptOutFirstMessage.False:
+          return "false";
+        case o("WAWebBlockContants").BizOptOutFirstMessage.True:
+          return "true";
+        case o("WAWebBlockContants").BizOptOutFirstMessage.None:
+          return "none";
+      }
+    }
+    function f(e) {
       return e == null
         ? null
         : {
-            bizOptOutReason: e.reason,
+            bizOptOutReason: e.reason == null ? null : e.reason,
             bizOptOutReasonDescription: e.reasonDescription,
-            bizOptOutEntryPoint: e.entryPoint,
-            bizOptOutFirstMessage: e.firstMessage,
-            bizOptOutBusinessDiscoveryEntryPoint: e.businessDiscoveryEntryPoint,
+            bizOptOutEntryPoint: e.entryPoint == null ? null : e.entryPoint,
+            bizOptOutFirstMessage:
+              e.firstMessage == null ? null : _(e.firstMessage),
+            bizOptOutBusinessDiscoveryEntryPoint:
+              e.businessDiscoveryEntryPoint == null
+                ? null
+                : e.businessDiscoveryEntryPoint,
             bizOptOutBusinessDiscoveryTimestamp: e.businessDiscoveryTimestamp,
             bizOptOutBusinessDiscoveryId: e.businessDiscoveryId,
           };
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebUserPrefsMultiDevice").getBlocklistHash(),
-            n = e.lid ? yield h(e.lid, e.action) : C(e.wid, e.action),
-            r = _(e.bizOptOutArgs),
+            n = e.lid ? yield y(e.lid, e.action) : b(e.wid, e.action),
+            r = f(e.bizOptOutArgs),
             a = {
               bizOptOutArgs: r != null ? r : null,
               itemDhash: t != null ? t : null,
@@ -122,7 +137,7 @@ __d(
             }
             case "UpdateBlockListResponseServerError": {
               var p = i.value.errorServerErrors.value,
-                f = p.code,
+                _ = p.code,
                 g = p.text;
               return (
                 o("WALogger").WARN(
@@ -132,10 +147,10 @@ __d(
                       ", ",
                       "",
                     ])),
-                  f,
+                  _,
                   g,
                 ),
-                { errorCode: Number(f), errorText: g }
+                { errorCode: Number(_), errorText: g }
               );
             }
             default:
@@ -150,25 +165,25 @@ __d(
                 ));
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebWidToJid").userLidtoLidUserJid(e);
           if (t === "block") {
-            var r = yield b(e);
+            var r = yield v(e);
             return {
               updateBlockListBlockItem: {
                 updateBlockListOrUpdateBlockListNonMigratedBlockItemMixinGroupArgs:
                   {
                     updateBlockListMigratedBlockItem: {
                       itemJid: n,
-                      blocklistIdsArgs: S(r),
+                      blocklistIdsArgs: R(r),
                     },
                   },
               },
@@ -176,10 +191,10 @@ __d(
           }
           return { updateBlockListUnblockItem: { itemJid: n } };
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = o("WAWebWidToJid").widToUserJid(e);
       return t === "block"
         ? {
@@ -190,12 +205,12 @@ __d(
           }
         : { updateBlockListUnblockItem: { itemJid: n } };
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("WAWebLidAwareContactsDB").get(e.toString());
           if (!t)
             return (
@@ -230,10 +245,10 @@ __d(
               ? { displayName: t.displayNameLID }
               : null;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
+    function R(e) {
       return e == null
         ? { isUnknownIdentifier: !0 }
         : e.pn != null
@@ -244,8 +259,8 @@ __d(
               { displayName: { anyDisplayName: e.displayName } });
     }
     ((l.blockUnblockPSAUser = m),
-      (l.blockUnblockUser = f),
-      (l.getBlocklistIdentifier = b));
+      (l.blockUnblockUser = g),
+      (l.getBlocklistIdentifier = v));
   },
   98,
 );

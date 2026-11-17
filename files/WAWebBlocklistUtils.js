@@ -31,6 +31,7 @@ __d(
       );
     }
     function u(e) {
+      if (e == null) return o("WAWebSpamConstants").SpamFlow.Block;
       switch (e) {
         case o("WAWebBlockContants").BlockEntryPoint.OneToOneOldSpamBannerBlock:
         case o("WAWebBlockContants").BlockEntryPoint.BizOldSpamBannerBlock:
@@ -166,9 +167,8 @@ __d(
           .OneToOneBlockedChatComposer:
           return o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT
             .ONE_TO_ONE_BLOCKED_CHAT_COMPOSER;
-        default:
-          return o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT.OTHER;
       }
+      return o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT.OTHER;
     }
     function m(e) {
       switch (e) {

@@ -13,8 +13,7 @@ __d(
     }
     function s() {
       return (
-        e() &&
-        o("WAWebContactManagementGating").bulkAddContactGroupInfoEnabled()
+        e() && o("WAWebContactManagementGating").contactManagementEnabled()
       );
     }
     ((l.isContactsAndGroupsEnabled = e),

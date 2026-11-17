@@ -21,7 +21,7 @@ __d(
     }
     function d(e) {
       return (
-        !u(e) || o("WAWebSoundStickerGating").isSoundStickerCreationEnabled()
+        !u(e) || o("WAWebSoundStickerGating").isSoundStickerConsumptionEnabled()
       );
     }
     function m(e, t) {
@@ -30,7 +30,7 @@ __d(
           e == null ||
           !_(t) ||
           !f(e) ||
-          !o("WAWebSoundStickerGating").isSoundStickerCreationEnabled()
+          !o("WAWebSoundStickerGating").isSoundStickerConsumptionEnabled()
         )
       )
         return e;

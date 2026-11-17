@@ -185,8 +185,10 @@ __d(
               webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
                 .ERROR,
               webtpErrorType: "timeout",
-              webtpErrorMessage: e.message,
-              webtpErrorStack: (r = e.stack) != null ? r : "",
+              webtpErrorMessage: o("WAWebTPLoggingUtils").redactUrls(e.message),
+              webtpErrorStack: o("WAWebTPLoggingUtils").redactUrls(
+                (r = e.stack) != null ? r : "",
+              ),
               webtpSessionId: t,
               webtpFileSize: n,
               webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
@@ -206,8 +208,12 @@ __d(
               webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
                 .ERROR,
               webtpErrorType: l.errorType,
-              webtpErrorMessage: l.errorMessage,
-              webtpErrorStack: l.errorStack,
+              webtpErrorMessage: o("WAWebTPLoggingUtils").redactUrls(
+                l.errorMessage,
+              ),
+              webtpErrorStack: o("WAWebTPLoggingUtils").redactUrls(
+                l.errorStack,
+              ),
               webtpErrorCode: l.errorCode,
               webtpTelemetryData: (i = l.telemetryData) != null ? i : "",
               webtpSessionId: t,
@@ -226,8 +232,10 @@ __d(
               webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
                 .ERROR,
               webtpErrorType: "error",
-              webtpErrorMessage: s.message,
-              webtpErrorStack: (u = s.stack) != null ? u : "",
+              webtpErrorMessage: o("WAWebTPLoggingUtils").redactUrls(s.message),
+              webtpErrorStack: o("WAWebTPLoggingUtils").redactUrls(
+                (u = s.stack) != null ? u : "",
+              ),
               webtpSessionId: t,
               webtpFileSize: n,
               webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
@@ -240,7 +248,7 @@ __d(
               webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
                 .ERROR,
               webtpErrorType: "other",
-              webtpErrorMessage: String(e),
+              webtpErrorMessage: o("WAWebTPLoggingUtils").redactUrls(String(e)),
               webtpSessionId: t,
               webtpFileSize: n,
               webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
@@ -310,8 +318,8 @@ __d(
         webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
           .PDF_SHARER,
         webtpErrorType: e,
-        webtpErrorMessage: t,
-        webtpErrorStack: a,
+        webtpErrorMessage: o("WAWebTPLoggingUtils").redactUrls(t),
+        webtpErrorStack: o("WAWebTPLoggingUtils").redactUrls(a),
         webtpSessionId: n,
         webtpTelemetryData:
           r != null ? JSON.stringify({ continuationTarget: r }) : void 0,
@@ -343,8 +351,8 @@ __d(
         webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
           .PDF_RECEIVER,
         webtpErrorType: e,
-        webtpErrorMessage: t,
-        webtpErrorStack: r,
+        webtpErrorMessage: o("WAWebTPLoggingUtils").redactUrls(t),
+        webtpErrorStack: o("WAWebTPLoggingUtils").redactUrls(r),
         webtpSessionId: n,
       }).commit();
     }

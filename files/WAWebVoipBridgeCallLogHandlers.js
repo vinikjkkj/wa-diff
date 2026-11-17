@@ -23,6 +23,11 @@ __d(
           "WAWebVoipActionWriteCallLogOfferNotice",
         ).generateCallLogOfferNotice(t);
       },
+      prefetchCallOfferPlaceholderTarget: function (t) {
+        o(
+          "WAWebVoipActionWriteCallLogPlaceholder",
+        ).prefetchCallOfferPlaceholderTargetLoadable(t);
+      },
       writeCallOfferPlaceholder: function (t) {
         return o(
           "WAWebVoipActionWriteCallLogPlaceholder",

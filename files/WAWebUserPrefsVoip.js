@@ -6,67 +6,74 @@ __d(
       s = "selected_audio_input_device",
       u = "selected_audio_output_device",
       c = "selected_video_input_device",
-      d = "last_call_rating_time",
-      m = "sctp_prewarm_slow",
-      p = -1;
-    function _() {
+      d = "video_effects_enabled",
+      m = "last_call_rating_time",
+      p = "sctp_prewarm_slow",
+      _ = -1;
+    function f() {
       var t = r("WAWebUserPrefsStore").get(e);
       return typeof t == "number" ? t : 0;
     }
-    function f() {
+    function g() {
       var t = o("WATimeUtils").unixTime();
       r("WAWebUserPrefsStore").set(e, t);
     }
-    function g() {
+    function h() {
       var e = r("WAWebUserPrefsStore").get(s);
       return typeof e == "string" ? e : null;
     }
-    function h(e) {
+    function y(e) {
       r("WAWebUserPrefsStore").set(s, e);
     }
-    function y() {
+    function C() {
       var e = r("WAWebUserPrefsStore").get(u);
       return typeof e == "string" ? e : null;
     }
-    function C(e) {
+    function b(e) {
       r("WAWebUserPrefsStore").set(u, e);
     }
-    function b() {
+    function v() {
       var e = r("WAWebUserPrefsStore").get(c);
       return typeof e == "string" ? e : null;
     }
-    function v(e) {
+    function S(e) {
       r("WAWebUserPrefsStore").set(c, e);
     }
-    var S = null;
     function R() {
-      return S;
+      return r("WAWebUserPrefsStore").get(d) === !0;
     }
     function L(e) {
-      S = e;
-    }
-    function E() {
-      S = null;
-    }
-    var k = null;
-    function I() {
-      return k;
-    }
-    function T(e) {
-      k = e;
-    }
-    function D() {
-      k = null;
-    }
-    function x() {
-      var e = r("WAWebUserPrefsStore").get(d);
-      return typeof e == "number" ? e : null;
-    }
-    function $(e) {
       r("WAWebUserPrefsStore").set(d, e);
     }
+    var E = null;
+    function k() {
+      return E;
+    }
+    function I(e) {
+      E = e;
+    }
+    function T() {
+      E = null;
+    }
+    var D = null;
+    function x() {
+      return D;
+    }
+    function $(e) {
+      D = e;
+    }
     function P() {
+      D = null;
+    }
+    function N() {
       var e = r("WAWebUserPrefsStore").get(m);
+      return typeof e == "number" ? e : null;
+    }
+    function M(e) {
+      r("WAWebUserPrefsStore").set(m, e);
+    }
+    function w() {
+      var e = r("WAWebUserPrefsStore").get(p);
       return e == null ||
         typeof e != "object" ||
         typeof e.ms != "number" ||
@@ -74,29 +81,31 @@ __d(
         ? null
         : { ms: e.ms, at: e.at };
     }
-    function N(e) {
+    function A(e) {
       var t = { ms: Math.round(e), at: o("WATimeUtils").unixTime() };
-      r("WAWebUserPrefsStore").set(m, t);
+      r("WAWebUserPrefsStore").set(p, t);
     }
-    ((l.SCTP_PREWARM_FAILED_MS = p),
-      (l.getCallsTabLastSeenTimestamp = _),
-      (l.setCallsTabLastSeenTimestamp = f),
-      (l.getSelectedAudioInputDevice = g),
-      (l.setSelectedAudioInputDevice = h),
-      (l.getSelectedAudioOutputDevice = y),
-      (l.setSelectedAudioOutputDevice = C),
-      (l.getSelectedVideoInputDevice = b),
-      (l.setSelectedVideoInputDevice = v),
-      (l.getLandingPageVideoDeviceId = R),
-      (l.setLandingPageVideoDeviceId = L),
-      (l.clearLandingPageVideoDeviceId = E),
-      (l.getLandingPageColorIndex = I),
-      (l.saveLandingPageColorIndex = T),
-      (l.clearLandingPageColorIndex = D),
-      (l.getLastCallRatingTime = x),
-      (l.setLastCallRatingTime = $),
-      (l.getSctpPrewarmSlowRecord = P),
-      (l.markSctpPrewarmSlow = N));
+    ((l.SCTP_PREWARM_FAILED_MS = _),
+      (l.getCallsTabLastSeenTimestamp = f),
+      (l.setCallsTabLastSeenTimestamp = g),
+      (l.getSelectedAudioInputDevice = h),
+      (l.setSelectedAudioInputDevice = y),
+      (l.getSelectedAudioOutputDevice = C),
+      (l.setSelectedAudioOutputDevice = b),
+      (l.getSelectedVideoInputDevice = v),
+      (l.setSelectedVideoInputDevice = S),
+      (l.getVideoEffectsEnabled = R),
+      (l.setVideoEffectsEnabled = L),
+      (l.getLandingPageVideoDeviceId = k),
+      (l.setLandingPageVideoDeviceId = I),
+      (l.clearLandingPageVideoDeviceId = T),
+      (l.getLandingPageColorIndex = x),
+      (l.saveLandingPageColorIndex = $),
+      (l.clearLandingPageColorIndex = P),
+      (l.getLastCallRatingTime = N),
+      (l.setLastCallRatingTime = M),
+      (l.getSctpPrewarmSlowRecord = w),
+      (l.markSctpPrewarmSlow = A));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "CometNewsFeedConnectionHandler",
   [
     "CometNewsFeedConnectionDebugState",
+    "CometNewsFeedReuseEdgesGating",
     "FBLogger",
     "RelayFBConnectionHandler",
     "XPlatReactEnvironment",
@@ -12,84 +13,156 @@ __d(
     "use strict";
     var e = "comet_news_feed",
       s = "__connection_next_edge_index",
-      u = "received_edges_count";
-    function c(e, t) {
+      u = "received_edges_count",
+      c = "__connection_edges_request_qid",
+      d = "__connection_edges_request_keys";
+    function m(e, t) {
       var n,
         a,
-        i = e.get(t.dataID);
-      if (i) {
-        var l = o("relay-runtime").ConnectionInterface.get(),
-          c = l.EDGES;
+        i,
+        l = e.get(t.dataID);
+      if (l) {
+        var m = o("relay-runtime").ConnectionInterface.get(),
+          y = m.EDGES;
         if (t.args.before != null)
           throw r("FBLogger")("comet_feed").mustfixThrow(
             "The newsfeed connection does not support backward pagination by design",
           );
-        var m = i.getLinkedRecord(t.fieldKey);
-        if (!m) {
+        var C = l.getLinkedRecord(t.fieldKey);
+        if (!C) {
           r("FBLogger")("comet_feed").mustfix(
             "Newsfeed connection is null in the store, this means no feed stories will be shown",
           );
           return;
         }
-        var p = o("relay-runtime").generateClientID(i.getDataID(), t.handleKey),
-          f = i.getLinkedRecord(t.handleKey),
-          g = f != null ? f : e.get(p);
-        if (!g) {
-          var h,
-            y = e.create(p, m.getType());
-          (y.setValue(0, s), y.copyFieldsFrom(m));
-          var C = ((h = m.getLinkedRecords(c)) != null ? h : []).map(
+        var v = o("relay-runtime").generateClientID(l.getDataID(), t.handleKey),
+          S = l.getLinkedRecord(t.handleKey),
+          R = S != null ? S : e.get(v);
+        if (!R) {
+          var L,
+            E = e.create(v, C.getType());
+          (E.setValue(0, s), E.copyFieldsFrom(C));
+          var k = ((L = C.getLinkedRecords(y)) != null ? L : []).map(
             function (t) {
               return o("relay-runtime").ConnectionHandler.buildConnectionEdge(
                 e,
-                y,
+                E,
                 t,
               );
             },
           );
-          (y.setLinkedRecords(C, c),
-            y.setValue(C.length, u),
-            i.setLinkedRecord(y, t.handleKey),
+          (E.setLinkedRecords(k, y),
+            E.setValue(k.length, u),
+            l.setLinkedRecord(E, t.handleKey),
             o(
               "CometNewsFeedConnectionDebugState",
             ).recordConnectionUpdateForDebugging("initial"),
-            d(e, C, C, y, m));
+            k.length > 0 &&
+              o(
+                "CometNewsFeedReuseEdgesGating",
+              ).shouldReuseCometNewsFeedEdges() &&
+              (E.setValue(p(k), c), E.setValue(_(k), d)),
+            h(e, k, k, E, C));
           return;
         }
-        f == null && i.setLinkedRecord(g, t.handleKey);
-        var b = g,
-          v = ((n = m.getLinkedRecords(c)) != null ? n : []).map(function (t) {
+        S == null && l.setLinkedRecord(R, t.handleKey);
+        var I = R,
+          T = I.getLinkedRecords(y),
+          D = (n = C.getLinkedRecords(y)) != null ? n : [],
+          x;
+        if (
+          t.args.after == null &&
+          D.length > 0 &&
+          o("CometNewsFeedReuseEdgesGating").shouldReuseCometNewsFeedEdges()
+        ) {
+          var $ = p(D),
+            P = _(D),
+            N = $ != null && I.getValue(c) === $ && f(P, I.getValue(d));
+          (I.setValue($, c),
+            I.setValue(P, d),
+            (x = N
+              ? g(e, I, D, T)
+              : D.map(function (t) {
+                  return o(
+                    "relay-runtime",
+                  ).ConnectionHandler.buildConnectionEdge(e, I, t);
+                })));
+        } else
+          x = D.map(function (t) {
             return o("relay-runtime").ConnectionHandler.buildConnectionEdge(
               e,
-              b,
+              I,
               t,
             );
           });
-        b.setValue(v.length, u);
-        var S = b.getLinkedRecords(c);
-        b.copyFieldsFrom(m);
-        var R = [],
-          L = new Set();
+        (I.setValue(x.length, u), I.copyFieldsFrom(C));
+        var M = [],
+          w = new Set();
         (t.args.after != null ||
-          ((a = v == null ? void 0 : v.length) != null ? a : 0) === 0) &&
-          _(S != null ? S : [], R, L);
-        var E = _(v != null ? v : [], R, L);
-        b.setLinkedRecords(R, c);
-        var k = "replace";
-        (t.args.after != null ? (k = "append") : v.length === 0 && (k = "keep"),
+          ((a = (i = x) == null ? void 0 : i.length) != null ? a : 0) === 0) &&
+          b(T != null ? T : [], M, w);
+        var A = b(x != null ? x : [], M, w);
+        I.setLinkedRecords(M, y);
+        var F = "replace";
+        (t.args.after != null ? (F = "append") : x.length === 0 && (F = "keep"),
           o(
             "CometNewsFeedConnectionDebugState",
-          ).recordConnectionUpdateForDebugging(k),
-          d(
+          ).recordConnectionUpdateForDebugging(F),
+          h(
             e,
-            o("XPlatReactEnvironment").isWeb() && r("gkx")("20836") ? E : v,
-            R,
-            b,
-            m,
+            o("XPlatReactEnvironment").isWeb() && r("gkx")("20836") ? A : x,
+            M,
+            I,
+            C,
           ));
       }
     }
-    function d(e, t, n, a, i) {
+    function p(e) {
+      for (var t of e) {
+        var n,
+          r =
+            t == null || (n = t.getLinkedRecord("feed_backend_data")) == null
+              ? void 0
+              : n.getValue("qid");
+        if ((typeof r == "string" || typeof r == "number") && String(r) !== "0")
+          return String(r);
+      }
+      return null;
+    }
+    function _(e) {
+      return e.map(function (e) {
+        var t = e == null ? void 0 : e.getValue("deduplication_key");
+        return typeof t == "string" ? t : null;
+      });
+    }
+    function f(e, t) {
+      return (
+        Array.isArray(t) &&
+        t.length > 0 &&
+        t.length <= e.length &&
+        t.every(function (t, n) {
+          return t != null && t === e[n];
+        })
+      );
+    }
+    function g(e, t, n, r) {
+      var a = new Map();
+      for (var i of r != null ? r : []) {
+        var l = i == null ? void 0 : i.getValue("deduplication_key");
+        i != null && typeof l == "string" && !a.has(l) && a.set(l, i);
+      }
+      return n.map(function (n) {
+        var r = n == null ? void 0 : n.getValue("deduplication_key"),
+          i = typeof r == "string" ? a.get(r) : void 0;
+        return n == null || i == null || typeof r != "string"
+          ? o("relay-runtime").ConnectionHandler.buildConnectionEdge(e, t, n)
+          : (a.delete(r),
+            i.copyFieldsFrom(n),
+            i.setValue(n.getValue("has_been_seen"), "has_been_seen"),
+            i);
+      });
+    }
+    function h(e, t, n, a, i) {
       var l = o("relay-runtime").ConnectionInterface.get(),
         s = l.END_CURSOR,
         u = l.HAS_NEXT_PAGE,
@@ -121,14 +194,14 @@ __d(
       }
       _.setValue(h != null ? h : C, s);
     }
-    function m(t, n, r) {
+    function y(t, n, r) {
       var a = o("relay-runtime").getRelayHandleKey(e, n, null);
       return t.getLinkedRecord(a, r);
     }
-    function p(t, n, r) {
+    function C(t, n, r) {
       return o("RelayFBConnectionHandler").getAllConnectionsWithKey(t, n, r, e);
     }
-    function _(e, t, n) {
+    function b(e, t, n) {
       for (var o = [], a = 0; a < e.length; a++) {
         var i = e[a];
         if (i) {
@@ -145,7 +218,7 @@ __d(
       }
       return o;
     }
-    function f(e, t, n, a) {
+    function v(e, t, n, a) {
       if (n == null) return n;
       var i = o("relay-runtime").ConnectionInterface.get(),
         l = i.EDGES,
@@ -161,10 +234,10 @@ __d(
         d = e.create(c, n.getType());
       return (d.copyFieldsFrom(n), t.setValue(u + 1, s), d);
     }
-    ((l.update = c),
-      (l.getConnection = m),
-      (l.getAllConnectionsWithKey = p),
-      (l.buildConnectionEdge = f),
+    ((l.update = m),
+      (l.getConnection = y),
+      (l.getAllConnectionsWithKey = C),
+      (l.buildConnectionEdge = v),
       (l.insertEdgeBefore =
         o("relay-runtime").ConnectionHandler.insertEdgeBefore));
   },

@@ -48,7 +48,7 @@ __d(
           : null;
     }
     function s(e, t) {
-      if (!e.isUser()) return null;
+      if (!e.isUser() && !e.isBroadcastList()) return null;
       var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
         a = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserUtils").isMeAccount(t),

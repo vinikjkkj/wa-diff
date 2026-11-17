@@ -147,13 +147,19 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebMobilePlatforms").isSMB()) {
             var t = yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount();
-            if (t === !0)
+            if (t === !0) {
+              var n;
               return [
-                o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
-                  e,
-                  "biz_privacy_mode_init_fb",
-                ),
+                (n = o(
+                  "WAWebAdvHostedAccountTypeSystemMsg",
+                ).genAdvMeAccountIsHostedNotificationMsg(e, e)) != null
+                  ? n
+                  : o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
+                      e,
+                      "biz_privacy_mode_init_fb",
+                    ),
               ];
+            }
           }
           return [o("WAWebContactSystemMsg").genEncryptNotificationMsg(e)];
         })),

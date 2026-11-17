@@ -1,139 +1,225 @@
 __d(
   "WAWebFetchPhoneNumberSharingSettings",
   [
+    "Promise",
     "WAJids",
     "WAPromiseQueue",
     "WAWebFetchPhoneNumberSharingSettingsQuery.graphql",
+    "WAWebFetchPhoneNumberSharingSettings_list.graphql",
     "WAWebMexClient",
     "WAWebModelStorageUtils",
     "WAWebPhoneNumberSharingSettingsGating",
     "WAWebSchemaPrivacyDisallowedList",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
+    "compactMap",
     "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u,
+      c =
         e !== void 0
           ? e
           : (e = n("WAWebFetchPhoneNumberSharingSettingsQuery.graphql")),
-      u = "none",
-      c = new (o("WAPromiseQueue").PromiseQueue)();
-    function d() {
-      return c.enqueue(m);
-    }
-    function m() {
-      return p.apply(this, arguments);
-    }
+      d = "none",
+      m = new (o("WAPromiseQueue").PromiseQueue)();
     function p() {
+      return m.enqueue(_);
+    }
+    function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e, t, r;
           if (
             o(
               "WAWebPhoneNumberSharingSettingsGating",
             ).phoneNumberSharingSettingsEnabled()
           ) {
-            var t = yield o("WAWebSchemaPrivacyDisallowedList")
-                .getPrivacyDisallowedListTable()
-                .get("pn_sharing:deny"),
-              n = (e = t == null ? void 0 : t.dhash) != null ? e : u,
-              r = yield o("WAWebMexClient").fetchQuery(s, {
-                input: { deny_list: { dhash: n } },
+            var a = o(
+                "WAWebSchemaPrivacyDisallowedList",
+              ).getPrivacyDisallowedListTable(),
+              i = yield (u || (u = n("Promise"))).all([
+                a.get("pn_sharing:deny"),
+                a.get("pn_sharing:allow"),
+                a.get("pn_sharing:contact_exclude"),
+              ]),
+              l = i[0],
+              s = i[1],
+              m = i[2],
+              p = (e = l == null ? void 0 : l.dhash) != null ? e : d,
+              _ = (t = s == null ? void 0 : s.dhash) != null ? t : d,
+              f = (r = m == null ? void 0 : m.dhash) != null ? r : d,
+              h = yield o("WAWebMexClient").fetchQuery(c, {
+                input: {
+                  deny_list: { dhash: p },
+                  allow_list: { dhash: _ },
+                  contact_exclude_list: { dhash: f },
+                },
               }),
-              a = r.xwa2_privacy_phone_number_sharing_get,
-              i = C(a == null ? void 0 : a.setting),
-              l = g(a == null ? void 0 : a.deny_list, t),
-              c = yield _(l, n);
-            c &&
+              C = h.xwa2_privacy_phone_number_sharing_get,
+              b = R(C == null ? void 0 : C.setting),
+              v = [
+                {
+                  type: "pn_sharing:deny",
+                  expectedHash: p,
+                  row: y(
+                    "pn_sharing:deny",
+                    C == null ? void 0 : C.deny_list,
+                    l,
+                  ),
+                },
+                {
+                  type: "pn_sharing:allow",
+                  expectedHash: _,
+                  row: y(
+                    "pn_sharing:allow",
+                    C == null ? void 0 : C.allow_list,
+                    s,
+                  ),
+                },
+                {
+                  type: "pn_sharing:contact_exclude",
+                  expectedHash: f,
+                  row: y(
+                    "pn_sharing:contact_exclude",
+                    C == null ? void 0 : C.contact_exclude_list,
+                    m,
+                  ),
+                },
+              ],
+              S = yield g(v);
+            S &&
               (yield o("WAWebUserPrefsGeneral").persistUserPrivacySettings(
                 babelHelpers.extends(
                   {},
                   o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-                  { phoneNumberSharing: i },
+                  { phoneNumberSharing: b },
                 ),
               ));
           }
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
               ["privacy-disallowed-list"],
               (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var r,
-                      o = n[0],
-                      a = yield o.get("pn_sharing:deny");
-                    return ((r = a == null ? void 0 : a.dhash) != null
-                      ? r
-                      : u) !== t
-                      ? !1
-                      : (e != null && (yield o.createOrReplace(e)), !0);
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (t) {
+                    var o = t[0],
+                      a = yield (u || (u = n("Promise"))).all(
+                        e.map(function (e) {
+                          return o.get(e.type);
+                        }),
+                      );
+                    if (
+                      e.some(function (e, t) {
+                        var n, r;
+                        return (
+                          ((n = (r = a[t]) == null ? void 0 : r.dhash) != null
+                            ? n
+                            : d) !== e.expectedHash
+                        );
+                      })
+                    )
+                      return !1;
+                    var i = r("compactMap")(e, function (e) {
+                      return e.row;
+                    });
+                    return (yield o.bulkCreateOrReplace(i), !0);
                   },
                 );
                 return function (e) {
-                  return r.apply(this, arguments);
+                  return t.apply(this, arguments);
                 };
               })(),
             );
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      if (e == null)
+    function y(e, t, n) {
+      if (t == null)
         throw r("err")("phone-number-sharing: missing requested list");
-      var n = e.dhash,
-        o = e.entries,
-        a = h(n);
-      if (o == null) {
-        if (t != null && a === t.dhash) return null;
-        if (a !== u)
+      var o = t.dhash,
+        a = t.entries,
+        i = b(o);
+      if (a == null) {
+        if (n != null && i === n.dhash) return null;
+        if (i !== d)
           throw r("err")("phone-number-sharing: unexpected suppressed list");
-        return { id: "pn_sharing:deny", disallowedList: [], dhash: a };
       }
-      return {
-        id: "pn_sharing:deny",
-        disallowedList: Array.from(new Set(o.map(y))),
-        dhash: a,
-      };
+      return C(e, a, i);
     }
-    function h(e) {
+    function C(e, t, n) {
+      var r = t != null ? t : [];
+      return e === "pn_sharing:deny"
+        ? {
+            id: "pn_sharing:deny",
+            disallowedList: Array.from(new Set(r.map(v))),
+            dhash: n,
+          }
+        : e === "pn_sharing:allow"
+          ? {
+              id: "pn_sharing:allow",
+              allowedList: Array.from(new Set(r.map(v))),
+              dhash: n,
+            }
+          : e === "pn_sharing:contact_exclude"
+            ? {
+                id: "pn_sharing:contact_exclude",
+                excludedContacts: Array.from(new Set(r.map(S))),
+                dhash: n,
+              }
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    e,
+                );
+              })();
+    }
+    function b(e) {
       if (typeof e != "string" || e.length === 0)
         throw r("err")("phone-number-sharing: missing list digest");
       return e;
     }
-    function y(e) {
+    function v(e) {
       var t = r("nullthrows")(e),
         n = t.__typename;
-      if (n === "XWA2PrivacyPhoneNumberSharingUserEntry") {
-        var a;
-        if (t.user_jid != null)
-          return r("nullthrows")(o("WAJids").validateLidUserJid(t.user_jid));
-        var i = r("nullthrows")(
-          o("WAJids").validateUserJid((a = t.pn_jid) != null ? a : ""),
-        );
-        return r("nullthrows")(o("WAJids").interpretAsPhoneUserJid(i));
-      }
-      if (n === "XWA2PrivacyPhoneNumberSharingGroupEntry")
-        return r("nullthrows")(
-          o("WAJids").validateGroupJid(r("nullthrows")(t.group_jid)),
-        );
-      throw r("err")("phone-number-sharing: invalid list entry");
+      return n === "XWA2PrivacyPhoneNumberSharingGroupEntry"
+        ? r("nullthrows")(
+            o("WAJids").validateGroupJid(r("nullthrows")(t.group_jid)),
+          )
+        : S(t);
     }
-    function C(e) {
+    function S(e) {
+      var t,
+        n = r("nullthrows")(e),
+        a = n.__typename;
+      if (a !== "XWA2PrivacyPhoneNumberSharingUserEntry")
+        throw r("err")("phone-number-sharing: invalid contact entry");
+      if (n.user_jid != null)
+        return r("nullthrows")(o("WAJids").validateLidUserJid(n.user_jid));
+      var i = r("nullthrows")(
+        o("WAJids").validateUserJid((t = n.pn_jid) != null ? t : ""),
+      );
+      return r("nullthrows")(o("WAJids").interpretAsPhoneUserJid(i));
+    }
+    function R(e) {
       e: {
         if (e === "ALL") return "all";
         if (e === "MYCONTACTS") return "contacts";
@@ -142,7 +228,7 @@ __d(
         throw r("err")("phone-number-sharing: invalid setting response");
       }
     }
-    l.fetchPhoneNumberSharingSettings = d;
+    l.fetchPhoneNumberSharingSettings = p;
   },
   98,
 );

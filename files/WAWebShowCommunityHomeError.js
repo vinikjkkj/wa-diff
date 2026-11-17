@@ -1,6 +1,6 @@
 __d(
   "WAWebShowCommunityHomeError",
-  ["fbt", "WAWebToast.react", "WAWebToastManager", "react"],
+  ["fbt", "WAWebToast.react", "WAWebToastManager", "justknobx", "react"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
@@ -8,7 +8,9 @@ __d(
       e.status === 403
         ? o("WAWebToastManager").ToastManager.open(
             u.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "You are no longer a member of this community"),
+              msg: r("justknobx")._("8068")
+                ? s._(/*BTDS*/ "You're no longer a member of this community")
+                : s._(/*BTDS*/ "You are no longer a member of this community"),
             }),
           )
         : e.status === 404 &&

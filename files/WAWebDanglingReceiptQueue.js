@@ -1,23 +1,33 @@
 __d(
   "WAWebDanglingReceiptQueue",
   [
+    "Promise",
     "WALogger",
     "WAWebCommsSendPing",
     "WAWebNetworkStatus",
     "WAWebSchemaDanglingReceipt",
+    "WAWebWorkerOnlineMessageAdmission",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = { clear: d };
-    function d() {
-      return m.apply(this, arguments);
+      c,
+      d = {
+        clear: function () {
+          return o("WAWebWorkerOnlineMessageAdmission")
+            .workerOnlineMessageAdmission.queue != null
+            ? (c || (c = n("Promise"))).resolve()
+            : m(_);
+        },
+      };
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (!r("WAWebNetworkStatus").online) {
             o("WALogger").LOG(
               e ||
@@ -27,34 +37,44 @@ __d(
             );
             return;
           }
-          var t = yield o("WAWebSchemaDanglingReceipt")
+          var n = yield o("WAWebSchemaDanglingReceipt")
             .getTable()
             .allPrimaryKeys();
-          if (t.length !== 0) {
-            if (!(yield o("WAWebCommsSendPing").blockSendPing())) {
+          if (!(yield t(n))) {
+            n.length > 0 &&
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[dangling-receipt-queue] clear: skip, no ping response",
                   ])),
               );
-              return;
-            }
-            (yield o("WAWebSchemaDanglingReceipt").getTable().bulkRemove(t),
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[dangling-receipt-queue] clear: removed ",
-                    " rows",
-                  ])),
-                t.length,
-              ));
+            return;
           }
+          (yield o("WAWebSchemaDanglingReceipt").getTable().bulkRemove(n),
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[dangling-receipt-queue] clear: removed ",
+                  " rows",
+                ])),
+              n.length,
+            ));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.danglingReceiptQueue = c;
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return e.length === 0 ? !1 : o("WAWebCommsSendPing").blockSendPing();
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    ((l.danglingReceiptQueue = d), (l.clearConfirmedDanglingReceipts = m));
   },
   98,
 );

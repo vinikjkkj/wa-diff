@@ -8,7 +8,7 @@ __d(
       s = function () {
         return (
           window.location.href.search(
-            /https:\/\/(flows(\.my-od|\.\d+\.od)?)\.whatsapp\.net\/flows-v2\/wa-web/,
+            /^https:\/\/flows(\.[a-z0-9.-]+)?\.whatsapp\.net\/flows-v2\/wa-web/,
           ) !== -1
         );
       },

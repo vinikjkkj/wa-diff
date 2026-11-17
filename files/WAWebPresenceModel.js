@@ -435,7 +435,7 @@ __d(
                 o("WAWebContactGetters").getShowAsMetaVerified(n) &&
                 n.verifiedName != null &&
                 n.verifiedName !== "",
-              u = l && !s && o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled(),
+              u = l && !s && o("WAWebOrgGatingUtils").isOrgsEnabled(),
               c = u;
             if (this.hasData)
               (o("WAWebChatAssignmentUtils").canAssignChat(i) &&

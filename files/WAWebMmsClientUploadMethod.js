@@ -142,6 +142,7 @@ __d(
                           L.addAnnotations({
                             bool: {
                               network_online: t.networkStatus.isOnline(),
+                              navigator_online: navigator.onLine,
                             },
                           }),
                           yield t.networkStatus.waitIfOffline());

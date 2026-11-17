@@ -204,7 +204,10 @@ __d(
             for (
               var e,
                 t =
-                  (e = d.getGlobalHighestActivePriority()) != null
+                  (e =
+                    this.config.detached === !0
+                      ? this.getHighestActivePriority()
+                      : d.getGlobalHighestActivePriority()) != null
                     ? e
                     : o("TaskSchedulerPriority").BACKGROUND_PRIORITY,
                 n = o("TaskSchedulerPriority").BLOCKING_PRIORITY;
@@ -378,16 +381,21 @@ __d(
             var e = null;
             return (
               this.$1.forEach(function (t) {
-                var n = t.getHighestActivePriority();
-                n != null && (e == null || n < e) && (e = n);
+                if (t.config.detached !== !0) {
+                  var n = t.getHighestActivePriority();
+                  n != null && (e == null || n < e) && (e = n);
+                }
               }),
               e
             );
           }),
           (t.notifyActivePriorityChanged = function (t) {
-            this.$1.forEach(function (e, n) {
-              n !== t && e.maybeStartTask();
-            });
+            var e;
+            ((e = this.$1.get(t)) == null ? void 0 : e.config.detached) !==
+              !0 &&
+              this.$1.forEach(function (e, n) {
+                n !== t && e.config.detached !== !0 && e.maybeStartTask();
+              });
           }),
           (t.register = function (t, n) {
             this.$1.set(t, n);

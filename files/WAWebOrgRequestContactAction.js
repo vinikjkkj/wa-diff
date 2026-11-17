@@ -29,7 +29,7 @@ __d(
       return e == null ? (c || (c = n("Promise"))).resolve() : y([e]);
     }
     function y(e) {
-      if (!o("WAWebOrgGatingUtils").isOrgInfoDisplayEnabled())
+      if (!o("WAWebOrgGatingUtils").isOrgsEnabled())
         return (c || (c = n("Promise"))).resolve();
       var t = e.filter(function (e) {
           return (

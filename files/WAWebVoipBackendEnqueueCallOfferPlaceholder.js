@@ -35,8 +35,12 @@ __d(
       }
     }
     function u(t) {
-      var n,
-        a = (n = t.groupJid) != null ? n : t.callCreator;
+      var n;
+      o("WAWebBackendApi").frontendFireAndForget(
+        "prefetchCallOfferPlaceholderTarget",
+        t,
+      );
+      var a = (n = t.groupJid) != null ? n : t.callCreator;
       o("WAWebMessageQueue")
         .onMessageQueue({
           chatWid: a,

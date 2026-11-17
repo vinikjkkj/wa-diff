@@ -1,59 +1,15 @@
 __d(
   "WAWebTransitions",
-  ["velocity-animate"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     var e = [0.1, 0.82, 0.25, 1],
-      s = [0.69, 0, 0.79, 0.14],
-      u = [0.84, 0.07, 0.93, 0.46],
-      c = [0.42, 0, 0.58, 1];
-    function d() {
-      (r("velocity-animate").RegisterEffect("attach.Up", {
-        defaultDuration: 300,
-        calls: [
-          [
-            {
-              opacity: [1, 0],
-              translateY: ["0%", "150%"],
-              scaleX: [1, 0.3],
-              scaleY: [1, 0.3],
-            },
-            1,
-            { easing: [300, 22] },
-          ],
-        ],
-      }),
-        r("velocity-animate").RegisterEffect("attach.Down", {
-          defaultDuration: 200,
-          easing: s,
-          calls: [
-            [
-              {
-                opacity: [0, 1],
-                translateY: ["100%", "0%"],
-                scaleX: [0.3, 1],
-                scaleY: [0.3, 1],
-              },
-              1,
-              { easing: [0.33, 0, 0.39, 0.91] },
-            ],
-          ],
-        }),
-        r("velocity-animate").RegisterEffect("dropdown.Down", {
-          defaultDuration: 200,
-          easing: e,
-          calls: [
-            [
-              { opacity: [1, 0], translateY: ["0%", "-15px"] },
-              1,
-              { easing: e },
-            ],
-          ],
-        }));
-    }
-    var m = {
+      l = [0.69, 0, 0.79, 0.14],
+      s = [0.84, 0.07, 0.93, 0.46],
+      u = [0.42, 0, 0.58, 1],
+      c = {
         pop: {
           duration: 200,
-          easing: u,
+          easing: s,
           enter: {
             props: { scaleX: [1, 0.5], scaleY: [1, 0.5], opacity: [1, 0] },
           },
@@ -120,7 +76,7 @@ __d(
         },
         butterbar: {
           enter: { props: "slideDown", easing: e, duration: 700 },
-          leave: { props: "slideUp", easing: s, duration: 350 },
+          leave: { props: "slideUp", easing: l, duration: 350 },
         },
         modal: {
           enter: [
@@ -148,13 +104,13 @@ __d(
               selector: "[data-animate-modal-backdrop]",
               props: { opacity: [0, 1] },
               duration: 300,
-              easing: s,
+              easing: l,
               delay: 100,
             },
             {
               selector: "[data-animate-modal-popup]",
               props: { scaleX: [0, 1], scaleY: [0, 1] },
-              easing: s,
+              easing: l,
               duration: 200,
             },
           ],
@@ -185,13 +141,13 @@ __d(
               selector: "[data-animate-modal-backdrop]",
               props: { opacity: [0, 1] },
               duration: 300,
-              easing: s,
+              easing: l,
               delay: 100,
             },
             {
               selector: "[data-animate-modal-popup]",
               props: { scaleX: [0, 1], scaleY: [0, 1] },
-              easing: s,
+              easing: l,
               duration: 200,
             },
           ],
@@ -349,7 +305,7 @@ __d(
         },
         "status-quick-reply": {
           enter: { props: { opacity: [1, 0] }, duration: 300, easing: e },
-          leave: { props: { opacity: [0, 1] }, duration: 200, easing: s },
+          leave: { props: { opacity: [0, 1] }, duration: 200, easing: l },
         },
         "status-panel": {
           enter: {
@@ -360,7 +316,7 @@ __d(
           leave: {
             props: { translateY: ["100%", "0%"], opacity: [0, 1] },
             duration: 200,
-            easing: s,
+            easing: l,
           },
         },
         "status-modal": {
@@ -396,7 +352,7 @@ __d(
         },
         "status-media-loading": {
           duration: 300,
-          easing: s,
+          easing: l,
           leave: { props: { opacity: [0, 1] } },
         },
         menu: {
@@ -434,7 +390,7 @@ __d(
           },
           leave: {
             props: { translateY: ["-130%", "0%"], opacity: [0, 1] },
-            easing: s,
+            easing: l,
           },
         },
         "pop-fast-reverse": {
@@ -554,7 +510,7 @@ __d(
               easing: e,
             },
           ],
-          leave: { props: "transition.expandOut", easing: s },
+          leave: { props: "transition.expandOut", easing: l },
         },
         "delay-leave": {
           duration: 1,
@@ -599,7 +555,7 @@ __d(
           leave: {
             props: { scaleX: [0.5, 1], scaleY: [0.5, 1], opacity: [0, 1] },
             duration: 200,
-            easing: u,
+            easing: s,
           },
         },
         scaleAndFade: {
@@ -653,7 +609,7 @@ __d(
         },
         "pin-message-refresh": {
           duration: 200,
-          easing: c,
+          easing: u,
           enter: { props: { translateY: ["0px", "20px"], opacity: [1, 0] } },
           leave: { props: { translateY: ["-20px", "0px"], opacity: [0, 1] } },
         },
@@ -682,7 +638,7 @@ __d(
           },
           leave: {
             props: { opacity: [0, 1], translateY: ["100%", "0%"] },
-            easing: s,
+            easing: l,
           },
         },
         "ai-search-suggestions": {
@@ -697,8 +653,8 @@ __d(
           enter: { props: "slideDown" },
         },
       },
-      p = Object.freeze(m);
-    ((l.registerEffects = d), (l.Transitions = p));
+      d = Object.freeze(c);
+    i.Transitions = d;
   },
-  98,
+  66,
 );

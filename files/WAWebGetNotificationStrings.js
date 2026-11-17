@@ -237,6 +237,7 @@ __d(
           break;
         }
         case "instant_image":
+        case "instant_video":
           f =
             (o("WAWebUA").UA.hasEmoji ? "\u26A1 " : "") +
             o("WAWebInstantsStrings").getInstantLabel();

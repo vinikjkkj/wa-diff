@@ -7,6 +7,7 @@ __d(
     "WASmaxInNewslettersNewsletterPollVotesMixin",
     "WASmaxInNewslettersNewsletterReactionsMixin",
     "WASmaxInNewslettersNewsletterResponsesCountMixin",
+    "WASmaxInNewslettersNewsletterStarsCountMixin",
     "WASmaxInNewslettersNewsletterViewsCountViewsOrDeprecatedMixinGroup",
     "WASmaxInNewslettersReceiverContentTypeMediaRCATMixin",
     "WASmaxParseUtils",
@@ -35,6 +36,9 @@ __d(
           "WASmaxInNewslettersNewsletterForwardsCountMixin",
         ).parseNewsletterForwardsCountMixin(e),
         u = o(
+          "WASmaxInNewslettersNewsletterStarsCountMixin",
+        ).parseNewsletterStarsCountMixin(e),
+        c = o(
           "WASmaxInNewslettersNewsletterViewsCountViewsOrDeprecatedMixinGroup",
         ).parseNewsletterViewsCountViewsOrDeprecatedMixinGroup(e);
       return o("WAResultOrError").makeResult(
@@ -44,8 +48,9 @@ __d(
           newsletterResponsesCountMixin: i.success ? i.value : null,
           receiverContentTypeMediaRCATMixin: l.success ? l.value : null,
           newsletterForwardsCountMixin: s.success ? s.value : null,
-          newsletterViewsCountViewsOrDeprecatedMixinGroup: u.success
-            ? u.value
+          newsletterStarsCountMixin: u.success ? u.value : null,
+          newsletterViewsCountViewsOrDeprecatedMixinGroup: c.success
+            ? c.value
             : null,
         }),
       );

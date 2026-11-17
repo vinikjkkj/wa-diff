@@ -6,6 +6,7 @@ __d(
     "WAWebListUtils",
     "WAWebMetaAiListOrder",
     "WAWebModelStorageUtils",
+    "WAWebNullFunc",
     "WAWebSchemaLabel",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -239,9 +240,7 @@ __d(
                 (i = yield o("WAWebSchemaLabel")
                   .getLabelTable()
                   .get(o("WAWebListUtils").META_AI_LIST_ID)
-                  .catch(function () {
-                    return null;
-                  })) == null
+                  .catch(o("WAWebNullFunc").returnNull)) == null
                   ? void 0
                   : i.orderIndex));
           }

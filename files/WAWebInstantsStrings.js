@@ -41,33 +41,64 @@ __d(
         .toString();
     }
     function _() {
-      return s._(/*BTDS*/ "Close").toString();
+      return s._(/*BTDS*/ "You").toString();
     }
     function f() {
-      return s._(/*BTDS*/ "Next").toString();
+      return s._(/*BTDS*/ "Close").toString();
     }
     function g() {
-      return s._(/*BTDS*/ "More reactions").toString();
+      return s._(/*BTDS*/ "Next").toString();
     }
     function h() {
-      return s._(/*BTDS*/ "Reply\u2026").toString();
+      return s._(/*BTDS*/ "More reactions").toString();
     }
     function y() {
+      return s._(/*BTDS*/ "Reply\u2026").toString();
+    }
+    function C() {
       return s._(/*BTDS*/ "Send").toString();
     }
-    function C(e) {
+    function b(e) {
       return e
         ? s._(/*BTDS*/ "Exit full screen").toString()
         : s._(/*BTDS*/ "Full screen").toString();
     }
-    function b() {
-      return s._(/*BTDS*/ "More options").toString();
-    }
-    function v() {
-      return s._(/*BTDS*/ "Report").toString();
+    function v(e) {
+      return e
+        ? s._(/*BTDS*/ "Unmute").toString()
+        : s._(/*BTDS*/ "Mute").toString();
     }
     function S() {
+      return s._(/*BTDS*/ "Couldn't play this video.").toString();
+    }
+    function R() {
+      return s._(/*BTDS*/ "Retry").toString();
+    }
+    function L() {
+      return s._(/*BTDS*/ "Play").toString();
+    }
+    function E() {
+      return s._(/*BTDS*/ "More options").toString();
+    }
+    function k() {
+      return s._(/*BTDS*/ "Report").toString();
+    }
+    function I() {
       return s._(/*BTDS*/ "This Zap was deleted").toString();
+    }
+    function T(e, t) {
+      return t != null && t !== ""
+        ? s
+            ._(/*BTDS*/ "Video Zap from {sender name}: {caption}", [
+              s._param("sender name", e),
+              s._param("caption", t),
+            ])
+            .toString()
+        : s
+            ._(/*BTDS*/ "Video Zap from {sender name}", [
+              s._param("sender name", e),
+            ])
+            .toString();
     }
     ((l.getInstantLabel = e),
       (l.getInstantCardRetryLabel = u),
@@ -75,15 +106,21 @@ __d(
       (l.getInstantReplayLabel = d),
       (l.getInstantCardAccessibilityLabel = m),
       (l.getInstantViewerAccessibilityLabel = p),
-      (l.getInstantViewerCloseLabel = _),
-      (l.getInstantViewerNextLabel = f),
-      (l.getInstantViewerMoreReactionsLabel = g),
-      (l.getInstantViewerReplyPlaceholder = h),
-      (l.getInstantViewerSendLabel = y),
-      (l.getInstantViewerFullscreenLabel = C),
-      (l.getInstantViewerMoreOptionsLabel = b),
-      (l.getInstantViewerReportLabel = v),
-      (l.getInstantViewerDeletedLabel = S));
+      (l.getInstantViewerOwnSenderLabel = _),
+      (l.getInstantViewerCloseLabel = f),
+      (l.getInstantViewerNextLabel = g),
+      (l.getInstantViewerMoreReactionsLabel = h),
+      (l.getInstantViewerReplyPlaceholder = y),
+      (l.getInstantViewerSendLabel = C),
+      (l.getInstantViewerFullscreenLabel = b),
+      (l.getInstantViewerSoundLabel = v),
+      (l.getInstantViewerVideoFailedLabel = S),
+      (l.getInstantViewerRetryLabel = R),
+      (l.getInstantViewerPlayLabel = L),
+      (l.getInstantViewerMoreOptionsLabel = E),
+      (l.getInstantViewerReportLabel = k),
+      (l.getInstantViewerDeletedLabel = I),
+      (l.getInstantViewerVideoAccessibilityLabel = T));
   },
   226,
 );

@@ -64,11 +64,17 @@ __d(
               "WAWebNewsletterExtendedGatingUtils",
             ).isNewsletterQuestionResponseLikesCapabilityEnabled(t);
     }
+    function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "channels_questions_replies_adjusted_layout_enabled",
+      );
+    }
     ((l.isQuestionsFeatureEnabledForAdmins = s),
       (l.isQuestionsFeatureEnabledForAdminsFor = u),
       (l.isQuestionsM2FeatureEnabledForAdmins = c),
       (l.isQuestionsResponseStarringEnabled = d),
-      (l.isQuestionResponseLikesEnabledForAdmins = m));
+      (l.isQuestionResponseLikesEnabledForAdmins = m),
+      (l.isQuestionsRepliesAdjustedLayoutEnabled = p));
   },
   98,
 );

@@ -12,6 +12,7 @@ __d(
     "WebBloksParseResult",
     "WebBloksRenderDiagnostics",
     "WebBloksScopedIds",
+    "WebBloksScriptDebuggingUtils",
     "WebBloksScriptExecutor",
     "WebBloksTreePendingUpdates",
     "WebBloksTreeResources",
@@ -32,12 +33,9 @@ __d(
     var u = function (t, n) {
         ((this.operations = t), (this.updates = n));
       },
-      c = (function (e) {
-        function t() {
-          return e.apply(this, arguments) || this;
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(u),
+      c = function (t, n) {
+        ((this.operations = t), (this.updates = n));
+      },
       d = (function () {
         function t(e) {
           var t;
@@ -103,7 +101,7 @@ __d(
               }),
                 (this.committedVariables = o));
             }
-            this.$10();
+            this.$11();
           }),
           (a.waitForCommittedTree = function () {
             var t;
@@ -111,11 +109,19 @@ __d(
               ? t
               : (e || (e = n("Promise"))).resolve();
           }),
-          (a.$10 = function () {
+          (a.$11 = function () {
             var e;
             ((e = this.$9) == null || e.call(this),
               (this.$8 = void 0),
-              (this.$9 = void 0));
+              (this.$9 = void 0),
+              (this.$10 = void 0));
+          }),
+          (a.$12 = function (t) {
+            var e;
+            ((e = this.$10) == null || e.call(this, t),
+              (this.$8 = void 0),
+              (this.$9 = void 0),
+              (this.$10 = void 0));
           }),
           (a.initVariablesAndObserver = function (t, n) {
             ((this.treeResourcesState =
@@ -125,7 +131,11 @@ __d(
                 ((this.$3 = !0),
                 t.objectSet.environment.gkx.getGK(
                   "bloks_web_variable_queue_batching",
-                ) && (this.$1 = new c(this.$1.operations, this.$1.updates))),
+                ) &&
+                  (this.$1 =
+                    this.$1 instanceof u
+                      ? this.$13(this.$1.updates)
+                      : this.$1)),
               (this.bloksContext.loggingIDForInternalFrameworkUseOnly =
                 this == null
                   ? void 0
@@ -332,6 +342,33 @@ __d(
           (a.enqueueVariableUpdateOperation = function (t, n) {
             this.$1.operations.enqueueVariableUpdateOperation(t, n);
           }),
+          (a.enqueueLocalStateUpdateOperation = function (t, n, r, o) {
+            var e = this;
+            this.$14(function (a, i, l) {
+              if (e.$7) return null;
+              try {
+                var s = l.has(t) || a.has(t) || i.has(t) ? t : n,
+                  u =
+                    s == null
+                      ? void 0
+                      : l.has(s)
+                        ? l.get(s)
+                        : a.has(s)
+                          ? a.get(s)
+                          : i.get(s),
+                  c = r(u);
+                return e.$7 ? null : [t, c];
+              } catch (e) {
+                try {
+                  o(e);
+                } catch (e) {}
+                return null;
+              }
+            });
+          }),
+          (a.$14 = function (t) {
+            this.$1.operations.enqueueVariableOperation(t);
+          }),
           (a.enqueueUpdateOperation = function (t, n) {
             this.$1.operations.enqueueUpdateOperation(t, n);
           }),
@@ -346,6 +383,14 @@ __d(
           (a.enqueueTreeUpdateOperation = function (t) {
             this.$1.operations.enqueueTreeUpdateOperation(t);
           }),
+          (a.$15 = function () {
+            var t = this;
+            this.$8 ||
+              ((this.$8 = new (e || (e = n("Promise")))(function (e, n) {
+                ((t.$9 = e), (t.$10 = n));
+              })),
+              this.$8.catch(function () {}));
+          }),
           (a.beginUpdates = function () {
             this.$1.operations.beginUpdates();
           }),
@@ -355,7 +400,7 @@ __d(
           (a.flushUpdates = function () {
             this.$1.operations.flushUpdates();
           }),
-          (a.$11 = function () {
+          (a.$16 = function () {
             this.$1.operations.scheduleUpdates();
           }),
           (a.snapshotPendingComponent = function () {
@@ -366,27 +411,29 @@ __d(
           }),
           (a.$2 = function () {
             var t = this,
-              a = {
-                variableUpdates: new (r("WebBloksTreePendingUpdates"))(),
+              r = {
+                variableUpdates: new (o(
+                  "WebBloksTreePendingUpdates",
+                ).WebBloksLegacyPendingUpdates)(),
                 updateOperationList: [],
                 updateResourcesOperations: [],
                 pendingUnboundTree: null,
               },
-              i = {
-                enqueueVariableUpdateOperation: function (n, r) {
+              a = {
+                enqueueVariableUpdateOperation: function (n, o) {
                   if (!t.$7) {
-                    if ((a.variableUpdates.enqueueWrite(n, r), !t.$5)) {
+                    if ((r.variableUpdates.enqueueWrite(n, o), !t.$5)) {
                       t.$6 = !0;
                       return;
                     }
-                    t.$4 === 0 && t.$11();
+                    t.$4 === 0 && t.$16();
                   }
                 },
                 enqueueUpdateOperation: function (t, n) {
-                  a.updateOperationList.push([t, n]);
+                  r.updateOperationList.push([t, n]);
                 },
                 enqueueResourcesUpdateOperation: function (n) {
-                  (a.updateResourcesOperations.push(n), t.$4 === 0 && t.$11());
+                  (r.updateResourcesOperations.push(n), t.$4 === 0 && t.$16());
                 },
                 enqueueTreeUpdateOperation: function (n) {
                   (n.variableUpdate != null &&
@@ -411,8 +458,8 @@ __d(
                 },
                 flushUpdates: function () {
                   if (!t.$7) {
-                    var e = a.variableUpdates.hasPendingWrites()
-                        ? a.variableUpdates.takePendingWrites()
+                    var e = r.variableUpdates.hasPendingWrites()
+                        ? r.variableUpdates.takePendingWrites()
                         : o("WebBloksUtils").EMPTY_MAP,
                       n = o(
                         "WebBloksBindInstrumentation",
@@ -422,7 +469,7 @@ __d(
                       (o(
                         "WebBloksBindInstrumentation",
                       ).bindCounters.variableWritesApplied += e.size));
-                    var r = !1,
+                    var a = !1,
                       i = null;
                     if (e.size) {
                       var l = t.treeResourcesState.variables;
@@ -432,7 +479,7 @@ __d(
                         !t.bloksContext.objectSet.environment
                           .enableNoOpVariableWriteFilter)
                       )
-                        r = !0;
+                        a = !0;
                       else {
                         var s;
                         i = e;
@@ -448,34 +495,34 @@ __d(
                             !(p && l.has(d) && m === l.get(d)) &&
                             (u == null || u.has(d))
                           ) {
-                            r = !0;
+                            a = !0;
                             break;
                           }
                         }
                       }
                     }
-                    if (a.updateResourcesOperations.length) {
+                    if (r.updateResourcesOperations.length) {
                       t.initialTreeResources.setShouldCommitPublishStateUpdates(
                         !0,
                       );
-                      var _ = t.processResources(a.updateResourcesOperations);
-                      r = r || _[0];
-                      for (var f of _[1]) a.updateOperationList.push(f);
-                      a.updateResourcesOperations = [];
+                      var _ = t.processResources(r.updateResourcesOperations);
+                      a = a || _[0];
+                      for (var f of _[1]) r.updateOperationList.push(f);
+                      r.updateResourcesOperations = [];
                     }
                     var g = t.snapshotPendingComponent();
                     if (
-                      ((r = r || t.unboundModel !== g),
+                      ((a = a || t.unboundModel !== g),
                       (t.unboundModel = g),
-                      (a.updateOperationList = []),
-                      (a.pendingUnboundTree = null),
+                      (r.updateOperationList = []),
+                      (r.pendingUnboundTree = null),
                       n &&
-                        (r
+                        (a
                           ? o("WebBloksBindInstrumentation").bindCounters
                               .passesEmitted++
                           : o("WebBloksBindInstrumentation").bindCounters
                               .passesSuppressed++),
-                      r)
+                      a)
                     )
                       (t.$7 &&
                         t.bloksContext.objectSet.environment.logger.warn(
@@ -491,7 +538,7 @@ __d(
                         (o("WebBloksUtils").putAll(h, i),
                           (t.committedVariables = h));
                       }
-                      t.$10();
+                      t.$11();
                     }
                   }
                 },
@@ -511,9 +558,9 @@ __d(
                 },
                 snapshotPendingComponent: function () {
                   var e,
-                    n = (e = a.pendingUnboundTree) != null ? e : t.unboundModel,
-                    r = new Set(a.updateOperationList.splice(0));
-                  if (r.size === 0) return n;
+                    n = (e = r.pendingUnboundTree) != null ? e : t.unboundModel,
+                    a = new Set(r.updateOperationList.splice(0));
+                  if (a.size === 0) return n;
                   var i = t.$7,
                     l = o("WebBloksUpdateTraversal").runUpdateTraversal(
                       n,
@@ -521,15 +568,15 @@ __d(
                         apply: function (t) {
                           var e,
                             n = t,
-                            a;
-                          for (var l of r) {
+                            r;
+                          for (var l of a) {
                             var u = l[0],
                               c = l[1],
                               d = c.shouldUpdate,
                               m = c.update;
                             if (
                               u.targets(n) &&
-                              (a ? a.push(l) : (a = [l]), !d || d(n))
+                              (r ? r.push(l) : (r = [l]), !d || d(n))
                             ) {
                               n === t && (n = t.makeCopy());
                               try {
@@ -563,9 +610,9 @@ __d(
                             }
                           }
                           return (
-                            (e = a) == null ||
+                            (e = r) == null ||
                               e.forEach(function (e) {
-                                r.delete(e);
+                                a.delete(e);
                               }),
                             n
                           );
@@ -581,7 +628,7 @@ __d(
                     ).isWebBloksRenderDiagnosticsInstalled()
                   )
                     try {
-                      for (var u of r) {
+                      for (var u of a) {
                         var c = u[0],
                           d = s(c),
                           m = d.id,
@@ -595,8 +642,351 @@ __d(
                   return l;
                 },
                 destroy: function () {},
+                enqueueVariableOperation: function (n) {
+                  var e = n(
+                    t.committedVariables,
+                    t.treeResourcesState.variables,
+                    o("WebBloksUtils").EMPTY_MAP,
+                  );
+                  e != null && a.enqueueVariableUpdateOperation(e[0], e[1]);
+                },
               };
-            return new u(i, a);
+            return new u(a, r);
+          }),
+          (a.$13 = function (a) {
+            var t = this,
+              i = new (o(
+                "WebBloksTreePendingUpdates",
+              ).WebBloksTreePendingUpdates)();
+            for (var l of a.variableUpdates.takePendingWrites()) {
+              var s = l[0],
+                u = l[1];
+              i.enqueueWrite(s, u);
+            }
+            for (var d of a.updateOperationList) i.enqueueMutation(d);
+            for (var m of a.updateResourcesOperations) i.enqueueResource(m);
+            i.root = a.pendingUnboundTree;
+            var p = {
+                variableUpdates: i,
+                activeUpdates: null,
+                flushingUpdates: !1,
+                updateScheduled: !1,
+              },
+              _ = {
+                enqueueVariableUpdateOperation: function (n, r) {
+                  if (!t.$7) {
+                    if ((p.variableUpdates.enqueueWrite(n, r), !t.$5)) {
+                      t.$6 = !0;
+                      return;
+                    }
+                    t.$4 === 0 && t.$16();
+                  }
+                },
+                enqueueUpdateOperation: function (n, r) {
+                  t.$7 || p.variableUpdates.enqueueMutation([n, r]);
+                },
+                enqueueResourcesUpdateOperation: function (n) {
+                  t.$7 ||
+                    (p.variableUpdates.enqueueResource(n),
+                    t.$4 === 0 && t.$16());
+                },
+                enqueueTreeUpdateOperation: function (n) {
+                  if (!t.$7) {
+                    n.treeModification != null &&
+                      t.enqueueUpdateOperationWithResources(n.treeModification);
+                    var e = n.variableUpdate;
+                    e != null
+                      ? t.enqueueVariableUpdateOperation(
+                          e.variableIdentifier,
+                          e.value,
+                        )
+                      : n.treeModification != null &&
+                        (t.$5 ? t.$4 === 0 && t.$16() : (t.$6 = !0));
+                  }
+                },
+                beginUpdates: function () {
+                  (t.$4++, t.$15());
+                },
+                endUpdates: function () {
+                  if (t.$4 <= 0)
+                    throw new (o("WebBloksErrors").WebBloksError)(
+                      "Unmatched endUpdates",
+                    );
+                  (t.$4--,
+                    t.$4 === 0 &&
+                      (p.variableUpdates.pendingMutations().length > 0 ||
+                      p.variableUpdates.root != null
+                        ? t.flushUpdates()
+                        : p.variableUpdates.hasRenderUpdates()
+                          ? t.$16()
+                          : p.flushingUpdates || t.$11()));
+                },
+                flushUpdates: function () {
+                  if (!t.$7) {
+                    if (p.flushingUpdates) {
+                      t.$16();
+                      return;
+                    }
+                    if (!t.$5) {
+                      t.$6 = !0;
+                      return;
+                    }
+                    var e = t.$8,
+                      n = p.variableUpdates;
+                    ((p.variableUpdates = new (o(
+                      "WebBloksTreePendingUpdates",
+                    ).WebBloksTreePendingUpdates)()),
+                      (p.activeUpdates = n),
+                      (p.flushingUpdates = !0));
+                    try {
+                      t.$17(p, n);
+                    } catch (n) {
+                      throw (t.$8 === e && t.$12(n), n);
+                    } finally {
+                      (n.reset(),
+                        (p.activeUpdates = null),
+                        (p.flushingUpdates = !1),
+                        !t.$7 &&
+                          p.variableUpdates.hasRenderUpdates() &&
+                          t.$16());
+                    }
+                  }
+                },
+                scheduleUpdates: function () {
+                  if (!(t.$7 || p.updateScheduled)) {
+                    if (!t.$5) {
+                      t.$6 = !0;
+                      return;
+                    }
+                    (t.$15(),
+                      (p.updateScheduled = !0),
+                      (e || (e = n("Promise")))
+                        .resolve()
+                        .then(function () {
+                          ((p.updateScheduled = !1),
+                            t.$4 === 0 &&
+                              p.variableUpdates.hasRenderUpdates() &&
+                              t.flushUpdates());
+                        })
+                        .catch(function (e) {
+                          e instanceof o("WebBloksErrors").WebBloksScriptError
+                            ? o("WebBloksScriptDebuggingUtils").logScriptError(
+                                t.bloksContext.objectSet,
+                                e,
+                                null,
+                                new (r("WebBloksInterpreterEnvironment"))(
+                                  t.bloksContext,
+                                ),
+                              )
+                            : t.bloksContext.objectSet.environment.logger.mustfix(
+                                "Unexpected error when flushing updates",
+                                e instanceof Error ? e : String(e),
+                              );
+                        }));
+                  }
+                },
+                snapshotPendingComponent: function () {
+                  var e,
+                    n = p.variableUpdates,
+                    r = p.activeUpdates,
+                    o = n.pendingMutations();
+                  if (r == null || n.root != null) {
+                    var a;
+                    return t.$18((a = n.root) != null ? a : t.unboundModel, o);
+                  }
+                  var i =
+                    o.length === 0
+                      ? r.pendingMutations()
+                      : [].concat(r.pendingMutations(), o);
+                  return t.$18((e = r.root) != null ? e : t.unboundModel, i);
+                },
+                enqueueVariableOperation: function (n) {
+                  if (!t.$7) {
+                    if ((p.variableUpdates.enqueueOperation(n), !t.$5)) {
+                      t.$6 = !0;
+                      return;
+                    }
+                    t.$4 === 0 && t.$16();
+                  }
+                },
+                destroy: function () {
+                  p.variableUpdates.reset();
+                },
+              };
+            return new c(_, p);
+          }),
+          (a.$17 = function (t, n) {
+            var e,
+              r = n.takeWrites(
+                this.treeResourcesState.variables,
+                this.committedVariables,
+              );
+            if (!this.$7) {
+              var a = o(
+                "WebBloksBindInstrumentation",
+              ).isBindInstrumentationEnabled();
+              a &&
+                (o("WebBloksBindInstrumentation").bindCounters.flushes++,
+                (o(
+                  "WebBloksBindInstrumentation",
+                ).bindCounters.variableWritesApplied += r.size));
+              var i = !1,
+                l = null;
+              if (r.size) {
+                var s = this.treeResourcesState.variables;
+                if (
+                  ((this.treeResourcesState =
+                    this.treeResourcesState.withVariableUpdates(r)),
+                  !this.bloksContext.objectSet.environment
+                    .enableNoOpVariableWriteFilter)
+                )
+                  i = !0;
+                else {
+                  var u;
+                  l = r;
+                  var c =
+                    (u = this.bindResult) == null ? void 0 : u.dependencies;
+                  for (var d of r) {
+                    var m = d[0],
+                      p = d[1],
+                      _ =
+                        p == null ||
+                        (typeof p != "object" && typeof p != "function");
+                    if (
+                      !(_ && s.has(m) && p === s.get(m)) &&
+                      (c == null || c.has(m))
+                    ) {
+                      i = !0;
+                      break;
+                    }
+                  }
+                }
+              }
+              if (n.pendingResources().length > 0) {
+                this.initialTreeResources.setShouldCommitPublishStateUpdates(
+                  !0,
+                );
+                var f = this.processResources(n.pendingResources());
+                i = i || f[0];
+                for (var g of f[1]) n.enqueueMutation(g);
+              }
+              if (!this.$7) {
+                var h = this.$18(
+                  (e = n.root) != null ? e : this.unboundModel,
+                  n.pendingMutations(),
+                );
+                if (!this.$7)
+                  if (
+                    ((i = i || this.unboundModel !== h),
+                    (this.unboundModel = h),
+                    (t.activeUpdates = null),
+                    a &&
+                      (i
+                        ? o("WebBloksBindInstrumentation").bindCounters
+                            .passesEmitted++
+                        : o("WebBloksBindInstrumentation").bindCounters
+                            .passesSuppressed++),
+                    i)
+                  )
+                    (this.$7 &&
+                      this.bloksContext.objectSet.environment.logger.warn(
+                        "Received model updates for a TreeManager that was already destroyed",
+                      ),
+                      this.onNewTreeAndVariablesListener.emit({
+                        unboundModel: this.unboundModel,
+                        treeResourcesState: this.treeResourcesState,
+                      }));
+                  else {
+                    if (l != null) {
+                      var y = new Map(this.committedVariables);
+                      (o("WebBloksUtils").putAll(y, l),
+                        (this.committedVariables = y));
+                    }
+                    this.$11();
+                  }
+              }
+            }
+          }),
+          (a.$18 = function (t, n) {
+            if (n.length === 0) return t;
+            var e = new Set(n),
+              r = this,
+              a = o("WebBloksUpdateTraversal").runUpdateTraversal(
+                t,
+                {
+                  apply: function (n) {
+                    var t,
+                      a = n,
+                      i;
+                    for (var l of e) {
+                      if (r.$7) return n;
+                      var u = l[0],
+                        c = l[1],
+                        d = c.shouldUpdate,
+                        m = c.update;
+                      if (
+                        u.targets(a) &&
+                        (i ? i.push(l) : (i = [l]), !d || d(a))
+                      ) {
+                        a === n && (a = n.makeCopy());
+                        try {
+                          m(a);
+                        } catch (e) {
+                          if (
+                            !r.$7 &&
+                            o(
+                              "WebBloksRenderDiagnostics",
+                            ).isWebBloksRenderDiagnosticsInstalled()
+                          )
+                            try {
+                              var p = s(u),
+                                _ = p.id,
+                                f = p.kind;
+                              o(
+                                "WebBloksRenderDiagnostics",
+                              ).reportWebBloksRenderDrop("mutation_error", {
+                                componentId: _,
+                                styleId: f,
+                                message: o(
+                                  "WebBloksRenderDiagnostics",
+                                ).safeErrorMessage(e),
+                              });
+                            } catch (e) {}
+                          throw e;
+                        }
+                      }
+                    }
+                    return (
+                      (t = i) == null ||
+                        t.forEach(function (t) {
+                          e.delete(t);
+                        }),
+                      a
+                    );
+                  },
+                  onUpdatesApplied: function () {},
+                },
+                this.bloksContext.objectSet.environment.traversalKeys,
+              );
+            if (
+              !this.$7 &&
+              o(
+                "WebBloksRenderDiagnostics",
+              ).isWebBloksRenderDiagnosticsInstalled()
+            )
+              try {
+                for (var i of e) {
+                  var l = i[0],
+                    u = s(l),
+                    c = u.id,
+                    d = u.kind;
+                  o("WebBloksRenderDiagnostics").reportWebBloksRenderDrop(
+                    "mutation_target_missing",
+                    { componentId: c, styleId: d },
+                  );
+                }
+              } catch (e) {}
+            return a;
           }),
           (a.destroy = function () {
             ((this.$7 = !0),

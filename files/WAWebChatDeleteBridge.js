@@ -112,9 +112,14 @@ __d(
               function* (n) {
                 var r = n.chatBoundaries,
                   a = n.deletedMsgIds;
-                (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(a, {
-                  removeWholeRow: !0,
-                }),
+                (o("WAWebBackendApi").frontendFireAndForget(
+                  "chatHistoryCleared",
+                  { chatId: t.toString() },
+                ),
+                  o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
+                    a,
+                    { removeWholeRow: !0 },
+                  ),
                   r
                     ? (m(babelHelpers.extends({ chatId: t.toString() }, r)),
                       yield o("WAWebUiRuntime").isWebDiUiEnabled()
@@ -361,6 +366,9 @@ __d(
                   ]);
                 }),
               ),
+              o("WAWebBackendApi").frontendFireAndForget("chatHistoryCleared", {
+                chatId: e.toString(),
+              }),
               { status: 200, result: h }
             );
           },

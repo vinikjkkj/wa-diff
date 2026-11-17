@@ -2,6 +2,7 @@ __d(
   "buildWAWebCometRouterStateProvider",
   [
     "CometRouteStore",
+    "CometRouterErrorRoot_MISSING_FIXME",
     "CometRouterFocusRegion.react",
     "WAWebWindowsQueryParams",
     "buildBaseCometRouterStateProvider",
@@ -22,6 +23,7 @@ __d(
         ),
       ),
       c = {
+        ErrorRoot: r("CometRouterErrorRoot_MISSING_FIXME"),
         LoadingStates: {},
         RouteActorToaster: u,
         RouterFocusRegion: r("CometRouterFocusRegion.react"),

@@ -29,6 +29,7 @@ __d(
         {
           focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
           focusOnUnMount: !0,
+          transition: "pop-drawer-fast",
         },
       );
     }

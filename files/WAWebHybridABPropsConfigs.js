@@ -157,9 +157,6 @@ __d(
       calling_voicemail_attached_icce_enabled: [30383, "int", 0, 0],
       calling_voicemail_quoted_replies_enabled: [30165, "bool", !1, !1],
       calls_tab_username_global_search_enabled: [17698, "bool", !1, !1],
-      camera_error_banners_version: [10584, "int", 0, 1],
-      camera_health_check_delay: [8739, "int", 5e3, 5e3],
-      camera_health_check_period: [8740, "int", 2e3, 2e3],
       cci_compliance_ctwa: [24983, "bool", !1, !1],
       cci_compliance_ctwa_learn_more_hyperlink: [
         25366,
@@ -347,6 +344,7 @@ __d(
       group_username_updates_as_member_updates_enabled: [24477, "bool", !1, !1],
       guest_calling_call_log_mitigation_enabled: [36069, "bool", !1, !1],
       guest_calling_discoverability_awareness: [42722, "int", 0, 0],
+      guest_calling_discoverability_invite_flows: [43168, "int", 0, 0],
       hand_raise_receiver_enabled: [13540, "bool", !1, !1],
       heartbeat_interval_s: [1430, "int", 10, 5],
       hide_silent_system_message_enabled: [24268, "bool", !1, !1],
@@ -611,7 +609,6 @@ __d(
       wa_capping_local_data_logic_update: [21348, "bool", !1, !0],
       wa_hybrid_collect_new_memory_metrics: [36574, "bool", !1, !1],
       wa_hybrid_use_minimal_window: [35352, "bool", !1, !1],
-      wa_individual_new_chat_msg_capping_enabled: [20865, "bool", !1, !0],
       wa_individual_new_chat_msg_capping_fetch_ttl_seconds: [
         20649,
         "int",

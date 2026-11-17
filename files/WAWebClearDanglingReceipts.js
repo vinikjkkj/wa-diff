@@ -11,6 +11,7 @@ __d(
     "WAWebOfflineResumePreAckHandler",
     "WAWebSchemaDanglingReceipt",
     "WAWebSendReceiptJobCommon",
+    "WAWebUserUtils",
     "WAWebWamOfflineResumeReporter",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -22,7 +23,7 @@ __d(
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (
             (o("WALogger").LOG(
               e ||
@@ -32,7 +33,7 @@ __d(
                 ])),
               t.length,
             ),
-            r.aborted)
+            n.aborted)
           )
             throw (
               o("WALogger").LOG(
@@ -43,10 +44,32 @@ __d(
               ),
               new (o("WAAbortError").AbortError)()
             );
-          var a = new Map(),
+          var r = yield C(t, { senderReceiptsForOwnChat: !1 });
+          (yield v(),
+            o(
+              "WAWebWamOfflineResumeReporter",
+            ).OfflineResumeReporter.logOfflinePreackCount(r),
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "sendAndClearDanglingReceipts: complete",
+                ])),
+            ));
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = t.senderReceiptsForOwnChat,
+            a = new Map(),
             i = [],
             l = 0;
-          t.forEach(function (e) {
+          e.forEach(function (e) {
             l += e.receipts.length;
             var t = e.acks,
               n = e.receipts;
@@ -60,72 +83,74 @@ __d(
             }),
               (i = i.concat(t)));
           });
-          var p = String(o("WATimeUtils").unixTime()),
-            _ = [];
+          var s = String(o("WATimeUtils").unixTime()),
+            u = [];
           a.forEach(function (e, t) {
             e.forEach(function (e, n) {
-              _.push(
-                o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                  to: t,
-                  type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
-                  t: p,
-                  groupedReceipt: e,
-                  receiptClass: n,
-                }),
+              var a = r && t.isUser() && o("WAWebUserUtils").isMeAccount(t);
+              u.push(
+                o("WAWebSendReceiptJobCommon").sendAggregateReceipts(
+                  babelHelpers.extends(
+                    { to: t, t: s, groupedReceipt: e, receiptClass: n },
+                    a
+                      ? {
+                          type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
+                            .SENDER,
+                          recipient: t,
+                        }
+                      : {
+                          type: o("WAWebSendReceiptJobCommon").RECEIPT_TYPE
+                            .DELIVERY,
+                        },
+                  ),
+                ),
               );
             });
           });
-          var f = i.map(function (e) {
+          var p = i.map(function (e) {
             return o("WAWebOfflineResumePreAckHandler").sendOfflinePreAck(e);
           });
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "sendAndClearDanglingReceipts: sending ",
-                " rcpts, ",
-                " preAcks",
-              ])),
-            _.length,
-            f.length,
-          ),
-            yield (g || (g = n("Promise"))).all(_),
+          return (
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendAndClearDanglingReceipts: complete sending ",
-                  " receipts",
+                  "sendAndClearDanglingReceipts: sending ",
+                  " rcpts, ",
+                  " preAcks",
                 ])),
-              _.length,
+              u.length,
+              p.length,
             ),
-            yield g.all(f),
+            yield (g || (g = n("Promise"))).all(u),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendAndClearDanglingReceipts: complete sending  ",
-                  " preAcks",
+                  "sendAndClearDanglingReceipts: complete sending ",
+                  " receipts",
                 ])),
-              f.length,
+              u.length,
             ),
-            yield C(),
-            o(
-              "WAWebWamOfflineResumeReporter",
-            ).OfflineResumeReporter.logOfflinePreackCount(l),
+            yield g.all(p),
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendAndClearDanglingReceipts: complete",
+                  "sendAndClearDanglingReceipts: complete sending  ",
+                  " preAcks",
                 ])),
-            ));
+              p.length,
+            ),
+            l
+          );
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
+    function v() {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!r("WAWebNetworkStatus").online) {
             o("WALogger").LOG(
               p ||
@@ -151,10 +176,12 @@ __d(
             ),
             yield o("WAWebSchemaDanglingReceipt").getTable().clear());
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.sendAndClearDanglingReceipts = h), (l.clearDanglingReceipts = C));
+    ((l.sendAndClearDanglingReceipts = h),
+      (l.sendDanglingReceipts = C),
+      (l.clearDanglingReceipts = v));
   },
   98,
 );

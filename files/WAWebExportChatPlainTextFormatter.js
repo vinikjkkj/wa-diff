@@ -6,6 +6,7 @@ __d(
     "WAWebExportChatMarkdownFormatter",
     "WAWebExportChatSystemMsgFormatter",
     "WAWebGetPlainTextFromBotMsg",
+    "WAWebInstantMsgTypes",
     "WAWebInstantsStrings",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -108,7 +109,7 @@ __d(
         return o("WAWebExportChatSystemMsgFormatter").formatSystemMsgForExport(
           t,
         );
-      if (i === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE)
+      if (o("WAWebInstantMsgTypes").isInstantMsgType(i))
         return "<" + o("WAWebInstantsStrings").getInstantLabel() + ">";
       if (i === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
         return s

@@ -1,6 +1,6 @@
 __d(
   "WAWebInstantStackGrouping",
-  ["WAWebAck", "WAWebMessageListDayOfMsg", "WAWebMsgType"],
+  ["WAWebAck", "WAWebInstantMsgTypes", "WAWebMessageListDayOfMsg"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       return !s(e) || !s(t) || e.id.fromMe !== t.id.fromMe || !u(e, t)
@@ -10,7 +10,7 @@ __d(
     }
     function s(e) {
       return (
-        e.type === o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE &&
+        o("WAWebInstantMsgTypes").isInstantMsgType(e.type) &&
         e.ack != null &&
         e.ack >= o("WAWebAck").ACK.CLOCK
       );

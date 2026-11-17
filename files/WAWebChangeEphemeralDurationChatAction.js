@@ -20,6 +20,7 @@ __d(
     "WAWebGroupSettingsService",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebPathfinderDisappearingMessagesSetting",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebUpdateEphemeralSettingTimestampChatAction",
@@ -199,7 +200,15 @@ __d(
             i !== t &&
               (o("WAWebChatGetters").getIsGroup(e)
                 ? yield m(e, t, a)
-                : yield c(e, t, a));
+                : yield c(e, t, a),
+              o(
+                "WAWebPathfinderDisappearingMessagesSetting",
+              ).recordChatDisappearingMessagesSettingChange({
+                chat: e,
+                previousDuration: i,
+                newDuration: t,
+                entryPoint: n,
+              }));
             var l =
                 o("WAWebAfterReadUtils").isAfterReadDuration(t) &&
                 o("WAWebAfterReadUtils").isAfterReadEnabled(),

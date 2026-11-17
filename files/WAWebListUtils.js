@@ -114,7 +114,7 @@ __d(
         C(e == null ? void 0 : e.type) ||
         v(e == null ? void 0 : e.type) ||
         S(e) ||
-        j(e)
+        K(e)
       );
     }
     function L(e) {
@@ -252,7 +252,7 @@ __d(
       return F(e.getLabel);
     }
     function B(e, t) {
-      var n, r;
+      var n, r, a, i;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.FAVORITES ||
@@ -263,70 +263,92 @@ __d(
         ? (n = t.get(String(e.filter))) != null
           ? n
           : 0
-        : (r = t.get(String(e.listId))) != null
-          ? r
-          : 0;
+        : e.filter === o("WAWebChatSearchFilters").SearchFilters.NETWORK
+          ? (r = t.get(W((a = e.orgId) != null ? a : ""))) != null
+            ? r
+            : 0
+          : (i = t.get(String(e.listId))) != null
+            ? i
+            : 0;
     }
-    var W = { channelsPillCount: 0, unreadPillCount: 0 };
-    function q(e) {
-      e === void 0 && (e = W);
-      var t = o("WAWebLabelCollection").LabelCollection.toArray(),
-        n = new Map(),
-        r = 0,
+    function W(e) {
+      return "network:" + e;
+    }
+    var q = { channelsPillCount: 0, unreadPillCount: 0 };
+    function U(e, t) {
+      (e === void 0 && (e = q), t === void 0 && (t = []));
+      var n = o("WAWebLabelCollection").LabelCollection.toArray(),
+        r = new Map(),
         a = 0,
         i = 0,
         l = 0,
         s = 0,
         u = 0,
-        c = e.channelsPillCount;
+        c = 0,
+        d = e.channelsPillCount;
       return (
+        n.forEach(function (e) {
+          r.set(e.id, 0);
+        }),
         t.forEach(function (e) {
-          n.set(e.id, 0);
+          r.set(W(e), 0);
         }),
         o("WAWebChatCollection").ChatCollection.forEach(function (e) {
           e.archive ||
             !o("WAWebFrontendChatGetters").getShouldAppearInList(e) ||
             (o("WAWebChatMessageSearch").matchFilter(e, {
               kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
-            }) && r++,
+            }) && a++,
             o("WAWebChatMessageSearch").matchFilter(e, {
               kind: o("WAWebChatSearchFilters").SearchFilters.TO_YOU,
-            }) && s++,
+            }) && u++,
             o("WAWebChatGetters").getHasUnread(e) &&
               (o("WAWebChatMessageSearch").matchFilter(e, {
                 kind: o("WAWebChatSearchFilters").SearchFilters.GROUP,
-              }) && a++,
-              o("WAWebChatMessageSearch").matchFilter(e, {
-                kind: o("WAWebChatSearchFilters").SearchFilters.COMMUNITY,
-              }) && l++,
-              o("WAWebChatMessageSearch").matchFilter(e, {
-                kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
               }) && i++,
               o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.COMMUNITY,
+              }) && s++,
+              o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
+              }) && l++,
+              o("WAWebChatMessageSearch").matchFilter(e, {
                 kind: o("WAWebChatSearchFilters").SearchFilters.META_AI,
-              }) && u++,
+              }) && c++,
+              t.forEach(function (t) {
+                if (
+                  o("WAWebChatMessageSearch").matchFilter(e, {
+                    kind: o("WAWebChatSearchFilters").SearchFilters.NETWORK,
+                    orgId: t,
+                  })
+                ) {
+                  var n,
+                    a = W(t);
+                  r.set(a, ((n = r.get(a)) != null ? n : 0) + 1);
+                }
+              }),
               e.labels != null &&
                 e.labels.length > 0 &&
                 e.labels.forEach(function (e) {
                   var t,
-                    r = (t = n.get(e)) != null ? t : 0;
-                  n.set(e, r + 1);
+                    n = (t = r.get(e)) != null ? t : 0;
+                  r.set(e, n + 1);
                 })));
         }),
-        n.set(
+        r.set(
           String(o("WAWebChatSearchFilters").SearchFilters.UNREAD),
-          r + e.unreadPillCount,
+          a + e.unreadPillCount,
         ),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.GROUP), a),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.FAVORITES), i),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.COMMUNITY), l),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.CHANNELS), c),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.TO_YOU), s),
-        n.set(String(o("WAWebChatSearchFilters").SearchFilters.META_AI), u),
-        n
+        r.set(String(o("WAWebChatSearchFilters").SearchFilters.GROUP), i),
+        r.set(String(o("WAWebChatSearchFilters").SearchFilters.FAVORITES), l),
+        r.set(String(o("WAWebChatSearchFilters").SearchFilters.COMMUNITY), s),
+        r.set(String(o("WAWebChatSearchFilters").SearchFilters.CHANNELS), d),
+        r.set(String(o("WAWebChatSearchFilters").SearchFilters.TO_YOU), u),
+        r.set(String(o("WAWebChatSearchFilters").SearchFilters.META_AI), c),
+        r
       );
     }
-    function U(e) {
+    function V(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -345,7 +367,7 @@ __d(
             return null;
         }
     }
-    function V(e) {
+    function H(e) {
       var t;
       if (
         (e.label != null
@@ -369,27 +391,27 @@ __d(
       }
       return null;
     }
-    function H() {
+    function G() {
       return s._(/*BTDS*/ "Lead stage");
     }
-    function G() {
+    function z() {
       return s._(/*BTDS*/ "Lead stage (preset)");
     }
-    var z = "-1004";
-    function j(e) {
+    var j = "-1004";
+    function K(e) {
       return (
         e != null &&
-        (e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD || e.id === z)
+        (e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD || e.id === j)
       );
     }
-    function K() {
+    function Q() {
       return r("justknobx")._("7781");
     }
-    var Q = r("JSResourceForInteraction")(
+    var X = r("JSResourceForInteraction")(
       "WAWebMetaAiListActionsImpl",
     ).__setRef("WAWebListUtils");
-    function X() {
-      return Q.load().catch(function () {
+    function Y() {
+      return X.load().catch(function () {
         return (
           o("WALogger")
             .WARN(
@@ -427,15 +449,15 @@ __d(
       (l.resolvePillLabel = F),
       (l.resolvePillLabelForState = O),
       (l.getUnreadChatsCountForFilter = B),
-      (l.getListsUnreadChatCountMap = q),
-      (l.getListTypeFromFilter = U),
-      (l.getManageListInfo = V),
-      (l.getLeadStageListName = H),
-      (l.getLeadListManagerDisplayName = G),
-      (l.META_AI_LIST_ID = z),
-      (l.isDeviceLocalList = j),
-      (l.isMetaAiListEnabled = K),
-      (l.loadMetaAiList = X));
+      (l.getListsUnreadChatCountMap = U),
+      (l.getListTypeFromFilter = V),
+      (l.getManageListInfo = H),
+      (l.getLeadStageListName = G),
+      (l.getLeadListManagerDisplayName = z),
+      (l.META_AI_LIST_ID = j),
+      (l.isDeviceLocalList = K),
+      (l.isMetaAiListEnabled = Q),
+      (l.loadMetaAiList = Y));
   },
   226,
 );

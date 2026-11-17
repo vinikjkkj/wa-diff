@@ -387,6 +387,7 @@ __d(
             a("acp2Setting"),
             a("pollNameHashHistory"),
             a("pollUpdateMessageMetadata"),
+            a("instantPlayedSelf"),
           ])
           .version(n.messageAddForwardReachScoreColumn(), [
             a("forwardReachScore"),

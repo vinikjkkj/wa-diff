@@ -30,7 +30,7 @@ __d(
         USER_EXPOSURE_TO_QUICK_PROMOTION: "userExposureToQuickPromotion",
         VERIFY_POSTCODE: "verifyPostcode",
       }),
-      s = 4,
+      s = 8,
       u = 3e4,
       c = 6e4,
       d = null;

@@ -77,7 +77,6 @@ __d(
       ),
       c = new Set([
         "contact_info",
-        "chat_list",
         "chat_header",
         "group_member_list",
         "group_message_quoted",
@@ -125,7 +124,7 @@ __d(
     }
     function p(e, t, n, r) {
       if (o("WAWebUnknownUserDisplayedLogger").reserveUnknownUserEmission()) {
-        var a = c.has(e)
+        var a = _(e)
           ? o("WAWebUnknownUserDisplayStore").recordDisplayForJid(t)
           : null;
         o("WAWebUnknownUserDisplayedLogger").commitUnknownUserDisplayed(e, t, {
@@ -146,6 +145,14 @@ __d(
                   .UNKNOWN_USER_RECOVERY_PATH.NONE,
         });
       }
+    }
+    function _(e) {
+      return (
+        c.has(e) ||
+        o(
+          "WAWebUnknownUserDisplayedLogger",
+        ).isChatListUnknownUserDisplayContext(e)
+      );
     }
     ((l.logUnknownUserDisplayed = d), (l.recoverUnknownUserIdentity = m));
   },

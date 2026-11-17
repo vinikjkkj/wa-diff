@@ -197,6 +197,7 @@ __d(
         "ctwa_native_ad_budget_rec_model_v1_recommendation",
       CTWA_NATIVE_AD_BUDGET_REC_MODEL_V1_DECISION:
         "ctwa_native_ad_budget_rec_model_v1_decision",
+      CTWA_NATIVE_AD_ZO_MODEL_BUDGET: "ctwa_native_ad_zo_model_budget",
       CTWA_NATIVE_AD_SABR_V2_WITH_ESTIMATION_WIDGET:
         "ctwa_native_ad_sabr_v2_with_estimation_widget",
       CTWA_SERVER_DRAFT_RESTORE: "ctwa_server_draft_restore",

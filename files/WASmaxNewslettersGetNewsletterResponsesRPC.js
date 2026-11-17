@@ -340,21 +340,8 @@ __d(
     ((l.sendGetNewsletterResponsesRPC = e),
       (l.parseGetNewsletterResponsesResponseClientError = u),
       (l.parseGetNewsletterResponsesResponseServerError = c),
-      (l.parseGetNewsletterResponsesResponseSuccessQuestionResponsesQuestionResponse =
-        d),
       (l.parseGetNewsletterResponsesResponseSuccess = m),
-      (l.parseQuestionResponseFlagsMixin = p),
-      (l.parseQuestionResponseSenderMixin = _),
-      (l.parseRepliedFlagMixin = f),
-      (l.parseStarredFlagMixin = g),
-      (l.makeGetNewsletterResponsesRequest = h),
-      (l.mergeSearchQuestionResponseMixinMixin = C),
-      (l.mergeBeforeQuestionResponseMixinMixin = v),
-      (l.mergeFilterQuestionResponseMixinMixin = R),
-      (l.mergeContactsOrRepliedOrStarredFilterMixinMixinGroup = L),
-      (l.mergeRepliedFilterMixinMixin = k),
-      (l.mergeStarredFilterMixinMixin = T),
-      (l.mergeContactsFilterMixinMixin = x));
+      (l.makeGetNewsletterResponsesRequest = h));
   },
   98,
 );

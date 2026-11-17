@@ -4,17 +4,20 @@ __d(
     "WAWebAck",
     "WAWebChatGroupUtils",
     "WAWebFrontendMsgGetters",
+    "WAWebInstantMsgTypes",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
-    "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e.ack != null && e.ack >= o("WAWebAck").ACK.PLAYED;
+      return (
+        (e.ack != null && e.ack >= o("WAWebAck").ACK.PLAYED) ||
+        e.instantPlayedSelf === !0
+      );
     }
     function s(t) {
       if (
-        t.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
+        !o("WAWebInstantMsgTypes").isInstantMsgType(t.type) ||
         o("WAWebMsgGetters").getIsSentByMe(t) ||
         e(t) ||
         o("WAWebMsgCollection").MsgCollection.get(t.id) == null

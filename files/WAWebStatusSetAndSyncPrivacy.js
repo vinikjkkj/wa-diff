@@ -47,7 +47,7 @@ __d(
               shareToIG: c,
               timestamp: o("WATimeUtils").unixTimeMs(),
             });
-          yield o("WAWebSyncdCoreApi").lockForSync(
+          (yield o("WAWebSyncdCoreApi").lockForSync(
             ["user-prefs"],
             [d],
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -57,13 +57,17 @@ __d(
                     (yield o("WAWebUserPrefsStatus").persistShareToFB(a)),
                   i != null &&
                     (yield o("WAWebUserPrefsStatus").persistShareToIG(i))),
-                o("WAWebUserPrefsStatus").setStatusPrivacyConfig({
+                o("WAWebUserPrefsStatus").writeStatusPrivacyConfig({
                   setting: l,
                   list: t,
                 })
               );
             }),
-          );
+          ),
+            o("WAWebUserPrefsStatus").applyCommittedStatusPrivacyConfig({
+              setting: l,
+              list: t,
+            }));
         })),
         s.apply(this, arguments)
       );

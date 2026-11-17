@@ -34,7 +34,7 @@ __d(
             var u = window.Env != null && "rk21poeg" in window.Env;
             if (
               ((s = u
-                ? o("GHLServerJSParse").grabBootSlice(e.textContent)
+                ? o("GHLServerJSParse").pullBootChunk(e.textContent)
                 : o("GHLServerJSParse").takeBootFrame(e.textContent)),
               s == null)
             )

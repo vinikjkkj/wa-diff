@@ -131,6 +131,9 @@ __d(
                   }));
             }
           }),
+          (n.onPlayerLoadError = function (t) {
+            this.$MusicMsgPlayerStore$p_1.msg === t && (this.stop(), _());
+          }),
           (n.onPlaying = function (t) {
             this.$MusicMsgPlayerStore$p_1.msg === t &&
               this.$MusicMsgPlayerStore$p_1.status === "loading" &&

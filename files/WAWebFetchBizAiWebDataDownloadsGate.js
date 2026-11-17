@@ -11,6 +11,7 @@ __d(
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiWebDataDownloadsGateQuery.graphql",
     "WAWebFetchWithAdAccountToken",
+    "WAWebGraphQLServerError",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebUserPrefsStore",
@@ -25,60 +26,63 @@ __d(
       p,
       _,
       f,
-      g =
+      g,
+      h,
+      y,
+      C =
         e !== void 0
           ? e
           : (e = n("WAWebFetchBizAiWebDataDownloadsGateQuery.graphql")),
-      h = "biz_ai_web_data_downloads_gate",
-      y = 360 * 60,
-      C = 1e4,
-      b = 2;
-    function v(e) {
+      b = "biz_ai_web_data_downloads_gate",
+      v = 360 * 60,
+      S = 1e4,
+      R = 2;
+    function L(e) {
       o("WAWebBackendApi").frontendFireAndForget(
         "loadedBizAiWebDataDownloadsGate",
         { enabled: e },
       );
     }
-    function S(e) {
+    function E(e) {
       var t = r("WAWebUserPrefsStore").getUser(e);
       if (t == null || typeof t != "object") return null;
       var n = t.enabled,
         a = t.ts;
       if (typeof n != "boolean" || typeof a != "number") return null;
       var i = !o("WATimeUtils").isInFuture(
-        o("WATimeUtils").futureUnixTime(y, o("WATimeUtils").castToUnixTime(a)),
+        o("WATimeUtils").futureUnixTime(v, o("WATimeUtils").castToUnixTime(a)),
       );
       return i ? null : n;
     }
-    function R(e, t) {
+    function k(e, t) {
       r("WAWebUserPrefsStore").setUser(e, {
         enabled: t,
         ts: o("WATimeUtils").unixTime(),
       });
     }
-    function L() {
+    function I() {
       return (
-        b *
+        R *
         (o(
           "WAWebFetchAdAccountToken",
         ).getMaximumAdAccountFetchTimeoutSeconds() *
           1e3 +
-          C)
+          S)
       );
     }
-    function E(e) {
+    function T(e) {
       if (!o("WAWebMobilePlatforms").isSMB())
-        return (f || (f = n("Promise"))).resolve();
-      var t = e === "debug" ? null : S(h);
+        return (y || (y = n("Promise"))).resolve();
+      var t = e === "debug" ? null : E(b);
       return t != null
-        ? (v(t),
+        ? (L(t),
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[BizAI] Web data downloads gate cache hit",
               ])),
           ),
-          (f || (f = n("Promise"))).resolve())
+          (y || (y = n("Promise"))).resolve())
         : (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -90,23 +94,23 @@ __d(
           r("WAWebNetworkStatus")
             .waitIfOffline()
             .then(function () {
-              return o("WAPromiseTimeout").promiseTimeout(k(), L());
+              return o("WAPromiseTimeout").promiseTimeout(D(), I());
             })
             .then(function (e) {
-              return T(e, t);
+              return P(e, t);
             })
             .catch(function (e) {
-              T(
+              P(
                 e instanceof o("WACustomError").TimeoutError
                   ? { type: "timeout" }
-                  : { type: "network-failed" },
+                  : { type: "unknown-failed" },
                 t,
               );
             }));
     }
-    function k() {
+    function D() {
       return o("WAWebBizAiRelayClient")
-        .fetchQuery(g, {})
+        .fetchQuery(C, {})
         .then(function (e) {
           var t =
             e == null
@@ -114,23 +118,50 @@ __d(
               : e.xfb_meta_ai_biz_agent_wa_web_data_downloads_gate;
           return (t == null ? void 0 : t.success) !== !0 ||
             typeof t.value != "boolean"
-            ? { type: "network-failed" }
+            ? {
+                reason: "success=" + String(t == null ? void 0 : t.success),
+                type: "network-failed",
+              }
             : { enabled: t.value, type: "enabled" };
         })
         .catch(function (e) {
-          return I(e);
+          return x(e);
         });
     }
-    function I(e) {
+    function x(e) {
       return e instanceof
         o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
         ? { type: "token-failed" }
         : e instanceof Error &&
             o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
           ? { type: "auth-failed" }
-          : { type: "network-failed" };
+          : e instanceof TypeError
+            ? { type: "network-unreachable" }
+            : { reason: $(e), type: "network-failed" };
     }
-    function T(e, t) {
+    function $(e) {
+      if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+        var t,
+          n,
+          r,
+          a = (
+            (t = (n = e.source) == null ? void 0 : n.errors) != null ? t : []
+          )
+            .map(function (e) {
+              var t = e.code;
+              return t;
+            })
+            .join(",");
+        return (
+          "codes=" +
+          a +
+          " http=" +
+          String((r = e.source) == null ? void 0 : r.httpStatus)
+        );
+      }
+      return e instanceof Error ? e.name : typeof e;
+    }
+    function P(e, t) {
       e: {
         var n = e;
         if (
@@ -139,14 +170,14 @@ __d(
           "enabled" in n
         ) {
           var r = n.enabled;
-          (R(h, r),
+          (k(b, r),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[BizAI] Web data downloads gate loaded",
                 ])),
             ),
-            v(r));
+            L(r));
           break e;
         }
         if (
@@ -161,7 +192,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-fetch-timeout"),
-            v(t != null ? t : !1));
+            L(t != null ? t : !1));
           break e;
         }
         if (
@@ -176,22 +207,47 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-fetch-failed-auth"),
-            v(t != null ? t : !1));
+            L(t != null ? t : !1));
           break e;
         }
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.type === "network-failed"
+          n.type === "network-failed" &&
+          "reason" in n
+        ) {
+          var a = n.reason;
+          (o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] Web data downloads gate fetch failure reason=",
+                "",
+              ])),
+            a,
+          ),
+            o("WALogger")
+              .WARN(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[BizAI] Web data downloads gate fetch failed",
+                  ])),
+              )
+              .sendLogs("maiba-web-data-downloads-gate-fetch-failed-network"),
+            L(t != null ? t : !1));
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "network-unreachable"
         ) {
           (o("WALogger")
             .WARN(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[BizAI] Web data downloads gate fetch failed",
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate fetch could not reach the server",
                 ])),
             )
-            .sendLogs("maiba-web-data-downloads-gate-fetch-failed-network"),
-            v(t != null ? t : !1));
+            .verbose(),
+            L(t != null ? t : !1));
           break e;
         }
         if (
@@ -200,13 +256,28 @@ __d(
         ) {
           (o("WALogger")
             .WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[BizAI] Web data downloads gate token fetch failed",
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-token-fetch-failed"),
-            v(t != null ? t : !1));
+            L(t != null ? t : !1));
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "unknown-failed"
+        ) {
+          (o("WALogger")
+            .WARN(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] Web data downloads gate fetch failed (unknown)",
+                ])),
+            )
+            .sendLogs("maiba-web-data-downloads-gate-fetch-failed-unknown"),
+            L(t != null ? t : !1));
           break e;
         }
         throw Error(
@@ -215,7 +286,7 @@ __d(
         );
       }
     }
-    l.fetchBizAiWebDataDownloadsGate = E;
+    l.fetchBizAiWebDataDownloadsGate = T;
   },
   98,
 );

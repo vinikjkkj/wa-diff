@@ -9,6 +9,8 @@ __d(
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistoryShareMode",
+    "WAWebGroupHistoryStoredHint",
+    "WAWebGroupHistoryStoredHintGating",
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
@@ -143,40 +145,67 @@ __d(
         ? null
         : o("WAWebFrontendContactGetters").getFormattedName(n.contact);
     }
-    function v(e, t, n) {
+    function v(e) {
+      var t = e == null ? void 0 : e.timestamp,
+        n = S(e == null ? void 0 : e.eventT);
+      return t == null ||
+        !Number.isSafeInteger(t) ||
+        (t <= 0 &&
+          t !==
+            o("WAWebGroupHistoryStoredHint")
+              .GROUP_HISTORY_NO_COUNTED_MESSAGES) ||
+        n == null ||
+        !o(
+          "WAWebGroupHistoryStoredHintGating",
+        ).isGroupHistoryStoredHintEnabled()
+        ? null
+        : t > 0 &&
+            t >=
+              n -
+                o(
+                  "WAWebGroupHistoryGating",
+                ).getGroupHistoryMessagesTimeLimitSecs();
+    }
+    function S(e) {
+      return e == null || !Number.isSafeInteger(e) || e <= 0 ? null : e;
+    }
+    function R(e, t, n, r) {
+      var a = v(r);
+      if (a != null) return !a;
       if (e == null || !e.startOfHistoryLoaded) return !1;
-      var r = e.earliestShareableMsgT,
-        a = e.latestShareableMsgT;
-      if (r == null) return !0;
+      var i = e.earliestShareableMsgT,
+        l = e.latestShareableMsgT;
+      if (i == null) return !0;
       if (t == null) return !1;
-      if (r > t) return !0;
-      if (n != null && a != null) {
-        var i = o(
+      if (i > t) return !0;
+      if (n != null && l != null) {
+        var s = o(
           "WAWebGroupHistoryGating",
         ).getGroupHistoryMessagesTimeLimitSecs();
-        if (a < t - i) return !0;
+        if (l < t - s) return !0;
       }
       return !1;
     }
-    function S(e, t, n, r, o) {
-      var a;
+    function L(e, t, n, r, o, a) {
+      var i;
       return (
-        m(e, t, n, o) && !v(r, (a = e.joinTime) != null ? a : n, t.groupWid)
+        m(e, t, n, o) && !R(r, (i = e.joinTime) != null ? i : n, t.groupWid, a)
       );
     }
-    function R(e, t, n, r) {
+    function E(e, t, n, r, a) {
       return (
-        S(
+        L(
           e,
           t,
           n,
           r,
           o("WAWebGroupHistoryRestrictionHelper")
             .isPostJoinHistoryRestrictedWid,
+          a,
         ) && g(t.groupWid)
       );
     }
-    function L(t) {
+    function k(t) {
       if (
         !o(
           "WAWebGroupHistoryGating",
@@ -201,10 +230,11 @@ __d(
       (l.getParticipantPostJoinEligibilityInGroup = y),
       (l.isAlreadyReceivedState = C),
       (l.getNameOfMuseAgentWithSharedHistory = b),
-      (l.hasNoShareableHistoryBeforeJoin = v),
-      (l.canSendPostJoinHistoryToParticipant = S),
-      (l.shouldOfferPostJoinHistoryToParticipant = R),
-      (l.getEligiblePostJoinParticipants = L));
+      (l.getStoredHistoryWindowAvailability = v),
+      (l.hasNoShareableHistoryBeforeJoin = R),
+      (l.canSendPostJoinHistoryToParticipant = L),
+      (l.shouldOfferPostJoinHistoryToParticipant = E),
+      (l.getEligiblePostJoinParticipants = k));
   },
   98,
 );

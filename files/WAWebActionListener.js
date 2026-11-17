@@ -144,7 +144,7 @@ __d(
       }
     }
     function g(t) {
-      var a = o("react-compiler-runtime").c(56),
+      var a = o("react-compiler-runtime").c(54),
         i = t.activeNavBarItem,
         l = t.updateActiveNavBarItem,
         d = r("useWAWebUIM")(),
@@ -187,7 +187,7 @@ __d(
           (a[3] = g))
         : (g = a[3]);
       var C = g,
-        b = U,
+        b = V,
         $;
       a[4] !== d
         ? (($ = function (t) {
@@ -201,10 +201,10 @@ __d(
           (a[4] = d),
           (a[5] = $))
         : ($ = a[5]);
-      var V = $,
-        H;
+      var H = $,
+        G;
       a[6] !== d
-        ? ((H = function (t, n, a, i, l) {
+        ? ((G = function (t, n, a, i, l) {
             var e = i === void 0 ? !0 : i,
               u = l === void 0 ? !0 : l;
             if (n) {
@@ -305,12 +305,12 @@ __d(
             }
           }),
           (a[6] = d),
-          (a[7] = H))
-        : (H = a[7]);
-      var G = H,
-        z;
+          (a[7] = G))
+        : (G = a[7]);
+      var z = G,
+        j;
       a[8] !== d
-        ? ((z = function (t, n, a) {
+        ? ((j = function (t, n, a) {
             if (t) {
               var e = s._(
                 /*BTDS*/ '_j{"*":"Mute selected chats for...","_1":"Mute selected chat for..."}',
@@ -343,27 +343,27 @@ __d(
                   }),
                   { transition: "modal", uim: d },
                 );
-              } else (t.forEach(q), a());
+              } else (t.forEach(U), a());
             }
           }),
           (a[8] = d),
-          (a[9] = z))
-        : (z = a[9]);
-      var j = z,
-        K;
-      a[10] !== G
-        ? ((K = function (t, n, r, o) {
-            return G(t, n, 0, r, o);
+          (a[9] = j))
+        : (j = a[9]);
+      var K = j,
+        Q;
+      a[10] !== z
+        ? ((Q = function (t, n, r, o) {
+            return z(t, n, 0, r, o);
           }),
-          (a[10] = G),
-          (a[11] = K))
-        : (K = a[11]);
-      var Q = K,
-        X = W,
-        Y = B,
-        J;
+          (a[10] = z),
+          (a[11] = Q))
+        : (Q = a[11]);
+      var X = Q,
+        Y = q,
+        J = W,
+        Z;
       a[12] !== d
-        ? ((J = function (t, n, a) {
+        ? ((Z = function (t, n, a) {
             var e = a === void 0 ? !1 : a,
               i = s._(/*BTDS*/ "Turn off all reactions notifications for:"),
               l = s._(/*BTDS*/ "Reactions notifications enabled"),
@@ -373,7 +373,7 @@ __d(
             if (n) {
               var c = function (n, r) {
                 (t.mute({ expiration: n }),
-                  Y(!1),
+                  J(!1),
                   o("WAWebToastManager").ToastManager.open(
                     m.jsx(o("WAWebToast.react").Toast, {
                       msg: o(
@@ -393,12 +393,12 @@ __d(
               );
             } else {
               if (e) {
-                (t.unmute(), Y(!0));
+                (t.unmute(), J(!0));
                 return;
               }
               var p = function () {
                 (t.unmute(),
-                  Y(!0),
+                  J(!0),
                   o("WAWebModalManager").ModalManager.close(),
                   o("WAWebToastManager").ToastManager.open(
                     m.jsx(o("WAWebToast.react").Toast, {
@@ -419,40 +419,26 @@ __d(
             }
           }),
           (a[12] = d),
-          (a[13] = J))
-        : (J = a[13]);
-      var Z = J,
-        ee = O,
-        te;
+          (a[13] = Z))
+        : (Z = a[13]);
+      var ee = Z,
+        te = B,
+        ne;
       a[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((te = function (t) {
-            ee(t, 0);
+        ? ((ne = function (t) {
+            te(t, 0);
           }),
-          (a[14] = te))
-        : (te = a[14]);
-      var ne = te,
-        re = F,
-        oe = A,
-        ae = w,
-        ie = M,
-        le;
-      a[15] !== d
-        ? ((le = function (t, n) {
-            o("WAWebModalManager").ModalManager.open(
-              m.jsx(r("WAWebDeleteSelectedChatsPopup.react"), {
-                chats: t,
-                onComplete: n,
-              }),
-              { transition: "modal", uim: d },
-            );
-          }),
-          (a[15] = d),
-          (a[16] = le))
-        : (le = a[16]);
-      var se = le,
+          (a[14] = ne))
+        : (ne = a[14]);
+      var re = ne,
+        oe = O,
+        ae = F,
+        ie = A,
+        le = w,
+        se = M,
         ue = N,
         ce;
-      a[17] === Symbol.for("react.memo_cache_sentinel")
+      a[15] === Symbol.for("react.memo_cache_sentinel")
         ? ((ce = function (t) {
             var e = t.archive,
               n = t.chat,
@@ -468,8 +454,8 @@ __d(
               showToast: a,
             });
           }),
-          (a[17] = ce))
-        : (ce = a[17]);
+          (a[15] = ce))
+        : (ce = a[15]);
       var de = ce,
         me = P,
         pe = x,
@@ -477,7 +463,7 @@ __d(
         fe = T,
         ge,
         he;
-      if (a[18] === Symbol.for("react.memo_cache_sentinel")) {
+      if (a[16] === Symbol.for("react.memo_cache_sentinel")) {
         ge = function (a, i, l, u, d, p) {
           var t = d === void 0 ? "LEFT" : d,
             _ = i.list;
@@ -719,12 +705,12 @@ __d(
             L
           );
         }),
-          (a[18] = ge),
-          (a[19] = he));
-      } else ((ge = a[18]), (he = a[19]));
+          (a[16] = ge),
+          (a[17] = he));
+      } else ((ge = a[16]), (he = a[17]));
       var Ce = he,
         be;
-      a[20] !== d
+      a[18] !== d
         ? ((be = function (t, n) {
             o("WAWebModalManager").ModalManager.open(
               m.jsx(r("WAWebBizMerchantDetailsEntityTypePopup.react"), {
@@ -734,12 +720,12 @@ __d(
               { transition: "modal", uim: d },
             );
           }),
-          (a[20] = d),
-          (a[21] = be))
-        : (be = a[21]);
+          (a[18] = d),
+          (a[19] = be))
+        : (be = a[19]);
       var ve = be,
         Se;
-      a[22] !== d
+      a[20] !== d
         ? ((Se = function (t, n, a, i, l, s, u) {
             o("WAWebModalManager").ModalManager.open(
               m.jsx(r("WAWebCountrySelectorPopup.react"), {
@@ -754,151 +740,151 @@ __d(
               { transition: "modal", uim: d },
             );
           }),
-          (a[22] = d),
-          (a[23] = Se))
-        : (Se = a[23]);
+          (a[20] = d),
+          (a[21] = Se))
+        : (Se = a[21]);
       var Re = Se,
         Le;
-      a[24] !== d
+      a[22] !== d
         ? ((Le = function () {
             o("WAWebModalManager").ModalManager.open(
               m.jsx(o("WAWebCommandPalette.react").CommandPaletteModal, {}),
               { transition: "modal", uim: d },
             );
           }),
-          (a[24] = d),
-          (a[25] = Le))
-        : (Le = a[25]);
+          (a[22] = d),
+          (a[23] = Le))
+        : (Le = a[23]);
       var Ee = Le,
         ke = y,
         Ie = h,
         Te;
-      (a[26] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Te = ["mute_all_reactions"]), (a[26] = Te))
-        : (Te = a[26]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Te, Z));
+      (a[24] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Te = ["mute_all_reactions"]), (a[24] = Te))
+        : (Te = a[24]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Te, ee));
       var De;
-      (a[27] === Symbol.for("react.memo_cache_sentinel")
-        ? ((De = ["mute_chat"]), (a[27] = De))
-        : (De = a[27]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, De, Q));
+      (a[25] === Symbol.for("react.memo_cache_sentinel")
+        ? ((De = ["mute_chat"]), (a[25] = De))
+        : (De = a[25]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, De, X));
       var xe;
-      (a[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((xe = ["mute_chat_multiselect"]), (a[28] = xe))
-        : (xe = a[28]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, xe, j));
+      (a[26] === Symbol.for("react.memo_cache_sentinel")
+        ? ((xe = ["mute_chat_multiselect"]), (a[26] = xe))
+        : (xe = a[26]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, xe, K));
       var $e;
-      (a[29] === Symbol.for("react.memo_cache_sentinel")
-        ? (($e = ["mute_chat_with_duration"]), (a[29] = $e))
-        : ($e = a[29]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, $e, X));
+      (a[27] === Symbol.for("react.memo_cache_sentinel")
+        ? (($e = ["mute_chat_with_duration"]), (a[27] = $e))
+        : ($e = a[27]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, $e, Y));
       var Pe;
-      (a[30] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Pe = ["mute_chat_from_entrypoint"]), (a[30] = Pe))
-        : (Pe = a[30]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Pe, G));
+      (a[28] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Pe = ["mute_chat_from_entrypoint"]), (a[28] = Pe))
+        : (Pe = a[28]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Pe, z));
       var Ne;
-      (a[31] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ne = ["archive_chat"]), (a[31] = Ne))
-        : (Ne = a[31]),
+      (a[29] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ne = ["archive_chat"]), (a[29] = Ne))
+        : (Ne = a[29]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ne, de));
       var Me;
-      (a[32] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Me = ["archive_chat_from_entrypoint"]), (a[32] = Me))
-        : (Me = a[32]),
+      (a[30] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Me = ["archive_chat_from_entrypoint"]), (a[30] = Me))
+        : (Me = a[30]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Me, ue));
       var we;
-      (a[33] === Symbol.for("react.memo_cache_sentinel")
-        ? ((we = ["clear_chat"]), (a[33] = we))
-        : (we = a[33]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, we, ae));
+      (a[31] === Symbol.for("react.memo_cache_sentinel")
+        ? ((we = ["clear_chat"]), (a[31] = we))
+        : (we = a[31]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, we, ie));
       var Ae;
-      (a[34] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ae = ["clear_selected_chats"]), (a[34] = Ae))
-        : (Ae = a[34]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ae, ie));
+      (a[32] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ae = ["clear_selected_chats"]), (a[32] = Ae))
+        : (Ae = a[32]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ae, le));
       var Fe;
-      (a[35] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Fe = ["delete_selected_chats"]), (a[35] = Fe))
-        : (Fe = a[35]),
+      (a[33] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Fe = ["delete_selected_chats"]), (a[33] = Fe))
+        : (Fe = a[33]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Fe, se));
       var Oe;
-      (a[36] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Oe = ["mark_chat_unread"]), (a[36] = Oe))
-        : (Oe = a[36]),
+      (a[34] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Oe = ["mark_chat_unread"]), (a[34] = Oe))
+        : (Oe = a[34]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Oe, me));
       var Be;
-      (a[37] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Be = ["pin_chat"]), (a[37] = Be))
-        : (Be = a[37]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Be, re));
+      (a[35] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Be = ["pin_chat"]), (a[35] = Be))
+        : (Be = a[35]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Be, oe));
       var We;
-      (a[38] === Symbol.for("react.memo_cache_sentinel")
-        ? ((We = ["assign_chat"]), (a[38] = We))
-        : (We = a[38]),
+      (a[36] === Symbol.for("react.memo_cache_sentinel")
+        ? ((We = ["assign_chat"]), (a[36] = We))
+        : (We = a[36]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, We, _e));
       var qe;
-      (a[39] === Symbol.for("react.memo_cache_sentinel")
-        ? ((qe = ["favorite_chat"]), (a[39] = qe))
-        : (qe = a[39]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, qe, oe));
+      (a[37] === Symbol.for("react.memo_cache_sentinel")
+        ? ((qe = ["favorite_chat"]), (a[37] = qe))
+        : (qe = a[37]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, qe, ae));
       var Ue;
-      (a[40] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ue = ["send_star_msgs"]), (a[40] = Ue))
-        : (Ue = a[40]),
+      (a[38] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ue = ["send_star_msgs"]), (a[38] = Ue))
+        : (Ue = a[38]),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           Ue,
           o("WAWebActionListenerHelpers").handleSendStarMsgs,
         ));
       var Ve;
-      (a[41] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ve = ["send_unstar_msgs"]), (a[41] = Ve))
-        : (Ve = a[41]),
+      (a[39] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ve = ["send_unstar_msgs"]), (a[39] = Ve))
+        : (Ve = a[39]),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           Ve,
           o("WAWebActionListenerHelpers").handleSendUnstarMsgs,
         ));
       var He;
-      (a[42] === Symbol.for("react.memo_cache_sentinel")
-        ? ((He = ["send_delete_msgs"]), (a[42] = He))
-        : (He = a[42]),
+      (a[40] === Symbol.for("react.memo_cache_sentinel")
+        ? ((He = ["send_delete_msgs"]), (a[40] = He))
+        : (He = a[40]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, He, ge));
       var Ge;
-      (a[43] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ge = ["send_revoke_msgs"]), (a[43] = Ge))
-        : (Ge = a[43]),
+      (a[41] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ge = ["send_revoke_msgs"]), (a[41] = Ge))
+        : (Ge = a[41]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ge, Ce));
       var ze;
-      (a[44] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ze = ["delete_or_exit_chat"]), (a[44] = ze))
-        : (ze = a[44]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, ze, ne));
+      (a[42] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ze = ["delete_or_exit_chat"]), (a[42] = ze))
+        : (ze = a[42]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, ze, re));
       var je;
-      (a[45] === Symbol.for("react.memo_cache_sentinel")
-        ? ((je = ["delete_or_exit_chat_from_entrypoint"]), (a[45] = je))
-        : (je = a[45]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, je, ee));
+      (a[43] === Symbol.for("react.memo_cache_sentinel")
+        ? ((je = ["delete_or_exit_chat_from_entrypoint"]), (a[43] = je))
+        : (je = a[43]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, je, te));
       var Ke;
-      (a[46] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ke = ["product_image_viewer_modal"]), (a[46] = Ke))
-        : (Ke = a[46]),
+      (a[44] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ke = ["product_image_viewer_modal"]), (a[44] = Ke))
+        : (Ke = a[44]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ke, C));
       var Qe;
-      (a[47] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Qe = ["mute_all_reactions"]), (a[47] = Qe))
-        : (Qe = a[47]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Qe, Z));
+      (a[45] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Qe = ["mute_all_reactions"]), (a[45] = Qe))
+        : (Qe = a[45]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Qe, ee));
       var Xe;
-      (a[48] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Xe = ["attach_product"]), (a[48] = Xe))
-        : (Xe = a[48]),
+      (a[46] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Xe = ["attach_product"]), (a[46] = Xe))
+        : (Xe = a[46]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Xe, _));
       var Ye;
-      (a[49] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ye = ["show_country_selector_popup"]), (a[49] = Ye))
-        : (Ye = a[49]),
+      (a[47] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ye = ["show_country_selector_popup"]), (a[47] = Ye))
+        : (Ye = a[47]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ye, Re),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
@@ -906,39 +892,39 @@ __d(
           ve,
         ));
       var Je;
-      (a[50] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Je = ["open_groups_v4_invite_request_flow"]), (a[50] = Je))
-        : (Je = a[50]),
+      (a[48] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Je = ["open_groups_v4_invite_request_flow"]), (a[48] = Je))
+        : (Je = a[48]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Je, b));
       var Ze;
-      (a[51] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Ze = ["open_profile"]), (a[51] = Ze))
-        : (Ze = a[51]),
-        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ze, V));
+      (a[49] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ze = ["open_profile"]), (a[49] = Ze))
+        : (Ze = a[49]),
+        o("useWAWebListener").useListener(o("WAWebCmd").Cmd, Ze, H));
       var et;
-      (a[52] === Symbol.for("react.memo_cache_sentinel")
-        ? ((et = ["open_command_palette"]), (a[52] = et))
-        : (et = a[52]),
+      (a[50] === Symbol.for("react.memo_cache_sentinel")
+        ? ((et = ["open_command_palette"]), (a[50] = et))
+        : (et = a[50]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, et, Ee),
         r("useWAWebBotActionListeners")(i, l),
         r("useWAWebCustomerManagerActionListeners")(i, l),
         r("useWAWebCommunityActionListeners")(),
         r("useWAWebNewsletterActionListeners")());
       var tt;
-      (a[53] === Symbol.for("react.memo_cache_sentinel")
-        ? ((tt = ["trigger_bugreport_v2"]), (a[53] = tt))
-        : (tt = a[53]),
+      (a[51] === Symbol.for("react.memo_cache_sentinel")
+        ? ((tt = ["trigger_bugreport_v2"]), (a[51] = tt))
+        : (tt = a[51]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, tt, ke));
       var nt;
-      (a[54] === Symbol.for("react.memo_cache_sentinel")
-        ? ((nt = ["open_event_info_drawer"]), (a[54] = nt))
-        : (nt = a[54]),
+      (a[52] === Symbol.for("react.memo_cache_sentinel")
+        ? ((nt = ["open_event_info_drawer"]), (a[52] = nt))
+        : (nt = a[52]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, nt, Ie));
       var rt;
       return (
-        a[55] === Symbol.for("react.memo_cache_sentinel")
-          ? ((rt = ["change_ai_reply_status"]), (a[55] = rt))
-          : (rt = a[55]),
+        a[53] === Symbol.for("react.memo_cache_sentinel")
+          ? ((rt = ["change_ai_reply_status"]), (a[53] = rt))
+          : (rt = a[53]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, rt, fe),
         null
       );
@@ -1117,6 +1103,14 @@ __d(
     }
     function M(e, t) {
       o("WDSDialogBridge").openWDSDialog(
+        m.jsx(r("WAWebDeleteSelectedChatsPopup.react"), {
+          chats: e,
+          onComplete: t,
+        }),
+      );
+    }
+    function w(e, t) {
+      o("WDSDialogBridge").openWDSDialog(
         m.jsx(
           o("WAWebClearSelectedChatsPopupLoadable")
             .ClearSelectedChatsPopupLoadable,
@@ -1124,7 +1118,7 @@ __d(
         ),
       );
     }
-    function w(e, t, n) {
+    function A(e, t, n) {
       var a = function () {
         var t;
         (t = o("WAWebMetaAiChatActionLogger").startMetaAiChatListAction(
@@ -1140,7 +1134,7 @@ __d(
         }),
       );
     }
-    function A(e, t, n) {
+    function F(e, t, n) {
       ((e.pendingAction = e.pendingAction + 1),
         t
           ? o("WAWebAddToFavoritesAction")
@@ -1156,7 +1150,7 @@ __d(
                 e.pendingAction = e.pendingAction - 1;
               }));
     }
-    function F(e, t) {
+    function O(e, t) {
       ((e.pendingAction = e.pendingAction + 1),
         o("WAWebSetPinChatAction")
           .setPin(e, t)
@@ -1165,7 +1159,7 @@ __d(
             e.pendingAction = e.pendingAction - 1;
           }));
     }
-    function O(e, t, n, a) {
+    function B(e, t, n, a) {
       var i = function (r) {
         var n;
         if (
@@ -1198,7 +1192,7 @@ __d(
         }),
       );
     }
-    function B(e) {
+    function W(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -1213,7 +1207,7 @@ __d(
           "WAWebMuteCollection",
         ).MuteCollection.setGlobalStatusNotificationReactionsEnabled(e));
     }
-    function W(e, t, n) {
+    function q(e, t, n) {
       var r = o("WAWebMuteExpirations").calculateMuteExpiration(t);
       (o("WAWebUserPrefsGeneral").setLastChatMuteDuration(t),
         (e.pendingAction = e.pendingAction + 1),
@@ -1234,7 +1228,7 @@ __d(
           threadLevelAction: "MUTE",
         }));
     }
-    function q(e) {
+    function U(e) {
       (o("WAWebQbmThreadLevelActionLogEventLazy").logBulkThreadAction(
         e,
         "UNMUTE",
@@ -1246,7 +1240,7 @@ __d(
             e.pendingAction = e.pendingAction - 1;
           }));
     }
-    function U(e, t, n, r, a) {
+    function V(e, t, n, r, a) {
       o("WAWebModalManager").ModalManager.open(
         m.jsx(o("WAWebGroupsV4InviteFlowLoadable").GroupsV4InviteFlowLoadable, {
           participantNeedInvite: e,

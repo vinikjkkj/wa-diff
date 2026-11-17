@@ -27,21 +27,69 @@ __d(
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            a = e.offline,
+            i = e.stanzaId,
+            l = e.ts,
+            s = new (r("WAWebMsgKey"))({
+              id: i,
+              remote: o("WAWebWidFactory").asUserWidOrThrow(t),
+              fromMe: !0,
+            });
+          a != null &&
+            o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete();
+          var u =
+              a != null &&
+              !o(
+                "WAWebOfflineHandler",
+              ).OfflineMessageHandler.isResumeFromRestartComplete(),
+            c = o(
+              "WAWebMessageReceiptBatcher",
+            ).receiptBatcher.acceptOtherReceipt({
+              ack: o("WAWebAck").ACK.FAILED,
+              ts: l,
+              receiverId: t,
+              msgKeys: [s.toString()],
+              integrityDrop: !0,
+            });
+          return (
+            u ||
+              (yield (d || (d = n("Promise"))).all([
+                c,
+                o(
+                  "WAWebMessageReceiptBatcher",
+                ).receiptBatcher.runActiveBatches(),
+              ])),
+            c
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t.integrityDrop === !0) return m(t);
           var a = t.ackString,
             i = t.biz,
             l = t.externalIds,
-            m = t.from,
-            p = t.offline,
-            _ = t.recipient,
-            f = t.ts,
-            g = t.ack,
-            h = a === o("WAWebAck").ACK_STRING.SENDER,
-            y = !h && o("WAWebUserUtils").isMeAccount(m),
-            C;
-          if (y || h) {
-            if (!_) {
-              if (!o("WAWebUserUtils").isMeAccount(m))
+            p = t.from,
+            _ = t.offline,
+            f = t.recipient,
+            g = t.ts,
+            h = t.ack,
+            y = a === o("WAWebAck").ACK_STRING.SENDER,
+            C = !y && o("WAWebUserUtils").isMeAccount(p),
+            b;
+          if (C || y) {
+            if (!f) {
+              if (!o("WAWebUserUtils").isMeAccount(p))
                 throw r("err")(
                   "handleChatSimpleReceipt: invalid sender/peer receipt without recipient",
                 );
@@ -58,25 +106,25 @@ __d(
                 );
               return;
             }
-            C = _;
+            b = f;
           } else {
-            var b;
-            C = o("WAWebWidFactory").asUserWidOrThrow(m);
-            var v =
-              ((b = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+            var v;
+            b = o("WAWebWidFactory").asUserWidOrThrow(p);
+            var S =
+              ((v = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
                 o("WAWebUserPrefsKeys").HASHED_KEYS.USER_PRIVACY_SETTINGS,
               )) == null
                 ? void 0
-                : b.readReceipts) === "none";
-            v &&
-              (g === o("WAWebAck").ACK.READ ||
-                g === o("WAWebAck").ACK.PLAYED) &&
-              (g = o("WAWebAck").ACK.RECEIVED);
+                : v.readReceipts) === "none";
+            S &&
+              (h === o("WAWebAck").ACK.READ ||
+                h === o("WAWebAck").ACK.PLAYED) &&
+              (h = o("WAWebAck").ACK.RECEIVED);
           }
-          var S = o(
+          var R = o(
             "WAWebSimpleSignalPNToFBIDMigration",
-          ).getDeprecatedPnChatForFbidThread(C);
-          S != null &&
+          ).getDeprecatedPnChatForFbidThread(b);
+          R != null &&
             (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -84,12 +132,12 @@ __d(
                   " to ",
                   "",
                 ])),
-              C.toLogString(),
-              S.toLogString(),
+              b.toLogString(),
+              R.toLogString(),
             ),
-            (C = o("WAWebWidFactory").asUserWidOrThrow(S)));
-          var R = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(C);
-          R != null &&
+            (b = o("WAWebWidFactory").asUserWidOrThrow(R)));
+          var L = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(b);
+          L != null &&
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -97,27 +145,27 @@ __d(
                   " to ",
                   "",
                 ])),
-              C.toLogString(),
-              R.toLogString(),
+              b.toLogString(),
+              L.toLogString(),
             ),
-            (C = o("WAWebWidFactory").asUserWidOrThrow(R)));
-          var L;
-          C != null &&
-            r("WAWebWid").isWid(C) &&
-            C === o("WAWebWidFactory").createWid(o("WAJids").PSA_JID) &&
-            (L = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID));
-          var E = l.map(function (e) {
+            (b = o("WAWebWidFactory").asUserWidOrThrow(L)));
+          var E;
+          b != null &&
+            r("WAWebWid").isWid(b) &&
+            b === o("WAWebWidFactory").createWid(o("WAJids").PSA_JID) &&
+            (E = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID));
+          var k = l.map(function (e) {
             return new (r("WAWebMsgKey"))({
               id: e,
-              remote: C,
-              fromMe: !y,
-              participant: L,
+              remote: b,
+              fromMe: !C,
+              participant: E,
             });
           });
-          y &&
-            g === o("WAWebAck").ACK.PLAYED &&
+          C &&
+            h === o("WAWebAck").ACK.PLAYED &&
             o("WAWebHandleMsgReceiptCommon")
-              .handleViewOnceOpenedIfNecessary(E)
+              .handleViewOnceOpenedIfNecessary(k)
               .catch(function (e) {
                 o("WALogger").WARN(
                   c ||
@@ -128,57 +176,57 @@ __d(
                   String(e),
                 );
               });
-          var k = E.map(function (e) {
+          var I = k.map(function (e) {
             return e.toString();
           });
-          p != null &&
+          _ != null &&
             o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete();
-          var I =
-              p != null &&
+          var T =
+              _ != null &&
               !o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.isResumeFromRestartComplete(),
-            T = (d || (d = n("Promise"))).resolve();
+            D = (d || (d = n("Promise"))).resolve();
           return (
-            y
-              ? _ != null &&
+            C
+              ? f != null &&
                 o("WAWebHandleMsgReceiptUtils").isReadOrPlayedReceipt(a) &&
                 l.length > 0 &&
-                (T = o(
+                (D = o(
                   "WAWebMessageReceiptBatcher",
                 ).receiptBatcher.acceptPeerReceipt({
-                  ack: g,
-                  ts: f,
-                  msgKeys: k,
-                  isOffline: I,
-                  remote: C,
+                  ack: h,
+                  ts: g,
+                  msgKeys: I,
+                  isOffline: T,
+                  remote: b,
                 }))
-              : (T = o(
+              : (D = o(
                   "WAWebMessageReceiptBatcher",
                 ).receiptBatcher.acceptOtherReceipt({
-                  ack: g,
-                  ts: f,
-                  receiverId: m,
-                  msgKeys: k,
+                  ack: h,
+                  ts: g,
+                  receiverId: p,
+                  msgKeys: I,
                   privacyMode: i,
-                  isSender: h,
+                  isSender: y,
                 })),
-            I ||
+            T ||
               (yield (d || (d = n("Promise"))).all([
-                T,
+                D,
                 o(
                   "WAWebMessageReceiptBatcher",
                 ).receiptBatcher.runActiveBatches(),
               ])),
-            T
+            D
           );
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.handleChatSimpleReceipt = m;
+    l.handleChatSimpleReceipt = _;
   },
   98,
 );

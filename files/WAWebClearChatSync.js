@@ -275,17 +275,46 @@ __d(
           (i.clearChat = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r) {
-                var a = yield o(
+                var a = !1;
+                try {
+                  yield this.$ClearChatSync$p_3(
+                    e,
+                    t,
+                    n,
+                    function () {
+                      a = !0;
+                    },
+                    r,
+                  );
+                } finally {
+                  a &&
+                    o("WAWebBackendApi").frontendFireAndForget(
+                      "chatHistoryCleared",
+                      { chatId: e.toString() },
+                    );
+                }
+              },
+            );
+            function t(t, n, r, o) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$ClearChatSync$p_3 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n, r, a) {
+                var i = yield o(
                   "WAWebDBQueryAndRemoveMessageHistory",
                 ).queryAndRemoveMessagesInMessageRange(e, t, {
                   skipStarred: !n,
-                  skipMessages: r,
+                  skipMessages: a,
                   deleteAutomatedGreetingMessages: !0,
                   skipScheduledMessages: !0,
                 });
-                (yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
-                  o("WAWebWidToJid").widToChatJid(e),
-                ),
+                (i.length > 0 && r(),
+                  yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
+                    o("WAWebWidToJid").widToChatJid(e),
+                  ),
                   yield o("WAWebSchemaChat")
                     .getChatTable()
                     .merge(e.toString(), {
@@ -295,9 +324,9 @@ __d(
                           .ConversationEndOfHistoryTransferModelPropType
                           .COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY,
                     }),
-                  a.length > 0 &&
+                  i.length > 0 &&
                     (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
-                      a,
+                      i,
                       { removeWholeRow: !0 },
                     ),
                     o("WAWebUiRuntime").isWebDiUiEnabled()
@@ -305,23 +334,23 @@ __d(
                           .uiRuntime(
                             o("WAWebReactionUiService").ReactionUiService,
                           )
-                          .deleteModelsForLastAddOnPreview(a)
+                          .deleteModelsForLastAddOnPreview(i)
                       : o("WAWebBackendApi").frontendFireAndForget(
                           "deleteModelsForLastAddOnPreview",
-                          { messagesIds: a },
+                          { messagesIds: i },
                         ),
                     yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
                       e.toString(),
-                      a,
+                      i,
                     )));
-                var i = o("WAWebChatCollection").ChatCollection.get(e);
-                (i &&
-                  ((i.createdLocally = !1),
-                  (i.endOfHistoryTransferType =
+                var l = o("WAWebChatCollection").ChatCollection.get(e);
+                (l &&
+                  ((l.createdLocally = !1),
+                  (l.endOfHistoryTransferType =
                     o(
                       "WAWebChatConstants",
                     ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
-                  i.deleteMessages(a),
+                  l.deleteMessages(i),
                   o("WAWebLimitSharingModelUtils").createAcp2MsgOnChatClear(e),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "deleteAiThreadsForChat",
@@ -330,7 +359,7 @@ __d(
                   this.maybeClearGroupStatus(e, t));
               },
             );
-            function t(t, n, r, o) {
+            function t(t, n, r, o, a) {
               return e.apply(this, arguments);
             }
             return t;
@@ -401,7 +430,7 @@ __d(
                   s = yield o(
                     "WAWebMessageRangeUtils",
                   ).constructForwardMovingMessageRange(t, l),
-                  u = this.$ClearChatSync$p_3(
+                  u = this.$ClearChatSync$p_4(
                     o("WAWebWidFactory").createWid(l),
                     n,
                     a || !1,
@@ -446,7 +475,7 @@ __d(
             }
             return t;
           })()),
-          (i.$ClearChatSync$p_3 = function (t, n, r) {
+          (i.$ClearChatSync$p_4 = function (t, n, r) {
             return [t.toJid(), n ? "1" : "0", r ? "1" : "0"];
           }),
           (i.resolveConflicts = (function () {
@@ -516,9 +545,9 @@ __d(
                         )
                         .readBuffer(),
                       y = babelHelpers.extends({}, e, { binarySyncAction: h });
-                    return (
-                      delete y.id,
-                      yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+                    delete y.id;
+                    var C = null,
+                      b = o("WAWebMessageRangeUtils").lockForMessageRangeSync(
                         ["message-association", "chat", "reporting-info"],
                         [y],
                         n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -545,7 +574,9 @@ __d(
                                 }),
                                 h,
                               ));
-                            var l = a.clearChat(n, f, r);
+                            var l = a.$ClearChatSync$p_3(n, f, r, function () {
+                              C = n.toString();
+                            });
                             return (
                               o("WALogger").LOG(
                                 m ||
@@ -557,11 +588,18 @@ __d(
                             );
                           },
                         ),
-                      ),
-                      o("WAWebSyncdConst").ConflictResolutionState
-                        .SkipRemoteAndDropLocal
-                    );
-                    break e;
+                      );
+                    try {
+                      yield b;
+                    } finally {
+                      C != null &&
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "chatHistoryCleared",
+                          { chatId: C },
+                        );
+                    }
+                    return o("WAWebSyncdConst").ConflictResolutionState
+                      .SkipRemoteAndDropLocal;
                   }
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebIdleTaskRunner",
     "WAWebNoop",
-    "WAWebThirdPartyMigrationGatingUtils",
     "WAWebTransitionPrimitive.react",
     "WAWebTransitions",
     "WAWebUiIdleEventBus",
@@ -17,7 +16,6 @@ __d(
     "isEmptyIterable",
     "omit",
     "react",
-    "react-transition-group",
     "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -55,15 +53,15 @@ __d(
         S = t.onExit,
         k = t.transitionName,
         I = babelHelpers.objectWithoutPropertiesLoose(t, d),
-        T = b(!0),
-        D = b(),
-        x = b(),
+        x = b(!0),
         $ = b(),
-        P = b(0),
-        N = function (n) {
+        P = b(),
+        N = b(0),
+        M = b(!1),
+        w = function (n) {
           if ((n === void 0 && (n = !0), c != null && c.current != null))
             return c.current;
-          var t = D.current;
+          var t = $.current;
           if (t != null) {
             if (
               t instanceof HTMLElement ||
@@ -73,68 +71,67 @@ __d(
             var r = t.getElement == null ? void 0 : t.getElement();
             if (r) return r;
           }
-          if (!n) return null;
-          var a = x.current;
           return (
-            a != null &&
+            n &&
+              !M.current &&
+              ((M.current = !0),
               o("WALogger")
                 .ERROR(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[VelocityTransitionGroupChild] findDOMNode fallback: ",
+                      "[VelocityTransitionGroupChild] missing forwarded ref: ",
                       "",
                     ])),
-                  u,
+                  E(k, a, u),
                 )
-                .sendLogs("velocity-transition-group-find-dom-node"),
-            a
+                .sendLogs("velocity-transition-group-missing-ref")),
+            null
           );
         },
-        M = r("useWAWebStableCallback")(function () {
-          var e;
-          return (e = N(!1)) != null ? e : x.current;
+        A = r("useWAWebStableCallback")(function () {
+          return w(!1);
         }),
-        w = b(0);
+        F = b(0);
       C(
         function () {
-          w.current += 1;
-          var e = w.current;
+          F.current += 1;
+          var e = F.current;
           return (
-            (T.current = !0),
+            (x.current = !0),
             function () {
-              T.current = !1;
-              var t = M();
+              x.current = !1;
+              var t = A();
               queueMicrotask(function () {
-                w.current === e &&
-                  !T.current &&
-                  ((P.current += 1),
-                  ($.current = null),
+                F.current === e &&
+                  !x.current &&
+                  ((N.current += 1),
+                  (P.current = null),
                   r("WAWebVelocityAnimate")(t, "finish"));
               });
             }
           );
         },
-        [M],
+        [A],
       );
-      var A = b(!1),
-        F = b(),
-        O = function () {
-          ((F.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
-            F.current,
+      var O = b(!1),
+        B = b(),
+        W = function () {
+          ((B.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
+            B.current,
           )),
-            A.current ||
-              ((A.current = !0),
+            O.current ||
+              ((O.current = !0),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0)));
         },
-        B = function () {
-          (F.current != null &&
-            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(F.current),
-            delete F.current),
-            A.current &&
-              ((A.current = !1),
+        q = function () {
+          (B.current != null &&
+            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(B.current),
+            delete B.current),
+            O.current &&
+              ((O.current = !1),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1)));
         },
-        W = function (t, n) {
+        U = function (t, n) {
           var e = n;
           if (!e) return [];
           Array.isArray(e) || (e = [e]);
@@ -155,76 +152,70 @@ __d(
             );
           });
         },
-        q = function (t) {
+        V = function (t) {
           var e = t;
           (e === v.APPEAR && (e = v.ENTER),
             e === "enter" || e === "leave" || s(0, 66980));
-          var a = R(k),
-            i = a[e];
-          if (!a || !i) return (p || (p = n("Promise"))).resolve();
-          var u = r("omit")(a, ["enter", "leave"]),
-            c = N(),
-            d = W(c, i);
+          var o = R(k),
+            a = o[e];
+          if (!o || !a) return (p || (p = n("Promise"))).resolve();
+          var i = r("omit")(o, ["enter", "leave"]),
+            u = w(),
+            c = U(u, a);
           e === v.LEAVE &&
-            (c == null || c.setAttribute("pointerEvents", "none"),
-            c == null || c.addEventListener("keypress", L, !0),
-            c == null || c.addEventListener("keydown", L, !0));
-          var m = 0,
-            f = (p || (p = n("Promise"))).all(
-              d.map(function (e) {
+            (u == null || u.setAttribute("pointerEvents", "none"),
+            u == null || u.addEventListener("keypress", T, !0),
+            u == null || u.addEventListener("keydown", T, !0));
+          var d = 0,
+            m = (p || (p = n("Promise"))).all(
+              c.map(function (e) {
                 var t,
                   n,
                   o,
                   a = e.delay,
-                  i = e.drag,
-                  s = e.duration,
+                  s = e.drag,
+                  u = e.duration,
                   c = e.easing,
-                  d = e.nodes,
+                  m = e.nodes,
                   p = e.props,
                   _ = e.stagger,
-                  f = (t = u.delay) != null ? t : 0;
+                  f = (t = i.delay) != null ? t : 0;
                 l ? (f = l) : a != null && a !== 0 && (f = a);
                 var g =
-                    typeof s == "number" && s
-                      ? s
-                      : (n = u.duration) != null
+                    typeof u == "number" && u
+                      ? u
+                      : (n = i.duration) != null
                         ? n
                         : 0,
-                  h = Array.isArray(d) ? d.length : 1;
+                  h = Array.isArray(m) ? m.length : 1;
                 return (
-                  (m = Math.max(
-                    m,
+                  (d = Math.max(
+                    d,
                     f +
-                      (i === !0 ? Math.max(g, 200) : g) +
+                      (s === !0 ? Math.max(g, 200) : g) +
                       (_ != null ? _ : 0) * Math.max(h - 1, 0),
                   )),
-                  r("WAWebVelocityAnimate")(d, p, {
+                  r("WAWebVelocityAnimate")(m, p, {
                     easing:
-                      (o = c != null ? c : u.easing) != null ? o : "easeInSine",
+                      (o = c != null ? c : i.easing) != null ? o : "easeInSine",
                     duration: g,
                     delay: f,
-                    queue: u.queue || !1,
+                    queue: i.queue || !1,
                     stagger: _ != null ? _ : !1,
-                    drag: i || !1,
+                    drag: s || !1,
                   })
                 );
               }),
             );
-          return (
-            o(
-              "WAWebThirdPartyMigrationGatingUtils",
-            ).isVelocityAnimateMigrationEnabled()
-              ? E(f, m, function () {
-                  for (var e of d) {
-                    var t = e.nodes;
-                    r("WAWebVelocityAnimate")(t, "finish");
-                  }
-                })
-              : f
-          ).finally(function () {
-            (u.cleanOnComplete === !0 &&
+          return D(m, d, function () {
+            for (var e of c) {
+              var t = e.nodes;
+              r("WAWebVelocityAnimate")(t, "finish");
+            }
+          }).finally(function () {
+            (i.cleanOnComplete === !0 &&
               e === v.ENTER &&
-              d.forEach(function (e) {
+              c.forEach(function (e) {
                 var t = e.nodes,
                   n = Array.isArray(t) ? t : [t];
                 n.forEach(function (e) {
@@ -232,55 +223,56 @@ __d(
                 });
               }),
               e === v.LEAVE &&
-                (c == null || c.removeEventListener("keypress", L, !0),
-                c == null || c.removeEventListener("keydown", L, !0)),
+                (u == null || u.removeEventListener("keypress", T, !0),
+                u == null || u.removeEventListener("keydown", T, !0)),
               _ == null || _());
           });
         },
-        U = function (n) {
+        H = function (n) {
           var e = t.appear,
-            a = e === void 0 ? !1 : e,
-            i = t.enter,
-            l = i === void 0 ? !0 : i,
-            s = t.exit,
-            u = s === void 0 ? !0 : s,
-            c =
+            o = e === void 0 ? !1 : e,
+            a = t.enter,
+            i = a === void 0 ? !0 : a,
+            l = t.exit,
+            s = l === void 0 ? !0 : l,
+            u =
               n === v.ENTER
-                ? l
+                ? i
                 : n === v.LEAVE
-                  ? u
+                  ? s
                   : n === v.APPEAR
-                    ? a
+                    ? o
                     : (function () {
                         throw Error(
                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                             n,
                         );
                       })();
-          if (c) {
-            (O(), (P.current += 1));
-            var d = P.current,
-              m = o(
-                "WAWebThirdPartyMigrationGatingUtils",
-              ).isVelocityAnimateMigrationEnabled()
-                ? q(n).catch(function (e) {
-                    r("WAWebNoop")(e);
-                  })
-                : q(n);
-            m.finally(function () {
-              B();
-            }).then(function () {
-              !T.current || d !== P.current || $.current == null || $.current();
-            });
-          } else $.current == null || $.current();
+          if (u) {
+            (W(), (N.current += 1));
+            var c = N.current;
+            V(n)
+              .catch(function (e) {
+                r("WAWebNoop")(e);
+              })
+              .finally(function () {
+                q();
+              })
+              .then(function () {
+                !x.current ||
+                  c !== N.current ||
+                  P.current == null ||
+                  P.current();
+              });
+          } else P.current == null || P.current();
         },
-        V = function (t, n) {
-          (g == null || g(), (x.current = t), U(n ? v.APPEAR : v.ENTER));
+        G = function (t, n) {
+          (g == null || g(), H(n ? v.APPEAR : v.ENTER));
         },
-        H = function (t) {
-          (S == null || S(), (x.current = t), U(v.LEAVE));
+        z = function (t) {
+          (S == null || S(), H(v.LEAVE));
         },
-        G = function (t) {
+        j = function (t) {
           var e,
             n =
               (e =
@@ -289,48 +281,34 @@ __d(
                   : t.getComponent()) != null
                 ? e
                 : t;
-          D.current = n;
+          $.current = n;
           var r = a == null ? void 0 : a.ref;
           r && (typeof r == "function" ? r(n) : (r.current = n));
         },
-        z = a;
+        K = a;
       if (c == null) {
-        var j = h.only(z);
-        z = y(j, { ref: G });
+        var Q = h.only(K);
+        K = y(Q, { ref: j });
       }
-      return o(
-        "WAWebThirdPartyMigrationGatingUtils",
-      ).isVelocityAnimateMigrationEnabled()
-        ? f.jsx(
-            r("WAWebTransitionPrimitive.react"),
-            babelHelpers.extends(
-              {
-                resolveNode: function () {
-                  return N();
-                },
-              },
-              I,
-              {
-                addEndListener: function (t, n) {
-                  $.current = n;
-                },
-                onEnter: V,
-                onExit: H,
-                children: z,
-              },
-            ),
-          )
-        : f.jsx(
-            o("react-transition-group").Transition,
-            babelHelpers.extends({ nodeRef: c }, I, {
-              addEndListener: function (t, n) {
-                $.current = n;
-              },
-              onEnter: V,
-              onExit: H,
-              children: z,
-            }),
-          );
+      return f.jsx(
+        r("WAWebTransitionPrimitive.react"),
+        babelHelpers.extends(
+          {
+            resolveNode: function () {
+              return w(L(k));
+            },
+          },
+          I,
+          {
+            addEndListener: function (t, n) {
+              P.current = n;
+            },
+            onEnter: G,
+            onExit: z,
+            children: K,
+          },
+        ),
+      );
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
@@ -351,9 +329,47 @@ __d(
       return o("WAWebTransitions").Transitions[e];
     }
     function L(e) {
+      var t = o("WAWebTransitions").Transitions[e];
+      return (
+        (t == null ? void 0 : t.enter) != null ||
+        (t == null ? void 0 : t.leave) != null
+      );
+    }
+    function E(e, t, n) {
+      var r = e + ":" + k(t);
+      return n == null ? r : r + ":" + n;
+    }
+    function k(e) {
+      var t,
+        n = e == null ? null : Reflect.get(e, "type");
+      return typeof n == "string" ? n : (t = I(n)) != null ? t : "anonymous";
+    }
+    function I(e) {
+      if (typeof e == "function") {
+        var t,
+          n =
+            (t = Object.getOwnPropertyDescriptor(e, "displayName")) == null
+              ? void 0
+              : t.value;
+        return typeof n == "string" ? n : e.name === "" ? null : e.name;
+      }
+      if (typeof e == "object" && e != null) {
+        var r,
+          o = Reflect.get(e, "displayName");
+        return typeof o == "string"
+          ? o
+          : I(
+              (r = Reflect.get(e, "render")) != null
+                ? r
+                : Reflect.get(e, "type"),
+            );
+      }
+      return null;
+    }
+    function T(e) {
       (e.preventDefault(), e.stopPropagation());
     }
-    function E(e, t, o) {
+    function D(e, t, o) {
       var a = r("WAWebNoop"),
         i = new (p || (p = n("Promise")))(function (e) {
           a = e;
@@ -362,14 +378,14 @@ __d(
           function () {
             (o(), a());
           },
-          Math.max(k, 2 * t + I),
+          Math.max(x, 2 * t + $),
         );
       return p.race([e, i]).finally(function () {
         self.clearTimeout(l);
       });
     }
-    var k = 1e3,
-      I = 500;
+    var x = 1e3,
+      $ = 500;
     l.default = S;
   },
   98,

@@ -6,24 +6,24 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
+    function e(e, t, n, r) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = o("WAWebContactSystemMsg").genDisappearingModeUpdateSystemMsg(
-            e.id,
-            t,
-            n,
-          );
-          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-            chatId: r.from,
-            newMsg: r,
-            handleSingleMsgOrigin: "ephemeralSystemMsg",
-            preserveOrder: !1,
-          });
-        })),
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = o(
+              "WAWebContactSystemMsg",
+            ).genDisappearingModeUpdateSystemMsg(e.id, t, n, r);
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+              chatId: a.from,
+              newMsg: a,
+              handleSingleMsgOrigin: "ephemeralSystemMsg",
+              preserveOrder: !1,
+            });
+          },
+        )),
         s.apply(this, arguments)
       );
     }

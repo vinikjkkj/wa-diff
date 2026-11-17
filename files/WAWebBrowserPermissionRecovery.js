@@ -64,7 +64,6 @@ __d(
               }
               t.openDialog(l, {
                 cancelSignal: r,
-                isBlocked: a === "blocked",
                 onAllowed: function () {
                   r.aborted || o();
                 },

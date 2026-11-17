@@ -12,21 +12,10 @@ __d(
     "WAWebSharableEventWamErrorType",
     "WAWebSharableEventWamFields",
     "WAWebWamEnumEventV2CreationActionType",
-    "WAWebWamEnumEventV2CreationEntryPoint",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return e == null
-        ? o("WAWebWamEnumEventV2CreationEntryPoint")
-            .EVENT_V2_CREATION_ENTRY_POINT.EVENTS_LIST_PAGE
-        : e.id.isGroup()
-          ? o("WAWebWamEnumEventV2CreationEntryPoint")
-              .EVENT_V2_CREATION_ENTRY_POINT.GROUP_CHAT_ATTACHMENT_TRAY
-          : o("WAWebWamEnumEventV2CreationEntryPoint")
-              .EVENT_V2_CREATION_ENTRY_POINT.INDIVIDUAL_CHAT_ATTACHMENT_TRAY;
-    }
-    var s = (function () {
+    var e = (function () {
       function e(e, t) {
         ((this.$2 = null),
           (this.$4 = r("WAWebPonyfillsCryptoRandomUUID")()),
@@ -34,7 +23,7 @@ __d(
           (this.$6 = !1),
           (this.$7 = null),
           (this.$3 = e),
-          (this.$1 = u(t)));
+          (this.$1 = s(t)));
       }
       var t = e.prototype;
       return (
@@ -130,12 +119,12 @@ __d(
         e
       );
     })();
-    function u(e) {
-      return c.apply(this, arguments);
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function c() {
+    function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return {};
           var t = e.id.isGroup(),
             n = {
@@ -159,11 +148,10 @@ __d(
             n
           );
         })),
-        c.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    ((l.getSharableEventCreationEntryPoint = e),
-      (l.SharableEventCreationUserJourney = s));
+    l.SharableEventCreationUserJourney = e;
   },
   98,
 );

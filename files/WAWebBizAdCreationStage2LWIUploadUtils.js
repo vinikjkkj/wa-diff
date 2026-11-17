@@ -7,6 +7,7 @@ __d(
     "WAWebBizAdCreationLWIMediaUpload",
     "WAWebBizAdCreationLinkWAMediaToStatus",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -25,8 +26,14 @@ __d(
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
                     var i = yield (e || (e = n("Promise"))).all([
-                        r("WAWebBizAdCreationLWIMediaUpload")([t], o, a),
-                        r("WAWebBizAdCreationLinkWAMediaToStatus")([t]),
+                        _(
+                          r("WAWebBizAdCreationLWIMediaUpload")([t], o, a),
+                          "lwi_upload",
+                        ),
+                        _(
+                          r("WAWebBizAdCreationLinkWAMediaToStatus")([t]),
+                          "status_link",
+                        ),
                       ]),
                       l = i[0];
                     return l[0];
@@ -43,13 +50,7 @@ __d(
           l.forEach(function (e, t) {
             e.status === "fulfilled"
               ? s.push(e.value)
-              : (u.push(t),
-                r("FBLogger")("wa_ctwa_web").mustfix(
-                  "performPartialStage2LWIUpload: upload failed item " +
-                    t +
-                    " - " +
-                    String(e.reason),
-                ));
+              : (u.push(t), m(e.reason, t));
           });
           var c = l.map(function (e) {
             return e.status === "fulfilled" ? e.value : null;
@@ -57,6 +58,40 @@ __d(
           return { failedIndices: u, resultsByIndex: c, successfulResults: s };
         })),
         d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
+      var n = r("FBLogger")("wa_ctwa_web").addMetadata(
+          "WA_WEB",
+          "KEY",
+          "stage2_item_index=" + t,
+        ),
+        o = e instanceof p ? e.cause : e;
+      (e instanceof p && n.addMetadata("WA_WEB", "OPERATION", e.leg),
+        n
+          .catching(
+            r("getErrorSafe")(
+              o instanceof Error ? o : "Non-Error Stage 2 upload rejection",
+            ),
+          )
+          .mustfix("performPartialStage2LWIUpload: upload failed item"));
+    }
+    var p = function (t, n) {
+      ((this.leg = t), (this.cause = n));
+    };
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            return yield e;
+          } catch (e) {
+            throw new p(t, e);
+          }
+        })),
+        f.apply(this, arguments)
       );
     }
     ((l.LWI_PARTIAL_UPLOAD_FAILURE_TOAST_MSG = u),

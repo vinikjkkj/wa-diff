@@ -19,6 +19,7 @@ __d(
       AI_HANDOFF: "ai_handoff",
       TO_YOU: "to_you",
       META_AI: "meta_ai",
+      NETWORK: "network",
     });
     function l(t) {
       switch (t) {
@@ -34,6 +35,7 @@ __d(
         case e.AI_HANDOFF:
         case e.TO_YOU:
         case e.META_AI:
+        case e.NETWORK:
           return !0;
         case e.BROADCAST:
         case e.NON_CONTACT:
@@ -61,6 +63,7 @@ __d(
         case e.AI_HANDOFF:
         case e.TO_YOU:
         case e.META_AI:
+        case e.NETWORK:
           return !1;
       }
     }

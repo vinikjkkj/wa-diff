@@ -971,9 +971,13 @@ __d(
         ),
           o("WAWebToastManager").ToastManager.open(
             P.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(
-                /*BTDS*/ "Your request to join the call was not approved.",
-              ),
+              msg: r("justknobx")._("8068")
+                ? s._(
+                    /*BTDS*/ "Your request to join the call wasn't approved. Contact the call creator for help.",
+                  )
+                : s._(
+                    /*BTDS*/ "Your request to join the call was not approved.",
+                  ),
             }),
           ));
         var e = r("WAWebCallCollection").activeCall;

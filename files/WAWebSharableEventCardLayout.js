@@ -7,12 +7,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = 8,
-      s = 56,
-      u = 16,
-      c = 24,
-      d = 20;
-    function m(e) {
+      s = 24,
+      u = 20,
+      c = 16 / 9;
+    function d(e) {
       return {
+        hasCover: e.coverImageUrl != null && e.coverImageUrl !== "",
         hasHostLine: _(e.creatorLid),
         hasPlaceLine:
           o("WAWebSharableEventStrings").getSharableEventPlaceLine({
@@ -22,15 +22,12 @@ __d(
           }) != null,
       };
     }
+    function m(e) {
+      return Math.round(Math.max(0, e) / c);
+    }
     function p(t, n) {
-      n === void 0 && (n = !1);
-      var r =
-        (n ? u : 0) +
-        c +
-        d +
-        (t.hasHostLine ? d : 0) +
-        (t.hasPlaceLine ? d : 0);
-      return e + Math.max(s, r) + e;
+      var r = s + u + (t.hasHostLine ? u : 0) + (t.hasPlaceLine ? u : 0);
+      return (t.hasCover ? n : 0) + 2 * e + r;
     }
     function _(e) {
       return (
@@ -40,7 +37,9 @@ __d(
           null
       );
     }
-    ((l.getSharableEventCardContent = m), (l.getSharableEventCardHeight = p));
+    ((l.getSharableEventCardContent = d),
+      (l.getSharableEventCardCoverHeight = m),
+      (l.getSharableEventCardHeight = p));
   },
   98,
 );

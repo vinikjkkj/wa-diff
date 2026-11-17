@@ -1,7 +1,7 @@
 __d(
   "WAWebLockScreenResolver",
   [
-    "fbt",
+    "JSResourceForInteraction",
     "WAComms",
     "WALogger",
     "WAResolvable",
@@ -9,29 +9,29 @@ __d(
     "WAWebCallCollection",
     "WAWebChatCollection",
     "WAWebCmd",
-    "WAWebConfirmPopup.react",
     "WAWebCryptoEncKeyHelper",
     "WAWebDbEncryptionKey",
     "WAWebModalManager",
     "WAWebMsgCollection",
-    "WAWebPathfinderHeldBackScope.react",
     "WAWebPathfinderHeldBackSurface",
     "WAWebReloadCrashAnnotations",
     "WAWebUserPrefsInfoStore",
     "asyncToGeneratorRuntime",
-    "react",
+    "getErrorSafe",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
+      s,
       u,
       c,
       d,
       m,
-      p,
-      _ = p || (p = o("react")),
+      p = r("JSResourceForInteraction")(
+        "WAWebLockScreenActiveCallDialog.react",
+      ).__setRef("WAWebLockScreenResolver"),
+      _ = null,
       f = null,
-      g = null,
-      h = (function () {
+      g = (function () {
         function e() {
           this.deferred = new (o("WAResolvable").Resolvable)();
         }
@@ -57,8 +57,8 @@ __d(
           }),
           (t.correctPasscodeEntered = function (t) {
             (o("WAWebPathfinderHeldBackSurface").noteScreenUnlocked(),
-              f == null || f(),
-              (f = null),
+              _ == null || _(),
+              (_ = null),
               (this.deferred = new (o("WAResolvable").Resolvable)()),
               o("WAWebCmd").Cmd.correctPasscodeLockScreen(t),
               o("WAWebPathfinderHeldBackSurface").openHeldBack(
@@ -71,22 +71,22 @@ __d(
           e
         );
       })(),
-      y = new h();
-    function C() {
+      h = new g();
+    function y() {
       return (
-        g != null ||
-          (g = b().finally(function () {
-            g = null;
+        f != null ||
+          (f = C().finally(function () {
+            f = null;
           })),
-        g
+        f
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (r("WAWebCallCollection").activeCall != null) {
             o("WALogger").LOG(
               e ||
@@ -94,51 +94,48 @@ __d(
                   "[screen-lock] blocked: active call in progress",
                 ])),
             );
-            var t = _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: {
-                surface: "unknown",
-                viewName: "screen-lock-active-call-blocker",
-              },
-              title: s._(/*BTDS*/ "You can't lock the app during a call"),
-              onOK: o("WAWebModalManager").closeModalManager,
-              okText: s._(/*BTDS*/ "OK"),
-              children: s._(/*BTDS*/ "End your call before locking the app."),
-            });
-            o("WAWebPathfinderHeldBackSurface").openHeldBack(
-              o("WAWebPathfinderHeldBackSurface").HeldBackSurface
-                .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
-              function () {
-                return o("WAWebModalManager").ModalManager.open(
-                  _.jsx(r("WAWebPathfinderHeldBackScope.react"), {
-                    name: o("WAWebPathfinderHeldBackSurface").HeldBackSurface
-                      .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
-                    children: t,
-                  }),
-                );
-              },
-            );
+            try {
+              var t = yield p.load(),
+                n = t.openLockScreenActiveCallDialog;
+              if (r("WAWebCallCollection").activeCall == null) return;
+              o("WAWebPathfinderHeldBackSurface").openHeldBack(
+                o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+                  .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
+                n,
+              );
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[screen-lock] active-call blocker dialog failed to load",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("screen-lock-active-call-blocker-load-failed");
+            }
             return;
           }
-          f == null || f();
-          var n = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(
+          _ == null || _();
+          var a = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(
             o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK,
           );
-          f = n;
+          _ = a;
           try {
-            yield S();
+            yield v();
           } catch (e) {
-            throw (n(), f === n && (f = null), e);
+            throw (a(), _ === a && (_ = null), e);
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
+    function v() {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o("WAWebUserPrefsInfoStore").waNoiseInfo.cachedPasscodeDerivedKey ==
             null
@@ -205,10 +202,10 @@ __d(
           (yield o("WAWebCryptoEncKeyHelper").initEncSalt(),
             e.openSocketLoop());
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    ((l.LockScreenResolvable = y), (l.lockScreenAndTriggerUnlockFlow = C));
+    ((l.LockScreenResolvable = h), (l.lockScreenAndTriggerUnlockFlow = y));
   },
-  226,
+  98,
 );

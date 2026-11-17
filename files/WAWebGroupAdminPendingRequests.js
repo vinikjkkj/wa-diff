@@ -16,12 +16,7 @@ __d(
         t
       );
     }
-    function l(e) {
-      return e.reduce(function (e, t) {
-        return e + t.requests.length;
-      }, 0);
-    }
-    ((i.getPendingRequestGroups = e), (i.getPendingRequestCount = l));
+    i.getPendingRequestGroups = e;
   },
   66,
 );

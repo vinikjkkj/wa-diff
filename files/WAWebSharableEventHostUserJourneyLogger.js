@@ -14,25 +14,27 @@ __d(
     var e = null;
     function s(t, n) {
       var a;
-      ((a = e) == null ? void 0 : a.eventId) !== t &&
-        ((e = {
-          entryPoint: n == null ? null : k(n),
-          eventId: t,
-          hasPageGone: !1,
-          id: r("WAWebPonyfillsCryptoRandomUUID")(),
-          isDeleting: !1,
-          isEditing: !1,
-        }),
-        E(
-          t,
-          o("WAWebWamEnumEventV2HostActionType").EVENT_V2_HOST_ACTION_TYPE
-            .ENTRY_POINT_STARTED,
-        ),
-        E(
-          t,
-          o("WAWebWamEnumEventV2HostActionType").EVENT_V2_HOST_ACTION_TYPE
-            .DETAIL_PAGE_SHOWN,
-        ));
+      return ((a = e) == null ? void 0 : a.eventId) === t
+        ? !1
+        : ((e = {
+            entryPoint: n == null ? null : k(n),
+            eventId: t,
+            hasPageGone: !1,
+            id: r("WAWebPonyfillsCryptoRandomUUID")(),
+            isDeleting: !1,
+            isEditing: !1,
+          }),
+          E(
+            t,
+            o("WAWebWamEnumEventV2HostActionType").EVENT_V2_HOST_ACTION_TYPE
+              .ENTRY_POINT_STARTED,
+          ),
+          E(
+            t,
+            o("WAWebWamEnumEventV2HostActionType").EVENT_V2_HOST_ACTION_TYPE
+              .DETAIL_PAGE_SHOWN,
+          ),
+          !0);
     }
     function u(t) {
       var n = e;

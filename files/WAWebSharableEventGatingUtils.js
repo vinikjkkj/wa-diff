@@ -94,13 +94,6 @@ __d(
         n
       );
     }
-    function R() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "enable_events_v2_invite_message_with_datetime",
-        ) === !0
-      );
-    }
     ((l.SharableEventInviteReceivingVersion = u),
       (l.isSharableEventInviteReceiveEnabled = d),
       (l.shouldRenderSharableEventInviteBubble = m),
@@ -112,8 +105,7 @@ __d(
       (l.isSharableScheduledCallCreationEnabled = y),
       (l.isSharableEventNotificationsEnabled = C),
       (l.isEventsV2OnCompanionEnabled = b),
-      (l.isEventsV2OnCompanionEnabledForAction = S),
-      (l.isSharableEventInviteDatetimeEnabled = R));
+      (l.isEventsV2OnCompanionEnabledForAction = S));
   },
   98,
 );

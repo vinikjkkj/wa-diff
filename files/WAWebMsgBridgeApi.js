@@ -17,6 +17,7 @@ __d(
     "WAWebLinkDeviceAction",
     "WAWebMessageAssociationUIUtils",
     "WAWebMsgCollection",
+    "WAWebODS",
     "WAWebReactionsCollection",
     "WAWebUpdateEditedMessagesAction",
     "WAWebUpdateMessageUIAction",
@@ -105,6 +106,27 @@ __d(
               ((e.ack < t.ack && e.ack !== o("WAWebAck").ACK.FAILED) ||
                 (t.ack = e.ack));
           });
+        },
+        logIntegrityDropOutcome: function (t) {
+          var e = t.outcome;
+          e: {
+            if (e === "failed") {
+              r("WAWebODS").incr("web.integrity_drop.failed");
+              break e;
+            }
+            if (e === "ignored") {
+              r("WAWebODS").incr("web.integrity_drop.ignored");
+              break e;
+            }
+            if (e === "no_message") {
+              r("WAWebODS").incr("web.integrity_drop.no_message");
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          }
         },
         updateMsgExpiredTimestamps: function (t) {
           var e = t.updates;

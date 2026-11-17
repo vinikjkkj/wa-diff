@@ -5,6 +5,7 @@ __d(
     "WAWebContactCollection",
     "WAWebModalManager",
     "WAWebReachoutTimelockUnrestrictedModalLoadable",
+    "WDSDialogBridge",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,13 +16,14 @@ __d(
           var e = t.enforcementType,
             n = t.shouldPresentRestrictionsLiftedModal;
           (n &&
-            o("WAWebModalManager").ModalManager.open(
+            (o("WAWebModalManager").ModalManager.close(),
+            o("WDSDialogBridge").openWDSDialog(
               s.jsx(
                 o("WAWebReachoutTimelockUnrestrictedModalLoadable")
                   .ReachoutTimelockUnrestrictedModalLoadable,
                 { enforcementType: e },
               ),
-            ),
+            )),
             o("WAWebCmd").Cmd.reachoutTimelockStateChange(),
             o("WAWebContactCollection").ContactCollection.forEach(function (e) {
               e.set("canSendMsgWhileTimelocked", !0);

@@ -33,21 +33,18 @@ __d(
       y = { loading: !1 },
       C = (e = n("cr:5632")) != null ? e : u.Fragment;
     function b(e, t, o) {
-      o === void 0 && (o = {});
-      var a = o,
-        l = a.uiComponents,
-        s = l === void 0 ? {} : l,
-        c = a.disableReactTransition,
-        b = c === void 0 ? !1 : c,
-        v = a.useLegacyHidden;
-      function S(o) {
+      var a = o.disableReactTransition,
+        l = a === void 0 ? !1 : a,
+        s = o.uiComponents,
+        c = o.useLegacyHidden;
+      function b(o) {
         var a,
           i,
-          l = f(function () {
+          b = f(function () {
             return e.getCurrentRouterState();
           }),
-          c = l[0],
-          S = l[1],
+          v = b[0],
+          S = b[1],
           R = f(function () {
             return e.getMaintainedRouteState();
           }),
@@ -58,7 +55,7 @@ __d(
           T = g(),
           D = T[0],
           x = T[1],
-          $ = _(c),
+          $ = _(v),
           P = $[0],
           N = $[1],
           M = _(!1),
@@ -97,14 +94,14 @@ __d(
         ),
           m(
             function () {
-              e.markNavigationAsCommitted_INTERNAL_ONLY(c.routeKey);
+              e.markNavigationAsCommitted_INTERNAL_ONLY(v.routeKey);
             },
-            [c.routeKey],
+            [v.routeKey],
           ));
         var F = e.dispatcher,
           O = p(
             function () {
-              return b
+              return l
                 ? F
                 : F.withOverrides(function (e) {
                     return {
@@ -141,22 +138,22 @@ __d(
           ),
           B = p(
             function () {
-              return b
+              return l
                 ? y
-                : P == null || P === c
+                : P == null || P === v
                   ? { hidePageTransitioningLoadingState: w, loading: D }
                   : {
-                      currentState: c,
+                      currentState: v,
                       hidePageTransitioningLoadingState: w,
                       loading: D,
                       nextState: P,
                     };
             },
-            [w, P, c, D],
+            [w, P, v, D],
           ),
           W = o.children;
         return u.jsx(r("CometHiddenAPIContextProvider"), {
-          hiddenAPIOverride: v,
+          hiddenAPIOverride: c,
           children: u.jsx(r("CometRouterUIComponentContext").Provider, {
             value: s,
             children: u.jsx(r("CometRouterDispatcherContext").Provider, {
@@ -166,7 +163,7 @@ __d(
                 {
                   value: B,
                   children: u.jsx(r("CometRouterStateContext").Provider, {
-                    value: c,
+                    value: v,
                     children: u.jsx(
                       r("CometPassiveGetRouterStateContext").Provider,
                       {
@@ -184,7 +181,7 @@ __d(
                                   r("CometRouterPushViewStackContext").Provider,
                                   {
                                     value:
-                                      (a = c.pushViewStack) != null ? a : h,
+                                      (a = v.pushViewStack) != null ? a : h,
                                     children: u.jsx(
                                       r("CometRouteStoreContext").Provider,
                                       {
@@ -196,14 +193,14 @@ __d(
                                             value:
                                               (i =
                                                 r("getTopMostRoute")(
-                                                  c,
+                                                  v,
                                                 ).topNavType) != null
                                                 ? i
                                                 : "default",
                                             children: u.jsx(C, {
                                               children:
                                                 typeof W == "function"
-                                                  ? W(c)
+                                                  ? W(v)
                                                   : W,
                                             }),
                                           },
@@ -225,7 +222,7 @@ __d(
           }),
         });
       }
-      return ((S.displayName = S.name + " [from " + i.id + "]"), S);
+      return ((b.displayName = b.name + " [from " + i.id + "]"), b);
     }
     l.default = b;
   },

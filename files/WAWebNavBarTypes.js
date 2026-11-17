@@ -25,7 +25,6 @@ __d(
       MeTab: "meTab",
       CustomerManager: "contactManager",
       OrgAdmin: "orgAdmin",
-      GroupAdmin: "groupAdmin",
       ContactsAndGroups: "contactsAndGroups",
       Events: "events",
     });
