@@ -2,6 +2,7 @@ __d(
   "WAWebCustomerManagerEducationBannerNux",
   [
     "WALogger",
+    "WAWebCurrentMoment",
     "WAWebCustomerManagerGating",
     "WAWebNux",
     "WAWebNuxCoolOff",
@@ -24,27 +25,42 @@ __d(
       };
     }
     function u() {
-      return (
-        !o("WAWebUserPrefsNuxPreferences").nuxExistsInNuxSync(
-          o("WAWebNux").NuxSyncKey.CUSTOMER_MANAGER_EDUCATION_BANNER,
-        ) &&
-        o("WAWebNuxCoolOff").shouldShowNUX(
-          o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
-            .CUSTOMER_MANAGER_EDUCATION_BANNER,
-          s(),
-        )
-      );
+      return o("WAWebUserPrefsNuxPreferences").nuxExistsInNuxSync(
+        o("WAWebNux").NuxSyncKey.CUSTOMER_MANAGER_EDUCATION_BANNER,
+      )
+        ? !1
+        : o("WAWebNuxCoolOff").shouldShowNUX(
+            o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
+              .CUSTOMER_MANAGER_EDUCATION_BANNER,
+            s(),
+          ) || c();
     }
     function c() {
       var e = new (o("WAWebNuxCoolOff").CoolOffNux)(
           o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
             .CUSTOMER_MANAGER_EDUCATION_BANNER,
           s(),
-        ),
-        t = e.shouldShow();
-      return (e.show(), t && !e.shouldShow());
+        ).nux,
+        t = e.dismisses,
+        n = e.lastViewedDay,
+        r = e.totalViewDays;
+      return (
+        t === 0 &&
+        r ===
+          o(
+            "WAWebCustomerManagerGating",
+          ).customerManagerEducationBannerMaxViewDays() &&
+        n.isSame(o("WAWebCurrentMoment").getCurrentMoment(), "day")
+      );
     }
     function d() {
+      new (o("WAWebNuxCoolOff").CoolOffNux)(
+        o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
+          .CUSTOMER_MANAGER_EDUCATION_BANNER,
+        s(),
+      ).show();
+    }
+    function m() {
       (new (o("WAWebNuxCoolOff").CoolOffNux)(
         o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
           .CUSTOMER_MANAGER_EDUCATION_BANNER,
@@ -67,8 +83,8 @@ __d(
           }));
     }
     ((l.shouldShowCustomerManagerEducationBanner = u),
-      (l.markCustomerManagerEducationBannerShown = c),
-      (l.retireCustomerManagerEducationBanner = d));
+      (l.markCustomerManagerEducationBannerShown = d),
+      (l.retireCustomerManagerEducationBanner = m));
   },
   98,
 );

@@ -242,7 +242,29 @@ __d(
         r("CometComposedTextV2CustomNodeRenderer.react"),
       );
     }
-    function k(e, t, n, a) {
+    function k(e) {
+      var t = e.alt,
+        n = e.format,
+        a = e.imageUrl,
+        i = e.title;
+      return new (o(
+        "CometComposedTextV2CustomNode.react",
+      ).CometComposedTextV2CustomNode)(
+        {
+          key: r("cometComposedTextV2NodeKey")(),
+          rendererArgs: {
+            alt: t,
+            format: n,
+            imageUrl: a,
+            nodeType: "markdownImage",
+            title: i,
+          },
+          rendererKey: "markdownImage",
+        },
+        r("CometComposedTextV2CustomNodeRenderer.react"),
+      );
+    }
+    function I(e, t, n, a) {
       return new (o(
         "CometComposedTextV2LinkNode.react",
       ).CometComposedTextV2LinkNode)(
@@ -256,7 +278,7 @@ __d(
         r("CometComposedTextV2LinkNodeRenderer.react"),
       );
     }
-    function I(e) {
+    function T(e) {
       return new (o(
         "CometComposedTextV2MathNode.react",
       ).CometComposedTextV2MathNode)(
@@ -264,7 +286,7 @@ __d(
         r("CometComposedTextV2MathNodeRenderer.react"),
       );
     }
-    function T(e, t, n) {
+    function D(e, t, n) {
       return new (o(
         "CometComposedTextV2ContentViewerNode.react",
       ).CometComposedTextV2ContentViewerNode)(
@@ -277,7 +299,7 @@ __d(
         r("CometComposedTextV2ContentViewerNodeRenderer.react"),
       );
     }
-    function D() {
+    function x() {
       return new (o(
         "CometComposedTextV2NewLineNode.react",
       ).CometComposedTextV2NewLineNode)(
@@ -285,7 +307,7 @@ __d(
         r("CometComposedTextV2NewLineNodeRenderer.react"),
       );
     }
-    function x() {
+    function $() {
       return new (o(
         "CometComposedTextV2ParagraphNode.react",
       ).CometComposedTextV2ParagraphNode)(
@@ -293,7 +315,7 @@ __d(
         r("CometComposedTextV2ParagraphNodeRenderer.react"),
       );
     }
-    function $(e, t, n, a, i) {
+    function P(e, t, n, a, i) {
       return new (o(
         "CometComposedTextV2ProgressStatusNode.react",
       ).CometComposedTextV2ProgressStatusNode)(
@@ -308,7 +330,7 @@ __d(
         r("CometComposedTextV2ProgressStatusNodeRenderer.react"),
       );
     }
-    function P() {
+    function N() {
       return new (o(
         "CometComposedTextV2RootNode.react",
       ).CometComposedTextV2RootNode)(
@@ -316,7 +338,7 @@ __d(
         r("CometComposedTextV2RootNodeRenderer.react"),
       );
     }
-    function N(e, t, n) {
+    function M(e, t, n) {
       return (
         t === void 0 && (t = 0),
         new (o(
@@ -332,7 +354,7 @@ __d(
         )
       );
     }
-    function M() {
+    function w() {
       return new (o(
         "CometComposedTextV2ThematicBreakNode.react",
       ).CometComposedTextV2ThematicBreakNode)(
@@ -357,15 +379,16 @@ __d(
       (l.buildGridNode = R),
       (l.buildImageGridNode = L),
       (l.buildImageNode = E),
-      (l.buildLinkNode = k),
-      (l.buildMathNode = I),
-      (l.buildContentViewerNode = T),
-      (l.buildNewLineNode = D),
-      (l.buildParagraphNode = x),
-      (l.buildProgressStatusNode = $),
-      (l.buildRootNode = P),
-      (l.buildTextNode = N),
-      (l.buildThematicBreakNode = M));
+      (l.buildMarkdownImageNode = k),
+      (l.buildLinkNode = I),
+      (l.buildMathNode = T),
+      (l.buildContentViewerNode = D),
+      (l.buildNewLineNode = x),
+      (l.buildParagraphNode = $),
+      (l.buildProgressStatusNode = P),
+      (l.buildRootNode = N),
+      (l.buildTextNode = M),
+      (l.buildThematicBreakNode = w));
   },
   98,
 );

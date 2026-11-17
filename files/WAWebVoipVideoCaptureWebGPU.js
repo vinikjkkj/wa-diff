@@ -9,6 +9,7 @@ __d(
     "WAWebVoipVideoCaptureCanvas",
     "WAWebVoipVideoCaptureWebGL",
     "WAWebVoipVideoCaptureWithConverter",
+    "WAWebVoipVideoFrameCtor",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -288,8 +289,12 @@ __d(
                   d = this.readbackBufferNV12,
                   m = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
-                      var n = e;
-                      if (o("WAWebUA").UA.isFirefox && E(e))
+                      var n = e,
+                        m = r("WAWebVoipVideoFrameCtor")();
+                      if (
+                        o("WAWebUA").UA.isFirefox &&
+                        (E(e) || (m != null && e instanceof m))
+                      )
                         try {
                           n = yield createImageBitmap(e);
                         } catch (e) {
@@ -313,38 +318,38 @@ __d(
                           { texture: u },
                           { width: i, height: l },
                         );
-                        var m = a.createCommandEncoder(),
-                          p = m.beginComputePass();
+                        var p = a.createCommandEncoder(),
+                          _ = p.beginComputePass();
                         if (!t.pipeline || !t.bindGroup)
                           throw r("err")("WebGPU pipeline not initialized");
-                        var _ = t.pipeline,
-                          f = t.bindGroup;
-                        (p.setPipeline(_), p.setBindGroup(0, f));
-                        var y = 16,
-                          C = Math.ceil(i / y),
-                          b = Math.ceil(l / y);
-                        (p.dispatchWorkgroups(C, b), p.end());
-                        var v = 4,
-                          S = t.useYPacking
-                            ? t.yPackedWidth * l * v
-                            : i * l * v,
-                          L = t.useUVPacking
-                            ? t.uvPackedWidth * (l / 2) * v
-                            : (i / 2) * (l / 2) * 2 * v,
-                          k = S + L;
+                        var f = t.pipeline,
+                          y = t.bindGroup;
+                        (_.setPipeline(f), _.setBindGroup(0, y));
+                        var C = 16,
+                          b = Math.ceil(i / C),
+                          v = Math.ceil(l / C);
+                        (_.dispatchWorkgroups(b, v), _.end());
+                        var S = 4,
+                          L = t.useYPacking
+                            ? t.yPackedWidth * l * S
+                            : i * l * S,
+                          k = t.useUVPacking
+                            ? t.uvPackedWidth * (l / 2) * S
+                            : (i / 2) * (l / 2) * 2 * S,
+                          I = L + k;
                         if (
-                          (m.copyBufferToBuffer(c, 0, d, 0, k),
-                          a.queue.submit([m.finish()]),
+                          (p.copyBufferToBuffer(c, 0, d, 0, I),
+                          a.queue.submit([p.finish()]),
                           t.isCleaningUp)
                         )
                           throw r("err")(
                             "Cannot convert video: WebGPU converter is being cleaned up",
                           );
-                        var I = d.mapAsync(s.READ);
+                        var T = d.mapAsync(s.READ);
                         try {
                           yield o(
                             "WAWebVoipGpuDeviceLiveness",
-                          ).withDeviceLiveness(I, {
+                          ).withDeviceLiveness(T, {
                             label: "WebGPU mapAsync",
                             lostPromise: a.lost,
                             timeoutMs: R,
@@ -357,7 +362,7 @@ __d(
                             t.isAlive()
                           )
                             try {
-                              t.retireTimedOutReadbackBuffer(d, I, k);
+                              t.retireTimedOutReadbackBuffer(d, T, I);
                             } catch (e) {
                               ((t.isCleaningUp = !0),
                                 o("WALogger").LOG(
@@ -382,23 +387,23 @@ __d(
                           );
                         try {
                           if (t.useYPacking && t.useUVPacking) {
-                            var T = d.getMappedRange();
-                            (t.nv12Data.set(new Uint8Array(T)), d.unmap());
+                            var D = d.getMappedRange();
+                            (t.nv12Data.set(new Uint8Array(D)), d.unmap());
                           } else {
                             for (
-                              var D = new Uint32Array(d.getMappedRange()),
-                                x = S / v,
-                                $ = 0;
-                              $ < t.yData.length;
-                              $++
+                              var x = new Uint32Array(d.getMappedRange()),
+                                $ = L / S,
+                                P = 0;
+                              P < t.yData.length;
+                              P++
                             )
-                              t.yData[$] = D[$] & 255;
-                            for (var P = 0; P < t.uvData.length; P++)
-                              t.uvData[P] = D[x + P] & 255;
+                              t.yData[P] = x[P] & 255;
+                            for (var N = 0; N < t.uvData.length; N++)
+                              t.uvData[N] = x[$ + N] & 255;
                             d.unmap();
-                            var N = i * l;
+                            var M = i * l;
                             (t.nv12Data.set(t.yData, 0),
-                              t.nv12Data.set(t.uvData, N));
+                              t.nv12Data.set(t.uvData, M));
                           }
                         } catch (e) {
                           throw t.isCleaningUp

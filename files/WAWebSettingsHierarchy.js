@@ -13,6 +13,7 @@ __d(
     "WAWebListsGatingUtils",
     "WAWebMediaGatingUtils",
     "WAWebPaymentsGatingUtils",
+    "WAWebProductFeature",
     "WAWebSettingGatingUtils",
     "WAWebSettingsConst",
     "WAWebSettingsFBT",
@@ -512,7 +513,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.DefaultEphemerality,
             id: "default_message_timer",
-            isAvailable: !0,
+            isAvailable: !o("WAWebProductFeature").isInternalProduct(),
             title: o("WAWebSettingsFBT").privacyDDMTitle,
             searchCriteria: [
               String(o("WAWebSettingsFBT").privacyDDMTitle()),

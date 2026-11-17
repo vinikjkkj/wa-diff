@@ -34,6 +34,10 @@ __d(
       "identifierType",
       "methodType",
       "screen",
+      "entryPoint",
+      "isBizInPurchaseHub",
+      "offerType",
+      "platform",
     ];
     function l(e) {
       return e.replace(/[A-Z]/g, function (e) {

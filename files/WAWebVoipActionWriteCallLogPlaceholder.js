@@ -18,6 +18,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNoop",
+    "WAWebNullFunc",
     "WAWebPromiseQueue",
     "WAWebRegionReadinessSignals",
     "WAWebReleaseToEventLoop",
@@ -124,9 +125,7 @@ __d(
               ? null
               : yield o("WAPromiseTimeout")
                   .promiseTimeout(t, v)
-                  .catch(function () {
-                    return null;
-                  });
+                  .catch(o("WAWebNullFunc").returnNull);
           return r != null ? r : (yield n == null ? void 0 : n(), w(e));
         })),
         D.apply(this, arguments)

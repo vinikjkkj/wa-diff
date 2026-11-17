@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsVoip",
     "WAWebVoipCameraFingerprintLogging",
     "WAWebVoipCaptureCap",
+    "WAWebVoipLazyVideoEffectsProcessor",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipPthreadHardening",
     "WAWebVoipResolutionCap",
@@ -381,6 +382,9 @@ __d(
                           return t.__stopBeganSince(R);
                         },
                         onVideoDataFnType: "onVideoDataFromJs",
+                        videoFrameProcessor: o(
+                          "WAWebVoipLazyVideoEffectsProcessor",
+                        ).lazyVideoEffectsProcessor,
                       },
                       E,
                     ),
@@ -695,6 +699,8 @@ __d(
                       return s.__stopBeganSince(u);
                     },
                     onVideoDataFnType: "onVideoDataFromJs",
+                    videoFrameProcessor: o("WAWebVoipLazyVideoEffectsProcessor")
+                      .lazyVideoEffectsProcessor,
                     width: t,
                     height: a,
                     maxFps: i,
@@ -1706,6 +1712,9 @@ __d(
             if (
               ((this.__callEndGeneration = ++this.__stopGeneration),
               o(
+                "WAWebVoipLazyVideoEffectsProcessor",
+              ).lazyVideoEffectsProcessor.recordCallEnd(),
+              o(
                 "WAWebVoipPthreadHardening",
               ).isVoipWorkerLifecycleHardeningEnabled())
             ) {
@@ -1713,6 +1722,11 @@ __d(
               ((e = this.__frameMonitorCleanup) == null || e.call(this),
                 (this.__frameMonitorCleanup = null));
             }
+          }),
+          (a.recordCallStart = function () {
+            o(
+              "WAWebVoipLazyVideoEffectsProcessor",
+            ).lazyVideoEffectsProcessor.recordCallStart();
           }),
           (a.scheduleCallEndCameraRelease = function () {
             var e = Array.from(Ie);

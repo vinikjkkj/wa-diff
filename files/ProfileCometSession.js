@@ -42,16 +42,17 @@ __d(
               ? "about_page"
               : "timeline";
     }
-    function d(e) {
+    var d = new Set(["social_recommendations"]);
+    function m(e) {
       var t;
       if (e == null) return null;
       var n =
         (t = o("ConstUriUtils").getUri(e)) == null
           ? void 0
           : t.getQueryParam("ref");
-      return typeof n == "string" && n !== "" ? n : null;
+      return typeof n == "string" && d.has(n) ? n : null;
     }
-    function m(e, t, n, o) {
+    function p(e, t, n, o) {
       (o === void 0 && (o = null),
         r("ProfileEngagementFalcoEvent").log(function () {
           return babelHelpers.extends(
@@ -67,17 +68,26 @@ __d(
           );
         }));
     }
-    function p(t, n) {
+    function _(t, n) {
       var o = (e || (e = r("WebStorage"))).getLocalStorage();
       if (!o) return null;
       var a = r("uuidv4")();
-      return (b(t, a), m(t, a, n == null ? void 0 : n.tracePolicy), a);
+      return (
+        v(t, a),
+        p(
+          t,
+          a,
+          n == null ? void 0 : n.tracePolicy,
+          m(n == null ? void 0 : n.url),
+        ),
+        a
+      );
     }
-    function _(e, t) {
-      var n = h(e);
-      return n === null ? p(e, t) : n;
+    function f(e, t) {
+      var n = y(e);
+      return n === null ? _(e, t) : n;
     }
-    function f(t) {
+    function g(t) {
       var n = (e || (e = r("WebStorage"))).getLocalStorageForRead();
       if (t == null || !n) return null;
       var o = n.getItem(t);
@@ -88,8 +98,8 @@ __d(
         s = parseInt(l, 10);
       return [i, s];
     }
-    function g(e) {
-      var t = f(e);
+    function h(e) {
+      var t = g(e);
       if (t !== null) {
         var n = t[0],
           r = t[1];
@@ -98,53 +108,53 @@ __d(
       }
       return null;
     }
-    function h(e) {
-      return g(s(e));
+    function y(e) {
+      return h(s(e));
     }
-    function y(t) {
+    function C(t) {
       var n = s(t);
       if (n === null) return null;
       var o = n + ":logging",
-        a = g(o);
+        a = h(o);
       if (a !== null) return a;
       var i = (e || (e = r("WebStorage"))).getLocalStorage();
       if (!i) return null;
       var l = r("uuidv4")();
-      return C(o, l);
+      return b(o, l);
     }
-    function C(t, n) {
+    function b(t, n) {
       var o = Date.now(),
         a = (e || (e = r("WebStorage"))).getLocalStorage();
       return a && t != null
         ? ((e || (e = r("WebStorage"))).setItemGuarded(a, t, n + ":" + o), n)
         : null;
     }
-    function b(e, t) {
-      return C(s(e), t);
-    }
     function v(e, t) {
-      var n = _(e, t);
-      return n == null ? null : (b(e, n), n);
+      return b(s(e), t);
     }
     function S(e, t) {
-      var n;
-      return r("gkx")("7772") ? ((n = h(e)) != null ? n : y(e)) : _(e, t);
+      var n = f(e, t);
+      return n == null ? null : (v(e, n), n);
     }
-    function R(e, t, n, r) {
-      if (t != null) {
-        var o = h(e);
-        if (o === null) return (m(e, t, n, d(r)), b(e, t));
-      }
-      return v(e);
+    function R(e, t) {
+      var n;
+      return r("gkx")("7772") ? ((n = y(e)) != null ? n : C(e)) : f(e, t);
     }
     function L(e, t, n, r) {
+      if (t != null) {
+        var o = y(e);
+        if (o === null) return (p(e, t, n, m(r)), v(e, t));
+      }
+      return S(e);
+    }
+    function E(e, t, n, r) {
       return o("ProfileCometSessionUtil").isSameProfileSession(t, n) ||
         r === "popstate" ||
         r === "initial"
-        ? v(e, n)
-        : p(e, n);
+        ? S(e, n)
+        : _(e, n);
     }
-    ((l.extend = v), (l.get = S), (l.initOrExtend = R), (l.navigate = L));
+    ((l.extend = S), (l.get = R), (l.initOrExtend = L), (l.navigate = E));
   },
   98,
 );

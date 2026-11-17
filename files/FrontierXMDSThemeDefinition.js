@@ -8,12 +8,12 @@ __d(
       u = { x1w2u7rz: "x1odx9dz x1w2u7rz", $$css: !0 },
       c = { x1w2u7rz: "x1iok15e x1w2u7rz", $$css: !0 },
       d = { auto: {}, dark: {}, light: {} },
-      m = null;
+      m = { iconRoles: {}, scale: null, textRoles: {} };
     ((l.FrontierXMDSAutoTheme = s),
       (l.FrontierXMDSLightTheme = u),
       (l.FrontierXMDSDarkTheme = c),
       (l.FrontierXMDSThemeNativeVarContextValues = d),
-      (l.FrontierXMDSTextScale = m));
+      (l.FrontierXMDSTypography = m));
   },
   98,
 );

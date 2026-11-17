@@ -11,13 +11,13 @@ __d(
     "WAWebFlex.react",
     "WAWebFlexItem.react",
     "WAWebMenuItems.react",
-    "WAWebModalManager",
     "WAWebOrderConfirmDiscardModal",
     "WAWebOrderGatingUtils",
     "WAWebOrderTotalPrice",
     "WAWebProductModel",
     "WAWebRichTextField.react",
     "WAWebSelect.react",
+    "WDSDialogBridge",
     "react",
     "react-compiler-runtime",
   ],
@@ -230,7 +230,7 @@ __d(
       n[37] !== ee || n[38] !== c
         ? ((ue = ee
             ? function () {
-                o("WAWebModalManager").ModalManager.open(
+                o("WDSDialogBridge").openWDSDialog(
                   u.jsx(r("WAWebOrderConfirmDiscardModal"), { onOK: c }),
                 );
               }

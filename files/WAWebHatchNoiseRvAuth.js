@@ -239,8 +239,7 @@ __d(
         V.apply(this, arguments)
       );
     }
-    ((l.NOISE_CLIENT_NONCE_BYTES = e),
-      (l.WAWebHatchNoiseRvError = E),
+    ((l.WAWebHatchNoiseRvError = E),
       (l.createNoiseClientNonce = k),
       (l.encodeRvMessage1 = I),
       (l.decodeRvChallenge = T),

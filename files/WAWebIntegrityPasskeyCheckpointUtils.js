@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebIntegrityChallengeUtils",
     "WAWebLazyLoadedRetriable",
+    "WAWebLogoutReasonConstants",
     "WAWebModalManager",
     "WAWebPathfinderHeldBackScope.react",
     "WAWebPathfinderHeldBackSurface",
@@ -106,7 +107,10 @@ __d(
           ])),
       ),
         o("WAWebModalManager").ModalManager.close(),
-        o("WAWebSocketModel").Socket.logout());
+        o("WAWebSocketModel").Socket.logout(
+          o("WAWebLogoutReasonConstants").LogoutReason.UserInitiated,
+          o("WAWebLogoutReasonConstants").LogoutTrigger.PasskeyFriction,
+        ));
     }
     function v(e) {
       f()

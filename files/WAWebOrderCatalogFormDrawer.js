@@ -16,6 +16,7 @@ __d(
     "WAWebOrderGatingUtils",
     "WAWebOrderTotalPrice",
     "WAWebOrdersExpansionUtils",
+    "WDSDialogBridge",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "react",
@@ -125,7 +126,7 @@ __d(
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
             onBack: C
               ? function () {
-                  o("WAWebModalManager").ModalManager.open(
+                  o("WDSDialogBridge").openWDSDialog(
                     c.jsx(r("WAWebOrderConfirmDiscardModal"), { onOK: l }),
                   );
                 }

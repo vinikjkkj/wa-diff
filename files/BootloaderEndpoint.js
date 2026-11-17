@@ -5,6 +5,7 @@ __d(
     "Bootloader",
     "BootloaderEndpointConfig",
     "BootloaderEvents",
+    "BootloaderOfflineFailureConfig",
     "CSRFGuard",
     "FBLogger",
     "HasteResponse",
@@ -90,6 +91,12 @@ __d(
       var o = e.getAllResponseHeaders(),
         a =
           o.indexOf("error-mid") >= 0 ? e.getResponseHeader("error-mid") : null;
+      if (
+        n("BootloaderOfflineFailureConfig").SKIP_OFFLINE_FAILURE_NOTIFICATION &&
+        a == null &&
+        e.status === 0
+      )
+        return a;
       for (var i of [t, r])
         for (var l of i.entries()) {
           var s = l[0],

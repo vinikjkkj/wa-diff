@@ -14,6 +14,8 @@ __d(
     "WAWebVoipPopoutWindowState",
     "WAWebVoipPresentationFrameNormalizer",
     "WAWebVoipVideoCaptureSourceRect",
+    "WAWebVoipVideoFrameCtor",
+    "WAWebVoipVideoFrameProcessor",
     "WAWebVoipVideoRenderSource",
     "WAWebVoipVideoRendererRegistry",
     "asyncToGeneratorRuntime",
@@ -65,13 +67,14 @@ __d(
       j,
       K,
       Q,
-      X = 3,
-      Y = 15,
-      J = 30,
-      Z = 2,
-      ee = 0.9,
-      te = "orientation";
-    function ne(e) {
+      X,
+      Y = 3,
+      J = 15,
+      Z = 30,
+      ee = 2,
+      te = 0.9,
+      ne = "orientation";
+    function re(e) {
       var t = e.isBackCamera,
         n = e.isScreenShare,
         r = e.requestedHeight,
@@ -110,7 +113,61 @@ __d(
             ),
           };
     }
-    var re = (function () {
+    function oe(e) {
+      return ae.apply(this, arguments);
+    }
+    function ae() {
+      return (
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.failureLog,
+            n = e.isCurrent,
+            a = e.processor,
+            i = e.source;
+          if (
+            a == null ||
+            !o("WAWebVoipVideoFrameProcessor").shouldProcessFrame(a)
+          )
+            return { image: i, release: r("WAWebNoop") };
+          var l = null,
+            s = null;
+          try {
+            var u = r("WAWebVoipVideoFrameCtor")();
+            if (u == null) throw r("err")("VideoFrame is not available");
+            ((l = new u(i, {
+              timestamp: Math.round(self.performance.now() * 1e3),
+            })),
+              (s = yield a.process(l)));
+          } catch (e) {
+            var c;
+            return (
+              (c = l) == null || c.close(),
+              t.isLogged ||
+                ((t.isLogged = !0),
+                o("WALogger").ERROR(
+                  K ||
+                    (K = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:capture] frame processing failed, skipping frames until it works: ",
+                      "",
+                    ])),
+                  e,
+                )),
+              null
+            );
+          }
+          if (((t.isLogged = !1), s == null)) return null;
+          if (!n()) return (s.close(), null);
+          var d = s;
+          return {
+            image: d,
+            release: function () {
+              return d.close();
+            },
+          };
+        })),
+        ae.apply(this, arguments)
+      );
+    }
+    var ie = (function () {
       function t() {
         ((this.converter = null),
           (this.mediaCaptureStream = null),
@@ -135,6 +192,9 @@ __d(
           (this.$11 = null),
           (this.$12 = null),
           (this.$13 = 0),
+          (this.$14 = null),
+          (this.$15 = 0),
+          (this.$16 = { isLogged: !1 }),
           (this.isStopped = !1),
           (this.isCaptureInProgress = !1),
           (this.primaryConverter = null),
@@ -149,7 +209,10 @@ __d(
       }
       var a = t.prototype;
       return (
-        (a.$14 = function (n, r) {
+        (a.$17 = function (t) {
+          return !this.isStopped && t === this.$15;
+        }),
+        (a.$18 = function (n, r) {
           if (
             !(
               this.$12 != null ||
@@ -208,7 +271,7 @@ __d(
                 t,
               ),
               this.consecutiveErrors++,
-              this.consecutiveErrors >= X && !this.isStopped)
+              this.consecutiveErrors >= Y && !this.isStopped)
             ) {
               var i = yield this.attemptFallbackRecovery(r);
               i && a(n);
@@ -224,13 +287,13 @@ __d(
           }
           return t;
         })()),
-        (a.$15 = function (t) {
+        (a.$19 = function (t) {
           var e = t.height,
             n = t.videoElement,
             r = t.width,
             o = this.$10;
           if (o != null && o.width === r && o.height === e) return o;
-          this.$16();
+          this.$20();
           var a = n.ownerDocument.createElement("canvas");
           ((a.width = r), (a.height = e));
           var i = a.getContext("2d");
@@ -241,19 +304,19 @@ __d(
               (this.$11 = i),
               a);
         }),
-        (a.$16 = function () {
+        (a.$20 = function () {
           var e = this.$10;
           (e != null && ((e.width = 0), (e.height = 0)),
             (this.$10 = null),
             (this.$11 = null));
         }),
-        (a.$17 = function () {
+        (a.$21 = function () {
           var e = this.$7;
           (e != null && ((e.width = 0), (e.height = 0)),
             (this.$7 = null),
             (this.$8 = null));
         }),
-        (a.$18 = function (t, n) {
+        (a.$22 = function (t, n) {
           var e, r;
           if (this.$9) return null;
           if (!this.$4) {
@@ -270,8 +333,8 @@ __d(
               (this.$4 = !0));
           }
           var l = globalThis.screen,
-            s = l != null ? l[te] : null;
-          return ne({
+            s = l != null ? l[ne] : null;
+          return re({
             isBackCamera: this.$2,
             isScreenShare: n,
             requestedHeight: this.$6,
@@ -284,33 +347,38 @@ __d(
             videoWidth: t.videoWidth,
           });
         }),
-        (a.$19 = function (t, n) {
-          var e = n.counterRotationDegrees,
-            r = n.outputHeight,
-            o = n.outputWidth;
-          if (this.$7 == null || this.$7.width !== o || this.$7.height !== r) {
-            this.$17();
-            var a = t.ownerDocument.createElement("canvas");
-            ((a.width = o), (a.height = r));
-            var i = a.getContext("2d");
-            if (i == null) return null;
-            ((i.imageSmoothingEnabled = !0), (this.$7 = a), (this.$8 = i));
+        (a.$23 = function (t) {
+          var e = t.element,
+            n = t.image,
+            r = t.rotation,
+            o = t.sourceHeight,
+            a = t.sourceWidth,
+            i = r.counterRotationDegrees,
+            l = r.outputHeight,
+            s = r.outputWidth;
+          if (this.$7 == null || this.$7.width !== s || this.$7.height !== l) {
+            this.$21();
+            var u = e.ownerDocument.createElement("canvas");
+            ((u.width = s), (u.height = l));
+            var c = u.getContext("2d");
+            if (c == null) return null;
+            ((c.imageSmoothingEnabled = !0), (this.$7 = u), (this.$8 = c));
           }
-          var l = this.$8;
-          return l == null
+          var d = this.$8;
+          return d == null
             ? null
-            : (l.setTransform(1, 0, 0, 1, 0, 0),
-              l.clearRect(0, 0, o, r),
-              e === 90
-                ? (l.translate(o, 0), l.rotate(Math.PI / 2))
-                : e === 180
-                  ? (l.translate(o, r), l.rotate(Math.PI))
-                  : (l.translate(0, r), l.rotate(-Math.PI / 2)),
-              l.drawImage(t, 0, 0, t.videoWidth, t.videoHeight),
-              l.setTransform(1, 0, 0, 1, 0, 0),
+            : (d.setTransform(1, 0, 0, 1, 0, 0),
+              d.clearRect(0, 0, s, l),
+              i === 90
+                ? (d.translate(s, 0), d.rotate(Math.PI / 2))
+                : i === 180
+                  ? (d.translate(s, l), d.rotate(Math.PI))
+                  : (d.translate(0, l), d.rotate(-Math.PI / 2)),
+              d.drawImage(n, 0, 0, a, o),
+              d.setTransform(1, 0, 0, 1, 0, 0),
               this.$7);
         }),
-        (a.$20 = function (t) {
+        (a.$24 = function (t) {
           var e = t.height,
             n = t.maxFps,
             r = t.nv12Data,
@@ -364,20 +432,44 @@ __d(
             !1,
           );
         }),
-        (a.$21 = (function () {
+        (a.$25 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = e.counterRotation,
-              r = e.element,
-              a = e.frameInterval,
-              i = e.height,
-              l = e.logPrefix,
-              s = e.maxFps,
-              u = e.onVideoDataFnType,
-              m = e.requestCallback,
-              p = e.voipWasm,
-              _ = e.width,
-              f = this.$19(r, n);
-            if (f == null)
+            var n = this,
+              r = e.counterRotation,
+              a = e.element,
+              i = e.frameInterval,
+              l = e.generation,
+              s = e.height,
+              u = e.logPrefix,
+              m = e.maxFps,
+              p = e.onVideoDataFnType,
+              _ = e.requestCallback,
+              f = e.voipWasm,
+              g = e.width,
+              h = a.videoWidth,
+              y = a.videoHeight,
+              C = yield oe({
+                failureLog: this.$16,
+                isCurrent: function () {
+                  return n.$17(l);
+                },
+                processor: this.$14,
+                source: a,
+              });
+            if (C == null) return (_(i), !0);
+            var b;
+            try {
+              b = this.$23({
+                element: a,
+                image: C.image,
+                rotation: r,
+                sourceHeight: y,
+                sourceWidth: h,
+              });
+            } finally {
+              C.release();
+            }
+            if (b == null)
               return (
                 (this.$9 = !0),
                 o("WALogger")
@@ -387,37 +479,37 @@ __d(
                         "",
                         " counter-rotation canvas unavailable; falling back to legacy crop path (video may be cropped/mis-rotated)",
                       ])),
-                    l,
+                    u,
                   )
                   .sendLogs("voip-withconverter-rotation-canvas-unavailable"),
                 !1
               );
-            var g = n.orientation,
-              h = n.outputHeight,
-              y = n.outputWidth;
-            if (y !== _ || h !== i)
+            var v = r.orientation,
+              S = r.outputHeight,
+              R = r.outputWidth;
+            if (R !== g || S !== s)
               return (
-                yield this.__initVideoCapture({ height: h, width: y }),
+                yield this.__initVideoCapture({ height: S, width: R }),
                 yield this.ensureVideoBufferCapacity(
                   t.getNV12FrameSize(this.width, this.height),
-                  l,
+                  u,
                 ),
                 (this.consecutiveErrors = 0),
-                m(a),
+                _(i),
                 !0
               );
-            var C = this.converter;
-            if (C == null) return !0;
-            var b;
+            var L = this.converter;
+            if (L == null) return !0;
+            var E;
             try {
-              b = yield C.convertVideoToNV12(f);
+              E = yield L.convertVideoToNV12(b);
             } catch (e) {
               return (
                 yield this.handleCaptureError({
                   error: e,
-                  frameInterval: a,
-                  logPrefix: l,
-                  requestCallback: m,
+                  frameInterval: i,
+                  logPrefix: u,
+                  requestCallback: _,
                 }),
                 !0
               );
@@ -439,26 +531,26 @@ __d(
                         " counterRotation=",
                         "",
                       ])),
-                    l,
+                    u,
                     this.$1,
+                    v,
                     g,
-                    _,
-                    i,
-                    n.counterRotationDegrees,
+                    s,
+                    r.counterRotationDegrees,
                   )),
-                !(yield this.ensureVideoBufferCapacity(b.byteLength, l))) ||
+                !(yield this.ensureVideoBufferCapacity(E.byteLength, u))) ||
                 this.isStopped ||
                 this.converter == null ||
-                (this.$20({
-                  height: i,
-                  maxFps: s,
-                  nv12Data: b,
-                  onVideoDataFnType: u,
-                  orientation: g,
-                  voipWasm: p,
-                  width: _,
+                (this.$24({
+                  height: s,
+                  maxFps: m,
+                  nv12Data: E,
+                  onVideoDataFnType: p,
+                  orientation: v,
+                  voipWasm: f,
+                  width: g,
                 }),
-                m(a)),
+                _(i)),
               !0
             );
           });
@@ -501,7 +593,7 @@ __d(
               if (a != null)
                 return this.isStopped
                   ? (a !== this.fallbackConverter &&
-                      (Q || (Q = n("Promise")))
+                      (X || (X = n("Promise")))
                         .resolve(a.cleanup())
                         .catch(r("WAWebNoop")),
                     !1)
@@ -510,7 +602,7 @@ __d(
                     (this.usingFallback = !0),
                     this.fallbackConverter != null &&
                       this.fallbackConverter !== a &&
-                      (Q || (Q = n("Promise")))
+                      (X || (X = n("Promise")))
                         .resolve(this.fallbackConverter.cleanup())
                         .catch(r("WAWebNoop")),
                     (this.fallbackConverter = null),
@@ -526,7 +618,7 @@ __d(
                       a.getConverterName(),
                     ),
                     t != null &&
-                      (Q || (Q = n("Promise")))
+                      (X || (X = n("Promise")))
                         .resolve(t.cleanup())
                         .catch(function (t) {
                           o("WALogger").WARN(
@@ -622,10 +714,10 @@ __d(
                 r = this.videoBufferSize;
               ((this.videoBuffer = null),
                 (this.videoBufferSize = 0),
-                n != null && (yield le(n)));
-              var a = yield ae(e);
+                n != null && (yield ce(n)));
+              var a = yield se(e);
               return this.isStopped
-                ? (yield le(a), !1)
+                ? (yield ce(a), !1)
                 : ((this.videoBuffer = a),
                   (this.videoBufferSize = e),
                   r > 0 &&
@@ -661,7 +753,7 @@ __d(
             (this.converter && i.push(this.converter.cleanup()),
               this.fallbackConverter &&
                 i.push(this.fallbackConverter.cleanup()),
-              yield (Q || (Q = n("Promise"))).all(i));
+              yield (X || (X = n("Promise"))).all(i));
             var l,
               s = !1;
             try {
@@ -728,34 +820,38 @@ __d(
               d = e.maxFps,
               m = e.onVideoDataFnType,
               p = e.stream,
-              _ = e.width;
-            ((this.isStopped = !1),
+              _ = e.videoFrameProcessor,
+              f = e.width,
+              g = ++this.$15;
+            ((this.$16 = { isLogged: !1 }),
+              (this.isStopped = !1),
               (this.isCaptureInProgress = !1),
               (this.lastCaptureTime = 0),
               (this.consecutiveErrors = 0),
               (this.usingFallback = !1),
               (this.$1 = 0),
-              this.$16(),
-              this.$17(),
+              this.$20(),
+              this.$21(),
               (this.$9 = !1),
               (this.$4 = !1),
               (this.$3 = 0),
-              (this.$5 = _),
+              (this.$5 = f),
               (this.$6 = c),
               (this.$12 = null),
               (this.$13 = 0),
+              (this.$14 = m === "onVideoDataFromJs" && _ != null ? _ : null),
               o("WAWebVoipEncodeTargetFpsState").resetEncodeTargetFps(),
-              yield this.__initVideoCapture({ width: _, height: c }));
-            var f = p.getVideoTracks()[0],
-              g =
-                f == null ||
-                f.getSettings == null ||
-                (a = f.getSettings()) == null
+              yield this.__initVideoCapture({ width: f, height: c }));
+            var h = p.getVideoTracks()[0],
+              y =
+                h == null ||
+                h.getSettings == null ||
+                (a = h.getSettings()) == null
                   ? void 0
                   : a.facingMode;
-            this.$2 = g === "environment";
-            var h = r("nullthrows")(this.converter).getConverterName(),
-              y = "voip: [AV:startVideoCapture (" + h + ")]";
+            this.$2 = y === "environment";
+            var C = r("nullthrows")(this.converter).getConverterName(),
+              b = "voip: [AV:startVideoCapture (" + C + ")]";
             o("WALogger").LOG(
               v ||
                 (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -763,10 +859,10 @@ __d(
                   " facingMode=",
                   "",
                 ])),
-              y,
-              g != null ? g : "unknown",
+              b,
+              y != null ? y : "unknown",
             );
-            var C =
+            var $ =
                 (i =
                   (l = o("WAWebVoipPopoutWindowState").getPopoutWindow()) ==
                   null
@@ -774,7 +870,7 @@ __d(
                     : l.document) != null
                   ? i
                   : null,
-              b = C != null ? C : document;
+              P = $ != null ? $ : document;
             o("WALogger").LOG(
               S ||
                 (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -782,32 +878,32 @@ __d(
                   " video element owner: ",
                   "",
                 ])),
-              y,
-              C != null ? "popout" : "main",
+              b,
+              $ != null ? "popout" : "main",
             );
-            var $ = oe();
-            if ($) {
-              var P = this.mediaCaptureStream;
-              P != null &&
-                ((P.videoElement.srcObject = null), P.videoElement.remove());
+            var N = le();
+            if (N) {
+              var M = this.mediaCaptureStream;
+              M != null &&
+                ((M.videoElement.srcObject = null), M.videoElement.remove());
             }
             this.mediaCaptureStream = {
               mediaStream: p,
-              videoElement: b.createElement("video"),
+              videoElement: P.createElement("video"),
             };
-            var N = this.mediaCaptureStream.videoElement;
+            var w = this.mediaCaptureStream.videoElement;
             if (
-              ((N.srcObject = p),
-              (N.autoplay = !0),
-              (N.muted = !0),
-              (N.playsInline = !0),
-              $)
+              ((w.srcObject = p),
+              (w.autoplay = !0),
+              (w.muted = !0),
+              (w.playsInline = !0),
+              N)
             ) {
-              (N.setAttribute("aria-hidden", "true"),
-                (N.style.cssText =
+              (w.setAttribute("aria-hidden", "true"),
+                (w.style.cssText =
                   "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;"));
-              var M = b.body;
-              if (M == null)
+              var A = P.body;
+              if (A == null)
                 throw (
                   o("WALogger")
                     .ERROR(
@@ -816,92 +912,92 @@ __d(
                           "",
                           " no document body to host capture video",
                         ])),
-                      y,
+                      b,
                     )
                     .sendLogs("voip-withconverter-capture-no-body"),
                   r("err")("No document body to host capture video")
                 );
-              M.appendChild(N);
+              A.appendChild(w);
             }
             o(
               "WAWebCoreActionsODS",
-            ).logCallVideoCaptureWithConverterPlayAttempt($);
+            ).logCallVideoCaptureWithConverterPlayAttempt(N);
             try {
-              var w;
-              (yield (w = this.mediaCaptureStream) == null
+              var F;
+              (yield (F = this.mediaCaptureStream) == null
                 ? void 0
-                : w.videoElement.play(),
+                : F.videoElement.play(),
                 o(
                   "WAWebCoreActionsODS",
-                ).logCallVideoCaptureWithConverterPlaySuccess($));
+                ).logCallVideoCaptureWithConverterPlaySuccess(N));
             } catch (e) {
               throw (
                 o(
                   "WAWebCoreActionsODS",
-                ).logCallVideoCaptureWithConverterPlayFailure($),
+                ).logCallVideoCaptureWithConverterPlayFailure(N),
                 e
               );
             }
             if (
-              (this.$14(N, y),
+              (this.$18(w, b),
               o("WALogger").LOG(
                 L ||
                   (L = babelHelpers.taggedTemplateLiteralLoose([
                     "",
                     " video element ready",
                   ])),
-                y,
+                b,
               ),
               !!(yield this.ensureVideoBufferCapacity(
                 t.getNV12FrameSize(this.width, this.height),
-                y,
+                b,
               )))
             ) {
-              var A =
+              var O =
                   (s = this.mediaCaptureStream) == null
                     ? void 0
                     : s.videoElement,
-                F =
+                B =
                   yield o("WAWebBackendApi").frontendSendAndReceive(
                     "initializeVoipWasm",
                   ),
-                O = (function () {
+                W = (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      if (!u.isCaptureInProgress) {
+                      if (!(u.isCaptureInProgress || g !== u.$15)) {
                         u.isCaptureInProgress = !0;
                         var n = u.width,
                           a = u.height,
                           i = 1e3 / d;
                         try {
                           if (u.isStopped) return;
-                          if (!u.mediaCaptureStream || !A || !u.converter) {
+                          if (!u.mediaCaptureStream || !O || !u.converter) {
                             o("WALogger").ERROR(
                               E ||
                                 (E = babelHelpers.taggedTemplateLiteralLoose([
                                   "",
                                   ": Video capture not ready, canceling frame capture",
                                 ])),
-                              y,
+                              b,
                             );
                             return;
                           }
-                          if (A.readyState < A.HAVE_CURRENT_DATA) {
+                          if (O.readyState < O.HAVE_CURRENT_DATA) {
                             (o("WALogger").WARN(
                               k ||
                                 (k = babelHelpers.taggedTemplateLiteralLoose([
                                   "",
                                   " Video not ready yet, skipping frame capture",
                                 ])),
-                              y,
+                              b,
                             ),
                               e(i));
                             return;
                           }
                           if (
-                            A.readyState < 2 ||
-                            A.videoWidth === 0 ||
-                            A.videoHeight === 0
+                            O.readyState < 2 ||
+                            O.videoWidth === 0 ||
+                            O.videoHeight === 0
                           )
                             throw r("err")(
                               "Video element not ready for capture",
@@ -910,8 +1006,8 @@ __d(
                             "WAWebVoipEncodeTargetFpsState",
                           ).getEncodeTargetFps();
                           if (l > 0) {
-                            var s = Math.max(Y, Math.min(J, l + Z)),
-                              c = (1e3 / s) * ee,
+                            var s = Math.max(J, Math.min(Z, l + ee)),
+                              c = (1e3 / s) * te,
                               p = self.performance.now(),
                               _ = p - u.lastCaptureTime;
                             if (_ < c) {
@@ -920,54 +1016,55 @@ __d(
                             }
                             u.lastCaptureTime = p;
                           }
-                          var f = A;
+                          var f = O;
                           try {
-                            var g,
-                              h,
+                            var h,
+                              y,
                               C = m === "onDesktopCaptureDataFromJs",
-                              b = u.$18(A, C);
-                            if (b != null) {
-                              var v = yield u.$21({
-                                counterRotation: b,
-                                element: A,
+                              v = u.$22(O, C);
+                            if (v != null) {
+                              var S = yield u.$25({
+                                counterRotation: v,
+                                element: O,
                                 frameInterval: i,
+                                generation: g,
                                 height: a,
-                                logPrefix: y,
+                                logPrefix: b,
                                 maxFps: d,
                                 onVideoDataFnType: m,
                                 requestCallback: e,
-                                voipWasm: F,
+                                voipWasm: B,
                                 width: n,
                               });
-                              if (v) return;
+                              if (S) return;
                             }
-                            u.$14(A, y);
-                            var S = u.$12,
-                              R =
-                                S != null
+                            u.$18(O, b);
+                            var R = u.$12,
+                              L =
+                                R != null
                                   ? o(
                                       "WAWebVoipVideoCaptureSourceRect",
-                                    ).getVideoElementSourceCropRect(A, S)
+                                    ).getVideoElementSourceCropRect(O, R)
                                   : null,
-                              L =
-                                (g = S == null ? void 0 : S.width) != null
-                                  ? g
-                                  : A.videoWidth,
                               $ =
-                                (h = S == null ? void 0 : S.height) != null
+                                (h = R == null ? void 0 : R.width) != null
                                   ? h
-                                  : A.videoHeight,
-                              P = o(
-                                "WAWebVoipVideoCaptureSourceRect",
-                              ).closestEven(L),
+                                  : O.videoWidth,
+                              P =
+                                (y = R == null ? void 0 : R.height) != null
+                                  ? y
+                                  : O.videoHeight,
                               N = o(
                                 "WAWebVoipVideoCaptureSourceRect",
                               ).closestEven($),
-                              M =
-                                R != null ||
-                                P !== A.videoWidth ||
-                                N !== A.videoHeight;
-                            if (P !== n || N !== a) {
+                              M = o(
+                                "WAWebVoipVideoCaptureSourceRect",
+                              ).closestEven(P),
+                              w =
+                                L != null ||
+                                N !== O.videoWidth ||
+                                M !== O.videoHeight;
+                            if (N !== n || M !== a) {
                               if (
                                 (o("WALogger").LOG(
                                   I ||
@@ -979,101 +1076,116 @@ __d(
                                         "x",
                                         ", skip",
                                       ])),
-                                  P,
                                   N,
+                                  M,
                                   n,
                                   a,
                                 ),
                                 yield u.__initVideoCapture({
-                                  width: P,
-                                  height: N,
+                                  width: N,
+                                  height: M,
                                 }),
                                 !(yield u.ensureVideoBufferCapacity(
                                   t.getNV12FrameSize(u.width, u.height),
-                                  y,
+                                  b,
                                 )))
                               )
                                 return;
                               ((u.consecutiveErrors = 0), e(i));
                               return;
                             }
-                            if (R != null) {
-                              var w = u.$15({
-                                  height: N,
-                                  videoElement: A,
-                                  width: P,
+                            if (L != null) {
+                              var A = u.$19({
+                                  height: M,
+                                  videoElement: O,
+                                  width: N,
                                 }),
-                                O = u.$11;
-                              if (w != null && O != null)
-                                (O.drawImage(
-                                  A,
-                                  R.x,
-                                  R.y,
-                                  R.width,
-                                  R.height,
+                                F = u.$11;
+                              if (A != null && F != null)
+                                (F.drawImage(
+                                  O,
+                                  L.x,
+                                  L.y,
+                                  L.width,
+                                  L.height,
                                   0,
                                   0,
-                                  P,
                                   N,
+                                  M,
                                 ),
-                                  (f = w));
+                                  (f = A));
                               else {
-                                var B = o(
+                                var W = o(
                                     "WAWebVoipVideoCaptureSourceRect",
                                   ).getImageBitmapResizeOptionsForSourceCropRect(
-                                    R,
-                                    P,
+                                    L,
                                     N,
+                                    M,
                                   ),
-                                  W = yield createImageBitmap(
-                                    A,
-                                    R.x,
-                                    R.y,
-                                    R.width,
-                                    R.height,
+                                  q = yield createImageBitmap(
+                                    O,
+                                    L.x,
+                                    L.y,
+                                    L.width,
+                                    L.height,
                                   );
-                                if (B == null) f = W;
+                                if (W == null) f = q;
                                 else
                                   try {
-                                    f = yield createImageBitmap(W, B);
+                                    f = yield createImageBitmap(q, W);
                                   } finally {
-                                    W.close();
+                                    q.close();
                                   }
                               }
                               if (u.isStopped || !u.converter) return;
-                            } else if (M) {
-                              var q, U;
+                            } else if (w) {
+                              var U, V;
                               if (
                                 ((f = yield createImageBitmap(
-                                  A,
-                                  (q = S == null ? void 0 : S.x) != null
-                                    ? q
-                                    : 0,
-                                  (U = S == null ? void 0 : S.y) != null
+                                  O,
+                                  (U = R == null ? void 0 : R.x) != null
                                     ? U
                                     : 0,
-                                  P,
+                                  (V = R == null ? void 0 : R.y) != null
+                                    ? V
+                                    : 0,
                                   N,
+                                  M,
                                 )),
                                 u.isStopped || !u.converter)
                               )
                                 return;
                             }
-                            if (!u.converter) return;
-                            var V;
+                            var H = yield oe({
+                              failureLog: u.$16,
+                              isCurrent: function () {
+                                return u.$17(g);
+                              },
+                              processor: u.$14,
+                              source: f,
+                            });
+                            if (H == null) {
+                              e(i);
+                              return;
+                            }
+                            var G;
                             try {
-                              V = yield u.converter.convertVideoToNV12(f);
+                              var z = u.converter;
+                              if (!z) return;
+                              G = yield z.convertVideoToNV12(H.image);
                             } catch (t) {
                               yield u.handleCaptureError({
                                 error: t,
                                 frameInterval: i,
-                                logPrefix: y,
+                                logPrefix: b,
                                 requestCallback: e,
                               });
                               return;
+                            } finally {
+                              H.release();
                             }
                             u.consecutiveErrors = 0;
-                            var H = o("WAWebVoipMediaEnums").Orientation.Normal;
+                            var j = o("WAWebVoipMediaEnums").Orientation.Normal;
                             if (
                               (u.$1 < 3 &&
                                 (u.$1++,
@@ -1088,30 +1200,30 @@ __d(
                                         "x",
                                         "",
                                       ])),
-                                  y,
+                                  b,
                                   u.$1,
-                                  H,
+                                  j,
                                   n,
                                   a,
                                 )),
                               !(yield u.ensureVideoBufferCapacity(
-                                V.byteLength,
-                                y,
+                                G.byteLength,
+                                b,
                               )))
                             )
                               return;
                             if (u.videoBuffer != null) {
-                              var G = u.videoBuffer;
-                              (F.GROWABLE_HEAP_U8().set(V, G),
-                                F[m](
-                                  G,
-                                  V.length,
+                              var K = u.videoBuffer;
+                              (B.GROWABLE_HEAP_U8().set(G, K),
+                                B[m](
+                                  K,
+                                  G.length,
                                   n,
                                   a,
                                   d,
                                   o("WAWebVoipMediaEnums").WAWebVoipVideoFormat
                                     .NV12,
-                                  H,
+                                  j,
                                 ));
                             } else
                               o("WALogger")
@@ -1122,12 +1234,12 @@ __d(
                                         "",
                                         " video buffer not initialized",
                                       ])),
-                                  y,
+                                  b,
                                 )
                                 .sendLogs(
                                   "voip: wasm: video buffer not initialized",
                                 );
-                            var z = o(
+                            var Q = o(
                               "WAWebVoipVideoRenderSource",
                             ).WAWebVoipVideoRenderSource.self(
                               m === "onDesktopCaptureDataFromJs" &&
@@ -1142,11 +1254,11 @@ __d(
                             (o(
                               "WAWebVoipVideoRendererRegistry",
                             ).videoRendererRegistry.onVideoFrameWasmToJs(
-                              z,
-                              V.buffer,
+                              Q,
+                              G.buffer,
                               n,
                               a,
-                              H,
+                              j,
                               o("WAWebVoipMediaEnums").WAWebVoipVideoFormat
                                 .NV12,
                               0,
@@ -1164,7 +1276,7 @@ __d(
                                 " video processing error: ",
                                 "",
                               ])),
-                            y,
+                            b,
                             t,
                           ),
                             !u.isStopped &&
@@ -1172,7 +1284,7 @@ __d(
                               u.converter != null &&
                               e(i));
                         } finally {
-                          u.isCaptureInProgress = !1;
+                          g === u.$15 && (u.isCaptureInProgress = !1);
                         }
                       }
                     },
@@ -1181,15 +1293,15 @@ __d(
                     return e.apply(this, arguments);
                   };
                 })();
-              A && A.readyState >= A.HAVE_CURRENT_DATA
+              O && O.readyState >= O.HAVE_CURRENT_DATA
                 ? window.setTimeout(function () {
-                    return u.$22(O);
+                    return u.$26(W, g);
                   }, 0)
-                : A &&
-                  A.addEventListener(
+                : O &&
+                  O.addEventListener(
                     "loadeddata",
                     function () {
-                      return u.$22(O);
+                      return u.$26(W, g);
                     },
                     { once: !0 },
                   );
@@ -1200,138 +1312,143 @@ __d(
           }
           return a;
         })()),
-        (a.$22 = function (t) {
-          var e = this,
-            r = document.visibilityState === "visible",
-            a = function () {
-              (Q || (Q = n("Promise"))).resolve(t(i)).catch(function (e) {
-                o("WALogger").WARN(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:captureFrame] unhandled error: ",
-                      "",
-                    ])),
-                  e,
-                );
-              });
-            },
-            i = function (n) {
-              if (!e.isStopped) {
-                e.clearScheduledCapture();
-                var t = e.getCaptureSchedulerWindow(),
-                  r = e.shouldScheduleWithAnimationFrame(t);
-                r
-                  ? ((e.animationFrameWindow = t),
-                    (e.animationFrameId = t.requestAnimationFrame(function () {
-                      ((e.animationFrameId = null),
-                        (e.animationFrameWindow = null),
-                        (e.timeoutFrameWindow = t),
-                        (e.timeoutFrameId = t.setTimeout(function () {
-                          ((e.timeoutFrameId = null),
-                            (e.timeoutFrameWindow = null),
-                            a());
-                        }, n)));
-                    })))
-                  : ((e.timeoutFrameWindow = t),
-                    (e.timeoutFrameId = t.setTimeout(function () {
-                      ((e.timeoutFrameId = null),
-                        (e.timeoutFrameWindow = null),
-                        a());
-                    }, n)));
+        (a.$26 = function (t, r) {
+          var e = this;
+          if (this.$17(r)) {
+            var a = document.visibilityState === "visible",
+              i = function () {
+                (X || (X = n("Promise"))).resolve(t(l)).catch(function (e) {
+                  o("WALogger").WARN(
+                    $ ||
+                      ($ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:captureFrame] unhandled error: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                });
+              },
+              l = function (n) {
+                if (e.$17(r)) {
+                  e.clearScheduledCapture();
+                  var t = e.getCaptureSchedulerWindow(),
+                    o = e.shouldScheduleWithAnimationFrame(t);
+                  o
+                    ? ((e.animationFrameWindow = t),
+                      (e.animationFrameId = t.requestAnimationFrame(
+                        function () {
+                          ((e.animationFrameId = null),
+                            (e.animationFrameWindow = null),
+                            (e.timeoutFrameWindow = t),
+                            (e.timeoutFrameId = t.setTimeout(function () {
+                              ((e.timeoutFrameId = null),
+                                (e.timeoutFrameWindow = null),
+                                i());
+                            }, n)));
+                        },
+                      )))
+                    : ((e.timeoutFrameWindow = t),
+                      (e.timeoutFrameId = t.setTimeout(function () {
+                        ((e.timeoutFrameId = null),
+                          (e.timeoutFrameWindow = null),
+                          i());
+                      }, n)));
+                }
+              };
+            (this.visibilityChangeListener &&
+              document.removeEventListener(
+                "visibilitychange",
+                this.visibilityChangeListener,
+              ),
+              this.popoutVisibilityChangeListener &&
+                o(
+                  "WAWebVoipPopoutWindowState",
+                ).WAWebVoipUiPopoutWindowEventEmitter.off(
+                  "popoutWindowVisibilityChanged",
+                  this.popoutVisibilityChangeListener,
+                ));
+            var s = function (n) {
+              var t, l;
+              (e.clearScheduledCapture(),
+                (a = document.visibilityState === "visible"));
+              var s = o(
+                  "WAWebVoipPopoutWindowState",
+                ).getIsPopoutWindowActiveAndVisible(),
+                u = a || s,
+                c = e.getCaptureSchedulerWindow();
+              o("WALogger").LOG(
+                P ||
+                  (P = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:VideoCapture] ",
+                    " visible=",
+                    " popout=",
+                    " converter=",
+                    " scheduler=",
+                    "",
+                  ])),
+                n,
+                String(a),
+                String(s),
+                (t =
+                  (l = e.converter) == null ? void 0 : l.getConverterName()) !=
+                  null
+                  ? t
+                  : "none",
+                c === window ? "main" : "popout",
+              );
+              var d = function () {
+                e.$17(r) &&
+                  (o("WAWebUA").UA.isSafari &&
+                    e.fallbackConverter &&
+                    (!u && !e.usingFallback
+                      ? e.switchToFallbackConverter().catch(function (e) {
+                          o("WALogger").WARN(
+                            N ||
+                              (N = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [AV:VideoCapture] switchToFallback error: ",
+                                "",
+                              ])),
+                            e,
+                          );
+                        })
+                      : u &&
+                        e.usingFallback &&
+                        e.switchBackToPrimaryConverter().catch(function (e) {
+                          o("WALogger").WARN(
+                            M ||
+                              (M = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [AV:VideoCapture] switchBackToPrimary error: ",
+                                "",
+                              ])),
+                            e,
+                          );
+                        })),
+                  i());
+              };
+              try {
+                c.setTimeout(d, 0);
+              } catch (e) {
+                window.setTimeout(d, 0);
               }
             };
-          (this.visibilityChangeListener &&
-            document.removeEventListener(
-              "visibilitychange",
-              this.visibilityChangeListener,
-            ),
-            this.popoutVisibilityChangeListener &&
+            ((this.visibilityChangeListener = function () {
+              s("visibilitychange");
+            }),
+              document.addEventListener(
+                "visibilitychange",
+                this.visibilityChangeListener,
+              ),
+              (this.popoutVisibilityChangeListener = function (e) {
+                s("popoutVisibilitychange=" + e.visibilityState);
+              }),
               o(
                 "WAWebVoipPopoutWindowState",
-              ).WAWebVoipUiPopoutWindowEventEmitter.off(
+              ).WAWebVoipUiPopoutWindowEventEmitter.on(
                 "popoutWindowVisibilityChanged",
                 this.popoutVisibilityChangeListener,
-              ));
-          var l = function (n) {
-            var t, i;
-            (e.clearScheduledCapture(),
-              (r = document.visibilityState === "visible"));
-            var l = o(
-                "WAWebVoipPopoutWindowState",
-              ).getIsPopoutWindowActiveAndVisible(),
-              s = r || l,
-              u = e.getCaptureSchedulerWindow();
-            o("WALogger").LOG(
-              P ||
-                (P = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [AV:VideoCapture] ",
-                  " visible=",
-                  " popout=",
-                  " converter=",
-                  " scheduler=",
-                  "",
-                ])),
-              n,
-              String(r),
-              String(l),
-              (t = (i = e.converter) == null ? void 0 : i.getConverterName()) !=
-                null
-                ? t
-                : "none",
-              u === window ? "main" : "popout",
-            );
-            var c = function () {
-              e.isStopped ||
-                (o("WAWebUA").UA.isSafari &&
-                  e.fallbackConverter &&
-                  (!s && !e.usingFallback
-                    ? e.switchToFallbackConverter().catch(function (e) {
-                        o("WALogger").WARN(
-                          N ||
-                            (N = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:VideoCapture] switchToFallback error: ",
-                              "",
-                            ])),
-                          e,
-                        );
-                      })
-                    : s &&
-                      e.usingFallback &&
-                      e.switchBackToPrimaryConverter().catch(function (e) {
-                        o("WALogger").WARN(
-                          M ||
-                            (M = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:VideoCapture] switchBackToPrimary error: ",
-                              "",
-                            ])),
-                          e,
-                        );
-                      })),
-                a());
-            };
-            try {
-              u.setTimeout(c, 0);
-            } catch (e) {
-              window.setTimeout(c, 0);
-            }
-          };
-          ((this.visibilityChangeListener = function () {
-            l("visibilitychange");
-          }),
-            document.addEventListener(
-              "visibilitychange",
-              this.visibilityChangeListener,
-            ),
-            (this.popoutVisibilityChangeListener = function (e) {
-              l("popoutVisibilitychange=" + e.visibilityState);
-            }),
-            o(
-              "WAWebVoipPopoutWindowState",
-            ).WAWebVoipUiPopoutWindowEventEmitter.on(
-              "popoutWindowVisibilityChanged",
-              this.popoutVisibilityChangeListener,
-            ),
-            a());
+              ),
+              i());
+          }
         }),
         (a.switchToFallbackConverter = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -1472,9 +1589,10 @@ __d(
               r,
             ),
               (this.isStopped = !0),
+              this.$15++,
               (this.lastCaptureTime = 0),
               o("WAWebVoipEncodeTargetFpsState").resetEncodeTargetFps(),
-              this.$17(),
+              this.$21(),
               (this.$4 = !1));
             try {
               (this.clearScheduledCapture(),
@@ -1569,7 +1687,7 @@ __d(
             } finally {
               if (this.videoBuffer != null)
                 try {
-                  (yield le(this.videoBuffer),
+                  (yield ce(this.videoBuffer),
                     o("WALogger").LOG(
                       z ||
                         (z = babelHelpers.taggedTemplateLiteralLoose([
@@ -1604,51 +1722,52 @@ __d(
         t
       );
     })();
-    function oe() {
+    function le() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_video_capture_dom_attach",
         ) !== !1
       );
     }
-    function ae(e) {
-      return ie.apply(this, arguments);
+    function se(e) {
+      return ue.apply(this, arguments);
     }
-    function ie() {
+    function ue() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializeVoipWasm",
             );
           return t._malloc(e);
         })),
-        ie.apply(this, arguments)
+        ue.apply(this, arguments)
       );
     }
-    function le(e) {
-      return se.apply(this, arguments);
+    function ce(e) {
+      return de.apply(this, arguments);
     }
-    function se() {
+    function de() {
       return (
-        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializeVoipWasm",
             );
           t._free(e);
         })),
-        se.apply(this, arguments)
+        de.apply(this, arguments)
       );
     }
-    ((l.getImageBitmapResizeOptionsForSourceCropRect = (K = o(
+    ((l.getImageBitmapResizeOptionsForSourceCropRect = (Q = o(
       "WAWebVoipVideoCaptureSourceRect",
     )).getImageBitmapResizeOptionsForSourceCropRect),
-      (l.getVideoElementSourceCropRect = K.getVideoElementSourceCropRect),
-      (l.getVideoSourceContentRect = K.getVideoSourceContentRect),
-      (l.probeVideoSourceContentRect = K.probeVideoSourceContentRect),
-      (l.resolveConverterCaptureRotation = ne),
-      (l.WAWebVoipVideoCaptureWithConverter = re));
+      (l.getVideoElementSourceCropRect = Q.getVideoElementSourceCropRect),
+      (l.getVideoSourceContentRect = Q.getVideoSourceContentRect),
+      (l.probeVideoSourceContentRect = Q.probeVideoSourceContentRect),
+      (l.resolveConverterCaptureRotation = re),
+      (l.prepareConversionSource = oe),
+      (l.WAWebVoipVideoCaptureWithConverter = ie));
   },
   98,
 );

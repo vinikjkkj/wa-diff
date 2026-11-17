@@ -20,17 +20,17 @@ __d(
     function e(e) {
       var t = e.msg,
         n = e.options,
-        r = o("WAWebFrontendMsgGetters").getAsRichResponse(t);
+        r = o("WAWebFrontendMsgGetters").getAsRichResponse(t),
+        a = r == null ? void 0 : r.unifiedResponse;
       if (
         r != null &&
+        a != null &&
+        o("WAWebUnifiedResponseUtils").hasUnifiedResponseContent(a) &&
         o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(t)
       )
         return u(
           t,
-          o("WAWebRichResponsePreviewText").getUnifiedResponsePreviewText(
-            t,
-            r.unifiedResponse,
-          ),
+          o("WAWebRichResponsePreviewText").getUnifiedResponsePreviewText(t, a),
           n.formatAsLastMsg === !0,
           n,
         );
@@ -41,20 +41,20 @@ __d(
         )
       )
         return o("WAWebFormatUnknownMsg").formatUnknownMsgText(t);
-      var a = r.richResponse,
-        i = a.fragments,
-        l = a.parseState,
-        s = o("WAWebRichResponseMsgUtils")
-          .getBundledRichResponseFragments(i)
+      var i = r.richResponse,
+        l = i.fragments,
+        s = i.parseState,
+        c = o("WAWebRichResponseMsgUtils")
+          .getBundledRichResponseFragments(l)
           .map(function (e) {
-            return d(e, l);
+            return d(e, s);
           })
           .join("\n");
-      return s.trim() === ""
+      return c.trim() === ""
         ? o("WAWebFormatUnknownMsg").formatUnknownMsgText(t)
         : o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
             t,
-            s,
+            c,
             n,
           );
     }

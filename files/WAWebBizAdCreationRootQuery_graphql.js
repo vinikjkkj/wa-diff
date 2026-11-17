@@ -1323,6 +1323,48 @@ __d(
                               name: "creative_spec_json",
                               storageKey: null,
                             },
+                            {
+                              alias: null,
+                              args: null,
+                              concreteType: "LWIGenAIMediaSourcingSpec",
+                              kind: "LinkedField",
+                              name: "media_sourcing_spec",
+                              plural: !1,
+                              selections: [
+                                {
+                                  alias: null,
+                                  args: null,
+                                  concreteType: "LWIGenAIMediaSourcingImage",
+                                  kind: "LinkedField",
+                                  name: "images",
+                                  plural: !0,
+                                  selections: [
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      concreteType: "LWIGenAIImageMetadata",
+                                      kind: "LinkedField",
+                                      name: "gen_ai_metadata",
+                                      plural: !1,
+                                      selections: [
+                                        {
+                                          alias: null,
+                                          args: null,
+                                          kind: "ScalarField",
+                                          name: "generation_path",
+                                          storageKey: null,
+                                        },
+                                      ],
+                                      storageKey: null,
+                                    },
+                                    f,
+                                    D,
+                                  ],
+                                  storageKey: null,
+                                },
+                              ],
+                              storageKey: null,
+                            },
                             s,
                             {
                               alias: null,

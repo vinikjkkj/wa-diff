@@ -1,6 +1,7 @@
 __d(
   "WAWebHandleMsgUnparsableStanza",
   [
+    "WAJids",
     "WALogger",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgParser",
@@ -91,7 +92,7 @@ __d(
               "failedParsingMessage: ",
               "",
             ])),
-          e,
+          o("WAJids").maybeSanitizeLogLineText(String(e)),
         )
         .tags("messaging")
         .sendLogs("msg-stanza-parsing-failed-xmpp-no-ack", { sampling: 0.01 });
@@ -104,7 +105,7 @@ __d(
               "failedParsingMessage: ",
               "",
             ])),
-          e,
+          o("WAJids").maybeSanitizeLogLineText(String(e)),
         )
         .tags("messaging")
         .sendLogs("msg-stanza-parsing-failed-xmpp", { sampling: 0.01 });

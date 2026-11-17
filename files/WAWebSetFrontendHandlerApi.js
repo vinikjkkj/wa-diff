@@ -60,6 +60,7 @@ __d(
     "WAWebQuickReplyBridgeApi",
     "WAWebReachoutTimelockBridgeApi",
     "WAWebReactionsBridgeApi",
+    "WAWebSavedPromotionsAutoSaveWatcher",
     "WAWebScheduledMsgBridgeApi",
     "WAWebSettingsBridgeApi",
     "WAWebSharableEventBridgeApi",
@@ -86,6 +87,7 @@ __d(
       (o(
         "WAWebCampaignNotificationListener",
       ).businessBroadcastCampaignNotificationRegistration(),
+        o("WAWebSavedPromotionsAutoSaveWatcher").startSavedPromotionsAutoSave(),
         e.setHandlers(
           "event",
           babelHelpers.extends(

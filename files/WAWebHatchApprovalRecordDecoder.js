@@ -142,6 +142,9 @@ __d(
           ).decodeHatchApprovalRequestPreview(
             o("WAWebHatchJsonReaders").readField(l, "request_preview_document"),
           ),
+          requestPreviewText: o(
+            "WAWebHatchApprovalRequestPreview",
+          ).hatchApprovalFlatPreview(u),
           payloadType: d,
           rawPayloadType: c,
           connectorHost: o("WAWebHatchJsonReaders").readStringOrEmpty(

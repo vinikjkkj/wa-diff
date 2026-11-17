@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebAddPromotionToPaymentsActionLoader",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizEntryPoint",
@@ -50,7 +51,14 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = ["interactivePayload", "interactiveType", "sender", "t", "type"],
+      c = [
+        "interactivePayload",
+        "interactiveType",
+        "isCarouselCard",
+        "sender",
+        "t",
+        "type",
+      ],
       d,
       m = d || (d = o("react"));
     function p(e) {
@@ -62,122 +70,141 @@ __d(
         s = e.values,
         u = s.interactivePayload,
         d = s.interactiveType,
-        m = s.sender,
-        p = s.t,
-        f = s.type,
-        C = babelHelpers.objectWithoutPropertiesLoose(s, c),
-        b = C.chat,
-        R = C.isSentByMe,
-        I = C.nativeFlowName;
+        m = s.isCarouselCard,
+        p = s.sender,
+        f = s.t,
+        C = s.type,
+        b = babelHelpers.objectWithoutPropertiesLoose(s, c),
+        R = b.chat,
+        I = b.isSentByMe,
+        T = b.nativeFlowName;
       if (!u) return null;
       if (d == null) return [];
-      var T = {
+      var D = {
           interactivePayload: u,
           interactiveType: d,
-          nativeFlowName: I,
-          type: f,
+          nativeFlowName: T,
+          type: C,
         },
-        D = babelHelpers.extends({}, T, { nativeFlowButtons: null }),
-        x = [];
+        x = babelHelpers.extends({}, D, { nativeFlowButtons: null }),
+        $ = [];
       switch (d) {
         case r("WAWebInteractiveMessageType").SHOPS_STOREFRONT: {
-          x.push(r("WAWebGetShopStorefrontInteractiveAction")(u));
+          $.push(r("WAWebGetShopStorefrontInteractiveAction")(u));
           break;
         }
         case r("WAWebInteractiveMessageType").NATIVE_FLOW:
           if (_(n, s, t)) {
             if (
-              I === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
+              T === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
             ) {
-              var $ = o("WAWebOrderDetails").getOrderInfoFor(D);
-              if (!$) return null;
-              x.push.apply(x, k(n, s, $));
-            } else if (
-              I === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-            ) {
-              var P = o("WAWebOrderDetails").getOrderInfoFor(D);
+              var P = o("WAWebOrderDetails").getOrderInfoFor(x);
               if (!P) return null;
-              var N = o("WAWebOrderStatus").findOrderStatus(b, P.referenceId),
-                M = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
-                  chat: b,
+              $.push.apply($, k(n, s, P));
+            } else if (
+              T === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+            ) {
+              var N = o("WAWebOrderDetails").getOrderInfoFor(x);
+              if (!N) return null;
+              var M = o("WAWebOrderStatus").findOrderStatus(R, N.referenceId),
+                w = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
+                  chat: R,
                   msgKey: n,
-                  orderInfo: P,
-                  orderStatus: N,
+                  orderInfo: N,
+                  orderStatus: M,
                   uimContext: l,
                   values: {
                     interactivePayload: u,
                     interactiveType: d,
-                    isSentByMe: R,
-                    nativeFlowName: I,
-                    type: f,
+                    isSentByMe: I,
+                    nativeFlowName: T,
+                    type: C,
                   },
                 });
-              M && x.push(M);
-              var w = N === o("WAWebOrderStatus").OrderStatus.Pending,
-                A = i == null;
-              if (L(b)) {
-                var F = A ? y(P, n, b) : [v(n, s, l, !0)];
-                F.length === 0 ? x.push(v(n, s, l, !w)) : x.push.apply(x, F);
-              } else if (o("WAWebOrderStatus").isPaymentRequest(b, P))
-                x.push.apply(x, E(n, s, P));
+              w && $.push(w);
+              var A = M === o("WAWebOrderStatus").OrderStatus.Pending,
+                F = i == null;
+              if (L(R)) {
+                var O = F ? y(N, n, R) : [v(n, s, l, !0)];
+                O.length === 0 ? $.push(v(n, s, l, !A)) : $.push.apply($, O);
+              } else if (o("WAWebOrderStatus").isPaymentRequest(R, N))
+                $.push.apply($, E(n, s, N));
               else {
-                var O = null;
-                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(b) &&
-                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(P) &&
-                  (O = o(
+                var B = null;
+                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(R) &&
+                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(N) &&
+                  (B = o(
                     "WAWebGetBrazilnteractiveActions",
-                  ).getCopyPixStaticCodeInteractiveAction(n, P)),
-                  x.push(O != null ? O : v(n, s, l, !w)));
+                  ).getCopyPixStaticCodeInteractiveAction(n, N)),
+                  $.push(B != null ? B : v(n, s, l, !A)));
               }
-              var B = S(n, s, P, w);
-              B && x.push(B);
+              var W = S(n, s, N, A);
+              W && $.push(W);
             } else if (
-              I ===
+              T ===
               r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK
             ) {
-              var W = o(
+              var q = o(
                 "WAWebGetMessageWithLinkAction",
-              ).getOpenMessageWithLinkActionFor(T);
-              W && x.push(W);
+              ).getOpenMessageWithLinkActionFor(D);
+              q && $.push(q);
             } else if (
-              I ===
+              T ===
               r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT
             ) {
-              var q = g(n, {
+              var U = g(n, {
                 interactivePayload: u,
                 interactiveType: d,
-                type: f,
+                type: C,
               });
-              q && x.push(q);
+              U && $.push(U);
             } else if (
-              I === r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE
+              T === r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE
             ) {
-              var U = o(
+              var V = o(
                 "WAWebGetMultiStepFormAction",
               ).getOpenMultiStepFormAction(n, s, l);
-              U && x.push(U);
+              V && $.push(V);
             }
             if (
-              I != null &&
+              T != null &&
               o(
                 "WAWebBizTemplateAndInteractiveMessagesUtils",
-              ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(I)
+              ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(T)
             ) {
-              var V = o("WAWebGetInteractiveCtaActions").getNativeFlowCtasFor({
+              var H = o("WAWebGetInteractiveCtaActions").getNativeFlowCtasFor({
                 interactivePayload: u,
                 interactiveType: d,
-                nativeFlowName: I,
-                t: p,
-                type: f,
+                nativeFlowName: T,
+                t: f,
+                type: C,
               });
-              V != null && x.push.apply(x, h(V, n, C));
+              H != null && $.push.apply($, h(H, n, b));
             }
+            var G = o(
+              "WAWebAddPromotionToPaymentsActionLoader",
+            ).getAddPromotionToPaymentsActionIfLoaded(
+              n,
+              {
+                caption: null,
+                fromMe: n.fromMe,
+                interactivePayload: u,
+                interactiveType: d,
+                isCarouselCard: m,
+                isFromTemplate: b.isFromTemplate,
+                nativeFlowName: T,
+                type: C,
+              },
+              f,
+              $.length,
+            );
+            G && $.push(G);
           }
           break;
         case r("WAWebInteractiveMessageType").CAROUSEL:
           break;
       }
-      return x;
+      return $;
     }
     function _(e, t, n) {
       return typeof n != "boolean"

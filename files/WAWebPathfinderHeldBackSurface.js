@@ -29,6 +29,7 @@ __d(
         "mi-chatlock",
         "mi-logout menu-item",
         "mi-screen-lock menu-item",
+        "navbar-item-locked",
         "screen-lock-settings-item",
       ]),
       s = [],

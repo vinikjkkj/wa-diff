@@ -24,6 +24,7 @@ __d(
         "MP_USER",
         "NISABA_USER",
         "SOLO_USER",
+        "SWIPELESS_USER",
         "THREADS_USER",
         "VR_PROFILE",
         "WA_BUSINESS_PROFILE",

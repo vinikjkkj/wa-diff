@@ -33,9 +33,9 @@ __d(
             )) === "1"
       );
     }
-    function m(t) {
+    function m(t, n) {
       return o("WAWebUnpairDeviceJob")
-        .unpairDevice(t)
+        .unpairDevice(t, n)
         .then(function (t) {
           (t.status !== 200 &&
             o("WALogger").WARN(

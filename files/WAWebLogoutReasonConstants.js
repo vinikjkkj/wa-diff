@@ -42,13 +42,19 @@ __d(
         WebFailEncSalt: "web_fail_enc_salt",
         CacheStorageOpenFailed: "cache_storage_open_failed",
       }),
-      l = {
+      l = n("$InternalEnum")({
+        TemporaryBan: "temporary_ban",
+        PasskeyFriction: "passkey_friction",
+        TosNotAccepted: "tos_not_accepted",
+        ScreenLockTriesExceeded: "screen_lock_tries_exceeded",
+      }),
+      s = {
         CLIENT_FATAL: "0",
         SYNC_FAIL: "1",
         INITIAL_HISTORY_SYNC_TIMEOUT: "2",
         ACCOUNT_LOCKED: "3",
       };
-    ((i.LogoutReason = e), (i.LOGOUT_REASON_CODE = l));
+    ((i.LogoutReason = e), (i.LogoutTrigger = l), (i.LOGOUT_REASON_CODE = s));
   },
   66,
 );

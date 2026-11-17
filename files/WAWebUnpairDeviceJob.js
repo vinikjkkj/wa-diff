@@ -4,6 +4,7 @@ __d(
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
     "WAWap",
+    "WAWebABProps",
     "WAWebCommsWapMd",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
@@ -18,32 +19,39 @@ __d(
         { status: n }
       );
     });
-    function s(e) {
+    function s(e, t) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            r = (n = o("WAWap")).wap(
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r,
+            a = (r = o("WAWap")).wap(
               "iq",
               {
-                to: n.S_WHATSAPP_NET,
+                to: r.S_WHATSAPP_NET,
                 type: "set",
-                id: n.generateId(),
+                id: r.generateId(),
                 xmlns: "md",
               },
-              n.wap("remove-companion-device", {
+              r.wap("remove-companion-device", {
                 jid: o("WAWebCommsWapMd").DEVICE_JID(
                   o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE(),
                 ),
-                reason: n.CUSTOM_STRING(t),
+                reason: r.CUSTOM_STRING(t),
+                trigger:
+                  n != null &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "md_logout_trigger_enabled",
+                  )
+                    ? o("WAWap").CUSTOM_STRING(n)
+                    : o("WAWap").DROP_ATTR,
               }),
             ),
-            a = yield o("WADeprecatedSendIq").deprecatedSendIq(r, e);
-          return a.success
-            ? { status: a.result.status }
-            : { status: a.errorCode };
+            i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, e);
+          return i.success
+            ? { status: i.result.status }
+            : { status: i.errorCode };
         })),
         u.apply(this, arguments)
       );

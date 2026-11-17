@@ -156,6 +156,7 @@ __d(
         "lantern",
         "fb-owl",
         "glam",
+        "swipeless",
         "direct",
         "loja",
       ]),

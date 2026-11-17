@@ -1275,6 +1275,9 @@ __d(
               "WAWebVoipCallEnterPipModeCountStore",
             ).resetCallEnterPipModeCount(),
             o(
+              "WAWebVoipVideoCameraCapture",
+            ).WAWebVoipVideoCameraCapture.recordCallStart(),
+            o(
               "WAWebVoipOwnDeviceJids",
             ).refreshOwnOtherDeviceJidsForCallTransfer(a)),
             o(
@@ -1362,15 +1365,19 @@ __d(
             (qe(c, u, typeof s.callId == "string" ? s.callId : null),
             o("WAWebVoipWebTransportCallSummary").recordWtCallState(l),
             We(c),
-            (l === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
-              l === o("WAWebVoipWaCallEnums").CallState.AcceptReceived) &&
-              (o(
-                "WAWebVoipSctpIceTcpFallback",
-              ).noteIceTcpFallbackCallAccepted(),
-              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+            l === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
+            l === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
+              ? (o(
+                  "WAWebVoipSctpIceTcpFallback",
+                ).noteIceTcpFallbackCallAccepted(),
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                  o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).handleCallAccepted())
+              : o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
                 o(
                   "WAWebVoipWebTransportConnectionManager",
-                ).handleCallAccepted()),
+                ).handleCallLeftRinging(u, l),
             m)
           ) {
             (o("WALogger").LOG(

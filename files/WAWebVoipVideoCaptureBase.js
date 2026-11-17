@@ -176,17 +176,18 @@ __d(
               l = e.isStopped,
               s = e.maxFps,
               u = e.onVideoDataFnType,
-              R = e.width,
-              L = "voip: wasm: [AV:startCapture (" + this.name + ")]";
+              R = e.videoFrameProcessor,
+              L = e.width,
+              E = "voip: wasm: [AV:startCapture (" + this.name + ")]";
             o("WALogger").LOG(
               c || (c = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-              L,
+              E,
             );
-            var E = o(
+            var k = o(
                 "WAWebVoipWebCodecsEncoderState",
               ).isWebCodecsEncoderEnabled(),
-              k =
-                E &&
+              I =
+                k &&
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_webcodec_video_encoder_output_watchdog",
                 );
@@ -199,7 +200,7 @@ __d(
                     " cleaning up existing capture (state=",
                     ")",
                   ])),
-                L,
+                E,
                 this.captureInitState,
               ),
               yield this.__cleanup(),
@@ -211,30 +212,30 @@ __d(
                     "",
                     " stop began during cleanup, not acquiring",
                   ])),
-                L,
+                E,
               );
               return;
             }
             if (
-              E &&
+              k &&
               !(
                 this.captureImplementation instanceof
                 o("WAWebVoipVideoCaptureOffThread")
                   .WAWebVoipVideoCaptureOffThread
               )
             ) {
-              var I,
-                T,
-                D =
+              var T,
+                D,
+                x =
                   this.captureImplementation instanceof
                   (N || (N = n("Promise")))
                     ? "pending-async"
-                    : (I =
-                          (T = this.captureImplementation) == null ||
-                          (T = T.constructor) == null
+                    : (T =
+                          (D = this.captureImplementation) == null ||
+                          (D = D.constructor) == null
                             ? void 0
-                            : T.name) != null
-                      ? I
+                            : D.name) != null
+                      ? T
                       : "unknown";
               (o("WALogger").LOG(
                 p ||
@@ -242,35 +243,35 @@ __d(
                     "voip: [webcodec-encode] capture->OffThread (was ",
                     ")",
                   ])),
-                D,
+                x,
               ),
                 (this.captureImplementation = new (o(
                   "WAWebVoipVideoCaptureOffThread",
                 ).WAWebVoipVideoCaptureOffThread)(B)));
             } else
-              E &&
+              k &&
                 o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [webcodec-encode] reusing existing OffThread instance",
                     ])),
                 );
-            var x = new (o("WAResolvable").Resolvable)();
+            var $ = new (o("WAResolvable").Resolvable)();
             ((this.captureInitState = M.Initializing),
-              (this.captureInitResolvable = x),
-              x.promise.catch(r("WAWebNoop")));
-            var $ = null;
+              (this.captureInitResolvable = $),
+              $.promise.catch(r("WAWebNoop")));
+            var P = null;
             try {
-              var P;
-              if ((($ = yield a()), $ == null)) throw new W();
-              if (this.captureInitResolvable !== x) {
+              var w;
+              if (((P = yield a()), P == null)) throw new W();
+              if (this.captureInitResolvable !== $) {
                 o("WALogger").LOG(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " superseded by newer capture, releasing stream",
                     ])),
-                  L,
+                  E,
                 );
                 return;
               }
@@ -281,10 +282,10 @@ __d(
                       "",
                       " stop began while acquiring, releasing stream",
                     ])),
-                  L,
+                  E,
                 ),
                   (this.captureInitState = M.Uninitialized),
-                  x.resolve());
+                  $.resolve());
                 return;
               }
               o("WALogger").LOG(
@@ -293,46 +294,47 @@ __d(
                     "",
                     " got video media stream",
                   ])),
-                L,
+                E,
               );
-              var w = yield this.captureImplementation,
-                A = 1e4,
-                F = null,
-                O = w.startVideoCapture({
-                  stream: $,
+              var A = yield this.captureImplementation,
+                F = 1e4,
+                O = null,
+                q = A.startVideoCapture({
+                  stream: P,
                   onVideoDataFnType: u,
-                  width: R,
+                  width: L,
                   height: i,
                   maxFps: s,
-                  enableWebCodecsEncoderOutputWatchdog: k,
+                  enableWebCodecsEncoderOutputWatchdog: I,
+                  videoFrameProcessor: R,
                 });
-              (O.catch(r("WAWebNoop")),
+              (q.catch(r("WAWebNoop")),
                 yield (N || (N = n("Promise")))
                   .race([
-                    O,
+                    q,
                     new N(function (e, t) {
-                      F = self.setTimeout(function () {
+                      O = self.setTimeout(function () {
                         t(
                           r("err")(
-                            "startVideoCapture timed out after " + A + "ms",
+                            "startVideoCapture timed out after " + F + "ms",
                           ),
                         );
-                      }, A);
+                      }, F);
                     }),
                   ])
                   .finally(function () {
-                    F != null && self.clearTimeout(F);
+                    O != null && self.clearTimeout(O);
                   }),
-                ($ = null),
+                (P = null),
                 (this.captureInitState = M.Ready),
-                (P = this.captureInitResolvable) == null || P.resolve(),
+                (w = this.captureInitResolvable) == null || w.resolve(),
                 o("WALogger").LOG(
                   y ||
                     (y = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " video capture prepared successfully",
                     ])),
-                  L,
+                  E,
                 ));
             } catch (e) {
               (e instanceof W
@@ -352,7 +354,7 @@ __d(
                           " error: ",
                           "",
                         ])),
-                      L,
+                      E,
                       e,
                     )
                     .sendLogs("voip: wasm: error in startVideoCaptureJSImpl"),
@@ -360,10 +362,10 @@ __d(
               try {
                 yield this.__cleanup();
               } finally {
-                x.reject(e);
+                $.reject(e);
               }
             } finally {
-              $ != null &&
+              P != null &&
                 (o("WALogger").LOG(
                   v ||
                     (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -372,9 +374,9 @@ __d(
                       " orphaned track(s)",
                     ])),
                   this.name,
-                  $.getTracks().length,
+                  P.getTracks().length,
                 ),
-                $.getTracks().forEach(function (e) {
+                P.getTracks().forEach(function (e) {
                   (o("WALogger").LOG(
                     S ||
                       (S = babelHelpers.taggedTemplateLiteralLoose([

@@ -185,29 +185,29 @@ __d(
               ? s._(
                   /*BTDS*/ "This list automatically updates with your communities.",
                 )
-              : e === o("WAWebSchemaLabel").ListType.AI_HANDOFF
+              : e === o("WAWebSchemaLabel").ListType.META_AI_THREAD
                 ? s._(
-                    /*BTDS*/ "Chats are added to this list when the customer needs a response from you. You can reply to the chat to remove it from this list.",
+                    /*BTDS*/ "This list automatically updates for you with all chats with AI.",
                   )
-                : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
+                : e === o("WAWebSchemaLabel").ListType.AI_HANDOFF
                   ? s._(
-                      /*BTDS*/ "This list automatically updates for you with chats where AI agent is responding.",
+                      /*BTDS*/ "Chats are added to this list when the customer needs a response from you. You can reply to the chat to remove it from this list.",
                     )
-                  : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
+                  : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
                     ? s._(
-                        /*BTDS*/ "This list automatically updates with unread chats where you were mentioned or replied to.",
+                        /*BTDS*/ "This list automatically updates for you with chats where AI agent is responding.",
                       )
-                    : null;
+                    : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
+                      ? s._(
+                          /*BTDS*/ "This list automatically updates with unread chats where you were mentioned or replied to.",
+                        )
+                      : null;
     }
     function $(e, t) {
-      if (t === o("WAWebSchemaLabel").ListType.META_AI_THREAD) {
+      if (I(t)) {
         var n;
-        return (n = T(t)) != null ? n : e;
-      }
-      if ((C(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || v(t)) {
-        var r;
         return s._(/*BTDS*/ "{listName} (preset)", [
-          s._param("listName", (r = T(t)) != null ? r : e),
+          s._param("listName", (n = T(t)) != null ? n : e),
         ]);
       }
       return e;

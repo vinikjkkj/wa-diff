@@ -7,7 +7,6 @@ __d(
     "WAWebBizAiAgentStatusUtils",
     "WAWebBusinessProfileCollection",
     "WAWebCmd",
-    "WAWebEnvironment",
     "WAWebMobilePlatforms",
     "react-compiler-runtime",
     "useWAWebEventTargetValue",
@@ -18,15 +17,14 @@ __d(
       ["on_ab_props_update_from_bridge", "offline_delivery_end_from_bridge"],
     );
     function s() {
-      return r("WAWebEnvironment").isWeb
-        ? o("WAWebMobilePlatforms").isSMB() &&
-            o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState() ===
-              !0 &&
-            o("WAWebBizAiAgentGating").isAppointmentsEnabled() &&
-            o("WAWebBizAIQE").getBizAIQEValueWithoutExposure(
-              o("WAWebBizAIAppointmentsQEConfig").APPOINTMENTS_QE_PARAM,
-            ) === !0
-        : o("WAWebBizAiAgentGating").isAppointmentsEnabled();
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState() === !0 &&
+        o("WAWebBizAiAgentGating").isAppointmentsEnabled() &&
+        o("WAWebBizAIQE").getBizAIQEValueWithoutExposure(
+          o("WAWebBizAIAppointmentsQEConfig").APPOINTMENTS_QE_PARAM,
+        ) === !0
+      );
     }
     function u() {
       var t = o("react-compiler-runtime").c(1),

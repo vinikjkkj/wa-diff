@@ -15,6 +15,9 @@ __d(
         activeMicrophoneWarning: null,
         requestSecurityCodeVerification: void 0,
         toggleMobileControls: null,
+        isEffectsDrawerOpen: !1,
+        toggleEffectsDrawer: null,
+        canOpenEffectsPopover: !1,
       });
     l.default = u;
   },

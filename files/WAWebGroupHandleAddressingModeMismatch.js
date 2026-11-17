@@ -16,46 +16,47 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
+    var e = ["membershipFormAnswers"],
       s,
       u,
-      c = o(
+      c,
+      d = o(
         "WAWebGroupQueryBridgeOneAlreadyInFlightLogger",
       ).logDuplicateRequestsWrapper(o("WAWebGroupQueryBridge").sendQueryGroup);
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r =
-            n.serverAddressingMode ===
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n =
+            t.serverAddressingMode ===
             o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid;
           (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "Migrating group ",
                 " to addressing mode ",
                 "",
               ])),
-            t.toString(),
-            n.serverAddressingMode,
+            e.toString(),
+            t.serverAddressingMode,
           ),
             o(
               "WAWebWamAddressingModeMismatchReporter",
-            ).logAddressingModeMismatch(n),
-            yield p(t, r, n),
-            yield f(t, r));
+            ).logAddressingModeMismatch(t),
+            yield _(e, n, t),
+            yield g(e, n));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = yield o(
             "WAWebDBGroupParticipant",
           ).migrateParticipantInfoAddressingMode(e, t);
@@ -78,36 +79,45 @@ __d(
             );
           } else
             (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "Unable to migrate participants in ",
                   " with local data",
                 ])),
               e.toString(),
             ),
-              yield c(e, n.mismatchOrigin));
+              yield d(e, n.mismatchOrigin));
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = o("WAWebLidMigrationUtils").toAddressingModeFactory(t),
-            i = yield o(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = o("WAWebLidMigrationUtils").toAddressingModeFactory(a),
+            l = yield o(
               "WAWebApiMembershipApprovalRequestStore",
-            ).getMembershipApprovalRequests(e);
-          if (i.length !== 0)
+            ).getMembershipApprovalRequestsWithFormAnswers(t);
+          if (l.length !== 0)
             try {
-              var l = i.map(function (e) {
-                return babelHelpers.extends({}, e, {
-                  id: r("nullthrows")(a(e.id)),
-                  addedBy: r("nullthrows")(a(e.addedBy)),
+              var s = l.map(function (t) {
+                  var n = t.membershipFormAnswers,
+                    o = babelHelpers.objectWithoutPropertiesLoose(t, e);
+                  return {
+                    request: babelHelpers.extends({}, o, {
+                      id: r("nullthrows")(i(o.id)),
+                      addedBy: r("nullthrows")(i(o.addedBy)),
+                    }),
+                    membershipFormAnswers: n,
+                  };
+                }),
+                u = s.map(function (e) {
+                  var t = e.request;
+                  return t;
                 });
-              });
               (yield o("WAWebModelStorageUtils")
                 .getStorage()
                 .lock(
@@ -116,44 +126,53 @@ __d(
                     (yield o(
                       "WAWebApiMembershipApprovalRequestStore",
                     ).removeMembershipApprovalRequests(
-                      e,
-                      i.map(function (e) {
+                      t,
+                      l.map(function (e) {
                         return e.id;
                       }),
                     ),
                       yield o(
                         "WAWebApiMembershipApprovalRequestStore",
-                      ).addMembershipApprovalRequests(e, l));
+                      ).addMembershipApprovalRequests(
+                        t,
+                        s.map(function (e) {
+                          var t = e.membershipFormAnswers,
+                            n = e.request;
+                          return babelHelpers.extends({}, n, {
+                            membershipFormAnswers: t,
+                          });
+                        }),
+                      ));
                   }),
                 ),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "removeMembershipApprovalRequests",
                   {
-                    groupId: e,
-                    requestIds: i.map(function (e) {
+                    groupId: t,
+                    requestIds: l.map(function (e) {
                       return e.id;
                     }),
                   },
                 ),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "addMembershipApprovalRequests",
-                  { groupId: e, requests: l },
+                  { groupId: t, requests: u },
                 ));
-            } catch (t) {
+            } catch (e) {
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "Unable to migrate pending approvals in ",
                     " with local data",
                   ])),
-                e.toString(),
+                t.toString(),
               );
             }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.handleAddressingModeMismatch = d;
+    l.handleAddressingModeMismatch = m;
   },
   98,
 );

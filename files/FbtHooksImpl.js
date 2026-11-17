@@ -31,7 +31,7 @@ __d(
           return e.getViewerContext();
         },
         register: function (n) {
-          Object.assign(e, n);
+          e = babelHelpers.extends({}, e, n);
         },
       };
     a.exports = l;

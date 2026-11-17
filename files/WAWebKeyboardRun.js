@@ -14,7 +14,6 @@ __d(
     "WAWebCommandPaletteUtils",
     "WAWebComposeBoxActions",
     "WAWebComposeBoxPanelTypes",
-    "WAWebConfirmPopup.react",
     "WAWebConnModel",
     "WAWebContactCollection",
     "WAWebDrawerManager",
@@ -41,6 +40,7 @@ __d(
     "WAWebSettingsFlowLoadable",
     "WAWebSocketModel",
     "WAWebThemeContext",
+    "WAWebTimeSpentLoggingNavigation",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsScreenLock",
     "WAWebUserUtils",
@@ -55,6 +55,8 @@ __d(
     "WAWebVoipVideoStateUtils",
     "WAWebWamEnumMuteEntryPoint",
     "WAWebWamEnumSubSurface",
+    "WDSConfirmDialog.react",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "cr:13920",
     "cr:1923",
@@ -75,11 +77,11 @@ __d(
         case o("WAWebActions").Action.OPEN_NTH_CHAT:
           return r("WAWebNoop");
         case o("WAWebActions").Action.CONTACT_US:
-          return N;
+          return M;
         case o("WAWebActions").Action.GO_TO_NEXT_CHAT:
-          return $;
-        case o("WAWebActions").Action.GO_TO_PREV_CHAT:
           return P;
+        case o("WAWebActions").Action.GO_TO_PREV_CHAT:
+          return N;
         case o("WAWebActions").Action.CLOSE_CHAT:
           return S;
         case o("WAWebActions").Action.LOGOUT:
@@ -93,39 +95,39 @@ __d(
         case o("WAWebActions").Action.OPEN_SETTINGS:
           return y;
         case o("WAWebActions").Action.SEARCH:
-          return L;
-        case o("WAWebActions").Action.SEARCH_IN_CHAT:
-          return x;
-        case o("WAWebActions").Action.TOGGLE_ARCHIVE:
           return E;
-        case o("WAWebActions").Action.TOGGLE_MUTE:
+        case o("WAWebActions").Action.SEARCH_IN_CHAT:
+          return $;
+        case o("WAWebActions").Action.TOGGLE_ARCHIVE:
           return k;
-        case o("WAWebActions").Action.TOGGLE_PIN:
+        case o("WAWebActions").Action.TOGGLE_MUTE:
           return I;
-        case o("WAWebActions").Action.TOGGLE_UNREAD:
+        case o("WAWebActions").Action.TOGGLE_PIN:
           return T;
-        case o("WAWebActions").Action.TOGGLE_THEME:
+        case o("WAWebActions").Action.TOGGLE_UNREAD:
           return D;
+        case o("WAWebActions").Action.TOGGLE_THEME:
+          return x;
         case o("WAWebActions").Action.OPEN_EMOJI_PANEL:
-          return M;
+          return w;
         case o("WAWebActions").Action.OPEN_GIF_PANEL:
-          return G;
-        case o("WAWebActions").Action.OPEN_STICKER_PANEL:
           return z;
+        case o("WAWebActions").Action.OPEN_STICKER_PANEL:
+          return j;
         case o("WAWebActions").Action.TOGGLE_STICKER_MAKER:
-          return K;
-        case o("WAWebActions").Action.TOGGLE_COMMAND_PALETTE:
           return Q;
-        case o("WAWebActions").Action.LOCK_SCREEN:
+        case o("WAWebActions").Action.TOGGLE_COMMAND_PALETTE:
           return X;
-        case o("WAWebActions").Action.LABEL_CHAT:
+        case o("WAWebActions").Action.LOCK_SCREEN:
           return Y;
+        case o("WAWebActions").Action.LABEL_CHAT:
+          return J;
         case o("WAWebActions").Action.ZOOM_IN:
-          return J();
-        case o("WAWebActions").Action.ZOOM_OUT:
           return Z();
-        case o("WAWebActions").Action.ZOOM_RESET:
+        case o("WAWebActions").Action.ZOOM_OUT:
           return ee();
+        case o("WAWebActions").Action.ZOOM_RESET:
+          return te();
         case o("WAWebActions").Action.TOGGLE_PRIVACY_MODE:
           return r("WAWebNoop");
         case o("WAWebActions").Action.INCREASE_PTT_SPEED:
@@ -140,41 +142,41 @@ __d(
         case o("WAWebActions").Action.TOGGLE_QUOTE:
           return null;
         case o("WAWebActions").Action.OPEN_CHAT_INFO:
-          return w();
-        case o("WAWebActions").Action.BLOCK_CHAT:
           return A();
-        case o("WAWebActions").Action.REPLY:
+        case o("WAWebActions").Action.BLOCK_CHAT:
           return F();
-        case o("WAWebActions").Action.REPLY_PRIVATE:
+        case o("WAWebActions").Action.REPLY:
           return O();
-        case o("WAWebActions").Action.FORWARD:
+        case o("WAWebActions").Action.REPLY_PRIVATE:
           return B();
-        case o("WAWebActions").Action.STAR_MESSAGE:
+        case o("WAWebActions").Action.FORWARD:
           return W();
+        case o("WAWebActions").Action.STAR_MESSAGE:
+          return q();
         case o("WAWebActions").Action.OPEN:
           return r("WAWebNoop")();
         case o("WAWebActions").Action.OPEN_ATTACHMENT_DROPDOWN:
-          return j();
+          return K();
         case o("WAWebActions").Action.START_PTT_RECORDING:
-          return U();
-        case o("WAWebActions").Action.PAUSE_PTT_RECORDING:
           return V();
-        case o("WAWebActions").Action.SEND_PTT:
+        case o("WAWebActions").Action.PAUSE_PTT_RECORDING:
           return H();
+        case o("WAWebActions").Action.SEND_PTT:
+          return G();
         case o("WAWebActions").Action.EDIT_LAST_MESSAGE:
           return void 0;
         case o("WAWebActions").Action.TOGGLE_CALL_CAMERA:
-          return te();
+          return ne();
         case o("WAWebActions").Action.TOGGLE_CALL_MUTE:
-          return ne(t);
+          return re(t);
         case o("WAWebActions").Action.SHOW_CALL_REACTIONS:
-          return oe();
-        case o("WAWebActions").Action.TOGGLE_RAISE_HAND:
           return ae();
-        case o("WAWebActions").Action.START_SCREEN_SHARE:
+        case o("WAWebActions").Action.TOGGLE_RAISE_HAND:
           return ie();
-        case o("WAWebActions").Action.END_CALL:
+        case o("WAWebActions").Action.START_SCREEN_SHARE:
           return le();
+        case o("WAWebActions").Action.END_CALL:
+          return se();
       }
     }
     function h(t, n) {
@@ -342,37 +344,47 @@ __d(
     function R() {
       if (!o("WAWebMsgCollection").MsgCollection.hasUnsentMessages())
         return o("WAWebSocketModel").Socket.logout();
-      o("WAWebModalManager").ModalManager.open(
-        f.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "keyboard-run" },
-          title: s._(/*BTDS*/ "Log out?"),
-          onOK: function () {
-            (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "Keyboard: user inputs logout",
-                ])),
-            ),
-              o("WAWebSocketModel").Socket.logout());
-          },
-          okText: s._(/*BTDS*/ "Log out"),
-          onCancel: o("WAWebModalManager").closeModalManager,
-          cancelText: r("WAWebFbtCommon")("Cancel"),
-          children: s._(/*BTDS*/ "Some of your messages are still sending."),
-        }),
-      );
+      o("WDSDialogBridge").openWDSDialog(f.jsx(L, {}));
     }
     function L() {
+      o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+        surface: "unknown",
+        viewName: "keyboard-run",
+      });
+      var e = function () {
+        (o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "Keyboard: user inputs logout",
+            ])),
+        ),
+          o("WDSDialogBridge").closeWDSDialog(),
+          o("WAWebSocketModel").Socket.logout());
+      };
+      return f.jsx(r("WDSConfirmDialog.react"), {
+        title: s._(/*BTDS*/ "Log out?"),
+        description: s._(/*BTDS*/ "Some of your messages are still sending."),
+        confirmLabel: s._(/*BTDS*/ "Log out"),
+        cancelLabel: r("WAWebFbtCommon")("Cancel"),
+        destructive: !0,
+        onConfirm: e,
+        onDismiss: o("WDSDialogBridge").closeWDSDialog,
+        open: !0,
+        testid: "keyboard-logout-confirm-dialog",
+      });
+    }
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E() {
       o("WAWebCmd").Cmd.focusChatSearch();
     }
-    function E() {
+    function k() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e) {
         var t = e.archive;
         o("WAWebCmd").Cmd.archiveChat(e, !t);
       }
     }
-    function k() {
+    function I() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e && o("WAWebMuteUtils").canMute(e.mute)) {
         var t = o("WAWebMuteGetters").getIsMuted(e.mute);
@@ -383,7 +395,7 @@ __d(
         );
       }
     }
-    function I() {
+    function T() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (
         e &&
@@ -396,85 +408,85 @@ __d(
         o("WAWebCmd").Cmd.pinChat(e, !t);
       }
     }
-    function T() {
+    function D() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e) {
         var t = e.markedUnread;
         o("WAWebCmd").Cmd.markChatUnread(e, !t);
       }
     }
-    function D() {}
-    function x() {
+    function x() {}
+    function $() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       e && o("WAWebCmd").Cmd.chatSearch(e);
     }
-    function $() {
+    function P() {
       o("WAWebCmd").Cmd.focusNextChat(!0);
     }
-    function P() {
+    function N() {
       o("WAWebCmd").Cmd.focusPrevChat(!0);
     }
-    function N() {
+    function M() {
       o("WAWebModalManager").ModalManager.open(
         f.jsx(o("WAWebSendLogsPopupLoadable").SendLogsPopupLoadable, {}),
       );
     }
-    function M() {
+    function w() {
       o("WAWebCmd").Cmd.openComposeBoxExpressionPanel(
         o("WAWebComposeBoxPanelTypes").ComposeBoxExpressionPanel.EMOJI,
       );
     }
-    function w() {
+    function A() {
       o("WAWebCmd").Cmd.openCurrentChatInfo();
     }
-    function A() {
+    function F() {
       o("WAWebCmd").Cmd.blockCurrentChat();
     }
-    function F() {
+    function O() {
       o("WAWebCmd").Cmd.replyCurrentMessageKeyboardShortcut();
     }
-    function O() {
+    function B() {
       o("WAWebCmd").Cmd.replyCurrentMessagePrivate();
     }
-    function B() {
+    function W() {
       o("WAWebCmd").Cmd.forwardCurrentMessage();
     }
-    function W() {
+    function q() {
       o("WAWebCmd").Cmd.starCurrentMessage();
     }
-    function q() {}
-    function U() {
+    function U() {}
+    function V() {
       o("WAWebCmd").Cmd.startPttRecording();
     }
-    function V() {
+    function H() {
       o("WAWebCmd").Cmd.pausePttRecording();
     }
-    function H() {
+    function G() {
       o("WAWebCmd").Cmd.sendPttRecording();
     }
-    function G() {
+    function z() {
       o("WAWebCmd").Cmd.openComposeBoxExpressionPanel(
         o("WAWebComposeBoxPanelTypes").ComposeBoxExpressionPanel.GIF,
       );
     }
-    function z() {
+    function j() {
       o("WAWebCmd").Cmd.openComposeBoxExpressionPanel(
         o("WAWebComposeBoxPanelTypes").ComposeBoxExpressionPanel.STICKER,
       );
     }
-    function j() {
+    function K() {
       o("WAWebComposeBoxActions").ComposeBoxActions.hasText() ||
         o("WAWebCmd").Cmd.openAttachmentDropdown();
     }
-    function K() {
+    function Q() {
       o("WAWebCmd").Cmd.toggleStickerMaker();
     }
-    function Q() {
+    function X() {
       o("WAWebCommandPaletteUtils").isCommandPaletteOpen()
         ? o("WAWebCmd").Cmd.closeCommandPalette()
         : o("WAWebCmd").Cmd.openCommandPalette();
     }
-    function X() {
+    function Y() {
       o("WAWebUserPrefsScreenLock").getScreenLockEnabled()
         ? o("WAWebLockScreenResolver").lockScreenAndTriggerUnlockFlow()
         : o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
@@ -483,7 +495,7 @@ __d(
             }),
           );
     }
-    function Y() {
+    function J() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       e &&
         o("WAWebModalManager").ModalManager.open(
@@ -494,7 +506,7 @@ __d(
           }),
         );
     }
-    function J() {
+    function Z() {
       n("cr:13920") != null &&
         n("cr:13920").isHybridAppZoomingEnabled &&
         (o("WALogger").LOG(
@@ -505,7 +517,7 @@ __d(
         ),
         n("cr:13920") == null || n("cr:13920").trigger("requestZoomIn"));
     }
-    function Z() {
+    function ee() {
       n("cr:13920") != null &&
         n("cr:13920").isHybridAppZoomingEnabled &&
         (o("WALogger").LOG(
@@ -516,7 +528,7 @@ __d(
         ),
         n("cr:13920") == null || n("cr:13920").trigger("requestZoomOut"));
     }
-    function ee() {
+    function te() {
       n("cr:13920") != null &&
         n("cr:13920").isHybridAppZoomingEnabled &&
         (o("WALogger").LOG(
@@ -527,7 +539,7 @@ __d(
         ),
         n("cr:13920") == null || n("cr:13920").trigger("requestZoomReset"));
     }
-    function te() {
+    function ne() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         (o("WAWebCallUserJourneyInCallAction").logInCallAction(
@@ -548,7 +560,7 @@ __d(
           }
         })());
     }
-    function ne(e) {
+    function re(e) {
       var t = r("WAWebCallCollection").activeCall;
       if (t != null) {
         var a = t.selfMicMuted;
@@ -584,7 +596,7 @@ __d(
                 },
                 targetWindow: t ? null : n,
               });
-            i === "permission_denied" && re(n, r);
+            i === "permission_denied" && oe(n, r);
           })()
           .catch(function (e) {
             o("WALogger")
@@ -599,7 +611,7 @@ __d(
           });
       }
     }
-    function re(e, t) {
+    function oe(e, t) {
       var n =
         e == null || t
           ? o("WAWebModalManager").ModalManager
@@ -616,11 +628,11 @@ __d(
         ),
       );
     }
-    function oe() {
+    function ae() {
       var e = r("WAWebCallCollection").activeCall;
       e != null && o("WAWebCmd").Cmd.trigger("voip_show_reactions");
     }
-    function ae() {
+    function ie() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -640,7 +652,7 @@ __d(
           }
         })();
     }
-    function ie() {
+    function le() {
       var e = r("WAWebCallCollection").activeCall;
       if (e != null) {
         var t = e.isSelfScreenSharing();
@@ -659,7 +671,7 @@ __d(
           })());
       }
     }
-    function le() {
+    function se() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
         (o("WAWebCallUserJourneyInCallAction").logInCallAction(

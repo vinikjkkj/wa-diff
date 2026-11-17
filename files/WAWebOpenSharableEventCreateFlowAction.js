@@ -17,7 +17,7 @@ __d(
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create",
       ) &&
-        _({
+        f({
           entryPoint: o("WAWebWamEnumEventV2CreationEntryPoint")
             .EVENT_V2_CREATION_ENTRY_POINT.EVENTS_LIST_PAGE,
         });
@@ -26,7 +26,7 @@ __d(
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create",
       ) &&
-        _({
+        f({
           entryPoint: o("WAWebWamEnumEventV2CreationEntryPoint")
             .EVENT_V2_CREATION_ENTRY_POINT.NEW_CHAT,
         });
@@ -34,19 +34,24 @@ __d(
     function d(e) {
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create-from-chat",
-      ) && _({ chat: e, entryPoint: g(e) });
+      ) && f({ chat: e, entryPoint: h(e) });
     }
     function m(e, t) {
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
         "open-create-for-org",
-      ) && _({ entryPoint: null, managingOrgId: e, onFinish: t });
+      ) && f({ entryPoint: null, managingOrgId: e, onFinish: t });
     }
     function p(e, t) {
       o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
-        "open-edit",
-      ) && _({ editSource: t, editedEventId: e, entryPoint: null });
+        "open-schedule-call",
+      ) && f({ chat: t, entryPoint: e, isScheduledCall: !0 });
     }
-    function _(e) {
+    function _(e, t) {
+      o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabledForAction(
+        "open-edit",
+      ) && f({ editSource: t, editedEventId: e, entryPoint: null });
+    }
+    function f(e) {
       o("WAWebModalManager").ModalManager.open(
         s.jsx(
           r("WAWebSharableEventCreateStepperDialogLoadable"),
@@ -57,7 +62,7 @@ __d(
         { blockClose: !0 },
       );
     }
-    function f() {
+    function g() {
       o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
         o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
           ? { descriptorType: "sharable_event_home" }
@@ -65,7 +70,7 @@ __d(
         { focusOnUnMount: !0, transition: "none" },
       );
     }
-    function g(e) {
+    function h(e) {
       return e.id.isGroup()
         ? o("WAWebWamEnumEventV2CreationEntryPoint")
             .EVENT_V2_CREATION_ENTRY_POINT.GROUP_CHAT_ATTACHMENT_TRAY
@@ -76,8 +81,9 @@ __d(
       (l.openSharableEventCreateDialogFromNewChat = c),
       (l.openSharableEventCreateDialogForChat = d),
       (l.openSharableEventCreateDialogForOrg = m),
-      (l.openSharableEventEditDialog = p),
-      (l.reopenSharableEventHome = f));
+      (l.openSharableEventScheduleCallDialog = p),
+      (l.openSharableEventEditDialog = _),
+      (l.reopenSharableEventHome = g));
   },
   98,
 );

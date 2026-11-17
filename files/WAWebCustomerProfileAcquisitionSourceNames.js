@@ -10,11 +10,11 @@ __d(
       return e ===
         o("WAWebCustomerProfileAcquisitionSource")
           .PROFILE_ACQUISITION_SOURCE_CTWA
-        ? s._(/*BTDS*/ "CTWA ad")
+        ? s._(/*BTDS*/ "Ad")
         : e ===
             o("WAWebCustomerProfileAcquisitionSource")
               .PROFILE_ACQUISITION_SOURCE_ORGANIC
-          ? s._(/*BTDS*/ "Organic")
+          ? s._(/*BTDS*/ "WhatsApp chat")
           : e ===
               o("WAWebCustomerProfileAcquisitionSource")
                 .PROFILE_ACQUISITION_SOURCE_REFERRAL
@@ -45,7 +45,29 @@ __d(
         var l = e(i);
         if (l != null && String(l).toLowerCase() === n) return i;
       }
+      for (var s of c()) {
+        var u = s[0],
+          d = s[1],
+          m = s[2];
+        if (n === d || m.toString().toLowerCase() === n) return u;
+      }
       return null;
+    }
+    function c() {
+      return [
+        [
+          o("WAWebCustomerProfileAcquisitionSource")
+            .PROFILE_ACQUISITION_SOURCE_CTWA,
+          "ctwa ad",
+          s._(/*BTDS*/ "CTWA ad"),
+        ],
+        [
+          o("WAWebCustomerProfileAcquisitionSource")
+            .PROFILE_ACQUISITION_SOURCE_ORGANIC,
+          "organic",
+          s._(/*BTDS*/ "Organic"),
+        ],
+      ];
     }
     ((l.getProfileAcquisitionSourceLabel = e),
       (l.getProfileAcquisitionSourceIdFromLabel = u));

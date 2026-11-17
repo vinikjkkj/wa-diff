@@ -15,8 +15,8 @@ __d(
           )
         )
       ) {
-        var n = t.target;
-        n instanceof HTMLElement &&
+        var n = o("WAWebPathfinderUserTouch").resolveTapElement(t.target);
+        n != null &&
           o("WAWebPathfinderUserTouch").commitTargetLongPress(
             n,
             "secondary_click",

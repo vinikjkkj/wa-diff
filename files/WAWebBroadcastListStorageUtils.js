@@ -77,7 +77,7 @@ __d(
             h = !1,
             y = a;
           (yield o("WAWebSyncdCoreApi").lockForSync(
-            ["chat", "broadcast-metadata"],
+            ["chat", "broadcast-metadata", "contact"],
             t != null ? t : [],
             (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -85,24 +85,26 @@ __d(
                   var n,
                     l,
                     s,
-                    u,
                     c,
-                    d = t[0],
-                    p = t[1],
-                    C = yield d.get(i);
-                  (C == null && ((h = !0), (g.t = m)),
-                    yield d.createOrMerge(
+                    d,
+                    p = t[0],
+                    C = t[1],
+                    b = t[2],
+                    v = yield p.get(i);
+                  (v == null && ((h = !0), (g.t = m)),
+                    yield p.createOrMerge(
                       i,
                       babelHelpers.extends({}, g, { id: i }),
-                    ));
-                  var b = yield o("WAWebSchemaBroadcastMetadata")
+                    ),
+                    yield b.createOrMerge(i, { id: i, name: u }));
+                  var S = yield o("WAWebSchemaBroadcastMetadata")
                     .getBroadcastMetadataTable()
                     .get(i);
                   ((y =
-                    (n = b == null ? void 0 : b.customAudienceFbid) != null
+                    (n = S == null ? void 0 : S.customAudienceFbid) != null
                       ? n
                       : a),
-                    yield p.createOrReplace({
+                    yield C.createOrReplace({
                       audienceExpression: r,
                       customAudienceFbid: y,
                       id: i,
@@ -110,20 +112,20 @@ __d(
                         (l =
                           (s = e.isWebCreatedList) != null
                             ? s
-                            : b == null
+                            : S == null
                               ? void 0
-                              : b.isWebCreatedList) != null
+                              : S.isWebCreatedList) != null
                           ? l
                           : !1,
                       labels: f,
                       recipients: _,
                       senderKeyDevices:
-                        (u = b == null ? void 0 : b.senderKeyDevices) != null
-                          ? u
+                        (c = S == null ? void 0 : S.senderKeyDevices) != null
+                          ? c
                           : [],
                       senderKeyRotate:
-                        (c = b == null ? void 0 : b.senderKeyRotate) != null
-                          ? c
+                        (d = S == null ? void 0 : S.senderKeyRotate) != null
+                          ? d
                           : !1,
                     }));
                 },

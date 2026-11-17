@@ -387,6 +387,11 @@ __d(
           liveStallReseekToEdgeAfterKicks: r("gkx")("5049")
             ? 3
             : a.liveStallReseekToEdgeAfterKicks,
+          liveStartFromLatestParsedManifestEnabled: r("gkx")("7763"),
+          liveStartPositionNearSegmentStartEnabled:
+            r("gkx")("7763") && e.mediaSinkType === "MSE",
+          liveStartSeekWhenBufferedEnabled:
+            r("gkx")("7763") && e.mediaSinkType === "MSE",
           logStallDetailsAsPlayerWarning: r("gkx")("20111"),
           maxConcurrentPrefetchTasks: L()
             ? 5
@@ -422,7 +427,7 @@ __d(
             a.realWorkerV2SkipHasteResponsePreloader,
           reduceStateMachineEventOverhead: r("gkx")("2977"),
           releaseParsedManifestXML: r("gkx")("28847"),
-          releasePastStateMachineStates: r("gkx")("22384"),
+          releasePastStateMachineStates: r("gkx")("5042"),
           reopenEndedMediaSourceOnRepresentationSwitch: r("gkx")("18169"),
           resetTargetRepresentationWhenItGetsBlocked: r("gkx")("18461"),
           retryShorterForUnrecoverableHTTP: r("gkx")("18768"),

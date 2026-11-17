@@ -61,6 +61,7 @@ __d(
     "WAWebVoipCallButtonsLoadable",
     "WAWebVoipDevicePermissionDialogLoader.react",
     "WAWebVoipGatingUtils",
+    "WAWebVoipNoConnectionDialogLoader",
     "WAWebVoipUiDocPipLoadable",
     "WAWebVoipUiLoadable",
     "WAWebVoipUiPopoutWindowLoadable",
@@ -167,6 +168,9 @@ __d(
                 ? [
                     o("WAWebVoipCallButtonsLoadable").requireBundle(),
                     o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
+                    o(
+                      "WAWebVoipNoConnectionDialogLoader",
+                    ).preloadNoConnectionDialog(),
                   ]
                 : [],
               r("WAWebEnvironment").isWeb
@@ -183,6 +187,9 @@ __d(
                     o(
                       "WAWebVoipDevicePermissionDialogLoader.react",
                     ).prefetchDevicePermissionDialogAtBoot(),
+                    o(
+                      "WAWebVoipNoConnectionDialogLoader",
+                    ).preloadNoConnectionDialog(),
                   ]
                 : [],
             );

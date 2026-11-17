@@ -53,7 +53,7 @@ __d(
       ).CometComposedTextV2HeadingNode)(
         { key: r("cometComposedTextV2NodeKey")(), tag: a },
         r("CometComposedTextV2HeadingNodeRenderer.react"),
-      ).appendMany(v(e.tokens, t, n));
+      ).appendMany(S(e.tokens, t, n));
     }
     function u(e) {
       return new (o(
@@ -99,7 +99,7 @@ __d(
               value: i + a,
             },
             r("CometComposedTextV2ListItemNodeRenderer.react"),
-          ).appendMany(v(e.tokens, t, n));
+          ).appendMany(S(e.tokens, t, n));
         }),
       );
     }
@@ -108,7 +108,7 @@ __d(
         n === void 0 && (n = 0),
         o("cometComposedTextV2NodeBuilders")
           .buildLinkNode(e.href)
-          .appendMany(v(e.tokens, t, n))
+          .appendMany(S(e.tokens, t, n))
       );
     }
     function m(e, t, n) {
@@ -119,7 +119,7 @@ __d(
         ).CometComposedTextV2ParagraphNode)(
           { key: r("cometComposedTextV2NodeKey")() },
           r("CometComposedTextV2ParagraphNodeRenderer.react"),
-        ).appendMany(v(e.tokens, t, n))
+        ).appendMany(S(e.tokens, t, n))
       );
     }
     function p(e, t, n, a, i) {
@@ -139,7 +139,7 @@ __d(
             width: null,
           },
           r("CometComposedTextV2TableCellNodeRenderer.react"),
-        ).appendMany(v(e, n, i))
+        ).appendMany(S(e, n, i))
       );
     }
     function _(e, t, n, a, i, l) {
@@ -196,18 +196,18 @@ __d(
       );
     }
     function g(e, t, n) {
-      if (
-        (n === void 0 && (n = 0),
-        e.type === "text" && e.tokens != null && e.tokens.length > 0)
-      )
-        return v(e.tokens, t, n);
-      var a = document.createElement("textarea");
       return (
-        (a.innerHTML = r("trustHTML")(e.text)),
-        [o("cometComposedTextV2NodeBuilders").buildTextNode(a.value, n)]
+        n === void 0 && (n = 0),
+        e.type === "text" && e.tokens != null && e.tokens.length > 0
+          ? S(e.tokens, t, n)
+          : [o("cometComposedTextV2NodeBuilders").buildTextNode(h(e.text), n)]
       );
     }
-    var h = {
+    function h(e) {
+      var t = document.createElement("textarea");
+      return ((t.innerHTML = r("trustHTML")(e)), t.value);
+    }
+    var y = {
         b: (e = r("ComposedInlineStyle")).BOLD,
         del: e.STRIKETHROUGH,
         em: e.ITALIC,
@@ -218,12 +218,12 @@ __d(
         strong: e.BOLD,
         u: e.UNDERLINE,
       },
-      y = /^<(\/?)(u|ins|s|del|strike|b|strong|i|em)\s*>$/i,
-      C = /^<br\s*\/?>$/i;
-    function b(e) {
+      C = /^<(\/?)(u|ins|s|del|strike|b|strong|i|em)\s*>$/i,
+      b = /^<br\s*\/?>$/i;
+    function v(e) {
       var t = new Set();
       e.forEach(function (e, n) {
-        e > 0 && t.add(h[n]);
+        e > 0 && t.add(y[n]);
       });
       var n = 0;
       return (
@@ -233,26 +233,26 @@ __d(
         n
       );
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       n === void 0 && (n = 0);
       var a = [],
         i = new Map();
       return (
         e.forEach(function (e) {
-          var l = n | b(i);
+          var l = n | v(i);
           if (e.type === "strong")
-            a.push.apply(a, v(e.tokens, t, l | r("ComposedInlineStyle").BOLD));
+            a.push.apply(a, S(e.tokens, t, l | r("ComposedInlineStyle").BOLD));
           else if (e.type === "em")
             a.push.apply(
               a,
-              v(e.tokens, t, l | r("ComposedInlineStyle").ITALIC),
+              S(e.tokens, t, l | r("ComposedInlineStyle").ITALIC),
             );
           else if (e.type === "codespan")
             a.push.apply(a, g(e, t, l | r("ComposedInlineStyle").CODE));
           else if (e.type === "del")
             a.push.apply(
               a,
-              v(e.tokens, t, l | r("ComposedInlineStyle").STRIKETHROUGH),
+              S(e.tokens, t, l | r("ComposedInlineStyle").STRIKETHROUGH),
             );
           else if (e.type === "paragraph") a.push(m(e, t, l));
           else if (e.type === "heading") a.push(s(e, t, l));
@@ -273,20 +273,20 @@ __d(
               );
               return;
             }
-            var h = t[e.key].metadata,
-              S =
-                h.__typename === "GenAILatexItem" &&
+            var y = t[e.key].metadata,
+              R =
+                y.__typename === "GenAILatexItem" &&
                 ((p = e.token) == null ? void 0 : p.type) === "katex-inline"
-                  ? babelHelpers.extends({}, h, {
+                  ? babelHelpers.extends({}, y, {
                       latex_expression: e.token.text,
                     })
-                  : h,
-              R = r("cometComposedTextV2GenAiTextInlineEntityParser")(
-                S,
+                  : y,
+              L = r("cometComposedTextV2GenAiTextInlineEntityParser")(
+                R,
                 e.text ? e.text : "",
                 l,
               );
-            R && a.push.apply(a, R);
+            L && a.push.apply(a, L);
           } else if (e.type === "katex-block" || e.type === "katex-inline")
             a.push(o("cometComposedTextV2NodeBuilders").buildMathNode(e.text));
           else {
@@ -306,22 +306,22 @@ __d(
               a.push(
                 o("cometComposedTextV2NodeBuilders")
                   .buildBlockQuoteNode()
-                  .appendMany(v(e.tokens, t, l)),
+                  .appendMany(S(e.tokens, t, l)),
               );
             else if (e.type === "html") {
-              var L = e.text.trim(),
-                E = L.match(y);
+              var E = e.text.trim(),
+                k = E.match(C);
               if (!r("justknobx")._("7351"))
                 a.push(
                   o("cometComposedTextV2NodeBuilders").buildTextNode(e.text),
                 );
-              else if (E != null) {
-                var k,
-                  I = E[2].toLowerCase(),
-                  T = (k = i.get(I)) != null ? k : 0;
-                i.set(I, E[1] === "/" ? Math.max(0, T - 1) : T + 1);
+              else if (k != null) {
+                var I,
+                  T = k[2].toLowerCase(),
+                  D = (I = i.get(T)) != null ? I : 0;
+                i.set(T, k[1] === "/" ? Math.max(0, D - 1) : D + 1);
               } else
-                C.test(L)
+                b.test(E)
                   ? a.push(
                       o("cometComposedTextV2NodeBuilders").buildNewLineNode(),
                     )
@@ -331,19 +331,30 @@ __d(
                         l,
                       ),
                     );
-            } else if (e.type === "image")
-              e.text !== "" &&
-                a.push.apply(
-                  a,
-                  g({ raw: e.raw, text: e.text, type: "text" }, t, l),
-                );
-            else throw r("err")("markdown token " + e.type);
+            } else if (e.type === "image") {
+              var x = h(e.text);
+              e.href.trim() !== ""
+                ? a.push(
+                    o("cometComposedTextV2NodeBuilders").buildMarkdownImageNode(
+                      {
+                        alt: x,
+                        format: l,
+                        imageUrl: e.href,
+                        title: e.title != null ? h(e.title) : null,
+                      },
+                    ),
+                  )
+                : x !== "" &&
+                  a.push(
+                    o("cometComposedTextV2NodeBuilders").buildTextNode(x, l),
+                  );
+            } else throw r("err")("markdown token " + e.type);
           }
         }),
         a
       );
     }
-    function S(e, t, n) {
+    function R(e, t, n) {
       var r,
         a,
         i,
@@ -361,7 +372,7 @@ __d(
         y,
         C,
         b,
-        S,
+        v,
         R,
         L,
         E =
@@ -425,7 +436,7 @@ __d(
                 : void 0,
             inline: babelHelpers.extends(
               {},
-              n == null || (S = n.rules) == null ? void 0 : S.inline,
+              n == null || (v = n.rules) == null ? void 0 : v.inline,
               {
                 text:
                   (R =
@@ -443,7 +454,7 @@ __d(
         .tokenize(e, k)
         .reduce(function (e, t) {
           try {
-            e.push.apply(e, v([t], E));
+            e.push.apply(e, S([t], E));
           } catch (t) {
             var n = t instanceof Error ? t.message : String(t);
             e.push(
@@ -455,7 +466,7 @@ __d(
           return e;
         }, []);
     }
-    l.default = S;
+    l.default = R;
   },
   98,
 );

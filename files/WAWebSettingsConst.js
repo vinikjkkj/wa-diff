@@ -15,6 +15,7 @@ __d(
         "Notifications",
         "PaymentsTransactions",
         "PaymentsSharePix",
+        "PaymentsPromotions",
         "PaymentsHome",
         "DirectMessages",
         "GroupMessages",

@@ -11,6 +11,7 @@ __d(
     "WAWebApiContact",
     "WAWebApiDeviceList",
     "WAWebBackendJobs.flow",
+    "WAWebBoolFunc",
     "WAWebBotUtils",
     "WAWebBrAddPixKeyOfferReceipt",
     "WAWebBroadcastInvalidChannelsContextSourceMessageDropWamEvent",
@@ -588,9 +589,7 @@ __d(
           carries: function (t) {
             return t.instantVideoMessage != null;
           },
-          isAllowedBody: function () {
-            return !0;
-          },
+          isAllowedBody: o("WAWebBoolFunc").returnTrue,
           isReceiverEnabled: function () {
             return o("WAWebInstantMsgTypes").isInstantTypeReceiverEnabled(
               o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,

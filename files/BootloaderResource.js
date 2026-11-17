@@ -1,18 +1,40 @@
 __d(
   "BootloaderResource",
-  ["ExecutionEnvironment", "gkx", "suspendOrThrowIfUsedInSSR"],
+  [
+    "BootloaderResourceErrorConfig",
+    "ExecutionEnvironment",
+    "gkx",
+    "suspendOrThrowIfUsedInSSR",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = {},
-      c = {};
-    function d(e) {
-      e.load();
+      c = {},
+      d = !1;
+    function m() {
+      !o("BootloaderResourceErrorConfig").RETHROW_CACHED_LOAD_ERRORS ||
+        d ||
+        typeof window == "undefined" ||
+        ((d = !0),
+        window.addEventListener("online", function () {
+          for (var e of Object.keys(c)) delete c[e];
+        }));
     }
-    function m(t) {
+    function p(e) {
+      (o("BootloaderResourceErrorConfig").RETHROW_CACHED_LOAD_ERRORS &&
+        delete c[e.getModuleId()],
+        e.load());
+    }
+    function _(t) {
       var n = t.getModuleIfRequireable(),
-        o = t.getModuleId();
-      if (r("gkx")("18743") && c[o] != null) throw c[o];
+        a = t.getModuleId();
+      if (
+        (r("gkx")("18743") ||
+          o("BootloaderResourceErrorConfig").RETHROW_CACHED_LOAD_ERRORS) &&
+        c[a] != null
+      )
+        throw c[a];
       if (n == null) {
         if (
           (!(e || (e = r("ExecutionEnvironment"))).isInBrowser &&
@@ -20,20 +42,20 @@ __d(
             (s || (s = r("suspendOrThrowIfUsedInSSR")))(
               "Loading of bootloaded and T3 components is disabled during SSR",
             ),
-          !u[o])
+          !u[a])
         ) {
-          var a = (u[o] = t.load());
-          a.catch(function (e) {
-            c[o] = e;
+          var i = (u[a] = t.load());
+          i.catch(function (e) {
+            ((c[a] = e), m());
           }).finally(function () {
-            delete u[o];
+            delete u[a];
           });
         }
-        throw u[o];
+        throw u[a];
       }
       return n;
     }
-    ((l.preload = d), (l.read = m));
+    ((l.preload = p), (l.read = _));
   },
   98,
 );

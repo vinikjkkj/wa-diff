@@ -16,6 +16,10 @@ __d(
         LID_MIGRATION_DEBUG_MODE: "LID_MIGRATION_DEBUG_MODE",
         DEBUG_FACEBOOK_GRAPHQL_ENDPOINT_OVERRIDE:
           "DEBUG_FACEBOOK_GRAPHQL_ENDPOINT_OVERRIDE",
+        DEBUG_CUSTOMER_MANAGER_FORCE_ONBOARDING_WINDOW:
+          "WADebugCustomerManagerForceOnboardingWindow",
+        DEBUG_CUSTOMER_MANAGER_EDUCATION_UNITS:
+          "WADebugCustomerManagerEducationUnits",
         DEBUG_ERROR_TOAST_ENABLED: "WADebugErrorToastEnabled",
         DEBUG_SHOW_HIDDEN_BOT_CHATS: "WADebugShowHiddenBotChats",
         DEBUG_VPV_OVERLAY_ENABLED: "WADebugVPVOverlayEnabled",

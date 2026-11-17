@@ -6,6 +6,7 @@ __d(
     "WAWebChatGetters",
     "WAWebEphemeralityFrontendUtils",
     "WAWebEphemeralityTypes",
+    "WAWebProductFeature",
     "WAWebStateUtils",
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
@@ -89,8 +90,9 @@ __d(
     }
     function h(t) {
       var n = t.contact,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.chatId,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      if (o("WAWebProductFeature").isInternalProduct()) return !1;
+      var i = a.chatId,
         l = a.groupMetadata,
         s = i.isGroup();
       if (

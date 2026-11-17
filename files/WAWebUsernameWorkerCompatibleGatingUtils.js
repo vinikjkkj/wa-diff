@@ -31,12 +31,18 @@ __d(
     function m() {
       return d() && !c() && !u();
     }
+    function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_username_revocation_client_enabled",
+      );
+    }
     ((l.usernameContactUIEnabled = e),
       (l.usernameContactsUIRefreshEnabled = s),
       (l.usernameAccountLinkingEnabled = u),
       (l.usernameReservationOnlyMode = c),
       (l.usernameCreationOrReservationEnabled = d),
-      (l.isUsernameCreationMode = m));
+      (l.isUsernameCreationMode = m),
+      (l.isUsernameRevocationEnabled = p));
   },
   98,
 );

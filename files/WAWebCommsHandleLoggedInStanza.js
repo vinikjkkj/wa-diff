@@ -56,7 +56,6 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "gkx",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -66,15 +65,13 @@ __d(
       u,
       c,
       d,
-      m,
-      p,
-      _ = r("requireDeferred")(
+      m = r("requireDeferred")(
         "WAWebHandleBizThreadDataBulkNotification",
       ).__setRef("WAWebCommsHandleLoggedInStanza"),
-      f = r("requireDeferred")("WAWebHandleBizThreadDataNotification").__setRef(
+      p = r("requireDeferred")("WAWebHandleBizThreadDataNotification").__setRef(
         "WAWebCommsHandleLoggedInStanza",
       ),
-      g = o("WACreateHandleChatState").createHandleChatState({
+      _ = o("WACreateHandleChatState").createHandleChatState({
         groupMessage: {
           handleGroupChatState: o("WAWebHandleChatState").handleGroupChatState,
         },
@@ -83,12 +80,12 @@ __d(
             .handleIndividualChatState,
         },
       });
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function y() {
+    function g() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.attrs;
           switch (e.tag) {
             case "receipt":
@@ -113,20 +110,6 @@ __d(
                   ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(
                       e,
                     ),
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "Failed to parse receipt ",
-                            " stanza: ",
-                            "",
-                          ])),
-                        n.type,
-                        t,
-                      )
-                      .sendLogs("failed-to-parse-receipt-stanza", {
-                        sampling: r("gkx")("9092") ? 1 : 0.1,
-                      }),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,
                       o("WAWebCreateNackFromStanza").NackReason.ParsingError,
@@ -175,10 +158,10 @@ __d(
                     return l;
                   }
                   case "encrypt": {
-                    var p = e.content;
-                    if (!Array.isArray(p) || !p.length) break;
-                    var h = p[0].tag;
-                    switch (h) {
+                    var d = e.content;
+                    if (!Array.isArray(d) || !d.length) break;
+                    var f = d[0].tag;
+                    switch (f) {
                       case "count":
                       case "pq_count":
                         return yield r("WAWebHandlePreKeyLow")(e, t);
@@ -208,14 +191,14 @@ __d(
                       n.from != null &&
                       n.from.toString() === o("WAJids").PSA_JID
                     ) {
-                      var y = e.content;
-                      if (!Array.isArray(y) || !y.length) break;
-                      var v = y[0].tag;
-                      return v === "surfaces"
+                      var g = e.content;
+                      if (!Array.isArray(g) || !g.length) break;
+                      var C = g[0].tag;
+                      return C === "surfaces"
                         ? yield o(
                             "WAWebHandleQPSurfacesNotification",
                           ).handleQPSurfacesNotification(e)
-                        : v === "reset_smb_last_qp_prefetch_timestamp"
+                        : C === "reset_smb_last_qp_prefetch_timestamp"
                           ? o(
                               "WAWebHandleQPPrefetchTimestampNotification",
                             ).handleQPPrefetchTimestampNotification(e)
@@ -256,17 +239,17 @@ __d(
                     ).handleHostedNotification(e);
                 }
                 if (n.type != null && String(n.type) === "biz_thread_data") {
-                  var S = yield f.load(),
-                    R = S.handleBizThreadDataNotification;
-                  return R(e);
+                  var b = yield p.load(),
+                    v = b.handleBizThreadDataNotification;
+                  return v(e);
                 }
                 if (
                   n.type != null &&
                   String(n.type) === "biz_thread_data_bulk"
                 ) {
-                  var L = yield _.load(),
-                    E = L.handleBizThreadDataBulkNotification;
-                  return E(e);
+                  var S = yield m.load(),
+                    R = S.handleBizThreadDataBulkNotification;
+                  return R(e);
                 }
                 if (
                   n.type != null &&
@@ -280,54 +263,36 @@ __d(
                     "WAWebShortcakeLinkingHandleNotification",
                   ).handleShortcakeLinkingNotification(e);
               } catch (t) {
-                if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
-                  var k, I;
-                  o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e);
-                  var T =
-                    (k = (I = n.type) == null ? void 0 : I.toString()) != null
-                      ? k
-                      : "[empty]";
-                  return (
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "Failed to parse notification ",
-                            " stanza: ",
-                            "",
-                          ])),
-                        T,
-                        t,
-                      )
-                      .sendLogs("failed-to-parse-notification-stanza-" + T, {
-                        sampling: 0.01,
-                      }),
+                return t instanceof o("WAParsableWapNode").XmppParsingFailure
+                  ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(
+                      e,
+                    ),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,
                       o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-                    )
-                  );
-                }
-                return t instanceof
-                  o("WAWebHandleMexNotification").MissingMEXNotificationHandler
-                  ? C(e)
-                  : o("WAWebCreateNackFromStanza").createNackFromStanza(
-                      e,
-                      o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
-                    );
+                    ))
+                  : t instanceof
+                      o("WAWebHandleMexNotification")
+                        .MissingMEXNotificationHandler
+                    ? h(e)
+                    : o("WAWebCreateNackFromStanza").createNackFromStanza(
+                        e,
+                        o("WAWebCreateNackFromStanza").NackReason
+                          .UnhandledError,
+                      );
               }
-              return C(e);
+              return h(e);
             case "chatstate": {
-              var D = b(e);
-              if (D != null) return D;
-              var x = o(
+              var L = y(e);
+              if (L != null) return L;
+              var E = o(
                 "WAWebHandleCoexV2ChatState",
               ).maybeHandleCoexV2ChatStateStanza(e);
-              return x != null
-                ? x
+              return E != null
+                ? E
                 : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
                     e,
-                    g(e),
+                    _(e),
                   );
             }
             case "presence":
@@ -347,8 +312,8 @@ __d(
             case "xmlstreamend":
               return (
                 o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "Comms.handleStanza received xmlstreamend, return NO_ACK",
                     ])),
                 ),
@@ -357,8 +322,8 @@ __d(
           }
           return (
             o("WALogger").DEV_XMPP(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "Comms.handleStanza unrecognized stanza ",
                   "",
                 ])),
@@ -370,10 +335,10 @@ __d(
             )
           );
         })),
-        y.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function C(t) {
+    function h(t) {
       return (
         o("WALogger").DEV_XMPP(
           e ||
@@ -389,19 +354,19 @@ __d(
         )
       );
     }
-    function b(e) {
+    function y(e) {
       var t,
-        n = R((t = e.attrs.from) == null ? void 0 : t.toString());
+        n = v((t = e.attrs.from) == null ? void 0 : t.toString());
       if (n == null) return null;
       var r = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
-      return r == null ? null : v(e, r);
+      return r == null ? null : C(e, r);
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = o(
                 "WASmaxChatstateServerNotificationRPC",
@@ -419,8 +384,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "Failed to handle MAIBA AI Hub chatstate",
                     ])),
                 )
@@ -432,14 +397,14 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function R(e) {
+    function v(e) {
       var t = o("WAWebDecodeJid").decodeJid(e);
       return t instanceof r("WAWebWid") ? t : null;
     }
-    l.handleLoggedInStanza = h;
+    l.handleLoggedInStanza = f;
   },
   98,
 );

@@ -7,21 +7,23 @@ __d(
       u = 12e4,
       c = 1,
       d = (function () {
-        function t(t, n) {
+        function t(t, n, r) {
           if (
             (n === void 0 && (n = null),
+            r === void 0 && (r = "share_menu"),
             !!o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled())
           ) {
-            var r = c;
+            var a = c;
             ((c += 1),
               (this.$1 = o("WAWebQplFlowWrapper").QPL.markerStart(e, {
                 annotations: {
                   string: {
                     content_type: m(t),
                     destination: n != null ? "channel_status" : "my_status",
+                    entry_point: r,
                   },
                 },
-                instanceKey: r,
+                instanceKey: a,
                 timeoutInMs:
                   t.type === o("WAWebMsgType").MSG_TYPE.VIDEO ||
                   t.type === o("WAWebMsgType").MSG_TYPE.PTV ||
@@ -43,10 +45,10 @@ __d(
               e.annotate({ bool: { card_fallback: !0 } });
           }),
           (n.logComposerOpened = function (t) {
-            var e, n;
-            ((e = this.$1) == null || e.annotate({ bool: { is_card: t } }),
-              (n = this.$1) == null || n.end(2),
-              (this.$1 = null));
+            this.$2(t);
+          }),
+          (n.logPosted = function (t) {
+            this.$2(t);
           }),
           (n.logFailed = function () {
             var e;
@@ -55,6 +57,12 @@ __d(
           (n.logCancelled = function () {
             var e;
             ((e = this.$1) == null || e.end(4), (this.$1 = null));
+          }),
+          (n.$2 = function (t) {
+            var e, n;
+            ((e = this.$1) == null || e.annotate({ bool: { is_card: t } }),
+              (n = this.$1) == null || n.end(2),
+              (this.$1 = null));
           }),
           t
         );

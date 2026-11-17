@@ -6,7 +6,6 @@ __d(
     "WAWebDrawer.react",
     "WAWebDrawerHeader.react",
     "WAWebDrawerSection.react",
-    "WAWebModalManager",
     "WAWebOrderAdditionalChargesTextInput",
     "WAWebOrderConfirmDiscardModal",
     "WAWebOrderDetailErrorUtils",
@@ -14,6 +13,7 @@ __d(
     "WAWebOrderDetailMathPercentageSymbol",
     "WAWebOrderTotalPrice",
     "WAWebRichTextField.react",
+    "WDSDialogBridge",
     "react",
     "react-compiler-runtime",
   ],
@@ -125,7 +125,7 @@ __d(
       t[17] !== G || t[18] !== l
         ? ((K = G
             ? function () {
-                o("WAWebModalManager").ModalManager.open(
+                o("WDSDialogBridge").openWDSDialog(
                   u.jsx(r("WAWebOrderConfirmDiscardModal"), { onOK: l }),
                 );
               }

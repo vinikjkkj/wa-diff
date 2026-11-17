@@ -64,22 +64,24 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.actionTarget,
-            n = e.paymentActionType,
-            r = e.previousScreenName,
-            a = e.queryParams,
-            i = e.referral,
-            l = e.screen;
+            n = e.eventTsMs,
+            r = e.paymentActionType,
+            a = e.previousScreenName,
+            i = e.queryParams,
+            l = e.referral,
+            u = e.screen;
           p({
             actionTarget: t,
-            paymentActionType: n,
+            eventTsMs: n,
+            paymentActionType: r,
             paymentsCountryCode: s,
             paymentsEventId: yield o(
               "WAWebSyncdMdSyncFieldstatMeta",
             ).MdSyncFieldStatsMeta.getMdSessionId(),
-            previousScreenName: r,
-            queryParams: a != null ? JSON.stringify(a) : void 0,
-            referral: i,
-            screen: l,
+            previousScreenName: a,
+            queryParams: i != null ? JSON.stringify(i) : void 0,
+            referral: l,
+            screen: u,
           });
         })),
         m.apply(this, arguments)

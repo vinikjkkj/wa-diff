@@ -13,6 +13,7 @@ __d(
     "WAWebLidStatusMigrationKeyUtils",
     "WAWebMarkAddOnsAsReadJob",
     "WAWebMessageReceiptUtils",
+    "WAWebMetaAiFileDocMsgId",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -42,14 +43,15 @@ __d(
       h,
       y,
       C,
-      b = 3,
-      v = 16;
-    function S(e) {
-      return R.apply(this, arguments);
+      b,
+      v = 3,
+      S = 16;
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return e;
           for (var t = [], n = [], r = new Map(), a = 0; a < e.length; a++) {
             var i = e[a];
@@ -63,8 +65,8 @@ __d(
                 var s = i.id;
                 if (s != null) {
                   n.push(s);
-                  var d = o("WAWebLidMigrationUtils").toLid(l);
-                  r.set(s, { chatUpdate: i, lid: d, chatWid: l });
+                  var u = o("WAWebLidMigrationUtils").toLid(l);
+                  r.set(s, { chatUpdate: i, lid: u, chatWid: l });
                 }
               }
             }
@@ -105,8 +107,8 @@ __d(
           return (
             p > 0 &&
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "addAccountLidToUpdates: added account_lid to ",
                     " chats => ",
                     "",
@@ -116,8 +118,8 @@ __d(
               ),
             f > 0 &&
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "addAccountLidToUpdates: no Lid for ",
                     " chats => ",
                     "",
@@ -128,26 +130,26 @@ __d(
             t
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L() {
-      return E.apply(this, arguments);
-    }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "[init-from-storage] updatePeerReceipts start",
               ])),
           );
           var e = self.performance.now(),
-            t = k(yield o("WAWebSchemaPeerReadReceipt").getTable().all());
+            t = T(I(yield o("WAWebSchemaPeerReadReceipt").getTable().all()));
           (o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "[init-from-storage] updatePeerReceipts: ",
                 " peer receipt rows",
               ])),
@@ -157,10 +159,10 @@ __d(
               t,
             ));
           var a = self.performance.now();
-          (yield N(t),
+          (yield w(t),
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[init-from-storage] updatePeerReceipts: chat lookup took ",
                   "ms",
                 ])),
@@ -179,8 +181,8 @@ __d(
           }),
             u > 0 &&
               o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "updatePeerReceipts: ",
                     " unknown ack types => ",
                     "",
@@ -188,30 +190,30 @@ __d(
                 u,
                 s,
               ));
-          var c = yield w(i),
-            h = c.chatAckUpdates,
+          var c = yield F(i),
+            d = c.chatAckUpdates,
             y = c.chatUpdates,
-            b = c.statusAckUpdates,
-            v = yield D(i),
-            R = h.concat(b, v),
+            C = c.statusAckUpdates,
+            v = yield $(i),
+            S = d.concat(C, v),
             L = new Map(
-              b.map(function (e) {
+              C.map(function (e) {
                 return [e.id, e];
               }),
             ),
             E = new Map(
-              R.map(function (e) {
+              S.map(function (e) {
                 return [e.id, e];
               }),
             ),
-            I = q(l);
-          I.forEach(function (e) {
+            k = V(l);
+          k.forEach(function (e) {
             var t = E.get(e.id);
             t == null
               ? E.set(e.id, e)
               : E.set(e.id, babelHelpers.extends({}, t, { ack: e.ack }));
           });
-          var T = Array.from(E.values());
+          var D = Array.from(E.values());
           o("WAWebBackendApi").frontendFireAndForget(
             "updateOfflinePeerReceipt",
             {
@@ -224,7 +226,7 @@ __d(
                     (t = e.unreadMentionsOfMe) != null ? t : [],
                 };
               }),
-              ackUpdates: T.map(function (e) {
+              ackUpdates: D.map(function (e) {
                 var t = e.id;
                 return (
                   L.has(e.id) &&
@@ -236,12 +238,12 @@ __d(
               }),
             },
           );
-          var x = yield S(y);
+          var x = yield R(y);
           return (
             o("WALogger")
               .LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "updatePeerReceipts: bulkCreateOrMerge ",
                     "",
                   ])),
@@ -257,21 +259,21 @@ __d(
               x,
               "updatePeerReceipts",
             ),
-            yield (C || (C = n("Promise"))).all([
+            yield (b || (b = n("Promise"))).all([
               o("WAWebModelStorageUtils")
                 .getStorage()
                 .lock(["message", "chat"], function (e) {
                   var t = e[0],
                     r = e[1];
-                  return (C || (C = n("Promise"))).all([
-                    t.bulkCreateOrMerge(T),
+                  return (b || (b = n("Promise"))).all([
+                    t.bulkCreateOrMerge(D),
                     r.bulkCreateOrMerge(x),
                   ]);
                 })
                 .then(function () {}),
               o("WAWebMarkAddOnsAsReadJob")
                 .markUnclassifiedAddOnsAsReadJob(
-                  Array.from(W(i), function (e) {
+                  Array.from(U(i), function (e) {
                     return r("WAWebMsgKey").from(e);
                   }),
                 )
@@ -282,8 +284,8 @@ __d(
               .clear()
               .then(function () {
                 o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[init-from-storage] updatePeerReceipts: processed ",
                       " peer receipt rows in ",
                       "ms",
@@ -294,42 +296,68 @@ __d(
               })
           );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(t) {
-      var n = [],
-        a = t.map(function (e) {
+    function I(t) {
+      var n = 0,
+        r = t.map(function (e) {
           var t = e.msgKeys.filter(function (e) {
-            return T(e) ? !0 : (n.push(e), !1);
+            return !o("WAWebMetaAiFileDocMsgId").isMetaAiFileDocMsgKeyString(e);
           });
-          return babelHelpers.extends({}, e, { msgKeys: t });
+          return (
+            (n += e.msgKeys.length - t.length),
+            babelHelpers.extends({}, e, { msgKeys: t })
+          );
         });
       return (
-        n.length > 0 &&
-          (r("gkx")("9092") &&
-            o("WALogger").LOG(
+        n > 0 &&
+          o("WALogger")
+            .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "updatePeerReceipts: dropped ",
+                  " Meta AI file doc msg keys",
+                ])),
+              n,
+            )
+            .sendLogs("update-peer-receipts-meta-ai-file-doc-msg-key"),
+        r
+      );
+    }
+    function T(e) {
+      var t = [],
+        n = e.map(function (e) {
+          var n = e.msgKeys.filter(function (e) {
+            return x(e) ? !0 : (t.push(e), !1);
+          });
+          return babelHelpers.extends({}, e, { msgKeys: n });
+        });
+      return (
+        t.length > 0 &&
+          (r("gkx")("9092") &&
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "updatePeerReceipts: dropped msg ids starting ",
                   "",
                 ])),
-              n.slice(0, b).map(I).join(","),
+              t.slice(0, v).map(D).join(","),
             ),
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "updatePeerReceipts: dropped ",
                   " unparsable msg keys",
                 ])),
-              n.length,
+              t.length,
             )
             .sendLogs("update-peer-receipts-unparsable-msg-key")),
-        a
+        n
       );
     }
-    function I(e) {
+    function D(e) {
       return e
         .split("_")
         .slice(2)
@@ -337,21 +365,21 @@ __d(
           return !e.includes("@");
         })
         .join("_")
-        .slice(0, v);
+        .slice(0, S);
     }
-    function T(e) {
+    function x(e) {
       try {
         return (r("WAWebMsgKey").fromString(e), !0);
       } catch (e) {
         return !1;
       }
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("compactMap")(e, function (e) {
               var t = e.msgKeys,
                 n = e.ts;
@@ -359,10 +387,10 @@ __d(
             }),
             a = t.flatMap(function (e) {
               var t = e.msgKeys;
-              return t.filter(P);
+              return t.filter(M);
             });
           if (a.length === 0) return [];
-          var i = yield (C || (C = n("Promise"))).all([
+          var i = yield (b || (b = n("Promise"))).all([
               o("WAWebSchemaMessage").getMessageTable().bulkGet(a, !1),
               o(
                 "WAWebMessageReceiptUtils",
@@ -384,12 +412,12 @@ __d(
           return u.length === 0 ||
             !o("WAWebStatusGatingUtils").isStatusCompanionReadSyncEnabled()
             ? []
-            : (yield C.all(
+            : (yield b.all(
                 t.map(function (e) {
                   var t = e.msgKeys,
                     n = e.ts,
                     a = u.filter(function (e) {
-                      return $(e, t);
+                      return N(e, t);
                     });
                   if (a.length !== 0)
                     return o("WAWebMessageReceiptUtils")
@@ -397,8 +425,8 @@ __d(
                       .catch(function (e) {
                         o("WALogger")
                           .ERROR(
-                            h ||
-                              (h = babelHelpers.taggedTemplateLiteralLoose([
+                            y ||
+                              (y = babelHelpers.taggedTemplateLiteralLoose([
                                 "updatePeerReceipts: failed to mark statuses read",
                               ])),
                           )
@@ -411,10 +439,10 @@ __d(
                 return { id: e.toString(), ack: o("WAWebAck").ACK.READ };
               }));
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function $(e, t) {
+    function N(e, t) {
       return t.some(function (t) {
         var n = r("WAWebMsgKey").fromString(t),
           o = n.id,
@@ -422,20 +450,20 @@ __d(
         return o === e.id && a.equals(e.remote);
       });
     }
-    function P(e) {
+    function M(e) {
       var t = r("WAWebMsgKey").fromString(e),
         n = t.fromMe,
         o = t.remote;
       return !n && (o.isGroup() || o.isNewsletter());
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function M() {
+    function A() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!r("gkx")("5598")) {
-            yield (C || (C = n("Promise"))).all(
+            yield (b || (b = n("Promise"))).all(
               e.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -464,22 +492,22 @@ __d(
             ((i.msgKeys = t.slice(a, l)), (a = l));
           }
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
                 "getUpdatesForPeerReadReceipts",
               ])),
           );
-          var t = W(e),
+          var t = U(e),
             a = yield m(e),
             i = Array.from(a.keys()),
             l = i.reduce(function (e, t) {
@@ -505,7 +533,7 @@ __d(
               return f(a.get(e.from), e);
             }));
           var u = g(),
-            c = yield O(t),
+            c = yield W(t),
             d = r("compactMap")(i, function (e) {
               var t = a.get(e);
               return t != null && t.lastUnreadMsgRowId != null
@@ -528,7 +556,7 @@ __d(
                     .flatMap(function (e) {
                       return e.msgKeys;
                     })
-                    .map(F)
+                    .map(B)
                     .filter(function (e) {
                       return e !== o("WAJids").STATUS_JID;
                     })
@@ -552,7 +580,7 @@ __d(
             var n = t.rowId;
             e == null ||
               n == null ||
-              (C(t) &&
+              (y(t) &&
                 (e.lastUnreadMsgRowId == null || n > e.lastUnreadMsgRowId) &&
                 (e.lastUnreadMsgRowId = n));
           }
@@ -590,25 +618,25 @@ __d(
           function h(e) {
             return e.latestEditMsgKey != null && t.has(e.latestEditMsgKey);
           }
-          function C(e) {
+          function y(e) {
             return t.has(e.id) || h(e);
           }
         })),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F(e) {
+    function B(e) {
       return r("WAWebMsgKey").fromString(e).remote.toString();
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = Array.from(e)
               .filter(function (e) {
-                return F(e) === o("WAJids").STATUS_JID;
+                return B(e) === o("WAJids").STATUS_JID;
               })
               .map(function (e) {
                 return r("WAWebMsgKey").fromString(e);
@@ -618,17 +646,17 @@ __d(
             return { id: e.toString(), ack: o("WAWebAck").ACK.READ };
           });
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e) {
+    function U(e) {
       return new Set(
         e.flatMap(function (e) {
           return e.msgKeys;
         }),
       );
     }
-    function q(e) {
+    function V(e) {
       var t = new Set();
       return (
         e.forEach(function (e) {
@@ -646,9 +674,9 @@ __d(
         })
       );
     }
-    ((l.addAccountLidToUpdates = S),
-      (l.updatePeerReceipts = L),
-      (l.getStatusMsgAckUpdates = O));
+    ((l.addAccountLidToUpdates = R),
+      (l.updatePeerReceipts = E),
+      (l.getStatusMsgAckUpdates = W));
   },
   98,
 );

@@ -9,7 +9,9 @@ __d(
     "WAWebSetUsernameKeyQueryJob",
     "WAWebUserPrefsUsername",
     "WAWebUserUtils",
+    "WAWebUsernameRevocationUserPrefs",
     "WAWebUsernameTypes",
+    "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -38,11 +40,24 @@ __d(
       );
     }
     function _(e, t) {
-      return f.apply(this, arguments);
+      if (t === "REVOKED") {
+        o(
+          "WAWebUsernameWorkerCompatibleGatingUtils",
+        ).isUsernameRevocationEnabled() &&
+          o("WAWebUsernameRevocationUserPrefs").markUsernameRevoked(e);
+        return;
+      }
+      var n = o("WAWebUsernameRevocationUserPrefs").getUsernameRevocation();
+      n != null &&
+        (e != null ? e : null) !== n.assignedUsername &&
+        o("WAWebUsernameRevocationUserPrefs").clearUsernameRevoked();
     }
-    function f() {
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -75,30 +90,32 @@ __d(
             yield o("WAWebGetUsernameQueryJob").getUsernameJob();
             return;
           }
-          var p = l.pin,
-            _ = l.state,
-            f = l.username;
+          var p = l.context,
+            f = l.pin,
+            g = l.state,
+            h = l.username;
           (yield (d || (d = n("Promise"))).all([
             o("WAWebSetUsernameJob").setUsernamesJob([
-              f == null
+              h == null
                 ? { userId: i, deleteUsername: !0 }
                 : {
                     userId: i,
-                    username: o("WAWebUsernameTypes").asUsername(f),
+                    username: o("WAWebUsernameTypes").asUsername(h),
                   },
             ]),
-            m(p),
+            m(f),
           ]),
-            o("WAWebUserPrefsUsername").setUsernameState(_),
+            o("WAWebUserPrefsUsername").setUsernameState(g),
+            _(h, p),
             o("WAWebBackendApi").frontendFireAndForget(
               "setUsernameStateUpdated",
-              { usernameState: _ },
+              { usernameState: g },
             ));
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.mexHandleUsernameAccountSync = _;
+    l.mexHandleUsernameAccountSync = f;
   },
   98,
 );

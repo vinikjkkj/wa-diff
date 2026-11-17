@@ -10,9 +10,15 @@ __d(
         ", calc(100% - " +
         o("WAWebVoipWindowConstants").DRAWER_WIDTH +
         "))",
-      s = "250ms",
-      u = "x1jn504y-B",
-      c = {
+      s =
+        "max(" +
+        o("WAWebVoipWindowConstants").MIN_WINDOW_WIDTH +
+        "px, calc(100% - " +
+        o("WAWebVoipWindowConstants").DRAWER_WIDTH +
+        "))",
+      u = "250ms",
+      c = "x1jn504y-B",
+      d = {
         voipContainer: {
           height: "x5yr21d",
           width: "xh8yej3",
@@ -126,8 +132,9 @@ __d(
         callControlsRow: { marginTop: "xr1yuqi", $$css: !0 },
       };
     ((l.WIDTH_BESIDE_DRAWER = e),
-      (l.AUDIO_TO_VIDEO_FADE_OUT_DURATION = s),
-      (l.WAWebVoipUiBodyStyles = c));
+      (l.ONE_TO_ONE_WIDTH_BESIDE_DRAWER = s),
+      (l.AUDIO_TO_VIDEO_FADE_OUT_DURATION = u),
+      (l.WAWebVoipUiBodyStyles = d));
   },
   98,
 );

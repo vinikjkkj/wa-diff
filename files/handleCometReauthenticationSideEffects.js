@@ -7,6 +7,8 @@ __d(
     "InteractionTracing",
     "SecuredActionDataFromErrorResponse",
     "SecuredActionUtils",
+    "cr:16074",
+    "cr:20133",
     "cr:27369",
     "cr:3096",
     "cr:5888",
@@ -16,6 +18,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
+    n("cr:16074") != null &&
+      n("cr:20133") != null &&
+      n("cr:16074").registerHandler(n("cr:20133").prepare, {
+        isEnabled: n("cr:20133").isEnabled,
+      });
     var e = r("json-bigint")({ storeAsString: !0 }),
       s = new Set(),
       u = new Set(),

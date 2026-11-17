@@ -6,6 +6,7 @@ __d(
     "WAWebPathfinderPIIFilter",
     "WAWebPathfinderScreenName",
     "WAWebUA",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 10,
@@ -119,7 +120,7 @@ __d(
       });
     }
     function x(e, t) {
-      var n = M(e);
+      var n = w(e);
       n != null && D(n, P(e), Date.now(), t, S(e, n));
     }
     function $(e) {
@@ -139,6 +140,15 @@ __d(
       );
     }
     function M(t) {
+      if (t instanceof HTMLElement) return t;
+      if (!(t instanceof Element) || !r("justknobx")._("8301")) return null;
+      for (var n = t, o = 0; n != null && o < e; ) {
+        if (n instanceof HTMLElement) return n;
+        ((n = n.parentElement), o++);
+      }
+      return null;
+    }
+    function w(t) {
       for (var n = t, r = 0, a = []; n instanceof HTMLElement && r < e; ) {
         var i = $(n);
         if (i != null) {
@@ -150,34 +160,31 @@ __d(
       }
       return (a.reverse(), a.length > 0 ? a.join("/") : null);
     }
-    function w(e) {
+    function A(e) {
       if (!(e instanceof MouseEvent && N(e))) {
-        var t = e.target;
-        if (y != null && y === t) {
-          y = null;
-          return;
-        }
-        if (((y = null), t instanceof HTMLElement)) {
-          var n = Date.now(),
-            r = M(t);
-          if (r != null) {
-            var o = P(t),
-              a = p;
-            a != null &&
-              (window.clearTimeout(a.timer),
-              a.target !== t && n - a.timestampMs >= s
+        var t = M(e.target),
+          n = F(e, t);
+        if (((y = null), !(n || t == null))) {
+          var r = Date.now(),
+            o = w(t);
+          if (o != null) {
+            var a = P(t),
+              i = p;
+            i != null &&
+              (window.clearTimeout(i.timer),
+              i.target !== t && r - i.timestampMs >= s
                 ? E({
                     eventType: "TAP",
-                    heldBackSurface: a.heldBackSurface,
-                    targetType: a.targetType,
-                    timestampMs: a.timestampMs,
-                    trackingId: a.trackingId,
+                    heldBackSurface: i.heldBackSurface,
+                    targetType: i.targetType,
+                    timestampMs: i.timestampMs,
+                    trackingId: i.trackingId,
                   })
-                : a.target !== t && C++);
-            var i = window.setTimeout(function () {
+                : i.target !== t && C++);
+            var l = window.setTimeout(function () {
               var e = p;
               e != null &&
-                e.timer === i &&
+                e.timer === l &&
                 (E({
                   eventType: "TAP",
                   heldBackSurface: e.heldBackSurface,
@@ -188,20 +195,28 @@ __d(
                 (p = null));
             }, u);
             p = {
-              timer: i,
+              timer: l,
               target: t,
-              trackingId: r,
-              targetType: o,
-              timestampMs: n,
-              heldBackSurface: S(t, r),
+              trackingId: o,
+              targetType: a,
+              timestampMs: r,
+              heldBackSurface: S(t, o),
             };
           }
         }
       }
     }
-    function A(e) {
-      var t = e.target;
-      if (t instanceof HTMLElement) {
+    function F(e, t) {
+      return (
+        y != null &&
+        e instanceof MouseEvent &&
+        e.detail !== 0 &&
+        (t == null ? void 0 : t.contains(y)) === !0
+      );
+    }
+    function O(e) {
+      var t = M(e.target);
+      if (t != null) {
         var n = p;
         if (n != null) {
           (window.clearTimeout(n.timer),
@@ -215,7 +230,7 @@ __d(
             }));
           return;
         }
-        var r = M(t);
+        var r = w(t);
         r != null &&
           E({
             eventType: "DOUBLE_TAP",
@@ -226,7 +241,7 @@ __d(
           });
       }
     }
-    function F(e) {
+    function B(e) {
       if (g == null && e instanceof WheelEvent) {
         var t = Date.now(),
           n = o("WAWebPathfinderScreenName").getCurrentScreenName(),
@@ -244,7 +259,7 @@ __d(
           ));
       }
     }
-    function O(e) {
+    function W(e) {
       if (g == null) {
         var t = Date.now(),
           n = o("WAWebPathfinderScreenName").getCurrentScreenName();
@@ -260,14 +275,14 @@ __d(
           ));
       }
     }
-    function B(e) {
+    function q(e) {
       if (!(!(e instanceof PointerEvent) || e.button !== 0)) {
-        var t = e.target;
+        var t = M(e.target);
         if (
-          t instanceof HTMLElement &&
+          t != null &&
           (h != null && (window.clearTimeout(h), (h = null)), (y = null), !N(e))
         ) {
-          var n = M(t);
+          var n = w(t);
           if (n != null) {
             var r = P(t),
               o = Date.now(),
@@ -279,15 +294,15 @@ __d(
         }
       }
     }
-    function W(e) {
+    function U(e) {
       !(e instanceof PointerEvent) ||
         e.button !== 0 ||
         (h != null && (window.clearTimeout(h), (h = null)));
     }
-    function q() {
+    function V() {
       h != null && (window.clearTimeout(h), (h = null));
     }
-    function U() {
+    function H() {
       (p != null && (window.clearTimeout(p.timer), (p = null)),
         g != null && (window.clearTimeout(g), (g = null)),
         h != null && (window.clearTimeout(h), (h = null)),
@@ -298,15 +313,16 @@ __d(
       (l.getRapidFireSuppressedCount = R),
       (l.commitTargetLongPress = x),
       (l.isMacContextClick = N),
-      (l.getAncestorTrackingPath = M),
-      (l.handleClick = w),
-      (l.handleDoubleClick = A),
-      (l.handleWheel = F),
-      (l.handleScroll = O),
-      (l.handlePointerDown = B),
-      (l.handlePointerUp = W),
-      (l.handlePointerCancel = q),
-      (l.disposePathfinderUserTouch = U));
+      (l.resolveTapElement = M),
+      (l.getAncestorTrackingPath = w),
+      (l.handleClick = A),
+      (l.handleDoubleClick = O),
+      (l.handleWheel = B),
+      (l.handleScroll = W),
+      (l.handlePointerDown = q),
+      (l.handlePointerUp = U),
+      (l.handlePointerCancel = V),
+      (l.disposePathfinderUserTouch = H));
   },
   98,
 );

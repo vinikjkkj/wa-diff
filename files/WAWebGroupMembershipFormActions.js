@@ -1,25 +1,38 @@
 __d(
   "WAWebGroupMembershipFormActions",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebGroupMembershipFormDevStore",
+    "WAWebGroupMembershipFormGating",
     "WAWebGroupMembershipFormTypes",
+    "WAWebGroupSettingsService",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return p(e, t);
+    var e,
+      s,
+      u = r("JSResourceForInteraction")(
+        "WAWebGroupMembershipFormSaveJob",
+      ).__setRef("WAWebGroupMembershipFormActions");
+    function c(e, t) {
+      return _(e, t);
     }
-    function c(e) {
-      return p(e, null);
+    function d(e) {
+      return _(e, null);
     }
-    function d() {
-      return o("WAWebGroupMembershipFormDevStore").isGMFDevMode();
+    function m() {
+      return (
+        o("WAWebGroupMembershipFormDevStore").isGMFDevMode() ||
+        o(
+          "WAWebGroupMembershipFormGating",
+        ).isGroupMembershipFormSettingEnabled()
+      );
     }
-    function m(t) {
-      c(t).catch(function (t) {
+    function p(t) {
+      d(t).catch(function (t) {
         o("WALogger")
           .WARN(
             e ||
@@ -31,23 +44,38 @@ __d(
           .sendLogs("gmf-delete-form-after-approval-off-failed");
       });
     }
-    function p(e, t) {
-      return d()
-        ? (o("WAWebGroupMembershipFormDevStore").saveDevMembershipForm(e, t),
-          (s || (s = n("Promise"))).resolve())
-        : (s || (s = n("Promise"))).reject(
-            new (o(
-              "WAWebGroupMembershipFormTypes",
-            ).GroupMembershipFormSaveError)(
-              o("WAWebGroupMembershipFormTypes")
-                .GroupMembershipFormSaveErrorCode.NOT_AVAILABLE,
-            ),
-          );
+    function _(e, t) {
+      if (!m())
+        return (s || (s = n("Promise"))).reject(
+          new (o("WAWebGroupMembershipFormTypes").GroupMembershipFormSaveError)(
+            o("WAWebGroupMembershipFormTypes").GroupMembershipFormSaveErrorCode
+              .NOT_AVAILABLE,
+          ),
+        );
+      if (o("WAWebGroupMembershipFormDevStore").isGMFDevMode())
+        return (
+          o("WAWebGroupMembershipFormDevStore").saveDevMembershipForm(e, t),
+          (s || (s = n("Promise"))).resolve()
+        );
+      var r = o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebGroupSettingsService").GroupSettingsService)
+            .saveGroupMembershipForm(e, t)
+        : u.load().then(function (n) {
+            var r = n.saveGroupMembershipFormJob;
+            return r(e, t);
+          });
+      return r.then(function (e) {
+        if (e.type === "error")
+          throw new (o(
+            "WAWebGroupMembershipFormTypes",
+          ).GroupMembershipFormSaveError)(e.code);
+      });
     }
-    ((l.saveGroupMembershipForm = u),
-      (l.deleteGroupMembershipForm = c),
-      (l.isGroupMembershipFormWriteAvailable = d),
-      (l.deleteGroupMembershipFormInBackground = m));
+    ((l.saveGroupMembershipForm = c),
+      (l.deleteGroupMembershipForm = d),
+      (l.isGroupMembershipFormWriteAvailable = m),
+      (l.deleteGroupMembershipFormInBackground = p));
   },
   98,
 );

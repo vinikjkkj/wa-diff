@@ -9,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendErrors",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
+    "WAWebGroupMembershipFormAnswersFetchGating",
     "WAWebGroupMembershipFormGating",
     "WAWebGroupsQueryApi",
     "WAWebJidToWid",
@@ -19,39 +20,71 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["addedByPn", "addedByUsername", "phoneNumber", "username"],
-      s,
+      s = ["membershipFormAnswers"],
       u,
-      c = r("JSResourceForInteraction")(
+      c,
+      d,
+      m = r("JSResourceForInteraction")(
         "WAWebMexFetchMembershipApprovalRequestsJob",
       ).__setRef("WAWebGroupGetMembershipApprovalRequestsJob");
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebGroupMembershipFormGating",
-            ).isMexMembershipApprovalRequestsEnabled()
-          )
-            return p(e);
-          var t = yield c.load(),
-            n = t.fetchMexMembershipApprovalRequests;
-          return n(e);
-        })),
-        m.apply(this, arguments)
-      );
-    }
     function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            return yield o(
+              "WAWebGroupMembershipFormAnswersFetchGating",
+            ).shouldFetchGroupMembershipFormAnswers(e);
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[GMF] membership form answers gating failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("gmf-answers-gating-failed"),
+              null
+            );
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e, t) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            !t &&
+            !o(
+              "WAWebGroupMembershipFormGating",
+            ).isMexMembershipApprovalRequestsEnabled()
+          )
+            return h(e);
+          var n = yield m.load(),
+            r = n.fetchMexMembershipApprovalRequests;
+          return r(e, t);
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WASmaxGroupsGetMembershipApprovalRequestsRPC",
           ).sendGetMembershipApprovalRequestsRPC({
@@ -68,7 +101,7 @@ __d(
                       t: e.requestTime,
                       addedBy:
                         n != null ? o("WAWebJidToWid").userJidToUserWid(n) : t,
-                      requestMethod: f(e.requestMethod),
+                      requestMethod: C(e.requestMethod),
                       parentGroupId:
                         e.parentGroupJid != null
                           ? o("WAWebJidToWid").groupJidToWid(e.parentGroupJid)
@@ -113,16 +146,16 @@ __d(
               );
             case "GetMembershipApprovalRequestsResponseClientError": {
               var n = t.value.errorGetMembershipApprovalRequestsClientErrors;
-              return g(n.value);
+              return b(n.value);
             }
             default:
-              return (t.name, g(t.value.errorServerErrors.value));
+              return (t.name, b(t.value.errorServerErrors.value));
           }
         })),
-        _.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function f(e) {
+    function C(e) {
       return e === "invite_link"
         ? o("WAWebRequestMethodType").RequestMethod.InviteLink
         : e === "linked_group_join"
@@ -136,13 +169,13 @@ __d(
                 );
               })();
     }
-    function g(e) {
+    function b(e) {
       var t = e.code,
         r = e.text;
       return (
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "queryMembershipApprovalRequests failed: ",
               ":",
               "",
@@ -150,19 +183,20 @@ __d(
           t,
           r,
         ),
-        (u || (u = n("Promise"))).reject(
+        (d || (d = n("Promise"))).reject(
           new (o("WAWebBackendErrors").ServerStatusCodeError)(Number(t), r),
         )
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function y() {
+    function S() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield d(t),
-            r = n.map(function (t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r = n != null ? n : yield p(t),
+            a = yield f(t, r === !0),
+            i = a.map(function (t) {
               var n = t.addedByPn,
                 r = t.addedByUsername,
                 o = t.phoneNumber,
@@ -170,11 +204,12 @@ __d(
                 i = babelHelpers.objectWithoutPropertiesLoose(t, e);
               return i;
             }),
-            a = yield o(
+            l = r == null ? yield R(t, i) : i,
+            u = yield o(
               "WAWebApiMembershipApprovalRequestStore",
             ).getMembershipApprovalRequests(t),
-            i = a.filter(function (e) {
-              return !r.some(function (t) {
+            c = u.filter(function (e) {
+              return !l.some(function (t) {
                 return t.id.equals(e.id);
               });
             });
@@ -183,16 +218,16 @@ __d(
               "WAWebApiMembershipApprovalRequestStore",
             ).removeMembershipApprovalRequests(
               t,
-              i.map(function (e) {
+              c.map(function (e) {
                 return e.id;
               }),
             ),
             yield o(
               "WAWebApiMembershipApprovalRequestStore",
-            ).addMembershipApprovalRequests(t, r),
+            ).addMembershipApprovalRequests(t, l),
             o("WAWebUsernameGatingUtils").lidGroupMigrationNonMemberIQEnabled())
           ) {
-            var l = n.reduce(function (e, t) {
+            var d = a.reduce(function (e, t) {
               var n = t.addedBy,
                 r = t.addedByPn,
                 o = t.id,
@@ -213,10 +248,10 @@ __d(
             }, []);
             yield o(
               "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-            ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(l, !0);
+            ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(d, !0);
           }
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-            var s = n.reduce(function (e, t) {
+            var m = a.reduce(function (e, t) {
               return (
                 t.username != null &&
                   e.push({
@@ -233,26 +268,67 @@ __d(
                 e
               );
             }, []);
-            yield o("WAWebSetUsernameJob").setUsernamesJob(s);
+            yield o("WAWebSetUsernameJob").setUsernamesJob(m);
           }
           (o("WAWebBackendApi").frontendFireAndForget(
             "removeMembershipApprovalRequests",
             {
               groupId: t,
-              requestIds: i.map(function (e) {
+              requestIds: c.map(function (e) {
                 return e.id;
               }),
             },
           ),
             o("WAWebBackendApi").frontendFireAndForget(
               "addMembershipApprovalRequests",
-              { groupId: t, requests: r },
+              {
+                groupId: t,
+                requests: l.map(function (e) {
+                  var t = e.membershipFormAnswers,
+                    n = babelHelpers.objectWithoutPropertiesLoose(e, s);
+                  return babelHelpers.extends({}, n, {
+                    hasMembershipFormAnswers: t != null,
+                    membershipFormRequestId: t == null ? void 0 : t.requestId,
+                    membershipFormAnswersVersion:
+                      t != null
+                        ? o(
+                            "WAWebApiMembershipApprovalRequestStore",
+                          ).getMembershipFormAnswersVersion(t)
+                        : void 0,
+                  });
+                }),
+              },
             ));
         })),
-        y.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    l.queryAndUpdateGroupMembershipApprovalRequests = h;
+    function R(e, t) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+            "WAWebApiMembershipApprovalRequestStore",
+          ).getMembershipApprovalRequestsWithFormAnswers(e);
+          return t.map(function (e) {
+            var t,
+              r =
+                (t = n.find(function (t) {
+                  return t.id.equals(e.id);
+                })) == null
+                  ? void 0
+                  : t.membershipFormAnswers;
+            return r != null
+              ? babelHelpers.extends({}, e, { membershipFormAnswers: r })
+              : e;
+          });
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    l.queryAndUpdateGroupMembershipApprovalRequests = v;
   },
   98,
 );

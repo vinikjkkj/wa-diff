@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebGroupMembershipFormProto",
     "WAWebMexClient",
     "WAWebMexFetchMembershipApprovalRequestsJobQuery.graphql",
     "WAWebRequestMethodType",
@@ -16,108 +17,143 @@ __d(
       s,
       u,
       c,
-      d = 500,
-      m =
+      d,
+      m = 500,
+      p =
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchMembershipApprovalRequestsJobQuery.graphql"));
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = yield o("WAWebMexClient").fetchQuery(m, {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          t === void 0 && (t = !1);
+          var r = yield o("WAWebMexClient").fetchQuery(p, {
               id: e.toString(),
               query_context: "INTERACTIVE",
               include_username: o(
                 "WAWebUsernameGatingUtils",
               ).usernameDisplayedEnabled(),
+              include_membership_form: t,
             }),
-            r =
-              (t = n.xwa2_group_query_by_id) == null ||
-              (t = t.membership_approval_requests) == null
+            a =
+              (n = r.xwa2_group_query_by_id) == null ||
+              (n = n.membership_approval_requests) == null
                 ? void 0
-                : t.edges;
-          if (r == null)
+                : n.edges;
+          if (a == null)
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-              d,
+              m,
               "missing membership approval requests in MEX response",
             );
-          var a = [],
-            i = 0;
+          var i = [],
+            l = 0;
           if (
-            (r.forEach(function (e) {
+            (a.forEach(function (e) {
               var t = e.node,
-                n = f(t);
-              n == null ? i++ : a.push(n);
+                n = g(t);
+              n == null ? l++ : i.push(n);
             }),
-            i > 0)
+            l > 0)
           )
             throw (
               o("WALogger")
                 .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[MEX][GROUP] ",
                       " malformed membership approval requests",
                     ])),
-                  i,
+                  l,
                 )
                 .sendLogs("mex-membership-approval-requests-malformed"),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                d,
+                m,
                 "malformed membership approval requests in MEX response",
               )
             );
           return (
             o("WALogger")
               .LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[MEX][GROUP] fetched ",
                     " membership approval requests",
                   ])),
-                a.length,
+                i.length,
               )
               .tags("GQL", "MEX"),
-            a
+            i
           );
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      var t = h(e.user.jid),
+    function g(e) {
+      var t = C(e.user.jid),
         n = Number(e.request_time);
       if (t == null || !Number.isFinite(n)) return null;
       var r = e.requestor,
-        a = r != null ? h(r.jid) : t;
+        a = r != null ? C(r.jid) : t;
       if (a == null) return null;
-      var i = { id: t, t: n, addedBy: a, requestMethod: g(e.request_method) };
-      if (o("WAWebUsernameGatingUtils").lidGroupMigrationNonMemberIQEnabled()) {
-        var l = h(e.user.pn);
-        l != null && (i.phoneNumber = l);
-        var s = h(r == null ? void 0 : r.pn);
-        s != null && (i.addedByPn = s);
+      var i = { id: t, t: n, addedBy: a, requestMethod: y(e.request_method) },
+        l = h(e.membership_form);
+      if (
+        (l != null && (i.membershipFormAnswers = l),
+        o("WAWebUsernameGatingUtils").lidGroupMigrationNonMemberIQEnabled())
+      ) {
+        var s = C(e.user.pn);
+        s != null && (i.phoneNumber = s);
+        var u = C(r == null ? void 0 : r.pn);
+        u != null && (i.addedByPn = u);
       }
       if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-        var u = y(e.user);
-        u != null && (i.username = u);
-        var c = r != null ? y(r) : null;
-        c != null && (i.addedByUsername = c);
+        var c = b(e.user);
+        c != null && (i.username = c);
+        var d = r != null ? b(r) : null;
+        d != null && (i.addedByUsername = d);
       }
       return i;
     }
-    function g(e) {
+    function h(e) {
+      var t = e == null ? void 0 : e.key_id,
+        n = e == null ? void 0 : e.encrypted_payload;
+      if (t == null || n == null) return null;
+      var r;
+      try {
+        r = o("WAWebGroupMembershipFormProto").xwa2BinaryToBytes(n);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MEX][GROUP] membership form payload is not valid base64",
+                ])),
+            )
+            .sendLogs("mex-membership-form-payload-malformed"),
+          null
+        );
+      }
+      return r.byteLength === 0
+        ? null
+        : {
+            payload: r.slice().buffer,
+            keyId: t,
+            requestId: e == null ? void 0 : e.request_id,
+          };
+    }
+    function y(e) {
       return e === "LINKED_GROUP_JOIN"
         ? o("WAWebRequestMethodType").RequestMethod.LinkedGroupJoin
         : e === "NON_ADMIN_ADD"
           ? o("WAWebRequestMethodType").RequestMethod.NonAdminAdd
           : o("WAWebRequestMethodType").RequestMethod.InviteLink;
     }
-    function h(e) {
+    function C(e) {
       if (e == null) return null;
       try {
         return o("WAWebWidFactory").createUserWidOrThrow(e);
@@ -125,8 +161,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[MEX][GROUP] membership request has an invalid user jid: ",
                   "",
                 ])),
@@ -137,11 +173,11 @@ __d(
         );
       }
     }
-    function y(e) {
+    function b(e) {
       var t;
       return (t = e.username_info) == null ? void 0 : t.username;
     }
-    l.fetchMexMembershipApprovalRequests = p;
+    l.fetchMexMembershipApprovalRequests = _;
   },
   98,
 );

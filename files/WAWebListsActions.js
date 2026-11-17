@@ -513,7 +513,12 @@ __d(
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             if (o("WAWebListUtils").isDeviceLocalList(e)) {
-              yield M(!0);
+              (yield M(!0),
+                o("WAWebToastManager").ToastManager.open(
+                  E.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(/*BTDS*/ "List enabled"),
+                  }),
+                ));
               return;
             }
             var t = o(
@@ -571,7 +576,12 @@ __d(
           try {
             var t;
             if (o("WAWebListUtils").isDeviceLocalList(e)) {
-              yield M(!1);
+              (yield M(!1),
+                o("WAWebToastManager").ToastManager.open(
+                  E.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(/*BTDS*/ "List disabled"),
+                  }),
+                ));
               return;
             }
             (yield o("WAWebBizLabelEditingAction").labelEditAction(

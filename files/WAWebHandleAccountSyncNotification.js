@@ -21,10 +21,12 @@ __d(
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebPDFNTypes",
+    "WAWebPhoneNumberSharingSettingsRefresh",
     "WAWebSetUsernameJob",
     "WAWebTextStatusAccountSyncNotification",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserDisclosureCollection",
+    "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserUtils",
@@ -328,11 +330,7 @@ __d(
               break e;
             }
             if (r.type === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY) {
-              o(
-                "WAWebBackendEventBus",
-              ).BackendEventBus.triggerAccountSyncForPrivacy(
-                yield o("WAWebAccountSyncJob").forceUpdatePrivacySettings(),
-              );
+              yield R(r.from);
               break e;
             }
             if (r.type === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST) {
@@ -361,7 +359,7 @@ __d(
               r.type ===
               o("WAWebAccountSyncJob").AccountSyncType.DISAPPEARING_MODE
             ) {
-              yield R(r);
+              yield E(r);
               break e;
             }
             if (r.type === o("WAWebAccountSyncJob").AccountSyncType.NOTICE) {
@@ -529,6 +527,29 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o(
+            "WAWebPhoneNumberSharingSettingsRefresh",
+          ).schedulePhoneNumberSharingSettingsRefresh(e);
+          var t = yield o("WAWebAccountSyncJob").forceUpdatePrivacySettings();
+          o(
+            "WAWebBackendEventBus",
+          ).BackendEventBus.triggerAccountSyncForPrivacy(
+            babelHelpers.extends({}, t, {
+              privacySettings: o(
+                "WAWebUserPrefsGeneral",
+              ).getUserPrivacySettings(),
+            }),
+          );
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.action,
             n = e.from,
             r = e.disappearingModeDuration,
@@ -554,7 +575,7 @@ __d(
               newSettingTimestamp: a,
             }));
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
     l.handleAccountSyncNotification = f;

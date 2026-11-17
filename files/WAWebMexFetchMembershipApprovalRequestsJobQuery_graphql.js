@@ -8,14 +8,19 @@ __d(
         t = {
           defaultValue: null,
           kind: "LocalArgument",
-          name: "include_username",
+          name: "include_membership_form",
         },
         n = {
           defaultValue: null,
           kind: "LocalArgument",
+          name: "include_username",
+        },
+        r = {
+          defaultValue: null,
+          kind: "LocalArgument",
           name: "query_context",
         },
-        r = [
+        o = [
           {
             fields: [
               { kind: "Variable", name: "group_id", variableName: "id" },
@@ -29,21 +34,21 @@ __d(
             name: "group_input",
           },
         ],
-        o = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "jid",
           storageKey: null,
         },
-        a = {
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "pn",
           storageKey: null,
         },
-        i = {
+        l = {
           kind: "InlineFragment",
           selections: [
             {
@@ -57,9 +62,9 @@ __d(
           type: "XWA2Username",
           abstractKey: null,
         },
-        l = [
-          o,
+        s = [
           a,
+          i,
           {
             condition: "include_username",
             kind: "Condition",
@@ -72,27 +77,66 @@ __d(
                 kind: "LinkedField",
                 name: "username_info",
                 plural: !1,
-                selections: [i],
+                selections: [l],
                 storageKey: null,
               },
             ],
           },
         ],
-        s = {
+        u = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "request_method",
           storageKey: null,
         },
-        u = {
+        c = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "request_time",
           storageKey: null,
         },
-        c = [
+        d = {
+          condition: "include_membership_form",
+          kind: "Condition",
+          passingValue: !0,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              concreteType: "XWA2GroupMembershipRequestMembershipFormResponse",
+              kind: "LinkedField",
+              name: "membership_form",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "key_id",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "encrypted_payload",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "request_id",
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        m = [
           {
             alias: null,
             args: null,
@@ -124,10 +168,10 @@ __d(
                         kind: "LinkedField",
                         name: "user",
                         plural: !1,
-                        selections: l,
+                        selections: s,
                         storageKey: null,
                       },
-                      s,
+                      u,
                       {
                         alias: null,
                         args: null,
@@ -135,10 +179,11 @@ __d(
                         kind: "LinkedField",
                         name: "requestor",
                         plural: !1,
-                        selections: l,
+                        selections: s,
                         storageKey: null,
                       },
-                      u,
+                      c,
+                      d,
                     ],
                     storageKey: null,
                   },
@@ -149,23 +194,23 @@ __d(
             storageKey: null,
           },
         ],
-        d = {
+        p = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        m = {
+        _ = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        p = [
-          o,
+        f = [
           a,
+          i,
           {
             condition: "include_username",
             kind: "Condition",
@@ -178,14 +223,14 @@ __d(
                 kind: "LinkedField",
                 name: "username_info",
                 plural: !1,
-                selections: [d, i],
+                selections: [p, l],
                 storageKey: null,
               },
             ],
           },
-          m,
+          _,
         ],
-        _ = [
+        g = [
           {
             alias: null,
             args: null,
@@ -217,10 +262,10 @@ __d(
                         kind: "LinkedField",
                         name: "user",
                         plural: !1,
-                        selections: p,
+                        selections: f,
                         storageKey: null,
                       },
-                      s,
+                      u,
                       {
                         alias: null,
                         args: null,
@@ -228,10 +273,11 @@ __d(
                         kind: "LinkedField",
                         name: "requestor",
                         plural: !1,
-                        selections: p,
+                        selections: f,
                         storageKey: null,
                       },
-                      u,
+                      c,
+                      d,
                     ],
                     storageKey: null,
                   },
@@ -244,14 +290,14 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, n],
+          argumentDefinitions: [e, t, n, r],
           kind: "Fragment",
           metadata: null,
           name: "WAWebMexFetchMembershipApprovalRequestsJobQuery",
           selections: [
             {
               alias: null,
-              args: r,
+              args: o,
               concreteType: null,
               kind: "LinkedField",
               name: "xwa2_group_query_by_id",
@@ -259,13 +305,13 @@ __d(
               selections: [
                 {
                   kind: "InlineFragment",
-                  selections: c,
+                  selections: m,
                   type: "XWA2GroupRegularGroup",
                   abstractKey: null,
                 },
                 {
                   kind: "InlineFragment",
-                  selections: c,
+                  selections: m,
                   type: "XWA2CommunitySubGroup",
                   abstractKey: null,
                 },
@@ -278,39 +324,39 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [e, n, t],
+          argumentDefinitions: [e, r, n, t],
           kind: "Operation",
           name: "WAWebMexFetchMembershipApprovalRequestsJobQuery",
           selections: [
             {
               alias: null,
-              args: r,
+              args: o,
               concreteType: null,
               kind: "LinkedField",
               name: "xwa2_group_query_by_id",
               plural: !1,
               selections: [
-                d,
+                p,
                 {
                   kind: "InlineFragment",
-                  selections: _,
+                  selections: g,
                   type: "XWA2GroupRegularGroup",
                   abstractKey: null,
                 },
                 {
                   kind: "InlineFragment",
-                  selections: _,
+                  selections: g,
                   type: "XWA2CommunitySubGroup",
                   abstractKey: null,
                 },
-                m,
+                _,
               ],
               storageKey: null,
             },
           ],
         },
         params: {
-          id: "40086730520941352",
+          id: "41213668101565839",
           metadata: {},
           name: "WAWebMexFetchMembershipApprovalRequestsJobQuery",
           operationKind: "query",

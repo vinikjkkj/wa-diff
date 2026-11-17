@@ -131,12 +131,14 @@ __d(
       );
     }
     function D() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
+      if (!o("WAWebMobilePlatforms").isSMB()) return !1;
+      var e = o("WAWebABProps").getABPropConfigValue(
           "ctwa_smb_h2_2026_ofs_migration_enabled",
-        )
-      );
+        ),
+        t = o("WAWebABProps").getABPropConfigValue(
+          "ctwa_smb_h2_2026_ofs_migration_dummy_enabled",
+        );
+      return e && t;
     }
     function x() {
       return r("justknobx")._("458");

@@ -327,7 +327,7 @@ __d(
             }
             return t;
           })()),
-          (i.logout = function (t) {
+          (i.logout = function (t, a) {
             var e = this;
             if (
               (t === void 0 &&
@@ -362,7 +362,7 @@ __d(
                   "Non Error - WS2 logout, thrown only for getting logout stack trace",
                 );
               } catch (e) {
-                var a = r("getErrorSafe")(e);
+                var i = r("getErrorSafe")(e);
                 o("WALogger")
                   .LOG(
                     y ||
@@ -371,7 +371,7 @@ __d(
                         ["WS2 logout debug, reason: ", ", stack: \\n ", ""],
                       )),
                     t,
-                    a.stack,
+                    i.stack,
                   )
                   .verbose();
               }
@@ -381,20 +381,20 @@ __d(
                   "ws2:user logged out",
                 ])),
             );
-            var i = (O || (O = n("Promise"))).resolve(),
-              l = 0,
-              s = 20,
-              u = Math.min(
-                s,
+            var l = (O || (O = n("Promise"))).resolve(),
+              s = 0,
+              u = 20,
+              c = Math.min(
+                u,
                 Math.max(
-                  l,
+                  s,
                   o("WAWebABProps").getABPropConfigValue(
                     "syncd_sentinel_timeout_seconds",
                   ),
                 ),
               );
-            i = o("WAPromiseTimeout")
-              .promiseTimeout(r("WAWebSentinel")(), u * 1e3)
+            l = o("WAPromiseTimeout")
+              .promiseTimeout(r("WAWebSentinel")(), c * 1e3)
               .catch(function () {
                 return o("WALogger").WARN(
                   b ||
@@ -403,12 +403,12 @@ __d(
                     ])),
                 );
               });
-            var c = 3;
+            var d = 3;
             o("WAPromiseTimeout")
               .promiseTimeout(
-                i
+                l
                   .then(function () {
-                    return o("WAWebSocketLogoutUtils").sendCurrentLogout(t);
+                    return o("WAWebSocketLogoutUtils").sendCurrentLogout(t, a);
                   })
                   .catch(
                     (function () {
@@ -433,8 +433,8 @@ __d(
                       };
                     })(),
                   ),
-                c * 1e3,
-                "network request took more than " + c + " seconds",
+                d * 1e3,
+                "network request took more than " + d + " seconds",
               )
               .then(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

@@ -14,8 +14,11 @@ __d(
     "WAWebToastManager",
     "WAWebVoipAvailabilityCheckpoints",
     "WAWebVoipBackendLoadable",
+    "WAWebVoipCallBlockedAlertLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
+    "WAWebVoipNoConnectionDialogLoader",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -98,32 +101,22 @@ __d(
         );
       }
       return (
-        o("WAWebModalManager").ModalManager.open(
+        o("WDSDialogBridge").openWDSDialog(
           e === "broken_voip_wasm"
-            ? u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                tsNavigationData: {
-                  surface: "unknown",
-                  viewName: "voip-start-call",
-                },
-                onOK: o("WAWebModalManager").closeModalManager,
+            ? u.jsx(r("WAWebVoipCallBlockedAlertLoadable"), {
+                description: s._(
+                  /*BTDS*/ "Please update your browser to Safari 26.3 or higher and try again.",
+                ),
                 title: s._(
                   /*BTDS*/ "Your version of Safari doesn\u2019t support calls",
                 ),
-                children: s._(
-                  /*BTDS*/ "Please update your browser to Safari 26.3 or higher and try again.",
-                ),
               })
-            : u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                tsNavigationData: {
-                  surface: "unknown",
-                  viewName: "voip-start-call",
-                },
-                onOK: o("WAWebModalManager").closeModalManager,
+            : u.jsx(r("WAWebVoipCallBlockedAlertLoadable"), {
+                description: s._(
+                  /*BTDS*/ "Please update your browser or try another browser.",
+                ),
                 title: s._(
                   /*BTDS*/ "Your browser doesn\u2019t support calling",
-                ),
-                children: s._(
-                  /*BTDS*/ "Please update your browser or try another browser.",
                 ),
               }),
         ),
@@ -154,34 +147,32 @@ __d(
       );
     }
     function p() {
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "voip-start-call" },
-          onOK: o("WAWebModalManager").closeModalManager,
+      o("WDSDialogBridge").openWDSDialog(
+        u.jsx(r("WAWebVoipCallBlockedAlertLoadable"), {
+          description: s._(/*BTDS*/ "Refresh the page and try again."),
           title: s._(/*BTDS*/ "Couldn't place call"),
-          children: s._(/*BTDS*/ "Refresh the page and try again."),
         }),
       );
     }
     function _() {
       return r("WAWebNetworkStatus").online
         ? !1
-        : (o("WAWebModalManager").ModalManager.open(
-            u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              testid: "voip_no_connection_modal",
-              tsNavigationData: {
-                surface: "unknown",
-                viewName: "voip-start-call",
-              },
-              onOK: o("WAWebModalManager").closeModalManager,
-              children: s._(
-                /*BTDS*/ "Couldn't place call. Make sure your device has an internet connection and try again.",
-              ),
-            }),
-          ),
+        : (o("WAWebVoipNoConnectionDialogLoader").showNoConnectionDialog(f),
           !0);
     }
     function f() {
+      o("WAWebModalManager").ModalManager.open(
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          testid: "voip_no_connection_modal",
+          tsNavigationData: { surface: "unknown", viewName: "voip-start-call" },
+          onOK: o("WAWebModalManager").closeModalManager,
+          children: s._(
+            /*BTDS*/ "Couldn't place call. Make sure your device has an internet connection and try again.",
+          ),
+        }),
+      );
+    }
+    function g() {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           testid: "voip_init_unavailable_reload_modal",
@@ -205,26 +196,26 @@ __d(
         }),
       );
     }
-    function g() {
-      return h.apply(this, arguments);
-    }
     function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return c() || _()
             ? !0
             : o(
                   "WAWebVoipInitEventEmitter",
                 ).VoipInitEventEmitter.getIsVoipStackUnresponsive()
               ? (o("WAWebCoreActionsODS").logCallInitBlockedStackUnresponsive(),
-                f(),
+                g(),
                 !0)
               : d();
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y() {
+    function C() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "End your current call to start a new one."),
@@ -233,9 +224,9 @@ __d(
     }
     ((l.showCouldNotPlaceCallModal = p),
       (l.showNoConnectionModalIfOffline = _),
-      (l.showVoipInitUnavailableModal = f),
-      (l.showCallBlockedModalIfNeeded = g),
-      (l.showEndCurrentCallToast = y));
+      (l.showVoipInitUnavailableModal = g),
+      (l.showCallBlockedModalIfNeeded = h),
+      (l.showEndCurrentCallToast = C));
   },
   226,
 );

@@ -9,11 +9,13 @@ __d(
     "WAWebConfirmPopup.react",
     "WAWebFavoritesUtils",
     "WAWebFbtCommon",
+    "WAWebFrontendChatGetters",
     "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebListItemParentType",
     "WAWebListUtils",
     "WAWebListsActions",
+    "WAWebMetaAiChatFilter",
     "WAWebModalManager",
     "WAWebSchemaLabel",
     "WAWebWamEnumLabelOperations",
@@ -85,18 +87,14 @@ __d(
                       t === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
                   );
                 })
-              : e.type === o("WAWebSchemaLabel").ListType.AI_HANDOFF
+              : e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD
                 ? o("WAWebChatCollection").ChatCollection.filter(function (e) {
                     return (
-                      !e.archive &&
-                      !e.isLocked &&
-                      o("WAWebChatMessageSearch").matchFilter(e, {
-                        kind: o("WAWebChatSearchFilters").SearchFilters
-                          .AI_HANDOFF,
-                      })
+                      o("WAWebMetaAiChatFilter").isChatListedInAiFilter(e) &&
+                      o("WAWebFrontendChatGetters").getShouldAppearInList(e)
                     );
                   })
-                : e.type === o("WAWebSchemaLabel").ListType.AI_RESPONDING
+                : e.type === o("WAWebSchemaLabel").ListType.AI_HANDOFF
                   ? o("WAWebChatCollection").ChatCollection.filter(
                       function (e) {
                         return (
@@ -104,23 +102,37 @@ __d(
                           !e.isLocked &&
                           o("WAWebChatMessageSearch").matchFilter(e, {
                             kind: o("WAWebChatSearchFilters").SearchFilters
-                              .AI_RESPONDING,
+                              .AI_HANDOFF,
                           })
                         );
                       },
                     )
-                  : e.labelItemCollection.reduce(function (e, t) {
-                      if (
-                        t == null ||
-                        t.parentType !==
-                          o("WAWebListItemParentType").LabelItemParentType.Chat
+                  : e.type === o("WAWebSchemaLabel").ListType.AI_RESPONDING
+                    ? o("WAWebChatCollection").ChatCollection.filter(
+                        function (e) {
+                          return (
+                            !e.archive &&
+                            !e.isLocked &&
+                            o("WAWebChatMessageSearch").matchFilter(e, {
+                              kind: o("WAWebChatSearchFilters").SearchFilters
+                                .AI_RESPONDING,
+                            })
+                          );
+                        },
                       )
-                        return e;
-                      var n = o("WAWebChatCollection").ChatCollection.get(
-                        t.parentId,
-                      );
-                      return (n != null && e.push(n), e);
-                    }, []);
+                    : e.labelItemCollection.reduce(function (e, t) {
+                        if (
+                          t == null ||
+                          t.parentType !==
+                            o("WAWebListItemParentType").LabelItemParentType
+                              .Chat
+                        )
+                          return e;
+                        var n = o("WAWebChatCollection").ChatCollection.get(
+                          t.parentId,
+                        );
+                        return (n != null && e.push(n), e);
+                      }, []);
     }
     function _(e, t) {
       var n = new Set(e),

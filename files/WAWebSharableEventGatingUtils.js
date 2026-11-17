@@ -1,6 +1,6 @@
 __d(
   "WAWebSharableEventGatingUtils",
-  ["$InternalEnum", "WALogger", "WAWebABProps"],
+  ["$InternalEnum", "WALogger", "WAWebABProps", "WAWebVoipGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -76,13 +76,20 @@ __d(
         ) === !0
       );
     }
-    var v = new Set();
-    function S(t) {
+    function v() {
+      return (
+        b() &&
+        o("WAWebVoipGatingUtils").isCallingEnabled() &&
+        !o("WAWebVoipGatingUtils").isUnsupportedBrowserForWebCalling()
+      );
+    }
+    var S = new Set();
+    function R(t) {
       var n = b();
       return (
         !n &&
-          !v.has(t) &&
-          (v.add(t),
+          !S.has(t) &&
+          (S.add(t),
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -105,7 +112,8 @@ __d(
       (l.isSharableScheduledCallCreationEnabled = y),
       (l.isSharableEventNotificationsEnabled = C),
       (l.isEventsV2OnCompanionEnabled = b),
-      (l.isEventsV2OnCompanionEnabledForAction = S));
+      (l.canScheduleSharableEventCallsInBrowser = v),
+      (l.isEventsV2OnCompanionEnabledForAction = R));
   },
   98,
 );

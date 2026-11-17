@@ -14,9 +14,8 @@ __d(
       c = "sharable-event-change",
       d = "sharable-event-invite-link-token",
       m = "sharable-event-creator-push-name",
-      p = "sharable-event-invite-message",
-      _ = !1;
-    function f() {
+      p = !1;
+    function _() {
       var t,
         n = o("WAWebModelStorageUtils").getStorage(),
         r = [
@@ -30,8 +29,8 @@ __d(
         });
       return (
         !r &&
-          !_ &&
-          ((_ = !0),
+          !p &&
+          ((p = !0),
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -41,9 +40,9 @@ __d(
         r
       );
     }
-    function g() {
+    function f() {
       return (
-        f() &&
+        _() &&
         o("WAWebModelStorageUtils")
           .getStorage()
           .doesLocalSchemaIncludeVersion(
@@ -53,45 +52,45 @@ __d(
           )
       );
     }
-    function h() {
-      return y.apply(this, arguments);
+    function g() {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return f()
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return _()
             ? o("WAWebSchemaSharableEvent").getSharableEventTable().all()
             : [];
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return f()
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return _()
             ? o("WAWebSchemaSharableEvent").getSharableEventTable().get(e)
             : null;
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return f()
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return _()
             ? o("WAWebSchemaSharableEvent")
                 .getSharableEventTable()
                 .allPrimaryKeys()
             : [];
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
     ((l.SHARABLE_EVENT_TABLE = s),
@@ -99,12 +98,11 @@ __d(
       (l.SHARABLE_EVENT_CHANGE_TABLE = c),
       (l.SHARABLE_EVENT_INVITE_LINK_TOKEN_TABLE = d),
       (l.SHARABLE_EVENT_CREATOR_PUSH_NAME_TABLE = m),
-      (l.SHARABLE_EVENT_INVITE_MESSAGE_TABLE = p),
-      (l.canUseSharableEventStorage = f),
-      (l.canUseSharableEventInviteMessageStorage = g),
-      (l.getSharableEvents = h),
-      (l.getSharableEvent = C),
-      (l.getSharableEventIds = v));
+      (l.canUseSharableEventStorage = _),
+      (l.canUseSharableEventInviteMessageStorage = f),
+      (l.getSharableEvents = g),
+      (l.getSharableEvent = y),
+      (l.getSharableEventIds = b));
   },
   98,
 );

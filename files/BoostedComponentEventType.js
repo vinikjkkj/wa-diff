@@ -1564,6 +1564,8 @@ __d(
         "boosted_post_image_gen_enlarge_image",
       BOOSTED_POST_IMAGE_GEN_IMAGE_VARIANTS_IMPRESSION:
         "boosted_post_image_gen_image_variants_impression",
+      BOOSTED_POST_IMAGE_GEN_MSS_WRITE: "boosted_post_image_gen_mss_write",
+      BOOSTED_POST_IMAGE_GEN_MSS_RESTORE: "boosted_post_image_gen_mss_restore",
       CREATIVE_EDITOR_OPEN_MODAL: "creative_editor_open_modal",
       CREATIVE_EDITOR_MODAL_IMPRESSION: "creative_editor_modal_impression",
       CREATIVE_EDITOR_MODAL_CREATIVE_FORMAT_TOGGLE:
@@ -1947,6 +1949,7 @@ __d(
       MAIBA_COPILOT_APPLY_OUTCOME: "maiba_copilot_apply_outcome",
       MAIBA_COPILOT_UNDO_CLICKED: "maiba_copilot_undo_clicked",
       MAIBA_COPILOT_SUBMIT_OUTCOME: "maiba_copilot_submit_outcome",
+      MAIBA_COPILOT_GATE_DECISION: "maiba_copilot_gate_decision",
       PROACTIVE_RESULTS_DELIVERY_SCHEDULED:
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:

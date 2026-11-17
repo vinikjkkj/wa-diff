@@ -29,8 +29,9 @@ __d(
           fallbackMimetype: "video/mp4",
           mediaType: o("WAWebMsgType").MSG_TYPE.VIDEO,
         },
-      };
-    function p(e, t) {
+      },
+      p = ["BODY", "HEADER", "BUTTONS"];
+    function _(e, t) {
       if (e == null)
         throw r("err")("BB Pro campaign is missing broadcast_insights");
       if (t == null)
@@ -39,7 +40,7 @@ __d(
         );
       return { insights: e, startTime: t };
     }
-    function _(e) {
+    function f(e) {
       var t,
         n,
         r,
@@ -47,13 +48,13 @@ __d(
         i,
         l,
         s,
-        u = p(
+        u = _(
           e.broadcast_insights,
           (t = e.broadcast_insights) == null ? void 0 : t.start_time,
         ),
         c = u.insights,
         m = u.startTime,
-        _ = o("WAWebBizBroadcastProInsightMetrics").deriveProInsightMetrics({
+        p = o("WAWebBizBroadcastProInsightMetrics").deriveProInsightMetrics({
           ads_delivered: c.ads_delivered,
           cta_url_clicks: c.cta_url_clicks,
           first_customer_reply: c.first_customer_reply,
@@ -63,14 +64,14 @@ __d(
           reply_rate: c.reply_rate,
           sent: c.sent,
         }),
-        h = m * d,
-        C = (n = e.campaign_name) != null ? n : e.id,
-        b = y(c.template),
+        f = m * d,
+        y = (n = e.campaign_name) != null ? n : e.id,
+        b = C(c.template),
         v = b.attachmentData,
         S = b.buttonData,
         R = b.message,
-        L = P((r = e.delivery_status_info) == null ? void 0 : r.status),
-        E = $(e.bb_pro_display_status),
+        L = N((r = e.delivery_status_info) == null ? void 0 : r.status),
+        E = P(e.bb_pro_display_status),
         k = String(E) === "SCHEDULED",
         I = c.currency;
       return {
@@ -78,16 +79,16 @@ __d(
         attachmentData: v,
         audienceName: c.customer_list_name,
         broadcastJid: o("WAJids").toBroadcastJid(e.id),
-        budget: f(c.lifetime_budget_long, I),
+        budget: g(c.lifetime_budget_long, I),
         campaignId: e.id,
-        campaignName: C,
+        campaignName: y,
         canStop: e.bb_pro_can_stop === !0,
-        createdTimestamp: h,
+        createdTimestamp: f,
         ctaButtonData: S,
         currency: I,
         customAudienceId: c.custom_audience_id,
-        customReplyClickCount: _.customReplyClickCount,
-        deliveredCount: _.deliveredCount,
+        customReplyClickCount: p.customReplyClickCount,
+        deliveredCount: p.deliveredCount,
         deliveredCountAvailable:
           ((a = c.ads_delivered) == null ? void 0 : a.count) != null,
         displayStatus: E,
@@ -97,29 +98,29 @@ __d(
             : i.template_id,
         isProCampaign: !0,
         lastUpdatedTimestampMs: null,
-        maxPrice: g(c.bid_amount_long, I),
+        maxPrice: h(c.bid_amount_long, I),
         messageBody: R,
         msgType: null,
         readRate: {
-          count: _.readCount,
-          percentage: (l = _.readRatePercentage) != null ? l : 0,
+          count: p.readCount,
+          percentage: (l = p.readRatePercentage) != null ? l : 0,
         },
-        readRatePercentage: _.readRatePercentage,
+        readRatePercentage: p.readRatePercentage,
         recipientCount: null,
         replyRate: {
-          count: _.replyCount,
-          percentage: (s = _.replyRatePercentage) != null ? s : 0,
+          count: p.replyCount,
+          percentage: (s = p.replyRatePercentage) != null ? s : 0,
         },
-        replyRatePercentage: _.replyRatePercentage,
-        scheduledTimestamp: k ? h : null,
-        sentAt: h,
-        sentCount: _.sentCount,
+        replyRatePercentage: p.replyRatePercentage,
+        scheduledTimestamp: k ? f : null,
+        sentAt: f,
+        sentCount: p.sentCount,
         status: L,
         statusSource: "PRO",
-        websiteClickCount: _.websiteClickCount,
+        websiteClickCount: p.websiteClickCount,
       };
     }
-    function f(e, t) {
+    function g(e, t) {
       return e == null || t == null
         ? null
         : o("WAWebBizBroadcastProCurrencyUtils").smallestUnitToDisplayAmount(
@@ -127,7 +128,7 @@ __d(
             t,
           );
     }
-    function g(e, t) {
+    function h(e, t) {
       return e == null || t == null
         ? null
         : o("WAWebBizBroadcastProCurrencyUtils").cpmSmallestUnitToDisplayAmount(
@@ -135,9 +136,9 @@ __d(
             t,
           );
     }
-    function h(t) {
+    function y(t) {
       try {
-        return _(t);
+        return f(t);
       } catch (n) {
         return (
           o("WALogger")
@@ -155,15 +156,15 @@ __d(
         );
       }
     }
-    function y(e) {
-      return { attachmentData: L(e), buttonData: E(e), message: R(e) };
-    }
     function C(e) {
+      return { attachmentData: E(e), buttonData: k(e), message: L(e) };
+    }
+    function b(e) {
       var t, n;
       if (e == null) throw r("err")("BB Pro source content is unavailable");
-      var o = b(e),
-        a = v(e, o),
-        i = S(e),
+      var o = v(e),
+        a = S(e, o),
+        i = R(e),
         l = e.element,
         s =
           l != null && l.trim() !== ""
@@ -181,28 +182,28 @@ __d(
         throw r("err")("BB Pro source content is unavailable");
       return { attachmentData: a, buttonData: i, message: s };
     }
-    function b(e) {
+    function v(e) {
       var t,
         n = (t = e.hsm_components) != null ? t : [],
         o = new Set();
       for (var a of n) {
         var i = a.type;
-        if (i == null || !["BODY", "HEADER", "BUTTONS"].includes(i) || o.has(i))
+        if (i == null || !p.includes(i) || o.has(i))
           throw r("err")("BB Pro source contains unsupported components");
         o.add(i);
       }
       return o;
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = e.header_type,
         o = n === "IMAGE" || n === "VIDEO";
       if ((n != null && n !== "NONE" && !o) || (t.has("HEADER") && !o))
         throw r("err")("BB Pro source contains an unsupported header");
-      var a = L(e);
+      var a = E(e);
       if (o && a == null) throw r("err")("BB Pro source media is unavailable");
       return a;
     }
-    function S(e) {
+    function R(e) {
       var t,
         n,
         o =
@@ -236,13 +237,13 @@ __d(
         throw r("err")("BB Pro source button is unsupported or unavailable");
       }
     }
-    function R(e) {
+    function L(e) {
       var t,
         n,
         r = e == null ? void 0 : e.element;
       return r != null && r.trim() !== ""
         ? r
-        : (t = k(
+        : (t = I(
               e == null ||
                 (n = e.hsm_components) == null ||
                 (n = n.find(function (e) {
@@ -254,14 +255,14 @@ __d(
           ? t
           : "";
     }
-    function L(e) {
+    function E(e) {
       var t = e == null ? void 0 : e.header_type,
         n = t == null ? null : m[t];
       if (n == null) return null;
-      var r = I(e);
-      return r == null ? null : T(r, n);
+      var r = T(e);
+      return r == null ? null : D(r, n);
     }
-    function E(e) {
+    function k(e) {
       var t,
         n =
           e == null ||
@@ -273,10 +274,10 @@ __d(
             ? void 0
             : t[0];
       if (n == null) return null;
-      var r = k(n.text);
+      var r = I(n.text);
       if (r == null) return null;
-      var o = k(n.phone_number),
-        a = k(n.url);
+      var o = I(n.phone_number),
+        a = I(n.url);
       return n.type === "QUICK_REPLY"
         ? { displayText: r, type: "quick_reply" }
         : n.type === "URL"
@@ -294,11 +295,11 @@ __d(
               : { displayText: r, phoneNumber: o, type: "cta_call" }
             : null;
     }
-    function k(e) {
+    function I(e) {
       var t = e == null ? void 0 : e.trim();
       return t == null || t === "" ? null : t;
     }
-    function I(e) {
+    function T(e) {
       var t,
         n,
         r =
@@ -309,12 +310,12 @@ __d(
           })) == null
             ? void 0
             : t.example;
-      return (n = D(r == null ? void 0 : r.header_url)) != null
+      return (n = x(r == null ? void 0 : r.header_url)) != null
         ? n
-        : D(r == null ? void 0 : r.header_handle);
+        : x(r == null ? void 0 : r.header_handle);
     }
-    function T(e, t) {
-      var n = x(e, t),
+    function D(e, t) {
+      var n = $(e, t),
         r = n.fileExt,
         o = n.mimetype;
       return {
@@ -328,14 +329,14 @@ __d(
         previewUrl: e,
       };
     }
-    function D(e) {
+    function x(e) {
       return e == null
         ? void 0
         : e.find(function (e) {
             return e != null && r("WAWebURLUtils").isHttp(e);
           });
     }
-    function x(e, t) {
+    function $(e, t) {
       var n = e;
       try {
         n = new URL(e).pathname;
@@ -355,7 +356,7 @@ __d(
           a != null && a.startsWith(t.mediaType + "/") ? a : t.fallbackMimetype,
       };
     }
-    function $(e) {
+    function P(e) {
       if (e == null)
         return (
           o("WALogger")
@@ -384,32 +385,32 @@ __d(
         t != null ? t : null
       );
     }
-    function P(e) {
+    function N(e) {
       var t = e == null ? null : String(e);
       return t === "ACTIVE"
-        ? N("ACTIVE")
+        ? M("ACTIVE")
         : t === "COMPLETED"
-          ? N("COMPLETED")
+          ? M("COMPLETED")
           : t === "IN_DRAFT"
-            ? N("IN_DRAFT")
+            ? M("IN_DRAFT")
             : t === "IN_REVIEW"
-              ? N("IN_REVIEW")
+              ? M("IN_REVIEW")
               : t === "NOT_SENDING"
-                ? N("NOT_SENDING")
+                ? M("NOT_SENDING")
                 : t === "OFF"
-                  ? N("OFF")
+                  ? M("OFF")
                   : t === "REJECTED"
-                    ? N("REJECTED")
+                    ? M("REJECTED")
                     : t === "SCHEDULED"
-                      ? N("SCHEDULED")
+                      ? M("SCHEDULED")
                       : t === "SENDING_LIMITED"
-                        ? N("SENDING_LIMITED")
-                        : M(e);
-    }
-    function N(e) {
-      return r("unsafeCast")(e);
+                        ? M("SENDING_LIMITED")
+                        : w(e);
     }
     function M(e) {
+      return r("unsafeCast")(e);
+    }
+    function w(e) {
       return (
         o("WALogger")
           .WARN(
@@ -420,15 +421,15 @@ __d(
           )
           .tags("biz-broadcast-pro")
           .sendLogs("bb-pro-campaign-delivery-status-unexpected"),
-        N("OFF")
+        M("OFF")
       );
     }
-    ((l.requireProCampaignInsights = p),
-      (l.deriveListItemFromProCampaign = _),
-      (l.tryDeriveListItemFromProCampaign = h),
-      (l.getProCampaignMessageData = y),
-      (l.getProCampaignDuplicateMessageData = C),
-      (l.normalizeCampaignDisplayStatus = $));
+    ((l.requireProCampaignInsights = _),
+      (l.deriveListItemFromProCampaign = f),
+      (l.tryDeriveListItemFromProCampaign = y),
+      (l.getProCampaignMessageData = C),
+      (l.getProCampaignDuplicateMessageData = b),
+      (l.normalizeCampaignDisplayStatus = P));
   },
   98,
 );

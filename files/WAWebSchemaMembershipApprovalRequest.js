@@ -4,6 +4,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebModelStorageVersions",
     "WAWebStorageMutationBuilder",
+    "WAWebStorageSchema",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -11,17 +12,27 @@ __d(
         t = o("WAWebStorageMutationBuilder").columnBuilder(e.config),
         n = t.addColumn,
         r = t.addCompositePrimaryKey,
-        a = t.addIndex;
+        a = t.addEncryptedColumn,
+        i = t.addIndex;
       e.add("pending-membership-approval-request")
         .version(
           o("WAWebModelStorageVersions").membershipApprovalRequestCreateTable(),
           [
             r(["groupId", "id"]),
-            a("groupId"),
+            i("groupId"),
             n("t"),
             n("addedBy"),
             n("requestMethod"),
             n("parentGroupId"),
+            a(
+              "membershipFormPayload",
+              o("WAWebStorageSchema").EncryptedValueType.ARRAY_BUFFER,
+            ),
+            n("membershipFormKeyId"),
+            a(
+              "membershipFormRequestId",
+              o("WAWebStorageSchema").EncryptedValueType.STRING,
+            ),
           ],
         )
         .view(function (e) {

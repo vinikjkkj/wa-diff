@@ -1,9 +1,12 @@
 __d(
   "WAWebApiMembershipApprovalRequestStore",
   [
+    "WABinary",
+    "WACrc32",
     "WALogger",
     "WAWebSchemaMembershipApprovalRequest",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,17 +16,29 @@ __d(
         .getMembershipApprovalRequestTable()
         .equals(["groupId"], e.toString())
         .then(function (e) {
-          return e.map(c);
+          return e.map(d);
         });
     }
-    function u() {
+    function u(e) {
+      return o("WAWebSchemaMembershipApprovalRequest")
+        .getMembershipApprovalRequestTable()
+        .equals(["groupId"], e.toString())
+        .then(function (e) {
+          return e.map(function (e) {
+            return babelHelpers.extends({}, d(e), {
+              membershipFormAnswers: p(e),
+            });
+          });
+        });
+    }
+    function c() {
       return o("WAWebSchemaMembershipApprovalRequest")
         .getMembershipApprovalRequestTable()
         .all()
         .then(function (t) {
           return t.flatMap(function (t) {
             try {
-              return [{ groupId: t.groupId, request: c(t) }];
+              return [{ groupId: t.groupId, request: d(t) }];
             } catch (t) {
               return (
                 o("WALogger")
@@ -40,41 +55,76 @@ __d(
           });
         });
     }
-    function c(e) {
+    function d(e) {
       var t = e.addedBy,
         n = e.id,
         r = e.parentGroupId,
         a = e.requestMethod,
-        i = e.t;
+        i = e.t,
+        l = p(e);
       return {
         id: o("WAWebWidFactory").createWid(n),
         t: i,
         addedBy: o("WAWebWidFactory").createWid(t),
         requestMethod: a,
         parentGroupId: r != null ? o("WAWebWidFactory").createWid(r) : void 0,
+        hasMembershipFormAnswers: l != null,
+        membershipFormRequestId: l == null ? void 0 : l.requestId,
+        membershipFormAnswersVersion: l != null ? m(l) : void 0,
       };
     }
-    function d(e, t) {
+    function m(e) {
+      var t = e.keyId,
+        n = e.payload;
+      return t + ":" + r("WACrc32")(o("WABinary").Binary.build(n));
+    }
+    function p(e) {
+      var t = e.membershipFormKeyId,
+        n = e.membershipFormPayload,
+        r = e.membershipFormRequestId;
+      return n == null || t == null
+        ? null
+        : { payload: n, keyId: t, requestId: r };
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebSchemaMembershipApprovalRequest")
+            .getMembershipApprovalRequestTable()
+            .get([e.toString(), t.toString()]);
+          return n != null ? p(n) : null;
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
       var n = t.map(function (t) {
         var n = t.addedBy,
           r = t.id,
-          o = t.parentGroupId,
-          a = t.requestMethod,
-          i = t.t;
+          o = t.membershipFormAnswers,
+          a = t.parentGroupId,
+          i = t.requestMethod,
+          l = t.t;
         return {
           groupId: e.toString(),
           id: r.toString(),
-          t: i,
+          t: l,
           addedBy: n.toString(),
-          requestMethod: a,
-          parentGroupId: o == null ? void 0 : o.toString(),
+          requestMethod: i,
+          parentGroupId: a == null ? void 0 : a.toString(),
+          membershipFormPayload: o == null ? void 0 : o.payload,
+          membershipFormKeyId: o == null ? void 0 : o.keyId,
+          membershipFormRequestId: o == null ? void 0 : o.requestId,
         };
       });
       return o("WAWebSchemaMembershipApprovalRequest")
         .getMembershipApprovalRequestTable()
         .bulkCreateOrReplace(n);
     }
-    function m(e, t) {
+    function h(e, t) {
       var n = e.toString();
       return o("WAWebSchemaMembershipApprovalRequest")
         .getMembershipApprovalRequestTable()
@@ -84,16 +134,19 @@ __d(
           }),
         );
     }
-    function p(e) {
+    function y(e) {
       return o("WAWebSchemaMembershipApprovalRequest")
         .getMembershipApprovalRequestTable()
         .bulkRemoveByIndex(["groupId"], [e.toString()]);
     }
     ((l.getMembershipApprovalRequests = s),
-      (l.getAllMembershipApprovalRequests = u),
-      (l.addMembershipApprovalRequests = d),
-      (l.removeMembershipApprovalRequests = m),
-      (l.removeAllMembershipApprovalRequests = p));
+      (l.getMembershipApprovalRequestsWithFormAnswers = u),
+      (l.getAllMembershipApprovalRequests = c),
+      (l.getMembershipFormAnswersVersion = m),
+      (l.getMembershipApprovalRequestFormAnswers = _),
+      (l.addMembershipApprovalRequests = g),
+      (l.removeMembershipApprovalRequests = h),
+      (l.removeAllMembershipApprovalRequests = y));
   },
   98,
 );

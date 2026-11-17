@@ -128,6 +128,7 @@ __d(
               interopContactsSizePerIntegrator: [261, e.TYPES.STRING],
               isCanonicalEntPresent: [234, e.TYPES.BOOLEAN],
               isContactSyncToOsDefaultOn: [202, e.TYPES.BOOLEAN],
+              isCoverPhotoSet: [365, e.TYPES.BOOLEAN],
               isDefaultDisappearingMessagingUser: [183, e.TYPES.BOOLEAN],
               isEphemeralMessagingUser: [184, e.TYPES.BOOLEAN],
               isProfilePhotoSet: [195, e.TYPES.BOOLEAN],

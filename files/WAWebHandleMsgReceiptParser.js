@@ -6,27 +6,29 @@ __d(
     "WAWebAck",
     "WAWebHandleMsgTypes",
     "WAWebJidToWid",
+    "WAWebMetaAiFileDocMsgId",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = {
-        delivery: (s = o("WAWebAck")).ACK.RECEIVED,
-        read: s.ACK.READ,
-        played: s.ACK.PLAYED,
-        inactive: s.ACK.INACTIVE,
-        "server-error": s.ACK.CONTENT_GONE,
-        sender: s.ACK.RECEIVED,
-        "read-self": s.ACK.READ,
-        "played-self": s.ACK.PLAYED,
-        peer_msg: s.ACK.PEER,
+      u,
+      c = {
+        delivery: (u = o("WAWebAck")).ACK.RECEIVED,
+        read: u.ACK.READ,
+        played: u.ACK.PLAYED,
+        inactive: u.ACK.INACTIVE,
+        "server-error": u.ACK.CONTENT_GONE,
+        sender: u.ACK.RECEIVED,
+        "read-self": u.ACK.READ,
+        "played-self": u.ACK.PLAYED,
+        peer_msg: u.ACK.PEER,
       },
-      c = new (r("WADeprecatedWapParser"))(
+      d = new (r("WADeprecatedWapParser"))(
         "incomingMsgReceiptParser",
         function (e) {
           e.assertTag("receipt");
           var t = e.hasAttr("type")
-              ? e.attrEnumOrNullIfUnknown("type", u)
+              ? e.attrEnumOrNullIfUnknown("type", c)
               : o("WAWebAck").ACK.RECEIVED,
             n = {
               stanzaId: e.attrString("id"),
@@ -46,12 +48,12 @@ __d(
             a.attrString("type") === "feature-incapable" &&
             (r.ack = o("WAWebAck").ACK.SENT);
           var i = e.maybeChild("participants");
-          if (i == null) return p(r, e);
+          if (i == null) return _(r, e);
           var l = i.hasAttr("message_id");
-          return l ? m(n, i) : d(r, i);
+          return l ? p(n, i) : m(r, i);
         },
       );
-    function d(e, t) {
+    function m(e, t) {
       var n = t.mapChildrenWithTag("user", function (e) {
           try {
             var t = o("WAWebJidToWid").deviceJidToDeviceWid(
@@ -79,7 +81,7 @@ __d(
         receipts: r,
       });
     }
-    function m(t, n) {
+    function p(t, n) {
       var r = [];
       return (
         n.forEachChildWithTag("user", function (t) {
@@ -91,10 +93,10 @@ __d(
               i = t.attrTime("t"),
               l = t.maybeAttrString("type"),
               s =
-                (n = t.maybeAttrEnum("type", u)) != null
+                (n = t.maybeAttrEnum("type", c)) != null
                   ? n
                   : o("WAWebAck").ACK.RECEIVED,
-              c = t.hasAttr("participant_pn")
+              u = t.hasAttr("participant_pn")
                 ? o("WAWebJidToWid").userJidToUserWid(
                     t.attrUserJid("participant_pn"),
                   )
@@ -102,7 +104,7 @@ __d(
               d = t.maybeAttrString("participant_username");
             r.push({
               participant: a,
-              participantPn: c,
+              participantPn: u,
               participantUsername: d,
               ack: s,
               ackString: l,
@@ -130,7 +132,7 @@ __d(
         })
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = t.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
               t.attrDeviceJid("participant"),
@@ -169,7 +171,7 @@ __d(
         (m = t.attrString("is_lid") === "true");
       var p = babelHelpers.extends({}, e, {
         type: "simple",
-        externalIds: i,
+        externalIds: g(i),
         participant: n,
         participantPn: t.hasAttr("participant_pn")
           ? o("WAWebJidToWid").userJidToUserWid(t.attrUserJid("participant_pn"))
@@ -180,9 +182,9 @@ __d(
         biz: l,
         isLidBot: m,
       });
-      return _(p, t);
+      return f(p, t);
     }
-    function _(e, t) {
+    function f(e, t) {
       var n;
       return e.ackString !== "error" ||
         ((n = t.maybeChild("error")) == null
@@ -194,7 +196,24 @@ __d(
             integrityDrop: !0,
           });
     }
-    ((l.RECEIPT_TYPES_TO_ACK = u), (l.msgReceiptParser = c));
+    function g(e) {
+      var t = e.filter(function (e) {
+        return !o("WAWebMetaAiFileDocMsgId").isMetaAiFileDocMsgId(e);
+      });
+      return (
+        t.length < e.length &&
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "parseSimpleReceipt: dropped ",
+                " Meta AI file doc ids",
+              ])),
+            e.length - t.length,
+          ),
+        t
+      );
+    }
+    ((l.RECEIPT_TYPES_TO_ACK = c), (l.msgReceiptParser = d));
   },
   98,
 );

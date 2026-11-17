@@ -7,6 +7,7 @@ __d(
       CHANNELS: 2,
       CHANNEL_STATUS: 3,
       CHATS: 4,
+      SOUND_STICKERS: 5,
     });
     i.MUSIC_PRODUCT = e;
   },

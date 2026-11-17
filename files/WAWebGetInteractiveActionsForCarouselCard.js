@@ -2,7 +2,7 @@ __d(
   "WAWebGetInteractiveActionsForCarouselCard",
   [
     "WAWebCarouselMsgUtils",
-    "WAWebGetInteractiveActionsFromButtons",
+    "WAWebGetInteractiveActionsForButtons",
     "WAWebGetInteractiveButtonActionValues",
     "WAWebGetInteractiveCtaActions",
     "WAWebInteractiveMessageCarouselLogEvents",
@@ -11,80 +11,73 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n,
-        a,
-        i,
-        l = [];
-      if (
-        !s(e, t) ||
-        ((n = e.interactivePayload) == null ? void 0 : n.buttons) == null
-      )
-        return l;
+      var n, a, i;
+      if (!s(e, t)) return [];
+      if (((n = e.interactivePayload) == null ? void 0 : n.buttons) == null)
+        return [];
       for (
-        var c =
+        var l =
             (a = (i = e.interactivePayload) == null ? void 0 : i.buttons) !=
             null
               ? a
               : [],
-          d = [],
-          m = 0;
-        m < c.length;
-        m++
+          c = [],
+          d = 0;
+        d < l.length;
+        d++
       ) {
-        var p = c[m];
-        if (p != null) {
-          var _ = o(
+        var m = l[d];
+        if (m != null) {
+          var p = o(
             "WAWebGetInteractiveCtaActions",
           ).nativeFlowButtonToCtaButton({
-            button: p,
-            index: m,
+            button: m,
+            index: d,
             messageNativeFlowName: e.nativeFlowName,
           });
-          _ != null && d.push(_);
+          p != null && c.push(p);
         }
       }
-      var f = u(d, t);
-      return (
-        (l = r("WAWebGetInteractiveActionsFromButtons")(
-          f,
-          e.id,
-          r("WAWebGetInteractiveButtonActionValues")(e),
-        )),
-        l.map(function (t, n) {
-          var a = f[n],
-            i = null;
-          switch (a.name) {
-            case "cta_url":
-              i = o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")
-                .PAID_MESSAGING_USER_INTERACTIONS_ACTION_TARGET.CTA_URL;
-              break;
-            case "quick_reply":
-              i = o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")
-                .PAID_MESSAGING_USER_INTERACTIONS_ACTION_TARGET.QUICK_REPLY;
-              break;
-            case "cta_call":
-              i = o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")
-                .PAID_MESSAGING_USER_INTERACTIONS_ACTION_TARGET.CTA_CALL;
-              break;
-            case "cta_catalog":
-              break;
-          }
-          return i == null
-            ? t
-            : babelHelpers.extends({}, t, {
-                onClick: function () {
-                  (t.onClick != null && t.onClick(),
-                    o(
-                      "WAWebInteractiveMessageCarouselLogEvents",
-                    ).logCarouselCardClickCTA(
-                      e.unsafe(),
-                      r("nullthrows")(i),
-                      n,
-                    ));
-                },
-              });
-        })
+      var _ = r("WAWebGetInteractiveActionsForButtons")(
+        u(c, t),
+        e.id,
+        r("WAWebGetInteractiveButtonActionValues")(e),
       );
+      return _.map(function (t) {
+        var n = t.action,
+          a = t.button,
+          i = null;
+        switch (a.name) {
+          case "cta_url":
+            i = o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")
+              .PAID_MESSAGING_USER_INTERACTIONS_ACTION_TARGET.CTA_URL;
+            break;
+          case "quick_reply":
+            i = o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")
+              .PAID_MESSAGING_USER_INTERACTIONS_ACTION_TARGET.QUICK_REPLY;
+            break;
+          case "cta_call":
+            i = o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")
+              .PAID_MESSAGING_USER_INTERACTIONS_ACTION_TARGET.CTA_CALL;
+            break;
+          case "cta_catalog":
+            break;
+        }
+        return i == null
+          ? n
+          : babelHelpers.extends({}, n, {
+              onClick: function () {
+                (n.onClick != null && n.onClick(),
+                  o(
+                    "WAWebInteractiveMessageCarouselLogEvents",
+                  ).logCarouselCardClickCTA(
+                    e.unsafe(),
+                    r("nullthrows")(i),
+                    a.index,
+                  ));
+              },
+            });
+      });
     }
     function s(e, t) {
       return t === !0

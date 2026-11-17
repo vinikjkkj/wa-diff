@@ -6,7 +6,6 @@ __d(
     "WAWebBizAIQEEventBus",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
-    "WAWebEnvironment",
     "WAWebEventEmitter",
     "WAWebLazyLoadedRetriable",
     "WAWebMobilePlatforms",
@@ -17,12 +16,10 @@ __d(
     "useWAWebSourceSnapshot",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = [].concat(
-        r("WAWebEnvironment").isWeb
-          ? [o("WAWebBizAIAppointmentsQEConfig").APPOINTMENTS_QE_PARAM]
-          : [],
-        [{ universe: "maiba_web_meta_one_entrypoints", param: "enabled" }],
-      ),
+    var e = [
+        o("WAWebBizAIAppointmentsQEConfig").APPOINTMENTS_QE_PARAM,
+        { universe: "maiba_web_meta_one_entrypoints", param: "enabled" },
+      ],
       s = new (r("WAWebEventEmitter"))(),
       u = { count: 0, params: [] },
       c = r("WAWebLazyLoadedRetriable")(

@@ -119,6 +119,13 @@ __d(
       })(r);
     }
     function v(e) {
+      var t;
+      return (
+        e.sections.length > 0 ||
+        ((t = e.footer_sections) != null ? t : []).length > 0
+      );
+    }
+    function S(e) {
       var t,
         n,
         r = e.sections;
@@ -131,91 +138,91 @@ __d(
         e.streaming_action == null
       );
     }
-    function S(e) {
+    function R(e) {
       var t;
       return (t = C(e)) == null ? void 0 : t.benefit_type;
     }
-    var R = [
+    var L = [
       "GenAIFilePrimitive",
       "GenAIImaginePrimitive",
       "GenAIImagePrimitive",
       "GenAIReelPrimitive",
     ];
-    function L(e) {
+    function E(e) {
       if (e != null) return { data: e };
     }
-    function E(e) {
+    function k(e) {
       if (e == null) return !1;
       for (var t of e.sections) {
         var n = c(t.view_model);
-        for (var r of n) if (R.includes(r.__typename)) return !0;
+        for (var r of n) if (L.includes(r.__typename)) return !0;
       }
       return !1;
     }
-    function k(e) {
+    function I(e) {
       return e == null
         ? !1
-        : w(e).some(function (e) {
-            return c(e.view_model).some(T);
+        : A(e).some(function (e) {
+            return c(e.view_model).some(D);
           });
     }
-    function I(e) {
+    function T(e) {
       var t = 0;
       for (var n of [].concat(
         e.sections,
         (r = e.footer_sections) != null ? r : [],
       )) {
         var r;
-        t += c(n.view_model).filter(T).length;
+        t += c(n.view_model).filter(D).length;
       }
       return t >= 2;
     }
-    function T(e) {
+    function D(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIMuseConnectorActionCardPrimitive"
       );
     }
-    function D(e) {
+    function x(e) {
       return e == null
         ? !1
-        : A(e).some(function (e) {
-            return c(e).some(x);
+        : F(e).some(function (e) {
+            return c(e).some($);
           });
     }
-    function x(e) {
+    function $(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBrowserTaskPrimitive"
       );
     }
-    function $(e) {
+    function P(e) {
       return e == null
         ? !1
-        : A(e).some(function (e) {
-            return c(e).some(N);
+        : F(e).some(function (e) {
+            return c(e).some(M);
           });
     }
-    function P(e) {
+    function N(e) {
       var t,
         n = e.sections;
       if (
         n.length !== 1 ||
         ((t = e.footer_sections) != null ? t : []).length > 0 ||
-        Q(e) ||
+        X(e) ||
         e.streaming_action != null
       )
         return !1;
       var r = c(n[0].view_model);
-      return r.length === 1 && M(r[0]);
+      return r.length === 1 && w(r[0]);
     }
-    function N(e) {
+    function M(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAISpaceCardPrimitive"
       );
     }
-    function M(e) {
+    function w(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -230,23 +237,23 @@ __d(
         return !1;
       })(e);
     }
-    function w(e) {
-      var t;
-      return [].concat(
-        O(e),
-        ((t = e.nested_responses) != null ? t : []).flatMap(O),
-      );
-    }
     function A(e) {
       var t;
       return [].concat(
-        w(e).map(function (e) {
-          return e.view_model;
-        }),
-        [e].concat((t = e.nested_responses) != null ? t : []).flatMap(F),
+        B(e),
+        ((t = e.nested_responses) != null ? t : []).flatMap(B),
       );
     }
     function F(e) {
+      var t;
+      return [].concat(
+        A(e).map(function (e) {
+          return e.view_model;
+        }),
+        [e].concat((t = e.nested_responses) != null ? t : []).flatMap(O),
+      );
+    }
+    function O(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -261,15 +268,15 @@ __d(
         return [];
       })(e.streaming_action);
     }
-    function O(e) {
+    function B(e) {
       var t, n, r;
       return [].concat(
         (t = e.sections) != null ? t : [],
         (n = e.footer_sections) != null ? n : [],
-        ((r = e.embedded_screens) != null ? r : []).flatMap(B),
+        ((r = e.embedded_screens) != null ? r : []).flatMap(W),
       );
     }
-    function B(e) {
+    function W(e) {
       var t;
       return ((t = e.content) != null ? t : []).flatMap(function (e) {
         if ("view_model" in e) return [e];
@@ -287,20 +294,20 @@ __d(
         return [];
       });
     }
-    function W(e) {
+    function q(e) {
       return e == null
         ? !1
-        : w(e).some(function (e) {
-            return c(e.view_model).some(q);
+        : A(e).some(function (e) {
+            return c(e.view_model).some(U);
           });
     }
-    function q(e) {
+    function U(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAISecureCredentialRequestPrimitive"
       );
     }
-    function U(e) {
+    function V(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -318,20 +325,20 @@ __d(
         }
       return n;
     }
-    function V(e) {
+    function H(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
-    function H(e) {
+    function G(e) {
       var t = e.sections,
-        n = t.map(G),
+        n = t.map(z),
         r = new Map();
       n.forEach(function (e, t) {
         if (e != null) {
           var o = r.get(e.browser_task_id),
             a = o != null ? n[o] : null;
-          (a == null || z(e, a)) && r.set(e.browser_task_id, t);
+          (a == null || j(e, a)) && r.set(e.browser_task_id, t);
         }
       });
       var o = t.filter(function (e, t) {
@@ -342,7 +349,7 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { sections: o });
     }
-    function G(e) {
+    function z(e) {
       var t = c(e.view_model);
       return t.length !== 1
         ? null
@@ -358,36 +365,36 @@ __d(
             return null;
           })(t[0]);
     }
-    function z(e, t) {
+    function j(e, t) {
       var n,
         r,
         o = (n = e.version) != null ? n : 0,
         a = (r = t.version) != null ? r : 0;
-      return o !== a ? o > a : j(e) >= j(t);
+      return o !== a ? o > a : K(e) >= K(t);
     }
-    function j(e) {
+    function K(e) {
       var t,
         n = Number((t = e.updated_at_ms) != null ? t : 0);
       return Number.isFinite(n) ? n : 0;
     }
-    function K(e) {
-      var t;
-      if (e == null || Q(e)) return !1;
-      var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
-      return n.length > 0 && n.every(X);
-    }
     function Q(e) {
+      var t;
+      if (e == null || X(e)) return !1;
+      var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
+      return n.length > 0 && n.every(Y);
+    }
+    function X(e) {
       var t, n;
       return (
         ((t = e.nested_responses) != null ? t : []).length > 0 ||
         ((n = e.embedded_screens) != null ? n : []).length > 0
       );
     }
-    function X(e) {
-      var t = c(e.view_model);
-      return t.length > 0 && t.every(Y);
-    }
     function Y(e) {
+      var t = c(e.view_model);
+      return t.length > 0 && t.every(J);
+    }
+    function J(e) {
       return (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.__typename === "GenAIBotProgressStatusPrimitive" &&
@@ -403,22 +410,23 @@ __d(
       (l.isImagineResponse = h),
       (l.isQuotaUpsellResponse = y),
       (l.trailingBrowserTaskId = b),
-      (l.isSoleBrowserTaskCardResponse = v),
-      (l.getQuotaUpsellBenefitType = S),
-      (l.buildUnifiedResponseFromRawData = L),
-      (l.unifiedResponseHasMediaContent = E),
-      (l.unifiedResponseHasConnectorActionCard = k),
-      (l.hasMultipleConnectorActionCards = I),
-      (l.unifiedResponseHasBrowserTaskCard = D),
-      (l.unifiedResponseHasSpaceCard = $),
-      (l.isSoleSpaceCardResponse = P),
-      (l.unifiedResponseHasSecureCredentialRequest = W),
-      (l.isSecureCredentialRequest = q),
-      (l.getMetaAiEmbeddedSources = U),
-      (l.stripEmbeddedScreens = V),
-      (l.highestVersionBrowserTasks = H),
-      (l.isSettledProgressStatusOnly = K),
-      (l.hasNestedOrEmbeddedContent = Q));
+      (l.hasUnifiedResponseContent = v),
+      (l.isSoleBrowserTaskCardResponse = S),
+      (l.getQuotaUpsellBenefitType = R),
+      (l.buildUnifiedResponseFromRawData = E),
+      (l.unifiedResponseHasMediaContent = k),
+      (l.unifiedResponseHasConnectorActionCard = I),
+      (l.hasMultipleConnectorActionCards = T),
+      (l.unifiedResponseHasBrowserTaskCard = x),
+      (l.unifiedResponseHasSpaceCard = P),
+      (l.isSoleSpaceCardResponse = N),
+      (l.unifiedResponseHasSecureCredentialRequest = q),
+      (l.isSecureCredentialRequest = U),
+      (l.getMetaAiEmbeddedSources = V),
+      (l.stripEmbeddedScreens = H),
+      (l.highestVersionBrowserTasks = G),
+      (l.isSettledProgressStatusOnly = Q),
+      (l.hasNestedOrEmbeddedContent = X));
   },
   98,
 );

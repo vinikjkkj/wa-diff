@@ -26,7 +26,8 @@ __d(
           e("28181")),
         (t.RelayFeatureFlags.ENABLE_PERF_STORAGE_KEYS = e("28191")),
         (t.RelayFeatureFlags.ENABLE_PERF_READER = e("1860")),
-        (t.RelayFeatureFlags.ENABLE_PERF_PUBLISH = e("28746")));
+        (t.RelayFeatureFlags.ENABLE_PERF_PUBLISH = e("28746")),
+        (t.RelayFeatureFlags.ENABLE_PERF_NOTIFY = e("3882")));
     }
     l.default = e;
   },

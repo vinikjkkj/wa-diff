@@ -7,7 +7,6 @@ __d(
     "WAWebHandleMsgError",
     "WAWebMsgType",
     "WAWebWamEnumE2eFailureReason",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 256,
@@ -21,30 +20,27 @@ __d(
         .join("");
     }
     function p(t, n) {
-      if (
-        r("justknobx")._("6795") &&
-        (!_(t.degreesLatitude, c) || !_(t.degreesLongitude, d))
-      )
+      if (!_(t.degreesLatitude, c) || !_(t.degreesLongitude, d))
         throw new (o("WAWebHandleMsgError").MessageValidationError)(
           "location: coordinates out of range",
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var a = m(t.name, e),
-        i = m(t.address, s),
-        l = a !== "" && i !== "" ? a + "\n" + i : a || i,
-        p = t.url,
-        f = t.degreesLatitude !== void 0 ? t.degreesLatitude : void 0,
-        g = t.degreesLongitude !== void 0 ? t.degreesLongitude : void 0,
-        h = babelHelpers.extends({}, n, {
+      var r = m(t.name, e),
+        a = m(t.address, s),
+        i = r !== "" && a !== "" ? r + "\n" + a : r || a,
+        l = t.url,
+        p = t.degreesLatitude !== void 0 ? t.degreesLatitude : void 0,
+        f = t.degreesLongitude !== void 0 ? t.degreesLongitude : void 0,
+        g = babelHelpers.extends({}, n, {
           type: o("WAWebMsgType").MSG_TYPE.LOCATION,
           kind: o("WAWebMsgType").MsgKind.Location,
-          loc: l,
-          lat: f,
-          lng: g,
+          loc: i,
+          lat: p,
+          lng: f,
           body: o("WAWebE2EProtoParserApi").decodeBytes(t.jpegThumbnail) || "",
-          clientUrl: p != null && p.length <= u ? p : void 0,
+          clientUrl: l != null && l.length <= u ? l : void 0,
         });
-      return { msgData: h, contextInfo: t.contextInfo };
+      return { msgData: g, contextInfo: t.contextInfo };
     }
     function _(e, t) {
       return e == null || (Number.isFinite(e) && Math.abs(e) <= t);

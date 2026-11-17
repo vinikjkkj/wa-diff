@@ -2,9 +2,9 @@ __d(
   "WAWebOrderConfirmDiscardModal",
   [
     "fbt",
-    "WAWebConfirmPopup.react",
-    "WAWebModalManager",
-    "WAWebText.react",
+    "WAWebTimeSpentLoggingNavigation",
+    "WDSConfirmDialog.react",
+    "WDSDialogBridge",
     "react",
     "react-compiler-runtime",
   ],
@@ -14,50 +14,50 @@ __d(
     function c(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.onOK,
-        r,
         a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = { surface: "unknown", viewName: "order-confirm-discard" }),
-          (a = s._(/*BTDS*/ "Discard changes?")),
-          (t[0] = r),
-          (t[1] = a))
-        : ((r = t[0]), (a = t[1]));
+      (t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = { surface: "unknown", viewName: "order-confirm-discard" }),
+          (t[0] = a))
+        : (a = t[0]),
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(a));
       var i;
-      t[2] !== n
+      t[1] !== n
         ? ((i = function () {
-            (o("WAWebModalManager").ModalManager.close(), n());
+            (o("WDSDialogBridge").closeWDSDialog(), n());
           }),
-          (t[2] = n),
-          (t[3] = i))
-        : (i = t[3]);
-      var l;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = s._(/*BTDS*/ "Discard")), (t[4] = l))
-        : (l = t[4]);
-      var c;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = u.jsx(o("WAWebText.react").WAWebTextMuted, {
-            children: s._(
-              /*BTDS*/ "If you close this, your draft will be discarded.",
-            ),
-          })),
-          (t[5] = c))
-        : (c = t[5]);
-      var d;
+          (t[1] = n),
+          (t[2] = i))
+        : (i = t[2]);
+      var l = i,
+        c,
+        d,
+        m;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Discard changes?")),
+          (d = s._(
+            /*BTDS*/ "If you close this, your draft will be discarded.",
+          )),
+          (m = s._(/*BTDS*/ "Discard")),
+          (t[3] = c),
+          (t[4] = d),
+          (t[5] = m))
+        : ((c = t[3]), (d = t[4]), (m = t[5]));
+      var p;
       return (
-        t[6] !== i
-          ? ((d = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: r,
-              title: a,
-              onOK: i,
-              okText: l,
-              onCancel: o("WAWebModalManager").closeModalManager,
-              children: c,
+        t[6] !== l
+          ? ((p = u.jsx(r("WDSConfirmDialog.react"), {
+              title: c,
+              description: d,
+              confirmLabel: m,
+              destructive: !0,
+              onConfirm: l,
+              onDismiss: o("WDSDialogBridge").closeWDSDialog,
+              open: !0,
             })),
-            (t[6] = i),
-            (t[7] = d))
-          : (d = t[7]),
-        d
+            (t[6] = l),
+            (t[7] = p))
+          : (p = t[7]),
+        p
       );
     }
     l.default = c;

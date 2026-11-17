@@ -57,7 +57,7 @@ __d(
                   "handleMsg: error while parsing message: ",
                   "",
                 ])),
-              n,
+              o("WAJids").maybeSanitizeLogLineText(String(n)),
             )
             .tags("messaging")
             .sendLogs("failedParsingMessageStanza", { sampling: 0.01 }),

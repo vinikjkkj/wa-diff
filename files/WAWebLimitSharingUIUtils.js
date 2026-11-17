@@ -64,7 +64,7 @@ __d(
         t ===
         o("WAWebLimitSharingAIGroupBlock").LimitSharingAIGroupBlock.GROUP_AGENT
       ) {
-        o("WAWebModalManager").ModalManager.open(
+        o("WDSDialogBridge").openWDSDialog(
           c.jsx(r("WAWebLimitSharingBlockedDueToAIAgent.react"), {}),
         );
         return;
@@ -73,7 +73,7 @@ __d(
         t ===
         o("WAWebLimitSharingAIGroupBlock").LimitSharingAIGroupBlock.META_AI
       ) {
-        o("WAWebModalManager").ModalManager.open(
+        o("WDSDialogBridge").openWDSDialog(
           c.jsx(r("WAWebLimitSharingBlockedDueToAIGroup.react"), {}),
         );
         return;

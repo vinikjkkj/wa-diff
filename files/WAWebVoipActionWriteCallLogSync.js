@@ -15,6 +15,7 @@ __d(
     "WAWebCallsOnlyGating",
     "WAWebCmd",
     "WAWebDBMsgUtils",
+    "WAWebLidMigrationUtils",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -224,12 +225,19 @@ __d(
                 fromMe: x,
                 id: $,
               });
-            if (!i && k(D, w, M)) {
+            if (
+              (i &&
+                D.isRegularUser() &&
+                o("WAWebLidMigrationUtils").toUserLid(D) == null) ||
+              (!i && k(D, w, M))
+            ) {
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "generateCallLogFromCallSyncRecord: skip, segment of call transferred here",
+                    "generateCallLogFromCallSyncRecord: skip unresolved history target or transferred segment, histSync=",
+                    "",
                   ])),
+                i,
               );
               return;
             }

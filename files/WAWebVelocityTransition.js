@@ -84,6 +84,7 @@ __d(
                     ])),
                   E(k, a, u),
                 )
+                .tags("non-sad")
                 .sendLogs("velocity-transition-group-missing-ref")),
             null
           );
