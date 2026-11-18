@@ -141,6 +141,7 @@ __d(
     "cr:10196",
     "cr:17219",
     "cr:19083",
+    "cr:21431",
     "cr:37961",
     "getErrorSafe",
   ],
@@ -308,6 +309,8 @@ __d(
                 ])),
               o("WAWebUserUtils").getMeDeviceLidOrThrow(),
             ),
+            n("cr:21431") == null ||
+              n("cr:21431").startLabyrinthShadowTriggers(),
             r("WAWebEnvironment").isWindows)
           ) {
             var t =

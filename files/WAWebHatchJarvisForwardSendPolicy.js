@@ -42,6 +42,7 @@ __d(
               ).resolveHatchJarvisForwardMedia(
                 n.refs,
                 e.unifiedResponseMutationMediaList,
+                n.thumbnails,
               ));
           }
         })),
@@ -56,9 +57,17 @@ __d(
       if (!n && !h(e)) return "not_first_hop";
       var r = _(t);
       if (typeof r == "string") return r;
-      if (n) return y(r.refs, e.unifiedResponseMutationMediaList);
-      var o = C(r.refs, r.payload);
-      return o != null ? { media: o } : "unbound_media";
+      if (n) {
+        var o = e.unifiedResponseMutationMediaList,
+          a = y(r.refs, o);
+        return typeof a == "string"
+          ? a
+          : { media: a, thumbnails: C(r.thumbnails, o) };
+      }
+      var i = v(r.refs, r.payload);
+      return i != null
+        ? { media: i, thumbnails: b(r.thumbnails, r.payload) }
+        : "unbound_media";
     }
     function p(e) {
       var t = e.unifiedResponse;
@@ -72,11 +81,24 @@ __d(
       var n = o("WAWebHatchJarvisPayload").getHatchJarvisPayload(t);
       if (n == null) return "unsupported_envelope";
       if (!n.displayTextReady) return "display_text_not_ready";
-      var r = o("WAWebHatchJarvisForwardPolicy").getHatchJarvisForwardMediaRefs(
-        n,
-        o("WAWebHatchJarvisRender").buildHatchJarvisRender(n, t.response_id, e),
-      );
-      return r != null ? { payload: n, refs: r } : "unsupported_content";
+      var r = o("WAWebHatchJarvisRender").buildHatchJarvisRender(
+          n,
+          t.response_id,
+          e,
+        ),
+        a = o("WAWebHatchJarvisForwardPolicy").getHatchJarvisForwardMediaRefs(
+          n,
+          r,
+        );
+      return a != null
+        ? {
+            payload: n,
+            refs: a,
+            thumbnails: o(
+              "WAWebHatchJarvisForwardPolicy",
+            ).getHatchJarvisForwardThumbnailRefs(n, r, a),
+          }
+        : "unsupported_content";
     }
     function f(e) {
       return e.isForwarded === !0 || e.forwardedAiBotMessageInfo != null;
@@ -101,9 +123,31 @@ __d(
         if (i == null) return "unbound_media";
         r.push({ descriptor: i, ref: a });
       }
-      return { media: r };
+      return r;
     }
     function C(e, t) {
+      var n = o(
+        "WAWebHatchJarvisForwardMedia",
+      ).resolveHatchJarvisOptionalMediaSync(e, t);
+      return e.flatMap(function (e) {
+        var t = n.get(e.url);
+        return t != null ? [{ descriptor: t, ref: e }] : [];
+      });
+    }
+    function b(e, t) {
+      var n = t.fileMetadata;
+      return e.flatMap(function (e) {
+        var t,
+          r = o("WAWebHatchJarvisMedia").getHatchJarvisImageSource(e.url, n);
+        return r != null &&
+          o("WAWebHatchJarvisForwardMedia").decodeHash(
+            (t = e.envelopeFilehash) != null ? t : "",
+          ) != null
+          ? [{ descriptor: r.descriptor, ref: e }]
+          : [];
+      });
+    }
+    function v(e, t) {
       var n = t.fileMetadata,
         r = Array.from(n.values()),
         a = [],

@@ -7,7 +7,7 @@ __d(
     "WAWebConnGetters",
     "WAWebProductFeature",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipBackendLoadable",
     "WAWebWamEnumPlatformType",
     "WAWebWamGlobals",
@@ -103,7 +103,7 @@ __d(
               ).commit());
         }),
         (i.shouldSaveToCache = function () {
-          return o("WAWebUserPrefsMeUser").hasLoggedIn() && !!this.id;
+          return o("WAWebUserUtils").hasLoggedIn() && !!this.id;
         }),
         a
       );

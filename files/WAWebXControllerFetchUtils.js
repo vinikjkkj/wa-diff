@@ -14,50 +14,65 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+      var n = {};
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        Object.entries(r("getAsyncParams")(t)).forEach(function (e) {
+          var t = e[0],
+            r = e[1];
+          r != null && (n[t] = String(r));
+        }),
+        {
+          headers: r("getAsyncHeaders")(new (u || (u = r("URI")))(e)),
+          params: n,
+        }
+      );
+    }
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = t.additionalHeaders,
             i = a === void 0 ? {} : a,
             l = t.additionalParams,
-            c = l === void 0 ? {} : l,
-            d = t.method,
-            m = t.retry,
-            p = m === void 0 ? !1 : m,
-            _ = t.retryDelayMs,
-            f = _ === void 0 ? 2e3 : _,
-            g = t.signal,
-            h = (function () {
+            u = l === void 0 ? {} : l,
+            d = t.auth,
+            m = t.method,
+            p = t.retry,
+            _ = p === void 0 ? !1 : p,
+            f = t.retryDelayMs,
+            g = f === void 0 ? 2e3 : f,
+            h = t.signal,
+            y = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
-                  if (g != null && g.aborted)
+                  if (h != null && h.aborted)
                     throw new (o("WAAbortError").AbortError)();
-                  var t = new (u || (u = r("URI")))(e),
-                    n = r("getAsyncParams")(d),
-                    a = r("getAsyncHeaders")(t),
+                  var t = d != null ? d : c(e, m),
+                    n = t.headers,
+                    a = t.params,
                     l = new URLSearchParams();
-                  (Object.entries(n).forEach(function (e) {
+                  (Object.entries(a).forEach(function (e) {
                     var t = e[0],
                       n = e[1];
-                    n != null && l.append(t, String(n));
+                    l.append(t, n);
                   }),
-                    Object.entries(c).forEach(function (e) {
+                    Object.entries(u).forEach(function (e) {
                       var t = e[0],
                         n = e[1];
                       l.append(t, n);
                     }));
-                  var s = babelHelpers.extends({}, a, i, {
+                  var s = babelHelpers.extends({}, n, i, {
                       "Content-Type": "application/x-www-form-urlencoded",
                     }),
-                    m = d === "GET" ? e + "?" + l.toString() : e,
-                    p = d === "GET" ? void 0 : l.toString();
+                    p = m === "GET" ? e + "?" + l.toString() : e,
+                    _ = m === "GET" ? void 0 : l.toString();
                   return yield r("WAWebPonyfillsFetch")(
-                    m,
+                    p,
                     babelHelpers.extends(
-                      { method: d, headers: s, body: p },
-                      g != null ? { signal: g } : null,
+                      { method: m, headers: s, body: _ },
+                      h != null ? { signal: h } : null,
                     ),
                   );
                 },
@@ -66,31 +81,31 @@ __d(
                 return t.apply(this, arguments);
               };
             })();
-          if (!p) return h();
+          if (!_) return y();
           try {
-            var y = yield h();
-            if (y.ok) return y;
+            var C = yield y();
+            if (C.ok) return C;
           } catch (e) {
-            if (g != null && g.aborted) throw e;
+            if (h != null && h.aborted) throw e;
           }
           return (
-            yield g == null
+            yield h == null
               ? new (s || (s = n("Promise")))(function (e) {
-                  return window.setTimeout(e, f);
+                  return window.setTimeout(e, g);
                 })
-              : o("WAPromiseDelays").delayMs(f, g),
-            h()
+              : o("WAPromiseDelays").delayMs(g, h),
+            y()
           );
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = yield t.text(),
               r = n.replace(/^for\s*\(\s*;;\s*\)\s*;\s*/, "");
@@ -109,10 +124,12 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.fetchFromXController = c), (l.extractJsonFromResponse = m));
+    ((l.captureXControllerRequestAuth = c),
+      (l.fetchFromXController = d),
+      (l.extractJsonFromResponse = p));
   },
   98,
 );

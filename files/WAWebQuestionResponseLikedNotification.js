@@ -9,12 +9,14 @@ __d(
     "WAWebChatMessageSearch",
     "WAWebCmd",
     "WAWebDrawerManager",
+    "WAWebMsgCollection",
     "WAWebMuteCollection",
     "WAWebNewsletterCollection",
     "WAWebNotificationController",
     "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebOpenLastActiveChatAction",
+    "WAWebQuestionsRenderingUtils",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -93,7 +95,7 @@ __d(
             onClick:
               t != null
                 ? function () {
-                    return e.openQuestion(t);
+                    return void e.openQuestion(t);
                   }
                 : void 0,
           };
@@ -107,21 +109,31 @@ __d(
                 .toString()
             : s._(/*BTDS*/ "Liked your response").toString();
         }),
-        (r.openQuestion = function (t) {
-          (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
-            o(
-              "WAWebOpenLastActiveChatAction",
-            ).cancelPendingLastActiveChatRestore(),
-            o("WAWebCmd").Cmd.openChatAt({
-              chat: this.chat,
-              msgContext: o("WAWebChatMessageSearch").getSearchContext({
+        (r.openQuestion = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+              o(
+                "WAWebOpenLastActiveChatAction",
+              ).cancelPendingLastActiveChatRestore());
+            var t = yield o("WAWebCmd").Cmd.openChatAt({
                 chat: this.chat,
-                msgKey: t,
+                msgContext: o("WAWebChatMessageSearch").getSearchContext({
+                  chat: this.chat,
+                  msgKey: e,
+                }),
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .Notification,
               }),
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .Notification,
-            }));
-        }),
+              n = o("WAWebMsgCollection").MsgCollection.get(e);
+            t &&
+              n != null &&
+              o("WAWebQuestionsRenderingUtils").maybeOpenMyQuestionResponses(n);
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (r.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             return o("WAWebNotificationIconUtils").getChatNotificationIcon(

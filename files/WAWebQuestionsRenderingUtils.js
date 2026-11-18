@@ -78,7 +78,7 @@ __d(
                 return;
               }
               p
-                ? h(n, m)
+                ? y(n, m)
                 : o("WAWebModalManager").ModalManager.open(
                     c.jsx(
                       o("WAWebQuestionsCreateResponseModalLoadable")
@@ -87,7 +87,7 @@ __d(
                     ),
                   );
             },
-            y = p
+            h = p
               ? !o(
                   "WAWebQuestionsAdminGatingUtils",
                 ).isQuestionsFeatureEnabledForAdmins(m)
@@ -97,48 +97,27 @@ __d(
                   isNewsletterMsg: l,
                   type: d,
                 });
-          return { label: _, testid: f, onClick: g, disabled: y };
+          return { label: _, testid: f, onClick: g, disabled: h };
         }
       }
     }
     function m(e) {
-      var t = e.serverId;
-      if (
-        !o("WAWebMsgGetters").getIsNewsletterMsg(e) ||
-        e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN ||
-        o("WAWebMsgGetters").getIsForwarded(e) ||
-        !o("WAWebMsgGetters").getIsQuestion(e) ||
-        t == null ||
-        !o(
-          "WAWebQuestionsMyResponsesGatingUtils",
-        ).isQuestionViewYourResponsesEnabled()
-      )
-        return null;
-      var n = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(e.id, !0);
-      if (n == null) return null;
-      var r = o("WAJids").toNewsletterJid(n.id.toJid()),
-        a = n.newsletterMetadata;
-      return r == null || a == null || a.iAmAdminOrOwner()
+      var t = b(e);
+      return t == null
         ? null
         : {
             label: s._(/*BTDS*/ "View your responses"),
             testid: "view-your-question-responses-cta",
             onClick: function () {
-              return o("WAWebModalManager").ModalManager.open(
-                c.jsx(
-                  o("WAWebQuestionsMyResponsesModalLoadable")
-                    .MyQuestionResponsesModalLoadable,
-                  {
-                    questionMsgKey: e.id,
-                    questionServerId: t,
-                    newsletterJid: r,
-                  },
-                ),
-              );
+              return o("WAWebModalManager").ModalManager.open(t);
             },
           };
     }
     function p(e) {
+      var t = b(e);
+      t != null && o("WAWebModalManager").ModalManager.open(t);
+    }
+    function _(e) {
       switch (e) {
         case o("WAWebQuestions.flow").ResponsesFilterType.ALL:
           return s._(/*BTDS*/ "All");
@@ -150,7 +129,7 @@ __d(
           return s._(/*BTDS*/ "Starred");
       }
     }
-    function _(e) {
+    function f(e) {
       switch (e) {
         case o("WAWebQuestions.flow").QuestionType.Question:
           return s._(/*BTDS*/ "Create question");
@@ -160,7 +139,7 @@ __d(
           return s._(/*BTDS*/ "Respond");
       }
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebToast.react").genId(),
         n = e
           ? s._(/*BTDS*/ "Couldn't star response. Please try again.")
@@ -169,7 +148,7 @@ __d(
         c.jsx(o("WAWebToast.react").Toast, { msg: n, id: t }),
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = o("WAWebToast.react").genId(),
         a = e
           ? s._(/*BTDS*/ "Couldn't like response")
@@ -187,8 +166,8 @@ __d(
         c.jsx(o("WAWebToast.react").Toast, { msg: a, id: n, action: i }),
       );
     }
-    function h(e, t) {
-      y(e);
+    function y(e, t) {
+      C(e);
       var n = !o(
         "WAWebQuestionsSenderGatingUtils",
       ).isQuestionReplySenderEnabled(t);
@@ -200,7 +179,7 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function y(e) {
+    function C(e) {
       return (
         (e.readQuestionResponsesCount = e.questionResponsesCount),
         (o("WAWebBackendRuntime").isWebDiBackendEnabled()
@@ -212,12 +191,53 @@ __d(
         })
       );
     }
+    function b(e) {
+      var t = v(e);
+      return t == null
+        ? null
+        : c.jsx(
+            o("WAWebQuestionsMyResponsesModalLoadable")
+              .MyQuestionResponsesModalLoadable,
+            {
+              questionMsgKey: e.id,
+              questionServerId: t.myQuestionResponsesServerId,
+              newsletterJid: t.newsletterJid,
+            },
+          );
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e) {
+      var t = e.serverId;
+      if (t == null || !S(e)) return null;
+      var n = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(e.id, !0);
+      if (n == null) return null;
+      var r = o("WAJids").toNewsletterJid(n.id.toJid()),
+        a = n.newsletterMetadata;
+      return r == null ||
+        a == null ||
+        a.iAmAdminOrOwner() ||
+        !o(
+          "WAWebQuestionsMyResponsesGatingUtils",
+        ).isQuestionViewYourResponsesEnabled()
+        ? null
+        : { newsletterJid: r, myQuestionResponsesServerId: t };
+    }
+    function S(e) {
+      return (
+        o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
+        e.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+        !o("WAWebMsgGetters").getIsForwarded(e) &&
+        o("WAWebMsgGetters").getIsQuestion(e)
+      );
+    }
     ((l.getQuestionAction = d),
       (l.getMyQuestionResponsesAction = m),
-      (l.getResponsesFilterLabel = p),
-      (l.getModalTitleFromQuestionType = _),
-      (l.showStarFailureToast = f),
-      (l.showLikeFailureToast = g));
+      (l.maybeOpenMyQuestionResponses = p),
+      (l.getResponsesFilterLabel = _),
+      (l.getModalTitleFromQuestionType = f),
+      (l.showStarFailureToast = g),
+      (l.showLikeFailureToast = h),
+      (l.getMyQuestionResponsesQueryArgs = v));
   },
   226,
 );

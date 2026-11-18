@@ -1,6 +1,10 @@
 __d(
   "WAWebGroupMembersGating",
-  ["WAWebABProps", "WAWebGroupMetadataGetters"],
+  [
+    "WAWebABProps",
+    "WAWebGroupMetadataGetters",
+    "WAWebWamEnumGroupJoinRequestEntrypointType",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.groupMetadata;
@@ -31,7 +35,17 @@ __d(
         o("WAWebABProps").getABPropConfigValue("web_group_members_view_enabled")
       );
     }
-    ((l.isGroupMembersViewEnabled = e), (l.isGroupMembersViewAllowed = s));
+    function u() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_group_member_list_logging_enabled",
+      )
+        ? o("WAWebWamEnumGroupJoinRequestEntrypointType")
+            .GROUP_JOIN_REQUEST_ENTRYPOINT_TYPE.MANAGE_MEMBERS
+        : null;
+    }
+    ((l.isGroupMembersViewEnabled = e),
+      (l.isGroupMembersViewAllowed = s),
+      (l.getManageMembersJoinRequestEntrypoint = u));
   },
   98,
 );

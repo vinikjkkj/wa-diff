@@ -71,6 +71,7 @@ __d(
                 o("WAWebWamEnumStatusCategory").STATUS_CATEGORY,
               ],
               statusContainsMusic: [9, e.TYPES.BOOLEAN],
+              statusContainsPixSticker: [62, e.TYPES.BOOLEAN],
               statusContainsQuestion: [28, e.TYPES.BOOLEAN],
               statusContainsReactionSticker: [34, e.TYPES.BOOLEAN],
               statusContentType: [

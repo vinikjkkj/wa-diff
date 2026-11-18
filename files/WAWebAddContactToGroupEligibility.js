@@ -7,8 +7,7 @@ __d(
       if (
         !o("WAWebContactGetters").getIsGroup(t) ||
         n == null ||
-        !n.participants.iAmMember() ||
-        !n.participants.iAmAdmin()
+        !n.participants.canAdd()
       )
         return !1;
       var r =

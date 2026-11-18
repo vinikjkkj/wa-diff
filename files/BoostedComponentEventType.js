@@ -48,6 +48,7 @@ __d(
         "guided_start_mobile_qe_exposure_action_error",
       EXIT_FLOW: "exit_flow",
       EXIT_FLOW_CLICK: "exit_flow_click",
+      UNLOAD_FLOW: "unload_flow",
       SUBMIT_FLOW: "submit_flow",
       SUBMIT_FLOW_CLICK: "submit_flow_click",
       SUBMIT_FLOW_ERROR: "submit_flow_error",

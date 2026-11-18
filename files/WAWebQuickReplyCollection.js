@@ -9,7 +9,6 @@ __d(
     "WAWebQuickReplyBusinessProfileUtils",
     "WAWebQuickReplyModel",
     "WAWebQuickReplySmartDefaults",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "getErrorSafe",
   ],
@@ -45,7 +44,7 @@ __d(
               return this.$QuickReplyCollectionImpl$p_1;
             if (
               (o("WAWebQuickReplySmartDefaults").addSmartDefaults(),
-              !o("WAWebUserPrefsMeUser").hasLoggedIn())
+              !o("WAWebUserUtils").hasLoggedIn())
             )
               return (s || (s = n("Promise"))).resolve();
             if (

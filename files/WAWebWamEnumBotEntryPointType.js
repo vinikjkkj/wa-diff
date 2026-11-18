@@ -55,6 +55,7 @@ __d(
       MEDIA_VIEWER: 50,
       BIRTHDAY_BANNER: 51,
       AI_TEXT_ACTION_SCHEDULED_TASK: 52,
+      FB_QP_DEEPLINK: 53,
     });
     i.BOT_ENTRY_POINT_TYPE = e;
   },

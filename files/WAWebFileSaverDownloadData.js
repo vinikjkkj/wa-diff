@@ -31,7 +31,7 @@ __d(
             if (
               n == null ||
               n === t ||
-              r("getErrorSafe")(i).name === o("WAAbortError").ABORT_ERROR
+              o("WAAbortError").isAbortError(r("getErrorSafe")(i))
             )
               throw i;
             return (
@@ -67,9 +67,19 @@ __d(
               }),
             );
             if (l.length > 1) {
-              var u = yield o("WAWebZipUtils").zipFiles(l);
+              var u = yield o("WAWebZipUtils").zipFiles(
+                l.map(function (e) {
+                  var t = e.blob,
+                    n = e.name,
+                    r = e.url;
+                  return { blob: t, name: n, url: r };
+                }),
+              );
               return {
                 blob: u,
+                messages: l.flatMap(function (e) {
+                  return e.messages;
+                }),
                 name: o("WAWebFilenameManager").getDefaultName({
                   t: Math.round(Date.now() / 1e3),
                   type: "unknown",
@@ -84,7 +94,7 @@ __d(
           } catch (e) {
             var m = r("getErrorSafe")(e);
             throw (
-              m.name !== o("WAAbortError").ABORT_ERROR &&
+              o("WAAbortError").isAbortError(m) ||
                 o("WALogger")
                   .ERROR(
                     s ||
@@ -112,11 +122,13 @@ __d(
           if (e.type === o("WAWebMsgType").MSG_TYPE.VCARD)
             return {
               name: o("WAWebFilenameManager").getDefaultName(e),
+              messages: [e],
               blob: new Blob([e.body], { type: a }),
             };
           if (e.type === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)
             return {
               name: o("WAWebFilenameManager").getDefaultName(e),
+              messages: [e],
               blob: new Blob(
                 [
                   e.vcardList
@@ -145,9 +157,19 @@ __d(
                 }),
               );
               if (l.length === 1) return l[0];
-              var s = yield o("WAWebZipUtils").zipFiles(l);
+              var s = yield o("WAWebZipUtils").zipFiles(
+                l.map(function (e) {
+                  var t = e.blob,
+                    n = e.name,
+                    r = e.url;
+                  return { blob: t, name: n, url: r };
+                }),
+              );
               return {
                 blob: s,
+                messages: l.flatMap(function (e) {
+                  return e.messages;
+                }),
                 name: o("WAWebFilenameManager").getDefaultName({
                   t: Math.round(Date.now() / 1e3),
                   type: "unknown",
@@ -171,7 +193,7 @@ __d(
             );
           }
           var m = h(e);
-          if (m) return m;
+          if (m) return babelHelpers.extends({}, m, { messages: [e] });
           yield e.downloadMedia({
             downloadEvenIfExpensive: !(
               e.parentMsgKey != null &&
@@ -185,7 +207,7 @@ __d(
             shouldThrowAbortError: t,
           });
           var p = h(e);
-          if (p) return p;
+          if (p) return babelHelpers.extends({}, p, { messages: [e] });
           throw r("err")("Unable to download because blob cannot be found");
         })),
         g.apply(this, arguments)

@@ -10,7 +10,6 @@ __d(
     "WAWebCmd",
     "WAWebCommentsModalLoadable",
     "WAWebComposeBoxActions",
-    "WAWebConfirmPopup.react",
     "WAWebDeactivatedContactUtils",
     "WAWebDisplayType",
     "WAWebFbtCommon",
@@ -25,6 +24,10 @@ __d(
     "WAWebMultiSelectBarConstants",
     "WAWebQuotedMessageUserJourneyLogger",
     "WAWebStateUtils",
+    "WAWebTimeSpentLoggingNavigation",
+    "WDSButtonGroup.react",
+    "WDSDialog.react",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -37,43 +40,43 @@ __d(
     function m(e) {
       var t = e.handleBack,
         n = e.handleSelectClick,
-        a = e.msg,
-        i = e.multiSelect,
-        l = e.onForward,
-        u = e.openAsSupportModal,
-        c = u === void 0 ? !1 : u,
-        m,
-        p = o("WAWebFrontendMsgGetters").getIsUnsentMedia(a),
-        _ = o("WAWebFrontendMsgGetters").getAsRevoked(a),
-        f = o("WAWebMsgGetters").getType(a),
-        g = o("WAWebGetDisplayType").getDisplayType(a.unsafe()),
-        h = o("WAWebDisplayType").isConversationDisplay(g);
-      if (f === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-        m = s._(
+        r = e.msg,
+        a = e.multiSelect,
+        i = e.onForward,
+        l = e.openAsSupportModal,
+        u = l === void 0 ? !1 : l,
+        c,
+        m = o("WAWebFrontendMsgGetters").getIsUnsentMedia(r),
+        p = o("WAWebFrontendMsgGetters").getAsRevoked(r),
+        _ = o("WAWebMsgGetters").getType(r),
+        f = o("WAWebGetDisplayType").getDisplayType(r.unsafe()),
+        h = o("WAWebDisplayType").isConversationDisplay(f);
+      if (_ === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
+        c = s._(
           /*BTDS*/ "Wait until this message is fully delivered before forwarding.",
         );
-      else if (_) m = s._(/*BTDS*/ "Couldn't forward unsent message.");
-      else if (p)
-        m = s._(
+      else if (p) c = s._(/*BTDS*/ "Couldn't forward unsent message.");
+      else if (m)
+        c = s._(
           /*BTDS*/ '_j{"*":"Wait until the messages finish sending and displays a checkmark before forwarding.","_1":"Wait until the message finishes sending and displays a checkmark before forwarding."}',
           [s._plural(1)],
         );
       else {
-        if (i && h) {
+        if (a && h) {
           n && n(o("WAWebMultiSelectBarConstants").MultiSelectMode.FORWARD);
           return;
         }
-        if (c) {
+        if (u) {
           o("WAWebModalManager").ModalManager.openSupportModal(
             d.jsx(
               o("WAWebForwardMessageFlowLoadable").ForwardMessageFlowLoadable,
               {
-                msgs: [o("WAWebStateUtils").unproxy(a)],
+                msgs: [o("WAWebStateUtils").unproxy(r)],
                 onBack: t,
                 onClose: function () {
                   o("WAWebModalManager").ModalManager.closeSupportModal();
                 },
-                onForward: l,
+                onForward: i,
               },
             ),
             { transition: "modal-flow" },
@@ -84,27 +87,20 @@ __d(
           d.jsx(
             o("WAWebForwardMessageFlowLoadable").ForwardMessageFlowLoadable,
             {
-              msgs: [o("WAWebStateUtils").unproxy(a)],
+              msgs: [o("WAWebStateUtils").unproxy(r)],
               onBack: t,
               onClose: function () {
                 o("WAWebModalManager").ModalManager.close();
               },
-              onForward: l,
+              onForward: i,
             },
           ),
           { transition: "modal-flow" },
         );
         return;
       }
-      o("WAWebModalManager").ModalManager.open(
-        d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "message-handler" },
-          title: s._(/*BTDS*/ "Can't forward"),
-          onOK: o("WAWebModalManager").closeModalManager,
-          okText: r("WAWebFbtCommon")("OK"),
-          children: m,
-        }),
-      );
+      (o("WAWebModalManager").closeModalManager(),
+        o("WDSDialogBridge").openWDSDialog(d.jsx(g, { description: c })));
     }
     function p(e, t, n, r) {
       if (!o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(e))
@@ -184,7 +180,37 @@ __d(
         f.apply(this, arguments)
       );
     }
-    ((l.handleOpenForwardFlow = m),
+    function g(e) {
+      var t = e.description;
+      return (
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "unknown",
+          viewName: "message-handler",
+        }),
+        d.jsx(r("WDSDialog.react"), {
+          closeButton: !1,
+          description: t,
+          footer: d.jsx(r("WDSButtonGroup.react"), {
+            orientation: "stacked",
+            primaryButtonProps: {
+              label: r("WAWebFbtCommon")("OK"),
+              onPress: o("WDSDialogBridge").closeWDSDialog,
+              testid: "popup-controls-ok",
+            },
+            width: "fill",
+          }),
+          headerType: "expressive",
+          layoutType: "expressive",
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
+          size: "sm",
+          testid: "confirm-popup",
+          title: s._(/*BTDS*/ "Can't forward"),
+        })
+      );
+    }
+    ((g.displayName = g.name + " [from " + i.id + "]"),
+      (l.handleOpenForwardFlow = m),
       (l.handleMessageReply = p),
       (l.handleAskMetaAi = _));
   },

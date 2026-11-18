@@ -112,7 +112,7 @@ __d(
       }
     }
     function u(e, t) {
-      var n, r, a;
+      var n, r, a, i, l;
       return t === o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT
         ? "edit"
         : e.viewOnce === !0
@@ -122,11 +122,11 @@ __d(
             : ((n = (r = e.processedVideos) == null ? void 0 : r.length) != null
                   ? n
                   : 0) > 0 ||
-                e.metadataUrl != null ||
-                e.dashManifestUrl != null ||
+                ((a = e.metadataUrl) != null ? a : "") !== "" ||
+                ((i = e.dashManifestUrl) != null ? i : "") !== "" ||
                 e.motionPhotoPresentationOffsetMs != null
               ? "forbidden-field"
-              : ((a = e.contextInfo) == null ? void 0 : a.pairedMediaType) ===
+              : ((l = e.contextInfo) == null ? void 0 : l.pairedMediaType) ===
                   o("WAWebProtobufsE2E.pb").ContextInfo$PairedMediaType
                     .MOTION_PHOTO_PARENT
                 ? "motion-photo"

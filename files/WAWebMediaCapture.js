@@ -2,6 +2,7 @@ __d(
   "WAWebMediaCapture",
   [
     "Promise",
+    "WAAbortError",
     "WAGetDisplayMedia",
     "WAGetUserMedia",
     "WALogger",
@@ -58,91 +59,105 @@ __d(
       var t,
         a = e.cameraFacingMode,
         i = e.featureSurface,
-        l = e.mediaConstraints,
-        c = e.targetWindow,
-        m = e.timeoutCallback,
-        p = e.timeoutLimit,
-        g = e.type,
-        C,
-        v = !1,
-        R = null,
-        L = null,
-        E = null,
-        k = p != null ? p : f[g];
-      function I() {
-        R != null && (self.clearTimeout(R), (R = null));
+        l = e.isStopped,
+        c = e.mediaConstraints,
+        m = e.signal,
+        p = e.targetWindow,
+        _ = e.timeoutCallback,
+        g = e.timeoutLimit,
+        R = e.type,
+        E,
+        I = !1,
+        T = null,
+        D = null,
+        x = null,
+        $ = g != null ? g : f[R];
+      function P() {
+        return (
+          (I =
+            I ||
+            (l == null ? void 0 : l()) === !0 ||
+            (m == null ? void 0 : m.aborted) === !0),
+          I
+        );
       }
-      function T() {
-        (I(),
-          !v &&
-            k < Number.POSITIVE_INFINITY &&
-            (R = self.setTimeout(function () {
-              if (((R = null), !v))
-                if (m) m();
+      function N() {
+        T != null && (self.clearTimeout(T), (T = null));
+      }
+      function M() {
+        (N(),
+          !P() &&
+            $ < Number.POSITIVE_INFINITY &&
+            (T = self.setTimeout(function () {
+              if (((T = null), !P()))
+                if (_) _();
                 else {
-                  var e = S(g, i, E);
+                  var e = k(R, i, x);
                   e != null &&
-                    (D(),
-                    (L = e),
-                    o("WAWebModalManager").ModalManager.on("open_modal", $),
-                    o("WAWebModalManager").ModalManager.on("close_modal", x),
+                    (w(),
+                    (D = e),
+                    o("WAWebModalManager").ModalManager.on("open_modal", F),
+                    o("WAWebModalManager").ModalManager.on("close_modal", A),
                     o("WAWebModalManager").ModalManager.open(e));
                 }
-            }, k)));
+            }, $)));
       }
-      function D() {
-        (o("WAWebModalManager").ModalManager.off("open_modal", $),
-          o("WAWebModalManager").ModalManager.off("close_modal", x));
+      function w() {
+        (o("WAWebModalManager").ModalManager.off("open_modal", F),
+          o("WAWebModalManager").ModalManager.off("close_modal", A));
       }
-      function x() {
-        ((L = null), D());
+      function A() {
+        ((D = null), w());
       }
-      function $(e) {
-        e !== L && x();
+      function F(e) {
+        e !== D && A();
       }
-      function P() {
-        (I(), L != null && (x(), o("WAWebModalManager").ModalManager.close()));
+      function O() {
+        (N(), D != null && (A(), o("WAWebModalManager").ModalManager.close()));
       }
-      var N = l != null ? l : y(g, a),
-        M = c == null || (t = c.navigator) == null ? void 0 : t.mediaDevices,
-        w =
-          g ===
+      var B = c != null ? c : S(R, a),
+        W = p == null || (t = p.navigator) == null ? void 0 : t.mediaDevices,
+        q =
+          R ===
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
               .CAMERA ||
-          g ===
+          R ===
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
               .CAMERA_AND_MICROPHONE ||
-          g ===
+          R ===
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
               .MICROPHONE
-            ? c != null && M != null
+            ? p != null && W != null
               ? function (e) {
-                  return M.getUserMedia(e);
+                  return W.getUserMedia(e);
                 }
               : o("WAGetUserMedia").getUserMedia
-            : g ===
+            : R ===
                 o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                   .DESKTOP
-              ? c != null && M != null
+              ? p != null && W != null
                 ? function (e) {
-                    return M.getDisplayMedia(e);
+                    return W.getDisplayMedia(e);
                   }
                 : o("WAGetDisplayMedia").getDisplayMedia
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      g,
+                      R,
                   );
                 })(),
-        A = n("asyncToGeneratorRuntime")
+        U = y(m, function () {
+          ((I = !0), O());
+        }),
+        V = n("asyncToGeneratorRuntime")
           .asyncToGenerator(function* () {
             var e;
-            ((E = yield b(g)), T());
+            ((x = yield L(R)), C(P), M());
             var t =
-                (e = c == null ? void 0 : c.navigator) != null ? e : navigator,
+                (e = p == null ? void 0 : p.navigator) != null ? e : navigator,
               a = !1;
             if (
-              g ===
+              R ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .MICROPHONE
             ) {
@@ -152,23 +167,23 @@ __d(
                 l = i.denied;
               a = l;
             } else if (
-              g ===
+              R ===
               o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                 .CAMERA
             ) {
-              var m = yield o(
+              var c = yield o(
                   "WAWebMediaPermissionsUtils",
                 ).checkMediaPermissionState("camera", t),
-                p = m.denied;
-              a = p;
+                m = c.denied;
+              a = m;
             } else
-              g ===
+              R ===
                 o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
                   .CAMERA_AND_MICROPHONE &&
                 (a = yield o(
                   "WAWebMediaPermissionsUtils",
                 ).isAnyMediaPermissionDenied(["microphone", "camera"], t));
-            if (a)
+            if ((C(P), a))
               throw (
                 o("WALogger").LOG(
                   s ||
@@ -184,11 +199,11 @@ __d(
               var t = e.failCount,
                 r = e.retry;
               return new (d || (d = n("Promise")))(function (e, n) {
-                if ((T(), v)) {
+                if ((M(), P())) {
                   e(void 0);
                   return;
                 }
-                if (!w)
+                if (!q)
                   (o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -197,37 +212,45 @@ __d(
                   ),
                     n(new (o("WAWebGetUserMediaErrors").GetUserMediaError)()));
                 else {
-                  var a = N[t];
-                  w(a)
+                  var a = B[t];
+                  q(a)
                     .then(function (e) {
-                      if (v) {
+                      if (P()) {
                         h(e);
                         return;
                       }
-                      return ((C = e), e);
+                      return ((E = e), e);
                     })
                     .then(e)
-                    .catch(function (e) {
-                      if (e.name === "NotReadableError" && N[t + 1]) {
-                        r();
-                        return;
-                      }
-                      n(e);
+                    .catch(function (o) {
+                      b(
+                        P,
+                        function () {
+                          return e(void 0);
+                        },
+                        function () {
+                          if (o.name === "NotReadableError" && B[t + 1]) {
+                            r();
+                            return;
+                          }
+                          n(o);
+                        },
+                      );
                     });
                 }
               });
             });
           })()
           .catch(function (e) {
-            var t = e instanceof Error ? e.name : e,
-              n = _[t] || o("WAWebGetUserMediaErrors").GetUserMediaError;
-            throw new n(e instanceof Error ? e.message : void 0);
+            return v(e, P);
           })
-          .finally(P);
+          .finally(function () {
+            (U(), O());
+          });
       return {
-        asyncStream: A,
+        asyncStream: V,
         disposeStream: function () {
-          ((v = !0), P(), C && h(C));
+          ((I = !0), U(), O(), E && h(E));
         },
       };
     }
@@ -250,13 +273,43 @@ __d(
         }
     }
     function y(e, t) {
+      return (
+        (e == null ? void 0 : e.aborted) === !0
+          ? t()
+          : e == null || e.addEventListener("abort", t, { once: !0 }),
+        function () {
+          return e == null ? void 0 : e.removeEventListener("abort", t);
+        }
+      );
+    }
+    function C(e) {
+      if (e())
+        throw new (o("WAAbortError").AbortError)(
+          "Capture stopped while reading permission state",
+        );
+    }
+    function b(e, t, n) {
+      if (e()) {
+        t();
+        return;
+      }
+      n();
+    }
+    function v(e, t) {
+      var n = e instanceof Error ? e.name : e;
+      if (!(n === o("WAAbortError").ABORT_ERROR && t())) {
+        var r = _[n] || o("WAWebGetUserMediaErrors").GetUserMediaError;
+        throw new r(e instanceof Error ? e.message : void 0);
+      }
+    }
+    function S(e, t) {
       var r = [];
       e: {
         if (
           e ===
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType.CAMERA
         ) {
-          r.push.apply(r, C(!1, t));
+          r.push.apply(r, R(!1, t));
           break e;
         }
         if (
@@ -264,7 +317,7 @@ __d(
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
             .CAMERA_AND_MICROPHONE
         ) {
-          r.push.apply(r, C(!0, t));
+          r.push.apply(r, R(!0, t));
           break e;
         }
         if (
@@ -279,7 +332,7 @@ __d(
           e ===
           o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType.DESKTOP
         ) {
-          var a = C(!1);
+          var a = R(!1);
           r.push.apply(
             r,
             a.map(function (e) {
@@ -303,7 +356,7 @@ __d(
         ? n("cr:19603").addSelectedDeviceConstraints(e, r)
         : r;
     }
-    function C(e, t) {
+    function R(e, t) {
       var n = o("WAWebABProps").getABPropConfigValue("web_image_max_edge"),
         r = 1280,
         a = 720,
@@ -323,12 +376,12 @@ __d(
         { video: i != null ? i : !0, audio: e },
       ];
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function v() {
+    function E() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             e !==
             o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
@@ -347,10 +400,10 @@ __d(
             a = t[1].granted;
           return { micGranted: r, camGranted: a };
         })),
-        v.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function S(e, t, n) {
+    function k(e, t, n) {
       var r =
           n != null
             ? (function (e) {
@@ -403,15 +456,15 @@ __d(
             featureSurface: t,
           });
     }
-    S.displayName = S.name + " [from " + i.id + "]";
-    var R;
-    function L() {
+    k.displayName = k.name + " [from " + i.id + "]";
+    var I;
+    function T() {
       return (
-        R === void 0 && (R = "srcObject" in document.createElement("video")),
-        R
+        I === void 0 && (I = "srcObject" in document.createElement("video")),
+        I
       );
     }
-    ((l.start = g), (l.stop = h), (l.isSrcObjectInVideoElement = L));
+    ((l.start = g), (l.stop = h), (l.isSrcObjectInVideoElement = T));
   },
   98,
 );

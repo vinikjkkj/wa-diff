@@ -21,8 +21,7 @@ __d(
                   "[status] video prefetch failed",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("status-video-prefetch-failed", { sampling: 0.01 });
+            .catching(r("getErrorSafe")(t));
         },
       );
     }

@@ -382,6 +382,9 @@ __d(
         SHOULD_CHECK_CONTACT_SYNC_STATUS: "WAShouldCheckContactSyncStatus",
         ADV_SECRET_KEY: "WAADVSecretKey",
         MD_HISTORY_LAST_CHUNK_PROCESSED: "WAMdHistoryLastChunkProcessed",
+        LABYRINTH_SHADOW_SERIES: "WALabyrinthShadowSeries",
+        LABYRINTH_REPORTED_HISTORY_START_SEC:
+          "WALabyrinthReportedHistoryStartSec",
         UNARCHIVE_CHATS_SETTING: "WAUnarchiveChatsSetting",
         ARCHIVE_V2_ENABLED_SETTING: "WAArchiveV2EnabledSetting",
         MD_SYNC_ACTIONS_ACTION_SANITIZED: "WAMdSyncActionsActionSanitized",

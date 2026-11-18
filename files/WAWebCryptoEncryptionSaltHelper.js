@@ -6,8 +6,8 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebLogoutReasonConstants",
     "WAWebSocketLogoutJob",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,7 +21,7 @@ __d(
           var t = 128,
             r = null;
           return (
-            o("WAWebUserPrefsMeUser").hasLoggedIn() ||
+            o("WAWebUserUtils").hasLoggedIn() ||
               ((r = new Uint8Array(t)),
               self.crypto.getRandomValues(r),
               (r = btoa(

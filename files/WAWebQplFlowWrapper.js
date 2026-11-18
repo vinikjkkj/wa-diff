@@ -31,6 +31,13 @@ __d(
                     instanceKey: o,
                   }));
             },
+            addPointLocal: function (n, a) {
+              r("QPLUserFlow").addPoint(t, n, {
+                data: a == null ? void 0 : a.data,
+                instanceKey: o,
+                timestamp: a == null ? void 0 : a.timestamp,
+              });
+            },
             end: function (n, r) {
               s(t, n, {
                 instanceKey: o,
@@ -60,6 +67,13 @@ __d(
             r("QPLUserFlow").addAnnotations(t, o.data, {
               instanceKey: o == null ? void 0 : o.instanceKey,
             }));
+      },
+      markerPointLocal: function (t, n, o) {
+        r("QPLUserFlow").addPoint(t, n, {
+          data: o == null ? void 0 : o.data,
+          instanceKey: o == null ? void 0 : o.instanceKey,
+          timestamp: o == null ? void 0 : o.timestamp,
+        });
       },
       markerEnd: function (t, n, r) {
         s(t, n, r);

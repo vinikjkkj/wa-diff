@@ -63,7 +63,11 @@ __d(
         ? (m || (m = n("Promise"))).reject(
             r("err")("Labyrinth storage is disabled"),
           )
-        : (S == null && (S = $()), S);
+        : (S == null &&
+            (S = $().catch(function (e) {
+              throw ((S = null), e);
+            })),
+          S);
     }
     function k() {
       return (v != null || s(0, 172847), v);

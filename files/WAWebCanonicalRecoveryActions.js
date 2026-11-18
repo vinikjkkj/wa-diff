@@ -11,7 +11,6 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
     "WAWebUserPrefsCanonical",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -33,7 +32,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebUserPrefsMeUser").hasLoggedIn()) {
+          if (!o("WAWebUserUtils").hasLoggedIn()) {
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([

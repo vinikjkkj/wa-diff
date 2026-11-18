@@ -20,7 +20,7 @@ __d(
     }
     function _() {
       return s._(
-        /*BTDS*/ "I confirm I have marketing consent from all recipients in this list and it complies with {=m1} .",
+        /*BTDS*/ "I confirm I have marketing consent from all recipients in this list and it complies with {=m1}.",
         [
           s._implicitParam(
             "=m1",

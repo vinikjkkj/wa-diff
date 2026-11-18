@@ -1,10 +1,10 @@
 __d(
   "WAWebWaUlCookieUtils",
-  ["WAWebUserPrefsMeUser", "WAWebWaUlCookie"],
+  ["WAWebUserUtils", "WAWebWaUlCookie"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return o("WAWebUserPrefsMeUser").hasLoggedIn()
+      return o("WAWebUserUtils").hasLoggedIn()
         ? null
         : r("WAWebWaUlCookie").waul_cookie;
     }

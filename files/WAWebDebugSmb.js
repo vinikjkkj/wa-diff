@@ -47,6 +47,7 @@ __d(
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWid",
     "WAWebWidFactory",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "err",
     "react",
@@ -262,7 +263,7 @@ __d(
     B.doc = "Fetch business profile shimlinks";
     var W = function () {
       (r("vulture")("A2LYpOOVMSkaRq3LOyQM4f_2Q4I="),
-        o("WAWebModalManager").ModalManager.open(
+        o("WDSDialogBridge").openWDSDialog(
           L.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
             onExit: r("WAWebNoop"),
           }),

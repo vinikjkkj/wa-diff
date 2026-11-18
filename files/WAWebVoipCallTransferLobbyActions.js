@@ -36,25 +36,21 @@ __d(
       b,
       v,
       S,
-      R,
-      L,
-      E,
-      k,
-      I = null,
-      T = !1,
-      D = null,
-      x = 6e4;
-    function $(e) {
-      F(e, !1) != null && r("WAWebPipController").openVoipUiPiPForOutgoing();
+      R = null,
+      L = !1,
+      E = null,
+      k = 6e4;
+    function I(e) {
+      N(e, !1) != null && r("WAWebPipController").openVoipUiPiPForOutgoing();
     }
-    function P(t) {
+    function T(t) {
       var n;
       if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
-        var a = F(t, !0);
+        var a = N(t, !0);
         if (a != null) {
-          (n = D) == null || n.stop();
+          (n = E) == null || n.stop();
           var i = { entryPoint: a, isAbandoned: !1 };
-          I = i;
+          R = i;
           try {
             r("WAWebPipController").openVoipUiPiPForOutgoing();
           } catch (t) {
@@ -67,14 +63,14 @@ __d(
               )
               .catching(r("getErrorSafe")(t))
               .sendLogs("voip-transfer-lobby-direct-join-failed"),
-              (I = null),
-              q(),
+              (R = null),
+              F(),
               o(
                 "WAWebVoipHandleCallTransferFailed",
               ).showCallTransferCouldNotConnectToast());
             return;
           }
-          N(i).catch(function (e) {
+          D(i).catch(function (e) {
             (o("WALogger")
               .ERROR(
                 s ||
@@ -84,9 +80,9 @@ __d(
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("voip-transfer-lobby-direct-join-failed"),
-              I === i &&
-                ((I = null),
-                W(a.rootCallId),
+              R === i &&
+                ((R = null),
+                A(a.rootCallId),
                 o(
                   "WAWebVoipHandleCallTransferFailed",
                 ).showCallTransferCouldNotConnectToast()));
@@ -94,17 +90,17 @@ __d(
         }
       }
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function M() {
+    function x() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entryPoint.rootCallId,
-            n = e.entryPoint.isVideoCall ? !(yield w()) : !0;
+            n = e.entryPoint.isVideoCall ? !(yield $()) : !0;
           if (e.isAbandoned) {
             var a;
-            ((I = null), (a = D) == null || a.stop());
+            ((R = null), (a = E) == null || a.stop());
             return;
           }
           var i = o(
@@ -117,11 +113,11 @@ __d(
                   "voip: transferLobby: entry point removed before the direct join started",
                 ])),
             ),
-              (I = null),
-              W(t));
+              (R = null),
+              A(t));
             return;
           }
-          if (!J()) {
+          if (!z()) {
             (o("WALogger")
               .WARN(
                 y ||
@@ -130,8 +126,8 @@ __d(
                   ])),
               )
               .sendLogs("voip-transfer-lobby-direct-join-preempted"),
-              (I = null),
-              W(t),
+              (R = null),
+              A(t),
               o(
                 "WAWebVoipHandleCallTransferFailed",
               ).showCallTransferCouldNotConnectToast());
@@ -145,17 +141,17 @@ __d(
               babelHelpers.extends({}, l, { entryPoint: i }),
             ),
             (e.entryPoint = i),
-            yield H(i, { isMicMuted: !1, isVideoMuted: n }));
+            yield W(i, { isMicMuted: !1, isVideoMuted: n }));
         })),
-        M.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function w() {
-      return A.apply(this, arguments);
+    function $() {
+      return P.apply(this, arguments);
     }
-    function A() {
+    function P() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             if (!o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed())
               return !1;
@@ -188,16 +184,16 @@ __d(
             );
           }
         })),
-        A.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function F(e, t) {
+    function N(e, t) {
       if (
         r("WAWebCallCollection").activeCall != null ||
         r("WAWebCallCollection").pendingOutgoingCall != null ||
         r("WAWebCallCollection").pendingCallLink != null ||
         r("WAWebCallCollection").pendingCallTransferLobby != null ||
-        I != null
+        R != null
       )
         return (
           o("WALogger").LOG(
@@ -208,7 +204,7 @@ __d(
           ),
           null
         );
-      if (D != null && D.rootCallId !== e.rootCallId)
+      if (E != null && E.rootCallId !== e.rootCallId)
         return (
           o("WALogger").LOG(
             c ||
@@ -240,14 +236,14 @@ __d(
               ])),
             n.rootCallId,
           ),
-          U(),
+          O(),
           r("WAWebCallCollection").setPendingCallTransferLobby({
             entryPoint: n,
             isJoining: t,
           }),
           n);
     }
-    function O(e) {
+    function M(e) {
       var t,
         n = r("WAWebCallCollection").pendingCallTransferLobby;
       if (
@@ -263,15 +259,15 @@ __d(
             ])),
           a.rootCallId,
         ),
-          (t = D) == null || t.stop(),
+          (t = E) == null || t.stop(),
           r("WAWebCallCollection").setPendingCallTransferLobby(
             babelHelpers.extends({}, n, { isJoining: !0 }),
           ),
-          (I = { entryPoint: a, isAbandoned: !1 }),
-          H(a, e));
+          (R = { entryPoint: a, isAbandoned: !1 }),
+          W(a, e));
       }
     }
-    function B() {
+    function w() {
       var e = r("WAWebCallCollection").pendingCallTransferLobby;
       if (e != null) {
         o("WALogger").LOG(
@@ -283,29 +279,29 @@ __d(
           String(e.isJoining),
         );
         var t = e.entryPoint.rootCallId;
-        (e.isJoining && (I != null && (I.isAbandoned = !0), K(t)),
-          !Q(t) && q());
+        (e.isJoining && (R != null && (R.isAbandoned = !0), U(t)),
+          !V(t) && F());
       }
     }
-    function W(e) {
+    function A(e) {
       var t;
       ((t = r("WAWebCallCollection").pendingCallTransferLobby) == null
         ? void 0
-        : t.entryPoint.rootCallId) === e && q();
+        : t.entryPoint.rootCallId) === e && F();
     }
-    function q() {
+    function F() {
       (r("WAWebCallCollection").setPendingCallTransferLobby(null),
         r("WAWebCallCollection").activeCall == null &&
           r("WAWebPipController").closePiP());
     }
-    function U() {
-      T ||
-        ((T = !0),
+    function O() {
+      L ||
+        ((L = !0),
         o(
           "WAWebVoipCallTransferEntryPointStore",
-        ).WAWebVoipCallTransferEntryPointStore.on("change", V));
+        ).WAWebVoipCallTransferEntryPointStore.on("change", B));
     }
-    function V() {
+    function B() {
       var e = r("WAWebCallCollection").pendingCallTransferLobby;
       if (!(e == null || e.isJoining)) {
         var t = o(
@@ -320,7 +316,7 @@ __d(
                 "voip: transferLobby: entry point removed, closing",
               ])),
           ),
-            q());
+            F());
           return;
         }
         t !== e.entryPoint &&
@@ -329,12 +325,12 @@ __d(
           );
       }
     }
-    function H(e, t) {
-      return G.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function G() {
+    function q() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = t.isMicMuted,
             i = t.isVideoMuted,
@@ -345,6 +341,7 @@ __d(
             ).transferWAWebVoipCallToThisDevice({
               hasVideo: e.isVideoCall,
               isCameraOff: i,
+              isMicMuted: a,
               peerActiveDevice: e.peerActiveDeviceJid,
               rootCallCreator: e.rootCallCreatorJid,
               rootCallId: e.rootCallId,
@@ -360,108 +357,45 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("voip-transfer-lobby-start-failed");
           }
-          var s = ((n = I) == null ? void 0 : n.isAbandoned) === !0;
-          if (((I = null), !l)) {
+          var s = ((n = R) == null ? void 0 : n.isAbandoned) === !0;
+          if (((R = null), !l)) {
             var u;
             if (
               (((u = r("WAWebCallCollection").pendingCallTransferLobby) == null
                 ? void 0
-                : u.entryPoint) === e && q(),
+                : u.entryPoint) === e && F(),
               s)
             ) {
               var c;
-              (c = D) == null || c.stop();
+              (c = E) == null || c.stop();
             } else
               o(
                 "WAWebVoipHandleCallTransferFailed",
               ).showCallTransferCouldNotConnectToast();
             return;
           }
-          if (s) {
-            K(e.rootCallId);
-            return;
-          }
-          a && (yield z(e.rootCallId));
+          s && U(e.rootCallId);
         })),
-        G.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function z(e) {
-      return j.apply(this, arguments);
-    }
-    function j() {
-      return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            if (r("WAWebCallCollection").activeCall != null && !Q(e)) {
-              o("WALogger")
-                .WARN(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: transferLobby: another call is active, not muting it",
-                    ])),
-                )
-                .sendLogs("voip-transfer-lobby-mute-failed");
-              return;
-            }
-            if ((t == null ? void 0 : t.type) !== "web") {
-              o("WALogger")
-                .WARN(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: transferLobby: cannot mute the transferred call on stack ",
-                      "",
-                    ])),
-                  String(t == null ? void 0 : t.type),
-                )
-                .sendLogs("voip-transfer-lobby-mute-failed");
-              return;
-            }
-            var n = yield t.setCallMute(!0);
-            n !== 0 &&
-              o("WALogger")
-                .WARN(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: transferLobby: muting the transferred call failed with status: ",
-                      "",
-                    ])),
-                  n,
-                )
-                .sendLogs("voip-transfer-lobby-mute-failed");
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: transferLobby: muting the transferred call failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("voip-transfer-lobby-mute-failed");
-          }
-        })),
-        j.apply(this, arguments)
-      );
-    }
-    function K(e) {
+    function U(e) {
       var t;
-      if (((t = D) == null || t.stop(), Q(e))) {
-        X(e);
+      if (((t = E) == null || t.stop(), V(e))) {
+        H(e);
         return;
       }
-      I == null && J() && Y();
+      R == null && z() && G();
       var n = o("WAWebVoipEventConstants").getChangeEvent(
           o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
         ),
         a = function () {
           (window.clearTimeout(l),
             r("WAWebCallCollection").off(n, i),
-            (D = null));
+            (E = null));
         },
         i = function () {
-          Q(e) && (a(), X(e));
+          V(e) && (a(), H(e));
         },
         l = window.setTimeout(function () {
           (o("WALogger").LOG(
@@ -471,10 +405,10 @@ __d(
               ])),
           ),
             a());
-        }, x);
-      (r("WAWebCallCollection").on(n, i), (D = { rootCallId: e, stop: a }));
+        }, k);
+      (r("WAWebCallCollection").on(n, i), (E = { rootCallId: e, stop: a }));
     }
-    function Q(e) {
+    function V(e) {
       var t;
       return (
         o("WAWebVoipTransferredCallRegistry").getLiveTransferredCallRootId(
@@ -482,33 +416,33 @@ __d(
         ) === e
       );
     }
-    function X(e) {
-      return Z(function () {
-        return Q(e);
+    function H(e) {
+      return j(function () {
+        return V(e);
       });
     }
-    function Y() {
-      return Z(J);
+    function G() {
+      return j(z);
     }
-    function J() {
+    function z() {
       return (
         r("WAWebCallCollection").activeCall == null &&
         r("WAWebCallCollection").pendingOutgoingCall == null &&
         r("WAWebCallCollection").pendingCallLink == null
       );
     }
-    function Z(e) {
-      return ee.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function ee() {
+    function K() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
             if (!e()) {
               o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: transferLobby: the stack is no longer on the transfer, not ending",
                   ])),
               );
@@ -520,8 +454,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: transferLobby: ending the transferred call failed",
                   ])),
               )
@@ -529,13 +463,13 @@ __d(
               .sendLogs("voip-transfer-lobby-end-call-failed");
           }
         })),
-        ee.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    ((l.openCallTransferLobby = $),
-      (l.joinCallTransferWithoutLobby = P),
-      (l.joinFromCallTransferLobby = O),
-      (l.leaveCallTransferLobby = B));
+    ((l.openCallTransferLobby = I),
+      (l.joinCallTransferWithoutLobby = T),
+      (l.joinFromCallTransferLobby = M),
+      (l.leaveCallTransferLobby = w));
   },
   98,
 );

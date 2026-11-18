@@ -12,41 +12,61 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d() {
+    var e, s, u, c, d;
+    function m() {
       var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
       if (e != null) return e.getDeviceId();
       var t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
       return t != null ? t.getDeviceId() : null;
     }
-    function m() {
+    var p = !1;
+    function _() {
+      var t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
+        n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
+      return (
+        n == null &&
+          t != null &&
+          !p &&
+          ((p = !0),
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hasLoggedIn: self lid is missing but pn is set",
+                ])),
+            )
+            .sendLogs("self-lid-missing-with-pn")),
+        t != null || n != null
+      );
+    }
+    function f() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeDisplayName(),
         "meDisplayName",
       );
     }
-    function p() {
-      var e = E();
+    function g() {
+      var e = T();
       return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
         e.user,
         e.server,
         0,
       );
     }
-    function _() {
-      return [E(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
+    function h() {
+      return [T(), o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()].filter(
         Boolean,
       );
     }
-    function f(t) {
-      if (t.isLid()) return L();
-      var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      if (n != null) return n;
+    function y(e) {
+      if (e.isLid()) return I();
+      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      if (t != null) return t;
       throw (
         o("WALogger")
           .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[getMeUserMatchingAddressingModeOrThrow] no matching self PN for given PN wid",
               ])),
           )
@@ -54,98 +74,98 @@ __d(
         r("err")("no matching self PN for given PN wid")
       );
     }
-    function g() {
+    function C() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
-        ? L()
-        : R();
-    }
-    function h() {
-      return o(
-        "WAWebBeyondPhoneNumberGatingUtils",
-      ).removePnDependenciesEnabled()
-        ? E()
+        ? I()
         : k();
     }
-    function y() {
+    function b() {
+      return o(
+        "WAWebBeyondPhoneNumberGatingUtils",
+      ).removePnDependenciesEnabled()
+        ? T()
+        : D();
+    }
+    function v() {
       var e;
       return (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
         ? e
         : o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
     }
-    function C() {
-      return o("WAWebInternalAccount").isInternalAccount() ? L() : R();
+    function S() {
+      return o("WAWebInternalAccount").isInternalAccount() ? I() : k();
     }
-    function b() {
+    function R() {
       return o("WAWebInternalAccount").isInternalAccount()
         ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser()
         : o("WAWebUserPrefsMeUser").getMaybeMePnUser();
     }
-    function v() {
+    function L() {
       return o("WAWebInternalAccount").isInternalAccount()
         ? o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1)
         : o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
     }
-    function S() {
-      return o("WAWebInternalAccount").isInternalAccount() ? E() : k();
+    function E() {
+      return o("WAWebInternalAccount").isInternalAccount() ? T() : D();
     }
-    function R() {
-      return o("WAWebWidFactory").asUserWidOrThrow(k());
+    function k() {
+      return o("WAWebWidFactory").asUserWidOrThrow(D());
     }
-    function L() {
+    function I() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
         "meLidUser",
       );
     }
-    function E() {
+    function T() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(),
         "meLid",
       );
     }
-    function k() {
+    function D() {
       return r("nullthrows")(
         o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
         "me",
       );
     }
-    function I(e) {
-      return T(o("WAWebWidFactory").createWid(e));
+    function x(e) {
+      return $(o("WAWebWidFactory").createWid(e));
     }
-    function T(e) {
-      return e == null || !N(e) ? !1 : x(e) || D(e);
+    function $(e) {
+      return e == null || !A(e) ? !1 : N(e) || P(e);
     }
-    function D(e) {
+    function P(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function x(e) {
+    function N(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function $(e) {
-      if (e == null || !N(e)) return !1;
+    function M(e) {
+      if (e == null || !A(e)) return !1;
       var t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
       if (t != null && e.equals(t)) return !0;
       var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
       return n != null && e.equals(n);
     }
-    function P(e) {
-      if (e == null || !N(e)) return !1;
+    function w(e) {
+      if (e == null || !A(e)) return !1;
       var t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       if (t != null && e.equals(t)) return !0;
       var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return n != null && e.equals(n);
     }
-    function N(e) {
+    function A(e) {
       var t = e instanceof r("WAWebWid");
       if (!t)
         if (r("gkx")("26258"))
           o("WALogger").WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "isWID: input exists but is not WID",
               ])),
           );
@@ -156,8 +176,8 @@ __d(
           } catch (e) {}
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "isWID: input exists but is not WID: ",
                   ", ",
                   "",
@@ -169,34 +189,35 @@ __d(
         }
       return t;
     }
-    ((l.getMaybeMeDeviceLid = (c = o(
+    ((l.getMaybeMeDeviceLid = (d = o(
       "WAWebUserPrefsMeUser",
     )).getMaybeMeDeviceLid),
-      (l.getMaybeMeDevicePn = c.getMaybeMeDevicePn),
-      (l.getMaybeMeDisplayName = c.getMaybeMeDisplayName),
-      (l.getMaybeMeLidUser = c.getMaybeMeLidUser),
-      (l.getMaybeMePnUser = c.getMaybeMePnUser),
-      (l.getMaybeMeDeviceId = d),
-      (l.getMeDisplayNameOrThrow = m),
-      (l.getMyPrimaryForOutgoingPeerMessage = p),
-      (l.getMeDeviceWids = _),
-      (l.getMeUserMatchingAddressingModeOrThrow = f),
-      (l.getMeUserOrThrow = g),
-      (l.getMeDeviceOrThrow = h),
-      (l.getStableMaybeMeUser = y),
-      (l.getMePnLessOrFallback_DO_NOT_USE = C),
-      (l.getMaybeMePnLessOrFallback_DO_NOT_USE = b),
-      (l.getMaybeMeDevicePnLessOrFallback_DO_NOT_USE = v),
-      (l.getMeDevicePnLessOrFallback_DO_NOT_USE = S),
-      (l.getMePnUserOrThrow_DO_NOT_USE = R),
-      (l.getMeLidUserOrThrow = L),
-      (l.getMeDeviceLidOrThrow = E),
-      (l.getMeDevicePnOrThrow_DO_NOT_USE = k),
-      (l.isSerializedWidMe = I),
-      (l.isMeAccount = T),
-      (l.isMePnUser = D),
-      (l.isMeDevice = $),
-      (l.isMePrimary = P));
+      (l.getMaybeMeDevicePn = d.getMaybeMeDevicePn),
+      (l.getMaybeMeDisplayName = d.getMaybeMeDisplayName),
+      (l.getMaybeMeLidUser = d.getMaybeMeLidUser),
+      (l.getMaybeMePnUser = d.getMaybeMePnUser),
+      (l.getMaybeMeDeviceId = m),
+      (l.hasLoggedIn = _),
+      (l.getMeDisplayNameOrThrow = f),
+      (l.getMyPrimaryForOutgoingPeerMessage = g),
+      (l.getMeDeviceWids = h),
+      (l.getMeUserMatchingAddressingModeOrThrow = y),
+      (l.getMeUserOrThrow = C),
+      (l.getMeDeviceOrThrow = b),
+      (l.getStableMaybeMeUser = v),
+      (l.getMePnLessOrFallback_DO_NOT_USE = S),
+      (l.getMaybeMePnLessOrFallback_DO_NOT_USE = R),
+      (l.getMaybeMeDevicePnLessOrFallback_DO_NOT_USE = L),
+      (l.getMeDevicePnLessOrFallback_DO_NOT_USE = E),
+      (l.getMePnUserOrThrow_DO_NOT_USE = k),
+      (l.getMeLidUserOrThrow = I),
+      (l.getMeDeviceLidOrThrow = T),
+      (l.getMeDevicePnOrThrow_DO_NOT_USE = D),
+      (l.isSerializedWidMe = x),
+      (l.isMeAccount = $),
+      (l.isMePnUser = P),
+      (l.isMeDevice = M),
+      (l.isMePrimary = w));
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "DGWBestEffortCallbacks",
     "DGWConstants",
     "DGWExponentialBackoff",
+    "DGWH2SessionPriming",
     "DGWInternalCertPriming",
     "DGWPinger",
     "DGWStream",
@@ -503,30 +504,42 @@ __d(
                   o("DGWInternalCertPriming").shouldPrimeInternalCert(m) &&
                   o("DGWWebSocketGating").isInternalCertPrimingEnabled() &&
                   (yield o("DGWInternalCertPriming").primeInternalCertOnce(m));
-                var p = new t(
-                  e,
-                  o("DGWWebSocketTransport").getWebSocketConnection,
-                  a,
-                  n,
-                  i,
-                  l,
-                  s,
-                  u,
-                  c,
-                );
-                ((p.$1.onmessage = t.$32(p)),
-                  (p.$1.onopen = function () {
-                    (p.__markerPoint("onopen"),
+                var p = !1;
+                o("DGWH2SessionPriming").shouldPrimeH2Session(m) &&
+                  o("DGWWebSocketGating").isH2SessionPrimingEnabled() &&
+                  (p = yield o("DGWH2SessionPriming").primeH2Session(m));
+                var _ = null,
+                  f = new t(
+                    e,
+                    o("DGWWebSocketTransport").getWebSocketConnection,
+                    a,
+                    n,
+                    function () {
+                      (_ == null || _(), i());
+                    },
+                    l,
+                    s,
+                    u,
+                    c,
+                  );
+                ((f.$1.onmessage = t.$32(f)),
+                  (f.$1.onopen = function () {
+                    (f.__markerPoint("onopen"),
+                      p &&
+                        _ == null &&
+                        (_ = o("DGWH2SessionPriming").trackOpenPrimedTransport(
+                          m,
+                        )),
                       a.transportEstablished(e),
-                      p.$11 != null && p.$11.cancel(),
-                      p.$7 != null &&
-                        (p.$11 = new (o("DGWPinger").DGWPinger)(
-                          p.$7,
+                      f.$11 != null && f.$11.cancel(),
+                      f.$7 != null &&
+                        (f.$11 = new (o("DGWPinger").DGWPinger)(
+                          f.$7,
                           function () {
-                            p.$33();
+                            f.$33();
                           },
                           function () {
-                            p.abort(
+                            f.abort(
                               o("DGWStreamGroupCallbacks").DGWStreamGroupError
                                 .TRANSPORT_KEEPALIVE_TIMEOUT,
                               o("DGWStream").StreamError.KEEPALIVE_TIMEOUT,
@@ -534,50 +547,50 @@ __d(
                                 .KEEPALIVE_TIMEOUT,
                               "Aborting transport because of keepalive timeout",
                               "readyState:" +
-                                p.$1.readyState +
+                                f.$1.readyState +
                                 ", bufferedAmount:" +
-                                p.$1.bufferedAmount,
+                                f.$1.bufferedAmount,
                             );
                           },
                           l,
                         )));
                   }),
-                  (p.$1.onerror = function () {
-                    (p.__markerPoint("onerror"),
-                      p.$14.transportError(
+                  (f.$1.onerror = function () {
+                    (f.__markerPoint("onerror"),
+                      f.$14.transportError(
                         "onerror",
-                        "readyState: " + p.$1.readyState,
+                        "readyState: " + f.$1.readyState,
                       ));
                   }),
-                  (p.$1.onclose = t.$34(p)));
+                  (f.$1.onclose = t.$34(f)));
                 try {
-                  return yield t.getTransportPromise(p);
+                  return yield t.getTransportPromise(f);
                 } catch (m) {
-                  if (!d && p.$3) {
-                    var _ = yield o(
+                  if (!d && f.$3) {
+                    var g = yield o(
                       "DGWInternalCertPriming",
-                    ).primeInternalCertForRetryOnce(p.$1.url);
-                    if (_) {
-                      var f = "url:" + p.$1.url;
-                      (p.__markerPoint("internal_cert_priming_retry_attempt"),
-                        a.internalCertPrimingRetryAttempt(f));
+                    ).primeInternalCertForRetryOnce(f.$1.url);
+                    if (g) {
+                      var h = "url:" + f.$1.url;
+                      (f.__markerPoint("internal_cert_priming_retry_attempt"),
+                        a.internalCertPrimingRetryAttempt(h));
                       try {
-                        var g = yield t.$31(e, n, a, i, l, s, u, c, !0);
+                        var y = yield t.$31(e, n, a, i, l, s, u, c, !0);
                         return (
-                          p.__markerPoint(
+                          f.__markerPoint(
                             "internal_cert_priming_retry_success",
                           ),
-                          a.internalCertPrimingRetrySuccess(f),
-                          g
+                          a.internalCertPrimingRetrySuccess(h),
+                          y
                         );
                       } catch (e) {
                         throw (
-                          p.__markerPoint(
+                          f.__markerPoint(
                             "internal_cert_priming_retry_failure",
                           ),
                           a.internalCertPrimingRetryFailure(
                             r("getErrorSafe")(e).message,
-                            f,
+                            h,
                           ),
                           e
                         );

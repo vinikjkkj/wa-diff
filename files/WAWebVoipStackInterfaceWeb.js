@@ -783,16 +783,18 @@ __d(
         transferCallStart: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.callId,
-              n = e.hasVideo,
-              r = e.peerActiveDevice,
-              a = e.rootCallCreator,
-              i = e.rootCallId,
-              s = yield l;
+              n = e.cameraOff,
+              r = e.hasVideo,
+              a = e.mute,
+              i = e.peerActiveDevice,
+              s = e.rootCallCreator,
+              u = e.rootCallId,
+              c = yield l;
             try {
-              return s.transferCallStart(i, a, r, t, n);
+              return c.transferCallStart(u, s, i, t, r, a, n);
             } catch (e) {
               throw (
-                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(s, e),
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(c, e),
                 e
               );
             }

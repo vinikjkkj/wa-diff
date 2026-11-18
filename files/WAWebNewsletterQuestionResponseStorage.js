@@ -8,13 +8,14 @@ __d(
     "WAWebMsgKey",
     "WAWebNewsletterQuestionResponseParent",
     "WAWebQuestions.flow",
+    "WAWebSchemaMessage",
     "WAWebSchemaNewsletterQuestionResponses",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      return p(
+      return f(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = yield t.bulkGet(
@@ -41,7 +42,7 @@ __d(
       );
     }
     function u(e) {
-      return p(
+      return f(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = e.map(function (e) {
@@ -67,6 +68,58 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            o(
+              "WAWebSchemaNewsletterQuestionResponses",
+            ).canUseNewsletterQuestionResponsesTable()
+          ) {
+            var r = yield h(
+                e,
+                o("WAWebSchemaMessage").getMessageTable(),
+                o("WAWebSchemaNewsletterQuestionResponses").getTable(),
+              ),
+              a = yield t(),
+              i = new Set(
+                a.map(function (e) {
+                  return e.msgKey;
+                }),
+              );
+            yield f(
+              (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (t, n) {
+                    var o = yield h(e, n, t);
+                    return (
+                      yield t.bulkRemove(
+                        Array.from(o).filter(function (e) {
+                          return r.has(e) && !i.has(e);
+                        }),
+                      ),
+                      yield t.bulkCreateOrReplace(
+                        a.filter(function (e) {
+                          return !o.has(e.msgKey) && !r.has(e.msgKey);
+                        }),
+                      ),
+                      [e.toString()]
+                    );
+                  },
+                );
+                return function (e, n) {
+                  return t.apply(this, arguments);
+                };
+              })(),
+            );
+          }
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return o(
             "WAWebSchemaNewsletterQuestionResponses",
           ).canUseNewsletterQuestionResponsesTable()
@@ -109,20 +162,20 @@ __d(
                 )
             : "unavailable";
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(t) {
-      return p(function () {
+    function _(t) {
+      return f(function () {
         return (e || (e = n("Promise"))).resolve([t.toString()]);
       });
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
             o(
               "WAWebSchemaNewsletterQuestionResponses",
@@ -137,7 +190,7 @@ __d(
                     function* (a) {
                       var i = a[0],
                         l = a[1],
-                        s = new Set(yield t(l)),
+                        s = new Set(yield t(l, i)),
                         u = [];
                       return (
                         yield o("WAPromiseEach").promiseEach(
@@ -202,13 +255,28 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t, n) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield o(
+            "WAWebNewsletterQuestionResponseParent",
+          ).resolveQuestionResponseParent(e, t);
+          return new Set(yield n.anyOfPrimaryKeys(["parentMsgKey"], r.keys));
+        })),
+        y.apply(this, arguments)
       );
     }
     ((l.upsertNewsletterQuestionResponses = s),
       (l.removeNewsletterQuestionResponses = u),
-      (l.applyMyQuestionResponseReaction = c),
-      (l.syncMyQuestionResponsesCount = m));
+      (l.reconcileMyQuestionResponses = c),
+      (l.applyMyQuestionResponseReaction = m),
+      (l.syncMyQuestionResponsesCount = _));
   },
   98,
 );

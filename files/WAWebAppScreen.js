@@ -5,7 +5,7 @@ __d(
     "WAWebAppScreenTypes",
     "WAWebBuildConstants",
     "WAWebStreamModel",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "cr:11133",
     "err",
   ],
@@ -34,7 +34,7 @@ __d(
         case o("WAWebStreamModel").StreamMode.SYNCING:
           return (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
             i &&
-            o("WAWebUserPrefsMeUser").hasLoggedIn() === !0
+            o("WAWebUserUtils").hasLoggedIn() === !0
             ? o("WAWebAppScreenTypes").AppScreen.MAIN
             : o("WAWebAppScreenTypes").AppScreen.SYNCING;
         case o("WAWebStreamModel").StreamMode.OFFLINE:

@@ -1,21 +1,20 @@
 __d(
   "WAWebNetworkStatusWorker",
-  ["WAGenericStateManager"],
+  ["WAWebNetworkStatusStateManager"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
-        function e() {
-          this.$1 = new (o("WAGenericStateManager").WAGenericStateManager)(!0);
-        }
+        function e() {}
         var t = e.prototype;
         return (
-          (t.acceptUpdate = function (t) {
-            this.$1.set(t);
-          }),
           (t.isOnline = function () {
-            return this.$1.get();
+            return o(
+              "WAWebNetworkStatusStateManager",
+            ).networkStatusStateManager.get();
           }),
           (t.waitIfOffline = function () {
-            return this.$1.waitForValue(!0);
+            return o(
+              "WAWebNetworkStatusStateManager",
+            ).networkStatusStateManager.waitForValue(!0);
           }),
           e
         );

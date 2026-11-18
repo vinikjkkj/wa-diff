@@ -143,6 +143,7 @@ __d(
             case r("WAWebSWBusActions").EXP_BACKOFF:
             case r("WAWebSWBusActions").REQUEST_RMR:
             case r("WAWebSWBusActions").SEND_STREAMING_CHUNK:
+            case r("WAWebSWBusActions").SCREEN_VIDEO_STREAM:
               return (t = g()) == null
                 ? void 0
                 : t.then(function (e) {

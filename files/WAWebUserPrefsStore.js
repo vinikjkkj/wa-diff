@@ -7,7 +7,6 @@ __d(
     "WAWebTemporaryStorage",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsTypes",
     "WAWebUserUtils",
     "cr:34987",
@@ -80,9 +79,7 @@ __d(
           }),
           (n.setCollection = function (t, n, r) {
             (r === void 0 && (r = !1),
-              o("WAWebUserPrefsMeUser").hasLoggedIn() &&
-                !r &&
-                this.setUser(t, n));
+              o("WAWebUserUtils").hasLoggedIn() && !r && this.setUser(t, n));
           }),
           (n.getUser = function (n, r) {
             var t = this.$UserPreferencesStore$p_2(n);

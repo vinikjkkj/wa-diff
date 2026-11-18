@@ -65,7 +65,10 @@ __d(
                   )
                   .catching(r("getErrorSafe")(l))
                   .sendLogs("maiba-web-qe-prefetch-failed"),
-                a.params.length <= 1 ? null : y(t, n, a, i)
+                a.params.length <= 1 ||
+                !o("WAWebBizAIQEError").hasBizAIQEServerErrors(l)
+                  ? null
+                  : y(t, n, a, i)
               );
             }
           },

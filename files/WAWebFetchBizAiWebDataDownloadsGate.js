@@ -78,15 +78,15 @@ __d(
             .then(function () {
               return o("WAPromiseTimeout").promiseTimeout(k(), L());
             })
-            .then(function (e) {
-              return D(e, t);
+            .then(function (t) {
+              return D(t, e);
             })
-            .catch(function (e) {
+            .catch(function (t) {
               D(
-                e instanceof o("WACustomError").TimeoutError
+                t instanceof o("WACustomError").TimeoutError
                   ? { type: "timeout" }
                   : { type: "unknown-failed" },
-                t,
+                e,
               );
             }));
     }
@@ -174,7 +174,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-fetch-timeout"),
-            R(t != null ? t : !1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
@@ -189,7 +189,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-fetch-failed-auth"),
-            R(t != null ? t : !1));
+            R(!1));
           break e;
         }
         if (
@@ -214,7 +214,7 @@ __d(
                   ])),
               )
               .sendLogs("maiba-web-data-downloads-gate-fetch-failed-network"),
-            R(t != null ? t : !1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
@@ -229,7 +229,7 @@ __d(
                 ])),
             )
             .verbose(),
-            R(t != null ? t : !1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
@@ -244,7 +244,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-token-fetch-failed"),
-            R(t != null ? t : !1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
@@ -259,7 +259,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-web-data-downloads-gate-fetch-failed-unknown"),
-            R(t != null ? t : !1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         throw Error(

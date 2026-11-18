@@ -38,6 +38,8 @@ __d(
               searchSessionQueryId: [26, e.TYPES.STRING],
               searchUjAiSuggestionCount: [1, e.TYPES.INTEGER],
               searchUjBizCount: [2, e.TYPES.INTEGER],
+              searchUjChatRankChanged: [36, e.TYPES.BOOLEAN],
+              searchUjChatRankingStrategy: [37, e.TYPES.INTEGER],
               searchUjChatsCount: [3, e.TYPES.INTEGER],
               searchUjContactsCount: [4, e.TYPES.INTEGER],
               searchUjCriteriaType: [

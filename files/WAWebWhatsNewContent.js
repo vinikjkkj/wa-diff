@@ -6,10 +6,14 @@ __d(
     "WAWebChatThemeGatingUtils",
     "WAWebEnvironment",
     "WAWebMobilePlatforms",
+    "WAWebPollsGatingUtils",
+    "WAWebQuickActionGatingUtils",
     "WAWebStatusGatingUtils",
     "WAWebVoipGatingUtils",
     "WDSIconIcDescription.react",
     "WDSIconIcDownload.react",
+    "WDSIconIcEdit.react",
+    "WDSIconIcFastForward.react",
     "WDSIconIcFavorite.react",
     "WDSIconIcHistory.react",
     "WDSIconIcMood.react",
@@ -18,6 +22,7 @@ __d(
     "WDSIconWdsIcAi.react",
     "WDSIconWdsIcLogoMetaAi.react",
     "WDSIconWdsIcPencilAi.react",
+    "WDSIconWdsIcPoll.react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = {
@@ -127,40 +132,95 @@ __d(
         Icon: r("WDSIconIcDownload.react"),
       },
       v = [d, e],
-      S = 4;
-    function R() {
+      S = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "You can include a message when forwarding something to another chat.",
+          );
+        },
+        Icon: r("WDSIconIcFastForward.react"),
+      },
+      R = {
+        description: function () {
+          return s._(/*BTDS*/ "Links in polls are now clickable.");
+        },
+        Icon: r("WDSIconWdsIcPoll.react"),
+      },
+      L = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Use the shortcuts on the Status tab to post text, photos or videos.",
+          );
+        },
+        Icon: r("WDSIconIcEdit.react"),
+      },
+      E = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "When you add new members to a group you can send them message history.",
+          );
+        },
+        Icon: r("WDSIconIcHistory.react"),
+      },
+      k = 4;
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_content_version",
       );
     }
-    function L() {
-      return R() >= 2;
+    function T() {
+      return I() >= 2;
     }
-    function E() {
-      var e = R();
+    function D() {
+      var e = I();
       return e === 3 || e === 4;
     }
-    function k() {
-      return R() === 3;
+    function x() {
+      return I() === 3;
     }
-    function I(e) {
+    function $(e) {
       var t = e.bizAgentEligible,
-        n = R();
-      return n >= 5 ? T() : n === 4 ? D() : P(t);
+        n = I();
+      return n >= 6 ? P() : n === 5 ? N() : n === 4 ? M() : F(t);
     }
-    function T() {
+    function P() {
+      var e = k - 1,
+        t = [].concat(
+          o("WAWebABProps").getABPropConfigValue(
+            "wa_web_forward_add_message_enabled",
+          ) === !0
+            ? [S]
+            : [],
+          o("WAWebPollsGatingUtils").isTappableLinksInPollOptionEnabled()
+            ? [R]
+            : [],
+          o("WAWebQuickActionGatingUtils").isQuickActionsEnabled("status")
+            ? [L]
+            : [],
+        );
+      return (
+        t.length < e &&
+          o("WAWebChatThemeGatingUtils").isChatThemesEnabled() &&
+          t.push(f),
+        t.length < e &&
+          o("WAWebStatusGatingUtils").isStatusLikesSendEnabled() &&
+          t.push(C),
+        [].concat([].concat(t, [b], v).slice(0, e), [E])
+      );
+    }
+    function N() {
       var e = [y].concat(
         o("WAWebChatThemeGatingUtils").isChatThemesEnabled() ? [f] : [],
         o("WAWebStatusGatingUtils").isStatusLikesSendEnabled() ? [C] : [],
         [b],
       );
-      return [].concat(e, v).slice(0, S);
+      return [].concat(e, v).slice(0, k);
     }
-    function D() {
+    function M() {
       var e = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? $(e) : x(e);
+      return o("WAWebMobilePlatforms").isSMB() ? A(e) : w(e);
     }
-    function x(e) {
+    function w(e) {
       return o("WAWebChatThemeGatingUtils").isChatThemesEnabled()
         ? e
           ? [f, u, c, m]
@@ -169,17 +229,17 @@ __d(
           ? [u, g, c, m]
           : [g, c, m, d];
     }
-    function $(e) {
+    function A(e) {
       return e ? [u, h, g, c] : [h, g, c, m];
     }
-    function P(e) {
+    function F(e) {
       var t = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? M(t, e) : N(t);
+      return o("WAWebMobilePlatforms").isSMB() ? B(t, e) : O(t);
     }
-    function N(t) {
+    function O(t) {
       return t ? [u, c, d, m] : [c, d, m, e];
     }
-    function M(t, n) {
+    function B(t, n) {
       var r = t ? [u, p, _, c] : [p, _, c, m];
       return n
         ? r
@@ -190,10 +250,10 @@ __d(
             [e],
           );
     }
-    ((l.hasWhatsNewContent = L),
-      (l.hasSmbWhatsNewContent = E),
-      (l.hasBizAgentWhatsNewHighlight = k),
-      (l.getWhatsNewFeatures = I));
+    ((l.hasWhatsNewContent = T),
+      (l.hasSmbWhatsNewContent = D),
+      (l.hasBizAgentWhatsNewHighlight = x),
+      (l.getWhatsNewFeatures = $));
   },
   226,
 );

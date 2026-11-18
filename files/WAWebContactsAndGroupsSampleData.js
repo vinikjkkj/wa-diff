@@ -8,8 +8,8 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebUserUtils",
     "gkx",
     "react",
   ],
@@ -60,7 +60,7 @@ __d(
           r = (n = t.name) != null ? n : t.id.toString();
         return !t.id.isUser() ||
           t.id.isBot() ||
-          o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
+          o("WAWebUserUtils").isMeAccount(t.id) ||
           !o("WAWebFrontendContactGetters").getIsMyContact(t) ||
           e.has(r)
           ? !1

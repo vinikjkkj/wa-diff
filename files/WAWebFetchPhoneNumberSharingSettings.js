@@ -7,6 +7,7 @@ __d(
     "WAWebFetchPhoneNumberSharingSettings_list.graphql",
     "WAWebMexClient",
     "WAWebModelStorageUtils",
+    "WAWebNotifyPhoneNumberSharingSettingsChanged",
     "WAWebPhoneNumberSharingSettingsGating",
     "WAWebPhoneNumberSharingSettingsRequests",
     "WAWebSchemaPrivacyDisallowedList",
@@ -106,17 +107,26 @@ __d(
                     },
                   ],
                   S = yield g(v);
-                !S ||
-                  o(
-                    "WAWebPhoneNumberSharingSettingsRequests",
-                  ).isPhoneNumberSharingSettingsInvalidated() ||
+                if (
+                  !(
+                    !S ||
+                    o(
+                      "WAWebPhoneNumberSharingSettingsRequests",
+                    ).isPhoneNumberSharingSettingsInvalidated()
+                  )
+                ) {
+                  var L = babelHelpers.extends(
+                    {},
+                    o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+                    { phoneNumberSharing: b },
+                  );
                   (yield o("WAWebUserPrefsGeneral").persistUserPrivacySettings(
-                    babelHelpers.extends(
-                      {},
-                      o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-                      { phoneNumberSharing: b },
-                    ),
-                  ));
+                    L,
+                  ),
+                    yield o(
+                      "WAWebNotifyPhoneNumberSharingSettingsChanged",
+                    ).notifyPhoneNumberSharingSettingsChanged(L));
+                }
               }
             }
           }

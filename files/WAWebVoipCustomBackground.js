@@ -117,14 +117,16 @@ __d(
                   ? "custom_background_rejected_not_a_picture"
                   : t.status === "too_large"
                     ? "custom_background_rejected_too_large"
-                    : t.status === "unreadable"
-                      ? "custom_background_rejected_unreadable"
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              t.status,
-                          );
-                        })(),
+                    : t.status === "too_many_pixels"
+                      ? "custom_background_rejected_too_many_pixels"
+                      : t.status === "unreadable"
+                        ? "custom_background_rejected_unreadable"
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                t.status,
+                            );
+                          })(),
               )),
             t
           );

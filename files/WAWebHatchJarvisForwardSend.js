@@ -104,7 +104,7 @@ __d(
               d == null &&
                 ((d = o(
                   "WAWebHatchJarvisForwardReupload",
-                ).createHatchJarvisForwardMedia(s.media)),
+                ).createHatchJarvisForwardMedia(s.media, s.thumbnails)),
                 m.set(u, d)),
               o(
                 "WAWebHatchJarvisForwardImageToMuse",
@@ -220,18 +220,23 @@ __d(
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t == null ? void 0 : t.inspected;
-          if (!(t == null || !(n != null && n.ok) || n.media.length === 0)) {
+          if (
+            !(
+              t == null ||
+              !(n != null && n.ok) ||
+              n.media.length + n.thumbnails.length === 0
+            )
+          ) {
             var r = m.get(t);
-            return (
-              r == null &&
-                ((r = o(
-                  "WAWebHatchJarvisForwardReupload",
-                ).createHatchJarvisForwardMedia(n.media)),
-                m.set(t, r)),
-              o(
+            r == null &&
+              ((r = o(
                 "WAWebHatchJarvisForwardReupload",
-              ).prepareHatchJarvisForwardSend({ chat: e, media: r })
-            );
+              ).createHatchJarvisForwardMedia(n.media, n.thumbnails)),
+              m.set(t, r));
+            var a = yield o(
+              "WAWebHatchJarvisForwardReupload",
+            ).prepareHatchJarvisForwardSend({ chat: e, media: r });
+            return a.length > 0 ? a : void 0;
           }
         })),
         k.apply(this, arguments)

@@ -223,19 +223,30 @@ __d(
         },
         transferCallStart: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.callId,
+              n = e.hasVideo,
+              a = e.peerActiveDevice,
+              i = e.rootCallCreator,
+              l = e.rootCallId;
             try {
-              var t,
-                n = yield (t = o(
+              var s,
+                u = yield (s = o(
                   "WAWebWindowsHybridBridgeFactory",
                 ).getWindowsBridge(
                   r("WAWebWindowsHybridBridgeInitiator")
                     .WAWebVoipStackInterfaceWindows,
                 )) == null ||
-                (t = t.voip) == null ||
-                t.transferCallStart == null
+                (s = s.voip) == null ||
+                s.transferCallStart == null
                   ? void 0
-                  : t.transferCallStart(e);
-              return n == null
+                  : s.transferCallStart({
+                      callId: t,
+                      hasVideo: n,
+                      peerActiveDevice: a,
+                      rootCallCreator: i,
+                      rootCallId: l,
+                    });
+              return u == null
                 ? (o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -243,7 +254,7 @@ __d(
                       ])),
                   ),
                   N)
-                : n;
+                : u;
             } catch (e) {
               return (
                 o("WALogger")

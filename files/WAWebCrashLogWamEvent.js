@@ -42,6 +42,7 @@ __d(
               crashTimeout: [24, e.TYPES.INTEGER],
               crashType: [6, o("WAWebWamEnumCrashType").CRASH_TYPE],
               dedupKey: [37, e.TYPES.INTEGER],
+              freeSpaceAvailableKb: [38, e.TYPES.NUMBER],
               iphoneProcessNonGlobal: [
                 30,
                 o("WAWebWamEnumIphoneProcessNonGlobal")

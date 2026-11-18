@@ -210,6 +210,7 @@ __d(
             a("questionResponsesCount"),
             a("myQuestionResponsesCount"),
             a("readQuestionResponsesCount"),
+            a("myQuestionResponsesChecked"),
             a("forwardedNewsletterMessageInfo"),
             a("forwardedAiBotMessageInfo"),
             a("botSignatureVerificationMetadata"),

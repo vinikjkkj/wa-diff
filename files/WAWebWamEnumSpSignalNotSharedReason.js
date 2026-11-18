@@ -8,6 +8,7 @@ __d(
       TOKEN_EXPIRED: 2,
       SIGNAL_NOT_ALLOWLISTED: 3,
       INVALID_URL: 4,
+      CLOUD_API_MESSAGE: 5,
     });
     i.SP_SIGNAL_NOT_SHARED_REASON = e;
   },

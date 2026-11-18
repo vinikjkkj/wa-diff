@@ -20,13 +20,14 @@ __d(
       m = new Map(),
       p = new Map(),
       _ = new Map(),
-      f = new Set(),
-      g = r("uuidv4")(),
-      h = new Set();
-    function y() {
-      (m.clear(), p.clear(), _.clear(), f.clear());
+      f = new Map(),
+      g = new Set(),
+      h = r("uuidv4")(),
+      y = new Set();
+    function C() {
+      (m.clear(), p.clear(), _.clear(), f.clear(), g.clear());
     }
-    function C(t, n, a) {
+    function b(t, n, a) {
       (c++,
         u &&
           (e || (e = r("QuickPerformanceLogger"))).markerStart(
@@ -36,74 +37,91 @@ __d(
             { trackedForLoss: !0 },
           ));
       var i = t + "_" + n;
-      _.set(i, c);
+      f.set(i, c);
     }
-    function b(e, t) {
-      p.set(e, t.current);
+    function v(e, t) {
+      _.set(e, t.current);
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       var r = e + "_" + t;
       m.set(r, n);
     }
-    function S(t, n, a, i, l) {
-      var c = t + "_" + n,
-        y = 0,
-        b = p.get(t) || a,
-        v = m.get(c);
-      v != null && ((y = v), m.delete(c));
-      var S = _.get(c);
-      S == null && (C(t, n, { current: b }), (S = _.get(c)));
-      var R = o("VisibilityListener").getHiddenTime(
-        b + r("performanceNavigationStart")(),
-        a + r("performanceNavigationStart")(),
-      );
-      u &&
-        ((e || (e = r("QuickPerformanceLogger"))).markerAnnotate(
-          o("CometTailLoadLoggerConfig").getQPLEvent(),
-          {
-            int: {
-              client_revision: r("SiteData").client_revision,
-              hidden: +(R != null && R > 0),
-              interruptedConsumption: y,
-              position: n,
-              windowHeight: Math.floor(window.innerHeight / 100),
+    function R(e, t) {
+      var n,
+        r = e + "_" + t;
+      p.set(r, ((n = p.get(r)) != null ? n : 0) + 1);
+    }
+    function L(t, n, a, i, l) {
+      var c,
+        C = t + "_" + n;
+      if (!(i === 113 && !f.has(C))) {
+        var v = 0,
+          S = _.get(t) || a,
+          R = m.get(C);
+        R != null && ((v = R), m.delete(C));
+        var L = (c = p.get(C)) != null ? c : 0;
+        p.delete(C);
+        var E = f.get(C);
+        E == null && (b(t, n, { current: S }), (E = f.get(C)));
+        var k = o("VisibilityListener").getHiddenTime(
+          S + r("performanceNavigationStart")(),
+          a + r("performanceNavigationStart")(),
+        );
+        u &&
+          ((e || (e = r("QuickPerformanceLogger"))).markerAnnotate(
+            o("CometTailLoadLoggerConfig").getQPLEvent(),
+            {
+              int: {
+                client_revision: r("SiteData").client_revision,
+                hidden: +(k != null && k > 0),
+                interruptedConsumption: v,
+                pagesWithoutNewRows: L,
+                position: n,
+                windowHeight: Math.floor(window.innerHeight / 100),
+              },
+              string: {
+                client_push_phase: r("SiteData").push_phase,
+                pageletName: t,
+                sessionId: h,
+                tracePolicy: l,
+              },
             },
-            string: {
-              client_push_phase: r("SiteData").push_phase,
-              pageletName: t,
-              sessionId: g,
-              tracePolicy: l,
-            },
-          },
-          { instanceKey: S },
-        ),
-        e.markerEnd(o("CometTailLoadLoggerConfig").getQPLEvent(), i, S, a + d));
-      var L = i;
-      if (i !== 2 || (L === 706 && y >= s)) {
-        var E =
-          Object.keys(r("QuickLogActionType")).find(function (e) {
-            return r("QuickLogActionType")[e] === i;
-          }) || "UNKNOWN";
-        h.add({ position: n, scrollingFNLType: E, tracePolicy: l });
+            { instanceKey: E },
+          ),
+          e.markerEnd(
+            o("CometTailLoadLoggerConfig").getQPLEvent(),
+            i,
+            E,
+            a + d,
+          ));
+        var I = i;
+        if (i !== 2 || (I === 706 && v >= s)) {
+          var T =
+            Object.keys(r("QuickLogActionType")).find(function (e) {
+              return r("QuickLogActionType")[e] === i;
+            }) || "UNKNOWN";
+          y.add({ position: n, scrollingFNLType: T, tracePolicy: l });
+        }
+        (g.add(C), f.delete(C));
       }
-      (f.add(c), _.delete(c));
     }
-    function R(e, t, n, r, o) {
+    function E(e, t, n, r, o) {
       var a = e + "_" + t,
-        i = !f.has(a);
-      (i && S(e, t, n, r, o), f.delete(a));
+        i = !g.has(a);
+      (i && L(e, t, n, r, o), g.delete(a));
     }
-    function L() {
-      return h;
+    function k() {
+      return y;
     }
-    ((l.alreadyFinishedMarkerKeys = f),
-      (l.reset = y),
-      (l.startTailLoadTracing = C),
-      (l.setTailLoadStartTime = b),
-      (l.reportInterruptedConsumption = v),
-      (l.endTailloadTracing = S),
-      (l.logMarkerEnd = R),
-      (l.dump = L));
+    ((l.alreadyFinishedMarkerKeys = g),
+      (l.reset = C),
+      (l.startTailLoadTracing = b),
+      (l.setTailLoadStartTime = v),
+      (l.reportInterruptedConsumption = S),
+      (l.reportPageWithoutNewRows = R),
+      (l.endTailloadTracing = L),
+      (l.logMarkerEnd = E),
+      (l.dump = k));
   },
   98,
 );

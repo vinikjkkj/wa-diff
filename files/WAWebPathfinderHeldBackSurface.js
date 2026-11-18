@@ -143,17 +143,21 @@ __d(
       });
       return t != null ? t.name : null;
     }
-    function I(e) {
-      for (var t = s.length - 1; t >= 0; t--) {
-        var n = s[t];
-        if ($(n, e)) return n.name;
-      }
-      return null;
-    }
+    var I = null;
     function T(e) {
+      I = e;
+    }
+    function D(e) {
+      for (var t, n = s.length - 1; n >= 0; n--) {
+        var r = s[n];
+        if (N(r, e)) return r.name;
+      }
+      return e != null && (t = I == null ? void 0 : I(e)) != null ? t : null;
+    }
+    function x(e) {
       return s
         .filter(function (t) {
-          return $(t, e);
+          return N(t, e);
         })
         .map(function (e) {
           var t = e.name,
@@ -161,15 +165,15 @@ __d(
           return { name: t, token: n };
         });
     }
-    function D() {
+    function $() {
       return new Set(
         s.map(function (e) {
           return e.token;
         }),
       );
     }
-    function x(e) {
-      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : I();
+    function P(e) {
+      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : D();
       return (
         t != null ||
         d(e.screenName) ||
@@ -177,7 +181,7 @@ __d(
         k(e.screenName) != null
       );
     }
-    function $(e, t) {
+    function N(e, t) {
       var n = e.getRoot,
         r = e.holdsUntilRootAttached,
         o = e.rootTestId;
@@ -187,12 +191,12 @@ __d(
           ? r
           : t instanceof Node && a.contains(t);
       }
-      return o == null || (r && !P(o)) ? !0 : N(t, o);
+      return o == null || (r && !M(o)) ? !0 : w(t, o);
     }
-    function P(e) {
+    function M(e) {
       return document.querySelector('[data-testid="' + e + '"]') != null;
     }
-    function N(e, t) {
+    function w(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );
@@ -210,10 +214,11 @@ __d(
       (i.openHeldBack = L),
       (i.enterHeldBackSurface = E),
       (i.captureHeldBackScreen = k),
-      (i.captureHeldBackSurface = I),
-      (i.getCoveringHeldBackHolds = T),
-      (i.getActiveHeldBackTokens = D),
-      (i.isHeldBackEvent = x));
+      (i.setHeldPopupLookup = T),
+      (i.captureHeldBackSurface = D),
+      (i.getCoveringHeldBackHolds = x),
+      (i.getActiveHeldBackTokens = $),
+      (i.isHeldBackEvent = P));
   },
   66,
 );

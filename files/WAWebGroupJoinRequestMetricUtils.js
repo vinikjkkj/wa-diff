@@ -7,19 +7,21 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.action,
-        n = e.groupId,
-        r = e.groupsInCommon,
-        a = e.isSuccessful,
-        i = e.responseTime;
-      new (o(
-        "WAWebWaFsGroupJoinRequestActionWamEvent",
-      ).WaFsGroupJoinRequestActionWamEvent)({
-        groupJid: p(n),
-        groupJoinRequestAction: t,
-        groupJoinRequestGroupsInCommon: r,
-        serverResponseTime: Math.round(i),
-        isSuccessful: a,
-      }).commit();
+        n = e.entrypoint,
+        r = e.groupId,
+        a = e.groupsInCommon,
+        i = e.isSuccessful,
+        l = e.responseTime,
+        s = new (o(
+          "WAWebWaFsGroupJoinRequestActionWamEvent",
+        ).WaFsGroupJoinRequestActionWamEvent)({
+          groupJid: p(r),
+          groupJoinRequestAction: t,
+          groupJoinRequestGroupsInCommon: a,
+          serverResponseTime: Math.round(l),
+          isSuccessful: i,
+        });
+      (n != null && (s.groupJoinRequestEntrypoint = n), s.commit());
     }
     function s(t) {
       e(
@@ -37,11 +39,12 @@ __d(
         }),
       );
     }
-    function c(t) {
+    function c(t, n) {
       e({
         groupId: t,
         action: o("WAWebWamEnumGroupJoinRequestActionType")
           .GROUP_JOIN_REQUEST_ACTION_TYPE.VIEW_PENDING_PARTICIPANTS,
+        entrypoint: n,
         responseTime: 0,
         isSuccessful: !0,
       });

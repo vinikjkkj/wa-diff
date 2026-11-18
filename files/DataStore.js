@@ -1,30 +1,32 @@
 __d(
   "DataStore",
   ["DataStoreConfig", "gkx", "isEmpty"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      l = n("DataStoreConfig").expandoKey,
-      s = n("DataStoreConfig").useExpando,
-      u = n("gkx")("25572") && window.WeakMap ? new window.WeakMap() : null,
-      c = {},
-      d = 1;
-    function m(e) {
+      s = r("gkx")("25572") && window.WeakMap ? new window.WeakMap() : null,
+      u = {},
+      c = 1;
+    function d(e) {
       if (typeof e == "string") return "str_" + e;
       var t;
       return (
-        "elem_" + ((t = e.__FB_TOKEN) != null ? t : (e.__FB_TOKEN = [d++]))[0]
+        "elem_" + ((t = e.__FB_TOKEN) != null ? t : (e.__FB_TOKEN = [c++]))[0]
       );
     }
-    function p(e) {
-      if (u != null && typeof e == "object") {
-        var t = u.get(e);
-        return (t === void 0 && ((t = {}), u.set(e, t)), t);
-      } else if (s && typeof e == "object") return e[l] || (e[l] = {});
-      var n = m(e);
-      return c[n] || (c[n] = {});
+    function m(e) {
+      if (s != null && typeof e == "object") {
+        var t = s.get(e);
+        return (t === void 0 && ((t = {}), s.set(e, t)), t);
+      } else if (r("DataStoreConfig").useExpando && typeof e == "object")
+        return (
+          e[r("DataStoreConfig").expandoKey] ||
+          (e[r("DataStoreConfig").expandoKey] = {})
+        );
+      var n = d(e);
+      return u[n] || (u[n] = {});
     }
-    var _ = {
+    var p = {
       set: function (t, n, r) {
         if (!t) {
           var e = new TypeError(
@@ -32,7 +34,7 @@ __d(
           );
           throw (e.stack, e);
         }
-        var o = p(t);
+        var o = m(t);
         return ((o[n] = r), t);
       },
       get: function (t, n, r) {
@@ -42,7 +44,7 @@ __d(
           );
           throw (e.stack, e);
         }
-        var o = p(t),
+        var o = m(t),
           a = o[n];
         if (a === void 0 && t.getAttribute != null)
           if (t.hasAttribute != null && !t.hasAttribute("data-" + n))
@@ -53,24 +55,26 @@ __d(
           }
         return (r !== void 0 && a === void 0 && (a = o[n] = r), a);
       },
-      remove: function (r, o) {
-        if (!r) {
+      remove: function (n, o) {
+        if (!n) {
           var t = new TypeError(
-            "DataStore.remove: namespace is required, got " + typeof r,
+            "DataStore.remove: namespace is required, got " + typeof n,
           );
           throw (t.stack, t);
         }
-        var a = p(r),
+        var a = m(n),
           i = a[o];
-        return (delete a[o], (e || (e = n("isEmpty")))(a) && _.purge(r), i);
+        return (delete a[o], (e || (e = r("isEmpty")))(a) && p.purge(n), i);
       },
       purge: function (t) {
-        if (u != null && typeof t == "object") return u.delete(t);
-        s && typeof t == "object" ? delete t[l] : delete c[m(t)];
+        if (s != null && typeof t == "object") return s.delete(t);
+        r("DataStoreConfig").useExpando && typeof t == "object"
+          ? delete t[r("DataStoreConfig").expandoKey]
+          : delete u[d(t)];
       },
-      _storage: c,
+      _storage: u,
     };
-    a.exports = _;
+    i.exports = p;
   },
-  null,
+  34,
 );

@@ -36,7 +36,7 @@ __d(
     "WAWebGetGalaxyFlowsActionFromButton",
     "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMAIBAPrimaryRedirectPopup.react",
+    "WAWebMAIBAPrimaryRedirectPopupLoadable",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebMmSignalSharingModelUtils",
@@ -70,6 +70,7 @@ __d(
     "WAWebWamEnumPmButtonEventType",
     "WAWebWamEnumPmButtonType",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
+    "WDSDialogBridge",
     "WDSIconIcCall.react",
     "WDSIconIcContentCopy.react",
     "WDSIconIcOpenInNew.react",
@@ -202,8 +203,8 @@ __d(
           var u = o(
             "WAWebBizAiMetaOneSubscriptionDeeplink",
           ).getBizAiMetaOneSubscriptionActions(t, e.index, i, function () {
-            return o("WAWebModalManager").ModalManager.open(
-              f.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+            return o("WDSDialogBridge").openWDSDialog(
+              f.jsx(r("WAWebMAIBAPrimaryRedirectPopupLoadable"), {}),
             );
           });
           if (u != null)
@@ -238,8 +239,8 @@ __d(
                     )
                   ) {
                     if (s) {
-                      o("WAWebModalManager").ModalManager.open(
-                        f.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+                      o("WDSDialogBridge").openWDSDialog(
+                        f.jsx(r("WAWebMAIBAPrimaryRedirectPopupLoadable"), {}),
                       );
                       return;
                     }
@@ -577,8 +578,8 @@ __d(
               return;
             }
             if (m && o("WAWebContactGetters").getIsAiHub(a.contact)) {
-              o("WAWebModalManager").ModalManager.open(
-                f.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+              o("WDSDialogBridge").openWDSDialog(
+                f.jsx(r("WAWebMAIBAPrimaryRedirectPopupLoadable"), {}),
               );
               return;
             }

@@ -58,7 +58,8 @@ __d(
         P = b(),
         N = b(0),
         M = b(!1),
-        w = function (n) {
+        w = b(null),
+        A = function (n) {
           if ((n === void 0 && (n = !0), c != null && c.current != null))
             return c.current;
           var t = $.current;
@@ -89,21 +90,21 @@ __d(
             null
           );
         },
-        A = r("useWAWebStableCallback")(function () {
-          return w(!1);
+        F = r("useWAWebStableCallback")(function () {
+          return A(!1);
         }),
-        F = b(0);
-      C(
+        O = b(0);
+      (C(
         function () {
-          F.current += 1;
-          var e = F.current;
+          O.current += 1;
+          var e = O.current;
           return (
             (x.current = !0),
             function () {
               x.current = !1;
-              var t = A();
+              var t = F();
               queueMicrotask(function () {
-                F.current === e &&
+                O.current === e &&
                   !x.current &&
                   ((N.current += 1),
                   (P.current = null),
@@ -112,27 +113,44 @@ __d(
             }
           );
         },
-        [A],
-      );
-      var O = b(!1),
-        B = b(),
-        W = function () {
-          ((B.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
-            B.current,
+        [F],
+      ),
+        C(
+          function () {
+            var e = w.current;
+            if (!(I.in !== !0 || e == null)) {
+              w.current = null;
+              for (var t of e) {
+                var n = t[0],
+                  o = t[1];
+                (r("WAWebVelocityAnimate")(n, "stop", !0),
+                  o == null
+                    ? n.removeAttribute("style")
+                    : n.setAttribute("style", o));
+              }
+            }
+          },
+          [I.in],
+        ));
+      var B = b(!1),
+        W = b(),
+        q = function () {
+          ((W.current = o("WAWebIdleTaskRunner").UIBusyTasks.setBusy(
+            W.current,
           )),
-            O.current ||
-              ((O.current = !0),
+            B.current ||
+              ((B.current = !0),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0)));
         },
-        q = function () {
-          (B.current != null &&
-            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(B.current),
-            delete B.current),
-            O.current &&
-              ((O.current = !1),
+        U = function () {
+          (W.current != null &&
+            (o("WAWebIdleTaskRunner").UIBusyTasks.clearBusy(W.current),
+            delete W.current),
+            B.current &&
+              ((B.current = !1),
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!1)));
         },
-        U = function (t, n) {
+        V = function (t, n) {
           var e = n;
           if (!e) return [];
           Array.isArray(e) || (e = [e]);
@@ -153,7 +171,7 @@ __d(
             );
           });
         },
-        V = function (t) {
+        H = function (t) {
           var e = t;
           (e === v.APPEAR && (e = v.ENTER),
             e === "enter" || e === "leave" || s(0, 66980));
@@ -161,14 +179,27 @@ __d(
             a = o[e];
           if (!o || !a) return (p || (p = n("Promise"))).resolve();
           var i = r("omit")(o, ["enter", "leave"]),
-            u = w(),
-            c = U(u, a);
-          e === v.LEAVE &&
-            (u == null || u.setAttribute("pointerEvents", "none"),
-            u == null || u.addEventListener("keypress", T, !0),
-            u == null || u.addEventListener("keydown", T, !0));
-          var d = 0,
-            m = (p || (p = n("Promise"))).all(
+            u = A(),
+            c = V(u, a),
+            d =
+              e === v.LEAVE
+                ? c.flatMap(function (e) {
+                    var t = e.nodes;
+                    return r("compactMap")(
+                      Array.isArray(t) ? t : [t],
+                      function (e) {
+                        return e == null ? null : [e, e.getAttribute("style")];
+                      },
+                    );
+                  })
+                : null;
+          ((w.current = d),
+            e === v.LEAVE &&
+              (u == null || u.setAttribute("pointerEvents", "none"),
+              u == null || u.addEventListener("keypress", T, !0),
+              u == null || u.addEventListener("keydown", T, !0)));
+          var m = 0,
+            f = (p || (p = n("Promise"))).all(
               c.map(function (e) {
                 var t,
                   n,
@@ -177,7 +208,7 @@ __d(
                   s = e.drag,
                   u = e.duration,
                   c = e.easing,
-                  m = e.nodes,
+                  d = e.nodes,
                   p = e.props,
                   _ = e.stagger,
                   f = (t = i.delay) != null ? t : 0;
@@ -188,15 +219,15 @@ __d(
                       : (n = i.duration) != null
                         ? n
                         : 0,
-                  h = Array.isArray(m) ? m.length : 1;
+                  h = Array.isArray(d) ? d.length : 1;
                 return (
-                  (d = Math.max(
-                    d,
+                  (m = Math.max(
+                    m,
                     f +
                       (s === !0 ? Math.max(g, 200) : g) +
                       (_ != null ? _ : 0) * Math.max(h - 1, 0),
                   )),
-                  r("WAWebVelocityAnimate")(m, p, {
+                  r("WAWebVelocityAnimate")(d, p, {
                     easing:
                       (o = c != null ? c : i.easing) != null ? o : "easeInSine",
                     duration: g,
@@ -208,7 +239,7 @@ __d(
                 );
               }),
             );
-          return D(m, d, function () {
+          return D(f, m, function () {
             for (var e of c) {
               var t = e.nodes;
               r("WAWebVelocityAnimate")(t, "finish");
@@ -226,10 +257,11 @@ __d(
               e === v.LEAVE &&
                 (u == null || u.removeEventListener("keypress", T, !0),
                 u == null || u.removeEventListener("keydown", T, !0)),
+              w.current === d && (w.current = null),
               _ == null || _());
           });
         },
-        H = function (n) {
+        G = function (n) {
           var e = t.appear,
             o = e === void 0 ? !1 : e,
             a = t.enter,
@@ -250,14 +282,14 @@ __d(
                         );
                       })();
           if (u) {
-            (W(), (N.current += 1));
+            (q(), (N.current += 1));
             var c = N.current;
-            V(n)
+            H(n)
               .catch(function (e) {
                 r("WAWebNoop")(e);
               })
               .finally(function () {
-                q();
+                U();
               })
               .then(function () {
                 !x.current ||
@@ -267,13 +299,13 @@ __d(
               });
           } else P.current == null || P.current();
         },
-        G = function (t, n) {
-          (g == null || g(), H(n ? v.APPEAR : v.ENTER));
-        },
-        z = function (t) {
-          (S == null || S(), H(v.LEAVE));
+        z = function (t, n) {
+          (g == null || g(), G(n ? v.APPEAR : v.ENTER));
         },
         j = function (t) {
+          (S == null || S(), G(v.LEAVE));
+        },
+        K = function (t) {
           var e,
             n =
               (e =
@@ -286,17 +318,17 @@ __d(
           var r = a == null ? void 0 : a.ref;
           r && (typeof r == "function" ? r(n) : (r.current = n));
         },
-        K = a;
+        Q = a;
       if (c == null) {
-        var Q = h.only(K);
-        K = y(Q, { ref: j });
+        var X = h.only(Q);
+        Q = y(X, { ref: K });
       }
       return f.jsx(
         r("WAWebTransitionPrimitive.react"),
         babelHelpers.extends(
           {
             resolveNode: function () {
-              return w(L(k));
+              return A(L(k));
             },
           },
           I,
@@ -304,9 +336,9 @@ __d(
             addEndListener: function (t, n) {
               P.current = n;
             },
-            onEnter: G,
-            onExit: z,
-            children: K,
+            onEnter: z,
+            onExit: j,
+            children: Q,
           },
         ),
       );

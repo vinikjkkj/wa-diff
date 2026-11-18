@@ -26,14 +26,16 @@ __d(
           var n = t.hasVideo,
             a = t.isCameraOff,
             i = a === void 0 ? !1 : a,
-            l = t.peerActiveDevice,
-            m = t.rootCallCreator,
-            p = t.rootCallId,
-            _,
-            f;
+            l = t.isMicMuted,
+            m = l === void 0 ? !1 : l,
+            p = t.peerActiveDevice,
+            _ = t.rootCallCreator,
+            f = t.rootCallId,
+            g,
+            h;
           try {
-            var g = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            if (g == null)
+            var y = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            if (y == null)
               return (
                 o("WALogger").WARN(
                   e ||
@@ -43,8 +45,10 @@ __d(
                 ),
                 !1
               );
-            ((f = o("WAWebVoipCallIdProvider").generateNewCallId()),
-              o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(f, n && i),
+            h = o("WAWebVoipCallIdProvider").generateNewCallId();
+            var C = n && i;
+            (o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(h, C),
+              o("WAWebVoipJoinWithoutCamera").consumeJoinWithoutCamera(h),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -52,31 +56,35 @@ __d(
                     " callId=",
                     " hasVideo=",
                     " cameraOff=",
+                    " mute=",
                     "",
                   ])),
-                p,
                 f,
+                h,
                 String(n),
-                String(i),
+                String(C),
+                String(m),
               ),
               o("WAWebVoipTransferredCallSetup").prepareForTransferredCall({
-                callId: f,
-                rootCallCreator: m,
-                rootCallId: p,
+                callId: h,
+                rootCallCreator: _,
+                rootCallId: f,
               }),
-              (_ = yield g.transferCallStart({
-                rootCallId: p,
-                rootCallCreator: m,
-                peerActiveDevice: l,
-                callId: f,
+              (g = yield y.transferCallStart({
+                rootCallId: f,
+                rootCallCreator: _,
+                peerActiveDevice: p,
+                callId: h,
                 hasVideo: n,
+                mute: m,
+                cameraOff: C,
               })));
           } catch (e) {
             return (
               o("WAWebVoipTransferredCallRegistry").unregisterTransferredCall(
-                f,
+                h,
               ),
-              o("WAWebVoipJoinWithoutCamera").clearJoinWithoutCamera(f),
+              o("WAWebVoipJoinWithoutCamera").clearJoinWithoutCamera(h),
               o("WALogger")
                 .ERROR(
                   u ||
@@ -89,11 +97,11 @@ __d(
               !1
             );
           }
-          return _ !== d
+          return g !== d
             ? (o("WAWebVoipTransferredCallRegistry").unregisterTransferredCall(
-                f,
+                h,
               ),
-              o("WAWebVoipJoinWithoutCamera").clearJoinWithoutCamera(f),
+              o("WAWebVoipJoinWithoutCamera").clearJoinWithoutCamera(h),
               o("WALogger")
                 .ERROR(
                   c ||
@@ -101,7 +109,7 @@ __d(
                       "voip: transferCall: failed with status ",
                       "",
                     ])),
-                  _,
+                  g,
                 )
                 .sendLogs("voip-transfer-call-start-failed"),
               !1)

@@ -82,6 +82,12 @@ __d(
           r("WAWebODS").incr("web.call.video_effects.custom_background.added");
           break e;
         }
+        if (e === "custom_background_no_dimensions") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.no_dimensions",
+          );
+          break e;
+        }
         if (e === "custom_background_not_kept") {
           r("WAWebODS").incr(
             "web.call.video_effects.custom_background.not_kept",
@@ -103,6 +109,12 @@ __d(
         if (e === "custom_background_rejected_too_large") {
           r("WAWebODS").incr(
             "web.call.video_effects.custom_background.rejected.too_large",
+          );
+          break e;
+        }
+        if (e === "custom_background_rejected_too_many_pixels") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.rejected.too_many_pixels",
           );
           break e;
         }

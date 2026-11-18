@@ -85,6 +85,9 @@ __d(
               addPoint: function (n, r) {
                 return e.addPoint(n, r);
               },
+              addPointLocal: function (n, r) {
+                return e.addPointLocal(n, r);
+              },
               annotate: function (n) {
                 return e.annotate(n);
               },

@@ -592,68 +592,70 @@ __d(
             u = e.strictJpegScanValidationEnabled,
             c = e.strictMp4ValidationEnabled,
             d = e.strictOggOpusValidationEnabled,
-            m = e.zipArchiveCheckEnabled,
-            p = se();
+            m = e.withStreamCheck,
+            p = e.zipArchiveCheckEnabled,
+            _ = se();
           H().INFO(
             I ||
               (I = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope classifiy in worker, requestId: ",
                 "",
               ])),
-            p,
+            _,
           );
-          var _ = yield j.getNextConnectedPortWithTimeout(a);
-          if (!_.success)
+          var f = yield j.getNextConnectedPortWithTimeout(a);
+          if (!f.success)
             return {
               transferredBuffer: i,
-              result: o("WAResultOrError").makeError({ errorName: _.error }),
+              result: o("WAResultOrError").makeError({ errorName: f.error }),
             };
-          var f = _.value;
+          var g = f.value;
           return ue(
-            f,
+            g,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = f.onMessageOnce(
+              var e = g.onMessageOnce(
                 "kaleidoscopeClassifyResponse",
                 function (e) {
-                  return e.requestId === p;
+                  return e.requestId === _;
                 },
               );
-              (f.postMessage(
+              (g.postMessage(
                 {
                   mediaType: l,
                   rawMimeType: s,
                   strictJpegScanValidationEnabled: u,
                   strictOggOpusValidationEnabled: d,
                   strictMp4ValidationEnabled: c,
-                  zipArchiveCheckEnabled: m,
+                  zipArchiveCheckEnabled: p,
                   allowAv1VideoCodec: t,
                   claimedTypeValidationEnabled: r,
+                  withStreamCheck: m,
                   input: i,
-                  requestId: p,
+                  requestId: _,
                   type: "kaleidoscopeClassifyRequest",
                 },
                 [i],
               ),
                 a.addPoint("sent_request_to_media_worker_start"));
               var n = yield e,
-                _ = n.output,
-                g = n.transferredBuffer;
-              return _.success
+                f = n.output,
+                h = n.transferredBuffer;
+              return f.success
                 ? (H().INFO(
                     T ||
                       (T = babelHelpers.taggedTemplateLiteralLoose([
                         "received output from worker, requestId: ",
                         "",
                       ])),
-                    p,
+                    _,
                   ),
                   a == null || a.addPoint("sent_request_to_media_worker_end"),
-                  { transferredBuffer: g, result: _ })
+                  { transferredBuffer: h, result: f })
                 : (a.addPoint("sent_request_to_media_worker_fail"),
                   {
-                    transferredBuffer: g,
+                    transferredBuffer: h,
                     result: o("WAResultOrError").makeError({
-                      errorName: _.error,
+                      errorName: f.error,
                     }),
                   });
             }),

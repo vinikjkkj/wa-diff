@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebDragAndDropGatingUtils",
+    "WAWebDualUploadsPreferredMsg",
     "WAWebFilenameManager",
     "WAWebMediaDragFiles",
     "WAWebMediaStore",
@@ -13,6 +14,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:7565",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -77,6 +79,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a;
           if (yield o("WAWebMediaStore").LruMediaStore.has(t)) {
             yield e.downloadMedia({
               downloadEvenIfExpensive: !1,
@@ -86,33 +89,49 @@ __d(
             });
             return;
           }
-          var r = yield n("cr:7565") == null
-            ? void 0
-            : n("cr:7565").registerSavedMediaFileForDragOut(e);
-          r != null && R(r, t);
+          var i = r("justknobx")._("8497"),
+            l = i
+              ? n("cr:7565") == null ||
+                (a = n("cr:7565").getMediaFileInfo(e)) == null
+                ? void 0
+                : a.target
+              : null;
+          if (!(i && l == null)) {
+            var s = yield n("cr:7565") == null
+              ? void 0
+              : n("cr:7565").registerSavedMediaFileForDragOut(e);
+            s != null && R(s, t, l);
+          }
         })),
         S.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      var n = { filehash: t, url: e };
-      ((f = n),
+    function R(e, t, n) {
+      var r = { filehash: t, target: n, url: e };
+      ((f = r),
         self.setTimeout(function () {
-          f === n && (f = null);
+          f === r && (f = null);
         }, m));
     }
     function L(e) {
       var t,
-        n = o("WAWebMediaDragFiles").getCachedMediaFile(e);
-      if (n != null) return { type: "page", file: n };
-      var r = f;
-      return r != null &&
-        r.filehash === ((t = e.mediaData) == null ? void 0 : t.filehash) &&
-        o("WAWebMediaDragFiles").canTakeMediaOut(e)
+        n,
+        r = o("WAWebMediaDragFiles").getCachedMediaFile(e);
+      if (r != null) return { type: "page", file: r };
+      var a = f;
+      return a != null &&
+        a.filehash === ((t = e.mediaData) == null ? void 0 : t.filehash) &&
+        o("WAWebMediaDragFiles").canTakeMediaOut(e) &&
+        [
+          e,
+          (n = a.target) != null
+            ? n
+            : o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e),
+        ].every(o("WAWebMediaDragFiles").isHarmfulFileAllowed)
         ? {
             type: "native",
             name: o("WAWebFilenameManager").getDefaultName(e),
-            url: r.url,
+            url: a.url,
           }
         : null;
     }

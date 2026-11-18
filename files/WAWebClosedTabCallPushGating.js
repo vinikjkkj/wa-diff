@@ -15,11 +15,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      var e;
       return (
-        ((e = window.Notification) == null ? void 0 : e.permission) ===
-          o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
-        o("WAWebMuteCollection").MuteCollection.getGlobalCallNotifications() &&
+        c() &&
         o("WAWebNotificationHelpers").shouldEnableNotificationGranular() &&
         o(
           "WAWebUserPrefsOfflineCallNotifications",
@@ -30,7 +27,7 @@ __d(
     }
     function s() {
       return (
-        c() &&
+        d() &&
         o("WAWebABProps").getABPropConfigValue(
           "web_calling_offline_call_notifications",
         )
@@ -51,6 +48,14 @@ __d(
         ));
     }
     function c() {
+      var e;
+      return (
+        ((e = window.Notification) == null ? void 0 : e.permission) ===
+          o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
+        o("WAWebMuteCollection").MuteCollection.getGlobalCallNotifications()
+      );
+    }
+    function d() {
       return (
         o("WAWebVoipChromiumDesktopBrowser").isChromiumDesktopBrowser() &&
         !o("WAWebVoipGatingUtils").isUnsupportedBrowserForWebCalling() &&

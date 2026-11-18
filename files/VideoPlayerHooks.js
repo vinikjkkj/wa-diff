@@ -175,60 +175,58 @@ __d(
         u
       );
     }
-    function D(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e === void 0 ? 200 : e,
-        a = p(0),
-        i = a[0],
-        l = a[1],
-        s = f(),
-        u = h(),
-        c = m(null),
-        _ = m(i),
-        g,
-        y;
-      (t[0] !== n || t[1] !== u || t[2] !== s
-        ? ((g = function () {
-            if (u) {
-              var e = s.subscribe(function () {
-                c.current == null &&
-                  (c.current = r("setTimeout")(function () {
-                    (s.getCurrentState().paused ||
-                      ((_.current = _.current + n / 1e3), l(_.current)),
-                      (c.current = null));
-                  }, n));
+    function D() {
+      var e = o("react-compiler-runtime").c(6),
+        t = p(0),
+        n = t[0],
+        a = t[1],
+        i = f(),
+        l = h(),
+        s = m(null),
+        u = m(n),
+        c,
+        _;
+      (e[0] !== l || e[1] !== i
+        ? ((c = function () {
+            if (l) {
+              var e = i.subscribe(function () {
+                s.current == null &&
+                  (s.current = r("setTimeout")(function () {
+                    (i.getCurrentState().paused ||
+                      ((u.current = u.current + 0.2), a(u.current)),
+                      (s.current = null));
+                  }, 200));
               });
               return (
-                l(0),
+                a(0),
                 function () {
                   return e.remove();
                 }
               );
             }
           }),
-          (y = [s, n, u]),
-          (t[0] = n),
-          (t[1] = u),
-          (t[2] = s),
-          (t[3] = g),
-          (t[4] = y))
-        : ((g = t[3]), (y = t[4])),
-        d(g, y));
-      var C, b;
+          (_ = [i, 200, l]),
+          (e[0] = l),
+          (e[1] = i),
+          (e[2] = c),
+          (e[3] = _))
+        : ((c = e[2]), (_ = e[3])),
+        d(c, _));
+      var g, y;
       return (
-        t[5] === Symbol.for("react.memo_cache_sentinel")
-          ? ((C = function () {
+        e[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((g = function () {
               return function () {
-                c.current !== null &&
-                  (r("clearTimeout")(c.current), (c.current = null));
+                s.current !== null &&
+                  (r("clearTimeout")(s.current), (s.current = null));
               };
             }),
-            (b = []),
-            (t[5] = C),
-            (t[6] = b))
-          : ((C = t[5]), (b = t[6])),
-        d(C, b),
-        u ? i : null
+            (y = []),
+            (e[4] = g),
+            (e[5] = y))
+          : ((g = e[4]), (y = e[5])),
+        d(g, y),
+        l ? n : null
       );
     }
     function x() {

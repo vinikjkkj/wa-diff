@@ -80,12 +80,15 @@ __d(
           .then(function () {
             return o("WAPromiseTimeout").promiseTimeout(E(), R());
           })
-          .then(T)
-          .catch(function (e) {
+          .then(function (t) {
+            return T(t, e);
+          })
+          .catch(function (t) {
             T(
-              e instanceof o("WACustomError").TimeoutError
+              t instanceof o("WACustomError").TimeoutError
                 ? { type: "timeout" }
                 : { type: "unknown-failed" },
+              e,
             );
           })
       );
@@ -141,7 +144,7 @@ __d(
       }
       return e instanceof Error ? e.name : typeof e;
     }
-    function T(e) {
+    function T(e, t) {
       switch (e.type) {
         case "enabled":
           (o("WAWebBizAiGateCache").cacheBizAiGate(b, e.enabled),
@@ -164,7 +167,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-fetch-timeout"),
-            S(!1));
+            S(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           return;
         case "auth-failed":
           (o("WALogger")
@@ -194,7 +197,7 @@ __d(
                   ])),
               )
               .sendLogs("maiba-large-screens-gate-fetch-failed-network"),
-            S(!1));
+            S(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           return;
         case "network-unreachable":
           (o("WALogger")
@@ -205,7 +208,7 @@ __d(
                 ])),
             )
             .verbose(),
-            S(!1));
+            S(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           return;
         case "token-failed":
           (o("WALogger")
@@ -216,7 +219,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-token-fetch-failed"),
-            S(!1));
+            S(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           return;
         case "unknown-failed":
           (o("WALogger")
@@ -227,7 +230,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-fetch-failed-unknown"),
-            S(!1));
+            S(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           return;
       }
     }

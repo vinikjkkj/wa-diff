@@ -22,10 +22,9 @@ __d(
     "WAWebExecApiCmd",
     "WAWebExternalLink.react",
     "WAWebKeyboardTabUtils",
-    "WAWebMAIBAPrimaryRedirectPopup.react",
+    "WAWebMAIBAPrimaryRedirectPopupLoadable",
     "WAWebMetaOneEntryPointLogger",
     "WAWebMobilePlatforms",
-    "WAWebModalManager",
     "WAWebNavBarTypes",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSMBUserJourneyLogger",
@@ -34,6 +33,7 @@ __d(
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSmbFeatureNameEnum",
     "WAWebWamEnumSurfaceType",
+    "WDSDialogBridge",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -435,8 +435,8 @@ __d(
                 null,
                 t,
                 function () {
-                  return o("WAWebModalManager").ModalManager.open(
-                    c.jsx(r("WAWebMAIBAPrimaryRedirectPopup.react"), {}),
+                  return o("WDSDialogBridge").openWDSDialog(
+                    c.jsx(r("WAWebMAIBAPrimaryRedirectPopupLoadable"), {}),
                   );
                 },
               ));

@@ -21,6 +21,7 @@ __d(
                 o("WAWebWamEnumFmxBusinessHoldoutGroup")
                   .FMX_BUSINESS_HOLDOUT_GROUP,
               ],
+              fmxConsumerRedesignVariant: [17, e.TYPES.INTEGER],
               fmxEntryPoint: [
                 3,
                 o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT,

@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiChat",
     "WAWebApiHydrateWidsUtil",
     "WAWebAppTracker",
@@ -65,7 +64,7 @@ __d(
       v,
       S = 20,
       R = 5,
-      L = 100,
+      L = 25,
       E = 1e3;
     function k(e, t) {
       return e.reduce(
@@ -276,23 +275,19 @@ __d(
                         "WAWebWamOfflineResumeReporter",
                       ).OfflineResumeReporter.qpl.addPoint(
                         "RestoreChatsAndMessagesFirstChunk_start",
-                      ));
-                    var s =
-                      o("WAWebABProps").getABPropConfigValue(
-                        "web_init_chat_batch_size",
-                      ) || L;
-                    (o(
-                      "WAWebWamOfflineResumeReporter",
-                    ).OfflineResumeReporter.qpl.addAnnotations({
-                      int: { web_init_chat_batch_size: s },
-                    }),
+                      ),
+                      o(
+                        "WAWebWamOfflineResumeReporter",
+                      ).OfflineResumeReporter.qpl.addAnnotations({
+                        int: { web_init_chat_batch_size: L },
+                      }),
                       o(
                         "WAWebNewsletterCommonGatingUtils",
                       ).isNewsletterEnabled() &&
                         (l.sort(r("WAWebChatComparator")),
                         r("WAWebNewsletterCollection") == null ||
                           r("WAWebNewsletterCollection").add(l, { merge: !0 }),
-                        q(re(l), s).catch(function (e) {
+                        q(re(l), L).catch(function (e) {
                           o("WALogger")
                             .ERROR(
                               p ||
@@ -303,7 +298,7 @@ __d(
                             .catching(r("getErrorSafe")(e))
                             .sendLogs("newsletter-chunked-restore-failed");
                         })));
-                    var u = yield q(re(i), s);
+                    var s = yield q(re(i), L);
                     return (
                       o(
                         "WAWebWamOfflineResumeReporter",
@@ -320,7 +315,7 @@ __d(
                       ).OfflineResumeReporter.qpl.addPoint(
                         "RCMUpdateDuplicatedLidThread_end",
                       ),
-                      u
+                      s
                     );
                   }),
                 )

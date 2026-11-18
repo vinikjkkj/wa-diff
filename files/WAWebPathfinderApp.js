@@ -1,6 +1,7 @@
 __d(
   "WAWebPathfinderApp",
   [
+    "WAWebModalManager",
     "WAWebPathfinderHeldBackScope.react",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderLogger",
@@ -9,35 +10,51 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = new Map();
     function s(e) {
-      _("modal", e);
+      g("modal", e);
     }
     function u() {
-      f("modal");
+      h("modal");
     }
     function c(e) {
-      _("alert", e);
+      g("alert", e);
     }
     function d() {
-      f("alert");
+      h("alert");
     }
-    function m(t) {
-      (t === "modal" || t === "alert") && e.delete(t);
+    function m(e) {
+      var t = p();
+      if (t == null || !(e instanceof Node)) return null;
+      var n = !1;
+      return (
+        o("WAWebModalManager").ModalManager.getRef(function (t) {
+          n = n || (t == null ? void 0 : t.contains(e)) === !0;
+        }),
+        n ? t : null
+      );
     }
     function p() {
+      if (e.size === 0) return null;
+      for (var t of e.values()) if (t.verdict != null) return t.verdict;
+      return null;
+    }
+    function _(t) {
+      (t === "modal" || t === "alert") && e.delete(t);
+    }
+    function f() {
       e.clear();
     }
-    function _(t, n) {
+    function g(t, n) {
       var r,
         a,
         i = e.get(t);
-      i != null && g(i);
+      i != null && y(i);
       var l =
           (r =
             (a = o("WAWebPathfinderHeldBackSurface").toHeldBackSurfaceName(
-              y(n),
+              b(n),
             )) != null
               ? a
-              : h(n)) != null
+              : C(n)) != null
             ? r
             : o(
                 "WAWebPathfinderHeldBackSurface",
@@ -57,11 +74,11 @@ __d(
           timestampMs: Date.now(),
         }));
     }
-    function f(t) {
+    function h(t) {
       var n = e.get(t);
-      n != null && (e.delete(t), g(n));
+      n != null && (e.delete(t), y(n));
     }
-    function g(e) {
+    function y(e) {
       var t, n;
       if (
         e.unlockCount ===
@@ -89,7 +106,7 @@ __d(
         });
       }
     }
-    function h(e) {
+    function C(e) {
       return e == null ||
         typeof e != "object" ||
         e.type !== r("WAWebPathfinderHeldBackScope.react") ||
@@ -101,7 +118,7 @@ __d(
             e.props.name,
           );
     }
-    function y(e) {
+    function b(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.props;
       if (t == null || typeof t != "object") return null;
@@ -114,8 +131,9 @@ __d(
       (l.handleModalClosed = u),
       (l.handleAlertShown = c),
       (l.handleAlertClosed = d),
-      (l.handlePopupSlotUnmounted = m),
-      (l.disposePathfinderPopups = p));
+      (l.captureHeldPopupSurface = m),
+      (l.handlePopupSlotUnmounted = _),
+      (l.disposePathfinderPopups = f));
   },
   98,
 );

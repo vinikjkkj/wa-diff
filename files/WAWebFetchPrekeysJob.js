@@ -31,170 +31,172 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             (t === void 0 && (t = !1), a != null && d(e, a, t));
-            var l = {
+            var l = (i == null ? void 0 : i.requestPqBundles) === !0,
+              u = {
                 userArgs: e.map(function (e) {
                   return {
                     userJid: o("WAWebWidToJid").widToDeviceJid(e),
-                    userReason: t ? "identity" : void 0,
+                    userReason: m(t, l),
                   };
                 }),
                 hasKeyPqsupportTrue:
-                  (i == null ? void 0 : i.pqSupport) === !0 &&
-                  o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
+                  l ||
+                  ((i == null ? void 0 : i.pqSupport) === !0 &&
+                    o("WAWebPQGatingUtils").isPq1on1MessageEnabled()),
               },
-              u = null,
-              c =
+              c = null,
+              p =
                 n("cr:475") == null
                   ? yield o(
                       "WASmaxPreKeysFetchKeyBundlesRPC",
-                    ).sendFetchKeyBundlesRPC(l)
+                    ).sendFetchKeyBundlesRPC(u)
                   : yield o(
                       "WASmaxPreKeysFetchKeyBundlesRPC",
-                    ).sendFetchKeyBundlesRPC(l, {
+                    ).sendFetchKeyBundlesRPC(u, {
                       onResponse: function (t) {
-                        u = t;
+                        c = t;
                       },
                     });
-            if (c.name === "FetchKeyBundlesResponseServerError") {
-              var m = c.value.errorServerErrors.value;
+            if (p.name === "FetchKeyBundlesResponseServerError") {
+              var _ = p.value.errorServerErrors.value;
               throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(m.code),
-                "fetchPrekeys: server error: " + m.code + " " + m.text,
+                Number(_.code),
+                "fetchPrekeys: server error: " + _.code + " " + _.text,
               );
-            } else if (c.name === "FetchKeyBundlesResponseRequestError") {
-              var p = c.value.errorRequestErrorsFetch.value;
+            } else if (p.name === "FetchKeyBundlesResponseRequestError") {
+              var f = p.value.errorRequestErrorsFetch.value;
               throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                Number(p.code),
-                "fetchPrekeys: request error: " + p.code + " " + p.text,
+                Number(f.code),
+                "fetchPrekeys: request error: " + f.code + " " + f.text,
               );
             }
-            var _ = [],
-              f = [],
-              g = [],
-              h =
+            var g = [],
+              h = [],
+              y = [],
+              C =
                 n("cr:475") == null
                   ? void 0
-                  : n("cr:475").getRawPrekeyUsers(u, c.value.listUser.length);
-            for (var y of c.value.listUser.entries()) {
-              var C = y[0],
-                b = y[1],
-                v =
-                  b.userFetchKeyBundlesSuccessOrFetchKeyBundlesErrorOrFetchKeyBundlesErrorFallbackMixinGroup;
+                  : n("cr:475").getRawPrekeyUsers(c, p.value.listUser.length);
+            for (var b of p.value.listUser.entries()) {
+              var v = b[0],
+                S = b[1],
+                R =
+                  S.userFetchKeyBundlesSuccessOrFetchKeyBundlesErrorOrFetchKeyBundlesErrorFallbackMixinGroup;
               e: {
-                var S = v;
+                var L = R;
                 if (
-                  ((typeof S == "object" && S !== null) ||
-                    typeof S == "function") &&
-                  S.name === "FetchKeyBundlesUserSuccess" &&
-                  "value" in S
+                  ((typeof L == "object" && L !== null) ||
+                    typeof L == "function") &&
+                  L.name === "FetchKeyBundlesUserSuccess" &&
+                  "value" in L
                 ) {
-                  var R,
-                    L,
-                    E,
-                    k = S.value,
-                    I = k.deviceIdentityMixin,
-                    T = k.elementValue,
-                    D = k.nonE2EEAttestationOrForceOverrideE2EEStateMixinGroup,
-                    x = k.pQKeyMixin,
-                    $ = k.preKeyMixin,
-                    P = k.registrationElementValue,
-                    N = k.skeyIdKeyIDMixin,
-                    M = k.skeySignatureElementValue,
-                    w = k.skeyValueKeyDataMixin,
-                    A = {
+                  var E,
+                    k,
+                    I,
+                    T = L.value,
+                    D = T.deviceIdentityMixin,
+                    x = T.elementValue,
+                    $ = T.nonE2EEAttestationOrForceOverrideE2EEStateMixinGroup,
+                    P = T.pQKeyMixin,
+                    N = T.preKeyMixin,
+                    M = T.registrationElementValue,
+                    w = T.skeyIdKeyIDMixin,
+                    A = T.skeySignatureElementValue,
+                    F = T.skeyValueKeyDataMixin,
+                    O = {
                       aeaEvidence:
-                        (R =
+                        (E =
                           n("cr:475") == null
                             ? void 0
                             : n("cr:475").parseAeaEvidenceFromKeyNode(
-                                D,
-                                h == null ? void 0 : h[C],
+                                $,
+                                C == null ? void 0 : C[v],
                               )) != null
-                          ? R
+                          ? E
                           : null,
                       deviceIdentity:
-                        (L =
-                          I == null ? void 0 : I.deviceIdentityElementValue) !=
+                        (k =
+                          D == null ? void 0 : D.deviceIdentityElementValue) !=
                         null
-                          ? L
+                          ? k
                           : null,
-                      identity: T,
+                      identity: x,
                       skey: {
                         id: o("WAParsableXmlNode").convertBytesToUint(
-                          N.elementValue,
+                          w.elementValue,
                           3,
                         ),
-                        pubkey: w.elementValue,
-                        signature: M,
+                        pubkey: F.elementValue,
+                        signature: A,
                       },
-                      key: $
+                      key: N
                         ? {
                             id: o("WAParsableXmlNode").convertBytesToUint(
-                              $.keyIdKeyIDMixin.elementValue,
+                              N.keyIdKeyIDMixin.elementValue,
                               3,
                             ),
                             pubkey:
-                              (E = $.keyValueKeyDataMixin) == null
+                              (I = N.keyValueKeyDataMixin) == null
                                 ? void 0
-                                : E.elementValue,
+                                : I.elementValue,
                           }
                         : null,
-                      kyberKey: x
+                      kyberKey: P
                         ? {
                             id: o("WAParsableXmlNode").convertBytesToUint(
-                              x.idKeyIDMixin.elementValue,
+                              P.idKeyIDMixin.elementValue,
                               3,
                             ),
-                            publicKey: x.valuePQKeyDataMixin.elementValue,
-                            signature: x.signatureElementValue,
+                            publicKey: P.valuePQKeyDataMixin.elementValue,
+                            signature: P.signatureElementValue,
                           }
                         : null,
-                      regId: o("WAParsableXmlNode").convertBytesToUint(P, 4),
-                      wid: o("WAWebWidFactory").createWid(b.jid),
+                      regId: o("WAParsableXmlNode").convertBytesToUint(M, 4),
+                      wid: o("WAWebWidFactory").createWid(S.jid),
                     };
-                  A.wid.device != null &&
-                  A.wid.device !== o("WAJids").DEFAULT_DEVICE_ID
-                    ? f.push(A)
-                    : _.push(A);
+                  O.wid.device != null &&
+                  O.wid.device !== o("WAJids").DEFAULT_DEVICE_ID
+                    ? h.push(O)
+                    : g.push(O);
                   break e;
                 }
                 if (
-                  ((typeof S == "object" && S !== null) ||
-                    typeof S == "function") &&
-                  S.name === "FetchKeyBundlesUserErrorFallback" &&
-                  "value" in S
+                  ((typeof L == "object" && L !== null) ||
+                    typeof L == "function") &&
+                  L.name === "FetchKeyBundlesUserErrorFallback" &&
+                  "value" in L
                 ) {
-                  var F = S.value,
-                    O = F.errorCode,
-                    B = F.errorText;
-                  g.push(
-                    r("err")("fetchPrekeys: list item error: " + O + " " + B),
+                  var B = L.value,
+                    W = B.errorCode,
+                    q = B.errorText;
+                  y.push(
+                    r("err")("fetchPrekeys: list item error: " + W + " " + q),
                   );
                   break e;
                 }
                 if (
-                  ((typeof S == "object" && S !== null) ||
-                    typeof S == "function") &&
-                  S.name === "FetchKeyBundlesUserError" &&
-                  "value" in S
+                  ((typeof L == "object" && L !== null) ||
+                    typeof L == "function") &&
+                  L.name === "FetchKeyBundlesUserError" &&
+                  "value" in L
                 ) {
-                  var W = S.value,
-                    q = W.errorCode,
-                    U = W.errorText;
-                  g.push(
-                    r("err")("fetchPrekeys: list item error: " + q + " " + U),
+                  var U = L.value,
+                    V = U.errorCode,
+                    H = U.errorText;
+                  y.push(
+                    r("err")("fetchPrekeys: list item error: " + V + " " + H),
                   );
                   break e;
                 }
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    S,
+                    L,
                 );
               }
             }
-            if (_.length === 0 && f.length === 0 && g.length === 0)
+            if (g.length === 0 && h.length === 0 && y.length === 0)
               throw new s("fetchPrekeys: empty key info");
-            return { prekeyBundles: [].concat(_, f), errors: g };
+            return { prekeyBundles: [].concat(g, h), errors: y };
           },
         )),
         c.apply(this, arguments)
@@ -221,6 +223,9 @@ __d(
           .catching(r("getErrorSafe")(t))
           .sendLogs("prekeys-fetch-report-fail");
       }
+    }
+    function m(e, t) {
+      return e ? "identity" : t ? "pq" : void 0;
     }
     ((l.EmptyKeyInfoError = s), (l.fetchPrekeys = u));
   },

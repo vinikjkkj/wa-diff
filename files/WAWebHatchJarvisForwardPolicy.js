@@ -9,10 +9,11 @@ __d(
         [/^audio\/(?:aac|mp4|mpeg|ogg|opus|x-m4a)$/, "audio"],
       ],
       s = /^(?:audio|image|video)\/|^text\/html$|^[^/]*$|\s/,
-      u = /^jarvis-media:\/\/[^\s/?#]\S*$/,
-      c = /^(?:[-\w.~:/?#[\]@!$&\'()*+,;=]|%[\dA-Fa-f]{2})*$/,
-      d = /^https:\/\/[^/?#]*@/i,
-      m = new Set([
+      u = 10,
+      c = /^jarvis-media:\/\/[^\s/?#]\S*$/,
+      d = /^(?:[-\w.~:/?#[\]@!$&\'()*+,;=]|%[\dA-Fa-f]{2})*$/,
+      m = /^https:\/\/[^/?#]*@/i,
+      p = new Set([
         "complimentary_subscription",
         "external_link",
         "generic_list",
@@ -20,21 +21,21 @@ __d(
         "shopping_results_v2",
         "text_with_button",
       ]),
-      p = new Set([
+      _ = new Set([
         "GenAIMarkdownTextUXPrimitive",
         "GenAISearchResultPrimitive",
       ]);
-    function _(e, t) {
-      if (e.hasInlineWidgets || !h(e)) return null;
+    function f(e, t) {
+      if (e.hasInlineWidgets || !C(e)) return null;
       var n = t.unifiedResponse.sections;
       if (n.length === 0) return null;
       var r = [];
       for (var o of n) {
-        var a = C(o, t.items);
+        var a = v(o, t.items);
         if (a == null) return null;
         r.push.apply(r, a);
       }
-      return R(r, e.fileMetadata)
+      return k(r, e.fileMetadata)
         ? null
         : r.filter(function (e, t) {
             return (
@@ -45,7 +46,28 @@ __d(
             );
           });
     }
-    function f(t) {
+    function g(e, t, n) {
+      var r = new Set(
+          n.map(function (e) {
+            return e.url;
+          }),
+        ),
+        o = [];
+      for (var a of Array.from(t.items.values()).flatMap(R)) {
+        var i = e.fileMetadata.get(a),
+          l =
+            i != null && i.url === a && c.test(a) && i.envelopeFilehash != null
+              ? E({ file: i, kind: "image" })
+              : null;
+        if (
+          (l != null && !r.has(l.url) && (r.add(l.url), o.push(l)),
+          o.length === u)
+        )
+          break;
+      }
+      return o;
+    }
+    function h(t) {
       var n,
         r,
         o = (n = t == null ? void 0 : t.toLowerCase()) != null ? n : "",
@@ -58,23 +80,23 @@ __d(
             : r[1];
       return a != null ? a : s.test(o) ? null : "document";
     }
-    function g(e) {
-      return c.test(e)
-        ? u.test(e) || (o("WAWebHatchUrl").toHttpsUrl(e) === e && !d.test(e))
+    function y(e) {
+      return d.test(e)
+        ? c.test(e) || (o("WAWebHatchUrl").toHttpsUrl(e) === e && !m.test(e))
         : !1;
     }
-    function h(e) {
+    function C(e) {
       var t = e.presentation;
       return t == null
         ? !e.isPresentationRow
         : t.kind === "image_options"
-          ? y(t.data, e.fileMetadata)
+          ? b(t.data, e.fileMetadata)
           : t.kind === "internal_link_action_card"
             ? o("WAWebHatchJsonReaders").readString(t.data, "type") ===
               "external_link"
-            : m.has(t.kind);
+            : p.has(t.kind);
     }
-    function y(e, t) {
+    function b(e, t) {
       var n,
         r =
           (n = o("WAWebHatchJsonReaders").readArray(e, "images")) != null
@@ -90,7 +112,7 @@ __d(
         })
       );
     }
-    function C(e, t) {
+    function v(e, t) {
       var n,
         r,
         a = o("WAWebHatchJsonReaders").readObject(e, "view_model"),
@@ -99,7 +121,7 @@ __d(
           (n = o("WAWebHatchJsonReaders").readString(i, "__typename")) != null
             ? n
             : "";
-      if (p.has(l)) return [];
+      if (_.has(l)) return [];
       var s =
         l === "GenAIFilePrimitive"
           ? t.get(
@@ -108,9 +130,9 @@ __d(
                 : "",
             )
           : null;
-      return s != null ? b(s) : null;
+      return s != null ? S(s) : null;
     }
-    function b(e) {
+    function S(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -118,7 +140,7 @@ __d(
           "media" in e
         ) {
           var t = e.media;
-          return v(t);
+          return L(t);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -132,7 +154,7 @@ __d(
           "file" in e
         ) {
           var n = e.file;
-          return v([{ file: n, kind: null }]);
+          return L([{ file: n, kind: null }]);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -153,11 +175,36 @@ __d(
         );
       })(e);
     }
-    function v(e) {
-      var t = e.map(S).filter(Boolean);
+    function R(e) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.type === "link_card" &&
+          "card" in e
+        ) {
+          var t = e.card;
+          return [t.imageUrl].filter(Boolean);
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.type === "list" &&
+          "list" in e
+        ) {
+          var n = e.list;
+          return n.rows
+            .map(function (e) {
+              return e.imageUrl;
+            })
+            .filter(Boolean);
+        }
+        return [];
+      })(e);
+    }
+    function L(e) {
+      var t = e.map(E).filter(Boolean);
       return t.length === e.length ? t : null;
     }
-    function S(e) {
+    function E(e) {
       var t,
         n,
         r = e.file,
@@ -168,9 +215,9 @@ __d(
             : r == null || (n = r.encryptedMedia) == null
               ? void 0
               : n.mimeType,
-        i = f(a);
+        i = h(a);
       return r == null ||
-        !g(r.url) ||
+        !y(r.url) ||
         a == null ||
         i == null ||
         (o != null && o !== i)
@@ -182,7 +229,7 @@ __d(
             url: r.url,
           };
     }
-    function R(e, t) {
+    function k(e, t) {
       var n = new Set(
           e.map(function (e) {
             return e.url;
@@ -192,15 +239,15 @@ __d(
           return n.has(e.url);
         });
       return (
-        L(e, function (e) {
+        I(e, function (e) {
           return [e.url, e.mimeType.toLowerCase()];
         }) ||
-        L(r, function (e) {
-          return [e.url, E(e)];
+        I(r, function (e) {
+          return [e.url, T(e)];
         })
       );
     }
-    function L(e, t) {
+    function I(e, t) {
       var n = new Map();
       for (var r of e) {
         var o,
@@ -212,7 +259,7 @@ __d(
       }
       return !1;
     }
-    function E(e) {
+    function T(e) {
       var t = e.encryptedMedia,
         n = e.envelopeFilehash;
       return JSON.stringify([
@@ -224,9 +271,10 @@ __d(
         t == null ? void 0 : t.mediaType,
       ]);
     }
-    ((l.getHatchJarvisForwardMediaRefs = _),
-      (l.hatchJarvisMediaFamily = f),
-      (l.isHatchJarvisForwardMediaUrl = g));
+    ((l.getHatchJarvisForwardMediaRefs = f),
+      (l.getHatchJarvisForwardThumbnailRefs = g),
+      (l.hatchJarvisMediaFamily = h),
+      (l.isHatchJarvisForwardMediaUrl = y));
   },
   98,
 );

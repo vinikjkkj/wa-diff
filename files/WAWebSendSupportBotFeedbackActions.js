@@ -12,6 +12,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumSupportAiEventType",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -32,7 +33,7 @@ __d(
                 .SUPPORT_AI_EVENT_TYPE.NO_INTERNET_DIALOG_SHOWN,
             }).commit(),
               o("WAWebModalManager").ModalManager.close(),
-              o("WAWebModalManager").ModalManager.open(
+              o("WDSDialogBridge").openWDSDialog(
                 c.jsx(r("WAWebSupportOfflinePopUp.react"), {}),
               ));
             return;

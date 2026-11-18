@@ -3,7 +3,7 @@ __d(
   ["WAWebBusinessProfileCollection", "WAWebUserPrefsMeUser", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      if (o("WAWebUserPrefsMeUser").hasLoggedIn()) {
+      if (o("WAWebUserUtils").hasLoggedIn()) {
         var e = o(
           "WAWebBusinessProfileCollection",
         ).BusinessProfileCollection.get(o("WAWebUserUtils").getMeUserOrThrow());

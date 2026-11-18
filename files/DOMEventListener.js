@@ -7,56 +7,66 @@ __d(
     "passiveEventListenerUtil",
     "wrapFunction",
   ],
-  function (t, n, r, o, a, i, l) {
-    var e = n("passiveEventListenerUtil").isPassiveEventListenerSupported,
-      s,
-      u;
+  function (t, n, r, o, a, i, l, s) {
+    var e, u;
     window.addEventListener
-      ? ((s = function (r, o, a, i) {
+      ? ((e = function (t, n, a, i) {
           (i === void 0 && (i = !1),
-            (a.wrapper = n("wrapFunction")(
+            (a.wrapper = r("wrapFunction")(
               a,
               "entry",
-              n("dedupString")("DOMEventListener.add " + o),
+              r("dedupString")("DOMEventListener.add " + n),
             )),
-            r.addEventListener(o, a.wrapper, e ? i : !1));
+            t.addEventListener(
+              n,
+              a.wrapper,
+              o("passiveEventListenerUtil").isPassiveEventListenerSupported
+                ? i
+                : !1,
+            ));
         }),
-        (u = function (n, r, o, a) {
+        (u = function (t, n, r, a) {
           (a === void 0 && (a = !1),
-            n.removeEventListener(r, o.wrapper, e ? a : !1));
+            t.removeEventListener(
+              n,
+              r.wrapper,
+              o("passiveEventListenerUtil").isPassiveEventListenerSupported
+                ? a
+                : !1,
+            ));
         }))
       : window.attachEvent
-        ? ((s = function (t, r, o, a) {
+        ? ((e = function (t, n, o, a) {
             (a === void 0 && (a = !1),
-              (o.wrapper = n("wrapFunction")(
+              (o.wrapper = r("wrapFunction")(
                 o,
                 "entry",
-                "DOMEventListener.add " + r,
+                "DOMEventListener.add " + n,
               )),
-              t.attachEvent || l(0, 2798),
-              t.attachEvent("on" + r, o.wrapper));
+              t.attachEvent || s(0, 2798),
+              t.attachEvent("on" + n, o.wrapper));
           }),
           (u = function (t, n, r, o) {
             (o === void 0 && (o = !1),
-              t.detachEvent || l(0, 2799),
+              t.detachEvent || s(0, 2799),
               t.detachEvent("on" + n, r.wrapper));
           }))
-        : (u = s = n("emptyFunction"));
+        : (u = e = r("emptyFunction"));
     var c = {
-      add: function (t, n, r, o) {
+      add: function (n, r, o, a) {
         return (
-          o === void 0 && (o = !1),
-          s(t, n, r, o),
+          a === void 0 && (a = !1),
+          e(n, r, o, a),
           {
             remove: function () {
-              u(t, n, r, typeof o == "boolean" ? o : o.capture);
+              u(n, r, o, typeof a == "boolean" ? a : a.capture);
             },
           }
         );
       },
       remove: u,
     };
-    a.exports = c;
+    i.exports = c;
   },
-  null,
+  34,
 );

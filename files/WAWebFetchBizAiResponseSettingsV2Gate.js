@@ -88,12 +88,15 @@ __d(
           .then(function () {
             return o("WAPromiseTimeout").promiseTimeout(k(), L());
           })
-          .then(D)
-          .catch(function (e) {
+          .then(function (t) {
+            return D(t, e);
+          })
+          .catch(function (t) {
             D(
-              e instanceof o("WACustomError").TimeoutError
+              t instanceof o("WACustomError").TimeoutError
                 ? { type: "timeout" }
                 : { type: "unknown-failed" },
+              e,
             );
           })
       );
@@ -147,30 +150,30 @@ __d(
       }
       return e instanceof Error ? e.name : typeof e;
     }
-    function D(e) {
+    function D(e, t) {
       e: {
-        var t = e;
+        var n = e;
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "enabled" &&
-          "enabled" in t
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "enabled" &&
+          "enabled" in n
         ) {
-          var n = t.enabled;
-          (o("WAWebBizAiGateCache").cacheBizAiGate(b, n),
+          var r = n.enabled;
+          (o("WAWebBizAiGateCache").cacheBizAiGate(b, r),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[BizAI] response settings V2 gate enabled=",
                   "",
                 ])),
-              n,
+              r,
             ),
-            R(n));
+            R(r));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "timeout"
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "timeout"
         ) {
           (o("WALogger")
             .WARN(
@@ -180,12 +183,12 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-timeout"),
-            R(!1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "auth-failed"
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "auth-failed"
         ) {
           (o("WALogger")
             .WARN(
@@ -199,18 +202,18 @@ __d(
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "network-failed" &&
-          "reason" in t
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "network-failed" &&
+          "reason" in n
         ) {
-          var r = t.reason;
+          var a = n.reason;
           (o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
                 "[BizAI] response settings V2 gate fetch failure reason=",
                 "",
               ])),
-            r,
+            a,
           ),
             o("WALogger")
               .WARN(
@@ -220,12 +223,12 @@ __d(
                   ])),
               )
               .sendLogs("maiba-response-settings-v2-gate-fetch-failed-network"),
-            R(!1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "network-unreachable"
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "network-unreachable"
         ) {
           (o("WALogger")
             .WARN(
@@ -235,12 +238,12 @@ __d(
                 ])),
             )
             .verbose(),
-            R(!1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "token-failed"
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "token-failed"
         ) {
           (o("WALogger")
             .WARN(
@@ -250,12 +253,12 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-token-fetch-failed"),
-            R(!1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "unknown-failed"
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "unknown-failed"
         ) {
           (o("WALogger")
             .WARN(
@@ -265,12 +268,12 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-failed-unknown"),
-            R(!1));
+            R(o("WAWebBizAiGateCache").getBizAiGateFallback(b, t)));
           break e;
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            t,
+            n,
         );
       }
     }

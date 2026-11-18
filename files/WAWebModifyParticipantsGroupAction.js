@@ -559,14 +559,16 @@ __d(
                   )
                 );
               });
-          (o("WAWebToastManager").ToastManager.open(
-            y.jsx(o("WAWebActionToast.react").ActionToast, {
-              id: a,
-              initialAction: d,
-              pendingAction: p,
-            }),
-          ),
-            yield u);
+          return (
+            o("WAWebToastManager").ToastManager.open(
+              y.jsx(o("WAWebActionToast.react").ActionToast, {
+                id: a,
+                initialAction: d,
+                pendingAction: p,
+              }),
+            ),
+            u
+          );
         })),
         M.apply(this, arguments)
       );
@@ -708,14 +710,16 @@ __d(
                   )
                 );
               });
-          (o("WAWebToastManager").ToastManager.open(
-            y.jsx(o("WAWebActionToast.react").ActionToast, {
-              id: a,
-              initialAction: m,
-              pendingAction: _,
-            }),
-          ),
-            yield c);
+          return (
+            o("WAWebToastManager").ToastManager.open(
+              y.jsx(o("WAWebActionToast.react").ActionToast, {
+                id: a,
+                initialAction: m,
+                pendingAction: _,
+              }),
+            ),
+            c
+          );
         })),
         F.apply(this, arguments)
       );
@@ -807,14 +811,16 @@ __d(
                   )
                 );
               });
-          (o("WAWebToastManager").ToastManager.open(
-            y.jsx(o("WAWebActionToast.react").ActionToast, {
-              id: a,
-              initialAction: m,
-              pendingAction: p,
-            }),
-          ),
-            yield c);
+          return (
+            o("WAWebToastManager").ToastManager.open(
+              y.jsx(o("WAWebActionToast.react").ActionToast, {
+                id: a,
+                initialAction: m,
+                pendingAction: p,
+              }),
+            ),
+            c
+          );
         })),
         B.apply(this, arguments)
       );

@@ -563,6 +563,8 @@ __d(
             case o("WAWebMsgType").MSG_TYPE.VIDEO:
             case o("WAWebMsgType").MSG_TYPE.PTV:
             case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
+            case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
+            case o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO:
               return t;
           }
           return a ? t : null;

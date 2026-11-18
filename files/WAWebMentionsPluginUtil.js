@@ -11,6 +11,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
+    "WAWebWODirectoryMemberName",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -103,12 +104,14 @@ __d(
       !o("WAWebFrontendContactGetters").getIsMyContact(t) &&
         !r("isStringNullOrEmpty")(i) &&
         a.push(i.toLowerCase());
-      var l = o("WAWebUsernameTypes").serializeMaybeUsername(
+      var l = o("WAWebWODirectoryMemberName").getWODirectoryMemberName(t);
+      r("isStringNullOrEmpty")(l) || a.push(l.toLowerCase());
+      var s = o("WAWebUsernameTypes").serializeMaybeUsername(
           o("WAWebFrontendContactGetters").getUsername(t),
         ),
-        s = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
+        u = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled();
       return (
-        !r("isStringNullOrEmpty")(l) && s && a.push(l.toLowerCase()),
+        !r("isStringNullOrEmpty")(s) && u && a.push(s.toLowerCase()),
         a.some(function (t) {
           return _(e, t);
         })

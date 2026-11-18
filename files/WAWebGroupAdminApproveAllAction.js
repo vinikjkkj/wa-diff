@@ -3,9 +3,11 @@ __d(
   [
     "WAConcurrentIterate",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebFindCommonGroupsContactAction",
     "WAWebFrontendContactGetters",
     "WAWebGroupGetMembershipApprovalRequestsJob",
+    "WAWebGroupMembershipRequestsService",
     "WAWebMembershipApprovalRequestAction",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -16,13 +18,14 @@ __d(
       u,
       c = 50,
       d = 409,
-      m = 500;
-    function p(e, t) {
-      return _.apply(this, arguments);
+      m = 404,
+      p = 500;
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           yield o("WAWebFindCommonGroupsContactAction")
             .findCommonGroupsForContacts(
               a.map(function (e) {
@@ -39,36 +42,47 @@ __d(
                 )
                 .catching(r("getErrorSafe")(t));
             });
-          var i = f(a),
-            l = 0,
-            c = 0,
-            p = null,
-            _ = null,
-            h = !1;
+          var l = g(a),
+            c = [],
+            _ = [],
+            f = [],
+            y = 0,
+            C = 0,
+            b = null,
+            v = null,
+            S = !1;
           return (
             yield o("WAConcurrentIterate").concurrentIterate(
-              i.length,
+              l.length,
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    if (h) {
-                      c += i[e].length;
+                    if (S) {
+                      C += l[e].length;
                       return;
                     }
                     try {
                       var n = yield o(
                         "WAWebMembershipApprovalRequestAction",
-                      ).approveMembershipApprovalRequests(t, i[e], g);
+                      ).approveMembershipApprovalRequests(t, l[e], h, i);
                       n.forEach(function (e) {
-                        var t = e.error;
-                        if (t == null || t.status === d) {
-                          l++;
+                        var t = e.error,
+                          n = e.request,
+                          r = e.wid;
+                        if (
+                          (t == null
+                            ? c.push({ request: n, wid: r != null ? r : n.id })
+                            : t.status === d && _.push(n),
+                          t == null || t.status === d)
+                        ) {
+                          y++;
                           return;
                         }
-                        (c++,
-                          t.status === m
-                            ? ((h = !0), (_ = t.status))
-                            : _ != null || (_ = t.status),
+                        (t.status === m && f.push(n),
+                          C++,
+                          t.status === p
+                            ? ((S = !0), (v = t.status))
+                            : v != null || (v = t.status),
                           o("WALogger").WARN(
                             s ||
                               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -79,13 +93,13 @@ __d(
                           ));
                       });
                     } catch (t) {
-                      ((h = !0),
-                        (p =
+                      ((S = !0),
+                        (b =
                           t instanceof
                           o("WAWebMembershipApprovalRequestAction").GroupError
                             ? t.status
                             : null),
-                        (c += i[e].length),
+                        (C += l[e].length),
                         o("WALogger")
                           .WARN(
                             u ||
@@ -103,26 +117,33 @@ __d(
               })(),
               1,
             ),
-            c > 0 &&
-              o(
-                "WAWebGroupGetMembershipApprovalRequestsJob",
-              ).queryAndUpdateGroupMembershipApprovalRequests(t.id),
+            C > 0 &&
+              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupMembershipRequestsService")
+                      .GroupMembershipRequestsService,
+                  ).queryAndUpdateGroupMembershipApprovalRequests
+                : o("WAWebGroupGetMembershipApprovalRequestsJob")
+                    .queryAndUpdateGroupMembershipApprovalRequests)(t.id),
             {
-              approvedCount: l,
-              failedCount: c,
-              groupErrorStatus: p,
-              requestErrorStatus: _,
+              alreadyAdded: _,
+              approved: c,
+              approvedCount: y,
+              failedCount: C,
+              gone: f,
+              groupErrorStatus: b,
+              requestErrorStatus: v,
             }
           );
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
+    function g(e) {
       for (var t = [], n = 0; n < e.length; n += c) t.push(e.slice(n, n + c));
       return t;
     }
-    function g(e) {
+    function h(e) {
       var t, n;
       return (t =
         (n = o("WAWebFrontendContactGetters").getCommonGroups(e.contact)) ==
@@ -132,7 +153,7 @@ __d(
         ? t
         : 0;
     }
-    ((l.GROUP_FULL_STATUS = m), (l.approveAllMembershipApprovalRequests = p));
+    ((l.GROUP_FULL_STATUS = p), (l.approveAllMembershipApprovalRequests = _));
   },
   98,
 );

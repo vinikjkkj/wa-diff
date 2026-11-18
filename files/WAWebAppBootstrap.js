@@ -49,6 +49,7 @@ __d(
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVCCssBgScanChildrenFirst",
     "WAWebWam",
     "WAWebWamPageLoadReporter",
@@ -227,7 +228,7 @@ __d(
             }),
             o("WAWebStorageErrorHandlingUtils").persistAppReloadMarker(),
             r("WAWebEnvironment").isWindows &&
-              !o("WAWebUserPrefsMeUser").hasLoggedIn() &&
+              !o("WAWebUserUtils").hasLoggedIn() &&
               (p == null || p()),
             o("WAWebUim").setupUimListeners(),
             o(

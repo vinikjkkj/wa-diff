@@ -7,6 +7,7 @@ __d(
       CONVERSATION_BANNER: 2,
       GROUP_INFO: 3,
       NOTIFICATION: 4,
+      MANAGE_MEMBERS: 5,
     });
     i.GROUP_JOIN_REQUEST_ENTRYPOINT_TYPE = e;
   },

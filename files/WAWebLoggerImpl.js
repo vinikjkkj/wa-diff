@@ -93,85 +93,7 @@ __d(
           (this.$11 = !1),
           (this.maybeUpdateLogCapacityFromABProp = r("WAOnceWithReset")(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (r("gkx")("26258")) {
-                var e = o("WAWebABProps").getABPropConfigValue(
-                  "web_log_capacity_override",
-                );
-                if (
-                  ((e === 0 || e == null) &&
-                    o("WAWebABProps").getABPropConfigValue(
-                      "enable_web_log_download",
-                    ) &&
-                    (e = S),
-                  !(e === 0 || e == null))
-                ) {
-                  if (
-                    ((t.$11 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
-                  ) {
-                    o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[logger] Skipping log capacity increase for low-end device",
-                        ])),
-                    );
-                    return;
-                  }
-                  try {
-                    var n = yield o("WAStorageEstimator").estimateStorage();
-                    if (n.success) {
-                      var a = n.value,
-                        i = a.quota,
-                        l = a.usage,
-                        s = (i - l) / (1024 * 1024);
-                      if (s < I) {
-                        o("WALogger").LOG(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "[logger] Skipping log capacity increase due to low storage: ",
-                              "MB available",
-                            ])),
-                          s.toFixed(0),
-                        );
-                        return;
-                      }
-                    } else {
-                      o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[logger] Skipping log capacity increase - could not estimate storage",
-                          ])),
-                      );
-                      return;
-                    }
-                  } catch (e) {
-                    o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[logger] Skipping log capacity increase due to storage check failure: ",
-                          "",
-                        ])),
-                      String(e),
-                    );
-                    return;
-                  }
-                  var _ = Math.min(e, S);
-                  if (_ > t.logCapacityInDatabase) {
-                    var f = Date.now();
-                    (t.$13(_), t.$5 && _ === S && (t.$6 = L));
-                    var g = Date.now() - f;
-                    o("WALogger").LOG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "[logger] Log capacity increased to ",
-                          " via AB prop (resize took ",
-                          "ms)",
-                        ])),
-                      _,
-                      g,
-                    );
-                  }
-                }
-              }
+              yield t.$13();
             }),
           )),
           (this.log = r("WAMemoizeConditionally")(
@@ -210,14 +132,101 @@ __d(
             o("WAWebLowEndDeviceApi").shouldReduceLogsForLowEndDevice();
           (e &&
             o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "Disabling logs due to low-end device",
                 ])),
             ),
             (this.shouldSkipLoggingForProdLowEndDevice = e));
         }),
-        (t.$13 = function (t) {
+        (t.$13 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (r("gkx")("26258")) {
+              var e = o("WAWebABProps").getABPropConfigValue(
+                "web_log_capacity_override",
+              );
+              if (
+                ((e === 0 || e == null) &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "enable_web_log_download",
+                  ) &&
+                  (e = S),
+                !(e === 0 || e == null))
+              ) {
+                if (
+                  ((this.$11 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
+                ) {
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[logger] Skipping log capacity increase for low-end device",
+                      ])),
+                  );
+                  return;
+                }
+                try {
+                  var t = yield o("WAStorageEstimator").estimateStorage();
+                  if (t.success) {
+                    var n = t.value,
+                      a = n.quota,
+                      i = n.usage,
+                      l = (a - i) / (1024 * 1024);
+                    if (l < I) {
+                      o("WALogger").LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[logger] Skipping log capacity increase due to low storage: ",
+                            "MB available",
+                          ])),
+                        l.toFixed(0),
+                      );
+                      return;
+                    }
+                  } else {
+                    o("WALogger").LOG(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "[logger] Skipping log capacity increase - could not estimate storage",
+                        ])),
+                    );
+                    return;
+                  }
+                } catch (e) {
+                  o("WALogger").LOG(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "[logger] Skipping log capacity increase due to storage check failure: ",
+                        "",
+                      ])),
+                    String(e),
+                  );
+                  return;
+                }
+                var s = Math.min(e, S);
+                if (s > this.logCapacityInDatabase) {
+                  var u = Date.now();
+                  (this.$14(s), this.$5 && s === S && (this.$6 = L));
+                  var f = Date.now() - u;
+                  o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[logger] Log capacity increased to ",
+                        " via AB prop (resize took ",
+                        "ms)",
+                      ])),
+                    s,
+                    f,
+                  );
+                }
+              }
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.$14 = function (t) {
           if (!(t <= this.logCapacityInDatabase)) {
             this.$2 = !0;
             try {
@@ -249,35 +258,35 @@ __d(
             }
           }
         }),
-        (t.$14 = function (t) {
+        (t.$15 = function (t) {
           if (t.e === !0) {
             var e = this.$8[this.$9];
-            (e != null && this.$15(-e.m.length),
+            (e != null && this.$16(-e.m.length),
               (this.$8[this.$9] = t),
-              this.$15(t.m.length),
+              this.$16(t.m.length),
               (this.$9 = (this.$9 + 1) % T),
               this.$10 < T && this.$10++);
           }
         }),
-        (t.$15 = function (t) {
+        (t.$16 = function (t) {
           this.$5 && (this.$7 += t);
         }),
-        (t.$16 = function (t, n) {
+        (t.$17 = function (t, n) {
           var e = this.logs[t];
           e != null &&
-            (n && this.$11 && this.$14(e),
-            this.$15(-e.m.length),
+            (n && this.$11 && this.$15(e),
+            this.$16(-e.m.length),
             (this.logs[t] = void 0));
         }),
-        (t.$17 = function () {
+        (t.$18 = function () {
           if (this.$10 !== 0) {
             var e = (this.$9 - this.$10 + T) % T,
               t = this.$8[e];
-            (t != null && (this.$15(-t.m.length), (this.$8[e] = void 0)),
+            (t != null && (this.$16(-t.m.length), (this.$8[e] = void 0)),
               this.$10--);
           }
         }),
-        (t.$18 = function () {
+        (t.$19 = function () {
           if (!(!this.$5 || this.$7 <= this.$6)) {
             for (
               var e =
@@ -287,10 +296,10 @@ __d(
               this.logs[this.writeFrom] != null &&
               this.writeFrom !== e;
             )
-              (this.$16(this.writeFrom, !0),
+              (this.$17(this.writeFrom, !0),
                 (this.writeFrom =
                   (this.writeFrom + 1) % this.logCapacityInDatabase));
-            for (; this.$7 > this.$6 && this.$10 > 0; ) this.$17();
+            for (; this.$7 > this.$6 && this.$10 > 0; ) this.$18();
           }
         }),
         (t.logImpl = function (t, n, a, i, l) {
@@ -323,17 +332,17 @@ __d(
                 .join(""),
               d = w + " " + s + (c ? c + " " : "") + n + u;
             this.logs[this.localCursor] != null &&
-              this.$16(this.localCursor, !0);
+              this.$17(this.localCursor, !0);
             var m = t === A.ERROR;
             ((this.logs[this.localCursor] = m
               ? { m: d, t: e, e: !0 }
               : { m: d, t: e }),
-              this.$15(d.length),
+              this.$16(d.length),
               (this.localCursor =
                 (this.localCursor + 1) % this.logCapacityInDatabase),
               this.logs[this.localCursor] != null &&
                 (this.writeFrom = this.localCursor),
-              this.$18(),
+              this.$19(),
               !this.isTakeOver && this.timer.debounceAndCap(250, 1e3));
           }
         }),
@@ -358,7 +367,7 @@ __d(
                       e.logs[e.writeFrom] != null;
                     ) {
                       var l = e.logs[e.writeFrom];
-                      (e.$16(e.writeFrom, !1),
+                      (e.$17(e.writeFrom, !1),
                         (e.writeFrom =
                           (e.writeFrom + 1) % e.logCapacityInDatabase),
                         (e.runningTimestamp =

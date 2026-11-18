@@ -14,6 +14,7 @@ __d(
       URL_CLICK: 8,
       REPLY_UI_OPENED: 9,
       SPEED_UP_HOLD: 10,
+      PIX_STICKER_CLICK: 11,
     });
     i.STATUS_VIEW_ACTION_TYPE = e;
   },

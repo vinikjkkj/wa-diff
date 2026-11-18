@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebAuraGating",
     "WAWebBizAiAgentGating",
@@ -479,7 +480,12 @@ __d(
               o("WAWebMsgGetters").getIsSentByMe(r)
             ) &&
             o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
-            !o("WAWebFrontendMsgGetters").getAsAlbum(r);
+            !o("WAWebFrontendMsgGetters").getAsAlbum(r) &&
+            (r.star === !0 ||
+              r.type !== o("WAWebMsgType").MSG_TYPE.CALL_LOG ||
+              !o("WAWebABProps").getABPropConfigValue(
+                "wa_web_feature_parity_small_wins",
+              ));
     }
     function A(e) {
       var t,

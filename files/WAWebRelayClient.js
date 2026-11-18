@@ -11,6 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = [
         "accessToken",
+        "environment",
         "environmentType",
         "eventLogger",
         "getInlineDataReader",
@@ -33,28 +34,32 @@ __d(
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           var a = r === void 0 ? {} : r,
             i = a.accessToken,
-            l = a.environmentType,
-            s = a.eventLogger,
-            u = a.getInlineDataReader,
-            c = babelHelpers.objectWithoutPropertiesLoose(a, e),
-            d = yield o("WAWebRelayEnvironment").requireRelayRuntime(),
-            m = d.fetchQuery,
-            p = d.readInlineData,
-            _ = f(i),
-            g = _.accessTokenString,
-            h = _.actorID;
+            l = a.environment,
+            s = a.environmentType,
+            u = a.eventLogger,
+            c = a.getInlineDataReader,
+            d = babelHelpers.objectWithoutPropertiesLoose(a, e),
+            m = yield o("WAWebRelayEnvironment").requireRelayRuntime(),
+            p = m.fetchQuery,
+            _ = m.readInlineData,
+            g = f(i),
+            h = g.accessTokenString,
+            y = g.actorID;
           try {
-            var y = yield o("WAWebRelayEnvironment").getEnvironment({
-                environmentType: l,
-                accessToken: g,
-                actorID: h,
-              }),
-              C = (yield m)(y, t, n, c).toPromise();
-            return (s == null || s.success(), u == null || u(p), C);
+            var C =
+                l != null
+                  ? l
+                  : yield o("WAWebRelayEnvironment").getEnvironment({
+                      environmentType: s,
+                      accessToken: h,
+                      actorID: y,
+                    }),
+              b = (yield p)(C, t, n, d).toPromise();
+            return (u == null || u.success(), c == null || c(_), b);
           } catch (e) {
             throw (
               e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
-                (s == null || s.failure(e.source.errors)),
+                (u == null || u.failure(e.source.errors)),
               e
             );
           }

@@ -33,12 +33,16 @@ __d(
       return ((e = o), o);
     }
     function p() {
+      return r("gkx")("26518");
+    }
+    function _() {
       return r("justknobx")._("6455");
     }
     ((l.isDeauthBroadcastEnabled = c),
       (l.isWsCompressionEnabled = d),
       (l.isTaskMuxEnabled = m),
-      (l.isInternalCertPrimingEnabled = p));
+      (l.isH2SessionPrimingEnabled = p),
+      (l.isInternalCertPrimingEnabled = _));
   },
   98,
 );

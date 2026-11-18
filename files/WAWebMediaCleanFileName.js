@@ -2,8 +2,40 @@ __d(
   "WAWebMediaCleanFileName",
   ["WALogger"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e,
+      s = new Set([
+        "bat",
+        "exe",
+        "cmd",
+        "com",
+        "lnk",
+        "pif",
+        "scr",
+        "vb",
+        "vbe",
+        "vbs",
+        "wsh",
+        "js",
+        "ps1",
+        "hta",
+        "sh",
+        "csh",
+        "msi",
+        "app",
+        "scpt",
+        "applescript",
+        "reg",
+        "wsf",
+        "sct",
+      ]);
+    function u(e) {
+      for (var t = e.length; t > 0 && (e[t - 1] === "." || e[t - 1] === " "); )
+        t--;
+      var n = e.slice(0, t),
+        r = n.lastIndexOf(".");
+      return r !== -1 && s.has(n.slice(r + 1).toLowerCase());
+    }
+    function c(e) {
       if (!e) return e;
       var t = e.replace(
           /[\u202a-\u202e\u2066-\u2069\u200E\u200F\u061C]/g,
@@ -17,40 +49,14 @@ __d(
       }
       return t;
     }
-    function u(t) {
+    function d(t) {
       if (t == null) return t;
-      var n = s(t);
+      var n = c(t);
       if (t !== n && n) {
-        var r = [
-            "bat",
-            "exe",
-            "cmd",
-            "com",
-            "lnk",
-            "pif",
-            "scr",
-            "vb",
-            "vbe",
-            "vbs",
-            "wsh",
-            "js",
-            "ps1",
-            "hta",
-            "sh",
-            "csh",
-            "msi",
-            "app",
-            "scpt",
-            "applescript",
-            "reg",
-            "vbe",
-            "wsf",
-            "sct",
-          ],
-          a = n.split("."),
-          i = a.length >= 2 ? a.pop() : "";
-        i != null &&
-          r.includes(i) &&
+        var r = n.split("."),
+          a = r.length >= 2 ? r.pop() : "";
+        a != null &&
+          s.has(a) &&
           o("WALogger")
             .LOG(
               e ||
@@ -58,13 +64,15 @@ __d(
                   "cleanIncomingFilename:extension: ",
                   "",
                 ])),
-              i,
+              a,
             )
             .verbose();
       }
       return n;
     }
-    ((l.cleanFilename = s), (l.cleanIncomingFilename = u));
+    ((l.hasExecutableExtension = u),
+      (l.cleanFilename = c),
+      (l.cleanIncomingFilename = d));
   },
   98,
 );

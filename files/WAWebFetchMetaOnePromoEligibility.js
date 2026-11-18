@@ -20,12 +20,18 @@ __d(
       u,
       c,
       d = 864e5,
-      m =
+      m = [
+        "Failed to fetch",
+        "Load failed",
+        "NetworkError when attempting to fetch resource.",
+        "The network connection was lost.",
+      ],
+      p =
         e !== void 0
           ? e
           : (e = n("WAWebFetchMetaOnePromoEligibilityQuery.graphql")),
-      p = null;
-    function _() {
+      _ = null;
+    function f() {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         !o("WAWebMetaOneGating").isMetaOneRolloutEnabled()
@@ -35,15 +41,15 @@ __d(
         "web",
         o("WAWebMetaOnePromoEligibility").getMetaOnePhonePromoPlatform(),
       ];
-      return f(e)
-        ? (p == null &&
-            (p = g(e).finally(function () {
-              p = null;
+      return g(e)
+        ? (_ == null &&
+            (_ = h(e).finally(function () {
+              _ = null;
             })),
-          p)
+          _)
         : (c || (c = n("Promise"))).resolve();
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebUserPrefsSubscription").getMetaOnePromoTypes();
       return (
         o("WAWebUserPrefsSubscription").getNextFetchMetaOnePromoTime() <=
@@ -53,13 +59,13 @@ __d(
         })
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y(e);
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield C(e);
           if (t.type === "failed") {
             o("WALogger").LOG(
               s ||
@@ -76,23 +82,23 @@ __d(
               Date.now() + d,
             ));
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (t.type !== "success") return { type: "failed", reason: t.type };
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
             var n,
               a = yield o("WAWebRelayClient").fetchQuery(
-                m,
-                { request: { promo_platforms: e.map(b) } },
+                p,
+                { request: { promo_platforms: e.map(S) } },
                 { environmentType: "facebook", accessToken: t.token },
               ),
               i =
@@ -103,7 +109,7 @@ __d(
             var l = {},
               s = function* () {
                 var e,
-                  t = b(c),
+                  t = S(c),
                   n = i.find(function (e) {
                     return e.platform === t;
                   });
@@ -116,26 +122,42 @@ __d(
             for (var c of e) yield* s();
             return { type: "fetched", promoTypes: l };
           } catch (e) {
-            return e instanceof Error &&
+            if (
+              e instanceof Error &&
               o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-              ? (o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
-                { type: "failed", reason: "auth-failure" })
-              : (o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "fetchMetaOnePromoEligibility: threw",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("meta-one-promo-eligibility-fetch-failed"),
-                { type: "failed", reason: "error" });
+            )
+              return (
+                o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
+                { type: "failed", reason: "auth-failure" }
+              );
+            var d = r("getErrorSafe")(e),
+              m = o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "fetchMetaOnePromoEligibility: threw",
+                    ])),
+                )
+                .catching(d),
+              _ = v(d) ? m.tags("non-sad") : m;
+            return (
+              _.sendLogs("meta-one-promo-eligibility-fetch-failed"),
+              { type: "failed", reason: "error" }
+            );
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
+    function v(e) {
+      return (
+        e.name === "TypeError" &&
+        m.some(function (t) {
+          return e.message.includes(t);
+        })
+      );
+    }
+    function S(e) {
       return e === "smba"
         ? "SMBA"
         : e === "smbi"
@@ -149,7 +171,7 @@ __d(
                 );
               })();
     }
-    l.fetchMetaOnePromoEligibility = _;
+    l.fetchMetaOnePromoEligibility = f;
   },
   98,
 );

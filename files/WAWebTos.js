@@ -25,7 +25,6 @@ __d(
     "WAWebTosGatingUtils",
     "WAWebTosJob",
     "WAWebUserPrefsKeys",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "WAWebUserUtils",
     "WAWebWamoNewsletterGatingUtils",
@@ -269,7 +268,7 @@ __d(
         (i.$TosManagerImpl$p_8 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this;
-            if (o("WAWebUserPrefsMeUser").hasLoggedIn()) {
+            if (o("WAWebUserUtils").hasLoggedIn()) {
               var t = yield (p || (p = n("Promise"))).all([
                   this.$TosManagerImpl$p_10(),
                   this.$TosManagerImpl$p_11(),
@@ -425,7 +424,7 @@ __d(
         })()),
         (i.$TosManagerImpl$p_13 = function (t) {
           var e = this;
-          if (o("WAWebUserPrefsMeUser").hasLoggedIn()) {
+          if (o("WAWebUserUtils").hasLoggedIn()) {
             var n = this.$TosManagerImpl$p_3().map(function (t) {
               return e.getState(t);
             });

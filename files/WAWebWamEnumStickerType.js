@@ -23,6 +23,7 @@ __d(
       QUESTION_ANSWER: 17,
       REACTION_STICKER: 18,
       NYE_2026: 19,
+      PIX: 20,
     });
     i.STICKER_TYPE = e;
   },

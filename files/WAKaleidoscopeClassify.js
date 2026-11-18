@@ -197,21 +197,23 @@ __d(
             v = t.withEnforceStrictMimetypeMatch,
             S = t.withMimetypeFuzzyMatch,
             R = t.withMimetypeIgnoreParameters,
-            L = t.zipArchiveCheckEnabled,
-            E = o("WASI").createWasi(
+            L = t.withStreamCheck,
+            E = L === void 0 ? !1 : L,
+            k = t.zipArchiveCheckEnabled,
+            I = o("WASI").createWasi(
               A({
                 input: h,
                 mimetypeHints: _,
                 strictJpegScanValidationEnabled: y,
                 strictMp4ValidationEnabled: C,
                 strictOggOpusValidationEnabled: b,
-                zipArchiveCheckEnabled: L,
+                zipArchiveCheckEnabled: k,
                 allowAv1VideoCodec: p,
                 claimedTypeValidationEnabled: f,
                 withEnforceStrictMimetypeMatch: v,
                 withMimetypeIgnoreParameters: R,
                 withMimetypeFuzzyMatch: S,
-                withStreamCheck: !1,
+                withStreamCheck: E,
                 stderr: function (n) {
                   o("WAKaleidoscopeLogger")
                     .ksLogger()
@@ -232,14 +234,14 @@ __d(
                 },
               }),
             ),
-            k = E.getImportObject,
-            I = E.start,
-            T = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-            D = yield WebAssembly.instantiate(T, k()),
-            x = I(D),
-            $ = x.exitCode,
-            P = x.fs;
-          if ($ !== 0)
+            T = I.getImportObject,
+            D = I.start,
+            x = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+            $ = yield WebAssembly.instantiate(x, T()),
+            P = D($),
+            N = P.exitCode,
+            M = P.fs;
+          if (N !== 0)
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -249,12 +251,12 @@ __d(
                       "classifyWithMediaType failed with exit code ",
                       "",
                     ])),
-                  $,
+                  N,
                 ),
               o("WAResultOrError").makeError("wasm-runtime-error")
             );
-          var N = (n = P[g]) == null ? void 0 : n.content;
-          if (typeof N != "string")
+          var w = (n = M[g]) == null ? void 0 : n.content;
+          if (typeof w != "string")
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -266,9 +268,9 @@ __d(
                 ),
               o("WAResultOrError").makeError("wasm-result-not-json")
             );
-          var M = {};
+          var F = {};
           try {
-            M = JSON.parse(N);
+            F = JSON.parse(w);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -283,7 +285,7 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json")
             );
           }
-          return typeof ((a = M) == null ? void 0 : a.score) != "number"
+          return typeof ((a = F) == null ? void 0 : a.score) != "number"
             ? (o("WAKaleidoscopeLogger")
                 .ksLogger()
                 .MUSTFIX(
@@ -295,10 +297,10 @@ __d(
               o("WAResultOrError").makeError("wasm-invalid-json"))
             : o("WAResultOrError").makeResult({
                 mimetype:
-                  ((i = M) == null ? void 0 : i.mimetype) ||
+                  ((i = F) == null ? void 0 : i.mimetype) ||
                   "application/octet-stream",
-                extension: ((l = M) == null ? void 0 : l.extension) || null,
-                score: M.score,
+                extension: ((l = F) == null ? void 0 : l.extension) || null,
+                score: F.score,
               });
         })),
         w.apply(this, arguments)

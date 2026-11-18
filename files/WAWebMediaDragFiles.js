@@ -3,11 +3,13 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebActiveIntegrityHoldout",
     "WAWebCreateFile",
     "WAWebDragAndDropGatingUtils",
     "WAWebFileUtils",
     "WAWebFilenameManager",
     "WAWebForwardDrag",
+    "WAWebHarmfulFileWarningGate",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaOpaqueData",
     "WAWebMsgActionCanDownloadMsg",
@@ -16,6 +18,7 @@ __d(
     "WAWebWamEnumWebcRmrReasonCode",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -52,7 +55,7 @@ __d(
       return (
         n != null &&
         e.isGif !== !0 &&
-        !S(e.type, (t = e.mediaData) == null ? void 0 : t.mimetype) &&
+        !R(e.type, (t = e.mediaData) == null ? void 0 : t.mimetype) &&
         o("WAWebDragAndDropGatingUtils").isDragAndDropCapabilityEnabled(
           n.capability,
         ) &&
@@ -66,7 +69,9 @@ __d(
       );
     }
     function m(e) {
-      return !u.has(e.type) || !d(e) ? null : C(e, b(e.mediaData));
+      if (!u.has(e.type) || !d(e)) return null;
+      var t = C(e, v(e.mediaData));
+      return t != null && b(e) ? t : null;
     }
     function p(e) {
       return (
@@ -94,7 +99,7 @@ __d(
           if (!c(t)) return null;
           try {
             var n = C(t, yield h(t));
-            return n != null && !S(t.type, n.type) ? n : null;
+            return n != null && !R(t.type, n.type) ? n : null;
           } catch (t) {
             return (
               o("WALogger")
@@ -118,7 +123,7 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = b(e.mediaData);
+          var t = v(e.mediaData);
           return t != null
             ? t
             : (yield e.downloadMedia({
@@ -127,13 +132,13 @@ __d(
                 rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                   .WEBC_RMR_REASON_CODE.SEND_TO_CHAT,
               }),
-              b(e.mediaData));
+              v(e.mediaData));
         })),
         y.apply(this, arguments)
       );
     }
     function C(e, t) {
-      return t != null && v(e.type, t.type)
+      return t != null && S(e.type, t.type)
         ? o("WAWebCreateFile").createFile(
             [t],
             o("WAWebFilenameManager").getDefaultName(e),
@@ -142,6 +147,13 @@ __d(
         : null;
     }
     function b(e) {
+      return (
+        !r("justknobx")._("8497") ||
+        !o("WAWebHarmfulFileWarningGate").shouldShowHarmfulFileWarning(e) ||
+        o("WAWebActiveIntegrityHoldout").isSuppressedByActiveIntegrityHoldout()
+      );
+    }
+    function v(e) {
       if (e == null) return null;
       var t = e.filehash,
         n = e.mediaBlob;
@@ -151,13 +163,13 @@ __d(
           ? n
           : o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(t);
     }
-    function v(e, t) {
+    function S(e, t) {
       var n = u.get(e);
       return n == null
         ? !1
         : n.mimePrefix == null || t.startsWith(n.mimePrefix);
     }
-    function S(e, t) {
+    function R(e, t) {
       return (
         e === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
         t != null &&
@@ -169,7 +181,8 @@ __d(
       (l.canTakeMediaOut = d),
       (l.getCachedMediaFile = m),
       (l.isMediaDrag = p),
-      (l.takeMediaDragFiles = _));
+      (l.takeMediaDragFiles = _),
+      (l.isHarmfulFileAllowed = b));
   },
   98,
 );

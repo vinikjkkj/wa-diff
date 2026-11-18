@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebChatGetMessage",
     "WAWebChatGetters",
-    "WAWebConfirmPopup.react",
     "WAWebFbtCommon",
     "WAWebImageUtils",
     "WAWebMediaConstants",
@@ -16,9 +15,13 @@ __d(
     "WAWebPonyfillsFetch",
     "WAWebQuestions.flow",
     "WAWebStopEvent",
+    "WAWebTimeSpentLoggingNavigation",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebURLUtils",
+    "WDSButtonGroup.react",
+    "WDSDialog.react",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -97,19 +100,40 @@ __d(
         );
     }
     function p() {
-      o("WAWebModalManager").ModalManager.open(
-        c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "compose-box" },
-          title: s._(/*BTDS*/ "Message too long"),
-          onOK: o("WAWebModalManager").closeModalManager,
-          okText: r("WAWebFbtCommon")("OK"),
-          children: s._(
+      o("WDSDialogBridge").openWDSDialog(c.jsx(_, {}));
+    }
+    function _() {
+      return (
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "unknown",
+          viewName: "compose-box",
+        }),
+        c.jsx(r("WDSDialog.react"), {
+          closeButton: !1,
+          description: s._(
             /*BTDS*/ "The message you're pasting is too long. Try shortening it or sending it in multiple parts.",
           ),
-        }),
+          footer: c.jsx(r("WDSButtonGroup.react"), {
+            orientation: "stacked",
+            primaryButtonProps: {
+              label: r("WAWebFbtCommon")("OK"),
+              onPress: o("WDSDialogBridge").closeWDSDialog,
+              testid: "popup-controls-ok",
+            },
+            width: "fill",
+          }),
+          headerType: "expressive",
+          layoutType: "expressive",
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
+          size: "sm",
+          testid: "confirm-popup",
+          title: s._(/*BTDS*/ "Message too long"),
+        })
       );
     }
-    function _(e, t) {
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e, t) {
       var n = o("WAWebChatGetMessage").getLastSentMsg(e);
       n && o("WAWebMsgActionCapability").canEnterEditingFlow(n)
         ? (o("WAWebModalManager").ModalManager.open(
@@ -122,7 +146,7 @@ __d(
             }),
           );
     }
-    function f(e) {
+    function g(e) {
       var t = e.chat,
         n = e.isEditingCaption,
         r = e.questionType;
@@ -142,8 +166,8 @@ __d(
                 : s._(/*BTDS*/ "Type an update")
           : s._(/*BTDS*/ "Type a message");
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
       var t = o("WAWebChatGetters").getIsGroup(e);
       return t
         ? s._(/*BTDS*/ "Type a message to group {chatName}", [
@@ -156,9 +180,9 @@ __d(
     ((l.getCachedPreview = d),
       (l.fetchGif = m),
       (l.handleMaxPasteExceeded = p),
-      (l.editLastMessage = _),
-      (l.getComposeBoxPlaceholderText = f),
-      (l.getComposeBoxAriaLabelText = g));
+      (l.editLastMessage = f),
+      (l.getComposeBoxPlaceholderText = g),
+      (l.getComposeBoxAriaLabelText = h));
   },
   226,
 );

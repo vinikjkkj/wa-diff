@@ -159,8 +159,7 @@ __d(
         var i = a.prototype;
         return (
           (i.initialize = function () {
-            (this.listenTo(this, "change:online", this.$NetworkStatus$p_1),
-              this.$NetworkStatus$p_1());
+            this.listenTo(this, "change:online", this.$NetworkStatus$p_1);
           }),
           (i.$NetworkStatus$p_1 = function () {
             var e = this.online;

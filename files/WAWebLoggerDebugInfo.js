@@ -65,7 +65,7 @@ __d(
             r("gkx")("26259")
               ? (t.releaseChannel = "intern")
               : r("gkx")("26258") && (t.releaseChannel = "production"),
-            o("WAWebUserPrefsMeUser").hasLoggedIn() &&
+            o("WAWebUserUtils").hasLoggedIn() &&
               (t.deviceID = o("WAWebUserUtils")
                 .getMeDeviceOrThrow()
                 .toString()));

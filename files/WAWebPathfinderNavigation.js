@@ -41,34 +41,37 @@ __d(
         o("WAWebPathfinderLogger").emitPathfinderEvent(e));
     }
     function d(t, n, r) {
-      var a = Date.now();
+      var o = Date.now();
       if (n === "background" || t === "background") {
-        e(t, n, a);
+        e(t, n, o);
         return;
       }
-      var i = p(t, n);
-      (o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(n),
-        o("WAWebPathfinderScreenName").updateCurrentScreenName(n));
-      var l =
-        n === r
-          ? o("WAWebPathfinderChatInfo").getActiveChatInfoMetadata(r)
+      m(t, n, r, o);
+    }
+    function m(e, t, n, r) {
+      var a = _(e, t);
+      (o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t),
+        o("WAWebPathfinderScreenName").updateCurrentScreenName(t));
+      var i =
+        t === n
+          ? o("WAWebPathfinderChatInfo").getActiveChatInfoMetadata(n)
           : void 0;
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "SCREEN_CHANGED",
-        screenName: t,
-        destinationName: n,
-        timestampMs: a,
+        screenName: e,
+        destinationName: t,
+        timestampMs: r,
         triggeringTestId: o(
           "WAWebPathfinderUserTouch",
         ).consumeLastTapTrackingId(),
-        customMetadata: l,
-        heldBackSurface: i,
+        customMetadata: i,
+        heldBackSurface: a,
       });
     }
-    function m() {
+    function p() {
       return o("WAWebTimeSpentLoggingNavigation").addNavigationListener(d);
     }
-    function p(e, t) {
+    function _(e, t) {
       var n,
         r = o("WAWebPathfinderHeldBackScreen").enteringVerdict(t);
       if (!(e === t && r == null))
@@ -77,7 +80,7 @@ __d(
           ? n
           : r;
     }
-    l.initNavigationListener = m;
+    l.initNavigationListener = p;
   },
   98,
 );

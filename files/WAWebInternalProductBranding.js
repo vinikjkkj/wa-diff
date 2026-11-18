@@ -8,7 +8,7 @@ __d(
       return o("WAWebInternalMobilePlatforms").isInternalPlatform(
         o("WAWebMobilePlatforms").getMaybeMobilePlatform(),
       )
-        ? s._(/*BTDS*/ "WhatsApp Coworkers")
+        ? s._(/*BTDS*/ "WhatsApp Work")
         : null;
     }
     function c() {

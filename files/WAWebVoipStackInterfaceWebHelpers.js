@@ -13,16 +13,18 @@ __d(
     var e,
       s,
       u,
-      c = "web_voip_detach_unstarted_audio_threads";
-    function d() {
+      c = "web_voip_detach_unstarted_audio_threads",
+      d = "log_level",
+      m = 1;
+    function p() {
       var e = o("WAWebVoipChromiumDesktopBrowser").isChromiumDesktopBrowser();
       return r("WAWebVoipABPropConfig").filter(function (t) {
         var n = t.chromiumDesktopOnly;
         return n !== !0 || e;
       });
     }
-    function m(t) {
-      for (var n of d()) {
+    function _(t) {
+      for (var n of p()) {
         var r = n.abProp,
           a = n.type,
           i = n.wasmKey;
@@ -44,11 +46,13 @@ __d(
           );
         }
       }
-      t.setABPropBool(c, _());
+      t.setABPropBool(c, h());
+      var s = g();
+      s != null && t.setABPropInt(d, s);
     }
-    function p() {
+    function f() {
       var e = {};
-      for (var t of d()) {
+      for (var t of p()) {
         var n = t.abProp,
           r = t.type,
           a = t.wasmKey;
@@ -65,9 +69,14 @@ __d(
           );
         }
       }
-      return ((e[c] = { value: _(), type: "bool" }), e);
+      e[c] = { value: h(), type: "bool" };
+      var i = g();
+      return (i != null && (e[d] = { value: i, type: "int" }), e);
     }
-    function _() {
+    function g() {
+      return null;
+    }
+    function h() {
       try {
         return (
           o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix() &&
@@ -87,7 +96,7 @@ __d(
         );
       }
     }
-    ((l.setABPropsOnWasm = m), (l.buildABPropsBag = p));
+    ((l.setABPropsOnWasm = _), (l.buildABPropsBag = f));
   },
   98,
 );
