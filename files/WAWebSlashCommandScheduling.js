@@ -13,8 +13,8 @@ __d(
     "WAWebSlashCommandsReminderToast",
     "WAWebSlashCommandsUsageLogger",
     "WAWebUserUtils",
-    "WDSIconIcNotifications.react",
-    "WDSIconIcSchedule.react",
+    "WDSIconIcNotificationsFilled.react",
+    "WDSIconIcScheduleFilled.react",
     "react",
     "react-compiler-runtime",
     "useWAWebOnUnmount",
@@ -45,7 +45,7 @@ __d(
     var p = {
         name: "remindus",
         group: "scheduling",
-        Icon: r("WDSIconIcNotifications.react"),
+        Icon: r("WDSIconIcNotificationsFilled.react"),
         color: "orange",
         text: "required",
         getDescription: function () {
@@ -84,7 +84,7 @@ __d(
       _ = {
         name: "delay",
         group: "scheduling",
-        Icon: r("WDSIconIcSchedule.react"),
+        Icon: r("WDSIconIcScheduleFilled.react"),
         color: "skyBlue",
         text: "required",
         getDescription: function () {

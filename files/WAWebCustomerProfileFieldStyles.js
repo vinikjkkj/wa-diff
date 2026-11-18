@@ -69,6 +69,7 @@ __d(
       },
       iconContainer: {
         color: "xhslqc4",
+        flexShrink: "x2lah0s",
         height: "x1nqnulx",
         paddingTop: "x16ovd2e",
         paddingInlineEnd: "x1nzty39",

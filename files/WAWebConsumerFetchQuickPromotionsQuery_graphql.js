@@ -124,7 +124,14 @@ __d(
           name: "client_side_dry_run",
           storageKey: null,
         },
-        h = [
+        h = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "should_expose_on_client",
+          storageKey: null,
+        },
+        y = [
           {
             alias: null,
             args: null,
@@ -133,40 +140,40 @@ __d(
             storageKey: null,
           },
         ],
-        y = [
+        C = [
           {
             kind: "InlineDataFragmentSpread",
             name: "WAWebConsumerFetchQuickPromotionsQuery_QPText",
-            selections: h,
+            selections: y,
             args: null,
             argumentDefinitions: [],
           },
         ],
-        C = {
+        b = {
           alias: null,
           args: null,
           concreteType: "TextWithEntities",
           kind: "LinkedField",
           name: "title",
           plural: !1,
-          selections: y,
-          storageKey: null,
-        },
-        b = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "limit",
+          selections: C,
           storageKey: null,
         },
         v = {
           alias: null,
           args: null,
           kind: "ScalarField",
+          name: "limit",
+          storageKey: null,
+        },
+        S = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
           name: "url",
           storageKey: null,
         },
-        S = [
+        R = [
           {
             alias: null,
             args: null,
@@ -175,41 +182,41 @@ __d(
             storageKey: null,
           },
         ],
-        R = {
+        L = {
           alias: null,
           args: null,
           concreteType: "WAQPMediaDetails",
           kind: "LinkedField",
           name: "wa_light_mode_media_details",
           plural: !1,
-          selections: S,
+          selections: R,
           storageKey: null,
         },
-        L = {
+        E = {
           alias: null,
           args: null,
           concreteType: "WAQPMediaDetails",
           kind: "LinkedField",
           name: "wa_dark_mode_media_details",
           plural: !1,
-          selections: S,
-          storageKey: null,
-        },
-        E = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "accessibility_text_for_image",
+          selections: R,
           storageKey: null,
         },
         k = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "is_dismissible",
+          name: "accessibility_text_for_image",
           storageKey: null,
         },
         I = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_dismissible",
+          storageKey: null,
+        },
+        T = {
           alias: null,
           args: null,
           concreteType: "QPContentAttributeDescriptor",
@@ -273,14 +280,14 @@ __d(
           ],
           storageKey: null,
         },
-        T = {
+        D = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "value",
           storageKey: null,
         },
-        D = {
+        x = {
           alias: null,
           args: null,
           concreteType: "WAQPContentAttribute",
@@ -295,18 +302,18 @@ __d(
               name: "name",
               storageKey: null,
             },
-            T,
+            D,
           ],
           storageKey: null,
         },
-        x = {
+        $ = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "clause_type",
           storageKey: null,
         },
-        $ = [
+        P = [
           {
             alias: null,
             args: null,
@@ -329,7 +336,7 @@ __d(
                 name: "key",
                 storageKey: null,
               },
-              T,
+              D,
             ],
             storageKey: null,
           },
@@ -348,11 +355,11 @@ __d(
             storageKey: null,
           },
         ],
-        P = {
+        N = {
           kind: "InlineDataFragmentSpread",
           name: "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilterClause",
           selections: [
-            x,
+            $,
             {
               alias: null,
               args: null,
@@ -364,7 +371,7 @@ __d(
                 {
                   kind: "InlineDataFragmentSpread",
                   name: "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilter",
-                  selections: $,
+                  selections: P,
                   args: null,
                   argumentDefinitions: [],
                 },
@@ -375,38 +382,38 @@ __d(
           args: null,
           argumentDefinitions: [],
         },
-        N = {
+        M = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        M = {
+        w = {
           alias: null,
           args: null,
           concreteType: "TextWithEntities",
           kind: "LinkedField",
           name: "title",
           plural: !1,
-          selections: h,
+          selections: y,
           storageKey: null,
         },
-        w = {
+        A = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        A = {
+        F = {
           alias: null,
           args: null,
           concreteType: "QuickPromotionFlattenedFilter",
           kind: "LinkedField",
           name: "filters",
           plural: !0,
-          selections: $,
+          selections: P,
           storageKey: null,
         };
       return {
@@ -491,6 +498,7 @@ __d(
                                 _,
                                 f,
                                 g,
+                                h,
                                 {
                                   alias: null,
                                   args: null,
@@ -503,7 +511,7 @@ __d(
                                       kind: "InlineDataFragmentSpread",
                                       name: "WAWebConsumerFetchQuickPromotionsQuery_QPCreative",
                                       selections: [
-                                        C,
+                                        b,
                                         {
                                           alias: null,
                                           args: null,
@@ -511,7 +519,7 @@ __d(
                                           kind: "LinkedField",
                                           name: "content",
                                           plural: !1,
-                                          selections: y,
+                                          selections: C,
                                           storageKey: null,
                                         },
                                         {
@@ -525,7 +533,7 @@ __d(
                                             {
                                               kind: "InlineDataFragmentSpread",
                                               name: "WAWebConsumerFetchQuickPromotionsQuery_QPAction",
-                                              selections: [C, b, v],
+                                              selections: [b, v, S],
                                               args: null,
                                               argumentDefinitions: [],
                                             },
@@ -539,13 +547,13 @@ __d(
                                           kind: "LinkedField",
                                           name: "dismiss_action",
                                           plural: !1,
-                                          selections: [b],
+                                          selections: [v],
                                           storageKey: null,
                                         },
-                                        R,
                                         L,
                                         E,
                                         k,
+                                        I,
                                       ],
                                       args: null,
                                       argumentDefinitions: [],
@@ -553,8 +561,8 @@ __d(
                                   ],
                                   storageKey: null,
                                 },
-                                I,
-                                D,
+                                T,
+                                x,
                                 {
                                   alias: null,
                                   args: null,
@@ -564,7 +572,7 @@ __d(
                                   name: "contextual_filters_for_wa_do_not_use",
                                   plural: !1,
                                   selections: [
-                                    P,
+                                    N,
                                     {
                                       alias: null,
                                       args: null,
@@ -574,7 +582,7 @@ __d(
                                       name: "clauses",
                                       plural: !0,
                                       selections: [
-                                        P,
+                                        N,
                                         {
                                           alias: null,
                                           args: null,
@@ -584,7 +592,7 @@ __d(
                                           name: "clauses",
                                           plural: !0,
                                           selections: [
-                                            P,
+                                            N,
                                             {
                                               alias: null,
                                               args: null,
@@ -594,7 +602,7 @@ __d(
                                               name: "clauses",
                                               plural: !0,
                                               selections: [
-                                                P,
+                                                N,
                                                 {
                                                   alias: null,
                                                   args: null,
@@ -604,7 +612,7 @@ __d(
                                                   name: "clauses",
                                                   plural: !0,
                                                   selections: [
-                                                    P,
+                                                    N,
                                                     {
                                                       alias: null,
                                                       args: null,
@@ -614,7 +622,7 @@ __d(
                                                       name: "clauses",
                                                       plural: !0,
                                                       selections: [
-                                                        P,
+                                                        N,
                                                         {
                                                           alias: null,
                                                           args: null,
@@ -624,7 +632,7 @@ __d(
                                                           name: "clauses",
                                                           plural: !0,
                                                           selections: [
-                                                            P,
+                                                            N,
                                                             {
                                                               alias: null,
                                                               args: null,
@@ -633,7 +641,7 @@ __d(
                                                               kind: "LinkedField",
                                                               name: "clauses",
                                                               plural: !0,
-                                                              selections: [P],
+                                                              selections: [N],
                                                               storageKey: null,
                                                             },
                                                           ],
@@ -732,7 +740,7 @@ __d(
                           name: "node",
                           plural: !1,
                           selections: [
-                            N,
+                            M,
                             {
                               kind: "TypeDiscriminator",
                               abstractKey: "__isQuickPromotionInterface",
@@ -744,6 +752,7 @@ __d(
                             _,
                             f,
                             g,
+                            h,
                             {
                               alias: null,
                               args: null,
@@ -752,13 +761,13 @@ __d(
                               name: "creatives",
                               plural: !0,
                               selections: [
-                                N,
+                                M,
                                 {
                                   kind: "TypeDiscriminator",
                                   abstractKey:
                                     "__isQuickPromotionCreativeInterface",
                                 },
-                                M,
+                                w,
                                 {
                                   alias: null,
                                   args: null,
@@ -766,7 +775,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "content",
                                   plural: !1,
-                                  selections: h,
+                                  selections: y,
                                   storageKey: null,
                                 },
                                 {
@@ -777,15 +786,15 @@ __d(
                                   name: "primary_action",
                                   plural: !1,
                                   selections: [
-                                    N,
+                                    M,
                                     {
                                       kind: "TypeDiscriminator",
                                       abstractKey:
                                         "__isQuickPromotionActionInterface",
                                     },
-                                    M,
-                                    b,
+                                    w,
                                     v,
+                                    S,
                                   ],
                                   storageKey: null,
                                 },
@@ -796,24 +805,24 @@ __d(
                                   kind: "LinkedField",
                                   name: "dismiss_action",
                                   plural: !1,
-                                  selections: [N, b],
+                                  selections: [M, v],
                                   storageKey: null,
                                 },
-                                R,
                                 L,
                                 E,
                                 k,
+                                I,
                                 {
                                   kind: "InlineFragment",
-                                  selections: [w],
+                                  selections: [A],
                                   type: "Node",
                                   abstractKey: "__isNode",
                                 },
                               ],
                               storageKey: null,
                             },
-                            I,
-                            D,
+                            T,
+                            x,
                             {
                               alias: null,
                               args: null,
@@ -823,8 +832,8 @@ __d(
                               name: "contextual_filters_for_wa_do_not_use",
                               plural: !1,
                               selections: [
-                                x,
-                                A,
+                                $,
+                                F,
                                 {
                                   alias: null,
                                   args: null,
@@ -834,8 +843,8 @@ __d(
                                   name: "clauses",
                                   plural: !0,
                                   selections: [
-                                    x,
-                                    A,
+                                    $,
+                                    F,
                                     {
                                       alias: null,
                                       args: null,
@@ -845,8 +854,8 @@ __d(
                                       name: "clauses",
                                       plural: !0,
                                       selections: [
-                                        x,
-                                        A,
+                                        $,
+                                        F,
                                         {
                                           alias: null,
                                           args: null,
@@ -856,8 +865,8 @@ __d(
                                           name: "clauses",
                                           plural: !0,
                                           selections: [
-                                            x,
-                                            A,
+                                            $,
+                                            F,
                                             {
                                               alias: null,
                                               args: null,
@@ -867,8 +876,8 @@ __d(
                                               name: "clauses",
                                               plural: !0,
                                               selections: [
-                                                x,
-                                                A,
+                                                $,
+                                                F,
                                                 {
                                                   alias: null,
                                                   args: null,
@@ -878,8 +887,8 @@ __d(
                                                   name: "clauses",
                                                   plural: !0,
                                                   selections: [
-                                                    x,
-                                                    A,
+                                                    $,
+                                                    F,
                                                     {
                                                       alias: null,
                                                       args: null,
@@ -889,8 +898,8 @@ __d(
                                                       name: "clauses",
                                                       plural: !0,
                                                       selections: [
-                                                        x,
-                                                        A,
+                                                        $,
+                                                        F,
                                                         {
                                                           alias: null,
                                                           args: null,
@@ -899,7 +908,7 @@ __d(
                                                           kind: "LinkedField",
                                                           name: "clauses",
                                                           plural: !0,
-                                                          selections: [x, A],
+                                                          selections: [$, F],
                                                           storageKey: null,
                                                         },
                                                       ],
@@ -923,7 +932,7 @@ __d(
                               ],
                               storageKey: null,
                             },
-                            w,
+                            A,
                           ],
                           storageKey: null,
                         },

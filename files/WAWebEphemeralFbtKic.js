@@ -10,6 +10,7 @@ __d(
     "WAWebEphemeralFbtKicTypes",
     "WAWebFrontendContactGetters",
     "WAWebMiscGatingUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d;
@@ -140,9 +141,13 @@ __d(
                     : e ===
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ "This message will not disappear from the chat. The sender may be on an old version of WhatsApp.",
-                        )
+                      ? r("justknobx")._("8068")
+                        ? s._(
+                            /*BTDS*/ "This message won't disappear from the chat. The sender may be on an old version of WhatsApp.",
+                          )
+                        : s._(
+                            /*BTDS*/ "This message will not disappear from the chat. The sender may be on an old version of WhatsApp.",
+                          )
                       : (o("WALogger")
                           .ERROR(
                             u ||

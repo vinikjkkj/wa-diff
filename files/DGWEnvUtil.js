@@ -38,7 +38,12 @@ __d(
           t
         );
       })(),
-      c = ["vcpanel/", "roomtool_gizmo/"];
+      c = [
+        "vcpanel/",
+        "roomtool_gizmo/",
+        "gizmo/app/",
+        "gizmo/wayfinder/kiosk/",
+      ];
     function d(e) {
       var t = e.endsWith("/") ? e : e + "/";
       return c.some(function (e) {

@@ -320,6 +320,9 @@ __d(
       FB_PLUS_NEWSFEED_AQP: "fb_plus_newsfeed_aqp",
       FB_POSTS_REACTION_SHEET_SUPER_LIKE_FOOTER_QP:
         "fb_posts_reaction_sheet_super_like_footer_qp",
+      FB_POSTS_SUPER_LIKE_NOTIF_LANDING_UPSELL:
+        "fb_posts_super_like_notif_landing_upsell",
+      FB_POSTS_SUPER_LIKE_TEASER: "fb_posts_super_like_teaser",
       FB_POST_POST_UPSELL: "fb_post_post_upsell",
       FB_POST_REELS_UPSELL: "fb_post_reels_upsell",
       FB_POST_STORY_UPSELL: "fb_post_story_upsell",

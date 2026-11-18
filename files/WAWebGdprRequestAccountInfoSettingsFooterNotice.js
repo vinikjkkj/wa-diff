@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebNewsletterCommonGatingUtils",
     "WDSText.react",
+    "justknobx",
     "react",
     "react-compiler-runtime",
   ],
@@ -20,9 +21,13 @@ __d(
         d = l < 1 ? 1 : l,
         m;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = s._(
-            /*BTDS*/ "Your request will be canceled if you make changes to your account such as changing your number or deleting your account.",
-          )),
+        ? ((m = r("justknobx")._("8068")
+            ? s._(
+                /*BTDS*/ "Your request will be canceled if you make changes to your account, such as changing your number or deleting your account.",
+              )
+            : s._(
+                /*BTDS*/ "Your request will be canceled if you make changes to your account such as changing your number or deleting your account.",
+              )),
           (t[0] = m))
         : (m = t[0]);
       var p = m;

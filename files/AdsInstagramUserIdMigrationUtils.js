@@ -70,6 +70,34 @@ __d(
             : o;
     }
     function E(e, t, n) {
+      var o;
+      if (!r("gkx")("9636")) return t;
+      var a =
+        m(e) && (n == null ? void 0 : n.id) === e
+          ? h(n == null ? void 0 : n.id_v2)
+          : null;
+      return (o = a != null ? a : h(t)) != null ? o : void 0;
+    }
+    function k(e, t, n, o) {
+      var a;
+      if (!r("gkx")("9636")) return o;
+      if (!m(t)) {
+        var i;
+        return (i = h(o)) != null ? i : void 0;
+      }
+      var l = L(e),
+        s = (a = e.creative) == null ? void 0 : a.instagram_actor_id;
+      if (p(s) && s !== t) {
+        var u;
+        l = h(
+          (u = e.creative) == null || (u = u.object_story_spec) == null
+            ? void 0
+            : u.instagram_user_id,
+        );
+      }
+      return E(t, l, n);
+    }
+    function I(e, t, n) {
       var r,
         o,
         a = n;
@@ -79,7 +107,7 @@ __d(
         s = p(i) && ((p(t) && i !== t) || (!m(t) && l !== a));
       return (m(l) && l !== a) || s;
     }
-    function k(e, t) {
+    function T(e, t) {
       var n, o;
       return (
         ((n = e.igidV1) != null ? n : null) ===
@@ -89,21 +117,21 @@ __d(
             (e.lookupID != null || t.igidV1 == null)))
       );
     }
-    function I(e) {
+    function D(e) {
       var t = e.v1 == null || String(e.v1) === "" ? null : String(e.v1),
         n = h(_(e.v2));
       return { v1: t, v2: m(t) && n === t ? null : n };
     }
-    function T(e, t) {
+    function x(e, t) {
       return _(e) != null || _(t) != null;
     }
-    function D(e, t) {
-      var n = I(e),
+    function $(e, t) {
+      var n = D(e),
         r = _(n.v1);
       if (r != null) return { namespace: "v1", id: r };
       var o = n.v2;
       if (o == null) return { namespace: "none" };
-      var a = F(o, t);
+      var a = B(o, t);
       if (a.status === "loaded") {
         var i = _(a.record.id);
         if (i != null && i !== o) return { namespace: "v1", id: i };
@@ -112,7 +140,7 @@ __d(
       }
       return { namespace: "v2", id: o, status: "unavailable" };
     }
-    function x(e, t, n, r) {
+    function P(e, t, n, r) {
       return t.namespace === "none" || r.namespace === "none"
         ? !1
         : (t.namespace === "v1" && r.namespace === "v1") ||
@@ -124,13 +152,13 @@ __d(
               r.status === "unavailable" &&
               r.id === e.v2;
     }
-    function $(e, t, n) {
+    function N(e, t, n) {
       if (t == null) return !1;
-      var r = I(e),
-        o = I(t);
-      return x(r, D(r, n), o, D(o, n));
+      var r = D(e),
+        o = D(t);
+      return P(r, $(r, n), o, $(o, n));
     }
-    function P(e, t) {
+    function M(e, t) {
       var n = e.getUnifiedCreativeAPIFieldMapping.bind(e),
         r = n(t).instagramActorID;
       return (r == null ? void 0 : r.length) === 2 &&
@@ -144,16 +172,16 @@ __d(
           ? "object_story_spec"
           : null;
     }
-    function N(e, t, n, r) {
+    function w(e, t, n, r) {
       var o,
         a,
-        i = P(t, r);
+        i = M(t, r);
       if (i == null) return { v1: null, v2: null };
-      var l = I({
+      var l = D({
           v1: e == null ? void 0 : e.instagram_actor_id,
           v2: e == null ? void 0 : e.instagram_user_id,
         }),
-        s = I({
+        s = D({
           v1:
             e == null || (o = e.object_story_spec) == null
               ? void 0
@@ -165,22 +193,22 @@ __d(
         }),
         u = i === "root" ? l : s,
         c = i === "root" ? s : l;
-      return D(u, n).namespace !== "none"
+      return $(u, n).namespace !== "none"
         ? u
-        : D(c, n).namespace !== "none"
+        : $(c, n).namespace !== "none"
           ? c
           : { v1: null, v2: null };
     }
-    function M(e, t) {
-      var n = I({ v1: e.v1, v2: t }).v2;
+    function A(e, t) {
+      var n = D({ v1: e.v1, v2: t }).v2;
       return n != null ? n : _(e.v1) != null ? null : h(_(e.v2));
     }
-    function w(e, t) {
+    function F(e, t) {
       var n;
       if (e.length === 0) return null;
-      var r = e.map(I),
+      var r = e.map(D),
         o = r.map(function (e) {
-          return D(e, t);
+          return $(e, t);
         }),
         a = new Set(
           o.flatMap(function (e) {
@@ -194,7 +222,7 @@ __d(
         l = i === -1 ? 0 : i;
       if (
         r.some(function (e, t) {
-          return !x(r[l], o[l], e, o[t]);
+          return !P(r[l], o[l], e, o[t]);
         })
       )
         return null;
@@ -212,7 +240,7 @@ __d(
         );
       return s == null && u.size !== 1
         ? null
-        : I({
+        : D({
             v1:
               s != null
                 ? s
@@ -225,13 +253,13 @@ __d(
               u.size === 1 && (n = u.values().next().value) != null ? n : null,
           });
     }
-    function A(e, t) {
+    function O(e, t) {
       var n = _(e);
       if (n == null || t == null) return { v1: null, v2: null };
-      var r = I({ v1: t.id, v2: t.id_v2 });
+      var r = D({ v1: t.id, v2: t.id_v2 });
       return _(r.v1) === n || r.v2 === n ? r : { v1: null, v2: null };
     }
-    function F(e, t) {
+    function B(e, t) {
       var n = h(_(e));
       if (n == null) return { status: "missing" };
       var r = t(n);
@@ -241,14 +269,14 @@ __d(
           ? { status: "missing" }
           : { status: "loaded", record: r };
     }
-    function O(e, t) {
+    function W(e, t) {
       return r("gkx")("15865")
         ? t != null && t !== ""
           ? t
-          : (e != null && e !== "" && B(t), e)
+          : (e != null && e !== "" && q(t), e)
         : e;
     }
-    function B(t) {
+    function q(t) {
       var n =
         t === void 0 ? "v2_undefined" : t === null ? "v2_null" : "v2_empty";
       (e || (e = o("ODS"))).bumpEntityKey(68, s, "read_path.v1_fallback." + n);
@@ -269,18 +297,20 @@ __d(
       (l.getDoubleWriteIGIDV2 = S),
       (l.getDoubleWriteGatedDefaultInstagramUserID = R),
       (l.getInstagramUserIDForInstagramActorID = L),
-      (l.hasOtherAccountOnRoot = E),
-      (l.isSameInstagramAccountForTestimonial = k),
-      (l.hasInstagramAccount = T),
-      (l.getInstagramAccountIdentity = D),
-      (l.isSameInstagramAccount = $),
-      (l.getInstagramAccountOwner = P),
-      (l.getCreativeInstagramAccount = N),
-      (l.resolveInstagramUserID = M),
-      (l.getUniformInstagramAccount = w),
-      (l.getIGIDPairForV2Field = A),
-      (l.getLoadedInstagramAccountRecord = F),
-      (l.getInstagramActorIdOrUserId = O));
+      (l.getLoadedAccountV2OrInstagramUserID = E),
+      (l.getInstagramUserIDForRebuiltAdgroup = k),
+      (l.hasOtherAccountOnRoot = I),
+      (l.isSameInstagramAccountForTestimonial = T),
+      (l.hasInstagramAccount = x),
+      (l.getInstagramAccountIdentity = $),
+      (l.isSameInstagramAccount = N),
+      (l.getInstagramAccountOwner = M),
+      (l.getCreativeInstagramAccount = w),
+      (l.resolveInstagramUserID = A),
+      (l.getUniformInstagramAccount = F),
+      (l.getIGIDPairForV2Field = O),
+      (l.getLoadedInstagramAccountRecord = B),
+      (l.getInstagramActorIdOrUserId = W));
   },
   98,
 );

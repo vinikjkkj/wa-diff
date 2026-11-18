@@ -8,6 +8,7 @@ __d(
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebCopyToClipboard",
+    "WAWebEmployeeCommandLastingToast",
     "WAWebLexicalUtils",
     "WAWebLinkPreviewEligibility",
     "WAWebMuteCollection",
@@ -158,31 +159,25 @@ __d(
         v(n);
         return;
       }
-      (r !== "popup_blocked" && C(o.failed, null, n), R(o.blocked, [o.open]));
+      (r !== "popup_blocked" && C(o.failed, null, n), R(o.blocked, o.open));
     }
     function v(e) {
       C(s._(/*BTDS*/ "Finish in the tab that opened"), null, e);
     }
     function S(e) {
-      var t = e.actions,
-        n = e.checkFirst,
+      var t = e.checkFirst,
+        n = e.lastingAction,
         r = e.noAnswer,
-        o = e.progress;
-      (C(r, null, o), R(n, t));
+        o = e.noAnswerAction,
+        a = e.progress;
+      (C(r, o, a), R(t, n));
     }
     function R(e, t) {
-      o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebToast.react").Toast, {
-          msg: e,
-          action: t.map(function (e) {
-            var t = e.actionText,
-              n = e.onAction,
-              r = e.testid;
-            return { actionText: t, onAction: n, testid: r };
-          }),
-          duration: d,
-        }),
-      );
+      o("WAWebEmployeeCommandLastingToast").showLastingToast({
+        action: t,
+        durationMs: d,
+        msg: e,
+      });
     }
     function L(t) {
       var a = r("WAWebNoop"),

@@ -27,33 +27,33 @@ __d(
       u =
         /^(\d{4}-\d{2}-\d{2})[Tt](\d{2}:\d{2}:\d{2})(?:\.\d+)?(?:([Zz])|([+-]\d{2}:\d{2}))$/;
     function c(e, t) {
-      var n, r, a;
+      var n, r, a, i;
       if (!o("WAWebHatchJsonReaders").isObject(e))
         return { kind: "dropped", reason: "malformed" };
-      var i = o("WAWebHatchJsonReaders").readObject(e, "details"),
-        l = o("WAWebHatchJsonReaders").readObject(i, "goal"),
-        s = o("WAWebHatchJsonReaders").trimToNull(
+      var l = o("WAWebHatchJsonReaders").readObject(e, "details"),
+        s = o("WAWebHatchJsonReaders").readObject(l, "goal"),
+        u = o("WAWebHatchJsonReaders").trimToNull(
           o("WAWebHatchJsonReaders").readTrimmedString(e, "message_id"),
         ),
-        u = o("WAWebHatchJsonReaders").trimToNull(
-          o("WAWebHatchJsonReaders").readTrimmedString(l, "id"),
+        c = o("WAWebHatchJsonReaders").trimToNull(
+          o("WAWebHatchJsonReaders").readTrimmedString(s, "id"),
         ),
-        c =
+        d =
           (n =
-            s != null
-              ? s
+            u != null
+              ? u
               : o("WAWebHatchJsonReaders").trimToNull(
-                  o("WAWebHatchJsonReaders").readTrimmedString(i, "message_id"),
+                  o("WAWebHatchJsonReaders").readTrimmedString(l, "message_id"),
                 )) != null
             ? n
-            : u;
-      if (c == null) return { kind: "dropped", reason: "no_id" };
-      var d =
+            : c;
+      if (d == null) return { kind: "dropped", reason: "no_id" };
+      var m =
         (r = f(o("WAWebHatchJsonReaders").readTrimmedString(e, "timestamp"))) !=
         null
           ? r
           : t;
-      return d == null
+      return m == null
         ? { kind: "dropped", reason: "no_time" }
         : {
             kind: "row",
@@ -61,32 +61,33 @@ __d(
               appliedTsMs: t,
               finishMessage: o("WAWebHatchJsonReaders").trimToNull(
                 o("WAWebHatchJsonReaders").readTrimmedString(
-                  i,
+                  l,
                   "finish_message",
                 ),
               ),
-              goalId: u,
+              goalId: c,
               icon: o("WAWebHatchJsonReaders").trimToNull(
-                o("WAWebHatchJsonReaders").readTrimmedString(l, "icon"),
+                o("WAWebHatchJsonReaders").readTrimmedString(s, "icon"),
               ),
-              messageId: s,
-              rowKey: c,
+              messageId: u,
+              rowKey: d,
               status: p(
                 o("WAWebHatchJsonReaders").readTrimmedString(e, "status"),
               ),
-              subtitle: g([e, "subtitle"], [l, "subtitle"]),
+              subtitle:
+                (a = g([e, "subtitle"], [s, "subtitle"])) != null ? a : h(l),
               taskLabel: o("WAWebHatchJsonReaders").trimToNull(
                 o("WAWebHatchJsonReaders").readTrimmedString(e, "task_label"),
               ),
-              timestampMs: d,
+              timestampMs: m,
               title:
-                (a = g(
+                (i = g(
                   [e, "title"],
-                  [l, "name"],
+                  [s, "name"],
                   [e, "status_title"],
-                  [l, "status_title"],
+                  [s, "status_title"],
                 )) != null
-                  ? a
+                  ? i
                   : "",
               type: _(o("WAWebHatchJsonReaders").readTrimmedString(e, "type")),
             },
@@ -95,9 +96,9 @@ __d(
     function d(e) {
       var t = o("WAWebHatchJsonReaders").readField(e, "payload");
       return o("WATypeUtils").isString(t)
-        ? y(t)
+        ? b(t)
         : o("WATypeUtils").isString(e)
-          ? y(e)
+          ? b(e)
           : e;
     }
     function m(e) {
@@ -105,11 +106,11 @@ __d(
     }
     function p(t) {
       var n;
-      return (n = e.get(h(t))) != null ? n : "unrecognized";
+      return (n = e.get(C(t))) != null ? n : "unrecognized";
     }
     function _(e) {
       var t;
-      return (t = s.get(h(e))) != null ? t : "unrecognized";
+      return (t = s.get(C(e))) != null ? t : "unrecognized";
     }
     function f(e) {
       var t = u.exec(e);
@@ -135,9 +136,25 @@ __d(
       return null;
     }
     function h(e) {
-      return e.trim().toLowerCase().replace(/ /g, "_");
+      var t = o("WAWebHatchJsonReaders")
+        .readObjects(e, "files")
+        .map(y)
+        .filter(Boolean);
+      return t.length > 0 ? t.join(", ") : null;
     }
     function y(e) {
+      var t = o("WAWebHatchJsonReaders")
+        .readTrimmedString(e, "path")
+        .split("/")
+        .filter(function (e) {
+          return e.trim() !== "";
+        });
+      return t.length > 0 ? t[t.length - 1] : null;
+    }
+    function C(e) {
+      return e.trim().toLowerCase().replace(/ /g, "_");
+    }
+    function b(e) {
       try {
         return JSON.parse(e);
       } catch (e) {

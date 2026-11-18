@@ -126,6 +126,7 @@ __d(
     "WAWebUserPrefsLocales",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsNotifications",
     "WAWebUserPrefsWorkerCompatibleMainThread",
     "WAWebUserUtils",
     "WAWebWaitForInitialChatsSynced",
@@ -767,6 +768,7 @@ __d(
         (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
+            o("WAWebUserPrefsNotifications").migrateNotificationClickedOnce(),
             o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
           ) {
             (o("WAWebTasksDefinitions").registerTasks(),

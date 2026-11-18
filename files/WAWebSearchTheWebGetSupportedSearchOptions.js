@@ -20,12 +20,15 @@ __d(
     "WAWebWamEnumStwInteraction",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e;
     function u() {
-      return s._(/*BTDS*/ "Something went wrong. Try again.");
+      return r("justknobx")._("8427")
+        ? s._(/*BTDS*/ "Couldn't search for this image. Try again.")
+        : s._(/*BTDS*/ "Something went wrong. Try again.");
     }
     function c(e) {
       var t,

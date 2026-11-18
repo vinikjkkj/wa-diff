@@ -745,28 +745,42 @@ __d(
       );
     }
     function ze() {
+      var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+        o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
+          .WORKER_NOTIFICATION_INTERACTION_TIME,
+      );
+      return typeof e == "number" ? e : null;
+    }
+    function je(e) {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+        o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
+          .WORKER_NOTIFICATION_INTERACTION_TIME,
+        e,
+      );
+    }
+    function Ke() {
       o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
         o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
           .OFFLINE_NOTIFICATION_ENGAGEMENT,
       );
     }
-    function je() {
+    function Qe() {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.NOTIFICATION_ENGAGEMENT,
       );
     }
-    function Ke(e) {
+    function Xe(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.NOTIFICATION_ENGAGEMENT,
         e,
       );
     }
-    function Qe(e) {
-      return Xe.apply(this, arguments);
+    function Ye(e) {
+      return Je.apply(this, arguments);
     }
-    function Xe() {
+    function Je() {
       return (
-        (Xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
@@ -775,8 +789,8 @@ __d(
             i,
             l,
             s,
-            u = yield je();
-          yield Ke({
+            u = yield Qe();
+          yield Xe({
             totalNotifRtcVoipAccept:
               ((t = u == null ? void 0 : u.totalNotifRtcVoipAccept) != null
                 ? t
@@ -794,59 +808,59 @@ __d(
                 : 0) + ((s = e.totalNotifTapToOpen) != null ? s : 0),
           });
         })),
-        Xe.apply(this, arguments)
+        Je.apply(this, arguments)
       );
     }
-    function Ye() {
+    function Ze() {
       o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
         o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.NOTIFICATION_ENGAGEMENT,
       );
     }
-    function Je() {
-      return Ze.apply(this, arguments);
+    function et() {
+      return tt.apply(this, arguments);
     }
-    function Ze() {
+    function tt() {
       return (
-        (Ze = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (tt = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
             "WABrigadingState",
           );
         })),
-        Ze.apply(this, arguments)
+        tt.apply(this, arguments)
       );
     }
-    function et() {
+    function nt() {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.LOGOUT_REASON,
       );
     }
-    function tt(e) {
-      return nt.apply(this, arguments);
+    function rt(e) {
+      return ot.apply(this, arguments);
     }
-    function nt() {
+    function ot() {
       return (
-        (nt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ot = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
             o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.LOGOUT_REASON,
             e,
           );
         })),
-        nt.apply(this, arguments)
+        ot.apply(this, arguments)
       );
     }
-    function rt() {
+    function at() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.LAST_PROFILE_PIC_THUMB_UPDATE_TS,
       );
       return typeof e == "number" ? e : null;
     }
-    function ot(e) {
+    function it(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.LAST_PROFILE_PIC_THUMB_UPDATE_TS,
         e,
       );
     }
-    function at() {
+    function lt() {
       var e = [],
         t = r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").KEYS.WA_WEB_WAM_BEACONING_SETTINGS,
@@ -859,113 +873,113 @@ __d(
         return e;
       }
     }
-    function it(e) {
+    function st(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_WAM_BEACONING_SETTINGS,
         JSON.stringify(e),
       );
     }
-    function lt() {
+    function ut() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,
       );
       return typeof e == "number" ? e : null;
     }
-    function st() {
-      var e = r("WAWebUserPrefsStore").get(
-        o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_DISCLOSURE_SHOWN_COUNT,
-      );
-      return typeof e == "number" ? e : 0;
-    }
-    function ut(e) {
-      r("WAWebUserPrefsStore").set(
-        o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_DISCLOSURE_SHOWN_COUNT,
-        e,
-      );
-    }
     function ct() {
       var e = r("WAWebUserPrefsStore").get(
-        o("WAWebUserPrefsKeys").KEYS
-          .CTWA_DATA_SHARING_OPT_OUT_DISCLOSURE_SHOWN_COUNT,
+        o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_DISCLOSURE_SHOWN_COUNT,
       );
       return typeof e == "number" ? e : 0;
     }
     function dt(e) {
       r("WAWebUserPrefsStore").set(
+        o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_DISCLOSURE_SHOWN_COUNT,
+        e,
+      );
+    }
+    function mt() {
+      var e = r("WAWebUserPrefsStore").get(
+        o("WAWebUserPrefsKeys").KEYS
+          .CTWA_DATA_SHARING_OPT_OUT_DISCLOSURE_SHOWN_COUNT,
+      );
+      return typeof e == "number" ? e : 0;
+    }
+    function pt(e) {
+      r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS
           .CTWA_DATA_SHARING_OPT_OUT_DISCLOSURE_SHOWN_COUNT,
         e,
       );
     }
-    function mt() {
+    function _t() {
       return (
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_V2_DISCLOSURE_SEEN,
         ) === !0
       );
     }
-    function pt() {
+    function ft() {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_V2_DISCLOSURE_SEEN,
         !0,
       );
     }
-    function _t() {
+    function gt() {
       return !!r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.CTWA_MESSAGE_RECEIVED,
       );
     }
-    function ft(e) {
+    function ht(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.CTWA_MESSAGE_RECEIVED,
         e,
       );
     }
-    function gt(e) {
+    function yt(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").UserPrefs.GPCCompleted,
         e,
       );
     }
-    function ht() {
+    function Ct() {
       return (
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").UserPrefs.GPCCompleted,
         ) === !0
       );
     }
-    function yt(e) {
+    function bt(e) {
       r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").DEBUG_FACEBOOK_GRAPHQL_ENDPOINT_OVERRIDE,
         e,
       );
     }
-    function Ct() {
+    function vt() {
       var e = r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_FACEBOOK_GRAPHQL_ENDPOINT_OVERRIDE,
       );
       return typeof e == "number" ? String(e) : typeof e == "string" ? e : null;
     }
-    function bt() {
+    function St() {
       return (
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").UserPrefs.DetectedOutcomeOnboardingStatus,
         ) === !0
       );
     }
-    function vt(e) {
+    function Rt(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").UserPrefs.DetectedOutcomeOnboardingStatus,
         e,
       );
     }
-    function St() {
+    function Lt() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.CTWA_PREFERRED_AD_ACCOUNT_TYPE,
       );
       return typeof e == "string" ? e : null;
     }
-    function Rt(e) {
+    function Et(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.CTWA_PREFERRED_AD_ACCOUNT_TYPE,
         e,
@@ -1054,35 +1068,37 @@ __d(
       (l.setOfflineNotificationContent = Ue),
       (l.getOfflineNotificationEngagement = He),
       (l.setOfflineNotificationContentEngagement = Ge),
-      (l.clearOfflineNotificationContentEngagement = ze),
-      (l.getNotificationEngagement = je),
-      (l.setNotificationContentEngagement = Ke),
-      (l.addToNotificationEngagement = Qe),
-      (l.clearNotificationContentEngagement = Ye),
-      (l.clearBrigadingstate = Je),
-      (l.getLogoutReason = et),
-      (l.setLogoutReason = tt),
-      (l.getLastProfilePicThumbUpdate = rt),
-      (l.setLastProfilePicThumbUpdate = ot),
-      (l.getWamBeaconingSettings = at),
-      (l.setWamBeaconingSettings = it),
-      (l.getCTWADataSharingCoolOffTimestamp = lt),
-      (l.getCTWADataSharingDisclosureShownCount = st),
-      (l.setCTWADataSharingDisclosureShownCount = ut),
-      (l.getCTWADataSharingOptOutDisclosureShownCount = ct),
-      (l.setCTWADataSharingOptOutDisclosureShownCount = dt),
-      (l.getCTWADataSharingV2DisclosureSeen = mt),
-      (l.setCTWADataSharingV2DisclosureSeen = pt),
-      (l.getCTWAMessageReceived = _t),
-      (l.setCTWAMessageReceived = ft),
-      (l.setGPCcompleted = gt),
-      (l.getGPCCompleted = ht),
-      (l.setDebugFacebookGraphQLEndpointOverride = yt),
-      (l.getDebugFacebookGraphQLEndpointOverride = Ct),
-      (l.getDetectedOutcomeOnboardingStatus = bt),
-      (l.setDetectedOutcomeOnboardingStatus = vt),
-      (l.getLastUsedAdAccountType = St),
-      (l.setLastUsedAdAccountType = Rt));
+      (l.getWorkerNotificationInteractionTime = ze),
+      (l.setWorkerNotificationInteractionTime = je),
+      (l.clearOfflineNotificationContentEngagement = Ke),
+      (l.getNotificationEngagement = Qe),
+      (l.setNotificationContentEngagement = Xe),
+      (l.addToNotificationEngagement = Ye),
+      (l.clearNotificationContentEngagement = Ze),
+      (l.clearBrigadingstate = et),
+      (l.getLogoutReason = nt),
+      (l.setLogoutReason = rt),
+      (l.getLastProfilePicThumbUpdate = at),
+      (l.setLastProfilePicThumbUpdate = it),
+      (l.getWamBeaconingSettings = lt),
+      (l.setWamBeaconingSettings = st),
+      (l.getCTWADataSharingCoolOffTimestamp = ut),
+      (l.getCTWADataSharingDisclosureShownCount = ct),
+      (l.setCTWADataSharingDisclosureShownCount = dt),
+      (l.getCTWADataSharingOptOutDisclosureShownCount = mt),
+      (l.setCTWADataSharingOptOutDisclosureShownCount = pt),
+      (l.getCTWADataSharingV2DisclosureSeen = _t),
+      (l.setCTWADataSharingV2DisclosureSeen = ft),
+      (l.getCTWAMessageReceived = gt),
+      (l.setCTWAMessageReceived = ht),
+      (l.setGPCcompleted = yt),
+      (l.getGPCCompleted = Ct),
+      (l.setDebugFacebookGraphQLEndpointOverride = bt),
+      (l.getDebugFacebookGraphQLEndpointOverride = vt),
+      (l.getDetectedOutcomeOnboardingStatus = St),
+      (l.setDetectedOutcomeOnboardingStatus = Rt),
+      (l.getLastUsedAdAccountType = Lt),
+      (l.setLastUsedAdAccountType = Et));
   },
   98,
 );

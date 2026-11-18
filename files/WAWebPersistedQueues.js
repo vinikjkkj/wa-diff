@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebAddonDeletionQueue",
     "WAWebDbEncryptionKey",
+    "WAWebIndexedDB",
     "WAWebKeyShareQueue",
     "WAWebMetaAiThreadServerDeleteQueue",
     "WAWebNoop",
@@ -31,56 +32,13 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForWormEarKey(),
-            o("WAWebWormCallbacks").setupWAWebWormCallbacks());
-          try {
-            var t = yield o("WAWormQueue").openWAWormQueueDatabase({
-              blockingErrorThreshold: c,
-              dbAlias: o("WAWebPersistedQueuesRegistry")
-                .PERSISTED_QUEUES_DB_ALIAS,
-              dbName: u,
-              encKey: o("WAWebDbEncryptionKey").DbEncKeyStore.getWormEarKey(),
-              makeDriver: o("WAWormQueue").makeWAWormQueueEarSyncDriver,
-              odsLogger: {
-                log: function (n) {
-                  (o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[persisted-queues] ",
-                        "",
-                      ])),
-                    n,
-                  ),
-                    f(n));
-                },
-              },
-              onBlockingError: function (t) {
-                (r("WAWebODS").incr("web.persisted_queues.error.blocking"),
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[persisted-queues] unrecoverable: ",
-                          "",
-                        ])),
-                      t,
-                    )
-                    .sendLogs("persisted-queues-unrecoverable"));
-              },
-              qplEvent: r("qpl")._(891432473, "3638"),
-              schema: o("WAWebPersistedQueuesRegistry").persistedQueueStores,
-            });
-            o("WAWebPersistedQueuesRegistry").bindPersistedQueues(t);
-          } catch (e) {
-            throw (
-              o("WAWormQueue").logWAWormQueueDbInitFailure(
-                o("WAWebPersistedQueuesRegistry").PERSISTED_QUEUES_DB_ALIAS,
-                e,
-              ),
-              e
-            );
+          var e = yield f();
+          if (e == null) {
+            r("WAWebODS").incr("web.persisted_queues.error.unpersisted");
+            return;
           }
-          (o("WAWebAddonDeletionQueue").startAddonDeletionQueueDrain(),
+          (o("WAWebPersistedQueuesRegistry").bindPersistedQueues(e),
+            o("WAWebAddonDeletionQueue").startAddonDeletionQueueDrain(),
             o("WAWebKeyShareQueue").startKeyShareQueue(),
             o(
               "WAWebMetaAiThreadServerDeleteQueue",
@@ -90,7 +48,68 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e) {
+    function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (r("WAWebIndexedDB") == null) return null;
+          try {
+            return (
+              yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForWormEarKey(),
+              o("WAWebWormCallbacks").setupWAWebWormCallbacks(),
+              yield o("WAWormQueue").openWAWormQueueDatabase({
+                blockingErrorThreshold: c,
+                dbAlias: o("WAWebPersistedQueuesRegistry")
+                  .PERSISTED_QUEUES_DB_ALIAS,
+                dbName: u,
+                encKey: o("WAWebDbEncryptionKey").DbEncKeyStore.getWormEarKey(),
+                makeDriver: o("WAWormQueue").makeWAWormQueueEarSyncDriver,
+                odsLogger: {
+                  log: function (n) {
+                    (o("WALogger").LOG(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[persisted-queues] ",
+                          "",
+                        ])),
+                      n,
+                    ),
+                      h(n));
+                  },
+                },
+                onBlockingError: function (t) {
+                  (r("WAWebODS").incr("web.persisted_queues.error.blocking"),
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[persisted-queues] unrecoverable: ",
+                            "",
+                          ])),
+                        t,
+                      )
+                      .sendLogs("persisted-queues-unrecoverable"));
+                },
+                qplEvent: r("qpl")._(891432473, "3638"),
+                schema: o("WAWebPersistedQueuesRegistry").persistedQueueStores,
+              })
+            );
+          } catch (e) {
+            return (
+              o("WAWormQueue").logWAWormQueueDbInitFailure(
+                o("WAWebPersistedQueuesRegistry").PERSISTED_QUEUES_DB_ALIAS,
+                e,
+              ),
+              null
+            );
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
       var t = o("WAWebPersistedQueuesRegistry").PERSISTED_QUEUES_DB_ALIAS + ".",
         n = e.startsWith(t) ? e.slice(t.length) : e;
       e: {
@@ -112,7 +131,10 @@ __d(
         }
       }
     }
-    ((l.requestKeyShareNow = o("WAWebKeyShareQueue").requestKeyShareNow),
+    ((l.recordAddonDeletions = o(
+      "WAWebAddonDeletionQueue",
+    ).recordAddonDeletions),
+      (l.requestKeyShareNow = o("WAWebKeyShareQueue").requestKeyShareNow),
       (l.enqueueMetaAiThreadServerDeleteNow = o(
         "WAWebMetaAiThreadServerDeleteQueue",
       ).enqueueMetaAiThreadServerDeleteNow),

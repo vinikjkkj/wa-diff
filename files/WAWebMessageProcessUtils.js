@@ -10,13 +10,13 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.lid;
           o("WALogger").LOG(
             e ||
@@ -26,7 +26,7 @@ __d(
               ])),
             n.toLogString(),
           );
-          var r = yield f(n);
+          var r = yield _(n);
           return (
             o("WAWebCurrentUser").isEmployee() &&
               o("WALogger").LOG(
@@ -42,31 +42,23 @@ __d(
             r
           );
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "select chat (migrated): select for lid ",
-                "",
-              ])),
-            e.toLogString(),
-          );
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebGetChatRecordByAccountLid",
           ).getChatRecordByAccountLid(e);
           if (t.length > 1)
             throw (
               o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "select chat (migrated): err: multiple chats for lid",
                   ])),
               ),
@@ -75,40 +67,39 @@ __d(
               )
             );
           if (t.length === 1) {
-            var n = r("nullthrows")(t[0].id, "chat id should never be null");
+            var n = r("nullthrows")(t[0].id, "chat id should never be null"),
+              a = o("WAWebWidFactory").createWid(n);
             return (
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "select chat (migrated): found by lid. id=",
                     " lid=",
                     "",
                   ])),
-                n.toString(),
+                a.toLogString(),
                 e.toLogString(),
               ),
               {
                 accountLid: e,
-                chatId: o("WAWebWidFactory").asUserWidOrThrow(
-                  o("WAWebWidFactory").createWid(n),
-                ),
+                chatId: o("WAWebWidFactory").asUserWidOrThrow(a),
               }
             );
           }
           return (
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "select chat (migrated): assigning lid for new chat",
                 ])),
             ),
             { accountLid: e, chatId: e }
           );
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.selectChatForOneOnOneMessage = p;
+    l.selectChatForOneOnOneMessage = m;
   },
   98,
 );

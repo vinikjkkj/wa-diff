@@ -452,12 +452,35 @@ __d(
       );
     }
     function ce() {
-      r("WAWebUserPrefsStore").set(
-        o("WAWebUserPrefsKeys").UserPrefs.NotificationClickedOnce,
-        !0,
-      );
+      ue() &&
+        (de() == null && me(),
+        r("WAWebUserPrefsStore").set(
+          o("WAWebUserPrefsKeys").UserPrefs.NotificationClickedOnce,
+          null,
+        ));
     }
     function de() {
+      var e,
+        t = r("WAWebUserPrefsStore").get(
+          o("WAWebUserPrefsKeys").UserPrefs.LastNotificationInteractionTime,
+        ),
+        n = Math.max(
+          typeof t == "number" ? t : -1 / 0,
+          (e = o(
+            "WAWebUserPrefsGeneral",
+          ).getWorkerNotificationInteractionTime()) != null
+            ? e
+            : -1 / 0,
+        );
+      return Number.isFinite(n) ? o("WATimeUtils").castToUnixTime(n) : null;
+    }
+    function me() {
+      r("WAWebUserPrefsStore").set(
+        o("WAWebUserPrefsKeys").UserPrefs.LastNotificationInteractionTime,
+        o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
+      );
+    }
+    function pe() {
       return (
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").UserPrefs
@@ -465,21 +488,21 @@ __d(
         ) === !0
       );
     }
-    function me() {
+    function _e() {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").UserPrefs
           .NotReceivingNotificationsBannerDismissed,
         !0,
       );
     }
-    function pe() {
+    function fe() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").UserPrefs
           .NotReceivingNotificationsBannerEligibleSince,
       );
       return typeof e == "number" ? o("WATimeUtils").castToUnixTime(e) : null;
     }
-    function _e(e) {
+    function ge(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").UserPrefs
           .NotReceivingNotificationsBannerEligibleSince,
@@ -541,12 +564,14 @@ __d(
       (l.getNotificationTestVerified = ie),
       (l.setNotificationTestVerified = le),
       (l.clearNotificationTestVerified = se),
-      (l.getNotificationClickedOnce = ue),
-      (l.setNotificationClickedOnce = ce),
-      (l.getNotReceivingNotificationsBannerDismissed = de),
-      (l.setNotReceivingNotificationsBannerDismissed = me),
-      (l.getNotReceivingNotificationsBannerEligibleSince = pe),
-      (l.setNotReceivingNotificationsBannerEligibleSince = _e));
+      (l.hasUnmigratedNotificationClick = ue),
+      (l.migrateNotificationClickedOnce = ce),
+      (l.getLastNotificationInteractionTime = de),
+      (l.saveNotificationInteractionTime = me),
+      (l.getNotReceivingNotificationsBannerDismissed = pe),
+      (l.setNotReceivingNotificationsBannerDismissed = _e),
+      (l.getNotReceivingNotificationsBannerEligibleSince = fe),
+      (l.setNotReceivingNotificationsBannerEligibleSince = ge));
   },
   98,
 );

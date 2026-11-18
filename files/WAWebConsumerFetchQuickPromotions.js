@@ -26,6 +26,7 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebQplFlowWrapper",
     "WAWebQuickPromotionGating",
+    "WAWebQuickPromotionValidatorUtils",
     "WAWebRelayClient",
     "WAWebUserPrefsMeUser",
     "WAWebWebp",
@@ -334,65 +335,66 @@ __d(
                         h = c.is_server_force_pass,
                         y = c.max_impressions,
                         C = c.promotion_id,
-                        S = c.surface_delay_in_seconds,
-                        R = c.wa_qp_content_attributes_do_not_use;
-                      if (!(C == null || h == null || p == null || S == null)) {
-                        var L = p.wa_banner_background_color,
-                          E =
+                        S = c.should_expose_on_client,
+                        R = c.surface_delay_in_seconds,
+                        L = c.wa_qp_content_attributes_do_not_use;
+                      if (!(C == null || h == null || p == null || R == null)) {
+                        var E = p.wa_banner_background_color,
+                          k =
                             p.wa_eligible_duration_after_impression_in_seconds,
-                          k = p.wa_primary_cta_alternative_url;
-                        if (E != null) {
-                          var I = f.map(function (e) {
+                          I = p.wa_primary_cta_alternative_url;
+                        if (k != null) {
+                          var T = f.map(function (e) {
                               return l(P, e);
                             }),
-                            T = I[0],
-                            D,
+                            D = T[0],
                             x,
                             w,
                             A,
                             F,
                             O,
-                            B;
-                          if (T != null) {
-                            var W = T.accessibility_text_for_image,
-                              q = T.content,
-                              U = T.dismiss_action,
-                              H = T.primary_action,
-                              G = T.title,
-                              z = T.wa_dark_mode_media_details,
-                              j = T.wa_light_mode_media_details;
-                            if (G == null || q == null) return;
+                            B,
+                            W;
+                          if (D != null) {
+                            var q = D.accessibility_text_for_image,
+                              U = D.content,
+                              H = D.dismiss_action,
+                              G = D.primary_action,
+                              z = D.title,
+                              j = D.wa_dark_mode_media_details,
+                              K = D.wa_light_mode_media_details;
+                            if (z == null || U == null) return;
                             if (
-                              ((A = l(M, G).text),
-                              (F = l(M, q).text),
-                              H != null)
+                              ((F = l(M, z).text),
+                              (O = l(M, U).text),
+                              G != null)
                             ) {
-                              var K = l(N, H),
-                                Q = K.limit,
-                                X = K.title,
-                                Y = K.url;
-                              if (((x = Q), X != null)) {
-                                var J = l(M, X);
-                                J.text != null &&
-                                  (D = {
-                                    text: J == null ? void 0 : J.text,
-                                    deepLink: Y,
-                                    universalLink: k,
+                              var Q = l(N, G),
+                                X = Q.limit,
+                                Y = Q.title,
+                                J = Q.url;
+                              if (((w = X), Y != null)) {
+                                var Z = l(M, Y);
+                                Z.text != null &&
+                                  (x = {
+                                    text: Z == null ? void 0 : Z.text,
+                                    deepLink: J,
+                                    universalLink: I,
                                   });
                               }
                             }
                             if (
-                              ((w = U == null ? void 0 : U.limit),
-                              (O = T.is_dismissible),
-                              W != null)
+                              ((A = H == null ? void 0 : H.limit),
+                              (B = D.is_dismissible),
+                              q != null)
                             ) {
-                              var Z;
+                              var ee;
                               try {
-                                (j == null ? void 0 : j.jpeg_thumbnail) !=
+                                (K == null ? void 0 : K.jpeg_thumbnail) !=
                                   null &&
-                                  (Z = {
+                                  (ee = {
                                     elementValue: new Uint8Array(
-                                      o("WABase64").decodeB64(j.jpeg_thumbnail),
+                                      o("WABase64").decodeB64(K.jpeg_thumbnail),
                                     ),
                                   });
                               } catch (e) {
@@ -404,13 +406,13 @@ __d(
                                       ])),
                                 );
                               }
-                              var ee;
+                              var te;
                               try {
-                                (z == null ? void 0 : z.jpeg_thumbnail) !=
+                                (j == null ? void 0 : j.jpeg_thumbnail) !=
                                   null &&
-                                  (ee = {
+                                  (te = {
                                     elementValue: new Uint8Array(
-                                      o("WABase64").decodeB64(z.jpeg_thumbnail),
+                                      o("WABase64").decodeB64(j.jpeg_thumbnail),
                                     ),
                                   });
                               } catch (e) {
@@ -422,24 +424,24 @@ __d(
                                       ])),
                                 );
                               }
-                              B = { description: W, light: Z, dark: ee };
+                              W = { description: q, light: ee, dark: te };
                             }
                           }
-                          if (!(A == null || F == null || O == null)) {
-                            var te =
-                                L != null
+                          if (!(F == null || O == null || B == null)) {
+                            var ne =
+                                E != null
                                   ? {
                                       lightHighlight:
-                                        L.light_mode_highlight_color,
+                                        E.light_mode_highlight_color,
                                       lightBackground:
-                                        L.light_mode_background_color,
+                                        E.light_mode_background_color,
                                       darkHighlight:
-                                        L.dark_mode_highlight_color,
+                                        E.dark_mode_highlight_color,
                                       darkBackground:
-                                        L.dark_mode_background_color,
+                                        E.dark_mode_background_color,
                                     }
                                   : void 0,
-                              ne = R.reduce(function (e, t) {
+                              re = L.reduce(function (e, t) {
                                 var n = t.name,
                                   r = t.value;
                                 return (
@@ -449,31 +451,31 @@ __d(
                                   e
                                 );
                               }, []),
-                              re =
-                                y != null || x != null || w != null
+                              oe =
+                                y != null || w != null || A != null
                                   ? {
                                       promotionConfig: {
                                         maxImpressions: y != null ? y : -1,
-                                        maxDismisses: w != null ? w : 0,
-                                        maxPrimaryClicks: x != null ? x : 0,
+                                        maxDismisses: A != null ? A : 0,
+                                        maxPrimaryClicks: w != null ? w : 0,
                                         maxSecondaryClicks: 0,
                                       },
                                       userInfo: void 0,
                                     }
                                   : void 0,
-                              oe = _ != null ? V(_, l) : void 0,
-                              ae =
+                              ae = _ != null ? V(_, l) : void 0,
+                              ie =
                                 g != null
                                   ? {
                                       elementValue:
                                         o("WAWebWebp").stringToUint8(g),
                                     }
                                   : void 0,
-                              ie = {
+                              le = {
                                 id: C,
                                 qpConfigPriority: s,
-                                qpConfigDismissable: O ? "true" : "false",
-                                qpConfigEligibilityDurationMs: E * 1e3,
+                                qpConfigDismissable: B ? "true" : "false",
+                                qpConfigEligibilityDurationMs: k * 1e3,
                                 qpConfigEndTimeSeconds: u.end,
                                 qpConfigExperimentKey: d,
                                 qpConfigExposureHoldout: n ? "true" : "false",
@@ -482,30 +484,32 @@ __d(
                                   ? "true"
                                   : "false",
                                 qpConfigStartTimeSeconds: u.start,
-                                qpConfigSurfaceDelayTimeSeconds: S,
+                                qpConfigSurfaceDelayTimeSeconds: R,
                                 qpConfigTtlSeconds: t,
                                 qpConfigClientSideDryRun:
                                   m === !0 ? "true" : "false",
-                                titleElementValue: A,
-                                textElementValue: F,
-                                colors: te,
-                                contentAttributes: { attribute: ne },
-                                image: B,
-                                primaryAction: D,
-                                qpConfigPacing: re,
-                                qpConfigFilterRules: oe,
+                                titleElementValue: F,
+                                textElementValue: O,
+                                colors: ne,
+                                contentAttributes: { attribute: re },
+                                image: W,
+                                primaryAction: x,
+                                qpConfigPacing: oe,
+                                qpConfigFilterRules: ae,
+                                qpConfigExposureStrategy: o(
+                                  "WAWebQuickPromotionValidatorUtils",
+                                ).toQuickPromotionExposureStrategy(S),
                                 header: void 0,
                                 instanceId: void 0,
                                 qpConfigDeterministic: "true",
                                 qpConfigImpressionCooldown: -1,
-                                qpConfigInstanceLogData: ae,
+                                qpConfigInstanceLogData: ie,
                                 qpConfigMaxImpressions: y != null ? y : -1,
                                 qpConfigTemplateName: "whatsapp_banner",
                                 qpConfigTriggersTrigger: [],
                                 secondaryAction: void 0,
-                                qpConfigExposureStrategy: void 0,
                               };
-                            a.promotions.push(ie);
+                            a.promotions.push(le);
                           }
                         }
                       }

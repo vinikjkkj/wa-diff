@@ -12,6 +12,7 @@ __d(
     "WAWebUA",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWam",
     "WAWebWamGlobals",
     "asyncToGeneratorRuntime",
@@ -63,60 +64,62 @@ __d(
             (t.subplatform = o("WAWebCrashlogConstants").CLB_SUBPLATFORM),
             r("gkx")("26259")
               ? (t.releaseChannel = "intern")
-              : r("gkx")("26258") && (t.releaseChannel = "production"));
-          var n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
-          n && (t.deviceID = n.toString());
-          var a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+              : r("gkx")("26258") && (t.releaseChannel = "production"),
+            o("WAWebUserPrefsMeUser").hasLoggedIn() &&
+              (t.deviceID = o("WAWebUserUtils")
+                .getMeDeviceOrThrow()
+                .toString()));
+          var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           r("gkx")("11584") &&
-            a &&
+            n &&
             ((t.saga_copy = o("WAWebABPropsSaga")
               .getIsSagaV1Enabled()
               .toString()),
-            (t.pn = a.user.toString()));
-          var i = {};
-          for (var l in t) {
-            var s = t[l];
-            s != null && (i[l] = s);
+            (t.pn = n.user.toString()));
+          var a = {};
+          for (var i in t) {
+            var l = t[i];
+            l != null && (a[i] = l);
           }
-          ((i.debugIsExternalBeta = yield o(
+          ((a.debugIsExternalBeta = yield o(
             "WAWebUserPrefsGeneral",
           ).getWhatsAppWebExternalBetaJoinedIdb()),
-            (i.isHistoryLidSession = o(
+            (a.isHistoryLidSession = o(
               "WAWebHistorySyncLidChatGating",
             ).isForcedHistoryLidChat()));
-          var u = o("WAWebReloadReason").getLastReload();
-          u != null &&
-            ((i.lastReloadReason = u.reason),
-            (i.lastReloadAgeS = u.ageS),
-            u.msg != null && (i.lastReloadMsgCount = u.msg),
-            u.receipt != null && (i.lastReloadReceiptCount = u.receipt));
-          var d = yield o("WAWebTasksDailyStatsTask").getLidMigrationStatus();
+          var s = o("WAWebReloadReason").getLastReload();
+          s != null &&
+            ((a.lastReloadReason = s.reason),
+            (a.lastReloadAgeS = s.ageS),
+            s.msg != null && (a.lastReloadMsgCount = s.msg),
+            s.receipt != null && (a.lastReloadReceiptCount = s.receipt));
+          var u = yield o("WAWebTasksDailyStatsTask").getLidMigrationStatus();
           if (
-            (d.completedMigrations != null &&
-              (i.lidCompletedMigrations = d.completedMigrations),
+            (u.completedMigrations != null &&
+              (a.lidCompletedMigrations = u.completedMigrations),
             e)
           ) {
-            var m = e.addLanguageFields,
-              p = e.addUserAgentDetails,
-              _ = e.convertFields,
-              f = e.entityId,
-              g = e.supportTag,
-              h = e.user_review_score;
+            var d = e.addLanguageFields,
+              m = e.addUserAgentDetails,
+              p = e.convertFields,
+              _ = e.entityId,
+              f = e.supportTag,
+              g = e.user_review_score;
             if (
-              (g != null && (i.context = g),
-              f != null && (i.entityId = f),
-              h != null && (i.user_review_score = h),
-              p === !0 && (i.userAgent = o("WAWebUA").UA.parser.getUA()),
-              m === !0 &&
-                ((i.lc = r("WAWebL10N").getRegion()),
-                (i.lg = r("WAWebL10N").getLanguage())),
-              _ === !0)
+              (f != null && (a.context = f),
+              _ != null && (a.entityId = _),
+              g != null && (a.user_review_score = g),
+              m === !0 && (a.userAgent = o("WAWebUA").UA.parser.getUA()),
+              d === !0 &&
+                ((a.lc = r("WAWebL10N").getRegion()),
+                (a.lg = r("WAWebL10N").getLanguage())),
+              p === !0)
             ) {
-              var y = c(i);
-              return y;
+              var h = c(a);
+              return h;
             }
           }
-          return i;
+          return a;
         })),
         u.apply(this, arguments)
       );

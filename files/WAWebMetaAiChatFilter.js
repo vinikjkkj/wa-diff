@@ -2,7 +2,6 @@ __d(
   "WAWebMetaAiChatFilter",
   [
     "WAWebBotGating",
-    "WAWebBotStaticProfiles",
     "WAWebBotSupportGating",
     "WAWebBotUtils",
     "WAWebChatCollection",
@@ -45,11 +44,7 @@ __d(
     function d() {
       o("WAWebChatCollection").ChatCollection.some(function (e) {
         var t = e.id;
-        return (
-          t.isFbidBot() &&
-          !o("WAWebBotStaticProfiles").isStaticProfile(t) &&
-          o("WAWebResolveBotProfile").resolveBotSupportInput(t) == null
-        );
+        return o("WAWebResolveBotProfile").isBotProfileMissing(t);
       }) &&
         o("WAWebBotGating").isMetaAiThreadInboxFilterEnabled() &&
         o(

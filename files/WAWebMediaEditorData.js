@@ -23,19 +23,18 @@ __d(
           ((this.$1 = Object.freeze(babelHelpers.extends({}, e))),
             Object.freeze(this));
         }
-        t.create = function () {
-          var n,
-            a,
-            i = o(
+        t.create = function (a) {
+          a === void 0 && (a = Math.random());
+          var n = o(
               "WAWebMediaEditorUtilsGetDominantColor",
             ).DEFAULT_DOMINANT_COLOR.getBackgroundAndTintColors(),
-            l = i.backgroundColor,
-            s = i.tintColor;
+            i = n.backgroundColor,
+            l = n.tintColor;
           return new t({
-            id: Math.random(),
+            id: a,
             frame: new (r("WAWebMediaEditorGeometryRect"))({
               origin: new (r("WAWebMediaEditorGeometryPoint"))({ x: 0, y: 0 }),
-              size: new (a = r("WAWebMediaEditorGeometrySize"))({
+              size: new (r("WAWebMediaEditorGeometrySize"))({
                 width: 0,
                 height: 0,
               }),
@@ -43,23 +42,26 @@ __d(
               scale: { x: 0, y: 0 },
             }),
             layers: [],
-            paintLayer: new (n = o("WAWebMediaEditorLayersDraw")).DrawLayer({
-              size: a.empty(),
-              type: n.DrawLayerType.Paint,
+            paintLayer: new (o("WAWebMediaEditorLayersDraw").DrawLayer)({
+              size: r("WAWebMediaEditorGeometrySize").empty(),
+              type: o("WAWebMediaEditorLayersDraw").DrawLayerType.Paint,
             }),
-            outlineLayer: new n.DrawLayer({
-              size: a.empty(),
-              type: n.DrawLayerType.Outline,
+            outlineLayer: new (o("WAWebMediaEditorLayersDraw").DrawLayer)({
+              size: r("WAWebMediaEditorGeometrySize").empty(),
+              type: o("WAWebMediaEditorLayersDraw").DrawLayerType.Outline,
             }),
             background: null,
             selectedLayer: null,
             activeFilter: o("WAWebMediaEditorUtilsFilterType").FilterType.NONE,
-            backgroundColor: l,
-            tintColor: s,
+            backgroundColor: i,
+            tintColor: l,
             rotation: e,
             cropFrame: new (r("WAWebMediaEditorGeometryRect"))({
               origin: new (r("WAWebMediaEditorGeometryPoint"))({ x: 0, y: 0 }),
-              size: new a({ width: 0, height: 0 }),
+              size: new (r("WAWebMediaEditorGeometrySize"))({
+                width: 0,
+                height: 0,
+              }),
               rotation: 0,
               scale: { x: 0, y: 0 },
             }),

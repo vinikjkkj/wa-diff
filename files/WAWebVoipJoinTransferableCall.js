@@ -49,33 +49,43 @@ __d(
         },
       );
     function p(e) {
-      if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
-        if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-          f(function (t) {
-            return t.openCallTransferLobby(e);
-          });
-          return;
-        }
-        h(e);
-      }
+      return _.apply(this, arguments);
     }
-    function _(e) {
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            !o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()
+          ) {
+            if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+              yield g(function (t) {
+                return t.openCallTransferLobby(e);
+              });
+              return;
+            }
+            yield y(e);
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
       if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
         if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-          f(function (t) {
+          g(function (t) {
             return t.joinCallTransferWithoutLobby(e);
           });
           return;
         }
-        L(e);
+        E(e);
       }
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           try {
             t = yield m();
@@ -87,16 +97,16 @@ __d(
           }
           e(t);
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield C(),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield b(),
             n = o(
               "WAWebVoipCallTransferEntryPointStore",
             ).WAWebVoipCallTransferEntryPointStore.getForRootCallId(
@@ -114,17 +124,17 @@ __d(
               ).showCallTransferCouldNotConnectToast());
             return;
           }
-          (t != null && (yield v(t, n))) || (yield L(n));
+          (t != null && (yield S(t, n))) || (yield E(n));
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             return yield o("WAWebVoipStackInterface").getVoipStackInterface();
           } catch (e) {
@@ -142,15 +152,15 @@ __d(
             );
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (e.type !== "windows") return !1;
           try {
             var n = o("WAWebContactCollection").ContactCollection.gadd(
@@ -162,7 +172,7 @@ __d(
                 rootCallCreator: t.rootCallCreatorJid,
                 peerActiveDevice: t.peerActiveDeviceJid,
                 peerJid: t.peerWid.toString(),
-                peerName: R(n),
+                peerName: L(n),
                 isVideoCall: t.isVideoCall,
               });
             if (!a) return !1;
@@ -192,10 +202,10 @@ __d(
             !0
           );
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
+    function L(e) {
       var t,
         n = o("WAWebFrontendContactGetters").getFormattedName(e);
       if (n !== "") return n;
@@ -207,12 +217,12 @@ __d(
           : t.displayName;
       return r != null ? "~" + r : "";
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebVoipTransferCall",
           ).transferWAWebVoipCallToThisDevice({
@@ -226,11 +236,11 @@ __d(
               "WAWebVoipHandleCallTransferFailed",
             ).showCallTransferCouldNotConnectToast();
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
     ((l.joinTransferableCallHere = p),
-      (l.joinTransferableCallWithoutLobby = _));
+      (l.joinTransferableCallWithoutLobby = f));
   },
   98,
 );

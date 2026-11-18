@@ -31,6 +31,12 @@ __d(
         canInvite: d,
         canEdit: d,
         canDelete: i && l,
+        canReport:
+          !i &&
+          t.status !==
+            o("WAWebSharableEventStorageEnums").SharableEventStoredStatus
+              .Suspended,
+        canLeave: !i && l && t.linkToken == null,
         canAddToCalendar: o(
           "WAWebSharableEventAddToCalendarAction",
         ).canAddSharableEventToCalendar(

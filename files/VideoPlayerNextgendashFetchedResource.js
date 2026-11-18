@@ -30,7 +30,13 @@ __d(
       c = ["name"],
       d,
       m = new Set([404]);
-    function p(e, t) {
+    function p(e) {
+      return (
+        e.liveBroadcastGoneOnHttp410Enabled &&
+        (e.isLivePlayback || e.isLiveStreamingFromProduct)
+      );
+    }
+    function _(e, t) {
       var n = t.streamReaderFlushIntervalID;
       n != null &&
         (e.host.timers.clearInterval(n),
@@ -39,7 +45,7 @@ __d(
       r != null &&
         (e.host.timers.clearTimeout(r), (t.streamReaderFlushTimeoutID = null));
     }
-    function _(e) {
+    function f(e) {
       var t = o(
           "VideoPlayerNextgendashFetchedResourceRetryConfig",
         ).getFetchedResourceRetryConfig(e.useExponentialBackoffRetryStrategy),
@@ -59,23 +65,23 @@ __d(
                   }),
           });
     }
-    var f = 100,
-      g = 0.8,
-      h = 1e4,
-      y = 10;
-    function C(e) {
+    var g = 100,
+      h = 0.8,
+      y = 1e4,
+      C = 10;
+    function b(e) {
       if (e == null) return null;
       var t = parseInt(e, 10);
       return Number.isSafeInteger(t) && t > 0 ? t : null;
     }
-    function b(e, t) {
-      return e >= h && t >= y ? { bytes: e, timeInMs: t } : null;
+    function v(e, t) {
+      return e >= y && t >= C ? { bytes: e, timeInMs: t } : null;
     }
-    function v(e, t, n, r) {
+    function S(e, t, n, r) {
       var o = e.bandwidthSampleServerPacedBitsPerSecond;
-      return o != null && t > f && r > 0 && (n * 8e3) / r >= o * g;
+      return o != null && t > g && r > 0 && (n * 8e3) / r >= o * h;
     }
-    var S = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
+    var R = o("VideoPlayerNextgendashStateMachine").defineStateMachine(
       null,
       function (e) {
         var t = e.args.request,
@@ -102,8 +108,8 @@ __d(
           u = t.sendToSelf,
           c = t.state,
           d = t.unexpectedEvent,
-          f = _(n.config);
-        function g(e, t, r) {
+          g = f(n.config);
+        function h(e, t, r) {
           var a = c.retryLogic,
             l = t + (r ? "-" + r : "");
           if (
@@ -111,7 +117,7 @@ __d(
             (l === a.state.retryReason || a.state.state === "__disposed__")
           )
             return a;
-          var s = f[t],
+          var s = g[t],
             d =
               s != null
                 ? i(
@@ -139,13 +145,13 @@ __d(
                 : null;
           return d;
         }
-        function h(e) {
+        function y(e) {
           var t,
             r,
             a,
             i,
             l = (t = e.responseData) == null ? void 0 : t.state;
-          (l == null ? void 0 : l.state) === "reading_stream" && p(n, l);
+          (l == null ? void 0 : l.state) === "reading_stream" && _(n, l);
           var s = e.nativeTransfer;
           if (s != null)
             s !== c.nativeTransfer &&
@@ -160,12 +166,12 @@ __d(
                 : c.exception,
             m =
               (i = e.requestAbortedClock) != null ? i : e.requestCompletedClock,
-            _ =
+            p =
               e.state === "waiting_headers"
                 ? e.qplSubspanForHeadersEnd
                 : void 0;
-          _ &&
-            _(
+          p &&
+            p(
               o("VideoPlayerNextgendashQPL").qplAnnotationsForError(d),
               m != null
                 ? o("VideoPlayerNextgendashQPL").qplTimestampFromClockstamp(
@@ -189,10 +195,10 @@ __d(
                 : void 0,
             );
         }
-        function y() {
+        function C() {
           switch (r.type) {
             case "__enter": {
-              h(r.prevState);
+              y(r.prevState);
               return;
             }
             default:
@@ -211,56 +217,56 @@ __d(
           )
             return;
           if (r.type === "_native_rejection") {
-            var C,
-              b = n.host.networkIsOnline(),
-              v =
+            var b,
+              v = n.host.networkIsOnline(),
+              S =
                 typeof r.rejection == "object" &&
                 r.rejection != null &&
                 typeof r.rejection.name == "string" &&
                 (r.rejection.name === "AbortError" ||
                   r.rejection.name.endsWith("/AbortError")),
-              S = o("nextgendasherr").nextgendasherrFromFetchRejection(
+              R = o("nextgendasherr").nextgendasherrFromFetchRejection(
                 n,
                 r.rejection,
-                v
+                S
                   ? "VideoPlayerNextgendashFetchedResourceAborted"
-                  : b
+                  : v
                     ? "VideoPlayerNextgendashFetchedResourceNativeRejection"
                     : "VideoPlayerNextgendashFetchedResourceNativeOffline",
                 "Request %s (%s) native transfer failed.",
                 c.request.qplName,
                 c.request.requestID,
               );
-            if (v) {
-              var E;
+            if (S) {
+              var k;
               return {
-                abortReason: S,
+                abortReason: R,
                 prefetchResultState: c.prefetchResultState,
                 request: c.request,
                 requestAbortedClock: a,
                 requestCompletedClock: null,
                 requestStartedClock: c.requestStartedClock,
                 responseData: null,
-                responseHeader: (E = c.responseHeader) != null ? E : null,
+                responseHeader: (k = c.responseHeader) != null ? k : null,
                 state: "aborted",
               };
             }
             return {
-              error: S,
+              error: R,
               prefetchResultState: c.prefetchResultState,
               request: c.request,
               requestCompletedClock: a,
               requestStartedClock: c.requestStartedClock,
               responseData: null,
-              responseHeader: (C = c.responseHeader) != null ? C : null,
-              retryLogic: g(
+              responseHeader: (b = c.responseHeader) != null ? b : null,
+              retryLogic: h(
                 c.request,
-                b
+                v
                   ? c.state === "waiting_headers"
                     ? "fetchRejection"
                     : "responseDataFailed"
                   : "offline",
-                b ? S.name : "",
+                v ? R.name : "",
               ),
               state: "waiting_retry_or_failed",
             };
@@ -278,14 +284,14 @@ __d(
               case "_retry_logic_transitioned":
                 return;
               case "start":
-                return R(n, c, u);
+                return L(n, c, u);
               case "abort_and_clear":
                 return;
               default:
                 throw (r.type, d());
             }
           case "waiting_retry_or_failed": {
-            var k = function () {
+            var I = function () {
               var t = c.retryLogic,
                 r = babelHelpers.objectWithoutPropertiesLoose(c, e),
                 a = r.request.attemptInfo;
@@ -335,13 +341,13 @@ __d(
             };
             switch (r.type) {
               case "__enter":
-                return (h(r.prevState), k());
+                return (y(r.prevState), I());
               case "__exception":
                 return;
               case "__dispose":
                 return;
               case "_retry_logic_transitioned":
-                return k();
+                return I();
               case "abort_and_clear":
                 return {
                   abortReason: r.abortReason,
@@ -388,13 +394,13 @@ __d(
                     r.request.requestID,
                     c.request.requestID,
                   );
-                var I = c.retryLogic,
-                  T = babelHelpers.objectWithoutPropertiesLoose(c, s);
-                return I == null || I.state.state === "__disposed__"
-                  ? babelHelpers.extends({}, T, { state: "failed" })
-                  : I.state.retryReason === "offline" &&
+                var T = c.retryLogic,
+                  D = babelHelpers.objectWithoutPropertiesLoose(c, s);
+                return T == null || T.state.state === "__disposed__"
+                  ? babelHelpers.extends({}, D, { state: "failed" })
+                  : T.state.retryReason === "offline" &&
                       !n.host.networkIsOnline()
-                    ? (l(I, { type: "schedule_retry" }),
+                    ? (l(T, { type: "schedule_retry" }),
                       babelHelpers.extends({}, c, {
                         state: "waiting_start_from_retry",
                       }))
@@ -462,7 +468,7 @@ __d(
                   requestStartedClock: c.requestStartedClock,
                   responseData: null,
                   responseHeader: null,
-                  retryLogic: g(
+                  retryLogic: h(
                     c.request,
                     r.isOnline ? "fetchRejection" : "offline",
                     r.isOnline ? r.error.name : "",
@@ -471,9 +477,9 @@ __d(
                 };
               case "_headers":
               case "_native_headers": {
-                var D = c.request;
-                if (D === r.request) {
-                  var x =
+                var x = c.request;
+                if (x === r.request) {
+                  var $ =
                       r.type === "_native_headers"
                         ? {
                             httpHeaders: null,
@@ -493,20 +499,20 @@ __d(
                             httpStatusOk: r.fetchResponse.ok,
                             httpStatusText: r.fetchResponse.statusText,
                           },
-                    $ = c.qplSubspanForHeadersEnd,
-                    P = $
+                    P = c.qplSubspanForHeadersEnd,
+                    N = P
                       ? {
-                          bool: { fetchResponseOK: x.httpStatusOk },
+                          bool: { fetchResponseOK: $.httpStatusOk },
                           string: {
-                            fetchResponseStatus: String(x.httpStatus),
-                            fetchResponseStatusText: x.httpStatusOk
+                            fetchResponseStatus: String($.httpStatus),
+                            fetchResponseStatusText: $.httpStatusOk
                               ? void 0
-                              : x.httpStatusText,
+                              : $.httpStatusText,
                           },
                         }
                       : void 0;
-                  if (x.httpStatusOk) {
-                    var N =
+                  if ($.httpStatusOk) {
+                    var M =
                       r.type === "_native_headers"
                         ? {
                             state: {
@@ -515,16 +521,16 @@ __d(
                               state: "reading_native",
                             },
                           }
-                        : L(n, a, D, r.fetchResponse, c.prefetchResultState, u);
+                        : E(n, a, x, r.fetchResponse, c.prefetchResultState, u);
                     return (
-                      $ &&
-                        $(
-                          P,
+                      P &&
+                        P(
+                          N,
                           o(
                             "VideoPlayerNextgendashQPL",
                           ).qplTimestampFromClockstamp(
                             n,
-                            x.httpHeadersReceivedClock,
+                            $.httpHeadersReceivedClock,
                           ),
                         ),
                       babelHelpers.extends(
@@ -537,57 +543,58 @@ __d(
                           qplSubspanForRequestEnd: c.qplSubspanForRequestEnd,
                           request: c.request,
                           requestStartedClock: c.requestStartedClock,
-                          responseData: N,
-                          responseHeader: x,
+                          responseData: M,
+                          responseHeader: $,
                           retryLogic: c.retryLogic,
                           state: "waiting_data",
                         },
                       )
                     );
                   } else {
-                    var M = o("nextgendasherr").nextgendasherr(
+                    var w = o("nextgendasherr").nextgendasherr(
                       n,
-                      "VideoPlayerNextgendashFetchHTTP" + x.httpStatus,
+                      "VideoPlayerNextgendashFetchHTTP" + $.httpStatus,
                       "Request " +
                         c.request.qplName +
                         " (%s) HTTP " +
-                        x.httpStatus +
+                        $.httpStatus +
                         " " +
-                        x.httpStatusText +
+                        $.httpStatusText +
                         ".",
                       c.request.requestID,
                     );
                     return (
-                      $ &&
-                        $(
+                      P &&
+                        P(
                           o("VideoPlayerNextgendashQPL").qplAnnotationsMerge(
-                            P,
+                            N,
                             o(
                               "VideoPlayerNextgendashQPL",
-                            ).qplAnnotationsForError(M),
+                            ).qplAnnotationsForError(w),
                           ),
                           o(
                             "VideoPlayerNextgendashQPL",
                           ).qplTimestampFromClockstamp(
                             n,
-                            x.httpHeadersReceivedClock,
+                            $.httpHeadersReceivedClock,
                           ),
                         ),
                       {
-                        error: M,
+                        error: w,
                         prefetchResultState: c.prefetchResultState,
                         request: c.request,
                         requestCompletedClock: null,
                         requestStartedClock: c.requestStartedClock,
                         responseData: null,
-                        responseHeader: x,
-                        retryLogic: g(
+                        responseHeader: $,
+                        retryLogic: h(
                           c.request,
-                          n.config.retryShorterForUnrecoverableHTTP &&
-                            m.has(x.httpStatus)
+                          (n.config.retryShorterForUnrecoverableHTTP &&
+                            m.has($.httpStatus)) ||
+                            ($.httpStatus === 410 && p(n.config))
                             ? "httpNotOkUnrecoverable"
                             : "httpNotOk",
-                          String(x.httpStatus),
+                          String($.httpStatus),
                         ),
                         state: "waiting_retry_or_failed",
                       }
@@ -622,7 +629,7 @@ __d(
               case "__enter":
                 return;
               case "__exception": {
-                var w = r.exception.name.startsWith(
+                var A = r.exception.name.startsWith(
                   "VideoPlayerNextgendashFetchResponseStreamReaderOffline",
                 );
                 return {
@@ -633,10 +640,10 @@ __d(
                   requestStartedClock: c.requestStartedClock,
                   responseData: c.responseData,
                   responseHeader: c.responseHeader,
-                  retryLogic: g(
+                  retryLogic: h(
                     c.request,
-                    w ? "offline" : "responseDataFailed",
-                    w ? "" : r.exception.name,
+                    A ? "offline" : "responseDataFailed",
+                    A ? "" : r.exception.name,
                   ),
                   state: "waiting_retry_or_failed",
                 };
@@ -644,9 +651,9 @@ __d(
               case "__dispose":
                 return;
               case "_native_body": {
-                var A = c.responseData.state;
-                if (A.state !== "reading_native") throw d();
-                var F =
+                var F = c.responseData.state;
+                if (F.state !== "reading_native") throw d();
+                var O =
                   c.request.reportToBandwidthEstimator === !0 &&
                   !(
                     n.config.enablePrefetchBandwidthSampling &&
@@ -660,7 +667,7 @@ __d(
                       )
                     : null;
                 return (
-                  F != null && n.host.networkDiagnosticsUpdate(F),
+                  O != null && n.host.networkDiagnosticsUpdate(O),
                   {
                     nativeTransfer: r.nativeTransfer,
                     prefetchResultState: c.prefetchResultState,
@@ -673,8 +680,8 @@ __d(
                         nativeBody: o(
                           "VideoPlayerNextgendashStateMachine",
                         ).skipAutoDisposeInsideThisObject(r.nativeBody),
-                        networkDiagnosticsSample: F,
-                        startedReadingClock: A.startedReadingClock,
+                        networkDiagnosticsSample: O,
+                        startedReadingClock: F.startedReadingClock,
                         state: "done_native",
                       },
                     },
@@ -684,15 +691,15 @@ __d(
                 );
               }
               case "_done_text": {
-                var O = c.responseData.state;
-                if (O.state !== "reading_text") throw d();
+                var B = c.responseData.state;
+                if (B.state !== "reading_text") throw d();
                 return {
                   prefetchResultState: c.prefetchResultState,
                   request: c.request,
                   requestCompletedClock: a,
                   requestStartedClock: c.requestStartedClock,
                   responseData: {
-                    state: babelHelpers.extends({}, O, {
+                    state: babelHelpers.extends({}, B, {
                       state: "done_text",
                       text: r.text,
                     }),
@@ -702,34 +709,34 @@ __d(
                 };
               }
               case "_done_buffer": {
-                var B = c.responseData.state;
-                if (B.state !== "reading_buffer") throw d();
-                var W = null;
+                var W = c.responseData.state;
+                if (W.state !== "reading_buffer") throw d();
+                var q = null;
                 return (
                   c.request.reportToBandwidthEstimator === !0 &&
                     !(
                       n.config.enablePrefetchBandwidthSampling &&
                       c.prefetchResultState != null
                     ) &&
-                    ((W = o(
+                    ((q = o(
                       "VideoPlayerNextgendashNetworkDiagnosticsUtils",
                     ).computeNetworkDiagnosticsSampleOnDone(
                       n,
                       c.request.requestInfo,
-                      { bytes: 0, clock: B.startedReadingClock },
+                      { bytes: 0, clock: W.startedReadingClock },
                       a,
                       r.buffer.byteLength,
                     )),
-                    W && n.host.networkDiagnosticsUpdate(W)),
+                    q && n.host.networkDiagnosticsUpdate(q)),
                   {
                     prefetchResultState: c.prefetchResultState,
                     request: c.request,
                     requestCompletedClock: a,
                     requestStartedClock: c.requestStartedClock,
                     responseData: {
-                      state: babelHelpers.extends({}, B, {
+                      state: babelHelpers.extends({}, W, {
                         buffer: r.buffer,
-                        networkDiagnosticsSample: W,
+                        networkDiagnosticsSample: q,
                         state: "done_buffer",
                       }),
                     },
@@ -741,12 +748,12 @@ __d(
               case "_done_chunks":
                 return c;
               case "_done_stream": {
-                var q = c.responseData.state;
-                if (q.state !== "reading_stream" && q.state !== "done_stream")
+                var U = c.responseData.state;
+                if (U.state !== "reading_stream" && U.state !== "done_stream")
                   throw d(
                     "throw",
                     'responseData state is "' +
-                      q.state +
+                      U.state +
                       '", not "reading_stream" or "done_stream".',
                   );
                 return {
@@ -791,14 +798,14 @@ __d(
                   state: "aborted",
                 };
               default:
-                return y();
+                return C();
             }
           case "failed":
-            return y();
+            return C();
           case "aborted":
-            return y();
+            return C();
           case "__disposed__":
-            return y();
+            return C();
           default: {
             c.state;
             return;
@@ -806,7 +813,7 @@ __d(
         }
       },
     );
-    function R(e, t, r) {
+    function L(e, t, r) {
       var a = e.host.clock(),
         i = t.request,
         l =
@@ -1076,7 +1083,7 @@ __d(
                       d,
                       m,
                       i.requestID,
-                      E(e, i),
+                      k(e, i),
                     );
                   (c &&
                     c(
@@ -1105,7 +1112,7 @@ __d(
                 "VideoPlayerNextgendashFetchedResourceFetchException" + g,
                 "Request " + i.qplName + " (%s) failed to start. %s",
                 i.requestID,
-                E(e, i),
+                k(e, i),
               );
             (c &&
               c(
@@ -1126,7 +1133,7 @@ __d(
         }
       );
     }
-    function L(e, t, n, r, a, i) {
+    function E(e, t, n, r, a, i) {
       switch (n.responseMode) {
         case "text":
           return (
@@ -1225,16 +1232,16 @@ __d(
                   c = r.bandwidthSamplingState,
                   d = e.config.enablePrefetchBandwidthSampling && a != null,
                   m = n.bandwidthSampleServerPacedBitsPerSecond,
-                  _ = l.perfMs - r.startedReadingClock.perfMs,
+                  p = l.perfMs - r.startedReadingClock.perfMs,
                   f =
                     m != null &&
                     !r.streamReaderDone &&
-                    !(_ > 0 && (t * 8e3) / _ < m * g);
+                    !(p > 0 && (t * 8e3) / p < m * h);
                 if (
                   n.reportToBandwidthEstimator === !0 &&
                   !d &&
                   !f &&
-                  !v(
+                  !S(
                     n,
                     r.chunkArrivalGapMaxMs,
                     t,
@@ -1242,15 +1249,15 @@ __d(
                   )
                 ) {
                   if (r.streamReaderDone) {
-                    var h = o(
+                    var g = o(
                       "VideoPlayerNextgendashNetworkDiagnosticsUtils",
                     ).computeNetworkDiagnosticsSampleOnChunk(
                       r.bandwidthSamplingState,
                       l,
                       t,
                     );
-                    ((s = h.networkDiagnosticsSample),
-                      (c = h.nextBandwidthSamplingState));
+                    ((s = g.networkDiagnosticsSample),
+                      (c = g.nextBandwidthSamplingState));
                   }
                   (s && e.host.networkDiagnosticsUpdate(s),
                     (s = o(
@@ -1274,7 +1281,7 @@ __d(
                   r.predictiveResponseChunkBytes != null &&
                   r.predictiveResponseChunkArrivedPerfMs != null
                 ) {
-                  var y = b(
+                  var y = v(
                     r.predictiveResponseChunkBytes,
                     r.predictiveResponseChunkArrivedPerfMs -
                       r.startedReadingClock.perfMs,
@@ -1286,9 +1293,9 @@ __d(
                     });
                 }
                 if (r.streamReaderDone) {
-                  p(e, r);
+                  _(e, r);
                   var C = r.chunkArrivalGapMaxMs,
-                    S = r.chunkArrivedLastPerfMs,
+                    b = r.chunkArrivedLastPerfMs,
                     R = r.dataBytesLengthFlushed,
                     L = r.hasReportedBandwidthSample,
                     k = r.predictiveResponseChunkArrivedPerfMs,
@@ -1333,7 +1340,7 @@ __d(
                 n.streamReaderFlushTimeoutID = e.host.timers.setTimeout(d, r);
               }
             },
-            _ = function (r) {
+            p = function (r) {
               var t = E.state;
               if (t.state === "reading_stream")
                 if (r.done) ((t.streamReaderDone = !0), s(t));
@@ -1368,7 +1375,7 @@ __d(
               var t = E.state;
               if (t.state === "reading_stream") {
                 ((t.streamReaderDone = !0),
-                  e.config.enableStreamReaderFailureRecovery ? p(e, t) : s(t));
+                  e.config.enableStreamReaderFailureRecovery ? _(e, t) : s(t));
                 var a = e.host.networkIsOnline(),
                   l = a
                     ? "VideoPlayerNextgendashFetchResponseStreamReaderRejection"
@@ -1393,11 +1400,11 @@ __d(
                 });
               }
             },
-            h = function (r) {
+            g = function (r) {
               var t = E.state;
               t.state === "reading_stream" &&
                 ((t.streamReaderDone = !0),
-                e.config.enableStreamReaderFailureRecovery ? p(e, t) : s(t),
+                e.config.enableStreamReaderFailureRecovery ? _(e, t) : s(t),
                 i({
                   exception: o("nextgendasherr").nextgendasherrFromCause(
                     e,
@@ -1413,10 +1420,10 @@ __d(
             y = function () {
               var e = E.state;
               e.state === "reading_stream" &&
-                e.streamReader.read().then(_, f).catch(h);
+                e.streamReader.read().then(p, f).catch(g);
             },
-            S = r.body;
-          if (S == null)
+            C = r.body;
+          if (C == null)
             throw o("nextgendasherr").nextgendasherr(
               e,
               "VideoPlayerNextgendashFetchResponseStreamMissingBody",
@@ -1438,7 +1445,7 @@ __d(
                 predictiveResponseChunkArrivedPerfMs: null,
                 predictiveResponseChunkBytes:
                   n.bandwidthSampleServerPacedBitsPerSecond != null
-                    ? C(
+                    ? b(
                         (l = r.headers) == null
                           ? void 0
                           : l.get(
@@ -1448,7 +1455,7 @@ __d(
                     : null,
                 startedReadingClock: L,
                 state: "reading_stream",
-                streamReader: S.getReader(),
+                streamReader: C.getReader(),
                 streamReaderDone: !1,
                 streamReaderFlushIntervalID: null,
                 streamReaderFlushTimeoutID: null,
@@ -1480,7 +1487,7 @@ __d(
           );
       }
     }
-    function E(e, t) {
+    function k(e, t) {
       var n;
       try {
         var r = e.host.getPerformanceResourceTimingByName(t.requestInfo);
@@ -1497,11 +1504,12 @@ __d(
       }
       return "timings=" + n;
     }
-    ((l.internal_getFetchedResourceRetryConfigMap = _),
-      (l.internal_parsePredictiveResponseChunkBytes = C),
-      (l.internal_getPredictiveResponseChunkBandwidthSample = b),
-      (l.internal_isPacedTransferForBandwidthSample = v),
-      (l.VideoPlayerNextgendashFetchedResourceSM = S));
+    ((l.internal_isLiveBroadcastGoneOnHttp410 = p),
+      (l.internal_getFetchedResourceRetryConfigMap = f),
+      (l.internal_parsePredictiveResponseChunkBytes = b),
+      (l.internal_getPredictiveResponseChunkBandwidthSample = v),
+      (l.internal_isPacedTransferForBandwidthSample = S),
+      (l.VideoPlayerNextgendashFetchedResourceSM = R));
   },
   98,
 );

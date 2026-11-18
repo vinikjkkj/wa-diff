@@ -14,7 +14,7 @@ __d(
     "WAWebSlashCommandsUsageLogger",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WDSIconIcPerson.react",
+    "WDSIconIcPersonFilled.react",
     "getErrorSafe",
     "react",
   ],
@@ -25,7 +25,7 @@ __d(
       d = {
         name: "remindme",
         group: "scheduling",
-        Icon: r("WDSIconIcPerson.react"),
+        Icon: r("WDSIconIcPersonFilled.react"),
         color: "orange",
         text: "required",
         getDescription: function () {

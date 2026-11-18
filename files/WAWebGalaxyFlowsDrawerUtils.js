@@ -8,6 +8,7 @@ __d(
     "WAWebGalaxyFlowsUtils",
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbGetters",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -111,7 +112,9 @@ __d(
     }
     function y() {
       return navigator.onLine
-        ? s._(/*BTDS*/ "Something went wrong.")
+        ? r("justknobx")._("8427")
+          ? s._(/*BTDS*/ "Couldn't load this form. Try again.")
+          : s._(/*BTDS*/ "Something went wrong.")
         : s._(/*BTDS*/ "Check your internet connection and try again.");
     }
     ((l.getFlowsUrl = u),

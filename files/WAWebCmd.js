@@ -1072,6 +1072,9 @@ __d(
           (i.onNotificationTestVerified = function () {
             this.trigger("on_notification_test_verified");
           }),
+          (i.onNotificationInteraction = function () {
+            this.trigger("on_notification_interaction");
+          }),
           (i.onBrigadingStateChangeFromBridge = function (t) {
             this.trigger("on_brigading_state_change_from_bridge", t);
           }),

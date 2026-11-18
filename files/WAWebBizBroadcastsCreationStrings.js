@@ -1,6 +1,6 @@
 __d(
   "WAWebBizBroadcastsCreationStrings",
-  ["fbt", "WAWebBizBroadcastsRecipientUtils"],
+  ["fbt", "WAWebBizBroadcastsRecipientUtils", "justknobx"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
@@ -159,37 +159,43 @@ __d(
     function ne(e) {
       var t = e.broadcastJidIsNull,
         n = e.checkoutFailed,
-        r = e.contactsCount,
-        a = e.hasPendingBillingAction,
-        i = e.hasRequiredBusinessInfo,
-        l = e.isCreatingCampaign,
-        u = e.isLoadingBusinessInfo,
-        c = e.isMessageEmpty,
-        d = o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit();
-      return l
+        a = e.contactsCount,
+        i = e.hasPendingBillingAction,
+        l = e.hasRequiredBusinessInfo,
+        u = e.isCreatingCampaign,
+        c = e.isLoadingBusinessInfo,
+        d = e.isMessageEmpty,
+        m = o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit();
+      return u
         ? null
         : t
           ? ee()
-          : u
+          : c
             ? s._(/*BTDS*/ "Loading...")
-            : i
-              ? r < 2
-                ? s._(
-                    /*BTDS*/ "You need to add at least two recipients to send a message.",
-                  )
-                : r > d
+            : l
+              ? a < 2
+                ? r("justknobx")._("8068")
+                  ? s._(/*BTDS*/ "Add at least 2 recipients to send a message")
+                  : s._(
+                      /*BTDS*/ "You need to add at least two recipients to send a message.",
+                    )
+                : a > m
                   ? s._(
                       /*BTDS*/ "Broadcast to a maximum of {recipientLimit} people at a time.",
-                      [s._param("recipientLimit", d)],
+                      [s._param("recipientLimit", m)],
                     )
-                  : a
+                  : i
                     ? Z()
-                    : c
+                    : d
                       ? te()
                       : n
-                        ? s._(
-                            /*BTDS*/ "Something went wrong. Please try again later.",
-                          )
+                        ? r("justknobx")._("8427")
+                          ? s._(
+                              /*BTDS*/ "Couldn't load pricing. Please try again later.",
+                            )
+                          : s._(
+                              /*BTDS*/ "Something went wrong. Please try again later.",
+                            )
                         : null
               : s._(
                   /*BTDS*/ "Account data missing. Check your payment details and try again.",

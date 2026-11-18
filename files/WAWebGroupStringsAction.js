@@ -6,6 +6,7 @@ __d(
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
     "WAWebWid",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
@@ -96,14 +97,14 @@ __d(
       return n;
     }
     function m(e, t, n) {
-      var r = "";
+      var o = "";
       switch (e) {
         case 401:
         case 406:
         case 409:
           break;
         case 404:
-          r =
+          o =
             " " +
             s
               ._(/*BTDS*/ '_j{"*":"They are no longer in this group."}', [
@@ -112,7 +113,7 @@ __d(
               .toString();
           break;
         case 408:
-          r =
+          o =
             " " +
             s
               ._(
@@ -122,11 +123,11 @@ __d(
               .toString();
           break;
         case 419:
-          r = " " + s._(/*BTDS*/ "The community is full.").toString();
+          o = " " + s._(/*BTDS*/ "The community is full.").toString();
           break;
         case 421: {
           t == null
-            ? (r =
+            ? (o =
                 " " +
                 s
                   ._(
@@ -135,7 +136,7 @@ __d(
                   )
                   .toString())
             : t === 304 &&
-              (r =
+              (o =
                 " " +
                 s
                   ._(/*BTDS*/ "Already requested. Admin approval is pending.")
@@ -143,24 +144,28 @@ __d(
           break;
         }
         case 402: {
-          r =
+          o =
             " " +
-            s
-              ._(
-                /*BTDS*/ '_j{"*":"Members cannot be added because they were previously removed by an admin.","_1":"Member cannot be added because they were previously removed by an admin."}',
-                [s._plural(n)],
-              )
-              .toString();
+            (r("justknobx")._("8068")
+              ? s._(
+                  /*BTDS*/ '_j{"*":"Members can\'t be added because they were previously removed by an admin.","_1":"Member can\'t be added because they were previously removed by an admin."}',
+                  [s._plural(n)],
+                )
+              : s._(
+                  /*BTDS*/ '_j{"*":"Members cannot be added because they were previously removed by an admin.","_1":"Member cannot be added because they were previously removed by an admin."}',
+                  [s._plural(n)],
+                )
+            ).toString();
           break;
         }
         case 500:
-          r = " " + s._(/*BTDS*/ "This group is full.").toString();
+          o = " " + s._(/*BTDS*/ "This group is full.").toString();
           break;
         default:
-          r = " " + s._(/*BTDS*/ "Please try again.").toString();
+          o = " " + s._(/*BTDS*/ "Please try again.").toString();
           break;
       }
-      return r;
+      return o;
     }
     function p(e, t) {
       return s._(/*BTDS*/ '_j{"*":"Adding {memberNames}."}', [

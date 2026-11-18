@@ -257,6 +257,8 @@ __d(
           return "FRL";
         case "GIZMO_USER":
           return "POCKET";
+        case "MOLTBOOK_USER":
+          return "MOLTBOOK";
         case "ABRA_USER":
           return "META_AI";
         case "WA_USER":

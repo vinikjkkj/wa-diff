@@ -258,7 +258,10 @@ __d(
             .MuseAlways
       )
         return !1;
-      var t = r("WAWebHatchLinkedStatusManager").isLinked();
+      var t =
+        r(
+          "WAWebHatchLinkedStatusManager",
+        ).getKnownConfirmedLinkedStatusState() === "linked";
       return !t &&
         e !==
           o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant

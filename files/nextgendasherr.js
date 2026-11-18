@@ -280,27 +280,17 @@ __d(
           (i != null ? "/" + i : "");
       return [l, o];
     }
-    function h(e, t, n) {
-      for (
-        var o = g(t),
-          a = o[0],
-          i = o[1],
-          l = arguments.length,
-          u = new Array(l > 3 ? l - 3 : 0),
-          c = 3;
-        c < l;
-        c++
-      )
-        u[c - 3] = arguments[c];
-      var d = s.apply(
-        void 0,
-        [
-          e,
-          a,
-          (n != null ? n : "MediaError") + (i != null ? ": %s" : ""),
-        ].concat(u.concat(i != null ? [i] : [])),
-      );
-      return (r("fb-error").TAAL.blameToPreviousFrame(d), d);
+    function h(e, t) {
+      var n = g(t),
+        o = n[0],
+        a = n[1],
+        i = s.apply(
+          void 0,
+          [e, o, "MediaError" + (a != null ? ": %s" : "")].concat(
+            a != null ? [a] : [],
+          ),
+        );
+      return (r("fb-error").TAAL.blameToPreviousFrame(i), i);
     }
     function y(e) {
       var t = new (r("fb-error").ErrorMetadata)();

@@ -1,13 +1,12 @@
 __d(
   "Random",
   ["Alea", "ServerNonce"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 4294967296,
-      l = n("ServerNonce").ServerNonce,
       s;
     function u() {
-      return (s == null && (s = n("Alea")(l)), s);
+      return (s == null && (s = r("Alea")(o("ServerNonce").ServerNonce)), s);
     }
     var c = {
       random: (function () {
@@ -50,7 +49,7 @@ __d(
         return e === 0 ? !1 : e <= 1 ? !0 : c.random() * e <= 1;
       }),
     };
-    a.exports = c;
+    i.exports = c;
   },
-  null,
+  34,
 );

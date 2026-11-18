@@ -23,23 +23,29 @@ __d(
           eventId: e,
           onDismiss: o("WDSDialogBridge").closeWDSDialog,
           onReset: function () {
-            return m(e, !1);
+            return m(e, function () {
+              return d(e);
+            });
           },
         }),
       );
     }
     function m(e, t) {
+      p(e, !1, t);
+    }
+    function p(e, t, n) {
       o("WDSDialogBridge").openWDSDialog(
-        u.jsx(p, { eventId: e, isResetting: t }),
+        u.jsx(_, { eventId: e, isResetting: t, onDone: n }),
       );
     }
-    function p(e) {
-      var t = o("react-compiler-runtime").c(15),
+    function _(e) {
+      var t = o("react-compiler-runtime").c(18),
         n = e.eventId,
         a = e.isResetting,
-        i;
+        i = e.onDone,
+        l;
       (t[0] !== a
-        ? ((i = function () {
+        ? ((l = function () {
             return o("WDSDialogDismissRegistry").registerDialogDismissBlocker(
               function () {
                 return a;
@@ -47,17 +53,17 @@ __d(
             );
           }),
           (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]),
-        c(i, void 0));
-      var l;
+          (t[1] = l))
+        : (l = t[1]),
+        c(l, void 0));
+      var d;
       t[2] !== a
-        ? ((l = a
+        ? ((d = a
             ? s._(/*BTDS*/ "Resetting\u2026")
             : s._(/*BTDS*/ "Reset link")),
           (t[2] = a),
-          (t[3] = l))
-        : (l = t[3]);
+          (t[3] = d))
+        : (d = t[3]);
       var m;
       t[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((m = s._(
@@ -65,53 +71,59 @@ __d(
           )),
           (t[4] = m))
         : (m = t[4]);
-      var p, f;
-      t[5] !== n || t[6] !== a
+      var p;
+      t[5] !== n || t[6] !== a || t[7] !== i
         ? ((p = function () {
-            a || _(n);
-          }),
-          (f = function () {
-            a || d(n);
+            a || f(n, i);
           }),
           (t[5] = n),
           (t[6] = a),
-          (t[7] = p),
-          (t[8] = f))
-        : ((p = t[7]), (f = t[8]));
+          (t[7] = i),
+          (t[8] = p))
+        : (p = t[8]);
+      var _;
+      t[9] !== a || t[10] !== i
+        ? ((_ = function () {
+            a || i();
+          }),
+          (t[9] = a),
+          (t[10] = i),
+          (t[11] = _))
+        : (_ = t[11]);
       var g;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = s._(/*BTDS*/ "Reset link?")), (t[9] = g))
-        : (g = t[9]);
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = s._(/*BTDS*/ "Reset link?")), (t[12] = g))
+        : (g = t[12]);
       var h;
       return (
-        t[10] !== a || t[11] !== l || t[12] !== p || t[13] !== f
+        t[13] !== a || t[14] !== d || t[15] !== p || t[16] !== _
           ? ((h = u.jsx(r("WDSConfirmDialog.react"), {
-              confirmLabel: l,
+              confirmLabel: d,
               confirmLoading: a,
               description: m,
               destructive: !0,
               onConfirm: p,
-              onDismiss: f,
+              onDismiss: _,
               open: !0,
               testid: "sharable-event-link-reset-dialog",
               title: g,
             })),
-            (t[10] = a),
-            (t[11] = l),
-            (t[12] = p),
-            (t[13] = f),
-            (t[14] = h))
-          : (h = t[14]),
+            (t[13] = a),
+            (t[14] = d),
+            (t[15] = p),
+            (t[16] = _),
+            (t[17] = h))
+          : (h = t[17]),
         h
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          m(e, !0);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          p(e, !0, t);
           try {
             yield o(
               "WAWebSharableEventInviteLinkAction",
@@ -123,12 +135,13 @@ __d(
               }),
             );
           }
-          d(e);
+          t();
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.openSharableEventLinkDialog = d;
+    ((l.openSharableEventLinkDialog = d),
+      (l.confirmResetSharableEventLink = m));
   },
   226,
 );

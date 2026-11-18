@@ -51,16 +51,14 @@ __d(
                   a.stanzaId,
                   a.secret,
                 ),
-                o("WALogger")
-                  .LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[wasa] root secret recovery: rebuilt hidden row for ",
-                        "",
-                      ])),
-                    n,
-                  )
-                  .sendLogs("wasa-root-secret-recovery-ok"),
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] root secret recovery: rebuilt hidden row for ",
+                      "",
+                    ])),
+                  n,
+                ),
                 !0);
           } catch (e) {
             return (

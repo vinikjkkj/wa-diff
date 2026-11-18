@@ -23,11 +23,11 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNoop",
     "WAWebOpenLastActiveChatAction",
+    "WAWebRecordNotificationInteraction",
     "WAWebSendTextMsgChatAction",
     "WAWebSwNotificationBannerRegistry",
     "WAWebUpdateUnreadChatAction",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsNotifications",
     "asyncToGeneratorRuntime",
     "cr:3133",
     "getErrorSafe",
@@ -99,7 +99,9 @@ __d(
                 t.msg && t.msg.off("change:type", t.$13));
             }),
             (this.$11 = function () {
-              (o("WAWebUserPrefsNotifications").setNotificationClickedOnce(),
+              (o(
+                "WAWebRecordNotificationInteraction",
+              ).recordNotificationInteraction(),
                 t.$1 == null || t.$1(),
                 window.focus());
               var e = t.chat,

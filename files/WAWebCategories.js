@@ -19,6 +19,7 @@ __d(
     "WAWebUtilsLogQplEvents",
     "WDSPaddings.stylex",
     "asyncToGeneratorRuntime",
+    "justknobx",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -183,7 +184,9 @@ __d(
               .catch(function () {
                 (o("WAWebToastManager").ToastManager.open(
                   c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Something went wrong."),
+                    msg: r("justknobx")._("8427")
+                      ? s._(/*BTDS*/ "Couldn't load categories")
+                      : s._(/*BTDS*/ "Something went wrong."),
                   }),
                 ),
                   T(!1),

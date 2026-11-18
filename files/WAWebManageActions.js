@@ -22,6 +22,7 @@ __d(
     "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
     "qpl",
     "react",
   ],
@@ -232,9 +233,13 @@ __d(
           title: s._(/*BTDS*/ 'Delete collection "{collectionName}"?', [
             s._param("collectionName", n.name),
           ]),
-          description: s._(
-            /*BTDS*/ "When you delete this collection, items in the collection will not be deleted.",
-          ),
+          description: r("justknobx")._("8068")
+            ? s._(
+                /*BTDS*/ "When you delete this collection, items in the collection won't be deleted.",
+              )
+            : s._(
+                /*BTDS*/ "When you delete this collection, items in the collection will not be deleted.",
+              ),
           confirmLabel: s._(/*BTDS*/ "Delete"),
           destructive: !0,
           onConfirm: function () {

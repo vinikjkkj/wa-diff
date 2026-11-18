@@ -5,6 +5,7 @@ __d(
     "WAWebMetaAiThreadPresenceLatch",
     "WAWebProfilePicThumbCollection",
     "WAWebSchemaBotProfile",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -52,7 +53,7 @@ __d(
         i = r != null ? r : a;
       if (i == null) return m(e);
       var l = a != null ? a : i;
-      if (p(e, i, l)) return null;
+      if (_(e, i, l)) return null;
       var s = Date.now();
       return (
         o("WAWebProfilePicThumbCollection")
@@ -117,7 +118,23 @@ __d(
         }
       );
     }
-    function p(e, t, n) {
+    function p(e) {
+      var t,
+        n,
+        r,
+        a,
+        i = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
+          o("WAWebWidFactory").createWid(e.id),
+        );
+      return (
+        i != null &&
+        ((t = i.eurl) != null ? t : null) ===
+          ((n = e.eurl) != null ? n : null) &&
+        ((r = i.previewEurl) != null ? r : null) ===
+          ((a = e.previewEurl) != null ? a : null)
+      );
+    }
+    function _(e, t, n) {
       var r = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
         e,
       );
@@ -130,28 +147,28 @@ __d(
         r.filehash == null
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return g([{ fields: t, wid: e }]);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return h([{ fields: t, wid: e }]);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t = e.map(function (e) {
               var t = e.fields,
                 n = e.wid;
-              return { fields: y(t), wid: n };
+              return { fields: C(t), wid: n };
             });
             (yield o("WAWebSchemaBotProfile")
               .getBotProfileTable()
@@ -179,40 +196,41 @@ __d(
               ));
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(t) {
+    function C(t) {
       var n = t.name,
         r = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return n != null && n !== ""
         ? babelHelpers.extends({}, r, { name: n })
         : r;
     }
-    function C(e) {
+    function b(e) {
       return e != null && (e.name != null || e.lastFetchedTimeMs != null);
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return C(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return b(
             yield o("WAWebSchemaBotProfile")
               .getBotProfileTable()
               .get(e.toString()),
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.persistBotProfiles = u),
       (l.setBotProfilePicUrls = d),
-      (l.mergeBotSupportFields = _),
-      (l.mergeBotSupportFieldsBatch = g),
-      (l.isStoredBotProfile = C),
-      (l.hasStoredBotProfile = b));
+      (l.isBotPicRowInMemory = p),
+      (l.mergeBotSupportFields = f),
+      (l.mergeBotSupportFieldsBatch = h),
+      (l.isStoredBotProfile = b),
+      (l.hasStoredBotProfile = v));
   },
   98,
 );

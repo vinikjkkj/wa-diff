@@ -100,13 +100,29 @@ __d(
           "__nightmare" in window && e.push("nightmare"),
           ("domAutomation" in window || "domAutomationController" in window) &&
             e.push("dom_automation"),
+          e.push.apply(e, v()),
           e.join(",")
         );
       } catch (e) {
         return "";
       }
     }
-    function b() {
+    var b = [
+      ["WWebJS", "wwebjs"],
+      ["WPP", "wpp"],
+    ];
+    function v() {
+      return b
+        .filter(function (e) {
+          var t = e[0];
+          return t in window;
+        })
+        .map(function (e) {
+          var t = e[1];
+          return t;
+        });
+    }
+    function S() {
       try {
         var e;
         if (!("chrome" in window)) return "missing";
@@ -147,12 +163,12 @@ __d(
         return "";
       }
     }
-    function v() {
-      return S.apply(this, arguments);
+    function R() {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield r("WAWebIndexedDB") == null ||
             r("WAWebIndexedDB").databases == null
@@ -178,16 +194,16 @@ __d(
             return "";
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R() {
-      return L.apply(this, arguments);
+    function E() {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield (e || (e = n("Promise"))).all([h(), v()]),
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield (e || (e = n("Promise"))).all([h(), R()]),
             o = t[0],
             a = t[1];
           return {
@@ -203,14 +219,14 @@ __d(
             viewPortSize: g(),
             canvasFingerprint: o,
             automationSignals: C(),
-            chromeStructure: b(),
+            chromeStructure: S(),
             foreignDbList: a,
           };
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    l.default = R;
+    l.default = E;
   },
   98,
 );

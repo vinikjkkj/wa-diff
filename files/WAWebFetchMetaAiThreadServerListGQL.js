@@ -6,6 +6,7 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
+    "WAWebWassBotProfileMapper",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,8 +49,17 @@ __d(
                 i === "" ||
                 n.push({
                   botFbid: i,
-                  name: a.name,
+                  name: o("WAWebWassBotProfileMapper").emptyToNull(a.name),
                   isDeprecated: a.is_deprecated,
+                  generatedEmoji: o("WAWebWassBotProfileMapper").emptyToNull(
+                    a.generated_emoji,
+                  ),
+                  profilePicThumbUrl: o(
+                    "WAWebWassBotProfileMapper",
+                  ).emptyToNull(a.profile_pic_thumb_url),
+                  profilePicFullUrl: o("WAWebWassBotProfileMapper").emptyToNull(
+                    a.profile_pic_full_url,
+                  ),
                 });
             }
             return { type: "success", threads: n };

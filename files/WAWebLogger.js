@@ -35,27 +35,36 @@ __d(
         e === "ERROR" || e === "CATCHING"
           ? {
               level: 4,
-              consoleFunction: t <= 4 ? console.error : r("WAWebNoop"),
+              consoleFunction:
+                t <= 4 ? console.error.bind(console) : r("WAWebNoop"),
             }
           : e === "WARN"
             ? {
                 level: 3,
-                consoleFunction: t <= 3 ? console.warn : r("WAWebNoop"),
+                consoleFunction:
+                  t <= 3 ? console.warn.bind(console) : r("WAWebNoop"),
               }
             : e === "COUNT"
               ? {
                   level: 2,
-                  consoleFunction: t <= 2 ? console.count : r("WAWebNoop"),
+                  consoleFunction:
+                    t <= 2
+                      ? function (e) {
+                          return console.count(e);
+                        }
+                      : r("WAWebNoop"),
                 }
               : e === "LOG"
                 ? {
                     level: 2,
-                    consoleFunction: t <= 2 ? console.log : r("WAWebNoop"),
+                    consoleFunction:
+                      t <= 2 ? console.log.bind(console) : r("WAWebNoop"),
                   }
                 : e === "DEV_XMPP" || e === "DEV"
                   ? {
                       level: 1,
-                      consoleFunction: t <= 1 ? console.info : r("WAWebNoop"),
+                      consoleFunction:
+                        t <= 1 ? console.info.bind(console) : r("WAWebNoop"),
                     }
                   : (function () {
                       throw Error(

@@ -7,6 +7,7 @@ __d(
     "WAWebEphemeralCTAFbt",
     "WAWebL10N",
     "WAWebMiscGatingUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -108,9 +109,13 @@ __d(
                   : e === _.Duration
                     ? s._(/*BTDS*/ "Off")
                     : e === _.OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ "This message will not disappear from the chat. The sender may be on an old version of WhatsApp.",
-                        )
+                      ? r("justknobx")._("8068")
+                        ? s._(
+                            /*BTDS*/ "This message won't disappear from the chat. The sender may be on an old version of WhatsApp.",
+                          )
+                        : s._(
+                            /*BTDS*/ "This message will not disappear from the chat. The sender may be on an old version of WhatsApp.",
+                          )
                       : (o("WALogger")
                           .ERROR(
                             u ||

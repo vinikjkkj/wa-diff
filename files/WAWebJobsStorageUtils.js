@@ -3,10 +3,10 @@ __d(
   [
     "invariant",
     "Promise",
-    "WAWeb-dexie",
-    "WAWebDexieCastTypes",
     "WAWebIdb",
+    "WAWebIndexedDB",
     "WAWebStorage",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -14,18 +14,34 @@ __d(
       u = "jobs-storage",
       c = null;
     function d() {
-      return o("WAWebDexieCastTypes").dexieCastToPromise(
-        r("WAWeb-dexie").exists(u),
-      );
+      return m.apply(this, arguments);
     }
     function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = r("WAWebIndexedDB");
+          if ((e == null ? void 0 : e.databases) == null) return !1;
+          try {
+            var t = yield e.databases();
+            return t.some(function (e) {
+              var t = e.name;
+              return t === u;
+            });
+          } catch (e) {
+            return !1;
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
       var e = new (r("WAWebIdb"))(u);
       c = new (o("WAWebStorage").Storage)(e);
     }
-    function p() {
+    function _() {
       return (c != null || s(0, 56369), c);
     }
-    function _() {
+    function f() {
       return c == null
         ? (e || (e = n("Promise"))).reject(
             r("err")(
@@ -43,9 +59,9 @@ __d(
     }
     ((l.DATABASE_NAME = u),
       (l.storageExists = d),
-      (l.createStorage = m),
-      (l.getStorage = p),
-      (l.destroyStorage = _));
+      (l.createStorage = p),
+      (l.getStorage = _),
+      (l.destroyStorage = f));
   },
   98,
 );

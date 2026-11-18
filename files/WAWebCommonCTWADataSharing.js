@@ -268,24 +268,49 @@ __d(
             o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return i || l || s;
       },
-      D = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      D = null;
+    function x() {
+      return (
+        D == null &&
+          (D = $().finally(function () {
+            D = null;
+          })),
+        D
+      );
+    }
+    function $() {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
             return null;
           try {
             var e,
-              t = yield u.load(),
-              n = yield t.getCtwaBizDataSharingSettingJob();
+              t = o(
+                "WAWebCTWADataSharingModel",
+              ).CTWADataSharingModel.getRevision(),
+              n = yield u.load(),
+              r = yield n.getCtwaBizDataSharingSettingJob();
+            if (
+              o(
+                "WAWebCTWADataSharingModel",
+              ).CTWADataSharingModel.getRevision() !== t
+            ) {
+              var a = o(
+                "WAWebCTWADataSharingModel",
+              ).CTWADataSharingModel.getValue();
+              return (N(a), a);
+            }
             return (
-              (n == null ? void 0 : n.value) != null &&
+              (r == null ? void 0 : r.value) != null &&
                 (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
-                  n.value,
-                  n.version,
+                  r.value,
+                  r.version,
                 ),
-                n.value ===
-                  o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
-                  o("WAWebDataSharingUpsellModel").enableUpsell()),
-              (e = n == null ? void 0 : n.value) != null ? e : null
+                N(r.value)),
+              (e = r == null ? void 0 : r.value) != null ? e : null
             );
           } catch (e) {
             return (
@@ -298,11 +323,14 @@ __d(
               null
             );
           }
-        });
-        return function () {
-          return e.apply(this, arguments);
-        };
-      })();
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(e) {
+      e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
+        o("WAWebDataSharingUpsellModel").enableUpsell();
+    }
     ((l.shouldShowV2Disclosure = d),
       (l.isGlobalDataSharingAccepted = m),
       (l.markV2DisclosureSeen = p),
@@ -321,7 +349,7 @@ __d(
       (l.shouldDisplayDataSharingOrderOptOutOrUpsell = k),
       (l.shouldDisplayDataSharingOrderOptOutOrUpsellFor = I),
       (l.shouldDisplayDataSharingLabelOptOutOrUpsell = T),
-      (l.fetchDataSharingSettingAndUpdateModel = D),
+      (l.fetchDataSharingSettingAndUpdateModel = x),
       (l.SMB_DATA_SHARING_ALLOWED_SOURCE = o(
         "WAWebGetCTWAEligibilityFromConversion",
       ).SMB_DATA_SHARING_ALLOWED_SOURCE));

@@ -28,8 +28,8 @@ __d(
               o.substr(0, 4) === "tfi_" ||
               o.substr(0, 3) === "mh_" ||
               e[o] === !0 ||
-              l[o] > -1) &&
-              (l[o] > -1 ? (t[o] = decodeURIComponent(a)) : (t[o] = a));
+              l[o] === !0) &&
+              (l[o] === !0 ? (t[o] = decodeURIComponent(a)) : (t[o] = a));
           }),
         t
       );

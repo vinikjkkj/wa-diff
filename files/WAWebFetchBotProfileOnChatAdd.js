@@ -58,7 +58,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!e.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
-            return !0;
+            return "skipped";
           var t = yield o("WAWebSchemaBotProfile")
               .getBotProfileTable()
               .get(e.toString()),
@@ -70,10 +70,12 @@ __d(
             ((t == null ? void 0 : t.lastFetchedTimeMs) != null &&
               n - t.lastFetchedTimeMs <=
                 o("WAWebBotProfileFreshness").BOT_PROFILE_TTL_MS)
-            ? !0
-            : o("WAWebSyncBotSupportFields").syncBotSupportFields(e, {
-                tombstoneOnMissing: !1,
-              });
+            ? "skipped"
+            : (yield o("WAWebSyncBotSupportFields").syncBotSupportFields(e, {
+                  tombstoneOnMissing: !1,
+                }))
+              ? "fetched"
+              : "failed";
         })),
         d.apply(this, arguments)
       );

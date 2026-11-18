@@ -117,32 +117,9 @@ __d(
             .sendLogs("persisted-queues-preload-failed");
         });
     }
-    function h(e) {
-      return {
-        ack: function (n, r) {
-          return d(n).then(function () {
-            return e.ack(r);
-          });
-        },
-        add: function (n, r) {
-          return d(n).then(function () {
-            return e.add(r);
-          });
-        },
-        read: function (n, r) {
-          return d(n).then(function () {
-            return e.read(r);
-          });
-        },
-        subscribe: function (n) {
-          return e.subscribe(n);
-        },
-      };
-    }
     ((l.whenPersistedQueuesReady = d),
       (l.whenPersistedQueuesMayOpen = m),
-      (l.schedulePersistedQueuesPreload = f),
-      (l.lazyPersistedQueue = h));
+      (l.schedulePersistedQueuesPreload = f));
   },
   98,
 );

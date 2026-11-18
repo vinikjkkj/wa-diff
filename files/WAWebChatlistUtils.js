@@ -132,7 +132,7 @@ __d(
     function g(e) {
       return e.sourceAdCreation === "whatsapp_smb_web_catalog" ||
         e.sourceAdCreation === "whatsapp_smb_web_catalog_product"
-        ? e.productId
+        ? { productId: e.productId, type: "catalog_product" }
         : null;
     }
     function h(e) {

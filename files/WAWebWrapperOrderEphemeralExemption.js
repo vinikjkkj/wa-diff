@@ -6,6 +6,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebOrderEphemeralExemptionUtil",
     "WAWebOrderGatingUtils",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
@@ -25,13 +26,22 @@ __d(
       );
     }
     function u() {
+      var e = r("justknobx")._("8068");
       return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
-        ? s._(
-            /*BTDS*/ "Disappearing messages are turned on in this chat. This charge request will not disappear because it contains purchase information.",
-          )
-        : s._(
-            /*BTDS*/ "Disappearing messages are turned on in this chat. This order will not disappear because it contains purchase information.",
-          );
+        ? e
+          ? s._(
+              /*BTDS*/ "Disappearing messages are turned on in this chat. This payment request won't disappear because it contains purchase information.",
+            )
+          : s._(
+              /*BTDS*/ "Disappearing messages are turned on in this chat. This charge request will not disappear because it contains purchase information.",
+            )
+        : e
+          ? s._(
+              /*BTDS*/ "Disappearing messages are turned on in this chat. This order won't disappear because it contains purchase information.",
+            )
+          : s._(
+              /*BTDS*/ "Disappearing messages are turned on in this chat. This order will not disappear because it contains purchase information.",
+            );
     }
     function c() {
       return s._(/*BTDS*/ "Learn more");

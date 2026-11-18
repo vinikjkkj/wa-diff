@@ -16,6 +16,16 @@ __d(
       );
     }
     function s(e) {
+      if (!e.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
+        return !1;
+      var t = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
+      return (
+        u(e) == null ||
+        ((t == null ? void 0 : t.name) == null &&
+          (t == null ? void 0 : t.lastFetchedTimeMs) == null)
+      );
+    }
+    function u(e) {
       var t = o("WAWebBotStaticProfiles").getStaticBotSupportInput(e);
       if (t != null) return t;
       var n = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
@@ -34,7 +44,8 @@ __d(
           };
     }
     ((l.shouldHideMuseBotFromCachedProfile = e),
-      (l.resolveBotSupportInput = s));
+      (l.isBotProfileMissing = s),
+      (l.resolveBotSupportInput = u));
   },
   98,
 );

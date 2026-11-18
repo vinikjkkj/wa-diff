@@ -13,6 +13,7 @@ __d(
     "VideoPlayerNextgendashEngineErrors",
     "VideoPlayerNextgendashEngineExtrasAPI",
     "VideoPlayerNextgendashEnvironment",
+    "VideoPlayerNextgendashFetchedResource",
     "VideoPlayerNextgendashHostAPI",
     "VideoPlayerNextgendashHostAPIComet",
     "VideoPlayerNextgendashLoggingAPI",
@@ -285,15 +286,15 @@ __d(
           debugViz: r("gkx")("17340"),
           disableFallbackFromRealWorkerAfterLinked: !0,
           disablePlaybackLoopSchedulingOnTimer: r("gkx")("16690"),
-          disableZeroPlaybackRateWhileBuffering: r("gkx")("4185"),
+          disableZeroPlaybackRateWhileBuffering: r("gkx")("18773"),
           eagerResyncOnMediaElementAttach: r("gkx")("17429"),
           enableAdaptiveConcurrentSegmentFetching: r("gkx")("8486"),
-          enableBandwidthDiagnosticsFallback: r("gkx")("23799") || i,
+          enableBandwidthDiagnosticsFallback: r("gkx")("18797") || i,
           enableCdnUrlRefresh: r("gkx")("17628"),
           enableCombinedInitSidxFetch: r("gkx")("17649"),
           enableDisposalResourceCleanup: r("gkx")("11526"),
           enableDynamicBufferWatermarks: r("gkx")("11395"),
-          enableExactSegmentGroupByteRange: r("gkx")("28035"),
+          enableExactSegmentGroupByteRange: r("gkx")("18804"),
           enableFBPrefetchCacheKeyNormalization: r("gkx")("18280"),
           enableFetchPool: r("gkx")("21866"),
           enableFilterFailedPrefetchBootstrap: r("gkx")("11654"),
@@ -307,13 +308,13 @@ __d(
           enablePrefetchCacheKeyNormalization:
             r("gkx")("4090") || e.mediaSinkType === "WEBCODECS",
           enableQuotaExceededRecovery: r("gkx")("17813"),
-          enableQuotaExceededRecoveryForCompositeErrors: r("gkx")("15535"),
+          enableQuotaExceededRecoveryForCompositeErrors: r("gkx")("18823"),
           enableSkipRecoveryOnDeliberateDetach: r("gkx")("26845"),
           enableSmartPlayerStaticCapabilityFiltering: r("gkx")("2081"),
           enableSplitAbrEvalSwitchIntervals: r("gkx")("18082"),
           enableStableAbrEvaluationCooldown: r("gkx")("12312"),
-          enableStreamReaderFailureRecovery: r("gkx")("12428"),
-          enableSuppressIdleTransitions: r("gkx")("7814"),
+          enableStreamReaderFailureRecovery: r("gkx")("18892"),
+          enableSuppressIdleTransitions: r("gkx")("18893"),
           enableTasosBwe: r("gkx")("1093"),
           enableVirtualWorkerMessageQueue: r("gkx")("29048"),
           enableWorkerOptimizations: r("gkx")("29300"),
@@ -334,6 +335,7 @@ __d(
             : a.liveBackBufferRetentionSec,
           liveBandwidthDiagnosticsFallbackEnabled: r("gkx")("5049"),
           liveBandwidthSampleRequiresContinuousTransfer: r("gkx")("5049"),
+          liveBroadcastGoneOnHttp410Enabled: r("gkx")("7763"),
           liveBufferingEndRecentStallBufferAheadSec: r("gkx")("5049")
             ? 2
             : a.liveBufferingEndRecentStallBufferAheadSec,
@@ -534,6 +536,13 @@ __d(
       return e === "hidden" && t < F;
     }
     function B(e) {
+      return (
+        e.isLiveBroadcastGoneOnHttp410 &&
+        !e.hadPlayableMedia &&
+        /(^|\/)FetchHTTP410$/.test(e.errorName)
+      );
+    }
+    function W(e) {
       var t,
         a,
         i = e.initialProps,
@@ -566,10 +575,11 @@ __d(
         x = { current: null },
         $ = [],
         F = null,
-        B = null,
-        q = null,
-        U = i.coreVideoPlayerMetaData.isLiveStreaming === !0 && R.enableLive;
-      q = o(
+        W = null,
+        U = null,
+        V = null,
+        H = i.coreVideoPlayerMetaData.isLiveStreaming === !0 && R.enableLive;
+      V = o(
         "VideoPlayerNextgendashSmartPlayerStaticSignals",
       ).subscribeVideoPlayerNextgendashSmartPlayerStaticSignals(R, function () {
         var e = I.current;
@@ -578,13 +588,13 @@ __d(
           e.state.state !== "__disposed__" &&
           e.sendEvent({ type: "update_config_from_env" });
       });
-      var V = i.coreVideoPlayerMetaData.isVideoBroadcast;
+      var G = i.coreVideoPlayerMetaData.isVideoBroadcast;
       ((R.disableZeroPlaybackRateWhileBuffering =
         o(
           "VideoPlayerNextgendashEngineConfig",
         ).isVideoPlayerNextgendashVODOnlyConfigEnabled(
           R.disableZeroPlaybackRateWhileBuffering,
-          V,
+          G,
         ) ||
         R.mediaSinkType === "EMSS" ||
         R.mediaSinkType === "HYBRID"),
@@ -599,9 +609,11 @@ __d(
           (R.enableMediaElementUnmountNotification = !0),
           (R.enableSkipRecoveryOnDeliberateDetach = !0),
           (R.enableDisposalResourceCleanup = !0)),
+        (R.isLiveStreamingFromProduct =
+          i.coreVideoPlayerMetaData.isLiveStreaming === !0),
         (R.nativeNextFirstMediaPrewarm =
           R.mediaSinkType === "HYBRID" &&
-          V !== !0 &&
+          G !== !0 &&
           i.hybridNativeNextFirstMediaPrewarm === !0),
         (R.nativeNextPrewarmBufferAheadSec = R.nativeNextFirstMediaPrewarm
           ? Math.max(
@@ -609,8 +621,8 @@ __d(
               (a = i.hybridNativeNextPrewarmBufferAheadSec) != null ? a : 0,
             )
           : 0));
-      var H = R.mediaSinkType === "WEBCODECS",
-        G = H
+      var z = R.mediaSinkType === "WEBCODECS",
+        j = z
           ? o(
               "VideoPlayerNextgendashWebCodecsDimensions",
             ).capVideoPlayerNextgendashWebCodecsDimensions(i.dimensions)
@@ -619,15 +631,15 @@ __d(
         "VideoPlayerNextgendashEngineConfig",
       ).isVideoPlayerNextgendashVODOnlyConfigEnabled(
         R.sidxDisableShiftingMediaTimeRangesByEarliestPresentationTime,
-        V,
+        G,
       )),
         (R.startTimestampSec = i.coreVideoPlayerMetaData.startTimestamp),
         (R.vodStartTimestampPending =
-          V !== !0 &&
+          G !== !0 &&
           R.startTimestampSec > 0 &&
           i.coreVideoPlayerMetaData.startTimestampAfterMediaAttach === !0));
-      var z = !R.vodStartTimestampPending,
-        j = {
+      var K = !R.vodStartTimestampPending,
+        Q = {
           config: R,
           host: l,
           logging: o(
@@ -645,11 +657,11 @@ __d(
               "VideoPlayerNextgendashLoggingDestinationEngineWarning",
             ).createVideoPlayerNextgendashLoggingDestinationEngineWarning(
               function (e) {
-                (K &&
-                  K.point(
+                (X &&
+                  X.point(
                     "warning",
                     o("VideoPlayerNextgendashQPL").qplAnnotationsForError(
-                      W(j, e),
+                      q(Q, e),
                     ),
                   ),
                   x.current != null
@@ -683,20 +695,20 @@ __d(
           },
           workQueue: L,
         },
-        K = j.config.qplEnabled
-          ? o("VideoPlayerNextgendashQPL").qplStartPlayingApi(j)
+        X = Q.config.qplEnabled
+          ? o("VideoPlayerNextgendashQPL").qplStartPlayingApi(Q)
           : null;
-      ((D.current = K), K == null || K.start());
-      var Q = i.coreVideoPlayerMetaData.expiredVideoUrlRefreshHandler,
-        X = null,
-        Y = null,
+      ((D.current = X), X == null || X.start());
+      var Y = i.coreVideoPlayerMetaData.expiredVideoUrlRefreshHandler,
         J = null,
-        Z = !1,
-        ee = o(
+        Z = null,
+        ee = null,
+        te = !1,
+        ne = o(
           "VideoPlayerNextgendashMain",
         ).VideoPlayerNextgendashMainSM.createSM(
           "VideoPlayerNextgendashMain",
-          j,
+          Q,
           null,
           {
             abrConfig: o(
@@ -706,16 +718,16 @@ __d(
             }),
             audioOnly: i.coreVideoPlayerMetaData.audioOnly === !0,
             initialExpiredVideoUrlRefreshHandlerState:
-              Q != null ? { handler: w(Q), identity: Q } : null,
+              Y != null ? { handler: w(Y), identity: Y } : null,
             initialMediaVariantIfLangExistsInManifest:
               i.initialAudioUserPreferredLanguage != null
                 ? {
                     audioLang: i.initialAudioUserPreferredLanguage,
                     audioRole: "dub",
-                    videoLang: j.config.enableLipSync
+                    videoLang: Q.config.enableLipSync
                       ? i.initialAudioUserPreferredLanguage
                       : null,
-                    videoRole: j.config.enableLipSync ? "dub" : null,
+                    videoRole: Q.config.enableLipSync ? "dub" : null,
                   }
                 : null,
             nextgendashInstanceIndex: p,
@@ -723,13 +735,13 @@ __d(
               var e = t.changeDirection,
                 n = t.domEventAdjustedClock,
                 r = t.isInitial;
-              (X != null && (X(), (X = null)),
+              (J != null && (J(), (J = null)),
                 e === "started"
-                  ? ((X = K == null ? void 0 : K.subspan("buffering")),
-                    le.dispatch({
+                  ? ((J = X == null ? void 0 : X.subspan("buffering")),
+                    ue.dispatch({
                       payload: {
                         bufferingType: r ? "start/unpause" : "in_play",
-                        disableZeroPlaybackRate: j.config
+                        disableZeroPlaybackRate: Q.config
                           .disableZeroPlaybackRateWhileBuffering
                           ? !0
                           : void 0,
@@ -737,31 +749,51 @@ __d(
                       type: "buffering_begin_requested",
                     }))
                   : e === "stopped" &&
-                    le.dispatch({
+                    ue.dispatch({
                       payload: { domEventPerfTimestamp: n.perfMs },
                       type: "buffering_end_requested",
                     }));
             },
             onError: function (t) {
-              ((j.config.nativeNextFirstMediaPrewarm = !1),
-                K &&
-                  K.point(
+              if (
+                ((Q.config.nativeNextFirstMediaPrewarm = !1),
+                X &&
+                  X.point(
                     "error",
                     o("VideoPlayerNextgendashQPL").qplAnnotationsForError(t),
                   ),
                 S == null && (S = t),
-                E
-                  ? (E.setHalted(t.name),
-                    L.enqueueWork(function () {
-                      ie(t, "comet_nextgendash_main_error");
-                    }))
-                  : ie(t, "comet_nextgendash_main_error"));
+                B({
+                  errorName: t.name,
+                  hadPlayableMedia:
+                    ue.getCurrentState().controlledState.domEventsLatestPerfMs
+                      .loadeddata != null,
+                  isLiveBroadcastGoneOnHttp410: o(
+                    "VideoPlayerNextgendashFetchedResource",
+                  ).internal_isLiveBroadcastGoneOnHttp410(Q.config),
+                }))
+              ) {
+                (ue.dispatch({ type: "stream_gone_before_start" }),
+                  U != null ||
+                    (U = le.implementationController.subscribe(function () {
+                      ue.getCurrentState().controlledState.playbackState !==
+                        "ended" &&
+                        ue.dispatch({ type: "stream_gone_before_start" });
+                    })));
+                return;
+              }
+              E
+                ? (E.setHalted(t.name),
+                  L.enqueueWork(function () {
+                    se(t, "comet_nextgendash_main_error");
+                  }))
+                : se(t, "comet_nextgendash_main_error");
             },
             onManifestUpdated: function () {
-              (K == null || K.point("manifest_updated"),
-                le.dispatch({
+              (X == null || X.point("manifest_updated"),
+                ue.dispatch({
                   payload: {
-                    selectedVideoQuality: ne.getUserSelectedVideoQuality(),
+                    selectedVideoQuality: oe.getUserSelectedVideoQuality(),
                   },
                   type: "implementation_engine_qualities_changed",
                 }));
@@ -770,13 +802,13 @@ __d(
               if (
                 ((v = n),
                 n || b == null || b(),
-                Y != null && (Y(), (Y = null)),
-                n && (Y = K == null ? void 0 : K.subspan("media_source")),
+                Z != null && (Z(), (Z = null)),
+                n && (Z = X == null ? void 0 : X.subspan("media_source")),
                 !r("gkx")("19514"))
               ) {
                 var e,
                   a =
-                    (e = ee.state.mediaElement) == null
+                    (e = ne.state.mediaElement) == null
                       ? void 0
                       : e.state.mediaElement,
                   l =
@@ -786,12 +818,12 @@ __d(
                         ).unopaqueVideoPlayerNextgendashHostMediaElement(a)
                       : null;
                 (l == null ||
-                  se.current == null ||
-                  l !== se.current.getUnderlyingVideoElement()) &&
-                  (se.current =
+                  ce.current == null ||
+                  l !== ce.current.getUnderlyingVideoElement()) &&
+                  (ce.current =
                     l != null && a != null
                       ? M(
-                          j,
+                          Q,
                           a,
                           l,
                           o(
@@ -804,17 +836,17 @@ __d(
               }
               var s = function () {
                 ((C = !0),
-                  le.dispatch({
+                  ue.dispatch({
                     payload: {
-                      selectedVideoQuality: ne.getUserSelectedVideoQuality(),
+                      selectedVideoQuality: oe.getUserSelectedVideoQuality(),
                     },
                     type: "implementation_engine_initialized",
                   }));
                 {
                   var e = i.coreVideoPlayerMetaData.startTimestamp;
                   e > 0 &&
-                    z &&
-                    le.dispatch({
+                    K &&
+                    ue.dispatch({
                       payload: { seekTargetPosition: e },
                       type: "controller_seek_requested",
                     });
@@ -824,7 +856,7 @@ __d(
                 var u = function () {
                     var e,
                       t =
-                        (e = ee.state.mediaElement) == null
+                        (e = ne.state.mediaElement) == null
                           ? void 0
                           : e.state.mediaElement;
                     return t != null
@@ -844,7 +876,7 @@ __d(
                       O(c.visibilityState, e.readyState)
                     );
                   };
-                if (U && c != null && m()) {
+                if (H && c != null && m()) {
                   var p = function () {
                     v && !m() && (b == null || b(), C || s());
                   };
@@ -861,23 +893,23 @@ __d(
             onSendHaltedToWorkerChanged:
               E == null ? void 0 : E.onSendHaltedToWorkerChanged,
             onVideoRepresentationChanged: function (t, n) {
-              (K &&
-                K.point("video_representation_changed", {
+              (X &&
+                X.point("video_representation_changed", {
                   string: {
                     fromVideoRepresentationId: String(t),
                     toVideoRepresentationId: String(n),
                   },
                 }),
-                le.dispatch({ payload: {}, type: "representation_changed" }));
+                ue.dispatch({ payload: {}, type: "representation_changed" }));
             },
             playerInstanceKey: c,
             playerSubOrigin: m,
-            playerViewportDimensionsInitial: G,
+            playerViewportDimensionsInitial: j,
             prefetchResultInitial:
               y != null && y.length > 0
                 ? {
                     prefetchedRepresentationIds: y,
-                    prefetchStartedAt: j.host.clock(),
+                    prefetchStartedAt: Q.host.clock(),
                   }
                 : null,
             videoFBID: u,
@@ -885,19 +917,19 @@ __d(
             workerTypeInitial: s,
           },
         );
-      I.current = ee;
-      function te() {
+      I.current = ne;
+      function re() {
         var e;
-        return (e = se.current) != null ? e : null;
+        return (e = ce.current) != null ? e : null;
       }
-      var ne = o(
+      var oe = o(
           "VideoPlayerNextgendashEngineExtrasAPI",
         ).createVideoPlayerNextgendashEngineExtrasAPI({
-          getVideoElementAPI: te,
-          mainSm: ee,
+          getVideoElementAPI: re,
+          mainSm: ne,
         }),
-        re = null,
-        oe = o(
+        ae = null,
+        ie = o(
           "VideoPlayerImplementationEngineAPI",
         ).createVideoPlayerImplementationEngine({
           createDebugAPI: function (t) {
@@ -906,13 +938,13 @@ __d(
             return k == null
               ? void 0
               : k.createDebugAPI({
-                  engineExtrasAPI: ne,
+                  engineExtrasAPI: oe,
                   getConfig: function () {
                     return i.experimentationConfig;
                   },
                   getVideoElementAPI: e,
                   loggerToVPL: n,
-                  mainSm: ee,
+                  mainSm: ne,
                 });
           },
           createVideoPlayerError: function (t, n) {
@@ -920,7 +952,7 @@ __d(
             return e != null
               ? o(
                   "VideoPlayerNextgendashEngineErrors",
-                ).createVideoPlayerErrorFromNextgendashEngine(j, e, n)
+                ).createVideoPlayerErrorFromNextgendashEngine(Q, e, n)
               : o(
                   "VideoPlayerImplementationErrors",
                 ).createVideoPlayerErrorFromGenericError(
@@ -930,31 +962,34 @@ __d(
                 );
           },
           destroyEngineParts: function () {
-            ((j.config.nativeNextFirstMediaPrewarm = !1), e());
+            ((Q.config.nativeNextFirstMediaPrewarm = !1), e());
             function e() {
+              var e;
               if (
-                (K == null || K.point("destroy"),
+                (X == null || X.point("destroy"),
                 b == null || b(),
-                q == null || q(),
-                (q = null),
+                V == null || V(),
+                (V = null),
                 r("gkx")("19514"))
               ) {
-                var e, t;
-                (K == null || K.endWithAbort(),
-                  (e = F) == null || e.remove(),
+                var t, n;
+                (X == null || X.endWithAbort(),
+                  (t = F) == null || t.remove(),
                   (F = null),
-                  (t = B) == null || t.remove(),
-                  (B = null));
+                  (n = W) == null || n.remove(),
+                  (W = null));
               }
-              (ee.sendEvent({
-                reason: "destroyEngineParts",
-                type: "__dispose",
-              }),
+              ((e = U) == null || e.remove(),
+                (U = null),
+                ne.sendEvent({
+                  reason: "destroyEngineParts",
+                  type: "__dispose",
+                }),
                 E == null || E.disconnect());
             }
           },
           engineCreateArgs: e,
-          engineExtrasAPI: ne,
+          engineExtrasAPI: oe,
           engineMetadata: {
             isAbrEnabled: !0,
             mediaSinkType: R.mediaSinkType,
@@ -966,20 +1001,20 @@ __d(
             streamingFormat: "dash",
           },
           handleVideoElementChanged: function (t, n) {
-            ((t != null || Z) && (j.config.nativeNextFirstMediaPrewarm = !1),
-              t != null && (Z = !0),
-              J != null && (J(), (J = null)),
+            ((t != null || te) && (Q.config.nativeNextFirstMediaPrewarm = !1),
+              t != null && (te = !0),
+              ee != null && (ee(), (ee = null)),
               t != null
-                ? ((J = K == null ? void 0 : K.subspan("video_element")),
-                  re != null && (r("clearTimeout")(re), (re = null)),
-                  ee.sendEvent({
+                ? ((ee = X == null ? void 0 : X.subspan("video_element")),
+                  ae != null && (r("clearTimeout")(ae), (ae = null)),
+                  ne.sendEvent({
                     mediaElement: o(
                       "VideoPlayerNextgendashHostAPI",
                     ).opaqueVideoPlayerNextgendashHostMediaElement(t),
                     type: "update_media_element",
                   }))
-                : j.config.enableMediaElementUnmountNotification &&
-                  ee.sendEvent({
+                : Q.config.enableMediaElementUnmountNotification &&
+                  ne.sendEvent({
                     mediaElement: null,
                     type: "update_media_element",
                   }));
@@ -987,24 +1022,24 @@ __d(
           handleVideoInfoChange: function (t) {
             if (
               (t.hybridNativeNextFirstMediaPrewarm !== !0 &&
-                j.config.nativeNextFirstMediaPrewarm &&
-                ((j.config.nativeNextFirstMediaPrewarm = !1),
-                ee.state.state !== "__null__" &&
-                  ee.state.state !== "__disposed__" &&
-                  ee.sendEvent({ type: "update_config_from_env" })),
-              ee.state.state !== "__null__" &&
-                ee.state.state !== "__disposed__")
+                Q.config.nativeNextFirstMediaPrewarm &&
+                ((Q.config.nativeNextFirstMediaPrewarm = !1),
+                ne.state.state !== "__null__" &&
+                  ne.state.state !== "__disposed__" &&
+                  ne.sendEvent({ type: "update_config_from_env" })),
+              ne.state.state !== "__null__" &&
+                ne.state.state !== "__disposed__")
             ) {
               var e,
-                n = ee.state,
-                r = H
+                n = ne.state,
+                r = z
                   ? o(
                       "VideoPlayerNextgendashWebCodecsDimensions",
                     ).capVideoPlayerNextgendashWebCodecsDimensions(t.dimensions)
                   : t.dimensions;
               (r.height !== n.playerViewportDimensions.height ||
                 r.width !== n.playerViewportDimensions.width) &&
-                ee.sendEvent({
+                ne.sendEvent({
                   playerViewportDimensions: r,
                   type: "update_player_viewport_dimensions",
                 });
@@ -1017,7 +1052,7 @@ __d(
               (a.state !== "__null__" &&
                 a.state !== "__disposed__" &&
                 (l == null ? i != null : l !== i) &&
-                ee.sendEvent({
+                ne.sendEvent({
                   expiredVideoUrlRefreshHandlerState:
                     i != null ? { handler: w(i), identity: i } : null,
                   type: "update_expired_video_url_refresh_handler",
@@ -1025,7 +1060,7 @@ __d(
                 R.trackScrollPosition &&
                   t.videoPlayerScrollPositionAPI != null &&
                   n.scrollPositionAPI !== t.videoPlayerScrollPositionAPI &&
-                  ee.sendEvent({
+                  ne.sendEvent({
                     scrollPositionAPI: t.videoPlayerScrollPositionAPI,
                     type: "update_scroll_position_api",
                   }));
@@ -1033,93 +1068,93 @@ __d(
             return !1;
           },
         }),
-        ae = oe.engine,
-        ie = oe.handleFatalImplementationError,
-        le = oe.machine,
-        se = oe.videoElementAPIRef;
-      x.current = le;
-      for (var ue of $)
-        le.dispatch({
-          payload: { warningError: ue },
+        le = ie.engine,
+        se = ie.handleFatalImplementationError,
+        ue = ie.machine,
+        ce = ie.videoElementAPIRef;
+      x.current = ue;
+      for (var de of $)
+        ue.dispatch({
+          payload: { warningError: de },
           type: "implementation_warning",
         });
       if (
         (($.length = 0),
         (i.manifest != null || i.manifestUrl != null) &&
-          ee.sendEvent({
+          ne.sendEvent({
             dashManifestUrl: i.manifestUrl,
             dashManifestXmlString: i.manifest,
             type: "update_dash_manifest",
           }),
-        K)
+        X)
       ) {
-        var ce = void 0,
-          de = null,
-          me = null,
-          pe = function () {
-            var e = le.getCurrentState().controlledState,
+        var me = void 0,
+          pe = null,
+          _e = null,
+          fe = function () {
+            var e = ue.getCurrentState().controlledState,
               t = e.error,
               n = e.playbackState;
-            if (n !== ce) {
+            if (n !== me) {
               if (
-                (de != null &&
+                (pe != null &&
                   (t != null || n !== "paused") &&
-                  (de(), (de = null)),
-                me != null &&
+                  (pe(), (pe = null)),
+                _e != null &&
                   (t != null || n !== "stalling") &&
-                  (me(), (me = null)),
+                  (_e(), (_e = null)),
                 t != null)
               ) {
                 var r;
-                (K.endWithError(S != null ? S : W(j, t)),
+                (X.endWithError(S != null ? S : q(Q, t)),
                   (r = F) == null || r.remove(),
                   (F = null));
               } else if (n === "playing") {
                 var o;
-                (K.endWithSuccess(), (o = F) == null || o.remove(), (F = null));
+                (X.endWithSuccess(), (o = F) == null || o.remove(), (F = null));
               } else
                 n === "paused"
-                  ? (de = K.subspan("paused"))
-                  : n === "stalling" && (me = K.subspan("stalling"));
-              ce = n;
+                  ? (pe = X.subspan("paused"))
+                  : n === "stalling" && (_e = X.subspan("stalling"));
+              me = n;
             }
           };
-        ((F = ae.implementationController.subscribe(pe)), pe());
+        ((F = le.implementationController.subscribe(fe)), fe());
       }
-      if (j.config.logStallDetailsAsPlayerWarning) {
-        var _e = void 0,
-          fe = null,
-          ge = function () {
-            var e = le.getCurrentState().controlledState,
+      if (Q.config.logStallDetailsAsPlayerWarning) {
+        var ge = void 0,
+          he = null,
+          ye = function () {
+            var e = ue.getCurrentState().controlledState,
               t = e.error,
               n = e.playbackState;
-            if (n !== _e) {
+            if (n !== ge) {
               if (
                 ((t != null || n !== "stalling") &&
-                  fe != null &&
-                  (r("clearTimeout")(fe), (fe = null)),
+                  he != null &&
+                  (r("clearTimeout")(he), (he = null)),
                 t != null)
               ) {
                 var o;
-                ((o = B) == null || o.remove(), (B = null));
-              } else if (n === "stalling" && fe == null) {
-                var a = j.host.clock(),
+                ((o = W) == null || o.remove(), (W = null));
+              } else if (n === "stalling" && he == null) {
+                var a = Q.host.clock(),
                   i = 200;
-                fe = r("setTimeout")(function () {
-                  ee.sendEvent({
+                he = r("setTimeout")(function () {
+                  ne.sendEvent({
                     stallStartClock: a,
                     type: "debug_log_stall_details",
                   });
                 }, i);
               }
-              _e = n;
+              ge = n;
             }
           };
-        ((B = ae.implementationController.subscribe(ge)), ge());
+        ((W = le.implementationController.subscribe(ye)), ye());
       }
-      return (K == null || K.point("engine_created"), ae);
+      return (X == null || X.point("engine_created"), le);
     }
-    function W(e, t) {
+    function q(e, t) {
       return o("nextgendasherr").nextgendasherr.apply(
         void 0,
         [e, t.errorName, t.errorMessageFormat].concat(t.errorMessageParams),
@@ -1131,7 +1166,8 @@ __d(
       (l.internal_wrapVideoElementAPIForMediaSink = M),
       (l.getVideoPlayerNextgendashEngineHostAPI = A),
       (l.internal_isMediaLoadPendingWhileHidden = O),
-      (l.createVideoPlayerNextgendashEngine = B));
+      (l.internal_isLiveBroadcastGoneBeforeStart = B),
+      (l.createVideoPlayerNextgendashEngine = W));
   },
   98,
 );

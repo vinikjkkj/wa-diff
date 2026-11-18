@@ -19,17 +19,17 @@ __d(
       var i;
       ((i = e) == null ? void 0 : i.eventId) !== t &&
         ((e = {
-          entryPoint: n == null ? null : b(n),
+          entryPoint: n == null ? null : R(n),
           eventId: t,
           id: r("WAWebPonyfillsCryptoRandomUUID")(),
           isPreview: a,
         }),
-        C(
+        S(
           t,
           o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
             .ENTRY_POINT_STARTED,
         ),
-        C(
+        S(
           t,
           a
             ? o("WAWebWamEnumEventV2InviteeActionType")
@@ -42,7 +42,7 @@ __d(
       var n = e;
       n == null ||
         n.eventId !== t ||
-        (C(
+        (S(
           t,
           n.isPreview
             ? o("WAWebWamEnumEventV2InviteeActionType")
@@ -53,37 +53,37 @@ __d(
         (e = null));
     }
     function d(e) {
-      C(
+      S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .RSVP_SHEET_SHOWN,
       );
     }
     function m(e) {
-      C(
+      S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .RSVP_SHEET_DISMISSED,
       );
     }
     function p(e, t) {
-      C(
+      S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .RSVP_SHEET_OPTION_TAPPED,
-        { rsvpValue: v(t) },
+        { rsvpValue: L(t) },
       );
     }
     function _(e, t) {
-      C(
+      S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .RSVP_COMPLETED,
-        { rsvpValue: v(t) },
+        { rsvpValue: L(t) },
       );
     }
     function f(e, t) {
-      C(
+      S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .RSVP_FAILED,
@@ -94,35 +94,61 @@ __d(
         },
       );
     }
-    function g(t) {
+    function g(e) {
+      S(
+        e,
+        o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
+          .REPORT_TAPPED,
+      );
+    }
+    function h(e) {
+      S(
+        e,
+        o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
+          .REPORT_COMPLETED,
+      );
+    }
+    function y(e, t) {
+      S(
+        e,
+        o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
+          .REPORT_FAILED,
+        {
+          errorType: o(
+            "WAWebSharableEventWamErrorType",
+          ).getSharableEventWamErrorType(t),
+        },
+      );
+    }
+    function C(t) {
       var n;
       ((n = e) == null ? void 0 : n.isPreview) === !0 &&
-        C(
+        S(
           t,
           o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
             .INVITED_ROW_TAPPED,
         );
     }
-    function h(e) {
-      (C(
+    function b(e) {
+      (S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .NMORE_ROW_TAPPED,
       ),
-        C(
+        S(
           e,
           o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
             .UNKNOWN_GUEST_SHEET_SHOWN,
         ));
     }
-    function y(e) {
-      C(
+    function v(e) {
+      S(
         e,
         o("WAWebWamEnumEventV2InviteeActionType").EVENT_V2_INVITEE_ACTION_TYPE
           .UNKNOWN_GUEST_SHEET_DISMISSED,
       );
     }
-    function C(t, n, r) {
+    function S(t, n, r) {
       var a = e;
       if (!(a == null || a.eventId !== t)) {
         var i = {
@@ -144,7 +170,7 @@ __d(
           ).EventV2DetailsInviteeUserJourneyWamEvent)(i).commit());
       }
     }
-    function b(e) {
+    function R(e) {
       return e ===
         o("WAWebSharableEventPageSource").SharableEventPageSource.EventList
         ? o("WAWebWamEnumEventV2InviteeEntryPoint").EVENT_V2_INVITEE_ENTRY_POINT
@@ -175,7 +201,7 @@ __d(
                     );
                   })();
     }
-    function v(e) {
+    function L(e) {
       return e === "going"
         ? o("WAWebWamEnumEventV2InviteeRsvpValue").EVENT_V2_INVITEE_RSVP_VALUE
             .GOING
@@ -203,9 +229,12 @@ __d(
       (l.logSharableEventInviteeRsvpOptionTapped = p),
       (l.logSharableEventInviteeRsvpCompleted = _),
       (l.logSharableEventInviteeRsvpFailed = f),
-      (l.logSharableEventInviteeInvitedRowTapped = g),
-      (l.logSharableEventInviteeHiddenGuestsShown = h),
-      (l.logSharableEventInviteeHiddenGuestsDismissed = y));
+      (l.logSharableEventInviteeReportTapped = g),
+      (l.logSharableEventInviteeReportCompleted = h),
+      (l.logSharableEventInviteeReportFailed = y),
+      (l.logSharableEventInviteeInvitedRowTapped = C),
+      (l.logSharableEventInviteeHiddenGuestsShown = b),
+      (l.logSharableEventInviteeHiddenGuestsDismissed = v));
   },
   98,
 );

@@ -6,7 +6,6 @@ __d(
     "WACoalescer",
     "WALogger",
     "WATimeUtils",
-    "WAWebAddonDeletionQueueDef",
     "WAWebJobsMigrationGating",
     "WAWebLazyPersistedQueue",
     "WAWebPersistedJobDefinitions",
@@ -20,19 +19,16 @@ __d(
     "use strict";
     var e,
       s,
-      u = o("WAWebLazyPersistedQueue").lazyPersistedQueue(
-        o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE,
-      ),
-      c = o("WACoalescer").createCoalescer({
-        dispatch: f,
+      u = o("WACoalescer").createCoalescer({
+        dispatch: _,
         name: "addon-deletion-queue",
         waitBeforeDispatch: o("WAWebLazyPersistedQueue")
           .whenPersistedQueuesMayOpen,
       });
-    function d(e, t) {
+    function c(e, t) {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled())
-        return (_(e, t), (s || (s = n("Promise"))).resolve());
-      var r = p("deleteAddOns");
+        return (p(e, t), (s || (s = n("Promise"))).resolve());
+      var r = m("deleteAddOns");
       return o("QPLFlow").endWith(r, function () {
         return o("WAWebPersistedJobManagerWorkerCompatible")
           .getJobManager()
@@ -41,12 +37,12 @@ __d(
           );
       });
     }
-    function m(e, t) {
+    function d(e, t) {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
-        _(e, t);
+        p(e, t);
         return;
       }
-      var r = p("deleteAddOnsFireAndForget");
+      var r = m("deleteAddOnsFireAndForget");
       o("QPLFlow").endWith(r, function () {
         return (
           o("WAWebPersistedJobManagerWorkerCompatible")
@@ -61,7 +57,7 @@ __d(
         );
       });
     }
-    function p(e) {
+    function m(e) {
       return o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -70,19 +66,19 @@ __d(
         },
       );
     }
-    function _(e, t) {
-      for (var n of h(e, t)) c.add(n);
+    function p(e, t) {
+      for (var n of g(e, t)) u.add(n);
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = new Map();
-          for (var a of t) n.set(a.queueId, a);
-          var i = Array.from(n.values()),
-            l = o("QPLFlow").startQPLFlow(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = new Map();
+          for (var i of t) a.set(i.queueId, i);
+          var l = Array.from(a.values()),
+            s = o("QPLFlow").startQPLFlow(
               o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
               {
                 annotations: {
@@ -94,9 +90,15 @@ __d(
               },
             );
           try {
-            yield o("QPLFlow").endWith(l, function () {
-              return u.add(l, i);
-            });
+            yield o("QPLFlow").endWith(
+              s,
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var e = yield o(
+                  "WAWebLazyPersistedQueue",
+                ).whenPersistedQueuesReady(s);
+                yield e.recordAddonDeletions(l);
+              }),
+            );
           } catch (t) {
             o("WALogger")
               .ERROR(
@@ -105,17 +107,17 @@ __d(
                     "[addon-deletion-queue] enqueue failed, dropping ",
                     " rows",
                   ])),
-                i.length,
+                l.length,
               )
               .catching(r("getErrorSafe")(t))
               .tags("addons", "messaging")
               .sendLogs("addon-deletion-enqueue-failed");
           }
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WATimeUtils").unixTimeMs();
       return t.map(function (t) {
         return {
@@ -127,7 +129,7 @@ __d(
         };
       });
     }
-    ((l.requestDeleteAddOns = d), (l.requestDeleteAddOnsFireAndForget = m));
+    ((l.requestDeleteAddOns = c), (l.requestDeleteAddOnsFireAndForget = d));
   },
   98,
 );

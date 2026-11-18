@@ -86,11 +86,6 @@ __d(
           paddingInlineStart: "x12w63v0",
           $$css: !0,
         },
-        innerWin: {
-          "::selection_backgroundColor": "xy9tlov",
-          "::selection_color": "x1bhl96m",
-          $$css: !0,
-        },
         emojiRawFallback: { color: "x14ug900", $$css: !0 },
       },
       c = (function (t) {
@@ -171,9 +166,14 @@ __d(
             )),
               d != null && (n.style.backgroundImage = "url('" + d + "')"));
             var m = document.createElement("span");
-            m.textContent = t;
-            var p = o("WAWebStylesEnv").isOSWin && u.innerWin;
-            return ((m.className = e(p)), n.appendChild(m), n);
+            return (
+              (m.textContent = t),
+              (m.className = { 0: "xkrh14z x1bhl96m", 1: "xkrh14z xe7vhmw" }[
+                (d == null) << 0
+              ]),
+              n.appendChild(m),
+              n
+            );
           }),
           (a.updateDOM = function (t, n) {
             var e = n.firstChild;

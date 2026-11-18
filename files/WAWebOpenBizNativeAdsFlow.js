@@ -18,9 +18,9 @@ __d(
           o("WAWebNavBarTypes").NavBarItems.AdCreation,
         ));
       var a = s.jsx(r("WAWebBizNativeAdsTwoPhaseContainer.react"), {
+        boostTarget: n,
         entryPoint: e,
         flowID: t,
-        preselectedProductId: n,
       });
       o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(a, {
         focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,

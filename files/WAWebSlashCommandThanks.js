@@ -14,7 +14,7 @@ __d(
     "WAWebSlashCommandsComposer",
     "WAWebSlashCommandsToolText",
     "WAWebSlashCommandsUsageLogger",
-    "WDSIconIcFavorite.react",
+    "WDSIconIcFavoriteFilled.react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = "https://www.internalfb.com/intern/whatsapp/thanks/start/",
@@ -40,7 +40,7 @@ __d(
     var _ = {
       name: "thanks",
       group: "work_tools",
-      Icon: r("WDSIconIcFavorite.react"),
+      Icon: r("WDSIconIcFavoriteFilled.react"),
       color: "pink",
       text: "optional",
       getDescription: function () {
@@ -66,11 +66,11 @@ __d(
             N((e = t.mentions) != null ? e : [], n),
           ) > o("WAWebEmployeeCommandLimits").HANDOFF_LIMITS.thanksText
             ? s._(
-                /*BTDS*/ "Too long to post as a Thanks. Keep it to {limit} characters",
+                /*BTDS*/ '_j{"*":"Too long to post as a Thanks. Keep it to {limit} characters","_1":"Too long to post as a Thanks. Keep it to 1 character"}',
                 [
-                  s._param(
-                    "limit",
+                  s._plural(
                     o("WAWebEmployeeCommandLimits").HANDOFF_LIMITS.thanksText,
+                    "limit",
                   ),
                 ],
               )
@@ -141,7 +141,7 @@ __d(
             ) {
               var n = t.name;
               return s._(
-                /*BTDS*/ "Type your thanks to {name}, then press Enter to post it",
+                /*BTDS*/ "Type your thanks to {name}, then press Enter",
                 [s._param("name", n)],
               );
             }
@@ -151,7 +151,7 @@ __d(
               o("WAWebSlashCommandThanksRecipient").getSoleThanksRecipientPhone(
                 e,
               ) != null
-              ? s._(/*BTDS*/ "Type your thanks, then press Enter to post it")
+              ? s._(/*BTDS*/ "Type your thanks, then press Enter")
               : null;
           })(x(e))
         : null;
@@ -166,14 +166,15 @@ __d(
               "name" in e
             ) {
               var t = e.name;
-              return s._(/*BTDS*/ "Press Enter to post a Thanks to {name}", [
-                s._param("name", t),
-              ]);
+              return s._(
+                /*BTDS*/ "Press Enter to post a Thanks to {name} and add its link",
+                [s._param("name", t)],
+              );
             }
             return ((typeof e == "object" && e !== null) ||
               typeof e == "function") &&
               e.kind === "none"
-              ? s._(/*BTDS*/ "Press Enter to post a Thanks")
+              ? s._(/*BTDS*/ "Press Enter to post your Thanks and add its link")
               : null;
           })(x(e))
         : null;
@@ -193,7 +194,7 @@ __d(
           typeof e == "function") &&
           e.kind === "ask"
           ? P()
-          : s._(/*BTDS*/ "Press Enter to finish your thanks in Thanks");
+          : s._(/*BTDS*/ "Press Enter, then finish your thanks in Thanks");
       })(x(e));
     }
     function b(e, t, n, r) {
@@ -261,7 +262,7 @@ __d(
         }),
         i = a.blocked,
         l = a.open;
-      o("WAWebSlashCommandHandBack").showLastingHandBackToast(i, [l]);
+      o("WAWebSlashCommandHandBack").showLastingHandBackToast(i, l);
     }
     function R(e, t) {
       var n;
@@ -362,20 +363,18 @@ __d(
       o("WAWebSlashCommandHandBack").showHandBackNoAnswer({
         noAnswer: s._(/*BTDS*/ "Thanks didn't answer"),
         checkFirst: s._(
-          /*BTDS*/ "It may have been posted. Check Thanks before trying again",
+          /*BTDS*/ "It may have been posted. Check Thanks before trying again.",
         ),
-        actions: [
-          {
-            actionText: s._(/*BTDS*/ "Check Thanks"),
-            onAction: function () {
-              (o("WAWebSlashCommandsUsageLogger").logFallbackOpen("thanks", e),
-                o("WAWebExternalLink.react").openExternalLink(u, {
-                  noApiCmdHandling: !0,
-                }));
-            },
-            testid: "slash-command-thanks-check-thanks",
+        lastingAction: {
+          actionText: s._(/*BTDS*/ "Check Thanks"),
+          onAction: function () {
+            (o("WAWebSlashCommandsUsageLogger").logFallbackOpen("thanks", e),
+              o("WAWebExternalLink.react").openExternalLink(u, {
+                noApiCmdHandling: !0,
+              }));
           },
-        ],
+          testid: "slash-command-thanks-check-thanks",
+        },
         progress: t,
       });
     }

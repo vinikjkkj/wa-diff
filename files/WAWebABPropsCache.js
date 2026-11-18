@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAResolvable",
+    "WAWebABPropExposureCandidate",
     "WAWebABProps",
     "WAWebABPropsConfigs",
     "WAWebABPropsGlobals",
@@ -106,21 +107,21 @@ __d(
           },
         );
     }
-    function T(e) {
-      var t = k(e, E());
-      if (t != null) return t;
-      var n = o("WAWebABPropsConfigs").ABPropConfigs[e],
-        r = n[0],
-        a = n[2],
-        i = n[3],
-        l = a;
+    function T(e, t) {
+      var n = k(e, E());
+      if (n != null) return n;
+      var r = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        a = r[0],
+        i = r[2],
+        l = r[3],
+        c = i;
       if (!y.resolveWasCalled()) {
         if (!o("WAWebABProps").usedBeforeInitializationConfigs.includes(e)) {
-          var c,
-            d = (c = f.get(e)) != null ? c : 0;
-          d < _ &&
-            (f.set(e, d + 1),
-            d === 0
+          var d,
+            m = (d = f.get(e)) != null ? d : 0;
+          m < _ &&
+            (f.set(e, m + 1),
+            m === 0
               ? o("WALogger").WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -140,21 +141,24 @@ __d(
                   e,
                 ));
         }
-        return l;
+        return c;
       }
-      return $(r);
+      return $(a, t);
     }
     function D(e) {
       return e == null && r("justknobx")._("6581");
     }
-    function x(e) {
-      if (h.get(e) && !o("WAWebABPropsGlobals").accessedConfigs.has(e)) {
-        var t,
-          n = (t = h.get(e)) == null ? void 0 : t.configExpoKey;
-        if (D(n)) return;
-        (n != null &&
-          !o("WAWebABPropsGlobals").exposureKeys.has(n) &&
-          (o("WAWebABPropsGlobals").exposureKeys.add(n),
+    function x(e, t) {
+      var n = o("WAWebABPropExposureCandidate").getABPropExposureCandidate(
+        h.get(e),
+        t,
+      );
+      if (n != null && !o("WAWebABPropsGlobals").accessedConfigs.has(e)) {
+        var r = n.configExpoKey;
+        if (D(r)) return;
+        (r != null &&
+          !o("WAWebABPropsGlobals").exposureKeys.has(r) &&
+          (o("WAWebABPropsGlobals").exposureKeys.add(r),
           o("WAWebABPropsGlobals").updateGlobalExpoKey()),
           o("WAWebABPropsGlobals").accessedConfigs.add(e),
           self.setTimeout(function () {
@@ -162,15 +166,15 @@ __d(
           }, 0));
       }
     }
-    function $(e) {
-      x(e);
-      var t = h.get(e);
+    function $(e, t) {
+      x(e, t);
+      var n = h.get(e);
       return r("gkx")("16539") &&
-        (t == null ? void 0 : t.overriddenConfigValue) != null
-        ? t.overriddenConfigValue
-        : t == null
+        (n == null ? void 0 : n.overriddenConfigValue) != null
+        ? n.overriddenConfigValue
+        : n == null
           ? void 0
-          : t.configValue;
+          : n.configValue;
     }
     function P(e) {
       var t = k(e, E());

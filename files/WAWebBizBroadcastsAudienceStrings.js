@@ -1,6 +1,6 @@
 __d(
   "WAWebBizBroadcastsAudienceStrings",
-  ["fbt"],
+  ["fbt", "justknobx"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
@@ -27,9 +27,11 @@ __d(
       return s._(/*BTDS*/ "Inactive chats");
     }
     function f() {
-      return s._(
-        /*BTDS*/ "Contacts that haven't messaged you in the last 30 days",
-      );
+      return r("justknobx")._("8068")
+        ? s._(/*BTDS*/ "Contacts who haven't messaged you in the last 30 days")
+        : s._(
+            /*BTDS*/ "Contacts that haven't messaged you in the last 30 days",
+          );
     }
     function g(e) {
       return s._(/*BTDS*/ "Inactive for {duration}", [s._param("duration", e)]);

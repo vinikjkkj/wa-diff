@@ -78,6 +78,7 @@ __d(
         "CanonicalPeerRequestTimestamp",
         "CanonicalFalcoBuffer",
         "NotificationClickedOnce",
+        "LastNotificationInteractionTime",
         "NotReceivingNotificationsBannerDismissed",
         "NotReceivingNotificationsBannerEligibleSince",
         "CanonicalAuthV2MintThrottle",
@@ -420,6 +421,8 @@ __d(
         STATUS_RESHARE_ALLOWED: "WAStatusReshareAllowed",
         OFFLINE_NOTIFICATION_ENGAGEMENT: "WAOfflineNotificationEngagement",
         NOTIFICATION_ENGAGEMENT: "WANotificationEngagement",
+        WORKER_NOTIFICATION_INTERACTION_TIME:
+          "WAWorkerNotificationInteractionTime",
         IS_HOSTED_ME_ACCOUNT: "WAIsHostedMeAccount",
         TEXT_STATUS_SUGGESTIONS: "WATextStatusSuggestions",
         MMS4_CONN: "WAMms4Conn",

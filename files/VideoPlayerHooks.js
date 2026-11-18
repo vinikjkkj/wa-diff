@@ -573,13 +573,7 @@ __d(
         (s || (s = o("VideoPlayerContexts"))).AudioAvailabilityInfoContext,
       );
     }
-    function Me() {
-      var e = ge() != null,
-        t = h(),
-        n = De();
-      return !(e || n || t);
-    }
-    function we(e) {
+    function Me(e) {
       var t = o("react-compiler-runtime").c(4),
         n = e === void 0 ? !0 : e,
         r = f(),
@@ -602,13 +596,13 @@ __d(
         : ((a = t[2]), (i = t[3])),
         d(a, i));
     }
-    function Ae() {
+    function we() {
       return (
-        we(),
+        Me(),
         c((s || (s = o("VideoPlayerContexts"))).ActiveEmsgBoxesContext)
       );
     }
-    function Fe() {
+    function Ae() {
       return c(r("VideoPlayerVideoPixelsFitContext"));
     }
     ((l.useLatestValueRef = _),
@@ -683,10 +677,9 @@ __d(
       (l.useVideoPlayerInitialTracePolicy = $e),
       (l.useLatencyLevel = Pe),
       (l.useAudioAvailabilityInfo = Ne),
-      (l.useShouldPersistPlaybackRate = Me),
-      (l.useEmsgObserver = we),
-      (l.useActiveEmsgBoxes = Ae),
-      (l.useVideoPlayerVideoPixelsFit = Fe));
+      (l.useEmsgObserver = Me),
+      (l.useActiveEmsgBoxes = we),
+      (l.useVideoPlayerVideoPixelsFit = Ae));
   },
   98,
 );

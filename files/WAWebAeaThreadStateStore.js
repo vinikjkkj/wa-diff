@@ -288,22 +288,25 @@ __d(
           .sendLogs("aea-thread-state-write-fail");
       });
     }
-    function N(e, t) {
+    function N(e, t, n) {
       return M.apply(this, arguments);
     }
     function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = r === void 0 ? {} : r,
+            i = a.shouldDisclose,
+            l = i === void 0 ? !0 : i;
           if (!o("WAWebAeaAccountCategory").isAeaBotAccount(e)) {
-            var r = o("WAWebLidMigrationUtils").toUserLidOrThrow(e);
-            w(yield y(r), t) ||
+            var s = o("WAWebLidMigrationUtils").toUserLidOrThrow(e);
+            w(yield y(s), t) ||
               ((yield o(
                 "WAWebAeaAccountCategory",
               ).isAeaReceiveEnabledForAccount(e)) &&
                 (yield F(
-                  r,
+                  s,
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var e = yield y(r);
+                    var e = yield y(s);
                     if (!w(e, t)) {
                       if (e != null && e.cooldownRemainingMs > 0) {
                         (o("WALogger").LOG(
@@ -314,7 +317,7 @@ __d(
                               " cooldown_state=",
                               "",
                             ])),
-                          r.toLogString(),
+                          s.toLogString(),
                           t,
                           e.state,
                         ),
@@ -327,11 +330,11 @@ __d(
                           ));
                         return;
                       }
-                      var n = yield Q(r),
-                        a = n.accountState;
+                      var n = yield Q(s),
+                        r = n.accountState;
                       if (
                         t === o("WAWebAeaAccountState").AeaAccountState.E2EE &&
-                        o("WAWebAeaAccountState").isAeaNonE2eeAccountState(a)
+                        o("WAWebAeaAccountState").isAeaNonE2eeAccountState(r)
                       ) {
                         o("WALogger").LOG(
                           d ||
@@ -341,13 +344,13 @@ __d(
                               " account_state=",
                               "",
                             ])),
-                          r.toLogString(),
+                          s.toLogString(),
                           t,
-                          a,
+                          r,
                         );
                         return;
                       }
-                      (yield O(r, t, !1)) &&
+                      (yield O(s, t, !1, l)) &&
                         o("WAWebAeaTelemetry").reportAeaUnsignedThreadUpdate(t);
                     }
                   }),

@@ -12,6 +12,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebWamEnumKicErrorCodeType",
     "WDSIllustrationWdsPictoGenericWarning.react",
+    "justknobx",
     "react",
     "react-compiler-runtime",
     "useWAWebStableCallback",
@@ -90,7 +91,9 @@ __d(
       t[6] === Symbol.for("react.memo_cache_sentinel")
         ? ((h = u.jsx("div", {
             className: "xk50ysn x1603h9y x1u7k74 xcytdqz",
-            children: s._(/*BTDS*/ "Message cannot be kept"),
+            children: r("justknobx")._("8068")
+              ? s._(/*BTDS*/ "Message can't be kept")
+              : s._(/*BTDS*/ "Message cannot be kept"),
           })),
           (t[6] = h))
         : (h = t[6]);

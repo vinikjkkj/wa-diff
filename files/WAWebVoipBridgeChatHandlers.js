@@ -10,7 +10,9 @@ __d(
     "WAWebMsgGetters",
     "WAWebVoipEventConstants",
     "WAWebVoipOngoingCallCollection",
+    "WAWebVoipOngoingTransferCalls",
     "WAWebVoipSendScreeningVoicemail",
+    "WAWebVoipTransferredCallRegistry",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -21,7 +23,9 @@ __d(
       u,
       c,
       d,
-      m = {
+      m,
+      p = 8e3,
+      _ = {
         getTcToken: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var n = t.wid;
@@ -76,40 +80,32 @@ __d(
         })(),
         getOngoingCallInfo: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e;
+            var e,
+              t = self.performance.now() + p;
             yield o(
               "WAWebVoipOngoingCallCollection",
             ).WAWebVoipOngoingCallCollection.waitUntilLoaded();
-            var t = o(
+            var n = o(
               "WAWebVoipOngoingCallCollection",
             ).WAWebVoipOngoingCallCollection.findOngoingCallActiveOnOtherSelfDevice();
-            if (t == null)
-              return (
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: getOngoingCallInfo: no call active on another self device",
-                    ])),
-                ),
-                null
-              );
-            var n = t.id.remote,
-              r = (
-                (e = o("WAWebMsgGetters").getCallParticipants(t)) != null
+            if (n == null) return f(Math.max(0, t - self.performance.now()));
+            var r = n.id.remote,
+              a = (
+                (e = o("WAWebMsgGetters").getCallParticipants(n)) != null
                   ? e
                   : []
               ).map(function (e) {
                 var t = e.participant;
                 return t.toString();
               }),
-              a = t.callCreator;
+              i = n.callCreator;
             return (
-              r.length === 0 && a != null && r.push(a.toString()),
+              a.length === 0 && i != null && a.push(i.toString()),
               {
-                callId: t.id.id,
-                isVideoCall: o("WAWebMsgGetters").getIsVideoCall(t),
-                groupJid: n.isGroup() ? n.toString() : null,
-                participantJids: r,
+                callId: n.id.id,
+                isVideoCall: o("WAWebMsgGetters").getIsVideoCall(n),
+                groupJid: r.isGroup() ? r.toString() : null,
+                participantJids: a,
               }
             );
           });
@@ -121,8 +117,8 @@ __d(
         handleMutedByOthers: function (t) {
           var e = t.muterJid;
           o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: handleMutedByOthers muterJid=",
                 "",
               ])),
@@ -146,7 +142,49 @@ __d(
           return o("WAWebVoipSendScreeningVoicemail").sendScreeningVoicemail(t);
         },
       };
-    l.VoipBridgeChatHandlers = m;
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = yield o(
+              "WAWebVoipOngoingTransferCalls",
+            ).waitForOngoingTransferEntryPoint(e);
+          return n == null
+            ? (o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: getOngoingCallInfo: no call active on another self device",
+                  ])),
+              ),
+              null)
+            : o(
+                  "WAWebVoipTransferredCallRegistry",
+                ).getLiveTransferredCallRootId(
+                  (t = r("WAWebCallCollection").activeCall) == null
+                    ? void 0
+                    : t.id,
+                ) === n.rootCallId
+              ? (o("WALogger").LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getOngoingCallInfo: 1:1 call already transferred here",
+                    ])),
+                ),
+                null)
+              : {
+                  callId: n.rootCallId,
+                  isVideoCall: n.isVideoCall,
+                  groupJid: null,
+                  participantJids: [n.peerWid.toString()],
+                };
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    l.VoipBridgeChatHandlers = _;
   },
   98,
 );

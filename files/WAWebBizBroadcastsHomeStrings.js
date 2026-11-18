@@ -7,6 +7,7 @@ __d(
     "WAWebFbtCommon",
     "WAWebL10N",
     "WDSTextualLink.react",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -113,11 +114,12 @@ __d(
     }
     D.displayName = D.name + " [from " + i.id + "]";
     function x() {
-      return s._(
-        /*BTDS*/ "Something went wrong while sending your broadcast. Please retry sending it.",
-      );
+      return r("justknobx")._("8427")
+        ? s._(/*BTDS*/ "Your broadcast couldn't be sent. Try sending it again.")
+        : s._(
+            /*BTDS*/ "Something went wrong while sending your broadcast. Please retry sending it.",
+          );
     }
-    x.displayName = x.name + " [from " + i.id + "]";
     function $() {
       return s._(/*BTDS*/ "Draft");
     }

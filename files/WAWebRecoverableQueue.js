@@ -41,16 +41,30 @@ __d(
       return (
         (a.runRecorded = function (t, r) {
           var e = this;
-          return this.$6(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var n = yield e.$7(t);
-              (yield r(), yield e.$4.ack([n]));
-            }),
-          );
+          return this.$4.isReady()
+            ? this.$6(
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  var n = yield e.$7(t);
+                  (yield r(), yield e.$4.ack([n]));
+                }),
+              )
+            : this.$6(r);
         }),
         (a.addAndDrain = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = this;
+            if (!this.$4.isReady()) {
+              var n = this.$8(e);
+              this.$6(function () {
+                return o("WAWebScheduledOperations").scheduleOperation(
+                  t.$3,
+                  function () {
+                    return t.$5(n);
+                  },
+                );
+              });
+              return;
+            }
             (yield this.$6(function () {
               return t.$7(e);
             }),
@@ -68,7 +82,7 @@ __d(
           var e = this;
           return (
             this.$6(function () {
-              return e.$8();
+              return e.$9();
             }),
             this.$1
           );
@@ -96,36 +110,34 @@ __d(
         }),
         (a.$7 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = y(),
-              n = o("WATimeUtils").unixTimeMs();
-            return (
-              yield this.$4.add([
-                babelHelpers.extends({}, e, {
-                  addedAtMs: n,
-                  attempts: 0,
-                  changedAtMs: n,
-                  queueId: t,
-                }),
-              ]),
-              t
-            );
+            var t = this.$8(e);
+            return (yield this.$4.add([t]), t.queueId);
           });
           function t(t) {
             return e.apply(this, arguments);
           }
           return t;
         })()),
-        (a.$8 = function () {
+        (a.$8 = function (t) {
+          var e = o("WATimeUtils").unixTimeMs();
+          return babelHelpers.extends({}, t, {
+            addedAtMs: e,
+            attempts: 0,
+            changedAtMs: e,
+            queueId: y(),
+          });
+        }),
+        (a.$9 = function () {
           var e = this;
           return o("WAWebScheduledOperations")
             .scheduleOperation(this.$3, function () {
-              return e.$9();
+              return e.$10();
             })
             .then(function (t) {
-              return t ? e.$8() : void 0;
+              return t ? e.$9() : void 0;
             });
         }),
-        (a.$9 = (function () {
+        (a.$10 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this,
               t = yield this.$4.read({
@@ -138,7 +150,7 @@ __d(
                 function (t, o) {
                   return t.then(
                     n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      (yield e.$10(o)) && r++;
+                      (yield e.$11(o)) && r++;
                     }),
                   );
                 },
@@ -153,11 +165,11 @@ __d(
           }
           return t;
         })()),
-        (a.$10 = (function () {
+        (a.$11 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (e.attempts >= this.$2) return this.$11(e);
-            var t = yield this.$12(e);
-            if (t == null) return this.$13(e);
+            if (e.attempts >= this.$2) return this.$12(e);
+            var t = yield this.$13(e);
+            if (t == null) return this.$14(e);
             var n = e.attempts + 1;
             return n >= this.$2
               ? (o("WALogger")
@@ -174,7 +186,7 @@ __d(
                   .catching(t)
                   .tags("messaging")
                   .sendLogs("recoverable-queue-row-dropped"),
-                this.$13(e))
+                this.$14(e))
               : (o("WALogger")
                   .WARN(
                     u ||
@@ -189,7 +201,16 @@ __d(
                   .catching(t)
                   .tags("messaging")
                   .sendLogs("recoverable-queue-attempt-failed"),
-                this.$14(e, n));
+                this.$15(e, n));
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.$14 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            return (yield this.$12(e)) ? !0 : this.$15(e, this.$2);
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -197,15 +218,6 @@ __d(
           return t;
         })()),
         (a.$13 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            return (yield this.$11(e)) ? !0 : this.$14(e, this.$2);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.$12 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
               return (yield this.$5(e), null);
@@ -218,7 +230,7 @@ __d(
           }
           return t;
         })()),
-        (a.$11 = (function () {
+        (a.$12 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
               return (yield this.$4.ack([e.queueId]), !0);
@@ -245,7 +257,7 @@ __d(
           }
           return t;
         })()),
-        (a.$14 = (function () {
+        (a.$15 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               try {

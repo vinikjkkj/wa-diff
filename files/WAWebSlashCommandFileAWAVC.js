@@ -11,7 +11,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebVoipCreateCallLink",
-    "WDSIconIcVideocam.react",
+    "WDSIconIcVideocamFilled.react",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -26,13 +26,13 @@ __d(
       p = {
         name: "fileawavc",
         group: "work_tools",
-        Icon: r("WDSIconIcVideocam.react"),
+        Icon: r("WDSIconIcVideocamFilled.react"),
         color: "teal",
         text: "none",
         getDescription: g,
         getTextPrompt: g,
         getRunLabel: function () {
-          return s._(/*BTDS*/ "Press Enter to create a call link");
+          return s._(/*BTDS*/ "Press Enter to add a WhatsApp call link");
         },
         getBusyLabel: function () {
           return s._(/*BTDS*/ "Creating a call link\u2026");
@@ -103,7 +103,7 @@ __d(
       _(e) === t && o("WAWebSlashCommandsComposer").replaceComposerText(e, n);
     }
     function g() {
-      return s._(/*BTDS*/ "Share a WhatsApp call link anyone can join");
+      return s._(/*BTDS*/ "Add a WhatsApp call link anyone can join");
     }
     l.WAWebSlashCommandFileAWAVC = p;
   },

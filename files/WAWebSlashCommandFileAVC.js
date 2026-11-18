@@ -9,7 +9,7 @@ __d(
     "WAWebSlashCommandHandBack",
     "WAWebSlashCommandsToolText",
     "WAWebSlashCommandsUsageLogger",
-    "WDSIconIcVideocam.react",
+    "WDSIconIcVideocamFilled.react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = "https://www.internalfb.com/join_meeting",
@@ -26,15 +26,15 @@ __d(
       m = {
         name: "fileavc",
         group: "work_tools",
-        Icon: r("WDSIconIcVideocam.react"),
+        Icon: r("WDSIconIcVideocamFilled.react"),
         color: "teal",
         text: "none",
         getDescription: y,
         getTextPrompt: y,
         getRunLabel: function () {
           return o("WAWebEmployeeCommandHandoff").canHandOff("vc")
-            ? s._(/*BTDS*/ "Press Enter to create a Zoom call")
-            : s._(/*BTDS*/ "Press Enter to open Join Meeting in your browser");
+            ? s._(/*BTDS*/ "Press Enter to add a Zoom link")
+            : s._(/*BTDS*/ "Press Enter, then create the call in Join Meeting");
         },
         getFollowUpPlaceholder: function (t) {
           var e = t.chat;
@@ -140,9 +140,9 @@ __d(
         o("WAWebSlashCommandHandBack").showHandBackNoAnswer({
           noAnswer: s._(/*BTDS*/ "Join Meeting didn't answer"),
           checkFirst: s._(
-            /*BTDS*/ "It may have been created. Check Join Meeting before trying again",
+            /*BTDS*/ "It may have been created. Check Join Meeting before trying again.",
           ),
-          actions: [i],
+          lastingAction: i,
           progress: a,
         });
         return;
@@ -199,7 +199,7 @@ __d(
         : s._(/*BTDS*/ "Quick sync").toString();
     }
     function y() {
-      return s._(/*BTDS*/ "Create a Zoom meeting");
+      return s._(/*BTDS*/ "Add a link to a new Zoom meeting");
     }
     ((l.VC_START_URL = u),
       (l.getZoomCreateUrl = c),

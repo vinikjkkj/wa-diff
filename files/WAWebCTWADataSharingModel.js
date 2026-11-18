@@ -6,32 +6,37 @@ __d(
       s = 2,
       u = null,
       c = null,
-      d = new (r("WAWebEventEmitter"))(),
-      m = function (t, n) {
-        ((u = t), n != null && (c = n), d.trigger("update", u));
+      d = 0,
+      m = new (r("WAWebEventEmitter"))(),
+      p = function (t, n) {
+        ((d += 1), (u = t), n != null && (c = n), m.trigger("update", u));
       };
-    function p() {
+    function _() {
       return u;
     }
-    function _() {
+    function f() {
       return c != null ? c : e;
     }
-    var f = function (t) {
-        d.on("update", t);
+    function g() {
+      return d;
+    }
+    var h = function (t) {
+        m.on("update", t);
       },
-      g = function (t) {
-        d.off("update", t);
+      y = function (t) {
+        m.off("update", t);
       },
-      h = {
-        subscribeForUpdates: f,
-        unsubscribeFromUpdates: g,
-        setValue: m,
-        getValue: p,
-        getVersion: _,
+      C = {
+        subscribeForUpdates: h,
+        unsubscribeFromUpdates: y,
+        setValue: p,
+        getValue: _,
+        getVersion: f,
+        getRevision: g,
       };
     ((l.BASE_DISCLOSURE_VERSION = e),
       (l.EPD_DISCLOSURE_VERSION = s),
-      (l.CTWADataSharingModel = h));
+      (l.CTWADataSharingModel = C));
   },
   98,
 );

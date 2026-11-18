@@ -217,7 +217,6 @@ __d(
       },
     );
     ((l.resetTaskIDCounterForTestingOnly = u),
-      (l.DEFAULT_PREFETCH_GROUP_ID = c),
       (l.VideoPlayerNextgendashWorkerPrefetchTaskQueueSM = p));
   },
   98,

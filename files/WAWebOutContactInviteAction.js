@@ -28,6 +28,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -493,7 +494,9 @@ __d(
       e &&
         o("WAWebToastManager").ToastManager.open(
           P.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(/*BTDS*/ "Could not open SMS app"),
+            msg: r("justknobx")._("8427")
+              ? s._(/*BTDS*/ "Couldn't open SMS app")
+              : s._(/*BTDS*/ "Could not open SMS app"),
           }),
         );
     }

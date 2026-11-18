@@ -190,15 +190,15 @@ __d(
         o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplSuccess();
     }
     function b(t) {
-      var a = t.flowID,
-        i = t.initialLoadingStep,
-        l = t.onLoadComplete,
-        s = t.phase1Result,
-        m = t.preselectedProductId,
+      var a = t.boostTarget,
+        i = t.flowID,
+        l = t.initialLoadingStep,
+        s = t.onLoadComplete,
+        m = t.phase1Result,
         _ = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t, i, c, _;
-            if (s != null) return h(s, a, l, m);
+            var t, l, c, _;
+            if (m != null) return h(m, i, s, a);
             o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
               o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                 .BUNDLE_LOAD_START,
@@ -215,7 +215,7 @@ __d(
                 o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                   .ELIGIBILITY_CHECK_START,
               ));
-            var S = yield b(a);
+            var S = yield b(i);
             o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
               o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                 .ELIGIBILITY_CHECK_END,
@@ -225,7 +225,7 @@ __d(
             try {
               L = yield o(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
-              ).resolveBizNativeAdsRelayIdentityBundle(R, a, y);
+              ).resolveBizNativeAdsRelayIdentityBundle(R, i, y);
             } catch (e) {
               throw (
                 r("FBLogger")("wa_ctwa_web")
@@ -242,9 +242,9 @@ __d(
               S &&
               (L = yield o(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
-              ).resolveBizNativeAdsRelayIdentityBundle("WAA", a, y));
+              ).resolveBizNativeAdsRelayIdentityBundle("WAA", i, y));
             var E =
-                (t = (i = L) == null ? void 0 : i.linkedPagesInfo) != null
+                (t = (l = L) == null ? void 0 : l.linkedPagesInfo) != null
                   ? t
                   : y != null
                     ? yield y
@@ -271,7 +271,7 @@ __d(
               ),
               I = o("WAWebBizNativeAdsBoostLanding").shouldBoostOpenAdCreation(
                 k,
-                m,
+                a,
               ),
               T = I
                 ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
@@ -286,15 +286,15 @@ __d(
                 "WAWebBizNativeAdsResolveRelayIdentityBundle",
               ).prepareDeferredAdCreationEntrypoint({
                 existingBundle: L,
-                flowID: a,
+                flowID: i,
               })),
-              l == null || l());
+              s == null || s());
             var x = function (t) {
               return u.jsx(
                 v,
                 babelHelpers.extends(
                   {
-                    flowID: a,
+                    flowID: i,
                     identityBundle: L,
                     initialStack: D,
                     initialStep: T,
@@ -318,12 +318,12 @@ __d(
           return t.error
             ? u.jsx(r("WAWebBizAdsErrorPopup.react"), {
                 fallback: u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), {
-                  step: i,
+                  step: l,
                 }),
               })
-            : v(t.pastDelay, l)
+            : v(t.pastDelay, s)
               ? u.jsx(u.Fragment, {})
-              : u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), { step: i });
+              : u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), { step: l });
         },
         renderLoadingImmediately: !0,
       });

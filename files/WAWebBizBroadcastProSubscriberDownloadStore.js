@@ -7,6 +7,7 @@ __d(
     "WAWebBizBroadcastProSubscriberDownloadMutation",
     "WAWebBizBroadcastProSubscriberDownloadRegistry",
     "WAWebBizBroadcastProSubscriberDownloadStatusQuery",
+    "WAWebBizBroadcastProSubscriberDownloadToast",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -52,7 +53,7 @@ __d(
               ).removeSettledDownloads(),
               D++);
             var a = "" + _ + D;
-            o(
+            (o(
               "WAWebBizBroadcastProSubscriberDownloadRegistry",
             ).putSubscriberDownload({
               cdnUrl: null,
@@ -62,7 +63,10 @@ __d(
               key: a,
               poolName: n,
               status: "preparing",
-            });
+            }),
+              o(
+                "WAWebBizBroadcastProSubscriberDownloadToast",
+              ).showSubscriberDownloadToast(a));
             try {
               var i = yield o(
                 "WAWebBizBroadcastProSubscriberDownloadMutation",
@@ -352,7 +356,9 @@ __d(
         };
       }
     }
-    ((l.beginSubscriberDownload = x), (l.saveSubscriberDownload = P));
+    ((l.MAX_POLL_DURATION_MS = y),
+      (l.beginSubscriberDownload = x),
+      (l.saveSubscriberDownload = P));
   },
   98,
 );

@@ -24,6 +24,7 @@ __d(
     "WAWebSendMsgCreateFanoutStanza",
     "WAWebSendMsgMetaNode",
     "WAWebSendMsgQueueMap",
+    "WAWebSendMsgTypes",
     "WAWebSessionScope",
     "WAWebSignal",
     "WAWebSignalProtocolStore",
@@ -45,7 +46,7 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.participant,
             i = t.to,
-            l = O(a);
+            l = W(a);
           l == null &&
             o("WALogger")
               .WARN(
@@ -61,8 +62,8 @@ __d(
             d = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
-                  if (!(yield N(s)))
-                    return { kind: "pairwise", stanza: yield w(t, s) };
+                  if ((yield N(t.msgProtobuf, s)) === "outside_audience_revoke")
+                    return { kind: "pairwise", stanza: yield F(t, s) };
                   if (c) return C(t, s);
                   var e = yield $(t, s),
                     n = u ? yield R(t, s, yield v(t, e)) : yield h(t, e);
@@ -382,7 +383,7 @@ __d(
             i = e.participant,
             l = e.sessionScope,
             s = e.to,
-            d = O(i);
+            d = W(i);
           if (d == null)
             throw (
               o("WALogger")
@@ -397,11 +398,14 @@ __d(
                 "sendStatusRetryMsgViaSmax: retry participant has no LID",
               )
             );
-          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-            identityChanged: !1,
-            sessionScope: l,
-            wids: [d],
-          });
+          (a.type !== o("WAWebSendMsgTypes").SendMessageRecordType.Addon &&
+            !o("WAWebSendMsgMetaNode").isStatusNotificationPayload(n) &&
+            (yield N(n, d)),
+            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              sessionScope: l,
+              wids: [d],
+            }));
           var m = o("WAWebUserUtils").isMeAccount(d)
             ? o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(n, s)
             : n;
@@ -527,12 +531,40 @@ __d(
         P.apply(this, arguments)
       );
     }
-    function N(e) {
+    function N(e, t) {
       return M.apply(this, arguments);
     }
     function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (yield w(t)) return "audience";
+          if (
+            ((n = e.protocolMessage) == null ? void 0 : n.type) ===
+            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
+          )
+            return "outside_audience_revoke";
+          throw (
+            o("WALogger")
+              .WARN(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "Status retry requester is not in the current audience",
+                  ])),
+              )
+              .sendLogs("status-retry-requester-outside-audience"),
+            r("err")("Status retry requester left the audience")
+          );
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebUserUtils").isMeAccount(e)) return !0;
           var t = o("WAWebWidFactory").asUserWidOrThrow(e),
             n = o("WAWebLidMigrationUtils").toUserLid(t),
@@ -557,64 +589,46 @@ __d(
             return String(t) === String(e);
           });
         })),
-        M.apply(this, arguments)
-      );
-    }
-    function w(e, t) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = e.msgProtobuf,
-            i = e.msgRecord,
-            l = e.sessionScope;
-          if (
-            ((n = a.protocolMessage) == null ? void 0 : n.type) !==
-            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
-          )
-            throw (
-              o("WALogger")
-                .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "createStatusDeviceMsgStanza: retry requester is not in the current audience",
-                    ])),
-                )
-                .sendLogs("status-retry-requester-outside-audience"),
-              r("err")(
-                "createStatusDeviceMsgStanza: retry requester left the audience",
-              )
-            );
-          var s = yield o(
-              "WAWebSendMsgCreateFanoutStanza",
-            ).createFanoutMsgStanza({
-              chatId: i.data.to,
-              deviceList: [t],
-              metricReporter: F,
-              msgProtobuf: a,
-              msgRecord: i,
-              option: {
-                fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
-                sessionScope: l,
-              },
-            }),
-            u = s.stanza;
-          return (
-            o("WAWebEncryptAndSendStatusMsg").mergeStatusMetaNode(
-              u,
-              o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
-                sessionScope: l,
-              }),
-            ),
-            u
-          );
-        })),
         A.apply(this, arguments)
       );
     }
-    var F = {
+    function F(e, t) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.msgProtobuf,
+            r = e.msgRecord,
+            a = e.sessionScope,
+            i = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
+              {
+                chatId: r.data.to,
+                deviceList: [t],
+                metricReporter: B,
+                msgProtobuf: n,
+                msgRecord: r,
+                option: {
+                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                  sessionScope: a,
+                },
+              },
+            ),
+            l = i.stanza;
+          return (
+            o("WAWebEncryptAndSendStatusMsg").mergeStatusMetaNode(
+              l,
+              o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
+                sessionScope: a,
+              }),
+            ),
+            l
+          );
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    var B = {
       sendReporter: null,
       sendPerfReporter: null,
       createSendReporter: function () {
@@ -623,7 +637,7 @@ __d(
         );
       },
     };
-    function O(e) {
+    function W(e) {
       var t;
       if (e.isLid()) return e;
       var n = o("WAWebLidMigrationUtils").toLid(

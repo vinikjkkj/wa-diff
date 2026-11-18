@@ -31,6 +31,7 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -416,7 +417,9 @@ __d(
     function P() {
       o("WAWebToastManager").ToastManager.open(
         R.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Something went wrong. Try again."),
+          msg: r("justknobx")._("8427")
+            ? s._(/*BTDS*/ "Couldn't send your response. Try again.")
+            : s._(/*BTDS*/ "Something went wrong. Try again."),
         }),
       );
     }

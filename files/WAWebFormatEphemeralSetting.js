@@ -15,6 +15,7 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "err",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -416,9 +417,13 @@ __d(
           ]);
     }
     function $() {
-      return s._(
-        /*BTDS*/ "Disappearing messages are not supported in this chat. Your messages will not disappear.",
-      );
+      return r("justknobx")._("8068")
+        ? s._(
+            /*BTDS*/ "Disappearing messages aren't supported in this chat. Your messages won't disappear.",
+          )
+        : s._(
+            /*BTDS*/ "Disappearing messages are not supported in this chat. Your messages will not disappear.",
+          );
     }
     ((l.getDefaultDisappearingModeSystemMessageText = c),
       (l.buildDefaultDisappearingModeARSystemMessage = d),

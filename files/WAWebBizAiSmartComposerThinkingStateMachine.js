@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAiSmartComposerThinkingStateMachine",
-  ["fbt"],
+  ["fbt", "justknobx"],
   function (t, n, r, o, a, i, l, s) {
     var e = 800,
       u = 3e3,
@@ -35,7 +35,9 @@ __d(
       return [
         s._(/*BTDS*/ "Thinking\u2026"),
         s._(/*BTDS*/ "Reviewing information\u2026"),
-        s._(/*BTDS*/ "Processing\u2026"),
+        r("justknobx")._("8427")
+          ? s._(/*BTDS*/ "Working on it\u2026")
+          : s._(/*BTDS*/ "Processing\u2026"),
         s._(/*BTDS*/ "Checking details\u2026"),
       ];
     }

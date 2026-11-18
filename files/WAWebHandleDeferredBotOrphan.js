@@ -29,7 +29,9 @@ __d(
       c,
       d,
       m,
-      p = {
+      p = "0",
+      _ = 32,
+      f = {
         "no-target-row":
           "bot reply deferred: waiting for the message it replies to",
         "placeholder-target-row":
@@ -39,23 +41,23 @@ __d(
         "wasa-root-secret-missing":
           "bot reply deferred: no Hatch key here and syncd had none to restore",
       };
-    function _(e) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.canNack,
             n = e.decryptResult,
             a = e.input,
             i = e.node,
             l = a.msgInfo,
             c = a.msgMeta,
-            d = yield L(a, n, i);
+            d = yield k(a, n, i);
           if (d) {
-            yield g(a, n.deferReason);
+            yield y(a, n.deferReason);
             try {
-              yield y(n);
+              yield b(n);
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -99,15 +101,15 @@ __d(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.processMessageDecryptResult(m.result));
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = (n = e.msgBotInfo) == null ? void 0 : n.botEditType;
           if (
@@ -124,7 +126,7 @@ __d(
                 msgInfo: e.msgInfo,
                 reason:
                   t != null
-                    ? p[t]
+                    ? f[t]
                     : "bot reply deferred, waiting for its target message",
               });
             } catch (e) {
@@ -139,23 +141,6 @@ __d(
                 .sendLogs("bot-orphan-placeholder-failed", { sampling: 0.01 });
             }
         })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.deferReason !== "secretless-target-row") {
-            var t = yield b(e.targetMsgKey);
-            t != null &&
-              (yield o(
-                "WAWebDBProcessOrphansForNewMsg",
-              ).processOrphansForNewMsg(t));
-          }
-        })),
         C.apply(this, arguments)
       );
     }
@@ -165,12 +150,13 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null) return null;
-          var t = r("WAWebMsgKey").fromString(e),
-            n = yield S(t);
-          if (n != null) return n;
-          var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(t);
-          return a == null ? null : S(a);
+          if (e.deferReason !== "secretless-target-row") {
+            var t = yield S(e.targetMsgKey);
+            t != null &&
+              (yield o(
+                "WAWebDBProcessOrphansForNewMsg",
+              ).processOrphansForNewMsg(t));
+          }
         })),
         v.apply(this, arguments)
       );
@@ -181,6 +167,22 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e == null) return null;
+          var t = r("WAWebMsgKey").fromString(e),
+            n = yield L(t);
+          if (n != null) return n;
+          var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(t);
+          return a == null ? null : L(a);
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([e]),
             r = (t = n.get(e.toString())) != null ? t : null;
@@ -188,15 +190,15 @@ __d(
             ? null
             : r;
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
           try {
             var l,
@@ -214,7 +216,7 @@ __d(
                   (l = e.msgBotInfo) == null ? void 0 : l.botEditType,
                 botEditTargetId:
                   (s = e.msgBotInfo) == null ? void 0 : s.botEditTargetId,
-                botSenderTimestampMs: k(
+                botSenderTimestampMs: T(
                   (u = e.msgBotInfo) == null ? void 0 : u.botSenderTimestampMs,
                 ),
                 botOrphanStanza: o("WAWap").encodeStanza(n),
@@ -268,11 +270,11 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(t) {
-      if (t == null) return null;
+    function T(t) {
+      if (t == null || t === p) return null;
       var n = Number(t);
       return Number.isFinite(n) && n > 0
         ? n
@@ -280,14 +282,16 @@ __d(
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "storeOrphanBotMsg: unusable bot sender timestamp",
+                  "storeOrphanBotMsg: unusable bot sender timestamp ",
+                  "",
                 ])),
+              JSON.stringify(t.slice(0, _)),
             )
             .tags("messaging")
             .sendLogs("bot-orphan-sender-time-unparseable", { sampling: 0.01 }),
           null);
     }
-    l.handleDeferredBotOrphan = _;
+    l.handleDeferredBotOrphan = g;
   },
   98,
 );

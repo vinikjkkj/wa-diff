@@ -1,10 +1,13 @@
 __d(
   "WAWebVideoAriaLabelForMsgText",
-  ["fbt"],
+  ["fbt", "justknobx"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.isGif;
-      return t === !0 ? s._(/*BTDS*/ "Gif") : s._(/*BTDS*/ "Video");
+      return t === !0
+        ? (r("justknobx")._("8068") && s._(/*BTDS*/ "GIF")) ||
+            s._(/*BTDS*/ "Gif")
+        : s._(/*BTDS*/ "Video");
     }
     l.default = e;
   },

@@ -4,8 +4,8 @@ __d(
     "JSResourceForInteraction",
     "WAWebBizBroadcastProAudienceStatusProvider.react",
     "WAWebBizBroadcastsCreationStrings",
-    "WAWebChatSubtitleText.react",
     "WAWebLazyLoadedRetriable",
+    "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -76,9 +76,12 @@ __d(
         e[0] !== t
           ? ((n =
               t > 0
-                ? s.jsx(r("WAWebChatSubtitleText.react"), {
-                    location: "title",
-                    text: o(
+                ? s.jsx(r("WDSText.react"), {
+                    colorName: "contentDeemphasized",
+                    maxLines: 1,
+                    testid: "chat-subtitle",
+                    type: "Body2",
+                    children: o(
                       "WAWebBizBroadcastsCreationStrings",
                     ).getAudienceRecipientCountLabel(t),
                   })

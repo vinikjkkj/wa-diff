@@ -72,7 +72,7 @@ __d(
             try {
               var i = yield u.load(),
                 l = i.fetchMissingAiFilterBotProfiles;
-              yield l();
+              (yield l(), _ === e && (p = 0));
             } catch (t) {
               (_ === e && b(),
                 o("WALogger")

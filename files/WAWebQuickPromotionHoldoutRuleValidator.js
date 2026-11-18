@@ -13,10 +13,13 @@ __d(
         a = n.qpConfigExposureHoldout,
         i = r != null && r.length > 0;
       return (
-        (i ||
-          o("WAWebQuickPromotionValidatorUtils").isWhatsappGkEnabledPromotion(
-            e.data,
-          )) &&
+        o("WAWebQuickPromotionValidatorUtils").shouldLogExposureOnClient(
+          e.data,
+        ) &&
+          (i ||
+            o("WAWebQuickPromotionValidatorUtils").isWhatsappGkEnabledPromotion(
+              e.data,
+            )) &&
           o("WAWebServicedJobs").runServicedJob(
             o(
               "WAWebPersistedJobDefinitions",

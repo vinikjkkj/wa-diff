@@ -8,6 +8,7 @@ __d(
     "WAWebFeatureDetectionSwSupport",
     "WAWebLoggerImpl",
     "WAWebNoop",
+    "WAWebRecordNotificationInteraction",
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebSocketConstants",
@@ -166,31 +167,54 @@ __d(
             case r("WAWebSWBusActions").DECLINE_CALL_FROM_NOTIFICATION:
               return { handled: R("decline_call", i) };
             case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLICKED:
-              return {
-                handled: o(
-                  "WAWebSwNotificationBannerRegistry",
-                ).handleSwNotificationBannerClick(
-                  i == null ? void 0 : i.bannerKey,
-                ),
-              };
-            case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLOSED:
-              return {
-                handled: o(
-                  "WAWebSwNotificationBannerRegistry",
-                ).handleSwNotificationBannerClose(
-                  i == null ? void 0 : i.bannerKey,
-                  (i == null ? void 0 : i.isUserClose) === !0,
-                ),
-              };
-            case r("WAWebSWBusActions").CALL_NOTIFICATION_INTERACTION:
-              return f.load().then(function (e) {
-                return {
-                  handled: e.recordServiceWorkerCallNotificationInteraction(
-                    i == null ? void 0 : i.callId,
-                    i == null ? void 0 : i.interaction,
+              return (
+                o(
+                  "WAWebRecordNotificationInteraction",
+                ).recordNotificationInteraction(),
+                {
+                  handled: o(
+                    "WAWebSwNotificationBannerRegistry",
+                  ).handleSwNotificationBannerClick(
+                    i == null ? void 0 : i.bannerKey,
                   ),
-                };
-              });
+                }
+              );
+            case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLOSED:
+              return (
+                (i == null ? void 0 : i.isUserClose) === !0 &&
+                  o(
+                    "WAWebRecordNotificationInteraction",
+                  ).recordNotificationInteraction(),
+                {
+                  handled: o(
+                    "WAWebSwNotificationBannerRegistry",
+                  ).handleSwNotificationBannerClose(
+                    i == null ? void 0 : i.bannerKey,
+                    (i == null ? void 0 : i.isUserClose) === !0,
+                  ),
+                }
+              );
+            case r("WAWebSWBusActions").NOTIFICATION_INTERACTION:
+              return (
+                o(
+                  "WAWebRecordNotificationInteraction",
+                ).recordNotificationInteraction(),
+                { handled: !0 }
+              );
+            case r("WAWebSWBusActions").CALL_NOTIFICATION_INTERACTION:
+              return (
+                o(
+                  "WAWebRecordNotificationInteraction",
+                ).recordNotificationInteraction(),
+                f.load().then(function (e) {
+                  return {
+                    handled: e.recordServiceWorkerCallNotificationInteraction(
+                      i == null ? void 0 : i.callId,
+                      i == null ? void 0 : i.interaction,
+                    ),
+                  };
+                })
+              );
             default:
               return (p || (p = n("Promise"))).reject(
                 r("err")("Invalid Action: " + a),
@@ -208,6 +232,7 @@ __d(
         }));
     }
     function R(e, t) {
+      o("WAWebRecordNotificationInteraction").recordNotificationInteraction();
       var n = !1;
       return (
         r("WAWebVoipNotificationActionBus").trigger(e, {

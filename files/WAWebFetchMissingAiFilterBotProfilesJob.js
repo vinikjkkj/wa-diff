@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBotProfilesRestoreStatus",
-    "WAWebBotStaticProfiles",
     "WAWebChatCollection",
     "WAWebFetchMissingAiFilterBotProfiles",
     "WAWebResolveBotProfile",
@@ -19,72 +18,99 @@ __d(
       d = r("JSResourceForInteraction")(
         "WAWebFetchBotProfileOnChatAdd",
       ).__setRef("WAWebFetchMissingAiFilterBotProfilesJob"),
-      m = !1,
-      p = null;
-    function _() {
-      if (m) return (s || (s = n("Promise"))).resolve();
-      if (p == null) {
+      m = new Set(),
+      p = new Set(),
+      _ = null;
+    function f() {
+      if (m.size >= u) return (s || (s = n("Promise"))).resolve();
+      if (_ == null) {
         if (
           o(
             "WAWebFetchMissingAiFilterBotProfiles",
           ).isMissingAiFilterBotProfileFetchBackedOff()
         )
           return (s || (s = n("Promise"))).resolve();
-        p = f().finally(function () {
-          p = null;
+        _ = g().finally(function () {
+          _ = null;
         });
       }
-      return p;
-    }
-    function f() {
-      return g.apply(this, arguments);
+      return _;
     }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             yield o(
               "WAWebBotProfilesRestoreStatus",
             ).waitForBotProfilesRestored();
-            var e = v().slice(0, u);
+            var e = S()
+              .filter(function (e) {
+                return !m.has(e.toString());
+              })
+              .sort(function (e, t) {
+                return (
+                  Number(p.has(e.toString())) - Number(p.has(t.toString()))
+                );
+              });
             if (e.length === 0) return;
             var t = yield d.load(),
-              n = t.fetchUnresolvedBotProfile;
-            if (yield y(e, n)) {
-              h();
-              return;
-            }
-            m = !0;
+              n = t.fetchUnresolvedBotProfile,
+              r = yield C(e, u - m.size, n),
+              a = r.failed,
+              i = r.fetched,
+              l = r.skipped;
+            (i.forEach(function (e) {
+              (m.add(e.toString()), p.delete(e.toString()));
+            }),
+              l.forEach(function (e) {
+                return p.add(e.toString());
+              }),
+              a && y());
           } catch (e) {
-            h();
+            y();
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h() {
+    function y() {
       (o(
         "WAWebFetchMissingAiFilterBotProfiles",
       ).recordFailedMissingAiFilterBotProfileFetchRun(),
-        b());
+        v());
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t, n) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = [].concat(e),
-            o = !1,
-            a = (function () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var o = [].concat(e),
+            a = [],
+            i = [],
+            l = 0,
+            u = !1,
+            d = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
-                  var e = r.shift();
-                  if (e != null) {
-                    var i = yield (s || (s = n("Promise"))).allSettled([t(e)]),
-                      l = i[0];
-                    ((o = o || l.status === "rejected" || l.value === !1),
-                      yield a());
+                  if (!(l >= t)) {
+                    var e = o.shift();
+                    if (e != null) {
+                      l++;
+                      var c = yield (s || (s = n("Promise"))).allSettled([
+                          r(e),
+                        ]),
+                        m = c[0];
+                      (m.status === "fulfilled" && m.value === "fetched"
+                        ? a.push(e)
+                        : m.status === "fulfilled" && m.value === "skipped"
+                          ? (i.push(e), l--)
+                          : (u = !0),
+                        yield d());
+                    }
                   }
                 },
               );
@@ -94,15 +120,15 @@ __d(
             })();
           return (
             yield (s || (s = n("Promise"))).all(
-              Array.from({ length: Math.min(c, e.length) }, a),
+              Array.from({ length: Math.min(c, e.length) }, d),
             ),
-            o
+            { failed: u, fetched: a, skipped: i }
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b() {
+    function v() {
       o("WALogger")
         .WARN(
           e ||
@@ -112,23 +138,19 @@ __d(
         )
         .sendLogs("ai-filter-missing-profile-fetch-failed", { sampling: 0.01 });
     }
-    function v() {
+    function S() {
       return o("WAWebChatCollection")
         .ChatCollection.getModelsArray()
         .map(function (e) {
           return e.id;
         })
         .filter(function (e) {
-          return (
-            e.isFbidBot() &&
-            !o("WAWebBotStaticProfiles").isStaticProfile(e) &&
-            o("WAWebResolveBotProfile").resolveBotSupportInput(e) == null
-          );
+          return o("WAWebResolveBotProfile").isBotProfileMissing(e);
         });
     }
     ((l.MAX_FETCHED_PROFILES = u),
       (l.MAX_CONCURRENT_FETCHES = c),
-      (l.fetchMissingAiFilterBotProfiles = _));
+      (l.fetchMissingAiFilterBotProfiles = f));
   },
   98,
 );

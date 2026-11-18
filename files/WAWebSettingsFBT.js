@@ -391,7 +391,9 @@ __d(
       return s._(/*BTDS*/ "Calls from unknown numbers");
     }
     function gt() {
-      return s._(/*BTDS*/ "Choose what happens when unknown numbers call.");
+      return s._(
+        /*BTDS*/ "Call screening can only be viewed on your primary phone.",
+      );
     }
     function ht() {
       return s._(/*BTDS*/ "Ring");
@@ -537,7 +539,7 @@ __d(
       (l.silenceUnknownCallersTitle = pt),
       (l.silenceUnknownCallersDescription = _t),
       (l.callScreeningSettingSectionTitle = ft),
-      (l.callScreeningSettingSectionDescription = gt),
+      (l.callScreeningSettingViewOnlyDescription = gt),
       (l.callScreeningSettingNeverTitle = ht),
       (l.callScreeningSettingNeverDescription = yt),
       (l.callScreeningSettingScreenTitle = Ct),

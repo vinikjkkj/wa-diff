@@ -30,6 +30,7 @@ __d(
     "WDSIconWdsIcHdSettings.react",
     "WDSIconWdsIcSticker.react",
     "WDSIconWdsIcWand.react",
+    "justknobx",
     "react",
     "react-compiler-runtime",
   ],
@@ -791,9 +792,13 @@ __d(
     function f() {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          title: s._(/*BTDS*/ "Cannot set to HD"),
+          title: r("justknobx")._("8068")
+            ? s._(/*BTDS*/ "Can't set to HD")
+            : s._(/*BTDS*/ "Cannot set to HD"),
           onOK: o("WAWebModalManager").closeModalManager,
-          children: s._(/*BTDS*/ "This media is not HD resolution."),
+          children: r("justknobx")._("8068")
+            ? s._(/*BTDS*/ "This media isn't HD resolution.")
+            : s._(/*BTDS*/ "This media is not HD resolution."),
         }),
       );
     }

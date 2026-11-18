@@ -1160,6 +1160,8 @@ __d(
       BUDGET_FLEX_CAMPAIGN_GROUP_SEARCH: "budget_flex_campaign_group_search",
       BUDGET_FLEX_AD_CAMPAIGN_MERGE: "budget_flex_ad_campaign_merge",
       BUDGET_FLEX_V2: "budget_flex_v2",
+      BUDGET_FLEX_V2_JOINER_TURNED_ON: "budget_flex_v2_joiner_turned_on",
+      BUDGET_FLEX_V2_POOL_BUDGET_WRITTEN: "budget_flex_v2_pool_budget_written",
       ADD_QUESTION_TO_CTMLG_TEMPLATE: "add_question_to_ctmlg_template",
       CLOSE_CTMLG_TEMPLATE_WITH_CHANGES: "close_ctmlg_template_with_changes",
       CLOSE_CTMLG_TEMPLATE_WITH_NO_CHANGES:

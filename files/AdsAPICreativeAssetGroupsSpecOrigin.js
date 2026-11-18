@@ -24,6 +24,7 @@ __d(
         "creative_flex_organic_content_positive_test",
       CREATIVE_FLEX_POSITIVE_TEST: "creative_flex_positive_test",
       CREATIVE_FLEX_TO_WEBSITE_IMAGES: "creative_flex_to_website_images",
+      CREATIVE_INSIGHTS: "creative_insights",
       CREATIVE_PRODUCT_JOINT_RANKING: "creative_product_joint_ranking",
       CREATIVE_PRODUCTS_PARITY: "creative_products_parity",
       CREATIVE_RELAXATION_POSITIVE_TEST: "creative_relaxation_positive_test",

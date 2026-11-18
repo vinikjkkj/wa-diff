@@ -33,10 +33,18 @@ __d(
     function d(e) {
       return u(e, c) === "true";
     }
+    function m(e) {
+      return e === !1 ? "server" : "client";
+    }
+    function p(e) {
+      return e.qpConfigExposureStrategy !== "server";
+    }
     ((l.checkIsWithinEligibilityWindow = e),
       (l.convertFilterParametersIntoMap = s),
       (l.getQuickPromotionContentAttribute = u),
-      (l.isWhatsappGkEnabledPromotion = d));
+      (l.isWhatsappGkEnabledPromotion = d),
+      (l.toQuickPromotionExposureStrategy = m),
+      (l.shouldLogExposureOnClient = p));
   },
   98,
 );
