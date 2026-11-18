@@ -34,6 +34,7 @@ __d(
     "WAWebLoomStuckTraceEviction",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
+    "WAWebNetworkCrashAnnotations",
     "WAWebODS",
     "WAWebPageLoadLoggingImpl",
     "WAWebPrefetchHatchDetailsOnLogin",
@@ -142,6 +143,7 @@ __d(
             ).initialiseFatalErrorMetricUploading(),
             o("WAWebCrashAnnotations").annotateCrashWithRecentLoads(),
             o("WAWebCrashAnnotations").annotateCrashWithPlatform(),
+            o("WAWebNetworkCrashAnnotations").annotateCrashWithNetworkState(),
             yield o(
               "WAWebDeleteGuestSessionOnWebLoad",
             ).maybeDeleteGuestSessionOnWebLoad(),

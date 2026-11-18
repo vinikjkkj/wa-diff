@@ -37,11 +37,18 @@ __d(
       o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen();
     }
     function _(e) {
-      return f.apply(this, arguments);
+      (o("WAWebSideNavButtonsActivityModel").setLastActiveChat(null),
+        p(),
+        o("WAWebSideNavButtonsActivityModel").setLastActiveChat(
+          e.id.toString(),
+        ));
     }
-    function f() {
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = yield o("WAWebCmd")
             .Cmd.openChatFromUnread({
               chat: t,
@@ -62,24 +69,19 @@ __d(
               );
             });
           return (
-            n &&
-              (o("WAWebSideNavButtonsActivityModel").setLastActiveChat(
-                t.id.toString(),
-              ),
-              p(),
-              o("WAWebComposeBoxActions").ComposeBoxActions.focus(t)),
+            n && (_(t), o("WAWebComposeBoxActions").ComposeBoxActions.focus(t)),
             n
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebCmd")
             .Cmd.openChatAt({
               chat: e,
@@ -103,24 +105,17 @@ __d(
                 !1
               );
             });
-          return (
-            n &&
-              (o("WAWebSideNavButtonsActivityModel").setLastActiveChat(
-                e.id.toString(),
-              ),
-              p()),
-            n
-          );
+          return (n && _(e), n);
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.catch(function (e) {
             return (
               o("WALogger")
@@ -141,14 +136,15 @@ __d(
             ),
             p());
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     ((l.openContactsAndGroups = m),
       (l.closeContactsAndGroups = p),
-      (l.openChatFromContactsAndGroups = _),
-      (l.openChatAtMsgFromContactsAndGroups = g),
-      (l.closeAfterNewGroupFromContactsAndGroups = y));
+      (l.closeContactsAndGroupsOnOpenedChat = _),
+      (l.openChatFromContactsAndGroups = f),
+      (l.openChatAtMsgFromContactsAndGroups = h),
+      (l.closeAfterNewGroupFromContactsAndGroups = C));
   },
   98,
 );

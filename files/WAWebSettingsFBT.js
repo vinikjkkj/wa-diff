@@ -388,45 +388,37 @@ __d(
       );
     }
     function ft() {
-      return s._(/*BTDS*/ "Live call screening");
-    }
-    function gt() {
-      return s._(
-        /*BTDS*/ "Screen 1:1 voice calls to read what the caller says before you answer.",
-      );
-    }
-    function ht() {
       return s._(/*BTDS*/ "Calls from unknown numbers");
     }
-    function yt() {
+    function gt() {
       return s._(/*BTDS*/ "Choose what happens when unknown numbers call.");
     }
+    function ht() {
+      return s._(/*BTDS*/ "Ring");
+    }
+    function yt() {
+      return s._(/*BTDS*/ "Calls will ring and notify you as usual.");
+    }
     function Ct() {
-      return s._(/*BTDS*/ "Never");
+      return s._(/*BTDS*/ "Screen calls");
     }
     function bt() {
-      return s._(/*BTDS*/ "All calls will ring normally.");
+      return s._(
+        /*BTDS*/ "Automatically ask people why they're calling. You can read the response before answering. Doesn't apply to video or group calls.",
+      );
     }
     function vt() {
-      return s._(/*BTDS*/ "Ask reason for calling");
+      return s._(/*BTDS*/ "Silence");
     }
     function St() {
       return s._(
-        /*BTDS*/ "For 1:1 voice calls, unknown callers will be asked why they're calling so you can decide whether to answer.",
+        /*BTDS*/ "Calls won't ring. You'll still see them in the Calls tab and your notifications.",
       );
     }
     function Rt() {
-      return s._(/*BTDS*/ "Silence");
-    }
-    function Lt() {
-      return s._(
-        /*BTDS*/ "Silence all calls from unknown callers. You'll still see them in your Calls tab and notifications.",
-      );
-    }
-    function Et() {
       return s._(/*BTDS*/ "Status ad");
     }
-    function kt() {
+    function Lt() {
       return s._(/*BTDS*/ "View details on your phone");
     }
     ((l.wallpaperTitle = e),
@@ -544,18 +536,16 @@ __d(
       (l.protectIpInCallsDescription = mt),
       (l.silenceUnknownCallersTitle = pt),
       (l.silenceUnknownCallersDescription = _t),
-      (l.liveCallScreeningTitle = ft),
-      (l.liveCallScreeningDescription = gt),
-      (l.callScreeningSettingSectionTitle = ht),
-      (l.callScreeningSettingSectionDescription = yt),
-      (l.callScreeningSettingNeverTitle = Ct),
-      (l.callScreeningSettingNeverDescription = bt),
-      (l.callScreeningSettingScreenTitle = vt),
-      (l.callScreeningSettingScreenDescription = St),
-      (l.callScreeningSettingSilenceTitle = Rt),
-      (l.callScreeningSettingSilenceDescription = Lt),
-      (l.wamoNonAGMMessagePreviewTitle = Et),
-      (l.wamoNonAGMMessagePreviewDescription = kt));
+      (l.callScreeningSettingSectionTitle = ft),
+      (l.callScreeningSettingSectionDescription = gt),
+      (l.callScreeningSettingNeverTitle = ht),
+      (l.callScreeningSettingNeverDescription = yt),
+      (l.callScreeningSettingScreenTitle = Ct),
+      (l.callScreeningSettingScreenDescription = bt),
+      (l.callScreeningSettingSilenceTitle = vt),
+      (l.callScreeningSettingSilenceDescription = St),
+      (l.wamoNonAGMMessagePreviewTitle = Rt),
+      (l.wamoNonAGMMessagePreviewDescription = Lt));
   },
   226,
 );

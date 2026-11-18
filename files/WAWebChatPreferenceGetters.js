@@ -14,9 +14,10 @@ __d(
       _ = u("chatlistShowParentName"),
       f = u("enterIsSend"),
       g = u("hdMediaEnabled"),
-      h = u("spellcheck"),
-      y = u("transformTextEmoji"),
-      C = u("wallpaperValue");
+      h = u("hdMediaQualityChosen"),
+      y = u("spellcheck"),
+      C = u("transformTextEmoji"),
+      b = u("wallpaperValue");
     ((l.clearChatPreferenceGetterCacheFor = c),
       (l.getAutoplayAnimatedImages = d),
       (l.getChatThemeValue = m),
@@ -24,9 +25,10 @@ __d(
       (l.getChatlistShowParentName = _),
       (l.getEnterIsSend = f),
       (l.getHdMediaEnabled = g),
-      (l.getSpellcheck = h),
-      (l.getTransformTextEmoji = y),
-      (l.getWallpaperValue = C));
+      (l.getHdMediaQualityChosen = h),
+      (l.getSpellcheck = y),
+      (l.getTransformTextEmoji = C),
+      (l.getWallpaperValue = b));
   },
   98,
 );

@@ -23,8 +23,8 @@ __d(
     "WAWebSignal",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
+    "WAWebUserUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:17732",
@@ -90,7 +90,7 @@ __d(
           ),
           (m || (m = n("Promise"))).resolve(y)
         );
-      if (o("WAWebUserPrefsMeUser").isMePrimary(h))
+      if (o("WAWebUserUtils").isMePrimary(h))
         return (
           o("WAWebBackendApi").frontendFireAndForget(
             "handleSelfPrimaryIdentityChange",

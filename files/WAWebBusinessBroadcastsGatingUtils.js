@@ -123,6 +123,9 @@ __d(
           o("WAWebWamEnumBbTierType").BB_TIER_TYPE.PRO && f()
       );
     }
+    function b() {
+      return C();
+    }
     ((l.isBizBroadcastContactImportEnabled = s),
       (l.isBizBroadcastSendWebEnabled = u),
       (l.isBizBroadcastSendWebEnabledNoExposure = c),
@@ -133,7 +136,8 @@ __d(
       (l.isBizBroadcastProScheduledSendsEnabled = g),
       (l.isBizBroadcastCatalogAttachmentEnabled = h),
       (l.isBizBroadcastContextualEntrypointsEnabled = y),
-      (l.isBizBroadcastProUser = C));
+      (l.isBizBroadcastProUser = C),
+      (l.isBizBroadcastProSmartAudiencesEnabled = b));
   },
   98,
 );

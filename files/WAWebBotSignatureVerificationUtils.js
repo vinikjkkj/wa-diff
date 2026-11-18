@@ -60,7 +60,7 @@ __d(
             o("WAWebBotSignatureVerificationGating")
               .BotSignatureVerificationEnforcementLevel.ENFORCE_BLOCKING;
           try {
-            if (a.proofs == null || a.proofs.length === 0)
+            if (a == null || a.proofs == null || a.proofs.length === 0)
               return (
                 o("WALogger")
                   .WARN(

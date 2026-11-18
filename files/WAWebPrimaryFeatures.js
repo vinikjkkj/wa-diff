@@ -86,18 +86,15 @@ __d(
       return r;
     }
     function g() {
-      var e,
-        t =
-          (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-            o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
-          )) != null
-            ? e
-            : [];
-      ((t = h(t)),
-        (d = new Set(t)),
-        o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
-          primaryFeatures: t,
-        }),
+      var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+          o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
+        ),
+        t = h(e != null ? e : []);
+      ((d = new Set(t)),
+        (e != null || t.length > 0) &&
+          o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
+            primaryFeatures: t,
+          }),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -118,6 +115,9 @@ __d(
           .split(",")
           .map(function (e) {
             return r("snakeCase")(e);
+          })
+          .filter(function (e) {
+            return e !== "";
           });
       a = Array.from(new Set([].concat(a, l)));
       var s = new Set(
@@ -125,6 +125,9 @@ __d(
           .split(",")
           .map(function (e) {
             return r("snakeCase")(e);
+          })
+          .filter(function (e) {
+            return e !== "";
           }),
       );
       return (

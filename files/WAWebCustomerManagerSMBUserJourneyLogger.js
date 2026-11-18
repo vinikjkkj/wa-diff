@@ -653,10 +653,10 @@ __d(
               "WAWebCustomerManagerProfileJourneyEvents",
             ).dismissContactInfoFieldsNux(t);
           }),
-          (t.clickEditListsPencil = function () {
-            o(
-              "WAWebCustomerManagerProfileJourneyEvents",
-            ).clickEditListsPencil();
+          (t.clickEditListsPencil = function (t) {
+            o("WAWebCustomerManagerProfileJourneyEvents").clickEditListsPencil(
+              t,
+            );
           }),
           (t.clickListsIntroContinueProfile = function () {
             o(

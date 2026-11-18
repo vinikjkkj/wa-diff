@@ -8,7 +8,15 @@ __d(
         o("WAWebABProps").getABPropConfigValue("teamlink_enabled")
       );
     }
-    l.teamLinkEnabled = e;
+    function s() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_teamlink_invitation_privacy_gate_enabled",
+        )
+      );
+    }
+    ((l.teamLinkEnabled = e), (l.teamLinkOwnerEntryEnabled = s));
   },
   98,
 );

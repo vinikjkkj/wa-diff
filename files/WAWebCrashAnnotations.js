@@ -9,8 +9,10 @@ __d(
     "WAWebEnvironment",
     "WAWebHeapCrashAnnotations",
     "WAWebLogForCrash",
+    "WAWebNetworkCrashAnnotations",
     "WAWebReloadCrashAnnotations",
     "WAWebSafeCrashAnnotation",
+    "WAWebSuspendCrashAnnotations",
     "WAWebTemporaryStorage",
     "WAWebWindowsQueryParams",
   ],
@@ -177,13 +179,17 @@ __d(
               document.addEventListener("prerenderingchange", P, { once: !0 }));
           },
         ),
+        o("WAWebNetworkCrashAnnotations").rewriteNetworkStateForCrash(),
         (y = null),
         (C = null),
         k(),
         self.setInterval(k, m));
     }
     function k() {
-      (x(), I(), T());
+      (x(),
+        I(),
+        T(),
+        o("WAWebSuspendCrashAnnotations").annotateCrashWithRefreshTick(m));
     }
     function I() {
       o("WAWebAICrashAnnotationGate").runAICrashAnnotation(

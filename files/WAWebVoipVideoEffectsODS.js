@@ -78,6 +78,46 @@ __d(
           r("WAWebODS").incr("web.call.video_effects.stopped.too_slow");
           break e;
         }
+        if (e === "custom_background_added") {
+          r("WAWebODS").incr("web.call.video_effects.custom_background.added");
+          break e;
+        }
+        if (e === "custom_background_not_kept") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.not_kept",
+          );
+          break e;
+        }
+        if (e === "custom_background_not_removed") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.not_removed",
+          );
+          break e;
+        }
+        if (e === "custom_background_rejected_not_a_picture") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.rejected.not_a_picture",
+          );
+          break e;
+        }
+        if (e === "custom_background_rejected_too_large") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.rejected.too_large",
+          );
+          break e;
+        }
+        if (e === "custom_background_rejected_unreadable") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.rejected.unreadable",
+          );
+          break e;
+        }
+        if (e === "custom_background_removed") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.custom_background.removed",
+          );
+          break e;
+        }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             e,

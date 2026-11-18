@@ -18,6 +18,7 @@ __d(
     "WAWebBackendWorkerBackgroundPauseSync",
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerClient",
+    "WAWebBackendWorkerInitErrorWatcher",
     "WAWebBackendWorkerInitState",
     "WAWebBackendWorkerV2Resource",
     "WAWebClientPayload",
@@ -821,14 +822,7 @@ __d(
               l.addPoint("worker_connect_start"),
               l.addPoint("worker_init_start"),
               l.addPoint("worker_ready_start"),
-              yield (y || (y = n("Promise"))).all([
-                c.then(function () {
-                  l.addPoint("worker_init_end");
-                }),
-                q(h).then(function () {
-                  l.addPoint("worker_ready_end");
-                }),
-              ]),
+              yield q(h, c, l),
               l.addPoint("worker_connect_end"));
             var C;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
@@ -1020,7 +1014,32 @@ __d(
         W.apply(this, arguments)
       );
     }
-    function q(e) {
+    function q(e, t, n) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = o(
+            "WAWebBackendWorkerInitErrorWatcher",
+          ).watchBackendWorkerInitErrors(e, r);
+          try {
+            yield (y || (y = n("Promise"))).all([
+              t.then(function () {
+                r.addPoint("worker_init_end");
+              }),
+              V(e).then(function () {
+                r.addPoint("worker_ready_end");
+              }),
+            ]);
+          } finally {
+            a();
+          }
+        })),
+        U.apply(this, arguments)
+      );
+    }
+    function V(e) {
       return new (y || (y = n("Promise")))(function (t, n) {
         var r = function (a) {
           var o = a.data,

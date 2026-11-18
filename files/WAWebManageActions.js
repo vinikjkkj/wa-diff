@@ -17,6 +17,8 @@ __d(
     "WAWebProductCollectionLogEvents",
     "WAWebProductCollectionsJob",
     "WAWebQplFlowWrapper",
+    "WDSConfirmDialog.react",
+    "WDSDialogBridge",
     "WDSToastImperativeHost",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -84,18 +86,15 @@ __d(
           productCount: 1,
         }),
         new (c || (c = n("Promise")))(function (n, l) {
-          o("WAWebModalManager").ModalManager.open(
-            m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: {
-                surface: "unknown",
-                viewName: "manage-catalog",
-              },
-              title: s._(/*BTDS*/ "Delete item"),
-              okText: r("WAWebFbtCommon")("OK"),
-              okButtonType: "solid-warning",
-              cancelText: r("WAWebFbtCommon")("Cancel"),
-              onOK: function () {
-                (o("WAWebModalManager").ModalManager.close(),
+          o("WDSDialogBridge").openWDSDialog(
+            m.jsx(r("WDSConfirmDialog.react"), {
+              title: s._(/*BTDS*/ 'Delete "{productName}" from your catalog?', [
+                s._param("productName", t.name),
+              ]),
+              confirmLabel: s._(/*BTDS*/ "Delete"),
+              destructive: !0,
+              onConfirm: function () {
+                (o("WDSDialogBridge").closeWDSDialog(),
                   o("WAWebQplFlowWrapper").QPL.markerStart(p, {
                     annotations: { string: { EntryPoint: i } },
                   }),
@@ -107,14 +106,10 @@ __d(
                       (o("WAWebQplFlowWrapper").QPL.markerEnd(p, 3), l(e));
                     }));
               },
-              onCancel: function () {
-                (o("WAWebModalManager").ModalManager.close(), n(!1));
+              onDismiss: function () {
+                (o("WDSDialogBridge").closeWDSDialog(), n(!1));
               },
-              children: m.jsx("div", {
-                children: s._(
-                  /*BTDS*/ "This item will be deleted from your catalog.",
-                ),
-              }),
+              open: !0,
             }),
           );
         })
@@ -232,14 +227,18 @@ __d(
       );
     }
     function L(t, n, a) {
-      o("WAWebModalManager").ModalManager.open(
-        m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "manage-catalog" },
-          title: s._(/*BTDS*/ "Delete collection"),
-          okText: r("WAWebFbtCommon")("OK"),
-          cancelText: r("WAWebFbtCommon")("Cancel"),
-          onOK: function () {
-            (o("WAWebModalManager").ModalManager.close(),
+      o("WDSDialogBridge").openWDSDialog(
+        m.jsx(r("WDSConfirmDialog.react"), {
+          title: s._(/*BTDS*/ 'Delete collection "{collectionName}"?', [
+            s._param("collectionName", n.name),
+          ]),
+          description: s._(
+            /*BTDS*/ "When you delete this collection, items in the collection will not be deleted.",
+          ),
+          confirmLabel: s._(/*BTDS*/ "Delete"),
+          destructive: !0,
+          onConfirm: function () {
+            (o("WDSDialogBridge").closeWDSDialog(),
               S({ catalog: t, collection: n, context: a }).catch(
                 o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
@@ -265,12 +264,8 @@ __d(
                 ),
               ));
           },
-          onCancel: o("WAWebModalManager").closeModalManager,
-          children: m.jsx("div", {
-            children: s._(
-              /*BTDS*/ "When you delete this collection, items in the collection will not be deleted.",
-            ),
-          }),
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
         }),
       );
     }

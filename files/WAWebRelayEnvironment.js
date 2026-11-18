@@ -9,6 +9,7 @@ __d(
     "WAWebDeviceIdHeader",
     "WAWebGraphQLConstants",
     "WAWebGraphQLEmployeeRouting",
+    "WAWebGraphQLFetchFailure",
     "WAWebGraphQLPersistedQueries",
     "WAWebGraphQLRemapLocale",
     "WAWebGraphQLServerError",
@@ -320,35 +321,49 @@ __d(
               }),
               (S = L));
           } else S = JSON.stringify(v);
-          var E = yield self.fetch(f(a), {
-            method: "POST",
-            headers: u,
-            body: S,
-          });
-          if (!E.ok) {
-            var k, I;
+          var E = f(a),
+            k = yield o("WAWebGraphQLFetchFailure").trackGraphQLFetchFailure(
+              "request",
+              function () {
+                return self.fetch(E, { method: "POST", headers: u, body: S });
+              },
+            );
+          if (!k.ok) {
+            var I, T;
             try {
-              I = yield E.json();
+              T = yield k.json();
             } catch (e) {
-              h(E);
+              h(k);
             }
-            if (((k = I) == null ? void 0 : k.error) != null)
+            if (((I = T) == null ? void 0 : I.error) != null)
               throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
-                errors: [I.error],
-                httpStatus: E.status,
+                errors: [T.error],
+                httpStatus: k.status,
               });
-            h(E);
+            h(k);
           }
           if (a === "facebook" && !r("justknobx")._("1636")) {
-            var T = y(yield E.text());
-            return (C(T), T);
+            var D = y(
+              yield o("WAWebGraphQLFetchFailure").trackGraphQLFetchFailure(
+                "response_body",
+                function () {
+                  return k.text();
+                },
+              ),
+            );
+            return (C(D), D);
           }
-          var D = yield E.json();
-          if ((D == null ? void 0 : D.errors) != null)
+          var x = yield o("WAWebGraphQLFetchFailure").trackGraphQLFetchFailure(
+            "response_body",
+            function () {
+              return k.json();
+            },
+          );
+          if ((x == null ? void 0 : x.errors) != null)
             throw new (o("WAWebGraphQLServerError").GraphQLServerError)({
-              errors: D.errors,
+              errors: x.errors,
             });
-          return D;
+          return x;
         })),
         R.apply(this, arguments)
       );

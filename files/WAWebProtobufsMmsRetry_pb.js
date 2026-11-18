@@ -19,7 +19,10 @@ __d(
         messageSecret: [4, e.TYPES.BYTES],
       }),
       (c.name = "ServerErrorReceipt"),
-      (c.internalSpec = { stanzaId: [1, e.TYPES.STRING] }),
+      (c.internalSpec = {
+        stanzaId: [1, e.TYPES.STRING],
+        keepMediaKey: [2, e.TYPES.BOOL],
+      }),
       (l.MediaRetryNotification$ResultType = s),
       (l.MediaRetryNotificationSpec = u),
       (l.ServerErrorReceiptSpec = c));

@@ -80,7 +80,7 @@ __d(
               (t = yield n("cr:27584").shouldSubscribePushManager(r)) != null
                 ? t
                 : !1,
-            a = !o && n("cr:27584").shouldSubscribeForClosedTabCalls(),
+            a = !o && n("cr:27584").shouldSubscribeWithoutBackgroundSync(),
             i = yield w();
           if (i != null) {
             var l = i.pushSubscription;
@@ -181,7 +181,7 @@ __d(
       );
     }
     function W(e) {
-      if (n("cr:27584").shouldSubscribeForClosedTabCalls()) {
+      if (n("cr:27584").shouldSubscribeWithoutBackgroundSync()) {
         (e || n("cr:27584").preventBackgroundSyncAutoEnable(), $());
         return;
       }
@@ -349,13 +349,11 @@ __d(
                 .WARN(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] failed to store worker identity for a calls-only subscription",
+                      "[push-notification] failed to store worker identity for a subscription without Background Sync",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
-                .sendLogs(
-                  "push-notification-calls-only-worker-identity-failed",
-                );
+                .sendLogs("push-notification-no-sync-worker-identity-failed");
           }
         })),
         X.apply(this, arguments)
@@ -422,7 +420,7 @@ __d(
     function ee() {
       return (
         (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          n("cr:27584").shouldSubscribeForClosedTabCalls()
+          n("cr:27584").shouldSubscribeWithoutBackgroundSync()
             ? yield G(e, D)
             : e != null && oe(e.endpoint) && (yield Ce());
         })),

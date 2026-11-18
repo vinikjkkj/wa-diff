@@ -93,7 +93,7 @@ __d(
       "Force BB Pro capability and onboarding status to onboarded (E2E)"),
       (m.paramsToExecute = []));
     function p() {
-      (m(), ue("empty"));
+      (m(), fe("empty"));
     }
     ((p.doc =
       "Set up an onboarded BB Pro account with no campaigns or audiences (E2E)"),
@@ -101,37 +101,37 @@ __d(
     function _(e) {
       (e === void 0 && (e = []),
         m(),
-        (ne = [].concat(e)),
-        (re = new Set()),
-        ue("empty", Fe()));
+        (se = [].concat(e)),
+        (ue = new Set()),
+        fe("empty", je()));
     }
     ((_.doc =
       "Set up an onboarded BB Pro account with in review, active, completed and not approved campaigns (E2E)"),
       (_.paramsToExecute = []));
     function f() {
-      (m(), ue("empty", [We()]));
+      (m(), fe("empty", [Xe()]));
     }
     ((f.doc =
       "Set up an onboarded BB Pro account with one completed campaign: 25 sent, 20 delivered, 10 read, 2 replies (E2E)"),
       (f.paramsToExecute = []));
     function g(e, t) {
-      (m(), ue("empty", Oe(0, e), Oe(e, t)));
+      (m(), fe("empty", Ke(0, e), Ke(e, t)));
     }
     g.doc =
       "Set up an onboarded BB Pro account whose completed campaigns, Campaign 1 onwards, span a first page and a next page of the given sizes (E2E)";
     function h(e, t) {
-      (m(), ue("empty", [qe(e, new URL(t, self.location.origin).href)]));
+      (m(), fe("empty", [Ye(e, new URL(t, self.location.origin).href)]));
     }
     h.doc =
       "Set up an onboarded BB Pro account with one completed campaign whose message has the given text and same-origin header image path (E2E)";
     function y() {
       m();
-      var e = o("WATimeUtils").unixTime() - Ue;
-      ue("empty", [
-        He(
+      var e = o("WATimeUtils").unixTime() - Je;
+      fe("empty", [
+        et(
           0,
           "IN_REVIEW",
-          babelHelpers.extends({}, Be, {
+          babelHelpers.extends({}, Qe, {
             ads_amount_spent: null,
             ads_delivered: null,
             first_customer_reply: null,
@@ -142,10 +142,10 @@ __d(
             start_time: e,
           }),
         ),
-        He(
+        et(
           1,
           "ACTIVE",
-          babelHelpers.extends({}, Be, { ads_amount_spent: Ve, start_time: e }),
+          babelHelpers.extends({}, Qe, { ads_amount_spent: Ze, start_time: e }),
         ),
       ]);
     }
@@ -155,157 +155,188 @@ __d(
     function C(e) {
       (e === void 0 && (e = null),
         m(),
-        (K = !0),
-        (Q = e),
-        (X = 0),
-        S(),
-        ue("audience_only"));
+        (J = !0),
+        (Z = e),
+        (ee = 0),
+        (re = !1),
+        R(),
+        fe("audience_only"));
     }
     ((C.doc =
       "Set up an onboarded BB Pro account with an audience and a payment method whose campaign create succeeds in review, optionally capping the max bid at the given CPM in the smallest currency unit (E2E)"),
       (C.paramsToExecute = []));
     function b() {
-      (J == null || J(),
-        (Y = new (e || (e = n("Promise")))(function (e) {
-          J = e;
+      (ne == null || ne(),
+        (te = new (e || (e = n("Promise")))(function (e) {
+          ne = e;
         })));
     }
     ((b.doc =
       "Hold funded BB Pro campaign create responses until released, listing one in review campaign per create request (E2E)"),
       (b.paramsToExecute = []));
     function v() {
-      J == null || J();
+      ne == null || ne();
     }
     ((v.doc =
       "Answer held funded BB Pro campaign creates; later creates are answered at once and each still lists a campaign until the next funded setup or restore (E2E)"),
       (v.paramsToExecute = []));
     function S() {
-      (J == null || J(), (J = null), (Y = null));
+      re = !0;
     }
+    ((S.doc =
+      "Reject the next funded BB Pro campaign create like an offline fetch, listing no campaign for it; later creates succeed (E2E)"),
+      (S.paramsToExecute = []));
     function R() {
-      (r("vulture")("fpJ1xOlNxXxNCK5OpgMcRiWeqpM="), m(), ue("audience_only"));
+      (ne == null || ne(), (ne = null), (te = null));
     }
-    ((R.doc =
-      "Set up an onboarded BB Pro account with an audience and no campaigns (E2E)"),
-      (R.paramsToExecute = []));
     function L() {
-      (m(), ue("multi_audience"));
+      (r("vulture")("fpJ1xOlNxXxNCK5OpgMcRiWeqpM="), m(), fe("audience_only"));
     }
     ((L.doc =
-      "Set up an onboarded BB Pro account with three audiences, each with its own recipients, and no campaigns (E2E)"),
+      "Set up an onboarded BB Pro account with an audience and no campaigns (E2E)"),
       (L.paramsToExecute = []));
-    function E(e) {
-      (m(), (ie = e), ue("multi_audience"));
+    function E() {
+      (m(), fe("multi_audience"));
     }
-    E.doc =
-      "Set up the multi-audience BB Pro home plus a Loyal customers audience with the given number of recipients, Customer 01 onwards, served one requested page at a time (E2E)";
+    ((E.doc =
+      "Set up an onboarded BB Pro account with three audiences, each with its own recipients, and no campaigns (E2E)"),
+      (E.paramsToExecute = []));
     function k(e) {
-      (m(), (Z = e), ue("empty"));
+      (m(), (me = e), fe("multi_audience"));
     }
     k.doc =
-      "Set up an empty onboarded BB Pro account whose Message limits show the given business verification status (E2E)";
-    function I(e) {
-      (m(), (ee = e), ue("audience_only"));
+      "Set up the multi-audience BB Pro home plus a Loyal customers audience with the given number of recipients, Customer 01 onwards, served one requested page at a time (E2E)";
+    function I() {
+      (E(), (Y = 1));
     }
-    I.doc =
-      "Set up an onboarded BB Pro account with an audience whose ad account pays with the given ad credits balance label (E2E)";
+    ((I.doc =
+      "Set up the multi-audience BB Pro home whose first audience details read is still processing and later reads are settled (E2E)"),
+      (I.paramsToExecute = []));
     function T() {
-      (m(), (te = !0), ue("empty"));
+      (m(), fe("deletable_audience"));
     }
     ((T.doc =
-      "Set up an empty onboarded BB Pro account whose customer base has 2,100 - 2,500 subscribed recipients (E2E)"),
+      "Set up an onboarded BB Pro account with one audience whose delete succeeds and leaves no audiences, and no campaigns (E2E)"),
       (T.paramsToExecute = []));
-    function D() {
+    function D(e) {
+      (m(), (oe = e), fe("empty"));
+    }
+    D.doc =
+      "Set up an empty onboarded BB Pro account whose Message limits show the given business verification status (E2E)";
+    function x(e) {
+      (m(), (ae = e), fe("audience_only"));
+    }
+    x.doc =
+      "Set up an onboarded BB Pro account with an audience whose ad account pays with the given ad credits balance label (E2E)";
+    function $() {
+      (m(), (ie = !0), fe("empty"));
+    }
+    (($.doc =
+      "Set up an empty onboarded BB Pro account whose customer base has 2,100 - 2,500 subscribed recipients (E2E)"),
+      ($.paramsToExecute = []));
+    function P() {
       (m(),
-        ue("empty", [Ke(0, "SENDING_LIMITED", Be), Ke(1, "NOT_SENDING", je)]));
+        fe("empty", [ot(0, "SENDING_LIMITED", Qe), ot(1, "NOT_SENDING", rt)]));
     }
-    ((D.doc =
+    ((P.doc =
       "Set up an onboarded BB Pro account with a sending limited campaign (25 sent, 20 delivered, 10 read, 2 replies) and a not sending campaign (8 sent, 4 delivered, 3 read, 1 reply), both started more than two days ago (E2E)"),
-      (D.paramsToExecute = []));
-    function x() {
-      (_(), (le = 1));
+      (P.paramsToExecute = []));
+    function N() {
+      (_(), (pe = 1));
     }
-    ((x.doc =
+    ((N.doc =
       "Set up BB Pro campaigns Home whose first campaigns query fails with a network error (E2E)"),
-      (x.paramsToExecute = []));
-    var $ = "1234567890123456",
-      P = "1234567890123457",
-      N = "1234567890123458",
-      M = "1234567890123459",
-      w = "Recording audience",
-      A = 25,
-      F = "1234567890123460",
-      O = "1234567890123461",
-      B = "Visa ending in 4242",
-      W = 250,
-      q = {
+      (N.paramsToExecute = []));
+    var M = "1234567890123456",
+      w = "1234567890123457",
+      A = "1234567890123458",
+      F = "1234567890123459",
+      O = "Recording audience",
+      B = 25,
+      W = "1234567890123460",
+      q = "1234567890123461",
+      U = "Visa ending in 4242",
+      V = 250,
+      H = {
         phone_number_status: { waba_display_phone_number: "+1 555-010-0199" },
       },
-      U = {
+      G = {
         business_object_name: null,
         is_subscriber_pool_empty: !1,
         name: null,
         subscriber_pool_audience_size: { lower_bound: 2100, upper_bound: 2500 },
       },
-      V = 1767182400,
-      H = null,
-      G = [],
-      z = null,
-      j = "empty",
-      K = !1,
+      z = 1767182400,
+      j = null,
+      K = [],
       Q = null,
-      X = 0,
-      Y = null,
-      J = null,
+      X = "empty",
+      Y = 0,
+      J = !1,
       Z = null,
-      ee = null,
-      te = !1,
-      ne = [],
-      re = new Set(),
+      ee = 0,
+      te = null,
+      ne = null,
+      re = !1,
       oe = null,
-      ae = new Map(),
-      ie = null,
-      le = 0;
-    function se() {
-      ue("empty");
+      ae = null,
+      ie = !1,
+      le = !1,
+      se = [],
+      ue = new Set(),
+      ce = null,
+      de = new Map(),
+      me = null,
+      pe = 0;
+    function _e(e) {
+      var t = e === void 0 ? {} : e,
+        n = t.subscriberPoolEmpty,
+        r = n === void 0 ? !1 : n;
+      ((le = r), fe("empty"));
     }
-    function ue(t, a, i) {
+    function fe(t, a, i) {
       if (
         (a === void 0 && (a = []),
         i === void 0 && (i = null),
-        (j = t),
-        (G = a),
-        (z = i),
-        H == null)
+        (X = t),
+        (Y = 0),
+        (K = a),
+        (Q = i),
+        j == null)
       ) {
         var l = self.fetch.bind(self),
           s = o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint();
-        H = function () {
+        j = function () {
           Reflect.set(self, "fetch", l);
         };
         var u = 0;
         Reflect.set(self, "fetch", function (t, o) {
           var a,
-            i = t instanceof Request ? t.url : String(t);
-          if (i !== s) return l(t, o);
-          if (fe(o == null ? void 0 : o.body))
+            i,
+            c = t instanceof Request ? t.url : String(t);
+          if (c !== s) return l(t, o);
+          if (Se(o == null ? void 0 : o.body))
             return (e || (e = n("Promise"))).reject(
               r("err")("Failed to fetch"),
             );
-          var c = Te(o == null ? void 0 : o.body),
-            d = (a = ge(o == null ? void 0 : o.body)) != null ? a : De(c);
-          if (d != null) return d;
-          var m = K ? he(o) : null,
-            p = m != null ? Y : null;
-          m != null &&
-            ((X += 1),
-            (G = Fe(
-              Array.from({ length: p != null ? X : 1 }, function () {
-                return m.status;
+          var d = Oe(o == null ? void 0 : o.body),
+            m =
+              (a = (i = Re(o == null ? void 0 : o.body)) != null ? i : Be(d)) !=
+              null
+                ? a
+                : Le(o);
+          if (m != null) return m;
+          var p = J ? Ee(o) : null,
+            _ = p != null ? te : null;
+          p != null &&
+            ((ee += 1),
+            (K = je(
+              Array.from({ length: _ != null ? ee : 1 }, function () {
+                return p.status;
               }),
-              m.startTimeS,
+              p.startTimeS,
             )));
-          var _ = "234567890123456" + String(u);
+          var f = "234567890123456" + String(u);
           return (
             (u += 1),
             (e || (e = n("Promise")))
@@ -314,59 +345,60 @@ __d(
                   JSON.stringify({
                     data: babelHelpers.extends(
                       {},
-                      ke(o == null ? void 0 : o.body),
-                      me(o == null ? void 0 : o.body),
-                      Ie(o == null ? void 0 : o.body),
-                      xe(c),
-                      m != null
+                      Me(o == null ? void 0 : o.body),
+                      Ae(o == null ? void 0 : o.body),
+                      Ce(o == null ? void 0 : o.body),
+                      Fe(o == null ? void 0 : o.body),
+                      We(d),
+                      p != null
                         ? {
                             create_wa_bb_pro_campaign: {
-                              delivery_status_info: { status: m.status[1] },
-                              id: ze(0),
+                              delivery_status_info: { status: p.status[1] },
+                              id: nt(0),
                             },
                           }
                         : {},
                       {
                         create_wa_marketing_messages_custom_audience: {
-                          custom_audience_id: _,
+                          custom_audience_id: f,
                         },
                         viewer: {
                           backing_waba: babelHelpers.extends(
                             {},
-                            pe(),
+                            be(),
                             {
-                              id: $,
+                              id: M,
                               is_custom_param_restricted_for_first_party_paid_messaging:
                                 !1,
                               name: "BB Pro test business",
                               owner_business: {
-                                id: P,
+                                id: w,
                                 marketing_message_whatsapp_event_sharing_consent:
                                   null,
                               },
                             },
-                            te ? q : {},
+                            ie ? H : {},
                             {
                               wa_bb_pro_campaigns: {
-                                edges: G,
-                                page_info: de(),
+                                edges: K,
+                                page_info: ye(),
                               },
                               wa_bb_pro_custom_audiences: {
                                 edges:
-                                  j === "audience_only"
+                                  X === "audience_only"
                                     ? [
                                         {
                                           node: {
-                                            id: M,
-                                            name: w,
+                                            id: F,
+                                            name: O,
                                             operation_status: {
                                               status_code: "NO_STATUS",
                                             },
-                                            subscriber_size: A,
+                                            subscriber_size: B,
                                           },
                                         },
                                       ]
-                                    : Ee(),
+                                    : we(),
                               },
                             },
                           ),
@@ -374,21 +406,18 @@ __d(
                         xfb_whatsapp_bb_pro: babelHelpers.extends(
                           {
                             ad_account: babelHelpers.extends(
-                              { id: F },
-                              Ce(K, ee),
+                              { id: W },
+                              Ie(J, ae),
                               { currency_code_enum: "USD" },
                             ),
-                            default_subscriber_pool: babelHelpers.extends(
-                              { id: N },
-                              te ? U : {},
-                            ),
+                            default_subscriber_pool: he(),
                             sending_restriction: {
                               is_sending_allowed: !0,
                               minimum_scheduled_send_lead_time_seconds: 3600,
                               upsell_business_verification: !1,
                             },
                           },
-                          be(Z),
+                          Te(oe),
                         ),
                       },
                     ),
@@ -402,9 +431,9 @@ __d(
               .then(function (e) {
                 var t;
                 return (t =
-                  p == null
+                  _ == null
                     ? void 0
-                    : p.then(function () {
+                    : _.then(function () {
                         return e;
                       })) != null
                   ? t
@@ -414,34 +443,41 @@ __d(
         });
       }
     }
-    ((se.doc = "Mock BB Pro audience GraphQL responses (E2E)"),
-      (se.paramsToExecute = []));
-    var ce = "bb-pro-campaigns-next-page";
-    function de() {
-      return z != null
-        ? { end_cursor: ce, has_next_page: !0 }
+    ((_e.doc = "Mock BB Pro audience GraphQL responses (E2E)"),
+      (_e.paramsToExecute = []));
+    var ge = "bb-pro-campaigns-next-page";
+    function he() {
+      return ie
+        ? babelHelpers.extends({ id: A }, G)
+        : le
+          ? { id: A, is_subscriber_pool_empty: !0 }
+          : { id: A };
+    }
+    function ye() {
+      return Q != null
+        ? { end_cursor: ge, has_next_page: !0 }
         : { end_cursor: null, has_next_page: !1 };
     }
-    function me(e) {
-      return z == null ||
+    function Ce(e) {
+      return Q == null ||
         typeof e != "string" ||
-        !e.includes('"after":"' + ce + '"')
+        !e.includes('"after":"' + ge + '"')
         ? {}
         : {
             node: {
               __typename: "WhatsAppBusinessAccount",
-              id: $,
+              id: M,
               wa_bb_pro_campaigns: {
-                edges: z,
+                edges: Q,
                 page_info: { end_cursor: null, has_next_page: !1 },
               },
             },
           };
     }
-    function pe() {
-      return Q != null ? { audience_send_max_bid_amount: Q } : {};
+    function be() {
+      return Z != null ? { audience_send_max_bid_amount: Z } : {};
     }
-    function _e(e) {
+    function ve(e) {
       return e == null
         ? {
             payment_section_details: null,
@@ -465,8 +501,8 @@ __d(
             required_action: null,
           };
     }
-    function fe(e) {
-      if (le === 0 || typeof e != "string") return !1;
+    function Se(e) {
+      if (pe === 0 || typeof e != "string") return !1;
       var t;
       try {
         var n;
@@ -474,11 +510,11 @@ __d(
       } catch (e) {
         return !1;
       }
-      return t == null || !Object.hasOwn(t, "after") ? !1 : ((le -= 1), !0);
+      return t == null || !Object.hasOwn(t, "after") ? !1 : ((pe -= 1), !0);
     }
-    function ge(t) {
+    function Re(t) {
       var o;
-      if (ne.length === 0 || typeof t != "string") return null;
+      if (se.length === 0 || typeof t != "string") return null;
       var a;
       try {
         var i;
@@ -486,21 +522,21 @@ __d(
       } catch (e) {
         return null;
       }
-      var l = Pe.findIndex(function (e, t) {
+      var l = Ue.findIndex(function (e, t) {
         var n;
-        return ze(t) === String((n = a) == null ? void 0 : n.campaign_id);
+        return nt(t) === String((n = a) == null ? void 0 : n.campaign_id);
       });
       if (((o = a) == null ? void 0 : o.status) !== "PAUSED" || l === -1)
         return null;
-      var s = ze(l),
-        u = ne.shift();
+      var s = nt(l),
+        u = se.shift();
       if (u === "network_error")
         return (e || (e = n("Promise"))).reject(r("err")("Failed to fetch"));
-      u === "stopped" && (re.add(s), (G = Fe()));
-      var c = Pe[l],
+      u === "stopped" && (ue.add(s), (K = je()));
+      var c = Ue[l],
         d = c[0],
         m = c[2],
-        p = Ge(l);
+        p = tt(l);
       return (e || (e = n("Promise"))).resolve(
         new Response(
           JSON.stringify({
@@ -516,15 +552,21 @@ __d(
         ),
       );
     }
-    function he(e) {
+    function Le(t) {
+      return !J || !re || !ke(t)
+        ? null
+        : ((re = !1),
+          (e || (e = n("Promise"))).reject(r("err")("Failed to fetch")));
+    }
+    function Ee(e) {
       var t = e == null ? void 0 : e.body;
-      if (typeof t != "string" || !ye(e)) return null;
+      if (typeof t != "string" || !ke(e)) return null;
       var n = JSON.parse(t).variables.start_time;
       return typeof n == "number"
         ? { startTimeS: n, status: ["SCHEDULED", "SCHEDULED", !0] }
-        : { startTimeS: Ne, status: Pe[0] };
+        : { startTimeS: Ve, status: Ue[0] };
     }
-    function ye(e) {
+    function ke(e) {
       var t = e == null ? void 0 : e.body;
       if (typeof t != "string") return !1;
       try {
@@ -536,14 +578,14 @@ __d(
         return !1;
       }
     }
-    function Ce(e, t) {
+    function Ie(e, t) {
       return e
         ? {
             billing_info: {
               payment_section_details: {
                 inline_action: null,
-                label: B,
-                label_ax: B,
+                label: U,
+                label_ax: U,
                 logos: [],
                 primary_action: null,
               },
@@ -551,17 +593,17 @@ __d(
             },
             payment_account: {
               __typename: "AdsPaymentAccountRawDoNotUse",
-              id: O,
+              id: q,
             },
           }
-        : { billing_info: _e(t), payment_account: null };
+        : { billing_info: ve(t), payment_account: null };
     }
-    function be(e) {
+    function Te(e) {
       if (e == null) return {};
       var t = e === "NOT_STARTED" || e === "PENDING_SUBMISSION";
       return {
         business_verification: {
-          completion_time: e === "VERIFIED" ? V : null,
+          completion_time: e === "VERIFIED" ? z : null,
           status_card: {
             cta_list: t
               ? [
@@ -579,19 +621,19 @@ __d(
             first_subtitle_text: null,
             icon_text: null,
           },
-          submitted_time: e === "PENDING_REVIEW" ? V : null,
+          submitted_time: e === "PENDING_REVIEW" ? z : null,
           verification_status: e,
         },
         messaging_limits: {
-          current_daily_limit: W,
+          current_daily_limit: V,
           is_business_verified: e === "VERIFIED",
-          minimum_daily_limit: W,
+          minimum_daily_limit: V,
           unique_recipients_last_24h: 0,
           upgrade_requirements: [],
         },
       };
     }
-    var ve = [
+    var De = [
         {
           id: "1234567890123470",
           name: "Spring sale",
@@ -608,15 +650,15 @@ __d(
           recipientNames: ["Jo", "Kai", "Lea", "Mo"],
         },
       ],
-      Se = 1767182400,
-      Re = "1234567890123473";
-    function Le() {
-      var e = ie;
+      xe = 1767182400,
+      $e = "1234567890123473";
+    function Pe() {
+      var e = me;
       return e == null
-        ? ve
-        : [].concat(ve, [
+        ? De
+        : [].concat(De, [
             {
-              id: Re,
+              id: $e,
               name: "Loyal customers",
               recipientNames: Array.from({ length: e }, function (e, t) {
                 return "Customer " + String(t + 1).padStart(2, "0");
@@ -624,31 +666,48 @@ __d(
             },
           ]);
     }
-    function Ee() {
-      return j !== "multi_audience"
-        ? []
-        : Le().map(function (e) {
-            var t = e.id,
-              n = e.name,
-              r = e.recipientNames;
-            return {
-              node: {
-                id: t,
-                name: n,
-                operation_status: { status_code: "NO_STATUS" },
-                subscriber_size: r.length,
-              },
-            };
-          });
+    function Ne() {
+      return X === "multi_audience"
+        ? Pe()
+        : X === "deletable_audience"
+          ? De.slice(0, 1)
+          : X === "audience_only" || X === "empty"
+            ? []
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    X,
+                );
+              })();
     }
-    function ke(e) {
-      var t = Le().find(function (t) {
+    function Me(e) {
+      var t = De[0];
+      return X !== "deletable_audience" ||
+        typeof e != "string" ||
+        !e.includes('"customAudienceId":"' + t.id + '"')
+        ? {}
+        : ((X = "empty"),
+          { delete_wa_marketing_messages_custom_audience: { success: !0 } });
+    }
+    function we() {
+      return Ne().map(function (e) {
+        var t = e.id,
+          n = e.name,
+          r = e.recipientNames;
+        return {
+          node: {
+            id: t,
+            name: n,
+            operation_status: { status_code: "NO_STATUS" },
+            subscriber_size: r.length,
+          },
+        };
+      });
+    }
+    function Ae(e) {
+      var t = Ne().find(function (t) {
         var n = t.id;
-        return (
-          j === "multi_audience" &&
-          typeof e == "string" &&
-          e.includes('"audienceId":"' + n + '"')
-        );
+        return typeof e == "string" && e.includes('"audienceId":"' + n + '"');
       });
       if (t == null || typeof e != "string") return {};
       var n = JSON.parse(e).variables,
@@ -656,46 +715,50 @@ __d(
         o = n.first,
         a = r == null ? 0 : Number(r) + 1,
         i = o == null ? t.recipientNames.length : a + Number(o),
-        l = i < t.recipientNames.length;
-      return {
-        node: {
-          __typename: "AdCustomAudience",
-          creation_time: Se,
-          id: t.id,
-          name: t.name,
-          operation_status: { status_code: "NO_STATUS" },
-          subscriber_size: t.recipientNames.length,
-        },
-        xfb_whatsapp_subscriber_list_members: {
-          edges: t.recipientNames
-            .map(function (e, n) {
-              return {
-                cursor: String(n),
-                node: {
-                  __typename: "XFBWhatsAppSubscriberListMember",
-                  full_name: e,
-                  phone_number:
-                    "1555010" + t.id.slice(-2) + String(n).padStart(2, "0"),
-                },
-              };
-            })
-            .slice(a, i),
-          page_info: l
-            ? { end_cursor: String(i - 1), has_next_page: !0 }
-            : { end_cursor: null, has_next_page: !1 },
-        },
-      };
+        l = i < t.recipientNames.length,
+        s = Y > 0;
+      return (
+        s && (Y -= 1),
+        {
+          node: {
+            __typename: "AdCustomAudience",
+            creation_time: xe,
+            id: t.id,
+            name: t.name,
+            operation_status: { status_code: s ? "UPDATING" : "NO_STATUS" },
+            subscriber_size: t.recipientNames.length,
+          },
+          xfb_whatsapp_subscriber_list_members: {
+            edges: t.recipientNames
+              .map(function (e, n) {
+                return {
+                  cursor: String(n),
+                  node: {
+                    __typename: "XFBWhatsAppSubscriberListMember",
+                    full_name: e,
+                    phone_number:
+                      "1555010" + t.id.slice(-2) + String(n).padStart(2, "0"),
+                  },
+                };
+              })
+              .slice(a, i),
+            page_info: l
+              ? { end_cursor: String(i - 1), has_next_page: !0 }
+              : { end_cursor: null, has_next_page: !1 },
+          },
+        }
+      );
     }
-    function Ie(e) {
-      var t = oe;
+    function Fe(e) {
+      var t = ce;
       if (t == null || typeof e != "string") return {};
-      var n = ze(t);
+      var n = nt(t);
       if (!e.includes('"campaignId":"' + n + '"')) return {};
-      var r = Pe[t],
+      var r = Ue[t],
         o = r[0],
         a = r[1],
         i = r[2],
-        l = Ge(t);
+        l = tt(t);
       return {
         node: {
           __typename: "XFBWhatsAppBusinessMMLiteCampaign",
@@ -707,59 +770,61 @@ __d(
         },
       };
     }
-    function Te(e) {
+    function Oe(e) {
       if (typeof e != "string") return null;
-      for (var t of ae) {
+      for (var t of de) {
         var n = t[0],
           r = t[1];
         if (e.includes('"campaignId":"' + n + '"')) return r;
       }
       return null;
     }
-    function De(t) {
+    function Be(t) {
       return t === "request_failed"
         ? (e || (e = n("Promise"))).resolve(
-            new Response(JSON.stringify({ error: we }), { status: Ae }),
+            new Response(JSON.stringify({ error: Ge }), { status: ze }),
           )
         : null;
     }
-    function xe(e) {
+    function We(e) {
       return e === "campaign_missing" ? { node: null } : {};
     }
-    function $e() {
-      (H == null || H(),
-        (H = null),
-        (Z = null),
-        (ee = null),
-        (te = !1),
-        (ne = []),
-        (re = new Set()),
-        (z = null),
-        (K = !1),
-        (Q = null),
+    function qe() {
+      (j == null || j(),
+        (j = null),
         (oe = null),
-        (X = 0),
-        S(),
-        (ae = new Map()),
-        (ie = null),
-        (le = 0));
+        (ae = null),
+        (ie = !1),
+        (le = !1),
+        (se = []),
+        (ue = new Set()),
+        (Q = null),
+        (J = !1),
+        (Z = null),
+        (ce = null),
+        (Y = 0),
+        (ee = 0),
+        R(),
+        (de = new Map()),
+        (me = null),
+        (pe = 0));
     }
-    (($e.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
-      ($e.paramsToExecute = []));
-    var Pe = [
+    ((qe.doc = "Restore GraphQL responses after a BB Pro audience E2E mock"),
+      (qe.paramsToExecute = []));
+    var Ue = [
         ["IN_REVIEW", "IN_REVIEW", !0],
         ["ACTIVE", "ACTIVE", !0],
         ["COMPLETED", "COMPLETED", !1],
         ["NOT_APPROVED", "REJECTED", !1],
       ],
-      Ne = 1767182400,
-      Me = "BBPROCARD",
-      we = { code: 2, message: "Service temporarily unavailable" },
-      Ae = 500;
-    function Fe(e, t) {
+      Ve = 1767182400,
+      He = "BBPROCARD",
+      Ge = { code: 2, message: "Service temporarily unavailable" },
+      ze = 500;
+    function je(e, t) {
       return (
-        e === void 0 && (e = Pe),
-        t === void 0 && (t = Ne),
+        e === void 0 && (e = Ue),
+        t === void 0 && (t = Ve),
         e.map(function (e, n) {
           var r = e[0],
             o = e[1],
@@ -768,8 +833,8 @@ __d(
             cursor: String(n),
             node: {
               __typename: "XFBWhatsAppBusinessMMLiteCampaign",
-              bb_pro_can_stop: a && !Ge(n),
-              bb_pro_display_status: Ge(n) ? "STOPPED" : r,
+              bb_pro_can_stop: a && !tt(n),
+              bb_pro_display_status: tt(n) ? "STOPPED" : r,
               broadcast_insights: {
                 ads_amount_spent: null,
                 ads_delivered: null,
@@ -790,20 +855,20 @@ __d(
               },
               campaign_name: "Campaign " + String(n + 1),
               delivery_status_info: { extra_data: null, status: o },
-              id: ze(n),
+              id: nt(n),
             },
           };
         })
       );
     }
-    function Oe(e, t) {
-      return Fe(
+    function Ke(e, t) {
+      return je(
         Array.from({ length: e + t }, function () {
           return ["COMPLETED", "COMPLETED", !1];
         }),
       ).slice(e);
     }
-    var Be = {
+    var Qe = {
       ads_amount_spent: 1,
       ads_delivered: { count: 20 },
       bid_amount_long: 5e3,
@@ -818,31 +883,31 @@ __d(
       read_rate: 50,
       reply_rate: 10,
       sent: { count: 25 },
-      start_time: Ne,
+      start_time: Ve,
       template: null,
     };
-    function We() {
+    function Xe() {
       return {
         cursor: "0",
         node: {
           __typename: "XFBWhatsAppBusinessMMLiteCampaign",
           bb_pro_can_stop: !1,
           bb_pro_display_status: "COMPLETED",
-          broadcast_insights: Be,
+          broadcast_insights: Qe,
           campaign_name: "Insights campaign",
           delivery_status_info: { extra_data: null, status: "COMPLETED" },
           id: "345678901234570",
         },
       };
     }
-    function qe(e, t) {
+    function Ye(e, t) {
       return {
         cursor: "0",
         node: {
           __typename: "XFBWhatsAppBusinessMMLiteCampaign",
           bb_pro_can_stop: !1,
           bb_pro_display_status: "COMPLETED",
-          broadcast_insights: babelHelpers.extends({}, Be, {
+          broadcast_insights: babelHelpers.extends({}, Qe, {
             template: {
               element: null,
               header_type: "IMAGE",
@@ -859,13 +924,13 @@ __d(
           }),
           campaign_name: "Media campaign",
           delivery_status_info: { extra_data: null, status: "COMPLETED" },
-          id: ze(0),
+          id: nt(0),
         },
       };
     }
-    var Ue = 3600,
-      Ve = 0.5;
-    function He(e, t, n) {
+    var Je = 3600,
+      Ze = 0.5;
+    function et(e, t, n) {
       return {
         cursor: String(e),
         node: {
@@ -875,17 +940,17 @@ __d(
           broadcast_insights: n,
           campaign_name: "Campaign " + String(e + 1),
           delivery_status_info: { extra_data: null, status: t },
-          id: ze(e),
+          id: nt(e),
         },
       };
     }
-    function Ge(e) {
-      return re.has(ze(e));
+    function tt(e) {
+      return ue.has(nt(e));
     }
-    function ze(e) {
+    function nt(e) {
       return "34567890123456" + String(e);
     }
-    var je = babelHelpers.extends({}, Be, {
+    var rt = babelHelpers.extends({}, Qe, {
       ads_amount_spent: 0.4,
       ads_delivered: { count: 4 },
       first_customer_reply: { count: 1 },
@@ -894,7 +959,7 @@ __d(
       reply_rate: 25,
       sent: { count: 8 },
     });
-    function Ke(e, t, n) {
+    function ot(e, t, n) {
       return {
         cursor: String(e),
         node: {
@@ -904,12 +969,12 @@ __d(
           broadcast_insights: n,
           campaign_name: "Campaign " + String(e + 1),
           delivery_status_info: { extra_data: null, status: "ACTIVE" },
-          id: ze(e),
+          id: nt(e),
         },
       };
     }
-    var Qe = 1e4;
-    function Xe(t) {
+    var at = 1e4;
+    function it(t) {
       r("vulture")("VVQyakP4bPA0f7HAOE-jfQtmisk=");
       var a = o("WAWebWidFactory").createWid(t);
       return o("WAWebChatCollection").ChatCollection.get(a) != null
@@ -929,20 +994,20 @@ __d(
                     "Broadcast chat " +
                       t +
                       " never reached ChatCollection within " +
-                      Qe +
+                      at +
                       "ms",
                   ),
                 ));
-            }, Qe),
+            }, at),
               o("WAWebChatCollection").ChatCollection.on("add", i));
           });
     }
-    function Ye(e, t) {
-      return Je.apply(this, arguments);
+    function lt(e, t) {
+      return st.apply(this, arguments);
     }
-    function Je() {
+    function st() {
       return (
-        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (st = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             (r("vulture")("Pm80KYD8Tje3BxBe7HyF3oLFpZs="),
             t.length <
@@ -964,40 +1029,40 @@ __d(
               }),
             },
           );
-          return (yield Xe(n), n);
+          return (yield it(n), n);
         })),
-        Je.apply(this, arguments)
+        st.apply(this, arguments)
       );
     }
-    Ye.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
-    function Ze() {
-      return et.apply(this, arguments);
+    lt.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
+    function ut() {
+      return ct.apply(this, arguments);
     }
-    function et() {
+    function ct() {
       return (
-        (et = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ct = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebBroadcastListAction").createBroadcastListAction(
-            { broadcastListName: w, contacts: [], customAudienceFbid: M },
+            { broadcastListName: O, contacts: [], customAudienceFbid: F },
           );
-          return (yield Xe(e), e);
+          return (yield it(e), e);
         })),
-        et.apply(this, arguments)
+        ct.apply(this, arguments)
       );
     }
-    ((Ze.doc =
+    ((ut.doc =
       "Create the local chat of the mocked BB Pro audience, no UI (E2E)"),
-      (Ze.paramsToExecute = []));
-    function tt(e, t, n, r) {
-      return nt.apply(this, arguments);
+      (ut.paramsToExecute = []));
+    function dt(e, t, n, r) {
+      return mt.apply(this, arguments);
     }
-    function nt() {
+    function mt() {
       return (
-        (nt = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (mt = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             a === void 0 && (a = "home_status");
-            var i = rt(),
-              l = ze(e);
-            (a === "home_status" ? (oe = e) : ae.set(l, a),
+            var i = pt(),
+              l = nt(e);
+            (a === "home_status" ? (ce = e) : de.set(l, a),
               yield r("WAWebBizBroadcastProLocalCampaignCardAction")({
                 broadcastJid: i,
                 campaignId: l,
@@ -1007,29 +1072,29 @@ __d(
                   message: t,
                 },
                 campaignTimestamp: o("WATimeUtils").unixTime(),
-                messageId: "" + Me + l,
+                messageId: "" + He + l,
               }));
           },
         )),
-        nt.apply(this, arguments)
+        mt.apply(this, arguments)
       );
     }
-    tt.doc =
+    dt.doc =
       "Seed the active Pro chat with a mocked campaign card with a quick reply (E2E)";
-    function rt() {
+    function pt() {
       r("vulture")("m5aRIlrFKSn_stY9NCRYBRnkr64=");
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e == null) throw r("err")("No active chat");
       return o("WAWebWidToJid").widToBroadcastJid(e.id);
     }
-    function ot() {
-      return at.apply(this, arguments);
+    function _t() {
+      return ft.apply(this, arguments);
     }
-    function at() {
+    function ft() {
       return (
-        (at = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ft = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("9B3P7T0Qee3i5KkBAFG2iMCYBcM=");
-          var e = rt(),
+          var e = pt(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
             n = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
@@ -1053,20 +1118,20 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(e));
         })),
-        at.apply(this, arguments)
+        ft.apply(this, arguments)
       );
     }
-    ((ot.doc =
+    ((_t.doc =
       "Create a test PROCESSING campaign for the active broadcast chat (E2E)"),
-      (ot.paramsToExecute = []));
-    function it() {
-      return lt.apply(this, arguments);
+      (_t.paramsToExecute = []));
+    function gt() {
+      return ht.apply(this, arguments);
     }
-    function lt() {
+    function ht() {
       return (
-        (lt = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ht = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           r("vulture")("xtFM8UIjKS2O9QInZyOXgIZvjr4=");
-          var t = rt(),
+          var t = pt(),
             a = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t);
@@ -1092,13 +1157,13 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(t));
         })),
-        lt.apply(this, arguments)
+        ht.apply(this, arguments)
       );
     }
-    ((it.doc =
+    ((gt.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
-      (it.paramsToExecute = []));
-    function st(e, t) {
+      (gt.paramsToExecute = []));
+    function yt(e, t) {
       return (
         r("vulture")("8rJX9JincJN0bS6ndQL2fJMGQEQ="),
         o(
@@ -1106,41 +1171,44 @@ __d(
         ).rescheduleBizBroadcastProCampaign(e, t)
       );
     }
-    st.doc =
+    yt.doc =
       "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";
-    var ut = {
+    var Ct = {
       acceptBizBroadcastTos: u,
-      completeTestCampaignsForActiveChat: it,
-      createBizBroadcastAudience: Ye,
-      createBizBroadcastProMockAudienceChat: Ze,
-      createBizBroadcastProMockCampaignCardForActiveChat: tt,
-      createTestProcessingCampaignForActiveChat: ot,
+      completeTestCampaignsForActiveChat: gt,
+      createBizBroadcastAudience: lt,
+      createBizBroadcastProMockAudienceChat: ut,
+      createBizBroadcastProMockCampaignCardForActiveChat: dt,
+      createTestProcessingCampaignForActiveChat: _t,
+      failNextBizBroadcastProCampaignCreate: S,
       holdBizBroadcastProCampaignCreates: b,
-      mockBizBroadcastProAudienceGraphQLResponses: se,
+      mockBizBroadcastProAudienceGraphQLResponses: _e,
       releaseBizBroadcastProCampaignCreates: v,
-      rescheduleBizBroadcastProCampaign: st,
-      restoreBizBroadcastProAudienceGraphQLResponses: $e,
+      rescheduleBizBroadcastProCampaign: yt,
+      restoreBizBroadcastProAudienceGraphQLResponses: qe,
       setBizBroadcastDeviceCapability: s,
       setBizBroadcastProFirstTimeSetup: d,
       setBizBroadcastProNuxEligible: c,
       setBizBroadcastProOnboarded: m,
-      setupBizBroadcastProAdCreditsHome: I,
-      setupBizBroadcastProAudienceOnlyHome: R,
+      setupBizBroadcastProAdCreditsHome: x,
+      setupBizBroadcastProAudienceOnlyHome: L,
       setupBizBroadcastProCampaignsHome: _,
-      setupBizBroadcastProCampaignsHomeFailingOnce: x,
-      setupBizBroadcastProDeliveryIssuesHome: D,
+      setupBizBroadcastProCampaignsHomeFailingOnce: N,
+      setupBizBroadcastProDeletableAudienceHome: T,
+      setupBizBroadcastProDeliveryIssuesHome: P,
       setupBizBroadcastProEmptyHome: p,
       setupBizBroadcastProFundedAccount: C,
       setupBizBroadcastProInsightsHome: f,
       setupBizBroadcastProLifecycleInsightsHome: y,
       setupBizBroadcastProMediaCampaignHome: h,
-      setupBizBroadcastProMultiAudienceHome: L,
-      setupBizBroadcastProPagedAudienceHome: E,
+      setupBizBroadcastProMultiAudienceHome: E,
+      setupBizBroadcastProPagedAudienceHome: k,
       setupBizBroadcastProPagedCampaignsHome: g,
-      setupBizBroadcastProSubscribedRecipientsHome: T,
-      setupBizBroadcastProVerificationHome: k,
+      setupBizBroadcastProProcessingAudienceHome: I,
+      setupBizBroadcastProSubscribedRecipientsHome: $,
+      setupBizBroadcastProVerificationHome: D,
     };
-    l.default = ut;
+    l.default = Ct;
   },
   98,
 );

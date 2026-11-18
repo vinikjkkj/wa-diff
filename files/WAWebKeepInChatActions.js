@@ -26,6 +26,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebWamEnumKicErrorCodeType",
     "WAWebWamEnumTriggerType",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -353,7 +354,7 @@ __d(
                     }),
               );
             else if (g)
-              l(
+              o("WDSDialogBridge").openWDSDialog(
                 p.jsx(r("WAWebKeepInChatWarningUnkeepOwnMsgModal"), {
                   onConfirm: i,
                   onCancel: function () {

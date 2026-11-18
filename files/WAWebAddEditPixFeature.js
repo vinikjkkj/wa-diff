@@ -10,13 +10,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t, n, r, a, i) {
+    function u(e, t, n, r, a, i, l) {
       o("WAWebPixPaymentRequestFeature").isPixPaymentRequestEnabled()
         ? o("WAWebModalManager").ModalManager.open(
             s.jsx(
               o("WAWebPaymentOnboardingFlowLoadable")
                 .PaymentOnboardingFlowLoadable,
               {
+                asNewKey: l,
                 onPixKeySaved: a,
                 prefill: n,
                 prefillOutcome: r,
@@ -32,6 +33,7 @@ __d(
               o("WAWebBusinessAddPixModalLoadable")
                 .WAWebBizPaymentsBrazilAddPixModalLoadable,
               {
+                asNewKey: l,
                 onPixKeySaved: a,
                 prefill: n,
                 prefillOutcome: r,

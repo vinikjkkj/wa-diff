@@ -135,12 +135,13 @@ __d(
               .COMPOSER_XOUT_TAPPED,
           });
         }),
-        (n.logPostStatusRequest = function (t, n, r) {
+        (n.logPostStatusRequest = function (t, n, r, a) {
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .POST_STATUS_REQUEST,
             statusContentType: t,
             statusCreationEntryPoint: r,
+            statusId: a,
             retryCount: n,
           });
         }),

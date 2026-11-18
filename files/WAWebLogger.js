@@ -29,38 +29,41 @@ __d(
       );
       return e < 1 || e > 4 ? 1e3 : e;
     }
-    function _(e) {
-      return e === "ERROR" || e === "CATCHING"
-        ? {
-            level: 4,
-            consoleFunction: p() <= 4 ? console.error : r("WAWebNoop"),
-          }
-        : e === "WARN"
+    function _(e, t) {
+      return (
+        t === void 0 && (t = p()),
+        e === "ERROR" || e === "CATCHING"
           ? {
-              level: 3,
-              consoleFunction: p() <= 3 ? console.warn : r("WAWebNoop"),
+              level: 4,
+              consoleFunction: t <= 4 ? console.error : r("WAWebNoop"),
             }
-          : e === "COUNT"
+          : e === "WARN"
             ? {
-                level: 2,
-                consoleFunction: p() <= 2 ? console.count : r("WAWebNoop"),
+                level: 3,
+                consoleFunction: t <= 3 ? console.warn : r("WAWebNoop"),
               }
-            : e === "LOG"
+            : e === "COUNT"
               ? {
                   level: 2,
-                  consoleFunction: p() <= 2 ? console.log : r("WAWebNoop"),
+                  consoleFunction: t <= 2 ? console.count : r("WAWebNoop"),
                 }
-              : e === "DEV_XMPP" || e === "DEV"
+              : e === "LOG"
                 ? {
-                    level: 1,
-                    consoleFunction: p() <= 1 ? console.info : r("WAWebNoop"),
+                    level: 2,
+                    consoleFunction: t <= 2 ? console.log : r("WAWebNoop"),
                   }
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
+                : e === "DEV_XMPP" || e === "DEV"
+                  ? {
+                      level: 1,
+                      consoleFunction: t <= 1 ? console.info : r("WAWebNoop"),
+                    }
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          e,
+                      );
+                    })()
+      );
     }
     function f(t, n) {
       for (
@@ -81,16 +84,17 @@ __d(
         r.consoleFunction.apply(r, [n].concat(a));
         return;
       }
-      var s = e.processLogWithContext(t, n, a, r.consoleFunction);
-      if (s === "matched") {
-        var u = e.formatLogWithHighlight(l, n);
-        u != null
-          ? r.consoleFunction.apply(r, [u.format].concat(u.styles, a))
-          : r.consoleFunction.apply(r, [n].concat(a));
-      } else if (s === "context_after") {
-        var c = e.getContextStyle();
-        r.consoleFunction.apply(r, ["%c" + n, c].concat(a));
-      } else e.recordFilteredLog(t, n);
+      var s = _(t, 1).consoleFunction,
+        u = e.processLogWithContext(t, n, a, s);
+      if (u === "matched") {
+        var c = e.formatLogWithHighlight(l, n);
+        c != null
+          ? s.apply(void 0, [c.format].concat(c.styles, a))
+          : s.apply(void 0, [n].concat(a));
+      } else if (u === "context_after") {
+        var d = e.getContextStyle();
+        s.apply(void 0, ["%c" + n, d].concat(a));
+      } else p() <= r.level && e.recordFilteredLog(t, n);
     }
     function g(e, t) {
       s() && !r("gkx")("5943") && f(e, t);

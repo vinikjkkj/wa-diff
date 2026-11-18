@@ -19,7 +19,7 @@ __d(
     "WAWebMsgType",
     "WAWebReferentialMsgKey",
     "WAWebSendMsgTypes",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "err",
@@ -74,7 +74,7 @@ __d(
     function y(e) {
       var t = e.id,
         n = t.remote;
-      return t.fromMe && o("WAWebUserPrefsMeUser").isMePrimary(n)
+      return t.fromMe && o("WAWebUserUtils").isMePrimary(n)
         ? o("WAWebAck").ACK.READ
         : o("WAWebAck").ACK.SENT;
     }

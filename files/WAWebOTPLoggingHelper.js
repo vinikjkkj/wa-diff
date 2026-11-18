@@ -14,6 +14,7 @@ __d(
     "WAWebSettingsModel",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
+    "WAWebUserUtils",
     "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumCtaType",
     "WAWebWamEnumOtpEventSource",
@@ -47,20 +48,16 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
           if (o("WAWebMsgGetters").getIsAuthenticationMessage(e)) {
-            var n = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
+            var t = new (o("WAWebOtpRetrieverWamEvent").OtpRetrieverWamEvent)({
                 ctaType: o("WAWebWamEnumCtaType").CTA_TYPE.COPY_CODE,
                 otpEventSource: o("WAWebWamEnumOtpEventSource").OTP_EVENT_SOURCE
                   .OTP_MESSAGE,
                 otpEventType: o("WAWebWamEnumOtpEventType").OTP_EVENT_TYPE
                   .MESSAGE_RECEIVED,
               }),
-              r =
-                (t = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
-                  ? void 0
-                  : t.getDeviceId();
-            (r != null && (n.waDeviceId = r), yield f(n, e), n.commit());
+              n = o("WAWebUserUtils").getMaybeMeDeviceId();
+            (n != null && (t.waDeviceId = n), yield f(t, e), t.commit());
           }
         })),
         c.apply(this, arguments)

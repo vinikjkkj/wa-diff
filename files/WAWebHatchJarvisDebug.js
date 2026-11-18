@@ -16,11 +16,12 @@ __d(
     var e,
       s =
         "https://static.whatsapp.net/bloks_asset?cat=business_directory_icon&id=ic_apparel_xxhdpi",
-      u = new Map([
+      u = [1, 2, 3, 4, 5],
+      c = new Map([
         [
           "markdown",
           function () {
-            return d(
+            return m(
               "# Sample heading\n\nThis is a **bold** and *italic* response with `inline code`.\n\n- First bullet\n- Second bullet\n- Third bullet",
             );
           },
@@ -28,7 +29,7 @@ __d(
         [
           "code",
           function () {
-            return d(
+            return m(
               'Here is a Kotlin snippet:\n\n```kotlin\nfun greet(name: String): String {\n  return "Hello, $name!"\n}\n```',
             );
           },
@@ -36,7 +37,7 @@ __d(
         [
           "table",
           function () {
-            return d(
+            return m(
               "Comparison table:\n\n| Feature | Supported | Notes |\n| --- | --- | --- |\n| Markdown | Yes | Headings, lists, bold |\n| Tables | Yes | GitHub-flavored |\n| Diagrams | No | Future work |",
             );
           },
@@ -44,16 +45,16 @@ __d(
         [
           "image",
           function () {
-            return d("Here is a cat:\n\n![cat](sandbox://workspace/cat.png)", {
-              "sandbox://workspace/cat.png": p("cat.png", "image/png"),
+            return m("Here is a cat:\n\n![cat](sandbox://workspace/cat.png)", {
+              "sandbox://workspace/cat.png": _("cat.png", "image/png"),
             });
           },
         ],
         [
           "image_grid",
           function () {
-            return d(
-              [1, 2, 3, 4, 5]
+            return m(
+              u
                 .map(function (e) {
                   return (
                     "![shot " + e + "](sandbox://workspace/shot-" + e + ".png)"
@@ -61,10 +62,10 @@ __d(
                 })
                 .join("\n\n"),
               Object.fromEntries(
-                [1, 2, 3, 4, 5].map(function (e) {
+                u.map(function (e) {
                   return [
                     "sandbox://workspace/shot-" + e + ".png",
-                    p("shot-" + e + ".png", "image/png"),
+                    _("shot-" + e + ".png", "image/png"),
                   ];
                 }),
               ),
@@ -74,10 +75,10 @@ __d(
         [
           "file",
           function () {
-            return d(
+            return m(
               "Attached report:\n\n![report.pdf](sandbox://workspace/report.pdf)",
               {
-                "sandbox://workspace/report.pdf": p(
+                "sandbox://workspace/report.pdf": _(
                   "Quarterly report.pdf",
                   "application/pdf",
                 ),
@@ -88,10 +89,10 @@ __d(
         [
           "audio",
           function () {
-            return d(
+            return m(
               "Voice clip:\n\n![voice.opus](sandbox://workspace/voice.opus)",
               {
-                "sandbox://workspace/voice.opus": p("voice.opus", "audio/ogg"),
+                "sandbox://workspace/voice.opus": _("voice.opus", "audio/ogg"),
               },
             );
           },
@@ -105,8 +106,8 @@ __d(
                   "Per [the docs](https://example.com/docs) and [the spec](https://example.com/spec), the Jarvis renderer supports inline links.",
                 event_name: "message.assistant",
                 resources: [
-                  _("https://example.com/docs", "Docs site"),
-                  _("https://example.com/spec", "Spec page"),
+                  f("https://example.com/docs", "Docs site"),
+                  f("https://example.com/spec", "Spec page"),
                 ],
               },
             };
@@ -137,7 +138,7 @@ __d(
         [
           "option_widget",
           function () {
-            return m("option", {
+            return p("option", {
               custom_input: { placeholder: "Type your own" },
               options: ["Book a table", "Find a recipe"],
             });
@@ -146,7 +147,7 @@ __d(
         [
           "link_card",
           function () {
-            return m("external_link", {
+            return p("external_link", {
               description: "Plan your trip with day-by-day suggestions.",
               site_name: "Example Travel",
               title: "Three days in Lisbon",
@@ -157,7 +158,7 @@ __d(
         [
           "list",
           function () {
-            return m("generic_list", {
+            return p("generic_list", {
               items: [
                 {
                   data: { url: "https://example.com/a" },
@@ -179,7 +180,7 @@ __d(
         [
           "text_with_button",
           function () {
-            return m("text_with_button", {
+            return p("text_with_button", {
               button: {
                 label: "Open the guide",
                 url: "https://example.com/guide",
@@ -191,7 +192,7 @@ __d(
         [
           "unknown_kind",
           function () {
-            return m(
+            return p(
               "not_a_real_kind",
               {},
               "Fallback text for an unknown widget.",
@@ -201,20 +202,20 @@ __d(
         [
           "unsupported_version",
           function () {
-            return d("If you see this, the version gate failed.");
+            return m("If you see this, the version gate failed.");
           },
         ],
       ]);
-    function c(t) {
+    function d(t) {
       var n;
       t === void 0 && (t = "markdown");
-      var a = u.get(t);
+      var a = c.get(t);
       if (a == null)
         throw r("err")(
           '[hatchInjectJarvisReply] unknown fixture "' +
             t +
             '", expected one of: ' +
-            Array.from(u.keys()).join(", "),
+            Array.from(c.keys()).join(", "),
         );
       var i = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebBotUtils").HATCH_BOT_FBID_WID,
@@ -243,13 +244,13 @@ __d(
             },
           ],
         },
-        c = "DEBUG_JARVIS_" + Date.now().toString(36);
+        u = "DEBUG_JARVIS_" + Date.now().toString(36);
       return (
         i.msgs.add(
           new (o("WAWebMsgModel").Msg)({
             body: l,
             from: i.id,
-            id: new (r("WAWebMsgKey"))({ fromMe: !1, id: c, remote: i.id }),
+            id: new (r("WAWebMsgKey"))({ fromMe: !1, id: u, remote: i.id }),
             richResponse: {
               fragments: [
                 {
@@ -276,15 +277,15 @@ __d(
             ])),
           t,
         ),
-        c
+        u
       );
     }
-    ((c.doc =
+    ((d.doc =
       "Stage a Muse reply with a Jarvis envelope in the Muse chat. Args: (fixtureName?) \u2014 one of " +
-      Array.from(u.keys()).join(", ") +
+      Array.from(c.keys()).join(", ") +
       "; defaults to markdown."),
-      (c.paramsToExecute = ["markdown"]));
-    function d(e, t) {
+      (d.paramsToExecute = ["markdown"]));
+    function m(e, t) {
       return {
         file_metadata: t,
         stream_event_row: {
@@ -294,7 +295,7 @@ __d(
         },
       };
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       return {
         stream_event_row: {
           display_text: "",
@@ -308,14 +309,14 @@ __d(
         },
       };
     }
-    function p(e, t) {
+    function _(e, t) {
       return { filename: e, mime_type: t, url: s };
     }
-    function _(e, t) {
+    function f(e, t) {
       return { kind: "citation", label: t, uri: e };
     }
-    var f = { hatchInjectJarvisReply: c };
-    l.default = f;
+    var g = { hatchInjectJarvisReply: d };
+    l.default = g;
   },
   98,
 );

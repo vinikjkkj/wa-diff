@@ -56,12 +56,18 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
       });
     }
-    function p() {
-      o("WAWebCustomerManagerProfileWamLogging").logProfileAction({
-        userActionTarget: "edit_lists_pencil",
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-      });
+    function p(e) {
+      o("WAWebCustomerManagerProfileWamLogging").logProfileAction(
+        babelHelpers.extends(
+          {},
+          e != null ? { extraAttributes: { from_view: e } } : {},
+          {
+            userActionTarget: "edit_lists_pencil",
+            userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+              .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+          },
+        ),
+      );
     }
     function _() {
       o("WAWebCustomerManagerProfileWamLogging").logProfileAction({

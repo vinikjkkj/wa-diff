@@ -51,6 +51,9 @@ __d(
       babelHelpers.inheritsLoose(t, e);
       var n = t.prototype;
       return (
+        (n.hasReceivedFeatures = function () {
+          return this.features != null;
+        }),
         (n.hasFeature = function (t) {
           var e;
           return ((e = this.features) == null ? void 0 : e.includes(t)) === !0;

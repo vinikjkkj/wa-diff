@@ -6,6 +6,7 @@ __d(
     "WAWebMLModelCacheManager",
     "WAWebMLModelPathProvider",
     "WAWebVoipPersistentFS",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,10 +25,10 @@ __d(
             try {
               var n = o("WAWebIDBFSStorageBackend").createIDBFSStorageBackend();
               n.initialize(t);
-              var r = o("WAWebMLModelCacheManager").createMLModelCacheManager(
+              var a = o("WAWebMLModelCacheManager").createMLModelCacheManager(
                 n,
               );
-              o("WAWebMLModelPathProvider").setCacheManager(r);
+              o("WAWebMLModelPathProvider").setCacheManager(a);
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -36,7 +37,7 @@ __d(
                       "voip: [IDBFS] Failed to set up ML model cache",
                     ])),
                 )
-                .catching(e);
+                .catching(r("getErrorSafe")(e));
             }
           },
           function (e) {
@@ -47,7 +48,7 @@ __d(
                     "voip: [IDBFS] Failed to initialize persistent FS",
                   ])),
               )
-              .catching(e);
+              .catching(r("getErrorSafe")(e));
           },
         );
     }

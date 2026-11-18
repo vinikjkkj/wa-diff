@@ -50,26 +50,25 @@ __d(
         e === "URL_RESPONSE_HTTP_504"
       );
     }
-    function _(e, t) {
-      t === void 0 && (t = m);
-      var n = t.initialDelayMs * Math.pow(t.backoffMultiplier, e),
-        r = n * t.jitterPercent,
-        o = n + (Math.random() * 2 - 1) * r;
-      return Math.min(o, t.maxDelayMs);
+    function _(e) {
+      var t = m.initialDelayMs * Math.pow(m.backoffMultiplier, e),
+        n = t * m.jitterPercent,
+        r = t + (Math.random() * 2 - 1) * n;
+      return Math.min(r, m.maxDelayMs);
     }
-    function f(e, t) {
-      if ((t === void 0 && (t = m), e == null)) return null;
-      var n = e.trim();
-      if (n === "") return null;
-      if (/^\d+$/.test(n)) {
-        var r = Number(n);
-        return Math.min(r * 1e3, t.maxDelayMs);
+    function f(e) {
+      if (e == null) return null;
+      var t = e.trim();
+      if (t === "") return null;
+      if (/^\d+$/.test(t)) {
+        var n = Number(t);
+        return Math.min(n * 1e3, m.maxDelayMs);
       }
-      if (!/[A-Za-z]/.test(n)) return null;
-      var o = Date.parse(n);
-      if (!Number.isFinite(o)) return null;
-      var a = Math.max(0, o - Date.now());
-      return Math.min(a, t.maxDelayMs);
+      if (!/[A-Za-z]/.test(t)) return null;
+      var r = Date.parse(t);
+      if (!Number.isFinite(r)) return null;
+      var o = Math.max(0, r - Date.now());
+      return Math.min(o, m.maxDelayMs);
     }
     function g(t) {
       return t

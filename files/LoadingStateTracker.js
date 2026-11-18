@@ -30,9 +30,12 @@ __d(
             (this.$5 = null),
             (this.$6 = null),
             (this.$7 = 0),
+            (this.$8 = new WeakMap()),
+            (this.$9 = new WeakMap()),
+            (this.$10 = new (r("IteratableElementWeakSet"))()),
             (this.loadingStateObserverCallback = function (e) {
               Array.from(e).forEach(function (e) {
-                o("WebAPIs").intersectionObserverEntryIsVisible(e)
+                (o("WebAPIs").intersectionObserverEntryIsVisible(e)
                   ? (t.loadingElementAdded(e.target),
                     t.$3.logLoadingElementStart(
                       e.target,
@@ -43,8 +46,11 @@ __d(
                     t.$3.addFirstMarkerPoint("loadingState_start", e.time),
                     t.$3.addFirstMarkerPoint("firstPaint", e.time, {
                       mutationType: "loadingState",
-                    }))
-                  : t.loadingElementRemoved(e.target);
+                    }),
+                    t.$12(e.target, !0))
+                  : (t.loadingElementRemoved(e.target),
+                    e.target.isConnected !== !1 && t.$12(e.target, !1)),
+                  t.$10.delete(e.target));
               });
             }),
             (this.$3 = e),
@@ -85,8 +91,33 @@ __d(
                 this.$3.config.enable_background_loading_state_polling === !0 &&
                   this.$5 == null &&
                   o("VisibilityAPI").isVisibilityHidden() &&
-                  this.$8());
+                  this.$11());
             }
+          }),
+          (n.$12 = function (t, n) {
+            var e;
+            this.$9.get(t) !== n &&
+              (this.$9.set(t, n),
+              (e = this.$8.get(t)) == null ||
+                e.forEach(function (e) {
+                  e(n);
+                }));
+          }),
+          (n.observeLoadingState = function (t, n) {
+            var e = this;
+            if (this.$3.reported) return function () {};
+            var r = this.$8.get(t);
+            r == null && ((r = new Set()), this.$8.set(t, r));
+            var o = r;
+            o.add(n);
+            var a = this.$9.get(t);
+            return (
+              a != null && n(a),
+              function () {
+                (o.delete(n),
+                  o.size === 0 && e.$8.get(t) === o && e.$8.delete(t));
+              }
+            );
           }),
           (n.waitLoadingState = function (t) {
             var e = this;
@@ -104,13 +135,15 @@ __d(
             )
               return function () {};
             (this.loadingStateObserver && this.loadingStateObserver.observe(t),
-              ((o("VisibilityAPI").canUseVisibilityAPI &&
+              (o("VisibilityAPI").canUseVisibilityAPI &&
                 !o("VisibilityAPI").isVisibilityHidden()) ||
-                o("VisualCompletionUtil").isInAboveTheFold(t, this.$3)) &&
-                this.loadingElementAdded(t));
+              o("VisualCompletionUtil").isInAboveTheFold(t, this.$3)
+                ? this.loadingElementAdded(t)
+                : o("VisibilityAPI").canUseVisibilityAPI && this.$12(t, !1));
             var r = function () {
               (e.loadingStateObserver && e.loadingStateObserver.unobserve(t),
-                e.$1.delete(t));
+                e.$1.delete(t),
+                e.$10.delete(t));
             };
             return (
               this.$1.set(t, r),
@@ -141,27 +174,33 @@ __d(
             this.$3.config.enable_background_loading_state_polling === !0 &&
               o("VisibilityAPI").canUseVisibilityAPI &&
               ((this.$6 = o("VisibilityState").subscribe(function (t, n) {
-                n ? e.$8() : e.$9();
+                n ? e.$11() : (e.$13(), e.$14());
               })),
-              o("VisibilityAPI").isVisibilityHidden() && this.$8());
+              o("VisibilityAPI").isVisibilityHidden() && this.$11());
           }),
-          (n.$8 = function () {
+          (n.$11 = function () {
             var e = this;
             if (this.$5 == null) {
               var n = this.pendingLoadingElements.size();
               n !== 0 &&
                 ((this.$7 = n),
                 (this.$5 = r("setInterval")(function () {
-                  e.$10();
+                  e.$15();
                 }, t.BACKGROUND_POLLING_INTERVAL_MS)));
             }
           }),
-          (n.$9 = function () {
+          (n.$14 = function () {
+            var e = this.loadingStateObserver;
+            if (e != null)
+              for (var t of this.$10.values()) (e.unobserve(t), e.observe(t));
+            this.$10.clear();
+          }),
+          (n.$13 = function () {
             this.$5 != null && (r("clearInterval")(this.$5), (this.$5 = null));
           }),
-          (n.$10 = function () {
+          (n.$15 = function () {
             if (this.$3.reported) {
-              this.$9();
+              this.$13();
               return;
             }
             var t = (e || (e = r("performanceNow")))(),
@@ -181,7 +220,8 @@ __d(
               var c = u.element,
                 d = u.reason;
               (this.$3.addMarkerPoint("bg_poll_loading_removed_" + d, t),
-                this.loadingElementRemoved(c));
+                this.loadingElementRemoved(c),
+                d === "outside_viewport" && (this.$10.add(c), this.$12(c, !1)));
             }
             var m = this.pendingLoadingElements.size();
             (m === 0 &&
@@ -190,10 +230,12 @@ __d(
               (this.$3.addMarkerPoint("bg_poll_loading_gc", t),
               this.$3.attemptMeasurementFromLoadingStateTracker()),
               (this.$7 = m),
-              m === 0 && this.$9());
+              m === 0 && this.$13());
           }),
           (n.disconnect = function () {
-            (this.$9(),
+            ((this.$8 = new WeakMap()),
+              this.$10.clear(),
+              this.$13(),
               this.$6 != null && (this.$6(), (this.$6 = null)),
               this.loadingStateObserver &&
                 this.loadingStateObserver.disconnect());

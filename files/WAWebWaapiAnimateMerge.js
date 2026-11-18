@@ -103,17 +103,17 @@ __d(
             c = t.tween,
             d = a === 0 ? 0 : u / a,
             m = a === 0 ? 1 : l / a,
-            f =
+            _ =
               (r = (o = c.from) != null ? o : s) != null
                 ? r
                 : n === 0
-                  ? _(e, c.to)
+                  ? f(e, c, u)
                   : c.to;
-          n === 0 && d > 0 && i.push(p(e, f, { offset: 0, easing: c.easing }));
+          n === 0 && d > 0 && i.push(p(e, _, { offset: 0, easing: c.easing }));
           var g = i[i.length - 1];
-          (g != null && g.offset === d && String(g[e]) === f
+          (g != null && g.offset === d && String(g[e]) === _
             ? (g.easing = c.easing)
-            : i.push(p(e, f, { offset: d, easing: c.easing })),
+            : i.push(p(e, _, { offset: d, easing: c.easing })),
             i.push(p(e, c.to, { offset: m })),
             (s = c.to));
         }),
@@ -137,7 +137,11 @@ __d(
         r
       );
     }
-    function _(e, t) {
+    var _ = 16;
+    function f(e, t, n) {
+      return n === 0 && t.duration <= _ ? t.to : g(e, t.to);
+    }
+    function g(e, t) {
       return e !== "transform"
         ? t
         : t.replace(/([a-zA-Z]+)\(([^)]*)\)/g, function (e, t) {

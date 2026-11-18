@@ -14,6 +14,7 @@ __d(
     "HeroPendingPlaceholderTracker",
     "HeroPlaceholder.react",
     "HeroPlaceholderUtils",
+    "useHeroLoadingStateRef",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -35,7 +36,8 @@ __d(
       )),
       (l.HeroPendingPlaceholderTracker = o("HeroPendingPlaceholderTracker")),
       (l.HeroPlaceholder = r("HeroPlaceholder.react")),
-      (l.HeroPlaceholderUtils = o("HeroPlaceholderUtils")));
+      (l.HeroPlaceholderUtils = o("HeroPlaceholderUtils")),
+      (l.useHeroLoadingStateRef = r("useHeroLoadingStateRef")));
   },
   98,
 );

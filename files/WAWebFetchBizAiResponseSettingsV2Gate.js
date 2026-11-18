@@ -5,9 +5,9 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
-    "WATimeUtils",
     "WAWebBackendApi",
     "WAWebBizAiAgentGating",
+    "WAWebBizAiGateCache",
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiResponseSettingsV2GateMutation.graphql",
@@ -15,7 +15,6 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
-    "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -35,50 +34,32 @@ __d(
           ? e
           : (e = n("WAWebFetchBizAiResponseSettingsV2GateMutation.graphql")),
       b = "biz_ai_response_settings_v2_gate",
-      v = 360 * 60,
-      S = 1e4,
-      R = 2;
-    function L(e) {
+      v = 1e4,
+      S = 2;
+    function R(e) {
       o("WAWebBackendApi").frontendFireAndForget(
         "loadedBizAiResponseSettingsV2Gate",
         { enabled: e },
       );
     }
-    function E() {
-      var e = r("WAWebUserPrefsStore").getUser(b);
-      if (e == null || typeof e != "object") return null;
-      var t = e.enabled,
-        n = e.ts;
-      if (typeof t != "boolean" || typeof n != "number") return null;
-      var a = !o("WATimeUtils").isInFuture(
-        o("WATimeUtils").futureUnixTime(v, o("WATimeUtils").castToUnixTime(n)),
-      );
-      return a ? null : t;
-    }
-    function k(e) {
-      r("WAWebUserPrefsStore").setUser(b, {
-        enabled: e,
-        ts: o("WATimeUtils").unixTime(),
-      });
-    }
-    function I() {
+    function L() {
       return (
-        R *
+        S *
         (o(
           "WAWebFetchAdAccountToken",
         ).getMaximumAdAccountFetchTimeoutSeconds() *
           1e3 +
-          S)
+          v)
       );
     }
-    function T(e) {
+    function E(e) {
       if (!o("WAWebMobilePlatforms").isSMB())
         return (y || (y = n("Promise"))).resolve();
       var t = o("WAWebBizAiAgentGating").getResponseSettingsV2TriState();
-      if (t === "NONE") return (L(!1), (y || (y = n("Promise"))).resolve());
-      if (t === "ROLLOUT") return (L(!0), (y || (y = n("Promise"))).resolve());
+      if (t === "NONE") return (R(!1), (y || (y = n("Promise"))).resolve());
+      if (t === "ROLLOUT") return (R(!0), (y || (y = n("Promise"))).resolve());
       if (e !== "debug") {
-        var a = E();
+        var a = o("WAWebBizAiGateCache").getCachedBizAiGate(b);
         if (a != null)
           return (
             o("WALogger").LOG(
@@ -89,7 +70,7 @@ __d(
                 ])),
               a,
             ),
-            L(a),
+            R(a),
             (y || (y = n("Promise"))).resolve()
           );
       }
@@ -105,11 +86,11 @@ __d(
         r("WAWebNetworkStatus")
           .waitIfOffline()
           .then(function () {
-            return o("WAPromiseTimeout").promiseTimeout(D(), I());
+            return o("WAPromiseTimeout").promiseTimeout(k(), L());
           })
-          .then(P)
+          .then(D)
           .catch(function (e) {
-            P(
+            D(
               e instanceof o("WACustomError").TimeoutError
                 ? { type: "timeout" }
                 : { type: "unknown-failed" },
@@ -117,7 +98,7 @@ __d(
           })
       );
     }
-    function D() {
+    function k() {
       return o("WAWebBizAiRelayClient")
         .commitMutation(C, {})
         .then(function (e) {
@@ -130,10 +111,10 @@ __d(
             : { enabled: t.value === !0, type: "enabled" };
         })
         .catch(function (e) {
-          return x(e);
+          return I(e);
         });
     }
-    function x(e) {
+    function I(e) {
       return e instanceof
         o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
         ? { type: "token-failed" }
@@ -142,9 +123,9 @@ __d(
           ? { type: "auth-failed" }
           : e instanceof TypeError
             ? { type: "network-unreachable" }
-            : { reason: $(e), type: "network-failed" };
+            : { reason: T(e), type: "network-failed" };
     }
-    function $(e) {
+    function T(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t,
           n,
@@ -166,7 +147,7 @@ __d(
       }
       return e instanceof Error ? e.name : typeof e;
     }
-    function P(e) {
+    function D(e) {
       e: {
         var t = e;
         if (
@@ -175,7 +156,7 @@ __d(
           "enabled" in t
         ) {
           var n = t.enabled;
-          (k(n),
+          (o("WAWebBizAiGateCache").cacheBizAiGate(b, n),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -184,7 +165,7 @@ __d(
                 ])),
               n,
             ),
-            L(n));
+            R(n));
           break e;
         }
         if (
@@ -199,7 +180,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-timeout"),
-            L(!1));
+            R(!1));
           break e;
         }
         if (
@@ -214,7 +195,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-failed-auth"),
-            L(!1));
+            R(!1));
           break e;
         }
         if (
@@ -239,7 +220,7 @@ __d(
                   ])),
               )
               .sendLogs("maiba-response-settings-v2-gate-fetch-failed-network"),
-            L(!1));
+            R(!1));
           break e;
         }
         if (
@@ -254,7 +235,7 @@ __d(
                 ])),
             )
             .verbose(),
-            L(!1));
+            R(!1));
           break e;
         }
         if (
@@ -269,7 +250,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-token-fetch-failed"),
-            L(!1));
+            R(!1));
           break e;
         }
         if (
@@ -284,7 +265,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-response-settings-v2-gate-fetch-failed-unknown"),
-            L(!1));
+            R(!1));
           break e;
         }
         throw Error(
@@ -293,7 +274,7 @@ __d(
         );
       }
     }
-    l.fetchBizAiResponseSettingsV2Gate = T;
+    l.fetchBizAiResponseSettingsV2Gate = E;
   },
   98,
 );

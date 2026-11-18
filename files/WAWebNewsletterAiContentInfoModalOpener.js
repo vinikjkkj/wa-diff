@@ -13,14 +13,15 @@ __d(
     function c(e, t) {
       t === void 0 && (t = {});
       var n = t,
-        r = n.onClose,
-        a = n.onConfirm;
+        r = n.channelWid,
+        a = n.onClose,
+        i = n.onConfirm;
       if (
         e ===
         o("WAWebNewsletterAiContentInfoModalTypes").AiContentModalVariant
           .ADMIN_CONFIRMATION
       ) {
-        (a != null || s(0, 162897),
+        (i != null || s(0, 162897),
           o("WAWebModalManager").ModalManager.open(
             u.jsx(
               o("WAWebNewsletterAiContentInfoModalLoadable")
@@ -28,12 +29,12 @@ __d(
               {
                 variant: e,
                 onConfirm: function () {
-                  (a(),
-                    r == null || r(),
+                  (i(),
+                    a == null || a(),
                     o("WAWebModalManager").closeModalManager());
                 },
                 onCancel: function () {
-                  (r == null || r(),
+                  (a == null || a(),
                     o("WAWebModalManager").closeModalManager());
                 },
               },
@@ -46,9 +47,10 @@ __d(
           o("WAWebNewsletterAiContentInfoModalLoadable")
             .NewsletterAiContentInfoModalLoadable,
           {
+            channelWid: r,
             variant: e,
             onClose: function () {
-              (r == null || r(), o("WAWebModalManager").closeModalManager());
+              (a == null || a(), o("WAWebModalManager").closeModalManager());
             },
           },
         ),

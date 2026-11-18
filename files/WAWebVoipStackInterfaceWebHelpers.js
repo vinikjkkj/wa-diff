@@ -87,9 +87,7 @@ __d(
         );
       }
     }
-    ((l.getForwardedVoipABProps = d),
-      (l.setABPropsOnWasm = m),
-      (l.buildABPropsBag = p));
+    ((l.setABPropsOnWasm = m), (l.buildABPropsBag = p));
   },
   98,
 );

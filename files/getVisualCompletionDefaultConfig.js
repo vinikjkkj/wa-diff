@@ -29,6 +29,7 @@ __d(
             ? e
             : r("gkx")("28579");
         },
+        paintedPixelsChildrenFirstOnTie: t("14963"),
         defer_expensive_calculation: function (n) {
           (e || (e = o("JSScheduler"))).scheduleLoggingPriCallback(n);
         },

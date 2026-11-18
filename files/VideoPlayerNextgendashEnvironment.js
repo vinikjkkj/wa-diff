@@ -136,6 +136,7 @@ __d(
         nativeBackBufferMinRemovableSec: 5,
         nativeBackBufferRetentionSec: 0,
         nativeNextFirstMediaPrewarm: !1,
+        nativeNextPrewarmBufferAheadSec: 0,
         optimizeAutoDisposeTraversal: !1,
         playheadPredictIntervalMs: 0,
         playheadStallRecoveryEnabled: !1,

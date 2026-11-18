@@ -30,7 +30,7 @@ __d(
             ).startPeriodicCrlRefresh());
           var n = t.botSignatureVerificationMetadata,
             r = t.forwardedAiBotMessageInfo;
-          if (r == null || n == null) return t;
+          if (r == null) return t;
           var a = g(t);
           if (a == null)
             return (
@@ -95,7 +95,7 @@ __d(
       return !(
         e.isForwarded !== !0 ||
         e.forwardedAiBotMessageInfo == null ||
-        e.botSignatureVerificationMetadata == null ||
+        (e.botSignatureVerificationMetadata == null && g(e) == null) ||
         !o("WAWebBotSignatureVerificationGating").isForwardVerificationEnabled()
       );
     }

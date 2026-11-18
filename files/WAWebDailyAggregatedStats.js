@@ -101,6 +101,9 @@ __d(
             (t.animatedEmojiSend = o("WAWebBaseModel").prop(0)),
             (t.singleEmojiSend = o("WAWebBaseModel").prop(0)),
             (t.emojiReply = o("WAWebBaseModel").prop(0)),
+            (t.forwardReachCounts = o("WAWebBaseModel").prop(function () {
+              return [];
+            })),
             (t.kicGroupNotificationTaps = o("WAWebBaseModel").prop(0)),
             (t.kicGroupNotifications = o("WAWebBaseModel").prop(0)),
             (t.kicNotificationTaps = o("WAWebBaseModel").prop(0)),

@@ -91,7 +91,7 @@ __d(
     function h(e, t, n, r, a, i) {
       var l,
         c,
-        p = function (a, i, l) {
+        m = function (a, i, l, s) {
           o("WAWebAddEditPixFeature").openPixCredentialManagementModal(
             e,
             t,
@@ -99,26 +99,27 @@ __d(
             a,
             i,
             l,
+            s,
           );
         },
-        f = n == null ? void 0 : n.value;
-      if (n == null || f == null || f === "") {
-        p();
+        p = n == null ? void 0 : n.value;
+      if (n == null || p == null || p === "") {
+        m();
         return;
       }
-      var g = d();
-      if (g.kind === "declined") {
+      var f = d();
+      if (f.kind === "declined") {
         _(e, a);
         return;
       }
-      var h =
+      var g =
           (l = n.keyType) != null
             ? l
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
-        y =
-          h === o("WAWebUserPrefsTypes").PixKeyType.PHONE && f.startsWith(u)
-            ? f.slice(u.length)
-            : f;
+        h =
+          g === o("WAWebUserPrefsTypes").PixKeyType.PHONE && p.startsWith(u)
+            ? p.slice(u.length)
+            : p;
       o("WAWebModalManager").ModalManager.open(
         s.jsx(
           o("WAWebBrSavePartnerPixKeyModalLoadable")
@@ -128,24 +129,28 @@ __d(
             displayName: (c = n.name) != null ? c : "",
             onClose: o("WAWebModalManager").closeModalManager,
             onOpenForm: function (n, r) {
-              if ((o("WAWebModalManager").ModalManager.close(), m() != null)) {
-                p(r, i);
+              if (
+                (o("WAWebModalManager").ModalManager.close(),
+                f.kind === "add" && d().kind !== "add")
+              ) {
+                m(r, i);
                 return;
               }
-              p(
+              m(
                 r,
                 function (e) {
                   (n(), i == null || i(e));
                 },
                 t === "chat" ? "message" : "link",
+                f.kind === "add",
               );
             },
             onPixKeySaved: i,
             partnerCatalogId: a,
-            pixKey: y,
-            pixKeyType: h,
+            pixKey: h,
+            pixKeyType: g,
             referral: t,
-            replacedPixKey: g.kind === "replace" ? g.replacedPixKey : null,
+            replacedPixKey: f.kind === "replace" ? f.replacedPixKey : null,
             resolvedAttribution: r,
           },
         ),

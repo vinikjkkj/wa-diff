@@ -26,8 +26,8 @@ __d(
     "WAWebSyncGatingUtils",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebUserPrefsHistorySync",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsTypes",
+    "WAWebUserUtils",
     "WAWebWamEnumMdBootstrapPayloadType",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -83,7 +83,7 @@ __d(
               });
               return;
             }
-            if (!o("WAWebUserPrefsMeUser").isMePrimary(t)) {
+            if (!o("WAWebUserUtils").isMePrimary(t)) {
               if (t == null || !(t instanceof r("WAWebWid"))) {
                 (o("WALogger")
                   .ERROR(

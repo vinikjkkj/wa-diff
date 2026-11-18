@@ -474,11 +474,11 @@ __d(
         }),
         (t.logUncaughtError = function (t, n) {
           var e = t instanceof Error && t.stack ? t : void 0,
-            o;
+            a;
           if (
             (e
-              ? (o = String(t))
-              : (o = n
+              ? (a = String(t))
+              : (a = n
                   ? "unhandled-rejection: " + String(t)
                   : "Error: " + String(t)),
             n != null &&
@@ -487,26 +487,32 @@ __d(
               typeof t == "object")
           ) {
             try {
-              var a = Object.keys(t).slice(0, 3);
-              a.length > 0 && (o += "; keys: " + a.join(", "));
+              var i = Object.keys(t).slice(0, 3);
+              i.length > 0 && (a += "; keys: " + i.join(", "));
             } catch (e) {}
             try {
-              var i = Reflect.get(t, "methodName");
-              i != null && (o += "; methodName: " + String(i));
+              var l = Reflect.get(t, "methodName");
+              l != null && (a += "; methodName: " + String(l));
             } catch (e) {}
-            var l = H(t);
-            l != null &&
-              ((o += "; error: " + l), l.endsWith(y + ")") && (o = h));
+            var s = H(t);
+            s != null &&
+              ((a += "; error: " + s), s.endsWith(y + ")") && (a = h));
           }
           if (
-            (this.logImpl(A.ERROR, o, e, !0, ["uncaught"]),
+            (this.logImpl(
+              A.ERROR,
+              a,
+              e == null ? void 0 : o("WAWebNormalizeStack").normalizeError(e),
+              !0,
+              ["uncaught"],
+            ),
             r("gkx")("26258") || e != null,
             n != null)
           ) {
-            var s = String(n);
-            (this.logImpl(A.WARN, s), r("gkx")("26258"));
+            var u = String(n);
+            (this.logImpl(A.WARN, u), r("gkx")("26258"));
           }
-          return o;
+          return a;
         }),
         (t.onTakeOver = function () {
           this.isTakeOver = !0;

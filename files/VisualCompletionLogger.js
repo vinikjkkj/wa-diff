@@ -29,7 +29,19 @@ __d(
     function p() {
       return { bottom: 0, left: 0, right: 0, top: 0 };
     }
-    function _(e, t, n) {
+    function _(e, t) {
+      for (var n, r = [], o = e; o != null && !t.has(o); )
+        (r.push(o), (o = o.parent));
+      for (
+        var a = o == null ? -1 : (n = t.get(o)) != null ? n : -1,
+          i = r.length - 1;
+        i >= 0;
+        i--
+      )
+        (a++, t.set(r[i], a));
+      return a;
+    }
+    function f(e, t, n) {
       var r = e.rectangle,
         a = {
           height: Math.floor(r.bottom - r.top),
@@ -48,7 +60,7 @@ __d(
         { data: a, element: e.element, timestamp: e.timestamp }
       );
     }
-    var f = (function () {
+    var g = (function () {
       function t(e, t, n, a, i) {
         var l;
         ((this.bgCheckCount = 0),
@@ -374,15 +386,15 @@ __d(
                   )
                 : null;
           if (
-            (l != null && i.markerPoints.set(c, _(l.paint, l.element, p)),
+            (l != null && i.markerPoints.set(c, f(l.paint, l.element, p)),
             s != null)
           ) {
-            var f,
+            var _,
               g = s,
               h = g.element,
               y = g.paint,
               C =
-                h === ((f = l) == null ? void 0 : f.element)
+                h === ((_ = l) == null ? void 0 : _.element)
                   ? p
                   : m != null
                     ? o("ReactStackUtils").getTrimmedReactStack(
@@ -391,7 +403,7 @@ __d(
                         m,
                       )
                     : null;
-            i.markerPoints.set(d, _(y, h, C));
+            i.markerPoints.set(d, f(y, h, C));
           }
           (u != null &&
             this.addAnnotationDouble(
@@ -846,10 +858,25 @@ __d(
             }));
         }),
         (n.calculatePaintedPixels = function () {
-          var e = this;
-          ((this.$2 = this.$2.sort(function (e, t) {
-            return t.latency - e.latency;
-          })),
+          var e = this,
+            t = function (t, n) {
+              return n.latency - t.latency;
+            };
+          if (this.config.paintedPixelsChildrenFirstOnTie === !0) {
+            var n = new Map();
+            (this.$2.forEach(function (e) {
+              _(e, n);
+            }),
+              (t = function (t, r) {
+                var e, o;
+                return (
+                  r.latency - t.latency ||
+                  ((e = n.get(r)) != null ? e : 0) -
+                    ((o = n.get(t)) != null ? o : 0)
+                );
+              }));
+          }
+          ((this.$2 = this.$2.sort(t)),
             this.$2.forEach(function (t) {
               for (var n = t.pixels, r = t.parent; r; )
                 ((t.rectangle = o(
@@ -1050,7 +1077,7 @@ __d(
         t
       );
     })();
-    l.default = f;
+    l.default = g;
   },
   98,
 );

@@ -31,19 +31,20 @@ __d(
       k = c("fbPage"),
       I = c("googlePlaceId"),
       T = c("igProfessional"),
-      D = c("isAuthorizedAgent"),
-      x = c("isProfileLinked"),
-      $ = c("latitude"),
-      P = c("longitude"),
-      N = c("obaPhoneNumber"),
-      M = c("parentCompanyLogoUrl"),
-      w = c("parentCompanyName"),
-      A = c("prompts"),
-      F = c("showGoogleInfo"),
-      O = c("showGoogleReviews"),
-      B = c("website"),
-      W = c("welcomeMsgProtocolMode"),
-      q = u(
+      D = c("dataSource"),
+      x = c("isAuthorizedAgent"),
+      $ = c("isProfileLinked"),
+      P = c("latitude"),
+      N = c("longitude"),
+      M = c("obaPhoneNumber"),
+      w = c("parentCompanyLogoUrl"),
+      A = c("parentCompanyName"),
+      F = c("prompts"),
+      O = c("showGoogleInfo"),
+      B = c("showGoogleReviews"),
+      W = c("website"),
+      q = c("welcomeMsgProtocolMode"),
+      U = u(
         function (e) {
           var t = e[0],
             n;
@@ -53,14 +54,14 @@ __d(
         },
         [f],
       ),
-      U = u(
+      V = u(
         function (e) {
           var t = e[0];
           return t === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P;
         },
         [_],
       ),
-      V = u(
+      H = u(
         function (e) {
           var t = e[0];
           return t === o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P;
@@ -83,21 +84,22 @@ __d(
       (l.getFbPage = k),
       (l.getGooglePlaceId = I),
       (l.getIgProfessional = T),
-      (l.getIsAuthorizedAgent = D),
-      (l.getIsProfileLinked = x),
-      (l.getLatitude = $),
-      (l.getLongitude = P),
-      (l.getObaPhoneNumber = N),
-      (l.getParentCompanyLogoUrl = M),
-      (l.getParentCompanyName = w),
-      (l.getPrompts = A),
-      (l.getShowGoogleInfo = F),
-      (l.getShowGoogleReviews = O),
-      (l.getWebsite = B),
-      (l.getWelcomeMsgProtocolMode = W),
-      (l.getCustomUrl = q),
-      (l.getIsBizBot3p = U),
-      (l.getIsBizBot1p = V));
+      (l.getDataSource = D),
+      (l.getIsAuthorizedAgent = x),
+      (l.getIsProfileLinked = $),
+      (l.getLatitude = P),
+      (l.getLongitude = N),
+      (l.getObaPhoneNumber = M),
+      (l.getParentCompanyLogoUrl = w),
+      (l.getParentCompanyName = A),
+      (l.getPrompts = F),
+      (l.getShowGoogleInfo = O),
+      (l.getShowGoogleReviews = B),
+      (l.getWebsite = W),
+      (l.getWelcomeMsgProtocolMode = q),
+      (l.getCustomUrl = U),
+      (l.getIsBizBot3p = V),
+      (l.getIsBizBot1p = H));
   },
   98,
 );

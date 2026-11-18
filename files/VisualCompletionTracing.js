@@ -217,6 +217,9 @@ __d(
         (a.waitLoadingState = function (t) {
           return this.$VisualCompletionTracing$p_4.waitLoadingState(t);
         }),
+        (a.observeLoadingState = function (t, n) {
+          return this.$VisualCompletionTracing$p_4.observeLoadingState(t, n);
+        }),
         (a.attemptMeasurementFromLoadingStateTracker = function () {
           this.attemptMeasurement();
         }),

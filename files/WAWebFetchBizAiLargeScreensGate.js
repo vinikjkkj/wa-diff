@@ -5,8 +5,8 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
-    "WATimeUtils",
     "WAWebBackendApi",
+    "WAWebBizAiGateCache",
     "WAWebBizAiRelayClient",
     "WAWebFetchAdAccountToken",
     "WAWebFetchBizAiLargeScreensGateQuery.graphql",
@@ -14,7 +14,6 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
-    "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,43 +33,25 @@ __d(
           ? e
           : (e = n("WAWebFetchBizAiLargeScreensGateQuery.graphql")),
       b = "biz_ai_large_screens_gate",
-      v = 360 * 60,
-      S = 1e4;
-    function R(e) {
+      v = 1e4;
+    function S(e) {
       o("WAWebBackendApi").frontendFireAndForget(
         "loadedBizAiLargeScreensGate",
         { enabled: e },
       );
     }
-    function L() {
-      var e = r("WAWebUserPrefsStore").getUser(b);
-      if (e == null || typeof e != "object") return null;
-      var t = e.enabled,
-        n = e.ts;
-      if (typeof t != "boolean" || typeof n != "number") return null;
-      var a = !o("WATimeUtils").isInFuture(
-        o("WATimeUtils").futureUnixTime(v, o("WATimeUtils").castToUnixTime(n)),
-      );
-      return a ? null : t;
-    }
-    function E(e) {
-      r("WAWebUserPrefsStore").setUser(b, {
-        enabled: e,
-        ts: o("WATimeUtils").unixTime(),
-      });
-    }
-    function k() {
+    function R() {
       return (
         o("WAWebFetchAdAccountToken").getMaximumAdAccountFetchTimeoutSeconds() *
           1e3 +
-        S
+        v
       );
     }
-    function I(e) {
+    function L(e) {
       if (!o("WAWebMobilePlatforms").isSMB())
         return (y || (y = n("Promise"))).resolve();
       if (e !== "debug") {
-        var t = L();
+        var t = o("WAWebBizAiGateCache").getCachedBizAiGate(b);
         if (t != null)
           return (
             o("WALogger").LOG(
@@ -81,7 +62,7 @@ __d(
                 ])),
               t,
             ),
-            R(t),
+            S(t),
             (y || (y = n("Promise"))).resolve()
           );
       }
@@ -97,11 +78,11 @@ __d(
         r("WAWebNetworkStatus")
           .waitIfOffline()
           .then(function () {
-            return o("WAPromiseTimeout").promiseTimeout(T(), k());
+            return o("WAPromiseTimeout").promiseTimeout(E(), R());
           })
-          .then($)
+          .then(T)
           .catch(function (e) {
-            $(
+            T(
               e instanceof o("WACustomError").TimeoutError
                 ? { type: "timeout" }
                 : { type: "unknown-failed" },
@@ -109,7 +90,7 @@ __d(
           })
       );
     }
-    function T() {
+    function E() {
       return o("WAWebBizAiRelayClient")
         .fetchQuery(C, {})
         .then(function (e) {
@@ -124,10 +105,10 @@ __d(
           };
         })
         .catch(function (e) {
-          return D(e);
+          return k(e);
         });
     }
-    function D(e) {
+    function k(e) {
       return e instanceof
         o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
         ? { type: "token-failed" }
@@ -136,9 +117,9 @@ __d(
           ? { type: "auth-failed" }
           : e instanceof TypeError
             ? { type: "network-unreachable" }
-            : { reason: x(e), type: "network-failed" };
+            : { reason: I(e), type: "network-failed" };
     }
-    function x(e) {
+    function I(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
         var t,
           n,
@@ -160,10 +141,10 @@ __d(
       }
       return e instanceof Error ? e.name : typeof e;
     }
-    function $(e) {
+    function T(e) {
       switch (e.type) {
         case "enabled":
-          (E(e.enabled),
+          (o("WAWebBizAiGateCache").cacheBizAiGate(b, e.enabled),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -172,7 +153,7 @@ __d(
                 ])),
               e.enabled,
             ),
-            R(e.enabled));
+            S(e.enabled));
           return;
         case "timeout":
           (o("WALogger")
@@ -183,7 +164,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-fetch-timeout"),
-            R(!1));
+            S(!1));
           return;
         case "auth-failed":
           (o("WALogger")
@@ -194,7 +175,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-fetch-failed-auth"),
-            R(!1));
+            S(!1));
           return;
         case "network-failed":
           (o("WALogger").LOG(
@@ -213,7 +194,7 @@ __d(
                   ])),
               )
               .sendLogs("maiba-large-screens-gate-fetch-failed-network"),
-            R(!1));
+            S(!1));
           return;
         case "network-unreachable":
           (o("WALogger")
@@ -224,7 +205,7 @@ __d(
                 ])),
             )
             .verbose(),
-            R(!1));
+            S(!1));
           return;
         case "token-failed":
           (o("WALogger")
@@ -235,7 +216,7 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-token-fetch-failed"),
-            R(!1));
+            S(!1));
           return;
         case "unknown-failed":
           (o("WALogger")
@@ -246,11 +227,11 @@ __d(
                 ])),
             )
             .sendLogs("maiba-large-screens-gate-fetch-failed-unknown"),
-            R(!1));
+            S(!1));
           return;
       }
     }
-    l.fetchBizAiLargeScreensGate = I;
+    l.fetchBizAiLargeScreensGate = L;
   },
   98,
 );

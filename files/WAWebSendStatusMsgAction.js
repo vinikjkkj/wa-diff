@@ -262,15 +262,18 @@ __d(
           var u = new (o(
               "WAWebStatusPosterActionsLogger",
             ).StatusPosterActionsLogger)(t == null ? void 0 : t.sessionId),
-            c = y(a.type);
-          u.logPostStatusRequest(c, s, t == null ? void 0 : t.entryPoint);
-          var d = {
+            c = y(a.type),
+            d = yield o(
+              "WAWebStatusLoggingUtils",
+            ).statusIdForLoggingOrUndefined(a, "status-send-status-id-failed");
+          u.logPostStatusRequest(c, s, t == null ? void 0 : t.entryPoint, d);
+          var m = {
               type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
               data: a,
             },
-            m = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+            p = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Status,
-              d,
+              m,
             );
           o("WALogger").LOG(
             f ||
@@ -279,17 +282,16 @@ __d(
               ])),
           );
           try {
-            var p;
-            (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
-              metricsReporter: n,
-              msgProtobuf: m,
-              sendMsgRecord: d,
-            }),
-              (p = n.sendReporter) == null || p.postSuccess(),
-              a.updateAck(o("WAWebAck").ACK.SENT));
-            var C = yield o("WAWebStatusLoggingUtils").statusIdForLogging(a);
+            var C;
             return (
-              u.logPostStatusSuccess(c, C, t == null ? void 0 : t.entryPoint),
+              yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
+                metricsReporter: n,
+                msgProtobuf: p,
+                sendMsgRecord: m,
+              }),
+              (C = n.sendReporter) == null || C.postSuccess(),
+              a.updateAck(o("WAWebAck").ACK.SENT),
+              u.logPostStatusSuccess(c, d, t == null ? void 0 : t.entryPoint),
               o("WAWebAutoCrosspostAction").triggerAutoCrosspostIfEnabled(a),
               o("WALogger").LOG(
                 g ||

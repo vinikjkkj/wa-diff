@@ -7,100 +7,121 @@ __d(
     "WAWebMediaDataGetters",
     "WAWebModalManager",
     "WAWebNetworkType",
+    "WAWebNoop",
     "WAWebStatusCollection",
     "WAWebStatusGatingUtils",
     "WAWebStatusModel",
     "WAWebStatusVideoPrefetch",
     "WAWebStatusVisibilityUtils",
     "WAWebVideoUtils",
-    "asyncToGeneratorRuntime",
     "useWAWebStatusActivityIndicator",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = new Set(["slow-2g", "2g"]);
-    function u() {
-      var e = !1,
-        t = function () {
-          ((e = !0),
-            o("WAWebStatusCollection").StatusCollection.off("add", r),
+      s = new Map(),
+      u = new Set(["slow-2g", "2g"]);
+    function c(e, t, n, a) {
+      (t === void 0 &&
+        (t = o("useWAWebStatusActivityIndicator").getStatusesBehindUnreadDot),
+        n === void 0 &&
+          (n = o("WAWebStatusGatingUtils").getStatusListPrefetchDepth));
+      var i = a === void 0 ? {} : a,
+        l = i.cancelDownloadOnStop,
+        s = l === void 0 ? !1 : l,
+        u = !1,
+        c = r("WAWebNoop"),
+        m = function () {
+          ((u = !0),
+            o("WAWebStatusCollection").StatusCollection.off("add", g),
             o("WAWebStatusCollection").StatusCollection.off(
               "change:msgsChanged",
-              r,
+              g,
             ),
-            document.removeEventListener("visibilitychange", r),
-            window.removeEventListener("online", r));
+            document.removeEventListener("visibilitychange", g),
+            window.removeEventListener("online", g));
         },
-        n = null,
-        r = function () {
-          if (f()) {
-            var e = p();
-            if (n == null) {
+        f = null,
+        g = function () {
+          if (_()) {
+            var r = t().filter(
+              o("WAWebStatusVisibilityUtils")
+                .isUserOrTrustedGroupOrNewsletterStatus,
+            );
+            if (f == null) {
               if (
-                !e.some(function (e) {
-                  return _(e) != null;
+                !r.some(function (e) {
+                  return p(e) != null;
                 })
               )
                 return;
-              n = o("WAWebStatusGatingUtils").getStatusListPrefetchDepth();
+              f = n();
             }
-            var r = e.slice(0, n).map(_).filter(Boolean);
-            r.length !== 0 &&
-              (t(),
-              o("WAWebStatusGatingUtils").isStatusUnreadDotPrefetchEnabled() &&
-                c(r));
+            var a = r.slice(0, f).map(p).filter(Boolean);
+            a.length !== 0 && (m(), e() && (c = d(a)));
           }
         };
       return (
         o("WAWebEventsWaitForOfflineDeliveryEnd")
           .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
           .then(function () {
-            e ||
-              (o("WAWebStatusCollection").StatusCollection.on("add", r),
+            u ||
+              (o("WAWebStatusCollection").StatusCollection.on("add", g),
               o("WAWebStatusCollection").StatusCollection.on(
                 "change:msgsChanged",
-                r,
+                g,
               ),
-              document.addEventListener("visibilitychange", r),
-              window.addEventListener("online", r),
-              r());
+              document.addEventListener("visibilitychange", g),
+              window.addEventListener("online", g),
+              g());
           }),
-        t
+        function () {
+          (m(), s && c());
+        }
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    function d(t) {
+      var a = null,
+        i = !1,
+        l = !1,
+        u = function () {
+          ((i = !0),
+            a != null &&
+              l &&
+              o("WAWebStatusVideoPrefetch").cancelStatusVideoPrefetch(a));
+        },
+        c = function (t) {
+          var e = m(t);
+          a != null &&
+            e instanceof r("WAWebStatusModel") &&
+            e.msgs.get(a.id) == null &&
+            u();
+        };
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = null,
-            i = !1,
-            l = function (t) {
-              var e = a,
-                n = m(t);
-              e != null &&
-                n instanceof r("WAWebStatusModel") &&
-                n.msgs.get(e.id) == null &&
-                ((i = !0),
-                o("WAWebStatusVideoPrefetch").cancelStatusVideoPrefetch(e));
-            };
-          (o("WAWebModalManager").ModalManager.on("open_media", l),
-            yield t.reduce(
-              function (e, t) {
-                return e.then(function () {
-                  if (!i)
-                    return (
-                      (a = t),
-                      o("WAWebStatusVideoPrefetch").prefetchStatusVideo(t)
-                    );
-                });
-              },
-              (e || (e = n("Promise"))).resolve(),
-            ),
-            o("WAWebModalManager").ModalManager.off("open_media", l));
-        })),
-        d.apply(this, arguments)
+        o("WAWebModalManager").ModalManager.on("open_media", c),
+        t
+          .reduce(
+            function (e, t) {
+              return e.then(function () {
+                var e = t.id.toString();
+                if (!i) {
+                  a = t;
+                  var n = s.get(e);
+                  if (((l = n == null), n != null)) return n;
+                  var r = o("WAWebStatusVideoPrefetch")
+                    .prefetchStatusVideo(t)
+                    .finally(function () {
+                      (s.delete(e), (a = null));
+                    });
+                  return (s.set(e, r), r);
+                }
+              });
+            },
+            (e || (e = n("Promise"))).resolve(),
+          )
+          .finally(function () {
+            return o("WAWebModalManager").ModalManager.off("open_media", c);
+          }),
+        u
       );
     }
     function m(e) {
@@ -111,15 +132,7 @@ __d(
         ? null
         : e.props.initialStatus;
     }
-    function p() {
-      return o("useWAWebStatusActivityIndicator")
-        .getStatusesBehindUnreadDot()
-        .filter(
-          o("WAWebStatusVisibilityUtils")
-            .isUserOrTrustedGroupOrNewsletterStatus,
-        );
-    }
-    function _(e) {
+    function p(e) {
       var t = e.msgs.getModelsArray().find(function (e) {
         return e.ack !== o("WAWebAck").ACK.READ;
       });
@@ -129,19 +142,19 @@ __d(
         ? t
         : null;
     }
-    function f() {
+    function _() {
       return (
         document.visibilityState === "visible" &&
         navigator.onLine &&
-        !g() &&
-        !s.has(o("WAWebNetworkType").getEffectiveNetworkType())
+        !f() &&
+        !u.has(o("WAWebNetworkType").getEffectiveNetworkType())
       );
     }
-    function g() {
+    function f() {
       var e = Reflect.get(navigator, "connection");
       return typeof e == "object" && (e == null ? void 0 : e.saveData) === !0;
     }
-    l.prefetchUnreadDotVideoWhenReady = u;
+    l.prefetchUnreadDotVideoWhenReady = c;
   },
   98,
 );

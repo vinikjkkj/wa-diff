@@ -50,7 +50,14 @@ __d(
               dashManifestUrl: e.dashManifestUrl,
             }
           : void 0,
-        f = s(o("WAWebE2EProtoGenerator").createProtobuf(e, _));
+        f = s(
+          o("WAWebE2EProtoGenerator").createProtobuf(
+            e.forwardReachScore == null
+              ? e
+              : babelHelpers.extends({}, e, { forwardReachScore: null }),
+            _,
+          ),
+        );
       if (e.latestEditMsgKey != null && e.latestEditSenderTimestampMs != null) {
         var g,
           h = {

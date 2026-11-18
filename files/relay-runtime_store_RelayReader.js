@@ -1884,19 +1884,20 @@ __d(
             );
           }),
           (t.$33 = function (t, r, o) {
-            var e = t.args == null ? t.name : E(t, this.$14);
-            this.$7 != null && this.$11.add(R(this.$7, e));
-            var a = (
+            var e = this.$14,
+              a = t.args == null ? t.name : E(t, e);
+            this.$7 != null && this.$11.add(R(this.$7, a));
+            var i = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
-            ).getLinkedRecordIDs(r, e);
+            ).getLinkedRecordIDs(r, a);
             return (
-              (a === null ||
+              (i === null ||
                 (n("relay-runtime/util/RelayFeatureFlags")
                   .ENABLE_NONCOMPLIANT_ERROR_HANDLING_ON_LISTS &&
-                  Array.isArray(a) &&
-                  a.length === 0)) &&
-                this.$23(r, e),
-              this.$47(t, a, r, o)
+                  Array.isArray(i) &&
+                  i.length === 0)) &&
+                this.$23(r, a),
+              this.$47(t, i, r, o)
             );
           }),
           (t.$47 = function (t, r, o, a, i) {

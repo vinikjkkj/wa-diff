@@ -1,6 +1,13 @@
 __d(
   "WAWebBizAiGraphQLQpl",
-  ["WALogger", "WAWebGraphQLServerError", "WAWebQplFlow", "qpl"],
+  [
+    "WALogger",
+    "WAWebFetchWithAdAccountToken",
+    "WAWebGraphQLFetchFailure",
+    "WAWebGraphQLServerError",
+    "WAWebQplFlow",
+    "qpl",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -97,6 +104,7 @@ __d(
         flow: n,
         hasGraphQLErrors: !1,
         hasMalformedResponse: !1,
+        hasResponse: !1,
       }),
         n.addPoint("request_start"));
     }
@@ -141,6 +149,7 @@ __d(
     function _(e, t) {
       var n = u.get(e);
       if (n != null) {
+        n.hasResponse = !0;
         var r = Array.isArray(t) ? t : [t];
         for (var o of r) {
           if (o == null || typeof o != "object") {
@@ -181,23 +190,50 @@ __d(
           r.flow.addPoint("request_end"),
           t === "error" || r.hasGraphQLErrors || r.hasMalformedResponse)
         ) {
-          (r.flow.addAnnotations({
-            string: {
-              error_category: g(r, n),
-              error_code: Array.from(r.errorCodes).join(",") || "UNKNOWN",
-            },
-          }),
-            r.flow.endFail("request_failed"));
+          y(r, n);
           return;
         }
-        if (t === "unsubscribe") {
+        if (t === "unsubscribe" && !r.hasResponse) {
           r.flow.endCancel(void 0, {
             string: { disposal_reason: "relay_unsubscribe" },
           });
           return;
         }
-        r.flow.endSuccess();
+        r.flow.endSuccess({ bool: { server_answered: !0 } });
       }
+    }
+    function y(e, t) {
+      var n =
+        e.hasResponse ||
+        t instanceof o("WAWebGraphQLServerError").GraphQLServerError ||
+        t instanceof SyntaxError;
+      (e.flow.addAnnotations({
+        bool: { server_answered: n },
+        string: C(e, n, t),
+      }),
+        e.flow.endFail("request_failed"));
+    }
+    function C(e, t, n) {
+      var r = o("WAWebGraphQLFetchFailure").getGraphQLFetchFailureStage(n),
+        a = {
+          error_category: g(e, n),
+          error_code: Array.from(e.errorCodes).join(",") || "UNKNOWN",
+        };
+      return (
+        t || (a.failure_scenario = b(n, r)),
+        r != null && (a.fetch_failure_stage = r),
+        a
+      );
+    }
+    function b(e, t) {
+      return navigator.onLine
+        ? t != null
+          ? "NETWORK_ERROR"
+          : e instanceof
+              o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError
+            ? "TOKEN_FAILURE"
+            : "UNKNOWN"
+        : "OFFLINE";
     }
     l.logBizAiGraphQLRequest = c;
   },

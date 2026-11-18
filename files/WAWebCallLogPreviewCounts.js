@@ -26,7 +26,14 @@ __d(
       c = 2,
       d = 250,
       m = new Map(),
-      p = (function () {
+      p = [
+        "callOutcome",
+        "finalCallOutcome",
+        "isVideoCall",
+        "callSilenceReason",
+        "subtype",
+      ],
+      _ = (function () {
         function t() {
           var t = this;
           ((this.$1 = m),
@@ -64,7 +71,7 @@ __d(
                 var n = t.$7,
                   r = new AbortController();
                 ((t.$6 = r),
-                  (t.$5 = f(r.signal)
+                  (t.$5 = g(r.signal)
                     .then(function (e) {
                       n === t.$7 && ((t.$2 = e), t.$13());
                     })
@@ -140,13 +147,7 @@ __d(
                 this.$10,
               ),
             ].concat(
-              [
-                "callOutcome",
-                "finalCallOutcome",
-                "isVideoCall",
-                "callSilenceReason",
-                "subtype",
-              ].map(function (t) {
+              p.map(function (t) {
                 return new (o("WAWebUIListener").Listener)(
                   o("WAWebMsgCollection").MsgCollection,
                   "change:" + t,
@@ -207,8 +208,8 @@ __d(
           t
         );
       })(),
-      _ = new p();
-    function f(e, t) {
+      f = new _();
+    function g(e, t) {
       return (
         t === void 0 && (t = 0),
         e.aborted
@@ -223,7 +224,7 @@ __d(
                     if (e.aborted || t >= c) throw n;
                     return (
                       yield o("WAPromiseDelays").delayMs(d * Math.pow(2, t), e),
-                      f(e, t + 1)
+                      g(e, t + 1)
                     );
                   },
                 );
@@ -234,7 +235,7 @@ __d(
             )
       );
     }
-    l.previewCounts = _;
+    l.previewCounts = f;
   },
   98,
 );

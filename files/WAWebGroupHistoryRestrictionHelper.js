@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupHistoryRestrictionHelper",
   [
-    "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebGroupAgentProfileRouting",
     "WAWebGroupHistoryGating",
@@ -10,12 +9,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return o("WAWebBotUtils").isMetaAiBot(e) ||
-        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-        ? !0
-        : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) &&
-            (o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-              o("WAWebGroupHistoryGating").isMuseGroupHistoryShareEnabled());
+      return (
+        o("WAWebBotUtils").isMetaAiBot(e) ||
+        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e) ||
+        o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e)
+      );
     }
     function s(t) {
       return (

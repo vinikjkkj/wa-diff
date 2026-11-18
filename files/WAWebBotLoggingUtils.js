@@ -200,45 +200,60 @@ __d(
                   .AISEARCH_TYPE_AHEAD_SUGGESTION
               ? "typeahead_suggestion"
               : e ===
-                  o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.DEEPLINK
-                ? "deeplink"
+                  o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
+                    .AISEARCH_TYPE_AHEAD_PAPER_PLANE
+                ? "typeahead_paper_plane"
                 : e ===
-                    o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                      .NOTIFICATION
-                  ? "notification"
+                    o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.DEEPLINK
+                  ? "deeplink"
                   : e ===
-                      o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.AI_TAB
-                    ? "ai_tab"
+                      o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
+                        .NOTIFICATION
+                    ? "notification"
                     : e ===
                         o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                          .ASK_META_AI_CONTEXT_MENU
-                      ? "ask_meta_ai_context_menu"
+                          .AI_TAB
+                      ? "ai_tab"
                       : e ===
                           o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                            .ASK_META_AI_CONTEXT_MENU_1ON1
-                        ? "ask_meta_ai_context_menu_1on1"
+                            .ASK_META_AI_CONTEXT_MENU
+                        ? "ask_meta_ai_context_menu"
                         : e ===
                             o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                              .ASK_META_AI_CONTEXT_MENU_GROUP
-                          ? "ask_meta_ai_context_menu_group"
+                              .ASK_META_AI_CONTEXT_MENU_1ON1
+                          ? "ask_meta_ai_context_menu_1on1"
                           : e ===
                               o("WAWebProtobufsAICommon.pb")
-                                .BotMetricsEntryPoint.META_AI_FORWARD
-                            ? "meta_ai_forward"
+                                .BotMetricsEntryPoint
+                                .ASK_META_AI_CONTEXT_MENU_GROUP
+                            ? "ask_meta_ai_context_menu_group"
                             : e ===
                                 o("WAWebProtobufsAICommon.pb")
-                                  .BotMetricsEntryPoint.WEB_INTRO_PANEL
-                              ? "web_intro_panel"
+                                  .BotMetricsEntryPoint.INVOKE_META_AI_1ON1
+                              ? "invoke_meta_ai_1on1"
                               : e ===
                                   o("WAWebProtobufsAICommon.pb")
-                                    .BotMetricsEntryPoint.WEB_NAVIGATION_BAR
-                                ? "web_navigation_bar"
+                                    .BotMetricsEntryPoint.INVOKE_META_AI_GROUP
+                                ? "invoke_meta_ai_group"
                                 : e ===
                                     o("WAWebProtobufsAICommon.pb")
-                                      .BotMetricsEntryPoint
-                                      .PROFILE_MESSAGE_BUTTON
-                                  ? "profile_message_button"
-                                  : null;
+                                      .BotMetricsEntryPoint.META_AI_FORWARD
+                                  ? "meta_ai_forward"
+                                  : e ===
+                                      o("WAWebProtobufsAICommon.pb")
+                                        .BotMetricsEntryPoint.WEB_INTRO_PANEL
+                                    ? "web_intro_panel"
+                                    : e ===
+                                        o("WAWebProtobufsAICommon.pb")
+                                          .BotMetricsEntryPoint
+                                          .WEB_NAVIGATION_BAR
+                                      ? "web_navigation_bar"
+                                      : e ===
+                                          o("WAWebProtobufsAICommon.pb")
+                                            .BotMetricsEntryPoint
+                                            .PROFILE_MESSAGE_BUTTON
+                                        ? "profile_message_button"
+                                        : null;
     }
     function f(e) {
       e: {

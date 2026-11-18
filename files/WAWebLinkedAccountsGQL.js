@@ -132,7 +132,19 @@ __d(
         f.apply(this, arguments)
       );
     }
-    var g = (function () {
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield y();
+          return e == null ? null : e.accounts;
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    var y = (function () {
       var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         var t = o(
             "WAWebAdvertiseEntryPointQplHelpers",
@@ -187,41 +199,42 @@ __d(
                 ),
                 null
               );
-            var l = [];
+            var l = [a.fb_page, a.wa_ad_identity].every(C),
+              s = [];
             if ((r = a.fb_page) != null && r.ad_status) {
-              var s,
-                u,
-                c = {
+              var u,
+                c,
+                d = {
                   type: "facebook",
                   id:
-                    (s = (u = a.fb_page) == null ? void 0 : u.id) != null
-                      ? s
+                    (u = (c = a.fb_page) == null ? void 0 : c.id) != null
+                      ? u
                       : "",
                   hasCreatedAd: a.fb_page.ad_status.has_created_ad === !0,
                   hasActiveLinkedAd:
                     a.fb_page.ad_status.has_active_ctwa_ad === !0,
                 };
-              l.push(c);
+              s.push(d);
             }
             if (a.wa_ad_identity) {
-              var d,
-                m,
+              var m,
                 p,
-                _ = {
+                _,
+                f = {
                   type: "whatsapp",
-                  id: (d = a.wa_ad_identity.id) != null ? d : "",
+                  id: (m = a.wa_ad_identity.id) != null ? m : "",
                   hasCreatedAd:
-                    ((m = a.wa_ad_identity.ad_status) == null
-                      ? void 0
-                      : m.has_created_ad) === !0,
-                  hasActiveLinkedAd:
                     ((p = a.wa_ad_identity.ad_status) == null
                       ? void 0
-                      : p.has_active_ctwa_ad) === !0,
+                      : p.has_created_ad) === !0,
+                  hasActiveLinkedAd:
+                    ((_ = a.wa_ad_identity.ad_status) == null
+                      ? void 0
+                      : _.has_active_ctwa_ad) === !0,
                 };
-              l.push(_);
+              s.push(f);
             }
-            return { accounts: l };
+            return { accounts: { accounts: s }, pageInfoComplete: l };
           })
           .catch(function (e) {
             throw (
@@ -251,7 +264,17 @@ __d(
         return t.apply(this, arguments);
       };
     })();
-    l.queryLinkedAccountsGQL = g;
+    function C(e) {
+      var t;
+      return (
+        e == null ||
+        (e.id != null &&
+          e.id !== "" &&
+          typeof ((t = e.ad_status) == null ? void 0 : t.has_created_ad) ==
+            "boolean")
+      );
+    }
+    ((l.queryLinkedAccountsGQL = g), (l.queryLinkedAccountsResultGQL = y));
   },
   98,
 );

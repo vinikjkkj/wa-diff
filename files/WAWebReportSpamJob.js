@@ -31,13 +31,15 @@ __d(
       s,
       u,
       c,
-      d = 5;
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+      d,
+      m,
+      p = 5;
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           for (
             var r = [], a = e.msgs.toArray().reverse(), i = t, l = 0;
             l < a.length && !(r.length >= t);
@@ -83,12 +85,12 @@ __d(
                 (r.push.apply(r, u), (i += u.length));
               } else r.push(s);
           }
-          return $(r.slice(0, i));
+          return N(r.slice(0, i));
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
+    function g(e) {
       var t, n;
       return (
         ((t = e.buttonsMessage) == null ? void 0 : t.buttons) != null &&
@@ -122,73 +124,111 @@ __d(
         e
       );
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i = yield o("WAWebReportUtils").getMessageMixinArgs(n);
           if (i == null)
-            throw r("err")("report status failed due to unsupported msg type");
+            throw (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WA-ICE] reportStatus unsupported msg type=",
+                      " sub=",
+                      "",
+                    ])),
+                  n.type,
+                  n.subtype,
+                )
+                .tags("wa-ice", "reporting")
+                .sendLogs("reporting-status-unsupported-msg-type"),
+              r("err")(
+                "report status failed due to unsupported msg type=%s sub=%s",
+                n.type,
+                String(n.subtype),
+              )
+            );
           var l = o("WAWebMsgGetters").getSender(n);
           if (l == null)
-            throw r("err")("report status failed due to missing sender");
-          var s = [h({ msg: n, msgMixin: i, sender: l })],
-            u = yield y(n, l);
-          u != null && s.push(u);
-          var c = {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WA-ICE] reportStatus missing sender type=",
+                      " sub=",
+                      "",
+                    ])),
+                  n.type,
+                  n.subtype,
+                )
+                .tags("wa-ice", "reporting")
+                .sendLogs("reporting-status-missing-sender"),
+              r("err")(
+                "report status failed due to missing sender type=%s sub=%s",
+                n.type,
+                String(n.subtype),
+              )
+            );
+          var c = [C({ msg: n, msgMixin: i, sender: l })],
+            d = yield b(n, l);
+          d != null && c.push(d);
+          var m = {
               spamListSpamFlow: t,
               spamListWiTraceId: a,
               spamListJid: o("WAJids").STATUS_JID,
-              messageArgs: s,
+              messageArgs: c,
             },
-            d = yield o("WASmaxSpamStatusReportRPC").sendStatusReportRPC(c);
+            p = yield o("WASmaxSpamStatusReportRPC").sendStatusReportRPC(m);
           e: {
-            var m = d;
+            var _ = p;
             if (
-              ((typeof m == "object" && m !== null) ||
-                typeof m == "function") &&
-              m.name === "StatusReportResponseError" &&
-              "value" in m
+              ((typeof _ == "object" && _ !== null) ||
+                typeof _ == "function") &&
+              _.name === "StatusReportResponseError" &&
+              "value" in _
             ) {
-              var p = m.value,
-                _ = parseInt(String(p.errorSpamIqErrors.value.code), 10),
-                f = p.errorSpamIqErrors.value.text;
+              var f = _.value,
+                g = parseInt(String(f.errorSpamIqErrors.value.code), 10),
+                h = f.errorSpamIqErrors.value.text;
               return (
                 o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "reportStatus: server response with ",
                       ", ",
                       "",
                     ])),
-                  _,
-                  f,
+                  g,
+                  h,
                 ),
-                { errorCode: _, errorText: f }
+                { errorCode: g, errorText: h }
               );
               break e;
             }
             if (
-              ((typeof m == "object" && m !== null) ||
-                typeof m == "function") &&
-              m.name === "StatusReportResponseSuccess" &&
-              "value" in m
+              ((typeof _ == "object" && _ !== null) ||
+                typeof _ == "function") &&
+              _.name === "StatusReportResponseSuccess" &&
+              "value" in _
             ) {
-              var g = m.value;
-              return g;
+              var y = _.value;
+              return y;
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                m,
+                _,
             );
           }
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e) {
+    function C(e) {
       var t = e.msg,
         n = e.msgMixin,
         r = e.sender;
@@ -201,34 +241,34 @@ __d(
         },
       });
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            r = T(e),
+            r = x(e),
             a = r[0];
           if (a == null) return null;
-          var i = yield b(a);
+          var i = yield S(a);
           return i != null
-            ? h({
+            ? C({
                 msg: a,
                 msgMixin: i,
                 sender: (n = o("WAWebMsgGetters").getSender(a)) != null ? n : t,
               })
             : null;
         })),
-        C.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             return yield o("WAWebReportUtils").getMessageMixinArgs(e, {
               allowAssociatedMessage: !0,
@@ -237,8 +277,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "reportSpam: skipping associated child type=",
                       " association=",
                       "",
@@ -251,10 +291,10 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function S(e) {
+    function L(e) {
       return (
         e.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType
@@ -264,29 +304,29 @@ __d(
         )
       );
     }
-    function R(e) {
-      return S(e)
-        ? b(e)
+    function E(e) {
+      return L(e)
+        ? S(e)
         : o("WAWebReportUtils").getMessageMixinArgs(e, {
             allowAssociatedMessage: o(
               "WAWebSpamUtils",
             ).isSpamSupportedForAssociatedMessageType(e.type),
           });
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = yield o("WAWebReportUtils").getMessageMixinArgs(e),
-            l = i != null ? yield D(e) : [],
-            s = yield (c || (c = n("Promise"))).all(
+            l = i != null ? yield $(e) : [],
+            s = yield (m || (m = n("Promise"))).all(
               l.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = yield b(e);
+                      var t = yield S(e);
                       return t != null
                         ? babelHelpers.extends(
                             {
@@ -326,29 +366,29 @@ __d(
             s.forEach(function (e) {
               e != null && u.push(e);
             }));
-          var d = o("WAWebMsgGetters").getSender(e);
-          if (d == null)
+          var c = o("WAWebMsgGetters").getSender(e);
+          if (c == null)
             throw r("err")("report status failed due to missing sender");
-          var m = {
+          var d = {
               spamListSpamFlow: t,
               spamListWiTraceId: a,
-              spamListJid: o("WAWebWidToJid").widToUserJid(d),
+              spamListJid: o("WAWebWidToJid").widToUserJid(c),
               messageArgs: u,
             },
             p = yield o(
               "WASmaxSpamIndividualReportRPC",
-            ).sendIndividualReportRPC(m);
+            ).sendIndividualReportRPC(d);
           return o("WAWebParseReportResponse").parseIndividualReportResponse(p);
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           if (e.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION) return [];
           if (!o("WAWebSpamUtils").isSpamSupportedForMessageType(e.type))
@@ -372,10 +412,10 @@ __d(
             );
           });
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e) {
+    function x(e) {
       return o("WAWebMessageAssociationUIUtils")
         .getHiddenAssociatedMessages(e.id)
         .filter(function (e) {
@@ -384,36 +424,36 @@ __d(
           ).isDualUploadAssociationType(e.associationType);
         });
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield k(e);
-          return [].concat(t, T(e));
-        })),
-        x.apply(this, arguments)
-      );
-    }
     function $(e) {
       return P.apply(this, arguments);
     }
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (c || (c = n("Promise"))).all(e.map(D));
-          return [].concat(e, t.flat());
+          var t = yield T(e);
+          return [].concat(t, x(e));
         })),
         P.apply(this, arguments)
       );
     }
-    function N(e, t, n) {
+    function N(e) {
       return M.apply(this, arguments);
     }
     function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield (m || (m = n("Promise"))).all(e.map($));
+          return [].concat(e, t.flat());
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e, t, n) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = {
               spamListJid: o("WAWebWidToJid").widToGroupJid(e.id),
               spamListSpamFlow: t,
@@ -423,33 +463,33 @@ __d(
             a = yield o("WASmaxSpamGroupReportRPC").sendGroupReportRPC(r);
           return o("WAWebParseReportResponse").parseGroupReportResponse(a);
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function w(e, t, n, r) {
-      return A.apply(this, arguments);
+    function F(e, t, n, r) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = [];
             t != null
               ? (i = o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type)
-                  ? yield $([t])
+                  ? yield N([t])
                   : [])
-              : (i = yield m(e, d, null));
-            var l = yield (c || (c = n("Promise"))).all(
+              : (i = yield _(e, p, null));
+            var l = yield (m || (m = n("Promise"))).all(
                 i.map(
                   (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (t) {
-                        var n = yield R(t);
+                        var n = yield E(t);
                         if (n == null) return null;
                         var r = o(
                             "WAWebGroupHistoryUtils",
                           ).shouldReportGroupHistoryBundleSender(t),
-                          a = yield q(t, r);
+                          a = yield V(t, r);
                         return babelHelpers.extends(
                           {
                             messageFrom: o("WAWebWidToJid").widToGroupJid(e.id),
@@ -483,28 +523,28 @@ __d(
             return o("WAWebParseReportResponse").parseGroupReportResponse(u);
           },
         )),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F(e, t, n, r) {
-      return O.apply(this, arguments);
+    function B(e, t, n, r) {
+      return W.apply(this, arguments);
     }
-    function O() {
+    function W() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = [];
             t != null
               ? (i = o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type)
-                  ? yield $([t])
+                  ? yield N([t])
                   : [])
-              : (i = yield m(e, d, e.id));
-            var l = yield (c || (c = n("Promise"))).all(
+              : (i = yield _(e, p, e.id));
+            var l = yield (m || (m = n("Promise"))).all(
                 i.map(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
-                        var t = yield R(e);
+                        var t = yield E(e);
                         return t != null
                           ? babelHelpers.extends(
                               {
@@ -541,15 +581,15 @@ __d(
             );
           },
         )),
-        O.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function B(e, t, n, r) {
-      return W.apply(this, arguments);
+    function q(e, t, n, r) {
+      return U.apply(this, arguments);
     }
-    function W() {
+    function U() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a;
             return (
@@ -568,32 +608,32 @@ __d(
                           r,
                         ))
                 : n != null && !o("WAWebChatGetters").getIsGroup(e)
-                  ? (a = yield L(n, t, r))
+                  ? (a = yield k(n, t, r))
                   : e.isParentGroup === !0
-                    ? (a = yield N(e, t, r))
+                    ? (a = yield w(e, t, r))
                     : o("WAWebChatGetters").getIsGroup(e)
-                      ? (a = yield w(e, n, t, r))
-                      : (a = yield F(e, n, t, r)),
+                      ? (a = yield F(e, n, t, r))
+                      : (a = yield B(e, n, t, r)),
               a
             );
           },
         )),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function U() {
+    function H() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t) {
             var n = o("WAWebMsgGetters").getGroupHistoryBundleSender(e);
             return n != null
               ? o("WAWebWidToJid").widToUserJid(n)
               : (o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "getReportedAuthorJid: group history bundle sender is null",
                     ])),
                 ),
@@ -605,14 +645,14 @@ __d(
               ? o("WAWebWidToJid").widToUserJid(e.from)
               : null;
         })),
-        U.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    ((l.SPAM_REPORT_MESSAGE_COUNT = d),
-      (l.loadMsgsForSpamReport = m),
-      (l.getSpamMessageProtobuf = _),
-      (l.reportStatus = f),
-      (l.reportSpam = B));
+    ((l.SPAM_REPORT_MESSAGE_COUNT = p),
+      (l.loadMsgsForSpamReport = _),
+      (l.getSpamMessageProtobuf = g),
+      (l.reportStatus = h),
+      (l.reportSpam = q));
   },
   98,
 );

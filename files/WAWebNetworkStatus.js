@@ -22,12 +22,16 @@ __d(
       p,
       _,
       f,
-      g = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
-      h = !1,
-      y = (function (t) {
+      g,
+      h,
+      y = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
+      C = 10 * 1e3,
+      b = 0,
+      v = !1,
+      S = (function (t) {
         function a() {
-          for (var a, i = arguments.length, l = new Array(i), _ = 0; _ < i; _++)
-            l[_] = arguments[_];
+          for (var a, i = arguments.length, l = new Array(i), g = 0; g < i; g++)
+            l[g] = arguments[g];
           return (
             (a = t.call.apply(t, [this].concat(l)) || this),
             (a.online = o("WAWebBaseModel").session(!0)),
@@ -57,7 +61,7 @@ __d(
                         "waitIfOffline: Waiting...",
                       ])),
                   ),
-                    yield new (f || (f = n("Promise")))(function (e) {
+                    yield new (h || (h = n("Promise")))(function (e) {
                       t.listenToOnce(t, "change:online", function () {
                         (o("WALogger").LOG(
                           u ||
@@ -73,7 +77,7 @@ __d(
             )),
             (a.checkOnline = r("WAMemoizeConcurrent")(
               function () {
-                return "all";
+                return String(b);
               },
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 if (
@@ -83,7 +87,7 @@ __d(
                         "NetworkStatus:checkOnline checking",
                       ])),
                   ),
-                  (h || r("gkx")("26256")) && this.simulatedOfflineConditions)
+                  (v || r("gkx")("26256")) && this.simulatedOfflineConditions)
                 ) {
                   o("WALogger").LOG(
                     d ||
@@ -93,17 +97,41 @@ __d(
                   );
                   return;
                 }
+                var e = b,
+                  t = new AbortController(),
+                  n = self.setTimeout(function () {
+                    return t.abort();
+                  }, C);
                 try {
-                  var e = yield r("WAWebNetworkGetResponseIfOnline")({
+                  var a = yield r("WAWebNetworkGetResponseIfOnline")({
                     data: null,
                     method: "GET",
                     responseType: void 0,
-                    url: g,
+                    url: y,
+                    signal: t.signal,
                   });
-                  ((this.online = !!e),
+                  if (t.signal.aborted) {
                     o("WALogger").LOG(
                       m ||
                         (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "NetworkStatus:checkOnline timed out",
+                        ])),
+                    );
+                    return;
+                  }
+                  if (e !== b) {
+                    o("WALogger").LOG(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "NetworkStatus:checkOnline ignored: started before markOnline",
+                        ])),
+                    );
+                    return;
+                  }
+                  ((this.online = !!a),
+                    o("WALogger").LOG(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "NetworkStatus:checkOnline response ",
                           "",
                         ])),
@@ -111,13 +139,15 @@ __d(
                     ));
                 } catch (e) {
                   o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "NetworkStatus:checkOnline errored! ",
                         "",
                       ])),
                     String(e),
                   );
+                } finally {
+                  self.clearTimeout(n);
                 }
               }),
             )),
@@ -136,8 +166,8 @@ __d(
             var e = this.online;
             (o("WALogger")
               .LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[comms] NetworkStatus ",
                     "",
                   ])),
@@ -151,16 +181,19 @@ __d(
           (i.isOnline = function () {
             return this.online;
           }),
+          (i.markOnline = function () {
+            (b++, (this.online = !0));
+          }),
           (i.simulateNetworkStatus = function (t) {
-            (h || r("gkx")("26256")) &&
+            (v || r("gkx")("26256")) &&
               ((this.online = t), (this.simulatedOfflineConditions = !t));
           }),
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      C = o("WAWebBaseModel").defineModel(y),
-      b = new C();
-    l.default = b;
+      R = o("WAWebBaseModel").defineModel(S),
+      L = new R();
+    l.default = L;
   },
   98,
 );

@@ -24,8 +24,10 @@ __d(
     "WAWebProfilePicThumbCollection",
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -109,7 +111,7 @@ __d(
           (r.initialize = function () {
             var n = this;
             if ((t.prototype.initialize.call(this), !!this.id)) {
-              (this.id.device != null &&
+              this.id.device != null &&
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -119,20 +121,21 @@ __d(
                       ])),
                     this.id.toLogString(),
                   )
-                  .sendLogs("contact-model-device-wid"),
-                o("WAWebContactGetters").getIsMe(this) &&
-                  o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-                  (o(
-                    "WAWebContactTextStatusExpiry",
-                  ).setupContactTextStatusExpiration(this),
-                  this.listenTo(this, "change:textStatusExpiryTs", function () {
-                    self.setTimeout(function () {
-                      o(
-                        "WAWebContactTextStatusExpiry",
-                      ).setupContactTextStatusExpiration(n);
-                    });
-                  })),
-                o("WAWebContactGetters").getIsMe(this) &&
+                  .sendLogs("contact-model-device-wid");
+              var r = d(this);
+              (r &&
+                o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
+                (o(
+                  "WAWebContactTextStatusExpiry",
+                ).setupContactTextStatusExpiration(this),
+                this.listenTo(this, "change:textStatusExpiryTs", function () {
+                  self.setTimeout(function () {
+                    o(
+                      "WAWebContactTextStatusExpiry",
+                    ).setupContactTextStatusExpiration(n);
+                  });
+                })),
+                r &&
                   this.addChild(
                     "profilePicThumb",
                     o(
@@ -140,7 +143,7 @@ __d(
                     ).ProfilePicThumbCollection.gadd(this.id),
                   ),
                 (this.isBusiness ||
-                  (o("WAWebContactGetters").getIsMe(this) &&
+                  (r &&
                     o("WAWebConnGetters").getIsSMB(
                       o("WAWebConnModel").Conn,
                     ))) &&
@@ -151,7 +154,7 @@ __d(
                     ).BusinessProfileCollection.gadd(this.id),
                   ),
                 this.listenTo(this, "change:isBusiness", this.$Contact$p_1),
-                o("WAWebContactGetters").getIsMe(this) &&
+                r &&
                   this.listenTo(
                     o("WAWebConnModel").Conn,
                     "change:pushname",
@@ -164,12 +167,12 @@ __d(
                 this.listenTo(this, "change:name", this.updateName),
                 (this.pendingAction = 0),
                 o("WAWebBizLabelUtils").initializeLabels(this));
-              var r = this.id;
-              if (r.isLid()) {
+              var a = this.id;
+              if (a.isLid()) {
                 this.$Contact$p_4();
-                var a =
-                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(r);
-                a != null && this.copyFieldsFromPnContact(a);
+                var i =
+                  this.phoneNumber || o("WAWebApiContact").getPhoneNumber(a);
+                i != null && this.copyFieldsFromPnContact(i);
               } else
                 this.id.isUser() &&
                   (this.$Contact$p_5(),
@@ -313,11 +316,10 @@ __d(
           (r.searchMatchFuzzy = function (t) {
             return o("WAWebContactSearchMatcher").searchMatchFuzzy(this, t);
           }),
-          (r.set = function (n, r, a) {
-            var e = t.prototype.set.call(this, n, r, a);
+          (r.set = function (n, r, o) {
+            var e = t.prototype.set.call(this, n, r, o);
             if (typeof n != "string" && r != null && r.merge && e) {
-              if (o("WAWebContactGetters").getIsPSA(e) || e.id.isBot())
-                return e;
+              if (m(e) || e.id.isBot()) return e;
               (!n.name && e.name && (e.unset("name"), e.unset("shortName")),
                 !n.verifiedName && e.verifiedName && e.unset("verifiedName"));
             }
@@ -331,6 +333,19 @@ __d(
       })(o("WAWebBaseModel").BaseModel);
     ((u.Proxy = "contact"), (u.idClass = r("WAWebWid")));
     var c = o("WAWebBaseModel").defineModel(u);
+    function d(e) {
+      return p()
+        ? o("WAWebUserUtils").isMeAccount(e.id)
+        : o("WAWebContactGetters").getIsMe(e);
+    }
+    function m(e) {
+      return p()
+        ? r("WAWebWid").isPSA(e.id)
+        : o("WAWebContactGetters").getIsPSA(e);
+    }
+    function p() {
+      return r("gkx")("10020");
+    }
     l.default = c;
   },
   98,

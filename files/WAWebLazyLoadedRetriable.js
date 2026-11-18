@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAPromiseDelays",
+    "WAWebLazyLoadCrashAnnotations",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -99,6 +100,9 @@ __d(
                         var n = r("getErrorSafe")(e);
                         ((l = "FAILURE"),
                           u++,
+                          o(
+                            "WAWebLazyLoadCrashAnnotations",
+                          ).annotateCrashWithLazyLoadFailure(t),
                           o("WALogger").WARN(
                             d ||
                               (d = babelHelpers.taggedTemplateLiteralLoose([

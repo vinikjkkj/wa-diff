@@ -478,7 +478,8 @@ __d(
         (e.isQuestion = t.isQuestion),
         (e.isSpoiler = t.isSpoiler),
         (e.forwardingScore = t.forwardingScore),
-        t.forwardReachScore != null &&
+        t.isForwarded === !0 &&
+          t.forwardReachScore != null &&
           (o("WAWebForwardReachGating").isForwardReachScoreSendEnabled() ||
             o("WAWebForwardReachGating").isForwardReachStatsLoggingEnabled()) &&
           (e.forwardReachScore = t.forwardReachScore),

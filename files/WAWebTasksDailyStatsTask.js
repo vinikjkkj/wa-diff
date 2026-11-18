@@ -24,12 +24,14 @@ __d(
     "WAWebContactCollection",
     "WAWebContactCollectionUtils",
     "WAWebContactManagementGating",
+    "WAWebCountryCodeUtils",
     "WAWebCurrentUser",
     "WAWebDBOutContactDatabaseApi",
     "WAWebDailyAggregatedStatsCollection",
     "WAWebDailyWamEvent",
     "WAWebEphemeralityResolver",
     "WAWebEstimateFtsStorageApi",
+    "WAWebForwardReachDailyStatsUtils",
     "WAWebGroupABPropsGlobals",
     "WAWebHistorySyncLidChatGating",
     "WAWebInactiveGroupLidMigration",
@@ -568,6 +570,12 @@ __d(
                   emojiReplyCount: e.emojiReply,
                   singleEmojiSendCnt: e.singleEmojiSend,
                 }).commit(),
+                o(
+                  "WAWebForwardReachDailyStatsUtils",
+                ).submitForwardReachDailyStats(
+                  e,
+                  o("WAWebCountryCodeUtils").getMyCountryCode,
+                ),
                 o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
                   (new (o(
                     "WAWebAboutCreationDailyWamEvent",

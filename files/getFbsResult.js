@@ -1,11 +1,11 @@
 __d(
   "getFbsResult",
   ["FbtPureStringResult"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     function e(e) {
-      return new (n("FbtPureStringResult"))(e.contents, e.errorListener);
+      return new (r("FbtPureStringResult"))(e.contents, e.errorListener);
     }
-    a.exports = e;
+    i.exports = e;
   },
-  null,
+  34,
 );

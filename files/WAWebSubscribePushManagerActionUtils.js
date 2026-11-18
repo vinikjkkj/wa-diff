@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebBackgroundSyncReporter",
     "WAWebClosedTabCallPushGating",
+    "WAWebCompanionLogoutReminderPushGating",
     "WAWebFbtCommon",
     "WAWebMuteCollection",
     "WAWebNotificationConstants",
@@ -24,7 +25,7 @@ __d(
       var e = o(
         "WAWebMuteCollection",
       ).MuteCollection.getGlobalOfflineNotifications();
-      return ((e = S(e)), e);
+      return ((e = R(e)), e);
     }
     function d() {
       return o(
@@ -53,32 +54,44 @@ __d(
       );
     }
     var _ = 1,
-      f = 2;
-    function g(e) {
+      f = 2,
+      g = 0;
+    function h(e) {
       return (
         e === void 0 && (e = !0),
         o("WAWebClosedTabCallPushGating").shouldReceiveClosedTabCallPushes()
           ? e
             ? _ + f
             : f
-          : null
+          : !e &&
+              o(
+                "WAWebCompanionLogoutReminderPushGating",
+              ).shouldReceiveCompanionLogoutReminderPushes()
+            ? g
+            : null
       );
     }
-    function h() {
-      return o(
-        "WAWebClosedTabCallPushGating",
-      ).shouldReceiveClosedTabCallPushes();
-    }
     function y() {
+      return (
+        o("WAWebClosedTabCallPushGating").shouldReceiveClosedTabCallPushes() ||
+        o(
+          "WAWebCompanionLogoutReminderPushGating",
+        ).shouldReceiveCompanionLogoutReminderPushes()
+      );
+    }
+    function C() {
       o("WAWebUserPrefsNotifications").setOfflineNotificationsEnabledOnce();
     }
-    function C(e) {
-      o("WAWebClosedTabCallPushGating").onClosedTabCallPushInputsChange(e);
-    }
-    function b() {
-      return (v(), (u || (u = n("Promise"))).resolve());
+    function b(e) {
+      (o("WAWebClosedTabCallPushGating").onClosedTabCallPushInputsChange(e),
+        o(
+          "WAWebCompanionLogoutReminderPushGating",
+        ).onCompanionLogoutReminderPushInputsChange(e));
     }
     function v() {
+      return (S(), (u || (u = n("Promise"))).resolve());
+    }
+    function S() {
       var e,
         t = r("WAWebFbtCommon")("WhatsApp"),
         n = s._(/*BTDS*/ "Syncing messages in the background"),
@@ -118,7 +131,7 @@ __d(
         callNotificationMissedVideoBody: g.toString(),
       });
     }
-    function S(t) {
+    function R(t) {
       var n;
       return !t &&
         ((n = window.Notification) == null ? void 0 : n.permission) ===
@@ -149,12 +162,12 @@ __d(
     ((l.isOfflineNotificationsEnabled = c),
       (l.getOfflineNotificationsSetting = d),
       (l.shouldSubscribePushManager = m),
-      (l.getPushPreferences = g),
-      (l.shouldSubscribeForClosedTabCalls = h),
-      (l.preventBackgroundSyncAutoEnable = y),
-      (l.onPushPreferencesInputsChange = C),
-      (l.updateOfflineNotificationL10nStrings = b),
-      (l.updateOfflineNotificationL10nStringsForOfflineResume = v));
+      (l.getPushPreferences = h),
+      (l.shouldSubscribeWithoutBackgroundSync = y),
+      (l.preventBackgroundSyncAutoEnable = C),
+      (l.onPushPreferencesInputsChange = b),
+      (l.updateOfflineNotificationL10nStrings = v),
+      (l.updateOfflineNotificationL10nStringsForOfflineResume = S));
   },
   226,
 );

@@ -20,24 +20,25 @@ __d(
       m = "/wa-voip-backgrounds/list",
       p = "/wa-voip-backgrounds/image/",
       _ = "/wa-voip-backgrounds/preview/",
-      f = "/wa-voip-backgrounds/used",
-      g = "X-WA-Stored-At",
-      h = "X-WA-Picture-Version",
-      y = "3",
-      C = "X-WA-Picture-Layout",
-      b = "X-WA-Preview-Version",
-      v = 12,
-      S = 720 * 60 * 60 * 1e3,
-      R = 10080 * 60 * 1e3,
-      L = 2e3,
-      E = (c || (c = n("Promise"))).resolve();
-    function k(e) {
-      return I.apply(this, arguments);
+      f = "/wa-voip-backgrounds/custom/",
+      g = "/wa-voip-backgrounds/used",
+      h = "X-WA-Stored-At",
+      y = "X-WA-Picture-Version",
+      C = "3",
+      b = "X-WA-Picture-Layout",
+      v = "X-WA-Preview-Version",
+      S = 12,
+      R = 720 * 60 * 60 * 1e3,
+      L = 10080 * 60 * 1e3,
+      E = 2e3,
+      k = (c || (c = n("Promise"))).resolve();
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return H(
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return Y(
             "read the list",
             null,
             (function () {
@@ -45,10 +46,10 @@ __d(
                 function* (t) {
                   var n = yield t.match(m);
                   if (n == null) return null;
-                  var r = re(JSON.parse(yield n.text()));
+                  var r = ce(JSON.parse(yield n.text()));
                   return r == null ||
                     r.locale !== e ||
-                    !(Date.now() - r.storedAtMs < R)
+                    !(Date.now() - r.storedAtMs < L)
                     ? null
                     : r.list;
                 },
@@ -59,17 +60,17 @@ __d(
             })(),
           );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t.length !== 0 &&
-            (yield H(
+            (yield Y(
               "store the list",
               void 0,
               (function () {
@@ -87,12 +88,12 @@ __d(
                         return !a.has(t);
                       },
                       l = yield (c || (c = n("Promise"))).all([
-                        G(r, p),
-                        G(r, _),
+                        J(r, p),
+                        J(r, _),
                       ]),
                       s = l[0],
                       u = l[1];
-                    yield c.all([j(r, p, s.filter(i)), j(r, _, u.filter(i))]);
+                    yield c.all([ee(r, p, s.filter(i)), ee(r, _, u.filter(i))]);
                   },
                 );
                 return function (e) {
@@ -101,19 +102,19 @@ __d(
               })(),
             ));
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = t === void 0 ? {} : t,
             i = a.countsAsUse,
             l = i === void 0 ? !0 : i;
-          return H(
+          return Y(
             "read a picture",
             null,
             (function () {
@@ -121,20 +122,20 @@ __d(
                 function* (t) {
                   var n = yield t.match(p + e);
                   if (n == null) return null;
-                  var a = Number(n.headers.get(g)),
+                  var a = Number(n.headers.get(h)),
                     i =
-                      Date.now() - a < S && n.headers.get(h) === y
-                        ? Z(ee(n.headers.get(C)), yield n.blob())
+                      Date.now() - a < R && n.headers.get(y) === C
+                        ? ie(le(n.headers.get(b)), yield n.blob())
                         : null;
-                  if (i == null) return (yield j(t, p, [e]), null);
+                  if (i == null) return (yield ee(t, p, [e]), null);
                   if (!l) return i;
                   try {
                     var s;
-                    yield Y(
+                    yield oe(
                       t,
                       babelHelpers.extends(
                         {},
-                        yield Q(t),
+                        yield ne(t),
                         ((s = {}), (s[e] = Date.now()), s),
                       ),
                     );
@@ -157,45 +158,45 @@ __d(
             })(),
           );
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    function N(e, t, n) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = n === void 0 ? {} : n,
             o = r.countsAsUse,
             a = o === void 0 ? !0 : o;
-          yield H("store a picture", void 0, function (n) {
-            return U(n, e, t, { countsAsUse: a, replace: !0 });
+          yield Y("store a picture", void 0, function (n) {
+            return Q(n, e, t, { countsAsUse: a, replace: !0 });
           });
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield H("keep a picture", void 0, function (n) {
-            return U(n, e, t, { countsAsUse: !0, replace: !1 });
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield Y("keep a picture", void 0, function (n) {
+            return Q(n, e, t, { countsAsUse: !0, replace: !1 });
           });
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return H(
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return Y(
             "read a preview",
             null,
             (function () {
@@ -203,12 +204,12 @@ __d(
                 function* (t) {
                   var n = yield t.match(_ + e);
                   if (n == null) return null;
-                  var r = Number(n.headers.get(g));
-                  return Date.now() - r < S &&
-                    n.headers.get(b) ===
+                  var r = Number(n.headers.get(h));
+                  return Date.now() - r < R &&
+                    n.headers.get(v) ===
                       o("WAWebVoipBackgroundPreview").BACKGROUND_PREVIEW_VERSION
                     ? n.blob()
-                    : (yield j(t, _, [e]), null);
+                    : (yield ee(t, _, [e]), null);
                 },
               );
               return function (e) {
@@ -217,58 +218,148 @@ __d(
             })(),
           );
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield H("store a preview", void 0, function (n) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield Y("store a preview", void 0, function (n) {
             var r;
             return n.put(
               _ + e,
               new Response(t, {
                 headers:
                   ((r = {}),
-                  (r[b] = o(
+                  (r[v] = o(
                     "WAWebVoipBackgroundPreview",
                   ).BACKGROUND_PREVIEW_VERSION),
-                  (r[g] = "" + Date.now()),
+                  (r[h] = "" + Date.now()),
                   r),
               }),
             );
           });
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield H("forget a preview", void 0, function (t) {
-            return j(t, _, [e]);
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield Y("forget a preview", void 0, function (t) {
+            return ee(t, _, [e]);
           });
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e, t, n, r) {
-      return V.apply(this, arguments);
-    }
     function V() {
+      return H.apply(this, arguments);
+    }
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return Y(
+            "read the custom picture",
+            { status: "unreadable" },
+            (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  var t = yield J(e, f),
+                    n = t[t.length - 1],
+                    r = n == null ? null : yield e.match(f + n);
+                  return n == null || r == null
+                    ? { status: "none" }
+                    : { id: n, picture: yield r.blob(), status: "kept" };
+                },
+              );
+              return function (t) {
+                return e.apply(this, arguments);
+              };
+            })(),
+            { hasDeadline: !1 },
+          );
+        })),
+        H.apply(this, arguments)
+      );
+    }
+    function G(e, t) {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return Y(
+            "store the custom picture",
+            !1,
+            (function () {
+              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (n) {
+                  var r = (yield J(n, f)).filter(function (t) {
+                    return t !== e;
+                  });
+                  return (
+                    yield ee(n, f, r),
+                    yield n.put(f + e, new Response(t)),
+                    !0
+                  );
+                },
+              );
+              return function (e) {
+                return r.apply(this, arguments);
+              };
+            })(),
+            { hasDeadline: !1 },
+          );
+        })),
+        z.apply(this, arguments)
+      );
+    }
+    function j() {
+      return K.apply(this, arguments);
+    }
+    function K() {
+      return (
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return self.caches == null
+            ? !0
+            : Y(
+                "forget the custom picture",
+                !1,
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = yield J(e, f);
+                      return (yield ee(e, f, t), !0);
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+                { hasDeadline: !1 },
+              );
+        })),
+        K.apply(this, arguments)
+      );
+    }
+    function Q(e, t, n, r) {
+      return X.apply(this, arguments);
+    }
+    function X() {
+      return (
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var o = r.countsAsUse,
               a = r.replace,
-              i = yield Q(e),
-              l = yield G(e, p),
+              i = yield ne(e),
+              l = yield J(e, p),
               s = !l.includes(t),
               u = function (t) {
                 var e;
@@ -281,10 +372,10 @@ __d(
                 .sort(function (e, t) {
                   return u(e) - u(t);
                 }),
-              d = s ? c.slice(0, Math.max(0, c.length - (v - 1))) : [];
+              d = s ? c.slice(0, Math.max(0, c.length - (S - 1))) : [];
             if (s || a) {
               var m;
-              yield j(e, p, d);
+              yield ee(e, p, d);
               var _ = {
                 columns: n.columns,
                 rows: n.rows,
@@ -299,68 +390,68 @@ __d(
                 new Response(new Blob(Array.from(n.tiles)), {
                   headers:
                     ((m = {}),
-                    (m[C] = JSON.stringify(_)),
-                    (m[h] = y),
-                    (m[g] = "" + Date.now()),
+                    (m[b] = JSON.stringify(_)),
+                    (m[y] = C),
+                    (m[h] = "" + Date.now()),
                     m),
                 }),
               );
             }
             var f = new Set(d),
-              b = {};
-            for (var S of c) f.has(S) || (b[S] = u(S));
+              g = {};
+            for (var v of c) f.has(v) || (g[v] = u(v));
             var R = s ? 0 : u(t);
-            ((b[t] = o ? Date.now() : R), yield Y(e, b));
+            ((g[t] = o ? Date.now() : R), yield oe(e, g));
           },
         )),
-        V.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
-    function H(t, a, i) {
-      var l = E.then(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = self.caches;
-          return e == null ? a : i(yield e.open(d));
-        }),
-      );
+    function Y(t, a, i, l) {
+      var u = l === void 0 ? {} : l,
+        c = u.hasDeadline,
+        m = c === void 0 ? !0 : c,
+        p = k.then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = self.caches;
+            return e == null ? a : i(yield e.open(d));
+          }),
+        );
+      k = p.catch(r("WAWebNoop"));
+      var _ = m ? o("WAPromiseTimeout").promiseTimeout(p, E) : p;
+      return _.catch(function (n) {
+        return (
+          n instanceof o("WACustomError").TimeoutError
+            ? o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [effects] background store took over ",
+                    " ms to ",
+                    ", going on without it",
+                  ])),
+                E,
+                t,
+              )
+            : o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [effects] background store could not ",
+                      "",
+                    ])),
+                  t,
+                )
+                .catching(r("getErrorSafe")(n)),
+          a
+        );
+      });
+    }
+    function J(e, t) {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
       return (
-        (E = l.catch(r("WAWebNoop"))),
-        o("WAPromiseTimeout")
-          .promiseTimeout(l, L)
-          .catch(function (n) {
-            return (
-              n instanceof o("WACustomError").TimeoutError
-                ? o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [effects] background store took over ",
-                        " ms to ",
-                        ", going on without it",
-                      ])),
-                    L,
-                    t,
-                  )
-                : o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [effects] background store could not ",
-                          "",
-                        ])),
-                      t,
-                    )
-                    .catching(r("getErrorSafe")(n)),
-              a
-            );
-          })
-      );
-    }
-    function G(e, t) {
-      return z.apply(this, arguments);
-    }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.keys();
           return n
             .map(function (e) {
@@ -373,31 +464,33 @@ __d(
               return decodeURIComponent(e.slice(t.length));
             });
         })),
-        z.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function j(e, t, n) {
-      return K.apply(this, arguments);
+    function ee(e, t, n) {
+      return te.apply(this, arguments);
     }
-    function K() {
+    function te() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          yield (c || (c = n("Promise"))).all(
-            r.map(function (n) {
-              return e.delete(t + n);
-            }),
-          );
-        })),
-        K.apply(this, arguments)
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r) {
+            yield (c || (c = n("Promise"))).all(
+              r.map(function (n) {
+                return e.delete(t + n);
+              }),
+            );
+          },
+        )),
+        te.apply(this, arguments)
       );
     }
-    function Q(e) {
-      return X.apply(this, arguments);
+    function ne(e) {
+      return re.apply(this, arguments);
     }
-    function X() {
+    function re() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield e.match(f);
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield e.match(g);
           if (t == null) return {};
           var n;
           try {
@@ -414,21 +507,21 @@ __d(
             }
           return r;
         })),
-        X.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function Y(e, t) {
-      return J.apply(this, arguments);
+    function oe(e, t) {
+      return ae.apply(this, arguments);
     }
-    function J() {
+    function ae() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield e.put(f, new Response(JSON.stringify(t)));
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield e.put(g, new Response(JSON.stringify(t)));
         })),
-        J.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function Z(e, t) {
+    function ie(e, t) {
       if (e == null) return null;
       var n = 0,
         r = e.tiles.map(function (e) {
@@ -441,34 +534,34 @@ __d(
         ? { columns: e.columns, rows: e.rows, tiles: r }
         : null;
     }
-    function ee(e) {
+    function le(e) {
       var t = null;
       try {
         t = JSON.parse(e != null ? e : "");
       } catch (e) {
         return null;
       }
-      var n = te(ne(t, "columns")),
-        r = te(ne(t, "rows")),
-        o = ne(t, "tiles");
+      var n = se(ue(t, "columns")),
+        r = se(ue(t, "rows")),
+        o = ue(t, "tiles");
       if (n == null || r == null || !Array.isArray(o) || o.length !== n * r)
         return null;
       var a = [];
       for (var i of o) {
-        var l = te(ne(i, "size")),
-          s = ne(i, "type");
+        var l = se(ue(i, "size")),
+          s = ue(i, "type");
         if (l == null || typeof s != "string") return null;
         a.push({ size: l, type: s });
       }
       return { columns: n, rows: r, tiles: a };
     }
-    function te(e) {
+    function se(e) {
       return typeof e == "number" && Number.isInteger(e) && e > 0 ? e : null;
     }
-    function ne(e, t) {
+    function ue(e, t) {
       return e != null && typeof e == "object" ? e[t] : void 0;
     }
-    function re(e) {
+    function ce(e) {
       if (e == null || typeof e != "object" || Array.isArray(e)) return null;
       var t = e.list,
         n = e.locale,
@@ -506,14 +599,17 @@ __d(
       }
       return { list: o, locale: n, storedAtMs: r };
     }
-    ((l.readStoredBackgroundList = k),
-      (l.storeBackgroundList = T),
-      (l.readStoredBackgroundImage = x),
-      (l.storeBackgroundImage = P),
-      (l.keepStoredBackgroundImage = M),
-      (l.readStoredBackgroundPreview = A),
-      (l.storeBackgroundPreview = O),
-      (l.forgetStoredBackgroundPreview = W));
+    ((l.readStoredBackgroundList = I),
+      (l.storeBackgroundList = D),
+      (l.readStoredBackgroundImage = $),
+      (l.storeBackgroundImage = N),
+      (l.keepStoredBackgroundImage = w),
+      (l.readStoredBackgroundPreview = F),
+      (l.storeBackgroundPreview = B),
+      (l.forgetStoredBackgroundPreview = q),
+      (l.readStoredCustomBackground = V),
+      (l.storeCustomBackground = G),
+      (l.forgetStoredCustomBackground = j));
   },
   98,
 );

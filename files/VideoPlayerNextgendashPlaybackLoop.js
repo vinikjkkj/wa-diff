@@ -3397,7 +3397,13 @@ __d(
               : "playing",
         Ot = {
           initial: pt
-            ? Math.max(0, e.config.bufferAheadTargetNoMediaElementSec)
+            ? Math.max(
+                0,
+                e.config.bufferAheadTargetNoMediaElementSec,
+                e.config.nativeNextFirstMediaPrewarm
+                  ? e.config.nativeNextPrewarmBufferAheadSec
+                  : 0,
+              )
             : ue(e.config.bufferAheadTargetNoMediaElementSec, It),
           paused: e.config.bufferAheadTargetPausedSec,
           playing: (I = e.config.bufferAheadTargetPlayingSec) != null ? I : Mt,

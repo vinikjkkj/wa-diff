@@ -55,8 +55,8 @@ __d(
     "WAWebThreadMsgUtils",
     "WAWebUpdateUnreadChatAction",
     "WAWebUpdateUtmAction",
-    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsTypes",
+    "WAWebUserUtils",
     "WAWebUtmBizUtils",
     "WAWebVoipInCallMessageSendLogger",
     "WAWebWamEnumMessageCappingActionType",
@@ -336,7 +336,7 @@ __d(
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
                       var r =
-                        f.fromMe && o("WAWebUserPrefsMeUser").isMePrimary(h)
+                        f.fromMe && o("WAWebUserUtils").isMePrimary(h)
                           ? o("WAWebAck").ACK.READ
                           : o("WAWebAck").ACK.SENT;
                       return (

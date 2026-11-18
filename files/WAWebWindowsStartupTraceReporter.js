@@ -244,26 +244,25 @@ __d(
     }
     function U(e, t, n) {
       var r,
-        a = t.clockSyncErrorMs <= m,
-        i = e.points.nav_completed,
-        l = a ? t.processStartWeb : 0,
-        s = a && i != null ? t.processStartWeb + i : l,
-        u = o("WAWebQplFlowWrapper").QPL.markerStart(
+        a,
+        i = t.processStartWeb,
+        l = i + ((r = e.points.nav_completed) != null ? r : 0),
+        s = o("WAWebQplFlowWrapper").QPL.markerStart(
           o("WAWebWindowsStartupQplEvents").WINDOWS_HYBRID_STARTUP_EVENT,
           {
-            timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(l),
+            timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(i),
             instanceKey: y,
           },
         );
-      a
-        ? V(u, e.points, t.processStartWeb)
-        : u.annotate({ int: babelHelpers.extends({}, H(e.points)) });
-      var c = G(u, e, t);
-      (u.annotate({
+      (V(s, e.points, i),
+        t.clockSyncErrorMs > m &&
+          s.annotate({ int: babelHelpers.extends({}, H(e.points)) }));
+      var u = G(s, e, t);
+      (s.annotate({
         int: babelHelpers.extends({}, e.annotations.int, {
           hyb_nav_outcome: e.navOutcome,
           hyb_clock_sync_error_ms: Math.round(t.clockSyncErrorMs),
-          hyb_web_timing_status: c,
+          hyb_web_timing_status: u,
           hyb_reporter_ms: Math.round(self.performance.now() - n),
         }),
         string: babelHelpers.extends({}, e.annotations.string),
@@ -271,8 +270,8 @@ __d(
           hyb_logged_in: o("WAWebUserPrefsMeUser").getMaybeMeLidUser() != null,
         }),
       }),
-        u.end((r = b[e.navOutcome]) != null ? r : 3, {
-          timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(s),
+        s.end((a = b[e.navOutcome]) != null ? a : 3, {
+          timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(l),
         }));
     }
     function V(e, t, n) {

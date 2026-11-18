@@ -12,7 +12,6 @@ __d(
     "WAWebVoipBridgeContactHandlers",
     "WAWebVoipBridgeInitHandlers",
     "WAWebVoipBridgeMediaStreamHandlers",
-    "WAWebVoipBridgeMicSilenceToast",
     "WAWebVoipBridgeNackHandlers",
     "WAWebVoipBridgeNotificationHandlers",
     "WAWebVoipBridgeSignalingHandlers",
@@ -37,10 +36,7 @@ __d(
       o("WAWebVoipBridgeCallReachabilityHandlers")
         .VoipBridgeCallReachabilityHandlers,
     );
-    ((l.MICROPHONE_SILENCE_TOAST_ID = o(
-      "WAWebVoipBridgeMicSilenceToast",
-    ).MICROPHONE_SILENCE_TOAST_ID),
-      (l.VoipWebBridgeApi = e));
+    l.VoipWebBridgeApi = e;
   },
   98,
 );

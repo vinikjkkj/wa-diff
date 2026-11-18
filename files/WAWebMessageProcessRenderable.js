@@ -30,7 +30,6 @@ __d(
     "WAWebMessagePostprocessRenderable",
     "WAWebMessageProcessDBPipeline",
     "WAWebMessageQueueImpl",
-    "WAWebMessagingGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -229,26 +228,20 @@ __d(
                 m ? (L = "reparsing") : R && (L = "offline");
                 var k = yield v(p, t, i, s),
                   T = k.newMsgs;
-                if (
-                  (y == null || y(),
-                  o(
-                    "WAWebMessagingGatingUtils",
-                  ).isWebReportingTokenDelayProcessingEnabled())
-                ) {
-                  var D = o(
-                    "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-                  ).msgProcessReporter.startMarker(
-                    o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
-                      .msgProcessReporter.stage.ProcessReportingTokenInfo,
-                  );
-                  (yield o(
-                    "WAWebHandleMsgValidate",
-                  ).validateAndProcessReportingTokenInfo({
-                    renderableMsgs: T,
-                    reparsing: m,
-                  }),
-                    D == null || D());
-                }
+                y == null || y();
+                var D = o(
+                  "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+                ).msgProcessReporter.startMarker(
+                  o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
+                    .msgProcessReporter.stage.ProcessReportingTokenInfo,
+                );
+                (yield o(
+                  "WAWebHandleMsgValidate",
+                ).validateAndProcessReportingTokenInfo({
+                  renderableMsgs: T,
+                  reparsing: m,
+                }),
+                  D == null || D());
                 var x = o(
                   "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                 ).msgProcessReporter.startMarker(

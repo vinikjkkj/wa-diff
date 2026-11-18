@@ -932,11 +932,29 @@ __d(
       META_ONE_BIZ_AI_IG_PRODASH_UPSELL: "meta_one_biz_ai_ig_prodash_upsell",
       META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE:
         "meta_one_biz_ai_mbs_aihome_quota_lifecycle",
+      META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE_ANDROID:
+        "meta_one_biz_ai_mbs_aihome_quota_lifecycle_android",
+      META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE_IOS:
+        "meta_one_biz_ai_mbs_aihome_quota_lifecycle_ios",
+      META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE_WWW:
+        "meta_one_biz_ai_mbs_aihome_quota_lifecycle_www",
       META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE:
         "meta_one_biz_ai_mbs_inbox_quota_lifecycle",
+      META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE_ANDROID:
+        "meta_one_biz_ai_mbs_inbox_quota_lifecycle_android",
+      META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE_IOS:
+        "meta_one_biz_ai_mbs_inbox_quota_lifecycle_ios",
+      META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE_WWW:
+        "meta_one_biz_ai_mbs_inbox_quota_lifecycle_www",
       META_ONE_BIZ_AI_MBS_UPSELL: "meta_one_biz_ai_mbs_upsell",
       META_ONE_BIZ_AI_MESSAGE_COMPOSER_BANNER:
         "meta_one_biz_ai_message_composer_banner",
+      META_ONE_BIZ_AI_MESSAGE_COMPOSER_BANNER_ANDROID:
+        "meta_one_biz_ai_message_composer_banner_android",
+      META_ONE_BIZ_AI_MESSAGE_COMPOSER_BANNER_IOS:
+        "meta_one_biz_ai_message_composer_banner_ios",
+      META_ONE_BIZ_AI_MESSAGE_COMPOSER_BANNER_WWW:
+        "meta_one_biz_ai_message_composer_banner_www",
       META_ONE_BIZ_AI_MESSENGER_UPSELL: "meta_one_biz_ai_messenger_upsell",
       META_ONE_BIZ_AI_QUOTA_EMAIL: "meta_one_biz_ai_quota_email",
       META_ONE_BIZ_AI_WA_WEB_AI_HOME_UPSELL:

@@ -112,6 +112,8 @@ __d(
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.MEDIA_ALBUM;
         case "sticker-pack":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.STICKER_PACK;
+        case "rich_response":
+          return o("WAWebWamEnumMediaType").MEDIA_TYPE.RICH_RESPONSE;
         default:
           return (e.type, o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE);
       }

@@ -64,6 +64,7 @@ __d(
             r("isEphemeralityDisabled"),
             r("externalUserState"),
             r("birthday"),
+            r("learnedPnState"),
           ])
           .view(function (e) {
             return e;

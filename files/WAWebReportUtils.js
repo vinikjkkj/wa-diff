@@ -22,6 +22,7 @@ __d(
     "WAWebViewOnceState",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -469,6 +470,7 @@ __d(
                   t.type,
                   t.subtype,
                 )
+                .catching(r("getErrorSafe")(n))
                 .tags("wa-ice", "reporting")
                 .sendLogs("reporting-get-message-failed"),
               n

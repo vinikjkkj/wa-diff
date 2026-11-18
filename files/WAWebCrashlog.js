@@ -345,7 +345,7 @@ __d(
           if (
             (L > 0 && L < 1 && (w = w.concat(["sampled", L.toString()])),
             Y && r("gkx")("26258")
-              ? o("WAWebLoggerUtils").passesSamplingPerUser(L, i, be())
+              ? o("WAWebLoggerUtils").passesSamplingPerUser(L, i, ve())
               : o("WAWebLoggerUtils").passesSampling(L))
           ) {
             var ee = ye;
@@ -570,9 +570,9 @@ __d(
             yield U(u ? 0 : 1e3));
           var Z;
           if (m.shouldHitCheckEndpoint()) {
-            var te = ve({ isHighPri: s });
+            var te = Se({ isHighPri: s });
             m.appendToFormDataForCheck(te, B);
-            var ne = Se(c);
+            var ne = Re(c);
             if (
               ((Z = yield self.fetch(ne, { method: "POST", body: te })),
               !m.expectedCodes.includes(Z.status))
@@ -666,7 +666,7 @@ __d(
                 String(e),
               );
             }
-          var se = ve({ isHighPri: s });
+          var se = Se({ isHighPri: s });
           m.appendToFormDataForUpload(se, ie);
           var ue = o("WAWebLoggerImpl").Logger.getLogs(
             m.shouldUseLightWeightLogs(ie),
@@ -716,12 +716,12 @@ __d(
           var be = _;
           Q != null &&
             (se.append("bug_id", Q), Y && (be = be.concat("is_reporter")));
-          var Le = z != null ? z() : null;
-          (Le != null &&
-            (se.append("call_id", Le.callId), (be = be.concat(ae(Le)))),
+          var ve = z != null ? z() : null;
+          (ve != null &&
+            (se.append("call_id", ve.callId), (be = be.concat(ae(ve)))),
             be.length && se.append("tags", be.join(",")),
             r("isStringNullOrEmpty")(d) || se.append("ticket_id", d));
-          var Ee = Re(c),
+          var Ee = Le(c),
             ke = yield self.fetch(Ee, { method: "POST", body: se });
           if (ke.status !== 200) {
             var Ie = "";
@@ -753,7 +753,15 @@ __d(
         Ce.apply(this, arguments)
       );
     }
-    function be() {
+    function be(e) {
+      if (n("cr:4722") != null) {
+        var t = new Blob([n("cr:4722").Profiler.export()], {
+          type: "text/plain",
+        });
+        e.append("attachment", t, "profiler_data.txt");
+      }
+    }
+    function ve() {
       var e =
         o("WAWebRuntimeEnvironmentUtils").isWorker() &&
         !o("WAWebGlobals").areGlobalsReady()
@@ -761,12 +769,12 @@ __d(
           : o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
       return e ? e.toString() : o("WAWebUserPrefsMeUser").getUnknownId();
     }
-    function ve(e) {
+    function Se(e) {
       var t = e.isHighPri,
         n = new FormData();
       ((!r("gkx")("26258") || t) && n.append("forced", "true"),
         r("gkx")("9092") && n.append("is_internal", "true"),
-        n.append("from_jid", be()));
+        n.append("from_jid", ve()));
       var a = r("WAWebBrowserInfo")(),
         i = o("WAWebCrashlogUserAgent").getLogUserAgent({
           device: a.os,
@@ -780,7 +788,7 @@ __d(
         n
       );
     }
-    function Se(e) {
+    function Re(e) {
       return r("WAWebURLUtils").build(
         o("WAWebCrashlogConstants").CLB_CHECK_URL,
         {
@@ -789,7 +797,7 @@ __d(
         },
       );
     }
-    function Re(e) {
+    function Le(e) {
       var t = {
         type: String(e),
         access_token: o("WAWebCrashlogConstants").CLB_TOKEN,
@@ -804,12 +812,12 @@ __d(
         r("WAWebURLUtils").build(o("WAWebCrashlogConstants").CLB_URL, t)
       );
     }
-    function Le(e, t) {
-      return Ee.apply(this, arguments);
+    function Ee(e, t) {
+      return ke.apply(this, arguments);
     }
-    function Ee() {
+    function ke() {
       return (
-        (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!o("WAWebLoggerImpl").Logger.isTakeOver)
             try {
               var n,
@@ -841,10 +849,10 @@ __d(
               return;
             }
         })),
-        Ee.apply(this, arguments)
+        ke.apply(this, arguments)
       );
     }
-    function ke() {
+    function Ie() {
       (ce.cancel(), Z.clear());
     }
     ((l.LogType = j),
@@ -856,8 +864,8 @@ __d(
       (l.registerPathfinderTraceCallback = pe),
       (l.registerCrashlogVoipContextCallback = _e),
       (l.upload = fe),
-      (l.sendLogs = Le),
-      (l.reset = ke));
+      (l.sendLogs = Ee),
+      (l.reset = Ie));
   },
   98,
 );

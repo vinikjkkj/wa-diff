@@ -1,12 +1,11 @@
 __d(
   "WAWebDexieCastTypes",
-  ["Promise"],
+  [],
   function (t, n, r, o, a, i) {
-    var e;
-    function l(t) {
-      return (e || (e = n("Promise"))).resolve(t);
+    function e(e) {
+      return globalThis.Promise.resolve(e);
     }
-    i.dexieCastToPromise = l;
+    i.dexieCastToPromise = e;
   },
   66,
 );

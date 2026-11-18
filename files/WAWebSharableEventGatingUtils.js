@@ -3,37 +3,36 @@ __d(
   ["$InternalEnum", "WALogger", "WAWebABProps", "WAWebVoipGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = (s = n("$InternalEnum"))({
+      s = n("$InternalEnum")({
         Futureproof: 0,
         FutureproofCustomText: 1,
         FullBubble: 2,
       });
-    function c() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "events_v2_invitation_message_version",
       );
     }
+    function c() {
+      return u() > Number(s.Futureproof);
+    }
     function d() {
-      return c() > Number(u.Futureproof);
+      return u() >= Number(s.FullBubble);
     }
-    function m() {
-      return c() >= Number(u.FullBubble);
-    }
-    var p = s({
+    var m = n("$InternalEnum")({
       MessageBubble: 1,
       MessageContextMenu: 2,
       EventDetails: 4,
       RsvpConfirmation: 8,
     });
-    function _(e) {
+    function p(e) {
       var t = Number(e),
         n = o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_add_to_calendar",
         );
       return Math.floor(n / t) % 2 === 1;
     }
-    var f = s({
+    var _ = n("$InternalEnum")({
       EventsList: 1,
       IndividualChatAttachmentTray: 2,
       GroupChatAttachmentTray: 4,
@@ -41,55 +40,41 @@ __d(
       IndividualChatDateDetector: 16,
       GroupChatDateDetector: 32,
     });
-    function g(e) {
+    function f(e) {
       var t = Number(e),
         n = o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_entry_points_creation",
         );
       return Math.floor(n / t) % 2 === 1;
     }
-    var h = s({
-      EventsList: 1,
-      CallsTabHScroll: 2,
-      NewCallPicker: 4,
-      GroupChat: 8,
-      IndividualChat: 16,
-    });
-    function y(e) {
-      var t = Number(e),
-        n = o("WAWebABProps").getABPropConfigValue(
-          "enable_scheduled_calls_v2_entry_points_creation",
-        );
-      return Math.floor(n / t) % 2 === 1;
-    }
-    function C() {
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "events_v2_enable_notifications",
         ) === !0
       );
     }
-    function b() {
+    function h() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_events_v2_on_companion",
         ) === !0
       );
     }
-    function v() {
+    function y() {
       return (
-        b() &&
+        h() &&
         o("WAWebVoipGatingUtils").isCallingEnabled() &&
         !o("WAWebVoipGatingUtils").isUnsupportedBrowserForWebCalling()
       );
     }
-    var S = new Set();
-    function R(t) {
-      var n = b();
+    var C = new Set();
+    function b(t) {
+      var n = h();
       return (
         !n &&
-          !S.has(t) &&
-          (S.add(t),
+          !C.has(t) &&
+          (C.add(t),
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -101,19 +86,17 @@ __d(
         n
       );
     }
-    ((l.SharableEventInviteReceivingVersion = u),
-      (l.isSharableEventInviteReceiveEnabled = d),
-      (l.shouldRenderSharableEventInviteBubble = m),
-      (l.SharableEventAddToCalendarEntryPoint = p),
-      (l.isSharableEventAddToCalendarEnabled = _),
-      (l.SharableEventCreationEntryPoint = f),
-      (l.isSharableEventCreationEnabled = g),
-      (l.SharableScheduledCallCreationEntryPoint = h),
-      (l.isSharableScheduledCallCreationEnabled = y),
-      (l.isSharableEventNotificationsEnabled = C),
-      (l.isEventsV2OnCompanionEnabled = b),
-      (l.canScheduleSharableEventCallsInBrowser = v),
-      (l.isEventsV2OnCompanionEnabledForAction = R));
+    ((l.SharableEventInviteReceivingVersion = s),
+      (l.isSharableEventInviteReceiveEnabled = c),
+      (l.shouldRenderSharableEventInviteBubble = d),
+      (l.SharableEventAddToCalendarEntryPoint = m),
+      (l.isSharableEventAddToCalendarEnabled = p),
+      (l.SharableEventCreationEntryPoint = _),
+      (l.isSharableEventCreationEnabled = f),
+      (l.isSharableEventNotificationsEnabled = g),
+      (l.isEventsV2OnCompanionEnabled = h),
+      (l.canScheduleSharableEventCallsInBrowser = y),
+      (l.isEventsV2OnCompanionEnabledForAction = b));
   },
   98,
 );

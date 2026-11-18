@@ -27,6 +27,7 @@ __d(
             (t.hdMediaEnabled = o("WAWebBaseModel").prop()),
             (t.chatlistDensity = o("WAWebBaseModel").prop()),
             (t.chatlistShowParentName = o("WAWebBaseModel").prop()),
+            (t.hdMediaQualityChosen = o("WAWebBaseModel").prop()),
             (t.chatThemeId = o("WAWebBaseModel").prop()),
             (t.colorSchemeId = o("WAWebBaseModel").prop()),
             (t.stockWallpaperImageId = o("WAWebBaseModel").prop()),

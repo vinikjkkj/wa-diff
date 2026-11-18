@@ -33,19 +33,16 @@ __d(
       );
     }
     function _() {
-      return o("WAWebABProps").getABPropConfigValue("rt_web_delay_processing");
-    }
-    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "ft_validation_failure_drop_placeholder",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "visible_message_drop_placeholder_enabled_internal_only",
       );
     }
-    function h() {
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_biz_simple_signal_enabled",
@@ -59,10 +56,9 @@ __d(
       (l.isMissingReportingTokenDetectionEnabled = d),
       (l.isReportingTagSyncingEnabled = m),
       (l.getSenderReportingTokenVersion = p),
-      (l.isWebReportingTokenDelayProcessingEnabled = _),
-      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = f),
-      (l.isMessageDropPlaceholderEnabled = g),
-      (l.isSimpleSignalEnabled = h));
+      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = _),
+      (l.isMessageDropPlaceholderEnabled = f),
+      (l.isSimpleSignalEnabled = g));
   },
   98,
 );

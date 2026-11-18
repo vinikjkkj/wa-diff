@@ -10,6 +10,7 @@ __d(
     "WAWebAddonQueryUtils",
     "WAWebApiChatUnreadMention",
     "WAWebBackendApi",
+    "WAWebBotEditSignatureMetadata",
     "WAWebCoexV2MessageAckProjection",
     "WAWebDBMarkFutureproofMessagesReparsed",
     "WAWebDBMessageSerialization",
@@ -25,7 +26,6 @@ __d(
     "WAWebMessageEditBotGroupMetadata",
     "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
-    "WAWebMessagingGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
@@ -107,23 +107,17 @@ __d(
               c.protocolMessageKey && a.get(c.protocolMessageKey.toString());
             if (!d || k(d.type)) l.push(c);
             else {
-              if (
-                o(
-                  "WAWebMessagingGatingUtils",
-                ).isWebReportingTokenDelayProcessingEnabled()
-              ) {
-                var m = o(
-                  "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-                ).msgProcessReporter.startMarker(
-                  o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
-                    .msgProcessReporter.stage.ProcessReportingTokenInfo,
-                );
-                (yield o(
-                  "WAWebHandleMsgValidate",
-                ).validateAndProcessReportingTokenInfo({ renderableMsgs: [c] }),
-                  m == null || m());
-              }
-              (s.push(w(d, c)),
+              var m = o(
+                "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+              ).msgProcessReporter.startMarker(
+                o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
+                  .msgProcessReporter.stage.ProcessReportingTokenInfo,
+              );
+              (yield o(
+                "WAWebHandleMsgValidate",
+              ).validateAndProcessReportingTokenInfo({ renderableMsgs: [c] }),
+                m == null || m(),
+                s.push(w(d, c, { editsNewestFirst: i, parentMsgsByKey: a })),
                 o("WAWebThreadMsgUtils").isThreadMsg(c) && u.push(c));
             }
           }
@@ -516,72 +510,72 @@ __d(
             : o("WAAckLevel").ACK.SENT;
     }
     var M = new Map();
-    function w(e, t) {
-      var n,
-        a,
-        i = r("nullthrows")(
+    function w(e, t, n) {
+      var a,
+        i,
+        l = r("nullthrows")(
           o("WAWebMessageEditUtils").getMsgEditType(e.type),
           "Unsupported message type for edits",
         ),
-        l = W(e, t, i);
+        s = W(e, t, l, n);
       o("WAWebMsgGetters").getIsSentByMe(e) &&
         t.count != null &&
-        (l.count = t.count);
-      var s =
-          (n =
-            (a = M.get(e.id.toString())) != null
-              ? a
+        (s.count = t.count);
+      var u =
+          (a =
+            (i = M.get(e.id.toString())) != null
+              ? i
               : e.latestEditSenderTimestampMs) != null
-            ? n
+            ? a
             : 0,
-        u = r("nullthrows")(t.latestEditSenderTimestampMs),
-        c = u >= s;
+        c = r("nullthrows")(t.latestEditSenderTimestampMs),
+        d = c >= u;
       if (
-        (u >= s &&
+        (c >= u &&
           o("WAWebMessageEditBotGroupMetadata").applyEditedBotGroupMetadata(
-            l,
+            s,
             e,
             t,
           ),
-        i === o("WAWebMessageEditUtils").MsgEditType.EventEdit)
+        l === o("WAWebMessageEditUtils").MsgEditType.EventEdit)
       ) {
-        var d = !!e.isEventCanceled,
-          m = !!t.isEventCanceled;
-        !d && m ? (c = !0) : d && !m && (c = !1);
+        var m = !!e.isEventCanceled,
+          p = !!t.isEventCanceled;
+        !m && p ? (d = !0) : m && !p && (d = !1);
       }
-      c && M.set(e.id.toString(), u);
-      var p;
+      d && M.set(e.id.toString(), c);
+      var _;
       if (
-        i !== o("WAWebMessageEditUtils").MsgEditType.EventEdit &&
+        l !== o("WAWebMessageEditUtils").MsgEditType.EventEdit &&
         !o("WAWebMsgGetters").getIsSentByMe(e)
       ) {
-        var _ = o("WAWebMsgGetters").getHasMentionOfMe(e),
-          f = o("WAWebMsgGetters").getHasMentionOfMe(
-            babelHelpers.extends({}, e, l),
+        var f = o("WAWebMsgGetters").getHasMentionOfMe(e),
+          g = o("WAWebMsgGetters").getHasMentionOfMe(
+            babelHelpers.extends({}, e, s),
           );
-        _ && !f ? (p = y.Removed) : !_ && f && (p = y.Added);
+        f && !g ? (_ = y.Removed) : !f && g && (_ = y.Added);
       }
       if (
         ((o("WAWebMsgGetters").getIsMetaBotResponse(e) ||
           o("WAWebMsgGetters").getIsBizBot1pMessage(e) ||
           e.botEditType != null) &&
-          ((l.botEditType = t.botEditType),
-          (l.botEditTargetId = t.botEditTargetId)),
-        A(e, t, l),
+          ((s.botEditType = t.botEditType),
+          (s.botEditTargetId = t.botEditTargetId)),
+        A(e, t, s),
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e))
       ) {
-        var g = o("WAWebMsgGetters").getGroupHistoryIndividualMessageInfo(e);
-        g != null &&
-          (l.groupHistoryIndividualMessageInfo = babelHelpers.extends({}, g, {
+        var h = o("WAWebMsgGetters").getGroupHistoryIndividualMessageInfo(e);
+        h != null &&
+          (s.groupHistoryIndividualMessageInfo = babelHelpers.extends({}, h, {
             isEditedAfterReceivedAsHistory: !0,
           }));
       }
       return {
         parentMsg: e,
         protocolMsg: t,
-        editedMsgData: l,
-        isLatest: c,
-        mentionOfMe: p,
+        editedMsgData: s,
+        isLatest: d,
+        mentionOfMe: _,
       };
     }
     function A(e, t, n) {
@@ -663,8 +657,8 @@ __d(
         kind: "video",
       };
     }
-    function W(e, t, n) {
-      var r = babelHelpers.extends(
+    function W(e, t, n, r) {
+      var a = babelHelpers.extends(
         {
           latestEditMsgKey: t.latestEditMsgKey,
           latestEditSenderTimestampMs: t.latestEditSenderTimestampMs,
@@ -681,14 +675,14 @@ __d(
       );
       switch (n) {
         case o("WAWebMessageEditUtils").MsgEditType.TextEdit: {
-          var a,
-            i,
+          var i,
             l,
             s,
             u,
-            c = !!t.matchedText || !!t.description || !!t.title;
-          return babelHelpers.extends({}, r, F(t), {
-            subtype: c ? "url" : void 0,
+            c,
+            d = !!t.matchedText || !!t.description || !!t.title;
+          return babelHelpers.extends({}, a, F(t), {
+            subtype: d ? "url" : void 0,
             body: t.body,
             mentionedJidList: t.mentionedJidList,
             groupMentions: t.groupMentions,
@@ -702,17 +696,17 @@ __d(
             doNotPlayInline: t.doNotPlayInline,
             paymentLinkMetadata: t.paymentLinkMetadata,
             thumbnailDirectPath:
-              (a = t.thumbnailDirectPath) != null ? a : void 0,
-            thumbnailSha256: (i = t.thumbnailSha256) != null ? i : void 0,
-            thumbnailEncSha256: (l = t.thumbnailEncSha256) != null ? l : void 0,
-            thumbnailHeight: (s = t.thumbnailHeight) != null ? s : void 0,
-            thumbnailWidth: (u = t.thumbnailWidth) != null ? u : void 0,
+              (i = t.thumbnailDirectPath) != null ? i : void 0,
+            thumbnailSha256: (l = t.thumbnailSha256) != null ? l : void 0,
+            thumbnailEncSha256: (s = t.thumbnailEncSha256) != null ? s : void 0,
+            thumbnailHeight: (u = t.thumbnailHeight) != null ? u : void 0,
+            thumbnailWidth: (c = t.thumbnailWidth) != null ? c : void 0,
             mediaKey: t.mediaKey,
             mediaKeyTimestamp: t.mediaKeyTimestamp,
           });
         }
         case o("WAWebMessageEditUtils").MsgEditType.CaptionEdit:
-          return babelHelpers.extends({}, r, {
+          return babelHelpers.extends({}, a, {
             caption: t.caption,
             mentionedJidList: t.mentionedJidList,
             groupMentions: t.groupMentions,
@@ -720,7 +714,7 @@ __d(
             isCaptionByUser: !0,
           });
         case o("WAWebMessageEditUtils").MsgEditType.EventEdit:
-          return babelHelpers.extends({}, r, {
+          return babelHelpers.extends({}, a, {
             eventName: t.eventName,
             eventDescription: t.eventDescription,
             eventLocation: t.eventLocation,
@@ -730,24 +724,29 @@ __d(
             isEventCanceled: t.isEventCanceled,
           });
         case o("WAWebMessageEditUtils").MsgEditType.PollEdit:
-          return babelHelpers.extends({}, r, { pollName: t.pollName });
+          return babelHelpers.extends({}, a, { pollName: t.pollName });
         case o("WAWebMessageEditUtils").MsgEditType.RichResponseEdit:
-          return babelHelpers.extends({}, r, F(t), {
+          return babelHelpers.extends({}, a, F(t), {
             richResponse: t.richResponse,
             unifiedResponse: t.unifiedResponse,
             unifiedResponseRawData: t.unifiedResponseRawData,
-            botSignatureVerificationMetadata:
-              t.botSignatureVerificationMetadata,
+            botSignatureVerificationMetadata: o(
+              "WAWebBotEditSignatureMetadata",
+            ).getEditedBotSignatureMetadata({
+              parentMsg: e,
+              protocolMsg: t,
+              sameBatchEdits: r,
+            }),
           });
         case o("WAWebMessageEditUtils").MsgEditType.LoadingMediaEdit: {
-          var d = t.mimetype;
-          if (d != null) {
-            if (d.startsWith("image"))
-              return babelHelpers.extends({}, r, F(t), O(t), { subtype: null });
-            if (d.startsWith("video"))
-              return babelHelpers.extends({}, r, F(t), B(t), { subtype: null });
+          var m = t.mimetype;
+          if (m != null) {
+            if (m.startsWith("image"))
+              return babelHelpers.extends({}, a, F(t), O(t), { subtype: null });
+            if (m.startsWith("video"))
+              return babelHelpers.extends({}, a, F(t), B(t), { subtype: null });
           }
-          return babelHelpers.extends({}, r, F(t), { type: "loading_media" });
+          return babelHelpers.extends({}, a, F(t), { type: "loading_media" });
         }
       }
     }

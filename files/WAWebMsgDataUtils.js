@@ -52,24 +52,24 @@ __d(
                   n === "auto_add" ||
                   n === "default_sub_group_admin_add"
                 ? e.recipients &&
-                  o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
+                  o("WAWebUserUtils").isMePrimary(e.recipients[0])
                   ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
                   : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                 : n === "community_owner_update"
                   ? e.recipients &&
-                    o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
+                    o("WAWebUserUtils").isMePrimary(e.recipients[0])
                     ? (a = o("WAWebCommonMsgUtils").EventType.DEFAULT)
                     : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                   : n === "linked_group_promote" || n === "linked_group_demote"
                     ? r("WAWebWid").isGroup(e.id.remote) &&
                       e.recipients &&
-                      o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0]) &&
+                      o("WAWebUserUtils").isMePrimary(e.recipients[0]) &&
                       !o("WAWebUserUtils").isMeAccount(e.author)
                       ? (a = o("WAWebCommonMsgUtils").EventType.SIGNIFICANT)
                       : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                     : n === "remove"
                       ? e.recipients &&
-                        o("WAWebUserPrefsMeUser").isMePrimary(e.recipients[0])
+                        o("WAWebUserUtils").isMePrimary(e.recipients[0])
                         ? (a = o("WAWebCommonMsgUtils").EventType.NOTEWORTHY)
                         : (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
                       : n === "create" ||
@@ -104,7 +104,7 @@ __d(
                   ? o("WAWebCommonMsgUtils").EventType.NOTEWORTHY
                   : o("WAWebCommonMsgUtils").EventType.IGNORE)
             : t === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-                o("WAWebUserPrefsMeUser").isMePrimary(e.from)
+                o("WAWebUserUtils").isMePrimary(e.from)
               ? (a = o("WAWebCommonMsgUtils").EventType.IGNORE)
               : t === o("WAWebMsgType").MSG_TYPE.CALL_LOG
                 ? (a =

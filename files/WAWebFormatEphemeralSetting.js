@@ -12,7 +12,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebStateUtils",
-    "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWid",
     "err",
@@ -328,7 +327,7 @@ __d(
           r("err")("Cannot parse msg to build DM system message")
         );
       var a = null,
-        i = o("WAWebUserPrefsMeUser").isMePrimary(n.initiatingUser);
+        i = o("WAWebUserUtils").isMePrimary(n.initiatingUser);
       if (
         n.disappearingModeTrigger ===
         o("WAWebEphemeralityTypes").DisappearingModeTrigger.BizSupportFbHosting

@@ -22,9 +22,16 @@ __d(
         removePlaceholder: u,
         suspenseCallback: u,
         unhold: u,
-      },
-      d = s.createContext(c);
-    ((l.DEFAULT_CONTEXT_VALUE = c), (l.Context = d));
+      };
+    function d(e, t, n) {
+      if (e.forceUnholdWhenInvisible === !0) return n != null;
+      var r = e.interactionUnholdWhenInvisible;
+      return r != null ? r && n != null : t;
+    }
+    var m = s.createContext(c);
+    ((l.DEFAULT_CONTEXT_VALUE = c),
+      (l.isUnholdWhenInvisible = d),
+      (l.Context = m));
   },
   98,
 );

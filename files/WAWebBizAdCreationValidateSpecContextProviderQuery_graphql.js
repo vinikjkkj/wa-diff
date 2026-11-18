@@ -48,7 +48,14 @@ __d(
           name: "validation_module",
           storageKey: null,
         },
-        i = [
+        i = {
+          alias: "zeroOutcomeBudget",
+          args: null,
+          kind: "ScalarField",
+          name: "zero_outcome_budget",
+          storageKey: null,
+        },
+        l = [
           {
             alias: null,
             args: null,
@@ -57,37 +64,37 @@ __d(
             storageKey: null,
           },
         ],
-        l = {
+        s = {
           alias: null,
           args: null,
           concreteType: "TextWithEntities",
           kind: "LinkedField",
           name: "title",
           plural: !1,
-          selections: i,
+          selections: l,
           storageKey: null,
         },
-        s = {
+        u = {
           alias: "body",
           args: null,
           concreteType: "TextWithEntities",
           kind: "LinkedField",
           name: "text",
           plural: !1,
-          selections: i,
+          selections: l,
           storageKey: null,
         },
-        u = {
+        c = {
           alias: null,
           args: null,
           concreteType: "TextWithEntities",
           kind: "LinkedField",
           name: "display_text",
           plural: !1,
-          selections: i,
+          selections: l,
           storageKey: null,
         },
-        c = {
+        d = {
           kind: "InlineFragment",
           selections: [
             {
@@ -131,8 +138,9 @@ __d(
                         r,
                         o,
                         a,
-                        l,
+                        i,
                         s,
+                        u,
                         {
                           alias: null,
                           args: null,
@@ -140,7 +148,7 @@ __d(
                           kind: "LinkedField",
                           name: "action",
                           plural: !1,
-                          selections: [u, c],
+                          selections: [c, d],
                           storageKey: null,
                         },
                       ],
@@ -182,8 +190,9 @@ __d(
                     r,
                     o,
                     a,
-                    l,
+                    i,
                     s,
+                    u,
                     {
                       alias: null,
                       args: null,
@@ -199,8 +208,8 @@ __d(
                           name: "__typename",
                           storageKey: null,
                         },
-                        u,
                         c,
+                        d,
                       ],
                       storageKey: null,
                     },

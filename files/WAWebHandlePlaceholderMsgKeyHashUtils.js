@@ -3,6 +3,7 @@ __d(
   [
     "WABase64",
     "WACryptoHmac",
+    "WAWebMessageKeyHashInput",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
   ],
@@ -29,30 +30,11 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r,
-            a,
-            i = yield c();
-          if (!i) return null;
-          var l = u(
-              e.id.id +
-                (e.id.fromMe ? "1" : "0") +
-                ((t =
-                  (n = e.id.remote) == null
-                    ? void 0
-                    : n.toString({ legacy: !0 })) != null
-                  ? t
-                  : "") +
-                ((r =
-                  (a = e.id.participant) == null
-                    ? void 0
-                    : a.toString({ legacy: !0 })) != null
-                  ? r
-                  : ""),
-            ),
-            s = yield o("WACryptoHmac").hmacSha256(i, l);
-          return o("WABase64").encodeB64(s);
+          var t = yield c();
+          if (!t) return null;
+          var n = u(o("WAWebMessageKeyHashInput").getMessageKeyHashInput(e.id)),
+            r = yield o("WACryptoHmac").hmacSha256(t, n);
+          return o("WABase64").encodeB64(r);
         })),
         m.apply(this, arguments)
       );

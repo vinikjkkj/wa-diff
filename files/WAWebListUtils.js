@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebChatGetters",
+    "WAWebChatListVisibilityUtils",
     "WAWebChatMessageSearch",
     "WAWebChatSearchFilters",
     "WAWebConnModel",
@@ -71,15 +72,19 @@ __d(
         return n === 0 ? g(e, t) : n;
       });
     }
-    var y = new Set([
-      (c = o("WAWebSchemaLabel")).ListType.UNREAD,
-      c.ListType.GROUPS,
-      c.ListType.FAVORITES,
-      c.ListType.COMMUNITY,
-      c.ListType.MENTIONS_AND_REPLIES,
-    ]);
+    var y = o("WAWebChatListVisibilityUtils").createChatListVisibilityPolicy({
+      UNREAD: (c = o("WAWebSchemaLabel")).ListType.UNREAD,
+      GROUPS: c.ListType.GROUPS,
+      FAVORITES: c.ListType.FAVORITES,
+      COMMUNITY: c.ListType.COMMUNITY,
+      MENTIONS_AND_REPLIES: c.ListType.MENTIONS_AND_REPLIES,
+      SERVER_ASSIGNED: c.ListType.SERVER_ASSIGNED,
+      CHANNELS: c.ListType.CHANNELS,
+      AI_HANDOFF: c.ListType.AI_HANDOFF,
+      AI_RESPONDING: c.ListType.AI_RESPONDING,
+    });
     function C(e) {
-      return e == null ? !1 : y.has(e);
+      return y.isBuiltInList(e);
     }
     function b(t) {
       return t == null || o("WAWebSchemaLabel").ListType.isValid(t)

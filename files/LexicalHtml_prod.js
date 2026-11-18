@@ -1765,7 +1765,19 @@ __d(
           }
           l && c.push.apply(c, Array.from(Array.isArray(_t24) ? _t24 : [l]));
         }
-        null != a.forChild && s.set(e.nodeName, a.forChild);
+        if (null != a.forChild) {
+          var _t25 = a.forChild,
+            _n22 = s.get(e.nodeName);
+          s.set(
+            e.nodeName,
+            _n22
+              ? function (e, o) {
+                  var r = _n22(e, o);
+                  return r ? _t25(r, o) : r;
+                }
+              : _t25,
+          );
+        }
       }
       var d = e.childNodes;
       var p = [];
@@ -1848,8 +1860,8 @@ __d(
         for (var _c3 of n)
           if (ue(_c3)) {
             if ((i(), require("Lexical").$isElementNode(_c3))) {
-              var _t25 = e(_c3.getChildren(), o);
-              _c3.splice(0, _c3.getChildrenSize(), _t25);
+              var _t26 = e(_c3.getChildren(), o);
+              _c3.splice(0, _c3.getChildrenSize(), _t26);
             }
             r.push(_c3);
           } else s.push(_c3);
@@ -1890,22 +1902,22 @@ __d(
             : n.childNodes,
           r = [],
           s = [];
-        for (var _t26 of o)
-          if (!$t.has(_t26.nodeName)) {
-            var _n22 = St(_t26, e, s, !1);
-            if (null !== _n22) for (var _e39 of _n22) r.push(_e39);
+        for (var _t27 of o)
+          if (!$t.has(_t27.nodeName)) {
+            var _n23 = St(_t27, e, s, !1);
+            if (null !== _n23) for (var _e39 of _n23) r.push(_e39);
           }
         return (
           (function (e) {
-            for (var _n23 of e)
-              _n23.getParent() &&
-                _n23.getNextSibling() instanceof
+            for (var _n24 of e)
+              _n24.getParent() &&
+                _n24.getNextSibling() instanceof
                   require("Lexical").ArtificialNode__DO_NOT_USE &&
-                _n23.insertAfter(require("Lexical").$createLineBreakNode());
-            for (var _t27 of e) {
-              var _e40 = _t27.getParent();
+                _n24.insertAfter(require("Lexical").$createLineBreakNode());
+            for (var _t28 of e) {
+              var _e40 = _t28.getParent();
               _e40 &&
-                _e40.splice(_t27.getIndexWithinParent(), 1, _t27.getChildren());
+                _e40.splice(_t28.getIndexWithinParent(), 1, _t28.getChildren());
             }
           })(s),
           r

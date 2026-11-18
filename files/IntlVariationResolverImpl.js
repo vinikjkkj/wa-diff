@@ -1,27 +1,27 @@
 __d(
   "IntlVariationResolverImpl",
   ["invariant", "FbtHooks", "IntlNumberType", "IntlVariations"],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e,
-      s = "_1";
-    function u(t) {
-      var r = n("IntlNumberType")
-        .get((e || (e = n("FbtHooks"))).getViewerContext().locale)
+      u = "_1";
+    function c(t) {
+      var n = o("IntlNumberType")
+        .get((e || (e = r("FbtHooks"))).getViewerContext().locale)
         .getVariation(t);
       return (
-        r & n("IntlVariations").BITMASK_NUMBER || l(0, 11647, r, typeof r),
-        t === 1 ? [s, r, "*"] : [r, "*"]
+        n & r("IntlVariations").BITMASK_NUMBER || s(0, 11647, n, typeof n),
+        t === 1 ? [u, n, "*"] : [n, "*"]
       );
     }
-    function c(e) {
+    function d(e) {
       return (
-        e & n("IntlVariations").BITMASK_GENDER || l(0, 11648, e, typeof e),
+        e & r("IntlVariations").BITMASK_GENDER || s(0, 11648, e, typeof e),
         [e, "*"]
       );
     }
-    ((i.getNumberVariations = u),
-      (i.getGenderVariations = c),
-      (i.EXACTLY_ONE = s));
+    ((l.getNumberVariations = c),
+      (l.getGenderVariations = d),
+      (l.EXACTLY_ONE = u));
   },
-  66,
+  98,
 );

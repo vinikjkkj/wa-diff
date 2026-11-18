@@ -21,6 +21,7 @@ __d(
       enterIsSend: !0,
       autoplayAnimatedImages: !0,
       hdMediaEnabled: !1,
+      hdMediaQualityChosen: !1,
       wallpaperValue: { type: "default", isDoodleEnabled: !0 },
       chatThemeValue: { chatThemeId: null, colorSchemeId: null },
     };
@@ -66,7 +67,9 @@ __d(
       var a = n.prototype;
       return (
         (a.initializeFromCache = function (n) {
-          var t = (n || []).map(s);
+          var t = (n || []).map(function (e) {
+            return s(d(e));
+          });
           this.add([e].concat(t), { merge: !0 });
         }),
         (a.get = function (n) {
@@ -117,6 +120,15 @@ __d(
         delay: 1e3,
       }));
     var c = new u();
+    function d(e) {
+      var t = e;
+      return t.hdMediaQualityChosen != null || t.hdMediaEnabled == null
+        ? e
+        : babelHelpers.extends({}, e, {
+            hdMediaEnabled: t.hdMediaEnabled === !0 || t.hdMediaEnabled === 1,
+            hdMediaQualityChosen: !0,
+          });
+    }
     l.default = c;
   },
   98,

@@ -139,7 +139,7 @@ __d(
                 },
               ),
               a.BackendEventBus.onOpenSocketStream(function () {
-                ((r("WAWebNetworkStatus").online = !0),
+                (r("WAWebNetworkStatus").markOnline(),
                   r("WAWebNetworkStatus").checkOnline(),
                   t.openStream().catch(function (t) {
                     o("WALogger")

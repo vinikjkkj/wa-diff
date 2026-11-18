@@ -4,9 +4,32 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = r("requireDeferred")("BoostedComponentFalcoEvent").__setRef(
-        "WAWebBizAdLogger",
-      ),
-      s = {
+      "WAWebBizAdLogger",
+    );
+    function s(e, t) {
+      var n,
+        r = t.loggerContext;
+      return {
+        ad_account_id: o("WAWebBizAdLoggerUtils").toInt64(t.adAccountID),
+        codebase: r == null ? void 0 : r.codebase,
+        entry_point: r.entryPoint,
+        event: e,
+        extra_data: o("WAWebBizAdLoggerUtils").convertExtraData(
+          babelHelpers.extends({}, (n = t.extra) != null ? n : {}, {
+            message_type: t.messageType,
+            notice_name: t.noticeName,
+            spec_element: t.specElement,
+          }),
+        ),
+        flow: r == null ? void 0 : r.flow,
+        flow_id: r.flowID,
+        page_id: o("WAWebBizAdLoggerUtils").toInt64(r.pageID),
+        platform: r.platform,
+        product: r.product,
+        wa_ad_account_type: r == null ? void 0 : r.waAdAccountType,
+      };
+    }
+    var u = {
         buildFalcoEvent: function (t) {
           var e,
             n,
@@ -62,32 +85,15 @@ __d(
             wa_ad_account_type: l == null ? void 0 : l.waAdAccountType,
           };
         },
+        buildValidationNoticeCTAClickEvent: function (t) {
+          return s("click_validation_message_cta", t);
+        },
         buildValidationNoticeImpressionEvent: function (t) {
-          var e,
-            n = t.loggerContext;
-          return {
-            ad_account_id: o("WAWebBizAdLoggerUtils").toInt64(t.adAccountID),
-            codebase: n == null ? void 0 : n.codebase,
-            entry_point: n.entryPoint,
-            event: "render_warning_message",
-            extra_data: o("WAWebBizAdLoggerUtils").convertExtraData(
-              babelHelpers.extends({}, (e = t.extra) != null ? e : {}, {
-                message_type: t.messageType,
-                notice_name: t.noticeName,
-                spec_element: t.specElement,
-              }),
-            ),
-            flow: n == null ? void 0 : n.flow,
-            flow_id: n.flowID,
-            page_id: o("WAWebBizAdLoggerUtils").toInt64(n.pageID),
-            platform: n.platform,
-            product: n.product,
-            wa_ad_account_type: n == null ? void 0 : n.waAdAccountType,
-          };
+          return s("render_warning_message", t);
         },
         log: function (n) {
           e.onReady(function (e) {
-            var t = s.buildFalcoEvent(n);
+            var t = u.buildFalcoEvent(n);
             t != null &&
               e.logCritical(function () {
                 return t;
@@ -95,20 +101,27 @@ __d(
           });
         },
         logCritical: function (t) {
-          s.log(t);
+          u.log(t);
         },
         logImmediately: function (n) {
           e.onReady(function (e) {
-            var t = s.buildFalcoEvent(n);
+            var t = u.buildFalcoEvent(n);
             t != null &&
               e.logImmediately(function () {
                 return t;
               });
           });
         },
+        logValidationNoticeCTAClick: function (n) {
+          e.onReady(function (e) {
+            e.log(function () {
+              return u.buildValidationNoticeCTAClickEvent(n);
+            });
+          });
+        },
         logValidationNoticeImpression: function (n) {
           e.onReady(function (e) {
-            var t = s.buildValidationNoticeImpressionEvent(n);
+            var t = u.buildValidationNoticeImpressionEvent(n);
             t != null &&
               e.log(function () {
                 return t;
@@ -116,8 +129,8 @@ __d(
           });
         },
       },
-      u = s;
-    l.default = u;
+      c = u;
+    l.default = c;
   },
   98,
 );

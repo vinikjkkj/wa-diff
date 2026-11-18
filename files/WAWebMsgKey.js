@@ -6,6 +6,7 @@ __d(
     "WAWebMsgKeyNewId",
     "WAWebParseMsgKeyString",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -92,11 +93,11 @@ __d(
                 );
               var L = r("WAWebWid").equals(f, g);
               ((C = L ? C : void 0),
-                L && o("WAWebUserPrefsMeUser").isMePrimary(f)
+                L && o("WAWebUserUtils").isMePrimary(f)
                   ? ((b = C === "out"), (v = g))
-                  : o("WAWebUserPrefsMeUser").isMePrimary(f)
+                  : o("WAWebUserUtils").isMePrimary(f)
                     ? ((b = !0), (v = g))
-                    : o("WAWebUserPrefsMeUser").isMePrimary(g)
+                    : o("WAWebUserUtils").isMePrimary(g)
                       ? ((b = !1), (v = f))
                       : L &&
                           (r("WAWebWid").isGroup(f) ||
@@ -130,7 +131,7 @@ __d(
                   ),
                   r("err")("MsgKey error: something is not a wid")
                 );
-              (o("WAWebUserPrefsMeUser").isMePrimary(v) &&
+              (o("WAWebUserUtils").isMePrimary(v) &&
                 (C = b === !0 ? "out" : "in"),
                 b !== void 0 && (this.fromMe = b),
                 v && (this.remote = v),

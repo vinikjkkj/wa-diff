@@ -191,26 +191,37 @@ __d(
       );
     }
     function B() {
+      return W() > 0;
+    }
+    function W() {
+      return 0;
+    }
+    function q() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_status_bad_ux_logging_parity_enabled",
       );
     }
-    function W() {
+    function U() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_composer_quick_replies_enabled",
       );
     }
-    function q() {
-      return V(1);
+    function V() {
+      return G(1);
     }
-    function U() {
-      return V(2);
+    function H() {
+      return G(2);
     }
-    function V(e) {
+    function G(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_status_viewer_refresh_level",
         ) >= e
+      );
+    }
+    function z() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_status_progressive_decrypt",
       );
     }
     ((l.statusQuickReplyEmojis = u),
@@ -242,10 +253,13 @@ __d(
       (l.isStatusCompanionReadSyncEnabled = A),
       (l.isStatusUnreadDotPrefetchEnabled = F),
       (l.getStatusListPrefetchDepth = O),
-      (l.isStatusBadUxLoggingParityEnabled = B),
-      (l.isStatusComposerQuickRepliesEnabled = W),
-      (l.isStatusViewerRefreshM1Enabled = q),
-      (l.isStatusViewerRefreshM2Enabled = U));
+      (l.isStatusListOpenPrefetchEnabled = B),
+      (l.getStatusListOpenPrefetchDepth = W),
+      (l.isStatusBadUxLoggingParityEnabled = q),
+      (l.isStatusComposerQuickRepliesEnabled = U),
+      (l.isStatusViewerRefreshM1Enabled = V),
+      (l.isStatusViewerRefreshM2Enabled = H),
+      (l.isStatusChunkDecryptEnabled = z));
   },
   98,
 );
