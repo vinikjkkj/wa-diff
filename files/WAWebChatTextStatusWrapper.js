@@ -9,7 +9,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebIdleComponent.react",
     "WAWebTextStatusAction",
-    "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "isStringNullOrEmpty",
     "react",
@@ -20,27 +19,11 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      if (
-        !e.isRegularUser() ||
-        !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
-      )
-        return !1;
-      var t = o("WAWebContactCollection").ContactCollection.gadd(e);
-      return o("WAWebTextStatusUtils").shouldDisplayTextStatus({
-        textStatusEmoji: o("WAWebFrontendContactGetters").getTextStatusEmoji(t),
-        textStatusEphemeralDuration: o(
-          "WAWebFrontendContactGetters",
-        ).getTextStatusEphemeralDuration(t),
-        textStatusExpiryTs: o(
-          "WAWebFrontendContactGetters",
-        ).getTextStatusExpiryTs(t),
-        textStatusLastUpdateTime: o(
-          "WAWebFrontendContactGetters",
-        ).getTextStatusLastUpdateTime(t),
-        textStatusString: o("WAWebFrontendContactGetters").getTextStatusString(
-          t,
-        ),
-      });
+      return e.isRegularUser()
+        ? o("WAWebFrontendContactGetters").getIsTextStatusDisplayable(
+            o("WAWebContactCollection").ContactCollection.gadd(e),
+          )
+        : !1;
     }
     function c(e) {
       var t = o("react-compiler-runtime").c(38),
@@ -75,11 +58,7 @@ __d(
         y = p[4],
         C;
       t[3] !== n
-        ? ((C =
-            n.isRegularUser() &&
-            o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()),
-          (t[3] = n),
-          (t[4] = C))
+        ? ((C = n.isRegularUser()), (t[3] = n), (t[4] = C))
         : (C = t[4]);
       var b = C,
         v;

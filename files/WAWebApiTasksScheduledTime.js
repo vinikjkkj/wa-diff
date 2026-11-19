@@ -19,7 +19,17 @@ __d(
           return r.createOrReplace(o);
         });
     }
-    ((l.getTaskScheduledTime = e), (l.updateTaskScheduledTime = s));
+    function u(e) {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["tasks-scheduled-time"], function (t) {
+          var n = t[0];
+          return n.remove(e);
+        });
+    }
+    ((l.getTaskScheduledTime = e),
+      (l.updateTaskScheduledTime = s),
+      (l.removeTaskScheduledTime = u));
   },
   98,
 );

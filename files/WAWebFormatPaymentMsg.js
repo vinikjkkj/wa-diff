@@ -1,16 +1,28 @@
 __d(
   "WAWebFormatPaymentMsg",
-  ["fbt", "WAWebWidToFormattedNameOrNumber"],
+  ["fbt", "WAWebSystemMessageGatingUtils", "WAWebWidToFormattedNameOrNumber"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = r("WAWebWidToFormattedNameOrNumber")(e.remote);
       return e.fromMe
-        ? s._(/*BTDS*/ "You invited {otherUser} to use payments", [
-            s._param("otherUser", t),
-          ])
-        : s._(/*BTDS*/ "{otherUser} invited you to use payments", [
-            s._param("otherUser", t),
-          ]);
+        ? o(
+            "WAWebSystemMessageGatingUtils",
+          ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "You invited {otherUser} to use payments.", [
+              s._param("otherUser", t),
+            ])
+          : s._(/*BTDS*/ "You invited {otherUser} to use payments", [
+              s._param("otherUser", t),
+            ])
+        : o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "{otherUser} invited you to use payments.", [
+              s._param("otherUser", t),
+            ])
+          : s._(/*BTDS*/ "{otherUser} invited you to use payments", [
+              s._param("otherUser", t),
+            ]);
     }
     function u(e) {
       return e === "send"

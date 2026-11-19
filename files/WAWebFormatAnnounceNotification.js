@@ -1,6 +1,6 @@
 __d(
   "WAWebFormatAnnounceNotification",
-  ["fbt", "WAWebSystemMessagesUtils"],
+  ["fbt", "WAWebSystemMessageGatingUtils", "WAWebSystemMessagesUtils"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.author,
@@ -8,18 +8,44 @@ __d(
         r = e.body;
       return r === "on"
         ? o("WAWebSystemMessagesUtils").isMe(t)
-          ? s._(
+          ? (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(
+                /*BTDS*/ "You allowed only admins to send messages to this group.",
+              )) ||
+            s._(
               /*BTDS*/ "You allowed only admins to send messages to this group",
             )
-          : s._(
+          : (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(
+                /*BTDS*/ "{user_name} changed this group's settings to allow only admins to send messages to this group.",
+                [s._param("user_name", n)],
+              )) ||
+            s._(
               /*BTDS*/ "{user_name} changed this group's settings to allow only admins to send messages to this group",
               [s._param("user_name", n)],
             )
         : o("WAWebSystemMessagesUtils").isMe(t)
-          ? s._(
+          ? (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(
+                /*BTDS*/ "You changed this group's settings to allow all members to send messages to this group.",
+              )) ||
+            s._(
               /*BTDS*/ "You changed this group's settings to allow all members to send messages to this group",
             )
-          : s._(
+          : (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(
+                /*BTDS*/ "{user_name} changed this group's settings to allow all members to send messages to this group.",
+                [s._param("user_name", n)],
+              )) ||
+            s._(
               /*BTDS*/ "{user_name} changed this group's settings to allow all members to send messages to this group",
               [s._param("user_name", n)],
             );

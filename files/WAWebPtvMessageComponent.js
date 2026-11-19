@@ -637,7 +637,7 @@ __d(
         : (Ze = t[69]);
       var et;
       t[70] === Symbol.for("react.memo_cache_sentinel")
-        ? ((et = { className: "x10l6tqk x1rn7vjc xb51amx x1d8287x" }),
+        ? ((et = { className: "x10l6tqk x78zum5 x1rn7vjc xb51amx x1d8287x" }),
           (t[70] = et))
         : (et = t[70]);
       var tt;

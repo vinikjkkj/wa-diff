@@ -2,6 +2,8 @@ __d(
   "WAWebMmSignalSharingUIUtils",
   [
     "fbt",
+    "WAWebCarouselMsgUtils",
+    "WAWebCloudApiSignalLogger",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
     "WAWebMmSignalSharingDisclosureModalLoadable.react",
@@ -24,7 +26,19 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c() {
+    function c(e, t) {
+      var n = e.isCarouselCard
+        ? o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(e)
+        : e;
+      return (
+        n != null &&
+        o("WAWebCloudApiSignalLogger").isCloudApiNativeClickMessage({
+          chat: t,
+          msg: n,
+        })
+      );
+    }
+    function d() {
       return o(
         "WAWebMmSignalSharingGatingUtils",
       ).isMmSignalSharingDisclosureEnabled()
@@ -35,11 +49,11 @@ __d(
           )
         : "";
     }
-    function d(e) {
+    function m(e) {
       var t = s._(/*BTDS*/ "This chat has offers and announcements"),
         n = s._(/*BTDS*/ "Learn more"),
         r = function () {
-          _({
+          f({
             action: "learnMore",
             chat: e,
             onLearnMore: function () {
@@ -55,12 +69,12 @@ __d(
         };
       return { text: t, ctaText: n, handleClick: r };
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r;
           if (
             o(
@@ -96,7 +110,7 @@ __d(
               u = l.link;
             if (u == null) return;
             a && s != null
-              ? _({
+              ? f({
                   eventType: o("WAWebWamEnumDisclosureEventType")
                     .DISCLOSURE_EVENT_TYPE.BODY_URL_CLICK,
                   chat: t,
@@ -121,6 +135,7 @@ __d(
                       ).logMmSignalSharingLinkClickEvent({
                         eventType: o("WAWebWamEnumDisclosureEventType")
                           .DISCLOSURE_EVENT_TYPE.BODY_URL_CLICK,
+                        isCloudApiNativeClick: c(n, t),
                         linkTypeIndex: r,
                         msg: n,
                         chat: t,
@@ -175,6 +190,7 @@ __d(
                       ).logMmSignalSharingLinkClickEvent({
                         eventType: o("WAWebWamEnumDisclosureEventType")
                           .DISCLOSURE_EVENT_TYPE.BODY_URL_CLICK,
+                        isCloudApiNativeClick: c(n, t),
                         linkTypeIndex: s,
                         msg: n,
                         chat: t,
@@ -207,6 +223,7 @@ __d(
                 ).logMmSignalSharingLinkClickEvent({
                   eventType: o("WAWebWamEnumDisclosureEventType")
                     .DISCLOSURE_EVENT_TYPE.BODY_URL_CLICK,
+                  isCloudApiNativeClick: c(n, t),
                   linkTypeIndex: s,
                   msg: n,
                   chat: t,
@@ -229,10 +246,10 @@ __d(
                 }));
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e) {
       var t = e.action,
         n = e.chat,
         a = e.eventType,
@@ -257,10 +274,11 @@ __d(
           }),
         );
     }
-    ((l.getMmSignalSharingLearnMoreHCAURL = c),
-      (l.getMmSignalSharingMessageNotification = d),
-      (l.manageMmSignalSharingBodyClick = m),
-      (l.openMmSignalSharingDisclosureModal = _));
+    ((l.isCloudApiNativeClickTap = c),
+      (l.getMmSignalSharingLearnMoreHCAURL = d),
+      (l.getMmSignalSharingMessageNotification = m),
+      (l.manageMmSignalSharingBodyClick = p),
+      (l.openMmSignalSharingDisclosureModal = f));
   },
   226,
 );

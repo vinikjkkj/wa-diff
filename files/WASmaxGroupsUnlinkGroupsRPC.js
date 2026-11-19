@@ -7,6 +7,7 @@ __d(
     "WASmaxChildren",
     "WASmaxInGroupsBaseServerErrorMixin",
     "WASmaxInGroupsIQErrorBadRequestMixin",
+    "WASmaxInGroupsIQErrorBlockedIntegrityEnforcementMixin",
     "WASmaxInGroupsIQErrorItemNotFoundMixin",
     "WASmaxInGroupsIQErrorNotAcceptableMixin",
     "WASmaxInGroupsIQErrorNotAuthorizedMixin",
@@ -269,10 +270,18 @@ __d(
       var i = o(
         "WASmaxInGroupsIQErrorRateOverlimitMixin",
       ).parseIQErrorRateOverlimitMixin(e);
-      return i.success
+      if (i.success)
+        return o("WAResultOrError").makeResult({
+          name: "IQErrorRateOverlimit",
+          value: i.value,
+        });
+      var l = o(
+        "WASmaxInGroupsIQErrorBlockedIntegrityEnforcementMixin",
+      ).parseIQErrorBlockedIntegrityEnforcementMixin(e);
+      return l.success
         ? o("WAResultOrError").makeResult({
-            name: "IQErrorRateOverlimit",
-            value: i.value,
+            name: "IQErrorBlockedIntegrityEnforcement",
+            value: l.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
@@ -282,8 +291,9 @@ __d(
               "IQErrorItemNotFound",
               "IQErrorNotAcceptable",
               "IQErrorRateOverlimit",
+              "IQErrorBlockedIntegrityEnforcement",
             ],
-            [t, n, r, a, i],
+            [t, n, r, a, i, l],
           );
     }
     ((l.sendUnlinkGroupsRPC = e),

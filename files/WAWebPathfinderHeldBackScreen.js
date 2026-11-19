@@ -29,7 +29,8 @@ __d(
         n === e && u(n);
       }
     }
-    ((l.noteEnteredScreen = u),
+    ((l.UNNAMED_SCREEN = e),
+      (l.noteEnteredScreen = u),
       (l.leavingVerdict = c),
       (l.enteringVerdict = d),
       (l.getLifecycleHeldBackVerdict = m));

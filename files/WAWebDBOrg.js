@@ -613,7 +613,7 @@ __d(
     function H(e, t) {
       var n = { orgId: e.orgId, name: e.name };
       (G(n, e), z(n, e, t));
-      var r = Q(e, t);
+      var r = X(e, t);
       return (r != null && (n.directoryIsComplete = r), n);
     }
     function G(e, t) {
@@ -628,27 +628,33 @@ __d(
         t.viewerRole != null && (e.viewerRole = t.viewerRole));
     }
     function z(e, t, n) {
-      var r = K(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
+      var r = Q(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
       r != null && (e.orgUpdatedTsUsec = r);
-      var o = K(
+      var o = Q(
         t.memberUpdatedTsUsec,
         n == null ? void 0 : n.memberUpdatedTsUsec,
       );
       o != null && (e.memberUpdatedTsUsec = o);
-      var a = K(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
+      var a = Q(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
       a != null && (e.memberListTsUsec = a);
-      var i = K(j(t.managedGroups), n == null ? void 0 : n.managedGroups);
+      var i = Q(j(t.managedGroups), n == null ? void 0 : n.managedGroups);
       i != null && (e.managedGroups = i);
-      var l = K(t.managedChannels, n == null ? void 0 : n.managedChannels);
+      var l = Q(t.managedChannels, n == null ? void 0 : n.managedChannels);
       l != null && (e.managedChannels = l);
     }
     function j(e) {
-      return e == null ? e : e.map(o("WAJids").toGroupJid);
+      return e == null ? e : e.map(K);
     }
-    function K(e, t) {
-      return e === void 0 ? t : e;
+    function K(e) {
+      var t = o("WAJids").validateGroupJid(e);
+      if (t == null)
+        throw r("err")("Org managedGroups entry is not a group jid");
+      return t;
     }
     function Q(e, t) {
+      return e === void 0 ? t : e;
+    }
+    function X(e, t) {
       if (
         e.directoryIsComplete != null ||
         (t == null ? void 0 : t.directoryIsComplete) == null

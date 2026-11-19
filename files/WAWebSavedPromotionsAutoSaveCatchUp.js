@@ -29,9 +29,9 @@ __d(
         (o("WAWebSavedPromotionsAutoSave").autoSavePromotionOnReceipt(e),
         e.t != null)
       ) {
-        var t = Math.min(e.t, k());
+        var t = Math.min(e.t, E());
         d
-          ? o("WAWebCmd").Cmd.isOfflineDeliveryEnd && L(t)
+          ? o("WAWebCmd").Cmd.isOfflineDeliveryEnd && R(t)
           : (m = Math.max(m, t));
       }
     }
@@ -54,13 +54,13 @@ __d(
                 ? void 0
                 : t.toString();
           if (n != null) {
-            var r = yield S(n),
+            var r = yield v(n),
               a = o("WAWebChatCollection")
                 .ChatCollection.getModelsArray()
                 .filter(function (e) {
                   return e.id.isUser();
                 }),
-              i = k(),
+              i = E(),
               l = a.reduce(
                 function (e, t) {
                   var n;
@@ -90,7 +90,7 @@ __d(
             }
             var u = l;
             (p === 1 && ((u = Math.max(l, m)), (m = 0), (d = !0)),
-              !(r == null && u === 0) && (yield L(u, n)));
+              !(r == null && u === 0) && (yield R(u, n)));
           }
         })),
         y.apply(this, arguments)
@@ -130,19 +130,12 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v() {
-      ((c = null),
-        (d = !1),
-        (m = 0),
-        (p = 0),
-        (_ = (s || (s = n("Promise"))).resolve()));
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, n;
           if (((t = c) == null ? void 0 : t.account) !== e) {
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
@@ -154,15 +147,15 @@ __d(
           }
           return (n = c) == null ? void 0 : n.t;
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t === void 0) {
             var n;
             t = (n = c) == null ? void 0 : n.account;
@@ -176,15 +169,13 @@ __d(
               t: e,
             }));
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function k() {
+    function E() {
       return Math.floor(o("WAWebClock").Clock.getServerTimeMs() / 1e3);
     }
-    ((l.receiveLiveOffer = f),
-      (l.catchUpOnStoredOffers = g),
-      (l.resetCatchUpForTests = v));
+    ((l.receiveLiveOffer = f), (l.catchUpOnStoredOffers = g));
   },
   98,
 );

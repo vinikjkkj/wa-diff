@@ -144,10 +144,17 @@ __d(
                       ),
                 }
               : {
-                  text: s._(
-                    /*BTDS*/ "{author} turned on admin approval to join this group",
-                    [s._param("author", i)],
-                  ),
+                  text: o(
+                    "WAWebSystemMessageGatingUtils",
+                  ).systemMessageTerminalPeriodsEnabled()
+                    ? s._(
+                        /*BTDS*/ "{author} turned on admin approval to join this group.",
+                        [s._param("author", i)],
+                      )
+                    : s._(
+                        /*BTDS*/ "{author} turned on admin approval to join this group",
+                        [s._param("author", i)],
+                      ),
                 }
         : i == null
           ? {
@@ -178,10 +185,17 @@ __d(
                       ),
                 }
               : {
-                  text: s._(
-                    /*BTDS*/ "{author} turned off admin approval to join this group",
-                    [s._param("author", i)],
-                  ),
+                  text: o(
+                    "WAWebSystemMessageGatingUtils",
+                  ).systemMessageTerminalPeriodsEnabled()
+                    ? s._(
+                        /*BTDS*/ "{author} turned off admin approval to join this group.",
+                        [s._param("author", i)],
+                      )
+                    : s._(
+                        /*BTDS*/ "{author} turned off admin approval to join this group",
+                        [s._param("author", i)],
+                      ),
                 };
     }
     function d(e, t, n) {

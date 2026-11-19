@@ -201,13 +201,26 @@ __d(
           ).runCustomerProfileRequest(
             "fetchCustomerProfiles",
             function (t) {
-              var n, r, a;
+              var n, r, a, i;
               return o("WAWebRelayClient").fetchQuery(
                 u,
                 {
                   input: {
                     candidate_lids: (n = e.candidateLids) != null ? n : [],
-                    filters: ((r = e.filters) != null ? r : []).map(
+                    custom_field_filters: ((r = e.customFieldFilters) != null
+                      ? r
+                      : []
+                    ).map(function (e) {
+                      return {
+                        custom_field_id: e.custom_field_id,
+                        date_value: e.date_value,
+                        enum_option_key: e.enum_option_key,
+                        money_amount: e.money_amount,
+                        numeric_value: e.numeric_value,
+                        text_value: e.text_value,
+                      };
+                    }),
+                    filters: ((a = e.filters) != null ? a : []).map(
                       function (e) {
                         var t = e.fieldName,
                           n = e.filterText;
@@ -216,7 +229,7 @@ __d(
                     ),
                     sort_column: e.sortColumn,
                     sort_descending: e.sortDescending === !0,
-                    page_size: (a = e.pageSize) != null ? a : c,
+                    page_size: (i = e.pageSize) != null ? i : c,
                     cursor: e.cursor,
                   },
                   includeCustomFields: e.includeCustomFields === !0,
@@ -234,10 +247,7 @@ __d(
     ((l.MAX_COMPLETE_PROFILE_RECORDS = m),
       (l.fetchCustomerProfilePage = _),
       (l.fetchCustomerProfileRecords = C),
-      (l.fetchCompleteCustomerProfileRecords = b),
-      (l.logIfRateLimited = o(
-        "WAWebCustomerManagerProfileRequest",
-      ).logIfRateLimited));
+      (l.fetchCompleteCustomerProfileRecords = b));
   },
   98,
 );

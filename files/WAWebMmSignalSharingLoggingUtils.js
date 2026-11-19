@@ -175,22 +175,38 @@ __d(
               );
             (i.commit(), l.commit(), s.commit());
           }
-          var P = c.type === o("WAWebWamEnumSignalType").SIGNAL_TYPE.MM_CLICK;
+          var P = c.type === o("WAWebWamEnumSignalType").SIGNAL_TYPE.MM_CLICK,
+            N =
+              c.isCloudApiMessage === !0
+                ? {
+                    onePdReason:
+                      o(
+                        "WAWebMmSignalSharingGatingUtils",
+                      ).isCCIComplianceEnabled() && l.contact.isContactBlocked
+                        ? o("WAWebWamEnumOnePdSignalNotSharedReason")
+                            .ONE_PD_SIGNAL_NOT_SHARED_REASON.BLOCKED
+                        : o("WAWebWamEnumOnePdSignalNotSharedReason")
+                            .ONE_PD_SIGNAL_NOT_SHARED_REASON.CLOUD_API_MESSAGE,
+                    spReason: o("WAWebWamEnumSpSignalNotSharedReason")
+                      .SP_SIGNAL_NOT_SHARED_REASON.CLOUD_API_MESSAGE,
+                    sharingStatus: o("WAWebWamEnumSignalSharingStatus")
+                      .SIGNAL_SHARING_STATUS.NOT_SHARED,
+                  }
+                : null;
           if (P) {
-            var N = b({
-              chat: l,
-              isUserDisclosed: h,
-              linkOptions: s,
-              signal: c,
-            });
+            var M =
+              N != null
+                ? N
+                : b({ chat: l, isUserDisclosed: h, linkOptions: s, signal: c });
             if (
-              ($(!0, N.onePdReason, N.spReason, N.sharingStatus),
+              ($(!0, M.onePdReason, M.spReason, M.sharingStatus),
               c.canceledReason == null &&
+                N == null &&
                 o(
                   "WAWebMmSignalSharingGatingUtils",
                 ).isMmSignalSharingReplacingShimmedLinksEnabled())
             ) {
-              var M = C({
+              var w = C({
                 chat: l,
                 isSignalAllowlisted: y,
                 isUserDisclosed: h,
@@ -198,10 +214,10 @@ __d(
                 mmSignalSharingExpirationWindowItem: f,
                 signal: c,
               });
-              $(!1, M.onePdReason, M.spReason, M.sharingStatus);
+              $(!1, w.onePdReason, w.spReason, w.sharingStatus);
             }
           } else {
-            var w = C({
+            var A = C({
               chat: l,
               isSignalAllowlisted: y,
               isUserDisclosed: h,
@@ -209,7 +225,7 @@ __d(
               mmSignalSharingExpirationWindowItem: f,
               signal: c,
             });
-            $(!1, w.onePdReason, w.spReason, w.sharingStatus);
+            $(!1, A.onePdReason, A.spReason, A.sharingStatus);
           }
         })),
         u.apply(this, arguments)

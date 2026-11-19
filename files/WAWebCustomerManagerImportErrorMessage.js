@@ -14,7 +14,7 @@ __d(
       ]);
     function c(e) {
       var t;
-      return (t = m(e)) != null ? t : p(e);
+      return (t = p(e)) != null ? t : _(e);
     }
     function d(e) {
       var t = e.conflictingFields;
@@ -27,7 +27,21 @@ __d(
             .toString()
         : c(e.errorType);
     }
-    function m(t) {
+    function m(e, t, n) {
+      var r;
+      return babelHelpers.extends(
+        {},
+        n != null && n.length > 0 ? { conflictingFields: n } : {},
+        {
+          contactIndex: null,
+          errorType: t,
+          rowData: babelHelpers.extends({}, (r = e.rawRow) != null ? r : {}),
+          rowIndex: e.rowIndex,
+          type: "error",
+        },
+      );
+    }
+    function p(t) {
       return t === u.MERGE_CONFLICT
         ? s._(/*BTDS*/ "Conflicting saved values").toString()
         : t === u.CUSTOMER_DATA_LOOKUP_FAILED
@@ -45,7 +59,7 @@ __d(
                     ? s._(/*BTDS*/ "Invalid date").toString()
                     : null;
     }
-    function p(e) {
+    function _(e) {
       return e === o("WAWebContactImportTypedError").PhoneError.DUPLICATE
         ? s._(/*BTDS*/ "Duplicate number").toString()
         : e === o("WAWebContactImportTypedError").PhoneError.INVALID
@@ -72,7 +86,8 @@ __d(
     ((l.CustomerManagerImportEnumError = e),
       (l.CustomerManagerImportConflictError = u),
       (l.getCustomerManagerImportErrorLabel = c),
-      (l.getCustomerManagerImportErrorLabelForItem = d));
+      (l.getCustomerManagerImportErrorLabelForItem = d),
+      (l.toCustomerManagerImportErrorItem = m));
   },
   226,
 );

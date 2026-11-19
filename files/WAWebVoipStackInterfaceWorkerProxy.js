@@ -1965,11 +1965,12 @@ __d(
             inviteToCall: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e, t, n) {
-                  yield Re("inviteToCall", {
+                  var r = yield Le("inviteToCall", {
                     invitedParticipantPnUserJid: e,
                     invitedParticipantLidUserJid: t,
                     deviceJids: n,
                   });
+                  return typeof r == "number" ? r : null;
                 },
               );
               function t(t, n, r) {

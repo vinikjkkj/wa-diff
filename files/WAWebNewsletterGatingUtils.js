@@ -689,6 +689,11 @@ __d(
       );
     }
     function Et() {
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channels_admin_profiles_forwarding_to_status_enabled",
+      );
+    }
+    function kt() {
       return (
         o(
           "WAWebNewsletterChatsMigrationCapability",
@@ -696,44 +701,44 @@ __d(
         o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
       );
     }
-    function kt() {
+    function It() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_status_consumption",
       );
     }
-    function It() {
+    function Tt() {
       return (
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channel_status_deeplink_enabled",
-        ) && kt()
+        ) && It()
       );
     }
-    function Tt() {
+    function Dt() {
       return (
-        kt() &&
+        It() &&
         o("WAWebABProps").getABPropConfigValue(
           "channel_status_resharing_enabled",
         )
       );
     }
-    function Dt() {
+    function xt() {
       return (
-        kt() &&
+        It() &&
         o("WAWebABProps").getABPropConfigValue(
           "channel_status_forwarding_enabled",
         )
       );
     }
-    function xt(e) {
+    function $t(e) {
       return e == null
         ? !1
-        : $t(
+        : Pt(
             e.membershipType,
             o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(e),
             e.capabilities,
           );
     }
-    function $t(e, t, n) {
+    function Pt(e, t, n) {
       var r;
       return !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_status_creation",
@@ -756,32 +761,32 @@ __d(
               "channels_capabilities_enabled",
             );
     }
-    var Pt = n("$InternalEnum")({
+    var Nt = n("$InternalEnum")({
       Disabled: 0,
       ProfileRing: 1,
       ThreadRing: 2,
       AllEntrypoints: 3,
     });
-    function Nt(e) {
+    function Mt(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_status_consumption_entrypoints",
         ) >= e
       );
     }
-    function Mt(e) {
-      var t = kt(),
-        n = Nt(e);
+    function wt(e) {
+      var t = It(),
+        n = Mt(e);
       return t && n;
     }
-    function wt() {
-      return Mt(Pt.ProfileRing);
-    }
     function At() {
-      return Mt(Pt.ThreadRing);
+      return wt(Nt.ProfileRing);
     }
     function Ft() {
-      return Mt(Pt.AllEntrypoints);
+      return wt(Nt.ThreadRing);
+    }
+    function Ot() {
+      return wt(Nt.AllEntrypoints);
     }
     ((l.NewsletterABPropConfig = e),
       (l.getMaxSubscriberNumber = c),
@@ -906,16 +911,17 @@ __d(
       (l.isSchedulingUpdatesReceiverEnabled = St),
       (l.isNewsletterAdminProfilesReceiverEnabled = Rt),
       (l.isNewsletterAdminProfilesForwardingEnabled = Lt),
-      (l.isChannelsInChatListEnabled = Et),
-      (l.isNewsletterStatusReceiverEnabled = kt),
-      (l.isNewsletterStatusDeeplinkEnabled = It),
-      (l.isNewsletterStatusReshareEnabled = Tt),
-      (l.isNewsletterStatusForwardEnabled = Dt),
-      (l.isNewsletterStatusCreationEnabled = xt),
-      (l.isNewsletterStatusCreationEnabledForValues = $t),
-      (l.isNewsletterStatusProfileRingEnabled = wt),
-      (l.isNewsletterStatusThreadRingEnabled = At),
-      (l.isNewsletterStatusAllEntrypointsEnabled = Ft));
+      (l.isNewsletterAdminProfilesForwardingToStatusEnabled = Et),
+      (l.isChannelsInChatListEnabled = kt),
+      (l.isNewsletterStatusReceiverEnabled = It),
+      (l.isNewsletterStatusDeeplinkEnabled = Tt),
+      (l.isNewsletterStatusReshareEnabled = Dt),
+      (l.isNewsletterStatusForwardEnabled = xt),
+      (l.isNewsletterStatusCreationEnabled = $t),
+      (l.isNewsletterStatusCreationEnabledForValues = Pt),
+      (l.isNewsletterStatusProfileRingEnabled = At),
+      (l.isNewsletterStatusThreadRingEnabled = Ft),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Ot));
   },
   98,
 );

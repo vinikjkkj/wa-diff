@@ -4,6 +4,7 @@ __d(
     "FBLogger",
     "JSResourceForInteraction",
     "Promise",
+    "WAWebBizAdCreationLinkedPagesLookup",
     "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebBizNativeAdsFlowLoadable",
     "WAWebBizNativeAdsQplHelpers",
@@ -27,13 +28,14 @@ __d(
             l,
             s,
             u,
-            d = o("WAWebLinkedAccountsJob").queryLinkedPagesInfo();
-          (d.catch(r("WAWebNoop")),
-            (u = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
-              u.AdsManagementQplPoint.BUNDLE_LOAD_START,
-            ));
-          var p = yield (e || (e = n("Promise"))).all([c(), m()]),
-            _ = p[0];
+            m = c(),
+            _ = m.linkedPagesLookupPromise,
+            f = m.linkedPagesPromise;
+          (u = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
+            u.AdsManagementQplPoint.BUNDLE_LOAD_START,
+          );
+          var g = yield (e || (e = n("Promise"))).all([d(), p()]),
+            h = g[0];
           (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
             o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
               .BUNDLE_LOAD_END,
@@ -42,15 +44,15 @@ __d(
               o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                 .ELIGIBILITY_CHECK_START,
             ));
-          var f = yield _(t);
+          var y = yield h(t);
           o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
             o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
               .ELIGIBILITY_CHECK_END,
           );
-          var g = o("WAWebBizNativeAdsFlowLoadable").resolveAccountType(f),
-            h = null;
+          var C = o("WAWebBizNativeAdsFlowLoadable").resolveAccountType(y),
+            b = null;
           try {
-            h = yield d;
+            b = yield f;
           } catch (e) {
             r("FBLogger")("wa_ctwa_web")
               .catching(r("getErrorSafe")(e))
@@ -58,32 +60,33 @@ __d(
                 "PhaseOneResolver: queryLinkedPagesInfo failed, falling back to defaults",
               );
           }
-          var y = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario(
+          var v = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario(
             {
-              activeIdentityType: g,
+              activeIdentityType: C,
               fbPageHasCreatedAd:
-                (a = (i = h) == null ? void 0 : i.fbPageHasCreatedAd) != null
+                (a = (i = b) == null ? void 0 : i.fbPageHasCreatedAd) != null
                   ? a
                   : !1,
               hasValidFBAccessToken:
                 o(
                   "WAWebBizAdCreationResolveStoredIdentity",
                 ).resolveStoredIdentityForAccountType("FB") != null,
-              isWAAEligible: f,
+              isWAAEligible: y,
               waAdsIdentityPageHasCreatedAd:
                 (l =
-                  (s = h) == null ? void 0 : s.waAdsIdentityPageHasCreatedAd) !=
+                  (s = b) == null ? void 0 : s.waAdsIdentityPageHasCreatedAd) !=
                 null
                   ? l
                   : !1,
             },
           );
           return {
-            accountType: g,
-            isWAAEligible: f,
+            accountType: C,
+            isWAAEligible: y,
+            linkedPagesLookupPromise: _,
             linkedPagesPromise:
-              h != null
-                ? (e || (e = n("Promise"))).resolve(h)
+              b != null
+                ? (e || (e = n("Promise"))).resolve(b)
                 : o("WAWebLinkedAccountsJob")
                     .queryLinkedPagesInfo()
                     .catch(function (e) {
@@ -93,40 +96,54 @@ __d(
                           .warn(
                             "PhaseOneResolver: retry queryLinkedPagesInfo also failed",
                           ),
-                        {
-                          fbPageHasCreatedAd: !1,
-                          fbPageId: null,
-                          waAdsIdentityPageHasCreatedAd: !1,
-                          waPageId: null,
-                        }
+                        o("WAWebLinkedAccountsJob").toLinkedPagesInfo(null)
                       );
                     }),
-            scenario: y,
+            scenario: v,
           };
         })),
         u.apply(this, arguments)
       );
     }
     function c() {
-      return d.apply(this, arguments);
+      var e = o("WAWebLinkedAccountsJob").queryLinkedAccountsResult(),
+        t = e.then(function (e) {
+          return o("WAWebLinkedAccountsJob").toLinkedPagesInfo(
+            e == null ? void 0 : e.accounts,
+          );
+        });
+      return (
+        t.catch(r("WAWebNoop")),
+        {
+          linkedPagesLookupPromise: e
+            .then(o("WAWebBizAdCreationLinkedPagesLookup").toLinkedPagesLookup)
+            .catch(function () {
+              return { type: "unavailable" };
+            }),
+          linkedPagesPromise: t,
+        }
+      );
     }
     function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")("WAWebGetWAAEligibility")
             .__setRef("WAWebBizNativeAdsPhaseOneResolver")
             .load();
           return e;
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
     function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
             "WAWebBizNativeAdsFlow.react",
           )
@@ -134,7 +151,7 @@ __d(
             .load();
           return e;
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
     l.resolvePhaseOne = s;

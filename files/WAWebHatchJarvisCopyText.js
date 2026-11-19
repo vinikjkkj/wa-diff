@@ -119,6 +119,15 @@ __d(
                 ? i
                 : r("WAWebURLUtils").hostname(l.url);
             }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.type === "pairing_share" &&
+              "card" in e
+            ) {
+              var s = e.card;
+              return [s.title, s.body].filter(Boolean).join("\n");
+            }
             return "";
           })(e);
     }

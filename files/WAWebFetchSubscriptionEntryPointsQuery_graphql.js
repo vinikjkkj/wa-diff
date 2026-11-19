@@ -55,6 +55,13 @@ __d(
                     name: "web_entry_point_redirection_uri",
                     storageKey: null,
                   },
+                  {
+                    alias: "purchaseEligibility",
+                    args: null,
+                    kind: "ScalarField",
+                    name: "purchase_eligibility",
+                    storageKey: null,
+                  },
                 ],
                 storageKey: null,
               },

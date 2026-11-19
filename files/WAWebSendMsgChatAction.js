@@ -38,6 +38,7 @@ __d(
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebOrchestratorNonPersistedJob",
+    "WAWebPathfinderMessageSent",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
     "WAWebQbmMessageReplyLogEventLazy",
     "WAWebRichTextFormatMessageSendLogger",
@@ -275,6 +276,9 @@ __d(
                         if (
                           ((e = D.wamMessageSendPerfReporter) == null ||
                             e.postSavedStage(),
+                          o(
+                            "WAWebPathfinderMessageSent",
+                          ).recordPathfinderMessageSentAfterCommit(D),
                           o("WAWebThreadMsgUtils").isThreadMsg(k) &&
                             o(
                               "WAWebDBThreadMetadataBulkHelper",

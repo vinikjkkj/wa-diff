@@ -27,28 +27,29 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = E(t);
-          if (a == null) return null;
+          var a = t.card,
+            i = E(t);
+          if (i == null) return null;
           try {
-            var i = yield (s || (s = n("Promise"))).all([
+            var l = yield (s || (s = n("Promise"))).all([
                 I(r),
-                a.placeholder != null ? D(a.placeholder.icon) : null,
-                D(a.logo),
+                i.placeholder != null ? D(i.placeholder.icon) : null,
+                D(i.logo),
               ]),
-              l = i[0],
-              u = i[1],
-              c = i[2],
-              d = document.createElement("canvas"),
-              m = d.getContext("2d");
-            return m == null
+              u = l[0],
+              c = l[1],
+              d = l[2],
+              m = document.createElement("canvas"),
+              p = m.getContext("2d");
+            return p == null
               ? null
-              : (R(m, d, t, a, {
-                  cover: l,
-                  coverIcon: l == null ? u : null,
-                  logo: c,
+              : (R(p, m, a, i, {
+                  cover: u,
+                  coverIcon: u == null ? c : null,
+                  logo: d,
                 }),
                 yield new s(function (e) {
-                  return d.toBlob(e, "image/png");
+                  return m.toBlob(e, "image/png");
                 }));
           } catch (t) {
             return (
@@ -112,21 +113,24 @@ __d(
       e.drawImage(n, a + (o - i) / 2, r + (o - i) / 2, i, i);
     }
     function E(e) {
-      var t = e.querySelector('[data-testid="sharable-event-qr-code"] canvas'),
-        n = e.querySelector('[data-testid="sharable-event-qr-code"] svg'),
-        r = e.querySelector('[data-testid="sharable-event-qr-code-name"]'),
-        o = e.querySelector('[data-testid="sharable-event-qr-code-subtitle"]');
-      return !(t instanceof HTMLCanvasElement) ||
-        n == null ||
-        r == null ||
-        o == null
+      var t,
+        n,
+        r = e.qrCode.querySelector("canvas"),
+        o = e.qrCode.querySelector("svg");
+      return !(r instanceof HTMLCanvasElement) || o == null
         ? null
-        : { logo: n, name: r, placeholder: k(e), qrCode: t, subtitle: o };
+        : {
+            logo: o,
+            name: (t = e.name.firstElementChild) != null ? t : e.name,
+            placeholder: k(e.cover),
+            qrCode: r,
+            subtitle:
+              (n = e.subtitle.firstElementChild) != null ? n : e.subtitle,
+          };
     }
     function k(e) {
-      var t = e.querySelector(
-          '[data-testid="sharable-event-qr-code-cover-placeholder"]',
-        ),
+      if (e.querySelector("img") != null) return null;
+      var t = e.firstElementChild,
         n = t == null ? void 0 : t.querySelector("svg");
       return t != null && n != null ? { circle: t, icon: n } : null;
     }
@@ -232,6 +236,7 @@ __d(
         e.closePath());
     }
     ((l.renderSharableEventQRCodeImage = v),
+      (l.getSharableEventQRCodeCardParts = E),
       (l.wrapSharableEventQRCodeName = N));
   },
   98,

@@ -19,7 +19,7 @@ __d(
           r: "\r",
           t: "	",
         },
-        r = [" ", "	", "\r", "\n", "\v", "\f", "\xA0", "\uFEFF"],
+        r = [" ", "	", "\r", "\n", "\v", "\f", "\xA0", "\uFEFF", "\u3000"],
         o,
         a = function (t) {
           var n = new SyntaxError();
@@ -265,7 +265,7 @@ __d(
       );
     })()),
       (e.fromFragment = e.parse),
-      (e.fromSliver = e.parse),
+      (e.fromMorsel = e.parse),
       (e.stringify = function (t, n, r) {
         if (n && typeof n != "function" && !s(n))
           throw new Error("Replacer must be a function or an array");

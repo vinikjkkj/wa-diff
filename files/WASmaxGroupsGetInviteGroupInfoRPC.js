@@ -10,6 +10,7 @@ __d(
     "WASmaxInGroupsIQErrorBadRequestMixin",
     "WASmaxInGroupsIQErrorFallbackClientMixin",
     "WASmaxInGroupsIQErrorGoneMixin",
+    "WASmaxInGroupsIQErrorGrowthLockedMixin",
     "WASmaxInGroupsIQErrorItemNotFoundMixin",
     "WASmaxInGroupsIQErrorLockedMixin",
     "WASmaxInGroupsIQErrorNotAcceptableMixin",
@@ -239,38 +240,36 @@ __d(
       if (!d.success) return d;
       var y = o("WASmaxParseUtils").optionalChild(e, "work");
       if (!y.success) return y;
-      var C = o("WASmaxParseUtils").optionalChild(e, "light_e2ee");
+      var C = o("WASmaxParseUtils").optionalChildWithTag(e, "ephemeral", h);
       if (!C.success) return C;
-      var b = o("WASmaxParseUtils").optionalChildWithTag(e, "ephemeral", h);
+      var b = o("WASmaxParseUtils").optionalChild(e, "group_join_context");
       if (!b.success) return b;
-      var v = o("WASmaxParseUtils").optionalChild(e, "group_join_context");
+      var v = o("WASmaxParseUtils").attrIntRange(e, "size", 0, 19999);
       if (!v.success) return v;
-      var S = o("WASmaxParseUtils").attrIntRange(e, "size", 0, 19999);
-      if (!S.success) return S;
-      var R = o(
+      var S = o(
           "WASmaxInGroupsGroupInfoDescriptionMixin",
         ).parseGroupInfoDescriptionMixin(n.value),
-        L = o(
+        R = o(
           "WASmaxInGroupsGroupInfoAttributesMixin",
         ).parseGroupInfoAttributesMixin(e);
-      if (!L.success) return L;
-      var E = o("WASmaxParseUtils").mapChildrenWithTag(
+      if (!R.success) return R;
+      var L = o("WASmaxParseUtils").mapChildrenWithTag(
         e,
         "participant",
         0,
         19999,
         m,
       );
-      return E.success
+      return L.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
               {
-                size: S.value,
-                descriptionGroupInfoDescriptionMixin: R.success
-                  ? R.value
+                size: v.value,
+                descriptionGroupInfoDescriptionMixin: S.success
+                  ? S.value
                   : null,
               },
-              L.value,
+              R.value,
               {
                 parent: r.value,
                 linkedParent: a.value,
@@ -281,14 +280,13 @@ __d(
                 membershipApprovalRequest: c.value,
                 hasCapi: d.value != null,
                 hasWork: y.value != null,
-                hasLightE2ee: C.value != null,
-                ephemeral: b.value,
-                hasGroupJoinContext: v.value != null,
-                participant: E.value,
+                ephemeral: C.value,
+                hasGroupJoinContext: b.value != null,
+                participant: L.value,
               },
             ),
           )
-        : E;
+        : L;
     }
     function C(e) {
       var t = e.inviteCode,
@@ -348,7 +346,9 @@ __d(
           name: "IQErrorLocked",
           value: l.value,
         });
-      var s = S(e);
+      var s = o(
+        "WASmaxInGroupsIQErrorGrowthLockedMixin",
+      ).parseIQErrorGrowthLockedMixin(e);
       if (s.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorGrowthLocked",
@@ -385,50 +385,6 @@ __d(
             ],
             [t, n, r, a, i, l, s, u, c],
           );
-    }
-    function v(e) {
-      var t = o("WASmaxParseUtils").assertTag(e, "growth_locked");
-      if (!t.success) return t;
-      var n = o("WASmaxParseUtils").literal(
-        o("WASmaxParseUtils").attrString,
-        e,
-        "type",
-        "invite",
-      );
-      if (!n.success) return n;
-      var r = o("WASmaxParseUtils").attrIntRange(e, "expiration", 0, void 0);
-      return r.success
-        ? o("WAResultOrError").makeResult({
-            type: n.value,
-            expiration: r.value,
-          })
-        : r;
-    }
-    function S(e) {
-      var t = o("WASmaxParseUtils").assertTag(e, "error");
-      if (!t.success) return t;
-      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "growth_locked", v);
-      if (!n.success) return n;
-      var r = o("WASmaxParseUtils").literal(
-        o("WASmaxParseUtils").attrString,
-        e,
-        "text",
-        "growth-locked",
-      );
-      if (!r.success) return r;
-      var a = o("WASmaxParseUtils").literal(
-        o("WASmaxParseUtils").attrInt,
-        e,
-        "code",
-        436,
-      );
-      return a.success
-        ? o("WAResultOrError").makeResult({
-            text: r.value,
-            code: a.value,
-            growthLocked: n.value,
-          })
-        : a;
     }
     ((l.sendGetInviteGroupInfoRPC = e),
       (l.parseGetInviteGroupInfoResponseClientError = u),

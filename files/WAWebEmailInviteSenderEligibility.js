@@ -36,7 +36,7 @@ __d(
       return (
         t[0] !== e
           ? ((n = function () {
-              return e ? E() : void 0;
+              return e ? L() : void 0;
             }),
             (r = [e]),
             (t[0] = e),
@@ -44,24 +44,24 @@ __d(
             (t[2] = r))
           : ((n = t[1]), (r = t[2])),
         c(n, r),
-        d(T, v)
+        d(I, v)
       );
     }
     function R() {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       t != null &&
-        (t !== f && ((f = t), I(), D("unknown")),
+        (t !== f && ((f = t), k(), T("unknown")),
         !(
           _ !== "unknown" ||
           Date.now() < g ||
           !o("WAWebEmailInviteGating").isEmailInviteEntryPointEnabled() ||
           !o("WAWebEmailInviteGating").isEmailInviteServerSendEnabled()
         ) &&
-          (D("loading"),
+          (T("loading"),
           o("WAWebEmailInviteEligibilityQuery")
             .fetchCanSendEmailInvites()
             .then(function (e) {
-              f === t && ((h = 0), D(e ? "eligible" : "ineligible"));
+              f === t && ((h = 0), T(e ? "eligible" : "ineligible"));
             })
             .catch(function (n) {
               f === t &&
@@ -75,14 +75,11 @@ __d(
                   .catching(r("getErrorSafe")(n))
                   .sendLogs("email-invite-eligibility-fetch-failed"),
                 (g = Date.now() + m),
-                D("unknown"),
-                k(t));
+                T("unknown"),
+                E(t));
             })));
     }
     function L() {
-      ((_ = "unknown"), (f = null), I(), (C = 0), b.clear());
-    }
-    function E() {
       return (
         (C += 1),
         R(),
@@ -91,7 +88,7 @@ __d(
         }
       );
     }
-    function k(e) {
+    function E(e) {
       y != null ||
         h >= p ||
         ((h += 1),
@@ -99,10 +96,10 @@ __d(
           ((y = null), C > 0 && f === e && ((g = 0), R()));
         }, m)));
     }
-    function I() {
+    function k() {
       (y != null && (window.clearTimeout(y), (y = null)), (g = 0), (h = 0));
     }
-    function T(e) {
+    function I(e) {
       return (
         b.add(e),
         function () {
@@ -110,7 +107,7 @@ __d(
         }
       );
     }
-    function D(e) {
+    function T(e) {
       ((_ = e),
         b.forEach(function (e) {
           return e();
@@ -118,8 +115,7 @@ __d(
     }
     ((l.getCanSendEmailInvites = v),
       (l.useCanSendEmailInvites = S),
-      (l.requestCanSendEmailInvites = R),
-      (l.resetEmailInviteSenderEligibilityForTests = L));
+      (l.requestCanSendEmailInvites = R));
   },
   98,
 );

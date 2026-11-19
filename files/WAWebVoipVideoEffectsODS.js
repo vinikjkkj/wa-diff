@@ -130,6 +130,90 @@ __d(
           );
           break e;
         }
+        if (e === "opened_from_menu") {
+          r("WAWebODS").incr("web.call.video_effects.opened.menu");
+          break e;
+        }
+        if (e === "opened_from_self_view") {
+          r("WAWebODS").incr("web.call.video_effects.opened.self_view");
+          break e;
+        }
+        if (e === "picked_none") {
+          r("WAWebODS").incr("web.call.video_effects.picked.none");
+          break e;
+        }
+        if (e === "picked_color") {
+          r("WAWebODS").incr("web.call.video_effects.picked.color");
+          break e;
+        }
+        if (e === "picked_photo") {
+          r("WAWebODS").incr("web.call.video_effects.picked.photo");
+          break e;
+        }
+        if (e === "picked_picture") {
+          r("WAWebODS").incr("web.call.video_effects.picked.picture");
+          break e;
+        }
+        if (e === "blur_strength_changed_room_off") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.room.off",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_room_light") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.room.light",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_room_medium") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.room.medium",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_room_strong") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.room.strong",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_room_strongest") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.room.strongest",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_picture_off") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.picture.off",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_picture_light") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.picture.light",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_picture_medium") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.picture.medium",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_picture_strong") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.picture.strong",
+          );
+          break e;
+        }
+        if (e === "blur_strength_changed_picture_strongest") {
+          r("WAWebODS").incr(
+            "web.call.video_effects.blur_strength_changed.picture.strongest",
+          );
+          break e;
+        }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             e,

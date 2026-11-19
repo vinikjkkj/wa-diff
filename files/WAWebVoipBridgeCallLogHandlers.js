@@ -6,6 +6,7 @@ __d(
     "WAWebVoipActionWriteCallLogEventGroupInfoChanged",
     "WAWebVoipActionWriteCallLogEventUpdate1to1",
     "WAWebVoipActionWriteCallLogEventUpdateJoinable",
+    "WAWebVoipActionWriteCallLogInviteeLoadable",
     "WAWebVoipActionWriteCallLogOfferNotice",
     "WAWebVoipActionWriteCallLogPlaceholder",
   ],
@@ -62,6 +63,12 @@ __d(
         return o(
           "WAWebVoipActionWriteCallLogEventGroupInfoChanged",
         ).generateCallLogFromEventGroupInfoChanged(e);
+      },
+      handleNativeParticipantAdded: function (t) {
+        var e = t.invitee;
+        o(
+          "WAWebVoipActionWriteCallLogInviteeLoadable",
+        ).writeCallLogForInviteeLoadable(e);
       },
     };
     l.VoipBridgeCallLogHandlers = e;

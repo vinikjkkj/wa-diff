@@ -119,6 +119,8 @@ __d(
         !0,
       ],
       call_screening_caller_version: [37323, "int", 0, 0],
+      call_screening_log_privacy_settings_user_journey: [43751, "bool", !1, !1],
+      call_screening_log_screening_user_journey: [43752, "bool", !1, !1],
       call_screening_voicemail_beep_tone: [34940, "int", 0, 0],
       call_spam_prompt_logging_enabled: [42406, "bool", !0, !0],
       call_spam_prompt_session_id_enabled: [42407, "bool", !1, !1],
@@ -642,7 +644,6 @@ __d(
       web_anr_voip_bridge_json_events_enabled: [40489, "bool", !1, !1],
       web_calling_in_call_chat_enabled: [42665, "bool", !1, !0],
       web_channel_video_server_transcode_upload: [19920, "bool", !1, !1],
-      web_chat_info_action_buttons_refresh: [14664, "bool", !1, !0],
       web_encryption_page_visit_logging: [41248, "bool", !0, !0],
       web_group_bulk_add_contact: [30417, "bool", !1, !1],
       web_guest_calling_representation_enabled: [31533, "bool", !1, !1],
@@ -653,7 +654,6 @@ __d(
         !1,
         !0,
       ],
-      web_ip_token_enabled: [20043, "bool", !1, !1],
       web_windows_calling_32p_version: [31845, "int", 3, 3],
       webview2_disable_gpu_acceleration: [18262, "bool", !1, !1],
       webview2_disable_gpu_acceleration_memory_threshold_mb: [
@@ -662,7 +662,6 @@ __d(
         -1,
         -1,
       ],
-      webview2_enable_offline_support: [21793, "bool", !1, !1],
       win_call_log_send_outgoing_syncd_mutations: [5308, "bool", !1, !0],
       win_enable_ss_button_audio: [9633, "bool", !1, !1],
       win_hybrid_add_call_participants_async_lookup_enabled: [

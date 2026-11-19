@@ -25,7 +25,6 @@ __d(
     "WAWebProfilePicConstants",
     "WAWebSchemaChat",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
-    "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "WAWebUpdateTextStatusForContact",
     "WAWebUserUtils",
@@ -361,24 +360,21 @@ __d(
           o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
             id: e.toString(),
           });
-          var t;
-          if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
-            var r = yield o("WAWebApiContact").getContactRecord(
+          var t,
+            r = yield o("WAWebApiContact").getContactRecord(
               o("WAWebWidFactory").asUserWidOrThrow(e),
             );
-            r != null &&
-              (t = o(
-                "WAWebUpdateTextStatusForContact",
-              ).updateTextStatusForContact({
-                contactId: e,
-                textString: null,
-                emoji: null,
-                ephemeralDuration: null,
-                newUpdateTime: o("WAWebTextStatusUtils")
-                  .TEXT_STATUS_NOT_FETCHED,
-                source: "contact-notification",
-              }));
-          }
+          r != null &&
+            (t = o(
+              "WAWebUpdateTextStatusForContact",
+            ).updateTextStatusForContact({
+              contactId: e,
+              textString: null,
+              emoji: null,
+              ephemeralDuration: null,
+              newUpdateTime: o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED,
+              source: "contact-notification",
+            }));
           var a = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
             e,
             o("WAWebProfilePicConstants").ProfilePicCommand.Set,

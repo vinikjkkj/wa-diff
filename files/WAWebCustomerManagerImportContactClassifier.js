@@ -147,7 +147,9 @@ __d(
           if (!n.complete)
             return {
               kind: "error",
-              error: R(
+              error: o(
+                "WAWebCustomerManagerImportErrorMessage",
+              ).toCustomerManagerImportErrorItem(
                 t,
                 o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
@@ -158,7 +160,9 @@ __d(
           if (l == null)
             return {
               kind: "error",
-              error: R(
+              error: o(
+                "WAWebCustomerManagerImportErrorMessage",
+              ).toCustomerManagerImportErrorItem(
                 t,
                 o("WAWebCustomerManagerImportErrorMessage")
                   .CustomerManagerImportConflictError
@@ -187,7 +191,9 @@ __d(
               ? { kind: "valid", contact: t }
               : {
                   kind: "error",
-                  error: R(
+                  error: o(
+                    "WAWebCustomerManagerImportErrorMessage",
+                  ).toCustomerManagerImportErrorItem(
                     t,
                     m.conflictingFields.length > 0
                       ? o("WAWebCustomerManagerImportErrorMessage")
@@ -203,7 +209,9 @@ __d(
                 .CustomerManagerImportPhoneDataOwnershipError
               ? {
                   kind: "error",
-                  error: R(
+                  error: o(
+                    "WAWebCustomerManagerImportErrorMessage",
+                  ).toCustomerManagerImportErrorItem(
                     t,
                     o("WAWebCustomerManagerImportErrorMessage")
                       .CustomerManagerImportConflictError
@@ -213,7 +221,9 @@ __d(
                 }
               : {
                   kind: "error",
-                  error: R(
+                  error: o(
+                    "WAWebCustomerManagerImportErrorMessage",
+                  ).toCustomerManagerImportErrorItem(
                     t,
                     o("WAWebCustomerManagerImportErrorMessage")
                       .CustomerManagerImportConflictError
@@ -282,20 +292,6 @@ __d(
           },
         )),
         S.apply(this, arguments)
-      );
-    }
-    function R(e, t, n) {
-      var r;
-      return babelHelpers.extends(
-        {},
-        n != null && n.length > 0 ? { conflictingFields: n } : {},
-        {
-          contactIndex: null,
-          errorType: t,
-          rowData: babelHelpers.extends({}, (r = e.rawRow) != null ? r : {}),
-          rowIndex: e.rowIndex,
-          type: "error",
-        },
       );
     }
     l.classifyContacts = p;

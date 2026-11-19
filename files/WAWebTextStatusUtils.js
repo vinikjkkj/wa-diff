@@ -1,6 +1,6 @@
 __d(
   "WAWebTextStatusUtils",
-  ["WATimeUtils", "WAWebTextStatusGatingUtils"],
+  ["WATimeUtils"],
   function (t, n, r, o, a, i, l) {
     var e = -1,
       s = -3;
@@ -37,20 +37,19 @@ __d(
     function v(t) {
       var n = t.textStatusEmoji,
         r = t.textStatusEphemeralDuration,
-        a = t.textStatusExpiryTs,
-        i = t.textStatusLastUpdateTime,
-        l = t.textStatusString;
+        o = t.textStatusExpiryTs,
+        a = t.textStatusLastUpdateTime,
+        i = t.textStatusString;
       return !(
-        !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() ||
-        i === e ||
-        i === d ||
-        i === s ||
+        a === e ||
+        a === d ||
+        a === s ||
         !C({
           textStatusEmoji: n,
           textStatusEphemeralDuration: r,
-          textStatusExpiryTs: a,
-          textStatusLastUpdateTime: i,
-          textStatusString: l,
+          textStatusExpiryTs: o,
+          textStatusLastUpdateTime: a,
+          textStatusString: i,
         })
       );
     }

@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WAWebVoipBackgroundBlurLevel",
+    "WAWebVoipBackgroundBlurStrength",
     "WAWebVoipBackgroundSegmentationCadence",
     "WAWebVoipBackgroundSegmenter",
     "WAWebVoipVideoEffectsCompositor",
@@ -40,7 +41,9 @@ __d(
       ).WAWebVoipBackgroundSegmentationCadence)(),
       h = P(0),
       y = 0,
-      C = o("WAWebVoipBackgroundBlurLevel").DEFAULT_BACKGROUND_BLUR_LEVEL,
+      C = o("WAWebVoipBackgroundBlurStrength").getBlurLevelStrength(
+        o("WAWebVoipBackgroundBlurLevel").DEFAULT_BACKGROUND_BLUR_LEVEL,
+      ),
       b = (e || (e = n("Promise"))).resolve(),
       v = 0;
     function S() {
@@ -70,6 +73,7 @@ __d(
         H({ type: "ready" }));
     }
     function R(t) {
+      var r;
       switch (t.type) {
         case "init":
           return E(t.assets);
@@ -77,29 +81,38 @@ __d(
           return D(t.id, t.frame);
         case "setEffect":
           return (L(t.effect), (e || (e = n("Promise"))).resolve());
+        case "setImageBlur":
+          return (
+            (r = _) == null || r.compositor.setImageBlur(t.strength),
+            (e || (e = n("Promise"))).resolve()
+          );
       }
     }
     function L(e) {
       if (e.kind === "blur") {
         var t;
-        ((C = e.level), (t = _) == null || t.compositor.setBlurLevel(e.level));
+        ((C = e.strength),
+          (t = _) == null || t.compositor.setBlurStrength(e.strength));
         return;
       }
       try {
-        if (_ == null) {
+        var n,
+          r = (n = _) == null ? void 0 : n.compositor;
+        if (r == null) {
           V(
             "warn",
             "video effects: dropped a background image sent before init",
           );
           return;
         }
-        _.compositor.setBackgroundImage({
-          columns: e.columns,
-          rows: e.rows,
-          tiles: e.tiles,
-        });
+        (r.setImageBlur(e.blur),
+          r.setBackgroundImage({
+            columns: e.columns,
+            rows: e.rows,
+            tiles: e.tiles,
+          }));
       } finally {
-        for (var n of e.tiles) n.close();
+        for (var o of e.tiles) o.close();
       }
     }
     function E(e) {
@@ -149,7 +162,7 @@ __d(
             var g = new (o(
               "WAWebVoipVideoEffectsCompositor",
             ).WAWebVoipVideoEffectsCompositor)(a, i);
-            (g.setBlurLevel(C), (n.compositor = g));
+            (g.setBlurStrength(C), (n.compositor = g));
             var h = yield o(
               "WAWebVoipBackgroundSegmenter",
             ).WAWebVoipBackgroundSegmenter.create(e, function (e) {

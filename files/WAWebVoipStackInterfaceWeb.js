@@ -1937,6 +1937,7 @@ __d(
               });
               try {
                 var a = r.inviteToCall(e, t, o);
+                return a;
               } finally {
                 o.delete();
               }

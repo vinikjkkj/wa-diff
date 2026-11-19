@@ -36,6 +36,7 @@ __d(
     "WAWebMessageCommunityWelcomeAdminTitle.react",
     "WAWebMessageCommunityWelcomeMemberTitle.react",
     "WAWebMsgModelUtils",
+    "WAWebSystemMessageGatingUtils",
     "WAWebUserUtils",
     "WAWebWidFormat",
   ],
@@ -47,87 +48,84 @@ __d(
       if (i !== "gp2") return a;
       var l = t.get("subtype"),
         u = o("WAWebMsgModelUtils").getMsgDisplayName(t),
-        c = t.get("author"),
-        d = t.get("body"),
-        m,
-        p,
-        _ = !!n,
-        f = t.recipients || [],
-        g = o("WAWebFormatParticipantNames").getFormattedNames(f, !1),
-        h = f[0],
-        y = h ? o("WAWebContactCollection").ContactCollection.get(h) : void 0,
-        C;
+        _ = t.get("author"),
+        f = t.get("body"),
+        g,
+        h,
+        y = !!n,
+        C = t.recipients || [],
+        b = o("WAWebFormatParticipantNames").getFormattedNames(C, !1),
+        v = C[0],
+        S = v ? o("WAWebContactCollection").ContactCollection.get(v) : void 0,
+        R;
       switch (
-        (y
-          ? (C = o("WAWebFrontendContactGetters").getFormattedName(y))
-          : h
-            ? (C = o("WAWebWidFormat").widToFormattedUser(h))
-            : (C = ""),
+        (S
+          ? (R = o("WAWebFrontendContactGetters").getFormattedName(S))
+          : v
+            ? (R = o("WAWebWidFormat").widToFormattedUser(v))
+            : (R = ""),
         l)
       ) {
         case "add":
           a = o("WAWebFormatAddNotification").formatAddNotification({
-            author: c,
+            author: _,
             authorClickable: u,
             museAgentAddAttribution: o(
               "WAWebGroupAgentAddAttribution",
-            ).groupAgentAddAttributionFromBody(d),
-            subject: h,
-            subjectClickable: C,
-            participantsClickable: g,
-            recipients: f,
+            ).groupAgentAddAttributionFromBody(f),
+            subject: v,
+            subjectClickable: R,
+            participantsClickable: b,
+            recipients: C,
           });
           break;
         case "remove":
           a = o("WAWebFormatRemoveNotification").formatRemoveNotification({
-            author: c,
+            author: _,
             authorClickable: u,
-            subject: h,
-            subjectClickable: C,
-            participantsClickable: g,
+            subject: v,
+            subjectClickable: R,
+            participantsClickable: b,
           });
           break;
         case "leave":
           a = o("WAWebFormatLeaveNotification").formatLeaveNotification({
-            body: d,
-            subject: h,
-            participantsClickable: g,
+            body: f,
+            subject: v,
+            participantsClickable: b,
           });
           break;
         case "picture":
           a = o("WAWebFormatPictureNotification").formatPictureNotification({
-            author: c,
+            author: _,
             authorClickable: u,
-            body: d,
+            body: f,
           });
           break;
         case "subject":
           a = o("WAWebFormatSubjectNotification").formatSubjectNotification({
-            author: c,
+            author: _,
             authorClickable: u,
             chat: o("WAWebFrontendMsgGetters").getChat(t),
-            subjectValue: d,
+            subjectValue: f,
           });
           break;
         case "modify": {
-          var b = o("WAWebContactCollection").ContactCollection.get(c),
-            v =
-              b != null &&
-              o("WAWebFrontendContactGetters").getIsUsernameContact(b);
-          if (v) {
+          var L = o("WAWebContactCollection").ContactCollection.get(_),
+            E =
+              L != null &&
+              o("WAWebFrontendContactGetters").getIsUsernameContact(L);
+          if (E) {
             a = s._(/*BTDS*/ "{name} updated their contact info", [
               s._param("name", u),
             ]);
             break;
           }
-          ((m = o("WAWebWidFormat").widToFormattedUser(c)),
-            (p = o("WAWebWidFormat").widToFormattedUser(h)),
+          ((g = o("WAWebWidFormat").widToFormattedUser(_)),
+            (h = o("WAWebWidFormat").widToFormattedUser(v)),
             (a =
-              m === u
-                ? s._(/*BTDS*/ "{name} changed to {new_number}", [
-                    s._param("name", u),
-                    s._param("new_number", p),
-                  ])
+              g === u
+                ? c(u, h)
                 : s._(
                     /*BTDS*/ "{name} changed their phone number to a new number.",
                     [s._param("name", u)],
@@ -136,9 +134,9 @@ __d(
         }
         case "create":
           a = o("WAWebFormatCreateNotification").formatCreateNotification({
-            author: c,
+            author: _,
             authorClickable: u,
-            groupSubject: d,
+            groupSubject: f,
             groupSubjectAsString: !0,
           });
           break;
@@ -155,21 +153,17 @@ __d(
             "WAWebFormatPromoteDemoteNotification",
           ).formatPromoteDemoteNotification({
             subtype: l,
-            subject: h,
-            subjectClickable: C,
-            participantsClickable: g,
-            participantsCount: f.length,
+            subject: v,
+            subjectClickable: R,
+            participantsClickable: b,
+            participantsCount: C.length,
           });
           break;
         case "invite":
-          a = o("WAWebUserUtils").isMeAccount(h)
-            ? s._(/*BTDS*/ "You joined via an invite link")
-            : s._(/*BTDS*/ "{name} joined via an invite link", [
-                s._param("name", C),
-              ]);
+          a = d(o("WAWebUserUtils").isMeAccount(v), R);
           break;
         case "revoke_invite":
-          a = o("WAWebUserUtils").isMeAccount(c)
+          a = o("WAWebUserUtils").isMeAccount(_)
             ? s._(
                 /*BTDS*/ "You reset this group's invite link. Click to view the new invite link.",
               )
@@ -182,38 +176,38 @@ __d(
           a = o(
             "WAWebFormatDescriptionNotification",
           ).formatDescriptionNotification({
-            author: c,
+            author: _,
             authorClickable: u,
-            shouldFormatAsLastMsg: _,
+            shouldFormatAsLastMsg: y,
           });
           break;
         case "parent_group_description":
           a = o(
             "WAWebFormatDescriptionNotification",
           ).formatDescriptionNotification({
-            author: c,
+            author: _,
             authorClickable: u,
             isParentGroup: !0,
-            shouldFormatAsLastMsg: _,
+            shouldFormatAsLastMsg: y,
           });
           break;
         case "announce":
           a = o("WAWebFormatAnnounceNotification").formatAnnounceNotification({
-            author: c,
+            author: _,
             authorClickable: u,
-            body: d,
+            body: f,
           });
           break;
         case "restrict":
           a = o("WAWebFormatRestrictNotification").formatRestrictNotification({
-            author: c,
+            author: _,
             authorClickable: u,
             templateParams: t.templateParams,
           });
           break;
         case "no_frequently_forwarded":
-          d === "on"
-            ? (a = o("WAWebUserUtils").isMeAccount(c)
+          f === "on"
+            ? (a = o("WAWebUserUtils").isMeAccount(_)
                 ? s._(
                     /*BTDS*/ "You changed this group's settings to not allow messages that have been forwarded many times.",
                   )
@@ -221,7 +215,7 @@ __d(
                     /*BTDS*/ "{name} changed this group's settings to not allow messages that have been forwarded many times.",
                     [s._param("name", u)],
                   ))
-            : (a = o("WAWebUserUtils").isMeAccount(c)
+            : (a = o("WAWebUserUtils").isMeAccount(_)
                 ? s._(
                     /*BTDS*/ "You changed this group's settings to allow messages that have been forwarded many times.",
                   )
@@ -234,18 +228,10 @@ __d(
           a = s._(/*BTDS*/ "Only admins can message this group.");
           break;
         case "v4_add_invite_sent":
-          a = s
-            ._(/*BTDS*/ "You invited {participants}", [
-              s._param("participants", g),
-            ])
-            .toString();
+          a = m(b);
           break;
         case "v4_add_invite_join":
-          a = s
-            ._(/*BTDS*/ "{participants} joined using your invite", [
-              s._param("participants", g),
-            ])
-            .toString();
+          a = p(b);
           break;
         case "ephemeral":
           return o("WAWebFormatEphemeralSetting").formatEphemeralSetting(t);
@@ -272,13 +258,13 @@ __d(
         case "auto_add":
         case "default_sub_group_admin_add":
         case "invite_auto_add": {
-          var S = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
-            author: c,
-            subject: h,
+          var k = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
+            author: _,
+            subject: v,
             subtype: l,
             templateParams: t.templateParams,
           });
-          S != null && (a = S);
+          k != null && (a = k);
           break;
         }
         case "community_participant_add_rich":
@@ -297,7 +283,7 @@ __d(
           ).communitySubgroupWelcomeTitle({
             templateParams: t.templateParams,
             clickable: !1,
-            author: c,
+            author: _,
           });
           break;
         case "community_link_parent_group_rich":
@@ -306,7 +292,7 @@ __d(
           ).communityLinkGroupTitle({
             templateParams: t.templateParams,
             clickable: !1,
-            author: c,
+            author: _,
           });
           break;
         case "community_create":
@@ -314,7 +300,7 @@ __d(
             "WAWebMessageCommunityWelcomeAdminTitle.react",
           ).communityWelcomeAdminTitle({
             templateParams: t.templateParams,
-            author: c,
+            author: _,
             groupMetadata: o("WAWebFrontendMsgGetters").getChat(t)
               .groupMetadata,
           });
@@ -324,7 +310,7 @@ __d(
         case "created_membership_requests":
           a = o(
             "WAWebFormatMembershipApprovalNotification",
-          ).formatMembershipApprovalNotification(l, c, t.templateParams);
+          ).formatMembershipApprovalNotification(l, _, t.templateParams);
           break;
         case "ephemeral_keep_in_chat":
           a = s._(
@@ -345,7 +331,7 @@ __d(
         case "allow_admin_reports":
           a = o(
             "WAWebFormatReportToAdminNotification",
-          ).formatReportToAdminNotification(c, t.templateParams);
+          ).formatReportToAdminNotification(_, t.templateParams);
           break;
         case "allow_non_admin_sub_group_creation":
           a = r("WAWebFormatAllowNonAdminSubGroupCreationNotification")(
@@ -354,37 +340,37 @@ __d(
           );
           break;
         case "empty_subgroup_create": {
-          var R = t.templateParams[2];
+          var I = t.templateParams[2];
           a = o(
             "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
-          ).communityEmptySubgroupWelcomeTitle(R);
+          ).communityEmptySubgroupWelcomeTitle(I);
           break;
         }
         case "created_subgroup_suggestion": {
           a = r("WAWebFormatCreatedSubgroupSuggestionNotification")(
-            c,
+            _,
             t.templateParams,
             !1,
           );
           break;
         }
         case "general_chat_add": {
-          var L = t.templateParams[1];
+          var T = t.templateParams[1];
           a = o(
             "WAWebMessageCommunityGeneralChatWelcomeTitle.react",
-          ).communityGeneralChatWelcomeTitle(L);
+          ).communityGeneralChatWelcomeTitle(T);
           break;
         }
         case "general_group_auto_add_disabled": {
-          var E, k;
+          var D, x;
           a = o(
             "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
           ).communityGeneralChatAutoAddDisabledNotification(
-            (E =
-              (k = o("WAWebFrontendMsgGetters").getChat(t)) == null
+            (D =
+              (x = o("WAWebFrontendMsgGetters").getChat(t)) == null
                 ? void 0
-                : k.formattedTitle) != null
-              ? E
+                : x.formattedTitle) != null
+              ? D
               : "",
             t.templateParams,
           );
@@ -394,7 +380,7 @@ __d(
           a = o(
             "WAWebFormatCommunityOwnerUpdateNotification",
           ).formatCommunityOwnerUpdateNotification({
-            author: c,
+            author: _,
             templateParams: t.templateParams,
             clickable: !1,
           });
@@ -415,6 +401,65 @@ __d(
         r("WAWebL10N").isRTL() && (a = r("WAWebL10N").forceRTL(String(a))),
         a
       );
+    }
+    function c(e, t) {
+      return o(
+        "WAWebSystemMessageGatingUtils",
+      ).systemMessageTerminalPeriodsEnabled()
+        ? s._(/*BTDS*/ "{name} changed to {new_number}.", [
+            s._param("name", e),
+            s._param("new_number", t),
+          ])
+        : s._(/*BTDS*/ "{name} changed to {new_number}", [
+            s._param("name", e),
+            s._param("new_number", t),
+          ]);
+    }
+    function d(e, t) {
+      var n = o(
+        "WAWebSystemMessageGatingUtils",
+      ).systemMessageTerminalPeriodsEnabled();
+      return e
+        ? n
+          ? s._(/*BTDS*/ "You joined via an invite link.")
+          : s._(/*BTDS*/ "You joined via an invite link")
+        : n
+          ? s._(/*BTDS*/ "{name} joined via an invite link.", [
+              s._param("name", t),
+            ])
+          : s._(/*BTDS*/ "{name} joined via an invite link", [
+              s._param("name", t),
+            ]);
+    }
+    function m(e) {
+      return o(
+        "WAWebSystemMessageGatingUtils",
+      ).systemMessageTerminalPeriodsEnabled()
+        ? s
+            ._(/*BTDS*/ "You invited {participants}.", [
+              s._param("participants", e),
+            ])
+            .toString()
+        : s
+            ._(/*BTDS*/ "You invited {participants}", [
+              s._param("participants", e),
+            ])
+            .toString();
+    }
+    function p(e) {
+      return o(
+        "WAWebSystemMessageGatingUtils",
+      ).systemMessageTerminalPeriodsEnabled()
+        ? s
+            ._(/*BTDS*/ "{participants} joined using your invite.", [
+              s._param("participants", e),
+            ])
+            .toString()
+        : s
+            ._(/*BTDS*/ "{participants} joined using your invite", [
+              s._param("participants", e),
+            ])
+            .toString();
     }
     l.default = u;
   },

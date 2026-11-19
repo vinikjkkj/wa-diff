@@ -1018,9 +1018,15 @@ __d(
             /*BTDS*/ "{receiver_name} accepted your invite to join WhatsApp",
             [s._param("receiver_name", n)],
           )
-        : s._(/*BTDS*/ "{receiver_name} is new to WhatsApp", [
-            s._param("receiver_name", n),
-          ]);
+        : o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "{receiver_name} is new to WhatsApp.", [
+              s._param("receiver_name", n),
+            ])
+          : s._(/*BTDS*/ "{receiver_name} is new to WhatsApp", [
+              s._param("receiver_name", n),
+            ]);
     }
     function _(e) {
       var t = o("WAWebFormatParticipantNames").getFormattedName({
@@ -1049,22 +1055,44 @@ __d(
           currency: i,
         });
       return e.id.fromMe
-        ? s._(
-            /*BTDS*/ '_j{"*":"You canceled your payment request to {contactName} for {currencyAndAmount}"}',
-            [
-              s._plural(c / 1e3),
-              s._param("contactName", u),
-              s._param("currencyAndAmount", d),
-            ],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"{contactName} canceled their payment request for {currencyAndAmount}"}',
-            [
-              s._plural(c / 1e3),
-              s._param("contactName", u),
-              s._param("currencyAndAmount", d),
-            ],
-          );
+        ? o(
+            "WAWebSystemMessageGatingUtils",
+          ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ '_j{"*":"You canceled your payment request to {contactName} for {currencyAndAmount}."}',
+              [
+                s._plural(c / 1e3),
+                s._param("contactName", u),
+                s._param("currencyAndAmount", d),
+              ],
+            )
+          : s._(
+              /*BTDS*/ '_j{"*":"You canceled your payment request to {contactName} for {currencyAndAmount}"}',
+              [
+                s._plural(c / 1e3),
+                s._param("contactName", u),
+                s._param("currencyAndAmount", d),
+              ],
+            )
+        : o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ '_j{"*":"{contactName} canceled their payment request for {currencyAndAmount}."}',
+              [
+                s._plural(c / 1e3),
+                s._param("contactName", u),
+                s._param("currencyAndAmount", d),
+              ],
+            )
+          : s._(
+              /*BTDS*/ '_j{"*":"{contactName} canceled their payment request for {currencyAndAmount}"}',
+              [
+                s._plural(c / 1e3),
+                s._param("contactName", u),
+                s._param("currencyAndAmount", d),
+              ],
+            );
     }
     function g(e) {
       var t = r("nullthrows")(
@@ -1173,9 +1201,15 @@ __d(
           "interpretMsgTemplateParams: payment_invite_account_set_up",
         ),
         n = t[0];
-      return s._(/*BTDS*/ "{invitee} has set up payments", [
-        s._param("invitee", r("WAWebWidToFormattedNameOrNumber")(n)),
-      ]);
+      return o(
+        "WAWebSystemMessageGatingUtils",
+      ).systemMessageTerminalPeriodsEnabled()
+        ? s._(/*BTDS*/ "{invitee} has set up payments.", [
+            s._param("invitee", r("WAWebWidToFormattedNameOrNumber")(n)),
+          ])
+        : s._(/*BTDS*/ "{invitee} has set up payments", [
+            s._param("invitee", r("WAWebWidToFormattedNameOrNumber")(n)),
+          ]);
     }
     function b(e) {
       var t = e.id,
@@ -1377,8 +1411,16 @@ __d(
     }
     function W(e) {
       return e[0] === "true"
-        ? s._(/*BTDS*/ "You blocked this person")
-        : s._(/*BTDS*/ "You unblocked this person");
+        ? (o(
+            "WAWebSystemMessageGatingUtils",
+          ).systemMessageTerminalPeriodsEnabled() &&
+            s._(/*BTDS*/ "You blocked this person.")) ||
+            s._(/*BTDS*/ "You blocked this person")
+        : (o(
+            "WAWebSystemMessageGatingUtils",
+          ).systemMessageTerminalPeriodsEnabled() &&
+            s._(/*BTDS*/ "You unblocked this person.")) ||
+            s._(/*BTDS*/ "You unblocked this person");
     }
     function q() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3
@@ -1422,7 +1464,11 @@ __d(
     function V(e) {
       return o("WAWebChatAssignmentUtils").shouldUseChatAssignmentCTA(e)
         ? s._(/*BTDS*/ "Chat was unassigned. Click to change")
-        : s._(/*BTDS*/ "Chat was unassigned");
+        : o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "Chat was unassigned.")
+          : s._(/*BTDS*/ "Chat was unassigned");
     }
     function H() {
       return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()

@@ -2,6 +2,7 @@ __d(
   "WAWebOpenCustomerManagerDrawer",
   [
     "WAWebCustomerManagerDrawerLoadable",
+    "WAWebCustomerManagerEntryExitJourneyEvents",
     "WAWebCustomerManagerOpenQpl",
     "WAWebCustomerManagerRoot.react",
     "WAWebCustomerManagerVisit",
@@ -29,9 +30,12 @@ __d(
         }),
       );
     }
-    function c() {
+    function c(e) {
       (o("WAWebCustomerManagerOpenQpl").startCustomerManagerOpen(),
-        o("WAWebCustomerManagerVisit").beginCustomerManagerVisit(),
+        o("WAWebCustomerManagerEntryExitJourneyEvents").enterCustomerManager(
+          e,
+          o("WAWebCustomerManagerVisit").beginCustomerManagerVisit(),
+        ),
         u(
           s.jsx(
             o("WAWebCustomerManagerDrawerLoadable")

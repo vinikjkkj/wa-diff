@@ -1,42 +1,20 @@
 __d(
   "WAWebVoipVideoEffectsWorkerMessageTypes",
-  ["WAWebVoipBackgroundBlurLevel"],
+  ["WAWebVoipBackgroundBlurLevel", "WAWebVoipBackgroundBlurStrength"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      if (e == null || typeof e != "object") return null;
-      switch (e.type) {
-        case "init": {
-          var t = e.assets;
-          return t != null &&
-            typeof t == "object" &&
-            typeof t.modelUrl == "string" &&
-            typeof t.wasmBinaryUrl == "string" &&
-            typeof t.wasmLoaderUrl == "string"
-            ? {
-                type: "init",
-                assets: {
-                  modelUrl: t.modelUrl,
-                  wasmBinaryUrl: t.wasmBinaryUrl,
-                  wasmLoaderUrl: t.wasmLoaderUrl,
-                },
-              }
-            : null;
-        }
-        case "processFrame": {
-          var n = e.frame,
-            r = e.id;
-          return typeof r == "number" && n instanceof VideoFrame
-            ? { type: "processFrame", id: r, frame: n }
-            : null;
-        }
-        case "setEffect": {
-          var o = u(e.effect);
-          return o != null ? { type: "setEffect", effect: o } : null;
-        }
-        default:
-          return null;
-      }
+      return e == null || typeof e != "object"
+        ? null
+        : e.type === "init"
+          ? u(e.assets)
+          : e.type === "processFrame"
+            ? c(e.id, e.frame)
+            : e.type === "setEffect"
+              ? d(e.effect)
+              : e.type === "setImageBlur"
+                ? m(e.strength)
+                : null;
     }
     function s(e) {
       if (!(e == null || typeof e != "object")) {
@@ -47,32 +25,82 @@ __d(
       }
     }
     function u(e) {
-      if (e == null || typeof e != "object") return null;
-      switch (e.kind) {
-        case "blur": {
-          var t = o("WAWebVoipBackgroundBlurLevel").parseBackgroundBlurLevel(
-            e.level,
-          );
-          return t != null ? { kind: "blur", level: t } : null;
-        }
-        case "image": {
-          var n = c(e.columns),
-            r = c(e.rows),
-            a = e.tiles;
-          if (n == null || r == null || !Array.isArray(a) || a.length !== n * r)
-            return null;
-          var i = [];
-          for (var l of a) {
-            if (!(l instanceof ImageBitmap)) return null;
-            i.push(l);
+      return e != null &&
+        typeof e == "object" &&
+        typeof e.modelUrl == "string" &&
+        typeof e.wasmBinaryUrl == "string" &&
+        typeof e.wasmLoaderUrl == "string"
+        ? {
+            type: "init",
+            assets: {
+              modelUrl: e.modelUrl,
+              wasmBinaryUrl: e.wasmBinaryUrl,
+              wasmLoaderUrl: e.wasmLoaderUrl,
+            },
           }
-          return { columns: n, kind: "image", rows: r, tiles: i };
-        }
-        default:
-          return null;
-      }
+        : null;
     }
-    function c(e) {
+    function c(e, t) {
+      return typeof e == "number" && t instanceof VideoFrame
+        ? { type: "processFrame", id: e, frame: t }
+        : null;
+    }
+    function d(e) {
+      var t = p(e);
+      return t != null ? { type: "setEffect", effect: t } : null;
+    }
+    function m(e) {
+      var t = o("WAWebVoipBackgroundBlurStrength").parseBlurStrength(e);
+      return t != null ? { type: "setImageBlur", strength: t } : null;
+    }
+    function p(e) {
+      return e == null || typeof e != "object"
+        ? null
+        : e.kind === "blur"
+          ? f(e.level, e.strength)
+          : e.kind === "image"
+            ? _(e.blur, e.columns, e.rows, e.tiles)
+            : null;
+    }
+    function _(e, t, n, r) {
+      var a,
+        i = g(t),
+        l = g(n);
+      if (i == null || l == null || !Array.isArray(r) || r.length !== i * l)
+        return null;
+      var s = [];
+      for (var u of r) {
+        if (!(u instanceof ImageBitmap)) return null;
+        s.push(u);
+      }
+      return {
+        blur:
+          (a = o("WAWebVoipBackgroundBlurStrength").parseBlurStrength(e)) !=
+          null
+            ? a
+            : 0,
+        columns: i,
+        kind: "image",
+        rows: l,
+        tiles: s,
+      };
+    }
+    function f(e, t) {
+      var n,
+        r = o("WAWebVoipBackgroundBlurLevel").parseBackgroundBlurLevel(e);
+      return r == null
+        ? null
+        : {
+            kind: "blur",
+            level: r,
+            strength:
+              (n = o("WAWebVoipBackgroundBlurStrength").parseBlurStrength(t)) !=
+              null
+                ? n
+                : o("WAWebVoipBackgroundBlurStrength").getBlurLevelStrength(r),
+          };
+    }
+    function g(e) {
       return typeof e == "number" && Number.isInteger(e) && e > 0 ? e : null;
     }
     ((l.parseMainToWorkerMessage = e), (l.closeDroppedMessage = s));

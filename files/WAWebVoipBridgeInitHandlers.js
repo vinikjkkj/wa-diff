@@ -5,6 +5,8 @@ __d(
     "WALogger",
     "WAWebEnvironment",
     "WAWebUnifiedSession",
+    "WAWebVoipCameraCaptureOwnerProvider",
+    "WAWebVoipCameraRequestLifetime",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitReloadRecovery",
     "WAWebVoipRelayAllCallsAction",
@@ -18,8 +20,14 @@ __d(
       u = {
         initializeVoipWasm: function () {
           if (
+            (o(
+              "WAWebVoipCameraRequestLifetime",
+            ).registerCameraCaptureOwnerFactory(
+              o("WAWebVoipCameraCaptureOwnerProvider")
+                .createActiveCallCameraCaptureOwner,
+            ),
             r("WAWebEnvironment").isWindows &&
-            !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+              !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled())
           ) {
             o("WALogger").LOG(
               e ||

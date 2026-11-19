@@ -151,7 +151,8 @@ __d(
       (l.latestUpdateTs = p),
       (l.toFieldUpdates = _),
       (l.formatCustomFieldValue = g),
-      (l.formatCustomFieldExportValue = h));
+      (l.formatCustomFieldExportValue = h),
+      (l.formatAbsoluteMoneyValue = v));
   },
   98,
 );

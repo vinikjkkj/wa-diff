@@ -28,7 +28,7 @@ __d(
     function C(e) {
       var t;
       return (
-        E() === p.account &&
+        L() === p.account &&
         ((t = p.entries) == null
           ? void 0
           : t.some(function (t) {
@@ -37,10 +37,10 @@ __d(
       );
     }
     function b() {
-      return P(
+      return $(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t;
-          return (e = (t = yield k()) == null ? void 0 : t.entries) != null
+          return (e = (t = yield E()) == null ? void 0 : t.entries) != null
             ? e
             : null;
         }),
@@ -49,9 +49,9 @@ __d(
     }
     function v(e) {
       var t = Date.now();
-      return P(
+      return $(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var n = yield k();
+          var n = yield E();
           if (n == null) return !1;
           if (
             n.entries.some(function (t) {
@@ -62,7 +62,7 @@ __d(
           var r = [{ messageKey: e, savedAtMs: t }]
             .concat(n.entries)
             .slice(0, d);
-          return T(n.account, n.generation, r);
+          return I(n.account, n.generation, r);
         }),
         !1,
       );
@@ -70,16 +70,16 @@ __d(
     function S(e) {
       if (e.length === 0) return (c || (c = n("Promise"))).resolve(!0);
       var t = new Set(e);
-      return P(
+      return $(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield k();
+          var e = yield E();
           if (e == null) return !1;
           var n = e.entries.filter(function (e) {
             return !t.has(e.messageKey);
           });
           return n.length === e.entries.length
             ? !0
-            : T(e.account, e.generation, n);
+            : I(e.account, e.generation, n);
         }),
         !1,
       );
@@ -93,9 +93,6 @@ __d(
       );
     }
     function L() {
-      (N(), (f = (c || (c = n("Promise"))).resolve()), _.clear(), (h = !1));
-    }
-    function E() {
       var e, t;
       return (e =
         (t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
@@ -104,15 +101,15 @@ __d(
         ? e
         : null;
     }
-    function k() {
-      return I.apply(this, arguments);
+    function E() {
+      return k.apply(this, arguments);
     }
-    function I() {
+    function k() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = E();
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = L();
           if (y() || e == null) return null;
-          p.account !== e && (N(), (p.account = e));
+          p.account !== e && (P(), (p.account = e));
           var t = p.generation;
           if (p.entries == null) {
             if (
@@ -120,24 +117,24 @@ __d(
               t !== p.generation)
             )
               return null;
-            ((p.entries = x(
+            ((p.entries = D(
               o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m),
               e,
             )),
-              p.entries != null && $());
+              p.entries != null && x());
           }
           var n = p.entries;
           return n == null ? null : { account: e, entries: n, generation: t };
         })),
-        I.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (y() || t !== p.generation) return !1;
           try {
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(m, {
@@ -158,12 +155,12 @@ __d(
               )
               .sendLogs("saved-promotions-persist-failed");
           }
-          return t !== p.generation ? !1 : ((p.entries = n), $(), !0);
+          return t !== p.generation ? !1 : ((p.entries = n), x(), !0);
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function x(e, t) {
+    function D(e, t) {
       if (e == null) return [];
       if (typeof e != "object" || !Array.isArray(e.entries)) return null;
       if (e.account !== t) return [];
@@ -179,7 +176,7 @@ __d(
         }
       return n;
     }
-    function $() {
+    function x() {
       _.forEach(function (t) {
         try {
           t();
@@ -195,8 +192,8 @@ __d(
         }
       });
     }
-    function P(e, t) {
-      M();
+    function $(e, t) {
+      N();
       var n = f.then(e).catch(function () {
         return (
           o("WALogger")
@@ -212,25 +209,24 @@ __d(
       });
       return ((f = n), n);
     }
-    function N() {
+    function P() {
       (p.generation++, (p.account = null), (p.entries = null));
     }
-    function M() {
+    function N() {
       g ||
         ((g = !0),
-        o("WAWebCmd").Cmd.on("starting_logout_from_bridge", w),
-        o("WAWebCmd").Cmd.on("logout_from_bridge", w));
+        o("WAWebCmd").Cmd.on("starting_logout_from_bridge", M),
+        o("WAWebCmd").Cmd.on("logout_from_bridge", M));
     }
-    function w() {
-      ((h = !0), N());
+    function M() {
+      ((h = !0), P());
     }
     ((l.MAX_SAVED_PROMOTIONS = d),
       (l.isPromotionSaved = C),
       (l.loadSavedPromotions = b),
       (l.savePromotion = v),
       (l.removeSavedPromotions = S),
-      (l.subscribeToSavedPromotions = R),
-      (l.resetSavedPromotionsForTests = L));
+      (l.subscribeToSavedPromotions = R));
   },
   98,
 );

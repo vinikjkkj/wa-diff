@@ -12,7 +12,7 @@ __d(
         var a = n[0].tag;
         switch (a) {
           case "pair-device":
-            return r("WAWebHandlePairDevice")(e);
+            return o("WAWebHandlePairDevice").handlePairDevice(e);
           case "pair-success":
             return r("WAWebHandlePairSuccess")(e);
         }

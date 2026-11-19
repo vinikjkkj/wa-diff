@@ -8,7 +8,6 @@ __d(
       CLOSE_BUTTON: "close_button",
       DISMISS: "dismiss",
       EMPTY_STATE_ADD_CUSTOMER: "empty_state_add_customer",
-      EXIT: "exit",
       EXPORT_BUTTON: "export_button",
       EXPORT_CONFIRM_BUTTON: "export_confirm_button",
       HEADER_MENU: "header_menu",

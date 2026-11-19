@@ -97,7 +97,7 @@ __d(
         g.apply(this, arguments)
       );
     }
-    l.default = p;
+    l.handlePairDevice = p;
   },
   98,
 );

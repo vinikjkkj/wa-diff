@@ -1,6 +1,7 @@
 __d(
   "WAWebBizAiBridgeApi",
   [
+    "Promise",
     "WALogger",
     "WAWebAIAgentAIReplyUtils",
     "WAWebBizAISettingsCategoryHandlers",
@@ -15,11 +16,12 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e, t) {
+    var e, s, u, c, d, m, p, _, f, g;
+    function h(e, t) {
       var n = null,
         r =
           e != null
@@ -41,129 +43,198 @@ __d(
       }
       return n;
     }
-    var g = {
-      updateChatCapiThreadControl: function (n) {
-        var t = n.consumerLid,
-          r = n.consumerPhoneNumber,
-          a = n.lastHandoffActor,
-          i = n.shouldSuppressNotification,
-          l = n.status,
-          c = n.suggestedRepliesEnabled,
-          d = n.timestampMs;
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[BizAI] updateChatCapiThreadControl status=",
-              "",
-            ])),
-          l,
-        );
-        var m = f(t, r);
-        m != null
-          ? (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+    var y = {
+      updateChatCapiThreadControl: (function () {
+        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.consumerLid,
+            a = t.consumerPhoneNumber,
+            i = t.lastHandoffActor,
+            l = t.shouldSuppressNotification,
+            d = t.status,
+            m = t.suggestedRepliesEnabled,
+            p = t.timestampMs;
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] updateChatCapiThreadControl status=",
+                "",
+              ])),
+            d,
+          );
+          try {
+            var _ = h(n, a);
+            if (_ == null) {
+              (o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[BizAI] updateChatCapiThreadControl: chat not found",
+                    ])),
+                )
+                .sendLogs("maiba-thread-control-chat-not-found"),
+                o(
+                  "WAWebBizAiBulkThreadControlLogEvents",
+                ).logThreadControlApplyOutcome("not_found", d));
+              return;
+            }
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[Maiba] updateChatCapiThreadControl status=",
                   " chat=",
                   "",
                 ])),
-              l,
-              m.id.toLogString(),
-            ),
-            o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
-              chat: m,
+              d,
+              _.id.toLogString(),
+            );
+            var f = yield o(
+              "WAWebAIAgentAIReplyUtils",
+            ).applyServerEchoThreadControl({
+              chat: _,
               options: {
-                suppressNotification: i,
-                suggestedRepliesEnabled: c,
-                lastHandoffActor: a,
+                suppressNotification: l,
+                suggestedRepliesEnabled: m,
+                lastHandoffActor: i,
               },
-              status: l,
-              timestampMs: d,
-            }))
-          : o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizAI] updateChatCapiThreadControl: chat not found",
-                  ])),
-              )
-              .sendLogs("maiba-thread-control-chat-not-found");
-      },
-      bulkUpdateChatCapiThreadControl: function (t) {
-        var e = t.updates;
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "[BizAI] bulkUpdateChatCapiThreadControl count=",
-              "",
-            ])),
-          e.length,
-        );
-        var n = 0,
-          a = 0,
-          i = 0;
-        for (var l of e.entries()) {
-          var s = l[0],
-            u = l[1];
-          try {
-            var p = f(u.consumerLid, u.consumerPhoneNumber);
-            p != null
-              ? (o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
-                  chat: p,
-                  options: {
-                    suppressNotification: !0,
-                    suggestedRepliesEnabled: u.suggestedRepliesEnabled,
-                    lastHandoffActor: u.lastHandoffActor,
-                  },
-                  status: u.status,
-                  timestampMs: u.timestampMs,
-                }),
-                (n += 1))
-              : (a += 1);
+              status: d,
+              timestampMs: p,
+            });
+            o(
+              "WAWebBizAiBulkThreadControlLogEvents",
+            ).logThreadControlApplyOutcome(f, d);
           } catch (e) {
-            ((i += 1),
+            (o(
+              "WAWebBizAiBulkThreadControlLogEvents",
+            ).logThreadControlApplyOutcome("failed", d),
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[BizAI] bulkUpdateChatCapiThreadControl: failed to apply update at index=",
-                      "",
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[BizAI] updateChatCapiThreadControl: failed to apply update",
                     ])),
-                  s,
                 )
                 .catching(r("getErrorSafe")(e))
-                .sendLogs("maiba-bulk-thread-control-update-failed"));
+                .sendLogs("maiba-thread-control-update-failed"));
           }
+        });
+        function a(e) {
+          return t.apply(this, arguments);
         }
-        e.length > 0 &&
-          (o(
-            "WAWebBizAiBulkThreadControlLogEvents",
-          ).logBulkThreadControlBatchApplied({
-            appliedCount: n,
-            failedCount: i,
-            notFoundCount: a,
-            totalCount: e.length,
-          }),
-          n === 0 &&
-            a > 0 &&
-            o("WALogger")
-              .WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizAI] bulkUpdateChatCapiThreadControl: applied nothing, notFound=",
-                    ", total=",
-                    "",
-                  ])),
-                a,
-                e.length,
-              )
-              .tags("non-sad")
-              .sendLogs("maiba-bulk-thread-control-batch-unresolved", {
-                employeeSampling: 1,
-                sampling: 0.01,
-                sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-              }));
-      },
+        return a;
+      })(),
+      bulkUpdateChatCapiThreadControl: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.updates;
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] bulkUpdateChatCapiThreadControl count=",
+                "",
+              ])),
+            t.length,
+          );
+          var a = 0,
+            i = 0,
+            l = 0,
+            s = 0,
+            u = 0;
+          (yield (g || (g = n("Promise"))).all(
+            t.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e, t) {
+                    try {
+                      var n = h(e.consumerLid, e.consumerPhoneNumber);
+                      if (n != null) {
+                        var c = yield o(
+                          "WAWebAIAgentAIReplyUtils",
+                        ).applyServerEchoThreadControl({
+                          chat: n,
+                          options: {
+                            suppressNotification: !0,
+                            suggestedRepliesEnabled: e.suggestedRepliesEnabled,
+                            lastHandoffActor: e.lastHandoffActor,
+                          },
+                          status: e.status,
+                          timestampMs: e.timestampMs,
+                        });
+                        e: {
+                          if (c === "applied") {
+                            a += 1;
+                            break e;
+                          }
+                          if (c === "stale") {
+                            s += 1;
+                            break e;
+                          }
+                          if (c === "pending") {
+                            u += 1;
+                            break e;
+                          }
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              c,
+                          );
+                        }
+                      } else i += 1;
+                    } catch (e) {
+                      ((l += 1),
+                        o("WALogger")
+                          .ERROR(
+                            m ||
+                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                                "[BizAI] bulkUpdateChatCapiThreadControl: failed to apply update at index=",
+                                "",
+                              ])),
+                            t,
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs("maiba-bulk-thread-control-update-failed"));
+                    }
+                  },
+                );
+                return function (t, n) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          ),
+            t.length > 0 &&
+              (o(
+                "WAWebBizAiBulkThreadControlLogEvents",
+              ).logBulkThreadControlBatchApplied({
+                appliedCount: a,
+                failedCount: l,
+                notFoundCount: i,
+                pendingCount: u,
+                staleCount: s,
+                totalCount: t.length,
+              }),
+              a + s + u === 0 &&
+                i > 0 &&
+                o("WALogger")
+                  .WARN(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "[BizAI] bulkUpdateChatCapiThreadControl: applied nothing, notFound=",
+                        ", total=",
+                        "",
+                      ])),
+                    i,
+                    t.length,
+                  )
+                  .tags("non-sad")
+                  .sendLogs("maiba-bulk-thread-control-batch-unresolved", {
+                    employeeSampling: 1,
+                    sampling: 0.01,
+                    sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                  })));
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       handleBizAiSettingsNudge: function (t) {
         var e = t.category,
           n = t.updatedAtMs,
@@ -175,8 +246,8 @@ __d(
           );
         if (a == null) {
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[BizAI] handleBizAiSettingsNudge: unknown category=",
                 "",
               ])),
@@ -186,8 +257,8 @@ __d(
         }
         (o("WAWebBizAISettingsCategoryHandlers").registerCategoryHandler(a),
           o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[BizAI] handleBizAiSettingsNudge: category=",
                 " version=",
                 "",
@@ -228,7 +299,7 @@ __d(
         ).applyBizAiWebEditingCoachingGate(e);
       },
     };
-    l.BizAiBridgeApi = g;
+    l.BizAiBridgeApi = y;
   },
   98,
 );

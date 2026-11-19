@@ -268,10 +268,18 @@ __d(
         "parent_group_jid",
       );
       if (!l.success) return l;
-      var s = o("WASmaxParseUtils").attrIntRange(e, "request_time", 0, void 0);
+      var s = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "bot_product",
+        o("WASmaxInGroupsEnums")
+          .ENUM_1PCARAVAN_1PCOEXV2_1PGROUPMUSE_1PMAIBAHUBCHAT_1PMETAAI_1PMETAAITHREAD_1PMUSE_1PTEE_1PWAFORWORK_1PWAIAS_3PAGENT,
+      );
       if (!s.success) return s;
-      var u = C(e);
-      return u.success
+      var u = o("WASmaxParseUtils").attrIntRange(e, "request_time", 0, void 0);
+      if (!u.success) return u;
+      var c = C(e);
+      return c.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
               {
@@ -280,12 +288,13 @@ __d(
                 requestorPn: a.value,
                 requestorUsername: i.value,
                 parentGroupJid: l.value,
-                requestTime: s.value,
+                botProduct: s.value,
+                requestTime: u.value,
               },
-              u.value,
+              c.value,
             ),
           )
-        : u;
+        : c;
     }
     function y(e) {
       var t = o("WASmaxParseUtils").literal(

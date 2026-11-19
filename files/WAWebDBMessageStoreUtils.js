@@ -101,7 +101,7 @@ __d(
     function v(e, t) {
       t === void 0 && (t = []);
       var n = o("WAWebDBMessageSerialization").messageFromDbRow(e),
-        r = k(e),
+        r = I(e),
         a = o("WAWebDBAddOnProviders").getAddOnProviderForFutureproofMsg(n);
       return !(
         r ||
@@ -169,7 +169,7 @@ __d(
             ((e.rowId != null && e.rowId < m) || e.count == null)
           )
             return (n.length < 3 && n.push(e.id), !1);
-          if (o("WAWebMsgGetters").getIsAckPlayable(e)) {
+          if (E(e, t)) {
             if (e.ack === o("WAWebAck").ACK.PLAYED) return !1;
           } else if (e.ack === o("WAWebAck").ACK.READ) return !1;
           return !0;
@@ -192,6 +192,13 @@ __d(
       );
     }
     function E(e, t) {
+      var n =
+        r("WAWebWid").isNewsletter(e.from) ||
+        t.remote.isNewsletter() ||
+        e.forwardedNewsletterMessageInfo != null;
+      return o("WAWebMsgGetters").isAckPlayableType(e.type, n);
+    }
+    function k(e, t) {
       var n,
         r = self.performance.now(),
         a = o("WAWebABProps").getABPropConfigValue(
@@ -215,7 +222,7 @@ __d(
           )
             return !1;
           var n = o("WAWebDBMessageSerialization").messageFromDbRow(r),
-            u = k(r);
+            u = I(r);
           if (u) return !1;
           if (b(r)) {
             var y = o(
@@ -291,14 +298,14 @@ __d(
           );
         });
     }
-    function k(e) {
+    function I(e) {
       if (e.type === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT) return !0;
       var t = e.futureproofType;
       return t != null
         ? o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(t)
         : o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(e.type);
     }
-    var I = new Map([
+    var T = new Map([
       [
         o("WAWebMsgType").MSG_TYPE.GP2,
         ["remove", "add", "ephemeral", "invite", "leave"],
@@ -348,18 +355,18 @@ __d(
         ],
       ],
     ]);
-    function T(e) {
+    function D(e) {
       var t;
       return (
-        ((t = I.get(e.type)) == null ? void 0 : t.includes(e.subtype)) || !1
+        ((t = T.get(e.type)) == null ? void 0 : t.includes(e.subtype)) || !1
       );
     }
-    function D(e, t) {
+    function x(e, t) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(["internalId"], e + "_/", e + "_g", { reverse: !0 }, t);
     }
-    function x(e) {
+    function $(e) {
       return (
         (e.type === o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION &&
           e.subtype === "encrypt") ||
@@ -375,7 +382,7 @@ __d(
           e.subtype === "biz_account_type_changed_to_hosted")
       );
     }
-    function $(e) {
+    function P(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
         (e.subtype === "bot_init" ||
@@ -398,11 +405,11 @@ __d(
       (l.isFutureproof = b),
       (l.shouldRenderInUI = v),
       (l.maybeUpdateMsgAck = S),
-      (l.getKeyMsgsFromChatHistory = E),
-      (l.isSecuritySensitiveMessage = T),
-      (l.getMessagesBefore = D),
-      (l.isInitialEncryptionMessage = x),
-      (l.isBotSystemMessageToPreserveOnClear = $));
+      (l.getKeyMsgsFromChatHistory = k),
+      (l.isSecuritySensitiveMessage = D),
+      (l.getMessagesBefore = x),
+      (l.isInitialEncryptionMessage = $),
+      (l.isBotSystemMessageToPreserveOnClear = P));
   },
   98,
 );

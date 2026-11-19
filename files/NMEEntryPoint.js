@@ -294,6 +294,7 @@ __d(
       FB_LWI_POST_AD_CREATION_GUIDANCE_UPSELL:
         "fb_lwi_post_ad_creation_guidance_upsell",
       FB_LWI_VIEW_RESULTS_PAGE: "fb_lwi_view_results_page",
+      FB_MARKETPLACE_SELLER_QP_FB_PLUS: "fb_marketplace_seller_qp_fb_plus",
       FB_MARKETPLACE_SELLER_QP_PRO_AC: "fb_marketplace_seller_qp_pro_ac",
       FB_MENU_SUBSCRIPTIONS: "fb_menu_subscriptions",
       FB_ML_AQP_META_ONE_CONSUMER: "fb_ml_aqp_meta_one_consumer",
@@ -924,6 +925,7 @@ __d(
       METAONE_T2_CREATOR_IG_EMAIL: "metaone_t2_creator_ig_email",
       METAONE_T2_CREATOR_IG_HOUSEAD: "metaone_t2_creator_ig_housead",
       METAONE_T2_CREATOR_IG_WEB: "metaone_t2_creator_ig_web",
+      META_AI_SUPPORT_ASSISTANT: "meta_ai_support_assistant",
       META_ONE_ACCOUNTS_CENTER_HOME: "meta_one_accounts_center_home",
       META_ONE_ACCOUNTS_CENTER_MORE_FROM_META:
         "meta_one_accounts_center_more_from_meta",

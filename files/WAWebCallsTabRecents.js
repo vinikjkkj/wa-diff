@@ -23,7 +23,11 @@ __d(
                   "WAWebVoipOngoingCallCollection",
                 ).WAWebVoipOngoingCallCollection.getByCallId(a.id.id) == null &&
                 r.push(a));
-      return { kept: n, recents: r, starred: t };
+      return {
+        kept: o("WAWebVoipOngoingCallCollection").getOneCallLogPerCall(n),
+        recents: o("WAWebVoipOngoingCallCollection").getOneCallLogPerCall(r),
+        starred: o("WAWebVoipOngoingCallCollection").getOneCallLogPerCall(t),
+      };
     }
     l.partitionCallLogMsgs = e;
   },

@@ -166,7 +166,9 @@ __d(
           return [];
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "options"
+          (e.type === "options" ||
+            e.type === "pairing_launcher" ||
+            e.type === "pairing_share")
         )
           return null;
         throw Error(

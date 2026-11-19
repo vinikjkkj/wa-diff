@@ -2,7 +2,6 @@ __d(
   "WAWebUseAboutDisplayStatus",
   [
     "WAWebFrontendContactGetters",
-    "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "react-compiler-runtime",
     "useWAWebContactValues",
@@ -30,11 +29,7 @@ __d(
         c = a[4],
         d;
       t[1] !== e.id
-        ? ((d =
-            e.id.isRegularUser() &&
-            o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()),
-          (t[1] = e.id),
-          (t[2] = d))
+        ? ((d = e.id.isRegularUser()), (t[1] = e.id), (t[2] = d))
         : (d = t[2]);
       var m = d,
         p;

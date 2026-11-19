@@ -22,35 +22,25 @@ __d(
       }
       function l(e) {
         var t;
-        return ((t = n) == null ? void 0 : t.hasFired(e)) === !0;
-      }
-      function u(e) {
-        var t;
-        (t = n) == null || t.annotate(e);
-      }
-      function c(e) {
-        var t;
         (t = n) == null || t.endSuccess(e);
       }
-      function d(e, t) {
+      function u(e, t) {
         var r;
         (r = n) == null || r.endFail(e, t);
       }
-      function m() {
+      function c() {
         var e;
         (e = n) == null || e.cancel();
       }
-      function p() {
+      function d() {
         var e;
         return ((e = n) == null ? void 0 : e.isActive()) === !0;
       }
       return {
-        annotate: u,
-        cancel: m,
-        endFail: d,
-        endSuccess: c,
-        hasFired: l,
-        isActive: p,
+        cancel: c,
+        endFail: u,
+        endSuccess: l,
+        isActive: d,
         pointOnce: i,
         start: a,
         startRun: r,
@@ -64,10 +54,6 @@ __d(
         n != null && ((t = null), e(n));
       }
       return {
-        annotate: function (n) {
-          var e;
-          (e = t) == null || e.addAnnotations(n);
-        },
         cancel: function () {
           r(function (e) {
             return e.endCancel();
@@ -82,9 +68,6 @@ __d(
           r(function (e) {
             return e.endSuccess(t);
           });
-        },
-        hasFired: function (t) {
-          return n.has(t);
         },
         isActive: function () {
           var e;

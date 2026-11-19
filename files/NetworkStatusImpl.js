@@ -1,106 +1,131 @@
 __d(
   "NetworkStatusImpl",
-  ["NetworkHeartbeat", "justknobx", "performanceNow"],
+  [
+    "ExecutionEnvironment",
+    "NetworkHeartbeat",
+    "gkx",
+    "justknobx",
+    "performanceNow",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = [],
-      c = typeof window != "undefined" ? window : self,
-      d = c == null || (e = c.navigator) == null ? void 0 : e.onLine,
-      m = 2,
-      p = 5e3,
-      _ = [],
-      f = [],
-      g = 0,
-      h = !0,
-      y = !1,
-      C = !1,
-      b = function () {
-        L(h, !0);
+      u,
+      c =
+        r("gkx")("5306") &&
+        !(s || (s = r("ExecutionEnvironment"))).canUseDOM &&
+        !(s || (s = r("ExecutionEnvironment"))).isInWorker;
+    function d() {
+      return c ? null : typeof window != "undefined" ? window : self;
+    }
+    var m = [],
+      p = d(),
+      _ =
+        p == null
+          ? !0
+          : p == null || (e = p.navigator) == null
+            ? void 0
+            : e.onLine,
+      f = 2,
+      g = 5e3,
+      h = [],
+      y = [],
+      C = 0,
+      b = !0,
+      v = !1,
+      S = !1,
+      R = function () {
+        I(b, !0);
       },
-      v = function () {
-        L(y, !0);
+      L = function () {
+        I(v, !0);
       };
-    function S() {
-      var e = u.slice();
+    function E() {
+      var e = m.slice();
       e.forEach(function (e) {
-        e({ online: d });
+        e({ online: _ });
       });
     }
-    function R(e) {
-      var t = u.indexOf(e);
-      t > -1 && u.splice(t, 1);
+    function k(e) {
+      var t = m.indexOf(e);
+      t > -1 && m.splice(t, 1);
     }
-    function L(e, t) {
+    function I(e, t) {
       t === void 0 && (t = !1);
-      var n = d === e,
-        r = !t && e === h && o("NetworkHeartbeat").isHeartbeatPending();
+      var n = _ === e,
+        r = !t && e === b && o("NetworkHeartbeat").isHeartbeatPending();
       n ||
         r ||
-        ((C = C || e === y),
-        (d = e),
-        d || o("NetworkHeartbeat").maybeStartHeartbeat(b, v),
-        S());
+        ((S = S || e === v),
+        (_ = e),
+        _ || o("NetworkHeartbeat").maybeStartHeartbeat(R, L),
+        E());
     }
-    function E() {
-      var e = (s || (s = r("performanceNow")))();
+    function T() {
+      var e = (u || (u = r("performanceNow")))();
       return (
-        (_ = _.filter(function (t) {
-          return k(t.startTime, e);
+        (h = h.filter(function (t) {
+          return D(t.startTime, e);
         })),
-        (f = f.filter(function (t) {
-          return k(t.startTime, e);
+        (y = y.filter(function (t) {
+          return D(t.startTime, e);
         })),
-        f.length / _.length < m
+        y.length / h.length < f
       );
     }
-    var k = function (t, n) {
-      return t > n - p;
+    var D = function (t, n) {
+      return t > n - g;
     };
-    function I() {
-      return d;
+    function x() {
+      return _;
     }
-    function T(e) {
-      u.push(e);
+    function $(e) {
+      if (c) return { remove: function () {} };
+      m.push(e);
       var t = !1;
       return {
         remove: function () {
-          t || ((t = !0), R(e));
+          t || ((t = !0), k(e));
         },
       };
     }
-    function D() {
-      var e = (s || (s = r("performanceNow")))();
-      (_.push({ startTime: e }),
-        o("NetworkHeartbeat").maybeStartHeartbeat(b, v, E));
+    function P() {
+      if (!c) {
+        var e = (u || (u = r("performanceNow")))();
+        (h.push({ startTime: e }),
+          o("NetworkHeartbeat").maybeStartHeartbeat(R, L, T));
+      }
     }
-    function x() {
-      var e = (s || (s = r("performanceNow")))();
-      (f.push({ startTime: e }),
-        k(g, e) ||
-          ((f = f.filter(function (t) {
-            return k(t.startTime, e);
-          })),
-          (g = e)));
+    function N() {
+      if (!c) {
+        var e = (u || (u = r("performanceNow")))();
+        (y.push({ startTime: e }),
+          D(C, e) ||
+            ((y = y.filter(function (t) {
+              return D(t.startTime, e);
+            })),
+            (C = e)));
+      }
     }
-    function $() {
-      return C;
+    function M() {
+      return S;
     }
-    (!d &&
-      r("justknobx")._("4216") &&
-      o("NetworkHeartbeat").maybeStartHeartbeat(b, v),
-      c.addEventListener("online", function () {
-        L(h);
+    (p != null &&
+      (!_ &&
+        r("justknobx")._("4216") &&
+        o("NetworkHeartbeat").maybeStartHeartbeat(R, L),
+      p.addEventListener("online", function () {
+        I(b);
       }),
-      c.addEventListener("offline", function () {
-        L(y);
-      }),
-      (l.isOnline = I),
-      (l.onChange = T),
-      (l.reportError = D),
-      (l.reportSuccess = x),
-      (l.wasOffline = $));
+      p.addEventListener("offline", function () {
+        I(v);
+      })),
+      (l.isOnline = x),
+      (l.onChange = $),
+      (l.reportError = P),
+      (l.reportSuccess = N),
+      (l.wasOffline = M));
   },
   98,
 );

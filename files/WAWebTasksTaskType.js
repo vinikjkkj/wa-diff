@@ -47,6 +47,7 @@ __d(
       CLEAN_EXPIRED_MUSIC_LYRICS: "cleanExpiredMusicLyrics",
       PURGE_QPL_STORAGE: "purgeQplStorage",
       OPUS_MIGRATION: "opusMigration",
+      PQ_SESSION_UPGRADE: "pqSessionUpgrade",
       REFRESH_AUDIENCE_EXPRESSIONS: "refreshAudienceExpressions",
       SYNC_ORGS: "syncOrgs",
     });

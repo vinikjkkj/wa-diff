@@ -5,6 +5,7 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebLidMigrationUtils",
+    "WAWebSystemMessageGatingUtils",
     "WAWebSystemMessagesUtils",
     "WAWebWid",
   ],
@@ -20,32 +21,77 @@ __d(
             r("WAWebWid"),
             o("WAWebLidMigrationUtils").toCommonAddressingMode(t, i),
           )
-          ? s._(/*BTDS*/ "You were removed")
+          ? o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+            ? s._(/*BTDS*/ "You were removed.")
+            : s._(/*BTDS*/ "You were removed")
           : o("WAWebSystemMessagesUtils").isMe(t)
-            ? s._(/*BTDS*/ "You removed {names}", [s._param("names", a)])
+            ? o(
+                "WAWebSystemMessageGatingUtils",
+              ).systemMessageTerminalPeriodsEnabled()
+              ? s._(/*BTDS*/ "You removed {names}.", [s._param("names", a)])
+              : s._(/*BTDS*/ "You removed {names}", [s._param("names", a)])
             : o("WAWebSystemMessagesUtils").isMe(i)
               ? n != null
-                ? s._(/*BTDS*/ "{user_name} removed you", [
+                ? (o(
+                    "WAWebSystemMessageGatingUtils",
+                  ).systemMessageTerminalPeriodsEnabled() &&
+                    s._(/*BTDS*/ "{user_name} removed you.", [
+                      s._param("user_name", n),
+                    ])) ||
+                  s._(/*BTDS*/ "{user_name} removed you", [
                     s._param("user_name", n),
                   ])
-                : s._(/*BTDS*/ "A member removed you")
+                : (o(
+                    "WAWebSystemMessageGatingUtils",
+                  ).systemMessageTerminalPeriodsEnabled() &&
+                    s._(/*BTDS*/ "A member removed you.")) ||
+                  s._(/*BTDS*/ "A member removed you")
               : n != null
-                ? s._(/*BTDS*/ "{user_name} removed {names}", [
+                ? (o(
+                    "WAWebSystemMessageGatingUtils",
+                  ).systemMessageTerminalPeriodsEnabled() &&
+                    s._(/*BTDS*/ "{user_name} removed {names}.", [
+                      s._param("user_name", n),
+                      s._param("names", a),
+                    ])) ||
+                  s._(/*BTDS*/ "{user_name} removed {names}", [
                     s._param("user_name", n),
                     s._param("names", a),
                   ])
-                : s._(/*BTDS*/ "A member removed {names}", [
+                : (o(
+                    "WAWebSystemMessageGatingUtils",
+                  ).systemMessageTerminalPeriodsEnabled() &&
+                    s._(/*BTDS*/ "A member removed {names}.", [
+                      s._param("names", a),
+                    ])) ||
+                  s._(/*BTDS*/ "A member removed {names}", [
                     s._param("names", a),
                   ])
         : o("WAWebSystemMessagesUtils").isMe(i)
-          ? s._(/*BTDS*/ "You were removed")
+          ? o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+            ? s._(/*BTDS*/ "You were removed.")
+            : s._(/*BTDS*/ "You were removed")
           : i != null &&
               o("WAWebBotUtils").isWidGroupAgentFbidWid(i) &&
               o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-            ? s._(/*BTDS*/ "{agent_name} left", [s._param("agent_name", l)])
-            : s._(/*BTDS*/ "{user_name} was removed", [
-                s._param("user_name", l),
-              ]);
+            ? o(
+                "WAWebSystemMessageGatingUtils",
+              ).systemMessageTerminalPeriodsEnabled()
+              ? s._(/*BTDS*/ "{agent_name} left.", [s._param("agent_name", l)])
+              : s._(/*BTDS*/ "{agent_name} left", [s._param("agent_name", l)])
+            : o(
+                  "WAWebSystemMessageGatingUtils",
+                ).systemMessageTerminalPeriodsEnabled()
+              ? s._(/*BTDS*/ "{user_name} was removed.", [
+                  s._param("user_name", l),
+                ])
+              : s._(/*BTDS*/ "{user_name} was removed", [
+                  s._param("user_name", l),
+                ]);
     }
     l.formatRemoveNotification = e;
   },

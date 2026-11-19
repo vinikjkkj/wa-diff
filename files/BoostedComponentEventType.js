@@ -1163,6 +1163,7 @@ __d(
       BUDGET_FLEX_V2: "budget_flex_v2",
       BUDGET_FLEX_V2_JOINER_TURNED_ON: "budget_flex_v2_joiner_turned_on",
       BUDGET_FLEX_V2_POOL_BUDGET_WRITTEN: "budget_flex_v2_pool_budget_written",
+      BUDGET_FLEX_V2_ACTION_REFUSED: "budget_flex_v2_action_refused",
       ADD_QUESTION_TO_CTMLG_TEMPLATE: "add_question_to_ctmlg_template",
       CLOSE_CTMLG_TEMPLATE_WITH_CHANGES: "close_ctmlg_template_with_changes",
       CLOSE_CTMLG_TEMPLATE_WITH_NO_CHANGES:
@@ -1943,6 +1944,13 @@ __d(
       MAIBA_AUDIENCE_SUBMIT_OUTCOME: "maiba_audience_submit_outcome",
       MAIBA_AUDIENCE_SUBMIT_OUTCOME_SUCCESS:
         "maiba_audience_submit_outcome_success",
+      MAIBA_AUDIENCE_EDIT_ROW_OPENED: "maiba_audience_edit_row_opened",
+      MAIBA_AUDIENCE_EDIT_WARNING_SHOWN: "maiba_audience_edit_warning_shown",
+      MAIBA_AUDIENCE_EDIT_FIX_CLICKED: "maiba_audience_edit_fix_clicked",
+      MAIBA_AUDIENCE_EDIT_MODAL_SAVED: "maiba_audience_edit_modal_saved",
+      LLM_BUDGET_EXPLANATION_IMPRESSION: "llm_budget_explanation_impression",
+      LLM_BUDGET_EXPLANATION_SUBMIT_OUTCOME_SUCCESS:
+        "llm_budget_explanation_submit_outcome_success",
       MAIBA_COPILOT_ENTRY_POINT_IMPRESSION:
         "maiba_copilot_entry_point_impression",
       MAIBA_COPILOT_ENTRY_POINT_CLICK: "maiba_copilot_entry_point_click",

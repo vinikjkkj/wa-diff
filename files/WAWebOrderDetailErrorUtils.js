@@ -8,6 +8,7 @@ __d(
     "WAWebOrderDetailMathPercentageSymbol",
     "WAWebToast.react",
     "WAWebToastManager",
+    "justknobx",
     "react",
     "react-compiler-runtime",
   ],
@@ -53,14 +54,22 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      return s._(/*BTDS*/ "{input_label} cannot be more than 100\u0025", [
-        s._param("input_label", e),
-      ]);
+      return r("justknobx")._("8427")
+        ? s._(/*BTDS*/ "{input_label} can't be more than 100\u0025", [
+            s._param("input_label", e),
+          ])
+        : s._(/*BTDS*/ "{input_label} cannot be more than 100\u0025", [
+            s._param("input_label", e),
+          ]);
     }
     function f(e) {
-      return s._(/*BTDS*/ "{input_label} cannot be more than subtotal", [
-        s._param("input_label", e),
-      ]);
+      return r("justknobx")._("8427")
+        ? s._(/*BTDS*/ "{input_label} can't be more than the subtotal", [
+            s._param("input_label", e),
+          ])
+        : s._(/*BTDS*/ "{input_label} cannot be more than subtotal", [
+            s._param("input_label", e),
+          ]);
     }
     function g(e) {
       var t = e.currency,

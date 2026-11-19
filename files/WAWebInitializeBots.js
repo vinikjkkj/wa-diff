@@ -160,7 +160,7 @@ __d(
                       "[bot] requesting bots from server",
                     ])),
                 ),
-                yield W(),
+                yield B(),
                 (i = a))
               : (i = t + a - n),
             w(),
@@ -242,14 +242,11 @@ __d(
           .sendLogs("bot-thread-list-sync-call-failed", { sampling: 0.01 }));
     }
     function B() {
-      ((N = !1), (M = null));
+      return W.apply(this, arguments);
     }
     function W() {
-      return q.apply(this, arguments);
-    }
-    function q() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           try {
             var t = yield v.load(),
@@ -295,19 +292,17 @@ __d(
               .sendLogs("bot-persist-bot-profiles-error");
             return;
           }
-          U();
+          q();
         })),
-        q.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function U() {
+    function q() {
       o("WAWebUserPrefsBot").setBotListLastRequestedTimestamp(
         o("WATimeUtils").unixTime(),
       );
     }
-    ((l.initializeBots = D),
-      (l.resetMetaAiThreadListSyncOfferForTest = B),
-      (l.getBotProfilesFromServer = W));
+    ((l.initializeBots = D), (l.getBotProfilesFromServer = B));
   },
   98,
 );

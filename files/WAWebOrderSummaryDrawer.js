@@ -40,6 +40,7 @@ __d(
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "WDSText.react",
+    "justknobx",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -68,44 +69,68 @@ __d(
     function g(e) {
       var t = e.allItemsHavePrice,
         n = e.chatId,
-        r = e.currency,
-        a = e.totalPrice1000;
+        a = e.currency,
+        i = e.totalPrice1000;
       if (!t) return s._(/*BTDS*/ "Items must all have a price").toString();
-      var i =
+      var l =
           o("WAWebABProps").getABPropConfigValue(
             "order_details_total_order_minimum_value",
           ) * 1e3,
-        l = o("WAWebOrderGatingUtils").orderDetailsTotalMaxValue(n) * 1e3;
-      return a < i
-        ? s
-            ._(
-              /*BTDS*/ "Total cannot be less than {order_min_allowed_amount}",
-              [
-                s._param(
-                  "order_min_allowed_amount",
-                  o("WAWebCurrencyUtils").formatAmount1000({
-                    amount: i,
-                    currency: r,
-                  }),
-                ),
-              ],
-            )
-            .toString()
-        : a > l
-          ? s
-              ._(
-                /*BTDS*/ "Total cannot be more than {order_max_allowed_amount}",
+        u = o("WAWebOrderGatingUtils").orderDetailsTotalMaxValue(n) * 1e3;
+      return i < l
+        ? (r("justknobx")._("8427")
+            ? s._(
+                /*BTDS*/ "Total can't be less than {order_min_allowed_amount}",
                 [
                   s._param(
-                    "order_max_allowed_amount",
+                    "order_min_allowed_amount",
                     o("WAWebCurrencyUtils").formatAmount1000({
                       amount: l,
-                      currency: r,
+                      currency: a,
                     }),
                   ),
                 ],
               )
-              .toString()
+            : s._(
+                /*BTDS*/ "Total cannot be less than {order_min_allowed_amount}",
+                [
+                  s._param(
+                    "order_min_allowed_amount",
+                    o("WAWebCurrencyUtils").formatAmount1000({
+                      amount: l,
+                      currency: a,
+                    }),
+                  ),
+                ],
+              )
+          ).toString()
+        : i > u
+          ? (r("justknobx")._("8427")
+              ? s._(
+                  /*BTDS*/ "Total can't be more than {order_max_allowed_amount}",
+                  [
+                    s._param(
+                      "order_max_allowed_amount",
+                      o("WAWebCurrencyUtils").formatAmount1000({
+                        amount: u,
+                        currency: a,
+                      }),
+                    ),
+                  ],
+                )
+              : s._(
+                  /*BTDS*/ "Total cannot be more than {order_max_allowed_amount}",
+                  [
+                    s._param(
+                      "order_max_allowed_amount",
+                      o("WAWebCurrencyUtils").formatAmount1000({
+                        amount: u,
+                        currency: a,
+                      }),
+                    ),
+                  ],
+                )
+            ).toString()
           : null;
     }
     function h(e) {

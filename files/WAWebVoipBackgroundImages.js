@@ -9,6 +9,7 @@ __d(
     "WAWebNoop",
     "WAWebVoipBackgroundImageStore",
     "WAWebVoipBackgroundSceneTiles",
+    "WAWebVoipColorBackground",
     "WAWebVoipCustomBackground",
     "WAWebXControllerFetchUtils",
     "WAXWhatsAppWebGraphQLControllerRouteBuilder",
@@ -77,7 +78,7 @@ __d(
         t = self.performance.now(),
         n = A;
       if (n != null && G(e - n.atMs) && G(t - n.atMonotonicMs)) return n.list;
-      var r = Ge("backgrounds list", L, se),
+      var r = ze("backgrounds list", L, ue),
         o = { atMonotonicMs: t, atMs: e, list: r };
       return (
         (A = o),
@@ -107,18 +108,19 @@ __d(
       return e >= 0 && e < R;
     }
     function z() {
-      (O || ((O = !0), ie()), H().catch(r("WAWebNoop")));
+      (O || ((O = !0), le()), H().catch(r("WAWebNoop")));
     }
     function j() {
       return F;
     }
     function K(e) {
       if (o("WAWebVoipCustomBackground").isCustomBackgroundId(e)) return Q(e);
+      if (o("WAWebVoipColorBackground").isColorBackgroundId(e)) return X(e);
       var t = B.get(e);
       if (t != null)
         return (
           t.then(function (t) {
-            (te(e),
+            (ne(e),
               o("WAWebVoipBackgroundImageStore").keepStoredBackgroundImage(
                 e,
                 t,
@@ -138,12 +140,12 @@ __d(
                   t
                 );
               })
-            : me(e, { countsAsUse: !0 });
+            : pe(e, { countsAsUse: !0 });
       return (
         B.set(e, a),
         a.then(
           function () {
-            return te(e);
+            return ne(e);
           },
           function () {
             B.get(e) === a && B.delete(e);
@@ -161,56 +163,70 @@ __d(
               q.add(e),
               r("err")("background " + e + " is no longer kept")
             );
-          return (te(e), t);
+          return (ne(e), t);
         });
     }
     function X(e) {
-      var t = Y(e);
+      var t = o("WAWebVoipColorBackground").getBackgroundColor(e);
+      return t == null
+        ? (q.add(e),
+          (g || (g = n("Promise"))).reject(
+            r("err")("background " + e + " is not a color offered"),
+          ))
+        : o("WAWebVoipColorBackground")
+            .getColorBackgroundImage(t)
+            .then(function (t) {
+              return (ne(e), t);
+            });
+    }
+    function Y(e) {
+      if (o("WAWebVoipColorBackground").isColorBackgroundId(e)) return X(e);
+      var t = J(e);
       if (t != null) return t;
-      var n = me(e, { countsAsUse: !1 });
+      var n = pe(e, { countsAsUse: !1 });
       W.set(e, n);
       var r = function () {
         W.get(e) === n && W.delete(e);
       };
       return (
         n.then(function () {
-          (te(e), r());
+          (ne(e), r());
         }, r),
         n
       );
     }
-    function Y(e) {
+    function J(e) {
       var t;
       return (t = B.get(e)) != null ? t : W.get(e);
     }
-    function J(e) {
-      return Z.apply(this, arguments);
+    function Z(e) {
+      return ee.apply(this, arguments);
     }
-    function Z() {
+    function ee() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield _e(e, { countsAsUse: !1 });
-          return (t != null && te(e), t);
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield fe(e, { countsAsUse: !1 });
+          return (t != null && ne(e), t);
         })),
-        Z.apply(this, arguments)
+        ee.apply(this, arguments)
       );
     }
-    function ee(e) {
+    function te(e) {
       V.add(e);
       var t = o("WAWebVoipCustomBackground").subscribeToCustomBackgroundRead(e);
       return function () {
         (V.delete(e), t());
       };
     }
-    function te(e) {
+    function ne(e) {
       V.forEach(function (t) {
         return t(e);
       });
     }
-    function ne(e) {
+    function re(e) {
       return q.has(e) || U.has(e);
     }
-    function re() {
+    function oe() {
       ((A = null),
         (F = null),
         (O = !1),
@@ -220,12 +236,12 @@ __d(
         U.clear(),
         V.clear());
     }
-    function oe() {
-      return ae.apply(this, arguments);
-    }
     function ae() {
+      return ie.apply(this, arguments);
+    }
+    function ie() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getFullLocale",
             void 0,
@@ -235,19 +251,19 @@ __d(
             o("WAWebMiscGatingUtils").getGraphqlLocaleRemapping(),
           );
         })),
-        ae.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    function ie() {
-      return le.apply(this, arguments);
-    }
     function le() {
+      return se.apply(this, arguments);
+    }
+    function se() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o(
               "WAWebVoipBackgroundImageStore",
-            ).readStoredBackgroundList(yield oe());
+            ).readStoredBackgroundList(yield ae());
             e != null &&
               F == null &&
               (F = e.filter(function (e) {
@@ -265,16 +281,16 @@ __d(
               .catching(r("getErrorSafe")(e));
           }
         })),
-        le.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function se(e, t) {
-      return ue.apply(this, arguments);
+    function ue(e, t) {
+      return ce.apply(this, arguments);
     }
-    function ue() {
+    function ce() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield oe(),
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield ae(),
             a = yield o("WAWebXControllerFetchUtils").fetchFromXController(
               r("WAXWhatsAppWebGraphQLControllerRouteBuilder")
                 .buildUri({})
@@ -297,7 +313,7 @@ __d(
             );
           if (!a.ok) throw r("err")("background images: HTTP " + a.status);
           t();
-          var i = Te(yield ce(a));
+          var i = De(yield de(a));
           if (i.length === 0) throw r("err")("background images: none offered");
           return (
             o("WALogger").LOG(
@@ -312,42 +328,42 @@ __d(
             i
           );
         })),
-        ue.apply(this, arguments)
+        ce.apply(this, arguments)
       );
     }
-    function ce(e) {
-      return de.apply(this, arguments);
+    function de(e) {
+      return me.apply(this, arguments);
     }
-    function de() {
+    function me() {
       return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield e.text();
           return JSON.parse(t.replace(/^for\s*\(\s*;;\s*\)\s*;\s*/, ""));
         })),
-        de.apply(this, arguments)
+        me.apply(this, arguments)
       );
     }
-    function me(e, t) {
-      return pe.apply(this, arguments);
+    function pe(e, t) {
+      return _e.apply(this, arguments);
     }
-    function pe() {
+    function _e() {
       return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.countsAsUse;
           if (q.has(e))
             throw r("err")("background " + e + " has no usable image");
-          var a = yield _e(e, { countsAsUse: n });
+          var a = yield fe(e, { countsAsUse: n });
           if (a != null) return a;
           var i = H(),
-            l = yield ge(e, i),
-            s = yield ye(e, l);
+            l = yield he(e, i),
+            s = yield Ce(e, l);
           if (s == null) {
-            Ce(i);
-            var u = yield ge(e, H());
-            if (((s = u !== l ? yield ye(e, u) : null), s == null))
+            be(i);
+            var u = yield he(e, H());
+            if (((s = u !== l ? yield Ce(e, u) : null), s == null))
               throw r("err")("background " + e + " package link refused");
           }
-          var c = yield Se(e, s);
+          var c = yield Re(e, s);
           return (
             o("WALogger").LOG(
               d ||
@@ -358,7 +374,7 @@ __d(
                   "",
                 ])),
               e,
-              Ie(c),
+              Te(c),
               n ? "" : ", for its preview",
             ),
             o("WAWebVoipBackgroundImageStore").storeBackgroundImage(e, c, {
@@ -367,15 +383,15 @@ __d(
             c
           );
         })),
-        pe.apply(this, arguments)
+        _e.apply(this, arguments)
       );
     }
-    function _e(e, t) {
-      return fe.apply(this, arguments);
+    function fe(e, t) {
+      return ge.apply(this, arguments);
     }
-    function fe() {
+    function ge() {
       return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.countsAsUse,
             r = yield o(
               "WAWebVoipBackgroundImageStore",
@@ -391,21 +407,21 @@ __d(
                     "",
                   ])),
                 e,
-                Ie(r),
+                Te(r),
                 n ? "" : ", for its preview",
               ),
             r
           );
         })),
-        fe.apply(this, arguments)
+        ge.apply(this, arguments)
       );
     }
-    function ge(e, t) {
-      return he.apply(this, arguments);
+    function he(e, t) {
+      return ye.apply(this, arguments);
     }
-    function he() {
+    function ye() {
       return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = (yield t).find(function (t) {
             return t.id === e;
           });
@@ -413,11 +429,11 @@ __d(
             throw (U.add(e), r("err")("background " + e + " is not offered"));
           return n.packageUrl;
         })),
-        he.apply(this, arguments)
+        ye.apply(this, arguments)
       );
     }
-    function ye(t, a) {
-      return Ge(
+    function Ce(t, a) {
+      return ze(
         "background " + t + " package",
         E,
         (function () {
@@ -439,7 +455,7 @@ __d(
                   null
                 );
               if (!l.ok) throw r("err")("HTTP " + l.status);
-              return be(l, i);
+              return ve(l, i);
             },
           );
           return function (e, t) {
@@ -448,16 +464,16 @@ __d(
         })(),
       );
     }
-    function Ce(e) {
+    function be(e) {
       var t;
       ((t = A) == null ? void 0 : t.list) === e && (A = null);
     }
-    function be(e, t) {
-      return ve.apply(this, arguments);
+    function ve(e, t) {
+      return Se.apply(this, arguments);
     }
-    function ve() {
+    function Se() {
       return (
-        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t();
           var r = e.body;
           if (r == null) return e.arrayBuffer();
@@ -484,16 +500,16 @@ __d(
           for (var d of a) (u.set(d, c), (c += d.length));
           return u.buffer;
         })),
-        ve.apply(this, arguments)
+        Se.apply(this, arguments)
       );
     }
-    function Se(e, t) {
-      return Re.apply(this, arguments);
+    function Re(e, t) {
+      return Le.apply(this, arguments);
     }
-    function Re() {
+    function Le() {
       return (
-        (Re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!qe(t))
+        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!Ue(t))
             throw r("err")(
               "background " +
                 e +
@@ -504,7 +520,7 @@ __d(
           var n,
             o = null;
           try {
-            ((n = yield De(t)), (o = n != null ? yield Le(n) : null));
+            ((n = yield xe(t)), (o = n != null ? yield Ee(n) : null));
           } catch (t) {
             throw (
               q.add(e),
@@ -529,15 +545,15 @@ __d(
             throw (q.add(e), r("err")("background " + e + " image " + o));
           return n;
         })),
-        Re.apply(this, arguments)
+        Le.apply(this, arguments)
       );
     }
-    function Le(e) {
-      return Ee.apply(this, arguments);
+    function Ee(e) {
+      return ke.apply(this, arguments);
     }
-    function Ee() {
+    function ke() {
       return (
-        (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (typeof createImageBitmap != "function") return null;
           var t = yield (g || (g = n("Promise"))).allSettled(
               e.tiles.map(function (e) {
@@ -564,7 +580,7 @@ __d(
             return u > w || c > w
               ? "is too large (" + u + "x" + c + ")"
               : e.tiles.some(function (e, t) {
-                    return e.type !== "image/jpeg" && ke(o[t]);
+                    return e.type !== "image/jpeg" && Ie(o[t]);
                   })
                 ? "has see-through parts"
                 : null;
@@ -572,10 +588,10 @@ __d(
             for (var d of o) d.close();
           }
         })),
-        Ee.apply(this, arguments)
+        ke.apply(this, arguments)
       );
     }
-    function ke(e) {
+    function Ie(e) {
       if (typeof OffscreenCanvas == "function") {
         var t = new OffscreenCanvas(M, M).getContext("2d");
         if (t != null) {
@@ -590,7 +606,7 @@ __d(
       }
       return !1;
     }
-    function Ie(e) {
+    function Te(e) {
       var t,
         n,
         r = e.columns,
@@ -608,16 +624,16 @@ __d(
         ((t = (n = a[0]) == null ? void 0 : n.type) != null ? t : "")
       );
     }
-    function Te(e) {
+    function De(e) {
       var t,
-        n = (t = je(e, "payload")) != null ? t : e,
-        a = je(je(n, "data"), "ar_effect_collection"),
+        n = (t = Ke(e, "payload")) != null ? t : e,
+        a = Ke(Ke(n, "data"), "ar_effect_collection"),
         i = Array.isArray(a) ? a[0] : null,
-        l = je(i, "ar_effects"),
-        u = je(l, "nodes");
+        l = Ke(i, "ar_effects"),
+        u = Ke(l, "nodes");
       if (!Array.isArray(u))
         throw r("err")("background images: unexpected response");
-      je(je(l, "page_info"), "has_next_page") === !0 &&
+      Ke(Ke(l, "page_info"), "has_next_page") === !0 &&
         o("WALogger").WARN(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -631,9 +647,9 @@ __d(
         var m,
           p,
           _,
-          f = Ke(d, "id"),
-          g = (m = Ke(d, "localized_name")) != null ? m : Ke(d, "name"),
-          h = Ke(je(je(d, "best_instance"), "packaged_file"), "uri");
+          f = Qe(d, "id"),
+          g = (m = Qe(d, "localized_name")) != null ? m : Qe(d, "name"),
+          h = Qe(Ke(Ke(d, "best_instance"), "packaged_file"), "uri");
         f == null ||
           g == null ||
           h == null ||
@@ -641,27 +657,27 @@ __d(
           c.push({
             description:
               (p =
-                (_ = Ke(d, "localized_description")) != null
+                (_ = Qe(d, "localized_description")) != null
                   ? _
-                  : Ke(d, "description")) != null
+                  : Qe(d, "description")) != null
                 ? p
                 : "",
             id: f,
             name: g,
             packageUrl: h,
-            thumbnailUrl: Ke(je(d, "thumbnail"), "uri"),
+            thumbnailUrl: Qe(Ke(d, "thumbnail"), "uri"),
           });
       }
       return c;
     }
-    function De(e) {
-      return xe.apply(this, arguments);
+    function xe(e) {
+      return $e.apply(this, arguments);
     }
-    function xe() {
+    function $e() {
       return (
-        (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!qe(e)) return null;
-          var t = yield $e(e, 0),
+        ($e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!Ue(e)) return null;
+          var t = yield Pe(e, 0),
             r = t.images,
             a = t.scenes,
             i = yield (g || (g = n("Promise"))).all(
@@ -672,7 +688,7 @@ __d(
                       return {
                         layout: o(
                           "WAWebVoipBackgroundSceneTiles",
-                        ).getSceneTileLayout(yield Ne(e)),
+                        ).getSceneTileLayout(yield Me(e)),
                         zip: e.zip,
                       };
                     },
@@ -689,7 +705,7 @@ __d(
             });
           return (l == null ? void 0 : l.layout) == null
             ? null
-            : we(
+            : Ae(
                 l.layout,
                 r.filter(function (e) {
                   var t = e.zip;
@@ -697,29 +713,29 @@ __d(
                 }),
               );
         })),
-        xe.apply(this, arguments)
+        $e.apply(this, arguments)
       );
     }
-    function $e(e, t) {
-      return Pe.apply(this, arguments);
+    function Pe(e, t) {
+      return Ne.apply(this, arguments);
     }
-    function Pe() {
+    function Ne() {
       return (
-        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r,
             o,
-            a = Ue(e),
+            a = Ve(e),
             i = {
               images: a
                 .filter(function (e) {
-                  return We(e.name) != null;
+                  return qe(e.name) != null;
                 })
                 .map(function (t) {
                   return { entry: t, zip: e };
                 }),
               scenes: a
                 .filter(function (e) {
-                  return Be(e.name) === "main.json";
+                  return We(e.name) === "main.json";
                 })
                 .map(function (t) {
                   return { entry: t, zip: e };
@@ -735,8 +751,8 @@ __d(
                 (function () {
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
-                      var r = yield Ve(e, n);
-                      return qe(r) ? $e(r, t + 1) : { images: [], scenes: [] };
+                      var r = yield He(e, n);
+                      return Ue(r) ? Pe(r, t + 1) : { images: [], scenes: [] };
                     },
                   );
                   return function (e) {
@@ -762,68 +778,68 @@ __d(
             ),
           };
         })),
-        Pe.apply(this, arguments)
+        Ne.apply(this, arguments)
       );
     }
-    function Ne(e) {
-      return Me.apply(this, arguments);
+    function Me(e) {
+      return we.apply(this, arguments);
     }
-    function Me() {
+    function we() {
       return (
-        (Me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (we = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entry,
             n = e.zip;
           try {
-            return JSON.parse(new TextDecoder().decode(yield Ve(n, t)));
+            return JSON.parse(new TextDecoder().decode(yield He(n, t)));
           } catch (e) {
             return null;
           }
         })),
-        Me.apply(this, arguments)
+        we.apply(this, arguments)
       );
     }
-    function we(e, t) {
-      return Ae.apply(this, arguments);
+    function Ae(e, t) {
+      return Fe.apply(this, arguments);
     }
-    function Ae() {
+    function Fe() {
       return (
-        (Ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var o = yield (g || (g = n("Promise"))).all(
             e.tiles.map(function (e) {
               var n = e.fileName,
                 o = t.find(function (e) {
                   var t = e.entry;
-                  return Be(t.name) === n;
+                  return We(t.name) === n;
                 });
               if (o == null) throw r("err")("tile " + n + " is missing");
-              return Fe(o);
+              return Oe(o);
             }),
           );
           return { columns: e.columns, rows: e.rows, tiles: o };
         })),
-        Ae.apply(this, arguments)
+        Fe.apply(this, arguments)
       );
     }
-    function Fe(e) {
-      return Oe.apply(this, arguments);
+    function Oe(e) {
+      return Be.apply(this, arguments);
     }
-    function Oe() {
+    function Be() {
       return (
-        (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.entry,
             r = e.zip;
-          return new Blob([yield Ve(r, n)], {
-            type: (t = We(n.name)) != null ? t : "",
+          return new Blob([yield He(r, n)], {
+            type: (t = qe(n.name)) != null ? t : "",
           });
         })),
-        Oe.apply(this, arguments)
+        Be.apply(this, arguments)
       );
     }
-    function Be(e) {
+    function We(e) {
       return e.slice(e.lastIndexOf("/") + 1);
     }
-    function We(e) {
+    function qe(e) {
       var t,
         n =
           (t = /\.(png|jpe?g|webp)$/i.exec(e)) == null || (t = t[1]) == null
@@ -837,10 +853,10 @@ __d(
             ? "image/webp"
             : null;
     }
-    function qe(e) {
+    function Ue(e) {
       return e.byteLength >= 4 && new DataView(e).getUint32(0, !0) === T;
     }
-    function Ue(e) {
+    function Ve(e) {
       for (
         var t = new DataView(e), n = -1, r = e.byteLength - 22, o = r;
         o >= Math.max(0, r - 65535);
@@ -874,12 +890,12 @@ __d(
       }
       return s;
     }
-    function Ve(e, t) {
-      return He.apply(this, arguments);
+    function He(e, t) {
+      return Ge.apply(this, arguments);
     }
-    function He() {
+    function Ge() {
       return (
-        (He = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var o = new DataView(e),
             a = t.localOffset;
           if (a + 30 > e.byteLength || o.getUint32(a, !0) !== T)
@@ -907,15 +923,15 @@ __d(
             throw r("err")("zip entry " + t.name + ": method " + t.method);
           }
         })),
-        He.apply(this, arguments)
+        Ge.apply(this, arguments)
       );
     }
-    function Ge(e, t, n, r) {
-      return ze.apply(this, arguments);
+    function ze(e, t, n, r) {
+      return je.apply(this, arguments);
     }
-    function ze() {
+    function je() {
       return (
-        (ze = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (je = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             i === void 0 && (i = 1);
             var l = self.performance.now(),
@@ -982,7 +998,7 @@ __d(
                 yield new (g || (g = n("Promise")))(function (e) {
                   self.setTimeout(e, y);
                 }),
-                Ge(e, t, a, i + 1)
+                ze(e, t, a, i + 1)
               );
             }
             return (
@@ -1003,28 +1019,28 @@ __d(
             );
           },
         )),
-        ze.apply(this, arguments)
+        je.apply(this, arguments)
       );
     }
-    function je(e, t) {
+    function Ke(e, t) {
       return e != null && typeof e == "object" ? e[t] : void 0;
     }
-    function Ke(e, t) {
-      var n = je(e, t);
+    function Qe(e, t) {
+      var n = Ke(e, t);
       return typeof n == "string" && n !== "" ? n : null;
     }
     ((l.getBackgroundImages = H),
       (l.prefetchBackgroundImages = z),
       (l.peekBackgroundImages = j),
       (l.getBackgroundImage = K),
-      (l.getBackgroundImageForPreview = X),
-      (l.peekBackgroundImage = Y),
-      (l.readStoredBackgroundImageForPreview = J),
-      (l.subscribeToBackgroundImageReady = ee),
-      (l.isBackgroundImageUnusable = ne),
-      (l.resetBackgroundImagesForTesting = re),
-      (l.parseBackgroundImageList = Te),
-      (l.extractBackgroundImage = De));
+      (l.getBackgroundImageForPreview = Y),
+      (l.peekBackgroundImage = J),
+      (l.readStoredBackgroundImageForPreview = Z),
+      (l.subscribeToBackgroundImageReady = te),
+      (l.isBackgroundImageUnusable = re),
+      (l.resetBackgroundImagesForTesting = oe),
+      (l.parseBackgroundImageList = De),
+      (l.extractBackgroundImage = xe));
   },
   98,
 );

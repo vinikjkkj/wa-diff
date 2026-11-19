@@ -16,24 +16,24 @@ __d(
       s = n("$InternalEnum").Mirrored(["BizAiInlineFeedbackState"]),
       u = s.BizAiInlineFeedbackState,
       c = new Set(),
-      d = R(),
+      d = S(),
       m = !1;
     function p() {
-      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return R();
-      L();
-      var e = y(r("WAWebUserPrefsStore").getUser(u));
+      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return S();
+      R();
+      var e = h(r("WAWebUserPrefsStore").getUser(u));
       return ((d = e), e);
     }
     function _(e, t) {
       var n;
-      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return R();
+      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) return S();
       var a = p(),
         i = e.remote.toString(),
         l = a[i],
         s = { feedbackKind: t, messageKey: e.toString() };
-      if (v(l, s)) return a;
+      if (b(l, s)) return a;
       var c = babelHelpers.extends({}, a, ((n = {}), (n[i] = s), n));
-      return (r("WAWebUserPrefsStore").setUser(u, c), (d = c), k(), c);
+      return (r("WAWebUserPrefsStore").setUser(u, c), (d = c), E(), c);
     }
     function f(e) {
       var t = p()[e.remote.toString()];
@@ -54,33 +54,22 @@ __d(
         }
       );
     }
-    function h() {
-      if (o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null) {
-        d = R();
-        return;
-      }
-      var e = r("WAWebUserPrefsStore").getUser(u),
-        t = y(e);
-      (e != null && r("WAWebUserPrefsStore").setUser(u, null),
-        (d = R()),
-        S(t) && k());
-    }
-    function y(e) {
-      if (e == null || typeof e != "object" || Array.isArray(e)) return R();
+    function h(e) {
+      if (e == null || typeof e != "object" || Array.isArray(e)) return S();
       var t = {};
       return (
         Object.keys(e).forEach(function (n) {
-          var r = C(n, e[n]);
+          var r = y(n, e[n]);
           r != null && (t[r.chatId] = r.submission);
         }),
         t
       );
     }
-    function C(e, t) {
+    function y(e, t) {
       if (t == null || typeof t != "object" || Array.isArray(t)) return null;
       var n = t.feedbackKind,
         a = t.messageKey;
-      if (!b(n) || typeof a != "string") return null;
+      if (!C(n) || typeof a != "string") return null;
       try {
         var i = o("WAWebWidFactory").createWid(e),
           l = r("WAWebMsgKey").from(a);
@@ -94,36 +83,36 @@ __d(
         return null;
       }
     }
-    function b(e) {
+    function C(e) {
       return e === "negative" || e === "positive";
     }
-    function v(e, t) {
+    function b(e, t) {
       return (
         e != null &&
         e.feedbackKind === t.feedbackKind &&
         e.messageKey === t.messageKey
       );
     }
-    function S(e) {
+    function v(e) {
       return Object.keys(e).length > 0;
     }
-    function R() {
+    function S() {
       return {};
     }
-    function L() {
+    function R() {
       m ||
-        (o("WAWebCmd").Cmd.on("starting_logout_from_bridge", E),
-        o("WAWebCmd").Cmd.on("logout_from_bridge", E),
+        (o("WAWebCmd").Cmd.on("starting_logout_from_bridge", L),
+        o("WAWebCmd").Cmd.on("logout_from_bridge", L),
         (m = !0));
     }
-    function E() {
+    function L() {
       var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser() == null ? d : p();
       (o("WAWebUserPrefsMeUser").getMaybeMePnUser() != null &&
         r("WAWebUserPrefsStore").setUser(u, null),
-        (d = R()),
-        S(e) && k());
+        (d = S()),
+        v(e) && E());
     }
-    function k() {
+    function E() {
       c.forEach(function (t) {
         try {
           t();
@@ -144,8 +133,7 @@ __d(
       (l.loadBizAiInlineFeedbackState = p),
       (l.recordBizAiInlineFeedback = _),
       (l.getBizAiInlineFeedbackKind = f),
-      (l.subscribeToBizAiInlineFeedbackState = g),
-      (l.resetBizAiInlineFeedbackState = h));
+      (l.subscribeToBizAiInlineFeedbackState = g));
   },
   98,
 );

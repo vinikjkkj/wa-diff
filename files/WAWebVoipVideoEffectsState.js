@@ -4,13 +4,14 @@ __d(
     "WALogger",
     "WAWebUserPrefsVoip",
     "WAWebVoipBackgroundBlurLevel",
+    "WAWebVoipBackgroundBlurStrength",
     "WAWebVoipVideoEffectsODS",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _;
-    function f(e) {
+    var e, s, u, c, d, m, p;
+    function _(e) {
       return e === "start_timeout" ||
         e === "start_error" ||
         e === "failed" ||
@@ -25,165 +26,186 @@ __d(
               );
             })();
     }
-    var g = 12e4,
-      h = 6e4,
+    var f = 12e4,
+      g = 6e4,
+      h = null,
       y = null,
       C = null,
-      b = null,
-      v = !1,
-      S = new Set(),
-      R = new Set();
+      b = !1,
+      v = new Set(),
+      S = new Set();
+    function R() {
+      return (
+        h == null &&
+          (h = H({
+            blur: V(),
+            image: o("WAWebUserPrefsVoip").getBackgroundImagePreference(),
+            requested: o("WAWebUserPrefsVoip").getVideoEffectsEnabled(),
+            status: "off",
+          })),
+        h
+      );
+    }
     function L() {
-      if (y == null) {
-        var e;
-        y = {
-          image: o("WAWebUserPrefsVoip").getBackgroundImagePreference(),
-          level:
-            (e = o("WAWebVoipBackgroundBlurLevel").parseBackgroundBlurLevel(
-              o("WAWebUserPrefsVoip").getBackgroundBlurLevelPreference(),
-            )) != null
-              ? e
-              : o("WAWebVoipBackgroundBlurLevel").DEFAULT_BACKGROUND_BLUR_LEVEL,
-          requested: o("WAWebUserPrefsVoip").getVideoEffectsEnabled(),
-          status: "off",
-        };
-      }
-      return y;
+      return R().requested;
     }
-    function E() {
-      return L().requested;
+    function E(e) {
+      W(e, e ? "turned_on" : "turned_off");
     }
-    function k(e) {
-      O(e, e ? "turned_on" : "turned_off");
+    function k() {
+      W(!0, "turned_back_on");
     }
-    function I() {
-      O(!0, "turned_back_on");
+    function I(e) {
+      var t = R(),
+        n =
+          t.requested && t.image != null
+            ? babelHelpers.extends({}, t, { blur: e })
+            : babelHelpers.extends({}, t, {
+                blur: e,
+                image: null,
+                requested: e > 0,
+              });
+      (n.requested !== t.requested &&
+        (t.image != null &&
+          o("WAWebUserPrefsVoip").setBackgroundImagePreference(null),
+        q(t, n.requested, n.requested ? "turned_on" : "turned_off")),
+        z(n));
     }
-    function T(t) {
-      var n = L();
-      (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: [effects] level=",
-            "",
-          ])),
-        t,
-      ),
-        o("WAWebUserPrefsVoip").setBackgroundBlurLevelPreference(t),
-        W(babelHelpers.extends({}, n, { level: t })));
+    function T() {
+      var e = R(),
+        t = e.blur,
+        n = e.image;
+      U(t, n);
     }
     function D(e) {
-      var t = L();
-      (o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: [effects] image=",
-            "",
-          ])),
-        e != null ? e : "none",
-      ),
-        o("WAWebUserPrefsVoip").setBackgroundImagePreference(e),
-        W(babelHelpers.extends({}, t, { image: e })));
+      var t = R(),
+        n = t.requested ? t.blur : 0;
+      (U(n, e),
+        q(t, !0, "turned_on"),
+        z(babelHelpers.extends({}, t, { blur: n, image: e, requested: !0 })));
     }
-    function x(e) {
-      W(babelHelpers.extends({}, L(), { status: e }));
+    function x() {
+      var e = R(),
+        t = e.requested && e.blur > 0;
+      (U(e.blur, null),
+        t || q(e, !1, "turned_off"),
+        z(babelHelpers.extends({}, e, { image: null, requested: t })));
     }
-    function $(e, t) {
-      var n = t === void 0 ? {} : t,
-        a = n.isRepeat,
-        i = a === void 0 ? !1 : a,
-        l = L();
-      if (l.requested) {
-        B();
-        var s =
-          f(e) &&
-          (i ||
-            (!v &&
+    function $() {
+      var e = R(),
+        t = Math.max(
+          e.blur,
+          o("WAWebVoipBackgroundBlurStrength").DEFAULT_BLUR_STRENGTH,
+        );
+      (U(t, null), z(babelHelpers.extends({}, e, { blur: t, image: null })));
+    }
+    function P(e) {
+      z(babelHelpers.extends({}, R(), { status: e }));
+    }
+    function N(t, n) {
+      var a = n === void 0 ? {} : n,
+        i = a.isRepeat,
+        l = i === void 0 ? !1 : i,
+        u = R();
+      if (u.requested) {
+        G();
+        var c =
+          _(t) &&
+          (l ||
+            (!b &&
               o("WAWebUserPrefsVoip").getVideoEffectsOnMsSinceKeptChoice() ==
                 null));
         (o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [effects] turned off: ",
               "",
               "",
             ])),
-          e,
-          s ? ", choice kept" : "",
+          t,
+          c ? ", choice kept" : "",
         ),
           o("WAWebVoipVideoEffectsODS").logVideoEffects(
-            e === "start_timeout"
+            t === "start_timeout"
               ? "stopped_start_timeout"
-              : e === "start_error"
+              : t === "start_error"
                 ? "stopped_start_error"
-                : e === "start_failed"
+                : t === "start_failed"
                   ? "stopped_start_failed"
-                  : e === "failed"
+                  : t === "failed"
                     ? "stopped_failed"
-                    : e === "overloaded"
+                    : t === "overloaded"
                       ? "stopped_overloaded"
-                      : e === "too_slow"
+                      : t === "too_slow"
                         ? "stopped_too_slow"
                         : (function () {
                             throw Error(
                               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                e,
+                                t,
                             );
                           })(),
           ));
         try {
-          s
-            ? i || o("WAWebUserPrefsVoip").setVideoEffectsOnMsSinceKeptChoice(0)
+          c
+            ? l || o("WAWebUserPrefsVoip").setVideoEffectsOnMsSinceKeptChoice(0)
             : o("WAWebUserPrefsVoip").setVideoEffectsEnabled(!1);
         } catch (e) {
-          ((v = v || s),
+          ((b = b || c),
             o("WALogger")
               .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [effects] could not store the stop",
                   ])),
               )
               .catching(r("getErrorSafe")(e)));
         }
-        ((C = { atMs: self.performance.now(), keptChoice: s, reason: e }),
-          W(babelHelpers.extends({}, l, { requested: !1, status: "off" })),
-          R.forEach(function (t) {
-            return q(function () {
-              return t(e);
+        ((y = { atMs: self.performance.now(), keptChoice: c, reason: t }),
+          z(babelHelpers.extends({}, u, { requested: !1, status: "off" })),
+          S.forEach(function (e) {
+            return j(function () {
+              return e(t);
             });
           }));
       }
     }
-    function P() {
-      return o("WAWebUserPrefsVoip").getVideoEffectsEnabled() !== L().requested;
+    function M() {
+      return o("WAWebUserPrefsVoip").getVideoEffectsEnabled() !== R().requested;
     }
-    function N() {
-      var e = L(),
+    function w() {
+      var e = R(),
         t = o("WAWebUserPrefsVoip").getVideoEffectsEnabled();
       t !== e.requested &&
         (o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [effects] requested=",
               ", as remembered",
             ])),
           String(t),
         ),
         o("WAWebVoipVideoEffectsODS").logVideoEffects("restored"),
-        (C = null),
-        W(babelHelpers.extends({}, e, { requested: t })));
+        (y = null),
+        z(babelHelpers.extends({}, e, { requested: t })));
     }
-    function M() {
-      var e = C;
+    function A() {
+      var e = y;
       return (
-        (C = null),
-        e == null || self.performance.now() - e.atMs > g
+        (y = null),
+        e == null || self.performance.now() - e.atMs > f
           ? null
           : { keptChoice: e.keptChoice, reason: e.reason }
       );
     }
-    function w(e) {
+    function F(e) {
+      return (
+        v.add(e),
+        function () {
+          v.delete(e);
+        }
+      );
+    }
+    function O(e) {
       return (
         S.add(e),
         function () {
@@ -191,48 +213,81 @@ __d(
         }
       );
     }
-    function A(e) {
-      return (
-        R.add(e),
-        function () {
-          R.delete(e);
-        }
-      );
+    function B() {
+      ((h = null), (y = null), (C = null), (b = !1), v.clear(), S.clear());
     }
-    function F() {
-      ((y = null), (C = null), (b = null), (v = !1), S.clear(), R.clear());
+    function W(e, t) {
+      var n = R();
+      (q(n, e, t), z(babelHelpers.extends({}, n, { requested: e })));
     }
-    function O(e, t) {
-      var n = L();
+    function q(e, t, n) {
       (o("WALogger").LOG(
-        m ||
-          (m = babelHelpers.taggedTemplateLiteralLoose([
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [effects] requested=",
             "",
           ])),
-        String(e),
+        String(t),
       ),
-        (C = null),
-        e !== n.requested && o("WAWebVoipVideoEffectsODS").logVideoEffects(t),
-        o("WAWebUserPrefsVoip").setVideoEffectsEnabled(e),
-        W(babelHelpers.extends({}, n, { requested: e })));
+        (y = null),
+        t !== e.requested && o("WAWebVoipVideoEffectsODS").logVideoEffects(n),
+        o("WAWebUserPrefsVoip").setVideoEffectsEnabled(t));
     }
-    function B() {
-      var e = b;
+    function U(e, t) {
+      (o("WALogger").LOG(
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
+            "voip: [effects] blur=",
+            ", image=",
+            "",
+          ])),
+        e,
+        t != null ? t : "none",
+      ),
+        o("WAWebUserPrefsVoip").setBackgroundBlurStrengthPreference(e),
+        o("WAWebUserPrefsVoip").setBackgroundImagePreference(t));
+    }
+    function V() {
+      var e,
+        t = o("WAWebVoipBackgroundBlurStrength").parseBlurStrength(
+          o("WAWebUserPrefsVoip").getBackgroundBlurStrengthPreference(),
+        );
+      return t != null
+        ? t
+        : o("WAWebUserPrefsVoip").getBackgroundImagePreference() != null
+          ? 0
+          : o("WAWebVoipBackgroundBlurStrength").getBlurLevelStrength(
+              (e = o("WAWebVoipBackgroundBlurLevel").parseBackgroundBlurLevel(
+                o("WAWebUserPrefsVoip").getBackgroundBlurLevelPreference(),
+              )) != null
+                ? e
+                : o("WAWebVoipBackgroundBlurLevel")
+                    .DEFAULT_BACKGROUND_BLUR_LEVEL,
+            );
+    }
+    function H(e) {
+      return e.requested && e.image == null && e.blur === 0
+        ? babelHelpers.extends({}, e, {
+            blur: o("WAWebVoipBackgroundBlurStrength").DEFAULT_BLUR_STRENGTH,
+          })
+        : e;
+    }
+    function G() {
+      var e = C;
       if (e != null) {
-        b = null;
+        C = null;
         var t = o("WAWebUserPrefsVoip").getVideoEffectsOnMsSinceKeptChoice();
         if (t != null) {
           var n = t + self.performance.now() - e;
           try {
             o("WAWebUserPrefsVoip").setVideoEffectsOnMsSinceKeptChoice(
-              n >= h ? null : n,
+              n >= g ? null : n,
             );
           } catch (e) {
             o("WALogger")
               .WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [effects] could not store the time on",
                   ])),
               )
@@ -241,28 +296,29 @@ __d(
         }
       }
     }
-    function W(e) {
-      var t = L();
-      (t.image === e.image &&
-        t.level === e.level &&
-        t.requested === e.requested &&
-        t.status === e.status) ||
-        (t.status !== "on" && e.status === "on"
-          ? (b = self.performance.now())
-          : t.status === "on" && e.status !== "on" && B(),
-        (y = e),
-        S.forEach(function (e) {
-          return q(e);
+    function z(e) {
+      var t = H(e),
+        n = R();
+      (n.blur === t.blur &&
+        n.image === t.image &&
+        n.requested === t.requested &&
+        n.status === t.status) ||
+        (n.status !== "on" && t.status === "on"
+          ? (C = self.performance.now())
+          : n.status === "on" && t.status !== "on" && G(),
+        (h = t),
+        v.forEach(function (e) {
+          return j(e);
         }));
     }
-    function q(e) {
+    function j(e) {
       try {
         e();
       } catch (e) {
         o("WALogger")
           .ERROR(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [effects] a listener failed",
               ])),
           )
@@ -270,21 +326,24 @@ __d(
           .sendLogs("voip-effects-listener-failed");
       }
     }
-    ((l.isVideoEffectsStopTemporary = f),
-      (l.getVideoEffectsSnapshot = L),
-      (l.isVideoEffectsRequested = E),
-      (l.setVideoEffectsRequested = k),
-      (l.turnVideoEffectsBackOn = I),
-      (l.setBackgroundBlurLevel = T),
-      (l.setBackgroundImage = D),
-      (l.setVideoEffectsStatus = x),
-      (l.stopVideoEffects = $),
-      (l.hasVideoEffectsChoiceToRestore = P),
-      (l.restoreRememberedVideoEffectsChoice = N),
-      (l.takeUnseenVideoEffectsStop = M),
-      (l.subscribeToVideoEffects = w),
-      (l.subscribeToVideoEffectsStop = A),
-      (l.resetVideoEffectsStateForTesting = F));
+    ((l.isVideoEffectsStopTemporary = _),
+      (l.getVideoEffectsSnapshot = R),
+      (l.isVideoEffectsRequested = L),
+      (l.setVideoEffectsRequested = E),
+      (l.turnVideoEffectsBackOn = k),
+      (l.setBackgroundBlurStrength = I),
+      (l.rememberBackgroundBlurStrength = T),
+      (l.chooseBackgroundImage = D),
+      (l.chooseNoBackground = x),
+      (l.blurInsteadOfBackgroundImage = $),
+      (l.setVideoEffectsStatus = P),
+      (l.stopVideoEffects = N),
+      (l.hasVideoEffectsChoiceToRestore = M),
+      (l.restoreRememberedVideoEffectsChoice = w),
+      (l.takeUnseenVideoEffectsStop = A),
+      (l.subscribeToVideoEffects = F),
+      (l.subscribeToVideoEffectsStop = O),
+      (l.resetVideoEffectsStateForTesting = B));
   },
   98,
 );

@@ -40,6 +40,7 @@ __d(
     "WAWebVoipLastCallRecorder",
     "WAWebVoipLobbyVisibilityStore",
     "WAWebVoipLocalCallStateStore",
+    "WAWebVoipOfferAckLatencyStore",
     "WAWebVoipOneOnOneJoinableCall",
     "WAWebVoipOwnDeviceJids",
     "WAWebVoipP2PConnectionManager",
@@ -1351,6 +1352,9 @@ __d(
                 "WAWebVoipIncomingCallNotificationStateStore",
               ).dropIncomingCallNotificationStateOfOtherCall(s.callId),
               o("WAWebVoipLobbyVisibilityStore").dropLobbyVisibilityOfOtherCall(
+                s.callId,
+              ),
+              o("WAWebVoipOfferAckLatencyStore").dropOfferAckLatencyOfOtherCall(
                 s.callId,
               )));
           var d = o("WAWebVoipGatingUtils").isWebTransportEnabled();

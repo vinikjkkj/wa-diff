@@ -11,15 +11,19 @@ __d(
       if (t == null) return e;
       var n =
         t.fieldType === "DATE"
-          ? d(t.dateValue)
+          ? m(t.dateValue)
           : t.fieldType === "NUMERIC"
-            ? m(t.numericValue)
+            ? p(t.numericValue)
             : t.fieldType === "MONEY"
-              ? p(t.moneyAmount, t.currencyDecimalPlaces)
+              ? _(t.moneyAmount, t.currencyDecimalPlaces)
               : null;
       return n != null ? n : t.value !== "" ? t.value : e;
     }
     function d(e) {
+      var t;
+      return (t = m(e)) != null ? t : e;
+    }
+    function m(e) {
       var t = e == null ? void 0 : e.match(/^(\d{4})-(\d{2})-(\d{2})$/);
       if (t == null) return null;
       var n = Number(t[2]) - 1,
@@ -38,7 +42,7 @@ __d(
             });
       return ((l = i), i.format(o));
     }
-    function m(e) {
+    function p(e) {
       if (e == null) return null;
       var t =
         s != null
@@ -46,7 +50,7 @@ __d(
           : new Intl.NumberFormat(void 0, { maximumFractionDigits: 20 });
       return ((s = t), t.format(e));
     }
-    function p(e, t) {
+    function _(e, t) {
       var n;
       if (e == null || t == null || !Number.isInteger(t) || t < 0 || t > 20)
         return null;
@@ -59,7 +63,7 @@ __d(
             });
       return (u.set(t, r), r.format(e / Math.pow(10, t)));
     }
-    i.formatCustomFieldDisplayValue = c;
+    ((i.formatCustomFieldDisplayValue = c), (i.formatCustomFieldDate = d));
   },
   66,
 );

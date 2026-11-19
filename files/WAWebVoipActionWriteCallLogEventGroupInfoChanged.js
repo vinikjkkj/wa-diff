@@ -3,67 +3,82 @@ __d(
   [
     "WALogger",
     "WAWebCallLogMsgData.flow",
+    "WAWebMsgGetters",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipAdHocCallLogs",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = yield o(
             "WAWebVoipCallLogWriteMutex",
           ).WACallLogWriteMutex.acquire();
           try {
-            var a,
-              i = t.CallId,
-              l = t.CallParticipants,
-              s = o(
-                "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.getByCallId(i);
-            if (s == null)
-              throw r("err")(
-                "generateCallLogFromEventGroupInfoChanged: Expected to find existing ongoing call",
-              );
-            var u = babelHelpers.extends({}, s.toJSON(), {
-                callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing,
-                callParticipants:
-                  (a =
-                    l == null
-                      ? void 0
-                      : l.map(function (e) {
-                          return {
-                            participant: e.participant,
-                            outcome: e.outcome,
-                          };
-                        })) != null
-                    ? a
-                    : s.callParticipants,
-              }),
-              c = u.to,
-              d = yield o(
-                "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(c, u, !1);
-            d &&
-              o(
-                "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.add(d, { merge: !0 });
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
+            var r = t.CallId,
+              a = t.CallParticipants,
+              i = o("WAWebVoipAdHocCallLogs").getCallLogMsgsForCall(r, {
+                includeEndedCall: !1,
+                includeUntracked: !0,
+              });
+            if (i.length === 0) {
+              o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "generateCallLogFromEventGroupInfoChanged: no call log for ",
+                    "",
+                  ])),
+                r,
+              );
+              return;
+            }
+            yield o("WAWebVoipAdHocCallLogs").settleAllOrThrow(
+              i.map(function (e) {
+                var t,
+                  n = babelHelpers.extends({}, e.toJSON(), {
+                    callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
+                      .Ongoing,
+                    callParticipants:
+                      (t =
+                        a == null
+                          ? void 0
+                          : a.map(function (e) {
+                              return {
+                                participant: e.participant,
+                                outcome: e.outcome,
+                              };
+                            })) != null
+                        ? t
+                        : e.callParticipants,
+                  });
+                return o("WAWebVoipActionWriteCallLogImpl")
+                  .writeVoipCallLogMessageImpl(n.to, n, !1)
+                  .then(function (e) {
+                    e != null &&
+                      o("WAWebMsgGetters").getIsGroupCall(e) &&
+                      o(
+                        "WAWebVoipOngoingCallCollection",
+                      ).WAWebVoipOngoingCallCollection.add(e, { merge: !0 });
+                  });
+              }),
+            );
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "generateCallLogFromEventGroupInfoChanged failed: ",
                     "",
                   ])),
-                t,
+                e,
               )
               .tags("nexus-voip")
               .sendLogs("generate-call-log-event-group-info-changed-failed");
@@ -71,10 +86,10 @@ __d(
             n.release();
           }
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.generateCallLogFromEventGroupInfoChanged = s;
+    l.generateCallLogFromEventGroupInfoChanged = u;
   },
   98,
 );

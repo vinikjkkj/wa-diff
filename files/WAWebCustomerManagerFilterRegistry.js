@@ -21,7 +21,6 @@ __d(
       s = [
         "leadStage",
         "acquisitionSource",
-        "acquisitionDate",
         "birthMonth",
         "label",
         "lastMessage",
@@ -33,24 +32,22 @@ __d(
         ? c
         : e === "acquisitionSource"
           ? d
-          : e === "acquisitionDate"
+          : e === "birthMonth"
             ? m
-            : e === "birthMonth"
+            : e === "label"
               ? p
-              : e === "label"
+              : e === "lastMessage"
                 ? _
-                : e === "lastMessage"
+                : e === "lastMessageCustomRange"
                   ? f
-                  : e === "lastMessageCustomRange"
+                  : e === "unread"
                     ? g
-                    : e === "unread"
-                      ? h
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              e,
-                          );
-                        })();
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
     var c = {
         isClientActive: o("WAWebBoolFunc").returnFalse,
@@ -104,30 +101,18 @@ __d(
           return o("WAWebBoolFunc").returnTrue;
         },
         serverFilter: function (t) {
-          var e = t.acquisitionDate;
-          return e == null
-            ? null
-            : { fieldName: "acquisition_date", filterText: String(e.startSec) };
-        },
-      },
-      p = {
-        isClientActive: o("WAWebBoolFunc").returnFalse,
-        matcher: function () {
-          return o("WAWebBoolFunc").returnTrue;
-        },
-        serverFilter: function (t) {
           return t.birthMonth == null
             ? null
             : { fieldName: "dob", filterText: String(t.birthMonth) };
         },
       },
-      _ = {
+      p = {
         isClientActive: function (t) {
-          return t.labelId != null && !b(t);
+          return t.labelId != null && !C(t);
         },
         matcher: function (t) {
           var e = t.labelId;
-          if (e == null || b(t)) return o("WAWebBoolFunc").returnTrue;
+          if (e == null || C(t)) return o("WAWebBoolFunc").returnTrue;
           var n = new Set();
           if (
             e === o("WAWebCustomerManagerSearchUtils").NO_OTHER_LIST_FILTER_ID
@@ -174,37 +159,37 @@ __d(
         },
         serverFilter: e.returnNull,
       },
-      f = {
+      _ = {
         isClientActive: function (t) {
           return t.lastMessageRange != null;
         },
         matcher: function (t) {
-          var e = y({
+          var e = h({
             lastMessageCustomRange: null,
             lastMessageRange: t.lastMessageRange,
           });
           return function (t) {
-            return e(C(t));
+            return e(y(t));
+          };
+        },
+        serverFilter: e.returnNull,
+      },
+      f = {
+        isClientActive: function (t) {
+          return t.lastMessageCustomRange != null;
+        },
+        matcher: function (t) {
+          var e = h({
+            lastMessageCustomRange: t.lastMessageCustomRange,
+            lastMessageRange: null,
+          });
+          return function (t) {
+            return e(y(t));
           };
         },
         serverFilter: e.returnNull,
       },
       g = {
-        isClientActive: function (t) {
-          return t.lastMessageCustomRange != null;
-        },
-        matcher: function (t) {
-          var e = y({
-            lastMessageCustomRange: t.lastMessageCustomRange,
-            lastMessageRange: null,
-          });
-          return function (t) {
-            return e(C(t));
-          };
-        },
-        serverFilter: e.returnNull,
-      },
-      h = {
         isClientActive: function (t) {
           return t.unreadOnly === !0;
         },
@@ -220,7 +205,7 @@ __d(
         },
         serverFilter: e.returnNull,
       };
-    function y(e, t) {
+    function h(e, t) {
       t === void 0 && (t = new Date());
       var n =
           e.lastMessageRange == null
@@ -246,7 +231,7 @@ __d(
             );
           };
     }
-    function C(e) {
+    function y(e) {
       var t;
       return (t = o(
         "WAWebCustomerManagerChatResolver",
@@ -254,7 +239,7 @@ __d(
         ? void 0
         : t.t;
     }
-    function b(e) {
+    function C(e) {
       var t,
         n = e.labelId;
       return (
@@ -268,7 +253,7 @@ __d(
     }
     ((l.CUSTOMER_MANAGER_FILTER_KEYS = s),
       (l.getFilterSpec = u),
-      (l.createLastMessageTimeMatcher = y));
+      (l.createLastMessageTimeMatcher = h));
   },
   98,
 );

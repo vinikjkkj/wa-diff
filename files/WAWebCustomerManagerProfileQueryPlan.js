@@ -1,9 +1,6 @@
 __d(
   "WAWebCustomerManagerProfileQueryPlan",
-  [
-    "WAWebCustomerManagerCustomerProfileDecoders",
-    "WAWebCustomerManagerFilterRegistry",
-  ],
+  ["WAWebCustomerManagerFilterRegistry"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["query"],
@@ -21,43 +18,45 @@ __d(
       p = /[\s+().\-\u2010-\u2015]/g,
       _ = /^[0-9]+$/;
     function f(t, n, r, a) {
+      var i;
       a === void 0 && (a = []);
-      var i = t.query,
-        l = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        s = [],
+      var l = t.query,
+        s = babelHelpers.objectWithoutPropertiesLoose(t, e),
         u = [],
-        c = function (t) {
+        c = [],
+        d = function (t) {
           var e = o("WAWebCustomerManagerFilterRegistry").getFilterSpec(t),
-            n = e.serverFilter(l);
-          (n != null && s.push(n),
-            e.isClientActive(l) &&
+            n = e.serverFilter(s);
+          (n != null && u.push(n),
+            e.isClientActive(s) &&
               !a.some(function (e) {
                 return e === t;
               }) &&
-              u.push(t));
+              c.push(t));
         };
-      for (var d of o("WAWebCustomerManagerFilterRegistry")
+      for (var m of o("WAWebCustomerManagerFilterRegistry")
         .CUSTOMER_MANAGER_FILTER_KEYS)
-        c(d);
-      var m = { clientFilterKeys: u, options: l, query: g(i) ? i : "" },
-        p = R(n == null ? void 0 : n.key),
-        _ =
+        d(m);
+      var p = { clientFilterKeys: c, options: s, query: g(l) ? l : "" },
+        _ = R(n == null ? void 0 : n.key),
+        f =
           a.length > 0 &&
           ((n == null ? void 0 : n.key) === "email" ||
             (n == null ? void 0 : n.key) === "acquisitionSource"),
-        f = _ && s.length === 0,
-        h = C(m) || b(n, p) || f;
+        h = f && u.length === 0,
+        y = C(p) || b(n, _) || h;
       return babelHelpers.extends(
         {
           candidateLids: r,
-          filters: s,
-          fullScanPageSize: h ? 100 : void 0,
-          requiresFullScan: h,
+          customFieldFilters: (i = t.customFieldFilters) != null ? i : [],
+          filters: u,
+          fullScanPageSize: y ? 100 : void 0,
+          requiresFullScan: y,
         },
-        f ? { requiresCompleteProfileOrdering: f } : {},
+        h ? { requiresCompleteProfileOrdering: h } : {},
         {
-          residual: m,
-          sortColumn: p,
+          residual: p,
+          sortColumn: _,
           sortDescending: (n == null ? void 0 : n.direction) === "desc",
         },
       );
@@ -68,35 +67,8 @@ __d(
       var n = t.replace(p, "");
       return _.test(n) ? n.length >= s : !0;
     }
-    function h(e, t, n) {
-      var r = f(e, null, t),
-        a = [].concat(
-          r.filters.filter(function (e) {
-            var t = e.fieldName;
-            return t !== "lead_stage";
-          }),
-          [
-            {
-              fieldName: "lead_stage",
-              filterText: o(
-                "WAWebCustomerManagerCustomerProfileDecoders",
-              ).toLeadStageFilterText(n),
-            },
-          ],
-        ),
-        i = babelHelpers.extends({}, r.residual, {
-          clientFilterKeys: r.residual.clientFilterKeys.filter(function (e) {
-            return e !== "leadStage";
-          }),
-        });
-      return babelHelpers.extends({}, r, {
-        filters: a,
-        requiresFullScan: C(i),
-        residual: i,
-      });
-    }
-    function y(e, t) {
-      return e.filters.length > 0 || C(e.residual)
+    function h(e, t) {
+      return y(e) || C(e.residual)
         ? !1
         : t == null ||
             t === "customer" ||
@@ -113,6 +85,9 @@ __d(
               t === "actions" ||
               t === "notes" ||
               t === "lastOrder";
+    }
+    function y(e) {
+      return e.filters.length > 0 || e.customFieldFilters.length > 0;
     }
     function C(e) {
       return e.clientFilterKeys.length > 0 || g(e.query);
@@ -132,6 +107,7 @@ __d(
               n = e.filterText;
             return [t, n];
           }),
+          e.customFieldFilters,
           e.sortColumn,
           e.sortDescending,
           e.requiresFullScan,
@@ -146,8 +122,8 @@ __d(
       (l.MAX_DIRECT_PROFILE_CANDIDATES = c),
       (l.buildProfileQueryPlan = f),
       (l.isSearchQueryActive = g),
-      (l.buildPipelineColumnPlan = h),
-      (l.canPageLocally = y),
+      (l.canPageLocally = h),
+      (l.hasServerFilters = y),
       (l.hasResidual = C),
       (l.emptyProfileQueryResidual = v),
       (l.profileQueryPlanKey = S));

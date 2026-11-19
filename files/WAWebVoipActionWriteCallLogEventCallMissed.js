@@ -10,6 +10,7 @@ __d(
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipAdHocCallLogs",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
@@ -74,7 +75,7 @@ __d(
                 isVideoCall: d,
               })),
                 (R = S.to),
-                c == null
+                c == null && !o("WAWebVoipAdHocCallLogs").isAdHocGroupCallLog(C)
                   ? o(
                       "WAWebVoipOngoingCallCollection",
                     ).WAWebVoipOngoingCallCollection.remove(S.id)

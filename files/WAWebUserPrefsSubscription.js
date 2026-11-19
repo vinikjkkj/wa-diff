@@ -8,11 +8,12 @@ __d(
       "NextFetchSubscriptionEntryPointsTime",
       "MetaVerifiedEntryPointRedirectionUri",
       "MetaOneEntryPointEligibility",
+      "MetaOnePurchaseEligibility",
       "MetaOnePromoTypes",
       "NextFetchMetaOnePromoTime",
     ]);
     function s() {
-      return b(e.NextSubscriptionQuery);
+      return v(e.NextSubscriptionQuery);
     }
     function u(t) {
       r("WAWebUserPrefsStore").setUser(e.NextSubscriptionQuery, t);
@@ -22,7 +23,13 @@ __d(
           e.ShouldShowMetaVerifiedEntryPoint,
         ),
         n = r("WAWebUserPrefsStore").getUser(e.MetaOneEntryPointEligibility);
-      return { metaVerified: t === !0, metaOne: n == null ? null : n === !0 };
+      return {
+        metaVerified: t === !0,
+        metaOne: n == null ? null : n === !0,
+        metaOnePurchaseEligibility: b(
+          r("WAWebUserPrefsStore").getUser(e.MetaOnePurchaseEligibility),
+        ),
+      };
     }
     function d(t) {
       (r("WAWebUserPrefsStore").setUser(
@@ -32,10 +39,14 @@ __d(
         r("WAWebUserPrefsStore").setUser(
           e.MetaOneEntryPointEligibility,
           t.metaOne,
+        ),
+        r("WAWebUserPrefsStore").setUser(
+          e.MetaOnePurchaseEligibility,
+          t.metaOnePurchaseEligibility,
         ));
     }
     function m() {
-      return b(e.NextFetchSubscriptionEntryPointsTime);
+      return v(e.NextFetchSubscriptionEntryPointsTime);
     }
     function p(t) {
       r("WAWebUserPrefsStore").setUser(
@@ -70,12 +81,21 @@ __d(
       r("WAWebUserPrefsStore").setUser(e.MetaOnePromoTypes, t);
     }
     function y() {
-      return b(e.NextFetchMetaOnePromoTime);
+      return v(e.NextFetchMetaOnePromoTime);
     }
     function C(t) {
       r("WAWebUserPrefsStore").setUser(e.NextFetchMetaOnePromoTime, t);
     }
     function b(e) {
+      return e === "web_purchase"
+        ? "web_purchase"
+        : e === "mobile_purchase"
+          ? "mobile_purchase"
+          : e === "not_eligible"
+            ? "not_eligible"
+            : void 0;
+    }
+    function v(e) {
       var t = r("WAWebUserPrefsStore").getUser(e);
       return (t != null && parseInt(String(t), 10)) || 0;
     }

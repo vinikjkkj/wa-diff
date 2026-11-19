@@ -620,7 +620,11 @@ __d(
               0,
               (a = i.hybridNativeNextPrewarmBufferAheadSec) != null ? a : 0,
             )
-          : 0));
+          : 0),
+        (R.nativeHandoverFetchHold =
+          R.mediaSinkType === "HYBRID" &&
+          G !== !0 &&
+          i.hybridNativeHandoverFetchHold === !0));
       var z = R.mediaSinkType === "WEBCODECS",
         j = z
           ? o(

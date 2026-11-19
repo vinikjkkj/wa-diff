@@ -1,9 +1,11 @@
 __d(
   "WAWebHatchJarvisRender",
   [
+    "WAWebHatchFrontendGating",
     "WAWebHatchJarvisText",
     "WAWebHatchJarvisWidgets",
     "WAWebHatchJsonReaders",
+    "WAWebHatchPeerInvite",
     "WAWebHatchUrl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -57,7 +59,7 @@ __d(
         i = [].concat(
           a.length > 0 ? a : g(t.displayText, t.fileMetadata),
           t.inlineWidgets.flatMap(L),
-          F(t.citations),
+          B(t.citations),
         ),
         l = new Map(),
         s = [];
@@ -123,7 +125,7 @@ __d(
           (e !== "" && n.push({ text: e, type: "markdown" }), (r = []));
         },
         s = function () {
-          (n.push.apply(n, I(a)), (a = []));
+          (n.push.apply(n, D(a)), (a = []));
         };
       for (var u of e.trim().split("\n")) {
         o("WAWebHatchJarvisText").isHatchJarvisCodeFence(u) && (i = !i);
@@ -258,6 +260,15 @@ __d(
                 type: "list",
               };
             }
+            if (
+              ((typeof t == "object" && t !== null) ||
+                typeof t == "function") &&
+              t.type === "pairing_launcher" &&
+              "card" in t
+            ) {
+              var a = t.card;
+              return { card: a, isReadOnly: !0, type: "pairing_launcher" };
+            }
             return e;
           })(e);
     }
@@ -274,7 +285,7 @@ __d(
     }
     function L(e) {
       if (e.kind !== "option") return [];
-      var t = k(e.data, e.id);
+      var t = T(e.data, e.id);
       return t != null ? [{ item: t, type: "item" }] : [];
     }
     function E(e, t, n, r) {
@@ -294,9 +305,9 @@ __d(
         if (e.kind === "generic_list") {
           var l = o("WAWebHatchJarvisWidgets").list(a);
           return l != null
-            ? A(l, e.id, n)
-            : T(
-                D(
+            ? O(l, e.id, n)
+            : x(
+                $(
                   o("WAWebHatchJsonReaders").readString(a, "title"),
                   o("WAWebHatchJsonReaders").readString(a, "subtitle"),
                 ),
@@ -307,7 +318,7 @@ __d(
           return u != null ? [{ primitive: u, type: "primitive" }] : [];
         }
         if (e.kind === "option") {
-          var c = k(a, e.id);
+          var c = T(a, e.id);
           return c != null ? [{ item: c, type: "item" }] : [];
         }
         if (e.kind === "image_options") {
@@ -330,14 +341,14 @@ __d(
                 kind: "image",
                 label: g != null ? g : "",
               });
-            var C = g != null ? g : f != null ? w(f) : null;
+            var C = g != null ? g : f != null ? F(f) : null;
             C != null && p.push(C);
           }
-          return [].concat(I(m), T(x(p)));
+          return [].concat(D(m), x(P(p)));
         }
         if (e.kind === "voice_options")
-          return T(
-            x(
+          return x(
+            P(
               o("WAWebHatchJsonReaders")
                 .readObjects(a, "options")
                 .map(function (e) {
@@ -349,23 +360,23 @@ __d(
             ),
           );
         if (e.kind === "avatar_share")
-          return T(
-            D(
+          return x(
+            $(
               o("WAWebHatchJsonReaders").readString(a, "title"),
               o("WAWebHatchJsonReaders").readString(a, "subtitle"),
             ),
           );
         if (e.kind === "navigation")
-          return T(
-            D(
+          return x(
+            $(
               o("WAWebHatchJsonReaders").readString(a, "title"),
               o("WAWebHatchJsonReaders").readString(a, "summary"),
             ),
           );
         if (e.kind === "idea_group") {
           var b = o("WAWebHatchJsonReaders").readObject(a, "navigation");
-          return T(
-            D(
+          return x(
+            $(
               o("WAWebHatchJsonReaders").readString(b, "title"),
               o("WAWebHatchJsonReaders").readString(b, "summary"),
             ),
@@ -376,12 +387,12 @@ __d(
             S = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(v, "motivation"),
             );
-          return T(
+          return x(
             [].concat(
               S != null ? [S] : [],
               o("WAWebHatchJsonReaders")
                 .readObjects(v, "elements")
-                .map($)
+                .map(N)
                 .filter(Boolean),
             ),
           );
@@ -394,76 +405,77 @@ __d(
             E = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "html_file"),
             ),
-            P = T(L != null ? [L] : []);
+            I = x(L != null ? [L] : []);
           if (
             E == null ||
             !E.startsWith(o("WAWebHatchJarvisText").HATCH_JARVIS_SANDBOX_PREFIX)
           )
-            return P;
-          var F = h({ label: "", url: E }, (R = n.get(E)) != null ? R : null);
-          return F.type === "file"
-            ? [].concat(P, [{ item: F, type: "item" }])
-            : P;
+            return I;
+          var M = h({ label: "", url: E }, (R = n.get(E)) != null ? R : null);
+          return M.type === "file"
+            ? [].concat(I, [{ item: M, type: "item" }])
+            : I;
         }
         if (e.kind === "space_build_completed") {
-          var O = o("WAWebHatchJarvisWidgets").spaceCard(a);
-          return O != null
-            ? [{ primitive: O, type: "primitive" }]
-            : T(
-                D(
+          var B = o("WAWebHatchJarvisWidgets").spaceCard(a);
+          return B != null
+            ? [{ primitive: B, type: "primitive" }]
+            : x(
+                $(
                   o("WAWebHatchJsonReaders").readString(a, "display_name"),
                   o("WAWebHatchJsonReaders").readString(a, "summary"),
                 ),
               );
         }
         if (e.kind === "external_link") {
-          var B = o("WAWebHatchJarvisWidgets").linkCard(a, t);
-          return B != null
+          var W = o("WAWebHatchJarvisWidgets").linkCard(a, t);
+          return W != null
             ? [
                 {
-                  item: { card: B, fileMetadata: n, type: "link_card" },
+                  item: { card: W, fileMetadata: n, type: "link_card" },
                   type: "item",
                 },
               ]
             : [];
         }
         if (e.kind === "text_with_button") {
-          var W = o("WAWebHatchJarvisWidgets").text(
+          var q = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "text"),
             ),
-            q = o("WAWebHatchJarvisWidgets").actionButtons(N(a));
+            U = o("WAWebHatchJarvisWidgets").actionButtons(w(a));
           return [].concat(
-            T(W != null ? [W] : []),
-            q.length > 0
-              ? [{ item: { buttons: q, type: "buttons" }, type: "item" }]
+            x(q != null ? [q] : []),
+            U.length > 0
+              ? [{ item: { buttons: U, type: "buttons" }, type: "item" }]
               : [],
           );
         }
+        if (e.kind === "pairing_launcher") return k(a);
         if (e.kind === "complimentary_subscription") {
-          var U = o("WAWebHatchJarvisWidgets").text(
+          var V = o("WAWebHatchJarvisWidgets").text(
             o("WAWebHatchJsonReaders").readString(a, "text"),
           );
-          return T(
-            [].concat(U != null ? [U] : [], N(a).map(M).filter(Boolean)),
+          return x(
+            [].concat(V != null ? [V] : [], w(a).map(A).filter(Boolean)),
           );
         }
         if (e.kind === "internal_link_action_card") {
-          var V,
-            H =
-              (V = o("WAWebHatchJarvisWidgets").connectorCard(a, e.id)) != null
-                ? V
+          var H,
+            G =
+              (H = o("WAWebHatchJarvisWidgets").connectorCard(a, e.id)) != null
+                ? H
                 : o("WAWebHatchJarvisWidgets").secureCredential(
                     a,
                     r != null ? r : e.id,
                   );
-          if (H != null) return [{ primitive: H, type: "primitive" }];
-          var G = o("WAWebHatchJarvisWidgets").text(
+          if (G != null) return [{ primitive: G, type: "primitive" }];
+          var z = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "title"),
             ),
-            z = o("WAWebHatchJarvisWidgets").text(
+            j = o("WAWebHatchJarvisWidgets").text(
               o("WAWebHatchJsonReaders").readString(a, "subtitle"),
             ),
-            j =
+            K =
               o("WAWebHatchJsonReaders").readString(a, "type") === s
                 ? null
                 : o("WAWebHatchUrl").toWebUrl(
@@ -472,8 +484,8 @@ __d(
                       "url",
                     ),
                   );
-          return T(
-            [G != null && j != null ? "[" + G + "](" + j + ")" : G, z].filter(
+          return x(
+            [z != null && K != null ? "[" + z + "](" + K + ")" : z, j].filter(
               Boolean,
             ),
           );
@@ -481,7 +493,27 @@ __d(
         return [];
       }
     }
-    function k(e, t) {
+    function k(e) {
+      var t = o("WAWebHatchPeerInvite").parseHatchPairingLauncherAccept(e);
+      return t == null
+        ? I(e)
+        : o("WAWebHatchFrontendGating").isHatchPeerPairingCardEnabled()
+          ? [].concat(x([t.body]), [
+              {
+                item: { card: t, isReadOnly: !1, type: "pairing_launcher" },
+                type: "item",
+              },
+            ])
+          : [];
+    }
+    function I(e) {
+      var t = o("WAWebHatchJarvisWidgets").pairingLauncher(e);
+      return t != null &&
+        o("WAWebHatchFrontendGating").isHatchPeerPairingCardEnabled()
+        ? [{ item: { card: t, type: "pairing_share" }, type: "item" }]
+        : [];
+    }
+    function T(e, t) {
       var n,
         r = (
           (n = o("WAWebHatchJsonReaders").readArray(e, "options")) != null
@@ -509,7 +541,7 @@ __d(
             widgetId: t,
           };
     }
-    function I(e) {
+    function D(e) {
       for (var t = [], n = 0; n < e.length; n += u)
         t.push({
           item: { media: e.slice(n, n + u), type: "media" },
@@ -517,10 +549,10 @@ __d(
         });
       return t;
     }
-    function T(e) {
+    function x(e) {
       return e.length > 0 ? [{ text: e.join("\n"), type: "markdown" }] : [];
     }
-    function D(e, t) {
+    function $(e, t) {
       var n = o("WAWebHatchJarvisWidgets").text(e),
         r = o("WAWebHatchJarvisWidgets").text(t);
       return [].concat(
@@ -528,12 +560,12 @@ __d(
         r != null ? [r] : [],
       );
     }
-    function x(e) {
+    function P(e) {
       return e.map(function (e, t) {
         return t + 1 + ". " + e;
       });
     }
-    function $(e) {
+    function N(e) {
       e: {
         var t = o("WAWebHatchJsonReaders").readString(e, "kind");
         if (t === "rich_place") {
@@ -541,7 +573,7 @@ __d(
             o("WAWebHatchJsonReaders").readString(e, "name"),
           );
           return n != null
-            ? P("**" + n + "**", [
+            ? M("**" + n + "**", [
                 o("WAWebHatchJsonReaders").readString(e, "category"),
                 o("WAWebHatchJsonReaders").readString(e, "description"),
               ])
@@ -552,7 +584,7 @@ __d(
             o("WAWebHatchJsonReaders").readString(e, "title"),
           );
           return r != null
-            ? P(r, [o("WAWebHatchJsonReaders").readString(e, "subtitle")])
+            ? M(r, [o("WAWebHatchJsonReaders").readString(e, "subtitle")])
             : null;
         }
         if (t === "marketplace_listing") {
@@ -564,7 +596,7 @@ __d(
           var l = o("WAWebHatchUrl").toWebUrl(
             o("WAWebHatchJsonReaders").readString(e, "url"),
           );
-          return P(l != null ? "[" + i + "](" + l + ")" : i, [
+          return M(l != null ? "[" + i + "](" + l + ")" : i, [
             (a = o("WAWebHatchJsonReaders").readString(e, "sale_price")) != null
               ? a
               : o("WAWebHatchJsonReaders").readString(e, "price"),
@@ -573,18 +605,18 @@ __d(
         return null;
       }
     }
-    function P(e, t) {
+    function M(e, t) {
       var n = t.map(o("WAWebHatchJarvisWidgets").text).filter(Boolean);
       return n.length > 0 ? "- " + e + ": " + n.join(" \xB7 ") : "- " + e;
     }
-    function N(e) {
+    function w(e) {
       var t = o("WAWebHatchJsonReaders").readObject(e, "button");
       return [].concat(
         t != null ? [t] : [],
         o("WAWebHatchJsonReaders").readObjects(e, "secondary_buttons"),
       );
     }
-    function M(e) {
+    function A(e) {
       var t = o("WAWebHatchJarvisWidgets").text(
         o("WAWebHatchJsonReaders").readString(e, "label"),
       );
@@ -594,11 +626,11 @@ __d(
       );
       return n != null ? "[" + t + "](" + n + ")" : t;
     }
-    function w(e) {
+    function F(e) {
       var t;
       return (t = e.split("/").pop()) != null ? t : e;
     }
-    function A(e, t, n) {
+    function O(e, t, n) {
       var r = [],
         a = e.rows.filter(function (e) {
           var n = o("WAWebHatchJarvisWidgets").connectorCardForRow(e, t);
@@ -610,7 +642,7 @@ __d(
       return r.length === 0
         ? [{ item: { fileMetadata: n, list: e, type: "list" }, type: "item" }]
         : [].concat(
-            T(D(e.title, e.subtitle)),
+            x($(e.title, e.subtitle)),
             r,
             a.length > 0
               ? [
@@ -626,7 +658,7 @@ __d(
               : [],
           );
     }
-    function F(e) {
+    function B(e) {
       var t = e.map(function (e) {
         var t,
           n = o("WAWebHatchUrl").toWebUrl(e.uri);

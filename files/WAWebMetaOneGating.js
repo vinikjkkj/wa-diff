@@ -1,48 +1,66 @@
 __d(
   "WAWebMetaOneGating",
-  ["WAWebABProps", "WAWebMobilePlatforms"],
+  ["WAWebABProps", "WAWebMobilePlatforms", "WAWebUserPrefsSubscription"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return u() || c() || d() || s();
+      if (!o("WAWebMobilePlatforms").isSMB() || !_()) return "not_eligible";
+      var e = o(
+          "WAWebUserPrefsSubscription",
+        ).getSubscriptionsEntryPointEligibility(),
+        t = e.metaOne,
+        n = e.metaOnePurchaseEligibility;
+      return t == null
+        ? null
+        : n != null
+          ? n
+          : t
+            ? "web_purchase"
+            : "not_eligible";
     }
-    function s() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        m() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_meta_one_biz_ai_additional_entry_points_enabled",
-        ) === !0
-      );
+    function s(e) {
+      return e === "web_purchase" || e === "mobile_purchase";
     }
     function u() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        m() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_meta_one_biz_ai_entry_point_enabled",
-        ) === !0
-      );
+      return d() || m() || p() || c();
     }
     function c() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        m() &&
+        _() &&
         o("WAWebABProps").getABPropConfigValue(
-          "wa_web_meta_one_biz_tools_entry_point_enabled",
+          "wa_web_meta_one_biz_ai_additional_entry_points_enabled",
         ) === !0
       );
     }
     function d() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        m() &&
+        _() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_meta_one_biz_ai_entry_point_enabled",
+        ) === !0
+      );
+    }
+    function m() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        _() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_meta_one_biz_tools_entry_point_enabled",
+        ) === !0
+      );
+    }
+    function p() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        _() &&
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_subscriptions_entry_point_settings_enabled",
         ) === !0
       );
     }
-    function m() {
+    function _() {
       return (
         o("WAWebABProps").getABPropConfigValue("wa_meta_one_enabled") === !0 &&
         o("WAWebABProps").getABPropConfigValue(
@@ -50,12 +68,14 @@ __d(
         ) === !0
       );
     }
-    ((l.isAnyMetaOneEntryPointEnabled = e),
-      (l.isMetaOneBizAiAdditionalEntryPointsEnabled = s),
-      (l.isMetaOneBizAiEntryPointEnabled = u),
-      (l.isMetaOneBusinessToolsEntryPointEnabled = c),
-      (l.isMetaOneSettingsEntryPointEnabled = d),
-      (l.isMetaOneRolloutEnabled = m));
+    ((l.getMetaOneEligibility = e),
+      (l.isMetaOneEligible = s),
+      (l.isAnyMetaOneEntryPointEnabled = u),
+      (l.isMetaOneBizAiAdditionalEntryPointsEnabled = c),
+      (l.isMetaOneBizAiEntryPointEnabled = d),
+      (l.isMetaOneBusinessToolsEntryPointEnabled = m),
+      (l.isMetaOneSettingsEntryPointEnabled = p),
+      (l.isMetaOneRolloutEnabled = _));
   },
   98,
 );

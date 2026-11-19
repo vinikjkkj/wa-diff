@@ -14,7 +14,7 @@ __d(
           .RING_PARTICIPANT,
         o("WAWebWamEnumSubSurface").SUB_SURFACE.PARTICIPANT_LIST,
       ),
-        o("WAWebVoipStartCall").inviteToCall(e));
+        o("WAWebVoipStartCall").inviteToCall(e, { isRering: !0 }));
     }
     l.ringParticipantFromCall = e;
   },

@@ -19,11 +19,11 @@ __d(
       m = null;
     function p(e, t, n) {
       var r = n == null || n === "" ? null : n;
-      if (v(e, t)) {
-        ((m = r), r != null && (d.delete(r), d.set(r, C()), R()));
+      if (b(e, t)) {
+        ((m = r), r != null && (d.delete(r), d.set(r, C()), S()));
         return;
       }
-      r != null && !o("WAWebVoipCallStateUtils").isCallTerminal(t) && S(r);
+      r != null && !o("WAWebVoipCallStateUtils").isCallTerminal(t) && v(r);
     }
     function _() {
       var e;
@@ -82,23 +82,20 @@ __d(
           );
         });
     }
-    function b() {
-      (d.clear(), (m = null));
-    }
-    function v(e, t) {
+    function b(e, t) {
       return o("WAWebVoipCallStateUtils").isCallTerminal(t)
         ? !1
         : o("WAWebVoipCallStateUtils").isCallTerminal(e) ||
             (t === o("WAWebVoipWaCallEnums").CallState.AcceptSent &&
               e !== o("WAWebVoipWaCallEnums").CallState.AcceptSent);
     }
-    function S(e) {
+    function v(e) {
       if (!(m == null || m === e)) {
         var t = d.get(m);
-        ((m = e), t != null && (d.set(e, t), R()));
+        ((m = e), t != null && (d.set(e, t), S()));
       }
     }
-    function R() {
+    function S() {
       if (!(d.size <= u)) {
         var e = d.keys().next();
         e.done !== !0 && d.delete(e.value);
@@ -108,8 +105,7 @@ __d(
       (l.getCurrentCallStartUnifiedSessionId = _),
       (l.getCallStartUnifiedSessionIdForCall = f),
       (l.releaseCurrentCallStartUnifiedSessionId = g),
-      (l.resolveCallUnifiedSessionId = h),
-      (l.resetCallStartUnifiedSessionIds = b));
+      (l.resolveCallUnifiedSessionId = h));
   },
   98,
 );

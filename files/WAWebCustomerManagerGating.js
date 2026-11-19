@@ -20,8 +20,11 @@ __d(
           ))
       );
     }
-    function u() {
-      return s() && o("WAWebMetaOneGating").isMetaOneRolloutEnabled();
+    function u(e) {
+      return (
+        e === void 0 && (e = o("WAWebMetaOneGating").getMetaOneEligibility()),
+        s() && o("WAWebMetaOneGating").isMetaOneEligible(e)
+      );
     }
     function c() {
       return (
@@ -72,24 +75,13 @@ __d(
       );
     }
     function g() {
-      return (
-        s() &&
-        (o("WAWebABProps").getABPropConfigValue(
-          "contact_manager_mvp_enabled",
-        ) ||
-          o("WAWebABProps").getABPropConfigValue(
-            "smb_contact_manager_sublist_enabled",
-          ))
-      );
-    }
-    function h() {
       return e;
     }
-    function y(e) {
+    function h(e) {
       var t = e.id;
-      return t != null && !o("WAWebContactGetters").getIsMe(e) && C(t);
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && y(t);
     }
-    function C(e) {
+    function y(e) {
       return (
         e.isUser() &&
         !o("WAWebUserUtils").isMeAccount(e) &&
@@ -110,10 +102,9 @@ __d(
       (l.customerManagerCustomFieldsEnabled = p),
       (l.customerManagerNuxDebugToolsEnabled = _),
       (l.customerManagerBulkEditEnabled = f),
-      (l.customerManagerSublistEnabled = g),
-      (l.customerManagerEducationBannerMaxViewDays = h),
-      (l.isEligibleForCustomerFields = y),
-      (l.isWidEligibleForCustomerFields = C));
+      (l.customerManagerEducationBannerMaxViewDays = g),
+      (l.isEligibleForCustomerFields = h),
+      (l.isWidEligibleForCustomerFields = y));
   },
   98,
 );

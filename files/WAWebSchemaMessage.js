@@ -298,6 +298,7 @@ __d(
             a("serverStoreTimeMicros"),
             a("dashManifestUrl"),
             a("hatchMetadataSync"),
+            a("sourceType"),
           ])
           .version(n.messageAddIsSendFailureProperties(), [a("isSendFailure")])
           .version(n.messageAddPaymentTxnStatus(), [a("paymentTxnStatus")])

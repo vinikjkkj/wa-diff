@@ -1,28 +1,31 @@
 __d(
   "getActiveCommands",
-  [],
-  function (t, n, r, o, a, i) {
+  ["getFocusedWalkStopWrapper"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
-      var r = new Map();
-      function o(e) {
+      var o = new Map();
+      function a(e) {
         e.forEach(function (e, t) {
-          var n = r.get(t);
+          var n = o.get(t);
           if (n) {
-            var o = n.every(function (e) {
+            var r = n.every(function (e) {
               return e.shouldStopPropagation === !1;
             });
-            o && n.push(e);
-          } else r.set(t, [e]);
+            r && n.push(e);
+          } else o.set(t, [e]);
         });
       }
-      for (var a = e; a != null && a !== t; ) {
-        var i = a && a.getCommandMap();
-        (o(i), (a = a && a.getParent()));
+      for (
+        var i = e, l = r("getFocusedWalkStopWrapper")(t);
+        i != null && i !== l;
+      ) {
+        var s = i && i.getCommandMap();
+        (a(s), (i = i && i.getParent()));
       }
-      return (t && o(t.getCommandMap()), n && o(n.getCommandMap()), r);
+      return (t && a(t.getCommandMap()), n && a(n.getCommandMap()), o);
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

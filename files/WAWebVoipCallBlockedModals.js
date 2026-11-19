@@ -20,6 +20,7 @@ __d(
     "WAWebVoipNoConnectionDialogLoader",
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -104,17 +105,23 @@ __d(
         o("WDSDialogBridge").openWDSDialog(
           e === "broken_voip_wasm"
             ? u.jsx(r("WAWebVoipCallBlockedAlertLoadable"), {
-                description: s._(
-                  /*BTDS*/ "Please update your browser to Safari 26.3 or higher and try again.",
-                ),
+                description: r("justknobx")._("8427")
+                  ? s._(
+                      /*BTDS*/ "Update your browser to Safari 26.3 or higher and try again.",
+                    )
+                  : s._(
+                      /*BTDS*/ "Please update your browser to Safari 26.3 or higher and try again.",
+                    ),
                 title: s._(
                   /*BTDS*/ "Your version of Safari doesn\u2019t support calls",
                 ),
               })
             : u.jsx(r("WAWebVoipCallBlockedAlertLoadable"), {
-                description: s._(
-                  /*BTDS*/ "Please update your browser or try another browser.",
-                ),
+                description: r("justknobx")._("8427")
+                  ? s._(/*BTDS*/ "Update your browser or try another browser.")
+                  : s._(
+                      /*BTDS*/ "Please update your browser or try another browser.",
+                    ),
                 title: s._(
                   /*BTDS*/ "Your browser doesn\u2019t support calling",
                 ),

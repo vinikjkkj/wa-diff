@@ -14,9 +14,19 @@ __d(
       u = "pending",
       c = 16,
       d = 9,
-      m = "rich";
-    function p(t) {
-      var n = _(t),
+      m = "rich",
+      p = "purchase_preapproval",
+      _ = new Set([
+        "connector",
+        "network",
+        "device",
+        "browser_action",
+        "outgoing_media",
+      ]),
+      f = "deny",
+      g = "background";
+    function h(t) {
+      var n = y(t),
         r = o("WAWebHatchJsonReaders").readStringOrEmpty(n, "approval_id");
       if (o("WAWebHatchJsonReaders").isBlankText(r))
         return (
@@ -35,26 +45,38 @@ __d(
         l = o("WAWebHatchJsonReaders").isBlankText(i)
           ? o("WAWebHatchJsonReaders").readStringOrEmpty(n, "status")
           : i;
-      return !o("WAWebHatchJsonReaders").isBlankText(a) ||
+      if (
+        !o("WAWebHatchJsonReaders").isBlankText(a) ||
         (!o("WAWebHatchJsonReaders").isBlankText(l) && l !== u)
-        ? {
+      ) {
+        var s = o("WAWebHatchJsonReaders").readStringOrEmpty(
+          o("WAWebHatchJsonReaders").readField(n, "display"),
+          "outcome_label",
+        );
+        return babelHelpers.extends(
+          {
             approvalId: r,
             resolvedDecision: o("WAWebHatchJsonReaders").isBlankText(a) ? l : a,
             record: null,
-          }
-        : {
-            approvalId: r,
-            resolvedDecision: null,
-            record: f(
-              n,
-              r,
-              o("WAWebHatchSecureMediaDecoder").decodeSecureMediaMap(
-                o("WAWebHatchJsonReaders").readField(t, "secure_media"),
-              ),
-            ),
-          };
+          },
+          o("WAWebHatchJsonReaders").isBlankText(s)
+            ? null
+            : { outcomeLabel: s },
+        );
+      }
+      return {
+        approvalId: r,
+        resolvedDecision: null,
+        record: C(
+          n,
+          r,
+          o("WAWebHatchSecureMediaDecoder").decodeSecureMediaMap(
+            o("WAWebHatchJsonReaders").readField(t, "secure_media"),
+          ),
+        ),
+      };
     }
-    function _(e) {
+    function y(e) {
       var t,
         n,
         r =
@@ -67,114 +89,204 @@ __d(
             : o("WAWebHatchJsonReaders").readObject(e, "approval");
       return r != null ? r : e;
     }
-    function f(e, t, n) {
+    function C(e, t, n) {
       var r,
         a,
-        i = x(o("WAWebHatchJsonReaders").readArray(e, "decision_options"));
-      if (i.length === 0)
-        return (
-          o("WALogger")
+        i,
+        l = (i = o("WAWebHatchJsonReaders")).readField(e, "display"),
+        u = i.readField(e, "payload"),
+        c = i.readStringOrEmpty(u, "type"),
+        d = W(c),
+        p = i.readStringOrEmpty(l, "presentation_kind") === m,
+        _ = babelHelpers.extends(
+          {},
+          E(p ? u : null, d),
+          L(
+            p && d === "shopify_checkout" ? u : null,
+            o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_url"),
+          ),
+          R(p && d === "browser_task_confirmation" ? u : null),
+        ),
+        f = b(
+          O(o("WAWebHatchJsonReaders").readArray(e, "decision_options")),
+          v(c, d, p, _, n),
+        );
+      return f.length === 0
+        ? (o("WALogger")
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "hatch-approval: dropping record without decision options approvalId=",
+                  " payloadType=",
                   "",
                 ])),
               t,
+              c,
             )
             .sendLogs("hatch-approval-no-decision-options"),
-          null
-        );
-      var l = o("WAWebHatchJsonReaders").readField(e, "display"),
-        u = o("WAWebHatchJsonReaders").readField(e, "payload"),
-        c = o("WAWebHatchJsonReaders").readStringOrEmpty(u, "type"),
-        d = P(c),
-        p =
-          o("WAWebHatchJsonReaders").readStringOrEmpty(
-            l,
-            "presentation_kind",
-          ) === m;
-      return babelHelpers.extends(
-        {
-          approvalId: t,
-          isExclusive:
-            o("WAWebHatchJsonReaders").readBool(e, "is_exclusive") === !0,
-          requestedAtMs:
-            (r = o("WAWebHatchJsonReaders").readNumber(e, "requested_at_ms")) !=
-            null
-              ? r
-              : 0,
-          requestExpiresAtMs:
-            (a = o("WAWebHatchJsonReaders").readNumber(
-              e,
-              "request_expires_at_ms",
-            )) != null
-              ? a
-              : 0,
-          permissionCaption: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            l,
-            "permission_caption",
-          ),
-          iconKey: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_key"),
-          summaryTitle: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            l,
-            "summary_title",
-          ),
-          requestPresentation: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            l,
-            "request_presentation",
-          ),
-          permissionQuestion: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            o("WAWebHatchJsonReaders").readField(l, "permission_question"),
-            "text",
-          ),
-          purposeSummary: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            l,
-            "purpose_summary",
-          ),
-          richExplanation: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            l,
-            "rich_explanation",
-          ),
-          detailRows: $(o("WAWebHatchJsonReaders").readArray(l, "detail_rows")),
-          requestPreview: o(
-            "WAWebHatchApprovalRequestPreview",
-          ).decodeHatchApprovalRequestPreview(
-            o("WAWebHatchJsonReaders").readField(l, "request_preview_document"),
-          ),
-          requestPreviewText: o(
-            "WAWebHatchApprovalRequestPreview",
-          ).hatchApprovalFlatPreview(u),
-          payloadType: d,
-          rawPayloadType: c,
-          connectorHost: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
-            "host",
-          ),
-          connectorMethod: o("WAWebHatchJsonReaders").readStringOrEmpty(
-            o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
-            "method",
-          ),
-          iconUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_url"),
-          decisionOptions: i,
-        },
-        h(p ? u : null, d),
-        g(
-          p && d === "shopify_checkout" ? u : null,
-          o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_url"),
-        ),
-        { secureMedia: n },
+          null)
+        : babelHelpers.extends(
+            {
+              approvalId: t,
+              isExclusive:
+                o("WAWebHatchJsonReaders").readBool(e, "is_exclusive") === !0,
+              attentionMode:
+                o("WAWebHatchJsonReaders").readStringOrEmpty(
+                  l,
+                  "attention_mode",
+                ) === g
+                  ? "background"
+                  : "foreground",
+              threadId: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                o("WAWebHatchJsonReaders").readField(e, "scope"),
+                "thread_id",
+              ),
+              requestedAtMs:
+                (r = o("WAWebHatchJsonReaders").readNumber(
+                  e,
+                  "requested_at_ms",
+                )) != null
+                  ? r
+                  : 0,
+              requestExpiresAtMs:
+                (a = o("WAWebHatchJsonReaders").readNumber(
+                  e,
+                  "request_expires_at_ms",
+                )) != null
+                  ? a
+                  : 0,
+              permissionCaption: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "permission_caption",
+              ),
+              attentionLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "attention_label",
+              ),
+              totalPromoCaption: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "total_promo_caption",
+              ),
+              reviewText: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "review_text",
+              ),
+              iconKey: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "icon_key",
+              ),
+              summaryTitle: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "summary_title",
+              ),
+              requestPresentation: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "request_presentation",
+              ),
+              permissionQuestion: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                o("WAWebHatchJsonReaders").readField(l, "permission_question"),
+                "text",
+              ),
+              cardTitle: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "card_title",
+              ),
+              purposeSummary: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "purpose_summary",
+              ),
+              richExplanation: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "rich_explanation",
+              ),
+              detailRows: B(
+                o("WAWebHatchJsonReaders").readArray(l, "detail_rows"),
+              ),
+              requestPreview: o(
+                "WAWebHatchApprovalRequestPreview",
+              ).decodeHatchApprovalRequestPreview(
+                o("WAWebHatchJsonReaders").readField(
+                  l,
+                  "request_preview_document",
+                ),
+              ),
+              requestPreviewText: o(
+                "WAWebHatchApprovalRequestPreview",
+              ).hatchApprovalFlatPreview(u),
+              payloadType: d,
+              rawPayloadType: c,
+              connectorHost: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
+                "host",
+              ),
+              connectorMethod: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                o("WAWebHatchJsonReaders").readObject(u, "connector_payload"),
+                "method",
+              ),
+              iconUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                l,
+                "icon_url",
+              ),
+              decisionOptions: f,
+            },
+            _,
+            { secureMedia: n },
+          );
+    }
+    function b(e, t) {
+      return t
+        ? e
+        : e.filter(function (e) {
+            return e.kind === f;
+          });
+    }
+    function v(e, t, n, r, o) {
+      return e === p
+        ? !1
+        : !n ||
+            _.has(t) ||
+            r.browserCheckout != null ||
+            r.shopifyCheckout != null ||
+            S(r.browserTaskConfirmation, o);
+    }
+    function S(e, t) {
+      var n,
+        r,
+        o = e == null || (n = e.screenshot) == null ? void 0 : n.url;
+      return (
+        o != null && ((r = t.get(o)) == null ? void 0 : r.mediaType) === "image"
       );
     }
-    function g(e, t) {
-      var n = e != null ? y(e, t) : null;
+    function R(e) {
+      var t = o("WAWebHatchJsonReaders").readObject(
+        e,
+        "browser_task_confirmation_payload",
+      );
+      return t == null
+        ? {}
+        : {
+            browserTaskConfirmation: {
+              title: o("WAWebHatchJsonReaders").readStringOrEmpty(t, "title"),
+              body: o("WAWebHatchJsonReaders").readStringOrEmpty(t, "body"),
+              actionLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(
+                t,
+                "browser_action_label",
+              ),
+              screenshot: F(
+                o("WAWebHatchJsonReaders").readField(t, "screenshot"),
+              ),
+            },
+          };
+    }
+    function L(e, t) {
+      var n = e != null ? k(e, t) : null;
       return n != null ? { shopifyCheckout: n } : {};
     }
-    function h(e, t) {
-      var n = e != null ? k(e, t) : null;
+    function E(e, t) {
+      var n = e != null ? M(e, t) : null;
       return n != null ? { browserCheckout: n } : {};
     }
-    function y(e, t) {
+    function k(e, t) {
       var n,
         r = o("WAWebHatchJsonReaders").readObject(
           e,
@@ -187,20 +299,20 @@ __d(
       return {
         merchantName: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "name"),
         merchantUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "url"),
-        merchantIconUrl: E(
+        merchantIconUrl: N(
           o("WAWebHatchJsonReaders").readStringOrEmpty(a, "icon_url"),
           t,
         ),
-        items: C(o("WAWebHatchJsonReaders").readArray(r, "items")),
+        items: I(o("WAWebHatchJsonReaders").readArray(r, "items")),
         deliveryLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "label"),
         estimatedDelivery: o("WAWebHatchJsonReaders").readStringOrEmpty(
           i,
           "estimated_delivery",
         ),
-        recipientName: S(
+        recipientName: x(
           o("WAWebHatchJsonReaders").readField(r, "shipping_address"),
         ),
-        shippingAddress: R(
+        shippingAddress: $(
           o("WAWebHatchJsonReaders").readField(r, "shipping_address"),
         ),
         contactEmail: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "email"),
@@ -222,7 +334,7 @@ __d(
         ),
         amount: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "amount"),
         currency: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "currency"),
-        totals: b(o("WAWebHatchJsonReaders").readArray(r, "totals")),
+        totals: T(o("WAWebHatchJsonReaders").readArray(r, "totals")),
         cardExpiresInMs:
           (n = o("WAWebHatchJsonReaders").readNumber(
             r,
@@ -230,14 +342,14 @@ __d(
           )) != null
             ? n
             : 0,
-        paymentId: I(r),
-        paymentOptions: T(
+        paymentId: w(r),
+        paymentOptions: A(
           o("WAWebHatchJsonReaders").readArray(r, "payment_options"),
         ),
-        legalLinks: v(o("WAWebHatchJsonReaders").readArray(r, "legal_links")),
+        legalLinks: D(o("WAWebHatchJsonReaders").readArray(r, "legal_links")),
       };
     }
-    function C(e) {
+    function I(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -261,7 +373,7 @@ __d(
       }
       return t;
     }
-    function b(e) {
+    function T(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -284,7 +396,7 @@ __d(
       }
       return t;
     }
-    function v(e) {
+    function D(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -296,8 +408,8 @@ __d(
       }
       return t;
     }
-    function S(e) {
-      return L(
+    function x(e) {
+      return P(
         [
           o("WAWebHatchJsonReaders").readStringOrEmpty(e, "first_name"),
           o("WAWebHatchJsonReaders").readStringOrEmpty(e, "last_name"),
@@ -305,9 +417,9 @@ __d(
         " ",
       );
     }
-    function R(e) {
+    function $(e) {
       var t,
-        n = L(
+        n = P(
           [
             (t = o("WAWebHatchJsonReaders")).readStringOrEmpty(e, "city"),
             t.readStringOrEmpty(e, "state"),
@@ -315,7 +427,7 @@ __d(
           ],
           " ",
         );
-      return L(
+      return P(
         [
           t.readStringOrEmpty(e, "street1"),
           t.readStringOrEmpty(e, "street2"),
@@ -325,7 +437,7 @@ __d(
         ", ",
       );
     }
-    function L(e, t) {
+    function P(e, t) {
       return e
         .map(function (e) {
           return e.trim();
@@ -335,10 +447,10 @@ __d(
         })
         .join(t);
     }
-    function E(e, t) {
+    function N(e, t) {
       return o("WAWebHatchJsonReaders").isBlankText(e) ? t : e;
     }
-    function k(e, t) {
+    function M(e, t) {
       var n,
         r =
           t === "browser_checkout"
@@ -382,14 +494,14 @@ __d(
         ),
         tabTitle: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "title"),
         tabDomain: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "domain"),
-        screenshot: D(o("WAWebHatchJsonReaders").readField(a, "screenshot")),
-        paymentId: I(a),
-        paymentOptions: T(
+        screenshot: F(o("WAWebHatchJsonReaders").readField(a, "screenshot")),
+        paymentId: w(a),
+        paymentOptions: A(
           o("WAWebHatchJsonReaders").readArray(a, "payment_options"),
         ),
       };
     }
-    function I(e) {
+    function w(e) {
       var t = o("WAWebHatchJsonReaders")
         .readStringOrEmpty(
           o("WAWebHatchJsonReaders").readField(e, "payment_selection"),
@@ -400,7 +512,7 @@ __d(
         ? t
         : o("WAWebHatchJsonReaders").readStringOrEmpty(e, "payment_id").trim();
     }
-    function T(e) {
+    function A(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -428,7 +540,7 @@ __d(
       }
       return t;
     }
-    function D(e) {
+    function F(e) {
       var t,
         n,
         r = o("WAWebHatchJsonReaders").readStringOrEmpty(e, "url");
@@ -444,7 +556,7 @@ __d(
         l = a > 0 && i > 0;
       return { url: r, width: l ? a : c, height: l ? i : d };
     }
-    function x(e) {
+    function O(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -463,7 +575,7 @@ __d(
       }
       return t;
     }
-    function $(e) {
+    function B(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -475,7 +587,7 @@ __d(
       }
       return t;
     }
-    function P(e) {
+    function W(e) {
       return e === "connector"
         ? "connector"
         : e === "network"
@@ -492,9 +604,11 @@ __d(
                     ? "shopify_checkout"
                     : e === "outgoing_media"
                       ? "outgoing_media"
-                      : "unknown";
+                      : e === "browser_task_confirmation"
+                        ? "browser_task_confirmation"
+                        : "unknown";
     }
-    l.decodeHatchApprovalRecordEvent = p;
+    l.decodeHatchApprovalRecordEvent = h;
   },
   98,
 );

@@ -22,6 +22,7 @@ __d(
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -221,7 +222,9 @@ __d(
               r("WAWebCallCollection").setPendingCallLink(null),
               r("WAWebPipController").closePiP(),
               o("WAWebVoipNackHandlers").showErrorDialog(
-                s._(/*BTDS*/ "Invalid call link"),
+                r("justknobx")._("8427")
+                  ? s._(/*BTDS*/ "This call link isn't valid")
+                  : s._(/*BTDS*/ "Invalid call link"),
               ));
             return;
           }

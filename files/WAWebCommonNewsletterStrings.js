@@ -9,6 +9,7 @@ __d(
     "WAWebFbtCommon",
     "WAWebL10N",
     "WAWebNewsletterDirectoryFilterUtils",
+    "WAWebSystemMessageGatingUtils",
     "WAWebUsernameGatingUtils",
     "WAXplatTrim",
     "react",
@@ -133,11 +134,16 @@ __d(
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      return s._(/*BTDS*/ 'You created this channel, "{channel_name}"', [
-        s._param("channel_name", e),
-      ]);
+      return o(
+        "WAWebSystemMessageGatingUtils",
+      ).systemMessageTerminalPeriodsEnabled()
+        ? s._(/*BTDS*/ 'You created this channel, "{channel_name}".', [
+            s._param("channel_name", e),
+          ])
+        : s._(/*BTDS*/ 'You created this channel, "{channel_name}"', [
+            s._param("channel_name", e),
+          ]);
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} invited","_1":"1 invited"}', [
         s._plural(e, "number"),

@@ -196,15 +196,19 @@ __d(
       var r = H(t);
       return r == null
         ? null
-        : "/api/tasks/runs?job_id=" + r + "&limit=" + G(n);
+        : "/api/tasks/runs?job_id=" + r + "&limit=" + z(n);
     }
     function H(e) {
       return e === "" || e === "." || e === ".." || _(e) ? null : c(e);
     }
-    function G(e) {
+    function G(t, n) {
+      var r = t.map(H).filter(Boolean);
+      return r.length === t.length ? n(r) : null;
+    }
+    function z(e) {
       return e >= q ? q : e >= W ? Math.trunc(e) : W;
     }
-    var z = Object.freeze({
+    var j = Object.freeze({
       ACTIVITY_PAGE: function (n, r) {
         return (
           "/api/activity?limit=" +
@@ -240,7 +244,7 @@ __d(
       API_KEY_AUTH_CALLBACK: "/api_key_auth/callback",
       APPROVALS_HISTORY: function (n, r) {
         return (
-          "/approvals/history?record_schema=snapshot_v1&limit=" +
+          "/approvals/history?record_schema=snapshot_v1&icon_cdn=whatsapp&limit=" +
           n +
           (r == null || r.trim() === "" ? "" : "&cursor=" + c(r))
         );
@@ -251,6 +255,15 @@ __d(
       BROWSER_TASK: function (n, r) {
         return "/api/browser-task/" + B(n) + "/" + r;
       },
+      CHATS_HISTORY: function (n, r, o) {
+        return (
+          "/api/chats/history?chat_id=" +
+          encodeURIComponent(n) +
+          "&limit=" +
+          r +
+          (o == null ? "" : "&before_seq=" + o)
+        );
+      },
       CHATS_LIST: "/api/chats/list?limit=100",
       CHATS_MESSAGE: function (n, r) {
         return (
@@ -260,6 +273,7 @@ __d(
           encodeURIComponent(r)
         );
       },
+      CHATS_SUBSCRIBE: "/api/chats/subscribe",
       CLIENT_REGISTER_CAPABILITIES: "/api/client/register-capabilities",
       COMPUTER_CONTEXT: "/api/computer/context",
       COMPUTER_SCREENSHOT: C,
@@ -399,6 +413,55 @@ __d(
         );
       },
       PERMISSIONS_SETTINGS: "/permissions/settings",
+      PEERS_CONNECTION: function (t) {
+        return G([t], function (e) {
+          var t = e[0];
+          return "/api/peers/connections/" + t;
+        });
+      },
+      PEERS_CONNECTION_DISCONNECT: function (t) {
+        return G([t], function (e) {
+          var t = e[0];
+          return "/api/peers/connections/" + t + "/disconnect";
+        });
+      },
+      PEERS_CONNECTION_RULE: function (t, n) {
+        return G([t, n], function (e) {
+          var t = e[0],
+            n = e[1];
+          return "/api/peers/" + t + "/rules/" + n;
+        });
+      },
+      PEERS_CONNECTION_RULES: function (t) {
+        return G([t], function (e) {
+          var t = e[0];
+          return "/api/peers/" + t + "/rules";
+        });
+      },
+      PEERS_CONNECTIONS: function (t, n) {
+        return l("/api/peers/connections", { after: n, limit: String(t) });
+      },
+      PEERS_CONTACTS: function (n, r) {
+        return (
+          "/api/peers?limit=" +
+          n +
+          (r != null ? "&cursor=" + encodeURIComponent(r) : "")
+        );
+      },
+      PEERS_IMAGE: function (t, n, r) {
+        return G([t, r], function (e) {
+          var t = e[0],
+            r = e[1];
+          return "/api/peers/" + t + "/" + n + "/" + r;
+        });
+      },
+      PEERS_INBOX: "/api/peers/inbox",
+      PEERS_INBOX_DECLINE: "/api/peers/inbox/decline",
+      PEERS_INVITES_ACCEPT: "/api/peers/invites/accept",
+      PEERS_INVITES_OPEN: "/api/peers/invites/open",
+      PEERS_INVITES_OPENED: "/api/peers/invites/opened",
+      PEERS_REQUEST_BANNER: "/api/peers/request_banner",
+      PEERS_STATUS: "/api/peers/status",
       SCHEDULED_TASK: U,
       SCHEDULED_TASK_RUNS: V,
       SCHEDULED_TASKS: "/api/tasks",
@@ -428,12 +491,12 @@ __d(
       },
       WORKSPACE_WRITE: "/fs/write",
     });
-    function j(e) {
+    function K(e) {
       return e;
     }
     ((i.confineWorkspaceMediaPath = p),
-      (i.JarvisPaths = z),
-      (i.serializeJarvisPath = j));
+      (i.JarvisPaths = j),
+      (i.serializeJarvisPath = K));
   },
   66,
 );

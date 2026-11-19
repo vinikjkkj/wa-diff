@@ -8,7 +8,11 @@ __d(
           ((this.$1 = new Map()),
             (this.$2 = []),
             (this.$3 = new Set()),
-            (this.$4 = []));
+            (this.$4 = new Map()),
+            (this.$5 = new Map()),
+            (this.$6 = new Set()),
+            (this.$7 = new Map()),
+            (this.$8 = []));
         }
         var t = e.prototype;
         return (
@@ -22,11 +26,46 @@ __d(
             return this.$3.has(t);
           }),
           (t.upsertApproval = function (t) {
-            this.$3.has(t.approvalId) ||
-              (this.$1.set(t.approvalId, t), this.$5());
+            if (!this.$3.has(t.approvalId)) {
+              if (this.$4.has(t.approvalId)) {
+                this.$4.set(t.approvalId, t);
+                return;
+              }
+              (this.$1.set(t.approvalId, t), this.$9());
+            }
           }),
           (t.resolveApproval = function (t) {
-            this.$1.delete(t) && this.$5();
+            if (this.$4.has(t)) {
+              this.$4.set(t, null);
+              return;
+            }
+            this.$1.delete(t) && this.$9();
+          }),
+          (t.beginDecision = function (t) {
+            var e = this.$1.get(t);
+            e != null && (this.$4.set(t, e), this.$1.delete(t), this.$9());
+          }),
+          (t.watchOutcome = function (t, n) {
+            this.$5.set(t, n);
+          }),
+          (t.endDecision = function (t) {
+            if ((this.$4.delete(t), !!this.$5.has(t))) {
+              if (this.$7.has(t)) {
+                this.$10(t, this.$7.get(t));
+                return;
+              }
+              this.$6.add(t);
+            }
+          }),
+          (t.restoreDecision = function (t) {
+            var e = this.$4.get(t);
+            return (
+              this.$4.delete(t),
+              this.$6.has(t) || (this.$5.delete(t), this.$7.delete(t)),
+              e == null || this.$3.has(t)
+                ? !1
+                : (this.$1.set(t, e), this.$9(), !0)
+            );
           }),
           (t.getFundedCheckout = function (t) {
             return u(this.$1.get(t));
@@ -50,27 +89,39 @@ __d(
             });
             if (o == null) return !1;
             var a = c(e, o);
-            return a == null ? !1 : (this.$1.set(t, a), this.$5(), !0);
+            return a == null ? !1 : (this.$1.set(t, a), this.$9(), !0);
           }),
-          (t.settleApproval = function (t) {
+          (t.settleApproval = function (t, n) {
             var e = !this.$3.has(t);
-            (this.$3.add(t), (this.$1.delete(t) || e) && this.$5());
+            (this.$3.add(t),
+              this.$4.delete(t),
+              (this.$1.delete(t) || e) && this.$9(),
+              this.$6.has(t)
+                ? this.$10(t, n)
+                : this.$5.has(t) && !this.$7.has(t) && this.$7.set(t, n));
+          }),
+          (t.$10 = function (t, n) {
+            var e = this.$5.get(t);
+            (this.$5.delete(t),
+              this.$6.delete(t),
+              this.$7.delete(t),
+              e == null || e(n));
           }),
           (t.subscribe = function (t) {
             var e = this;
-            this.$4.push(t);
+            this.$8.push(t);
             var n = !1;
             return function () {
               if (!n) {
                 n = !0;
-                var r = e.$4.indexOf(t);
-                r !== -1 && e.$4.splice(r, 1);
+                var r = e.$8.indexOf(t);
+                r !== -1 && e.$8.splice(r, 1);
               }
             };
           }),
-          (t.$5 = function () {
+          (t.$9 = function () {
             this.$2 = Array.from(this.$1.values());
-            for (var e of [].concat(this.$4)) e();
+            for (var e of [].concat(this.$8)) e();
           }),
           e
         );

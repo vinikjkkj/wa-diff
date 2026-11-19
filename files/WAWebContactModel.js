@@ -22,7 +22,6 @@ __d(
     "WAWebInitializeBotContact",
     "WAWebOptOutListCollection",
     "WAWebProfilePicThumbCollection",
-    "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "WAWebUserUtils",
     "WAWebWid",
@@ -95,7 +94,7 @@ __d(
             (e.isHosted = o("WAWebBaseModel").session(!1)),
             (e.isOrHasBeenHosted = o("WAWebBaseModel").session(!1)),
             (e.isFavorite = o("WAWebBaseModel").session(!1)),
-            (e.meTextStatusExpiryTimer = o("WAWebBaseModel").session()),
+            (e.textStatusExpiryTimer = o("WAWebBaseModel").session()),
             (e.maybeCommonGroupChatModel = o("WAWebBaseModel").session()),
             (e.canSendMsgWhileTimelocked = o("WAWebBaseModel").session(!0)),
             (e.orgMemberName = o("WAWebBaseModel").session()),
@@ -124,8 +123,7 @@ __d(
                   )
                   .sendLogs("contact-model-device-wid");
               var r = d(this);
-              (r &&
-                o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
+              (this.id.isRegularUser() &&
                 (o(
                   "WAWebContactTextStatusExpiry",
                 ).setupContactTextStatusExpiration(this),
@@ -231,6 +229,12 @@ __d(
             e &&
               (e.set({ name: this.name }),
               e.set({ parentStatusMute: this.statusMute }));
+          }),
+          (r.restartTextStatusExpiration = function () {
+            this.id.isRegularUser() &&
+              o(
+                "WAWebContactTextStatusExpiry",
+              ).setupContactTextStatusExpiration(this);
           }),
           (r.isActive = function () {
             var e = this.id;

@@ -43,6 +43,8 @@ __d(
         f +
         "\n\nvoid main() {\n  vec2 uv = vec2(v_uv.x, 1.0 - v_uv.y);\n  vec3 center = texture(u_frame, uv).rgb;\n  float person = personAt(uv, center);\n  vec3 background = texture(u_image, (uv - 0.5) * u_imageScale + 0.5).rgb;\n  outColor = vec4(mix(background, center, person), 1.0);\n}",
       y =
+        "#version 300 es\nprecision highp float;\nin vec2 v_uv;\nout vec4 outColor;\nuniform sampler2D u_image;\nuniform vec2 u_imageScale;\n\nvoid main() {\n  outColor = vec4(texture(u_image, (v_uv - 0.5) * u_imageScale + 0.5).rgb, 1.0);\n}",
+      C =
         "#version 300 es\nprecision highp float;\nin vec2 v_uv;\nout vec4 outColor;\nuniform sampler2D u_image;\n\nvoid main() {\n  outColor = texture(u_image, v_uv);\n}";
     ((i.FULLSCREEN_VERTEX_SHADER = e),
       (i.MODEL_INPUT_FRAGMENT_SHADER = l),
@@ -54,7 +56,8 @@ __d(
       (i.GAUSSIAN_BLUR_FRAGMENT_SHADER = _),
       (i.COMPOSITE_FRAGMENT_SHADER = g),
       (i.IMAGE_COMPOSITE_FRAGMENT_SHADER = h),
-      (i.IMAGE_SHRINK_FRAGMENT_SHADER = y));
+      (i.IMAGE_COVER_FRAGMENT_SHADER = y),
+      (i.IMAGE_SHRINK_FRAGMENT_SHADER = C));
   },
   66,
 );

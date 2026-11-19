@@ -4,10 +4,12 @@ __d(
     "fbt",
     "FBLogger",
     "WASmaxBizCtwaAdAccountGetAccessTokenAndSessionCookiesRPC",
+    "WAWebBizAdCreationEmailVerificationStrings",
     "WAWebCommonAdsTypes",
     "WAWebFetchAdAccountToken",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -34,9 +36,9 @@ __d(
                       "verifyEmailCodeAndPersistToken received weak token after email verification",
                     ),
                     {
-                      error: s._(
-                        /*BTDS*/ "Something went wrong. Please try again later.",
-                      ),
+                      error: o(
+                        "WAWebBizAdCreationEmailVerificationStrings",
+                      ).getEmailVerificationGenericErrorText(),
                       success: !1,
                     }
                   );
@@ -53,19 +55,24 @@ __d(
                 );
               }
               case "GetAccessTokenAndSessionCookiesResponseIncorrectNonce":
-                return { error: s._(/*BTDS*/ "Invalid code"), success: !1 };
+                return {
+                  error: r("justknobx")._("8427")
+                    ? s._(/*BTDS*/ "Wrong code")
+                    : s._(/*BTDS*/ "Invalid code"),
+                  success: !1,
+                };
               case "GetAccessTokenAndSessionCookiesResponseTooManyAttempts":
                 return {
-                  error: s._(
-                    /*BTDS*/ "Something went wrong. Please try again later.",
-                  ),
+                  error: o(
+                    "WAWebBizAdCreationEmailVerificationStrings",
+                  ).getEmailVerificationGenericErrorText(),
                   success: !1,
                 };
               default:
                 return {
-                  error: s._(
-                    /*BTDS*/ "Something went wrong. Please try again later.",
-                  ),
+                  error: o(
+                    "WAWebBizAdCreationEmailVerificationStrings",
+                  ).getEmailVerificationGenericErrorText(),
                   success: !1,
                 };
             }
@@ -75,9 +82,9 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .mustfix("verifyEmailCodeAndPersistToken RPC call failed"),
               {
-                error: s._(
-                  /*BTDS*/ "Something went wrong. Please try again later.",
-                ),
+                error: o(
+                  "WAWebBizAdCreationEmailVerificationStrings",
+                ).getEmailVerificationGenericErrorText(),
                 success: !1,
               }
             );

@@ -1,6 +1,6 @@
 __d(
   "WAWebGroupAdminGroupSort",
-  ["WAWebChatSortTime", "WAWebFrontendChatGetters"],
+  ["WAWebChatSortTime"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       return [].concat(e).sort(t === "name" ? u : s);
@@ -12,9 +12,7 @@ __d(
       );
     }
     function u(e, t) {
-      return o("WAWebFrontendChatGetters")
-        .getFormattedTitle(e)
-        .localeCompare(o("WAWebFrontendChatGetters").getFormattedTitle(t));
+      return e.title().localeCompare(t.title());
     }
     ((l.sortAdminGroups = e), (l.compareByRecent = s));
   },

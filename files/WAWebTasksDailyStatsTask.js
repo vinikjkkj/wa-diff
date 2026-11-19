@@ -54,7 +54,6 @@ __d(
     "WAWebScreenLockSettingsDataWamEvent",
     "WAWebSubmitChatLockDailyStats",
     "WAWebTasksExperienceIdDailyReport",
-    "WAWebTextStatusGatingUtils",
     "WAWebUserPrefsCartLidMigration",
     "WAWebUserPrefsContactManagement",
     "WAWebUserPrefsFavoritesLidMigration",
@@ -576,22 +575,21 @@ __d(
                   e,
                   o("WAWebCountryCodeUtils").getMyCountryCode,
                 ),
-                o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-                  (new (o(
-                    "WAWebAboutCreationDailyWamEvent",
-                  ).AboutCreationDailyWamEvent)({
-                    aboutCreationStarted: e.aboutCreationStartedCount,
-                    aboutCreationVisit: e.aboutCreationVisitCount,
-                    aboutFailureCount: e.aboutFailureCount,
-                    aboutSuccessCount: e.aboutSuccessCount,
-                  }).commit(),
-                  new (o(
-                    "WAWebAboutConsumptionDailyWamEvent",
-                  ).AboutConsumptionDailyWamEvent)({
-                    aboutChatBubbleTapCount: e.aboutChatBubbleTapCount,
-                    aboutChatConsumptionCount: e.aboutChatConsumptionCount,
-                    aboutMessageSendCount: e.aboutMessageSendCount,
-                  }).commit()),
+                new (o(
+                  "WAWebAboutCreationDailyWamEvent",
+                ).AboutCreationDailyWamEvent)({
+                  aboutCreationStarted: e.aboutCreationStartedCount,
+                  aboutCreationVisit: e.aboutCreationVisitCount,
+                  aboutFailureCount: e.aboutFailureCount,
+                  aboutSuccessCount: e.aboutSuccessCount,
+                }).commit(),
+                new (o(
+                  "WAWebAboutConsumptionDailyWamEvent",
+                ).AboutConsumptionDailyWamEvent)({
+                  aboutChatBubbleTapCount: e.aboutChatBubbleTapCount,
+                  aboutChatConsumptionCount: e.aboutChatConsumptionCount,
+                  aboutMessageSendCount: e.aboutMessageSendCount,
+                }).commit(),
                 o("WAWebSubmitChatLockDailyStats").submitChatLockDailyStats(e));
             }),
             new (o(

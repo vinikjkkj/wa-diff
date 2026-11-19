@@ -149,9 +149,7 @@ __d(
       var t = o("WAJids").validateLidUserJid(e);
       if (t == null)
         throw r("err")(
-          '[CustomerManager] customer profile upsert: chatJid must be a LID-based JID, got "' +
-            e +
-            '"',
+          "[CustomerManager] customer profile upsert: chatJid must be a LID-based JID",
         );
       return t;
     }

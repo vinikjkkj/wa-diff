@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationCatalogMediaStrings",
-  ["fbt"],
+  ["fbt", "justknobx"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
@@ -37,7 +37,9 @@ __d(
       return s._(/*BTDS*/ "These images can't be added to your ad.");
     }
     function h() {
-      return s._(/*BTDS*/ "Something went wrong. Please try again.");
+      return r("justknobx")._("8427")
+        ? s._(/*BTDS*/ "Couldn't add the image. Please try again.")
+        : s._(/*BTDS*/ "Something went wrong. Please try again.");
     }
     ((l.getSharingDisclosure = e),
       (l.getNoCatalogItemsText = u),

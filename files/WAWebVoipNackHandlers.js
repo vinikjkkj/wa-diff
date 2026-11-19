@@ -258,11 +258,15 @@ __d(
     function $(e) {
       switch (e) {
         case D.DoesNotExist:
-          return s._(/*BTDS*/ "Invalid call link");
+          return r("justknobx")._("8427")
+            ? s._(/*BTDS*/ "This call link is no longer available")
+            : s._(/*BTDS*/ "Invalid call link");
         case D.CallFull:
           return s._(/*BTDS*/ "This call is full.");
         case D.UnsupportedAppVersion:
-          return s._(/*BTDS*/ "Please update WhatsApp to join this call.");
+          return r("justknobx")._("8427")
+            ? s._(/*BTDS*/ "Update WhatsApp to join this call.")
+            : s._(/*BTDS*/ "Please update WhatsApp to join this call.");
         case D.ServiceUnavailable:
           return s._(/*BTDS*/ "Couldn't connect. Please try again later.");
         default:

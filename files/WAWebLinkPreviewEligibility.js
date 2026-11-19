@@ -2,6 +2,7 @@ __d(
   "WAWebLinkPreviewEligibility",
   [
     "WAWebCodeFormatMutator",
+    "WAWebHatchPeerPairingUrl",
     "WAWebLinkify",
     "WAWebSpoilerFormatRegex",
     "WAWebSpoilerNotificationMask",
@@ -11,11 +12,13 @@ __d(
       var t = e.getShouldHideSpoilers,
         n = e.sender,
         r = e.text;
-      return o("WAWebLinkify").findLinks(
-        s({ getShouldHideSpoilers: t, text: r }),
-        !0,
-        n,
-      )[0];
+      return o("WAWebLinkify")
+        .findLinks(s({ getShouldHideSpoilers: t, text: r }), !0, n)
+        .find(function (e) {
+          return !o("WAWebHatchPeerPairingUrl").isHatchPeerPairingInvitationUrl(
+            e.url,
+          );
+        });
     }
     function s(e) {
       var t = e.getShouldHideSpoilers,

@@ -4,16 +4,12 @@ __d(
     "WAWebCustomerManagerAddCustomerJourneyEvents",
     "WAWebCustomerManagerChatHeaderJourneyLogger",
     "WAWebCustomerManagerColumnJourneyEvents",
+    "WAWebCustomerManagerEntryExitJourneyEvents",
     "WAWebCustomerManagerFilterJourneyEvents",
     "WAWebCustomerManagerListJourneyEvents",
     "WAWebCustomerManagerPipelineJourneyEvents",
     "WAWebCustomerManagerProfileJourneyEvents",
-    "WAWebCustomerManagerSMBUserJourneyTypes",
     "WAWebCustomerManagerTrialJourneyEvents",
-    "WAWebCustomerManagerWamLogging",
-    "WAWebSMBUserJourneyLogger",
-    "WAWebWamEnumSmbFeatureNameEnum",
-    "WAWebWamEnumSmbUserActionTypeEnum",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,27 +17,15 @@ __d(
         function e() {}
         var t = e.prototype;
         return (
-          (t.exitCustomerManager = function (t, n) {
-            (o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
-              extraAttributes: babelHelpers.extends(
-                {},
-                n != null ? { dwell_ms: n } : {},
-                { from_import_review: t === "import_review" },
-              ),
-              surface: o("WAWebCustomerManagerWamLogging").viewSurface(
-                t === "import_review" ? "list" : t,
-              ),
-              userActionTarget: o("WAWebCustomerManagerSMBUserJourneyTypes")
-                .UserActionTarget.EXIT,
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
-            }),
-              o(
-                "WAWebSMBUserJourneyLogger",
-              ).SMBUserJourneyLogger.clearEntryPoint(
-                o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
-                  .CUSTOMER_MANAGER,
-              ));
+          (t.enterCustomerManager = function (t, n) {
+            o(
+              "WAWebCustomerManagerEntryExitJourneyEvents",
+            ).enterCustomerManager(t, n);
+          }),
+          (t.exitCustomerManager = function (t) {
+            o("WAWebCustomerManagerEntryExitJourneyEvents").exitCustomerManager(
+              t,
+            );
           }),
           (t.editChatHeaderLeadStageCommit = function (t) {
             o(
@@ -368,18 +352,16 @@ __d(
               "WAWebCustomerManagerFilterJourneyEvents",
             ).changeLastMessageFilter(t, n);
           }),
-          (t.changeLabelFilter = function (t) {
-            o("WAWebCustomerManagerFilterJourneyEvents").changeLabelFilter(t);
+          (t.changeLabelFilter = function (t, n) {
+            o("WAWebCustomerManagerFilterJourneyEvents").changeLabelFilter(
+              t,
+              n,
+            );
           }),
           (t.changeAcquisitionSourceFilter = function (t, n) {
             o(
               "WAWebCustomerManagerFilterJourneyEvents",
             ).changeAcquisitionSourceFilter(t, n);
-          }),
-          (t.changeAcquisitionDateFilter = function (t, n) {
-            o(
-              "WAWebCustomerManagerFilterJourneyEvents",
-            ).changeAcquisitionDateFilter(t, n);
           }),
           (t.changeBirthMonthFilter = function (t, n) {
             o("WAWebCustomerManagerFilterJourneyEvents").changeBirthMonthFilter(

@@ -206,10 +206,17 @@ __d(
             I = o("WAWebWidFormat").widToFormattedUser(S);
           return k === C
             ? {
-                l10nBodyTextInstance: s._(
-                  /*BTDS*/ "{name} changed to {new_number}",
-                  [s._param("name", C), s._param("new_number", I)],
-                ),
+                l10nBodyTextInstance: o(
+                  "WAWebSystemMessageGatingUtils",
+                ).systemMessageTerminalPeriodsEnabled()
+                  ? s._(/*BTDS*/ "{name} changed to {new_number}.", [
+                      s._param("name", C),
+                      s._param("new_number", I),
+                    ])
+                  : s._(/*BTDS*/ "{name} changed to {new_number}", [
+                      s._param("name", C),
+                      s._param("new_number", I),
+                    ]),
               }
             : {
                 l10nBodyTextInstance: s._(
@@ -254,15 +261,22 @@ __d(
         case "invite":
           return o("WAWebSystemMessagesUtils").isMe(S)
             ? {
-                l10nBodyTextInstance: s._(
-                  /*BTDS*/ "You joined via an invite link",
-                ),
+                l10nBodyTextInstance: o(
+                  "WAWebSystemMessageGatingUtils",
+                ).systemMessageTerminalPeriodsEnabled()
+                  ? s._(/*BTDS*/ "You joined via an invite link.")
+                  : s._(/*BTDS*/ "You joined via an invite link"),
               }
             : {
-                l10nBodyTextInstance: s._(
-                  /*BTDS*/ "{name} joined via an invite link",
-                  [s._param("name", R)],
-                ),
+                l10nBodyTextInstance: o(
+                  "WAWebSystemMessageGatingUtils",
+                ).systemMessageTerminalPeriodsEnabled()
+                  ? s._(/*BTDS*/ "{name} joined via an invite link.", [
+                      s._param("name", R),
+                    ])
+                  : s._(/*BTDS*/ "{name} joined via an invite link", [
+                      s._param("name", R),
+                    ]),
               };
         case "revoke_invite":
           return o("WAWebSystemMessagesUtils").isMe(c)
@@ -353,16 +367,27 @@ __d(
           };
         case "v4_add_invite_sent":
           return {
-            l10nBodyTextInstance: s._(/*BTDS*/ "You invited {participants}", [
-              s._param("participants", L),
-            ]),
+            l10nBodyTextInstance: o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+              ? s._(/*BTDS*/ "You invited {participants}.", [
+                  s._param("participants", L),
+                ])
+              : s._(/*BTDS*/ "You invited {participants}", [
+                  s._param("participants", L),
+                ]),
           };
         case "v4_add_invite_join":
           return {
-            l10nBodyTextInstance: s._(
-              /*BTDS*/ "{participants} joined using your invite",
-              [s._param("participants", L)],
-            ),
+            l10nBodyTextInstance: o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+              ? s._(/*BTDS*/ "{participants} joined using your invite.", [
+                  s._param("participants", L),
+                ])
+              : s._(/*BTDS*/ "{participants} joined using your invite", [
+                  s._param("participants", L),
+                ]),
           };
         case "ephemeral":
           return {

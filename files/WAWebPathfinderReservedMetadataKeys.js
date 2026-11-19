@@ -18,6 +18,7 @@ __d(
       "generic_error_code",
       "generic_error_domain",
       "has_destructive",
+      "is_back",
       "is_empty",
       "network_error_endpoint_category",
       "network_error_status_code",

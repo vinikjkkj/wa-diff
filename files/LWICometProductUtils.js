@@ -32,10 +32,11 @@ __d(
         r = e.isAdCopyEnglish,
         o = e.isCarouselPost,
         a = e.isHeadlineTextEligible,
-        i = e.isSingleAdgroup,
-        l = e.isSinglePost,
-        s = e.shouldShowHeadline;
-      return !t && n && !o && a && i && l && s && r;
+        i = e.isMultiPhotoPostWithMessagingCTA,
+        l = e.isSingleAdgroup,
+        s = e.isSinglePost,
+        u = e.shouldShowHeadline;
+      return !t && n && (!o || i) && a && l && s && u && r;
     }
     function m(e, t) {
       return !t || !d(e) ? !1 : r("qex")._("3932") === !0;

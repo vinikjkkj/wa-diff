@@ -22,7 +22,7 @@ __d(
       return o + t.slice(a);
     }
     function m(e, t) {
-      return (t ? "\f" : "\uFEFF") + e;
+      return (t ? "\u3000" : "\uFEFF") + e;
     }
     function p(e) {
       var t = null,
@@ -87,7 +87,7 @@ __d(
             }
           if (!L) {
             var E = m(_, a);
-            t = a ? r("json5").fromSliver(E) : r("json5").fromFragment(E);
+            t = a ? r("json5").fromMorsel(E) : r("json5").fromFragment(E);
           }
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
@@ -110,7 +110,7 @@ __d(
     function f(e) {
       return p(e);
     }
-    ((l.pullBootChunk = _), (l.takeBootFrame = f));
+    ((l.peelBootLayer = _), (l.takeBootFrame = f));
   },
   98,
 );

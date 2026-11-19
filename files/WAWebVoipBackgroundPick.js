@@ -29,21 +29,21 @@ __d(
         r = n.whileBrowsing,
         a = r === void 0 ? !1 : r;
       if (o("WAWebVoipBackgroundImages").isBackgroundImageUnusable(e)) {
-        C({ id: e, state: "unusable" });
+        b({ id: e, state: "unusable" });
         return;
       }
       var i = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
         l = i.image,
         c = i.requested;
       if (a && c && l === e) {
-        C(null);
+        b(null);
         return;
       }
       var d = { id: e, state: "loading" };
-      C(d);
+      b(d);
       var m = o("WAWebVoipVideoEffectsState").subscribeToVideoEffectsStop(
         function () {
-          u === d && C(null);
+          u === d && b(null);
         },
       );
       a
@@ -54,10 +54,10 @@ __d(
     }
     function _(e) {
       var t = { state: "adding" };
-      C(t);
+      b(t);
       var n = o("WAWebVoipVideoEffectsState").subscribeToVideoEffectsStop(
         function () {
-          u === t && C(null);
+          u === t && b(null);
         },
       );
       o("WAWebVoipCustomBackground")
@@ -71,7 +71,7 @@ __d(
                       e.picture,
                     ),
                   )
-                : C({ state: e.status })));
+                : b({ state: e.status })));
         });
     }
     function f(e) {
@@ -85,10 +85,10 @@ __d(
         }
         return null;
       })(u);
-      (t === e && C(null),
+      (t === e && b(null),
         o("WAWebVoipCustomBackground").removeCustomBackground(e),
         o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot().image === e &&
-          o("WAWebVoipVideoEffectsState").setBackgroundImage(null));
+          o("WAWebVoipVideoEffectsState").blurInsteadOfBackgroundImage());
     }
     function g(t, n) {
       var a = t.id;
@@ -96,15 +96,9 @@ __d(
         .getBackgroundImage(a)
         .then(
           function () {
-            if (u === t) {
-              C(null);
-              var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
-                n = e.image,
-                r = e.requested;
-              (n !== a && o("WAWebVoipVideoEffectsState").setBackgroundImage(a),
-                r ||
-                  o("WAWebVoipVideoEffectsState").setVideoEffectsRequested(!0));
-            }
+            u === t &&
+              (b(null),
+              o("WAWebVoipVideoEffectsState").chooseBackgroundImage(a));
           },
           function (n) {
             (o("WALogger")
@@ -118,7 +112,7 @@ __d(
               )
               .catching(r("getErrorSafe")(n)),
               u === t &&
-                C({
+                b({
                   id: a,
                   state: o(
                     "WAWebVoipBackgroundImages",
@@ -131,12 +125,16 @@ __d(
         .finally(n);
     }
     function h() {
-      C(null);
+      b(null);
     }
     function y() {
+      var e;
+      ((e = u) == null ? void 0 : e.state) === "loading" && b(null);
+    }
+    function C() {
       ((u = null), c.clear());
     }
-    function C(e) {
+    function b(e) {
       e !== u &&
         ((u = e),
         c.forEach(function (e) {
@@ -149,7 +147,8 @@ __d(
       (l.pickBackgroundPhoto = _),
       (l.removeBackgroundPhoto = f),
       (l.clearBackgroundPick = h),
-      (l.resetBackgroundPickForTesting = y));
+      (l.dropLoadingBackgroundPick = y),
+      (l.resetBackgroundPickForTesting = C));
   },
   98,
 );

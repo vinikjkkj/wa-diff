@@ -1,16 +1,16 @@
 __d(
   "WAWebCustomerManagerLastMessageRangeSecondsBounds",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebCustomerManagerDateRangeUtils"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 86400;
-    function l(t, n) {
+    function s(t, n) {
       n === void 0 && (n = new Date());
       var r = Math.floor(n.getTime() / 1e3);
       return t === "today"
-        ? s(n, 0)
+        ? u(n, 0)
         : t === "yesterday"
-          ? s(n, -1)
+          ? u(n, -1)
           : t === "last_7_days"
             ? { endSec: null, startSec: r - 7 * e }
             : t === "last_14_days"
@@ -18,9 +18,9 @@ __d(
               : t === "last_30_days"
                 ? { endSec: null, startSec: r - 30 * e }
                 : t === "last_3_months"
-                  ? { endSec: null, startSec: u(n, 3) }
+                  ? { endSec: null, startSec: c(n, 3) }
                   : t === "last_year"
-                    ? { endSec: null, startSec: c(n, 1) }
+                    ? { endSec: null, startSec: d(n, 1) }
                     : (function () {
                         throw Error(
                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -28,34 +28,24 @@ __d(
                         );
                       })();
     }
-    function s(e, t) {
-      var n = new Date(e.getFullYear(), e.getMonth(), e.getDate() + t),
-        r = Math.floor(n.getTime() / 1e3),
-        o = Math.floor(
-          new Date(
-            n.getFullYear(),
-            n.getMonth(),
-            n.getDate(),
-            23,
-            59,
-            59,
-            999,
-          ).getTime() / 1e3,
-        );
-      return { endSec: o, startSec: r };
-    }
     function u(e, t) {
-      return d(e, e.getFullYear(), e.getMonth() - t);
+      var n = new Date(e.getFullYear(), e.getMonth(), e.getDate() + t);
+      return o(
+        "WAWebCustomerManagerDateRangeUtils",
+      ).getCustomRangeSecondsBounds(n, n);
     }
     function c(e, t) {
-      return d(e, e.getFullYear() - t, e.getMonth());
+      return m(e, e.getFullYear(), e.getMonth() - t);
     }
-    function d(e, t, n) {
+    function d(e, t) {
+      return m(e, e.getFullYear() - t, e.getMonth());
+    }
+    function m(e, t, n) {
       var r = new Date(t, n + 1, 0).getDate(),
         o = Math.min(e.getDate(), r);
       return Math.floor(new Date(t, n, o).getTime() / 1e3);
     }
-    i.lastMessageRangeSecondsBounds = l;
+    l.lastMessageRangeSecondsBounds = s;
   },
-  66,
+  98,
 );

@@ -137,6 +137,7 @@ __d(
         mediaSinkType: "MSE",
         nativeBackBufferMinRemovableSec: 5,
         nativeBackBufferRetentionSec: 0,
+        nativeHandoverFetchHold: !1,
         nativeNextFirstMediaPrewarm: !1,
         nativeNextPrewarmBufferAheadSec: 0,
         optimizeAutoDisposeTraversal: !1,

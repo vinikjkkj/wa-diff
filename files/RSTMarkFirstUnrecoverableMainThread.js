@@ -1,6 +1,8 @@
 __d(
   "RSTMarkFirstUnrecoverableMainThread",
   [
+    "AirwaveAppIdUtils",
+    "CurrentUser",
     "FBLogger",
     "RSTLocalStorageMainThread",
     "asyncToGeneratorRuntime",
@@ -16,15 +18,19 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.incidentID,
-            o = t.sessionID,
-            a = o + ":first-unrecoverable";
+            a = t.sessionID,
+            i = a + ":first-unrecoverable",
+            l = function () {
+              r("RSTLocalStorageMainThread").has(i) ||
+                (r("RSTLocalStorageMainThread").set(i, n),
+                (t.isFirstUnrecoverable = !0));
+            };
           try {
-            "locks" in navigator &&
-              (yield navigator.locks.request(e, function () {
-                r("RSTLocalStorageMainThread").has(a) ||
-                  (r("RSTLocalStorageMainThread").set(a, n),
-                  (t.isFirstUnrecoverable = !0));
-              }));
+            if ("locks" in navigator) yield navigator.locks.request(e, l);
+            else {
+              var s = r("CurrentUser").getAppID();
+              o("AirwaveAppIdUtils").isAirwaveWebAppId(s) && l();
+            }
           } catch (e) {
             r("FBLogger")("responsive-tracker")
               .catching(r("getErrorSafe")(e))

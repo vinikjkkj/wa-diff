@@ -3,12 +3,13 @@ __d(
   ["WALogger", "WAWebHatchApprovalManager"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    function c(t) {
+    var e, s, u, c;
+    function d(t) {
       var n = t.approvalId,
-        a = t.record,
-        i = t.resolvedDecision;
-      if (i != null) {
+        a = t.outcomeLabel,
+        i = t.record,
+        l = t.resolvedDecision;
+      if (l != null) {
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -17,27 +18,38 @@ __d(
               "",
             ])),
           n,
-          i,
+          l,
         ),
-          r("WAWebHatchApprovalManager").settleApproval(n));
+          r("WAWebHatchApprovalManager").settleApproval(n, a));
         return;
       }
-      a != null &&
+      if (i == null) {
         (o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
-              "hatch-approval: received pending request approvalId=",
+              "hatch-approval: dropping undecidable pending request approvalId=",
               "",
             ])),
           n,
         ),
-        r("WAWebHatchApprovalManager").upsertApproval(a));
+          r("WAWebHatchApprovalManager").resolveApproval(n));
+        return;
+      }
+      (o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "hatch-approval: received pending request approvalId=",
+            "",
+          ])),
+        n,
+      ),
+        r("WAWebHatchApprovalManager").upsertApproval(i));
     }
-    function d(e) {
+    function m(e) {
       (o("WALogger")
         .LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-approval: record removed approvalId=",
               "",
             ])),
@@ -46,8 +58,8 @@ __d(
         .sendLogs("hatch-approval-record-removed"),
         r("WAWebHatchApprovalManager").settleApproval(e.approvalId));
     }
-    ((l.handleHatchApprovalRecord = c),
-      (l.handleRemovedHatchApprovalRecord = d));
+    ((l.handleHatchApprovalRecord = d),
+      (l.handleRemovedHatchApprovalRecord = m));
   },
   98,
 );

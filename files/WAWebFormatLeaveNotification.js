@@ -1,6 +1,11 @@
 __d(
   "WAWebFormatLeaveNotification",
-  ["fbt", "WAWebGroupType", "WAWebSystemMessagesUtils"],
+  [
+    "fbt",
+    "WAWebGroupType",
+    "WAWebSystemMessageGatingUtils",
+    "WAWebSystemMessagesUtils",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.body,
@@ -8,11 +13,27 @@ __d(
         r = e.subject;
       return r
         ? o("WAWebSystemMessagesUtils").isMe(r)
-          ? s._(/*BTDS*/ "You left")
-          : s._(/*BTDS*/ "{user_name} left", [s._param("user_name", n)])
+          ? (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(/*BTDS*/ "You left.")) ||
+            s._(/*BTDS*/ "You left")
+          : (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(/*BTDS*/ "{user_name} left.", [s._param("user_name", n)])) ||
+            s._(/*BTDS*/ "{user_name} left", [s._param("user_name", n)])
         : t === o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
-          ? s._(/*BTDS*/ "This community is no longer available")
-          : s._(/*BTDS*/ "This group has ended");
+          ? o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+            ? s._(/*BTDS*/ "This community is no longer available.")
+            : s._(/*BTDS*/ "This community is no longer available")
+          : o(
+                "WAWebSystemMessageGatingUtils",
+              ).systemMessageTerminalPeriodsEnabled()
+            ? s._(/*BTDS*/ "This group has ended.")
+            : s._(/*BTDS*/ "This group has ended");
     }
     l.formatLeaveNotification = e;
   },

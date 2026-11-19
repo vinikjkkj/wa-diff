@@ -92,6 +92,9 @@ __d(
             (n.$Call$p_13 = new Map()),
             (n.$Call$p_14 = new Map()),
             (n.$Call$p_15 = null),
+            (n.$Call$p_16 = new Set()),
+            (n.$Call$p_17 = !1),
+            (n.$Call$p_18 = 0),
             e != null && (n.id = e),
             n
           );
@@ -101,6 +104,45 @@ __d(
         return (
           (a.delete = function () {
             this.stopListening();
+          }),
+          (a.markUserEndedCall = function () {
+            ((this.$Call$p_17 = !0), this.$Call$p_18++, this.$Call$p_19(!0));
+          }),
+          (a.beginUserEndedCallIntent = function () {
+            var e = this;
+            this.$Call$p_16.size === 0 &&
+              (this.$Call$p_17 = this.userEndedCall);
+            var t = Symbol();
+            (this.$Call$p_16.add(t), this.$Call$p_18++);
+            try {
+              this.$Call$p_19(!0);
+            } catch (e) {
+              throw (this.$Call$p_20(t, !1), e);
+            }
+            return function (n) {
+              return e.$Call$p_20(t, n);
+            };
+          }),
+          (a.getUserEndedCallGeneration = function () {
+            return this.$Call$p_18;
+          }),
+          (a.$Call$p_20 = function (t, n) {
+            this.$Call$p_16.delete(t) &&
+              ((this.$Call$p_17 = this.$Call$p_17 || n),
+              this.$Call$p_16.size === 0 &&
+                !this.$Call$p_17 &&
+                !o("WAWebVoipCallStateUtils").isCallTerminal(this.$Call$p_1) &&
+                this.$Call$p_19(!1));
+          }),
+          (a.$Call$p_19 = function (t) {
+            this.userEndedCall !== t &&
+              ((this.userEndedCall = t),
+              this.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallModelEvents
+                    .USER_ENDED_CALL,
+                ),
+              ));
           }),
           (a.getState = function () {
             return this.$Call$p_1;
@@ -118,7 +160,7 @@ __d(
                 (this.wasEverConnected = !0),
               o("WAWebVoipCallStateUtils").isCallActive(t) &&
                 (this.wasEverActive = !0),
-              this.$Call$p_16(e),
+              this.$Call$p_21(e),
               !r("WAWebEnvironment").isWindows &&
                 this.wasEverConnected &&
                 !o("WAWebVoipCallStateUtils").isCallTerminal(e) &&
@@ -241,7 +283,7 @@ __d(
                   this.peerVideoState,
                 );
           }),
-          (a.$Call$p_17 = function () {
+          (a.$Call$p_22 = function () {
             return (
               this.callLinkState ===
                 o("WAWebVoipWaCallEnums").CallLinkState.JoinSent ||
@@ -259,18 +301,18 @@ __d(
             var e = o("WAWebVoipCallStateUtils").isCallConnected(
               this.$Call$p_1,
             );
-            return this.$Call$p_17() && !e;
+            return this.$Call$p_22() && !e;
           }),
           (a.isInCallLinkLobby = function () {
             var e =
               this.$Call$p_1 ===
               o("WAWebVoipWaCallEnums").CallState.ConnectedLonely;
-            return this.isCallLink && this.$Call$p_17() && e;
+            return this.isCallLink && this.$Call$p_22() && e;
           }),
           (a.isConnectingToCallLinkLobby = function () {
             return (
               this.isCallLink &&
-              this.$Call$p_17() &&
+              this.$Call$p_22() &&
               !o("WAWebVoipCallStateUtils").isCallConnected(this.$Call$p_1)
             );
           }),
@@ -516,7 +558,7 @@ __d(
           (a.updateParticipantMicState = function (t, n) {
             this.$Call$p_14.set(t.toString(), n);
           }),
-          (a.$Call$p_16 = function (t) {
+          (a.$Call$p_21 = function (t) {
             if (
               !(
                 r("WAWebEnvironment").isWindows &&
@@ -546,13 +588,13 @@ __d(
                 n();
               } else
                 (r("WAWebCallNotificationBus").trigger("cancel_call", e),
-                  this.$Call$p_18(t)
+                  this.$Call$p_23(t)
                     ? r("WAWebCallNotificationBus").trigger("screened_call", e)
-                    : this.$Call$p_19(t) &&
+                    : this.$Call$p_24(t) &&
                       r("WAWebCallNotificationBus").trigger("missed_call", e));
             }
           }),
-          (a.$Call$p_18 = function (t) {
+          (a.$Call$p_23 = function (t) {
             return (
               t === o("WAWebVoipWaCallEnums").CallState.ReceivedCall &&
               !this.isGroup &&
@@ -560,7 +602,7 @@ __d(
                 o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
             );
           }),
-          (a.$Call$p_19 = function (t) {
+          (a.$Call$p_24 = function (t) {
             var e = this.getState();
             return (
               t === o("WAWebVoipWaCallEnums").CallState.ReceivedCall &&

@@ -8,12 +8,15 @@ __d(
     "WAWebBizAdCreationLinkWAMediaToStatus",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e;
     function u() {
-      return s._(/*BTDS*/ "Some media failed to process and were removed.");
+      return r("justknobx")._("8427")
+        ? s._(/*BTDS*/ "Some media couldn't be uploaded and were removed")
+        : s._(/*BTDS*/ "Some media failed to process and were removed.");
     }
     function c(e, t, n) {
       return d.apply(this, arguments);

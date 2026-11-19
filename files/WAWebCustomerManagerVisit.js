@@ -6,7 +6,7 @@ __d(
       s = !1,
       u = 0;
     function c() {
-      ((e = o("WATimeUtils").monotonicTime()), (s = u > 0));
+      return ((e = o("WATimeUtils").monotonicTime()), (s = u > 0), !s);
     }
     function d() {
       u += 1;

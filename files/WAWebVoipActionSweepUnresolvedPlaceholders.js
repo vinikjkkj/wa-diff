@@ -31,7 +31,7 @@ __d(
                 .UNRESOLVED_PLACEHOLDER_GRACE_MS,
             );
           })
-          .then(_)
+          .then(p)
           .catch(function (t) {
             o(
               "WAWebVoipActionUncountUnresolvedPlaceholder",
@@ -61,14 +61,11 @@ __d(
         });
     }
     function p() {
-      c = !1;
+      return _.apply(this, arguments);
     }
     function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .all({
@@ -77,7 +74,7 @@ __d(
                 limit: u,
                 shouldDecrypt: !1,
               }),
-            t = e.filter(g).map(function (e) {
+            t = e.filter(f).map(function (e) {
               return r("WAWebMsgKey").fromString(e.id);
             });
           t.length === 0 ||
@@ -96,10 +93,10 @@ __d(
               "WAWebVoipActionUncountUnresolvedPlaceholder",
             ).checkUnresolvedPlaceholdersNow(t));
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e) {
+    function f(e) {
       return (
         e.viewMode ===
           o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME &&
@@ -110,8 +107,7 @@ __d(
       );
     }
     ((l.scheduleUnresolvedPlaceholderSweep = d),
-      (l.resetUnresolvedPlaceholderSweepForTesting = p),
-      (l.sweepUnresolvedPlaceholders = _));
+      (l.sweepUnresolvedPlaceholders = p));
   },
   98,
 );

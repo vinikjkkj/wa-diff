@@ -21,7 +21,7 @@ __d(
       );
     }
     function u(e, t) {
-      return (t ? "\f" : "\uFEFF") + e;
+      return (t ? "\u3000" : "\uFEFF") + e;
     }
     function c(t) {
       r("gkx")("23983") &&
@@ -83,7 +83,7 @@ __d(
             var g = s(),
               h = u(t, g);
             ((d = g
-              ? n("cr:7329").fromSliver(h)
+              ? n("cr:7329").fromMorsel(h)
               : n("cr:7329").fromFragment(h)),
               (m = !0));
           } catch (e) {

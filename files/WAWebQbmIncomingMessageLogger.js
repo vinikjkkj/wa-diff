@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebApiVerifiedBusinessName",
+    "WAWebChatThreadLogging",
     "WAWebInAppSignupInfoStore",
     "WAWebLidAwareContactsDB",
     "WAWebMsgGetters",
@@ -27,15 +28,16 @@ __d(
       s,
       u,
       c,
-      d =
+      d,
+      m =
         ((e = {}),
-        (e[(c = o("WAWebWamEnumQbmFlag")).QBM_FLAG.OTHER] = "OTHER"),
-        (e[c.QBM_FLAG.TRANSACTIONAL] = "TRANSACTIONAL"),
-        (e[c.QBM_FLAG.PROMOTIONAL] = "NON_TRANSACTIONAL"),
-        (e[c.QBM_FLAG.OTP] = "OTP"),
-        (e[c.QBM_FLAG.MARKETING_MESSAGE_SMB] = "MARKETING_MESSAGE_SMB"),
+        (e[(d = o("WAWebWamEnumQbmFlag")).QBM_FLAG.OTHER] = "OTHER"),
+        (e[d.QBM_FLAG.TRANSACTIONAL] = "TRANSACTIONAL"),
+        (e[d.QBM_FLAG.PROMOTIONAL] = "NON_TRANSACTIONAL"),
+        (e[d.QBM_FLAG.OTP] = "OTP"),
+        (e[d.QBM_FLAG.MARKETING_MESSAGE_SMB] = "MARKETING_MESSAGE_SMB"),
         e);
-    function m(e) {
+    function p(e) {
       var t = o("WAWebMsgGetters").getBizSource(e);
       return o("WAWebMsgGetters").isBizSourceFromMarketingMessage(t)
         ? o("WAWebWamEnumQbmFlag").QBM_FLAG.MARKETING_MESSAGE_SMB
@@ -49,20 +51,20 @@ __d(
                   : o("WAWebWamEnumQbmFlag").QBM_FLAG.OTHER;
           })(o("WAWebMsgGetters").getHsmTag(e));
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = f(e, t);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = y(e, t);
           if (a.length !== 0) {
             var i = r("compactMap")(a, function (e) {
                 var t,
                   n = e.msg;
                 return (t = n.from) != null ? t : null;
               }),
-              l = yield (u || (u = n("Promise"))).all([
+              l = yield (c || (c = n("Promise"))).all([
                 r("WAWebLidAwareContactsDB").bulkGet(
                   a.map(function (e) {
                     var t,
@@ -93,7 +95,7 @@ __d(
                     );
                   }),
               ]),
-              c = l[0],
+              u = l[0],
               d = l[1],
               m = new Map(
                 i.map(function (e, t) {
@@ -102,23 +104,32 @@ __d(
               ),
               p = a.map(function (e, t) {
                 var n = e.msg;
-                return y(
-                  c[t],
+                return v(
+                  u[t],
                   n.from == null ? null : m.get(n.from.toString()),
                 );
               }),
-              _ = yield o(
-                "WAWebP2PPillsThreadOriginStore",
-              ).getPillQbmFieldsForThreads(
-                a.map(function (e, t) {
-                  var n = e.chat;
-                  return p[t] != null
-                    ? n == null
-                      ? void 0
-                      : n.accountLid
-                    : null;
-                }),
-              );
+              _ = yield c.all([
+                o("WAWebP2PPillsThreadOriginStore").getPillQbmFieldsForThreads(
+                  a.map(function (e, t) {
+                    var n = e.chat;
+                    return p[t] != null
+                      ? n == null
+                        ? void 0
+                        : n.accountLid
+                      : null;
+                  }),
+                ),
+                c.all(
+                  a.map(function (e, t) {
+                    var n = e.chat,
+                      r = e.msg;
+                    return p[t] != null ? g(r, n) : null;
+                  }),
+                ),
+              ]),
+              f = _[0],
+              h = _[1];
             (o("WAWebABProps").getABPropConfigValue(
               "inapp_signup_m1_logging_enabled",
             ) &&
@@ -128,24 +139,61 @@ __d(
               a.forEach(function (e, t) {
                 var n = e.chat,
                   r = e.msg;
-                h(r, n, c[t], p[t], _[t]);
+                b(r, n, u[t], p[t], f[t], h[t]);
               }));
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var a = yield (c || (c = n("Promise"))).all([
+                o("WAWebChatThreadLogging").getMessageIDHMAC(e.id.toString()),
+                t != null
+                  ? o("WAWebChatThreadLogging").getChatThreadIDHMAC(t.id)
+                  : null,
+              ]),
+              i = a[0],
+              l = a[1];
+            return {
+              messageIdHmac: i != null ? i : void 0,
+              threadIdHmac: l != null ? l : void 0,
+            };
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAM:QBM_INCOMING_MESSAGE] id hmac failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("qbm-incoming-id-hmac-failed"),
+              {}
+            );
+          }
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e, t) {
       var n = e.map(function (e, n) {
           return { msg: e, chat: t[n] };
         }),
         o = n.filter(function (e) {
           var t = e.msg;
-          return g(t);
+          return C(t);
         });
       return o.length === n.length || !r("gkx")("21649") ? n : o;
     }
-    function g(e) {
+    function C(e) {
       var t = e.from;
       return (
         !o("WAWebMsgGetters").getIsSentByMe(e) &&
@@ -154,50 +202,51 @@ __d(
         !t.isStatus()
       );
     }
-    function h(e, t, n, r, a) {
-      var i, l;
-      if (!(!g(e) || r == null)) {
-        var s = r.contactType,
-          u = r.isBizIntent,
-          c = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLoggingFromData(
+    function b(e, t, n, r, a, i) {
+      var l, s;
+      if (!(!C(e) || r == null)) {
+        var u = r.contactType,
+          c = r.isBizIntent,
+          d = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLoggingFromData(
             e,
           );
-        if (o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(c)) {
-          var p =
+        if (o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(d)) {
+          var _ =
               (t == null ? void 0 : t.archive) === !0
                 ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
                 : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
-            _ = m(e);
+            f = p(e);
           new (o("WAWebQbmIncomingMessageWamEvent").QbmIncomingMessageWamEvent)(
             babelHelpers.extends(
               {
-                contactType: s,
-                chatsFolderType: p,
+                contactType: u,
+                chatsFolderType: _,
                 isMuted:
                   (t == null ? void 0 : t.muteExpiration) != null &&
                   t.muteExpiration > 0,
-                qbmFlag: _,
-                qbmFlagStr: d[_],
+                qbmFlag: f,
+                qbmFlagStr: m[f],
                 hsmTagStr:
-                  (i = o("WAWebMsgGetters").getHsmTag(e)) != null ? i : "",
-                messageTypeStr: c,
+                  (l = o("WAWebMsgGetters").getHsmTag(e)) != null ? l : "",
+                messageTypeStr: d,
                 notificationEnabled: o(
                   "WAWebUserPrefsNotifications",
                 ).getGlobalNotifications(),
-                isBizIntent: u,
+                isBizIntent: c,
                 isInsubContact:
                   (n == null ? void 0 : n.isAddressBookContact) === 1,
               },
               o("WAWebQBMLoggerBuilder").getIasQbmFields(
-                (l = t == null ? void 0 : t.id) != null ? l : null,
+                (s = t == null ? void 0 : t.id) != null ? s : null,
               ),
               a,
+              i,
             ),
           ).commit();
         }
       }
     }
-    function y(e, t) {
+    function v(e, t) {
       return t != null
         ? {
             contactType: t.isApi
@@ -214,7 +263,7 @@ __d(
               isBizIntent: e.isBusiness,
             };
     }
-    l.logQbmIncomingMessages = p;
+    l.logQbmIncomingMessages = _;
   },
   98,
 );

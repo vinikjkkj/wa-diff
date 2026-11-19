@@ -364,19 +364,20 @@ __d(
                 a = o.emojiToGlyphId;
               return a.get(r);
             }),
-            (this.getGlyphPath = function (e, n) {
-              var r = t.normalizeEmojiFromString(e);
-              if (r == null) return null;
-              var a = t.$14(r),
-                i = t.$11(),
-                l = i.emojiToGlyphId,
-                s = l.get(a);
-              return s == null
+            (this.getGlyphPath = function (e, n, r) {
+              var a = t.normalizeEmojiFromString(e);
+              if (a == null) return null;
+              var i = t.$14(a),
+                l = t.$11(),
+                s = l.emojiToGlyphId,
+                u = s.get(i);
+              return u == null
                 ? null
                 : o("WAWebGetEmojiPathExperimental").getGlyphExperimentalPath(
-                    a,
+                    i,
                     t.$12().emojiType,
                     n,
+                    r,
                   );
             }),
             (this.getSpritesPath = function (e, t, n, r) {

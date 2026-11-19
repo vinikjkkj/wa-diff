@@ -4,26 +4,42 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      var t = [],
-        n = [];
-      for (var r of e) r.isExclusive ? t.push([r]) : n.push(r);
-      return n.length > 0 ? [].concat(t, [n]) : t;
+      return e.attentionMode !== "background";
     }
     function l(t) {
-      var n;
-      return (n = e(t)[0]) != null ? n : [];
+      return [].concat(
+        s(t.filter(e)),
+        s(
+          t.filter(function (t) {
+            return !e(t);
+          }),
+        ),
+      );
     }
-    function s(t, n) {
-      var r;
-      return (r = e(n).find(function (e) {
-        return e.some(function (e) {
-          return e.approvalId === t;
-        });
-      })) != null
-        ? r
-        : [];
+    function s(e) {
+      var t = [],
+        n = [];
+      for (var r of e)
+        r.isExclusive || r.payloadType === "browser_task_confirmation"
+          ? t.push([r])
+          : n.push(r);
+      return n.length > 0 ? [].concat(t, [n]) : t;
     }
     function u(e) {
+      var t;
+      return (t = l(e)[0]) != null ? t : [];
+    }
+    function c(e, t) {
+      var n;
+      return (n = l(t).find(function (t) {
+        return t.some(function (t) {
+          return t.approvalId === e;
+        });
+      })) != null
+        ? n
+        : [];
+    }
+    function d(e) {
       var t = e[0],
         n = babelHelpers.arrayLikeToArray(e).slice(1);
       if (t == null) return [];
@@ -46,10 +62,11 @@ __d(
       }
       return a;
     }
-    ((i.partitionExclusiveApprovals = e),
-      (i.getApprovalsToReviewNow = l),
-      (i.batchContaining = s),
-      (i.commonDecisionOptions = u));
+    ((i.isBlockingHatchApproval = e),
+      (i.partitionExclusiveApprovals = l),
+      (i.getApprovalsToReviewNow = u),
+      (i.batchContaining = c),
+      (i.commonDecisionOptions = d));
   },
   66,
 );

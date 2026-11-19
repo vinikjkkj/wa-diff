@@ -3,7 +3,9 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebVoipBackgroundBlurStrength",
     "WAWebVoipBackgroundImages",
+    "WAWebVoipColorBackground",
     "WAWebVoipVideoEffectsAssetsConfig",
     "WAWebVoipVideoEffectsAvailability",
     "WAWebVoipVideoEffectsFrameStats",
@@ -73,22 +75,43 @@ __d(
     }
     function W() {
       var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
-        t = e.image,
-        n = e.level;
-      return t != null ? { kind: "image", id: t } : { kind: "blur", level: n };
+        t = e.blur,
+        n = e.image;
+      return n != null
+        ? { kind: "image", id: n }
+        : { kind: "blur", strength: t };
     }
-    function q(e, t) {
-      return e.kind === "blur"
-        ? t.kind === "blur" && t.level === e.level
-        : t.kind === "image" && t.id === e.id;
+    function q() {
+      var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
+        t = e.blur,
+        n = e.image;
+      return n != null
+        ? Math.max(
+            t,
+            o("WAWebVoipBackgroundBlurStrength").DEFAULT_BLUR_STRENGTH,
+          )
+        : t;
     }
     function U() {
+      var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
+        t = e.blur,
+        n = e.image;
+      return n != null && o("WAWebVoipColorBackground").isColorBackgroundId(n)
+        ? 0
+        : t;
+    }
+    function V(e, t) {
+      return e.kind === "blur"
+        ? t.kind === "blur" && t.strength === e.strength
+        : t.kind === "image" && t.id === e.id;
+    }
+    function H() {
       return (
         o("WAWebVoipVideoEffectsState").isVideoEffectsRequested() &&
         o("WAWebVoipVideoEffectsAvailability").isVideoEffectsAvailable()
       );
     }
-    var V = (function () {
+    var G = (function () {
         function t() {
           ((this.$1 = null),
             (this.$2 = !1),
@@ -107,10 +130,12 @@ __d(
             (this.$15 = null),
             (this.$16 = !1),
             (this.$17 = !1),
-            (this.$18 = new (o(
+            (this.$18 = 0),
+            (this.$19 = 0),
+            (this.$20 = new (o(
               "WAWebVoipVideoEffectsFrameStats",
             ).WAWebVoipVideoEffectsFrameStats)()),
-            (this.$19 = new (o(
+            (this.$21 = new (o(
               "WAWebVoipVideoEffectsOverloadDetector",
             ).WAWebVoipVideoEffectsOverloadDetector)()));
         }
@@ -123,23 +148,23 @@ __d(
             ((this.$8 = t),
               this.$4 ||
                 ((this.$4 = !0),
-                (this.$3 = U()),
+                (this.$3 = H()),
                 o("WAWebVoipVideoEffectsState").subscribeToVideoEffects(
                   function () {
-                    return e.$20();
+                    return e.$22();
                   },
                 ),
                 o("WAWebVoipBackgroundImages").subscribeToBackgroundImageReady(
                   function (t) {
-                    return e.$21(t);
+                    return e.$23(t);
                   },
                 )));
             var r = this.$5;
             return (
               (this.$5 = !0),
-              (n >= M || (this.$6 && (n > N || this.$7))) && this.$22(),
-              this.$23(),
-              r || this.$24(),
+              (n >= M || (this.$6 && (n > N || this.$7))) && this.$24(),
+              this.$25(),
+              r || this.$26(),
               this.$3 ? ((this.$9 = t), this.$2) : !1
             );
           }),
@@ -172,7 +197,7 @@ __d(
                           ])),
                         x,
                       ),
-                      t.$25("failed"));
+                      t.$27("failed"));
                   }
                 };
               ((c.timeoutId = self.setTimeout(function () {
@@ -194,20 +219,20 @@ __d(
                         ])),
                     )
                     .catching(r("getErrorSafe")(e)),
-                  t.$25("failed"));
+                  t.$27("failed"));
               }
             });
           }),
           (a.recordCallEnd = function () {
-            this.$4 && ((this.$6 = !0), this.$26());
+            this.$4 && ((this.$6 = !0), this.$28());
           }),
           (a.recordCallStart = function () {
             this.$7 = this.$6;
           }),
-          (a.$23 = function () {
-            !this.$3 && U() && this.$20();
+          (a.$25 = function () {
+            !this.$3 && H() && this.$22();
           }),
-          (a.$20 = function () {
+          (a.$22 = function () {
             if (
               o("WAWebVoipVideoEffectsState").isVideoEffectsRequested() &&
               o("WAWebVoipVideoEffectsAvailability").isVideoEffectsTooSlow()
@@ -217,18 +242,18 @@ __d(
             }
             var e = this.$1,
               t = this.$15;
-            e != null && t != null && !q(t, W()) && this.$27(e);
-            var n = U();
+            e != null && t != null && this.$29(e, t);
+            var n = H();
             n !== this.$3 &&
-              ((this.$3 = n), n && (this.$9 = B()), this.$28(), this.$24());
+              ((this.$3 = n), n && (this.$9 = B()), this.$30(), this.$26());
           }),
-          (a.$29 = function () {
+          (a.$31 = function () {
             return this.$3 && this.$5;
           }),
-          (a.$24 = function () {
+          (a.$26 = function () {
             var e = this;
-            if ((this.$26(), !this.$29())) {
-              (this.$30(),
+            if ((this.$28(), !this.$31())) {
+              (this.$32(),
                 o("WAWebVoipVideoEffectsState").setVideoEffectsStatus("off"));
               return;
             }
@@ -247,12 +272,12 @@ __d(
                       ])),
                     D,
                   ),
-                  e.$25("start_timeout"));
+                  e.$27("start_timeout"));
               }, D)),
               o("WAWebVoipVideoEffectsState").setVideoEffectsStatus("starting"),
-              this.$1 == null && this.$29() && this.$31());
+              this.$1 == null && this.$31() && this.$33());
           }),
-          (a.$31 = function () {
+          (a.$33 = function () {
             var e = this;
             o("WAWebVoipVideoEffectsODS").logVideoEffects("worker_start");
             var t;
@@ -267,7 +292,7 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(e)),
-                this.$25("start_failed"));
+                this.$27("start_failed"));
               return;
             }
             this.$1 = t;
@@ -292,10 +317,10 @@ __d(
                           ])),
                       )
                       .catching(r("getErrorSafe")(t)),
-                      e.$25("start_failed"));
+                      e.$27("start_failed"));
                     return;
                   }
-                  (t.postMessage({ type: "init", assets: n }), e.$27(t));
+                  (t.postMessage({ type: "init", assets: n }), e.$34(t));
                 }
               }),
               t.addMessageListener("initDone", function (r) {
@@ -322,8 +347,8 @@ __d(
                       "worker_ready",
                     ),
                     (e.$2 = !0),
-                    e.$30(),
-                    e.$24());
+                    e.$32(),
+                    e.$26());
                 }
               }),
               t.addMessageListener("initFailed", function (n) {
@@ -359,18 +384,18 @@ __d(
                     ),
                     a !== "too_slow")
                   ) {
-                    e.$25("start_error");
+                    e.$27("start_error");
                     return;
                   }
                   (o(
                     "WAWebVoipVideoEffectsAvailability",
                   ).markVideoEffectsTooSlow(),
-                    e.$32(),
+                    e.$35(),
                     o("WAWebVoipVideoEffectsState").isVideoEffectsRequested()
                       ? o("WAWebVoipVideoEffectsState").stopVideoEffects(
                           "too_slow",
                         )
-                      : e.$24());
+                      : e.$26());
                 }
               }),
               t.addMessageListener("contextLost", function () {
@@ -381,7 +406,7 @@ __d(
                         "voip: [effects] effects worker lost its WebGL context",
                       ])),
                   ),
-                  e.$25(e.$2 ? "failed" : "start_error"));
+                  e.$27(e.$2 ? "failed" : "start_error"));
               }),
               t.addMessageListener("frameProcessed", function (n) {
                 var r = n.frame,
@@ -393,33 +418,33 @@ __d(
                   return;
                 }
                 e.$14 = 0;
-                var s = e.$33(a, r);
+                var s = e.$36(a, r);
                 if (s != null) {
                   var u = B();
-                  e.$18.recordProcessed(u, {
+                  e.$20.recordProcessed(u, {
                     roundTripMs: u - s,
                     segmented: l,
                     workerMs: i,
                   });
                 }
-                (e.$28(),
+                (e.$30(),
                   l &&
-                    e.$19.record(i, B()) &&
+                    e.$21.record(i, B()) &&
                     (o("WALogger").WARN(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [effects] the effects worker can't keep up with the camera",
                         ])),
                     ),
-                    e.$25("overloaded")));
+                    e.$27("overloaded")));
               }),
               t.addMessageListener("frameFailed", function (n) {
                 var r = n.detail,
                   a = n.id;
                 e.$1 === t &&
-                  (e.$33(a, null),
-                  e.$18.recordFailed(B()),
-                  e.$28(),
+                  (e.$36(a, null),
+                  e.$20.recordFailed(B()),
+                  e.$30(),
                   e.$14++,
                   e.$14 >= P &&
                     (o("WALogger").WARN(
@@ -432,7 +457,7 @@ __d(
                       e.$14,
                       r,
                     ),
-                    e.$25("failed")));
+                    e.$27("failed")));
               }),
               t.addMessageListener("log", function (e) {
                 var t = e.level,
@@ -480,26 +505,41 @@ __d(
                         ])),
                     )
                     .catching(r("getErrorSafe")(n)),
-                  e.$25(e.$2 ? "failed" : "start_error"));
+                  e.$27(e.$2 ? "failed" : "start_error"));
               }));
           }),
-          (a.$27 = function (t) {
+          (a.$29 = function (t, n) {
+            if (!V(n, W())) {
+              this.$34(t);
+              return;
+            }
+            if (this.$17) {
+              var e = U();
+              e !== this.$18 &&
+                ((this.$18 = e),
+                t.postMessage({ type: "setImageBlur", strength: e }));
+            } else !this.$16 && q() !== this.$19 && this.$37(t);
+          }),
+          (a.$34 = function (t) {
             var e = W(),
               n = this.$15 == null;
             ((this.$15 = e),
               (this.$17 = !1),
-              (e.kind === "blur" || n) && this.$34(t),
-              e.kind === "image" && this.$35(t, e));
+              (e.kind === "blur" || n) && this.$37(t),
+              e.kind === "image" && this.$38(t, e));
           }),
-          (a.$34 = function (t) {
-            var e = {
-              kind: "blur",
-              level: o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot()
-                .level,
-            };
-            t.postMessage({ type: "setEffect", effect: e });
+          (a.$37 = function (t) {
+            var e = q(),
+              n = {
+                kind: "blur",
+                level: o("WAWebVoipBackgroundBlurStrength").getNearestBlurLevel(
+                  e,
+                ),
+                strength: e,
+              };
+            (t.postMessage({ type: "setEffect", effect: n }), (this.$19 = e));
           }),
-          (a.$35 = (function () {
+          (a.$38 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 var n = this,
@@ -512,7 +552,7 @@ __d(
                   ((i = yield o("WAWebVoipBackgroundImages").getBackgroundImage(
                     t.id,
                   )),
-                    (l = a() ? yield G(i) : []));
+                    (l = a() ? yield j(i) : []));
                 } catch (n) {
                   if (!a()) return;
                   ((this.$16 = !1),
@@ -529,9 +569,9 @@ __d(
                             t.id,
                           )
                           .catching(r("getErrorSafe")(n)),
-                        o("WAWebVoipVideoEffectsState").setBackgroundImage(
-                          null,
-                        ))
+                        o(
+                          "WAWebVoipVideoEffectsState",
+                        ).blurInsteadOfBackgroundImage())
                       : (o("WALogger")
                           .WARN(
                             R ||
@@ -542,7 +582,7 @@ __d(
                             t.id,
                           )
                           .catching(r("getErrorSafe")(n)),
-                        this.$34(e)));
+                        this.$37(e)));
                   return;
                 }
                 var s = function () {
@@ -553,15 +593,17 @@ __d(
                   return;
                 }
                 this.$16 = !1;
-                var u = {
-                  columns: i.columns,
-                  kind: "image",
-                  rows: i.rows,
-                  tiles: l,
-                };
+                var u = U(),
+                  c = {
+                    blur: u,
+                    columns: i.columns,
+                    kind: "image",
+                    rows: i.rows,
+                    tiles: l,
+                  };
                 try {
                   e.postMessage(
-                    { type: "setEffect", effect: u },
+                    { type: "setEffect", effect: c },
                     Array.from(l),
                   );
                 } catch (e) {
@@ -579,6 +621,7 @@ __d(
                   return;
                 }
                 ((this.$17 = !0),
+                  (this.$18 = u),
                   o("WALogger").LOG(
                     E ||
                       (E = babelHelpers.taggedTemplateLiteralLoose([
@@ -594,7 +637,7 @@ __d(
             }
             return t;
           })()),
-          (a.$21 = function (t) {
+          (a.$23 = function (t) {
             var e = this.$1,
               n = this.$15;
             e != null &&
@@ -602,9 +645,9 @@ __d(
               n.id === t &&
               !this.$16 &&
               !this.$17 &&
-              this.$35(e, n);
+              this.$38(e, n);
           }),
-          (a.$33 = function (t, n) {
+          (a.$36 = function (t, n) {
             var e = this.$12.get(t);
             return e == null
               ? (n == null || n.close(), null)
@@ -613,10 +656,10 @@ __d(
                 e.resolve(n),
                 e.sentAtMs);
           }),
-          (a.$28 = function () {
-            !this.$3 && this.$12.size === 0 && this.$36(this.$18.take());
+          (a.$30 = function () {
+            !this.$3 && this.$12.size === 0 && this.$39(this.$20.take());
           }),
-          (a.$36 = function (t) {
+          (a.$39 = function (t) {
             if (t != null) {
               var e = function (t) {
                 return t.toFixed(1);
@@ -647,15 +690,15 @@ __d(
               );
             }
           }),
-          (a.$25 = function (t) {
-            var e = this.$29();
-            (this.$32(),
+          (a.$27 = function (t) {
+            var e = this.$31();
+            (this.$35(),
               e
                 ? o("WAWebVoipVideoEffectsState").stopVideoEffects(t)
-                : this.$24());
+                : this.$26());
           }),
-          (a.$32 = function () {
-            this.$36(this.$18.take());
+          (a.$35 = function () {
+            this.$39(this.$20.take());
             var e = this.$1;
             ((this.$1 = null),
               (this.$2 = !1),
@@ -663,8 +706,8 @@ __d(
               (this.$16 = !1),
               (this.$17 = !1),
               (this.$14 = 0),
-              this.$19.reset(),
-              this.$30());
+              this.$21.reset(),
+              this.$32());
             var t = Array.from(this.$12.values());
             (this.$12.clear(),
               t.forEach(function (e) {
@@ -674,7 +717,7 @@ __d(
               }),
               e == null || e.close());
           }),
-          (a.$26 = function () {
+          (a.$28 = function () {
             var e = this,
               t =
                 this.$1 != null ||
@@ -684,22 +727,22 @@ __d(
                 ).hasVideoEffectsChoiceToRestore();
             t && this.$11 == null
               ? (this.$11 = self.setInterval(function () {
-                  return e.$37();
+                  return e.$40();
                 }, A))
               : !t &&
                 this.$11 != null &&
                 (self.clearInterval(this.$11), (this.$11 = null));
           }),
-          (a.$37 = function () {
+          (a.$40 = function () {
             var e = B();
-            (this.$36(this.$18.takeIfDue(e)),
+            (this.$39(this.$20.takeIfDue(e)),
               this.$5 &&
                 this.$12.size === 0 &&
                 e - this.$8 > N &&
-                ((this.$5 = !1), this.$36(this.$18.take()), this.$24()),
-              !this.$5 && (this.$6 || e - this.$8 >= M) && this.$22(),
+                ((this.$5 = !1), this.$39(this.$20.take()), this.$26()),
+              !this.$5 && (this.$6 || e - this.$8 >= M) && this.$24(),
               this.$1 != null &&
-                !this.$29() &&
+                !this.$31() &&
                 e - this.$9 > w &&
                 (o("WALogger").LOG(
                   I ||
@@ -710,31 +753,31 @@ __d(
                 o("WAWebVoipVideoEffectsODS").logVideoEffects(
                   "worker_idle_stop",
                 ),
-                this.$32(),
-                this.$24()),
-              this.$26());
+                this.$35(),
+                this.$26()),
+              this.$28());
           }),
-          (a.$22 = function () {
+          (a.$24 = function () {
             ((this.$6 = !1),
               (this.$7 = !1),
               o(
                 "WAWebVoipVideoEffectsState",
               ).restoreRememberedVideoEffectsChoice());
           }),
-          (a.$30 = function () {
+          (a.$32 = function () {
             this.$10 != null &&
               (self.clearTimeout(this.$10), (this.$10 = null));
           }),
           t
         );
       })(),
-      H = new V();
-    function G(e) {
-      return z.apply(this, arguments);
+      z = new G();
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function z() {
+    function K() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield (T || (T = n("Promise"))).allSettled(
               e.tiles.map(function (e) {
                 return createImageBitmap(e);
@@ -750,10 +793,10 @@ __d(
             }
           return o;
         })),
-        z.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    ((l.WAWebVoipVideoEffectsProcessor = V), (l.videoEffectsProcessor = H));
+    ((l.WAWebVoipVideoEffectsProcessor = G), (l.videoEffectsProcessor = z));
   },
   98,
 );

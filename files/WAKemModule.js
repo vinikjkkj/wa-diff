@@ -37,12 +37,12 @@ __d(
             t = e.loadLiboqsWasm,
             n = yield t();
           f = n;
-          var o = N(p);
+          var o = 0;
           try {
-            if (((g = n._create_kem(o)), g === 0))
+            if (((o = M(p)), (g = n._create_kem(o)), g === 0))
               throw r("err")("KEM: Failed to create ML-KEM-1024 instance");
           } finally {
-            n._free(o);
+            o !== 0 && n._free(o);
           }
         })),
         v.apply(this, arguments)
@@ -56,15 +56,16 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield C();
           var e = y(),
-            t = e._malloc(u),
-            n = e._malloc(c);
+            t = 0,
+            n = 0;
           try {
+            ((t = P(u)), (n = P(c)));
             var o = e._keypair(g, t, n);
             if (o !== _)
               throw r("err")("KEM: keypair generation failed with code " + o);
-            return { publicKey: M(t, u), secretKey: M(n, c) };
+            return { publicKey: A(t, u), secretKey: A(n, c) };
           } finally {
-            (e._free(t), e._free(n));
+            (t !== 0 && e._free(t), w(e, n, c));
           }
         })),
         R.apply(this, arguments)
@@ -85,16 +86,17 @@ __d(
                 ", " +
                 ("expected " + u),
             );
-          var n = P(e),
-            o = t._malloc(d),
-            a = t._malloc(m);
+          var n = 0,
+            o = 0,
+            a = 0;
           try {
+            ((n = N(e)), (o = P(d)), (a = P(m)));
             var i = t._encaps(g, o, a, n);
             if (i !== _)
               throw r("err")("KEM: encapsulation failed with code " + i);
-            return { ciphertext: M(o, d), sharedSecret: M(a, m) };
+            return { ciphertext: A(o, d), sharedSecret: A(a, m) };
           } finally {
-            (t._free(n), t._free(o), t._free(a));
+            (n !== 0 && t._free(n), o !== 0 && t._free(o), w(t, a, m));
           }
         })),
         E.apply(this, arguments)
@@ -122,16 +124,17 @@ __d(
                 ", " +
                 ("expected " + c),
             );
-          var o = P(e),
-            a = P(t),
-            i = n._malloc(m);
+          var o = 0,
+            a = 0,
+            i = 0;
           try {
+            ((o = N(e)), (a = N(t)), (i = P(m)));
             var l = n._decaps(g, i, o, a);
             if (l !== _)
               throw r("err")("KEM: decapsulation failed with code " + l);
-            return M(i, m);
+            return A(i, m);
           } finally {
-            (n._free(o), n._free(a), n._free(i));
+            (o !== 0 && n._free(o), w(n, a, c), w(n, i, m));
           }
         })),
         I.apply(this, arguments)
@@ -142,17 +145,29 @@ __d(
       x = d,
       $ = m;
     function P(e) {
-      var t = y(),
-        n = t._malloc(e.length);
-      if (n === 0) throw r("err")("KEM: WASM _malloc failed (out of memory)");
-      return (t.HEAPU8.set(e, n), n);
+      var t = y()._malloc(e);
+      if (t === 0) throw r("err")("KEM: WASM _malloc failed (out of memory)");
+      return t;
     }
     function N(e) {
+      var t = y(),
+        n = e.length,
+        r = P(n);
+      try {
+        return (t.HEAPU8.set(e, r), r);
+      } catch (e) {
+        throw (w(t, r, n), e);
+      }
+    }
+    function M(e) {
       var t = new TextEncoder(),
         n = t.encode(e + "\0");
-      return P(new Uint8Array(n));
+      return N(new Uint8Array(n));
     }
-    function M(e, t) {
+    function w(e, t, n) {
+      t !== 0 && (e.HEAPU8.fill(0, t, t + n), e._free(t));
+    }
+    function A(e, t) {
       var n = y(),
         r = new Uint8Array(t);
       return (r.set(n.HEAPU8.subarray(e, e + t)), r);

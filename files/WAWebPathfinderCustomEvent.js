@@ -3,11 +3,22 @@ __d(
   ["WAWebPathfinderLogger", "WAWebPathfinderScreenName"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t, n, r, a;
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "CUSTOM_EVENT",
         originalEventName: e.eventName,
-        timestampMs: Date.now(),
-        screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
+        timestampMs:
+          (t = (n = e.capturedAt) == null ? void 0 : n.timestampMs) != null
+            ? t
+            : Date.now(),
+        screenName:
+          e.capturedAt != null
+            ? e.capturedAt.screenName
+            : o("WAWebPathfinderScreenName").getCurrentScreenName(),
+        unifiedSessionId:
+          (r = e.capturedAt) == null ? void 0 : r.unifiedSessionId,
+        heldBackSurface:
+          (a = e.capturedAt) == null ? void 0 : a.heldBackSurface,
         targetType: e.targetType,
         targetTrackingId: e.targetTrackingId,
         customMetadata: e.customMetadata,

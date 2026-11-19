@@ -35,77 +35,80 @@ __d(
         p = e.options,
         _ = p != null ? p : {},
         f = _.callLogCount,
-        g = _.unformat,
-        h = g === void 0 ? !0 : g,
-        y = _.formatAsLastMsg,
-        C = y === void 0 ? !1 : y,
-        b = _.formatAsSearchResult,
-        v = b === void 0 ? !1 : b,
-        S = _.spoilerReplacement,
-        R = _.searchQuery,
-        L = R === void 0 ? [] : R,
-        E = m.safe(),
-        k = !1,
-        I;
-      if (E.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && E.futureproofType)
-        I = o("WAWebMessagePluginFutureproofMsgText").futureproofMsgText({
+        g = _.isCallLive,
+        h = _.unformat,
+        y = h === void 0 ? !0 : h,
+        C = _.formatAsLastMsg,
+        b = C === void 0 ? !1 : C,
+        v = _.formatAsSearchResult,
+        S = v === void 0 ? !1 : v,
+        R = _.spoilerReplacement,
+        L = _.searchQuery,
+        E = L === void 0 ? [] : L,
+        k = m.safe(),
+        I = !1,
+        T;
+      if (k.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && k.futureproofType)
+        T = o("WAWebMessagePluginFutureproofMsgText").futureproofMsgText({
           msg: m,
         });
       else {
-        var T;
-        I =
-          (T = o("WAWebMessagePluginFormatMsgText").formatMsgText({
+        var D;
+        T =
+          (D = o("WAWebMessagePluginFormatMsgText").formatMsgText({
             msg: m,
             associatedMessages: l,
             options: {
               callLogCount: f,
-              unformat: h,
-              formatAsLastMsg: C,
-              formatAsSearchResult: v,
+              isCallLive: g,
+              unformat: y,
+              formatAsLastMsg: b,
+              formatAsSearchResult: S,
               onSpoilerReplacementHandled: function () {
-                k = !0;
+                I = !0;
               },
-              spoilerReplacement: S,
-              searchQuery: L,
+              spoilerReplacement: R,
+              searchQuery: E,
             },
           })) != null
-            ? T
+            ? D
             : o("WAWebSystemMessagePluginFormatMsgText").formatMsgText({
                 msg: m,
                 options: {
                   callLogCount: f,
-                  unformat: h,
-                  formatAsLastMsg: C,
-                  formatAsSearchResult: v,
+                  isCallLive: g,
+                  unformat: y,
+                  formatAsLastMsg: b,
+                  formatAsSearchResult: S,
                   onSpoilerReplacementHandled: function () {
-                    k = !0;
+                    I = !0;
                   },
-                  spoilerReplacement: S,
-                  searchQuery: L,
+                  spoilerReplacement: R,
+                  searchQuery: E,
                 },
               });
       }
-      if (I != null) return u(I, S, k);
-      switch (E.type) {
+      if (T != null) return u(T, R, I);
+      switch (k.type) {
         case o("WAWebMsgType").MSG_TYPE.HSM:
-          return c(m, (t = m.body) != null ? t : "", h, S);
+          return c(m, (t = m.body) != null ? t : "", y, R);
         case o("WAWebMsgType").MSG_TYPE.CHAT:
           if (m.isFromTemplate) {
-            var D,
-              x = (D = m.body) != null ? D : "";
+            var x,
+              $ = (x = m.body) != null ? x : "";
             return m.title
-              ? c(m, m.title + " " + x, h, S, "*" + m.title + "* " + x)
-              : c(m, x, h, S);
+              ? c(m, m.title + " " + $, y, R, "*" + m.title + "* " + $)
+              : c(m, $, y, R);
           }
           if (m.isDynamicReplyButtonsMsg && m.title) {
-            var $ = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.body, m);
-            if ($ != null)
-              return c(m, m.title + "\n" + $, h, S, "*" + m.title + "*\n" + $);
+            var P = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.body, m);
+            if (P != null)
+              return c(m, m.title + "\n" + P, y, R, "*" + m.title + "*\n" + P);
           }
-          return c(m, (n = m.body) != null ? n : "", h, S);
+          return c(m, (n = m.body) != null ? n : "", y, R);
         case o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE:
           return o("WAWebBizCtwaAGMUtils").isAGMSupported(m)
-            ? c(m, (a = m.body) != null ? a : "", h, S)
+            ? c(m, (a = m.body) != null ? a : "", y, R)
             : o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
         case o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE:
           return o("WAWebGalaxyFlowResponseUtils").isGalaxyFlowsResponseBubble(
@@ -114,55 +117,55 @@ __d(
             ? o("WAWebGalaxyFlowResponseUtils").getGalaxyFlowResponseSubtitle(
                 m.id,
               )
-            : d(m.body || "", S);
+            : d(m.body || "", R);
         case o("WAWebMsgType").MSG_TYPE.PTV: {
-          if (E.isViewOnce)
-            return o("WAWebViewOnceState").isViewed(E)
+          if (k.isViewOnce)
+            return o("WAWebViewOnceState").isViewed(k)
               ? s._(/*BTDS*/ "Opened")
               : s._(/*BTDS*/ "Video note");
-          var P = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.caption, m);
-          return P != null && P !== ""
-            ? c(m, P, h, S)
+          var N = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.caption, m);
+          return N != null && N !== ""
+            ? c(m, N, y, R)
             : s._(/*BTDS*/ "Video note");
         }
         case o("WAWebMsgType").MSG_TYPE.GP2:
-          return r("WAWebFormatGroupNotification")(m, C);
+          return r("WAWebFormatGroupNotification")(m, b);
         case o("WAWebMsgType").MSG_TYPE.BROADCAST_NOTIFICATION:
           return o(
             "WAWebFormatBroadcastNotification",
           ).formatBroadcastNotification(m);
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION:
-          return d((i = m.body) != null ? i : "", S);
+          return d((i = m.body) != null ? i : "", R);
         case o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION:
-          return o("WAWebFormatE2ENotification").formatE2ENotification(E);
+          return o("WAWebFormatE2ENotification").formatE2ENotification(k);
         case o("WAWebMsgType").MSG_TYPE.PRODUCT: {
-          var N = [o("WAWebFrontendMsgGetters").getText(m), m.caption, m.footer]
+          var M = [o("WAWebFrontendMsgGetters").getText(m), m.caption, m.footer]
             .filter(Boolean)
             .join(" ");
-          return N.length ? c(m, N, h, S) : s._(/*BTDS*/ "Product");
+          return M.length ? c(m, M, y, R) : s._(/*BTDS*/ "Product");
         }
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
           return o("WAWebFormatOversizedMsg").formatOversizedMsgText();
         case o("WAWebMsgType").MSG_TYPE.INTERACTIVE: {
-          var M = m;
+          var w = m;
           if (
-            M.nativeFlowName ===
+            w.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName")
                 .BOOKING_CONFIRMATION &&
             !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
           )
             return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
-          var w = o("WAWebBizFormatInteractiveMsg").formatInteractive(M, {
-            formatAsSearchResult: v,
+          var A = o("WAWebBizFormatInteractiveMsg").formatInteractive(w, {
+            formatAsSearchResult: S,
           });
-          return S == null ? w : d(w.toString(), S);
+          return R == null ? A : d(A.toString(), R);
         }
         case o("WAWebMsgType").MSG_TYPE.UNKNOWN:
           return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE:
           return d(
-            r("WAWebFormatNotificationTemplateText")(m, C).text.toString(),
-            S,
+            r("WAWebFormatNotificationTemplateText")(m, b).text.toString(),
+            R,
           );
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL:
           return m.subtype === "ephemeral_setting"
@@ -173,13 +176,13 @@ __d(
                 ? d(
                     r("WAWebFormatNotificationTemplateText")(
                       m,
-                      C,
+                      b,
                     ).text.toString(),
-                    S,
+                    R,
                   )
                 : "";
         case o("WAWebMsgType").MSG_TYPE.ORDER:
-          return d(m.message || "", S);
+          return d(m.message || "", R);
         case o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT:
           return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
         case o("WAWebMsgType").MSG_TYPE.COMMENT:
@@ -189,11 +192,11 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
           return o(
             "WAWebFormatMessageHistoryBundleBody",
-          ).formatMessageHistoryBundleBody(E);
+          ).formatMessageHistoryBundleBody(k);
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE:
           return o(
             "WAWebFormatMessageHistoryNoticeBody",
-          ).formatMessageHistoryNoticeBody(E);
+          ).formatMessageHistoryNoticeBody(k);
         default:
           return "";
       }

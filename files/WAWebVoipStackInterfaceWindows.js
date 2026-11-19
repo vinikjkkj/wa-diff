@@ -785,6 +785,12 @@ __d(
                 { transfer: t },
               ));
           },
+          onParticipantAdded: function (t) {
+            o("WAWebBackendApi").frontendFireAndForget(
+              "handleNativeParticipantAdded",
+              { invitee: o("WAWebWidFactory").createUserWidOrThrow(t) },
+            );
+          },
         },
         parsers: r("WAWebWindowsNativeVoipParsers"),
       };

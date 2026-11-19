@@ -1,34 +1,19 @@
 __d(
   "WAWebTextStatusGatingUtils",
-  ["WAWebABProps", "WAWebPrimaryFeatures"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
-        "text_status_receive_support",
+      return o("WAWebABProps").getABPropConfigValue(
+        "evolve_about_m1_receiver_for_new_surfaces_enabled",
       );
     }
     function s() {
-      return (
-        e() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "evolve_about_m1_receiver_for_new_surfaces_enabled",
-        )
-      );
-    }
-    function u() {
-      return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
-        "text_status_creation_support",
-      );
-    }
-    function c() {
       return o("WAWebABProps").getABPropConfigValue(
         "whats_happening_emoji_only_creation_enabled",
       );
     }
-    ((l.receiveTextStatusEnabled = e),
-      (l.receiveTextStatusForNewSurfacesEnabled = s),
-      (l.sendTextStatusEnabled = u),
-      (l.emojiOnlyAboutCreationEnabled = c));
+    ((l.receiveTextStatusForNewSurfacesEnabled = e),
+      (l.emojiOnlyAboutCreationEnabled = s));
   },
   98,
 );

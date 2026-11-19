@@ -47,9 +47,7 @@ __d(
               a = t.leadStage;
             if (!n.endsWith(o("WAJids").LID_DOMAIN))
               throw r("err")(
-                '[CustomerManager] upsertAsCustomer: chatJid must be LID-based, got "' +
-                  n +
-                  '"',
+                "[CustomerManager] upsertAsCustomer: chatJid must be LID-based",
               );
             o("WALogger").LOG(
               e ||
@@ -108,7 +106,7 @@ __d(
                   e,
                   ((t = e.extraFields) == null || (t = t.name) == null
                     ? void 0
-                    : t.trim()) || $(e.chatJid),
+                    : t.trim()) || null,
                 );
               }),
             );

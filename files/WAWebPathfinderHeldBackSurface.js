@@ -79,34 +79,60 @@ __d(
     function C() {
       for (var e of g) e.isConnected || g.delete(e);
     }
-    function b() {
+    function b(e) {
+      return e instanceof Element
+        ? (C(),
+          s.some(function (t) {
+            return v(t, e);
+          }) ||
+            Array.from(g).some(function (t) {
+              return t.contains(e);
+            }) ||
+            S(e))
+        : !1;
+    }
+    function v(e, t) {
+      var n = e.getRoot,
+        r = e.rootTestId;
+      if (n != null) {
+        var o = n();
+        return o != null && o.isConnected && o.contains(t);
+      }
+      return r != null && O(t, r);
+    }
+    function S(e) {
+      for (var t = e; t != null; t = t.parentElement)
+        if (_(t.getAttribute("data-testid"))) return !0;
+      return !1;
+    }
+    function R() {
       return c;
     }
-    function v() {
+    function L() {
       c++;
     }
-    var S = new Set([e.CHAT_LOCK_SECRET_CODE, e.DIAL_PAD]);
-    function R() {
+    var E = new Set([e.CHAT_LOCK_SECRET_CODE, e.DIAL_PAD]);
+    function k() {
       var e;
       return (e = s.findLast(function (e) {
         return (
           (e.rootTestId != null || e.getRoot != null) &&
-          !S.has(e.name) &&
+          !E.has(e.name) &&
           (e.isCurrent == null ? void 0 : e.isCurrent()) !== !1
         );
       })) == null
         ? void 0
         : e.name;
     }
-    function L(e, t) {
-      var n = E(e);
+    function I(e, t) {
+      var n = T(e);
       try {
         t();
       } finally {
         n();
       }
     }
-    function E(e, t) {
+    function T(e, t) {
       var n = t === void 0 ? {} : t,
         r = n.getRoot,
         o = n.holdsUntilRootAttached,
@@ -133,7 +159,7 @@ __d(
         }
       );
     }
-    function k(e) {
+    function D(e) {
       var t = s.findLast(function (t) {
         return (
           e != null &&
@@ -143,21 +169,21 @@ __d(
       });
       return t != null ? t.name : null;
     }
-    var I = null;
-    function T(e) {
-      I = e;
+    var x = null;
+    function $(e) {
+      x = e;
     }
-    function D(e) {
+    function P(e) {
       for (var t, n = s.length - 1; n >= 0; n--) {
         var r = s[n];
-        if (N(r, e)) return r.name;
+        if (A(r, e)) return r.name;
       }
-      return e != null && (t = I == null ? void 0 : I(e)) != null ? t : null;
+      return e != null && (t = x == null ? void 0 : x(e)) != null ? t : null;
     }
-    function x(e) {
+    function N(e) {
       return s
         .filter(function (t) {
-          return N(t, e);
+          return A(t, e);
         })
         .map(function (e) {
           var t = e.name,
@@ -165,23 +191,23 @@ __d(
           return { name: t, token: n };
         });
     }
-    function $() {
+    function M() {
       return new Set(
         s.map(function (e) {
           return e.token;
         }),
       );
     }
-    function P(e) {
-      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : D();
+    function w(e) {
+      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : P();
       return (
         t != null ||
         d(e.screenName) ||
         d(e.destinationName) ||
-        k(e.screenName) != null
+        D(e.screenName) != null
       );
     }
-    function N(e, t) {
+    function A(e, t) {
       var n = e.getRoot,
         r = e.holdsUntilRootAttached,
         o = e.rootTestId;
@@ -191,12 +217,12 @@ __d(
           ? r
           : t instanceof Node && a.contains(t);
       }
-      return o == null || (r && !M(o)) ? !0 : w(t, o);
+      return o == null || (r && !F(o)) ? !0 : O(t, o);
     }
-    function M(e) {
+    function F(e) {
       return document.querySelector('[data-testid="' + e + '"]') != null;
     }
-    function w(e, t) {
+    function O(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );
@@ -208,17 +234,18 @@ __d(
       (i.holdBackTapsOn = f),
       (i.holdBackTapsInside = h),
       (i.isInsideHeldTapElement = y),
-      (i.getScreenUnlockCount = b),
-      (i.noteScreenUnlocked = v),
-      (i.getOpenScopedHeldBackSurface = R),
-      (i.openHeldBack = L),
-      (i.enterHeldBackSurface = E),
-      (i.captureHeldBackScreen = k),
-      (i.setHeldPopupLookup = T),
-      (i.captureHeldBackSurface = D),
-      (i.getCoveringHeldBackHolds = x),
-      (i.getActiveHeldBackTokens = $),
-      (i.isHeldBackEvent = P));
+      (i.isInsideHeldBackElement = b),
+      (i.getScreenUnlockCount = R),
+      (i.noteScreenUnlocked = L),
+      (i.getOpenScopedHeldBackSurface = k),
+      (i.openHeldBack = I),
+      (i.enterHeldBackSurface = T),
+      (i.captureHeldBackScreen = D),
+      (i.setHeldPopupLookup = $),
+      (i.captureHeldBackSurface = P),
+      (i.getCoveringHeldBackHolds = N),
+      (i.getActiveHeldBackTokens = M),
+      (i.isHeldBackEvent = w));
   },
   66,
 );

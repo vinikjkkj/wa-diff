@@ -45,7 +45,6 @@ __d(
                 hasAnnouncement: !1,
                 hasCapi: !1,
                 hasWork: !1,
-                hasLightE2ee: !1,
                 hasNoFrequentlyForwarded: !1,
                 hasHiddenGroup: !1,
                 hasLocked: !1,

@@ -46,17 +46,26 @@ __d(
         o("WASmaxInGroupsEnums").ENUM_FALSE_TRUE,
       );
       if (!l.success) return l;
-      var s = o("WASmaxInGroupsParticipantMixins").parseParticipantMixins(e);
-      return s.success
+      var s = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "bot_product",
+        o("WASmaxInGroupsEnums")
+          .ENUM_1PCARAVAN_1PCOEXV2_1PGROUPMUSE_1PMAIBAHUBCHAT_1PMETAAI_1PMETAAITHREAD_1PMUSE_1PTEE_1PWAFORWORK_1PWAIAS_3PAGENT,
+      );
+      if (!s.success) return s;
+      var u = o("WASmaxInGroupsParticipantMixins").parseParticipantMixins(e);
+      return u.success
         ? o("WAResultOrError").makeResult({
             type: n.value,
             participantLabel: r.value,
             participantLabelMtime: a.value,
             joinTime: i.value,
             groupHistorySent: l.value,
-            participantMixins: s.value,
+            botProduct: s.value,
+            participantMixins: u.value,
           })
-        : s;
+        : u;
     }
     l.parseParticipantMixin = e;
   },

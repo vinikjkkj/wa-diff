@@ -13,6 +13,7 @@ __d(
         "wa_web_favicons_update_m1",
         "web_ui_refresh_m1",
         "web_hybrid_apply_latest_db_schema_optimization_enabled",
+        "web_db_upgrade_from_stored_version",
       ],
       u = "abprops_needed_early";
     function c() {

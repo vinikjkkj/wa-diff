@@ -295,28 +295,23 @@ __d(
       var n,
         r,
         a,
-        i,
-        l,
-        s = o("WAWebCustomerManagerImportRecordInput").buildCustomerRecordInput(
+        i = o("WAWebCustomerManagerImportRecordInput").buildCustomerRecordInput(
           e,
         );
       return {
         contact: e,
-        input: s,
+        input: i,
         profileName:
           (n = t == null ? void 0 : t.savedContactName) != null
             ? n
-            : [
-                (r = s.firstName) == null ? void 0 : r.trim(),
-                (a = s.lastName) == null ? void 0 : a.trim(),
-              ]
-                .filter(Boolean)
-                .join(" "),
+            : o(
+                "WAWebCustomerManagerImportRecordInput",
+              ).getImportedCustomerName(e),
         savedContactName: t == null ? void 0 : t.savedContactName,
         wasNewContact:
-          (i = t == null ? void 0 : t.wasNewContact) != null ? i : !0,
+          (r = t == null ? void 0 : t.wasNewContact) != null ? r : !0,
         wasNewProfile:
-          (l = t == null ? void 0 : t.wasNewProfile) != null ? l : !0,
+          (a = t == null ? void 0 : t.wasNewProfile) != null ? a : !0,
       };
     }
     function w(e) {

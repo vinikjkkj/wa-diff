@@ -7,6 +7,7 @@ __d(
     "WAWebBrPixRequestRowAttributes",
     "WAWebBrazilPaymentsGeoGating",
     "WAWebBuyerEventLogger",
+    "WAWebCarouselMsgUtils",
     "WAWebCloudApiSignalLogger",
     "WAWebContactUtils",
     "WAWebFrontendMsgGetters",
@@ -375,15 +376,19 @@ __d(
           "WAWebOrderDetailsCloudApiSignalResolver",
         ).resolveOrderDetailsCloudApiSignal(r, n);
       if (a != null) {
-        var i = t.unsafe();
-        o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
-          chat: o("WAWebFrontendMsgGetters").getChat(i),
-          ctaAction: a.ctaAction,
-          ctaButtonIndex: a.ctaButtonIndex,
-          msg: i,
-          templateType: o("WAWebWamEnumCloudApiSignalTemplateType")
-            .CLOUD_API_SIGNAL_TEMPLATE_TYPE.ORDER_DETAILS,
-        });
+        var i = t.unsafe(),
+          l = i.isCarouselCard
+            ? o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(i)
+            : i;
+        l != null &&
+          o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
+            chat: o("WAWebFrontendMsgGetters").getChat(i),
+            ctaAction: a.ctaAction,
+            ctaButtonIndex: a.ctaButtonIndex,
+            msg: l,
+            templateType: o("WAWebWamEnumCloudApiSignalTemplateType")
+              .CLOUD_API_SIGNAL_TEMPLATE_TYPE.ORDER_DETAILS,
+          });
       }
     }
     ((l.logPaymentInfoOrderDetailsInteractiveActionForRecipient = m),

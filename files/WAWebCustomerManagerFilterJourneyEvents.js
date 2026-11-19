@@ -31,11 +31,10 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function u(e) {
+    function u(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { label_id: e != null ? e : "cleared" },
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-          .CUSTOMER_MANAGER_LIST,
+        surface: o("WAWebCustomerManagerWamLogging").viewSurface(t),
         userActionTarget: "label_filter_chip",
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -52,15 +51,6 @@ __d(
     }
     function d(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
-        extraAttributes: { range: e != null ? e : "cleared" },
-        surface: o("WAWebCustomerManagerWamLogging").viewSurface(t),
-        userActionTarget: "acquisition_date_filter_chip",
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-      });
-    }
-    function m(e, t) {
-      o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { month: e != null ? e : "cleared" },
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(t),
         userActionTarget: "birth_month_filter_chip",
@@ -68,7 +58,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function p(e) {
+    function m(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
         o("WAWebCustomerManagerFilterWamPayload").filterClick(
           "contact_type_filter_chip",
@@ -76,7 +66,7 @@ __d(
         ),
       );
     }
-    function _(e, t) {
+    function p(e, t) {
       (t === void 0 && (t = "list"),
         o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
           o("WAWebCustomerManagerFilterWamPayload").filterClick(
@@ -86,7 +76,7 @@ __d(
           ),
         ));
     }
-    function f(e) {
+    function _(e) {
       (e === void 0 && (e = "list"),
         o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
           o("WAWebCustomerManagerFilterWamPayload").filterClick(
@@ -96,7 +86,7 @@ __d(
           ),
         ));
     }
-    function g(e) {
+    function f(e) {
       (e === void 0 && (e = "list"),
         o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
           o("WAWebCustomerManagerFilterWamPayload").filterClick(
@@ -106,7 +96,7 @@ __d(
           ),
         ));
     }
-    function h(e) {
+    function g(e) {
       (e === void 0 && (e = "list"),
         o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
           o("WAWebCustomerManagerFilterWamPayload").filterClick(
@@ -116,7 +106,7 @@ __d(
           ),
         ));
     }
-    function y(e, t) {
+    function h(e, t) {
       (t === void 0 && (t = "list"),
         o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
           o("WAWebCustomerManagerFilterWamPayload").filterClick(
@@ -126,7 +116,7 @@ __d(
           ),
         ));
     }
-    function C(e, t, n) {
+    function y(e, t, n) {
       (n === void 0 && (n = "list"),
         o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
           o("WAWebCustomerManagerFilterWamPayload").filterDismiss(
@@ -135,7 +125,7 @@ __d(
           ),
         ));
     }
-    function b(e, t) {
+    function C(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney(
         o("WAWebCustomerManagerFilterWamPayload").filterClick(
           "filter_chip",
@@ -144,7 +134,7 @@ __d(
         ),
       );
     }
-    function v(e) {
+    function b(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { contact_type: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -154,7 +144,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function S(e, t) {
+    function v(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { span_days: e },
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(t),
@@ -163,7 +153,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function R(e) {
+    function S(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: e,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -177,19 +167,18 @@ __d(
       (l.changeLastMessageFilter = s),
       (l.changeLabelFilter = u),
       (l.changeAcquisitionSourceFilter = c),
-      (l.changeAcquisitionDateFilter = d),
-      (l.changeBirthMonthFilter = m),
-      (l.clickContactTypeChip = p),
-      (l.clickLastMessageChip = _),
-      (l.clickCustomRangeItem = f),
-      (l.clickCustomRangeFirstDay = g),
-      (l.clickAddFilterChip = h),
-      (l.clickFilterSubmenuRow = y),
-      (l.dismissFilterMenu = C),
-      (l.clickFilterChipReopen = b),
-      (l.changeContactTypeFilter = v),
-      (l.changeCustomDateRange = S),
-      (l.filterResult = R));
+      (l.changeBirthMonthFilter = d),
+      (l.clickContactTypeChip = m),
+      (l.clickLastMessageChip = p),
+      (l.clickCustomRangeItem = _),
+      (l.clickCustomRangeFirstDay = f),
+      (l.clickAddFilterChip = g),
+      (l.clickFilterSubmenuRow = h),
+      (l.dismissFilterMenu = y),
+      (l.clickFilterChipReopen = C),
+      (l.changeContactTypeFilter = b),
+      (l.changeCustomDateRange = v),
+      (l.filterResult = S));
   },
   98,
 );

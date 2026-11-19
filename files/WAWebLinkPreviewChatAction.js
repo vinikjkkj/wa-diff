@@ -14,6 +14,7 @@ __d(
     "WAWebChatGetters",
     "WAWebCheckIfDomainIsPreviewable",
     "WAWebGenMinimalLinkPreviewChatAction",
+    "WAWebHatchPeerPairingUrl",
     "WAWebLinkPreviewCache",
     "WAWebLinkPreviewGroupUtils",
     "WAWebLinkPreviewUtils",
@@ -70,6 +71,10 @@ __d(
               ),
               null
             );
+          if (
+            o("WAWebHatchPeerPairingUrl").isHatchPeerPairingInvitationUrl(e.url)
+          )
+            return null;
           var l = yield o(
             "WAWebCheckIfDomainIsPreviewable",
           ).checkIfDomainIsPreviewable(e.domain, t);

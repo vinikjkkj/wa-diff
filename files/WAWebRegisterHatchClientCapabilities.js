@@ -94,6 +94,9 @@ __d(
         o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled()
           ? ["jarvis_schema"]
           : [],
+        o("WAWebHatchFrontendGating").isHatchPeerPairingCardEnabled()
+          ? ["pairing_launcher"]
+          : [],
       );
     }
     function g() {

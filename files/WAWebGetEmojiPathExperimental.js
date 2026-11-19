@@ -8,40 +8,49 @@ __d(
         : e + "/emoji/v1",
       u = 16,
       c = 0,
-      d = 2;
-    function m(e, t, n) {
-      return p(e, n, t, "png");
-    }
+      d = 2,
+      m = [u, c, d];
     function p(e, t, n, r) {
-      var o = _(e);
-      return g({
+      return _(e, n, t, "png", r);
+    }
+    function _(e, t, n, r, o) {
+      var a = f(e);
+      return h({
+        assetVersion:
+          n === "APPLE" && t === 160
+            ? o == null
+              ? void 0
+              : o.appleLargeVersion
+            : void 0,
         emojiType: n,
-        identifier: o + "." + r,
+        identifier: a + "." + r,
         packaging: "single",
         size: t,
       });
     }
-    function _(e) {
+    function f(e) {
       return Array.from(e, function (e) {
         return e.codePointAt(0).toString(16).padStart(6, "0");
       }).join("_");
     }
-    function f(e, t, n, r) {
-      return g({
+    function g(e, t, n, r) {
+      return h({
         emojiType: e,
         identifier: t + "." + r,
         packaging: "sprite",
         size: n,
       });
     }
-    function g(e) {
-      var t = e.emojiType,
-        n = e.identifier,
-        r = e.packaging,
-        o = e.size;
-      return [s, u, c, d, r, t.toLowerCase().slice(0, 1), o, n].join("/");
+    function h(e) {
+      var t = e.assetVersion,
+        n = e.emojiType,
+        r = e.identifier,
+        o = e.packaging,
+        a = e.size,
+        i = t != null ? t : m;
+      return [s].concat(i, [o, n.toLowerCase().slice(0, 1), a, r]).join("/");
     }
-    ((l.getGlyphExperimentalPath = m), (l.getEmojiSpritesExperimentalPath = f));
+    ((l.getGlyphExperimentalPath = p), (l.getEmojiSpritesExperimentalPath = g));
   },
   98,
 );

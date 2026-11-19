@@ -10,17 +10,25 @@ __d(
       s = new Set(),
       u = null,
       c = !1;
-    function d(t, n, r) {
-      return o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
-        "wa:dbInit",
-        function () {
-          if (s.size >= e) return null;
-          var o = {
-            value: { db: t, f: n != null ? n : void 0, t: r },
-            startMs: self.performance.now(),
-          };
-          return (s.add(o), f(), o);
-        },
+    function d(t, n, r, a) {
+      return (
+        a === void 0 && (a = 0),
+        o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
+          "wa:dbInit",
+          function () {
+            if (s.size >= e) return null;
+            var o = {
+              value: {
+                db: t,
+                f: n != null ? n : void 0,
+                s: a > 0 ? a : void 0,
+                t: r,
+              },
+              startMs: self.performance.now(),
+            };
+            return (s.add(o), f(), o);
+          },
+        )
       );
     }
     function m(e) {

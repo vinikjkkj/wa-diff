@@ -9,6 +9,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDecodeJid",
     "WAWebGroupAgentPrivacyNoticeParams",
+    "WAWebGroupHistoryAutoAddRecipients",
     "WAWebLimitSharingGatingUtils",
     "WAWebLimitSharingPropMappingUtils",
     "WAWebMsgKey",
@@ -871,10 +872,14 @@ __d(
               (t.subtype = "membership_approval_request"));
             break;
           case u.GROUP_PARTICIPANT_JOINED_GROUP_AND_PARENT_GROUP:
-            ((t.type = "gp2"),
+            return (
+              (t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),
-              (t.subtype = "auto_add"));
-            break;
+              (t.subtype = "auto_add"),
+              o(
+                "WAWebGroupHistoryAutoAddRecipients",
+              ).normalizeGroupHistoryAutoAddRecipients(t)
+            );
           case u.COMMUNITY_PARENT_GROUP_DELETED:
             ((t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),

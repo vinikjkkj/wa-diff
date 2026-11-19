@@ -38,6 +38,7 @@ __d(
     "WAWebNonMessageDataRequestMediaHandlingUtils",
     "WAWebOpusMigration",
     "WAWebOrgBackgroundSyncJob",
+    "WAWebPQGatingUtils",
     "WAWebPersistedJobDefinitions",
     "WAWebPollPendingUpdatesCleanup",
     "WAWebQplStorage",
@@ -107,65 +108,68 @@ __d(
       B,
       W,
       q,
-      U = (q = r("requireDeferred"))(
+      U,
+      V = (U = r("requireDeferred"))(
         "WAWebBizBroadcastAudienceRefreshJob",
       ).__setRef("WAWebTasksDefinitions"),
-      V = q("WAWebCanonicalCredentialRecoveryJob").__setRef(
+      H = U("WAWebCanonicalCredentialRecoveryJob").__setRef(
         "WAWebTasksDefinitions",
       ),
-      H = q("WAWebConsumerFetchQuickPromotions").__setRef(
+      G = U("WAWebConsumerFetchQuickPromotions").__setRef(
         "WAWebTasksDefinitions",
       ),
-      G = q("WAWebFetchQuickPromotions").__setRef("WAWebTasksDefinitions"),
-      z = o("WATimeUtils").MINUTE_SECONDS * 15,
-      j = [
-        (W = o("WAWebTasksTaskType")).TaskType.AEA_CONSUMER_BACKFILL,
-        W.TaskType.CANONICAL_ENT_TOKEN_REFRESH,
-        W.TaskType.CLEAN_TC_TOKENS,
-        W.TaskType.LOG_DAILY_STATS,
-        W.TaskType.ROTATE_KEY,
-        W.TaskType.SYNC_AB_PROPS,
-        W.TaskType.SYNC_CONTACTS,
-        W.TaskType.REPORT_SYNCD_ACTION_STAT,
-        W.TaskType.LT_HASH_CHECK,
-        W.TaskType.REQUEST_ALL_SYNCD_MISSING_KEYS,
-        W.TaskType.REPORT_SYNCD_KEY_STATS,
-        W.TaskType.SYNCD_SYNC_ALL_COLLECTIONS,
-        W.TaskType.CLEAN_ORPHAN_ADD_ONS,
-        W.TaskType.CLEAN_POLL_PENDING_UPDATES,
-        W.TaskType.CLEAN_EXPIRED_UTM,
-        W.TaskType.SEND_NON_MESSAGE_DATA_REQUEST,
-        W.TaskType.LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING,
-        W.TaskType.DELETE_NEWSLETTER_PREVIEW_CHATS,
-        W.TaskType.REPORT_DB_VERSIONS,
-        W.TaskType.UPDATE_EXPIRED_TEXT_STATUS,
-        W.TaskType.RESTART_RECENT_SYNC,
-        W.TaskType.CLEANUP_REPORTING_TABLE,
-        W.TaskType.CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE,
-        W.TaskType.CLEANUP_SCHEDULED_MSG_REVEAL_KEYS,
-        W.TaskType.CLEANUP_COEXV2_MESSAGING_STORES,
-        W.TaskType.WAFFLE_SCHEDULED_TASKS,
-        W.TaskType.CLEAR_GALAXY_FLOWS_CACHE,
-        W.TaskType.CLEAR_FALCO_BUFFER,
-        W.TaskType.SEND_WAM_FINGERPRINT,
-        W.TaskType.INACTIVE_GROUP_LID_MIGRATION,
-        W.TaskType.QUERY_MISSING_PARENT_GROUPS,
-        W.TaskType.CLEAN_META_AI_BOT_SESSION,
-        W.TaskType.PURGE_QPL_STORAGE,
-        W.TaskType.CLEAN_WEBTP_SHARED_SESSIONS,
-        W.TaskType.CLEAN_EXPIRED_QUARANTINE_DATA,
-        W.TaskType.CLEAN_EXPIRED_MUSIC_LYRICS,
-        W.TaskType.OPUS_MIGRATION,
-        W.TaskType.FETCH_QUICK_PROMOTIONS,
-        W.TaskType.SYNC_ORGS,
+      z = U("WAWebFetchQuickPromotions").__setRef("WAWebTasksDefinitions"),
+      j = U("WAWebPQSessionUpgradeJob").__setRef("WAWebTasksDefinitions"),
+      K = o("WATimeUtils").MINUTE_SECONDS * 15,
+      Q = [
+        (q = o("WAWebTasksTaskType")).TaskType.AEA_CONSUMER_BACKFILL,
+        q.TaskType.CANONICAL_ENT_TOKEN_REFRESH,
+        q.TaskType.CLEAN_TC_TOKENS,
+        q.TaskType.LOG_DAILY_STATS,
+        q.TaskType.ROTATE_KEY,
+        q.TaskType.SYNC_AB_PROPS,
+        q.TaskType.SYNC_CONTACTS,
+        q.TaskType.REPORT_SYNCD_ACTION_STAT,
+        q.TaskType.LT_HASH_CHECK,
+        q.TaskType.REQUEST_ALL_SYNCD_MISSING_KEYS,
+        q.TaskType.REPORT_SYNCD_KEY_STATS,
+        q.TaskType.SYNCD_SYNC_ALL_COLLECTIONS,
+        q.TaskType.CLEAN_ORPHAN_ADD_ONS,
+        q.TaskType.CLEAN_POLL_PENDING_UPDATES,
+        q.TaskType.CLEAN_EXPIRED_UTM,
+        q.TaskType.SEND_NON_MESSAGE_DATA_REQUEST,
+        q.TaskType.LOG_HISTORY_SYNC_STATUS_AFTER_PAIRING,
+        q.TaskType.DELETE_NEWSLETTER_PREVIEW_CHATS,
+        q.TaskType.REPORT_DB_VERSIONS,
+        q.TaskType.UPDATE_EXPIRED_TEXT_STATUS,
+        q.TaskType.RESTART_RECENT_SYNC,
+        q.TaskType.CLEANUP_REPORTING_TABLE,
+        q.TaskType.CLEANUP_GROUP_HISTORY_REPORTING_TOKEN_TABLE,
+        q.TaskType.CLEANUP_SCHEDULED_MSG_REVEAL_KEYS,
+        q.TaskType.CLEANUP_COEXV2_MESSAGING_STORES,
+        q.TaskType.WAFFLE_SCHEDULED_TASKS,
+        q.TaskType.CLEAR_GALAXY_FLOWS_CACHE,
+        q.TaskType.CLEAR_FALCO_BUFFER,
+        q.TaskType.SEND_WAM_FINGERPRINT,
+        q.TaskType.INACTIVE_GROUP_LID_MIGRATION,
+        q.TaskType.QUERY_MISSING_PARENT_GROUPS,
+        q.TaskType.CLEAN_META_AI_BOT_SESSION,
+        q.TaskType.PURGE_QPL_STORAGE,
+        q.TaskType.CLEAN_WEBTP_SHARED_SESSIONS,
+        q.TaskType.CLEAN_EXPIRED_QUARANTINE_DATA,
+        q.TaskType.CLEAN_EXPIRED_MUSIC_LYRICS,
+        q.TaskType.OPUS_MIGRATION,
+        q.TaskType.PQ_SESSION_UPGRADE,
+        q.TaskType.FETCH_QUICK_PROMOTIONS,
+        q.TaskType.SYNC_ORGS,
       ],
-      K = [
-        W.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
-        W.TaskType.CLEANUP_STALE_CAMPAIGNS,
-        W.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
+      X = [
+        q.TaskType.CLEANUP_3PD_SIGNALS_TABLE,
+        q.TaskType.CLEANUP_STALE_CAMPAIGNS,
+        q.TaskType.REFRESH_AUDIENCE_EXPRESSIONS,
       ],
-      Q = [W.TaskType.LOG_DB_ROW_COUNTS, W.TaskType.MONITOR_DB_STORAGE];
-    function X(t) {
+      Y = [q.TaskType.LOG_DB_ROW_COUNTS, q.TaskType.MONITOR_DB_STORAGE];
+    function J(t) {
       return t === o("WAWebTasksTaskType").TaskType.AEA_CONSUMER_BACKFILL
         ? n("cr:878") == null
           ? void 0
@@ -304,12 +308,12 @@ __d(
                                       .verbose();
                                   });
                             }, e * 1e3),
-                            (B || (B = n("Promise"))).resolve(t)
+                            (W || (W = n("Promise"))).resolve(t)
                           );
                         };
                       }
                       return function () {
-                        return (B || (B = n("Promise"))).resolve(
+                        return (W || (W = n("Promise"))).resolve(
                           o("WATaskScheduler").DO_NOT_RESCHEDULE,
                         );
                       };
@@ -643,7 +647,7 @@ __d(
                                                         .DAY_SECONDS;
                                                     })
                                                 : (
-                                                    B || (B = n("Promise"))
+                                                    W || (W = n("Promise"))
                                                   ).resolve(
                                                     o("WATaskScheduler")
                                                       .DO_NOT_RESCHEDULE,
@@ -968,7 +972,7 @@ __d(
                                                                         },
                                                                       );
                                                                   }
-                                                                  return z;
+                                                                  return K;
                                                                 },
                                                               )
                                                             : t ===
@@ -1040,13 +1044,13 @@ __d(
                                                                               )),
                                                                         );
                                                                         var e =
-                                                                            yield G.load(),
+                                                                            yield z.load(),
                                                                           t =
                                                                             e.fetchQuickPromotions;
                                                                         yield t();
                                                                       } else {
                                                                         var n =
-                                                                            yield H.load(),
+                                                                            yield G.load(),
                                                                           r =
                                                                             n.fetchConsumerQuickPromotions;
                                                                         (o(
@@ -1307,7 +1311,7 @@ __d(
                                                                                       )
                                                                                         .DAY_SECONDS;
                                                                                     var e =
-                                                                                        yield V.load(),
+                                                                                        yield H.load(),
                                                                                       t =
                                                                                         e.maybeRecoverCanonicalCredentials,
                                                                                       r =
@@ -1650,75 +1654,140 @@ __d(
                                                                                                     "WAWebTasksTaskType",
                                                                                                   )
                                                                                                     .TaskType
-                                                                                                    .REFRESH_AUDIENCE_EXPRESSIONS
-                                                                                                ? (function () {
-                                                                                                    var e =
-                                                                                                      n(
-                                                                                                        "asyncToGeneratorRuntime",
-                                                                                                      ).asyncToGenerator(
-                                                                                                        function* (
+                                                                                                    .PQ_SESSION_UPGRADE
+                                                                                                ? n(
+                                                                                                    "asyncToGeneratorRuntime",
+                                                                                                  ).asyncToGenerator(
+                                                                                                    function* () {
+                                                                                                      yield o(
+                                                                                                        "WAWebABPropsCache",
+                                                                                                      ).waitForABPropConfigsReady();
+                                                                                                      var e =
+                                                                                                        o(
+                                                                                                          "WAWebPQGatingUtils",
+                                                                                                        ).getPqSessionUpgradePolicy();
+                                                                                                      if (
+                                                                                                        e ==
+                                                                                                        null
+                                                                                                      )
+                                                                                                        return o(
+                                                                                                          "WATimeUtils",
+                                                                                                        )
+                                                                                                          .DAY_SECONDS;
+                                                                                                      try {
+                                                                                                        var t =
+                                                                                                            yield j.load(),
+                                                                                                          n =
+                                                                                                            t.runPQSessionUpgradeJob;
+                                                                                                        return yield n(
                                                                                                           e,
-                                                                                                        ) {
-                                                                                                          if (
-                                                                                                            e
+                                                                                                        );
+                                                                                                      } catch (e) {
+                                                                                                        return (
+                                                                                                          o(
+                                                                                                            "WALogger",
                                                                                                           )
-                                                                                                            return o(
-                                                                                                              "WATimeUtils",
+                                                                                                            .ERROR(
+                                                                                                              F ||
+                                                                                                                (F =
+                                                                                                                  babelHelpers.taggedTemplateLiteralLoose(
+                                                                                                                    [
+                                                                                                                      "Failed to upgrade PQ sessions",
+                                                                                                                    ],
+                                                                                                                  )),
                                                                                                             )
-                                                                                                              .HOUR_SECONDS;
-                                                                                                          try {
-                                                                                                            var t =
-                                                                                                                yield U.load(),
-                                                                                                              n =
-                                                                                                                t.refreshTimeBasedAudiences;
-                                                                                                            yield n();
-                                                                                                          } catch (e) {
-                                                                                                            o(
-                                                                                                              "WALogger",
-                                                                                                            )
-                                                                                                              .ERROR(
-                                                                                                                F ||
-                                                                                                                  (F =
-                                                                                                                    babelHelpers.taggedTemplateLiteralLoose(
-                                                                                                                      [
-                                                                                                                        "Failed to refresh audience expressions: ",
-                                                                                                                        "",
-                                                                                                                      ],
-                                                                                                                    )),
+                                                                                                            .catching(
+                                                                                                              r(
+                                                                                                                "getErrorSafe",
+                                                                                                              )(
                                                                                                                 e,
-                                                                                                              )
-                                                                                                              .tags(
-                                                                                                                "wa-smb",
-                                                                                                                "business-broadcast",
-                                                                                                                "audience-refresh",
-                                                                                                              );
-                                                                                                          }
-                                                                                                          return (
-                                                                                                            o(
-                                                                                                              "WATimeUtils",
+                                                                                                              ),
                                                                                                             )
-                                                                                                              .HOUR_SECONDS *
-                                                                                                            6
-                                                                                                          );
-                                                                                                        },
-                                                                                                      );
-                                                                                                    return function (
-                                                                                                      t,
-                                                                                                    ) {
-                                                                                                      return e.apply(
-                                                                                                        this,
-                                                                                                        arguments,
-                                                                                                      );
-                                                                                                    };
-                                                                                                  })()
-                                                                                                : (function () {
-                                                                                                    throw Error(
-                                                                                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                            .sendLogs(
+                                                                                                              "pq-session-upgrade-task-failed",
+                                                                                                            ),
+                                                                                                          o(
+                                                                                                            "WATimeUtils",
+                                                                                                          )
+                                                                                                            .DAY_SECONDS
+                                                                                                        );
+                                                                                                      }
+                                                                                                    },
+                                                                                                  )
+                                                                                                : t ===
+                                                                                                    o(
+                                                                                                      "WAWebTasksTaskType",
+                                                                                                    )
+                                                                                                      .TaskType
+                                                                                                      .REFRESH_AUDIENCE_EXPRESSIONS
+                                                                                                  ? (function () {
+                                                                                                      var e =
+                                                                                                        n(
+                                                                                                          "asyncToGeneratorRuntime",
+                                                                                                        ).asyncToGenerator(
+                                                                                                          function* (
+                                                                                                            e,
+                                                                                                          ) {
+                                                                                                            if (
+                                                                                                              e
+                                                                                                            )
+                                                                                                              return o(
+                                                                                                                "WATimeUtils",
+                                                                                                              )
+                                                                                                                .HOUR_SECONDS;
+                                                                                                            try {
+                                                                                                              var t =
+                                                                                                                  yield V.load(),
+                                                                                                                n =
+                                                                                                                  t.refreshTimeBasedAudiences;
+                                                                                                              yield n();
+                                                                                                            } catch (e) {
+                                                                                                              o(
+                                                                                                                "WALogger",
+                                                                                                              )
+                                                                                                                .ERROR(
+                                                                                                                  O ||
+                                                                                                                    (O =
+                                                                                                                      babelHelpers.taggedTemplateLiteralLoose(
+                                                                                                                        [
+                                                                                                                          "Failed to refresh audience expressions: ",
+                                                                                                                          "",
+                                                                                                                        ],
+                                                                                                                      )),
+                                                                                                                  e,
+                                                                                                                )
+                                                                                                                .tags(
+                                                                                                                  "wa-smb",
+                                                                                                                  "business-broadcast",
+                                                                                                                  "audience-refresh",
+                                                                                                                );
+                                                                                                            }
+                                                                                                            return (
+                                                                                                              o(
+                                                                                                                "WATimeUtils",
+                                                                                                              )
+                                                                                                                .HOUR_SECONDS *
+                                                                                                              6
+                                                                                                            );
+                                                                                                          },
+                                                                                                        );
+                                                                                                      return function (
                                                                                                         t,
-                                                                                                    );
-                                                                                                  })();
+                                                                                                      ) {
+                                                                                                        return e.apply(
+                                                                                                          this,
+                                                                                                          arguments,
+                                                                                                        );
+                                                                                                      };
+                                                                                                    })()
+                                                                                                  : (function () {
+                                                                                                      throw Error(
+                                                                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                          t,
+                                                                                                      );
+                                                                                                    })();
     }
-    function Y() {
+    function Z() {
       return {
         scheduledTimeResolver: {
           get: function (t) {
@@ -1735,12 +1804,12 @@ __d(
         },
       };
     }
-    function J(e) {
-      var t = X(e);
+    function ee(e) {
+      var t = J(e);
       t != null &&
         (o("WALogger").LOG(
-          O ||
-            (O = babelHelpers.taggedTemplateLiteralLoose([
+          B ||
+            (B = babelHelpers.taggedTemplateLiteralLoose([
               "maybeRegisterTask: registering task ",
               "",
             ])),
@@ -1748,13 +1817,13 @@ __d(
         ),
         o("WATaskScheduler").registerTask(e, t));
     }
-    function Z() {
-      (o("WATaskScheduler").startScheduler(Y()),
-        j.forEach(J),
-        o("WAWebMobilePlatforms").isSMB() && K.forEach(J),
-        r("gkx")("26258") || Q.forEach(J));
+    function te() {
+      (o("WATaskScheduler").startScheduler(Z()),
+        Q.forEach(ee),
+        o("WAWebMobilePlatforms").isSMB() && X.forEach(ee),
+        r("gkx")("26258") || Y.forEach(ee));
     }
-    l.registerTasks = Z;
+    l.registerTasks = te;
   },
   98,
 );

@@ -186,36 +186,57 @@ __d(
         (r.serverConfirmed = t));
     }
     function R(e) {
-      var t = e.chat,
-        n = e.options,
-        r = e.status,
-        a = e.timestampMs,
-        i = f(t);
-      if (a != null) {
-        if (a <= i.watermarkMs) return;
-        i.watermarkMs = a;
-      }
-      if (!(i.pendingMutations > 0)) {
-        var l = E(t, r, n);
-        if (
-          ((i.serverConfirmed = r), (i.desired = r), t.capiThreadControl !== r)
-        ) {
-          var s = k(t, n, l);
-          s == null
-            ? o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)
-            : o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r, s);
-          return;
-        }
-        (I({
-          chat: t,
-          suggestedRepliesEnabled:
-            n == null ? void 0 : n.suggestedRepliesEnabled,
-        }),
-          l != null &&
-            o("WAWebBizAiCapiThreadControl").setAiLastHandoffActor(t, l));
-      }
+      return L.apply(this, arguments);
     }
-    function L(e, t, n) {
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            r = e.options,
+            a = e.status,
+            i = e.timestampMs,
+            l = f(t);
+          if (i != null) {
+            if (i <= l.watermarkMs) return "stale";
+            l.watermarkMs = i;
+          }
+          if (l.pendingMutations > 0) return "pending";
+          var s = k(t, a, r);
+          if (
+            ((l.serverConfirmed = a),
+            (l.desired = a),
+            t.capiThreadControl !== a)
+          ) {
+            var c = I(t, r, s);
+            return (
+              c == null
+                ? yield o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
+                    t,
+                    a,
+                  )
+                : yield o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
+                    t,
+                    a,
+                    c,
+                  ),
+              "applied"
+            );
+          }
+          var d = T({
+              chat: t,
+              suggestedRepliesEnabled:
+                r == null ? void 0 : r.suggestedRepliesEnabled,
+            }),
+            m =
+              s != null
+                ? o("WAWebBizAiCapiThreadControl").setAiLastHandoffActor(t, s)
+                : (u || (u = n("Promise"))).resolve();
+          return (yield (u || (u = n("Promise"))).all([d, m]), "applied");
+        })),
+        L.apply(this, arguments)
+      );
+    }
+    function E(e, t, n) {
       return (
         e.capiThreadControl !== t ||
         (t ===
@@ -226,17 +247,17 @@ __d(
           (e.suggestedRepliesEnabled === !0) !== n)
       );
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       var r = n == null ? void 0 : n.lastHandoffActor;
       return r == null
         ? null
         : r.actor != null
           ? r.actor
-          : L(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
+          : E(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
             ? "UNKNOWN"
             : null;
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       var r =
           (t == null ? void 0 : t.suppressNotification) === !0
             ? babelHelpers.extends({}, m)
@@ -250,12 +271,14 @@ __d(
         Object.keys(r).length > 0 ? r : null
       );
     }
-    function I(e) {
+    function T(e) {
       var t = e.chat,
-        n = e.suggestedRepliesEnabled;
-      typeof n == "boolean" &&
-        (t.suggestedRepliesEnabled === !0) !== n &&
-        t.setSuggestedRepliesEnabled(n);
+        r = e.suggestedRepliesEnabled;
+      return typeof r != "boolean"
+        ? (u || (u = n("Promise"))).resolve()
+        : (t.suggestedRepliesEnabled === !0) !== r
+          ? t.setSuggestedRepliesEnabled(r)
+          : (u || (u = n("Promise"))).resolve();
     }
     ((l.mutateAiReplyStatus = h),
       (l.trackAiReplyMutation = v),

@@ -434,6 +434,7 @@ __d(
         HAVE_PROCESSED_COEX_ADV: "WAHaveProcessedCoexAdv",
         NCT_SALT: "WAWebNctSalt",
         OPUS_MIGRATION_COMPLETE: "WAOpusMigrationComplete",
+        PQ_SESSION_UPGRADE_CURSOR: "WAPQSessionUpgradeCursor",
         SIGNAL_SESSION_CLEANUP_COMPLETE: "WASignalSessionCleanupComplete",
         BR_PAYMENT_STATE_PENDING_UPDATES: "WABrazilPaymentStatePendingUpdates",
         AEA_CONSUMER_BACKFILL_COMPLETED_VERSION:

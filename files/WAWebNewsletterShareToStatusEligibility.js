@@ -31,7 +31,10 @@ __d(
       return (
         p(e) &&
         !o("WAWebSoundStickerUtils").isSoundStickerMsg(e) &&
-        o("WAWebMsgGetters").getNewsletterAdminProfile(e) == null
+        (o("WAWebMsgGetters").getNewsletterAdminProfile(e) == null ||
+          o(
+            "WAWebNewsletterGatingUtils",
+          ).isNewsletterAdminProfilesForwardingToStatusEnabled())
       );
     }
     function p(e) {

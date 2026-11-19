@@ -1,11 +1,33 @@
 __d(
   "WAWebHatchCheckoutTitle",
-  ["fbt", "WAWebHatchBotName.react", "WAWebHatchJsonReaders", "react"],
+  [
+    "fbt",
+    "WAWebHatchAgentText.react",
+    "WAWebHatchBotName.react",
+    "WAWebHatchJsonReaders",
+    "react",
+  ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e) {
+    function c(e, t, n) {
+      var a,
+        i =
+          (a = o("WAWebHatchJsonReaders").trimToNull(e)) != null
+            ? a
+            : o("WAWebHatchJsonReaders").trimToNull(t);
+      return i == null
+        ? d(n)
+        : s._(/*BTDS*/ "{headline}", [
+            s._param(
+              "headline",
+              u.jsx(r("WAWebHatchAgentText.react"), { text: i }),
+            ),
+          ]);
+    }
+    c.displayName = c.name + " [from " + i.id + "]";
+    function d(e) {
       var t = u.jsx(r("WAWebHatchBotName.react"), {}),
         n = u.jsx("span", {
           className: "xfjzk2p",
@@ -23,8 +45,8 @@ __d(
         s._param("merchant", o),
       ]);
     }
-    c.displayName = c.name + " [from " + i.id + "]";
-    function d(e) {
+    d.displayName = d.name + " [from " + i.id + "]";
+    function m(e) {
       var t = o("WAWebHatchJsonReaders").trimToNull(e.tabDomain);
       if (t != null) return t;
       var n = o("WAWebHatchJsonReaders").trimToNull(e.merchantUrl);
@@ -35,7 +57,9 @@ __d(
         return null;
       }
     }
-    ((l.hatchCheckoutTitle = c), (l.hatchBrowserCheckoutMerchant = d));
+    ((l.hatchCheckoutHeadline = c),
+      (l.hatchCheckoutTitle = d),
+      (l.hatchBrowserCheckoutMerchant = m));
   },
   226,
 );

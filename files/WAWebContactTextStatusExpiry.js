@@ -1,45 +1,86 @@
 __d(
   "WAWebContactTextStatusExpiry",
   [
+    "WALogger",
     "WATimeUtils",
     "WAWebAlarm",
     "WAWebTextStatusUtils",
     "WAWebUpdateTextStatusForContact",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 1e3;
-    function s(t) {
-      var n = t.textStatusExpiryTs;
-      n != null &&
-        (t.meTextStatusExpiryTimer != null &&
-          r("WAWebAlarm").clearTimeout(t.meTextStatusExpiryTimer),
-        n < o("WATimeUtils").unixTime()
-          ? self.setTimeout(function () {
-              u(t);
-            })
-          : (t.meTextStatusExpiryTimer = r("WAWebAlarm").setGlobalTimeout(
-              function () {
-                return u(t);
-              },
-              n * e,
-              t.meTextStatusExpiryTimer,
-            )));
+    var e,
+      s = 1e3,
+      u = new WeakMap();
+    function c(e) {
+      d(e);
+      var t = e.textStatusExpiryTs;
+      if (t != null) {
+        var n = function () {
+          return m(e, t);
+        };
+        if (t <= o("WATimeUtils").unixTime()) {
+          u.set(
+            e,
+            self.setTimeout(function () {
+              (u.delete(e), n());
+            }),
+          );
+          return;
+        }
+        e.textStatusExpiryTimer = r("WAWebAlarm").setGlobalTimeout(n, t * s);
+      }
     }
-    function u(e) {
-      var t;
-      (r("WAWebAlarm").clearTimeout(e.meTextStatusExpiryTimer),
-        e.unset(["meTextStatusExpiryTimer"]),
-        o("WAWebUpdateTextStatusForContact").updateTextStatusForContact({
-          contactId: e.id,
-          textString: (t = o("WAWebTextStatusUtils"))
+    function d(e) {
+      e.textStatusExpiryTimer != null &&
+        (r("WAWebAlarm").clearTimeout(e.textStatusExpiryTimer),
+        (e.textStatusExpiryTimer = null));
+      var t = u.get(e);
+      t != null && (self.clearTimeout(t), u.delete(e));
+    }
+    function m(t, n) {
+      t.textStatusExpiryTs === n &&
+        ((t.textStatusExpiryTimer = null),
+        o("WAWebUpdateTextStatusForContact")
+          .updateTextStatusForContact({
+            contactId: t.id,
+            textString: o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_STRING_VAL,
+            emoji: o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_EMOJI_VAL,
+            ephemeralDuration: o("WAWebTextStatusUtils")
+              .CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL,
+            newUpdateTime: o("WAWebTextStatusUtils")
+              .CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL,
+            expectedExpiryTs: n,
+            source: "clear-expiry",
+          })
+          .catch(function (a) {
+            (o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[textStatus] could not clear an expired About",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(a))
+              .sendLogs("text-status-expiry-clear-failed"),
+              p(t, n));
+          }));
+    }
+    function p(e, t) {
+      e.textStatusExpiryTs === t &&
+        e.set({
+          textStatusString: o("WAWebTextStatusUtils")
             .CLEAR_TEXT_STATUS_STRING_VAL,
-          emoji: t.CLEAR_TEXT_STATUS_EMOJI_VAL,
-          ephemeralDuration: t.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL,
-          newUpdateTime: t.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL,
-          source: "clear-self-expiry",
-        }));
+          textStatusEmoji: o("WAWebTextStatusUtils")
+            .CLEAR_TEXT_STATUS_EMOJI_VAL,
+          textStatusEphemeralDuration: o("WAWebTextStatusUtils")
+            .CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL,
+          textStatusLastUpdateTime: o("WAWebTextStatusUtils")
+            .CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL,
+          textStatusExpiryTs: null,
+        });
     }
-    l.setupContactTextStatusExpiration = s;
+    l.setupContactTextStatusExpiration = c;
   },
   98,
 );

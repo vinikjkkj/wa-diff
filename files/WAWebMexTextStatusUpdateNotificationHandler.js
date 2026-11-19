@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebMexFetchTextStatusListJob",
-    "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
     "WAWebUpdateTextStatusForContact",
     "WAWebWidFactory",
@@ -21,36 +20,34 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = n.xwa2_notify_text_status_on_update,
             i = a.jid;
-          if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
-            if (i == null)
-              throw r("err")(
-                "unexpected null id in xwa2_notify_text_status_on_update",
-              );
-            var l = o(
-              "WAWebMexFetchTextStatusListJob",
-            ).parseTextStatusServerResponse(a);
-            try {
-              yield o(
-                "WAWebUpdateTextStatusForContact",
-              ).updateTextStatusForContact({
-                contactId: o("WAWebWidFactory").createWid(i),
-                textString: l.textStatusString,
-                emoji: l.textStatusEmoji,
-                ephemeralDuration: l.textStatusEphemeralDuration,
-                newUpdateTime: l.textStatusLastUpdateTime,
-                source: "mex-notification",
-              });
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[mex][textStatus] update notification failed",
-                    ])),
-                )
-                .tags("mex")
-                .sendLogs("mex-text-status-notification-update-fail");
-            }
+          if (i == null)
+            throw r("err")(
+              "unexpected null id in xwa2_notify_text_status_on_update",
+            );
+          var l = o(
+            "WAWebMexFetchTextStatusListJob",
+          ).parseTextStatusServerResponse(a);
+          try {
+            yield o(
+              "WAWebUpdateTextStatusForContact",
+            ).updateTextStatusForContact({
+              contactId: o("WAWebWidFactory").createWid(i),
+              textString: l.textStatusString,
+              emoji: l.textStatusEmoji,
+              ephemeralDuration: l.textStatusEphemeralDuration,
+              newUpdateTime: l.textStatusLastUpdateTime,
+              source: "mex-notification",
+            });
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex][textStatus] update notification failed",
+                  ])),
+              )
+              .tags("mex")
+              .sendLogs("mex-text-status-notification-update-fail");
           }
         })),
         c.apply(this, arguments)

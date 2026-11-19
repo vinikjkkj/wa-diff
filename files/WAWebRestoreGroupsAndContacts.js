@@ -23,6 +23,7 @@ __d(
     "WAWebWamOfflineResumeReporter",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,21 +40,22 @@ __d(
       h,
       y,
       C,
-      b = (C || (C = n("Promise"))).resolve();
-    function v() {
-      return b;
+      b,
+      v = (b || (b = n("Promise"))).resolve();
+    function S() {
+      return v;
     }
-    var S = !1,
-      R = null,
-      L = O();
-    function E() {
-      var e = R;
-      return e != null ? ((R = null), e) : T();
-    }
+    var R = !1,
+      L = null,
+      E = W();
     function k() {
-      if (!S) {
-        var t = T();
-        ((R = t),
+      var e = L;
+      return e != null ? ((L = null), e) : D();
+    }
+    function I() {
+      if (!R) {
+        var t = D();
+        ((L = t),
           t.catch(function (t) {
             o("WALogger").WARN(
               e ||
@@ -66,11 +68,11 @@ __d(
           }));
       }
     }
-    function I() {
-      return L.promise;
-    }
     function T() {
-      ((S = !0),
+      return E.promise;
+    }
+    function D() {
+      ((R = !0),
         o("WAWebWamOfflineResumeReporter").OfflineResumeReporter.qpl.addPoint(
           "RestoreGroupsAndContacts_start",
         ));
@@ -78,8 +80,8 @@ __d(
         t = e.then(function () {
           return self.performance.now();
         }),
-        a = t.then(D);
-      b = a;
+        a = t.then(x);
+      v = a;
       var i = t.then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -101,17 +103,16 @@ __d(
                     (function () {
                       var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (t) {
-                          return (
-                            o("WALogger").LOG(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[init-from-storage] contacts: got ",
-                                  " from db",
-                                ])),
-                              o("WAWebWamMemoryStat").roundIntForMetrics(
-                                t.length,
-                              ),
+                          (o("WALogger").LOG(
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                                "[init-from-storage] contacts: got ",
+                                " from db",
+                              ])),
+                            o("WAWebWamMemoryStat").roundIntForMetrics(
+                              t.length,
                             ),
+                          ),
                             o(
                               "WAWebWamOfflineResumeReporter",
                             ).OfflineResumeReporter.qpl.addPoint(
@@ -125,14 +126,17 @@ __d(
                             ).OfflineResumeReporter.qpl.addPoint(
                               "WarmupAllLidMappings_end",
                             ),
-                            $(t),
-                            N(t),
+                            P(t),
+                            M(t));
+                          var n = o("WAWebApiHydrateWidsUtil").hydrateWids(t);
+                          return (
                             o("WAWebContactCollection").ContactCollection.add(
-                              o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+                              n,
                               { silent: !0, merge: !0 },
                             ),
-                            o("WAWebChatCollection").ChatCollection.forEach(F),
-                            L.resolve(),
+                            O(n),
+                            o("WAWebChatCollection").ChatCollection.forEach(B),
+                            E.resolve(),
                             o(
                               "WAWebWamOfflineResumeReporter",
                             ).OfflineResumeReporter.qpl.addPoint(
@@ -167,12 +171,12 @@ __d(
             };
           })(),
         ),
-        l = L;
+        l = E;
       return (
         i.catch(function () {
           l.resolve();
         }),
-        (C || (C = n("Promise")))
+        (b || (b = n("Promise")))
           .all([i, a])
           .then(function () {
             o(
@@ -218,12 +222,12 @@ __d(
           })
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebWamOfflineResumeReporter").OfflineResumeReporter.qpl.addPoint(
             "RestoreGroups_start",
           );
@@ -244,8 +248,8 @@ __d(
                 o("WAWebGroupQueryBridge").updateSubject(t, e.subject));
             }),
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[init-from-storage] groups: restored ",
                   ", took ",
                   "",
@@ -257,15 +261,15 @@ __d(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.qpl.addPoint("RestoreGroups_end"));
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebApiContact").armContactHashRepairWait();
           try {
             var t = [];
@@ -275,8 +279,8 @@ __d(
                 t.push(n));
             t.length > 0 &&
               (o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[init-from-storage] contacts: ",
                     " missing hash, updating",
                   ])),
@@ -285,8 +289,8 @@ __d(
               yield o("WAWebApiContact").updateContactsHashes(t));
           } catch (e) {
             o("WALogger").WARN(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "[init-from-storage] contacts: hash repair failed: ",
                   "",
                 ])),
@@ -296,10 +300,10 @@ __d(
             o("WAWebApiContact").markContactHashRepairComplete();
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
+    function M(e) {
       if (!r("justknobx")._("437"))
         try {
           var t = e
@@ -320,7 +324,7 @@ __d(
                     ")",
                   ])),
                 t.length,
-                M(t),
+                w(t),
               )
               .sendLogs("contact-db-non-jid-id");
         } catch (e) {
@@ -334,7 +338,7 @@ __d(
           );
         }
     }
-    function M(e) {
+    function w(e) {
       var t = new Map([
         ["wid", 0],
         ["device", 0],
@@ -342,8 +346,8 @@ __d(
       ]);
       for (var n of e) {
         var r,
-          o = w(n),
-          a = o === "other" ? A(n) : o;
+          o = A(n),
+          a = o === "other" ? F(n) : o;
         t.set(a, ((r = t.get(a)) != null ? r : 0) + 1);
       }
       return Array.from(t, function (e) {
@@ -352,7 +356,7 @@ __d(
         return t + ": " + n;
       }).join(", ");
     }
-    function w(e) {
+    function A(e) {
       return e === ""
         ? "empty"
         : e.includes(":")
@@ -361,11 +365,34 @@ __d(
             ? "wid"
             : "other";
     }
-    function A(e) {
+    function F(e) {
       var t = e.lastIndexOf("@");
       return t === -1 ? "no-domain" : e.slice(t + 1);
     }
-    function F(e) {
+    function O(e) {
+      try {
+        e.forEach(function (e) {
+          var t = e.id,
+            n = e.textStatusExpiryTs;
+          if (n != null) {
+            var r;
+            (r = o("WAWebContactCollection").ContactCollection.get(t)) ==
+              null || r.restartTextStatusExpiration();
+          }
+        });
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[init-from-storage] contacts: About expiry restart failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("restore-text-status-expiry-restart-failed");
+      }
+    }
+    function B(e) {
       try {
         if (
           e.trusted ||
@@ -375,8 +402,8 @@ __d(
         (e.isTrusted(), o("WAWebChatGroupUtils").updateTitle(e));
       } catch (e) {
         o("WALogger").WARN(
-          f ||
-            (f = babelHelpers.taggedTemplateLiteralLoose([
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
               "[init-from-storage] contacts: chat refresh failed: ",
               "",
             ])),
@@ -384,17 +411,17 @@ __d(
         );
       }
     }
-    function O() {
+    function W() {
       var e = r("WAWebNoop"),
-        t = new (C || (C = n("Promise")))(function (t) {
+        t = new (b || (b = n("Promise")))(function (t) {
           e = t;
         });
       return { promise: t, resolve: e };
     }
-    ((l.waitForGroupMetadataRestore = v),
-      (l.restoreGroupsAndContacts = E),
-      (l.startRestoreGroupsAndContactsEarly = k),
-      (l.waitForRestoredContacts = I));
+    ((l.waitForGroupMetadataRestore = S),
+      (l.restoreGroupsAndContacts = k),
+      (l.startRestoreGroupsAndContactsEarly = I),
+      (l.waitForRestoredContacts = T));
   },
   98,
 );

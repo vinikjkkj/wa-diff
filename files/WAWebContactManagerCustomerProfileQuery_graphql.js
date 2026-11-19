@@ -67,13 +67,6 @@ __d(
                 alias: null,
                 args: null,
                 kind: "ScalarField",
-                name: "acquisition_date",
-                storageKey: null,
-              },
-              {
-                alias: null,
-                args: null,
-                kind: "ScalarField",
                 name: "last_order",
                 storageKey: null,
               },

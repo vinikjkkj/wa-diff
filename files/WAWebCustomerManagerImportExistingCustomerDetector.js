@@ -42,7 +42,9 @@ __d(
                 if (p.jidType !== "phoneUser") {
                   (d++,
                     c.push(
-                      h(
+                      o(
+                        "WAWebCustomerManagerImportErrorMessage",
+                      ).toCustomerManagerImportErrorItem(
                         e,
                         o("WAWebCustomerManagerImportErrorMessage")
                           .CustomerManagerImportConflictError
@@ -54,7 +56,9 @@ __d(
                 if (_ == null) {
                   (m++,
                     c.push(
-                      h(
+                      o(
+                        "WAWebCustomerManagerImportErrorMessage",
+                      ).toCustomerManagerImportErrorItem(
                         e,
                         o("WAWebCustomerManagerImportErrorMessage")
                           .CustomerManagerImportConflictError
@@ -229,39 +233,33 @@ __d(
       var t = e.aliasesByContact,
         n = e.contacts,
         r = e.errorType,
-        o = e.populatedAliases,
-        a = [],
-        i = [];
+        a = e.populatedAliases,
+        i = [],
+        l = [];
       return (
         n.forEach(function (e) {
           var n = t.get(e);
           n != null &&
-          (o == null ||
+          (a == null ||
             n.some(function (e) {
-              return o.has(e);
+              return a.has(e);
             }))
-            ? a.push(h(e, r))
-            : i.push(e);
+            ? i.push(
+                o(
+                  "WAWebCustomerManagerImportErrorMessage",
+                ).toCustomerManagerImportErrorItem(e, r),
+              )
+            : l.push(e);
         }),
-        { errorList: a, validContacts: i }
+        { errorList: i, validContacts: l }
       );
     }
-    function h(e, t) {
-      var n;
-      return {
-        contactIndex: null,
-        errorType: t,
-        rowData: babelHelpers.extends({}, (n = e.rawRow) != null ? n : {}),
-        rowIndex: e.rowIndex,
-        type: "error",
-      };
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebCustomerManagerImportSavedDataLookup",
           ).fetchCompleteProfileRecordsInBatches(e);
@@ -273,10 +271,10 @@ __d(
               )
             : null;
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.detectExistingCustomers = m), (l.fetchExistingProfileLids = y));
+    ((l.detectExistingCustomers = m), (l.fetchExistingProfileLids = h));
   },
   98,
 );

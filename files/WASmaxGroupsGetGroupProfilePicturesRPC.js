@@ -10,6 +10,7 @@ __d(
     "WASmaxInGroupsIQErrorBadRequestMixin",
     "WASmaxInGroupsIQErrorFallbackClientMixin",
     "WASmaxInGroupsIQErrorForbiddenMixin",
+    "WASmaxInGroupsIQErrorGrowthLockedMixin",
     "WASmaxInGroupsIQErrorItemNotFoundMixin",
     "WASmaxInGroupsIQErrorNotAllowedMixin",
     "WASmaxInGroupsIQErrorRateOverlimitMixin",
@@ -155,12 +156,20 @@ __d(
           value: i.value,
         });
       var l = o(
+        "WASmaxInGroupsIQErrorGrowthLockedMixin",
+      ).parseIQErrorGrowthLockedMixin(e);
+      if (l.success)
+        return o("WAResultOrError").makeResult({
+          name: "IQErrorGrowthLocked",
+          value: l.value,
+        });
+      var s = o(
         "WASmaxInGroupsIQErrorFallbackClientMixin",
       ).parseIQErrorFallbackClientMixin(e);
-      return l.success
+      return s.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorFallbackClient",
-            value: l.value,
+            value: s.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
@@ -170,9 +179,10 @@ __d(
               "IQErrorNotAllowed",
               "IQErrorBadRequest",
               "IQErrorRateOverlimit",
+              "IQErrorGrowthLocked",
               "IQErrorFallbackClient",
             ],
-            [t, n, r, a, i, l],
+            [t, n, r, a, i, l, s],
           );
     }
     function _(e) {

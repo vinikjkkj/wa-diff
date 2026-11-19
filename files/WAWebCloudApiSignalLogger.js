@@ -4,76 +4,103 @@ __d(
     "WAWebABProps",
     "WAWebCloudApiSignalEventWamEvent",
     "WAWebHandleMsgTypes",
+    "WAWebMmSignalSharingGatingUtils",
     "WAWebMmSignalSharingModelUtils",
     "WAWebWamEnumCloudApiSignalType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e = "third_party";
+    function s(e) {
       var t = e.carouselCardIndex,
         n = e.chat,
         r = e.ctaAction,
         a = e.ctaButtonIndex,
         i = e.msg,
         l = e.templateType;
-      o("WAWebABProps").getABPropConfigValue(
-        "wa_biz_payment_template_click_signals",
-      ) &&
-        s({
-          carouselCardIndex: t,
-          chat: n,
-          ctaButtonIndex: a,
-          msg: i,
-          signalType: o("WAWebWamEnumCloudApiSignalType").CLOUD_API_SIGNAL_TYPE
-            .PAYMENT_TEMPLATE_CLICK,
-          templateFields: {
-            cloudApiSignalCtaAction: r,
-            cloudApiSignalTemplateType: l,
-          },
-        });
+      d({
+        abPropName: "wa_biz_payment_template_click_signals",
+        carouselCardIndex: t,
+        chat: n,
+        ctaButtonIndex: a,
+        msg: i,
+        signalType: o("WAWebWamEnumCloudApiSignalType").CLOUD_API_SIGNAL_TYPE
+          .PAYMENT_TEMPLATE_CLICK,
+        templateFields: {
+          cloudApiSignalCtaAction: r,
+          cloudApiSignalTemplateType: l,
+        },
+      });
     }
-    function s(e) {
-      var t,
-        n,
-        r = e.carouselCardIndex,
-        a = e.chat,
-        i = e.ctaButtonIndex,
-        l = e.msg,
-        s = e.signalType,
-        u = e.templateFields;
-      if (
-        !(
-          ((t = a.contact) == null || (t = t.privacyMode) == null
-            ? void 0
-            : t.hostStorage) !==
-            o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook ||
-          o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMsg(l)
-        )
-      ) {
-        var c =
-          (n = o(
-            "WAWebMmSignalSharingModelUtils",
-          ).getMmSignalSharingExpirationWindowItem({ chat: a, msgId: l.id })) ==
-          null
-            ? void 0
-            : n.undisclosedToken;
-        c != null &&
-          new (o(
-            "WAWebCloudApiSignalEventWamEvent",
-          ).CloudApiSignalEventWamEvent)(
-            babelHelpers.extends(
-              {
-                cloudApiSignalCarouselCardIndex: r,
-                cloudApiSignalCtaButtonIndex: i,
-                cloudApiSignalData: c,
-                cloudApiSignalType: s,
-              },
-              u,
-            ),
-          ).commit();
-      }
+    function u(e) {
+      var t = e.carouselCardIndex,
+        n = e.chat,
+        r = e.ctaButtonIndex,
+        a = e.msg;
+      d({
+        abPropName: "wa_biz_url_cta_click_signals",
+        carouselCardIndex: t,
+        chat: n,
+        ctaButtonIndex: r,
+        msg: a,
+        signalType: o("WAWebWamEnumCloudApiSignalType").CLOUD_API_SIGNAL_TYPE
+          .URL_CTA_CLICK,
+      });
     }
-    l.logCloudApiPaymentTemplateClick = e;
+    function c(e) {
+      var t = e.chat,
+        n = e.msg;
+      return m({ chat: t, msg: n }) != null;
+    }
+    function d(e) {
+      var t = e.abPropName,
+        n = e.carouselCardIndex,
+        r = e.chat,
+        a = e.ctaButtonIndex,
+        i = e.msg,
+        l = e.signalType,
+        s = e.templateFields,
+        u = m({ chat: r, msg: i });
+      u == null ||
+        !o("WAWebABProps").getABPropConfigValue(t) ||
+        new (o("WAWebCloudApiSignalEventWamEvent").CloudApiSignalEventWamEvent)(
+          babelHelpers.extends(
+            {
+              cloudApiSignalCarouselCardIndex: n,
+              cloudApiSignalCtaButtonIndex: a,
+              cloudApiSignalData: u,
+              cloudApiSignalType: l,
+            },
+            s,
+          ),
+        ).commit();
+    }
+    function m(t) {
+      var n,
+        r,
+        a = t.chat,
+        i = t.msg;
+      return i.id.fromMe ||
+        i.sourceType !== e ||
+        ((n = a.contact) == null || (n = n.privacyMode) == null
+          ? void 0
+          : n.hostStorage) !==
+          o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook ||
+        o("WAWebMmSignalSharingModelUtils").isDisclosureEnabledForMsg(i) ||
+        !o(
+          "WAWebMmSignalSharingGatingUtils",
+        ).isMmSignalSharingDisclosureEnabled()
+        ? null
+        : (r = a.mmSignalSharingExpirationWindow) == null ||
+            (r = r.find(function (e) {
+              return e.messageId.id === i.id.id;
+            })) == null
+          ? void 0
+          : r.undisclosedToken;
+    }
+    ((l.logCloudApiPaymentTemplateClick = s),
+      (l.logCloudApiUrlCtaClick = u),
+      (l.isCloudApiNativeClickMessage = c));
   },
   98,
 );

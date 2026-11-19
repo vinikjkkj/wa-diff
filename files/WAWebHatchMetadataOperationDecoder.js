@@ -233,26 +233,30 @@ __d(
             },
           };
         }
-        if (a === "error") {
-          var s = o("WAWebHatchJsonReaders").readField(n, "body");
+        if (a === "error")
           return {
             type: "res",
             requestId: t,
             response: {
               status: "error",
               method: r,
-              errorCode: o("WAWebHatchJsonReaders").readString(s, "error_code"),
-              errorMessage: o("WAWebHatchJsonReaders").readString(
-                s,
-                "error_message",
-              ),
+              errorCode: f(n, "error_code"),
+              errorMessage: f(n, "error_message"),
             },
           };
-        }
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_STATUS,
         );
       }
+    }
+    function f(e, t) {
+      var n;
+      return (n = o("WAWebHatchJsonReaders").readString(e, t)) != null
+        ? n
+        : o("WAWebHatchJsonReaders").readString(
+            o("WAWebHatchJsonReaders").readField(e, "body"),
+            t,
+          );
     }
     l.decodeHatchMetadataOperation = u;
   },

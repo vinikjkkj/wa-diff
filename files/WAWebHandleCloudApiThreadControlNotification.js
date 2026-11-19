@@ -40,37 +40,51 @@ __d(
           ));
         return;
       }
-      if (a == null && r == null) {
-        o("WALogger").WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[Maiba] thread ctrl missing phone & lid, status=",
+      if (
+        !(
+          c !==
+            o("WAWebProtobufsE2E.pb")
+              .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+              .CONTROL_PASSED &&
+          c !==
+            o("WAWebProtobufsE2E.pb")
+              .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+              .CONTROL_TAKEN &&
+          o("WAWebBizAiAgentGating").isCompanionThreadSyncFixEnabled()
+        )
+      ) {
+        if (a == null && r == null) {
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[Maiba] thread ctrl missing phone & lid, status=",
+                "",
+              ])),
+            c,
+          );
+          return;
+        }
+        (o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[Biz AI] Received thread control notification, status: ",
               "",
             ])),
           c,
-        );
-        return;
+        ),
+          o("WAWebBackendApi").frontendFireAndForget(
+            "updateChatCapiThreadControl",
+            {
+              consumerPhoneNumber: a,
+              consumerLid: r,
+              status: c,
+              timestampMs: p,
+              shouldSuppressNotification: l,
+              suggestedRepliesEnabled: d(t, c),
+              lastHandoffActor: m(t, c),
+            },
+          ));
       }
-      (o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose([
-            "[Biz AI] Received thread control notification, status: ",
-            "",
-          ])),
-        c,
-      ),
-        o("WAWebBackendApi").frontendFireAndForget(
-          "updateChatCapiThreadControl",
-          {
-            consumerPhoneNumber: a,
-            consumerLid: r,
-            status: c,
-            timestampMs: p,
-            shouldSuppressNotification: l,
-            suggestedRepliesEnabled: d(t, c),
-            lastHandoffActor: m(t, c),
-          },
-        ));
     }
     function d(e, t) {
       var n, r;

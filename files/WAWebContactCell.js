@@ -8,7 +8,6 @@ __d(
     "WAWebMetaAiSubtitle.react",
     "WAWebMobilePlatforms",
     "WAWebName.react",
-    "WAWebTextStatusGatingUtils",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,7 +28,6 @@ __d(
       o("WAWebBotUtils").isMetaAiBot(e.id)
         ? (n = s.jsx(r("WAWebMetaAiSubtitle.react"), {}))
         : e.id.isRegularUser() &&
-          o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
           (n = s.jsx(o("WAWebChatTextStatusWrapper").TextStatus, {
             contactId: e.id,
             waitIdle: !0,

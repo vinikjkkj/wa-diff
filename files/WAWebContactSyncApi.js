@@ -23,7 +23,6 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebLocalStorage",
     "WAWebPhashUtils",
-    "WAWebTextStatusGatingUtils",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUpdateTextStatusForContact",
     "WAWebUserPrefsKeys",
@@ -140,8 +139,7 @@ __d(
                 .withContext("background")
                 .withMode(l)
                 .withBusinessProtocol(a);
-            (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-              c.withTextStatusProtocol(),
+            (c.withTextStatusProtocol(),
               s && c.withDeviceProtocol(),
               c.withDisappearingModeProtocol(),
               c.withLidProtocol(),
@@ -277,8 +275,6 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled())
-            return (R || (R = n("Promise"))).resolve();
           var t = e.error.text_status;
           if (t) {
             o("WALogger").WARN(

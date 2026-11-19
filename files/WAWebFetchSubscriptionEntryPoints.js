@@ -10,7 +10,6 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
-    "WAWebSubscriptionsGatingUtils",
     "WAWebUserPrefsSubscription",
     "WAWebXWASubscriptionEntryPointTypeUtils",
     "asyncToGeneratorRuntime",
@@ -57,8 +56,7 @@ __d(
     function C() {
       return (
         o("WAWebUserPrefsSubscription").getSubscriptionsEntryPointEligibility()
-          .metaOne == null &&
-        o("WAWebMetaOneGating").isMetaOneBizAiAdditionalEntryPointsEnabled()
+          .metaOne == null && o("WAWebMetaOneGating").isMetaOneRolloutEnabled()
       );
     }
     function b() {
@@ -97,7 +95,7 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           try {
-            e = yield I(L());
+            e = yield k(L());
           } catch (e) {
             return (
               o("WALogger")
@@ -114,7 +112,7 @@ __d(
           }
           if (e.type === "success") {
             var t;
-            (k((t = e.subscriptionEntrypoints) != null ? t : []),
+            (E((t = e.subscriptionEntrypoints) != null ? t : []),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -136,15 +134,11 @@ __d(
       );
     }
     function L() {
-      return E() ? ["META_VERIFIED", "META_ONE"] : ["META_VERIFIED"];
+      return o("WAWebMetaOneGating").isMetaOneRolloutEnabled()
+        ? ["META_VERIFIED", "META_ONE"]
+        : ["META_VERIFIED"];
     }
-    function E() {
-      return (
-        o("WAWebMetaOneGating").isAnyMetaOneEntryPointEnabled() ||
-        o("WAWebSubscriptionsGatingUtils").customerManagerMetaOneUpsellEnabled()
-      );
-    }
-    function k(e) {
+    function E(e) {
       var t,
         n,
         a = e.find(function (e) {
@@ -164,6 +158,7 @@ __d(
       (o("WAWebUserPrefsSubscription").setSubscriptionsEntryPointEligibility({
         metaVerified: (a == null ? void 0 : a.webEntryPointEligibility) === !0,
         metaOne: i == null ? void 0 : i.webEntryPointEligibility,
+        metaOnePurchaseEligibility: i == null ? void 0 : i.purchaseEligibility,
       }),
         o("WAWebUserPrefsSubscription").setMetaVerifiedEntryPointRedirectionUri(
           (t = a == null ? void 0 : a.webEntryPointRedirectionUri) != null
@@ -175,15 +170,15 @@ __d(
         Date.now() + l,
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (t.type !== "success") return (t.type, t);
-          var n = yield D(t.token, e);
+          var n = yield T(t.token, e);
           return (
             n.type === "success"
               ? n.type
@@ -193,15 +188,15 @@ __d(
             n
           );
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
             var n,
@@ -232,6 +227,7 @@ __d(
                             (t = e.webEntryPointEligibility) != null ? t : !1,
                           webEntryPointRedirectionUri:
                             e.webEntryPointRedirectionUri,
+                          purchaseEligibility: x(e.purchaseEligibility),
                         };
                   }),
                 };
@@ -245,8 +241,16 @@ __d(
               : m;
           }
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
+    }
+    function x(e) {
+      if (e != null)
+        return (function (e) {
+          if (e === "WEB_PURCHASE") return "web_purchase";
+          if (e === "MOBILE_PURCHASE") return "mobile_purchase";
+          if (e === "NOT_ELIGIBLE") return "not_eligible";
+        })(e);
     }
     l.fetchSubscriptionEntryPoints = h;
   },

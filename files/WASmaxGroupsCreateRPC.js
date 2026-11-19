@@ -70,7 +70,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = F(e),
+          var n = A(e),
             r = yield o("WAComms").sendSmaxStanza(n, t),
             a = y(r, n);
           if (a.success)
@@ -106,7 +106,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = G(r.value);
+      var i = H(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -164,7 +164,7 @@ __d(
     function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
-      var n = z(e);
+      var n = G(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             createParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup:
@@ -292,105 +292,103 @@ __d(
       if (!R.success) return R;
       var L = o("WASmaxParseUtils").optionalChild(r.value, "work");
       if (!L.success) return L;
-      var E = o("WASmaxParseUtils").optionalChild(r.value, "light_e2ee");
-      if (!E.success) return E;
-      var k = o("WASmaxParseJid").literalJid(
+      var E = o("WASmaxParseJid").literalJid(
         o("WASmaxParseJid").attrDomainJid,
         e,
         "from",
         "g.us",
       );
-      if (!k.success) return k;
-      var I = o("WASmaxParseUtils").literal(
+      if (!E.success) return E;
+      var k = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
         "type",
         "result",
       );
+      if (!k.success) return k;
+      var I = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
       if (!I.success) return I;
-      var T = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
-      if (!T.success) return T;
-      var D = o("WASmaxParseUtils").literal(
+      var T = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
         "id",
-        T.value,
+        I.value,
       );
+      if (!T.success) return T;
+      var D = o("WASmaxParseUtils").attrString(r.value, "id");
       if (!D.success) return D;
-      var x = o("WASmaxParseUtils").attrString(r.value, "id");
+      var x = o("WASmaxParseJid").attrUserJid(r.value, "creator");
       if (!x.success) return x;
-      var $ = o("WASmaxParseJid").attrUserJid(r.value, "creator");
-      if (!$.success) return $;
-      var P = o("WASmaxParseUtils").attrIntRange(
+      var $ = o("WASmaxParseUtils").attrIntRange(
         r.value,
         "creation",
         0,
         void 0,
       );
-      if (!P.success) return P;
-      var N = o("WASmaxParseUtils").optional(
+      if (!$.success) return $;
+      var P = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrIntRange,
         r.value,
         "s_t",
         0,
         void 0,
       );
-      if (!N.success) return N;
-      var M = o("WASmaxParseUtils").optional(
+      if (!P.success) return P;
+      var N = o("WASmaxParseUtils").optional(
         o("WASmaxParseJid").attrUserJid,
         r.value,
         "s_o",
       );
-      if (!M.success) return M;
-      var w = o("WASmaxInGroupsDedupAttrsMixin").parseDedupAttrsMixin(r.value),
-        A = o(
+      if (!N.success) return N;
+      var M = o("WASmaxInGroupsDedupAttrsMixin").parseDedupAttrsMixin(r.value),
+        w = o(
           "WASmaxInGroupsGroupMemberAddModeMixin",
         ).parseGroupMemberAddModeMixin(r.value),
-        F = o(
+        A = o(
           "WASmaxInGroupsGroupAddressingModeMixin",
         ).parseGroupAddressingModeMixin(r.value),
-        O = o(
+        F = o(
           "WASmaxInGroupsSubjectOwnerIdentityMixin",
         ).parseSubjectOwnerIdentityMixin(r.value),
-        B = o(
+        O = o(
           "WASmaxInGroupsGroupCreatorIdentityMixin",
         ).parseGroupCreatorIdentityMixin(r.value),
-        W = o(
+        B = o(
           "WASmaxInGroupsGroupMemberLinkModeMixin",
         ).parseGroupMemberLinkModeMixin(r.value),
-        q = o(
+        W = o(
           "WASmaxInGroupsGroupMemberShareGroupHistoryModeMixin",
         ).parseGroupMemberShareGroupHistoryModeMixin(r.value),
-        U = o(
+        q = o(
           "WASmaxInGroupsNamedSubjectOrUnnamedSubjectFallbackMixinGroup",
         ).parseNamedSubjectOrUnnamedSubjectFallbackMixinGroup(r.value);
-      if (!U.success) return U;
-      var V = o("WASmaxParseUtils").mapChildrenWithTag(
+      if (!q.success) return q;
+      var U = o("WASmaxParseUtils").mapChildrenWithTag(
         r.value,
         "participant",
         1,
         1024,
         m,
       );
-      return V.success
+      return U.success
         ? o("WAResultOrError").makeResult({
-            from: k.value,
-            type: I.value,
-            groupId: x.value,
-            groupCreator: $.value,
-            groupCreation: P.value,
-            groupST: N.value,
-            groupSO: M.value,
-            groupDedupAttrsMixin: w.success ? w.value : null,
-            groupGroupMemberAddModeMixin: A.success ? A.value : null,
-            groupGroupAddressingModeMixin: F.success ? F.value : null,
-            groupSubjectOwnerIdentityMixin: O.success ? O.value : null,
-            groupGroupCreatorIdentityMixin: B.success ? B.value : null,
-            groupGroupMemberLinkModeMixin: W.success ? W.value : null,
-            groupGroupMemberShareGroupHistoryModeMixin: q.success
-              ? q.value
+            from: E.value,
+            type: k.value,
+            groupId: D.value,
+            groupCreator: x.value,
+            groupCreation: $.value,
+            groupST: P.value,
+            groupSO: N.value,
+            groupDedupAttrsMixin: M.success ? M.value : null,
+            groupGroupMemberAddModeMixin: w.success ? w.value : null,
+            groupGroupAddressingModeMixin: A.success ? A.value : null,
+            groupSubjectOwnerIdentityMixin: F.success ? F.value : null,
+            groupGroupCreatorIdentityMixin: O.success ? O.value : null,
+            groupGroupMemberLinkModeMixin: B.success ? B.value : null,
+            groupGroupMemberShareGroupHistoryModeMixin: W.success
+              ? W.value
               : null,
-            groupNamedSubjectOrUnnamedSubjectFallbackMixinGroup: U.value,
+            groupNamedSubjectOrUnnamedSubjectFallbackMixinGroup: q.value,
             groupDescription: a.value,
             hasGroupLocked: i.value != null,
             hasGroupAnnouncement: l.value != null,
@@ -405,10 +403,9 @@ __d(
             hasGroupGroupHistory: S.value != null,
             hasGroupCapi: R.value != null,
             hasGroupWork: L.value != null,
-            hasGroupLightE2ee: E.value != null,
-            groupParticipant: V.value,
+            groupParticipant: U.value,
           })
-        : V;
+        : U;
     }
     function C(e) {
       var t = e.participantJid,
@@ -447,7 +444,7 @@ __d(
     function R(e) {
       var t = e.hasParentGroupDefaultMembershipApprovalMode,
         n = o("WASmaxMixins").optionalMerge(
-          U,
+          q,
           o("WASmaxJsx").smax("parent", null),
           t,
         );
@@ -517,11 +514,7 @@ __d(
       var e = o("WASmaxJsx").smax("work", null);
       return e;
     }
-    function A() {
-      var e = o("WASmaxJsx").smax("light_e2ee", null);
-      return e;
-    }
-    function F(e) {
+    function A(e) {
       var t,
         n,
         r = e.participantArgs,
@@ -539,19 +532,18 @@ __d(
         g = e.hasHiddenGroup,
         h = e.hasAllowNonAdminSubGroupCreation,
         y = e.hasCreateGeneralChat,
-        F = e.hasCapi,
-        O = e.hasWork,
-        q = e.hasLightE2ee,
-        U = e.dedupAttrsMixinArgs,
-        V = e.groupMemberAddModeMixinArgs,
-        H = e.groupMemberLinkModeMixinArgs,
-        G = e.groupMemberShareGroupHistoryModeMixinArgs,
-        z = e.namedSubjectOrUnnamedSubjectFallbackMixinGroupArgs,
-        j = o("WASmaxOutGroupsBaseSetServerMixin").mergeBaseSetServerMixin(
+        A = e.hasCapi,
+        F = e.hasWork,
+        W = e.dedupAttrsMixinArgs,
+        q = e.groupMemberAddModeMixinArgs,
+        U = e.groupMemberLinkModeMixinArgs,
+        V = e.groupMemberShareGroupHistoryModeMixinArgs,
+        H = e.namedSubjectOrUnnamedSubjectFallbackMixinGroupArgs,
+        G = o("WASmaxOutGroupsBaseSetServerMixin").mergeBaseSetServerMixin(
           o("WASmaxJsx").smax(
             "iq",
             null,
-            W(
+            B(
               (t = o("WASmaxMixins")).optionalMerge(
                 o("WASmaxOutGroupsGroupMemberShareGroupHistoryModeMixin")
                   .mergeGroupMemberShareGroupHistoryModeMixin,
@@ -562,7 +554,7 @@ __d(
                     o("WASmaxOutGroupsGroupMemberAddModeMixin")
                       .mergeGroupMemberAddModeMixin,
                     t.optionalMerge(
-                      B,
+                      O,
                       o("WASmaxJsx").smax(
                         "create",
                         null,
@@ -588,27 +580,26 @@ __d(
                             n.HAS_OPTIONAL_CHILD($, g),
                             n.HAS_OPTIONAL_CHILD(P, h),
                             n.HAS_OPTIONAL_CHILD(N, y),
-                            n.HAS_OPTIONAL_CHILD(M, F),
-                            n.HAS_OPTIONAL_CHILD(w, O),
-                            n.HAS_OPTIONAL_CHILD(A, q),
+                            n.HAS_OPTIONAL_CHILD(M, A),
+                            n.HAS_OPTIONAL_CHILD(w, F),
                           ],
                         ),
                       ),
-                      U,
+                      W,
                     ),
-                    V,
+                    q,
                   ),
-                  H,
+                  U,
                 ),
-                G,
+                V,
               ),
-              z,
+              H,
             ),
           ),
         );
-      return j;
+      return G;
     }
-    function O(e) {
+    function F(e) {
       var t = e.anyKey,
         n = e.anyCreateCtx,
         r = o("WASmaxJsx").smax("smax$any", {
@@ -617,39 +608,39 @@ __d(
         });
       return r;
     }
-    function B(e, t) {
-      var n = O(t);
+    function O(e, t) {
+      var n = F(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function W(e, t) {
-      if (t.namedSubject) return X(e, t.namedSubject);
-      if (t.unnamedSubjectFallback) return H(e, t.unnamedSubjectFallback);
+    function B(e, t) {
+      if (t.namedSubject) return Q(e, t.namedSubject);
+      if (t.unnamedSubjectFallback) return V(e, t.unnamedSubjectFallback);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function q() {
+    function W() {
       var e = o("WASmaxJsx").smax("parent", {
         default_membership_approval_mode: "request_required",
       });
       return e;
     }
-    function U(e) {
-      var t = q();
+    function q(e) {
+      var t = W();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function V(e) {
+    function U(e) {
       var t = e.anySubject,
         n = o("WASmaxJsx").smax("smax$any", {
           subject: o("WASmaxAttrs").OPTIONAL(o("WAWap").CUSTOM_STRING, t),
         });
       return n;
     }
-    function H(e, t) {
-      var n = V(t);
+    function V(e, t) {
+      var n = U(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function G(e) {
+    function H(e) {
       var t = o(
         "WASmaxInGroupsIQErrorForbiddenMixin",
       ).parseIQErrorForbiddenMixin(e);
@@ -765,8 +756,8 @@ __d(
             [t, n, r, a, i, l, s, u, c, d, m, p],
           );
     }
-    function z(e) {
-      var t = j(e);
+    function G(e) {
+      var t = z(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "CreateParticipantAddedResponse",
@@ -789,7 +780,7 @@ __d(
             [t, n],
           );
     }
-    function j(e) {
+    function z(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -800,7 +791,7 @@ __d(
       if (!n.success) return n;
       var r = o("WASmaxInGroupsPhoneNumberMixin").parsePhoneNumberMixin(e),
         a = o("WASmaxInGroupsUsernameAttMixin").parseUsernameAttMixin(e),
-        i = K(e);
+        i = j(e);
       return i.success
         ? o("WAResultOrError").makeResult({
             jid: n.value,
@@ -810,7 +801,7 @@ __d(
           })
         : i;
     }
-    function K(e) {
+    function j(e) {
       var t = o(
         "WASmaxInGroupsParticipantTemporarilyBlockedFromDefaultSubGroupMixin",
       ).parseParticipantTemporarilyBlockedFromDefaultSubGroupMixin(e);
@@ -907,7 +898,7 @@ __d(
           name: "ParticipantBotAlreadyExists",
           value: p.value,
         });
-      var _ = Y(e);
+      var _ = X(e);
       return _.success
         ? o("WAResultOrError").makeResult({
             name: "CreateParticipantAdded",
@@ -933,18 +924,18 @@ __d(
             [t, n, r, a, i, l, s, u, c, d, m, p, _],
           );
     }
-    function Q(e) {
+    function K(e) {
       var t = e.anySubject,
         n = o("WASmaxJsx").smax("smax$any", {
           subject: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function X(e, t) {
-      var n = Q(t);
+    function Q(e, t) {
+      var n = K(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function Y(e) {
+    function X(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -976,7 +967,7 @@ __d(
       (l.parseCreateResponseGroupAlreadyExists = c),
       (l.parseCreateResponseServerError = d),
       (l.parseCreateResponseSuccess = y),
-      (l.makeCreateRequest = F));
+      (l.makeCreateRequest = A));
   },
   98,
 );

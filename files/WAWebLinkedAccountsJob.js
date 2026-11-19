@@ -69,20 +69,22 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsGQL);
-          return e
-            ? g(e.accounts)
-            : {
-                fbPageId: null,
-                waPageId: null,
-                fbPageHasCreatedAd: !1,
-                waAdsIdentityPageHasCreatedAd: !1,
-              };
+          return g(yield c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsGQL));
         })),
         f.apply(this, arguments)
       );
     }
     function g(e) {
+      return e == null
+        ? {
+            fbPageId: null,
+            waPageId: null,
+            fbPageHasCreatedAd: !1,
+            waAdsIdentityPageHasCreatedAd: !1,
+          }
+        : h(e.accounts);
+    }
+    function h(e) {
       var t,
         n,
         r = e.find(function (e) {
@@ -103,7 +105,8 @@ __d(
     ((l.queryLinkedAccountsResult = d),
       (l.queryActiveLinkedAccountInfo = m),
       (l.queryLinkedPagesInfo = _),
-      (l.getLinkedPagesInfo = g));
+      (l.toLinkedPagesInfo = g),
+      (l.getLinkedPagesInfo = h));
   },
   98,
 );

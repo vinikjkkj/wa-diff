@@ -48,6 +48,11 @@ __d(
               return e.id.id === t;
             });
           }),
+          (i.getAllByCallId = function (t) {
+            return this.toArray().filter(function (e) {
+              return e.id.id === t;
+            });
+          }),
           (i.getByChat = function (t) {
             return this.getByChatId(t.id);
           }),
@@ -235,7 +240,17 @@ __d(
       })(o("WAWebBaseCollection").BaseCollection);
     _.model = o("WAWebMsgModel").Msg;
     var f = new _();
-    l.WAWebVoipOngoingCallCollection = f;
+    function g(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = t.get(n.id.id);
+        (r == null || n.t < r.t) && t.set(n.id.id, n);
+      }
+      return e.filter(function (e) {
+        return t.get(e.id.id) === e;
+      });
+    }
+    ((l.WAWebVoipOngoingCallCollection = f), (l.getOneCallLogPerCall = g));
   },
   98,
 );

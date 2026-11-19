@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = {
         STATE: "state",
+        USER_ENDED_CALL: "userEndedCall",
         PEER_RECONNECTING: "peerReconnecting",
         IS_VIDEO: "isVideo",
         VIDEO_STATE: "videoState",
@@ -47,6 +48,7 @@ __d(
       u = { INFO: "info", OBSCURITY: "obscurity", HAS_SYNCED: "hasSynced" },
       c = {
         state: "change:state",
+        userEndedCall: "change:userEndedCall",
         peerReconnecting: "change:peerReconnecting",
         isVideo: "change:isVideo",
         videoState: "change:videoState",

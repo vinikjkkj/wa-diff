@@ -7,6 +7,7 @@ __d(
     "WASmaxInGroupsBaseServerErrorMixin",
     "WASmaxInGroupsGroupAddressingModeMixin",
     "WASmaxInGroupsIQErrorBadRequestMixin",
+    "WASmaxInGroupsIQErrorBlockedIntegrityEnforcementMixin",
     "WASmaxInGroupsIQErrorForbiddenMixin",
     "WASmaxInGroupsIQErrorItemNotFoundMixin",
     "WASmaxInGroupsIQErrorNotAllowedMixin",
@@ -387,10 +388,18 @@ __d(
       var d = o(
         "WASmaxInGroupsIQErrorRateOverlimitMixin",
       ).parseIQErrorRateOverlimitMixin(e);
-      return d.success
+      if (d.success)
+        return o("WAResultOrError").makeResult({
+          name: "IQErrorRateOverlimit",
+          value: d.value,
+        });
+      var m = o(
+        "WASmaxInGroupsIQErrorBlockedIntegrityEnforcementMixin",
+      ).parseIQErrorBlockedIntegrityEnforcementMixin(e);
+      return m.success
         ? o("WAResultOrError").makeResult({
-            name: "IQErrorRateOverlimit",
-            value: d.value,
+            name: "IQErrorBlockedIntegrityEnforcement",
+            value: m.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
@@ -405,8 +414,9 @@ __d(
               "IQErrorParentGroupSuspended",
               "IQErrorGroupHasPendingAddRequests",
               "IQErrorRateOverlimit",
+              "IQErrorBlockedIntegrityEnforcement",
             ],
-            [t, n, r, a, i, l, s, u, c, d],
+            [t, n, r, a, i, l, s, u, c, d, m],
           );
     }
     function v(e) {

@@ -357,6 +357,9 @@ __d(
                         msg: r.unsafe(),
                         chat: n,
                         hasShownDisclosure: i,
+                        isCloudApiNativeClick: o(
+                          "WAWebMmSignalSharingUIUtils",
+                        ).isCloudApiNativeClickTap(r.unsafe(), n),
                         mmCarouselCardIndex: P(r.unsafe()),
                       }));
                   },
@@ -443,13 +446,14 @@ __d(
         if (r == null) return;
         (o("WAWebExternalLink.react").openExternalLink(r), x(t, l));
         var s = l.unsafe();
-        (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-          msg: s,
-          chat: n,
-          buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
-            .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-          nativeFlowName: t.name,
-        }),
+        (U(t, s, n),
+          o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+            msg: s,
+            chat: n,
+            buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
+              .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
+            nativeFlowName: t.name,
+          }),
           o(
             "WAWebMmSignalSharingLoggingEvents",
           ).logMmSignalSharingLinkClickEvent({
@@ -459,6 +463,9 @@ __d(
             msg: s,
             chat: n,
             hasShownDisclosure: i,
+            isCloudApiNativeClick: o(
+              "WAWebMmSignalSharingUIUtils",
+            ).isCloudApiNativeClickTap(s, n),
             mmCarouselCardIndex: P(s),
           }),
           o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
@@ -490,14 +497,15 @@ __d(
           onOkClick: function () {
             x(a, u);
             var e = u.unsafe();
-            (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: e,
-              chat: i,
-              buttonClickedType: o(
-                "WAWebWamEnumQbmMessageClickButtonClickedType",
-              ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-              nativeFlowName: a.name,
-            }),
+            (U(a, e, i),
+              o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+                msg: e,
+                chat: i,
+                buttonClickedType: o(
+                  "WAWebWamEnumQbmMessageClickButtonClickedType",
+                ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
+                nativeFlowName: a.name,
+              }),
               o(
                 "WAWebMmSignalSharingLoggingEvents",
               ).logMmSignalSharingLinkClickEvent({
@@ -507,6 +515,9 @@ __d(
                 msg: e,
                 chat: i,
                 hasShownDisclosure: s,
+                isCloudApiNativeClick: o(
+                  "WAWebMmSignalSharingUIUtils",
+                ).isCloudApiNativeClickTap(e, i),
                 mmCarouselCardIndex: P(e),
               }),
               o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
@@ -1174,16 +1185,45 @@ __d(
       );
     }
     function q(e, t, n) {
-      var r = t.unsafe();
-      o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
-        carouselCardIndex: P(r),
-        chat: o("WAWebFrontendMsgGetters").getChat(r),
-        ctaAction: n,
-        ctaButtonIndex: e.index,
-        msg: r,
-        templateType: o("WAWebWamEnumCloudApiSignalTemplateType")
-          .CLOUD_API_SIGNAL_TEMPLATE_TYPE.PAYMENT_REQUEST,
-      });
+      var r = t.unsafe(),
+        a = H(r);
+      a != null &&
+        o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
+          chat: o("WAWebFrontendMsgGetters").getChat(r),
+          ctaAction: n,
+          ctaButtonIndex: e.index,
+          msg: a,
+          templateType: o("WAWebWamEnumCloudApiSignalTemplateType")
+            .CLOUD_API_SIGNAL_TEMPLATE_TYPE.PAYMENT_REQUEST,
+        });
+    }
+    function U(e, t, n) {
+      var r = V(t);
+      r != null &&
+        o("WAWebCloudApiSignalLogger").logCloudApiUrlCtaClick({
+          carouselCardIndex: r.carouselCardIndex,
+          chat: n,
+          ctaButtonIndex: e.index,
+          msg: r.signalMsg,
+        });
+    }
+    function V(e) {
+      if (
+        e.nativeFlowName ===
+        r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
+      )
+        return null;
+      var t = H(e);
+      if (t == null) return null;
+      var n = P(e);
+      return e.isCarouselCard && n == null
+        ? null
+        : { carouselCardIndex: n, signalMsg: t };
+    }
+    function H(e) {
+      return e.isCarouselCard
+        ? o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(e)
+        : e;
     }
     l.default = g;
   },

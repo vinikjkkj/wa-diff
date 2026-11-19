@@ -58,9 +58,6 @@ __d(
               return t != null && t !== "" ? [t] : [];
             });
           return {
-            acquisitionDate: o(
-              "WAWebCustomerManagerCustomerProfileDecoders",
-            ).toOptionalUnixTime(i.acquisition_date),
             acquisitionSource: o(
               "WAWebCustomerManagerCustomerProfileDecoders",
             ).toProfileAcquisitionSourceId(i.acquisition_source),

@@ -317,10 +317,9 @@ __d(
             if (
               r.type === o("WAWebAccountSyncJob").AccountSyncType.TEXT_STATUS
             ) {
-              var i = o(
+              yield o(
                 "WAWebTextStatusAccountSyncNotification",
               ).applyTextStatusAccountSync(r);
-              i != null && (yield i);
               break e;
             }
             if (r.type === o("WAWebAccountSyncJob").AccountSyncType.DEVICES)

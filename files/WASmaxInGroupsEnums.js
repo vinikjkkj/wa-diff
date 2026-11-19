@@ -3,12 +3,25 @@ __d(
   ["WAJids"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = { 304: "304", 419: "419" },
-      u = { 403: "403", 404: "404", 406: "406", 419: "419" },
-      c = { 404: "404", 406: "406" },
-      d = { 404: "404", 419: "419" },
-      m = { 406: "406", 500: "500" },
-      p = {
+      s = {
+        "1p_Caravan": "1p_Caravan",
+        "1p_CoExV2": "1p_CoExV2",
+        "1p_GroupMuse": "1p_GroupMuse",
+        "1p_MAIBAHubChat": "1p_MAIBAHubChat",
+        "1p_MetaAI": "1p_MetaAI",
+        "1p_MetaAIThread": "1p_MetaAIThread",
+        "1p_Muse": "1p_Muse",
+        "1p_TEE": "1p_TEE",
+        "1p_WAForWork": "1p_WAForWork",
+        "1p_WAIAS": "1p_WAIAS",
+        "3p_Agent": "3p_Agent",
+      },
+      u = { 304: "304", 419: "419" },
+      c = { 403: "403", 404: "404", 406: "406", 419: "419" },
+      d = { 403: "403", 404: "404", 419: "419" },
+      m = { 404: "404", 406: "406" },
+      p = { 406: "406", 500: "500" },
+      _ = {
         accept: "accept",
         auto_add: "auto_add",
         default_sub_group_admin_add: "default_sub_group_admin_add",
@@ -18,7 +31,7 @@ __d(
         linked_group_join: "linked_group_join",
         sub_group_suggestion_approved: "sub_group_suggestion_approved",
       },
-      _ = {
+      f = {
         accept: "accept",
         auto_add: "auto_add",
         default_sub_group_promote: "default_sub_group_promote",
@@ -26,58 +39,60 @@ __d(
         invite_auto_add: "invite_auto_add",
         linked_group_join: "linked_group_join",
       },
-      f = { admin: "admin", superadmin: "superadmin" },
-      g = {
+      g = { admin: "admin", superadmin: "superadmin" },
+      h = {
         approved: "approved",
         in_review: "in_review",
         none: "none",
         rejected: "rejected",
       },
-      h = {
+      y = {
         deactivate_general_chat: "deactivate_general_chat",
         delete_capi: "delete_capi",
         delete_parent: "delete_parent",
         integrity_delete_parent: "integrity_delete_parent",
       },
-      y = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
-      C = { false: "false", true: "true" },
-      b = { group: "group", user: "user" },
-      v = { image: "image", preview: "preview" },
-      S = {
+      C = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
+      b = { false: "false", true: "true" },
+      v = { group: "group", user: "user" },
+      S = { image: "image", preview: "preview" },
+      R = {
         invite_link: "invite_link",
         linked_group_join: "linked_group_join",
         non_admin_add: "non_admin_add",
       },
-      R = { lid: "lid", pn: "pn" },
-      L = {
+      L = { lid: "lid", pn: "pn" },
+      E = {
         validators: [(e = o("WAJids")).validateDomainJid, e.validateGroupJid],
         typeName: "DomainJid|GroupJid",
       },
-      E = {
+      k = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
-    ((l.ENUM_304_419 = s),
-      (l.ENUM_403_404_406_419 = u),
-      (l.ENUM_404_406 = c),
-      (l.ENUM_404_419 = d),
-      (l.ENUM_406_500 = m),
+    ((l.ENUM_1PCARAVAN_1PCOEXV2_1PGROUPMUSE_1PMAIBAHUBCHAT_1PMETAAI_1PMETAAITHREAD_1PMUSE_1PTEE_1PWAFORWORK_1PWAIAS_3PAGENT =
+      s),
+      (l.ENUM_304_419 = u),
+      (l.ENUM_403_404_406_419 = c),
+      (l.ENUM_403_404_419 = d),
+      (l.ENUM_404_406 = m),
+      (l.ENUM_406_500 = p),
       (l.ENUM_ACCEPT_AUTOADD_DEFAULTSUBGROUPADMINADD_GENERALCHATAUTOADD_INVITE_INVITEAUTOADD_LINKEDGROUPJOIN_SUBGROUPSUGGESTIONAPPROVED =
-        p),
-      (l.ENUM_ACCEPT_AUTOADD_DEFAULTSUBGROUPPROMOTE_INVITE_INVITEAUTOADD_LINKEDGROUPJOIN =
         _),
-      (l.ENUM_ADMIN_SUPERADMIN = f),
-      (l.ENUM_APPROVED_INREVIEW_NONE_REJECTED = g),
+      (l.ENUM_ACCEPT_AUTOADD_DEFAULTSUBGROUPPROMOTE_INVITE_INVITEAUTOADD_LINKEDGROUPJOIN =
+        f),
+      (l.ENUM_ADMIN_SUPERADMIN = g),
+      (l.ENUM_APPROVED_INREVIEW_NONE_REJECTED = h),
       (l.ENUM_DEACTIVATEGENERALCHAT_DELETECAPI_DELETEPARENT_INTEGRITYDELETEPARENT =
-        h),
-      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = y),
-      (l.ENUM_FALSE_TRUE = C),
-      (l.ENUM_GROUP_USER = b),
-      (l.ENUM_IMAGE_PREVIEW = v),
-      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = S),
-      (l.ENUM_LID_PN = R),
-      (l.DOMAINJID_GROUPJID = L),
-      (l.USERJID_USERJID = E));
+        y),
+      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = C),
+      (l.ENUM_FALSE_TRUE = b),
+      (l.ENUM_GROUP_USER = v),
+      (l.ENUM_IMAGE_PREVIEW = S),
+      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = R),
+      (l.ENUM_LID_PN = L),
+      (l.DOMAINJID_GROUPJID = E),
+      (l.USERJID_USERJID = k));
   },
   98,
 );

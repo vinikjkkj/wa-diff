@@ -30,11 +30,12 @@ __d(
       d,
       m,
       p,
-      _ = 1,
-      f = 2,
-      g = 4,
-      h = { packColumns: !1 },
-      y = (function (e) {
+      _,
+      f = 1,
+      g = 2,
+      h = 4,
+      y = { packColumns: !1 },
+      C = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -47,7 +48,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      C = (function (e) {
+      b = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -60,7 +61,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      b = (function (e) {
+      v = (function (e) {
         function t(t) {
           var n;
           return (
@@ -80,7 +81,7 @@ __d(
           t
         );
       })(babelHelpers.wrapNativeSuper(Error)),
-      v = (function (e) {
+      S = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -93,7 +94,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      S = (function (e) {
+      R = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -106,17 +107,17 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      R = (function () {
+      L = (function () {
         function t(e, t) {
           ((this.tables = new Map()),
             (this.views = new Map()),
-            (this.state = _),
+            (this.state = f),
             (this.versions = new (o(
               "WAWebStorageVersionManager",
             ).StorageVersionManager)()),
             (this.errorHandlers = new Map()),
             (this.$1 = e),
-            (this.config = t != null ? t : h),
+            (this.config = t != null ? t : y),
             this.$2());
         }
         var a = t.prototype;
@@ -131,7 +132,7 @@ __d(
           }),
           (a.add = function (n) {
             if (this.tables.has(n))
-              throw new C(
+              throw new b(
                 'Table "' + n + '" already added. Reuse the definition.',
               );
             var t = o("WAWebSchemaVersions").DatabaseNames.cast(
@@ -199,8 +200,8 @@ __d(
           (a.$5 = function (t) {
             var e = this;
             return function () {
-              if (e.state & (f | _))
-                throw new S(
+              if (e.state & (g | f))
+                throw new R(
                   "Storage must be initialized before accessing a table!",
                 );
               return t();
@@ -210,12 +211,12 @@ __d(
             var e = this,
               n = this.tables.get(t);
             if (!n || !n.tableExists())
-              throw new v(
+              throw new S(
                 "Unknown table " + t + " requested, ensure table is defined!",
               );
             var o = this.$3();
             if (!o)
-              throw new b(
+              throw new v(
                 'Unable to find associated database with table "' + t + '"',
               );
             return new (r("WAWebIdbLazyView"))(
@@ -229,9 +230,9 @@ __d(
           (a.lock = function (t, r) {
             var e = this,
               o;
-            if (this.state & (f | _))
-              return (p || (p = n("Promise"))).reject(
-                new S("Initialize storage before attempting to lock tables!"),
+            if (this.state & (g | f))
+              return (_ || (_ = n("Promise"))).reject(
+                new R("Initialize storage before attempting to lock tables!"),
               );
             for (var a = 0; a < t.length; ++a) {
               var i;
@@ -242,14 +243,14 @@ __d(
                   i.tableExists()
                 )
               )
-                return (p || (p = n("Promise"))).reject(
-                  new v('Requested lock of unknown table "' + t[a] + '"'),
+                return (_ || (_ = n("Promise"))).reject(
+                  new S('Requested lock of unknown table "' + t[a] + '"'),
                 );
             }
             var l = t.map(function (t) {
                 var n = e.tables.get(t);
                 if (n) return n;
-                throw new v('Requested lock of unknown table "' + t + '"');
+                throw new S('Requested lock of unknown table "' + t + '"');
               }),
               s = l.map(function (t) {
                 return e.$4(t);
@@ -269,7 +270,16 @@ __d(
                 if (r) return { name: t[e].name, callback: r };
               }
           }),
-          (a.$7 = function (t, n, o) {
+          (a.$7 = function (t) {
+            return t == null ||
+              !Number.isInteger(t) ||
+              t < 0 ||
+              t >= this.versions.getMax() ||
+              !E()
+              ? 0
+              : t;
+          }),
+          (a.$8 = function (t, n, o) {
             var e = n,
               a = r("compactMap")(o, function (t) {
                 return t.schema(e);
@@ -281,8 +291,8 @@ __d(
               var e = this;
               try {
                 return r("WAWebIndexedDB") == null
-                  ? (p || (p = n("Promise"))).resolve(null)
-                  : new (p || (p = n("Promise")))(function (t) {
+                  ? (_ || (_ = n("Promise"))).resolve(null)
+                  : new (_ || (_ = n("Promise")))(function (t) {
                       var n = r("WAWebIndexedDB").open(e.$3().getDbName());
                       ((n.onsuccess = function (e) {
                         var n = e.target.result,
@@ -313,7 +323,7 @@ __d(
                         "[storage] failed to get existing db version",
                       ])),
                   ),
-                  (p || (p = n("Promise"))).resolve(null)
+                  (_ || (_ = n("Promise"))).resolve(null)
                 );
               }
             });
@@ -331,12 +341,12 @@ __d(
           }),
           (a.initialize = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.state & g)
-                throw new y("Storage instance has already been initialized");
+              if (this.state & h)
+                throw new C("Storage instance has already been initialized");
               if ((this.versions.validate(), this.$1))
                 yield this.$1.available();
               else
-                throw new b(
+                throw new v(
                   '"' +
                     this.$1.constructor.name +
                     '" failed availability check!',
@@ -357,7 +367,7 @@ __d(
                     this.versions.getMax(),
                     t.getDbName(),
                   ),
-                    yield this.$7(t, this.versions.getMax(), e),
+                    yield this.$8(t, this.versions.getMax(), e),
                     (n = !1));
                 else if (this.shouldEnableLatestDbSchemaOptimization()) {
                   ((r = yield this.getExistingDbVersion()),
@@ -383,18 +393,21 @@ __d(
                       this.versions.getMax(),
                       t.getDbName(),
                     ),
-                    yield this.$7(t, this.versions.getMax(), e),
+                    yield this.$8(t, this.versions.getMax(), e),
                     (n = !1));
                 }
                 var i = null;
                 if (n) {
+                  var l = this.$7(r);
                   (o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[storage] applying v[0-",
+                        "[storage] applying v[",
+                        "-",
                         "] db=",
                         "",
                       ])),
+                    l,
                     this.versions.getMax(),
                     t.getDbName(),
                   ),
@@ -404,10 +417,11 @@ __d(
                       t.getDbName(),
                       r,
                       this.versions.getMax(),
+                      l,
                     )));
                   try {
-                    for (var l = 0; l <= this.versions.getMax(); l++)
-                      yield this.$7(t, l, e);
+                    for (var s = l; s <= this.versions.getMax(); s++)
+                      yield this.$8(t, s, e);
                   } catch (e) {
                     throw (
                       o(
@@ -427,7 +441,7 @@ __d(
                     i,
                   );
                 }
-                this.state = g;
+                this.state = h;
               }
             });
             function t() {
@@ -437,7 +451,7 @@ __d(
           })()),
           (a.purge = function () {
             return (
-              (this.state = f),
+              (this.state = g),
               (this.views = new Map()),
               this.$3()
                 .reset()
@@ -459,10 +473,31 @@ __d(
           t
         );
       })();
-    ((l.AlreadyInitializedError = y),
-      (l.NoSuchDatabaseError = b),
-      (l.NoSuchTableError = v),
-      (l.Storage = R));
+    function E() {
+      try {
+        return (
+          o("WAWebGetSpecialAbProps").getSpecialAbpropValue(
+            "web_db_upgrade_from_stored_version",
+          ) === !0
+        );
+      } catch (e) {
+        return (
+          o("WALogger").WARN(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[storage] failed to read web_db_upgrade_from_stored_version: ",
+                "",
+              ])),
+            e,
+          ),
+          !1
+        );
+      }
+    }
+    ((l.AlreadyInitializedError = C),
+      (l.NoSuchDatabaseError = v),
+      (l.NoSuchTableError = S),
+      (l.Storage = L));
   },
   98,
 );

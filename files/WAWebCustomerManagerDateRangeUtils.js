@@ -4,11 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e, t) {
-      return e == null || t == null
-        ? { start: e, end: t }
-        : t < e
-          ? { start: t, end: e }
-          : { start: e, end: t };
+      return t < e ? { start: t, end: e } : { start: e, end: t };
     }
     function l(t, n) {
       if (t == null || n == null) return [];
@@ -20,55 +16,45 @@ __d(
         (i.push(new Date(l)), l.setDate(l.getDate() + 1));
       return i;
     }
-    function s(e, t) {
-      return e == null
-        ? ""
-        : globalThis.Intl == null || globalThis.Intl.DateTimeFormat == null
-          ? e.toDateString()
-          : new Intl.DateTimeFormat(t, {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            }).format(e);
+    function s(e) {
+      return globalThis.Intl == null || globalThis.Intl.DateTimeFormat == null
+        ? e.toDateString()
+        : new Intl.DateTimeFormat(void 0, {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }).format(e);
     }
-    function u(e, t, n) {
-      return e == null && t == null
-        ? ""
-        : e != null && t == null
-          ? s(e, n)
-          : e == null && t != null
-            ? s(t, n)
-            : s(e, n) + " \u2013 " + s(t, n);
+    function u(e, t) {
+      return s(e) + " \u2013 " + s(t);
     }
     function c(t, n) {
       var r = e(t, n),
         o = r.end,
         a = r.start,
-        i = a != null ? a : t,
-        l = o != null ? o : n,
-        s = Math.floor(
+        i = Math.floor(
           new Date(
-            i.getFullYear(),
-            i.getMonth(),
-            i.getDate(),
+            a.getFullYear(),
+            a.getMonth(),
+            a.getDate(),
             0,
             0,
             0,
             0,
           ).getTime() / 1e3,
         ),
-        u = Math.floor(
+        l = Math.floor(
           new Date(
-            l.getFullYear(),
-            l.getMonth(),
-            l.getDate(),
+            o.getFullYear(),
+            o.getMonth(),
+            o.getDate(),
             23,
             59,
             59,
             999,
           ).getTime() / 1e3,
         );
-      return { endSec: u, startSec: s };
+      return { endSec: l, startSec: i };
     }
     ((i.normalizeRange = e),
       (i.getRangeHighlightDates = l),
