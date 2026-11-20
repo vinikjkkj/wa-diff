@@ -11,16 +11,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebChatCollection").ChatCollection.filter(s).sort(m);
+      return o("WAWebChatCollection").ChatCollection.filter(s).sort(p);
     }
     function s(e) {
       return !o("WAWebChatGetters").getIsGroup(e) ||
         e.groupMetadata == null ||
-        e.isLocked
+        e.isLocked ||
+        e.isReadOnly
         ? !1
-        : o("WAWebFrontendChatGetters").getIsCommunity(e)
-          ? !0
-          : !o("WAWebFrontendChatGetters").getIsCAG(e) &&
+        : !o("WAWebFrontendChatGetters").getIsCommunity(e) &&
+            !o("WAWebFrontendChatGetters").getIsCAG(e) &&
             o("WAWebFrontendChatGetters").getShouldAppearInList(e);
     }
     function u(e) {
@@ -48,31 +48,42 @@ __d(
         });
     }
     function d(e) {
+      if (o("WAWebL10NAccentFold").accentFold(e.trim()) === "")
+        return o("WAWebBoolFunc").returnTrue;
+      var t = m(e);
+      return function (e) {
+        return t(o("WAWebFrontendChatGetters").getFormattedTitle(e));
+      };
+    }
+    function m(e) {
       var t = o("WAWebL10NAccentFold").accentFold(e.trim());
       return t === ""
         ? o("WAWebBoolFunc").returnTrue
         : function (e) {
-            return o("WAWebL10NAccentFold")
-              .accentFold(o("WAWebFrontendChatGetters").getFormattedTitle(e))
-              .includes(t);
+            return o("WAWebL10NAccentFold").accentFold(e).includes(t);
           };
     }
-    function m(e, t) {
+    function p(e, t) {
       return e.isFavorite !== t.isFavorite
         ? e.isFavorite
           ? -1
           : 1
         : o("WAWebGroupAdminGroupSort").compareByRecent(e, t);
     }
-    function p(e) {
-      var t = e.groupMetadata;
-      if (t == null) return null;
-      var n = o("WAWebFrontendChatGetters").getIsCommunity(e)
-        ? _(t)
-        : t.participants.length;
-      return n > 0 ? n : null;
-    }
     function _(e) {
+      return f({
+        groupMetadata: e.groupMetadata,
+        isCommunity: o("WAWebFrontendChatGetters").getIsCommunity(e),
+      });
+    }
+    function f(e) {
+      var t = e.groupMetadata,
+        n = e.isCommunity;
+      if (t == null) return null;
+      var r = n ? g(t) : t.participants.length;
+      return r > 0 ? r : null;
+    }
+    function g(e) {
       var t,
         n = o(
           "WAWebCommunityAnnouncementGroupUtils",
@@ -86,8 +97,10 @@ __d(
       (l.getGroupRanks = u),
       (l.keepInitialOrder = c),
       (l.createGroupSearch = d),
-      (l.compareMyGroups = m),
-      (l.getGroupMemberCount = p));
+      (l.createNameSearch = m),
+      (l.compareMyGroups = p),
+      (l.getGroupMemberCount = _),
+      (l.getGroupMemberCountFor = f));
   },
   98,
 );

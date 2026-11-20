@@ -20,7 +20,9 @@ __d(
       d = o(
         "WAWebContactsAndGroupsSession",
       ).createContactsAndGroupsSessionValue(null),
-      m = null,
+      m = o(
+        "WAWebContactsAndGroupsSession",
+      ).createContactsAndGroupsSessionValue(null),
       p = new (r("WAWebEventEmitter"))();
     function _() {
       var e, t;
@@ -30,32 +32,39 @@ __d(
     }
     function f(t, n) {
       var a,
-        i = o(
+        i,
+        l = o(
           "WAWebContactsAndGroupsLastSeen",
         ).getContactsAndGroupsLastSeenBeforeThisVisit();
-      ((a = d.get()) == null ? void 0 : a.lastSeen) === i ||
-        m === i ||
-        ((m = i),
-        o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          v(t, n - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS)
-            .then(function (e) {
-              m === i &&
-                ((m = null),
-                d.set({ groupPolls: e, lastSeen: i }),
-                p.trigger("change"));
-            })
-            .catch(function (t) {
-              (m === i && (m = null),
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "requestGroupPolls: loading the open polls failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t)));
-            });
-        }));
+      if (
+        !(
+          ((a = d.get()) == null ? void 0 : a.lastSeen) === l ||
+          ((i = m.get()) == null ? void 0 : i.lastSeen) === l
+        )
+      ) {
+        var s = { lastSeen: l };
+        (m.set(s),
+          o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
+            v(t, n - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS)
+              .then(function (e) {
+                m.get() === s &&
+                  (m.set(null),
+                  d.set({ groupPolls: e, lastSeen: l }),
+                  p.trigger("change"));
+              })
+              .catch(function (t) {
+                (m.get() === s && m.set(null),
+                  o("WALogger")
+                    .WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "requestGroupPolls: loading the open polls failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t)));
+              });
+          }));
+      }
     }
     function g(e) {
       var t = d.get();

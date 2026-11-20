@@ -1,20 +1,22 @@
 __d(
   "WAWebContactsAndGroupsJustCreatedGroup",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = null;
-    function l(t) {
-      e = t.toString();
-    }
+  ["WAWebContactsAndGroupsSession"],
+  function (t, n, r, o, a, i, l) {
+    var e = o(
+      "WAWebContactsAndGroupsSession",
+    ).createContactsAndGroupsSessionValue(null);
     function s(t) {
-      return e === t.id.toString();
+      e.set(t.toString());
     }
     function u(t) {
-      s(t) && (e = null);
+      return e.get() === t.id.toString();
     }
-    ((i.markGroupJustCreated = l),
-      (i.isGroupJustCreated = s),
-      (i.clearJustCreatedGroup = u));
+    function c(t) {
+      u(t) && e.set(null);
+    }
+    ((l.markGroupJustCreated = s),
+      (l.isGroupJustCreated = u),
+      (l.clearJustCreatedGroup = c));
   },
-  66,
+  98,
 );

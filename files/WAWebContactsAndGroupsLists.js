@@ -14,7 +14,8 @@ __d(
       return (
         e.name !== "" &&
         e.isActive !== !1 &&
-        !o("WAWebListUtils").isBuiltInList(e.type)
+        !o("WAWebListUtils").isBuiltInList(e.type) &&
+        !o("WAWebListUtils").isDeviceLocalList(e)
       );
     }
     ((l.LIST_COLLECTION_EVENTS = e), (l.isVisibleList = s));

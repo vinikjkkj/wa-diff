@@ -12,6 +12,7 @@ __d(
         LOCKED_CHATS_DRAWER: "locked-chats-drawer",
         PASSKEY_CHECKPOINT: "passkey-checkpoint",
         PAYMENTS_PASSKEY_NOTICE: "payments-passkey-notice",
+        PDF_PASSWORD_DIALOG: "pdf-password-dialog",
         SCREEN_LOCK: "screen-lock",
         SCREEN_LOCK_ACTIVE_CALL_BLOCKER: "screen-lock-active-call-blocker",
         SCREEN_LOCK_PASSCODE_REMOVAL: "screen-lock-passcode-removal",
@@ -111,7 +112,11 @@ __d(
     function L() {
       c++;
     }
-    var E = new Set([e.CHAT_LOCK_SECRET_CODE, e.DIAL_PAD]);
+    var E = new Set([
+      e.CHAT_LOCK_SECRET_CODE,
+      e.DIAL_PAD,
+      e.PDF_PASSWORD_DIALOG,
+    ]);
     function k() {
       var e;
       return (e = s.findLast(function (e) {

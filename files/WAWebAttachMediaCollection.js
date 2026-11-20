@@ -48,11 +48,12 @@ __d(
               "prev",
             )),
             (n.isStickerMaker = !1),
-            (n.$AttachMediaCollection$p_1 = function (e, t) {
+            (n.$AttachMediaCollection$p_1 = null),
+            (n.$AttachMediaCollection$p_2 = function (e, t) {
               (t === "focus" || t === !1) && n.trigger("active-change");
             }),
             (n.mediaPickerStatsLogger.chatRecipients = a),
-            n.listenTo(n.selection, "all", n.$AttachMediaCollection$p_1),
+            n.listenTo(n.selection, "all", n.$AttachMediaCollection$p_2),
             n
           );
         }
@@ -115,7 +116,7 @@ __d(
               var u = new (o("WAWebAttachMediaModel").AttachMedia)({
                 id: t,
                 caption: l,
-                file: this.$AttachMediaCollection$p_2(n),
+                file: this.$AttachMediaCollection$p_3(n),
                 quality: r,
                 supportedTypes: a,
               });
@@ -188,7 +189,7 @@ __d(
                 var c = o("WAWebBotUtils").isMetaAiBot(n.id)
                     ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
                     : null,
-                  d = yield this.$AttachMediaCollection$p_3(
+                  d = yield this.$AttachMediaCollection$p_4(
                     e,
                     t,
                     i,
@@ -200,9 +201,9 @@ __d(
                 o("WAWebMediaInputEvents").emitMediaInputEvent({
                   type: "attachments_processed",
                   chat: n,
-                  mediaTypes: d.map(m),
+                  mediaTypes: d.map(p),
                   origin: t,
-                  tooLargeTypes: p(d),
+                  tooLargeTypes: _(d),
                 });
               },
             );
@@ -214,7 +215,7 @@ __d(
           (i.processAttachments = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, o, a, i) {
-                yield this.$AttachMediaCollection$p_3(e, t, n, r, o, a, i);
+                yield this.$AttachMediaCollection$p_4(e, t, n, r, o, a, i);
               },
             );
             function t(t, n, r, o, a, i, l) {
@@ -222,7 +223,7 @@ __d(
             }
             return t;
           })()),
-          (i.$AttachMediaCollection$p_3 = (function () {
+          (i.$AttachMediaCollection$p_4 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, a, i, l, s, u, c) {
                 var d = this,
@@ -233,7 +234,7 @@ __d(
                   ? _ && this.trigger("max_upload_limit", _)
                   : this.ignore(_);
                 var f = t.slice(0, p).map(function (t) {
-                  var l = d.$AttachMediaCollection$p_2(t);
+                  var l = d.$AttachMediaCollection$p_3(t);
                   (u != null &&
                     (l = l.then(function (e) {
                       if (
@@ -289,7 +290,12 @@ __d(
                   return s;
                 });
                 this.add(f);
-                var g = this.getActive();
+                var g = this.$AttachMediaCollection$p_1;
+                g != null &&
+                  f.forEach(function (e) {
+                    return d.$AttachMediaCollection$p_5(e, g);
+                  });
+                var h = this.getActive();
                 return (
                   this.unsetActive(),
                   f.forEach(function (e) {
@@ -297,12 +303,12 @@ __d(
                       e,
                       o("WAWebAttachMediaGetters").PREVIEWABLE_ROOT_EVENTS,
                       function () {
-                        d.$AttachMediaCollection$p_4(f, g);
+                        d.$AttachMediaCollection$p_6(f, h);
                       },
                     );
                   }),
                   (e || (e = n("Promise"))).all(t).then(function () {
-                    d.$AttachMediaCollection$p_4(f, g);
+                    d.$AttachMediaCollection$p_6(f, h);
                   }),
                   yield e.all(
                     f.map(function (e) {
@@ -311,9 +317,9 @@ __d(
                   ),
                   s && s(),
                   f.forEach(function (e) {
-                    return d.$AttachMediaCollection$p_5(e, a);
+                    return d.$AttachMediaCollection$p_7(e, a);
                   }),
-                  this.$AttachMediaCollection$p_4(f, g),
+                  this.$AttachMediaCollection$p_6(f, h),
                   f
                 );
               },
@@ -323,7 +329,7 @@ __d(
             }
             return a;
           })()),
-          (i.$AttachMediaCollection$p_4 = function (t, n) {
+          (i.$AttachMediaCollection$p_6 = function (t, n) {
             if (
               !this.getActive() &&
               !this.getModelsArray().some(function (e) {
@@ -343,13 +349,13 @@ __d(
                 e && this.setActive(e));
             }
           }),
-          (i.$AttachMediaCollection$p_5 = function (t, n) {
+          (i.$AttachMediaCollection$p_7 = function (t, n) {
             if (n != null) {
               var e = t.isGif ? "gif" : t.type;
               this.mediaPickerStatsLogger.logAdd(t.id, e, n);
             }
           }),
-          (i.$AttachMediaCollection$p_2 = function (r) {
+          (i.$AttachMediaCollection$p_3 = function (r) {
             return (e || (e = n("Promise"))).resolve(r).then(function (e) {
               return (
                 (e.filename == null || e.filename === "") &&
@@ -376,7 +382,7 @@ __d(
               l = 0,
               u = 0,
               c = 0,
-              m = null,
+              d = null,
               p = 0,
               _ = 0,
               f = 0,
@@ -424,14 +430,14 @@ __d(
                       case o("WAWebFileUtils").FILETYPE.DOCUMENT:
                         e.isVcardOverMmsDocument
                           ? (p += e.documentPageCount)
-                          : ((c += 1), (m = e.exception.uploadLimit));
+                          : ((c += 1), (d = e.exception.uploadLimit));
                         break;
                     }
                   else if (
                     e.exception instanceof
                     o("WAWebMediaFileErrors").MediaFileEmpty
                   )
-                    switch (d(e)) {
+                    switch (m(e)) {
                       case o("WAWebFileUtils").FILETYPE.IMAGE:
                         _ += 1;
                         break;
@@ -501,7 +507,7 @@ __d(
                 ),
               c > 0)
             ) {
-              var E = m != null ? o("WAWebL10nFilesize").getL10nFilesize(m) : v;
+              var E = d != null ? o("WAWebL10nFilesize").getL10nFilesize(d) : v;
               e.push(
                 s._(
                   /*BTDS*/ '_j{"*":{"*":"{number} documents you tried adding are larger than the {maxSize} limit."},"_1":{"_1":"1 document you tried adding is larger than the {maxSize} limit."}}',
@@ -609,7 +615,8 @@ __d(
             );
           }),
           (i.canSendMedia = function (t) {
-            var e = c(t);
+            if (t.isWaitingToPrepare) return !1;
+            var e = d(t);
             return e != null &&
               o("WAWebMimeTypes").isPdfDocument(e) &&
               t.state !==
@@ -627,28 +634,56 @@ __d(
               return e.canSendMedia(t);
             });
           }),
+          (i.hasQualityForAll = function () {
+            return this.$AttachMediaCollection$p_1 != null;
+          }),
+          (i.applyQualityToAll = function (t) {
+            var e = this;
+            ((this.$AttachMediaCollection$p_1 = t),
+              this.getModelsArray().forEach(function (n) {
+                return e.$AttachMediaCollection$p_5(n, t);
+              }));
+          }),
+          (i.$AttachMediaCollection$p_5 = function (t, n) {
+            var e,
+              r = this;
+            if (((t.hasSetFromPrefs = !0), t.hdEligible)) {
+              c(t, n);
+              return;
+            }
+            (e = t.processPromise) == null ||
+              e.then(function () {
+                if (r.get(t.id) === t && t.hdEligible) {
+                  var e;
+                  c(t, (e = r.$AttachMediaCollection$p_1) != null ? e : n);
+                }
+              });
+          }),
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
     u.model = o("WAWebAttachMediaModel").AttachMedia;
-    function c(e) {
+    function c(e, t) {
+      e.quality !== t && !e.mediaEditorData.hasEdits() && e.updateQuality(t);
+    }
+    function d(e) {
       if (e.mimetype != null && e.mimetype !== "") return e.mimetype;
       var t = e.file;
       return t instanceof File ? t.type : null;
     }
-    function d(e) {
+    function m(e) {
       var t = e.file;
       if (!(t instanceof Blob || t instanceof File))
         throw r("err")("expected file to be a Blob or File");
       return o("WAWebFileUtils").typeFromMimetype(t.type);
     }
-    function m(e) {
+    function p(e) {
       var t = e.exception;
       return t instanceof r("WAWebMediaFileTooLargeError")
         ? t.mediaType
         : e.type;
     }
-    function p(e) {
+    function _(e) {
       var t = [];
       for (var n of e) {
         var o = n.exception;

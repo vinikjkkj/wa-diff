@@ -1,41 +1,66 @@
 __d(
   "WAWebContactsAndGroupsSuggestionDismissals",
   [
+    "WAHashStringToNumber",
     "WAWebContactsAndGroupsThisWeek",
     "WAWebEventEmitter",
     "WAWebUserPrefsStore",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "WAContactsAndGroupsDismissedSuggestions",
-      s = new (r("WAWebEventEmitter"))();
-    function u(e, t, n) {
-      return p(h(e, t), n);
-    }
+      s = "h:",
+      u = new (r("WAWebEventEmitter"))();
     function c(e, t, n) {
-      _(h(e, t), n);
+      return d(e.id, t, n);
     }
     function d(e, t, n) {
-      return p(e + ":" + t, n);
+      return h(R(e, t), n);
     }
     function m(e, t, n) {
-      _(e + ":" + t, n);
+      p(e.id, t, n);
     }
-    function p(e, t) {
-      var n = f()[e];
-      return n != null && g(n, t);
+    function p(e, t, n) {
+      y(R(e, t), n);
     }
-    function _(t, n) {
-      var o = {};
-      (Object.entries(f()).forEach(function (e) {
-        var t = e[0],
-          r = e[1];
-        g(r, n) && (o[t] = r);
-      }),
-        (o[t] = n),
+    function _(e, t, n) {
+      return h(e + ":" + t, n);
+    }
+    function f(e, t, n) {
+      y(e + ":" + t, n);
+    }
+    function g(t) {
+      var n = r("WAWebUserPrefsStore").getUser(e);
+      if (!(n == null || typeof n != "object")) {
+        var o = Object.entries(n).some(function (e) {
+          var n = e[0],
+            r = e[1];
+          return !n.startsWith(s) || typeof r != "number" || !S(r, t);
+        });
+        o && r("WAWebUserPrefsStore").setUser(e, C(t));
+      }
+    }
+    function h(e, t) {
+      var n = b()[v(e)];
+      return n != null && S(n, t);
+    }
+    function y(t, n) {
+      var o = C(n);
+      ((o[v(t)] = n),
         r("WAWebUserPrefsStore").setUser(e, o),
-        s.trigger("change"));
+        u.trigger("change"));
     }
-    function f() {
+    function C(e) {
+      var t = {};
+      return (
+        Object.entries(b()).forEach(function (n) {
+          var r = n[0],
+            o = n[1];
+          S(o, e) && (t[r] = o);
+        }),
+        t
+      );
+    }
+    function b() {
       var t = r("WAWebUserPrefsStore").getUser(e),
         n = {};
       return (
@@ -44,22 +69,28 @@ __d(
           Object.entries(t).forEach(function (e) {
             var t = e[0],
               r = e[1];
-            typeof r == "number" && (n[t] = r);
+            typeof r == "number" && (n[t.startsWith(s) ? t : v(t)] = r);
           }),
         n
       );
     }
-    function g(e, t) {
+    function v(e) {
+      return "" + s + o("WAHashStringToNumber").hashStringToNumber(e);
+    }
+    function S(e, t) {
       return t - e < o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS;
     }
-    function h(e, t) {
-      return e.id.toString() + ":" + t;
+    function R(e, t) {
+      return e.toString() + ":" + t;
     }
-    ((l.groupSuggestionDismissals = s),
-      (l.isGroupSuggestionDismissed = u),
-      (l.dismissGroupSuggestion = c),
-      (l.isAttentionItemDismissed = d),
-      (l.dismissAttentionItem = m));
+    ((l.groupSuggestionDismissals = u),
+      (l.isGroupSuggestionDismissed = c),
+      (l.isGroupSuggestionDismissedForChatId = d),
+      (l.dismissGroupSuggestion = m),
+      (l.dismissGroupSuggestionForChatId = p),
+      (l.isAttentionItemDismissed = _),
+      (l.dismissAttentionItem = f),
+      (l.rewriteStoredDismissals = g));
   },
   98,
 );

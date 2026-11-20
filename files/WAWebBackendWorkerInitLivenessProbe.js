@@ -1,18 +1,20 @@
 __d(
   "WAWebBackendWorkerInitLivenessProbe",
-  ["WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAWebNoop", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 3e4;
+      s = 6e4;
     function u(e, t) {
       var n = !1,
-        r = self.setTimeout(function () {
-          c(t).then(function (t) {
-            !n && e.isActive() && m(e, t);
-          });
+        o = self.setTimeout(function () {
+          c(t)
+            .then(function (t) {
+              !n && e.isActive() && m(e, t);
+            })
+            .catch(r("WAWebNoop"));
         }, s);
       return function () {
-        ((n = !0), self.clearTimeout(r));
+        ((n = !0), self.clearTimeout(o));
       };
     }
     function c(e) {
@@ -21,27 +23,17 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (globalThis.navigator.locks != null)
-            try {
-              var t = yield globalThis.navigator.locks.query(),
-                n = t.held,
-                r = t.pending;
-              return (n == null
-                ? void 0
-                : n.some(function (t) {
-                    return t.name === e;
-                  })) === !0
-                ? "lock_held"
-                : (r == null
-                      ? void 0
-                      : r.some(function (t) {
-                          return t.name === e;
-                        })) === !0
-                  ? "lock_pending"
-                  : "lock_free";
-            } catch (e) {
-              return "query_error";
-            }
+          if (globalThis.navigator.locks != null) {
+            var t = yield globalThis.navigator.locks.query(),
+              n = t.held;
+            return (n == null
+              ? void 0
+              : n.some(function (t) {
+                  return t.name === e;
+                })) === !0
+              ? "lock_held"
+              : "lock_free";
+          }
           return "no_locks_api";
         })),
         d.apply(this, arguments)

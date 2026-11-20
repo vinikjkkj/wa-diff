@@ -30,7 +30,7 @@ __d(
       S = null;
     function R(e) {
       S == null &&
-        (S = o("WAWebVoipBackgroundImages").subscribeToBackgroundImageReady($));
+        (S = o("WAWebVoipBackgroundImages").subscribeToBackgroundImageReady(x));
       var t = { ids: e };
       y.add(t);
       var n = e.filter(function (e) {
@@ -44,10 +44,10 @@ __d(
         var a;
         ((a = _.get(r)) == null ? void 0 : a.state) !== "ready" &&
           !f.has(r) &&
-          (f.add(r), _.has(r) || O(r, { state: "loading" }), T(r));
+          (f.add(r), _.has(r) || F(r, { state: "loading" }), I(r));
       }
       return (
-        P(),
+        $(),
         function () {
           y.delete(t);
         }
@@ -68,7 +68,7 @@ __d(
         URL.revokeObjectURL(n),
         o("WAWebVoipBackgroundImageStore").forgetStoredBackgroundPreview(t),
         g.add(t),
-        O(t, { state: "failed" }));
+        F(t, { state: "failed" }));
     }
     function E() {
       return _;
@@ -81,22 +81,10 @@ __d(
         }
       );
     }
-    function I() {
-      ((_ = new Map()),
-        f.clear(),
-        g.clear(),
-        (h.length = 0),
-        y.clear(),
-        C.clear(),
-        (b = (d || (d = n("Promise"))).resolve()),
-        (v = 0),
-        S == null || S(),
-        (S = null));
-    }
-    function T(e) {
+    function I(e) {
       b = b
         .then(function () {
-          return D(e);
+          return T(e);
         })
         .catch(function (t) {
           (o("WALogger")
@@ -111,41 +99,41 @@ __d(
             .catching(r("getErrorSafe")(t))
             .sendLogs("voip-effects-preview-lookup-failed"),
             g.add(e),
-            F(e, { state: "failed" }));
+            A(e, { state: "failed" }));
         });
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebVoipBackgroundImageStore",
           ).readStoredBackgroundPreview(e);
           if (t != null) {
             (g.delete(e),
-              F(e, { state: "ready", url: URL.createObjectURL(t) }));
+              A(e, { state: "ready", url: URL.createObjectURL(t) }));
             return;
           }
           var r = o("WAWebVoipBackgroundImages").peekBackgroundImage(e);
           if (r != null) {
-            N(e, r);
+            P(e, r);
             return;
           }
           var a = yield o(
             "WAWebVoipBackgroundImages",
           ).readStoredBackgroundImageForPreview(e);
           if (a != null) {
-            yield N(e, (d || (d = n("Promise"))).resolve(a));
+            yield P(e, (d || (d = n("Promise"))).resolve(a));
             return;
           }
-          (h.push(e), P());
+          (h.push(e), $());
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $(e) {
+    function x(e) {
       var t,
         n = h.indexOf(e);
       if (n >= 0) h.splice(n, 1);
@@ -157,17 +145,17 @@ __d(
           return;
         f.add(e);
       }
-      N(e, o("WAWebVoipBackgroundImages").getBackgroundImageForPreview(e));
+      P(e, o("WAWebVoipBackgroundImages").getBackgroundImageForPreview(e));
     }
-    function P() {
+    function $() {
       for (
         var e = function () {
-            var e = h.findIndex(w);
+            var e = h.findIndex(M);
             if (e < 0) return { v: void 0 };
             var t = h.splice(e, 1),
               n = t[0];
             (v++,
-              N(
+              P(
                 n,
                 o("WAWebVoipBackgroundImages").getBackgroundImageForPreview(n),
               )
@@ -176,23 +164,23 @@ __d(
                     !e &&
                     !o("WAWebVoipBackgroundImages").isBackgroundImageUnusable(n)
                   )
-                    for (var t of h.splice(0)) F(t, { state: "failed" });
+                    for (var t of h.splice(0)) A(t, { state: "failed" });
                 })
                 .finally(function () {
-                  (v--, P());
+                  (v--, $());
                 }));
           },
           t;
-        v < A();
+        v < w();
       )
         if (((t = e()), t)) return t.v;
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield t,
               a = self.performance.now(),
@@ -204,7 +192,7 @@ __d(
             return (
               o("WAWebVoipBackgroundImageStore").storeBackgroundPreview(e, i),
               g.delete(e),
-              F(e, { state: "ready", url: URL.createObjectURL(i) }),
+              A(e, { state: "ready", url: URL.createObjectURL(i) }),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -232,28 +220,28 @@ __d(
                 r("getErrorSafe")(t).message,
               ),
               g.add(e),
-              F(e, { state: "failed" }),
+              A(e, { state: "failed" }),
               !1
             );
           }
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e) {
+    function M(e) {
       for (var t of y) {
         var n = t.ids;
         if (n.includes(e)) return !0;
       }
       return !1;
     }
-    function A() {
+    function w() {
       return self.navigator.hardwareConcurrency >= m ? 2 : 1;
     }
-    function F(e, t) {
-      (f.delete(e), O(e, t));
+    function A(e, t) {
+      (f.delete(e), F(e, t));
     }
-    function O(e, t) {
+    function F(e, t) {
       ((_ = new Map(_).set(e, t)),
         C.forEach(function (e) {
           return e();
@@ -262,8 +250,7 @@ __d(
     ((l.requestBackgroundPreviews = R),
       (l.failBackgroundPreview = L),
       (l.getBackgroundPreviews = E),
-      (l.subscribeToBackgroundPreviews = k),
-      (l.resetBackgroundPreviewsForTesting = I));
+      (l.subscribeToBackgroundPreviews = k));
   },
   98,
 );

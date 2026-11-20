@@ -4,11 +4,13 @@ __d(
     "fbt",
     "WALogger",
     "WAWebActionToast.react",
-    "WAWebBackendErrors",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebConfirmPopup.react",
+    "WAWebContactsAndGroupsGroupTitle",
+    "WAWebContactsAndGroupsOneByOne",
     "WAWebExitGroupAction",
+    "WAWebFbtIntlList",
     "WAWebFrontendChatGetters",
     "WAWebModalManager",
     "WAWebNoop",
@@ -23,9 +25,8 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = 3,
-      m = 429;
-    function p(e) {
+      d = 3;
+    function m(e) {
       return e.filter(function (e) {
         return (
           !o("WAWebFrontendChatGetters").getIsCommunity(e) &&
@@ -34,8 +35,8 @@ __d(
         );
       });
     }
-    function _(e) {
-      var t = p(e),
+    function p(e) {
+      var t = m(e),
         n = e.filter(function (e) {
           return (
             o("WAWebFrontendChatGetters").getIsCommunity(e) ||
@@ -61,14 +62,14 @@ __d(
           okText: s._(/*BTDS*/ "Leave groups"),
           onCancel: o("WAWebModalManager").closeModalManager,
           onOK: function () {
-            (o("WAWebModalManager").closeModalManager(), C(t));
+            (o("WAWebModalManager").closeModalManager(), h(t));
           },
           testid: "contacts-and-groups-leave-groups-confirm",
           title: s._(
             /*BTDS*/ '_j{"*":"Leave {count} groups?","_1":"Leave 1 group?"}',
             [s._plural(t.length, "count")],
           ),
-          children: c.jsx(b, {
+          children: c.jsx(y, {
             alreadyLeftCount: r,
             groups: t,
             skippedCount: n,
@@ -76,15 +77,15 @@ __d(
         }),
       );
     }
-    function f(e) {
-      return g(e, 0);
+    function _(e) {
+      return f(e, 0);
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = t[n];
           if (a == null)
             return { failedCount: 0, leftCount: 0, stoppedAtLimit: !1 };
@@ -100,29 +101,23 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(a)),
-              y(a))
+              o("WAWebContactsAndGroupsOneByOne").isRateLimited(a))
             )
               return { failedCount: 1, leftCount: 0, stoppedAtLimit: !0 };
-            var i = yield g(t, n + 1);
+            var i = yield f(t, n + 1);
             return babelHelpers.extends({}, i, {
               failedCount: i.failedCount + 1,
             });
           }
-          var l = yield g(t, n + 1);
+          var l = yield f(t, n + 1);
           return babelHelpers.extends({}, l, { leftCount: l.leftCount + 1 });
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e) {
-      return (
-        e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-        e.status === m
-      );
-    }
-    function C(e) {
-      var t = f(e).then(function (e) {
-        return new (o("WAWebActionToast.react").ActionType)(k(e));
+    function h(e) {
+      var t = _(e).then(function (e) {
+        return new (o("WAWebActionToast.react").ActionType)(L(e));
       });
       return (
         o("WAWebToastManager").ToastManager.open(
@@ -139,132 +134,98 @@ __d(
         t.then(r("WAWebNoop"))
       );
     }
-    function b(e) {
-      var t = o("react-compiler-runtime").c(19),
-        n = e.alreadyLeftCount,
-        r = e.groups,
+    function y(e) {
+      var t = e.alreadyLeftCount,
+        n = e.groups,
         a = e.skippedCount,
-        i;
-      t[0] !== r
-        ? ((i = r
-            .slice(0, d)
-            .map(o("WAWebFrontendChatGetters").getFormattedTitle)
-            .join(", ")),
-          (t[0] = r),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        u = r.length - d,
-        m;
-      t[2] !== u || t[3] !== l
-        ? ((m =
-            u > 0
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{names} and {count} more groups","_1":"{names} and 1 more group"}',
-                  [s._plural(u, "count"), s._param("names", l)],
-                )
-              : l),
-          (t[2] = u),
-          (t[3] = l),
-          (t[4] = m))
-        : (m = t[4]);
-      var p;
-      t[5] !== m
-        ? ((p = c.jsx("div", {
+        i = n.slice(0, d),
+        l = r("WAWebFbtIntlList")(
+          i.map(function (e) {
+            return o(
+              "WAWebContactsAndGroupsGroupTitle",
+            ).getContactsAndGroupsGroupTitle(e);
+          }),
+          "NONE",
+          i.some(C) ? "SEMICOLON" : "COMMA",
+        ),
+        u = n.length - d;
+      return c.jsxs(c.Fragment, {
+        children: [
+          c.jsx("div", {
             "data-testid": "contacts-and-groups-leave-groups-names",
-            children: m,
-          })),
-          (t[5] = m),
-          (t[6] = p))
-        : (p = t[6]);
-      var _;
-      t[7] !== r ? ((_ = L(r).map(v)), (t[7] = r), (t[8] = _)) : (_ = t[8]);
-      var f;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = c.jsx("div", {
+            children:
+              u > 0
+                ? s._(
+                    /*BTDS*/ '_j{"*":"{names} and {count} more groups","_1":"{names} and 1 more group"}',
+                    [s._plural(u, "count"), s._param("names", l)],
+                  )
+                : l,
+          }),
+          S(n).map(function (e) {
+            var t = e.community,
+              n = e.groups;
+            return c.jsx(
+              "div",
+              {
+                "data-testid": "contacts-and-groups-leave-groups-community",
+                children: c.jsx(b, { community: t, groups: n }),
+              },
+              t.id.toString(),
+            );
+          }),
+          c.jsx("div", {
             "data-testid": "contacts-and-groups-leave-groups-notice",
             children: s._(
               /*BTDS*/ "Only admins are notified when you leave a group.",
             ),
-          })),
-          (t[9] = f))
-        : (f = t[9]);
-      var g;
-      t[10] !== a
-        ? ((g =
-            a > 0 &&
+          }),
+          a > 0 &&
             c.jsx("div", {
               "data-testid": "contacts-and-groups-leave-groups-skipped",
               children: s._(
                 /*BTDS*/ '_j{"*":"{count} communities or announcement groups will be skipped. Leave a community from its community info.","_1":"1 community or announcement group will be skipped. Leave a community from its community info."}',
                 [s._plural(a, "count")],
               ),
-            })),
-          (t[10] = a),
-          (t[11] = g))
-        : (g = t[11]);
-      var h;
-      t[12] !== n
-        ? ((h =
-            n > 0 &&
+            }),
+          t > 0 &&
             c.jsx("div", {
               "data-testid": "contacts-and-groups-leave-groups-already-left",
               children: s._(
                 /*BTDS*/ '_j{"*":"{count} groups you already left will be skipped.","_1":"1 group you already left will be skipped."}',
-                [s._plural(n, "count")],
+                [s._plural(t, "count")],
               ),
-            })),
-          (t[12] = n),
-          (t[13] = h))
-        : (h = t[13]);
-      var y;
+            }),
+        ],
+      });
+    }
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e) {
       return (
-        t[14] !== p || t[15] !== _ || t[16] !== g || t[17] !== h
-          ? ((y = c.jsxs(c.Fragment, { children: [p, _, f, g, h] })),
-            (t[14] = p),
-            (t[15] = _),
-            (t[16] = g),
-            (t[17] = h),
-            (t[18] = y))
-          : (y = t[18]),
-        y
+        o("WAWebContactsAndGroupsGroupTitle").getUnnamedGroupMetadata(
+          e.groupMetadata,
+        ) != null
       );
     }
-    function v(e) {
-      var t = e.community,
-        n = e.groups;
-      return c.jsx(
-        "div",
-        {
-          "data-testid": "contacts-and-groups-leave-groups-community",
-          children: c.jsx(S, { community: t, groups: n }),
-        },
-        t.id.toString(),
-      );
-    }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S(e) {
+    function b(e) {
       var t = o("react-compiler-runtime").c(10),
         n = e.community,
         r = e.groups,
         a;
-      t[0] !== n
-        ? ((a = o("WAWebFrontendChatGetters").getFormattedTitle(n)),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
+      t[0] !== n ? ((a = n.title()), (t[0] = n), (t[1] = a)) : (a = t[1]);
       var i = a;
       if (r.length === 1) {
         var l;
         t[2] !== r[0]
-          ? ((l = o("WAWebFrontendChatGetters").getFormattedTitle(r[0])),
+          ? ((l = o(
+              "WAWebContactsAndGroupsGroupTitle",
+            ).getContactsAndGroupsGroupTitle(r[0])),
             (t[2] = r[0]),
             (t[3] = l))
           : (l = t[3]);
         var u;
         return (
           t[4] !== i || t[5] !== l
-            ? ((u = c.jsx(R, { communityName: i, groupName: l })),
+            ? ((u = c.jsx(v, { communityName: i, groupName: l })),
               (t[4] = i),
               (t[5] = l),
               (t[6] = u))
@@ -295,7 +256,7 @@ __d(
         d
       );
     }
-    function R(e) {
+    function v(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.communityName,
         r = e.groupName,
@@ -319,7 +280,7 @@ __d(
         a
       );
     }
-    function L(e) {
+    function S(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -337,11 +298,11 @@ __d(
         }).filter(function (e) {
           var t = e.community,
             n = e.groups;
-          return E(t, n);
+          return R(t, n);
         })
       );
     }
-    function E(e, t) {
+    function R(e, t) {
       var n,
         r,
         o =
@@ -358,7 +319,7 @@ __d(
         })
       );
     }
-    function k(e) {
+    function L(e) {
       var t = e.failedCount,
         n = e.leftCount,
         r = e.stoppedAtLimit;
@@ -376,10 +337,10 @@ __d(
               [s._plural(n, "leftCount"), s._param("failedCount", t, [0])],
             );
     }
-    ((k.displayName = k.name + " [from " + i.id + "]"),
-      (l.getLeavableGroups = p),
-      (l.leaveGroupsFromContactsAndGroups = _),
-      (l.leaveGroups = f));
+    ((L.displayName = L.name + " [from " + i.id + "]"),
+      (l.getLeavableGroups = m),
+      (l.leaveGroupsFromContactsAndGroups = p),
+      (l.leaveGroups = _));
   },
   226,
 );

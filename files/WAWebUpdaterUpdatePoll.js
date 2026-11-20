@@ -47,7 +47,7 @@ __d(
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
-            (yield r("WAWebNetworkStatus").checkOnline(),
+            (yield r("WAWebNetworkStatus").checkOnline("updater_poll"),
             !navigator.onLine || !r("WAWebNetworkStatus").online)
           )
             return (

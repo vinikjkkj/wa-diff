@@ -18,13 +18,27 @@ __d(
     }
     function c(e) {
       return s._(
+        /*BTDS*/ '_j{"*":"{count} contacts excluded","_1":"1 contact excluded"}',
+        [s._plural(e, "count")],
+      );
+    }
+    function d(e) {
+      return s._(
+        /*BTDS*/ '_j{"*":"{count} entries included","_1":"1 entry included"}',
+        [s._plural(e, "count")],
+      );
+    }
+    function m(e) {
+      return s._(
         /*BTDS*/ '_j{"*":"{count} entries excluded","_1":"1 entry excluded"}',
         [s._plural(e, "count")],
       );
     }
     ((l.phoneNumberSharingTitle = e),
       (l.phoneNumberSharingModeLabel = u),
-      (l.phoneNumberSharingExcludedCount = c));
+      (l.phoneNumberSharingContactExcludedCount = c),
+      (l.phoneNumberSharingIncludedCount = d),
+      (l.phoneNumberSharingExcludedCount = m));
   },
   226,
 );

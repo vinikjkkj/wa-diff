@@ -21,14 +21,17 @@ __d(
           r = n.filter(function (e) {
             return !a(e);
           });
-        r.length !== 0 &&
+        if (r.length !== 0) {
+          var o = r.length < n.length;
           i.push({
-            keyframes: r.length === n.length ? e.keyframes : c(e.keyframes, r),
+            keyframes: o ? c(e.keyframes, r) : e.keyframes,
             duration: e.duration,
             delay: e.delay,
             easing: e.easing,
+            fill: o ? "both" : "forwards",
             entryIndices: [t],
           });
+        }
       });
       for (var l of t) {
         var s = l[0],
@@ -122,6 +125,7 @@ __d(
           duration: a,
           delay: 0,
           easing: l,
+          fill: "forwards",
           entryIndices: n.map(function (e) {
             return e.entryIndex;
           }),

@@ -27,11 +27,12 @@ __d(
           decodes: o("WAWebMediaAv1Support").browserSupportsAV1,
           isEnabled: o("WAWebMediaGatingUtils")
             .isAv1VideoDualUploadConsumptionEnabled,
+          supportSource: o("WAWebMediaAv1Support").av1SupportSource,
         },
       ],
     ]);
     function s(t) {
-      if (!u(t)) return !0;
+      if (!c(t)) return !0;
       var n = t.unsafe().associationType,
         r = n != null ? e.get(n) : null;
       return r != null
@@ -74,7 +75,19 @@ __d(
               ).resolveEffectiveAutoDownloadMediaQuality(),
             );
     }
-    function u(e) {
+    function u(t) {
+      var n,
+        r,
+        o = c(t) ? t.unsafe().associationType : null;
+      return o != null &&
+        (n =
+          (r = e.get(o)) == null || (r = r.supportSource) == null
+            ? void 0
+            : r.whenKnown()) != null
+        ? n
+        : null;
+    }
+    function c(e) {
       var t = e.unsafe();
       return (
         t.parentMsgKey != null &&
@@ -83,7 +96,9 @@ __d(
         )
       );
     }
-    ((l.shouldAutoDownloadAssociatedChild = s), (l.isDualUploadHdChildMsg = u));
+    ((l.shouldAutoDownloadAssociatedChild = s),
+      (l.whenAssociatedChildSupportKnown = u),
+      (l.isDualUploadHdChildMsg = c));
   },
   98,
 );

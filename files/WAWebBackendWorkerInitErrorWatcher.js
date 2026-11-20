@@ -1,25 +1,32 @@
 __d(
   "WAWebBackendWorkerInitErrorWatcher",
-  ["WALogger", "getSafeQplErrorMessage"],
+  ["Promise", "WALogger", "WAWebNoop", "err", "getSafeQplErrorMessage"],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      var n = function (n) {
-          n instanceof ErrorEvent ? m(n, t) : d(t);
-        },
-        r = function () {
-          p(t);
+    var e,
+      s,
+      u,
+      c = "backend-worker-init-failed";
+    function d(e, t) {
+      var o = r("WAWebNoop"),
+        a = new (u || (u = n("Promise")))(function (e, t) {
+          o = t;
+        }),
+        i = function (n) {
+          n instanceof ErrorEvent
+            ? (p(n, t), o(r("err")(c + ": uncaught")))
+            : (m(t), o(r("err")(c + ": load")));
         };
       return (
-        e.addEventListener("error", n),
-        e.addEventListener("messageerror", r),
-        function () {
-          (e.removeEventListener("error", n),
-            e.removeEventListener("messageerror", r));
+        e.addEventListener("error", i),
+        {
+          initFailed: a,
+          dispose: function () {
+            e.removeEventListener("error", i);
+          },
         }
       );
     }
-    function d(t) {
+    function m(t) {
       (t.addPoint("worker_load_error", {
         string: { worker_error_type: "load" },
       }),
@@ -32,7 +39,7 @@ __d(
           )
           .sendLogs("backend-worker-init-load-error"));
     }
-    function m(e, t) {
+    function p(e, t) {
       var n;
       (t.addPoint("worker_uncaught_error", {
         string: {
@@ -59,20 +66,7 @@ __d(
           )
           .sendLogs("backend-worker-init-uncaught-error"));
     }
-    function p(e) {
-      (e.addPoint("worker_messageerror", {
-        string: { worker_error_type: "messageerror" },
-      }),
-        o("WALogger")
-          .ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[backend-worker] messageerror during init",
-              ])),
-          )
-          .sendLogs("backend-worker-init-messageerror"));
-    }
-    l.watchBackendWorkerInitErrors = c;
+    ((l.BACKEND_WORKER_INIT_FAILED = c), (l.watchBackendWorkerInitErrors = d));
   },
   98,
 );

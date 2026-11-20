@@ -9,14 +9,16 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e,
+      s,
+      u = [!1, !0];
+    function c(e, t) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = yield m(t, n),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r = yield p(t, n),
             a = r.find(function (e) {
               return (
                 o("WAWebPaymentDetailsGating").getPaymentRequestPayload(e) !=
@@ -30,7 +32,7 @@ __d(
                     "[br-payment-state] no payment message for the update",
                   ])),
               ),
-              { paymentMsg: null, isPending: r.every(d) })
+              { paymentMsg: null, isPending: r.every(m) })
             : o("WAWebPaymentDetailsGating").isPaymentStateSyncEnabledForMsg(a)
               ? { paymentMsg: a, isPending: !1 }
               : (o("WALogger").WARN(
@@ -41,22 +43,22 @@ __d(
                 ),
                 { paymentMsg: null, isPending: !1 });
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
+    function m(e) {
       return (
         o("WAWebCommonMsgUtils").isPlaceholderMsg(e.type) ||
         o("WAWebCommonMsgUtils").isFutureproofMsg(e.type)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = [!1, !0].map(function (n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = u.map(function (n) {
               return new (r("WAWebMsgKey"))({ fromMe: n, remote: e, id: t });
             }),
             a = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(n);
@@ -66,10 +68,10 @@ __d(
             })
             .filter(Boolean);
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.findBrazilPaymentRequestMsg = u;
+    l.findBrazilPaymentRequestMsg = c;
   },
   98,
 );

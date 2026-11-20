@@ -2,7 +2,10 @@ __d(
   "WAWebWindowsStartupTraceReporter",
   [
     "$InternalEnum",
+    "Promise",
+    "WACustomError",
     "WALogger",
+    "WAPromiseTimeout",
     "WAWebPonyfillsIdleCallback",
     "WAWebQplFlowWrapper",
     "WAWebUserPrefsMeUser",
@@ -19,62 +22,66 @@ __d(
       u,
       c,
       d,
-      m = 50,
-      p = 5e3,
-      _ = 6e4,
-      f = 75e3,
-      g = 5e3,
-      h = 2,
-      y = 1,
-      C = n("$InternalEnum")({
+      m,
+      p,
+      _ = 50,
+      f = 3,
+      g = 2 * _,
+      h = 5e3,
+      y = 6e4,
+      C = 75e3,
+      b = 5e3,
+      v = 2,
+      S = 1,
+      R = n("$InternalEnum")({
         Ok: 1,
         Invalid: 3,
         Incomplete: 5,
         ClockSyncError: 6,
       }),
-      b = { 1: 2, 2: 3, 3: 4, 4: 3, 5: 2, 6: 113, 7: 3, 8: 4 },
-      v = new Set([3, 8]),
-      S = 5,
-      R = !1,
-      L = new Set(),
-      E = new Set();
-    function k() {
-      R ||
-        ((R = !0),
-        D(function () {
-          I();
+      L = { 1: 2, 2: 3, 3: 4, 4: 3, 5: 2, 6: 113, 7: 3, 8: 4 },
+      E = new Set([3, 8]),
+      k = 5,
+      I = !1,
+      T = new Set(),
+      D = new Set();
+    function x() {
+      I ||
+        ((I = !0),
+        N(function () {
+          $();
         }));
     }
-    function I() {
-      return T.apply(this, arguments);
+    function $() {
+      return P.apply(this, arguments);
     }
-    function T() {
+    function P() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield x()) &&
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield M()) &&
             self.setTimeout(function () {
-              D(function () {
-                x();
+              N(function () {
+                M();
               });
-            }, _);
+            }, y);
         })),
-        T.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function D(e) {
+    function N(e) {
       var t = !1,
         n = function () {
           t || ((t = !0), e());
         };
       (o("WAWebPonyfillsIdleCallback").requestIdleCallback(n),
-        self.setTimeout(n, p));
+        self.setTimeout(n, h));
     }
-    function x() {
-      return $.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function $() {
+    function w() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e,
               t =
@@ -85,12 +92,12 @@ __d(
                   : e.nativeAppStateBridge;
             if ((t == null ? void 0 : t.takeStartupTrace) == null) return !1;
             var n = self.performance.now(),
-              a = yield P(t);
+              a = yield A(t);
             if (a == null) return !1;
-            var i = O(a, n).filter(function (e) {
-              return !E.has(e);
+            var i = Q(a, n).filter(function (e) {
+              return !D.has(e);
             });
-            return (i.length > 0 && W(t, i), a.report.currentPending);
+            return (i.length > 0 && Y(t, i), a.report.currentPending);
           } catch (e) {
             return (
               o("WALogger")
@@ -106,47 +113,6 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield A(e);
-          if (t == null || t.report.current == null || t.clockSyncErrorMs <= m)
-            return t;
-          var n = yield M(e);
-          return n != null && n.clockSyncErrorMs < t.clockSyncErrorMs ? n : t;
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            return yield A(e);
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "WindowsStartupTraceReporter: clock sync retry failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("windows-startup-trace-retry-failed"),
-              null
-            );
-          }
-        })),
         w.apply(this, arguments)
       );
     }
@@ -156,6 +122,129 @@ __d(
     function F() {
       return (
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield z(e);
+          if (t == null || t.report.current == null) return t;
+          var n = O(
+            t,
+            yield B(e, {
+              processStartWeb: t.processStartWeb,
+              clockSyncErrorMs: t.clockSyncErrorMs,
+            }),
+          );
+          if (n.clockSyncErrorMs <= _) return n;
+          var r = yield H(e);
+          return r != null && r.clockSyncErrorMs < n.clockSyncErrorMs ? r : n;
+        })),
+        F.apply(this, arguments)
+      );
+    }
+    function O(e, t) {
+      return t != null && t.clockSyncErrorMs < e.clockSyncErrorMs
+        ? babelHelpers.extends({}, e, t)
+        : e;
+    }
+    function B(e, t, n, r) {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            if ((n === void 0 && (n = f), a === void 0 && (a = null), n === 0))
+              return a;
+            var i;
+            try {
+              i = yield q(e, t);
+            } catch (i) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "WindowsStartupTraceReporter: clock probe failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(i)),
+                i instanceof o("WACustomError").TimeoutError
+                  ? B(e, t, n - 1, a)
+                  : a
+              );
+            }
+            return i == null
+              ? a
+              : B(
+                  e,
+                  t,
+                  n - 1,
+                  a == null || i.clockSyncErrorMs < a.clockSyncErrorMs ? i : a,
+                );
+          },
+        )),
+        W.apply(this, arguments)
+      );
+    }
+    function q(e, t) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e.getNowSinceProcessStartMs == null) return null;
+          var r = self.performance.now(),
+            a = yield o("WAPromiseTimeout").promiseTimeout(
+              (p || (p = n("Promise"))).resolve(
+                e.getNowSinceProcessStartMs == null
+                  ? void 0
+                  : e.getNowSinceProcessStartMs(),
+              ),
+              g,
+            ),
+            i = self.performance.now();
+          if (a == null || !Number.isFinite(a)) return null;
+          var l = K(r, i, a);
+          return V(l, t) ? l : null;
+        })),
+        U.apply(this, arguments)
+      );
+    }
+    function V(e, t) {
+      return (
+        Math.abs(e.processStartWeb - t.processStartWeb) <=
+        e.clockSyncErrorMs + t.clockSyncErrorMs
+      );
+    }
+    function H(e) {
+      return G.apply(this, arguments);
+    }
+    function G() {
+      return (
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            return yield z(e);
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "WindowsStartupTraceReporter: clock sync retry failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("windows-startup-trace-retry-failed"),
+              null
+            );
+          }
+        })),
+        G.apply(this, arguments)
+      );
+    }
+    function z(e) {
+      return j.apply(this, arguments);
+    }
+    function j() {
+      return (
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = self.performance.now(),
             n = yield e.takeStartupTrace == null
               ? void 0
@@ -165,22 +254,27 @@ __d(
           var a = o("WAWebWindowsStartupReportParser").parseStartupReport(n);
           return a == null
             ? (o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "WindowsStartupTraceReporter: invalid native report",
                   ])),
               ),
               null)
-            : {
-                report: a,
-                processStartWeb: (t + r) / 2 - a.nowSinceProcessStartMs,
-                clockSyncErrorMs: (r - t) / 2,
-              };
+            : babelHelpers.extends(
+                { report: a },
+                K(t, r, a.nowSinceProcessStartMs),
+              );
         })),
-        F.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function O(t, n) {
+    function K(e, t, n) {
+      return {
+        processStartWeb: (e + t) / 2 - n,
+        clockSyncErrorMs: (t - e) / 2,
+      };
+    }
+    function Q(t, n) {
       var r = [],
         a = t.report,
         i = a.attempts,
@@ -188,44 +282,44 @@ __d(
         s = a.firstInstallLaunch;
       return (
         l != null &&
-          (q(l)
+          (J(l)
             ? o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "WindowsStartupTraceReporter: successful launch without nav_completed",
                   ])),
               )
-            : (B(l.id, function () {
-                return U(l, t, n);
+            : (X(l.id, function () {
+                return Z(l, t, n);
               }),
               r.push(l.id))),
         i.forEach(function (e, t) {
-          (B(e.id, function () {
-            return Q(e, t);
+          (X(e.id, function () {
+            return ie(e, t);
           }),
             r.push(e.id));
         }),
         s != null &&
-          (B(s.id, function () {
-            return X(s, i.length);
+          (X(s.id, function () {
+            return le(s, i.length);
           }),
           r.push(s.id)),
         r
       );
     }
-    function B(e, t) {
-      L.has(e) || (t(), L.add(e));
+    function X(e, t) {
+      T.has(e) || (t(), T.add(e));
     }
-    function W(e, t) {
+    function Y(e, t) {
       (t.forEach(function (e) {
-        return E.add(e);
+        return D.add(e);
       }),
         self.setTimeout(function () {
           try {
             e.ackStartupReport == null || e.ackStartupReport(t);
           } catch (e) {
             (t.forEach(function (e) {
-              return E.delete(e);
+              return D.delete(e);
             }),
               o("WALogger")
                 .WARN(
@@ -237,12 +331,12 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("windows-startup-trace-ack-failed"));
           }
-        }, f));
+        }, C));
     }
-    function q(e) {
-      return b[e.navOutcome] === 2 && e.points.nav_completed == null;
+    function J(e) {
+      return L[e.navOutcome] === 2 && e.points.nav_completed == null;
     }
-    function U(e, t, n) {
+    function Z(e, t, n) {
       var r,
         a,
         i = t.processStartWeb,
@@ -251,13 +345,13 @@ __d(
           o("WAWebWindowsStartupQplEvents").WINDOWS_HYBRID_STARTUP_EVENT,
           {
             timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(i),
-            instanceKey: y,
+            instanceKey: S,
           },
         );
-      (V(s, e.points, i),
-        t.clockSyncErrorMs > m &&
-          s.annotate({ int: babelHelpers.extends({}, H(e.points)) }));
-      var u = G(s, e, t);
+      (ee(s, e.points, i),
+        t.clockSyncErrorMs > _ &&
+          s.annotate({ int: babelHelpers.extends({}, te(e.points)) }));
+      var u = ne(s, e, t);
       (s.annotate({
         int: babelHelpers.extends({}, e.annotations.int, {
           hyb_nav_outcome: e.navOutcome,
@@ -270,11 +364,11 @@ __d(
           hyb_logged_in: o("WAWebUserPrefsMeUser").getMaybeMeLidUser() != null,
         }),
       }),
-        s.end((a = b[e.navOutcome]) != null ? a : 3, {
+        s.end((a = L[e.navOutcome]) != null ? a : 3, {
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(l),
         }));
     }
-    function V(e, t, n) {
+    function ee(e, t, n) {
       Object.keys(t).forEach(function (r) {
         e.addPoint(r, {
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(
@@ -283,7 +377,7 @@ __d(
         });
       });
     }
-    function H(e) {
+    function te(e) {
       var t = {};
       return (
         Object.keys(e).forEach(function (n) {
@@ -292,14 +386,14 @@ __d(
         t
       );
     }
-    function G(e, t, n) {
-      return z(t, n)
-        ? n.clockSyncErrorMs > m
-          ? C.ClockSyncError
-          : j(e, n.report.level)
-        : C.Invalid;
+    function ne(e, t, n) {
+      return re(t, n)
+        ? n.clockSyncErrorMs > _
+          ? R.ClockSyncError
+          : oe(e, n.report.level)
+        : R.Invalid;
     }
-    function z(e, t) {
+    function re(e, t) {
       var n,
         r = e.points,
         o = r.nav_completed,
@@ -311,35 +405,35 @@ __d(
         ? i(o) >= 0
         : a != null &&
             ((n = e.annotations.int.hyb_nav_restarts) != null ? n : 0) === 0 &&
-            i(a) >= -g;
+            i(a) >= -b;
     }
-    function j(e, t) {
+    function oe(e, t) {
       var n, r;
       (e.addPoint("web_time_origin", {
         timestamp: (r = o("WAWebWindowsStartupWebTimings")).toQplTimestamp(0),
       }),
-        K(e, "bridge_ready", r.getWindowsBridgeReadyTime()),
-        K(e, "web_first_paint", r.getFirstPaintTime()));
+        ae(e, "bridge_ready", r.getWindowsBridgeReadyTime()),
+        ae(e, "web_first_paint", r.getFirstPaintTime()));
       var a = r.getNavigationTiming();
       return a == null
-        ? C.Incomplete
-        : (K(e, "web_dcl", a.domContentLoadedEventStart),
-          t >= h &&
-            (K(e, "web_worker_start", a.workerStart),
-            K(e, "web_fetch_start", a.fetchStart),
-            K(e, "web_response_start", a.responseStart)),
+        ? R.Incomplete
+        : (ae(e, "web_dcl", a.domContentLoadedEventStart),
+          t >= v &&
+            (ae(e, "web_worker_start", a.workerStart),
+            ae(e, "web_fetch_start", a.fetchStart),
+            ae(e, "web_response_start", a.responseStart)),
           ((n = a.domContentLoadedEventStart) != null ? n : 0) > 0
-            ? C.Ok
-            : C.Incomplete);
+            ? R.Ok
+            : R.Incomplete);
     }
-    function K(e, t, n) {
+    function ae(e, t, n) {
       n != null &&
         n > 0 &&
         e.addPoint(t, {
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(n),
         });
     }
-    function Q(e, t) {
+    function ie(e, t) {
       var n = o("WAWebQplFlowWrapper").QPL.markerStart(
         o("WAWebWindowsStartupQplEvents").WINDOWS_HYBRID_STARTUP_ATTEMPT_EVENT,
         { instanceKey: t + 1 },
@@ -351,9 +445,9 @@ __d(
         string: babelHelpers.extends({}, e.annotations.string),
         bool: babelHelpers.extends({}, e.annotations.bool),
       }),
-        n.end(v.has(e.navOutcome) ? 4 : 3));
+        n.end(E.has(e.navOutcome) ? 4 : 3));
     }
-    function X(e, t) {
+    function le(e, t) {
       var n,
         r = o("WAWebQplFlowWrapper").QPL.markerStart(
           o("WAWebWindowsStartupQplEvents")
@@ -361,20 +455,20 @@ __d(
           { instanceKey: t + 1 },
         );
       (r.annotate({
-        int: babelHelpers.extends({}, e.annotations.int, H(e.points), {
+        int: babelHelpers.extends({}, e.annotations.int, te(e.points), {
           hyb_nav_outcome: e.navOutcome,
-          hyb_first_launch_after_update: S,
+          hyb_first_launch_after_update: k,
         }),
         string: babelHelpers.extends({}, e.annotations.string),
         bool: babelHelpers.extends({}, e.annotations.bool, {
           hyb_signed_out_launch: !0,
         }),
       }),
-        r.end((n = b[e.navOutcome]) != null ? n : 3));
+        r.end((n = L[e.navOutcome]) != null ? n : 3));
     }
-    ((l.startReportingStartupTrace = k),
-      (l.reportStartupTraceWithRetry = I),
-      (l.reportStartupTrace = x));
+    ((l.startReportingStartupTrace = x),
+      (l.reportStartupTraceWithRetry = $),
+      (l.reportStartupTrace = M));
   },
   98,
 );

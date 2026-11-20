@@ -3,106 +3,67 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebBoolFunc",
     "WAWebGroupAdminEvents",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (u || (u = n("Promise"))).all(
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield (s || (s = n("Promise"))).all(
             e.map(function (e) {
-              return g(e, t);
+              return d(e, t);
             }),
           );
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (u || (u = n("Promise"))).all(
-            e.map(function (e) {
-              return _(e, t);
-            }),
-          );
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
             (yield t.getEventMsgs().initialize(),
-              yield y(t, n, o("WAWebBoolFunc").returnFalse));
+              yield p(t, n, o("WAWebGroupAdminEvents").hasUpcomingEvent));
           } catch (t) {
             o("WALogger")
               .WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "loadAllAdminGroupEvents: failed to load events",
+                    "loadAdminGroupEvents: failed to load events",
                   ])),
               )
               .catching(r("getErrorSafe")(t));
           }
         })),
-        f.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function h() {
+    function _() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            (yield e.getEventMsgs().initialize(),
-              yield y(e, t, o("WAWebGroupAdminEvents").hasUpcomingEvent));
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "loadAdminGroupEvents: failed to load events",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e));
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = e.getEventMsgs();
           if (!(t.aborted || r.isFullySynced || n(e))) {
             var o = r.length;
             (yield r.queryEvents({ recurse: !1 }),
-              r.length > o && (yield y(e, t, n)));
+              r.length > o && (yield p(e, t, n)));
           }
         })),
-        C.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.loadAdminGroupEvents = c), (l.loadAllAdminGroupEvents = m));
+    l.loadAdminGroupEvents = u;
   },
   98,
 );

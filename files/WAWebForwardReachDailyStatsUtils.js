@@ -1,6 +1,6 @@
 __d(
   "WAWebForwardReachDailyStatsUtils",
-  ["WAWebForwardReachGating", "requireDeferred"],
+  ["WAWebForwardReachGating", "WAWebNullFunc", "requireDeferred"],
   function (t, n, r, o, a, i, l) {
     var e = r("requireDeferred")("ForwardReachDailyStatsFalcoEvent").__setRef(
         "WAWebForwardReachDailyStatsUtils",
@@ -77,9 +77,7 @@ __d(
             forward_reach_gte5000_single_dest_ai_source_count: s(38),
             forward_reach_gte5000_multi_dest_ai_source_count: s(39),
           },
-          m = n().catch(function () {
-            return null;
-          });
+          m = n().catch(o("WAWebNullFunc").returnNull);
         (e.onReady(function (e) {
           m.then(function (t) {
             e.log(function () {

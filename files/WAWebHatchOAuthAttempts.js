@@ -16,7 +16,7 @@ __d(
       var s = new URL(n).searchParams.get("state");
       if (s == null || s === "") return null;
       var c = Date.now();
-      (p(c), u.delete(s), _(r, a));
+      (m(c), u.delete(s), p(r, a));
       var d = {
         connectorId: r,
         expiresAt: c + e,
@@ -28,21 +28,18 @@ __d(
       return (u.set(s, d), d);
     }
     function d(e) {
-      p(Date.now());
+      m(Date.now());
       var t = u.get(e);
       return (u.delete(e), t != null ? t : null);
     }
-    function m() {
-      u.clear();
-    }
-    function p(e) {
+    function m(e) {
       for (var t of u) {
         var n = t[0],
           r = t[1];
         e >= r.expiresAt && u.delete(n);
       }
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = Array.from(u.values()).filter(function (n) {
         return n.connectorId === e && n.flow === t;
       });
@@ -53,9 +50,7 @@ __d(
         u.delete(r.rawState);
       }
     }
-    ((l.registerHatchOAuthAttempt = c),
-      (l.consumeHatchOAuthAttempt = d),
-      (l.resetHatchOAuthAttemptsForTests = m));
+    ((l.registerHatchOAuthAttempt = c), (l.consumeHatchOAuthAttempt = d));
   },
   98,
 );

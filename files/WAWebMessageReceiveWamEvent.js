@@ -4,6 +4,7 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumAddressingMode",
     "WAWebWamEnumAgentEngagementEnumType",
+    "WAWebWamEnumBotInteractionStage",
     "WAWebWamEnumBotType",
     "WAWebWamEnumChatOriginsType",
     "WAWebWamEnumDisappearingChatInitiatorType",
@@ -42,6 +43,10 @@ __d(
               ],
               appContext: [43, e.TYPES.STRING],
               appContextBitfield: [44, e.TYPES.INTEGER],
+              botInteractionStage: [
+                77,
+                o("WAWebWamEnumBotInteractionStage").BOT_INTERACTION_STAGE,
+              ],
               botType: [37, o("WAWebWamEnumBotType").BOT_TYPE],
               chatOrigins: [
                 38,

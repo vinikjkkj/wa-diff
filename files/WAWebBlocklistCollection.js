@@ -119,6 +119,15 @@ __d(
                 return e.add(t);
               }));
           }),
+          (a.ensureContacts = function () {
+            this.forEach(function (e) {
+              o("WAWebContactCollection").ContactCollection.get(e.id) == null &&
+                o("WAWebContactCollection").ContactCollection.add({
+                  id: e.id,
+                  type: "out",
+                });
+            });
+          }),
           (a.dedupedList = function () {
             var e = this;
             return this.filter(function (t) {

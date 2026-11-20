@@ -10,15 +10,7 @@ __d(
         ? [].concat(e, [t])
         : [].concat(e.slice(0, r), [t], e.slice(r));
     }
-    function l(e, t, n) {
-      var r = e.findIndex(function (e) {
-        return e.rowIndex > n;
-      });
-      return r === -1
-        ? [].concat(e, [t])
-        : [].concat(e.slice(0, r), [t], e.slice(r));
-    }
-    function s(t, n) {
+    function l(t, n) {
       e: {
         var r = n;
         if (
@@ -40,10 +32,10 @@ __d(
           "payload" in r
         ) {
           var i = r.payload,
-            s = i.errorItem.rowIndex;
+            l = i.errorItem.rowIndex;
           return babelHelpers.extends({}, t, {
             errorList: t.errorList.filter(function (e) {
-              return e.rowIndex !== s;
+              return e.rowIndex !== l;
             }),
           });
         }
@@ -57,19 +49,9 @@ __d(
           r.type === "UNDO_DELETE_ALL_ERROR_ITEMS" &&
           "payload" in r
         ) {
-          var u = r.payload;
+          var s = r.payload;
           return babelHelpers.extends({}, t, {
-            errorList: u.originalErrorList,
-          });
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.type === "UNDO_DELETE_ERROR_ITEM" &&
-          "payload" in r
-        ) {
-          var c = r.payload;
-          return babelHelpers.extends({}, t, {
-            errorList: l(t.errorList, c.originalErrorItem, c.originalIndex),
+            errorList: s.originalErrorList,
           });
         }
         if (
@@ -77,12 +59,12 @@ __d(
           r.type === "UNDO_DELETE_CONTACT" &&
           "payload" in r
         ) {
-          var d = r.payload;
+          var u = r.payload;
           return babelHelpers.extends({}, t, {
             validContactsData: e(
               t.validContactsData,
-              d.originalContact,
-              d.originalIndex,
+              u.originalContact,
+              u.originalIndex,
             ),
           });
         }
@@ -92,7 +74,7 @@ __d(
         );
       }
     }
-    i.reducer = s;
+    i.reducer = l;
   },
   66,
 );

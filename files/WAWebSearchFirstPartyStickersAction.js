@@ -56,6 +56,7 @@ __d(
             L = y(),
             E = o("WAWebABProps").getABPropConfigValue(
               "sticker_suggestion_enabled",
+              { suppressExposure: !0 },
             );
           E && f !== i && (_.clear(), (f = i));
           var k = r("WAWebURLUtils").build(

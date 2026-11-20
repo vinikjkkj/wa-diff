@@ -1,126 +1,126 @@
 __d(
   "WAWebLabyrinthWasmCreateBackup",
   [
-    "WABase64",
     "WALongInt",
     "WAResultOrError",
     "WAWebEBLabyrinthWaWasmReactorSingleton",
-    "WAWebLabyrinthCanonicalUserFbid",
+    "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "2AACDEFHJKLMNPQRSTUVWXYZ012345678901XXXX";
+    var e = o("WAWebLabyrinthOpaqueTypes").makeRecoveryCode(
+      "2AACDEFHJKLMNPQRSTUVWXYZ012345678901XXXX",
+    );
     function s(e) {
-      return e.error != null
-        ? o("WAResultOrError").makeError("wasm-error")
-        : e.device == null ||
-            e.virtualDevice == null ||
-            e.epoch0 == null ||
-            e.mailboxRootKey == null
-          ? o("WAResultOrError").makeError("missing-output")
-          : o("WAResultOrError").makeResult(e);
+      var t = e.error,
+        n = e.success;
+      if (t != null) return o("WAResultOrError").makeError("wasm-error");
+      if (n == null) return o("WAResultOrError").makeError("missing-output");
+      var r = o("WAWebLabyrinthOpaqueTypes").parseEpochAnonId(
+        n.epoch0.epochAnonId,
+      );
+      return r.success
+        ? o("WAResultOrError").makeResult(u(n, r.value))
+        : o("WAResultOrError").makeError("wasm-error");
     }
-    function u(e) {
-      var t = e.device,
-        n = e.virtualDevice,
-        r = e.epoch0,
-        a = e.mailboxRootKey,
-        i = n == null ? void 0 : n.encryptedSecretValues,
-        l = r == null ? void 0 : r.epochRootKey;
-      return t == null ||
-        n == null ||
-        r == null ||
-        a == null ||
-        i == null ||
-        l == null
-        ? null
-        : {
-            device: {
-              publicKey: o("WABase64").encodeB64(t.publicKey),
-              epochAuthPublicKey: o("WABase64").encodeB64(t.epochAuthPublicKey),
-              epochAuthPublicKeySig: o("WABase64").encodeB64(
-                t.epochAuthPublicKeySig,
+    function u(e, t) {
+      var n,
+        r = e.device,
+        a = e.epoch0,
+        i = e.mailboxRootKey,
+        l = e.virtualDevice,
+        s = l.encryptedSecretValues;
+      return {
+        device: {
+          publicKey: (n = o(
+            "WAWebLabyrinthOpaqueTypes",
+          )).makeDeviceKeyPublicKey(r.publicKey),
+          epochAuthPublicKey: n.makeEpochStorageAuthPublicKey(
+            r.epochAuthPublicKey,
+          ),
+          epochAuthPublicKeySig: n.makeEpochStorageAuthKeySignature(
+            r.epochAuthPublicKeySig,
+          ),
+          epochStoragePublicKey: n.makeEpochStoragePublicKey(
+            r.epochStoragePublicKey,
+          ),
+          epochStoragePublicKeySig: n.makeEpochStorageKeySignature(
+            r.epochStoragePublicKeySig,
+          ),
+          epochStoragePrivateKey: n.makeEpochStoragePrivateKey(
+            r.epochStoragePrivateKey,
+          ),
+          epochAuthPrivateKey: n.makeEpochStorageAuthPrivateKey(
+            r.epochAuthPrivateKey,
+          ),
+          supportedEncryptionVersions: r.supportedEncryptionVersions.map(
+            n.makeEncryptionVersion,
+          ),
+          encryptionVersionSignature: n.makeEncryptionVersionSignature(
+            r.encryptionVersionSignature,
+          ),
+          clientVersion: n.makeClientVersion(r.clientVersion),
+          ocmfClientState: n.makeOrfClientState(r.ocmfClientState),
+          deviceEpochHmac: n.makeDeviceEpochHmac(r.deviceEpochHmac),
+        },
+        virtualDevice: {
+          vdId: n.makeVirtualDeviceId(l.vdId),
+          vdPublicKey: n.makeDeviceKeyPublicKey(l.vdPublicKey),
+          vdEpochStoragePublicKey: n.makeEpochStoragePublicKey(
+            l.vdEpochStoragePublicKey,
+          ),
+          vdEpochStoragePublicKeySig: n.makeEpochStorageKeySignature(
+            l.vdEpochStoragePublicKeySig,
+          ),
+          encryptedSecretValues: {
+            encryptedDevicePrivateKey: n.makeEncryptedVirtualDevicePrivateKey(
+              s.encryptedDevicePrivateKey,
+            ),
+            encryptedEpochAnonId: n.makeEncryptedVirtualDeviceEpochAnonId(
+              s.encryptedEpochAnonId,
+            ),
+            encryptedEpochRootKey: n.makeEncryptedVirtualDeviceEpochRootKey(
+              s.encryptedEpochRootKey,
+            ),
+            encryptedEpochStoragePrivateKey:
+              n.makeEncryptedVirtualDeviceEpochStoragePrivateKey(
+                s.encryptedEpochStoragePrivateKey,
               ),
-              epochStoragePublicKey: o("WABase64").encodeB64(
-                t.epochStoragePublicKey,
+            encryptedMailboxRootKeyBlob:
+              n.makeEncryptedVirtualDeviceMailboxRootSalt(
+                s.encryptedMailboxRootKeyBlob,
               ),
-              epochStoragePublicKeySig: o("WABase64").encodeB64(
-                t.epochStoragePublicKeySig,
+            encryptedObliviousValidationTokenBlob:
+              n.makeEncryptedObliviousValidationToken(
+                s.encryptedObliviousValidationTokenBlob,
               ),
-              epochStoragePrivateKey: o("WABase64").encodeB64(
-                t.epochStoragePrivateKey,
+            encryptedOcmfClientState:
+              n.makeEncryptedVirtualDeviceOrfClientState(
+                s.encryptedOcmfClientState,
               ),
-              supportedEncryptionVersions: t.supportedEncryptionVersions,
-              encryptionVersionSignature: o("WABase64").encodeB64(
-                t.encryptionVersionSignature,
-              ),
-              clientVersion: t.clientVersion,
-              ocmfClientState: o("WABase64").encodeB64(t.ocmfClientState),
-            },
-            virtualDevice: {
-              vdId: o("WABase64").encodeB64(n.vdId),
-              vdPublicKey: o("WABase64").encodeB64(n.vdPublicKey),
-              vdEpochStoragePublicKey: o("WABase64").encodeB64(
-                n.vdEpochStoragePublicKey,
-              ),
-              vdEpochStoragePublicKeySig: o("WABase64").encodeB64(
-                n.vdEpochStoragePublicKeySig,
-              ),
-              encryptedSecretValues: {
-                encryptedDevicePrivateKey: o("WABase64").encodeB64(
-                  i.encryptedDevicePrivateKey,
-                ),
-                encryptedEpochAnonId: o("WABase64").encodeB64(
-                  i.encryptedEpochAnonId,
-                ),
-                encryptedEpochRootKey: o("WABase64").encodeB64(
-                  i.encryptedEpochRootKey,
-                ),
-                encryptedEpochStoragePrivateKey: o("WABase64").encodeB64(
-                  i.encryptedEpochStoragePrivateKey,
-                ),
-                encryptedMailboxRootKeyBlob: o("WABase64").encodeB64(
-                  i.encryptedMailboxRootKeyBlob,
-                ),
-                encryptedObliviousValidationTokenBlob: o("WABase64").encodeB64(
-                  i.encryptedObliviousValidationTokenBlob,
-                ),
-                encryptedOcmfClientState: o("WABase64").encodeB64(
-                  i.encryptedOcmfClientState,
-                ),
-                encryptedOrfClientStateV2:
-                  i.encryptedOrfClientStateV2 != null
-                    ? o("WABase64").encodeB64(i.encryptedOrfClientStateV2)
-                    : null,
-              },
-              deviceEpochHmac: o("WABase64").encodeB64(n.deviceEpochHmac),
-              ocmfRotationToken: o("WABase64").encodeB64(n.ocmfRotationToken),
-            },
-            epoch0: {
-              epochAnonId: o("WABase64").encodeB64(r.epochAnonId),
-              epochData: o("WABase64").encodeB64(r.epochData),
-              epochFbid: o("WALongInt").longIntToDecimalString(r.epochFbid),
-              epochRootKey: o("WABase64").encodeB64(l),
-              wrappedRootKeyForSelf: o("WABase64").encodeB64(
-                r.wrappedRootKeyForSelf,
-              ),
-              epochSignature: o("WABase64").encodeB64(r.epochSignature),
-              epochRootKeyFingerprint: o("WABase64").encodeB64(
-                r.epochRootKeyFingerprint,
-              ),
-            },
-            mailboxRootKey: o("WABase64").encodeB64(a),
-          };
+          },
+          deviceEpochHmac: n.makeDeviceEpochHmac(l.deviceEpochHmac),
+          ocmfRotationToken: n.makeEvolveToken(l.ocmfRotationToken),
+        },
+        epoch0: {
+          epochAnonId: t,
+          epochRootKey: n.makeEpochRootKey(a.epochRootKey),
+          epochRootKeyFingerprint: n.makeEpochRootKeyFingerprint(
+            a.epochRootKeyFingerprint,
+          ),
+        },
+        mailboxRootKey: n.makeMailboxRootSalt(i),
+      };
     }
-    function c() {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return yield o(
             "WAWebEBLabyrinthWaWasmReactorSingleton",
           ).labyrinthWaCommand(
             {
@@ -131,17 +131,10 @@ __d(
             {
               createBackupInput: {
                 recoveryCode: e,
-                userId: o("WALongInt").decimalStringToLongInt(
-                  o("WAWebLabyrinthCanonicalUserFbid").getWaCanonicalUserFbid(),
-                ),
+                userId: o("WALongInt").decimalStringToLongInt(t),
               },
             },
           );
-          if (!t.success) return t;
-          var n = u(t.value);
-          return n == null
-            ? o("WAResultOrError").makeError("missing-output")
-            : o("WAResultOrError").makeResult(n);
         })),
         d.apply(this, arguments)
       );

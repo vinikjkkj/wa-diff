@@ -23,6 +23,7 @@ __d(
       p = function (a, i) {
         var t = this;
         ((this.$4 = new (r("WAWebEventEmitter"))()),
+          (this.getNowSinceProcessStartMs = null),
           (this.$5 = function (n) {
             var r = n.toString(),
               a = m.cast(r);

@@ -11,87 +11,133 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = "backgroundRun",
-      u = {
+      s,
+      u = "backgroundRun",
+      c = {
         1: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
         2: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.USER_ACTIVATED,
       },
-      c = !1,
-      d = o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
-      m = null,
-      p = 0;
-    function _() {
+      d = !1,
+      m = o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason.PUSH,
+      p = null,
+      _ = null,
+      f = 0,
+      g = new Set();
+    function h() {
+      return !d && y();
+    }
+    function y() {
       var e;
       return (
-        !c &&
         r("WAWebEnvironment").isWindows &&
         new URLSearchParams((e = self.location.search) != null ? e : "").get(
-          s,
+          u,
         ) === "1"
       );
     }
-    function f() {
-      return g.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function g() {
+    function b() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!_())
-            try {
-              (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-                o("WAWebABProps").getABPropConfigValue(
-                  "win_hybrid_background_message_sync",
-                ));
-            } catch (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (h()) return null;
+          try {
+            return (
+              yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+              o("WAWebABProps").getABPropConfigValue(
+                "win_hybrid_background_message_sync",
+              ),
+              o("WAWebABPropsCache").getABPropExpoKey(
+                "win_hybrid_background_message_sync",
+              )
+            );
+          } catch (e) {
+            return (
               o("WALogger")
                 .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "WindowsBackgroundRun: background message sync exposure failed",
                     ])),
                 )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("windows-bgrun-exposure-failed");
-            }
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("windows-bgrun-exposure-failed"),
+              null
+            );
+          }
         })),
-        g.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function h() {
-      return _() ? d : null;
-    }
-    function y(e) {
-      var t = u[e];
-      return t == null ? !1 : ((d = t), !0);
-    }
-    function C() {
-      c = !0;
-    }
-    function b(e) {
-      ((m = e), p++);
-    }
     function v() {
-      return p;
+      return h() ? m : null;
     }
-    function S() {
+    function S(e) {
+      var t = c[e];
+      return t == null ? !1 : ((m = t), !0);
+    }
+    function R() {
+      ((d = !0),
+        g.forEach(function (t) {
+          try {
+            t();
+          } catch (t) {
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[background-run] end listener failed",
+                ])),
+            );
+          }
+        }));
+    }
+    function L(e) {
+      return (
+        g.add(e),
+        function () {
+          g.delete(e);
+        }
+      );
+    }
+    function E(e) {
+      ((p = e), (_ = Date.now()), f++);
+    }
+    function k() {
+      return f;
+    }
+    function I() {
       var e;
       return (
-        m != null &&
-        m !==
-          ((e = h()) != null
+        p != null &&
+        p !==
+          ((e = v()) != null
             ? e
             : o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
                 .USER_ACTIVATED)
       );
     }
-    ((l.isWindowsBackgroundRun = _),
-      (l.logBackgroundMessageSyncExposureInUserSession = f),
-      (l.getWindowsBackgroundRunConnectReason = h),
-      (l.applyWindowsBackgroundRunConnectReason = y),
-      (l.endWindowsBackgroundRun = C),
-      (l.recordWindowsLoginConnectReason = b),
-      (l.getWindowsLoginCount = v),
-      (l.hasLoggedInWithOtherConnectReason = S));
+    function T() {
+      var e = _;
+      return {
+        lastLoginAgeMs: e == null ? null : Date.now() - e,
+        lastLoginReason: p,
+        loadedForRun: y(),
+        loginCount: f,
+        runEnded: d,
+      };
+    }
+    ((l.isWindowsBackgroundRun = h),
+      (l.wasPageLoadedForWindowsBackgroundRun = y),
+      (l.logBackgroundMessageSyncExposureInUserSession = C),
+      (l.getWindowsBackgroundRunConnectReason = v),
+      (l.applyWindowsBackgroundRunConnectReason = S),
+      (l.endWindowsBackgroundRun = R),
+      (l.onWindowsBackgroundRunEnd = L),
+      (l.recordWindowsLoginConnectReason = E),
+      (l.getWindowsLoginCount = k),
+      (l.hasLoggedInWithOtherConnectReason = I),
+      (l.getWindowsBackgroundRunLogContext = T));
   },
   98,
 );

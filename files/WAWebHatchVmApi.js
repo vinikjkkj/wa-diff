@@ -223,6 +223,12 @@ __d(
             ? (e || (e = n("Promise"))).resolve(f)
             : this.computerScreenshot(t, l);
         }),
+        (r.peerConnectIntroImage = function (t, n) {
+          return this.computerScreenshot(
+            o("WAWebHatchVmTransport").JarvisPaths.PEERS_CONNECT_INTRO_IMAGE(t),
+            n,
+          );
+        }),
         (r.registerCapabilities = function (t) {
           return this.request(
             "POST",

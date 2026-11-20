@@ -63,9 +63,7 @@ __d(
               o("WAWebCmd").Cmd.correctPasscodeLockScreen(t),
               o("WAWebPathfinderHeldBackSurface").openHeldBack(
                 o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK,
-                function () {
-                  return o("WAWebModalManager").ModalManager.close();
-                },
+                o("WAWebModalManager").closeModalManager,
               ));
           }),
           e

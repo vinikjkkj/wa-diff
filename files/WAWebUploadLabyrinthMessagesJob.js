@@ -1,7 +1,7 @@
 __d(
   "WAWebUploadLabyrinthMessagesJob",
   [
-    "WABase64",
+    "WAWebLabyrinthOpaqueTypes",
     "WAWebRelayClient",
     "WAWebUploadLabyrinthMessagesJobMutation.graphql",
     "asyncToGeneratorRuntime",
@@ -13,31 +13,12 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebUploadLabyrinthMessagesJobMutation.graphql"));
-    function u(e, t) {
-      return {
-        device_id: t.deviceId,
-        epoch_id: t.epochId,
-        family_device_id: t.familyDeviceId,
-        messages: e.map(c),
-      };
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function c(e) {
-      return {
-        encrypted_payload: o("WABase64").encodeB64(e.encryptedPayload),
-        offline_threading_id: e.offlineThreadingId,
-        operation_type: "UPSERT",
-        orf_thread_id: o("WABase64").encodeB64(e.orfThreadId),
-        thread_type: e.threadType,
-        timestamp: e.timestamp,
-        value_secret_ref: e.valueSecretRef,
-      };
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function c() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = { input: e },
             n = yield o("WAWebRelayClient").commitMutation(s, t, {
               environmentType: "whatsapp_web",
@@ -46,13 +27,42 @@ __d(
             throw r("err")(
               "Native Labyrinth upload-messages GraphQL response was empty",
             );
-          return n;
+          e: {
+            var a = n.wa_labyrinth_upload_messages;
+            if (
+              ((typeof a == "object" && a !== null) ||
+                typeof a == "function") &&
+              a.__typename === "WALabyrinthUploadMessagesData"
+            ) {
+              var i = a;
+              return babelHelpers.extends({}, n, {
+                wa_labyrinth_upload_messages: babelHelpers.extends({}, i, {
+                  results: i.results.map(function (e) {
+                    var t = e.offline_threading_id;
+                    return babelHelpers.extends({}, e, {
+                      offline_threading_id:
+                        t == null
+                          ? t
+                          : o(
+                              "WAWebLabyrinthOpaqueTypes",
+                            ).makeOfflineThreadingId(t),
+                    });
+                  }),
+                }),
+              });
+            }
+            {
+              var l = a;
+              return babelHelpers.extends({}, n, {
+                wa_labyrinth_upload_messages: l,
+              });
+            }
+          }
         })),
-        m.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    ((l.wasmResultsToUploadLabyrinthMessagesInput = u),
-      (l.uploadLabyrinthMessages = d));
+    l.uploadLabyrinthMessages = u;
   },
   98,
 );

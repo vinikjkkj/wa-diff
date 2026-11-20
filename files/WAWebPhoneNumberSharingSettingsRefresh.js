@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebPhoneNumberSharingSettingsGating",
+    "WAWebPhoneNumberSharingSettingsRequests",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -33,10 +34,10 @@ __d(
         });
     }
     function _() {
-      var e;
       return (
-        (e = c.getModuleIfRequired()) == null ||
-          e.invalidatePhoneNumberSharingSettings(),
+        o(
+          "WAWebPhoneNumberSharingSettingsRequests",
+        ).invalidatePhoneNumberSharingSettings(),
         o(
           "WAWebPhoneNumberSharingSettingsGating",
         ).phoneNumberSharingSettingsEnabled()

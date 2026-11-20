@@ -24,9 +24,9 @@ __d(
           "auth_web_start",
           t,
         ),
-          r != null && b(r) && m.set(t.id, r));
+          r != null && C(r) && m.set(t.id, r));
       } catch (t) {
-        I(function () {
+        k(function () {
           return o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -35,15 +35,15 @@ __d(
           );
         });
       } finally {
-        S();
+        v();
       }
     }
     function g() {
       try {
-        return C();
+        return y();
       } catch (e) {
         return (
-          I(function () {
+          k(function () {
             return o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -58,10 +58,10 @@ __d(
     function h(e, t, n, r) {
       try {
         e != null &&
-          b(e) &&
+          C(e) &&
           o("WAWebHatchConnectorsLogging").logHatchConnectorEvent(t, n, r);
       } catch (e) {
-        I(function () {
+        k(function () {
           return o("WALogger").WARN(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -72,10 +72,7 @@ __d(
       }
     }
     function y() {
-      v();
-    }
-    function C() {
-      var e = k();
+      var e = E();
       return e == null
         ? null
         : {
@@ -86,42 +83,42 @@ __d(
             expiresAtMs: Date.now() + d,
           };
     }
-    function b(e) {
+    function C(e) {
       return (
         e.expiresAtMs > Date.now() &&
         e.accountGeneration ===
           o("WAWebHatchVmConnection").getHatchVmAccountGeneration() &&
-        e.channelFbid === k()
+        e.channelFbid === E()
       );
     }
-    function v() {
-      (m.clear(), S());
+    function b() {
+      (m.clear(), v());
     }
-    function S() {
+    function v() {
       m.size === 0
         ? (p == null || p(), (p = null), _ == null || _(), (_ = null))
-        : (p != null || (p = r("WAWebHatchConnectorsSnapshot").subscribe(R)),
+        : (p != null || (p = r("WAWebHatchConnectorsSnapshot").subscribe(S)),
           _ != null ||
             (_ = o("WAWebHatchVmConnection").subscribeToHatchVmAccountChange(
-              v,
+              b,
             )));
     }
-    function R() {
+    function S() {
       try {
         for (var e of Array.from(m)) {
           var t = e[0],
             n = e[1];
-          L(t, n);
+          R(t, n);
         }
       } finally {
-        S();
+        v();
       }
     }
-    function L(e, t) {
+    function R(e, t) {
       try {
-        b(t) ? E(e, t) : m.delete(e);
+        C(t) ? L(e, t) : m.delete(e);
       } catch (e) {
-        I(function () {
+        k(function () {
           return o("WALogger").WARN(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -131,7 +128,7 @@ __d(
         });
       }
     }
-    function E(e, t) {
+    function L(e, t) {
       var n;
       if (
         t.channelFbid === r("WAWebHatchConnectorsSnapshot").getChannelFbid()
@@ -150,7 +147,7 @@ __d(
           ));
       }
     }
-    function k() {
+    function E() {
       var e, t;
       return r("WAWebHatchLinkedStatusManager").isLinked() &&
         (e =
@@ -160,7 +157,7 @@ __d(
         ? e
         : null;
     }
-    function I(e) {
+    function k(e) {
       try {
         e();
       } catch (e) {}
@@ -168,8 +165,7 @@ __d(
     ((l.HATCH_CONNECTOR_GRANT_WAIT_MS = d),
       (l.logHatchConnectorAuthStart = f),
       (l.startHatchConnectorAttempt = g),
-      (l.logHatchConnectorAttemptOutcome = h),
-      (l.resetHatchConnectorPendingGrantsForTesting = y));
+      (l.logHatchConnectorAttemptOutcome = h));
   },
   98,
 );

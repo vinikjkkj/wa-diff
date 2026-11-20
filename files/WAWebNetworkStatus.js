@@ -27,8 +27,9 @@ __d(
       y = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
       C = 10 * 1e3,
       b = 0,
-      v = !1,
-      S = (function (t) {
+      v = "socket_open",
+      S = !1,
+      R = (function (t) {
         function a() {
           for (var a, i = arguments.length, l = new Array(i), g = 0; g < i; g++)
             l[g] = arguments[g];
@@ -75,11 +76,12 @@ __d(
                 }
               }),
             )),
-            (a.checkOnline = r("WAMemoizeConcurrent")(
+            (a.checkOnlineDeduped = r("WAMemoizeConcurrent")(
               function () {
                 return String(b);
               },
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var e = v;
                 if (
                   (o("WALogger").LOG(
                     c ||
@@ -87,7 +89,7 @@ __d(
                         "NetworkStatus:checkOnline checking",
                       ])),
                   ),
-                  (v || r("gkx")("26256")) && this.simulatedOfflineConditions)
+                  (S || r("gkx")("26256")) && this.simulatedOfflineConditions)
                 ) {
                   o("WALogger").LOG(
                     d ||
@@ -97,20 +99,20 @@ __d(
                   );
                   return;
                 }
-                var e = b,
-                  t = new AbortController(),
-                  n = self.setTimeout(function () {
-                    return t.abort();
+                var t = b,
+                  n = new AbortController(),
+                  a = self.setTimeout(function () {
+                    return n.abort();
                   }, C);
                 try {
-                  var a = yield r("WAWebNetworkGetResponseIfOnline")({
+                  var i = yield r("WAWebNetworkGetResponseIfOnline")({
                     data: null,
                     method: "GET",
                     responseType: void 0,
                     url: y,
-                    signal: t.signal,
+                    signal: n.signal,
                   });
-                  if (t.signal.aborted) {
+                  if (n.signal.aborted) {
                     o("WALogger").LOG(
                       m ||
                         (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -119,7 +121,7 @@ __d(
                     );
                     return;
                   }
-                  if (e !== b) {
+                  if (t !== b) {
                     o("WALogger").LOG(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -128,7 +130,16 @@ __d(
                     );
                     return;
                   }
-                  ((this.online = !!a),
+                  var l = !!i;
+                  (!l &&
+                    this.online &&
+                    o(
+                      "WAWebNetworkStatusStateManager",
+                    ).networkOfflineCauseStateManager.set({
+                      source: e,
+                      sinceMs: Date.now(),
+                    }),
+                    (this.online = l),
                     o("WALogger").LOG(
                       _ ||
                         (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -147,7 +158,7 @@ __d(
                     String(e),
                   );
                 } finally {
-                  self.clearTimeout(n);
+                  self.clearTimeout(a);
                 }
               }),
             )),
@@ -173,6 +184,10 @@ __d(
                 e ? "online" : "offline",
               )
               .tags("comms"),
+              e &&
+                o(
+                  "WAWebNetworkStatusStateManager",
+                ).networkOfflineCauseStateManager.set(null),
               o("WAWebNetworkStatusStateManager").networkStatusStateManager.set(
                 e,
               ));
@@ -183,16 +198,19 @@ __d(
           (i.markOnline = function () {
             (b++, (this.online = !0));
           }),
+          (i.checkOnline = function (t) {
+            return ((v = t), this.checkOnlineDeduped());
+          }),
           (i.simulateNetworkStatus = function (t) {
-            (v || r("gkx")("26256")) &&
+            (S || r("gkx")("26256")) &&
               ((this.online = t), (this.simulatedOfflineConditions = !t));
           }),
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      R = o("WAWebBaseModel").defineModel(S),
-      L = new R();
-    l.default = L;
+      L = o("WAWebBaseModel").defineModel(R),
+      E = new L();
+    l.default = E;
   },
   98,
 );

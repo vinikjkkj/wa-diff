@@ -27,6 +27,7 @@ __d(
         ((this.$4 = new (r("WAWebEventEmitter"))()),
           (this.takeStartupTrace = null),
           (this.ackStartupReport = null),
+          (this.getNowSinceProcessStartMs = null),
           (this.$5 = function (n) {
             var r = n.toString(),
               a = p.cast(r);

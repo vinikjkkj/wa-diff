@@ -6,7 +6,7 @@ __d(
     "WAWebDBMessageStoreUtils",
     "WAWebMsgType",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -77,7 +77,7 @@ __d(
               .map(function (e) {
                 return o("WAWebDBMessageSerialization").messageFromDbRow(e);
               }),
-            o("WAWebUserPrefsMeUser").isMeAccount,
+            o("WAWebUserUtils").isMeAccount,
           );
         })),
         p.apply(this, arguments)

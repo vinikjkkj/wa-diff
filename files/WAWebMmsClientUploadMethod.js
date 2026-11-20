@@ -15,6 +15,7 @@ __d(
     "WAWebMmsClientSelectHost",
     "WAWebMmsClientUploadStreamer",
     "WAWebMmsOperationsConst",
+    "WAWebNetworkStatusStateManager",
     "WAWebWamEnumOverallLastUploadRetryPhaseType",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -138,31 +139,44 @@ __d(
                         ));
                       try {
                         var L;
-                        ((L = e.uploadQpl) == null ||
+                        (L = e.uploadQpl) == null ||
                           L.addAnnotations({
                             bool: {
                               network_online: t.networkStatus.isOnline(),
                               navigator_online: navigator.onLine,
                             },
-                          }),
-                          yield t.networkStatus.waitIfOffline());
-                        var E = yield R(),
-                          k = E.auth,
-                          I = E.fallbackHost,
-                          T = E.selectedHost,
-                          D = { selectedHost: T, fallbackHost: I },
-                          x = r("WAWebMmsClientSelectHost")({
-                            selectedHost: T,
-                            fallbackHost: I,
+                          });
+                        var E = o(
+                          "WAWebNetworkStatusStateManager",
+                        ).networkOfflineCauseStateManager.get();
+                        if (E != null) {
+                          var k;
+                          (k = e.uploadQpl) == null ||
+                            k.addAnnotations({
+                              string: { network_offline_source: E.source },
+                              int: {
+                                network_offline_age_ms: Date.now() - E.sinceMs,
+                              },
+                            });
+                        }
+                        yield t.networkStatus.waitIfOffline();
+                        var I = yield R(),
+                          T = I.auth,
+                          D = I.fallbackHost,
+                          x = I.selectedHost,
+                          $ = { selectedHost: x, fallbackHost: D },
+                          P = r("WAWebMmsClientSelectHost")({
+                            selectedHost: x,
+                            fallbackHost: D,
                             attemptCount: S,
                             lastHostUsed: v,
                             lastFetchMadeProgress: y,
                           });
                         return (
-                          (v = x),
+                          (v = P),
                           f({
-                            hostName: x.hostname,
-                            hostClass: x.class,
+                            hostName: P.hostname,
+                            hostClass: P.class,
                             failCount: S,
                           }),
                           yield r("WARetryPromise")(
@@ -172,10 +186,10 @@ __d(
                               ).asyncToGenerator(function* (t) {
                                 var c = t.retry,
                                   p = yield _({
-                                    auth: k,
+                                    auth: T,
                                     encFilehash: l,
                                     byteLength: i.byteLength,
-                                    hostname: x.hostname,
+                                    hostname: P.hostname,
                                     type: h,
                                     signal: g,
                                     byteOffset: a,
@@ -194,9 +208,9 @@ __d(
                                         ).shouldPollUploadHosts(h, i.byteLength)
                                           ? o("WAWebMmsClientPollMediaHosts")
                                               .pollMediaHosts({
-                                                connectionBlock: D,
+                                                connectionBlock: $,
                                                 getHost: function () {
-                                                  return x;
+                                                  return P;
                                                 },
                                                 getMediaHosts: function () {
                                                   return R(!0);
@@ -214,12 +228,12 @@ __d(
                                               })
                                           : null,
                                         c = r("WAWebMmsClientMmsUpload")({
-                                          auth: k,
+                                          auth: T,
                                           ciphertextHmac:
                                             p > 0
                                               ? new Uint8Array(i).subarray(p)
                                               : i,
-                                          hostname: x.hostname,
+                                          hostname: P.hostname,
                                           encFilehash: l,
                                           type: h,
                                           signal: g,
@@ -247,7 +261,7 @@ __d(
                                     },
                                   );
                                 return b.kind === "host-changed"
-                                  ? ((x = b.host), (v = x), c())
+                                  ? ((P = b.host), (v = P), c())
                                   : b.value;
                               });
                               return function (e) {
@@ -257,28 +271,28 @@ __d(
                           )
                         );
                       } catch (e) {
-                        var $ = r("getErrorSafe")(e);
+                        var N = r("getErrorSafe")(e);
                         y = !1;
-                        var P = o(
+                        var M = o(
                             "WAWebMmsClientIsErrorRetryable",
-                          ).isErrorRetryable($),
-                          N =
-                            !P ||
+                          ).isErrorRetryable(N),
+                          w =
+                            !M ||
                             S === r("WAWebMmsClientMmsBackoffOptions").retries;
                         if (
-                          (N ||
+                          (w ||
                             p({
-                              error: $,
+                              error: N,
                               failCount: S,
                               overallLastUploadRetryPhase: o(
                                 "WAWebWamEnumOverallLastUploadRetryPhaseType",
                               ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
                               overallT: Date.now() - C,
                             }),
-                          P)
+                          M)
                         )
-                          return b($);
-                        throw $;
+                          return b(N);
+                        throw N;
                       }
                     },
                   );

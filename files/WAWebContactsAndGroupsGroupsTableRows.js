@@ -11,32 +11,77 @@ __d(
     function e(e, t) {
       var n = t.filter,
         r = t.query,
-        a = t.sort,
-        i = o("WAWebContactsAndGroupsMyGroups").createGroupSearch(r),
-        l = e.filter(function (e) {
-          return c(e, n) && i(e);
+        a = t.recentRanks,
+        i = t.sort,
+        l = o("WAWebContactsAndGroupsMyGroups").createGroupSearch(r),
+        s = e.filter(function (e) {
+          return p(e, n) && l(e);
         });
-      return a === "recent"
-        ? o("WAWebGroupAdminGroupSort").sortAdminGroups(l, "recent")
-        : a === "name"
-          ? o("WAWebGroupAdminGroupSort").sortAdminGroups(l, "name")
-          : a === "nameDescending"
-            ? o("WAWebGroupAdminGroupSort").sortAdminGroups(l, "name").reverse()
-            : a === "members"
-              ? l.sort(_)
-              : a === "newest"
-                ? l.sort(s)
+      return i === "recent"
+        ? c(o("WAWebGroupAdminGroupSort").sortAdminGroups(s, "recent"), a)
+        : i === "name"
+          ? o("WAWebGroupAdminGroupSort").sortAdminGroups(s, "name")
+          : i === "nameDescending"
+            ? o("WAWebGroupAdminGroupSort").sortAdminGroups(s, "name").reverse()
+            : i === "members"
+              ? s.sort(h)
+              : i === "newest"
+                ? s.sort(d)
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        a,
+                        i,
                     );
                   })();
     }
-    function s(e, t) {
-      return u(t) - u(e);
+    function s(e) {
+      return o("WAWebContactsAndGroupsMyGroups").getGroupRanks(
+        o("WAWebGroupAdminGroupSort").sortAdminGroups(e, "recent"),
+      );
     }
-    function u(e) {
+    function u(e, t) {
+      var n = t.filter(function (t) {
+        return !e.has(t.id.toString());
+      });
+      if (n.length === 0) return e;
+      var r = 0;
+      (e.forEach(function (e) {
+        r = Math.min(r, e);
+      }),
+        (r -= n.length));
+      var a = new Map(e);
+      return (
+        o("WAWebGroupAdminGroupSort")
+          .sortAdminGroups(n, "recent")
+          .forEach(function (e, t) {
+            a.set(e.id.toString(), r + t);
+          }),
+        a
+      );
+    }
+    function c(e, t) {
+      return t == null
+        ? [].concat(e)
+        : e
+            .map(function (n, r) {
+              var o;
+              return {
+                chat: n,
+                rank: (o = t.get(n.id.toString())) != null ? o : r - e.length,
+              };
+            })
+            .sort(function (e, t) {
+              return e.rank - t.rank;
+            })
+            .map(function (e) {
+              var t = e.chat;
+              return t;
+            });
+    }
+    function d(e, t) {
+      return m(t) - m(e);
+    }
+    function m(e) {
       var t, n, r, a;
       return (t =
         (n =
@@ -52,10 +97,10 @@ __d(
         ? t
         : 0;
     }
-    function c(e, t) {
+    function p(e, t) {
       return (function (t) {
         if (t === "all") return !0;
-        if (t === "admin") return m(e);
+        if (t === "admin") return f(e);
         if (t === "favorites")
           return o("WAWebFrontendChatGetters").getIsFavorite(e);
         if (t === "archived") return o("WAWebChatGetters").getArchive(e);
@@ -77,10 +122,10 @@ __d(
         );
       })(t);
     }
-    function d(e, t) {
+    function _(e, t) {
       var n = function (n) {
         return e.filter(function (e) {
-          return c(e, n);
+          return p(e, n);
         }).length;
       };
       return {
@@ -95,28 +140,13 @@ __d(
         ),
       };
     }
-    function m(e) {
-      var t;
-      return (
-        ((t = e.groupMetadata) == null ? void 0 : t.participants.iAmAdmin()) ===
-        !0
-      );
+    function f(e) {
+      return g(e.groupMetadata);
     }
-    function p(e) {
-      var t = new Map();
-      return (
-        e.forEach(function (e) {
-          var n,
-            r = e.chat,
-            o = e.request,
-            a = r.id.toString(),
-            i = (n = t.get(a)) != null ? n : [];
-          (i.push(o.id), t.set(a, i));
-        }),
-        t
-      );
+    function g(e) {
+      return (e == null ? void 0 : e.participants.iAmAdmin()) === !0;
     }
-    function _(e, t) {
+    function h(e, t) {
       var n, r;
       return (
         ((n = o("WAWebContactsAndGroupsMyGroups").getGroupMemberCount(t)) !=
@@ -130,10 +160,11 @@ __d(
       );
     }
     ((l.getGroupsTableRows = e),
-      (l.matchesGroupsTableFilter = c),
-      (l.countGroupsByFilter = d),
-      (l.isGroupAdmin = m),
-      (l.getJoinRequestersByGroup = p));
+      (l.getRecentRanks = s),
+      (l.addRecentRanks = u),
+      (l.countGroupsByFilter = _),
+      (l.isGroupAdmin = f),
+      (l.isGroupAdminFor = g));
   },
   98,
 );

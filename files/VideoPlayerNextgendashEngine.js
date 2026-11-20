@@ -362,6 +362,7 @@ __d(
             r("gkx")("7763") && e.mediaSinkType === "MSE",
           liveLatencyPlaybackRateEnabled:
             r("gkx")("7763") && e.mediaSinkType === "MSE",
+          liveListedSegmentsUsePredictedURLEnabled: r("gkx")("7763"),
           liveLookbackBufferSec: r("gkx")("5049")
             ? 30
             : a.liveLookbackBufferSec,
@@ -379,6 +380,7 @@ __d(
           livePredictiveSegmentFetchKeyByNumber: r("gkx")("5049"),
           liveProactiveEdgeReseekEnabled: r("gkx")("5049"),
           liveProactiveEdgeReseekToIslandEnabled: r("gkx")("5049"),
+          liveRefreshInlineManifestImmediatelyEnabled: r("gkx")("7763"),
           liveReleasePastStateMachineStates: r("gkx")("5049"),
           liveSegmentFetchNetworkFailureToleranceMs: r("gkx")("5049")
             ? 6e4

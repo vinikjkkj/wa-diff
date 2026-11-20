@@ -7,7 +7,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
     "WAWebMsgKey",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "CGSAMPLEPOLL",
@@ -108,7 +108,7 @@ __d(
             (n = e.groupMetadata) == null
               ? void 0
               : n.participants.filter(function (e) {
-                  return !o("WAWebUserPrefsMeUser").isMeAccount(e.id);
+                  return !o("WAWebUserUtils").isMeAccount(e.id);
                 })) != null
             ? t
             : [],

@@ -18,8 +18,7 @@ __d(
     }
     ((l.THIS_WEEK_IN_SECONDS = o("WATimeUtils").WEEK_SECONDS),
       (l.happenedThisWeek = e),
-      (l.getCalendarDaysBetween = s),
-      (l.startOfDay = u));
+      (l.getCalendarDaysBetween = s));
   },
   98,
 );

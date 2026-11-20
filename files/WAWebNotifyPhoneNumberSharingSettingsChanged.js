@@ -1,18 +1,22 @@
 __d(
   "WAWebNotifyPhoneNumberSharingSettingsChanged",
   [
+    "WALogger",
     "WAWebBackendApi",
+    "WAWebPhoneNumberSharingSettingsRefresh",
     "WAWebSchemaPrivacyDisallowedList",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaPrivacyDisallowedList")
             .getPrivacyDisallowedListTable()
             .all();
@@ -27,10 +31,27 @@ __d(
             },
           );
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.notifyPhoneNumberSharingSettingsChanged = e;
+    function c() {
+      return s().catch(function (t) {
+        (o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "phone number sharing settings refresh failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("phone-number-sharing-settings-refresh-failed"),
+          o(
+            "WAWebPhoneNumberSharingSettingsRefresh",
+          ).schedulePhoneNumberSharingSettingsRefresh());
+      });
+    }
+    ((l.notifyPhoneNumberSharingSettingsChanged = s),
+      (l.notifyOrRefreshPhoneNumberSharingSettings = c));
   },
   98,
 );

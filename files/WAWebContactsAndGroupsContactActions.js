@@ -2,34 +2,44 @@ __d(
   "WAWebContactsAndGroupsContactActions",
   [
     "WALogger",
+    "WAWebAddToFavoritesAction",
     "WAWebBlockContactUtils",
     "WAWebBlockContants",
     "WAWebCmd",
+    "WAWebContactsAndGroupsContacts",
     "WAWebContactsAndGroupsNavigationAction",
     "WAWebFindChatAction",
+    "WAWebRemoveFromFavoritesAction",
     "WAWebVoipStartCall",
     "WAWebWamEnumCallFromUi",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WAWebWamEnumLobbyEntryPointType",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "react",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m = d || (d = o("react")),
+      p = new Set();
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function d() {
+    function f() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFindChatAction")
             .findOrCreateLatestChat(e, "chatListUtils")
             .catch(function (e) {
               return (
                 o("WALogger")
                   .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "openContactChatFromContactsAndGroups: finding the chat failed",
                       ])),
                   )
@@ -42,23 +52,23 @@ __d(
               "WAWebContactsAndGroupsNavigationAction",
             ).openChatFromContactsAndGroups(t.chat));
         })),
-        d.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function p() {
+    function h() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFindChatAction")
             .findOrCreateLatestChat(e.id, "chatListUtils")
             .catch(function (e) {
               return (
                 o("WALogger")
                   .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "blockContactFromContactsAndGroups: finding the chat failed",
                       ])),
                   )
@@ -72,10 +82,10 @@ __d(
               o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
             );
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function _(e) {
+    function y(e) {
       o("WAWebCmd").Cmd.favoriteChat(
         e,
         !e.isFavorite,
@@ -83,39 +93,80 @@ __d(
           .CONTACT_INFO,
       );
     }
-    function f(e) {
+    function C(t) {
+      var n = t.id.toString();
+      if (!p.has(n)) {
+        p.add(n);
+        var a = o("WAWebWamEnumFavoritesUpdateEntryPoint")
+            .FAVORITES_UPDATE_ENTRY_POINT.CONTACT_INFO,
+          i = o("WAWebContactsAndGroupsContacts").getStoredChatlessFavoriteIds(
+            t,
+          );
+        (i.length > 0
+          ? o("WAWebRemoveFromFavoritesAction").removeFromFavoritesAction(i, {
+              entryPoint: a,
+            })
+          : o("WAWebAddToFavoritesAction").addToFavoritesAction([t.id], {
+              entryPoint: a,
+            })
+        )
+          .catch(function (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "toggleContactWithoutChatFavoriteFromContactsAndGroups: updating Favorites failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t));
+          })
+          .finally(function () {
+            p.delete(n);
+          });
+      }
+    }
+    function b(e, t) {
       o("WAWebBlockContactUtils").handleUnblock(
         e,
         o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
+        t,
       );
     }
-    function g(t) {
+    function v(e) {
+      R(e, !0);
+    }
+    function S(e) {
+      R(e, !1);
+    }
+    function R(e, t) {
       o("WAWebVoipStartCall")
         .startWAWebVoipCall(
-          t.id,
-          !0,
+          e.id,
+          t,
           o("WAWebWamEnumCallFromUi").CALL_FROM_UI.CONTACTS_TAB,
           o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
             .NOT_OPENED,
           null,
           { entryTrust: "user_gesture" },
         )
-        .catch(function (t) {
+        .catch(function (e) {
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "startVideoCallFromContactsAndGroups: starting the call failed",
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "startCallFromContactsAndGroups: starting the call failed",
                 ])),
             )
-            .catching(r("getErrorSafe")(t));
+            .catching(r("getErrorSafe")(e));
         });
     }
-    ((l.openContactChatFromContactsAndGroups = c),
-      (l.blockContactFromContactsAndGroups = m),
-      (l.toggleContactFavoriteFromContactsAndGroups = _),
-      (l.unblockContactFromContactsAndGroups = f),
-      (l.startVideoCallFromContactsAndGroups = g));
+    ((l.openContactChatFromContactsAndGroups = _),
+      (l.blockContactFromContactsAndGroups = g),
+      (l.toggleContactFavoriteFromContactsAndGroups = y),
+      (l.toggleContactWithoutChatFavoriteFromContactsAndGroups = C),
+      (l.unblockContactFromContactsAndGroups = b),
+      (l.startVideoCallFromContactsAndGroups = v),
+      (l.startVoiceCallFromContactsAndGroups = S));
   },
   98,
 );

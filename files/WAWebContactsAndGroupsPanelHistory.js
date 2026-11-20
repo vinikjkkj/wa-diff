@@ -24,9 +24,9 @@ __d(
     function d(e, t) {
       return e.kind === "contact" && t.kind === "contact"
         ? e.contact.id.equals(t.contact.id)
-        : e.kind === "group" && t.kind === "group"
-          ? e.chat.id.equals(t.chat.id)
-          : !1;
+        : e.kind === "contact" || t.kind === "contact"
+          ? !1
+          : e.kind === t.kind && e.chat.id.equals(t.chat.id);
     }
     function m(e) {
       return p(e) == null;
@@ -37,7 +37,11 @@ __d(
         return t == null ? null : { contact: t, kind: "contact" };
       }
       var n = o("WAWebChatCollection").ChatCollection.get(e.chat.id);
-      return n != null && _(n) ? { chat: n, kind: "group" } : null;
+      return n == null || !_(n)
+        ? null
+        : e.kind === "group"
+          ? { chat: n, kind: "group" }
+          : { chat: n, kind: "joinRequests" };
     }
     function _(e) {
       var t;

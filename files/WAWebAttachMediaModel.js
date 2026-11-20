@@ -28,11 +28,13 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebPREGatingUtils",
     "WAWebPrepRawMedia",
+    "WAWebPromiseQueue",
     "WAWebStickerConstants",
     "WAWebSystemProvenanceGating",
     "asyncToGeneratorRuntime",
     "err",
     "isNonZeroNumber",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -123,8 +125,13 @@ __d(
             (e.isVideoMuted = o("WAWebBaseModel").session(!1)),
             (e.isVideoTrimmed = o("WAWebBaseModel").session(!1)),
             (e.$AttachMediaImpl$p_3 = null),
+            (e.$AttachMediaImpl$p_4 = o("WAWebBaseModel").session(function () {
+              return new (o("WAWebPromiseQueue").PromiseQueue)();
+            })),
+            (e.$AttachMediaImpl$p_5 = o("WAWebBaseModel").session(0)),
+            (e.isWaitingToPrepare = o("WAWebBaseModel").session(!1)),
             (e.hasSetFromPrefs = o("WAWebBaseModel").prop(!1)),
-            (e.$AttachMediaImpl$p_8 = r("WAMemoizeConcurrent")(
+            (e.$AttachMediaImpl$p_11 = r("WAMemoizeConcurrent")(
               function () {
                 return "hd-eligible";
               },
@@ -154,55 +161,75 @@ __d(
         var i = a.prototype;
         return (
           (i.initialize = function () {
-            if (
-              (t.prototype.initialize.call(this),
-              this.file instanceof (f || (f = n("Promise"))))
-            )
-              ((this.originalAttachment = this.file),
-                (this.provenanceSourceAttachment = this.file),
-                this.processAttachment(this.file));
+            t.prototype.initialize.call(this);
+            var e = this.file;
+            if (e instanceof (f || (f = n("Promise"))))
+              ((this.originalAttachment = e),
+                (this.provenanceSourceAttachment = e),
+                (this.mediaEditorData = r("WAWebMediaEditorData").create()),
+                this.processAttachment(e));
             else throw r("err")("cannot process non-promise file");
           }),
           (i.processAttachment = function (t) {
             var e,
-              n = this;
+              a = this;
             ((this.state = o(
               "WAWebAttachMediaConstants",
             ).ATTACH_MEDIA_STATE.PROCESSING),
-              (this.mediaEditorData = r("WAWebMediaEditorData").create()),
               (e = this.$AttachMediaImpl$p_3) == null || e.abort(),
-              (this.$AttachMediaImpl$p_3 = new AbortController()),
-              (this.processPromise = this.$AttachMediaImpl$p_4(t).then(
-                function () {
-                  var e = new Image();
-                  ((e.src = n.fullPreview),
-                    (e.onload = function () {
-                      var t = {};
-                      if (n.stickerMaker) {
-                        t.fitToSquare = !0;
-                        var r =
-                          2 *
-                          o("WAWebStickerConstants")
-                            .STICKER_MAKER_IMAGE_PADDING;
-                        t.scale = {
-                          x:
-                            1 -
-                            r / o("WAWebStickerConstants").STICKER_DIMENSION,
-                          y:
-                            1 -
-                            r / o("WAWebStickerConstants").STICKER_DIMENSION,
-                        };
-                      }
-                      n.mediaEditorData = n.mediaEditorData.setBackground(e, t);
-                    }));
-                },
-              )));
+              (this.$AttachMediaImpl$p_3 = new AbortController()));
+            var i;
+            if (r("justknobx")._("8598")) {
+              var l = this.$AttachMediaImpl$p_5 > 0;
+              (this.$AttachMediaImpl$p_6(1),
+                (i = this.$AttachMediaImpl$p_4.enqueue(
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    l &&
+                      a.set({
+                        state: o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                          .PROCESSING,
+                      });
+                    try {
+                      yield a.$AttachMediaImpl$p_7(t);
+                    } finally {
+                      a.$AttachMediaImpl$p_6(-1);
+                    }
+                  }),
+                )));
+            } else i = this.$AttachMediaImpl$p_7(t);
+            var s = i.then(function () {
+              var e = new Image();
+              ((e.src = a.fullPreview),
+                (e.onload = function () {
+                  if (a.processPromise === s) {
+                    var t = {};
+                    if (a.stickerMaker) {
+                      t.fitToSquare = !0;
+                      var n =
+                        2 *
+                        o("WAWebStickerConstants").STICKER_MAKER_IMAGE_PADDING;
+                      t.scale = {
+                        x: 1 - n / o("WAWebStickerConstants").STICKER_DIMENSION,
+                        y: 1 - n / o("WAWebStickerConstants").STICKER_DIMENSION,
+                      };
+                    }
+                    a.mediaEditorData = r("WAWebMediaEditorData")
+                      .create(a.mediaEditorData.getId())
+                      .setBackground(e, t);
+                  }
+                }));
+            });
+            this.processPromise = s;
+          }),
+          (i.$AttachMediaImpl$p_6 = function (t) {
+            ((this.$AttachMediaImpl$p_5 += t),
+              (this.isWaitingToPrepare = this.$AttachMediaImpl$p_5 > 1));
           }),
           (i.cancelEnrichment = function () {
             var e;
             (e = this.$AttachMediaImpl$p_3) == null || e.abort();
           }),
-          (i.$AttachMediaImpl$p_5 = function (t) {
+          (i.$AttachMediaImpl$p_8 = function (t) {
             switch (t != null ? t : this.quality) {
               case h.Standard:
                 return o("WAWebABProps").getABPropConfigValue(
@@ -228,12 +255,12 @@ __d(
                     .tags("media")
                     .sendLogs("attach-media-update-quality-null-attachment"));
           }),
-          (i.$AttachMediaImpl$p_6 = function (t) {
+          (i.$AttachMediaImpl$p_9 = function (t) {
             return t == null || this.supportedTypes == null
               ? !0
               : this.supportedTypes.has(t);
           }),
-          (i.$AttachMediaImpl$p_7 = (function () {
+          (i.$AttachMediaImpl$p_10 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 this.metadataByQuality = new Map(
@@ -242,7 +269,7 @@ __d(
                         [
                           this.quality,
                           yield o("WAWebMediaDataUtils").getImageMetadata(e, {
-                            maxDimension: this.$AttachMediaImpl$p_5(
+                            maxDimension: this.$AttachMediaImpl$p_8(
                               this.quality,
                             ),
                           }),
@@ -252,13 +279,13 @@ __d(
                         [
                           h.Standard,
                           yield o("WAWebMediaDataUtils").getImageMetadata(e, {
-                            maxDimension: this.$AttachMediaImpl$p_5(h.Standard),
+                            maxDimension: this.$AttachMediaImpl$p_8(h.Standard),
                           }),
                         ],
                         [
                           h.HD,
                           yield o("WAWebMediaDataUtils").getImageMetadata(e, {
-                            maxDimension: this.$AttachMediaImpl$p_5(h.HD),
+                            maxDimension: this.$AttachMediaImpl$p_8(h.HD),
                           }),
                         ],
                       ],
@@ -270,7 +297,7 @@ __d(
             }
             return t;
           })()),
-          (i.$AttachMediaImpl$p_4 = function (t) {
+          (i.$AttachMediaImpl$p_7 = function (t) {
             var e = this,
               a;
             return t
@@ -279,7 +306,7 @@ __d(
                   var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
                       var a;
-                      if (!e.$AttachMediaImpl$p_6(n.type))
+                      if (!e.$AttachMediaImpl$p_9(n.type))
                         throw new (o(
                           "WAWebMediaFileErrors",
                         ).InvalidMediaFileType)();
@@ -287,7 +314,7 @@ __d(
                         n.preview != null && (e.previewBase64 = n.preview),
                         (e.originalFilename = n.filename));
                       var i = {
-                          maxDimension: e.$AttachMediaImpl$p_5(),
+                          maxDimension: e.$AttachMediaImpl$p_8(),
                           fileOrigin: e.fileOrigin,
                           signal:
                             (a = e.$AttachMediaImpl$p_3) == null
@@ -407,11 +434,12 @@ __d(
                           ((S.preview = v),
                           (e.originalAttachment = t),
                           C.isGif ||
-                            ((e.hdEligible = yield e.$AttachMediaImpl$p_8({
+                            ((e.hdEligible = yield e.$AttachMediaImpl$p_11({
                               attachmentPromise: t,
                               signal: new AbortController().signal,
                             })),
-                            e.hdEligible && (yield e.$AttachMediaImpl$p_7(d)))),
+                            e.hdEligible &&
+                              (yield e.$AttachMediaImpl$p_10(d)))),
                         C.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
                           b &&
                           ((S.fullPreview = b.url),
@@ -448,12 +476,12 @@ __d(
                     if (
                       e.isGif ||
                       e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT ||
-                      !e.$AttachMediaImpl$p_6(
+                      !e.$AttachMediaImpl$p_9(
                         o("WAWebMsgType").MSG_TYPE.DOCUMENT,
                       )
                     )
                       throw n;
-                    return e.$AttachMediaImpl$p_4(
+                    return e.$AttachMediaImpl$p_7(
                       t.then(function (e) {
                         return (
                           (e.type = o("WAWebFileUtils").FILETYPE.DOCUMENT),
@@ -525,17 +553,17 @@ __d(
               return (f || (f = n("Promise"))).reject(
                 r("err")("Media still processing"),
               );
-            var i = this.$AttachMediaImpl$p_9(e, a);
+            var i = this.$AttachMediaImpl$p_12(e, a);
             return (
               i != null &&
-                (a.provenanceDetectionPromise = this.$AttachMediaImpl$p_10(
+                (a.provenanceDetectionPromise = this.$AttachMediaImpl$p_13(
                   i.systemProvenance,
                 )),
               (a.fileOrigin = this.fileOrigin),
-              this.$AttachMediaImpl$p_11({ chat: e, options: a })
+              this.$AttachMediaImpl$p_14({ chat: e, options: a })
             );
           }),
-          (i.$AttachMediaImpl$p_9 = function (t, n) {
+          (i.$AttachMediaImpl$p_12 = function (t, n) {
             if (
               this.type !== o("WAWebMsgType").MSG_TYPE.IMAGE &&
               this.type !== o("WAWebMsgType").MSG_TYPE.VIDEO
@@ -556,7 +584,7 @@ __d(
                   ).isSystemProvenanceEnabledFor(e),
                 };
           }),
-          (i.$AttachMediaImpl$p_10 = (function () {
+          (i.$AttachMediaImpl$p_13 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 if (this.provenanceSourceAttachment == null) return S;
@@ -700,7 +728,7 @@ __d(
             }
             return t;
           })()),
-          (i.$AttachMediaImpl$p_11 = function (t) {
+          (i.$AttachMediaImpl$p_14 = function (t) {
             var e = t.chat,
               n = t.options;
             if (

@@ -16,7 +16,7 @@ __d(
         e.closest('[role="dialog"], [aria-modal="true"], [role="menu"]') != null
       );
     }
-    l.isEscapeForPage = e;
+    ((l.isEscapeForPage = e), (l.isInDialog = s));
   },
   98,
 );

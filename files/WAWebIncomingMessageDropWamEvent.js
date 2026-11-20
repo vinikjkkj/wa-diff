@@ -53,6 +53,10 @@ __d(
                 18,
                 o("WAWebWamEnumEncryptionTypeCode").ENCRYPTION_TYPE_CODE,
               ],
+              handshakeMessageSts: [27, e.TYPES.INTEGER],
+              handshakeTs: [28, e.TYPES.INTEGER],
+              ibOfflineCompleteReceivedTs: [29, e.TYPES.INTEGER],
+              ibPhantomsProcessedSentTs: [30, e.TYPES.INTEGER],
               invisibleMessageCategory: [
                 13,
                 o("WAWebWamEnumInvisibleMessageCategoryType")
@@ -84,6 +88,8 @@ __d(
                 21,
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
+              stanzaReceivedTs: [31, e.TYPES.INTEGER],
+              stanzaSts: [32, e.TYPES.INTEGER],
               traceIdInt: [24, e.TYPES.INTEGER],
               typeOfGroup: [
                 10,

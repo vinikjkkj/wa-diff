@@ -5,6 +5,7 @@ __d(
     "WALongInt",
     "WAResultOrError",
     "WAWebEBLabyrinthWaWasmReactorSingleton",
+    "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
   ],
@@ -12,62 +13,67 @@ __d(
     "use strict";
     var e, s;
     function u(e) {
-      var t = e.encryptedPrevEpochAnonId,
-        n = e.encryptedPrevEpochRootKey,
-        r = e.prevEpochRootKeyFingerprint;
-      return t == null || n == null || r == null
-        ? null
-        : {
-            encryptedPrevEpochAnonId: t,
-            encryptedPrevEpochRootKey: n,
-            prevEpochRootKeyFingerprint: r,
-          };
+      return {
+        encryptedPrevEpochAnonId: o(
+          "WAWebLabyrinthOpaqueTypes",
+        ).makeEncryptedPreviousEpochAnonId(e.encryptedPrevEpochAnonId),
+        encryptedPrevEpochRootKey: o(
+          "WAWebLabyrinthOpaqueTypes",
+        ).makeEncryptedEpochRootKey(e.encryptedPrevEpochRootKey),
+        prevEpochRootKeyFingerprint: o(
+          "WAWebLabyrinthOpaqueTypes",
+        ).makeEpochRootKeyFingerprint(e.prevEpochRootKeyFingerprint),
+      };
     }
     function c(e) {
-      if (e.length === 0) return null;
-      var t = [];
-      for (var n of e) {
-        var r = n.deviceEpochHmac,
-          a = n.deviceId,
-          i = n.encryptedEpochKey;
-        if (a == null || i == null || r == null) return null;
-        t.push({
-          deviceId: o("WALongInt").longIntToDecimalString(a),
-          encryptedEpochKey: i,
-          deviceEpochHmac: r,
-        });
-      }
-      return t;
+      return e.length === 0
+        ? null
+        : e.map(function (e) {
+            var t = e.deviceEpochHmac,
+              n = e.deviceId,
+              r = e.encryptedEpochKey;
+            return {
+              deviceId: o("WAWebLabyrinthOpaqueTypes").makeEbDeviceId(
+                o("WALongInt").longIntToDecimalString(n),
+              ),
+              encryptedEpochKey: o(
+                "WAWebLabyrinthOpaqueTypes",
+              ).makeEncryptedEntropy(r),
+              deviceEpochHmac: o(
+                "WAWebLabyrinthOpaqueTypes",
+              ).makeDeviceEpochHmac(t),
+            };
+          });
     }
     function d(e) {
-      if (e.error != null)
+      var t = e.error,
+        n = e.success;
+      if (t != null)
         return o("WAResultOrError").makeError({
           errorName: "wasm-error",
-          failReason: e.error,
+          failReason: t,
         });
-      var t = e.epochAnonId,
-        n = e.epochRootKeyFingerprint,
-        r = e.newEpochAnonId,
-        a = e.newEpochFbid,
-        i = e.newEpochRootKey,
-        l = e.backwardEdge == null ? null : u(e.backwardEdge),
-        s = c(e.memberEdges);
-      return i == null ||
-        r == null ||
-        a == null ||
-        t == null ||
-        n == null ||
-        l == null ||
-        s == null
-        ? o("WAResultOrError").makeError({ errorName: "missing-output" })
-        : o("WAResultOrError").makeResult({
-            newEpochRootKey: i,
-            newEpochAnonId: o("WALongInt").longIntToDecimalString(r),
-            newEpochFbid: o("WALongInt").longIntToDecimalString(a),
-            newEpochAnonIdBytes: t,
-            backwardEdge: l,
-            memberEdges: s,
-            epochRootKeyFingerprint: n,
+      if (n == null)
+        return o("WAResultOrError").makeError({ errorName: "missing-output" });
+      var r = c(n.memberEdges);
+      if (r == null)
+        return o("WAResultOrError").makeError({ errorName: "missing-output" });
+      var a = o("WAWebLabyrinthOpaqueTypes").parseEpochAnonId(n.newEpochAnonId);
+      return a.success
+        ? o("WAResultOrError").makeResult({
+            newEpochRootKey: o("WAWebLabyrinthOpaqueTypes").makeEpochRootKey(
+              n.newEpochRootKey,
+            ),
+            newEpochAnonId: a.value,
+            backwardEdge: u(n.backwardEdge),
+            memberEdges: r,
+            epochRootKeyFingerprint: o(
+              "WAWebLabyrinthOpaqueTypes",
+            ).makeEpochRootKeyFingerprint(n.epochRootKeyFingerprint),
+          })
+        : o("WAResultOrError").makeError({
+            errorName: "wasm-error",
+            failReason: a.error.message,
           });
     }
     function m(e) {
@@ -91,12 +97,14 @@ __d(
                 currentEpochFbid: o("WALongInt").decimalStringToLongInt(
                   t.currentEpochFbid,
                 ),
-                epochStoragePrivateKey: t.epochStoragePrivateKey,
+                epochStorageAuthPrivateKey: t.epochStorageAuthPrivateKey,
                 members: t.members.map(function (e) {
                   return {
                     deviceId: o("WALongInt").decimalStringToLongInt(e.deviceId),
                     epochStoragePublicKey: e.epochStoragePublicKey,
                     devicePublicKey: e.devicePublicKey,
+                    epochStoragePublicKeySig: e.epochStoragePublicKeySig,
+                    prevDeviceEpochHmac: e.prevDeviceEpochHmac,
                   };
                 }),
               },

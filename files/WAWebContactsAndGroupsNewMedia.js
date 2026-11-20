@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebChatCollection",
     "WAWebContactsAndGroupsLastSeen",
     "WAWebContactsAndGroupsNewMediaRules",
@@ -10,6 +11,7 @@ __d(
     "WAWebContactsAndGroupsSuggestionDismissals",
     "WAWebDBMessageFindLocal",
     "WAWebEventEmitter",
+    "WAWebMessageQueryService",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebPonyfillsIdleCallback",
@@ -26,33 +28,45 @@ __d(
       m = o(
         "WAWebContactsAndGroupsSession",
       ).createContactsAndGroupsSessionValue(null),
-      p = null,
+      p = o(
+        "WAWebContactsAndGroupsSession",
+      ).createContactsAndGroupsSessionValue(null),
       _ = new Map(),
-      f = new (r("WAWebEventEmitter"))();
-    function g() {
+      f = o(
+        "WAWebContactsAndGroupsSession",
+      ).createContactsAndGroupsSessionValue(_),
+      g = new (r("WAWebEventEmitter"))();
+    function h() {
       return m.get();
     }
-    function h(t) {
+    function y(t) {
       var n,
-        a = o(
+        a,
+        i = o(
           "WAWebContactsAndGroupsLastSeen",
         ).getContactsAndGroupsLastSeenBeforeThisVisit();
-      if (!(((n = m.get()) == null ? void 0 : n.lastSeen) === a || p === a)) {
-        ((p = a), _.clear());
-        var i = o("WAWebContactsAndGroupsNewMediaRules").getNewMediaSince(a, t);
+      if (
+        !(
+          ((n = m.get()) == null ? void 0 : n.lastSeen) === i ||
+          ((a = p.get()) == null ? void 0 : a.lastSeen) === i
+        )
+      ) {
+        var l = { lastSeen: i };
+        (p.set(l), f.set(_));
+        var s = o("WAWebContactsAndGroupsNewMediaRules").getNewMediaSince(i, t);
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          S(i, t)
+          R(s, t)
             .then(function (e) {
-              if (p === a) {
-                p = null;
-                var n = Array.from(_.values());
-                (_.clear(),
-                  m.set(b({ keys: e, lastSeen: a, since: i }, n, t)),
-                  f.trigger("change"));
+              if (p.get() === l) {
+                p.set(null);
+                var n = Array.from(f.get().values());
+                (f.set(_),
+                  m.set(v({ keys: e, lastSeen: i, since: s }, n, t)),
+                  g.trigger("change"));
               }
             })
             .catch(function (t) {
-              (p === a && ((p = null), _.clear()),
+              (p.get() === l && (p.set(null), f.set(_)),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -65,16 +79,16 @@ __d(
         });
       }
     }
-    function y(e, t) {
-      if (p != null) {
-        _.set(e.id.toString(), e);
+    function C(e, t) {
+      if (p.get() != null) {
+        f.set(new Map(f.get()).set(e.id.toString(), e));
         return;
       }
       var n = m.get(),
-        r = n != null ? b(n, [e], t) : null;
-      r != null && r !== n && (m.set(r), f.trigger("change"));
+        r = n != null ? v(n, [e], t) : null;
+      r != null && r !== n && (m.set(r), g.trigger("change"));
     }
-    function C(e, t) {
+    function b(e, t) {
       return r("compactMap")(e.keys, function (n) {
         var r = o(
             "WAWebContactsAndGroupsSuggestionDismissals",
@@ -98,10 +112,10 @@ __d(
           : null;
       });
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       var r = t
         .filter(function (t) {
-          return v(t, e.since, n);
+          return S(t, e.since, n);
         })
         .map(function (e) {
           return e.id.toString();
@@ -115,7 +129,7 @@ __d(
           })
         : e;
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       var r = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebMsgGetters").getId(e).remote,
       );
@@ -125,14 +139,14 @@ __d(
         o("WAWebContactsAndGroupsNewMediaRules").isNewMediaMsg(e, t, n)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield (s || (s = n("Promise"))).all([
-              L(
+              E(
                 function (t) {
                   return o("WAWebDBMessageFindLocal").getAllMediaMessages(
                     u,
@@ -144,14 +158,15 @@ __d(
                 e,
                 t,
               ),
-              L(
+              E(
                 function (e) {
-                  return o("WAWebDBMessageFindLocal").getAllDocsMessages({
-                    chat: null,
-                    count: u,
-                    direction: "before",
-                    msgKey: e,
-                  });
+                  return (
+                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageQueryService").MessageQueryService,
+                        ).getAllDocsMessages
+                      : o("WAWebDBMessageFindLocal").getAllDocsMessages
+                  )({ chat: null, count: u, direction: "before", msgKey: e });
                 },
                 e,
                 t,
@@ -190,15 +205,15 @@ __d(
             })
           );
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = [],
             i = (function () {
               var l = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -207,7 +222,7 @@ __d(
                   a.push.apply(
                     a,
                     s.filter(function (e) {
-                      return v(e, t, r);
+                      return S(e, t, r);
                     }),
                   );
                   var c = s[s.length - 1];
@@ -225,14 +240,14 @@ __d(
             })();
           return (yield i(null, c), a);
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    ((l.newMediaChanges = f),
-      (l.getNewMediaVisit = g),
-      (l.requestNewMedia = h),
-      (l.addNewMedia = y),
-      (l.getNewMedia = C));
+    ((l.newMediaChanges = g),
+      (l.getNewMediaVisit = h),
+      (l.requestNewMedia = y),
+      (l.addNewMedia = C),
+      (l.getNewMedia = b));
   },
   98,
 );

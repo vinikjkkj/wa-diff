@@ -289,6 +289,24 @@ __d(
                       .catching(r("getErrorSafe")(e)));
                 }));
           }),
+          (this.getNowSinceProcessStartMs = function () {
+            var e = t.$1.getNowSinceProcessStartMs;
+            return e == null
+              ? null
+              : (r("WAWebODS").incr(
+                  "web.hybrid.bridge.native_app_state.send.get_now_since_process_start_ms",
+                ),
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                  {
+                    bridge: "nativeAppStateBridge",
+                    method: "getNowSinceProcessStartMs",
+                    type: "async",
+                  },
+                  function () {
+                    return e.call(t.$1);
+                  },
+                ));
+          }),
           (this.$1 = a),
           (this.$2 = i),
           this.$1.addEventListener("appStateChangedEvent", this.$5),

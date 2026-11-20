@@ -31,6 +31,7 @@ __d(
         "falco_md_id_fix_web_enabled",
         "web_vc_css_bg_scan_children_first",
         "wa_web_drag_and_drop_capabilities",
+        "wa_web_curve25519_donna_migration_enabled",
       ],
       c = null,
       d = null;

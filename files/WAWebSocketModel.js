@@ -140,7 +140,7 @@ __d(
               ),
               a.BackendEventBus.onOpenSocketStream(function () {
                 (r("WAWebNetworkStatus").markOnline(),
-                  r("WAWebNetworkStatus").checkOnline(),
+                  r("WAWebNetworkStatus").checkOnline("socket_open"),
                   t.openStream().catch(function (t) {
                     o("WALogger")
                       .ERROR(
@@ -161,7 +161,7 @@ __d(
                 (t.set({
                   stream: o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED,
                 }),
-                  r("WAWebNetworkStatus").checkOnline());
+                  r("WAWebNetworkStatus").checkOnline("socket_disconnect"));
               }),
               a.BackendEventBus.onCriticalSyncDone(function () {
                 (o("WALogger").LOG(

@@ -121,23 +121,24 @@ __d(
     }
     var x = (function () {
         function t() {
-          this.$1 = new (r("WAConcurrentPriorityPromiseQueue"))(R, {
+          ((this.$1 = new (r("WAConcurrentPriorityPromiseQueue"))(R, {
             photos: 2,
             videos: 1,
             audio: 1,
             documents: 1,
             mms_thumbnail: 4,
-          });
+          })),
+            (this.$2 = 0));
         }
         var a = t.prototype;
         return (
           (a.getEnqueuedTasksCount = function () {
-            return this.$1.getEnqueuedTasksCount();
+            return this.$1.getEnqueuedTasksCount() + this.$2;
           }),
           (a.clearQueue = function () {
             this.$1.clearQueue();
           }),
-          (a.$2 = function () {
+          (a.$3 = function () {
             return (
               o("WAWebUserPrefsGeneral").getAutoDownloadPhotos() &&
               this.getEnqueuedTasksCount() < L
@@ -145,22 +146,27 @@ __d(
           }),
           (a.enqueue = function (n, r, a) {
             if (n instanceof o("WAWebStickerModel").StickerModel)
-              return this.$2() ? (this.$3({ sticker: n }), !0) : !1;
+              return this.$3() ? (this.$4({ sticker: n }), !0) : !1;
             var t = n,
               i =
                 r === b.MEDIA &&
                 !o("WAWebMsgGetters").getIsNewsletterMsg(t.unsafe()) &&
                 k(t) &&
-                t.isNewMsg &&
-                I(t) &&
+                t.isNewMsg,
+              l =
+                i &&
+                (o(
+                  "WAWebDualUploadsAutoDownloadPolicy",
+                ).whenAssociatedChildSupportKnown(t) != null ||
+                  I(t)) &&
                 D(t) &&
                 this.getEnqueuedTasksCount() < L;
-            if (i)
+            if (l)
               switch (t.type) {
                 case o("WAWebMsgType").MSG_TYPE.AUDIO:
                 case o("WAWebMsgType").MSG_TYPE.PTT:
                   return (
-                    this.$4({ message: t, group: "audio", chat: a }).catch(
+                    this.$5({ message: t, group: "audio", chat: a }).catch(
                       function (t) {
                         o("WALogger")
                           .ERROR(
@@ -180,7 +186,7 @@ __d(
                 case o("WAWebMsgType").MSG_TYPE.STICKER:
                 case o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE:
                   return (
-                    this.$4({ message: t, group: "photos", chat: a }).catch(
+                    this.$5({ message: t, group: "photos", chat: a }).catch(
                       function (e) {
                         o("WALogger")
                           .ERROR(
@@ -199,7 +205,7 @@ __d(
                 case o("WAWebMsgType").MSG_TYPE.VIDEO:
                 case o("WAWebMsgType").MSG_TYPE.PTV:
                   return t.isGif && t.size < E
-                    ? (this.$4({ message: t, group: "photos", chat: a }).catch(
+                    ? (this.$5({ message: t, group: "photos", chat: a }).catch(
                         function (e) {
                           o("WALogger")
                             .ERROR(
@@ -214,7 +220,7 @@ __d(
                         },
                       ),
                       !0)
-                    : (this.$4({ message: t, group: "videos", chat: a }).catch(
+                    : (this.$5({ message: t, group: "videos", chat: a }).catch(
                         function (e) {
                           o("WALogger")
                             .ERROR(
@@ -231,7 +237,7 @@ __d(
                       !0);
                 case o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO:
                   return (
-                    this.$4({ message: t, group: "videos", chat: a }).catch(
+                    this.$5({ message: t, group: "videos", chat: a }).catch(
                       function (e) {
                         o("WALogger")
                           .ERROR(
@@ -249,7 +255,7 @@ __d(
                   );
                 case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
                   return (
-                    this.$4({ message: t, group: "documents", chat: a }).catch(
+                    this.$5({ message: t, group: "documents", chat: a }).catch(
                       function (e) {
                         o("WALogger")
                           .ERROR(
@@ -272,7 +278,7 @@ __d(
                 o("WAWebMsgModelUtils").typeIsUrl(t)
               )
                 return (
-                  this.$5({
+                  this.$6({
                     message: t,
                     group: "mms_thumbnail",
                     chat: a,
@@ -299,7 +305,7 @@ __d(
                 )
               )
                 return (
-                  this.$6({ message: t, group: "mms_thumbnail" }).catch(
+                  this.$7({ message: t, group: "mms_thumbnail" }).catch(
                     function (e) {
                       o("WALogger")
                         .ERROR(
@@ -324,7 +330,7 @@ __d(
                 t,
               ) &&
               k(t)
-              ? (this.$7({ message: t, group: "mms_thumbnail" }).catch(
+              ? (this.$8({ message: t, group: "mms_thumbnail" }).catch(
                   function (e) {
                     o("WALogger")
                       .ERROR(
@@ -341,7 +347,7 @@ __d(
                 !0)
               : !1;
           }),
-          (a.$3 = (function () {
+          (a.$4 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.sticker;
@@ -388,7 +394,7 @@ __d(
             }
             return t;
           })()),
-          (a.$4 = (function () {
+          (a.$5 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.group,
@@ -407,6 +413,18 @@ __d(
                       "mediaObject does not exist for media at enqueue time",
                     );
                   return;
+                }
+                var i = o(
+                  "WAWebDualUploadsAutoDownloadPolicy",
+                ).whenAssociatedChildSupportKnown(a);
+                if (i != null) {
+                  this.$2++;
+                  try {
+                    yield i;
+                  } finally {
+                    this.$2--;
+                  }
+                  if (this.getEnqueuedTasksCount() >= L) return;
                 }
                 yield this.$1.enqueue(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -444,7 +462,7 @@ __d(
             }
             return t;
           })()),
-          (a.$5 = (function () {
+          (a.$6 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.chat,
@@ -466,7 +484,7 @@ __d(
             }
             return t;
           })()),
-          (a.$6 = (function () {
+          (a.$7 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.group,
@@ -486,7 +504,7 @@ __d(
             }
             return t;
           })()),
-          (a.$7 = (function () {
+          (a.$8 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.group,

@@ -17,7 +17,6 @@ __d(
     "WAWebLogConnectionStateForCrash",
     "WAWebLogPifeExposure",
     "WAWebMain.react",
-    "WAWebMediaAv1Support",
     "WAWebMediaWorkerProxy",
     "WAWebNoop",
     "WAWebNotificationBackend",
@@ -72,7 +71,6 @@ __d(
         ),
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
           (n("cr:9486") == null || n("cr:9486")(),
-          o("WAWebMediaAv1Support").startAv1DecodingProbe(),
           o("WAWebKaleidoscopeWasmFeatureSupport")
             .checkKaleidoscopeWasmFeatureSupport()
             .then(function (e) {

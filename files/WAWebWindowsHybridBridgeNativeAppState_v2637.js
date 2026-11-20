@@ -26,6 +26,7 @@ __d(
           (this.updateServerTime = null),
           (this.takeStartupTrace = null),
           (this.ackStartupReport = null),
+          (this.getNowSinceProcessStartMs = null),
           (this.$5 = function (n) {
             var r = n.toString(),
               a = m.cast(r);

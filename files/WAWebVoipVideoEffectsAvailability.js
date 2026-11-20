@@ -109,14 +109,10 @@ __d(
     function R() {
       return p;
     }
-    function L() {
-      ((d = null), (m = null), (p = !1), _.clear());
-    }
     ((l.isVideoEffectsAvailable = b),
       (l.markVideoEffectsTooSlow = v),
       (l.subscribeToVideoEffectsAvailability = S),
-      (l.isVideoEffectsTooSlow = R),
-      (l.resetVideoEffectsAvailabilityForTesting = L));
+      (l.isVideoEffectsTooSlow = R));
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "WAWebAICrashAnnotationGate",
     "WAWebAppScreen",
     "WAWebAppScreenTypes",
+    "WAWebBoolFunc",
     "WAWebHeapCrashAnnotations",
     "WAWebLogForCrash",
     "WAWebSafeCrashAnnotation",
@@ -30,9 +31,7 @@ __d(
     function g() {
       return o("WAWebAICrashAnnotationGate").runAICrashAnnotation(
         "wa:preLogin",
-        function () {
-          return !0;
-        },
+        o("WAWebBoolFunc").returnTrue,
       ) === !0
         ? !0
         : (o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(

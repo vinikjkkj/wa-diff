@@ -39,16 +39,7 @@ __d(
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.abprops.send.acknowledge_exposure",
                     ),
-                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                      {
-                        bridge: "abProps",
-                        method: "acknowledgeExposure",
-                        type: "async",
-                      },
-                      function () {
-                        return a.$1.acknowledgeExposure(i);
-                      },
-                    ));
+                    a.$6(i));
                 },
               );
               return function (e) {
@@ -108,6 +99,25 @@ __d(
             }
             return t;
           })()),
+          (a.acknowledgeExposureLoggedInUserSession = function (t) {
+            (r("WAWebODS").incr(
+              "web.hybrid.bridge.abprops.send.acknowledge_user_session_exposure",
+            ),
+              this.$6(t));
+          }),
+          (a.$6 = function (t) {
+            var e = this;
+            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "abProps",
+                method: "acknowledgeExposure",
+                type: "async",
+              },
+              function () {
+                return e.$1.acknowledgeExposure(t);
+              },
+            );
+          }),
           t
         );
       })();

@@ -2,6 +2,7 @@ __d(
   "WAWebContactsAndGroupsPollGroups",
   [
     "Promise",
+    "WAConcurrentIterate",
     "WALogger",
     "WAWebApiContact",
     "WAWebCanUseGroupFromGroup",
@@ -15,7 +16,7 @@ __d(
     "WAWebEventEmitter",
     "WAWebFrontendChatGetters",
     "WAWebPonyfillsIdleCallback",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
@@ -25,53 +26,64 @@ __d(
       s,
       u,
       c,
-      d = 2,
-      m = o(
+      d,
+      m = 2,
+      p = 4,
+      _ = (d = o(
         "WAWebContactsAndGroupsSession",
-      ).createContactsAndGroupsSessionValue(null),
-      p = null,
-      _ = !1,
-      f = new Map(),
-      g = new (r("WAWebEventEmitter"))();
-    function h() {
-      return m.get();
+      )).createContactsAndGroupsSessionValue(null),
+      f = d.createContactsAndGroupsSessionValue(null),
+      g = d.createContactsAndGroupsSessionValue(!1),
+      h = d.createContactsAndGroupsSessionValue(null),
+      y = new Map(),
+      C = d.createContactsAndGroupsSessionValue(y),
+      b = new (r("WAWebEventEmitter"))();
+    function v() {
+      return _.get();
     }
-    function y(e) {
+    function S(e) {
       return e.remote.toString() + "_" + e.id;
     }
-    function C(t) {
+    function R(t) {
       var n,
-        a = o(
+        a,
+        i = o(
           "WAWebContactsAndGroupsLastSeen",
         ).getContactsAndGroupsLastSeenBeforeThisVisit();
-      if (!(((n = m.get()) == null ? void 0 : n.lastSeen) === a || p === a)) {
-        p = a;
-        var i = t - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
-          l = o("WAWebChatCollection").ChatCollection.filter(function (e) {
+      if (
+        !(
+          ((n = _.get()) == null ? void 0 : n.lastSeen) === i ||
+          ((a = f.get()) == null ? void 0 : a.lastSeen) === i
+        )
+      ) {
+        var l = { lastSeen: i };
+        f.set(l);
+        var s = t - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
+          u = o("WAWebChatCollection").ChatCollection.filter(function (e) {
             return (
               o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(e.t, t) &&
-              S(e)
+              k(e)
             );
           });
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          D(l, i)
+          N(u, s)
             .then(function (e) {
-              p === a &&
-                ((p = null),
-                m.set({
-                  lastSeen: a,
+              f.get() === l &&
+                (f.set(null),
+                _.set({
+                  lastSeen: i,
                   polls: new Map(
                     e.map(function (e) {
-                      return [y(e.msgKey), e];
+                      return [S(e.msgKey), e];
                     }),
                   ),
-                  since: i,
+                  since: s,
                 }),
-                g.trigger("change"),
-                $());
+                b.trigger("change"),
+                w());
             })
             .catch(function (t) {
-              (p === a && (p = null),
+              (f.get() === l && f.set(null),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -80,23 +92,25 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                $());
+                w());
             });
         });
       }
     }
-    function b(e) {
-      !e.fromMe || !e.remote.isGroup() || (f.set(y(e), e), $());
+    function L(e) {
+      !e.fromMe ||
+        !e.remote.isGroup() ||
+        (C.set(new Map(C.get()).set(S(e), e)), w());
     }
-    function v(e) {
+    function E(e) {
       return r("compactMap")(e, function (e) {
         var t = o("WAWebChatCollection").ChatCollection.get(e.msgKey.remote);
-        return t != null ? R(t, e) : null;
+        return t != null ? I(t, e) : null;
       }).sort(function (e, t) {
         return t.t - e.t;
       });
     }
-    function S(e) {
+    function k(e) {
       var t,
         n = (t = e.groupMetadata) == null ? void 0 : t.participants;
       return (
@@ -107,22 +121,22 @@ __d(
         r("WAWebCanUseGroupFromGroup")(n.length, n.iAmAdmin())
       );
     }
-    function R(e, t) {
+    function I(e, t) {
       var n,
         r = (n = e.groupMetadata) == null ? void 0 : n.participants;
-      if (r == null || t.hideVoterNames || !S(e)) return null;
-      var a = L(t.votes),
-        i = E(t.options, a);
+      if (r == null || t.hideVoterNames || !k(e)) return null;
+      var a = T(t.votes),
+        i = D(t.options, a);
       if (i == null || i.name.trim() === "") return null;
       var l = new Set();
       return (
         a.forEach(function (e) {
           var t = e.selectedOptionLocalIds.includes(i.localId)
-            ? k(r, e.sender)
+            ? x(r, e.sender)
             : null;
           t != null && l.add(t);
         }),
-        l.size < d || l.size >= r.filter(I).length
+        l.size < m || l.size >= r.filter($).length
           ? null
           : {
               chat: e,
@@ -137,11 +151,11 @@ __d(
             }
       );
     }
-    function L(e) {
+    function T(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
-          var n = T(e.sender),
+          var n = P(e.sender),
             r = t.get(n);
           (r == null || e.senderTimestampMs > r.senderTimestampMs) &&
             t.set(n, e);
@@ -149,7 +163,7 @@ __d(
         Array.from(t.values())
       );
     }
-    function E(e, t) {
+    function D(e, t) {
       var n = null,
         r = 0;
       return (
@@ -162,30 +176,31 @@ __d(
         n
       );
     }
-    function k(e, t) {
+    function x(e, t) {
       var n,
         r = o("WAWebApiContact").getAlternateUserWid(t),
         a = (n = e.get(t)) != null ? n : r != null ? e.get(r) : null;
-      return a != null && I(a) ? a : null;
+      return a != null && $(a) ? a : null;
     }
-    function I(e) {
+    function $(e) {
       var t = e.id;
-      return !o("WAWebUserPrefsMeUser").isMeAccount(t) && !t.isBot();
+      return !o("WAWebUserUtils").isMeAccount(t) && !t.isBot();
     }
-    function T(e) {
+    function P(e) {
       var t = e.isLid() ? e : o("WAWebApiContact").getAlternateUserWid(e);
       return (t != null ? t : e).toString();
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function N(e, t) {
+      return M.apply(this, arguments);
     }
-    function x() {
+    function M() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = yield (c || (c = n("Promise"))).all(
-            e.map(function (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAConcurrentIterate").concurrentIterate(
+            e.length,
+            function (n) {
               return o("WAWebContactsAndGroupsDBGroupPolls")
-                .getMyGroupPollsSince(e.id, t)
+                .getMyGroupPollsSince(e[n].id, t)
                 .catch(function (e) {
                   return (
                     o("WALogger")
@@ -199,52 +214,61 @@ __d(
                     []
                   );
                 });
-            }),
+            },
+            p,
           );
-          return a.flat();
+          return n.flat();
         })),
-        x.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function $() {
-      _ ||
-        p != null ||
-        f.size === 0 ||
-        ((_ = !0),
+    function w() {
+      g.get() ||
+        f.get() != null ||
+        _.get() == null ||
+        C.get().size === 0 ||
+        (g.set(!0),
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          P().finally(function () {
-            ((_ = !1), $());
+          A().finally(function () {
+            (g.set(!1), w());
           });
         }));
     }
-    function P() {
-      return N.apply(this, arguments);
+    function A() {
+      return F.apply(this, arguments);
     }
-    function N() {
+    function F() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = Array.from(f.values());
-          if ((f.clear(), m.get() != null)) {
-            var t = yield (c || (c = n("Promise"))).all(e.map(M)),
-              r = m.get();
-            if (r != null) {
-              var o = new Map(r.polls);
-              (e.forEach(function (e, n) {
-                var a = t[n];
-                if (a != null) {
-                  var i = a.poll;
-                  i != null && i.t >= r.since ? o.set(y(e), i) : o.delete(y(e));
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (_.get() != null) {
+            var e = O(),
+              t = Array.from(C.get().values());
+            C.set(y);
+            var r = yield (c || (c = n("Promise"))).all(t.map(B)),
+              o = _.get();
+            if (!(o == null || h.get() !== e)) {
+              var a = new Map(o.polls);
+              (t.forEach(function (e, t) {
+                var n = r[t];
+                if (n != null) {
+                  var i = n.poll;
+                  i != null && i.t >= o.since ? a.set(S(e), i) : a.delete(S(e));
                 }
               }),
-                m.set(babelHelpers.extends({}, r, { polls: o })),
-                g.trigger("change"));
+                _.set(babelHelpers.extends({}, o, { polls: a })),
+                b.trigger("change"));
             }
           }
         })),
-        N.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function M(e) {
+    function O() {
+      var e,
+        t = (e = h.get()) != null ? e : {};
+      return (h.set(t), t);
+    }
+    function B(e) {
       return o("WAWebContactsAndGroupsDBGroupPolls")
         .getMyGroupPoll(e)
         .then(
@@ -266,13 +290,12 @@ __d(
           },
         );
     }
-    ((l.myGroupPollsChanges = g),
-      (l.getMyGroupPollsVisit = h),
-      (l.getPollGroupKey = y),
-      (l.requestMyGroupPolls = C),
-      (l.refreshMyGroupPoll = b),
-      (l.getPollGroups = v),
-      (l.canCreateGroupFromPollIn = S));
+    ((l.myGroupPollsChanges = b),
+      (l.getMyGroupPollsVisit = v),
+      (l.getPollGroupKey = S),
+      (l.requestMyGroupPolls = R),
+      (l.refreshMyGroupPoll = L),
+      (l.getPollGroups = E));
   },
   98,
 );

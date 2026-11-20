@@ -606,12 +606,12 @@ __d(
                   $.mediaSourceHandle,
                 );
                 var he = Z.pendingEvents,
-                  Le = babelHelpers.objectWithoutPropertiesLoose(Z, s);
+                  ve = babelHelpers.objectWithoutPropertiesLoose(Z, s);
                 return (
                   he.forEach(function (e) {
                     J(e);
                   }),
-                  babelHelpers.extends({}, Le, {
+                  babelHelpers.extends({}, ve, {
                     playerStateForDebug: h(
                       $.playerStateForDebug,
                       Z.mediaElement.state.mediaElementSnapshot,
@@ -717,19 +717,19 @@ __d(
                       Z.liveManifestRefreshTimerHandle,
                     );
                   var Ee = Z.liveManifestRefreshRetryCount,
-                    Te = o(
+                    ke = o(
                       "VideoPlayerNextgendashRetryLogic",
                     ).calculateExponentialDelayWithJitter(
                       Ce,
                       Ee,
                       x.host.random.random,
                     ),
-                    $e = x.host.timers.setTimeout(function () {
+                    De = x.host.timers.setTimeout(function () {
                       J({ type: "_manifest_refresh_timer_fired" });
-                    }, Te);
+                    }, ke);
                   return babelHelpers.extends({}, Z, {
                     liveManifestRefreshRetryCount: Ee + 1,
-                    liveManifestRefreshTimerHandle: $e,
+                    liveManifestRefreshTimerHandle: De,
                   });
                 }
                 return;
@@ -738,11 +738,11 @@ __d(
                 var Pe = S(x, Z, $.fromState, $.toState, J, l),
                   Ne = Pe != null ? Pe : Z;
                 if ($.toState.state === "parsed") {
-                  var Ae,
-                    Oe = ke(
+                  var Me,
+                    Fe = Ie(
                       x,
                       Ne,
-                      Ie({
+                      Te({
                         current: Ne.dashManifestParsed.state,
                         transitionedTo: $.toState,
                         useCurrent:
@@ -750,12 +750,12 @@ __d(
                       }),
                     ),
                     Be =
-                      Oe.liveManifestRefreshRetryCount > 0
-                        ? babelHelpers.extends({}, Oe, {
+                      Fe.liveManifestRefreshRetryCount > 0
+                        ? babelHelpers.extends({}, Fe, {
                             liveManifestRefreshRetryCount: 0,
                           })
-                        : Oe,
-                    We = (Ae = be(x, Be, $.toState, J)) != null ? Ae : Be,
+                        : Fe,
+                    We = (Me = be(x, Be, $.toState, J)) != null ? Me : Be,
                     qe = X(x, We, J);
                   return x.config.isLivePlayback ? C(x, f, qe, $.type) : qe;
                 }
@@ -808,12 +808,12 @@ __d(
                     function () {
                       J({ type: "_manifest_refresh_timer_fired" });
                     },
-                    ve(x, ze.data),
+                    Se(x, ze.data),
                   ),
                   Ke = x.host.clock().perfMs,
-                  Qe = Se(Z.dashManifestFromUrl);
+                  Qe = Re(Z.dashManifestFromUrl);
                 if (
-                  !Re({
+                  !Le({
                     fetchInFlight: Qe,
                     fetchStartedPerfMs: Z.dashManifestFromUrlStartedPerfMs,
                     fetchTimeoutMs: ye,
@@ -880,7 +880,7 @@ __d(
                   ht = lt != null ? W(lt.buffered, st) : null,
                   yt = ge({
                     currentTimeSec: st,
-                    liveEdgeOffsetSec: Fe,
+                    liveEdgeOffsetSec: Oe,
                     liveEdgeTimeSec: Z.playerStateFromWorker.liveEdgeTimeSec,
                     maxSeekTargetSec: ht,
                     minBehindLiveEdgeSec: fe,
@@ -1026,7 +1026,7 @@ __d(
                   Wt,
                   qt = Z.dashManifestParsed.state,
                   Ut = Z.mediaElement.state.mediaElementSnapshot,
-                  Vt = Me({
+                  Vt = we({
                     currentTimeSec:
                       (Mt = Ut == null ? void 0 : Ut.currentTime) != null
                         ? Mt
@@ -1051,7 +1051,7 @@ __d(
                       )
                     : Vt === "finish" &&
                       (x.config.vodStartTimestampPending = !1),
-                  we({
+                  Ae({
                     currentTimeSec: c(x, Z),
                     isLivePlayback: x.config.isLivePlayback,
                     isManifestDynamic:
@@ -1066,7 +1066,7 @@ __d(
                         ? void 0
                         : Gt.mediaElement;
                   zt != null &&
-                    De(
+                    xe(
                       x,
                       zt,
                       qt.state === "parsed" ? qt.data : null,
@@ -1332,7 +1332,7 @@ __d(
                   x.config.liveStartSeekWhenBufferedEnabled &&
                     fn != null &&
                     c(x, Z) === 0 &&
-                    we({
+                    Ae({
                       currentTimeSec: 0,
                       isLivePlayback: x.config.isLivePlayback,
                       isManifestDynamic:
@@ -1340,8 +1340,8 @@ __d(
                         gn.data.metadata.manifestType === "dynamic",
                       startTimestampSec: x.config.startTimestampSec,
                     }) &&
-                    xe(x.host.mediaElementCollectSnapshot(x, fn)) &&
-                    De(
+                    $e(x.host.mediaElementCollectSnapshot(x, fn)) &&
+                    xe(
                       x,
                       fn,
                       gn.state === "parsed" ? gn.data : null,
@@ -2020,11 +2020,21 @@ __d(
         function () {
           r({ type: "_manifest_refresh_timer_fired" });
         },
-        ve(e, n.data),
+        ve({
+          intervalMs: Se(e, n.data),
+          isInlineManifest: t.dashManifestFromUrlStartedPerfMs == null,
+          refreshInlineManifestImmediately:
+            e.config.liveRefreshInlineManifestImmediatelyEnabled,
+        }),
       );
       return babelHelpers.extends({}, t, { liveManifestRefreshTimerHandle: o });
     }
-    function ve(e, t) {
+    function ve(e) {
+      return e.refreshInlineManifestImmediately && e.isInlineManifest
+        ? 0
+        : e.intervalMs;
+    }
+    function Se(e, t) {
       var n;
       return e.config.liveManifestRefreshIntervalMs > 0
         ? e.config.liveManifestRefreshIntervalMs
@@ -2032,7 +2042,7 @@ __d(
           ? n
           : he;
     }
-    function Se(e) {
+    function Re(e) {
       switch (e == null ? void 0 : e.state.state) {
         case "waiting_start":
         case "waiting_headers":
@@ -2044,28 +2054,28 @@ __d(
           return !1;
       }
     }
-    function Re(e) {
+    function Le(e) {
       var t = e.fetchInFlight,
         n = e.fetchStartedPerfMs,
         r = e.fetchTimeoutMs,
         o = e.nowPerfMs;
       return t ? n == null || o - n >= r : !0;
     }
-    function Le(e) {
+    function Ee(e) {
       var t = e.enableLive,
         n = e.isManifestParsed,
         r = e.manifestType;
       return t && n && r === "dynamic";
     }
-    function Ee(e) {
+    function ke(e) {
       ((e.isLivePlayback = !0),
         e.liveReleasePastStateMachineStates &&
           (e.releasePastStateMachineStates = !0));
     }
-    function ke(e, t, n) {
+    function Ie(e, t, n) {
       var r;
       if (
-        !Le({
+        !Ee({
           enableLive: e.config.enableLive,
           isManifestParsed: n.state === "parsed",
           manifestType:
@@ -2074,16 +2084,16 @@ __d(
         n.state !== "parsed"
       )
         return t;
-      Ee(e.config);
+      ke(e.config);
       var o = t.liveStartTimestampSecIsManifestDerived;
       if (
-        Ae({
+        Fe({
           isManifestDerived: o,
           playheadSec: (r = c(e, t)) != null ? r : 0,
           startTimestampSec: e.config.startTimestampSec,
         })
       ) {
-        var a = Te(e, n.data);
+        var a = De(e, n.data);
         a != null && ((e.config.startTimestampSec = a), (o = !0));
       }
       return o === t.liveStartTimestampSecIsManifestDerived
@@ -2092,37 +2102,37 @@ __d(
             liveStartTimestampSecIsManifestDerived: o,
           });
     }
-    function Ie(e) {
+    function Te(e) {
       return e.useCurrent ? e.current : e.transitionedTo;
     }
-    function Te(e, t) {
+    function De(e, t) {
       var n = t.manifestRepresentations,
         r = t.metadata,
-        o = qe({
-          audioWindow: We(n.audio),
+        o = Ue({
+          audioWindow: qe(n.audio),
           minBufferTimeSec: r.minBufferTimeSec,
           suggestedPresentationDelaySec: r.suggestedPresentationDelaySec,
-          videoWindow: We(n.video),
+          videoWindow: qe(n.video),
         });
       return o != null && e.config.liveStartPositionNearSegmentStartEnabled
-        ? Pe(n.video, o)
+        ? Ne(n.video, o)
         : o;
     }
-    function De(e, t, n, r) {
+    function xe(e, t, n, r) {
       if (r && n != null) {
         var o;
         e.config.startTimestampSec =
-          (o = Te(e, n)) != null ? o : e.config.startTimestampSec;
+          (o = De(e, n)) != null ? o : e.config.startTimestampSec;
       }
       e.host.mediaElementSetPlayhead(e, t, e.config.startTimestampSec);
     }
-    function xe(e) {
+    function $e(e) {
       return (
         e != null && e.currentTime === 0 && !e.seeking && e.buffered.length > 0
       );
     }
-    var $e = 0.3;
-    function Pe(e, t) {
+    var Pe = 0.3;
+    function Ne(e, t) {
       var n = e.find(function (e) {
         return (
           e.segmentsInfo.type === "SegmentTemplate" &&
@@ -2137,12 +2147,12 @@ __d(
       for (var i of o)
         for (var l = 0; l <= i.r; l++) {
           var s = (i.t + l * i.d) / a;
-          if (s <= t && t < s + i.d / a) return Math.min(s + $e, t);
+          if (s <= t && t < s + i.d / a) return Math.min(s + Pe, t);
         }
       return t;
     }
-    var Ne = 1;
-    function Me(e) {
+    var Me = 1;
+    function we(e) {
       var t = e.currentTimeSec,
         n = e.isLivePlayback,
         r = e.pending,
@@ -2151,27 +2161,27 @@ __d(
         ? "none"
         : t === 0
           ? "seek"
-          : o != null && o >= Ne
+          : o != null && o >= Me
             ? "finish"
             : "none";
     }
-    function we(e) {
+    function Ae(e) {
       var t = e.currentTimeSec,
         n = e.isLivePlayback,
         r = e.isManifestDynamic,
         o = e.startTimestampSec;
       return n && r && o > 0 && t === 0;
     }
-    function Ae(e) {
+    function Fe(e) {
       var t = e.isManifestDerived,
         n = e.playheadSec,
         r = e.startTimestampSec;
       return r === 0 ? !0 : t && n === 0;
     }
-    var Fe = 5,
-      Oe = 5,
-      Be = 3;
-    function We(e) {
+    var Oe = 5,
+      Be = 5,
+      We = 3;
+    function qe(e) {
       var t = null,
         n = null,
         r = 0;
@@ -2196,7 +2206,7 @@ __d(
         ? null
         : { earliestStartSec: t, latestEndSec: n, maxSegmentDurationSec: r };
     }
-    function qe(e) {
+    function Ue(e) {
       var t = e.audioWindow,
         n = e.minBufferTimeSec,
         r = e.suggestedPresentationDelaySec,
@@ -2228,35 +2238,35 @@ __d(
         r != null && r > 0
           ? (u = r)
           : s > 0
-            ? (u = Math.max(s * Be, n != null ? n : 0))
-            : (u = Oe),
-        (u = Math.max(u, Oe)),
+            ? (u = Math.max(s * We, n != null ? n : 0))
+            : (u = Be),
+        (u = Math.max(u, Be)),
         Math.min(Math.max(i - u, l), i)
       );
     }
-    function Ue(e) {
+    function Ve(e) {
       var t = e.state;
       if (t.state === "__null__" || t.state === "__disposed__") return null;
       var n = t.dashManifestParsed.state;
       return n.state !== "parsed" ? null : n;
     }
-    function Ve(e) {
-      var t = Ue(e);
+    function He(e) {
+      var t = Ve(e);
       return t == null
         ? null
         : t.data.metadata.manifestIsMixedCodecVideo ||
             t.data.metadata.manifestIsMixedCodecAudio;
     }
-    function He(e) {
+    function Ge(e) {
       var t, n;
       return (t =
-        (n = Ue(e)) == null ? void 0 : n.data.metadata.manifestIdentifier) !=
+        (n = Ve(e)) == null ? void 0 : n.data.metadata.manifestIdentifier) !=
         null
         ? t
         : null;
     }
-    function Ge(e) {
-      var t = Ue(e);
+    function ze(e) {
+      var t = Ve(e);
       return t == null
         ? null
         : t.data.manifestRepresentations.video.some(function (e) {
@@ -2266,11 +2276,11 @@ __d(
             );
           });
     }
-    function ze(e) {
+    function je(e) {
       var t = e.state;
       return t.state === "linked_to_worker" ? t.playerStateFromWorker : null;
     }
-    function je(e) {
+    function Ke(e) {
       var t = e.state;
       return t.state !== "__null__" &&
         t.state !== "__disposed__" &&
@@ -2283,26 +2293,26 @@ __d(
           )
         : null;
     }
-    function Ke(e) {
+    function Qe(e) {
       var t,
-        n = Ue(e);
+        n = Ve(e);
       return (t = n == null ? void 0 : n.data.manifestRepresentations.video) !=
         null
         ? t
         : [];
     }
-    function Qe(e) {
+    function Xe(e) {
       var t,
-        n = Ue(e);
+        n = Ve(e);
       return (t = n == null ? void 0 : n.data.manifestRepresentations.audio) !=
         null
         ? t
         : [];
     }
-    function Xe(e, t) {
+    function Ye(e, t) {
       var n,
         r,
-        o = ze(e),
+        o = je(e),
         a = new Set(
           (n =
             o == null || (r = o.blockedRepresentationIds) == null
@@ -2315,13 +2325,13 @@ __d(
         return !a.has(e.representationId);
       });
     }
-    function Ye(e) {
-      return Xe(e, Ke(e));
+    function Je(e) {
+      return Ye(e, Qe(e));
     }
-    function Je(e, t) {
+    function Ze(e, t) {
       var n,
         r,
-        o = ze(e),
+        o = je(e),
         a = new Set(
           (n =
             o == null || (r = o.blockedRepresentationIds) == null
@@ -2334,13 +2344,13 @@ __d(
         return !a.has(e.representationId);
       });
     }
-    function Ze(e) {
-      return Je(e, Qe(e));
+    function et(e) {
+      return Ze(e, Xe(e));
     }
-    function et(e, t) {
+    function tt(e, t) {
       var n,
         r,
-        o = ze(e),
+        o = je(e),
         a = new Set(
           (n =
             o == null || (r = o.targetVariantRepresentationIds) == null
@@ -2353,78 +2363,78 @@ __d(
         return a.has(e.representationId);
       });
     }
-    function tt(e, t, n) {
+    function nt(e, t, n) {
       return o(
         "VideoPlayerNextgendashMediaUtils",
       ).findTimeRangeAnnotationAtMediaTime(e, t, n);
     }
-    function nt(e, t) {
+    function rt(e, t) {
       var n,
-        r = ze(e),
-        o = t === void 0 ? je(e) : t,
-        a = tt(
+        r = je(e),
+        o = t === void 0 ? Ke(e) : t,
+        a = nt(
           o,
           r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
             : n.audio,
           r == null ? void 0 : r.targetRepresentationId.audio,
         ),
-        i = Qe(e).find(function (e) {
+        i = Xe(e).find(function (e) {
           return e.representationId === a;
         });
       return i;
     }
-    function rt(e, t) {
+    function ot(e, t) {
       var n,
-        r = ze(e),
-        o = t === void 0 ? je(e) : t,
-        a = tt(
+        r = je(e),
+        o = t === void 0 ? Ke(e) : t,
+        a = nt(
           o,
           r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
             : n.video,
           r == null ? void 0 : r.targetRepresentationId.video,
         ),
-        i = Ke(e).find(function (e) {
+        i = Qe(e).find(function (e) {
           return e.representationId === a;
         });
       return i;
     }
-    function ot(e) {
-      var t = je(e);
-      return { audio: nt(e, t), video: rt(e, t) };
+    function at(e) {
+      var t = Ke(e);
+      return { audio: rt(e, t), video: ot(e, t) };
     }
-    function at(e, t) {
+    function it(e, t) {
       var n,
-        r = ze(e),
-        o = tt(
+        r = je(e),
+        o = nt(
           t,
           r == null || (n = r.bufferedRangesWithRepIds) == null
             ? void 0
             : n.video,
           null,
         );
-      return Ke(e).find(function (e) {
+      return Qe(e).find(function (e) {
         return e.representationId === o;
       });
     }
-    function it(e) {
-      var t = ze(e),
-        n = t == null ? void 0 : t.targetRepresentationId.audio,
-        r = Qe(e).find(function (e) {
-          return e.representationId === n;
-        });
-      return r;
-    }
     function lt(e) {
-      var t = ze(e),
-        n = t == null ? void 0 : t.targetRepresentationId.video,
-        r = Ke(e).find(function (e) {
+      var t = je(e),
+        n = t == null ? void 0 : t.targetRepresentationId.audio,
+        r = Xe(e).find(function (e) {
           return e.representationId === n;
         });
       return r;
     }
     function st(e) {
+      var t = je(e),
+        n = t == null ? void 0 : t.targetRepresentationId.video,
+        r = Qe(e).find(function (e) {
+          return e.representationId === n;
+        });
+      return r;
+    }
+    function ut(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -2432,7 +2442,7 @@ __d(
             : t.selectedMediaVariant;
       return n;
     }
-    function ut(e) {
+    function ct(e) {
       var t = e.state,
         n =
           t.state === "__null__" || t.state === "__disposed__"
@@ -2461,32 +2471,33 @@ __d(
       (l.internal_getLiveLatencyCatchUpSeekTargetSec = me),
       (l.internal_getLiveLatencyPlaybackRate = pe),
       (l.internal_getLiveCatchUpSeekTargetSec = ge),
-      (l.internal_shouldStartLiveManifestRefreshFetch = Re),
-      (l.internal_shouldMarkLivePlayback = Le),
-      (l.internal_markConfigLivePlayback = Ee),
-      (l.internal_getParsedManifestStateForLiveStart = Ie),
-      (l.internal_canSeekToLiveStartPositionNow = xe),
-      (l.internal_getLiveStartPositionNearSegmentStartSec = Pe),
-      (l.internal_getVodStartTimestampStep = Me),
-      (l.internal_shouldSeekToLiveStartPosition = we),
-      (l.internal_shouldUpdateLiveStartTimestampSec = Ae),
-      (l.internal_getLiveStreamWindow = We),
-      (l.internal_computeLiveStartPositionSec = qe),
-      (l.getIsMixedCodecManifest = Ve),
-      (l.getManifestIdentifier = He),
-      (l.getIsPredictiveDash = Ge),
-      (l.getAvailableVideoRepresentations = Ye),
-      (l.getAvailableAudioRepresentations = Ze),
-      (l.filterVideoRepresentationsByTargetVariant = et),
-      (l.internal_findCurrentPlayingRepresentationID = tt),
-      (l.getCurrentPlayingAudioRepresentation = nt),
-      (l.getCurrentPlayingVideoRepresentation = rt),
-      (l.getCurrentPlayingRepresentations = ot),
-      (l.getVideoRepresentationAtMediaTime = at),
-      (l.getCurrentTargetAudioRepresentation = it),
-      (l.getCurrentTargetVideoRepresentation = lt),
-      (l.getSelectedMediaVariant = st),
-      (l.getSelectedVideoQualityDisplayLabel = ut));
+      (l.internal_getLiveManifestRefreshDelayMs = ve),
+      (l.internal_shouldStartLiveManifestRefreshFetch = Le),
+      (l.internal_shouldMarkLivePlayback = Ee),
+      (l.internal_markConfigLivePlayback = ke),
+      (l.internal_getParsedManifestStateForLiveStart = Te),
+      (l.internal_canSeekToLiveStartPositionNow = $e),
+      (l.internal_getLiveStartPositionNearSegmentStartSec = Ne),
+      (l.internal_getVodStartTimestampStep = we),
+      (l.internal_shouldSeekToLiveStartPosition = Ae),
+      (l.internal_shouldUpdateLiveStartTimestampSec = Fe),
+      (l.internal_getLiveStreamWindow = qe),
+      (l.internal_computeLiveStartPositionSec = Ue),
+      (l.getIsMixedCodecManifest = He),
+      (l.getManifestIdentifier = Ge),
+      (l.getIsPredictiveDash = ze),
+      (l.getAvailableVideoRepresentations = Je),
+      (l.getAvailableAudioRepresentations = et),
+      (l.filterVideoRepresentationsByTargetVariant = tt),
+      (l.internal_findCurrentPlayingRepresentationID = nt),
+      (l.getCurrentPlayingAudioRepresentation = rt),
+      (l.getCurrentPlayingVideoRepresentation = ot),
+      (l.getCurrentPlayingRepresentations = at),
+      (l.getVideoRepresentationAtMediaTime = it),
+      (l.getCurrentTargetAudioRepresentation = lt),
+      (l.getCurrentTargetVideoRepresentation = st),
+      (l.getSelectedMediaVariant = ut),
+      (l.getSelectedVideoQualityDisplayLabel = ct));
   },
   98,
 );

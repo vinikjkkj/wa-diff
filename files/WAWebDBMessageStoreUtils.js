@@ -214,8 +214,13 @@ __d(
         g = [],
         h = 0,
         y = function (r) {
+          if (C(r)) return !1;
           if (
-            C(r) ||
+            r.viewMode ===
+            o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER
+          )
+            return (_ != null || (_ = r.id), !1);
+          if (
             (f++,
             r.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               r.subtype !== "ephemeral_setting")

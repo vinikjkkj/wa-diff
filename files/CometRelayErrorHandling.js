@@ -1,6 +1,6 @@
 __d(
   "CometRelayErrorHandling",
-  ["errorCode", "SilenceableErrorMessageUtils"],
+  ["errorCode", "SilenceableErrorMessageUtils", "gkx"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e;
@@ -32,7 +32,46 @@ __d(
               o("SilenceableErrorMessageUtils").getMetadataFromError(t),
             );
     }
-    ((l.markErrorAsHandled = u), (l.shouldSkipErrorSideEffects = c));
+    function d(e) {
+      var t, n, o, a;
+      if (!r("gkx")("24856")) return !1;
+      var i = e.source,
+        l =
+          (t =
+            (n = i == null ? void 0 : i.errorCode) != null
+              ? n
+              : i == null
+                ? void 0
+                : i.code) != null
+            ? t
+            : i == null
+              ? void 0
+              : i.error,
+        s =
+          (o = i == null ? void 0 : i.errorSummary) != null
+            ? o
+            : i == null
+              ? void 0
+              : i.summary,
+        u =
+          (a = i == null ? void 0 : i.errorDescription) != null
+            ? a
+            : i == null
+              ? void 0
+              : i.description;
+      return (
+        l != null &&
+        l !== 0 &&
+        s != null &&
+        s !== "" &&
+        u != null &&
+        u !== "" &&
+        !c(e)
+      );
+    }
+    ((l.markErrorAsHandled = u),
+      (l.shouldSkipErrorSideEffects = c),
+      (l.shouldShowServerErrorMessage = d));
   },
   98,
 );

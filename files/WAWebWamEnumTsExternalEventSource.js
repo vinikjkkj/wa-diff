@@ -8,6 +8,7 @@ __d(
       PTT_RECORD: 3,
       PTT_PLAY: 4,
       MESSAGE_SEND_BACKGROUND: 5,
+      IG_REEL_PLAY: 6,
     });
     i.TS_EXTERNAL_EVENT_SOURCE = e;
   },

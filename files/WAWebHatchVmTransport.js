@@ -438,6 +438,10 @@ __d(
           return "/api/peers/" + t + "/rules";
         });
       },
+      PEERS_CONNECT_INTRO: "/api/peers/connect_intro",
+      PEERS_CONNECT_INTRO_IMAGE: function (n) {
+        return "/api/peers/connect_intro/" + c(n);
+      },
       PEERS_CONNECTIONS: function (t, n) {
         return l("/api/peers/connections", { after: n, limit: String(t) });
       },

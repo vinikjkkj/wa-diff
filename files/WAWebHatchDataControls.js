@@ -195,7 +195,7 @@ __d(
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return navigator.onLine
             ? (r("WAWebNetworkStatus").online ||
-                (yield r("WAWebNetworkStatus").checkOnline()),
+                (yield r("WAWebNetworkStatus").checkOnline("hatch")),
               !r("WAWebNetworkStatus").online)
             : !0;
         })),

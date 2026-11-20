@@ -37,8 +37,8 @@ __d(
     function R() {
       return (
         h == null &&
-          (h = H({
-            blur: V(),
+          (h = V({
+            blur: U(),
             image: o("WAWebUserPrefsVoip").getBackgroundImagePreference(),
             requested: o("WAWebUserPrefsVoip").getVideoEffectsEnabled(),
             status: "off",
@@ -50,10 +50,10 @@ __d(
       return R().requested;
     }
     function E(e) {
-      W(e, e ? "turned_on" : "turned_off");
+      B(e, e ? "turned_on" : "turned_off");
     }
     function k() {
-      W(!0, "turned_back_on");
+      B(!0, "turned_back_on");
     }
     function I(e) {
       var t = R(),
@@ -68,28 +68,28 @@ __d(
       (n.requested !== t.requested &&
         (t.image != null &&
           o("WAWebUserPrefsVoip").setBackgroundImagePreference(null),
-        q(t, n.requested, n.requested ? "turned_on" : "turned_off")),
-        z(n));
+        W(t, n.requested, n.requested ? "turned_on" : "turned_off")),
+        G(n));
     }
     function T() {
       var e = R(),
         t = e.blur,
         n = e.image;
-      U(t, n);
+      q(t, n);
     }
     function D(e) {
       var t = R(),
         n = t.requested ? t.blur : 0;
-      (U(n, e),
-        q(t, !0, "turned_on"),
-        z(babelHelpers.extends({}, t, { blur: n, image: e, requested: !0 })));
+      (q(n, e),
+        W(t, !0, "turned_on"),
+        G(babelHelpers.extends({}, t, { blur: n, image: e, requested: !0 })));
     }
     function x() {
       var e = R(),
         t = e.requested && e.blur > 0;
-      (U(e.blur, null),
-        t || q(e, !1, "turned_off"),
-        z(babelHelpers.extends({}, e, { image: null, requested: t })));
+      (q(e.blur, null),
+        t || W(e, !1, "turned_off"),
+        G(babelHelpers.extends({}, e, { image: null, requested: t })));
     }
     function $() {
       var e = R(),
@@ -97,10 +97,10 @@ __d(
           e.blur,
           o("WAWebVoipBackgroundBlurStrength").DEFAULT_BLUR_STRENGTH,
         );
-      (U(t, null), z(babelHelpers.extends({}, e, { blur: t, image: null })));
+      (q(t, null), G(babelHelpers.extends({}, e, { blur: t, image: null })));
     }
     function P(e) {
-      z(babelHelpers.extends({}, R(), { status: e }));
+      G(babelHelpers.extends({}, R(), { status: e }));
     }
     function N(t, n) {
       var a = n === void 0 ? {} : n,
@@ -108,7 +108,7 @@ __d(
         l = i === void 0 ? !1 : i,
         u = R();
       if (u.requested) {
-        G();
+        H();
         var c =
           _(t) &&
           (l ||
@@ -161,9 +161,9 @@ __d(
               .catching(r("getErrorSafe")(e)));
         }
         ((y = { atMs: self.performance.now(), keptChoice: c, reason: t }),
-          z(babelHelpers.extends({}, u, { requested: !1, status: "off" })),
+          G(babelHelpers.extends({}, u, { requested: !1, status: "off" })),
           S.forEach(function (e) {
-            return j(function () {
+            return z(function () {
               return e(t);
             });
           }));
@@ -186,7 +186,7 @@ __d(
         ),
         o("WAWebVoipVideoEffectsODS").logVideoEffects("restored"),
         (y = null),
-        z(babelHelpers.extends({}, e, { requested: t })));
+        G(babelHelpers.extends({}, e, { requested: t })));
     }
     function A() {
       var e = y;
@@ -213,14 +213,11 @@ __d(
         }
       );
     }
-    function B() {
-      ((h = null), (y = null), (C = null), (b = !1), v.clear(), S.clear());
-    }
-    function W(e, t) {
+    function B(e, t) {
       var n = R();
-      (q(n, e, t), z(babelHelpers.extends({}, n, { requested: e })));
+      (W(n, e, t), G(babelHelpers.extends({}, n, { requested: e })));
     }
-    function q(e, t, n) {
+    function W(e, t, n) {
       (o("WALogger").LOG(
         c ||
           (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -233,7 +230,7 @@ __d(
         t !== e.requested && o("WAWebVoipVideoEffectsODS").logVideoEffects(n),
         o("WAWebUserPrefsVoip").setVideoEffectsEnabled(t));
     }
-    function U(e, t) {
+    function q(e, t) {
       (o("WALogger").LOG(
         d ||
           (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -247,7 +244,7 @@ __d(
         o("WAWebUserPrefsVoip").setBackgroundBlurStrengthPreference(e),
         o("WAWebUserPrefsVoip").setBackgroundImagePreference(t));
     }
-    function V() {
+    function U() {
       var e,
         t = o("WAWebVoipBackgroundBlurStrength").parseBlurStrength(
           o("WAWebUserPrefsVoip").getBackgroundBlurStrengthPreference(),
@@ -265,14 +262,14 @@ __d(
                     .DEFAULT_BACKGROUND_BLUR_LEVEL,
             );
     }
-    function H(e) {
+    function V(e) {
       return e.requested && e.image == null && e.blur === 0
         ? babelHelpers.extends({}, e, {
             blur: o("WAWebVoipBackgroundBlurStrength").DEFAULT_BLUR_STRENGTH,
           })
         : e;
     }
-    function G() {
+    function H() {
       var e = C;
       if (e != null) {
         C = null;
@@ -296,8 +293,8 @@ __d(
         }
       }
     }
-    function z(e) {
-      var t = H(e),
+    function G(e) {
+      var t = V(e),
         n = R();
       (n.blur === t.blur &&
         n.image === t.image &&
@@ -305,13 +302,13 @@ __d(
         n.status === t.status) ||
         (n.status !== "on" && t.status === "on"
           ? (C = self.performance.now())
-          : n.status === "on" && t.status !== "on" && G(),
+          : n.status === "on" && t.status !== "on" && H(),
         (h = t),
         v.forEach(function (e) {
-          return j(e);
+          return z(e);
         }));
     }
-    function j(e) {
+    function z(e) {
       try {
         e();
       } catch (e) {
@@ -342,8 +339,7 @@ __d(
       (l.restoreRememberedVideoEffectsChoice = w),
       (l.takeUnseenVideoEffectsStop = A),
       (l.subscribeToVideoEffects = F),
-      (l.subscribeToVideoEffectsStop = O),
-      (l.resetVideoEffectsStateForTesting = B));
+      (l.subscribeToVideoEffectsStop = O));
   },
   98,
 );

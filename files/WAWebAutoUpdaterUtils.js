@@ -31,7 +31,7 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
-            yield r("WAWebNetworkStatus").checkOnline(),
+            yield r("WAWebNetworkStatus").checkOnline("auto_updater"),
             !navigator.onLine || !r("WAWebNetworkStatus").online
           );
         })),

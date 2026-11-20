@@ -8,6 +8,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCryptoCurve25519",
     "WAWebIdentityChangeApiWorkerCompatible",
+    "WAWebNoop",
     "WAWebProtocolStoreCommonApi",
     "WAWebSignalCommonUtils",
     "WAWebSignalConvertApi",
@@ -813,36 +814,38 @@ __d(
           }),
           (a.commitSnapshot = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                if (!this.$24()) {
-                  var n = this.$25(e, e.senderKeyUpdate);
-                  this.$6.add(n);
+              function* (e, t) {
+                var n = this;
+                if ((t === void 0 && (t = r("WAWebNoop")), !this.$24())) {
+                  t();
+                  var o = this.$25(e, e.senderKeyUpdate);
+                  this.$6.add(o);
                   try {
-                    yield n;
+                    yield o;
                   } finally {
-                    this.$6.delete(n);
+                    this.$6.delete(o);
                   }
                   return;
                 }
-                var r = yield this.$1.Mutex.senderKey.acquire();
+                var a = yield this.$1.Mutex.senderKey.acquire();
                 try {
-                  var o,
-                    a = (o = this.$7.get(e)) != null ? o : 0;
+                  var i;
+                  t();
+                  var l = (i = this.$7.get(e)) != null ? i : 0;
                   yield this.$25(
                     e,
                     e.senderKeyUpdate.filter(function (e) {
-                      var n,
+                      var t,
                         r = e.senderKeyName;
-                      return ((n = t.$4.get(r)) != null ? n : 0) <= a;
+                      return ((t = n.$4.get(r)) != null ? t : 0) <= l;
                     }),
                   );
                 } finally {
-                  r.release();
+                  a.release();
                 }
               },
             );
-            function t(t) {
+            function t(t, n) {
               return e.apply(this, arguments);
             }
             return t;
@@ -930,93 +933,106 @@ __d(
             return this.$2 === b.Persist && this.$1.hasDirty();
           }),
           (a.flushBufferToDiskIfNotMemOnlyMode = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.$2 === b.Memory)
-                return (
-                  o("WALogger")
-                    .LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
-                        ])),
-                    )
-                    .tags("unified-store"),
-                  (C || (C = n("Promise"))).resolve()
-                );
-              o("WALogger")
-                .LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Signal]flushBufferToDiskIfNotMemOnlyMode: start",
-                    ])),
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                if (
+                  (e === void 0 && (e = r("WAWebNoop")), this.$2 === b.Memory)
                 )
-                .tags("unified-store");
-              var e = [
-                yield this.$1.Mutex.identity.acquire(),
-                yield this.$1.Mutex.session.acquire(),
-                yield this.$1.Mutex.senderKey.acquire(),
-                yield this.$1.Mutex.preKey.acquire(),
-              ];
-              o("WALogger")
-                .LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock complete",
-                    ])),
-                )
-                .tags("unified-store");
-              var t = yield this.$1.generateCacheUpdateThrottled();
-              try {
-                (yield o("WAWebSignalStorageUtils")
-                  .getStorage()
-                  .lock(
-                    [
-                      "session-store",
-                      "identity-store",
-                      "prekey-store",
-                      "senderkey-store",
-                    ],
-                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      yield (C || (C = n("Promise"))).all([
-                        o("WAWebSignalStoreApi").waSignalStore.bulkPutSession(
-                          t.sessionUpdate,
+                  return (
+                    o("WALogger")
+                      .LOG(
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
+                            "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
+                          ])),
+                      )
+                      .tags("unified-store"),
+                    (C || (C = n("Promise"))).resolve()
+                  );
+                o("WALogger")
+                  .LOG(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: start",
+                      ])),
+                  )
+                  .tags("unified-store");
+                var t = [
+                  yield this.$1.Mutex.identity.acquire(),
+                  yield this.$1.Mutex.session.acquire(),
+                  yield this.$1.Mutex.senderKey.acquire(),
+                  yield this.$1.Mutex.preKey.acquire(),
+                ];
+                o("WALogger")
+                  .LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock complete",
+                      ])),
+                  )
+                  .tags("unified-store");
+                var a = yield this.$1.generateCacheUpdateThrottled();
+                try {
+                  (e(),
+                    yield o("WAWebSignalStorageUtils")
+                      .getStorage()
+                      .lock(
+                        [
+                          "session-store",
+                          "identity-store",
+                          "prekey-store",
+                          "senderkey-store",
+                        ],
+                        n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* () {
+                            yield (C || (C = n("Promise"))).all([
+                              o(
+                                "WAWebSignalStoreApi",
+                              ).waSignalStore.bulkPutSession(a.sessionUpdate),
+                              o(
+                                "WAWebSignalStoreApi",
+                              ).waSignalStore.bulkPutIdentityKeyWithRowId(
+                                a.identityUpdate,
+                              ),
+                              o(
+                                "WAWebSignalStoreApi",
+                              ).waSignalStore.bulkPutSenderKey(
+                                a.senderKeyUpdate,
+                              ),
+                              o(
+                                "WAWebSignalStoreApi",
+                              ).waSignalStore.bulkRemovePreKey(a.preKeyRemove),
+                              o(
+                                "WAWebSignalStoreApi",
+                              ).waSignalStore.bulkRemoveSession(
+                                a.sessionRemove,
+                              ),
+                              o(
+                                "WAWebSignalStoreApi",
+                              ).waSignalStore.bulkRemoveIdentity(
+                                a.identityRemove,
+                              ),
+                            ]);
+                          },
                         ),
-                        o(
-                          "WAWebSignalStoreApi",
-                        ).waSignalStore.bulkPutIdentityKeyWithRowId(
-                          t.identityUpdate,
-                        ),
-                        o("WAWebSignalStoreApi").waSignalStore.bulkPutSenderKey(
-                          t.senderKeyUpdate,
-                        ),
-                        o("WAWebSignalStoreApi").waSignalStore.bulkRemovePreKey(
-                          t.preKeyRemove,
-                        ),
-                        o(
-                          "WAWebSignalStoreApi",
-                        ).waSignalStore.bulkRemoveSession(t.sessionRemove),
-                        o(
-                          "WAWebSignalStoreApi",
-                        ).waSignalStore.bulkRemoveIdentity(t.identityRemove),
-                      ]);
-                    }),
-                  ),
-                  this.$1.clearDirty());
-              } finally {
-                e.forEach(function (e) {
-                  return e.release();
-                });
-              }
-              o("WALogger")
-                .LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Signal]flushBufferToDiskIfNotMemOnlyMode: done",
-                    ])),
-                )
-                .tags("unified-store");
-            });
-            function t() {
+                      ),
+                    this.$1.clearDirty());
+                } finally {
+                  t.forEach(function (e) {
+                    return e.release();
+                  });
+                }
+                o("WALogger")
+                  .LOG(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: done",
+                      ])),
+                  )
+                  .tags("unified-store");
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

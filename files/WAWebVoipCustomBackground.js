@@ -53,9 +53,9 @@ __d(
       );
     }
     function k() {
-      var e = w();
+      var e = M();
       e.then(function (t) {
-        h === e && t != null && A(t.id) && F(t);
+        h === e && t != null && w(t.id) && A(t);
       }, r("WAWebNoop"));
     }
     function I(e) {
@@ -65,7 +65,7 @@ __d(
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAPromiseTimeout").promiseTimeout(
-            w(),
+            M(),
             g,
             "took over " + g + " ms to read",
           );
@@ -139,7 +139,7 @@ __d(
       var r = { id: "" + p + C, picture: t };
       return (
         (h = (m || (m = n("Promise"))).resolve(r)),
-        F(r),
+        A(r),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -168,7 +168,7 @@ __d(
         t.id !== e ||
         (t.preview.state === "ready" && URL.revokeObjectURL(t.preview.url),
         (h = (m || (m = n("Promise"))).resolve(null)),
-        O(null),
+        F(null),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -196,12 +196,9 @@ __d(
       ((r = y) == null ? void 0 : r.id) === e &&
         (o == null ? void 0 : o.state) === "ready" &&
         o.url === t &&
-        (URL.revokeObjectURL(t), O({ id: e, preview: { state: "failed" } }));
+        (URL.revokeObjectURL(t), F({ id: e, preview: { state: "failed" } }));
     }
     function M() {
-      ((h = null), (y = null), (C = 0), b.clear(), v.clear());
-    }
-    function w() {
       if (h != null) return h;
       var e = o("WAWebVoipBackgroundImageStore")
         .readStoredCustomBackground()
@@ -225,14 +222,14 @@ __d(
         e
       );
     }
-    function A(e) {
+    function w(e) {
       return y == null || y.id !== e || y.preview.state === "failed";
     }
-    function F(e) {
+    function A(e) {
       var t,
         n = (t = y) == null ? void 0 : t.preview;
       ((n == null ? void 0 : n.state) === "ready" && URL.revokeObjectURL(n.url),
-        O({ id: e.id, preview: { state: "loading" } }),
+        F({ id: e.id, preview: { state: "loading" } }),
         o("WAPromiseTimeout")
           .promiseTimeout(
             o("WAWebVoipBackgroundPreview").makeBackgroundPreview({
@@ -247,7 +244,7 @@ __d(
             function (t) {
               var n;
               ((n = y) == null ? void 0 : n.id) === e.id &&
-                O({
+                F({
                   id: e.id,
                   preview: { state: "ready", url: URL.createObjectURL(t) },
                 });
@@ -265,11 +262,11 @@ __d(
                 r("getErrorSafe")(t).message,
               ),
                 ((n = y) == null ? void 0 : n.id) === e.id &&
-                  O({ id: e.id, preview: { state: "failed" } }));
+                  F({ id: e.id, preview: { state: "failed" } }));
             },
           ));
     }
-    function O(e) {
+    function F(e) {
       ((y = e),
         b.forEach(function (e) {
           return e();
@@ -284,8 +281,7 @@ __d(
       (l.makeCustomBackground = D),
       (l.addCustomBackground = $),
       (l.removeCustomBackground = P),
-      (l.failCustomBackgroundPreview = N),
-      (l.resetCustomBackgroundForTesting = M));
+      (l.failCustomBackgroundPreview = N));
   },
   98,
 );

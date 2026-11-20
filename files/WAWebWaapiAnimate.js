@@ -168,6 +168,7 @@ __d(
             duration: s.duration,
             delay: s.delay,
             easing: s.easing,
+            fill: s.fill,
           });
           if (c == null) {
             A(e, s.keyframes);
@@ -253,7 +254,7 @@ __d(
     function M(e, t, n) {
       var o;
       try {
-        o = e.animate(t, babelHelpers.extends({}, n, { fill: "forwards" }));
+        o = e.animate(t, n);
       } catch (e) {
         return (r("WAWebNoop")(e), null);
       }
@@ -317,7 +318,12 @@ __d(
           b =
             ((h = i.delay) != null ? h : 0) +
             l * ((y = i.stagger) != null ? y : 0),
-          v = M(t, g.keyframes, { duration: C, delay: b, easing: g.easing });
+          v = M(t, g.keyframes, {
+            duration: C,
+            delay: b,
+            easing: g.easing,
+            fill: "forwards",
+          });
         if (v == null) {
           c.onComplete == null && A(t, g.keyframes);
           continue;

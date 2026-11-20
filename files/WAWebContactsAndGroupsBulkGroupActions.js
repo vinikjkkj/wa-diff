@@ -14,7 +14,6 @@ __d(
     "WAWebNoop",
     "WAWebRemoveFromFavoritesAction",
     "WAWebSetArchiveChatAction",
-    "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUpdateUnreadChatAction",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
@@ -54,7 +53,7 @@ __d(
       );
     }
     function f(e) {
-      return e.some(o("WAWebChatGetters").getHasUnread);
+      return e.length === 0 || e.some(o("WAWebChatGetters").getHasUnread);
     }
     function g(e) {
       return (
@@ -116,11 +115,7 @@ __d(
       var n = e.filter(function (e) {
         return o("WAWebMuteGetters").getIsMuted(e.mute) !== t;
       });
-      o("WAWebCmd").Cmd.muteChatMultiselect(n, t, function () {
-        o("WAWebToastManager").ToastManager.open(
-          c.jsx(o("WAWebToast.react").Toast, { msg: E(t, n.length) }),
-        );
-      });
+      o("WAWebCmd").Cmd.muteChatMultiselect(n, t, r("WAWebNoop"));
     }
     function b(t, r) {
       var a = t
@@ -160,14 +155,14 @@ __d(
               return e.status === "rejected";
             }).length;
             return new (o("WAWebActionToast.react").ActionType)(
-              t === 0 ? I(a, i.length) : T(a, t),
+              t === 0 ? k(a, i.length) : I(a, t),
             );
           });
       return (
         o("WAWebToastManager").ToastManager.open(
           c.jsx(o("WAWebActionToast.react").ActionToast, {
             initialAction: new (o("WAWebActionToast.react").ActionType)(
-              k(a, i.length),
+              E(a, i.length),
             ),
             pendingAction: l,
           }),
@@ -210,16 +205,6 @@ __d(
     }
     function E(e, t) {
       return e
-        ? s._(/*BTDS*/ '_j{"*":"Muted {count} groups","_1":"Muted 1 group"}', [
-            s._plural(t, "count"),
-          ])
-        : s._(
-            /*BTDS*/ '_j{"*":"Unmuted {count} groups","_1":"Unmuted 1 group"}',
-            [s._plural(t, "count")],
-          );
-    }
-    function k(e, t) {
-      return e
         ? s._(
             /*BTDS*/ '_j{"*":"Marking {count} groups as read","_1":"Marking 1 group as read"}',
             [s._plural(t, "count")],
@@ -229,7 +214,7 @@ __d(
             [s._plural(t, "count")],
           );
     }
-    function I(e, t) {
+    function k(e, t) {
       return e
         ? s._(
             /*BTDS*/ '_j{"*":"Marked {count} groups as read","_1":"Marked 1 group as read"}',
@@ -240,7 +225,7 @@ __d(
             [s._plural(t, "count")],
           );
     }
-    function T(e, t) {
+    function I(e, t) {
       return e
         ? s._(
             /*BTDS*/ '_j{"*":"Couldn\'t mark {count} groups as read","_1":"Couldn\'t mark 1 group as read"}',

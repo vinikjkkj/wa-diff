@@ -33,7 +33,7 @@ __d(
                     n = l.value.watchedNodeKeys;
                   var i,
                     o = !1;
-                  (d.value.read(function () {
+                  (s.read(d.value, function () {
                     if (require("Lexical").$getSelection())
                       for (var _ref2 of n.entries()) {
                         var _s = _ref2[0];

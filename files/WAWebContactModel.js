@@ -175,8 +175,8 @@ __d(
               } else
                 this.id.isUser() &&
                   (this.$Contact$p_5(),
-                  this.listenTo(this, "change:name", this.$Contact$p_5),
-                  this.listenTo(this, "change:statusMute", this.$Contact$p_5));
+                  this.listenTo(this, "change:name", this.$Contact$p_6),
+                  this.listenTo(this, "change:statusMute", this.$Contact$p_6));
               this.id.isBot() &&
                 o("WAWebInitializeBotContact").initializeBotContact(this);
             }
@@ -216,7 +216,7 @@ __d(
               e != null && this.set("shortName", e);
             }
           }),
-          (r.$Contact$p_6 = function () {
+          (r.$Contact$p_7 = function () {
             var e = o("WAWebWidFactory").asUserWidOrThrow(this.id);
             if (e.isLid()) return this;
             var t = o("WAWebApiContact").getCurrentLid(e);
@@ -225,7 +225,14 @@ __d(
               : null;
           }),
           (r.$Contact$p_5 = function () {
-            var e = this.$Contact$p_6();
+            var e = this.$Contact$p_7();
+            e != null &&
+              (this.name != null && e.set({ name: this.name }),
+              this.statusMute != null &&
+                e.set({ parentStatusMute: this.statusMute }));
+          }),
+          (r.$Contact$p_6 = function () {
+            var e = this.$Contact$p_7();
             e &&
               (e.set({ name: this.name }),
               e.set({ parentStatusMute: this.statusMute }));
@@ -258,11 +265,11 @@ __d(
           (r.addPendingAction = function (t) {
             var e = this,
               n = function () {
-                e.$Contact$p_7();
+                e.$Contact$p_8();
               };
             return (t.then(n, n), this.pendingAction++, t);
           }),
-          (r.$Contact$p_7 = function () {
+          (r.$Contact$p_8 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(

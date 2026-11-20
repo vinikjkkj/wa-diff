@@ -27,6 +27,7 @@ __d(
         DEBUG_HATCH_VM_ID: "WADebugHatchVmId",
         DEBUG_HATCH_VM_AUTH_TOKEN: "WADebugHatchVmAuthToken",
         DEBUG_HATCH_NOTARY_TOKEN: "WADebugHatchNotaryToken",
+        DEBUG_HATCH_LINKED_OVERRIDE: "WADebugHatchLinkedOverride",
       }),
       l = e;
     i.default = l;

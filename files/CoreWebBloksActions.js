@@ -82,10 +82,13 @@ __d(
     "WebBloksMatch",
     "WebBloksMatchesRegex",
     "WebBloksMathAbs",
+    "WebBloksMathAtan2",
     "WebBloksMathCeil",
     "WebBloksMathFloor",
+    "WebBloksMathHypot",
     "WebBloksMathMax",
     "WebBloksMathMin",
+    "WebBloksMathTan",
     "WebBloksMinsAssertType",
     "WebBloksMinsBinAsr",
     "WebBloksMinsBinNot",
@@ -498,6 +501,9 @@ __d(
         jn2: r("WebBloksnumPow"),
         jn3: r("WebBloksnumSub"),
         jz0: e,
+        kmg: r("WebBloksMathAtan2"),
+        kmh: r("WebBloksMathHypot"),
+        kmi: r("WebBloksMathTan"),
       };
     l.ACTIONS = s;
   },

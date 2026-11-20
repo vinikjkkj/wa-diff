@@ -7,8 +7,8 @@ __d(
     "WAWebBotBaseGating",
     "WAWebCanonicalHatchLinkedStatusGetQuery",
     "WAWebHatchBackendGating",
+    "WAWebHatchLinkedStatusDebugOverride",
     "WAWebHatchLinkedStatusFetcher",
-    "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "WAWebPrefetchHatchLinkedStatusOnLogin",
     "WAWebSubscriptionAgeGating",
@@ -24,7 +24,9 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("WAWebHatchLinkedStatusManager").registerFetcher(
+          (o(
+            "WAWebHatchLinkedStatusDebugOverride",
+          ).registerHatchLinkedStatusFetcher(
             o("WAWebHatchLinkedStatusFetcher")
               .fetchHatchLinkedStatusAndSaveCvmState,
             o("WAWebCanonicalHatchLinkedStatusGetQuery")

@@ -2,7 +2,9 @@ __d(
   "WAWebContactsAndGroupsSetupSteps",
   [
     "fbt",
+    "WALogger",
     "WAWebContactsAndGroupsMemberActions",
+    "WAWebGetMaybeChatById",
     "WAWebInfoFlowStep",
     "WDSIconIcEdit.react",
     "WDSIconIcLink.react",
@@ -10,14 +12,24 @@ __d(
     "WDSIconIcPhotoCamera.react",
   ],
   function (t, n, r, o, a, i, l, s) {
-    function e(e, t) {
-      var n = function () {
-        return t({
-          chat: e,
-          contact: null,
-          step: o("WAWebInfoFlowStep").InfoFlowStep.GroupInfo,
-        });
-      };
+    var e, u;
+    function c(t, n) {
+      var a = function (a) {
+          var r = o("WAWebGetMaybeChatById").getMaybeChatById(t);
+          if (r == null) {
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[contacts-and-groups-setup-steps] open group info skipped, chat left the collection",
+                ])),
+            );
+            return;
+          }
+          n({ chat: r, contact: null, step: a });
+        },
+        i = function () {
+          return a(o("WAWebInfoFlowStep").InfoFlowStep.GroupInfo);
+        };
       return [
         {
           actions: [
@@ -25,7 +37,7 @@ __d(
               Icon: r("WDSIconIcPhotoCamera.react"),
               key: "photo",
               label: s._(/*BTDS*/ "Add group icon"),
-              onPress: n,
+              onPress: i,
             },
           ],
           key: "photo",
@@ -38,7 +50,7 @@ __d(
               Icon: r("WDSIconIcEdit.react"),
               key: "description",
               label: s._(/*BTDS*/ "Add group description"),
-              onPress: n,
+              onPress: i,
             },
           ],
           key: "description",
@@ -54,7 +66,17 @@ __d(
               key: "add-members",
               label: s._(/*BTDS*/ "Add members"),
               onPress: function () {
-                return o(
+                var e = o("WAWebGetMaybeChatById").getMaybeChatById(t);
+                if (e == null) {
+                  o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[contacts-and-groups-setup-steps] add members skipped, chat left the collection",
+                      ])),
+                  );
+                  return;
+                }
+                o(
                   "WAWebContactsAndGroupsMemberActions",
                 ).addMembersFromContactsAndGroups(e);
               },
@@ -64,11 +86,7 @@ __d(
               key: "invite-link",
               label: s._(/*BTDS*/ "Invite to group via link"),
               onPress: function () {
-                return t({
-                  chat: e,
-                  contact: null,
-                  step: o("WAWebInfoFlowStep").InfoFlowStep.GroupInviteLink,
-                });
+                return a(o("WAWebInfoFlowStep").InfoFlowStep.GroupInviteLink);
               },
             },
           ],
@@ -78,7 +96,7 @@ __d(
         },
       ];
     }
-    l.getSetupSteps = e;
+    l.getSetupSteps = c;
   },
   226,
 );

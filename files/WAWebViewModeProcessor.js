@@ -47,6 +47,9 @@ __d(
         case o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL:
           return o("WAWebCallLogViewModeProcessor")
             .CallLogAdHocGroupCallViewModeProcessor;
+        case o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER:
+          return o("WAWebCallLogViewModeProcessor")
+            .CallLogOutOfOrderViewModeProcessor;
         case o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES:
           return r("WAWebGroupMemberUpdatesViewModeProcessor");
         case o("WAWebViewMode.flow").ViewModeType.POLL_ADD_OPTION:

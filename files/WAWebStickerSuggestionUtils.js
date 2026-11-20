@@ -1,6 +1,15 @@
 __d(
   "WAWebStickerSuggestionUtils",
-  ["$InternalEnum", "WACryptoUtils", "WAWebEmoji", "WAWebUserPrefsStore"],
+  [
+    "$InternalEnum",
+    "WACryptoUtils",
+    "WAWebABProps",
+    "WAWebCmd",
+    "WAWebEmoji",
+    "WAWebUserPrefsStore",
+    "react-compiler-runtime",
+    "useWAWebEventTargetValue",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = 3,
       s = -1,
@@ -71,31 +80,64 @@ __d(
         ? r
         : null;
     }
-    function g(t) {
-      var n = C(t);
+    function g(e) {
+      var t = o("react-compiler-runtime").c(3),
+        n,
+        a;
+      return (
+        t[0] !== e
+          ? ((n = function () {
+              return o("WAWebABProps").getABPropConfigValue(
+                "sticker_suggestion_enabled",
+                e ? void 0 : { suppressExposure: !0 },
+              );
+            }),
+            (a = [e]),
+            (t[0] = e),
+            (t[1] = n),
+            (t[2] = a))
+          : ((n = t[1]), (a = t[2])),
+        r("useWAWebEventTargetValue")(
+          o("WAWebCmd").Cmd,
+          "on_ab_props_update_from_bridge",
+          n,
+          a,
+        )
+      );
+    }
+    function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "sticker_suggestion_enabled",
+        { suppressExposure: !0 },
+      );
+    }
+    function y(t) {
+      var n = v(t);
       return n === s || n < e;
     }
-    function h(e) {
-      var t = C(e);
-      t !== s && r("WAWebUserPrefsStore").setUser(b(e), t + 1);
-    }
-    function y(e) {
-      r("WAWebUserPrefsStore").setUser(b(e), s);
-    }
     function C(e) {
-      var t = r("WAWebUserPrefsStore").getUser(b(e));
-      return typeof t == "number" && Number.isFinite(t) ? t : 0;
+      var t = v(e);
+      t !== s && r("WAWebUserPrefsStore").setUser(S(e), t + 1);
     }
     function b(e) {
+      r("WAWebUserPrefsStore").setUser(S(e), s);
+    }
+    function v(e) {
+      var t = r("WAWebUserPrefsStore").getUser(S(e));
+      return typeof t == "number" && Number.isFinite(t) ? t : 0;
+    }
+    function S(e) {
       return _.StickerSuggestionPreviewDisplayCount + ":" + e;
     }
     ((l.createStickerSuggestionDraft = d),
       (l.shouldClearStickerSuggestionDraft = m),
       (l.pickStickerSuggestion = p),
       (l.getStickerSuggestionEmoji = f),
-      (l.canShowStickerSuggestion = g),
-      (l.recordStickerSuggestionImpression = h),
-      (l.markStickerSuggestionEngaged = y));
+      (l.useStickerSuggestionEnabled = g),
+      (l.isStickerSuggestionEnabledWithoutExposure = h),
+      (l.canShowStickerSuggestion = y),
+      (l.recordStickerSuggestionImpression = C),
+      (l.markStickerSuggestionEngaged = b));
   },
   98,
 );

@@ -130,32 +130,32 @@ __d(
             null !== u &&
             n &&
             !s &&
-            (function (e, t, n) {
+            (function (e, t, n, o) {
               var _loop = function _loop() {
-                  var e = t._nodeMap.get(_o),
-                    i = n._nodeMap.get(_o);
+                  var t = n._nodeMap.get(_i2),
+                    a = o._nodeMap.get(_i2);
                   if (
                     !(
-                      e === i ||
-                      (e &&
-                        i &&
-                        t.read(function () {
-                          return r(e);
+                      t === a ||
+                      (t &&
+                        a &&
+                        e.read(n, function () {
+                          return r(t);
                         }) ===
-                          n.read(function () {
-                            return r(i);
+                          e.read(o, function () {
+                            return r(a);
                           }))
                     )
                   )
                     return { v: !1 };
                 },
                 _ret;
-              for (var _o of e) {
+              for (var _i2 of t) {
                 _ret = _loop();
                 if (_ret) return _ret.v;
               }
               return !0;
-            })(d, u, f)
+            })(e, d, u, f)
           )
             return ((y = !0), 0);
           if (l) return 0;
@@ -164,40 +164,43 @@ __d(
           var C = f._selection;
           if (!(_.size > 0 || g.size > 0)) return null !== C ? 0 : 2;
           var N = "number" == typeof t ? t : t.peek();
-          return (!1 === s && 0 !== m && m === a && S < i + N && n) ||
-            (!s &&
-              1 === _.size &&
-              (function (e, t, n) {
-                var r = t._nodeMap.get(e),
-                  i = n._nodeMap.get(e),
-                  a = t._selection,
-                  s = n._selection;
+          if (!1 === s && 0 !== m && m === a && S < i + N && n) return 0;
+          if (!s && 1 === _.size) {
+            var _t3 = Array.from(_)[0];
+            if (
+              (function (e, t, n, r) {
+                var i = n._nodeMap.get(t),
+                  a = r._nodeMap.get(t),
+                  s = n._selection,
+                  l = r._selection;
                 return (
                   !(
-                    (require("Lexical").$isRangeSelection(a) &&
-                      require("Lexical").$isRangeSelection(s) &&
-                      "element" === a.anchor.type &&
-                      "element" === a.focus.type &&
-                      "text" === s.anchor.type &&
-                      "text" === s.focus.type) ||
-                    !require("Lexical").$isTextNode(r) ||
+                    (require("Lexical").$isRangeSelection(s) &&
+                      require("Lexical").$isRangeSelection(l) &&
+                      "element" === s.anchor.type &&
+                      "element" === s.focus.type &&
+                      "text" === l.anchor.type &&
+                      "text" === l.focus.type) ||
                     !require("Lexical").$isTextNode(i) ||
-                    r.__parent !== i.__parent
+                    !require("Lexical").$isTextNode(a) ||
+                    i.__parent !== a.__parent
                   ) &&
                   JSON.stringify(
-                    t.read(function () {
-                      return r.exportJSON();
+                    e.read(n, function () {
+                      return i.exportJSON();
                     }),
                   ) ===
                     JSON.stringify(
-                      n.read(function () {
-                        return i.exportJSON();
+                      e.read(r, function () {
+                        return a.exportJSON();
                       }),
                     )
                 );
-              })(Array.from(_)[0], c, f))
-            ? 0
-            : 1;
+              })(e, _t3, c, f)
+            )
+              return 0;
+          }
+          return 1;
         })();
         return (O && ((u = null), d.clear()), y || ((i = S), (a = m)), C);
       };
@@ -236,9 +239,9 @@ __d(
                     var _s = t.current,
                       _l = i.pop();
                     if (_l) {
-                      var _t3 = a(_l, _s);
-                      null !== _t3 &&
-                        (r.push(_t3),
+                      var _t4 = a(_l, _s);
+                      null !== _t4 &&
+                        (r.push(_t4),
                         e.dispatchCommand(
                           require("Lexical").CAN_REDO_COMMAND,
                           !0,
@@ -273,9 +276,9 @@ __d(
                     var _s2 = t.current,
                       _l2 = r.pop();
                     if (_l2) {
-                      var _t4 = a(_l2, _s2);
-                      null !== _t4 &&
-                        (i.push(_t4),
+                      var _t5 = a(_l2, _s2);
+                      null !== _t5 &&
+                        (i.push(_t5),
                         e.dispatchCommand(
                           require("Lexical").CAN_UNDO_COMMAND,
                           !0,
@@ -345,8 +348,8 @@ __d(
               })(e, r, l);
               if (null !== _n3) {
                 p.push(_n3);
-                var _t5 = "number" == typeof u || null === u ? u : u.peek();
-                (null !== _t5 && p.length > _t5 && p.splice(0, p.length - _t5),
+                var _t6 = "number" == typeof u || null === u ? u : u.peek();
+                (null !== _t6 && p.length > _t6 && p.splice(0, p.length - _t6),
                   e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !0));
               }
             } else if (2 === g) return;
@@ -448,7 +451,7 @@ __d(
             i = _r$getOutput.parentEditor;
           if (!o.value) {
             var _r$getDependency = r.getDependency(d),
-              _o2 = _r$getDependency.output;
+              _o = _r$getDependency.output;
             (c(n), c(i.value));
             var _a = (function (e) {
               return e
@@ -461,11 +464,11 @@ __d(
             if (!_a) return;
             var _s3 = _a.output;
             require("LexicalExtensionSignals").batch(function () {
-              ((_o2.delay.value = _s3.delay.value),
-                (_o2.historyState.value = _s3.historyState.value),
-                (_o2.now.value = _s3.now.value),
-                (_o2.maxDepth.value = _s3.maxDepth.value),
-                (_o2.disabled.value = _s3.disabled.value));
+              ((_o.delay.value = _s3.delay.value),
+                (_o.historyState.value = _s3.historyState.value),
+                (_o.now.value = _s3.now.value),
+                (_o.maxDepth.value = _s3.maxDepth.value),
+                (_o.disabled.value = _s3.disabled.value));
             });
           }
         });

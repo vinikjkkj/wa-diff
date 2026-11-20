@@ -5,11 +5,13 @@ __d(
     "WAConcurrentIterate",
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBackendRuntime",
+    "WAWebContactsAndGroupsContactName",
     "WAWebContactsAndGroupsGroupInteractions",
     "WAWebContactsAndGroupsSelectionActions",
-    "WAWebFrontendContactGetters",
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
+    "WAWebGroupParticipantsService",
     "WAWebModalManager",
     "WAWebReachoutTimelockRestrictedModalLoadable",
     "WAWebReachoutTimelockUtils",
@@ -82,7 +84,7 @@ __d(
                     l.push(
                       i
                         ? {
-                            addedCount: 0,
+                            addedPeople: [],
                             chat: s,
                             failed: !0,
                             needsInvite: [],
@@ -110,7 +112,7 @@ __d(
                         )
                         .catching(r("getErrorSafe")(t)),
                       l.push({
-                        addedCount: 0,
+                        addedPeople: [],
                         chat: s,
                         failed: !0,
                         needsInvite: [],
@@ -129,8 +131,13 @@ __d(
           });
           return {
             addedGroupCount: l.filter(function (e) {
-              return e.addedCount > 0;
+              return e.addedPeople.length > 0;
             }).length,
+            addedPeopleCount: new Set(
+              l.flatMap(function (e) {
+                return e.addedPeople;
+              }),
+            ).size,
             failedGroupCount: l.filter(function (e) {
               return e.failed;
             }).length,
@@ -166,12 +173,18 @@ __d(
               t,
             );
           if (r.length === 0)
-            return { addedCount: 0, chat: e, failed: !1, needsInvite: [] };
+            return { addedPeople: [], chat: e, failed: !1, needsInvite: [] };
           var a =
               ((n = e.groupMetadata) == null
                 ? void 0
                 : n.isLidAddressingMode) === !0,
-            i = yield o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
+            i = yield (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebGroupParticipantsService").GroupParticipantsService,
+                  ).addGroupParticipants
+                : o("WAWebGroupModifyParticipantsJob").addGroupParticipants
+            )(
               e.id,
               r.map(function (e) {
                 return o(
@@ -180,9 +193,19 @@ __d(
               }),
             ),
             l = i.participants,
-            s = l.filter(function (e) {
-              return e.code === p;
-            }).length,
+            s = l
+              .filter(function (e) {
+                return e.code === p;
+              })
+              .map(function (e) {
+                var t,
+                  n = e.userWid;
+                return (t = o(
+                  "WAWebContactsAndGroupsGroupInteractions",
+                ).getPersonKey(n)) != null
+                  ? t
+                  : n.toString();
+              }),
             u = l.filter(function (e) {
               return e.code === _;
             }),
@@ -191,9 +214,9 @@ __d(
               return t !== f;
             });
           return {
-            addedCount: s,
+            addedPeople: s,
             chat: e,
-            failed: s === 0 && u.length === 0 && c,
+            failed: s.length === 0 && u.length === 0 && c,
             needsInvite: u,
           };
         })),
@@ -240,14 +263,16 @@ __d(
               s._plural(e.addedGroupCount, "number"),
               s._param(
                 "name",
-                o("WAWebFrontendContactGetters").getFormattedShortName(n),
+                o(
+                  "WAWebContactsAndGroupsContactName",
+                ).getContactsAndGroupsShortName(n),
               ),
             ],
           )
         : s._(
             /*BTDS*/ '_j{"*":{"*":"Added {peopleCount} people to {groupCount} groups","_1":"Added {peopleCount} people to 1 group"},"_1":{"*":"Added 1 person to {groupCount} groups","_1":"Added 1 person to 1 group"}}',
             [
-              s._plural(t.length, "peopleCount"),
+              s._plural(e.addedPeopleCount, "peopleCount"),
               s._plural(e.addedGroupCount, "groupCount"),
             ],
           );
@@ -262,7 +287,9 @@ __d(
               s._plural(e.inviteResults.length, "blockedGroupCount"),
               s._param(
                 "name",
-                o("WAWebFrontendContactGetters").getFormattedShortName(n),
+                o(
+                  "WAWebContactsAndGroupsContactName",
+                ).getContactsAndGroupsShortName(n),
               ),
             ],
           )

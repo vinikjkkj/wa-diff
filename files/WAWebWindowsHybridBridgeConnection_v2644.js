@@ -17,6 +17,7 @@ __d(
     "WAWebSocketModel",
     "WAWebStreamModel",
     "WAWebWindowsBackgroundRun",
+    "WAWebWindowsDrainIncomingMessages",
     "WAWebWindowsHybridBridgeJsonEvents",
     "WAWebWindowsHybridBridgeTrace",
     "WAWebWindowsLoginOfflineDelivery",
@@ -124,7 +125,8 @@ __d(
                     ])),
                 );
                 try {
-                  var e;
+                  var e,
+                    t = a.$3;
                   if (
                     !a.$2 &&
                     (((e = o("WAComms").getComms()) == null
@@ -133,15 +135,22 @@ __d(
                       o("WAWebSocketModel").Socket.stream ===
                         o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED)
                   ) {
-                    (o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "WindowsHybridBridgeConnection:handleDisconnectEvent: socket already closed",
-                        ])),
-                    ),
-                      r("WAWebODS").incr(
-                        "web.hybrid.bridge.connection.send.handle_connection_state",
+                    if (
+                      (o("WALogger").LOG(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "WindowsHybridBridgeConnection:handleDisconnectEvent: socket already closed",
+                          ])),
                       ),
+                      yield o(
+                        "WAWebWindowsDrainIncomingMessages",
+                      ).drainIncomingMessagesBeforeSocketClose(),
+                      a.$20(t))
+                    )
+                      return;
+                    (r("WAWebODS").incr(
+                      "web.hybrid.bridge.connection.send.handle_connection_state",
+                    ),
                       o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
                         {
                           bridge: "connection",
@@ -154,11 +163,10 @@ __d(
                       ));
                     return;
                   }
-                  var t = a.$3;
                   if (
-                    (yield a.$20(),
+                    (yield a.$21(),
                     yield o("WAPromiseDelays").delayMs(3e4),
-                    a.$21(t) ||
+                    a.$20(t) ||
                       (o("WALogger").LOG(
                         c ||
                           (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -166,7 +174,11 @@ __d(
                           ])),
                       ),
                       yield a.$22(),
-                      a.$21(t)))
+                      a.$20(t)) ||
+                      (yield o(
+                        "WAWebWindowsDrainIncomingMessages",
+                      ).drainIncomingMessagesBeforeSocketClose(),
+                      a.$20(t)))
                   )
                     return;
                   (o("WAComms").closeSocketAndPause(),
@@ -445,7 +457,7 @@ __d(
                             "WindowsHybridBridgeConnection:handleConnectEvent: socket opened",
                           ])),
                       )),
-                    yield this.$20(),
+                    yield this.$21(),
                     this.$4 != null && (yield this.$4, yield this.$25()),
                     o("WALogger").LOG(
                       v ||
@@ -497,6 +509,9 @@ __d(
                 if (
                   (yield this.$25(),
                   yield o(
+                    "WAWebWindowsDrainIncomingMessages",
+                  ).drainIncomingMessagesBeforeSocketClose(),
+                  yield o(
                     "WAWebWindowsLoginOfflineDelivery",
                   ).waitForPingAnswer(),
                   ((e = o("WAComms").getComms()) == null
@@ -541,7 +556,7 @@ __d(
             }
             return t;
           })()),
-          (a.$21 = function (t) {
+          (a.$20 = function (t) {
             return this.$3 === t
               ? !1
               : (o("WALogger").LOG(
@@ -600,7 +615,7 @@ __d(
             }
             return t;
           })()),
-          (a.$20 = (function () {
+          (a.$21 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               (yield o("WAComms").waitForConnection(),
                 o(

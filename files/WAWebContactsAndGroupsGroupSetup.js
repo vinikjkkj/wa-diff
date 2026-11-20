@@ -12,14 +12,13 @@ __d(
     var e = 3,
       s = 2;
     function u(e, t) {
-      var n;
-      return o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(
-        (n = e.groupMetadata) == null ? void 0 : n.creation,
-        t,
-      );
+      return c(e.groupMetadata, t);
     }
     function c(e, t) {
-      return d(e, t) && m(e);
+      return o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(
+        e == null ? void 0 : e.creation,
+        t,
+      );
     }
     function d(e, t) {
       return (
@@ -58,7 +57,7 @@ __d(
     }
     ((l.GROUP_SETUP_STEP_COUNT = e),
       (l.isGroupCreatedThisWeek = u),
-      (l.needsGroupSetup = c),
+      (l.isGroupCreatedThisWeekFor = c),
       (l.isGroupSetupCandidate = d),
       (l.hasGroupSetupLeft = m),
       (l.getDoneGroupSetupSteps = p));

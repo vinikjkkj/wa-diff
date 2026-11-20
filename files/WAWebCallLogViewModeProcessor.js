@@ -56,12 +56,22 @@ __d(
         shouldShowInNotification: c.returnFalse,
         shouldShowInSearch: c.returnTrue,
         shouldIncludeInChatSpamReport: c.returnFalse,
+      }),
+      g = e.createViewModeProcessor({
+        type: s.ViewModeType.CALL_LOG_OUT_OF_ORDER,
+        compatibleMessageTypes: [u.MSG_TYPE.CALL_LOG],
+        messageVisibleInChat: c.returnFalse,
+        messageVisibleInChatlistPreview: c.returnFalse,
+        shouldShowInNotification: c.returnFalse,
+        shouldShowInSearch: c.returnTrue,
+        shouldIncludeInChatSpamReport: c.returnFalse,
       });
     ((l.HistorySyncedCallLogViewModeProcessor = d),
       (l.CallLogOfflineResumeViewModeProcessor = m),
       (l.CallLogOfflineResumePromotedViewModeProcessor = p),
       (l.CallLogOfflineResumeUncountedViewModeProcessor = _),
-      (l.CallLogAdHocGroupCallViewModeProcessor = f));
+      (l.CallLogAdHocGroupCallViewModeProcessor = f),
+      (l.CallLogOutOfOrderViewModeProcessor = g));
   },
   98,
 );

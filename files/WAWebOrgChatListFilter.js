@@ -14,37 +14,20 @@ __d(
     var e;
     function s(e, t) {
       var n,
-        r,
-        a,
-        i =
-          (n = o("WAWebOrgCollection").OrgCollection.get(t)) == null
-            ? void 0
-            : n.members;
-      if (!o("WAWebOrgGatingUtils").isOrgsEnabled() || i == null) return !1;
-      var l = function (t) {
-        var e = o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(t);
-        return e != null && i.get(e.user) != null;
-      };
-      if (!o("WAWebContactGetters").getIsGroup(e.contact))
-        return (
-          e.contact.id.isUser() &&
-          !o("WAWebUserUtils").isMeAccount(e.contact.id) &&
-          l(e.contact.id)
-        );
-      var s =
-        (r =
-          (a = e.groupMetadata) == null
-            ? void 0
-            : a.participants.toArray().filter(function (e) {
-                return !o("WAWebUserUtils").isMeAccount(e.id);
-              })) != null
-          ? r
-          : [];
+        r = e.contact.id;
+      if (
+        !o("WAWebOrgGatingUtils").isOrgsEnabled() ||
+        o("WAWebContactGetters").getIsGroup(e.contact) ||
+        !r.isUser() ||
+        o("WAWebUserUtils").isMeAccount(r)
+      )
+        return !1;
+      var a = o("WAWebOrgMemberLidEligibility").getWAWebOrgMemberLid(r);
       return (
-        s.length > 0 &&
-        s.every(function (e) {
-          return l(e.id);
-        })
+        a != null &&
+        ((n = o("WAWebOrgCollection").OrgCollection.get(t)) == null
+          ? void 0
+          : n.members.get(a.user)) != null
       );
     }
     function u(t) {

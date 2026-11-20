@@ -15,6 +15,7 @@ __d(
     "WAWebSendReceiptJobCommon",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
+    "cr:22371",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,46 +26,46 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = [];
-          if (t.length === 0) return n;
-          var r = yield o(
+          var r = [];
+          if (t.length === 0) return r;
+          var a = yield o(
             "WAWebSendAggregateDeliveryReceipts",
           ).aggregateDeliveryReceipts(t);
-          for (var a of r) {
-            var i = a.isInDB,
-              l = a.receipt,
-              u = l.author,
-              c = l.enc,
-              d = l.externalId,
-              m = l.from,
-              p = l.msgBotInfo,
-              _ = l.msgInfo,
-              f = l.msgMeta,
-              g = m.isUser() || m.isNewsletter() ? null : u;
-            i
+          for (var i of a) {
+            var l = i.isInDB,
+              u = i.receipt,
+              c = u.author,
+              d = u.enc,
+              m = u.externalId,
+              p = u.from,
+              _ = u.msgBotInfo,
+              f = u.msgInfo,
+              g = u.msgMeta,
+              h = p.isUser() || p.isNewsletter() ? null : c;
+            l
               ? (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
                       "[sendAggregateOfflineReceipts] dup msg in db: ",
                       "",
                     ])),
-                  d,
+                  m,
                 ),
                 o(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropDuplicateMessage({
-                  msgMeta: f,
-                  msgInfo: _,
-                  msgBotInfo: p,
-                  enc: c,
+                  msgMeta: g,
+                  msgInfo: f,
+                  msgBotInfo: _,
+                  enc: d,
                 }),
-                n.push({
-                  externalId: d,
-                  from: m,
-                  author: u,
+                r.push({
+                  externalId: m,
+                  from: p,
+                  author: c,
                   receiptClass: o(
                     "WAWebDeliveryReceiptClassUtils",
-                  ).getDeliveryReceiptClass(m, f),
+                  ).getDeliveryReceiptClass(p, g),
                 }))
               : (o("WALogger").LOG(
                   s ||
@@ -72,28 +73,30 @@ __d(
                       "[sendAggregateOfflineReceipts] dup msg not in db: ",
                       "",
                     ])),
-                  d,
+                  m,
                 ),
                 o(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropOldCounter({
-                  msgMeta: f,
-                  msgInfo: _,
-                  msgBotInfo: p,
-                  enc: c,
+                  msgMeta: g,
+                  msgInfo: f,
+                  msgBotInfo: _,
+                  enc: d,
                 }),
                 o("WAWebHandleMsgSendAck").sendNack(
-                  d,
                   m,
-                  f.type,
-                  g,
+                  p,
+                  g.type,
+                  h,
                   o("WAWebCreateNackFromStanza").NackReason
                     .SignalErrorOldCounter,
                   void 0,
-                  f.isStatusStanza === !0 ? "status" : void 0,
-                ));
+                  g.isStatusStanza === !0 ? "status" : void 0,
+                ),
+                n("cr:22371") == null ||
+                  n("cr:22371").noteWindowsOldCounterDiscard(u));
           }
-          return n;
+          return r;
         })),
         _.apply(this, arguments)
       );

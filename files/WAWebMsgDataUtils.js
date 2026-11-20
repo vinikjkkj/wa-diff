@@ -166,11 +166,14 @@ __d(
       );
     }
     function m(e) {
-      return o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
-        e.viewMode,
-      )
-        ? o("WAWebCommonMsgUtils").EventType.AMBIENT
-        : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
+      return e.viewMode ===
+        o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER
+        ? o("WAWebCommonMsgUtils").EventType.IGNORE
+        : o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
+              e.viewMode,
+            )
+          ? o("WAWebCommonMsgUtils").EventType.AMBIENT
+          : o("WAWebCommonMsgUtils").EventType.NOTEWORTHY;
     }
     function p(e) {
       return o(

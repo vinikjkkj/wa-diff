@@ -9,6 +9,7 @@ __d(
     "WASmaxBizAccessTokenRequestSilentNonceRPC",
     "WAWebCTWAGatingUtils",
     "WAWebQplFlowWrapper",
+    "justknobx",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,48 +25,50 @@ __d(
       var t = o(
           "WAWebCTWAGatingUtils",
         ).adAccountTokenNoncePushWaitTimeoutSeconds(),
-        n = o("WAWebCTWAGatingUtils").adAccountTokenNonceMaxRetries();
+        n = o("WAWebCTWAGatingUtils").adAccountTokenNonceMaxRetries(),
+        a = r("justknobx")._("8599");
       (o("WAWebQplFlowWrapper").QPL.markerStart(c),
         o("WAWebQplFlowWrapper").QPL.markerAnnotate(c, {
           int: { fetch_nonce_max_retries: n, fetch_nonce_timeout: t },
         }));
-      var r = n,
-        a = function (a) {
+      var i = n,
+        l = function (r) {
           return (
             o("WAWebQplFlowWrapper").QPL.markerAnnotate(c, {
-              int: { fetch_nonce_retry: n - r },
+              int: { fetch_nonce_retry: n - i },
             }),
             o("WAPromiseTimeout")
-              .promiseTimeout(f(), t * 1e3)
+              .promiseTimeout(f(a), t * 1e3)
               .then(function (e) {
-                a(e);
+                r(e);
               })
               .catch(function (e) {
-                var t = r > 0;
-                if ((r--, !t))
+                var t = i > 0;
+                if ((i--, !t))
                   throw (
-                    e instanceof o("WACustomError").TimeoutError &&
-                      (o("WAWebQplFlowWrapper").QPL.markerEnd(c, 105),
-                      (p = null)),
+                    e instanceof o("WACustomError").TimeoutError
+                      ? (o("WAWebQplFlowWrapper").QPL.markerEnd(c, 105),
+                        (p = null))
+                      : a && o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
                     e
                   );
               })
           );
         },
-        i = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
-          code: a,
+        s = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
+          code: l,
           name: "fetchAdAccountNonce",
           timer: { algo: { first: d, type: "exponential" }, max: m },
         });
-      return (i.start(), i.promise());
+      return (s.start(), s.promise());
     }
-    function f() {
+    function f(e) {
       o("WAWebQplFlowWrapper").QPL.markerPoint(c, "request_nonce_start");
-      var e = (p = new (o("WAResolvable").Resolvable)());
+      var t = (p = new (o("WAResolvable").Resolvable)());
       return o("WASmaxBizAccessTokenRequestSilentNonceRPC")
         .sendRequestSilentNonceRPC({})
-        .then(function (t) {
-          switch (t.name) {
+        .then(function (e) {
+          switch (e.name) {
             case "RequestSilentNonceResponseError":
               return (
                 o("WAWebQplFlowWrapper").QPL.markerPoint(
@@ -87,26 +90,26 @@ __d(
                 ),
                 o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
                 (p = null),
-                { emailMask: t.value.resultEmail, type: "recovery-required" }
+                { emailMask: e.value.resultEmail, type: "recovery-required" }
               );
             default:
               return (
-                t.name,
+                e.name,
                 o("WAWebQplFlowWrapper").QPL.markerPoint(
                   c,
                   "request_nonce_end",
                 ),
                 o("WAWebQplFlowWrapper").QPL.markerPoint(c, "push_nonce_start"),
-                e.promise
+                t.promise
               );
           }
         })
-        .catch(function (e) {
+        .catch(function (t) {
           throw (
             o("WAWebQplFlowWrapper").QPL.markerPoint(c, "request_nonce_end"),
-            o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
+            e || o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3),
             (p = null),
-            e
+            t
           );
         });
     }

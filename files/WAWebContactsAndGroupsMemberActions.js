@@ -1,6 +1,7 @@
 __d(
   "WAWebContactsAndGroupsMemberActions",
   [
+    "WAWebGroupMemberListLogger",
     "WAWebGroupParticipantsFlow.react",
     "WAWebModalManager",
     "WAWebOpenAddParticipantModalFlow",
@@ -39,15 +40,22 @@ __d(
         });
     }
     function c(e, t, n, r) {
-      o("WAWebModalManager").ModalManager.open(
-        s.jsx(o("WAWebGroupParticipantsFlow.react").GroupParticipantsFlow, {
-          chat: e,
-          initialStep: t,
-          onContactInfo: n,
-          onVerification: r,
-        }),
-        { transition: "modal-flow" },
-      );
+      (t ===
+        o("WAWebGroupParticipantsFlow.react").ParticipantsFlowStep
+          .Participants &&
+        o("WAWebGroupMemberListLogger").logGroupParticipantsFlowOpen(
+          e,
+          "contacts_and_groups",
+        ),
+        o("WAWebModalManager").ModalManager.open(
+          s.jsx(o("WAWebGroupParticipantsFlow.react").GroupParticipantsFlow, {
+            chatId: e,
+            initialStep: t,
+            onContactInfo: n,
+            onVerification: r,
+          }),
+          { transition: "modal-flow" },
+        ));
     }
     ((l.addMembersFromContactsAndGroups = u),
       (l.searchMembersFromContactsAndGroups = c));

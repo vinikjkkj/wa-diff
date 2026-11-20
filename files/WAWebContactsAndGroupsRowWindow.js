@@ -12,8 +12,8 @@ __d(
     function c(t, n, r) {
       r === void 0 && (r = e);
       var o = t.height * r,
-        a = _(n, t.top - o),
-        i = f(n, t.top + t.height + o);
+        a = f(n, t.top - o),
+        i = g(n, t.top + t.height + o);
       return { end: Math.max(a, i), start: a };
     }
     function d(e, t, n) {
@@ -23,10 +23,13 @@ __d(
         i = e.end >= o || n[e.end] >= t.top + t.height + r;
       return a && i;
     }
-    function m(e, t, n) {
-      var r = p(e.start, e.end);
+    function m(e, t) {
+      return t != null && Math.abs(e - t) <= s;
+    }
+    function p(e, t, n) {
+      var r = _(e.start, e.end);
       if (n == null) return r;
-      var o = p(Math.max(n - s, 0), Math.min(n + s + 1, t)).filter(
+      var o = _(Math.max(n - s, 0), Math.min(n + s + 1, t)).filter(
         function (t) {
           return t < e.start || t >= e.end;
         },
@@ -35,19 +38,19 @@ __d(
         return e - t;
       });
     }
-    function p(e, t) {
+    function _(e, t) {
       return Array.from({ length: Math.max(t - e, 0) }, function (t, n) {
         return e + n;
       });
     }
-    function _(e, t) {
+    function f(e, t) {
       for (var n = 0, r = e.length - 1; n < r; ) {
         var o = Math.ceil((n + r) / 2);
         e[o] <= t ? (n = o) : (r = o - 1);
       }
       return n;
     }
-    function f(e, t) {
+    function g(e, t) {
       for (var n = 0, r = e.length - 1; n < r; ) {
         var o = Math.floor((n + r) / 2);
         e[o] >= t ? (r = o) : (n = o + 1);
@@ -58,7 +61,8 @@ __d(
       (i.getRowOffsets = u),
       (i.getRowRange = c),
       (i.isViewportCovered = d),
-      (i.getRenderedRowIndexes = m));
+      (i.isNextToFocusedRow = m),
+      (i.getRenderedRowIndexes = p));
   },
   66,
 );

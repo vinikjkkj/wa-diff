@@ -100,14 +100,9 @@ __d(
       return !b() && e && R();
     }
     function R() {
-      return (
-        o(
-          "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
-        ).getPrimarySupportsBizAiSettingsSync() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "biz_ai_handoff_timing_sync_enabled",
-        ) === !0
-      );
+      return o(
+        "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
+      ).getPrimarySupportsBizAiSettingsSync();
     }
     function L() {
       return o("WAWebABProps").getABPropConfigValue(
@@ -162,10 +157,18 @@ __d(
         ) === !0
       );
     }
-    function A(e) {
+    function A() {
+      return (
+        w() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "biz_ai_web_checkout_partners_enabled",
+        ) === !0
+      );
+    }
+    function F(e) {
       w() && e();
     }
-    function F() {
+    function O() {
       return (function (e) {
         return e === "EXPERIMENT"
           ? "EXPERIMENT"
@@ -178,14 +181,14 @@ __d(
           .toUpperCase(),
       );
     }
-    function O() {
+    function B() {
       return (
         o(
           "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
-        ).getPrimarySupportsBizAiWebOnboarding() && B()
+        ).getPrimarySupportsBizAiWebOnboarding() && W()
       );
     }
-    function B() {
+    function W() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_onboarding_notification_dispatch_enabled",
@@ -221,10 +224,11 @@ __d(
       (l.isIntegrationHubEnabled = N),
       (l.isAppointmentsEnabled = M),
       (l.isCheckoutEnabled = w),
-      (l.runCheckoutAction = A),
-      (l.getResponseSettingsV2TriState = F),
-      (l.isWebOnboardingSendToPhoneEnabled = O),
-      (l.isWebOnboardingNotificationDispatchEnabled = B));
+      (l.isCheckoutPartnersEnabled = A),
+      (l.runCheckoutAction = F),
+      (l.getResponseSettingsV2TriState = O),
+      (l.isWebOnboardingSendToPhoneEnabled = B),
+      (l.isWebOnboardingNotificationDispatchEnabled = W));
   },
   98,
 );

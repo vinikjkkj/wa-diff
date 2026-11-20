@@ -38,6 +38,7 @@ __d(
     "WAWebStatusSessionGatingUtils",
     "WAWebUnavailableFanoutPlaceholderType",
     "asyncToGeneratorRuntime",
+    "cr:22371",
     "cr:4122",
     "getErrorSafe",
     "requireDeferred",
@@ -356,9 +357,7 @@ __d(
                 });
                 if (
                   N &&
-                  o("WAWebGetMessageCache")
-                    .getMessageCache()
-                    .hasCheckpointHoldExpired()
+                  o("WAWebGetMessageCache").getMessageCache().isFailClosed()
                 )
                   return null;
                 if (
@@ -387,6 +386,8 @@ __d(
                   o(
                     "WAWebOfflineHandler",
                   ).OfflineMessageHandler.processMessageDecryptResult(j.result),
+                  n("cr:22371") == null ||
+                    n("cr:22371").noteWindowsDecryptResult(T, j.result, E),
                   j.result !==
                     o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS &&
                     o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({

@@ -12,7 +12,7 @@ __d(
     "WAWebPollsDbSerialization",
     "WAWebPollsVotesSchema",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
@@ -30,37 +30,21 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           var a = yield (e || (e = n("Promise"))).all(
               s.map(function (e) {
-                return o("WAWebSchemaMessage")
-                  .getMessageTable()
-                  .between(
-                    ["messageRangeIndex"],
-                    o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
-                      t,
-                      e,
-                      r,
-                    ),
-                    o("WAWebDBMessageStoreUtils").endOfMessageRange(t, e),
-                    { lowerInclusive: !0, shouldDecrypt: !1 },
-                  );
+                return f(t, e, r);
               }),
             ),
-            i = a
-              .flat()
-              .filter(function (e) {
-                return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
-              })
-              .map(function (e) {
-                return e.id;
-              });
+            i = a.flat().map(function (e) {
+              return e.id;
+            });
           if (i.length === 0) return [];
           var l = yield e.all([
               o("WAWebSchemaMessage").getMessageTable().anyOf(["id"], i),
-              f(i),
+              g(i),
             ]),
             u = l[0],
             c = l[1];
           return u.map(function (e) {
-            return b(e, c);
+            return v(e, c);
           });
         })),
         c.apply(this, arguments)
@@ -72,37 +56,23 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(
-                ["messageRangeIndex"],
-                o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
-                  t,
-                  o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
-                  a,
-                ),
-                o("WAWebDBMessageStoreUtils").endOfMessageRange(
-                  t,
-                  o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
-                ),
-                { lowerInclusive: !0, shouldDecrypt: !1 },
-              ),
-            l = i
-              .filter(function (e) {
-                return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
-              })
-              .map(function (e) {
-                return e.id;
-              });
+          var i = yield f(
+              t,
+              o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
+              a,
+            ),
+            l = i.map(function (e) {
+              return e.id;
+            });
           if (l.length === 0) return [];
           var s = yield (e || (e = n("Promise"))).all([
               o("WAWebSchemaMessage").getMessageTable().anyOf(["id"], l),
-              h(l),
+              y(l),
             ]),
             u = s[0],
             c = s[1];
           return r("compactMap")(u, function (e) {
-            return C(
+            return b(
               o("WAWebDBMessageSerialization").messageFromDbRow(e),
               c.get(e.id),
             );
@@ -120,23 +90,37 @@ __d(
           var r = t.toString(),
             a = yield (e || (e = n("Promise"))).all([
               o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([t]),
-              h([r]),
+              y([r]),
             ]),
             i = a[0],
             l = a[1],
             s = i.get(r);
-          return s != null ? C(s, l.get(r)) : null;
+          return s != null ? b(s, l.get(r)) : null;
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function f(e, t, n) {
+      return o("WAWebSchemaMessage")
+        .getMessageTable()
+        .between(
+          ["messageRangeIndex"],
+          o("WAWebDBMessageStoreUtils").beginningOfMessageRange(e, t, n),
+          o("WAWebDBMessageStoreUtils").endOfMessageRange(e, t),
+          { lowerInclusive: !0, shouldDecrypt: !1 },
+          void 0,
+          function (e) {
+            return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
+          },
+        );
     }
-    function g() {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h(e);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield y(e);
           return new Set(
             e.filter(function (e) {
               var n;
@@ -145,21 +129,21 @@ __d(
                 : n.some(function (e) {
                     return (
                       e.selectedOptionLocalIds.length > 0 &&
-                      o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
+                      o("WAWebUserUtils").isMeAccount(e.sender)
                     );
                   });
             }),
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Map();
           e.forEach(function (e) {
             t.set(e, e);
@@ -185,10 +169,10 @@ __d(
             a
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       var n, r, a;
       if (
         e.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
@@ -210,7 +194,7 @@ __d(
         }),
       };
     }
-    function b(e, t) {
+    function v(e, t) {
       var n,
         a = o("WAWebDBMessageSerialization").messageFromDbRow(e);
       return {

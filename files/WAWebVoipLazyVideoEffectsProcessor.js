@@ -122,11 +122,7 @@ __d(
         (e.stopVideoEffects("start_error", { isRepeat: f === "reported" }),
         (f = "reported"));
     }
-    function R() {
-      ((p = null), (_ = !1), (f = "none"), (g = -1 / 0), (h = -1 / 0));
-    }
-    ((l.lazyVideoEffectsProcessor = y),
-      (l.resetLazyVideoEffectsProcessorForTesting = R));
+    l.lazyVideoEffectsProcessor = y;
   },
   98,
 );

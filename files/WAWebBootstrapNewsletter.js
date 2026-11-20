@@ -1,6 +1,7 @@
 __d(
   "WAWebBootstrapNewsletter",
   [
+    "$InternalEnum",
     "WALogger",
     "WAWebBackendApi",
     "WAWebCommonNewsletterEnums",
@@ -15,6 +16,7 @@ __d(
     "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebSyncdOrphan",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
     "qpl",
   ],
@@ -27,8 +29,10 @@ __d(
       m,
       p = 5e3,
       _ = r("qpl")._(891434294, "3266"),
-      f = null;
-    function g() {
+      f = null,
+      g = n("$InternalEnum").Mirrored(["NewsletterLastBootstrapFailed"]),
+      h = g.NewsletterLastBootstrapFailed;
+    function y() {
       if (o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()) {
         if (f != null)
           return (
@@ -40,13 +44,18 @@ __d(
             ),
             f
           );
-        if (!o("WAWebUserPrefsMultiDevice").getNewsletterWasBootstrapped()) {
+        if (
+          !(
+            o("WAWebUserPrefsMultiDevice").getNewsletterWasBootstrapped() &&
+            r("WAWebUserPrefsStore").get(h) !== !0
+          )
+        ) {
           if (
             o(
               "WAWebNewsletterExtendedGatingUtils",
             ).isNewsletterEnabledOnPrimary()
           )
-            return ((f = h()), f);
+            return ((f = C()), f);
           o("WAWebPrimaryFeaturesModel").PrimaryFeatures.on(
             "change:newsletter",
             function () {
@@ -55,18 +64,18 @@ __d(
                   "WAWebNewsletterExtendedGatingUtils",
                 ).isNewsletterEnabledOnPrimary()
               )
-                return ((f = h()), f);
+                return ((f = C()), f);
             },
           );
         }
       }
     }
-    function h() {
-      return y.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -124,6 +133,7 @@ __d(
                     .sendLogs("newsletter-bootstrap-my-reactions-failed");
                 })),
               o("WAWebUserPrefsMultiDevice").setNewsletterWasBootstrapped(),
+              r("WAWebUserPrefsStore").set(h, !i.success),
               i.success
                 ? (yield o("WAWebSyncdOrphan").checkOrphanChats(
                     i.chats.map(function (e) {
@@ -178,10 +188,10 @@ __d(
             f = null;
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.bootstrapNewsletterBackend = g;
+    l.bootstrapNewsletterBackend = y;
   },
   98,
 );

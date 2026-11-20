@@ -3,7 +3,7 @@ __d(
   [
     "WAWebBotUtils",
     "WAWebLidMigrationUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,7 +30,7 @@ __d(
         e.isBot() ||
         e.isPSA() ||
         o("WAWebBotUtils").isAnyMetaAiBot(e) ||
-        o("WAWebUserPrefsMeUser").isMeAccount(e)
+        o("WAWebUserUtils").isMeAccount(e)
       )
         return null;
       var n = o("WAWebWidFactory").asUserWidOrThrow(e);
@@ -47,9 +47,9 @@ __d(
     function c(e) {
       if (e.fromMe) return [e.quotedParticipant].concat(e.mentionedJidList);
       var t =
-        o("WAWebUserPrefsMeUser").isMeAccount(e.quotedParticipant) ||
+        o("WAWebUserUtils").isMeAccount(e.quotedParticipant) ||
         e.mentionedJidList.some(function (e) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(e);
+          return o("WAWebUserUtils").isMeAccount(e);
         });
       return t ? [e.author] : [];
     }

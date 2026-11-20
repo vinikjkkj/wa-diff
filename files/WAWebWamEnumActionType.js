@@ -88,6 +88,9 @@ __d(
       BIOMETRICS_VERIFY_FAIL: 82,
       TRUSTED_DEVICE_OPT_IN: 83,
       TRUSTED_DEVICE_OPT_OUT: 84,
+      INELIGIBLE: 85,
+      CANCEL: 86,
+      COMPLETE: 87,
     });
     i.ACTION_TYPE = e;
   },

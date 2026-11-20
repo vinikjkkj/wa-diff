@@ -67,8 +67,8 @@ __d(
                     }),
                 null
               );
-            if (l != null && n.textStatusExpiryTs !== l) return null;
-            var r = m({
+            if (l != null && n.textStatusExpiryTs !== l) return m(n);
+            var r = p({
               contact: n,
               emoji: a,
               ephemeralDuration: i,
@@ -86,6 +86,15 @@ __d(
         );
     }
     function m(e) {
+      return {
+        textStatusEmoji: e.textStatusEmoji,
+        textStatusEphemeralDuration: e.textStatusEphemeralDuration,
+        textStatusExpiryTs: e.textStatusExpiryTs,
+        textStatusLastUpdateTime: e.textStatusLastUpdateTime,
+        textStatusString: e.textStatusString,
+      };
+    }
+    function p(e) {
       var t = e.contact,
         n = e.emoji,
         r = e.ephemeralDuration,

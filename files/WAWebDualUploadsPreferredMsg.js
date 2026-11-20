@@ -1,6 +1,7 @@
 __d(
   "WAWebDualUploadsPreferredMsg",
   [
+    "WAWebMediaAv1Support",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaGatingUtils",
     "WAWebMediaLocalAvailability",
@@ -30,6 +31,7 @@ __d(
               .MessageAssociationType.AV1_VIDEO_DUAL_UPLOAD,
             isEnabled: o("WAWebMediaGatingUtils")
               .isAv1VideoDualUploadConsumptionEnabled,
+            supportSource: o("WAWebMediaAv1Support").av1SupportSource,
           },
           {
             associationType: o("WAWebMessageAssociation.flow")
@@ -107,7 +109,14 @@ __d(
           var e = t.find(function (e) {
             return e.associationType === n.associationType;
           });
-          if (e != null) return { v: { hdChild: e, isEnabled: n.isEnabled } };
+          if (e != null)
+            return {
+              v: {
+                hdChild: e,
+                isEnabled: n.isEnabled,
+                supportSource: n.supportSource,
+              },
+            };
         },
         o;
       for (var a of (i = e.get(n)) != null ? i : []) {

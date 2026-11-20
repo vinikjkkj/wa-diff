@@ -21,9 +21,9 @@ __d(
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebPDFNTypes",
-    "WAWebPhoneNumberSharingSettingsRefresh",
     "WAWebSetUsernameJob",
     "WAWebTextStatusAccountSyncNotification",
+    "WAWebUpdateAllPrivacySettings",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserDisclosureCollection",
     "WAWebUserPrefsGeneral",
@@ -526,10 +526,9 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o(
-            "WAWebPhoneNumberSharingSettingsRefresh",
-          ).schedulePhoneNumberSharingSettingsRefresh(e);
-          var t = yield o("WAWebAccountSyncJob").forceUpdatePrivacySettings();
+          var t = yield o(
+            "WAWebUpdateAllPrivacySettings",
+          ).forceUpdateAllPrivacySettings(e);
           o(
             "WAWebBackendEventBus",
           ).BackendEventBus.triggerAccountSyncForPrivacy(

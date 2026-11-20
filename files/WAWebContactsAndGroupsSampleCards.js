@@ -9,7 +9,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "CGSAMPLECARD",
@@ -94,7 +94,7 @@ __d(
                 isNewMsg: !1,
                 mimetype: "application/pdf",
                 t: t - s * u,
-                to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                to: o("WAWebUserUtils").getMeUserOrThrow(),
                 type: o("WAWebMsgType").MSG_TYPE.DOCUMENT,
               }),
             };

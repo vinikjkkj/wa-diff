@@ -1,45 +1,58 @@
 __d(
   "WAWebDebugLabyrinthRangeQuery",
   [
+    "WABase64",
     "WAWebDebugLabyrinthRangeQuery.graphql",
+    "WAWebDecodeLabyrinthEncryptedMessagePayload",
+    "WAWebLabyrinthOpaqueTypes",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e !== void 0 ? e : (e = n("WAWebDebugLabyrinthRangeQuery.graphql"));
     function u(e) {
-      var t,
-        n,
-        r,
-        o = e == null ? void 0 : e.get_WAMessagingViewerThreadByORF;
-      if (o == null || o.id == null) return null;
-      var a = [];
-      for (var i of (l = (s = o.messages) == null ? void 0 : s.edges) != null
-        ? l
+      var t, n, a;
+      r("vulture")("KrHW4i3Xal7aeXnF4Zq8JHNCiGQ=");
+      var i = e == null ? void 0 : e.get_WAMessagingViewerThreadByORF;
+      if (i == null || i.id == null) return null;
+      var l = i.id,
+        s = [];
+      for (var u of (c = (d = i.messages) == null ? void 0 : d.edges) != null
+        ? c
         : []) {
-        var l, s;
-        if (!(i == null || i.cursor == null)) {
-          var u = i.node;
-          u == null ||
-            u.id == null ||
-            a.push({
-              encryptedPayload: u.encrypted_payload,
-              encryptionVersion: u.encryption_version,
-              messageId: u.id,
+        var c, d;
+        if (!(u == null || u.cursor == null)) {
+          var m = u.node;
+          if (!(m == null || m.id == null)) {
+            var p = m.id;
+            s.push({
+              encryptedPayload: o(
+                "WAWebDecodeLabyrinthEncryptedMessagePayload",
+              ).decodeLabyrinthEncryptedMessagePayload(m.encrypted_payload),
+              encryptionVersion:
+                m.encryption_version == null
+                  ? m.encryption_version
+                  : o("WAWebLabyrinthOpaqueTypes").makeEncryptionVersion(
+                      m.encryption_version,
+                    ),
+              epochAnonId: null,
+              messageId: o("WAWebLabyrinthOpaqueTypes").makeMessageId(p),
             });
+          }
         }
       }
-      var c = (t = o.messages) == null ? void 0 : t.page_info;
+      var _ = (t = i.messages) == null ? void 0 : t.page_info;
       return [
         {
-          threadId: o.id,
-          messages: a,
+          threadId: o("WAWebLabyrinthOpaqueTypes").makeServerThreadId(l),
+          messages: s,
           pageInfo: {
             hasNextPage:
-              (n = c == null ? void 0 : c.has_next_page) != null ? n : !1,
+              (n = _ == null ? void 0 : _.has_next_page) != null ? n : !1,
             hasPreviousPage:
-              (r = c == null ? void 0 : c.has_previous_page) != null ? r : !1,
+              (a = _ == null ? void 0 : _.has_previous_page) != null ? a : !1,
           },
         },
       ];
@@ -50,12 +63,13 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("tPFbX06dhZedpfNTE94HahzKtqk=");
           var t = yield o("WAWebRelayClient").fetchQuery(
             s,
             {
               device_id: e.ebDeviceId,
               message_count: e.messageCount,
-              partial_thread_id: e.partialThreadId,
+              partial_thread_id: o("WABase64").encodeB64(e.partialThreadId),
             },
             { environmentType: "whatsapp_web" },
           );

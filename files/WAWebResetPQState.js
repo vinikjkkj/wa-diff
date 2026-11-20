@@ -3,8 +3,12 @@ __d(
   [
     "WALogger",
     "WAPQRollbackProtocol",
+    "WAWebApiTasksScheduledTime",
     "WAWebKyberPreKeyStore",
     "WAWebSchemaSession",
+    "WAWebTasksTaskType",
+    "WAWebUserPrefsIndexedDBStorage",
+    "WAWebUserPrefsKeys",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +42,14 @@ __d(
           (yield n.bulkRemove(r),
             yield o(
               "WAWebKyberPreKeyStore",
-            ).clearKyberPreKeysAndMigrationState());
+            ).clearKyberPreKeysAndMigrationState(),
+            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
+                .PQ_SESSION_UPGRADE_CURSOR,
+            ),
+            yield o("WAWebApiTasksScheduledTime").removeTaskScheduledTime(
+              String(o("WAWebTasksTaskType").TaskType.PQ_SESSION_UPGRADE),
+            ));
         })),
         u.apply(this, arguments)
       );

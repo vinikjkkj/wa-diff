@@ -7,7 +7,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebGroupMembershipApprovalRequestModel",
     "WAWebRequestMethodType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 3,
@@ -94,7 +94,7 @@ __d(
             addedBy:
               (n = c == null ? void 0 : c.id) != null
                 ? n
-                : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                : o("WAWebUserUtils").getMeUserOrThrow(),
             id: s.id,
             requestMethod:
               c != null

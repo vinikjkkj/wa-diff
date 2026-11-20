@@ -32,12 +32,12 @@ __d(
           }),
         a = r[0],
         i = r[1];
-      if (t === a) {
+      if ((a == null ? void 0 : a.id.equals(t)) === !0) {
         var l, u;
         return {
           adminCount:
             (l =
-              (u = t.groupMetadata) == null
+              (u = a.groupMetadata) == null
                 ? void 0
                 : u.participants.getAdmins().length) != null
               ? l
@@ -46,7 +46,7 @@ __d(
           needsApproval: !1,
         };
       }
-      return t === i
+      return (i == null ? void 0 : i.id.equals(t)) === !0
         ? {
             adminCount: 1,
             joins: { joinCount: s, linkJoinCount: 0 },
@@ -55,10 +55,10 @@ __d(
         : null;
     }
     function p(e, t) {
-      return f().has(e.id.toString() + ":" + t);
+      return f().has(e.toString() + ":" + t);
     }
     function _(e, t) {
-      (f().add(e.id.toString() + ":" + t), u.trigger("change"));
+      (f().add(e.toString() + ":" + t), u.trigger("change"));
     }
     function f() {
       var e = o("WAWebContactsAndGroupsSampleData").getSampleDataSession();

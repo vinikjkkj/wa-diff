@@ -1,31 +1,42 @@
 __d(
   "WAWebDebugLabyrinth",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WABase64",
     "WALogger",
+    "WAPromiseTimeout",
     "WAResultOrError",
     "WATimeUtils",
-    "WAWebCreateLabyrinthBackupJob",
     "WAWebDebugLabyrinthInboxSnapshotQuery",
     "WAWebDebugLabyrinthRangeQuery",
     "WAWebEBLabyrinthWaWasmReactorSingleton",
-    "WAWebLabyrinthCanonicalUserFbid",
-    "WAWebLabyrinthDebugStateCache",
-    "WAWebLabyrinthWasmCreateBackup",
+    "WAWebLabyrinthAddPeerPayloadCapture",
+    "WAWebLabyrinthCompanionOnboardingStatus",
+    "WAWebLabyrinthCompanionRegistration",
+    "WAWebLabyrinthDebugAddDeviceController",
+    "WAWebLabyrinthDebugCreateBackupController",
+    "WAWebLabyrinthDebugDeviceStateStore",
+    "WAWebLabyrinthDebugDeviceStateUtils",
+    "WAWebLabyrinthDebugDeviceStatusController",
+    "WAWebLabyrinthDebugEncryptAndUploadController",
+    "WAWebLabyrinthDebugLoadForMessageQueries",
+    "WAWebLabyrinthDebugLoadForStatus",
+    "WAWebLabyrinthDebugRotateEpochController",
+    "WAWebLabyrinthOpaqueTypes",
+    "WAWebLabyrinthPendingAddPeerPayload",
+    "WAWebLabyrinthReportedHistoryStart",
+    "WAWebLabyrinthShadowScheduler",
+    "WAWebLabyrinthWasmComputeClientSealToken",
     "WAWebLabyrinthWasmDecryptMessage",
     "WAWebLabyrinthWasmDeriveMessageKey",
-    "WAWebLabyrinthWasmEncryptMessage",
     "WAWebLabyrinthWasmOrfThreadId",
-    "WAWebLabyrinthWasmRotateEpoch",
-    "WAWebPonyfillsCryptoRandomUUID",
-    "WAWebRotateLabyrinthEpochJob",
-    "WAWebUploadLabyrinthMessagesJob",
-    "WAWebUserPrefsMeUser",
+    "WAWebSignalStoreApi",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "nullthrows",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -41,186 +52,52 @@ __d(
       h,
       y,
       C,
-      b,
-      v,
-      S,
-      R,
-      L,
-      E,
-      k,
-      I,
-      T,
-      D,
-      x,
-      $,
-      P,
-      N,
-      M,
-      w,
-      A,
-      F,
-      O,
-      B,
-      W = "hello labyrinth",
-      q = 20,
-      U = 20,
-      V = 20,
-      H = 20,
-      G = "Call Debug.labyrinthCreateBackupNativeWasm() first";
+      b = 20,
+      v = 20,
+      S = 20,
+      R = 20,
+      L = 10 * 1e3,
+      E = r("JSResourceForInteraction")("WAWebLabyrinthDebugAPI").__setRef(
+        "WAWebDebugLabyrinth",
+      );
     o("WAWebEBLabyrinthWaWasmReactorSingleton")
       .ebLabyrinthWaReactor()
       .catch(function (t) {
-        o("WALogger")
-          .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] eager WA Wasm initialization failed",
-              ])),
-          )
-          .catching(r("getErrorSafe")(t));
+        (r("vulture")("NhUvyPvtvGMUtbtoT4pFTFCZ8gw="),
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Debug][Labyrinth] eager WA Wasm initialization failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t)));
       });
-    function z(e) {
-      return new Uint8Array(o("WABase64").decodeB64(e));
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function j() {
-      var e = o(
-        "WAWebLabyrinthDebugStateCache",
-      ).getLabyrinthDebugKeyMaterialCache();
-      if (e != null) return e;
-      throw r("err")(G);
-    }
-    function K() {
-      var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().getDeviceId();
-      return e != null ? String(e) : null;
-    }
-    function Q() {
-      var e = K();
-      if (e == null)
-        throw r("err")(
-          "Debug.labyrinthCreateBackupNativeWasm requires a live WA Web device id",
-        );
-      return { deviceId: e, familyDeviceId: e, deviceRegistrationId: e };
-    }
-    function X(e, t) {
-      return Y.apply(this, arguments);
-    }
-    function Y() {
+    function I() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (B || (B = n("Promise"))).all(
-            e.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    return babelHelpers.extends({}, e, {
-                      messages: yield ee(e.messages, t, e.threadId),
-                    });
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-        })),
-        Y.apply(this, arguments)
-      );
-    }
-    function J(e, t, n) {
-      return Z.apply(this, arguments);
-    }
-    function Z() {
-      return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          return (B || (B = n("Promise"))).all(
-            e.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    return babelHelpers.extends({}, e, {
-                      messages: yield ee(e.messages, t, r),
-                    });
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-        })),
-        Z.apply(this, arguments)
-      );
-    }
-    function ee(e, t, n) {
-      return te.apply(this, arguments);
-    }
-    function te() {
-      return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a) {
-            var i = r("nullthrows")(t.epochRootKey),
-              l = r("nullthrows")(t.epochAnonId),
-              u = new Uint8Array(o("WABase64").decodeB64(l)),
-              c = new Uint8Array(o("WABase64").decodeB64(i));
-            return (B || (B = n("Promise"))).all(
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return (
+            r("vulture")("01YYXg_Gs6knOLlvQaP5wwr0PWs="),
+            (C || (C = n("Promise"))).all(
               e.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = null,
-                        n = null;
-                      try {
-                        var i = r("nullthrows")(e.encryptedPayload),
-                          l = r("nullthrows")(e.encryptionVersion),
-                          d = new Uint8Array(o("WABase64").decodeB64(i));
-                        t = l;
-                        var m = yield o(
-                          "WAWebLabyrinthWasmDecryptMessage",
-                        ).decryptMessageWasm({
-                          ciphertext: d,
-                          encryptionVersion: l,
-                          epochAnonId: u,
-                          epochRootKey: c,
-                          threadId: a,
-                        });
-                        if (!m.success)
-                          throw (
-                            (n = String(m.error)),
-                            r("err")("decryptMessageWasm failed: " + n)
-                          );
-                        var p = new TextDecoder().decode(m.value.plaintext);
-                        return {
-                          messageId: e.messageId,
-                          decryptResult: o("WAResultOrError").makeResult(p),
-                        };
-                      } catch (i) {
-                        var _ = r("getErrorSafe")(i);
-                        return (
-                          o("WALogger")
-                            .ERROR(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[Debug][Labyrinth] message decrypt failed for message_id ",
-                                  "; thread_id ",
-                                  "; subtype ",
-                                  "",
-                                ])),
-                              e.messageId,
-                              a,
-                              String(n != null ? n : _.name),
-                            )
-                            .catching(_),
-                          {
-                            messageId: e.messageId,
-                            decryptResult: o("WAResultOrError").makeError({
-                              decryptError: _,
-                              encryptionVersion: t != null ? t : 0,
-                            }),
-                          }
-                        );
-                      }
+                      var n = e.messages,
+                        r = e.sealedThreadId,
+                        a = e.threadId;
+                      return {
+                        messages: yield x(
+                          n,
+                          t,
+                          o("WAWebLabyrinthOpaqueTypes").makeThreadId(a),
+                        ),
+                        sealedThreadId: r,
+                        threadId: a,
+                      };
                     },
                   );
                   return function (t) {
@@ -228,51 +105,191 @@ __d(
                   };
                 })(),
               ),
-            );
-          },
-        )),
-        te.apply(this, arguments)
+            )
+          );
+        })),
+        I.apply(this, arguments)
       );
     }
-    function ne(e) {
-      return re.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function re() {
+    function D() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a = Math.min(
-              (t = e == null ? void 0 : e.messageFirst) != null ? t : q,
-              V,
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, o) {
+          return (
+            r("vulture")("Etb9xWMPM2HcW4JuGa8CMk6hT8Y="),
+            (C || (C = n("Promise"))).all(
+              e.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      return babelHelpers.extends({}, e, {
+                        messages: yield x(e.messages, t, o),
+                      });
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            )
+          );
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x(e, t, n) {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          r("vulture")("Hy0JAUUJHvtWbCEsoGSDQdxhLsw=");
+          var i = t.currentEpoch.epochAnonId,
+            l = t.currentEpoch.epochRootKey;
+          return (C || (C = n("Promise"))).all(
+            e.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    r("vulture")("JXzjEqTI_c4_fwtr2ij-YXMMUbk=");
+                    var t = null,
+                      n = null;
+                    try {
+                      var u = e.encryptedPayload,
+                        c = u.success ? r("nullthrows")(u.value) : null,
+                        d = r("nullthrows")(e.encryptionVersion);
+                      if (!u.success) throw u.error;
+                      var m = r("nullthrows")(c);
+                      t = d;
+                      var p = yield o(
+                        "WAWebLabyrinthWasmDecryptMessage",
+                      ).decryptMessageWasm({
+                        ciphertext: m,
+                        encryptionVersion: d,
+                        epochAnonId: i,
+                        epochRootKey: l,
+                        threadId: a,
+                      });
+                      if (!p.success)
+                        throw (
+                          (n = String(p.error)),
+                          r("err")("decryptMessageWasm failed: " + n)
+                        );
+                      var _ = new TextDecoder().decode(p.value.plaintext);
+                      return {
+                        messageId: e.messageId,
+                        decryptResult: o("WAResultOrError").makeResult(_),
+                      };
+                    } catch (i) {
+                      var f = r("getErrorSafe")(i);
+                      return (
+                        o("WALogger")
+                          .ERROR(
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                                "[Debug][Labyrinth] message decrypt failed for message_id ",
+                                "; thread_id ",
+                                "; subtype ",
+                                "",
+                              ])),
+                            e.messageId,
+                            a,
+                            String(n != null ? n : f.name),
+                          )
+                          .catching(f),
+                        {
+                          messageId: e.messageId,
+                          decryptResult: o("WAResultOrError").makeError({
+                            decryptError: f,
+                            encryptionVersion:
+                              t != null
+                                ? t
+                                : o(
+                                    "WAWebLabyrinthOpaqueTypes",
+                                  ).makeEncryptionVersion(0),
+                          }),
+                        }
+                      );
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
+          );
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, n;
+          r("vulture")("iyMZoMzzc5_qKih7moHS5G3CXyw=");
+          var a = Math.min(
+              (t = e == null ? void 0 : e.messageFirst) != null ? t : b,
+              S,
             ),
             i = Math.min(
-              (n = e == null ? void 0 : e.threadFirst) != null ? n : U,
-              H,
+              (n = e == null ? void 0 : e.threadFirst) != null ? n : v,
+              R,
+            ),
+            l = yield o(
+              "WAWebLabyrinthDebugDeviceStateUtils",
+            ).requireDebugState(
+              o("WAWebLabyrinthDebugLoadForMessageQueries")
+                .loadForMessageQueries,
+            ),
+            s = yield o(
+              "WAWebLabyrinthWasmComputeClientSealToken",
+            ).computeClientSealTokenWasm({
+              orfClientState: l.orfClientState,
+              backupId: l.backupId,
+            });
+          if (!s.success)
+            return (
+              o("WALogger").ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Debug][Labyrinth] labyrinthInboxSnapshot client seal token failed",
+                  ])),
+              ),
+              null
             );
           try {
-            var l = yield o(
+            var m = yield o(
                 "WAWebDebugLabyrinthInboxSnapshotQuery",
               ).fetchLabyrinthInboxSnapshot({
+                clientSealToken: s.value,
+                deviceId: l.ebDeviceId,
+                locallyAvailableEpochId: l.currentEpoch.serverEpochId,
                 messageFirst: a,
                 threadFirst: i,
               }),
-              s = l == null ? null : yield X(l, j());
+              p = m == null ? null : yield k(m, l);
             return (
               o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[Debug][Labyrinth] labyrinthInboxSnapshot GQL response",
                   ])),
               ),
-              s
+              p
             );
           } catch (e) {
             throw (
               o("WALogger")
                 .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[Debug][Labyrinth] labyrinthInboxSnapshot GQL failed",
                     ])),
                 )
@@ -281,64 +298,68 @@ __d(
             );
           }
         })),
-        re.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    ((ne.doc =
+    ((P.doc =
       "Fetches WA Labyrinth inbox snapshot threads/messages, logs the simplified response, and returns it."),
-      (ne.paramsToExecute = []));
-    function oe(e) {
-      return ae.apply(this, arguments);
+      (P.paramsToExecute = []));
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function ae() {
+    function w() {
       return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(e.threadId),
-            n = j(),
-            a = r("nullthrows")(n.ebDeviceId),
-            i = r("nullthrows")(n.orfClientState);
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("ewebNK4YZkfBTN51q9P8GMyiMSg=");
+          var t = o("WAWebLabyrinthOpaqueTypes").makeThreadId(
+              r("nullthrows")(e.threadId),
+            ),
+            n = yield o(
+              "WAWebLabyrinthDebugDeviceStateUtils",
+            ).requireDebugState(
+              o("WAWebLabyrinthDebugLoadForMessageQueries")
+                .loadForMessageQueries,
+            );
           try {
-            var l = yield o(
+            var a = yield o(
               "WAWebLabyrinthWasmOrfThreadId",
             ).labyrinthOrfThreadIdWasm({
-              orfClientState: new Uint8Array(o("WABase64").decodeB64(i)),
+              orfClientState: n.orfClientState,
               threadId: t,
             });
-            if (!l.success)
+            if (!a.success)
               return (
                 o("WALogger").ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[Debug][Labyrinth] labyrinthRangeQuery ORF thread id mapping failed",
                     ])),
                 ),
                 null
               );
-            var s = yield o(
+            var i = yield o(
                 "WAWebDebugLabyrinthRangeQuery",
               ).fetchLabyrinthRangeQuery({
-                ebDeviceId: a,
+                ebDeviceId: n.ebDeviceId,
                 messageCount: e.numMessages,
-                partialThreadId: o("WABase64").encodeB64(
-                  new Uint8Array(l.value),
-                ),
+                partialThreadId: a.value,
               }),
-              u = s == null ? null : yield J(s, n, t);
+              l = i == null ? null : yield T(i, n, t);
             return (
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[Debug][Labyrinth] labyrinthRangeQuery GQL response",
                   ])),
               ),
-              u
+              l
             );
           } catch (e) {
             throw (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[Debug][Labyrinth] labyrinthRangeQuery GQL failed",
                     ])),
                 )
@@ -347,79 +368,81 @@ __d(
             );
           }
         })),
-        ae.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    ((oe.doc =
+    ((M.doc =
       "Fetches WA Labyrinth messages for a plain thread id, internally maps it to partial_thread_id, logs the simplified response, and returns it. Do not pass snapshot.threadId. Example: Debug.labyrinthRangeQuery({threadId, numMessages: 10})"),
-      (oe.paramsToExecute = []));
-    function ie(e) {
-      return le.apply(this, arguments);
+      (M.paramsToExecute = []));
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function le() {
+    function F() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = (t = r("nullthrows"))(e.threadId),
-            a = j(),
-            i = t(a.epochAnonId),
-            l = t(a.epochRootKey),
-            s = t(a.orfClientState);
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("c4ZqgTP7KpsNsb9J2K74Kboxpjk=");
+          var t = o("WAWebLabyrinthOpaqueTypes").makeThreadId(
+              r("nullthrows")(e.threadId),
+            ),
+            n = yield o(
+              "WAWebLabyrinthDebugDeviceStateUtils",
+            ).requireDebugState(
+              o("WAWebLabyrinthDebugLoadForMessageQueries")
+                .loadForMessageQueries,
+            );
           try {
-            var u = yield o(
+            var a = yield o(
               "WAWebLabyrinthWasmOrfThreadId",
             ).labyrinthOrfThreadIdWasm({
-              orfClientState: new Uint8Array(o("WABase64").decodeB64(s)),
-              threadId: n,
+              orfClientState: n.orfClientState,
+              threadId: t,
             });
-            if (!u.success)
+            if (!a.success)
               return (
                 o("WALogger").ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[Debug][Labyrinth] labyrinthDecryptFlowInputs ORF thread id mapping failed",
                     ])),
                 ),
                 null
               );
-            var c = yield o(
+            var i = yield o(
               "WAWebLabyrinthWasmDeriveMessageKey",
             ).deriveMessageKeyWasm({
-              epochAnonId: new Uint8Array(o("WABase64").decodeB64(i)),
-              epochRootKey: new Uint8Array(o("WABase64").decodeB64(l)),
-              threadId: n,
+              epochAnonId: n.currentEpoch.epochAnonId,
+              epochRootKey: n.currentEpoch.epochRootKey,
+              threadId: t,
             });
-            if (!c.success)
+            if (!i.success)
               return (
                 o("WALogger").ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[Debug][Labyrinth] labyrinthDecryptFlowInputs message key derivation failed",
                     ])),
                 ),
                 null
               );
-            var d = {
-              messageKey: o("WABase64").encodeB64(
-                new Uint8Array(c.value.messageKey),
-              ),
-              partialThreadId: o("WABase64").encodeB64(new Uint8Array(u.value)),
+            var l = {
+              messageKey: i.value.messageKey,
+              partialThreadId: a.value,
             };
             return (
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[Debug][Labyrinth] labyrinthDecryptFlowInputs result",
                   ])),
               ),
-              d
+              l
             );
           } catch (e) {
             throw (
               o("WALogger")
                 .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[Debug][Labyrinth] labyrinthDecryptFlowInputs failed",
                     ])),
                 )
@@ -428,326 +451,324 @@ __d(
             );
           }
         })),
+        F.apply(this, arguments)
+      );
+    }
+    ((A.doc =
+      "Given a plain threadId, returns ArrayBuffer partialThreadId and messageKey for CLI decrypt flow. Example: Debug.labyrinthDecryptFlowInputs({threadId})"),
+      (A.paramsToExecute = []));
+    function O(e) {
+      return B.apply(this, arguments);
+    }
+    function B() {
+      return (
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return (
+            r("vulture")("359Yw8Iq_dc7qlV3mgHw8OZUxz0="),
+            o("WAWebLabyrinthDebugAddDeviceController").addLabyrinthDebugDevice(
+              r("nullthrows")(e == null ? void 0 : e.recoveryCode),
+            )
+          );
+        })),
+        B.apply(this, arguments)
+      );
+    }
+    O.doc =
+      "Add this Web client to an existing Labyrinth backup with a recovery code. The recovery code is not persisted or logged.";
+    var W = null;
+    function q() {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("x7m9Ym8tiR_i6uyzAbcWF7kKJqQ=");
+          var e = yield o(
+            "WAWebSignalStoreApi",
+          ).waSignalStore.getRegistrationInfo();
+          return e == null
+            ? null
+            : o("WABase64").encodeB64(e.identityKeyPair.pubKey);
+        })),
+        U.apply(this, arguments)
+      );
+    }
+    ((q.doc =
+      "Return this browser's raw 32-byte WhatsApp identity public key in base64, the key a phone seals a companion's add-peer payload to."),
+      (q.paramsToExecute = []));
+    function V(e, t) {
+      return H.apply(this, arguments);
+    }
+    function H() {
+      return (
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          r("vulture")("VVc1tZ_m-28t-nGQBtBNxD2kFiE=");
+          var n = yield o(
+            "WAWebLabyrinthCompanionRegistration",
+          ).registerLabyrinthCompanion({
+            advSecret: o("WAWebLabyrinthOpaqueTypes").makeAdvSecret(
+              o("WABase64").decodeB64(r("nullthrows")(t)),
+            ),
+            sealedPayload: o(
+              "WAWebLabyrinthOpaqueTypes",
+            ).makeSealedAddPeerDevicePayload(
+              o("WABase64").decodeB64(r("nullthrows")(e)),
+            ),
+          });
+          return (
+            (W = {
+              atMs: Date.now(),
+              outcome: n.success ? "registered" : n.error.kind,
+            }),
+            n
+          );
+        })),
+        H.apply(this, arguments)
+      );
+    }
+    V.doc =
+      "Join this browser to its Labyrinth backup as a companion with the add-peer payload a phone sealed and the pairing ADV secret, both base64, as pair-success would. The ADV secret is not persisted or logged. Example: Debug.labyrinthRegisterFromPayload(sealedB64, advSecretB64)";
+    function G(e, t) {
+      return o(
+        "WAWebLabyrinthCompanionRegistration",
+      ).isLabyrinthCompanionOnboardingEnabled()
+        ? (o("WAWebLabyrinthAddPeerPayloadCapture").captureAddPeerPayload(
+            r("nullthrows")(t),
+            o("WABase64").decodeB64(r("nullthrows")(e)),
+          ),
+          o("WAWebLabyrinthPendingAddPeerPayload").hasAddPeerPayload())
+        : !1;
+    }
+    G.doc =
+      "Hold an add-peer payload a phone sealed and the pairing ADV secret, both base64, as pair-success does. Holds nothing while onboarding is off. The next reconnect stores them, and the registration job joins this browser once it has its canonical user. Returns whether the payload was kept. Example: Debug.labyrinthInjectCapturedPayload(sealedB64, advSecretB64)";
+    function z() {
+      return j.apply(this, arguments);
+    }
+    function j() {
+      return (
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("skjTRT6PJ5A8MWE1XK9-21LQhxg=");
+          var e = yield o("WAWebLabyrinthDebugDeviceStateStore").loadOwnedState(
+              o("WAWebLabyrinthDebugLoadForStatus").loadForStatus,
+            ),
+            t = e.success ? e.value : null;
+          return {
+            onboardingEnabled: o(
+              "WAWebLabyrinthCompanionRegistration",
+            ).isLabyrinthCompanionOnboardingEnabled(),
+            device:
+              t == null
+                ? null
+                : {
+                    backupId: t.backupId,
+                    ebDeviceId: t.ebDeviceId,
+                    serverEpochId: t.activeServerEpochId,
+                  },
+            lastAttempt: W,
+            onboarding: yield o(
+              "WAWebLabyrinthCompanionOnboardingStatus",
+            ).getLabyrinthCompanionOnboardingStatus(),
+          };
+        })),
+        j.apply(this, arguments)
+      );
+    }
+    ((z.doc =
+      "Return non-secret companion onboarding status: the gate, this browser's stored Labyrinth device, the outcome of the last Debug.labyrinthRegisterFromPayload since the page loaded, the registration job's progress, and the check of the phone's companion test message after registration."),
+      (z.paramsToExecute = []));
+    function K() {
+      return Q.apply(this, arguments);
+    }
+    function Q() {
+      return (
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            r("vulture")("SkBLwVZxKWoMSbUjGDIOk-Be1dY="),
+            o(
+              "WAWebLabyrinthDebugDeviceStatusController",
+            ).getLabyrinthDebugDeviceStatus()
+          );
+        })),
+        Q.apply(this, arguments)
+      );
+    }
+    ((K.doc =
+      "Return non-secret status for the persisted Labyrinth debug device."),
+      (K.paramsToExecute = []));
+    function X() {
+      return Y.apply(this, arguments);
+    }
+    function Y() {
+      return (
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("963nt2hkFg-yeDiQBmfLI9Ji8XE=");
+          var e = yield o(
+            "WAWebLabyrinthDebugCreateBackupController",
+          ).createLabyrinthDebugBackup();
+          return e.success ? e.value : e;
+        })),
+        Y.apply(this, arguments)
+      );
+    }
+    X.doc =
+      "Create backup (native): generate Labyrinth backup data with Wasm and call wa_labyrinth_create_backup";
+    function J() {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          r("vulture")("fTxo12WsTaJRyLcC-kBvhQNC7tY=");
+          var e = yield o(
+            "WAWebLabyrinthDebugRotateEpochController",
+          ).rotateLabyrinthDebugEpoch();
+          return e.success ? e.value : e;
+        })),
+        Z.apply(this, arguments)
+      );
+    }
+    J.doc =
+      "Rotate epoch (native): rotate the epoch of the backup created by a prior Debug.labyrinthCreateBackupNativeWasm() via wa_labyrinth_rotate_epoch. Only that client holds the virtual device the rotation needs.";
+    function ee(e) {
+      return te.apply(this, arguments);
+    }
+    function te() {
+      return (
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          r("vulture")("4NhERmqMYg2IwcG-2cHQGJVo2pg=");
+          var t = yield o(
+            "WAWebLabyrinthDebugEncryptAndUploadController",
+          ).encryptAndUploadLabyrinthDebugMessages(e);
+          return t.success ? t.value : t;
+        })),
+        te.apply(this, arguments)
+      );
+    }
+    ee.doc =
+      'Upload messages (native): encrypt one text message one or more times for a thread with Wasm and batch-upload it, with its sealed thread ID, through wa_labyrinth_upload_messages. Example: Debug.labyrinthEncryptAndUploadMessageNative({threadId, msg, repeat: 3, threadType: "ONE_TO_ONE"})';
+    function ne(e) {
+      return re.apply(this, arguments);
+    }
+    function re() {
+      return (
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("nullthrows")(
+              e,
+              "labyrinthRestoreDebugThread needs a chat JID",
+            ),
+            n = yield o("WAPromiseTimeout")
+              .promiseTimeout(E.load(), L)
+              .then(
+                function (e) {
+                  return o("WAResultOrError").makeResult(e);
+                },
+                function (e) {
+                  return o("WAResultOrError").makeError(r("getErrorSafe")(e));
+                },
+              );
+          return n.success
+            ? yield n.value.restoreLabyrinthDebugThread(t)
+            : o("WAResultOrError").makeError({
+                kind: "load-debug-api-error",
+                error: n.error,
+              });
+        })),
+        re.apply(this, arguments)
+      );
+    }
+    ne.doc =
+      "Restore a chat from the Labyrinth backup as the debug drawer's Chat by JID does, decrypting each message under its own epoch, and load that code first if the drawer has not. Example: Debug.labyrinthRestoreDebugThread('123@lid')";
+    function oe(e) {
+      return ae.apply(this, arguments);
+    }
+    function ae() {
+      return (
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebLabyrinthShadowScheduler",
+          ).forceLabyrinthShadowRun({ reportedHistoryStartSec: ce(e) });
+          return t != null ? t : "already-running";
+        })),
+        ae.apply(this, arguments)
+      );
+    }
+    oe.doc =
+      "Shadow test, forced: run now whatever the eligibility checks say, and return the run with its report. Compares this browser's Labyrinth messages with its local messages for up to 20 threads, from the reported history start (reportedHistoryDays ago, or backupFromSec in unix seconds; the stored start when both are omitted; at most 90 days), and reports, by message identity (thread, author, stanza id; never content), N messages overall, M restorable via Labyrinth, K via history sync, recall of local messages, and per chat which identities are only local or only in Labyrinth. Reads only: nothing is stored or uploaded, and only counts (no ids or content) go to the QPL event WHATSAPP_WEB.LABYRINTH_SHADOW_RUN. Example: await Debug.labyrinthShadowRun({reportedHistoryDays: 5})";
+    function ie() {
+      return le.apply(this, arguments);
+    }
+    function le() {
+      return (
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return {
+            eligibility: yield o(
+              "WAWebLabyrinthShadowScheduler",
+            ).getLabyrinthShadowEligibility(),
+            lastRun: o(
+              "WAWebLabyrinthShadowScheduler",
+            ).getLastLabyrinthShadowRun(),
+            reportedHistoryStartSec: o(
+              "WAWebLabyrinthReportedHistoryStart",
+            ).getLabyrinthReportedHistoryStartSec(),
+          };
+        })),
         le.apply(this, arguments)
       );
     }
-    ((ie.doc =
-      "Given a plain threadId, returns base64 partialThreadId and base64 messageKey for CLI decrypt flow. Example: Debug.labyrinthDecryptFlowInputs({threadId})"),
-      (ie.paramsToExecute = []));
-    function se() {
+    ie.doc =
+      "Shadow test status: every eligibility check for an automatic run with its skip reason (null when it passes), the stored reported history start, and the last run of this session. Example: await Debug.labyrinthShadowStatus()";
+    function se(e) {
       return ue.apply(this, arguments);
     }
     function ue() {
       return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebLabyrinthWasmCreateBackup").createBackupWasm();
-          if (!e.success)
-            return (
-              o("WALogger").ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Debug][Labyrinth] createBackupWasm failed",
-                  ])),
-              ),
-              e
-            );
-          o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] createBackupWasm success",
-              ])),
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("nullthrows")(
+            ce(e),
+            "Pass reportedHistoryDays or backupFromSec",
           );
-          var t = Q();
-          o("WALogger").LOG(
-            b ||
-              (b = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] start nativeCreateLabyrinthBackup GQL request",
-              ])),
+          return (
+            yield o(
+              "WAWebLabyrinthReportedHistoryStart",
+            ).saveLabyrinthReportedHistoryStart(t),
+            o(
+              "WAWebLabyrinthReportedHistoryStart",
+            ).getLabyrinthReportedHistoryStartSec()
           );
-          try {
-            var n = yield o(
-                "WAWebCreateLabyrinthBackupJob",
-              ).createLabyrinthBackup(e.value, t),
-              a = n.wa_labyrinth_create_backup;
-            return (
-              (a == null ? void 0 : a.__typename) ===
-              "WALabyrinthCreateBackupData"
-                ? o("WALogger").LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Debug][Labyrinth] nativeCreateLabyrinthBackup GQL request success",
-                      ])),
-                  )
-                : (a == null ? void 0 : a.__typename) ===
-                    "WALabyrinthCreateBackupError"
-                  ? o("WALogger").ERROR(
-                      S ||
-                        (S = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Debug][Labyrinth] nativeCreateLabyrinthBackup GQL request failed",
-                        ])),
-                    )
-                  : o("WALogger").LOG(
-                      R ||
-                        (R = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Debug][Labyrinth] native create backup GQL response",
-                        ])),
-                    ),
-              a
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] nativeCreateLabyrinthBackup GQL request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e)),
-              e
-            );
-          }
         })),
         ue.apply(this, arguments)
       );
     }
     se.doc =
-      "Create backup (native): generate Labyrinth backup data with Wasm and call wa_labyrinth_create_backup";
-    function ce() {
-      return de.apply(this, arguments);
+      "Shadow test: store the reported history start, as the primary would at pairing, so automatic runs become eligible and compare from it. Example: await Debug.labyrinthSetReportedHistoryStart({reportedHistoryDays: 5})";
+    function ce(e) {
+      var t = e == null ? void 0 : e.reportedHistoryDays;
+      return t != null
+        ? o("WATimeUtils").unixTime() - t * o("WATimeUtils").DAY_SECONDS
+        : e == null
+          ? void 0
+          : e.backupFromSec;
     }
-    function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = j(),
-            n = (e = r("nullthrows"))(t.epochId),
-            a = [
-              {
-                deviceId: e(t.ebDeviceId),
-                epochStoragePublicKey: z(t.epochStoragePublicKey),
-                devicePublicKey: z(t.devicePublicKey),
-              },
-              {
-                deviceId: e(t.vdDeviceId),
-                epochStoragePublicKey: z(t.vdEpochStoragePublicKey),
-                devicePublicKey: z(t.vdPublicKey),
-              },
-            ],
-            i = yield o("WAWebLabyrinthWasmRotateEpoch").rotateEpochWasm({
-              currentEpochRootKey: z(t.epochRootKey),
-              currentEpochAnonId: z(t.epochAnonId),
-              currentEpochFbid: e(t.epochFbid),
-              epochStoragePrivateKey: z(t.epochStoragePrivateKey),
-              members: a,
-            });
-          if (!i.success)
-            return (
-              o("WALogger").ERROR(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Debug][Labyrinth] rotateEpochWasm failed",
-                  ])),
-              ),
-              i
-            );
-          (o("WALogger").LOG(
-            k ||
-              (k = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] rotateEpochWasm success",
-              ])),
-          ),
-            o("WALogger").LOG(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Debug][Labyrinth] start rotateLabyrinthEpoch GQL request",
-                ])),
-            ));
-          try {
-            var l = yield o(
-                "WAWebRotateLabyrinthEpochJob",
-              ).rotateLabyrinthEpoch(n, i.value, a),
-              s = l.wa_labyrinth_rotate_epoch;
-            return (
-              (s == null ? void 0 : s.__typename) ===
-              "WALabyrinthRotateEpochData"
-                ? o("WALogger").LOG(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request success",
-                      ])),
-                  )
-                : (s == null ? void 0 : s.__typename) ===
-                    "WALabyrinthRotateEpochError"
-                  ? o("WALogger").ERROR(
-                      D ||
-                        (D = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request failed",
-                        ])),
-                    )
-                  : o("WALogger").LOG(
-                      x ||
-                        (x = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Debug][Labyrinth] rotate epoch GQL response",
-                        ])),
-                    ),
-              s
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e)),
-              e
-            );
-          }
-        })),
-        de.apply(this, arguments)
-      );
-    }
-    ce.doc =
-      "Rotate epoch (native): rotate the epoch registered by a prior Debug.labyrinthCreateBackupNativeWasm() (reads its cached material) via wa_labyrinth_rotate_epoch. Call Debug.labyrinthCreateBackupNativeWasm() first.";
-    function me(e) {
-      return pe.apply(this, arguments);
-    }
-    function pe() {
-      return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msg,
-            a = e.repeat,
-            i = a === void 0 ? 1 : a,
-            l = e.threadId,
-            s = e.threadType,
-            u = s === void 0 ? "ONE_TO_ONE" : s,
-            c = j(),
-            d = r("nullthrows")(K()),
-            m = r("nullthrows")(c.backupId),
-            p = r("nullthrows")(c.epochId),
-            _ = r("nullthrows")(l),
-            f = t != null ? t : W,
-            g = r("nullthrows")(c.epochRootKey),
-            h = r("nullthrows")(c.mailboxRootKey),
-            y = r("nullthrows")(c.orfClientState),
-            C = r("nullthrows")(c.epochAnonId),
-            b = o("WAWebLabyrinthCanonicalUserFbid").getWaCanonicalUserFbid(),
-            v = Math.max(1, Math.floor(i)),
-            S = yield (B || (B = n("Promise"))).all(
-              Array.from({ length: v }, function () {
-                var e = r("nullthrows")(r("WAWebPonyfillsCryptoRandomUUID")()),
-                  t = String(o("WATimeUtils").unixTimeMs());
-                return o("WAWebLabyrinthWasmEncryptMessage").encryptMessageWasm(
-                  {
-                    backupId: m,
-                    epochAnonId: C,
-                    epochId: p,
-                    epochRootKey: g,
-                    mailboxRootKey: h,
-                    orfClientState: y,
-                    plaintext: f,
-                    stanzaId: e,
-                    threadId: _,
-                    threadType: u,
-                    timestampMs: t,
-                    waCanonicalUserFbid: b,
-                  },
-                );
-              }),
-            ),
-            R = [];
-          for (var L of S.entries()) {
-            var E = L[0],
-              k = L[1];
-            if (!k.success)
-              return (
-                o("WALogger").ERROR(
-                  P ||
-                    (P = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] encryptMessageWasm failed",
-                    ])),
-                ),
-                k
-              );
-            R.push(k.value);
-          }
-          o("WALogger").LOG(
-            N ||
-              (N = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] encryptMessageWasm success",
-              ])),
-          );
-          var I = { deviceId: d, epochId: p, familyDeviceId: d },
-            T = o(
-              "WAWebUploadLabyrinthMessagesJob",
-            ).wasmResultsToUploadLabyrinthMessagesInput(R, I);
-          o("WALogger").LOG(
-            M ||
-              (M = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] start nativeUploadLabyrinthMessages GQL request",
-              ])),
-          );
-          try {
-            var D = yield o(
-                "WAWebUploadLabyrinthMessagesJob",
-              ).uploadLabyrinthMessages(T),
-              x = D.wa_labyrinth_upload_messages;
-            return (
-              (x == null ? void 0 : x.__typename) ===
-              "WALabyrinthUploadMessagesData"
-                ? o("WALogger").LOG(
-                    w ||
-                      (w = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Debug][Labyrinth] nativeUploadLabyrinthMessages GQL request success",
-                      ])),
-                  )
-                : (x == null ? void 0 : x.__typename) ===
-                    "WALabyrinthUploadMessagesError"
-                  ? o("WALogger").ERROR(
-                      A ||
-                        (A = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Debug][Labyrinth] nativeUploadLabyrinthMessages GQL request failed",
-                        ])),
-                    )
-                  : o("WALogger").LOG(
-                      F ||
-                        (F = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Debug][Labyrinth] nativeUploadLabyrinthMessages GQL response",
-                        ])),
-                    ),
-              x
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  O ||
-                    (O = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] nativeUploadLabyrinthMessages GQL failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e)),
-              e
-            );
-          }
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    me.doc =
-      'Upload messages (native): encrypt one text message one or more times for a thread with Wasm and batch-upload it through wa_labyrinth_upload_messages. Example: Debug.labyrinthEncryptAndUploadMessageNative({threadId, msg, repeat: 3, threadType: "ONE_TO_ONE"})';
-    var _e = {
-      labyrinthCreateBackupNativeWasm: se,
-      labyrinthRotateEpochNativeWasm: ce,
-      labyrinthDecryptFlowInputs: ie,
-      labyrinthEncryptAndUploadMessageNative: me,
-      labyrinthInboxSnapshot: ne,
-      labyrinthRangeQuery: oe,
-    };
-    l.default = _e;
+    var de = {
+        labyrinthAddDevice: O,
+        labyrinthCompanionIdentityKey: q,
+        labyrinthCreateBackupNativeWasm: X,
+        labyrinthDeviceStateStatus: K,
+        labyrinthRotateEpochNativeWasm: J,
+        labyrinthDecryptFlowInputs: A,
+        labyrinthEncryptAndUploadMessageNative: ee,
+        labyrinthInboxSnapshot: P,
+        labyrinthInjectCapturedPayload: G,
+        labyrinthOnboardingStatus: z,
+        labyrinthRangeQuery: M,
+        labyrinthRegisterFromPayload: V,
+        labyrinthRestoreDebugThread: ne,
+        labyrinthSetReportedHistoryStart: se,
+        labyrinthShadowRun: oe,
+        labyrinthShadowStatus: ie,
+      },
+      me = de;
+    l.default = me;
   },
   98,
 );

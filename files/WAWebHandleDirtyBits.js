@@ -19,11 +19,11 @@ __d(
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebPDFNTypes",
-    "WAWebPhoneNumberSharingSettingsRefresh",
     "WAWebQueryAndUpdateGroupMetadataJob",
     "WAWebSyncd",
     "WAWebSyncdConst",
     "WAWebTos",
+    "WAWebUpdateAllPrivacySettings",
     "WAWebUserUtils",
     "WAWebWamoNewsletterGatingUtils",
     "WAWebWorkerSafeBackendApi",
@@ -59,10 +59,9 @@ __d(
                 if (e === o("WAWebAccountSyncJob").AccountSyncType.PICTURE)
                   return o("WAWebAccountSyncJob").getAndUpdateProfilePicture();
                 e === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY
-                  ? (o(
-                      "WAWebPhoneNumberSharingSettingsRefresh",
-                    ).schedulePhoneNumberSharingSettingsRefresh(),
-                    o("WAWebAccountSyncJob").updatePrivacySettings())
+                  ? o(
+                      "WAWebUpdateAllPrivacySettings",
+                    ).updateAllPrivacySettings()
                   : e === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST
                     ? o(
                         "WAWebFetchAndUpdateBlocklistJob",
