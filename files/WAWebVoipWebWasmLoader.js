@@ -13,9 +13,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6",
+      u = "cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1",
       c = null,
-      d = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1795021847665" }),
+      d = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1795190749521" }),
       m = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -767,7 +767,7 @@ __d(
             console.warn.apply(console, arguments);
           }
           var Ke = {
-            1457172: function (t, n) {
+            1458658: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -781,7 +781,7 @@ __d(
                 message: e,
               });
             },
-            1457459: function () {
+            1458945: function () {
               return Date.now();
             },
           };
@@ -909,13 +909,13 @@ __d(
               message: n,
             });
           }
-          function at(e, t, n, r) {
-            var o = m(),
-              a = o.length;
-            if (e < 0 || e >= a || t < 0 || e + t > a) return -1;
-            var i = o.subarray(e, e + t);
+          function at(e, t, n, r, o) {
+            var a = m(),
+              i = a.length;
+            if (e < 0 || e >= i || t < 0 || e + t > i) return -1;
+            var l = a.subarray(e, e + t);
             return self.WhatsAppVoipWasmWorkerCompatibleCallbacks.sendDataToRelay(
-              { data: i, len: t, ip: Yt(n), port: r },
+              { data: l, len: t, ip: Yt(n), port: r, copyBeforePost: o !== 0 },
             );
           }
           function it(e, t, n, r, o, a) {
@@ -7838,8 +7838,8 @@ __d(
             hl = (C.___get_exception_message = $e("__get_exception_message")),
             yl = $e("__cxa_can_catch"),
             Cl = $e("__cxa_is_pointer_type"),
-            bl = (C.___start_em_js = 1451292),
-            vl = (C.___stop_em_js = 1457172);
+            bl = (C.___start_em_js = 1452716),
+            vl = (C.___stop_em_js = 1458658);
           function Sl(e, t, n, r) {
             var o = pl();
             try {

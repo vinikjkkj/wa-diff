@@ -5,10 +5,15 @@ __d(
     function e() {
       return n("cr:18907") != null;
     }
-    function s(e) {
+    function s() {
+      n("cr:18907") == null || n("cr:18907").preloadRuntime();
+    }
+    function u(e) {
       return r("nullthrows")(n("cr:18907")).client(e);
     }
-    ((l.isWebDiBackendEnabled = e), (l.runtime = s));
+    ((l.isWebDiBackendEnabled = e),
+      (l.preloadWebDiBackend = s),
+      (l.runtime = u));
   },
   98,
 );

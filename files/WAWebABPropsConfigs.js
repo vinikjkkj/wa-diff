@@ -2036,7 +2036,6 @@ __d(
       ks_mp4_strict_validation_enabled: [38174, "bool", !1, !0],
       ks_ogg_opus_strict_validation_enabled: [37509, "bool", !1, !0],
       ks_pdf_strict_validation_enabled: [37251, "bool", !1, !0],
-      ks_use_component_model: [26966, "bool", !1, !1],
       ks_zip_archive_check_enabled: [40795, "bool", !1, !0],
       lanczos_min_upscale_scale_for_vod: [
         35473,
@@ -3151,6 +3150,7 @@ __d(
       status_save_to_camera_roll_enabled: [13280, "bool", !1, !0],
       status_session_split_scoped_recovery_enabled: [41950, "bool", !0, !0],
       status_video_max_duration: [175, "int", 30, 30],
+      status_video_max_duration_second: [6728, "int", 60, 60],
       status_video_playback_max_duration_second: [7902, "int", 30, 30],
       status_viewer_action_psa_link_click_logging_enabled: [
         34489,

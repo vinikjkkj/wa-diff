@@ -12,14 +12,14 @@ __d(
     var e, s, u;
     function c(t) {
       try {
-        if (!_(t)) return;
+        if (!f(t)) return;
         o("WAWebPathfinderCustomEvent").recordPathfinderCustomEvent({
           eventName: "CONTENT_CHANGED",
           targetType: "MessageSend",
           targetTrackingId: o("WAWebPathfinderTrackingId")
             .PATHFINDER_TRACKING_ID.MESSAGE_SEND_OUTGOING,
           customEventType: 46,
-          customMetadata: { media_type: String(t.mediaType) },
+          customMetadata: d(t),
           capturedAt: t.capturedAt,
         });
       } catch (t) {
@@ -34,8 +34,13 @@ __d(
           .sendLogs("pathfinder-message-sent-record-failed");
       }
     }
-    var d = "share_phone_number",
-      m = new Set([
+    function d(e) {
+      var t = String(e.mediaType),
+        n = e.sendMethod;
+      return n != null ? { media_type: t, send_method: n } : { media_type: t };
+    }
+    var m = "share_phone_number",
+      p = new Set([
         (s = o("WAWebMsgType")).MSG_TYPE.ALBUM,
         s.MSG_TYPE.AUDIO,
         s.MSG_TYPE.BUTTONS_RESPONSE,
@@ -70,7 +75,7 @@ __d(
         s.MSG_TYPE.VCARD,
         s.MSG_TYPE.VIDEO,
       ]),
-      p = new Set([
+      _ = new Set([
         (u = o("WAWebMessageAssociation.flow")).MessageAssociationType
           .HD_VIDEO_DUAL_UPLOAD,
         u.MessageAssociationType.HD_IMAGE_DUAL_UPLOAD,
@@ -82,22 +87,22 @@ __d(
         u.MessageAssociationType.MEDIA_POLL,
         u.MessageAssociationType.POLL_ADD_OPTION,
       ]);
-    function _(e) {
+    function f(e) {
       var t;
       return (
         e.chatKind !== "other" &&
-        f(e) &&
+        g(e) &&
         e.subtype !== "message_edit" &&
         ((t = e.pairedMediaType) == null ? void 0 : t.endsWith("_CHILD")) !==
           !0 &&
-        (e.associationType == null || !p.has(e.associationType)) &&
+        (e.associationType == null || !_.has(e.associationType)) &&
         !e.hiddenPayment
       );
     }
-    function f(e) {
+    function g(e) {
       return (
-        m.has(e.type) ||
-        (e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL && e.subtype === d)
+        p.has(e.type) ||
+        (e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL && e.subtype === m)
       );
     }
     l.emitPathfinderMessageSent = c;

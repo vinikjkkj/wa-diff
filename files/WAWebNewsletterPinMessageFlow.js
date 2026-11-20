@@ -7,9 +7,10 @@ __d(
     "WAWebConfirmPopup.react",
     "WAWebModalManager",
     "WAWebNewsletterDBUtils",
-    "WAWebNewsletterErrorPopups.react",
+    "WAWebNewsletterInfoDialogsLoadable",
     "WAWebNewsletterPinDisplay",
     "WAWebNewsletterPinMessageAction",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -83,13 +84,14 @@ __d(
             a = d(t);
           if (a != null) {
             if (o("WAWebNewsletterPinDisplay").isNewsletterMsgTooOldToPin(t)) {
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(
-                  o("WAWebNewsletterErrorPopups.react")
-                    .NewsletterPinTooOldPopup,
-                  {},
-                ),
-              );
+              (o("WAWebModalManager").ModalManager.close(),
+                o("WDSDialogBridge").openWDSDialog(
+                  u.jsx(
+                    o("WAWebNewsletterInfoDialogsLoadable")
+                      .NewsletterPinTooOldPopupLoadable,
+                    {},
+                  ),
+                ));
               return;
             }
             var i =

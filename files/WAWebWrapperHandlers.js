@@ -10,6 +10,7 @@ __d(
     "WAWebEphemeralFbtKic",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
+    "WAWebFbtCommon",
     "WAWebFrontendMsgGetters",
     "WAWebGroupAgentOneToOneContact",
     "WAWebMarketingMessagesUserControlsPopupLoadable",
@@ -18,9 +19,13 @@ __d(
     "WAWebPrivacyModeSystemMsg",
     "WAWebProtobufsWeb.pb",
     "WAWebStateUtils",
+    "WAWebTimeSpentLoggingNavigation",
     "WAWebWamEnumMmUserControlsEntryPoint",
     "WAWebWebSearchPopup.react",
     "WAWebWrapperOrderEphemeralExemption",
+    "WDSButtonGroup.react",
+    "WDSDialog.react",
+    "WDSDialogBridge",
     "WDSMargins.stylex",
     "react",
     "stylex",
@@ -81,17 +86,9 @@ __d(
                 (l = s._(
                   /*BTDS*/ "The sender may be using an older version of WhatsApp.",
                 ))),
-            o("WAWebModalManager").ModalManager.open(
-              c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                tsNavigationData: {
-                  surface: "unknown",
-                  viewName: "ephemeral-msg-info",
-                },
-                title: i,
-                onOK: o("WAWebModalManager").closeModalManager,
-                children: l,
-              }),
-              { transition: "modal-flow" },
+            o("WAWebModalManager").closeModalManager(),
+            o("WDSDialogBridge").openWDSDialog(
+              c.jsx(m, { title: i, body: l }),
             ));
         },
         d = function () {
@@ -109,8 +106,8 @@ __d(
               { transition: "modal-flow" },
             );
         },
-        p = function () {
-          var e = m(t, n);
+        _ = function () {
+          var e = p(t, n);
           e != null &&
             o("WAWebModalManager").ModalManager.open(
               c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
@@ -124,8 +121,8 @@ __d(
               { transition: "modal-flow" },
             );
         },
-        _ = function () {
-          var a = m(t, n);
+        f = function () {
+          var a = p(t, n);
           o("WAWebModalManager").ModalManager.open(
             c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
               tsNavigationData: {
@@ -163,7 +160,7 @@ __d(
             { transition: "modal-flow" },
           );
         },
-        f = function () {
+        g = function () {
           var e = o(
               "WAWebWrapperOrderEphemeralExemption",
             ).getOrderEphemeralExemptionInfoString(),
@@ -188,7 +185,7 @@ __d(
             { transition: "modal-flow" },
           );
         },
-        g = function () {
+        h = function () {
           o("WAWebModalManager").ModalManager.open(
             c.jsx(
               o("WAWebMarketingMessagesUserControlsPopupLoadable")
@@ -208,13 +205,44 @@ __d(
         handleOpenWebSearchFlow: l,
         handleOpenEphemeralInfoPopup: u,
         handleOpenBizPrivacyInfoPopup: d,
-        handleOpenEphemeralExemptionInfoPopup: f,
-        handleOpenBizEncStateMismatchInfoPopup: p,
-        handleOpenEncryptionAndEphemeralExemptionInfoPopup: _,
-        handleOpenMarketingMessagesFeedbackPopup: g,
+        handleOpenEphemeralExemptionInfoPopup: g,
+        handleOpenBizEncStateMismatchInfoPopup: _,
+        handleOpenEncryptionAndEphemeralExemptionInfoPopup: f,
+        handleOpenMarketingMessagesFeedbackPopup: h,
       };
     }
-    function m(e, t) {
+    function m(e) {
+      var t = e.body,
+        n = e.title;
+      return (
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "unknown",
+          viewName: "ephemeral-msg-info",
+        }),
+        c.jsx(r("WDSDialog.react"), {
+          closeButton: !1,
+          description: t,
+          footer: c.jsx(r("WDSButtonGroup.react"), {
+            orientation: "stacked",
+            primaryButtonProps: {
+              label: r("WAWebFbtCommon")("OK"),
+              onPress: o("WDSDialogBridge").closeWDSDialog,
+              testid: "popup-controls-ok",
+            },
+            width: "fill",
+          }),
+          headerType: "expressive",
+          layoutType: "expressive",
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
+          size: "sm",
+          testid: "confirm-popup",
+          title: n,
+        })
+      );
+    }
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e, t) {
       var n,
         r,
         a,

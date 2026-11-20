@@ -8,6 +8,7 @@ __d(
     "WAWebBotSystemMsg",
     "WAWebBotTos",
     "WAWebBotTypes",
+    "WAWebChatOpeningNotice",
     "WAWebContactSystemMsg",
     "WAWebMobilePlatforms",
     "WAWebPrivacyModeSystemMsg",
@@ -29,7 +30,7 @@ __d(
             return [
               o("WAWebContactSystemMsg").genEncryptNotificationMsg(
                 e,
-                "chat_psa",
+                o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.PSA,
               ),
             ];
           var a = e.isSupportAgentBot();
@@ -40,7 +41,7 @@ __d(
             var i = [
               o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                 e,
-                "support_system_message",
+                o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.SUPPORT,
               ),
             ];
             return (
@@ -98,7 +99,7 @@ __d(
               c.push(
                 o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                   e,
-                  "biz_privacy_mode_init_bsp",
+                  o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.BSP_PRIVACY,
                 ),
               );
               break e;
@@ -107,7 +108,7 @@ __d(
               c.push(
                 o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                   e,
-                  "biz_privacy_mode_init_fb",
+                  o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.META_PRIVACY,
                 ),
               );
               break e;
@@ -119,7 +120,7 @@ __d(
               c.push(
                 o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                   e,
-                  "is_capi_hosted_group",
+                  o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.HOSTED_GROUP,
                 ),
               );
               break e;
@@ -156,7 +157,8 @@ __d(
                   ? n
                   : o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
                       e,
-                      "biz_privacy_mode_init_fb",
+                      o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE
+                        .META_PRIVACY,
                     ),
               ];
             }

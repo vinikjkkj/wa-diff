@@ -12,7 +12,11 @@ __d(
           ? "masked"
           : "normal";
     }
-    l.getForwardedBotDisplayMode = e;
+    function s(t) {
+      var n = t.forwardedAiBotMessageInfo;
+      return n != null && e(n.validationStatus) === "masked";
+    }
+    ((l.getForwardedBotDisplayMode = e), (l.isMaskedForwardedBotCopy = s));
   },
   98,
 );

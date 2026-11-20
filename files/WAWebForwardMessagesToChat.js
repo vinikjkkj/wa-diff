@@ -158,7 +158,7 @@ __d(
       return { msgsThatCanBeforwarded: t, msgsThatCannotBeForwarded: n };
     }
     function m(e, t) {
-      return o("WAWebUserUtils").isMeAccount(e.id) ? !0 : t && !p(e.contact);
+      return t && !p(e.contact);
     }
     function p(e) {
       return (
@@ -277,11 +277,11 @@ __d(
     var L = "passed";
     function E(e) {
       var t;
-      return ((t = o("WAWebMsgGetters").getForwardedAiBotMessageInfo(e)) == null
-        ? void 0
-        : t.validationStatus) === L
-        ? !0
-        : e.isForwarded !== !0 && o("WAWebMsgGetters").getIsBotResponse(e);
+      return (
+        ((t = o("WAWebMsgGetters").getForwardedAiBotMessageInfo(e)) == null
+          ? void 0
+          : t.validationStatus) === L
+      );
     }
     function k(e) {
       return o("WAWebMsgGetters").getIsNewsletterMsg(e) ||

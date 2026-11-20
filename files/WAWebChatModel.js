@@ -44,6 +44,7 @@ __d(
     "WAWebChatStoreService",
     "WAWebChatThemeGatingUtils",
     "WAWebChatThemeValue",
+    "WAWebChatTrust",
     "WAWebChatUnreadMentions",
     "WAWebChatUpdates",
     "WAWebChatViewMode.flow",
@@ -961,15 +962,7 @@ __d(
             );
           }),
           (i.isTrustedForAutoDownload = function () {
-            var e;
-            return o("WAWebChatGetters").getIsGroup(this)
-              ? this.isReadOnly ||
-                  this.notSpam ||
-                  ((e = this.groupMetadata) == null
-                    ? void 0
-                    : e.isTrustedForAutoDownload()) === !0 ||
-                  this.hasMaybeSentMsgToChat()
-              : this.isTrusted();
+            return o("WAWebChatTrust").isChatTrustedForAutoDownload(this);
           }),
           (i.isGroupSafetyChecked = function () {
             var e = !1;

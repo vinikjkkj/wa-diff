@@ -4,6 +4,7 @@ __d(
     "WAWebWamCodegenUtils",
     "WAWebWamEnumAppLaunchDestinationType",
     "WAWebWamEnumAppLaunchType",
+    "WAWebWamEnumAppLaunchWebviewStateType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,6 +27,11 @@ __d(
               appLaunchTypeT: [
                 5,
                 o("WAWebWamEnumAppLaunchType").APP_LAUNCH_TYPE,
+              ],
+              appLaunchWebviewState: [
+                30,
+                o("WAWebWamEnumAppLaunchWebviewStateType")
+                  .APP_LAUNCH_WEBVIEW_STATE_TYPE,
               ],
               dbBgThreadReadsDurationT: [17, e.TYPES.TIMER],
               dbBgThreadWritesDurationT: [18, e.TYPES.TIMER],

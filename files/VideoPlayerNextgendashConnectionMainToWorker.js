@@ -229,14 +229,30 @@ __d(
             }
           },
           function (t) {
-            if (h) t.push(c(_, e));
+            var r = _.mp4InspectorCapture.add(function (t) {
+              if (
+                t.workerType === n &&
+                t.playerInstanceKey === a &&
+                t.sessionId === e.config.mp4InspectorCaptureSessionId
+              )
+                try {
+                  i(t);
+                } catch (e) {}
+            });
+            if (
+              (t.push(function () {
+                _.mp4InspectorCapture.remove(r);
+              }),
+              h)
+            )
+              t.push(c(_, e));
             else {
-              var n = e.loggingState.metadata.nextgendashInstanceIndex,
-                r = _.addMessageListener(
+              var o = e.loggingState.metadata.nextgendashInstanceIndex,
+                l = _.addMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_qpl_calls",
                   function (t) {
                     t.calls.forEach(function (t) {
-                      t.instanceKey === n &&
+                      t.instanceKey === o &&
                         e.logging.log(e, { qplCall: t, type: "qpl_call" });
                     });
                   },
@@ -244,12 +260,12 @@ __d(
               t.push(function () {
                 _.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_qpl_calls",
-                  r,
+                  l,
                 );
               });
             }
             if (e.config.debugViz) {
-              var o = _.addMessageListener(
+              var s = _.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_debug_snapshot",
                 function (t) {
                   e.logging.log(e, {
@@ -261,10 +277,10 @@ __d(
               t.push(function () {
                 _.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_debug_snapshot",
-                  o,
+                  s,
                 );
               });
-              var a = _.addMessageListener(
+              var u = _.addMessageListener(
                 "comet_video_player_nextgendash__worker_to_main_debug_events",
                 function (t) {
                   e.logging.log(e, {
@@ -276,7 +292,7 @@ __d(
               t.push(function () {
                 _.removeMessageListener(
                   "comet_video_player_nextgendash__worker_to_main_debug_events",
-                  a,
+                  u,
                 );
               });
             }

@@ -192,9 +192,8 @@ __d(
           throw r("err")("history sync chunk retry is not supported in web");
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .RECENT_CONVERSATIONS_ON_DEMAND_REQUEST:
-          throw r("err")(
-            "recent conversations on demand request is not supported in web",
-          );
+          return o("WAWebWamEnumPeerDataRequestType").PEER_DATA_REQUEST_TYPE
+            .RECENT_CONVERSATIONS_ON_DEMAND;
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .GALAXY_FLOW_ACTION:
           return o("WAWebWamEnumPeerDataRequestType").PEER_DATA_REQUEST_TYPE

@@ -34,6 +34,7 @@ __d(
       CHANNELS: 29,
       COVER_PHOTO: 30,
       GROUP_CREATION: 31,
+      PHONE_NUMBER_SHARING: 32,
     });
     i.PRIVACY_CONTROL_ITEM_TYPE = e;
   },

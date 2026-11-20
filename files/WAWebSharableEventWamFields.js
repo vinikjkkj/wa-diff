@@ -66,8 +66,7 @@ __d(
         })
         .join(",");
     }
-    ((l.SharableEventWamField = e),
-      (l.getSharableEventWamFilledFields = s),
+    ((l.getSharableEventWamFilledFields = s),
       (l.getSharableEventWamUpdatedFields = u));
   },
   98,

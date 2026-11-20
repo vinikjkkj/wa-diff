@@ -178,7 +178,7 @@ __d(
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAPromiseTimeout").promiseTimeout(
-              (d || (d = n("Promise"))).all([L(e), I(e), f()]),
+              (d || (d = n("Promise"))).all([E(e), T(e), f()]),
               p,
               "forwardOwnPtvToStatus: the video note did not load in time",
             ),
@@ -186,10 +186,7 @@ __d(
             a = t[1],
             i = t[2];
           return i({
-            maxDurationMs:
-              o("WAWebABProps").getABPropConfigValue(
-                "status_video_max_duration",
-              ) * m,
+            maxDurationMs: L(e),
             scene: o("WAWebPtvStatusCard").getPtvStatusCardScene(
               a,
               o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
@@ -201,11 +198,27 @@ __d(
       );
     }
     function L(e) {
-      return E.apply(this, arguments);
+      var t,
+        n,
+        r = o("WAWebABProps").getABPropConfigValue(
+          "status_video_max_duration_second",
+        ),
+        a = Math.floor(
+          parseFloat(
+            (t = (n = e.mediaData) == null ? void 0 : n.duration) != null
+              ? t
+              : "",
+          ),
+        ),
+        i = a >= 1 && a <= r ? a + 1 : r;
+      return i * m;
     }
-    function E() {
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           ((t = e.mediaData) == null ? void 0 : t.mediaBlob) == null &&
             (yield e.downloadMedia({
@@ -214,17 +227,17 @@ __d(
                 .SEND_TO_CHAT,
               isUserInitiated: !0,
             }));
-          var n = k(e);
+          var n = I(e);
           if (n == null)
             throw r("err")(
               "forwardOwnPtvToStatus: the video note has no media",
             );
           return n;
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e) {
+    function I(e) {
       var t,
         n,
         a = (t = e.mediaData) == null ? void 0 : t.mediaBlob;
@@ -235,17 +248,17 @@ __d(
         ? o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(i)
         : null;
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = yield D(e),
+            var t = yield x(e),
               n =
                 t != null
-                  ? o("WAWebPtvStatusCard").getNoteColor(yield $(t))
+                  ? o("WAWebPtvStatusCard").getNoteColor(yield P(t))
                   : null;
             return n != null
               ? n
@@ -264,15 +277,15 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
@@ -295,15 +308,15 @@ __d(
               ? void 0
               : l.forceToBlob();
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = URL.createObjectURL(e);
           try {
             var n = yield o("WAWebMediaLoad").loadImage(t);
@@ -316,7 +329,7 @@ __d(
             URL.revokeObjectURL(t);
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
     l.forwardOwnPtvToStatus = g;

@@ -1,6 +1,6 @@
 __d(
   "WebDi.Provider",
-  ["WebDi.Fx", "WebDi.Result", "WebDi.UnsafeCoerce", "err"],
+  ["WebDi.Fx", "WebDi.Result", "WebDi.UnsafeCoerce"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -24,44 +24,7 @@ __d(
     function s(t) {
       return new e(t.provides, t.build, !0);
     }
-    function u(t, n, a) {
-      var i = new (o("WebDi.Fx").Async)(function (e) {
-        n().then(
-          function (t) {
-            return e(
-              new (o("WebDi.Fx").Suspend)(function () {
-                return new (o("WebDi.Result").Ok)(a(t));
-              }),
-            );
-          },
-          function (t) {
-            return e(
-              new (o("WebDi.Fx").Suspend)(function () {
-                throw t;
-              }),
-            );
-          },
-        );
-      });
-      return new e(
-        t,
-        function () {
-          return new (o("WebDi.Fx").Chain)(i, function (e) {
-            var n = o("WebDi.UnsafeCoerce").coerce(e);
-            if (n.provides.id !== t.id)
-              throw r("err")(
-                "WebDI: deferred(" +
-                  t.id +
-                  ") loaded a provider for " +
-                  n.provides.id,
-              );
-            return n.build();
-          });
-        },
-        !0,
-      );
-    }
-    function c(e) {
+    function u(e) {
       return new (o("WebDi.Fx").WithFiber)(function (t) {
         var n = t.services,
           r = {};
@@ -80,7 +43,7 @@ __d(
         );
       });
     }
-    ((l.ProviderImpl = e), (l.lazy = s), (l.deferred = u), (l.provided = c));
+    ((l.ProviderImpl = e), (l.lazy = s), (l.provided = u));
   },
   98,
 );

@@ -13,6 +13,7 @@ __d(
     "WAWebEventsWaitForReadyForOffline",
     "WAWebHandleOfflineAbProps",
     "WAWebMessageQueueImpl",
+    "WAWebOfflineBacklogHold",
     "WAWebOfflineResumePrimarySnapshotGating",
     "WAWebOfflineResumeUtils",
     "WAWebOfflineSyncQplSession",
@@ -195,6 +196,9 @@ __d(
                 o("WAWebOfflineSyncQplSession").OfflineSyncPoint
                   .OfflineIbReceived,
               ),
+              o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
+                "offline_complete",
+              ),
               o("WAWebOneQueue").handleOneQueueOfflineIb(),
               this.offlineResumeManager
                 .processOfflineSessionComplete(t)
@@ -244,7 +248,10 @@ __d(
                   ? o(
                       "WAWebOfflineSyncQplSession",
                     ).OfflineSyncQpl.markBatchSent(t)
-                  : this.$19(t, n);
+                  : this.$19(t, n) &&
+                    o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
+                      "batch_request_failed",
+                    );
               },
             );
             function t(t) {
@@ -253,16 +260,35 @@ __d(
             return t;
           })()),
           (r.$19 = function (t, n) {
-            this.$11 === t &&
-              ((this.$11 = null),
-              o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchAbandoned(
-                t,
-              ),
-              n === "failed" && ((this.$4 = !1), (this.$10 = 0)));
+            return this.$11 !== t
+              ? !1
+              : ((this.$11 = null),
+                o(
+                  "WAWebOfflineSyncQplSession",
+                ).OfflineSyncQpl.markBatchAbandoned(t),
+                n === "failed" && ((this.$4 = !1), (this.$10 = 0)),
+                !0);
+          }),
+          (r.$20 = function (t) {
+            var e = D(t);
+            return (
+              e !== t &&
+                o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
+                  "active_call",
+                ),
+              e
+            );
           }),
           (r.$14 = function (t, n) {
-            this.$20(t, n) &&
-              (o("WALogger").LOG(
+            if (!this.$21(t, n)) {
+              o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
+                "backlog_not_requested",
+              );
+              return;
+            }
+            var e = this.$20(n);
+            (e === n && o("WAWebOfflineBacklogHold").holdOfflineBacklog(),
+              o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[offline-resume][primary-snapshot] requesting the whole backlog: ",
@@ -270,9 +296,9 @@ __d(
                   ])),
                 n,
               ),
-              this.$21(D(n), !0));
+              this.$22(e, !0));
           }),
-          (r.$20 = function (t, n) {
+          (r.$21 = function (t, n) {
             return (
               t &&
               n > 0 &&
@@ -291,7 +317,7 @@ __d(
                 e,
               ));
           }),
-          (r.$22 = (function () {
+          (r.$23 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = o(
                 "WAWebOfflineSyncQplSession",
@@ -309,7 +335,7 @@ __d(
             }
             return t;
           })()),
-          (r.$21 = function (t, n) {
+          (r.$22 = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = n === !0 || this.$10 === 0;
@@ -329,10 +355,10 @@ __d(
                   (this.$4 = !0),
                   (this.$5 = !1))
                 : (this.$12 = self.setTimeout(function () {
-                    e.$23();
+                    e.$24();
                   }, L)));
           }),
-          (r.$23 = (function () {
+          (r.$24 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 e === void 0 && (e = !1);
@@ -373,9 +399,11 @@ __d(
                       ])),
                   ),
                     (this.$5 = !0),
-                    yield this.$22());
+                    yield this.$23());
                   var r = v;
-                  ((r = I(this.$8, this.$7)), (this.$7 = r), this.$21(D(r), n));
+                  ((r = I(this.$8, this.$7)),
+                    (this.$7 = r),
+                    this.$22(this.$20(r), n));
                 }
               },
             );
@@ -391,7 +419,7 @@ __d(
                   (e === void 0 && (e = !1),
                   !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
                 ) {
-                  if (this.$9) return this.$23(e);
+                  if (this.$9) return this.$24(e);
                   if (this.isResumeComplete() || this.$4 || this.$5) {
                     this.isResumeComplete() ||
                       o("WALogger").LOG(
@@ -416,7 +444,7 @@ __d(
                         ])),
                     ),
                     (this.$5 = !0),
-                    yield this.$22(),
+                    yield this.$23(),
                     this.$18(v),
                     (this.$5 = !1),
                     (this.$4 = !0),

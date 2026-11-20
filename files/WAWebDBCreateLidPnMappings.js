@@ -218,6 +218,7 @@ __d(
             var v, S;
             switch (a) {
               case "usync":
+              case "pn-sharing-fetch":
                 ((v = !1), (S = p || b));
                 break;
               case "peer-pn-message":

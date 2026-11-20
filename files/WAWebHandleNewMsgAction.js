@@ -35,6 +35,7 @@ __d(
     "WAWebGroupUnreadMessageType",
     "WAWebHandleMsgReceiptCommon",
     "WAWebInvisiblePlaceholderViewModeProcessor",
+    "WAWebIsUserInitiatedOutgoingMsg",
     "WAWebLidMigrationLogging",
     "WAWebMmSignalSharingConversionTokenUtils",
     "WAWebMmSignalSharingLoggingEvents",
@@ -615,7 +616,7 @@ __d(
     function E(e) {
       return (
         o("WAWebMsgGetters").getIsSentByMe(e) &&
-        e.type !== o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE
+        o("WAWebIsUserInitiatedOutgoingMsg").isUserInitiatedOutgoingMsg(e)
       );
     }
     l.handleNewMsgForChat = R;

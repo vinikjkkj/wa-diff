@@ -1,34 +1,27 @@
 __d(
   "WAWebForwardUtils",
-  [
-    "fbt",
-    "WAWebActionToast.react",
-    "WAWebToast.react",
-    "WAWebToastManager",
-    "react",
-  ],
+  ["fbt", "WAWebActionToast.react", "WDSToastImperativeHost"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e,
-      u = e || (e = o("react"));
-    function c(e) {
+    function e(e) {
       return e
         ? s._(/*BTDS*/ "Forwarded many times")
         : s._(/*BTDS*/ "Forwarded");
     }
-    function d(e) {
+    function u(e) {
       var t = s._(
         /*BTDS*/ '_j{"*":"Forwarded {number_of_messages} items","_1":"Forwarded 1 item"}',
         [s._plural(e, "number_of_messages")],
       );
-      o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          id: o("WAWebActionToast.react").genId(),
-          msg: t,
-        }),
-      );
+      o("WDSToastImperativeHost").showWDSToast({
+        testid: "toast-body",
+        align: "start",
+        type: "default",
+        message: t,
+        dedupId: o("WAWebActionToast.react").genId(),
+      });
     }
-    ((l.getForwardedIndicatorText = c), (l.showForwardedToast = d));
+    ((l.getForwardedIndicatorText = e), (l.showForwardedToast = u));
   },
   226,
 );

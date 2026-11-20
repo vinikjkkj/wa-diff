@@ -3,10 +3,10 @@ __d(
   [
     "fbt",
     "WAWebAttachMediaModel",
-    "WAWebConfirmPopup.react",
     "WAWebDropdown.react",
     "WAWebDropdownItem.react",
     "WAWebEmojiPanel.react",
+    "WAWebFbtCommon",
     "WAWebFlex.react",
     "WAWebHDPhotoMediaEditorDropdown.react",
     "WAWebMediaEditorLayersImage",
@@ -17,8 +17,12 @@ __d(
     "WAWebMenuBar.react",
     "WAWebModalManager",
     "WAWebStickerPanel.react",
+    "WAWebTimeSpentLoggingNavigation",
     "WAWebUimUie.react",
     "WAWebUimUieMenu.react",
+    "WDSButtonGroup.react",
+    "WDSDialog.react",
+    "WDSDialogBridge",
     "WDSIconIcBlurOn.react",
     "WDSIconIcContentCut.react",
     "WDSIconIcCropRotate.react",
@@ -790,19 +794,41 @@ __d(
       );
     }
     function f() {
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+      (o("WAWebModalManager").closeModalManager(),
+        o("WDSDialogBridge").openWDSDialog(u.jsx(g, {})));
+    }
+    function g() {
+      return (
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "unknown",
+        }),
+        u.jsx(r("WDSDialog.react"), {
+          closeButton: !1,
+          description: r("justknobx")._("8068")
+            ? s._(/*BTDS*/ "This media isn't HD resolution.")
+            : s._(/*BTDS*/ "This media is not HD resolution."),
+          footer: u.jsx(r("WDSButtonGroup.react"), {
+            orientation: "stacked",
+            primaryButtonProps: {
+              label: r("WAWebFbtCommon")("OK"),
+              onPress: o("WDSDialogBridge").closeWDSDialog,
+              testid: "popup-controls-ok",
+            },
+            width: "fill",
+          }),
+          headerType: "expressive",
+          layoutType: "expressive",
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
+          size: "sm",
+          testid: "confirm-popup",
           title: r("justknobx")._("8068")
             ? s._(/*BTDS*/ "Can't set to HD")
             : s._(/*BTDS*/ "Cannot set to HD"),
-          onOK: o("WAWebModalManager").closeModalManager,
-          children: r("justknobx")._("8068")
-            ? s._(/*BTDS*/ "This media isn't HD resolution.")
-            : s._(/*BTDS*/ "This media is not HD resolution."),
-        }),
+        })
       );
     }
-    l.default = _;
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

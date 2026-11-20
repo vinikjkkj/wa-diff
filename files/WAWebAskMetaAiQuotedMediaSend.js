@@ -130,6 +130,7 @@ __d(
                   chat: e,
                   includeCaption: !1,
                   msg: t,
+                  onMsgKeyCreated: a.onMsgKeyCreated,
                   threadId: (i = a.threadIds) == null ? void 0 : i[0],
                 }),
                 p = m.messageSendResult;

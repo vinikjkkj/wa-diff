@@ -152,9 +152,14 @@ __d(
               );
             I = yield o("WAWebFindChatAction").findExistingChat(i, f, {
               buildFirstIncomingMsg: function () {
-                return T.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG
-                  ? T
-                  : void 0;
+                var e;
+                return (e = p.find(function (e) {
+                  return !o(
+                    "WAWebGhostEphemeralChatSkip",
+                  ).isSkippableIncomingEphemeralSettingMsg(e);
+                })) != null
+                  ? e
+                  : T;
               },
             });
           }

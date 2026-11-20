@@ -64,6 +64,11 @@ __d(
       return (m(r, l), !0);
     }
     function f(e) {
+      var t = e.contactId,
+        n = e.learnedPnState;
+      m(d(t), { learnedPnState: n });
+    }
+    function g(e) {
       var t = e.pushnameUpdates;
       t.forEach(function (e) {
         var t = e.contactId,
@@ -71,7 +76,7 @@ __d(
         p({ contactId: t, pushname: n });
       });
     }
-    function g(e) {
+    function h(e) {
       var t = e.lidPhoneNumberMappings;
       (t.forEach(function (e) {
         var t = e.lid,
@@ -96,7 +101,7 @@ __d(
           "lid-pn-mapping-updated",
         ));
     }
-    function h(e) {
+    function y(e) {
       var t = e.lidContactDataMappings;
       t.forEach(function (e) {
         var t = e.displayNameLID,
@@ -110,7 +115,7 @@ __d(
           r != null && (i.requestedPnTimestamp = r));
       });
     }
-    function y(t) {
+    function C(t) {
       var n = t.contactId,
         r = t.disappearingModeDuration,
         a = t.disappearingModeSettingTimestamp,
@@ -131,7 +136,7 @@ __d(
           )
           .tags("contact"));
     }
-    function C(e) {
+    function b(e) {
       var t = e.contactId,
         n = e.textStatusEmoji,
         r = e.textStatusEphemeralDuration,
@@ -156,7 +161,7 @@ __d(
           )
           .tags("contact"));
     }
-    function b(e) {
+    function v(e) {
       var t = e.businessInfo,
         n = e.contactId;
       if (t != null) {
@@ -172,7 +177,7 @@ __d(
             .tags("contact"));
       }
     }
-    function v(e) {
+    function S(e) {
       var t = e.usernameUpdates;
       t.forEach(function (e) {
         var t = e.displayNameLID,
@@ -194,7 +199,7 @@ __d(
         }
       });
     }
-    function S(e) {
+    function R(e) {
       var t = e.advAccountType,
         n = e.contactId,
         r = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
@@ -202,7 +207,7 @@ __d(
         .ContactCollection.gadd(n)
         .set(r ? { isHosted: !0, isOrHasBeenHosted: !0 } : { isHosted: !1 });
     }
-    function R(e) {
+    function L(e) {
       var t = e.showMe,
         n = e.showWithoutName;
       return o("WAWebContactCollectionUtils").getFilteredContacts(
@@ -210,7 +215,7 @@ __d(
         { showMe: t, showWithoutName: n },
       );
     }
-    function L(e) {
+    function E(e) {
       var t = e.id,
         n = e.usernameKey,
         r = d(o("WAWebWidFactory").createUserWidOrThrow(t)),
@@ -225,7 +230,7 @@ __d(
           )
           .tags("contact"));
     }
-    function E(e) {
+    function k(e) {
       var t = e.displayNameLID,
         n = e.isEphemeralityDisabled,
         r = e.isUsernameContact,
@@ -247,17 +252,18 @@ __d(
     }
     ((l.updatePushname = p),
       (l.updateContactExternalUserState = _),
-      (l.bulkUpdateContactPushnames = f),
-      (l.bulkUpdatePhoneNumberJids = g),
-      (l.bulkUpdateLidContactState = h),
-      (l.updateDisappearingMode = y),
-      (l.updateTextStatus = C),
-      (l.updateBusinessInfo = b),
-      (l.bulkUpdateUsernames = v),
-      (l.updateContactAdvAccountType = S),
-      (l.getFilteredContacts = R),
-      (l.updateUsernameKey = L),
-      (l.propagateIdentityFieldsToLidContact = E));
+      (l.updateContactLearnedPnState = f),
+      (l.bulkUpdateContactPushnames = g),
+      (l.bulkUpdatePhoneNumberJids = h),
+      (l.bulkUpdateLidContactState = y),
+      (l.updateDisappearingMode = C),
+      (l.updateTextStatus = b),
+      (l.updateBusinessInfo = v),
+      (l.bulkUpdateUsernames = S),
+      (l.updateContactAdvAccountType = R),
+      (l.getFilteredContacts = L),
+      (l.updateUsernameKey = E),
+      (l.propagateIdentityFieldsToLidContact = k));
   },
   98,
 );

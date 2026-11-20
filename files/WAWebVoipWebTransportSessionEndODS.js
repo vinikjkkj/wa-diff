@@ -17,14 +17,14 @@ __d(
           (r("WAWebODS").incr(
             "web.call.webtransport.session_end.closed_by_relay",
           ),
-            c(t));
+            d(t));
           break e;
         }
         if (e === "connection_lost") {
           (r("WAWebODS").incr(
             "web.call.webtransport.session_end.connection_lost",
           ),
-            d(t));
+            m(t));
           break e;
         }
         if (e === "stream_error") {
@@ -41,7 +41,12 @@ __d(
         );
       }
     }
-    function u(e) {
+    function u() {
+      r("WAWebODS").incr(
+        "web.call.webtransport.session_end.closed_wait_timeout",
+      );
+    }
+    function c(e) {
       return e == null
         ? "no_datagram"
         : e < 1e3
@@ -52,9 +57,9 @@ __d(
               ? "10_30s"
               : "ge_30s";
     }
-    function c(e) {
+    function d(e) {
       e: {
-        var t = u(e);
+        var t = c(e);
         if (t === "no_datagram") {
           r("WAWebODS").incr(
             "web.call.webtransport.session_end.closed_by_relay.silence.no_datagram",
@@ -91,9 +96,9 @@ __d(
         );
       }
     }
-    function d(e) {
+    function m(e) {
       e: {
-        var t = u(e);
+        var t = c(e);
         if (t === "no_datagram") {
           r("WAWebODS").incr(
             "web.call.webtransport.session_end.connection_lost.silence.no_datagram",
@@ -131,7 +136,8 @@ __d(
       }
     }
     ((l.classifyWebtransportSessionEnd = e),
-      (l.logCallWebtransportSessionEnd = s));
+      (l.logCallWebtransportSessionEnd = s),
+      (l.logCallWebtransportSessionEndClosedWaitTimeout = u));
   },
   98,
 );

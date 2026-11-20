@@ -2,50 +2,44 @@ __d(
   "WAWebChatlistUnknownUserLogContext",
   [
     "WATimeUtils",
-    "WAWebChatConstants",
     "WAWebChatGetters",
     "WAWebFrontendChatGetters",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUnknownUserDisplayedLogger",
-    "WAWebUsernameTypes",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 30 * o("WATimeUtils").DAY_SECONDS;
     function s(e) {
+      var t = o("WAWebFrontendChatGetters").getPreviewMessage(e);
       return o(
         "WAWebUnknownUserDisplayedLogger",
       ).getChatListUnknownUserDisplayContext({
         age: d(e),
-        isCtwa:
-          o("WAWebChatGetters").getLidOriginType(e) ===
-          o("WAWebUsernameTypes").LidOriginType.PNH_CTWA,
-        lastMsg: c(e),
-        origin: u(e),
+        lastMsg: u(t),
+        source: c(t),
       });
     }
     function u(e) {
-      var t = o("WAWebChatGetters").getEndOfHistoryTransferType(e);
-      return t == null
-        ? "live"
-        : t ===
-            o("WAWebChatConstants")
-              .ConversationEndOfHistoryTransferModelPropType
-              .COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY
-          ? "nomore"
-          : "hs";
-    }
-    function c(e) {
-      var t = o("WAWebFrontendChatGetters").getPreviewMessage(e);
-      return t == null
+      return e == null
         ? "none"
-        : o("WAWebMsgGetters").getType(t) !==
+        : o("WAWebMsgGetters").getType(e) !==
               o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
-            !o("WAWebMsgGetters").isRealMessage(t)
+            !o("WAWebMsgGetters").isRealMessage(e)
           ? "sys"
-          : o("WAWebMsgGetters").getIsSentByMe(t)
+          : o("WAWebMsgGetters").getIsSentByMe(e)
             ? "out"
             : "in";
+    }
+    function c(e) {
+      return e == null
+        ? "none"
+        : o("WAWebMsgGetters").getType(e) ===
+            o("WAWebMsgType").MSG_TYPE.CALL_LOG
+          ? "call"
+          : o("WAWebMsgGetters").getIsMdHistoryMsg(e)
+            ? "history"
+            : "unknown";
     }
     function d(t) {
       var n = o("WAWebChatGetters").getT(t);

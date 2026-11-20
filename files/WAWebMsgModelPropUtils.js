@@ -2,15 +2,12 @@ __d(
   "WAWebMsgModelPropUtils",
   [
     "WAWebBusinessProfileTypes",
-    "WAWebChatGetters",
-    "WAWebFrontendContactGetters",
+    "WAWebChatTrust",
     "WAWebFrontendMsgGetters",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebStateUtils",
-    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
@@ -70,42 +67,14 @@ __d(
             : s.includes(n.type);
     }
     function c(e) {
-      return m(e, function (e) {
+      return o("WAWebChatTrust").isMsgTrusted(e, function (e) {
         return e.isTrusted();
       });
     }
     function d(e) {
-      return m(e, function (e) {
-        return e.isTrustedForAutoDownload();
-      });
+      return o("WAWebChatTrust").canAutoDownloadMedia(e);
     }
-    function m(e, t) {
-      var n = o("WAWebStateUtils").unproxy(e);
-      if (
-        o("WAWebUserUtils").isMeAccount(o("WAWebMsgGetters").getSender(n)) ||
-        (n.senderObj != null &&
-          o("WAWebFrontendContactGetters").getIsMyContact(n.senderObj))
-      )
-        return !0;
-      var r = o("WAWebFrontendMsgGetters").getChat(n);
-      if (
-        o("WAWebChatGetters").getIsGroup(r) ||
-        o("WAWebChatGetters").getIsNewsletter(r)
-      )
-        return t(r);
-      if (
-        o("WAWebMsgGetters").getIsPSA(n) ||
-        o("WAWebMsgGetters").getIsCAPISupport(n) ||
-        n.isFromTemplate
-      )
-        return !0;
-      var a = o("WAWebChatGetters").getIsGroup(r) ? n.senderObj : r.contact;
-      return (a == null ? void 0 : a.verifiedLevel) ===
-        o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH
-        ? !0
-        : r.notSpam;
-    }
-    function p(e) {
+    function m(e) {
       var t = e.chatContactVerifiedLevel,
         n = e.chatNotSpam,
         r = e.chatTrusted,
@@ -127,7 +96,7 @@ __d(
             ? !0
             : n === !0;
     }
-    function _(e) {
+    function p(e) {
       var t,
         n = o("WAWebStateUtils").unproxy(e);
       return (
@@ -139,8 +108,8 @@ __d(
     ((l.hasSymbol = u),
       (l.isTrusted = c),
       (l.isTrustedForAutoDownload = d),
-      (l.isTrustedFor = p),
-      (l.iAmGroupParticipant = _));
+      (l.isTrustedFor = m),
+      (l.iAmGroupParticipant = p));
   },
   98,
 );

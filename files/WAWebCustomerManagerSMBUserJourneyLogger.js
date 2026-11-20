@@ -340,98 +340,11 @@ __d(
           (t.dismissActionsMenu = function () {
             o("WAWebCustomerManagerListJourneyEvents").dismissActionsMenu();
           }),
-          (t.changeLeadStageFilter = function (t, n, r) {
-            o("WAWebCustomerManagerFilterJourneyEvents").changeLeadStageFilter(
-              t,
-              n,
-              r,
-            );
+          (t.filterApply = function (t, n) {
+            o("WAWebCustomerManagerFilterJourneyEvents").filterApply(t, n);
           }),
-          (t.changeLastMessageFilter = function (t, n) {
-            o(
-              "WAWebCustomerManagerFilterJourneyEvents",
-            ).changeLastMessageFilter(t, n);
-          }),
-          (t.changeLabelFilter = function (t, n) {
-            o("WAWebCustomerManagerFilterJourneyEvents").changeLabelFilter(
-              t,
-              n,
-            );
-          }),
-          (t.changeAcquisitionSourceFilter = function (t, n) {
-            o(
-              "WAWebCustomerManagerFilterJourneyEvents",
-            ).changeAcquisitionSourceFilter(t, n);
-          }),
-          (t.changeBirthMonthFilter = function (t, n) {
-            o("WAWebCustomerManagerFilterJourneyEvents").changeBirthMonthFilter(
-              t,
-              n,
-            );
-          }),
-          (t.clickContactTypeChip = function (t) {
-            o("WAWebCustomerManagerFilterJourneyEvents").clickContactTypeChip(
-              t,
-            );
-          }),
-          (t.clickLastMessageChip = function (t, n) {
-            (n === void 0 && (n = "list"),
-              o("WAWebCustomerManagerFilterJourneyEvents").clickLastMessageChip(
-                t,
-                n,
-              ));
-          }),
-          (t.clickCustomRangeItem = function (t) {
-            (t === void 0 && (t = "list"),
-              o("WAWebCustomerManagerFilterJourneyEvents").clickCustomRangeItem(
-                t,
-              ));
-          }),
-          (t.clickCustomRangeFirstDay = function (t) {
-            (t === void 0 && (t = "list"),
-              o(
-                "WAWebCustomerManagerFilterJourneyEvents",
-              ).clickCustomRangeFirstDay(t));
-          }),
-          (t.clickAddFilterChip = function (t) {
-            (t === void 0 && (t = "list"),
-              o("WAWebCustomerManagerFilterJourneyEvents").clickAddFilterChip(
-                t,
-              ));
-          }),
-          (t.clickFilterSubmenuRow = function (t, n) {
-            (n === void 0 && (n = "list"),
-              o(
-                "WAWebCustomerManagerFilterJourneyEvents",
-              ).clickFilterSubmenuRow(t, n));
-          }),
-          (t.dismissFilterMenu = function (t, n, r) {
-            (r === void 0 && (r = "list"),
-              o("WAWebCustomerManagerFilterJourneyEvents").dismissFilterMenu(
-                t,
-                n,
-                r,
-              ));
-          }),
-          (t.clickFilterChipReopen = function (t, n) {
-            o("WAWebCustomerManagerFilterJourneyEvents").clickFilterChipReopen(
-              t,
-              n,
-            );
-          }),
-          (t.changeContactTypeFilter = function (t) {
-            o(
-              "WAWebCustomerManagerFilterJourneyEvents",
-            ).changeContactTypeFilter(t);
-          }),
-          (t.changeCustomDateRange = function (t, n) {
-            o("WAWebCustomerManagerFilterJourneyEvents").changeCustomDateRange(
-              t,
-              n,
-            );
-          }),
-          (t.filterResult = function (t) {
-            o("WAWebCustomerManagerFilterJourneyEvents").filterResult(t);
+          (t.filterResultView = function (t, n) {
+            o("WAWebCustomerManagerFilterJourneyEvents").filterResultView(t, n);
           }),
           (t.editColumnReorderDrag = function (t, n) {
             o("WAWebCustomerManagerColumnJourneyEvents").editColumnReorderDrag(

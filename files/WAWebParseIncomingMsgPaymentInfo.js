@@ -1,7 +1,6 @@
 __d(
   "WAWebParseIncomingMsgPaymentInfo",
   [
-    "WAWebABProps",
     "WAWebHandleMsgCommon",
     "WAWebHandlePaymentAmountUtils",
     "WAWebJidToWid",
@@ -51,9 +50,6 @@ __d(
         switch (c) {
           case o("WAWebHandleMsgCommon").PAY_NODE_TYPES.send: {
             if (
-              o("WAWebABProps").getABPropConfigValue(
-                "wa_web_xb_bubble_enabled",
-              ) !== !0 &&
               r.hasAttr("transaction-type") &&
               r.attrString("transaction-type") === "remittance"
             ) {

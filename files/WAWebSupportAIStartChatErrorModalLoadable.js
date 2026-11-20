@@ -4,7 +4,7 @@ __d(
     "fbt",
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
-    "WAWebLoadingConfirmPopup.react",
+    "WAWebSupportAIStartChatErrorLoadingPopup.react",
     "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
@@ -26,7 +26,7 @@ __d(
       d = r("react-loadable")({
         loader: c,
         loading: function (t) {
-          return u.jsx(r("WAWebLoadingConfirmPopup.react"), {
+          return u.jsx(r("WAWebSupportAIStartChatErrorLoadingPopup.react"), {
             okText: s._(/*BTDS*/ "Contact via email"),
             error: !!t.error,
           });

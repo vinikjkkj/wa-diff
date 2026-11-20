@@ -137,6 +137,7 @@ __d(
         mediaElementSkipFullWatchdogSnapshotsWhilePlaybackMoves: !1,
         mediaElementSkipUpdateIfFullyBufferedAndOnlyPlayheadMoving: !1,
         mediaSinkType: "MSE",
+        mp4InspectorCaptureSessionId: null,
         nativeBackBufferMinRemovableSec: 5,
         nativeBackBufferRetentionSec: 0,
         nativeHandoverFetchHold: !1,

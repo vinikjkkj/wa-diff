@@ -922,6 +922,8 @@ __d(
                 } else s();
               }
             },
+            onMP4InspectorCapture:
+              k == null ? void 0 : k.receiveMP4InspectorCapture,
             onSendHaltedToWorkerChanged:
               E == null ? void 0 : E.onSendHaltedToWorkerChanged,
             onVideoRepresentationChanged: function (t, n) {
@@ -1013,6 +1015,7 @@ __d(
               }
               ((e = q) == null || e.remove(),
                 (q = null),
+                k == null || k.dispose(),
                 ne.sendEvent({
                   reason: "destroyEngineParts",
                   type: "__dispose",

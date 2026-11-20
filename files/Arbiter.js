@@ -156,21 +156,25 @@ __d(
       m = (function (e) {
         function t() {
           var t;
-          return ((t = e.call(this) || this), (t.$ArbiterEventHolder1 = {}), t);
+          return (
+            (t = e.call(this) || this),
+            (t.$ArbiterEventHolder$p_1 = {}),
+            t
+          );
         }
         babelHelpers.inheritsLoose(t, e);
         var n = t.prototype;
         return (
           (n.setHoldingBehavior = function (t, n) {
-            this.$ArbiterEventHolder1[t] = n;
+            this.$ArbiterEventHolder$p_1[t] = n;
           }),
           (n.getHoldingBehavior = function (t) {
-            return this.$ArbiterEventHolder1[t];
+            return this.$ArbiterEventHolder$p_1[t];
           }),
           (n.holdEvent = function (n) {
-            var t = this.$ArbiterEventHolder1[n];
+            var t = this.$ArbiterEventHolder$p_1[n];
             if (
-              (t !== "persistent" && this.$ArbiterEventHolder2(n),
+              (t !== "persistent" && this.$ArbiterEventHolder$p_2(n),
               t !== "event")
             ) {
               for (
@@ -188,7 +192,7 @@ __d(
               );
             }
           }),
-          (n.$ArbiterEventHolder2 = function (t) {
+          (n.$ArbiterEventHolder$p_2 = function (t) {
             var e = this;
             this.emitToListener(t, function () {
               return e.releaseCurrentEvent();

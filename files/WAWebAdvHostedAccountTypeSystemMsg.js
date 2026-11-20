@@ -3,6 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebBizCoexGatingUtils",
+    "WAWebChatOpeningNotice",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebProtobufsAdv.pb",
@@ -61,7 +62,7 @@ __d(
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-        subtype: "biz_me_account_type_is_hosted",
+        subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.HOSTED_SELF,
         from: e,
         to: n,
       };
@@ -80,7 +81,7 @@ __d(
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-        subtype: "biz_account_type_is_hosted",
+        subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.HOSTED_CONTACT,
         from: e,
         to: n,
       };

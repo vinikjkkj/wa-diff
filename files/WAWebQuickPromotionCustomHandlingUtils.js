@@ -24,6 +24,7 @@ __d(
     "WAWebKeyboardTabUtils",
     "WAWebMAIBAPrimaryRedirectPopupLoadable",
     "WAWebMetaOneEntryPointLogger",
+    "WAWebMetaOneGating",
     "WAWebMobilePlatforms",
     "WAWebNavBarTypes",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -142,21 +143,21 @@ __d(
               type: "openCatalogBanner",
               onPrimaryClick: function () {
                 (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
-                  E(
+                  k(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                E(
+                k(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                E(
+                k(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -181,21 +182,21 @@ __d(
                 o("WAWebApi").BrazilPaymentResultSubtype.PIX_ONBOARDING
                   ? r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 })
                   : o("WAWebExternalLink.react").openExternalLink(a),
-                  E(
+                  k(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                E(
+                k(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                E(
+                k(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -254,7 +255,7 @@ __d(
                     n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME,
                 }),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    E(
+                    k(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
@@ -269,7 +270,7 @@ __d(
                   u,
                 ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    E(
+                    k(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
@@ -284,7 +285,7 @@ __d(
                   u,
                 ),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    E(
+                    k(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS
@@ -411,42 +412,45 @@ __d(
     }
     var v = "MP4B";
     function S(e) {
-      var t,
-        n = e.surfaceId;
+      var t;
       if (
         !(
-          (n !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP &&
-            n !== o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD) ||
-          !R((t = e.data.primaryAction) == null ? void 0 : t.deepLink)
+          !o("WAWebMobilePlatforms").isSMB() ||
+          !L((t = e.data.primaryAction) == null ? void 0 : t.deepLink)
         )
       )
         return {
           type: "metaOneSubscription",
           onPrimaryClick: function () {
             var t = r("WAWebPonyfillsCryptoRandomUUID")();
-            (o("WAWebMetaOneEntryPointLogger").logMetaOneQuickPromotionClick(
-              e.id,
-              t,
-              o(
-                "WAWebActiveSubscriptionProductTypes",
-              ).getActiveSubscriptionProductTypes(),
-            ),
-              o("WAWebBizAiMetaOneDialogRequestStore").requestMetaOneDialog(
-                null,
+            if (
+              (o("WAWebMetaOneEntryPointLogger").logMetaOneQuickPromotionClick(
+                e.id,
                 t,
-                function () {
-                  return o("WDSDialogBridge").openWDSDialog(
-                    c.jsx(r("WAWebMAIBAPrimaryRedirectPopupLoadable"), {}),
-                  );
-                },
-              ));
+                o(
+                  "WAWebActiveSubscriptionProductTypes",
+                ).getActiveSubscriptionProductTypes(),
+              ),
+              !o("WAWebMetaOneGating").isMetaOneRolloutEnabled())
+            ) {
+              R();
+              return;
+            }
+            o(
+              "WAWebBizAiMetaOneDialogRequestStore",
+            ).requestMetaOneDialogForAnyBusiness(t, R);
           },
           replacesDefaultAction: !0,
           hidesAfterPrimaryClick:
-            n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP,
+            e.surfaceId === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP,
         };
     }
-    function R(e) {
+    function R() {
+      o("WDSDialogBridge").openWDSDialog(
+        c.jsx(r("WAWebMAIBAPrimaryRedirectPopupLoadable"), {}),
+      );
+    }
+    function L(e) {
       if (e == null) return !1;
       try {
         var t = new URL(e);
@@ -464,7 +468,7 @@ __d(
         return !1;
       }
     }
-    function L(e) {
+    function E(e) {
       var t = S(e);
       if (t != null) return [t];
       var n = [],
@@ -487,7 +491,7 @@ __d(
       var y = b(e);
       return (y && n.push(y), n);
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
         bannerType: o(
           "WAWebBizNativeAdsEntryPointUtils",
@@ -496,9 +500,9 @@ __d(
         bannerId: t,
       }).commit();
     }
-    function k(e, t) {
-      var n = L(e);
-      I(e, t, n);
+    function I(e, t) {
+      var n = E(e);
+      T(e, t, n);
       var r = !1,
         o = !1;
       return (
@@ -520,7 +524,7 @@ __d(
         { replacedDefaultAction: r, hidesPromotion: o }
       );
     }
-    function I(e, t, n) {
+    function T(e, t, n) {
       var r;
       if (
         !(
@@ -546,7 +550,7 @@ __d(
           .sendLogs("quick-promotion-primary-action-unhandled");
       }
     }
-    l.maybeExecuteQuickPromotionCustomHandlingSpec = k;
+    l.maybeExecuteQuickPromotionCustomHandlingSpec = I;
   },
   98,
 );

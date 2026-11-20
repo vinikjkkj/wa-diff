@@ -9,6 +9,7 @@ __d(
     "WAWebCrashlogUserAgent",
     "WAWebURLUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebVoipPersistentFS",
     "WAWebZip",
     "asyncToGeneratorRuntime",
@@ -47,7 +48,9 @@ __d(
           appVersion: o("WAWebBuildConstants").VERSION_BASE,
         });
       t.append("agent", a);
-      var i = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+      var i = o("WAWebUserUtils").hasLoggedIn()
+        ? o("WAWebUserUtils").getMeDeviceOrThrow()
+        : null;
       (t.append(
         "from_jid",
         i != null ? i.toString() : o("WAWebUserPrefsMeUser").getUnknownId(),

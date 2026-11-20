@@ -93,9 +93,6 @@ __d(
     }
     ((l.AEA_CONSUMER_BACKFILL_VERSION = e),
       (l.AeaBackfillRunResult = s),
-      (l.AEA_BACKFILL_MAX_DECISIVE_INCOMPLETE_RUNS = u),
-      (l.AEA_BACKFILL_MAX_RUNS = c),
-      (l.isDecisiveIncompleteRun = d),
       (l.hasAeaBackfillReachedRunLimit = m),
       (l.isAeaBackfillCompleted = p),
       (l.readAeaBackfillRunHistory = _),

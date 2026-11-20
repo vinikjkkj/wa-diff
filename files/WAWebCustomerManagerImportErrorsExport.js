@@ -37,19 +37,16 @@ __d(
             return e.rowIndex - t.rowIndex;
           })
           .map(function (e) {
-            var n = [String(e.rowIndex + 1)].concat(
+            return [String(e.rowIndex + 1)].concat(
               t.map(function (t) {
                 var n = e.rowData[t];
                 return n != null ? String(n) : "";
               }),
-            );
-            return (
-              n.push(
+              [
                 o(
                   "WAWebCustomerManagerImportErrorMessage",
                 ).getCustomerManagerImportErrorLabelForItem(e),
-              ),
-              n
+              ],
             );
           });
       return { headers: [l].concat(t, [s]), rows: p };

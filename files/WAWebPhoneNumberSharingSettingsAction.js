@@ -12,71 +12,106 @@ __d(
       ).__setRef("WAWebPhoneNumberSharingSettingsAction"),
       s = r("JSResourceForInteraction")(
         "WAWebUpdatePhoneNumberSharingSetting",
+      ).__setRef("WAWebPhoneNumberSharingSettingsAction"),
+      u = r("JSResourceForInteraction")(
+        "WAWebUpdatePhoneNumberSharingList",
       ).__setRef("WAWebPhoneNumberSharingSettingsAction");
-    function u() {
-      return c.apply(this, arguments);
-    }
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebBackendRuntime").isWebDiBackendEnabled()
             ? o("WAWebBackendRuntime")
                 .runtime(o("WAWebPrivacyService").PrivacyService)
                 .isPhoneNumberSharingSettingsAvailable()
             : (yield e.load()).isPhoneNumberSharingSettingsAvailable();
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d() {
-      return m.apply(this, arguments);
-    }
     function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebBackendRuntime").isWebDiBackendEnabled()
             ? o("WAWebBackendRuntime")
                 .runtime(o("WAWebPrivacyService").PrivacyService)
                 .loadPhoneNumberSharingSettings()
             : (yield e.load()).loadPhoneNumberSharingSettings();
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p() {
-      return _.apply(this, arguments);
-    }
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebBackendRuntime").isWebDiBackendEnabled()
             ? o("WAWebBackendRuntime")
                 .runtime(o("WAWebPrivacyService").PrivacyService)
                 .readPhoneNumberSharingSettingsSnapshot()
             : (yield e.load()).readPhoneNumberSharingSettingsSnapshot();
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebBackendRuntime").isWebDiBackendEnabled()
             ? o("WAWebBackendRuntime")
                 .runtime(o("WAWebPrivacyService").PrivacyService)
                 .updatePhoneNumberSharingSetting(e)
             : (yield s.load()).updatePhoneNumberSharingSetting(e);
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.isPhoneNumberSharingSettingsAvailable = u),
-      (l.loadPhoneNumberSharingSettings = d),
-      (l.readPhoneNumberSharingSettingsSnapshot = p),
-      (l.updatePhoneNumberSharingSetting = f));
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime")
+                .runtime(o("WAWebPrivacyService").PrivacyService)
+                .readPhoneNumberSharingList(t)
+            : (yield e.load()).readPhoneNumberSharingList(t);
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e, t, n) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime")
+                .runtime(o("WAWebPrivacyService").PrivacyService)
+                .updatePhoneNumberSharingList(e, t, n)
+            : (yield u.load()).updatePhoneNumberSharingList(e, t, n);
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    ((l.isPhoneNumberSharingSettingsAvailable = c),
+      (l.loadPhoneNumberSharingSettings = m),
+      (l.readPhoneNumberSharingSettingsSnapshot = _),
+      (l.updatePhoneNumberSharingSetting = g),
+      (l.readPhoneNumberSharingList = y),
+      (l.updatePhoneNumberSharingList = b));
   },
   98,
 );

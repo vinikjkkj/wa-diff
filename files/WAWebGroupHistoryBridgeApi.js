@@ -3,9 +3,12 @@ __d(
   [
     "WAWebGroupHistoryReceiverUserJourneyLogger",
     "WAWebUpdateGroupHistoryBundleStateAction",
+    "WAWebUpdateStoredGroupHistoryHints",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
+      updateStoredGroupHistoryHints: o("WAWebUpdateStoredGroupHistoryHints")
+        .updateStoredGroupHistoryHints,
       updateGroupHistoryBundleState: function (t) {
         var e = t.messageKey,
           n = t.processState;

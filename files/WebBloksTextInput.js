@@ -272,7 +272,11 @@ __d(
             caretColor: ke,
           },
         ),
-        lt = babelHelpers.extends(
+        lt = o("WebBloksStyle").classNames(
+          o("WebBloksStyle").WebBloksStyles.container,
+          V.base,
+        ),
+        st = babelHelpers.extends(
           {},
           Se,
           Ve,
@@ -291,10 +295,6 @@ __d(
             onKeyUp: nt,
             onFocus: rt,
             onBlur: at,
-            className: o("WebBloksStyle").classNames(
-              o("WebBloksStyle").WebBloksStyles.container,
-              V.base,
-            ),
             placeholder: ne,
             value: je,
             onClick: function (t) {
@@ -302,7 +302,7 @@ __d(
             },
           },
         ),
-        st = c(
+        ut = c(
           function (e) {
             xe.current ||
               (Ze(String(e)),
@@ -318,7 +318,7 @@ __d(
           },
           [Te, De, H, Ze, ce],
         ),
-        ut = c(
+        ct = c(
           function () {
             var e = Ce.current;
             if (
@@ -329,7 +329,7 @@ __d(
           },
           [Ce],
         ),
-        ct = c(
+        dt = c(
           function () {
             var e = Ce.current;
             if (
@@ -349,7 +349,7 @@ __d(
           },
           [Ce],
         ),
-        dt = c(
+        mt = c(
           function () {
             var e;
             return (e = Ce.current) == null ? void 0 : e.blur();
@@ -361,19 +361,20 @@ __d(
           $e,
           function () {
             return {
-              onExternalUpdate: st,
-              getSelection: ut,
-              requestFocus: ct,
-              requestBlur: dt,
+              onExternalUpdate: ut,
+              getSelection: ct,
+              requestFocus: dt,
+              requestBlur: mt,
             };
           },
-          [ut, st, dt, ct],
+          [ct, ut, mt, dt],
         ),
         ve(
           ge || fe
             ? s.jsx(
                 "textarea",
-                babelHelpers.extends({}, lt, fe ? { rows: 1 } : void 0, {
+                babelHelpers.extends({}, st, fe ? { rows: 1 } : void 0, {
+                  className: lt,
                   style: babelHelpers.extends(
                     {},
                     it,
@@ -384,7 +385,10 @@ __d(
               )
             : s.jsx(
                 "input",
-                babelHelpers.extends({ dir: "auto" }, lt, { style: it }),
+                babelHelpers.extends({ dir: "auto" }, st, {
+                  className: lt,
+                  style: it,
+                }),
               ),
         )
       );

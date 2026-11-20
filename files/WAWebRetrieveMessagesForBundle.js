@@ -114,7 +114,8 @@ __d(
         d.apply(this, arguments)
       );
     }
-    l.retrieveMessagesForBundle = c;
+    ((l.isValidMessageForGroupHistoryBundle = u),
+      (l.retrieveMessagesForBundle = c));
   },
   98,
 );

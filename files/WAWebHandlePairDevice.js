@@ -52,17 +52,24 @@ __d(
               var t = o("WABinary").Binary.build(e.elementValue);
               return t.readString(t.size());
             });
-          return (f(d), u());
+          return (h(d), u());
         })),
         _.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function f() {
+      return m != null && d.length === 0;
     }
     function g() {
+      var e;
+      ((e = m) == null || e.cancel(), (m = null), (d = []));
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (yield o("WAWebAdvSignatureApi").generateADVSecretKey(),
             (d = e),
             m ||
@@ -94,10 +101,12 @@ __d(
               })),
             m.forceRunNow());
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.handlePairDevice = p;
+    ((l.handlePairDevice = p),
+      (l.isLastLoginRefShown = f),
+      (l.discardLoginRefs = g));
   },
   98,
 );

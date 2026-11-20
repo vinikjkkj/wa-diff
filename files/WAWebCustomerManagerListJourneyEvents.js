@@ -14,6 +14,7 @@ __d(
           extraAttributes: t,
           surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
             .CUSTOMER_MANAGER_LIST,
+          userActionTarget: "customer_manager_list_view",
           userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
             .SMB_USER_ACTION_TYPE_ENUM.VIEW,
         }),

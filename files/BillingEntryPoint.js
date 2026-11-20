@@ -613,6 +613,7 @@ __d(
       WHATSAPP_MANAGER_MBA: "whatsapp_manager_mba",
       WHATSAPP_MANAGER_MESSAGE_TEMPLATES: "whatsapp_manager_message_templates",
       WHATSAPP_MANAGER_OVERVIEW: "whatsapp_manager_overview",
+      WHATSAPP_MANAGER_PARTNER_OVERVIEW: "whatsapp_manager_partner_overview",
       WHATSAPP_MANAGER_PHONE_NUMBERS: "whatsapp_manager_phone_numbers",
       WIZARD_PLAYGROUND: "wizard_playground",
       UNICORN_BOT: "unicorn_bot",

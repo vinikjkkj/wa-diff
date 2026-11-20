@@ -7,8 +7,8 @@ __d(
     "WAWebComposeBoxActions",
     "WAWebLoadingNewsletterPreviewModal.react",
     "WAWebModalManager",
-    "WAWebNewsletterErrorPopups.react",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterInfoDialogsLoadable",
     "WAWebNewsletterOpenAtAction",
     "WAWebNewsletterOpenQPLLogger",
     "WAWebNewsletterOpenQPLLoggerV2",
@@ -16,6 +16,7 @@ __d(
     "WAWebPDFNGatingUtils",
     "WAWebPDFNModal.react",
     "WAWebSideNavButtonsActivityModel",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
@@ -154,13 +155,14 @@ __d(
                     serverId: a,
                     chatEntryPoint: n,
                     onMessageDeleted: function () {
-                      o("WAWebModalManager").ModalManager.open(
-                        s.jsx(
-                          o("WAWebNewsletterErrorPopups.react")
-                            .NewsletterMessageDeletedPopup,
-                          {},
-                        ),
-                      );
+                      (o("WAWebModalManager").ModalManager.close(),
+                        o("WDSDialogBridge").openWDSDialog(
+                          s.jsx(
+                            o("WAWebNewsletterInfoDialogsLoadable")
+                              .NewsletterMessageDeletedPopupLoadable,
+                            {},
+                          ),
+                        ));
                     },
                   })
                 : yield o("WAWebCmd").Cmd.openChatBottom({

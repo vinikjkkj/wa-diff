@@ -1,12 +1,17 @@
 __d(
   "WAWebBotSystemMsg",
-  ["WATimeUtils", "WAWebContactSystemMsg", "WAWebMsgType"],
+  [
+    "WATimeUtils",
+    "WAWebChatOpeningNotice",
+    "WAWebContactSystemMsg",
+    "WAWebMsgType",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebContactSystemMsg").genNotificationMsg(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-        subtype: "bot_init",
+        subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.BOT,
         templateParams: [],
       });
     }
@@ -24,7 +29,7 @@ __d(
       return o("WAWebContactSystemMsg").genNotificationMsg(e, {
         type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-        subtype: "biz_bot_1p_disclosure",
+        subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.BIZ_BOT_1P,
         templateParams: [],
       });
     }
@@ -32,7 +37,7 @@ __d(
       return o("WAWebContactSystemMsg").genNotificationMsg(e, {
         type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-        subtype: "biz_bot_3p_disclosure",
+        subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.BIZ_BOT_3P,
         templateParams: [],
       });
     }

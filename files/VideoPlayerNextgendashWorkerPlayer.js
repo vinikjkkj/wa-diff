@@ -1,6 +1,7 @@
 __d(
   "VideoPlayerNextgendashWorkerPlayer",
   [
+    "VideoPlayerNextgendashMP4Capture",
     "VideoPlayerNextgendashManifestParser",
     "VideoPlayerNextgendashPlaybackLoop",
     "VideoPlayerNextgendashStateMachine",
@@ -48,50 +49,57 @@ __d(
             a = t.playerInstanceKey,
             i = t.playerStateFromMain,
             l = t.prefetchResult,
-            s = t.sendToMain,
-            u = t.videoFBID,
-            c = t.workerType,
-            d = e.env,
-            m = e.makeChildSm,
-            p = e.sendToSelf;
+            s = t.sendMP4InspectorCapture,
+            u = t.sendToMain,
+            c = t.videoFBID,
+            d = t.workerType,
+            m = e.env,
+            p = e.makeChildSm,
+            _ = e.sendToSelf;
           return {
             linkedAt: r,
-            playbackLoop: m(
+            playbackLoop: p(
               "playbackLoop",
               o("VideoPlayerNextgendashPlaybackLoop")
                 .VideoPlayerNextgendashPlaybackLoopSM,
               {
+                captureMP4Append:
+                  s == null
+                    ? void 0
+                    : o(
+                        "VideoPlayerNextgendashMP4Capture",
+                      ).createMP4CaptureAppend(m, a, d, s),
                 fetchPoolAPI: n,
                 onTransitioned: function (t, n, r) {
-                  p({ type: "_playback_loop_transitioned" }, r);
+                  _({ type: "_playback_loop_transitioned" }, r);
                 },
                 playerStateFromMain: i,
                 prefetchResult: l,
                 requestUrlRefresh: function (t) {
-                  s(
+                  u(
                     {
                       playerInstanceKey: a,
                       type: "from_worker_to_main_refresh_urls",
                       urls: t,
-                      workerType: c,
+                      workerType: d,
                     },
                     [],
                   );
                 },
                 sendMediaSourceToMain: function (t, n) {
-                  p({
+                  _({
                     mediaSource: t,
                     mediaSourceIndex: n,
                     type: "_send_media_source_to_main",
                   });
                 },
                 sendPlayerWarningToMain: function (t) {
-                  (d.logging.log(d, {
+                  (m.logging.log(m, {
                     error: t,
                     format: "sendPlayerWarningToMain",
                     type: "generic_error_as_warning",
                   }),
-                    p({
+                    _({
                       type: "_send_player_warning_to_main",
                       warningError: t,
                     }));
@@ -105,7 +113,7 @@ __d(
             playerStateFromWorkerSent: null,
             shouldSendPlayerStateForDebug: !1,
             state: "initial",
-            videoFBID: u,
+            videoFBID: c,
           };
         },
         function (t) {

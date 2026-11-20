@@ -370,7 +370,6 @@ __d(
       is_meta_employee_or_internal_tester: [1777, "bool", !1, !1],
       joinable_client_poll_interval_min: [522, "int", 0, 5],
       kaleidoscope_thumbnail_validation: [18114, "bool", !1, !0],
-      ks_use_component_model: [26966, "bool", !1, !1],
       lanczos_min_upscale_scale_for_vod: [
         35473,
         "float",

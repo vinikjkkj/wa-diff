@@ -2,9 +2,11 @@ __d(
   "WAWebBizAdCreationShowIdentityChangeConfirmation",
   [
     "fbt",
-    "WAWebConfirmPopup.react",
     "WAWebFbtCommon",
     "WAWebModalManager",
+    "WAWebTimeSpentLoggingNavigation",
+    "WDSConfirmDialog.react",
+    "WDSDialogBridge",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -12,20 +14,29 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          cancelText: r("WAWebFbtCommon")("Cancel"),
-          okText: s._(/*BTDS*/ "Continue"),
-          onCancel: o("WAWebModalManager").closeModalManager,
-          onOK: function () {
-            (o("WAWebModalManager").ModalManager.close(), e());
-          },
-          title: s._(/*BTDS*/ "Continue without saving"),
-          children: s._(/*BTDS*/ "Your progress will be lost."),
+      (o("WAWebModalManager").ModalManager.close(),
+        o("WDSDialogBridge").openWDSDialog(u.jsx(d, { onConfirm: e })));
+    }
+    function d(e) {
+      var t = e.onConfirm;
+      return (
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "unknown",
         }),
+        u.jsx(r("WDSConfirmDialog.react"), {
+          confirmLabel: r("WAWebFbtCommon")("Discard"),
+          description: s._(/*BTDS*/ "Your progress will be lost."),
+          destructive: !0,
+          onConfirm: function () {
+            (o("WDSDialogBridge").closeWDSDialog(), t());
+          },
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
+          title: r("WAWebFbtCommon")("Discard changes?"),
+        })
       );
     }
-    l.default = c;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

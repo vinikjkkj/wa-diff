@@ -1,12 +1,12 @@
 __d(
   "WAWebSagaSystemMsg",
-  ["WAWebContactSystemMsg", "WAWebMsgType"],
+  ["WAWebChatOpeningNotice", "WAWebContactSystemMsg", "WAWebMsgType"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebContactSystemMsg").genNotificationMsg(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-        subtype: "saga_init",
+        subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.SAGA,
         templateParams: [],
       });
     }

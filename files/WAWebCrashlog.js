@@ -23,6 +23,7 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumCrashApplicationState",
     "WAWebWamEnumCrashType",
     "WAWebWamEnumLogType",
@@ -763,10 +764,11 @@ __d(
     }
     function ve() {
       var e =
-        o("WAWebRuntimeEnvironmentUtils").isWorker() &&
-        !o("WAWebGlobals").areGlobalsReady()
+        (o("WAWebRuntimeEnvironmentUtils").isWorker() &&
+          !o("WAWebGlobals").areGlobalsReady()) ||
+        !o("WAWebUserUtils").hasLoggedIn()
           ? void 0
-          : o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+          : o("WAWebUserUtils").getMeDeviceOrThrow();
       return e ? e.toString() : o("WAWebUserPrefsMeUser").getUnknownId();
     }
     function Se(e) {

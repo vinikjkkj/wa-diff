@@ -261,14 +261,18 @@ __d(
           : M.push(Y);
       }
       var J = M.length === 0,
-        Z = [];
-      (Z.push.apply(Z, z),
-        Z.push.apply(Z, W),
-        Z.push.apply(Z, U),
-        Z.push.apply(Z, G),
-        Z.push.apply(Z, H),
-        Z.push.apply(
-          Z,
+        Z = r("gkx")("24370"),
+        ee = q != null || V != null;
+      if (!J && !Z)
+        return { hasDashManifest: ee, implementations: M, warning: null };
+      var te = [];
+      (te.push.apply(te, z),
+        te.push.apply(te, W),
+        te.push.apply(te, U),
+        te.push.apply(te, G),
+        te.push.apply(te, H),
+        te.push.apply(
+          te,
           w.map(function (e) {
             var t,
               n,
@@ -297,7 +301,7 @@ __d(
             return ((s.name = "VideoPlayerCannotUse" + l + "/" + i.name), s);
           }),
         ));
-      var ee = f(Z, J, S, P, b, v, r("gkx")("24370"), {
+      var ne = f(te, J, S, P, b, v, Z, {
         canUseDash: _(i),
         hasBrowserNativeHdUrl: O != null,
         hasBrowserNativeSdUrl: B != null,
@@ -305,12 +309,8 @@ __d(
         hasDashManifestXmlString: V != null,
         nextgendashAvailability: k,
       });
-      if (J && ee != null) throw ee;
-      return {
-        hasDashManifest: q != null || V != null,
-        implementations: M,
-        warning: ee,
-      };
+      if (J && ne != null) throw ne;
+      return { hasDashManifest: ee, implementations: M, warning: ne };
     }
     l.default = g;
   },

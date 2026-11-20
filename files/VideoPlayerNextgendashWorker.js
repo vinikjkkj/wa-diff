@@ -3,6 +3,7 @@ __d(
   [
     "VideoPlayerNextgendashConnectionWorkerToMain",
     "VideoPlayerNextgendashFetchPoolSM",
+    "VideoPlayerNextgendashMP4Capture",
     "VideoPlayerNextgendashStateMachine",
     "VideoPlayerNextgendashWorkerPlayer",
     "VideoPlayerNextgendashWorkerPrefetchCache",
@@ -47,17 +48,19 @@ __d(
         };
       },
       function (e) {
-        var t = e.args.workerType,
-          n = e.env,
-          r = e.event,
-          a = e.eventClock,
-          i = e.makeChildSm,
-          l = e.sendToOther,
-          s = e.sendToSelf,
-          u = e.state;
-        switch (u.state) {
+        var t = e.args,
+          n = t.portToMain,
+          r = t.workerType,
+          a = e.env,
+          i = e.event,
+          l = e.eventClock,
+          s = e.makeChildSm,
+          u = e.sendToOther,
+          c = e.sendToSelf,
+          d = e.state;
+        switch (d.state) {
           case "port_to_main_ready":
-            switch (r.type) {
+            switch (i.type) {
               case "__enter":
                 return;
               case "__exception":
@@ -65,214 +68,217 @@ __d(
               case "__dispose":
                 return;
               case "_worker_player_disposed": {
-                var c = u.players,
-                  d = c.get(r.playerInstanceKey);
-                return d
-                  ? (c.delete(r.playerInstanceKey),
-                    u.fetchPool != null &&
-                      l(u.fetchPool, {
-                        playerInstanceKey: r.playerInstanceKey,
+                var m = d.players,
+                  p = m.get(i.playerInstanceKey);
+                return p
+                  ? (m.delete(i.playerInstanceKey),
+                    d.fetchPool != null &&
+                      u(d.fetchPool, {
+                        playerInstanceKey: i.playerInstanceKey,
                         type: "unregister_player",
                       }),
-                    u.mainConnection.sendToMain({
+                    d.mainConnection.sendToMain({
                       eventToMain: {
                         exceptionSnapshot:
-                          r.exception != null
+                          i.exception != null
                             ? o("nextgendasherr").nextgendasherrToSnapshot(
-                                r.exception,
+                                i.exception,
                               )
                             : void 0,
-                        playerInstanceKey: r.playerInstanceKey,
+                        playerInstanceKey: i.playerInstanceKey,
                         reason:
-                          r.exception != null
+                          i.exception != null
                             ? "VideoPlayerNextgendashWorkerPlayer_exception"
                             : "VideoPlayerNextgendashWorkerPlayer_disposed",
                         type: "from_worker_to_main_player_unlinked",
-                        workerType: t,
+                        workerType: r,
                       },
                       type: "send_to_main",
                     }),
-                    u)
+                    d)
                   : void 0;
               }
               case "_prefetch_task_completed": {
-                n.config.enablePrefetchTaskCompletionNotification &&
-                  u.mainConnection.sendToMain({
+                a.config.enablePrefetchTaskCompletionNotification &&
+                  d.mainConnection.sendToMain({
                     eventToMain: {
-                      prefetchKey: r.prefetchKey,
+                      prefetchKey: i.prefetchKey,
                       type: "from_worker_to_main_prefetch_task_complete",
-                      workerType: t,
+                      workerType: r,
                     },
                     type: "send_to_main",
                   });
                 return;
               }
               case "from_main_to_worker_link_player": {
-                var m = u.players,
-                  p = m.get(r.playerInstanceKey);
-                if (!p) {
-                  var _ =
-                      r.prefetchKey != null
+                var _ = d.players,
+                  f = _.get(i.playerInstanceKey);
+                if (!f) {
+                  var g =
+                      i.prefetchKey != null
                         ? o(
                             "VideoPlayerNextgendashWorkerPrefetchCache",
                           ).getCachedRepresentationsForPrefetchKey(
-                            n,
-                            r.prefetchKey,
+                            a,
+                            i.prefetchKey,
                           )
                         : null,
-                    f = _ != null ? _ : r.prefetchResultInitial;
+                    h = g != null ? g : i.prefetchResultInitial;
                   if (
-                    n.config.enablePrefetchCacheResultNotification &&
-                    r.prefetchKey != null
+                    a.config.enablePrefetchCacheResultNotification &&
+                    i.prefetchKey != null
                   ) {
-                    var g;
-                    u.mainConnection.sendToMain({
+                    var y;
+                    d.mainConnection.sendToMain({
                       eventToMain: {
-                        hit: _ != null,
-                        playerInstanceKey: r.playerInstanceKey,
-                        prefetchKey: r.prefetchKey,
+                        hit: g != null,
+                        playerInstanceKey: i.playerInstanceKey,
+                        prefetchKey: i.prefetchKey,
                         representationID:
-                          (g =
-                            _ == null
+                          (y =
+                            g == null
                               ? void 0
-                              : _.prefetchedRepresentationIds[0]) != null
-                            ? g
+                              : g.prefetchedRepresentationIds[0]) != null
+                            ? y
                             : null,
                         type: "from_worker_to_main_prefetch_cache_result",
-                        workerType: t,
+                        workerType: r,
                       },
                       type: "send_to_main",
                     });
                   }
-                  var h = r.playerInstanceKey,
-                    y = u.fetchPool,
-                    C =
-                      y != null
+                  var C = i.playerInstanceKey,
+                    b = d.fetchPool,
+                    v =
+                      b != null
                         ? o(
                             "VideoPlayerNextgendashFetchPoolSM",
-                          ).makeFetchPoolAPI(y, h, function (e) {
-                            return l(y, e);
+                          ).makeFetchPoolAPI(b, C, function (e) {
+                            return u(b, e);
                           })
                         : null;
-                  p = i(
-                    "player-" + r.playerInstanceKey,
+                  f = s(
+                    "player-" + i.playerInstanceKey,
                     o("VideoPlayerNextgendashWorkerPlayer")
                       .VideoPlayerNextgendashWorkerPlayerSM,
                     {
-                      fetchPoolAPI: C,
-                      linkedAt: a,
-                      nextgendashInstanceIndex: r.nextgendashInstanceIndex,
-                      onDisposed: function (t, n, o) {
-                        s({
+                      fetchPoolAPI: v,
+                      linkedAt: l,
+                      nextgendashInstanceIndex: i.nextgendashInstanceIndex,
+                      onDisposed: function (t, n, r) {
+                        c({
                           exception: n.exception,
-                          playerInstanceKey: r.playerInstanceKey,
-                          prefetchKey: r.prefetchKey,
+                          playerInstanceKey: i.playerInstanceKey,
+                          prefetchKey: i.prefetchKey,
                           type: "_worker_player_disposed",
                         });
                       },
-                      playerInstanceKey: r.playerInstanceKey,
+                      playerInstanceKey: i.playerInstanceKey,
                       playerStateFromMain: o(
                         "VideoPlayerNextgendashStateMachine",
-                      ).skipAutoDisposeInsideThisObject(r.playerStateFromMain),
-                      playerSubOrigin: r.playerSubOrigin,
-                      prefetchKey: r.prefetchKey,
-                      prefetchResult: f,
+                      ).skipAutoDisposeInsideThisObject(i.playerStateFromMain),
+                      playerSubOrigin: i.playerSubOrigin,
+                      prefetchKey: i.prefetchKey,
+                      prefetchResult: h,
+                      sendMP4InspectorCapture: o(
+                        "VideoPlayerNextgendashMP4Capture",
+                      ).createMP4CapturePortSender(n),
                       sendToMain: function (t, n, r) {
-                        u.mainConnection.sendToMain({
+                        d.mainConnection.sendToMain({
                           canSendOnlyLatestOfTypeIfThrottled: r,
                           eventToMain: t,
                           transferList: n,
                           type: "send_to_main",
                         });
                       },
-                      videoFBID: r.videoFBID,
-                      workerType: t,
+                      videoFBID: i.videoFBID,
+                      workerType: r,
                     },
                   );
                 }
-                return (m.set(r.playerInstanceKey, p), u);
+                return (_.set(i.playerInstanceKey, f), d);
               }
               case "from_main_to_worker_unlink_player": {
-                var b = u.players;
+                var S = d.players;
                 return (
-                  b.delete(r.playerInstanceKey),
-                  u.fetchPool != null &&
-                    l(u.fetchPool, {
-                      playerInstanceKey: r.playerInstanceKey,
+                  S.delete(i.playerInstanceKey),
+                  d.fetchPool != null &&
+                    u(d.fetchPool, {
+                      playerInstanceKey: i.playerInstanceKey,
                       type: "unregister_player",
                     }),
-                  u
+                  d
                 );
               }
               case "from_main_to_worker_sync_media_element_state": {
-                var v = u.players,
-                  S = v.get(r.playerInstanceKey);
-                if (!S) return;
-                l(S, {
-                  mediaElementStateFromMain: r.mediaElementStateFromMain,
-                  reason: r.reason,
+                var R = d.players,
+                  L = R.get(i.playerInstanceKey);
+                if (!L) return;
+                u(L, {
+                  mediaElementStateFromMain: i.mediaElementStateFromMain,
+                  reason: i.reason,
                   type: "update_media_element_state_from_main",
                 });
                 return;
               }
               case "from_main_to_worker_sync_state": {
-                var R = u.players,
-                  L = R.get(r.playerInstanceKey);
-                if (!L) return;
-                l(L, {
-                  playerStateFromMain: r.playerStateFromMain,
-                  reason: r.reason,
+                var E = d.players,
+                  k = E.get(i.playerInstanceKey);
+                if (!k) return;
+                u(k, {
+                  playerStateFromMain: i.playerStateFromMain,
+                  reason: i.reason,
                   type: "update_player_state_from_main",
                 });
                 return;
               }
               case "from_main_to_worker_debug_log_stall_details": {
-                var E = u.players,
-                  k = E.get(r.playerInstanceKey);
-                if (!k) return;
-                l(k, {
-                  mediaElementSnapshotFromMain: r.mediaElementSnapshotFromMain,
-                  stallStartClock: r.stallStartClock,
+                var I = d.players,
+                  T = I.get(i.playerInstanceKey);
+                if (!T) return;
+                u(T, {
+                  mediaElementSnapshotFromMain: i.mediaElementSnapshotFromMain,
+                  stallStartClock: i.stallStartClock,
                   type: "debug_log_stall_details",
                 });
                 return;
               }
               case "from_main_to_worker_request_recovery_from_source_reset": {
-                var I = u.players,
-                  T = I.get(r.playerInstanceKey);
-                if (!T) return;
-                l(T, {
-                  mediaSourceIndex: r.mediaSourceIndex,
+                var D = d.players,
+                  x = D.get(i.playerInstanceKey);
+                if (!x) return;
+                u(x, {
+                  mediaSourceIndex: i.mediaSourceIndex,
                   type: "request_recovery_from_source_reset",
                 });
                 return;
               }
               case "from_main_to_worker_notify_deliberate_detach_for_unmount": {
-                var D = u.players,
-                  x = D.get(r.playerInstanceKey);
-                if (!x) return;
-                l(x, {
-                  mediaSourceIndex: r.mediaSourceIndex,
+                var $ = d.players,
+                  P = $.get(i.playerInstanceKey);
+                if (!P) return;
+                u(P, {
+                  mediaSourceIndex: i.mediaSourceIndex,
                   type: "notify_deliberate_detach_for_unmount",
                 });
                 return;
               }
               case "from_main_to_worker_prefetch": {
-                if (n.config.maxConcurrentPrefetchTasks < 1) {
+                if (a.config.maxConcurrentPrefetchTasks < 1) {
                   o(
                     "VideoPlayerNextgendashWorkerPrefetchCache",
-                  ).initiatePrefetch(n, r.prefetchInfo, r.initialAbrParams);
+                  ).initiatePrefetch(a, i.prefetchInfo, i.initialAbrParams);
                   return;
                 }
-                var $;
+                var N;
                 try {
-                  $ = o(
+                  N = o(
                     "VideoPlayerNextgendashWorkerPrefetchCache",
-                  ).getPrefetchTasks(n, r.prefetchInfo, r.initialAbrParams);
+                  ).getPrefetchTasks(a, i.prefetchInfo, i.initialAbrParams);
                 } catch (e) {
-                  n.logging.log(n, {
+                  a.logging.log(a, {
                     error: o("nextgendasherr").nextgendasherrFromCause(
-                      n,
+                      a,
                       e,
                       "VideoPlayerNextgendashGetPrefetchTasksException",
                     ),
@@ -280,85 +286,85 @@ __d(
                   });
                   return;
                 }
-                if ($.length === 0) {
-                  s({
-                    prefetchKey: r.prefetchInfo.prefetchKey,
+                if (N.length === 0) {
+                  c({
+                    prefetchKey: i.prefetchInfo.prefetchKey,
                     type: "_prefetch_task_completed",
                   });
                   return;
                 }
-                var P = u.prefetchTaskQueue;
+                var M = d.prefetchTaskQueue;
                 return (
-                  P ||
-                    (P = i(
+                  M ||
+                    (M = s(
                       "prefetch-task-queue",
                       o("VideoPlayerNextgendashWorkerPrefetchTaskQueue")
                         .VideoPlayerNextgendashWorkerPrefetchTaskQueueSM,
                       {
                         onTaskCompleted: function (t) {
-                          s({
+                          c({
                             prefetchKey: t,
                             type: "_prefetch_task_completed",
                           });
                         },
                       },
                     )),
-                  l(P, { groupId: r.groupId, tasks: $, type: "enqueue_tasks" }),
-                  babelHelpers.extends({}, u, { prefetchTaskQueue: P })
+                  u(M, { groupId: i.groupId, tasks: N, type: "enqueue_tasks" }),
+                  babelHelpers.extends({}, d, { prefetchTaskQueue: M })
                 );
               }
               case "from_main_to_worker_prefetch_group_action": {
-                var N = u.prefetchTaskQueue;
+                var w = d.prefetchTaskQueue;
                 return (
-                  N == null &&
-                    (N = i(
+                  w == null &&
+                    (w = s(
                       "prefetch-task-queue",
                       o("VideoPlayerNextgendashWorkerPrefetchTaskQueue")
                         .VideoPlayerNextgendashWorkerPrefetchTaskQueueSM,
                       {
                         onTaskCompleted: function (t) {
-                          s({
+                          c({
                             prefetchKey: t,
                             type: "_prefetch_task_completed",
                           });
                         },
                       },
                     )),
-                  r.prefetchGroupAction.type === "stop"
-                    ? l(N, { type: "stop_group" })
-                    : l(N, {
-                        groupId: r.prefetchGroupAction.groupId,
+                  i.prefetchGroupAction.type === "stop"
+                    ? u(w, { type: "stop_group" })
+                    : u(w, {
+                        groupId: i.prefetchGroupAction.groupId,
                         type: "start_group",
                       }),
-                  babelHelpers.extends({}, u, { prefetchTaskQueue: N })
+                  babelHelpers.extends({}, d, { prefetchTaskQueue: w })
                 );
               }
               case "from_main_to_worker_release_prefetch_key": {
                 o(
                   "VideoPlayerNextgendashWorkerPrefetchCache",
-                ).releasePrefetchKey(r.prefetchKey);
+                ).releasePrefetchKey(i.prefetchKey);
                 return;
               }
               default:
-                r.type;
+                i.type;
                 return;
             }
           case "__disposed__":
-            switch (r.type) {
+            switch (i.type) {
               case "__enter": {
-                var M = r.prevState;
-                if (M.state === "port_to_main_ready") {
-                  var w = M.mainConnection.disconnectFromMain;
-                  w != null &&
-                    w(
-                      u.exception != null
+                var A = i.prevState;
+                if (A.state === "port_to_main_ready") {
+                  var F = A.mainConnection.disconnectFromMain;
+                  F != null &&
+                    F(
+                      d.exception != null
                         ? o("nextgendasherr").nextgendasherrFromCause(
-                            n,
-                            u.exception,
+                            a,
+                            d.exception,
                             "VideoPlayerNextgendashWorkerDisposed",
                           )
                         : o("nextgendasherr").nextgendasherr(
-                            n,
+                            a,
                             "VideoPlayerNextgendashWorkerDisposed",
                           ),
                     );
@@ -369,7 +375,7 @@ __d(
                 return;
             }
           default: {
-            u.state;
+            d.state;
             return;
           }
         }

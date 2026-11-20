@@ -2713,8 +2713,6 @@ __d(
               uwpVoipMicLastErrorManufacturerName: [1834, e.TYPES.STRING],
               uwpVoipMicTotalErrors: [1835, e.TYPES.INTEGER],
               uwpVoipNumAnrEvents: [1836, e.TYPES.INTEGER],
-              uwpVoipNumCriticalEvents: [1837, e.TYPES.INTEGER],
-              uwpVoipNumUnhandledExceptionEvents: [1838, e.TYPES.INTEGER],
               uwpVoipTotalCameraDevices: [1839, e.TYPES.INTEGER],
               uwpVoipTotalMicDevices: [1840, e.TYPES.INTEGER],
               uwpVoipWindowIncomingAcceptToCallLayoutTime: [
@@ -3408,6 +3406,8 @@ __d(
               wifiRssiAtCallStart: [263, e.TYPES.INTEGER],
               winNpuName: [3129, e.TYPES.STRING],
               winNpuPresent: [3130, e.TYPES.BOOLEAN],
+              winNumCriticalEvents: [3360, e.TYPES.INTEGER],
+              winNumUnhandledExceptionEvents: [3361, e.TYPES.INTEGER],
               winVsrAvgFrameTimeMs: [3148, e.TYPES.NUMBER],
               winVsrButtonClicks: [3131, e.TYPES.INTEGER],
               winVsrEnabled: [3132, e.TYPES.BOOLEAN],

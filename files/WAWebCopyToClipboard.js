@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebGetUserMediaErrors",
-    "WAWebUA",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -41,11 +40,7 @@ __d(
       );
     }
     function m() {
-      return !(
-        !("clipboard" in navigator) ||
-        !("ClipboardItem" in window) ||
-        o("WAWebUA").UA.browser === o("WAWebUA").BROWSER_TYPE.SAFARI
-      );
+      return "clipboard" in navigator && "ClipboardItem" in window;
     }
     function p(e, t) {
       return _.apply(this, arguments);

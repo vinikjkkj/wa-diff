@@ -93,7 +93,6 @@ __d(
       (l.isNotificationsOptInForeground = s),
       (l.isNotificationsOptInReady = u),
       (l.isNotificationsOptInMessagePipelineIdle = c),
-      (l.isNotificationsOptInConnected = d),
       (l.showNotificationsOptInPrompt = m));
   },
   98,

@@ -207,19 +207,22 @@ __d(
       );
     }
     function V() {
-      return G(1);
+      return z(1);
     }
     function H() {
-      return G(2);
+      return z(2);
     }
-    function G(e) {
+    function G() {
+      return z(3);
+    }
+    function z(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_status_viewer_refresh_level",
         ) >= e
       );
     }
-    function z() {
+    function j() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_progressive_decrypt",
       );
@@ -259,7 +262,8 @@ __d(
       (l.isStatusComposerQuickRepliesEnabled = U),
       (l.isStatusViewerRefreshM1Enabled = V),
       (l.isStatusViewerRefreshM2Enabled = H),
-      (l.isStatusChunkDecryptEnabled = z));
+      (l.isStatusViewerRefreshM3Enabled = G),
+      (l.isStatusChunkDecryptEnabled = j));
   },
   98,
 );

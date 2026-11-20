@@ -4,6 +4,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebApiContact",
+    "WAWebChatOpeningNotice",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -37,7 +38,8 @@ __d(
     }
     function s(e, t) {
       return (
-        t === void 0 && (t = "encrypt"),
+        t === void 0 &&
+          (t = o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.ENCRYPT),
         f(e, {
           type: "e2e_notification",
           kind: o("WAWebMsgType").MsgKind.E2eNotification,
@@ -84,7 +86,8 @@ __d(
           {
             type: "notification_template",
             kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-            subtype: "disappearing_mode",
+            subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE
+              .DEFAULT_TIMER,
             templateParams: [],
             ephemeralDuration: a,
             ephemeralSettingUser: l,
@@ -100,7 +103,8 @@ __d(
           {
             type: "notification_template",
             kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-            subtype: "disappearing_mode_update",
+            subtype: o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE
+              .UPDATED_TIMER,
             templateParams: [],
             ephemeralDuration: t,
             ephemeralSettingUser: n,

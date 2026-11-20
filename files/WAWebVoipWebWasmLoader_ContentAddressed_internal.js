@@ -14,8 +14,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6",
+      u = "cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1",
       c = {
+        cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1:
+          function () {
+            return r("bx")("13551");
+          },
         aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6:
           function () {
             return r("bx")("111306");
@@ -76,12 +80,8 @@ __d(
           function () {
             return r("bx")("110779");
           },
-        bbe08444e7187dcee45d53845dea84df3c2ff5ebad07933b67a602cfe463076e:
-          function () {
-            return r("bx")("110773");
-          },
       },
-      d = c.aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6,
+      d = c.cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1,
       m = null,
       p = null;
     try {
@@ -90,6 +90,10 @@ __d(
       m = e;
     }
     var _ = {
+        cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1:
+          function () {
+            return r("bx")("13550");
+          },
         aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6:
           function () {
             return r("bx")("111305");
@@ -150,16 +154,12 @@ __d(
           function () {
             return r("bx")("110778");
           },
-        bbe08444e7187dcee45d53845dea84df3c2ff5ebad07933b67a602cfe463076e:
-          function () {
-            return r("bx")("110772");
-          },
       },
-      f = _.aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6,
+      f = _.cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1,
       g = null,
       h;
     try {
-      h = r("bx").getURL(f(), { cacheBreaker: "1795021847665" });
+      h = r("bx").getURL(f(), { cacheBreaker: "1795190749521" });
     } catch (e) {
       g = e;
     }
@@ -198,7 +198,7 @@ __d(
         var b = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/aa31d3d29d05eaa9e1da30e7c98bd4c941a0a8ecd4ae6343bc0e5e5a2e224dd6/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1/wa_voip_shared.wasm",
           ),
           g != null)
         )
@@ -922,7 +922,7 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Qe = {
-          1457172: function (t, n) {
+          1458658: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -936,7 +936,7 @@ __d(
               message: e,
             });
           },
-          1457459: function () {
+          1458945: function () {
             return Date.now();
           },
         };
@@ -1062,13 +1062,13 @@ __d(
             message: n,
           });
         }
-        function it(e, t, n, r) {
-          var o = c(),
-            a = o.length;
-          if (e < 0 || e >= a || t < 0 || e + t > a) return -1;
-          var i = o.subarray(e, e + t);
+        function it(e, t, n, r, o) {
+          var a = c(),
+            i = a.length;
+          if (e < 0 || e >= i || t < 0 || e + t > i) return -1;
+          var l = a.subarray(e, e + t);
           return self.WhatsAppVoipWasmWorkerCompatibleCallbacks.sendDataToRelay(
-            { data: i, len: t, ip: Jt(n), port: r },
+            { data: l, len: t, ip: Jt(n), port: r, copyBeforePost: o !== 0 },
           );
         }
         function lt(e, t, n, r, o, a) {
@@ -7924,8 +7924,8 @@ __d(
           yl = (b.___get_exception_message = Pe("__get_exception_message")),
           Cl = Pe("__cxa_can_catch"),
           bl = Pe("__cxa_is_pointer_type"),
-          vl = (b.___start_em_js = 1451292),
-          Sl = (b.___stop_em_js = 1457172);
+          vl = (b.___start_em_js = 1452716),
+          Sl = (b.___stop_em_js = 1458658);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -10024,7 +10024,7 @@ __d(
         if (g == null && m == null) return { hadError: !1, wasm: !0, glue: !0 };
         if (g != null)
           try {
-            ((h = r("bx").getURL(f(), { cacheBreaker: "1795021847665" })),
+            ((h = r("bx").getURL(f(), { cacheBreaker: "1795190749521" })),
               (g = null));
           } catch (e) {
             return ((g = e), { hadError: !0, wasm: !1, glue: m == null });

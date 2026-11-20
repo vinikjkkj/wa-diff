@@ -2,7 +2,6 @@ __d(
   "WAWebMessageBizContentPlaceholder",
   [
     "WAWebBizContentPlaceholderMsgData.flow",
-    "WAWebClickableLink.react",
     "WAWebExternalLink.react",
     "WAWebFbtCommon",
     "WAWebFormatMsgText",
@@ -10,6 +9,7 @@ __d(
     "WAWebMessageTextBubble.react",
     "WAWebUnsupportedMessage",
     "WDSIconIcKey.react",
+    "WDSTextualLink.react",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,7 +20,7 @@ __d(
         "https://faq.whatsapp.com/372839278914311",
       );
     }
-    var c = s.jsx(r("WAWebClickableLink.react"), {
+    var c = s.jsx(r("WDSTextualLink.react"), {
       testid: "biz-content-placeholder-learn-more",
       onClick: u,
       children: r("WAWebFbtCommon")("Learn more"),

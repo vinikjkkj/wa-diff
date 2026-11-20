@@ -17,11 +17,9 @@ __d(
       u = "chat_list_";
     function c(e) {
       var t = e.age,
-        n = e.isCtwa,
-        r = e.lastMsg,
-        o = e.origin,
-        a = "" + u + o + "_" + r + "_" + t;
-      return n ? a + "_ctwa" : a;
+        n = e.lastMsg,
+        r = e.source;
+      return "" + u + r + "_" + n + "_" + t;
     }
     function d(e) {
       return e.startsWith(u);

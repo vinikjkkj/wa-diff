@@ -2,7 +2,10 @@ __d(
   "WAWebBizBroadcastProSuggestedAudienceStringsV2",
   ["fbt", "WAWebBizBroadcastProSuggestedAudiencePresetsV2", "fbs"],
   function (t, n, r, o, a, i, l, s) {
-    function e(e) {
+    function e(e, t) {
+      return e === "largest_list" && t != null && t.trim() !== "" ? t : u(e);
+    }
+    function u(e) {
       return e === "active_chats"
         ? r("fbs")._(/*BTDS*/ "Active chats")
         : e === "inactive_chats"
@@ -18,7 +21,7 @@ __d(
                   );
                 })();
     }
-    function u(e, t) {
+    function c(e, t) {
       return (
         t === void 0 &&
           (t = o(
@@ -46,7 +49,7 @@ __d(
                   })()
       );
     }
-    function c(e) {
+    function d(e) {
       return e === 7
         ? r("fbs")._(/*BTDS*/ "Last 7 days")
         : e === 14
@@ -66,7 +69,7 @@ __d(
                       );
                     })();
     }
-    function d(e, t) {
+    function m(e, t) {
       return o(
         "WAWebBizBroadcastProSuggestedAudiencePresetsV2",
       ).hasProAudiencePeriod(e)
@@ -76,7 +79,7 @@ __d(
               s._plural(t, "number"),
               s._param(
                 "period",
-                c(
+                d(
                   o("WAWebBizBroadcastProSuggestedAudiencePresetsV2")
                     .DEFAULT_PRO_AUDIENCE_DAYS,
                 ),
@@ -87,56 +90,57 @@ __d(
             s._plural(t, "number"),
           ]);
     }
-    function m(t, n) {
-      var a = e(t);
+    function p(e, t) {
+      var n = u(e);
       return o(
         "WAWebBizBroadcastProSuggestedAudiencePresetsV2",
-      ).hasProAudiencePeriod(t)
+      ).hasProAudiencePeriod(e)
         ? r("fbs")._(/*BTDS*/ "{audience title} ({period})", [
-            r("fbs")._param("audience title", a),
-            r("fbs")._param("period", c(n)),
+            r("fbs")._param("audience title", n),
+            r("fbs")._param("period", d(t)),
           ])
-        : a;
-    }
-    function p() {
-      return s._(/*BTDS*/ "Suggested audiences");
+        : n;
     }
     function _() {
-      return s._(/*BTDS*/ "Could not load this suggested audience.");
+      return s._(/*BTDS*/ "Suggested audiences");
     }
     function f() {
-      return s._(/*BTDS*/ "Retry");
+      return s._(/*BTDS*/ "Could not load this suggested audience.");
     }
     function g() {
+      return s._(/*BTDS*/ "Retry");
+    }
+    function h() {
       return s._(/*BTDS*/ "Choose manually");
     }
-    function h(e) {
+    function y(e) {
       return s._(
         /*BTDS*/ "This suggested audience is unavailable. You can choose contacts manually.",
       );
     }
-    function y() {
+    function C() {
       return s._(
         /*BTDS*/ "No eligible contacts match this suggested audience. You can choose contacts manually.",
       );
     }
-    function C() {
+    function b() {
       return s._(
         /*BTDS*/ "Not enough eligible contacts match this suggested audience. You can choose contacts manually.",
       );
     }
-    ((l.getProSuggestedAudienceTitle = e),
-      (l.getProSuggestedAudienceDescription = u),
-      (l.getProAudiencePeriodLabel = c),
-      (l.getProSuggestedAudienceSubtitle = d),
-      (l.getProSuggestedAudienceFallbackName = m),
-      (l.getProSuggestedAudiencesSectionTitle = p),
-      (l.getProAudienceResolutionError = _),
-      (l.getProAudienceRetryLabel = f),
-      (l.getProAudienceChooseManuallyLabel = g),
-      (l.getProAudienceUnavailableMessage = h),
-      (l.getProAudienceEmptyMessage = y),
-      (l.getProAudienceTooSmallMessage = C));
+    ((l.getProSuggestedAudienceDisplayTitle = e),
+      (l.getProSuggestedAudienceTitle = u),
+      (l.getProSuggestedAudienceDescription = c),
+      (l.getProAudiencePeriodLabel = d),
+      (l.getProSuggestedAudienceSubtitle = m),
+      (l.getProSuggestedAudienceFallbackName = p),
+      (l.getProSuggestedAudiencesSectionTitle = _),
+      (l.getProAudienceResolutionError = f),
+      (l.getProAudienceRetryLabel = g),
+      (l.getProAudienceChooseManuallyLabel = h),
+      (l.getProAudienceUnavailableMessage = y),
+      (l.getProAudienceEmptyMessage = C),
+      (l.getProAudienceTooSmallMessage = b));
   },
   226,
 );

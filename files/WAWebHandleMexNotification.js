@@ -1,26 +1,14 @@
 __d(
   "WAWebHandleMexNotification",
   [
-    "JSResourceForInteraction",
     "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAParsableWapNode",
     "WAWap",
-    "WAWebHandleBrigadingUpdateNotification",
-    "WAWebLazyLoadedRetriable",
-    "WAWebMexCommunityOwnerUpdateNotificationHandler",
-    "WAWebMexGroupPropertyUpdateNotificationHandler",
-    "WAWebMexIntegrityChallengeNotificationHandler",
     "WAWebMexLidChangeNotificationHandler",
-    "WAWebMexLimitSharingUpdateHandler",
     "WAWebMexNotificationPluginHandlers",
-    "WAWebMexReachoutTimelockNotificationHandler",
     "WAWebMexRelayEnvironment",
-    "WAWebMexTextStatusUpdateNotificationHandler",
-    "WAWebMexUsernameAccountSyncNotificationHandler",
-    "WAWebMexUsernameUpdateNotificationHandler",
-    "WAWebNewChatMessageCappingNotificationHandler",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -29,23 +17,13 @@ __d(
       s,
       u,
       c,
-      d = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")(
-            "WAWebMexOrgMemberUpdateNotificationHandler",
-          )
-            .__setRef("WAWebHandleMexNotification")
-            .load();
-        }),
-        "OrgMemberUpdateNotificationHandler",
-      ),
-      m = new Set([
+      d = new Set([
         "NotificationLinkedProfilesUpdatesSideSub",
         "NotificationAgeCollection",
         "NotificationLinkedProfilesUpdates",
       ]),
-      p = "mexNotificationParser",
-      _ = new (r("WADeprecatedWapParser"))(p, function (e) {
+      m = "mexNotificationParser",
+      p = new (r("WADeprecatedWapParser"))(m, function (e) {
         (e.assertTag("notification"), e.assertAttr("type", "mex"));
         var t = e.child("update"),
           n = e.attrString("id"),
@@ -58,7 +36,7 @@ __d(
           s = JSON.parse(l);
         } catch (e) {
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            p,
+            m,
             "JSON parsing error: " + String(e),
           );
         }
@@ -70,20 +48,20 @@ __d(
           mexResponse: s,
         };
       });
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = _.parseOrThrow(t);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = p.parseOrThrow(t);
           try {
-            var a = yield h(n);
+            var a = yield g(n);
             return a;
           } catch (t) {
             if (t instanceof o("WAParsableWapNode").XmppParsingFailure) throw t;
-            if (t instanceof y)
-              if (m.has(t.operationName))
+            if (t instanceof h)
+              if (d.has(t.operationName))
                 o("WALogger")
                   .WARN(
                     e ||
@@ -128,157 +106,33 @@ __d(
                   { sampling: 0.1 },
                 );
             throw new (o("WAParsableWapNode").XmppParsingFailure)(
-              p,
+              m,
               "unexpected error: " + String(t),
             );
           }
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e) {
+    function g(e) {
       var t = o(
         "WAWebMexNotificationPluginHandlers",
       ).getMexNotificationPluginHandler(e.OperationName);
       return t != null
-        ? C(e, t)
+        ? y(e, t)
         : e.OperationName === "MexNotificationEvent"
-          ? C(e, L)
-          : e.OperationName === "NotificationOrgMemberUpdate"
-            ? C(
-                e,
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e, t) {
-                      var n = yield d(),
-                        r = n.mexHandleOrgMemberUpdate;
-                      return r(e, t);
-                    },
-                  );
-                  return function (t, n) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              )
-            : e.OperationName === "TextStatusUpdateNotification"
-              ? C(
+          ? y(e, R)
+          : e.OperationName === "NotificationGroupEncryptionKeysPropertyUpdate"
+            ? y(e, v)
+            : e.OperationName === "LidChangeNotification"
+              ? y(
                   e,
-                  o("WAWebMexTextStatusUpdateNotificationHandler")
-                    .mexHandleTextStatusUpdate,
+                  o("WAWebMexLidChangeNotificationHandler")
+                    .mexHandleLidChangeNotification,
                 )
-              : e.OperationName === "TextStatusUpdateNotificationSideSub"
-                ? C(
-                    e,
-                    o("WAWebMexTextStatusUpdateNotificationHandler")
-                      .mexHandleTextStatusUpdateSideSub,
-                  )
-                : e.OperationName === "NotificationGroupPropertyUpdate" ||
-                    e.OperationName ===
-                      "NotificationGroupHiddenPropertyUpdate" ||
-                    e.OperationName ===
-                      "NotificationGroupSafetyCheckPropertyUpdate" ||
-                    e.OperationName ===
-                      "NotificationGroupMemberLinkPropertyUpdate" ||
-                    e.OperationName ===
-                      "NotificationGroupMemberShareGroupHistoryModePropertyUpdate" ||
-                    e.OperationName ===
-                      "NotificationGroupCustomReactionsPropertyUpdate" ||
-                    e.OperationName ===
-                      "NotificationGroupMembershipFormPropertyUpdate" ||
-                    e.OperationName === "NotificationGroupAppealStatusUpdate"
-                  ? C(
-                      e,
-                      o("WAWebMexGroupPropertyUpdateNotificationHandler")
-                        .mexHandleGroupPropertyUpdate,
-                    )
-                  : e.OperationName ===
-                      "NotificationGroupEncryptionKeysPropertyUpdate"
-                    ? C(e, S)
-                    : e.OperationName === "NotificationCommunityOwnerUpdate"
-                      ? C(
-                          e,
-                          o("WAWebMexCommunityOwnerUpdateNotificationHandler")
-                            .mexHandleCommunityOwnerUpdate,
-                        )
-                      : e.OperationName === "UsernameSetNotification"
-                        ? C(
-                            e,
-                            o("WAWebMexUsernameUpdateNotificationHandler")
-                              .mexHandleUsernameChange,
-                          )
-                        : e.OperationName === "UsernameDeleteNotification"
-                          ? C(
-                              e,
-                              o("WAWebMexUsernameUpdateNotificationHandler")
-                                .mexHandleUsernameDelete,
-                            )
-                          : e.OperationName === "UsernameUpdateNotification"
-                            ? C(
-                                e,
-                                o("WAWebMexUsernameUpdateNotificationHandler")
-                                  .mexHandleUsernameChangeForSideSub,
-                              )
-                            : e.OperationName ===
-                                "AccountSyncUsernameNotification"
-                              ? C(
-                                  e,
-                                  o(
-                                    "WAWebMexUsernameAccountSyncNotificationHandler",
-                                  ).mexHandleUsernameAccountSync,
-                                )
-                              : e.OperationName === "LidChangeNotification"
-                                ? C(
-                                    e,
-                                    o("WAWebMexLidChangeNotificationHandler")
-                                      .mexHandleLidChangeNotification,
-                                  )
-                                : e.OperationName ===
-                                    "NotificationUserBrigadingUpdate"
-                                  ? C(
-                                      e,
-                                      o(
-                                        "WAWebHandleBrigadingUpdateNotification",
-                                      ).mexHandleBrigadingNotification,
-                                    )
-                                  : e.OperationName ===
-                                      "NotificationGroupLimitSharingPropertyUpdate"
-                                    ? C(
-                                        e,
-                                        o("WAWebMexLimitSharingUpdateHandler")
-                                          .mexHandleLimitSharingUpdate,
-                                      )
-                                    : e.OperationName ===
-                                        "NotificationUserReachoutTimelockUpdate"
-                                      ? C(
-                                          e,
-                                          o(
-                                            "WAWebMexReachoutTimelockNotificationHandler",
-                                          )
-                                            .mexHandleReachoutTimelockNotification,
-                                        )
-                                      : e.OperationName ===
-                                          "NotificationIntegrityChallengeRequest"
-                                        ? C(
-                                            e,
-                                            o(
-                                              "WAWebMexIntegrityChallengeNotificationHandler",
-                                            )
-                                              .mexHandleIntegrityChallengeNotification,
-                                          )
-                                        : e.OperationName ===
-                                            "MessageCappingInfoNotification"
-                                          ? C(
-                                              e,
-                                              o(
-                                                "WAWebNewChatMessageCappingNotificationHandler",
-                                              )
-                                                .mexHandleNewChatMessageCappingNotification,
-                                            )
-                                          : (c || (c = n("Promise"))).reject(
-                                              new y(e.OperationName),
-                                            );
+              : (c || (c = n("Promise"))).reject(new h(e.OperationName));
     }
-    var y = (function (e) {
+    var h = (function (e) {
       function t(n) {
         var r;
         return (
@@ -297,32 +151,32 @@ __d(
         t
       );
     })(babelHelpers.wrapNativeSuper(Error));
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.mexResponse,
             r = o("WAWebMexRelayEnvironment").parseFatalExtensionError(
               n.errors,
             );
           if (r != null)
             throw new (o("WAParsableWapNode").XmppParsingFailure)(
-              p,
+              m,
               "errors list in parsed json has fatal error",
             );
           if (n.data != null)
-            return (yield t(e, n.data), v(e.stanzaId, e.from));
+            return (yield t(e, n.data), b(e.stanzaId, e.from));
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            p,
+            m,
             "null data in parsed json",
           );
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e, t) {
+    function b(e, t) {
       return o("WAWap").wap("ack", {
         id: o("WAWap").CUSTOM_STRING(e),
         to: t,
@@ -330,30 +184,29 @@ __d(
         type: "mex",
       });
     }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t) {},
         )),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t) {},
         )),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    ((l.handleMexNotification = f), (l.MissingMEXNotificationHandler = y));
+    ((l.handleMexNotification = _), (l.MissingMEXNotificationHandler = h));
   },
   98,
 );

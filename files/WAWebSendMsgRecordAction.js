@@ -30,6 +30,7 @@ __d(
     "WAWebHandleMsgError",
     "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
+    "WAWebIsUserInitiatedOutgoingMsg",
     "WAWebLimitSharingGatingUtils",
     "WAWebMessageCappingWamEvent",
     "WAWebMessageSendReporterFrontendDeps",
@@ -209,7 +210,7 @@ __d(
           var y =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               ["sender_revoke", "admin_revoke"].includes(i.subtype),
-            b = N(i),
+            b = M(i),
             v =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               i.subtype ===
@@ -286,8 +287,7 @@ __d(
               messageIsForward: !!i.isForwarded,
             })),
             b ||
-              (t.isTrusted() ||
-                r("WAWebSendNotSpamAction")(t).catch(r("WAWebNoop")),
+              (N(t, e),
               o("WAWebUpdateUnreadChatAction").sendSeen({
                 chat: t,
                 threadId: o("WAWebBotGating").isAiChatThreadsEnabled()
@@ -325,7 +325,7 @@ __d(
               .resolve()
               .then(function () {
                 return e.type === "message"
-                  ? M(e.data, a)
+                  ? w(e.data, a)
                   : o("WAWebAddonSendProcess").sendAddonProcess(
                       T != null ? T : e.data,
                       a,
@@ -617,18 +617,26 @@ __d(
         P.apply(this, arguments)
       );
     }
-    function N(e) {
+    function N(e, t) {
+      !e.isTrusted() &&
+        (t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon ||
+          o("WAWebIsUserInitiatedOutgoingMsg").isUserInitiatedOutgoingMsg(
+            t.data,
+          )) &&
+        r("WAWebSendNotSpamAction")(e).catch(r("WAWebNoop"));
+    }
+    function M(e) {
       return (
         o("WAWebSilentProtocolMsg").isSilentProtocolMsg(e) ||
         o("WAWebSilentPaymentMsg").isSilentPaymentMsg(e)
       );
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           e.isForwarded &&
             (n = o("WAWebMsgUtilsBridge").createMessageForwardMetric(e));
@@ -713,7 +721,7 @@ __d(
             );
           }
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
     ((l.sendMsgRecord = b), (l.sendAddonRecord = S));

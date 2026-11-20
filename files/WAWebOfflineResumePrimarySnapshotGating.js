@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
-        "history_sync_recent_conversations_on_demand_companion",
+        "web_offline_resume_primary_snapshot_enabled",
       );
     }
     l.isOfflineResumePrimarySnapshotEnabled = e;

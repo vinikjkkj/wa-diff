@@ -51,6 +51,12 @@ __d(
       Save: function () {
         return s._(/*BTDS*/ "Save");
       },
+      Discard: function () {
+        return s._(/*BTDS*/ "Discard");
+      },
+      "Discard changes?": function () {
+        return s._(/*BTDS*/ "Discard changes?");
+      },
       Download: function () {
         return s._(/*BTDS*/ "Download");
       },

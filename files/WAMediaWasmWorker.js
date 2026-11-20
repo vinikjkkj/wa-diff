@@ -461,25 +461,26 @@ __d(
         .resolve()
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = t.hints,
-              n = t.input,
-              r = t.qplData,
-              a = t.requestId,
-              i =
-                r != null
+            var e = t.allowlists,
+              n = t.hints,
+              r = t.input,
+              a = t.qplData,
+              i = t.requestId,
+              l =
+                a != null
                   ? o(
                       "WAMediaWasmWorkerQplProxy",
-                    ).continueQplMediaWasmWorkeQplFlow(r.event, r.instanceKey)
+                    ).continueQplMediaWasmWorkeQplFlow(a.event, a.instanceKey)
                   : null,
-              l = yield o(
+              s = yield o(
                 "WAKaleidoscopeProvenance",
-              ).detectAiProvenanceFromBytes(n, i, e);
+              ).detectAiProvenanceFromBytes(r, l, n, e);
             return f({
-              provenance: l.provenance,
-              engineErrorCode: l.engineErrorCode,
-              systemProvenance: l.systemProvenance,
-              input: n,
-              requestId: a,
+              provenance: s.provenance,
+              engineErrorCode: s.engineErrorCode,
+              systemProvenance: s.systemProvenance,
+              input: r,
+              requestId: i,
             });
           }),
         )

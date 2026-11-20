@@ -100,9 +100,7 @@ __d(
         .format(new Date(e))
         .replace(/ /g, "\xA0");
     }
-    ((l.OrdersDeprecationBannerContents = p),
-      (l.getChargesEndedTitle = v),
-      (l.getChargesEndedDescription = S));
+    l.OrdersDeprecationBannerContents = p;
   },
   226,
 );

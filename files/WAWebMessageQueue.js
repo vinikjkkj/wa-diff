@@ -12,6 +12,7 @@ __d(
     "WAWebHandleMsgCommon",
     "WAWebMessageDeliveryCounters",
     "WAWebMessageQueueImpl",
+    "WAWebOfflineBacklogHold",
     "WAWebOfflineHandler",
     "WAWebOfflineResumeCounters",
     "WAWebOneQueue",
@@ -167,7 +168,10 @@ __d(
               ((t = R("offline")),
                 yield o(
                   "WAWebEventsWaitForReadyForOffline",
-                ).waitForOfflineProcessReady());
+                ).waitForOfflineProcessReady(),
+                yield o(
+                  "WAWebOfflineBacklogHold",
+                ).waitForOfflineBacklogRelease());
             });
             function r() {
               return e.apply(this, arguments);
@@ -199,6 +203,7 @@ __d(
               yield o(
                 "WAWebEventsWaitForReadyForOffline",
               ).waitForOfflineProcessReady(),
+              yield o("WAWebOfflineBacklogHold").waitForOfflineBacklogRelease(),
               o("WAPromiseTimeout")
                 .promiseTimeout(r(), c)
                 .catch(function (t) {

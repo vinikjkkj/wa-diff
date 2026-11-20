@@ -2,7 +2,6 @@ __d(
   "WAWebParseSendPaymentMessageProto",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebDecodeJid",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
@@ -30,8 +29,6 @@ __d(
             ? void 0
             : n.contextInfo;
         if (
-          o("WAWebABProps").getABPropConfigValue("wa_web_xb_bubble_enabled") !==
-            !0 &&
           ((r = c.noteMessage) == null ||
           (r = r.extendedTextMessage) == null ||
           (r = r.paymentExtendedMetadata) == null

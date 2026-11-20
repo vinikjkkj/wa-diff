@@ -66,23 +66,24 @@ __d(
       u,
       c,
       d,
-      m = r("requireDeferred")("WAWebProductCatalogLogEvents").__setRef(
+      m,
+      p = r("requireDeferred")("WAWebProductCatalogLogEvents").__setRef(
         "WAWebSendTextMsgChatAction",
       );
-    function p(e, t) {
+    function _(e, t) {
       return o(
         "WAWebRichTextFormatMessageSendLogger",
       ).maybeCreateRichTextFormatMessageSendCommit(e, t);
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 && (n = {});
           var r = o("WAWebStateUtils").unproxy(e),
-            a = yield g(r, t, n);
+            a = yield h(r, t, n);
           if (a) {
             yield o("WAWebBizBotTosUtils").maybeShowBizBot1pTos(r);
             var i = yield o(
@@ -90,28 +91,29 @@ __d(
               ).maybeDisableEphemeralityForMsg(r, a),
               l = i.msgData,
               s = i.systemMsgs;
-            return y(r, l, s, {
+            return C(r, l, s, {
               skipRichTextFormatLogging: n.skipRichTextFormatLogging,
+              onMsgKeyCreated: n.onMsgKeyCreated,
             });
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function h(e, t, n) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i, l, d, p, _, f;
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i, l, s, m, _, f;
           a === void 0 && (a = {});
           var g = (n || "").trim();
           if (g === "") return null;
           var h = a,
             y = h.aiMediaCollectionInfo,
             C = h.aiThreadInfo,
-            v = h.ctwaContext,
+            b = h.ctwaContext,
             S = h.encryptedCommentFields,
             R = h.groupMentions,
             L = h.isQuestion,
@@ -149,8 +151,8 @@ __d(
               return (
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[questions] Unsupported question message type: ",
                         "",
                       ])),
@@ -176,8 +178,8 @@ __d(
               return (
                 o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[questions] Unsupported question reply message type: ",
                         "",
                       ])),
@@ -212,7 +214,7 @@ __d(
               {
                 mentionedJidList: I,
                 groupMentions: R,
-                ctwaContext: v,
+                ctwaContext: b,
                 body: g,
                 isSpoiler:
                   o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(g) &&
@@ -259,8 +261,8 @@ __d(
                     H,
                   )),
             (H.botModeOverride =
-              (d = H.botModeOverride) != null
-                ? d
+              (s = H.botModeOverride) != null
+                ? s
                 : o(
                     "WAWebMaybeGetBotModeSelection",
                   ).maybeGetBotDynamicModeSelection(t, H)),
@@ -279,10 +281,10 @@ __d(
             (H.agentId = o("WAWebBizAgentAction").getAgentId(H)),
             o("WAWebBotBaseGating").isBotEnabled() &&
               (!o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() ||
-                ((p = t.groupMetadata) == null ? void 0 : p.isOpenBotGroup) !==
+                ((m = t.groupMetadata) == null ? void 0 : m.isOpenBotGroup) !==
                   !0))
           ) {
-            var Q = b(t, I);
+            var Q = v(t, I);
             if (Q != null) {
               H.invokedBotWid = Q;
               var X = x == null ? void 0 : x.botTargetSenderJid;
@@ -347,7 +349,7 @@ __d(
           (se != null && (H.botCommandMetadata = se),
             x &&
               x.type === o("WAWebMsgType").MSG_TYPE.PRODUCT &&
-              m
+              p
                 .load()
                 .then(function (e) {
                   return e.logProductMessageBusinessSend(x, x.sessionId);
@@ -355,8 +357,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "[send-text-msg] failed to load catalog log events: ",
                           "",
                         ])),
@@ -390,21 +392,21 @@ __d(
             H
           );
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t, n, r) {
-      return C.apply(this, arguments);
+    function C(e, t, n, r) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l, s, u, c;
             (i === void 0 && (i = {}),
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "addAndSendTextMsg chat: ",
                     "",
                   ])),
@@ -413,13 +415,14 @@ __d(
               yield o(
                 "WAWebLidMigrationFrontendUtils",
               ).validateMissingAccountLid(e, t, "addAndSendTextMsg"));
-            var m = new (o("WAWebMsgModel").Msg)(t),
-              p =
+            var d = new (o("WAWebMsgModel").Msg)(t);
+            R(i.onMsgKeyCreated, d.id);
+            var p =
                 i.skipRichTextFormatLogging === !0
                   ? null
                   : o(
                       "WAWebRichTextFormatMessageSendLogger",
-                    ).maybeCreateRichTextFormatMessageSendCommit(m, e.id),
+                    ).maybeCreateRichTextFormatMessageSendCommit(d, e.id),
               _ = o("WAWebSendMsgChatActionUtils").maybeGetOpusSystemMsg(
                 e,
                 "opus-send-text-fail",
@@ -427,7 +430,7 @@ __d(
               f = []
                 .concat(
                   _ ? [_] : [],
-                  (l = yield r("WAWebEmptyChatSystemMsg")(m, e)) != null
+                  (l = yield r("WAWebEmptyChatSystemMsg")(d, e)) != null
                     ? l
                     : [],
                   a != null ? a : [],
@@ -438,38 +441,38 @@ __d(
                 e.id,
                 o("WAWebWamMsgUtils").msgIsLid(t, e.id, g),
               );
-            ((m.wamMessageSendReporter = new (o(
+            ((d.wamMessageSendReporter = new (o(
               "WAWebMessageSendReporter",
             ).MessageSendReporter)(
-              m,
+              d,
               babelHelpers.extends({}, h, {
                 frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                   .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
               }),
             )),
-              (m.wamMessageSendPerfReporter = new (o(
+              (d.wamMessageSendPerfReporter = new (o(
                 "WAWebMessageSendPerfReporter",
               ).MessageSendPerfReporter)({
-                chatWid: m.to,
-                mediaType: o("WAWebWamMsgUtils").getWamMediaType(m),
-                messageType: o("WAWebWamMsgUtils").getWamMessageType(m),
+                chatWid: d.to,
+                mediaType: o("WAWebWamMsgUtils").getWamMediaType(d),
+                messageType: o("WAWebWamMsgUtils").getWamMessageType(d),
               })),
               o("WAWebAppTracker").AppTracker.start(
                 o("WAWebAppTracker").AppTrackerType.SendMessage,
               ),
-              (u = m.wamMessageSendPerfReporter) == null ||
+              (u = d.wamMessageSendPerfReporter) == null ||
                 u.startRenderedStage(),
               f.length > 0 && e.msgs.add(f),
-              e.msgs.add(m),
+              e.msgs.add(d),
               o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(e, [
-                m,
+                d,
               ]),
-              (c = m.wamMessageSendPerfReporter) == null ||
+              (c = d.wamMessageSendPerfReporter) == null ||
                 c.postRenderedStage(),
               o("WAWebQbmMessageReplyLogEventLazy").logQbmMessageReply({
                 chat: e,
-                replyMessageType: m.type,
-                replyMsg: m,
+                replyMessageType: d.type,
+                replyMsg: d,
               }),
               (e.createdLocally = !1));
             var y = f.length > 0 ? [].concat(f, [t]) : [t],
@@ -482,29 +485,29 @@ __d(
                           .runtime(
                             o("WAWebMessageSendService").MessageSendService,
                           )
-                          .storeAndSend(m, y, e.id);
+                          .storeAndSend(d, y, e.id);
                       }
                     : n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var n, r;
-                          ((n = m.wamMessageSendPerfReporter) == null ||
+                          ((n = d.wamMessageSendPerfReporter) == null ||
                             n.startSavedStage(),
                             yield o("WAWebDBProcessMessage").storeMessages(
                               y,
                               e.id,
                             ),
-                            (r = m.wamMessageSendPerfReporter) == null ||
+                            (r = d.wamMessageSendPerfReporter) == null ||
                               r.postSavedStage(),
                             o(
                               "WAWebPathfinderMessageSent",
-                            ).recordPathfinderMessageSentAfterCommit(m),
+                            ).recordPathfinderMessageSentAfterCommit(d),
                             o("WAWebThreadMsgUtils").isThreadMsg(t) &&
                               (yield o(
                                 "WAWebDBThreadMetadataBulkHelper",
                               ).persistNewMessagesThreadMetadataInBulk([t])));
                           var a = yield o(
                             "WAWebSendMsgRecordAction",
-                          ).sendMsgRecord(m);
+                          ).sendMsgRecord(d);
                           return a;
                         },
                       ),
@@ -521,17 +524,17 @@ __d(
             );
           },
         )),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       return t == null
         ? void 0
         : t.find(function (t) {
-            return t.isBot() && v(e, t);
+            return t.isBot() && S(e, t);
           });
     }
-    function v(e, t) {
+    function S(e, t) {
       if (!e.id.isGroup()) return !0;
       var n = e.groupMetadata;
       return o("WAWebBotGroupGatingUtils").isGroupBotInvokeAllowed(
@@ -541,11 +544,27 @@ __d(
           o("WAWebGroupMetadataGetters").getIsCag(n),
       );
     }
-    ((l.maybeCreateTextMsgRichTextFormatSendCommit = p),
-      (l.sendTextMsgToChat = _),
-      (l.createTextMsgData = g),
-      (l.addAndSendTextMsg = y),
-      (l.getInvokedBotWid = b));
+    function R(e, t) {
+      try {
+        e == null || e(t);
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "addAndSendTextMsg: onMsgKeyCreated failed (",
+                ")",
+              ])),
+            e instanceof Error ? e.name : typeof e,
+          )
+          .sendLogs("send-text-on-msg-key-created-failed");
+      }
+    }
+    ((l.maybeCreateTextMsgRichTextFormatSendCommit = _),
+      (l.sendTextMsgToChat = f),
+      (l.createTextMsgData = h),
+      (l.addAndSendTextMsg = C),
+      (l.getInvokedBotWid = v));
   },
   98,
 );

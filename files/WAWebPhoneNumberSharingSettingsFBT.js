@@ -1,6 +1,6 @@
 __d(
   "WAWebPhoneNumberSharingSettingsFBT",
-  ["fbt"],
+  ["fbt", "WAWebPrivacySettingsFBT"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "Phone number");
@@ -18,27 +18,33 @@ __d(
     }
     function c(e) {
       return s._(
-        /*BTDS*/ '_j{"*":"{count} contacts excluded","_1":"1 contact excluded"}',
+        /*BTDS*/ '_j{"*":"{count} entries included","_1":"1 entry included"}',
         [s._plural(e, "count")],
       );
     }
     function d(e) {
       return s._(
-        /*BTDS*/ '_j{"*":"{count} entries included","_1":"1 entry included"}',
-        [s._plural(e, "count")],
-      );
-    }
-    function m(e) {
-      return s._(
         /*BTDS*/ '_j{"*":"{count} entries excluded","_1":"1 entry excluded"}',
         [s._plural(e, "count")],
       );
     }
-    ((l.phoneNumberSharingTitle = e),
+    function m() {
+      return s._(/*BTDS*/ "Don't show to...");
+    }
+    function p(e) {
+      return e === "none"
+        ? s._(/*BTDS*/ "Show to...")
+        : s._(/*BTDS*/ "Also show to...");
+    }
+    ((l.phoneNumberSharingContactExcludedCount = o(
+      "WAWebPrivacySettingsFBT",
+    ).privacyContactsExcludedCount),
+      (l.phoneNumberSharingTitle = e),
       (l.phoneNumberSharingModeLabel = u),
-      (l.phoneNumberSharingContactExcludedCount = c),
-      (l.phoneNumberSharingIncludedCount = d),
-      (l.phoneNumberSharingExcludedCount = m));
+      (l.phoneNumberSharingIncludedCount = c),
+      (l.phoneNumberSharingExcludedCount = d),
+      (l.phoneNumberSharingDenyListLabel = m),
+      (l.phoneNumberSharingAllowListLabel = p));
   },
   226,
 );

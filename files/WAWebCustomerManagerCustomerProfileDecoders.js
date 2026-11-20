@@ -65,13 +65,17 @@ __d(
       return o("WATimeUtils").castToUnixTime(t);
     }
     function _(e) {
-      var t = new Map();
-      for (var n of e) {
-        var r = n.fieldName,
-          o = n.source,
-          a = n.ts,
-          i = f(o);
-        r != null && i != null && t.set(r, { author: i, ts: m(a) });
+      var t = new Map(),
+        n = new Set();
+      for (var r of e) {
+        var o = r.fieldName,
+          a = r.source,
+          i = r.ts;
+        if (!(o == null || n.has(o))) {
+          n.add(o);
+          var l = f(a);
+          l != null && t.set(o, { author: l, ts: m(i) });
+        }
       }
       return t;
     }

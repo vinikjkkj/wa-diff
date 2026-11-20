@@ -9,20 +9,30 @@ __d(
       c = null,
       d = new Set();
     function m(e, t, n, r) {
+      _({
+        destination: e,
+        sessionId: t,
+        requiresFreeBizAiPlan: !0,
+        onFailure: n,
+        onBeforeOpen: r,
+      });
+    }
+    function p(e, t) {
+      _({
+        destination: null,
+        sessionId: e,
+        requiresFreeBizAiPlan: !1,
+        onFailure: t,
+      });
+    }
+    function _(e) {
       ((u += 1),
-        (c = {
-          id: u,
-          destination: e,
-          sessionId: t,
-          opened: !1,
-          onFailure: n,
-          onBeforeOpen: r,
-        }),
+        (c = babelHelpers.extends({}, e, { id: u, opened: !1 })),
         d.forEach(function (e) {
           return e();
         }));
     }
-    function p(e) {
+    function f(e) {
       var t = c;
       return t == null || t.id !== e || t.opened
         ? !1
@@ -32,14 +42,14 @@ __d(
           }),
           !0);
     }
-    function _(e) {
+    function g(e) {
       var t = c;
       if (!(t == null || t.id !== e)) {
         var n = t.onFailure;
-        (f(e), n == null || n());
+        (h(e), n == null || n());
       }
     }
-    function f(e) {
+    function h(e) {
       var t;
       ((t = c) == null ? void 0 : t.id) === e &&
         ((c = null),
@@ -47,10 +57,10 @@ __d(
           return e();
         }));
     }
-    function g() {
-      return s(h, y);
+    function y() {
+      return s(C, b);
     }
-    function h(e) {
+    function C(e) {
       return (
         d.add(e),
         function () {
@@ -58,14 +68,15 @@ __d(
         }
       );
     }
-    function y() {
+    function b() {
       return c;
     }
     ((l.requestMetaOneDialog = m),
-      (l.claimMetaOneDialogRequest = p),
-      (l.failMetaOneDialogRequest = _),
-      (l.clearMetaOneDialogRequest = f),
-      (l.useMetaOneDialogRequest = g));
+      (l.requestMetaOneDialogForAnyBusiness = p),
+      (l.claimMetaOneDialogRequest = f),
+      (l.failMetaOneDialogRequest = g),
+      (l.clearMetaOneDialogRequest = h),
+      (l.useMetaOneDialogRequest = y));
   },
   98,
 );

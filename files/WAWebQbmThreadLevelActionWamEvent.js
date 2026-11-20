@@ -69,6 +69,7 @@ __d(
                 o("WAWebWamEnumSignupEntryPoint").SIGNUP_ENTRY_POINT,
               ],
               iasOptinDs: [53, e.TYPES.STRING],
+              isBizAiOnboarded: [76, e.TYPES.BOOLEAN],
               isBizIntent: [36, e.TYPES.BOOLEAN],
               isBizMetaVerified: [66, e.TYPES.BOOLEAN],
               isBroadcastMessageList: [38, e.TYPES.STRING],

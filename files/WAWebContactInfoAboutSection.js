@@ -9,8 +9,8 @@ __d(
     "WAWebMiscGatingUtils",
     "WAWebUseAboutDisplayStatus",
     "WAWebWid",
-    "WDSMargins.stylex",
     "WDSPaddings.stylex",
+    "WDSSectionDivider.react",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
@@ -18,9 +18,12 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = { whatsapp_url: { color: "x14qam3d", $$css: !0 } };
+      c = {
+        aboutText: { paddingBottom: "x1a8lsjc", $$css: !0 },
+        whatsapp_url: { color: "x14qam3d", $$css: !0 },
+      };
     function d(e) {
-      var t = o("react-compiler-runtime").c(17),
+      var t = o("react-compiler-runtime").c(18),
         n = e.contact,
         a = o("WAWebUseAboutDisplayStatus").useAboutDisplayStatus(n),
         i = a.shouldRenderAboutSection;
@@ -123,31 +126,44 @@ __d(
       var L = R,
         E;
       t[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = s._(/*BTDS*/ "About")), (t[14] = E))
+        ? ((E = u.jsx(r("WDSSectionDivider.react"), {
+            header: { title: s._(/*BTDS*/ "About") },
+            testid: "section-about",
+          })),
+          (t[14] = E))
         : (E = t[14]);
       var k;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = [
+            o("WDSPaddings.stylex").wdsPaddings.paddingHor20,
+            c.aboutText,
+          ]),
+          (t[15] = k))
+        : (k = t[15]);
+      var I;
       return (
-        t[15] !== L
-          ? ((k = u.jsx(
+        t[16] !== L
+          ? ((I = u.jsxs(
               o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
               {
-                titleTestId: "section-about",
-                title: E,
-                titleXStyle: o("WDSPaddings.stylex").wdsPaddings.padding0,
-                children: u.jsx(r("WAWebBox.react"), {
-                  xstyle: o("WDSMargins.stylex").wdsMargins.marginTop4,
-                  children: u.jsx(r("WDSText.react"), {
-                    type: "Body1",
-                    colorName: "contentDefault",
-                    children: L,
+                xstyle: o("WDSPaddings.stylex").wdsPaddings.padding0,
+                children: [
+                  E,
+                  u.jsx(r("WAWebBox.react"), {
+                    xstyle: k,
+                    children: u.jsx(r("WDSText.react"), {
+                      type: "Body1",
+                      colorName: "contentDefault",
+                      children: L,
+                    }),
                   }),
-                }),
+                ],
               },
             )),
-            (t[15] = L),
-            (t[16] = k))
-          : (k = t[16]),
-        k
+            (t[16] = L),
+            (t[17] = I))
+          : (I = t[17]),
+        I
       );
     }
     l.default = d;

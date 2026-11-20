@@ -8,8 +8,9 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterCollection",
     "WAWebNewsletterDBUtils",
-    "WAWebNewsletterErrorPopups.react",
     "WAWebNewsletterGetMessagesJob",
+    "WAWebNewsletterInfoDialogsLoadable",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -51,13 +52,14 @@ __d(
             });
             return (
               i == null
-                ? o("WAWebModalManager").ModalManager.open(
+                ? (o("WAWebModalManager").ModalManager.close(),
+                  o("WDSDialogBridge").openWDSDialog(
                     s.jsx(
-                      o("WAWebNewsletterErrorPopups.react")
-                        .NewsletterMessageNotFoundPopup,
+                      o("WAWebNewsletterInfoDialogsLoadable")
+                        .NewsletterMessageNotFoundPopupLoadable,
                       { chatId: u.id },
                     ),
-                  )
+                  ))
                 : i(),
               f
             );

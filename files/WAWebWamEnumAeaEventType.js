@@ -19,6 +19,7 @@ __d(
       STATE_UPDATE: 14,
       RETRY_SEND_REJECT: 15,
       SEND_RECONCILATION_SUCCESS: 16,
+      HOSTED_ACCOUNT_RETENTION: 17,
     });
     i.AEA_EVENT_TYPE = e;
   },

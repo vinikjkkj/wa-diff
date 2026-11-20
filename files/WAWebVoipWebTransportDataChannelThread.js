@@ -6,6 +6,7 @@ __d(
     "WAWebVoipJsWorkerCreation",
     "WAWebVoipPerfOptimizations",
     "WAWebVoipWebTransportSendRingBuffer",
+    "WAWebVoipWebTransportSessionEndODS",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -60,7 +61,12 @@ __d(
             var e,
               n = t.event === "closed" || t.event === "error",
               r = this.$8.get(t.connectionId);
-            (n && this.$12(t.connectionId, t.attemptId),
+            (n &&
+              (this.$12(t.connectionId, t.attemptId),
+              t.closedWaitTimedOut === !0 &&
+                o(
+                  "WAWebVoipWebTransportSessionEndODS",
+                ).logCallWebtransportSessionEndClosedWaitTimeout()),
               !(t.event === "open" && (this.$13(t) || r !== t.attemptId)) &&
                 ((!n && t.event !== "open" && r !== t.attemptId) ||
                   (n &&
@@ -68,14 +74,20 @@ __d(
                     r !== t.attemptId ||
                       (t.event === "error" && this.$15(t)))) ||
                   (e = this.$9) == null ||
-                  e.call(this, {
-                    connectionId: t.connectionId,
-                    attemptId: t.attemptId,
-                    event: t.event,
-                    relayGeneration: t.relayGeneration,
-                    error: t.error,
-                    stats: t.stats,
-                  })));
+                  e.call(
+                    this,
+                    babelHelpers.extends(
+                      {
+                        connectionId: t.connectionId,
+                        attemptId: t.attemptId,
+                        event: t.event,
+                        relayGeneration: t.relayGeneration,
+                        error: t.error,
+                        stats: t.stats,
+                      },
+                      t.closeCode != null ? { closeCode: t.closeCode } : null,
+                    ),
+                  )));
           }),
           (a.$12 = function (t, n) {
             var e = this.$10.get(t);

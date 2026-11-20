@@ -3,7 +3,9 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebMsgType",
+    "WAWebNullFunc",
     "WAWebPathfinderDeferredEmitter",
     "WAWebPathfinderScreenName",
     "WAWebWamEnumMediaType",
@@ -29,25 +31,27 @@ __d(
       );
     function _(t) {
       try {
+        var n = E(t.id);
         if (!f(t)) return;
-        var n = o("WAWebPathfinderScreenName").getCurrentScreenName();
-        if (y(n)) return;
-        var a = {
+        var a = o("WAWebPathfinderScreenName").getCurrentScreenName();
+        if (y(a)) return;
+        var i = {
           type: t.type,
           subtype: t.subtype,
           chatKind: g(t),
           pairedMediaType: t.pairedMediaType,
           associationType: t.associationType,
           mediaType: b(t),
+          sendMethod: n,
           capturedAt: {
             timestampMs: Date.now(),
-            screenName: n,
+            screenName: a,
             unifiedSessionId: h(),
             heldBackSurface: null,
           },
           hiddenPayment: C(t),
         };
-        p(a);
+        p(i);
       } catch (t) {
         o("WALogger")
           .WARN(
@@ -81,9 +85,7 @@ __d(
             var t = e.UnifiedSessionManager;
             return t.getSessionId();
           },
-          function () {
-            return null;
-          },
+          o("WAWebNullFunc").returnNull,
         );
         return e !== "" ? e : null;
       } catch (e) {
@@ -98,9 +100,7 @@ __d(
             var n = t.isHeldBackEvent;
             return n({ screenName: e });
           },
-          function () {
-            return !1;
-          },
+          o("WAWebBoolFunc").returnFalse,
         );
       } catch (e) {
         return (
@@ -125,9 +125,7 @@ __d(
             var n = t.isSilentPaymentMsg;
             return n(e);
           },
-          function () {
-            return !1;
-          },
+          o("WAWebBoolFunc").returnFalse,
         );
       } catch (e) {
         return !1;
@@ -149,17 +147,31 @@ __d(
         : r;
     }
     var v =
-      ((u = {}),
-      (u[(c = o("WAWebMsgType")).MSG_TYPE.COMMENT] = (d = o(
-        "WAWebWamEnumMediaType",
-      )).MEDIA_TYPE.COMMENT),
-      (u[c.MSG_TYPE.INSTANT_IMAGE] = d.MEDIA_TYPE.PHOTO),
-      (u[c.MSG_TYPE.MUSIC] = d.MEDIA_TYPE.MUSIC),
-      (u[c.MSG_TYPE.RICH_RESPONSE] = d.MEDIA_TYPE.RICH_RESPONSE),
-      (u[c.MSG_TYPE.SHARABLE_EVENT_INVITE] = d.MEDIA_TYPE.EVENT_INVITE),
-      u);
+        ((u = {}),
+        (u[(c = o("WAWebMsgType")).MSG_TYPE.COMMENT] = (d = o(
+          "WAWebWamEnumMediaType",
+        )).MEDIA_TYPE.COMMENT),
+        (u[c.MSG_TYPE.INSTANT_IMAGE] = d.MEDIA_TYPE.PHOTO),
+        (u[c.MSG_TYPE.MUSIC] = d.MEDIA_TYPE.MUSIC),
+        (u[c.MSG_TYPE.RICH_RESPONSE] = d.MEDIA_TYPE.RICH_RESPONSE),
+        (u[c.MSG_TYPE.SHARABLE_EVENT_INVITE] = d.MEDIA_TYPE.EVENT_INVITE),
+        u),
+      S = 100,
+      R = new Map();
+    function L(e, t) {
+      if (t != null && (R.set(e.toString(), t), R.size > S)) {
+        var n = R.keys().next().value;
+        n != null && R.delete(n);
+      }
+    }
+    function E(e) {
+      var t = e.toString(),
+        n = R.get(t);
+      return (R.delete(t), n);
+    }
     ((l.recordPathfinderMessageSentAfterCommit = _),
-      (l.getPathfinderMessageSentMediaType = b));
+      (l.getPathfinderMessageSentMediaType = b),
+      (l.labelPathfinderSendMethod = L));
   },
   98,
 );

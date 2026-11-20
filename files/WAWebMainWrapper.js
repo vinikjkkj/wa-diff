@@ -5,6 +5,7 @@ __d(
     "JSSPWAWebConfigInit",
     "JsSelfProfilerIdleTraceRunner",
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebCallsOnlyGating",
     "WAWebCrashAnnotations",
     "WAWebEmojiAssetLoader",
@@ -70,7 +71,8 @@ __d(
           o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
         ),
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
-          (n("cr:9486") == null || n("cr:9486")(),
+          (o("WAWebBackendRuntime").preloadWebDiBackend(),
+          n("cr:9486") == null || n("cr:9486")(),
           o("WAWebKaleidoscopeWasmFeatureSupport")
             .checkKaleidoscopeWasmFeatureSupport()
             .then(function (e) {
