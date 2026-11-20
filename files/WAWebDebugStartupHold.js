@@ -23,7 +23,6 @@ __d(
       h = !1;
     function y() {
       return (
-        r("vulture")("7QLzw8r9PoGzU3TKJ-P7JtjSE7I="),
         h ||
           ((h = !0),
           (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&

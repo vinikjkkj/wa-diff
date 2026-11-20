@@ -1,11 +1,11 @@
 __d(
   "WAWebOrgGatingUtils",
-  ["WAWebABProps", "WAWebProductFeature"],
+  ["WAWebABProps", "WAWebWorkFeature"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
         o("WAWebABProps").getABPropConfigValue("whatsapp_orgs_enabled") &&
-        !o("WAWebProductFeature").isInternalProduct()
+        !o("WAWebWorkFeature").isWork()
       );
     }
     l.isOrgsEnabled = e;

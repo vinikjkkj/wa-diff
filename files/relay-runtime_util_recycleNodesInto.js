@@ -60,17 +60,26 @@ __d(
         o = Array.isArray(e) ? e : null,
         a = Array.isArray(t) ? t : null;
       if (o && a) {
-        for (var i = null, l = !0, m = 0; m < a.length; m++)
+        for (
+          var i = null,
+            l = !0,
+            d = o.length < a.length ? o.length : a.length,
+            m = 0;
+          m < d;
+          m++
+        )
           if (m in a) {
             var p = o[m],
               _ = a[m];
-            if (d(p, _)) {
-              l = l && _ === p;
-              continue;
+            if (_ !== p) {
+              if (typeof _ != "object" || _ === null) {
+                l = !1;
+                continue;
+              }
+              i == null && (i = n && !Object.isFrozen(a));
+              var f = s(p, _, i);
+              (f !== _ && i && (a[m] = f), (l = l && f === p));
             }
-            i == null && (i = n && !Object.isFrozen(a));
-            var f = s(p, _, i);
-            (f !== _ && i && (a[m] = f), (l = l && f === p));
           }
         r = l && o.length === a.length;
       } else if (!o && !a) {
@@ -83,13 +92,15 @@ __d(
           b++;
           var S = g[v],
             R = h[v];
-          if (d(S, R)) {
-            C = C && R === S;
-            continue;
+          if (R !== S) {
+            if (typeof R != "object" || R === null) {
+              C = !1;
+              continue;
+            }
+            y == null && (y = n && !Object.isFrozen(h));
+            var L = s(S, R, y);
+            (L !== R && y && u(h, v, L), (C = C && L === S));
           }
-          y == null && (y = n && !Object.isFrozen(h));
-          var L = s(S, R, y);
-          (L !== R && y && u(h, v, L), (C = C && L === S));
         }
         r = C && c(g) === b;
       }
@@ -102,9 +113,6 @@ __d(
       var t = 0;
       for (var n in e) t++;
       return t;
-    }
-    function d(e, t) {
-      return e === t || typeof t != "object" || t === null;
     }
     a.exports = e;
   },

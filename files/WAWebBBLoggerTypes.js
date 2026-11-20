@@ -142,6 +142,8 @@ __d(
         PERFORMANCE_EXPLAINED_BUTTON: "performance_explained_button",
         PHONE_NUMBER: "phone_number",
         PREVIEW_BUTTON: "preview_button",
+        PRO_CHAT_BANNER: "pro_chat_banner",
+        PRO_CHAT_BANNER_LEARN_MORE_LINK: "pro_chat_banner_learn_more_link",
         QP_BANNER: "qp_banner",
         QUOTA_FETCH: "quota_fetch",
         REFRESH_INSIGHTS_BUTTON: "refresh_insights_button",

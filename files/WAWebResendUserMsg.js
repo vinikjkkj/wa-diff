@@ -170,7 +170,7 @@ __d(
                 msgProtobuf: f,
                 msgRecord: g,
                 option: {
-                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT,
+                  fanoutType: o("WAWebMsgFanoutTypes").FanoutType.CHAT,
                   isResendingMsg: !0,
                 },
                 scheduledMsgMetadata: h,

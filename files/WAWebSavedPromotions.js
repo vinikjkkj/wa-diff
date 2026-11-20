@@ -65,33 +65,40 @@ __d(
       var n = [],
         r = [];
       for (var a of e) {
-        var i = a.messageKey,
-          l = a.savedAtMs,
-          s = p(i);
-        if (s != null) {
-          if (!s.remote.isUser()) {
-            r.push(i);
+        var i,
+          l = a.messageKey,
+          s = a.savedAtMs,
+          u = p(l);
+        if (u != null) {
+          if (!u.remote.isUser()) {
+            r.push(l);
             continue;
           }
-          var u = t.get(i);
-          if (u != null) {
-            var c = u.msgKey.remote,
-              d = o("WAWebPromotionOffer").getPromotionOfferFor(u.values);
-            if (!c.isUser() || d == null) {
-              r.push(i);
+          var c = t.get(l);
+          if (c != null) {
+            var d = c.msgKey.remote,
+              m = o("WAWebPromotionOffer").getPromotionOfferFor(c.values);
+            if (!d.isUser() || m == null) {
+              r.push(l);
               continue;
             }
             o("WAWebAddPromotionToPaymentsAction").isLiveOffer(
-              u.values,
-              u.receivedAtS,
+              c.values,
+              c.receivedAtS,
             ) &&
               n.push({
-                messageKey: i,
-                msgKey: u.msgKey,
-                businessWid: c,
-                kind: d.kind,
-                expiryMs: d.expiryMs,
-                savedAtMs: l,
+                messageKey: l,
+                msgKey: c.msgKey,
+                businessWid: d,
+                kind: m.kind,
+                expiryMs:
+                  (i = m.expiryMs) != null
+                    ? i
+                    : (c.receivedAtS +
+                        o("WAWebAddPromotionToPaymentsAction")
+                          .OPEN_ENDED_OFFER_WINDOW_S) *
+                      1e3,
+                savedAtMs: s,
               });
           }
         }
@@ -99,12 +106,12 @@ __d(
       n.sort(function (e, t) {
         return t.savedAtMs - e.savedAtMs;
       });
-      var m = new Set(),
-        _ = n.filter(function (e) {
+      var _ = new Set(),
+        f = n.filter(function (e) {
           var t = e.msgKey.toString();
-          return m.has(t) ? (r.push(e.messageKey), !1) : (m.add(t), !0);
+          return _.has(t) ? (r.push(e.messageKey), !1) : (_.add(t), !0);
         });
-      return { live: _, prunedKeys: r };
+      return { live: f, prunedKeys: r };
     }
     function p(e) {
       try {

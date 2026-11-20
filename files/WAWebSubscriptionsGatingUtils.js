@@ -16,9 +16,12 @@ __d(
     function s() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
+        (o("WAWebABProps").getABPropConfigValue(
           "contact_manager_sub_gating_enabled",
-        )
+        ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "wa_contact_manager_meta_one_rollout_enabled",
+          ))
       );
     }
     function u() {

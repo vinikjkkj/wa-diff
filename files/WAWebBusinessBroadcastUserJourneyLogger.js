@@ -216,6 +216,15 @@ __d(
           (t.tosReviewBannerClicked = function () {
             o("WAWebBBHomeLogs").tosReviewBannerClicked(this.$1);
           }),
+          (t.proChatBannerViewed = function () {
+            o("WAWebBBHomeLogs").proChatBannerViewed(this.$1);
+          }),
+          (t.proChatBannerDismissed = function () {
+            o("WAWebBBHomeLogs").proChatBannerDismissed(this.$1);
+          }),
+          (t.proChatBannerLearnMoreClicked = function () {
+            o("WAWebBBHomeLogs").proChatBannerLearnMoreClicked(this.$1);
+          }),
           (t.broadcastItemOverflowClicked = function (t) {
             o("WAWebBBHomeLogs").broadcastItemOverflowClicked(this.$1, t);
           }),
@@ -250,7 +259,7 @@ __d(
           (t.createAudienceBackClicked = function (t) {
             o("WAWebBBAudienceLogs").createAudienceBackClicked(this.$1, t);
           }),
-          (t.createAudienceSaveClicked = function (t, n, r, a, i) {
+          (t.createAudienceSaveClicked = function (t, n, r, a, i, l) {
             o("WAWebBBAudienceLogs").createAudienceSaveClicked(
               this.$1,
               t,
@@ -258,6 +267,7 @@ __d(
               r,
               a,
               i,
+              l,
             );
           }),
           (t.proAudienceFloorChecked = function (t, n, r, a) {

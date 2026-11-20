@@ -12,13 +12,14 @@ __d(
     "WAWebCommonCTWADataSharing",
     "WAWebListsGatingUtils",
     "WAWebMediaGatingUtils",
+    "WAWebNotificationConstants",
     "WAWebPaymentsGatingUtils",
-    "WAWebProductFeature",
     "WAWebSettingGatingUtils",
     "WAWebSettingsConst",
     "WAWebSettingsFBT",
     "WAWebVoipGatingUtils",
     "WAWebWamEnumSettingsItemType",
+    "WAWebWorkFeature",
     "cr:1131",
     "cr:17208",
     "cr:687",
@@ -432,6 +433,13 @@ __d(
                 o("WAWebClosedTabCallPushGating").isClosedTabCallPushAvailable()
               );
             },
+            isVisibleInSearch: function () {
+              var e;
+              return (
+                ((e = window.Notification) == null ? void 0 : e.permission) ===
+                o("WAWebNotificationConstants").PERMISSION_ALLOWED
+              );
+            },
             title: o("WAWebSettingsFBT").offlineCallNotificationsTitle,
             searchCriteria: String(
               o("WAWebSettingsFBT").offlineCallNotificationsTitle(),
@@ -513,7 +521,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.DefaultEphemerality,
             id: "default_message_timer",
-            isAvailable: !o("WAWebProductFeature").isInternalProduct(),
+            isAvailable: !o("WAWebWorkFeature").isWork(),
             title: o("WAWebSettingsFBT").privacyDDMTitle,
             searchCriteria: [
               String(o("WAWebSettingsFBT").privacyDDMTitle()),

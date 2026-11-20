@@ -16,9 +16,12 @@ __d(
       var t,
         n = e.baseMessage,
         r = e.messageProtobuf,
-        a = r.richResponseMessage;
-      if (a != null) {
-        if (!s(n, a))
+        a = e.msgContext,
+        i = e.quotedMsgSender,
+        l = r.richResponseMessage;
+      if (l != null) {
+        var c = a === "quoted" || a === "history_quoted" ? u(i, l) : s(n, l);
+        if (!c)
           throw new (o(
             "WAWebRichResponseValidationError",
           ).RichResponseValidationError)(
@@ -27,15 +30,15 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        var i = u(a.contextInfo);
+        var _ = d(l.contextInfo);
         if (
-          i &&
+          _ &&
           !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
         )
-          return c(n);
-        var l = a.messageType,
-          m = a.submessages;
-        if (l == null)
+          return m(n);
+        var f = l.messageType,
+          g = l.submessages;
+        if (f == null)
           throw new (o(
             "WAWebRichResponseValidationError",
           ).RichResponseValidationError)(
@@ -44,68 +47,82 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        var p = o(
+        var h = o(
             "WAWebRichResponseParseUtils",
-          ).generateFutureproofRichResponse(l, m),
-          _ = o("WAWebRichResponseParseUtils").parseRichResponse(p),
-          f = d(a, r.messageContextInfo, n.t)
+          ).generateFutureproofRichResponse(f, g),
+          y = o("WAWebRichResponseParseUtils").parseRichResponse(h),
+          C = p(l, r.messageContextInfo, n.t)
             ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
-                a.unifiedResponse,
+                l.unifiedResponse,
               )
             : null,
-          g = o(
+          b = o(
             "WAWebBotUnifiedResponseMutationUtils",
           ).parseUnifiedResponseMutationMediaList(r.messageContextInfo),
-          h =
-            g != null &&
+          v =
+            b != null &&
             o(
               "WAWebBotUnifiedResponseGating",
             ).isUnifiedResponseMutationEnabled()
-              ? g
+              ? b
               : void 0;
         if (
-          i &&
-          o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(f) &&
-          (h == null ||
+          _ &&
+          o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(C) &&
+          (v == null ||
             !o(
               "WAWebBotBaseGating",
             ).isRichResponseForwardMediaReceivingEnabled())
         )
-          return c(n);
-        var y =
-          ((t = a.unifiedResponse) == null ? void 0 : t.data) != null
-            ? new Uint8Array(a.unifiedResponse.data)
+          return m(n);
+        var S =
+          ((t = l.unifiedResponse) == null ? void 0 : t.data) != null
+            ? new Uint8Array(l.unifiedResponse.data)
             : null;
         return {
           msgData: babelHelpers.extends({}, n, {
             type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
             kind: o("WAWebMsgType").MsgKind.RichResponse,
-            richResponse: _,
-            unifiedResponse: f,
-            unifiedResponseRawData: y,
-            unifiedResponseMutationMediaList: h,
+            richResponse: y,
+            unifiedResponse: C,
+            unifiedResponseRawData: S,
+            unifiedResponseMutationMediaList: v,
           }),
           contextInfo: o(
             "WAWebBotBaseGating",
           ).isRichResponseForwardReceivingEnabled()
-            ? a.contextInfo
+            ? l.contextInfo
             : void 0,
         };
       }
     }
     function s(e, t) {
-      var n, r;
-      if (
-        e.from.isBot() ||
-        ((n = e.id.participant) == null ? void 0 : n.isBot()) === !0 ||
-        ((r = e.author) == null ? void 0 : r.isBot()) === !0 ||
-        e.from.isAiHub()
-      )
-        return !0;
-      var o = t.contextInfo;
-      return u(o);
+      return c({
+        botCandidates: [e.from, e.id.participant, e.author],
+        aiHubCandidate: e.from,
+        contextInfo: t.contextInfo,
+      });
     }
-    function u(e) {
+    function u(e, t) {
+      return c({
+        botCandidates: [e],
+        aiHubCandidate: e,
+        contextInfo: t.contextInfo,
+      });
+    }
+    function c(e) {
+      var t = e.aiHubCandidate,
+        n = e.botCandidates,
+        r = e.contextInfo;
+      return (
+        n.some(function (e) {
+          return (e == null ? void 0 : e.isBot()) === !0;
+        }) ||
+        (t == null ? void 0 : t.isAiHub()) === !0 ||
+        d(r)
+      );
+    }
+    function d(e) {
       var t;
       return (
         (e == null ? void 0 : e.isForwarded) === !0 &&
@@ -114,7 +131,7 @@ __d(
           : t.botJid) != null
       );
     }
-    function c(e) {
+    function m(e) {
       return {
         msgData: babelHelpers.extends({}, e, {
           type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
@@ -125,7 +142,7 @@ __d(
         contextInfo: null,
       };
     }
-    function d(e, t, n) {
+    function p(e, t, n) {
       var r;
       return e.unifiedResponse == null
         ? !1

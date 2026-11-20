@@ -56,9 +56,10 @@ __d(
         return (
           (a.initializeFromCache = function (t) {
             var e = this;
-            ((M = o("WAWebABProps").getABPropConfigValue(
-              "wa_web_enable_granular_notifications",
-            )),
+            ((N = !1),
+              (M = o("WAWebABProps").getABPropConfigValue(
+                "wa_web_enable_granular_notifications",
+              )),
               Array.isArray(t) &&
                 t.forEach(function (t) {
                   o("WAWebMuteModel").GLOBAL_REACTIONS_MUTE === t.id &&
@@ -132,7 +133,8 @@ __d(
               this.setGlobalStatusSoundsEnabled(
                 o("WAWebUserPrefsNotifications").getGlobalStatusSoundsEnabled(),
               ),
-              (N = !0));
+              (N = !0),
+              this.trigger("global_settings_restored"));
           }),
           (a.isGlobalSettingsRestored = function () {
             return N;
@@ -275,9 +277,8 @@ __d(
           }),
           (a.setGlobalOfflineNotifications = function (t) {
             ((C = t),
-              o("WAWebUserPrefsNotifications").setGlobalOfflineNotifications(
-                t,
-              ));
+              o("WAWebUserPrefsNotifications").setGlobalOfflineNotifications(t),
+              this.trigger("change:globalOfflineNotifications", t));
           }),
           (a.getGlobalPreviews = function () {
             return b;

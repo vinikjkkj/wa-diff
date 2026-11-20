@@ -121,6 +121,35 @@ __d(
               });
             });
           }),
+          (t.moveCollectionsToResourceLimited = function (t) {
+            var e = this;
+            t.forEach(function (t) {
+              var n, r;
+              return e.collectionStates.set(t, {
+                collection: t,
+                state: o("WAWebSyncdConst").CollectionSyncState.UpToDate,
+                finiteFailureStartTime:
+                  (n =
+                    (r = e.collectionStates.get(t)) == null
+                      ? void 0
+                      : r.finiteFailureStartTime) != null
+                    ? n
+                    : o("WATimeUtils").unixTimeMs(),
+              });
+            });
+          }),
+          (t.hasFiniteFailureExpired = function (t) {
+            var e,
+              n =
+                (e = this.collectionStates.get(t)) == null
+                  ? void 0
+                  : e.finiteFailureStartTime;
+            return (
+              n != null &&
+              n + o("WAWebSyncdConst").FINITE_FAILURE_EXPIRY_DURATION <
+                o("WATimeUtils").unixTimeMs()
+            );
+          }),
           (t.moveCollectionsToDirty = function (t) {
             var e = this;
             t.forEach(function (t) {

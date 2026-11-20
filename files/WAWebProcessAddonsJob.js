@@ -21,7 +21,7 @@ __d(
                   "WAWebDBProcessEditProtocolMsgs",
                 ).processEditProtocolMsgs(e.msgs);
               },
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
             )
             .waitUntilCompleted({ msgs: e });
           yield t;

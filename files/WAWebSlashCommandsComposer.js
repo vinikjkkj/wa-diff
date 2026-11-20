@@ -31,15 +31,21 @@ __d(
             o("WAWebLexicalUtils").isFocused(e),
           );
         },
-        { discrete: !0 },
+        {
+          discrete: !0,
+          tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+        },
       );
     }
     function c(e, t) {
-      (e.update(function () {
-        o("Lexical").$getRoot().selectEnd();
-        var e = o("Lexical").$getSelection();
-        o("Lexical").$isRangeSelection(e) && e.insertText(t);
-      }),
+      (e.update(
+        function () {
+          o("Lexical").$getRoot().selectEnd();
+          var e = o("Lexical").$getSelection();
+          o("Lexical").$isRangeSelection(e) && e.insertText(t);
+        },
+        { tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG },
+      ),
         e.focus());
     }
     function d(e, t) {
@@ -50,13 +56,19 @@ __d(
             o("WAWebLexicalUtils").isFocused(e),
           );
         },
-        { discrete: !0 },
+        {
+          discrete: !0,
+          tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+        },
       );
     }
     function m(e, t) {
-      (e.update(function () {
-        return o("WAWebLexicalUtils").$setTextContent(t, !0);
-      }),
+      (e.update(
+        function () {
+          return o("WAWebLexicalUtils").$setTextContent(t, !0);
+        },
+        { tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG },
+      ),
         e.focus());
     }
     function p(e, t, n) {
@@ -71,7 +83,10 @@ __d(
             }
           }
         },
-        { discrete: !0 },
+        {
+          discrete: !0,
+          tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+        },
       );
     }
     ((l.getComposerMentions = e),

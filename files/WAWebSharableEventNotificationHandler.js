@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WATimeUtils",
     "WAWebLazyLoadedRetriable",
     "WAWebMexSharableEventGuestJoinedWaNotifications",
     "WAWebSharableEventGatingUtils",
@@ -52,8 +53,10 @@ __d(
       return e === "EVENT_STARTED"
         ? o("WAWebSharableEventNotificationConstants").SharableEventReminderType
             .EventStarted
-        : o("WAWebSharableEventNotificationConstants").SharableEventReminderType
-            .EventStartingSoon;
+        : e === "EVENT_STARTING_SOON"
+          ? o("WAWebSharableEventNotificationConstants")
+              .SharableEventReminderType.EventStartingSoon
+          : null;
     }
     function R(t, n, r) {
       return o("WAWebUserUtils").isMeAccount(n)
@@ -93,10 +96,9 @@ __d(
     }
     var k = 60;
     function I(e) {
-      if (e == null) return 0;
-      var t = Math.floor(Date.now() / 1e3),
-        n = Math.max(0, e - t);
-      return Math.floor(n / k);
+      if (e == null) return null;
+      var t = e - o("WATimeUtils").unixTime();
+      return t > 0 ? Math.floor(t / k) : null;
     }
     function T(e) {
       return D.apply(this, arguments);
@@ -118,32 +120,13 @@ __d(
                 ])),
               l,
             ),
-            a != null &&
-              (o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled()
-                ? (yield a(i),
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[sharable_event][mex][",
-                        "] saved",
-                      ])),
-                    l,
-                  ))
-                : o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[sharable_event][mex][",
-                        "] not saved, enable_events_v2_on_companion is off",
-                      ])),
-                    l,
-                  )),
             !o(
               "WAWebSharableEventGatingUtils",
             ).isSharableEventNotificationsEnabled())
           ) {
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[sharable_event][mex][",
                   "] notifications-disabled-ack-only",
                 ])),
@@ -151,6 +134,25 @@ __d(
             );
             return;
           }
+          a != null &&
+            (o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled()
+              ? (yield a(i),
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][mex][",
+                      "] saved",
+                    ])),
+                  l,
+                ))
+              : o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][mex][",
+                      "] not saved, enable_events_v2_on_companion is off",
+                    ])),
+                  l,
+                ));
           var f = n(i);
           if (f == null) {
             o("WALogger").WARN(
@@ -518,6 +520,9 @@ __d(
               return {
                 eventId: e.event_id,
                 eventName: e.event_name,
+                eventStatus: o("WAWebSharableEventServerEnums").toStoredStatus(
+                  e.event_status,
+                ),
                 startTsSec: e.start_ts_sec,
                 reminderType: S(e.reminder_type),
               };
@@ -527,24 +532,37 @@ __d(
                 function* (e) {
                   var t = e.eventName,
                     n = e.reminderType;
-                  t == null ||
-                    n == null ||
-                    (yield o(
-                      "WAWebSharableEventShowNotificationBridge",
-                    ).showSharableEventNotificationFromBackend(
-                      {
-                        eventId: e.eventId,
-                        title: t,
-                        body: {
-                          kind: "reminder",
-                          reminderType: n,
-                          minutesUntilStart: I(e.startTsSec),
-                        },
-                        senderWidString: null,
-                      },
+                  if (
+                    !(
+                      t == null ||
+                      n == null ||
+                      e.eventStatus !==
+                        o("WAWebSharableEventStorageEnums")
+                          .SharableEventStoredStatus.Active
+                    )
+                  ) {
+                    var r = I(e.startTsSec);
+                    (n ===
                       o("WAWebSharableEventNotificationConstants")
-                        .SharableEventNotificationType.Reminder,
-                    ));
+                        .SharableEventReminderType.EventStartingSoon &&
+                      r == null) ||
+                      (yield o(
+                        "WAWebSharableEventShowNotificationBridge",
+                      ).showSharableEventNotificationFromBackend(
+                        {
+                          eventId: e.eventId,
+                          title: t,
+                          body: {
+                            kind: "reminder",
+                            reminderType: n,
+                            minutesUntilStart: r != null ? r : 0,
+                          },
+                          senderWidString: null,
+                        },
+                        o("WAWebSharableEventNotificationConstants")
+                          .SharableEventNotificationType.Reminder,
+                      ));
+                  }
                 },
               );
               function t(t) {

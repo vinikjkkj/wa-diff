@@ -20,7 +20,7 @@ __d(
           function (e) {
             return c(e.chatIds, e.sinceTs);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ chatIds: t, sinceTs: n });
     }

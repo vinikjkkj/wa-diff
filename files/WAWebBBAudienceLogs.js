@@ -33,14 +33,16 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function c(e, t, n, r, a, i) {
+    function c(e, t, n, r, a, i, l) {
+      var s = babelHelpers.extends(
+        { audience_id: t, contact_count: n, is_edit: r },
+        a != null ? { suggested_audience_card_id: a } : void 0,
+      );
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: i,
-        extraAttributes: babelHelpers.extends(
-          { audience_id: t, contact_count: n, is_edit: r },
-          a != null ? { suggested_audience_card_id: a } : void 0,
-        ),
+        extraAttributes:
+          l != null ? babelHelpers.extends({}, s, { time_spent_ms: l }) : s,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_RECIPIENT_PICKER,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,

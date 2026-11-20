@@ -1,8 +1,8 @@
 __d(
   "WAWebCustomerManagerCustomerProfileCustomFieldCreateMutation",
   [
-    "WAWebCustomerManagerCustomFieldTypes",
     "WAWebCustomerManagerCustomerProfileCustomFieldCreateMutation.graphql",
+    "WAWebCustomerManagerCustomerProfileDecoders",
     "WAWebCustomerManagerProfileRequest",
     "WAWebRelayClient",
     "XFBWACustomerProfileCustomFieldType.facebook",
@@ -82,30 +82,14 @@ __d(
       return t;
     }
     function p(e) {
-      var t,
-        n,
-        a,
-        i,
-        l =
-          (e == null ? void 0 : e.field_type) != null
-            ? o("WAWebCustomerManagerCustomFieldTypes").toCustomFieldType(
-                e.field_type,
-              )
-            : null;
-      if ((e == null ? void 0 : e.id) == null || e.name == null || l == null)
+      var t = o(
+        "WAWebCustomerManagerCustomerProfileDecoders",
+      ).decodeCustomFieldDefinition(e);
+      if (t == null)
         throw r("err")(
           "[CustomerManager] custom field create: incomplete field in create response",
         );
-      return {
-        currency: (t = e.currency) != null ? t : null,
-        currencyDecimalPlaces:
-          (n = e.currency_decimal_places) != null ? n : null,
-        enumOptionKeys: [].concat((a = e.enum_option_keys) != null ? a : []),
-        enumValues: [].concat((i = e.enum_values) != null ? i : []),
-        id: e.id,
-        name: e.name,
-        type: l,
-      };
+      return t;
     }
     l.createCustomerProfileCustomField = u;
   },

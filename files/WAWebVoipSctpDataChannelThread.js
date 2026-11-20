@@ -376,8 +376,10 @@ __d(
                 t = I,
                 n = t + T;
               try {
-                var r = yield o("WAWebAudioUtility").mallocWasmBuffer(n);
-                if (r == null || r === 0)
+                var r,
+                  a,
+                  i = yield o("WAWebAudioUtility").mallocWasmBuffer(n);
+                if (i == null || i === 0)
                   return (
                     o("WALogger").WARN(
                       y ||
@@ -388,29 +390,38 @@ __d(
                     !1
                   );
                 if (!this.$4)
-                  return (yield o("WAWebAudioUtility").freeWasmBuffer(r), !1);
-                var a = e.GROWABLE_HEAP_U8();
-                a.fill(0, r, r + n);
-                var i = e.initSctpRingBuffer(r, t);
-                return i
-                  ? ((this.$5 = r),
-                    this.worker.postMessage({
-                      type: "cmd",
-                      cmd: "jsWorkerCmd",
-                      jsWorkerCmd: "initRingBuffer",
-                      heapBuffer: a.buffer,
-                      heapBufferOffset: r,
-                      dataSize: t,
-                    }),
-                    !0)
-                  : (o("WALogger").WARN(
+                  return (yield o("WAWebAudioUtility").freeWasmBuffer(i), !1);
+                var l = e.GROWABLE_HEAP_U8();
+                l.fill(0, i, i + n);
+                var s = e.initSctpRingBuffer(i, t);
+                if (!s)
+                  return (
+                    o("WALogger").WARN(
                       C ||
                         (C = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [DCThread] C++ initSctpRingBuffer failed",
                         ])),
                     ),
-                    yield o("WAWebAudioUtility").freeWasmBuffer(r),
-                    !1);
+                    yield o("WAWebAudioUtility").freeWasmBuffer(i),
+                    !1
+                  );
+                this.$5 = i;
+                var u =
+                  ((r = (a = e).isSctpRingBufferWakeOnWriteEnabled) == null
+                    ? void 0
+                    : r.call(a)) === !0;
+                return (
+                  this.worker.postMessage({
+                    type: "cmd",
+                    cmd: "jsWorkerCmd",
+                    jsWorkerCmd: "initRingBuffer",
+                    heapBuffer: l.buffer,
+                    heapBufferOffset: i,
+                    dataSize: t,
+                    wakeOnWrite: u,
+                  }),
+                  !0
+                );
               } catch (e) {
                 return (
                   o("WALogger").ERROR(
@@ -521,6 +532,9 @@ __d(
           a
         );
       })();
+    function x(e) {
+      return e;
+    }
     l.default = D;
   },
   98,

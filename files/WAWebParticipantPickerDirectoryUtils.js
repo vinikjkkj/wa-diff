@@ -9,7 +9,7 @@ __d(
     "WAWebParticipantPickerFocus",
     "WAWebPersonRowPolicy",
     "WAWebReachoutTimelockUtils",
-    "WAWebWODirectory.react",
+    "WAWebWorkDirectory.react",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r) {
@@ -190,7 +190,7 @@ __d(
       };
     }
     function v(e) {
-      var t = o("WAWebWODirectory.react").getWODirectoryContactModel(e);
+      var t = o("WAWebWorkDirectory.react").getWorkDirectoryContactModel(e);
       return t == null ? { kind: "none" } : { kind: "select", contact: t };
     }
     function S(e) {
@@ -212,7 +212,7 @@ __d(
       var d =
         (t = c.existingContact) != null
           ? t
-          : o("WAWebWODirectory.react").getWODirectoryContactModel(n);
+          : o("WAWebWorkDirectory.react").getWorkDirectoryContactModel(n);
       return d == null ? { kind: "none" } : { kind: "select", contact: d };
     }
     function R(e, t, n, r) {
@@ -239,14 +239,14 @@ __d(
       (l.getParticipantPickerPersonListed = c),
       (l.getParticipantPickerPersonChecked = d),
       (l.getParticipantPickerSearchEnterTarget = m),
-      (l.getParticipantPickerWOEnterCandidates = p),
+      (l.getParticipantPickerWorkEnterCandidates = p),
       (l.getParticipantPickerDirectoryEligibility = _),
       (l.isParticipantPickerDirectoryContactDisabled = f),
       (l.getParticipantPickerDirectorySelection = g),
       (l.applyParticipantPickerDirectorySelection = h),
       (l.getParticipantPickerSearchFocusTarget = y),
       (l.getParticipantPickerDirectoryDisabledChecker = C),
-      (l.getParticipantPickerWODirectoryClickHandler = b));
+      (l.getParticipantPickerWorkDirectoryClickHandler = b));
   },
   98,
 );

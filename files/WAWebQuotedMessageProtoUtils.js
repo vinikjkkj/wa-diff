@@ -1,17 +1,26 @@
 __d(
   "WAWebQuotedMessageProtoUtils",
-  ["WALogger", "WAWebE2EProtoParser", "WAWebMsgType"],
+  [
+    "WALogger",
+    "WAWebDecodeJid",
+    "WAWebE2EProtoParser",
+    "WAWebMsgType",
+    "WAWebWid",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t = e.isCarouselCardReply,
-        n = e.msgContext,
-        r = e.quotedMsg;
+      var t = e.contextInfo,
+        n = e.isCarouselCardReply,
+        a = e.msgContext,
+        i = e.quotedMsg,
+        l = o("WAWebDecodeJid").decodeJid(t.participant);
       return o("WAWebE2EProtoParser").parseMsgProto({
-        messageProtobuf: r,
+        messageProtobuf: i,
         message: { type: o("WAWebMsgType").MSG_TYPE.UNKNOWN },
-        msgContext: n === "history" ? "history_quoted" : "quoted",
-        bizSource: t ? "quoted_carousel_card" : null,
+        msgContext: a === "history" ? "history_quoted" : "quoted",
+        quotedMsgSender: l instanceof r("WAWebWid") ? l : null,
+        bizSource: n ? "quoted_carousel_card" : null,
       });
     }
     function u(t) {

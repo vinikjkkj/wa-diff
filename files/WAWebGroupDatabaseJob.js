@@ -14,7 +14,7 @@ __d(
           function (e) {
             return o("WAWebDBGroupsGroupMetadata").updateGroupMetadataTable(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ groupInfos: e });
     }
@@ -27,7 +27,7 @@ __d(
               "WAWebDBGroupParticipant",
             ).updateGroupParticipantTableWithoutDeviceSync(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ groupInfos: e });
     }
@@ -38,7 +38,7 @@ __d(
           function (e) {
             return o("WAWebDBGroupParticipant").markGroupParticipantStale(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ group: e });
     }
@@ -51,7 +51,7 @@ __d(
               e,
             );
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ groupIds: e });
     }
@@ -62,7 +62,7 @@ __d(
           function (e) {
             return o("WAWebDBGroupParticipant").modifyGroupParticipant(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ group: e, oldId: t, newId: n });
     }
@@ -73,7 +73,7 @@ __d(
           function (e) {
             return o("WAWebDBGroupsGroupMetadata").getGroupMetadataUNSAFE(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ groupWid: e });
     }
@@ -84,7 +84,7 @@ __d(
           function (e) {
             return o("WAWebDBGroupParticipant").getGroupParticipant(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ groupWid: e });
     }

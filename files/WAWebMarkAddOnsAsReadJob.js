@@ -36,7 +36,7 @@ __d(
                   return e.apply(this, arguments);
                 };
               })(),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
             )
             .waitUntilCompleted({ updates: e });
         })),
@@ -64,7 +64,7 @@ __d(
                   return e.apply(this, arguments);
                 };
               })(),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
             )
             .waitUntilCompleted({ addons: e });
         })),
@@ -99,7 +99,7 @@ __d(
                   return e.apply(this, arguments);
                 };
               })(),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
             )
             .waitUntilCompleted({ msgKeys: t });
     }

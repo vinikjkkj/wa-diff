@@ -5,7 +5,7 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "asyncToGeneratorRuntime",
-    "cr:16728",
+    "cr:22408",
     "objectValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,9 +20,9 @@ __d(
         },
       )) != null
         ? e
-        : n("cr:16728") == null
+        : n("cr:22408") == null
           ? void 0
-          : n("cr:16728").castPlatform(t);
+          : n("cr:22408").castPlatform(t);
     }
     function s(e) {
       return u.apply(this, arguments);

@@ -35,7 +35,11 @@ __d(
         ? "toast_copy"
         : a.getRootElement() != null && r.active !== !1
           ? (s != null && (i == null || i(s)),
-            o("WAWebLexicalUtils").setTextContent(a, t),
+            o("WAWebLexicalUtils").setTextContent(
+              a,
+              t,
+              o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+            ),
             p(e),
             a.focus(),
             "draft_inserted")

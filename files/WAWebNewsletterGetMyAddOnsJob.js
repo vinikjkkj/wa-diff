@@ -23,7 +23,7 @@ __d(
               n = t.messagesByNewsletter;
             return u(n, e.newsletterJid);
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

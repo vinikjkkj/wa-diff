@@ -67,7 +67,7 @@ __d(
                     }),
                   ));
               }),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
             )
             .waitUntilCompleted();
         })),

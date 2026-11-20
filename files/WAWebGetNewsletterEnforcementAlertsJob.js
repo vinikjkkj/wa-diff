@@ -22,7 +22,7 @@ __d(
         a = t.newsletterJid,
         i = t.priority,
         l =
-          i === void 0 ? o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION : i;
+          i === void 0 ? o("WAJobOrchestratorTypes").JobPriority.UI_ACTION : i;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterEnforcementAlerts",

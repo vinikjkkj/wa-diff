@@ -76,8 +76,9 @@ __d(
         p = t.msgContext,
         _ = t.msgMeta,
         f = t.paymentInfo,
-        g = t.quotedPaymentInfo,
-        h = t.rcat;
+        g = t.quotedMsgSender,
+        h = t.quotedPaymentInfo,
+        y = t.rcat;
       d ||
         o("WALogger")
           .ERROR(
@@ -87,29 +88,30 @@ __d(
               ])),
           )
           .sendLogs("null-message");
-      var y = d.messageContextInfo,
-        C = L({
+      var C = d.messageContextInfo,
+        b = L({
           messageProtobuf: d,
           message: c,
           msgContext: p,
           paymentInfo: f,
           finalLocation: s,
-          quotedPaymentInfo: g,
+          quotedPaymentInfo: h,
           bizInfo: n,
           editAttr: l,
-          rcat: h,
+          rcat: y,
           bizSource: r,
           msgMeta: _,
           msgBotInfo: m,
           historyLidPnMappings: u,
           depth: i,
+          quotedMsgSender: g,
         }),
-        b = C.contextInfo,
-        v = C.msgData;
+        v = b.contextInfo,
+        S = b.msgData;
       return (
-        $({ contextInfo: b, message: v, msgContext: p, quotedPaymentInfo: g }),
-        F(v, y, p),
-        v
+        $({ contextInfo: v, message: S, msgContext: p, quotedPaymentInfo: h }),
+        F(S, C, p),
+        S
       );
     }
     function L(e) {
@@ -126,10 +128,11 @@ __d(
         _ = e.msgContext,
         f = e.msgMeta,
         g = e.paymentInfo,
-        h = e.quotedPaymentInfo,
-        y = e.rcat,
-        C = m.callLogMesssage,
-        b = o(
+        h = e.quotedMsgSender,
+        y = e.quotedPaymentInfo,
+        C = e.rcat,
+        b = m.callLogMesssage,
+        v = o(
           "WAWebAssociationProtoUtils",
         ).validateMessageAssociationInMessageContextInfo(
           d,
@@ -137,79 +140,80 @@ __d(
           _,
           c,
         ),
-        v =
-          b != null
+        S =
+          v != null
             ? o(
                 "WAWebAssociationProtoUtils",
               ).getValidatedAssociationFieldsFromProto({
                 baseMessage: d,
-                messageAssociation: b,
+                messageAssociation: v,
                 msgContext: _,
               })
             : null;
       if (
-        v != null &&
-        v.associationType ===
+        S != null &&
+        S.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
       )
         return {
           contextInfo: null,
           msgData: I({
             baseMessage: d,
-            associationType: v.associationType,
-            parentMsgKey: v.associationParentMsgKey,
-            viewMode: v.viewMode,
+            associationType: S.associationType,
+            parentMsgKey: S.associationParentMsgKey,
+            viewMode: S.viewMode,
           }),
         };
-      var S = o("WAWebMessagePluginParseProtobuf").parseProtobuf({
+      var R = o("WAWebMessagePluginParseProtobuf").parseProtobuf({
         messageProtobuf: m,
         baseMessage: d,
         msgContext: _,
         paymentInfo: g,
-        quotedPaymentInfo: h,
+        quotedPaymentInfo: y,
         editAttr: i,
         bizInfo: t,
         finalLocation: l,
-        rcat: y,
+        rcat: C,
         bizSource: n,
         msgMeta: f,
-        messageAssociation: b,
+        messageAssociation: v,
         msgBotInfo: p,
+        quotedMsgSender: h,
       });
-      if (S) {
-        var R =
-          (S == null ? void 0 : S.msgData.type) ===
+      if (R) {
+        var L =
+          (R == null ? void 0 : R.msgData.type) ===
             o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-          (S == null ? void 0 : S.msgData.futureproofType) != null;
-        if (E(S.msgData, _)) return { contextInfo: null, msgData: k(d) };
+          (R == null ? void 0 : R.msgData.futureproofType) != null;
+        if (E(R.msgData, _)) return { contextInfo: null, msgData: k(d) };
         if (
-          !R &&
-          (o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(S) ||
-            T(S))
+          !L &&
+          (o("WAWebQuestionsProtoUtils").shouldFutureProofQuestionMessage(R) ||
+            T(R))
         ) {
-          var L = d,
-            $ = babelHelpers.extends({}, L, {
+          var $ = d,
+            P = babelHelpers.extends({}, $, {
               type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
               kind: "unknown",
               subtype: void 0,
             });
-          return { contextInfo: null, msgData: $ };
+          return { contextInfo: null, msgData: P };
         }
-        if (b != null) {
-          var P = o(
+        if (v != null) {
+          var F = o(
             "WAWebAssociationProtoUtils",
           ).convertAssociationTypeFromProtoToClientSupportedAssociationType(
-            b.associationType,
+            v.associationType,
           );
           if (
-            !R &&
-            P !==
+            !L &&
+            F !==
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .BOT_PLUGIN &&
-            (S == null ? void 0 : S.msgData.associationType) !== P &&
+            (R == null ? void 0 : R.msgData.associationType) !== F &&
             !D(m)
           ) {
-            var F;
+            var O;
             throw (
               o("WALogger")
                 .WARN(
@@ -226,13 +230,13 @@ __d(
                       ", botEditType: ",
                       "",
                     ])),
-                  S == null ? void 0 : S.msgData.type,
-                  P,
-                  S == null ? void 0 : S.msgData.associationType,
+                  R == null ? void 0 : R.msgData.type,
+                  F,
+                  R == null ? void 0 : R.msgData.associationType,
                   i,
-                  m == null || (F = m.protocolMessage) == null
+                  m == null || (O = m.protocolMessage) == null
                     ? void 0
-                    : F.type,
+                    : O.type,
                   f == null ? void 0 : f.type,
                   f == null ? void 0 : f.pollType,
                   f == null ? void 0 : f.eventType,
@@ -268,26 +272,26 @@ __d(
             : o(
                 "WAWebLimitSharingProtoUtils",
               ).updateExistingAcp2SettingFromMessage(d, m, _),
-          x(S.msgData),
-          S
+          x(R.msgData),
+          R
         );
       }
-      var O = m.deviceSentMessage;
-      (O && N(d, O, _, a), C && w(d, C));
-      var B = m.groupStatusMessageV2;
-      B != null && A(d, B, _, a);
-      var W = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(m);
-      if (W != null)
+      var B = m.deviceSentMessage;
+      (B && N(d, B, _, a), b && w(d, b));
+      var W = m.groupStatusMessageV2;
+      W != null && A(d, W, _, a);
+      var q = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(m);
+      if (q != null)
         M({
           depth: a,
           message: d,
-          futureproofMessage: W,
+          futureproofMessage: q,
           msgContext: _,
           topLevelMessageContextInfo: m.messageContextInfo,
           editAttr: i,
         });
       else {
-        if (v != null && m.associatedChildMessage != null)
+        if (S != null && m.associatedChildMessage != null)
           return (
             o("WALogger")
               .WARN(
@@ -298,9 +302,9 @@ __d(
                     ", viewMode: ",
                     "",
                   ])),
-                v.associationType,
+                S.associationType,
                 _,
-                v.viewMode,
+                S.viewMode,
               )
               .tags("messaging")
               .sendLogs("parseMsgProto-unopened-associated-child", {
@@ -312,7 +316,7 @@ __d(
                 baseMessage: d,
                 associationType: o("WAWebMessageAssociation.flow")
                   .MessageAssociationType.UNKNOWN,
-                parentMsgKey: v.associationParentMsgKey,
+                parentMsgKey: S.associationParentMsgKey,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
               }),
             }

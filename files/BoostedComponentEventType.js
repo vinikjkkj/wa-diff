@@ -1961,6 +1961,10 @@ __d(
       MAIBA_COPILOT_UNDO_CLICKED: "maiba_copilot_undo_clicked",
       MAIBA_COPILOT_SUBMIT_OUTCOME: "maiba_copilot_submit_outcome",
       MAIBA_COPILOT_GATE_DECISION: "maiba_copilot_gate_decision",
+      MAIBA_COPILOT_CONVERSATION_STARTED: "maiba_copilot_conversation_started",
+      MAIBA_COPILOT_APPLY_SUCCESS: "maiba_copilot_apply_success",
+      MAIBA_COPILOT_APPLY_ERROR: "maiba_copilot_apply_error",
+      MAIBA_COPILOT_APPLY_RENDERED: "maiba_copilot_apply_rendered",
       PROACTIVE_RESULTS_DELIVERY_SCHEDULED:
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:

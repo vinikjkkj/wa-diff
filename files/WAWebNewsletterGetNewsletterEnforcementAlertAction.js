@@ -18,7 +18,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          n === void 0 && (n = o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH);
+          n === void 0 && (n = o("WAJobOrchestratorTypes").JobPriority.HIGH);
           try {
             var a = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.toJid(),

@@ -73,7 +73,7 @@ __d(
       );
     }
     function m(t) {
-      var n = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW;
+      var n = o("WAJobOrchestratorTypes").JobPriority.LOW;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "handleDisappearingModeNotification",

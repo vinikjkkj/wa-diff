@@ -37,7 +37,7 @@ __d(
             e,
             a,
             i,
-            o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH,
+            o("WAJobOrchestratorTypes").JobPriority.HIGH,
           );
           var l = yield o(
               "WAWebNewsletterMessageDeliveryUpdateToModelUtils",

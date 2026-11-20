@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebAboutPrompts",
     "WAWebAboutWamLogger",
+    "WAWebBox.react",
     "WAWebClock",
     "WAWebContactCollection",
     "WAWebDrawerSection.react",
@@ -13,7 +14,6 @@ __d(
     "WAWebFlex.react",
     "WAWebFrontendContactGetters",
     "WAWebModalManager",
-    "WAWebText.react",
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusUtils",
     "WAWebUserUtils",
@@ -21,6 +21,7 @@ __d(
     "WDSIconIcEdit.react",
     "WDSIconIcMood.react",
     "WDSMargins.stylex",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -283,11 +284,15 @@ __d(
         ? ((ne =
             x !== o("WAWebTextStatusUtils").TEXT_STATUS_DURATION_INFINITE &&
             D != null &&
-            c.jsx(o("WAWebText.react").WAWebTextMuted, {
+            c.jsx(r("WAWebBox.react"), {
               as: "span",
-              children: o("WAWebClock").Clock.textStatusExpiryStr(
-                o("WATimeUtils").castToUnixTime(D),
-              ),
+              children: c.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                children: o("WAWebClock").Clock.textStatusExpiryStr(
+                  o("WATimeUtils").castToUnixTime(D),
+                ),
+              }),
             })),
           (n[41] = x),
           (n[42] = D),
@@ -297,9 +302,13 @@ __d(
       n[44] !== x
         ? ((re =
             x === o("WAWebTextStatusUtils").TEXT_STATUS_DURATION_INFINITE &&
-            c.jsx(o("WAWebText.react").WAWebTextMuted, {
+            c.jsx(r("WAWebBox.react"), {
               as: "span",
-              children: s._(/*BTDS*/ "Until I change it"),
+              children: c.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                children: s._(/*BTDS*/ "Until I change it"),
+              }),
             })),
           (n[44] = x),
           (n[45] = re))

@@ -2,6 +2,7 @@ __d(
   "WAWebCustomerManagerCustomerProfileDecoders",
   [
     "WATimeUtils",
+    "WAWebCustomerManagerCustomFieldTypes",
     "WAWebCustomerProfileAcquisitionSource",
     "WAWebLeadStage",
     "XFBWACustomerProfileAcquisitionSource.facebook",
@@ -142,6 +143,32 @@ __d(
       var n = String(e).padStart(t + 1, "0");
       return n.slice(0, -t) + "." + n.slice(-t);
     }
+    function S(e) {
+      var t,
+        n,
+        r,
+        a,
+        i =
+          (e == null ? void 0 : e.field_type) != null
+            ? o("WAWebCustomerManagerCustomFieldTypes").toCustomFieldType(
+                e.field_type,
+              )
+            : null;
+      return (e == null ? void 0 : e.id) == null || e.name == null || i == null
+        ? null
+        : {
+            currency: (t = e.currency) != null ? t : null,
+            currencyDecimalPlaces:
+              (n = e.currency_decimal_places) != null ? n : null,
+            enumOptionKeys: [].concat(
+              (r = e.enum_option_keys) != null ? r : [],
+            ),
+            enumValues: [].concat((a = e.enum_values) != null ? a : []),
+            id: e.id,
+            name: e.name,
+            type: i,
+          };
+    }
     ((l.toLeadStageType = e),
       (l.toLeadStageFilterText = s),
       (l.toAcquisitionSourceFilterText = u),
@@ -152,7 +179,8 @@ __d(
       (l.toFieldUpdates = _),
       (l.formatCustomFieldValue = g),
       (l.formatCustomFieldExportValue = h),
-      (l.formatAbsoluteMoneyValue = v));
+      (l.formatAbsoluteMoneyValue = v),
+      (l.decodeCustomFieldDefinition = S));
   },
   98,
 );

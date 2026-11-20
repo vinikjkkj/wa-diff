@@ -113,9 +113,7 @@ __d(
                       : o("WAWebSendMsgRecordAction").sendMsgRecord)(l)
                   );
                 }),
-                {
-                  priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
-                },
+                { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
               )
               .fireAndForget());
         })),

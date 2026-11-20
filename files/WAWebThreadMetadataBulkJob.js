@@ -149,7 +149,7 @@ __d(
               yield e.bulkRemove(t);
             }
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -194,7 +194,7 @@ __d(
               a
             );
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

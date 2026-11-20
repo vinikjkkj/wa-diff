@@ -12,6 +12,7 @@ __d(
         ["TRIAL_ACTIVE", "TRIAL_ACTIVE"],
         ["TRIAL_EXPIRED", "TRIAL_EXPIRED"],
         ["TRIAL_UNAVAILABLE", "TRIAL_UNAVAILABLE"],
+        ["CM_UNAVAILABLE", "CM_UNAVAILABLE"],
       ]),
       d = { state: "ACCESS_NOT_REQUIRED", trialEndTime: null },
       m = { daysLeft: null, stage: "none" },
@@ -35,14 +36,15 @@ __d(
     function h(e, t) {
       return e == null ||
         e.state === "ACCESS_NOT_REQUIRED" ||
-        e.state === "PAID_ACCESS"
+        e.state === "PAID_ACCESS" ||
+        e.state === "CM_UNAVAILABLE"
         ? m
         : e.state === "TRIAL_AVAILABLE"
           ? p
           : e.state === "TRIAL_EXPIRED" || e.state === "TRIAL_UNAVAILABLE"
             ? _
             : e.state === "TRIAL_ACTIVE"
-              ? R(e.trialEndTime, t)
+              ? L(e.trialEndTime, t)
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -51,15 +53,18 @@ __d(
                 })();
     }
     function y(e, t) {
-      if (e == null) return !1;
+      if (e == null || C(e)) return !1;
       var n = h(e, t),
         r = n.stage;
       return r !== "trial_start" && r !== "locked";
     }
     function C(e) {
+      return (e == null ? void 0 : e.state) === "CM_UNAVAILABLE";
+    }
+    function b(e) {
       return e.stage === "trial_start" || e.stage === "locked";
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       return (function (e) {
         return e === "ACCESS_NOT_REQUIRED"
           ? !0
@@ -68,18 +73,18 @@ __d(
             : !1;
       })(e == null ? void 0 : e.state);
     }
-    function v(t, n) {
+    function S(t, n) {
       return Math.max(1, Math.ceil((t - n) / e));
     }
-    function S(t, n) {
+    function R(t, n) {
       return t <= n
         ? null
-        : o("WATimeUtils").castToUnixTime(t - (v(t, n) - 1) * e);
+        : o("WATimeUtils").castToUnixTime(t - (S(t, n) - 1) * e);
     }
-    function R(e, t) {
+    function L(e, t) {
       if (e == null) return m;
       if (e <= t) return _;
-      var n = v(e, t);
+      var n = S(e, t);
       return n <= u
         ? { daysLeft: n, stage: "trial_ending" }
         : n <= s
@@ -92,9 +97,10 @@ __d(
       (l.decodeCustomerManagerAccessStateOrThrow = g),
       (l.getCustomerManagerUpsell = h),
       (l.isCustomerManagerAccessAllowedByState = y),
-      (l.isCustomerManagerPanelBlocked = C),
-      (l.isCustomerManagerOnboardingWindow = b),
-      (l.getNextTrialDayChangeTime = S));
+      (l.isCustomerManagerUnavailable = C),
+      (l.isCustomerManagerPanelBlocked = b),
+      (l.isCustomerManagerOnboardingWindow = v),
+      (l.getNextTrialDayChangeTime = R));
   },
   98,
 );

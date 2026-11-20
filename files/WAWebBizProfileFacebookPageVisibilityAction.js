@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBizProfileBusinessTokenWrite",
     "WAWebBizProfileFacebookPageVisibilityJob",
     "WAWebFetchWithAdAccountToken",
     "asyncToGeneratorRuntime",
@@ -13,33 +14,48 @@ __d(
       s,
       u,
       c,
-      d = (c || (c = n("Promise"))).resolve(!0);
-    function m(e) {
-      var t = d.then(function () {
-        return p(e);
-      });
-      return ((d = t), t);
-    }
+      d,
+      m = (d || (d = n("Promise"))).resolve(!0);
     function p(e) {
-      return _.apply(this, arguments);
+      var t = m.then(function () {
+        return _(e);
+      });
+      return ((m = t), t);
     }
-    function _() {
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = yield o(
-              "WAWebFetchWithAdAccountToken",
-            ).fetchWithAdAccountToken(function (e) {
-              if (e.type !== "WAA") throw new f();
+              "WAWebBizProfileBusinessTokenWrite",
+            ).writeWithBusinessToken(function (e) {
               return o(
                 "WAWebBizProfileFacebookPageVisibilityJob",
-              ).updateFacebookPageVisibleOnProfile(e.token, t);
-            });
-            return n !== t
-              ? (o("WALogger")
+              ).updateFacebookPageVisibleOnProfile(e, t);
+            }, "biz-profile-facebook-page-visibility-late-failure");
+            if (n.type === "token_timed_out")
+              return (
+                o("WALogger")
                   .ERROR(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Linked Facebook Page visibility update timed out waiting for the business token",
+                      ])),
+                  )
+                  .sendLogs(
+                    "biz-profile-facebook-page-visibility-token-timeout",
+                  ),
+                !1
+              );
+            var a = n.value;
+            return a !== t
+              ? (o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "Linked Facebook Page visibility update was not applied",
                       ])),
                   )
@@ -49,11 +65,12 @@ __d(
           } catch (e) {
             return e instanceof
               o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError ||
-              e instanceof f
+              e instanceof
+                o("WAWebBizProfileBusinessTokenWrite").NotABusinessTokenError
               ? (o("WALogger")
                   .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "Linked Facebook Page visibility update has no WhatsApp business token",
                       ])),
                   )
@@ -63,8 +80,8 @@ __d(
                 !1)
               : (o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "Linked Facebook Page visibility update failed",
                       ])),
                   )
@@ -75,25 +92,10 @@ __d(
                 !1);
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    var f = (function (e) {
-      function t() {
-        var t;
-        return (
-          (t =
-            e.call(
-              this,
-              "The ad account token is not a WhatsApp business token",
-            ) || this),
-          (t.name = "NotABusinessTokenError"),
-          t
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(babelHelpers.wrapNativeSuper(Error));
-    l.updateLinkedFacebookPageShownOnProfile = m;
+    l.updateLinkedFacebookPageShownOnProfile = p;
   },
   98,
 );

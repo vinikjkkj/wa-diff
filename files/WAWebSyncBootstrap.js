@@ -174,7 +174,7 @@ __d(
                 },
                 n = function () {
                   o("WAWebJobOrchestrator").setPriorityQuotaOverride(
-                    o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+                    o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
                     t,
                   );
                 };
@@ -1389,7 +1389,7 @@ __d(
                       };
                     })(),
                     {
-                      priority: o("WAJobOrchestratorTypes").JOB_PRIORITY
+                      priority: o("WAJobOrchestratorTypes").JobPriority
                         .HISTORY_SYNC,
                       maxTimeoutMs: 12e4,
                     },
@@ -1416,7 +1416,7 @@ __d(
           (a.getIsHistorySyncRunning = function () {
             var e = o("WAWebJobOrchestrator").getInstance(),
               t = e.getSnapshot(
-                o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+                o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
               );
             return t != null &&
               t.continueProgressiveHistorySyncProcessingV2 != null
@@ -1461,10 +1461,10 @@ __d(
                 "[history sync][continueProgressiveHistorySyncProcessingV2] clearing bucket queue for type ",
                 "",
               ])),
-            o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+            o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
           ),
             e.clearQueueByPriority(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+              o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
             ));
         },
       ),
@@ -1477,10 +1477,10 @@ __d(
                 "[history sync][continueProgressiveHistorySyncProcessingV2] clearing bucket queue for type ",
                 "",
               ])),
-            o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+            o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
           ),
             e.clearQueueByPriority(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+              o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
             ));
         },
       ));

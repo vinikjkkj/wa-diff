@@ -6,7 +6,7 @@ __d(
     "WAWebInternalAccount",
     "WAWebMobilePlatformPersistence",
     "asyncToGeneratorRuntime",
-    "cr:16728",
+    "cr:22408",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -43,9 +43,9 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (t === void 0 && (t = !0),
             o("WAWebInternalAccount").setInternalAccount(
-              (n("cr:16728") == null
+              (n("cr:22408") == null
                 ? void 0
-                : n("cr:16728").isInternalPlatform(e)) === !0,
+                : n("cr:22408").isWorkPlatform(e)) === !0,
             ),
             t &&
               (yield o("WAWebMobilePlatformPersistence").setLastMobilePlatform(
@@ -79,9 +79,9 @@ __d(
       return (
         c === u.ANDROID ||
         c === u.SMBA ||
-        (n("cr:16728") == null
+        (n("cr:22408") == null
           ? void 0
-          : n("cr:16728").isAndroidPlatform(c)) === !0
+          : n("cr:22408").isAndroidPlatform(c)) === !0
       );
     }
     function y() {
@@ -89,7 +89,7 @@ __d(
         c === u.IPHONE ||
         c === u.IPAD ||
         c === u.SMBI ||
-        (n("cr:16728") == null ? void 0 : n("cr:16728").isIOSPlatform(c)) === !0
+        (n("cr:22408") == null ? void 0 : n("cr:22408").isIOSPlatform(c)) === !0
       );
     }
     ((l.PLATFORMS = u),

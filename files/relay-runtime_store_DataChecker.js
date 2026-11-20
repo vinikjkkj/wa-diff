@@ -12,6 +12,7 @@ __d(
     "relay-runtime/store/TypeID",
     "relay-runtime/store/cloneRelayHandleSourceField",
     "relay-runtime/store/cloneRelayScalarHandleSourceField",
+    "relay-runtime/util/RelayFeatureFlags",
     "relay-runtime/util/getOperation",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,37 +30,53 @@ __d(
       f = n("relay-runtime/store/RelayStoreUtils").getModuleOperationKey,
       g = n("relay-runtime/store/RelayStoreUtils").getStorageKey,
       h = n("relay-runtime/store/RelayStoreUtils").getArgumentValues;
-    function y(e, t, n, r, o, a, i, l, s) {
+    function y(e, t) {
+      return e.args == null ? e.name : g(e, t);
+    }
+    function C(e, t) {
+      return e.args == null ? e.name : g(e, t);
+    }
+    function b(e, t) {
+      return e.args == null ? e.name : g(e, t);
+    }
+    var v = y,
+      S = C,
+      R = b;
+    function L(e, t, n, r, o, a, i, l, s) {
       l != null && l({ name: "store.datachecker.start", selector: r });
       var u = r.dataID,
         c = r.node,
         d = r.variables,
-        m = new C(e, t, n, d, o, a, i, l, s),
+        m = new E(e, t, n, d, o, a, i, l, s),
         p = m.check(c, u);
       return (
         l != null && l({ name: "store.datachecker.end", selector: r }),
         p
       );
     }
-    var C = (function () {
-      function t(e, t, n, r, o, a, i, l, s) {
+    var E = (function () {
+      function t(e, t, r, o, a, i, l, s, u) {
         ((this.$10 = e),
           (this.$11 = t),
-          (this.$12 = i),
-          (this.$7 = e(n)),
+          (this.$12 = l),
+          (this.$7 = e(r)),
           (this.$13 = new Map()));
-        var u = this.$15(n),
-          c = u[0],
-          d = u[1];
-        ((this.$8 = s != null ? s : !1),
+        var c = this.$15(r),
+          d = c[0],
+          m = c[1];
+        ((this.$8 = u != null ? u : !1),
           (this.$2 = null),
-          (this.$1 = o),
-          (this.$3 = c),
-          (this.$4 = a != null ? a : null),
-          (this.$5 = d),
+          (this.$1 = a),
+          (this.$3 = d),
+          (this.$4 = i != null ? i : null),
+          (this.$5 = m),
           (this.$6 = !1),
-          (this.$9 = r),
-          (this.$14 = l));
+          (this.$9 = o),
+          (this.$14 = s));
+        var p = n(
+          "relay-runtime/util/RelayFeatureFlags",
+        ).ENABLE_PERF_STORAGE_KEYS;
+        ((v = p ? y : g), (S = p ? C : g), (R = p ? b : g));
       }
       var r = t.prototype;
       return (
@@ -289,13 +306,13 @@ __d(
           } else this.$19();
         }),
         (r.$24 = function (t, n) {
-          var e = g(t, this.$9),
+          var e = v(t, this.$9),
             r = this.$3.getValue(n, e);
           r === void 0 &&
             ((r = this.$20(t, n)), r !== void 0 && this.$3.setValue(n, e, r));
         }),
         (r.$26 = function (t, n) {
-          var e = g(t, this.$9),
+          var e = S(t, this.$9),
             r = this.$3.getLinkedRecordID(n, e);
           (r === void 0 &&
             ((r = this.$21(t, n)),
@@ -306,7 +323,7 @@ __d(
         }),
         (r.$25 = function (t, n) {
           var e = this,
-            r = g(t, this.$9),
+            r = R(t, this.$9),
             o = this.$3.getLinkedRecordIDs(n, r);
           (o === void 0 &&
             ((o = this.$22(t, n)),
@@ -360,7 +377,7 @@ __d(
         t
       );
     })();
-    a.exports = { DataChecker: C, check: y };
+    a.exports = { DataChecker: E, check: L };
   },
   null,
 );

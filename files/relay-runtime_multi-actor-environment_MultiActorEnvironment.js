@@ -68,6 +68,7 @@ __d(
               handlerProvider: this.$7,
               defaultRenderPolicy: this.$5,
               missingFieldHandlers: this.$10,
+              operationLoader: this.$13,
             });
             return (this.$1.set(t, r), r);
           } else return e;

@@ -22,7 +22,7 @@ __d(
               "WAWebNewsletterMetadataQueryJob",
             ).queryAllNewslettersMetadata();
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -35,7 +35,7 @@ __d(
               "WAWebNewsletterMetadataQueryJob",
             ).queryNewsletterMetadataByJid(e, t, n);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -52,7 +52,7 @@ __d(
                   .getNewsletterMetadataTable()
                   .createOrMerge(e.id, e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -65,7 +65,7 @@ __d(
               .getNewsletterMetadataTable()
               .remove(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -78,7 +78,7 @@ __d(
               .getProfilePicThumbTable()
               .remove(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -97,13 +97,13 @@ __d(
               babelHelpers.extends({}, n, { picture: a }),
             );
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
     function f(t, r, a, i) {
       return (
-        i === void 0 && (i = o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW),
+        i === void 0 && (i = o("WAJobOrchestratorTypes").JobPriority.LOW),
         o("WAWebOrchestratorNonPersistedJob")
           .createNonPersistedJob(
             "updateNewsletterMessageDeliveryUpdates",
@@ -143,7 +143,7 @@ __d(
               .getNewsletterMetadataTable()
               .merge(e, { id: e, suspended: !0 });
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -156,7 +156,7 @@ __d(
               .getNewsletterMetadataTable()
               .merge(e, { id: e, suspended: !0, geosuspended: !0 });
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

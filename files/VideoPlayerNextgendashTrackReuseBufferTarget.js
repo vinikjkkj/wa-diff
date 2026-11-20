@@ -6,7 +6,11 @@ __d(
     function e(e) {
       return e === "MSE_TRACK_REUSE" ? 4 : null;
     }
-    i.default = e;
+    function l(e) {
+      return e === "MSE_TRACK_REUSE" ? 4.9 : null;
+    }
+    ((i.getVideoPlayerNextgendashTrackReuseBufferTarget = e),
+      (i.getVideoPlayerNextgendashTrackReusePlayingBufferTarget = l));
   },
   66,
 );

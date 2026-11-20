@@ -56,7 +56,7 @@ __d(
               msgProtobuf: m,
               msgRecord: p,
               option: {
-                fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                fanoutType: o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT,
                 sessionScope: f,
               },
               scheduledMsgMetadata: _,

@@ -19,7 +19,7 @@ __d(
           function (e) {
             return u(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
         )
         .waitUntilCompleted(e);
     }

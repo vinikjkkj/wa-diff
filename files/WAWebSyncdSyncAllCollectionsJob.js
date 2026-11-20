@@ -35,7 +35,7 @@ __d(
               ).setLastPeriodicAppStateSyncTs(o("WATimeUtils").unixTime()));
           }),
           {
-            priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW,
+            priority: o("WAJobOrchestratorTypes").JobPriority.LOW,
             maxTimeoutMs: 1e3 * 30,
           },
         )

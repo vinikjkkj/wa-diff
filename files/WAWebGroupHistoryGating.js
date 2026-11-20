@@ -90,11 +90,6 @@ __d(
       );
     }
     function C() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "group_history_per_group_toggle_md_sync",
-      );
-    }
-    function b() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistorySenderEnabled = e),
@@ -108,8 +103,7 @@ __d(
       (l.isGroupHistorySendOnceDefaultOnEnabled = g),
       (l.isGroupHistorySendDefaultOnEnabled = h),
       (l.getGroupHistorySpeedBumpDialogDisplayTimes = y),
-      (l.isGroupHistoryPerGroupToggleMdSyncEnabled = C),
-      (l.shouldSkipUnsupportedMessagesFromBundle = b));
+      (l.shouldSkipUnsupportedMessagesFromBundle = C));
   },
   98,
 );

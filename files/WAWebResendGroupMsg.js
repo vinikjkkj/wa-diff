@@ -274,7 +274,7 @@ __d(
               msgProtobuf: l,
               msgRecord: b,
               option: {
-                fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                fanoutType: o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT,
                 isResendingMsg: !0,
                 sessionScope: V,
               },

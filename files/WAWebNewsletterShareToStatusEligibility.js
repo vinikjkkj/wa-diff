@@ -6,6 +6,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterStatusCardVoiceSupport",
     "WAWebSoundStickerUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -78,7 +79,10 @@ __d(
                 !f(t) &&
                 o(
                   "WAWebNewsletterGatingUtils",
-                ).isNewsletterPTTStatusCardEnabled()
+                ).isNewsletterPTTStatusCardEnabled() &&
+                o(
+                  "WAWebNewsletterStatusCardVoiceSupport",
+                ).isVoiceNoteStatusCardSupported()
               : t.type === o("WAWebMsgType").MSG_TYPE.ALBUM
                 ? y(t).slice(0, e).some(h)
                 : t.type === o("WAWebMsgType").MSG_TYPE.STICKER

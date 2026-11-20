@@ -15,7 +15,7 @@ __d(
       l = 1,
       s = e.LOW,
       u = 10 * 1e3;
-    ((i.JOB_PRIORITY = e),
+    ((i.JobPriority = e),
       (i.DEFAULT_CONCURRENCY = l),
       (i.DEFAULT_JOB_PRIORITY = s),
       (i.DEFAULT_JOB_TIMEOUT_MS = u));

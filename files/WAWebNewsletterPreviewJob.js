@@ -66,7 +66,7 @@ __d(
               ids: _,
             };
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -89,7 +89,7 @@ __d(
                 "WAWebNewsletterUpdateMsgsRecordsJob",
               ).addNewsletterMsgsRecords(r));
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

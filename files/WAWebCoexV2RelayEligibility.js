@@ -270,7 +270,7 @@ __d(
     function D(e, t, n) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
-        n.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
+        n.fanoutType === o("WAWebMsgFanoutTypes").FanoutType.CHAT &&
         n.isResendingMsg !== !0 &&
         t.isUser() &&
         !t.isBot() &&

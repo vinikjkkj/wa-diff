@@ -28,9 +28,9 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPrivacyModeSystemMsg",
-    "WAWebProductFeature",
     "WAWebThreadMsgUtils",
     "WAWebWid",
+    "WAWebWorkFeature",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -252,7 +252,7 @@ __d(
             n = e[1],
             r = e[2],
             a = e[3];
-          return o("WAWebProductFeature").isInternalProduct() || !n
+          return o("WAWebWorkFeature").isWork() || !n
             ? !1
             : t.user === "chat" || r
               ? !0

@@ -3,7 +3,10 @@ __d(
   [
     "invariant",
     "relay-runtime/store/RelayConcreteVariables",
+    "relay-runtime/store/RelayModernOperationDescriptor",
     "relay-runtime/store/RelayModernRecord",
+    "relay-runtime/store/RelayModernSelector",
+    "relay-runtime/store/RelayRecordSource",
     "relay-runtime/store/RelayStoreUtils",
     "relay-runtime/store/ResolverCache",
     "relay-runtime/store/ResolverFragments",
@@ -21,33 +24,37 @@ __d(
       m = n(
         "relay-runtime/store/live-resolvers/LiveResolverSuspenseSentinel",
       ).isSuspenseSentinel,
-      p = (d = n("relay-runtime/store/RelayStoreUtils"))
+      p = n(
+        "relay-runtime/store/RelayModernOperationDescriptor",
+      ).createRequestDescriptor,
+      _ = n("relay-runtime/store/RelayModernSelector").createReaderSelector,
+      f = (d = n("relay-runtime/store/RelayStoreUtils"))
         .FIELD_GRANULAR_NOTIFICATIONS_KEY,
-      _ = d.FRAGMENT_OWNER_KEY,
-      f = d.FRAGMENT_POINTER_IS_WITHIN_UNMATCHED_TYPE_REFINEMENT,
-      g = d.FRAGMENT_PROP_NAME_KEY,
-      h = d.FRAGMENTS_KEY,
-      y = d.ID_KEY,
-      C = d.MODULE_COMPONENT_KEY,
-      b = d.PARENT_CLIENT_EDGE,
-      v = d.ROOT_ID,
-      S = d.getArgumentValues,
-      R = d.getFieldNotificationKey,
-      L = d.getModuleComponentKey,
-      E = d.getStorageKey,
-      k = n("relay-runtime/store/ResolverCache").NoopResolverCache,
-      I = n(
+      g = d.FRAGMENT_OWNER_KEY,
+      h = d.FRAGMENT_POINTER_IS_WITHIN_UNMATCHED_TYPE_REFINEMENT,
+      y = d.FRAGMENT_PROP_NAME_KEY,
+      C = d.FRAGMENTS_KEY,
+      b = d.ID_KEY,
+      v = d.MODULE_COMPONENT_KEY,
+      S = d.PARENT_CLIENT_EDGE,
+      R = d.ROOT_ID,
+      L = d.getArgumentValues,
+      E = d.getFieldNotificationKey,
+      k = d.getModuleComponentKey,
+      I = d.getStorageKey,
+      T = n("relay-runtime/store/ResolverCache").NoopResolverCache,
+      D = n(
         "relay-runtime/store/ResolverFragments",
       ).RESOLVER_FRAGMENT_ERRORED_SENTINEL,
-      T = n("relay-runtime/store/ResolverFragments").withResolverContext,
-      D = n("relay-runtime/store/TypeID").generateTypeID;
-    function x(e, t, r, o, a) {
+      x = n("relay-runtime/store/ResolverFragments").withResolverContext,
+      $ = n("relay-runtime/store/TypeID").generateTypeID;
+    function P(e, t, r, o, a) {
       if (n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_READER)
-        return W(e, t, r, o, a);
-      var i = new $(e, t, r, o != null ? o : new k(), a);
+        return U(e, t, r, o, a);
+      var i = new N(e, t, r, o != null ? o : new T(), a);
       return i.read();
     }
-    var $ = (function () {
+    var N = (function () {
       function e(e, t, n, r, o) {
         var a, i, l;
         ((this.$1 = t.parentClientEdge),
@@ -190,7 +197,7 @@ __d(
             (e != null &&
             (c || (c = n("relay-runtime/store/RelayModernRecord"))).getValue(
               e,
-              p,
+              f,
             )
               ? (this.$7 = r)
               : (this.$11.add(r), (this.$7 = null)),
@@ -278,7 +285,7 @@ __d(
           var a = this.$6;
           if (((this.$6 = o), a != null)) {
             this.$6 == null && (this.$6 = []);
-            for (var i = 0; i < a.length; i++) this.$6.push(P(a[i]));
+            for (var i = 0; i < a.length; i++) this.$6.push(M(a[i]));
           }
           return e;
         }),
@@ -502,7 +509,7 @@ __d(
                     fieldErrors: o.fieldErrors,
                     isMissingData: o.isMissingData,
                   }
-                : ((o = x(e.$10, n, null, e.$15, void 0)),
+                : ((o = P(e.$10, n, null, e.$15, void 0)),
                   {
                     data: o.data,
                     fieldErrors: o.fieldErrors,
@@ -516,20 +523,20 @@ __d(
                     __fragmentOwner: e.$8,
                     __fragments:
                       ((i = {}),
-                      (i[r.name] = r.args ? S(r.args, e.$14) : {}),
+                      (i[r.name] = r.args ? L(r.args, e.$14) : {}),
                       i),
                     __id: n,
                   };
-                e.$1 !== null && (l[b] = e.$1);
+                e.$1 !== null && (l[S] = e.$1);
                 var s = { getDataForResolverFragment: a };
-                return T(s, function () {
-                  var n = N(t, e.$14, l, e.$17),
+                return x(s, function () {
+                  var n = w(t, e.$14, l, e.$17),
                     r = n[0],
                     a = n[1];
                   return { error: a, resolverResult: r, snapshot: o };
                 });
               } else {
-                var u = N(t, e.$14, null, e.$17),
+                var u = w(t, e.$14, null, e.$17),
                   c = u[0],
                   d = u[1];
                 return { error: d, resolverResult: c, snapshot: void 0 };
@@ -568,7 +575,7 @@ __d(
                   ? void 0
                   : m.throwOnFieldError) === !0
                   ? this.$6.push(p)
-                  : this.$6.push(P(p));
+                  : this.$6.push(M(p));
               }
             }
             this.$2 = this.$2 || n.isMissingData;
@@ -625,7 +632,7 @@ __d(
                 }
                 var y = (g = t.concreteType) != null ? g : h.__typename;
                 typeof y == "string" || l(0, 86536, i.path, this.$8.identifier);
-                var C = M(h, i.path, this.$8.identifier),
+                var C = A(h, i.path, this.$8.identifier),
                   b = t.modelResolvers;
                 if (b != null) {
                   var v = b[y];
@@ -655,7 +662,7 @@ __d(
               }
             } else
               ((p = d.map(function (e) {
-                return M(e, i.path, a.$8.identifier);
+                return A(e, i.path, a.$8.identifier);
               })),
                 (_ = null));
             var I = this.$1;
@@ -668,50 +675,50 @@ __d(
               $ = (D = i.normalizationInfo) == null ? void 0 : D.kind,
               P =
                 $ === "ServerWeak" || $ === "AbstractInline"
-                  ? w(d, i.path, this.$8.identifier)
-                  : M(d, i.path, this.$8.identifier),
+                  ? F(d, i.path, this.$8.identifier)
+                  : A(d, i.path, this.$8.identifier),
               N,
-              A = (x = t.concreteType) != null ? x : d.__typename,
-              F;
+              M = (x = t.concreteType) != null ? x : d.__typename,
+              w;
             if (t.kind === "ClientEdgeToClientObject")
               if (t.backingField.normalizationInfo == null) {
-                typeof A == "string" || l(0, 86536, i.path, this.$8.identifier);
+                typeof M == "string" || l(0, 86536, i.path, this.$8.identifier);
                 var O = t.modelResolvers;
                 if (O != null) {
-                  var B = O[A];
+                  var B = O[M];
                   if (B !== void 0) {
-                    N = this.$15.ensureClientRecord(P, A);
+                    N = this.$15.ensureClientRecord(P, M);
                     var W = this.$42(B, N);
                     if (W == null) return ((o[s] = null), null);
-                    F = null;
+                    w = null;
                   } else {
                     N = P;
                     var q = t.serverObjectOperations,
-                      U = q != null ? q[A] : null;
+                      U = q != null ? q[M] : null;
                     U != null
-                      ? (F = {
+                      ? (w = {
                           clientEdgeDestinationID: P,
                           readerClientEdge: { operation: U },
                         })
-                      : (F = null);
+                      : (w = null);
                   }
-                } else ((N = this.$15.ensureClientRecord(P, A)), (F = null));
+                } else ((N = this.$15.ensureClientRecord(P, M)), (w = null));
               } else {
                 N = P;
                 var V = t.backingField.normalizationInfo,
                   H =
                     (V == null ? void 0 : V.kind) === "AbstractInline"
-                      ? V.inlineKinds[A]
+                      ? V.inlineKinds[M]
                       : V == null
                         ? void 0
                         : V.kind;
-                F = null;
+                w = null;
               }
             else
               ((N = P),
-                (F = { clientEdgeDestinationID: P, readerClientEdge: t }));
+                (w = { clientEdgeDestinationID: P, readerClientEdge: t }));
             var G = this.$1;
-            this.$1 = F;
+            this.$1 = w;
             var z = o[s];
             z == null ||
               typeof z == "object" ||
@@ -734,8 +741,8 @@ __d(
         (t.$31 = function (t, r, o) {
           var e,
             a = (e = t.alias) != null ? e : t.name,
-            i = E(t, this.$14);
-          this.$7 != null && this.$11.add(R(this.$7, i));
+            i = I(t, this.$14);
+          this.$7 != null && this.$11.add(E(this.$7, i));
           var l = (
             c || (c = n("relay-runtime/store/RelayModernRecord"))
           ).getValue(r, i);
@@ -754,8 +761,8 @@ __d(
         (t.$33 = function (t, r, o) {
           var e,
             a = (e = t.alias) != null ? e : t.name,
-            i = E(t, this.$14);
-          this.$7 != null && this.$11.add(R(this.$7, i));
+            i = I(t, this.$14);
+          this.$7 != null && this.$11.add(E(this.$7, i));
           var s = (
             c || (c = n("relay-runtime/store/RelayModernRecord"))
           ).getLinkedRecordID(r, i);
@@ -803,7 +810,7 @@ __d(
         (t.$40 = function (t, r, o) {
           var e,
             a = (e = t.alias) != null ? e : t.name,
-            i = E(t, this.$14),
+            i = I(t, this.$14),
             l = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
             ).getActorLinkedRecordID(r, i);
@@ -823,8 +830,8 @@ __d(
           );
         }),
         (t.$32 = function (t, r, o) {
-          var e = E(t, this.$14);
-          this.$7 != null && this.$11.add(R(this.$7, e));
+          var e = I(t, this.$14);
+          this.$7 != null && this.$11.add(E(this.$7, e));
           var a = (
             c || (c = n("relay-runtime/store/RelayModernRecord"))
           ).getLinkedRecordIDs(r, e);
@@ -891,7 +898,7 @@ __d(
           );
         }),
         (t.$38 = function (t, r, o) {
-          var e = L(t.documentName),
+          var e = k(t.documentName),
             a = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
             ).getValue(r, e),
@@ -905,8 +912,8 @@ __d(
             r,
             o,
           ),
-            (o[g] = t.fragmentPropName),
-            (o[C] = i));
+            (o[y] = t.fragmentPropName),
+            (o[v] = i));
         }),
         (t.$37 = function (t, n, r) {
           var e = this.$6;
@@ -951,22 +958,22 @@ __d(
             (e != null && e === r) ||
             (c || (c = n("relay-runtime/store/RelayModernRecord"))).getDataID(
               t,
-            ) === v
+            ) === R
           );
         }),
         (t.$36 = function (t, r, o) {
-          var e = o[h];
-          (e == null && (e = o[h] = {}),
+          var e = o[C];
+          (e == null && (e = o[C] = {}),
             (typeof e == "object" && e != null) || l(0, 1310, e),
-            o[y] == null &&
-              (o[y] = (
+            o[b] == null &&
+              (o[b] = (
                 c || (c = n("relay-runtime/store/RelayModernRecord"))
               ).getDataID(r)));
-          var a = S(t.args, this.$14, this.$5);
+          var a = L(t.args, this.$14, this.$5);
           if (
             ((e[t.name] = a),
-            (o[_] = this.$8),
-            this.$1 !== null && (o[b] = this.$1),
+            (o[g] = this.$8),
+            this.$1 !== null && (o[S] = this.$1),
             n("relay-runtime/util/RelayFeatureFlags")
               .ENABLE_READER_FRAGMENTS_LOGGING)
           ) {
@@ -980,18 +987,18 @@ __d(
           }
         }),
         (t.$39 = function (t, r, o) {
-          var e = o[h];
-          (e == null && (e = o[h] = {}),
+          var e = o[C];
+          (e == null && (e = o[C] = {}),
             (typeof e == "object" && e != null) || l(0, 1310, e),
-            o[y] == null &&
-              (o[y] = (
+            o[b] == null &&
+              (o[b] = (
                 c || (c = n("relay-runtime/store/RelayModernRecord"))
               ).getDataID(r)));
           var a = {},
             i = this.$16;
           this.$16 = t.name;
           var s = this.$14,
-            u = t.args ? S(t.args, this.$14) : {};
+            u = t.args ? L(t.args, this.$14) : {};
           ((this.$14 = n(
             "relay-runtime/store/RelayConcreteVariables",
           ).getFragmentVariables(t, this.$8.variables, u)),
@@ -1004,7 +1011,7 @@ __d(
           var e = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
             ).getType(t),
-            o = this.$10.get(D(e)),
+            o = this.$10.get($(e)),
             a =
               o != null
                 ? (
@@ -1027,7 +1034,7 @@ __d(
         e
       );
     })();
-    function P(e) {
+    function M(e) {
       switch (e.kind) {
         case "missing_expected_data.throw":
         case "missing_required_field.throw":
@@ -1041,7 +1048,7 @@ __d(
           (e.kind, l(0, 87029, e.kind));
       }
     }
-    function N(e, t, n, r) {
+    function w(e, t, n, r) {
       var o =
           typeof e.resolverModule == "function"
             ? e.resolverModule
@@ -1051,28 +1058,28 @@ __d(
       try {
         var l = [];
         e.fragment != null && l.push(n);
-        var s = e.args ? S(e.args, t) : void 0;
+        var s = e.args ? L(e.args, t) : void 0;
         (l.push(s), l.push(r), (a = o.apply(null, l)));
       } catch (e) {
-        ((a = null), e !== I && (i = e));
+        ((a = null), e !== D && (i = e));
       }
       return [a, i];
     }
-    function M(e, t, n) {
+    function A(e, t, n) {
       if (typeof e == "string") return e;
       if (typeof e == "object" && e != null && typeof e.id == "string")
         return e.id;
       l(0, 86539, t, n);
     }
-    function w(e, t, n) {
+    function F(e, t, n) {
       return typeof e == "object" && e != null && typeof e.__id == "string"
         ? e.__id
-        : M(e, t, n);
+        : A(e, t, n);
     }
-    var A = Object.freeze({}),
-      F = Object.freeze(((e = {}), (e[f] = !0), e)),
-      O = Object.freeze([]),
-      B = (function () {
+    var O = Object.freeze({}),
+      B = Object.freeze(((e = {}), (e[h] = !0), e)),
+      W = Object.freeze([]),
+      q = (function () {
         function e(e, t, n, r, o) {
           var a, i, l;
           ((this.$1 = t.parentClientEdge),
@@ -1145,7 +1152,7 @@ __d(
               isMissingData: this.$2 && u,
               missingClientEdges:
                 this.$3 != null && this.$3.length ? this.$3 : null,
-              missingLiveResolverFields: (t = this.$4) != null ? t : O,
+              missingLiveResolverFields: (t = this.$4) != null ? t : W,
               seenRecords: this.$11,
               selector: this.$13,
             };
@@ -1223,7 +1230,7 @@ __d(
               e != null &&
               (c || (c = n("relay-runtime/store/RelayModernRecord"))).getValue(
                 e,
-                p,
+                f,
               )
                 ? (this.$7 = r)
                 : (this.$11.add(r), (this.$7 = null)),
@@ -1312,7 +1319,7 @@ __d(
             var a = this.$6;
             if (((this.$6 = o), a != null)) {
               this.$6 == null && (this.$6 = []);
-              for (var i = 0; i < a.length; i++) this.$6.push(P(a[i]));
+              for (var i = 0; i < a.length; i++) this.$6.push(M(a[i]));
             }
             return e;
           }),
@@ -1548,7 +1555,7 @@ __d(
                       fieldErrors: o.fieldErrors,
                       isMissingData: o.isMissingData,
                     }
-                  : ((o = W(e.$10, n, null, e.$15, void 0)),
+                  : ((o = U(e.$10, n, null, e.$15, void 0)),
                     {
                       data: o.data,
                       fieldErrors: o.fieldErrors,
@@ -1562,20 +1569,20 @@ __d(
                       __fragmentOwner: e.$8,
                       __fragments:
                         ((i = {}),
-                        (i[r.name] = r.args ? S(r.args, e.$14) : {}),
+                        (i[r.name] = r.args ? L(r.args, e.$14) : {}),
                         i),
                       __id: n,
                     };
-                  e.$1 !== null && (l[b] = e.$1);
+                  e.$1 !== null && (l[S] = e.$1);
                   var s = { getDataForResolverFragment: a };
-                  return T(s, function () {
-                    var n = N(t, e.$14, l, e.$17),
+                  return x(s, function () {
+                    var n = w(t, e.$14, l, e.$17),
                       r = n[0],
                       a = n[1];
                     return { error: a, resolverResult: r, snapshot: o };
                   });
                 } else {
-                  var u = N(t, e.$14, null, e.$17),
+                  var u = w(t, e.$14, null, e.$17),
                     c = u[0],
                     d = u[1];
                   return { error: d, resolverResult: c, snapshot: void 0 };
@@ -1611,7 +1618,7 @@ __d(
                     ? void 0
                     : d.throwOnFieldError) === !0
                     ? this.$6.push(m)
-                    : this.$6.push(P(m));
+                    : this.$6.push(M(m));
                 }
               }
               this.$2 = this.$2 || n.isMissingData;
@@ -1681,7 +1688,7 @@ __d(
                   var y = (g = t.concreteType) != null ? g : h.__typename;
                   typeof y == "string" ||
                     l(0, 86536, i.path, this.$8.identifier);
-                  var C = M(h, i.path, this.$8.identifier),
+                  var C = A(h, i.path, this.$8.identifier),
                     b = t.modelResolvers;
                   if (b != null) {
                     var v = b[y];
@@ -1711,7 +1718,7 @@ __d(
                 }
               } else
                 ((p = d.map(function (e) {
-                  return M(e, i.path, a.$8.identifier);
+                  return A(e, i.path, a.$8.identifier);
                 })),
                   (_ = null));
               var I = this.$1;
@@ -1724,51 +1731,51 @@ __d(
                 $ = (D = i.normalizationInfo) == null ? void 0 : D.kind,
                 P =
                   $ === "ServerWeak" || $ === "AbstractInline"
-                    ? w(d, i.path, this.$8.identifier)
-                    : M(d, i.path, this.$8.identifier),
+                    ? F(d, i.path, this.$8.identifier)
+                    : A(d, i.path, this.$8.identifier),
                 N,
-                A = (x = t.concreteType) != null ? x : d.__typename,
-                F;
+                M = (x = t.concreteType) != null ? x : d.__typename,
+                w;
               if (t.kind === "ClientEdgeToClientObject")
                 if (t.backingField.normalizationInfo == null) {
-                  typeof A == "string" ||
+                  typeof M == "string" ||
                     l(0, 86536, i.path, this.$8.identifier);
                   var O = t.modelResolvers;
                   if (O != null) {
-                    var B = O[A];
+                    var B = O[M];
                     if (B !== void 0) {
-                      N = this.$15.ensureClientRecord(P, A);
+                      N = this.$15.ensureClientRecord(P, M);
                       var W = this.$43(B, N);
                       if (W == null) return ((o[s] = null), null);
-                      F = null;
+                      w = null;
                     } else {
                       N = P;
                       var q = t.serverObjectOperations,
-                        U = q != null ? q[A] : null;
+                        U = q != null ? q[M] : null;
                       U != null
-                        ? (F = {
+                        ? (w = {
                             clientEdgeDestinationID: P,
                             readerClientEdge: { operation: U },
                           })
-                        : (F = null);
+                        : (w = null);
                     }
-                  } else ((N = this.$15.ensureClientRecord(P, A)), (F = null));
+                  } else ((N = this.$15.ensureClientRecord(P, M)), (w = null));
                 } else {
                   N = P;
                   var V = t.backingField.normalizationInfo,
                     H =
                       (V == null ? void 0 : V.kind) === "AbstractInline"
-                        ? V.inlineKinds[A]
+                        ? V.inlineKinds[M]
                         : V == null
                           ? void 0
                           : V.kind;
-                  F = null;
+                  w = null;
                 }
               else
                 ((N = P),
-                  (F = { clientEdgeDestinationID: P, readerClientEdge: t }));
+                  (w = { clientEdgeDestinationID: P, readerClientEdge: t }));
               var G = this.$1;
-              this.$1 = F;
+              this.$1 = w;
               var z = o[s];
               z == null ||
                 typeof z == "object" ||
@@ -1794,8 +1801,8 @@ __d(
               i =
                 t.args == null && t.kind === "ScalarField"
                   ? t.name
-                  : E(t, this.$14);
-            this.$7 != null && this.$11.add(R(this.$7, i));
+                  : I(t, this.$14);
+            this.$7 != null && this.$11.add(E(this.$7, i));
             var l = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
             ).getValue(r, i);
@@ -1814,8 +1821,8 @@ __d(
           (t.$34 = function (t, r, o) {
             var e,
               a = (e = t.alias) != null ? e : t.name,
-              i = t.args == null ? t.name : E(t, this.$14);
-            this.$7 != null && this.$11.add(R(this.$7, i));
+              i = t.args == null ? t.name : I(t, this.$14);
+            this.$7 != null && this.$11.add(E(this.$7, i));
             var s = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
             ).getLinkedRecordID(r, i);
@@ -1840,8 +1847,30 @@ __d(
               );
             var d = this.$6;
             this.$6 = null;
-            var m = this.$21(t, s, u);
-            return (this.$44(d, a), (o[a] = m), m);
+            var m = this.$10.get(s),
+              p = this.$7;
+            (!n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_PUBLISH ||
+              n("relay-runtime/util/RelayFeatureFlags")
+                .ENABLE_FIELD_GRANULAR_NOTIFICATIONS) &&
+            m != null &&
+            (c || (c = n("relay-runtime/store/RelayModernRecord"))).getValue(
+              m,
+              f,
+            )
+              ? (this.$7 = s)
+              : (this.$11.add(s), (this.$7 = null));
+            var _;
+            if (m == null) (m === void 0 && this.$24("<record>"), (_ = m));
+            else {
+              var g = u || {};
+              _ = this.$26(t.selections, m, g) ? g : null;
+            }
+            return (
+              (this.$7 = p),
+              this.$6 != null ? this.$44(d, a) : (this.$6 = d),
+              (o[a] = _),
+              _
+            );
           }),
           (t.$44 = function (t, n) {
             if (this.$6 != null) {
@@ -1864,7 +1893,7 @@ __d(
           (t.$41 = function (t, r, o) {
             var e,
               a = (e = t.alias) != null ? e : t.name,
-              i = E(t, this.$14),
+              i = I(t, this.$14),
               l = (
                 c || (c = n("relay-runtime/store/RelayModernRecord"))
               ).getActorLinkedRecordID(r, i);
@@ -1884,20 +1913,19 @@ __d(
             );
           }),
           (t.$33 = function (t, r, o) {
-            var e = this.$14,
-              a = t.args == null ? t.name : E(t, e);
-            this.$7 != null && this.$11.add(R(this.$7, a));
-            var i = (
+            var e = I(t, this.$14);
+            this.$7 != null && this.$11.add(E(this.$7, e));
+            var a = (
               c || (c = n("relay-runtime/store/RelayModernRecord"))
-            ).getLinkedRecordIDs(r, a);
+            ).getLinkedRecordIDs(r, e);
             return (
-              (i === null ||
+              (a === null ||
                 (n("relay-runtime/util/RelayFeatureFlags")
                   .ENABLE_NONCOMPLIANT_ERROR_HANDLING_ON_LISTS &&
-                  Array.isArray(i) &&
-                  i.length === 0)) &&
-                this.$23(r, a),
-              this.$47(t, i, r, o)
+                  Array.isArray(a) &&
+                  a.length === 0)) &&
+                this.$23(r, e),
+              this.$47(t, a, r, o)
             );
           }),
           (t.$47 = function (t, r, o, a, i) {
@@ -1953,7 +1981,7 @@ __d(
             );
           }),
           (t.$39 = function (t, r, o) {
-            var e = L(t.documentName),
+            var e = k(t.documentName),
               a = (
                 c || (c = n("relay-runtime/store/RelayModernRecord"))
               ).getValue(r, e),
@@ -1967,8 +1995,8 @@ __d(
               r,
               o,
             ),
-              (o[g] = t.fragmentPropName),
-              (o[C] = i));
+              (o[y] = t.fragmentPropName),
+              (o[v] = i));
           }),
           (t.$38 = function (t, n, r) {
             var e = this.$6;
@@ -2013,23 +2041,23 @@ __d(
               (e != null && e === r) ||
               (c || (c = n("relay-runtime/store/RelayModernRecord"))).getDataID(
                 t,
-              ) === v
+              ) === R
             );
           }),
           (t.$37 = function (t, r, o) {
-            var e = o[h];
-            (e == null && (e = o[h] = {}),
+            var e = o[C];
+            (e == null && (e = o[C] = {}),
               (typeof e == "object" && e != null) || l(0, 1310, e),
-              o[y] == null &&
-                (o[y] = (
+              o[b] == null &&
+                (o[b] = (
                   c || (c = n("relay-runtime/store/RelayModernRecord"))
                 ).getDataID(r)));
             var a =
-              t.args == null ? (this.$5 ? F : A) : S(t.args, this.$14, this.$5);
+              t.args == null ? (this.$5 ? B : O) : L(t.args, this.$14, this.$5);
             if (
               ((e[t.name] = a),
-              (o[_] = this.$8),
-              this.$1 !== null && (o[b] = this.$1),
+              (o[g] = this.$8),
+              this.$1 !== null && (o[S] = this.$1),
               n("relay-runtime/util/RelayFeatureFlags")
                 .ENABLE_READER_FRAGMENTS_LOGGING)
             ) {
@@ -2043,18 +2071,18 @@ __d(
             }
           }),
           (t.$40 = function (t, r, o) {
-            var e = o[h];
-            (e == null && (e = o[h] = {}),
+            var e = o[C];
+            (e == null && (e = o[C] = {}),
               (typeof e == "object" && e != null) || l(0, 1310, e),
-              o[y] == null &&
-                (o[y] = (
+              o[b] == null &&
+                (o[b] = (
                   c || (c = n("relay-runtime/store/RelayModernRecord"))
                 ).getDataID(r)));
             var a = {},
               i = this.$16;
             this.$16 = t.name;
             var s = this.$14,
-              u = t.args ? S(t.args, this.$14) : {};
+              u = t.args ? L(t.args, this.$14) : {};
             ((this.$14 = n(
               "relay-runtime/store/RelayConcreteVariables",
             ).getFragmentVariables(t, this.$8.variables, u)),
@@ -2067,7 +2095,7 @@ __d(
             var e = (
                 c || (c = n("relay-runtime/store/RelayModernRecord"))
               ).getType(t),
-              o = this.$10.get(D(e)),
+              o = this.$10.get($(e)),
               a =
                 o != null
                   ? (
@@ -2090,11 +2118,59 @@ __d(
           e
         );
       })();
-    function W(e, t, n, r, o) {
-      var a = new B(e, t, n, r != null ? r : new k(), o);
+    function U(e, t, n, r, o) {
+      var a = new q(e, t, n, r != null ? r : new T(), o);
       return a.read();
     }
-    a.exports = { read: x, readPerf: W };
+    var V = null;
+    function H() {
+      if (V == null) {
+        var e = {
+            argumentDefinitions: [],
+            kind: "Fragment",
+            metadata: null,
+            name: "RelayReaderMapAnchor",
+            selections: [],
+            type: "RelayReaderMapAnchor",
+            abstractKey: null,
+          },
+          t = {
+            fragment: e,
+            kind: "Request",
+            operation: {
+              argumentDefinitions: [],
+              kind: "Operation",
+              name: "RelayReaderMapAnchor",
+              selections: [],
+            },
+            params: {
+              cacheID: "RelayReaderMapAnchor",
+              id: null,
+              metadata: {},
+              name: "RelayReaderMapAnchor",
+              operationKind: "query",
+              text: null,
+            },
+          },
+          r = {};
+        V = new q(
+          n("relay-runtime/store/RelayRecordSource").create(),
+          _(e, R, r, p(t, r)),
+          null,
+          new T(),
+          null,
+        );
+      }
+    }
+    function G() {
+      return V;
+    }
+    a.exports = {
+      getReaderMapAnchor: G,
+      keepReaderMapsAlive: H,
+      read: P,
+      readPerf: U,
+    };
   },
   null,
 );

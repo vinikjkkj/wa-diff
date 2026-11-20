@@ -453,8 +453,8 @@ __d(
     }
     function E(e) {
       return e
-        ? o("WAJobOrchestratorTypes").JOB_PRIORITY.OFFLINE
-        : o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW;
+        ? o("WAJobOrchestratorTypes").JobPriority.OFFLINE
+        : o("WAJobOrchestratorTypes").JobPriority.LOW;
     }
     ((l.CIPHERTEXT_VERSION = m),
       (l.getMetricE2eCiphertextType = p),

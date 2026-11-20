@@ -86,7 +86,8 @@ __d(
             .sendLogs("saved-promotions-tap-failed");
         });
     }
-    ((l.getAddPromotionToPaymentsAction = d),
+    ((l.OPEN_ENDED_OFFER_WINDOW_S = u),
+      (l.getAddPromotionToPaymentsAction = d),
       (l.getCurrentAddPromotionToPaymentsAction = m),
       (l.canAddPromotionToPayments = p),
       (l.isLiveOffer = f));

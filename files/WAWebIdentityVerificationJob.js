@@ -16,7 +16,7 @@ __d(
         .createNonPersistedJob(
           "getIdentityVerificationData",
           o("WAWebIdentityVerificationApi").getIdentityVerificationData,
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(i);
     }

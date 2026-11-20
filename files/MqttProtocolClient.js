@@ -182,7 +182,7 @@ __d(
                 this.$13.bind(
                   this,
                   new (o("MqttProtocolCodec").WireMessage.Ping)(
-                    o("MqttProtocolCodec").MESSAGE_TYPE.PINGREQ,
+                    o("MqttProtocolCodec").MessageType.PINGREQ,
                   ),
                 ),
                 function (e, n) {
@@ -247,7 +247,7 @@ __d(
               );
             this.$9.bumpCounter("protocol.subscribe." + t);
             var e = new (o("MqttProtocolCodec").WireMessage.Subscription)(
-              o("MqttProtocolCodec").MESSAGE_TYPE.SUBSCRIBE,
+              o("MqttProtocolCodec").MessageType.SUBSCRIBE,
               t,
               0,
               this.$15(),
@@ -262,7 +262,7 @@ __d(
               );
             this.$9.bumpCounter("protocol.unsubscribe." + t);
             var e = new (o("MqttProtocolCodec").WireMessage.Subscription)(
-              o("MqttProtocolCodec").MESSAGE_TYPE.UNSUBSCRIBE,
+              o("MqttProtocolCodec").MessageType.UNSUBSCRIBE,
               t,
               0,
               this.$15(),
@@ -297,7 +297,7 @@ __d(
           (n.handleMessage = function (t) {
             var e = this;
             switch (t.messageType) {
-              case o("MqttProtocolCodec").MESSAGE_TYPE.CONNACK:
+              case o("MqttProtocolCodec").MessageType.CONNACK:
                 if (
                   (this.$7 != null &&
                     (o("MqttEnv").Env.clearTimeout(this.$7), (this.$7 = null)),
@@ -322,7 +322,7 @@ __d(
                     this.$8 != null && this.$8.reset());
                 }
                 break;
-              case o("MqttProtocolCodec").MESSAGE_TYPE.PUBLISH:
+              case o("MqttProtocolCodec").MessageType.PUBLISH:
                 if (t instanceof o("MqttProtocolCodec").WireMessage.Publish) {
                   var a = t;
                   o("MqttEnv").Env.scheduleCallback(function () {
@@ -336,14 +336,14 @@ __d(
                     var l = new (o(
                       "MqttProtocolCodec",
                     ).WireMessage.PubAckUnsubAck)(
-                      o("MqttProtocolCodec").MESSAGE_TYPE.PUBACK,
+                      o("MqttProtocolCodec").MessageType.PUBACK,
                       i,
                     );
                     this.$13(l);
                   }
                 }
                 break;
-              case o("MqttProtocolCodec").MESSAGE_TYPE.PUBACK:
+              case o("MqttProtocolCodec").MessageType.PUBACK:
                 if (
                   t instanceof o("MqttProtocolCodec").WireMessage.PubAckUnsubAck
                 ) {
@@ -355,16 +355,16 @@ __d(
                     }));
                 }
                 break;
-              case o("MqttProtocolCodec").MESSAGE_TYPE.PINGRESP:
+              case o("MqttProtocolCodec").MessageType.PINGRESP:
                 this.$8 != null && this.$8.reset();
                 break;
-              case o("MqttProtocolCodec").MESSAGE_TYPE.DISCONNECT:
+              case o("MqttProtocolCodec").MessageType.DISCONNECT:
                 this.$12(o("MqttTypes").MqttErrors.SERVER_DISCONNECT);
                 break;
-              case o("MqttProtocolCodec").MESSAGE_TYPE.SUBACK:
+              case o("MqttProtocolCodec").MessageType.SUBACK:
                 this.$9.bumpCounter("protocol.suback.received");
                 break;
-              case o("MqttProtocolCodec").MESSAGE_TYPE.UNSUBACK:
+              case o("MqttProtocolCodec").MessageType.UNSUBACK:
                 this.$9.bumpCounter("protocol.unsuback.received");
                 break;
               default:

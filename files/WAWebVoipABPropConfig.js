@@ -225,6 +225,11 @@ __d(
           wasmKey: "web_voip_ml_disable_threadpool",
           type: "bool",
         },
+        {
+          abProp: "web_voip_relay_send_wake_and_copy",
+          wasmKey: "web_voip_relay_send_wake_and_copy",
+          type: "bool",
+        },
       ],
       l = e;
     i.default = l;

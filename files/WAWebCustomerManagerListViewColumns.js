@@ -935,6 +935,7 @@ __d(
                   n.item.customFieldValues.find(function (t) {
                     return t.fieldId === e.id;
                   }),
+                  e,
                 ),
               });
             },

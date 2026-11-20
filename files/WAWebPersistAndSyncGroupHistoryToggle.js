@@ -3,7 +3,6 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryToggleModeStore",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -23,13 +22,7 @@ __d(
           var a = yield o(
             "WAWebGroupHistoryToggleModeStore",
           ).setGroupHistoryToggleMode(t, n);
-          if (
-            !a ||
-            !o(
-              "WAWebGroupHistoryGating",
-            ).isGroupHistoryPerGroupToggleMdSyncEnabled()
-          )
-            return a;
+          if (!a) return a;
           try {
             var i = yield s.load(),
               l = i.sendGroupHistoryToggleMutation;

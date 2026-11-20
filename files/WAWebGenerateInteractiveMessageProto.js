@@ -15,17 +15,18 @@ __d(
       var t = e.contextInfo,
         n = e.json,
         a = e.mediaMetadata,
-        i;
+        i = e.msgContext,
+        l;
       if (n.interactiveHeader) {
         if (
-          ((i = {
+          ((l = {
             title: n.interactiveHeader.title,
             subtitle: n.interactiveHeader.subtitle,
             hasMediaAttachment: n.interactiveHeader.hasMediaAttachment,
           }),
           n.interactiveHeader.thumbnail)
         )
-          i = babelHelpers.extends({}, i, {
+          l = babelHelpers.extends({}, l, {
             jpegThumbnail: o("WAWebE2EProtoUtils").encodeBytes(
               n.interactiveHeader.thumbnail,
             ),
@@ -34,19 +35,19 @@ __d(
           switch (n.interactiveHeader.mediaType) {
             case o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.VIDEO: {
-              var l = r("WAWebGenerateVideoMessageProto")({
+              var u = r("WAWebGenerateVideoMessageProto")({
                 json: n,
                 mediaMetadata: a,
                 contextInfo: t,
               }).videoMessage;
-              i = babelHelpers.extends({}, i, {
-                videoMessage: babelHelpers.extends({}, l, { caption: void 0 }),
+              l = babelHelpers.extends({}, l, {
+                videoMessage: babelHelpers.extends({}, u, { caption: void 0 }),
               });
               break;
             }
             case o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.DOCUMENT:
-              i = babelHelpers.extends({}, i, {
+              l = babelHelpers.extends({}, l, {
                 documentMessage: r("WAWebGenerateDocumentMessageProto")({
                   json: n,
                   mediaMetadata: a,
@@ -56,7 +57,7 @@ __d(
               break;
             case o("WAWebInteractiveMessageHeaderMediaType")
               .InteractiveMessageHeaderMediaType.IMAGE:
-              i = babelHelpers.extends({}, i, {
+              l = babelHelpers.extends({}, l, {
                 imageMessage: r("WAWebGenerateImageMessageProto")({
                   json: n,
                   mediaMetadata: a,
@@ -66,23 +67,26 @@ __d(
               break;
           }
       }
-      var u = babelHelpers.extends(
-          {
-            body:
-              n.caption ||
-              n.nativeFlowName ===
-                r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
-                ? { text: n.caption }
-                : void 0,
-            footer: n.footer ? { text: n.footer } : void 0,
-            header: i,
-          },
-          t && { contextInfo: t },
-        ),
-        c = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(
-          n.interactiveType,
-        );
-      return (c && (u[c] = s(n)), { interactiveMessage: u });
+      var c = babelHelpers.extends(
+        {
+          body:
+            n.caption ||
+            n.nativeFlowName ===
+              r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+              ? { text: n.caption }
+              : void 0,
+          footer: n.footer ? { text: n.footer } : void 0,
+          header: l,
+        },
+        t && { contextInfo: t },
+      );
+      i === "quoted" &&
+        n.bloksWidget != null &&
+        (c.bloksWidget = n.bloksWidget);
+      var d = o("WAWebE2EProtoUtils").getInteractiveMessageFieldNameForType(
+        n.interactiveType,
+      );
+      return (d && (c[d] = s(n)), { interactiveMessage: c });
     }
     function s(e) {
       return e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW

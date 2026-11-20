@@ -28,7 +28,7 @@ __d(
       m = c.useState,
       p = c.useSyncExternalStore,
       _ = null,
-      f = !1,
+      f = 0,
       g = 0,
       h = null,
       y = null,
@@ -42,7 +42,7 @@ __d(
         ).customerManagerSubscriptionGatingEnabled()
       )
         return (s || (s = n("Promise"))).resolve(!0);
-      if ((M(), h != null))
+      if ((w(), h != null))
         return (
           y != null ||
             (y = h.then(function () {
@@ -50,36 +50,39 @@ __d(
             })),
           y
         );
-      var t = g;
-      r("WAWebNetworkStatus").online || A();
-      var a = o("WAWebCustomerManagerAccessStateQuery")
-        .fetchCustomerManagerAccessState()
-        .then(
-          function (e) {
-            return (g === t && F(e), !0);
-          },
-          function (n) {
-            var a = r("getErrorSafe")(n);
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[CustomerManager] access state refresh failed",
-                    ])),
-                )
-                .catching(a),
-              o(
-                "WAWebCustomerManagerSMBUserJourneyLogger",
-              ).CustomerManagerUserJourneyLogger.accessStateLoadFailed(a.name),
-              g === t && y == null && A(),
-              !1
-            );
-          },
-        )
-        .finally(function () {
-          h = null;
-        });
+      if (!r("WAWebNetworkStatus").online)
+        return (O(), (s || (s = n("Promise"))).resolve(!1));
+      var t = g,
+        a = o("WAWebCustomerManagerAccessStateQuery")
+          .fetchCustomerManagerAccessState()
+          .then(
+            function (e) {
+              return (g === t && B(e), !0);
+            },
+            function (n) {
+              var a = r("getErrorSafe")(n);
+              return (
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[CustomerManager] access state refresh failed",
+                      ])),
+                  )
+                  .catching(a),
+                o(
+                  "WAWebCustomerManagerSMBUserJourneyLogger",
+                ).CustomerManagerUserJourneyLogger.accessStateLoadFailed(
+                  a.name,
+                ),
+                g === t && y == null && O(),
+                !1
+              );
+            },
+          )
+          .finally(function () {
+            h = null;
+          });
       return ((h = a), a);
     }
     function R() {
@@ -93,12 +96,12 @@ __d(
               ? void 0
               : n("cr:18944").startCustomerManagerDebugTrial();
           if (e != null) return e;
-          M();
+          w();
           var t = b,
             r = yield o(
               "WAWebCustomerManagerStartTrialMutation",
             ).startCustomerManagerTrialOnServer();
-          return (b === t && F(r), r);
+          return (b === t && B(r), r);
         })),
         L.apply(this, arguments)
       );
@@ -118,7 +121,7 @@ __d(
     }
     function k() {
       var e = o("react-compiler-runtime").c(2),
-        t = p(B, E),
+        t = p(q, E),
         n;
       (e[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((n = []), (e[0] = n))
@@ -139,18 +142,21 @@ __d(
       ).subscribeToCustomerManagerAccessDenied(T);
     }
     function T() {
-      return N();
+      return M();
     }
     function D() {
       S();
     }
     function x() {
-      return p(B, E);
+      return p(q, E);
     }
     function $() {
-      return p(B, w);
+      return p(q, A);
     }
-    function P(e) {
+    function P() {
+      return p(q, F);
+    }
+    function N(e) {
       var t = o("react-compiler-runtime").c(4),
         n = m(o("WATimeUtils").unixTime),
         a = n[0],
@@ -171,7 +177,7 @@ __d(
                 if (e != null) {
                   var t = r("WAWebAlarm").setGlobalTimeout(function () {
                     var e = o("WATimeUtils").unixTime();
-                    (i(e), e >= l && N());
+                    (i(e), e >= l && M());
                   }, o("WATimeUtils").castUnixTimeToMillisTime(e));
                   return function () {
                     return r("WAWebAlarm").clearTimeout(t);
@@ -189,31 +195,34 @@ __d(
         a
       );
     }
-    function N() {
+    function M() {
       S();
     }
-    function M() {
+    function w() {
       C ||
         ((C = !0),
         o("WAWebCmd").Cmd.on("logout_from_bridge", function () {
-          (b++, F(null));
+          (b++, B(null));
         }));
     }
-    function w() {
-      return E() == null && !f;
-    }
     function A() {
-      ((f = !0), O());
+      return E() == null;
     }
-    function F(e) {
-      (g++, (_ = e), (f = !1), O());
+    function F() {
+      return f;
     }
     function O() {
+      (f++, W());
+    }
+    function B(e) {
+      (g++, (_ = e), W());
+    }
+    function W() {
       v.forEach(function (e) {
         return e();
       });
     }
-    function B(e) {
+    function q(e) {
       v.add(e);
       var t =
         n("cr:18944") == null
@@ -229,7 +238,8 @@ __d(
       (l.useWAWebCustomerManagerAccessState = k),
       (l.useWAWebCustomerManagerAccessStateSnapshot = x),
       (l.useWAWebCustomerManagerIsAccessStatePending = $),
-      (l.useWAWebCustomerManagerTrialNow = P));
+      (l.useWAWebCustomerManagerAccessLookupFailureCount = P),
+      (l.useWAWebCustomerManagerTrialNow = N));
   },
   98,
 );

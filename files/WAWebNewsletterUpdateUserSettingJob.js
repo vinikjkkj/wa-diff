@@ -21,7 +21,7 @@ __d(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             yield m(e);
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

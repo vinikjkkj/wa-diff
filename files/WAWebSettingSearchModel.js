@@ -35,6 +35,15 @@ __d(
               .filter(function (t) {
                 return t.searchCriteria != null && t.searchCriteria.includes(e);
               })
+              .filter(function (e) {
+                var t;
+                return (t =
+                  e.isVisibleInSearch == null
+                    ? void 0
+                    : e.isVisibleInSearch()) != null
+                  ? t
+                  : !0;
+              })
               .map(function (e) {
                 return { id: e.id, type: "setting", data: e };
               }),

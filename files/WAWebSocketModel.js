@@ -81,17 +81,18 @@ __d(
       F,
       O,
       B,
-      W = r("requireDeferred")("WAWebClearAppStates").__setRef(
+      W,
+      q = r("requireDeferred")("WAWebClearAppStates").__setRef(
         "WAWebSocketModel",
       ),
-      q = [
-        (B = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
-        B.LogoutReason.WebFailEncSalt,
-        B.LogoutReason.WebFailOfflineResume,
-        B.LogoutReason.WebFailStorageInitialization,
+      U = [
+        (W = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
+        W.LogoutReason.WebFailEncSalt,
+        W.LogoutReason.WebFailOfflineResume,
+        W.LogoutReason.WebFailStorageInitialization,
       ],
-      U = 5e3,
-      V = (function (t) {
+      V = 5e3,
+      H = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -119,7 +120,7 @@ __d(
           (i.initialize = function () {
             var t = this,
               a;
-            ((this.clearAppStatesDeferred = W.load()),
+            ((this.clearAppStatesDeferred = q.load()),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
@@ -228,6 +229,20 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 (o("WAWebNotifyWorkerUnregistered").notifyWorkerUnregistered(),
+                  o("WAWebInvocationInterface")
+                    .get()
+                    .setLogoutState(!0)
+                    .catch(function (e) {
+                      o("WALogger")
+                        .ERROR(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "[socket model] failed to set logout state",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("socket-model-set-logout-state-failed");
+                    }),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "triggerLogoutDiagnosticFromBridge",
                     { reason: e },
@@ -251,8 +266,8 @@ __d(
                     } catch (e) {
                       o("WALogger")
                         .ERROR(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                          _ ||
+                            (_ = babelHelpers.taggedTemplateLiteralLoose([
                               "clearCredentials: native logout failed",
                             ])),
                         )
@@ -261,9 +276,9 @@ __d(
                         .sendLogs("native-clear-credentials-failed");
                     }
                 }
-                (e != null && q.includes(e) && (a = !0),
+                (e != null && U.includes(e) && (a = !0),
                   o("WAWebSocketLogoutUtils").setLogoutDirtyBit());
-                var s = z("clear_credentials", e);
+                var s = j("clear_credentials", e);
                 try {
                   a = yield this.clearCredentials();
                 } finally {
@@ -273,8 +288,8 @@ __d(
                   a = !0;
                   var u = o("WALogger")
                     .ERROR(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
                           "clearCredentials: dirty bit is still set",
                         ])),
                     )
@@ -288,7 +303,7 @@ __d(
                     { forceUnregister: !0 },
                   ),
                   o("WAWebSocketLogoutUtils").setLogoutDirtyBit());
-                var c = z("destroy_storage", e);
+                var c = j("destroy_storage", e);
                 try {
                   yield o("WAWebSocketLogoutStorageUtils").destroyStorage();
                 } catch (e) {
@@ -296,8 +311,8 @@ __d(
                     r("gkx")("26258")
                       ? o("WALogger")
                           .ERROR(
-                            f ||
-                              (f = babelHelpers.taggedTemplateLiteralLoose([
+                            g ||
+                              (g = babelHelpers.taggedTemplateLiteralLoose([
                                 "destroyStorage: failed with error",
                               ])),
                           )
@@ -305,8 +320,8 @@ __d(
                           .tags("logout")
                       : o("WALogger")
                           .ERROR(
-                            g ||
-                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                            h ||
+                              (h = babelHelpers.taggedTemplateLiteralLoose([
                                 "destroyStorage: failed with error",
                               ])),
                           )
@@ -346,8 +361,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose([
                           "[socket model] failed to set logout state",
                         ])),
                     )
@@ -365,8 +380,8 @@ __d(
                 var i = r("getErrorSafe")(e);
                 o("WALogger")
                   .LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose(
                         ["WS2 logout debug, reason: ", ", stack: \n ", ""],
                         ["WS2 logout debug, reason: ", ", stack: \\n ", ""],
                       )),
@@ -376,12 +391,12 @@ __d(
                   .verbose();
               }
             o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "ws2:user logged out",
                 ])),
             );
-            var l = (O || (O = n("Promise"))).resolve(),
+            var l = (B || (B = n("Promise"))).resolve(),
               s = 0,
               u = 20,
               c = Math.min(
@@ -397,8 +412,8 @@ __d(
               .promiseTimeout(r("WAWebSentinel")(), c * 1e3)
               .catch(function () {
                 return o("WALogger").WARN(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
                       "ws2: multi-device logout sentinel patch failed",
                     ])),
                 );
@@ -416,8 +431,8 @@ __d(
                         function* (n) {
                           (o("WALogger")
                             .ERROR(
-                              v ||
-                                (v = babelHelpers.taggedTemplateLiteralLoose([
+                              S ||
+                                (S = babelHelpers.taggedTemplateLiteralLoose([
                                   "ws2: [logout error] sendCurrentLogoutPromise errored",
                                 ])),
                             )
@@ -451,8 +466,8 @@ __d(
                     function* (n) {
                       (o("WALogger")
                         .ERROR(
-                          S ||
-                            (S = babelHelpers.taggedTemplateLiteralLoose([
+                          R ||
+                            (R = babelHelpers.taggedTemplateLiteralLoose([
                               "ws2: [logout] sentinel or sendCurrentLogout timed out",
                             ])),
                         )
@@ -475,8 +490,8 @@ __d(
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        R ||
-                          (R = babelHelpers.taggedTemplateLiteralLoose([
+                        L ||
+                          (L = babelHelpers.taggedTemplateLiteralLoose([
                             "[socket model] failed to set logout state",
                           ])),
                       )
@@ -487,30 +502,30 @@ __d(
           }),
           (i.summary = function () {
             (o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
                   "ws:summary --------------------------------",
                 ])),
             ),
               o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
                     "ws state           ",
                     "",
                   ])),
                 this.state,
               ),
               o("WALogger").LOG(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                I ||
+                  (I = babelHelpers.taggedTemplateLiteralLoose([
                     "wd online:         ",
                     "",
                   ])),
                 String(navigator.onLine),
               ),
               o("WALogger").LOG(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "ws socket id:      ",
                     "",
                   ])),
@@ -521,16 +536,16 @@ __d(
                   .getCriticalSyncDebugSummary()
                   .then(function (e) {
                     o("WALogger").LOG(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
                       e,
                     );
                   }));
           }),
           (i.$SocketImpl$p_1 = function () {
             o("WALogger").LOG(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
+              x ||
+                (x = babelHelpers.taggedTemplateLiteralLoose([
                   "ws2:state change: ",
                   "",
                 ])),
@@ -539,8 +554,8 @@ __d(
           }),
           (i.$SocketImpl$p_2 = function () {
             (o("WALogger").LOG(
-              x ||
-                (x = babelHelpers.taggedTemplateLiteralLoose([
+              $ ||
+                ($ = babelHelpers.taggedTemplateLiteralLoose([
                   "ws2:stream change: ",
                   "",
                 ])),
@@ -552,8 +567,8 @@ __d(
           }),
           (i.$SocketImpl$p_3 = function () {
             (o("WALogger").LOG(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "[ws2] moving to main screen from onCriticalSyncDone",
                 ])),
             ),
@@ -574,7 +589,7 @@ __d(
                 o("WAWebAddMeContactAction").addMeToContacts(e)
               );
             }
-            return (O || (O = n("Promise"))).resolve();
+            return (B || (B = n("Promise"))).resolve();
           }),
           (i.clearCredentials = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -596,8 +611,8 @@ __d(
           (i.clearState = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               o("WALogger").LOG(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
                     "ws2:clearState",
                   ])),
               );
@@ -610,8 +625,8 @@ __d(
                 var t = r("getErrorSafe")(n);
                 n instanceof o("WAWebDbErrors").DbOnLogoutAbort
                   ? o("WALogger").WARN(
-                      N ||
-                        (N = babelHelpers.taggedTemplateLiteralLoose([
+                      M ||
+                        (M = babelHelpers.taggedTemplateLiteralLoose([
                           "ws2:clearState failed due to DB operations aborted: ",
                           "",
                         ])),
@@ -619,8 +634,8 @@ __d(
                     )
                   : o("WALogger")
                       .ERROR(
-                        M ||
-                          (M = babelHelpers.taggedTemplateLiteralLoose([
+                        w ||
+                          (w = babelHelpers.taggedTemplateLiteralLoose([
                             "ws2:clearState error",
                           ])),
                       )
@@ -628,14 +643,14 @@ __d(
                       .sendLogs("clear_session_app_state");
               }
               try {
-                yield j();
+                yield K();
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
                 t instanceof o("WAWebDbErrors").DbOnLogoutAbort
                   ? o("WALogger").WARN(
-                      w ||
-                        (w = babelHelpers.taggedTemplateLiteralLoose([
+                      A ||
+                        (A = babelHelpers.taggedTemplateLiteralLoose([
                           "ws2:clearState failed due to DB operations aborted: ",
                           "",
                         ])),
@@ -643,8 +658,8 @@ __d(
                     )
                   : o("WALogger")
                       .ERROR(
-                        A ||
-                          (A = babelHelpers.taggedTemplateLiteralLoose([
+                        F ||
+                          (F = babelHelpers.taggedTemplateLiteralLoose([
                             "ws2:clearState error",
                           ])),
                       )
@@ -661,14 +676,14 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      H = o("WAWebBaseModel").defineModel(V),
-      G = new H();
-    function z(e, t) {
+      G = o("WAWebBaseModel").defineModel(H),
+      z = new G();
+    function j(e, t) {
       return self.setTimeout(function () {
         var n = o("WALogger")
           .ERROR(
-            F ||
-              (F = babelHelpers.taggedTemplateLiteralLoose([
+            O ||
+              (O = babelHelpers.taggedTemplateLiteralLoose([
                 "logout cleanup stalled: stage=",
                 ", reason=",
                 ", elapsed_threshold_ms=",
@@ -676,19 +691,19 @@ __d(
               ])),
             e,
             t != null ? t : "unknown",
-            U,
+            V,
           )
           .tags("logout");
         r("gkx")("26258") || n.sendLogs("logout-cleanup-stalled");
-      }, U);
-    }
-    function j() {
-      return K.apply(this, arguments);
+      }, V);
     }
     function K() {
+      return Q.apply(this, arguments);
+    }
+    function Q() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (O || (O = n("Promise"))).allSettled([
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (B || (B = n("Promise"))).allSettled([
             r("WAWebDeleteAllCacheStorage")(),
             o("WAWebMediaStore").LruMediaStore.clear(),
           ]);
@@ -699,10 +714,10 @@ __d(
                 : r("err")(String(e.reason));
           });
         })),
-        K.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    l.Socket = G;
+    l.Socket = z;
   },
   98,
 );

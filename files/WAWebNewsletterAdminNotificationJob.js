@@ -13,7 +13,7 @@ __d(
       var r = t.countryCodes,
         a = t.newsletterJid,
         i = t.priority,
-        l = i === void 0 ? o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW : i,
+        l = i === void 0 ? o("WAJobOrchestratorTypes").JobPriority.LOW : i,
         s = t.toAdd;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
@@ -52,7 +52,7 @@ __d(
               .getNewsletterMetadataTable()
               .merge(e, { id: e, adminProfile: t });
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.HIGH },
         )
         .waitUntilCompleted();
     }
@@ -65,7 +65,7 @@ __d(
               .getNewsletterMetadataTable()
               .merge(e, { id: e, adminProfilesSettingEnabled: t });
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.HIGH },
         )
         .waitUntilCompleted();
     }
@@ -78,7 +78,7 @@ __d(
               .getNewsletterMetadataTable()
               .merge(e, { id: e, hasProfilePictureDeletionAlerts: !0 });
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.HIGH },
         )
         .waitUntilCompleted();
     }

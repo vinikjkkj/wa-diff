@@ -7,6 +7,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebLidMigrationUtils",
+    "WAWebSystemMessageGatingUtils",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "WAWebWid",
     "WAWebWidFactory",
@@ -20,70 +21,149 @@ __d(
       d = function (t) {
         var e = t.newUsername,
           n = t.phoneNumber;
-        return s._(
-          /*BTDS*/ "{phoneNumber} set the username \u0040{newUsername}",
-          [s._param("phoneNumber", n), s._param("newUsername", e.toString())],
-        );
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ "{phoneNumber} set the username \u0040{newUsername}.",
+              [
+                s._param("phoneNumber", n),
+                s._param("newUsername", e.toString()),
+              ],
+            )
+          : s._(/*BTDS*/ "{phoneNumber} set the username \u0040{newUsername}", [
+              s._param("phoneNumber", n),
+              s._param("newUsername", e.toString()),
+            ]);
       },
       m = function (t) {
         var e = t.newUsername,
           n = t.savedName;
-        return s._(
-          /*BTDS*/ "{contactName} set the username \u0040{newUsername}",
-          [s._param("contactName", n), s._param("newUsername", e.toString())],
-        );
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ "{contactName} set the username \u0040{newUsername}.",
+              [
+                s._param("contactName", n),
+                s._param("newUsername", e.toString()),
+              ],
+            )
+          : s._(/*BTDS*/ "{contactName} set the username \u0040{newUsername}", [
+              s._param("contactName", n),
+              s._param("newUsername", e.toString()),
+            ]);
       },
       p = function (t) {
         var e = t.newUsername,
           n = t.oldUsername;
-        return s._(
-          /*BTDS*/ "\u0040{oldUsername} changed their username to \u0040{newUsername}",
-          [s._param("oldUsername", n), s._param("newUsername", e.toString())],
-        );
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ "\u0040{oldUsername} changed their username to \u0040{newUsername}.",
+              [
+                s._param("oldUsername", n),
+                s._param("newUsername", e.toString()),
+              ],
+            )
+          : s._(
+              /*BTDS*/ "\u0040{oldUsername} changed their username to \u0040{newUsername}",
+              [
+                s._param("oldUsername", n),
+                s._param("newUsername", e.toString()),
+              ],
+            );
       },
       _ = function (t) {
         var e = t.newUsername,
           n = t.savedName;
-        return s._(
-          /*BTDS*/ "{contactName} changed their username to \u0040{newUsername}",
-          [s._param("contactName", n), s._param("newUsername", e.toString())],
-        );
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ "{contactName} changed their username to \u0040{newUsername}.",
+              [
+                s._param("contactName", n),
+                s._param("newUsername", e.toString()),
+              ],
+            )
+          : s._(
+              /*BTDS*/ "{contactName} changed their username to \u0040{newUsername}",
+              [
+                s._param("contactName", n),
+                s._param("newUsername", e.toString()),
+              ],
+            );
       },
       f = function (t) {
         var e = t.oldUsername;
-        return s._(/*BTDS*/ "\u0040{oldUsername} deleted their username", [
-          s._param("oldUsername", e),
-        ]);
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "\u0040{oldUsername} deleted their username.", [
+              s._param("oldUsername", e),
+            ])
+          : s._(/*BTDS*/ "\u0040{oldUsername} deleted their username", [
+              s._param("oldUsername", e),
+            ]);
       },
       g = function (t) {
         var e = t.savedName;
-        return s._(/*BTDS*/ "{contactName} deleted their username", [
-          s._param("contactName", e),
-        ]);
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "{contactName} deleted their username.", [
+              s._param("contactName", e),
+            ])
+          : s._(/*BTDS*/ "{contactName} deleted their username", [
+              s._param("contactName", e),
+            ]);
       },
       h = function (t) {
         var e = t.newUsername;
-        return s._(
-          /*BTDS*/ "This person set the username \u0040{newUsername}",
-          [s._param("newUsername", e.toString())],
-        );
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "This person set the username \u0040{newUsername}.", [
+              s._param("newUsername", e.toString()),
+            ])
+          : s._(/*BTDS*/ "This person set the username \u0040{newUsername}", [
+              s._param("newUsername", e.toString()),
+            ]);
       },
       y = function (t) {
         var e = t.newUsername;
-        return s._(/*BTDS*/ "A member set the username \u0040{newUsername}", [
-          s._param("newUsername", e.toString()),
-        ]);
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "A member set the username \u0040{newUsername}.", [
+              s._param("newUsername", e.toString()),
+            ])
+          : s._(/*BTDS*/ "A member set the username \u0040{newUsername}", [
+              s._param("newUsername", e.toString()),
+            ]);
       },
       C = function (t) {
         var e = t.newUsername;
-        return s._(
-          /*BTDS*/ "This business set the username \u0040{newUsername}",
-          [s._param("newUsername", e.toString())],
-        );
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ "This business set the username \u0040{newUsername}.",
+              [s._param("newUsername", e.toString())],
+            )
+          : s._(/*BTDS*/ "This business set the username \u0040{newUsername}", [
+              s._param("newUsername", e.toString()),
+            ]);
       },
       b = function (t) {
         var e = t.oldUsername;
-        return s._(/*BTDS*/ "This business deleted their username");
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "This business deleted its username.")
+          : s._(/*BTDS*/ "This business deleted their username");
       },
       v = {
         oneOnOne_noSavedName_noPhoneNumber_created_consumer: h,
@@ -137,9 +217,16 @@ __d(
       };
     function S(t) {
       if (t.templateParams.length === 1)
-        return s._(/*BTDS*/ "User changed their username to {newUsername}", [
-          s._param("newUsername", t.templateParams[0].toString()),
-        ]);
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(
+              /*BTDS*/ "This person changed their username to {newUsername}.",
+              [s._param("newUsername", t.templateParams[0].toString())],
+            )
+          : s._(/*BTDS*/ "User changed their username to {newUsername}", [
+              s._param("newUsername", t.templateParams[0].toString()),
+            ]);
       var n = t.templateParams[1];
       if (typeof n != "string")
         return (

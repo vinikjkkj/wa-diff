@@ -32,7 +32,7 @@ __d(
                 !0,
               );
         },
-        { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+        { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
       );
     }
     function m(t) {
@@ -80,7 +80,7 @@ __d(
                 .getMessageTable()
                 .merge(t.id.toString(), i));
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -95,7 +95,7 @@ __d(
               return (t = e == null ? void 0 : e.ack) != null ? t : null;
             });
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

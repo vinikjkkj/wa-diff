@@ -482,7 +482,7 @@ __d(
             );
           }),
           r("WAWebEnvironment").isWindows
-            ? { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH }
+            ? { priority: o("WAJobOrchestratorTypes").JobPriority.HIGH }
             : null,
         )
         .waitUntilCompleted();

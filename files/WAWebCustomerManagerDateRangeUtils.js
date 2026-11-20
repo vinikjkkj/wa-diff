@@ -8,11 +8,10 @@ __d(
     }
     function l(t, n) {
       if (t == null || n == null) return [];
-      var r = e(t, n),
-        o = r.end,
-        a = r.start;
-      if (a == null || o == null) return [];
-      for (var i = [], l = new Date(a); l <= o; )
+      for (
+        var r = e(t, n), o = r.end, a = r.start, i = [], l = new Date(a);
+        l <= o;
+      )
         (i.push(new Date(l)), l.setDate(l.getDate() + 1));
       return i;
     }

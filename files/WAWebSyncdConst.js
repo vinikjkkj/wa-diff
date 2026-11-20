@@ -105,6 +105,7 @@ __d(
         "ConflictHasMore",
         "ErrorRetry",
         "ErrorFatal",
+        "ErrorResourceLimit",
         "Blocked",
       ]),
       v = e.Mirrored([

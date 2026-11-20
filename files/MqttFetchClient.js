@@ -232,7 +232,7 @@ __d(
               r = n.messages,
               a = r.filter(function (e) {
                 return (
-                  e.messageType === o("MqttProtocolCodec").MESSAGE_TYPE.PINGREQ
+                  e.messageType === o("MqttProtocolCodec").MessageType.PINGREQ
                 );
               }),
               i = r

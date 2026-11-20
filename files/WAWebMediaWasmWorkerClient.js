@@ -533,20 +533,21 @@ __d(
     function re() {
       return (
         (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.eventFlow,
-            a = e.hints,
-            i = e.input,
-            l = G();
+          var t = e.allowlists,
+            a = e.eventFlow,
+            i = e.hints,
+            l = e.input,
+            s = G();
           A().INFO(
             T ||
               (T = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope provenance detection in worker, requestId: ",
                 "",
               ])),
-            l,
+            s,
           );
-          var s = yield V(t);
-          if (!s.success)
+          var u = yield V(a);
+          if (!u.success)
             return (
               A().WARN(
                 D ||
@@ -555,23 +556,23 @@ __d(
                     ", reason: no-worker-port, error: ",
                     "",
                   ])),
-                l,
-                s.error,
+                s,
+                u.error,
               ),
-              t == null ||
-                t.addPoint("worker_roundtrip_fail", {
+              a == null ||
+                a.addPoint("worker_roundtrip_fail", {
                   string: { failure_reason: "no_worker_port" },
                 }),
-              { transferredBuffer: i, provenance: null }
+              { transferredBuffer: l, provenance: null }
             );
-          var u = s.value,
-            c = r("WAWebNoop"),
-            d = new (w || (w = n("Promise")))(function (e) {
-              var t = u.addMessageListener(
+          var c = u.value,
+            d = r("WAWebNoop"),
+            m = new (w || (w = n("Promise")))(function (e) {
+              var t = c.addMessageListener(
                 "kaleidoscopeProvenanceResponse",
                 function (t) {
-                  t.requestId === l &&
-                    (c(),
+                  t.requestId === s &&
+                    (d(),
                     A().INFO(
                       x ||
                         (x = babelHelpers.taggedTemplateLiteralLoose([
@@ -579,7 +580,7 @@ __d(
                           ", hasSignal: ",
                           "",
                         ])),
-                      l,
+                      s,
                       t.provenance != null,
                     ),
                     e({
@@ -590,27 +591,28 @@ __d(
                     }));
                 },
               );
-              c = function () {
-                u.removeMessageListener("kaleidoscopeProvenanceResponse", t);
+              d = function () {
+                c.removeMessageListener("kaleidoscopeProvenanceResponse", t);
               };
             });
           try {
-            (t == null || t.addPoint("worker_roundtrip_start"),
-              u.postMessage(
+            (a == null || a.addPoint("worker_roundtrip_start"),
+              c.postMessage(
                 {
-                  input: i,
-                  hints: a,
-                  qplData: t == null ? void 0 : t.flowDetails,
-                  requestId: l,
+                  input: l,
+                  hints: i,
+                  allowlists: t,
+                  qplData: a == null ? void 0 : a.flowDetails,
+                  requestId: s,
                   type: "kaleidoscopeProvenanceRequest",
                 },
-                [i],
+                [l],
               ));
-            var m = yield o("WAPromiseTimeout").promiseTimeout(d, W);
-            return (t == null || t.addPoint("worker_roundtrip_end"), m);
+            var p = yield o("WAPromiseTimeout").promiseTimeout(m, W);
+            return (a == null || a.addPoint("worker_roundtrip_end"), p);
           } catch (e) {
-            c();
-            var p =
+            d();
+            var _ =
               e instanceof o("WACustomError").TimeoutError
                 ? "timeout"
                 : "post_failed";
@@ -623,15 +625,15 @@ __d(
                     ", error: ",
                     "",
                   ])),
-                l,
-                p,
+                s,
+                _,
                 r("getErrorSafe")(e).message,
               ),
-              t == null ||
-                t.addPoint("worker_roundtrip_fail", {
-                  string: { failure_reason: p },
+              a == null ||
+                a.addPoint("worker_roundtrip_fail", {
+                  string: { failure_reason: _ },
                 }),
-              { transferredBuffer: i, provenance: null }
+              { transferredBuffer: l, provenance: null }
             );
           }
         })),

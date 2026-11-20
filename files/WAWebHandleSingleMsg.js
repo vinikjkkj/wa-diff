@@ -96,9 +96,10 @@ __d(
             )
           ) {
             var N = $.has(
-              o("WAWebHandleForMessageRangeEnums").ActiveRangeHandlerAction
-                .SkipUI,
-            );
+                o("WAWebHandleForMessageRangeEnums").ActiveRangeHandlerAction
+                  .SkipUI,
+              ),
+              M = !1;
             try {
               (o("WAWebMsgGetters").getIsStatus(i) &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -188,6 +189,7 @@ __d(
                                   [T],
                                   a,
                                 ),
+                                  (M = !0),
                                   T.type ===
                                     o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
                                     o(
@@ -298,8 +300,8 @@ __d(
                   )
                   .tags("messaging"));
               try {
-                var M,
-                  w = ((M = T.threadIds) != null ? M : []).map(function (e) {
+                var w,
+                  A = ((w = T.threadIds) != null ? w : []).map(function (e) {
                     return e.toString();
                   });
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -307,14 +309,14 @@ __d(
                   {
                     msgIds: [T.id.toString()],
                     chatIds: [a.toString()],
-                    threadIds: w,
+                    threadIds: A,
                   },
                 ),
                   yield o(
                     "WAWebCheckUpdateOrphanReactions",
                   ).checkUpdateForOrphanReactions([T.id.toString()]));
               } catch (e) {
-                var A = r("getErrorSafe")(e);
+                var F = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
                     _ ||
@@ -326,17 +328,17 @@ __d(
                     String(T.id),
                     String(a),
                   )
-                  .catching(A);
+                  .catching(F);
               }
-              var F = !1;
+              var O = !1;
               if (
                 l === "createChat" &&
                 T.type !== o("WAWebMsgType").MSG_TYPE.CHAT &&
                 a.isRegularUser()
               ) {
-                var O = yield o("WAWebApiChatCommon").getChatRecord(a);
-                O == null &&
-                  ((F = !0),
+                var B = yield o("WAWebApiChatCommon").getChatRecord(a);
+                B == null &&
+                  ((O = !0),
                   o("WALogger").WARN(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -347,7 +349,7 @@ __d(
                   ));
               }
               !N &&
-                !F &&
+                !O &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "processMultipleMessages",
                   {
@@ -356,6 +358,7 @@ __d(
                       babelHelpers.extends({}, T, {
                         recvFresh: !0,
                         isNewMsg: !0,
+                        isNewlyStored: M,
                       }),
                     ],
                     meta: k,
@@ -382,7 +385,7 @@ __d(
                 );
                 return;
               }
-              var B = r("getErrorSafe")(e);
+              var W = r("getErrorSafe")(e);
               r("gkx")("9092")
                 ? o("WALogger")
                     .WARN(
@@ -397,9 +400,9 @@ __d(
                         ])),
                       String(T.id),
                       String(a),
-                      B.name,
-                      B.message,
-                      B.stack,
+                      W.name,
+                      W.message,
+                      W.stack,
                     )
                     .tags("messaging")
                     .sendLogs(
@@ -418,9 +421,9 @@ __d(
                         ])),
                       String(T.id),
                       String(a),
-                      B.name,
-                      B.message,
-                      B.stack,
+                      W.name,
+                      W.message,
+                      W.stack,
                     )
                     .tags("messaging");
             }

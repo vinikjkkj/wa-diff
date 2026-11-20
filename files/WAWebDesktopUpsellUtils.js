@@ -6,8 +6,8 @@ __d(
     "WAWebBrowserInfo",
     "WAWebEnvironment",
     "WAWebMobilePlatforms",
-    "WAWebProductFeature",
     "WAWebUA",
+    "WAWebWorkFeature",
     "asyncToGeneratorRuntime",
     "isWAWebFeatureDetectionAndroidTablet",
     "justknobx",
@@ -32,7 +32,7 @@ __d(
     function p() {
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
-        !o("WAWebProductFeature").isInternalProduct() &&
+        !o("WAWebWorkFeature").isWork() &&
         f() == null &&
         _() &&
         r("justknobx")._("6837")

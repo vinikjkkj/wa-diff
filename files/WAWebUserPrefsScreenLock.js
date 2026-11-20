@@ -5,6 +5,7 @@ __d(
     "WABase64",
     "WABinary",
     "WAWebDbEncryptionKey",
+    "WAWebEventEmitter",
     "WAWebPermanentStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
@@ -12,9 +13,10 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e = new (r("WAWebEventEmitter"))();
+    function s() {
       var e;
-      T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS);
+      D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS);
       var t = parseInt(
         String(
           (e = r("WAWebUserPrefsStore").getUser(
@@ -27,18 +29,18 @@ __d(
       );
       return t !== 0;
     }
-    function s() {
+    function u() {
       return (
-        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
+        D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
         )
       );
     }
-    function u() {
+    function c() {
       var e;
       return (
-        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
+        D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS),
         (e = r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
         )) != null
@@ -46,64 +48,65 @@ __d(
           : 0
       );
     }
-    function c(e) {
-      r("WAWebUserPrefsStore").setUser(
+    function d(t) {
+      (r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_DURATION_SECONDS,
-        e,
-      );
+        t,
+      ),
+        e.trigger("change:duration", t));
     }
-    function d(e) {
+    function m(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV,
         e,
       );
     }
-    function m() {
+    function p() {
       return (
-        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV),
+        D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV),
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_IV,
         )
       );
     }
-    function p(e) {
+    function _(e) {
       return r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT,
         e,
         { shouldWriteToIdb: !1 },
       );
     }
-    function _() {
+    function f() {
       return (
-        T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT, !1),
+        D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT, !1),
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_SALT,
         )
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = I(),
-            n = yield R(String(e), t);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = T(),
+            n = yield L(String(e), t);
           return r("WAWebUserPrefsStore").setUser(
             o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS,
             n + "_" + t,
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h() {
-      return y.apply(this, arguments);
-    }
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS);
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS);
           var e = r("WAWebUserPrefsStore").getUser(
             o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_LOCK_ITERATIONS,
           );
@@ -113,19 +116,19 @@ __d(
             n = t[0],
             a = t[1];
           if (n == null || a == null) return null;
-          var i = yield E(n, a);
+          var i = yield k(n, a);
           return parseInt(i, 10);
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          T(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT);
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          D(o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT);
           var e = r("WAWebUserPrefsStore").getUser(
             o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT,
           );
@@ -134,35 +137,35 @@ __d(
           var t = e.split("_"),
             n = t[0],
             a = t[1],
-            i = yield E(n, a);
+            i = yield k(n, a);
           return parseInt(i, 10);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = I(),
-            a = yield R(String(e), n);
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = T(),
+            a = yield L(String(e), n);
           t.aborted ||
             r("WAWebUserPrefsStore").setUser(
               o("WAWebUserPrefsKeys").MD_KEYS.SCREEN_UNLOCK_TRY_COUNT,
               a + "_" + n,
             );
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new Uint8Array(o("WABase64").decodeB64(t)),
             r = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
             a = yield self.crypto.subtle.encrypt(
@@ -172,15 +175,15 @@ __d(
             );
           return o("WABase64").encodeB64(a);
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new Uint8Array(o("WABase64").decodeB64(t));
           yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForInit();
           var r = o("WAWebDbEncryptionKey").DbEncKeyStore.getEncKeys()[0],
@@ -191,16 +194,16 @@ __d(
             );
           return o("WAWebX509Utils").arrayBufferToString(a);
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I() {
+    function T() {
       var e = new Uint8Array(16);
       self.crypto.getRandomValues(e);
       var t = new (o("WABinary").Binary)(e).readByteArrayView(16);
       return o("WABase64").encodeB64(t);
     }
-    function T(e, t) {
+    function D(e, t) {
       var n = r("WAWebUserPrefsStore").get(e);
       if (n != null) {
         var o = t != null ? { shouldWriteToIdb: t } : null;
@@ -208,18 +211,19 @@ __d(
           r("WAWebPermanentStorage").removeItem(e));
       }
     }
-    ((l.getScreenLockEnabled = e),
-      (l.getScreenLockDurationForLogging = s),
-      (l.getScreenLockDurationInSeconds = u),
-      (l.setScreenLockDurationInSeconds = c),
-      (l.setScreenLockIvString = d),
-      (l.getScreenLockIvString = m),
-      (l.setScreenLockSalt = p),
-      (l.getScreenLockSalt = _),
-      (l.setScreenLockIterations = f),
-      (l.getScreenLockIterations = h),
-      (l.getScreenUnlockTryCount = C),
-      (l.setScreenUnlockTryCount = v));
+    ((l.screenLockSettingsEventEmitter = e),
+      (l.getScreenLockEnabled = s),
+      (l.getScreenLockDurationForLogging = u),
+      (l.getScreenLockDurationInSeconds = c),
+      (l.setScreenLockDurationInSeconds = d),
+      (l.setScreenLockIvString = m),
+      (l.getScreenLockIvString = p),
+      (l.setScreenLockSalt = _),
+      (l.getScreenLockSalt = f),
+      (l.setScreenLockIterations = g),
+      (l.getScreenLockIterations = y),
+      (l.getScreenUnlockTryCount = b),
+      (l.setScreenUnlockTryCount = S));
   },
   98,
 );

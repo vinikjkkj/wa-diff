@@ -13,7 +13,7 @@ __d(
       s,
       u,
       c =
-        r("gkx")("5306") &&
+        r("gkx")("29747") &&
         !(s || (s = r("ExecutionEnvironment"))).canUseDOM &&
         !(s || (s = r("ExecutionEnvironment"))).isInWorker;
     function d() {

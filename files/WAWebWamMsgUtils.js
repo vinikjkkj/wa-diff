@@ -2,15 +2,19 @@ __d(
   "WAWebWamMsgUtils",
   [
     "WAWebApiParse",
+    "WAWebBotProduct",
     "WAWebBotTypes",
     "WAWebBotUtils",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebHandleMsgCommon",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "WAWebUserUtils",
     "WAWebWamEnumAgentEngagementEnumType",
+    "WAWebWamEnumBotInteractionStage",
     "WAWebWamEnumBotType",
     "WAWebWamEnumE2eDeviceType",
     "WAWebWamEnumInvisibleMessageCategoryType",
@@ -220,10 +224,10 @@ __d(
     function h(e) {
       var t = e.automatedType,
         n = e.bizBotType,
-        r = e.chatId;
-      if (o("WAWebBotUtils").isHatchBot(r))
-        return o("WAWebWamEnumBotType").BOT_TYPE.HATCH;
-      if (r.isBot()) return o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
+        r = e.botProduct,
+        a = e.chatId;
+      if (y(a, r)) return o("WAWebWamEnumBotType").BOT_TYPE.HATCH;
+      if (a.isBot()) return o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
       if (n) {
         if (n === o("WAWebBotTypes").BizBotType.BIZ_1P)
           return o("WAWebWamEnumBotType").BOT_TYPE.BOT_1P_BIZ;
@@ -238,7 +242,13 @@ __d(
       }
       return o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
     }
-    function y(e) {
+    function y(e, t) {
+      return (
+        o("WAWebBotUtils").isHatchBot(e) ||
+        o("WAWebBotProduct").isMuseAgentProduct(e, t)
+      );
+    }
+    function C(e) {
       if (e == null || e === "") return null;
       switch (e) {
         case o("WAWebHandleMsgCommon").MSG_CATEGORY.peer:
@@ -248,7 +258,40 @@ __d(
           return null;
       }
     }
-    function C(e, t, n) {
+    function b(e) {
+      if (e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL)
+        return e.subtype ===
+          o("WAWebCommonMsgSubtypeTypes").MsgSubtype.HatchMetadataSync ||
+          e.subtype ===
+            o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BizAIMetadataSync
+          ? o("WAWebWamEnumInvisibleMessageCategoryType")
+              .INVISIBLE_MESSAGE_CATEGORY_TYPE.AI_METADATA_OPERATION
+          : void 0;
+    }
+    function v(e) {
+      if (!o("WAWebMsgGetters").getIsCoexV2Relay(e))
+        return e.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST
+          ? o("WAWebWamEnumBotInteractionStage").BOT_INTERACTION_STAGE
+              .FIRST_RESPONSE
+          : e.botEditType === o("WAWebBotTypes").BotMsgEditType.INNER
+            ? o("WAWebWamEnumBotInteractionStage").BOT_INTERACTION_STAGE
+                .INNER_RESPONSE
+            : e.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST
+              ? o("WAWebWamEnumBotInteractionStage").BOT_INTERACTION_STAGE
+                  .LAST_RESPONSE
+              : e.botEditType === o("WAWebBotTypes").BotMsgEditType.FULL
+                ? o("WAWebWamEnumBotInteractionStage").BOT_INTERACTION_STAGE
+                    .FULL_RESPONSE
+                : e.botEditType === null || e.botEditType === void 0
+                  ? void 0
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          e.botEditType,
+                      );
+                    })();
+    }
+    function S(e, t, n) {
       if (t.isGroup()) return !!n;
       if (t.isStatus()) {
         var r, o;
@@ -267,8 +310,10 @@ __d(
       (l.getWamE2eSenderType = f),
       (l.getWamAgentEngagementType = g),
       (l.getWamBotType = h),
-      (l.getWamInvisibleMessageCategoryType = y),
-      (l.msgIsLid = C));
+      (l.getWamInvisibleMessageCategoryType = C),
+      (l.getWamAiInvisibleMessageCategory = b),
+      (l.getWamBotInteractionStage = v),
+      (l.msgIsLid = S));
   },
   98,
 );

@@ -26,7 +26,7 @@ __d(
               return t.apply(this, arguments);
             };
           })(),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT },
         )
         .waitUntilCompleted();
     }

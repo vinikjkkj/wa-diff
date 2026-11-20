@@ -17,8 +17,13 @@ __d(
         o("WAWebVoipWindowConstants").DRAWER_WIDTH +
         "))",
       u = "250ms",
-      c = "x1jn504y-B",
-      d = {
+      c = 284,
+      d = 240,
+      m = 150,
+      p = 16,
+      _ = "@media (max-width: " + (c + m + p) + "px)",
+      f = "x1jn504y-B",
+      g = {
         voipContainer: {
           height: "x5yr21d",
           width: "xh8yej3",
@@ -122,19 +127,30 @@ __d(
           alignItems: "x1qjc9v5",
           $$css: !0,
         },
-        sharePanelWrapper: { height: "x5yr21d", $$css: !0 },
+        rowWithSharePanel: {
+          flexWrap: "xozqiw3 x5lrqyc",
+          overflowY: "xryxfnj xctxmng",
+          $$css: !0,
+        },
+        sharePanelWrapper: {
+          height: "x5yr21d xbca7g3",
+          flexBasis: "xdl72j9 x1mqel37",
+          justifyContent: "x1nhvcw1 xya1abb",
+          $$css: !0,
+        },
         mainColumn: {
           height: "x5yr21d",
           minWidth: "xlm99nl",
           flexShrink: "xs83m0k",
           $$css: !0,
         },
+        mainColumnBesideSharePanel: { minWidth: "xhmkxl2 x1pp9gqe", $$css: !0 },
         callControlsRow: { marginTop: "xr1yuqi", $$css: !0 },
       };
     ((l.WIDTH_BESIDE_DRAWER = e),
       (l.ONE_TO_ONE_WIDTH_BESIDE_DRAWER = s),
       (l.AUDIO_TO_VIDEO_FADE_OUT_DURATION = u),
-      (l.WAWebVoipUiBodyStyles = d));
+      (l.WAWebVoipUiBodyStyles = g));
   },
   98,
 );

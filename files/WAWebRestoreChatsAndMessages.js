@@ -404,7 +404,7 @@ __d(
               ? (r = a.enqueue(function () {
                   return o("WAWebOrchestratorNonPersistedJob")
                     .createNonPersistedJob("initialChatLoad", s, {
-                      priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP,
+                      priority: o("WAJobOrchestratorTypes").JobPriority.SKIP,
                     })
                     .waitUntilCompleted();
                 }))

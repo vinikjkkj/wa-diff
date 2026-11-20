@@ -15,7 +15,7 @@ __d(
           function (e) {
             return o("WAWebContactSyncApi").syncContactListInChunks(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(r);
     }
@@ -33,7 +33,7 @@ __d(
           function (e) {
             return o("WAWebContactSyncApi").syncContactList(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(a);
     }

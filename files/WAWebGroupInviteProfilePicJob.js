@@ -19,7 +19,7 @@ __d(
               "WAWebQueryGroupInviteProfilePicApi",
             ).queryGroupInviteLinkProfilePic(a);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted(a);
     }
@@ -38,7 +38,7 @@ __d(
               "WAWebQueryGroupInviteProfilePicApi",
             ).queryGroupInviteMessageProfilePic(l);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted(l);
     }

@@ -16,7 +16,7 @@ __d(
               "WAWebGroupsMembershipApprovalRequestsApi",
             ).removeMembershipApprovalRequests(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(r);
     }

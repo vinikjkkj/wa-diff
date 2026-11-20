@@ -40,7 +40,7 @@ __d(
               function (e) {
                 return y(e.timeAfterPairingMins, e.loggingCount);
               },
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
             )
             .waitUntilCompleted({ timeAfterPairingMins: a, loggingCount: r });
     }

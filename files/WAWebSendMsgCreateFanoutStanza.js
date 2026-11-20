@@ -95,7 +95,7 @@ __d(
         r = e.option,
         a = e.scheduledMsgMetadata;
       if (
-        r.fanoutType !== o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT ||
+        r.fanoutType !== o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT ||
         t
       )
         return null;
@@ -144,7 +144,7 @@ __d(
           var n = t.sessionScope;
           if (
             (n != null && n !== o("WAWebSessionScope").SessionScope.DEFAULT) ||
-            t.fanoutType !== o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT ||
+            t.fanoutType !== o("WAWebMsgFanoutTypes").FanoutType.CHAT ||
             e.isHosted() ||
             e.isBot() ||
             e.isFbidBot() ||
@@ -218,7 +218,7 @@ __d(
                   }),
             w = M != null;
           if (
-            y.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
+            y.fanoutType === o("WAWebMsgFanoutTypes").FanoutType.CHAT &&
             m.length === 1 &&
             o("WAWebSendMsgCommonApi").isPrimaryDevice(m[0]) &&
             !$ &&
@@ -324,7 +324,7 @@ __d(
                         : g,
                       n =
                         y.fanoutType ===
-                        o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
+                        o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT
                           ? o("WAWebWidFactory").asUserWidOrThrow(e)
                           : o("WAWebWidFactory").asUserWidOrThrow(b);
                     yield o("WAWebICDCMetaApi").populateICDCMeta(n, t);
@@ -686,7 +686,7 @@ __d(
             (G = T.sendPerfReporter) == null || G.startPrekeysFetchStage();
             var K = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 aeaOptions:
-                  $.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT
+                  $.fanoutType === o("WAWebMsgFanoutTypes").FanoutType.CHAT
                     ? {
                         isBeforeEnforcedSendDecision:
                           (y == null ? void 0 : y.isEnforced) === !0,
@@ -710,7 +710,7 @@ __d(
                     : void 0,
                 identityChanged: !1,
                 sessionScope:
-                  $.fanoutType === o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT &&
+                  $.fanoutType === o("WAWebMsgFanoutTypes").FanoutType.CHAT &&
                   ($.sessionScope == null ||
                     $.sessionScope ===
                       o("WAWebSessionScope").SessionScope.DEFAULT) &&
@@ -735,12 +735,12 @@ __d(
                   .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                 messageType:
                   $.fanoutType ===
-                  o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
+                  o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT
                     ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
                     : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL,
                 deviceSizeBucket:
                   $.fanoutType ===
-                  o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
+                  o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT
                     ? r("WAWebWamNumberToSizeBucket")(k.length)
                     : null,
               }));
@@ -960,7 +960,7 @@ __d(
                 : null,
             Te =
               ($.fanoutType ===
-                o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT &&
+                o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT &&
                 $.isResendingMsg === !0) ||
               de.hasCoexV2RepresentedTargets === !0
                 ? null
@@ -996,7 +996,7 @@ __d(
                   xe != null || de.hasCoexV2RepresentedTargets === !0,
                 hasPairwisePayload:
                   $.fanoutType ===
-                  o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                  o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT,
                 sessionScope: $.sessionScope,
               },
               msgProtobuf: D,
@@ -1170,7 +1170,7 @@ __d(
       q = new Map(),
       U = 5;
     function V(e, t) {
-      return e.fanoutType !== o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT
+      return e.fanoutType !== o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT
         ? t
         : t.filter(function (e) {
             return !e.isBot();

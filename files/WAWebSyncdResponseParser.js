@@ -3,6 +3,7 @@ __d(
   [
     "WADeprecatedWapParser",
     "WALogger",
+    "WAWebABProps",
     "WAWebSyncdConst",
     "WAWebSyncdDecode",
     "WAWebSyncdError",
@@ -19,7 +20,8 @@ __d(
       p,
       _,
       f,
-      g = new (r("WADeprecatedWapParser"))("syncResponseParser", function (t) {
+      g,
+      h = new (r("WADeprecatedWapParser"))("syncResponseParser", function (t) {
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -37,7 +39,7 @@ __d(
               throw new (o("WAWebSyncdError").SyncdFatalError)(
                 "invalid collection name",
               );
-            var r = h(e, t),
+            var r = y(e, t),
               a = { name: t, state: r };
             (e.hasAttr("version") &&
               (a.version = parseInt(e.attrString("version"), 10)),
@@ -79,7 +81,7 @@ __d(
           n
         );
       });
-    function h(e, t) {
+    function y(e, t) {
       if (e.hasAttr("type") && e.attrString("type") === "error") {
         var n = e.child("error"),
           r = n.attrString("code"),
@@ -99,6 +101,22 @@ __d(
             return e.hasAttr("has_more_patches")
               ? o("WAWebSyncdConst").CollectionState.ConflictHasMore
               : o("WAWebSyncdConst").CollectionState.Conflict;
+          if (r === "419" && C()) {
+            return (
+              o("WALogger")
+                .WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "syncd: resource limit error: collection ",
+                      "",
+                    ])),
+                  String(t),
+                )
+                .sendLogs("syncd: resource limit error: collection"),
+              o("WAWebSyncdConst").CollectionState.ErrorResourceLimit
+            );
+            break e;
+          }
           if (r === "400") {
             return (
               o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
@@ -107,8 +125,8 @@ __d(
               ),
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "syncd: fatal error: collection ",
                       " throws ",
                       "",
@@ -129,8 +147,8 @@ __d(
               ),
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "syncd: fatal error 404: collection ",
                       " throws ",
                       "",
@@ -147,8 +165,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "syncd: retryable error: collection ",
                       " throws ",
                       "",
@@ -165,8 +183,8 @@ __d(
       } else
         return e.hasAttr("has_more_patches")
           ? (o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: collection ",
                   " got server code has_more_patches",
                 ])),
@@ -174,8 +192,8 @@ __d(
             ),
             o("WAWebSyncdConst").CollectionState.SuccessHasMore)
           : (o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: collection ",
                   " did not get server error",
                 ])),
@@ -183,7 +201,14 @@ __d(
             ),
             o("WAWebSyncdConst").CollectionState.Success);
     }
-    l.syncResponseParser = g;
+    function C() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "syncd_no_retry_on_resource_limit_enabled",
+        ) === !0
+      );
+    }
+    l.syncResponseParser = h;
   },
   98,
 );

@@ -30,7 +30,7 @@ __d(
       u = n("relay-runtime/store/RelayStoreUtils").ROOT_TYPE,
       c = (function () {
         function t(e) {
-          var t,
+          var t = this,
             r,
             o,
             a,
@@ -40,15 +40,18 @@ __d(
             u,
             c,
             d,
-            p = this,
+            p,
             _;
-          ((this.configName = e.configName),
+          ((this.getOperationLoader = function () {
+            return t.$2;
+          }),
+            (this.configName = e.configName),
             (this.$10 = e.treatMissingFieldsAsNull === !0),
             (this.$11 = e.deferDeduplicatedFields === !0));
           var f = e.operationLoader,
             g =
-              (t = e.store) != null
-                ? t
+              (r = e.store) != null
+                ? r
                 : new (n("relay-runtime/store/RelayModernStore"))(
                     new (n("relay-runtime/store/RelayRecordSource"))(),
                     {
@@ -57,13 +60,13 @@ __d(
                       operationLoader: e.operationLoader,
                     },
                   );
-          ((this.__log = (r = e.log) != null ? r : m),
+          ((this.__log = (o = e.log) != null ? o : m),
             (this.relayFieldLogger =
-              (o = e.relayFieldLogger) != null
-                ? o
+              (a = e.relayFieldLogger) != null
+                ? a
                 : n("relay-runtime/store/defaultRelayFieldLogger")),
             (this.$1 =
-              (a = e.UNSTABLE_defaultRenderPolicy) != null ? a : "partial"),
+              (i = e.UNSTABLE_defaultRenderPolicy) != null ? i : "partial"),
             (this.$2 = f),
             (this.$12 = new Map()),
             (this.$3 = n("relay-runtime/network/wrapNetworkWithLogObserver")(
@@ -71,31 +74,31 @@ __d(
               e.network,
             )),
             (this.$9 =
-              (i = e.getDataID) != null
-                ? i
+              (l = e.getDataID) != null
+                ? l
                 : n("relay-runtime/store/defaultGetDataID")),
-            (this.$7 = (l = e.missingFieldHandlers) != null ? l : []),
+            (this.$7 = (s = e.missingFieldHandlers) != null ? s : []),
             (this.$4 = new (n("relay-runtime/store/RelayPublishQueue"))(
               g,
-              (s = e.handlerProvider) != null
-                ? s
+              (u = e.handlerProvider) != null
+                ? u
                 : n("relay-runtime/handlers/RelayDefaultHandlerProvider"),
               this.$9,
               this.$7,
               this.__log,
             )),
-            (this.$5 = (u = e.scheduler) != null ? u : null),
+            (this.$5 = (c = e.scheduler) != null ? c : null),
             (this.$6 = g),
             (this.options = e.options),
-            (this.$13 = (c = e.isServer) != null ? c : !1),
+            (this.$13 = (d = e.isServer) != null ? d : !1),
             (this.$14 =
-              (d = e.normalizeResponse) != null
-                ? d
+              (p = e.normalizeResponse) != null
+                ? p
                 : n("relay-runtime/store/normalizeResponse")),
             (this.__setNet = function (e) {
-              return (p.$3 = n(
+              return (t.$3 = n(
                 "relay-runtime/network/wrapNetworkWithLogObserver",
-              )(p, e));
+              )(t, e));
             }),
             (this.$8 =
               (_ = e.operationTracker) != null

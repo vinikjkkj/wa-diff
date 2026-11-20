@@ -23,8 +23,8 @@ __d(
     "WAWebSettingSearchModel",
     "WAWebSettings.MenuItem",
     "WAWebStaticMenuItem.react",
-    "WAWebWODirectory.react",
     "WAWebWamEnumProfileEntryPoint",
+    "WAWebWorkDirectory.react",
     "WDSIconIcPerson.react",
     "WDSIconIcSchedule.react",
     "WDSIconIcSettingsFilled.react",
@@ -367,7 +367,7 @@ __d(
             I
           );
         }
-        case "wo-directory": {
+        case "work-directory": {
           var T;
           t[38] !== n.results
             ? ((T = n.results.map(b)), (t[38] = n.results), (t[39] = T))
@@ -376,7 +376,8 @@ __d(
           return (
             t[40] !== a.closeModal || t[41] !== T
               ? ((D = u.jsx(
-                  o("WAWebWODirectory.react").WODirectoryCommandPaletteSection,
+                  o("WAWebWorkDirectory.react")
+                    .WorkDirectoryCommandPaletteSection,
                   { members: T, onSelect: a.closeModal },
                 )),
                 (t[40] = a.closeModal),
@@ -632,8 +633,8 @@ __d(
       }
       var L;
       t[12] !== s
-        ? ((L = o("WAWebWODirectory.react")
-            .dedupeWODirectoryMemberSection(E(s))
+        ? ((L = o("WAWebWorkDirectory.react")
+            .dedupeWorkDirectoryMemberSection(E(s))
             .map(I)),
           (t[12] = s),
           (t[13] = L))
@@ -655,7 +656,7 @@ __d(
       return e.results.length > 0 && u.jsx(C, { section: e }, e.type);
     }
     function T() {
-      return o("WAWebWODirectory.react").createWODirectoryMemberSearch();
+      return o("WAWebWorkDirectory.react").createWorkDirectoryMemberSearch();
     }
     var D = {
       id: "DefaultCommand",

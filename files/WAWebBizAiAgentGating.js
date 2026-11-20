@@ -169,26 +169,13 @@ __d(
       w() && e();
     }
     function O() {
-      return (function (e) {
-        return e === "EXPERIMENT"
-          ? "EXPERIMENT"
-          : e === "ROLLOUT"
-            ? "ROLLOUT"
-            : "NONE";
-      })(
-        o("WAWebABProps")
-          .getABPropConfigValue("biz_ai_response_settings_ui_experiment")
-          .toUpperCase(),
-      );
-    }
-    function B() {
       return (
         o(
           "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
-        ).getPrimarySupportsBizAiWebOnboarding() && W()
+        ).getPrimarySupportsBizAiWebOnboarding() && B()
       );
     }
-    function W() {
+    function B() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_onboarding_notification_dispatch_enabled",
@@ -226,9 +213,8 @@ __d(
       (l.isCheckoutEnabled = w),
       (l.isCheckoutPartnersEnabled = A),
       (l.runCheckoutAction = F),
-      (l.getResponseSettingsV2TriState = O),
-      (l.isWebOnboardingSendToPhoneEnabled = B),
-      (l.isWebOnboardingNotificationDispatchEnabled = W));
+      (l.isWebOnboardingSendToPhoneEnabled = O),
+      (l.isWebOnboardingNotificationDispatchEnabled = B));
   },
   98,
 );

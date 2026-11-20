@@ -208,9 +208,7 @@ __d(
                     n
                   );
                 }),
-                {
-                  priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
-                },
+                { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
               )
               .waitUntilCompleted();
           var D = babelHelpers.extends({}, T),
@@ -350,9 +348,7 @@ __d(
                           .SendMsgResult.ERROR_UNKNOWN,
                       });
                 }),
-                {
-                  priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
-                },
+                { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
               )
               .waitUntilCompleted()
           );

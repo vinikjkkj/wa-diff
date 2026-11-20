@@ -15,7 +15,7 @@ __d(
               force: !1,
             });
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT },
         )
         .waitUntilCompleted();
     }

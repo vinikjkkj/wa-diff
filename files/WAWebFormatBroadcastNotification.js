@@ -68,15 +68,14 @@ __d(
     function m(t) {
       var n = t.recipients,
         r = t.subtype;
-      return r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BbProCreate
-        ? u().toString()
-        : r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Create
-          ? e().toString()
-          : r === "add"
-            ? c(n).toString()
-            : r === "remove"
-              ? d(n).toString()
-              : "";
+      return r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Create ||
+        r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BbProCreate
+        ? e().toString()
+        : r === "add"
+          ? c(n).toString()
+          : r === "remove"
+            ? d(n).toString()
+            : "";
     }
     ((l.getAudienceCreateMessage = e),
       (l.getBizBroadcastProChatMessage = u),

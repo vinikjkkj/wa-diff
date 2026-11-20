@@ -423,7 +423,7 @@ __d(
                   return r.apply(this, arguments);
                 };
               })(),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
             )
             .waitUntilCompleted({
               msgData: o("WAWebMsgDataFromModel").msgDataFromMsgModel(e),

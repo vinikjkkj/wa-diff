@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryToggleModeStore",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
@@ -52,20 +51,11 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = this;
-                return o(
-                  "WAWebGroupHistoryGating",
-                ).isGroupHistoryPerGroupToggleMdSyncEnabled()
-                  ? (m || (m = n("Promise"))).all(
-                      e.map(function (e) {
-                        return t.applyMutation(e);
-                      }),
-                    )
-                  : e.map(function () {
-                      return {
-                        actionState:
-                          o("WAWebSyncdConst").SyncActionState.Unsupported,
-                      };
-                    });
+                return (m || (m = n("Promise"))).all(
+                  e.map(function (e) {
+                    return t.applyMutation(e);
+                  }),
+                );
               },
             );
             function t(t) {

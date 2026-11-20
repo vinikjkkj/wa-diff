@@ -27,7 +27,7 @@ __d(
     function c(e, t, n, r) {
       var o,
         a = t[e];
-      if (!a || Object.entries(a).length === 0) return null;
+      if (!a || Object.entries(a).length === 0) return {};
       var i = {};
       return (
         Object.keys(a).forEach(function (e) {

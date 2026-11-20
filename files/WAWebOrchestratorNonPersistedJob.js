@@ -7,7 +7,7 @@ __d(
         throw r("err")("getNonPersistJob got invalid function param");
       var a = o("WAWebJobOrchestrator").getInstance(
         (n == null ? void 0 : n.priority) ===
-          o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP,
+          o("WAJobOrchestratorTypes").JobPriority.SKIP,
       );
       return {
         fireAndForget: function () {

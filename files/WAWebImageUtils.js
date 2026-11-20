@@ -6,6 +6,7 @@ __d(
     "WAExponentialBackoff",
     "WALogger",
     "WAPromiseProps",
+    "WAWebABProps",
     "WAWebAddWebpMetadata",
     "WAWebCanvasUtils",
     "WAWebFileUtils",
@@ -15,7 +16,6 @@ __d(
     "WAWebMediaJpeg",
     "WAWebMediaLoad",
     "WAWebMediaLoadErrors",
-    "WAWebNoop",
     "WAWebPREGatingUtils",
     "WAWebStickerConstants",
     "WAWebThumbnailOutcomeLogger",
@@ -419,7 +419,13 @@ __d(
                       return { width: f, height: g, images: e };
                     });
                 })
-                .finally(r("WAWebNoop")),
+                .finally(function () {
+                  v != null &&
+                    o("WAWebABProps").getABPropConfigValue(
+                      "web_memlab_fixes_5",
+                    ) &&
+                    window.URL.revokeObjectURL(v);
+                }),
               E = yield L;
             if (
               l != null &&

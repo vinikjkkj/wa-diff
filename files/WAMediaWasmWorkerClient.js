@@ -671,20 +671,21 @@ __d(
     function ve() {
       return (
         (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.eventFlow,
-            a = e.hints,
-            i = e.input,
-            l = se();
+          var t = e.allowlists,
+            a = e.eventFlow,
+            i = e.hints,
+            l = e.input,
+            s = se();
           H().INFO(
             D ||
               (D = babelHelpers.taggedTemplateLiteralLoose([
                 "start kaleidoscope provenance detection in worker, requestId: ",
                 "",
               ])),
-            l,
+            s,
           );
-          var s = yield j.getNextConnectedPortWithTimeout(t);
-          if (!s.success)
+          var u = yield j.getNextConnectedPortWithTimeout(a);
+          if (!u.success)
             return (
               H().WARN(
                 x ||
@@ -693,25 +694,25 @@ __d(
                     ", reason: no-worker-port, error: ",
                     "",
                   ])),
-                l,
-                s.error,
+                s,
+                u.error,
               ),
-              t == null ||
-                t.addPoint("worker_roundtrip_fail", {
+              a == null ||
+                a.addPoint("worker_roundtrip_fail", {
                   string: { failure_reason: "no_worker_port" },
                 }),
-              { transferredBuffer: i, provenance: null }
+              { transferredBuffer: l, provenance: null }
             );
-          var u = s.value;
+          var c = u.value;
           return ue(
-            u,
+            c,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = function () {},
-                s = new (U || (U = n("Promise")))(function (t) {
-                  var n = u.addMessageListener(
+                u = new (U || (U = n("Promise")))(function (t) {
+                  var n = c.addMessageListener(
                     "kaleidoscopeProvenanceResponse",
                     function (n) {
-                      n.requestId === l &&
+                      n.requestId === s &&
                         (e(),
                         H().INFO(
                           $ ||
@@ -720,7 +721,7 @@ __d(
                               ", hasSignal: ",
                               "",
                             ])),
-                          l,
+                          s,
                           n.provenance != null,
                         ),
                         t({
@@ -732,30 +733,31 @@ __d(
                     },
                   );
                   e = function () {
-                    u.removeMessageListener(
+                    c.removeMessageListener(
                       "kaleidoscopeProvenanceResponse",
                       n,
                     );
                   };
                 });
               try {
-                (t == null || t.addPoint("worker_roundtrip_start"),
-                  u.postMessage(
+                (a == null || a.addPoint("worker_roundtrip_start"),
+                  c.postMessage(
                     {
-                      input: i,
-                      hints: a,
-                      qplData: t == null ? void 0 : t.flowDetails,
-                      requestId: l,
+                      input: l,
+                      hints: i,
+                      allowlists: t,
+                      qplData: a == null ? void 0 : a.flowDetails,
+                      requestId: s,
                       type: "kaleidoscopeProvenanceRequest",
                     },
-                    [i],
+                    [l],
                   ));
-                var c = yield o("WAPromiseTimeout").promiseTimeout(s, Ce);
-                return (t == null || t.addPoint("worker_roundtrip_end"), c);
-              } catch (n) {
+                var d = yield o("WAPromiseTimeout").promiseTimeout(u, Ce);
+                return (a == null || a.addPoint("worker_roundtrip_end"), d);
+              } catch (t) {
                 e();
-                var d =
-                  n instanceof o("WACustomError").TimeoutError
+                var m =
+                  t instanceof o("WACustomError").TimeoutError
                     ? "timeout"
                     : "post_failed";
                 return (
@@ -767,15 +769,15 @@ __d(
                         ", error: ",
                         "",
                       ])),
-                    l,
-                    d,
-                    r("getErrorSafe")(n).message,
+                    s,
+                    m,
+                    r("getErrorSafe")(t).message,
                   ),
-                  t == null ||
-                    t.addPoint("worker_roundtrip_fail", {
-                      string: { failure_reason: d },
+                  a == null ||
+                    a.addPoint("worker_roundtrip_fail", {
+                      string: { failure_reason: m },
                     }),
-                  { transferredBuffer: i, provenance: null }
+                  { transferredBuffer: l, provenance: null }
                 );
               }
             }),

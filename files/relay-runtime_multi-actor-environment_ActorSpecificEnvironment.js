@@ -13,18 +13,22 @@ __d(
     var e = (function () {
       function e(e) {
         var t = this;
-        ((this.configName = e.configName),
+        ((this.getOperationLoader = function () {
+          return t.$3;
+        }),
+          (this.configName = e.configName),
           (this.actorIdentifier = e.actorIdentifier),
           (this.multiActorEnvironment = e.multiActorEnvironment),
           (this.__log = e.logFn),
           (this.relayFieldLogger = e.relayFieldLogger),
-          (this.$3 = new (n("relay-runtime/store/RelayOperationTracker"))()),
-          (this.$5 = e.store),
+          (this.$3 = e.operationLoader),
+          (this.$4 = new (n("relay-runtime/store/RelayOperationTracker"))()),
+          (this.$6 = e.store),
           (this.$2 = n("relay-runtime/network/wrapNetworkWithLogObserver")(
             this,
             e.network,
           )),
-          (this.$4 = new (n("relay-runtime/store/RelayPublishQueue"))(
+          (this.$5 = new (n("relay-runtime/store/RelayPublishQueue"))(
             e.store,
             e.handlerProvider,
             n("relay-runtime/store/defaultGetDataID"),
@@ -39,7 +43,7 @@ __d(
       var t = e.prototype;
       return (
         (t.getPublishQueue = function () {
-          return this.$4;
+          return this.$5;
         }),
         (t.UNSTABLE_getDefaultRenderPolicy = function () {
           return this.$1;
@@ -75,10 +79,10 @@ __d(
           return this.$2;
         }),
         (t.getStore = function () {
-          return this.$5;
+          return this.$6;
         }),
         (t.getOperationTracker = function () {
-          return this.$3;
+          return this.$4;
         }),
         (t.getScheduler = function () {
           return this.multiActorEnvironment.getScheduler();

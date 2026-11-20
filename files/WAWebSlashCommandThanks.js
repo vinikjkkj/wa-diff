@@ -95,7 +95,11 @@ __d(
             return t === l || t === i;
           },
           u = b(t, n, i, s);
-        (o("WAWebLexicalUtils").setTextContent(t.editor, ""),
+        (o("WAWebLexicalUtils").setTextContent(
+          t.editor,
+          "",
+          o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+        ),
           t.clearQuotedMsg(),
           window.setTimeout(function () {
             f(t) &&

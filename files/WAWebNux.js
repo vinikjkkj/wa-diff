@@ -96,7 +96,10 @@ __d(
     function p(e) {
       return "ai_label_nux_" + e;
     }
-    var _ = n("$InternalEnum")({
+    function _(e) {
+      return "biz_broadcast_pro_chat_banner_" + e;
+    }
+    var f = n("$InternalEnum")({
         EPHEMERAL: "ephemeral",
         EPHEMERAL_VIEW_ONCE: "ephemeral_view_once",
         EPHEMERAL_VIEW_ONCE_RECEIVER: "ephemeral_view_once_receiver",
@@ -131,7 +134,7 @@ __d(
         TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
         CUSTOMER_MANAGER_EDUCATION_BANNER: "customer_manager_education_banner",
       }),
-      f = {
+      g = {
         COOL_OFF_NUX: {
           INCOMPLETE_BUSINESS_PROFILE_BANNER:
             "incomplete_business_profile_banner",
@@ -211,7 +214,7 @@ __d(
           CALL_SCREENING_INTRO: "call_screening_intro",
         },
       },
-      g = {
+      h = {
         DEFAULT: "default_cool_off_banners_key",
         CATALOG: "catalog_banners_key",
         CTWA_SUGGESTION: "ctwa_suggestion_banners_key",
@@ -222,7 +225,7 @@ __d(
         CUSTOMER_MANAGER_EDUCATION_BANNER:
           "customer_manager_education_banner_cool_off_key",
       };
-    function h(e) {
+    function y(e) {
       return e + "_cool_off";
     }
     ((i.NUX = e),
@@ -233,10 +236,11 @@ __d(
       (i.getNewsletterAlertsBannerNuxKey = d),
       (i.getSubgroupSuggestionsBannerNuxKey = m),
       (i.getAILabelBannerNuxKey = p),
-      (i.NuxSyncKey = _),
-      (i.NuxKeyTypes = f),
-      (i.CoolOffPeriodKeys = g),
-      (i.asCoolOffNuxType = h));
+      (i.getBizBroadcastProChatBannerNuxKey = _),
+      (i.NuxSyncKey = f),
+      (i.NuxKeyTypes = g),
+      (i.CoolOffPeriodKeys = h),
+      (i.asCoolOffNuxType = y));
   },
   66,
 );

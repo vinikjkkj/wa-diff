@@ -16,7 +16,7 @@ __d(
         return r("URIAbstractBase").parse(e, t, n, o);
       } catch (e) {
         var a = r("getErrorSafe")(e),
-          i = new Error(r("err")(a.message));
+          i = new Error(String(r("err")(a.message)));
         throw (i.stack, i);
       }
     }
@@ -53,7 +53,7 @@ __d(
             t.prototype.setDomain.call(this, n);
           } catch (t) {
             var e = r("getErrorSafe")(t),
-              o = new Error(r("err")(e.message));
+              o = new Error(String(r("err")(e.message)));
             throw (o.stack, o);
           }
           return this;

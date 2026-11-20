@@ -108,7 +108,7 @@ __d(
                 msgProtobuf: i,
                 msgRecord: l,
                 option: {
-                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT,
+                  fanoutType: o("WAWebMsgFanoutTypes").FanoutType.CHAT,
                 },
                 scheduledMsgMetadata: p,
                 aeaBaseline: D,

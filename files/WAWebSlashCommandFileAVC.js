@@ -55,7 +55,11 @@ __d(
             i = t.chat.id.toString();
           if (
             (d.delete(i),
-            o("WAWebLexicalUtils").setTextContent(t.editor, ""),
+            o("WAWebLexicalUtils").setTextContent(
+              t.editor,
+              "",
+              o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+            ),
             !o("WAWebEmployeeCommandHandoff").canHandOff("vc"))
           ) {
             (f(t.chat, r, "disabled", !1, null),

@@ -17,7 +17,7 @@ __d(
           function (e) {
             return o("WAWebGroupsParticipantsApi").updateParticipants(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(e);
     }
@@ -29,7 +29,7 @@ __d(
           function (e) {
             return g(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(n);
     }
@@ -45,7 +45,7 @@ __d(
           function (e) {
             return o("WAWebGroupsParticipantsApi").addParticipants(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(i);
     }
@@ -65,7 +65,7 @@ __d(
           function (e) {
             return o("WAWebGroupsParticipantsApi").removeParticipants(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(s);
     }
@@ -81,7 +81,7 @@ __d(
           function (e) {
             return o("WAWebGroupsParticipantsApi").demoteParticipants(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(i);
     }
@@ -93,7 +93,7 @@ __d(
           function (e) {
             return o("WAWebGroupsParticipantsApi").promoteParticipants(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(a);
     }
@@ -105,7 +105,7 @@ __d(
           function (e) {
             return o("WAWebGroupsParticipantsApi").setGroupSuperAdmin(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(n);
     }
@@ -119,7 +119,7 @@ __d(
               "WAWebGroupsParticipantsApi",
             ).promoteCommmunityParticipants(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(r);
     }
@@ -136,7 +136,7 @@ __d(
               e,
             );
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted(a);
     }

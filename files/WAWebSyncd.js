@@ -49,38 +49,42 @@ __d(
       x,
       $,
       P,
-      N = 1e3,
-      M = 1e3 * 60 * 60,
-      w = 2,
-      A = new Set(),
+      N,
+      M = 1e3,
+      w = 1e3 * 60 * 60,
+      A = 2,
       F = new Set(),
-      O,
-      B = !1,
-      W = 0,
-      q = 0;
-    function U(e, t) {
-      return V.apply(this, arguments);
+      O = new Set(),
+      B = new Set(),
+      W,
+      q = !1,
+      U = 0,
+      V = 0;
+    function H(e, t) {
+      return G.apply(this, arguments);
     }
-    function V() {
+    function G() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t != null ? yield H(e, t) : e;
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t != null ? yield z(e, t) : e,
+            a = Array.from(new Set([].concat(n, Array.from(B))));
           return (
+            (B = new Set()),
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: marking for sync: ",
                   "",
                 ])),
-              n,
+              a,
             ),
-            n.forEach(function (e) {
+            a.forEach(function (e) {
               var t = r("WAWebSyncdCollectionsStateMachine").getCollectionState(
                 e,
               );
               (o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: ",
                     " state before sync: ",
                     "",
@@ -93,24 +97,24 @@ __d(
                       "WAWebSyncdCollectionsStateMachine",
                     ).moveCollectionsToDirty([e])
                   : t === o("WAWebSyncdConst").CollectionSyncState.Dirty &&
-                    (F = new Set([].concat(Array.from(F), [e]))));
+                    (O = new Set([].concat(Array.from(O), [e]))));
             }),
             yield r("WAWebSyncdCollectionsStateMachine").persistToDb(),
-            Z()
+            te()
           );
         })),
-        V.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function H(e, t) {
-      return G.apply(this, arguments);
+    function z(e, t) {
+      return j.apply(this, arguments);
     }
-    function G() {
+    function j() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "syncd: start filter collections: ",
                 "",
               ])),
@@ -130,8 +134,8 @@ __d(
             if (n == null)
               return (
                 o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "syncd: local version for ",
                       " missing; will mark for sync.",
                     ])),
@@ -142,8 +146,8 @@ __d(
             var a = t.get(e);
             return a == null
               ? (o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "syncd: server version for ",
                       " missing; will mark for sync.",
                     ])),
@@ -152,8 +156,8 @@ __d(
                 !0)
               : n < a
                 ? (o("WALogger").LOG(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "syncd: localV=",
                         " < serverV=",
                         " for ",
@@ -165,8 +169,8 @@ __d(
                   ),
                   !0)
                 : (o("WALogger").LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
                         "syncd: localV=",
                         " >= serverV=",
                         " for ",
@@ -179,15 +183,15 @@ __d(
                   !1);
           });
         })),
-        G.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function z() {
-      return j.apply(this, arguments);
+    function K() {
+      return Q.apply(this, arguments);
     }
-    function j() {
+    function Q() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = yield o("WAWebGetSyncAction").countSyncActionsInTransaction();
           (e = o("WAWebSyncdWamAppState")).setStoredMutationCount(t);
@@ -206,15 +210,6 @@ __d(
           var a = yield o("WAWebGetMissingKey").getMissingKeyCountTransaction();
           e.setMissingKeyCount(a);
         })),
-        j.apply(this, arguments)
-      );
-    }
-    function K() {
-      return Q.apply(this, arguments);
-    }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {})),
         Q.apply(this, arguments)
       );
     }
@@ -228,6 +223,15 @@ __d(
       );
     }
     function J() {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {})),
+        Z.apply(this, arguments)
+      );
+    }
+    function ee() {
       var t = r(
         "WAWebSyncdCollectionsStateMachine",
       ).getCollectionsInStateBlocked();
@@ -241,7 +245,7 @@ __d(
           t,
         ),
         r("WAWebSyncdCollectionsStateMachine").moveCollectionsToDirty(t),
-        (F = new Set([].concat(Array.from(F), Array.from(A)))),
+        (O = new Set([].concat(Array.from(O), Array.from(F)))),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -250,25 +254,25 @@ __d(
               "",
             ])),
           t,
-          Array.from(A),
+          Array.from(F),
         ),
-        Z()
+        te()
       );
     }
-    function Z() {
-      return ee.apply(this, arguments);
+    function te() {
+      return ne.apply(this, arguments);
     }
-    function ee() {
+    function ne() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebSyncdDisabled").isSyncdDisabled())
-            return (P || (P = n("Promise"))).resolve();
+            return (N || (N = n("Promise"))).resolve();
           var e = r(
             "WAWebSyncdCollectionsStateMachine",
           ).getCollectionsInStateDirty();
           o("WALogger").LOG(
-            S ||
-              (S = babelHelpers.taggedTemplateLiteralLoose([
+            R ||
+              (R = babelHelpers.taggedTemplateLiteralLoose([
                 "syncd: dirty collections: ",
                 "",
               ])),
@@ -276,32 +280,32 @@ __d(
           );
           var t = new Set(
             e.filter(function (e) {
-              return !A.has(e);
+              return !F.has(e);
             }),
           );
           if (t.size === 0)
             return (
               o("WALogger").LOG(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: no collections to sync",
                   ])),
               ),
-              (P || (P = n("Promise"))).resolve()
+              (N || (N = n("Promise"))).resolve()
             );
           var a = [];
           try {
-            ((A = new Set([].concat(Array.from(A), Array.from(t)))),
+            ((F = new Set([].concat(Array.from(F), Array.from(t)))),
               o("WALogger").LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: initiate server sync",
                   ])),
               ),
               (a = yield o("WAWebSyncdServerSync").serverSync(Array.from(t))),
               o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: server sync successful",
                   ])),
               ));
@@ -310,11 +314,11 @@ __d(
                 e.state === o("WAWebSyncdConst").CollectionState.ErrorRetry
               );
             });
-            (i.length > 0 && ((q = i[0].serverBackoff || 0), (W = 0)), ie(a));
+            (i.length > 0 && ((V = i[0].serverBackoff || 0), (U = 0)), ue(a));
           } catch (e) {
             (o("WALogger").LOG(
-              k ||
-                (k = babelHelpers.taggedTemplateLiteralLoose([
+              I ||
+                (I = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: exception during sync(): ",
                   "",
                 ])),
@@ -325,35 +329,35 @@ __d(
               ).moveCollectionsToFiniteRetry(Array.from(t)));
           } finally {
             (o("WALogger").LOG(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
+              T ||
+                (T = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: cleanup after sync()",
                 ])),
             ),
               r("WAWebSyncdCollectionsStateMachine").persistToDb(),
-              (A = new Set(
-                Array.from(A).filter(function (e) {
+              (F = new Set(
+                Array.from(F).filter(function (e) {
                   return !t.has(e);
                 }),
               )),
-              ae(),
+              se(),
               yield o("WAWebSyncdDbCallbacksApi").handleSyncCompleted(a));
           }
         })),
-        ee.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    function te() {
+    function re() {
       if (!o("WAWebSyncdDisabled").isSyncdDisabled()) {
         var e = new Set(
           r("WAWebSyncdCollectionsStateMachine").getCollectionsInStateRetry(),
         );
         e.size !== 0 &&
-          (O = setTimeout(
+          (W = setTimeout(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               try {
-                ((B = !0),
-                  (W += 1),
+                ((q = !0),
+                  (U += 1),
                   o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -369,7 +373,8 @@ __d(
                       "syncd: server sync retry successful",
                     ])),
                 ),
-                  ie(t));
+                  oe(t),
+                  ue(t));
               } catch (t) {
                 (o("WALogger").LOG(
                   d ||
@@ -389,26 +394,32 @@ __d(
                       "syncd: cleanup after handleRetry()",
                     ])),
                 ),
-                  yield re(),
+                  yield ie(),
                   r("WAWebSyncdCollectionsStateMachine").persistToDb(),
-                  (B = !1),
-                  ae());
+                  (q = !1),
+                  se());
               }
             }),
-            ne(W, q),
+            ae(U, V),
           ));
       }
     }
-    function ne(e, t) {
-      var n = Math.pow(w, e) * N;
-      return Math.min(Math.max(n, t), M);
+    function oe(e) {
+      var t = e.find(function (e) {
+        return e.state === o("WAWebSyncdConst").CollectionState.ErrorRetry;
+      });
+      t != null && (V = t.serverBackoff || 0);
     }
-    function re() {
-      return oe.apply(this, arguments);
+    function ae(e, t) {
+      var n = Math.pow(A, e) * M;
+      return Math.min(Math.max(n, t), w);
     }
-    function oe() {
+    function ie() {
+      return le.apply(this, arguments);
+    }
+    function le() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r(
             "WAWebSyncdCollectionsStateMachine",
           ).getExpiredCollections();
@@ -417,8 +428,8 @@ __d(
             yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(),
             o("WALogger")
               .ERROR(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
                     "syncd: fatal error: expired collections",
                   ])),
               )
@@ -434,10 +445,10 @@ __d(
               },
             ));
         })),
-        oe.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function ae() {
+    function se() {
       (o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -446,17 +457,17 @@ __d(
       ),
         r("WAWebSyncdCollectionsStateMachine").getCollectionsInStateDirty()
           .length > 0 &&
-          ((F = new Set(
-            Array.from(F).filter(function (e) {
-              return A.has(e);
+          ((O = new Set(
+            Array.from(O).filter(function (e) {
+              return F.has(e);
             }),
           )),
-          Z()));
+          te()));
       var e = r(
         "WAWebSyncdCollectionsStateMachine",
       ).getCollectionsInStateRetry();
       if (e.length > 0) {
-        if (B) {
+        if (q) {
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -465,13 +476,13 @@ __d(
           );
           return;
         }
-        (O != null && clearTimeout(O),
-          (F = new Set(
-            Array.from(F).filter(function (t) {
+        (W != null && clearTimeout(W),
+          (O = new Set(
+            Array.from(O).filter(function (t) {
               return !e.includes(t);
             }),
           )),
-          te());
+          re());
       }
       r("WAWebSyncdCollectionsStateMachine").getCollectionsInStateFatal()
         .length > 0 &&
@@ -481,11 +492,11 @@ __d(
           ).getCollectionsInStateFatal(),
         });
     }
-    function ie(e) {
+    function ue(e) {
       return e.forEach(function (e) {
         if (
           e.state === o("WAWebSyncdConst").CollectionState.Success &&
-          !F.has(e.name)
+          !O.has(e.name)
         )
           return r(
             "WAWebSyncdCollectionsStateMachine",
@@ -507,23 +518,57 @@ __d(
             e.name,
           ]);
         if (
+          e.state === o("WAWebSyncdConst").CollectionState.ErrorResourceLimit &&
+          !O.has(e.name)
+        )
+          return r("WAWebSyncdCollectionsStateMachine").hasFiniteFailureExpired(
+            e.name,
+          )
+            ? (o("WALogger")
+                .ERROR(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "syncd: fatal error: resource limit expired for ",
+                      "",
+                    ])),
+                  e.name,
+                )
+                .sendLogs("syncd: fatal error: resource limit expired"),
+              o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
+                o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
+                  .TOO_MANY_INTERNAL_SERVER_ERRORS_IN_7D,
+                {
+                  collection: e.name,
+                  lidMigrationStage: o(
+                    "WAWebSyncdAntiTamperingLtHash",
+                  ).getLidMigrationStage(),
+                },
+              ),
+              r("WAWebSyncdCollectionsStateMachine").moveCollectionsToFatal([
+                e.name,
+              ]))
+            : (B.add(e.name),
+              r(
+                "WAWebSyncdCollectionsStateMachine",
+              ).moveCollectionsToResourceLimited([e.name]));
+        if (
           e.state === o("WAWebSyncdConst").CollectionState.Blocked &&
-          !F.has(e.name)
+          !O.has(e.name)
         )
           return r(
             "WAWebSyncdCollectionsStateMachine",
           ).moveCollectionsToBlocked([e.name]);
       });
     }
-    function le() {
-      return se.apply(this, arguments);
+    function ce() {
+      return de.apply(this, arguments);
     }
-    function se() {
+    function de() {
       return (
-        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
-            D ||
-              (D = babelHelpers.taggedTemplateLiteralLoose([
+            x ||
+              (x = babelHelpers.taggedTemplateLiteralLoose([
                 "syncd: syncPendingMutationsAndBlockedCollections",
               ])),
           );
@@ -541,57 +586,57 @@ __d(
             .concat(t);
           n.length > 0 &&
             (o("WALogger").LOG(
-              x ||
-                (x = babelHelpers.taggedTemplateLiteralLoose([
+              $ ||
+                ($ = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: syncPendingMutationsAndBlockedCollections: [",
                   "]",
                 ])),
               n,
             ),
-            U(n));
-        })),
-        se.apply(this, arguments)
-      );
-    }
-    function ue() {
-      return r("WAWebSyncdCollectionsStateMachine")
-        .loadStatesFromDb()
-        .then(function () {
-          return ae();
-        });
-    }
-    function ce() {
-      return de.apply(this, arguments);
-    }
-    function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebSyncdOrphan").applyAllOrphansAndUnsupported(),
-            o("WALogger").LOG(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd: sync pending mutations + blocked on app resume",
-                ])),
-            ),
-            yield le());
+            H(n));
         })),
         de.apply(this, arguments)
       );
     }
     function me() {
-      return A;
+      return r("WAWebSyncdCollectionsStateMachine")
+        .loadStatesFromDb()
+        .then(function () {
+          return se();
+        });
     }
     function pe() {
+      return _e.apply(this, arguments);
+    }
+    function _e() {
+      return (
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield o("WAWebSyncdOrphan").applyAllOrphansAndUnsupported(),
+            o("WALogger").LOG(
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: sync pending mutations + blocked on app resume",
+                ])),
+            ),
+            yield ce());
+        })),
+        _e.apply(this, arguments)
+      );
+    }
+    function fe() {
       return F;
     }
-    ((l.markCollectionsForSync = U),
-      (l.reportWam = z),
-      (l.logKeysInfoInIntern = X),
-      (l.syncBlockedCollections = J),
-      (l.initializeStateMachine = ue),
-      (l.processOnAppResume = ce),
-      (l.getInFlightCollections = me),
-      (l.getPendingCollections = pe));
+    function ge() {
+      return O;
+    }
+    ((l.markCollectionsForSync = H),
+      (l.reportWam = K),
+      (l.logKeysInfoInIntern = J),
+      (l.syncBlockedCollections = ee),
+      (l.initializeStateMachine = me),
+      (l.processOnAppResume = pe),
+      (l.getInFlightCollections = fe),
+      (l.getPendingCollections = ge));
   },
   98,
 );

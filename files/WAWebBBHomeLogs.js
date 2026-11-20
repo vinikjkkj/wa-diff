@@ -218,7 +218,34 @@ __d(
         userActionTarget: t.UserActionTarget.TOS_REVIEW_BANNER,
       });
     }
-    function T(e, t) {
+    function T(e) {
+      var t;
+      e({
+        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: t.ENTRY_POINT.BB_THREAD,
+        surface: t.SURFACE_TYPE.BB_THREAD,
+        userActionTarget: t.UserActionTarget.PRO_CHAT_BANNER,
+      });
+    }
+    function D(e) {
+      var t;
+      e({
+        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+        entryPoint: t.ENTRY_POINT.BB_THREAD,
+        surface: t.SURFACE_TYPE.BB_THREAD,
+        userActionTarget: t.UserActionTarget.PRO_CHAT_BANNER,
+      });
+    }
+    function x(e) {
+      var t;
+      e({
+        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t.ENTRY_POINT.BB_THREAD,
+        surface: t.SURFACE_TYPE.BB_THREAD,
+        userActionTarget: t.UserActionTarget.PRO_CHAT_BANNER_LEARN_MORE_LINK,
+      });
+    }
+    function $(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -228,7 +255,7 @@ __d(
             .BROADCAST_ITEM_OVERFLOW_BUTTON,
       });
     }
-    function D(e, t, n, r) {
+    function P(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: n,
@@ -238,7 +265,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ELIGIBILITY_GATE,
       });
     }
-    function x(e, t, n, r, a) {
+    function N(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: a,
@@ -253,7 +280,7 @@ __d(
             .SUGGESTED_AUDIENCE_CARD_CLICK,
       });
     }
-    function $(e, t, n, r, a) {
+    function M(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
@@ -288,10 +315,13 @@ __d(
       (l.broadcastThreadViewed = E),
       (l.tosReviewBannerViewed = k),
       (l.tosReviewBannerClicked = I),
-      (l.broadcastItemOverflowClicked = T),
-      (l.eligibilityCheckResult = D),
-      (l.suggestedAudienceCardClicked = x),
-      (l.suggestedAudienceCardError = $));
+      (l.proChatBannerViewed = T),
+      (l.proChatBannerDismissed = D),
+      (l.proChatBannerLearnMoreClicked = x),
+      (l.broadcastItemOverflowClicked = $),
+      (l.eligibilityCheckResult = P),
+      (l.suggestedAudienceCardClicked = N),
+      (l.suggestedAudienceCardError = M));
   },
   98,
 );

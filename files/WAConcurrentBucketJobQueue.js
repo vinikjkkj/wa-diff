@@ -24,8 +24,8 @@ __d(
       c,
       d = 30,
       m = new Map([
-        [o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH, 5],
-        [o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW, 1],
+        [o("WAJobOrchestratorTypes").JobPriority.HIGH, 5],
+        [o("WAJobOrchestratorTypes").JobPriority.LOW, 1],
       ]);
     function p(e) {
       var t = new Uint8Array(e);
@@ -85,18 +85,15 @@ __d(
               jobMaxConcurrencyMap:
                 (u = t.maxConcurrencyPerJob) != null ? u : {},
             });
-          (this.$5.set(o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION, c),
-            this.$5.set(o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH, c),
-            this.$5.set(o("WAJobOrchestratorTypes").JOB_PRIORITY.OFFLINE, _),
+          (this.$5.set(o("WAJobOrchestratorTypes").JobPriority.UI_ACTION, c),
+            this.$5.set(o("WAJobOrchestratorTypes").JobPriority.HIGH, c),
+            this.$5.set(o("WAJobOrchestratorTypes").JobPriority.OFFLINE, _),
             this.$5.set(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
+              o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
               f,
             ),
-            this.$5.set(o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW, m),
-            this.$5.set(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
-              p,
-            ),
+            this.$5.set(o("WAJobOrchestratorTypes").JobPriority.LOW, m),
+            this.$5.set(o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT, p),
             (this.$1 = !0));
         }),
         (a.updateConfig = function (n, r) {
@@ -147,13 +144,13 @@ __d(
             };
           return {
             highPriorityBucketSize: t(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH,
+              o("WAJobOrchestratorTypes").JobPriority.HIGH,
             ),
             lowPriorityBucketSize: t(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW,
+              o("WAJobOrchestratorTypes").JobPriority.LOW,
             ),
             bestEffortPriorityBucketSize: t(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
+              o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT,
             ),
           };
         }),
@@ -180,12 +177,10 @@ __d(
               return i;
             };
           return {
-            highPriorityMaxJob: t(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH,
-            ),
-            lowPriorityMaxJob: t(o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW),
+            highPriorityMaxJob: t(o("WAJobOrchestratorTypes").JobPriority.HIGH),
+            lowPriorityMaxJob: t(o("WAJobOrchestratorTypes").JobPriority.LOW),
             bestEffortPriorityMaxJob: t(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
+              o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT,
             ),
           };
         }),
@@ -267,7 +262,7 @@ __d(
             }),
             i &&
               i.priority ===
-                o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION &&
+                o("WAJobOrchestratorTypes").JobPriority.UI_ACTION &&
               this.$15(y),
             this.$16(),
             _
@@ -293,7 +288,7 @@ __d(
           var e;
           return (
             t ? (e = new Map(t)) : (e = new Map(m)),
-            e.set(o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT, 0),
+            e.set(o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT, 0),
             e
           );
         }),
@@ -320,7 +315,7 @@ __d(
             i && this.$18(),
             this.$20(n, i)
               ? this.getJobBucketByType(
-                  o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
+                  o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT,
                 )
               : r == null && t
                 ? this.$19(!1)
@@ -339,7 +334,7 @@ __d(
             return n > 0 ? n : 0;
           }
           var l = this.getJobBucketByType(
-              o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
+              o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT,
             ),
             s = t - ((e = l == null ? void 0 : l.count()) != null ? e : 0),
             u = l == null ? void 0 : l.getLastJobStartedTimestamp();
@@ -361,7 +356,7 @@ __d(
         }),
         (a.$22 = function (t) {
           var e = t.split("-")[0],
-            n = o("WAJobOrchestratorTypes").JOB_PRIORITY.cast(e);
+            n = o("WAJobOrchestratorTypes").JobPriority.cast(e);
           if (!n)
             throw r("err")(
               "ConcurrentBucketQueue cannot extract known job priority type from id: " +

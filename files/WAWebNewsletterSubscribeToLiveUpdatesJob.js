@@ -15,7 +15,7 @@ __d(
               "WAWebNewsletterSubscribeToLiveUpdatesQuery",
             ).subscribeToLiveUpdatesQuery(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAiAgentAutoReplyControlMutation",
+    "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizAiCapiThreadControl",
     "WAWebBizAiMuteUnmuteErrorDrawer.react",
@@ -20,8 +21,9 @@ __d(
       c,
       d = c || (c = o("react")),
       m = { skipSideEffects: !0 },
-      p = new WeakMap();
-    function _(e) {
+      p = 1e3,
+      _ = new WeakMap();
+    function f(e) {
       return e ===
         o("WAWebProtobufsE2E.pb")
           .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
@@ -33,8 +35,8 @@ __d(
             .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
             .CONTROL_TAKEN;
     }
-    function f(e) {
-      var t = p.get(e);
+    function g(e) {
+      var t = _.get(e);
       return (
         t == null &&
           ((t = {
@@ -44,11 +46,11 @@ __d(
             inFlight: !1,
             pendingMutations: 0,
           }),
-          p.set(e, t)),
+          _.set(e, t)),
         t
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       return (
         (e.pendingMutations += 1),
         t().finally(function () {
@@ -56,13 +58,13 @@ __d(
         })
       );
     }
-    function h(e) {
-      var t = f(e),
+    function y(e) {
+      var t = g(e),
         r = e.isAiHandoff,
         a = e.aiHandoffStartedAt;
       return (
         t.inFlight
-          ? (t.desired = _(t.desired))
+          ? (t.desired = f(t.desired))
           : ((t.serverConfirmed = e.capiThreadControl),
             (t.desired = o("WAWebBizAiAgentStatusUtils").isChatAiEnabled(e)
               ? o("WAWebProtobufsE2E.pb")
@@ -75,8 +77,8 @@ __d(
         t.inFlight
           ? (u || (u = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
-            g(t, function () {
-              return y({
+            h(t, function () {
+              return C({
                 chat: e,
                 previousAiHandoffStartedAt: a,
                 previousIsAiHandoff: r,
@@ -88,12 +90,12 @@ __d(
             }))
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.previousAiHandoffStartedAt,
             a = e.previousIsAiHandoff,
@@ -131,8 +133,8 @@ __d(
           return c
             ? ((l.serverConfirmed = u),
               p != null && (l.watermarkMs = Math.max(l.watermarkMs, p)),
-              b(t),
-              y({
+              v(t),
+              C({
                 chat: t,
                 previousAiHandoffStartedAt: n,
                 previousIsAiHandoff: a,
@@ -159,10 +161,10 @@ __d(
               ),
               !1);
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(t) {
+    function v(t) {
       o("WAWebBizAiCapiThreadControl")
         .setAiLastHandoffActor(t, "BUSINESS")
         .catch(function (t) {
@@ -177,37 +179,37 @@ __d(
             .sendLogs("maiba-record-business-toggle-actor-fail");
         });
     }
-    function v(e, t) {
-      return g(f(e), t);
+    function S(e, t) {
+      return h(g(e), t);
     }
-    function S(e, t, n) {
-      var r = f(e);
+    function R(e, t, n) {
+      var r = g(e);
       (n != null && (r.watermarkMs = Math.max(r.watermarkMs, n)),
         (r.serverConfirmed = t));
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             r = e.options,
             a = e.status,
             i = e.timestampMs,
-            l = f(t);
+            l = g(t);
           if (i != null) {
-            if (i <= l.watermarkMs) return "stale";
-            l.watermarkMs = i;
+            if (k(i, l.watermarkMs)) return "stale";
+            l.watermarkMs = Math.max(l.watermarkMs, i);
           }
           if (l.pendingMutations > 0) return "pending";
-          var s = k(t, a, r);
+          var s = T(t, a, r);
           if (
             ((l.serverConfirmed = a),
             (l.desired = a),
             t.capiThreadControl !== a)
           ) {
-            var c = I(t, r, s);
+            var c = D(t, r, s);
             return (
               c == null
                 ? yield o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
@@ -222,7 +224,7 @@ __d(
               "applied"
             );
           }
-          var d = T({
+          var d = x({
               chat: t,
               suggestedRepliesEnabled:
                 r == null ? void 0 : r.suggestedRepliesEnabled,
@@ -233,10 +235,15 @@ __d(
                 : (u || (u = n("Promise"))).resolve();
           return (yield (u || (u = n("Promise"))).all([d, m]), "applied");
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t, n) {
+    function k(e, t) {
+      return o("WAWebBizAiAgentGating").isCompanionThreadSyncFixEnabled()
+        ? Math.floor(e / p) < Math.floor(t / p)
+        : e <= t;
+    }
+    function I(e, t, n) {
       return (
         e.capiThreadControl !== t ||
         (t ===
@@ -247,17 +254,17 @@ __d(
           (e.suggestedRepliesEnabled === !0) !== n)
       );
     }
-    function k(e, t, n) {
+    function T(e, t, n) {
       var r = n == null ? void 0 : n.lastHandoffActor;
       return r == null
         ? null
         : r.actor != null
           ? r.actor
-          : E(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
+          : I(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
             ? "UNKNOWN"
             : null;
     }
-    function I(e, t, n) {
+    function D(e, t, n) {
       var r =
           (t == null ? void 0 : t.suppressNotification) === !0
             ? babelHelpers.extends({}, m)
@@ -271,7 +278,7 @@ __d(
         Object.keys(r).length > 0 ? r : null
       );
     }
-    function T(e) {
+    function x(e) {
       var t = e.chat,
         r = e.suggestedRepliesEnabled;
       return typeof r != "boolean"
@@ -280,10 +287,10 @@ __d(
           ? t.setSuggestedRepliesEnabled(r)
           : (u || (u = n("Promise"))).resolve();
     }
-    ((l.mutateAiReplyStatus = h),
-      (l.trackAiReplyMutation = v),
-      (l.recordAiReplyServerConfirmation = S),
-      (l.applyServerEchoThreadControl = R));
+    ((l.mutateAiReplyStatus = y),
+      (l.trackAiReplyMutation = S),
+      (l.recordAiReplyServerConfirmation = R),
+      (l.applyServerEchoThreadControl = L));
   },
   98,
 );

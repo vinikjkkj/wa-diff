@@ -41,7 +41,7 @@ __d(
                   unreadEditTimestampMs: n.unreadEditTimestampMs,
                 };
           }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
@@ -105,7 +105,7 @@ __d(
                 }
                 return i;
               }),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
             )
             .waitUntilCompleted();
         })),
@@ -150,7 +150,7 @@ __d(
                 }
                 return a;
               }),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
             )
             .waitUntilCompleted();
         })),
@@ -200,7 +200,7 @@ __d(
                   s.resolve()
                 );
               }),
-              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
             )
             .waitUntilCompleted();
         })),

@@ -5,7 +5,7 @@ __d(
     var e = n("$InternalEnum")({
       Chats: "chats",
       Calls: "calls",
-      WODirectory: "woDirectory",
+      WorkDirectory: "workDirectory",
       Communities: "communities",
       Contacts: "contacts",
       Newsletters: "newsletters",

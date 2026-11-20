@@ -12,11 +12,11 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebProductFeature",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
     "WAWebUserPrefsBot",
+    "WAWebWorkFeature",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -55,7 +55,7 @@ __d(
     }
     function c() {
       return (
-        !o("WAWebProductFeature").isInternalProduct() &&
+        !o("WAWebWorkFeature").isWork() &&
         v() &&
         o("WAWebABProps").getABPropConfigValue(
           "bonsai_chat_list_entry_point_enabled",
@@ -63,7 +63,7 @@ __d(
       );
     }
     function d() {
-      return !o("WAWebProductFeature").isInternalProduct() && v() && !c();
+      return !o("WAWebWorkFeature").isWork() && v() && !c();
     }
     function m() {
       return (
@@ -147,7 +147,7 @@ __d(
     }
     function S() {
       return (
-        !o("WAWebProductFeature").isInternalProduct() &&
+        !o("WAWebWorkFeature").isWork() &&
         v() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_search_ask_button_web_enabled",

@@ -3,7 +3,7 @@ __d(
   [
     "WAWebDesktopUpsellUtils",
     "WAWebMobilePlatforms",
-    "WAWebProductFeature",
+    "WAWebWorkFeature",
     "react-compiler-runtime",
     "useWAWebAsync",
   ],
@@ -43,7 +43,7 @@ __d(
         o("WAWebDesktopUpsellUtils").isWebUserOnSupportedMacOSForCatalystAsync,
         i,
       );
-      return o("WAWebProductFeature").isInternalProduct()
+      return o("WAWebWorkFeature").isWork()
         ? !1
         : t === o("WAWebDesktopUpsellUtils").UserDesktopOs.WINDOWS &&
             !a.loading &&

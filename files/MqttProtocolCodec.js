@@ -391,7 +391,7 @@ __d(
         Publish: b,
         Subscription: y,
       };
-    ((l.MESSAGE_TYPE = e),
+    ((l.MessageType = e),
       (l.decodeMessage = u),
       (l.decodeByteMessages = c),
       (l.Message = C),

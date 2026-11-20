@@ -93,7 +93,7 @@ __d(
     function p(e, t) {
       var n,
         r = D(e),
-        o = S(r, [t.meta.delimiter]);
+        o = S(r, t.meta.delimiter);
       if (o != null) throw new s(o);
       var a = t.errors.find(g);
       if (a != null) {
@@ -159,27 +159,26 @@ __d(
     }
     function S(e, t) {
       for (var n = !0, r = null, o = 1, a = 0; a < e.length; a++) {
-        var i = e[a],
-          l = E(e, a, t);
+        var i = e[a];
         if (i === '"') {
           if (!n) return { physicalRow: o, reason: "invalid_quotes" };
-          var s = R(e, a + 1, o, t);
-          if (s.issue != null) return s.issue;
-          ((a = s.endIndex), (o = s.physicalRow), (n = !1));
+          var l = R(e, a + 1, o, t);
+          if (l.issue != null) return l.issue;
+          ((a = l.endIndex), (o = l.physicalRow), (n = !1));
         } else if (i === "\r" || i === "\n") {
-          var u = I(e, a);
-          if (u.endIndex < e.length - 1) {
-            if (r == null) r = u.lineEnding;
-            else if (u.lineEnding !== r)
+          var s = I(e, a);
+          if (s.endIndex < e.length - 1) {
+            if (r == null) r = s.lineEnding;
+            else if (s.lineEnding !== r)
               return {
-                actualLineEnding: u.lineEnding,
+                actualLineEnding: s.lineEnding,
                 expectedLineEnding: r,
                 physicalRow: o,
                 reason: "mixed_line_endings",
               };
           }
-          ((a = u.endIndex), o++, (n = !0));
-        } else l != null ? ((a += l.length - 1), (n = !0)) : (n = !1);
+          ((a = s.endIndex), o++, (n = !0));
+        } else E(e, a, t) ? ((a += t.length - 1), (n = !0)) : (n = !1);
       }
       return null;
     }
@@ -194,7 +193,7 @@ __d(
           }
           var l = L(e, a + 1, r),
             s = e[l];
-          return s != null && E(e, l, r) == null && s !== "\r" && s !== "\n"
+          return s != null && !E(e, l, r) && s !== "\r" && s !== "\n"
             ? {
                 endIndex: a,
                 issue: { physicalRow: o, reason: "invalid_quotes" },
@@ -210,14 +209,11 @@ __d(
       };
     }
     function L(e, t, n) {
-      for (var r = t; E(e, r, n) == null && (e[r] === " " || e[r] === "	"); )
-        r++;
+      for (var r = t; !E(e, r, n) && (e[r] === " " || e[r] === "	"); ) r++;
       return r;
     }
     function E(e, t, n) {
-      return n.find(function (n) {
-        return n !== "" && e.startsWith(n, t);
-      });
+      return n !== "" && e.startsWith(n, t);
     }
     function k(e, t) {
       return I(e, t).endIndex;

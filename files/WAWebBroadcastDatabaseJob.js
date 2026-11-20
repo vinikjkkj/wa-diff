@@ -47,7 +47,7 @@ __d(
               return e.apply(this, arguments);
             };
           })(),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ broadcastWid: e });
     }

@@ -27,11 +27,11 @@ __d(
             var e = o("WAWebStateUtils").unproxy(t);
             this.trigger("send_" + e.id.toString());
           }),
-          (n.paste = function (t, n, r) {
+          (n.paste = function (t, n, r, a) {
             if (t) {
               var e = o("WAWebStateUtils").unproxy(t);
-              this.trigger("paste_" + e.id.toString(), n, r);
-            } else this.trigger("paste", n, r);
+              this.trigger("paste_" + e.id.toString(), n, r, a);
+            } else this.trigger("paste", n, r, a);
           }),
           (n.sendPaste = function (t, n) {
             var e = o("WAWebStateUtils").unproxy(t);

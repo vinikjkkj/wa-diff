@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebChatGetters",
+    "WAWebLexicalUtils",
     "WAWebModalManager",
     "WAWebScheduleSelfReminderAction",
     "WAWebScheduleTimePickerLoadable",
@@ -115,7 +116,10 @@ __d(
     function y(e, t) {
       var n = e.getEditorState();
       window.setTimeout(function () {
-        e.getEditorState() === n && e.setEditorState(t);
+        e.getEditorState() === n &&
+          e.setEditorState(t, {
+            tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+          });
       }, 0);
     }
     function C(e, t, n, r) {
@@ -130,7 +134,9 @@ __d(
             u.jsx(b, {
               chat: a,
               onClosedWithoutTime: function () {
-                (i.setEditorState(s),
+                (i.setEditorState(s, {
+                  tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
+                }),
                   i.focus(),
                   o("WAWebSlashCommandsUsageLogger").logSlashCommandUsage({
                     action: "command_cancel",

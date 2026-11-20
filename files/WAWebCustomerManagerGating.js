@@ -17,6 +17,9 @@ __d(
         ) ||
           o("WAWebABProps").getABPropConfigValue(
             "smb_web_customer_management_enabled",
+          ) ||
+          o("WAWebABProps").getABPropConfigValue(
+            "wa_contact_manager_meta_one_rollout_enabled",
           ))
       );
     }

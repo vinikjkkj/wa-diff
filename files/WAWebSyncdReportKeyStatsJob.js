@@ -30,7 +30,7 @@ __d(
             }
           }),
           {
-            priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT,
+            priority: o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT,
             maxTimeoutMs: 1e3 * 30,
           },
         )

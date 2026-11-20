@@ -18,7 +18,7 @@ __d(
             var t = e.chatId;
             return s(t);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted({ chatId: e });
     }

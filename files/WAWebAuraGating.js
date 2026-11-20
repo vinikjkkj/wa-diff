@@ -6,9 +6,9 @@ __d(
     "WAWebAuraBenefitFeatureFlagProvider",
     "WAWebAuraBenefitTypes",
     "WAWebMobilePlatforms",
-    "WAWebProductFeature",
     "WAWebStickerPremiumStatus",
     "WAWebSubscriptionsGatingUtils",
+    "WAWebWorkFeature",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -26,7 +26,7 @@ __d(
             ).AuraBenefitFeatureFlagProvider)(t);
           }),
           (t.$3 = function () {
-            return o("WAWebProductFeature").isInternalProduct() ||
+            return o("WAWebWorkFeature").isWork() ||
               (o("WAWebMobilePlatforms").isSMB() &&
                 !o("WAWebSubscriptionsGatingUtils").smbAuraBenefitsEnabled())
               ? !0

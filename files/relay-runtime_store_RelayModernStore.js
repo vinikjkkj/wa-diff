@@ -2,6 +2,7 @@ __d(
   "relay-runtime/store/RelayModernStore",
   [
     "invariant",
+    "Promise",
     "relay-runtime/multi-actor-environment/ActorIdentifier",
     "relay-runtime/store/DataChecker",
     "relay-runtime/store/RelayModernRecord",
@@ -21,28 +22,29 @@ __d(
     var e,
       s,
       u,
-      c = n(
-        "relay-runtime/multi-actor-environment/ActorIdentifier",
-      ).INTERNAL_ACTOR_IDENTIFIER_DO_NOT_USE,
+      c,
       d = n(
         "relay-runtime/multi-actor-environment/ActorIdentifier",
-      ).assertInternalActorIdentifier,
+      ).INTERNAL_ACTOR_IDENTIFIER_DO_NOT_USE,
       m = n(
-        "relay-runtime/store/live-resolvers/LiveResolverCache",
-      ).LiveResolverCache,
+        "relay-runtime/multi-actor-environment/ActorIdentifier",
+      ).assertInternalActorIdentifier,
       p = n(
         "relay-runtime/store/live-resolvers/LiveResolverCache",
-      ).RELAY_RESOLVER_LIVE_STATE_SUBSCRIPTION_KEY,
+      ).LiveResolverCache,
       _ = n(
         "relay-runtime/store/live-resolvers/LiveResolverCache",
+      ).RELAY_RESOLVER_LIVE_STATE_SUBSCRIPTION_KEY,
+      f = n(
+        "relay-runtime/store/live-resolvers/LiveResolverCache",
       ).getUpdatedDataIDs,
-      f = (u = n("relay-runtime/store/RelayStoreUtils"))
+      g = (c = n("relay-runtime/store/RelayStoreUtils"))
         .FIELD_GRANULAR_NOTIFICATIONS_KEY,
-      g = u.ROOT_ID,
-      h = u.ROOT_TYPE,
-      y = u.getFieldNotificationKey,
-      C = 10,
-      b = (function () {
+      h = c.ROOT_ID,
+      y = c.ROOT_TYPE,
+      C = c.getFieldNotificationKey,
+      b = 10,
+      v = (function () {
         function t(e, t) {
           var r = this,
             o,
@@ -53,23 +55,23 @@ __d(
             u,
             c,
             d,
-            p;
-          ((this.$34 = function () {
+            m;
+          ((this.$35 = function () {
             var e = r.$4;
             if (e) {
               var t = !0;
               try {
                 t = e.next().done === !0;
               } finally {
-                r.$4 === e && (t ? (r.$4 = null) : r.$5(r.$34));
+                r.$4 === e && (t ? (r.$4 = null) : r.$5(r.$35));
               }
             }
           }),
             (this.$1 = 0),
             (this.$2 = 0),
             (this.$3 =
-              (o = t == null ? void 0 : t.gcReleaseBufferSize) != null ? o : C),
-            (this.$18 =
+              (o = t == null ? void 0 : t.gcReleaseBufferSize) != null ? o : b),
+            (this.$19 =
               (a = t == null ? void 0 : t.shouldRetainWithinTTL_EXPERIMENTAL) !=
               null
                 ? a
@@ -92,80 +94,95 @@ __d(
             (this.$12 =
               (u = t == null ? void 0 : t.operationLoader) != null ? u : null),
             (this.$13 = null),
-            (this.$14 = e),
-            (this.$16 = []),
-            (this.$17 = new Map()),
-            (this.$19 = !1),
-            (this.$20 =
+            (this.$14 = null),
+            (this.$15 = e),
+            (this.$17 = []),
+            (this.$18 = new Map()),
+            (this.$20 = !1),
+            (this.$21 =
               (c =
                 t == null
                   ? void 0
                   : t.shouldScheduleGCAfterPublish_EXPERIMENTAL) != null
                 ? c
                 : null),
-            (this.$15 = new m(function () {
-              return r.$29();
+            (this.$16 = new p(function () {
+              return r.$30();
             }, this)),
-            (this.$24 = t == null ? void 0 : t.resolverContext),
-            (this.$21 = new (n("relay-runtime/store/RelayStoreSubscriptions"))(
+            (this.$25 = t == null ? void 0 : t.resolverContext),
+            (this.$22 = new (n("relay-runtime/store/RelayStoreSubscriptions"))(
               t == null ? void 0 : t.log,
-              this.$15,
-              this.$24,
+              this.$16,
+              this.$25,
             )),
-            (this.$22 = new Set()),
             (this.$23 = new Set()),
-            (this.$26 =
+            (this.$24 = new Set()),
+            (this.$27 =
               (d = t == null ? void 0 : t.treatMissingFieldsAsNull) != null
                 ? d
                 : !1),
-            (this.$27 =
-              (p = t == null ? void 0 : t.deferDeduplicatedFields) != null
-                ? p
+            (this.$28 =
+              (m = t == null ? void 0 : t.deferDeduplicatedFields) != null
+                ? m
                 : !1),
-            (this.$25 = t == null ? void 0 : t.actorIdentifier),
-            (this.$28 = null),
-            v(this.$14));
+            (this.$26 = t == null ? void 0 : t.actorIdentifier),
+            (this.$29 = null),
+            R(this.$15),
+            n("relay-runtime/util/RelayFeatureFlags")
+              .ENABLE_PERF_READER_MAP_ANCHOR &&
+              n("relay-runtime/util/RelayFeatureFlags").ENABLE_PERF_READER &&
+              n("relay-runtime/util/RelayFeatureFlags")
+                .ENABLE_PERF_STORAGE_KEYS &&
+              n("relay-runtime/store/RelayReader").keepReaderMapsAlive());
         }
         var r = t.prototype;
         return (
           (r.getSource = function () {
             var e;
-            return (e = this.$13) != null ? e : this.$14;
+            return (e = this.$14) != null ? e : this.$15;
           }),
           (r.getOperationLoader = function () {
             return this.$12;
           }),
-          (r.$29 = function () {
+          (r.__registerHandoffModules = function (t, n) {
+            var e = this.$12;
+            if (e != null) {
+              var r = this.$13;
+              (r == null && ((r = new WeakMap()), (this.$13 = r)),
+                r.set(t, S(n, e)));
+            }
+          }),
+          (r.$30 = function () {
             var e;
-            return (e = this.$13) != null ? e : this.$14;
+            return (e = this.$14) != null ? e : this.$15;
           }),
           (r.getLiveResolverPromise = function (t) {
-            return this.$15.getLiveResolverPromise(t);
+            return this.$16.getLiveResolverPromise(t);
           }),
           (r.batchLiveStateUpdates = function (t) {
             this.__log != null &&
               this.__log({ name: "liveresolver.batch.start" });
             try {
-              this.$15.batchLiveStateUpdates(t);
+              this.$16.batchLiveStateUpdates(t);
             } finally {
               this.__log != null &&
                 this.__log({ name: "liveresolver.batch.end" });
             }
           }),
           (r.experimental_batchUpdates = function (t) {
-            if (this.$28 != null)
+            if (this.$29 != null)
               throw new Error(
                 "RelayModernStore: Cannot batch updates while already batching updates.",
               );
             var e = this.__log;
             e != null && e({ name: "store.batch.start" });
             var n = { sourceOperations: [], invalidateStore: !1 };
-            this.$28 = n;
+            this.$29 = n;
             try {
               t();
             } finally {
-              ((this.$28 = null), this.notify(void 0, n.invalidateStore));
-              for (var r of n.sourceOperations) this.$30(r, this.$1, !1);
+              ((this.$29 = null), this.notify(void 0, n.invalidateStore));
+              for (var r of n.sourceOperations) this.$31(r, this.$1, !1);
               e != null &&
                 e({
                   name: "store.batch.complete",
@@ -182,10 +199,11 @@ __d(
               l,
               s,
               u,
-              m = t.root,
-              p = this.$29(),
-              _ = this.$7,
-              f =
+              c,
+              p = t.root,
+              _ = this.$30(),
+              f = this.$7,
+              g =
                 (e =
                   (o = t.request.node.operation.use_exec_time_resolvers) != null
                     ? o
@@ -196,36 +214,38 @@ __d(
                         : a.get()) === !0) != null
                   ? e
                   : !1,
-              g = this.$17.get(t.request.identifier),
-              h = g != null ? g.epoch : null;
-            if (_ != null && (h == null || h <= _)) return { status: "stale" };
-            var y = (i = r == null ? void 0 : r.handlers) != null ? i : [],
-              C =
+              h = this.$18.get(t.request.identifier),
+              y = h != null ? h.epoch : null;
+            if (f != null && (y == null || y <= f)) return { status: "stale" };
+            var C = (i = r == null ? void 0 : r.handlers) != null ? i : [],
+              b =
                 (l = r == null ? void 0 : r.getSourceForActor) != null
                   ? l
                   : function (e) {
-                      return (d(e), p);
+                      return (m(e), _);
                     },
-              b =
+              v =
                 (s = r == null ? void 0 : r.getTargetForActor) != null
                   ? s
                   : function (e) {
-                      return (d(e), p);
+                      return (m(e), _);
                     },
-              v = n("relay-runtime/store/DataChecker").check(
-                C,
+              S = n("relay-runtime/store/DataChecker").check(
                 b,
+                v,
                 (u = r == null ? void 0 : r.defaultActorIdentifier) != null
                   ? u
-                  : c,
-                m,
-                y,
-                this.$12,
+                  : d,
+                p,
+                C,
+                (c = r == null ? void 0 : r.operationLoader) != null
+                  ? c
+                  : this.$12,
                 this.$6,
                 this.__log,
-                f,
+                g,
               );
-            return R(v, h, g == null ? void 0 : g.fetchTime, this.$11);
+            return E(S, y, h == null ? void 0 : h.fetchTime, this.$11);
           }),
           (r.retain = function (t) {
             var e = this,
@@ -234,26 +254,26 @@ __d(
               o = function () {
                 if (!r) {
                   r = !0;
-                  var t = e.$17.get(n);
+                  var t = e.$18.get(n);
                   if (t != null && (t.refCount--, t.refCount === 0)) {
                     var o = e.$11,
                       a =
                         t.fetchTime != null &&
                         o != null &&
                         t.fetchTime <= Date.now() - o;
-                    a ? (e.$18 || e.$17.delete(n), e.scheduleGC()) : e.$31(n);
+                    a ? (e.$19 || e.$18.delete(n), e.scheduleGC()) : e.$32(n);
                   }
                 }
               },
-              a = this.$17.get(n);
+              a = this.$18.get(n);
             return (
               a != null
                 ? (a.refCount === 0 &&
-                    (this.$16 = this.$16.filter(function (e) {
+                    (this.$17 = this.$17.filter(function (e) {
                       return e !== n;
                     })),
                   (a.refCount += 1))
-                : this.$17.set(n, {
+                : this.$18.set(n, {
                     operation: t,
                     refCount: 1,
                     epoch: null,
@@ -270,8 +290,8 @@ __d(
                 r,
                 t,
                 e,
-                this.$15,
-                this.$24,
+                this.$16,
+                this.$25,
               );
             return (
               e != null && e({ name: "store.lookup.end", selector: t }),
@@ -280,21 +300,21 @@ __d(
           }),
           (r.__createSnapshotStore = function (n) {
             return new t(n, {
-              actorIdentifier: this.$25,
-              deferDeduplicatedFields: this.$27,
+              actorIdentifier: this.$26,
+              deferDeduplicatedFields: this.$28,
               getDataID: this.$6,
               log: this.__log,
               operationLoader: this.$12,
-              resolverContext: this.$24,
-              treatMissingFieldsAsNull: this.$26,
+              resolverContext: this.$25,
+              treatMissingFieldsAsNull: this.$27,
             });
           }),
           (r.__unsubscribeFromLiveResolvers = function () {
-            this.$15.endLiveResolverSubscriptions();
+            this.$16.endLiveResolverSubscriptions();
           }),
           (r.notify = function (t, r) {
             var e = this,
-              o = this.$28;
+              o = this.$29;
             if (o != null)
               return (
                 t != null && o.sourceOperations.push(t),
@@ -306,16 +326,16 @@ __d(
               n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY ||
                 (this.$1++, r === !0 && (this.$7 = this.$1)),
               (!n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY ||
-                this.$22.size > 0) &&
-                this.$15.invalidateDataIDs(this.$22));
+                this.$23.size > 0) &&
+                this.$16.invalidateDataIDs(this.$23));
             var i = this.getSource(),
               l = [];
             (!n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY ||
-            this.$22.size > 0
-              ? this.$21.updateSubscriptions(i, this.$22, l, t)
-              : this.$21.updateStaleSubscriptions(i, this.$22, l, t),
+            this.$23.size > 0
+              ? this.$22.updateSubscriptions(i, this.$23, l, t)
+              : this.$22.updateStaleSubscriptions(i, this.$23, l, t),
               n("relay-runtime/util/RelayFeatureFlags").OPTIMIZE_NOTIFY &&
-                (this.$22.size > 0 ||
+                (this.$23.size > 0 ||
                   l.length > 0 ||
                   this.$10.size > 0 ||
                   r === !0 ||
@@ -326,38 +346,38 @@ __d(
                 this.$10.size > 0 ||
                 r === !0) &&
                 this.$9.forEach(function (t) {
-                  e.$32(t, r === !0);
+                  e.$33(t, r === !0);
                 }),
-              t != null && this.$30(t, this.$1, !1),
+              t != null && this.$31(t, this.$1, !1),
               a != null &&
                 a({
                   name: "store.notify.complete",
                   sourceOperation: t,
-                  updatedRecordIDs: this.$22,
+                  updatedRecordIDs: this.$23,
                   invalidatedRecordIDs: this.$10,
-                  subscriptionsSize: this.$21.size(),
+                  subscriptionsSize: this.$22.size(),
                   updatedOwners: l,
                 }));
-            var s = this.$23.size > 0 ? new Set(this.$22) : null;
+            var s = this.$24.size > 0 ? new Set(this.$23) : null;
             return (
-              this.$22.clear(),
+              this.$23.clear(),
               this.$10.clear(),
               (this.$8 = !1),
               s != null &&
-                this.$23.forEach(function (e) {
+                this.$24.forEach(function (e) {
                   return e(s);
                 }),
               l
             );
           }),
-          (r.$30 = function (t, n, r) {
+          (r.$31 = function (t, n, r) {
             var e = t.request.identifier,
-              o = this.$17.get(e);
+              o = this.$18.get(e);
             if (o != null) ((o.epoch = n), (o.fetchTime = Date.now()));
             else if (
               t.request.node.params.operationKind === "query" &&
               this.$3 > 0 &&
-              (r || this.$16.length < this.$3)
+              (r || this.$17.length < this.$3)
             ) {
               var a = {
                 operation: t,
@@ -365,41 +385,41 @@ __d(
                 epoch: n,
                 fetchTime: Date.now(),
               };
-              (this.$17.set(e, a), this.$31(e));
+              (this.$18.set(e, a), this.$32(e));
             }
           }),
-          (r.$31 = function (t) {
-            if ((this.$16.push(t), this.$16.length > this.$3)) {
-              var e = this.$16.shift();
-              (e != null && !this.$18 && this.$17.delete(e), this.scheduleGC());
+          (r.$32 = function (t) {
+            if ((this.$17.push(t), this.$17.length > this.$3)) {
+              var e = this.$17.shift();
+              (e != null && !this.$19 && this.$18.delete(e), this.scheduleGC());
             }
           }),
           (r.publish = function (t, n) {
             var e,
-              r = this.$29();
-            S(r, t, this.$1 + 1, n, this.$22, this.$10);
+              r = this.$30();
+            L(r, t, this.$1 + 1, n, this.$23, this.$10);
             var o = this.__log;
             (o != null &&
               o({
                 name: "store.publish",
                 source: t,
-                optimistic: r === this.$13,
+                optimistic: r === this.$14,
               }),
-              ((e = this.$20) == null ? void 0 : e.call(this)) === !0 &&
+              ((e = this.$21) == null ? void 0 : e.call(this)) === !0 &&
                 this.scheduleGC());
           }),
           (r.publishWithDeferredNotify = function (t, n, r) {
-            (this.publish(t, r), (this.$8 = !0), this.$30(n, this.$1 + 1, !0));
+            (this.publish(t, r), (this.$8 = !0), this.$31(n, this.$1 + 1, !0));
           }),
           (r.subscribe = function (t, n) {
-            return this.$21.subscribe(t, n);
+            return this.$22.subscribe(t, n);
           }),
           (r.holdGC = function () {
             var e = this;
-            (this.$4 && ((this.$4 = null), (this.$19 = !0)), this.$2++);
+            (this.$4 && ((this.$4 = null), (this.$20 = !0)), this.$2++);
             var t = function () {
               e.$2 > 0 &&
-                (e.$2--, e.$2 === 0 && e.$19 && (e.scheduleGC(), (e.$19 = !1)));
+                (e.$2--, e.$2 === 0 && e.$20 && (e.scheduleGC(), (e.$20 = !1)));
             };
             return { dispose: t };
           }),
@@ -415,16 +435,16 @@ __d(
                 return t(n);
               };
             return (
-              this.$23.add(n),
+              this.$24.add(n),
               {
                 dispose: function () {
-                  e.$23.delete(n);
+                  e.$24.delete(n);
                 },
               }
             );
           }),
           (r.__getUpdatedRecordIDs = function () {
-            return this.$22;
+            return this.$23;
           }),
           (r.lookupInvalidationState = function (r) {
             var t = this,
@@ -462,7 +482,7 @@ __d(
               };
             return (this.$9.add(r), { dispose: o });
           }),
-          (r.$32 = function (t, n) {
+          (r.$33 = function (t, n) {
             var e = this,
               r = t.callback,
               o = t.invalidationState,
@@ -475,72 +495,74 @@ __d(
             i && r();
           }),
           (r.snapshot = function () {
-            this.$13 == null || l(0, 19004);
+            this.$14 == null || l(0, 19004);
             var e = this.__log;
             (e != null && e({ name: "store.snapshot" }),
-              this.$21.snapshotSubscriptions(this.getSource()),
-              this.$4 && ((this.$4 = null), (this.$19 = !0)),
-              (this.$13 = n(
+              this.$22.snapshotSubscriptions(this.getSource()),
+              this.$4 && ((this.$4 = null), (this.$20 = !0)),
+              (this.$14 = n(
                 "relay-runtime/store/RelayOptimisticRecordSource",
               ).create(this.getSource())));
           }),
           (r.restore = function () {
-            var e = this.$13;
+            var e = this.$14;
             e || l(0, 19005);
             var t = this.__log;
             t != null && t({ name: "store.restore" });
             var r = n(
               "relay-runtime/store/RelayOptimisticRecordSource",
             ).getOptimisticRecordIDs(e);
-            (this.$15.unsubscribeFromLiveResolverRecords(r),
-              (this.$13 = null),
-              this.$19 && this.scheduleGC(),
-              this.$21.restoreSubscriptions(),
-              this.$15.invalidateResolverRecords(r));
+            (this.$16.unsubscribeFromLiveResolverRecords(r),
+              (this.$14 = null),
+              this.$20 && this.scheduleGC(),
+              this.$22.restoreSubscriptions(),
+              this.$16.invalidateResolverRecords(r));
           }),
           (r.scheduleGC = function () {
             if (this.$2 > 0) {
-              this.$19 = !0;
+              this.$20 = !0;
               return;
             }
-            this.$4 || ((this.$4 = this.$33()), this.$5(this.$34));
+            this.$4 || ((this.$4 = this.$34()), this.$5(this.$35));
           }),
           (r.__gc = function () {
-            if (this.$13 == null)
-              for (var e = this.$33(); e.next().done !== !0; );
+            if (this.$14 == null)
+              for (var e = this.$34(); e.next().done !== !0; );
           }),
-          (r.$33 = function* () {
-            if (!(this.$18 && this.$11 == null)) {
+          (r.$34 = function* () {
+            if (!(this.$19 && this.$11 == null)) {
               var t = this.__log;
               e: for (;;) {
                 t != null && t({ name: "store.gc.start" });
                 var r = this.$1,
                   o = new Set();
-                for (var a of this.$17.entries()) {
+                for (var a of this.$18.entries()) {
                   var i,
                     s,
                     u,
-                    c = a[0],
-                    d = a[1],
-                    m = d.operation,
-                    _ = d.refCount,
-                    f = d.fetchTime;
-                  if (this.$18) {
-                    var g = this.$11;
-                    g != null || l(0, 88990);
-                    var h = f == null || f <= Date.now() - g,
-                      y = h && _ === 0 && !this.$16.includes(c);
-                    if (y) continue;
+                    c,
+                    d,
+                    m = a[0],
+                    p = a[1],
+                    f = p.operation,
+                    g = p.refCount,
+                    h = p.fetchTime;
+                  if (this.$19) {
+                    var y = this.$11;
+                    y != null || l(0, 88990);
+                    var C = h == null || h <= Date.now() - y,
+                      b = C && g === 0 && !this.$17.includes(m);
+                    if (b) continue;
                   }
-                  var C = m.root,
-                    b =
+                  var v = f.root,
+                    S =
                       (i =
                         (s =
-                          m.request.node.operation.use_exec_time_resolvers) !=
+                          f.request.node.operation.use_exec_time_resolvers) !=
                         null
                           ? s
                           : ((u =
-                              m.request.node.operation
+                              f.request.node.operation
                                 .exec_time_resolvers_enabled_provider) == null
                               ? void 0
                               : u.get()) === !0) != null
@@ -548,11 +570,15 @@ __d(
                         : !1;
                   if (
                     (n("relay-runtime/store/RelayReferenceMarker").mark(
-                      this.$14,
-                      C,
+                      this.$15,
+                      v,
                       o,
-                      this.$12,
-                      b,
+                      (c =
+                        (d = this.$13) == null ? void 0 : d.get(f.request)) !=
+                        null
+                        ? c
+                        : this.$12,
+                      S,
                     ),
                     yield,
                     r !== this.$1)
@@ -562,23 +588,23 @@ __d(
                   }
                 }
                 for (
-                  var S = this.$14.getRecordIDs(), R = 0;
-                  R < S.length;
-                  R++
+                  var L = this.$15.getRecordIDs(), E = 0;
+                  E < L.length;
+                  E++
                 ) {
-                  var L = S[R];
-                  if (!o.has(L)) {
-                    var E = this.$14.get(L);
-                    if (E != null) {
-                      var k = (
+                  var k = L[E];
+                  if (!o.has(k)) {
+                    var I = this.$15.get(k);
+                    if (I != null) {
+                      var T = (
                         e || (e = n("relay-runtime/store/RelayModernRecord"))
-                      ).getValue(E, p);
-                      k != null && k();
+                      ).getValue(I, _);
+                      T != null && T();
                     }
-                    (this.$14.remove(L), this.$18 && this.$17.delete(L));
+                    (this.$15.remove(k), this.$19 && this.$18.delete(k));
                   }
                 }
-                (v(this.$14),
+                (R(this.$15),
                   t != null && t({ name: "store.gc.end", references: o }));
                 return;
               }
@@ -589,36 +615,49 @@ __d(
               path: t,
               getDataID: this.$6,
               log: this.__log,
-              treatMissingFieldsAsNull: this.$26,
-              deferDeduplicatedFields: this.$27,
-              actorIdentifier: this.$25,
+              treatMissingFieldsAsNull: this.$27,
+              deferDeduplicatedFields: this.$28,
+              actorIdentifier: this.$26,
             };
           }),
           (r.__notifyUpdatedSubscribers = function (t) {
-            var e = _(t),
-              n = this.$22;
-            ((this.$22 = e), this.notify(), (this.$22 = n));
+            var e = f(t),
+              n = this.$23;
+            ((this.$23 = e), this.notify(), (this.$23 = n));
           }),
           t
         );
       })();
-    function v(t) {
-      if (!t.has(g)) {
+    function S(e, t) {
+      return {
+        get: function (r) {
+          var n;
+          return (n = e.get(r)) != null ? n : t.get(r);
+        },
+        load: function (o) {
+          return e.has(o)
+            ? (u || (u = n("Promise"))).resolve(e.get(o))
+            : t.load(o);
+        },
+      };
+    }
+    function R(t) {
+      if (!t.has(h)) {
         var r = (e || (e = n("relay-runtime/store/RelayModernRecord"))).create(
-          g,
           h,
+          y,
         );
         (n("relay-runtime/util/RelayFeatureFlags")
           .ENABLE_FIELD_GRANULAR_NOTIFICATIONS &&
           (e || (e = n("relay-runtime/store/RelayModernRecord"))).setValue(
             r,
-            f,
+            g,
             !0,
           ),
-          t.set(g, r));
+          t.set(h, r));
       }
     }
-    function S(t, r, o, a, i, l) {
+    function L(t, r, o, a, i, l) {
       a &&
         a.forEach(function (a) {
           var i = t.get(a),
@@ -664,23 +703,23 @@ __d(
                 .ENABLE_FIELD_GRANULAR_NOTIFICATIONS) &&
               (e || (e = n("relay-runtime/store/RelayModernRecord"))).getValue(
                 p,
-                f,
+                g,
               ))
           )
             for (
               var _ = (
                   e || (e = n("relay-runtime/store/RelayModernRecord"))
                 ).getFields(p),
-                g = 0;
-              g < _.length;
-              g++
+                f = 0;
+              f < _.length;
+              f++
             ) {
-              var h = _[g];
+              var h = _[f];
               h.startsWith("__") ||
                 ((
                   e || (e = n("relay-runtime/store/RelayModernRecord"))
                 ).hasFieldChanged(m, p, h) &&
-                  i.add(y(c, h)));
+                  i.add(C(c, h)));
             }
         } else
           d === null
@@ -688,7 +727,7 @@ __d(
             : d && (t.set(c, d), i.add(c));
       }
     }
-    function R(e, t, n, r) {
+    function E(e, t, n, r) {
       var o = e.mostRecentlyInvalidatedAt,
         a = e.status;
       if (typeof o == "number" && (t == null || o > t))
@@ -700,7 +739,7 @@ __d(
       }
       return { status: "available", fetchTime: n != null ? n : null };
     }
-    a.exports = b;
+    a.exports = v;
   },
   null,
 );

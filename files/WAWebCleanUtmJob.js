@@ -15,7 +15,7 @@ __d(
           function () {
             return s();
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT },
         )
         .waitUntilCompleted();
     }

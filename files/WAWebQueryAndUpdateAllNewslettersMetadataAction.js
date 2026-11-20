@@ -158,7 +158,7 @@ __d(
                       "WAWebNewsletterGetNewsletterEnforcementAlertAction",
                     ).getNewsletterEnforcementAlertAction(
                       o("WAWebWidFactory").createWid(e.id.toString()),
-                      o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
+                      o("WAJobOrchestratorTypes").JobPriority.UI_ACTION,
                     );
                 }),
               ),

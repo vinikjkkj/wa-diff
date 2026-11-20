@@ -200,7 +200,7 @@ __d(
                           .tags("messaging"),
                         new h()
                       );
-                    var i = babelHelpers.extends({}, e);
+                    var i = L(e, a);
                     (a.t != null && (i.t = a.t),
                       a.ack > e.ack && (i.ack = a.ack),
                       a.serverStoreTimeMicros != null &&
@@ -253,7 +253,15 @@ __d(
         (e.kicNotified = (i = e.kicNotified) != null ? i : t.kicNotified),
         (e.keptCount = (l = e.keptCount) != null ? l : t.keptCount));
     }
-    function L(e) {
+    function L(e, t) {
+      return e.kind === "callLog"
+        ? babelHelpers.extends({}, e, {
+            switchEntryCallLogTime: t.switchEntryCallLogTime,
+            switchEntryEnded: t.switchEntryEnded,
+          })
+        : babelHelpers.extends({}, e);
+    }
+    function E(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .bulkGet(e)
@@ -310,7 +318,7 @@ __d(
           })(),
         );
     }
-    function E(e) {
+    function k(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .bulkCreateOrMerge(
@@ -326,8 +334,8 @@ __d(
       (l.updateExistingMessages = v),
       (l.updateMessage = S),
       (l.keepUserStateOfPrevRow = R),
-      (l.starMessages = L),
-      (l.unstarMessages = E));
+      (l.starMessages = E),
+      (l.unstarMessages = k));
   },
   98,
 );

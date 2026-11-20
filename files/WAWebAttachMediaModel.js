@@ -140,12 +140,18 @@ __d(
                   function* (e) {
                     var t = yield e.attachmentPromise,
                       n = t.file,
-                      r = window.URL.createObjectURL(n),
-                      a = yield o("WAWebMediaLoad").loadImage(r);
-                    return o("WAWebHDMediaUtils").isHdPhoto(
-                      a.naturalHeight,
-                      a.naturalWidth,
-                    );
+                      r = window.URL.createObjectURL(n);
+                    try {
+                      var a = yield o("WAWebMediaLoad").loadImage(r);
+                      return o("WAWebHDMediaUtils").isHdPhoto(
+                        a.naturalHeight,
+                        a.naturalWidth,
+                      );
+                    } finally {
+                      o("WAWebABProps").getABPropConfigValue(
+                        "web_memlab_fixes_5",
+                      ) && window.URL.revokeObjectURL(r);
+                    }
                   },
                 );
                 return function (t) {
@@ -641,6 +647,11 @@ __d(
                   var s = yield o(
                       "WAWebMediaWorkerProxy",
                     ).detectAiProvenanceInWorker({
+                      allowlists: e
+                        ? o(
+                            "WAWebSystemProvenanceGating",
+                          ).systemProvenanceAllowlistsJson()
+                        : null,
                       hints: L(i),
                       input: yield o("WAWebFileUtils").blobToArrayBuffer(i),
                       eventFlow: {

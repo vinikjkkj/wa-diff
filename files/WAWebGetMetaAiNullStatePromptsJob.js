@@ -55,7 +55,7 @@ __d(
               return t.apply(this, arguments);
             };
           })(),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted({ locale: t, expConfig: r });
     }

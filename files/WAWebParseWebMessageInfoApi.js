@@ -53,16 +53,17 @@ __d(
         c,
         d,
         m,
-        p = t.key,
-        f = o("WAWebDecodeJid").decodeJidAndValidate(p.remoteJid, "remoteJid"),
-        h = o("WAWebParseWebMessageInfoUtils").getMeJid(t),
-        b = p.fromMe === !0 ? f : h,
-        v = p.fromMe === !0 ? h : f,
-        S = o("WAWebParseWebMessageInfoUtils").buildMsgKey(t, p);
-      if (S != null) {
-        var R = S.author,
-          L = S.msgKey;
-        if (b === "broadcast") {
+        p,
+        f = t.key,
+        h = o("WAWebDecodeJid").decodeJidAndValidate(f.remoteJid, "remoteJid"),
+        b = o("WAWebParseWebMessageInfoUtils").getMeJid(t),
+        v = f.fromMe === !0 ? h : b,
+        S = f.fromMe === !0 ? b : h,
+        R = o("WAWebParseWebMessageInfoUtils").buildMsgKey(t, f);
+      if (R != null) {
+        var L = R.author,
+          E = R.msgKey;
+        if (v === "broadcast") {
           o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -71,25 +72,25 @@ __d(
           );
           return;
         }
-        var E = !1;
-        E = t.reactions.some(function (e) {
+        var k = !1;
+        k = t.reactions.some(function (e) {
           return e.text != null;
         });
-        var k = babelHelpers.extends(
+        var I = babelHelpers.extends(
           {
-            id: L,
-            from: v,
-            to: b,
-            participant: L.participant,
+            id: E,
+            from: S,
+            to: v,
+            participant: E.participant,
             type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
             kind: o("WAWebMsgType").MsgKind.Unknown,
             t: (a = t.messageTimestamp) != null ? a : 0,
             ack: t.status - 1,
-            author: R,
+            author: L,
             invis: !!t.ignore,
             star: !!t.starred,
-            broadcast: p.fromMe === !0 && t.broadcast,
+            broadcast: f.fromMe === !0 && t.broadcast,
             notifyName: t.pushName || "",
             encFilehash: t.mediaCiphertextSha256
               ? o("WABase64").encodeB64(t.mediaCiphertextSha256)
@@ -104,7 +105,7 @@ __d(
             bizPrivacyStatus: t.bizPrivacyStatus,
             verifiedBizName: t.verifiedBizName,
             reactions: t.reactions,
-            hasReaction: E,
+            hasReaction: k,
             agentId: t.agentId,
             revokeTimestamp: t.revokeMessageTimestamp,
             kicKey: void 0,
@@ -152,26 +153,27 @@ __d(
                 : null,
             groupHistoryBundleInfo: t.groupHistoryBundleInfo,
             hsmTag: (m = t.hsmTag) != null ? m : void 0,
+            decisionId: (p = t.decisionId) != null ? p : void 0,
           },
         );
         if (
-          (r("WAWebWid").isCAPISupportAccount(L.remote) &&
+          (r("WAWebWid").isCAPISupportAccount(E.remote) &&
             (t.isSupportAiMessage != null &&
               o("WAWebABPropsSaga").getIsSagaProtobufAIStardustEnabled() &&
-              (k.isSupportAIMessage = t.isSupportAiMessage),
+              (I.isSupportAIMessage = t.isSupportAiMessage),
             t.supportAiCitations != null &&
               t.supportAiCitations.length > 0 &&
-              (k.supportCitations = t.supportAiCitations)),
+              (I.supportCitations = t.supportAiCitations)),
           o("WAWebMessagingGatingUtils").isReportingTagSyncingEnabled())
         ) {
-          var I;
-          k.reportingTokenInfo =
+          var T;
+          I.reportingTokenInfo =
             t.reportingTokenInfo != null
               ? {
                   reportingTag:
-                    (I = t.reportingTokenInfo) == null
+                    (T = t.reportingTokenInfo) == null
                       ? void 0
-                      : I.reportingTag,
+                      : T.reportingTag,
                   version: o("WAWebReportingTokenConstants")
                     .REPORTING_TOKEN_VERSION.HISTORY_SYNC,
                 }
@@ -179,10 +181,10 @@ __d(
         }
         if (t.keepInChat != null)
           try {
-            var T = o(
+            var D = o(
               "WAWebEphemeralKeepInChat",
             ).parseKeepInChatHistorySyncMessage(t);
-            T != null && (k = babelHelpers.extends({}, k, T));
+            D != null && (I = babelHelpers.extends({}, I, D));
           } catch (e) {
             o("WALogger").WARN(
               s ||
@@ -191,33 +193,33 @@ __d(
                 ])),
             );
           }
-        var D = o(
+        var x = o(
           "WAWebGroupHistoryProtoUtils",
         ).getGroupHistoryIndividualMessageInfoMetadataFromProto(
           t.groupHistoryIndividualMessageInfo,
         );
-        D != null && (k.groupHistoryIndividualMessageInfo = D);
-        var x = _(k, t);
+        x != null && (I.groupHistoryIndividualMessageInfo = x);
+        var $ = _(I, t);
         if (t.message) {
-          var $ = o("WAWebE2EProtoParser").parseMsgProto({
+          var P = o("WAWebE2EProtoParser").parseMsgProto({
             messageProtobuf: t.message,
-            message: k,
+            message: I,
             msgContext: "history",
             paymentInfo: t.paymentInfo,
             finalLocation: t.finalLiveLocation,
             quotedPaymentInfo: t.quotedPaymentInfo,
-            bizSource: k.bizSource,
+            bizSource: I.bizSource,
             historyLidPnMappings: n,
           });
-          return (y(t, $), C(t, $), g(t, $, x), $);
+          return (y(t, P), C(t, P), g(t, P, $), P);
         }
         o(
           "WAWebParseLimitSharingHistorySyncProto",
-        ).parseLimitSharingFromProtocolHistorySyncMessage(t, k);
-        var P = o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(t, k);
+        ).parseLimitSharingFromProtocolHistorySyncMessage(t, I);
+        var N = o("WAWebParseWebMessageInfoUtils").parseMsgStubProto(t, I);
         return o(
           "WAWebGroupHistoryStoredHint",
-        ).maybeRestoreGroupHistoryStoredHint(P, t);
+        ).maybeRestoreGroupHistoryStoredHint(N, t);
       }
     }
     function _(e, t) {

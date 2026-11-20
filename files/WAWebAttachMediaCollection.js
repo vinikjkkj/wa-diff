@@ -84,6 +84,14 @@ __d(
               a
             );
           }),
+          (i.releaseAttachMediaResources = function () {
+            var e = this;
+            this.forEach(function (t) {
+              (o("WAWebAttachMediaGetters").clearAttachMediaGetterCacheFor(t),
+                e.removeSingleton(t, { silent: !0 }),
+                t.fullPreview && window.URL.revokeObjectURL(t.fullPreview));
+            });
+          }),
           (i.delete = function () {
             var e = this;
             (this.forEach(function (e) {

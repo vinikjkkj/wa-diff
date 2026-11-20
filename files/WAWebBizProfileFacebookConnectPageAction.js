@@ -1,20 +1,23 @@
 __d(
   "WAWebBizProfileFacebookConnectPageAction",
   [
+    "WACustomError",
     "WALogger",
+    "WAPromiseTimeout",
     "WAWebBizProfileFacebookConnectPageJob",
+    "WAWebFetchAdAccountToken",
     "WAWebFetchWithAdAccountToken",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (t.type !== "FB")
             return (
               o("WALogger")
@@ -30,14 +33,17 @@ __d(
               { type: "error" }
             );
           try {
-            var a = yield o(
-              "WAWebFetchWithAdAccountToken",
-            ).fetchWithAdAccountToken(function (e) {
-              if (e.type !== "WAA") throw new m();
-              return o(
-                "WAWebBizProfileFacebookConnectPageJob",
-              ).requestWhatsAppAccountProof(e.token);
-            });
+            var a = yield o("WAPromiseTimeout").promiseTimeout(
+              o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
+                function (e) {
+                  if (e.type !== "WAA") throw new _();
+                  return o(
+                    "WAWebBizProfileFacebookConnectPageJob",
+                  ).requestWhatsAppAccountProof(e.token);
+                },
+              ),
+              p(),
+            );
             return (
               yield o(
                 "WAWebBizProfileFacebookConnectPageJob",
@@ -45,36 +51,53 @@ __d(
               { type: "connected" }
             );
           } catch (e) {
-            return e instanceof
-              o("WAWebFetchWithAdAccountToken").FetchAdAccountTokenError ||
-              e instanceof m
+            return e instanceof o("WACustomError").TimeoutError
               ? (o("WALogger")
                   .ERROR(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "Facebook Page connect has no WhatsApp business token",
+                        "Facebook Page connect timed out before the account proof",
                       ])),
                   )
-                  .sendLogs(
-                    "biz-profile-facebook-connect-page-no-business-token",
-                  ),
+                  .sendLogs("biz-profile-facebook-connect-page-proof-timeout"),
                 { type: "error" })
-              : (o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "Facebook Page connect failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("biz-profile-facebook-connect-page-failed"),
-                { type: "error" });
+              : e instanceof
+                    o("WAWebFetchWithAdAccountToken")
+                      .FetchAdAccountTokenError || e instanceof _
+                ? (o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Facebook Page connect has no WhatsApp business token",
+                        ])),
+                    )
+                    .sendLogs(
+                      "biz-profile-facebook-connect-page-no-business-token",
+                    ),
+                  { type: "error" })
+                : (o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "Facebook Page connect failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("biz-profile-facebook-connect-page-failed"),
+                  { type: "error" });
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    var m = (function (e) {
+    function p() {
+      return (
+        2 *
+        o("WAWebFetchAdAccountToken").getMaximumAdAccountFetchTimeoutSeconds() *
+        1e3
+      );
+    }
+    var _ = (function (e) {
       function t() {
         var t;
         return (
@@ -89,7 +112,7 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(babelHelpers.wrapNativeSuper(Error));
-    l.connectFacebookPage = c;
+    l.connectFacebookPage = d;
   },
   98,
 );

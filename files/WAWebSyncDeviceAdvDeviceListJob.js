@@ -21,7 +21,7 @@ __d(
           function (e) {
             return o("WAWebAdvSyncDeviceListApi").syncMyDeviceList();
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted();
     }

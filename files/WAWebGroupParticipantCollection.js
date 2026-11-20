@@ -18,13 +18,13 @@ __d(
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
     "WAWebL10N",
-    "WAWebProductFeature",
     "WAWebSchemaGroupMetadata",
     "WAWebSendForNeededAddRequest",
     "WAWebUpdateSubgroupsCommunityAction",
     "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFactory",
+    "WAWebWorkFeature",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -260,7 +260,7 @@ __d(
           var e, n;
           if (
             !t ||
-            o("WAWebProductFeature").isInternalProduct() ||
+            o("WAWebWorkFeature").isWork() ||
             o("WAWebUserUtils").isMeAccount(t.id)
           )
             return !1;

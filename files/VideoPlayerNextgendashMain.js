@@ -757,7 +757,10 @@ __d(
                         : Fe,
                     We = (Me = be(x, Be, $.toState, J)) != null ? Me : Be,
                     qe = X(x, We, J);
-                  return x.config.isLivePlayback ? C(x, f, qe, $.type) : qe;
+                  return x.config.isLivePlayback ||
+                    x.config.mediaSinkType === "MSE_TRACK_REUSE"
+                    ? C(x, f, qe, $.type)
+                    : qe;
                 }
                 if (
                   x.config.isLivePlayback &&

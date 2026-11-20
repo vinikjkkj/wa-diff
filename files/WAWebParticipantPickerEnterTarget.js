@@ -6,7 +6,7 @@ __d(
     "WAWebParticipantPickerContactUtils",
     "WAWebPersonRowCache",
     "WAWebPersonRowPolicy",
-    "WAWebWODirectory.react",
+    "WAWebWorkDirectory.react",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -17,7 +17,7 @@ __d(
         }),
         i = e.filteredOutContacts[0],
         l = o("WAWebPersonRowCache").getPersonRowToOpenOnEnter(e.people),
-        s = o("WAWebWODirectory.react").getWODirectoryContactToOpenOnEnter(
+        s = o("WAWebWorkDirectory.react").getWorkDirectoryContactToOpenOnEnter(
           e.directoryContacts,
         );
       return n != null

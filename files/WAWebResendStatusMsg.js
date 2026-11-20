@@ -609,7 +609,7 @@ __d(
                 msgProtobuf: n,
                 msgRecord: r,
                 option: {
-                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                  fanoutType: o("WAWebMsgFanoutTypes").FanoutType.GROUP_DIRECT,
                   sessionScope: a,
                 },
               },

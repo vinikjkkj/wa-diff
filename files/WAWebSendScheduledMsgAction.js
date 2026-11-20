@@ -174,8 +174,7 @@ __d(
                     return ((R = n.messageSendResult), (L = n.ackErrorCode), n);
                   }),
                   {
-                    priority: o("WAJobOrchestratorTypes").JOB_PRIORITY
-                      .UI_ACTION,
+                    priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION,
                   },
                 )
                 .waitUntilCompleted());

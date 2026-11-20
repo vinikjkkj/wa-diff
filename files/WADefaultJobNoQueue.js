@@ -37,7 +37,7 @@ __d(
                 jobPriority:
                   (a = n == null ? void 0 : n.priority) != null
                     ? a
-                    : o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW,
+                    : o("WAJobOrchestratorTypes").JobPriority.LOW,
                 pendingJobsCount: 0,
               });
               try {

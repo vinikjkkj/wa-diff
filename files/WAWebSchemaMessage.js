@@ -271,6 +271,8 @@ __d(
             a("isCallLink"),
             a("callLinkToken"),
             a("finalCallOutcome"),
+            a("switchEntryCallLogTime"),
+            a("switchEntryEnded"),
             a("bytesSent"),
             a("bytesReceived"),
             a("richResponse"),
@@ -299,6 +301,7 @@ __d(
             a("dashManifestUrl"),
             a("hatchMetadataSync"),
             a("sourceType"),
+            a("decisionId"),
           ])
           .version(n.messageAddIsSendFailureProperties(), [a("isSendFailure")])
           .version(n.messageAddPaymentTxnStatus(), [a("paymentTxnStatus")])

@@ -17,6 +17,7 @@ __d(
     "WAWebPathfinderTraceEnvelope",
     "WAWebPathfinderUnsamplingConfig",
     "WAWebPonyfillsCryptoRandomUUID",
+    "WAWebStreamModel",
     "WAWebUnifiedSession",
     "WAWebUserPrefsHasLoggedIn",
     "WamPathfinderWebFalcoEvent",
@@ -193,7 +194,7 @@ __d(
     }
     function D(e, t) {
       if (e.eventType !== "CUSTOM_EVENT") return t;
-      if (qe(e)) return null;
+      if (Ge(e)) return null;
       var n = e.originalEventName;
       return n == null ? null : y[n].eventName;
     }
@@ -271,7 +272,7 @@ __d(
       Y = 10,
       J = 0;
     function Z(e, t) {
-      (Me(),
+      (Oe(),
         (X = !0),
         o("WAWebPathfinderHealthReporter").recordPathfinderHealthCounter(e, t));
     }
@@ -359,7 +360,7 @@ __d(
       (ee(),
         (J = 0),
         (de = 0),
-        (De = 0),
+        (Ne = 0),
         H.clear(),
         G.clear(),
         z.clear(),
@@ -368,18 +369,48 @@ __d(
     var ke = 50,
       Ie = new Array(ke),
       Te = 0,
-      De = 0,
-      xe = 0,
-      $e = !1;
-    function Pe() {
-      $e ||
-        (($e = !0),
+      De = r("justknobx")._("8639") ? new Array(ke).fill(!1) : null;
+    function xe() {
+      De != null &&
+        o("WAWebStreamModel").Stream.mode ===
+          o("WAWebStreamModel").StreamMode.QR &&
+        De.fill(!1);
+    }
+    De != null && o("WAWebStreamModel").Stream.on("change:mode", xe);
+    function $e(e, t) {
+      De != null &&
+        (De[e] = t === "paired" && Pe(o("WAWebStreamModel").Stream.mode));
+    }
+    function Pe(e) {
+      return e === o("WAWebStreamModel").StreamMode.MAIN ||
+        e === o("WAWebStreamModel").StreamMode.SYNCING ||
+        e === o("WAWebStreamModel").StreamMode.OFFLINE ||
+        e === o("WAWebStreamModel").StreamMode.CONFLICT ||
+        e === o("WAWebStreamModel").StreamMode.TOS_BLOCK ||
+        e === o("WAWebStreamModel").StreamMode.SMB_TOS_BLOCK
+        ? !0
+        : e === o("WAWebStreamModel").StreamMode.QR ||
+            e === o("WAWebStreamModel").StreamMode.PROXYBLOCK
+          ? !1
+          : (function () {
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e,
+              );
+            })();
+    }
+    var Ne = 0,
+      Me = 0,
+      we = !1;
+    function Ae() {
+      we ||
+        ((we = !0),
         o("WAWebCrashlog").registerPathfinderTraceCallback(function () {
           try {
             if (!W()) return null;
             var e = o(
               "WAWebPathfinderTraceEnvelope",
-            ).buildPathfinderTraceEnvelope(Je());
+            ).buildPathfinderTraceEnvelope(rt());
             return e != null &&
               o("WAWebPathfinderTraceEnvelope").exceedsTraceByteBudget(e)
               ? (o("WALogger")
@@ -410,31 +441,31 @@ __d(
           }
         }));
     }
-    var Ne = !1;
-    function Me() {
-      Ne || ((Ne = !0), self.addEventListener("pagehide", ee));
-    }
-    var we = null;
-    function Ae(e) {
-      we = e;
-    }
-    var Fe = "web.pathfinder.ring_buffer_overflow";
+    var Fe = !1;
     function Oe() {
+      Fe || ((Fe = !0), self.addEventListener("pagehide", ee));
+    }
+    var Be = null;
+    function We(e) {
+      Be = e;
+    }
+    var qe = "web.pathfinder.ring_buffer_overflow";
+    function Ue() {
       try {
         r("WAWebODS").incr("web.pathfinder.event_cap_drop");
       } catch (e) {}
     }
-    function Be() {
+    function Ve() {
       try {
         r("WAWebODS").incr("web.pathfinder.unresolvable_custom_event_drop");
       } catch (e) {}
     }
-    function We() {
+    function He() {
       try {
         r("WAWebODS").incr("web.pathfinder.ring_buffer_overflow");
       } catch (e) {}
     }
-    function qe(e) {
+    function Ge(e) {
       return (
         e.eventType === "CUSTOM_EVENT" &&
         (e.originalEventName == null ||
@@ -445,13 +476,13 @@ __d(
           ).FRAMEWORK_ONLY_EVENT_TYPES.has(e.originalEventName))
       );
     }
-    function Ue() {
+    function ze() {
       (Z(
         o("WAWebPathfinderHealthReporter")
           .COUNTER_UNRESOLVABLE_CUSTOM_EVENT_DROPS,
         1,
       ),
-        Be(),
+        Ve(),
         fe ||
           (o("WALogger")
             .WARN(
@@ -463,10 +494,10 @@ __d(
             .sendLogs("pathfinder-custom-event-unresolvable-name"),
           (fe = !0)));
     }
-    function Ve(e) {
+    function je(e) {
       return Math.round(e - o("WATimeUtils").getClockSkew() * 1e3);
     }
-    function He(e) {
+    function Ke(e) {
       var t =
         e.eventType === "SCREEN_CHANGED"
           ? [e.destinationName, e.screenName]
@@ -481,7 +512,7 @@ __d(
         ),
       );
     }
-    function Ge(e) {
+    function Qe(e) {
       return (
         C.has(e.eventType) &&
         (e.targetTrackingId == null || e.targetTrackingId === "") &&
@@ -489,7 +520,7 @@ __d(
         r("justknobx")._("3611")
       );
     }
-    function ze(e) {
+    function Xe(e) {
       return (
         (e.targetTrackingId != null &&
           o("WAWebPathfinderPIIFilter").hasUnsafePathfinderTrackingId(
@@ -502,8 +533,8 @@ __d(
           ))
       );
     }
-    function je(e, t) {
-      return t === "disabled" || (Le(), Ce) || ze(e)
+    function Ye(e, t) {
+      return t === "disabled" || (Le(), Ce) || Xe(e)
         ? !1
         : de >= he || me >= ye
           ? (pe++,
@@ -519,12 +550,12 @@ __d(
                 String(de),
                 String(me),
               ),
-            Oe(),
+            Ue(),
             !1)
-          : qe(e)
-            ? (Ue(), !1)
-            : Ge(e)
-              ? (Qe(),
+          : Ge(e)
+            ? (ze(), !1)
+            : Qe(e)
+              ? (Ze(),
                 Z(
                   o("WAWebPathfinderHealthReporter")
                     .COUNTER_TARGETLESS_TOUCH_DROPS,
@@ -533,9 +564,9 @@ __d(
                 !1)
               : U.has(e.eventType) && !ne(e)
                 ? !1
-                : (Qe(), !0);
+                : (Ze(), !0);
     }
-    function Ke(e) {
+    function Je(e) {
       var t = e.targetTrackingId,
         n = e.triggeringTestId,
         r =
@@ -553,10 +584,10 @@ __d(
             triggeringTestId: a,
           });
     }
-    function Qe() {
+    function Ze() {
       (de++, me++);
     }
-    function Xe(e) {
+    function et(e) {
       var t,
         n,
         a,
@@ -574,12 +605,12 @@ __d(
         )
       ) {
         var c = q();
-        if (je(e, c)) {
-          var d = Ke(e),
+        if (Ye(e, c)) {
+          var d = Je(e),
             m = y[d.eventType],
             p = m != null ? D(d, m.eventName) : null;
           if (d.eventType === "CUSTOM_EVENT" && p == null) {
-            Ue();
+            ze();
             return;
           }
           Z(o("WAWebPathfinderHealthReporter").COUNTER_CAPTURE_VOLUME, 1);
@@ -630,7 +661,7 @@ __d(
               F = {
                 event_category: m.category,
                 event_name: p,
-                client_timestamp_ms: String(Ve(d.timestampMs)),
+                client_timestamp_ms: String(je(d.timestampMs)),
                 unified_session_id:
                   d.unifiedSessionId !== void 0
                     ? (S = d.unifiedSessionId) != null
@@ -688,12 +719,12 @@ __d(
                   md_session_id: W(),
                   sampling_reason: "TRIGGER_SCREEN",
                   session_flag_rule_id: B,
-                  session_flag_rule_ids: He(d),
+                  session_flag_rule_ids: Ke(d),
                 });
               });
             }
           }
-          Pe();
+          Ae();
           var U = {
             eventType: d.eventType,
             timestampMs: d.timestampMs,
@@ -706,21 +737,22 @@ __d(
           };
           if (
             (_.length > 0 && (U.extra = _.join(" ")),
-            De >= ke &&
+            Ne >= ke &&
               (Z(
                 o("WAWebPathfinderHealthReporter")
                   .COUNTER_RING_BUFFER_OVERFLOWS,
                 1,
               ),
-              We()),
-            De++,
-            xe++,
+              He()),
+            Ne++,
+            Me++,
             (Ie[Te] = U),
+            $e(Te, c),
             (Te = (Te + 1) % ke),
-            we != null)
+            Be != null)
           )
             try {
-              we(d.eventType);
+              Be(d.eventType);
             } catch (e) {
               try {
                 o("WALogger")
@@ -737,7 +769,7 @@ __d(
         }
       }
     }
-    function Ye() {
+    function tt() {
       for (var e = [], t = 0; t < ke; t++) {
         var n = (Te + t) % ke,
           r = Ie[n];
@@ -745,17 +777,31 @@ __d(
       }
       return e;
     }
-    function Je() {
-      return { entries: Ye(), headClipped: xe > ke, totalRecorded: xe };
+    function nt() {
+      var e = De;
+      if (e == null) return null;
+      for (var t = [], n = 0; n < ke; n++) {
+        var r = (Te + n) % ke;
+        Ie[r] != null && t.push(e[r]);
+      }
+      return t;
+    }
+    function rt() {
+      return {
+        entries: tt(),
+        headClipped: Me > ke,
+        totalRecorded: Me,
+        pairedFlags: nt(),
+      };
     }
     ((l.FALCO_MAP = y),
       (l.isPathfinderLoggingEnabled = W),
       (l.resetPathfinderSessionState = Ee),
-      (l.registerPathfinderEmitObserver = Ae),
-      (l.PATHFINDER_RING_BUFFER_OVERFLOW_ODS_KEY = Fe),
-      (l.emitPathfinderEvent = Xe),
-      (l.getPathfinderLogSnapshot = Ye),
-      (l.getPathfinderLogSnapshotWithMeta = Je));
+      (l.registerPathfinderEmitObserver = We),
+      (l.PATHFINDER_RING_BUFFER_OVERFLOW_ODS_KEY = qe),
+      (l.emitPathfinderEvent = et),
+      (l.getPathfinderLogSnapshot = tt),
+      (l.getPathfinderLogSnapshotWithMeta = rt));
   },
   98,
 );

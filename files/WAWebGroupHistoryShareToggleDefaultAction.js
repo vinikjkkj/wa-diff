@@ -31,12 +31,8 @@ __d(
     }
     function d(t, a) {
       var i = o("WAWebWidFactory").asGroupWidOrThrow(t);
-      return !o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(i) ||
-        !o(
-          "WAWebGroupHistoryGating",
-        ).isGroupHistoryPerGroupToggleMdSyncEnabled()
-        ? (s || (s = n("Promise"))).resolve()
-        : u(i, a).catch(function (t) {
+      return o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(i)
+        ? u(i, a).catch(function (t) {
             o("WALogger")
               .ERROR(
                 e ||
@@ -46,7 +42,8 @@ __d(
               )
               .catching(r("getErrorSafe")(t))
               .sendLogs("group-history-toggle-persist-failed");
-          });
+          })
+        : (s || (s = n("Promise"))).resolve();
     }
     function m(e, t, r) {
       return r && o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(e)

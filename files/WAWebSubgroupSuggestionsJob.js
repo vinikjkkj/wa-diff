@@ -15,7 +15,7 @@ __d(
               "WAWebApiSubgroupSuggestionStore",
             ).removeSubgroupSuggestionsWithOfflineOption(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ subgroupSuggestions: e, isOffline: t });
     }

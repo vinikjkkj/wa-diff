@@ -32,7 +32,6 @@ __d(
     "WAWebMsgType",
     "WAWebNetworkStatus",
     "WAWebOpusUtils",
-    "WAWebProductFeature",
     "WAWebProtobufsProtocol.pb",
     "WAWebSendMsgChatAction",
     "WAWebSetPropertyGroupAction",
@@ -44,6 +43,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidFormat",
+    "WAWebWorkFeature",
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "err",
@@ -182,7 +182,7 @@ __d(
         i = e.isCapiHostedGroup,
         l = e.isEnterprise,
         s = e.limitSharing;
-      return o("WAWebProductFeature").isInternalProduct() ||
+      return o("WAWebWorkFeature").isWork() ||
         i ||
         n.isBot() ||
         r("WAWebWid").isPSA(a) ||

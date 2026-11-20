@@ -5,13 +5,13 @@ __d(
     "WAWebABPropsCache",
     "WAWebBaseModel",
     "WAWebConnGetters",
-    "WAWebProductFeature",
     "WAWebUserPrefsGeneral",
     "WAWebUserUtils",
     "WAWebVoipBackendLoadable",
     "WAWebWamEnumPlatformType",
     "WAWebWamGlobals",
     "WAWebWebcRawPlatformsWamEvent",
+    "WAWebWorkFeature",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -81,7 +81,7 @@ __d(
         (i.canSetMyPushname = function () {
           return (
             !o("WAWebConnGetters").getIsSMB(this) &&
-            !o("WAWebProductFeature").isInternalProduct()
+            !o("WAWebWorkFeature").isWork()
           );
         }),
         (i.$ConnImpl$p_1 = function () {

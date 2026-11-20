@@ -39,15 +39,19 @@ __d(
         (e == null ? void 0 : e.direction) === c.direction
       );
     }
-    function _(e, t, n) {
-      var r = [].concat(e).sort(function (e, t) {
+    function _(e, t, n, r) {
+      var a = [].concat(e).sort(function (e, t) {
         var r, o;
         return (
           ((r = n.get(e.id)) != null ? r : Number.MAX_SAFE_INTEGER) -
           ((o = n.get(t.id)) != null ? o : Number.MAX_SAFE_INTEGER)
         );
       });
-      return o("WAWebCustomerManagerListSort").sortContactRowsForDisplay(r, t);
+      return o("WAWebCustomerManagerListSort").sortContactRowsForDisplay(
+        a,
+        t,
+        r,
+      );
     }
     function f() {
       o("WAWebExternalLink.react").openExternalLink(

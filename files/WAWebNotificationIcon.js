@@ -12,7 +12,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebPwaDocumentMetadataUtils",
     "WAWebUA",
-    "cr:16769",
+    "cr:22410",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,7 +25,7 @@ __d(
     function p(e) {
       var t = [];
       e > 0 && t.push("(" + r("WAWebL10N").n(e) + ")");
-      var a = n("cr:16769") == null ? void 0 : n("cr:16769").getTitle();
+      var a = n("cr:22410") == null ? void 0 : n("cr:22410").getTitle();
       a != null
         ? t.push(a.toString())
         : o("WAWebMobilePlatforms").isSMB()
@@ -58,11 +58,11 @@ __d(
                 : (i = "f00");
         var l =
             t === 0
-              ? n("cr:16769") == null
+              ? n("cr:22410") == null
                 ? void 0
-                : n("cr:16769").getFaviconUrl()
+                : n("cr:22410").getFaviconUrl()
               : null,
-          p = l != null ? "favicon-internal-product" : i;
+          p = l != null ? "favicon-work" : i;
         ((_ = p),
           (a = document.getElementById("favicon")) == null || a.remove());
         var f = {
