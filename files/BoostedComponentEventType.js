@@ -1899,6 +1899,9 @@ __d(
       IG_ONLY_FB_PLACEMENT_IMPRESSION: "ig_only_fb_placement_impression",
       IG_ONLY_FB_PLACEMENT_CHECK: "ig_only_fb_placement_check",
       IG_ONLY_FB_PLACEMENT_UNCHECK: "ig_only_fb_placement_uncheck",
+      IG_LOGIN_FB_PLACEMENT_IMPRESSION: "ig_login_fb_placement_impression",
+      IG_LOGIN_FB_PLACEMENT_CHECK: "ig_login_fb_placement_check",
+      IG_LOGIN_FB_PLACEMENT_UNCHECK: "ig_login_fb_placement_uncheck",
       IG_WEB_IG_ONLY_FB_PLACEMENT_ELIGIBILITY:
         "ig_web_ig_only_fb_placement_eligibility",
       IG_MOBILE_IG_ONLY_FB_PLACEMENT_IMPRESSION:

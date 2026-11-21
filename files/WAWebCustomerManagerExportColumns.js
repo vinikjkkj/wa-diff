@@ -248,16 +248,13 @@ __d(
       var n = new Set(t),
         r = ["customer"].concat(
           e.filter(function (e) {
-            return e !== "customer" && e !== "select" && e !== "actions";
+            return e !== "customer" && n.has(e);
           }),
-        ),
-        o = [];
-      for (var a of r)
-        if (a === "customer" || n.has(a)) {
-          var i = b(a);
-          i != null && o.push(C(i));
-        }
-      return o;
+        );
+      return r.flatMap(function (e) {
+        var t = b(e);
+        return t != null ? [C(t)] : [];
+      });
     }
     ((l.EXPORT_COLUMNS = p),
       (l.getExportHeaders = _),

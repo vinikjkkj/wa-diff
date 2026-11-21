@@ -5,7 +5,7 @@ __d(
     var e = { NEW_LEAD: 0, QUALIFIED: 2, CONVERTED: 3, NOT_QUALIFIED: 5 },
       l = [e.NEW_LEAD, e.QUALIFIED, e.CONVERTED, e.NOT_QUALIFIED];
     function s(t) {
-      return t != null && l.includes(t) ? t : e.NEW_LEAD;
+      return t != null ? t : e.NEW_LEAD;
     }
     function u(t) {
       return t === 0 || t === 1 || t === 4

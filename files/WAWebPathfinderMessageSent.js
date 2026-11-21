@@ -28,30 +28,34 @@ __d(
           e.emitPathfinderMessageSent(t);
         },
         "pathfinder-message-sent-load-failed",
-      );
-    function _(t) {
+      ),
+      _ = { isCounted: h, takeSendMethod: D, isHiddenPayment: R, emit: p };
+    function f(e) {
+      g(e, _);
+    }
+    function g(t, n) {
       try {
-        var n = E(t.id);
-        if (!f(t)) return;
-        var a = o("WAWebPathfinderScreenName").getCurrentScreenName();
-        if (y(a)) return;
-        var i = {
+        var a = n.takeSendMethod(t.id);
+        if (!n.isCounted(t)) return;
+        var i = o("WAWebPathfinderScreenName").getCurrentScreenName();
+        if (S(i)) return;
+        var l = {
           type: t.type,
           subtype: t.subtype,
-          chatKind: g(t),
+          chatKind: b(t),
           pairedMediaType: t.pairedMediaType,
           associationType: t.associationType,
-          mediaType: b(t),
-          sendMethod: n,
+          mediaType: L(t),
+          sendMethod: a,
           capturedAt: {
             timestampMs: Date.now(),
-            screenName: a,
-            unifiedSessionId: h(),
+            screenName: i,
+            unifiedSessionId: v(),
             heldBackSurface: null,
           },
-          hiddenPayment: C(t),
+          hiddenPayment: n.isHiddenPayment(t),
         };
-        p(i);
+        n.emit(l);
       } catch (t) {
         o("WALogger")
           .WARN(
@@ -64,20 +68,26 @@ __d(
           .sendLogs("pathfinder-message-sent-record-failed");
       }
     }
-    function f(e) {
+    function h(e) {
       return (
-        e.id.fromMe &&
         (e.local === !0 || e.type === o("WAWebMsgType").MSG_TYPE.ALBUM) &&
         e.isScheduledMsg !== !0 &&
+        y(e)
+      );
+    }
+    function y(e) {
+      return (
+        e.id.fromMe &&
         (e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL ||
           e.subtype === "share_phone_number")
       );
     }
-    function g(e) {
-      var t = e.id.remote;
-      return t.isGroup() ? "group" : t.isUser() ? "user" : "other";
+    var C = new Set(["bot", "c.us", "hosted", "hosted.lid", "lid"]);
+    function b(e) {
+      var t = e.id.remote.server;
+      return t === "g.us" ? "group" : C.has(t) ? "user" : "other";
     }
-    function h() {
+    function v() {
       try {
         var e = r("ifRequireable")(
           "WAWebUnifiedSession",
@@ -92,7 +102,7 @@ __d(
         return null;
       }
     }
-    function y(e) {
+    function S(e) {
       try {
         return r("ifRequireable")(
           "WAWebPathfinderHeldBackSurface",
@@ -117,7 +127,7 @@ __d(
         );
       }
     }
-    function C(e) {
+    function R(e) {
       try {
         return r("ifRequireable")(
           "WAWebSilentPaymentMsg",
@@ -131,9 +141,9 @@ __d(
         return !1;
       }
     }
-    function b(e) {
+    function L(e) {
       var t,
-        n = v[e.type];
+        n = E[e.type];
       if (n != null) return n;
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.ALBUM &&
@@ -146,7 +156,7 @@ __d(
         ? o("WAWebWamEnumMediaType").MEDIA_TYPE.TEXT
         : r;
     }
-    var v =
+    var E =
         ((u = {}),
         (u[(c = o("WAWebMsgType")).MSG_TYPE.COMMENT] = (d = o(
           "WAWebWamEnumMediaType",
@@ -156,22 +166,22 @@ __d(
         (u[c.MSG_TYPE.RICH_RESPONSE] = d.MEDIA_TYPE.RICH_RESPONSE),
         (u[c.MSG_TYPE.SHARABLE_EVENT_INVITE] = d.MEDIA_TYPE.EVENT_INVITE),
         u),
-      S = 100,
-      R = new Map();
-    function L(e, t) {
-      if (t != null && (R.set(e.toString(), t), R.size > S)) {
-        var n = R.keys().next().value;
-        n != null && R.delete(n);
+      k = 100,
+      I = new Map();
+    function T(e, t) {
+      if (t != null && (I.set(e.toString(), t), I.size > k)) {
+        var n = I.keys().next().value;
+        n != null && I.delete(n);
       }
     }
-    function E(e) {
+    function D(e) {
       var t = e.toString(),
-        n = R.get(t);
-      return (R.delete(t), n);
+        n = I.get(t);
+      return (I.delete(t), n);
     }
-    ((l.recordPathfinderMessageSentAfterCommit = _),
-      (l.getPathfinderMessageSentMediaType = b),
-      (l.labelPathfinderSendMethod = L));
+    ((l.recordPathfinderMessageSentAfterCommit = f),
+      (l.getPathfinderMessageSentMediaType = L),
+      (l.labelPathfinderSendMethod = T));
   },
   98,
 );

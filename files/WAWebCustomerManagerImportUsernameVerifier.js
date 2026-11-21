@@ -52,35 +52,33 @@ __d(
           }
           var s = [],
             u = [];
-          t.forEach(function (e, t) {
-            var r,
-              a = n[t];
-            if (a == null || !l.has(a.lid)) {
-              s.push(e);
-              return;
-            }
-            var i = l.get(a.lid);
-            if (i != null && m(i) === m(a.typed)) {
-              s.push(c(e, i));
-              return;
-            }
-            u.push({
-              errorType: o("WAWebContactImportTypedError").UsernameError
-                .MISMATCH,
-              rowData: babelHelpers.extends(
-                {},
-                (r = e.rawRow) != null ? r : {},
-              ),
-              rowIndex: e.rowIndex,
-            });
-          });
-          var p = u.map(function (e) {
-            return babelHelpers.extends({}, e, {
-              contactIndex: null,
-              type: "error",
-            });
-          });
-          return { errorList: p, validContacts: s };
+          return (
+            t.forEach(function (e, t) {
+              var r,
+                a = n[t];
+              if (a == null || !l.has(a.lid)) {
+                s.push(e);
+                return;
+              }
+              var i = l.get(a.lid);
+              if (i != null && m(i) === m(a.typed)) {
+                s.push(c(e, i));
+                return;
+              }
+              u.push({
+                errorType: o("WAWebContactImportTypedError").UsernameError
+                  .MISMATCH,
+                rowData: babelHelpers.extends(
+                  {},
+                  (r = e.rawRow) != null ? r : {},
+                ),
+                rowIndex: e.rowIndex,
+                contactIndex: null,
+                type: "error",
+              });
+            }),
+            { errorList: u, validContacts: s }
+          );
         })),
         u.apply(this, arguments)
       );
