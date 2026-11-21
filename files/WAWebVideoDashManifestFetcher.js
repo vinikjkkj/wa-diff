@@ -3,6 +3,7 @@ __d(
   [
     "WAAbortError",
     "WALogger",
+    "WATimeUtils",
     "WAWebMediaUrlAllowlist",
     "WAWebPonyfillsFetch",
     "WAWebVideoDashManifestErrors",
@@ -49,13 +50,17 @@ __d(
               return i.abort();
             }, t);
           o("WAWebVideoDashManifestODS").bumpDashManifestAttempt();
+          var u = o("WATimeUtils").monotonicTime();
           try {
-            var u = yield r("WAWebPonyfillsFetch")(n, { signal: i.signal });
-            C(u.status);
-            var c = b(yield u.text());
+            var c = yield r("WAWebPonyfillsFetch")(n, { signal: i.signal });
+            C(c.status);
+            var d = b(yield c.text());
             return (
-              o("WAWebVideoDashManifestODS").bumpDashManifestResult(c),
-              c
+              o("WAWebVideoDashManifestODS").bumpDashManifestResult(
+                d,
+                o("WATimeUtils").monotonicTimeSince(u),
+              ),
+              d
             );
           } catch (e) {
             throw y(h(e));

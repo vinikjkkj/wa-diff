@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = 65536,
-      l = 10 * 1024 * 1024,
+      l = 11 * 1024 * 1024,
       s = 1024 * 1024 * 1024;
     function u(t) {
       return t

@@ -217,7 +217,12 @@ __d(
             l = yield re(!1, i, n, {
               suppressPromptGuide: a == null ? void 0 : a.suppressPromptGuide,
             });
-          if (!l || !r || A())
+          if (
+            (a == null ||
+              a.onMicrophoneChecked == null ||
+              a.onMicrophoneChecked(),
+            !l || !r || A())
+          )
             return { canJoin: l, reason: null, videoMuted: !1 };
           var s = yield U();
           if (Y(i, n)) return { canJoin: !1, reason: null, videoMuted: !1 };

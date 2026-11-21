@@ -818,9 +818,13 @@ __d(
       );
     }
     function z(e) {
+      var t;
       (C.push({
         params: e,
-        msgProcessEndTsMillis: o("WATimeUtils").unixTimeMs(),
+        msgProcessEndTsMillis:
+          (t = e.msgProcessEndTsMillis) != null
+            ? t
+            : o("WATimeUtils").unixTimeMs(),
       }),
         e.offline == null || !r("gkx")("21649") || C.length >= y
           ? b.forceRunNow()

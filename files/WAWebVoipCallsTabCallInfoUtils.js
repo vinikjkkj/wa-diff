@@ -177,7 +177,11 @@ __d(
     }
     function m(e) {
       var t = e.callParticipants;
-      if (t == null) return !1;
+      if (
+        t == null ||
+        (t.length === 0 && o("WAWebCallLogUtils").getIsOneToOneCallLog(e))
+      )
+        return !1;
       var n = t.some(function (e) {
           return e.participant.isLid();
         }),

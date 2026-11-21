@@ -11,6 +11,7 @@ __d(
     "WAWebDBCreateLidPnMappings",
     "WAWebIsCagGroupCache",
     "WAWebLidAwareContactsDB",
+    "WAWebLidPnMappingWrite",
     "WAWebSendRequestPhoneNumberChatAction",
     "WAWebSendSharePhoneNumberChatAction",
     "WAWebSetUsernameJob",
@@ -201,7 +202,7 @@ __d(
                   pn: o("WAWebWidFactory").createUserWidOrThrow(e.pn),
                 };
               }),
-              flushImmediately: t,
+              write: o("WAWebLidPnMappingWrite").toLidPnMappingWrite(t),
               learningSource: n != null ? n : "usync",
             }));
         })),

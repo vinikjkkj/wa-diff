@@ -13,28 +13,31 @@ __d(
       c = {},
       d = !1;
     function m() {
-      !o("BootloaderResourceErrorConfig").RETHROW_CACHED_LOAD_ERRORS ||
-        d ||
+      d ||
         typeof window == "undefined" ||
+        !o("BootloaderResourceErrorConfig").shouldRethrowCachedLoadErrors() ||
         ((d = !0),
         window.addEventListener("online", function () {
           for (var e of Object.keys(c)) delete c[e];
         }));
     }
     function p(e) {
-      (o("BootloaderResourceErrorConfig").RETHROW_CACHED_LOAD_ERRORS &&
-        delete c[e.getModuleId()],
+      var t = e.getModuleId();
+      (c[t] != null &&
+        o("BootloaderResourceErrorConfig").shouldRethrowCachedLoadErrors() &&
+        delete c[t],
         e.load());
     }
     function _(t) {
       var n = t.getModuleIfRequireable(),
-        a = t.getModuleId();
+        a = t.getModuleId(),
+        i = c[a];
       if (
+        i != null &&
         (r("gkx")("18743") ||
-          o("BootloaderResourceErrorConfig").RETHROW_CACHED_LOAD_ERRORS) &&
-        c[a] != null
+          o("BootloaderResourceErrorConfig").shouldRethrowCachedLoadErrors())
       )
-        throw c[a];
+        throw i;
       if (n == null) {
         if (
           (!(e || (e = r("ExecutionEnvironment"))).isInBrowser &&
@@ -44,8 +47,8 @@ __d(
             ),
           !u[a])
         ) {
-          var i = (u[a] = t.load());
-          i.catch(function (e) {
+          var l = (u[a] = t.load());
+          l.catch(function (e) {
             ((c[a] = e), m());
           }).finally(function () {
             delete u[a];

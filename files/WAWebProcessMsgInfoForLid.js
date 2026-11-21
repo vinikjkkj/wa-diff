@@ -188,6 +188,7 @@ __d(
         r = t.entryPoint,
         a = t.msgInfo;
       r !== "reparse-futureproof-msg" &&
+        r !== "pq-handle-message" &&
         !n.isLid() &&
         !n.isHostedLid() &&
         o("WALogger")
@@ -219,20 +220,21 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.entryPoint,
-            a = e.msgInfo,
-            i = e.msgMeta,
-            l = yield o(
+          var t = e.deferredWrites,
+            a = e.entryPoint,
+            i = e.msgInfo,
+            l = e.msgMeta,
+            s = yield o(
               "WAWebProcessPhoneNumberMapping",
-            ).processPhoneNumberMappings(a, i, a.offline == null);
-          if (a.category !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer) {
-            if (a.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS) {
-              var s = o("WAWebWidFactory").asUserWidOrThrow(a.author),
-                u = o("WAWebWidFactory").asUserWidOrThrow(
-                  o("WAWebLidStatusMigrationUtils").matWidConvert(s),
+            ).processPhoneNumberMappings(i, l, i.offline == null, t);
+          if (i.category !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer) {
+            if (i.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_STATUS) {
+              var u = o("WAWebWidFactory").asUserWidOrThrow(i.author),
+                c = o("WAWebWidFactory").asUserWidOrThrow(
+                  o("WAWebLidStatusMigrationUtils").matWidConvert(u),
                 );
-              if (!s.equals(u)) {
-                var c;
+              if (!u.equals(c)) {
+                var d;
                 (o("WALogger").LOG(
                   p ||
                     (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -240,45 +242,45 @@ __d(
                       " to ",
                       "",
                     ])),
-                  a.author.toLogString(),
-                  u.toLogString(),
+                  i.author.toLogString(),
+                  c.toLogString(),
                 ),
-                  (a.author = o(
+                  (i.author = o(
                     "WAWebWidFactory",
                   ).createDeviceWidFromUserAndDevice(
-                    u.user,
-                    u.server,
-                    (c = a.author.device) != null
-                      ? c
+                    c.user,
+                    c.server,
+                    (d = i.author.device) != null
+                      ? d
                       : o("WAJids").DEFAULT_DEVICE_ID,
                   )));
               }
               return;
             }
             if (
-              a.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
+              i.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
             ) {
-              if (l.type !== "peer-broadcast")
+              if (s.type !== "peer-broadcast")
                 throw r("err")(
                   "maybeProcessMsgInfoForLid: mappings type is not the expected peer-broadcast",
                 );
-              l.type;
-              var d = l.mappings.map(
+              s.type;
+              var m = s.mappings.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e, n) {
-                      var r = a.bclParticipants[n],
-                        l = yield f({
-                          msgInfo: a,
-                          msgMeta: i,
+                    function* (e, t) {
+                      var n = i.bclParticipants[t],
+                        r = yield f({
+                          msgInfo: i,
+                          msgMeta: l,
                           mapping: e,
-                          chatWid: r.wid,
-                          entryPoint: t,
+                          chatWid: n.wid,
+                          entryPoint: a,
                         });
-                      (l == null ? void 0 : l.newRemote) != null &&
-                        ((r.preMatWid = r.wid),
-                        (r.wid = o("WAWebWidFactory").asUserWidOrThrow(
-                          l.newRemote,
+                      (r == null ? void 0 : r.newRemote) != null &&
+                        ((n.preMatWid = n.wid),
+                        (n.wid = o("WAWebWidFactory").asUserWidOrThrow(
+                          r.newRemote,
                         )));
                     },
                   );
@@ -287,32 +289,32 @@ __d(
                   };
                 })(),
               );
-              yield (_ || (_ = n("Promise"))).all(d);
+              yield (_ || (_ = n("Promise"))).all(m);
             } else {
-              if (l.type !== "not-peer-broadcast")
+              if (s.type !== "not-peer-broadcast")
                 throw r("err")(
                   "maybeProcessMsgInfoForLid: mappings type is not the expected not-peer-broadcast",
                 );
-              l.type;
-              var m =
-                  a.type ===
+              s.type;
+              var g =
+                  i.type ===
                   o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST,
-                g = m ? a.author : a.chat;
-              if (!g.isRegularUser()) return;
-              var h = yield f({
-                msgInfo: a,
-                msgMeta: i,
-                mapping: l.mapping,
-                chatWid: g,
-                entryPoint: t,
+                h = g ? i.author : i.chat;
+              if (!h.isRegularUser()) return;
+              var y = yield f({
+                msgInfo: i,
+                msgMeta: l,
+                mapping: s.mapping,
+                chatWid: h,
+                entryPoint: a,
               });
-              if (h == null) return;
-              var y = h.accountLid,
-                C = h.newRemote;
-              if ((y != null && (a.accountLid = y), C == null)) return;
-              m
-                ? ((a.preMatChat = a.author), (a.author = C))
-                : ((a.preMatChat = g), (a.chat = C));
+              if (y == null) return;
+              var C = y.accountLid,
+                b = y.newRemote;
+              if ((C != null && (i.accountLid = C), b == null)) return;
+              g
+                ? ((i.preMatChat = i.author), (i.author = b))
+                : ((i.preMatChat = h), (i.chat = b));
             }
           }
         })),

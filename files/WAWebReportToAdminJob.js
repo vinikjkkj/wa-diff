@@ -147,7 +147,7 @@ __d(
                 l.length > 0 &&
                   (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                     mappings: l,
-                    flushImmediately: !0,
+                    write: "now",
                     learningSource: "report-to-admin",
                   })),
                 a.reportsReport.forEach(function (e, t) {

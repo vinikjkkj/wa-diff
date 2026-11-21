@@ -16,7 +16,6 @@ __d(
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
     "WAWebUserPrefsBot",
-    "WAWebWorkFeature",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -55,7 +54,6 @@ __d(
     }
     function c() {
       return (
-        !o("WAWebWorkFeature").isWork() &&
         v() &&
         o("WAWebABProps").getABPropConfigValue(
           "bonsai_chat_list_entry_point_enabled",
@@ -63,7 +61,7 @@ __d(
       );
     }
     function d() {
-      return !o("WAWebWorkFeature").isWork() && v() && !c();
+      return v() && !c();
     }
     function m() {
       return (
@@ -147,7 +145,6 @@ __d(
     }
     function S() {
       return (
-        !o("WAWebWorkFeature").isWork() &&
         v() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_search_ask_button_web_enabled",

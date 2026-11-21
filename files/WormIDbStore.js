@@ -299,6 +299,13 @@ __d(
               );
             throw r("err")("Invalid range");
           }),
+          (a.getAllByIndexRange = function (t, n, r) {
+            var e = this,
+              o = r != null && r > 0 ? r : void 0;
+            return this.$10(function () {
+              return e.$1.index(t).getAll(e.$12(n, t), o);
+            });
+          }),
           (a.readIndex = function (t, n, r) {
             var e = this;
             return (r == null ? void 0 : r.filter) == null &&

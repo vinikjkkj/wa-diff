@@ -180,33 +180,57 @@ __d(
         !0
       );
     }
-    function T(e) {
+    function T() {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            if (e.shouldUpdateReceipts === !0) {
-              yield o(
-                "WAWebOffdStorageUpdateOfflinePeerReceipts",
-              ).updatePeerReceipts();
-              try {
-                yield v == null ? void 0 : v();
-              } catch (e) {
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][blocking] reconcileMetaAiUnreadCounts - ",
-                      "",
-                    ])),
-                  String(e),
-                );
-              }
-            }
-            (yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-              "restoreChatsAndMessages",
-            ),
+            yield x();
+          } catch (e) {
+            I("chats", e);
+          }
+        })),
+        D.apply(this, arguments)
+      );
+    }
+    function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o(
+            "WAWebOffdStorageUpdateOfflinePeerReceipts",
+          ).updatePeerReceipts();
+          try {
+            yield v == null ? void 0 : v();
+          } catch (e) {
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[offline-resume][blocking] reconcileMetaAiUnreadCounts - ",
+                  "",
+                ])),
+              String(e),
+            );
+          }
+        })),
+        $.apply(this, arguments)
+      );
+    }
+    function P(e) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            (e.shouldUpdateReceipts === !0 && (yield x()),
+              yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
+                "restoreChatsAndMessages",
+              ),
               o("WAWebBlocklistMigration").applyBlocklistV2Rules() &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "restoreBlocklist",
@@ -215,15 +239,15 @@ __d(
             I("chats", e);
           }
         })),
-        D.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function $() {
+    function w() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
             "restoreDataFromStorage",
           ),
@@ -243,20 +267,20 @@ __d(
               .catch(function (e) {
                 I("groups-and-contacts", e);
               });
-          (yield (C || (C = n("Promise"))).all([T(e), r, t]),
+          (yield (C || (C = n("Promise"))).all([P(e), r, t]),
             o("WAWebPageLoadLogging").endPageLoadQplMeasure(
               "restoreDataFromStorage",
             ));
         })),
-        $.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function N() {
+    function F() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebAppTracker").AppTracker.start(
             o("WAWebAppTracker").AppTrackerType.LoadMainScreen,
           );
@@ -280,8 +304,8 @@ __d(
                 ? (yield o(
                     "WAWebDbEncryptionKey",
                   ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-                  M(),
-                  yield x(e).catch(function (e) {
+                  O(),
+                  yield M(e).catch(function (e) {
                     throw (
                       o("WALogger")
                         .ERROR(
@@ -297,7 +321,7 @@ __d(
                   }),
                   n("cr:18497") != null &&
                     (yield n("cr:18497").waitForResumeRelease()))
-                : (yield x(e), M()),
+                : (yield M(e), O()),
               o(
                 "WAWebBackendEventBus",
               ).BackendEventBus.triggerOfflineProcessReady(),
@@ -313,17 +337,17 @@ __d(
             );
           }
         })),
-        N.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function M() {
+    function O() {
       (o("WAWebBackendEventBus").BackendEventBus.triggerMainStreamModeReady(),
         o(
           "WAWebWamOfflineResumeReporter",
         ).OfflineResumeReporter.logMainScreenLoadT(),
         o("WAWebPushNotificationsOfflineBbApi").setMainStreamModeReadyT());
     }
-    function w(e, t) {
+    function B(e, t) {
       return (
         e + t > S.MAX_STANZA ||
         (e > S.MIN_MESSAGE && e + t > S.LIMIT_WITH_MESSAGE)
@@ -332,8 +356,9 @@ __d(
     ((l.clearOfflineSnapShot = R),
       (l.runReceiptCleanUpLoop = E),
       (l.refreshWindow = k),
-      (l.loadMainScreen = P),
-      (l.exceedResumeWithOpenTabLimit = w));
+      (l.updatePeerReceiptsAfterMainScreen = T),
+      (l.loadMainScreen = A),
+      (l.exceedResumeWithOpenTabLimit = B));
   },
   98,
 );

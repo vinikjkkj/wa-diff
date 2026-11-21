@@ -1,6 +1,7 @@
 __d(
   "WAWebFtsMsgsCallLogCollection",
   [
+    "WAWebCallLogUtils",
     "WAWebContactCollection",
     "WAWebFtsMsgsChatlessCollection",
     "WAWebMsgQueryUtils",
@@ -33,7 +34,11 @@ __d(
           var e = t.filter(function (e) {
             var t,
               n = e.callParticipants;
-            if (n == null) return !0;
+            if (
+              n == null ||
+              (n.length === 0 && o("WAWebCallLogUtils").getIsOneToOneCallLog(e))
+            )
+              return !0;
             var r =
                 (t = n.some(function (e) {
                   return e.participant.isLid();

@@ -163,6 +163,12 @@ __d(
           r("WAWebODS").incr("web.video_dash_segment.prefetch.released");
           break e;
         }
+        if (e === "RELEASED_OVER_LIMIT") {
+          r("WAWebODS").incr(
+            "web.video_dash_segment.prefetch.released_over_limit",
+          );
+          break e;
+        }
         if (e === "SKIPPED_NO_REPRESENTATIONS") {
           r("WAWebODS").incr(
             "web.video_dash_segment.prefetch.skipped_no_representations",

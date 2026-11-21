@@ -197,7 +197,7 @@ __d(
               l,
               s,
               u = f(n).toJid(),
-              c = n.fromMe ? "1" : "0",
+              c = n.fromMe ? "0" : "1",
               d = n.callId,
               m = n.participantEntries.map(function (e) {
                 var t, n;
@@ -217,7 +217,7 @@ __d(
                 ).getSyncCallResultFromCallLogResult(n.result),
                 duration: n.connectTime != null ? n.connectTime : void 0,
                 startTime: n.startTime,
-                isIncoming: n.fromMe,
+                isIncoming: !n.fromMe,
                 isVideo: (e = n.videoCall) != null ? e : void 0,
                 isCallLink: (a = n.isCallLink) != null ? a : void 0,
                 callLinkToken: (i = n.callLinkToken) != null ? i : void 0,

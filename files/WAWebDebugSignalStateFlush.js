@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebInboundMsgPersistedQueueAdapter",
     "WAWebMessageQueueImpl",
     "WAWebSchemaSenderkey",
     "WAWebSchemaSession",
@@ -53,6 +54,10 @@ __d(
               ),
             ),
             c = {
+              persistedQueue:
+                o(
+                  "WAWebInboundMsgPersistedQueueAdapter",
+                ).getInboundMsgIntake() != null,
               queueImpl: o("WAWebMessageQueueImpl").getMessageQueueImpl(),
               senderKeys: u,
               sessions: l,
@@ -62,11 +67,13 @@ __d(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "compareSignalStateWithDisk: queue=",
+                  " persistedQueue=",
                   " sessions: ",
                   "; sender keys: ",
                   "",
                 ])),
               c.queueImpl,
+              String(c.persistedQueue),
               p(l),
               p(u),
             ),
@@ -77,7 +84,7 @@ __d(
       );
     }
     u.doc =
-      "Manual test for the OneQueue signal state flushable: compares the Signal sessions and sender keys in memory with those on disk. Once received messages have settled, every differing entry is signal state that a crash would lose. Run it with WAOneQueue on and off (QE wa_wmi_experiments, one_queue_enabled) and compare.";
+      "Manual test for the OneQueue signal state flushable: compares the Signal sessions and sender keys in memory with those on disk. Once received messages have settled, every differing entry is signal state that a crash would lose. Run it in every arm (QE wa_wmi_experiments one_queue_enabled and enable_persisted_queue) and compare.";
     function d(e, t) {
       var n = [],
         r = [],

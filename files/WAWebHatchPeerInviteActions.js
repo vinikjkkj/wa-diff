@@ -118,17 +118,19 @@ __d(
         $.apply(this, arguments)
       );
     }
-    function P(e) {
+    function P(e, t) {
       return N.apply(this, arguments);
     }
     function N() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t === void 0 && (t = o("WAWebBoolFunc").returnTrue);
           try {
-            var t = yield o(
+            if (!t()) return null;
+            var n = yield o(
               "WAWebHatchVmConnection",
             ).connectHatchVmApiWithResult(new AbortController().signal);
-            return t.kind === "ready" ? yield M(t.api, e, null, 1) : null;
+            return n.kind === "ready" ? yield M(n.api, e, null, 1, t) : null;
           } catch (e) {
             return (
               o("WALogger")
@@ -147,15 +149,16 @@ __d(
         N.apply(this, arguments)
       );
     }
-    function M(e, t, n, r) {
+    function M(e, t, n, r, o) {
       return w.apply(this, arguments);
     }
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield e.peerContacts(S, n, { timeoutMs: v });
-            if (a.kind !== "Ok")
+          function* (e, t, n, r, a) {
+            if (!a()) return null;
+            var i = yield e.peerContacts(S, n, { timeoutMs: v });
+            if (i.kind !== "Ok")
               return (
                 o("WALogger").WARN(
                   g ||
@@ -163,19 +166,19 @@ __d(
                       "hatch-peer-invite: contacts read refused kind=",
                       "",
                     ])),
-                  a.kind,
+                  i.kind,
                 ),
                 null
               );
-            var i = o("WAWebHatchPeerInvite").readHatchPeerContactStatus(
-              a.value,
+            var l = o("WAWebHatchPeerInvite").readHatchPeerContactStatus(
+              i.value,
               t,
             );
-            if (i !== "absent") return i === "verified";
-            var l = o("WAWebHatchPeerInvite").readHatchPeerContactsCursor(
-              a.value,
+            if (l !== "absent") return l === "verified";
+            var s = o("WAWebHatchPeerInvite").readHatchPeerContactsCursor(
+              i.value,
             );
-            return l != null && r < R ? M(e, t, l, r + 1) : !1;
+            return s != null && r < R ? M(e, t, s, r + 1, a) : !1;
           },
         )),
         w.apply(this, arguments)
@@ -236,7 +239,11 @@ __d(
               "WAWebRequestHatchConnectors",
             ).readHatchWhatsAppSessionId(a.api);
             if (!n()) return E;
-            if (i == null) return q(e, "no_session_id");
+            if (i == null)
+              return q(
+                e,
+                o("WAWebHatchPeerInvite").HATCH_PEER_INVITE_NO_SESSION,
+              );
             var l = yield t(a.api, i);
             if (l.kind !== "Ok") W(e, l);
             else {

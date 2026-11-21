@@ -675,7 +675,7 @@ __d(
         s._implicitParam(
           "=m2",
           u.jsx(r("WDSTextualLink.react"), {
-            href: o("WAWebFaqUrl").getBusinessBroadcastsLearnMoreUrl(),
+            href: o("WAWebFaqUrl").getBusinessBroadcastsProLearnMoreUrl(),
             children: s._(/*BTDS*/ "Learn more"),
           }),
         ),

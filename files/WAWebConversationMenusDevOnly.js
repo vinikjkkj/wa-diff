@@ -1,15 +1,16 @@
 __d(
   "WAWebConversationMenusDevOnly",
   [
+    "WAWebBackendRuntime",
     "WAWebContactGetters",
     "WAWebCopyToClipboard",
     "WAWebDebugParticipantsListModal.react",
-    "WAWebDevIcon.react",
     "WAWebDevOnlyBadge.react",
-    "WAWebFrontendChatGetters",
+    "WAWebPeerDataService",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
     "WAWebSyncGatingUtils",
+    "WDSIconIcSmartToy.react",
     "WDSMenu.react",
     "WDSMenuItem.react",
     "gkx",
@@ -19,65 +20,70 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e, t) {
-      if (r("gkx")("26258")) return e;
-      var n = t.id,
-        a = o("WAWebFrontendChatGetters").getKind(t),
-        i = [],
-        l = i;
+      var n = t.chatId,
+        a = t.contact,
+        i = t.groupMetadata,
+        l = t.isCAG,
+        u = t.kind;
+      if (!r("gkx")("16539")) return e;
+      var c = [],
+        d = c;
       if (
-        (l.push.apply(
-          l,
-          o("WAWebDevOnlyBadge.react").getDEVChatMenuOptions(n, a),
+        (d.push.apply(
+          d,
+          o("WAWebDevOnlyBadge.react").getDEVChatMenuOptions(n, u),
         ),
-        t.isCAG())
+        l)
       ) {
-        var u,
-          c,
-          d =
-            (u =
-              (c = t.groupMetadata) == null || (c = c.parentGroup) == null
+        var m,
+          p,
+          _ =
+            (m =
+              i == null || (p = i.parentGroup) == null
                 ? void 0
-                : c.toString()) != null
-              ? u
+                : p.toString()) != null
+              ? m
               : "",
-          m = "copy-parent-group-id";
-        l.push(
+          f = "copy-parent-group-id";
+        d.push(
           s.jsx(
             r("WDSMenuItem.react"),
             {
               title: "Copy Parent Group ID",
               onPress: function () {
-                o("WAWebCopyToClipboard").copyTextToClipboard(d);
+                o("WAWebCopyToClipboard").copyTextToClipboard(_);
               },
-              testid: "test-" + m,
+              testid: "test-" + f,
             },
-            m,
+            f,
           ),
         );
       }
-      if (o("WAWebContactGetters").getIsGroup(t)) {
-        var p,
-          _ = (p = t.groupMetadata) == null ? void 0 : p.participants;
-        _ != null &&
-          l.push(
+      if (a != null && o("WAWebContactGetters").getIsGroup(a)) {
+        var g = i == null ? void 0 : i.participants;
+        g != null &&
+          d.push(
             s.jsx(
               r("WAWebDebugParticipantsListModal.react"),
-              { participants: _ },
+              { participants: g },
               "showParticipants",
             ),
           );
       }
       return (
         o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() &&
-          l.push(
+          d.push(
             s.jsx(
               r("WDSMenuItem.react"),
               {
                 title: "Sync more history",
                 onPress: function () {
-                  o(
-                    "WAWebSendNonMessageDataRequest",
-                  ).sendPeerDataOperationRequest(
+                  (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                    ? o("WAWebBackendRuntime").runtime(
+                        o("WAWebPeerDataService").PeerDataService,
+                      ).sendPeerDataOperationRequest
+                    : o("WAWebSendNonMessageDataRequest")
+                        .sendPeerDataOperationRequest)(
                     o("WAWebProtobufsE2E.pb")
                       .Message$PeerDataOperationRequestType
                       .HISTORY_SYNC_ON_DEMAND,
@@ -89,7 +95,7 @@ __d(
               "historySyncOnDemand",
             ),
           ),
-        i.length > 0 &&
+        c.length > 0 &&
           e.push(
             s.jsxs(s.Fragment, {
               children: [
@@ -98,8 +104,8 @@ __d(
                   r("WDSMenuItem.react"),
                   {
                     title: "Developer",
-                    Icon: o("WAWebDevIcon.react").DevIcon,
-                    submenuContent: s.jsx(r("WDSMenu.react"), { children: i }),
+                    Icon: r("WDSIconIcSmartToy.react"),
+                    submenuContent: s.jsx(r("WDSMenu.react"), { children: c }),
                     hasSubmenu: !0,
                   },
                   "developer-submenu",

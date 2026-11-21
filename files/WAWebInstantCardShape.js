@@ -2,183 +2,122 @@ __d(
   "WAWebInstantCardShape",
   [],
   function (t, n, r, o, a, i) {
-    var e = 6,
-      l = 178,
-      s = 64,
-      u = 20,
-      c = 19.2,
-      d = 1,
-      m = { left: g(0, 0, l, s, !0), right: g(0, 0, l, s, !1) },
-      p = {
-        left: g(d, d, l - 2 * d, s - 2 * d, !0),
-        right: g(d, d, l - 2 * d, s - 2 * d, !1),
+    var e = 160,
+      l = 52,
+      s = 8,
+      u = 16,
+      c = e + s,
+      d = 0.5,
+      m = [
+        { angleDeg: 4, x: 7.2, y: -11 },
+        { angleDeg: -3, x: 3.2, y: -11 },
+      ],
+      p = [
+        { angleDeg: 4, x: 4.6, y: -12 },
+        { angleDeg: -3, x: 2.6, y: -11 },
+      ],
+      _ = m.length,
+      f = b(0),
+      g = b(d);
+    function h(e) {
+      return 'path("' + v(f, e) + '")';
+    }
+    function y(e) {
+      return 'path(evenodd, "' + v(f, e) + " " + v(g, e) + '")';
+    }
+    function C(e, t, n) {
+      var r = (t ? p : m)[e],
+        o = r.angleDeg,
+        a = r.x,
+        i = r.y,
+        l = t === n;
+      return { angleDeg: n ? -o : o, x: l ? a : -a, y: i };
+    }
+    function b(e) {
+      var t = s,
+        n = c - e,
+        r = l - e,
+        o = t + e,
+        a = u - e;
+      return [
+        { cmd: "M", to: [2.812, e] },
+        { cmd: "L", to: [n - a, e] },
+        { cmd: "A", r: a, to: [n, e + a] },
+        { cmd: "L", to: [n, r - a] },
+        { cmd: "A", r: a, to: [n - a, r] },
+        { cmd: "L", to: [o + a, r] },
+        { cmd: "A", r: a, to: [o, r - a] },
+        { cmd: "L", to: [o, 11.193 - e] },
+        { cmd: "L", to: [1.533 + e, 2.568] },
+        {
+          cmd: "C",
+          c1: [0.474 + e, 1.156],
+          c2: [1.042 + e, e],
+          to: [2.812, e],
+        },
+      ];
+    }
+    function v(e, t) {
+      var n = function (n) {
+        var e = n[0],
+          r = n[1];
+        return S(t ? e : c - e) + " " + S(r);
       };
-    function _(e) {
-      return 'path("' + m[e ? "left" : "right"] + '")';
-    }
-    function f(e) {
-      var t = e ? "left" : "right";
-      return 'path(evenodd, "' + m[t] + " " + p[t] + '")';
-    }
-    function g(e, t, n, r, o) {
-      return h(n, r)
-        .map(function (r) {
-          var a = r.cmd,
-            i = r.points;
-          return (
-            "" +
-            a +
-            i
-              .map(function (r) {
-                var a = r[0],
-                  i = r[1];
-                return [o ? n - a : a, i]
-                  .map(function (n, r) {
-                    return y(n + (r === 0 ? e : t));
-                  })
-                  .join(" ");
-              })
-              .join(" ")
-          );
+      return e
+        .map(function (e) {
+          return (function (e) {
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              (e.cmd === "M" || e.cmd === "L") &&
+              "to" in e
+            ) {
+              var r = e.cmd,
+                o = e.to;
+              return "" + r + n(o);
+            }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.cmd === "C" &&
+              "c1" in e &&
+              "c2" in e &&
+              "to" in e
+            ) {
+              var a = e.c1,
+                i = e.c2,
+                l = e.to;
+              return "C" + n(a) + " " + n(i) + " " + n(l);
+            }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.cmd === "A" &&
+              "r" in e &&
+              "to" in e
+            ) {
+              var s = e.r,
+                u = e.to;
+              return (
+                "A" + S(s) + " " + S(s) + " 0 0 " + (t ? 1 : 0) + " " + n(u)
+              );
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                e,
+            );
+          })(e);
         })
         .join(" ")
         .concat(" Z");
     }
-    function h(t, n) {
-      var r = t - c - e,
-        o = n - c,
-        a = Math.max(1, Math.min(u * 1.528, o, n / 2, r)),
-        i = t - e,
-        l = a * 0.651042,
-        s = a * 0.473958,
-        d = a * 0.34375,
-        m = a * 0.223958,
-        p = a * 0.130208,
-        _ = a * 0.067708;
-      return [
-        { cmd: "M", points: [[a, 0]] },
-        { cmd: "L", points: [[i - a, 0]] },
-        {
-          cmd: "C",
-          points: [
-            [i - l, 0],
-            [i - s, 0],
-            [i - d, _],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [i - m, p],
-            [i - p, m],
-            [i - _, d],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [i, s],
-            [i, l],
-            [i, a],
-          ],
-        },
-        { cmd: "L", points: [[r + 19.2, o]] },
-        {
-          cmd: "C",
-          points: [
-            [r + 19.2, o + 7.7],
-            [r + 19.1, o + 12.9],
-            [r + 25, o + 18.3],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [r + 25.4, o + 18.6],
-            [r + 25.1, o + 19.2],
-            [r + 24.7, o + 19.2],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [r + 20.4, o + 19],
-            [r + 17, o + 17.7],
-            [r + 15.3, o + 16],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [r + 14.5, o + 16.8],
-            [r + 13.6, o + 17.4],
-            [r + 12.6, o + 17.9],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [r + 10.1, o + 19.2],
-            [r + 6.7, o + 19.2],
-            [r, o + 19.2],
-          ],
-        },
-        { cmd: "L", points: [[a, n]] },
-        {
-          cmd: "C",
-          points: [
-            [l, n],
-            [s, n],
-            [d, n - _],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [m, n - p],
-            [p, n - m],
-            [_, n - d],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [0, n - s],
-            [0, n - l],
-            [0, n - a],
-          ],
-        },
-        { cmd: "L", points: [[0, a]] },
-        {
-          cmd: "C",
-          points: [
-            [0, l],
-            [0, s],
-            [_, d],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [p, m],
-            [m, p],
-            [d, _],
-          ],
-        },
-        {
-          cmd: "C",
-          points: [
-            [s, 0],
-            [l, 0],
-            [a, 0],
-          ],
-        },
-      ];
+    function S(e) {
+      return Math.round(e * 1e3) / 1e3;
     }
-    function y(e) {
-      return Math.round(e * 100) / 100;
-    }
-    ((i.getInstantCardClipPath = _), (i.getInstantCardBorderClipPath = f));
+    ((i.INSTANT_STACK_MAX_GHOSTS = _),
+      (i.getInstantCardClipPath = h),
+      (i.getInstantCardBorderClipPath = y),
+      (i.getInstantStackGhostPose = C));
   },
   66,
 );

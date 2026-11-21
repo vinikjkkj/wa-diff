@@ -5,6 +5,8 @@ __d(
     "WAWebHatchCvmPinLogging",
     "WAWebModalLoadable",
     "WAWebModalManager",
+    "WAWebPathfinderHeldBackScope.react",
+    "WAWebPathfinderHeldBackSurface",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,7 +22,11 @@ __d(
     function c(e) {
       (o("WAWebHatchCvmPinLogging").logHatchCvmPinPromptShown(e.trigger),
         o("WAWebModalManager").ModalManager.open(
-          s.jsx(u, { botName: e.botName }),
+          s.jsx(r("WAWebPathfinderHeldBackScope.react"), {
+            name: o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+              .HATCH_CVM_PIN,
+            children: s.jsx(u, { botName: e.botName }),
+          }),
           { transition: "modal-flow" },
         ));
     }

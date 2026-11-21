@@ -14,8 +14,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1",
+      u = "5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414",
       c = {
+        "5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414":
+          function () {
+            return r("bx")("111323");
+          },
         cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1:
           function () {
             return r("bx")("13551");
@@ -76,12 +80,8 @@ __d(
           function () {
             return r("bx")("110783");
           },
-        "3e5a815603f3f4e4c4f4b0328142cdd70231969ad8f19133f930302c411ded94":
-          function () {
-            return r("bx")("110779");
-          },
       },
-      d = c.cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1,
+      d = c["5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414"],
       m = null,
       p = null;
     try {
@@ -90,6 +90,10 @@ __d(
       m = e;
     }
     var _ = {
+        "5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414":
+          function () {
+            return r("bx")("111322");
+          },
         cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1:
           function () {
             return r("bx")("13550");
@@ -150,16 +154,12 @@ __d(
           function () {
             return r("bx")("110782");
           },
-        "3e5a815603f3f4e4c4f4b0328142cdd70231969ad8f19133f930302c411ded94":
-          function () {
-            return r("bx")("110778");
-          },
       },
-      f = _.cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1,
+      f = _["5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414"],
       g = null,
       h;
     try {
-      h = r("bx").getURL(f(), { cacheBreaker: "1795190749521" });
+      h = r("bx").getURL(f(), { cacheBreaker: "1795223900361" });
     } catch (e) {
       g = e;
     }
@@ -198,7 +198,7 @@ __d(
         var b = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414/wa_voip_shared.wasm",
           ),
           g != null)
         )
@@ -511,7 +511,7 @@ __d(
               Int32Array.prototype.set != null,
             "JS engine does not provide full typed array support",
           ));
-        var ae = b.INITIAL_MEMORY || 10485760;
+        var ae = b.INITIAL_MEMORY || 11534336;
         if (
           (Ue("INITIAL_MEMORY", "INITIAL_MEMORY"),
           j(
@@ -922,7 +922,7 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Qe = {
-          1458658: function (t, n) {
+          1459170: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -936,7 +936,7 @@ __d(
               message: e,
             });
           },
-          1458945: function () {
+          1459457: function () {
             return Date.now();
           },
         };
@@ -7924,8 +7924,8 @@ __d(
           yl = (b.___get_exception_message = Pe("__get_exception_message")),
           Cl = Pe("__cxa_can_catch"),
           bl = Pe("__cxa_is_pointer_type"),
-          vl = (b.___start_em_js = 1452716),
-          Sl = (b.___stop_em_js = 1458658);
+          vl = (b.___start_em_js = 1453228),
+          Sl = (b.___stop_em_js = 1459170);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -10024,7 +10024,7 @@ __d(
         if (g == null && m == null) return { hadError: !1, wasm: !0, glue: !0 };
         if (g != null)
           try {
-            ((h = r("bx").getURL(f(), { cacheBreaker: "1795190749521" })),
+            ((h = r("bx").getURL(f(), { cacheBreaker: "1795223900361" })),
               (g = null));
           } catch (e) {
             return ((g = e), { hadError: !0, wasm: !1, glue: m == null });

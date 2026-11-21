@@ -4,6 +4,8 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebBackendApi",
+    "WAWebCallScreeningJourneyLogger",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipWaCallEnums",
@@ -57,30 +59,34 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.callState,
-            n = e.isCaller,
-            r = e.previousCallState,
-            a = e.voipStackInterface;
+          var t = e.callId,
+            n = e.callState,
+            r = e.isCaller,
+            a = e.previousCallState,
+            i = e.voipStackInterface;
           if (
             !(
-              a.type !== "web" ||
-              t !== o("WAWebVoipWaCallEnums").CallState.Screening ||
-              r === o("WAWebVoipWaCallEnums").CallState.Screening ||
-              !n
+              i.type !== "web" ||
+              n !== o("WAWebVoipWaCallEnums").CallState.Screening ||
+              a === o("WAWebVoipWaCallEnums").CallState.Screening ||
+              !r
             )
           ) {
-            yield S();
-            var i = yield a.screeningPromptFinished();
-            i === 0 || i === _
+            (o(
+              "WAWebCallScreeningJourneyLogger",
+            ).CallScreeningJourneyLogger.onCallerScreeningStarted(t),
+              yield S());
+            var l = yield i.screeningPromptFinished();
+            l === 0 || l === _
               ? o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: caller screening recording started, status: ",
                       "",
                     ])),
-                  i,
+                  l,
                 )
-              : i === f
+              : l === f
                 ? o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -93,7 +99,7 @@ __d(
                         "voip: screeningPromptFinished did not start recording, status: ",
                         "",
                       ])),
-                    i,
+                    l,
                   );
           }
         })),
@@ -144,7 +150,12 @@ __d(
         n = e.previousCallState;
       n === o("WAWebVoipWaCallEnums").CallState.Screening &&
         t !== o("WAWebVoipWaCallEnums").CallState.Screening &&
-        o("WAWebBackendApi").frontendFireAndForget("stopScreeningPrompt", {});
+        (o("WAWebBackendApi").frontendFireAndForget("stopScreeningPrompt", {}),
+        o(
+          "WAWebCallScreeningJourneyLogger",
+        ).CallScreeningJourneyLogger.onScreeningLeft(
+          o("WAWebVoipCallStateUtils").isCallTerminal(t),
+        ));
     }
     function E() {
       return k.apply(this, arguments);
@@ -161,6 +172,9 @@ __d(
                 "voip: screening duration expired, ending call",
               ])),
           ),
+            o(
+              "WAWebCallScreeningJourneyLogger",
+            ).CallScreeningJourneyLogger.onSelfTimeout(),
             yield e.endCall(
               o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
               !0,

@@ -5,7 +5,9 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAWebBuildConstants",
+    "WAWebCmd",
     "WAWebEnvironment",
+    "WAWebInboundMsgQueueGating",
     "WAWebNotificationBanner",
     "WAWebNotificationConstants",
     "WAWebNotificationDeliveryWamEvent",
@@ -28,6 +30,7 @@ __d(
           var t = this;
           ((this.creationAt = Date.now()),
             (this.isBannerSuppressed = !1),
+            (this.alertedDuringResume = !1),
             (this.$1 = null),
             (this.$2 = r("WAWebPonyfillsCryptoRandomUUID")()),
             (this.closeBanner = function () {
@@ -180,6 +183,7 @@ __d(
                     throw new (o("WAAbortError").AbortError)(
                       "Notification mute/squelched " + n,
                     );
+                else this.$3(t);
                 var i =
                   !n &&
                   this.playsSoundBeforeBanner() &&
@@ -206,6 +210,12 @@ __d(
             }
             return t;
           })()),
+          (a.$3 = function (t) {
+            !t &&
+              !o("WAWebCmd").Cmd.isOfflineDeliveryEnd &&
+              o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled() &&
+              (this.alertedDuringResume = !0);
+          }),
           (a.showBanner = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

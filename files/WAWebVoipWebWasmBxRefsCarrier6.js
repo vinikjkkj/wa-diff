@@ -3,6 +3,14 @@ __d(
   ["bx"],
   function (t, n, r, o, a, i, l) {
     var e = {
+      "5eaf7130913f6fce213ee5f8ac004e3cfb85f857b16a68abde5a8ad10790f414": {
+        wasm: function () {
+          return r("bx")("111322");
+        },
+        workerGlue: function () {
+          return r("bx")("111323");
+        },
+      },
       cf95ebc0a3a23cb886173637aea0697f5fb5fe85d6f9c2307e1f6971127982f1: {
         wasm: function () {
           return r("bx")("13550");
@@ -121,14 +129,6 @@ __d(
         },
         workerGlue: function () {
           return r("bx")("110783");
-        },
-      },
-      "3e5a815603f3f4e4c4f4b0328142cdd70231969ad8f19133f930302c411ded94": {
-        wasm: function () {
-          return r("bx")("110778");
-        },
-        workerGlue: function () {
-          return r("bx")("110779");
         },
       },
     };

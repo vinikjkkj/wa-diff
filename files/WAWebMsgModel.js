@@ -549,7 +549,7 @@ __d(
             (e.preMatChat = o("WAWebBaseModel").session()),
             (e.senderWithDevice = o("WAWebBaseModel").session()),
             (e.isRetry = o("WAWebBaseModel").session(!1)),
-            (e.isOffline = o("WAWebBaseModel").session(!1)),
+            (e.isOffline = o("WAWebBaseModel").session()),
             (e.read = o("WAWebBaseModel").prop()),
             (e.memberLabelData = o("WAWebBaseModel").prop()),
             (e.hatchMetadataSync = o("WAWebBaseModel").prop(null)),

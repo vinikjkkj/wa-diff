@@ -2,8 +2,7 @@ __d(
   "WAWebNewsletterDeleteDialogWamoSubStrings",
   [
     "fbt",
-    "WAWebCurrencyDollarIcon.react",
-    "WAWebStringQualityGatingUtils",
+    "WDSIconIcAttachMoney.react",
     "WDSIconIcHistory.react",
     "react",
     "react-compiler-runtime",
@@ -26,23 +25,32 @@ __d(
         n
       );
     }
-    function d() {
+    function d(e) {
+      var t = o("react-compiler-runtime").c(2),
+        n;
+      return (
+        t[0] !== e
+          ? ((n = u.jsx(
+              r("WDSIconIcAttachMoney.react"),
+              babelHelpers.extends({}, e, { colorName: "contentDeemphasized" }),
+            )),
+            (t[0] = e),
+            (t[1] = n))
+          : (n = t[1]),
+        n
+      );
+    }
+    function m() {
       return {
         title: s._(/*BTDS*/ "Subscribers will be refunded"),
-        description: o(
-          "WAWebStringQualityGatingUtils",
-        ).shouldUseStringQualityBatch2()
-          ? s._(
-              /*BTDS*/ "Subscriptions will be canceled, and active subscribers will get a refund for this month's subscription fees.",
-            )
-          : s._(
-              /*BTDS*/ "Subscriptions will be canceled and active subscribers will get a refund for this month's subscription fees.",
-            ),
-        Icon: o("WAWebCurrencyDollarIcon.react").CurrencyDollarIcon,
+        description: s._(
+          /*BTDS*/ "Subscriptions will be canceled, and active subscribers will get a refund for this month's subscription fees.",
+        ),
+        Icon: d,
         key: "subscribers-will-be-refunded",
       };
     }
-    function m() {
+    function p() {
       return {
         title: s._(/*BTDS*/ "Past activity will be visible"),
         description: s._(
@@ -52,8 +60,8 @@ __d(
         key: "past-activity-will-be-visible",
       };
     }
-    ((l.getNewsletterDeleteDialogWamoSubWarningMessageContent = d),
-      (l.getNewsletterDeleteDialogSuspendedWamoSubWarningMessageContent = m));
+    ((l.getNewsletterDeleteDialogWamoSubWarningMessageContent = m),
+      (l.getNewsletterDeleteDialogSuspendedWamoSubWarningMessageContent = p));
   },
   226,
 );

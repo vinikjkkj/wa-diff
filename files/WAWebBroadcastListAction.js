@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAudienceExpressionTypes",
+    "WAWebBizBroadcastAudienceDuplicateCheck",
     "WAWebBizBroadcastProListUtils",
     "WAWebBroadcastListIdUtils",
     "WAWebBroadcastListStorageUtils",
@@ -19,6 +20,7 @@ __d(
     "WAWebContactSyncLogger",
     "WAWebDeleteChatSync",
     "WAWebFrontendContactGetters",
+    "WAWebLogBizBroadcastAudienceDuplicateCheck",
     "WAWebNoop",
     "WAWebWidFactory",
     "WDSToastImperativeHost",
@@ -122,18 +124,19 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.audienceExpression,
             n = e.contacts,
-            a = e.customAudienceFbid,
-            i = e.id,
-            l = e.isWebCreatedList,
-            d = e.listName,
-            p = a == null ? void 0 : a.trim(),
-            _ = p != null && p.length > 0 ? p : void 0,
-            g = _ != null ? { customAudienceFbid: _ } : {},
-            h = o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(_);
-          if (!(n.length === 0 && !h)) {
-            var y = yield f(n),
-              C = o("WATimeUtils").unixTimeMs(),
-              b = y.flatMap(function (e) {
+            a = e.creationDuplicateCheck,
+            i = e.customAudienceFbid,
+            l = e.id,
+            d = e.isWebCreatedList,
+            p = e.listName,
+            _ = i == null ? void 0 : i.trim(),
+            g = _ != null && _.length > 0 ? _ : void 0,
+            h = g != null ? { customAudienceFbid: g } : {},
+            y = o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(g);
+          if (!(n.length === 0 && !y)) {
+            var C = yield f(n),
+              b = o("WATimeUtils").unixTimeMs(),
+              v = C.flatMap(function (e) {
                 var t = o(
                     "WAWebContactImportFileProcessor",
                   ).normalizePhoneNumber(e.phone),
@@ -145,7 +148,7 @@ __d(
                 };
                 return [r];
               });
-            b.length === 0 &&
+            v.length === 0 &&
               n.length > 0 &&
               o("WALogger")
                 .ERROR(
@@ -154,42 +157,65 @@ __d(
                       "[broadcast:list-action] failed: no participants for jid ",
                       "",
                     ])),
-                  i,
+                  l,
                 )
                 .sendLogs("business-broadcast-no-participants");
             try {
-              var v =
+              var S =
                   t != null
                     ? t
                     : o(
                         "WAWebAudienceExpressionTypes",
                       ).createExplicitExpression(
-                        b.flatMap(function (e) {
+                        v.flatMap(function (e) {
                           return e.lidJid != null ? [e.lidJid] : [];
                         }),
                       ),
-                S = r("WAWebBroadcastListSync").getBroadcastListMutation(
-                  babelHelpers.extends({}, g, {
-                    expression: v,
-                    id: i,
-                    listName: d,
-                    participants: b,
-                    timestamp: C,
+                R = r("WAWebBroadcastListSync").getBroadcastListMutation(
+                  babelHelpers.extends({}, h, {
+                    expression: S,
+                    id: l,
+                    listName: p,
+                    participants: v,
+                    timestamp: b,
                   }),
+                ),
+                L = yield o(
+                  "WAWebBroadcastListStorageUtils",
+                ).updateBroadcastListStorage(
+                  babelHelpers.extends({ audienceExpression: S }, h, {
+                    id: l,
+                    isBizBroadcastPro: y,
+                    isWebCreatedList: d,
+                    listName: p,
+                    shouldInsertInitialSystemMessages: !0,
+                    timestamp: o("WATimeUtils").castMilliSecondsToUnixTime(b),
+                  }),
+                  [R],
                 );
-              yield o(
-                "WAWebBroadcastListStorageUtils",
-              ).updateBroadcastListStorage(
-                babelHelpers.extends({ audienceExpression: v }, g, {
-                  id: i,
-                  isBizBroadcastPro: h,
-                  isWebCreatedList: l,
-                  listName: d,
-                  shouldInsertInitialSystemMessages: !0,
-                  timestamp: o("WATimeUtils").castMilliSecondsToUnixTime(C),
-                }),
-                [S],
-              );
+              if (
+                L &&
+                a != null &&
+                !y &&
+                S.type ===
+                  o("WAWebAudienceExpressionTypes").EXPRESSION_TYPE_EXPLICIT
+              ) {
+                var E;
+                o(
+                  "WAWebLogBizBroadcastAudienceDuplicateCheck",
+                ).logCoreAudienceDuplicateCheck(
+                  "creation",
+                  (E =
+                    a.countSavedAudience == null
+                      ? void 0
+                      : a.countSavedAudience(l, S.userJids)) != null
+                    ? E
+                    : o(
+                        "WAWebBizBroadcastAudienceDuplicateCheck",
+                      ).countMatchingCoreAudiences(new Set([l])),
+                  a.entryPoint,
+                );
+              }
             } catch (e) {
               throw (
                 o("WALogger").ERROR(
@@ -202,7 +228,7 @@ __d(
                   m,
                   e,
                 ),
-                h ||
+                y ||
                   o("WDSToastImperativeHost").showWDSToast({
                     action: {
                       label: s._(/*BTDS*/ "OK"),
@@ -305,9 +331,10 @@ __d(
           var t = e.audienceExpression,
             n = e.broadcastListName,
             r = e.contacts,
-            a = e.customAudienceFbid,
-            i = n.trim(),
-            l = o("WAWebBroadcastListIdUtils").createBroadcastListJid(
+            a = e.creationDuplicateCheck,
+            i = e.customAudienceFbid,
+            l = n.trim(),
+            s = o("WAWebBroadcastListIdUtils").createBroadcastListJid(
               function (e) {
                 var t = o("WAWebWidFactory").createWid(e);
                 return o("WAWebChatCollection").ChatCollection.get(t) != null;
@@ -317,12 +344,13 @@ __d(
             yield C({
               audienceExpression: t,
               contacts: r,
-              customAudienceFbid: a,
-              id: l,
+              creationDuplicateCheck: a,
+              customAudienceFbid: i,
+              id: s,
               isWebCreatedList: !0,
-              listName: i,
+              listName: l,
             }),
-            l
+            s
           );
         })),
         T.apply(this, arguments)

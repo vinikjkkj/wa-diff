@@ -6,6 +6,7 @@ __d(
     "WAWebActions",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebCallCollection",
+    "WAWebCallScreeningJourneyLogger",
     "WAWebCallUserJourneyInCallAction",
     "WAWebCallUserJourneyLogger",
     "WAWebChatCollection",
@@ -678,6 +679,9 @@ __d(
           o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE.END_CALL,
           o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
         ),
+        o(
+          "WAWebCallScreeningJourneyLogger",
+        ).CallScreeningJourneyLogger.onSelfEnded(),
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           yield e == null

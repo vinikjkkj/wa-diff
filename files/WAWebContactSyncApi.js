@@ -468,7 +468,7 @@ __d(
           c.length > 0 &&
             (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: c,
-              flushImmediately: !0,
+              write: "now",
               learningSource: "usync",
             }));
         })),

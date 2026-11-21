@@ -3,7 +3,7 @@ __d(
   ["WAWebHatchUrl"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = ["muse.ai", "meta.ai"],
+    var e = ["muse.ai", "meta.ai", "museai.com"],
       s = new Set(["/peer/accept", "/hatch/peer/accept"]);
     function u(t) {
       var n = o("WAWebHatchUrl").toWebUrl(t);

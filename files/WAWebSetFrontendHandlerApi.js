@@ -30,6 +30,7 @@ __d(
     "WAWebGalaxyFlowBridgeApi",
     "WAWebGroupBridgeApi",
     "WAWebGroupHistoryBridgeApi",
+    "WAWebGroupHistoryStoredHintFillWatcher",
     "WAWebGroupMetadataBridgeApi",
     "WAWebHistorySyncApi",
     "WAWebIdentityBridgeApi",
@@ -84,6 +85,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      (s(e),
+        o(
+          "WAWebGroupHistoryStoredHintFillWatcher",
+        ).startGroupHistoryStoredHintFillWatcher());
+    }
+    function s(e) {
       (o(
         "WAWebCampaignNotificationListener",
       ).businessBroadcastCampaignNotificationRegistration(),
@@ -181,7 +188,7 @@ __d(
           "WAWebBizAiSettingsFetchOnLaunch",
         ).initHandoffRemovalTimingFetchOnLaunch());
     }
-    l.setFrontendHandlers = e;
+    ((l.setFrontendHandlersForApp = e), (l.setFrontendHandlers = s));
   },
   98,
 );

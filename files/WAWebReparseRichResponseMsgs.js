@@ -42,7 +42,7 @@ __d(
               flushImmediatly: !0,
               msgData: a,
               uiNotified: i,
-            });
+            }).done;
             try {
               o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
                 (yield (e || (e = n("Promise"))).all(

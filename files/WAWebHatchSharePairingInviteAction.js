@@ -1,18 +1,42 @@
 __d(
   "WAWebHatchSharePairingInviteAction",
-  ["fbt", "WAWebModalManager", "WAWebSendTextFlow.react", "react"],
+  [
+    "fbt",
+    "WAWebHatchFrontendGating",
+    "WAWebModalManager",
+    "WAWebSendTextFlow.react",
+    "WDSToastImperativeHost",
+    "react",
+  ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
       u = e || (e = o("react"));
     function c(e) {
+      if (!o("WAWebHatchFrontendGating").isHatchPeerConnectionsSendEnabled()) {
+        d();
+        return;
+      }
       o("WAWebModalManager").ModalManager.open(
         u.jsx(r("WAWebSendTextFlow.react"), {
+          alwaysShowComposeModal: !0,
+          canSend: o("WAWebHatchFrontendGating")
+            .isHatchPeerConnectionsSendEnabled,
+          onSendBlocked: d,
+          openChatAfterSingleSend: !0,
           text: e,
           title: s._(/*BTDS*/ "Send invitation to"),
         }),
         { transition: "modal-flow" },
       );
+    }
+    function d() {
+      o("WDSToastImperativeHost").showWDSToast({
+        message: s._(
+          /*BTDS*/ "Sharing invites isn't available right now. Try again later.",
+        ),
+        testid: "hatch_peer_invite_share_unavailable_toast",
+      });
     }
     l.shareHatchPairingInvite = c;
   },

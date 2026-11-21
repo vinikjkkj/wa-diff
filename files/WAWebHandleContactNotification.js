@@ -335,7 +335,7 @@ __d(
                     { lid: a, pn: t },
                     { lid: i, pn: r },
                   ],
-                  flushImmediately: !0,
+                  write: "now",
                   learningSource: "contact-notification",
                 }),
                 a.equals(i) || (yield S(a, i))),

@@ -68,6 +68,8 @@ __d(
     "WAWebGroupMetadataGetters",
     "WAWebGroupSafetyCheckUtils",
     "WAWebHandleNewMsgAction",
+    "WAWebInboundMsgChatKey",
+    "WAWebInboundMsgDrainActiveChat",
     "WAWebKeepInChatMsgUtils",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
@@ -806,6 +808,10 @@ __d(
                 ).SQUELCH_RESET_VALUE)),
               this.active && (this.hasChatBeenOpened = !0),
               (this.presence.chatActive = this.active),
+              o("WAWebInboundMsgDrainActiveChat").noteInboundMsgDrainChatActive(
+                o("WAWebInboundMsgChatKey").toInboundMsgChatKey(this.id),
+                this.active,
+              ),
               this.active)
             ) {
               var t = o("WATimeUtils").unixTime(),

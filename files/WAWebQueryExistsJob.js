@@ -133,7 +133,7 @@ __d(
               L != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [{ pn: R, lid: L }],
-                flushImmediately: !0,
+                write: "now",
                 learningSource: "usync",
               }),
               p.isLid() || (S.wid = L)),
@@ -488,7 +488,7 @@ __d(
               d.pn != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [{ pn: d.pn, lid: p }],
-                flushImmediately: !0,
+                write: "now",
                 learningSource: "usync",
               }));
             var g = !1,

@@ -47,14 +47,14 @@ __d(
             !p.has(n) ||
             r.length === 0 ||
             !o("WAWebLimitSharingGatingUtils").isAcp2Enabled() ||
-            (a != null && E(a))
+            (a != null && I(a))
           )
             return r;
           var i = r[0].id.remote;
-          if (!(yield C(i))) return r;
-          var l = k(r);
+          if (!(yield v(i))) return r;
+          var l = T(r);
           return (
-            l != null && (yield I(i.toString(), l)),
+            l != null && (yield D(i.toString(), l)),
             o("WALogger")
               .WARN(
                 e ||
@@ -82,9 +82,9 @@ __d(
             r = e.t;
           return !p.has(n) ||
             !o("WAWebLimitSharingGatingUtils").isAcp2Enabled() ||
-            !(yield C(t))
+            !(yield v(t))
             ? !1
-            : (yield I(t.toString(), r),
+            : (yield D(t.toString(), r),
               o("WALogger")
                 .WARN(
                   s ||
@@ -106,8 +106,23 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatWid,
+            n = e.messageType;
+          return !p.has(n) || !o("WAWebLimitSharingGatingUtils").isAcp2Enabled()
+            ? !1
+            : v(t);
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.toString(),
-            n = yield R(t),
+            n = yield E(t),
             r = n
               ? o("WAWebLimitSharingProtoUtils").getPendingLimitSharingUpdate(t)
               : o("WAWebLimitSharingProtoUtils").getPendingAcp2Update(t);
@@ -116,17 +131,17 @@ __d(
             ? !1
             : r == null
               ? !0
-              : v(t, r);
+              : R(t, r);
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return (
             yield o("WAPromiseTimeout")
               .promiseTimeout(t, _)
@@ -138,18 +153,18 @@ __d(
                     ])),
                 );
               }),
-            R(e)
+            E(e)
           );
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t,
               n = yield o("WAWebLimitSharingModelUtils").getChat(e);
@@ -172,10 +187,10 @@ __d(
             );
           }
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function E(e) {
+    function I(e) {
       var t,
         n,
         r,
@@ -201,7 +216,7 @@ __d(
         return e != null && m.has(e);
       });
     }
-    function k(e) {
+    function T(e) {
       var t = null;
       for (var n of e)
         o("WAWebMsgDataUtils").eventTypeFromMsgType(n) !==
@@ -211,12 +226,12 @@ __d(
           (t = n.t);
       return t;
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
@@ -241,11 +256,12 @@ __d(
               chatIdToLatestUpdates: [{ id: e, t: t }],
             });
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     ((l.hideMsgsReceivedInAcp2RestrictedChat = f),
-      (l.hideScheduledMsgInAcp2RestrictedChat = h));
+      (l.hideScheduledMsgInAcp2RestrictedChat = h),
+      (l.wouldHideMsgInAcp2RestrictedChat = C));
   },
   98,
 );

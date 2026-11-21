@@ -440,21 +440,24 @@ __d(
       return u(0x56aefcbc25d3f);
     }
     function Ot() {
-      return u(8122483904494954);
+      return u(0x3d9560cc40da6);
     }
     function Bt() {
-      return u(0x566e31f78e0b2);
+      return u(8122483904494954);
     }
     function Wt() {
-      return u(0x769e543c0aed3);
+      return u(0x566e31f78e0b2);
     }
     function qt() {
-      return u(0x548d90f8cf00c);
+      return u(0x769e543c0aed3);
     }
     function Ut() {
-      return u(502161774931737);
+      return u(0x548d90f8cf00c);
     }
     function Vt() {
+      return u(502161774931737);
+    }
+    function Ht() {
       return u(0x59132db60167f);
     }
     ((l.FAQ_BASE_URL = e),
@@ -596,12 +599,13 @@ __d(
       (l.getStandardBotProfileLearnMoreUrl = wt),
       (l.getThirdPartyAgentLearnMoreUrl = At),
       (l.getBusinessBroadcastsLearnMoreUrl = Ft),
-      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = Ot),
-      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Bt),
-      (l.getCloseFriendLearnMoreUrl = Wt),
-      (l.getNewsletterStatusIntroFaqUrl = qt),
-      (l.getStatusReshareFaqUrl = Ut),
-      (l.getPasskeySecurityCheckFaqUrl = Vt));
+      (l.getBusinessBroadcastsProLearnMoreUrl = Ot),
+      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = Bt),
+      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Wt),
+      (l.getCloseFriendLearnMoreUrl = qt),
+      (l.getNewsletterStatusIntroFaqUrl = Ut),
+      (l.getStatusReshareFaqUrl = Vt),
+      (l.getPasskeySecurityCheckFaqUrl = Ht));
   },
   98,
 );

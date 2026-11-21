@@ -59,7 +59,7 @@ __d(
                 R = o("WAWebWidFactory").asUserWidOrThrow(v);
               o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [{ lid: S, pn: R }],
-                flushImmediately: !0,
+                write: "now",
                 learningSource: "status-receipt",
               });
             }

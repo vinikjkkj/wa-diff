@@ -24,6 +24,7 @@ __d(
     "WAWebEventSamplingCache",
     "WAWebFtsClient",
     "WAWebHistorySyncProgress",
+    "WAWebInboundMsgQueueLoader",
     "WAWebInitFromStorage",
     "WAWebInitializeCryptoLibrary",
     "WAWebInvocationInterface",
@@ -121,7 +122,7 @@ __d(
       return (
         o("WAWebBackendApi").setApi(t),
         h.load().then(function (e) {
-          var n = e.setFrontendHandlers;
+          var n = e.setFrontendHandlersForApp;
           return n(t);
         }),
         y.load().then(function (e) {
@@ -229,6 +230,9 @@ __d(
                       "WAWebBackendEventBus",
                     ).BackendEventBus.triggerAbPropsLoaded(),
                       L(),
+                      o(
+                        "WAWebInboundMsgQueueLoader",
+                      ).maybeRegisterInboundMsgQueue(),
                       o("WAWebInitFromStorage")
                         .restoreImportantMetaData()
                         .catch(function (e) {

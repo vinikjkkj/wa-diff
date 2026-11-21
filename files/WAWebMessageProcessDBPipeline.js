@@ -19,25 +19,34 @@ __d(
       d,
       m = 1e4;
     function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield f(e.msgData, e.flushImmediatly);
-          e.flushImmediatly && t && g(e.msgData, e.uiNotified);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(t, n) {
-      return o("WAWebMessageProcessorCache")
-        .messageProcessorCache.addMessages(
-          t.map(function (e) {
+      var t;
+      try {
+        t = o("WAWebMessageProcessorCache").messageProcessorCache.addMessages(
+          e.msgData.map(function (e) {
             return { msg: e };
           }),
-          n,
-        )
+          e.flushImmediatly,
+        );
+      } catch (e) {
+        var r = (d || (d = n("Promise"))).reject(e);
+        return { done: r, written: r };
+      }
+      return { done: _(e, t), written: t };
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield g(t);
+          e.flushImmediatly && n && h(e.msgData, e.uiNotified);
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(t) {
+      return t
         .then(function () {
           return (
             o(
@@ -65,14 +74,14 @@ __d(
           );
         });
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            (t.isSettled || (yield y(t.promise)),
+            (t.isSettled || (yield C(t.promise)),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -101,15 +110,15 @@ __d(
               .sendLogs("orphan-drain-failed", { sampling: 0.01 });
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o("WAPromiseTimeout").promiseTimeout(
               e,
@@ -137,7 +146,7 @@ __d(
               });
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
     l.processMsgDataDBPipeline = p;

@@ -11,6 +11,7 @@ __d(
     "WAWebCanonicalGating",
     "WAWebCompanionRegUtils",
     "WAWebCoreActionsODS",
+    "WAWebInboundMsgPersistedQueueAdapter",
     "WAWebInitializeCryptoLibrary",
     "WAWebJestE2ELogUtils",
     "WAWebSocketModel",
@@ -128,17 +129,20 @@ __d(
               );
             if (a.type === "replaced")
               return (
-                o("WAWebUserPrefsTabMutex").currentTabHasMutex() &&
-                  o("WALogger")
-                    .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[handleStreamError] replaced with mutex, closing",
-                        ])),
-                    )
-                    .sendLogs("invalid-session-replacement", {
-                      sampling: 0.01,
-                    }),
+                o("WAWebUserPrefsTabMutex").currentTabHasMutex()
+                  ? o("WALogger")
+                      .ERROR(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[handleStreamError] replaced with mutex, closing",
+                          ])),
+                      )
+                      .sendLogs("invalid-session-replacement", {
+                        sampling: 0.01,
+                      })
+                  : o(
+                      "WAWebInboundMsgPersistedQueueAdapter",
+                    ).stopInboundMsgQueue(),
                 o("WAComms").stopComms(i),
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );

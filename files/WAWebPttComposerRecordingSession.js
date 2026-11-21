@@ -720,10 +720,11 @@ __d(
                   a = e.isViewOnce,
                   i = a === void 0 ? !1 : a,
                   l = e.isWamoSub,
-                  s = e.questionReplyQuotedMessage,
-                  u = e.threadId;
+                  s = e.onMsgKeyCreated,
+                  u = e.questionReplyQuotedMessage,
+                  c = e.threadId;
                 try {
-                  var c, d;
+                  var d, m;
                   (o("WALogger").LOG(
                     b ||
                       (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -734,8 +735,8 @@ __d(
                     i,
                     l,
                   ),
-                    (c = this._handleSendMessageStart) == null ||
-                      c.call(this, i),
+                    (d = this._handleSendMessageStart) == null ||
+                      d.call(this, i),
                     this._recorder ||
                       o("WALogger").ERROR(
                         v ||
@@ -743,22 +744,22 @@ __d(
                             "WAWebPttComposerRecordingSession: Recorder is null in send method",
                           ])),
                       ));
-                  var m = r("nullthrows")(this._recorder),
-                    p = this._chat;
+                  var p = r("nullthrows")(this._recorder),
+                    _ = this._chat;
                   o("WALogger").LOG(
                     S ||
                       (S = babelHelpers.taggedTemplateLiteralLoose([
                         "WAWebPttComposerRecordingSession: Getting data for sending",
                       ])),
                   );
-                  var _ = r("WAPromiseRaceAbort")(
+                  var f = r("WAPromiseRaceAbort")(
                       this._getDataForSending(),
-                      p.getDeleteSignal(),
+                      _.getDeleteSignal(),
                     ),
-                    f =
-                      ((d = p.getComposeContents()) == null
+                    g =
+                      ((m = _.getComposeContents()) == null
                         ? void 0
-                        : d.ctwaContext) || void 0;
+                        : m.ctwaContext) || void 0;
                   o("WALogger").LOG(
                     R ||
                       (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -766,15 +767,15 @@ __d(
                         ", waveform samples=",
                         "",
                       ])),
-                    Math.floor(m.getDuration()),
+                    Math.floor(p.getDuration()),
                     this.getScaledWaveformSamples().length,
                   );
-                  var g;
+                  var h;
                   try {
-                    ((g = o("WAWebPrepRawMedia").prepRawMedia(_, {
+                    ((h = o("WAWebPrepRawMedia").prepRawMedia(f, {
                       isPtt: !0,
                       precomputedFields: {
-                        duration: Math.floor(m.getDuration()),
+                        duration: Math.floor(p.getDuration()),
                         waveform: new Uint8Array(
                           this.getScaledWaveformSamples(),
                         ),
@@ -805,30 +806,31 @@ __d(
                       ])),
                     this._earlyUploadPromise ? "exists" : "null",
                   );
-                  var h = null;
-                  if (o("WAWebBotUtils").isMetaAiBot(p.id)) {
-                    var y;
-                    h =
-                      (y = o(
+                  var y = null;
+                  if (o("WAWebBotUtils").isMetaAiBot(_.id)) {
+                    var C;
+                    y =
+                      (C = o(
                         "WAWebBotProfileCollection",
-                      ).BotProfileCollection.get(p.id)) == null
+                      ).BotProfileCollection.get(_.id)) == null
                         ? void 0
-                        : y.personaId;
+                        : C.personaId;
                   }
                   try {
-                    (g.sendToChat({
-                      chat: p,
+                    (h.sendToChat({
+                      chat: _,
                       earlyUpload: this._earlyUploadPromise,
                       options: {
-                        quotedMsg: p.composeQuotedMsg || void 0,
+                        quotedMsg: _.composeQuotedMsg || void 0,
                         addEvenWhilePreparing: !i,
-                        ctwaContext: f,
+                        ctwaContext: g,
                         isViewOnce: i,
                         isWamoSub: l,
                         isQuestion: n,
-                        questionReplyQuotedMessage: s != null ? s : void 0,
-                        botPersonaId: h,
-                        threadId: u,
+                        questionReplyQuotedMessage: u != null ? u : void 0,
+                        botPersonaId: y,
+                        threadId: c,
+                        onMsgKeyCreated: s,
                       },
                     }),
                       o("WALogger").LOG(
@@ -848,7 +850,7 @@ __d(
                       e
                     );
                   }
-                  ((p.composeQuotedMsg = null),
+                  ((_.composeQuotedMsg = null),
                     o("WALogger").LOG(
                       D ||
                         (D = babelHelpers.taggedTemplateLiteralLoose([
@@ -860,7 +862,7 @@ __d(
                         .RecordingSessionStopReason.SENT,
                     ));
                   try {
-                    (yield _.catch(
+                    (yield f.catch(
                       o("WAAbortError").catchAbort(r("WAWebNoop")),
                     ),
                       o("WALogger").LOG(

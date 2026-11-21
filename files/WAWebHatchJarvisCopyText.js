@@ -128,6 +128,15 @@ __d(
               var s = e.card;
               return [s.title, s.body].filter(Boolean).join("\n");
             }
+            if (
+              ((typeof e == "object" && e !== null) ||
+                typeof e == "function") &&
+              e.type === "pairing_launcher" &&
+              "card" in e
+            ) {
+              var u = e.card;
+              return u.body;
+            }
             return "";
           })(e);
     }

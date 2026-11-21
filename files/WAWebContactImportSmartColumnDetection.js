@@ -149,9 +149,7 @@ __d(
       T = x(L),
       D = x(E);
     function x(e) {
-      var t = new Set();
-      for (var n of e) t.add($(n));
-      return t;
+      return new Set(e.map($));
     }
     function $(e) {
       return typeof e != "string"

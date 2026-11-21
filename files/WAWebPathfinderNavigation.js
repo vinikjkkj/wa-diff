@@ -40,32 +40,32 @@ __d(
         (s = e.eventType),
         o("WAWebPathfinderLogger").emitPathfinderEvent(e));
     }
-    function d(t, n, r) {
-      var o = Date.now();
+    function d(t, n, r, o) {
+      var a = Date.now();
       if (n === "background" || t === "background") {
-        e(t, n, o);
+        e(t, n, a);
         return;
       }
-      m(t, n, r, o);
+      m(t, n, r, o.destinationChannelWid, a);
     }
-    function m(e, t, n, r) {
-      var a = _(e, t);
+    function m(e, t, n, r, a) {
+      var i = _(e, t);
       (o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t),
         o("WAWebPathfinderScreenName").updateCurrentScreenName(t));
-      var i =
+      var l =
         t === n
-          ? o("WAWebPathfinderChatInfo").getActiveChatInfoMetadata(n)
+          ? o("WAWebPathfinderChatInfo").getActiveChatInfoMetadata(n, r)
           : void 0;
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "SCREEN_CHANGED",
         screenName: e,
         destinationName: t,
-        timestampMs: r,
+        timestampMs: a,
         triggeringTestId: o(
           "WAWebPathfinderUserTouch",
         ).consumeLastTapTrackingId(),
-        customMetadata: i,
-        heldBackSurface: a,
+        customMetadata: l,
+        heldBackSurface: i,
       });
     }
     function p() {

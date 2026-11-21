@@ -729,7 +729,7 @@ __d(
               ),
               yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: m,
-                flushImmediately: !0,
+                write: "now",
                 identityChangeHandlingEnabled: !1,
                 learningSource: "history-msg-handler",
               })),

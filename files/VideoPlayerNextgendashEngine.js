@@ -1036,23 +1036,41 @@ __d(
             streamingFormat: "dash",
           },
           handleVideoElementChanged: function (t, n) {
-            ((t != null || te) && (Q.config.nativeNextFirstMediaPrewarm = !1),
+            if (
+              ((t != null || te) && (Q.config.nativeNextFirstMediaPrewarm = !1),
               t != null && (te = !0),
               ee != null && (ee(), (ee = null)),
-              t != null
-                ? ((ee = X == null ? void 0 : X.subspan("video_element")),
-                  ae != null && (r("clearTimeout")(ae), (ae = null)),
-                  ne.sendEvent({
-                    mediaElement: o(
+              t != null)
+            ) {
+              var e;
+              ((ee = X == null ? void 0 : X.subspan("video_element")),
+                ae != null && (r("clearTimeout")(ae), (ae = null)),
+                Q.config.mediaSinkType === "MSE_TRACK_REUSE" &&
+                  ((e = ce.current) == null
+                    ? void 0
+                    : e.getUnderlyingVideoElement()) === t &&
+                  (ce.current = w(
+                    Q,
+                    o(
                       "VideoPlayerNextgendashHostAPI",
                     ).opaqueVideoPlayerNextgendashHostMediaElement(t),
-                    type: "update_media_element",
-                  }))
-                : Q.config.enableMediaElementUnmountNotification &&
-                  ne.sendEvent({
-                    mediaElement: null,
-                    type: "update_media_element",
-                  }));
+                    t,
+                    o(
+                      "VideoPlayerImplementationEngineVideoElementAPI",
+                    ).createVideoPlayerImplementationEngineVideoElementAPI(t),
+                  )),
+                ne.sendEvent({
+                  mediaElement: o(
+                    "VideoPlayerNextgendashHostAPI",
+                  ).opaqueVideoPlayerNextgendashHostMediaElement(t),
+                  type: "update_media_element",
+                }));
+            } else
+              Q.config.enableMediaElementUnmountNotification &&
+                ne.sendEvent({
+                  mediaElement: null,
+                  type: "update_media_element",
+                });
           },
           handleVideoInfoChange: function (t) {
             if (

@@ -53,54 +53,64 @@ __d(
             (i == null || e.creationAt >= i.creationAt) && n.set(a, e);
           }
         }),
-        Array.from(n.values()).sort(function (e, t) {
-          return e.creationAt - t.creationAt;
-        })
+        Array.from(n.values())
+          .filter(function (e) {
+            return !e.alertedDuringResume;
+          })
+          .sort(function (e, t) {
+            return e.creationAt - t.creationAt;
+          })
       );
     }
     function E(e) {
+      var t = e.reduce(function (e, t) {
+        return e == null || t.creationAt > e.creationAt ? t : e;
+      }, null);
+      return (t == null ? void 0 : t.alertedDuringResume) === !0 ? null : t;
+    }
+    function k(e) {
       return []
         .concat(e)
         .sort(function (e, t) {
-          return N(e) - N(t);
+          return M(e) - M(t);
         })
         .slice(-S);
     }
-    function k(e) {
+    function I(e) {
       for (var t = e.length - 1; t >= 0; t--) {
         var n = e[t];
         if (n.recvFresh !== !0) return null;
-        if (T(n)) return n;
+        if (D(n)) return n;
       }
       return null;
     }
-    function I(e, t) {
+    function T(e, t) {
       for (var n = e.length - 1; n >= 0; n--) {
         var r,
           a = e[n];
         if (((r = a.t) != null ? r : 0) <= t) return null;
-        if (!a.id.fromMe && D(o("WAWebMsgDataUtils").eventTypeFromMsgType(a)))
+        if (!a.id.fromMe && x(o("WAWebMsgDataUtils").eventTypeFromMsgType(a)))
           return a;
       }
       return null;
     }
-    function T(e) {
-      return !e.id.fromMe && D(o("WAWebFrontendMsgGetters").getEventType(e));
-    }
     function D(e) {
+      return !e.id.fromMe && x(o("WAWebFrontendMsgGetters").getEventType(e));
+    }
+    function x(e) {
       return (
         e === o("WAWebCommonMsgUtils").EventType.DEFAULT ||
         e === o("WAWebCommonMsgUtils").EventType.SIGNIFICANT
       );
     }
-    function x() {
+    function $() {
       var e = r("WAWebUserPrefsStore").getUser(R.WindowsMsgNotifiedUpToT);
       return typeof e == "number" ? e : 0;
     }
-    function $(e) {
-      e > x() && r("WAWebUserPrefsStore").setUser(R.WindowsMsgNotifiedUpToT, e);
+    function P(e) {
+      e > $() && r("WAWebUserPrefsStore").setUser(R.WindowsMsgNotifiedUpToT, e);
     }
-    function P() {
+    function N() {
       return Math.max.apply(
         Math,
         [0].concat(
@@ -118,13 +128,13 @@ __d(
         ),
       );
     }
-    function N(e) {
+    function M(e) {
       var t;
       return e instanceof o("WAWebMsgNotification").WAMsgNotification
         ? ((t = e.msg.t) != null ? t : 0) * 1e3
         : e.creationAt;
     }
-    var M = (function () {
+    var w = (function () {
         function e() {
           var e = this;
           ((this.map = new Map()),
@@ -158,7 +168,7 @@ __d(
                       ])),
                   ),
                     e.$9(),
-                    $(P()));
+                    P(N()));
                 }),
               ),
               (b == null ? void 0 : b()) === !0 &&
@@ -181,7 +191,7 @@ __d(
                   h.allSettled(Array.from(this.$5)),
                   o("WAPromiseDelays").delayMs(v),
                 ]));
-              var t = E(
+              var t = k(
                 [].concat(L(Array.from(this.map.values()), e), this.$10()),
               );
               for (var a of t.entries()) {
@@ -221,7 +231,7 @@ __d(
                   var n,
                     r,
                     o = t.msgs.getModelsArray();
-                  return (n = (r = k(o)) != null ? r : I(o, e.$11())) != null
+                  return (n = (r = I(o)) != null ? r : T(o, e.$11())) != null
                     ? n
                     : [];
                 })
@@ -247,7 +257,7 @@ __d(
           }),
           (t.$11 = function () {
             var e;
-            return ((e = this.$7) != null || (this.$7 = x()), this.$7);
+            return ((e = this.$7) != null || (this.$7 = $()), this.$7);
           }),
           (t.notificationExists = function (t) {
             return this.map.has(t);
@@ -287,7 +297,7 @@ __d(
                     e instanceof o("WAWebMsgNotification").WAMsgNotification)
                 ) {
                   var i;
-                  (this.$11(), $((i = e.msg.t) != null ? i : 0));
+                  (this.$11(), P((i = e.msg.t) != null ? i : 0));
                 }
                 var l = e.triggerNotification(
                   (t = this.$2) == null ? void 0 : t.call(this),
@@ -295,7 +305,7 @@ __d(
                 this.$5.add(l);
                 try {
                   var s = yield l;
-                  if (s != null) {
+                  if ((e.alertedDuringResume && this.$6.add(a), s != null)) {
                     if (
                       o(
                         "WAWebNotificationsMsgNotification",
@@ -354,18 +364,15 @@ __d(
             this.$2 = t;
           }),
           (t.$9 = function () {
-            var e = null;
-            (this.map.forEach(function (t, n) {
-              (e == null || t.creationAt > e.creationAt) && (e = t);
-            }),
-              e
-                ? this.triggerNotification(e)
-                : o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "WANotificationController: showLastestUnreadMsgNotification: no unread msg notification found",
-                      ])),
-                  ));
+            var e = E(Array.from(this.map.values()));
+            e
+              ? this.triggerNotification(e)
+              : o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "WANotificationController: showLastestUnreadMsgNotification: no unread msg notification found",
+                    ])),
+                );
           }),
           (t.$13 = function (t, n) {
             this.map.set(t, n);
@@ -397,12 +404,13 @@ __d(
           e
         );
       })(),
-      w = new M();
+      A = new w();
     ((l.findLatestNotificationPerTag = L),
-      (l.selectBackgroundRunToasts = E),
-      (l.findLatestFreshAlertMsg = k),
-      (l.findStoredLatestAlertMsg = I),
-      (l.WANotificationController = w));
+      (l.findLatestNotificationToReplay = E),
+      (l.selectBackgroundRunToasts = k),
+      (l.findLatestFreshAlertMsg = I),
+      (l.findStoredLatestAlertMsg = T),
+      (l.WANotificationController = A));
   },
   98,
 );

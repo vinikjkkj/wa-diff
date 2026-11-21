@@ -319,9 +319,10 @@ __d(
         d,
         m,
         p,
-        h = g[g.length - 1];
+        h,
+        y = g[g.length - 1];
       if (
-        (h == null &&
+        (y == null &&
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -330,11 +331,11 @@ __d(
               ])),
             e.surface,
           ),
-          (h = { surface: "unknown", id: -1 })),
-        h.id !== ((n = f) == null ? void 0 : n.id))
+          (y = { surface: "unknown", id: -1 })),
+        y.id !== ((n = f) == null ? void 0 : n.id))
       ) {
-        var y = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
-        if ((T(), !(e.surface === "unknown" && h.surface === "unknown"))) {
+        var C = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
+        if ((T(), !(e.surface === "unknown" && y.surface === "unknown"))) {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -344,45 +345,49 @@ __d(
                 "",
               ])),
             e.surface,
-            h.surface,
-            h.viewName,
+            y.surface,
+            y.viewName,
           );
-          var C = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
-              tsSessionId: y.id,
-              relativeTimestampMs: y.relativeTimestampMs,
+          var b = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
+              tsSessionId: C.id,
+              relativeTimestampMs: C.relativeTimestampMs,
               navigationSource: _[e.surface],
-              navigationDestination: _[h.surface],
+              navigationDestination: _[y.surface],
               navigationDestinationProductArea:
-                (r = h.extras) == null
+                (r = y.extras) == null
                   ? void 0
                   : r.navigationDestinationProductArea,
-              groupSize: (a = h.extras) == null ? void 0 : a.groupSize,
-              typeOfGroup: (i = h.extras) == null ? void 0 : i.typeOfGroup,
-              threadType: (l = h.extras) == null ? void 0 : l.threadType,
+              groupSize: (a = y.extras) == null ? void 0 : a.groupSize,
+              typeOfGroup: (i = y.extras) == null ? void 0 : i.typeOfGroup,
+              threadType: (l = y.extras) == null ? void 0 : l.threadType,
               cid:
-                (s = h.extras) == null || (s = s.channelWid) == null
+                (s = y.extras) == null || (s = s.channelWid) == null
                   ? void 0
                   : s.user,
               isCanonicalEntPresent: o(
                 "WAWebCanonicalUtils",
               ).isCanonicalPresent(),
             }),
-            b = (d = h.viewName) != null ? d : "";
-          (b != null && (C.navigationDestinationViewName = b),
-            y.tsTimestampMs != null && (C.tsTimestampMs = y.tsTimestampMs),
-            y.unifiedSessionId != null &&
-              (C.unifiedSessionId = y.unifiedSessionId),
+            R = (d = y.viewName) != null ? d : "";
+          (R != null && (b.navigationDestinationViewName = R),
+            C.tsTimestampMs != null && (b.tsTimestampMs = C.tsTimestampMs),
+            C.unifiedSessionId != null &&
+              (b.unifiedSessionId = C.unifiedSessionId),
             v.push({
               sourceId: e.id,
-              destId: h.id,
+              destId: y.id,
               sourceSurface: (m = e.viewName) != null ? m : e.surface,
-              destSurface: (p = h.viewName) != null ? p : h.surface,
-              destNavigationSurface: h.surface,
-              snapshot: x(t, A()),
-              event: C,
+              destSurface: (p = y.viewName) != null ? p : y.surface,
+              destNavigationSurface: y.surface,
+              snapshot: x(
+                t,
+                A(),
+                (h = y.extras) == null ? void 0 : h.channelWid,
+              ),
+              event: b,
             }),
             S.onOrBefore(100),
-            (f = h));
+            (f = y));
         }
       }
     }
@@ -451,15 +456,16 @@ __d(
     function D() {
       L != null && b(L);
     }
-    function x(e, t) {
-      var n, r;
+    function x(e, t, n) {
+      var r, o;
       return {
         navigatedAtMs: Date.now(),
         navigatedAtPerfMs: self.performance.now(),
         realSource: $(e),
-        realSourceId: (n = e == null ? void 0 : e.id) != null ? n : -1,
+        realSourceId: (r = e == null ? void 0 : e.id) != null ? r : -1,
         realDestination: $(t),
-        realDestinationId: (r = t == null ? void 0 : t.id) != null ? r : -1,
+        realDestinationId: (o = t == null ? void 0 : t.id) != null ? o : -1,
+        destinationChannelWid: n,
       };
     }
     function $(e) {

@@ -13,17 +13,18 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.isViewOnce,
             a = e.medias,
-            i = e.quotedMsg;
+            i = e.onMsgKeyCreated,
+            l = e.quotedMsg;
           if (
             !o("WAWebAlbumsSendEligibility").isAlbumSendEligible({
               chat: t,
@@ -32,54 +33,55 @@ __d(
             })
           )
             return null;
-          var l = o("WAWebAlbumsSendEligibility").countAlbumItems(a),
-            c = l.imageCount,
-            d = l.videoCount;
+          var s = o("WAWebAlbumsSendEligibility").countAlbumItems(a),
+            d = s.imageCount,
+            m = s.videoCount;
           try {
-            var p = yield o(
+            var f = yield o(
               "WAWebAlbumsCreateAlbumParentMsgData",
             ).createAlbumParentMsg({
               chat: t,
-              expectedImageCount: c,
-              expectedVideoCount: d,
-              quotedMsg: i,
+              expectedImageCount: d,
+              expectedVideoCount: m,
+              quotedMsg: l,
             });
             if (o("WAWebChatGetters").getIsNewsletter(t)) {
-              var _ = yield o(
+              var g = yield o(
                 "WAWebNewsletterSendMsgAction",
-              ).sendNewsletterAlbumMsg({ chat: t, msg: p });
-              return _.messageSendResult ===
+              ).sendNewsletterAlbumMsg({ chat: t, msg: f });
+              return g.messageSendResult ===
                 o("WAWebSendMsgResultAction").SendMsgResult.OK
-                ? p.id
-                : (m(_), null);
+                ? f.id
+                : (p(g), null);
             }
-            var f = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+            _(i, f.id);
+            var h = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                 t,
-                o("WAWebMsgDataFromModel").msgDataFromMsgModel(p),
+                o("WAWebMsgDataFromModel").msgDataFromMsgModel(f),
               ),
-              g = f[0],
-              h = f[1];
+              y = h[0],
+              C = h[1];
             return (
-              h.then(m).catch(function (e) {
+              C.then(p).catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "AlbumsSendAlbumParent: album send threw",
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("album-parent-send-failed");
               }),
-              yield g,
-              p.id
+              yield y,
+              f.id
             );
           } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "AlbumsSendAlbumParent: album create failed, sending items on their own",
                     ])),
                 )
@@ -89,10 +91,10 @@ __d(
             );
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(t) {
+    function p(t) {
       t.messageSendResult !== o("WAWebSendMsgResultAction").SendMsgResult.OK &&
         o("WALogger")
           .ERROR(
@@ -105,7 +107,23 @@ __d(
           )
           .sendLogs("album-parent-send-failed");
     }
-    l.maybeSendAlbumParent = c;
+    function _(e, t) {
+      try {
+        e == null || e(t);
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "AlbumsSendAlbumParent: onMsgKeyCreated failed (",
+                ")",
+              ])),
+            e instanceof Error ? e.name : typeof e,
+          )
+          .sendLogs("album-parent-on-msg-key-created-failed");
+      }
+    }
+    l.maybeSendAlbumParent = d;
   },
   98,
 );

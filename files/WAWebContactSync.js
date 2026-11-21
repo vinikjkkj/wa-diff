@@ -242,7 +242,7 @@ __d(
                   ),
                   yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                     mappings: b,
-                    flushImmediately: !0,
+                    write: "now",
                     learningSource: "contact-sync",
                   }),
                   yield o("WAWebApiContact").createOrMergeAddressBookContacts(

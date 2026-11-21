@@ -5,15 +5,14 @@ __d(
     "WAWebContactCollection",
     "WAWebContactComparator",
     "WAWebContactManagementGating",
+    "WAWebContactSaveEligibility",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebPrimaryFeaturesModel",
-    "WAWebUserUtils",
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebVcardParsingUtils",
     "WAWebWamEnumBizPlatform",
-    "WAWebWid",
     "WAWebWidFactory",
     "WAXplatTrim",
     "isStringNullOrEmpty",
@@ -101,14 +100,7 @@ __d(
       }
     }
     function m(e) {
-      return (
-        e.isRegularUser() &&
-        !o("WAWebUserUtils").isMeAccount(e) &&
-        !r("WAWebWid").isAiHub(e) &&
-        !r("WAWebWid").isIAS(e) &&
-        !r("WAWebWid").isCAPISupportAccount(e) &&
-        !r("WAWebWid").isSupportAccount(e)
-      );
+      return o("WAWebContactSaveEligibility").canSaveContact(e);
     }
     function p() {
       return (

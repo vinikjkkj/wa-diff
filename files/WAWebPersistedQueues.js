@@ -3,8 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebAddonDeletionQueue",
+    "WAWebBackendEventBus",
     "WAWebDbEncryptionKey",
+    "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebIndexedDB",
+    "WAWebJobsMigrationGating",
     "WAWebKeyShareQueue",
     "WAWebMetaAiThreadServerDeleteQueue",
     "WAWebNoop",
@@ -14,77 +17,120 @@ __d(
     "WAWebWormCallbacks",
     "WAWormQueue",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = "persisted_queues",
-      c = 10,
-      d = null;
-    function m() {
-      return (d == null && (d = p()), d);
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
+      u,
+      c = "persisted_queues",
+      d = 10,
+      m = null;
+    function p(e) {
+      if (m != null) return m;
+      var t = g().then(function (t) {
+        t && _(e);
+      });
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield f();
-          if (e == null) {
-            r("WAWebODS").incr("web.persisted_queues.error.unpersisted");
-            return;
-          }
-          (o("WAWebPersistedQueuesRegistry").bindPersistedQueues(e),
-            o("WAWebAddonDeletionQueue").startAddonDeletionQueueDrain(),
-            o("WAWebKeyShareQueue").startKeyShareQueue(),
-            o(
-              "WAWebMetaAiThreadServerDeleteQueue",
-            ).startMetaAiThreadServerDeleteQueue(),
-            o("WAWebResendMsgQueue").startResendQueues());
-        })),
-        _.apply(this, arguments)
+        (m = t),
+        t.catch(function () {
+          m === t && (m = null);
+        }),
+        t
       );
     }
+    function _(e) {
+      if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
+        if (
+          e ||
+          o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
+        ) {
+          f();
+          return;
+        }
+        o("WAWebEventsWaitForOfflineDeliveryEnd")
+          .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
+          .finally(f);
+      }
+    }
     function f() {
-      return g.apply(this, arguments);
+      (o("WAWebAddonDeletionQueue").startAddonDeletionQueueDrain(),
+        o("WAWebKeyShareQueue").startKeyShareQueue(),
+        o(
+          "WAWebMetaAiThreadServerDeleteQueue",
+        ).startMetaAiThreadServerDeleteQueue(),
+        o("WAWebResendMsgQueue").startResendQueues());
     }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield y();
+          return t == null
+            ? (r("WAWebODS").incr("web.persisted_queues.error.unpersisted"), !1)
+            : (o("WAWebPersistedQueuesRegistry").bindPersistedQueues(t),
+              yield o("WAWebPersistedQueuesRegistry")
+                .recordNewestStoredQueueIds()
+                .catch(function (t) {
+                  o("WALogger")
+                    .WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[persisted-queues] reading the newest rows failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .tags("messaging")
+                    .sendLogs("persisted-queues-newest-rows-read-failed", {
+                      sampling: 0.01,
+                    });
+                }),
+              !0);
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (r("WAWebIndexedDB") == null) return null;
           try {
             return (
               yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForWormEarKey(),
               o("WAWebWormCallbacks").setupWAWebWormCallbacks(),
               yield o("WAWormQueue").openWAWormQueueDatabase({
-                blockingErrorThreshold: c,
+                blockingErrorThreshold: d,
                 dbAlias: o("WAWebPersistedQueuesRegistry")
                   .PERSISTED_QUEUES_DB_ALIAS,
-                dbName: u,
+                dbName: c,
                 encKey: o("WAWebDbEncryptionKey").DbEncKeyStore.getWormEarKey(),
                 makeDriver: o("WAWormQueue").makeWAWormQueueEarSyncDriver,
                 odsLogger: {
-                  log: function (n) {
+                  log: function (t) {
                     (o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[persisted-queues] ",
                           "",
                         ])),
-                      n,
+                      t,
                     ),
-                      h(n));
+                      b(t));
                   },
                 },
                 onBlockingError: function (t) {
                   (r("WAWebODS").incr("web.persisted_queues.error.blocking"),
                     o("WALogger")
                       .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "[persisted-queues] unrecoverable: ",
                             "",
                           ])),
@@ -106,10 +152,10 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h(e) {
+    function b(e) {
       var t = o("WAWebPersistedQueuesRegistry").PERSISTED_QUEUES_DB_ALIAS + ".",
         n = e.startsWith(t) ? e.slice(t.length) : e;
       e: {
@@ -144,7 +190,7 @@ __d(
       (l.runUserMsgResendQueued = o(
         "WAWebResendMsgQueue",
       ).runUserMsgResendQueued),
-      (l.ensurePersistedQueuesOpen = m));
+      (l.ensurePersistedQueuesOpen = p));
   },
   98,
 );

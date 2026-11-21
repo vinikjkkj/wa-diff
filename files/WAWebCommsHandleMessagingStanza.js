@@ -9,8 +9,10 @@ __d(
     "WAWebHandleMsg",
     "WAWebHandleMsgReceipt",
     "WAWebPostUnknownStanzaMetric",
+    "WAWebStanzaHandlersV2",
     "WAWebStatusGatingUtils",
     "WAWebWid",
+    "cr:22472",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,17 +28,17 @@ __d(
         )
       ) {
         var l,
-          s,
-          u = o("WAWebStatusGatingUtils").isStatusDeliverViaSmaxEnabled()
+          u,
+          c = o("WAWebStatusGatingUtils").isStatusDeliverViaSmaxEnabled()
             ? o("WAWebCommsClassifyStatusStanza").classifyIncomingStatusStanza(
                 e,
               )
             : null;
         ((a =
-          (l = u == null ? void 0 : u.isGroupStatus) != null
+          (l = c == null ? void 0 : c.isGroupStatus) != null
             ? l
             : r("WAWebWid").isGroup(
-                (s = n.from) == null ? void 0 : s.toString(),
+                (u = n.from) == null ? void 0 : u.toString(),
               )),
           (i = !0),
           (e.tag = "message"));
@@ -44,19 +46,22 @@ __d(
       switch (e.tag) {
         case "message":
           {
-            var c = e.attrs.from;
-            if (!r("WAWebWid").isNewsletter(c == null ? void 0 : c.toString()))
-              return r("WAWebHandleMsg")(e, {
-                isGroupStatusStanza: a,
-                isStatusStanza: i,
-              }).catch(function (t) {
-                var n = i
-                  ? new (o("WAWap").WapNode)("status", e.attrs, e.content)
-                  : e;
-                return o(
-                  "WAWebCommsHandleStanzaUtils",
-                ).handleMessageParsingFailure(n, r("getErrorSafe")(t));
-              });
+            var d = e.attrs.from;
+            if (
+              !r("WAWebWid").isNewsletter(d == null ? void 0 : d.toString())
+            ) {
+              var m = s();
+              return m(e, { isGroupStatusStanza: a, isStatusStanza: i }).catch(
+                function (t) {
+                  var n = i
+                    ? new (o("WAWap").WapNode)("status", e.attrs, e.content)
+                    : e;
+                  return o(
+                    "WAWebCommsHandleStanzaUtils",
+                  ).handleMessageParsingFailure(n, r("getErrorSafe")(t));
+                },
+              );
+            }
           }
           break;
         case "receipt":
@@ -80,6 +85,12 @@ __d(
                 );
           }
       }
+    }
+    function s() {
+      return n("cr:22472") != null &&
+        o("WAWebStanzaHandlersV2").shouldHandleStanzaV2()
+        ? n("cr:22472")
+        : r("WAWebHandleMsg");
     }
     l.handleMessagingStanza = e;
   },

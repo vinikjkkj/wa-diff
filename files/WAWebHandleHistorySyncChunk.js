@@ -498,7 +498,7 @@ __d(
             });
             var ye = {
               mappings: he,
-              flushImmediately: !0,
+              write: "now",
               learningSource: "history-sync-chunk",
             };
             (e.syncType ===
@@ -1209,7 +1209,7 @@ __d(
                 "WAWebDBCreateLidPnMappings",
               ).createLidPnMappingsInBatches({
                 mappings: Le,
-                flushImmediately: !0,
+                write: "now",
                 learningSource: "history-sync-chunk",
               }),
               yield o("WAWebUpdateLidMetadataApi").updateLidMetadata({

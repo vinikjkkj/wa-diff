@@ -99,7 +99,9 @@ __d(
               return r("WAWebNotificationMuteReason").IgnoreGroupMsg;
             if (o("WAWebMsgGetters").getIsFutureproof(this.msg))
               return r("WAWebNotificationMuteReason").IgnoreFutureProof;
-            if (o("WAWebNotificationHelpers").isOfflineResumeInProgress())
+            if (
+              o("WAWebNotificationHelpers").isMsgMutedForOfflineResume(this.msg)
+            )
               return r("WAWebNotificationMuteReason").OfflineResumeInProgress;
             if (o("WAWebMsgGetters").getIsBizContentPlaceholder(this.msg))
               return r("WAWebNotificationMuteReason")

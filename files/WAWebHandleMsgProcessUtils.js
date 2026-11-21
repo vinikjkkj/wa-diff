@@ -36,7 +36,11 @@ __d(
           ).getDeliveryReceiptClass(e.from, n),
         },
         i = r ? { msg: e } : { msg: e, receiptInfo: a };
-      o("WAWebGetMessageCache").getMessageCache().addMessages([i], !1);
+      return {
+        written: o("WAWebGetMessageCache")
+          .getMessageCache()
+          .addMessages([i], !1),
+      };
     }
     function m(e, t) {
       return p.apply(this, arguments);
@@ -132,11 +136,13 @@ __d(
             n = e.msgInfo,
             r = e.msgMeta,
             a = e.reparsing;
-          if (n.offline != null && !a) return d(t, n, r);
-          yield o("WAWebBackendApi").frontendSendAndReceive(
-            "processEphemeralSyncResponse",
-            { msg: t },
-          );
+          return n.offline != null && !a
+            ? d(t, n, r)
+            : (yield o("WAWebBackendApi").frontendSendAndReceive(
+                "processEphemeralSyncResponse",
+                { msg: t },
+              ),
+              null);
         })),
         f.apply(this, arguments)
       );
@@ -151,11 +157,13 @@ __d(
             n = e.msgInfo,
             r = e.msgMeta,
             a = e.reparsing;
-          if (n.offline != null && !a) return d(t, n, r);
-          yield o("WAWebBackendApi").frontendSendAndReceive(
-            "processKeepInChatMessage",
-            { keepInChatMessage: t, allowNotification: !0 },
-          );
+          return n.offline != null && !a
+            ? d(t, n, r)
+            : (yield o("WAWebBackendApi").frontendSendAndReceive(
+                "processKeepInChatMessage",
+                { keepInChatMessage: t, allowNotification: !0 },
+              ),
+              null);
         })),
         h.apply(this, arguments)
       );
@@ -171,11 +179,12 @@ __d(
             r = e.msgMeta,
             a = e.reparsing,
             i = t;
-          if (n.offline != null && !a) return d(i, n, r);
-          yield o("WAWebDBProcessEditProtocolMsgs").processEditProtocolMsgs(
-            [i],
-            a,
-          );
+          return n.offline != null && !a
+            ? d(i, n, r)
+            : (yield o(
+                "WAWebDBProcessEditProtocolMsgs",
+              ).processEditProtocolMsgs([i], a),
+              null);
         })),
         C.apply(this, arguments)
       );
@@ -194,10 +203,12 @@ __d(
             "WAWebBrazilPaymentStateUpdateMsgUtils",
           ).awaitBrazilPaymentStateUpdateReceipt(t),
           r.offline != null && !i
-            ? (d(t, r, a), (c || (c = n("Promise"))).resolve())
-            : o(
-                "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-              ).keepAndApplyBrazilPaymentStateUpdate(t, i));
+            ? (c || (c = n("Promise"))).resolve(d(t, r, a))
+            : o("WAWebKeepAndApplyBrazilPaymentStateUpdates")
+                .keepAndApplyBrazilPaymentStateUpdate(t, i)
+                .then(function () {
+                  return null;
+                }));
     }
     function v(t) {
       return S(t).catch(function (n) {
@@ -211,7 +222,7 @@ __d(
             )
             .catching(r("getErrorSafe")(n))
             .sendLogs("br-payment-state-set-aside-failed"),
-          t.msgs
+          { msgs: t.msgs, staged: null }
         );
       });
     }
@@ -231,12 +242,15 @@ __d(
               ? b({ msg: r[0], msgInfo: t, msgMeta: n, reparsing: a })
               : null;
           return i == null
-            ? [].concat(
-                o(
-                  "WAWebBrazilPaymentStateUpdateMsgUtils",
-                ).hideAwaitedBrazilPaymentReceipts(r),
-              )
-            : (yield i, []);
+            ? {
+                msgs: [].concat(
+                  o(
+                    "WAWebBrazilPaymentStateUpdateMsgUtils",
+                  ).hideAwaitedBrazilPaymentReceipts(r),
+                ),
+                staged: null,
+              }
+            : { msgs: [], staged: yield i };
         })),
         R.apply(this, arguments)
       );

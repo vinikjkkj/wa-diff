@@ -83,6 +83,7 @@ __d(
         "NotReceivingNotificationsBannerEligibleSince",
         "CanonicalAuthV2MintThrottle",
         "CanonicalAuthV2LastValidatedAtMs",
+        "InboundMsgQueueMayHaveRows",
       ]),
       u = Object.freeze(
         babelHelpers.extends(

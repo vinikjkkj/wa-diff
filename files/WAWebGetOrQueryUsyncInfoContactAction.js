@@ -180,7 +180,7 @@ __d(
                 m.pn != null &&
                 (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                   mappings: [{ pn: m.pn, lid: _ }],
-                  flushImmediately: !0,
+                  write: "now",
                   learningSource: "usync",
                 }))));
           var h = t.isRegularUserPn() ? !1 : void 0,

@@ -31,35 +31,45 @@ __d(
         addPoint: v,
         annotate: S,
         addCheckpointPoint: R,
-        settleQueue: E,
-        endWithReceipt: k,
-        endWithFailure: I,
-        addToOfflineResumeTotals: T,
-        recordOfflineAck: D,
-        resetOfflineResumeTotals: x,
-        takeOfflineResumeTotals: $,
+        addInboundDrainWait: E,
+        handOffMessageWrite: k,
+        isMessageWriteHandedOff: I,
+        settleQueue: T,
+        endWithReceipt: D,
+        endWithFailure: x,
+        addToOfflineResumeTotals: $,
+        recordOfflineAck: P,
+        resetOfflineResumeTotals: N,
+        takeOfflineResumeTotals: M,
       };
     function C(t) {
       var n = t.chatType,
         r = t.isOffline,
-        a = t.queueDepth,
-        i = t.queueImpl,
-        l = t.stanzaId,
-        u = t.stanzaType;
-      (w(l, "superseded"), A(), r && (N("rx_stanza_count", 1), P(i)));
-      var c = o("QPLFlow").startQPLFlow(e, {
+        a = t.persistedQueue,
+        i = t.queueDepth,
+        l = t.queueImpl,
+        u = t.stanzaId,
+        c = t.stanzaType;
+      (O(u, "superseded"), B(), r && (A("rx_stanza_count", 1), w(l)));
+      var d = o("QPLFlow").startQPLFlow(e, {
         annotations: {
-          bool: { is_hidden_at_start: b(), is_offline: r },
-          int: { queue_depth_offline: a.offline, queue_depth_online: a.online },
-          string: { chat_type: n, message_queue_impl: i, stanza_type: u },
+          bool: {
+            is_hidden_at_start: b(),
+            is_offline: r,
+            persisted_queue: a === !0,
+          },
+          int: { queue_depth_offline: i.offline, queue_depth_online: i.online },
+          string: { chat_type: n, message_queue_impl: l, stanza_type: c },
         },
         timeoutInMs: s,
       });
-      (c.addPoint("queue_wait_start"),
-        m.set(l, {
-          flow: c,
+      (d.addPoint("queue_wait_start"),
+        m.set(u, {
+          flow: d,
           handlerEnded: !1,
+          inboundDrainWaitMs: 0,
           longTasksAtStart: o("WAWebLongTaskAccumulator").getLongTaskTotals(),
+          messageWriteHandedOff: !1,
           storageCommitted: !1,
         }));
     }
@@ -86,50 +96,68 @@ __d(
     }
     function L(e, t) {
       var n = self.performance.now();
-      t === "storage_commit_start" && N("rx_checkpoint_count", 1);
+      t === "storage_commit_start" && A("rx_checkpoint_count", 1);
       var r = d[t];
       if (r == null) {
         _.set(e, n);
         return;
       }
       var o = _.get(e);
-      o != null && N(r, n - o);
+      o != null && A(r, n - o);
     }
     function E(e, t) {
+      var n = m.get(e);
+      n != null &&
+        ((n.inboundDrainWaitMs += t),
+        n.flow.addAnnotations({
+          int: { inbound_drain_wait_ms: Math.round(n.inboundDrainWaitMs) },
+        }));
+    }
+    function k(e) {
+      e.forEach(function (e) {
+        var t = m.get(e);
+        t != null && (t.messageWriteHandedOff = !0);
+      });
+    }
+    function I(e) {
+      var t;
+      return ((t = m.get(e)) == null ? void 0 : t.messageWriteHandedOff) === !0;
+    }
+    function T(e, t) {
       var n = m.get(e);
       n != null &&
         (n.flow.addPoint("queue_settled"),
         n.handlerEnded ||
           n.flow.addAnnotations({ bool: { queue_timed_out: !0 } }),
-        t && I(e, "nack"));
+        t && x(e, "nack"));
     }
-    function k(e, t) {
-      var n = F(e);
+    function D(e, t) {
+      var n = W(e);
       n != null &&
         (n.flow.addPoint("receipt_sent"),
         n.flow.addAnnotations({
           bool: { storage_committed_before_receipt: n.storageCommitted },
         }),
-        M(n),
+        F(n),
         n.flow.endSuccess(t));
     }
-    function I(e, t) {
-      var n = F(e);
-      n != null && (M(n), n.flow.endFail(t));
+    function x(e, t) {
+      var n = W(e);
+      n != null && (F(n), n.flow.endFail(t));
     }
-    function T(e) {
+    function $(e) {
       o("WAWebMessageReceiveFlow").OFFLINE_RESUME_TOTAL_KEYS.forEach(
         function (t) {
           var n = e[t];
-          n != null && N(t, n);
+          n != null && A(t, n);
         },
       );
     }
-    function D() {
+    function P() {
       var e = self.performance.now();
       (f != null || (f = e), (g = e));
     }
-    function x() {
+    function N() {
       (c.forEach(function (e) {
         return p.set(e, 0);
       }),
@@ -137,7 +165,7 @@ __d(
         (g = null),
         (h = null));
     }
-    function $(e) {
+    function M(e) {
       var t = {};
       p.forEach(function (e, n) {
         t[n] = Math.round(e);
@@ -150,37 +178,37 @@ __d(
         (t.rx_last_ack_offset_ms = Math.round(r - e)));
       var o = h;
       return (
-        x(),
+        N(),
         o == null
           ? { int: t }
           : { int: t, string: { rx_message_queue_impl: o } }
       );
     }
-    function P(e) {
+    function w(e) {
       h = h == null || h === e ? e : "mixed";
     }
-    function N(e, t) {
+    function A(e, t) {
       var n;
       p.set(e, ((n = p.get(e)) != null ? n : 0) + t);
     }
-    function M(e) {
+    function F(e) {
       var t = o("WAWebLongTaskAccumulator").getLongTaskAnnotationsSince(
         e.longTasksAtStart,
       );
       t != null && e.flow.addAnnotations(t);
     }
-    function w(e, t) {
+    function O(e, t) {
       var n;
-      (n = F(e)) == null ||
+      (n = W(e)) == null ||
         n.flow.endCancel(4, { string: { cancel_reason: t } });
     }
-    function A() {
+    function B() {
       if (!(m.size < u)) {
         var e = m.keys().next().value;
-        e != null && (w(e, "evicted"), N("rx_evicted_flow_count", 1));
+        e != null && (O(e, "evicted"), A("rx_evicted_flow_count", 1));
       }
     }
-    function F(e) {
+    function W(e) {
       var t = m.get(e);
       return (m.delete(e), t);
     }

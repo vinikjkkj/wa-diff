@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebVoipABPropConfig",
-    "WAWebVoipChromiumDesktopBrowser",
     "WAWebVoipMainThreadLockFixes",
     "justknobx",
   ],
@@ -16,25 +15,18 @@ __d(
       c = "web_voip_detach_unstarted_audio_threads",
       d = "log_level",
       m = 1;
-    function p() {
-      var e = o("WAWebVoipChromiumDesktopBrowser").isChromiumDesktopBrowser();
-      return r("WAWebVoipABPropConfig").filter(function (t) {
-        var n = t.chromiumDesktopOnly;
-        return n !== !0 || e;
-      });
-    }
-    function _(t) {
-      for (var n of p()) {
-        var r = n.abProp,
-          a = n.type,
-          i = n.wasmKey;
+    function p(t) {
+      for (var n of r("WAWebVoipABPropConfig")) {
+        var a = n.abProp,
+          i = n.type,
+          l = n.wasmKey;
         try {
-          var l = o("WAWebABProps").getABPropConfigValue(r);
-          a === "bool"
-            ? t.setABPropBool(i, l)
-            : a === "string"
-              ? t.setABPropString(i, String(l))
-              : t.setABPropInt(i, l);
+          var s = o("WAWebABProps").getABPropConfigValue(a);
+          i === "bool"
+            ? t.setABPropBool(l, s)
+            : i === "string"
+              ? t.setABPropString(l, String(s))
+              : t.setABPropInt(l, s);
         } catch (t) {
           o("WALogger").WARN(
             e ||
@@ -42,22 +34,22 @@ __d(
                 "voip: skipping unknown AB prop ",
                 "",
               ])),
-            r,
+            a,
           );
         }
       }
-      t.setABPropBool(c, h());
-      var s = g();
-      s != null && t.setABPropInt(d, s);
+      t.setABPropBool(c, g());
+      var u = f();
+      u != null && t.setABPropInt(d, u);
     }
-    function f() {
+    function _() {
       var e = {};
-      for (var t of p()) {
+      for (var t of r("WAWebVoipABPropConfig")) {
         var n = t.abProp,
-          r = t.type,
-          a = t.wasmKey;
+          a = t.type,
+          i = t.wasmKey;
         try {
-          e[a] = { value: o("WAWebABProps").getABPropConfigValue(n), type: r };
+          e[i] = { value: o("WAWebABProps").getABPropConfigValue(n), type: a };
         } catch (e) {
           o("WALogger").WARN(
             s ||
@@ -69,14 +61,14 @@ __d(
           );
         }
       }
-      e[c] = { value: h(), type: "bool" };
-      var i = g();
-      return (i != null && (e[d] = { value: i, type: "int" }), e);
+      e[c] = { value: g(), type: "bool" };
+      var l = f();
+      return (l != null && (e[d] = { value: l, type: "int" }), e);
     }
-    function g() {
+    function f() {
       return null;
     }
-    function h() {
+    function g() {
       try {
         return (
           o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix() &&
@@ -96,7 +88,7 @@ __d(
         );
       }
     }
-    ((l.setABPropsOnWasm = _), (l.buildABPropsBag = f));
+    ((l.setABPropsOnWasm = p), (l.buildABPropsBag = _));
   },
   98,
 );

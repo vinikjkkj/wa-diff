@@ -974,48 +974,7 @@ __d(
                 var a = yield this.$1.generateCacheUpdateThrottled();
                 try {
                   (e(),
-                    yield o("WAWebSignalStorageUtils")
-                      .getStorage()
-                      .lock(
-                        [
-                          "session-store",
-                          "identity-store",
-                          "prekey-store",
-                          "senderkey-store",
-                        ],
-                        n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* () {
-                            yield (C || (C = n("Promise"))).all([
-                              o(
-                                "WAWebSignalStoreApi",
-                              ).waSignalStore.bulkPutSession(a.sessionUpdate),
-                              o(
-                                "WAWebSignalStoreApi",
-                              ).waSignalStore.bulkPutIdentityKeyWithRowId(
-                                a.identityUpdate,
-                              ),
-                              o(
-                                "WAWebSignalStoreApi",
-                              ).waSignalStore.bulkPutSenderKey(
-                                a.senderKeyUpdate,
-                              ),
-                              o(
-                                "WAWebSignalStoreApi",
-                              ).waSignalStore.bulkRemovePreKey(a.preKeyRemove),
-                              o(
-                                "WAWebSignalStoreApi",
-                              ).waSignalStore.bulkRemoveSession(
-                                a.sessionRemove,
-                              ),
-                              o(
-                                "WAWebSignalStoreApi",
-                              ).waSignalStore.bulkRemoveIdentity(
-                                a.identityRemove,
-                              ),
-                            ]);
-                          },
-                        ),
-                      ),
+                    yield this.$25(a, a.senderKeyUpdate),
                     this.$1.clearDirty());
                 } finally {
                   t.forEach(function (e) {

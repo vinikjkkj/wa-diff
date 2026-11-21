@@ -77,7 +77,6 @@ __d(
           abProp: "web_voip_audio_pipeline_v2",
           wasmKey: "web_voip_audio_pipeline_v2",
           type: "bool",
-          chromiumDesktopOnly: !0,
         },
         {
           abProp: "wa_web_console_log_level",

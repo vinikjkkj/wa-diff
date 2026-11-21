@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebDBCreateLidPnMappings",
     "WAWebEnvironment",
+    "WAWebLidPnMappingWrite",
     "WAWebRunInBatches",
     "WAWebUpdateLidMetadataApi",
     "WAWebWidFactory",
@@ -66,7 +67,7 @@ __d(
               i.length > 0
                 ? o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                     mappings: i,
-                    flushImmediately: r,
+                    write: o("WAWebLidPnMappingWrite").toLidPnMappingWrite(r),
                     learningSource: "create-or-replace-display-names",
                   })
                 : null,

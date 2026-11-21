@@ -88,6 +88,14 @@ __d(
             },
           );
         }),
+        (a.getAllFromIndexRange = function (t, n, r) {
+          return this.$4("getAllFromIndexRange").read(
+            this.$5("getAllIndexRange"),
+            function (e) {
+              return e.getAllByIndexRange(t, n, r);
+            },
+          );
+        }),
         (a.getFromIndex = function (t, n) {
           return this.$4("getFromIndex").read(
             this.$5("getByIndex"),

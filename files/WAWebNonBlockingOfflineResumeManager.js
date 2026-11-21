@@ -9,6 +9,7 @@ __d(
     "WAWebBrokerGlobalAppState",
     "WAWebChatThreadLogging",
     "WAWebHandleMsgTypes",
+    "WAWebInboundMsgPersistedQueueAdapter",
     "WAWebJSHaltDetector",
     "WAWebMessageQueue",
     "WAWebMessageQueueImpl",
@@ -283,6 +284,9 @@ __d(
                     (yield o(
                       "WAWebMessageQueue",
                     ).waitForLegacyOnlineMessageQueue()),
+                    yield o(
+                      "WAWebInboundMsgPersistedQueueAdapter",
+                    ).waitForInboundMsgDrainIdle(),
                     yield o("WAWebApiPendingDeviceSync").doPendingDeviceSync(),
                     this.$14(
                       o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE,
@@ -456,6 +460,9 @@ __d(
                   (yield o(
                     "WAWebOneQueue",
                   ).waitForOneQueueOfflineWorkDrained()),
+                yield o(
+                  "WAWebInboundMsgPersistedQueueAdapter",
+                ).waitForInboundMsgDrainIdle(),
                 o("WAWebThreadMetadata").resetThreadMeta(),
                 o("WALogger").LOG(
                   C ||

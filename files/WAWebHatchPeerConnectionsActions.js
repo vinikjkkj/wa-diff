@@ -190,74 +190,78 @@ __d(
         w.apply(this, arguments)
       );
     }
-    function A(e) {
+    function A(e, t) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-            r = yield ce(
-              "accept-read",
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = yield e.kind === "delivery" ? ie(t) : le(t);
-                    if (n.kind !== "Ok") return _e("accept-read", n);
-                    var r =
-                      e.kind === "delivery"
-                        ? o(
-                            "WAWebHatchPeerConnectionsDecoder",
-                          ).readHatchPeerInboxInvitationUrl(n.value, e.id)
-                        : o(
-                            "WAWebHatchPeerConnectionsDecoder",
-                          ).readHatchPeerOpenedInvitationUrl(n.value, e.id);
-                    return (function (e) {
-                      if (
-                        ((typeof e == "object" && e !== null) ||
-                          typeof e == "function") &&
-                        e.kind === "ok" &&
-                        "url" in e
-                      ) {
-                        var t = e.url;
-                        return { kind: "ok", value: t };
-                      }
-                      if (
-                        ((typeof e == "object" && e !== null) ||
-                          typeof e == "function") &&
-                        e.kind === "gone"
-                      )
-                        return { kind: "gone" };
-                      if (
-                        ((typeof e == "object" && e !== null) ||
-                          typeof e == "function") &&
-                        e.kind === "malformed"
-                      )
-                        return fe("accept-read", "malformed");
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })(r);
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
-          if (r.kind !== "ok") return r;
-          if (!pe(t)) return { kind: "failed" };
-          var a = yield o("WAWebHatchPeerInviteActions").acceptHatchPeerInvite(
-            r.value,
-            function () {
-              return pe(t);
-            },
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t === void 0 && (t = o("WAWebBoolFunc").returnTrue);
+          var r = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
+            a = function () {
+              return pe(r) && t();
+            };
+          if (!t()) return { kind: "failed" };
+          var i = yield ce(
+            "accept-read",
+            (function () {
+              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (n) {
+                  if (!t()) return { kind: "failed" };
+                  var r = yield e.kind === "delivery" ? ie(n) : le(n);
+                  if (r.kind !== "Ok") return _e("accept-read", r);
+                  var a =
+                    e.kind === "delivery"
+                      ? o(
+                          "WAWebHatchPeerConnectionsDecoder",
+                        ).readHatchPeerInboxInvitationUrl(r.value, e.id)
+                      : o(
+                          "WAWebHatchPeerConnectionsDecoder",
+                        ).readHatchPeerOpenedInvitationUrl(r.value, e.id);
+                  return (function (e) {
+                    if (
+                      ((typeof e == "object" && e !== null) ||
+                        typeof e == "function") &&
+                      e.kind === "ok" &&
+                      "url" in e
+                    ) {
+                      var t = e.url;
+                      return { kind: "ok", value: t };
+                    }
+                    if (
+                      ((typeof e == "object" && e !== null) ||
+                        typeof e == "function") &&
+                      e.kind === "gone"
+                    )
+                      return { kind: "gone" };
+                    if (
+                      ((typeof e == "object" && e !== null) ||
+                        typeof e == "function") &&
+                      e.kind === "malformed"
+                    )
+                      return fe("accept-read", "malformed");
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })(a);
+                },
+              );
+              return function (e) {
+                return r.apply(this, arguments);
+              };
+            })(),
           );
-          return pe(t)
-            ? p.has(a)
+          if (i.kind !== "ok") return t() ? i : { kind: "failed" };
+          if (!a()) return { kind: "failed" };
+          var l = yield o("WAWebHatchPeerInviteActions").acceptHatchPeerInvite(
+            i.value,
+            a,
+          );
+          return a()
+            ? p.has(l)
               ? { kind: "ok", value: null }
-              : fe("accept", a)
+              : fe("accept", l)
             : { kind: "failed" };
         })),
         F.apply(this, arguments)

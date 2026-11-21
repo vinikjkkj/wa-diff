@@ -1,7 +1,6 @@
 __d(
   "WAWebMessageViewOnceSurprise",
   [
-    "WAWebClassnames",
     "WAWebEmoji",
     "WAWebEmojiConst",
     "WAWebFlex.react",
@@ -15,44 +14,50 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = e.useState,
-      c = "x1jfngxa-B";
-    function d(e) {
-      var t = o("react-compiler-runtime").c(8),
+      c = "x1jfngxa-B",
+      d = {
+        container: {
+          position: "x10l6tqk",
+          top: "xepu288",
+          zIndex: "x12xzxwr",
+          width: "xh8yej3",
+          height: "x90ne7k",
+          paddingTop: "xm77wn2",
+          overflowX: "x6ikm8r",
+          overflowY: "x10wlt62",
+          clipPath: "xd2xkou",
+          pointerEvents: "x47corl",
+          $$css: !0,
+        },
+      };
+    function m(e) {
+      var t = o("react-compiler-runtime").c(7),
         n = e.isPeeking,
         a = e.onAnimationEnd,
         i = u(null),
         l = i[0],
         c = i[1],
-        d;
+        m;
       (t[0] !== a
-        ? ((d = function () {
+        ? ((m = function () {
             a();
           }),
           (t[0] = a),
-          (t[1] = d))
-        : (d = t[1]),
-        o("useWAWebListener").useListener(l, "animationend", d));
-      var m;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m =
-            "x10l6tqk xepu288 x12xzxwr xh8yej3 x90ne7k xm77wn2 x6ikm8r x10wlt62 xd2xkou x47corl"),
-          (t[2] = m))
-        : (m = t[2]);
+          (t[1] = m))
+        : (m = t[1]),
+        o("useWAWebListener").useListener(l, "animationend", m));
       var p;
-      if (t[3] !== n) {
-        var _;
-        ((p = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((_ = {}),
-          (_["xy6z7qb xxkxylk x1hs1qyz xuij49y xpz12be"] = n),
-          (_["x1n2onr6 xs7f9wi"] = !0),
-          _),
-        )),
-          (t[3] = n),
-          (t[4] = p));
-      } else p = t[4];
-      var f;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = s.jsx(o("WAWebMessageLargeEmoji.react").LargeEmoji, {
+      t[2] !== n
+        ? ((p = {
+            0: "x1n2onr6 xs7f9wi",
+            1: "x1n2onr6 xs7f9wi xy6z7qb xxkxylk x1hs1qyz xuij49y xpz12be",
+          }[!!n << 0]),
+          (t[2] = n),
+          (t[3] = p))
+        : (p = t[3]);
+      var _;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = s.jsx(o("WAWebMessageLargeEmoji.react").LargeEmoji, {
             emoji: r("nullthrows")(
               o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(
                 "\uD83E\uDD2B",
@@ -61,29 +66,29 @@ __d(
             selectable: !1,
             size: o("WAWebEmojiConst").LargeEmojiSize.LARGE,
           })),
-          (t[5] = f))
-        : (f = t[5]);
-      var g;
+          (t[4] = _))
+        : (_ = t[4]);
+      var f;
       return (
-        t[6] !== p
-          ? ((g = s.jsx(o("WAWebFlex.react").FlexRow, {
-              className: m,
+        t[5] !== p
+          ? ((f = s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: d.container,
               align: "center",
               justify: "center",
               children: s.jsx("div", {
                 className: p,
                 ref: c,
                 "aria-hidden": "true",
-                children: f,
+                children: _,
               }),
             })),
-            (t[6] = p),
-            (t[7] = g))
-          : (g = t[7]),
-        g
+            (t[5] = p),
+            (t[6] = f))
+          : (f = t[6]),
+        f
       );
     }
-    l.default = d;
+    l.default = m;
   },
   98,
 );

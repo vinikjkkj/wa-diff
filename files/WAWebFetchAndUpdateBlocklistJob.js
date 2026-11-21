@@ -161,13 +161,13 @@ __d(
               .sendLogs("blocklist-multiple-active-lids"),
             yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: n,
-              flushImmediately: !1,
+              write: "with_batch",
               identityChangeHandlingEnabled: !1,
               learningSource: "blocklist-inactive",
             }),
             yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: a,
-              flushImmediately: !1,
+              write: "with_batch",
               identityChangeHandlingEnabled: !1,
               learningSource: "blocklist-active",
             }),

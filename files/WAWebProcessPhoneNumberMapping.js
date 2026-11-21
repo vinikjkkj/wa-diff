@@ -7,7 +7,9 @@ __d(
     "WAWebApiContact",
     "WAWebCoexV2PhoneNumberMapping",
     "WAWebDBCreateLidPnMappings",
+    "WAWebDecryptsOutsideInboundMsgRows",
     "WAWebHandleMsgTypes",
+    "WAWebLidPnMappingWrite",
     "WAWebUpdateLidMetadataJob",
     "WAWebUserUtils",
     "WAWebUsernameGatingUtils",
@@ -301,32 +303,51 @@ __d(
           : { lid: l, pn: s, learningSource: "peer-pn-message" };
     }
     function S(e) {
-      var t = e.flushImmediately,
-        n = e.mapping,
-        r = e.sourceStanzaId;
-      return n.learningSource === "recipient-latest-lid"
-        ? o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-            mappings: [
-              { lid: n.lid, pn: n.pn },
-              { lid: n.latestLid, pn: n.pn },
-            ],
-            flushImmediately: t,
-            learningSource: "recipient-latest-lid",
-            sourceStanzaId: r,
-          })
-        : o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-            mappings: [{ lid: n.lid, pn: n.pn }],
-            flushImmediately: t,
-            learningSource: n.learningSource,
-            sourceStanzaId: r,
-          });
+      return R.apply(this, arguments);
     }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.deferredWrites,
+            n = e.flushImmediately,
+            r = e.mapping,
+            a = e.sourceStanzaId,
+            i = L(n, t),
+            l = yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings:
+                r.learningSource === "recipient-latest-lid"
+                  ? [
+                      { lid: r.lid, pn: r.pn },
+                      { lid: r.latestLid, pn: r.pn },
+                    ]
+                  : [{ lid: r.lid, pn: r.pn }],
+              write: i,
+              learningSource: r.learningSource,
+              sourceStanzaId: a,
+            }),
+            s = l.identityChanged;
+          s &&
+            i === "with_offline_msg" &&
+            o(
+              "WAWebDecryptsOutsideInboundMsgRows",
+            ).noteDecryptOutsideInboundMsgRows();
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e, t) {
+      return t == null
+        ? o("WAWebLidPnMappingWrite").toLidPnMappingWrite(e)
+        : e
+          ? "with_live_msg"
+          : "with_offline_msg";
+    }
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgInfo.chat;
           return t.isUser()
             ? h(e)
@@ -334,43 +355,78 @@ __d(
               ? C(e)
               : { lidMetadataUpdates: [] };
         })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          if (e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST) {
-            var a = e.bclParticipants.map(function (n) {
-                return I({ msgInfo: e, msgMeta: t, bclParticipant: n }, r);
-              }),
-              i = yield (c || (c = n("Promise"))).all(a);
-            return { type: "peer-broadcast", mappings: i };
-          }
-          return {
-            type: "not-peer-broadcast",
-            mapping: yield I({ msgInfo: e, msgMeta: t }, r),
-          };
-        })),
         k.apply(this, arguments)
       );
     }
-    function I(e, t) {
+    function I(e, t, n, r) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = yield R(e),
-            i = a.lidMetadataUpdates,
-            l = a.mapping,
-            s = o("WAArrayUtils").groupByAndMap(
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r, a) {
+            if (
+              e.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
+            ) {
+              var i = e.bclParticipants.map(function (n) {
+                  return D({ msgInfo: e, msgMeta: t, bclParticipant: n }, r, a);
+                }),
+                l = yield (c || (c = n("Promise"))).all(i);
+              return { type: "peer-broadcast", mappings: l };
+            }
+            return {
+              type: "not-peer-broadcast",
+              mapping: yield D({ msgInfo: e, msgMeta: t }, r, a),
+            };
+          },
+        )),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e, t, n) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield E(e),
+            o = r.lidMetadataUpdates,
+            a = r.mapping;
+          if (n != null) {
+            var i;
+            (i = n.lidMetadataUpdates).push.apply(
               i,
+              o.map(function (e) {
+                var t = e.jobArgs;
+                return t;
+              }),
+            );
+          } else yield $(o);
+          return (
+            a != null &&
+              typeof a == "object" &&
+              (yield S({
+                deferredWrites: n,
+                mapping: a,
+                flushImmediately: t,
+                sourceStanzaId: e.msgInfo.externalId,
+              })),
+            a
+          );
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            r = o("WAArrayUtils").groupByAndMap(
+              e,
               function (e) {
                 return e.shouldWaitForJob ? "waitForJob" : "fireAndForget";
               },
@@ -378,27 +434,17 @@ __d(
                 return e.jobArgs;
               },
             ),
-            u = (n = s.get("waitForJob")) != null ? n : [],
-            c = (r = s.get("fireAndForget")) != null ? r : [];
-          return (
-            c.length > 0 &&
-              o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(c),
-            u.length > 0 &&
-              (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(u)),
-            l != null &&
-              typeof l == "object" &&
-              (yield S({
-                mapping: l,
-                flushImmediately: t,
-                sourceStanzaId: e.msgInfo.externalId,
-              })),
-            l
-          );
+            a = (t = r.get("waitForJob")) != null ? t : [],
+            i = (n = r.get("fireAndForget")) != null ? n : [];
+          (i.length > 0 &&
+            o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(i),
+            a.length > 0 &&
+              (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(a)));
         })),
-        T.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    l.processPhoneNumberMappings = E;
+    l.processPhoneNumberMappings = I;
   },
   98,
 );

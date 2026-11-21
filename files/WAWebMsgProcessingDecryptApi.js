@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebAdvSignatureApi",
     "WAWebBackendJobs.flow",
+    "WAWebDecryptsOutsideInboundMsgRows",
     "WAWebGetMessageCache",
     "WAWebHandleMsgTypes",
     "WAWebMessageReceiveFlow",
@@ -32,19 +33,19 @@ __d(
               d = e.hsmInfo,
               m = e.msgBotInfo,
               f = e.msgInfo,
-              h = e.msgMeta,
-              y = e.paymentInfo,
-              C = e.rcat,
-              b = e.reportingTokenInfo,
-              v = o("WAWebMsgProcessingApiUtils").getFrom(f);
-            if ((g(l, f), f.author.device != null && f.author.device !== 0)) {
-              var S = yield o("WAWebAdvSignatureApi").validateADVwithEncs({
+              y = e.msgMeta,
+              C = e.paymentInfo,
+              b = e.rcat,
+              v = e.reportingTokenInfo,
+              S = o("WAWebMsgProcessingApiUtils").getFrom(f);
+            if ((h(l, f), f.author.device != null && f.author.device !== 0)) {
+              var R = yield o("WAWebAdvSignatureApi").validateADVwithEncs({
                 author: f.author,
                 deviceIdentity: i,
                 encs: l,
                 offline: !!f.offline,
               });
-              if (!S)
+              if (!R)
                 return (
                   o("WALogger")
                     .WARN(
@@ -64,36 +65,41 @@ __d(
                   }
                 );
             }
-            var R = !1,
-              L = !1,
-              E = o(
+            var L = !1,
+              E = !1,
+              k = o(
                 "WAWebMsgProcessingDecryptionHandler",
-              ).createDecryptionHandler(e),
-              k = o("WAWebMessageReceiveFlow").startMessageReceiveDecryptTimer(
+              ).createDecryptionHandler(
+                e,
+                r == null ? void 0 : r.writePlaceholder,
+              ),
+              I = o("WAWebMessageReceiveFlow").startMessageReceiveDecryptTimer(
                 f.externalId,
                 !!f.offline,
               ),
-              I = function* (l) {
-                var i = p(f, r);
-                if (i == null) return 0;
+              T = function* () {
+                var i = x[0],
+                  l = x[1],
+                  s = p(f, r);
+                if (s == null) return 0;
                 try {
-                  if (!E.canDecryptNext(l)) return 1;
-                  var s = o(
+                  if (!k.canDecryptNext(l)) return 1;
+                  var _ = o(
                       "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                     ).msgProcessReporter.startMarker(
                       o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
                         .msgProcessReporter.stage.Decryption,
                     ),
-                    _ = yield k.timeDecrypt(function () {
+                    h = yield I.timeDecrypt(function () {
                       return o("WAWebMsgProcessingDecryptEnc").decryptEnc({
                         enc: l,
-                        from: v,
+                        from: S,
                         parsedMsgPayload: e,
                         participant: f.author,
                         sessionScope: n,
                       });
                     });
-                  (s == null || s(),
+                  (_ == null || _(),
                     o("WALogger")
                       .LOG(
                         u ||
@@ -110,35 +116,32 @@ __d(
                       "WAWebPostE2eMessageRecvMetric",
                     ).postSuccessE2eMessageRecvMetric({
                       enc: l,
-                      from: v,
-                      msgMeta: h,
+                      from: S,
+                      msgMeta: y,
                       msgInfo: f,
                       msgBotInfo: m,
                       error: null,
                     }));
-                  var g = {
-                      retryCount: l.retryCount,
-                      e2eType: l.e2eType,
-                      encMediaType: l.encMediaType,
-                      hideFail: l.hideFail,
-                      isPq: l.sessionType === "pq",
-                    },
-                    S = yield k.timeProcess(function () {
-                      return t({
-                        decrypted: _,
-                        info: f,
-                        paymentInfo: y,
-                        e2eInfo: g,
-                        bizInfo: a,
-                        hsmInfo: d,
-                        msgMeta: h,
-                        rcat: C,
-                        msgBotInfo: m,
-                        reportingTokenInfo: b,
-                      });
+                  var R = g(l),
+                    T = yield I.timeProcess(function () {
+                      return t(
+                        {
+                          decrypted: h,
+                          info: f,
+                          paymentInfo: C,
+                          e2eInfo: R,
+                          bizInfo: a,
+                          hsmInfo: d,
+                          msgMeta: y,
+                          rcat: b,
+                          msgBotInfo: m,
+                          reportingTokenInfo: v,
+                        },
+                        i,
+                      );
                     });
-                  (S.hasInactiveMsg && (R = !0),
-                    S.isOrphanAddon === !0 && (L = !0),
+                  (T.hasInactiveMsg && (L = !0),
+                    T.isOrphanAddon === !0 && (E = !0),
                     o("WALogger")
                       .LOG(
                         c ||
@@ -152,14 +155,14 @@ __d(
                       )
                       .tags("messaging"));
                 } catch (e) {
-                  E.handleError(l, e);
+                  k.handleError(l, e);
                 } finally {
-                  i();
+                  s();
                 }
               },
-              T;
-            for (var D of l) if (((T = yield* I(D)), T === 0)) break;
-            return (yield _(k, r), k.finish(), E.getResult(R, L));
+              D;
+            for (var x of l.entries()) if (((D = yield* T()), D === 0)) break;
+            return (yield _(I, r), I.finish(), k.getResult(L, E));
           },
         )),
         m.apply(this, arguments)
@@ -180,13 +183,17 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          ((t == null ? void 0 : t.awaitMessageWrites) === !0 &&
-            o("WAWebSignalProtocolStore")
-              .getSignalProtocolStore()
-              .hasPendingPersistWrites() &&
-            (yield o("WAWebGetMessageCache")
-              .getMessageCache()
-              .checkpointQueueWait()),
+          (t == null ? void 0 : t.deferSignalFlush) !== !0 &&
+            (o(
+              "WAWebDecryptsOutsideInboundMsgRows",
+            ).noteDecryptOutsideInboundMsgRows(),
+            (t == null ? void 0 : t.awaitMessageWrites) === !0 &&
+              o("WAWebSignalProtocolStore")
+                .getSignalProtocolStore()
+                .hasPendingPersistWrites() &&
+              (yield o("WAWebGetMessageCache")
+                .getMessageCache()
+                .checkpointQueueWait()),
             yield e.timeSignalFlush(function () {
               return o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
@@ -196,7 +203,16 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(t, n) {
+    function g(e) {
+      return {
+        retryCount: e.retryCount,
+        e2eType: e.e2eType,
+        encMediaType: e.encMediaType,
+        hideFail: e.hideFail,
+        isPq: e.sessionType === "pq",
+      };
+    }
+    function h(t, n) {
       t.length === 2 &&
         t[0].e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg &&
         o("WALogger")
@@ -211,7 +227,7 @@ __d(
           .tags("messaging")
           .sendLogs("handleMsg: invalid encs order", { sampling: 0.01 });
     }
-    l.decryptE2EPayload = d;
+    ((l.decryptE2EPayload = d), (l.toE2EInfo = g));
   },
   98,
 );

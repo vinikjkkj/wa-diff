@@ -35,8 +35,8 @@ __d(
               (t.forEach(function (e) {
                 var t = e.userId.toString();
                 if (!i.has(t)) {
-                  var n = m(e, r);
-                  n != null && (i.add(t), l.push(_(n)));
+                  var n = p(e, r);
+                  n != null && (i.add(t), l.push(f(n)));
                 }
               }),
                 yield (u || (u = n("Promise"))).all(l));
@@ -59,6 +59,14 @@ __d(
       );
     }
     function m(e, t) {
+      return (
+        o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+        e.some(function (e) {
+          return p(e, t) != null;
+        })
+      );
+    }
+    function p(e, t) {
       var n = e.userId;
       if (!n.isLid() || o("WAWebUserUtils").isMeAccount(n)) return null;
       var r = t.get(n.toString());
@@ -68,22 +76,22 @@ __d(
       if (a) {
         if (r.isPhoneNumberKnown !== !0) return null;
       } else if (r.wasPreviouslyKnown !== !0) return null;
-      var i = p(e, a);
+      var i = _(e, a);
       return {
         wid: o("WAWebWidFactory").asUserLidOrThrow(n),
         oldUsername: r.oldUsername,
         newUsername: i,
       };
     }
-    function p(e, t) {
+    function _(e, t) {
       return t || e.username == null ? null : e.username;
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.newUsername,
             r = e.oldUsername,
             a = e.wid;
@@ -105,33 +113,33 @@ __d(
               );
             return;
           }
-          var i = yield g(a);
+          var i = yield h(a);
           yield (u || (u = n("Promise"))).all([
-            y({ wid: a, oldUsername: r, newUsername: t, displayName: i }),
-            b({ wid: a, oldUsername: r, newUsername: t, displayName: i }),
+            C({ wid: a, oldUsername: r, newUsername: t, displayName: i }),
+            v({ wid: a, oldUsername: r, newUsername: t, displayName: i }),
           ]);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("WAWebLidAwareContactsDB").get(e.toString());
           return t == null ? void 0 : t.displayNameLID;
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.displayName,
             n = e.newUsername,
             r = e.oldUsername,
@@ -155,15 +163,15 @@ __d(
             });
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             r = e.displayName,
             a = e.newUsername,
@@ -213,11 +221,12 @@ __d(
             }, []),
           );
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.maybeInsertUsernameChangeSystemMsgs = c),
-      (l.generateUsernameChangeNotificationSystemMsg = _));
+      (l.hasUsernameChangeSystemMsgs = m),
+      (l.generateUsernameChangeNotificationSystemMsg = f));
   },
   98,
 );

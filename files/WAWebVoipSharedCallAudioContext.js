@@ -7,6 +7,7 @@ __d(
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
     "WAWebODS",
+    "WAWebVoipChromiumDesktopBrowser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -44,6 +45,7 @@ __d(
     function T(t, n) {
       if (
         !I() ||
+        !o("WAWebVoipChromiumDesktopBrowser").isChromiumDesktopBrowser() ||
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_audio_shared_call_context",
         ) !== !0

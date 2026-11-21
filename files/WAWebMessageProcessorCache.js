@@ -4,28 +4,15 @@ __d(
     "Promise",
     "WALogger",
     "WAShiftTimer",
-    "WAWebABProps",
-    "WAWebDBCreateLidPnMappings",
-    "WAWebDBReportingTokenUtils",
-    "WAWebGetGroupAddressingMode",
-    "WAWebGroupDatabaseJob",
-    "WAWebHandleMessageTypes",
-    "WAWebHandleMsgCommon",
-    "WAWebIdbTransactionCounter",
-    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+    "WAWebMessageBatchWriter",
     "WAWebMessageReceiveFlow",
     "WAWebNoop",
-    "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPromiseQueue",
     "WAWebSendOfflineDeliveryReceiptJob",
     "WAWebSignalProtocolStore",
-    "WAWebStoreMsgs",
-    "WAWebWamEnumMismatchOriginType",
-    "WAWebWidFactory",
+    "WAWebSignalSnapshotWriter",
     "asyncToGeneratorRuntime",
-    "cr:13546",
     "err",
-    "gkx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,26 +28,10 @@ __d(
       g,
       h,
       y,
-      C,
-      b = (e = n("cr:13546")) != null ? e : {},
-      v = b.handleAddressingModeMismatch;
-    function S() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_message_processing_cache_size",
-      );
-    }
-    function R() {
-      return L() > 0;
-    }
-    function L() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_offline_message_processor_timeout_seconds",
-      );
-    }
-    var E = 75e3,
-      k = (function () {
-        function e() {
-          var e = this;
+      C = 75e3,
+      b = (function () {
+        function t() {
+          var t = this;
           ((this.$1 = []),
             (this.$2 = []),
             (this.$3 = new (o("WAWebPromiseQueue").PromiseQueue)()),
@@ -70,45 +41,56 @@ __d(
             (this.$8 = new Set()),
             (this.$9 = new Set()),
             (this.$10 = function () {
-              return e.createSnapshot();
+              return t.createSnapshot();
             }),
             (this.$11 = null),
             (this.$12 = null),
+            (this.$13 = null),
             (this.$20 = function () {
-              return e.$19();
+              return t.$19();
             }),
             (this.$5 = new (o("WAShiftTimer").ShiftTimer)(function () {
               (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[message-cache] flushing cache due to timeout",
                   ])),
               ),
-                e.createSnapshot());
+                t.createSnapshot());
             })));
         }
-        var t = e.prototype;
+        var a = t.prototype;
         return (
-          (t.size = function () {
-            return (C || (C = n("Promise"))).resolve(this.$1.length);
+          (a.replaceWith = function (t) {
+            return (this.createSnapshot(), (this.$13 = t), this.$3.wait());
           }),
-          (t.checkpointQueueSize = function () {
-            return (C || (C = n("Promise"))).resolve(this.$3.size());
+          (a.size = function () {
+            return this.$13 != null
+              ? this.$13.size()
+              : (y || (y = n("Promise"))).resolve(this.$1.length);
           }),
-          (t.checkpointQueueWait = function () {
-            return this.$3.wait();
+          (a.checkpointQueueSize = function () {
+            return this.$13 != null
+              ? this.$13.checkpointQueueSize()
+              : (y || (y = n("Promise"))).resolve(this.$3.size());
           }),
-          (t.addMessages = function (t, r) {
+          (a.checkpointQueueWait = function () {
+            return this.$13 != null
+              ? this.$13.checkpointQueueWait()
+              : this.$3.wait();
+          }),
+          (a.addMessages = function (t, r) {
             var e;
-            r === void 0 && (r = !1);
+            if ((r === void 0 && (r = !1), this.$13 != null))
+              return this.$13.addMessages(t, r);
             var a = this.$11;
-            if (a != null) return (C || (C = n("Promise"))).reject(a.error);
+            if (a != null) return (y || (y = n("Promise"))).reject(a.error);
             (e = this.$1).push.apply(e, t);
             var i =
               t.length === 0 && this.$8.size > 0
-                ? (C || (C = n("Promise"))).resolve()
-                : this.$13();
-            if ((this.$14(t), r))
+                ? (y || (y = n("Promise"))).resolve()
+                : this.$14();
+            if ((this.$15(t), r))
               return ((this.$7 = !0), this.createSnapshot(), i);
             this.$7 = !1;
             var l = t.map(function (e) {
@@ -128,10 +110,10 @@ __d(
                         : o.externalId) ||
                       "");
             });
-            return (
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+            if (
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[message-cache] add len=",
                     " nextIdx=",
                     ": ",
@@ -141,30 +123,36 @@ __d(
                 this.$4,
                 l,
               ),
-              this.$1.length >= S()
-                ? (this.createSnapshot(), i)
-                : (R() &&
-                    !this.$5.isScheduled() &&
-                    this.$5.onOrBefore(L() * 1e3),
-                  i)
+              this.$1.length >=
+                o("WAWebMessageBatchWriter").getMessageBatchMaxSize())
+            )
+              return (this.createSnapshot(), i);
+            var u = o("WAWebMessageBatchWriter").getMessageBatchTimeoutMs();
+            return (
+              u > 0 && !this.$5.isScheduled() && this.$5.onOrBefore(u),
+              i
             );
           }),
-          (t.addAdditionalInfo = function (t, n) {
-            if (
-              (n === void 0 && (n = !1),
-              this.$11 == null && (this.$2.push(t), n))
-            ) {
+          (a.addAdditionalInfo = function (t, n) {
+            if ((n === void 0 && (n = !1), this.$13 != null)) {
+              this.$13.addAdditionalInfo(t, n);
+              return;
+            }
+            if (this.$11 == null && (this.$2.push(t), n)) {
               var e = this.$2;
-              ((this.$2 = []), this.$15(e));
+              ((this.$2 = []),
+                o("WAWebMessageBatchWriter").processMsgAdditionalInfo(e));
             }
           }),
-          (t.holdCheckpointUntilMessageStaged = function (t) {
+          (a.holdCheckpointUntilMessageStaged = function (t) {
             var e = this;
+            if (this.$13 != null)
+              return this.$13.holdCheckpointUntilMessageStaged(t);
             if (this.$11 != null) return null;
             var n = new (o("WAShiftTimer").ShiftTimer)(function () {
               return e.expireCheckpointHolds();
             });
-            n.onOrBefore(E);
+            n.onOrBefore(C);
             var r = { msgKey: t, expiry: n };
             return (
               this.$8.add(r),
@@ -173,16 +161,18 @@ __d(
               }
             );
           }),
-          (t.isFailClosed = function () {
-            return this.$11 != null;
+          (a.isFailClosed = function () {
+            return this.$13 != null
+              ? this.$13.isFailClosed()
+              : this.$11 != null;
           }),
-          (t.expireCheckpointHolds = function () {
+          (a.expireCheckpointHolds = function () {
             this.$11 != null ||
               this.$8.size === 0 ||
               (o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[message-cache] checkpoint hold expired: holds=",
                       " deferred=",
                       " cached=",
@@ -198,7 +188,7 @@ __d(
                 error: r("err")("Message cache checkpoint hold expired"),
               }));
           }),
-          (t.stopCommits = function () {
+          (a.stopCommits = function () {
             var e;
             ((e = this.$11) == null ? void 0 : e.reason) !==
               "commits_stopped" &&
@@ -211,7 +201,7 @@ __d(
                 error: r("err")("Message cache commits stopped"),
               }));
           }),
-          (t.$18 = function (t) {
+          (a.$18 = function (t) {
             var e = this,
               n,
               r;
@@ -227,71 +217,17 @@ __d(
               (r = this.$6.get(this.$4)) == null ||
                 r.markCheckpointDone(t.error));
           }),
-          (t.onFailClosed = function (t) {
+          (a.onFailClosed = function (t) {
             this.$12 = t;
           }),
-          (t.handleChangedAddressingMode = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = new Map();
-                e.forEach(function (e) {
-                  var n = e.msg;
-                  if (n != null && n.id.remote.isGroup()) {
-                    var r;
-                    ((n == null ? void 0 : n.groupAddressingMode) === "pn"
-                      ? (r = o("WAWebHandleMsgCommon")
-                          .STANZA_MSG_ADDRESSING_MODE.pn)
-                      : (n == null ? void 0 : n.groupAddressingMode) ===
-                          "lid" &&
-                        (r = o("WAWebHandleMsgCommon")
-                          .STANZA_MSG_ADDRESSING_MODE.lid),
-                      r != null && t.set(n.id.remote.toString(), r));
-                  }
-                });
-                var a = Array.from(t.keys(), o("WAWebWidFactory").createWid),
-                  i = yield o(
-                    "WAWebGetGroupAddressingMode",
-                  ).bulkGetGroupAddressingMode(a),
-                  l = [];
-                for (var s of t.entries()) {
-                  var u = s[0],
-                    c = s[1];
-                  i.get(u) !== c && l.push(o("WAWebWidFactory").createWid(u));
-                }
-                (this.$7 ||
-                  (yield o(
-                    "WAWebGroupDatabaseJob",
-                  ).bulkMarkGroupParticipantStaleJob(l)),
-                  yield (C || (C = n("Promise"))).all(
-                    l.map(function (e) {
-                      return v == null
-                        ? void 0
-                        : v(e, {
-                            localAddressingMode: i.get(e.toString()),
-                            serverAddressingMode: r("nullthrows")(
-                              t.get(e.toString()),
-                              "missing server addressing mode for group",
-                            ),
-                            mismatchOrigin: o("WAWebWamEnumMismatchOriginType")
-                              .MISMATCH_ORIGIN_TYPE.INCOMING_GROUP_MESSAGE,
-                          });
-                    }),
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.$13 = function () {
+          (a.$14 = function () {
             var e = this,
               t = this.$4;
             if (!this.$6.has(t)) {
               var o,
                 a = function (t) {};
               this.$6.set(t, {
-                promise: new (C || (C = n("Promise")))(function (e, t) {
+                promise: new (y || (y = n("Promise")))(function (e, t) {
                   ((o = e), (a = t));
                 }),
                 markCheckpointDone: function (r) {
@@ -305,7 +241,7 @@ __d(
             }
             return r("nullthrows")(this.$6.get(t)).promise;
           }),
-          (t.$14 = function (t) {
+          (a.$15 = function (t) {
             var e = this;
             this.$8.size !== 0 &&
               (this.$8.forEach(function (n) {
@@ -316,10 +252,10 @@ __d(
               }),
               this.$17());
           }),
-          (t.$16 = function (t) {
+          (a.$16 = function (t) {
             (t.expiry.cancel(), this.$8.delete(t));
           }),
-          (t.$17 = function () {
+          (a.$17 = function () {
             if (!(this.$8.size > 0 || this.$9.size === 0)) {
               var e = this.$9;
               ((this.$9 = new Set()),
@@ -328,86 +264,21 @@ __d(
                 }));
             }
           }),
-          (t.$19 = function () {
+          (a.$19 = function () {
             var e = this.$11;
             if ((e == null ? void 0 : e.reason) === "commits_stopped")
               throw e.error;
           }),
-          (t.$21 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = [];
-                e.forEach(function (e) {
-                  var t = e.msg;
-                  t != null && n.push(t);
-                });
-                var a = o(
-                    "WAWebIdbTransactionCounter",
-                  ).getIdbTransactionCount(),
-                  i = r("gkx")("20665")
-                    ? o(
-                        "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-                      ).msgProcessReporter.startMarker(
-                        o(
-                          "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-                        ).msgProcessReporter.stage.DBStoring,
-                      )
-                    : null;
-                (yield o("WAWebStoreMsgs").storeMsgs(
-                  o(
-                    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-                  ).withoutRoutedBrazilPaymentStateUpdates(n),
-                ),
-                  i == null || i(),
-                  o(
-                    "WAWebMessageReceiveFlow",
-                  ).annotateMessageReceiveStorageCommit(t, {
-                    batchSize: n.length,
-                    transactionCount:
-                      o("WAWebIdbTransactionCounter").getIdbTransactionCount() -
-                      a,
-                  }),
-                  yield o(
-                    "WAWebKeepAndApplyBrazilPaymentStateUpdates",
-                  ).keepAndApplyBrazilPaymentStateUpdatesInBatch(n));
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.$15 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e
-                  .filter(function (e) {
-                    return (
-                      e.type ===
-                      o("WAWebHandleMessageTypes").MsgAdditionalInfoType
-                        .ReportingInfo
-                    );
-                  })
-                  .map(function (e) {
-                    return e.data;
-                  });
-                o("WAWebDBReportingTokenUtils").handleAddReportingInfos(t);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.writeSignalState = function (t) {
-            var e = this,
-              r = this.$11;
-            if (r != null) return (C || (C = n("Promise"))).reject(r.error);
+          (a.writeSignalState = function (t) {
+            var e = this;
+            if (this.$13 != null) return this.$13.writeSignalState(t);
+            var r = this.$11;
+            if (r != null) return (y || (y = n("Promise"))).reject(r.error);
             var a = o("WAWebSignalProtocolStore").getSignalProtocolStore();
             if (!t && !a.hasPendingPersistWrites())
-              return (C || (C = n("Promise"))).resolve();
+              return (y || (y = n("Promise"))).resolve();
             if (this.$8.size > 0)
-              return new (C || (C = n("Promise")))(function (n) {
+              return new (y || (y = n("Promise")))(function (n) {
                 e.$9.add(function () {
                   return n(e.writeSignalState(t));
                 });
@@ -418,16 +289,23 @@ __d(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 (e.$19(),
                   i != null
-                    ? yield D(i, e.$20)
+                    ? yield o("WAWebSignalSnapshotWriter").writeSignalSnapshot(
+                        i,
+                        e.$20,
+                      )
                     : a.hasPendingPersistWrites() &&
                       (yield a.flushBufferToDiskIfNotMemOnlyMode(e.$20)));
               }),
             );
           }),
-          (t.createSnapshot = function () {
+          (a.createSnapshot = function () {
             var e,
               t,
               r = this;
+            if (this.$13 != null) {
+              this.$13.createSnapshot();
+              return;
+            }
             if (this.$11 == null) {
               if (this.$8.size > 0) {
                 this.$9.add(this.$10);
@@ -443,8 +321,8 @@ __d(
               if (
                 ((this.$4 = s),
                 o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[message-cache] createSnapshot ",
                       "-",
                       ": ",
@@ -465,42 +343,28 @@ __d(
                       : function (e) {
                           o("WALogger")
                             .ERROR(
-                              m ||
-                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
                                   "MessageProcessorCache: missing doneFn",
                                 ])),
                             )
                             .sendLogs("message-cache-missing-doneFn");
                         },
-                  c = o("WAWebSignalProtocolStore")
+                  y = o("WAWebSignalProtocolStore")
                     .getSignalProtocolStore()
                     .generateSnapshot(),
-                  b = T(a);
+                  C = o("WAWebMessageBatchWriter").getCheckpointStanzaIds(a);
                 (this.$3.enqueue(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                     try {
                       (r.$19(),
-                        o(
-                          "WAWebMessageReceiveFlow",
-                        ).markMessageReceiveCheckpoint(
-                          b.all,
-                          "storage_commit_start",
-                        ),
-                        yield (C || (C = n("Promise"))).all([
-                          r.$21(a, b.all),
-                          o(
-                            "WAWebDBCreateLidPnMappings",
-                          ).flushLidPnMappingsToDb(),
-                        ]),
-                        o(
-                          "WAWebMessageReceiveFlow",
-                        ).markMessageReceiveCheckpoint(
-                          b.all,
-                          "storage_commit_end",
+                        yield o("WAWebMessageBatchWriter").writeMessageBatch(
+                          a,
+                          C.all,
                         ),
                         o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "[message-cache] createSnapshot ",
                               "-",
                               ": messages added to table",
@@ -509,23 +373,25 @@ __d(
                           s,
                         ),
                         r.$19(),
-                        c != null &&
+                        y != null &&
                           (o(
                             "WAWebMessageReceiveFlow",
                           ).markMessageReceiveCheckpoint(
-                            b.all,
+                            C.all,
                             "checkpoint_signal_write_start",
                           ),
-                          yield D(c, r.$20),
+                          yield o(
+                            "WAWebSignalSnapshotWriter",
+                          ).writeSignalSnapshot(y, r.$20),
                           o(
                             "WAWebMessageReceiveFlow",
                           ).markMessageReceiveCheckpoint(
-                            b.all,
+                            C.all,
                             "checkpoint_signal_write_end",
                           ),
                           o("WALogger").LOG(
-                            _ ||
-                              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
                                 "[message-cache] createSnapshot ",
                                 "-",
                                 ": signal stores updated",
@@ -542,14 +408,14 @@ __d(
                         o(
                           "WAWebMessageReceiveFlow",
                         ).endMessageReceiveWithAggregatedReceipt(
-                          b.aggregatedReceipts.filter(function (t) {
+                          C.aggregatedReceipts.filter(function (t) {
                             return !e.includes(t);
                           }),
-                          { batchSize: a.length, signalDirtyCount: x(c) },
+                          { batchSize: a.length, signalDirtyCount: S(y) },
                         ),
                         o("WALogger").LOG(
-                          f ||
-                            (f = babelHelpers.taggedTemplateLiteralLoose([
+                          _ ||
+                            (_ = babelHelpers.taggedTemplateLiteralLoose([
                               "[message-cache] createSnapshot ",
                               "-",
                               ": aggregated receipts sent",
@@ -557,10 +423,12 @@ __d(
                           l,
                           s,
                         ),
-                        yield r.$15(i),
+                        o("WAWebMessageBatchWriter").processMsgAdditionalInfo(
+                          i,
+                        ),
                         o("WALogger").LOG(
-                          g ||
-                            (g = babelHelpers.taggedTemplateLiteralLoose([
+                          f ||
+                            (f = babelHelpers.taggedTemplateLiteralLoose([
                               "[message-cache] createSnapshot ",
                               "-",
                               ": additional info processed",
@@ -570,8 +438,8 @@ __d(
                         ));
                     } catch (e) {
                       (o("WALogger").WARN(
-                        h ||
-                          (h = babelHelpers.taggedTemplateLiteralLoose([
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
                             "[message-cache] createSnapshot ",
                             "-",
                             ": failed: ",
@@ -583,56 +451,33 @@ __d(
                       ),
                         o(
                           "WAWebMessageReceiveFlow",
-                        ).failMessageReceiveCheckpoint(b.all),
+                        ).failMessageReceiveCheckpoint(C.all),
                         u(e));
                       return;
                     }
                     (o("WALogger").LOG(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
                           "[message-cache] before markCheckpointDone",
                         ])),
                     ),
                       u());
                   }),
                 ),
-                  this.handleChangedAddressingMode(a));
+                  o("WAWebMessageBatchWriter").handleChangedAddressingMode(
+                    a,
+                    function () {
+                      return !r.$7;
+                    },
+                  ));
               }
             }
           }),
-          e
+          t
         );
       })(),
-      I = new k();
-    function T(e) {
-      var t = new Set(),
-        n = new Set();
-      return (
-        e.forEach(function (e) {
-          var r,
-            o,
-            a = e.duplicateMsgReceiptInfo,
-            i = e.msg,
-            l = e.receiptInfo,
-            s =
-              (r = l == null ? void 0 : l.externalId) != null
-                ? r
-                : a == null
-                  ? void 0
-                  : a.externalId;
-          s != null && (n.add(s), t.add(s));
-          var u = i == null || (o = i.id) == null ? void 0 : o.id;
-          u != null && t.add(u);
-        }),
-        { all: Array.from(t), aggregatedReceipts: Array.from(n) }
-      );
-    }
-    function D(e, t) {
-      return o("WAWebSignalProtocolStore")
-        .getPersistSignalProtocolStore()
-        .commitSnapshot(e, t);
-    }
-    function x(e) {
+      v = new b();
+    function S(e) {
       return e == null
         ? 0
         : e.sessionUpdate.length +
@@ -642,7 +487,7 @@ __d(
             e.sessionRemove.length +
             e.identityRemove.length;
     }
-    l.messageProcessorCache = I;
+    l.messageProcessorCache = v;
   },
   98,
 );

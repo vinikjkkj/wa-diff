@@ -128,6 +128,12 @@ __d(
             return o.stores[e.$2].readIndexRange(t, n, r);
           }, "readIndexRange");
         }),
+        (t.getAllByIndexRange = function (t, n, r) {
+          var e = this;
+          return this.$4(function (o) {
+            return o.stores[e.$2].getAllByIndexRange(t, n, r);
+          }, "getAllByIndexRange");
+        }),
         (t.readKeys = function (t) {
           var e = this;
           return this.$4(function (n) {

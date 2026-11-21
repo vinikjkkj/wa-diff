@@ -4,23 +4,25 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 409,
-      s = 410,
-      u = 2048,
-      c = 120,
-      d = 256,
-      m =
+      s = /^[0-9a-f]{64}$/,
+      u = 410,
+      c = "no_session_id",
+      d = 2048,
+      m = 120,
+      p = 256,
+      _ =
         /(?:[\0-\x1F\x7F-\x9F\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F])/g,
-      p =
+      f =
         /(?!\n)(?:[\0-\x1F\x7F-\x9F\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F])/g;
-    function _(e) {
+    function g(e) {
       if (
         o("WAWebHatchJsonReaders").readNumber(e, "version") !== 1 ||
         o("WAWebHatchJsonReaders").readString(e, "action") !== "accept"
       )
         return null;
       var t = o("WAWebHatchJsonReaders").readString(e, "invitation_url"),
-        n = E(o("WAWebHatchJsonReaders").readString(e, "body"), u, !0),
-        r = E(o("WAWebHatchJsonReaders").readString(e, "button_label"), c);
+        n = T(o("WAWebHatchJsonReaders").readString(e, "body"), d, !0),
+        r = T(o("WAWebHatchJsonReaders").readString(e, "button_label"), m);
       return t == null ||
         !o("WAWebHatchPeerInviteUrl").isHatchPeerInviteUrl(t) ||
         n == null ||
@@ -30,23 +32,31 @@ __d(
             accepted: o("WAWebHatchJsonReaders").readBool(e, "accepted") === !0,
             body: n,
             buttonLabel: r,
-            invitationUrl: t,
-            museName: E(
-              o("WAWebHatchJsonReaders").readString(e, "muse_name"),
-              d,
+            deliveryId: T(
+              o("WAWebHatchJsonReaders").readString(e, "delivery_id"),
+              p,
             ),
-            personName: E(
+            invitationUrl: t,
+            museId: E(o("WAWebHatchJsonReaders").readString(e, "muse_id")),
+            museName: T(
+              o("WAWebHatchJsonReaders").readString(e, "muse_name"),
+              p,
+            ),
+            peerMuseAvatarSha256: L(
+              o("WAWebHatchJsonReaders").readString(e, "peer_muse_avatar"),
+            ),
+            personName: T(
               o("WAWebHatchJsonReaders").readString(e, "person_name"),
-              d,
+              p,
             ),
           };
     }
-    function f(e) {
-      return E(e, d);
+    function h(e) {
+      return T(e, p);
     }
-    function g(e) {
+    function y(e) {
       if (e.kind === "Rejected")
-        return { outcome: R(L(e)), presentedIn: null, reason: null };
+        return { outcome: k(I(e)), presentedIn: null, reason: null };
       if (e.kind !== "Ok")
         return { outcome: "failed", presentedIn: null, reason: null };
       var t = (function (e) {
@@ -62,11 +72,11 @@ __d(
       })(o("WAWebHatchJsonReaders").readString(e.value, "status"));
       return {
         outcome: t,
-        presentedIn: h(e),
+        presentedIn: C(e),
         reason: o("WAWebHatchJsonReaders").readString(e.value, "reason"),
       };
     }
-    function h(e) {
+    function C(e) {
       var t;
       return e.kind !== "Ok"
         ? null
@@ -87,7 +97,7 @@ __d(
               : t.trim(),
           );
     }
-    function y(e) {
+    function b(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -95,7 +105,7 @@ __d(
           "value" in e
         ) {
           var t = e.value;
-          if (S(o("WAWebHatchJsonReaders").readString(t, "muse_id")) == null)
+          if (E(o("WAWebHatchJsonReaders").readString(t, "muse_id")) == null)
             return "failed";
         }
         if (
@@ -116,21 +126,29 @@ __d(
           e.kind === "Rejected"
         ) {
           var r = e;
-          return L(r);
+          return I(r);
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "Failure" &&
+          "detail" in e
+        ) {
+          var a = e.detail;
+          if (a === c) return "no_chat";
         }
         return "failed";
       })(e);
     }
-    function C(e) {
+    function v(e) {
       return e.kind === "Ok"
-        ? S(o("WAWebHatchJsonReaders").readString(e.value, "muse_id"))
+        ? E(o("WAWebHatchJsonReaders").readString(e.value, "muse_id"))
         : null;
     }
-    function b(e, t) {
+    function S(e, t) {
       var n = o("WAWebHatchJsonReaders")
         .readObjects(e, "items")
         .find(function (e) {
-          return S(o("WAWebHatchJsonReaders").readString(e, "muse_id")) === t;
+          return E(o("WAWebHatchJsonReaders").readString(e, "muse_id")) === t;
         });
       return n == null
         ? "absent"
@@ -138,14 +156,17 @@ __d(
           ? "verified"
           : "not_verified";
     }
-    function v(e) {
-      return S(o("WAWebHatchJsonReaders").readString(e, "next_cursor"));
+    function R(e) {
+      return E(o("WAWebHatchJsonReaders").readString(e, "next_cursor"));
     }
-    function S(e) {
+    function L(e) {
+      return e != null && s.test(e) ? e : null;
+    }
+    function E(e) {
       var t = e == null ? void 0 : e.trim();
       return t != null && t !== "" ? t : null;
     }
-    function R(e) {
+    function k(e) {
       return e === "already_paired"
         ? "already_paired"
         : e === "expired"
@@ -155,6 +176,7 @@ __d(
             : e === "requested" ||
                 e === "connected" ||
                 e === "conflict" ||
+                e === "no_chat" ||
                 e === "failed"
               ? "failed"
               : (function () {
@@ -164,12 +186,12 @@ __d(
                   );
                 })();
     }
-    function L(t) {
+    function I(t) {
       var n,
         r = (n = t.errorCode) != null ? n : "";
       return r === "already_paired"
         ? "already_paired"
-        : r.includes("expired") || t.statusCode === s
+        : r.includes("expired") || t.statusCode === u
           ? "expired"
           : r.includes("invalid") || r === "peer_invite_generation_unsupported"
             ? "invalid"
@@ -177,19 +199,20 @@ __d(
               ? "conflict"
               : "failed";
     }
-    function E(e, t, n) {
+    function T(e, t, n) {
       n === void 0 && (n = !1);
-      var r = e == null ? void 0 : e.replace(n ? p : m, "").trim();
+      var r = e == null ? void 0 : e.replace(n ? f : _, "").trim();
       return r == null || r === "" ? null : Array.from(r).slice(0, t).join("");
     }
-    ((l.parseHatchPairingLauncherAccept = _),
-      (l.boundedHatchPeerName = f),
-      (l.decodeHatchPeerInviteOpenResult = g),
-      (l.readHatchPeerInvitePresentedIn = h),
-      (l.decodeHatchPeerInviteAcceptResult = y),
-      (l.readHatchPeerInviteAcceptedMuseId = C),
-      (l.readHatchPeerContactStatus = b),
-      (l.readHatchPeerContactsCursor = v));
+    ((l.HATCH_PEER_INVITE_NO_SESSION = c),
+      (l.parseHatchPairingLauncherAccept = g),
+      (l.boundedHatchPeerName = h),
+      (l.decodeHatchPeerInviteOpenResult = y),
+      (l.readHatchPeerInvitePresentedIn = C),
+      (l.decodeHatchPeerInviteAcceptResult = b),
+      (l.readHatchPeerInviteAcceptedMuseId = v),
+      (l.readHatchPeerContactStatus = S),
+      (l.readHatchPeerContactsCursor = R));
   },
   98,
 );

@@ -319,11 +319,26 @@ __d(
       );
     }
     function G(e) {
-      return z.apply(this, arguments);
+      var t;
+      return (t = o("WAWebSchemaBusinessBroadcastCampaign"))
+        .getBusinessBroadcastCampaignTable()
+        .anyOf(
+          ["status"],
+          [
+            t.BusinessBroadcastCampaignStatus.SCHEDULED,
+            t.BusinessBroadcastCampaignStatus.PROCESSING,
+            t.BusinessBroadcastCampaignStatus.FAILED,
+            t.BusinessBroadcastCampaignStatus.SENT,
+          ],
+          { limit: e },
+        );
     }
-    function z() {
+    function z(e) {
+      return j.apply(this, arguments);
+    }
+    function j() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             return (
               o("WALogger").LOG(
@@ -353,15 +368,15 @@ __d(
             );
           }
         })),
-        z.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function K() {
+    function Q() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t,
               n = yield o("WAWebSchemaBusinessBroadcastCampaign")
@@ -382,16 +397,16 @@ __d(
             );
           }
         })),
-        K.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
-    var Q = G;
-    function X(e, t) {
-      return Y.apply(this, arguments);
+    var X = z;
+    function Y(e, t) {
+      return J.apply(this, arguments);
     }
-    function Y() {
+    function J() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             return (
               o("WALogger").LOG(
@@ -421,7 +436,7 @@ __d(
             );
           }
         })),
-        Y.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
     ((l.createBizBroadcastCampaign = L),
@@ -435,10 +450,11 @@ __d(
       (l.getAllRawCampaignsForCurrentDevice = B),
       (l.getBizBroadcastCampaignsByStatus = q),
       (l.getBizBroadcastCampaignsByStatuses = V),
-      (l.deleteBizBroadcastCampaign = G),
-      (l.getBizBroadcastCampaignByMsgId = j),
-      (l.deleteBizBroadcastCampaignsByCampaignId = Q),
-      (l.renameBizBroadcastCampaign = X));
+      (l.getSubmittedBizBroadcastCampaigns = G),
+      (l.deleteBizBroadcastCampaign = z),
+      (l.getBizBroadcastCampaignByMsgId = K),
+      (l.deleteBizBroadcastCampaignsByCampaignId = X),
+      (l.renameBizBroadcastCampaign = Y));
   },
   98,
 );

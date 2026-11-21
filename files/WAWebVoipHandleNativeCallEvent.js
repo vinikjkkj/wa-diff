@@ -1438,6 +1438,7 @@ __d(
             be({ callInfo: s, callState: l, voipStackInterface: a }),
             o("WAWebVoipCallScreeningCaller")
               .maybeStartCallerScreeningRecording({
+                callId: typeof s.callId == "string" ? s.callId : null,
                 callState: l,
                 isCaller: s.isCaller === !0,
                 previousCallState: u,

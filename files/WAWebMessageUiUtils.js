@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WAUnicodeUtils",
     "WAWebAlbumMessageUtils",
+    "WAWebBotDisplayNameOverride",
     "WAWebClock",
     "WAWebContactGetters",
     "WAWebDropdown.react",
@@ -29,6 +30,7 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFormat",
+    "WAWebWorkDirectoryMemberName",
     "asyncToGeneratorRuntime",
     "compactMap",
     "escapeRegex",
@@ -45,7 +47,13 @@ __d(
       if (r("isEmptyObject")(t)) return e;
       var n = Object.keys(t).map(r("escapeRegex")).join("|");
       return e.replace(new RegExp("(" + n + ")(?!\\d)", "g"), function (e) {
-        return o("WAWebFrontendContactGetters").getDisplayName(t[e]);
+        var n,
+          r = t[e];
+        return (n = o(
+          "WAWebWorkDirectoryMemberName",
+        ).getWorkDirectoryMemberName(r)) != null
+          ? n
+          : o("WAWebFrontendContactGetters").getDisplayName(r);
       });
     }
     function d(e) {
@@ -58,23 +66,28 @@ __d(
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       var t,
-        n = o("WAWebFrontendMsgGetters").getMediaData(e),
-        r = {
+        n,
+        r = o("WAWebFrontendMsgGetters").getMediaData(e),
+        a = {
           type: o("WAWebMsgGetters").getType(e),
           subtype: o("WAWebMsgGetters").getSubtype(e),
-          isGif: n == null ? void 0 : n.isGif,
+          isGif: r == null ? void 0 : r.isGif,
           quotedMsg: o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e),
           senderWid: o("WAWebMsgGetters").getSender(e),
         },
-        a = v(r),
-        i = (t = n == null ? void 0 : n.filename) != null ? t : null,
-        l = o("WAWebFrontendContactGetters").getFormattedShortName(
-          o("WAWebFrontendMsgGetters").getSenderObj(e),
-        );
+        i = v(a),
+        l = (t = r == null ? void 0 : r.filename) != null ? t : null,
+        u = o("WAWebFrontendMsgGetters").getSenderObj(e),
+        c =
+          (n = o("WAWebBotDisplayNameOverride").getBotDisplayNameOverride(
+            u.id,
+          )) != null
+            ? n
+            : o("WAWebFrontendContactGetters").getFormattedShortName(u);
       return s._(/*BTDS*/ "{type}{filename} from {sender}{caption}", [
-        s._param("type", a),
-        s._param("filename", i),
-        s._param("sender", l),
+        s._param("type", i),
+        s._param("filename", l),
+        s._param("sender", c),
         s._param("caption", e.caption),
       ]);
     }
@@ -287,49 +300,57 @@ __d(
         l = e.sender,
         u = o("WAWebUserUtils").isMeAccount(l),
         c = "";
-      if (t != null)
+      if (t != null) {
+        var d = o("WAWebBotDisplayNameOverride").getBotDisplayNameOverride(
+          t.id,
+        );
         if (u) {
           if (a) return "";
           c = r("WAWebFbtCommon")("You");
         } else if (
+          d != null ||
           o("WAWebContactGetters").getName(t) ||
           (o("WAWebContactGetters").getVerifiedName(t) &&
             o("WAWebContactGetters").getVerifiedLevel(t) !== 0) ||
           o("WAWebContactGetters").getIsSupportAccount(t)
         ) {
-          var d;
-          c = o("WAWebContactGetters").getIsSupportAccount(t)
-            ? o("WAWebFrontendContactGetters").getFormattedName(t)
-            : (d = t.name) != null
+          var m;
+          c =
+            d != null
               ? d
-              : t.verifiedName;
+              : o("WAWebContactGetters").getIsSupportAccount(t)
+                ? o("WAWebFrontendContactGetters").getFormattedName(t)
+                : (m = t.name) != null
+                  ? m
+                  : t.verifiedName;
         } else if (r("WAWebWid").isPSA(t.id)) c = "WhatsApp";
         else if (i) {
-          var m,
-            p,
-            f =
-              (m = o("WAWebContactGetters").getNotifyName(t)) != null
-                ? m
+          var p,
+            f,
+            g =
+              (p = o("WAWebContactGetters").getNotifyName(t)) != null
+                ? p
                 : t.pushname,
-            g = _(f),
-            h =
-              (p = t.id) != null && p.isLid()
+            h = _(g),
+            y =
+              (f = t.id) != null && f.isLid()
                 ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(t)
                 : o("WAWebWidFormat").widToFormattedUser(t.id);
           c = s._(/*BTDS*/ "{pushname-label} {number-label}", [
-            s._param("pushname-label", g),
-            s._param("number-label", h),
+            s._param("pushname-label", h),
+            s._param("number-label", y),
           ]);
         } else {
-          var y;
+          var C;
           c =
-            (y = t.id) != null && y.isLid()
+            (C = t.id) != null && C.isLid()
               ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(t)
               : o("WAWebWidFormat").widToFormattedUser(t.id);
-          var C = o("WAWebContactGetters").getNotifyName(t),
-            b = C != null && C !== "" ? C : t.pushname;
-          c = c + " " + b;
+          var b = o("WAWebContactGetters").getNotifyName(t),
+            v = b != null && b !== "" ? b : t.pushname;
+          c = c + " " + v;
         }
+      }
       return c;
     }
     function R(e) {

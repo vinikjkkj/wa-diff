@@ -134,7 +134,7 @@ __d(
           t.length !== 0 &&
             (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: t,
-              flushImmediately: !0,
+              write: "now",
               learningSource: "newsletter-followers",
             }));
         })),

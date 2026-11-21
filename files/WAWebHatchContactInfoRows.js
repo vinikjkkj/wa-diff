@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchContactInfoRows",
-  ["WAWebHatchFrontendGating", "WAWebHatchLibraryGating"],
+  ["WAWebBotUtils", "WAWebHatchFrontendGating", "WAWebHatchLibraryGating"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.areVmFeaturesHidden,
@@ -57,6 +57,12 @@ __d(
         });
         for (var u of [
           ["ideas", s.ideas],
+          [
+            "spaces",
+            !n &&
+              o("WAWebBotUtils").isHatchBot(r) &&
+              o("WAWebHatchFrontendGating").isHatchSpaceEnabled(),
+          ],
           ["activity", s.activity],
           ["approvals_history", s.approvalHistory],
           ["scheduled_tasks", s.scheduledTasks],

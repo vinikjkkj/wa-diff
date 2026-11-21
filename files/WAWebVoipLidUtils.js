@@ -8,6 +8,7 @@ __d(
     "WAWebContactExternalUserState",
     "WAWebDBCreateLidPnMappings",
     "WAWebHandlePushnameUpdate",
+    "WAWebLidPnMappingWrite",
     "WAWebSetUsernameJob",
     "WAWebUpdateContactExternalUserState",
     "WAWebUsernameGatingUtils",
@@ -135,7 +136,7 @@ __d(
                 mappings: [
                   { lid: d, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },
                 ],
-                flushImmediately: i,
+                write: o("WAWebLidPnMappingWrite").toLidPnMappingWrite(i),
                 learningSource: "voip-lid",
               }));
           }

@@ -67,7 +67,7 @@ __d(
             ).getHistorySyncProgress(t);
             (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: h,
-              flushImmediately: !0,
+              write: "now",
               identityChangeHandlingEnabled: !1,
               learningSource: "history-sync-worker",
             }),

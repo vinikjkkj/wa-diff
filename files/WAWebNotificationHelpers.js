@@ -3,7 +3,7 @@ __d(
   [
     "fbt",
     "WAWebABProps",
-    "WAWebBizAiStrings",
+    "WAWebBotDisplayNameOverride",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebCmd",
@@ -13,6 +13,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
+    "WAWebInboundMsgQueueGating",
     "WAWebMsgGetters",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
@@ -40,7 +41,16 @@ __d(
         !o("WAWebCmd").Cmd.isOfflineDeliveryEnd
       );
     }
-    function c(e, t) {
+    function c(e) {
+      return o(
+        "WAWebOfflineHandler",
+      ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
+        ? !0
+        : !o("WAWebCmd").Cmd.isOfflineDeliveryEnd &&
+            (e.isOffline !== !1 ||
+              !o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled());
+    }
+    function d(e, t) {
       if (
         (t === void 0 && (t = !0),
         !o("WAWebChatGetters").getIsGroup(e) ||
@@ -55,32 +65,32 @@ __d(
               .find(e.id)
               .then(function (t) {
                 if (t != null) {
-                  var n = d(e.id, t);
+                  var n = m(e.id, t);
                   e.squelch = Date.now() + n;
                 }
               }),
           !1)
         : !0;
     }
-    function d(e, t) {
+    function m(e, t) {
       var n = t.participants.length;
       return Math.min(120, 30 + 5 * n) * 1e3;
     }
-    function m(e) {
+    function p(e) {
       var t,
         n = o("WAWebFrontendMsgGetters").getMaybeChat(e);
       return n != null && !!((t = n.groupMetadata) != null && t.isParentGroup);
     }
-    function p(e) {
-      return r("gkx")("26258") || !o("WAWebMsgGetters").getIsGroupMsg(e) || g(e)
+    function _(e) {
+      return r("gkx")("26258") || !o("WAWebMsgGetters").getIsGroupMsg(e) || h(e)
         ? !1
         : !!o("WAWebUserPrefsNotifications").getIgnoreNondirectGroupMsg();
     }
-    function _(e) {
+    function f(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
       if (t == null || !o("WAWebMuteGetters").getIsMuted(t.mute)) return !1;
       if (!o("WAWebChatGetters").getIsGroup(t)) return !0;
-      if (g(e) || o("WAWebMsgGetters").getHasMentionAll(e)) {
+      if (h(e) || o("WAWebMsgGetters").getHasMentionAll(e)) {
         var n = o("WAWebMsgGetters").getSender(e);
         if (n == null) return !1;
         var r = o("WAWebChatCollection").ChatCollection.get(n);
@@ -88,7 +98,7 @@ __d(
       }
       return !0;
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
       return t == null ||
         !o("WAWebMuteGetters").getIsMuted(t.mute) ||
@@ -97,13 +107,13 @@ __d(
         : o("WAWebMsgGetters").getHasMentionAll(e) &&
             o("WAWebMuteGetters").getIsMentionAllMuted(t.mute);
     }
-    function g(e) {
+    function h(e) {
       return (
         o("WAWebMsgGetters").getHasMentionOfMe(e) ||
         o("WAWebQuotedMsgModelUtils").isMyQuotedMsg(e)
       );
     }
-    function h(e) {
+    function y(e) {
       var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
       if (
         t == null ||
@@ -112,71 +122,71 @@ __d(
       )
         return !1;
       if (!o("WAWebChatGetters").getIsGroup(t)) return !0;
-      if (g(e)) {
+      if (h(e)) {
         var n = o("WAWebMsgGetters").getSender(e),
           a = n != null ? o("WAWebChatCollection").ChatCollection.get(n) : null;
         return a != null && o("WAWebMuteGetters").getIsMuted(a.mute) === !0;
       }
       return !0;
     }
-    function y(e) {
+    function C(e) {
       return o("WAWebChatGetters").getIsGroup(e)
         ? s._(/*BTDS*/ "WhatsApp group message")
         : s._(/*BTDS*/ "WhatsApp message");
     }
-    function C(e) {
+    function b(e) {
       if (e.isLocked) return r("WAWebFbtCommon")("WhatsApp").toString();
-      if (e.id.isAiHub())
-        return o("WAWebBizAiStrings").getBizAiHubTitle().toString();
-      var t = e.groupMetadata;
-      if (t != null && o("WAWebGroupMetadataGetters").getIsUnnamed(t))
+      var t = o("WAWebBotDisplayNameOverride").getBotDisplayNameOverride(e.id);
+      if (t != null) return t;
+      var n = e.groupMetadata;
+      if (n != null && o("WAWebGroupMetadataGetters").getIsUnnamed(n))
         return o(
           "WAWebParticipantListUtils",
         ).calculateUnnamedGroupFullParticipantsList(
           r("nullthrows")(e.groupMetadata),
           !0,
         );
-      var n = e.msgs.last();
-      if ((n == null ? void 0 : n.subtype) === "sender_invite") {
-        var a = o("WAWebFrontendContactGetters").getFormattedName(e.contact);
-        return n != null &&
-          n.templateParams &&
-          (n == null ? void 0 : n.templateParams[0]) === "true"
+      var a = e.msgs.last();
+      if ((a == null ? void 0 : a.subtype) === "sender_invite") {
+        var i = o("WAWebFrontendContactGetters").getFormattedName(e.contact);
+        return a != null &&
+          a.templateParams &&
+          (a == null ? void 0 : a.templateParams[0]) === "true"
           ? s
               ._(/*BTDS*/ "{receiver_name} accepted your invite", [
-                s._param("receiver_name", a),
+                s._param("receiver_name", i),
               ])
               .toString()
           : s
               ._(/*BTDS*/ "{receiver_name} joined WhatsApp", [
-                s._param("receiver_name", a),
+                s._param("receiver_name", i),
               ])
               .toString();
       }
-      var i = o("WAWebFrontendContactGetters").getFormattedNameAndType(
+      var l = o("WAWebFrontendContactGetters").getFormattedNameAndType(
           e.contact,
         ),
-        l = i.displayName,
-        u = i.type;
+        u = l.displayName,
+        c = l.type;
       return (
         !o("WAWebChatGetters").getIsGroup(e) &&
           e.contact != null &&
-          u ===
+          c ===
             o("WAWebWamEnumOppositeVisibleIdentificationType")
               .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER &&
           o("WAWebUnknownUserDisplayEnricher").logUnknownUserDisplayed(
             "push_notification",
             e.contact.id,
           ),
-        l || y(e).toString()
+        u || C(e).toString()
       );
     }
-    function b(t) {
+    function v(t) {
       return r("WAWebEnvironment").isWindows
         ? e() && (t == null ? void 0 : t.isChatsSurfaceActive) === !0
         : e();
     }
-    function v(e) {
+    function S(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -191,7 +201,7 @@ __d(
       }
       return !0;
     }
-    function S(e) {
+    function R(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -213,18 +223,19 @@ __d(
     }
     ((l.appIsActive = e),
       (l.isOfflineResumeInProgress = u),
-      (l.shouldSquelch = c),
-      (l._calculateTimeoutFromGroupMetadata = d),
-      (l.isCommunityHomeAdd = m),
-      (l.shouldIgnoreGroupMsg = p),
-      (l.isMutedAndNotMentioned = _),
-      (l.isMentionAllMutedForMsg = f),
-      (l.isMeUserMentionedOrQuoted = g),
-      (l.isArchivedAndNotMentioned = h),
-      (l.getNotificationTitle = C),
-      (l.shouldMuteDueToAppState = b),
-      (l.shouldPlaySoundGranular = v),
-      (l.shouldEnableNotificationGranular = S));
+      (l.isMsgMutedForOfflineResume = c),
+      (l.shouldSquelch = d),
+      (l._calculateTimeoutFromGroupMetadata = m),
+      (l.isCommunityHomeAdd = p),
+      (l.shouldIgnoreGroupMsg = _),
+      (l.isMutedAndNotMentioned = f),
+      (l.isMentionAllMutedForMsg = g),
+      (l.isMeUserMentionedOrQuoted = h),
+      (l.isArchivedAndNotMentioned = y),
+      (l.getNotificationTitle = b),
+      (l.shouldMuteDueToAppState = v),
+      (l.shouldPlaySoundGranular = S),
+      (l.shouldEnableNotificationGranular = R));
   },
   226,
 );

@@ -57,17 +57,22 @@ __d(
       })(e);
       return n.filter(Boolean);
     }
-    function u(e) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            var n = yield o("WAWebSetUsernameJob").setUsernamesJob(t);
-            yield o(
-              "WAWebInsertUsernameChangeSystemMsg",
-            ).maybeInsertUsernameChangeSystemMsgs(t, n, "handleMsg");
+            var a = yield o("WAWebSetUsernameJob").setUsernamesJob(t);
+            (n != null &&
+              o(
+                "WAWebInsertUsernameChangeSystemMsg",
+              ).hasUsernameChangeSystemMsgs(t, a) &&
+              (yield n()),
+              yield o(
+                "WAWebInsertUsernameChangeSystemMsg",
+              ).maybeInsertUsernameChangeSystemMsgs(t, a, "handleMsg"));
           } catch (t) {
             o("WALogger")
               .ERROR(

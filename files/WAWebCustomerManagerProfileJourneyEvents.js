@@ -123,7 +123,7 @@ __d(
           .CUSTOMER_MANAGER_PROFILE_DRAWER,
         userActionTarget: "customer_field_" + e,
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.API,
+          .SMB_USER_ACTION_TYPE_ENUM.WRITE,
       });
     }
     function b(e) {

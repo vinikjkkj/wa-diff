@@ -1,6 +1,6 @@
 __d(
   "WAWebContactManagementGating",
-  ["WAWebABProps", "WAWebPrimaryFeatures", "WAWebUserUtils", "WAWebWid"],
+  ["WAWebABProps", "WAWebContactSaveEligibility", "WAWebPrimaryFeatures"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return s();
@@ -32,15 +32,7 @@ __d(
       return e();
     }
     function f(e, t, n) {
-      return (
-        e.isRegularUser() &&
-        !o("WAWebUserUtils").isMeAccount(e) &&
-        !r("WAWebWid").isIAS(e) &&
-        !r("WAWebWid").isCAPISupportAccount(e) &&
-        !r("WAWebWid").isSupportAccount(e) &&
-        !t &&
-        n
-      );
+      return o("WAWebContactSaveEligibility").canSaveContact(e) && !t && n;
     }
     function g() {
       var e = Number.parseInt(

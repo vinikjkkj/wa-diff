@@ -17,12 +17,11 @@ __d(
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      e === void 0 &&
-        (e = new (o(
+    function e() {
+      var e = new (o(
           "WAWebCustomerManagerSearchValueCache",
-        ).CustomerSearchValueCache)());
-      var t = 0;
+        ).CustomerSearchValueCache)(),
+        t = 0;
       return {
         cache: e,
         getSnapshot: function () {

@@ -98,6 +98,20 @@ __d(
             preserveOrder: i,
           });
         },
+        updateMessagesUI: function (t) {
+          var e = t.chatId,
+            n = t.isOffline,
+            r = t.messageOverwriteOption,
+            a = t.msgs,
+            i = t.preserveOrder;
+          return o("WAWebUpdateMessageUIAction").updateUIForMessages({
+            chatId: e,
+            isOffline: n,
+            messageOverwriteOption: r,
+            msgs: a,
+            preserveOrder: i,
+          });
+        },
         updateMsgModelAcks: function (t) {
           var e = t.updates;
           e.forEach(function (e) {

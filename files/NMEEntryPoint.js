@@ -458,6 +458,8 @@ __d(
         "gai_meta_view_cs_wearable_settings_page",
       GAI_META_VIEW_CS_WEARABLE_SETTINGS_SHARED_STORAGE:
         "gai_meta_view_cs_wearable_settings_shared_storage",
+      GAI_META_VIEW_CS_WEARABLE_SETTINGS_STORAGE_ROW:
+        "gai_meta_view_cs_wearable_settings_storage_row",
       GAI_META_VIEW_CS_WEARABLE_SETTINGS_UPGRADE:
         "gai_meta_view_cs_wearable_settings_upgrade",
       GAI_META_VIEW_CS_WEARABLE_UPGRADE_BANNER:
@@ -2153,6 +2155,8 @@ __d(
       WA_PLUS_ACCOUNTS_CENTER_HOME: "wa_plus_accounts_center_home",
       WA_RENEWAL_PAYMENT_FAILURE_NOTIF: "wa_renewal_payment_failure_notif",
       WA_SMB_GENERIC_CONTEXTUAL_UPSELL: "wa_smb_generic_contextual_upsell",
+      WA_SMB_STORAGE_WARNING_UPGRADE_NOTIF:
+        "wa_smb_storage_warning_upgrade_notif",
       WA_SMB_WEB_BUSINESS_TOOLS_DRAWER_META_ONE:
         "wa_smb_web_business_tools_drawer_meta_one",
       WA_SMB_WEB_CM_UPSELL: "wa_smb_web_cm_upsell",

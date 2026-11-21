@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebBotUtils",
     "WAWebChatCollection",
+    "WAWebHatchPeerInviteLocalState",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -14,14 +15,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s =
+      s,
+      u =
         "https://static.whatsapp.net/bloks_asset?cat=business_directory_icon&id=ic_apparel_xxhdpi",
-      u = [1, 2, 3, 4, 5],
-      c = new Map([
+      c =
+        "Hey Ana, Sofia Andersson wants to connect with you here. This will let me talk and share with their Muse, Hazel. I won't share anything without your direction or approval.",
+      d = [1, 2, 3, 4, 5],
+      m = new Map([
         [
           "markdown",
           function () {
-            return m(
+            return _(
               "# Sample heading\n\nThis is a **bold** and *italic* response with `inline code`.\n\n- First bullet\n- Second bullet\n- Third bullet",
             );
           },
@@ -29,7 +33,7 @@ __d(
         [
           "code",
           function () {
-            return m(
+            return _(
               'Here is a Kotlin snippet:\n\n```kotlin\nfun greet(name: String): String {\n  return "Hello, $name!"\n}\n```',
             );
           },
@@ -37,7 +41,7 @@ __d(
         [
           "table",
           function () {
-            return m(
+            return _(
               "Comparison table:\n\n| Feature | Supported | Notes |\n| --- | --- | --- |\n| Markdown | Yes | Headings, lists, bold |\n| Tables | Yes | GitHub-flavored |\n| Diagrams | No | Future work |",
             );
           },
@@ -45,16 +49,16 @@ __d(
         [
           "image",
           function () {
-            return m("Here is a cat:\n\n![cat](sandbox://workspace/cat.png)", {
-              "sandbox://workspace/cat.png": _("cat.png", "image/png"),
+            return _("Here is a cat:\n\n![cat](sandbox://workspace/cat.png)", {
+              "sandbox://workspace/cat.png": g("cat.png", "image/png"),
             });
           },
         ],
         [
           "image_grid",
           function () {
-            return m(
-              u
+            return _(
+              d
                 .map(function (e) {
                   return (
                     "![shot " + e + "](sandbox://workspace/shot-" + e + ".png)"
@@ -62,10 +66,10 @@ __d(
                 })
                 .join("\n\n"),
               Object.fromEntries(
-                u.map(function (e) {
+                d.map(function (e) {
                   return [
                     "sandbox://workspace/shot-" + e + ".png",
-                    _("shot-" + e + ".png", "image/png"),
+                    g("shot-" + e + ".png", "image/png"),
                   ];
                 }),
               ),
@@ -75,10 +79,10 @@ __d(
         [
           "file",
           function () {
-            return m(
+            return _(
               "Attached report:\n\n![report.pdf](sandbox://workspace/report.pdf)",
               {
-                "sandbox://workspace/report.pdf": _(
+                "sandbox://workspace/report.pdf": g(
                   "Quarterly report.pdf",
                   "application/pdf",
                 ),
@@ -89,10 +93,10 @@ __d(
         [
           "audio",
           function () {
-            return m(
+            return _(
               "Voice clip:\n\n![voice.opus](sandbox://workspace/voice.opus)",
               {
-                "sandbox://workspace/voice.opus": _("voice.opus", "audio/ogg"),
+                "sandbox://workspace/voice.opus": g("voice.opus", "audio/ogg"),
               },
             );
           },
@@ -106,8 +110,8 @@ __d(
                   "Per [the docs](https://example.com/docs) and [the spec](https://example.com/spec), the Jarvis renderer supports inline links.",
                 event_name: "message.assistant",
                 resources: [
-                  f("https://example.com/docs", "Docs site"),
-                  f("https://example.com/spec", "Spec page"),
+                  h("https://example.com/docs", "Docs site"),
+                  h("https://example.com/spec", "Spec page"),
                 ],
               },
             };
@@ -138,7 +142,7 @@ __d(
         [
           "option_widget",
           function () {
-            return p("option", {
+            return f("option", {
               custom_input: { placeholder: "Type your own" },
               options: ["Book a table", "Find a recipe"],
             });
@@ -147,7 +151,7 @@ __d(
         [
           "link_card",
           function () {
-            return p("external_link", {
+            return f("external_link", {
               description: "Plan your trip with day-by-day suggestions.",
               site_name: "Example Travel",
               title: "Three days in Lisbon",
@@ -158,7 +162,7 @@ __d(
         [
           "list",
           function () {
-            return p("generic_list", {
+            return f("generic_list", {
               items: [
                 {
                   data: { url: "https://example.com/a" },
@@ -180,7 +184,7 @@ __d(
         [
           "text_with_button",
           function () {
-            return p("text_with_button", {
+            return f("text_with_button", {
               button: {
                 label: "Open the guide",
                 url: "https://example.com/guide",
@@ -190,9 +194,33 @@ __d(
           },
         ],
         [
+          "pairing_accept_request",
+          function () {
+            return f(
+              "pairing_launcher",
+              {
+                accepted: !1,
+                action: "accept",
+                body: c,
+                button_label: "Connect",
+                delivery_id: "debug-delivery-1",
+                headline: "Connection request",
+                invitation_url: "https://muse.ai/peer/accept#DebugInvite_0001",
+                muse_id: "debug-peer-muse",
+                muse_name: "Hazel",
+                peer_muse_avatar: null,
+                person_name: "Sofia Andersson",
+                title: null,
+                version: 1,
+              },
+              c + " Open WhatsApp on a newer version to connect.",
+            );
+          },
+        ],
+        [
           "unknown_kind",
           function () {
-            return p(
+            return f(
               "not_a_real_kind",
               {},
               "Fallback text for an unknown widget.",
@@ -202,20 +230,20 @@ __d(
         [
           "unsupported_version",
           function () {
-            return m("If you see this, the version gate failed.");
+            return _("If you see this, the version gate failed.");
           },
         ],
       ]);
-    function d(t) {
+    function p(t) {
       var n;
       t === void 0 && (t = "markdown");
-      var a = c.get(t);
+      var a = m.get(t);
       if (a == null)
         throw r("err")(
           '[hatchInjectJarvisReply] unknown fixture "' +
             t +
             '", expected one of: ' +
-            Array.from(c.keys()).join(", "),
+            Array.from(m.keys()).join(", "),
         );
       var i = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebBotUtils").HATCH_BOT_FBID_WID,
@@ -280,12 +308,12 @@ __d(
         u
       );
     }
-    ((d.doc =
+    ((p.doc =
       "Stage a Muse reply with a Jarvis envelope in the Muse chat. Args: (fixtureName?) \u2014 one of " +
-      Array.from(c.keys()).join(", ") +
+      Array.from(m.keys()).join(", ") +
       "; defaults to markdown."),
-      (d.paramsToExecute = ["markdown"]));
-    function m(e, t) {
+      (p.paramsToExecute = ["markdown"]));
+    function _(e, t) {
       return {
         file_metadata: t,
         stream_event_row: {
@@ -295,7 +323,7 @@ __d(
         },
       };
     }
-    function p(e, t, n) {
+    function f(e, t, n) {
       return {
         stream_event_row: {
           display_text: "",
@@ -309,14 +337,25 @@ __d(
         },
       };
     }
-    function _(e, t) {
-      return { filename: e, mime_type: t, url: s };
+    function g(e, t) {
+      return { filename: e, mime_type: t, url: u };
     }
-    function f(e, t) {
+    function h(e, t) {
       return { kind: "citation", label: t, uri: e };
     }
-    var g = { hatchInjectJarvisReply: d };
-    l.default = g;
+    function y() {
+      (o("WAWebHatchPeerInviteLocalState").clearHatchPeerInviteLocalState(),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[hatchResetPeerConnect] cleared the connect intro and card states",
+            ])),
+        ));
+    }
+    y.doc =
+      "Show the Muse connect intro again and reopen every connection request card on this device.";
+    var C = { hatchInjectJarvisReply: p, hatchResetPeerConnect: y };
+    l.default = C;
   },
   98,
 );

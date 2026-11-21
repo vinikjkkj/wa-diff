@@ -287,6 +287,14 @@ __d(
               recipientCount: n,
             });
           }),
+          (t.coreAudienceDuplicateCheck = function (t, n, r) {
+            o("WAWebBBAudienceLogs").coreAudienceDuplicateCheck(
+              this.$1,
+              t,
+              n,
+              r,
+            );
+          }),
           (t.createAudienceSaveResult = function (t, n, r, a, i, l) {
             o("WAWebBBAudienceLogs").createAudienceSaveResult(
               this.$1,

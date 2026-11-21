@@ -22,41 +22,89 @@ __d(
           .__setRef("WAWebLazyPersistedQueue")
           .load();
       }, "WAWebPersistedQueues"),
-      c = null;
-    function d(e) {
+      c = 1e3,
+      d = 6e4,
+      m = null,
+      p = 0,
+      _ = !1,
+      f = null,
+      g = !1,
+      h = !1;
+    function y(e) {
       return o("QPLFlow").QplSubspan.wrapInSubspan(
         e,
         "wait_ready",
-        function () {
-          var t = c != null ? c : p(e);
-          return ((c = t), t);
-        },
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            !_ &&
+              !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd &&
+              (yield o("QPLFlow").QplSubspan.wrapInSubspan(
+                e,
+                "wait_offline_delivery_end",
+                v,
+              )),
+            (_ = !0),
+            S(e)
+          );
+        }),
       );
     }
-    function m() {
-      return c != null ||
-        o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
-        ? (s || (s = n("Promise"))).resolve()
-        : o("WAWebEventsWaitForOfflineDeliveryEnd").waitForOfflineDeliveryEnd({
-            ignoreInit: !0,
-          });
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
+    function C(e) {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd ||
-            (yield o("QPLFlow").QplSubspan.wrapInSubspan(
-              e,
-              "wait_offline_delivery_end",
-              function () {
-                return o(
-                  "WAWebEventsWaitForOfflineDeliveryEnd",
-                ).waitForOfflineDeliveryEnd({ ignoreInit: !0 });
-              },
-            ));
+        g || ((g = !0), h && (m = null)),
+        o("QPLFlow").QplSubspan.wrapInSubspan(e, "wait_ready", function () {
+          return S(e);
+        })
+      );
+    }
+    function b() {
+      return _ || o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
+        ? (s || (s = n("Promise"))).resolve()
+        : v();
+    }
+    function v() {
+      return (
+        f == null &&
+          (f = o("WAWebEventsWaitForOfflineDeliveryEnd")
+            .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
+            .finally(function () {
+              _ = !0;
+            })),
+        f
+      );
+    }
+    function S(e) {
+      if (m != null) return m;
+      var t = R(e);
+      return (
+        (m = t),
+        t.then(
+          function () {
+            p = 0;
+          },
+          function () {
+            if (!g) {
+              h = !0;
+              return;
+            }
+            (p++,
+              globalThis.setTimeout(
+                function () {
+                  m === t && (m = null);
+                },
+                Math.min(c * Math.pow(2, p - 1), d),
+              ));
+          },
+        ),
+        t
+      );
+    }
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("QPLFlow").QplSubspan.wrapInSubspan(
             e,
             "bundle_fetch",
@@ -67,29 +115,29 @@ __d(
               e,
               "db_open",
               function () {
-                return t.ensurePersistedQueuesOpen();
+                return t.ensurePersistedQueuesOpen(_);
               },
             ),
             t
           );
         })),
-        _.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function f() {
+    function E() {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
         if (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
-          g("immediate");
+          k("immediate");
           return;
         }
         o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
           function () {
-            return g("offline_delivery_end");
+            return k("offline_delivery_end");
           },
         );
       }
     }
-    function g(t) {
+    function k(t) {
       var n = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -102,7 +150,7 @@ __d(
       );
       o("QPLFlow")
         .endWith(n, function () {
-          return d(n);
+          return y(n);
         })
         .catch(function (t) {
           o("WALogger")
@@ -117,9 +165,10 @@ __d(
             .sendLogs("persisted-queues-preload-failed");
         });
     }
-    ((l.whenPersistedQueuesReady = d),
-      (l.whenPersistedQueuesMayOpen = m),
-      (l.schedulePersistedQueuesPreload = f));
+    ((l.whenPersistedQueuesReady = y),
+      (l.whenPersistedQueuesReadyDuringResume = C),
+      (l.whenPersistedQueuesMayOpen = b),
+      (l.schedulePersistedQueuesPreload = E));
   },
   98,
 );

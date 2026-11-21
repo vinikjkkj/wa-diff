@@ -8,10 +8,10 @@ __d(
     "WAWebBackendRuntime",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
-    "WAWebBizAiStrings",
     "WAWebBizBotProfileUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebBotComposerTreatment",
+    "WAWebBotDisplayNameOverride",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotTos",
@@ -262,30 +262,33 @@ __d(
     function W(e) {
       if (o("WAWebChatGetters").getIsBroadcast(e)) e.formattedTitle = B(e);
       else if (o("WAWebChatGetters").getIsUser(e)) {
-        var t;
-        e.formattedTitle = e.id.isAiHub()
-          ? o("WAWebBizAiStrings").getBizAiHubTitle().toString()
-          : (t = o("WAWebFrontendContactGetters").getFormattedUser(
-                e.contact,
-              )) != null
+        var t, n;
+        e.formattedTitle =
+          (t =
+            (n = o("WAWebBotDisplayNameOverride").getBotDisplayNameOverride(
+              e.id,
+            )) != null
+              ? n
+              : o("WAWebFrontendContactGetters").getFormattedUser(e.contact)) !=
+          null
             ? t
             : "";
       } else if (o("WAWebChatGetters").getIsGroup(e)) {
-        var n, r;
+        var r, a;
         e.formattedTitle =
-          (n = e.contact.name) != null
-            ? n
-            : (r = e.groupMetadata) == null
+          (r = e.contact.name) != null
+            ? r
+            : (a = e.groupMetadata) == null
               ? void 0
-              : r.subject;
+              : a.subject;
       } else if (o("WAWebChatGetters").getIsNewsletter(e)) {
-        var a, i;
+        var i, l;
         e.formattedTitle =
-          (a = e.contact.name) != null
-            ? a
-            : (i = e.newsletterMetadata) == null
+          (i = e.contact.name) != null
+            ? i
+            : (l = e.newsletterMetadata) == null
               ? void 0
-              : i.name;
+              : l.name;
       }
     }
     function q(e, t) {

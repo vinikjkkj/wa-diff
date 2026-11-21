@@ -5,8 +5,11 @@ __d(
     "WABinary",
     "WACrc32",
     "WALogger",
+    "WAWebHatchLinkedStatusManager",
     "WAWebHatchPeerInviteUrl",
+    "WAWebHatchVmConnection",
     "WAWebLocalStorage",
+    "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "getErrorSafe",
   ],
@@ -14,22 +17,51 @@ __d(
     "use strict";
     var e,
       s,
-      u = n("$InternalEnum").Mirrored(["HatchPeerConnectIntroSeen"]),
-      c = u.HatchPeerConnectIntroSeen,
-      d = "hatch-peer-invite-connect-states",
-      m = 200,
-      p = new Set(),
-      _ = new Map();
-    function f() {
+      u,
+      c = n("$InternalEnum").Mirrored(["HatchPeerConnectIntroSeen"]),
+      d = c.HatchPeerConnectIntroSeen,
+      m = "hatch-peer-invite-connect-states",
+      p = 200,
+      _ = !1,
+      f = 0,
+      g = new Set(),
+      h = new Map();
+    function y() {
+      var e,
+        t,
+        n,
+        a =
+          (e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+            ? void 0
+            : e.toString(),
+        i =
+          (t =
+            (n = r("WAWebHatchLinkedStatusManager").getLinkedStatus()) == null
+              ? void 0
+              : n.channelFbid) != null
+            ? t
+            : null;
+      return a != null && i != null ? a + "|" + i : null;
+    }
+    function C(e) {
+      return r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
+        function () {
+          return e();
+        },
+      );
+    }
+    function b(e) {
+      if ((D(), e == null)) return !1;
       try {
-        return r("WAWebUserPrefsStore").getUser(c) === !0;
+        return r("WAWebUserPrefsStore").getUser(d) === e;
       } catch (e) {
         return !1;
       }
     }
-    function g() {
+    function v(t) {
+      D();
       try {
-        r("WAWebUserPrefsStore").setUser(c, !0);
+        r("WAWebUserPrefsStore").setUser(d, t);
       } catch (t) {
         o("WALogger")
           .WARN(
@@ -41,63 +73,96 @@ __d(
           .catching(r("getErrorSafe")(t));
       }
     }
-    function h(e) {
+    function S() {
+      return f;
+    }
+    function R() {
+      f++;
+      try {
+        (r("WAWebUserPrefsStore").setUser(d, null),
+          r("WAWebLocalStorage") == null ||
+            r("WAWebLocalStorage").removeItem(m));
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[hatch-peer-invite] clearing local state failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      }
+      (h.clear(),
+        g.forEach(function (e) {
+          return e();
+        }));
+    }
+    function L(e) {
       return (
-        p.add(e),
+        g.add(e),
         function () {
-          p.delete(e);
+          g.delete(e);
         }
       );
     }
-    function y(e) {
+    function E(e) {
       var t, n;
-      return (t = (n = v(e)) == null ? void 0 : n.state) != null ? t : null;
+      return (t = (n = T(e)) == null ? void 0 : n.state) != null ? t : null;
     }
-    function C(e) {
+    function k(e) {
       var t, n;
-      return (t = (n = v(e)) == null ? void 0 : n.museId) != null ? t : null;
+      return (t = (n = T(e)) == null ? void 0 : n.museId) != null ? t : null;
     }
-    function b(e, t, n) {
-      var r = S(e);
+    function I(e, t, n) {
+      D();
+      var r = x(e);
       if (r != null) {
         var o = { museId: t === "requested" ? n : null, state: t },
           a = []
             .concat(
-              R().filter(function (e) {
+              P().filter(function (e) {
                 var t = e[0];
                 return t !== r;
               }),
               [o.museId != null ? [r, t, o.museId] : [r, t]],
             )
-            .slice(-m);
-        (E(d, JSON.stringify(a)) ? _.delete(r) : _.set(r, o),
-          p.forEach(function (e) {
+            .slice(-p);
+        (M(m, JSON.stringify(a)) ? h.delete(r) : h.set(r, o),
+          g.forEach(function (e) {
             return e();
           }));
       }
     }
-    function v(e) {
-      var t = S(e);
+    function T(e) {
+      D();
+      var t = x(e);
       if (t == null) return null;
-      var n = R().find(function (e) {
+      var n = P().find(function (e) {
         var n = e[0];
         return n === t;
       });
-      return n != null ? { museId: n[2], state: n[1] } : _.get(t);
+      return n != null ? { museId: n[2], state: n[1] } : h.get(t);
     }
-    function S(e) {
-      var t = o("WAWebHatchPeerInviteUrl").getHatchPeerInviteFragment(e);
-      return t != null
-        ? r("WACrc32")(o("WABinary").Binary.build(t)).toString(16)
-        : null;
+    function D() {
+      _ ||
+        ((_ = !0),
+        o("WAWebHatchVmConnection").subscribeToHatchVmAccountChange(R));
     }
-    function R() {
+    function x(e) {
+      var t = y(),
+        n = o("WAWebHatchPeerInviteUrl").getHatchPeerInviteFragment(e);
+      return t != null && n != null ? $(t) + ":" + $(n) : null;
+    }
+    function $(e) {
+      return r("WACrc32")(o("WABinary").Binary.build(e)).toString(16);
+    }
+    function P() {
       var e;
       try {
         var t =
           r("WAWebLocalStorage") == null
             ? void 0
-            : r("WAWebLocalStorage").getItem(d);
+            : r("WAWebLocalStorage").getItem(m);
         e = t != null ? JSON.parse(t) : null;
       } catch (e) {
         return [];
@@ -105,20 +170,20 @@ __d(
       return Array.isArray(e)
         ? e.flatMap(function (e) {
             if (!Array.isArray(e) || typeof e[0] != "string") return [];
-            var t = L(e[1]),
+            var t = N(e[1]),
               n = typeof e[2] == "string" ? e[2] : null;
             return t != null ? [[e[0], t, n]] : [];
           })
         : [];
     }
-    function L(e) {
+    function N(e) {
       return e === "requested"
         ? "requested"
         : e === "connected"
           ? "connected"
           : null;
     }
-    function E(e, t) {
+    function M(e, t) {
       if (r("WAWebLocalStorage") == null) return !1;
       try {
         return (r("WAWebLocalStorage").setItem(e, t), !0);
@@ -126,8 +191,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[hatch-peer-invite] saving local state failed",
                 ])),
             )
@@ -136,13 +201,17 @@ __d(
         );
       }
     }
-    ((l.HatchPeerInviteUserPrefs = u),
-      (l.hasSeenHatchPeerConnectIntro = f),
-      (l.markHatchPeerConnectIntroSeen = g),
-      (l.subscribeHatchPeerInviteConnectStates = h),
-      (l.getHatchPeerInviteConnectState = y),
-      (l.getHatchPeerInviteMuseId = C),
-      (l.saveHatchPeerInviteConnectState = b));
+    ((l.HatchPeerInviteUserPrefs = c),
+      (l.readHatchPeerConnectIntroIdentity = y),
+      (l.subscribeHatchPeerConnectIntroIdentity = C),
+      (l.hasSeenHatchPeerConnectIntro = b),
+      (l.markHatchPeerConnectIntroSeen = v),
+      (l.getHatchPeerInviteLocalStateEpoch = S),
+      (l.clearHatchPeerInviteLocalState = R),
+      (l.subscribeHatchPeerInviteConnectStates = L),
+      (l.getHatchPeerInviteConnectState = E),
+      (l.getHatchPeerInviteMuseId = k),
+      (l.saveHatchPeerInviteConnectState = I));
   },
   98,
 );

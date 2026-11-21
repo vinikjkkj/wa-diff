@@ -189,6 +189,7 @@ __d(
         RICH_RESPONSE_SIDE_BY_SIDE_BUFFER_BOTH: 89,
         AI_MUSE_JARVIS_ENVELOPE_GZIP_ENABLED: 90,
         AI_RICH_RESPONSE_INLINE_MEDIA_LIGHTBOX_ENABLED: 91,
+        AI_MUSE_JARVIS_PAYLOAD_GZIP_ENABLED: 93,
       }),
       I = u({ DEFAULT_MODE: 0, THINK_HARD_MODE: 1 }),
       T = u({ UNKNOWN_FEATURE: 0, REASONING_FEATURE: 1 }),
@@ -792,7 +793,10 @@ __d(
         forwardScore: [2, e.TYPES.UINT32],
       }),
       (it.name = "AIRichResponseUnifiedResponse"),
-      (it.internalSpec = { data: [1, e.TYPES.BYTES] }),
+      (it.internalSpec = {
+        data: [1, e.TYPES.BYTES],
+        gzipData: [2, e.TYPES.BYTES],
+      }),
       (lt.name = "AIRegenerateMetadata"),
       (lt.internalSpec = {
         messageKey: [1, e.TYPES.MESSAGE, s.MessageKeySpec],

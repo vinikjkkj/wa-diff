@@ -4,7 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      return e && t === "MSE" && r("UserAgent").isBrowser("Chrome 68.*")
+      return e &&
+        (t === "MSE" || t === "MSE_TRACK_REUSE") &&
+        r("UserAgent").isBrowser("Chrome 68.*")
         ? 0.001
         : 0;
     }

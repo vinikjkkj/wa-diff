@@ -187,7 +187,7 @@ __d(
             });
           (yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
             mappings: y,
-            flushImmediately: !0,
+            write: "now",
             learningSource: "query-privacy-disallowed-list",
           }),
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&

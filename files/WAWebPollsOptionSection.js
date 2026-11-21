@@ -2,12 +2,12 @@ __d(
   "WAWebPollsOptionSection",
   [
     "fbt",
-    "WAWebButton.react",
     "WAWebDrawerSection.react",
     "WAWebFlatList.react",
     "WAWebPollsOptionMetadataRow",
     "WAWebPollsVoterRow",
     "WAWebPollsVoterSectionHeader",
+    "WDSButton.react",
     "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
@@ -153,27 +153,24 @@ __d(
                           d.paddingInline6,
                         ),
                         {
-                          children: c.jsx(
-                            o("WAWebButton.react").WAWebButtonSimplified,
-                            {
-                              onClick: function (t) {
-                                R();
-                              },
-                              shadowOnHover: !1,
-                              children:
-                                t.mode === "e2ee"
-                                  ? s._(
-                                      /*BTDS*/ '_j{"*":"See all ({leftover_votes_details_view} more)","_1":"See all (1 more)"}',
-                                      [
-                                        s._plural(
-                                          A,
-                                          "leftover_votes_details_view",
-                                        ),
-                                      ],
-                                    )
-                                  : s._(/*BTDS*/ "See more"),
+                          children: c.jsx(r("WDSButton.react"), {
+                            label:
+                              t.mode === "e2ee"
+                                ? s._(
+                                    /*BTDS*/ '_j{"*":"See all ({leftover_votes_details_view} more)","_1":"See all (1 more)"}',
+                                    [
+                                      s._plural(
+                                        A,
+                                        "leftover_votes_details_view",
+                                      ),
+                                    ],
+                                  )
+                                : s._(/*BTDS*/ "See more"),
+                            onPress: function () {
+                              R();
                             },
-                          ),
+                            variant: "borderless",
+                          }),
                         },
                       ),
                     ),

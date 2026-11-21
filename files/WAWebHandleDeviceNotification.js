@@ -13,6 +13,7 @@ __d(
     "WAWebDBCreateLidPnMappings",
     "WAWebJidToWid",
     "WAWebLidMigrationUtils",
+    "WAWebLidPnMappingWrite",
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebSyncDeviceAdvDeviceListJob",
@@ -146,7 +147,7 @@ __d(
             (a.lidUser != null &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [{ lid: a.lidUser, pn: a.user }],
-                flushImmediately: _,
+                write: o("WAWebLidPnMappingWrite").toLidPnMappingWrite(_),
                 learningSource: "device-notification",
               })),
             !_)

@@ -29,12 +29,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e) {
+    function c(e, t) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = t.msgInfo,
             i = a.chat;
           if (a.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer)
@@ -49,11 +49,14 @@ __d(
                   a.externalId,
                 )
                 .tags("messaging"),
-              !1
+              null
             );
-          var l = a.offline != null;
+          var l = a.offline != null,
+            u = null;
           try {
-            var c = [];
+            var c,
+              d,
+              m = [];
             if (
               i.isUser() &&
               (t.placeholderType ===
@@ -61,35 +64,35 @@ __d(
                 t.placeholderType ===
                   o("WAWebHandleMsgTypes").PlaceholderType.FANOUT)
             ) {
-              var d,
-                m =
+              var p,
+                f =
                   o("WAWebUserPrefsMultiDevice").getHaveProcessedCoexAdv() ===
                   !0
                     ? yield o("WAWebApiDeviceList").getDeviceRecord(a.author)
                     : null;
               if (
                 ((a.placeholderCreatedWhenAccountIsHosted =
-                  (m == null ? void 0 : m.advAccountType) ===
+                  (f == null ? void 0 : f.advAccountType) ===
                   o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED),
-                (m == null ? void 0 : m.advAccountType) ===
+                (f == null ? void 0 : f.advAccountType) ===
                   o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                  (a == null || (d = a.chat) == null ? void 0 : d.isUser()) ===
+                  (a == null || (p = a.chat) == null ? void 0 : p.isUser()) ===
                     !0)
               ) {
-                var p = yield o(
+                var h = yield o(
                   "WAWebBizCoexUtils",
                 ).shouldCreateFallbackHostedAdvSystemMsgOnPlaceholder(
                   o("WAWebWidFactory")
                     .asUserWidOrThrow(a == null ? void 0 : a.author)
                     .toString(),
                 );
-                p &&
+                h &&
                   !o("WAWebBizCoexUtils").shouldDedupInitialHostedSystemMsg(
                     o("WAWebWidFactory").asUserWidOrThrow(
                       a == null ? void 0 : a.author,
                     ),
                   ) &&
-                  (c = [
+                  (m = [
                     r("nullthrows")(
                       o(
                         "WAWebAdvHostedAccountTypeSystemMsg",
@@ -105,119 +108,100 @@ __d(
                   ]);
               }
             }
-            var _ = [];
+            var C = [];
             if (t.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
-              var f = o("WAWebMsgProcessingApiUtils").generatePlaceholder(t);
+              var v = o("WAWebMsgProcessingApiUtils").generatePlaceholder(t);
               if (
-                f == null ||
-                (f.realType != null,
+                v == null ||
+                (v.realType != null,
                 a.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
-                  ? (yield o("WAWebDBProcessMessage").storeMessages(
-                      [f],
-                      f.id.remote,
-                    ),
+                  ? (yield y(v),
                     a.bclParticipants != null &&
                       a.edit !== o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
-                      (_ = yield o(
+                      (C = yield o(
                         "WAWebMsgProcessingApiUtils",
-                      ).generateBclMsgs(f, a.bclParticipants)))
-                  : (_ = [f]),
-                _.length === 0)
+                      ).generateBclMsgs(v, a.bclParticipants)))
+                  : (C = [v]),
+                C.length === 0)
               )
-                return !1;
-              c.length > 0 &&
+                return null;
+              m.length > 0 &&
                 a.placeholderCreatedWhenAccountIsHosted === !0 &&
-                (_ = [].concat(c, _));
+                (C = [].concat(m, C));
             } else
-              _ = [
+              C = [
                 o("WAWebMsgProcessingApiUtils").genDebugPlaceholderMsg(
                   a,
                   t.nackReason,
                 ),
               ];
-            var g = _;
-            if (g.length === 0) return !1;
+            var S = C;
+            if (S.length === 0) return null;
             if (t.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
-              var h = yield o(
+              var R = yield o(
                 "WAWebLimitSharingAcp2HideReceivedMsgs",
               ).hideMsgsReceivedInAcp2RestrictedChat({
                 messageType: a.type,
-                msgs: g,
+                msgs: S,
               });
-              if (h.length === 0) return !1;
+              if (R.length === 0) return null;
             }
             if (t.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
               if (i.isUser()) {
-                var y = g[0],
-                  C = o(
+                var L = S[0],
+                  E = o(
                     "WAWebMessageDestinationChat",
                   ).determineDestinationChatForIncomingMessage({
                     chat: i,
-                    msg: y,
+                    msg: L,
                     msgInfo: a,
                   });
                 yield o("WAWebCheckChatExistsOrCreate").checkChatExistsOrCreate(
                   {
-                    destinationChat: C,
+                    destinationChat: E,
                     msgMeta: t.msgMeta,
-                    options: { firstIncomingMsg: y },
+                    options: { firstIncomingMsg: L },
                     chatOriginType: "createChatOnNewMsg",
                   },
                 );
               }
             } else t.type;
-            var b = o("WAWebMessageProcessorCache")
+            var k = b(
+                (n == null || (c = n.callerHandles) == null
+                  ? void 0
+                  : c.has("flush")) === !0,
+                l,
+              ),
+              I = o("WAWebMessageProcessorCache")
                 .messageProcessorCache.addMessages(
-                  g.map(function (e) {
+                  S.map(function (e) {
                     return { msg: e };
                   }),
-                  o("WAWebMessageQueueImpl").shouldFlushMessageImmediately(
-                    l,
-                    o("WAWebBackendEventBus").BackendEventBus
-                      .isOfflineDeliveryEnd,
-                  ),
+                  k.flushImmediately,
                 )
                 .then(function () {
                   o(
                     "WAWebWamWorkerOfflineProcessReporter",
                   ).WorkerOfflineResumeReporter.updateProcessedMessageCount();
-                }),
-              v = !1;
-            return (
-              o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
-                (o("WAWebBackendEventBus").BackendEventBus
-                  .isOfflineDeliveryEnd && (yield b),
-                yield (u || (u = n("Promise"))).all(
-                  g.map(
-                    (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          var t =
-                            e.kind !==
-                              o("WAWebMsgType").MsgKind.PlaceholderAddon &&
-                            (!i.isStatus() ||
-                              o("WAWebCurrentUser").isEmployee());
-                          if (t) {
-                            v = !0;
-                            var n = e.id.remote;
-                            yield o("WAWebBackendApi").frontendSendAndReceive(
-                              "updateMessageUI",
-                              { chatId: n, msg: e },
-                            );
-                          }
-                        },
-                      );
-                      return function (t) {
-                        return e.apply(this, arguments);
-                      };
-                    })(),
-                  ),
-                )),
-              v
-            );
+                });
+            if (
+              ((u = { written: I }),
+              !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd)
+            )
+              return { rendered: !1, written: I };
+            if (
+              (n == null || (d = n.callerHandles) == null
+                ? void 0
+                : d.has("ui")) === !0
+            ) {
+              var T = g(S, i);
+              return { rendered: T != null, uiUpdate: T, written: I };
+            }
+            return { rendered: yield _(S, i, I, k.awaited), written: I };
           } catch (e) {
-            return (
-              o("WALogger")
+            var D;
+            if (
+              (o("WALogger")
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -232,14 +216,137 @@ __d(
                 .sendLogs(
                   "handle_msg: error storing/processing single message",
                 ),
-              !1
-            );
+              u == null &&
+                (n == null || (D = n.callerHandles) == null
+                  ? void 0
+                  : D.has("errors")) === !0)
+            )
+              throw e;
+            return u == null
+              ? null
+              : babelHelpers.extends({}, u, { rendered: !1 });
           }
         })),
         d.apply(this, arguments)
       );
     }
-    l.processPlaceholderMessage = c;
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgInfo;
+          if (
+            t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer ||
+            !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd
+          )
+            return !1;
+          if (e.type === o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER)
+            return h(
+              o("WAWebMsgProcessingApiUtils").genDebugPlaceholderMsg(
+                t,
+                e.nackReason,
+              ),
+              t.chat,
+            );
+          var n = o("WAWebMsgProcessingApiUtils").generatePlaceholder(e);
+          return n == null || !h(n, t.chat)
+            ? !1
+            : t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
+              ? t.edit !== o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
+                t.bclParticipants != null &&
+                t.bclParticipants.length > 0
+              : !(yield o(
+                  "WAWebLimitSharingAcp2HideReceivedMsgs",
+                ).wouldHideMsgInAcp2RestrictedChat({
+                  chatWid: n.id.remote,
+                  messageType: t.type,
+                }));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t, n, r) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r, a) {
+            a && (yield r);
+            var i = !1;
+            return (
+              yield (u || (u = n("Promise"))).all(
+                e.map(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        if (h(e, t)) {
+                          i = !0;
+                          var n = e.id.remote;
+                          yield o("WAWebBackendApi").frontendSendAndReceive(
+                            "updateMessageUI",
+                            { chatId: n, msg: e },
+                          );
+                        }
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                ),
+              ),
+              i
+            );
+          },
+        )),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      var n = e.filter(function (e) {
+        return h(e, t);
+      });
+      return n.length > 0 ? { kind: "placeholder", msgs: n } : null;
+    }
+    function h(e, t) {
+      return (
+        e.kind !== o("WAWebMsgType").MsgKind.PlaceholderAddon &&
+        (!t.isStatus() || o("WAWebCurrentUser").isEmployee())
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            yield o("WAWebDBProcessMessage").storeMessages([e], e.id.remote);
+          } catch (e) {
+            if (
+              !(e instanceof o("WAWebDBProcessMessage").DuplicateMessageError)
+            )
+              throw e;
+          }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e, t) {
+      var n = o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd;
+      return e
+        ? { awaited: !1, flushImmediately: !1 }
+        : {
+            awaited: n,
+            flushImmediately: o(
+              "WAWebMessageQueueImpl",
+            ).shouldFlushMessageImmediately(t, n),
+          };
+    }
+    ((l.processPlaceholderMessage = c), (l.wouldRenderPlaceholder = m));
   },
   98,
 );

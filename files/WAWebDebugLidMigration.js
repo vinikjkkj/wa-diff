@@ -299,7 +299,7 @@ __d(
             );
           yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
             mappings: [{ lid: a, pn: i }],
-            flushImmediately: !0,
+            write: "now",
             learningSource: n != null ? n : "usync",
           });
         })),
@@ -449,7 +449,7 @@ __d(
               mappings: [
                 { lid: a, pn: o("WAWebWidFactory").asUserWidOrThrow(n) },
               ],
-              flushImmediately: !0,
+              write: "now",
               learningSource: "migration-sync-old",
             }),
               yield o("WAWebCreateChat").createChat({
@@ -1029,7 +1029,7 @@ __d(
               ),
               yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [{ lid: s, pn: t }],
-                flushImmediately: !0,
+                write: "now",
                 learningSource: "migration-sync-old",
               }))
             : ((s = a),

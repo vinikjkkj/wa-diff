@@ -1,6 +1,6 @@
 __d(
   "WAWebMessageReceiveFlow",
-  ["WAComms", "WAWebNullFunc", "asyncToGeneratorRuntime"],
+  ["WAComms", "WAWebBoolFunc", "WAWebNullFunc", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = [
         "rx_queue_wait_ms",
@@ -17,6 +17,9 @@ __d(
         addPoint: function () {},
         annotate: function () {},
         addCheckpointPoint: function () {},
+        addInboundDrainWait: function () {},
+        handOffMessageWrite: function () {},
+        isMessageWriteHandedOff: o("WAWebBoolFunc").returnFalse,
         settleQueue: function () {},
         endWithReceipt: function () {},
         endWithFailure: function () {},
@@ -32,18 +35,39 @@ __d(
     function d(e, t, n) {
       var r = e.isOffline,
         o = e.stanzaId;
-      return (u.start(e), R(o, t(b(o, r, n))));
+      return (
+        u.start(e),
+        I(
+          o,
+          t(L(o, r, n), {
+            onInboundDrainWaited: function (t) {
+              return m(o, t);
+            },
+          }),
+        )
+      );
     }
-    function m() {
-      u.resetOfflineResumeTotals();
+    function m(e, t) {
+      u.addInboundDrainWait(e, t);
     }
     function p(e) {
+      u.handOffMessageWrite(e);
+    }
+    function _(e) {
+      return e.filter(function (e) {
+        return !u.isMessageWriteHandedOff(e);
+      });
+    }
+    function f() {
+      u.resetOfflineResumeTotals();
+    }
+    function g(e) {
       return u.takeOfflineResumeTotals(e);
     }
-    function _(e, t) {
+    function h(e, t) {
       u.addCheckpointPoint(e, t);
     }
-    function f(e, t) {
+    function y(e, t) {
       var n = {
         int: {
           storage_batch_size: t.batchSize,
@@ -57,29 +81,36 @@ __d(
           rx_storage_txn_count: t.transactionCount,
         }));
     }
-    function g(e, t) {
-      (e.length > 0 && u.recordOfflineAck(),
-        e.forEach(function (e) {
-          return u.endWithReceipt(e, {
-            int: {
-              checkpoint_batch_size: t.batchSize,
-              checkpoint_signal_dirty_count: t.signalDirtyCount,
-            },
-            string: { receipt_path: "aggregated" },
-          });
-        }));
+    function C(e, t) {
+      e.length > 0 && u.recordOfflineAck();
+      var n = t.batchSize,
+        r = t.signalDirtyCount;
+      e.forEach(function (e) {
+        return u.endWithReceipt(e, {
+          int:
+            r == null
+              ? { checkpoint_batch_size: n }
+              : { checkpoint_batch_size: n, checkpoint_signal_dirty_count: r },
+          string: { receipt_path: "aggregated" },
+        });
+      });
     }
-    function h(e) {
+    function b(e) {
       e.forEach(function (e) {
         return u.endWithFailure(e, "nack");
       });
     }
-    function y(e) {
+    function v(e) {
+      e.forEach(function (e) {
+        return u.endWithFailure(e, "takeover");
+      });
+    }
+    function S(e) {
       e.forEach(function (e) {
         return u.endWithFailure(e, "checkpoint_failed");
       });
     }
-    function C(e, t) {
+    function R(e, t) {
       var r = 0,
         o = 0,
         a = 0,
@@ -152,7 +183,7 @@ __d(
         },
       };
     }
-    function b(e, t, r) {
+    function L(e, t, r) {
       var a,
         i = self.performance.now(),
         l = (a = o("WAComms").getComms()) == null ? void 0 : a.socketId;
@@ -162,14 +193,14 @@ __d(
           (u.addPoint(e, "queue_wait_end"),
             u.annotate(
               e,
-              v(
+              E(
                 ((a = o("WAComms").getComms()) == null
                   ? void 0
                   : a.socketId) !== l,
                 n,
               ),
             ),
-            t && u.addToOfflineResumeTotals(S(self.performance.now() - i, n)));
+            t && u.addToOfflineResumeTotals(k(self.performance.now() - i, n)));
           try {
             var s = yield r();
             return (u.addPoint(e, "handler_end"), s);
@@ -186,7 +217,7 @@ __d(
         };
       })();
     }
-    function v(e, t) {
+    function E(e, t) {
       return t == null
         ? { bool: { socket_changed_while_queued: e } }
         : {
@@ -197,7 +228,7 @@ __d(
             },
           };
     }
-    function S(e, t) {
+    function k(e, t) {
       return t == null
         ? { rx_queue_wait_ms: e }
         : {
@@ -206,48 +237,55 @@ __d(
             rx_tick_wait_ms: t.tickWaitMs,
           };
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function L() {
+    function T() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield t;
           return (u.settleQueue(e, n != null), n);
         })),
-        L.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    function D(e, t, n, r) {
+      return x.apply(this, arguments);
     }
-    function k() {
+    function x() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            yield t;
-          } catch (t) {
-            throw (u.endWithFailure(e, "receipt_failed"), t);
-          }
-          u.endWithReceipt(e, {
-            string: { decrypt_result: n, receipt_path: "immediate" },
-          });
-        })),
-        k.apply(this, arguments)
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            r === void 0 && (r = "immediate");
+            try {
+              yield t;
+            } catch (t) {
+              throw (u.endWithFailure(e, "receipt_failed"), t);
+            }
+            u.endWithReceipt(e, {
+              string: { decrypt_result: n, receipt_path: r },
+            });
+          },
+        )),
+        x.apply(this, arguments)
       );
     }
     ((l.OFFLINE_RESUME_TOTAL_KEYS = e),
       (l.setMessageReceiveFlowTracker = c),
       (l.trackMessageReceive = d),
-      (l.resetOfflineResumeReceiveTotals = m),
-      (l.takeOfflineResumeReceiveTotals = p),
-      (l.markMessageReceiveCheckpoint = _),
-      (l.annotateMessageReceiveStorageCommit = f),
-      (l.endMessageReceiveWithAggregatedReceipt = g),
-      (l.endMessageReceiveWithNack = h),
-      (l.failMessageReceiveCheckpoint = y),
-      (l.startMessageReceiveDecryptTimer = C),
-      (l.trackMessageReceiveReceipt = E));
+      (l.addMessageReceiveInboundDrainWait = m),
+      (l.handOffMessageReceiveWrites = p),
+      (l.withoutHandedOffMessageReceiveWrites = _),
+      (l.resetOfflineResumeReceiveTotals = f),
+      (l.takeOfflineResumeReceiveTotals = g),
+      (l.markMessageReceiveCheckpoint = h),
+      (l.annotateMessageReceiveStorageCommit = y),
+      (l.endMessageReceiveWithAggregatedReceipt = C),
+      (l.endMessageReceiveWithNack = b),
+      (l.endMessageReceiveWithTakeover = v),
+      (l.failMessageReceiveCheckpoint = S),
+      (l.startMessageReceiveDecryptTimer = R),
+      (l.trackMessageReceiveReceipt = D));
   },
   98,
 );

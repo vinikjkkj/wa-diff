@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAudienceExpressionTypes",
+    "WAWebBizBroadcastAudienceDuplicateCheck",
     "WAWebBizBroadcastsAudienceSelectionStrings",
     "WAWebBizBroadcastsAudienceStrings",
     "WAWebBizBroadcastsCreationStrings",
@@ -183,14 +184,19 @@ __d(
             .toString()
         : t.join(", ");
     }
-    function b(e) {
+    function b(e, t) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = [],
-            i = [];
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = [],
+            l = [],
+            s = o(
+              "WAWebBizBroadcastAudienceDuplicateCheck",
+            ).createImportAudienceDuplicateCheck(),
+            c = s.countSavedAudience,
+            d = s.markSaveFailed;
           return (
             yield t.reduce(
               (function () {
@@ -198,12 +204,13 @@ __d(
                   function* (t, n) {
                     return (
                       yield t,
-                      S(n)
+                      S(n, c, a)
                         .then(function (e) {
-                          i.push(e);
+                          l.push(e);
                         })
                         .catch(function (t) {
-                          (a.push(n),
+                          (d(),
+                            i.push(n),
                             o("WALogger")
                               .ERROR(
                                 e ||
@@ -225,33 +232,34 @@ __d(
               })(),
               (u || (u = n("Promise"))).resolve(),
             ),
-            { failedAudiences: a, savedAudiences: i }
+            { failedAudiences: i, savedAudiences: l }
           );
         })),
         v.apply(this, arguments)
       );
     }
-    function S(e) {
+    function S(e, t, n) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.contacts.map(function (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = e.contacts.map(function (e) {
               return { lid: e.lid, phone: e.phone };
             }),
-            n = e.name.trim(),
-            r = yield o("WAWebBroadcastListAction").createBroadcastListAction({
-              broadcastListName: n,
-              contacts: t,
+            a = e.name.trim(),
+            i = yield o("WAWebBroadcastListAction").createBroadcastListAction({
+              broadcastListName: a,
+              contacts: r,
+              creationDuplicateCheck: { countSavedAudience: t, entryPoint: n },
             });
           return {
             audienceExpression: o("WAWebAudienceExpressionTypes")
               .DEFAULT_AUDIENCE_EXPRESSION,
-            broadcastJid: r,
+            broadcastJid: i,
             lastBroadcastTimestamp: null,
-            name: n,
-            recipientCount: t.length,
+            name: a,
+            recipientCount: r.length,
           };
         })),
         R.apply(this, arguments)
