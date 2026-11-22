@@ -138,7 +138,6 @@ __d(
           g.jsx(r("WAWebHatchApprovalDialog.react"), {
             decisionOptions: R,
             description: "Create an email draft to xyz@meta.com",
-            isConnector: !0,
             onDecide: function (n) {
               (r("vulture")("bYxMm1k7jUB__1BNNnDCU5wbveA="),
                 o("WALogger").LOG(

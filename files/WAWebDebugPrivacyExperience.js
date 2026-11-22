@@ -192,7 +192,6 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           (t === void 0 && (t = !0),
-            r("vulture")("pHEaxf_iy8XWjLb26ZtFyRu8n1M="),
             yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: e.map(function (e) {
                 return {
@@ -211,11 +210,8 @@ __d(
     }
     b.doc = "Updates the LIDxPN mapping";
     function S(e) {
-      return (
-        r("vulture")("1IbyimDZOLJxNSevEyrTEzbxPCI="),
-        o("WAWebApiContact").getCurrentLid(
-          o("WAWebWidFactory").createUserWidOrThrow(e),
-        )
+      return o("WAWebApiContact").getCurrentLid(
+        o("WAWebWidFactory").createUserWidOrThrow(e),
       );
     }
     S.doc = "Get a current LID for a given Phone Number";

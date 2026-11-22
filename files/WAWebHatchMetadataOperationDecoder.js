@@ -114,21 +114,23 @@ __d(
             throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
               o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
             );
-          var p = o("WAWebHatchJsonReaders").readString(u, "always_scope");
+          var p = o("WAWebHatchJsonReaders").readString(u, "always_scope"),
+            _ = o("WAWebHatchJsonReaders").readString(u, "credential_id");
           return {
             type: "req",
             requestId: t,
             request: babelHelpers.extends(
               { method: "hitl.approval.decide", approvalId: c, decision: d },
               p != null && p !== "" ? { alwaysScope: p } : null,
+              _ != null && _ !== "" ? { credentialId: _ } : {},
             ),
           };
         }
         if (r === "hitl.payment.select") {
-          var _ = o("WAWebHatchJsonReaders").readField(n, "params"),
-            f = o("WAWebHatchJsonReaders").readString(_, "approval_id"),
-            g = o("WAWebHatchJsonReaders").readString(_, "payment_id");
-          if (f == null || f === "" || g == null || g === "")
+          var f = o("WAWebHatchJsonReaders").readField(n, "params"),
+            g = o("WAWebHatchJsonReaders").readString(f, "approval_id"),
+            h = o("WAWebHatchJsonReaders").readString(f, "payment_id");
+          if (g == null || g === "" || h == null || h === "")
             throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
               o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
             );
@@ -137,8 +139,8 @@ __d(
             requestId: t,
             request: {
               method: "hitl.payment.select",
-              approvalId: f,
-              paymentId: g,
+              approvalId: g,
+              paymentId: h,
             },
           };
         }

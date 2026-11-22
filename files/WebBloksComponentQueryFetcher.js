@@ -26,14 +26,16 @@ __d(
       });
     }
     var c = (function () {
-      function t(e, t, n, o, a, i) {
+      function t(e, t, n, o, a, i, l) {
         (i === void 0 && (i = new (r("WebBloksLogger"))()),
+          l === void 0 && (l = !1),
           (this.$1 = new Set()),
           (this.$2 = e),
           (this.$3 = t),
           (this.$4 = i),
-          (this.$6 = n),
-          (this.$7 = o),
+          (this.$6 = l),
+          (this.$7 = n),
+          (this.$8 = o),
           (this.$5 = a));
       }
       var n = t.prototype;
@@ -45,17 +47,17 @@ __d(
             o("WebBloksCacheUtils").isResponseFresh(e, n.cacheTtlSeconds)
           ) {
             var a = babelHelpers.extends(
-              { result: e.response, success: !0 },
+              { result: e.response, success: !0, resources: e.resources },
               o("WebBloksCachedStackedScreens").readCachedStackedScreens(e),
             );
             r(t, a);
-          } else this.$8(t, n, r);
+          } else this.$9(t, n, r);
         }),
-        (n.$8 = function (t, n, r, a) {
+        (n.$9 = function (t, n, r, a) {
           var e = this;
           if ((a === void 0 && (a = !0), !this.$1.has(t))) {
             this.$1.add(t);
-            var i = this.$9(n.appId),
+            var i = this.$10(n.appId),
               l = o("WebBloksUtils").nullthrows(this.$2);
             l.fetchComponentQuery(n.appId, n.params)
               .then(function (l) {
@@ -67,8 +69,8 @@ __d(
                   for (var d of c.components) {
                     var m = o("WebBloksPayloadParser").parseTree(
                       d.payload,
-                      e.$6,
                       e.$7,
+                      e.$8,
                       e.$5,
                       void 0,
                     );
@@ -87,6 +89,7 @@ __d(
                     response: p,
                     responseTimestampMs: Date.now().toString(),
                     queryPurpose: n.queryPurpose,
+                    resources: e.$6 && a ? c.component_query_resources : void 0,
                     stackedScreens: c.stacked_screens,
                     stackedScreensDelayMs: c.stacked_screens_delay_ms,
                     stackedScreensConsumed: !1,
@@ -103,7 +106,7 @@ __d(
                   );
                 (e.$3.set(t, _),
                   e.$1.delete(t),
-                  a && e.$10(c.component_query_responses, n, r, t),
+                  a && e.$11(c.component_query_responses, n, r, t),
                   r(t, f));
               })
               .catch(function (a) {
@@ -125,10 +128,10 @@ __d(
               });
           }
         }),
-        (n.$10 = function (t, n, r, a) {
+        (n.$11 = function (t, n, r, a) {
           if (Array.isArray(t))
             for (var e of t) {
-              var i = this.$11(e, n);
+              var i = this.$12(e, n);
               if (!(i == null || i === a) && !this.$1.has(i)) {
                 var l = this.$3.get(i);
                 if (
@@ -154,8 +157,8 @@ __d(
                           c.id,
                           o("WebBloksPayloadParser").parseTree(
                             c.payload,
-                            this.$6,
                             this.$7,
+                            this.$8,
                             this.$5,
                             void 0,
                           ),
@@ -181,7 +184,7 @@ __d(
                       "WebBloks: corrupt bundled query payload for " + e.app_id,
                       t instanceof Error ? t : String(t),
                     ),
-                      this.$8(
+                      this.$9(
                         i,
                         babelHelpers.extends({}, n, {
                           appId: e.app_id,
@@ -197,7 +200,7 @@ __d(
               }
             }
         }),
-        (n.$11 = function (t, n) {
+        (n.$12 = function (t, n) {
           try {
             var e = o("WebBloksCacheUtils").resolveConsumedParams(
               o("WebBloksUtils").cast(t.consumed_params),
@@ -216,7 +219,7 @@ __d(
             );
           }
         }),
-        (n.$9 = function (n) {
+        (n.$10 = function (n) {
           if (
             !o("WebBloksSSRUtils").canUseDOM ||
             !o(

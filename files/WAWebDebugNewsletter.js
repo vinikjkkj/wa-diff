@@ -692,9 +692,8 @@ __d(
         return t;
       })(),
       getLastChannelMessageServerId: function () {
-        var e;
-        r("vulture")("v_tV2ahR5hgdlPTRZ-aUH0kOgzg=");
-        var t = o("WAWebDebugUtils").getSelectedChat();
+        var e,
+          t = o("WAWebDebugUtils").getSelectedChat();
         if (t == null)
           throw r("err")("getLastChannelMessageServerId: no selected chat");
         var n = (e = t.msgs.last()) == null ? void 0 : e.serverId;
@@ -766,18 +765,17 @@ __d(
         return t;
       })(),
       openNewsletterStatusTextComposer: function () {
-        (r("vulture")("Eq2J2I-RaMghHnKCGt_vPuZpQjQ="),
-          o("WAWebModalManager").ModalManager.openMedia(
-            u.createElement(r("WAWebCreateTextStatusFlow.react"), {
-              entryPoint: o("WAWebLogStatusPosterActions")
-                .STATUS_CREATION_ENTRY_POINT.CHANNEL_THREAD_SCREEN,
-              isNewsletterStatus: !0,
-              statusPostingSessionId: o(
-                "WAWebLogStatusPosterActions",
-              ).createStatusPostingSessionId(),
-            }),
-            { transition: "status-modal" },
-          ));
+        o("WAWebModalManager").ModalManager.openMedia(
+          u.createElement(r("WAWebCreateTextStatusFlow.react"), {
+            entryPoint: o("WAWebLogStatusPosterActions")
+              .STATUS_CREATION_ENTRY_POINT.CHANNEL_THREAD_SCREEN,
+            isNewsletterStatus: !0,
+            statusPostingSessionId: o(
+              "WAWebLogStatusPosterActions",
+            ).createStatusPostingSessionId(),
+          }),
+          { transition: "status-modal" },
+        );
       },
     };
     l.default = g;

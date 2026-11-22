@@ -32,6 +32,9 @@ __d(
                 t.alwaysScope != null && t.alwaysScope !== ""
                   ? { always_scope: t.alwaysScope }
                   : null,
+                t.credentialId != null && t.credentialId !== ""
+                  ? { credential_id: t.credentialId }
+                  : {},
               ),
             };
           }
@@ -107,6 +110,13 @@ __d(
           a ? r.join(",") : "none",
         ),
         l
+      );
+    }
+    function u(e) {
+      return JSON.parse(
+        JSON.stringify(e, function (e, t) {
+          return e === "credential_id" ? "[redacted]" : t;
+        }),
       );
     }
     l.encodeHatchRequest = s;

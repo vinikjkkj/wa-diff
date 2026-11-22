@@ -798,7 +798,13 @@ __d(
             d = oe(l.viewMode, t.viewMode),
             m = te(u, l.viewMode, t);
           ae(u, l.viewMode, m.viewMode);
-          var p = pe(l.t, fe(l.screenedElsewhere, _e(l.callOutcome, m)));
+          var p = pe(
+            l.t,
+            _e(
+              l.callParticipants,
+              ge(l.screenedElsewhere, fe(l.callOutcome, m)),
+            ),
+          );
           return (
             i
               ? yield l.applyUpdate(p)
@@ -1065,34 +1071,37 @@ __d(
                 "WAWebVoipBackendCallLogTargetResolver",
               ).resolveCallLogMessageTarget(i.callLogMessage),
               s = null,
-              u = null;
+              u = null,
+              c = null;
             if (l.kind === "callLog") {
-              var c = yield o(
+              var d = yield o(
                 "WAWebDBGetByParentMsgKey",
               ).getMessageOrphansByParentMsgKey(l.id);
-              for (var d of c) {
-                var m = d.parsedMsgPayload;
-                if (m.kind === "callLog") {
-                  ((s = m.callOutcome), (u = m.screenedElsewhere));
+              for (var m of d) {
+                var p = m.parsedMsgPayload;
+                if (p.kind === "callLog") {
+                  ((s = p.callOutcome),
+                    (u = p.screenedElsewhere),
+                    (c = p.callParticipants));
                   break;
                 }
               }
             }
-            var p = fe(u, _e(s, l)),
-              _ = o(
+            var _ = _e(c, ge(u, fe(s, l))),
+              f = o(
                 "WAWebVoipPendingCallLogOutcome",
-              ).mergePendingCallLogOutcome(p),
-              f = _.callLogMessage,
-              g = _.pendingOutcome;
+              ).mergePendingCallLogOutcome(_),
+              g = f.callLogMessage,
+              h = f.pendingOutcome;
             (yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
-              [f],
+              [g],
               function (e) {
                 return e.id;
               },
             ),
               o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-                f.id,
-                g,
+                g.id,
+                h,
               ),
               o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
                 e.id,
@@ -1128,6 +1137,11 @@ __d(
       return e != null && t.t !== e ? babelHelpers.extends({}, t, { t: e }) : t;
     }
     function _e(e, t) {
+      return e != null && t.kind === "callLog" && t.callParticipants == null
+        ? babelHelpers.extends({}, t, { callParticipants: e })
+        : t;
+    }
+    function fe(e, t) {
       return e ===
         o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere &&
         t.kind === "callLog" &&
@@ -1138,7 +1152,7 @@ __d(
           })
         : t;
     }
-    function fe(e, t) {
+    function ge(e, t) {
       return e === !1 && t.kind === "callLog" && t.screenedElsewhere === !0
         ? babelHelpers.extends({}, t, { screenedElsewhere: !1 })
         : t;

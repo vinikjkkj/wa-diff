@@ -54,6 +54,7 @@ __d(
                   e.useMinification,
                   e.minificationMaps,
                   e.logger,
+                  e.prefetchSubqueriesOnCacheHit,
                 )),
           (this.mountEffectsQueue = new (r("WebBloksMountEffectsQueue"))()));
       }

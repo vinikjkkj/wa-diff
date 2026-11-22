@@ -106,8 +106,7 @@ __d(
       "Receive an example signup AGM with realistic business greeting text in the active chat"),
       (m.paramsToExecute = []));
     function _(e) {
-      (r("vulture")("AAqmBKRof5v27nkcFxWUclkzel0="),
-        o("WAWebSignupMetadataFetcher").setSignupMetadataOverride(e));
+      o("WAWebSignupMetadataFetcher").setSignupMetadataOverride(e);
     }
     _.doc =
       "Override signup metadata GraphQL response for E2E testing (DEV only)";

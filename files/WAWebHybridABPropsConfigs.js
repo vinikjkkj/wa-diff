@@ -62,6 +62,7 @@ __d(
       ],
       ai_hatch_mweb_signup_enabled: [37224, "bool", !1, !0],
       ai_hatch_secure_credentials_enabled: [37852, "bool", !1, !1],
+      ai_hatch_shopping_enabled: [44084, "bool", !1, !0],
       ai_hatch_signup_trusted_hosts: [
         37222,
         "string",
@@ -393,6 +394,7 @@ __d(
       member_name_tag_db_enabled: [16551, "bool", !0, !0],
       member_name_tag_receiver_enabled: [13523, "bool", !1, !0],
       member_name_tag_sender_enabled: [13524, "bool", !1, !0],
+      missed_callback_button_timeout: [44152, "int", 24, 24],
       mm_1pd_post_dc_depth_limit: [26281, "int", 0, 0],
       mm_1pd_post_dc_new_schema_enabled: [26280, "bool", !1, !1],
       mm_1pd_post_dc_old_schema_disabled: [26282, "bool", !1, !1],

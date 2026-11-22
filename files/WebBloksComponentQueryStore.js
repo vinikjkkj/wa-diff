@@ -24,8 +24,9 @@ __d(
       return o("WebBloksUtils").cast(a);
     }
     var s = (function () {
-        function t(e, t, n, o, a) {
-          ((this.$2 = []),
+        function t(e, t, n, o, a, i) {
+          (i === void 0 && (i = !1),
+            (this.$2 = []),
             (this.$6 = t),
             (this.$7 = n),
             (this.$5 = o),
@@ -38,6 +39,7 @@ __d(
               n,
               o,
               a,
+              i,
             )));
         }
         var n = t.prototype;
@@ -68,46 +70,58 @@ __d(
             }
             return null;
           }),
-          (n.fetch = function (n, a, i, l, s, u) {
-            var t = this;
-            (s === void 0 && (s = null), u === void 0 && (u = !1));
-            var c = o("WebBloksCacheUtils").generateCacheKey(n, e(a, s)),
+          (n.fetch = function (t, n, o, a, i, l) {
+            (i === void 0 && (i = null),
+              l === void 0 && (l = !1),
+              this.$10(
+                t,
+                n,
+                o,
+                a,
+                i,
+                l,
+                a === r("WebBloksAsyncComponentQueryPurpose").PREFETCH,
+              ));
+          }),
+          (n.$10 = function (n, r, a, i, l, s, u) {
+            var t = this,
+              c = o("WebBloksCacheUtils").generateCacheKey(n, e(r, l)),
               d = o(
                 "WebBloksFunctionTableManager",
               ).WebBloksFunctionTableManager.getKnownFt(n),
-              m = babelHelpers.extends({}, a);
+              m = babelHelpers.extends({}, r);
             (d != null && (m.__knownFt = d),
               (m.nav_ordinal =
                 o("WebBloksNavigationCounter").getWebBloksNavigationCount() +
-                (l === r("WebBloksAsyncComponentQueryPurpose").PREFETCH
-                  ? 1
-                  : 0)));
+                (u ? 1 : 0)));
             var p = {
-              appId: n,
-              params: m,
-              cacheTtlSeconds: i,
-              queryPurpose: l,
-              shouldPrefetchSubqueries: u,
-            };
-            this.$3.runQuery(c, p, function (e, n) {
-              (p.shouldPrefetchSubqueries && t.$10(p.params, n.resources),
-                t.$11(e, n));
-            });
+                appId: n,
+                params: m,
+                cacheTtlSeconds: a,
+                queryPurpose: i,
+                shouldPrefetchSubqueries: s,
+              },
+              _ = !0;
+            (this.$3.runQuery(c, p, function (e, n) {
+              (p.shouldPrefetchSubqueries && t.$11(p.params, n.resources, _),
+                t.$12(e, n));
+            }),
+              (_ = !1));
           }),
-          (n.$10 = function (n, a) {
+          (n.$11 = function (n, a, i) {
             var t = this,
-              i = a == null ? void 0 : a.acq;
-            if (!(i == null || !Array.isArray(i))) {
-              var l = function (i) {
+              l = a == null ? void 0 : a.acq;
+            if (!(l == null || !Array.isArray(l))) {
+              var s = function (l) {
                 if (
-                  i == null ||
-                  typeof i != "object" ||
-                  Array.isArray(i) ||
-                  typeof i.app_id != "string" ||
-                  i.app_id === "" ||
-                  typeof i.cache_ttl != "number" ||
-                  !Number.isFinite(i.cache_ttl) ||
-                  i.cache_ttl < 0
+                  l == null ||
+                  typeof l != "object" ||
+                  Array.isArray(l) ||
+                  typeof l.app_id != "string" ||
+                  l.app_id === "" ||
+                  typeof l.cache_ttl != "number" ||
+                  !Number.isFinite(l.cache_ttl) ||
+                  l.cache_ttl < 0
                 )
                   return (
                     t.$4.warn(
@@ -117,50 +131,60 @@ __d(
                   );
                 try {
                   var a,
-                    l,
-                    s = o("WebBloksCacheUtils").resolveConsumedParams(
-                      (a = i == null ? void 0 : i.consumed_params) != null
+                    s,
+                    u = o("WebBloksCacheUtils").resolveConsumedParams(
+                      (a = l == null ? void 0 : l.consumed_params) != null
                         ? a
                         : {},
                       n,
                     ),
-                    u =
-                      (l = i == null ? void 0 : i.cache_keys) != null
-                        ? l
+                    c =
+                      (s = l == null ? void 0 : l.cache_keys) != null
+                        ? s
                         : null;
-                  (t.fetch(
-                    i.app_id,
-                    s,
-                    String(i.cache_ttl),
-                    r("WebBloksAsyncComponentQueryPurpose").PARALLEL_FETCH,
-                    u,
-                    !1,
-                  ),
+                  (i
+                    ? t.$10(
+                        l.app_id,
+                        u,
+                        String(l.cache_ttl),
+                        r("WebBloksAsyncComponentQueryPurpose").PARALLEL_FETCH,
+                        c,
+                        !1,
+                        !0,
+                      )
+                    : t.fetch(
+                        l.app_id,
+                        u,
+                        String(l.cache_ttl),
+                        r("WebBloksAsyncComponentQueryPurpose").PARALLEL_FETCH,
+                        c,
+                        !1,
+                      ),
                     t.getCachedComponentsOrSubscribeToQuery(
-                      i.app_id,
-                      e(s, u),
-                      String(i.cache_ttl),
+                      l.app_id,
+                      e(u, c),
+                      String(l.cache_ttl),
                       function (e, n) {
                         n.success ||
                           t.$4.warn(
                             "WebBloks: subquery prefetch failed for " +
-                              i.app_id,
+                              l.app_id,
                           );
                       },
                     ));
                 } catch (e) {
-                  var c;
+                  var d;
                   t.$4.mustfix(
                     "WebBloks: subquery prefetch failed for " +
-                      ((c = i == null ? void 0 : i.app_id) != null
-                        ? c
+                      ((d = l == null ? void 0 : l.app_id) != null
+                        ? d
                         : "unknown") +
                       ": " +
                       String(e),
                   );
                 }
               };
-              for (var s of i) l(s);
+              for (var u of l) s(u);
             }
           }),
           (n.invalidate = function (t, n) {
@@ -171,7 +195,7 @@ __d(
             this.$1.clear();
           }),
           (n.writeInitialPayload = function (t, n, o) {
-            this.$12(
+            this.$13(
               t,
               n,
               o,
@@ -180,7 +204,7 @@ __d(
             );
           }),
           (n.writeToCache = function (t, n, o) {
-            this.$12(
+            this.$13(
               t,
               n,
               o,
@@ -188,7 +212,7 @@ __d(
               !0,
             );
           }),
-          (n.$12 = function (t, n, r, a, i) {
+          (n.$13 = function (t, n, r, a, i) {
             var e = o("WebBloksCacheUtils").generateCacheKey(t, n),
               l = new Map();
             for (var s of r.components) {
@@ -207,7 +231,7 @@ __d(
               responseTimestampMs: Date.now().toString(),
               queryPurpose: a,
             }),
-              i && this.$11(e, { result: c, success: !0 }));
+              i && this.$12(e, { result: c, success: !0 }));
           }),
           (n.$9 = function (t, n) {
             this.$2 = this.$2.filter(function (e) {
@@ -216,7 +240,7 @@ __d(
             var e = new c(t, n);
             return (this.$2.push(e), e);
           }),
-          (n.$11 = function (t, n) {
+          (n.$12 = function (t, n) {
             var e = [],
               r = [];
             for (var o of this.$2)

@@ -1,6 +1,6 @@
 __d(
   "WAWebDebugErrorToast",
-  ["WAWebUserPrefsDebugKeys", "WAWebUserPrefsStore", "vulture"],
+  ["WAWebUserPrefsDebugKeys", "WAWebUserPrefsStore"],
   function (t, n, r, o, a, i, l) {
     function e() {
       var e = r("WAWebUserPrefsStore").get(
@@ -14,16 +14,15 @@ __d(
       return s;
     }
     function d(e) {
-      (r("vulture")("ixAUdAAWY_OULfEP1xO0NFoMaxg="),
-        s !== e &&
-          ((s = e),
-          r("WAWebUserPrefsStore").set(
-            r("WAWebUserPrefsDebugKeys").DEBUG_ERROR_TOAST_ENABLED,
-            e,
-          ),
-          u.forEach(function (e) {
-            e(s);
-          })));
+      s !== e &&
+        ((s = e),
+        r("WAWebUserPrefsStore").set(
+          r("WAWebUserPrefsDebugKeys").DEBUG_ERROR_TOAST_ENABLED,
+          e,
+        ),
+        u.forEach(function (e) {
+          e(s);
+        }));
     }
     ((d.doc = "Enable/disable error toast messages"), (d.paramsToExecute = []));
     function m(e) {

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebHatchApprovalManager",
+    "WAWebHatchDecisionKinds",
     "WAWebOpenHatchApprovalOutcomeToast",
     "WAWebOpenHatchDecisionNotSentToast",
     "WAWebSendHatchMetadataRequest",
@@ -15,29 +16,38 @@ __d(
       u,
       c,
       d = 4e4;
-    function m(t, n) {
-      var a = n.alwaysScope,
-        i = n.kind,
-        l = a === "" ? "none" : a;
+    function m(t, n, a) {
+      var i = n.alwaysScope,
+        l = n.kind,
+        u = i === "" ? "none" : i,
+        c =
+          a != null &&
+          a !== "" &&
+          o("WAWebHatchDecisionKinds").isHatchAllowKind(l)
+            ? a
+            : null;
       (o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
             "hatch-approval: deciding approvalId=",
             " decision=",
             " scope=",
+            " credential=",
             "",
           ])),
         t,
-        i,
         l,
+        u,
+        c != null ? "yes" : "no",
       ),
         r("WAWebHatchApprovalManager").beginDecision(t),
         r("WAWebHatchApprovalManager").watchOutcome(t, p),
         o("WAWebSendHatchMetadataRequest")
           .sendHatchMetadataRequest(
             babelHelpers.extends(
-              { method: "hitl.approval.decide", approvalId: t, decision: i },
-              a !== "" ? { alwaysScope: a } : null,
+              { method: "hitl.approval.decide", approvalId: t, decision: l },
+              i !== "" ? { alwaysScope: i } : null,
+              c != null ? { credentialId: c } : {},
             ),
             d,
           )

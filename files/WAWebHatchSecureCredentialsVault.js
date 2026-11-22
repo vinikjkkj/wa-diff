@@ -100,13 +100,18 @@ __d(
           var r = yield ee(
             function (r) {
               return r.credentialCapture(
-                babelHelpers.extends({}, Y(n == null ? void 0 : n.value), {
-                  fields: t,
-                  idempotency_key: e.idempotencyKey,
-                  label: null,
-                  lifetime: "persist",
-                  page_url: e.pageUrl,
-                }),
+                babelHelpers.extends(
+                  {},
+                  Y(n == null ? void 0 : n.value),
+                  {
+                    fields: t,
+                    idempotency_key: e.idempotencyKey,
+                    label: null,
+                    lifetime: "persist",
+                  },
+                  e.operation != null ? { operation: e.operation } : {},
+                  { page_url: e.pageUrl },
+                ),
               );
             },
             "capture",

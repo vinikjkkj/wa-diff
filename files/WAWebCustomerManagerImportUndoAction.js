@@ -19,7 +19,8 @@ __d(
       u,
       c = 10,
       d = 250;
-    function m(t, n, a) {
+    function m(t, n) {
+      var a = { failureCount: 0, successCount: 0 };
       return n.reduce(function (n, a, i) {
         return a.status === "fulfilled"
           ? babelHelpers.extends({}, n, { successCount: n.successCount + 1 })
@@ -260,7 +261,7 @@ __d(
             ).customerManagerImportExportEnabled()
               ? yield S(e)
               : yield b(e),
-            n = m(e, t, { failureCount: 0, successCount: 0 });
+            n = m(e, t);
           return (
             o("WALogger")
               .LOG(

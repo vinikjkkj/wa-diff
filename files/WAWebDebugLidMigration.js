@@ -528,7 +528,6 @@ __d(
     function ue(e) {
       return (
         e === void 0 && (e = "158913843221@lid"),
-        r("vulture")("DlO7WKcTbz_mqUguFS7FMdNiHug="),
         o("WAWebCreateChat").createChat({
           createChatOrigin: "debugCreateChat",
           destination: { chatId: o("WAWebWidFactory").createWid(e) },

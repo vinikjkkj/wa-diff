@@ -30,34 +30,34 @@ __d(
         s = l === void 0 ? !1 : l,
         u = !1,
         c = r("WAWebNoop"),
-        m = function () {
+        d = function () {
           ((u = !0),
-            o("WAWebStatusCollection").StatusCollection.off("add", g),
+            o("WAWebStatusCollection").StatusCollection.off("add", p),
             o("WAWebStatusCollection").StatusCollection.off(
               "change:msgsChanged",
-              g,
+              p,
             ),
-            document.removeEventListener("visibilitychange", g),
-            window.removeEventListener("online", g));
+            document.removeEventListener("visibilitychange", p),
+            window.removeEventListener("online", p));
         },
-        f = null,
-        g = function () {
-          if (_()) {
+        m = null,
+        p = function () {
+          if (h()) {
             var r = t().filter(
               o("WAWebStatusVisibilityUtils")
                 .isUserOrTrustedGroupOrNewsletterStatus,
             );
-            if (f == null) {
+            if (m == null) {
               if (
                 !r.some(function (e) {
-                  return p(e) != null;
+                  return g(e) != null;
                 })
               )
                 return;
-              f = n();
+              m = n();
             }
-            var a = r.slice(0, f).map(p).filter(Boolean);
-            a.length !== 0 && (m(), e() && (c = d(a)));
+            var a = r.slice(0, m).map(g).filter(Boolean);
+            a.length !== 0 && (d(), e() && (c = _(a)));
           }
         };
       return (
@@ -65,21 +65,30 @@ __d(
           .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
           .then(function () {
             u ||
-              (o("WAWebStatusCollection").StatusCollection.on("add", g),
+              (o("WAWebStatusCollection").StatusCollection.on("add", p),
               o("WAWebStatusCollection").StatusCollection.on(
                 "change:msgsChanged",
-                g,
+                p,
               ),
-              document.addEventListener("visibilitychange", g),
-              window.addEventListener("online", g),
-              g());
+              document.addEventListener("visibilitychange", p),
+              window.addEventListener("online", p),
+              p());
           }),
         function () {
-          (m(), s && c());
+          (d(), s && c());
         }
       );
     }
-    function d(t) {
+    var d = null,
+      m = r("WAWebNoop");
+    function p(e) {
+      var t = g(e);
+      if (!(t == null || !h())) {
+        var n = t.id.toString();
+        (n === d && s.has(n)) || (m(), (d = n), (m = _([t])));
+      }
+    }
+    function _(t) {
       var a = null,
         i = !1,
         l = !1,
@@ -90,7 +99,7 @@ __d(
               o("WAWebStatusVideoPrefetch").cancelStatusVideoPrefetch(a));
         },
         c = function (t) {
-          var e = m(t);
+          var e = f(t);
           a != null &&
             e instanceof r("WAWebStatusModel") &&
             e.msgs.get(a.id) == null &&
@@ -124,7 +133,7 @@ __d(
         u
       );
     }
-    function m(e) {
+    function f(e) {
       return e == null ||
         typeof e != "object" ||
         e.props == null ||
@@ -132,7 +141,7 @@ __d(
         ? null
         : e.props.initialStatus;
     }
-    function p(e) {
+    function g(e) {
       var t = e.msgs.getModelsArray().find(function (e) {
         return e.ack !== o("WAWebAck").ACK.READ;
       });
@@ -142,19 +151,21 @@ __d(
         ? t
         : null;
     }
-    function _() {
+    function h() {
       return (
         document.visibilityState === "visible" &&
         navigator.onLine &&
-        !f() &&
+        !y() &&
         !u.has(o("WAWebNetworkType").getEffectiveNetworkType())
       );
     }
-    function f() {
+    function y() {
       var e = Reflect.get(navigator, "connection");
       return typeof e == "object" && (e == null ? void 0 : e.saveData) === !0;
     }
-    l.prefetchUnreadDotVideoWhenReady = c;
+    ((l.prefetchUnreadDotVideoWhenReady = c),
+      (l.prefetchHoveredStatus = p),
+      (l.getVideoToPrefetch = g));
   },
   98,
 );

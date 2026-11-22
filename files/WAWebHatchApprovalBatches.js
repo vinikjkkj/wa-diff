@@ -20,7 +20,9 @@ __d(
       var t = [],
         n = [];
       for (var r of e)
-        r.isExclusive || r.payloadType === "browser_task_confirmation"
+        r.isExclusive ||
+        r.payloadType === "browser_task_confirmation" ||
+        r.credentialSelection != null
           ? t.push([r])
           : n.push(r);
       return n.length > 0 ? [].concat(t, [n]) : t;

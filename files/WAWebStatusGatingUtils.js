@@ -198,31 +198,41 @@ __d(
     }
     function q() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_status_bad_ux_logging_parity_enabled",
+        "wa_web_status_hover_prefetch",
       );
     }
     function U() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_status_composer_quick_replies_enabled",
+        "wa_web_status_hover_prefetch_dwell_ms",
       );
     }
     function V() {
-      return z(1);
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_status_bad_ux_logging_parity_enabled",
+      );
     }
     function H() {
-      return z(2);
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_status_composer_quick_replies_enabled",
+      );
     }
     function G() {
-      return z(3);
+      return K(1);
     }
-    function z(e) {
+    function z() {
+      return K(2);
+    }
+    function j() {
+      return K(3);
+    }
+    function K(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_status_viewer_refresh_level",
         ) >= e
       );
     }
-    function j() {
+    function Q() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_progressive_decrypt",
       );
@@ -258,12 +268,14 @@ __d(
       (l.getStatusListPrefetchDepth = O),
       (l.isStatusListOpenPrefetchEnabled = B),
       (l.getStatusListOpenPrefetchDepth = W),
-      (l.isStatusBadUxLoggingParityEnabled = q),
-      (l.isStatusComposerQuickRepliesEnabled = U),
-      (l.isStatusViewerRefreshM1Enabled = V),
-      (l.isStatusViewerRefreshM2Enabled = H),
-      (l.isStatusViewerRefreshM3Enabled = G),
-      (l.isStatusChunkDecryptEnabled = j));
+      (l.isStatusHoverPrefetchEnabled = q),
+      (l.getStatusHoverPrefetchDwellMs = U),
+      (l.isStatusBadUxLoggingParityEnabled = V),
+      (l.isStatusComposerQuickRepliesEnabled = H),
+      (l.isStatusViewerRefreshM1Enabled = G),
+      (l.isStatusViewerRefreshM2Enabled = z),
+      (l.isStatusViewerRefreshM3Enabled = j),
+      (l.isStatusChunkDecryptEnabled = Q));
   },
   98,
 );

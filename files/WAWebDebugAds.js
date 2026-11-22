@@ -151,8 +151,7 @@ __d(
       "Print current ads identity details (tokens, account type preference, and linked pages)"),
       (C.paramsToExecute = []));
     function v(e) {
-      (r("vulture")("uPoJQbO1OTf8Zveh2AbJ4Lo1viU="),
-        o("WAWebActiveAccountInfoContext.react").setActiveAccountInfo(e));
+      o("WAWebActiveAccountInfoContext.react").setActiveAccountInfo(e);
     }
     v.doc = "Set the active account info for testing ad entry points";
     function S() {

@@ -42,6 +42,7 @@ __d(
         enableFBLOXVideoDiagnostics: !1,
         enableBindInstrumentation: !1,
         enableDeterministicTextSize: !1,
+        prefetchSubqueriesOnCacheHit: !1,
         appLoader: null,
         logger: new (r("WebBloksLogger"))(),
         renderDiagnostics: null,
@@ -198,7 +199,8 @@ __d(
         w,
         A,
         F,
-        O;
+        O,
+        B;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -265,44 +267,48 @@ __d(
               (b = t.enableDeterministicTextSize) != null
                 ? b
                 : e.enableDeterministicTextSize,
-            enableBindInstrumentation:
-              (v = t.enableBindInstrumentation) != null
+            prefetchSubqueriesOnCacheHit:
+              (v = t.prefetchSubqueriesOnCacheHit) != null
                 ? v
+                : e.prefetchSubqueriesOnCacheHit,
+            enableBindInstrumentation:
+              (S = t.enableBindInstrumentation) != null
+                ? S
                 : e.enableBindInstrumentation,
             loadingFallback:
-              (S = t.loadingFallback) != null ? S : e.loadingFallback,
+              (R = t.loadingFallback) != null ? R : e.loadingFallback,
             dataModulesStore: f(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (R = t.navigationTrackingUtils) != null
-                ? R
+              (L = t.navigationTrackingUtils) != null
+                ? L
                 : e.navigationTrackingUtils,
-            logger: (L = t.logger) != null ? L : e.logger,
+            logger: (E = t.logger) != null ? E : e.logger,
             disableErrorBoundary:
-              (E = t.disableErrorBoundary) != null ? E : e.disableErrorBoundary,
-            AssetRenderer: (k = t.AssetRenderer) != null ? k : e.AssetRenderer,
-            staticAssets: (I = t.staticAssets) != null ? I : e.staticAssets,
+              (k = t.disableErrorBoundary) != null ? k : e.disableErrorBoundary,
+            AssetRenderer: (I = t.AssetRenderer) != null ? I : e.AssetRenderer,
+            staticAssets: (T = t.staticAssets) != null ? T : e.staticAssets,
             globalStateStore:
-              (T = t.globalStateStore) != null ? T : e.globalStateStore,
+              (D = t.globalStateStore) != null ? D : e.globalStateStore,
             fontFamilyMappings:
-              (D = t.fontFamilyMappings) != null ? D : e.fontFamilyMappings,
-            timeoutIDS: (x = t.timeoutIDS) != null ? x : e.timeoutIDS,
+              (x = t.fontFamilyMappings) != null ? x : e.fontFamilyMappings,
+            timeoutIDS: ($ = t.timeoutIDS) != null ? $ : e.timeoutIDS,
             screenQueryTemplate:
-              ($ = t.screenQueryTemplate) != null ? $ : e.screenQueryTemplate,
+              (P = t.screenQueryTemplate) != null ? P : e.screenQueryTemplate,
             accessibilityModule:
-              (P = t.accessibilityModule) != null ? P : e.accessibilityModule,
-            gkx: (N = t.gkx) != null ? N : e.gkx,
+              (N = t.accessibilityModule) != null ? N : e.accessibilityModule,
+            gkx: (M = t.gkx) != null ? M : e.gkx,
             enableSameControllerReporting:
-              (M = t.enableSameControllerReporting) != null
-                ? M
+              (w = t.enableSameControllerReporting) != null
+                ? w
                 : e.enableSameControllerReporting,
             controllerNavigationLogger:
-              (w = t.controllerNavigationLogger) != null
-                ? w
+              (A = t.controllerNavigationLogger) != null
+                ? A
                 : e.controllerNavigationLogger,
-            versioningID: (A = t.versioningID) != null ? A : e.versioningID,
-            onInteraction: (F = t.onInteraction) != null ? F : e.onInteraction,
+            versioningID: (F = t.versioningID) != null ? F : e.versioningID,
+            onInteraction: (O = t.onInteraction) != null ? O : e.onInteraction,
             renderDiagnostics:
-              (O = t.renderDiagnostics) != null ? O : e.renderDiagnostics,
+              (B = t.renderDiagnostics) != null ? B : e.renderDiagnostics,
           }
         : e;
     }

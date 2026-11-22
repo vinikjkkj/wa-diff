@@ -11,7 +11,6 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebUserUtils",
     "asyncToGeneratorRuntime",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -29,9 +28,8 @@ __d(
             d = t.isOverdue,
             p = t.payNowButtonText,
             _ = t.title,
-            f = t.url;
-          r("vulture")("iqZTfO_pEJWlmMwTXSiQxgTFOHk=");
-          var g = window.chat;
+            f = t.url,
+            g = window.chat;
           if (!g) {
             o("WALogger").WARN(
               e ||
@@ -137,18 +135,17 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("vulture")("0Z8PqgHOzuI-5qMrzf-hak8lgKw="),
-            yield c({
-              accountCard: "Electric Company \xB7 Account 4242",
-              amountDue: "$123.45",
-              amountDueLabel: "Amount due",
-              dueDate: "November 30, 2026",
-              dueDateLabel: "Due date",
-              isOverdue: !1,
-              payNowButtonText: "Pay electricity bill",
-              title: "Electricity bill due",
-              url: "https://example.com/pay/12345",
-            }));
+          yield c({
+            accountCard: "Electric Company \xB7 Account 4242",
+            amountDue: "$123.45",
+            amountDueLabel: "Amount due",
+            dueDate: "November 30, 2026",
+            dueDateLabel: "Due date",
+            isOverdue: !1,
+            payNowButtonText: "Pay electricity bill",
+            title: "Electricity bill due",
+            url: "https://example.com/pay/12345",
+          });
         })),
         _.apply(this, arguments)
       );
@@ -161,18 +158,17 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("vulture")("yl7dkwQ2lVbh1npRBvKO-z2TBxE="),
-            yield c({
-              accountCard: "Credit Card Co \xB7 Card 1234",
-              amountDue: "$250.00",
-              amountDueLabel: "Balance due",
-              dueDate: "November 20, 2026",
-              dueDateLabel: "Due date",
-              isOverdue: !0,
-              payNowButtonText: "Pay card balance",
-              title: "Credit card payment overdue",
-              url: "https://example.com/pay/67890",
-            }));
+          yield c({
+            accountCard: "Credit Card Co \xB7 Card 1234",
+            amountDue: "$250.00",
+            amountDueLabel: "Balance due",
+            dueDate: "November 20, 2026",
+            dueDateLabel: "Due date",
+            isOverdue: !0,
+            payNowButtonText: "Pay card balance",
+            title: "Credit card payment overdue",
+            url: "https://example.com/pay/67890",
+          });
         })),
         g.apply(this, arguments)
       );

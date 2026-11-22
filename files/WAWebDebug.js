@@ -302,18 +302,14 @@ __d(
     }
     L.doc = "Sync device list to a list of user jids";
     function E(e, t) {
-      var n;
-      r("vulture")("x6eeY9ZrKqA6Ud9wKtiu3IwgVeI=");
-      var a = o("WAWebChatCollection").ChatCollection.gadd({
+      var n,
+        r = o("WAWebChatCollection").ChatCollection.gadd({
           id: o("WAWebWidFactory").createWid(t + "@broadcast"),
         }),
-        i = e.map(function (e) {
-          return (
-            r("vulture")("eOhMHSia9hNPm5XPvkpRsgULTpM="),
-            { id: o("WAWebWidFactory").createWid(e + "@s.whatsapp.net") }
-          );
+        a = e.map(function (e) {
+          return { id: o("WAWebWidFactory").createWid(e + "@s.whatsapp.net") };
         });
-      (n = a.groupMetadata) == null || n.set({ participants: i });
+      (n = r.groupMetadata) == null || n.set({ participants: a });
     }
     E.doc = "Create a broadcast list with a list of participants";
     function k(e, t) {

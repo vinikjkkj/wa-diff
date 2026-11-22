@@ -20,14 +20,13 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          r("vulture")("xuKE0QbrcxD9lk9oSBSEDLeBJjI=");
           var n = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .allKeys({ returnKeyType: "primary_key" }),
-            a = n.find(function (e) {
+            r = n.find(function (e) {
               return e.match(t);
             });
-          return a == null
+          return r == null
             ? (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -37,7 +36,7 @@ __d(
                 t,
               ),
               null)
-            : c(a);
+            : c(r);
         })),
         u.apply(this, arguments)
       );
@@ -49,12 +48,11 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          r("vulture")("mHPX1ti1Hb1fPFDIqLMZ5HBtJC8=");
           var t = typeof e == "string" ? e : e.toString(),
             n = yield o("WAWebSchemaMessage").getMessageTable().get(t);
           if (n) {
-            var a = o("WAWebDBMessageSerialization").messageFromDbRow(n);
-            return { msgRow: n, msgData: a };
+            var r = o("WAWebDBMessageSerialization").messageFromDbRow(n);
+            return { msgRow: n, msgData: r };
           }
           return null;
         })),

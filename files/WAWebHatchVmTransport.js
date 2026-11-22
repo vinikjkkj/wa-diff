@@ -242,6 +242,10 @@ __d(
       ACTIVITY_SUBSCRIBE: "/api/activity/subscribe",
       AGENT_RESET: "/api/bootstrap/reset",
       API_KEY_AUTH_CALLBACK: "/api_key_auth/callback",
+      APPROVAL_DETAIL: function (n) {
+        var t = H(n);
+        return t == null ? null : "/approvals/" + t;
+      },
       APPROVALS_HISTORY: function (n, r) {
         return (
           "/approvals/history?record_schema=snapshot_v1&icon_cdn=whatsapp&limit=" +

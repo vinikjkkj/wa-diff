@@ -45,9 +45,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            (r("vulture")("Pm80KYD8Tje3BxBe7HyF3oLFpZs="),
-            t.length <
-              o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS)
+            t.length < o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS
           )
             throw r("err")(
               'createBizBroadcastAudience("' +
