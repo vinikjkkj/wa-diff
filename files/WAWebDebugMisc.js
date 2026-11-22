@@ -86,17 +86,14 @@ __d(
       (y.paramsToExecute = []),
       (y.displayName = "\u2753Intern Q&A"));
     function C() {
-      return (
-        r("vulture")("V8G6Bcve5XCFZvGCbjH3YQM1hF0="),
-        (d || (d = n("Promise")))
-          .all(
-            o("WAWebChatCollection").ChatCollection.map(function (e) {
-              if (o("WAWebChatGetters").getHasUnread(e))
-                return o("WAWebUpdateUnreadChatAction").markSeen(e);
-            }),
-          )
-          .then(r("WAWebNoop"))
-      );
+      return (d || (d = n("Promise")))
+        .all(
+          o("WAWebChatCollection").ChatCollection.map(function (e) {
+            if (o("WAWebChatGetters").getHasUnread(e))
+              return o("WAWebUpdateUnreadChatAction").markSeen(e);
+          }),
+        )
+        .then(r("WAWebNoop"));
     }
     ((C.doc = "Mark all chats as read"), (C.paramsToExecute = []));
     function b() {

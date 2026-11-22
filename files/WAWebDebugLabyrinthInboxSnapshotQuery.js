@@ -1,9 +1,19 @@
 __d(
   "WAWebDebugLabyrinthInboxSnapshotQuery",
   [
+    "WABase64",
+    "WAResultOrError",
     "WAWebDebugLabyrinthInboxSnapshotQuery.graphql",
+    "WAWebDecodeLabyrinthEncryptedEntropy",
+    "WAWebDecodeLabyrinthEncryptedEpochRootKey",
+    "WAWebDecodeLabyrinthEncryptedMessagePayload",
+    "WAWebLabyrinthOpaqueTypes",
+    "WAWebLabyrinthParseBinary",
+    "WAWebLabyrinthParseEpochAnonId",
+    "WAWebLabyrinthParseSealedThreadId",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -15,48 +25,136 @@ __d(
       var t = e == null ? void 0 : e.get_wa_mailbox;
       if (t == null) return null;
       var n = [];
-      for (var r of (o = (a = t.threads) == null ? void 0 : a.nodes) != null
-        ? o
+      for (var r of (a = (i = t.threads) == null ? void 0 : i.nodes) != null
+        ? a
         : []) {
-        var o, a;
+        var a, i, l, s, u, d, m;
         if (r != null) {
-          var i = [];
-          for (var l of (s = (u = r.messages) == null ? void 0 : u.edges) !=
+          var p = [];
+          for (var _ of (f = (g = r.messages) == null ? void 0 : g.edges) !=
           null
-            ? s
+            ? f
             : []) {
-            var s,
-              u,
-              c = l == null ? void 0 : l.node;
-            c != null &&
-              i.push({
-                encryptedPayload: c.encrypted_payload,
-                encryptionVersion: c.encryption_version,
-                messageId: c.id,
+            var f,
+              g,
+              h = _ == null ? void 0 : _.node;
+            if (h != null) {
+              var y = o(
+                "WAWebLabyrinthParseEpochAnonId",
+              ).parseLabyrinthEpochAnonId(h.epoch_anon_id);
+              p.push({
+                encryptedPayload: o(
+                  "WAWebDecodeLabyrinthEncryptedMessagePayload",
+                ).decodeLabyrinthEncryptedMessagePayload(h.encrypted_payload),
+                encryptionVersion:
+                  h.encryption_version == null
+                    ? h.encryption_version
+                    : o("WAWebLabyrinthOpaqueTypes").makeEncryptionVersion(
+                        h.encryption_version,
+                      ),
+                epochAnonId: y.success ? y.value : null,
+                messageId: o("WAWebLabyrinthOpaqueTypes").makeMessageId(h.id),
               });
+            }
           }
-          n.push({ threadId: r.id, messages: i });
+          n.push({
+            threadId: o("WAWebLabyrinthOpaqueTypes").makeServerThreadId(r.id),
+            sealedThreadId: o(
+              "WAWebLabyrinthParseSealedThreadId",
+            ).parseLabyrinthSealedThreadId(
+              (l = r.thread_id_seal) == null ? void 0 : l.sealed_thread_id,
+            ),
+            sealEpochEdges: ((s =
+              (u = r.thread_id_seal) == null
+                ? void 0
+                : u.epoch_derivation_set) != null
+              ? s
+              : []
+            ).map(c),
+            messages: p,
+            messageEpochEdges: ((d =
+              (m = r.messages) == null ? void 0 : m.epoch_derivation_set) !=
+            null
+              ? d
+              : []
+            ).map(c),
+          });
         }
       }
       return n;
     }
     function c(e) {
-      return d.apply(this, arguments);
+      r("vulture")("OvSabhMmHadAbj0u3yFKp8JtnjQ=");
+      var t = e.backward_edge,
+        n = e.forward_edge,
+        a = e.from_epoch,
+        i = e.to_epoch;
+      return {
+        backwardEdge:
+          t == null
+            ? t
+            : o(
+                "WAWebDecodeLabyrinthEncryptedEpochRootKey",
+              ).decodeLabyrinthEncryptedEpochRootKey(t),
+        forwardEdge:
+          n == null
+            ? null
+            : {
+                authPublicKey:
+                  n.auth_public_key == null
+                    ? o("WAResultOrError").makeResult(null)
+                    : o("WAWebLabyrinthParseBinary").parseLabyrinthBinary(
+                        n.auth_public_key,
+                        o("WAWebLabyrinthOpaqueTypes")
+                          .makeEpochStorageAuthPublicKey,
+                      ),
+                encryptedEntropy: o(
+                  "WAWebDecodeLabyrinthEncryptedEntropy",
+                ).decodeLabyrinthEncryptedEntropy(n.encrypted_entropy),
+              },
+        fromEpoch: d(a),
+        toEpoch: d(i),
+      };
     }
-    function d() {
+    function d(e) {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        r("vulture")("Jh77vxWtprak-WErPzQNL44tUUQ="),
+        e == null
+          ? null
+          : {
+              epochAnonId: o(
+                "WAWebLabyrinthParseEpochAnonId",
+              ).parseLabyrinthEpochAnonId(e.epoch_anon_id),
+              serverEpochId:
+                e.epoch_id == null
+                  ? null
+                  : o("WAWebLabyrinthOpaqueTypes").makeEpochId(e.epoch_id),
+            }
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebRelayClient").fetchQuery(
             s,
-            { messageFirst: e.messageFirst, threadFirst: e.threadFirst },
-            { environmentType: "whatsapp_web" },
+            {
+              clientSealToken: o("WABase64").encodeB64(e.clientSealToken),
+              deviceId: e.deviceId,
+              locallyAvailableEpochIds: [e.locallyAvailableEpochId],
+              messageFirst: e.messageFirst,
+              threadFirst: e.threadFirst,
+            },
+            { environment: e.environment, environmentType: "whatsapp_web" },
           );
           return u(t);
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.fetchLabyrinthInboxSnapshot = c;
+    l.fetchLabyrinthInboxSnapshot = m;
   },
   98,
 );

@@ -580,7 +580,6 @@ __d(
     function ce() {
       return (
         (ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          r("vulture")("_JNijRQYrgerRjMV2PYdu86YDXE=");
           var n = o("WAJids").unsafeCoerceToChatJid(e);
           yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
         })),
@@ -594,7 +593,6 @@ __d(
     function me() {
       return (
         (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          r("vulture")("GG9DhR7bkaQ2Z5qDs9gJGAJ6Meg=");
           var t = o("WAJids").unsafeCoerceToChatJid(e);
           return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
         })),
@@ -608,7 +606,6 @@ __d(
     function _e() {
       return (
         (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("vulture")("LRb1CYVECHaSxkRQU8VSnniG_2k=");
           var e = o("WAWebChatCollection")
             .ChatCollection.filter(function (e) {
               return r("WAWebWid").isUser(e.id);
@@ -624,17 +621,16 @@ __d(
             return;
           }
           var t = e.map(function (e, t) {
-            var n;
-            r("vulture")("COlOwEpG_J4GBvUGsksg9l8c6D0=");
-            var a = o("WAWebContactCollection").ContactCollection.get(e.id),
-              i =
-                a != null
-                  ? o("WAWebFrontendContactGetters").getDisplayName(a)
+            var n,
+              r = o("WAWebContactCollection").ContactCollection.get(e.id),
+              a =
+                r != null
+                  ? o("WAWebFrontendContactGetters").getDisplayName(r)
                   : "Test Customer " + String(t + 1);
             return {
               id: e.id.toString(),
-              name: i,
-              shortName: (n = i.split(" ")[0]) != null ? n : "",
+              name: a,
+              shortName: (n = a.split(" ")[0]) != null ? n : "",
               type: "in",
               isAddressBookContact: 1,
               isContactSyncCompleted: 0,
@@ -676,18 +672,17 @@ __d(
           }
           (yield (S || (S = n("Promise"))).all(
             u.map(function (e, t) {
-              r("vulture")("qzb5jdOhTkBrHb3FrHLryWyJQo4=");
               var n = o("WAJids").unsafeCoerceToChatJid(e.id.toString()),
-                a = l[t % l.length];
+                r = l[t % l.length];
               return (
                 s.length < 3 &&
-                  s.push({ chatId: e.id.toString(), leadStage: a }),
+                  s.push({ chatId: e.id.toString(), leadStage: r }),
                 o("WAWebCustomerDataAction").customerDataAddAction(n, {
                   contactType: o("WAWebContactType").ContactType.CUSTOMER,
                   email: "test@meta.com",
                   altPhoneNumbers: "666-888-9999",
                   address: "1 Hacker Way",
-                  leadStage: a,
+                  leadStage: r,
                   acquisitionSource: 0,
                   lastOrder: o("WATimeUtils").castToUnixTime(1773181023),
                 })

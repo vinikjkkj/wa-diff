@@ -410,6 +410,7 @@ __d(
         enrolment: [1, e.FLAGS.REQUIRED | e.TYPES.MESSAGE, w],
         serverDataId: [2, e.FLAGS.REQUIRED | e.TYPES.UINT64],
         companionDeviceBinding: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        historyStartTime: [4, e.TYPES.UINT64],
       }),
       (ie.name = "CompanionTestMessageThreadIdInput"),
       (ie.internalSpec = {}),

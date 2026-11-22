@@ -3,6 +3,7 @@ __d(
   [
     "WAResultOrError",
     "WAWebEBLabyrinthWaWasmReactorSingleton",
+    "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -10,14 +11,20 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return e.error != null
+      var t = e.error,
+        n = e.success;
+      return t != null
         ? o("WAResultOrError").makeError({
-            error: e.error,
+            error: t,
             kind: "wasm-output-error",
           })
-        : e.orfThreadId == null
+        : n == null
           ? o("WAResultOrError").makeError({ kind: "missing-output" })
-          : o("WAResultOrError").makeResult({ orfThreadId: e.orfThreadId });
+          : o("WAResultOrError").makeResult({
+              orfThreadId: o("WAWebLabyrinthOpaqueTypes").makeObliviousId(
+                n.orfThreadId,
+              ),
+            });
     }
     function s(e) {
       return u.apply(this, arguments);

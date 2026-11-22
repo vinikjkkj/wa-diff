@@ -40,7 +40,6 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("vulture")("NtTvfxFdar5YB2uwmX8NYrwXzvs=");
           var e = o("WAWebABProps").getABPropConfigValue(
               "wa_nct_token_syncd_enabled",
             ),

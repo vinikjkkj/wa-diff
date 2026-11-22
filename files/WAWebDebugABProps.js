@@ -163,17 +163,11 @@ __d(
     }
     S.doc = "reset an ABProp to its original value";
     function L() {
-      return (
-        r("vulture")("qeOCw-VGLLa3GCtM6Yf3fn11rMY="),
-        o("WAWebABPropsCache").getAllABPropConfigs()
-      );
+      return o("WAWebABPropsCache").getAllABPropConfigs();
     }
     L.doc = "list all ABProps";
     function E() {
-      return (
-        r("vulture")("gLSUDnKVKLhcWtm5tiQ3tgyECV4="),
-        o("WAWebApiAbPropConfig").getABPropConfigs()
-      );
+      return o("WAWebApiAbPropConfig").getABPropConfigs();
     }
     E.doc = "list all ABProps";
     function k(e) {
