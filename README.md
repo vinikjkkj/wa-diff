@@ -63,6 +63,7 @@ Each commit pushed by the daily workflow gets an automatic GitHub Release summar
 - Tag format: `vYYYY.MM.DD-HHMM` (commit timestamp, UTC)
 - Generator: [`.github/scripts/explain_commit.py`](./.github/scripts/explain_commit.py)
 - Workflow step lives in [`.github/workflows/daily-update.yml`](./.github/workflows/daily-update.yml)
+- If a daily run pushed its commit but failed before the release, run the [`Backfill release`](./.github/workflows/backfill-release.yml) workflow with that commit's SHA
 - Requires repo secret `GEMINI_API_KEY` ([get one here](https://aistudio.google.com/apikey))
 
 Browse the latest summaries in the [Releases](../../releases) tab.

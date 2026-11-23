@@ -1,0 +1,49 @@
+name: Backfill release
+
+# Creates the AI-summary release for a bundles commit whose daily run pushed
+# the commit but failed before creating the release (e.g. Gemini down).
+
+"on":
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Commit to summarize"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Runs the current script against the old commit.
+      - name: Generate AI summary
+        id: summary
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          cp .github/scripts/explain_commit.py "$RUNNER_TEMP/"
+          git checkout --detach "$SHA"
+          python "$RUNNER_TEMP/explain_commit.py"
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.summary.outputs.tag }}
+          TITLE: ${{ steps.summary.outputs.title }}
+          SHA: ${{ steps.summary.outputs.sha }}
+        run: gh release create "$TAG" --title "$TITLE" --notes-file release_body.md --target "$SHA" --latest=false
