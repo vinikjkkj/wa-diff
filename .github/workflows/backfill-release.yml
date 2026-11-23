@@ -40,10 +40,33 @@ jobs:
           git checkout --detach "$SHA"
           python "$RUNNER_TEMP/explain_commit.py"
 
+      # Kept so the release can be made by hand if the next step is refused.
+      - name: Save release notes
+        env:
+          TITLE: ${{ steps.summary.outputs.title }}
+        run: printf '%s\n' "$TITLE" > release_title.txt
+
+      - name: Upload release notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: |
+            release_title.txt
+            release_body.md
+
+      # On 2026-11-23 GitHub refused GITHUB_TOKEN (HTTP 403 "Resource not
+      # accessible by integration") releases on older commits, even with the
+      # tag already in place; their .github/workflows differed from master's,
+      # which is the likely cause. A personal token with the `workflow` scope
+      # can make the release from the uploaded notes.
       - name: Create release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ steps.summary.outputs.tag }}
           TITLE: ${{ steps.summary.outputs.title }}
           SHA: ${{ steps.summary.outputs.sha }}
-        run: gh release create "$TAG" --title "$TITLE" --notes-file release_body.md --target "$SHA" --latest=false
+        run: |
+          if ! gh release create "$TAG" --title "$TITLE" --notes-file release_body.md --target "$SHA" --latest=false; then
+            echo "::error::If that was HTTP 403, make the release with your own token: gh run download $GITHUB_RUN_ID -R $GITHUB_REPOSITORY -n release-notes, then gh release create $TAG -R $GITHUB_REPOSITORY --title \"\$(cat release_title.txt)\" --notes-file release_body.md --target $SHA --latest=false"
+            exit 1
+          fi
