@@ -28,7 +28,7 @@
     "author": "Vinicius",
     "license": "ISC",
     "dependencies": {
-        "@vinikjkkj/wa-fetcher": "^0.3.0",
+        "@vinikjkkj/wa-fetcher": "^0.3.1",
         "prettier": "^3.8.2"
     }
 }
