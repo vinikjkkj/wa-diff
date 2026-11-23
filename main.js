@@ -1,12 +1,15 @@
 const fs = require('node:fs/promises')
+const os = require('node:os')
 const path = require('node:path')
 const { execSync, spawn } = require('node:child_process')
-const { discoverBundleUrls } = require('@vinikjkkj/wa-fetcher')
+const { ARCHIVE_URL_ENV, fetchArchive, loadCanonicalBundles } = require('@vinikjkkj/wa-fetcher')
 
-const OUTPUT_PATH = path.resolve(__dirname, 'urls.json')
+const BUNDLES_PATH = path.resolve(__dirname, 'bundles.json')
 const EXPORT_DIR = path.resolve(__dirname, 'files')
-const WORKERS = '50'
-const MODULE_FILTER = '/^(?!use[A-Z])(?!.*(?:[Rr][Ee][Aa][Cc][Tt]|[Ss][Tt][Yy][Ll][Ee][Xx])).+$/'
+const DUMP_DIR = path.join(os.tmpdir(), 'wa-diff-dump')
+const MODULE_FILTER = /^(?!use[A-Z])(?!.*(?:[Rr][Ee][Aa][Cc][Tt]|[Ss][Tt][Yy][Ll][Ee][Xx])).+$/
+const SAFE_NAME = /^[\w[\]-]+/
+const WRITE_CONCURRENCY = 64
 
 function runCommand(command, args, name, options = {}) {
     console.log(`Running: ${command} ${args.join(' ')}`)
@@ -66,20 +69,36 @@ function resolvePackageBin(packageName, binName = packageName) {
     throw new Error(`Unable to resolve bin "${binName}" from package "${packageName}"`)
 }
 
-function runWaExport() {
-    const waExportScript = resolvePackageBin('wa-modules-loader', 'wa-export')
+// The archive ships several transpile variants of most modules.
+// loadCanonicalBundles keeps one copy per module, picked by content, so the
+// same module always lands in the same file with the same variant.
+// File names follow what `wa-export --flat` produced, so paths stay stable.
+async function exportModules(rawDir, outDir) {
+    const modules = loadCanonicalBundles(rawDir).filter((b) => b.url.startsWith('module:'))
+    const usedNames = new Map()
+    const files = []
 
-    const args = [
-        OUTPUT_PATH,
-        EXPORT_DIR,
-        '--workers',
-        WORKERS,
-        '--flat',
-        '--module-filter',
-        MODULE_FILTER
-    ]
+    for (const { url, text } of modules) {
+        const name = url.slice('module:'.length)
+        if (!SAFE_NAME.test(name) || !MODULE_FILTER.test(name)) continue
 
-    return runCommand(process.execPath, [waExportScript, ...args], 'wa-export')
+        const base = name.replace(/[^\w\-[\]]+/g, '_')
+        const seen = usedNames.get(base) || 0
+        usedNames.set(base, seen + 1)
+        const fileName = seen === 0 ? `${base}.js` : `${base}_${seen + 1}.js`
+        files.push({ fileName, content: `${text};` })
+    }
+
+    await fs.mkdir(outDir, { recursive: true })
+    for (let i = 0; i < files.length; i += WRITE_CONCURRENCY) {
+        await Promise.all(
+            files
+                .slice(i, i + WRITE_CONCURRENCY)
+                .map((f) => fs.writeFile(path.join(outDir, f.fileName), f.content, 'utf8'))
+        )
+    }
+
+    return files.length
 }
 
 async function runPrettier() {
@@ -128,29 +147,42 @@ async function runPrettier() {
 }
 
 async function main() {
-    const { waVersion, urls } = await discoverBundleUrls()
-
-    await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(urls, null, 4)}\n`, 'utf8')
-
-    console.log(`WA version: ${waVersion ?? 'unknown'}`)
-    console.log(`Total URLs found: ${urls.length}`)
-    console.log(`Saved file: ${OUTPUT_PATH}`)
-
-    if (urls.length === 0) {
-        console.log('No URLs found.')
-        return
+    if (!process.env[ARCHIVE_URL_ENV]) {
+        throw new Error(`${ARCHIVE_URL_ENV} is not set`)
     }
 
-    await runWaExport()
-    console.log(`Export finished at: ${EXPORT_DIR}`)
+    await fs.rm(DUMP_DIR, { recursive: true, force: true })
+    try {
+        const dump = await fetchArchive({ out: DUMP_DIR, onLog: (msg) => console.log(msg) })
+        console.log(`WA version: ${dump.waVersion}`)
+        console.log(`Archive bundles kept: ${dump.bundles.length}`)
+
+        if (dump.bundles.length === 0) {
+            throw new Error('Archive had no WA bundles')
+        }
+
+        const bundles = {
+            waVersion: dump.waVersion,
+            revision: dump.revision,
+            bundles: dump.bundles.map((b) => b.file)
+        }
+        await fs.writeFile(BUNDLES_PATH, `${JSON.stringify(bundles, null, 4)}\n`, 'utf8')
+
+        const count = await exportModules(dump.paths.raw, EXPORT_DIR)
+        console.log(`Exported ${count} modules to: ${EXPORT_DIR}`)
+    } finally {
+        await fs.rm(DUMP_DIR, { recursive: true, force: true })
+    }
+
     await runPrettier()
     console.log(`Prettier finished for: ${EXPORT_DIR}`)
-
-    console.log('First 10 URLs:')
-    urls.slice(0, 10).forEach((url) => console.log(url))
 }
 
-main().catch((error) => {
-    console.error('Error while running URL collection:', error)
-    process.exitCode = 1
-})
+if (require.main === module) {
+    main().catch((error) => {
+        console.error('Error while updating bundles:', error)
+        process.exitCode = 1
+    })
+}
+
+module.exports = { exportModules }

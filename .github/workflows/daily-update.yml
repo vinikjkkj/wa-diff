@@ -33,6 +33,8 @@ jobs:
         run: npm ci
 
       - name: Run daily fetch and export
+        env:
+          WA_ARCHIVE_URL: ${{ secrets.WA_ARCHIVE_URL }}
         run: npm run fetch
 
       - name: Commit and push changes

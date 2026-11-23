@@ -4,21 +4,24 @@ Tooling to version WhatsApp Web JavaScript bundles and inspect diffs across rele
 
 ## What it does
 
-1. Uses [`@vinikjkkj/wa-fetcher`](https://www.npmjs.com/package/@vinikjkkj/wa-fetcher) (`discoverBundleUrls`, URL-only mode) to discover every `.js` bundle URL referenced by `web.whatsapp.com`.
-2. Saves the collected URLs to `urls.json`.
-3. Exports bundles with `wa-export` into `files/` (flat mode).
-4. Runs Prettier on the exported files.
+1. Uses [`@vinikjkkj/wa-fetcher`](https://www.npmjs.com/package/@vinikjkkj/wa-fetcher) (`fetchArchive`) to download the upstream bundle archive of the current WA Web revision, keeping the `.js` files that register `WA*` or `MAIBA*` modules.
+2. Saves the WA version, revision and kept bundle names to `bundles.json`.
+3. Loads the bundles with `loadCanonicalBundles`, which keeps one copy per module (the archive ships several transpile variants of most modules), and writes each module to `files/<ModuleName>.js`.
+4. Runs Prettier on the changed files.
+
+Modules that disappear upstream are not deleted from `files/`.
 
 ## Project files
 
-- `main.js`: end-to-end runner (fetch URLs, export bundles, format files).
-- `urls.json`: generated list of collected bundle URLs.
-- `files/`: generated exported JavaScript files from `wa-export`.
+- `main.js`: end-to-end runner (download the archive, export modules, format files).
+- `bundles.json`: WA version, revision and the archive bundles the export used.
+- `files/`: one file per module.
 
 ## Requirements
 
 - Node.js `>=20`
 - npm `>=10`
+- `WA_ARCHIVE_URL` environment variable: the archive endpoint, with a `{revision}` placeholder. In CI it comes from the repo secret of the same name.
 
 ## Install
 
@@ -38,20 +41,6 @@ or:
 node main.js
 ```
 
-## Current export command
-
-The runner executes this logic after generating `urls.json`:
-
-```bash
-wa-export urls.json files --workers 50 --flat
-```
-
-Then it formats the output:
-
-```bash
-prettier --write files --ignore-unknown
-```
-
 ## NPM scripts
 
 - `npm run start`: run `main.js`
@@ -63,7 +52,7 @@ prettier --write files --ignore-unknown
 ## Typical versioning workflow
 
 1. Run `npm run fetch`.
-2. Review changed files in `urls.json` and `files/`.
+2. Review changed files in `bundles.json` and `files/`.
 3. Commit the update.
 4. Compare commits to analyze WhatsApp bundle changes.
 
