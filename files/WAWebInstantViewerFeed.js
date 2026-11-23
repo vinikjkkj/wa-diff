@@ -6,26 +6,32 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebInstantMsgTypes",
     "WAWebInstantsConsumption",
+    "WAWebInstantsExpiry",
     "WAWebMsgGetters",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 100;
     function u(e) {
-      return [].concat(
-        e.filter(function (e) {
-          return (
-            !o("WAWebInstantsConsumption").isInstantConsumed(e) &&
-            !o("WAWebChatGroupUtils").isSuspendedGroup(
-              o("WAWebFrontendMsgGetters").getMaybeChat(e),
-            )
+      var t = e.filter(function (e) {
+        return !o("WAWebInstantsExpiry").isInstantExpired(e);
+      });
+      return t.length === 0
+        ? []
+        : [].concat(
+            t.filter(function (e) {
+              return (
+                !o("WAWebInstantsConsumption").isInstantConsumed(e) &&
+                !o("WAWebChatGroupUtils").isSuspendedGroup(
+                  o("WAWebFrontendMsgGetters").getMaybeChat(e),
+                )
+              );
+            }),
+            t.filter(function (e) {
+              return o("WAWebInstantsConsumption").isInstantConsumed(e);
+            }),
+            c(e),
           );
-        }),
-        e.filter(function (e) {
-          return o("WAWebInstantsConsumption").isInstantConsumed(e);
-        }),
-        c(e),
-      );
     }
     function c(t) {
       var n = t.at(-1),
@@ -54,6 +60,7 @@ __d(
       return o("WAWebInstantMsgTypes").isInstantMsgType(e.type)
         ? o("WAWebMsgGetters").getIsSentByMe(e)
           ? !o("WAWebInstantsConsumption").isInstantConsumed(e) &&
+            !o("WAWebInstantsExpiry").isInstantExpired(e) &&
             !o("WAWebChatGroupUtils").isSuspendedGroup(t)
           : o("WAWebInstantsConsumption").canConsumeInstant(e)
         : !1;

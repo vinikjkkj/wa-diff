@@ -5,6 +5,7 @@ __d(
     "WAWebChatGroupUtils",
     "WAWebFrontendMsgGetters",
     "WAWebInstantMsgTypes",
+    "WAWebInstantsExpiry",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
   ],
@@ -20,6 +21,7 @@ __d(
         !o("WAWebInstantMsgTypes").isInstantMsgType(t.type) ||
         o("WAWebMsgGetters").getIsSentByMe(t) ||
         e(t) ||
+        o("WAWebInstantsExpiry").isInstantExpired(t) ||
         o("WAWebMsgCollection").MsgCollection.get(t.id) == null
       )
         return !1;

@@ -207,7 +207,7 @@ __d(
       );
       S(e);
       var a = await Promise.all([
-          E(e),
+          k(e),
           o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(e, !1),
         ]),
         i = a[0],
@@ -268,7 +268,7 @@ __d(
     }
     async function L(e) {
       var t = await Promise.all([
-          E(e),
+          k(e),
           o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(e, !1),
           o("WAWebNewsletterDBUtils")
             .getGuestNewsletterJids(
@@ -323,7 +323,14 @@ __d(
             { updates: i },
           ));
     }
-    async function E(e) {
+    function E(e) {
+      return (
+        o("WAWebMsgGetters").getIsUnreadType(e) &&
+        !o("WAWebMsgGetters").getId(e).fromMe &&
+        e.read !== !0
+      );
+    }
+    async function k(e) {
       var t = new Map(),
         n = new Set(),
         a = new Set(),
@@ -349,7 +356,7 @@ __d(
             broadcast: e.broadcast === !0,
           },
           m = o("WAWebMsgGetters").getIsUnreadType(e),
-          p = m || I(e),
+          p = m || T(e),
           _ =
             p ||
             (r("justknobx")._("6733") &&
@@ -357,9 +364,7 @@ __d(
         if (!o("WAWebMsgGetters").getIsStatus(e) && _) {
           if (
             (p && n.add(u),
-            m &&
-              !s.fromMe &&
-              e.read !== !0 &&
+            E(e) &&
               ((d.unread += 1), o("WAWebMsgGetters").getIsImportantMessage(e)))
           ) {
             var f = { id: e.id.toString(), timestamp: e.t };
@@ -524,19 +529,19 @@ __d(
       }
       if (!l) return { chatUpdates: h, capiCallingPermissionUpdates: _ };
       var L = h.map(function (e, t) {
-        return k(m[t], e, i, a);
+        return I(m[t], e, i, a);
       });
       return (
         u.forEach(function (e, t) {
           var n = c[s.length + t];
           (n == null ? void 0 : n.chatViewMode) ===
             o("WAWebChatViewMode.flow").ChatViewModeType
-              .ONLY_MARKETING_FROM_SELF && L.push(k(n, { id: e }, i, a));
+              .ONLY_MARKETING_FROM_SELF && L.push(I(n, { id: e }, i, a));
         }),
         { chatUpdates: L, capiCallingPermissionUpdates: _ }
       );
     }
-    function k(e, t, n, r) {
+    function I(e, t, n, r) {
       var a = n.get(t.id);
       return a == null
         ? t
@@ -550,7 +555,7 @@ __d(
             r,
           );
     }
-    function I(e) {
+    function T(e) {
       return (
         o("WAWebCommonMsgUtils").isFutureproofMsg(
           o("WAWebMsgGetters").getType(e),
@@ -566,7 +571,8 @@ __d(
     }
     ((l.persistNewMessagesInBulk = v),
       (l.logMissingGroupParticipantLids = S),
-      (l.persistNewNewsletterMessagesInBulk = L));
+      (l.persistNewNewsletterMessagesInBulk = L),
+      (l.countsTowardChatUnread = E));
   },
   98,
 );

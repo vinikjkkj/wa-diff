@@ -21,6 +21,7 @@ __d(
       OPEN_DIALER: 16,
       SCHEDULE_CALL: 17,
       CREATE_GROUP: 18,
+      COMPANION_DISCOVERY: 19,
     });
     i.WEBC_QUICK_ACTION_ID = e;
   },

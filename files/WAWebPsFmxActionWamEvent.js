@@ -2,6 +2,7 @@ __d(
   "WAWebPsFmxActionWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumCallerDisplayNameType",
     "WAWebWamEnumFmxBusinessHoldoutGroup",
     "WAWebWamEnumFmxEntryPoint",
     "WAWebWamEnumFmxEvent",
@@ -22,6 +23,10 @@ __d(
                   .FMX_BUSINESS_HOLDOUT_GROUP,
               ],
               fmxConsumerRedesignVariant: [17, e.TYPES.INTEGER],
+              fmxDisplayNameType: [
+                18,
+                o("WAWebWamEnumCallerDisplayNameType").CALLER_DISPLAY_NAME_TYPE,
+              ],
               fmxEntryPoint: [
                 3,
                 o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT,
@@ -41,6 +46,14 @@ __d(
               isSuspiciousFmx: [8, e.TYPES.BOOLEAN],
               newAccountShown: [9, e.TYPES.BOOLEAN],
               notAContactShown: [7, e.TYPES.BOOLEAN],
+              profilePhotoShown: [19, e.TYPES.BOOLEAN],
+              senderHasPushName: [20, e.TYPES.BOOLEAN],
+              senderPushNameCharLength: [21, e.TYPES.INTEGER],
+              senderPushNameEmojiCount: [22, e.TYPES.INTEGER],
+              senderPushNameNumberCount: [23, e.TYPES.INTEGER],
+              senderPushNameSpecialCharCount: [24, e.TYPES.INTEGER],
+              senderPushNameWordCount: [25, e.TYPES.INTEGER],
+              usernameShown: [26, e.TYPES.BOOLEAN],
             },
             [1, 1, 1],
             "private",

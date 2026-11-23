@@ -40,10 +40,7 @@ __d(
         fragment: {
           argumentDefinitions: e,
           kind: "Fragment",
-          metadata: {
-            hasClientEdges: !0,
-            vultureHash: "6dfdEH35meQed8BAlF92fGBThCs=",
-          },
+          metadata: { hasClientEdges: !0 },
           name: "AdsUEditorAdgroupPartnershipAdsDynamicHeaderPillPopoverQuery",
           selections: [
             {
@@ -281,7 +278,7 @@ __d(
         params: {
           cacheID: "7b2517b6e9ffd3bb1a11ae251731b317",
           id: null,
-          metadata: { vultureHash: "6dfdEH35meQed8BAlF92fGBThCs=" },
+          metadata: {},
           name: "AdsUEditorAdgroupPartnershipAdsDynamicHeaderPillPopoverQuery",
           operationKind: "query",
           text: null,

@@ -2,10 +2,10 @@ __d(
   "WAWebMediaHubMessageLightboxAction",
   [
     "WAWebErrorBoundary.react",
-    "WAWebMediaMissingModal.react",
     "WAWebMediaViewerFlow.react",
     "WAWebModalManager",
     "WAWebMsgCollection",
+    "WAWebOpenMediaMissingDialog",
     "nullthrows",
     "react",
   ],
@@ -41,9 +41,7 @@ __d(
                 }),
                 { transition: "media-viewer", uim: r("nullthrows")(t) },
               )
-            : o("WAWebModalManager").ModalManager.open(
-                s.jsx(r("WAWebMediaMissingModal.react"), { msg: u }),
-              );
+            : r("WAWebOpenMediaMissingDialog")(u);
         };
       };
     l.handleMediaViewer = u;

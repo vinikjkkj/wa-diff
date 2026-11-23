@@ -50,13 +50,14 @@ __d(
     "WAWebPromiseQueue",
     "WAWebSendMsgRecordAction",
     "WAWebStarredMsgCollection",
-    "WAWebSuspendedGroupMediaDownloadFailureModal.react",
+    "WAWebSuspendedGroupMediaDownloadFailureModalLoadable",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebViewOnceState",
     "WAWebWamEnumWebcRmrReasonCode",
     "WAWebWid",
     "WAWebWidFactory",
+    "WDSDialogBridge",
     "getErrorSafe",
     "gkx",
     "react",
@@ -1018,13 +1019,14 @@ __d(
             )
               return (
                 l &&
-                  o("WAWebModalManager").ModalManager.open(
+                  (o("WAWebModalManager").ModalManager.close(),
+                  o("WDSDialogBridge").openWDSDialog(
                     g.jsx(
-                      r("WAWebSuspendedGroupMediaDownloadFailureModal.react"),
+                      o("WAWebSuspendedGroupMediaDownloadFailureModalLoadable")
+                        .SuspendedGroupMediaDownloadFailureModalLoadable,
                       {},
                     ),
-                    { transition: "modal-flow" },
-                  ),
+                  )),
                 Promise.resolve()
               );
             if (

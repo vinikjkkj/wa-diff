@@ -1,12 +1,12 @@
 __d(
   "WAWebHandleRetryRequestNonMigratedLog",
-  ["WAWebCheckChatExistsOrCreate", "WAWebHandleRetryRequest", "WAWebUserUtils"],
+  ["WAWebCheckChatExistsOrCreate", "WAWebRetryRequestChatResolution"],
   function (t, n, r, o, a, i, l) {
     async function e(e) {
       var t = "na";
       e.from.isRegularUser() && (t = e.from.isLid() ? "lid" : "pn");
-      var n = s(e),
-        r = o("WAWebHandleRetryRequest").getTargetChat(e),
+      var n = o("WAWebRetryRequestChatResolution").selectRetryErrorType(e),
+        r = o("WAWebRetryRequestChatResolution").getTargetChat(e),
         a = "na",
         i = !1;
       r &&
@@ -29,20 +29,7 @@ __d(
         l
       );
     }
-    function s(e) {
-      return e.from.isGroup()
-        ? o("WAWebUserUtils").isMeAccount(e.participant)
-          ? "did_not_find_group_message_from_self"
-          : "did_not_find_group_message_from_remote"
-        : e.from.isUser()
-          ? o("WAWebUserUtils").isMeAccount(e.from)
-            ? e.from.device === 0 || e.from.device == null
-              ? "did_not_find_1on1_message_from_self_primary"
-              : "did_not_find_1on1_message_from_self_companion"
-            : "did_not_find_1on1_message_from_remote"
-          : "did_not_find_message_other";
-    }
-    ((l.buildNoChatInfoSendLogsArg = e), (l.selectRetryErrorType = s));
+    l.buildNoChatInfoSendLogsArg = e;
   },
   98,
 );

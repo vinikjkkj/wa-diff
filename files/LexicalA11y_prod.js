@@ -108,72 +108,74 @@ __d(
         i = function i() {
           return Array.from(e.querySelectorAll(o));
         },
-        s = function s(e, t) {
+        a = function a(e, t) {
           e.forEach(function (e, n) {
             e.tabIndex = n === t ? 0 : -1;
           });
+        },
+        u = function u(t) {
+          var n = require("Lexical").getActiveElementDeep(e.ownerDocument);
+          return require("Lexical").isHTMLElement(n)
+            ? t.findIndex(function (e) {
+                return e === n || s(e, n);
+              })
+            : -1;
         };
       return (
         (function () {
-          var t = i();
-          if (0 === t.length) return;
-          var n = require("Lexical").getActiveElementDeep(e.ownerDocument),
-            o = t.findIndex(function (e) {
-              return e === n;
-            });
-          s(t, o >= 0 ? o : 0);
+          var e = i();
+          if (0 === e.length) return;
+          var t = u(e);
+          a(e, t >= 0 ? t : 0);
         })(),
         require("Lexical").mergeRegister(
-          require("Lexical").registerEventListener(e, "keydown", function (t) {
-            var o = i();
-            if (0 === o.length) return;
-            var a = require("Lexical").getActiveElementDeep(e.ownerDocument),
-              u = o.findIndex(function (e) {
-                return e === a;
-              });
-            if (u < 0)
+          require("Lexical").registerEventListener(e, "keydown", function (e) {
+            var t = i();
+            if (0 === t.length) return;
+            var r = u(t);
+            if (r < 0)
               return void (
-                ("ArrowRight" !== t.key &&
-                  "ArrowDown" !== t.key &&
-                  "ArrowLeft" !== t.key &&
-                  "ArrowUp" !== t.key &&
-                  "Home" !== t.key &&
-                  "End" !== t.key) ||
-                (t.preventDefault(), s(o, 0), o[0].focus())
+                ("ArrowRight" !== e.key &&
+                  "ArrowDown" !== e.key &&
+                  "ArrowLeft" !== e.key &&
+                  "ArrowUp" !== e.key &&
+                  "Home" !== e.key &&
+                  "End" !== e.key) ||
+                (e.preventDefault(), a(t, 0), t[0].focus())
               );
-            var l = "horizontal" === n || "both" === n,
-              c = "vertical" === n || "both" === n;
-            var d = u;
-            switch (t.key) {
+            var o = "horizontal" === n || "both" === n,
+              s = "vertical" === n || "both" === n;
+            var l = r;
+            switch (e.key) {
               case "ArrowRight":
-                if (!l) return;
-                d = u + 1;
+                if (!o) return;
+                l = r + 1;
                 break;
               case "ArrowLeft":
-                if (!l) return;
-                d = u - 1;
+                if (!o) return;
+                l = r - 1;
                 break;
               case "ArrowDown":
-                if (!c) return;
-                d = u + 1;
+                if (!s) return;
+                l = r + 1;
                 break;
               case "ArrowUp":
-                if (!c) return;
-                d = u - 1;
+                if (!s) return;
+                l = r - 1;
                 break;
               case "Home":
-                d = 0;
+                l = 0;
                 break;
               case "End":
-                d = o.length - 1;
+                l = t.length - 1;
                 break;
               default:
                 return;
             }
-            (t.preventDefault(),
-              (d = (d + o.length) % o.length),
-              s(o, d),
-              o[d].focus());
+            (e.preventDefault(),
+              (l = (l + t.length) % t.length),
+              a(t, l),
+              t[l].focus());
           }),
           function () {
             i().forEach(function (e) {

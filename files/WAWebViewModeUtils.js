@@ -2,6 +2,7 @@ __d(
   "WAWebViewModeUtils",
   [
     "WAWebABProps",
+    "WAWebAssociationRevokeUtils",
     "WAWebMessageAssociation.flow",
     "WAWebMsgType",
     "WAWebPollCreationUtils",
@@ -37,10 +38,19 @@ __d(
         ? !0
         : e(o("WAWebViewMode.flow").ViewModeSurface.CHAT, t.viewMode);
     }
-    function u(e, t, n) {
-      return e === o("WAWebViewMode.flow").ViewModeType.HIDDEN && t != null
+    function u(e) {
+      var t = e.associationType,
+        n = e.incomingViewMode,
+        r = n === void 0 ? o("WAWebViewMode.flow").ViewModeType.VISIBLE : n,
+        a = e.msgType,
+        i = e.storedViewMode;
+      return i === o("WAWebViewMode.flow").ViewModeType.HIDDEN && t != null
         ? o("WAWebViewMode.flow").ViewModeType.HIDDEN
-        : n;
+        : o("WAWebAssociationRevokeUtils").getRevokedViewModeForAssociation({
+            associationType: t,
+            incomingViewMode: r,
+            msgType: a,
+          });
     }
     function c(e) {
       return (

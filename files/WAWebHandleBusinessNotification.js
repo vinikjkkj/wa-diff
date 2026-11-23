@@ -5,17 +5,16 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WASmaxBizCtwaAdAccountNonceNotificationRPC",
-    "WASmaxParseUtils",
     "WAWap",
     "WAWebBackendJobsCommon",
     "WAWebBizSuggestionsGatingUtils",
+    "WAWebBusinessNotificationPluginHandlers",
     "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCTWAGatingUtils",
     "WAWebCTWAParsePrivacy",
     "WAWebCTWAParseSuggestion",
     "WAWebCommonParsersVerifiedName",
     "WAWebHandleBizBroadcastMarketingCampaignNotification",
-    "WAWebHandleBizBroadcastProCampaignNotification",
     "WAWebHandleBusinessNameChange",
     "WAWebHandleBusinessProductCatalogNotification",
     "WAWebHandleBusinessProfile",
@@ -32,137 +31,159 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = new (r("WADeprecatedWapParser"))(
+      s = [
+        "remove",
+        "verified_name",
+        "profile",
+        "product_catalog",
+        "subscriptions",
+        "ctwa_suggestion",
+        "privacy",
+        "wa_ad_account_nonce",
+        "mm_campaign",
+      ],
+      u = new (r("WADeprecatedWapParser"))(
         "businessNotificationParser",
         function (e) {
+          var t;
           e.assertTag("notification");
-          var t = e.attrString("id"),
-            n = e.attrWapJid("from"),
-            a = e.attrTime("t"),
-            i = { stanzaId: t, from: n, ts: a },
-            l;
-          if (e.hasChild("remove"))
-            return (
-              (l = e.child("remove")),
-              l.hasAttr("jid")
-                ? babelHelpers.extends(
-                    {
-                      type: "remove_jid",
-                      jid: o("WAWebJidToWid").chatJidToChatWid(
-                        l.attrChatJid("jid"),
-                      ),
-                    },
-                    i,
-                  )
-                : babelHelpers.extends(
-                    { type: "remove_hash", hash: l.attrString("hash") },
-                    i,
-                  )
-            );
-          if (e.hasChild("verified_name"))
-            return (
-              (l = e.child("verified_name")),
-              l.hasAttr("jid")
-                ? babelHelpers.extends(
-                    {
-                      type: "verified_name_jid",
-                      jid: o("WAWebJidToWid").chatJidToChatWid(
-                        l.attrChatJid("jid"),
-                      ),
-                      verifiedName: r("WAWebCommonParsersVerifiedName")(l),
-                    },
-                    i,
-                  )
-                : babelHelpers.extends(
-                    { type: "verified_name_hash", hash: l.attrString("hash") },
-                    i,
-                  )
-            );
-          if (e.hasChild("profile")) {
-            var s = e.child("profile"),
-              c = s.maybeAttrString("hash");
-            return r("isStringNullOrEmpty")(c)
-              ? babelHelpers.extends({ type: "profile" }, i)
-              : babelHelpers.extends({ type: "profile_hash", hash: c }, i);
-          } else {
-            if (e.hasChild("product_catalog"))
-              return u(e.child("product_catalog"), i);
-            if (e.hasChild("subscriptions")) {
-              var d = o(
-                  "WAWebParseSubscriptionNotification",
-                ).parseSubscriptionsAndFeatureFlags(e),
-                m = d.featureFlags,
-                p = d.subscriptions;
-              return babelHelpers.extends(
-                {
-                  type: "subscriptions",
-                  subscriptions: p,
-                  featureFlags: m,
-                  uiNotification: o(
-                    "WAWebParseSubscriptionNotification",
-                  ).parseSubscriptionNotification(e),
-                },
-                i,
-              );
-            } else if (e.hasChild("ctwa_suggestion")) {
-              if (
-                o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabled()
-              ) {
-                var _ = o("WAWebCTWAParseSuggestion").parseCTWASuggestion(e);
-                if (_ != null)
-                  return babelHelpers.extends(
-                    { type: "ctwa_suggestion", suggestion: _ },
-                    i,
-                  );
-              }
-            } else if (e.hasChild("privacy")) {
-              if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
-                var f = o("WAWebCTWAParsePrivacy").parseCTWAPrivacy(e);
-                if (f != null)
-                  return babelHelpers.extends(
-                    { type: "privacy", privacy: f },
-                    i,
-                  );
-              }
-            } else if (e.hasChild("wa_ad_account_nonce")) {
-              var g = o(
-                "WASmaxBizCtwaAdAccountNonceNotificationRPC",
-              ).receiveNonceNotificationRPC(e.node());
-              return babelHelpers.extends(
-                {
-                  type: "wa_ad_account_nonce",
-                  nonce: o("WAWebCTWABizAccessTokenNonceManager").castToNonce(
-                    g.parsedRequest.waAdAccountNonceElementValue,
-                  ),
-                },
-                i,
-              );
-            } else if (e.hasChild("mm_campaign")) {
-              var h = o(
-                "WAWebHandleBizBroadcastMarketingCampaignNotification",
-              ).parseMarketingCampaignNotification(e.node());
-              if (h != null)
-                return babelHelpers.extends({ type: "mm_campaign" }, h, i);
-            } else if (
-              o("WASmaxParseUtils").flattenedChildWithTag(
-                e.node(),
-                "bb_pro_campaign",
-              ).success
-            )
-              return babelHelpers.extends(
-                {
-                  type: "bb_pro_campaign",
-                  campaignId: o(
-                    "WAWebHandleBizBroadcastProCampaignNotification",
-                  ).parseBizBroadcastProCampaignId(e.node()),
-                },
-                i,
-              );
-          }
-          return babelHelpers.extends({ type: "unknown" }, i);
+          var n = e.attrString("id"),
+            r = e.attrWapJid("from"),
+            o = e.attrTime("t"),
+            a = { stanzaId: n, from: r, ts: o },
+            i = c(e);
+          return (t = d(i, e, a)) != null
+            ? t
+            : babelHelpers.extends({ type: "unknown" }, a);
         },
       );
-    function u(e, t) {
+    function c(e) {
+      var t;
+      return (t = s.find(function (t) {
+        return e.hasChild(t);
+      })) != null
+        ? t
+        : "feature";
+    }
+    function d(e, t, n) {
+      e: {
+        if (e === "remove") {
+          var a = t.child("remove");
+          return a.hasAttr("jid")
+            ? babelHelpers.extends(
+                {
+                  type: "remove_jid",
+                  jid: o("WAWebJidToWid").chatJidToChatWid(
+                    a.attrChatJid("jid"),
+                  ),
+                },
+                n,
+              )
+            : babelHelpers.extends(
+                { type: "remove_hash", hash: a.attrString("hash") },
+                n,
+              );
+        }
+        if (e === "verified_name") {
+          var i = t.child("verified_name");
+          return i.hasAttr("jid")
+            ? babelHelpers.extends(
+                {
+                  type: "verified_name_jid",
+                  jid: o("WAWebJidToWid").chatJidToChatWid(
+                    i.attrChatJid("jid"),
+                  ),
+                  verifiedName: r("WAWebCommonParsersVerifiedName")(i),
+                },
+                n,
+              )
+            : babelHelpers.extends(
+                { type: "verified_name_hash", hash: i.attrString("hash") },
+                n,
+              );
+        }
+        if (e === "profile") {
+          var l = t.child("profile"),
+            s = l.maybeAttrString("hash");
+          return r("isStringNullOrEmpty")(s)
+            ? babelHelpers.extends({ type: "profile" }, n)
+            : babelHelpers.extends({ type: "profile_hash", hash: s }, n);
+        }
+        if (e === "product_catalog") return m(t.child("product_catalog"), n);
+        if (e === "subscriptions") {
+          var u = o(
+              "WAWebParseSubscriptionNotification",
+            ).parseSubscriptionsAndFeatureFlags(t),
+            c = u.featureFlags,
+            d = u.subscriptions;
+          return babelHelpers.extends(
+            {
+              type: "subscriptions",
+              subscriptions: d,
+              featureFlags: c,
+              uiNotification: o(
+                "WAWebParseSubscriptionNotification",
+              ).parseSubscriptionNotification(t),
+            },
+            n,
+          );
+        }
+        if (e === "ctwa_suggestion") {
+          if (o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabled()) {
+            var p = o("WAWebCTWAParseSuggestion").parseCTWASuggestion(t);
+            if (p != null)
+              return babelHelpers.extends(
+                { type: "ctwa_suggestion", suggestion: p },
+                n,
+              );
+          }
+          return null;
+        }
+        if (e === "privacy") {
+          if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
+            var _ = o("WAWebCTWAParsePrivacy").parseCTWAPrivacy(t);
+            if (_ != null)
+              return babelHelpers.extends({ type: "privacy", privacy: _ }, n);
+          }
+          return null;
+        }
+        if (e === "wa_ad_account_nonce") {
+          var f = o(
+            "WASmaxBizCtwaAdAccountNonceNotificationRPC",
+          ).receiveNonceNotificationRPC(t.node());
+          return babelHelpers.extends(
+            {
+              type: "wa_ad_account_nonce",
+              nonce: o("WAWebCTWABizAccessTokenNonceManager").castToNonce(
+                f.parsedRequest.waAdAccountNonceElementValue,
+              ),
+            },
+            n,
+          );
+        }
+        if (e === "mm_campaign") {
+          var g = o(
+            "WAWebHandleBizBroadcastMarketingCampaignNotification",
+          ).parseMarketingCampaignNotification(t.node());
+          return g != null
+            ? babelHelpers.extends({ type: "mm_campaign" }, g, n)
+            : null;
+        }
+        if (e === "feature") {
+          var h = o(
+            "WAWebBusinessNotificationPluginHandlers",
+          ).parseBusinessNotificationPluginAction(t);
+          return h == null
+            ? null
+            : babelHelpers.extends({ type: "feature", apply: h }, n);
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    function m(e, t) {
       if (e.hasChild("product")) {
         var n = [];
         return (
@@ -210,8 +231,8 @@ __d(
       }
       return babelHelpers.extends({ type: "unknown" }, t);
     }
-    async function c(t) {
-      var n = s.parse(t);
+    async function p(t) {
+      var n = u.parse(t);
       if (n.error)
         throw (
           o("WALogger").ERROR(
@@ -225,10 +246,10 @@ __d(
           n.error
         );
       var r = n.success,
-        a = await p(r);
-      return f(r.stanzaId, r.from, a);
+        a = await g(r);
+      return y(r.stanzaId, r.from, a);
     }
-    function d(e) {
+    function _(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -236,14 +257,14 @@ __d(
         .createNonPersistedJob(
           "handleBusinessNotification",
           function (e) {
-            return c(e.node);
+            return p(e.node);
           },
           { priority: t },
         )
         .waitUntilCompleted({ node: e });
     }
-    var m = n("$InternalEnum").Mirrored(["Handled", "SideListOutOfDate"]);
-    async function p(e) {
+    var f = n("$InternalEnum").Mirrored(["Handled", "SideListOutOfDate"]);
+    async function g(e) {
       e: {
         var t = e;
         if (
@@ -254,7 +275,7 @@ __d(
             r = await o(
               "WAWebHandleBusinessNameChange",
             ).handleVerifiedBusinessNameNotificationHash(n);
-          return _(r);
+          return h(r);
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -265,7 +286,7 @@ __d(
             await o(
               "WAWebHandleBusinessNameChange",
             ).handleVerifiedBusinessNameNotificationContact(a),
-            m.Handled
+            f.Handled
           );
           break e;
         }
@@ -277,7 +298,7 @@ __d(
             l = await o(
               "WAWebHandleBusinessRemoval",
             ).handleBusinessRemovalNotificationHash(i);
-          return _(l);
+          return h(l);
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -288,7 +309,7 @@ __d(
             await o(
               "WAWebHandleBusinessRemoval",
             ).handleBusinessRemovalNotificationContact(s),
-            m.Handled
+            f.Handled
           );
           break e;
         }
@@ -299,7 +320,7 @@ __d(
           var u = t;
           return (
             await o("WAWebHandleBusinessProfile").handleBusinessProfile(u),
-            m.Handled
+            f.Handled
           );
           break e;
         }
@@ -311,18 +332,18 @@ __d(
             d = await o("WAWebHandleBusinessProfile").handleBusinessProfileHash(
               c,
             );
-          return _(d);
+          return h(d);
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "product"
         ) {
-          var p = t;
+          var m = t;
           return (
             await o(
               "WAWebHandleBusinessProductCatalogNotification",
-            ).handleProductNotification(p.productsIds),
-            m.Handled
+            ).handleProductNotification(m.productsIds),
+            f.Handled
           );
           break e;
         }
@@ -330,12 +351,12 @@ __d(
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "collection"
         ) {
-          var f = t;
+          var p = t;
           return (
             await o(
               "WAWebHandleBusinessProductCatalogNotification",
-            ).handleCollectionNotification(f),
-            m.Handled
+            ).handleCollectionNotification(p),
+            f.Handled
           );
           break e;
         }
@@ -343,19 +364,19 @@ __d(
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "subscriptions"
         ) {
-          var g = t;
+          var _ = t;
           await o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-            g.subscriptions,
-            g.featureFlags,
+            _.subscriptions,
+            _.featureFlags,
             "update",
           );
-          var h = g.uiNotification;
+          var g = _.uiNotification;
           return (
-            h != null &&
+            g != null &&
               o(
                 "WAWebSubscriptionNotificationDelivery",
-              ).deliverSubscriptionNotification(h),
-            m.Handled
+              ).deliverSubscriptionNotification(g),
+            f.Handled
           );
           break e;
         }
@@ -368,7 +389,7 @@ __d(
             await o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
               y.suggestion,
             ),
-            m.Handled
+            f.Handled
           );
           break e;
         }
@@ -384,7 +405,7 @@ __d(
               C.privacy.smbDataSharingSetting,
               C.privacy.smbDataSharingVersion,
             ),
-            m.Handled
+            f.Handled
           );
           break e;
         }
@@ -397,7 +418,7 @@ __d(
             o(
               "WAWebCTWABizAccessTokenNonceManager",
             ).setNonceFromPushNotification(b.nonce),
-            m.Handled
+            f.Handled
           );
           break e;
         }
@@ -410,46 +431,43 @@ __d(
             o(
               "WAWebHandleBizBroadcastMarketingCampaignNotification",
             ).handleMarketingCampaignNotification(v),
-            m.Handled
+            f.Handled
           );
           break e;
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "bb_pro_campaign"
+          t.type === "feature" &&
+          "apply" in t
         ) {
-          var S = t;
-          return (
-            o(
-              "WAWebHandleBizBroadcastProCampaignNotification",
-            ).handleBizBroadcastProCampaignNotification(S.campaignId),
-            m.Handled
-          );
+          var S = t.apply,
+            R = S();
+          return (R != null && (await R), f.Handled);
           break e;
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "unknown"
         )
-          return m.Handled;
+          return f.Handled;
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             t,
         );
       }
     }
-    function _(e) {
-      return e ? m.Handled : m.SideListOutOfDate;
+    function h(e) {
+      return e ? f.Handled : f.SideListOutOfDate;
     }
-    function f(e, t, n) {
-      return n === m.Handled
+    function y(e, t, n) {
+      return n === f.Handled
         ? o("WAWap").wap("ack", {
             id: o("WAWap").CUSTOM_STRING(e),
             to: t,
             class: "notification",
             type: "business",
           })
-        : n === m.SideListOutOfDate
+        : n === f.SideListOutOfDate
           ? o("WAWap").wap(
               "ack",
               {
@@ -467,7 +485,7 @@ __d(
               );
             })();
     }
-    ((l.handleBusinessNotification = c), (l.handleBusinessNotificationJob = d));
+    ((l.handleBusinessNotification = p), (l.handleBusinessNotificationJob = _));
   },
   98,
 );

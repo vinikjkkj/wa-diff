@@ -109,16 +109,14 @@ __d(
       return t != null
         ? g(e, t)
         : e.OperationName === "MexNotificationEvent"
-          ? g(e, C)
-          : e.OperationName === "NotificationGroupEncryptionKeysPropertyUpdate"
-            ? g(e, y)
-            : e.OperationName === "LidChangeNotification"
-              ? g(
-                  e,
-                  o("WAWebMexLidChangeNotificationHandler")
-                    .mexHandleLidChangeNotification,
-                )
-              : Promise.reject(new f(e.OperationName));
+          ? g(e, y)
+          : e.OperationName === "LidChangeNotification"
+            ? g(
+                e,
+                o("WAWebMexLidChangeNotificationHandler")
+                  .mexHandleLidChangeNotification,
+              )
+            : Promise.reject(new f(e.OperationName));
     }
     var f = (function (e) {
       function t(n) {
@@ -162,7 +160,6 @@ __d(
       });
     }
     async function y(e, t) {}
-    async function C(e, t) {}
     ((l.handleMexNotification = p), (l.MissingMEXNotificationHandler = f));
   },
   98,

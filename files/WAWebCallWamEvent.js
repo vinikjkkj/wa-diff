@@ -2713,6 +2713,8 @@ __d(
               uwpVoipMicLastErrorManufacturerName: [1834, e.TYPES.STRING],
               uwpVoipMicTotalErrors: [1835, e.TYPES.INTEGER],
               uwpVoipNumAnrEvents: [1836, e.TYPES.INTEGER],
+              uwpVoipNumCriticalEvents: [1837, e.TYPES.INTEGER],
+              uwpVoipNumUnhandledExceptionEvents: [1838, e.TYPES.INTEGER],
               uwpVoipTotalCameraDevices: [1839, e.TYPES.INTEGER],
               uwpVoipTotalMicDevices: [1840, e.TYPES.INTEGER],
               uwpVoipWindowIncomingAcceptToCallLayoutTime: [

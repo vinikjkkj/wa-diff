@@ -68,6 +68,11 @@ __d(
                 o("WAWebWamEnumPrivacySettingsValueType")
                   .PRIVACY_SETTINGS_VALUE_TYPE,
               ],
+              previousStatusPrivacySetting: [
+                64,
+                o("WAWebWamEnumPrivacySettingsValueType")
+                  .PRIVACY_SETTINGS_VALUE_TYPE,
+              ],
               retryCount: [5, e.TYPES.INTEGER],
               shareType: [18, e.TYPES.STRING],
               statusAudienceSelected: [56, e.TYPES.INTEGER],

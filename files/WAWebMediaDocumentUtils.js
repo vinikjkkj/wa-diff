@@ -17,13 +17,13 @@ __d(
     "WAWebHtmlViewerGatingUtils",
     "WAWebMediaCleanFileName",
     "WAWebMediaDataGetters",
-    "WAWebMediaMissingModal.react",
     "WAWebMediaStore",
     "WAWebMediaTypes",
     "WAWebModalManager",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebNoop",
+    "WAWebOpenMediaMissingDialog",
     "WAWebShowMediaNotReadableModal",
     "WAWebTPPdfViewerGatingUtils",
     "WAWebToast.react",
@@ -330,10 +330,7 @@ __d(
         oe = function (n) {
           V(n);
           var t = o("WAWebMsgCollection").MsgCollection.get(e);
-          t != null &&
-            o("WAWebModalManager").ModalManager.open(
-              N.jsx(r("WAWebMediaMissingModal.react"), { msg: t }),
-            );
+          t != null && r("WAWebOpenMediaMissingDialog")(t);
         },
         ae = function (n) {
           var t;

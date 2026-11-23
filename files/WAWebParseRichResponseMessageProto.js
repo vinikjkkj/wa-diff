@@ -20,8 +20,9 @@ __d(
         i = e.quotedMsgSender,
         l = r.richResponseMessage;
       if (l != null) {
-        var c = a === "quoted" || a === "history_quoted" ? u(i, l) : s(n, l);
-        if (!c)
+        var c = a === "quoted" || a === "history_quoted",
+          _ = c ? u(i, l) : s(n, l);
+        if (!_)
           throw new (o(
             "WAWebRichResponseValidationError",
           ).RichResponseValidationError)(
@@ -30,15 +31,15 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        var _ = d(l.contextInfo);
+        var f = d(l.contextInfo);
         if (
-          _ &&
+          f &&
           !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
         )
           return m(n);
-        var f = l.messageType,
-          g = l.submessages;
-        if (f == null)
+        var g = l.messageType,
+          h = l.submessages;
+        if (g == null)
           throw new (o(
             "WAWebRichResponseValidationError",
           ).RichResponseValidationError)(
@@ -47,35 +48,36 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        var h = o(
+        var y = o(
             "WAWebRichResponseParseUtils",
-          ).generateFutureproofRichResponse(f, g),
-          y = o("WAWebRichResponseParseUtils").parseRichResponse(h),
-          C = p(l, r.messageContextInfo, n.t)
+          ).generateFutureproofRichResponse(g, h),
+          C = o("WAWebRichResponseParseUtils").parseRichResponse(y),
+          b = p(l, r.messageContextInfo, n.t, c)
             ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
                 l.unifiedResponse,
               )
             : null,
-          b = o(
+          v = o(
             "WAWebBotUnifiedResponseMutationUtils",
           ).parseUnifiedResponseMutationMediaList(r.messageContextInfo),
-          v =
-            b != null &&
+          S =
+            v != null &&
             o(
               "WAWebBotUnifiedResponseGating",
             ).isUnifiedResponseMutationEnabled()
-              ? b
+              ? v
               : void 0;
         if (
-          _ &&
-          o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(C) &&
-          (v == null ||
+          !c &&
+          f &&
+          o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(b) &&
+          (S == null ||
             !o(
               "WAWebBotBaseGating",
             ).isRichResponseForwardMediaReceivingEnabled())
         )
           return m(n);
-        var S =
+        var R =
           ((t = l.unifiedResponse) == null ? void 0 : t.data) != null
             ? new Uint8Array(l.unifiedResponse.data)
             : null;
@@ -83,10 +85,10 @@ __d(
           msgData: babelHelpers.extends({}, n, {
             type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
             kind: o("WAWebMsgType").MsgKind.RichResponse,
-            richResponse: y,
-            unifiedResponse: C,
-            unifiedResponseRawData: S,
-            unifiedResponseMutationMediaList: v,
+            richResponse: C,
+            unifiedResponse: b,
+            unifiedResponseRawData: R,
+            unifiedResponseMutationMediaList: S,
           }),
           contextInfo: o(
             "WAWebBotBaseGating",
@@ -142,18 +144,22 @@ __d(
         contextInfo: null,
       };
     }
-    function p(e, t, n) {
-      var r;
+    function p(e, t, n, r) {
+      var a;
       return e.unifiedResponse == null
         ? !1
-        : ((t == null ||
-          (r = t.botMetadata) == null ||
-          (r = r.imagineMetadata) == null
-            ? void 0
-            : r.imagineType) != null &&
-            o(
+        : r
+          ? o(
               "WAWebBotUnifiedResponseGating",
-            ).isUnifiedResponseImagineReceiverEnabled()) ||
+            ).isUnifiedResponseImagineReceiverEnabled()
+          : ((t == null ||
+            (a = t.botMetadata) == null ||
+            (a = a.imagineMetadata) == null
+              ? void 0
+              : a.imagineType) != null &&
+              o(
+                "WAWebBotUnifiedResponseGating",
+              ).isUnifiedResponseImagineReceiverEnabled()) ||
             o("WAWebBotUnifiedResponseGating").isUnifiedResponseReceiverEnabled(
               n,
             );

@@ -27,7 +27,7 @@ __d(
     "WAWebModalManager",
     "WAWebNoop",
     "WAWebSupportAiSessionWamEvent",
-    "WAWebSuspendedGroupMediaDownloadFailureModal.react",
+    "WAWebSuspendedGroupMediaDownloadFailureModalLoadable",
     "WAWebSuspendedGroupModal.react",
     "WAWebSuspendedGroupModalV2.react",
     "WAWebSuspendedGroupRedesignModalLoadable",
@@ -355,10 +355,14 @@ __d(
           );
     }
     function $() {
-      o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebSuspendedGroupMediaDownloadFailureModal.react"), {}),
-        { transition: "modal-flow" },
-      );
+      (o("WAWebModalManager").closeModalManager(),
+        o("WDSDialogBridge").openWDSDialog(
+          c.jsx(
+            o("WAWebSuspendedGroupMediaDownloadFailureModalLoadable")
+              .SuspendedGroupMediaDownloadFailureModalLoadable,
+            {},
+          ),
+        ));
     }
     ((l.logGroupSuspensionAppealEvent = m),
       (l.getFooterSurface = p),

@@ -25,7 +25,9 @@ __d(
         NotificationCommunityOwnerUpdate: o(
           "WAWebMexCommunityOwnerUpdateNotificationHandler",
         ).mexHandleCommunityOwnerUpdate,
+        NotificationGroupEncryptionKeysPropertyUpdate: u,
       };
+    async function u() {}
     l.default = s;
   },
   98,

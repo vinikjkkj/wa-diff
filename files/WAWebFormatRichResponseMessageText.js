@@ -30,6 +30,7 @@ __d(
       )
         return u(
           t,
+          a,
           o("WAWebRichResponsePreviewText").getUnifiedResponsePreviewText(t, a),
           n.formatAsLastMsg === !0,
           n,
@@ -47,7 +48,7 @@ __d(
         c = o("WAWebRichResponseMsgUtils")
           .getBundledRichResponseFragments(l)
           .map(function (e) {
-            return d(e, s);
+            return m(e, s);
           })
           .join("\n");
       return c.trim() === ""
@@ -58,17 +59,32 @@ __d(
             n,
           );
     }
-    function u(e, t, n, r) {
-      var a = t.trim() === "" && n ? c(e) : null;
-      return a == null
+    function u(e, t, n, r, a) {
+      if (
+        n.trim() === "" &&
+        o("WAWebUnifiedResponseUtils").isImagineOnlyResponse(t)
+      )
+        return c(t);
+      var i = n.trim() === "" && r ? d(e) : null;
+      return i == null
         ? o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
             e,
-            t,
-            r,
+            n,
+            a,
           )
-        : s._(/*BTDS*/ "", [s._param("agent name", a)]);
+        : s._(/*BTDS*/ "", [s._param("agent name", i)]);
     }
     function c(e) {
+      var t = o("WAWebUnifiedResponseUtils")
+        .getImaginePrimitives(e)
+        .some(function (e) {
+          return o("WAWebUnifiedResponseUtils").isAnimateImagineType(
+            e.imagine_type,
+          );
+        });
+      return t ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
+    }
+    function d(e) {
       if (
         o("WAWebMsgGetters").getIsSentByMe(e) ||
         !o("WAWebBotUtils").isHatchBot(e.id.remote)
@@ -78,7 +94,7 @@ __d(
         n = t == null ? "" : o("WAWebContactGetters").getName(t);
       return n === "" ? null : n;
     }
-    function d(e, t) {
+    function m(e, t) {
       switch (e.type) {
         case o("WAWebRichResponse.flow").RichResponseFragmentType.Text:
           return e.text;

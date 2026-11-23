@@ -7,6 +7,7 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebSchemaOrphanRevoke",
     "WAWebViewMode.flow",
+    "WAWebViewModeUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "nullthrows",
@@ -79,7 +80,12 @@ __d(
         kind: o("WAWebMsgType").MsgKind.RevokedMessage,
         viewMode: r("WAWebWid").isNewsletter(e.id.remote)
           ? o("WAWebViewMode.flow").ViewModeType.NEWSLETTER_TOMBSTONE
-          : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          : o("WAWebViewModeUtils").getRevokedViewMode({
+              associationType: e.associationType,
+              incomingViewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              msgType: e.type,
+              storedViewMode: e.viewMode,
+            }),
         subtype: t.subtype === "admin_revoke" ? "admin" : "sender",
         protocolMessageKey: e.id,
         from: e.from,

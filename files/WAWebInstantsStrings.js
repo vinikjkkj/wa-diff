@@ -80,7 +80,7 @@ __d(
         : s._(/*BTDS*/ "", [s._param("sender name", e)]).toString();
     }
     function x(e) {
-      return s._(/*BTDS*/ "", [s._plural(e, "count")]).toString();
+      return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
     function $(e, t) {
       return s

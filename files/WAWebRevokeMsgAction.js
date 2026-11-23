@@ -466,13 +466,15 @@ __d(
       var g = (n = l == null ? void 0 : l.isUnreadMsg(e)) != null ? n : !1,
         h = (a = l == null ? void 0 : l.isActiveUnreadMsg(e)) != null ? a : !1,
         y = e.associationType,
-        C = o("WAWebViewModeUtils").getRevokedViewMode(
-          e.viewMode,
-          y,
-          (i = t.viewMode) != null
-            ? i
-            : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-        );
+        C = o("WAWebViewModeUtils").getRevokedViewMode({
+          associationType: y,
+          incomingViewMode:
+            (i = t.viewMode) != null
+              ? i
+              : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          msgType: e.type,
+          storedViewMode: e.viewMode,
+        });
       if (y != null) {
         var b = o(
           "WAWebAssociationProcessor",

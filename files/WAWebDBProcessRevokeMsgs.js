@@ -380,11 +380,13 @@ __d(
                       disappearingModeInitiator: c.disappearingModeInitiator,
                       ephemeralDuration: c.ephemeralDuration,
                       ephemeralSettingTimestamp: c.ephemeralSettingTimestamp,
-                      viewMode: o("WAWebViewModeUtils").getRevokedViewMode(
-                        c.viewMode,
-                        c.associationType,
-                        (u = e.viewMode) != null ? u : c.viewMode,
-                      ),
+                      viewMode: o("WAWebViewModeUtils").getRevokedViewMode({
+                        associationType: c.associationType,
+                        incomingViewMode:
+                          (u = e.viewMode) != null ? u : c.viewMode,
+                        msgType: c.type,
+                        storedViewMode: c.viewMode,
+                      }),
                     };
                   if (
                     (a.push(_), o("WAWebMsgGetters").getIsImportantMessage(c))

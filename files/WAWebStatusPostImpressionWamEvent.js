@@ -14,6 +14,7 @@ __d(
     "WAWebWamEnumStatusRowSection",
     "WAWebWamEnumStatusViewEntryMethod",
     "WAWebWamEnumStatusViewExitMethod",
+    "WAWebWamEnumTsSurface",
     "WAWebWamEnumUrlStatusType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -103,6 +104,10 @@ __d(
               statusViewEntrypoint: [
                 18,
                 o("WAWebWamEnumStatusRowSection").STATUS_ROW_SECTION,
+              ],
+              statusViewEntrypointSurface: [
+                63,
+                o("WAWebWamEnumTsSurface").TS_SURFACE,
               ],
               statusViewExitMethod: [
                 44,
