@@ -105,6 +105,41 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
     raise RuntimeError(f"Gemini failed after {ATTEMPTS} attempts: {problem}")
 
 
+GLUED_FENCE = re.compile(r"^(.*\S)\s*(```[\w-]*)\s*$")
+LIST_ITEM = re.compile(r"^\s*(?:[*+-]|\d+[.)])\s+")
+
+
+def split_glued_fences(md: str) -> str:
+    """Move a fence glued to the end of a line onto a line of its own.
+
+    Gemini sometimes ends a bullet with "text```js" or a code line with
+    "code```". Markdown only opens or closes a fence at the start of a line,
+    so the code renders as prose and the next fence swallows the bullets
+    after it. An opening fence gets the list item's content indentation.
+    """
+    out = []
+    in_fence = False
+    for line in md.splitlines():
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            out.append(line)
+            continue
+        m = GLUED_FENCE.match(line)
+        if not m or "```" in m.group(1) or (in_fence and m.group(2) != "```"):
+            out.append(line)
+            continue
+        text, fence = m.groups()
+        out.append(text)
+        if in_fence:
+            out.append(fence)
+        else:
+            item = LIST_ITEM.match(text)
+            indent = len(item.group(0)) if item else len(text) - len(text.lstrip())
+            out.append(" " * indent + fence)
+        in_fence = not in_fence
+    return "\n".join(out)
+
+
 def fix_code_fences(md: str) -> str:
     """Re-indent fenced code blocks so their content keeps the list indentation.
 
@@ -114,7 +149,7 @@ def fix_code_fences(md: str) -> str:
     """
     out = []
     fence_indent = None
-    for line in md.splitlines():
+    for line in split_glued_fences(md).splitlines():
         stripped = line.lstrip()
         if fence_indent is None:
             if stripped.startswith("```"):
