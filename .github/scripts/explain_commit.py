@@ -11,6 +11,14 @@ import urllib.request
 
 MODEL = "gemini-2.5-flash"
 MAX_DIFF_CHARS = 600_000
+ATTEMPTS = 5
+KEYS = ("title_en", "body_en", "title_pt", "body_pt")
+RESPONSE_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {k: {"type": "STRING"} for k in KEYS},
+    "required": list(KEYS),
+    "propertyOrdering": list(KEYS),
+}
 
 
 def run(cmd: list[str]) -> str:
@@ -60,37 +68,41 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
 
     payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"responseMimeType": "application/json"},
+        "generationConfig": {
+            "responseMimeType": "application/json",
+            "responseSchema": RESPONSE_SCHEMA,
+        },
     }).encode()
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={api_key}"
-    for attempt in range(1, 4):
+    problem = ""
+    for attempt in range(1, ATTEMPTS + 1):
         try:
             req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
             with urllib.request.urlopen(req, timeout=180) as r:
                 data = json.loads(r.read())
+            text = data["candidates"][0]["content"]["parts"][0]["text"]
+            parsed = json.loads(text)
+            if isinstance(parsed, dict) and all(
+                isinstance(parsed.get(k), str) and parsed[k].strip() for k in KEYS
+            ):
+                return {k: parsed[k].strip() for k in KEYS}
+            problem = f"missing keys in output: {text[:200]}"
         except urllib.error.HTTPError as e:
-            retryable = e.code == 429 or e.code >= 500
-            if attempt == 3 or not retryable:
+            if e.code != 429 and e.code < 500:
                 raise
+            problem = f"HTTP {e.code}"
+        except OSError as e:
+            problem = f"network error: {e}"
+        except (json.JSONDecodeError, KeyError, IndexError, TypeError) as e:
+            problem = f"malformed response: {e!r}"
+
+        if attempt < ATTEMPTS:
             delay = attempt * 30
-            print(f"Gemini returned {e.code}, retrying in {delay}s...")
+            print(f"Attempt {attempt} failed ({problem}), retrying in {delay}s...")
             time.sleep(delay)
-            continue
 
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        parsed = json.loads(text)
-        if all(k in parsed for k in ("title_en", "body_en", "title_pt", "body_pt")):
-            return {
-                "title_en": parsed["title_en"].strip(),
-                "body_en": parsed["body_en"].strip(),
-                "title_pt": parsed["title_pt"].strip(),
-                "body_pt": parsed["body_pt"].strip(),
-            }
-        print(f"Invalid output (attempt {attempt}): {text[:200]}")
-        time.sleep(attempt * 10)
-
-    raise RuntimeError("Gemini failed to return valid output after 3 attempts")
+    raise RuntimeError(f"Gemini failed after {ATTEMPTS} attempts: {problem}")
 
 
 def fix_code_fences(md: str) -> str:
@@ -116,14 +128,15 @@ def fix_code_fences(md: str) -> str:
     return "\n".join(out)
 
 
-def emit_outputs(title: str, body: str, tag: str) -> None:
+def emit_outputs(title: str, body: str, tag: str, sha: str) -> None:
     out_path = os.environ.get("GITHUB_OUTPUT")
     if not out_path:
-        sys.stdout.buffer.write(f"title={title}\ntag={tag}\n\n{body}\n".encode("utf-8"))
+        sys.stdout.buffer.write(f"title={title}\ntag={tag}\nsha={sha}\n\n{body}\n".encode("utf-8"))
         return
     with open(out_path, "a", encoding="utf-8") as f:
         f.write(f"title={title}\n")
         f.write(f"tag={tag}\n")
+        f.write(f"sha={sha}\n")
     with open("release_body.md", "w", encoding="utf-8") as f:
         f.write(body)
 
@@ -158,7 +171,7 @@ def main() -> int:
     )
     title = re.sub(r"\s+", " ", result["title_en"])[:80]
 
-    emit_outputs(title, body, tag)
+    emit_outputs(title, body, tag, sha)
     return 0
 
 

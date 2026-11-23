@@ -92,4 +92,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ steps.summary.outputs.tag }}
           TITLE: ${{ steps.summary.outputs.title }}
-        run: gh release create "$TAG" --title "$TITLE" --notes-file release_body.md --target "$GITHUB_SHA"
+          SHA: ${{ steps.summary.outputs.sha }}
+        run: gh release create "$TAG" --title "$TITLE" --notes-file release_body.md --target "$SHA"
